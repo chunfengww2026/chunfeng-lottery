@@ -626,10 +626,24 @@ function rollValueFor(gameId, spec) {
     try { return poolTrendFields(gameId, areaKey, from, to, count); } catch (e) { return null; }
   };
 
-  // 号码池自身的构成（奇偶 / 大小 / 012路）
-  const poolComp = () => {
-    if (typeof poolComposition !== 'function') return null;
-    try { return poolComposition(gameId, areaKey, from, to); } catch (e) { return null; }
+  /* 该玩法该区的「真实球数」：
+     双色球红球 6 · 大乐透前区 5 · 七乐彩 7 · 快乐8 10 · 蓝球 1 · 后区 2 …
+     ⚠️ 奇偶比 / 大小比 / 012路比 必须按这个球数写，
+        不能按「号码池 20 个号的构成」写（会写出「8奇12偶」）。 */
+  const ballCount = (fallback) => {
+    if (typeof areaPickCount === 'function') {
+      try { return areaPickCount(gameId, areaKey, fallback); } catch (e) { /* 回退 */ }
+    }
+    return fallback;
+  };
+
+  // 号码池优先（recommendNumbers 已按池子取），但个数 = 真实球数
+  const derivedReal = () => {
+    const n = Math.max(1, ballCount(count));
+    const picks = (typeof recommendNumbers === 'function')
+      ? recommendNumbers(gameId, areaKey, n, from, to)
+      : rollPicks(gameId, areaKey, n);
+    return deriveFromList(picks, from, to);
   };
 
   // 1) 和值 / 合值：用「最近 30 期真实开奖」的和值区间
@@ -663,23 +677,26 @@ function rollValueFor(gameId, spec) {
     return rollSpanRange(gameId, areaKey, count);
   }
 
-  // 3) 奇偶：按「真实球数」摇一批推荐号再推导（双色球红球 6、大乐透前区 5）
+  // 3) 奇偶：按「真实球数」取一批推荐号再推导（双色球红球 6、大乐透前区 5）
   //    不能写号码池自身的构成 —— 池子有 20 个号，会写出「8奇12偶」
   if (label.includes('奇偶')) {
-    const picks = rollPicks(gameId, areaKey, count);
-    return deriveFromList(picks, from, to).oddEven;
+    const d = derivedReal();
+    if (d.oddEven) return d.oddEven;
+    return deriveFromList(rollPicks(gameId, areaKey, count), from, to).oddEven;
   }
 
   // 4) 大小：同上
   if (label.includes('大小')) {
-    const picks = rollPicks(gameId, areaKey, count);
-    return deriveFromList(picks, from, to).bigSmall;
+    const d = derivedReal();
+    if (d.bigSmall) return d.bigSmall;
+    return deriveFromList(rollPicks(gameId, areaKey, count), from, to).bigSmall;
   }
 
   // 5) 012 路：同上
   if (label.includes('012')) {
-    const picks = rollPicks(gameId, areaKey, count);
-    return deriveFromList(picks, from, to).route012;
+    const d = derivedReal();
+    if (d.route012) return d.route012;
+    return deriveFromList(rollPicks(gameId, areaKey, count), from, to).route012;
   }
 
   // 6) 杀号（含 蓝球杀号 / 后区杀 / 前1杀）：池内共识度最低的先杀
