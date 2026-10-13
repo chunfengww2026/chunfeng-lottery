@@ -203,6 +203,52 @@ function rollPicks(gameId, areaKey, n) {
   return pool.slice(0, cnt).sort((a, b) => a - b);
 }
 
+/**
+ * 号码池基底：长度固定为 want 的号码表
+ *   · 有专家号码池（expert-pool.js）→ 池内号码按共识度排序排在前面，
+ *     不足 want 个时用原来的随机算法补齐（不会报错）
+ *   · 没有专家池 / 加载失败 → 完全走原来的随机算法
+ * @returns {number[]}  长度 = min(want, 该区号码个数)
+ */
+function poolCandidates(gameId, areaKey, want) {
+  const [from, to] = areaRangeOf(gameId, areaKey);
+  const size = to - from + 1;
+  const n = Math.max(1, Math.min(want, size));
+
+  let list = null;
+  try {
+    if (typeof expertPoolBase === 'function' && typeof expertsReady === 'function' && expertsReady(gameId)) {
+      list = expertPoolBase(gameId, areaKey, n, from, to, (need) => {
+        // 用原来的随机算法补足（排除已经在池子里的号）
+        const have = new Set(list || []);
+        const rest = [];
+        for (let i = from; i <= to; i++) if (!have.has(i)) rest.push(i);
+        for (let i = rest.length - 1; i > 0; i--) {
+          const j = ri(0, i);
+          [rest[i], rest[j]] = [rest[j], rest[i]];
+        }
+        return rest.slice(0, need);
+      });
+    }
+  } catch (e) { list = null; }
+
+  if (!Array.isArray(list) || !list.length) return rollPicks(gameId, areaKey, n);
+
+  // 极端情况（专家池加载不全）再兜一层
+  if (list.length < n) {
+    const have = new Set(list);
+    const rest = [];
+    for (let i = from; i <= to; i++) if (!have.has(i)) rest.push(i);
+    for (let i = rest.length - 1; i > 0; i--) {
+      const j = ri(0, i);
+      [rest[i], rest[j]] = [rest[j], rest[i]];
+    }
+    list = list.concat(rest.slice(0, n - list.length));
+  }
+
+  return list.slice(0, n);
+}
+
 /** 和值理论区间：n 个数时的最小和 ~ 最大和，再收紧到合理宽度 */
 function rollSumRange(gameId, areaKey, n) {
   const [from, to] = areaRangeOf(gameId, areaKey);
@@ -325,25 +371,54 @@ function rollAllGames(opts) {
           || { qlc: 7, kl8: 20, fc3d: 3, pl3: 3, pl5: 5 }[gameId] || 6;
 
         if (Array.isArray(sec.fields)) {
-          sec.fields.forEach((f) => spec.push({ key: f.key, label: f.label, count: cnt, areaKey }));
+          sec.fields.forEach((f) => spec.push({
+            key: f.key, label: f.label,
+            // 杀号类字段只需要 3 个号（和走势页口径一致）
+            count: /杀/.test(f.label || '') ? 3 : cnt,
+            areaKey
+          }));
         }
         if (Array.isArray(sec.rows)) {
           const isKill = /杀号/.test(joined);
           const counts = sec.rows.map((r) => r.count);
           const isPool = counts.length >= 3 && !isKill;
           if (isPool) {
-            const biggest = sec.rows.reduce((a, b) => (a.count >= b.count ? a : b));
-            const picks = rollPicks(gameId, areaKey, biggest.count).sort((a, b) => a - b);
+            /* 【号码池优先】整块号码池共用一份基底（大档包含小档）：
+               · 有专家池 → 池内号码按共识度排序取，不够最大档时用原算法补
+               · 没有专家池 → poolCandidates 内部退回原来的随机算法
+               同一块里如果某行写的是「后区 / 蓝球」，就换成那个区的池子。 */
+            const groups = new Map();
             sec.rows.forEach((r) => {
-              spec.push({ key: r.key, fixedValue: picks.slice(0, r.count).map(pad2).join(' ') });
+              const rk = /后区|蓝球/.test(r.label || '')
+                ? (gameId === 'ssq' ? 'blue' : 'back')
+                : areaKey;
+              if (!groups.has(rk)) groups.set(rk, []);
+              groups.get(rk).push(r);
+            });
+            groups.forEach((rows, rk) => {
+              const [lo, hi] = areaRangeOf(gameId, rk);
+              const size = hi - lo + 1;
+              const wantMax = rows.reduce((a, r) => Math.max(a, Math.min(r.count || 1, size)), 1);
+              const base = poolCandidates(gameId, rk, wantMax);
+              rows.forEach((r) => {
+                const c = Math.max(1, Math.min(r.count || 1, base.length));
+                spec.push({
+                  key: r.key,
+                  fixedValue: base.slice(0, c).sort((a, b) => a - b).map(pad2).join(' ')
+                });
+              });
             });
           } else {
-            sec.rows.forEach((r) => spec.push({ key: r.key, label: r.label, count: r.count, areaKey }));
+            sec.rows.forEach((r, idx) => spec.push({
+              key: r.key, label: r.label,
+              count: /杀/.test(r.label || '') ? Math.min(r.count || 3, 3) : r.count,
+              areaKey, posIdx: idx
+            }));
           }
         }
         if (Array.isArray(sec.positions)) {
           if (sec.groupRow) spec.push({ key: sec.groupRow.key, label: sec.groupLabel || '组选', count: sec.groupRow.count, areaKey });
-          sec.positions.forEach((p) => spec.push({ key: p.key, label: p.label, count: p.count, areaKey }));
+          sec.positions.forEach((p, idx) => spec.push({ key: p.key, label: p.label, count: p.count, areaKey, posIdx: idx }));
         }
         if (Array.isArray(sec.items)) {
           sec.items.forEach((it) => spec.push({ key: it.key, label: it.label, count: 6, areaKey }));
@@ -361,14 +436,20 @@ function rollAllGames(opts) {
         }
         if (sec.centerKey) spec.push({ key: sec.centerKey, label: '中心数', count: 1, areaKey });
         if (Array.isArray(sec.footer)) {
-          sec.footer.forEach((f) => spec.push({ key: f.key, label: f.label, count: 6, areaKey }));
+          sec.footer.forEach((f) => spec.push({
+            key: f.key, label: f.label,
+            // 页脚大多是文字字段（和尾/防组三），杀号只要 3 个号
+            count: /杀/.test(f.label || '') ? 3 : 6,
+            areaKey
+          }));
         }
         if (Array.isArray(sec.badges)) {
           sec.badges.forEach((b) => spec.push({ key: b.key, label: b.label, count: 1, areaKey }));
         }
         if (Number.isInteger(sec.rows) && sec.cols) {
+          // 绕胆图 / 色块网格：号码同样从号码池里取
           const total = sec.cols * sec.rows;
-          const picks = rollPicks(gameId, areaKey, total);
+          const picks = poolCandidates(gameId, areaKey, total).sort((a, b) => a - b);
           for (let i = 0; i < total; i++) spec.push({ key: 'grid_' + i, fixedValue: pad2(picks[i]) });
         }
         if (sec.left) collect(sec.left, areaKey);
@@ -381,10 +462,20 @@ function rollAllGames(opts) {
       spec.forEach((s) => {
         if (s.fixedValue !== undefined) { outVals[s.key] = s.fixedValue; stat.fields++; return; }
         outVals[s.key] = rollValueFor(gameId, {
-          key: s.key, label: s.label, count: s.count, areaKey: s.areaKey
+          key: s.key, label: s.label, count: s.count, areaKey: s.areaKey, posIdx: s.posIdx
         });
         stat.fields++;
       });
+
+      /* 五行 / 绕胆 / 九转连环 / 九宫 这张图：
+         阴阳历、神煞、五行号码、绕胆图都走 stats.js 的专用填充
+         （它同样已经按专家号码池来算），保证和分享页完全一致 */
+      if (img.key === 'wuxing' && typeof autoFillForTemplate === 'function') {
+        try {
+          const wx = autoFillForTemplate(gameId, 'wuxing');
+          if (wx && Object.keys(wx).length >= 20) Object.assign(outVals, wx);
+        } catch (e) { /* 失败就保留上面摇好的值 */ }
+      }
 
       rec.images[img.key] = outVals;
     });
@@ -513,37 +604,110 @@ function allPeriodsOf(gameId) {
     draw: e.draw || ((typeof hcFindDraw === 'function') ? hcFindDraw(gameId, e.date, e.issue) : null)
   }));
 }
+/**
+ * 摇一个字段的值
+ *   【号码池优先】有专家号码池时，号码一律从池子里取、走势一律围绕池子算；
+ *   没有专家池（或 expert-pool.js 没加载）时，完全按原来的算法走。
+ */
 function rollValueFor(gameId, spec) {
   const label = spec.label || '';
-  const areaKey = spec.areaKey || 'main';
-  const [from, to] = areaRangeOf(gameId, areaKey);
+  let areaKey = spec.areaKey || 'main';
+  // 字段自己写了「后区 / 蓝球」就按那个区取（例如七星彩的「后区」行）
+  if (/后区|蓝球/.test(label)) areaKey = (gameId === 'ssq') ? 'blue' : 'back';
+  const rng = areaRangeOf(gameId, areaKey);
+  const from = rng[0];
+  const to = rng[1];
   const count = spec.count || 1;
+  const posIdx = Number.isInteger(spec.posIdx) ? spec.posIdx : -1;
 
-  // 1) 和值
-  if (label.includes('和值')) return rollSumRange(gameId, areaKey, count);
+  // 号码池相关的走势值（没有池子返回 null）
+  const poolTrend = () => {
+    if (typeof poolTrendFields !== 'function') return null;
+    try { return poolTrendFields(gameId, areaKey, from, to, count); } catch (e) { return null; }
+  };
 
-  // 2) 跨度
-  if (label.includes('跨度')) return rollSpanRange(gameId, areaKey, count);
+  // 号码池自身的构成（奇偶 / 大小 / 012路）
+  const poolComp = () => {
+    if (typeof poolComposition !== 'function') return null;
+    try { return poolComposition(gameId, areaKey, from, to); } catch (e) { return null; }
+  };
 
-  // 3) 奇偶：先摇推荐号，再由它推导（保证一致）
+  // 1) 和值 / 合值：优先用号码池的历史和值区间
+  if (label.includes('和值') || label.includes('合值')) {
+    const t = poolTrend();
+    if (t && t.hz) return t.hz;
+    if (label.includes('合值') && typeof poolNumberStats === 'function') {
+      const s = (() => { try { return poolNumberStats(gameId, areaKey, from, to); } catch (e) { return null; } })();
+      if (s && s.sumRange) return s.sumRange;
+    }
+    return rollSumRange(gameId, areaKey, count);
+  }
+
+  // 2) 跨度：同上
+  if (label.includes('跨度')) {
+    const t = poolTrend();
+    if (t && t.kd) return t.kd;
+    return rollSpanRange(gameId, areaKey, count);
+  }
+
+  // 3) 奇偶：有池子就写池子的构成，否则摇推荐号再推导
   if (label.includes('奇偶')) {
+    const c = poolComp();
+    if (c && c.jq) return c.jq;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).oddEven;
   }
 
   // 4) 大小：同上
   if (label.includes('大小')) {
+    const c = poolComp();
+    if (c && c.dx) return c.dx;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).bigSmall;
   }
 
   // 5) 012 路：同上
   if (label.includes('012')) {
+    const c = poolComp();
+    if (c && c.lu012) return c.lu012;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).route012;
   }
 
-  // 6) 热号/冷号/邻号等：从近 30 期真实值里随机取一条
+  // 6) 杀号（含 蓝球杀号 / 后区杀 / 前1杀）：池内共识度最低的先杀
+  if (/杀/.test(label)) {
+    if (typeof autoKillNumbers === 'function') {
+      const killed = autoKillNumbers(gameId, areaKey, count, from, to, 30);
+      if (killed && killed.length) return killed.map(pad2).join(' ');
+    }
+    return rollPicks(gameId, areaKey, count).map(pad2).join(' ');
+  }
+
+  // 7) 胆码 / 拖码：池内分档（胆=共识最高，拖=次之）
+  if (label.includes('胆码') || label.includes('拖码')) {
+    const t = poolTrend();
+    const v = t ? (label.includes('胆码') ? t.dm : t.tm) : '';
+    if (v) return v;
+  }
+
+  // 8) 推荐 / 主推 / 组选：号码池优先（recommendNumbers 已按池子取）
+  if (label.includes('推荐') || label.includes('主推') || label.includes('组选')) {
+    return recommendLine(gameId, areaKey, count, from, to);
+  }
+
+  // 9) 定位行（百位 / 十位 / 个位 / 万位 / 千位）：按位置从号码池里取
+  if (posIdx >= 0 && /位/.test(label)) {
+    const picked = (typeof positionRecommend === 'function')
+      ? positionRecommend(gameId, posIdx, count, from, to, 30)
+      : rollPicks(gameId, areaKey, count);
+    return picked.map(pad2).join(' ');
+  }
+
+  // 10) 文字型固定值
+  if (label.includes('和尾')) return '0~9';
+  if (label.includes('防组三')) return '对子号';
+
+  // 11) 热号/冷号/邻号等走势：围绕号码池算
   const REAL_LABELS = ['热号', '冷号', '邻号', '同尾号', '连号', '跳连号',
                        '重复号', '同区号', '尾数冷热', '最大遗漏', '遗漏回补',
                        '质数/合数', '区间比'];
@@ -560,13 +724,55 @@ function rollValueFor(gameId, spec) {
       '质数/合数': 1, '区间比': 1
     }).find((k) => label.includes(k))];
 
-    if (trendKey && typeof calcTrendFields === 'function' && hist.length) {
-      const v = calcTrendFields(gameId, areaKey, from, to, count)[trendKey];
-      if (v) return v;
+    if (trendKey && hist.length) {
+      const t = poolTrend();
+      if (t && t[trendKey]) return t[trendKey];
+      if (typeof calcTrendFields === 'function') {
+        const v = calcTrendFields(gameId, areaKey, from, to, count)[trendKey];
+        if (v) return v;
+      }
     }
   }
 
-  // 7) 号码类：随机抽 count 个
+  // 12) 五行号码（金木水火土）：按尾数从号码池里挑
+  if (/^[金木水火土]$/.test(label)) {
+    const TAILS = { 金: [4, 9], 木: [3, 8], 水: [1, 6], 火: [2, 7], 土: [5, 0] }[label];
+    const pool = (typeof expertPoolOf === 'function') ? expertPoolOf(gameId, areaKey) : [];
+    const picked = pool.filter((n) => TAILS.includes(n % 10));
+    if (picked.length) return picked.sort((a, b) => a - b).map(pad2).join(' ');
+  }
+
+  // 12.5) 旺尾 / 弱尾：号码池里尾数的冷热
+  if (label.includes('旺尾') || label.includes('弱尾')) {
+    const pool = (typeof expertPoolOf === 'function') ? expertPoolOf(gameId, areaKey) : [];
+    if (pool.length) {
+      const tail = new Array(10).fill(0);
+      pool.forEach((n) => { tail[n % 10]++; });
+      const ranked = tail.map((c, i) => ({ tail: i, c })).sort((a, b) => (b.c - a.c) || (a.tail - b.tail));
+      const picked = label.includes('旺尾')
+        ? ranked.slice(0, 4).map((x) => x.tail)
+        : ranked.slice(-2).map((x) => x.tail);
+      return picked.join('、');
+    }
+  }
+
+  // 13) 中心数：取号码池中间那个
+  if (label.includes('中心数')) {
+    const pool = (typeof expertPoolOf === 'function') ? expertPoolOf(gameId, areaKey) : [];
+    if (pool.length) {
+      const sorted = pool.slice().sort((a, b) => a - b);
+      return pad2(sorted[Math.floor(sorted.length / 2)]);
+    }
+  }
+
+  // 14) 号码类：号码池优先，否则随机抽 count 个
+  if (typeof expertPoolUsable === 'function') {
+    try {
+      if (expertPoolUsable(gameId, areaKey)) {
+        return poolCandidates(gameId, areaKey, count).sort((a, b) => a - b).map(pad2).join(' ');
+      }
+    } catch (e) { /* 回退 */ }
+  }
   return rollPicks(gameId, areaKey, count).map(pad2).join(' ');
 }
 
