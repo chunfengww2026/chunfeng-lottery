@@ -687,6 +687,11 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 【禁止缓存】手机浏览器（尤其微信内置）会缓存很久，
+     加上这些标记后每次都会取最新的，避免「App 更新了网页还是旧的」 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>春风十里送大奖 · 推荐图</title>
 <style>
 ${css}
