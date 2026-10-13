@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-13 19:43 */
+/* 自动生成，请勿手动编辑 · 2026-10-14 02:08 */
 const JC_DATA = {
- "updated": "2026-10-13 19:43",
+ "updated": "2026-10-14 02:08",
  "stat": {
   "total": 12,
-  "upcoming": 0,
-  "live": 12,
+  "upcoming": 8,
+  "live": 4,
   "finished": 0,
-  "withScore": 12
+  "withScore": 4
  },
  "games": [
   {
@@ -268,7 +268,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 2
+    "away": 1
    },
    "statusText": "0 - 1 ",
    "odds": {
@@ -326,7 +326,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 2
+    "away": 1
    }
   },
   {
@@ -340,16 +340,13 @@ const JC_DATA = {
    "handicap": "-2",
    "home": {
     "name": "国际米兰",
-    "rank": 26
+    "rank": 25
    },
    "away": {
     "name": "布鲁日",
-    "rank": 22
+    "rank": 21
    },
-   "score": {
-    "home": 0,
-    "away": 1
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -359,9 +356,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 1.05,
-      "line": "两球/两球半",
-      "away": 0.75
+      "home": 1.02,
+      "line": "两球",
+      "away": 0.82
      }
     },
     "europe": {
@@ -383,9 +380,9 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.72,
+      "line": 0.85,
       "over": 3.5,
-      "under": 1.07
+      "under": 1
      }
     }
    },
@@ -400,14 +397,11 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.7,
-    "rqLine": "两球/两球半"
+    "rqLine": "两球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 1
-   }
+   "liveScore": null
   },
   {
    "gid": "1479873",
@@ -420,16 +414,13 @@ const JC_DATA = {
    "handicap": "-2",
    "home": {
     "name": "阿森纳",
-    "rank": 14
+    "rank": 15
    },
    "away": {
     "name": "里尔",
-    "rank": 23
+    "rank": 24
    },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -439,9 +430,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 0.75,
-      "line": "球半/两球",
-      "away": 1.05
+      "home": 0.95,
+      "line": "两球",
+      "away": 0.9
      }
     },
     "europe": {
@@ -451,9 +442,9 @@ const JC_DATA = {
       "away": 10
      },
      "live": {
-      "home": 1.2,
+      "home": 1.22,
       "draw": 6.5,
-      "away": 15
+      "away": 12
      }
     },
     "overunder": {
@@ -463,31 +454,28 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 0.7,
-      "over": 2.5,
-      "under": 1.1
+      "line": 1,
+      "over": 3,
+      "under": 0.85
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 79.1,
+    "confidence": 77.6,
     "prob": {
-     "home": 79.1,
+     "home": 77.6,
      "draw": 14.6,
-     "away": 6.3
+     "away": 7.9
     },
     "clear": true,
-    "margin": 5.4,
-    "rqLine": "球半/两球"
+    "margin": 5.7,
+    "rqLine": "两球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1480124",
@@ -500,16 +488,13 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "比利亚雷",
-    "rank": 24
+    "rank": 23
    },
    "away": {
     "name": "那不勒斯",
     "rank": 27
    },
-   "score": {
-    "home": 2,
-    "away": 1
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -519,9 +504,9 @@ const JC_DATA = {
       "away": 0.87
      },
      "live": {
-      "home": 1.15,
-      "line": "半球",
-      "away": 0.67
+      "home": 0.75,
+      "line": "平手/半球",
+      "away": 1.05
      }
     },
     "europe": {
@@ -532,8 +517,8 @@ const JC_DATA = {
      },
      "live": {
       "home": 2.15,
-      "draw": 3.5,
-      "away": 3.25
+      "draw": 3.6,
+      "away": 3.2
      }
     },
     "overunder": {
@@ -543,31 +528,28 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.77,
+      "line": 0.87,
       "over": 2.5,
-      "under": 1.02
+      "under": 0.97
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 43.9,
+    "confidence": 44.1,
     "prob": {
-     "home": 43.9,
-     "draw": 27,
-     "away": 29.1
+     "home": 44.1,
+     "draw": 26.3,
+     "away": 29.6
     },
     "clear": false,
-    "margin": 5.9,
-    "rqLine": "半球"
+    "margin": 5.5,
+    "rqLine": "平手/半球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 2,
-    "away": 1
-   }
+   "liveScore": null
   },
   {
    "gid": "1480113",
@@ -584,12 +566,9 @@ const JC_DATA = {
    },
    "away": {
     "name": "拜仁",
-    "rank": 3
+    "rank": 2
    },
-   "score": {
-    "home": 2,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -599,9 +578,9 @@ const JC_DATA = {
       "away": 0.92
      },
      "live": {
-      "home": 0.75,
-      "line": "受两球半",
-      "away": 1.05
+      "home": 0.87,
+      "line": "受两球半/三球",
+      "away": 0.97
      }
     },
     "europe": {
@@ -611,9 +590,9 @@ const JC_DATA = {
       "away": 1.05
      },
      "live": {
-      "home": 15,
-      "draw": 10,
-      "away": 1.13
+      "home": 17,
+      "draw": 11,
+      "away": 1.11
      }
     },
     "overunder": {
@@ -623,31 +602,28 @@ const JC_DATA = {
       "under": 0.95
      },
      "live": {
-      "line": 0.75,
-      "over": 4,
-      "under": 1.05
+      "line": 0.97,
+      "over": 4.5,
+      "under": 0.87
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 84.2,
+    "confidence": 85.7,
     "prob": {
-     "home": 6.3,
-     "draw": 9.5,
-     "away": 84.2
+     "home": 5.6,
+     "draw": 8.7,
+     "away": 85.7
     },
     "clear": true,
-    "margin": 5.2,
-    "rqLine": "受两球半"
+    "margin": 5.1,
+    "rqLine": "受两球半/三球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 2,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1480054",
@@ -660,16 +636,13 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "莱红牛",
-    "rank": 33
+    "rank": 32
    },
    "away": {
     "name": "埃因霍温",
     "rank": 20
    },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -679,9 +652,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 1.07,
-      "line": "一球/球半",
-      "away": 0.72
+      "home": 0.82,
+      "line": "一球",
+      "away": 1.02
      }
     },
     "europe": {
@@ -691,9 +664,9 @@ const JC_DATA = {
       "away": 3.6
      },
      "live": {
-      "home": 1.55,
+      "home": 1.53,
       "draw": 5,
-      "away": 4.75
+      "away": 5
      }
     },
     "overunder": {
@@ -703,31 +676,28 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 1.1,
+      "line": 1.02,
       "over": 4,
-      "under": 0.7
+      "under": 0.82
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 61.1,
+    "confidence": 62,
     "prob": {
-     "home": 61.1,
-     "draw": 18.9,
-     "away": 19.9
+     "home": 62,
+     "draw": 19,
+     "away": 19
     },
     "clear": true,
-    "margin": 5.6,
-    "rqLine": "一球/球半"
+    "margin": 5.4,
+    "rqLine": "一球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1479968",
@@ -744,12 +714,9 @@ const JC_DATA = {
    },
    "away": {
     "name": "巴萨",
-    "rank": 4
+    "rank": 3
    },
-   "score": {
-    "home": 1,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -759,9 +726,9 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.75,
+      "home": 0.97,
       "line": "受球半/两球",
-      "away": 1.05
+      "away": 0.87
      }
     },
     "europe": {
@@ -771,9 +738,9 @@ const JC_DATA = {
       "away": 1.36
      },
      "live": {
-      "home": 8,
-      "draw": 6.5,
-      "away": 1.29
+      "home": 9,
+      "draw": 7,
+      "away": 1.25
      }
     },
     "overunder": {
@@ -783,31 +750,28 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1.05,
+      "line": 1,
       "over": 4,
-      "under": 0.75
+      "under": 0.85
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 73.5,
+    "confidence": 75.9,
     "prob": {
-     "home": 11.9,
-     "draw": 14.6,
-     "away": 73.5
+     "home": 10.5,
+     "draw": 13.6,
+     "away": 75.9
     },
     "clear": true,
     "margin": 5.4,
     "rqLine": "受球半/两球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 1,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1479888",
@@ -820,16 +784,13 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "马竞",
-    "rank": 25
+    "rank": 26
    },
    "away": {
     "name": "曼联",
-    "rank": 5
+    "rank": 4
    },
-   "score": {
-    "home": 1,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -839,9 +800,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.77,
+      "home": 0.87,
       "line": "半球",
-      "away": 1.02
+      "away": 0.97
      }
     },
     "europe": {
@@ -853,7 +814,7 @@ const JC_DATA = {
      "live": {
       "home": 1.8,
       "draw": 3.8,
-      "away": 4.2
+      "away": 4.1
      }
     },
     "overunder": {
@@ -863,31 +824,28 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 1.05,
-      "over": 3,
-      "under": 0.75
+      "line": 0.82,
+      "over": 2.5,
+      "under": 1.02
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 52.6,
+    "confidence": 52.3,
     "prob": {
-     "home": 52.6,
-     "draw": 24.9,
-     "away": 22.5
+     "home": 52.3,
+     "draw": 24.8,
+     "away": 23
     },
     "clear": true,
-    "margin": 5.7,
+    "margin": 6.3,
     "rqLine": "半球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 1,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1425695",
@@ -906,10 +864,7 @@ const JC_DATA = {
     "name": "米堡",
     "rank": 2
    },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -919,9 +874,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 0.67,
-      "line": "受半球/一球",
-      "away": 1.15
+      "home": 0.82,
+      "line": "受半球",
+      "away": 1.02
      }
     },
     "europe": {
@@ -931,9 +886,9 @@ const JC_DATA = {
       "away": 2
      },
      "live": {
-      "home": 3.8,
-      "draw": 3.5,
-      "away": 1.91
+      "home": 4,
+      "draw": 3.6,
+      "away": 1.85
      }
     },
     "overunder": {
@@ -943,31 +898,28 @@ const JC_DATA = {
       "under": 1
      },
      "live": {
-      "line": 0.75,
+      "line": 0.95,
       "over": 2.5,
-      "under": 1.05
+      "under": 0.9
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 48.8,
+    "confidence": 50.6,
     "prob": {
-     "home": 24.5,
-     "draw": 26.6,
-     "away": 48.8
+     "home": 23.4,
+     "draw": 26,
+     "away": 50.6
     },
     "clear": true,
-    "margin": 7.2,
-    "rqLine": "受半球/一球"
+    "margin": 6.8,
+    "rqLine": "受半球"
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
+   "liveScore": null
   }
  ]
 };
