@@ -152,54 +152,105 @@ vm.runInContext(`
   globalThis.__nextIssue = nextIssueFor;
   globalThis.__nextDate = nextDrawDate;
   globalThis.__nextWeek = nextDrawWeekday;
+  globalThis.__getTicket = getTicket;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
 const render = ctx.__render, resolve = ctx.__resolve;
 const getDraw = ctx.__getDraw, nextIssue = ctx.__nextIssue;
 const nextDate = ctx.__nextDate, nextWeek = ctx.__nextWeek;
+const getTicket = ctx.__getTicket;
 
 /* ============================================================
    DOM → HTML 字符串
+   ------------------------------------------------------------
+   【必须和浏览器里的 dom.outerHTML 尽量一致】
+   因为页面上「服务器端预渲染的兜底内容」和「浏览器实时渲染的结果」
+   要能逐字符对上，序列化只要丢东西，两边就会不一样。
+
+   要点：
+     1. class / 内联 style / dataset(data-*) / setAttribute 全部导出
+     2. innerHTML、textContent、children 三者可能【同时】存在，必须都拼进去：
+          render.js 里  foot.innerHTML = '— 品牌 · 仅供参考 —';
+                        foot.appendChild(免责声明 div);
+        只认 innerHTML 的话，免责声明那一行就整段丢了。
+        顺序：innerHTML（原样，里面本来就带标签）→ 文本 → 子节点
    ============================================================ */
-function toHtml(node) {
-  if (!node) return '';
-  if (node.tagName === '#TEXT') return escape(node._text || '');
 
-  const tag = node.tagName.toLowerCase();
-  const cls = node.className ? ` class="${node.className}"` : '';
-
-  // 【关键】inline style 必须导出，否则网格列数等布局信息就丢了
+/** 取内联样式文本（cssText 优先，其次把驼峰属性拼出来） */
+function cssOf(node) {
   let cssText = '';
   try {
     const s = node.style;
-    if (s) {
-      cssText = (typeof s.cssText === 'string' && s.cssText) ? s.cssText : '';
-      // 兜底：如果 cssText 为空但有驼峰属性，逐个拼
-      if (!cssText && typeof s === 'object') {
-        const parts = [];
-        Object.keys(s).forEach((k) => {
-          if (k === 'cssText' || k === 'setProperty' || k === 'getPropertyValue') return;
-          const v = s[k];
-          if (v === undefined || v === null || v === '') return;
-          const kebab = String(k).replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
-          parts.push(`${kebab}:${v}`);
-        });
-        cssText = parts.join(';');
-      }
+    if (!s) return '';
+    if (typeof s.cssText === 'string' && s.cssText) cssText = s.cssText;
+    // 兜底：cssText 为空但有驼峰属性，逐个拼
+    if (!cssText && typeof s === 'object') {
+      const parts = [];
+      Object.keys(s).forEach((k) => {
+        if (k === 'cssText' || k === 'setProperty' || k === 'getPropertyValue') return;
+        const v = s[k];
+        if (v === undefined || v === null || v === '') return;
+        const kebab = String(k).replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
+        parts.push(`${kebab}:${v}`);
+      });
+      cssText = parts.join(';');
     }
   } catch (e) { cssText = ''; }
+  return cssText;
+}
 
-  const style = cssText ? ` style="${escape(cssText)}"` : '';
+/** 收集一个节点的全部属性（顺序固定，两边才能逐字符相同） */
+function attrPairs(node) {
+  const out = [];
 
-  let inner;
-  if (node._html !== null && node._html !== undefined) inner = node._html;
-  else if (node.children.length) inner = node.children.map(toHtml).join('');
-  else inner = escape(node._text || '');
+  if (node.className) out.push(['class', String(node.className)]);
+
+  // dataset → data-*
+  if (node.dataset && typeof node.dataset === 'object') {
+    Object.keys(node.dataset).forEach((k) => {
+      const v = node.dataset[k];
+      if (v === undefined || v === null) return;
+      const name = 'data-' + String(k).replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
+      out.push([name, String(v)]);
+    });
+  }
+
+  // setAttribute 设过的（class/style 已经在别处处理，跳过避免重复）
+  if (node.attrs && typeof node.attrs === 'object') {
+    Object.keys(node.attrs).forEach((k) => {
+      const lk = String(k).toLowerCase();
+      if (lk === 'class' || lk === 'style') return;
+      const v = node.attrs[k];
+      if (v === undefined || v === null || v === false) return;
+      out.push([k, String(v)]);
+    });
+  }
+
+  const cssText = cssOf(node);
+  if (cssText) out.push(['style', cssText]);
+
+  return out;
+}
+
+function toHtml(node) {
+  if (!node) return '';
+  if (String(node.tagName).toUpperCase() === '#TEXT') return escape(node._text || '');
+
+  const tag = String(node.tagName || 'div').toLowerCase();
+  const attrs = attrPairs(node).map((p) => ` ${p[0]}="${escapeAttr(p[1])}"`).join('');
+
+  let inner = '';
+  // ① innerHTML（保持原样，里面自带标签/实体）
+  if (node._html !== null && node._html !== undefined) inner += String(node._html);
+  // ② textContent（如果之后又 appendChild 过，浏览器里文本节点在前）
+  if (node._text) inner += escape(node._text);
+  // ③ 子节点
+  if (node.children && node.children.length) inner += node.children.map(toHtml).join('');
 
   // 自闭合标签
-  if (['br', 'img', 'hr', 'input'].includes(tag)) return `<${tag}${cls}${style}>`;
-  return `<${tag}${cls}${style}>${inner}</${tag}>`;
+  if (['br', 'img', 'hr', 'input'].includes(tag)) return `<${tag}${attrs}>`;
+  return `<${tag}${attrs}>${inner}</${tag}>`;
 }
 
 function escape(s) {
@@ -207,6 +258,27 @@ function escape(s) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
+}
+
+/** 属性值：还要转义引号 */
+function escapeAttr(s) {
+  return escape(s).replace(/"/g, '&quot;');
+}
+
+/**
+ * 取「手动录入」那一层数据
+ * 【关键】必须和 App 里这句完全一致：
+ *     getTicket(gameId, nextDrawDate(gameId)) .images[imageKey]
+ * 以前这里传的是 null，等于把「手动录入」整层丢掉，
+ * 结果 App 用录入的号、网页用自动算的号 —— 10 张图全都不一样。
+ */
+function manualValuesFor(gameId, date, imageKey) {
+  try {
+    const entry = (typeof getTicket === 'function') ? getTicket(gameId, date) : null;
+    return (entry && entry.images && entry.images[imageKey]) || null;
+  } catch (e) {
+    return null;
+  }
 }
 
 /* ============================================================
@@ -307,15 +379,28 @@ GROUPS.forEach((group) => {
         `</div>`;
     }
 
-    // 渲染该彩种的所有模板图
+    // 渲染该彩种的所有模板图（服务器端预渲染 = 无 JS 时的兜底）
     let imgsHtml = '';
     tpl.images.forEach((img) => {
-      const resolved = resolve(id, img.key, null);
+      /* 【关键·同源】调用方式和 App 的 renderImagesInto 完全一致：
+           manual   = getTicket(gameId, nextDrawDate(gameId)).images[key]
+           resolved = resolveTemplateValues(gameId, key, manual)
+           data     = { issue, date, images: { [key]: resolved.values } }
+         以前这里第三个参数传的是 null，等于把「手动录入」整层丢掉 ——
+         App 用手动录入的号、网页用自动算的号，10 张图全都不一样。
+         现在两边输入一模一样，输出才可能一模一样。 */
+      const manual = manualValuesFor(id, date, img.key);
+      const resolved = resolve(id, img.key, manual);
       const data = { issue, date, images: {} };
       data.images[img.key] = resolved.values;
 
       const dom = render(id, img.key, data);
-      imgsHtml += `<div class="ro-imagewrap">${toHtml(dom)}</div>`;
+      /* 图位：data-game / data-image 告诉页尾的实时渲染脚本该填哪张图。
+         里面的内容是预渲染兜底 —— JS 没跑或渲染失败时，页面依然有图。 */
+      imgsHtml +=
+        `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}">` +
+        toHtml(dom) +
+        `</div>`;
       imgCount++;
     });
 
@@ -683,6 +768,179 @@ if (typeof buildWinHtml === 'function') {
 
 const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
 
+/* ============================================================
+   【核心改造】把 App（game.html）用的同一套脚本内联进分享页
+   ------------------------------------------------------------
+   以前分享页的图是 Node 里用「迷你 DOM」跑出来的静态结果，
+   App 是浏览器里实时跑 render.js —— 两条路径，必然会有不一样。
+   现在分享页把同一套脚本内联进来，在浏览器里实时渲染，
+   走的就是 App 那条路径（同一份 render.js、同一份数据、同一套调用顺序）。
+
+   顺序和 game.html 保持一致。
+   内联（而不是外链）= 分享页仍然是单文件，发微信/QQ 点开就能用。
+   ============================================================ */
+const INLINE_JS = [
+  'games.js',        // 彩种定义 GAMES / GROUPS
+  'draws.js',        // 开奖数据装载
+  'history.js',      // 历史开奖
+  'draw-data.js',    // getDraw / nextDrawDate / nextIssueFor
+  'algo.js',         // 基础算法
+  'stats.js',        // autoFillForTemplate（自动算号）
+  'templates.js',    // TEMPLATES / TEMPLATE_DISCLAIMER
+  'ticket-store.js', // getTicket / 号码解析 / 摇号
+  'saved-tickets.js',// 存档（手动录入那一层的数据来源）
+  'render.js',       // renderTicketImage ← App 用的同一个函数
+  'experts-data.js', // 专家数据（data-store 依赖）
+  'expert-pool.js',  // 专家池
+  'data-store.js'    // resolveTemplateValues（三路合并）
+];
+
+/** 读一个脚本文件，处理成可以直接塞进 <script> 的文本 */
+function readForInline(file) {
+  const p = path.join(ROOT, file);
+  if (!fs.existsSync(p)) return '';
+  let s = fs.readFileSync(p, 'utf8');
+  if (s.charCodeAt(0) === 0xFEFF) s = s.slice(1);       // 去掉可能的 BOM
+  // 万一脚本里出现 </script 会提前结束标签；转义成 <\/script
+  s = s.replace(/<\/(script)/gi, '<\\/$1');
+  return s;
+}
+
+const inlineSizes = [];
+let inlineScriptsHtml = '';
+for (const f of INLINE_JS) {
+  const code = readForInline(f);
+  if (!code) {
+    console.log(`  ⚠️ 内联脚本缺失：${f}`);
+    continue;
+  }
+  inlineSizes.push([f, Buffer.byteLength(code, 'utf8')]);
+  inlineScriptsHtml += `\n<script data-src="${f}">\n${code}\n</script>\n`;
+}
+
+console.log('\n  · 内联脚本：');
+inlineSizes.forEach(([f, n]) => console.log(`      ${f.padEnd(20)} ${(n / 1024).toFixed(1)} KB`));
+console.log(`      合计 ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
+
+/* ============================================================
+   页尾的【实时渲染】脚本
+   ------------------------------------------------------------
+   调用方式和 game.html 的 renderImagesInto 逐行对应，
+   所以「App 渲染」和「分享页渲染」是同一个函数的同一次调用语义。
+   ============================================================ */
+const RO_RENDER_SCRIPT = `
+/* ============================================================
+   【实时渲染】推荐图 —— 和本地 App 走同一条渲染路径
+   ------------------------------------------------------------
+   App（game.html 的 renderImagesInto）是这么渲染的：
+
+       const draw     = getDraw(gameId);
+       const nextDate = nextDrawDate(gameId);
+       const issue    = nextIssueFor(gameId);
+       const entry    = getTicket(gameId, nextDate);
+       const manual   = entry && entry.images && entry.images[img.key];
+       const resolved = resolveTemplateValues(gameId, img.key, manual);
+       const data     = { issue: issue, date: nextDate, images: {} };
+       data.images[img.key] = resolved.values;
+       renderTicketImage(gameId, img.key, data);
+
+   下面 renderSlot() 就是照抄上面这几行的调用方式（一字不改的语义），
+   所以只要 render.js 和数据一样，两边渲染出的 DOM 必然一致。
+
+   图位：<div class="ro-imagewrap" data-game="ssq" data-image="main">…</div>
+   里面是服务器端预渲染的兜底内容；
+   这里渲染成功后才整体替换掉 —— 万一 JS 挂了，页面也不会空白。
+   ============================================================ */
+(function () {
+  function renderSlot(slot) {
+    var gid = slot.getAttribute('data-game');
+    var key = slot.getAttribute('data-image');
+    if (!gid || !key) return null;
+    if (typeof TEMPLATES === 'undefined' || typeof renderTicketImage !== 'function') return null;
+
+    var tpl = TEMPLATES[gid];
+    if (!tpl || !tpl.images || !tpl.images.length) return null;
+
+    /* 找到这张图的模板定义；找不到就用第一张（和 renderTicketImage 的兜底一致） */
+    var img = null;
+    for (var i = 0; i < tpl.images.length; i++) {
+      if (tpl.images[i].key === key) { img = tpl.images[i]; break; }
+    }
+    if (!img) img = tpl.images[0];
+    if (!img) return null;
+
+    /* ---------- 以下与 game.html / renderImagesInto 完全一致 ---------- */
+    var nextDate = nextDrawDate(gid);
+    var draw  = (typeof getDraw === 'function') ? getDraw(gid) : null;
+    var issue = (typeof nextIssueFor === 'function') ? nextIssueFor(gid) : ((draw && draw.issue) || '');
+
+    var entry  = (typeof getTicket === 'function') ? getTicket(gid, nextDate) : null;
+    var manual = (entry && entry.images && entry.images[key]) || null;
+
+    var resolved = (typeof resolveTemplateValues === 'function')
+      ? resolveTemplateValues(gid, key, manual)
+      : { values: manual || {} };
+
+    var data = { issue: issue, date: nextDate, images: {} };
+    data.images[key] = resolved.values;
+
+    return renderTicketImage(gid, key, data);
+    /* ---------- 以上与 game.html / renderImagesInto 完全一致 ---------- */
+  }
+
+  function renderAll() {
+    var slots = document.querySelectorAll('.ro-imagewrap[data-game]');
+    var ok = 0;
+    var fail = 0;
+
+    for (var i = 0; i < slots.length; i++) {
+      var slot = slots[i];
+      var dom = null;
+
+      try {
+        dom = renderSlot(slot);
+      } catch (e) {
+        /* 渲染出错：保留服务器端预渲染的兜底内容，不影响浏览 */
+        fail++;
+        if (window.console && console.warn) {
+          console.warn('[分享页] 实时渲染失败，保留预渲染兜底：' +
+            slot.getAttribute('data-game') + '/' + slot.getAttribute('data-image'), e);
+        }
+        continue;
+      }
+
+      if (!dom) { fail++; continue; }
+
+      /* 先渲染成功、再替换，避免出现空白 */
+      slot.innerHTML = '';
+      slot.appendChild(dom);
+      ok++;
+    }
+
+    /* 留一个标记，方便确认这一页到底跑的是实时渲染还是预渲染兜底 */
+    try {
+      if (document.body && document.body.setAttribute) {
+        document.body.setAttribute('data-render', fail ? 'fallback' : 'live');
+        document.body.setAttribute('data-render-count', ok + '/' + slots.length);
+      }
+    } catch (e) { /* 忽略 */ }
+
+    return ok;
+  }
+
+  window.__roRenderAll = renderAll;
+
+  /* 页尾脚本执行时，上面的图位已经全部在 DOM 里，直接渲染 */
+  try {
+    renderAll();
+  } catch (e) {
+    if (window.console && console.warn) {
+      console.warn('[分享页] 实时渲染整体失败，保留预渲染兜底', e);
+    }
+  }
+})();
+`;
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -980,6 +1238,7 @@ body {
 
 </div>
 
+${inlineScriptsHtml}
 <script>
 /* ============================================================
    【自愈】发现自己是缓存旧版就自动强制刷新
@@ -1016,13 +1275,16 @@ body {
       .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
   } catch (e) { /* 忽略 */ }
 })();
-
+${RO_RENDER_SCRIPT}
 /* ============================================================
    推荐图等比缩放
    ------------------------------------------------------------
    图片按 760px 设计宽度渲染，内部布局【完全不改】，
    手机上用 transform: scale() 整体缩小 ——
    这样和 App 里看到的一模一样，不会变形。
+
+   【顺序】必须在实时渲染【之后】跑：
+   实时渲染把图位内容整体换掉了，尺寸得重新量一遍。
    ============================================================ */
 (function () {
   var BASE = 760;   /* 图片设计宽度，跟 .r-image 的宽度一致 */
@@ -1052,11 +1314,14 @@ body {
     }
   }
 
+  window.__roFit = fit;
+
+  /* 【顺序】上面的实时渲染是同步跑完的，这里直接适配一次；
+     后面几处只是保险，字体异步加载完再重算。 */
+  fit();
   /* 图片里的字体可能异步加载，多算几次更稳 */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fit);
-  } else {
-    fit();
   }
   window.addEventListener('load', fit);
   window.addEventListener('resize', function () { setTimeout(fit, 60); });
@@ -1072,6 +1337,8 @@ fs.writeFileSync(OUT, html, 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
 console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
-console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图`);
+console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
+console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
 console.log(`   生成时间：${todayStr}`);
 console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（只能看，不能改）。');
+console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
