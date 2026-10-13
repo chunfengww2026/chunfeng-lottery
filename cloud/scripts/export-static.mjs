@@ -114,7 +114,10 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                'stats.js', 'templates.js', 'experts-data.js', 'expert-pool.js',
                'ticket-store.js', 'saved-tickets.js',
                'render.js', 'prize-data.js', 'hit-check.js',
-               'materials-data.js', 'data-store.js'];
+               'materials-data.js', 'data-store.js',
+               /* 【热力图】按天出的实票统计图靠它取数；文件缺失时
+                  shouldShowHeatmap 不存在 → 热力图自动不出，其余图不受影响 */
+               'heatmap-data.js'];
 
 for (const f of FILES) {
   const p = path.join(ROOT, f);
@@ -124,6 +127,17 @@ for (const f of FILES) {
   } catch (e) {
     console.log(`  ❌ 加载 ${f} 失败：${e.message}`);
   }
+}
+
+/* ---------- 调试用：把「现在」定格到某个时刻 ----------
+   HEATMAP_NOW=2026-10-15T18:30 时，热力图的时间判断会按这个时刻算 ——
+   方便在非开奖日 / 18:00 前验证「该出的时候真的出、不该出的时候真的不出」。
+   不设这个环境变量就是真实时间。 */
+if (process.env.HEATMAP_NOW) {
+  try {
+    vm.runInContext('globalThis.HEATMAP_NOW_OVERRIDE = ' + JSON.stringify(process.env.HEATMAP_NOW) + ';', ctx);
+    console.log(`  · 热力图时间已定格：HEATMAP_NOW=${process.env.HEATMAP_NOW}`);
+  } catch (e) { console.log('  ⚠️ HEATMAP_NOW 设置失败：' + e.message); }
 }
 
 /* ---------- 调试：确认关键函数是否真的注入成功 ---------- */
@@ -153,6 +167,8 @@ vm.runInContext(`
   globalThis.__nextDate = nextDrawDate;
   globalThis.__nextWeek = nextDrawWeekday;
   globalThis.__getTicket = getTicket;
+  globalThis.__shouldShowHeatmap = (typeof shouldShowHeatmap === 'function') ? shouldShowHeatmap : null;
+  globalThis.__heatmapData = (typeof HEATMAP_DATA !== 'undefined') ? HEATMAP_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -160,6 +176,31 @@ const render = ctx.__render, resolve = ctx.__resolve;
 const getDraw = ctx.__getDraw, nextIssue = ctx.__nextIssue;
 const nextDate = ctx.__nextDate, nextWeek = ctx.__nextWeek;
 const getTicket = ctx.__getTicket;
+const shouldShowHeatmap = ctx.__shouldShowHeatmap;
+const HEATMAP = ctx.__heatmapData;
+
+/**
+ * 热力图该不该出这张图
+ * 口径：heatmap-data.js 里的 shouldShowHeatmap（开奖日 + 当天数据 + 已过 18:00）
+ * 没有 heatmap-data.js / 没有该彩种数据 → 一律不出
+ */
+function heatmapVisible(gameId) {
+  try {
+    if (typeof shouldShowHeatmap !== 'function') return false;
+    return !!shouldShowHeatmap(gameId);
+  } catch (e) { return false; }
+}
+
+/** 给日志用的原因说明 */
+function heatmapWhy(gameId) {
+  try {
+    const H = (HEATMAP && HEATMAP.games) ? HEATMAP.games[gameId] : null;
+    if (typeof shouldShowHeatmap !== 'function') return '没有 heatmap-data.js';
+    if (!H) return '数据里没有这个彩种';
+    if (shouldShowHeatmap(gameId)) return '应显示';
+    return `数据日期 ${H.drawDate}，当前不满足「开奖日 18:00 之后且数据是当天」`;
+  } catch (e) { return '判断异常：' + e.message; }
+}
 
 /* ============================================================
    DOM → HTML 字符串
@@ -382,6 +423,14 @@ GROUPS.forEach((group) => {
     // 渲染该彩种的所有模板图（服务器端预渲染 = 无 JS 时的兜底）
     let imgsHtml = '';
     tpl.images.forEach((img) => {
+      /* 【按天出】实票统计热力图：
+         不是该彩种的开奖日 / 数据不是今天的 / 还没到 18:00
+         → 整张图不渲染、不占位（用户原话「不开的时候就不出」）。
+         判断口径和客户端 shouldShowHeatmap 完全一致。 */
+      if (img.key === 'heatmap' && !heatmapVisible(id)) {
+        console.log(`  · 热力图跳过：${G[id] ? G[id].name : id}（${heatmapWhy(id)}）`);
+        return;
+      }
       /* 【关键·同源】调用方式和 App 的 renderImagesInto 完全一致：
            manual   = getTicket(gameId, nextDrawDate(gameId)).images[key]
            resolved = resolveTemplateValues(gameId, key, manual)
@@ -789,11 +838,17 @@ const INLINE_JS = [
   'templates.js',    // TEMPLATES / TEMPLATE_DISCLAIMER
   'ticket-store.js', // getTicket / 号码解析 / 摇号
   'saved-tickets.js',// 存档（手动录入那一层的数据来源）
+  'heatmap-data.js', // 【按天出】实票统计热力图数据 + shouldShowHeatmap 判断
   'render.js',       // renderTicketImage ← App 用的同一个函数
   'experts-data.js', // 专家数据（data-store 依赖）
   'expert-pool.js',  // 专家池
   'data-store.js'    // resolveTemplateValues（三路合并）
 ];
+
+/* 【可选脚本】没有它页面照样要能生成 —— heatmap-data.js 由
+   build-heatmap.mjs 按天生成，万一云端这次没生成，也只是没有热力图，
+   绝不能因为这个文件缺失就让整页生成失败（那会覆盖掉上一版好页面）。 */
+const INLINE_OPTIONAL = new Set(['heatmap-data.js']);
 
 /** 读一个脚本文件，处理成可以直接塞进 <script> 的文本 */
 function readForInline(file) {
@@ -811,7 +866,11 @@ const inlineMissing = [];
 let inlineScriptsHtml = '';
 for (const f of INLINE_JS) {
   const code = readForInline(f);
-  if (!code) { inlineMissing.push(f); continue; }
+  if (!code) {
+    if (INLINE_OPTIONAL.has(f)) { console.log(`  ⏭  可选脚本缺失，跳过：${f}（热力图将不显示）`); continue; }
+    inlineMissing.push(f);
+    continue;
+  }
   inlineSizes.push([f, Buffer.byteLength(code, 'utf8')]);
   inlineScriptsHtml += `\n<script data-src="${f}">\n${code}\n</script>\n`;
 }
@@ -903,9 +962,35 @@ const RO_RENDER_SCRIPT = `
     var slots = document.querySelectorAll('.ro-imagewrap[data-game]');
     var ok = 0;
     var fail = 0;
+    var hidden = 0;
 
     for (var i = 0; i < slots.length; i++) {
       var slot = slots[i];
+
+      /* ============================================================
+         【按天出】实票统计热力图：这里是【客户端】的第二道判断。
+         服务器生成时已经判断过一次，但页面会被缓存/长期挂在网上 ——
+         第二天打开同一张页面时，昨天的热力图必须自动消失。
+         判断口径：heatmap-data.js 里的 shouldShowHeatmap
+         （数据必须是今天的 + 今天是开奖日 + 已过北京时间 18:00）。
+         ============================================================ */
+      if (slot.getAttribute('data-image') === 'heatmap') {
+        var hg = slot.getAttribute('data-game');
+        var show = false;
+        try {
+          show = (typeof shouldShowHeatmap === 'function') && shouldShowHeatmap(hg);
+        } catch (e) { show = false; }
+        if (!show) {
+          /* 整块拿掉，不留占位、不留空白 */
+          try {
+            if (slot.parentNode && slot.parentNode.removeChild) slot.parentNode.removeChild(slot);
+            else slot.style.display = 'none';
+          } catch (e) { slot.style.display = 'none'; }
+          hidden++;
+          continue;
+        }
+      }
+
       var dom = null;
 
       try {
@@ -933,6 +1018,7 @@ const RO_RENDER_SCRIPT = `
       if (document.body && document.body.setAttribute) {
         document.body.setAttribute('data-render', fail ? 'fallback' : 'live');
         document.body.setAttribute('data-render-count', ok + '/' + slots.length);
+        document.body.setAttribute('data-heatmap-hidden', String(hidden));
       }
     } catch (e) { /* 忽略 */ }
 
@@ -940,6 +1026,19 @@ const RO_RENDER_SCRIPT = `
   }
 
   window.__roRenderAll = renderAll;
+
+  /* 【调试】想验证「18:00 之后才有热力图」又不想等到 18:00：
+     在网址后面加 ?hmnow=2026-10-15T18:30 —— 时间判断会按这个时刻算。
+     不加参数就是真实时间，线上用户不会受影响。 */
+  try {
+    if (typeof location !== 'undefined' && location.search) {
+      var hm = /[?&]hmnow=([^&]+)/.exec(location.search);
+      if (hm) {
+        window.HEATMAP_NOW_OVERRIDE = decodeURIComponent(hm[1]);
+        if (window.console && console.log) console.log('[分享页] 热力图时间已定格：' + window.HEATMAP_NOW_OVERRIDE);
+      }
+    }
+  } catch (e) { /* 忽略 */ }
 
   /* 页尾脚本执行时，上面的图位已经全部在 DOM 里，直接渲染 */
   try {
