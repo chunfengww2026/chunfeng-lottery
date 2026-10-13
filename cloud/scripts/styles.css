@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    styles.css —— 彩虹多多 全局样式
    ============================================================ */
 
@@ -923,6 +923,53 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .r-dot.purple-dark { background: linear-gradient(180deg,#b3308c,#7d1263); }
 .r-dot.blue     { background: linear-gradient(180deg,#4a83f5,#2158c4); }
 .r-caption { font-size: 12.5px; color: #777; margin-top: 10px; }
+
+/* ============================================================
+   实票统计热力图（render.js 的 heatmap section）
+   ------------------------------------------------------------
+   白底 / 无边框 / 柱状图；几何尺寸（柱高、字号）都写在元素的内联
+   样式里，这里只放不随数据变化的外观，保证 HTML→图片 导出稳定。
+   ============================================================ */
+.r-hm { display: flex; flex-direction: column; }
+
+/* 顶部深红标题条 */
+.r-hm-titlebar {
+  background: #b71c1c;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 13px 12px 11px;
+  margin-bottom: 14px;
+  border: none;
+}
+.r-hm-t1 { font-size: 23px; font-weight: 800; letter-spacing: 3px; line-height: 1.25; }
+.r-hm-t2 { font-size: 12.5px; color: #ffd9d9; margin-top: 5px; letter-spacing: 0.5px; }
+
+/* 每一组（前区/后区） */
+.r-hm-sec { margin-bottom: 14px; }
+.r-hm-seclabel {
+  font-size: 14px; font-weight: 700; color: #b71c1c;
+  padding-left: 9px; position: relative; margin-bottom: 8px;
+}
+.r-hm-seclabel::before {
+  content: ''; position: absolute; left: 0; top: 2px;
+  width: 3px; height: 13px; border-radius: 2px; background: #b71c1c;
+}
+
+.r-hm-chart { display: flex; align-items: flex-start; }
+.r-hm-yax { position: relative; }
+.r-hm-plot { position: relative; }
+.r-hm-bars { display: flex; align-items: flex-end; }
+.r-hm-xax { display: flex; }
+.r-hm-num { font-variant-numeric: tabular-nums; }
+.r-hm-pct { font-variant-numeric: tabular-nums; }
+
+/* 没有数据时 */
+.r-hm-nodata { font-size: 12.5px; color: #999; text-align: center; padding: 18px 0; }
+
+/* 数据来源 / 免责 */
+.r-hm-src { font-size: 10.5px; color: #9aa0a6; text-align: center; margin-top: 4px; }
+.r-hm-tip { font-size: 10.5px; color: #b0b4b9; text-align: center; margin-top: 3px; }
 
 /* ---- 五行 ---- */
 .r-wuxing { display: flex; flex-direction: column; gap: 10px; }
