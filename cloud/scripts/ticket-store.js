@@ -632,8 +632,15 @@ function rollValueFor(gameId, spec) {
     try { return poolComposition(gameId, areaKey, from, to); } catch (e) { return null; }
   };
 
-  // 1) 和值 / 合值：优先用号码池的历史和值区间
+  // 1) 和值 / 合值：用「最近 30 期真实开奖」的和值区间
+  //    （必须覆盖最近开奖，不能给一段随机的理论区间）
   if (label.includes('和值') || label.includes('合值')) {
+    if (typeof calcTrendFields === 'function') {
+      try {
+        const hz = calcTrendFields(gameId, areaKey, from, to, count).hz;
+        if (hz) return hz;
+      } catch (e) { /* 回退 */ }
+    }
     const t = poolTrend();
     if (t && t.hz) return t.hz;
     if (label.includes('合值') && typeof poolNumberStats === 'function') {
@@ -645,37 +652,43 @@ function rollValueFor(gameId, spec) {
 
   // 2) 跨度：同上
   if (label.includes('跨度')) {
+    if (typeof calcTrendFields === 'function') {
+      try {
+        const kd = calcTrendFields(gameId, areaKey, from, to, count).kd;
+        if (kd) return kd;
+      } catch (e) { /* 回退 */ }
+    }
     const t = poolTrend();
     if (t && t.kd) return t.kd;
     return rollSpanRange(gameId, areaKey, count);
   }
 
-  // 3) 奇偶：有池子就写池子的构成，否则摇推荐号再推导
+  // 3) 奇偶：按「真实球数」摇一批推荐号再推导（双色球红球 6、大乐透前区 5）
+  //    不能写号码池自身的构成 —— 池子有 20 个号，会写出「8奇12偶」
   if (label.includes('奇偶')) {
-    const c = poolComp();
-    if (c && c.jq) return c.jq;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).oddEven;
   }
 
   // 4) 大小：同上
   if (label.includes('大小')) {
-    const c = poolComp();
-    if (c && c.dx) return c.dx;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).bigSmall;
   }
 
   // 5) 012 路：同上
   if (label.includes('012')) {
-    const c = poolComp();
-    if (c && c.lu012) return c.lu012;
     const picks = rollPicks(gameId, areaKey, count);
     return deriveFromList(picks, from, to).route012;
   }
 
   // 6) 杀号（含 蓝球杀号 / 后区杀 / 前1杀）：池内共识度最低的先杀
   if (/杀/.test(label)) {
+    // 按位杀（七星彩 前N杀 / 后区杀）：每个位置用位置统计，号码池按位置错开
+    if (posIdx >= 0 && (/^前\d+杀$/.test(label) || /^后区杀$/.test(label)) && typeof positionKill === 'function') {
+      const killed = positionKill(gameId, posIdx, count, from, to, 30);
+      if (killed && killed.length) return killed.map(pad2).join(' ');
+    }
     if (typeof autoKillNumbers === 'function') {
       const killed = autoKillNumbers(gameId, areaKey, count, from, to, 30);
       if (killed && killed.length) return killed.map(pad2).join(' ');
