@@ -52,7 +52,9 @@ jobs:
           mkdir -p site
           cp -f cloud/out/index.html    site/index.html    || true
           cp -f cloud/out/football.html site/football.html || true
+          cp -f cloud/out/tickets.json  site/tickets.json  || true
           touch site/.nojekyll
+          echo "--- site 目录内容 ---"
           ls -lh site/
 
       - name: 提交更新后的数据（保留号码与历史）
