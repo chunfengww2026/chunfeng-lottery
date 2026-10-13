@@ -600,6 +600,15 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
  * @param {number} periods 统计期数
  */
 function positionRecommend(gameId, posIdx, n, from, to, periods) {
+  /* 【重要】排列5 的「前三位」必须和排列3 完全一样。
+     原因：排列3 的开奖号就是排列5 开奖号的前三位
+     （如 排列3 26272 = 8 9 0，排列5 26272 = 8 9 0 2 0）。
+     所以 排列5 的 万位/千位/百位 直接取 排列3 的 百位/十位/个位，
+     保证两者永远一致，不会各算各的。 */
+  if (gameId === 'pl5' && posIdx >= 0 && posIdx <= 2) {
+    return positionRecommend('pl3', posIdx, n, from, to, periods);
+  }
+
   const size = to - from + 1;
   const want = Math.max(1, Math.min(n, size));
   const hist = getHistory(gameId);
@@ -668,6 +677,12 @@ function positionRecommend(gameId, posIdx, n, from, to, periods) {
  *   有专家池时：池内共识度最低的几个优先杀，不够再用位置冷号补
  */
 function positionKill(gameId, posIdx, n, from, to, periods) {
+  /* 同上：排列5 前三位（万/千/百）的杀号也要和排列3 一致，
+     因为两者开奖号的前三位本来就是同一组数字。 */
+  if (gameId === 'pl5' && posIdx >= 0 && posIdx <= 2) {
+    return positionKill('pl3', posIdx, n, from, to, periods);
+  }
+
   const size = to - from + 1;
   const want = Math.max(1, Math.min(n, size));
   const hist = getHistory(gameId);
