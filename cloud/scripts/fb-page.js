@@ -1,40 +1,120 @@
 /* ============================================================
-   fb-page.js —— 足球赛事页面逻辑
+   fb-page.js —— 足球赛事页面逻辑（只显示竞猜场次）
    ------------------------------------------------------------
-   数据来源：football.js（由 build-football.mjs 生成）
-     FOOTBALL_DATA.lists.upcoming  未开赛
-     FOOTBALL_DATA.lists.live      进行中（带实时比分）
-     FOOTBALL_DATA.lists.finished  已完场（带最终比分）
-     FOOTBALL_DATA.stat            统计（含红黑战绩）
+   数据来源：jc-data.js（体彩竞彩在售比赛）
 
-   每场含：
-     gid, kind, league, time, minute, home{name,score}, away{name,score},
-     odds{asian,europe,overunder}, reco{...}, result{hit,actualLabel,score}
+   【为什么改】之前用 football.js 显示全部 168 场比赛，
+   包含全世界各种联赛，大部分不能买，看不过来。
+   现在只显示【体彩竞彩在售】的场次（每天 10~20 场）。
+
+   本文件把 jc-data 的结构适配成页面需要的形状：
+     gid, kind, league{name}, time, minute,
+     home{name,score,rank}, away{name,score,rank},
+     odds{asian,europe,overunder}, reco{...}, result{hit,...}
    ============================================================ */
 
-function getFootballData() {
+/** 取竞彩原始数据 */
+function getJcData() {
   try {
-    if (typeof FOOTBALL_DATA === 'undefined' || !FOOTBALL_DATA) return null;
-    return FOOTBALL_DATA;
+    if (typeof JC_DATA === 'undefined' || !JC_DATA) return null;
+    return JC_DATA;
   } catch (e) { return null; }
+}
+
+/** 把一场竞彩数据适配成页面用的形状 */
+function adaptJc(g) {
+  const kind = g.status || 'upcoming';
+
+  /* 比分优先级：liveScore > score */
+  let hs = null, as_ = null;
+  if (g.liveScore && g.liveScore.home !== null && g.liveScore.home !== undefined) {
+    hs = g.liveScore.home; as_ = g.liveScore.away;
+  } else if (g.score && g.score.home !== null && g.score.home !== undefined) {
+    hs = g.score.home; as_ = g.score.away;
+  }
+  const hasScore = hs !== null && hs !== undefined && as_ !== null && as_ !== undefined;
+
+  /* 判定结果（完场才有红黑） */
+  let result = null;
+  if (hasScore && kind === 'finished') {
+    const actual = hs > as_ ? 'home' : (hs === as_ ? 'draw' : 'away');
+    const actualLabel = actual === 'home' ? '主胜' : (actual === 'draw' ? '平局' : '客胜');
+    result = {
+      actual, actualLabel,
+      hit: !!(g.reco && g.reco.pick === actual),
+      score: hs + ' - ' + as_
+    };
+  }
+
+  return {
+    gid: g.gid,
+    fid: g.fid,
+    code: g.code,
+    kind,
+    league: { name: g.league || '' },
+    round: g.round || '',
+    time: g.time,
+    minute: g.minute || 0,
+    handicap: g.handicap || null,
+    home: { name: g.home ? g.home.name : '?', score: hs, rank: g.home ? g.home.rank : null },
+    away: { name: g.away ? g.away.name : '?', score: as_, rank: g.away ? g.away.rank : null },
+    odds: g.odds,
+    reco: g.reco,
+    result,
+    hasScore
+  };
 }
 
 /** 取某一状态的比赛列表 */
 function footballList(kind) {
-  const d = getFootballData();
-  return (d && d.lists && d.lists[kind]) || [];
+  const d = getJcData();
+  if (!d || !Array.isArray(d.games)) return [];
+  return d.games
+    .filter((g) => (g.status || 'upcoming') === kind)
+    .map(adaptJc)
+    .sort((a, b) => String(a.time).localeCompare(String(b.time)));
 }
 
 /** 统计数据 */
 function footballStat() {
-  const d = getFootballData();
-  return (d && d.stat) || {};
+  const d = getJcData();
+  if (!d || !Array.isArray(d.games)) return {};
+  const ms = d.games.map(adaptJc);
+  const st = {
+    total: ms.length,
+    upcoming: 0, live: 0, finished: 0,
+    settled: 0, hit: 0, miss: 0, rate: '0.0'
+  };
+  ms.forEach((m) => {
+    st[m.kind] = (st[m.kind] || 0) + 1;
+    if (m.kind === 'finished' && m.result) {
+      st.settled++;
+      if (m.result.hit) st.hit++; else st.miss++;
+    }
+  });
+  st.rate = st.settled ? ((st.hit / st.settled) * 100).toFixed(1) : '0.0';
+  return st;
 }
 
 /** 更新时间 */
 function footballUpdated() {
-  const d = getFootballData();
+  const d = getJcData();
   return d ? d.updated : null;
+}
+
+/* 兼容旧调用 */
+function getFootballData() {
+  const d = getJcData();
+  if (!d) return null;
+  return {
+    updated: d.updated,
+    stat: footballStat(),
+    lists: {
+      upcoming: footballList('upcoming'),
+      live: footballList('live'),
+      finished: footballList('finished')
+    }
+  };
 }
 
 /* ============================================================
