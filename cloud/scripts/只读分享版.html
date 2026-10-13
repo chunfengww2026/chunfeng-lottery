@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="0" />
 <title>春风十里送大奖 · 推荐图</title>
 <style>
-﻿/* ============================================================
+/* ============================================================
    styles.css —— 彩虹多多 全局样式
    ============================================================ */
 
@@ -935,6 +935,53 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .r-dot.purple-dark { background: linear-gradient(180deg,#b3308c,#7d1263); }
 .r-dot.blue     { background: linear-gradient(180deg,#4a83f5,#2158c4); }
 .r-caption { font-size: 12.5px; color: #777; margin-top: 10px; }
+
+/* ============================================================
+   实票统计热力图（render.js 的 heatmap section）
+   ------------------------------------------------------------
+   白底 / 无边框 / 柱状图；几何尺寸（柱高、字号）都写在元素的内联
+   样式里，这里只放不随数据变化的外观，保证 HTML→图片 导出稳定。
+   ============================================================ */
+.r-hm { display: flex; flex-direction: column; }
+
+/* 顶部深红标题条 */
+.r-hm-titlebar {
+  background: #b71c1c;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 13px 12px 11px;
+  margin-bottom: 14px;
+  border: none;
+}
+.r-hm-t1 { font-size: 23px; font-weight: 800; letter-spacing: 3px; line-height: 1.25; }
+.r-hm-t2 { font-size: 12.5px; color: #ffd9d9; margin-top: 5px; letter-spacing: 0.5px; }
+
+/* 每一组（前区/后区） */
+.r-hm-sec { margin-bottom: 14px; }
+.r-hm-seclabel {
+  font-size: 14px; font-weight: 700; color: #b71c1c;
+  padding-left: 9px; position: relative; margin-bottom: 8px;
+}
+.r-hm-seclabel::before {
+  content: ''; position: absolute; left: 0; top: 2px;
+  width: 3px; height: 13px; border-radius: 2px; background: #b71c1c;
+}
+
+.r-hm-chart { display: flex; align-items: flex-start; }
+.r-hm-yax { position: relative; }
+.r-hm-plot { position: relative; }
+.r-hm-bars { display: flex; align-items: flex-end; }
+.r-hm-xax { display: flex; }
+.r-hm-num { font-variant-numeric: tabular-nums; }
+.r-hm-pct { font-variant-numeric: tabular-nums; }
+
+/* 没有数据时 */
+.r-hm-nodata { font-size: 12.5px; color: #999; text-align: center; padding: 18px 0; }
+
+/* 数据来源 / 免责 */
+.r-hm-src { font-size: 10.5px; color: #9aa0a6; text-align: center; margin-top: 4px; }
+.r-hm-tip { font-size: 10.5px; color: #b0b4b9; text-align: center; margin-top: 3px; }
 
 /* ---- 五行 ---- */
 .r-wuxing { display: flex; flex-direction: column; gap: 10px; }
@@ -2226,12 +2273,12 @@ body {
 }
 </style>
 </head>
-<body data-built="2026-10-14 05:19">
+<body data-built="2026-10-14 05:20">
 <div class="ro-wrap">
 
   <div class="ro-top">
     <h1>春风十里送大奖 · 推荐图</h1>
-    <div class="sub">生成时间 2026-10-14 05:19 · 共 8 个彩种 / 12 张图</div>
+    <div class="sub">生成时间 2026-10-14 05:20 · 共 8 个彩种 / 12 张图</div>
   </div>
 
   <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div><div class="ro-st-time">更新时间：2026-10-14 05:07</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026118 期</span><span class="ro-st-item"><b>大乐透</b> 第 26117 期</span><span class="ro-st-item"><b>七乐彩</b> 第 2026118 期</span><span class="ro-st-item"><b>快乐8</b> 第 2026273 期</span><span class="ro-st-item"><b>福彩3D</b> 第 2026273 期</span><span class="ro-st-item"><b>排列3</b> 第 26273 期</span><span class="ro-st-item"><b>排列5</b> 第 26273 期</span><span class="ro-st-item"><b>七星彩</b> 第 26118 期</span></div></div>
@@ -15894,7 +15941,8 @@ function renderTicketImage(gameId, imageKey, data) {
     let rendererName = sec.type;
     if (sec.type === 'positions2') rendererName = 'positions';   // 兼容旧写法
     const fn = SECTION_RENDER[rendererName];
-    if (fn) block.appendChild(fn(sec, vals, build));
+    /* 第 4 个参数传 gameId —— 热力图要按彩种去读全局 HEATMAP_DATA */
+    if (fn) block.appendChild(fn(sec, vals, build, gameId));
 
     parent.appendChild(block);
   };
