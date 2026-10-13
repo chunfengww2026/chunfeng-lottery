@@ -410,13 +410,19 @@ const SECTION_RENDER = {
       return box;
     }
 
-    /* ---------- 1. 顶部标题条 ---------- */
+    /* ---------- 1. 顶部标题条（几何/配色同时写内联，避免缓存里的旧样式表拖累） ---------- */
     const bar = el('div', 'r-hm-titlebar');
-    bar.appendChild(el('div', 'r-hm-t1', '春风小店实票统计'));
+    bar.style.cssText = 'background:#b71c1c;border-radius:10px;color:#ffffff;text-align:center;' +
+      'padding:13px 12px 11px;margin-bottom:14px;border:none;';
+    const t1 = el('div', 'r-hm-t1', '春风小店实票统计');
+    t1.style.cssText = 'font-size:23px;font-weight:800;letter-spacing:3px;line-height:1.25;color:#ffffff;';
+    bar.appendChild(t1);
     const sub = (H.source === 'yiqicai-xysp')
       ? `${H.name} 第 ${H.issue} 期 · 全网公开晒票号码占比`
       : `${H.name} 第 ${H.issue} 期 · ${H.sourceLabel || '近30期开奖号码频率'}（晒票样本不足）`;
-    bar.appendChild(el('div', 'r-hm-t2', sub));
+    const t2 = el('div', 'r-hm-t2', sub);
+    t2.style.cssText = 'font-size:12.5px;color:#ffd9d9;margin-top:5px;letter-spacing:0.5px;';
+    bar.appendChild(t2);
     box.appendChild(bar);
 
     /* ---------- 2. 两组柱状图 ---------- */
@@ -430,12 +436,15 @@ const SECTION_RENDER = {
 
     /* ---------- 3. 数据来源标注（不假装是晒票统计） ---------- */
     const src = el('div', 'r-hm-src');
+    src.style.cssText = 'font-size:10.5px;color:#9aa0a6;text-align:center;margin-top:4px;';
     src.textContent = H.source === 'yiqicai-xysp'
       ? `数据来源：一起彩幸运晒票（当期公开晒票 ${H.sampleCount} 篇）· 生成 ${H.madeAt}`
       : `数据来源：近 30 期开奖号码频率（晒票样本不足，未采用晒票统计）· 生成 ${H.madeAt}`;
     box.appendChild(src);
-    box.appendChild(el('div', 'r-hm-tip',
-      '仅为公开晒票/历史开奖的统计展示，不构成购彩建议，也不能预测中奖。'));
+    const tip = el('div', 'r-hm-tip',
+      '仅为公开晒票/历史开奖的统计展示，不构成购彩建议，也不能预测中奖。');
+    tip.style.cssText = 'font-size:10.5px;color:#b0b4b9;text-align:center;margin-top:3px;';
+    box.appendChild(tip);
     return box;
   }
 };
@@ -450,7 +459,10 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
   const wrap = el('div', 'r-hm-sec');
 
   // 小节标题：红球购买占比（完全降序）
-  wrap.appendChild(el('div', 'r-hm-seclabel', `${area.label}购买占比（完全降序）`));
+  const seclabel = el('div', 'r-hm-seclabel', `${area.label}购买占比（完全降序）`);
+  seclabel.style.cssText = 'font-size:14px;font-weight:700;color:#b71c1c;padding-left:9px;' +
+    'position:relative;margin-bottom:8px;';
+  wrap.appendChild(seclabel);
 
   const items = area.items || [];
   const maxPct = items.reduce((m, it) => Math.max(m, Number(it.pct) || 0), 0);
