@@ -1399,13 +1399,20 @@ body {
 ${inlineScriptsHtml}
 <script>
 /* ============================================================
-   【自愈】发现自己是缓存旧版就自动强制刷新
+   【自愈】页面确实旧了就整页刷新（兜底）
    ------------------------------------------------------------
    手机浏览器（尤其微信内置）会把页面缓存很久，
    导致「电脑上更新了、手机上还是旧的」。
-   这段代码拿云端的号码文件时间戳和页面上显示的时间戳对比，
-   不一样就带一个【每次都不相同】的尾巴重新加载 ——
-   这样就一定能拿到最新版，用户什么都不用做。
+   这段代码拿云端的号码文件时间和页面生成时间对比，
+   页面确实旧、而且页尾的【准实时】逻辑又没能就地换过来时，
+   才带一个【每次都不相同】的尾巴重新加载整页。
+
+   【两个坑都修了】
+   1) 时间比较：以前直接拿 publishedAt（UTC、'T' 分隔）和 data-built
+      （北京时间）比字符串 —— UTC 比北京早 8 小时，几乎永远比不赢，
+      所以这段以前基本不触发。现在统一转成北京时间再比。
+   2) 不和准实时机制打架：页尾的准实时逻辑能就地重渲染成功时不刷新整页；
+      只有「数据是新的、但页面没能显示出来」才刷新兜底。
    ============================================================ */
 (function () {
   try {
@@ -1416,19 +1423,60 @@ ${inlineScriptsHtml}
     var last = Number(sessionStorage.getItem('cdd.selfheal') || 0);
     if (last && Date.now() - last < 60000) return;
 
+    /* 把 ISO(UTC) 和「YYYY-MM-DD HH:MM」统一成【北京时间的可比较字符串】。
+       不带时区的当成北京时间（saved-tickets.js / data-built 都是这种），
+       输出精确到分钟，和 data-built 的精度一致。 */
+    function toBeijingKey(s) {
+      if (!s) return '';
+      var str = String(s).trim();
+      var d;
+      if (/T/.test(str) || /Z$/.test(str)) {
+        d = new Date(str);                                  /* ISO(UTC) */
+      } else {
+        d = new Date(str.replace(' ', 'T') + '+08:00');      /* 北京时间 */
+      }
+      if (isNaN(d.getTime())) return '';
+      var bj = new Date(d.getTime() + (d.getTimezoneOffset() + 480) * 60000);
+      var p = function (n) { return String(n).padStart(2, '0'); };
+      return bj.getFullYear() + '-' + p(bj.getMonth() + 1) + '-' + p(bj.getDate()) +
+             ' ' + p(bj.getHours()) + ':' + p(bj.getMinutes());
+    }
+    window.__toBeijingKey = toBeijingKey;   /* 方便自测 / 排查 */
+
+    function selfHealReload() {
+      sessionStorage.setItem('cdd.selfheal', String(Date.now()));
+      location.replace(location.pathname + '?t=' + Date.now());
+    }
+
+    function decide(j) {
+      if (!j) return;
+      var remoteKey = toBeijingKey(j.publishedAt) || toBeijingKey(j.updated);
+      var mineKey = toBeijingKey(shown);
+      if (!remoteKey || !mineKey) return;
+      if (remoteKey <= mineKey) return;          /* 页面不比云端旧，什么都不做 */
+
+      /* 页尾的准实时逻辑已经就地换成新号码、图也是正常实时渲染的
+         → 页面上已经是新号码了，不用刷新整页 */
+      var applied = false;
+      var renderMode = '';
+      try { applied = !!window.__roLiveApplied; } catch (e2) { /* 忽略 */ }
+      try { renderMode = document.body.getAttribute('data-render') || ''; } catch (e3) { /* 忽略 */ }
+      if (applied && renderMode !== 'fallback') return;
+
+      /* 数据是新的，但页面没能就地显示出来（渲染兜底 / 脚本没跑）
+         → 整页刷新兜底 */
+      selfHealReload();
+    }
+    window.__roSelfHealDecide = decide;   /* 方便自测 / 排查 */
+
     fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
-        if (!j) return;
-        var remote = String(j.publishedAt || j.updated || '').replace('T', ' ').slice(0, 16);
-        var mine = shown.slice(0, 16);
-        if (!remote || !mine) return;
-        /* 云端发布时间比页面生成时间晚 → 我是旧的 */
-        if (remote > mine) {
-          sessionStorage.setItem('cdd.selfheal', String(Date.now()));
-          var u = location.pathname + '?t=' + Date.now();
-          location.replace(u);
-        }
+        /* 等页尾的准实时逻辑先跑完，再决定要不要刷新整页（免得跟它抢） */
+        var p = (typeof window.__roLivePromise !== 'undefined') ? window.__roLivePromise : null;
+        var later = function () { setTimeout(function () { decide(j); }, 0); };
+        if (p && typeof p.then === 'function') p.then(later, later);
+        else later();
       })
       .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
   } catch (e) { /* 忽略 */ }
