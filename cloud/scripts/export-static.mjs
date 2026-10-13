@@ -993,7 +993,10 @@ const RO_RENDER_SCRIPT = `
     } catch (e) { return ''; }
   }
 
-  /* 页面上当前这份号码的时间（用来判断服务器那份是不是更新） */
+  /* 页面上当前这份【号码本身】的时间（updated），用来判断服务器那份是不是更新。
+     注意用的是号码的时间，不是页面生成时间：
+     云端如果用【旧号码】重新构建了一遍，它的 publishedAt 会很新，
+     但 updated 是旧的 —— 那种不能认，否则会把页面上的新号码换回旧的。 */
   var appliedTime = normTime(inlineTicketTime());
   window.__roLiveApplied = false;
   window.__roLiveRemoteTime = '';
@@ -1006,13 +1009,25 @@ const RO_RENDER_SCRIPT = `
     if (!j || !j.tickets || !Object.keys(j.tickets).length) return false;
     if (typeof SAVED_TICKETS === 'undefined' || !SAVED_TICKETS) return false;
 
-    var remoteTime = normTime(j.publishedAt || j.updated);
-    if (!remoteTime) return false;
-    if (remoteTime <= appliedTime) return false;        /* 服务器的不新，不动 */
+    var remoteData = normTime(j.updated);
+    var remotePub = normTime(j.publishedAt || j.updated);
+    if (!remoteData && !remotePub) return false;
 
-    /* 内容一模一样（只是重新构建了一遍）就不必重渲染，省一次 10 张图 */
+    /* 内容一模一样（只是重新构建了一遍）就没必要重画 10 张图 */
     var same = false;
     try { same = JSON.stringify(SAVED_TICKETS.tickets || {}) === JSON.stringify(j.tickets); } catch (e) { same = false; }
+
+    /* 服务器这份比页面上的新吗？
+       · 号码时间更晚            → 新（真的摇过号了）
+       · 号码时间一样但内容不同  → 新（同一分钟内摇了两次，内容还是会变）
+       · 号码时间更早            → 不是（云端拿旧号码重建，publishedAt 再新也不认） */
+    var newer;
+    if (remoteData && appliedTime) {
+      newer = (remoteData > appliedTime) || (remoteData === appliedTime && !same);
+    } else {
+      newer = remotePub > appliedTime;
+    }
+    if (!newer) return false;                           /* 服务器的不新，不动 */
 
     /* 用服务器数据覆盖内存里的 SAVED_TICKETS（只改属性） */
     SAVED_TICKETS.updated = j.updated || SAVED_TICKETS.updated;
@@ -1026,8 +1041,8 @@ const RO_RENDER_SCRIPT = `
       localStorage.removeItem('cdd.tickets.ts');
     } catch (e) { /* 忽略 */ }
 
-    appliedTime = remoteTime;
-    window.__roLiveRemoteTime = remoteTime;
+    appliedTime = remoteData || remotePub;
+    window.__roLiveRemoteTime = appliedTime;
     if (same) return false;                             /* 号码没变，不用重画 */
 
     window.__roLiveApplied = true;
@@ -1041,7 +1056,7 @@ const RO_RENDER_SCRIPT = `
     try {
       if (document.body && document.body.setAttribute) {
         document.body.setAttribute('data-tickets-from', 'server');
-        document.body.setAttribute('data-tickets-time', remoteTime);
+        document.body.setAttribute('data-tickets-time', appliedTime);
       }
     } catch (e) { /* 忽略 */ }
 
