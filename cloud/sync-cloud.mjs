@@ -77,7 +77,7 @@ async function gh(method, endpoint, body, tries = 3) {
     } catch (e) {
       if (t === tries) return { ok: false, status: 0, text: String(e.message) };
       log(`     网络抖动，重试 ${t}/${tries}...`);
-      await new Promise((res) => setTimeout(res, 4000));
+      await new Promise((res) => setTimeout(res, 1500));
     }
   }
 }
@@ -161,12 +161,17 @@ log('═════════════════════════
 log('  同步本机 → 云端');
 log('════════════════════════════════════════════');
 log('');
+const tAll = Date.now();
 
 /* 数据 + 配置：云端抓不到，必须本机提供 */
 const FROM_ROOT = [
   'saved-tickets.js', 'history.js', 'draws.js', 'football.js',
   'jc-data.js', 'prize-data.js', 'materials-data.js',
-  'deepseek.config.json'
+  'deepseek.config.json',
+  /* 【热力图】实票统计热力图数据（当天出图的那份）。
+     云端 18:00 那一班会自己重新生成；这里同步过去只作为兜底，
+     保证「云端还没跑 / 跑失败」时页面上至少有本地这一份。 */
+  'heatmap-data.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
@@ -180,6 +185,9 @@ const CODE_MODULES = [
   'experts-data.js', 'expert-pool.js',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-prizes.mjs', 'build-materials.mjs',
+  /* 【热力图】云端 18:00 那一班要自己跑这个脚本抓当日晒票 ——
+     不同步过去的话，云端就只能用本地传上去的那份数据。 */
+  'build-heatmap.mjs',
   'export-static.mjs', 'export-football.mjs'
 ];
 
@@ -315,7 +323,7 @@ if (LIST_ONLY) {
 }
 
 log('');
-log(`  开始上传（5 个并发）...`);
+log(`  开始上传（6 个并发）...`);
 
 const uploadStart = Date.now();
 let okCount = 0;
@@ -339,7 +347,7 @@ async function uploadPass(list, concurrency, quiet) {
   });
 }
 
-await uploadPass(changedFiles, 5, false);
+await uploadPass(changedFiles, 6, false);
 
 log('');
 log(`  ✅ 上传成功 ${okCount} 个 / 需要上传 ${changedFiles.length} 个，用时 ${((Date.now() - uploadStart) / 1000).toFixed(1)} 秒`);
@@ -363,6 +371,7 @@ if (failed.length) {
 
 log('');
 log('触发云端重新构建（快速模式：直接用刚同步过去的数据，不重新抓取）...');
+const tDispatch = Date.now();
 const dispatchUrl = `/repos/${OWNER}/${REPO}/actions/workflows/daily-update.yml/dispatches`;
 let trigger = await gh('POST', dispatchUrl, { ref: BRANCH, inputs: { quick: '1' } });
 
@@ -374,7 +383,8 @@ if (trigger.status === 422) {
 }
 
 if (trigger.ok || trigger.status === 204) {
-  log('  ✅ 已触发');
+  log(`  ✅ 已触发（用时 ${((Date.now() - tDispatch) / 1000).toFixed(1)} 秒）`);
+  log(`  ⏱  本次同步总共用时 ${((Date.now() - tAll) / 1000).toFixed(1)} 秒（改之前要 80 多秒）`);
   log('     · 网站上的 tickets.json：约 1 分钟（云端构建 + 部署）');
   log('     · 手机上的分享页：拉到新号码后立刻重渲染，不用等页面重建');
 } else {
