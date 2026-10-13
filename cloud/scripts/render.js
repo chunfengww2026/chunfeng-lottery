@@ -303,6 +303,10 @@ const SECTION_RENDER = {
     sec.groups.forEach((g) => {
       box.appendChild(el('div', 'r-ranktitle', g.label));
       const list = el('div', 'r-ranklist');
+      /* 【重要】列数写进内联样式 ——
+         媒体查询（手机上的 @media max-width:700px）就永远改不了它，
+         图片在手机上不会被重排成竖列。 */
+      list.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
       for (let i = 0; i < (g.count || 6); i++) {
         const v = vals[`${g.label}_${i}`] || '';
         if (!v) continue;
@@ -361,6 +365,8 @@ function renderTicketImage(gameId, imageKey, data) {
   const build = (sec, parent) => {
     if (sec.type === 'twocol') {
       const wrap = el('div', 'r-twocol');
+      /* 【重要】方向写进内联样式，手机媒体查询改不了 */
+      wrap.style.flexDirection = 'row';
       const L = el('div', 'r-col');
       const R = el('div', 'r-col');
       if (sec.left) build(sec.left, L);
