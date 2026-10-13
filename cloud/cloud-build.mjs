@@ -384,6 +384,32 @@ function main() {
   /* 首页跳转说明 */
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '', 'utf8');
 
+  /* ---------- 发布本期的号码 JSON ----------
+     本机程序会下载这个文件，把号码同步过来，
+     这样「本机摇的号」和「微信链接上的号」永远一致。 */
+  try {
+    const savedNow = path.join(MOD, 'saved-tickets.js');
+    if (fs.existsSync(savedNow)) {
+      const c2 = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+      vm.runInContext(fs.readFileSync(savedNow, 'utf8') + '\nglobalThis.__S = SAVED_TICKETS;', c2);
+      const S = c2.__S || {};
+
+      const payload = {
+        updated: S.updated || stamp(),
+        publishedAt: new Date().toISOString(),
+        source: 'cloud',
+        note: '云端自动生成的推荐号码，本机程序会自动下载并采用',
+        tickets: S.tickets || {}
+      };
+
+      fs.writeFileSync(path.join(OUT, 'tickets.json'), JSON.stringify(payload), 'utf8');
+      const n = Object.keys(payload.tickets).length;
+      log(`  tickets.json 已发布（${n} 个彩种，供本机同步）`);
+    }
+  } catch (e) {
+    log(`  发布 tickets.json 失败：${e.message}`);
+  }
+
   log(`\n════════════════════════════════════════════`);
   log(`  完成 · ${stamp()}`);
   log(`  输出目录：${OUT}`);
