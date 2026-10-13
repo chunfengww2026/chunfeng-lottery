@@ -2232,7 +2232,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body>
+<body data-built="2026-10-14 04:44">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -2241,7 +2241,7 @@ body {
 
   <div class="ro-top">
     <h1>春风十里送大奖 · 推荐图</h1>
-    <div class="sub">生成时间 2026-10-14 04:41 · 共 8 个彩种 / 10 张图</div>
+    <div class="sub">生成时间 2026-10-14 04:44 · 共 8 个彩种 / 10 张图</div>
   </div>
 
   <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div><div class="ro-st-time">更新时间：2026-10-14 03:36</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026118 期</span><span class="ro-st-item"><b>大乐透</b> 第 26117 期</span><span class="ro-st-item"><b>七乐彩</b> 第 2026118 期</span><span class="ro-st-item"><b>快乐8</b> 第 2026273 期</span><span class="ro-st-item"><b>福彩3D</b> 第 2026273 期</span><span class="ro-st-item"><b>排列3</b> 第 26273 期</span><span class="ro-st-item"><b>排列5</b> 第 26273 期</span><span class="ro-st-item"><b>七星彩</b> 第 26118 期</span></div></div>
@@ -2266,6 +2266,42 @@ body {
 </div>
 
 <script>
+/* ============================================================
+   【自愈】发现自己是缓存旧版就自动强制刷新
+   ------------------------------------------------------------
+   手机浏览器（尤其微信内置）会把页面缓存很久，
+   导致「电脑上更新了、手机上还是旧的」。
+   这段代码拿云端的号码文件时间戳和页面上显示的时间戳对比，
+   不一样就带一个【每次都不相同】的尾巴重新加载 ——
+   这样就一定能拿到最新版，用户什么都不用做。
+   ============================================================ */
+(function () {
+  try {
+    var shown = document.body.getAttribute('data-built') || '';
+    if (!shown) return;
+
+    /* 防止无限刷新：同一分钟内只自愈一次 */
+    var last = Number(sessionStorage.getItem('cdd.selfheal') || 0);
+    if (last && Date.now() - last < 60000) return;
+
+    fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j) return;
+        var remote = String(j.publishedAt || j.updated || '').replace('T', ' ').slice(0, 16);
+        var mine = shown.slice(0, 16);
+        if (!remote || !mine) return;
+        /* 云端发布时间比页面生成时间晚 → 我是旧的 */
+        if (remote > mine) {
+          sessionStorage.setItem('cdd.selfheal', String(Date.now()));
+          var u = location.pathname + '?t=' + Date.now();
+          location.replace(u);
+        }
+      })
+      .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
+  } catch (e) { /* 忽略 */ }
+})();
+
 /* ============================================================
    推荐图等比缩放
    ------------------------------------------------------------
