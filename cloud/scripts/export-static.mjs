@@ -1078,11 +1078,12 @@ const RO_RENDER_SCRIPT = `
   window.__roLivePromise = firstPull;
 
   /* 补拉：本机刚摇完号时，云端可能还在部署中（约 1 分钟），
-     第一次拉到的还是旧的。隔几秒再补拉几次 ——
-     这样「号码刚摇完就打开网址」的人也不用手动刷新，页面自己会跟上。
-     只要有一次拿到更新的数据就停，最多补拉三次。
+     GitHub Actions 排队时甚至会等几分钟，第一次拉到的还是旧的。
+     隔几秒再补拉几次 —— 这样「号码刚摇完就打开网址」的人也不用
+     手动刷新，页面自己会跟上（最多补拉四次，共约 3.5 分钟）。
+     只要有一次拿到更新的数据就停。
      （间隔放在 window 上，方便自测/排查时改短。） */
-  if (!window.__roLiveRetryDelays) window.__roLiveRetryDelays = [8000, 25000, 60000];
+  if (!window.__roLiveRetryDelays) window.__roLiveRetryDelays = [8000, 25000, 60000, 120000];
 
   firstPull.then(function (applied) {
     if (applied) return;                       /* 已经换成新号码了，不用补拉 */
