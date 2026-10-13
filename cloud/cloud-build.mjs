@@ -39,17 +39,17 @@ function stamp() {
 }
 
 /* ---------- 跑子脚本（抓数据） ---------- */
-function run(file, args) {
+function run(file, args, maxLines) {
   const fp = path.join(MOD, file);
   if (!fs.existsSync(fp)) { log(`  ⚠️ 找不到 ${file}`); return false; }
-  log(`  ▶ ${file}`);
+  log(`  ▶ ${file} ${(args || []).join(' ')}`);
   try {
     const out = execFileSync(process.execPath, [fp, ...(args || [])], {
       cwd: MOD, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 900000
     });
     out.split('\n')
-      .filter((l) => /✅|❌|⚠️|写入|期|场/.test(l))
-      .slice(0, 12)
+      .filter((l) => /✅|❌|⚠️|写入|期|场|来源|占比|晒票|开奖日/.test(l))
+      .slice(0, maxLines || 12)
       .forEach((l) => log('      ' + l.trim()));
     return true;
   } catch (e) {
@@ -130,7 +130,9 @@ function makeSandbox(store) {
   const FILES = [
     'games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
     'stats.js', 'templates.js', 'ticket-store.js', 'saved-tickets.js',
-    'render.js', 'prize-data.js', 'hit-check.js', 'materials-data.js', 'data-store.js'
+    'render.js', 'prize-data.js', 'hit-check.js', 'materials-data.js', 'data-store.js',
+    /* 【热力图】实票统计热力图的数据 + shouldShowHeatmap 判断 */
+    'heatmap-data.js'
   ];
   for (const f of FILES) {
     const p = path.join(MOD, f);
@@ -178,6 +180,86 @@ function shouldFetch() {
     return { fetch: true, why: `距上次同步 ${hours.toFixed(1)} 小时，需要自己抓` };
   } catch (e) {
     return { fetch: true, why: '同步记录读取失败' };
+  }
+}
+
+/* ---------- 实票统计热力图（开奖日 18:00 才生成） ----------
+   用户要求：
+     · 「开奖当日 18 点透露到网页」「平常不透露」「关机也要执行」
+     · 双色球开奖日：周二 / 周四 / 周日；大乐透：周一 / 周三 / 周六（北京时间）
+
+   这一步【独立判断】，绝不被 shouldFetch() / CLOUD_QUICK 跳过
+   （所以调用点在 main() 里 `if (decision.fetch)` 的外面）：
+     · 今天这两个彩种都不开奖            → 清空数据（--purge），页面不出现这张图
+     · 今天开奖、但还没到北京时间 18:00   → 本班次不生成（18:00 那一班会生成并部署）
+     · 已过 18:00，或本班次就是 18:00 定时 → 抓当日晒票 → 出图
+
+   开关：
+     · CLOUD_HEATMAP=0 或 --no-heatmap → 完全不跑
+     · --heatmap-force                 → 忽略开奖日/时间判断，强制生成（本机调试）
+   产出：heatmap-data.js（export-static.mjs 会把它内联进分享页） */
+const HEATMAP_SCRIPTS = ['build-heatmap.mjs', 'heatmap.mjs', 'build-hotmap.mjs'];
+/* 开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS、heatmap-data.js 的
+   HEATMAP_DRAW_DAYS 三处保持一致 */
+const CHINA_DRAW_DAYS = { ssq: [0, 2, 4], dlt: [1, 3, 6] };
+const WEEK_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+/** 当前北京时间（不依赖服务器时区）
+ *  【调试】设 HEATMAP_NOW=2026-10-16T18:05 可以把「现在」定格到某个时刻，
+ *  用来验证开奖日/18:00 的判断（不设就是真实时间）。 */
+function beijingNow() {
+  let base = Date.now();
+  const ov = String(process.env.HEATMAP_NOW || '').trim();
+  if (ov) {
+    const t = new Date(ov.replace(' ', 'T')).getTime();
+    if (!isNaN(t)) base = t;
+  }
+  const u = new Date(base + 8 * 3600000);
+  const p = (n) => String(n).padStart(2, '0');
+  return {
+    hh: u.getUTCHours(),
+    dow: u.getUTCDay(),
+    date: `${u.getUTCFullYear()}-${p(u.getUTCMonth() + 1)}-${p(u.getUTCDate())}`,
+    hhmm: `${p(u.getUTCHours())}:${p(u.getUTCMinutes())}`
+  };
+}
+
+function runHeatmapStep() {
+  const flag = String(process.env.CLOUD_HEATMAP || '').trim();
+  if (flag === '0' || process.argv.includes('--no-heatmap')) {
+    log('\n【热力图】按开关跳过（CLOUD_HEATMAP=0 / --no-heatmap）');
+    return;
+  }
+  const hit = HEATMAP_SCRIPTS.map((f) => path.join(MOD, f)).find((p) => fs.existsSync(p));
+  if (!hit) {
+    log('\n【热力图】脚本还没就绪（找 ' + HEATMAP_SCRIPTS.join(' / ') + '）→ 本步跳过');
+    log('  ℹ️  注意：快速模式不会跳过这一步，脚本放进 scripts/ 后自动生效');
+    return;
+  }
+  const script = path.basename(hit);
+
+  const b = beijingNow();
+  const games = Object.keys(CHINA_DRAW_DAYS).filter((g) => CHINA_DRAW_DAYS[g].indexOf(b.dow) >= 0);
+  /* workflow 把 github.event.schedule 传进来：18:00 那一班是 '0 10 * * *' */
+  const slot = String(process.env.HEATMAP_SLOT || '').trim();
+  const eveningSlot = slot === '0 10 * * *';
+  const force = process.argv.includes('--heatmap-force');
+
+  log(`\n【热力图】${script}（独立于抓取开关，照常执行）`);
+  log(`  北京时间 ${b.date} ${b.hhmm} ${WEEK_CN[b.dow]}　班次=${slot || '(手动/其他触发)'}${eveningSlot ? ' ← 18:00 定时' : ''}`);
+  log(`  开奖日判断：${games.length ? games.join('、') + ' 今天开奖' : '今天没有双色球/大乐透开奖'}`);
+
+  if (force) {
+    log('  ⚠️ --heatmap-force：忽略开奖日/时间判断，强制生成');
+    run(script, ['all', '--force'], 40);
+  } else if (!games.length) {
+    log('  → 今天不是开奖日：清空热力图数据（页面上不会出现这张图）');
+    run(script, ['--purge']);
+  } else if (b.hh >= 18 || eveningSlot) {
+    log(`  → 是开奖日（${games.join('、')}）且已到 18:00：抓当日晒票 → 出图`);
+    run(script, [games.join(',')], 40);
+  } else {
+    log('  → 还没到北京时间 18:00：本班次【不生成】（18:00 那一班会生成并部署）');
   }
 }
 
@@ -267,6 +349,18 @@ function main() {
     log(`  ✅ 历史数据：${histBefore.detail}`);
   }
 
+  /* ============================================================
+     【和「快速模式」无关的步骤】
+     从这里往下的东西，无论 decision.fetch 是 true 还是 false、
+     无论 CLOUD_QUICK 是几，都【照常执行】：
+       · 检查/补摇推荐号码
+       · 发布 out/tickets.json（分享页的准实时数据源）
+       · 热力图（runHeatmapStep，开奖日 18:00 抓当日晒票）
+       · 生成静态网页
+     热力图每天都要抓当日晒票，绝不能被 shouldFetch()/CLOUD_QUICK 跳过，
+     所以它的调用点只能写在 if (decision.fetch) 外面（就是下面这一区）。
+     ============================================================ */
+
   /* 2. 载入存档，检查是否有推荐号码 */
   log('\n【4/4】检查推荐号码');
   const store = new Map();
@@ -350,6 +444,9 @@ function main() {
      万一后面生成网页失败，网站上的号码照样是最新的，
      手机打开分享页也能拿到新号码（页面自带拉取+重渲染逻辑）。 */
   publishTicketsJson();
+
+  /* 热力图：独立开关，快速模式管不到它（详见 runHeatmapStep 的注释） */
+  runHeatmapStep();
 
   /* 3. 生成网页 */
   log('\n生成静态网页 ...');
