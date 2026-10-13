@@ -1,0 +1,84 @@
+name: 每日自动更新
+
+# ============================================================
+#  每天自动更新推荐网页
+#
+#  运行在 GitHub 的服务器上 —— 你的电脑关机也照常执行。
+#
+#  时间说明（UTC）：
+#    18:00 UTC = 北京时间 02:00（次日）
+#    GitHub 的 cron 用 UTC，所以这里写 18:00
+#
+#  也可以在仓库 Actions 页面手动点「Run workflow」立即执行。
+# ============================================================
+
+on:
+  schedule:
+    # 每天 18:00 UTC = 北京 02:00
+    - cron: '0 18 * * *'
+  workflow_dispatch:        # 允许手动触发
+
+# 允许把生成的网页提交回仓库
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 取出仓库代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 执行云端构建
+        working-directory: cloud
+        run: node cloud-build.mjs
+
+      - name: 把生成的网页放到站点目录
+        run: |
+          mkdir -p site
+          cp -f cloud/out/index.html    site/index.html    || true
+          cp -f cloud/out/football.html site/football.html || true
+          touch site/.nojekyll
+          ls -lh site/
+
+      - name: 提交更新后的数据（保留号码与历史）
+        run: |
+          git config user.name  "auto-update-bot"
+          git config user.email "auto-update-bot@users.noreply.github.com"
+          git add -A cloud/ || true
+          if git diff --cached --quiet; then
+            echo "没有变化，跳过提交"
+          else
+            git commit -m "自动更新 $(date -u '+%Y-%m-%d %H:%M') UTC"
+            git push
+          fi
+
+      - name: 上传站点产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
