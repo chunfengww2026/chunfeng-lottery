@@ -136,23 +136,92 @@ function makeSandbox(store) {
   return ctx;
 }
 
+/* ---------- 判断是否要抓数据 ----------
+   本机刚刚同步过（sync-cloud.mjs 会写 sync-stamp.json），
+   说明数据是最新最全的，云端直接拿来用就行 ——
+   因为 GitHub 服务器在美国，抓中国彩票接口经常失败
+   （实测大乐透抓到 0 期），会导致走势字段全空。
+
+   只有距上次同步超过 12 小时（比如每天凌晨的定时任务），
+   云端才自己去抓。 */
+function shouldFetch() {
+  const stampPath = path.join(MOD, 'sync-stamp.json');
+  if (!fs.existsSync(stampPath)) return { fetch: true, why: '没有同步记录（首次运行）' };
+
+  try {
+    const info = JSON.parse(fs.readFileSync(stampPath, 'utf8'));
+    const t = new Date(info.syncedAt).getTime();
+    if (isNaN(t)) return { fetch: true, why: '同步记录格式不对' };
+
+    const hours = (Date.now() - t) / 3600000;
+    if (hours < 12) {
+      return { fetch: false, why: `${hours.toFixed(1)} 小时前刚同步过，直接用同步的数据` };
+    }
+    return { fetch: true, why: `距上次同步 ${hours.toFixed(1)} 小时，需要自己抓` };
+  } catch (e) {
+    return { fetch: true, why: '同步记录读取失败' };
+  }
+}
+
+/* ---------- 检查历史数据是否完整 ---------- */
+function checkHistory(required) {
+  const p = path.join(MOD, 'history.js');
+  if (!fs.existsSync(p)) return { ok: false, missing: required, detail: '没有 history.js' };
+
+  try {
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(p, 'utf8') + '\nglobalThis.__H = DRAW_HISTORY;', c);
+    const H = (c.__H && c.__H.games) || {};
+    const missing = required.filter((g) => !(H[g] && H[g].length >= 20));
+    return { ok: missing.length === 0, missing, detail: missing.length ? `${missing.join(', ')} 期数不足` : '全部齐备' };
+  } catch (e) {
+    return { ok: false, missing: required, detail: '解析失败：' + e.message };
+  }
+}
+
 /* ---------- 主流程 ---------- */
 function main() {
   log('════════════════════════════════════════════');
   log(`  春风十里送大奖 · 云端构建 · ${stamp()}`);
   log('════════════════════════════════════════════');
 
-  /* 1. 抓数据 */
-  log('\n【1/4】抓开奖号码');
-  run('build-draws.mjs', []);
+  const ALL_GAMES = ['ssq', 'fc3d', 'kl8', 'qlc', 'dlt', 'pl3', 'pl5', 'qxc'];
+  const decision = shouldFetch();
+  const histBefore = checkHistory(ALL_GAMES);
 
-  log('\n【2/4】抓历史开奖（60 期）');
-  run('build-history.mjs', ['60']);
+  log(`\n【数据来源】${decision.fetch ? '云端自己抓取' : '使用本机同步的数据'}`);
+  log(`  原因：${decision.why}`);
+  log(`  现有历史数据：${histBefore.detail}`);
 
-  log('\n【3/4】抓足球 + 竞彩 + 奖级');
-  run('build-football.mjs', []);
-  run('build-jc.mjs', []);
-  run('build-prizes.mjs', []);
+  /* 1-3. 抓数据（只在需要时） */
+  if (decision.fetch) {
+    log('\n【1/4】抓开奖号码');
+    run('build-draws.mjs', []);
+
+    log('\n【2/4】抓历史开奖（60 期）');
+    run('build-history.mjs', ['60']);
+
+    log('\n【3/4】抓足球 + 竞彩 + 奖级');
+    run('build-football.mjs', []);
+    run('build-jc.mjs', []);
+    run('build-prizes.mjs', []);
+
+    /* 抓完之后再检查一次 —— 如果抓失败了，要能看出来 */
+    const histAfter = checkHistory(ALL_GAMES);
+    if (!histAfter.ok && histBefore.ok) {
+      log(`\n  ⚠️ 警告：抓取后历史数据反而变差了（${histAfter.detail}）`);
+      log('     这通常是因为 GitHub 服务器抓不到中国彩票接口。');
+      log('     建议在本机点「摇号并更新网页」，会自动同步好数据上来。');
+    } else if (!histAfter.ok) {
+      log(`\n  ⚠️ 历史数据不完整：${histAfter.detail}`);
+      log('     走势类字段会显示为空。在本机同步一次即可解决。');
+    } else {
+      log(`\n  ✅ 历史数据完整：${histAfter.detail}`);
+    }
+  } else {
+    log('\n【1-3/4】跳过抓取（使用本机同步的数据）');
+    log(`  ✅ 历史数据：${histBefore.detail}`);
+  }
 
   /* 2. 载入存档，检查是否有推荐号码 */
   log('\n【4/4】检查推荐号码');
