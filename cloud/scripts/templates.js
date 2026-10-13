@@ -299,7 +299,7 @@ const TEMPLATES = {
               cols: 4,
               rows: 4,
               legend: [
-                { label: '金胆', color: 'purple-dark' },
+                { label: '金胆', color: 'gold-red'     },
                 { label: '银胆', color: 'orange'      },
                 { label: '拖码', color: 'purple'      },
                 { label: '后区关注', color: 'blue'    }
