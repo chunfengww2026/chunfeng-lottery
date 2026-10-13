@@ -1730,3 +1730,81 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   transform: scale(1.06);
   transition: transform .12s;
 }
+/* ============================================================
+   AI 分析样式
+   ============================================================ */
+
+.ai-result { margin-top: 14px; }
+.ai-block {
+  background: #161a21; border: 1px solid #2b3550;
+  border-radius: 12px; padding: 15px 17px;
+}
+.ai-title {
+  font-size: 15px; font-weight: 700; color: #8ab0f5;
+  padding-left: 9px; position: relative; margin-bottom: 12px;
+}
+.ai-title::before {
+  content: ''; position: absolute; left: 0; top: 3px;
+  width: 3px; height: 15px; border-radius: 2px; background: #6ea8fe;
+}
+
+.ai-trend {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 7px; margin-bottom: 14px;
+}
+.ai-trendrow {
+  background: #0f1115; border: 1px solid #1e2430;
+  border-radius: 8px; padding: 8px 11px;
+  font-size: 12.5px; display: flex; gap: 8px;
+}
+.ai-trendrow b { color: #8b93a1; font-weight: 600; flex: 0 0 auto; }
+.ai-trendrow span { color: #c8cfda; }
+
+.ai-nums {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; margin-bottom: 9px;
+}
+.ai-numlabel {
+  flex: 0 0 52px; font-size: 12.5px; color: #8b93a1;
+}
+.ai-ball {
+  width: 27px; height: 27px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg,#f0575c,#d32f34);
+}
+.ai-ball.hot  { background: linear-gradient(180deg,#ff5f6d,#c0252a); }
+.ai-ball.cold { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+.ai-ball.dan  { background: linear-gradient(180deg,#f0b429,#d99a12); color:#4a3600; }
+.ai-ball.tuo  { background: linear-gradient(180deg,#c93fa0,#9c1f78); }
+.ai-ball.kill { background: #2a3140; color: #6b7488; }
+.ai-ball.main { background: linear-gradient(180deg,#f0575c,#c0252a); }
+.ai-ball.gold { background: linear-gradient(180deg,#ffd54a,#d9a400); color:#4a3600; }
+.ai-ball.blue { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+
+.ai-summary {
+  margin-top: 12px; padding: 11px 14px;
+  background: rgba(110,168,254,0.09);
+  border: 1px solid rgba(110,168,254,0.3);
+  border-radius: 9px; font-size: 13px; color: #b8c8e8; line-height: 1.8;
+}
+.ai-note {
+  margin-top: 11px; font-size: 11.5px; color: #6b7488; line-height: 1.7;
+}
+.ai-raw { margin-top: 11px; }
+.ai-raw summary {
+  font-size: 12px; color: #5a6272; cursor: pointer; padding: 5px 0;
+}
+.ai-raw pre {
+  margin-top: 8px; padding: 11px;
+  background: #0f1115; border: 1px solid #1e2430; border-radius: 8px;
+  font-size: 11.5px; color: #8b93a1; white-space: pre-wrap;
+  word-break: break-word; max-height: 380px; overflow: auto;
+  font-family: Consolas, monospace; line-height: 1.7;
+}
+
+@media (max-width: 560px) {
+  .ai-trend { grid-template-columns: 1fr; }
+  .ai-ball { width: 25px; height: 25px; font-size: 11px; }
+}
