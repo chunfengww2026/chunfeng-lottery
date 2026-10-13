@@ -195,26 +195,51 @@ function main() {
 
   /* 1-3. 抓数据（只在需要时） */
   if (decision.fetch) {
+    /* 【保护】抓之前先备份数据文件。
+       GitHub 服务器在美国，抓中国彩票接口会被拒绝
+       （福彩 403 / 体彩 567），抓失败会用坏数据覆盖好数据。
+       所以抓完检查，坏了就还原。 */
+    const DATA_FILES = ['history.js', 'draws.js', 'football.js', 'jc-data.js', 'prize-data.js'];
+    const backup = {};
+    DATA_FILES.forEach((f) => {
+      const p = path.join(MOD, f);
+      if (fs.existsSync(p)) backup[f] = fs.readFileSync(p);
+    });
+    log(`  已备份 ${Object.keys(backup).length} 个数据文件`);
+
     log('\n【1/4】抓开奖号码');
-    run('build-draws.mjs', []);
+    const r1 = run('build-draws.mjs', []);
 
     log('\n【2/4】抓历史开奖（60 期）');
-    run('build-history.mjs', ['60']);
+    const r2 = run('build-history.mjs', ['60']);
 
     log('\n【3/4】抓足球 + 竞彩 + 奖级');
-    run('build-football.mjs', []);
-    run('build-jc.mjs', []);
-    run('build-prizes.mjs', []);
+    const r3 = run('build-football.mjs', []);
+    const r4 = run('build-jc.mjs', []);
+    const r5 = run('build-prizes.mjs', []);
 
-    /* 抓完之后再检查一次 —— 如果抓失败了，要能看出来 */
+    /* 检查抓取结果，坏了就还原 */
     const histAfter = checkHistory(ALL_GAMES);
-    if (!histAfter.ok && histBefore.ok) {
-      log(`\n  ⚠️ 警告：抓取后历史数据反而变差了（${histAfter.detail}）`);
-      log('     这通常是因为 GitHub 服务器抓不到中国彩票接口。');
-      log('     建议在本机点「摇号并更新网页」，会自动同步好数据上来。');
-    } else if (!histAfter.ok) {
-      log(`\n  ⚠️ 历史数据不完整：${histAfter.detail}`);
-      log('     走势类字段会显示为空。在本机同步一次即可解决。');
+    const anyFailed = !r1 || !r2 || !r3 || !r4 || !r5;
+
+    if (!histAfter.ok || anyFailed) {
+      log('');
+      log('  ⚠️ 抓取不顺利，正在还原成同步过来的数据：');
+      if (anyFailed) log('     原因：有抓取脚本执行失败');
+      if (!histAfter.ok) log(`     原因：历史数据不完整（${histAfter.detail}）`);
+
+      let restored = 0;
+      DATA_FILES.forEach((f) => {
+        if (backup[f]) {
+          fs.writeFileSync(path.join(MOD, f), backup[f]);
+          restored++;
+        }
+      });
+      log(`     已还原 ${restored} 个数据文件，页面会继续用上次同步的好数据`);
+
+      /* 再确认一次 */
+      const final = checkHistory(ALL_GAMES);
+      log(`     还原后历史数据：${final.detail}`);
     } else {
       log(`\n  ✅ 历史数据完整：${histAfter.detail}`);
     }
