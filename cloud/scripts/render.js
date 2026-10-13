@@ -35,6 +35,67 @@ function numBalls(nums, count, color, size) {
 }
 
 /* ============================================================
+   实票统计热力图的小工具（柱状图专用）
+   ------------------------------------------------------------
+   全部用 div + 内联样式画，不依赖 canvas ——
+   这样 HTML→图片 的导出链路（export-image.js / 手机截图）能原样处理。
+   ============================================================ */
+
+/* 红/蓝两套色阶：占比越高越深越饱和，越低越浅 */
+const HM_RED_TIERS  = ['#e53935', '#d32f2f', '#b71c1c', '#8e0000', '#f48fb1', '#f8bbd0', '#fce4ec'];
+const HM_BLUE_TIERS = ['#0d47a1', '#1565c0', '#1976d2', '#1e88e5', '#64b5f6', '#90caf9', '#bbdefb'];
+/* 分档边界（占最大值的比例，从高到低） */
+const HM_TIER_BOUNDS = [0.86, 0.71, 0.57, 0.43, 0.29, 0.14];
+
+/** 占比 → 柱子颜色 */
+function hmColor(pct, max, color) {
+  const tiers = (color === 'blue') ? HM_BLUE_TIERS : HM_RED_TIERS;
+  if (!(max > 0)) return tiers[tiers.length - 1];
+  const r = pct / max;
+  for (let i = 0; i < HM_TIER_BOUNDS.length; i++) {
+    if (r >= HM_TIER_BOUNDS[i]) return tiers[i];
+  }
+  return tiers[tiers.length - 1];
+}
+
+/**
+ * 算 Y 轴：让轴顶略高于最大占比，分成 3~7 格，步长取好读的数
+ *   6.09% → 轴到 7%，每 1% 一格
+ *   10.81% → 轴到 12%，每 2% 一格
+ *   13.33% → 轴到 14%，每 2% 一格
+ * @returns {{axisMax:number, step:number, ticks:number[]}}
+ */
+function hmAxis(maxPct) {
+  const STEPS = [0.1, 0.2, 0.25, 0.5, 1, 2, 2.5, 3, 5, 10, 15, 20, 25, 50, 100];
+  const m = Number(maxPct) || 0;
+  if (!(m > 0)) return { axisMax: 1, step: 1, ticks: [0, 1] };
+
+  for (let i = 0; i < STEPS.length; i++) {
+    const step = STEPS[i];
+    const n = Math.ceil(m / step - 1e-9);
+    if (n >= 3 && n <= 7) {
+      const axisMax = Math.round(n * step * 1000) / 1000;
+      const ticks = [];
+      for (let k = 0; k <= n; k++) ticks.push(Math.round(k * step * 1000) / 1000);
+      return { axisMax, step, ticks };
+    }
+  }
+  // 兜底：轴顶 = 最大值向上取整
+  const axisMax = Math.max(1, Math.ceil(m));
+  const ticks = [];
+  for (let k = 0; k <= axisMax; k++) ticks.push(k);
+  return { axisMax, step: 1, ticks };
+}
+
+/** 百分比文本：保留最多 2 位小数，去掉末尾多余的 0（6.09% / 2.7% / 0%） */
+function hmPctText(pct) {
+  if (typeof heatmapPctText === 'function') return heatmapPctText(pct);
+  let s = (Number(pct) || 0).toFixed(2);
+  if (s.indexOf('.') >= 0) s = s.replace(/0+$/, '').replace(/\.$/, '');
+  return s + '%';
+}
+
+/* ============================================================
    各 section 类型的渲染
    ============================================================ */
 
@@ -324,8 +385,157 @@ const SECTION_RENDER = {
       box.appendChild(list);
     });
     return box;
+  },
+
+  /* ============================================================
+     实票统计热力图
+     ------------------------------------------------------------
+     数据来源：全局 HEATMAP_DATA（heatmap-data.js，build-heatmap.mjs 生成）
+     结构：
+       顶部深红标题条（春风小店实票统计 + 彩种期号副标题）
+       前区/红球购买占比（完全降序）—— 红色系柱状图
+       后区/蓝球购买占比（完全降序）—— 蓝色系柱状图
+     柱子全部用 div + 内联样式，底部对齐；无 canvas。
+     ============================================================ */
+  heatmap(sec, vals, build, gameId) {
+    const box = el('div', 'r-hm');
+
+    const H = (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games)
+      ? HEATMAP_DATA.games[gameId] : null;
+    const front = H && H[sec.frontKey || 'front'];
+    const back = H && H[sec.backKey || 'back'];
+
+    if (!H || !front || !back || !front.items || !front.items.length) {
+      box.appendChild(el('div', 'r-hm-nodata', '本期暂无实票统计数据'));
+      return box;
+    }
+
+    /* ---------- 1. 顶部标题条 ---------- */
+    const bar = el('div', 'r-hm-titlebar');
+    bar.appendChild(el('div', 'r-hm-t1', '春风小店实票统计'));
+    const sub = (H.source === 'yiqicai-xysp')
+      ? `${H.name} 第 ${H.issue} 期 · 全网公开晒票号码占比`
+      : `${H.name} 第 ${H.issue} 期 · ${H.sourceLabel || '近30期开奖号码频率'}（晒票样本不足）`;
+    bar.appendChild(el('div', 'r-hm-t2', sub));
+    box.appendChild(bar);
+
+    /* ---------- 2. 两组柱状图 ---------- */
+    const frontItems = front.items;
+    const n = frontItems.length;
+    const pctFont = n >= 24 ? '8px' : '9.5px';
+    const numFont = n >= 24 ? '9px' : '10px';
+
+    box.appendChild(hmChartBlock(front, 'red', 250, pctFont, numFont));
+    box.appendChild(hmChartBlock(back, 'blue', 200, '9.5px', '10px'));
+
+    /* ---------- 3. 数据来源标注（不假装是晒票统计） ---------- */
+    const src = el('div', 'r-hm-src');
+    src.textContent = H.source === 'yiqicai-xysp'
+      ? `数据来源：一起彩幸运晒票（当期公开晒票 ${H.sampleCount} 篇）· 生成 ${H.madeAt}`
+      : `数据来源：近 30 期开奖号码频率（晒票样本不足，未采用晒票统计）· 生成 ${H.madeAt}`;
+    box.appendChild(src);
+    box.appendChild(el('div', 'r-hm-tip',
+      '仅为公开晒票/历史开奖的统计展示，不构成购彩建议，也不能预测中奖。'));
+    return box;
   }
 };
+
+/**
+ * 画一组柱状图
+ * @param {{label:string,color:string,total:number,items:Array}} area
+ * @param {string} colorKind 'red' | 'blue'
+ * @param {number} plotH 绘图区高度（px）
+ */
+function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
+  const wrap = el('div', 'r-hm-sec');
+
+  // 小节标题：红球购买占比（完全降序）
+  wrap.appendChild(el('div', 'r-hm-seclabel', `${area.label}购买占比（完全降序）`));
+
+  const items = area.items || [];
+  const maxPct = items.reduce((m, it) => Math.max(m, Number(it.pct) || 0), 0);
+  const ax = hmAxis(maxPct);
+
+  const TOP_PAD = 13;                 // 柱顶百分比标签占的高度
+  const unit = plotH - TOP_PAD;       // 轴顶 axisMax 对应的像素高度
+  const pxOf = (pct) => Math.max(0, Math.round(((Number(pct) || 0) / ax.axisMax) * unit));
+
+  const YW = 30;                      // Y 轴刻度列宽
+
+  const chart = el('div', 'r-hm-chart');
+  chart.style.cssText = `display:flex;align-items:flex-start;font-family:"Microsoft YaHei","Segoe UI",sans-serif;`;
+
+  /* ---- Y 轴刻度 ---- */
+  const yax = el('div', 'r-hm-yax');
+  yax.style.cssText = `position:relative;width:${YW}px;height:${plotH}px;flex:0 0 ${YW}px;`;
+  ax.ticks.forEach((t) => {
+    const lab = el('div', 'r-hm-ytick', hmPctText(t));
+    lab.style.cssText =
+      `position:absolute;right:4px;bottom:${pxOf(t) - 5}px;height:10px;line-height:10px;` +
+      `font-size:8.5px;color:#9aa0a6;white-space:nowrap;text-align:right;`;
+    yax.appendChild(lab);
+  });
+  chart.appendChild(yax);
+
+  /* ---- 绘图区 ---- */
+  const plot = el('div', 'r-hm-plot');
+  plot.style.cssText = `position:relative;flex:1 1 auto;min-width:0;height:${plotH}px;`;
+
+  // 浅灰横向网格线
+  ax.ticks.forEach((t) => {
+    const line = el('div', 'r-hm-grid');
+    line.style.cssText =
+      `position:absolute;left:0;right:0;bottom:${pxOf(t)}px;height:0;` +
+      `border-top:1px solid ${t === 0 ? '#d5d8dc' : '#ececec'};`;
+    plot.appendChild(line);
+  });
+
+  // 柱子（底部对齐）
+  const bars = el('div', 'r-hm-bars');
+  bars.style.cssText = 'position:absolute;left:0;right:0;bottom:0;height:100%;' +
+    'display:flex;align-items:flex-end;gap:2px;';
+
+  items.forEach((it) => {
+    const pct = Number(it.pct) || 0;
+    const h = pxOf(pct);
+
+    const col = el('div', 'r-hm-col');
+    col.style.cssText = 'position:relative;flex:1 1 0;min-width:0;height:100%;';
+
+    // 柱顶百分比
+    const pctEl = el('div', 'r-hm-pct', hmPctText(pct));
+    pctEl.style.cssText =
+      `position:absolute;left:-2px;right:-2px;bottom:${h}px;height:12px;line-height:12px;` +
+      `text-align:center;font-size:${pctFont};color:#5f6368;white-space:nowrap;`;
+
+    // 柱子本体
+    const b = el('div', 'r-hm-bar');
+    b.style.cssText =
+      `position:absolute;left:0;right:0;bottom:0;height:${h}px;` +
+      `background:${hmColor(pct, maxPct, colorKind)};border-radius:2px 2px 0 0;`;
+
+    col.appendChild(pctEl);
+    col.appendChild(b);
+    bars.appendChild(col);
+  });
+  plot.appendChild(bars);
+  chart.appendChild(plot);
+  wrap.appendChild(chart);
+
+  /* ---- 号码标签（柱子正下方） ---- */
+  const xax = el('div', 'r-hm-xax');
+  xax.style.cssText = `display:flex;gap:2px;margin-left:${YW}px;margin-top:3px;`;
+  items.forEach((it) => {
+    const lab = el('div', 'r-hm-num', twoDigit(it.num));
+    lab.style.cssText =
+      `flex:1 1 0;min-width:0;text-align:center;font-size:${numFont};` +
+      `color:#3c4043;line-height:14px;white-space:nowrap;overflow:visible;`;
+    xax.appendChild(lab);
+  });
+  wrap.appendChild(xax);
+
+  return wrap;
+}
 
 /* ============================================================
    主渲染函数
@@ -349,15 +559,19 @@ function renderTicketImage(gameId, imageKey, data) {
   root.dataset.game = gameId;
   root.dataset.image = imageKey;
 
-  /* ---------- 红色页头 ---------- */
-  const head = el('div', 'r-head');
-  head.appendChild(el('div', 'r-headbrand', tpl.footer.brand));
-  head.appendChild(el('div', 'r-headshop', '— ' + tpl.footer.shop + ' —'));
-  head.appendChild(el('div', 'r-headtitle', img.title));
-  const issueLine = el('div', 'r-headissue');
-  issueLine.innerHTML = `第&nbsp;&nbsp;<b>${(data && data.issue) || '******'}</b>&nbsp;&nbsp;期`;
-  head.appendChild(issueLine);
-  root.appendChild(head);
+  /* ---------- 红色页头 ----------
+     热力图那张图自带深红标题条（headless: true），不再套通用页头，
+     否则顶上会出现两条红条。 */
+  if (!img.headless) {
+    const head = el('div', 'r-head');
+    head.appendChild(el('div', 'r-headbrand', tpl.footer.brand));
+    head.appendChild(el('div', 'r-headshop', '— ' + tpl.footer.shop + ' —'));
+    head.appendChild(el('div', 'r-headtitle', img.title));
+    const issueLine = el('div', 'r-headissue');
+    issueLine.innerHTML = `第&nbsp;&nbsp;<b>${(data && data.issue) || '******'}</b>&nbsp;&nbsp;期`;
+    head.appendChild(issueLine);
+    root.appendChild(head);
+  }
 
   /* ---------- 内容区 ---------- */
   const body = el('div', 'r-body');
@@ -388,7 +602,8 @@ function renderTicketImage(gameId, imageKey, data) {
     let rendererName = sec.type;
     if (sec.type === 'positions2') rendererName = 'positions';   // 兼容旧写法
     const fn = SECTION_RENDER[rendererName];
-    if (fn) block.appendChild(fn(sec, vals, build));
+    /* 第 4 个参数传 gameId —— 热力图要按彩种去读全局 HEATMAP_DATA */
+    if (fn) block.appendChild(fn(sec, vals, build, gameId));
 
     parent.appendChild(block);
   };
