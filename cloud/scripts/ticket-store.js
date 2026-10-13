@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    ticket-store.js —— 推荐数据存储 + 录入表单
 
    每天的推荐数据按「彩种 + 日期」存一条：
@@ -15,6 +15,8 @@
    ============================================================ */
 
 const TICKET_KEY = 'cdd.tickets.v1';
+/* 记录 localStorage 里那份号码的写入时间，用来和文件比新 */
+const TICKET_TS_KEY = 'cdd.tickets.ts';
 
 /* ---------------- 文件版数据（tickets.js） ----------------
    由本程序导出、写在磁盘上的数据。
@@ -39,12 +41,28 @@ function fileTicketsTime() {
 
 function loadTickets() {
   let fromLocal = {};
+  let localTime = 0;
   try {
     const raw = localStorage.getItem(TICKET_KEY);
     if (raw) fromLocal = JSON.parse(raw);
+    localTime = Number(localStorage.getItem(TICKET_TS_KEY) || 0) || 0;
   } catch (e) { /* 忽略 */ }
 
   const fromFile = fileTickets();
+
+  /* 【重要】比较文件与本地的时间，新的赢。
+     saved-tickets.js 是 Node 脚本（摇号/云端同步）生成的「权威版本」，
+     如果它比 localStorage 里的新，就必须以文件为准 ——
+     否则浏览器会一直显示旧号码，网页和 App 对不上。 */
+  let fileTime = 0;
+  try {
+    const t = fileTicketsTime();
+    if (t) fileTime = new Date(String(t).replace(' ', 'T')).getTime() || 0;
+  } catch (e) { /* 忽略 */ }
+
+  if (fileTime && fileTime > localTime) {
+    return Object.assign({}, fromFile);
+  }
 
   // 文件里有、本地没有的，用文件的（换电脑/清缓存后能恢复）
   const merged = Object.assign({}, fromFile);
@@ -58,6 +76,7 @@ function loadTickets() {
 function saveTickets(all) {
   try {
     localStorage.setItem(TICKET_KEY, JSON.stringify(all));
+    localStorage.setItem(TICKET_TS_KEY, String(Date.now()));
     return true;
   } catch (e) {
     console.warn('保存推荐数据失败:', e);
