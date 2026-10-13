@@ -882,19 +882,33 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* 推荐图容器
+   【重要】图片必须保持 760px 设计宽度，内部布局一点都不能变，
+   手机上靠 transform: scale() 整体等比缩小，
+   这样看起来和 App 里一模一样，不会「变形」。 */
 .ro-imagewrap {
   margin-bottom: 20px;
   border-radius: 12px;
-  overflow: hidden;
+  /* 兜底：万一 JS 没执行，可以横向滑动看完整图，而不是被裁掉 */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+  position: relative;
 }
 .ro-imagewrap .r-image {
-  max-width: 100% !important;
-  width: 100% !important;
+  width: 760px !important;
+  max-width: 760px !important;
+  min-width: 760px !important;
   margin: 0 !important;
   border-radius: 0 !important;
+  transform-origin: top left;
+  will-change: transform;
 }
-.ro-imagewrap .r-headtitle { font-size: 22px !important; }
+/* 桌面端：不缩放时居中 */
+@media (min-width: 820px) {
+  .ro-imagewrap .r-image { transform: none !important; }
+}
 
 .ro-foot {
   text-align: center;
@@ -904,14 +918,11 @@ body {
   line-height: 2;
 }
 
-/* 手机上收窄 */
+/* 手机上：只收窄页面留白，
+   【绝对不改图片内部布局】—— 图片靠 JS 等比缩放 */
 @media (max-width: 600px) {
-  .ro-wrap { padding: 10px 8px 40px; }
+  .ro-wrap { padding: 8px 4px 40px; }
   .ro-top h1 { font-size: 21px; }
-  .ro-imagewrap .r-headtitle { font-size: 17px !important; }
-  .ro-imagewrap .r-fields { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
-  .ro-imagewrap .r-twocol { flex-direction: column !important; }
-  .ro-imagewrap .r-ranklist { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
@@ -943,6 +954,56 @@ body {
   </div>
 
 </div>
+
+<script>
+/* ============================================================
+   推荐图等比缩放
+   ------------------------------------------------------------
+   图片按 760px 设计宽度渲染，内部布局【完全不改】，
+   手机上用 transform: scale() 整体缩小 ——
+   这样和 App 里看到的一模一样，不会变形。
+   ============================================================ */
+(function () {
+  var BASE = 760;   /* 图片设计宽度，跟 .r-image 的宽度一致 */
+
+  function fit() {
+    var wraps = document.querySelectorAll('.ro-imagewrap');
+    for (var i = 0; i < wraps.length; i++) {
+      var w = wraps[i];
+      var img = w.querySelector('.r-image');
+      if (!img) continue;
+
+      var avail = w.clientWidth;
+      if (!avail) continue;
+
+      var scale = avail / BASE;
+      if (scale >= 1) {
+        /* 屏幕够宽，原样显示 */
+        img.style.transform = 'none';
+        w.style.height = 'auto';
+      } else {
+        /* 等比缩小，内部布局一点不动 */
+        img.style.transformOrigin = 'top left';
+        img.style.transform = 'scale(' + scale + ')';
+        /* 容器高度要跟着缩，否则下面会留一大块空白 */
+        w.style.height = Math.round(img.offsetHeight * scale) + 'px';
+      }
+    }
+  }
+
+  /* 图片里的字体可能异步加载，多算几次更稳 */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fit);
+  } else {
+    fit();
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', function () { setTimeout(fit, 60); });
+  setTimeout(fit, 120);
+  setTimeout(fit, 600);
+  setTimeout(fit, 1500);
+})();
+</script>
 </body>
 </html>`;
 
