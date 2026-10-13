@@ -367,7 +367,7 @@ function main() {
 </style>
 <div class="site-nav">
   <a href="index.html" class="__ACTIVE_INDEX__">彩票推荐</a>
-  <a href="football.html" class="__ACTIVE_FB__">足球竞彩</a>
+  <a href="football.html" class="__ACTIVE_FB__">竞彩场次</a>
 </div>`;
 
   for (const [dst, active] of [['index.html', 'index'], ['football.html', 'fb']]) {
