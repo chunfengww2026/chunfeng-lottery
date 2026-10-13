@@ -2232,7 +2232,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-14 05:12">
+<body data-built="2026-10-14 05:14">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -2241,7 +2241,7 @@ body {
 
   <div class="ro-top">
     <h1>春风十里送大奖 · 推荐图</h1>
-    <div class="sub">生成时间 2026-10-14 05:12 · 共 8 个彩种 / 10 张图</div>
+    <div class="sub">生成时间 2026-10-14 05:14 · 共 8 个彩种 / 10 张图</div>
   </div>
 
   <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div><div class="ro-st-time">更新时间：2026-10-14 05:07</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026118 期</span><span class="ro-st-item"><b>大乐透</b> 第 26117 期</span><span class="ro-st-item"><b>七乐彩</b> 第 2026118 期</span><span class="ro-st-item"><b>快乐8</b> 第 2026273 期</span><span class="ro-st-item"><b>福彩3D</b> 第 2026273 期</span><span class="ro-st-item"><b>排列3</b> 第 26273 期</span><span class="ro-st-item"><b>排列5</b> 第 26273 期</span><span class="ro-st-item"><b>七星彩</b> 第 26118 期</span></div></div>
@@ -41540,11 +41540,12 @@ function renderAlgoTool(container) {
   window.__roLivePromise = firstPull;
 
   /* 补拉：本机刚摇完号时，云端可能还在部署中（约 1 分钟），
-     第一次拉到的还是旧的。隔几秒再补拉几次 ——
-     这样「号码刚摇完就打开网址」的人也不用手动刷新，页面自己会跟上。
-     只要有一次拿到更新的数据就停，最多补拉三次。
+     GitHub Actions 排队时甚至会等几分钟，第一次拉到的还是旧的。
+     隔几秒再补拉几次 —— 这样「号码刚摇完就打开网址」的人也不用
+     手动刷新，页面自己会跟上（最多补拉四次，共约 3.5 分钟）。
+     只要有一次拿到更新的数据就停。
      （间隔放在 window 上，方便自测/排查时改短。） */
-  if (!window.__roLiveRetryDelays) window.__roLiveRetryDelays = [8000, 25000, 60000];
+  if (!window.__roLiveRetryDelays) window.__roLiveRetryDelays = [8000, 25000, 60000, 120000];
 
   firstPull.then(function (applied) {
     if (applied) return;                       /* 已经换成新号码了，不用补拉 */
