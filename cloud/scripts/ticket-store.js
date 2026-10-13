@@ -353,6 +353,11 @@ function rollAllGames(opts) {
 
     /* ---- 生成这一期的号码 ---- */
     tpl.images.forEach((img) => {
+      /* 【实票统计热力图】这张图没有可摇的字段：数据来自
+         heatmap-data.js（一起彩晒票 / 近 30 期开奖频率）。
+         给它摇一套空值只会让「本期还缺号码」的判断永远为真，
+         所以直接跳过，不写进 rec.images。 */
+      if (img.key === 'heatmap') return;
       stat.images++;
       const spec = [];
       const collect = (sec, areaKeyHint) => {
