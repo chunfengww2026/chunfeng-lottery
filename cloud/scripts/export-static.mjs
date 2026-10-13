@@ -910,6 +910,25 @@ body {
   .ro-imagewrap .r-image { transform: none !important; }
 }
 
+/* ============================================================
+   【关键】锁死推荐图的内部布局
+   ------------------------------------------------------------
+   媒体查询是按「屏幕宽度」判断的。手机上 (<=700px) styles.css 里
+   这些规则会被激活，把图片内部重新排版：
+       .r-twocol   { flex-direction: column }        左右并排 → 上下堆叠
+       .r-ranklist { grid-template-columns: 1fr }    热号排行 → 竖列
+   结果就是网页和 App 长得不一样（用户说的「变形」）。
+
+   这里用更高优先级 + !important 锁死，让图片永远保持设计布局，
+   手机上靠整体等比缩放来适配。
+   ============================================================ */
+.ro-imagewrap .r-twocol    { flex-direction: row !important; }
+.ro-imagewrap .r-ranklist  { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+.ro-imagewrap .r-headtitle { font-size: 22px !important; }
+.ro-imagewrap .r-inlinefoot { flex-wrap: wrap !important; }
+.ro-imagewrap .r-calrow    { flex-wrap: wrap !important; }
+.ro-imagewrap .r-calbadges { flex-wrap: wrap !important; }
+
 .ro-foot {
   text-align: center;
   padding: 30px 16px 50px;
