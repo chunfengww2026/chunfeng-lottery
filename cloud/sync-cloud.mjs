@@ -323,13 +323,13 @@ if (LIST_ONLY) {
 }
 
 log('');
-log(`  开始上传（6 个并发）...`);
+log(`  开始上传（8 个并发）...`);
 
 const uploadStart = Date.now();
 let okCount = 0;
 const failed = [];
 
-/* 第 1 轮：并发 5 */
+/* 一轮并发上传（失败的单文件原地再试一次） */
 async function uploadPass(list, concurrency, quiet) {
   await runPool(list, concurrency, async (f) => {
     let r = await putFile(f, '同步 ' + path.basename(f.repo));
@@ -347,7 +347,7 @@ async function uploadPass(list, concurrency, quiet) {
   });
 }
 
-await uploadPass(changedFiles, 6, false);
+await uploadPass(changedFiles, 8, false);
 
 log('');
 log(`  ✅ 上传成功 ${okCount} 个 / 需要上传 ${changedFiles.length} 个，用时 ${((Date.now() - uploadStart) / 1000).toFixed(1)} 秒`);
