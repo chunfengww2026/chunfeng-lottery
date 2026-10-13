@@ -16,6 +16,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { writeCloudTickets } from '../export-cloud-tickets.mjs';
 
@@ -41,14 +42,17 @@ function getToken() {
 }
 
 /* --list：本地准备工作照做（刷新 cloud/scripts、写同步标记、刷新 tickets.json），
-   但【不上传、不触发构建】，只把要上传的文件清单打印出来（排查用） */
+   还会真的去比对云端指纹（只读），但【不上传、不触发构建】 */
 const LIST_ONLY = process.argv.includes('--list');
 
-const TOKEN = LIST_ONLY ? '(list-only)' : getToken();
-if (!TOKEN) {
+const TOKEN = getToken();
+if (!TOKEN && !LIST_ONLY) {
   log('❌ 找不到 GitHub Token');
   log('请把 Token 保存到：' + path.join(ROOT, 'cloud-token.txt'));
   process.exit(1);
+}
+if (!TOKEN && LIST_ONLY) {
+  log('（--list 模式：没有 Token，比对不了云端指纹，只能列出本地清单）');
 }
 
 async function gh(method, endpoint, body, tries = 3) {
@@ -78,21 +82,79 @@ async function gh(method, endpoint, body, tries = 3) {
   }
 }
 
-async function putFile(localPath, repoPath, message) {
-  if (!fs.existsSync(localPath)) return { ok: false, reason: '本地文件不存在' };
-  const content = fs.readFileSync(localPath);
-  const b64 = content.toString('base64');
-  const url = `/repos/${OWNER}/${REPO}/contents/${repoPath}`;
+/* ---------- 「只传变化的文件」用的工具 ----------
+   Git 的 blob 指纹 = sha1('blob ' + 字节数 + '\0' + 内容)，
+   和 GitHub 上文件列表返回的 sha 是同一个东西。
+   先拿一次云端整棵文件树的指纹表，本地逐个算一遍：
+   指纹一样 = 内容没变 = 不用上传。日常同步里
+   history.js / football.js / experts-data.js 这些大文件经常没变，
+   跳过它们能把 45 次上传压到几次。 */
+function gitBlobSha(buf) {
+  const h = crypto.createHash('sha1');
+  h.update('blob ' + buf.length + '\0');
+  h.update(buf);
+  return h.digest('hex');
+}
 
-  const exist = await gh('GET', url);
-  const sha = (exist.ok && exist.json && exist.json.sha) ? exist.json.sha : undefined;
+/** 一次请求取回云端所有文件的 blob 指纹 */
+async function fetchRemoteShas() {
+  const r = await gh('GET', `/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`);
+  const map = new Map();
+  if (r.ok && r.json && Array.isArray(r.json.tree)) {
+    for (const t of r.json.tree) if (t.type === 'blob') map.set(t.path, t.sha);
+    return { ok: true, map, truncated: !!r.json.truncated };
+  }
+  return { ok: false, map, status: r.status };
+}
+
+/** 上传一个文件（已知远端 sha 就直接用；没有就现查一次） */
+async function putFile(item, message) {
+  if (!fs.existsSync(item.local)) return { ok: false, reason: '本地文件不存在' };
+
+  let content;
+  try { content = fs.readFileSync(item.local); }
+  catch (e) { return { ok: false, reason: '读取失败 ' + String(e.message).slice(0, 60) }; }
+
+  const url = `/repos/${OWNER}/${REPO}/contents/${item.repo}`;
+  let sha = item.remoteSha || undefined;
+  if (!sha && !item.isNew) {
+    const exist = await gh('GET', url);
+    sha = (exist.ok && exist.json && exist.json.sha) ? exist.json.sha : undefined;
+  }
 
   const r = await gh('PUT', url, {
-    message, content: b64, branch: BRANCH, ...(sha ? { sha } : {})
+    message, content: content.toString('base64'), branch: BRANCH, ...(sha ? { sha } : {})
   });
 
-  if (!r.ok) return { ok: false, reason: `${r.status} ${r.json ? r.json.message : String(r.text).slice(0, 90)}` };
+  if (!r.ok) {
+    /* 409/422 多半是 sha 过期（云端这个文件刚被别的东西改过）→ 重新取 sha 再传一次 */
+    if (r.status === 409 || r.status === 422) {
+      const again = await gh('GET', url);
+      const sha2 = (again.ok && again.json && again.json.sha) ? again.json.sha : undefined;
+      const r2 = await gh('PUT', url, {
+        message, content: content.toString('base64'), branch: BRANCH, ...(sha2 ? { sha: sha2 } : {})
+      });
+      if (r2.ok) return { ok: true, size: content.length };
+      return { ok: false, reason: `${r2.status} ${r2.json ? r2.json.message : String(r2.text).slice(0, 90)}` };
+    }
+    return { ok: false, reason: `${r.status} ${r.json ? r.json.message : String(r.text).slice(0, 90)}` };
+  }
   return { ok: true, size: content.length };
+}
+
+/** 并发跑任务（默认 5 个一起传，比一个个串行快得多） */
+async function runPool(items, limit, fn) {
+  const queue = items.slice();
+  const workers = [];
+  for (let i = 0; i < Math.min(limit, queue.length); i++) {
+    workers.push((async () => {
+      while (queue.length) {
+        const it = queue.shift();
+        await fn(it);
+      }
+    })());
+  }
+  await Promise.all(workers);
 }
 
 log('════════════════════════════════════════════');
@@ -210,11 +272,35 @@ if (fs.existsSync(wf)) files.push({ local: wf, repo: '.github/workflows/daily-up
 
 log(`  共 ${files.length} 个文件`);
 
+/* ---------- 比指纹，挑出真正变了的文件 ---------- */
+log('');
+log('  比对云端文件指纹，只传变了的文件 ...');
+const t0 = Date.now();
+const remote = await fetchRemoteShas();
+if (remote.ok) {
+  log(`  ✅ 一次请求取回云端 ${remote.map.size} 个文件的指纹${remote.truncated ? '（列表被截断，会多传几个）' : ''}`);
+} else {
+  log(`  ⚠️ 取不到云端指纹（HTTP ${remote.status}），退回「逐个查询 + 全部上传」的老办法`);
+}
+if (remote.truncated) remote.map.clear();   /* 截断了就不敢跳过任何文件 */
+
+let skippedCount = 0;
+for (const f of files) {
+  let localSha = null;
+  try { localSha = gitBlobSha(fs.readFileSync(f.local)); } catch (e) { /* 读不了就当变了 */ }
+  f.remoteSha = remote.map.get(f.repo) || null;
+  f.isNew = !f.remoteSha;
+  f.changed = !localSha || !f.remoteSha || localSha !== f.remoteSha;
+  if (!f.changed) skippedCount++;
+}
+const changedFiles = files.filter((f) => f.changed);
+log(`  ${files.length} 个里需要上传 ${changedFiles.length} 个，内容没变的 ${skippedCount} 个直接跳过`);
+
 /* --list：只打印清单，不上传 */
 if (LIST_ONLY) {
   log('');
   log('  ── 上传清单（--list 模式：不上传、不触发构建）──');
-  files.forEach((f, i) => log(`    ${String(i + 1).padStart(3, ' ')}. ${f.repo}`));
+  files.forEach((f, i) => log(`    ${String(i + 1).padStart(3, ' ')}. ${f.changed ? '📤 会上传' : '⏭  没变跳过'}  ${f.repo}`));
   log('');
   log('  ✅ 清单中包含 cloud/out/tickets.json：' +
     (files.some((f) => f.repo === 'cloud/out/tickets.json') ? '是' : '否 ❌'));
@@ -224,40 +310,52 @@ if (LIST_ONLY) {
     (files.some((f) => f.repo === 'cloud/scripts/saved-tickets.js') ? '是' : '否'));
   log('  ✅ 清单中包含 cloud/scripts/sync-stamp.json：' +
     (files.some((f) => f.repo === 'cloud/scripts/sync-stamp.json') ? '是' : '否'));
+  log(`  ✅ 本次实际需要上传 ${changedFiles.length} 个文件（指纹比对耗时 ${Date.now() - t0} ms）`);
   process.exit(0);
 }
 
+log('');
+log(`  开始上传（5 个并发）...`);
+
+const uploadStart = Date.now();
 let okCount = 0;
 const failed = [];
 
-async function uploadAll(list, quiet) {
-  for (const f of list) {
-    const r = await putFile(f.local, f.repo, '同步 ' + path.basename(f.repo));
-    if (r.ok) { okCount++; if (!quiet) process.stdout.write('.'); }
-    else { failed.push({ repo: f.repo, reason: r.reason }); process.stdout.write('x'); }
-    await new Promise((res) => setTimeout(res, 180));
-  }
+/* 第 1 轮：并发 5 */
+async function uploadPass(list, concurrency, quiet) {
+  await runPool(list, concurrency, async (f) => {
+    let r = await putFile(f, '同步 ' + path.basename(f.repo));
+    if (!r.ok) {                    /* 单文件失败立刻原地再试一次 */
+      await new Promise((s) => setTimeout(s, 1200));
+      r = await putFile(f, '同步 ' + path.basename(f.repo));
+    }
+    if (r.ok) {
+      okCount++;
+      if (!quiet) process.stdout.write('.');
+    } else {
+      failed.push({ repo: f.repo, reason: r.reason });
+      process.stdout.write('x');
+    }
+  });
 }
 
-await uploadAll(files, false);
+await uploadPass(changedFiles, 5, false);
 
 log('');
-log(`  ✅ 成功 ${okCount} 个${failed.length ? `，失败 ${failed.length} 个` : ''}`);
+log(`  ✅ 上传成功 ${okCount} 个 / 需要上传 ${changedFiles.length} 个，用时 ${((Date.now() - uploadStart) / 1000).toFixed(1)} 秒`);
 
-/* 失败的重试一遍（常见原因：网络抖动、GitHub 一时 409/502、
-   或者本机刚好在改这个文件）。失败原因也打出来，方便排查。 */
+/* 还有失败的再来一轮（串行，慢但稳） */
 if (failed.length) {
-  const retryFiles = files.filter((f) => failed.some((x) => x.repo === f.repo));
+  const retryFiles = changedFiles.filter((f) => failed.some((x) => x.repo === f.repo));
   log('');
-  log(`  ⚠️ 以下文件第 1 次没传上去，正在重试一遍：`);
+  log(`  ⚠️ 以下文件没传上去，再重试一轮：`);
   failed.forEach((x) => log(`      ${x.repo}  ← ${x.reason}`));
   failed.length = 0;
-  log('  重试中 ...');
-  await uploadAll(retryFiles, true);
-  log('');
-  log(`  重试结果：成功 ${retryFiles.length - failed.length} 个` +
-    (failed.length ? `，还是失败 ${failed.length} 个：${failed.map((x) => x.repo).join(', ')}` : ''));
-  if (failed.length) {
+  okCount = 0;
+  await uploadPass(retryFiles, 2, true);
+  const stillFailed = failed.length;
+  log(`  重试结果：又成功 ${okCount} 个${stillFailed ? `，还是失败 ${stillFailed} 个：${failed.map((x) => x.repo).join(', ')}` : ''}`);
+  if (stillFailed) {
     log('  ⚠️ 这些文件没传成功，云端会用仓库里的旧版本（号码可能不更新）');
     log('     办法：等 1 分钟再跑一次同步（cloud\\sync-cloud.cmd）');
   }
