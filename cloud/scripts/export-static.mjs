@@ -807,15 +807,26 @@ function readForInline(file) {
 }
 
 const inlineSizes = [];
+const inlineMissing = [];
 let inlineScriptsHtml = '';
 for (const f of INLINE_JS) {
   const code = readForInline(f);
-  if (!code) {
-    console.log(`  ⚠️ 内联脚本缺失：${f}`);
-    continue;
-  }
+  if (!code) { inlineMissing.push(f); continue; }
   inlineSizes.push([f, Buffer.byteLength(code, 'utf8')]);
   inlineScriptsHtml += `\n<script data-src="${f}">\n${code}\n</script>\n`;
+}
+
+/* 【必须硬失败】少一个脚本，页面就渲染不出和 App 一样的结果
+   （实测：少了 experts-data.js / expert-pool.js，10 张图里有 3 张
+     的奇偶、大小、012路 字段会不一样）。
+   宁可这里报错、不覆盖上一版好页面，也不能悄悄发一个「和 App 不一样」的网页。 */
+if (inlineMissing.length) {
+  console.log('');
+  console.log('  ❌ 以下脚本缺失，无法保证分享页和本地 App 渲染一致：');
+  inlineMissing.forEach((f) => console.log('      ' + f));
+  console.log('     请先在项目根目录补齐这些文件（云端则是先跑 cloud/sync-cloud.mjs 同步）再重试。');
+  console.log('     已中止，不会覆盖现有的「只读分享版.html」。');
+  process.exit(1);
 }
 
 console.log('\n  · 内联脚本：');
@@ -938,6 +949,112 @@ const RO_RENDER_SCRIPT = `
       console.warn('[分享页] 实时渲染整体失败，保留预渲染兜底', e);
     }
   }
+
+  /* ============================================================
+     【准实时同步】直接拉服务器上的最新号码，拿到就地重渲染
+     ------------------------------------------------------------
+     为什么需要这一段：
+       页面里的号码是「生成那一刻」的快照（内联的 saved-tickets.js）。
+       本机摇号后，必须等云端重新构建 + 部署，页面上的号码才会变，
+       链路一长就是几十分钟 —— 这就是「摇完号要等两小时」的原因。
+
+     现在的顺序：
+       1) 先用内联快照渲染  → 立刻有内容，离线也能看
+       2) 再异步拉 tickets.json（服务器上的最新号码）
+          · 比页面里的新 → 覆盖内存里的 SAVED_TICKETS 并就地重渲染
+          · 不新 / 打不开   → 什么都不做，页面照旧（离线可用）
+
+     注意：SAVED_TICKETS 是 saved-tickets.js 里的 const，
+           不能重新赋值整个变量，只能改它的属性。
+     ============================================================ */
+
+  /* 把 "2026-10-14T05:00:00.000Z"（ISO，UTC）和 "2026-10-14 05:00"
+     （本机/云端生成，北京时间）统一成 'YYYY-MM-DD HH:MM:SS' 北京时间。
+     两种格式直接比字符串一定出错（'T' 的编码比空格大），所以先归一化。 */
+  function normTime(v) {
+    var s = String(v == null ? '' : v).trim();
+    if (!s) return '';
+    var iso = s.replace(' ', 'T');
+    if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/.test(iso)) iso += ':00';
+    /* 不带时区的当成北京时间（saved-tickets.js 里的 updated 就是这种） */
+    if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?$/.test(iso)) iso += '+08:00';
+    var t = Date.parse(iso);
+    if (isNaN(t)) return s.slice(0, 19).replace('T', ' ');
+    /* 统一按北京时间输出，格式一样才能直接比大小 */
+    var d = new Date(t + 8 * 3600 * 1000);
+    var p2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getUTCFullYear() + '-' + p2(d.getUTCMonth() + 1) + '-' + p2(d.getUTCDate()) + ' ' +
+           p2(d.getUTCHours()) + ':' + p2(d.getUTCMinutes()) + ':' + p2(d.getUTCSeconds());
+  }
+
+  function inlineTicketTime() {
+    try {
+      return (typeof SAVED_TICKETS !== 'undefined' && SAVED_TICKETS && SAVED_TICKETS.updated) || '';
+    } catch (e) { return ''; }
+  }
+
+  /* 页面上当前这份号码的时间（用来判断服务器那份是不是更新） */
+  var appliedTime = normTime(inlineTicketTime());
+  window.__roLiveApplied = false;
+  window.__roLiveRemoteTime = '';
+
+  /**
+   * 用服务器数据覆盖页面上的号码并重渲染
+   * @returns {boolean} 是否真的用新号码重渲染了
+   */
+  function applyRemoteTickets(j) {
+    if (!j || !j.tickets || !Object.keys(j.tickets).length) return false;
+    if (typeof SAVED_TICKETS === 'undefined' || !SAVED_TICKETS) return false;
+
+    var remoteTime = normTime(j.publishedAt || j.updated);
+    if (!remoteTime) return false;
+    if (remoteTime <= appliedTime) return false;        /* 服务器的不新，不动 */
+
+    /* 内容一模一样（只是重新构建了一遍）就不必重渲染，省一次 10 张图 */
+    var same = false;
+    try { same = JSON.stringify(SAVED_TICKETS.tickets || {}) === JSON.stringify(j.tickets); } catch (e) { same = false; }
+
+    /* 用服务器数据覆盖内存里的 SAVED_TICKETS（只改属性） */
+    SAVED_TICKETS.updated = j.updated || SAVED_TICKETS.updated;
+    SAVED_TICKETS.tickets = j.tickets;
+
+    /* 同时清掉 localStorage 里的旧号码：
+       loadTickets() 的规则是「本地存储比文件新就用本地存储」，
+       不清掉的话会被旧号码盖回去，等于白拉一次 */
+    try {
+      localStorage.removeItem('cdd.tickets.v1');
+      localStorage.removeItem('cdd.tickets.ts');
+    } catch (e) { /* 忽略 */ }
+
+    appliedTime = remoteTime;
+    window.__roLiveRemoteTime = remoteTime;
+    if (same) return false;                             /* 号码没变，不用重画 */
+
+    window.__roLiveApplied = true;
+    renderAll();                                        /* 用最新号码重渲染 */
+
+    /* 重渲染后图片尺寸变了，重新做等比缩放 */
+    try {
+      if (typeof window.__roFit === 'function') window.__roFit();
+    } catch (e) { /* 忽略 */ }
+
+    try {
+      if (document.body && document.body.setAttribute) {
+        document.body.setAttribute('data-tickets-from', 'server');
+        document.body.setAttribute('data-tickets-time', remoteTime);
+      }
+    } catch (e) { /* 忽略 */ }
+
+    return true;
+  }
+
+  /* 方便自测 / 排查：页面上可以在控制台手动调 __roLiveApply(数据) */
+  window.__roLiveApply = applyRemoteTickets;
+
+  window.__roLivePromise = fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) { applyRemoteTickets(j); })
+    .catch(function () { /* 打不开服务器（离线/被墙）就继续用内联快照 */ });
 })();
 `;
 
