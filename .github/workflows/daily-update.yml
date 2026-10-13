@@ -14,14 +14,22 @@ name: 每日自动更新
 
 on:
   schedule:
-    # 每天 18:00 UTC = 北京 02:00
+    # 每天 18:00 UTC = 北京时间 02:00（常规数据更新）
     - cron: '0 18 * * *'
+    # 【热力图】UTC 10:00 = 北京时间 18:00
+    #   开奖日当天 18:00 抓当日晒票 → 出实票统计热力图 → 部署到网页。
+    #   GitHub 的 cron 只认 UTC，所以这里必须写 10:00。
+    - cron: '0 10 * * *'
   workflow_dispatch:        # 允许手动触发（本机 sync-cloud.mjs 就是这么触发的）
     inputs:
       quick:
         description: '快速模式：刚同步过数据，跳过抓取，只用同步过来的数据重新渲染 + 部署'
         required: false
         default: '1'
+      heatmap:
+        description: '热力图：1=抓当日晒票；0=不抓；留空=按事件自动判断'
+        required: false
+        default: ''
 
 # 【说明】这里故意【不加】on: push 触发。
 # 构建结束后会把 cloud/ 下的产物提交回仓库（见下面的提交步骤），
@@ -64,21 +72,46 @@ jobs:
       # 快速模式：本机刚刚同步过完整数据（cloud/scripts/sync-stamp.json 很新），
       # 云端直接拿来用，跳过抓开奖/抓几百场赔率那些慢步骤，
       # 只做「用同步过来的数据重新渲染 + 部署」，把生效时间压到 1 分钟左右。
-      - name: 判断是否快速模式
+      #
+      # 【热力图】单独一个开关，不受 quick 影响：
+      #   · 只有「开奖日 18:00」那个 cron（UTC 10:00）才自动抓当日晒票
+      #   · quick 是 1（同步后的闪电重建）时，热力图照样按这个开关决定
+      #   · 手动触发时可以在界面上把 heatmap 填 1 强制抓
+      - name: 判断是否快速模式 / 是否抓热力图
         id: mode
         run: |
           QUICK="${{ github.event.inputs.quick }}"
           # 定时任务（schedule）没有输入 → 0，交给 cloud-build.mjs 按
           # sync-stamp.json 自己判断要不要抓数据（距上次同步 <12 小时就不抓）。
-          # 手动/本机同步触发 → 用输入里的值，默认 1（闪电重建）。
+          # 手动触发 → 用输入里的值，默认 1（闪电重建）。
           if [ -z "$QUICK" ]; then QUICK=0; fi
-          echo "quick=$QUICK" >> "$GITHUB_OUTPUT"
-          echo "事件=${{ github.event_name }} 快速模式 quick=$QUICK"
+
+          HEATMAP="${{ github.event.inputs.heatmap }}"
+          if [ -z "$HEATMAP" ]; then
+            # 1) 18:00（北京）那个 cron → 抓
+            # 2) 其它触发（含本机同步触发）：只要正好在 17:00-19:59（北京）
+            #    这个窗口里也抓一次，保证「开奖日 18:00 的热力图」不会漏
+            # 3) 其余时间不抓（省时间，闪电重建要快）
+            if [ "${{ github.event.schedule }}" = "0 10 * * *" ]; then
+              HEATMAP=1
+            else
+              H=$(TZ=Asia/Shanghai date +%H)
+              if [ "$H" -ge 17 ] && [ "$H" -le 19 ]; then HEATMAP=1; else HEATMAP=0; fi
+            fi
+          fi
+
+          echo "quick=$QUICK"   >> "$GITHUB_OUTPUT"
+          echo "heatmap=$HEATMAP" >> "$GITHUB_OUTPUT"
+          echo "事件=${{ github.event_name }} 快速模式=$QUICK 热力图=$HEATMAP"
 
       - name: 执行云端构建
         working-directory: cloud
         env:
           CLOUD_QUICK: ${{ steps.mode.outputs.quick }}
+          CLOUD_HEATMAP: ${{ steps.mode.outputs.heatmap }}
+          # 【关键】把是哪一个 cron 触发的传给 cloud-build.mjs ——
+          # 它靠这个区分「18:00 那一班」（必须出热力图）和其余班次。
+          HEATMAP_SLOT: ${{ github.event.schedule }}
         # 【容错】抓取/渲染万一失败，也不要整个流程挂掉：
         # 后面照样会部署「上一次成功的网页 + 本次的 tickets.json」，
         # 分享页拉到新 tickets.json 就能把号码换新（页面自带重渲染逻辑）。
