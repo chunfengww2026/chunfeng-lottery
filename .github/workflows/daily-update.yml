@@ -16,7 +16,18 @@ on:
   schedule:
     # 每天 18:00 UTC = 北京 02:00
     - cron: '0 18 * * *'
-  workflow_dispatch:        # 允许手动触发
+  workflow_dispatch:        # 允许手动触发（本机 sync-cloud.mjs 就是这么触发的）
+    inputs:
+      quick:
+        description: '快速模式：刚同步过数据，跳过抓取，只用同步过来的数据重新渲染 + 部署'
+        required: false
+        default: '1'
+
+# 【说明】这里故意【不加】on: push 触发。
+# 构建结束后会把 cloud/ 下的产物提交回仓库（见下面的提交步骤），
+# 如果加了 push 触发，那次提交又会触发一次构建 → 无限循环。
+# 本机同步（cloud/sync-cloud.mjs）上传完文件会用 workflow_dispatch 触发，
+# 效果一样，而且不会循环。
 
 # 允许把生成的网页提交回仓库
 permissions:
@@ -50,8 +61,28 @@ jobs:
         with:
           node-version: '20'
 
+      # 快速模式：本机刚刚同步过完整数据（cloud/scripts/sync-stamp.json 很新），
+      # 云端直接拿来用，跳过抓开奖/抓几百场赔率那些慢步骤，
+      # 只做「用同步过来的数据重新渲染 + 部署」，把生效时间压到 1 分钟左右。
+      - name: 判断是否快速模式
+        id: mode
+        run: |
+          QUICK="${{ github.event.inputs.quick }}"
+          # 定时任务（schedule）没有输入 → 0，交给 cloud-build.mjs 按
+          # sync-stamp.json 自己判断要不要抓数据（距上次同步 <12 小时就不抓）。
+          # 手动/本机同步触发 → 用输入里的值，默认 1（闪电重建）。
+          if [ -z "$QUICK" ]; then QUICK=0; fi
+          echo "quick=$QUICK" >> "$GITHUB_OUTPUT"
+          echo "事件=${{ github.event_name }} 快速模式 quick=$QUICK"
+
       - name: 执行云端构建
         working-directory: cloud
+        env:
+          CLOUD_QUICK: ${{ steps.mode.outputs.quick }}
+        # 【容错】抓取/渲染万一失败，也不要整个流程挂掉：
+        # 后面照样会部署「上一次成功的网页 + 本次的 tickets.json」，
+        # 分享页拉到新 tickets.json 就能把号码换新（页面自带重渲染逻辑）。
+        continue-on-error: true
         run: node cloud-build.mjs
 
       - name: 把生成的网页放到站点目录
@@ -59,10 +90,14 @@ jobs:
           mkdir -p site
           cp -f cloud/out/index.html    site/index.html    || true
           cp -f cloud/out/football.html site/football.html || true
+          # 【准实时数据源】分享页会去拉这个文件；
+          # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
           touch site/.nojekyll
           echo "--- site 目录内容 ---"
           ls -lh site/
+          echo "--- tickets.json 里的时间 ---"
+          node -e "const j=require('./site/tickets.json');console.log('updated='+j.updated,'publishedAt='+j.publishedAt,'source='+j.source)" || true
 
       - name: 提交更新后的数据（保留号码与历史）
         run: |
