@@ -14,6 +14,11 @@
 //  用法：node cloud-build.mjs
 // ============================================================
 
+/* 【关键】强制用北京时间。GitHub 服务器是 UTC，不设这个的话，
+   北京凌晨 2 点跑出来会算成前一天，日期类字段（公历/农历/干支/
+   开奖日）全都差一天，网页和 App 就对不上了。 */
+process.env.TZ = 'Asia/Shanghai';
+
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
