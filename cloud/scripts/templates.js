@@ -171,6 +171,20 @@ const TEMPLATES = {
             }
           }
         ]
+      },
+
+      /* ---------- 图三：实票统计热力图 ----------
+         【按天出】只在开奖日 18:00 之后、且数据就是当天的才渲染；
+         数据在 heatmap-data.js 里（build-heatmap.mjs 生成），
+         判断函数是 shouldShowHeatmap(gameId)，两边同一个口径。
+         headless: true —— 用图里自己的深红标题条，不再套通用的红色页头。 */
+      {
+        key: 'heatmap',
+        title: '双色球 · 实票统计',
+        headless: true,
+        sections: [
+          { type: 'heatmap', frontKey: 'front', backKey: 'back' }
+        ]
       }
     ]
   },
@@ -323,6 +337,16 @@ const TEMPLATES = {
               ]
             }
           }
+        ]
+      },
+
+      /* ---------- 图三：实票统计热力图（同上，按天出） ---------- */
+      {
+        key: 'heatmap',
+        title: '大乐透 · 实票统计',
+        headless: true,
+        sections: [
+          { type: 'heatmap', frontKey: 'front', backKey: 'back' }
         ]
       }
     ]
