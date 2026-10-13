@@ -950,7 +950,7 @@ body {
 }
 </style>
 </head>
-<body>
+<body data-built="${nowStamp}">
 <div class="ro-wrap">
 
   <div class="ro-top">
@@ -980,6 +980,42 @@ body {
 </div>
 
 <script>
+/* ============================================================
+   【自愈】发现自己是缓存旧版就自动强制刷新
+   ------------------------------------------------------------
+   手机浏览器（尤其微信内置）会把页面缓存很久，
+   导致「电脑上更新了、手机上还是旧的」。
+   这段代码拿云端的号码文件时间戳和页面上显示的时间戳对比，
+   不一样就带一个【每次都不相同】的尾巴重新加载 ——
+   这样就一定能拿到最新版，用户什么都不用做。
+   ============================================================ */
+(function () {
+  try {
+    var shown = document.body.getAttribute('data-built') || '';
+    if (!shown) return;
+
+    /* 防止无限刷新：同一分钟内只自愈一次 */
+    var last = Number(sessionStorage.getItem('cdd.selfheal') || 0);
+    if (last && Date.now() - last < 60000) return;
+
+    fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j) return;
+        var remote = String(j.publishedAt || j.updated || '').replace('T', ' ').slice(0, 16);
+        var mine = shown.slice(0, 16);
+        if (!remote || !mine) return;
+        /* 云端发布时间比页面生成时间晚 → 我是旧的 */
+        if (remote > mine) {
+          sessionStorage.setItem('cdd.selfheal', String(Date.now()));
+          var u = location.pathname + '?t=' + Date.now();
+          location.replace(u);
+        }
+      })
+      .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
+  } catch (e) { /* 忽略 */ }
+})();
+
 /* ============================================================
    推荐图等比缩放
    ------------------------------------------------------------
