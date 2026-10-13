@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>春风十里送大奖 · 推荐图</title>
+<style>
+﻿/* ============================================================
+   styles.css —— 彩虹多多 全局样式
+   ============================================================ */
+
+:root {
+  --bg:        #0f1115;
+  --bg-soft:   #161a21;
+  --card:      #1a1f28;
+  --card-hover:#212734;
+  --line:      #262d3a;
+  --text:      #e8eaed;
+  --muted:     #8b93a1;
+  --dim:       #5a6272;
+  --red:       #e5484d;
+  --red-2:     #c93236;
+  --blue:      #2f6feb;
+  --blue-2:    #2158c4;
+  --green:     #7ee787;
+  --gold:      #f0b429;
+  --radius:    12px;
+  /* 全局字号缩放：整个界面统一调小 */
+  --fs:        0.92;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  /* 应用化：禁止选中文字（输入框单独放开） */
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  /* 左导航 + 右内容 并排；窄屏时由媒体查询改成纵向 */
+  display: flex;
+  align-items: stretch;
+  /* 整体字号基准，调小界面文字（不用 zoom，避免干扰网格计算） */
+  font-size: 13.5px;
+}
+body.ready { opacity: 1; }
+
+input, textarea { user-select: text; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2d3546; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4459; }
+
+/* ==================== 整体布局：左导航 + 右内容 ==================== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  align-items: stretch;
+}
+
+/* ==================== 左侧固定导航栏 ==================== */
+.sidebar {
+  width: 216px;
+  flex-shrink: 0;
+  background: #0b0d11;
+  border-right: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 侧边栏顶部的品牌区 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 20px 18px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand .logo {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background:
+    radial-gradient(circle at 35% 32%, #fff 0%, #fff 22%, transparent 23%),
+    conic-gradient(from 200deg, #e5484d, #f0b429, #47e0a0, #4facfe, #a78bfa, #e5484d);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+}
+
+.brand .name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #47e0a0, #4facfe, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 菜单 */
+.nav { padding: 12px 10px 20px; }
+
+.nav-group {
+  font-size: 11px;
+  color: var(--dim);
+  padding: 12px 10px 7px;
+  letter-spacing: 1px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  margin-bottom: 2px;
+  border-radius: 9px;
+  font-size: 14px;
+  color: #9aa3b2;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+  position: relative;
+}
+.nav-item:hover {
+  background: #171c25;
+  color: var(--text);
+}
+.nav-item.on {
+  background: linear-gradient(90deg, rgba(74,130,245,0.22), rgba(74,130,245,0.06));
+  color: #fff;
+  font-weight: 600;
+}
+.nav-item.on::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 17px;
+  border-radius: 0 3px 3px 0;
+  background: var(--blue);
+}
+.nav-item .ico {
+  width: 18px;
+  text-align: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ==================== 右侧内容区 ==================== */
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 28px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(22, 26, 33, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.topbar h1 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.topbar .spacer { flex: 1; }
+
+/* 返回按钮 */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.back-btn:hover { background: var(--card-hover); border-color: #38425a; }
+
+/* ==================== 首页 ==================== */
+/* 注意：这里不能用 margin: 0 auto。
+   在 flex 容器里 auto 外边距会让元素收缩到内容宽度，导致卡片排不成多列。 */
+.page {
+  padding: 24px 26px 50px;
+  width: 100%;
+  max-width: 1180px;
+}
+
+.hero {
+  text-align: center;
+  padding: 26px 0 34px;
+}
+.hero .big {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #47e0a0, #4facfe, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .sub { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 30px 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.group-title::before {
+  content: '';
+  width: 4px; height: 17px;
+  border-radius: 2px;
+  background: var(--red);
+}
+.group-title.blue::before { background: var(--blue); }
+.group-title.gold::before { background: var(--gold); }
+.group-title .count { font-size: 12px; color: var(--dim); font-weight: 400; }
+
+.cards {
+  display: grid;
+  /* 固定两列，形成田字形排列 */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 15px 16px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  background: var(--card-hover);
+  border-color: #3a4560;
+  transform: translateY(-2px);
+}
+.card:active { transform: translateY(0); }
+
+.card .name {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.card .desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.card .meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--dim);
+}
+.card .meta b { color: var(--muted); font-weight: 500; }
+
+/* 卡片上的球示例 */
+.card .balls { display: flex; gap: 5px; margin-bottom: 14px; flex-wrap: wrap; }
+
+/* ==================== 卡片：开奖号码区（上半，平铺） ==================== */
+.card-draw { min-height: 50px; }
+
+/* 第一行：彩种名 + 期号 */
+.draw-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-size: 12px;
+  color: #5a6272;
+  margin-bottom: 10px;
+}
+.draw-head b { color: #e8eaed; font-weight: 600; }
+.draw-head.empty { color: #4a5261; }
+.draw-head .draw-date { color: #4a5261; margin-left: 2px; }
+
+/* 开奖号码：横向平铺，自动换行 */
+.draw-balls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.draw-src {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #454d5c;
+}
+
+.draw-none {
+  font-size: 13px;
+  color: #5a6272;
+  line-height: 1.7;
+}
+
+/* ==================== 卡片：信息区（下半） ==================== */
+.card-body { position: relative; }
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 7px;
+}
+.card-title-row .name {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 录入开奖号码按钮（铅笔图标，浮在右上角） */
+.edit-btn {
+  margin-left: auto;
+  padding: 3px 9px;
+  font-size: 13px;
+  line-height: 1.3;
+  font-family: inherit;
+  color: #6b7488;
+  background: transparent;
+  border: 1px solid #2d3546;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.13s;
+  white-space: nowrap;
+}
+.edit-btn:hover {
+  color: #fff;
+  background: #2f6feb;
+  border-color: #2f6feb;
+}
+
+/* ==================== 彩票球 ==================== */
+.ball {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.ball.red  { background: linear-gradient(180deg, #f0575c, #cc2f34); }
+.ball.blue { background: linear-gradient(180deg, #4a83f5, #2158c4); }
+.ball.gold { background: linear-gradient(180deg, #f5c451, #d99a12); color: #4a3300; }
+.ball.gray { background: linear-gradient(180deg, #6b7688, #4a5364); }
+
+/* 尺寸 */
+.ball.s-sm { width: 26px; height: 26px; font-size: 12px; }
+.ball.s-md { width: 38px; height: 38px; font-size: 16px; }
+.ball.s-lg { width: 46px; height: 46px; font-size: 19px; }
+
+/* ==================== 彩种页面 ==================== */
+.game-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 24px 0 8px;
+  flex-wrap: wrap;
+}
+.game-head .info { flex: 1; min-width: 240px; }
+.game-head h2 { font-size: 26px; font-weight: 700; margin-bottom: 9px; }
+.game-head .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-size: 12px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.tag b { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 18px;
+}
+.panel h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel h3 .hint { font-size: 12px; color: var(--dim); font-weight: 400; }
+
+/* 按钮行 */
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+.btn {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #fff;
+  background: linear-gradient(180deg, #4a82f5, #2860d8);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+.btn:hover  { filter: brightness(1.12); }
+.btn:active { transform: scale(0.98); }
+.btn.ghost {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.btn.ghost:hover { background: var(--card-hover); }
+
+/* 号码选择网格 */
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+  gap: 9px;
+  margin-top: 4px;
+}
+.pick {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.pick:hover { border-color: #4a5670; color: var(--text); }
+.pick.on {
+  background: linear-gradient(180deg, #f0575c, #cc2f34);
+  border-color: transparent;
+  color: #fff;
+}
+.pick.on.blue {
+  background: linear-gradient(180deg, #4a83f5, #2158c4);
+}
+
+/* 号码池分组 */
+.area-block + .area-block { margin-top: 18px; }
+.area-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.area-label .dot {
+  width: 9px; height: 9px; border-radius: 50%;
+}
+.area-label .dot.red  { background: var(--red); }
+.area-label .dot.blue { background: var(--blue); }
+
+/* 投注列表 */
+.ticket {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  margin-bottom: 9px;
+  flex-wrap: wrap;
+}
+.ticket .idx {
+  font-size: 12px;
+  color: var(--dim);
+  width: 34px;
+  flex-shrink: 0;
+}
+.ticket .sep { color: var(--dim); margin: 0 4px; font-size: 13px; }
+
+.empty {
+  padding: 30px;
+  text-align: center;
+  color: var(--dim);
+  font-size: 14px;
+}
+
+/* 规则表 */
+table.rule {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+table.rule th, table.rule td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+table.rule th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 12px;
+}
+table.rule tr:last-child td { border-bottom: none; }
+table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap; }
+
+/* 选玩法（快乐8） */
+.mode-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.mode-tab {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--muted);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.mode-tab:hover { color: var(--text); }
+.mode-tab.on {
+  background: linear-gradient(180deg, #4a82f5, #2860d8);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 提示条 */
+.notice {
+  display: flex;
+  gap: 10px;
+  padding: 13px 16px;
+  background: rgba(240, 180, 41, 0.08);
+  border: 1px solid rgba(240, 180, 41, 0.25);
+  border-radius: 11px;
+  font-size: 13px;
+  color: #d9c08a;
+  line-height: 1.7;
+  margin-top: 18px;
+}
+.notice .ico { flex-shrink: 0; }
+
+/* 底部 */
+.foot {
+  text-align: center;
+  padding: 30px 20px 40px;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 2;
+}
+
+/* ==================== 资料库 ==================== */
+
+/* 彩种选择标签 */
+.mat-games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.mat-chip {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #9aa3b2;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.mat-chip:hover { color: #fff; border-color: #3a4560; }
+.mat-chip.on {
+  color: #fff;
+  background: linear-gradient(180deg, #4a82f5, #2860d8);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* 输入框（聊天框样式） */
+.mat-input {
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.75;
+  color: var(--text);
+  background: #0f1115;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+  box-sizing: border-box;
+  user-select: text;
+}
+.mat-input:focus { border-color: #3a5fc0; }
+.mat-input::placeholder { color: #4a5261; line-height: 1.8; }
+
+/* 资料列表 */
+.mat-list { display: flex; flex-direction: column; gap: 10px; }
+
+.mat-item {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 13px 15px;
+}
+
+.mat-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 9px;
+  flex-wrap: wrap;
+}
+
+.mat-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.mat-tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: rgba(74, 130, 245, 0.15);
+  color: #8ab0f5;
+  border: 1px solid rgba(74, 130, 245, 0.3);
+}
+.mat-tag.all {
+  background: rgba(126, 231, 135, 0.12);
+  color: #7ee787;
+  border-color: rgba(126, 231, 135, 0.3);
+}
+
+.mat-time {
+  font-size: 11px;
+  color: var(--dim);
+  margin-left: auto;
+}
+
+.mat-del {
+  font-size: 11px;
+  padding: 3px 9px;
+  font-family: inherit;
+  color: #6b7488;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.mat-del:hover { color: #fff; background: #c93236; border-color: #c93236; }
+
+.mat-body {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: #c8cfda;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+}
+
+/* ==================== 彩种板块模板 ==================== */
+
+/* 今日推荐卡片 */
+.reco-card {
+  background: linear-gradient(135deg, #1c2331, #171d29);
+  border: 1px solid #2b3550;
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-top: 16px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reco-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #e5484d;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.reco-title .t { color: #f0575c; }
+
+.reco-content {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #c8cfda;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+}
+.reco-empty {
+  font-size: 13px;
+  color: #4a5261;
+}
+
+/* 出图区 */
+.image-slot {
+  border: 1px dashed #33405a;
+  border-radius: var(--radius);
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #4a5261;
+  font-size: 14px;
+  margin-top: 16px;
+  background: rgba(22, 26, 33, 0.5);
+  overflow: hidden;
+}
+.image-slot img {
+  max-width: 100%;
+  display: block;
+}
+.image-slot .slot-hint { font-size: 12px; color: #3a4250; }
+
+/* 响应式：窄屏时侧边栏变成顶部横向导航 */
+@media (max-width: 860px) {
+  .layout { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand { padding: 13px 16px; }
+
+  .nav {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 10px 16px;
+    white-space: nowrap;
+  }
+  .nav-group { display: none; }
+
+  .nav-item {
+    margin-bottom: 0;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+  }
+  .nav-item.on::before { display: none; }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 20px 16px 40px; }
+  .topbar { padding: 13px 16px; }
+  .hero .big { font-size: 26px; }
+  .cards { grid-template-columns: 1fr; }
+  .ball.s-lg { width: 38px; height: 38px; font-size: 16px; }
+}
+
+/* ============================================================
+   推荐图渲染（固定模板）
+   ============================================================ */
+
+.r-image {
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 760px;
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+
+/* ---- 红色页头 ---- */
+.r-head {
+  background: linear-gradient(160deg, #e8402a 0%, #d92f1e 45%, #c4241a 100%);
+  color: #fff;
+  text-align: center;
+  padding: 22px 20px 18px;
+  position: relative;
+}
+.r-head::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f5d020, #ffe97a, #f5d020);
+}
+.r-headbrand { font-size: 14px; letter-spacing: 2px; color: #ffe9c9; }
+.r-headshop  { font-size: 12px; color: #ffd9a8; margin-top: 3px; }
+.r-headtitle {
+  font-size: 30px; font-weight: 800; letter-spacing: 3px;
+  margin: 12px 0 8px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.r-headissue { font-size: 15px; color: #ffe9c9; letter-spacing: 1px; }
+.r-headissue b {
+  color: #fff; font-size: 18px; letter-spacing: 3px;
+  border-bottom: 2px dashed rgba(255,255,255,0.6);
+  padding: 0 6px;
+}
+
+/* ---- 内容区 ---- */
+.r-body { padding: 16px 18px 4px; }
+
+.r-block { margin-bottom: 16px; }
+
+.r-sectitle {
+  font-size: 16px; font-weight: 700; color: #d92f1e;
+  padding-left: 11px; position: relative;
+  margin-bottom: 12px;
+}
+.r-sectitle::before {
+  content: '';
+  position: absolute; left: 0; top: 3px;
+  width: 4px; height: 16px; border-radius: 2px;
+  background: #e8402a;
+}
+
+/* ---- 文本字段网格 ---- */
+.r-fields { display: grid; gap: 10px 16px; }
+.r-field { font-size: 12px; }
+.r-label { color: #999; margin-bottom: 3px; }
+.r-value { color: #222; font-weight: 700; font-size: 13px; line-height: 1.5; }
+.r-value.empty { color: #ccc; font-weight: 400; }
+
+/* ---- 号码行 ---- */
+.r-rows { display: flex; flex-direction: column; gap: 10px; }
+.r-numrow { display: flex; align-items: center; gap: 12px; }
+.r-numlabel {
+  font-size: 13px; color: #666; font-weight: 600;
+  min-width: 42px; flex-shrink: 0;
+}
+.r-ballwrap { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* ---- 球 ---- */
+.rball {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: inset 0 -2px 5px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.15);
+}
+.rball.md { width: 34px; height: 34px; font-size: 14px; }
+.rball.sm { width: 28px; height: 28px; font-size: 12px; }
+.rball.red    { background: linear-gradient(180deg, #f0575c, #d32f34); }
+.rball.gold   { background: linear-gradient(180deg, #f7d24a, #e0a800); color: #5a4200; }
+.rball.blue   { background: linear-gradient(180deg, #4a83f5, #2158c4); }
+.rball.gray   { background: linear-gradient(180deg, #9aa3b2, #6b7488); }
+.rball.empty  { background: #eceff3; box-shadow: none; }
+.rball.wx0 { background: linear-gradient(180deg,#f5d24a,#d9a400); color:#5a4200; }
+.rball.wx1 { background: linear-gradient(180deg,#5fc98a,#2e9e5b); }
+.rball.wx2 { background: linear-gradient(180deg,#4a9af5,#1f66c9); }
+.rball.wx3 { background: linear-gradient(180deg,#f0575c,#c93236); }
+.rball.wx4 { background: linear-gradient(180deg,#c79a62,#8f6533); }
+
+/* ---- 冷热号 ---- */
+.r-twovalues { display: flex; flex-direction: column; gap: 8px; }
+.r-tvrow { font-size: 14px; }
+.r-tvlabel { color: #d92f1e; font-weight: 700; }
+.r-tvvalue { color: #333; letter-spacing: 1px; }
+
+/* ---- 两栏 ---- */
+.r-twocol { display: flex; gap: 20px; align-items: flex-start; }
+.r-twocol > .r-col { flex: 1; min-width: 0; }
+
+/* ---- 绕胆图 ---- */
+.r-gridwrap { text-align: center; }
+.r-grid { display: grid; gap: 8px; margin: 0 auto 14px; max-width: 420px; }
+.r-cell {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-size: 22px; font-weight: 800; color: #fff;
+  font-family: Arial, sans-serif;
+  box-shadow: inset 0 -3px 8px rgba(0,0,0,0.18);
+}
+.r-cell.goldred { background: linear-gradient(180deg,#f0575c,#cf2a30); }
+.r-cell.orange  { background: linear-gradient(180deg,#f9a825,#e07c00); }
+.r-cell.purple  { background: linear-gradient(180deg,#c93fa0,#9c1f78); }
+.r-cell.purple-dark { background: linear-gradient(180deg,#b3308c,#7d1263); }
+.r-cell.blue    { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+
+.r-legend { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 13px; color: #444; }
+.r-legenditem { display: inline-flex; align-items: center; gap: 6px; }
+.r-dot { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.r-dot.gold-red { background: linear-gradient(180deg,#f0575c,#cf2a30); }
+.r-dot.orange   { background: linear-gradient(180deg,#f9a825,#e07c00); }
+.r-dot.purple   { background: linear-gradient(180deg,#c93fa0,#9c1f78); }
+.r-dot.purple-dark { background: linear-gradient(180deg,#b3308c,#7d1263); }
+.r-dot.blue     { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+.r-caption { font-size: 12.5px; color: #777; margin-top: 10px; }
+
+/* ---- 五行 ---- */
+.r-wuxing { display: flex; flex-direction: column; gap: 10px; }
+.r-wxrow { display: flex; align-items: center; gap: 10px; }
+.r-wxbadge {
+  width: 34px; height: 34px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.r-wxbadge.wx0 { background: linear-gradient(180deg,#f5d24a,#d9a400); color:#5a4200; }
+.r-wxbadge.wx1 { background: linear-gradient(180deg,#5fc98a,#2e9e5b); }
+.r-wxbadge.wx2 { background: linear-gradient(180deg,#4a9af5,#1f66c9); }
+.r-wxbadge.wx3 { background: linear-gradient(180deg,#f0575c,#c93236); }
+.r-wxbadge.wx4 { background: linear-gradient(180deg,#c79a62,#8f6533); }
+.r-wxtails { font-size: 11.5px; color: #888; width: 74px; flex-shrink: 0; }
+.r-wxfoot { margin-top: 12px; font-size: 12.5px; color: #444; display: flex; flex-direction: column; gap: 5px; }
+.r-wxfoot b { color: #d92f1e; }
+
+/* ---- 九转连环 ---- */
+.r-circwrap { text-align: center; }
+.r-circle {
+  position: relative;
+  width: 100%; max-width: 340px; aspect-ratio: 1;
+  margin: 0 auto;
+}
+.r-ring {
+  position: absolute; border-radius: 50%;
+  border: 1.5px solid #e0b34a;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+}
+.r-ring.ring1 { width: 100%; height: 100%; }
+.r-ring.ring2 { width: 74%; height: 74%; }
+.r-ring.ring3 { width: 48%; height: 48%; }
+.r-ring.ring4 { width: 24%; height: 24%; }
+.r-center {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(180deg,#f5d24a,#e0a800);
+  color: #5a4200; font-weight: 800; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+}
+.r-ringnum {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 13px; font-weight: 700; color: #b8860b;
+  background: #fff; padding: 1px 3px; border-radius: 3px;
+  z-index: 3;
+}
+
+/* ---- 九宫 ---- */
+.r-jgwrap { text-align: center; }
+.r-jiugong {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 260px;
+  margin: 0 auto;
+}
+.r-jgcell {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-size: 24px; font-weight: 800; color: #fff;
+  background: linear-gradient(180deg,#f9a825,#e07c00);
+  font-family: Arial, sans-serif;
+}
+.r-jgcell.center { background: linear-gradient(180deg,#f7d24a,#e0a800); color: #5a4200; }
+.r-jgfoot { font-size: 12.5px; color: #444; margin-top: 12px; line-height: 1.8; }
+.r-jgfoot b { color: #d92f1e; }
+
+/* ---- 日历条 ---- */
+.r-calendar {
+  background: #fffaf0;
+  border: 1px solid #f0dfb8;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.r-calrow { display: flex; flex-wrap: wrap; gap: 18px; color: #444; }
+.r-calitem b { color: #666; font-weight: 600; }
+.r-calbadges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.r-calbadge {
+  font-size: 12px; padding: 3px 12px; border-radius: 20px;
+  border: 1px solid #e8806a; color: #d92f1e; background: #fff;
+}
+.r-calbadge b { color: #b3261e; }
+
+/* ---- 热号排行 ---- */
+.r-rank { display: flex; flex-direction: column; gap: 14px; }
+.r-ranktitle { font-size: 13.5px; font-weight: 700; color: #d92f1e; margin-bottom: 8px; }
+.r-ranklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 12px; }
+.r-rankitem { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: #555; }
+.r-rankcount { color: #888; }
+
+/* ---- 内联脚注 ---- */
+.r-inlinefoot { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; font-size: 13px; color: #444; }
+.r-inlineitem b { color: #666; font-weight: 600; }
+.r-note { font-size: 12.5px; color: #777; margin-top: 10px; }
+
+/* ---- 页脚 ---- */
+.r-foot {
+  text-align: center;
+  padding: 18px 20px 20px;
+  font-size: 13px;
+  color: #d92f1e;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.r-disclaimer {
+  font-size: 11px; color: #aaa; font-weight: 400;
+  margin-top: 6px; letter-spacing: 0;
+}
+
+/* ---- 录入表单样式 ---- */
+.tk-block {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+.tk-block:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+.tk-title {
+  font-size: 14px; font-weight: 600; color: #d92f1e;
+  margin-bottom: 12px;
+}
+.tk-subtitle { font-size: 13px; color: var(--muted); margin: 12px 0 8px; }
+.tk-twocol { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+.tk-twocol > div { flex: 1; min-width: 280px; }
+.tk-fields { display: grid; gap: 12px 14px; }
+.tk-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+.tk-input {
+  width: 100%; padding: 8px 11px; font-size: 13px; font-family: inherit;
+  color: var(--text); background: #0f1115; border: 1px solid var(--line);
+  border-radius: 8px; outline: none; box-sizing: border-box; user-select: text;
+}
+.tk-input:focus { border-color: #3a5fc0; }
+.tk-numrow { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.tk-numlabel { font-size: 12.5px; color: var(--muted); min-width: 70px; flex-shrink: 0; }
+.tk-numinput { flex: 1; }
+.tk-note { font-size: 12px; color: var(--dim); margin-top: 10px; line-height: 1.7; }
+
+@media (max-width: 700px) {
+  .r-twocol { flex-direction: column; }
+  .r-headtitle { font-size: 22px; }
+  .r-ranklist { grid-template-columns: 1fr; }
+}
+/* ---- 输入框 + 骰子按钮 ---- */
+.tk-with-dice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+.tk-with-dice .tk-input { flex: 1; min-width: 0; }
+
+.tk-dice {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+  line-height: 1;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  padding: 0;
+}
+.tk-dice:hover {
+  background: #2f6feb;
+  border-color: #2f6feb;
+  transform: scale(1.08);
+}
+.tk-dice:active { transform: scale(0.94); }
+.tk-dice.rolled {
+  background: #47e0a0;
+  border-color: #47e0a0;
+  transform: rotate(180deg) scale(1.1);
+}
+
+/* 导出图片时不留白边 */
+.r-image { margin: 0; border-radius: 12px; }
+/* ============================================================
+   足球赛事页面
+   ============================================================ */
+
+.fb-layout {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-top: 6px;
+}
+.fb-listwrap { flex: 1.15; min-width: 0; }
+.fb-detailwrap { flex: 1; min-width: 0; position: sticky; top: 16px; }
+
+/* ---- 日期分隔 ---- */
+.fb-datehead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 14px 4px 8px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 6px;
+}
+.fb-datehead .fb-week { color: var(--dim); font-size: 12px; }
+
+/* ---- 比赛行 ---- */
+.fb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.12s;
+  border: 1px solid transparent;
+}
+.fb-row:hover { background: #171c25; }
+.fb-row.active { background: #1d2534; border-color: #3a5fc0; }
+.fb-row.focal .fb-league::before {
+  content: '★';
+  margin-right: 3px;
+  color: var(--gold);
+}
+
+.fb-left { width: 76px; flex-shrink: 0; }
+.fb-league {
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fb-time {
+  width: 44px;
+  flex-shrink: 0;
+  font-size: 12.5px;
+  color: #9aa3b2;
+  font-family: Consolas, monospace;
+}
+
+.fb-score {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+}
+.fb-team {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+.fb-team.home { text-align: right; }
+.fb-team.away { text-align: left; }
+.fb-rank { font-size: 10.5px; color: var(--dim); font-style: normal; margin: 0 3px; }
+.fb-vs {
+  flex-shrink: 0;
+  min-width: 44px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--dim);
+  font-family: Consolas, monospace;
+}
+
+.fb-odds {
+  width: 132px;
+  flex-shrink: 0;
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  font-size: 12px;
+  font-family: Consolas, monospace;
+  color: #8b93a1;
+}
+.fb-odds span { min-width: 34px; text-align: center; }
+.fb-noodds { color: #454d5c; font-size: 11px; }
+
+.fb-move-tag {
+  flex-shrink: 0;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(229, 72, 77, 0.18);
+  color: #f0575c;
+  border: 1px solid rgba(229, 72, 77, 0.35);
+}
+
+/* ---- 详情 ---- */
+.fb-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.fb-detail-league { font-size: 14px; color: var(--muted); }
+.fb-detail-time { font-size: 12px; color: var(--dim); }
+
+.fb-versus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 8px;
+  margin-bottom: 16px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+}
+.fb-v-team { flex: 1; min-width: 0; text-align: center; }
+.fb-v-team .n {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-word;
+  line-height: 1.4;
+}
+.fb-v-team .rk { font-size: 11px; color: var(--dim); margin-top: 4px; }
+.fb-v-score {
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+  font-family: Consolas, monospace;
+  padding: 0 10px;
+}
+
+/* ---- 赔率表 ---- */
+.fb-odds-block { margin-bottom: 18px; }
+.fb-odds-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 9px;
+  padding-left: 9px;
+  position: relative;
+}
+.fb-odds-title::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 3px;
+  width: 3px; height: 14px;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+.fb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-family: Consolas, "Microsoft YaHei", monospace;
+}
+.fb-table th {
+  text-align: center;
+  padding: 7px 8px;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--line);
+}
+.fb-table td {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #1e2430;
+  color: #c8cfda;
+}
+.fb-table td.lbl { text-align: left; color: var(--muted); font-family: "Microsoft YaHei", sans-serif; }
+.fb-table td.live { color: #fff; font-weight: 600; }
+.fb-table tr:last-child td { border-bottom: none; }
+
+.fv-up { color: #f0575c !important; }
+.fv-down { color: #47e0a0 !important; }
+.fv-flat { color: #6b7488 !important; }
+
+@media (max-width: 900px) {
+  .fb-layout { flex-direction: column; }
+  .fb-detailwrap { position: static; width: 100%; }
+  .fb-odds { display: none; }
+  .fb-left { width: 60px; }
+}
+/* ---- 足球：推荐胜负平 ---- */
+.fb-reco {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(110, 168, 254, 0.12);
+  border: 1px solid rgba(110, 168, 254, 0.3);
+  color: #8ab0f5;
+  white-space: nowrap;
+}
+.fb-reco.clear {
+  background: rgba(71, 224, 160, 0.14);
+  border-color: rgba(71, 224, 160, 0.4);
+  color: #47e0a0;
+}
+.fb-reco b { font-weight: 700; }
+.fb-reco i { font-style: normal; opacity: 0.75; margin-left: 2px; }
+
+.fb-reco-block {
+  background: linear-gradient(135deg, #1b2230, #171d29);
+  border: 1px solid #2b3550;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.fb-reco-head {
+  font-size: 15px;
+  color: #c8cfda;
+  margin-bottom: 10px;
+}
+.fb-reco-head b {
+  color: #47e0a0;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 4px;
+}
+.fb-reco-conf {
+  font-size: 12px;
+  color: #8b93a1;
+  margin-left: 8px;
+}
+.fb-reco-probs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.fb-reco-probs span {
+  flex: 1;
+  min-width: 78px;
+  text-align: center;
+  padding: 8px 6px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  background: #0f1115;
+  border: 1px solid #262d3a;
+  color: #6b7488;
+}
+.fb-reco-probs span.on {
+  background: rgba(71, 224, 160, 0.12);
+  border-color: rgba(71, 224, 160, 0.4);
+  color: #47e0a0;
+  font-weight: 700;
+}
+.fb-reco-note {
+  font-size: 11px;
+  color: #5a6272;
+  line-height: 1.7;
+}
+/* ============================================================
+   首页：操作条 + 中奖栏嵌入
+   ============================================================ */
+
+.home-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.hit-embed .ro-game {
+  margin-bottom: 26px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.hit-embed .ro-gamehead { margin-bottom: 12px; }
+.hit-embed .ro-gamehead h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e8eaed;
+  margin-bottom: 5px;
+}
+.hit-embed .ro-meta { font-size: 12px; color: #6b7488; }
+
+/* ---- 最新开奖 ---- */
+.hc-drawgrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.hc-drawcard { background: #161a21; border: 1px solid #262d3a; border-radius: 12px; padding: 12px 14px; }
+.hc-dt { display: flex; align-items: baseline; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
+.hc-gn { font-size: 14px; font-weight: 700; color: #e8eaed; }
+.hc-iss { font-size: 11.5px; color: #8b93a1; }
+.hc-date { font-size: 11px; color: #5a6272; margin-left: auto; }
+.hc-balls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.hc-ball {
+  width: 27px; height: 27px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff; font-family: Arial, sans-serif;
+}
+.hc-ball.red  { background: linear-gradient(180deg,#f0575c,#d32f34); }
+.hc-ball.blue { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+.hc-ball.sp   { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
+.hc-plus { color: #5a6272; font-size: 13px; margin: 0 2px; }
+
+/* ---- 中奖汇总 ---- */
+.hc-summary { border-radius: 12px; padding: 15px 17px; margin-bottom: 16px; border: 1px solid; }
+.hc-summary.hit { background: rgba(71,224,160,0.09); border-color: rgba(71,224,160,0.38); }
+.hc-summary.none { background: #161a21; border-color: #262d3a; }
+.hc-sum-main { font-size: 17px; font-weight: 700; margin-bottom: 7px; }
+.hc-summary.hit .hc-sum-main { color: #47e0a0; }
+.hc-summary.none .hc-sum-main { color: #8b93a1; font-size: 15px; font-weight: 500; }
+.hc-sum-sub { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: #8b93a1; }
+.hc-badge { padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.hc-badge.first  { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hc-badge.second { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
+.hc-badge.money  { background: rgba(71,224,160,0.16); color: #47e0a0; border: 1px solid rgba(71,224,160,0.35); }
+
+/* ---- 中奖明细 ---- */
+.hc-rows { display: flex; flex-direction: column; gap: 9px; }
+.hc-row { background: #161a21; border: 1px solid #262d3a; border-radius: 11px; padding: 11px 14px; }
+.hc-row.win { background: rgba(71,224,160,0.07); border-color: rgba(71,224,160,0.32); }
+.hc-row.big {
+  background: linear-gradient(135deg, rgba(255,95,109,0.16), rgba(240,180,41,0.10));
+  border-color: rgba(255,95,109,0.5);
+  box-shadow: 0 0 0 1px rgba(255,95,109,0.18), 0 4px 18px rgba(255,95,109,0.12);
+}
+.hc-r1 { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.hc-rgame { font-size: 13.5px; font-weight: 700; color: #e8eaed; }
+.hc-rissue { font-size: 11.5px; color: #6b7488; }
+.hc-tag { margin-left: auto; padding: 2.5px 9px; border-radius: 6px; font-size: 11.5px; font-weight: 700; }
+.hc-tag.pending { background: #222936; color: #8b93a1; }
+.hc-tag.lose { background: #1c2130; color: #5a6272; }
+.hc-tag.win { background: rgba(71,224,160,0.18); color: #47e0a0; }
+.hc-tag.win.big { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hc-r2 { display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-family: Consolas, monospace; color: #8b93a1; }
+.hc-rticket { color: #b8c0cc; }
+.hc-rdraw { color: #6b7488; }
+.hc-r3 {
+  margin-top: 6px; padding-top: 6px; border-top: 1px dashed #232a36;
+  font-size: 12px; color: #8b93a1; display: flex; gap: 10px; flex-wrap: wrap;
+}
+.hc-amt { color: #47e0a0; font-weight: 700; }
+.hc-note { font-size: 11px; color: #454d5c; margin-top: 14px; line-height: 1.8; }
+
+@media (max-width: 560px) {
+  .hc-drawgrid { grid-template-columns: 1fr; }
+  .hc-ball { width: 25px; height: 25px; font-size: 11.5px; }
+}
+/* ============================================================
+   首页吉利话 + 中奖栏嵌入
+   ============================================================ */
+
+.home-wish {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #ff2d55;
+  text-shadow: 0 0 18px rgba(255,45,85,0.55), 0 2px 4px rgba(0,0,0,0.4);
+  padding: 10px 0 22px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+@media (max-width: 640px) {
+  .home-wish { font-size: 22px; letter-spacing: 5px; padding: 6px 0 16px; }
+}
+
+/* 中奖号码圈选 */
+.hc-hit {
+  box-shadow: 0 0 0 3px #ff2d55, 0 0 16px rgba(255,45,85,0.9) !important;
+  z-index: 3;
+}
+.rball.hc-hit, .r-cell.hc-hit { outline: 2px solid #ffd54a; outline-offset: 1px; }
+
+/* 中奖栏 */
+.hw-summary {
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 16px;
+  background: linear-gradient(135deg, rgba(255,45,85,0.14), rgba(240,180,41,0.10));
+  border: 1px solid rgba(255,45,85,0.45);
+}
+.hw-sum-main { font-size: 19px; font-weight: 800; color: #ff5f6d; margin-bottom: 9px; }
+.hw-sum-sub { display: flex; gap: 8px; flex-wrap: wrap; }
+.hw-badge { padding: 4px 12px; border-radius: 7px; font-size: 13px; font-weight: 800; }
+.hw-badge.first  { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hw-badge.second { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
+.hw-badge.third  { background: linear-gradient(180deg,#7ee787,#3aa657); color: #0b2b12; }
+.hw-badge.money  { background: rgba(71,224,160,0.18); color: #47e0a0; border: 1px solid rgba(71,224,160,0.4); }
+
+.hw-list { display: flex; flex-direction: column; gap: 18px; }
+.hw-card { background: #161a21; border: 1px solid #262d3a; border-radius: 13px; padding: 14px 16px; }
+.hw-card.big {
+  background: linear-gradient(135deg, rgba(255,45,85,0.13), rgba(240,180,41,0.08));
+  border-color: rgba(255,45,85,0.5);
+  box-shadow: 0 0 0 1px rgba(255,45,85,0.2), 0 6px 24px rgba(255,45,85,0.14);
+}
+.hw-head { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; flex-wrap: wrap; }
+.hw-game { font-size: 15px; font-weight: 700; color: #e8eaed; }
+.hw-issue { font-size: 12px; color: #6b7488; }
+.hw-level {
+  margin-left: auto; padding: 3px 11px; border-radius: 7px;
+  font-size: 12.5px; font-weight: 800;
+  background: rgba(71,224,160,0.18); color: #47e0a0;
+}
+.hw-level.big { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hw-detail { font-size: 12.5px; color: #8b93a1; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.hw-amt { color: #47e0a0; font-weight: 700; }
+.hw-draw {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding-bottom: 10px; border-bottom: 1px dashed #232a36; margin-bottom: 12px;
+}
+.hw-drawtip { font-size: 11px; color: #5a6272; margin-left: 6px; }
+.hw-img { border-radius: 10px; overflow: hidden; box-shadow: 0 3px 14px rgba(0,0,0,0.4); }
+.hw-img .r-image { margin: 0 !important; border-radius: 0 !important; max-width: 100% !important; }
+
+/* 中奖栏嵌在页面里时去掉外框重复感 */
+.hit-embed .ro-gamehead h2,
+.hit-embed .ro-gamehead .ro-meta { display: block; }
+/* ---- 足球：推荐命中红 / 未中黑 ---- */
+.fb-reco.hit {
+  background: linear-gradient(180deg, #e5484d, #c0252a);
+  border-color: #ff6b6f;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(229,72,77,0.5);
+}
+.fb-reco.miss {
+  background: #1a1e26;
+  border-color: #3a4150;
+  color: #6b7488;
+}
+.fb-reco.hit i, .fb-reco.miss i { font-weight: 800; opacity: 1; }
+/* ============================================================
+   首页紧凑模式：一屏放下，不用滚动
+   ============================================================ */
+
+.page-home .hero-compact {
+  padding: 4px 0 2px;
+  margin-bottom: 0;
+}
+.page-home .hero-compact .big {
+  font-size: 30px;
+  letter-spacing: 6px;
+  line-height: 1.15;
+}
+
+/* 吉利话更紧凑 */
+.page-home .home-wish {
+  font-size: 22px;
+  letter-spacing: 6px;
+  padding: 4px 0 10px;
+}
+
+/* 段落标题缩小 */
+.page-home .hit-embed .ro-game { margin-bottom: 12px; }
+.page-home .hit-embed .ro-gamehead { margin-bottom: 7px; }
+.page-home .hit-embed .ro-gamehead h2 { font-size: 15px; margin-bottom: 2px; }
+.page-home .hit-embed .ro-meta { font-size: 10.5px; }
+
+/* 最新开奖：两列紧凑卡片 */
+.page-home .hc-drawgrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.page-home .hc-drawcard { padding: 8px 11px; border-radius: 10px; }
+.page-home .hc-dt { margin-bottom: 6px; gap: 6px; }
+.page-home .hc-gn { font-size: 12.5px; }
+.page-home .hc-iss { font-size: 10.5px; }
+.page-home .hc-date { font-size: 10px; }
+.page-home .hc-balls { gap: 4px; }
+.page-home .hc-ball {
+  width: 21px; height: 21px;
+  font-size: 10.5px;
+  border-radius: 50%;
+}
+.page-home .hc-plus { font-size: 11px; }
+
+/* 彩种分组标题紧凑 */
+.page-home .group-title {
+  font-size: 13px;
+  padding: 8px 0 6px;
+  margin-top: 4px;
+}
+.page-home .cards { gap: 8px; }
+.page-home .card { padding: 9px 12px; border-radius: 10px; }
+.page-home .draw-head { margin-bottom: 5px; }
+.page-home .card .draw-balls { gap: 4px; }
+
+/* 中奖栏在首页也紧凑 */
+.page-home .hw-summary { padding: 11px 14px; margin-bottom: 10px; }
+.page-home .hw-sum-main { font-size: 15px; margin-bottom: 5px; }
+.page-home .hw-card { padding: 10px 12px; border-radius: 11px; }
+
+@media (max-width: 640px) {
+  .page-home .hero-compact .big { font-size: 22px; letter-spacing: 4px; }
+  .page-home .home-wish { font-size: 16px; letter-spacing: 4px; padding: 2px 0 8px; }
+  .page-home .hc-drawgrid { grid-template-columns: 1fr; }
+  .page-home .hc-ball { width: 20px; height: 20px; font-size: 10px; }
+}
+/* ============================================================
+   足球页布局修正：列表要宽，详情面板要窄，队名不能被挤没
+   ============================================================ */
+
+.fb-layout {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* 列表占绝大部分宽度 */
+.fb-listwrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+/* 详情面板收窄，别挡住列表 */
+.fb-detailwrap {
+  flex: 0 0 230px;
+  max-width: 230px;
+  min-width: 0;
+  position: sticky;
+  top: 12px;
+}
+
+/* 比赛行：给队名留足空间 */
+.fb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+}
+
+.fb-score {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fb-team {
+  flex: 1 1 0;
+  min-width: 44px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12.5px;
+  color: #e8eaed;
+}
+.fb-team.home { text-align: right; }
+.fb-team.away { text-align: left; }
+
+.fb-vs {
+  flex: 0 0 auto;
+  min-width: 46px;
+  text-align: center;
+  font-size: 12.5px;
+  color: #6b7488;
+  font-family: Consolas, monospace;
+}
+.fb-vs.has-score { color: #47e0a0; font-weight: 700; }
+
+/* 联赛 / 时间 / 赔率 收紧（总宽要控制在 470px 内） */
+.fb-left { flex: 0 0 48px; width: 48px; }
+.fb-time { flex: 0 0 34px; width: 34px; }
+.fb-odds { flex: 0 0 88px; width: 88px; font-size: 10.5px; }
+.fb-odds span { min-width: 28px; }
+.fb-reco { flex: 0 0 auto; font-size: 10.5px; padding: 2px 6px; }
+
+/* 窄屏时详情面板移到底部 */
+@media (max-width: 1080px) {
+  .fb-layout { flex-direction: column; }
+  .fb-detailwrap {
+    flex: 1 1 auto;
+    max-width: none;
+    width: 100%;
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .fb-odds { display: none; }
+  .fb-left { flex: 0 0 56px; width: 56px; }
+  .fb-team { min-width: 48px; font-size: 12.5px; }
+}
+/* ============================================================
+   侧栏图标（自绘 SVG）
+   ============================================================ */
+
+.nav-item .ico {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.nav-item .ico svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+/* 选中时轻微放大，更醒目 */
+.nav-item.on .ico svg,
+.nav-item:hover .ico svg {
+  transform: scale(1.06);
+  transition: transform .12s;
+}
+
+/* ---- 最新开奖 ---- */
+.hc-drawgrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.hc-drawcard { background: #161a21; border: 1px solid #262d3a; border-radius: 12px; padding: 12px 14px; }
+.hc-dt { display: flex; align-items: baseline; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
+.hc-gn { font-size: 14px; font-weight: 700; color: #e8eaed; }
+.hc-iss { font-size: 11.5px; color: #8b93a1; }
+.hc-date { font-size: 11px; color: #5a6272; margin-left: auto; }
+.hc-balls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.hc-ball {
+  width: 27px; height: 27px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff; font-family: Arial, sans-serif;
+}
+.hc-ball.red  { background: linear-gradient(180deg,#f0575c,#d32f34); }
+.hc-ball.blue { background: linear-gradient(180deg,#4a83f5,#2158c4); }
+.hc-ball.sp   { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
+.hc-plus { color: #5a6272; font-size: 13px; margin: 0 2px; }
+
+/* ---- 中奖号码圈选 ---- */
+.hc-hit {
+  box-shadow: 0 0 0 3px #ff2d55, 0 0 16px rgba(255,45,85,0.9) !important;
+  z-index: 3;
+}
+.rball.hc-hit, .r-cell.hc-hit { outline: 2px solid #ffd54a; outline-offset: 1px; }
+
+/* ---- 中奖栏 ---- */
+.hw-summary {
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 16px;
+  background: linear-gradient(135deg, rgba(255,45,85,0.14), rgba(240,180,41,0.10));
+  border: 1px solid rgba(255,45,85,0.45);
+}
+.hw-sum-main { font-size: 19px; font-weight: 800; color: #ff5f6d; margin-bottom: 9px; }
+.hw-sum-sub { display: flex; gap: 8px; flex-wrap: wrap; }
+.hw-badge { padding: 4px 12px; border-radius: 7px; font-size: 13px; font-weight: 800; }
+.hw-badge.first  { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hw-badge.second { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
+.hw-badge.third  { background: linear-gradient(180deg,#7ee787,#3aa657); color: #0b2b12; }
+.hw-badge.money  { background: rgba(71,224,160,0.18); color: #47e0a0; border: 1px solid rgba(71,224,160,0.4); }
+
+.hw-list { display: flex; flex-direction: column; gap: 18px; }
+.hw-card {
+  background: #161a21; border: 1px solid #262d3a;
+  border-radius: 13px; padding: 14px 16px;
+}
+.hw-card.big {
+  background: linear-gradient(135deg, rgba(255,45,85,0.13), rgba(240,180,41,0.08));
+  border-color: rgba(255,45,85,0.5);
+  box-shadow: 0 0 0 1px rgba(255,45,85,0.2), 0 6px 24px rgba(255,45,85,0.14);
+}
+.hw-head { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; flex-wrap: wrap; }
+.hw-game { font-size: 15px; font-weight: 700; color: #e8eaed; }
+.hw-issue { font-size: 12px; color: #6b7488; }
+.hw-level {
+  margin-left: auto; padding: 3px 11px; border-radius: 7px;
+  font-size: 12.5px; font-weight: 800;
+  background: rgba(71,224,160,0.18); color: #47e0a0;
+}
+.hw-level.big { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
+.hw-detail { font-size: 12.5px; color: #8b93a1; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.hw-amt { color: #47e0a0; font-weight: 700; }
+.hw-draw {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding-bottom: 10px; border-bottom: 1px dashed #232a36; margin-bottom: 12px;
+}
+.hw-drawtip { font-size: 11px; color: #5a6272; margin-left: 6px; }
+.hw-img {
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+.hw-img .r-image { margin: 0 !important; border-radius: 0 !important; max-width: 100% !important; }
+.hc-note { font-size: 11px; color: #454d5c; margin-top: 14px; line-height: 1.8; }
+
+@media (max-width: 560px) {
+  .hc-drawgrid { grid-template-columns: 1fr; }
+  .hc-ball { width: 25px; height: 25px; font-size: 11.5px; }
+  .hw-sum-main { font-size: 17px; }
+}
+
+
+/* ============================================================
+   只读分享版专用样式
+   ============================================================ */
+body {
+  display: block !important;
+  background: #0f1115;
+  zoom: 1 !important;
+  opacity: 1 !important;
+  padding: 0;
+}
+.ro-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 16px 12px 60px;
+}
+.ro-top {
+  text-align: center;
+  padding: 22px 0 26px;
+}
+.ro-top h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #47e0a0, #4facfe, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ro-top .sub {
+  font-size: 12.5px;
+  color: #6b7488;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ---- 更新状态条 ---- */
+.ro-status {
+  border-radius: 12px;
+  padding: 15px 17px;
+  margin-bottom: 26px;
+  border: 1px solid;
+  line-height: 1.7;
+}
+.ro-status.ok {
+  background: rgba(71, 224, 160, 0.07);
+  border-color: rgba(71, 224, 160, 0.3);
+}
+.ro-status.warn {
+  background: rgba(240, 180, 41, 0.08);
+  border-color: rgba(240, 180, 41, 0.32);
+}
+
+.ro-st-head {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.ro-status.ok .ro-st-head { color: #47e0a0; }
+.ro-status.warn .ro-st-head { color: #f0b429; }
+
+.ro-st-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ro-status.ok .ro-st-dot {
+  background: #47e0a0;
+  box-shadow: 0 0 0 4px rgba(71, 224, 160, 0.18);
+}
+.ro-status.warn .ro-st-dot {
+  background: #f0b429;
+  box-shadow: 0 0 0 4px rgba(240, 180, 41, 0.18);
+}
+
+.ro-st-time { font-size: 12px; color: #8b93a1; }
+.ro-st-reason { font-size: 12.5px; color: #d9c08a; margin-top: 4px; }
+.ro-st-hint { font-size: 11.5px; color: #6b7488; margin-top: 4px; }
+
+.ro-st-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  margin-top: 10px;
+}
+.ro-st-item { font-size: 12px; color: #8b93a1; }
+.ro-st-item b { color: #c8cfda; font-weight: 600; }
+
+/* ---- 分隔条 ---- */
+.ro-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 34px 0 26px;
+}
+.ro-divider::before, .ro-divider::after {
+  content: ''; flex: 1; height: 1px; background: #262d3a;
+}
+.ro-divider span {
+  font-size: 13px; color: #6b7488; letter-spacing: 2px; white-space: nowrap;
+}
+
+/* ---- 竞彩卡片 ---- */
+.j-stat { display: flex; gap: 8px; margin-bottom: 18px; }
+.j-stat div {
+  flex: 1; text-align: center; padding: 9px 6px;
+  background: #161a21; border: 1px solid #262d3a; border-radius: 10px;
+}
+.j-stat b { display: block; font-size: 18px; font-weight: 800; margin-bottom: 2px; }
+.j-stat span { font-size: 11px; color: #6b7488; }
+.j-stat .h b { color: #6ea8fe; }
+.j-stat .d b { color: #f0b429; }
+.j-stat .a b { color: #47e0a0; }
+
+.j-card {
+  background: #161a21; border: 1px solid #262d3a; border-radius: 12px;
+  padding: 12px 14px; margin-bottom: 10px;
+}
+.j-top { display: flex; align-items: center; gap: 9px; font-size: 11.5px; margin-bottom: 9px; }
+.j-code {
+  background: #2a3346; color: #8ab0f5; padding: 2px 8px;
+  border-radius: 5px; font-weight: 700; font-size: 11px;
+}
+.j-league { color: #8b93a1; font-weight: 600; }
+.j-time { color: #6b7488; font-family: Consolas, monospace; margin-left: auto; }
+.j-hc { color: #f0575c; font-size: 11px; margin-left: 3px; }
+
+.j-teams { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.j-team { flex: 1; min-width: 0; font-size: 14px; color: #e8eaed; line-height: 1.4; word-break: break-word; }
+.j-team.home { text-align: right; }
+.j-team.away { text-align: left; }
+.j-team i { font-style: normal; font-size: 10.5px; color: #5a6272; margin: 0 3px; }
+.j-vs {
+  flex-shrink: 0; min-width: 40px; text-align: center;
+  font-size: 12px; color: #5a6272; font-family: Consolas, monospace;
+}
+
+.j-odds { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #8b93a1; margin-bottom: 6px; font-family: Consolas, monospace; }
+.j-ol { color: #5a6272; min-width: 32px; font-family: "Microsoft YaHei", sans-serif; font-size: 11px; }
+.j-ov { padding: 2px 8px; border-radius: 5px; background: #0f1115; border: 1px solid #1e2430; }
+.j-ov.on { background: rgba(71,224,160,0.13); border-color: rgba(71,224,160,0.4); color: #47e0a0; font-weight: 600; }
+
+.j-reco {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 10px; padding-top: 10px; border-top: 1px dashed #262d3a; font-size: 12.5px;
+}
+.j-pick { color: #c8cfda; }
+.j-pick b { color: #47e0a0; font-size: 15px; font-weight: 800; margin-left: 3px; }
+.j-conf { color: #8b93a1; font-size: 11.5px; }
+.j-noodds { color: #454d5c; font-size: 11.5px; }
+.j-probs { margin-left: auto; display: flex; gap: 6px; }
+.j-probs i { font-style: normal; font-size: 11px; color: #5a6272; padding: 2px 7px; border-radius: 4px; background: #0f1115; }
+.j-probs i.on { color: #47e0a0; background: rgba(71,224,160,0.12); font-weight: 700; }
+
+.j-note { font-size: 11px; color: #454d5c; margin-top: 12px; line-height: 1.8; }
+
+.ro-game {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #1e2430;
+}
+.ro-game:last-child { border-bottom: none; }
+
+.ro-gamehead { margin-bottom: 14px; }
+.ro-gamehead h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8eaed;
+  margin-bottom: 6px;
+}
+.ro-meta { font-size: 12px; color: #6b7488; }
+
+.ro-drawblock {
+  background: #161a21;
+  border: 1px solid #262d3a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.ro-drawlabel { font-size: 12px; color: #6b7488; margin-bottom: 10px; }
+.ro-balls { display: flex; flex-wrap: wrap; gap: 7px; }
+.ro-ball {
+  width: 30px; height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 12.5px; font-weight: 700; color: #fff;
+  background: linear-gradient(180deg, #f0575c, #d32f34);
+  font-family: Arial, sans-serif;
+}
+
+.ro-imagewrap {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+}
+.ro-imagewrap .r-image {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.ro-imagewrap .r-headtitle { font-size: 22px !important; }
+
+.ro-foot {
+  text-align: center;
+  padding: 30px 16px 50px;
+  font-size: 11.5px;
+  color: #454d5c;
+  line-height: 2;
+}
+
+/* 手机上收窄 */
+@media (max-width: 600px) {
+  .ro-wrap { padding: 10px 8px 40px; }
+  .ro-top h1 { font-size: 21px; }
+  .ro-imagewrap .r-headtitle { font-size: 17px !important; }
+  .ro-imagewrap .r-fields { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  .ro-imagewrap .r-twocol { flex-direction: column !important; }
+  .ro-imagewrap .r-ranklist { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+<div class="ro-wrap">
+
+  <div class="ro-top">
+    <h1>春风十里送大奖 · 推荐图</h1>
+    <div class="sub">生成时间 2026-10-14 02:12 · 共 8 个彩种 / 10 张图</div>
+  </div>
+
+  <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div><div class="ro-st-time">更新时间：2026-10-14 02:06</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026118 期</span><span class="ro-st-item"><b>大乐透</b> 第 26117 期</span><span class="ro-st-item"><b>七乐彩</b> 第 2026118 期</span><span class="ro-st-item"><b>快乐8</b> 第 2026273 期</span><span class="ro-st-item"><b>福彩3D</b> 第 2026273 期</span><span class="ro-st-item"><b>排列3</b> 第 26273 期</span><span class="ro-st-item"><b>排列5</b> 第 26273 期</span><span class="ro-st-item"><b>七星彩</b> 第 26118 期</span></div></div>
+
+  <section class="ro-game"><div class="ro-gamehead"><h2>最新开奖</h2><div class="ro-meta">各彩种最新一期开奖号码</div></div><div class="hc-drawgrid"><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">双色球</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">04</span><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">22</span><span class="hc-ball red">26</span><span class="hc-ball red">27</span><span class="hc-plus">+</span><span class="hc-ball blue">04</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">大乐透</span><span class="hc-iss">第 26116 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">09</span><span class="hc-ball red">18</span><span class="hc-ball red">22</span><span class="hc-ball red">25</span><span class="hc-ball red">35</span><span class="hc-plus">+</span><span class="hc-ball blue">01</span><span class="hc-ball blue">10</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七乐彩</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">01</span><span class="hc-ball red">08</span><span class="hc-ball red">12</span><span class="hc-ball red">14</span><span class="hc-ball red">17</span><span class="hc-ball red">25</span><span class="hc-ball red">27</span><span class="hc-plus">★</span><span class="hc-ball sp">23</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">快乐8</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">19</span><span class="hc-ball red">20</span><span class="hc-ball red">39</span><span class="hc-ball red">40</span><span class="hc-ball red">41</span><span class="hc-ball red">43</span><span class="hc-ball red">47</span><span class="hc-ball red">51</span><span class="hc-ball red">57</span><span class="hc-ball red">62</span><span class="hc-ball red">64</span><span class="hc-ball red">66</span><span class="hc-ball red">67</span><span class="hc-ball red">68</span><span class="hc-ball red">72</span><span class="hc-ball red">76</span><span class="hc-ball red">77</span><span class="hc-ball red">80</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">福彩3D</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">00</span><span class="hc-ball red">01</span><span class="hc-ball red">05</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列3</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列5</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span><span class="hc-ball red">02</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七星彩</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">07</span><span class="hc-ball red">07</span><span class="hc-ball red">05</span><span class="hc-ball red">05</span><span class="hc-ball red">01</span><span class="hc-ball red">03</span><span class="hc-plus">+</span><span class="hc-ball blue">11</span></div></div></div></section>
+
+  <div class="ro-divider"><span>彩票推荐图</span></div>
+
+  <section class="ro-game"><div class="ro-gamehead"><h2>双色球</h2><div class="ro-meta">2026-10-15 周四 · 第 2026118 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026117 期开奖</div><div class="ro-balls"><span class="ro-ball">04</span><span class="ro-ball">11</span><span class="ro-ball">14</span><span class="ro-ball">22</span><span class="ro-ball">26</span><span class="ro-ball">27</span><span class="ro-ball">04</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">双色球 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">红球走势分析</div><div class="r-fields" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><div class="r-field"><div class="r-label">红球和值</div><div class="r-value">92~117</div></div><div class="r-field"><div class="r-label">跨度</div><div class="r-value">20~30</div></div><div class="r-field"><div class="r-label">奇偶比</div><div class="r-value">3奇7偶</div></div><div class="r-field"><div class="r-label">大小比</div><div class="r-value">5大5小</div></div><div class="r-field"><div class="r-label">区间比</div><div class="r-value">2:3:1 / 2:2:2 / 1:1:4</div></div><div class="r-field"><div class="r-label">012路比</div><div class="r-value">1路 0路 2路 1路 2路 1路 0路 2路 2路 0路</div></div><div class="r-field"><div class="r-label">热号</div><div class="r-value">04 24 13 14 22 11</div></div><div class="r-field"><div class="r-label">冷号</div><div class="r-value">10 21 32 03 07 08</div></div><div class="r-field"><div class="r-label">最大遗漏</div><div class="r-value">21号</div></div><div class="r-field"><div class="r-label">遗漏回补</div><div class="r-value">21 08 25</div></div><div class="r-field"><div class="r-label">连号</div><div class="r-value">26-27 / 27-28 / 13-14</div></div><div class="r-field"><div class="r-label">重复号</div><div class="r-value">27防1枚</div></div><div class="r-field"><div class="r-label">同尾号</div><div class="r-value">02-12-22-32 / 03-13-23-33</div></div><div class="r-field"><div class="r-label">邻号</div><div class="r-value">03 05 10 12 13 15</div></div><div class="r-field"><div class="r-label">跳连号</div><div class="r-value">26-27 / 27-28 / 13-14</div></div><div class="r-field"><div class="r-label">同区号</div><div class="r-value">二区12,13,14,15,16,17</div></div><div class="r-field"><div class="r-label">质数/合数</div><div class="r-value">2:4 / 1:5 / 3:3</div></div><div class="r-field"><div class="r-label">尾数冷热</div><div class="r-value">4尾热 3尾热 7尾冷</div></div><div class="r-field"><div class="r-label">杀号</div><div class="r-value">10 21 32</div></div><div class="r-field"><div class="r-label">胆码</div><div class="r-value">24 04 25</div></div><div class="r-field"><div class="r-label">拖码</div><div class="r-value">06 13 30 05 16 09 14</div></div></div></div><div class="r-block"><div class="r-sectitle">红球推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">20码</span><span class="r-ballwrap"><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">16</span><span class="rball red md">18</span><span class="rball red md">19</span><span class="rball red md">20</span><span class="rball red md">22</span><span class="rball red md">24</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">30</span><span class="rball red md">31</span></span></div><div class="r-numrow"><span class="r-numlabel">15码</span><span class="r-ballwrap"><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">16</span><span class="rball red md">18</span><span class="rball red md">20</span><span class="rball red md">22</span><span class="rball red md">24</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">30</span><span class="rball red md">31</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">11</span><span class="rball red md">14</span><span class="rball red md">16</span><span class="rball red md">18</span><span class="rball red md">20</span><span class="rball red md">22</span><span class="rball red md">24</span><span class="rball red md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">04</span><span class="rball gold md">14</span><span class="rball gold md">24</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">04</span></span></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">蓝球走势分析</div><div class="r-fields" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><div class="r-field"><div class="r-label">蓝球奇偶</div><div class="r-value">3奇3偶</div></div><div class="r-field"><div class="r-label">蓝球大小</div><div class="r-value">3大3小</div></div><div class="r-field"><div class="r-label">蓝球012路</div><div class="r-value">0路 1路 2路 2路 0路 2路</div></div><div class="r-field"><div class="r-label">蓝球推荐</div><div class="r-value">03 04 05 11 12 14</div></div><div class="r-field"><div class="r-label">蓝球杀号</div><div class="r-value">01 06 13</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">最近30期出现次数</div><div class="r-rank"><div class="r-ranktitle">红球热号排行</div><div class="r-ranklist"><span class="r-rankitem"><span class="rball red sm">04</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball red sm">24</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball red sm">13</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">14</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">22</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">11</span><span class="r-rankcount">出现8次</span></span></div><div class="r-ranktitle">蓝球热号排行</div><div class="r-ranklist"><span class="r-rankitem"><span class="rball blue sm">03</span><span class="r-rankcount">出现4次</span></span><span class="r-rankitem"><span class="rball blue sm">04</span><span class="r-rankcount">出现4次</span></span><span class="r-rankitem"><span class="rball blue sm">05</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">11</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">02</span><span class="r-rankcount">出现2次</span></span><span class="r-rankitem"><span class="rball blue sm">09</span><span class="r-rankcount">出现2次</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">双色球 · 五行 / 绕胆 / 九转连环 / 九宫</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-calendar"><div class="r-calrow"><span class="r-calitem"><b>公历：</b>2026年10月14日 周三</span><span class="r-calitem"><b>农历：</b>九月十四</span><span class="r-calitem"><b>干支：</b>丙午年 辛酉日</span><span class="r-calitem"><b>日五行：</b>辛酉日</span></div><div class="r-calbadges"><span class="r-calbadge"><b>财神 </b>正东</span><span class="r-calbadge"><b>喜神 </b>西南</span><span class="r-calbadge"><b>福神 </b>西南</span><span class="r-calbadge"><b>贵神 </b>东北</span><span class="r-calbadge"><b>冲煞 </b>冲兔 煞东</span></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">五行号码（按尾数）</div><div class="r-wuxing"><div class="r-wxrow"><span class="r-wxbadge wx0">金</span><span class="r-wxtails">尾4、9</span><span class="r-ballwrap"><span class="rball wx0 sm">04</span><span class="rball wx0 sm">09</span><span class="rball wx0 sm">14</span><span class="rball wx0 sm">19</span><span class="rball wx0 sm">24</span><span class="rball wx0 sm">29</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx1">木</span><span class="r-wxtails">尾3、8</span><span class="r-ballwrap"><span class="rball wx1 sm">03</span><span class="rball wx1 sm">08</span><span class="rball wx1 sm">13</span><span class="rball wx1 sm">18</span><span class="rball wx1 sm">23</span><span class="rball wx1 sm">28</span><span class="rball wx1 sm">33</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx2">水</span><span class="r-wxtails">尾1、6</span><span class="r-ballwrap"><span class="rball wx2 sm">01</span><span class="rball wx2 sm">06</span><span class="rball wx2 sm">11</span><span class="rball wx2 sm">16</span><span class="rball wx2 sm">21</span><span class="rball wx2 sm">26</span><span class="rball wx2 sm">31</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx3">火</span><span class="r-wxtails">尾2、7</span><span class="r-ballwrap"><span class="rball wx3 sm">02</span><span class="rball wx3 sm">07</span><span class="rball wx3 sm">12</span><span class="rball wx3 sm">17</span><span class="rball wx3 sm">22</span><span class="rball wx3 sm">27</span><span class="rball wx3 sm">32</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx4">土</span><span class="r-wxtails">尾5、0</span><span class="r-ballwrap"><span class="rball wx4 sm">05</span><span class="rball wx4 sm">10</span><span class="rball wx4 sm">15</span><span class="rball wx4 sm">20</span><span class="rball wx4 sm">25</span><span class="rball wx4 sm">30</span></span></div><div class="r-wxfoot"><div class="r-wxfootitem"><b>旺尾：</b>4、3、1、2</div><div class="r-wxfootitem"><b>弱尾：</b>9、7</div><div class="r-wxfootitem"><b>吉利数字：</b>04 11 13 14 22 24</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">绕胆图（4×4）</div><div class="r-gridwrap"><div class="r-grid" style="grid-template-columns:repeat(4, 1fr)"><div class="r-cell goldred">04</div><div class="r-cell goldred">06</div><div class="r-cell goldred">11</div><div class="r-cell goldred">12</div><div class="r-cell orange">13</div><div class="r-cell orange">14</div><div class="r-cell orange">18</div><div class="r-cell orange">20</div><div class="r-cell purple">22</div><div class="r-cell purple">24</div><div class="r-cell purple">26</div><div class="r-cell purple">27</div><div class="r-cell blue">29</div><div class="r-cell blue">30</div><div class="r-cell blue">31</div><div class="r-cell blue">33</div></div><div class="r-legend"><span class="r-legenditem"><span class="r-dot gold-red"></span>金胆</span><span class="r-legenditem"><span class="r-dot orange"></span>银胆</span><span class="r-legenditem"><span class="r-dot purple"></span>拖码</span><span class="r-legenditem"><span class="r-dot blue"></span>蓝球关注</span></div></div></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">九转连环图</div><div class="r-circwrap"><div class="r-circle"><div class="r-ring ring4"></div><div class="r-ring ring3"></div><div class="r-ring ring2"></div><div class="r-ring ring1"></div><div class="r-center">14</div><div class="r-ringnum" style="top:4%;left:50%">04</div><div class="r-ringnum" style="top:22%;left:50%">06</div><div class="r-ringnum" style="top:50%;left:4%">11</div><div class="r-ringnum" style="top:50%;left:22%">13</div><div class="r-ringnum" style="top:50%;left:78%">22</div><div class="r-ringnum" style="top:50%;left:96%">24</div><div class="r-ringnum" style="top:78%;left:50%">26</div><div class="r-ringnum" style="top:96%;left:50%">30</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">九宫图（洛书）</div><div class="r-jgwrap"><div class="r-jiugong"><div class="r-jgcell">4</div><div class="r-jgcell">9</div><div class="r-jgcell">2</div><div class="r-jgcell">3</div><div class="r-jgcell center">5</div><div class="r-jgcell">7</div><div class="r-jgcell">8</div><div class="r-jgcell">1</div><div class="r-jgcell">6</div></div><div class="r-jgfoot"><div><b>中宫：</b>5为主，对应尾数5、0为旺</div><div><b>关注号码：</b>05 10 15</div></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>福彩3D</h2><div class="ro-meta">2026-10-14 周三 · 第 2026273 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026272 期开奖</div><div class="ro-balls"><span class="ro-ball">00</span><span class="ro-ball">01</span><span class="ro-ball">05</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">福彩3D · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">6码可组选</span><span class="r-ballwrap"><span class="rball gold md">0</span><span class="rball red md">1</span><span class="rball red md">4</span><span class="rball red md">6</span><span class="rball red md">8</span><span class="rball red md">9</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">06</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">05</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">04</span><span class="rball gold md">09</span></span></div><div class="r-inlinefoot"><span class="r-inlineitem"><b>合值 </b>7~21</span><span class="r-inlineitem"><b>和尾 </b>0~9</span><span class="r-inlineitem"><b>防组三 </b>对子号</span><span class="r-inlineitem"><b>杀号 </b>02 03 07</span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>七乐彩</h2><div class="ro-meta">2026-10-14 周三 · 第 2026118 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026117 期开奖</div><div class="ro-balls"><span class="ro-ball">01</span><span class="ro-ball">08</span><span class="ro-ball">12</span><span class="ro-ball">14</span><span class="ro-ball">17</span><span class="ro-ball">25</span><span class="ro-ball">27</span><span class="ro-ball">23</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">七乐彩 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">冷热号参考</div><div class="r-twovalues"><div class="r-tvrow"><span class="r-tvlabel">热号：</span><span class="r-tvvalue">06 01 21 07 08 13</span></div><div class="r-tvrow"><span class="r-tvlabel">冷号：</span><span class="r-tvvalue">03 15 18 10 11 16</span></div></div></div><div class="r-block"><div class="r-sectitle">推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">22码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">17</span><span class="rball red md">19</span><span class="rball red md">21</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">24</span><span class="rball red md">25</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">28</span><span class="rball red md">29</span></span></div><div class="r-numrow"><span class="r-numlabel">18码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">17</span><span class="rball red md">21</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">24</span><span class="rball red md">25</span><span class="rball red md">26</span><span class="rball red md">28</span><span class="rball red md">29</span></span></div><div class="r-numrow"><span class="r-numlabel">12码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">21</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">25</span><span class="rball red md">26</span><span class="rball red md">29</span></span></div><div class="r-numrow"><span class="r-numlabel">6码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">13</span><span class="rball red md">21</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">06</span><span class="rball gold md">21</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">06</span></span></div></div></div><div class="r-block"><div class="r-sectitle">杀号参考</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">杀号</span><span class="r-ballwrap"><span class="rball gray md">03</span><span class="rball gray md">10</span><span class="rball gray md">11</span><span class="rball gray md">15</span><span class="rball gray md">16</span><span class="rball gray md">18</span></span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>快乐8</h2><div class="ro-meta">2026-10-14 周三 · 第 2026273 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026272 期开奖</div><div class="ro-balls"><span class="ro-ball">11</span><span class="ro-ball">14</span><span class="ro-ball">19</span><span class="ro-ball">20</span><span class="ro-ball">39</span><span class="ro-ball">40</span><span class="ro-ball">41</span><span class="ro-ball">43</span><span class="ro-ball">47</span><span class="ro-ball">51</span><span class="ro-ball">57</span><span class="ro-ball">62</span><span class="ro-ball">64</span><span class="ro-ball">66</span><span class="ro-ball">67</span><span class="ro-ball">68</span><span class="ro-ball">72</span><span class="ro-ball">76</span><span class="ro-ball">77</span><span class="ro-ball">80</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">快乐8 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-twovalues"><div class="r-tvrow"><span class="r-tvlabel">热号：</span><span class="r-tvvalue">73 31 50 54 02 08</span></div><div class="r-tvrow"><span class="r-tvlabel">冷号：</span><span class="r-tvvalue">69 32 38 14 27 58</span></div></div></div><div class="r-block"><div class="r-sectitle">推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">30胆</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">13</span><span class="rball red md">20</span><span class="rball red md">23</span><span class="rball red md">26</span><span class="rball red md">29</span><span class="rball red md">31</span><span class="rball red md">35</span><span class="rball red md">41</span><span class="rball red md">43</span><span class="rball red md">44</span><span class="rball red md">46</span><span class="rball red md">50</span><span class="rball red md">51</span><span class="rball red md">52</span><span class="rball red md">54</span><span class="rball red md">59</span><span class="rball red md">62</span><span class="rball red md">65</span><span class="rball red md">66</span><span class="rball red md">72</span><span class="rball red md">73</span><span class="rball red md">76</span><span class="rball red md">78</span></span></div><div class="r-numrow"><span class="r-numlabel">24胆</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">23</span><span class="rball red md">26</span><span class="rball red md">31</span><span class="rball red md">35</span><span class="rball red md">41</span><span class="rball red md">44</span><span class="rball red md">50</span><span class="rball red md">51</span><span class="rball red md">54</span><span class="rball red md">59</span><span class="rball red md">62</span><span class="rball red md">65</span><span class="rball red md">66</span><span class="rball red md">72</span><span class="rball red md">73</span><span class="rball red md">76</span><span class="rball red md">78</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball gold md">02</span><span class="rball gold md">07</span><span class="rball gold md">08</span><span class="rball gold md">09</span><span class="rball gold md">31</span><span class="rball gold md">35</span><span class="rball gold md">50</span><span class="rball gold md">54</span><span class="rball gold md">65</span><span class="rball gold md">73</span></span></div><div class="r-numrow"><span class="r-numlabel">5码</span><span class="r-ballwrap"><span class="rball gold md">02</span><span class="rball gold md">31</span><span class="rball gold md">50</span><span class="rball gold md">54</span><span class="rball gold md">73</span></span></div></div></div><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">杀号</span><span class="r-ballwrap"><span class="rball gray md">14</span><span class="rball gray md">27</span><span class="rball gray md">32</span><span class="rball gray md">38</span><span class="rball gray md">69</span></span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>大乐透</h2><div class="ro-meta">2026-10-14 周三 · 第 26117 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26116 期开奖</div><div class="ro-balls"><span class="ro-ball">09</span><span class="ro-ball">18</span><span class="ro-ball">22</span><span class="ro-ball">25</span><span class="ro-ball">35</span><span class="ro-ball">01</span><span class="ro-ball">10</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">大乐透 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26117</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">前区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><div class="r-field"><div class="r-label">前区和值</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">跨度</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">奇偶比</div><div class="r-value">5奇5偶</div></div><div class="r-field"><div class="r-label">大小比</div><div class="r-value">3大7小</div></div><div class="r-field"><div class="r-label">区间比</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">012路比</div><div class="r-value">2路 1路 0路 1路 0路 0路 2路 1路 1路 1路</div></div><div class="r-field"><div class="r-label">热号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">冷号</div><div class="r-value">01 02 03 04 05 06</div></div><div class="r-field"><div class="r-label">最大遗漏</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">遗漏回补</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">连号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">重复号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">同尾号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">邻号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">跳连号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">同区号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">质数/合数</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">尾数冷热</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">杀号</div><div class="r-value">01 02 03</div></div><div class="r-field"><div class="r-label">胆码</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">拖码</div><div class="r-value empty">—</div></div></div></div><div class="r-block"><div class="r-sectitle">前区推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">20码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">16</span><span class="rball red md">17</span><span class="rball red md">18</span><span class="rball red md">19</span><span class="rball red md">20</span></span></div><div class="r-numrow"><span class="r-numlabel">15码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">15</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">10</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">02</span><span class="rball gold md">03</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">01</span></span></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">后区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><div class="r-field"><div class="r-label">后区热号</div><div class="r-value empty">—</div></div><div class="r-field"><div class="r-label">后区冷号</div><div class="r-value">01 02 03 04 05 06</div></div><div class="r-field"><div class="r-label">后区奇偶</div><div class="r-value">3奇3偶</div></div><div class="r-field"><div class="r-label">后区大小</div><div class="r-value">2大4小</div></div><div class="r-field"><div class="r-label">后区012路</div><div class="r-value">1路 1路 2路 0路 1路 1路</div></div><div class="r-field"><div class="r-label">后区推荐</div><div class="r-value">01 04 05 06 07 10</div></div><div class="r-field"><div class="r-label">后区杀号</div><div class="r-value">01 02 03</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">最近30期出现次数</div><div class="r-rank"><div class="r-ranktitle">前区热号排行</div><div class="r-ranklist"></div><div class="r-ranktitle">后区热号排行</div><div class="r-ranklist"></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">大乐透 · 五行 / 绕胆 / 九转连环 / 九宫</div><div class="r-headissue">第&nbsp;&nbsp;<b>26117</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-calendar"><div class="r-calrow"><span class="r-calitem"><b>公历：</b>2026年10月14日 周三</span><span class="r-calitem"><b>农历：</b>九月十四</span><span class="r-calitem"><b>干支：</b>丙午年 辛酉日</span><span class="r-calitem"><b>日五行：</b>辛酉日</span></div><div class="r-calbadges"><span class="r-calbadge"><b>财神 </b>正东</span><span class="r-calbadge"><b>喜神 </b>西南</span><span class="r-calbadge"><b>福神 </b>西南</span><span class="r-calbadge"><b>贵神 </b>东北</span><span class="r-calbadge"><b>冲煞 </b>冲兔 煞东</span></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">五行号码（按尾数）</div><div class="r-wuxing"><div class="r-wxrow"><span class="r-wxbadge wx0">金</span><span class="r-wxtails">尾4、9</span><span class="r-ballwrap"><span class="rball wx0 sm">04</span><span class="rball wx0 sm">09</span><span class="rball wx0 sm">14</span><span class="rball wx0 sm">19</span><span class="rball wx0 sm">24</span><span class="rball wx0 sm">29</span><span class="rball wx0 sm">34</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx1">木</span><span class="r-wxtails">尾3、8</span><span class="r-ballwrap"><span class="rball wx1 sm">03</span><span class="rball wx1 sm">08</span><span class="rball wx1 sm">13</span><span class="rball wx1 sm">18</span><span class="rball wx1 sm">23</span><span class="rball wx1 sm">28</span><span class="rball wx1 sm">33</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx2">水</span><span class="r-wxtails">尾1、6</span><span class="r-ballwrap"><span class="rball wx2 sm">01</span><span class="rball wx2 sm">06</span><span class="rball wx2 sm">11</span><span class="rball wx2 sm">16</span><span class="rball wx2 sm">21</span><span class="rball wx2 sm">26</span><span class="rball wx2 sm">31</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx3">火</span><span class="r-wxtails">尾2、7</span><span class="r-ballwrap"><span class="rball wx3 sm">02</span><span class="rball wx3 sm">07</span><span class="rball wx3 sm">12</span><span class="rball wx3 sm">17</span><span class="rball wx3 sm">22</span><span class="rball wx3 sm">27</span><span class="rball wx3 sm">32</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx4">土</span><span class="r-wxtails">尾5、0</span><span class="r-ballwrap"><span class="rball wx4 sm">05</span><span class="rball wx4 sm">10</span><span class="rball wx4 sm">15</span><span class="rball wx4 sm">20</span><span class="rball wx4 sm">25</span><span class="rball wx4 sm">30</span><span class="rball wx4 sm">35</span></span></div><div class="r-wxfoot"><div class="r-wxfootitem"><b>旺尾：</b>0、1、2、3</div><div class="r-wxfootitem"><b>弱尾：</b>8、9</div><div class="r-wxfootitem"><b>吉利数字：</b>15 17 18 23 29 32</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">绕胆图（4×4）</div><div class="r-gridwrap"><div class="r-grid" style="grid-template-columns:repeat(4, 1fr)"><div class="r-cell goldred">01</div><div class="r-cell goldred">02</div><div class="r-cell goldred">08</div><div class="r-cell goldred">11</div><div class="r-cell orange">12</div><div class="r-cell orange">16</div><div class="r-cell orange">18</div><div class="r-cell orange">19</div><div class="r-cell purple">20</div><div class="r-cell purple">22</div><div class="r-cell purple">26</div><div class="r-cell purple">27</div><div class="r-cell blue">28</div><div class="r-cell blue">30</div><div class="r-cell blue">33</div><div class="r-cell blue">35</div></div><div class="r-legend"><span class="r-legenditem"><span class="r-dot purple-dark"></span>金胆</span><span class="r-legenditem"><span class="r-dot orange"></span>银胆</span><span class="r-legenditem"><span class="r-dot purple"></span>拖码</span><span class="r-legenditem"><span class="r-dot blue"></span>后区关注</span></div></div></div></div></div><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">九转连环图</div><div class="r-circwrap"><div class="r-circle"><div class="r-ring ring4"></div><div class="r-ring ring3"></div><div class="r-ring ring2"></div><div class="r-ring ring1"></div><div class="r-center">20</div><div class="r-ringnum" style="top:4%;left:50%">01</div><div class="r-ringnum" style="top:22%;left:50%">09</div><div class="r-ringnum" style="top:50%;left:4%">10</div><div class="r-ringnum" style="top:50%;left:22%">17</div><div class="r-ringnum" style="top:50%;left:78%">21</div><div class="r-ringnum" style="top:50%;left:96%">23</div><div class="r-ringnum" style="top:78%;left:50%">29</div><div class="r-ringnum" style="top:96%;left:50%">32</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">九宫图（洛书）</div><div class="r-jgwrap"><div class="r-jiugong"><div class="r-jgcell">4</div><div class="r-jgcell">9</div><div class="r-jgcell">2</div><div class="r-jgcell">3</div><div class="r-jgcell center">5</div><div class="r-jgcell">7</div><div class="r-jgcell">8</div><div class="r-jgcell">1</div><div class="r-jgcell">6</div></div><div class="r-jgfoot"><div><b>中宫：</b>5为主，对应尾数5、0为旺</div><div><b>关注号码：</b>05 10 15</div></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>排列3</h2><div class="ro-meta">2026-10-14 周三 · 第 26273 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26272 期开奖</div><div class="ro-balls"><span class="ro-ball">08</span><span class="ro-ball">09</span><span class="ro-ball">00</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">排列三 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">6码可组选</span><span class="r-ballwrap"><span class="rball gold md">0</span><span class="rball red md">1</span><span class="rball red md">2</span><span class="rball red md">6</span><span class="rball red md">7</span><span class="rball red md">9</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">02</span><span class="rball gold md">06</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball gold md">02</span><span class="rball gold md">07</span><span class="rball gold md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">02</span></span></div><div class="r-inlinefoot"><span class="r-inlineitem"><b>合值 </b>8~18</span><span class="r-inlineitem"><b>和尾 </b>0~9</span><span class="r-inlineitem"><b>防组三 </b>对子号</span><span class="r-inlineitem"><b>杀号 </b>04 05 08</span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>排列5</h2><div class="ro-meta">2026-10-14 周三 · 第 26273 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26272 期开奖</div><div class="ro-balls"><span class="ro-ball">08</span><span class="ro-ball">09</span><span class="ro-ball">00</span><span class="ro-ball">02</span><span class="ro-ball">00</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">排列五 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">万位</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">02</span><span class="rball gold md">06</span></span></div><div class="r-numrow"><span class="r-numlabel">千位</span><span class="r-ballwrap"><span class="rball gold md">02</span><span class="rball gold md">07</span><span class="rball gold md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">02</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball blue md">02</span><span class="rball blue md">04</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball blue md">00</span><span class="rball blue md">01</span></span></div><div class="r-note">排三百位→排五万位　|　排三十位→排五千位　|　排三个位→排五百位　排三前三位直接带入排五</div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>七星彩</h2><div class="ro-meta">2026-10-14 周三 · 第 26118 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26117 期开奖</div><div class="ro-balls"><span class="ro-ball">07</span><span class="ro-ball">07</span><span class="ro-ball">05</span><span class="ro-ball">05</span><span class="ro-ball">01</span><span class="ro-ball">03</span><span class="ro-ball">11</span></div></div><div class="ro-imagewrap"><div class="r-image"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">七星彩 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-twocol"><div class="r-col"><div class="r-block"><div class="r-sectitle">定位推荐</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">前1位</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">前2位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">08</span><span class="rball red md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前3位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前4位</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前5位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前6位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">后区</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">11</span><span class="rball red md">13</span></span></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">杀号参考（每位杀3）</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">前1杀</span><span class="r-ballwrap"><span class="rball gray md">01</span><span class="rball gray md">02</span><span class="rball gray md">04</span></span></div><div class="r-numrow"><span class="r-numlabel">前2杀</span><span class="r-ballwrap"><span class="rball gray md">03</span><span class="rball gray md">06</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前3杀</span><span class="r-ballwrap"><span class="rball gray md">01</span><span class="rball gray md">05</span><span class="rball gray md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">前4杀</span><span class="r-ballwrap"><span class="rball gray md">00</span><span class="rball gray md">03</span><span class="rball gray md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前5杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">05</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前6杀</span><span class="r-ballwrap"><span class="rball gray md">01</span><span class="rball gray md">04</span><span class="rball gray md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">后区杀</span><span class="r-ballwrap"><span class="rball gray md">01</span><span class="rball gray md">04</span><span class="rball gray md">07</span><span class="rball gray md">10</span><span class="rball gray md">13</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —</div></div></div></section>
+
+  <div class="ro-divider"><span>竞彩 · 体彩在售</span></div>
+
+  <section class="ro-game"><div class="ro-gamehead"><h2>竞彩 · 推胜负平</h2><div class="ro-meta">体彩在售 12 场 · 更新于 2026-10-14 02:12</div></div><div class="j-stat"><div class="h"><b>8</b><span>推荐主胜</span></div><div class="d"><b>0</b><span>推荐平局</span></div><div class="a"><b>4</b><span>推荐客胜</span></div></div><div class="j-subhead">未开赛<span class="j-subcount">12</span></div><div class="j-card"><div class="j-top"><span class="j-code">周二001</span><span class="j-league">亚冠杯</span><span class="j-time">10-13 15:45</span></div><div class="j-teams"><span class="j-team home"><i>[16]</i>纽喷气机</span><span class="j-vs">VS</span><span class="j-team away">大阪钢巴<i>[2]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov">主 4.2</span><span class="j-ov">平 3.9</span><span class="j-ov on">客 1.67</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">受半球/一球</span><span class="j-ov">主 0.97</span><span class="j-ov">客 0.82</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.85</span><span class="j-ov">大 3</span><span class="j-ov">小 0.95</span></div><div class="j-reco"><span class="j-pick">推荐 <b>客胜</b></span><span class="j-conf">信心 54.8%</span><span class="j-probs"><i class="">主21.8%</i><i class="">平23.5%</i><i class="on">客54.8%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二002</span><span class="j-league">亚冠杯</span><span class="j-time">10-13 18:00</span></div><div class="j-teams"><span class="j-team home"><i>[3]</i>上海海港<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">大田市民<i>[7]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 2.25</span><span class="j-ov">平 3.6</span><span class="j-ov">客 2.7</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">平手/半球</span><span class="j-ov">主 1.02</span><span class="j-ov">客 0.77</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.9</span><span class="j-ov">大 3</span><span class="j-ov">小 0.9</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 40.7%</span><span class="j-probs"><i class="on">主40.7%</i><i class="">平25.4%</i><i class="">客33.9%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二003</span><span class="j-league">亚冠杯</span><span class="j-time">10-13 20:15</span></div><div class="j-teams"><span class="j-team home"><i>[10]</i>布里兰<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">北京国安<i>[6]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 1.9</span><span class="j-ov">平 3.7</span><span class="j-ov">客 3.5</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">半球</span><span class="j-ov">主 0.9</span><span class="j-ov">客 0.9</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.85</span><span class="j-ov">大 3</span><span class="j-ov">小 0.95</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 48.6%</span><span class="j-probs"><i class="on">主48.6%</i><i class="">平25%</i><i class="">客26.4%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二004</span><span class="j-league">欧冠</span><span class="j-time">10-14 00:45</span></div><div class="j-teams"><span class="j-team home"><i>[11]</i>朗斯<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">里斯本<i>[6]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 2.45</span><span class="j-ov">平 3.6</span><span class="j-ov">客 2.75</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">平手/半球</span><span class="j-ov">主 1.07</span><span class="j-ov">客 0.72</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.75</span><span class="j-ov">大 2.5</span><span class="j-ov">小 1.05</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 38.9%</span><span class="j-probs"><i class="on">主38.9%</i><i class="">平26.5%</i><i class="">客34.6%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二005</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[25]</i>国际米兰<span class="j-hc">(-2)</span></span><span class="j-vs">VS</span><span class="j-team away">布鲁日<i>[21]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 1.22</span><span class="j-ov">平 6.5</span><span class="j-ov">客 12</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">两球</span><span class="j-ov">主 1.02</span><span class="j-ov">客 0.82</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.85</span><span class="j-ov">大 3.5</span><span class="j-ov">小 1</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 77.6%</span><span class="j-probs"><i class="on">主77.6%</i><i class="">平14.6%</i><i class="">客7.9%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二006</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[15]</i>阿森纳<span class="j-hc">(-2)</span></span><span class="j-vs">VS</span><span class="j-team away">里尔<i>[24]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 1.22</span><span class="j-ov">平 6.5</span><span class="j-ov">客 12</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">两球</span><span class="j-ov">主 0.95</span><span class="j-ov">客 0.9</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">1</span><span class="j-ov">大 3</span><span class="j-ov">小 0.85</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 77.6%</span><span class="j-probs"><i class="on">主77.6%</i><i class="">平14.6%</i><i class="">客7.9%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二007</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[23]</i>比利亚雷<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">那不勒斯<i>[27]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 2.15</span><span class="j-ov">平 3.6</span><span class="j-ov">客 3.2</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">平手/半球</span><span class="j-ov">主 0.75</span><span class="j-ov">客 1.05</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.87</span><span class="j-ov">大 2.5</span><span class="j-ov">小 0.97</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 44.1%</span><span class="j-probs"><i class="on">主44.1%</i><i class="">平26.3%</i><i class="">客29.6%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二008</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[30]</i>维京</span><span class="j-vs">VS</span><span class="j-team away">拜仁<i>[2]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov">主 17</span><span class="j-ov">平 11</span><span class="j-ov on">客 1.11</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">受两球半/三球</span><span class="j-ov">主 0.87</span><span class="j-ov">客 0.97</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.97</span><span class="j-ov">大 4.5</span><span class="j-ov">小 0.87</span></div><div class="j-reco"><span class="j-pick">推荐 <b>客胜</b></span><span class="j-conf">信心 85.7%</span><span class="j-probs"><i class="">主5.6%</i><i class="">平8.7%</i><i class="on">客85.7%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二009</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[32]</i>莱红牛<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">埃因霍温<i>[20]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 1.53</span><span class="j-ov">平 5</span><span class="j-ov">客 5</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">一球</span><span class="j-ov">主 0.82</span><span class="j-ov">客 1.02</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">1.02</span><span class="j-ov">大 4</span><span class="j-ov">小 0.82</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 62%</span><span class="j-probs"><i class="on">主62%</i><i class="">平19%</i><i class="">客19%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二010</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[29]</i>加拉塔萨</span><span class="j-vs">VS</span><span class="j-team away">巴萨<i>[3]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov">主 9</span><span class="j-ov">平 7</span><span class="j-ov on">客 1.25</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">受球半/两球</span><span class="j-ov">主 0.97</span><span class="j-ov">客 0.87</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">1</span><span class="j-ov">大 4</span><span class="j-ov">小 0.85</span></div><div class="j-reco"><span class="j-pick">推荐 <b>客胜</b></span><span class="j-conf">信心 75.9%</span><span class="j-probs"><i class="">主10.5%</i><i class="">平13.6%</i><i class="on">客75.9%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二011</span><span class="j-league">欧冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[26]</i>马竞<span class="j-hc">(-1)</span></span><span class="j-vs">VS</span><span class="j-team away">曼联<i>[4]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov on">主 1.8</span><span class="j-ov">平 3.8</span><span class="j-ov">客 4.1</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">半球</span><span class="j-ov">主 0.87</span><span class="j-ov">客 0.97</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.82</span><span class="j-ov">大 2.5</span><span class="j-ov">小 1.02</span></div><div class="j-reco"><span class="j-pick">推荐 <b>主胜</b></span><span class="j-conf">信心 52.3%</span><span class="j-probs"><i class="on">主52.3%</i><i class="">平24.8%</i><i class="">客23%</i></span></div></div><div class="j-card"><div class="j-top"><span class="j-code">周二012</span><span class="j-league">英冠</span><span class="j-time">10-14 03:00</span></div><div class="j-teams"><span class="j-team home"><i>[5]</i>斯托克城</span><span class="j-vs">VS</span><span class="j-team away">米堡<i>[2]</i></span></div><div class="j-odds"><span class="j-ol">欧赔</span><span class="j-ov">主 4</span><span class="j-ov">平 3.6</span><span class="j-ov on">客 1.85</span></div><div class="j-odds"><span class="j-ol">亚盘</span><span class="j-ov">受半球</span><span class="j-ov">主 0.82</span><span class="j-ov">客 1.02</span></div><div class="j-odds"><span class="j-ol">大小</span><span class="j-ov">0.95</span><span class="j-ov">大 2.5</span><span class="j-ov">小 0.9</span></div><div class="j-reco"><span class="j-pick">推荐 <b>客胜</b></span><span class="j-conf">信心 50.6%</span><span class="j-probs"><i class="">主23.4%</i><i class="">平26%</i><i class="on">客50.6%</i></span></div></div><div class="j-note">推荐由博彩公司赔率反推概率得出（市场共识换算），不构成购彩建议。</div></section>
+
+  
+
+  <div class="ro-foot">
+    本页面为只读分享版，仅供观看，无法修改。<br>
+    彩票有风险，投注需谨慎。以上内容仅为个人分析，不构成购彩建议，请理性参与。
+  </div>
+
+</div>
+</body>
+</html>
