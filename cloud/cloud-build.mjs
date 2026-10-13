@@ -141,6 +141,15 @@ function makeSandbox(store) {
   return ctx;
 }
 
+/* ---------- 快速模式 ----------
+   本机 sync-cloud.mjs 触发构建时会带上 quick=1（环境变量 CLOUD_QUICK=1），
+   意思是「数据是刚同步过来的，别抓了，用同步的数据重新渲染 + 部署就行」。
+
+   云端抓数据非常慢（build-football.mjs / build-jc.mjs 要抓几百场赔率），
+   而抓取对中国彩票接口基本都会失败（福彩 403 / 体彩 567），
+   所以同步后这次构建必须【跳过抓取】，这样 1 分钟内就能部署完。 */
+const QUICK = process.env.CLOUD_QUICK === '1' || process.argv.includes('--quick');
+
 /* ---------- 判断是否要抓数据 ----------
    本机刚刚同步过（sync-cloud.mjs 会写 sync-stamp.json），
    说明数据是最新最全的，云端直接拿来用就行 ——
@@ -150,6 +159,10 @@ function makeSandbox(store) {
    只有距上次同步超过 12 小时（比如每天凌晨的定时任务），
    云端才自己去抓。 */
 function shouldFetch() {
+  if (QUICK) {
+    return { fetch: false, why: '快速模式（CLOUD_QUICK=1）：同步后立即重建，不抓取' };
+  }
+
   const stampPath = path.join(MOD, 'sync-stamp.json');
   if (!fs.existsSync(stampPath)) return { fetch: true, why: '没有同步记录（首次运行）' };
 
@@ -160,7 +173,7 @@ function shouldFetch() {
 
     const hours = (Date.now() - t) / 3600000;
     if (hours < 12) {
-      return { fetch: false, why: `${hours.toFixed(1)} 小时前刚同步过，直接用同步的数据` };
+      return { fetch: false, why: `${hours.toFixed(2)} 小时前刚同步过，直接用同步的数据` };
     }
     return { fetch: true, why: `距上次同步 ${hours.toFixed(1)} 小时，需要自己抓` };
   } catch (e) {
@@ -196,6 +209,7 @@ function main() {
 
   log(`\n【数据来源】${decision.fetch ? '云端自己抓取' : '使用本机同步的数据'}`);
   log(`  原因：${decision.why}`);
+  if (QUICK) log('  ⚡ 快速模式：跳过所有抓取，直接用同步过来的数据重新渲染（最快部署）');
   log(`  现有历史数据：${histBefore.detail}`);
 
   /* 1-3. 抓数据（只在需要时） */
@@ -329,6 +343,14 @@ function main() {
     log('  ✅ 所有彩种本期都有号码，未改动');
   }
 
+  /* ---------- 发布本期的号码 JSON ----------
+     分享页启动后会去拉这个文件（tickets.json）：
+     只要它比页面里的内联快照新，页面就【就地重渲染】成新号码 ——
+     所以这一步必须在【生成网页之前】就做完：
+     万一后面生成网页失败，网站上的号码照样是最新的，
+     手机打开分享页也能拿到新号码（页面自带拉取+重渲染逻辑）。 */
+  publishTicketsJson();
+
   /* 3. 生成网页 */
   log('\n生成静态网页 ...');
   for (const [file, label] of [
@@ -389,36 +411,41 @@ function main() {
   /* 首页跳转说明 */
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '', 'utf8');
 
-  /* ---------- 发布本期的号码 JSON ----------
-     本机程序会下载这个文件，把号码同步过来，
-     这样「本机摇的号」和「微信链接上的号」永远一致。 */
-  try {
-    const savedNow = path.join(MOD, 'saved-tickets.js');
-    if (fs.existsSync(savedNow)) {
-      const c2 = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
-      vm.runInContext(fs.readFileSync(savedNow, 'utf8') + '\nglobalThis.__S = SAVED_TICKETS;', c2);
-      const S = c2.__S || {};
-
-      const payload = {
-        updated: S.updated || stamp(),
-        publishedAt: new Date().toISOString(),
-        source: 'cloud',
-        note: '云端自动生成的推荐号码，本机程序会自动下载并采用',
-        tickets: S.tickets || {}
-      };
-
-      fs.writeFileSync(path.join(OUT, 'tickets.json'), JSON.stringify(payload), 'utf8');
-      const n = Object.keys(payload.tickets).length;
-      log(`  tickets.json 已发布（${n} 个彩种，供本机同步）`);
-    }
-  } catch (e) {
-    log(`  发布 tickets.json 失败：${e.message}`);
-  }
-
   log(`\n════════════════════════════════════════════`);
   log(`  完成 · ${stamp()}`);
   log(`  输出目录：${OUT}`);
   log('════════════════════════════════════════════');
+}
+
+/* ---------- 发布本期的号码 JSON（out/tickets.json） ----------
+   两个用途：
+     1. 分享页（out/index.html）启动后拉它 → 拉到新的就地重渲染，
+        不用等云端重新构建整个页面（准实时同步的核心）
+     2. 本机程序 cloud-pull.js 下载它，把云端号码同步回本机
+   所以它在【生成网页之前】就要写好：网页渲染失败也不影响号码更新。 */
+function publishTicketsJson() {
+  try {
+    fs.mkdirSync(OUT, { recursive: true });
+    const savedNow = path.join(MOD, 'saved-tickets.js');
+    if (!fs.existsSync(savedNow)) { log('  ⚠️ 没有 saved-tickets.js，跳过 tickets.json'); return; }
+
+    const c2 = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(savedNow, 'utf8') + '\nglobalThis.__S = SAVED_TICKETS;', c2);
+    const S = c2.__S || {};
+
+    const payload = {
+      updated: S.updated || stamp(),
+      publishedAt: new Date().toISOString(),
+      source: 'cloud',
+      note: '云端自动生成的推荐号码，本机程序会自动下载并采用；分享页也会拉它做准实时更新',
+      tickets: S.tickets || {}
+    };
+
+    fs.writeFileSync(path.join(OUT, 'tickets.json'), JSON.stringify(payload), 'utf8');
+    log(`  tickets.json 已发布（${Object.keys(payload.tickets).length} 个彩种，updated=${payload.updated}）`);
+  } catch (e) {
+    log(`  发布 tickets.json 失败：${e.message}`);
+  }
 }
 
 main();
