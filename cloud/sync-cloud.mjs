@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeCloudTickets } from '../export-cloud-tickets.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));   // D:\彩虹多多\cloud
 const PARENT = path.join(ROOT, '..');                        // D:\彩虹多多
@@ -29,7 +30,7 @@ const BRANCH = 'main';
 const API = 'https://api.github.com';
 
 function getToken() {
-  const fromArg = (process.argv[2] || '').trim();
+  const fromArg = (process.argv.slice(2).find((a) => a && !a.startsWith('--')) || '').trim();
   if (fromArg) return fromArg;
   const tokenFile = path.join(ROOT, 'cloud-token.txt');
   if (fs.existsSync(tokenFile)) {
@@ -39,7 +40,11 @@ function getToken() {
   return (process.env.GITHUB_TOKEN || '').trim();
 }
 
-const TOKEN = getToken();
+/* --list：本地准备工作照做（刷新 cloud/scripts、写同步标记、刷新 tickets.json），
+   但【不上传、不触发构建】，只把要上传的文件清单打印出来（排查用） */
+const LIST_ONLY = process.argv.includes('--list');
+
+const TOKEN = LIST_ONLY ? '(list-only)' : getToken();
 if (!TOKEN) {
   log('❌ 找不到 GitHub Token');
   log('请把 Token 保存到：' + path.join(ROOT, 'cloud-token.txt'));
@@ -116,10 +121,19 @@ const CODE_MODULES = [
   'export-static.mjs', 'export-football.mjs'
 ];
 
+/* 页面产物：也一起刷新。
+   为什么必须同步这两份 HTML：
+   cloud-build.mjs 生成完网页后会把 cloud/scripts/只读分享版.html
+   复制成 out/index.html。万一云端那次生成网页失败（比如少个模块），
+   复制过去的就是【仓库里这一份】。如果它是老版本，
+   部署上去的页面就没有「拉 tickets.json 就地重渲染」的能力 ——
+   手机看到的还是旧号码。所以这里必须是本机刚生成的新版。 */
+const PAGE_ARTIFACTS = ['只读分享版.html', '足球推荐.html'];
+
 log('【1/3】刷新云端模块');
 let refreshed = 0;
 const missing = [];
-for (const f of [...FROM_ROOT, ...CODE_MODULES]) {
+for (const f of [...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS]) {
   const src = path.join(PARENT, f);
   if (!fs.existsSync(src)) { missing.push(f); continue; }
   try {
@@ -131,6 +145,20 @@ for (const f of [...FROM_ROOT, ...CODE_MODULES]) {
 }
 log(`  ✅ 已刷新 ${refreshed} 个文件`);
 if (missing.length) log(`  ⏭  本机缺少：${missing.join(', ')}`);
+
+/* 【准实时】顺手把当前号码重新发布成 cloud/out/tickets.json。
+   分享页启动后会拉这个文件，只要它比页面里的内联快照新，
+   就【就地重渲染】成新号码 —— 不用等云端重新构建整个页面。
+   所以这个文件每次同步都必须是新的（摇号脚本里也会写，这里是双保险）。 */
+log('');
+log('【1.5/3】刷新 cloud/out/tickets.json（分享页的准实时数据源）');
+const pub = writeCloudTickets({ root: PARENT, source: 'local' });
+if (pub.ok) {
+  log(`  ✅ updated=${pub.updated}`);
+  log(`     publishedAt=${pub.publishedAt}（${pub.games} 个彩种 / ${(pub.size / 1024).toFixed(1)} KB）`);
+} else {
+  log(`  ⚠️ 没有生成：${pub.reason}（先跑 roll-and-export.mjs 或 export-only.mjs 生成号码）`);
+}
 
 log('');
 log('【2/3】写同步标记');
@@ -164,10 +192,40 @@ function collect(dir, prefix) {
 
 const files = collect(ROOT, 'cloud/');
 
+/* 【必须单独加回来】cloud/out/tickets.json
+   collect() 会跳过 out/ 目录（那是构建产物），但 tickets.json 不一样：
+   它是分享页的「准实时」数据源 —— 本机一摇完号就发布一份新的，
+   传到仓库后网站上的 tickets.json 立刻就是新号码，
+   手机上的分享页拉到它就能就地重渲染（页面自带这段逻辑）。 */
+const TICKETS_JSON = path.join(ROOT, 'out', 'tickets.json');
+if (fs.existsSync(TICKETS_JSON)) {
+  files.push({ local: TICKETS_JSON, repo: 'cloud/out/tickets.json' });
+  log(`  📤 cloud/out/tickets.json 已加入上传列表（${(fs.statSync(TICKETS_JSON).size / 1024).toFixed(1)} KB）`);
+} else {
+  log('  ⚠️ 找不到 cloud/out/tickets.json，本次不会更新网站上的号码文件');
+}
+
 const wf = path.join(PARENT, '.github', 'workflows', 'daily-update.yml');
 if (fs.existsSync(wf)) files.push({ local: wf, repo: '.github/workflows/daily-update.yml' });
 
 log(`  共 ${files.length} 个文件`);
+
+/* --list：只打印清单，不上传 */
+if (LIST_ONLY) {
+  log('');
+  log('  ── 上传清单（--list 模式：不上传、不触发构建）──');
+  files.forEach((f, i) => log(`    ${String(i + 1).padStart(3, ' ')}. ${f.repo}`));
+  log('');
+  log('  ✅ 清单中包含 cloud/out/tickets.json：' +
+    (files.some((f) => f.repo === 'cloud/out/tickets.json') ? '是' : '否 ❌'));
+  log('  ✅ 清单中包含 .github/workflows/daily-update.yml：' +
+    (files.some((f) => f.repo === '.github/workflows/daily-update.yml') ? '是' : '否'));
+  log('  ✅ 清单中包含 cloud/scripts/saved-tickets.js：' +
+    (files.some((f) => f.repo === 'cloud/scripts/saved-tickets.js') ? '是' : '否'));
+  log('  ✅ 清单中包含 cloud/scripts/sync-stamp.json：' +
+    (files.some((f) => f.repo === 'cloud/scripts/sync-stamp.json') ? '是' : '否'));
+  process.exit(0);
+}
 
 let okCount = 0;
 const failed = [];
@@ -183,13 +241,21 @@ log('');
 log(`  ✅ 成功 ${okCount} 个${failed.length ? `，失败 ${failed.length} 个：${failed.slice(0, 8).join(', ')}` : ''}`);
 
 log('');
-log('触发云端重新构建 ...');
-const trigger = await gh('POST',
-  `/repos/${OWNER}/${REPO}/actions/workflows/daily-update.yml/dispatches`,
-  { ref: BRANCH });
+log('触发云端重新构建（快速模式：直接用刚同步过去的数据，不重新抓取）...');
+const dispatchUrl = `/repos/${OWNER}/${REPO}/actions/workflows/daily-update.yml/dispatches`;
+let trigger = await gh('POST', dispatchUrl, { ref: BRANCH, inputs: { quick: '1' } });
+
+/* 万一云端仓库里的 workflow 还没声明 quick 这个输入（会返回 422），
+   退一步用普通方式再触发一次，保证「一定会有一次构建」。 */
+if (trigger.status === 422) {
+  log('  ⚠️ 快速模式参数被拒（422），改用普通触发重试一次');
+  trigger = await gh('POST', dispatchUrl, { ref: BRANCH });
+}
 
 if (trigger.ok || trigger.status === 204) {
-  log('  ✅ 已触发，等 2-3 分钟云端就更新好了');
+  log('  ✅ 已触发');
+  log('     · 网站上的 tickets.json：约 1 分钟（云端构建 + 部署）');
+  log('     · 手机上的分享页：拉到新号码后立刻重渲染，不用等页面重建');
 } else {
   log(`  ⚠️ 触发失败：${trigger.status}`);
   log(`     手动去：https://github.com/${OWNER}/${REPO}/actions`);
