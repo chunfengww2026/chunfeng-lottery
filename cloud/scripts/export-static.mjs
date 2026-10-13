@@ -1051,10 +1051,35 @@ const RO_RENDER_SCRIPT = `
   /* 方便自测 / 排查：页面上可以在控制台手动调 __roLiveApply(数据) */
   window.__roLiveApply = applyRemoteTickets;
 
-  window.__roLivePromise = fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (j) { applyRemoteTickets(j); })
-    .catch(function () { /* 打不开服务器（离线/被墙）就继续用内联快照 */ });
+  /* 拉一次服务器上的号码文件 */
+  function pullTickets() {
+    return fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { return applyRemoteTickets(j); })
+      .catch(function () { return false; });   /* 打不开服务器（离线/被墙）就继续用内联快照 */
+  }
+
+  var firstPull = pullTickets();
+  window.__roLivePromise = firstPull;
+
+  /* 补拉：本机刚摇完号时，云端可能还在部署中（约 1 分钟），
+     第一次拉到的还是旧的。隔几秒再补拉几次 ——
+     这样「号码刚摇完就打开网址」的人也不用手动刷新，页面自己会跟上。
+     只要有一次拿到更新的数据就停，最多补拉三次。
+     （间隔放在 window 上，方便自测/排查时改短。） */
+  if (!window.__roLiveRetryDelays) window.__roLiveRetryDelays = [8000, 25000, 60000];
+
+  firstPull.then(function (applied) {
+    if (applied) return;                       /* 已经换成新号码了，不用补拉 */
+    var delays = window.__roLiveRetryDelays || [];
+    var step = function (i) {
+      if (i >= delays.length) return;
+      setTimeout(function () {
+        pullTickets().then(function (done) { if (!done) step(i + 1); });
+      }, delays[i]);
+    };
+    step(0);
+  });
 })();
 `;
 
