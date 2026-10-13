@@ -111,7 +111,8 @@ const ctx = vm.createContext({
 
 /* ---------- 加载全部依赖 ---------- */
 const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
-               'stats.js', 'templates.js', 'ticket-store.js', 'saved-tickets.js',
+               'stats.js', 'templates.js', 'experts-data.js', 'expert-pool.js',
+               'ticket-store.js', 'saved-tickets.js',
                'render.js', 'prize-data.js', 'hit-check.js',
                'materials-data.js', 'data-store.js'];
 
