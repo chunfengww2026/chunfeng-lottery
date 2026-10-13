@@ -63,8 +63,16 @@ function expertBaseOf(gameId, areaKey, total, from, to, fillFn) {
 
 /**
  * 号码池构成统计（奇偶 / 大小 / 区间 / 012路 / 质合）
- * 「围绕号码池」的核心：这些比例直接由池子本身的号码算出来
  * @returns {{n:number, jq:string, dx:string, qjb:string, lu012:string, zhs:string}|null}
+ *
+ * ⚠️ 【不要用它写奇偶比 / 大小比 / 012路比 / 和值 / 跨度】
+ *    号号码池有 20 个号，用池子自身的构成会写出「8奇12偶」这种
+ *    和玩法对不上的指标（用户反馈「全部都不对」）。
+ *    那几个指标必须按「该玩法该区的真实球数」算：
+ *      双色球红球 6 · 大乐透前区 5 · 七乐彩 7 · 快乐8 10 · 蓝球 1 · 后区 2
+ *    走 areaPickCount() + deriveFromPicks(recNums, ...)，或
+ *    calcTrendFields() 里的真实开奖统计。
+ *    本函数只做展示用的池子构成说明，不参与指标口径。
  */
 function poolComposition(gameId, areaKey, from, to) {
   const pool = expertPoolOf(gameId, areaKey);
@@ -1081,8 +1089,6 @@ function calcTrendFields(gameId, areaKey, from, to, pickCount) {
   };
 
   const dt = calcDanTuo(gameId, areaKey, areas, from, to);
-  const comp = poolComposition(gameId, areaKey, from, to);
-  const psr = pool.length ? poolSumSpanRange(gameId, areaKey, from, to, pickCount) : null;
 
   // 邻号：有池子时只保留「池内的邻号」
   //   注意：calcNeighbor() 返回的是【字符串】，不能直接 .filter —— 这里自己算数组
@@ -1140,35 +1146,11 @@ function calcTrendFields(gameId, areaKey, from, to, pickCount) {
 }
 
 /**
- * 号码池的数值范围估算：从池子里挑 n 个数时的「和值 / 跨度」区间
- *   和值：池内 n 连号窗口的和 → 取中间 80% 主体区间
- *   跨度：池内 n 连号窗口的极差 → 同上
- * @returns {{hz:string, kd:string}|null}
- */
-function poolSumSpanRange(gameId, areaKey, from, to, n) {
-  const pool = expertPoolOf(gameId, areaKey)
-    .filter((x) => x >= from && x <= to)
-    .sort((a, b) => a - b);
-  if (!pool.length) return null;
-
-  const k = Math.max(1, Math.min(n || 6, pool.length));
-  const sums = [];
-  const spans = [];
-  for (let i = 0; i + k - 1 < pool.length; i++) {
-    const win = pool.slice(i, i + k);
-    sums.push(win.reduce((a, b) => a + b, 0));
-    spans.push(win[win.length - 1] - win[0]);
-  }
-  if (!sums.length) return null;
-
-  sums.sort((a, b) => a - b);
-  spans.sort((a, b) => a - b);
-  return { hz: compactRange(sums, 25), kd: compactRange(spans, 15) };
-}
-
-/**
  * 号码池相关的走势值（给 ticket-store.js 摇号用）
  *   只有在「该区有专家号码池」时才返回，否则返回 null → 调用方走原算法
+ *   注意：里面的 和值/跨度/奇偶比/大小比/012路比 都是
+ *   「真实开奖 + 真实球数」口径（见 calcTrendFields 顶部注释），
+ *   只有 热号/冷号/胆码/拖码/杀号/邻号… 才是围绕号码池算的。
  * @returns {object|null}
  */
 function poolTrendFields(gameId, areaKey, from, to, count) {
