@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    styles.css —— 彩虹多多 全局样式
    ============================================================ */
 
@@ -1068,7 +1068,6 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 @media (max-width: 700px) {
   .r-twocol { flex-direction: column; }
   .r-headtitle { font-size: 22px; }
-  .r-ranklist { grid-template-columns: 1fr; }
 }
 /* ---- 输入框 + 骰子按钮 ---- */
 .tk-with-dice {
