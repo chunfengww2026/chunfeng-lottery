@@ -230,15 +230,38 @@ if (LIST_ONLY) {
 let okCount = 0;
 const failed = [];
 
-for (const f of files) {
-  const r = await putFile(f.local, f.repo, '同步 ' + path.basename(f.repo));
-  if (r.ok) { okCount++; process.stdout.write('.'); }
-  else { failed.push(f.repo); process.stdout.write('x'); }
-  await new Promise((res) => setTimeout(res, 180));
+async function uploadAll(list, quiet) {
+  for (const f of list) {
+    const r = await putFile(f.local, f.repo, '同步 ' + path.basename(f.repo));
+    if (r.ok) { okCount++; if (!quiet) process.stdout.write('.'); }
+    else { failed.push({ repo: f.repo, reason: r.reason }); process.stdout.write('x'); }
+    await new Promise((res) => setTimeout(res, 180));
+  }
 }
 
+await uploadAll(files, false);
+
 log('');
-log(`  ✅ 成功 ${okCount} 个${failed.length ? `，失败 ${failed.length} 个：${failed.slice(0, 8).join(', ')}` : ''}`);
+log(`  ✅ 成功 ${okCount} 个${failed.length ? `，失败 ${failed.length} 个` : ''}`);
+
+/* 失败的重试一遍（常见原因：网络抖动、GitHub 一时 409/502、
+   或者本机刚好在改这个文件）。失败原因也打出来，方便排查。 */
+if (failed.length) {
+  const retryFiles = files.filter((f) => failed.some((x) => x.repo === f.repo));
+  log('');
+  log(`  ⚠️ 以下文件第 1 次没传上去，正在重试一遍：`);
+  failed.forEach((x) => log(`      ${x.repo}  ← ${x.reason}`));
+  failed.length = 0;
+  log('  重试中 ...');
+  await uploadAll(retryFiles, true);
+  log('');
+  log(`  重试结果：成功 ${retryFiles.length - failed.length} 个` +
+    (failed.length ? `，还是失败 ${failed.length} 个：${failed.map((x) => x.repo).join(', ')}` : ''));
+  if (failed.length) {
+    log('  ⚠️ 这些文件没传成功，云端会用仓库里的旧版本（号码可能不更新）');
+    log('     办法：等 1 分钟再跑一次同步（cloud\\sync-cloud.cmd）');
+  }
+}
 
 log('');
 log('触发云端重新构建（快速模式：直接用刚同步过去的数据，不重新抓取）...');
