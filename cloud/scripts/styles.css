@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    styles.css —— 彩虹多多 全局样式
    ============================================================ */
 
@@ -917,7 +917,7 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .r-legend { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 13px; color: #444; }
 .r-legenditem { display: inline-flex; align-items: center; gap: 6px; }
 .r-dot { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
-.r-dot.gold-red { background: linear-gradient(180deg,#f0575c,#cf2a30); }
+.r-dot.gold-red, .r-dot.goldred { background: linear-gradient(180deg,#f0575c,#cf2a30); }
 .r-dot.orange   { background: linear-gradient(180deg,#f9a825,#e07c00); }
 .r-dot.purple   { background: linear-gradient(180deg,#c93fa0,#9c1f78); }
 .r-dot.purple-dark { background: linear-gradient(180deg,#b3308c,#7d1263); }
