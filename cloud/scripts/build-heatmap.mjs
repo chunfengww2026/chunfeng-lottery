@@ -7,12 +7,15 @@
 //    红球购买占比（完全降序）—— 红色系柱状图，33 根柱
 //    蓝球购买占比（完全降序）—— 蓝色系柱状图，16 根柱
 //
-//  数据从哪来：
-//    ① 主口径：一起彩「幸运晒票」页（www.yiqicai.com/xysp/ssqxysp、
-//       /xysp/dltxysp）—— 抓当期的晒票文字，从文字里提取号码并统计占比。
-//    ② 兜底口径：抓不到（或样本太少）时，用「近 30 期开奖号码频率」
-//       代替，并在数据里把 source 标成 history-fallback。
-//       —— 绝不假装成晒票统计。
+//  数据从哪来（按优先级）：
+//    ① 主口径 OCR：一起彩「幸运晒票」页（www.yiqicai.com/xysp/ssqxysp、
+//       /xysp/dltxysp）—— 下载【票面照片】，用 ocr-tickets.mjs 识别号码，
+//       只留「期号 = 当期 + 号码合法 + 多个预处理变体识别一致」的票，
+//       然后统计占比。source = 'ocr-xysp'。
+//    ② 次口径 晒票文字：OCR 样本不够时，退回从晒票【正文文字】里提号码
+//       （绝大多数帖子只有图片，所以这条通常是空的）。source = 'xysp-text'。
+//    ③ 兜底口径：上面都不够时，用「近 30 期开奖号码频率」代替，
+//       source = 'history-fallback'。—— 绝不假装成晒票统计。
 //
 //  用法：
 //    node build-heatmap.mjs              自动：只处理「今天是它的开奖日」的彩种
@@ -22,6 +25,8 @@
 //    node build-heatmap.mjs all          两个都处理
 //    node build-heatmap.mjs --purge      不抓，只写出 games:{}（非开奖日清空用）
 //    node build-heatmap.mjs ssq --force 忽略「今天是不是开奖日」的判断（调试用）
+//    node build-heatmap.mjs ssq --no-ocr        跳过 OCR，直接走文字/兜底
+//    node build-heatmap.mjs ssq --ocr-limit 6   本次最多识别 6 张票（调试提速）
 //
 //  输出：heatmap-data.js（程序生成，勿手改）
 //
@@ -32,6 +37,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -73,11 +79,17 @@ const ALL_GAMES = ['ssq', 'dlt'];
 const HISTORY_WINDOW = 30;
 
 /* 晒票样本「够不够用」的门槛。低于这个数就退回兜底口径 —— 
-   一起彩的晒票绝大多数是【图片】+ 一两句闲聊，能提取到的号码非常少，
-   样本太薄算出来的占比没有意义（会出现一堆 0%，看起来像图坏了）。 */
+   一起彩的晒票绝大多数是【图片】，所以主口径是 OCR 票面照片。 */
 const MIN_SAMPLE_POSTS = 5;     // 至少 5 篇晒票有可用号码
 const MIN_FRONT_TOTAL = 60;     // 前区号码出现总次数
 const MIN_BACK_TOTAL = 12;      // 后区号码出现总次数
+const MIN_OCR_TICKETS = 5;      // OCR 口径：至少 5 张有效票才敢出图
+
+/* OCR 参数 */
+const OCR_MAX_IMAGES = 60;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
+const OCR_CONCURRENCY = 4;      // 并发识别几张（本机 4 核够用；云端更高）
+const IMG_TIMEOUT_MS = 30000;   // 图片下载超时（用户要求 30s）
+const IMG_RETRY = 2;            // 图片下载失败重试 2 次
 
 /* 抓取参数（用户要求） */
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
@@ -292,15 +304,175 @@ function parsePosts(html) {
     const im = /^\s*[\[【]\s*(\d{3,8})\s*期\s*[\]】]/.exec(msg);
     if (im) { issue = im[1]; msg = msg.slice(im[0].length).trim(); }
 
+    /* 这一篇晒票里的票面照片（只取 lucky-pics 里的图，头像不算） */
+    const picsBox = /<div[^>]*class="[^"]*lucky-pics[^"]*"[^>]*>([\s\S]*?)<\/div>/i.exec(chunk);
+    const imgTags = [...((picsBox ? picsBox[1] : '').match(/<img[^>]*>/gi) || [])];
+    const images = imgTags.map((tag) => {
+      const m = /(?:data-original|data-src|src)\s*=\s*["']([^"']+)["']/i.exec(tag);
+      if (!m) return null;
+      return decodeEntities(m[1]);
+    }).filter(Boolean);
+
     posts.push({
       author: stripTags(nameM ? nameM[1] : ''),
       time,
       issue,
       text: msg,
-      pics: (chunk.match(/<img/gi) || []).length
+      images,
+      pics: images.length
     });
   });
   return posts;
+}
+
+/* ============================================================
+   五之二、票面照片的识别与筛选
+   ------------------------------------------------------------
+   一起彩的晒票帖里会混进各种图：
+     · 头像 / 站点 logo        → f.jiangduoduo.com、yiqicai.com、trust.hss.org.cn
+     · 老帖子的无关图          → f.17chdd.com/年/月/日/大写哈希.png
+     · 票面照片（要的就是它）  → img02.17chdd.com/年-月-日/uuid.jpg?width=&height=
+   实测：候选图里有 3 成不是票（配图、大字图、儿童照），所以还要靠 OCR
+   结果兜一层 —— 认不出「开奖期 + 合法号码行」的直接丢掉。
+   ============================================================ */
+
+/** 路径里带日期（2026-10-13）的 17chdd 图 === 候选票面照片 */
+function looksLikeTicketPhoto(u) {
+  const s = String(u || '');
+  if (!/^https?:\/\//i.test(s)) return false;
+  if (!/(^|\.)17chdd\.com\//i.test(s)) return false;
+  if (/17chdd\.com\/(group\d|\d{4}\/\d{2}\/\d{2}\/[0-9A-F]{16,}\.)/i.test(s)) return false;   // 老帖哈希图
+  const p = s.split('?')[0];
+  return /\/\d{4}-\d{2}-\d{2}\//.test(p);
+}
+
+function md5(s) { return crypto.createHash('md5').update(String(s)).digest('hex'); }
+
+/** 下载一张图片（限流 + 30s 超时 + 重试 2 次），返回 { buf } 或 { buf:null, err } */
+async function downloadImage(url, cacheDir) {
+  const cacheFile = path.join(cacheDir, md5(url) + '.bin');
+  if (fs.existsSync(cacheFile)) {
+    try { return { buf: fs.readFileSync(cacheFile), cached: true }; } catch (e) { /* 缓存坏了就重下 */ }
+  }
+  let lastErr = null;
+  for (let attempt = 0; attempt <= IMG_RETRY; attempt++) {
+    if (attempt > 0) await sleep(politeDelay() + attempt * 400);
+    try {
+      const r = await fetch(url, {
+        headers: {
+          'User-Agent': UA,
+          'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+          'Referer': REFERER
+        },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(IMG_TIMEOUT_MS)
+      });
+      if (!r.ok) { lastErr = new Error('HTTP ' + r.status); continue; }
+      const buf = Buffer.from(await r.arrayBuffer());
+      if (buf.length < 1500) { lastErr = new Error('文件太小(' + buf.length + 'B)'); continue; }
+      try { fs.mkdirSync(cacheDir, { recursive: true }); fs.writeFileSync(cacheFile, buf); } catch (e) { /* 缓存失败不算错 */ }
+      return { buf, cached: false };
+    } catch (e) { lastErr = e; }
+  }
+  return { buf: null, err: lastErr ? lastErr.message : '未知错误' };
+}
+
+/**
+ * OCR 口径：下载当期票面照片 → 识别 → 只留合法且期号正确的票
+ * @returns {Promise<{ok:boolean, frontCounts:number[], backCounts:number[], tickets:Array, stats:Object, err?:string}>}
+ */
+async function ocrTickets(cfg, posts, expectIssue, opts) {
+  const stats = {
+    posts: posts.length, urls: 0, downloaded: 0, downloadFailed: 0, cacheHits: 0,
+    recognized: 0, issueMatched: 0, tickets: 0, ms: 0
+  };
+  const frontCounts = new Array(cfg.frontMax + 1).fill(0);
+  const backCounts = new Array(cfg.backMax + 1).fill(0);
+  const tickets = [];
+
+  /* ① 收集候选票面照片 URL（同一张图只下一次） */
+  const urls = [];
+  const seen = new Set();
+  posts.forEach((p) => {
+    (p.images || []).forEach((u) => {
+      if (!looksLikeTicketPhoto(u)) return;
+      const key = u.split('?')[0];
+      if (seen.has(key)) return;
+      seen.add(key);
+      urls.push({ url: u, issue: p.issue, author: p.author });
+    });
+  });
+  const limit = (opts && opts.limit) || OCR_MAX_IMAGES;
+  stats.urls = urls.length;
+  const use = urls.slice(0, limit);
+  if (!use.length) return { ok: false, frontCounts, backCounts, tickets, stats, err: '页面上没有找到候选票面照片' };
+
+  /* ② 加载 OCR 模块（缺依赖就优雅降级，不报错） */
+  let ocr = null;
+  try {
+    ocr = await import('./ocr-tickets.mjs');
+  } catch (e) {
+    return { ok: false, frontCounts, backCounts, tickets, stats, err: 'OCR 模块导入失败：' + e.message };
+  }
+  const avail = ocr.ocrAvailable();
+  if (!avail.ok) {
+    return { ok: false, frontCounts, backCounts, tickets, stats, err: 'OCR 依赖不齐（缺 ' + avail.missing.join('/') + '）' };
+  }
+
+  const cacheDir = path.join(ROOT, '_ocr-cache');
+
+  /* ③ 并发下载 + 识别 */
+  const queue = use.slice();
+  const t0 = Date.now();
+  try { await ocr.getOcrWorker(); } catch (e) { return { ok: false, frontCounts, backCounts, tickets, stats, err: 'OCR 引擎启动失败：' + e.message }; }
+
+  const workers = [];
+  for (let i = 0; i < Math.min(OCR_CONCURRENCY, queue.length); i++) {
+    workers.push((async () => {
+      while (queue.length) {
+        const item = queue.shift();
+        const dl = await downloadImage(item.url, cacheDir);
+        if (!dl.buf) { stats.downloadFailed++; log(`      ✗ 下载失败：…${String(item.url).slice(-46)}（${dl.err}）`); continue; }
+        stats.downloaded++;
+        if (dl.cached) stats.cacheHits++;
+        await sleep(politeDelay() / 2);
+        let r;
+        try {
+          r = await ocr.recognizeTicket(dl.buf, cfg.id, { expectIssue });
+        } catch (e) {
+          log(`      ✗ 识别异常：${e.message}`);
+          continue;
+        }
+        if (!r.tickets.length || !r.ok) {
+          log(`      · 丢弃（${r.reason}）…${String(item.url).slice(-38)}`);
+          continue;
+        }
+        stats.recognized++;
+        if (r.issue && r.issue === expectIssue) stats.issueMatched++;
+        r.tickets.forEach((t) => {
+          tickets.push({
+            front: t.front, back: t.back, issue: r.issue,
+            votes: t.votes, rate: t.rate, url: item.url, author: item.author
+          });
+          stats.tickets++;
+          t.front.forEach((n) => { if (n >= 1 && n <= cfg.frontMax) frontCounts[n]++; });
+          t.back.forEach((n) => { if (n >= 1 && n <= cfg.backMax) backCounts[n]++; });
+        });
+        const fmt = (t) => t.front.map((n) => String(n).padStart(2, '0')).join(' ') + '+' +
+          t.back.map((n) => String(n).padStart(2, '0')).join(' ');
+        log(`      ✅ 第 ${r.issue || '?'} 期 ${r.tickets.map(fmt).join(' / ')}`);
+      }
+    })());
+  }
+  await Promise.all(workers);
+  try { await ocr.terminateOcr(); } catch (e) { /* 忽略 */ }
+  stats.ms = Date.now() - t0;
+
+  if (tickets.length < MIN_OCR_TICKETS) {
+    return { ok: false, frontCounts, backCounts, tickets, stats, err: `OCR 有效票只有 ${tickets.length} 张（需 ≥${MIN_OCR_TICKETS}）` };
+  }
+  return { ok: true, frontCounts, backCounts, tickets, stats };
 }
 
 /** '10-13 21:53' → { mo:10, d:13, yyyy:'2026' }（按当前年份猜，跨年时按去年算） */
@@ -500,6 +672,9 @@ function areaLiteral(area) {
 }
 
 function gameLiteral(g) {
+  const ocrLit = g.ocr
+    ? `{ posts: ${g.ocr.posts}, urls: ${g.ocr.urls}, downloaded: ${g.ocr.downloaded}, downloadFailed: ${g.ocr.downloadFailed}, cacheHits: ${g.ocr.cacheHits}, recognized: ${g.ocr.recognized}, tickets: ${g.ocr.tickets}, secs: ${g.ocr.secs}, err: '${String(g.ocr.err || '').replace(/'/g, "\\'")}' }`
+    : 'null';
   return [
     '    ' + g.id + ': {',
     `      name: '${g.name}',`,
@@ -511,6 +686,7 @@ function gameLiteral(g) {
     `      sampleCount: ${g.sampleCount},`,
     `      numberPosts: ${g.numberPosts},`,
     `      note: '${String(g.note || '').replace(/'/g, "\\'")}',`,
+    `      ocr: ${ocrLit},`,
     `      front: ${areaLiteral(g.front)},`,
     `      back: ${areaLiteral(g.back)}`,
     '    }'
@@ -534,8 +710,9 @@ function writeFile(games, meta) {
    数据来源：${src}
 
    口径说明：
-     · yiqicai-xysp      = 一起彩「幸运晒票」页当期晒票里提取到的号码占比
-     · history-fallback  = 晒票样本不足，改用「近 ${HISTORY_WINDOW} 期开奖号码频率」代替
+     · ocr-xysp          = 一起彩「幸运晒票」页当期【票面照片 OCR】识别出的号码占比
+     · xysp-text         = OCR 样本不够，改用晒票【正文文字】里提取到的号码
+     · history-fallback  = 都不可用，改用「近 ${HISTORY_WINDOW} 期开奖号码频率」代替
    免责：只是「大家买了什么号」的统计展示，不构成购彩建议，也不能预测中奖。
    ============================================================ */
 
@@ -621,37 +798,81 @@ async function buildGame(cfg, nowBj, opts) {
   const backTotal = backCounts.reduce((a, b) => a + b, 0);
   log(`  · 能从文字里提出号码的晒票：${numberPosts} 篇 / 前区号码出现 ${frontTotal} 次 / 后区 ${backTotal} 次`);
 
-  const enough = numberPosts >= MIN_SAMPLE_POSTS &&
-                 frontTotal >= MIN_FRONT_TOTAL &&
-                 backTotal >= MIN_BACK_TOTAL;
+  const textEnough = numberPosts >= MIN_SAMPLE_POSTS &&
+                     frontTotal >= MIN_FRONT_TOTAL &&
+                     backTotal >= MIN_BACK_TOTAL;
 
   let source, sourceLabel, note, sampleCount, fCounts, bCounts;
+  let ocrInfo = null;
 
-  if (enough) {
-    source = 'yiqicai-xysp';
-    sourceLabel = '全网公开晒票';
-    note = `摘自一起彩幸运晒票页第 ${site} 期公开晒票文字`;
-    sampleCount = matched.length;
-    fCounts = frontCounts;
-    bCounts = backCounts;
-    log(`  ✅ 晒票样本够用 → 用它出图（${matched.length} 篇）`);
-  } else {
-    if (fetchErr) log(`  ⚠️ 抓取失败，走兜底口径`);
-    else log(`  ⚠️ 晒票样本不足（需 ≥${MIN_SAMPLE_POSTS} 篇 / 前区 ≥${MIN_FRONT_TOTAL} 次 / 后区 ≥${MIN_BACK_TOTAL} 次），走兜底口径`);
-
-    const H = (opts && opts.history) || null;
-    const fb = fallbackFromHistory(cfg, H);
-    if (!fb) {
-      log(`  ❌ 连兜底数据都没有（history.js 缺 ${cfg.id}）→ 本期不出这张图`);
-      return null;
+  /* ============================================================
+     主口径：票面照片 OCR
+     ------------------------------------------------------------
+     只对「当期」的帖子做（期号 = 页面 [NNNNN期] 或项目 nextIssueFor）；
+     每张图都要通过：开奖期 = 当期、号码个数/范围/去重全合法、
+     多个预处理变体识别结果一致。任何一条不满足就丢掉这张。
+     ============================================================ */
+  if (opts && opts.ocr !== false && matched.length) {
+    log(`  → 票面照片 OCR（当期 ${matched.length} 篇晒票，最多识别 ${(opts && opts.ocrLimit) || OCR_MAX_IMAGES} 张）`);
+    let ocrRes = null;
+    try {
+      /* 注意：这里的期号要用【完整期号】(2026118)，不是页面写法 (26118) ——
+         票面上印的是完整的「开奖期：2026118」。 */
+      ocrRes = await ocrTickets(cfg, matched, issue || site, { limit: (opts && opts.ocrLimit) || OCR_MAX_IMAGES });
+    } catch (e) {
+      log(`  ⚠️ OCR 过程异常（不中断）：${e.message}`);
+      ocrRes = null;
     }
-    source = 'history-fallback';
-    sourceLabel = `近 ${fb.drawCount} 期开奖频率`;
-    note = `晒票样本不足，改用近 ${fb.drawCount} 期开奖号码频率（${fb.lastIssue}~${fb.firstIssue}）`;
-    sampleCount = fb.drawCount;
-    fCounts = fb.frontCounts;
-    bCounts = fb.backCounts;
-    log(`  ✅ 兜底口径可用：近 ${fb.drawCount} 期（${fb.lastIssue}~${fb.firstIssue}）`);
+    if (ocrRes) {
+      const s = ocrRes.stats;
+      ocrInfo = { ...s, ok: ocrRes.ok, err: ocrRes.err || '', tickets: ocrRes.tickets };
+      log(`  · OCR 统计：候选图 ${s.urls} 张 → 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 有效票 ${s.tickets} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
+      if (ocrRes.ok) {
+        source = 'ocr-xysp';
+        sourceLabel = '全网公开晒票照片识别';
+        note = `识别自一起彩幸运晒票页第 ${site} 期公开票面照片（有效票 ${s.tickets} 张）`;
+        sampleCount = s.tickets;
+        fCounts = ocrRes.frontCounts;
+        bCounts = ocrRes.backCounts;
+        log(`  ✅ OCR 口径可用 → 用它出图（${s.tickets} 张有效票）`);
+      } else {
+        log(`  ⚠️ OCR 口径不可用：${ocrRes.err} → 回退`);
+      }
+    } else {
+      log(`  ⚠️ OCR 没有结果 → 回退`);
+    }
+  } else if (opts && opts.ocr === false) {
+    log(`  · 已指定 --no-ocr：跳过票面照片 OCR`);
+  }
+
+  if (!source) {
+    if (textEnough) {
+      source = 'xysp-text';
+      sourceLabel = '全网公开晒票（文字）';
+      note = `摘自一起彩幸运晒票页第 ${site} 期公开晒票文字`;
+      sampleCount = matched.length;
+      fCounts = frontCounts;
+      bCounts = backCounts;
+      log(`  ✅ 晒票文字样本够用 → 用它出图（${matched.length} 篇）`);
+    } else {
+      if (fetchErr) log(`  ⚠️ 抓取失败，走兜底口径`);
+      else if (ocrInfo) log(`  ⚠️ OCR 不足（${ocrInfo.tickets} 张有效票，需 ≥${MIN_OCR_TICKETS}），晒票文字也只有 ${numberPosts} 篇 → 走兜底口径`);
+      else log(`  ⚠️ 晒票样本不足（需 ≥${MIN_SAMPLE_POSTS} 篇 / 前区 ≥${MIN_FRONT_TOTAL} 次 / 后区 ≥${MIN_BACK_TOTAL} 次），走兜底口径`);
+
+      const H = (opts && opts.history) || null;
+      const fb = fallbackFromHistory(cfg, H);
+      if (!fb) {
+        log(`  ❌ 连兜底数据都没有（history.js 缺 ${cfg.id}）→ 本期不出这张图`);
+        return null;
+      }
+      source = 'history-fallback';
+      sourceLabel = `近 ${fb.drawCount} 期开奖频率`;
+      note = `晒票样本不足，改用近 ${fb.drawCount} 期开奖号码频率（${fb.lastIssue}~${fb.firstIssue}）`;
+      sampleCount = fb.drawCount;
+      fCounts = fb.frontCounts;
+      bCounts = fb.backCounts;
+      log(`  ✅ 兜底口径可用：近 ${fb.drawCount} 期（${fb.lastIssue}~${fb.firstIssue}）`);
+    }
   }
 
   const F = buildItems(fCounts, cfg.frontMax);
@@ -666,8 +887,18 @@ async function buildGame(cfg, nowBj, opts) {
     source,
     sourceLabel,
     sampleCount,
-    numberPosts,
+    numberPosts: source === 'ocr-xysp' ? sampleCount : numberPosts,
     note,
+    /* OCR 过程的统计（下载几张 / 识别几张 / 期号匹配几张 / 最终几张），
+       写进数据文件方便排查「今天为什么是兜底口径」 */
+    ocr: ocrInfo
+      ? {
+        posts: ocrInfo.posts, urls: ocrInfo.urls, downloaded: ocrInfo.downloaded,
+        downloadFailed: ocrInfo.downloadFailed, cacheHits: ocrInfo.cacheHits,
+        recognized: ocrInfo.recognized, tickets: ocrInfo.tickets,
+        secs: Math.round(ocrInfo.ms / 100) / 10, err: ocrInfo.err
+      }
+      : null,
     front: { label: cfg.frontLabel, color: 'red', total: F.total, items: F.items },
     back: { label: cfg.backLabel, color: 'blue', total: B.total, items: B.items }
   };
@@ -682,7 +913,11 @@ async function main() {
   const argv = process.argv.slice(2);
   const force = argv.includes('--force');
   const purge = argv.includes('--purge');
-  const args = argv.filter((a) => !a.startsWith('--'));
+  const noOcr = argv.includes('--no-ocr');
+  const li = argv.indexOf('--ocr-limit');
+  const ocrLimit = li >= 0 ? Math.max(1, parseInt(argv[li + 1], 10) || OCR_MAX_IMAGES) : OCR_MAX_IMAGES;
+  /* 只把「彩种名」当位置参数，别把 --ocr-limit 后面的数字也当成彩种 */
+  const args = argv.filter((a, i) => !a.startsWith('--') && !(li >= 0 && i === li + 1));
 
   const nowBj = bj();
   log('════════════════════════════════════════════');
@@ -738,7 +973,7 @@ async function main() {
   for (const g of want) {
     let entry = null;
     try {
-      entry = await buildGame(CFG[g], nowBj, { history: H });
+      entry = await buildGame(CFG[g], nowBj, { history: H, ocr: !noOcr, ocrLimit });
     } catch (e) {
       log(`  ❌ ${CFG[g].name} 处理失败（不中断）：${e.message}`);
     }
@@ -753,6 +988,13 @@ async function main() {
   Object.keys(games).forEach((g) => {
     const G = games[g];
     log(`${G.name} 第 ${G.issue} 期 · 开奖日 ${G.drawDate} · 来源 ${G.source}（${G.sourceLabel}）· 样本 ${G.sampleCount}`);
+    if (G.ocr) {
+      log(`  OCR：候选图 ${G.ocr.urls} / 下载 ${G.ocr.downloaded}（失败 ${G.ocr.downloadFailed}、缓存 ${G.ocr.cacheHits}）` +
+          ` / 期号匹配 ${G.ocr.recognized} / 最终有效票 ${G.ocr.tickets} / 用时 ${G.ocr.secs}s` +
+          (G.ocr.err ? ` / 降级原因：${G.ocr.err}` : ''));
+      log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${G.ocr.tickets}` +
+          `（丢弃 ${Math.max(0, G.ocr.downloaded - G.ocr.recognized)} 张）`);
+    }
     log(`  ${G.front.label}（${G.front.items.length} 个号，共 ${G.front.total} 次）：`);
     log('    ' + G.front.items.map((it) => `${String(it.num).padStart(2, '0')}=${HELPER.heatmapPctText(it.pct)}`).join('  '));
     log(`  ${G.back.label}（${G.back.items.length} 个号，共 ${G.back.total} 次）：`);
