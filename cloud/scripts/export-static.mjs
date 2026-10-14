@@ -958,8 +958,11 @@ const RO_RENDER_SCRIPT = `
   function refreshLatestBlock(force) {
     var out = { ok: false, mode: '', changed: false };
     try {
-      var el = document.getElementById(LATEST_DRAWS_ID);
-      if (!el) return out;                                   /* 老页面没有这个 id → 不动 */
+      /* 老页面没有这个 id（或被缓存的旧版本）→ 什么都不做。
+         沙箱/自测环境里没有 getElementById 也走这一条，不会刷告警。 */
+      var el = (typeof document !== 'undefined' && typeof document.getElementById === 'function')
+        ? document.getElementById(LATEST_DRAWS_ID) : null;
+      if (!el) return out;
       if (typeof latestBlockMode !== 'function' || typeof latestBlockHtml !== 'function') return out;
       if (typeof latestDrawsHtml !== 'function' || typeof latestDrawsFromRaw !== 'function') return out;
 
