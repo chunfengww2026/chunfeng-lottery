@@ -140,6 +140,21 @@ function makeSandbox(store) {
     try { vm.runInContext(fs.readFileSync(p, 'utf8'), ctx, { filename: f }); }
     catch (e) { log(`  ❌ 加载 ${f} 失败：${e.message}`); }
   }
+
+  /* 【资料上云】把 materials-data.js 里的资料塞进 localStorage（cdd.materials.v1）：
+     云端的 materialsFor() 只有从这里拿得到资料，否则渲染时资料是空的。
+     （const 声明在 vm 里拿不到，用 globalThis 引一下） */
+  try {
+    vm.runInContext('globalThis.__MATS = (typeof MATERIALS_DATA !== "undefined") ? MATERIALS_DATA : null;', ctx);
+    const md = ctx.__MATS;
+    if (md && Array.isArray(md.list) && md.list.length) {
+      store.set('cdd.materials.v1', JSON.stringify(md.list));
+      log(`  ✔ 资料已载入沙箱：${md.list.length} 条`);
+    } else {
+      log('  · 资料为空（materials-data.js 里 list 是空的）');
+    }
+  } catch (e) { log('  ⚠️ 资料载入沙箱失败：' + e.message); }
+
   return ctx;
 }
 
