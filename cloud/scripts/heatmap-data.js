@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-15 04:10
+   生成时间：2026-10-15 04:12
    生成脚本：build-heatmap.mjs
    本次彩种：ssq
    数据来源：history-fallback
@@ -14,14 +14,14 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-15 04:10',
+  updated: '2026-10-15 04:12',
   source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
       issue: '2026118',
       drawDate: '2026-10-15',
-      madeAt: '2026-10-15 04:10',
+      madeAt: '2026-10-15 04:12',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
