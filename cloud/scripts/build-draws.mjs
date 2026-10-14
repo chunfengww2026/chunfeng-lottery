@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  build-draws.mjs —— 抓取开奖号码 + 交给 DeepSeek 解析
 //
 //  流程：
@@ -59,18 +59,12 @@ const DRY_RUN = argv.includes('--dry-run');
 const AI_ALLOWED = argv.includes('--ai');
 
 /* ============================================================
-   彩种规则（用于校验 AI 的解析结果，防止幻觉）
+   彩种规则
+   ------------------------------------------------------------
+   RULES / validateAreas / splitNums / normalizeIssue 都从
+   draw-sources.mjs 导入（build-history.mjs 用的是同一份，
+   避免两个脚本各维护一份规则导致漂移）。
    ============================================================ */
-const RULES = {
-  ssq:  { name: '双色球', areas: [{ key: 'red', need: 6, from: 1, to: 33 }, { key: 'blue', need: 1, from: 1, to: 16 }] },
-  dlt:  { name: '大乐透', areas: [{ key: 'front', need: 5, from: 1, to: 35 }, { key: 'back', need: 2, from: 1, to: 12 }] },
-  qlc:  { name: '七乐彩', areas: [{ key: 'main', need: 7, from: 1, to: 30 }, { key: 'special', need: 1, from: 1, to: 30 }] },
-  qxc:  { name: '七星彩', areas: [{ key: 'front', need: 6, from: 0, to: 9, allowRepeat: true }, { key: 'back', need: 1, from: 0, to: 14 }] },
-  kl8:  { name: '快乐8', areas: [{ key: 'main', need: 20, from: 1, to: 80 }] },
-  fc3d: { name: '福彩3D', areas: [{ key: 'main', need: 3, from: 0, to: 9, allowRepeat: true }] },
-  pl3:  { name: '排列3', areas: [{ key: 'main', need: 3, from: 0, to: 9, allowRepeat: true }] },
-  pl5:  { name: '排列5', areas: [{ key: 'main', need: 5, from: 0, to: 9, allowRepeat: true }] }
-};
 
 /* ============================================================
    当前快照（上一次的 draws.js）
@@ -155,174 +149,12 @@ function extractRelevant(html, maxChars) {
 /* ============================================================
    官方数据源（首选）
    ------------------------------------------------------------
-   福彩：中国福彩网 cwl.gov.cn 的公开查询接口，返回结构化 JSON
-   体彩：国家体彩中心 webapi.sporttery.cn，同样返回 JSON
-   官方接口拿不到时，才退回抓 500.com 页面
+   【已搬到 draw-sources.mjs】官方接口（福彩 cwl.gov.cn / 体彩
+   webapi.sporttery.cn）的实现现在和一起彩 / 500XML / 17500 放在一起，
+   统一走 fetchDrawWithFallback() 的 fallback 链。
+   这样做的好处：这两个文件（build-draws.mjs / build-history.mjs）
+   不会再各自维护一份官方接口代码，也就不会各自漂移。
    ============================================================ */
-
-/** 福彩官方接口返回的彩种代号 */
-const CWL_NAME = {
-  ssq: 'ssq',
-  fc3d: '3d',
-  kl8: 'kl8',
-  qlc: 'qlc'
-};
-
-/** 体彩官方接口的 gameNo */
-const SPORTTERY_GAMENO = {
-  dlt: 85,
-  pl3: 35
-};
-
-/** 万能请求：拿 JSON */
-async function fetchJson(url, timeoutMs, referer) {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, {
-      signal: ctrl.signal,
-      headers: {
-        'User-Agent': UA,
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'zh-CN,zh;q=0.9',
-        'Referer': referer || 'https://www.cwl.gov.cn/'
-      }
-    });
-    clearTimeout(timer);
-    if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
-    const text = await res.text();
-    try {
-      return { ok: true, json: JSON.parse(text) };
-    } catch (e) {
-      return { ok: false, error: '返回的不是 JSON' };
-    }
-  } catch (e) {
-    clearTimeout(timer);
-    return { ok: false, error: e.cause?.code || e.message };
-  }
-}
-
-/* 【重试包装】官方接口偶尔会抽风（实测遇到 UND_ERR_CONNECT_TIMEOUT），
-   一次超时就会让那个彩种整个丢掉 —— 彩种少了页面就显示旧数据，
-   而「最新开奖」看起来就像"没更新"。
-   所以这里统一重试 4 次、每次间隔递增（1s/2s/3s）。
-   只重试网络层错误；解析出来的业务错误（接口返回 code!=0）不重试。 */
-async function fetchJsonRetry(url, timeoutMs, referer) {
-  var lastErr = null;
-  for (var attempt = 1; attempt <= 4; attempt++) {
-    try {
-      return await fetchJson(url, timeoutMs, referer);
-    } catch (e) {
-      lastErr = e;
-      var msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e);
-      /* 业务性错误（比如接口明确报错）不重试，直接抛 */
-      if (/接口返回|解析失败|没有数据|not found|404/i.test(msg)) throw e;
-      if (attempt < 4) {
-        var wait = attempt * 1000;
-        console.log('     ↻ 第 ' + attempt + ' 次失败（' + msg.slice(0, 40) + '），' + (wait / 1000) + ' 秒后重试…');
-        await new Promise(function (r) { setTimeout(r, wait); });
-      }
-    }
-  }
-  throw lastErr;
-}
-
-
-/** 把 "04,11,14" 或 "04 11 14" 或 "04\n" 解析成数字数组 */
-function splitNums(str) {
-  if (!str) return [];
-  return String(str)
-    .trim()
-    .split(/[\s,，、]+/)
-    .filter((s) => s !== '')
-    .map((s) => parseInt(s, 10))
-    .filter((n) => Number.isInteger(n));
-}
-
-/**
- * 福彩官方：双色球 / 福彩3D / 快乐8 / 七乐彩
- * 接口：https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice
- */
-async function officialCwl(gameId, timeoutMs) {
-  const name = CWL_NAME[gameId];
-  if (!name) return { ok: false, error: '该彩种没有配置福彩接口' };
-
-  const url = `https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=${name}&issueCount=1&issueStart=&issueEnd=&dayStart=&dayEnd=`;
-  const r = await fetchJsonRetry(url, timeoutMs);
-  if (!r.ok) return r;
-
-  const item = r.json?.result?.[0];
-  if (!item) return { ok: false, error: '接口没有返回数据' };
-
-  const areas = {};
-  if (gameId === 'ssq') {
-    areas.red = splitNums(item.red);
-    areas.blue = splitNums(item.blue);
-  } else if (gameId === 'fc3d') {
-    areas.main = splitNums(item.red);
-  } else if (gameId === 'kl8') {
-    areas.main = splitNums(item.red);
-  } else if (gameId === 'qlc') {
-    areas.main = splitNums(item.red);
-    // 七乐彩的特别号在 blue 字段里
-    const sp = splitNums(item.blue);
-    if (sp.length) areas.special = sp;
-  }
-
-  return {
-    ok: true,
-    issue: String(item.code || ''),
-    date: (item.date || '').replace(/\(.*?\)/g, '').trim(),
-    areas,
-    source: '中国福彩网（官方）'
-  };
-}
-
-/**
- * 体彩官方：大乐透 / 排列3
- * 接口：https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry
- */
-async function officialSporttery(gameId, timeoutMs) {
-  const gameNo = SPORTTERY_GAMENO[gameId];
-  if (!gameNo) return { ok: false, error: '该彩种没有配置体彩接口' };
-
-  const url = `https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry?gameNo=${gameNo}&provinceId=0&pageSize=1&isVerify=1&pageNo=1`;
-  const r = await fetchJsonRetry(url, timeoutMs, 'https://www.lottery.gov.cn/');
-  if (!r.ok) return r;
-
-  const item = r.json?.value?.list?.[0];
-  if (!item) return { ok: false, error: '接口没有返回数据' };
-
-  const all = splitNums(item.lotteryDrawResult);
-  const areas = {};
-
-  if (gameId === 'dlt') {
-    // 大乐透返回 7 个数：前 5 个前区，后 2 个后区
-    if (all.length >= 7) {
-      areas.front = all.slice(0, 5);
-      areas.back = all.slice(5, 7);
-    } else {
-      return { ok: false, error: `号码个数不对：${all.length}` };
-    }
-  } else if (gameId === 'pl3') {
-    areas.main = all;
-  }
-
-  return {
-    ok: true,
-    issue: String(item.lotteryDrawNum || ''),
-    date: item.lotteryDrawTime || '',
-    areas,
-    source: '中国体彩网（官方）'
-  };
-}
-
-/** 按彩种选择官方接口 */
-async function officialFetch(gameId, timeoutMs) {
-  if (CWL_NAME[gameId]) return officialCwl(gameId, timeoutMs);
-  if (SPORTTERY_GAMENO[gameId]) return officialSporttery(gameId, timeoutMs);
-  return { ok: false, error: '该彩种暂无官方接口，将退回 500.com' };
-}
 
 /* ============================================================
    抓取（500.com，备用）
@@ -432,28 +264,10 @@ function ruleParse(gameId, html) {
 }
 
 /* ============================================================
-   校验（同时用于规则解析和 AI 解析的结果）
+   校验：用 draw-sources.mjs 的 validateAreas（同一份规则）
    ============================================================ */
-function validate(gameId, data) {
-  const rule = RULES[gameId];
-  if (!rule) return { ok: false, reason: '未知彩种' };
-  if (!data || !data.areas) return { ok: false, reason: '没有号码' };
+const validate = validateAreas;
 
-  const out = {};
-  for (const a of rule.areas) {
-    const nums = data.areas[a.key];
-    if (!Array.isArray(nums)) return { ok: false, reason: `缺少「${a.key}」` };
-    if (nums.length !== a.need) return { ok: false, reason: `「${a.key}」需要 ${a.need} 个，实际 ${nums.length} 个` };
-    if (nums.some((n) => !Number.isInteger(n) || n < a.from || n > a.to)) {
-      return { ok: false, reason: `「${a.key}」有号码超出 ${a.from}-${a.to}` };
-    }
-    if (!a.allowRepeat && new Set(nums).size !== nums.length) {
-      return { ok: false, reason: `「${a.key}」有重复号码` };
-    }
-    out[a.key] = nums;
-  }
-  return { ok: true, areas: out };
-}
 
 /* ============================================================
    DeepSeek 解析
