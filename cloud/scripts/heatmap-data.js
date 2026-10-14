@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-15 04:04
+   生成时间：2026-10-15 04:10
    生成脚本：build-heatmap.mjs
    本次彩种：ssq
    数据来源：history-fallback
@@ -14,14 +14,14 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-15 04:04',
+  updated: '2026-10-15 04:10',
   source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
       issue: '2026118',
       drawDate: '2026-10-15',
-      madeAt: '2026-10-15 04:04',
+      madeAt: '2026-10-15 04:10',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
@@ -38,12 +38,20 @@ const HEATMAP_DATA = {
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
 const HEATMAP_DRAW_DAYS = { ssq: [0, 2, 4], dlt: [1, 3, 6] };
 
-/* 【开奖后就不要了】各彩种【当天开奖时刻】（北京时间）
-   双色球：周二 / 周四 / 周日 21:15
-   大乐透：周一 / 周三 / 周六 20:30
-   一到这个点，热力图立刻撤下（不再留到第二天 00:00）。
+/* 【顶掉「最新开奖」的时间窗】开奖日当天（北京时间）：
+     18:00 起   → 热力图出现，【占据页面顶部「最新开奖」区块的位置】
+     到 WINDOW_END → 换回「最新开奖」
+   双色球（周二 / 周四 / 周日）：18:00 → 20:00
+   大乐透（周一 / 周三 / 周六）：18:00 → 21:00
+
+   用户 2026-10-15 原话：
+     「在开双色球的时候 18 点更新到最新开奖位置覆盖住，过了 20 点就更新回来
+       最新开奖；同样大乐透在 18 点更新过去，21 点更新回来最新开奖。」
+   ⚠️ 这里的结束时刻【不是开奖时刻】，是用户指定的「换回最新开奖」时刻
+      （所以大乐透 21:00 会晚于它 20:30 的开奖时刻 —— 已向用户说明）。
    与 draw-data.js 的 DRAW_WEEKDAYS / 上面的 HEATMAP_DRAW_DAYS 配套。 */
-const HEATMAP_DRAW_TIME = { ssq: '21:15', dlt: '20:30' };
+const HEATMAP_WINDOW_START = '18:00';
+const HEATMAP_WINDOW_END = { ssq: '20:00', dlt: '21:00' };
 
 /**
  * 把任意时刻转成「北京时间的墙上时钟」
@@ -89,18 +97,28 @@ function heatmapClockMinute(hhmm) {
 }
 
 /**
- * 这张热力图现在该不该显示
- *   ① 必须有这个彩种的数据，且数据就是【今天】生成的
+ * 这张热力图现在该不该显示（= 该不该顶掉「最新开奖」区块）
+ *   ① 必须有这个彩种的数据，数据就是【今天】生成的，而且真的有柱子数据
  *   ② 今天必须是这个彩种的开奖日
  *   ③ 必须已经过了 18:00（北京时间）
- *   ④ 【开奖后就不要了】还没到当天的开奖时刻
- *      双色球 21:15 撤下 / 大乐透 20:30 撤下
- * 四个条件缺一不可 —— 18:00 出现，开奖那一刻就撤下。
+ *   ④ 【到点换回来】还没到当天的窗口结束时刻
+ *      双色球 20:00 换回「最新开奖」 / 大乐透 21:00 换回「最新开奖」
+ * 四个条件缺一不可 —— 18:00 出现（顶掉最新开奖），窗口结束就换回来。
+ *
+ * 【服务端 / 客户端 / App 共用这一个函数】
+ *   · 服务端：export-static.mjs 预渲染时用它（heatmapVisible）
+ *   · 客户端：分享页内联脚本用它（实时渲染 + 到点自动切换）
+ *   · latest-draws.js 的 latestBlockMode() 也调它来决定区块里放哪一张
+ *   → 时间窗口只有这一处定义，两边不可能漂移。
  */
 function shouldShowHeatmap(gid, now) {
   var H = (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games)
     ? HEATMAP_DATA.games[gid] : null;
   if (!H || !H.drawDate) return false;
+
+  /* 【数据缺失就不要顶掉】只有标题条没有柱子的热力图等于空白区块，
+     这种情况必须让「最新开奖」照常显示（宁可不出热力图，也不能留白）。 */
+  if (!H.front || !H.front.items || !H.front.items.length) return false;
 
   var bj = heatmapBeijingNow(now);
   if (H.drawDate !== heatmapToday(now)) return false;
@@ -109,11 +127,13 @@ function shouldShowHeatmap(gid, now) {
   if (!days || days.indexOf(bj.getDay()) < 0) return false;
 
   var nowMin = bj.getHours() * 60 + bj.getMinutes();
-  if (nowMin < 18 * 60) return false;                    /* 18:00 之前不显示 */
+  var startMin = heatmapClockMinute(HEATMAP_WINDOW_START);
+  if (startMin < 0) startMin = 18 * 60;
+  if (nowMin < startMin) return false;                   /* 18:00 之前不显示 */
 
-  /* 【开奖后就不要了】到当天开奖时刻就撤下（不再等到第二天 00:00） */
-  var drawMin = heatmapClockMinute(HEATMAP_DRAW_TIME[gid]);
-  if (drawMin >= 0 && nowMin >= drawMin) return false;
+  /* 【到点换回来】到当天的窗口结束时刻就撤下，区块换回「最新开奖」 */
+  var endMin = heatmapClockMinute(HEATMAP_WINDOW_END[gid]);
+  if (endMin >= 0 && nowMin >= endMin) return false;
 
   return true;
 }
