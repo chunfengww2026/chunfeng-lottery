@@ -265,6 +265,13 @@
      ============================================================ */
   var HEATMAP_BLOCK_ORDER = ['ssq', 'dlt'];
 
+  /* 【图位属性名集中在这里】—— 与 export-static.mjs 生成推荐图图位、
+     以及页尾 renderAll() 的选择器（.ro-imagewrap[data-game]）必须是同一套写法。
+     写成常量而不是散在各处的字面量，改名时只需要改这一个地方。 */
+  var SLOT_CLASS = 'ro-imagewrap';
+  var SLOT_ATTR_GAME = 'data-game';
+  var SLOT_ATTR_IMAGE = 'data-image';
+
   /**
    * 现在该由哪个彩种的热力图顶掉「最新开奖」
    * @param {Date|string|number} [now] 不传就是当前时刻（可被 HEATMAP_NOW_OVERRIDE 定格）
@@ -294,9 +301,9 @@
   /**
    * 热力图顶掉「最新开奖」时的区块 HTML
    * 【结构故意和「最新开奖」区块完全一样】：
-   *   同一套 <section class="ro-game" id="ro-latest">，客户端只认这个 id，
+   *   同一个 id（LATEST_DRAWS_ID），客户端只认这个 id，
    *   所以「换过去」和「换回来」是同一个替换动作，不会出现找不到节点。
-   * 【图位写法也和推荐图一致】：.ro-imagewrap[data-game][data-image]
+   * 【图位写法和推荐图完全一致】：.ro-imagewrap[data-game][data-image]
    *   → 页尾的实时渲染脚本（renderAll）会自动把它渲染成同一张热力图模板图，
    *     服务端预渲染的那份是它的兜底。
    * @param {string} gid       彩种 id
@@ -304,7 +311,8 @@
    */
   function latestHeatmapSectionHtml(gid, innerHtml) {
     return '<section class="ro-game" id="' + LATEST_DRAWS_ID + '">' +
-      '<div class="ro-imagewrap" data-game="' + gid + '" data-image="heatmap">' +
+      '<div class="' + SLOT_CLASS + '" ' +
+      SLOT_ATTR_GAME + '="' + gid + '" ' + SLOT_ATTR_IMAGE + '="heatmap">' +
       (innerHtml || '') +
       '</div>' +
       '</section>';
