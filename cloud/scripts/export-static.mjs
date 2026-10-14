@@ -1492,80 +1492,55 @@ body {
 .ro-imagewrap .r-calbadges { flex-wrap: wrap !important; }
 
 /* ============================================================
-   【并排·方案B】页面级左右两栏（用户原话：
-     「快乐8和3D布局到一起 3D左边」「排列三和排列五 左边排三 右边排五」）
+   【口口·两张图左右放】推荐图两两并排
    ------------------------------------------------------------
-   ⚠️ 只在【外层容器】上排，推荐图本身【一个字都不改】：
-      · .r-image 还是 760px 定宽（下面那条 !important 没动）
-      · 图里的 .r-twocol / 球径 / 字号 / 版式全部原样
-      · 还是靠 fit() 的 transform: scale() 等比缩放 —— 图不会变形
-   什么时候才并排：
-      · 视口 ≥ 1620px（= 两列各 760px + 32 间距 + 两侧各 34 留白）→ 两栏，
-        每栏正好 ≥760px，图按 1:1 原尺寸显示、一个像素都不缩，看得清号码
-      · 窄于 1620px（含手机、1080p 显示器）→ 自动堆叠成一列，和现在完全一样
-    为什么阈值这么高：1200px 时每栏只有约 580px，760px 的图要缩到 0.76 倍；
-    1560px 时每栏 744px，还是要缩到 0.98 倍才不溢出。
-    用户看图就是为了看清号码，所以宁可到 1620px 才并排，
-    也不在半宽里塞一张缩小过的图。
+   用户原话：「我要的模板是两张图左右放，两张图一个版面比如：口口 这样的
+     我要的是双色球的两个资料这样布局，大乐透也是
+     排三和排五 七星彩和七乐彩这样的布局 快乐8和3D是这样布局」
+
+   配对（左侧 / 右侧）：
+     ① 双色球 main  / 双色球 wuxing   （同一个彩种的两张图）
+     ② 大乐透 main  / 大乐透 wuxing   （同一个彩种的两张图）
+     ③ 排列3        / 排列5
+     ④ 七星彩       / 七乐彩
+     ⑤ 福彩3D       / 快乐8            （用户先说过「3D左边」）
+
+   ⚠️ 只在【外层容器】上排，推荐图本身【一个字都没改】：
+      · 仍然靠 fit() 的 transform: scale(等比) 适配 —— 图不会变形
+      · 手机等窄屏：图横向放不下，按容器宽度整体等比缩小（不是变形、不裁切）
+
+   为什么宽屏也要缩一点点：两张图一共 760×2 = 1520px + 间距，
+   1920px 屏幕上左右各留 20px 之后只剩 1880px，本来就够；
+   于是把每栏设成「各占一半」，fit() 量到 ~930px/栏 ⇒ scale≈1.22（放大，更清楚）。
+   窄屏（手机）每栏只有约 175px ⇒ scale≈0.23，图会很小 ——
+   这是「两张 760px 的图并排」的必然结果，用户已知情（他要的就是这个版式）。
    ============================================================ */
-.ro-pair { display: contents; }          /* 默认「不存在」，不影响任何现有布局 */
-@media (min-width: 1620px) {
-  /* 【关键】max(1592px, 100%) 而不是写死 1592px：
-     写死的话视口 1620px 时 .ro-wrap 只有 1592px，减掉两侧各 20px 留白
-     只剩 1552px，两列就只有 (1552−32)/2 = 760px —— 刚好卡在边界上，
-     任何一点额外留白都会让图被缩一丁点。用 max() 保证
-     「视口多宽，容器就多宽」，两列永远是干净的 760px + 760px。 */
-  .ro-wrap { max-width: max(1592px, 100%); }
-  .ro-pair {
+.ro-imagepair { display: block; }          /* 默认：不并排，两张图照旧上下排 */
+@media (min-width: 1366px) {
+  /* 1366 起才并排：再窄就真的看不清了（每栏 < 650px ⇒ scale < 0.86） */
+  .ro-imagepair {
     display: grid;
-    grid-template-columns: 760px 760px;
-    gap: 32px;
+    grid-template-columns: 1fr 1fr;        /* 各占一半，fit() 按每栏实测宽度缩放 */
+    gap: 20px;
     align-items: start;
-    justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
-  .ro-pair > .ro-game { margin-bottom: 0; }
-  /* 网格列宽已经是 760px ⇒ fit() 量到 avail=760 ⇒ scale=1（原样显示）。
-     这里显式写 none，和上面那条桌面端规则同优先级、靠后生效，避免继承到旧值。 */
-  .ro-pair .ro-imagewrap .r-image { transform: none !important; }
-  /* 兜底：万一 transform 在这些浏览器上没生效，
-     容器宽度不许被 760px 的图撑破（宁可横向滑动，也不能挤变形）。 */
-  .ro-pair .ro-imagewrap { min-width: 0; overflow-x: auto; }
+  /* 网格项默认 min-width:auto 会被 760px 的图撑破 → 显式归零 */
+  .ro-imagepair > .ro-imagewrap { min-width: 0; margin-bottom: 0; }
+  /* 并排时不留出「横向滑动」的余地：宽度已经由 fit() 精确适配 */
+  .ro-imagepair > .ro-imagewrap { overflow-x: hidden; }
 }
 
 /* ============================================================
-   【点击放大】提示图标
+   【点击放大】鼠标光标提示
    ------------------------------------------------------------
    用户原话：「双色球推的图一边一个 可以单独点开图片变大」
-
-   只是在【外层容器】上加一枚半透明小图标（放大镜），
-   绝对不往图里加任何东西 —— 图是 760px 定宽的设计稿，
-   往里塞元素会把版式挤变形。
-   图标 pointer-events: none —— 点它等于点容器，不影响放大。
+   用户原话：「图片点击可以放大 就是放大一张完成的图弹出来 在点击就变小
+             不需要有个放大镜图标」
+   → 【放大镜图标已删除】。只留下 cursor: zoom-in 这个纯光标提示
+     （不是图形/图标，页面上看不到任何放大镜）。
    ============================================================ */
 .ro-imagewrap { cursor: zoom-in; }
-.ro-lb-hint {
-  position: absolute;
-  top: 8px; right: 8px;
-  width: 26px; height: 26px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
-  background: rgba(12,14,19,0.55);
-  border: 1px solid rgba(255,255,255,0.22);
-  color: #fff;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .15s ease;
-}
-.ro-lb-hint svg { width: 15px; height: 15px; display: block; }
-/* 鼠标设备：hover 时提示 */
-@media (hover: hover) and (pointer: fine) {
-  .ro-imagewrap:hover .ro-lb-hint { opacity: .9; }
-}
-/* 触屏设备：没有 hover，图标常驻（淡一点，不抢图） */
-@media (hover: none), (pointer: coarse) {
-  .ro-lb-hint { opacity: .5; width: 30px; height: 30px; }
-}
 
 /* ============================================================
    【点击放大】全屏遮罩层（一次只看一张）
@@ -1575,7 +1550,9 @@ body {
    · 缩放只是对这张图整体做 transform: scale()，
      宽高【始终同一个比例】，不会拉伸。
    · 图层比原图高：手机上手指能看清。
-   · 支持双指缩放（pointer 事件）；不支持的浏览器就是纯滚动 + 双击。
+   · 支持双指缩放（pointer 事件）。
+   · 【开关式】遮罩里点任何地方都关闭（用户：「在点击就变小」）；
+     按下到抬起的位移超过 10px 才算拖动，不会误关。
    ============================================================ */
 #ro-lightbox {
   position: fixed;
@@ -1607,22 +1584,8 @@ body {
   flex: 0 0 auto;
 }
 .ro-lb-scope .r-image { box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
-.ro-lb-close {
-  position: fixed;
-  top: 10px; right: 10px;
-  z-index: 2;
-  width: 42px; height: 42px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: rgba(18,21,27,0.9);
-  border: 1px solid rgba(255,255,255,0.28);
-  color: #fff;
-  font-size: 24px; line-height: 1;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-.ro-lb-close:active { background: rgba(60,66,80,0.95); }
+/* 【关闭按钮 × 的样式已删除】—— 现在遮罩里点任何地方都能关闭，
+   不再需要右上角那个按钮。 */
 .ro-lb-bar {
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -1851,66 +1814,109 @@ ${RO_RENDER_SCRIPT}
 })();
 
 /* ============================================================
-   【并排·方案B】把需要「布局到一起」的两个彩种区块包进一个两列容器
+   【口口】把要「两张图左右放」的图位两两包进一个并排容器
    ------------------------------------------------------------
-   用户原话（说了两次）：
-     「快乐8和3D布局到一起 3D左边」
-     「排列三和排列五 也可以用大乐透双色球布局 左边排三 右边排五」
+   用户原话（最终版，最清楚的一次）：
+     「我要的模板是两张图左右放，两张图一个版面比如：口口 这样的
+      我要的是双色球的两个资料这样布局，大乐透也是
+      排三和排五 七星彩和七乐彩这样的布局 快乐8和3D是这样布局」
 
-   为什么做成「页面级并排」而不是「画进同一张图」：
-     推荐图是 760px 定宽的设计稿，把两个彩种塞进同一张图的左右两栏，
-     就要改「一张图 = 一个彩种」这个前提 —— 会牵动 stats.js 的字段角色表、
-     一致性收尾和 ticket-store 的摇号（4 个彩种的存档都会受影响），
-     一旦出错就是已推送的推荐号自相矛盾。所以只在【外层容器】上排：
-     两张图各自还是完整的 760px 独立推荐图，一个像素都不动。
+   ⚠️ 配对单位是【图位 .ro-imagewrap】，不是【彩种区块 .ro-game】——
+      因为前两组是「同一个彩种的两张图」（双色球的 main + wuxing），
+      按彩种找区块根本区分不出来。
+
+   配对表（左 / 右）：
+     ① ssq/main   + ssq/wuxing    同一彩种两张图
+     ② dlt/main   + dlt/wuxing    同一彩种两张图
+     ③ pl3/main   + pl5/main
+     ④ qxc/main   + qlc/main
+     ⑤ fc3d/main  + kl8/main      （用户先说过「3D左边」，所以 3D 在左）
+
+   彩种标题怎么处理：
+     ③④⑤ 是「两个彩种」，容器放在【前一个彩种的区块内部】，
+     两个 <section> 各自带着自己的 <h2> 一起进去 ⇒ 左右各有一个标题，一眼分得清。
+     ①② 是「同一个彩种的两张图」，只把两个【图位】并排，
+     <section> 和它的 <h2>「双色球」留在外面 ⇒ 标题只出现一次，不会重复。
 
    只做两件事：
-     ① 把这对 <section class="ro-game"> 包进一个 .ro-pair 容器
-        （.ro-pair 默认 display:contents，等于「容器不存在」，
-          只有视口 ≥ 1560px 时那条 media query 才把它变成两列网格）
-     ② 包完重算一次 fit()：容器宽度变了，transform: scale() 得跟着重算
-        （两列时每列正好 760px ⇒ scale = 1，图原样显示、不缩小）
-
-   彩种标题（<h2>福彩3D</h2> / <h2>快乐8</h2>）原样保留在各自区块里，
-   所以「左边是什么、右边是什么」一眼就能看出来。
-
-   宽屏两列时 DOM 顺序是 fc3d → kl8 → pl3 → pl5（快乐8 在 3D 后面），
-   靠网格自动排列放进第二列 —— 视觉顺序仍是「左 3D / 右 快乐8」。
+     ① 建一个 .ro-imagepair 容器，把两张图的图位放进去（幂等）
+     ② 重算 fit()：容器宽度变了，等比缩放的倍数得跟着重算
    ============================================================ */
-(function () { /* __PAIR_V1__ 并排·方案B（验收脚本按这个标记提取这一段） */
+(function () { /* __PAIR_V2__ 口口并排（验收脚本按这个标记提取这一段） */
   var PAIRS = [
-    { left: 'fc3d', right: 'kl8' },   /* 用户：快乐8和3D布局到一起，3D 左边 */
-    { left: 'pl3',  right: 'pl5' }    /* 用户：左边排三，右边排五 */
+    { left: 'ssq/main',   right: 'ssq/wuxing' },   /* ① 双色球：两张资料左右放 */
+    { left: 'dlt/main',   right: 'dlt/wuxing' },   /* ② 大乐透：同上 */
+    { left: 'pl3/main',   right: 'pl5/main'    },   /* ③ 排三 | 排五 */
+    { left: 'qxc/main',   right: 'qlc/main'    },   /* ④ 七星彩 | 七乐彩 */
+    { left: 'fc3d/main',  right: 'kl8/main'    }    /* ⑤ 3D（左） | 快乐8 */
   ];
 
-  function sectionOf(gameId) {
-    var secs = document.querySelectorAll('.ro-game');
-    for (var i = 0; i < secs.length; i++) {
-      /* 在区块内部找这一彩种的图位（图位带 data-game 属性） */
-      if (secs[i].querySelector('.ro-imagewrap[data-game="' + gameId + '"]')) return secs[i];
+  /* 按 (彩种, 图) 找那一个图位 —— 不用属性选择器拼字符串，
+     直接比 dataset，属性顺序变了也不会失效。 */
+  function wrapOf(gameId, imageKey) {
+    var all = document.querySelectorAll('.ro-imagewrap');
+    for (var i = 0; i < all.length; i++) {
+      var w = all[i];
+      if (w.getAttribute('data-game') === gameId &&
+          w.getAttribute('data-image') === imageKey) return w;
     }
     return null;
   }
-
-  for (var p = 0; p < PAIRS.length; p++) {
-    var L = sectionOf(PAIRS[p].left);
-    var R = sectionOf(PAIRS[p].right);
-    /* 两个区块都得在、而且还没被包过，才动手（幂等） */
-    if (!L || !R || L === R) continue;
-    if (L.parentNode && L.parentNode.className === 'ro-pair') continue;
-
-    var box = document.createElement('div');
-    box.className = 'ro-pair';
-    box.setAttribute('data-pair', PAIRS[p].left + '+' + PAIRS[p].right);
-
-    /* L 在前（DOM 顺序），insertBefore 把容器放到 L 原来的位置 */
-    L.parentNode.insertBefore(box, L);
-    box.appendChild(L);
-    box.appendChild(R);
+  /* 往上找最近的彩种区块（③④⑤ 要把整个 <section> 一起搬进去） */
+  function sectionOf(node) {
+    var n = node;
+    while (n && n !== document.body) {
+      if (n.className && String(n.className).split(/\s+/).indexOf('ro-game') >= 0) return n;
+      n = n.parentNode;
+    }
+    return null;
+  }
+  /* 这个图位是不是【已经在】某个并排容器里了？
+     ⚠️ 必须一路往上找，不能只看 parentNode：
+        ① ② 并排后图位的父节点就是 .ro-imagepair，
+        但 ③④⑤ 搬的是整个 <section>，图位的父节点仍是 .ro-game ——
+        只查 parentNode 会让 ③④⑤ 每跑一次就再套一层容器（实测会从 5 变 8）。 */
+  function alreadyPaired(node) {
+    var n = node ? node.parentNode : null;
+    while (n && n !== document.body) {
+      if (n.className && String(n.className).split(/\s+/).indexOf('ro-imagepair') >= 0) return true;
+      n = n.parentNode;
+    }
+    return false;
   }
 
-  /* 容器变了 ⇒ 等比缩放的可用宽度也变了，必须重算一次。
-     __roFit 是上面那个 IIFE 暴露出来的 fit()。 */
+  for (var p = 0; p < PAIRS.length; p++) {
+    var li = PAIRS[p].left.split('/');
+    var ri = PAIRS[p].right.split('/');
+    var Lw = wrapOf(li[0], li[1]);
+    var Rw = wrapOf(ri[0], ri[1]);
+    /* 两个图位都得在，而且各自都还没被并排过（幂等；同一彩种只并排一次） */
+    if (!Lw || !Rw || Lw === Rw) continue;
+    if (alreadyPaired(Lw) || alreadyPaired(Rw)) continue;
+
+    /* 容器插在【左边那张】原来的位置 */
+    var box = document.createElement('div');
+    box.className = 'ro-imagepair';
+    box.setAttribute('data-pair', PAIRS[p].left + '+' + PAIRS[p].right);
+
+    /* 同一个彩种（① ②）：只搬两个图位，<section> 和它的 <h2> 留在外面 */
+    if (li[0] === ri[0]) {
+      Lw.parentNode.insertBefore(box, Lw);
+      box.appendChild(Lw);
+      box.appendChild(Rw);
+      continue;
+    }
+
+    /* 两个彩种（③ ④ ⑤）：把两整块 <section> 一起搬进来 —— 左右各自保留标题 */
+    var Ls = sectionOf(Lw);
+    var Rs = sectionOf(Rw);
+    if (!Ls || !Rs || Ls === Rs) { box = null; continue; }
+    Ls.parentNode.insertBefore(box, Ls);
+    box.appendChild(Ls);
+    box.appendChild(Rs);
+  }
+
+  /* 容器宽度变了 ⇒ 等比缩放倍数必须重算（__roFit 是上面那个 IIFE 暴露的 fit）。 */
   if (typeof window.__roFit === 'function') {
     window.__roFit();
     setTimeout(window.__roFit, 80);
@@ -1950,11 +1956,6 @@ ${RO_RENDER_SCRIPT}
 (function () {
   var BASE = 760;   /* 图片设计宽度，和 .r-image 一致（不许改） */
 
-  /* 放大镜图标：内联 SVG，不引任何外部资源（file:// 打开也能用） */
-  var HINT_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-    'stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/>' +
-    '<line x1="15.4" y1="15.4" x2="21" y2="21"/></svg>';
-
   var overlay = null;   /* 当前遮罩（null = 没打开） */
   var wrap = null;      /* 遮罩里那个容器 */
   var imgEl = null;     /* 放大中的那张图 */
@@ -1965,34 +1966,26 @@ ${RO_RENDER_SCRIPT}
   var pinchStart = 0;
   var pinchFrom = 1;
 
+  /* 【开关式点击】用户原话：
+       「图片点击可以放大 就是放大一张完成的图弹出来 在点击就变小 不需要有个放大镜图标」
+     所以遮罩里【点任何地方都关闭】。但不能「拖滚动条看图」也被误判成点击 ——
+     只有 pointerdown 到 pointerup 位移 < TAP_SLOP(=10px) 才算「点了一下」。 */
+  var TAP_SLOP = 10;
+  var tapDown = null;    /* 按下时的 {x,y,id} */
+  var tapMoved = false;  /* 按下后是否移动过（移动过 = 在拖/滑，不关） */
+  var tapMulti = false;  /* 是否出现过第二根手指（双指缩放，不关） */
+
   function log(m) {
     /* 自测/排查用：window.__roLBLog 里有全部动作记录，
        线上用户不看控制台，不打日志 */
     try { (window.__roLBLog = window.__roLBLog || []).push(m); } catch (e) { /* 忽略 */ }
   }
 
-  /* ---------- 给每个图位补一枚提示图标（只加在外层容器上） ---------- */
-  function refreshIcons() {
-    try {
-      var wraps = document.querySelectorAll('.ro-imagewrap');
-      var added = 0;
-      for (var i = 0; i < wraps.length; i++) {
-        var w = wraps[i];
-        if (!w.querySelector || !w.querySelector('.r-image')) continue;
-        if (w.getAttribute('data-ro-lb') === 'wrap') continue;        /* 遮罩里的克隆不算 */
-        if (w.getAttribute && w.getAttribute('data-ro-lb') === 'hint') continue;
-        if (w.querySelector('[data-ro-lb="hint"]')) continue;         /* 已经有了 */
-        var s = document.createElement('span');
-        s.className = 'ro-lb-hint';
-        s.setAttribute('data-ro-lb', 'hint');
-        s.setAttribute('aria-hidden', 'true');
-        s.innerHTML = HINT_SVG;
-        w.appendChild(s);
-        added++;
-      }
-      return added;
-    } catch (e) { return -1; }
-  }
+  /* ---------- 放大镜提示图标【已按要求移除】 ----------
+     用户原话：「不需要有个放大镜图标」。
+     这里保留同名空函数只是为了外面（以及验收脚本）还能调它，
+     它【不会】往页面上加任何元素。 */
+  function refreshIcons() { return 0; }
 
   /* ---------- 从事件目标往上找「推荐图容器」 ---------- */
   function wrapOf(node) {
@@ -2084,20 +2077,15 @@ ${RO_RENDER_SCRIPT}
 
     inner.appendChild(wrap);
 
-    var btnClose = document.createElement('div');
-    btnClose.className = 'ro-lb-close';
-    btnClose.setAttribute('data-ro-lb', 'close');
-    btnClose.setAttribute('role', 'button');
-    btnClose.setAttribute('aria-label', '关闭');
-    btnClose.innerHTML = '&times;';
-
+    /* 【关闭按钮 × 已移除】用户要的是「再点一下就变小」——
+       遮罩里点任何地方都能关，再放一个 × 反而容易和「点哪都关」重复。
+       键盘用户仍然可以按 Esc 关闭（保留）。 */
     var bar = document.createElement('div');
     bar.className = 'ro-lb-bar';
     bar.setAttribute('data-ro-lb', 'bar');
-    bar.textContent = '双指缩放（电脑双击放大）· 点空白处或右上角 × 关闭';
+    bar.textContent = '再点一下关闭 · 双指可缩放（电脑按 Esc 也可关闭）';
 
     overlay.appendChild(inner);
-    overlay.appendChild(btnClose);
     overlay.appendChild(bar);
     document.body.appendChild(overlay);
 
@@ -2151,56 +2139,51 @@ ${RO_RENDER_SCRIPT}
     log('resize baseScale=' + baseScale.toFixed(4));
   }
 
-  /* 点一下：点在图上 = 双击判定；点在图外 = 关闭（关掉浮层） */
+  /* 【开关式】点一下 = 关闭
+     用户要的：点图片本身也关、点放大后那张图也关、点空白也关 ——
+     也就是遮罩里点任何地方都关。
+     但「拖动滚动条看图」「双指缩放」不能误关：只认「按下到抬起几乎没动」的点击。 */
+  function onTap() {
+    close();
+  }
   function onClick(e) {
     if (!overlay) return;
     if (e.defaultPrevented) return;
-    var t = e.target;
-
-    /* 关闭按钮 */
-    var n = t;
-    while (n && n !== overlay) {
-      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'close') { close(); return; }
-      n = n.parentNode;
-    }
-    /* 点在这张图上（或它的子元素上）→ 先留着，交给 dblclick 判定 */
-    var inImg = false;
-    n = t;
-    while (n && n !== overlay) {
-      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'wrap') { inImg = true; break; }
-      n = n.parentNode;
-    }
-    if (inImg) return;
-    /* 其它一律视为「点空白」→ 关闭 */
-    close();
+    /* 触摸/鼠标按下后如果移动过（在拖滚动条或滑动看图）→ 不当成点击 */
+    if (tapMoved || tapMulti) { tapMoved = false; tapMulti = false; tapDown = null; return; }
+    onTap();
   }
 
-  function onDblClick(e) {
+  /* ---------- 按下/抬起：判断这一次是不是「点了一下」（而不是拖动） ---------- */
+  function onDocPointerDown(e) {
     if (!overlay) return;
-    var n = e.target;
-    while (n && n !== overlay) {
-      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'wrap') {
-        zoom = (zoom > 1.001) ? 1 : 2;
-        var sc = overlay.querySelector ? overlay.querySelector('.ro-lb-inner') : null;
-        var px = 0, py = 0;
-        try {
-          var r = overlay.getBoundingClientRect();
-          px = (e.clientX || 0) - r.left; py = (e.clientY || 0) - r.top;
-        } catch (e2) { /* 忽略 */ }
-        var ox = sc ? sc.scrollWidth : 0;
-        var oy = sc ? sc.scrollHeight : 0;
-        px = px / (ox || 1); py = py / (oy || 1);
-        applyScale();
-        if (sc && sc.scrollTo) {
-          sc.scrollTo(Math.max(0, px * sc.scrollWidth - overlay.clientWidth / 2),
-            Math.max(0, py * sc.scrollHeight - overlay.clientHeight / 2));
-        }
-        log('dblclick zoom=' + zoom);
-        return;
-      }
-      n = n.parentNode;
+    if (e.pointerId === undefined || e.pointerId === null) return;
+    if (!tapDown) {
+      tapDown = { x: e.clientX || 0, y: e.clientY || 0, id: e.pointerId };
+      tapMoved = false;
+      tapMulti = false;
+    } else if (e.pointerId !== tapDown.id) {
+      /* 第二根手指按下了 → 这是双指缩放，不是点击 */
+      tapMulti = true;
     }
   }
+  function onDocPointerMove(e) {
+    if (!overlay || !tapDown) return;
+    if (e.pointerId !== tapDown.id) return;
+    var dx = (e.clientX || 0) - tapDown.x;
+    var dy = (e.clientY || 0) - tapDown.y;
+    if (Math.sqrt(dx * dx + dy * dy) > TAP_SLOP) tapMoved = true;
+  }
+  function onDocPointerUp(e) {
+    if (e.pointerId === undefined || e.pointerId === null) return;
+    if (tapDown && e.pointerId === tapDown.id) tapDown = null;
+  }
+
+  /* ---------- 双击缩放【已移除】 ----------
+     用户要的是「点一下开、再点一下关」；双击会连着触发两次 click
+     （开 → 立刻又关），和开关式打架，所以去掉了。
+     手机上想看得更细仍然可以【双指缩放】—— 那个不冲突，保留。 */
+  function onDblClick() { /* 什么都不做（占位，保持函数名便于验收脚本引用） */ }
 
   /* ---------- 双指缩放 ---------- */
   function dist() {
@@ -2259,6 +2242,10 @@ ${RO_RENDER_SCRIPT}
     }, false);
 
     document.addEventListener('dblclick', onDblClick, false);
+    document.addEventListener('pointerdown', onDocPointerDown, true);
+    document.addEventListener('pointermove', onDocPointerMove, true);
+    document.addEventListener('pointerup', onDocPointerUp, true);
+    document.addEventListener('pointercancel', onDocPointerUp, true);
     document.addEventListener('pointermove', onPointerMove, false);
     document.addEventListener('contextmenu', function (e) {
       /* 长按弹菜单很打断「点开看图」，遮罩打开时屏蔽掉 */
@@ -2266,7 +2253,8 @@ ${RO_RENDER_SCRIPT}
     }, false);
 
     refreshIcons();
-    /* 实时渲染/顶部区块切换会重建 DOM，补一次图标 */
+    /* 用户要求「不需要有个放大镜图标」→ refreshIcons 现在是空函数，
+       这几处保留只是为了兼容旧调用（DOM 重建时调它不会加任何东西）。 */
     setTimeout(refreshIcons, 300);
     setTimeout(refreshIcons, 1200);
     window.addEventListener('load', refreshIcons, false);
