@@ -84,7 +84,7 @@ const TEMPLATES = {
                 { key: 'b_jq',  label: '蓝球奇偶' },
                 { key: 'b_dx',  label: '蓝球大小' },
                 { key: 'b_012', label: '蓝球012路' },
-                { key: 'b_rec', label: '蓝球推荐' },
+                { key: 'b_rec', label: '蓝球推荐', count: 6, color: 'blue' },
                 { key: 'b_sh',  label: '蓝球杀号' }
               ],
               bigBall: { key: 'b_main', color: 'blue' }
