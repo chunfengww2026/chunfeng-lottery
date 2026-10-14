@@ -119,6 +119,30 @@ jobs:
           echo "heatmap=$HEATMAP" >> "$GITHUB_OUTPUT"
           echo "事件=${{ github.event_name }}　cron=${{ github.event.schedule }}　快速模式=$QUICK　热力图=$HEATMAP"
 
+      # 【热力图 · 票面照片 OCR】
+      #   热力图的主口径是「一起彩晒票页 → 下载票面照片 → OCR 识别号码」。
+      #   这里【不需要装任何 OCR 引擎】：
+      #     · 引擎是纯 JS 的 tesseract.js（WASM），语言模型是 chi_sim+eng，
+      #       两者都由本机 cloud/sync-cloud.mjs 同步进仓库
+      #       （cloud/scripts/runtime/ocr/，约 54 MB / 317 个文件，完全离线）；
+      #     · 因此不用 apt-get、不用进 npm、不依赖任何 CDN —— 云端不会因为
+      #       网络问题装不上 OCR，也不会和本机结果不一致。
+      #   这一步只是「体检」：把体积打出来，缺文件就报错，避免静默降级。
+      - name: 检查票面照片 OCR 运行时（纯 JS，无需安装）
+        run: |
+          echo "--- runtime/ocr 体积 ---"
+          du -sh cloud/scripts/runtime/ocr 2>/dev/null || echo "（没有 runtime/ocr）"
+          echo "--- 关键文件 ---"
+          for f in \
+            cloud/scripts/ocr-tickets.mjs \
+            cloud/scripts/runtime/ocr/node_modules/tesseract.js/src/index.js \
+            cloud/scripts/runtime/ocr/node_modules/tesseract.js-core/index.js \
+            cloud/scripts/runtime/ocr/tessdata/chi_sim.traineddata.gz \
+            cloud/scripts/runtime/ocr/tessdata/eng.traineddata.gz ; do
+            if [ -f "$f" ]; then echo "✅ $f  ($(du -h "$f" | cut -f1))"
+            else echo "⚠️  缺 $f —— 热力图会降级成「近 30 期开奖频率」"; fi
+          done
+
       - name: 执行云端构建
         working-directory: cloud
         env:
