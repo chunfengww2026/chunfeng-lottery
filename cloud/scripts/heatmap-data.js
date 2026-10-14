@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-14 23:37
+   生成时间：2026-10-14 23:43
    生成脚本：build-heatmap.mjs
    本次彩种：dlt
    数据来源：history-fallback
@@ -14,14 +14,14 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-14 23:37',
+  updated: '2026-10-14 23:43',
   source: 'history-fallback',
   games: {
     dlt: {
       name: '大乐透',
       issue: '26117',
       drawDate: '2026-10-14',
-      madeAt: '2026-10-14 23:37',
+      madeAt: '2026-10-14 23:43',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
