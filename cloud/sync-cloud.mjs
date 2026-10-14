@@ -188,7 +188,7 @@ const CODE_MODULES = [
      （实测：福彩3D / 排列5 / 七星彩 的奇偶、大小、012路 会对不上）。 */
   'experts-data.js', 'expert-pool.js',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
-  'build-jc.mjs', 'build-prizes.mjs', 'build-materials.mjs',
+  'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
   /* 【热力图】云端 18:00 那一班要自己跑这个脚本抓当日晒票 ——
      不同步过去的话，云端就只能用本地传上去的那份数据。 */
   'build-heatmap.mjs',
