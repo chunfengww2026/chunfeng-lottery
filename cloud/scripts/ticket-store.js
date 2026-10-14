@@ -754,19 +754,41 @@ function rollValueDeterministic(gameId, spec) {
     return rollSpanRange(gameId, areaKey, count);
   }
 
+  /* 【单球格式】用户原话：
+       「双色球硬模板蓝球要么就是大要么就是小不要加个 1」
+     所以只选 1 个球的区域（双色球蓝球 / 大乐透后区只有一个位时）
+     只写「奇」/「偶」、「大」/「小」，不写「1奇」「1小」。
+     号码池里多个球的区域保持「2奇4偶」「3大2小”写法。 */
+  const singleBallFormat = (txt, kind) => {
+    if (count !== 1) return txt;
+    const s = String(txt || '');
+    if (kind === 'jq') {
+      if (/^1奇$/.test(s) || /^1奇0偶$/.test(s)) return '奇';
+      if (/^1偶$/.test(s) || /^0奇1偶$/.test(s)) return '偶';
+      if (/奇/.test(s) && !/偶/.test(s)) return '奇';
+      if (/偶/.test(s) && !/奇/.test(s)) return '偶';
+    } else {
+      if (/^1大$/.test(s) || /^1大0小$/.test(s)) return '大';
+      if (/^1小$/.test(s) || /^0大1小$/.test(s)) return '小';
+      if (/大/.test(s) && !/小/.test(s)) return '大';
+      if (/小/.test(s) && !/大/.test(s)) return '小';
+    }
+    return txt;
+  };
+
   // 3) 奇偶：按「真实球数」取一批推荐号再推导（双色球红球 6、大乐透前区 5）
   //    不能写号码池自身的构成 —— 池子有 20 个号，会写出「8奇12偶」
   if (label.includes('奇偶')) {
     const d = derivedReal();
-    if (d.oddEven) return d.oddEven;
-    return deriveFromList(rollPicks(gameId, areaKey, count), from, to).oddEven;
+    if (d.oddEven) return singleBallFormat(d.oddEven, 'jq');
+    return singleBallFormat(deriveFromList(rollPicks(gameId, areaKey, count), from, to).oddEven, 'jq');
   }
 
   // 4) 大小：同上
   if (label.includes('大小')) {
     const d = derivedReal();
-    if (d.bigSmall) return d.bigSmall;
-    return deriveFromList(rollPicks(gameId, areaKey, count), from, to).bigSmall;
+    if (d.bigSmall) return singleBallFormat(d.bigSmall, 'dx');
+    return singleBallFormat(deriveFromList(rollPicks(gameId, areaKey, count), from, to).bigSmall, 'dx');
   }
 
   // 5) 012 路：同上
