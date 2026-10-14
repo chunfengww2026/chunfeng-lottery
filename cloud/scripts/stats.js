@@ -838,14 +838,16 @@ function deriveFromPicks(nums, from, to) {
 function calcSum(areas) {
   const sums = areas.map((a) => a.reduce((x, y) => x + y, 0)).sort((a, b) => a - b);
   if (!sums.length) return '';
-  return compactRange(sums, 25);
+  /* 用户要求：和值区间【不要相差太大】—— 硬上限 20 */
+  return compactRange(sums, 20, 20);
 }
 
 /* ---------- 跨度（区间 = 统计窗口内真实取值范围） ---------- */
 function calcSpan(areas) {
   const spans = areas.map((a) => Math.max(...a) - Math.min(...a)).sort((a, b) => a - b);
   if (!spans.length) return '';
-  return compactRange(spans, 15);
+  /* 同理：跨度也收在 15 以内 */
+  return compactRange(spans, 15, 15);
 }
 
 /**
@@ -859,8 +861,14 @@ function calcSpan(areas) {
  *   3. 最后向外扩到真实最小值 / 最大值，保证第 1 条成立。
  * @param {number[]} sorted 升序排列的真实取值（近 30 期）
  * @param {number} maxWidth 主体区间期望宽度上限（只影响紧凑度，不影响覆盖）
+ * @param {number} [hardMax] 【硬上限】给了就绝不超这个宽度。
+ *   用户要求：「红球和值控制在 20 之间，不要相差太大」——
+ *   原来最后一步会「向外扩到真实极值」，30 期里最小到最大能拉开 70，
+ *   页面上就显示成「红球和值 71~141」，区间太宽、没有参考价值。
+ *   现在和值传 hardMax=20：以中位数为中心，宽度不超过 20。
+ *   代价：极少数很偏的历史值会落在区间外 —— 这是用户明确要的取舍。
  */
-function compactRange(sorted, maxWidth) {
+function compactRange(sorted, maxWidth, hardMax) {
   const n = sorted.length;
   if (!n) return '';
   if (n === 1) return `${sorted[0]}~${sorted[0]}`;
@@ -877,6 +885,18 @@ function compactRange(sorted, maxWidth) {
     const mid = Math.round((a + b) / 2);
     a = mid - Math.floor(maxWidth / 2);
     b = a + maxWidth;
+  }
+
+  /* 【硬上限】用户明确要求「不要相差太大」——
+     以中位数为中心压到 hardMax 宽，不再向外扩到极值。 */
+  if (hardMax && (max - min) > hardMax) {
+    const med = sorted[Math.floor(n / 2)];
+    let lo = med - Math.floor(hardMax / 2);
+    let hi = lo + hardMax;
+    /* 别越过真实取值范围 */
+    if (lo < min) { lo = min; hi = lo + hardMax; }
+    if (hi > max) { hi = max; lo = hi - hardMax; }
+    return `${lo}~${hi}`;
   }
 
   // 【关键】向外扩到真实极值：宁可略宽，也不漏掉最近的开奖
