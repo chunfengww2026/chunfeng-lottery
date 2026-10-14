@@ -9,6 +9,13 @@
 //    jc-data.js     →  const JC_DATA = {...}   本次「在售」的比赛
 //    jc-history.js  →  const JC_HISTORY = {...} 已完场累积记录
 //
+//  每场比赛还会算一份【亚指综合换算】结果存在 game.asianIndex
+//  （算法在 asian-index.js，用 vm 读进来，保证项目和页面用的是同一份）：
+//    · 亚盘盘口数值 + 上/下盘水位 + 水位换算的理论均衡占比 —— 真实数据
+//    · 热度等级 / 爆冷·输盘·赢盘推演 / 偏差 —— 需要「上盘真实资金占比 fundUp」
+//    · 【fundUp 目前没有数据源】（数据源只返回亚盘/欧赔/大小球三个数组）
+//      → asianIndex.analysis 恒为 null，页面整块不显示热度推演，绝不编数
+//
 //  【为什么需要 jc-history】体彩在售列表只含【还能买】的比赛，
 //  一开完赛就从列表里消失 —— 所以「已完场」如果只读 jc-data 会永远是 0。
 //  每次跑这里都会把「上次在售、这次不见了」的比赛归档进 jc-history.js
@@ -35,6 +42,10 @@ const OUT = path.join(ROOT, 'jc-data.js');
 const HIST = path.join(ROOT, 'jc-history.js');
 const FB_JS = path.join(ROOT, 'football.js');
 
+/* 代码目录：DSH_JC_ROOT 只改【数据目录】，不改代码目录 ——
+   asian-index.js 是代码，必须从脚本所在目录读（夹具目录里没有它）。 */
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+
 /* 【已完场只留前后 24 小时】用户要求：
      「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」
    原来是「最多 200 场」，会越积越多、翻出好几天前的比赛。
@@ -58,6 +69,35 @@ function loadVar(file, varName) {
     return c.__X;
   } catch (e) {
     log(`  ⚠️ ${path.basename(file)} 解析失败：${e.message}`);
+    return null;
+  }
+}
+
+/* ============================================================
+   亚指综合换算（asian-index.js）
+   ------------------------------------------------------------
+   为什么用 vm 读而不是 import：
+     asian-index.js 是【普通浏览器脚本】（函数挂全局，供
+     football.html 里 <script src> 直接用），不能同时写 export。
+     为了保证「算法只有一份」，这里用和 loadVar 一样的办法把它
+     读进沙箱跑一遍，再把函数取出来 —— 不复制算法代码。
+
+   算出什么：game.asianIndex（详见 asian-index.js 文件头注释）
+     · 【真实资金占比 fundUp 目前没有数据源】→ 恒为 null，
+       asianIndex.analysis 也恒为 null，页面据此整块不显示
+       热度/爆冷推演，不显示任何编造的数字。
+   ============================================================ */
+function loadAsianIndex() {
+  const p = path.join(SCRIPT_DIR, 'asian-index.js');
+  if (!fs.existsSync(p)) { log('  ⚠️ 缺 asian-index.js —— 本场不做亚指换算'); return null; }
+  try {
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(p, 'utf8') + `
+globalThis.__AI = { ASIAN_INDEX_CALC, calcAsianIndexAnalysis, asianHotRule,
+  asianHandicapFromLine, buildAsianIndex, asianIndexView, getFundUp };`, c);
+    return c.__AI;
+  } catch (e) {
+    log(`  ⚠️ asian-index.js 解析失败：${e.message} —— 本场不做亚指换算`);
     return null;
   }
 }
@@ -443,9 +483,13 @@ async function main() {
   log(`  ✅ 取到 ${scores.size} 场的状态与比分`);
 
   log('\n【3/3】逐场抓赔率并合并比分');
+  /* 亚指综合换算（算一次就够，整个循环共用） */
+  const AI = loadAsianIndex();
+  if (AI) log('  ✅ 已载入 asian-index.js（亚指综合换算）');
   const games = [];
   let okOdds = 0;
   let withScore = 0;
+  let withAsian = 0;
 
   for (const g of list) {
     let odds = null;
@@ -455,6 +499,13 @@ async function main() {
     }
     const reco = calcReco(odds);
     if (reco) okOdds++;
+
+    /* ---- 亚指综合换算 ----
+       输入来自真实抓到的数据：odds.asian（上下盘水位）+ g.handicap（竞彩让球数）。
+       fundUp（上盘真实资金占比）目前【没有数据源】→ asianIndex.analysis 是 null，
+       页面据此整块不显示热度/爆冷推演（绝不编数）。 */
+    const asianIndex = AI ? AI.buildAsianIndex({ handicap: g.handicap, odds }) : null;
+    if (asianIndex) withAsian++;
 
     /* ---- 合并实时比分 ---- */
     const s = scores.get(String(g.gid));
@@ -502,13 +553,23 @@ async function main() {
     const euTxt = eu ? `欧赔 ${eu.home}/${eu.draw}/${eu.away}` : '无欧赔';
     const scoreTxt = (hs !== null && hs !== undefined) ? `  ${hs}-${as_}` : '';
     const stTxt = { upcoming: '未开赛', live: `进行中${minute ? ' ' + minute + "'" : ''}`, finished: '完场' }[status];
+    /* 亚指一行：有水位就报盘口+水位；fundUp 缺失时明说「热度推演不显示」 */
+    const aiTxt = asianIndex
+      ? (`亚盘 ${asianIndex.line}(${asianIndex.handicap}) 上盘=${asianIndex.upSide === 'home' ? '主' : '客'}` +
+         ` ${asianIndex.upWater}/${asianIndex.downWater}` +
+         (asianIndex.analysis
+           ? ` · 亚指 ${asianIndex.analysis.conclusionTag} 偏差${asianIndex.analysis.devUp}%`
+           : ' · 资金占比无数据源，热度推演不显示'))
+      : '无亚盘';
 
     log(`  ✅ ${g.code} ${g.time.slice(5)} [${g.league}] ${g.home.name} vs ${g.away.name}`);
     log(`       ${euTxt}  ${reco ? '→ ' + reco.label + ' ' + reco.confidence + '%' : ''}  [${stTxt}${scoreTxt}]`);
+    log(`       ${aiTxt}`);
 
     games.push(Object.assign({}, g, {
       odds,
       reco,
+      asianIndex,
       status,
       minute,
       liveScore: (hs !== null && hs !== undefined) ? { home: hs, away: as_ } : null
@@ -533,8 +594,12 @@ async function main() {
   fs.writeFileSync(OUT, js, 'utf8');
 
   log(`\n✅ 已写入 ${OUT}`);
-  log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分`);
+  log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分 · ${withAsian} 场有亚盘`);
   log(`   未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}`);
+  log(`   亚指综合换算：${withAsian} 场算出 asianIndex` +
+      `（其中 ${games.filter((g) => g.asianIndex && g.asianIndex.analysis).length} 场有资金占比 → 显示热度推演）`);
+  log(`   【如实说明】上盘真实资金占比 fundUp 目前【没有数据源】，` +
+      `所以热度/爆冷推演不显示，页面上只显示真实水位换算出来的理论均衡占比。`);
 
   /* 【归档】必须在 jc-data.js 写完之后、用【旧数据 + 新数据】对比着算 */
   try {
