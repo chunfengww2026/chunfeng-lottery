@@ -31,6 +31,28 @@ const ROOT = process.env.DSH_JC_ROOT
   : path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, '足球推荐.html');
 
+/* 代码目录：DSH_JC_ROOT 只改【数据目录】，不改代码目录 */
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+
+/* ---------- 亚指综合换算（算法在 asian-index.js，只有一份） ----------
+   用 vm 读进来而不是 import：asian-index.js 是普通浏览器脚本
+   （football.html 里 <script src> 直接用），不能同时写 export。 */
+function loadAsianIndex() {
+  const p = path.join(SCRIPT_DIR, 'asian-index.js');
+  if (!fs.existsSync(p)) { console.error('⚠️ 缺 asian-index.js —— 页面不做亚指换算'); return null; }
+  try {
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(p, 'utf8') + `
+globalThis.__AI = { ASIAN_INDEX_CALC, calcAsianIndexAnalysis, asianHotRule,
+  asianHandicapFromLine, buildAsianIndex, asianIndexView, getFundUp };`, c);
+    return c.__AI;
+  } catch (e) {
+    console.error(`⚠️ asian-index.js 解析失败：${e.message} —— 页面不做亚指换算`);
+    return null;
+  }
+}
+const AI = loadAsianIndex();
+
 /* ---------- 读数据 ---------- */
 function loadVar(file, varName) {
   const p = path.join(ROOT, file);
@@ -202,6 +224,8 @@ function historyToGame(rec) {
     round: '',
     time: rec.time || '',
     handicap: rec.hc != null ? rec.hc : null,
+    /* 【亚指综合换算】归档时存下来的那份（老记录没有 → null → 不显示） */
+    asianIndex: rec.asianIndex || null,
     home: { name: rec.home || '?', rank: null },
     away: { name: rec.away || '?', rank: null },
     score: hasScore ? { home: hs, away: as } : null,
@@ -260,6 +284,14 @@ const ALL_GAMES = [...JC.games, ...HIST_GAMES];
 function prep(g) {
   const fb = findFb(g);
 
+  /* 【亚指综合换算】优先用 build-jc.mjs 存好的那份；
+     jc-data.js 还是旧版（没存）时就地算一遍，页面不至于空着。
+     算不出来（没亚盘 / 认不出盘口）→ null → 整块不显示。 */
+  let asianIndex = g.asianIndex || null;
+  if (!asianIndex && AI && typeof AI.buildAsianIndex === 'function') {
+    try { asianIndex = AI.buildAsianIndex(g); } catch (e) { asianIndex = null; }
+  }
+
   /* 比分优先级：football.js 实时比分 > jc-data 自己的比分 */
   let hs = null, as = null;
   if (fb && fb.home && fb.home.score !== null && fb.home.score !== undefined) {
@@ -288,6 +320,7 @@ function prep(g) {
     home: g.home, away: g.away,
     minute: (fb && fb.minute) || g.minute || 0,
     odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result,
+    asianIndex,
     /* 这场是从 jc-history 归档来的（不是本次在售）→ 卡片样式区分一下 */
     fromHistory: !!(g.reco && g.reco.fromHistory)
   };
@@ -335,6 +368,77 @@ function oddsRow(label, v, pickKey) {
   const cell = (txt, on) => (txt === null || txt === undefined || txt === '')
     ? '' : `<span class="m-ov${on ? ' on' : ''}">${esc(txt)}</span>`;
   return `<div class="m-odds"><span class="m-ol">${label}</span>${cell(v.a, false)}${cell(v.b, pickKey === 'b')}${cell(v.c, pickKey === 'c')}</div>`;
+}
+
+/* ============================================================
+   亚指综合换算卡片
+   ------------------------------------------------------------
+   · 真拿到「上盘真实资金占比 fundUp」时：结论标签 + 热度文案 + 理论/真实资金 + 偏差
+   · 没拿到时（【当前就是这种】）：【整块不显示热度推演】，只显示由真实水位
+     换算出来的「水位隐含 · 理论均衡占比」+ 走水判定，并如实标注数据缺失 ——
+     不显示任何编造的数字。
+   【合规】带「仅娱乐参考」；标签只用中性词（爆冷 / 输盘 / 赢盘 / 走水机会 / 胜负难分）。
+   ============================================================ */
+const devNum = (v) => { const n = parseFloat(v); return Number.isFinite(n) ? n : null; };
+function devCls(v) {
+  const n = devNum(v);
+  if (n === null) return '';
+  return n > 0 ? 'up' : (n < 0 ? 'down' : '');
+}
+function devText(v) {
+  const n = devNum(v);
+  if (n === null) return '—';
+  return (n > 0 ? '+' : '') + n.toFixed(2) + '%';
+}
+
+function renderAsianCard(m) {
+  if (!AI || typeof AI.asianIndexView !== 'function') return '';
+  let ai = null;
+  try { ai = AI.asianIndexView(m.asianIndex); } catch (e) { return ''; }
+  if (!ai) return '';            /* 没有亚指数据 → 整块不显示 */
+
+  const head =
+    `<div class="m-ai-head">` +
+    `<span class="m-ai-title">亚指综合换算</span>` +
+    (ai.hasFund && ai.conclusionTag ? `<span class="m-ai-tag">${esc(ai.conclusionTag)}</span>` : '') +
+    `<span class="m-ai-fun">仅娱乐参考</span>` +
+    `</div>`;
+
+  const line =
+    `<div class="m-ai-line">盘口 ${esc(ai.line)}（${esc(ai.fromText)}）· ${esc(ai.handicapText)}` +
+    ` · 上盘 ${esc(ai.upSideText)} · 上 ${esc(ai.upWater)} / 下 ${esc(ai.downWater)}` +
+    ` · ${esc(ai.canWaterText)}</div>`;
+
+  const change = ai.changeType
+    ? `<div class="m-ai-change"><span class="m-ai-change-tag">${esc(ai.changeType)}</span>` +
+      `<span class="m-ai-change-d">${esc(ai.changeDetail)}</span></div>`
+    : '';
+
+  let grid = '';
+  if (ai.hasFund) {
+    grid =
+      `<div class="m-ai-grid">` +
+      `<span class="m-ai-cell"><i>理论上盘资金</i><b>${esc(ai.theoryUp)}%</b></span>` +
+      `<span class="m-ai-cell on"><i>真实上盘资金</i><b>${esc(ai.fundUp)}%</b></span>` +
+      `<span class="m-ai-cell"><i>理论下盘资金</i><b>${esc(ai.theoryDown)}%</b></span>` +
+      `<span class="m-ai-cell on"><i>真实下盘资金</i><b>${esc(ai.fundDown)}%</b></span>` +
+      `</div>` +
+      `<div class="m-ai-dev"><span class="m-ai-dev-v ${devCls(ai.devUp)}">偏差 ${devText(ai.devUp)}</span>` +
+      `<span class="m-ai-dev-u">（上盘真实 − 理论上盘）</span></div>` +
+      (ai.hotText ? `<div class="m-ai-hot">${esc(ai.hotText)}</div>` : '') +
+      (ai.fundUpSource ? `<div class="m-ai-src">资金占比来源：${esc(ai.fundUpSource)}</div>` : '');
+  } else {
+    grid =
+      `<div class="m-ai-grid">` +
+      `<span class="m-ai-cell"><i>水位隐含 · 理论上盘</i><b>${esc(ai.theoryUp)}%</b></span>` +
+      `<span class="m-ai-cell"><i>水位隐含 · 理论下盘</i><b>${esc(ai.theoryDown)}%</b></span>` +
+      `</div>`;
+  }
+
+  const miss = ai.missingText ? `<div class="m-ai-miss">${esc(ai.missingText)}</div>` : '';
+  const note = ai.note ? `<div class="m-ai-note">${esc(ai.note)}</div>` : '';
+
+  return `<div class="m-ai">${head}${line}${change}${grid}${miss}${note}</div>`;
 }
 
 function renderMatch(m) {
@@ -401,6 +505,7 @@ function renderMatch(m) {
       `<i class="${r.pick === 'draw' ? 'on' : ''}">平${r.prob ? r.prob.draw : '—'}%</i>` +
       `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob ? r.prob.away : '—'}%</i>` +
       `</span></div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
+    renderAsianCard(m) +
     `</div>`
   );
 }
@@ -512,6 +617,45 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid #1e2430; border-radius: 10px; font-size: 11.5px;
   color: #6b7488; line-height: 1.9; }
 .brand { margin-top: 22px; text-align: center; font-size: 12.5px; color: #f0575c; }
+/* ---- 亚指综合换算卡片（手机优先，格子 auto-fit 自适应） ---- */
+.m-ai { margin-top: 10px; padding: 11px 12px; background: #14171d;
+  border: 1px solid #262d3a; border-radius: 10px; }
+.m-ai-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.m-ai-title { font-size: 12.5px; font-weight: 700; color: #b8c2d4; }
+.m-ai-tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  color: #f0b429; background: rgba(240,180,41,0.14);
+  border: 1px solid rgba(240,180,41,0.35); white-space: nowrap; }
+.m-ai-fun { margin-left: auto; font-size: 10.5px; color: #6b7488;
+  border: 1px solid #2b3550; border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
+.m-ai-line { font-size: 11.5px; color: #8b93a1; line-height: 1.8;
+  font-family: Consolas, monospace; word-break: break-word; margin-bottom: 9px; }
+.m-ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 7px; margin-bottom: 8px; }
+.m-ai-cell { display: flex; flex-direction: column; gap: 3px; background: #0f1115;
+  border: 1px solid #262d3a; border-radius: 8px; padding: 7px 9px;
+  min-width: 0; overflow: hidden; }
+.m-ai-cell i { font-style: normal; font-size: 10.5px; color: #6b7488; white-space: nowrap; }
+.m-ai-cell b { font-size: 13.5px; font-weight: 700; color: #c8cfda;
+  font-family: Consolas, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-ai-cell.on { border-color: rgba(71,224,160,0.4); background: rgba(71,224,160,0.08); }
+.m-ai-cell.on b { color: #47e0a0; }
+.m-ai-dev { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; margin-bottom: 7px; }
+.m-ai-dev-v { font-size: 12.5px; font-weight: 700; font-family: Consolas, monospace; }
+.m-ai-dev-v.up { color: #f0575c; }
+.m-ai-dev-v.down { color: #47e0a0; }
+.m-ai-dev-u { font-size: 10.5px; color: #5a6272; }
+.m-ai-hot { font-size: 12px; color: #f0b429; line-height: 1.75; margin-bottom: 7px; }
+.m-ai-src { font-size: 10.5px; color: #6b7488; line-height: 1.7; }
+.m-ai-miss { font-size: 11px; color: #8b93a1; line-height: 1.8; background: #171b23;
+  border: 1px dashed #2b3550; border-radius: 8px; padding: 7px 9px; margin-bottom: 6px; }
+.m-ai-note { font-size: 10.5px; color: #5a6272; line-height: 1.7; }
+/* 盘口升降标签（升盘降水 / 降盘降水 / 升盘升水 / 降盘升水 / 无明显变化） */
+.m-ai-change { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+.m-ai-change-tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  color: #8ab0f5; background: rgba(110,168,254,0.12);
+  border: 1px solid rgba(110,168,254,0.3); white-space: nowrap; }
+.m-ai-change-d { font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
+  word-break: break-word; }
 `;
 
 const html = `<!DOCTYPE html>
@@ -549,6 +693,9 @@ ${nav}
     · 本页只显示<b>体彩竞彩</b>比赛，其他联赛不显示。<br>
     · 「已完场」是<b>累积</b>的：比赛开出结果后会从在售列表消失，程序会把它归档下来继续留在本页${stat.history ? `（当前累积 ${stat.history} 场）` : ''}。<br>
     · 推荐由博彩公司赔率反推概率得出（市场共识换算），属统计归纳，<b>不是预测</b>。<br>
+    · 「亚指综合换算」「盘口升降」是<b>亚盘水位与资金热度的推演</b>，<b>仅娱乐参考</b>，不是预测，也不代表任何结果倾向。<br>
+    · 上盘<b>真实资金占比暂无公开数据源</b>，所以不显示热度 / 爆冷推演；页面上的「水位隐含 · 理论均衡占比」是由亚盘水位换算出来的，<b>不是真实资金数据</b>。<br>
+    · 盘口升降的「初盘 → 即时」原始数据一并列出，便于自行核对（盘口或水位只有一边变化时，程序也会照原始判定显示「无明显变化」）。<br>
     · 彩票每期独立随机，任何分析都不能提高中奖概率。本页不构成购彩建议。<br>
     · 未满 18 周岁禁止购买彩票。
   </div>
