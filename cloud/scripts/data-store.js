@@ -578,12 +578,29 @@ function buildKeyLabelMap(gameId) {
 }
 
 /**
- * 取某彩种某区的「资料约束」
+ * 取某彩种某区的「资料约束」（从资料库读）
  * @param {string} gameId
  * @param {string} areaKey red / blue / front / back / main
  * @returns {{pick:number[], kill:number[], dan:number[], tuo:number[]}}
  */
 function materialRulesFor(gameId, areaKey) {
+  const empty = { pick: [], kill: [], dan: [], tuo: [] };
+  let text = '';
+  try {
+    const mats = (typeof materialsFor === 'function') ? materialsFor(gameId) : [];
+    text = mats.map((m) => (m && m.text) || '').join('\n');
+  } catch (e) { return empty; }
+  return materialRulesFromText(gameId, areaKey, text);
+}
+
+/**
+ * 从一段资料文字里解析某彩种某区的号码约束（不读资料库，给「资料页提示」等用）
+ * @param {string} gameId
+ * @param {string} areaKey
+ * @param {string} text
+ * @returns {{pick:number[], kill:number[], dan:number[], tuo:number[]}}
+ */
+function materialRulesFromText(gameId, areaKey, text) {
   const out = { pick: [], kill: [], dan: [], tuo: [] };
   if (!gameId || !areaKey) return out;
 
@@ -592,12 +609,8 @@ function materialRulesFor(gameId, areaKey) {
   const from = range[0];
   const to = range[1];
 
-  let text = '';
-  try {
-    const mats = (typeof materialsFor === 'function') ? materialsFor(gameId) : [];
-    text = mats.map((m) => (m && m.text) || '').join('\n');
-  } catch (e) { return out; }
-  if (!String(text).trim()) return out;
+  text = String(text == null ? '' : text);
+  if (!text.trim()) return out;
 
   const put = (arr, nums) => {
     nums.forEach((n) => { if (n >= from && n <= to && arr.indexOf(n) < 0) arr.push(n); });
@@ -672,7 +685,7 @@ function materialTextRecognized(gameIds, text) {
     try {
       const spec = materialAreaSpec(g);
       return [spec.mainKey, spec.altKey].some((k) => {
-        const r = materialRulesFor(g, k);
+        const r = materialRulesFromText(g, k, t);
         return (r.pick.length + r.kill.length + r.dan.length + r.tuo.length) > 0;
       });
     } catch (e) { return false; }
