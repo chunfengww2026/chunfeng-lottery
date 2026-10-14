@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  build-draws.mjs —— 抓取开奖号码 + 交给 DeepSeek 解析
 //
 //  流程：
@@ -97,7 +97,11 @@ function readConfig() {
   if (!fs.existsSync(CONFIG_PATH)) {
     throw new Error(`找不到配置文件: ${CONFIG_PATH}`);
   }
-  return JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+  /* 【坑】Windows 上用 PowerShell 的 Set-Content -Encoding utf8 改过这个文件后，
+     开头会多一个 UTF-8 BOM（EF BB BF），JSON.parse 会直接报
+     "Unexpected token ''"。刚才验收时就踩到了，这里统一去掉 BOM 再解析。 */
+  const raw = fs.readFileSync(CONFIG_PATH, 'utf8').replace(/^\uFEFF/, '');
+  return JSON.parse(raw);
 }
 
 /** GB2312/GBK 解码（500.com 用的是 GB2312） */
