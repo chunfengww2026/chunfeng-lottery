@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-14 16:43:54 */
+/* 自动生成，请勿手动编辑 · 2026-10-14 16:48:05 */
 const DRAW_DATA = {
-  "updated": "2026-10-14 16:43:54",
+  "updated": "2026-10-14 16:48:05",
   "note": "由 build-draws.mjs 自动生成，请勿手动编辑",
   "games": {
     "ssq": {
@@ -61,7 +61,7 @@ const DRAW_DATA = {
     "qxc": {
       "issue": "26117",
       "date": "2026-10-13",
-      "source": "500彩票网（规则解析）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "front": [
           7,
@@ -79,7 +79,7 @@ const DRAW_DATA = {
     "kl8": {
       "issue": "2026273",
       "date": "2026-10-14",
-      "source": "500彩票网（规则解析）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           9,
@@ -108,7 +108,7 @@ const DRAW_DATA = {
     "fc3d": {
       "issue": "2026273",
       "date": "2026-10-14",
-      "source": "500彩票网（规则解析）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           9,
@@ -132,7 +132,7 @@ const DRAW_DATA = {
     "pl5": {
       "issue": "26273",
       "date": "2026-10-14",
-      "source": "500彩票网（规则解析）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "main": [
           7,
