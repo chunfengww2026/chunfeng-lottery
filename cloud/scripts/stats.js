@@ -2571,11 +2571,10 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
       const outside = ALL.filter((n) => !domSet || !domSet.has(n));
       /* 【池子 = 全区 ⇒ 没有「池外号」可杀】
          七星彩前区（0~9）、福彩3D 组选（0~9）这类「候选 = 全部号码」的区，
-         杀号只能从池内挑，挑哪个都撞池（验收 ②KILL∩POOL 必判矛盾）。
-         正确做法就是【不写杀号】：留空串。
-         render.js 对「空串」不再画「—」占位（只有 null/undefined 才画），
-         所以图上这一格是空的，不会出现「杀号 无」也不会出现「杀号 —」。 */
-      if (!outside.length) { out[k] = ''; return; }
+         杀号只能从池内挑、挑哪个都撞池，所以给中性提示「无」。
+         （这一条是既有行为，已随 qlc/qxc 回退一起恢复原样；
+          它在图上不会变成破折号 —— render.js 只在【空串/null】时才画占位符。） */
+      if (!outside.length) { out[k] = '无'; return; }
       /* ① 先保留原算法（按位杀 / 池内共识度最低）里「本来就合法」的号，
             这样七星彩每位杀号仍然各有各的号，不会全变成同一串；
          ② 不够再用「不在任何推荐/胆拖里」的池外号；
