@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    data-store.js —— 资料库
    ------------------------------------------------------------
    用途：像聊天框一样记资料，按彩种归类，自动分发到对应板块。
@@ -137,6 +137,16 @@ function renderMaterialInput(container, onSaved) {
   ta.placeholder = '在这里输入资料……\n\n例如：\n本期重点关注中区号码\n05 12 19 是胆码\n和值建议 90-110';
   box.appendChild(ta);
 
+  /* 【解析失败提示】这段资料识别不出可用的号码时，在编辑区下方给个显眼的提示
+     （不阻止保存 —— 资料照样存下来，只是摇号用不上） */
+  const warn = document.createElement('div');
+  warn.className = 'mat-parse-warn';
+  warn.style.cssText = 'display:none;margin-top:9px;font-size:12.5px;line-height:1.75;' +
+    'color:#f0b429;background:rgba(240,180,41,0.07);' +
+    'border:1px solid rgba(240,180,41,0.25);border-radius:9px;padding:8px 12px;';
+  warn.textContent = '这段资料没有识别出可用的号码，请按格式写，例如：红球：01 05 09';
+  box.appendChild(warn);
+
   // 按钮
   const acts = document.createElement('div');
   acts.className = 'actions';
@@ -149,6 +159,17 @@ function renderMaterialInput(container, onSaved) {
   const msg = document.createElement('span');
   msg.style.cssText = 'font-size:12px;margin-left:10px;';
 
+  /** 实时检查这段资料能不能被识别（不通过就显示下方提示） */
+  const checkParse = () => {
+    const t = ta.value.trim();
+    if (!t) { warn.style.display = 'none'; return true; }
+    const ok = materialTextRecognized([...selected], t);
+    warn.style.display = ok ? 'none' : 'block';
+    return ok;
+  };
+  ta.addEventListener('input', checkParse);
+  ta.addEventListener('blur', checkParse);
+
   saveBtn.addEventListener('click', () => {
     const text = ta.value.trim();
     if (!text) {
@@ -157,11 +178,19 @@ function renderMaterialInput(container, onSaved) {
       ta.focus();
       return;
     }
+    const recognized = checkParse();
     addMaterial(text, [...selected]);
     ta.value = '';
-    msg.style.color = '#7ee787';
-    msg.textContent = '已保存';
-    setTimeout(() => { msg.textContent = ''; }, 2000);
+    if (recognized) {
+      msg.style.color = '#7ee787';
+      msg.textContent = '已保存';
+      setTimeout(() => { msg.textContent = ''; }, 2000);
+    } else {
+      /* 存是存下来了，但要明确告诉用户：这段资料摇号时用不上 */
+      msg.style.color = '#f0b429';
+      msg.textContent = '已保存，但这段资料没识别出可用的号码（见下方提示）';
+      setTimeout(() => { msg.textContent = ''; }, 6000);
+    }
     if (onSaved) onSaved();
   });
 
@@ -479,6 +508,175 @@ function renderMaterialsForGame(container, gameId) {
 
   box.appendChild(wrap);
   container.appendChild(box);
+}
+
+/* ============================================================
+   资料 → 摇号约束（「资料优先」层）
+   ------------------------------------------------------------
+   摇号（ticket-store.js 的 rollAllGames / stats.js 的取号）原来只看
+   experts-data.js 的专家池。从这段开始：资料里写明的号码【优先进入号码池】，
+   排在专家池前面 —— 优先级：资料 > 专家池 > 原算法。
+
+   认这些写法（字段解析复用 parseOverridesFromText，不另写一套解析器）：
+     · 字段写法：胆码 05 12 19 ／ 杀号 01 04 ／ 拖码 07 11 26 ／ 20码 01 02 …
+     · 区域写法：红球：01 02 03 ／ 蓝球 05 09 ／ 前区 01 02 03 ／ 后区 05 09
+     · 组合写法：红球杀号 01 04 ／ 蓝球胆码 05
+   解析不出来就返回全空 —— 静默跳过，不报错，也不影响其它彩种。
+   ============================================================ */
+
+/** 各彩种的「主区 / 副区」关键词与 areaKey（与 ticket-store.js 的判定保持一致） */
+function materialAreaSpec(gameId) {
+  if (gameId === 'ssq') {
+    return { mainKey: 'red', altKey: 'blue', mainWords: ['红球', '红号', '红'], altWords: ['蓝球', '蓝号', '蓝'] };
+  }
+  if (gameId === 'dlt') {
+    return { mainKey: 'front', altKey: 'back', mainWords: ['前区', '红球', '红'], altWords: ['后区', '蓝球', '蓝'] };
+  }
+  if (gameId === 'qxc') {
+    return { mainKey: 'front', altKey: 'back', mainWords: ['前区', '前'], altWords: ['后区', '后'] };
+  }
+  return { mainKey: 'main', altKey: 'main', mainWords: ['号码', '前区', '红球'], altWords: ['后区', '蓝球', '蓝'] };
+}
+
+/** 该区号码范围：优先用 ticket-store.js 的 areaRangeOf，取不到就用本地表兜底 */
+function materialAreaRange(gameId, areaKey) {
+  try {
+    if (typeof areaRangeOf === 'function') return areaRangeOf(gameId, areaKey);
+  } catch (e) { /* 回退 */ }
+  const R = {
+    ssq: { red: [1, 33], blue: [1, 16] },
+    dlt: { front: [1, 35], back: [1, 12] },
+    qxc: { front: [0, 9], back: [0, 14] },
+    qlc: { main: [1, 30] },
+    kl8: { main: [1, 80] },
+    fc3d: { main: [0, 9] },
+    pl3: { main: [0, 9] },
+    pl5: { main: [0, 9] }
+  };
+  return (R[gameId] && R[gameId][areaKey]) || [1, 33];
+}
+
+/** 严格取号码：整段只有「数字 + 分隔符」才算，避免把 90-110 / 8奇4偶 当号码 */
+function numbersInText(v) {
+  const s = String(v == null ? '' : v).trim();
+  if (!s || !/^[0-9\s,，、+\-~]+$/.test(s)) return [];
+  const out = [];
+  (s.match(/\d{1,3}/g) || []).forEach((t) => {
+    const n = parseInt(t, 10);
+    if (out.indexOf(n) < 0) out.push(n);
+  });
+  return out;
+}
+
+/** key → 标签（buildLabelKeyMap 的反向表：判断这个字段属于哪个区、是杀还是胆） */
+function buildKeyLabelMap(gameId) {
+  const out = {};
+  try {
+    buildLabelKeyMap(gameId).forEach((k, label) => { if (!out[k]) out[k] = label; });
+  } catch (e) { /* 忽略 */ }
+  return out;
+}
+
+/**
+ * 取某彩种某区的「资料约束」
+ * @param {string} gameId
+ * @param {string} areaKey red / blue / front / back / main
+ * @returns {{pick:number[], kill:number[], dan:number[], tuo:number[]}}
+ */
+function materialRulesFor(gameId, areaKey) {
+  const out = { pick: [], kill: [], dan: [], tuo: [] };
+  if (!gameId || !areaKey) return out;
+
+  const spec = materialAreaSpec(gameId);
+  const range = materialAreaRange(gameId, areaKey);
+  const from = range[0];
+  const to = range[1];
+
+  let text = '';
+  try {
+    const mats = (typeof materialsFor === 'function') ? materialsFor(gameId) : [];
+    text = mats.map((m) => (m && m.text) || '').join('\n');
+  } catch (e) { return out; }
+  if (!String(text).trim()) return out;
+
+  const put = (arr, nums) => {
+    nums.forEach((n) => { if (n >= from && n <= to && arr.indexOf(n) < 0) arr.push(n); });
+  };
+
+  /* ① 字段写法：复用现有解析器 ② 的区域写法见下面 */
+  const keyLabel = buildKeyLabelMap(gameId);
+  const isAltLabel = (label) => /蓝|后区/.test(label);
+  /* 明显不是号码的字段（和值 / 跨度 / 比例 / 排行 / 位置 …）一律跳过 */
+  const isJunkLabel = (label) =>
+    /和值|合值|跨度|比|排行|位|连号|邻号|同尾|重复号|同区号|遗漏|尾|公历|农历|干支|五行|神|冲煞/.test(label);
+
+  let overrides = {};
+  try { overrides = parseOverridesFromText(gameId, text) || {}; } catch (e) { overrides = {}; }
+
+  Object.keys(overrides).forEach((key) => {
+    const label = keyLabel[key] || '';
+    if (!label) return;
+    /* 字段标签带「蓝 / 后区」就是副区，否则算主区 */
+    if ((isAltLabel(label) ? spec.altKey : spec.mainKey) !== areaKey) return;
+    if (isJunkLabel(label)) return;
+    if (!/[码号]|推荐|关注|胆|拖|杀/.test(label)) return;
+    const nums = numbersInText(overrides[key]);
+    if (!nums.length) return;
+    if (/杀/.test(label)) put(out.kill, nums);
+    else if (/胆/.test(label)) put(out.dan, nums);
+    else if (/拖/.test(label)) put(out.tuo, nums);
+    else put(out.pick, nums);
+  });
+
+  /* ② 区域写法：红球：01 02 03 ／ 前区杀号 01 04 ／ 蓝球 05 09 */
+  const words = [];
+  spec.altWords.forEach((w) => words.push({ w, key: spec.altKey }));
+  spec.mainWords.forEach((w) => { if (!words.some((x) => x.w === w)) words.push({ w, key: spec.mainKey }); });
+  words.sort((a, b) => b.w.length - a.w.length);
+
+  String(text).split(/[\n\r;；]+/)
+    .flatMap((line) => line.split(/[，,]/))
+    .forEach((raw) => {
+      const chunk = String(raw).trim();
+      if (!chunk) return;
+      for (const item of words) {
+        if (chunk.indexOf(item.w) !== 0) continue;
+        if (item.key !== areaKey) return;    // 写的是别的区，跳过
+        const rest = chunk.slice(item.w.length).trim();
+        const m = /^(杀号|杀|胆码|胆|拖码|拖|推荐|关注|号码|号)?\s*[:：=]?\s*([0-9\s,，、+\-~]+)$/.exec(rest);
+        if (!m) continue;
+        const nums = numbersInText(m[2]);
+        if (!nums.length) continue;
+        const role = m[1] || '';
+        if (/杀/.test(role)) put(out.kill, nums);
+        else if (/胆/.test(role)) put(out.dan, nums);
+        else if (/拖/.test(role)) put(out.tuo, nums);
+        else put(out.pick, nums);
+        return;
+      }
+    });
+
+  return out;
+}
+
+/** 这段资料有没有被识别出可用的字段 / 号码（资料页提示用） */
+function materialTextRecognized(gameIds, text) {
+  const t = String(text == null ? '' : text);
+  if (!t.trim()) return true;
+  const all = (typeof GAMES !== 'undefined' && GAMES) ? Object.keys(GAMES) : [];
+  const ids = (Array.isArray(gameIds) && gameIds.length) ? gameIds : all;
+  return ids.some((g) => {
+    try {
+      if (Object.keys(parseOverridesFromText(g, t) || {}).length > 0) return true;
+    } catch (e) { /* 忽略 */ }
+    try {
+      const spec = materialAreaSpec(g);
+      return [spec.mainKey, spec.altKey].some((k) => {
+        const r = materialRulesFor(g, k);
+        return (r.pick.length + r.kill.length + r.dan.length + r.tuo.length) > 0;
+      });
+    } catch (e) { return false; }
+  });
 }
 
 /* ============================================================
