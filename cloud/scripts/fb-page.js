@@ -1,11 +1,14 @@
 /* ============================================================
    fb-page.js —— 足球赛事页面逻辑（只显示竞猜场次）
    ------------------------------------------------------------
-   数据来源：jc-data.js（体彩竞彩在售比赛）
+   数据来源：
+     jc-data.js    —— 体彩竞彩【在售】比赛
+     jc-history.js —— 竞彩【已完场】累积记录（可选；没有就只用在售的）
 
-   【为什么改】之前用 football.js 显示全部 168 场比赛，
-   包含全世界各种联赛，大部分不能买，看不过来。
-   现在只显示【体彩竞彩在售】的场次（每天 10~20 场）。
+   【为什么要有 jc-history】在售列表只含还能买的比赛，一开完赛就
+   从列表里消失 —— 所以「已完场」如果只读 jc-data 会永远是 0 场。
+   build-jc.mjs 每跑一次就把打完的比赛归档进 jc-history.js，
+   这里把两边合并，已完场才真的能累积。
 
    本文件把 jc-data 的结构适配成页面需要的形状：
      gid, kind, league{name}, time, minute,
@@ -19,6 +22,100 @@ function getJcData() {
     if (typeof JC_DATA === 'undefined' || !JC_DATA) return null;
     return JC_DATA;
   } catch (e) { return null; }
+}
+
+/** 取已完场累积记录（jc-history.js 没加载时返回空） */
+function getJcHistory() {
+  try {
+    if (typeof JC_HISTORY === 'undefined' || !JC_HISTORY) return null;
+    return JC_HISTORY;
+  } catch (e) { return null; }
+}
+
+/** 欧赔反推概率（老历史记录可能没存 prob） */
+function probFromOdds(odds) {
+  if (!odds) return null;
+  const h = +odds.home, d = +odds.draw, a = +odds.away;
+  if (!(h > 0) || !(d > 0) || !(a > 0)) return null;
+  const raw = { home: 1 / h, draw: 1 / d, away: 1 / a };
+  const sum = raw.home + raw.draw + raw.away;
+  if (!sum) return null;
+  return {
+    home: +(raw.home / sum * 100).toFixed(1),
+    draw: +(raw.draw / sum * 100).toFixed(1),
+    away: +(raw.away / sum * 100).toFixed(1)
+  };
+}
+
+/** 一条历史归档记录 → jc-data 里一场的形状 */
+function historyGame(rec) {
+  const m = /^(\d+)\s*[:：-]\s*(\d+)$/.exec(String(rec.score || ''));
+  const hs = m ? +m[1] : null;
+  const as_ = m ? +m[2] : null;
+  const hasScore = hs !== null && as_ !== null;
+  const pick = rec.pick || '';
+
+  return {
+    gid: 'hist-' + (rec.code || '') + '-' + String(rec.time || '').replace(/\D/g, ''),
+    code: rec.code || '',
+    league: rec.league || '',
+    round: '',
+    time: rec.time || '',
+    handicap: rec.hc != null ? rec.hc : null,
+    home: { name: rec.home || '?', rank: null },
+    away: { name: rec.away || '?', rank: null },
+    score: hasScore ? { home: hs, away: as_ } : null,
+    liveScore: null,
+    status: 'finished',
+    minute: 0,
+    odds: rec.odds ? { europe: { open: null, live: rec.odds } } : null,
+    reco: pick ? {
+      pick,
+      label: rec.pickLabel || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '',
+      confidence: rec.conf != null ? rec.conf : null,
+      prob: rec.prob || probFromOdds(rec.odds),
+      clear: false, margin: null, fromHistory: true
+    } : null
+  };
+}
+
+/** 归一化后的「主队|客队@日期」——用来判断历史里的场次是不是已经在在售列表里 */
+function pairKey(g) {
+  const clean = (s) => String(s || '').replace(/[\s\-·.()（）]/g, '').toLowerCase();
+  const h = clean(g && g.home && g.home.name);
+  const a = clean(g && g.away && g.away.name);
+  if (!h || !a) return '';
+  return [h, a].sort().join('|') + '@' + String(g.time || '').slice(0, 10);
+}
+
+/**
+ * 全部比赛 = jc-data 在售 + jc-history 已完场（去重）
+ * 页面其余部分一律走这里，保证「已完场」能累积。
+ */
+function allJcGames() {
+  const d = getJcData();
+  if (!d || !Array.isArray(d.games)) return [];
+
+  const out = d.games.slice();
+  const seen = new Set();
+  out.forEach((g) => { const k = pairKey(g); if (k) seen.add(k); });
+  const codes = new Set(out.map((g) => String(g.code || '')).filter(Boolean));
+
+  const h = getJcHistory();
+  if (h && Array.isArray(h.list)) {
+    h.list.forEach((rec) => {
+      if (!rec) return;
+      const g = historyGame(rec);
+      const k = pairKey(g);
+      /* 在售列表里已经有这场（同编号或同队名+日期）就不重复显示 */
+      if (g.code && codes.has(g.code)) return;
+      if (k && seen.has(k)) return;
+      if (k) seen.add(k);
+      if (g.code) codes.add(g.code);
+      out.push(g);
+    });
+  }
+  return out;
 }
 
 /** 把一场竞彩数据适配成页面用的形状 */
@@ -61,15 +158,14 @@ function adaptJc(g) {
     odds: g.odds,
     reco: g.reco,
     result,
-    hasScore
+    hasScore,
+    fromHistory: !!(g.reco && g.reco.fromHistory)
   };
 }
 
 /** 取某一状态的比赛列表 */
 function footballList(kind) {
-  const d = getJcData();
-  if (!d || !Array.isArray(d.games)) return [];
-  return d.games
+  return allJcGames()
     .filter((g) => (g.status || 'upcoming') === kind)
     .map(adaptJc)
     .sort((a, b) => String(a.time).localeCompare(String(b.time)));
@@ -77,9 +173,7 @@ function footballList(kind) {
 
 /** 统计数据 */
 function footballStat() {
-  const d = getJcData();
-  if (!d || !Array.isArray(d.games)) return {};
-  const ms = d.games.map(adaptJc);
+  const ms = allJcGames().map(adaptJc);
   const st = {
     total: ms.length,
     upcoming: 0, live: 0, finished: 0,
@@ -96,10 +190,12 @@ function footballStat() {
   return st;
 }
 
-/** 更新时间 */
+/** 更新时间（在售时间和归档时间里取较新的） */
 function footballUpdated() {
   const d = getJcData();
-  return d ? d.updated : null;
+  const h = getJcHistory();
+  const arr = [d && d.updated, h && h.updated].filter(Boolean).sort();
+  return arr.length ? arr[arr.length - 1] : null;
 }
 
 /* 兼容旧调用 */
@@ -107,7 +203,7 @@ function getFootballData() {
   const d = getJcData();
   if (!d) return null;
   return {
-    updated: d.updated,
+    updated: footballUpdated(),
     stat: footballStat(),
     lists: {
       upcoming: footballList('upcoming'),
