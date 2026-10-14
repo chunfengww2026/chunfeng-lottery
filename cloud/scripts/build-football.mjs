@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  build-football.mjs —— 抓取足球赛事（进行中 + 已完场）
 //
 //  数据源：245qq 公开接口（new-jiko.sukeku.com）
@@ -182,6 +182,46 @@ async function main() {
   stat.hit = fin.filter((g) => g.result.hit).length;
   stat.miss = fin.length - stat.hit;
   stat.rate = fin.length ? +(stat.hit / fin.length * 100).toFixed(1) : 0;
+
+  /* ============================================================
+     【只保留前后 24 小时内的比赛】用户要求：
+       「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」
+     即：开赛时间在 [现在-24h, 现在+24h] 之外的，全部丢弃。
+       · 早于 24 小时前的（早就打完的）→ 删，不留历史包袱
+       · 晚于 24 小时后的（太久以后才踢）→ 删，赔率也没参考价值
+     这样 football.js 的体积和刷新成本都稳定在一个小窗口内。
+     ============================================================ */
+  const KEEP_HOURS = 24;
+  const NOW_MS = Date.now();
+  const WIN_FROM = NOW_MS - KEEP_HOURS * 3600 * 1000;
+  const WIN_TO = NOW_MS + KEEP_HOURS * 3600 * 1000;
+  const inWindow = (g) => {
+    const raw = g && (g.time || g.matchTime || g.startTime || g.kickoff);
+    if (!raw) return true;                      /* 没有时间的没法判断，保留（别误删）*/
+    let t = new Date(String(raw).replace(/-/g, '/')).getTime();
+    if (isNaN(t)) t = new Date(String(raw)).getTime();
+    if (isNaN(t)) return true;
+    return t >= WIN_FROM && t <= WIN_TO;
+  };
+  let dropped = 0, kept = 0;
+  Object.keys(lists).forEach((k) => {
+    if (!Array.isArray(lists[k])) return;
+    const before = lists[k].length;
+    lists[k] = lists[k].filter(inWindow);
+    dropped += before - lists[k].length;
+    kept += lists[k].length;
+  });
+  /* 过滤后要重算 stat，否则卡片数字和实际列表对不上 */
+  stat.total = kept;
+  stat.upcoming = (lists.upcoming || []).length;
+  stat.live = (lists.live || []).length;
+  stat.finished = (lists.finished || []).length;
+  const finAfter = (lists.finished || []);
+  stat.hit = finAfter.filter((g) => g.result && g.result.hit).length;
+  stat.miss = finAfter.length - stat.hit;
+  stat.rate = finAfter.length ? +(stat.hit / finAfter.length * 100).toFixed(1) : 0;
+  stat.settled = finAfter.length > 0;
+  log(`   【24 小时窗口】保留 ${kept} 场 · 丢弃 ${dropped} 场（窗口外的旧比赛/太远的比赛）`);
 
   const js = `/* 自动生成，请勿手动编辑 · ${stamp} */\n` +
     `const FOOTBALL_DATA = ${JSON.stringify({ updated: stamp, stat, lists }, null, 1)};\n`;
