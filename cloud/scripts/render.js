@@ -118,7 +118,17 @@ const SECTION_RENDER = {
       const item = el('div', 'r-field');
       item.appendChild(el('div', 'r-label', f.label));
       const v = vals[f.key];
-      item.appendChild(el('div', 'r-value' + (v ? '' : ' empty'), v || '—'));
+      /* 【空串 ≠ 缺值】
+         null / undefined（真·没有这个字段）→ 画占位符（一个破折号），和以前一样；
+         空字符串（字段存在、但这张图这一格本来就没内容，例如
+         「七星彩前区 0~9 池=全区 → 杀号无从杀起」）→ 画成空白，
+         不留破折号、也不要「无」这种字。
+         用户硬要求：页面上不能出现破折号占位符。 */
+      if (v === undefined || v === null) {
+        item.appendChild(el('div', 'r-value empty', '—'));
+      } else {
+        item.appendChild(el('div', 'r-value' + (v ? '' : ' empty'), String(v)));
+      }
       box.appendChild(item);
     });
     return box;
