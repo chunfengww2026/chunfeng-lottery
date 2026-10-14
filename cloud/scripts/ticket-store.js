@@ -714,6 +714,14 @@ function rollValueDeterministic(gameId, spec) {
   // 1) 和值 / 合值：用「最近 30 期真实开奖」的和值区间
   //    （必须覆盖最近开奖，不能给一段随机的理论区间）
   if (label.includes('和值') || label.includes('合值')) {
+    /* 【数字彩：和值只给 3 个数】用户的模板硬性条件 ——
+       原来返回「6~24」这种区间，用户要求给 3 个具体号码。 */
+    if (typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
+      try {
+        const s3 = digitFooterTop(historyAreas(gameId, areaKey, 30), 'sum', 3);
+        if (s3 && s3.length === 3) return s3.join(' ');
+      } catch (e) { /* 回退到区间 */ }
+    }
     if (typeof calcTrendFields === 'function') {
       try {
         const hz = calcTrendFields(gameId, areaKey, from, to, count).hz;
