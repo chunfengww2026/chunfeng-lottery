@@ -234,7 +234,115 @@
     return res;
   }
 
+  /* ============================================================
+     【热力图顶掉「最新开奖」】区块里到底放什么 —— 唯一判定处
+     ------------------------------------------------------------
+     用户 2026-10-15 原话：
+       「在开双色球的时候 18 点更新到最新开奖位置覆盖住，过了 20 点
+         就更新回来最新开奖；同样大乐透在 18 点更新过去，21 点更新回来。」
+
+     规则（北京时间，仅开奖日当天）：
+       双色球（周二 / 周四 / 周日）18:00 ≤ now < 20:00 → 双色球热力图占位
+       大乐透（周一 / 周三 / 周六）18:00 ≤ now < 21:00 → 大乐透热力图占位
+       其余时刻（含非开奖日）                      → 照旧显示「最新开奖」
+
+     【为什么只判定「占位」不自己算时间】
+       时间窗只有一处定义：heatmap-data.js 里的 shouldShowHeatmap()
+       （由 build-heatmap.mjs 的 HELPER_SRC 生成，服务端 / 客户端 / App
+        三边同一份）。这里只是【问它】在窗口内的彩种是哪一个：
+         · 窗口内 + 有当日数据 → 顶掉
+         · 数据缺失 / 不在窗口 → 返回 null → 区块照旧显示「最新开奖」
+           （绝不留白、绝不出现只有标题条的空热力图）
+       两边（服务端预渲染 / 客户端就地重画）调的是同一个函数，
+       所以不存在「网页和 App 不一样」那种漂移。
+
+     【开奖日会不会重叠】
+       ssq = 周日 / 周二 / 周四（0/2/4），dlt = 周一 / 周三 / 周六（1/3/6）
+       → 两个集合【互不相交】，任何一天最多只有一个彩种在窗口内
+         （实测每天恰好有一个是开奖日）。
+       顺序 ssq → dlt 只是「假如同一天两个都在窗口内」时的兜底优先级：
+       取 HEATMAP_BLOCK_ORDER 里第一个通过的彩种（不会出现两张热力图叠加）。
+     ============================================================ */
+  var HEATMAP_BLOCK_ORDER = ['ssq', 'dlt'];
+
+  /**
+   * 现在该由哪个彩种的热力图顶掉「最新开奖」
+   * @param {Date|string|number} [now] 不传就是当前时刻（可被 HEATMAP_NOW_OVERRIDE 定格）
+   * @returns {string|null} 彩种 id（'ssq' / 'dlt'）；不该顶掉时返回 null
+   */
+  function heatmapBlockGameId(now) {
+    for (var i = 0; i < HEATMAP_BLOCK_ORDER.length; i++) {
+      var gid = HEATMAP_BLOCK_ORDER[i];
+      var on = false;
+      try {
+        on = (typeof shouldShowHeatmap === 'function') && !!shouldShowHeatmap(gid, now);
+      } catch (e) { on = false; }          /* 判断异常 → 当作不显示，区块保持原样 */
+      if (on) return gid;
+    }
+    return null;
+  }
+
+  /**
+   * 「最新开奖」区块现在该是什么形态
+   * @returns {{mode:string, gameId:string}} mode: 'heatmap' | 'latest'
+   */
+  function latestBlockMode(now) {
+    var gid = heatmapBlockGameId(now);
+    return gid ? { mode: 'heatmap', gameId: gid } : { mode: 'latest', gameId: '' };
+  }
+
+  /**
+   * 热力图顶掉「最新开奖」时的区块 HTML
+   * 【结构故意和「最新开奖」区块完全一样】：
+   *   同一套 <section class="ro-game" id="ro-latest">，客户端只认这个 id，
+   *   所以「换过去」和「换回来」是同一个替换动作，不会出现找不到节点。
+   * 【图位写法也和推荐图一致】：.ro-imagewrap[data-game][data-image]
+   *   → 页尾的实时渲染脚本（renderAll）会自动把它渲染成同一张热力图模板图，
+   *     服务端预渲染的那份是它的兜底。
+   * @param {string} gid       彩种 id
+   * @param {string} innerHtml 预渲染 / 实时渲染出来的热力图内部 HTML
+   */
+  function latestHeatmapSectionHtml(gid, innerHtml) {
+    return '<section class="ro-game" id="' + LATEST_DRAWS_ID + '">' +
+      '<div class="ro-imagewrap" data-game="' + gid + '" data-image="heatmap">' +
+      (innerHtml || '') +
+      '</div>' +
+      '</section>';
+  }
+
+  /**
+   * 区块的最终 HTML —— 服务端预渲染和客户端重画【都走这一个入口】
+   * @param {object} o
+   *   o.latest      getLatestDraws() / latestDrawsFromRaw() 的结果（最新开奖用）
+   *   o.games       GAMES
+   *   o.now         可选的时刻（不传 = 当前 / HEATMAP_NOW_OVERRIDE）
+   *   o.heatmap     function(gid) → 热力图内部 HTML；不传或返回空串 → 退回「最新开奖」
+   * @returns {string} 区块 HTML（生成不出来时返回空串，调用方保持原样、绝不留白）
+   */
+  function latestBlockHtml(o) {
+    var opt = o || {};
+    var drawsHtml = latestDrawsHtml(opt.latest, opt.games);
+
+    var mode = latestBlockMode(opt.now);
+    if (mode.mode === 'heatmap') {
+      var inner = '';
+      try {
+        inner = (typeof opt.heatmap === 'function') ? (opt.heatmap(mode.gameId) || '') : '';
+      } catch (e) { inner = ''; }
+      /* 热力图渲染失败（或没有渲染器）→ 退回「最新开奖」，不留空白 */
+      if (inner) return latestHeatmapSectionHtml(mode.gameId, inner);
+    }
+
+    return drawsHtml;
+  }
+
   /* ---------- 对外暴露（服务端 vm / 浏览器全局） ---------- */
+  root.HEATMAP_BLOCK_ORDER = HEATMAP_BLOCK_ORDER;
+  root.heatmapBlockGameId = heatmapBlockGameId;
+  root.latestBlockMode = latestBlockMode;
+  root.latestHeatmapSectionHtml = latestHeatmapSectionHtml;
+  root.latestBlockHtml = latestBlockHtml;
+
   root.LATEST_DRAWS_ID = LATEST_DRAWS_ID;
   root.LATEST_GAME_ORDER = LATEST_GAME_ORDER;
   root.hc2 = hc2;
