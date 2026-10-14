@@ -10,11 +10,15 @@
 //    6. 生成 draws.js 供页面读取
 //
 //  用法：
-//    node build-draws.mjs              # 完整流程
-//    node build-draws.mjs --no-ai      # 只用规则解析，不调 AI（不花 token）
+//    node build-draws.mjs              # 完整流程（默认不调 AI）
 //    node build-draws.mjs --dry-run    # 只抓取和解析，不写文件
+//    node build-draws.mjs --ai         # 【会花 token】允许最后用 DeepSeek 兜底解析
+//    CLOUD_BUILD=1 node build-draws.mjs       # 按云端（美国出口）的源顺序跑
+//    DRAW_SOURCE_ORDER=yiqicai,fc500 node build-draws.mjs   # 手动指定源顺序
+//    DRAW_FORCE_FAIL=official node build-draws.mjs          # 故障注入（验收用）
 //
 //  注意：Node 需要写权限才能生成 draws.js。
+//  成本：默认路径【完全不调用 DeepSeek】，不需要 apiKey。
 // ============================================================
 
 import fs from 'node:fs';
