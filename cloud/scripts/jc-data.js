@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 02:14 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 02:30 */
 const JC_DATA = {
- "updated": "2026-10-15 02:14",
+ "updated": "2026-10-15 02:30",
  "stat": {
   "total": 14,
   "upcoming": 8,
@@ -427,8 +427,8 @@ const JC_DATA = {
     "rank": 15
    },
    "score": {
-    "home": 1,
-    "away": 5
+    "home": 3,
+    "away": 6
    },
    "statusText": "0 - 3 ",
    "odds": {
@@ -485,8 +485,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 5
+    "home": 3,
+    "away": 6
    }
   },
   {
@@ -602,9 +602,9 @@ const JC_DATA = {
       "away": 1.85
      },
      "live": {
-      "home": 3.6,
-      "draw": 3.9,
-      "away": 1.91
+      "home": 3.7,
+      "draw": 4,
+      "away": 1.9
      }
     },
     "overunder": {
@@ -623,14 +623,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 49.5,
+    "confidence": 50.3,
     "prob": {
-     "home": 26.3,
-     "draw": 24.2,
-     "away": 49.5
+     "home": 25.8,
+     "draw": 23.9,
+     "away": 50.3
     },
     "clear": true,
-    "margin": 5.8,
+    "margin": 4.7,
     "rqLine": "受半球"
    },
    "status": "upcoming",
@@ -676,9 +676,9 @@ const JC_DATA = {
       "away": 1.75
      },
      "live": {
-      "home": 2.7,
+      "home": 2.88,
       "draw": 3.9,
-      "away": 2.38
+      "away": 2.2
      }
     },
     "overunder": {
@@ -697,14 +697,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 40.1,
+    "confidence": 43,
     "prob": {
-     "home": 35.4,
-     "draw": 24.5,
-     "away": 40.1
+     "home": 32.8,
+     "draw": 24.2,
+     "away": 43
     },
     "clear": false,
-    "margin": 4.7,
+    "margin": 5.8,
     "rqLine": "受平手/半球"
    },
    "status": "upcoming",
@@ -898,9 +898,9 @@ const JC_DATA = {
       "away": 4
      },
      "live": {
-      "home": 1.67,
+      "home": 1.65,
       "draw": 4.1,
-      "away": 4.5
+      "away": 4.75
      }
     },
     "overunder": {
@@ -919,14 +919,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 56.2,
+    "confidence": 57.1,
     "prob": {
-     "home": 56.2,
-     "draw": 22.9,
-     "away": 20.9
+     "home": 57.1,
+     "draw": 23,
+     "away": 19.9
     },
     "clear": true,
-    "margin": 6.5,
+    "margin": 6,
     "rqLine": "半球/一球"
    },
    "status": "upcoming",
