@@ -122,6 +122,14 @@
       '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
       '<rect x="1" y="1" width="22" height="22" rx="6" fill="#3a4150"/>' +
       '<path d="M12 5.4l6.4 5.3v7.3a1 1 0 0 1-1 1h-3.6v-4.6h-3.6V19H6.6a1 1 0 0 1-1-1v-7.3z" fill="#fff"/>' +
+      '</svg>',
+
+    /* 智能助手：蓝紫底 + 对话气泡 */
+    ai:
+      '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
+      '<rect x="1" y="1" width="22" height="22" rx="6" fill="#4b57c8"/>' +
+      '<path d="M5.6 7.6a2 2 0 0 1 2-2h8.8a2 2 0 0 1 2 2v5.2a2 2 0 0 1-2 2H10l-3.2 2.6v-2.6h-.2a1 1 0 0 1-1-1z" fill="#fff"/>' +
+      '<path d="M8.6 10.2h6.8M8.6 12.6h4.4" stroke="#4b57c8" stroke-width="1.4" stroke-linecap="round"/>' +
       '</svg>'
   };
 
