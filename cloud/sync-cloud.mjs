@@ -167,6 +167,10 @@ const tAll = Date.now();
 const FROM_ROOT = [
   'saved-tickets.js', 'history.js', 'draws.js', 'football.js',
   'jc-data.js', 'prize-data.js', 'materials-data.js',
+  /* 【竞彩已完场】累积归档。在售列表只含还能买的比赛，一开完就从
+     jc-data.js 里消失 —— 已完场的累积记录全靠这个文件，不传上去
+     云端重新生成竞彩页时「已完场」又会变回 0 场。 */
+  'jc-history.js',
   'deepseek.config.json',
   /* 【热力图】实票统计热力图数据（当天出图的那份）。
      云端 18:00 那一班会自己重新生成；这里同步过去只作为兜底，
