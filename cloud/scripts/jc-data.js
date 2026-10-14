@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 05:10 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 05:18 */
 const JC_DATA = {
- "updated": "2026-10-15 05:10",
+ "updated": "2026-10-15 05:18",
  "stat": {
   "total": 14,
   "upcoming": 2,
-  "live": 6,
-  "finished": 6,
+  "live": 5,
+  "finished": 7,
   "withScore": 12
  },
  "games": [
@@ -750,7 +750,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
