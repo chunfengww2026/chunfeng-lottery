@@ -483,15 +483,34 @@ GROUPS.forEach((group) => {
    ============================================================ */
 
 /* ---------- 生成状态条 HTML（此时 T/G 已加载） ---------- */
+/* 【日期显示】把 2026-10-15 变成 2026年10月15日 */
+function ymdCN(s) {
+  const m = String(s || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? m[1] + '年' + Number(m[2]) + '月' + Number(m[3]) + '日' : '';
+}
+/* 某个彩种的下一期开奖日期（中文） */
+function dateCN(id) {
+  try { return ymdCN(nextDate(id)); } catch (e) { return ''; }
+}
+/* 所有彩种里【最早】的那个下期开奖日 —— 标题上显示它 */
+const nextDayText = (() => {
+  const list = Object.keys(T).map(dateCNRaw).filter(Boolean).sort();
+  return list.length ? ymdCN(list[0]) : '';
+})();
+function dateCNRaw(id) {
+  try { return String(nextDate(id) || '').slice(0, 10); } catch (e) { return ''; }
+}
+
 if (status.allReady) {
   const rows = Object.keys(T).map((id) => {
     const nm = G[id] ? G[id].name : id;
-    return `<span class="ro-st-item"><b>${nm}</b> 第 ${nextIssue(id)} 期</span>`;
+    const d = dateCN(id);
+    return `<span class="ro-st-item"><b>${nm}</b> 第 ${nextIssue(id)} 期${d ? `<i class="ro-st-date">${d}</i>` : ''}</span>`;
   }).join('');
 
   statusHtml =
     `<div class="ro-status ok">` +
-    `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div>` +
+    `<div class="ro-st-head"><span class="ro-st-dot"></span>${nextDayText ? nextDayText + '已更新' : '下一期推荐已更新'}</div>` +
     `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-list">${rows}</div>` +
     `</div>`;
@@ -1045,6 +1064,7 @@ body {
   margin-top: 10px;
 }
 .ro-st-item { font-size: 12px; color: #8b93a1; }
+.ro-st-date{font-style:normal;color:#8b949e;font-size:11px;margin-left:5px;opacity:.9}
 .ro-st-item b { color: #c8cfda; font-weight: 600; }
 
 /* ---- 分隔条 ---- */
