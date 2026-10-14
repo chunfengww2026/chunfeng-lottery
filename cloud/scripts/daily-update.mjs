@@ -224,6 +224,26 @@ function main() {
     run('build-heatmap.mjs', []);
   } else log('  （--check 跳过）');
 
+  /* 3.6 【专家数据】抓 一起彩 的专家推荐（三胆/杀号/共识百分比等）
+     ============================================================
+     为什么必须有这一步：
+       出号的组合逻辑是「抓专家数据 → 按共识百分比组号」——
+       号码池的内容直接来自 experts-data.js 里的 pool.red / pool.blue。
+       但这一步以前【没有】放进 2 点的流程里，导致：
+         · experts-data.js 一直停在第一次抓取的时间
+         · 每天 2 点强制重摇，用的却是【旧专家数据】
+         · 等于"按你教的方法出号"只生效过一次
+     现在补上：每次 2 点先抓最新专家数据，再摇号。
+     抓不到也不影响出号（会自动沿用旧的 experts-data.js）。 */
+  log('\n【3.6/5】抓专家推荐数据（出号组合逻辑的数据源）');
+  if (!CHECK_ONLY) {
+    try {
+      run('build-experts.mjs', []);
+    } catch (e) {
+      log('  ⚠️ 专家数据抓取失败（不影响出号，沿用上一次的 experts-data.js）：' + e.message);
+    }
+  } else log('  （--check 跳过）');
+
   /* 2. 归档 + 判断 */
   log('\n【4/5】归档并检查是否需要摇号');
   const { ctx, missing, savedPath } = inspect();
