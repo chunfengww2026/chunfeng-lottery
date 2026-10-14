@@ -400,23 +400,9 @@ function rollAllGames(opts) {
         if (gameId === 'ssq') areaKey = /蓝球/.test(joined) ? 'blue' : 'red';
         else if (gameId === 'dlt') areaKey = /后区/.test(joined) ? 'back' : 'front';
         else if (gameId === 'qxc') areaKey = /后区/.test(joined) ? 'back' : 'front';
-        /* 七乐彩两个区：基本号（main 1~30 选 7）+ 特别号（special 1~30 选 1）。
-           判断口径和 stats.js 的 consAreaOf / autoFillForTemplate 一致：
-           标题或字段名里带「特别号」就是 special 区。 */
-        else if (gameId === 'qlc') areaKey = /特别号/.test(joined) ? 'special' : 'main';
 
-        /* 【默认个数】写死的那张表只覆盖了「主区」；带后区/特别号的玩法
-           必须按【区】给数 —— 否则七星彩「后区推荐/后区杀号」会被摇成 6 个号，
-           而最后一位每期只开 1 个。这里按 (彩种, 区) 查，查不到再退回原表。 */
-        const areaCnt = {
-          ssq: { blue: 1, red: 6 },
-          dlt: { back: 2, front: 5 },
-          qxc: { back: 1, front: 6 },
-          qlc: { special: 1, main: 7 }
-        };
-        const cnt = (areaCnt[gameId] && areaCnt[gameId][areaKey])
-          || { ssq: 6, dlt: 5, qlc: 7, kl8: 20, fc3d: 3, pl3: 3, pl5: 5, qxc: 6 }[gameId]
-          || 6;
+        const cnt = { ssq: areaKey === 'blue' ? 1 : 6, dlt: areaKey === 'back' ? 2 : 5 }[gameId]
+          || { qlc: 7, kl8: 20, fc3d: 3, pl3: 3, pl5: 5 }[gameId] || 6;
 
         if (Array.isArray(sec.fields)) {
           sec.fields.forEach((f) => spec.push({
