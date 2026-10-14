@@ -35,8 +35,12 @@ const OUT = path.join(ROOT, 'jc-data.js');
 const HIST = path.join(ROOT, 'jc-history.js');
 const FB_JS = path.join(ROOT, 'football.js');
 
-/* 历史最多保留多少场（超了删最旧的） */
-const HIST_MAX = 200;
+/* 【已完场只留前后 24 小时】用户要求：
+     「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」
+   原来是「最多 200 场」，会越积越多、翻出好几天前的比赛。
+   现在改成：只保留开赛时间在 [现在-24h, 现在+24h] 内的记录。 */
+const HIST_KEEP_HOURS = 24;
+const HIST_MAX = 200;   /* 兜底上限：万一时间解析不出来，也不让它无限增长 */
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
 
@@ -363,7 +367,22 @@ function archiveStep(oldJc, newJc, stamp) {
 
   /* ② 再和旧历史合并（此时两边都已经带上结果保护，幂等） */
   const merged = mergeHistory(retried, aligned.list);
-  const kept = trimHistory(merged.list, HIST_MAX);
+    /* 【24 小时窗口】先筛掉窗口外的，再套 200 场上限兜底。
+       用户要求：「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」 */
+    const _jc0 = Date.now();
+    const _jcFrom = _jc0 - HIST_KEEP_HOURS * 3600 * 1000;
+    const _jcTo   = _jc0 + HIST_KEEP_HOURS * 3600 * 1000;
+    const _jcInWin = (g) => {
+      const raw = g && (g.time || g.matchTime || g.startTime || g.kickoff);
+      if (!raw) return true;
+      let t = new Date(String(raw).replace(/-/g, '/')).getTime();
+      if (isNaN(t)) t = new Date(String(raw)).getTime();
+      if (isNaN(t)) return true;
+      return t >= _jcFrom && t <= _jcTo;
+    };
+    const _jcWin = merged.list.filter(_jcInWin);
+    const _jcDropped = merged.list.length - _jcWin.length;
+    const kept = trimHistory(_jcWin, HIST_MAX);
 
   const matched = kept.filter((r) => r.matched).length;
   const withResult = kept.filter((r) => r.hit || r.result).length;
@@ -374,7 +393,7 @@ function archiveStep(oldJc, newJc, stamp) {
   log(`  本次在售 ${newJc.games.length} 场 · 本次归档 ${addedNow} 场 · 历史累计 ${kept.length} 场`);
   log(`  其中 ${matched} 场在 football.js 里找到终场比分 · ${withResult} 场有胜负结果`);
   if (backfilled) log(`  另有 ${backfilled} 场补上了之前缺的终场比分`);
-  log(`  上限 ${HIST_MAX} 场（超出删最旧的）· 已写入 ${path.basename(HIST)}`);
+  log(`  24 小时窗口内 ${_jcWin.length} 场（窗口外丢弃 ${_jcDropped} 场）· 兜底上限 ${HIST_MAX} 场 · 已写入 ${path.basename(HIST)}`);
 
   /* 便于调用方一眼看到有没有真的累积起来 */
   return { added: addedNow, total: kept.length, matched, withResult, backfilled };
