@@ -1367,6 +1367,556 @@ function ensureTrendFallback(gameId, out) {
   if (!out.kd && t.kd) out.kd = t.kd;
 }
 
+/* ============================================================
+   一致性收尾：消除「字段自相矛盾」（唯一实现，两处调用）
+   ------------------------------------------------------------
+   调用点：
+     ① stats.js  autoFillForTemplate() 组装完 → 图上「实时算」的数
+     ② ticket-store.js rollAllGames() 存档前 → saved-tickets.js 那层
+   规则（池子优先）：
+     · POOL = 该区最大的推荐档（没有档位就用专家号码池）
+     · 杀号从 POOL 外面挑最冷的（池子 = 全部号时杀号给中性提示）
+     · 热号/冷号都在 POOL 内按近 30 期频次排，冷号排除热号
+     · 胆码/拖码在 POOL 内且互不重复
+     · 同区号/邻号/连号/跳连号/同尾号/遗漏 里的号必须在 POOL 内
+     · 「N尾冷」的号不能出现在 1码/3码 主推档
+   只改「有矛盾」的字段：不矛盾的原样保留（不动统计口径、
+   不动用户资料优先级、不动池子档位数量）。
+   ============================================================ */
+
+/** 各彩种各号码区的范围（和 ticket-store.js 的 areaRangeOf 同口径） */
+const AREA_RANGE = {
+  ssq:  { red: [1, 33], blue: [1, 16] },
+  dlt:  { front: [1, 35], back: [1, 12] },
+  qlc:  { main: [1, 30] },
+  kl8:  { main: [1, 80] },
+  fc3d: { main: [0, 9] },
+  pl3:  { main: [0, 9] },
+  pl5:  { main: [0, 9] },
+  qxc:  { front: [0, 9], back: [0, 14] }
+};
+
+/** 取某彩种某区的号码范围 */
+function consRangeOf(gameId, areaKey) {
+  const per = AREA_RANGE[gameId] || {};
+  return per[areaKey] || [1, 33];
+}
+
+/** 区块属于哪个号码区（与 autoFillForTemplate 判断一致） */
+function consAreaOf(gameId, joined) {
+  if (gameId === 'ssq') return /蓝球/.test(joined) ? 'blue' : 'red';
+  if (gameId === 'dlt') return /后区/.test(joined) ? 'back' : 'front';
+  if (gameId === 'qxc') return /后区/.test(joined) ? 'back' : 'front';
+  return 'main';
+}
+
+const _CONS_ROLE_CACHE = Object.create(null);
+
+/**
+ * 字段语义表：key → { role, count, area, posIdx }
+ *   role: tier(号码池档位) pool(组选池) kill/poskill(杀号)
+ *         hot/cold(热冷号) dan/tuo(胆拖) rec/posrec(推荐/定位推荐)
+ *         lh/cf/wh/lin/tjlh/tqh(走势号) maxomit/ylhb(遗漏) wsl(尾数冷热)
+ * 从 TEMPLATES 推，不另写一份表。
+ */
+function fieldRolesOf(gameId, imageKey) {
+  const ck = gameId + '/' + (imageKey || '*');
+  if (_CONS_ROLE_CACHE[ck]) return _CONS_ROLE_CACHE[ck];
+
+  const tpl = (typeof TEMPLATES !== 'undefined') ? TEMPLATES[gameId] : null;
+  if (!tpl) return (_CONS_ROLE_CACHE[ck] = {});
+
+  const imgs = imageKey
+    ? tpl.images.filter((i) => i.key === imageKey)
+    : tpl.images;
+  const out = Object.create(null);
+  const put = (key, role, count, area, posIdx) => {
+    if (!key || out[key]) return;
+    out[key] = { role, count, area, posIdx };
+  };
+
+  const walk = (sec) => {
+    if (!sec || typeof sec !== 'object') return;
+    const texts = [sec.title || ''];
+    if (Array.isArray(sec.fields)) sec.fields.forEach((f) => texts.push(f.label || ''));
+    if (Array.isArray(sec.items)) sec.items.forEach((i) => texts.push(i.label || ''));
+    if (Array.isArray(sec.rows)) sec.rows.forEach((r) => texts.push(r.label || ''));
+    if (Array.isArray(sec.positions)) sec.positions.forEach((p) => texts.push(p.label || ''));
+    if (Array.isArray(sec.footer)) sec.footer.forEach((f) => texts.push(f.label || ''));
+    if (sec.bigBall) texts.push(sec.bigBall.label || '');
+    const joined = texts.join(' ');
+    const area0 = consAreaOf(gameId, joined);
+    const type = sec.type;
+
+    if (Array.isArray(sec.fields)) {
+      sec.fields.forEach((f) => {
+        const L = String(f.label || '');
+        const a = consAreaOf(gameId, (sec.title || '') + ' ' + L);
+        let role = null; let cnt = 6;
+        if (L.includes('热号')) role = 'hot';
+        else if (L.includes('冷号')) role = 'cold';
+        else if (L.includes('杀号')) { role = 'kill'; cnt = 3; }
+        else if (L.includes('胆码')) { role = 'dan'; cnt = 3; }
+        else if (L.includes('拖码')) { role = 'tuo'; cnt = 7; }
+        else if (L.includes('推荐')) role = 'rec';
+        else if (L.includes('跳连号')) role = 'tjlh';
+        else if (L.includes('连号')) role = 'lh';
+        else if (L.includes('重复号')) role = 'cf';
+        else if (L.includes('同尾号')) role = 'wh';
+        else if (L.includes('邻号')) role = 'lin';
+        else if (L.includes('同区号')) role = 'tqh';
+        else if (L.includes('最大遗漏')) role = 'maxomit';
+        else if (L.includes('遗漏回补')) role = 'ylhb';
+        else if (L.includes('尾数冷热')) role = 'wsl';
+        if (role) put(f.key, role, cnt, a);
+      });
+    }
+
+    if (Array.isArray(sec.items)) {
+      sec.items.forEach((i) => {
+        const L = String(i.label || '');
+        if (L.includes('热号')) put(i.key, 'hot', 6, area0);
+        else if (L.includes('冷号')) put(i.key, 'cold', 6, area0);
+      });
+    }
+
+    if (type === 'rows' && Array.isArray(sec.rows)) {
+      sec.rows.forEach((r) => {
+        const L = String(r.label || '');
+        if (/杀/.test(L)) put(r.key, 'kill', r.count, area0);
+        else if (/^\d+\s*(码|胆)$/.test(L.trim())) put(r.key, 'tier', r.count, area0);
+        else if (r.key === 'sh') put(r.key, 'kill', r.count, area0);
+      });
+    }
+
+    if (type === 'digit' || (Array.isArray(sec.positions) && type !== 'positions')) {
+      if (sec.groupRow) put(sec.groupRow.key, 'pool', sec.groupRow.count, area0, -2);
+      if (Array.isArray(sec.positions)) {
+        sec.positions.forEach((p, i) => put(p.key, 'posrec', p.count, area0, i));
+      }
+    }
+
+    /* 七星彩：定位推荐 / 每位杀号（前后区分开判断，不能用整个区块的标题） */
+    if (type === 'positions' && Array.isArray(sec.rows)) {
+      sec.rows.forEach((r, i) => {
+        const L = String(r.label || '');
+        const isBack = /后区/.test(L);
+        const a = (gameId === 'qxc') ? (isBack ? 'back' : 'front') : (isBack ? 'back' : area0);
+        put(r.key, /杀/.test(L) ? 'poskill' : 'posrec', r.count, a, i);
+      });
+    }
+
+    if (Array.isArray(sec.footer)) {
+      sec.footer.forEach((f) => {
+        if (String(f.label || '').includes('杀号')) put(f.key, 'kill', 3, area0);
+      });
+    }
+
+    if (sec.bigBall) put(sec.bigBall.key, 'rec', 1, area0);
+    if (sec.bigBalls) put(sec.bigBalls.key, 'rec', sec.bigBalls.count || 2, area0);
+
+    if (sec.left) walk(sec.left);
+    if (sec.right) walk(sec.right);
+  };
+
+  imgs.forEach((img) => (img.sections || []).forEach(walk));
+  _CONS_ROLE_CACHE[ck] = out;
+  return out;
+}
+
+/** 号码字符串 → 数组（按字段语义解析，只取号码本身） */
+function consParse(role, v) {
+  const s = String(v == null ? '' : v).trim();
+  if (!s || s === '—') return [];
+  if (role === 'wsl') return [];
+  let t = s;
+  if (role === 'cf') t = t.split('防')[0];
+  if (role === 'maxomit') t = t.replace(/号/g, '');
+  if (role === 'tqh') t = t.replace(/[一二三]区/g, '');
+  const out = [];
+  (t.match(/\d+/g) || []).forEach((x) => {
+    const n = parseInt(x, 10);
+    if (Number.isInteger(n) && out.indexOf(n) < 0) out.push(n);
+  });
+  return out;
+}
+
+/** 数组 → 号码串（升序、两位） */
+function consJoin(arr) {
+  return arr.slice().sort((a, b) => a - b).map(pad2).join(' ');
+}
+/** 数组 → 号码串（保持原有顺序，用于胆码/拖码的共识度顺序） */
+function consJoinKeep(arr) {
+  return arr.slice().map(pad2).join(' ');
+}
+/** 两组号码是否同一批（顺序无关） */
+function consSame(a, b) {
+  return a.length === b.length && a.every((n) => b.indexOf(n) >= 0);
+}
+/** 去重 */
+function consUniq(arr) {
+  const out = [];
+  arr.forEach((n) => { if (out.indexOf(n) < 0) out.push(n); });
+  return out;
+}
+
+/** 池内按近 30 期频次排（desc=true 热号优先；false 冷号优先） */
+function consByFreq(gameId, areaKey, poolNums, desc) {
+  const freq = countFrequency(gameId, areaKey, HIST_PERIODS);
+  return poolNums.slice().sort((a, b) => {
+    const fa = freq.get(a) || 0;
+    const fb = freq.get(b) || 0;
+    if (fa !== fb) return desc ? fb - fa : fa - fb;
+    return a - b;
+  });
+}
+
+/** 从候选里按顺序取 count 个（跳过已用过的） */
+function consTake(cands, count, used) {
+  const out = [];
+  for (let i = 0; i < cands.length && out.length < count; i++) {
+    const n = cands[i];
+    if (used.has(n)) continue;
+    used.add(n);
+    out.push(n);
+  }
+  return out;
+}
+
+/** 走势号字段的「池内」兜底值（保证不出现池外号） */
+function consPropFallback(role, pool, from, to, gameId, areaKey) {
+  const sorted = pool.slice().sort((a, b) => a - b);
+  const set = new Set(sorted);
+  if (role === 'lh') {
+    const pairs = [];
+    for (let i = 1; i < sorted.length && pairs.length < 3; i++) {
+      if (sorted[i] - sorted[i - 1] === 1) pairs.push(`${pad2(sorted[i - 1])}-${pad2(sorted[i])}`);
+    }
+    return pairs.join(' / ');
+  }
+  if (role === 'tjlh') {
+    const found = [];
+    for (const n of sorted) {
+      if (found.length >= 2) break;
+      if (set.has(n + 2) && set.has(n + 4)) found.push(`${pad2(n)}-${pad2(n + 2)}-${pad2(n + 4)}`);
+    }
+    return found.join(' / ');
+  }
+  if (role === 'wh') {
+    const byTail = new Map();
+    sorted.forEach((n) => {
+      const t = n % 10;
+      if (!byTail.has(t)) byTail.set(t, []);
+      byTail.get(t).push(n);
+    });
+    return [...byTail.values()].filter((g) => g.length >= 2)
+      .sort((a, b) => b.length - a.length).slice(0, 2)
+      .map((g) => g.map(pad2).join('-')).join(' / ');
+  }
+  if (role === 'lin') {
+    const near = [];
+    sorted.forEach((n) => {
+      if (set.has(n + 1)) near.push(n + 1);
+      if (set.has(n - 1)) near.push(n - 1);
+    });
+    return consUniq(near).sort((a, b) => a - b).slice(0, 6).map(pad2).join(' ');
+  }
+  if (role === 'cf') {
+    let top = [];
+    try { top = consByFreq(gameId, areaKey, sorted, true).slice(0, 2); } catch (e) { top = sorted.slice(0, 2); }
+    return top.length ? top.map(pad2).join(',') + `防${top.length}枚` : '';
+  }
+  if (role === 'tqh') {
+    const zoneSize = Math.ceil((to - from + 1) / 3);
+    let best = { idx: 0, n: -1, nums: [] };
+    for (let i = 0; i < 3; i++) {
+      const lo = from + i * zoneSize;
+      const hi = Math.min(to, lo + zoneSize - 1);
+      const nums = sorted.filter((n) => n >= lo && n <= hi);
+      if (nums.length > best.n) best = { idx: i, n: nums.length, nums };
+    }
+    return `${
+      ['一区', '二区', '三区'][best.idx]}${best.nums.slice(0, 6).map(pad2).join(',')}`;
+  }
+  return '';
+}
+
+/**
+ * 一致性收尾（唯一实现）
+ * @param {string} gameId
+ * @param {string} areaKey  号码区（red/blue/front/back/main）
+ * @param {object} out      该图的字段表（会被就地改写并返回）
+ * @param {string} [imageKey] 图 key（决定字段语义；不传则合并该彩种所有图）
+ * @returns {object} out
+ */
+function enforceConsistency(gameId, areaKey, out, imageKey) {
+  if (!out || typeof out !== 'object') return out;
+
+  let roles;
+  try { roles = fieldRolesOf(gameId, imageKey); } catch (e) { return out; }
+  if (!roles || !Object.keys(roles).length) return out;
+
+  const [from, to] = consRangeOf(gameId, areaKey);
+  const keys = Object.keys(roles).filter((k) => roles[k].area === areaKey
+    && out[k] !== undefined && out[k] !== null && String(out[k]).trim() !== '');
+  if (!keys.length) return out;
+
+  const roleKeys = (r) => keys.filter((k) => roles[k].role === r);
+  const numsOfKey = (k) => consParse(roles[k].role, out[k]);
+  const rangeAll = () => { const a = []; for (let i = from; i <= to; i++) a.push(i); return a; };
+  const ALL = rangeAll();
+
+  /* ---- 1. 定池：最大档 > 组选池 > 专家池 > （没有池） ---- */
+  const tiers = roleKeys('tier')
+    .map((k) => ({ k, count: roles[k].count, nums: consUniq(numsOfKey(k)) }))
+    .sort((a, b) => a.count - b.count);
+  const grpKeys = roleKeys('pool');
+
+  let POOL = null;
+  if (tiers.length) {
+    POOL = consUniq(tiers[tiers.length - 1].nums);
+  } else if (grpKeys.length) {
+    POOL = consUniq(grpKeys.reduce((acc, k) => acc.concat(numsOfKey(k)), []));
+  } else {
+    let exp = [];
+    try { exp = (expertPoolOf(gameId, areaKey) || []).filter((n) => n >= from && n <= to); } catch (e) { exp = []; }
+    if (exp.length) POOL = consUniq(exp);
+  }
+  const poolSet = POOL ? new Set(POOL) : null;
+  const inPool = (n) => !!poolSet && poolSet.has(n);
+
+  /* ---- 2. 号码池档位：最大档不动，小档必须是上层子集 ---- */
+  if (tiers.length) {
+    let cur = tiers[tiers.length - 1].nums.slice();
+    for (let i = tiers.length - 2; i >= 0; i--) {
+      const t = tiers[i];
+      const have = t.nums.filter((n) => cur.indexOf(n) >= 0);
+      const need = Math.max(0, t.count - have.length);
+      const add = need ? cur.filter((n) => have.indexOf(n) < 0).slice(0, need) : [];
+      const fixed = have.concat(add).slice(0, t.count);
+      if (!consSame(fixed, t.nums)) out[t.k] = consJoin(fixed);
+      cur = fixed;
+    }
+  }
+
+  /* ---- 3. 尾数冷热：「N尾冷」的号不能进 1码/3码 主推档 ---- */
+  if (tiers.length) {
+    const coldTails = consUniq(roleKeys('wsl')
+      .reduce((acc, k) => acc.concat((String(out[k]).match(/(\d)尾冷/g) || []).map((x) => Number(x[0]))), []));
+    if (coldTails.length) {
+      const isCold = (n) => coldTails.indexOf(n % 10) >= 0;
+      const small = tiers.filter((t) => t.count <= 3).sort((a, b) => b.count - a.count);
+      small.forEach((t) => {
+        const idx = tiers.indexOf(t);
+        const parent = tiers[idx + 1];
+        if (!parent) return;
+        let curT = consParse('tier', out[t.k]);
+        let curP = consParse('tier', out[parent.k]);
+        let changed = false;
+        for (let i = 0; i < curT.length; i++) {
+          if (!isCold(curT[i])) continue;
+          const cand = curP.find((n) => curT.indexOf(n) < 0 && !isCold(n));
+          if (cand === undefined) continue;
+          const removed = curT[i];
+          curP = curP.filter((n) => n !== cand).concat([removed]);
+          curT[i] = cand;
+          curT = curT.slice().sort((a, b) => a - b);
+          curP = curP.slice().sort((a, b) => a - b);
+          changed = true;
+        }
+        if (changed) { out[t.k] = consJoin(curT); out[parent.k] = consJoin(curP); }
+      });
+    }
+  }
+
+  /* ---- 4. 热号 / 冷号：都在池内，冷号排除热号 ---- */
+  const hotKeys = roleKeys('hot');
+  const coldKeys = roleKeys('cold');
+  if ((hotKeys.length || coldKeys.length) && (!POOL || POOL.length >= 2)) {
+    const dom = POOL ? POOL.slice() : ALL;
+    const domSet = new Set(dom);
+    const hotWant = POOL ? Math.min(6, Math.max(1, Math.ceil(dom.length / 2))) : 6;
+    const coldWant = POOL ? Math.min(6, Math.max(1, dom.length - hotWant)) : 6;
+
+    const hotCur = consUniq(hotKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
+    const coldCur = consUniq(coldKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
+
+    let hot = hotCur;
+    let hotCalc = null;
+    if (hot.length !== hotWant || !hot.every((n) => domSet.has(n))) {
+      hotCalc = consByFreq(gameId, areaKey, dom, true).slice(0, hotWant);
+      hot = hotCalc;
+    }
+    const hotSet = new Set(hot);
+    const coldOK = coldCur.length === coldWant
+      && coldCur.every((n) => domSet.has(n) && !hotSet.has(n));
+    if (!coldOK) {
+      const rest = dom.filter((n) => !hotSet.has(n));
+      let cold = consByFreq(gameId, areaKey, rest, false).slice(0, coldWant);
+      if (coldCalcEmpty(cold, coldCur, hotSet)) cold = coldCur.filter((n) => !hotSet.has(n)).slice(0, coldWant);
+      if (cold.length) {
+        coldKeys.forEach((k) => { out[k] = consJoin(cold); });
+      }
+    }
+    if (hotCalc) hotKeys.forEach((k) => { out[k] = consJoin(hot); });
+  }
+
+  /* ---- 5. 胆码 / 拖码：池内、互不重复 ---- */
+  const danKeys = roleKeys('dan');
+  const tuoKeys = roleKeys('tuo');
+  if ((danKeys.length || tuoKeys.length) && POOL) {
+    let consensus = [];
+    try { consensus = (expertPoolOf(gameId, areaKey) || []).filter((n) => n >= from && n <= to); } catch (e) { consensus = []; }
+    const candOrder = consensus.concat(POOL.filter((n) => consensus.indexOf(n) < 0));
+
+    const danCur = consUniq(danKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
+    let dan = danCur.filter(inPool);
+    const danWant = danCur.length || (danKeys.length ? roles[danKeys[0]].count : 3) || 3;
+    const used = new Set(dan);
+    if (dan.length < danWant) dan = dan.concat(consTake(candOrder, danWant - dan.length, used));
+    dan = dan.slice(0, danWant);
+    if (!consSame(dan, danCur)) danKeys.forEach((k) => { out[k] = consJoinKeep(dan); });
+
+    if (tuoKeys.length) {
+      const tuoCur = consUniq(tuoKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
+      const danSet = new Set(dan);
+      let tuo = tuoCur.filter((n) => inPool(n) && !danSet.has(n));
+      const tuoWant = tuoCur.length || (roles[tuoKeys[0]].count || 7);
+      const usedT = new Set(tuo.concat(dan));
+      if (tuo.length < tuoWant) tuo = tuo.concat(consTake(candOrder, tuoWant - tuo.length, usedT));
+      tuo = tuo.slice(0, tuoWant);
+      if (!consSame(tuo, tuoCur)) tuoKeys.forEach((k) => { out[k] = consJoinKeep(tuo); });
+    }
+  }
+
+  /* ---- 6. 杀号：从池子外面挑最冷的（越界/池内都算矛盾） ---- */
+  const killKeys = roleKeys('kill').concat(roleKeys('poskill'));
+  const danTuoNums = consUniq(roleKeys('dan').concat(roleKeys('tuo'))
+    .reduce((a, k) => a.concat(numsOfKey(k)), []));
+  if (killKeys.length) {
+    killKeys.forEach((k) => {
+      const role = roles[k].role;
+      const cur = consParse(role, out[k]);
+      const want = Math.max(1, roles[k].count || cur.length || 3);
+
+      // 该字段自己的「池」：位杀 → 配对的定位推荐；否则 → 本区 POOL
+      let domain = POOL ? POOL.slice() : null;
+      if (role === 'poskill') {
+        const mate = roleKeys('posrec').find((m) => roles[m].posIdx === roles[k].posIdx);
+        const mateNums = mate ? consUniq(numsOfKey(mate)) : [];
+        if (mateNums.length) domain = mateNums;
+      }
+      if (!domain) {
+        const recs = consUniq(roleKeys('rec').concat(roleKeys('posrec'))
+          .reduce((a, m) => a.concat(numsOfKey(m)), []));
+        domain = recs.length ? recs : null;
+      }
+      const domSet = domain ? new Set(domain) : null;
+      const badNow = cur.length !== want
+        || (domSet && cur.some((n) => domSet.has(n)))
+        || cur.some((n) => n < from || n > to);
+      if (!badNow) return;
+
+      const outside = ALL.filter((n) => !domSet || !domSet.has(n));
+      if (!outside.length) { out[k] = '无'; return; }
+      /* ① 先保留原算法（按位杀 / 池内共识度最低）里「本来就合法」的号，
+            这样七星彩每位杀号仍然各有各的号，不会全变成同一串；
+         ② 不够再用「不在任何推荐/胆拖里」的池外号；
+         ③ 再不够就用池外最冷的号。 */
+      let algo = [];
+      try {
+        if (role === 'poskill' && typeof positionKill === 'function') {
+          algo = positionKill(gameId, roles[k].posIdx, want, from, to, HIST_PERIODS) || [];
+        } else if (typeof autoKillNumbers === 'function') {
+          algo = autoKillNumbers(gameId, areaKey, want, from, to, HIST_PERIODS) || [];
+        }
+      } catch (e) { algo = []; }
+      const algoOK = algo.filter((n) => n >= from && n <= to && (!domSet || !domSet.has(n)));
+      const ban = new Set(domain || []);
+      consUniq(roleKeys('rec').concat(roleKeys('posrec'))
+        .reduce((a, m) => a.concat(numsOfKey(m)), []))
+        .concat(danTuoNums)
+        .forEach((n) => ban.add(n));
+      const preferred = consByFreq(gameId, areaKey, outside.filter((n) => !ban.has(n)), false);
+      const fallback = consByFreq(gameId, areaKey, outside, false);
+      const picked = consUniq(algoOK.concat(preferred, fallback)).slice(0, Math.min(want, outside.length));
+      out[k] = picked.length ? consJoin(picked) : '无';
+    });
+  }
+
+  /* ---- 7. 走势号（连号/重复号/同尾号/邻号/跳连号/同区号）必须在池内 ---- */
+  if (POOL) {
+    const areas = historyAreas(gameId, areaKey, HIST_PERIODS);
+    const poolAreas = areas.map((a) => a.filter(inPool));
+    const propRecalc = (role) => {
+      if (role === 'lh') return calcConsecutive(poolAreas, 3);
+      if (role === 'cf') return calcRepeat(poolAreas);
+      if (role === 'wh') return calcSameTail(poolAreas, 2);
+      if (role === 'tjlh') return calcSkipChain(poolAreas, 2);
+      if (role === 'tqh') return calcSameZone(poolAreas, from, to);
+      if (role === 'lin') {
+        const src = poolAreas[0] || [];
+        const set = new Set();
+        src.forEach((n) => { set.add(n - 1); set.add(n + 1); });
+        src.forEach((n) => set.delete(n));
+        return [...set].filter((n) => n >= from && n <= to && inPool(n))
+          .sort((a, b) => a - b).slice(0, 6).map(pad2).join(' ');
+      }
+      return '';
+    };
+    /* 该区所有「走势号」字段：一致的跳过；越出池子/空着的
+       → 先按「开奖号 ∩ 池子」重算，再不行就用池子里的号兜底。
+       注意：这里遍历的是角色表里的全部字段，不只是已经有值的 ——
+       避免字段缺值被 render 画成 「—」。 */
+    ['lh', 'cf', 'wh', 'lin', 'tjlh', 'tqh'].forEach((role) => {
+      Object.keys(roles).filter((k) => roles[k].area === areaKey && roles[k].role === role).forEach((k) => {
+        const cur = consParse(role, out[k]);
+        if (cur.length && cur.every(inPool)) return;
+        let v = '';
+        try { v = propRecalc(role); } catch (e) { v = ''; }
+        if (!v || consParse(role, v).some((n) => !inPool(n))) v = consPropFallback(role, POOL, from, to, gameId, areaKey);
+        if (v) out[k] = v;
+      });
+    });
+
+    /* ---- 8. 最大遗漏 / 遗漏回补 也必须在池内 ---- */
+    Object.keys(roles).filter((k) => roles[k].area === areaKey
+      && (roles[k].role === 'maxomit' || roles[k].role === 'ylhb')).forEach((k) => {
+      const role = roles[k].role;
+      const cur = consParse(role, out[k]);
+      if (cur.length && cur.every(inPool)) return;
+      let v = '';
+      try {
+        v = (role === 'maxomit')
+          ? calcMaxOmit(areas, from, to, POOL)
+          : calcOmitBack(areas, from, to, 3, POOL);
+      } catch (e) { v = ''; }
+      if (v) out[k] = v;
+    });
+  }
+
+  return out;
+}
+
+/** 冷号兜底：算不出来时用现有冷号里池内的那部分 */
+function coldCalcEmpty(calc, cur, hotSet) {
+  if (calc && calc.length) return false;
+  return (cur || []).some((n) => !hotSet.has(n));
+}
+
+/** 一整张图的一致性收尾：逐个号码区过一遍 */
+function enforceConsistencyImage(gameId, imageKey, out) {
+  if (!out || typeof out !== 'object') return out;
+  let roles;
+  try { roles = fieldRolesOf(gameId, imageKey); } catch (e) { return out; }
+  const areas = [];
+  Object.keys(roles).forEach((k) => { if (areas.indexOf(roles[k].area) < 0) areas.push(roles[k].area); });
+  areas.forEach((a) => {
+    try { enforceConsistency(gameId, a, out, imageKey); } catch (e) { /* 单个区失败不影响其它 */ }
+  });
+  return out;
+}
+
 function autoFillForTemplate(gameId, imageKey) {
   const tpl = (typeof TEMPLATES !== 'undefined') ? TEMPLATES[gameId] : null;
   if (!tpl) return {};
@@ -1492,8 +2042,16 @@ function autoFillForTemplate(gameId, imageKey) {
           '同区号': 'tqh', '质数/合数': 'zhs', '尾数冷热': 'wsl',
           '最大遗漏': 'maxomit', '遗漏回补': 'ylhb', '胆码': 'dm', '拖码': 'tm'
         };
-        for (const [kw, key] of Object.entries(map)) {
-          if (L.includes(kw) && trend[key]) { out[f.key] = trend[key]; return; }
+        /* 关键词按长度从长到短匹配，且「匹配上就不再往下试」——
+           「跳连号」不能被短关键词「连号」抢先匹配（否则两个字段
+           会显示同一串号，等于自相矛盾）；算不出来就留空，
+           交给下面的一致性收尾按池子补上。 */
+        const kws = Object.keys(map).sort((a, b) => b.length - a.length);
+        const kw = kws.find((w) => L.includes(w));
+        if (kw) {
+          const tv = trend[map[kw]];
+          if (tv) out[f.key] = tv;
+          return;
         }
       });
     }
@@ -1706,6 +2264,9 @@ function autoFillForTemplate(gameId, imageKey) {
 
   /* ---- 兜底：保证每个彩种的走势指标都不为空 ---- */
   ensureTrendFallback(gameId, out);
+
+  /* ---- 【一致性收尾】消除字段自相矛盾（池子优先，唯一实现在上面） ---- */
+  try { enforceConsistencyImage(gameId, imageKey, out); } catch (e) { /* 失败不影响出图 */ }
 
   return out;
 }
