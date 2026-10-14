@@ -24,11 +24,20 @@ function rBall(text, color, size, kind) {
   return b;
 }
 
+/** 号码文本：0 只写一位「0」，其它个位数补成两位（01、04）
+    【为什么不用 ticket-store.js 的 twoDigit】它一律 padStart(2,'0')，
+    数字 0 会写成 '00' —— 和用户反复强调的「号码里的 0 写成单个 0，不写 00」
+    冲突（福彩3D / 排列3 / 排列5 / 七星彩 这些含 0 的玩法图上会印出 00）。
+    图上所有号码位置统一走这一个口径。 */
+function numText(n) {
+  return (Number(n) === 0) ? '0' : String(n).padStart(2, '0');
+}
+
 /** 号码数组 → 球元素数组；缺的补灰球，保证每行个数固定 */
 function numBalls(nums, count, color, size) {
   const out = [];
   for (let i = 0; i < count; i++) {
-    if (i < nums.length) out.push(rBall(twoDigit(nums[i]), color, size));
+    if (i < nums.length) out.push(rBall(numText(nums[i]), color, size));
     else out.push(rBall('', color, size, 'empty'));
   }
   return out;
@@ -139,7 +148,7 @@ const SECTION_RENDER = {
       const balls = el('span', 'r-ballwrap');
       const nums = parseTicketNums(vals[r.key]);
       if (r.firstGold && nums.length) {
-        balls.appendChild(rBall(twoDigit(nums[0]), 'gold', 'md'));
+        balls.appendChild(rBall(numText(nums[0]), 'gold', 'md'));
         numBalls(nums.slice(1), r.count - 1, sec.gray ? 'gray' : 'red', 'md').forEach((b) => balls.appendChild(b));
       } else {
         numBalls(nums, r.count, sec.gray ? 'gray' : (r.color || 'red'), 'md').forEach((b) => balls.appendChild(b));
@@ -239,7 +248,7 @@ const SECTION_RENDER = {
     for (let i = 0; i < total; i++) {
       const cell = el('div', 'r-cell ' + (colors[i] || 'purple'));
       const v = vals['grid_' + i];
-      cell.textContent = v ? twoDigit(parseInt(v, 10) || v) : '';
+      cell.textContent = v ? numText(parseInt(v, 10) || v) : '';
       grid.appendChild(cell);
     }
     box.appendChild(grid);
@@ -267,9 +276,13 @@ const SECTION_RENDER = {
       const badge = el('span', 'r-wxbadge wx' + i, e.name);
       row.appendChild(badge);
       row.appendChild(el('span', 'r-wxtails', e.tailsLabel || ''));
+      /* 【五行阴阳】标记该行两个尾数各自的阴阳（阳X·阴Y），和行里号码一一对应，
+         只占 40px 左右的行内小字，不改号码区宽度、不影响 760px 版式 */
+      const yy = (typeof yinYangLabelOf === 'function') ? yinYangLabelOf(e.tailsLabel) : '';
+      if (yy) row.appendChild(el('span', 'r-wxyy', yy));
       const balls = el('span', 'r-ballwrap');
       const nums = parseTicketNums(vals[e.key]);
-      nums.forEach((n) => balls.appendChild(rBall(twoDigit(n), 'wx' + i, 'sm')));
+      nums.forEach((n) => balls.appendChild(rBall(numText(n), 'wx' + i, 'sm')));
       row.appendChild(balls);
       box.appendChild(row);
     });
@@ -299,9 +312,10 @@ const SECTION_RENDER = {
           [0]上 [1]右上 [2]右 [3]右下 [4]下 [5]左下 [6]左 [7]左上
         位置 = 圆心 + 方向向量 × 该圈半径（单位 %，相对整张圆的直径） */
   circle(sec, vals, build, gameId) {
-    /* 【固定几何】圆心 + 4 圈半径 + 8 个方向单位向量（0.7071 = √2/2） */
+    /* 【固定几何】圆心 + 4 圈半径 + 8 个方向单位向量（0.7071 = √2/2）
+       半径留 4% 边距（最外圈 46% + 号码点半径），否则 3 点/9 点方向会贴边被切 */
     const CIR_CENTER = { x: 50, y: 50 };                       // 圆心（%）
-    const CIR_RADII = [15, 26.67, 38.33, 50];                  // 第 1~4 圈半径（%）
+    const CIR_RADII = [14, 24.67, 35.33, 46];                  // 第 1~4 圈半径（%）
     const CIR_DIRS = [
       { name: '上',   dx: 0,        dy: -1       },            // 0  上
       { name: '右上', dx: 0.7071,   dy: -0.7071  },            // 1  右上
@@ -353,7 +367,7 @@ const SECTION_RENDER = {
     const centerKind = danSet.has(centerNum) ? ' core'
       : (tuoSet.has(centerNum) ? ' silver' : (poolSet.has(centerNum) ? ' pool' : ''));
     const center = el('div', 'r-circenter' + centerKind);
-    center.textContent = numAt[0] === undefined || numAt[0] === '' ? '—' : twoDigit(centerNum);
+    center.textContent = numAt[0] === undefined || numAt[0] === '' ? '—' : numText(centerNum);
     c.appendChild(center);
 
     /* 4 圈 × 8 方向 */
@@ -369,7 +383,7 @@ const SECTION_RENDER = {
         const dot = el('div', 'r-cirnum' + kind);
         dot.style.top = (CIR_CENTER.y + d.dy * r).toFixed(2) + '%';
         dot.style.left = (CIR_CENTER.x + d.dx * r).toFixed(2) + '%';
-        dot.textContent = twoDigit(n);
+        dot.textContent = numText(n);
         c.appendChild(dot);
       });
     });
@@ -378,11 +392,11 @@ const SECTION_RENDER = {
 
     /* 图例：只列实际用到的颜色，口径和 stats.js 的高亮字段一一对应 */
     const legend = [];
-    if (danSet.size) legend.push({ label: '金胆/银胆', color: 'gold-red' });
-    if (tuoSet.size) legend.push({ label: '拖码', color: 'orange' });
-    if (poolSet.size) legend.push({ label: '号码池', color: 'purple' });
+    if (danSet.size) legend.push({ label: '金胆/银胆', color: 'core' });
+    if (tuoSet.size) legend.push({ label: '拖码', color: 'silver' });
+    if (poolSet.size) legend.push({ label: '号码池', color: 'pool' });
     if (legend.length) {
-      legend.push({ label: '未推荐', color: 'gray' });
+      legend.push({ label: '未推荐', color: 'dim' });
       const lg = el('div', 'r-legend');
       legend.forEach((l) => {
         const item = el('span', 'r-legenditem');
@@ -481,7 +495,7 @@ const SECTION_RENDER = {
         const m = /^(\d+)\s*出现\s*(\d+)\s*次?$/.exec(v.replace(/\s/g, ''));
         const item = el('span', 'r-rankitem');
         if (m) {
-          item.appendChild(rBall(twoDigit(m[1]), g.color || 'red', 'sm'));
+          item.appendChild(rBall(numText(m[1]), g.color || 'red', 'sm'));
           item.appendChild(el('span', 'r-rankcount', `出现${m[2]}次`));
         } else {
           item.appendChild(document.createTextNode(v));
@@ -659,7 +673,7 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
   const xax = el('div', 'r-hm-xax');
   xax.style.cssText = `display:flex;gap:2px;margin-left:${YW}px;margin-top:3px;`;
   items.forEach((it) => {
-    const lab = el('div', 'r-hm-num', twoDigit(it.num));
+    const lab = el('div', 'r-hm-num', numText(it.num));
     lab.style.cssText =
       `flex:1 1 0;min-width:0;text-align:center;font-size:${numFont};` +
       `color:#3c4043;line-height:14px;white-space:nowrap;overflow:visible;`;
