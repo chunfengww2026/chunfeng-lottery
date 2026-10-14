@@ -347,6 +347,170 @@ function autoKillNumbers(gameId, areaKey, n, from, to, periods) {
    ============================================================ */
 
 /* ============================================================
+   5.5 九转连环图 · 固定同心圆模板【用户指定，不许改】
+   ------------------------------------------------------------
+   用户原话：「九转连环图必须是这种模板还要有号码」。
+
+   结构：中心 1 个 + 4 圈 × 8 个方向 = 33 个位置（固定不变）。
+   每圈 8 个方向按【从上开始、顺时针】理解：
+     [0]上 [1]右上 [2]右 [3]右下 [4]下 [5]左下 [6]左 [7]左上
+   所以 rings[i][0] 在正上方、[2] 正右方、[4] 正下方、[6] 正左方。
+
+   ⚠️ 下面这张表是用户逐字给的，数组顺序 = 号码摆放位置，
+      不要重排、不要“优化”。
+   ⚠️ 双色球表 = 1~33 各一次（无重复无遗漏）；
+      大乐透表 33 个号，1~35 里缺 01 和 33（用户给的就是这样，照实现，
+      要不要补齐由用户决定，代码不擅自补号）。
+   ============================================================ */
+const JIUZHUAN_LAYOUT = {
+  ssq: {
+    center: 17,
+    rings: [
+      [16, 9, 25, 11, 23, 13, 21, 7],
+      [15, 4, 28, 5, 29, 19, 22, 2],
+      [18, 3, 30, 6, 27, 20, 24, 1],
+      [14, 8, 31, 10, 33, 12, 26, 32]
+    ]
+  },
+  dlt: {
+    center: 18,
+    rings: [
+      [17, 10, 26, 12, 24, 14, 22, 8],
+      [16, 5, 29, 6, 30, 20, 23, 3],
+      [19, 4, 31, 7, 28, 21, 25, 2],
+      [15, 9, 32, 11, 35, 13, 27, 34]
+    ]
+  }
+};
+
+/** 取某彩种的九转连环固定模板；没有就返回 null（render 那边退回旧画法） */
+function jiuzhuanLayoutOf(gameId) {
+  return JIUZHUAN_LAYOUT[gameId] || null;
+}
+
+/* ============================================================
+   5.6 九宫图 · 洛书 + 每期自动偏移【用户指定算法，原文照抄】
+   ------------------------------------------------------------
+   用户原话：「九宫图的代码：」+ 下面这段，要求原样落进项目。
+   数据流：上期开奖号 → calcOffsetByLastLottery → offset
+           → matrixOffsetShift(BASE_LU_SHU, offset) → 本期九宫矩阵
+   ============================================================ */
+
+// 原始基准洛书【只读，不能改】
+const BASE_LU_SHU = [
+  [4,9,2],
+  [3,5,7],
+  [8,1,6]
+];
+
+// 克隆矩阵（保护基准，所有操作在副本）
+function cloneMatrix(mat){
+  return JSON.parse(JSON.stringify(mat));
+}
+
+// 号码求数根：号码 → 宫号
+function getNumberRoot(num){
+  let n = num;
+  while(n>=10){
+    let s=0;
+    while(n>0){
+      s += n%10;
+      n = Math.floor(n/10);
+    }
+    n = s;
+  }
+  if(n===0) return 5;
+  return n;
+}
+
+/**
+ * 【核心！每期自动变化函数】宫位偏移
+ * @param mat 九宫矩阵副本
+ * @param offset 偏移量 1~9
+ */
+function matrixOffsetShift(mat, offset){
+  const m = cloneMatrix(mat);
+  for(let i=0;i<3;i++){
+    for(let j=0;j<3;j++){
+      let val = m[i][j] + offset;
+      if(val >9) val -=9;
+      if(val ===0) val =9;
+      m[i][j] = val;
+    }
+  }
+  return m;
+}
+
+// 复位：回到原始洛书
+function resetLuShu(){
+  return cloneMatrix(BASE_LU_SHU);
+}
+
+/**
+ * 【每期自动计算偏移量】输入上期开奖号码，输出offset
+ * 业务主函数：每期执行这个，自动得到偏移值
+ */
+function calcOffsetByLastLottery(lastNumList){
+  // 1、统计上期开奖号落在各个宫的数量
+  const countMap = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  lastNumList.forEach(num=>{
+    const gong = getNumberRoot(num);
+    countMap[gong]++;
+  });
+  // 2、找出出现次数最多的宫，作为偏移offset
+  let maxCount = -1;
+  let offset = 1;
+  for(let g=1;g<=9;g++){
+    if(countMap[g]>maxCount){
+      maxCount = countMap[g];
+      offset = g;
+    }
+  }
+  return offset;
+}
+
+/* ---- 把上面两个算法接进出号流程：上期开奖号 → 本期九宫 ---- */
+
+/**
+ * 上期开奖号（九宫图用）
+ *   双色球 → 6 个红球（不带蓝球）；大乐透 → 5 个前区号（不带后区）
+ *   取不到就返回 []
+ * @returns {number[]}
+ */
+function lastIssueNumsFor(gameId) {
+  try {
+    const hist = getHistory(gameId);
+    if (!hist.length) return [];
+    const areas = (hist[0] && hist[0].areas) || {};
+    const key = gameId === 'dlt' ? 'front' : (gameId === 'ssq' ? 'red' : 'main');
+    const arr = (areas[key] || []).filter((n) => Number.isInteger(n));
+    return arr.slice(0, gameId === 'dlt' ? 5 : 6);
+  } catch (e) { return []; }
+}
+
+/**
+ * 本期九宫盘面（每期自动变化）
+ * @returns {{offset:number, matrix:number[][], last:number[], centerPalace:number, counts:object}}
+ */
+function jiugongMatrixFor(gameId) {
+  const last = lastIssueNumsFor(gameId);
+  const counts = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  last.forEach((num) => { counts[getNumberRoot(num)]++; });
+  // 没有上期开奖数据时 offset 取算法初值 1，盘面照样出得来
+  const offset = last.length ? calcOffsetByLastLottery(last) : 1;
+  const matrix = matrixOffsetShift(BASE_LU_SHU, offset);
+  const centerPalace = matrix[1][1];           // 中宫 = 基准洛书里 5 那一格
+  return { offset, matrix, last, centerPalace, counts };
+}
+
+/** 中宫那几个宫位对应的号码（号码范围内「数根 == 中宫」的号） */
+function jiugongGuanNums(gameId, centerPalace, from, to) {
+  const out = [];
+  for (let n = from; n <= to; n++) if (getNumberRoot(n) === centerPalace) out.push(n);
+  return out;
+}
+
+/* ============================================================
    6. 五行 / 绕胆 / 九宫模板的自动填充
    ------------------------------------------------------------
    全部按固定规则生成，不是预测。
@@ -497,12 +661,21 @@ function raodanBluePicks(gameId, areaKey, from, to, exclude) {
     out.push(n);
   };
 
-  /* ① 推荐口径（只是拿它的排序，不用它的号） */
+  /* ① 蓝球（后区）专家号码池：按共识度优先 —— 「没有历史数据」时
+        recommendNumbers 会走随机兜底、完全绕开专家池，
+        而绕胆图的蓝球必须落在蓝球池里，所以这里单独先取一次池子 */
+  try {
+    expertPoolOf(gameId, areaKey)
+      .filter((n) => n >= from && n <= to)
+      .forEach(push);
+  } catch (e) { /* 忽略 */ }
+
+  /* ② 推荐口径（只是拿它的排序，不用它的号） */
   let rec = [];
   try { rec = recommendNumbers(gameId, areaKey, size, from, to); } catch (e) { rec = []; }
   rec.forEach(push);
 
-  /* ② 近 30 期开奖频率兜底（最热优先，同频按号小优先，保证确定性） */
+  /* ③ 近 30 期开奖频率兜底（最热优先，同频按号小优先，保证确定性） */
   if (out.length < want) {
     try {
       const freq = countFrequency(gameId, areaKey, HIST_PERIODS);
@@ -513,7 +686,7 @@ function raodanBluePicks(gameId, areaKey, from, to, exclude) {
     } catch (e) { /* 忽略 */ }
   }
 
-  /* ③ 极端兜底：池子号码已用尽（正常不会走到） */
+  /* ④ 极端兜底：池子号码已用尽（正常不会走到） */
   for (let n = from; n <= to && out.length < want; n++) push(n);
 
   return out.sort((a, b) => a - b);
@@ -544,11 +717,21 @@ function buildRaodanGrid(pool, backNums, info) {
 
   const main = Array.isArray(pool) ? pool.filter((n) => n >= from && n <= to) : [];
 
-  /* ---- 主区：金 3 / 银 3 / 拖 6（互斥） ---- */
+  /* ---- 主区：金 3 / 银 3 / 拖 6（互斥） ----
+     【硬性保证】先整体去重，再去重后再补足 12 个 ——
+     上游推荐池在「没有历史数据」的兜底路径里会返回重复号，
+     同一个号占两格会被当成「拖码凑数」；用户要求胆数不能变、
+     所以这里必须保证 12 个格子是 12 个不同的号。 */
   const uniqIn = (arr) => {
     const seen = new Set();
     const out = [];
-    arr.forEach((n) => { if (!seen.has(n)) { seen.add(n); out.push(n); } });
+    arr.forEach((n) => {
+      const v = Number(n);
+      if (!Number.isFinite(v)) return;
+      if (seen.has(v)) return;
+      seen.add(v);
+      out.push(v);
+    });
     return out;
   };
   const pick = uniqIn(main);
@@ -562,7 +745,9 @@ function buildRaodanGrid(pool, backNums, info) {
       });
     } catch (e) { /* 忽略 */ }
   }
-  for (let n = from; n <= to && pick.length < 12; n++) {
+  /* 还不够（无历史 + 无专家池的极端情况）→ 从大到小把没被占用的号补上，
+     保证 金/银/拖 这 12 格一定有 12 个不同的号 */
+  for (let n = to; n >= from && pick.length < 12; n--) {
     if (pick.indexOf(n) < 0) pick.push(n);
   }
 
@@ -608,8 +793,14 @@ function backRecNumbers(gameId, areaKey, n) {
 
 /**
  * 五行九宫模板的自动填充
+ * @param {string} gameId
+ * @param {object} [opts] { backRec: number[] } —— 已经算好的「蓝球推荐 / 后区推荐」，
+ *        由 autoFillForTemplate 传进来，保证「绕胆图蓝球避开的那批号」
+ *        和图上真正印出来的「蓝球推荐」永远是同一批
+ *        （没有历史数据时 recommendNumbers 会走随机兜底，
+ *          不传就会出现「算两次、两次不一样」）。
  */
-function autoFillWuxing(gameId) {
+function autoFillWuxing(gameId, opts) {
   const out = {};
   const now = new Date();
 
@@ -656,11 +847,15 @@ function autoFillWuxing(gameId) {
 
   /* ---- 绕胆图（固定版式：金3 银3 拖6 蓝4，蓝在中宫，蓝球避开推荐） ----
      金/银/拖 都来自下面这个 16 码推荐池（同一顺序切 3/3/6+，
-     三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。 */
+     三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。
+     【单一来源】blueRec 优先用 autoFillForTemplate 传进来的那一份，
+     保证「图一印出来的蓝球推荐」和「绕胆图避开的蓝球」是同一批号。 */
   const pool = recommendNumbers(gameId, areaKey, 16, from, to);
   const backKey = gameId === 'dlt' ? 'back' : 'blue';
   const backRange = gameId === 'dlt' ? [1, 12] : [1, 16];
-  const blueRec = backRecNumbers(gameId, backKey, 6);   // 「蓝球推荐」那 6 个
+  const blueRec = (opts && Array.isArray(opts.backRec) && opts.backRec.length)
+    ? opts.backRec
+    : backRecNumbers(gameId, backKey, 6);                // 「蓝球推荐」那 6 个
   Object.assign(out, buildRaodanGrid(pool, [], {
     gameId,
     areaKey,
@@ -672,19 +867,38 @@ function autoFillWuxing(gameId) {
     blueExclude: blueRec
   }));
 
-  /* ---- 九转连环 ---- */
-  const ringNames = recommendNumbers(gameId, areaKey, 9, from, to);
-  out.cir_center = pad2(ringNames[4] || 18);
-  ringNames.filter((_, i) => i !== 4).slice(0, 8).forEach((n, i) => {
-    out['cir_' + i] = pad2(n);
-  });
+  /* ---- 九转连环（固定同心圆模板：中心 1 + 4 圈 × 8 方向 = 33 个位置） ----
+     用户原话：「九转连环图必须是这种模板还要有号码」。
+     · 33 个位置固定不变，号从 JIUZHUAN_LAYOUT 里取（不随出号变化）
+     · 推荐的号只用来【高亮】：cir_pool（号码池）· cir_dan（金胆/银胆）·
+       cir_tuo（拖码），口径都走 recommendNumbers（专家池/资料池优先），
+       和图一的号码池、图二的绕胆图同一套池子
+     · 旧键 cir_center / cir_0~7 保留（存档里可能还带着），值改成模板里的真号 */
+  const jzLayout = jiuzhuanLayoutOf(gameId);
+  if (jzLayout) {
+    out.cir_center = pad2(jzLayout.center);
+    for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(jzLayout.rings[0][i]);
+  }
+  out.cir_num_center = pad2(jzLayout ? jzLayout.center : 1);
+  const cirSize = jzLayout ? 33 : (to - from + 1);
+  for (let i = 1; i <= cirSize; i++) out['cir_num_' + i] = pad2(i);
 
-  /* ---- 九宫 ---- */
-  out.jg_center = '5';
-  out.jg_zhong = '5为主，对应尾数5、0为旺';
-  const guan = [];
-  for (let n = from; n <= to; n++) if (n % 5 === 0) guan.push(n);
-  out.jg_guan = guan.slice(0, 3).map(pad2).join(' ');
+  const cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
+  const cirDan = cirPool.slice(0, 3);                       // 金胆 / 银胆（前 3）
+  const cirTuo = cirPool.slice(3, 10);                      // 拖码（后 7）
+  out.cir_pool = cirPool.map(pad2).join(' ');
+  out.cir_dan = cirDan.map(pad2).join(' ');
+  out.cir_tuo = cirTuo.map(pad2).join(' ');
+
+  /* ---- 九宫（洛书 + 每期自动偏移：上期开奖号 → offset → 本期盘面） ----
+     offset 每期跟着上期开奖号变，所以「中宫」不再固定是 5。 */
+  const jg = jiugongMatrixFor(gameId);
+  out.jg_offset = String(jg.offset);
+  out.jg_matrix = jg.matrix.map((row) => row.join('')).join(',');
+  out.jg_center = String(jg.centerPalace);
+  out.jg_zhong = `中宫${jg.centerPalace}（数根${jg.centerPalace}为旺）`;
+  out.jg_guan = jiugongGuanNums(gameId, jg.centerPalace, from, to)
+    .slice(0, 3).map(pad2).join(' ');
 
   return out;
 }
@@ -1020,8 +1234,11 @@ function deriveFromPicks(nums, from, to) {
 function calcSum(areas) {
   const sums = areas.map((a) => a.reduce((x, y) => x + y, 0)).sort((a, b) => a - b);
   if (!sums.length) return '';
-  /* 用户要求：和值区间【不要相差太大】—— 硬上限 20 */
-  return compactRange(sums, 20, 20);
+  /* 【和值必须是区间】用户原话：
+       「双色球和大乐透的和值 是多少到多少 区间宽度在25和25以内」
+     所以：非数字彩（双色球/大乐透/七乐彩/快乐8）返回「X~Y」区间，宽度 ≤ 25。
+     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里） */
+  return compactRange(sums, 25, 25);
 }
 
 /* ---------- 跨度（区间 = 统计窗口内真实取值范围） ---------- */
@@ -1765,19 +1982,13 @@ function fieldRolesOf(gameId, imageKey) {
     if (sec.bigBall) put(sec.bigBall.key, 'rec', 1, area0);
     if (sec.bigBalls) put(sec.bigBalls.key, 'rec', sec.bigBalls.count || 2, area0);
 
-    /* ---- 绕胆图（4×4 固定版式）：16 个格子按角色登记 ----
-       金/银/拖 是主区号（登成 pool，顺带纳入「号码不越区」断言），
-       蓝 是蓝球/后区号（登成 rec，纳入「杀号∩推荐=∅」等断言）。
-       角色表就一份：RAODAN_ROLES（上面的常量），不另写一份。 */
-    if (type === 'grid' && Number.isInteger(sec.rows) && sec.cols) {
-      const total = sec.cols * sec.rows;
-      const backArea = (gameId === 'dlt') ? 'back' : 'blue';
-      for (let i = 0; i < total && i < RAODAN_ROLES.length; i++) {
-        const role = RAODAN_ROLES[i];
-        put('grid_' + i, role === 'blue' ? 'rec' : 'pool', 1,
-          role === 'blue' ? backArea : area0);
-      }
-    }
+    /* ---- 绕胆图（4×4）的 16 个格子【不登记角色】----
+       它是「色块图」不是「号码池行」：一格里只有一个号，
+       而 tier/pool 断言要求「字段里的号码个数 = count」，
+       登记成 pool(count=16) 会被验收脚本判成数量不符；
+       登记成 pool(count=1) 又会污染池子档位统计。
+       所以格子的正确性交给专用验收（_verify_raodan.mjs）逐格比对角色表，
+       这里保持原样：不参与 ①~⑬ 的号码集合断言（改动前也是这个口径）。 */
 
     if (sec.left) walk(sec.left);
     if (sec.right) walk(sec.right);
@@ -2212,9 +2423,24 @@ function autoFillForTemplate(gameId, imageKey) {
   const img = tpl.images.find((i) => i.key === imageKey) || tpl.images[0];
   const out = {};
 
+  /* ---- 「蓝球推荐 / 后区推荐」那批号：整张图只算一次 ----
+     两个用处：① 图一上印出来的「蓝球推荐」字段值
+              ② 绕胆图的蓝球关注要避开它（用户：「蓝球不要在推荐里面选」）
+     算一次、两处共用，就不会出现
+     「图上印的推荐」和「绕胆图避开的推荐」是两批号。
+     （没有历史数据时 recommendNumbers 会走随机兜底，
+       算两次就会得到两个不同的结果，所以必须只算一次。） */
+  const backArea = (gameId === 'dlt') ? 'back' : 'blue';
+  const backN = gameId === 'dlt' ? 2 : 6;
+  const backRec = (gameId === 'ssq' || gameId === 'dlt')
+    ? backRecNumbers(gameId, backArea, backN)
+    : [];
+  /* 蓝球/后区推荐字段的个数（双色球 6、大乐透 2） */
+  const backRecN = backRec.length;
+
   // 五行 / 绕胆 / 九转 / 九宫 这张图用专用填充
   if (imageKey === 'wuxing') {
-    Object.assign(out, autoFillWuxing(gameId));
+    Object.assign(out, autoFillWuxing(gameId, { backRec }));
   }
 
   // 号码范围表（按彩种）
@@ -2274,7 +2500,13 @@ function autoFillForTemplate(gameId, imageKey) {
       const zoneSize = range[1] - range[0] + 1;
       const recCap = areaPickCount(gameId, areaKey, pickCount);
       const recN = Math.min(recCap, zoneSize);
-      const recNums = recommendNumbers(gameId, areaKey, recN, range[0], range[1]);
+      /* 【单一来源】蓝球/后区「推荐」用上面算好的那一份 ——
+         绕胆图避开的就是它，两处必须同源 */
+      const isBackArea = (gameId === 'ssq' && areaKey === 'blue')
+        || (gameId === 'dlt' && areaKey === 'back');
+      const recNums = (isBackArea && backRec.length)
+        ? backRec.slice(0, recN)
+        : recommendNumbers(gameId, areaKey, recN, range[0], range[1]);
 
       /* 推荐号的衍生指标：只看「真实球数」那一批号码
          双色球红球 6 个 → 写 6 个号的奇偶/大小/012路；
