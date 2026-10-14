@@ -182,7 +182,7 @@ const FROM_ROOT = [
 const CODE_MODULES = [
   'games.js', 'draw-data.js', 'algo.js', 'stats.js', 'templates.js',
   'ticket-store.js', 'render.js', 'hit-check.js', 'data-store.js',
-  'fb-page.js', 'icons.js', 'styles.css', 'ai-config.js',
+  'fb-page.js', 'icons.js', 'styles.css',
   /* 【必须同步】只读分享版现在直接内联这两个文件后在浏览器里实时渲染，
      云端少了它们，分享页会和本地 App 渲染得不一样
      （实测：福彩3D / 排列5 / 七星彩 的奇偶、大小、012路 会对不上）。 */
