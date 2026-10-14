@@ -423,14 +423,15 @@ GROUPS.forEach((group) => {
            ssq red/blue · dlt front/back · qlc main/special · qxc front/back
            kl8 main · fc3d/pl3/pl5 main */
       const BLUE_AREAS = ['blue', 'back', 'special'];
+      /* 【补零规则】数字彩（3D/排列3/排列5/七星彩）的号码是单个数字，
+         0 显示成 0、不补零（用户要求）；其它彩种仍然补两位（4 → 04）。 */
+      const DIGIT_GAMES = ['fc3d', 'pl3', 'pl5', 'qxc'];
+      const isDigitGame = DIGIT_GAMES.indexOf(id) >= 0;
       const balls = [];
       Object.keys(draw.areas).forEach((k) => {
         const isBlue = BLUE_AREAS.indexOf(k) >= 0;
         (draw.areas[k] || []).forEach((n) => {
-          /* 数字彩的 0 显示成单个 0（用户要求，不要 00） */
-          const txt = (isBlue || k === 'main')
-            ? String(n)
-            : String(n).padStart(2, '0');
+          const txt = isDigitGame ? String(n) : String(n).padStart(2, '0');
           balls.push(`<span class="ro-ball ${isBlue ? 'blue' : 'red'}">${txt}</span>`);
         });
       });
