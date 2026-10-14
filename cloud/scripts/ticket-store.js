@@ -407,8 +407,14 @@ function rollAllGames(opts) {
         if (Array.isArray(sec.fields)) {
           sec.fields.forEach((f) => spec.push({
             key: f.key, label: f.label,
-            // 杀号类字段只需要 3 个号（和走势页口径一致）
-            count: /杀/.test(f.label || '') ? 3 : cnt,
+            /* 【个数优先级】模板里显式写了 count 就用它，没写才回落到默认值 cnt。
+               以前这里无脑用 cnt（硬编码：ssq 蓝球 1 个、dlt 后区 2 个…），
+               所以模板里写 count: 6 完全不生效 ——
+               用户要求「蓝球推荐要 6 个码」，改了模板却还是 1 个就是因为这里。
+               杀号类没写 count 时仍然默认 3 个（和走势页口径一致）。 */
+            count: (typeof f.count === 'number' && f.count > 0)
+              ? f.count
+              : (/杀/.test(f.label || '') ? 3 : cnt),
             areaKey
           }));
         }
