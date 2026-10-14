@@ -2177,7 +2177,7 @@ body {
 }
 </style>
 </head>
-<body data-built="2026-10-15 04:20">
+<body data-built="2026-10-15 04:21">
 <div class="ro-wrap">
 
   <div class="ro-top">
@@ -12156,26 +12156,19 @@ function buildRaodanGrid(pool, backNums, info) {
 }
 
 /**
- * 「蓝球推荐 / 后区推荐」字段的号 —— 即用户说的「推荐里不要选」的那批
- * 从 TEMPLATES 的字段语义表推出 key，再用板块图同一套口径算值
+ * 蓝球（后区）「推荐」号 —— 即用户说的「推荐」里那批，
+ *   绕胆图的蓝球关注必须避开它们
+ * 口径：与模板图一的「蓝球推荐 / 后区推荐」字段同一个函数、同一组参数
+ *   （双色球 6 个 · 大乐透 2 个），保证两边永远对得上
  */
-function mainImageBackRecNums(gameId) {
-  const tplBack = gameId === 'dlt' ? 'back' : 'blue';
-  const [bFrom, bTo] = consRangeOf(gameId, tplBack);
-  const out = [];
+function backRecNumbers(gameId, areaKey, n) {
+  const [from, to] = consRangeOf(gameId, areaKey);
+  const want = Math.min(n, to - from + 1);
   try {
-    const roles = fieldRolesOf(gameId, 'main');
-    Object.keys(roles).forEach((k) => {
-      const r = roles[k];
-      if (r.role === 'rec' && r.area === tplBack) consParse('rec', '') .length; // noop，保证语义
-    });
-  } catch (e) { /* 忽略 */ }
-  /* 用「号码池候选」直接算：和模板图一「蓝球推荐」同一个函数、同一个排除对象 */
-  try {
-    const rec = recommendNumbers(gameId, tplBack, 6, bFrom, bTo);
-    rec.forEach((n) => { if (out.indexOf(n) < 0) out.push(n); });
-  } catch (e) { /* 忽略 */ }
-  return out;
+    return recommendNumbers(gameId, areaKey, want, from, to);
+  } catch (e) {
+    return [];
+  }
 }
 
 /**
@@ -12226,12 +12219,23 @@ function autoFillWuxing(gameId) {
   /* ---- 吉利数字 ---- */
   out.wx_ji = recommendNumbers(gameId, areaKey, 6, from, to).map(pad2).join(' ');
 
-  /* ---- 绕胆图 ---- */
+  /* ---- 绕胆图（固定版式：金3 银3 拖6 蓝4，蓝在中宫，蓝球避开推荐） ----
+     金/银/拖 都来自下面这个 16 码推荐池（同一顺序切 3/3/6+，
+     三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。 */
   const pool = recommendNumbers(gameId, areaKey, 16, from, to);
   const backKey = gameId === 'dlt' ? 'back' : 'blue';
   const backRange = gameId === 'dlt' ? [1, 12] : [1, 16];
-  const backNums = recommendNumbers(gameId, backKey, 3, backRange[0], backRange[1]);
-  Object.assign(out, buildRaodanGrid(pool, backNums));
+  const blueRec = backRecNumbers(gameId, backKey, 6);   // 「蓝球推荐」那 6 个
+  Object.assign(out, buildRaodanGrid(pool, [], {
+    gameId,
+    areaKey,
+    backKey,
+    from,
+    to,
+    blueFrom: backRange[0],
+    blueTo: backRange[1],
+    blueExclude: blueRec
+  }));
 
   /* ---- 九转连环 ---- */
   const ringNames = recommendNumbers(gameId, areaKey, 9, from, to);
@@ -13325,6 +13329,20 @@ function fieldRolesOf(gameId, imageKey) {
 
     if (sec.bigBall) put(sec.bigBall.key, 'rec', 1, area0);
     if (sec.bigBalls) put(sec.bigBalls.key, 'rec', sec.bigBalls.count || 2, area0);
+
+    /* ---- 绕胆图（4×4 固定版式）：16 个格子按角色登记 ----
+       金/银/拖 是主区号（登成 pool，顺带纳入「号码不越区」断言），
+       蓝 是蓝球/后区号（登成 rec，纳入「杀号∩推荐=∅」等断言）。
+       角色表就一份：RAODAN_ROLES（上面的常量），不另写一份。 */
+    if (type === 'grid' && Number.isInteger(sec.rows) && sec.cols) {
+      const total = sec.cols * sec.rows;
+      const backArea = (gameId === 'dlt') ? 'back' : 'blue';
+      for (let i = 0; i < total && i < RAODAN_ROLES.length; i++) {
+        const role = RAODAN_ROLES[i];
+        put('grid_' + i, role === 'blue' ? 'rec' : 'pool', 1,
+          role === 'blue' ? backArea : area0);
+      }
+    }
 
     if (sec.left) walk(sec.left);
     if (sec.right) walk(sec.right);
