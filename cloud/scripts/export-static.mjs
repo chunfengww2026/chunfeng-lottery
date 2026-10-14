@@ -415,10 +415,23 @@ GROUPS.forEach((group) => {
     // 该彩种的开奖号码行
     let drawHtml = '';
     if (draw && draw.areas) {
+      /* 【颜色区分】用户要求：「开奖的蓝球要区分出来」
+         以前这里所有球都是 class="ro-ball"、没有颜色变体，
+         所以双色球的蓝球看起来和红球一模一样。
+         现在按区域给颜色：红球区 → red，蓝球/后区/特别号 → blue。
+         区域名到颜色的对应（与 games.js 的 areas[].color 口径一致）：
+           ssq red/blue · dlt front/back · qlc main/special · qxc front/back
+           kl8 main · fc3d/pl3/pl5 main */
+      const BLUE_AREAS = ['blue', 'back', 'special'];
       const balls = [];
       Object.keys(draw.areas).forEach((k) => {
+        const isBlue = BLUE_AREAS.indexOf(k) >= 0;
         (draw.areas[k] || []).forEach((n) => {
-          balls.push(`<span class="ro-ball">${String(n).padStart(2, '0')}</span>`);
+          /* 数字彩的 0 显示成单个 0（用户要求，不要 00） */
+          const txt = (isBlue || k === 'main')
+            ? String(n)
+            : String(n).padStart(2, '0');
+          balls.push(`<span class="ro-ball ${isBlue ? 'blue' : 'red'}">${txt}</span>`);
         });
       });
       drawHtml =
@@ -1223,6 +1236,10 @@ body {
   background: linear-gradient(180deg, #f0575c, #d32f34);
   font-family: Arial, sans-serif;
 }
+/* 【颜色区分】用户要求：「开奖的蓝球要区分出来」
+   红球 = 红，蓝球/后区/特别号 = 蓝。 */
+.ro-ball.red  { background: linear-gradient(180deg, #f0575c, #d32f34); }
+.ro-ball.blue { background: linear-gradient(180deg, #4a83f5, #2158c4); }
 
 /* 推荐图容器
    【重要】图片必须保持 760px 设计宽度，内部布局一点都不能变，
