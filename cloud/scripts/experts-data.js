@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-15 03:59
+   生成时间：2026-10-15 04:07
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-15 03:59",
+ "updated": "2026-10-15 04:07",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 80,
   "requests": 216,
   "errors": 0,
-  "seconds": 191.5
+  "seconds": 192.9
  },
  "games": {
   "ssq": {
@@ -8667,61 +8667,61 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 19,
-      "pct": 95.6
+      "pct": 95.7
      },
      {
       "num": 13,
-      "pct": 90
+      "pct": 88.3
      },
      {
       "num": 10,
-      "pct": 87.5
+      "pct": 87.3
      },
      {
       "num": 20,
-      "pct": 81.3
+      "pct": 82
      },
      {
       "num": null,
-      "pct": 81.3
+      "pct": 80.7
      },
      {
       "num": null,
-      "pct": 76.9
+      "pct": 77
      },
      {
       "num": null,
-      "pct": 75
+      "pct": 76.7
      },
      {
       "num": null,
-      "pct": 72.5
+      "pct": 69.7
      },
      {
       "num": null,
-      "pct": 66.9
+      "pct": 65.7
      },
      {
       "num": null,
-      "pct": 63.8
+      "pct": 63
      }
     ],
     "blue": [
      {
       "num": 12,
-      "pct": 73.8
+      "pct": 73
      },
      {
       "num": 3,
-      "pct": 62.5
+      "pct": 61
      },
      {
       "num": null,
-      "pct": 57.5
+      "pct": 56
      },
      {
       "num": null,
-      "pct": 53.8
+      "pct": 55.7
      }
     ],
     "sections": [
@@ -17052,75 +17052,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 5,
-      "pct": 86.9
+      "pct": 89
      },
      {
       "num": 8,
-      "pct": 71.9
+      "pct": 72
      },
      {
       "num": null,
-      "pct": 69.4
+      "pct": 71
      },
      {
       "num": null,
-      "pct": 68.8
+      "pct": 62.7
      },
      {
       "num": null,
-      "pct": 54.4
+      "pct": 55.3
      },
      {
       "num": null,
-      "pct": 45.6
+      "pct": 45.3
      },
      {
       "num": 3,
+      "pct": 89.7
+     },
+     {
+      "num": 5,
+      "pct": 80.7
+     },
+     {
+      "num": null,
+      "pct": 76.3
+     },
+     {
+      "num": null,
+      "pct": 69.3
+     },
+     {
+      "num": null,
+      "pct": 57.3
+     },
+     {
+      "num": null,
+      "pct": 51
+     },
+     {
+      "num": 8,
       "pct": 90
      },
      {
       "num": 5,
-      "pct": 80
+      "pct": 87.7
      },
      {
       "num": null,
-      "pct": 75
+      "pct": 60
      },
      {
       "num": null,
-      "pct": 70
+      "pct": 59.7
      },
      {
       "num": null,
-      "pct": 64.4
+      "pct": 57
      },
      {
       "num": null,
-      "pct": 50
-     },
-     {
-      "num": 8,
-      "pct": 92.5
-     },
-     {
-      "num": 5,
-      "pct": 85.6
-     },
-     {
-      "num": null,
-      "pct": 65.6
-     },
-     {
-      "num": null,
-      "pct": 59.4
-     },
-     {
-      "num": null,
-      "pct": 56.9
-     },
-     {
-      "num": null,
-      "pct": 50.6
+      "pct": 51
      }
     ],
     "blue": [],
