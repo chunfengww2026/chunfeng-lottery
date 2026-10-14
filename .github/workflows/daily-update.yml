@@ -158,6 +158,22 @@ jobs:
           # 【强制重摇】不需要在这里传：北京 02:00 那个全量班次由
           # cloud-build.mjs 的 SLOT_PLAN.full.roll = 'force' 自动决定。
           # 需要临时强制/禁止时，也可以在这里加 CLOUD_ROLL=force|fill|skip。
+          #
+          # 【开奖数据源顺序 · 关键】GitHub 服务器在美国，抓中国彩票官方接口
+          # 会被直接拒绝（实测：福彩 cwl.gov.cn → 403、体彩 sporttery.cn → 567），
+          # 所以云端【不能】把官方接口排第一：一次 403 就白等一轮超时。
+          # 这里明确指定「美国 IP 也能通」的公开源优先，官方接口放最后兜底
+          # （万一哪天通了就自动用回权威源）：
+          #     一起彩   www.yiqicai.com/kj/  ← 一个页面覆盖全部 8 个彩种
+          #     500XML   kaijiang.500.com/static/.../list.xml
+          #     17500    www.17500.cn/getData/*.TXT
+          #     官方     福彩 / 体彩官方接口（兜底尝试）
+          # 注意：这三个备选源都是【公开可访问的页面/接口】，没有绕过任何访问限制；
+          #       与本机跑的是同一份代码、同一套号码合法性校验。
+          # 想临时换顺序：改这一行即可（逗号分隔，留空段=关掉某个源）。
+          DRAW_SOURCE_ORDER: 'yiqicai,fc500,fc17500,official'
+          # 抓取用的出口标记（build-draws/history 用它决定默认源顺序 + 日志口径）
+          CLOUD_BUILD: '1'
         # 【容错】抓取/渲染万一失败，也不要整个流程挂掉：
         # 后面照样会部署「上一次成功的网页 + 本次的 tickets.json」，
         # 分享页拉到新 tickets.json 就能把号码换新（页面自带重渲染逻辑）。
