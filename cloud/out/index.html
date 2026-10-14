@@ -1941,84 +1941,6 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   .ex-c7 { width: 44px; }
 }
 
-/* ---- 最新开奖 ---- */
-.hc-drawgrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
-.hc-drawcard { background: #161a21; border: 1px solid #262d3a; border-radius: 12px; padding: 12px 14px; }
-.hc-dt { display: flex; align-items: baseline; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
-.hc-gn { font-size: 14px; font-weight: 700; color: #e8eaed; }
-.hc-iss { font-size: 11.5px; color: #8b93a1; }
-.hc-date { font-size: 11px; color: #5a6272; margin-left: auto; }
-.hc-balls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.hc-ball {
-  width: 27px; height: 27px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: #fff; font-family: Arial, sans-serif;
-}
-.hc-ball.red  { background: linear-gradient(180deg,#f0575c,#d32f34); }
-.hc-ball.blue { background: linear-gradient(180deg,#4a83f5,#2158c4); }
-.hc-ball.sp   { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
-.hc-plus { color: #5a6272; font-size: 13px; margin: 0 2px; }
-
-/* ---- 中奖号码圈选 ---- */
-.hc-hit {
-  box-shadow: 0 0 0 3px #ff2d55, 0 0 16px rgba(255,45,85,0.9) !important;
-  z-index: 3;
-}
-.rball.hc-hit, .r-cell.hc-hit { outline: 2px solid #ffd54a; outline-offset: 1px; }
-
-/* ---- 中奖栏 ---- */
-.hw-summary {
-  border-radius: 12px; padding: 16px 18px; margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(255,45,85,0.14), rgba(240,180,41,0.10));
-  border: 1px solid rgba(255,45,85,0.45);
-}
-.hw-sum-main { font-size: 19px; font-weight: 800; color: #ff5f6d; margin-bottom: 9px; }
-.hw-sum-sub { display: flex; gap: 8px; flex-wrap: wrap; }
-.hw-badge { padding: 4px 12px; border-radius: 7px; font-size: 13px; font-weight: 800; }
-.hw-badge.first  { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
-.hw-badge.second { background: linear-gradient(180deg,#f0b429,#d99a12); color: #4a3600; }
-.hw-badge.third  { background: linear-gradient(180deg,#7ee787,#3aa657); color: #0b2b12; }
-.hw-badge.money  { background: rgba(71,224,160,0.18); color: #47e0a0; border: 1px solid rgba(71,224,160,0.4); }
-
-.hw-list { display: flex; flex-direction: column; gap: 18px; }
-.hw-card {
-  background: #161a21; border: 1px solid #262d3a;
-  border-radius: 13px; padding: 14px 16px;
-}
-.hw-card.big {
-  background: linear-gradient(135deg, rgba(255,45,85,0.13), rgba(240,180,41,0.08));
-  border-color: rgba(255,45,85,0.5);
-  box-shadow: 0 0 0 1px rgba(255,45,85,0.2), 0 6px 24px rgba(255,45,85,0.14);
-}
-.hw-head { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; flex-wrap: wrap; }
-.hw-game { font-size: 15px; font-weight: 700; color: #e8eaed; }
-.hw-issue { font-size: 12px; color: #6b7488; }
-.hw-level {
-  margin-left: auto; padding: 3px 11px; border-radius: 7px;
-  font-size: 12.5px; font-weight: 800;
-  background: rgba(71,224,160,0.18); color: #47e0a0;
-}
-.hw-level.big { background: linear-gradient(180deg,#ff5f6d,#d32f34); color: #fff; }
-.hw-detail { font-size: 12.5px; color: #8b93a1; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
-.hw-amt { color: #47e0a0; font-weight: 700; }
-.hw-draw {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-  padding-bottom: 10px; border-bottom: 1px dashed #232a36; margin-bottom: 12px;
-}
-.hw-drawtip { font-size: 11px; color: #5a6272; margin-left: 6px; }
-.hw-img {
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-}
-.hw-img .r-image { margin: 0 !important; border-radius: 0 !important; max-width: 100% !important; }
-.hc-note { font-size: 11px; color: #454d5c; margin-top: 14px; line-height: 1.8; }
-
-@media (max-width: 560px) {
-  .hc-drawgrid { grid-template-columns: 1fr; }
-  .hc-ball { width: 25px; height: 25px; font-size: 11.5px; }
-  .hw-sum-main { font-size: 17px; }
-}
-
 
 /* ============================================================
    只读分享版专用样式
@@ -2257,7 +2179,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-15 00:09">
+<body data-built="2026-10-15 00:21">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -2270,13 +2192,13 @@ body {
 
   <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>2026年10月15日已更新</div><div class="ro-st-time">所有资料均在下方</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026118 期<i class="ro-st-date">2026年10月15日</i></span><span class="ro-st-item"><b>大乐透</b> 第 26117 期<i class="ro-st-date">2026年10月17日</i></span><span class="ro-st-item"><b>七乐彩</b> 第 2026118 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>快乐8</b> 第 2026273 期<i class="ro-st-date">2026年10月15日</i></span><span class="ro-st-item"><b>福彩3D</b> 第 2026273 期<i class="ro-st-date">2026年10月15日</i></span><span class="ro-st-item"><b>排列3</b> 第 26273 期<i class="ro-st-date">2026年10月15日</i></span><span class="ro-st-item"><b>排列5</b> 第 26273 期<i class="ro-st-date">2026年10月15日</i></span><span class="ro-st-item"><b>七星彩</b> 第 26118 期<i class="ro-st-date">2026年10月15日</i></span></div></div>
 
-  <section class="ro-game"><div class="ro-gamehead"><h2>最新开奖</h2><div class="ro-meta">各彩种最新一期开奖号码</div></div><div class="hc-drawgrid"><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">双色球</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">04</span><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">22</span><span class="hc-ball red">26</span><span class="hc-ball red">27</span><span class="hc-plus">+</span><span class="hc-ball blue">04</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">大乐透</span><span class="hc-iss">第 26116 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">09</span><span class="hc-ball red">18</span><span class="hc-ball red">22</span><span class="hc-ball red">25</span><span class="hc-ball red">35</span><span class="hc-plus">+</span><span class="hc-ball blue">01</span><span class="hc-ball blue">10</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七乐彩</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">01</span><span class="hc-ball red">08</span><span class="hc-ball red">12</span><span class="hc-ball red">14</span><span class="hc-ball red">17</span><span class="hc-ball red">25</span><span class="hc-ball red">27</span><span class="hc-plus">★</span><span class="hc-ball sp">23</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">快乐8</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">19</span><span class="hc-ball red">20</span><span class="hc-ball red">39</span><span class="hc-ball red">40</span><span class="hc-ball red">41</span><span class="hc-ball red">43</span><span class="hc-ball red">47</span><span class="hc-ball red">51</span><span class="hc-ball red">57</span><span class="hc-ball red">62</span><span class="hc-ball red">64</span><span class="hc-ball red">66</span><span class="hc-ball red">67</span><span class="hc-ball red">68</span><span class="hc-ball red">72</span><span class="hc-ball red">76</span><span class="hc-ball red">77</span><span class="hc-ball red">80</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">福彩3D</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">00</span><span class="hc-ball red">01</span><span class="hc-ball red">05</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列3</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列5</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span><span class="hc-ball red">02</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七星彩</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">07</span><span class="hc-ball red">07</span><span class="hc-ball red">05</span><span class="hc-ball red">05</span><span class="hc-ball red">01</span><span class="hc-ball red">03</span><span class="hc-plus">+</span><span class="hc-ball blue">11</span></div></div></div></section>
+  <section class="ro-game" id="ro-latest"><div class="ro-gamehead"><h2>最新开奖</h2><div class="ro-meta">各彩种最新一期开奖号码</div></div><div class="hc-drawgrid"><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">双色球</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">04</span><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">22</span><span class="hc-ball red">26</span><span class="hc-ball red">27</span><span class="hc-plus">+</span><span class="hc-ball blue">04</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">大乐透</span><span class="hc-iss">第 26116 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">09</span><span class="hc-ball red">18</span><span class="hc-ball red">22</span><span class="hc-ball red">25</span><span class="hc-ball red">35</span><span class="hc-plus">+</span><span class="hc-ball blue">01</span><span class="hc-ball blue">10</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七乐彩</span><span class="hc-iss">第 2026117 期</span><span class="hc-date">2026-10-12</span></div><div class="hc-balls"><span class="hc-ball red">01</span><span class="hc-ball red">08</span><span class="hc-ball red">12</span><span class="hc-ball red">14</span><span class="hc-ball red">17</span><span class="hc-ball red">25</span><span class="hc-ball red">27</span><span class="hc-plus">★</span><span class="hc-ball sp">23</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">快乐8</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">11</span><span class="hc-ball red">14</span><span class="hc-ball red">19</span><span class="hc-ball red">20</span><span class="hc-ball red">39</span><span class="hc-ball red">40</span><span class="hc-ball red">41</span><span class="hc-ball red">43</span><span class="hc-ball red">47</span><span class="hc-ball red">51</span><span class="hc-ball red">57</span><span class="hc-ball red">62</span><span class="hc-ball red">64</span><span class="hc-ball red">66</span><span class="hc-ball red">67</span><span class="hc-ball red">68</span><span class="hc-ball red">72</span><span class="hc-ball red">76</span><span class="hc-ball red">77</span><span class="hc-ball red">80</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">福彩3D</span><span class="hc-iss">第 2026272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">00</span><span class="hc-ball red">01</span><span class="hc-ball red">05</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列3</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列5</span><span class="hc-iss">第 26272 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">00</span><span class="hc-ball red">02</span><span class="hc-ball red">00</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七星彩</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">07</span><span class="hc-ball red">07</span><span class="hc-ball red">05</span><span class="hc-ball red">05</span><span class="hc-ball red">01</span><span class="hc-ball red">03</span><span class="hc-plus">+</span><span class="hc-ball blue">11</span></div></div></div></section>
 
   <div class="ro-divider"><span>彩票推荐图</span></div>
 
   <section class="ro-game"><div class="ro-gamehead"><h2>双色球</h2><div class="ro-meta">2026-10-15 周四 · 第 2026118 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026117 期开奖</div><div class="ro-balls"><span class="ro-ball">04</span><span class="ro-ball">11</span><span class="ro-ball">14</span><span class="ro-ball">22</span><span class="ro-ball">26</span><span class="ro-ball">27</span><span class="ro-ball">04</span></div></div><div class="ro-imagewrap" data-game="ssq" data-image="main"><div class="r-image" data-game="ssq" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">双色球 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">红球走势分析</div><div class="r-fields" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><div class="r-field"><div class="r-label">红球和值</div><div class="r-value">71~141</div></div><div class="r-field"><div class="r-label">跨度</div><div class="r-value">18~32</div></div><div class="r-field"><div class="r-label">奇偶比</div><div class="r-value">2奇4偶</div></div><div class="r-field"><div class="r-label">大小比</div><div class="r-value">1大5小</div></div><div class="r-field"><div class="r-label">区间比</div><div class="r-value">2:3:1 / 2:2:2 / 1:1:4</div></div><div class="r-field"><div class="r-label">012路比</div><div class="r-value">1路 0路 2路 1路 2路 1路</div></div><div class="r-field"><div class="r-label">热号</div><div class="r-value">04 24 13 14 22 11</div></div><div class="r-field"><div class="r-label">冷号</div><div class="r-value">03 08 10 17 21 23</div></div><div class="r-field"><div class="r-label">最大遗漏</div><div class="r-value">06号</div></div><div class="r-field"><div class="r-label">遗漏回补</div><div class="r-value">06 32 12</div></div><div class="r-field"><div class="r-label">连号</div><div class="r-value">26-27 / 27-28 / 13-14</div></div><div class="r-field"><div class="r-label">重复号</div><div class="r-value">27防1枚</div></div><div class="r-field"><div class="r-label">同尾号</div><div class="r-value">04-14-24 / 12-22-32</div></div><div class="r-field"><div class="r-label">邻号</div><div class="r-value">12 13 28</div></div><div class="r-field"><div class="r-label">跳连号</div><div class="r-value">18-20-22 / 20-22-24</div></div><div class="r-field"><div class="r-label">同区号</div><div class="r-value">三区24,26,27,28,29,30</div></div><div class="r-field"><div class="r-label">质数/合数</div><div class="r-value">2:4 / 1:5 / 3:3</div></div><div class="r-field"><div class="r-label">尾数冷热</div><div class="r-value">4尾热 2尾热 5尾冷</div></div><div class="r-field"><div class="r-label">杀号</div><div class="r-value">03 10 21</div></div><div class="r-field"><div class="r-label">胆码</div><div class="r-value">13 11 14</div></div><div class="r-field"><div class="r-label">拖码</div><div class="r-value">22 04 06 07 12 18 19</div></div></div></div><div class="r-block"><div class="r-sectitle">红球推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">20码</span><span class="r-ballwrap"><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">18</span><span class="rball red md">19</span><span class="rball red md">20</span><span class="rball red md">22</span><span class="rball red md">24</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">28</span><span class="rball red md">29</span><span class="rball red md">30</span><span class="rball red md">31</span><span class="rball red md">32</span><span class="rball red md">33</span></span></div><div class="r-numrow"><span class="r-numlabel">15码</span><span class="r-ballwrap"><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">18</span><span class="rball red md">19</span><span class="rball red md">20</span><span class="rball red md">22</span><span class="rball red md">24</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">28</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">18</span><span class="rball red md">19</span><span class="rball red md">22</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">11</span><span class="rball gold md">13</span><span class="rball gold md">14</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">13</span></span></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">蓝球走势分析</div><div class="r-fields" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><div class="r-field"><div class="r-label">蓝球奇偶</div><div class="r-value">1偶</div></div><div class="r-field"><div class="r-label">蓝球大小</div><div class="r-value">1小</div></div><div class="r-field"><div class="r-label">蓝球012路</div><div class="r-value">1路</div></div><div class="r-field"><div class="r-label">蓝球推荐</div><div class="r-value">04</div></div><div class="r-field"><div class="r-label">蓝球杀号</div><div class="r-value">06 07 13</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">最近30期出现次数</div><div class="r-rank"><div class="r-ranktitle">红球热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball red sm">04</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball red sm">24</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball red sm">13</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">14</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">22</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">11</span><span class="r-rankcount">出现8次</span></span></div><div class="r-ranktitle">蓝球热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball blue sm">03</span><span class="r-rankcount">出现4次</span></span><span class="r-rankitem"><span class="rball blue sm">04</span><span class="r-rankcount">出现4次</span></span><span class="r-rankitem"><span class="rball blue sm">05</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">11</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">01</span><span class="r-rankcount">出现1次</span></span><span class="r-rankitem"><span class="rball blue sm">02</span><span class="r-rankcount">出现2次</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div><div class="ro-imagewrap" data-game="ssq" data-image="wuxing"><div class="r-image" data-game="ssq" data-image="wuxing"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">双色球 · 五行 / 绕胆 / 九转连环 / 九宫</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-calendar"><div class="r-calrow"><span class="r-calitem"><b>公历：</b>2026年10月15日 周四</span><span class="r-calitem"><b>农历：</b>九月十五</span><span class="r-calitem"><b>干支：</b>丙午年 壬戌日</span><span class="r-calitem"><b>日五行：</b>壬戌日</span></div><div class="r-calbadges"><span class="r-calbadge"><b>财神 </b>正南</span><span class="r-calbadge"><b>喜神 </b>正南</span><span class="r-calbadge"><b>福神 </b>西北</span><span class="r-calbadge"><b>贵神 </b>正东</span><span class="r-calbadge"><b>冲煞 </b>冲龙 煞北</span></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">五行号码（按尾数）</div><div class="r-wuxing"><div class="r-wxrow"><span class="r-wxbadge wx0">金</span><span class="r-wxtails">尾4、9</span><span class="r-ballwrap"><span class="rball wx0 sm">04</span><span class="rball wx0 sm">09</span><span class="rball wx0 sm">14</span><span class="rball wx0 sm">19</span><span class="rball wx0 sm">24</span><span class="rball wx0 sm">29</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx1">木</span><span class="r-wxtails">尾3、8</span><span class="r-ballwrap"><span class="rball wx1 sm">03</span><span class="rball wx1 sm">08</span><span class="rball wx1 sm">13</span><span class="rball wx1 sm">18</span><span class="rball wx1 sm">23</span><span class="rball wx1 sm">28</span><span class="rball wx1 sm">33</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx2">水</span><span class="r-wxtails">尾1、6</span><span class="r-ballwrap"><span class="rball wx2 sm">01</span><span class="rball wx2 sm">06</span><span class="rball wx2 sm">11</span><span class="rball wx2 sm">16</span><span class="rball wx2 sm">21</span><span class="rball wx2 sm">26</span><span class="rball wx2 sm">31</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx3">火</span><span class="r-wxtails">尾2、7</span><span class="r-ballwrap"><span class="rball wx3 sm">02</span><span class="rball wx3 sm">07</span><span class="rball wx3 sm">12</span><span class="rball wx3 sm">17</span><span class="rball wx3 sm">22</span><span class="rball wx3 sm">27</span><span class="rball wx3 sm">32</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx4">土</span><span class="r-wxtails">尾5、0</span><span class="r-ballwrap"><span class="rball wx4 sm">05</span><span class="rball wx4 sm">10</span><span class="rball wx4 sm">15</span><span class="rball wx4 sm">20</span><span class="rball wx4 sm">25</span><span class="rball wx4 sm">30</span></span></div><div class="r-wxfoot"><div class="r-wxfootitem"><b>旺尾：</b>4、3、1、2</div><div class="r-wxfootitem"><b>弱尾：</b>9、7</div><div class="r-wxfootitem"><b>吉利数字：</b>04 06 11 13 14 22</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">绕胆图（4×4）</div><div class="r-gridwrap"><div class="r-grid" style="grid-template-columns:repeat(4, 1fr)"><div class="r-cell goldred">04</div><div class="r-cell goldred">06</div><div class="r-cell goldred">07</div><div class="r-cell goldred">11</div><div class="r-cell orange">12</div><div class="r-cell orange">13</div><div class="r-cell orange">14</div><div class="r-cell orange">18</div><div class="r-cell purple">19</div><div class="r-cell purple">20</div><div class="r-cell purple">22</div><div class="r-cell purple">24</div><div class="r-cell blue">26</div><div class="r-cell blue">27</div><div class="r-cell blue">28</div><div class="r-cell blue">29</div></div><div class="r-legend"><span class="r-legenditem"><span class="r-dot gold-red"></span>金胆</span><span class="r-legenditem"><span class="r-dot orange"></span>银胆</span><span class="r-legenditem"><span class="r-dot purple"></span>拖码</span><span class="r-legenditem"><span class="r-dot blue"></span>蓝球关注</span></div></div></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">九转连环图</div><div class="r-circwrap"><div class="r-circle"><div class="r-ring ring4"></div><div class="r-ring ring3"></div><div class="r-ring ring2"></div><div class="r-ring ring1"></div><div class="r-center">12</div><div class="r-ringnum" style="top:4%;left:50%">04</div><div class="r-ringnum" style="top:22%;left:50%">06</div><div class="r-ringnum" style="top:50%;left:4%">07</div><div class="r-ringnum" style="top:50%;left:22%">11</div><div class="r-ringnum" style="top:50%;left:78%">13</div><div class="r-ringnum" style="top:50%;left:96%">14</div><div class="r-ringnum" style="top:78%;left:50%">18</div><div class="r-ringnum" style="top:96%;left:50%">22</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">九宫图（洛书）</div><div class="r-jgwrap"><div class="r-jiugong"><div class="r-jgcell">4</div><div class="r-jgcell">9</div><div class="r-jgcell">2</div><div class="r-jgcell">3</div><div class="r-jgcell center">5</div><div class="r-jgcell">7</div><div class="r-jgcell">8</div><div class="r-jgcell">1</div><div class="r-jgcell">6</div></div><div class="r-jgfoot"><div><b>中宫：</b>5为主，对应尾数5、0为旺</div><div><b>关注号码：</b>05 10 15</div></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>福彩3D</h2><div class="ro-meta">2026-10-15 周四 · 第 2026273 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026272 期开奖</div><div class="ro-balls"><span class="ro-ball">00</span><span class="ro-ball">01</span><span class="ro-ball">05</span></div></div><div class="ro-imagewrap" data-game="fc3d" data-image="main"><div class="r-image" data-game="fc3d" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">福彩3D · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">6码可组选</span><span class="r-ballwrap"><span class="rball gold md">0</span><span class="rball red md">1</span><span class="rball red md">4</span><span class="rball red md">5</span><span class="rball red md">7</span><span class="rball red md">8</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">04</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">05</span></span></div><div class="r-inlinefoot"><span class="r-inlineitem"><b>合值 </b>6~24</span><span class="r-inlineitem"><b>和尾 </b>0~9</span><span class="r-inlineitem"><b>防组三 </b>对子号</span><span class="r-inlineitem"><b>杀号 </b>02 03 09</span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>七乐彩</h2><div class="ro-meta">2026-10-16 周五 · 第 2026118 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026117 期开奖</div><div class="ro-balls"><span class="ro-ball">01</span><span class="ro-ball">08</span><span class="ro-ball">12</span><span class="ro-ball">14</span><span class="ro-ball">17</span><span class="ro-ball">25</span><span class="ro-ball">27</span><span class="ro-ball">23</span></div></div><div class="ro-imagewrap" data-game="qlc" data-image="main"><div class="r-image" data-game="qlc" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">七乐彩 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">冷热号参考</div><div class="r-twovalues"><div class="r-tvrow"><span class="r-tvlabel">热号：</span><span class="r-tvvalue">06 01 07 08 13 22</span></div><div class="r-tvrow"><span class="r-tvlabel">冷号：</span><span class="r-tvvalue">09 10 15 18 20 30</span></div></div></div><div class="r-block"><div class="r-sectitle">推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">22码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">16</span><span class="rball red md">17</span><span class="rball red md">19</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">24</span><span class="rball red md">25</span><span class="rball red md">27</span><span class="rball red md">28</span><span class="rball red md">29</span></span></div><div class="r-numrow"><span class="r-numlabel">18码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">16</span><span class="rball red md">17</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">24</span><span class="rball red md">25</span><span class="rball red md">27</span></span></div><div class="r-numrow"><span class="r-numlabel">12码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span><span class="rball red md">08</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">13</span><span class="rball red md">14</span><span class="rball red md">16</span></span></div><div class="r-numrow"><span class="r-numlabel">6码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">04</span><span class="rball red md">05</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">01</span><span class="rball gold md">02</span><span class="rball gold md">04</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">01</span></span></div></div></div><div class="r-block"><div class="r-sectitle">杀号参考</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">杀号</span><span class="r-ballwrap"><span class="rball gray md">09</span><span class="rball gray md">10</span><span class="rball gray md">15</span><span class="rball gray md">18</span><span class="rball gray md">20</span><span class="rball gray md">30</span></span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>快乐8</h2><div class="ro-meta">2026-10-15 周四 · 第 2026273 期 · 中国福利彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 2026272 期开奖</div><div class="ro-balls"><span class="ro-ball">11</span><span class="ro-ball">14</span><span class="ro-ball">19</span><span class="ro-ball">20</span><span class="ro-ball">39</span><span class="ro-ball">40</span><span class="ro-ball">41</span><span class="ro-ball">43</span><span class="ro-ball">47</span><span class="ro-ball">51</span><span class="ro-ball">57</span><span class="ro-ball">62</span><span class="ro-ball">64</span><span class="ro-ball">66</span><span class="ro-ball">67</span><span class="ro-ball">68</span><span class="ro-ball">72</span><span class="ro-ball">76</span><span class="ro-ball">77</span><span class="ro-ball">80</span></div></div><div class="ro-imagewrap" data-game="kl8" data-image="main"><div class="r-image" data-game="kl8" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">快乐8 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>2026273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-twovalues"><div class="r-tvrow"><span class="r-tvlabel">热号：</span><span class="r-tvvalue">73 50 35 07 09 44</span></div><div class="r-tvrow"><span class="r-tvlabel">冷号：</span><span class="r-tvvalue">14 27 32 58 69 71</span></div></div></div><div class="r-block"><div class="r-sectitle">推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">30胆</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">03</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">15</span><span class="rball red md">16</span><span class="rball red md">17</span><span class="rball red md">19</span><span class="rball red md">20</span><span class="rball red md">29</span><span class="rball red md">34</span><span class="rball red md">35</span><span class="rball red md">38</span><span class="rball red md">40</span><span class="rball red md">41</span><span class="rball red md">44</span><span class="rball red md">45</span><span class="rball red md">47</span><span class="rball red md">50</span><span class="rball red md">51</span><span class="rball red md">52</span><span class="rball red md">53</span><span class="rball red md">60</span><span class="rball red md">66</span><span class="rball red md">73</span><span class="rball red md">75</span><span class="rball red md">77</span><span class="rball red md">78</span><span class="rball red md">79</span></span></div><div class="r-numrow"><span class="r-numlabel">24胆</span><span class="r-ballwrap"><span class="rball red md">03</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">15</span><span class="rball red md">16</span><span class="rball red md">19</span><span class="rball red md">20</span><span class="rball red md">29</span><span class="rball red md">34</span><span class="rball red md">35</span><span class="rball red md">40</span><span class="rball red md">41</span><span class="rball red md">44</span><span class="rball red md">45</span><span class="rball red md">50</span><span class="rball red md">51</span><span class="rball red md">52</span><span class="rball red md">53</span><span class="rball red md">60</span><span class="rball red md">66</span><span class="rball red md">73</span><span class="rball red md">77</span><span class="rball red md">79</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball gold md">03</span><span class="rball gold md">07</span><span class="rball gold md">09</span><span class="rball gold md">10</span><span class="rball gold md">16</span><span class="rball gold md">19</span><span class="rball gold md">20</span><span class="rball gold md">40</span><span class="rball gold md">41</span><span class="rball gold md">51</span></span></div><div class="r-numrow"><span class="r-numlabel">5码</span><span class="r-ballwrap"><span class="rball gold md">03</span><span class="rball gold md">07</span><span class="rball gold md">40</span><span class="rball gold md">41</span><span class="rball gold md">51</span></span></div></div></div><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">杀号</span><span class="r-ballwrap"><span class="rball gray md">14</span><span class="rball gray md">27</span><span class="rball gray md">32</span><span class="rball gray md">58</span><span class="rball gray md">69</span></span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>大乐透</h2><div class="ro-meta">2026-10-17 周六 · 第 26117 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26116 期开奖</div><div class="ro-balls"><span class="ro-ball">09</span><span class="ro-ball">18</span><span class="ro-ball">22</span><span class="ro-ball">25</span><span class="ro-ball">35</span><span class="ro-ball">01</span><span class="ro-ball">10</span></div></div><div class="ro-imagewrap" data-game="dlt" data-image="main"><div class="r-image" data-game="dlt" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">大乐透 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26117</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">前区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><div class="r-field"><div class="r-label">前区和值</div><div class="r-value">33~132</div></div><div class="r-field"><div class="r-label">跨度</div><div class="r-value">9~34</div></div><div class="r-field"><div class="r-label">奇偶比</div><div class="r-value">3奇2偶</div></div><div class="r-field"><div class="r-label">大小比</div><div class="r-value">2大3小</div></div><div class="r-field"><div class="r-label">区间比</div><div class="r-value">1:2:2 / 3:1:1 / 2:1:2</div></div><div class="r-field"><div class="r-label">012路比</div><div class="r-value">1路 0路 1路 2路 0路</div></div><div class="r-field"><div class="r-label">热号</div><div class="r-value">10 14 03 12 07 09</div></div><div class="r-field"><div class="r-label">冷号</div><div class="r-value">04 13 19 28 31 34</div></div><div class="r-field"><div class="r-label">最大遗漏</div><div class="r-value">23号</div></div><div class="r-field"><div class="r-label">遗漏回补</div><div class="r-value">23 07 14</div></div><div class="r-field"><div class="r-label">连号</div><div class="r-value">29-30 / 10-11 / 25-26</div></div><div class="r-field"><div class="r-label">重复号</div><div class="r-value">35防1枚</div></div><div class="r-field"><div class="r-label">同尾号</div><div class="r-value">05-15-25-35 / 02-12-22</div></div><div class="r-field"><div class="r-label">邻号</div><div class="r-value">10 23 26</div></div><div class="r-field"><div class="r-label">跳连号</div><div class="r-value">01-03-05 / 03-05-07</div></div><div class="r-field"><div class="r-label">同区号</div><div class="r-value">一区01,02,03,05,07,09</div></div><div class="r-field"><div class="r-label">质数/合数</div><div class="r-value">2:3 / 1:4 / 0:5</div></div><div class="r-field"><div class="r-label">尾数冷热</div><div class="r-value">5尾热 2尾热 8尾冷</div></div><div class="r-field"><div class="r-label">杀号</div><div class="r-value">13 28 31</div></div><div class="r-field"><div class="r-label">胆码</div><div class="r-value">30 23 09</div></div><div class="r-field"><div class="r-label">拖码</div><div class="r-value">10 01 02 03 05 07 11</div></div></div></div><div class="r-block"><div class="r-sectitle">前区推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">20码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">18</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">25</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md">29</span><span class="rball red md">30</span><span class="rball red md">35</span></span></div><div class="r-numrow"><span class="r-numlabel">15码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">18</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">23</span><span class="rball red md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">09</span><span class="rball gold md">23</span><span class="rball gold md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">30</span></span></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">后区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><div class="r-field"><div class="r-label">后区热号</div><div class="r-value">01 03 04 10</div></div><div class="r-field"><div class="r-label">后区冷号</div><div class="r-value">02 05 06 08 11 12</div></div><div class="r-field"><div class="r-label">后区奇偶</div><div class="r-value">1奇1偶</div></div><div class="r-field"><div class="r-label">后区大小</div><div class="r-value">1大1小</div></div><div class="r-field"><div class="r-label">后区012路</div><div class="r-value">1路 1路</div></div><div class="r-field"><div class="r-label">后区推荐</div><div class="r-value">01 10</div></div><div class="r-field"><div class="r-label">后区杀号</div><div class="r-value">05 06 11</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">最近30期出现次数</div><div class="r-rank"><div class="r-ranktitle">前区热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball red sm">10</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">14</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">03</span><span class="r-rankcount">出现8次</span></span><span class="r-rankitem"><span class="rball red sm">12</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball red sm">07</span><span class="r-rankcount">出现6次</span></span><span class="r-rankitem"><span class="rball red sm">09</span><span class="r-rankcount">出现6次</span></span></div><div class="r-ranktitle">后区热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball blue sm">01</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball blue sm">04</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball blue sm">10</span><span class="r-rankcount">出现5次</span></span><span class="r-rankitem"><span class="rball blue sm">03</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">09</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball blue sm">07</span><span class="r-rankcount">出现6次</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div><div class="ro-imagewrap" data-game="dlt" data-image="wuxing"><div class="r-image" data-game="dlt" data-image="wuxing"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">大乐透 · 五行 / 绕胆 / 九转连环 / 九宫</div><div class="r-headissue">第&nbsp;&nbsp;<b>26117</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-calendar"><div class="r-calrow"><span class="r-calitem"><b>公历：</b>2026年10月15日 周四</span><span class="r-calitem"><b>农历：</b>九月十五</span><span class="r-calitem"><b>干支：</b>丙午年 壬戌日</span><span class="r-calitem"><b>日五行：</b>壬戌日</span></div><div class="r-calbadges"><span class="r-calbadge"><b>财神 </b>正南</span><span class="r-calbadge"><b>喜神 </b>正南</span><span class="r-calbadge"><b>福神 </b>西北</span><span class="r-calbadge"><b>贵神 </b>正东</span><span class="r-calbadge"><b>冲煞 </b>冲龙 煞北</span></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">五行号码（按尾数）</div><div class="r-wuxing"><div class="r-wxrow"><span class="r-wxbadge wx0">金</span><span class="r-wxtails">尾4、9</span><span class="r-ballwrap"><span class="rball wx0 sm">04</span><span class="rball wx0 sm">09</span><span class="rball wx0 sm">14</span><span class="rball wx0 sm">19</span><span class="rball wx0 sm">24</span><span class="rball wx0 sm">29</span><span class="rball wx0 sm">34</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx1">木</span><span class="r-wxtails">尾3、8</span><span class="r-ballwrap"><span class="rball wx1 sm">03</span><span class="rball wx1 sm">08</span><span class="rball wx1 sm">13</span><span class="rball wx1 sm">18</span><span class="rball wx1 sm">23</span><span class="rball wx1 sm">28</span><span class="rball wx1 sm">33</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx2">水</span><span class="r-wxtails">尾1、6</span><span class="r-ballwrap"><span class="rball wx2 sm">01</span><span class="rball wx2 sm">06</span><span class="rball wx2 sm">11</span><span class="rball wx2 sm">16</span><span class="rball wx2 sm">21</span><span class="rball wx2 sm">26</span><span class="rball wx2 sm">31</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx3">火</span><span class="r-wxtails">尾2、7</span><span class="r-ballwrap"><span class="rball wx3 sm">02</span><span class="rball wx3 sm">07</span><span class="rball wx3 sm">12</span><span class="rball wx3 sm">17</span><span class="rball wx3 sm">22</span><span class="rball wx3 sm">27</span><span class="rball wx3 sm">32</span></span></div><div class="r-wxrow"><span class="r-wxbadge wx4">土</span><span class="r-wxtails">尾5、0</span><span class="r-ballwrap"><span class="rball wx4 sm">05</span><span class="rball wx4 sm">10</span><span class="rball wx4 sm">15</span><span class="rball wx4 sm">20</span><span class="rball wx4 sm">25</span><span class="rball wx4 sm">30</span><span class="rball wx4 sm">35</span></span></div><div class="r-wxfoot"><div class="r-wxfootitem"><b>旺尾：</b>5、2、4、7</div><div class="r-wxfootitem"><b>弱尾：</b>9、8</div><div class="r-wxfootitem"><b>吉利数字：</b>01 02 09 10 23 30</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">绕胆图（4×4）</div><div class="r-gridwrap"><div class="r-grid" style="grid-template-columns:repeat(4, 1fr)"><div class="r-cell goldred">01</div><div class="r-cell goldred">02</div><div class="r-cell goldred">03</div><div class="r-cell goldred">05</div><div class="r-cell orange">07</div><div class="r-cell orange">09</div><div class="r-cell orange">10</div><div class="r-cell orange">11</div><div class="r-cell purple">12</div><div class="r-cell purple">14</div><div class="r-cell purple">15</div><div class="r-cell purple">18</div><div class="r-cell blue">22</div><div class="r-cell blue">23</div><div class="r-cell blue">25</div><div class="r-cell blue">30</div></div><div class="r-legend"><span class="r-legenditem"><span class="r-dot gold-red"></span>金胆</span><span class="r-legenditem"><span class="r-dot orange"></span>银胆</span><span class="r-legenditem"><span class="r-dot purple"></span>拖码</span><span class="r-legenditem"><span class="r-dot blue"></span>后区关注</span></div></div></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">九转连环图</div><div class="r-circwrap"><div class="r-circle"><div class="r-ring ring4"></div><div class="r-ring ring3"></div><div class="r-ring ring2"></div><div class="r-ring ring1"></div><div class="r-center">07</div><div class="r-ringnum" style="top:4%;left:50%">01</div><div class="r-ringnum" style="top:22%;left:50%">02</div><div class="r-ringnum" style="top:50%;left:4%">03</div><div class="r-ringnum" style="top:50%;left:22%">05</div><div class="r-ringnum" style="top:50%;left:78%">09</div><div class="r-ringnum" style="top:50%;left:96%">10</div><div class="r-ringnum" style="top:78%;left:50%">23</div><div class="r-ringnum" style="top:96%;left:50%">30</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">九宫图（洛书）</div><div class="r-jgwrap"><div class="r-jiugong"><div class="r-jgcell">4</div><div class="r-jgcell">9</div><div class="r-jgcell">2</div><div class="r-jgcell">3</div><div class="r-jgcell center">5</div><div class="r-jgcell">7</div><div class="r-jgcell">8</div><div class="r-jgcell">1</div><div class="r-jgcell">6</div></div><div class="r-jgfoot"><div><b>中宫：</b>5为主，对应尾数5、0为旺</div><div><b>关注号码：</b>05 10 15</div></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>排列3</h2><div class="ro-meta">2026-10-15 周四 · 第 26273 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26272 期开奖</div><div class="ro-balls"><span class="ro-ball">08</span><span class="ro-ball">09</span><span class="ro-ball">00</span></div></div><div class="ro-imagewrap" data-game="pl3" data-image="main"><div class="r-image" data-game="pl3" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">排列三 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">6码可组选</span><span class="r-ballwrap"><span class="rball gold md">0</span><span class="rball red md">1</span><span class="rball red md">2</span><span class="rball red md">5</span><span class="rball red md">6</span><span class="rball red md">8</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">05</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">05</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">02</span></span></div><div class="r-inlinefoot"><span class="r-inlineitem"><b>合值 </b>3~22</span><span class="r-inlineitem"><b>和尾 </b>0~9</span><span class="r-inlineitem"><b>防组三 </b>对子号</span><span class="r-inlineitem"><b>杀号 </b>03 04 09</span></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>排列5</h2><div class="ro-meta">2026-10-15 周四 · 第 26273 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26272 期开奖</div><div class="ro-balls"><span class="ro-ball">08</span><span class="ro-ball">09</span><span class="ro-ball">00</span><span class="ro-ball">02</span><span class="ro-ball">00</span></div></div><div class="ro-imagewrap" data-game="pl5" data-image="main"><div class="r-image" data-game="pl5" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">排列五 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26273</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">万位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">05</span><span class="rball gold md">08</span></span></div><div class="r-numrow"><span class="r-numlabel">千位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">05</span></span></div><div class="r-numrow"><span class="r-numlabel">百位</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball gold md">01</span><span class="rball gold md">02</span></span></div><div class="r-numrow"><span class="r-numlabel">十位</span><span class="r-ballwrap"><span class="rball blue md">04</span><span class="rball blue md">06</span></span></div><div class="r-numrow"><span class="r-numlabel">个位</span><span class="r-ballwrap"><span class="rball blue md">06</span><span class="rball blue md">08</span></span></div><div class="r-note">排三百位→排五万位　|　排三十位→排五千位　|　排三个位→排五百位　排三前三位直接带入排五</div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section><section class="ro-game"><div class="ro-gamehead"><h2>七星彩</h2><div class="ro-meta">2026-10-15 周四 · 第 26118 期 · 中国体育彩票</div></div><div class="ro-drawblock"><div class="ro-drawlabel">第 26117 期开奖</div><div class="ro-balls"><span class="ro-ball">07</span><span class="ro-ball">07</span><span class="ro-ball">05</span><span class="ro-ball">05</span><span class="ro-ball">01</span><span class="ro-ball">03</span><span class="ro-ball">11</span></div></div><div class="ro-imagewrap" data-game="qxc" data-image="main"><div class="r-image" data-game="qxc" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">七星彩 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>26118</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">定位推荐</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">前1位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前2位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前3位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前4位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前5位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">前6位</span><span class="r-ballwrap"><span class="rball red md">00</span><span class="rball red md">01</span><span class="rball red md">04</span><span class="rball red md">06</span><span class="rball red md">07</span></span></div><div class="r-numrow"><span class="r-numlabel">后区</span><span class="r-ballwrap"><span class="rball gold md">00</span><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">04</span><span class="rball red md">08</span><span class="rball red md">09</span><span class="rball red md">11</span></span></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">杀号参考（每位杀3）</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">前1杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">08</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前2杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">08</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前3杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">03</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前4杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">03</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前5杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">03</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">前6杀</span><span class="r-ballwrap"><span class="rball gray md">02</span><span class="rball gray md">03</span><span class="rball gray md">09</span></span></div><div class="r-numrow"><span class="r-numlabel">后区杀</span><span class="r-ballwrap"><span class="rball gray md">05</span><span class="rball gray md">07</span><span class="rball gray md">10</span><span class="rball gray md">12</span><span class="rball gray md">14</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></section>
 
-  <section class="ro-game" id="winSection"><div class="ro-gamehead"><h2>中奖栏</h2><div class="ro-meta">已开奖期的命中情况 · 圈出的是中奖号码</div></div><div class="hw-summary"><div class="hw-sum-main">🎉 累计命中 1 注</div><div class="hw-sum-sub"><span class="hw-badge money">奖金合计 5 元</span></div></div><div class="hw-list"><div class="hw-card"><div class="hw-head"><span class="hw-game">大乐透</span><span class="hw-issue">第 26117 期</span><span class="hw-level">九等奖</span></div><div class="hw-detail">前区中 0 个，后区中 0 个<span class="hw-amt">5 元</span></div><div class="hw-draw"><span class="hc-ball red">04</span><span class="hc-ball red">13</span><span class="hc-ball red">19</span><span class="hc-ball red">29</span><span class="hc-ball red">31</span><span class="hc-plus">+</span><span class="hc-ball blue">02</span><span class="hc-ball blue">12</span><span class="hw-drawtip">开奖号码 · 圈出的是命中号</span></div><div class="hw-img"><div class="r-image" data-game="dlt" data-image="main"><div class="r-head"><div class="r-headbrand">小晴推荐官</div><div class="r-headshop">— 春风彩票店 —</div><div class="r-headtitle">大乐透 · 精选推荐</div><div class="r-headissue">第&nbsp;&nbsp;<b>******</b>&nbsp;&nbsp;期</div></div><div class="r-body"><div class="r-block"><div class="r-sectitle">前区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><div class="r-field"><div class="r-label">前区和值</div><div class="r-value">33~132</div></div><div class="r-field"><div class="r-label">跨度</div><div class="r-value">9~34</div></div><div class="r-field"><div class="r-label">奇偶比</div><div class="r-value">3奇2偶</div></div><div class="r-field"><div class="r-label">大小比</div><div class="r-value">2大3小</div></div><div class="r-field"><div class="r-label">区间比</div><div class="r-value">1:2:2 / 3:1:1 / 2:1:2</div></div><div class="r-field"><div class="r-label">012路比</div><div class="r-value">1路 0路 1路 2路 0路</div></div><div class="r-field"><div class="r-label">热号</div><div class="r-value">10 14 03 12 07 09</div></div><div class="r-field"><div class="r-label">冷号</div><div class="r-value">04 13 19 28 31 34</div></div><div class="r-field"><div class="r-label">最大遗漏</div><div class="r-value">23号</div></div><div class="r-field"><div class="r-label">遗漏回补</div><div class="r-value">23 07 14</div></div><div class="r-field"><div class="r-label">连号</div><div class="r-value">29-30 / 10-11 / 25-26</div></div><div class="r-field"><div class="r-label">重复号</div><div class="r-value">35防1枚</div></div><div class="r-field"><div class="r-label">同尾号</div><div class="r-value">05-15-25-35 / 02-12-22</div></div><div class="r-field"><div class="r-label">邻号</div><div class="r-value">10 23 26</div></div><div class="r-field"><div class="r-label">跳连号</div><div class="r-value">01-03-05 / 03-05-07</div></div><div class="r-field"><div class="r-label">同区号</div><div class="r-value">一区01,02,03,05,07,09</div></div><div class="r-field"><div class="r-label">质数/合数</div><div class="r-value">2:3 / 1:4 / 0:5</div></div><div class="r-field"><div class="r-label">尾数冷热</div><div class="r-value">5尾热 2尾热 8尾冷</div></div><div class="r-field"><div class="r-label">杀号</div><div class="r-value">13 28 31</div></div><div class="r-field"><div class="r-label">胆码</div><div class="r-value">30 23 09</div></div><div class="r-field"><div class="r-label">拖码</div><div class="r-value">10 01 02 03 05 07 11</div></div></div></div><div class="r-block"><div class="r-sectitle">前区推荐号码池</div><div class="r-rows"><div class="r-numrow"><span class="r-numlabel">20码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">18</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">25</span><span class="rball red md">26</span><span class="rball red md">27</span><span class="rball red md hc-hit">29</span><span class="rball red md">30</span><span class="rball red md">35</span></span></div><div class="r-numrow"><span class="r-numlabel">15码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">12</span><span class="rball red md">14</span><span class="rball red md">15</span><span class="rball red md">18</span><span class="rball red md">22</span><span class="rball red md">23</span><span class="rball red md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">10码</span><span class="r-ballwrap"><span class="rball red md">01</span><span class="rball red md">02</span><span class="rball red md">03</span><span class="rball red md">05</span><span class="rball red md">07</span><span class="rball red md">09</span><span class="rball red md">10</span><span class="rball red md">11</span><span class="rball red md">23</span><span class="rball red md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">3码</span><span class="r-ballwrap"><span class="rball gold md">09</span><span class="rball gold md">23</span><span class="rball gold md">30</span></span></div><div class="r-numrow"><span class="r-numlabel">1码</span><span class="r-ballwrap"><span class="rball gold md">30</span></span></div></div></div><div class="r-twocol" style="flex-direction:row"><div class="r-col"><div class="r-block"><div class="r-sectitle">后区走势分析</div><div class="r-fields" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><div class="r-field"><div class="r-label">后区热号</div><div class="r-value">01 03 04 10</div></div><div class="r-field"><div class="r-label">后区冷号</div><div class="r-value">02 05 06 08 11 12</div></div><div class="r-field"><div class="r-label">后区奇偶</div><div class="r-value">1奇1偶</div></div><div class="r-field"><div class="r-label">后区大小</div><div class="r-value">1大1小</div></div><div class="r-field"><div class="r-label">后区012路</div><div class="r-value">1路 1路</div></div><div class="r-field"><div class="r-label">后区推荐</div><div class="r-value">01 10</div></div><div class="r-field"><div class="r-label">后区杀号</div><div class="r-value">05 06 11</div></div></div></div></div><div class="r-col"><div class="r-block"><div class="r-sectitle">最近30期出现次数</div><div class="r-rank"><div class="r-ranktitle">前区热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball red sm">10</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">14</span><span class="r-rankcount">出现9次</span></span><span class="r-rankitem"><span class="rball red sm">03</span><span class="r-rankcount">出现8次</span></span><span class="r-rankitem"><span class="rball red sm">12</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball red sm">07</span><span class="r-rankcount">出现6次</span></span><span class="r-rankitem"><span class="rball red sm">09</span><span class="r-rankcount">出现6次</span></span></div><div class="r-ranktitle">后区热号排行</div><div class="r-ranklist" style="grid-template-columns:repeat(3, minmax(0, 1fr))"><span class="r-rankitem"><span class="rball blue sm">01</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball blue sm">04</span><span class="r-rankcount">出现7次</span></span><span class="r-rankitem"><span class="rball blue sm">10</span><span class="r-rankcount">出现5次</span></span><span class="r-rankitem"><span class="rball blue sm">03</span><span class="r-rankcount">出现3次</span></span><span class="r-rankitem"><span class="rball blue sm">09</span><span class="r-rankcount">出现11次</span></span><span class="r-rankitem"><span class="rball blue sm">07</span><span class="r-rankcount">出现6次</span></span></div></div></div></div></div></div><div class="r-foot">— 小晴推荐官 · 仅供参考 —<div class="r-disclaimer">彩票有风险，投注需谨慎。本推荐仅为个人分析，不构成购彩建议，请理性参与。</div></div></div></div></div></div><div class="hc-note">按官方玩法规则自动比对；浮动奖金取自官方公布单注奖金。仅供核对，不构成购彩建议。</div></section>
+  
 
   <div class="ro-foot">
     本页面为只读分享版，仅供观看，无法修改。<br>
@@ -2638,12 +2560,1285 @@ const DRAW_DATA = {
 
 </script>
 
+<script data-src="latest-draws.js">
+/* ============================================================
+   latest-draws.js —— 「最新开奖」区块的【唯一】生成逻辑
+   ------------------------------------------------------------
+   为什么要单独抽一个文件：
+     这块 HTML 以前只在服务端由 hit-check.js 的 buildLatestDrawHtml() 生成，
+     浏览器里跑不了（hit-check.js 不在分享页的内联脚本里）。
+     于是「页面上的开奖号码」只能靠刷新整页才能变。
+
+     现在服务端（export-static.mjs 预渲染兜底）和客户端（分享页拿到
+     tickets.json 后就地重渲染）【共用这一个函数】：
+       · 服务端：export-static.mjs 里 vm 上下文加载本文件
+       · 客户端：export-static.mjs 把本文件内联进分享页
+     两边同一份代码 → 不会出现「服务端和客户端写法漂移」的不一致。
+
+   数据格式（与 draws.js 的 DRAW_DATA.games 完全一致）：
+     { issue, date, source, areas: { red:[…], blue:[…] } }
+     各彩种的区域命名见下面的 latestDrawsPickAreas()。
+
+   用法（服务端）：
+     import { drawsFromDrawData } from './export-draws.mjs';
+     const draws = drawsFromDrawData();                 // 从 draws.js 取
+     const html  = latestDrawsHtml(latestDrawsFromRaw(draws), GAMES);
+
+   用法（客户端）：
+     const html = latestDrawsHtml(latestDrawsFromRaw(j.draws), GAMES);
+   ============================================================ */
+(function (root) {
+  'use strict';
+
+  /* 【稳定 id】客户端拿它定位并整体替换这个区块。
+     服务端渲染和客户端替换都用这一个常量，改名不会漏改一边。 */
+  var LATEST_DRAWS_ID = 'ro-latest';
+
+  /* 展示顺序（和 hit-check.js 的 HC_GAME_ORDER 一致） */
+  var LATEST_GAME_ORDER = ['ssq', 'dlt', 'qlc', 'kl8', 'fc3d', 'pl3', 'pl5', 'qxc'];
+
+  /** 号码补两位（开奖号显示用） */
+  function hc2(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  /** 号码数组 → 一排球 HTML */
+  function hcBallsHtml(nums, cls) {
+    return (nums || []).map(function (n) {
+      return '<span class="hc-ball ' + (cls || '') + '">' + hc2(n) + '</span>';
+    }).join('');
+  }
+
+  /**
+   * 各彩种的区域命名 → 统一结构 { red, blue, special }
+   * 口径与 hit-check.js 的 hcDrawOf 完全一致：
+   *   双色球 red/blue · 大乐透 front/back · 七乐彩 main/special
+   *   快乐8/福彩3D/排列3/排列5 main · 七星彩 front/back
+   * @param {string} gameId
+   * @param {object} item  { areas: {...} }
+   */
+  function hcDrawOf(gameId, item) {
+    var a = (item && item.areas) || {};
+    if (!item || !item.areas) return null;
+
+    function pick() {
+      for (var i = 0; i < arguments.length; i++) {
+        var k = arguments[i];
+        if (Array.isArray(a[k]) && a[k].length) return a[k].map(Number);
+      }
+      return [];
+    }
+
+    switch (gameId) {
+      case 'ssq': return { red: pick('red'), blue: pick('blue'), special: [] };
+      case 'dlt': return { red: pick('front'), blue: pick('back'), special: [] };
+      case 'qlc': return { red: pick('main'), blue: [], special: pick('special') };
+      case 'kl8': return { red: pick('main'), blue: [], special: [] };
+      case 'fc3d':
+      case 'pl3':
+      case 'pl5': return { red: pick('main'), blue: [], special: [] };
+      case 'qxc': return { red: pick('front'), blue: pick('back'), special: [] };
+      default: return { red: pick('red', 'front', 'main'), blue: pick('blue', 'back', 'special'), special: pick('special') };
+    }
+  }
+
+  /**
+   * 把 draws 原始数据（{ gameId: { issue,date,areas } }）转成
+   * buildLatestDrawHtml 用的展示结构。
+   * @param {object} draws  每彩种一条最新开奖（可以是部分彩种、可以是 null）
+   * @param {object} [games] GAMES 定义（取彩种中文名），缺省时直接用 gameId
+   * @returns {Array}
+   */
+  function latestDrawsFromRaw(draws, games) {
+    var out = [];
+    if (!draws || typeof draws !== 'object') return out;
+
+    LATEST_GAME_ORDER.forEach(function (gid) {
+      var d = draws[gid];
+      if (!d) return;
+
+      /* 兼容两种写法：
+         · areas 形式 —— draws.js / tickets.json 里的原始结构
+         · 扁平形式   —— 直接把 red/blue/front/back/main/special 放在顶层 */
+      var item = d;
+      if (!d.areas) {
+        var flat = {};
+        ['red', 'blue', 'front', 'back', 'main', 'special'].forEach(function (k) {
+          if (Array.isArray(d[k]) && d[k].length) flat[k] = d[k];
+        });
+        item = { issue: d.issue, date: d.date, areas: flat };
+      }
+
+      var m = hcDrawOf(gid, item);
+      if (!m) return;
+
+      var g = (games && games[gid]) || {};
+      out.push({
+        gameId: gid,
+        gameName: g.name || gid,
+        issue: d.issue,
+        date: d.date || '',
+        red: m.red,
+        blue: m.blue,
+        special: m.special,
+        issuer: g.issuer || ''
+      });
+    });
+
+    return out;
+  }
+
+  /**
+   * 生成「最新开奖」区块的完整 HTML
+   * （服务端预渲染 和 客户端就地替换 都用它 —— 同一份代码）
+   * @param {Array}  latest getLatestDraws() / latestDrawsFromRaw() 的结果
+   * @param {object} games  GAMES（当前不用，保留给以后的彩种名兜底）
+   * @returns {string} 没有数据时返回空串（调用方自行决定要不要清空区块）
+   */
+  function latestDrawsHtml(latest, games) {
+    var list = (latest || []).filter(function (d) {
+      return d && d.issue && Array.isArray(d.red) && d.red.length;
+    });
+    if (!list.length) return '';
+
+    var cards = list.map(function (d) {
+      var special = (d.special || []).length
+        ? '<span class="hc-plus">★</span>' + hcBallsHtml(d.special, 'sp')
+        : '';
+      var blue = (d.blue || []).length
+        ? '<span class="hc-plus">+</span>' + hcBallsHtml(d.blue, 'blue')
+        : '';
+      return '<div class="hc-drawcard">' +
+        '<div class="hc-dt">' +
+        '<span class="hc-gn">' + d.gameName + '</span>' +
+        '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
+        '<span class="hc-date">' + (d.date || '') + '</span>' +
+        '</div>' +
+        '<div class="hc-balls">' + hcBallsHtml(d.red, 'red') + blue + special + '</div>' +
+        '</div>';
+    }).join('');
+
+    return '<section class="ro-game" id="' + LATEST_DRAWS_ID + '">' +
+      '<div class="ro-gamehead">' +
+      '<h2>最新开奖</h2>' +
+      '<div class="ro-meta">各彩种最新一期开奖号码</div>' +
+      '</div>' +
+      '<div class="hc-drawgrid">' + cards + '</div>' +
+      '</section>';
+  }
+
+  /**
+   * 比较两期开奖谁更新（期号优先，期号不可比时退回日期）
+   * @returns {boolean} remote 是否比 mine 新
+   */
+  function latestDrawsNewer(remote, mine) {
+    if (!remote || !remote.issue) return false;
+    if (!mine || !mine.issue) return true;
+
+    var ri = String(remote.issue).replace(/\D/g, '');
+    var mi = String(mine.issue).replace(/\D/g, '');
+    if (ri && mi && ri.length === mi.length) return Number(ri) > Number(mi);
+
+    /* 期号长度/格式不同（跨年等）→ 比开奖日期 */
+    if (remote.date && mine.date && remote.date !== mine.date) return String(remote.date) > String(mine.date);
+
+    return false;
+  }
+
+  /**
+   * 把服务器上的 draws 合并进本页内存里的开奖数据
+   * ------------------------------------------------------------
+   * 【只改属性、不换变量】：
+   *   DRAW_DATA 是 draws.js 里的 const，不能整体重新赋值，
+   *   所以这里逐彩种改 areas / issue / date（和 saved-tickets.js 同样的思路）。
+   * 【只更新有的】：
+   *   draws 里缺的彩种保持原样；比本页旧的也不覆盖。
+   *
+   * @param {object} incoming  tickets.json 里的 draws
+   * @param {object} [data]    DRAW_DATA（缺省取全局的同名变量）
+   * @returns {{applied:string[], skipped:string[]}}
+   */
+  function applyRemoteDraws(incoming, data) {
+    var res = { applied: [], skipped: [] };
+    if (!incoming || typeof incoming !== 'object') return res;
+
+    var target = data;
+    if (!target) {
+      try { target = (typeof DRAW_DATA !== 'undefined') ? DRAW_DATA : null; } catch (e) { target = null; }
+    }
+    if (!target) return res;
+    if (!target.games || typeof target.games !== 'object') target.games = {};
+
+    LATEST_GAME_ORDER.forEach(function (gid) {
+      var r = incoming[gid];
+      if (!r || !r.areas) { if (r) res.skipped.push(gid); return; }
+
+      var cur = target.games[gid];
+      if (!latestDrawsNewer(r, cur)) { res.skipped.push(gid); return; }
+
+      var next = cur || {};
+      next.issue = r.issue;
+      next.date = r.date || next.date || '';
+      if (r.source) next.source = r.source;
+      next.areas = r.areas;              /* 换掉这一层就行 —— loadDraws 每次现读 */
+
+      target.games[gid] = next;
+      res.applied.push(gid);
+    });
+
+    if (res.applied.length) {
+      /* 页面顶部「最新开奖」用的是内存数据；本机 localStorage 里可能存着
+         更旧的手动录入开奖号（loadDraws 里本地优先），清掉才不会盖回去 */
+      try {
+        if (typeof localStorage !== 'undefined' && localStorage) localStorage.removeItem(DRAW_KEY);
+      } catch (e) { /* 忽略 */ }
+    }
+
+    return res;
+  }
+
+  /* ---------- 对外暴露（服务端 vm / 浏览器全局） ---------- */
+  root.LATEST_DRAWS_ID = LATEST_DRAWS_ID;
+  root.LATEST_GAME_ORDER = LATEST_GAME_ORDER;
+  root.hc2 = hc2;
+  root.hcBallsHtml = hcBallsHtml;
+  root.hcDrawOf = hcDrawOf;
+  root.latestDrawsFromRaw = latestDrawsFromRaw;
+  root.latestDrawsHtml = latestDrawsHtml;
+  root.latestDrawsNewer = latestDrawsNewer;
+  root.applyRemoteDraws = applyRemoteDraws;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+
 <script data-src="history.js">
-/* 自动生成，请勿手动编辑 · 2026-10-14 16:04:55 */
+/* 自动生成，请勿手动编辑 · 2026-10-14 16:19:50 */
 const DRAW_HISTORY = {
- "updated": "2026-10-14 16:04:55",
+ "updated": "2026-10-14 16:19:50",
  "count": 60,
  "games": {
+  "ssq": [
+   {
+    "issue": "2026117",
+    "date": "2026-10-13",
+    "areas": {
+     "red": [
+      4,
+      11,
+      14,
+      22,
+      26,
+      27
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026116",
+    "date": "2026-10-11",
+    "areas": {
+     "red": [
+      10,
+      19,
+      24,
+      27,
+      28,
+      33
+     ],
+     "blue": [
+      12
+     ]
+    }
+   },
+   {
+    "issue": "2026115",
+    "date": "2026-10-08",
+    "areas": {
+     "red": [
+      4,
+      13,
+      14,
+      18,
+      22,
+      24
+     ],
+     "blue": [
+      3
+     ]
+    }
+   },
+   {
+    "issue": "2026114",
+    "date": "2026-10-06",
+    "areas": {
+     "red": [
+      7,
+      18,
+      23,
+      24,
+      29,
+      31
+     ],
+     "blue": [
+      10
+     ]
+    }
+   },
+   {
+    "issue": "2026113",
+    "date": "2026-09-29",
+    "areas": {
+     "red": [
+      3,
+      4,
+      20,
+      24,
+      29,
+      30
+     ],
+     "blue": [
+      11
+     ]
+    }
+   },
+   {
+    "issue": "2026112",
+    "date": "2026-09-27",
+    "areas": {
+     "red": [
+      1,
+      4,
+      11,
+      12,
+      17,
+      29
+     ],
+     "blue": [
+      11
+     ]
+    }
+   },
+   {
+    "issue": "2026111",
+    "date": "2026-09-24",
+    "areas": {
+     "red": [
+      6,
+      7,
+      14,
+      22,
+      31,
+      32
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026110",
+    "date": "2026-09-22",
+    "areas": {
+     "red": [
+      2,
+      5,
+      16,
+      19,
+      26,
+      32
+     ],
+     "blue": [
+      14
+     ]
+    }
+   },
+   {
+    "issue": "2026109",
+    "date": "2026-09-20",
+    "areas": {
+     "red": [
+      9,
+      12,
+      15,
+      26,
+      30,
+      33
+     ],
+     "blue": [
+      6
+     ]
+    }
+   },
+   {
+    "issue": "2026108",
+    "date": "2026-09-17",
+    "areas": {
+     "red": [
+      6,
+      11,
+      13,
+      14,
+      20,
+      28
+     ],
+     "blue": [
+      16
+     ]
+    }
+   },
+   {
+    "issue": "2026107",
+    "date": "2026-09-15",
+    "areas": {
+     "red": [
+      1,
+      5,
+      9,
+      17,
+      24,
+      33
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026106",
+    "date": "2026-09-13",
+    "areas": {
+     "red": [
+      6,
+      11,
+      13,
+      14,
+      22,
+      30
+     ],
+     "blue": [
+      14
+     ]
+    }
+   },
+   {
+    "issue": "2026105",
+    "date": "2026-09-10",
+    "areas": {
+     "red": [
+      2,
+      4,
+      13,
+      14,
+      15,
+      30
+     ],
+     "blue": [
+      8
+     ]
+    }
+   },
+   {
+    "issue": "2026104",
+    "date": "2026-09-08",
+    "areas": {
+     "red": [
+      11,
+      12,
+      13,
+      19,
+      20,
+      31
+     ],
+     "blue": [
+      3
+     ]
+    }
+   },
+   {
+    "issue": "2026103",
+    "date": "2026-09-06",
+    "areas": {
+     "red": [
+      4,
+      11,
+      20,
+      27,
+      28,
+      30
+     ],
+     "blue": [
+      15
+     ]
+    }
+   },
+   {
+    "issue": "2026102",
+    "date": "2026-09-03",
+    "areas": {
+     "red": [
+      3,
+      4,
+      10,
+      13,
+      16,
+      25
+     ],
+     "blue": [
+      9
+     ]
+    }
+   },
+   {
+    "issue": "2026101",
+    "date": "2026-09-01",
+    "areas": {
+     "red": [
+      5,
+      6,
+      8,
+      9,
+      24,
+      25
+     ],
+     "blue": [
+      12
+     ]
+    }
+   },
+   {
+    "issue": "2026100",
+    "date": "2026-08-30",
+    "areas": {
+     "red": [
+      3,
+      4,
+      9,
+      13,
+      22,
+      31
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026099",
+    "date": "2026-08-27",
+    "areas": {
+     "red": [
+      1,
+      12,
+      14,
+      18,
+      30,
+      31
+     ],
+     "blue": [
+      2
+     ]
+    }
+   },
+   {
+    "issue": "2026098",
+    "date": "2026-08-25",
+    "areas": {
+     "red": [
+      8,
+      16,
+      18,
+      22,
+      25,
+      26
+     ],
+     "blue": [
+      7
+     ]
+    }
+   },
+   {
+    "issue": "2026097",
+    "date": "2026-08-23",
+    "areas": {
+     "red": [
+      5,
+      16,
+      24,
+      26,
+      29,
+      30
+     ],
+     "blue": [
+      2
+     ]
+    }
+   },
+   {
+    "issue": "2026096",
+    "date": "2026-08-20",
+    "areas": {
+     "red": [
+      1,
+      4,
+      16,
+      22,
+      26,
+      31
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026095",
+    "date": "2026-08-18",
+    "areas": {
+     "red": [
+      4,
+      6,
+      14,
+      21,
+      22,
+      33
+     ],
+     "blue": [
+      16
+     ]
+    }
+   },
+   {
+    "issue": "2026094",
+    "date": "2026-08-16",
+    "areas": {
+     "red": [
+      6,
+      13,
+      15,
+      17,
+      24,
+      25
+     ],
+     "blue": [
+      1
+     ]
+    }
+   },
+   {
+    "issue": "2026093",
+    "date": "2026-08-13",
+    "areas": {
+     "red": [
+      5,
+      8,
+      15,
+      20,
+      21,
+      24
+     ],
+     "blue": [
+      9
+     ]
+    }
+   },
+   {
+    "issue": "2026092",
+    "date": "2026-08-11",
+    "areas": {
+     "red": [
+      9,
+      11,
+      12,
+      25,
+      30,
+      33
+     ],
+     "blue": [
+      11
+     ]
+    }
+   },
+   {
+    "issue": "2026091",
+    "date": "2026-08-09",
+    "areas": {
+     "red": [
+      2,
+      13,
+      14,
+      16,
+      20,
+      24
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026090",
+    "date": "2026-08-06",
+    "areas": {
+     "red": [
+      2,
+      4,
+      15,
+      23,
+      25,
+      27
+     ],
+     "blue": [
+      3
+     ]
+    }
+   },
+   {
+    "issue": "2026089",
+    "date": "2026-08-04",
+    "areas": {
+     "red": [
+      5,
+      18,
+      23,
+      24,
+      27,
+      33
+     ],
+     "blue": [
+      3
+     ]
+    }
+   },
+   {
+    "issue": "2026088",
+    "date": "2026-08-02",
+    "areas": {
+     "red": [
+      6,
+      7,
+      11,
+      18,
+      22,
+      33
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026087",
+    "date": "2026-07-30",
+    "areas": {
+     "red": [
+      4,
+      6,
+      10,
+      18,
+      23,
+      31
+     ],
+     "blue": [
+      11
+     ]
+    }
+   },
+   {
+    "issue": "2026086",
+    "date": "2026-07-28",
+    "areas": {
+     "red": [
+      2,
+      5,
+      14,
+      25,
+      30,
+      32
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026085",
+    "date": "2026-07-26",
+    "areas": {
+     "red": [
+      6,
+      9,
+      13,
+      17,
+      24,
+      28
+     ],
+     "blue": [
+      15
+     ]
+    }
+   },
+   {
+    "issue": "2026084",
+    "date": "2026-07-23",
+    "areas": {
+     "red": [
+      1,
+      5,
+      6,
+      10,
+      12,
+      16
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026083",
+    "date": "2026-07-21",
+    "areas": {
+     "red": [
+      7,
+      14,
+      15,
+      23,
+      28,
+      33
+     ],
+     "blue": [
+      3
+     ]
+    }
+   },
+   {
+    "issue": "2026082",
+    "date": "2026-07-19",
+    "areas": {
+     "red": [
+      5,
+      7,
+      10,
+      14,
+      21,
+      28
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026081",
+    "date": "2026-07-16",
+    "areas": {
+     "red": [
+      6,
+      10,
+      12,
+      15,
+      24,
+      27
+     ],
+     "blue": [
+      12
+     ]
+    }
+   },
+   {
+    "issue": "2026080",
+    "date": "2026-07-14",
+    "areas": {
+     "red": [
+      4,
+      5,
+      11,
+      19,
+      27,
+      32
+     ],
+     "blue": [
+      1
+     ]
+    }
+   },
+   {
+    "issue": "2026079",
+    "date": "2026-07-12",
+    "areas": {
+     "red": [
+      1,
+      11,
+      17,
+      22,
+      24,
+      29
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026078",
+    "date": "2026-07-09",
+    "areas": {
+     "red": [
+      7,
+      11,
+      14,
+      16,
+      27,
+      28
+     ],
+     "blue": [
+      6
+     ]
+    }
+   },
+   {
+    "issue": "2026077",
+    "date": "2026-07-07",
+    "areas": {
+     "red": [
+      1,
+      4,
+      5,
+      14,
+      18,
+      25
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026076",
+    "date": "2026-07-05",
+    "areas": {
+     "red": [
+      1,
+      3,
+      19,
+      20,
+      24,
+      25
+     ],
+     "blue": [
+      7
+     ]
+    }
+   },
+   {
+    "issue": "2026075",
+    "date": "2026-07-02",
+    "areas": {
+     "red": [
+      8,
+      12,
+      18,
+      21,
+      24,
+      30
+     ],
+     "blue": [
+      1
+     ]
+    }
+   },
+   {
+    "issue": "2026074",
+    "date": "2026-06-30",
+    "areas": {
+     "red": [
+      2,
+      23,
+      24,
+      26,
+      28,
+      32
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026073",
+    "date": "2026-06-28",
+    "areas": {
+     "red": [
+      9,
+      10,
+      13,
+      16,
+      19,
+      21
+     ],
+     "blue": [
+      8
+     ]
+    }
+   },
+   {
+    "issue": "2026072",
+    "date": "2026-06-25",
+    "areas": {
+     "red": [
+      7,
+      8,
+      12,
+      15,
+      17,
+      21
+     ],
+     "blue": [
+      1
+     ]
+    }
+   },
+   {
+    "issue": "2026071",
+    "date": "2026-06-23",
+    "areas": {
+     "red": [
+      3,
+      8,
+      19,
+      25,
+      31,
+      33
+     ],
+     "blue": [
+      5
+     ]
+    }
+   },
+   {
+    "issue": "2026070",
+    "date": "2026-06-21",
+    "areas": {
+     "red": [
+      3,
+      6,
+      8,
+      14,
+      26,
+      27
+     ],
+     "blue": [
+      8
+     ]
+    }
+   },
+   {
+    "issue": "2026069",
+    "date": "2026-06-18",
+    "areas": {
+     "red": [
+      12,
+      14,
+      16,
+      17,
+      18,
+      32
+     ],
+     "blue": [
+      8
+     ]
+    }
+   },
+   {
+    "issue": "2026068",
+    "date": "2026-06-16",
+    "areas": {
+     "red": [
+      3,
+      5,
+      16,
+      18,
+      29,
+      32
+     ],
+     "blue": [
+      4
+     ]
+    }
+   },
+   {
+    "issue": "2026067",
+    "date": "2026-06-14",
+    "areas": {
+     "red": [
+      4,
+      19,
+      27,
+      29,
+      30,
+      32
+     ],
+     "blue": [
+      13
+     ]
+    }
+   },
+   {
+    "issue": "2026066",
+    "date": "2026-06-11",
+    "areas": {
+     "red": [
+      5,
+      11,
+      21,
+      23,
+      24,
+      29
+     ],
+     "blue": [
+      16
+     ]
+    }
+   },
+   {
+    "issue": "2026065",
+    "date": "2026-06-09",
+    "areas": {
+     "red": [
+      7,
+      8,
+      16,
+      24,
+      30,
+      32
+     ],
+     "blue": [
+      2
+     ]
+    }
+   },
+   {
+    "issue": "2026064",
+    "date": "2026-06-07",
+    "areas": {
+     "red": [
+      1,
+      9,
+      15,
+      18,
+      29,
+      33
+     ],
+     "blue": [
+      15
+     ]
+    }
+   },
+   {
+    "issue": "2026063",
+    "date": "2026-06-04",
+    "areas": {
+     "red": [
+      2,
+      8,
+      25,
+      28,
+      30,
+      31
+     ],
+     "blue": [
+      2
+     ]
+    }
+   },
+   {
+    "issue": "2026062",
+    "date": "2026-06-02",
+    "areas": {
+     "red": [
+      2,
+      4,
+      7,
+      14,
+      28,
+      29
+     ],
+     "blue": [
+      9
+     ]
+    }
+   },
+   {
+    "issue": "2026061",
+    "date": "2026-05-31",
+    "areas": {
+     "red": [
+      1,
+      4,
+      5,
+      15,
+      23,
+      28
+     ],
+     "blue": [
+      7
+     ]
+    }
+   },
+   {
+    "issue": "2026060",
+    "date": "2026-05-28",
+    "areas": {
+     "red": [
+      7,
+      9,
+      10,
+      16,
+      22,
+      27
+     ],
+     "blue": [
+      11
+     ]
+    }
+   },
+   {
+    "issue": "2026059",
+    "date": "2026-05-26",
+    "areas": {
+     "red": [
+      8,
+      16,
+      26,
+      28,
+      29,
+      30
+     ],
+     "blue": [
+      15
+     ]
+    }
+   },
+   {
+    "issue": "2026058",
+    "date": "2026-05-24",
+    "areas": {
+     "red": [
+      1,
+      4,
+      7,
+      21,
+      29,
+      30
+     ],
+     "blue": [
+      1
+     ]
+    }
+   }
+  ],
   "fc3d": [
    {
     "issue": "2026273",
@@ -42084,16 +43279,85 @@ function renderAlgoTool(container) {
   /* 方便自测 / 排查：页面上可以在控制台手动调 __roLiveApply(数据) */
   window.__roLiveApply = applyRemoteTickets;
 
+  /* ============================================================
+     【最新开奖 · 就地更新】拿到 tickets.json 里的 draws 后重画顶部区块
+     ------------------------------------------------------------
+     以前这块是服务器【预渲染】进 HTML 的静态内容，只有刷新整页才会变。
+     现在 tickets.json 里带上了各彩种最新一期开奖（draws），
+     拉到比页面内联快照更新的一期就：
+       1) 把新号码合并进内存里的 DRAW_DATA（只改属性，只更新有的彩种）
+       2) 用 latestDrawsHtml() 重新生成区块 HTML 并【整体替换】DOM
+     用的就是生成页面时那份同一个函数（latest-draws.js），
+     所以服务端烤进去的和服务端/客户端换上去的写法完全一致。
+
+     降级：拿不到 draws / 只有部分彩种 / 比页面旧 → 一律保持原样，
+           不报错、不留白（这条路径整个用 try 包住）。
+     ============================================================ */
+  function applyRemoteDrawsToPage(j) {
+    var res = { applied: [], skipped: [] };
+    try {
+      if (!j || !j.draws) return res;                      /* 没带就什么都不做 */
+      if (typeof applyRemoteDraws !== 'function' ||
+          typeof latestDrawsHtml !== 'function' ||
+          typeof latestDrawsFromRaw !== 'function') return res;   /* 客户端脚本缺失 → 保持预渲染兜底 */
+
+      /* 1) 合并进内存数据（只更新有的彩种；比页面旧的自动跳过） */
+      res = applyRemoteDraws(j.draws) || res;
+      if (!res.applied.length) return res;                 /* 没有更新 → 区块原样保留 */
+
+      /* 2) 重新生成并整体替换「最新开奖」区块
+         【关键】用合并【之后】的完整数据（DRAW_DATA.games）重画，而不是 j.draws：
+         服务器这次可能只带了一部分彩种，用 j.draws 直接渲染会把别的彩种弄丢。
+         区块必须始终是完整的 8 个彩种。 */
+      var el = document.getElementById(LATEST_DRAWS_ID);
+      if (!el) return { applied: [], skipped: res.skipped };   /* 老页面没有这个 id → 不动 */
+
+      var all = null;
+      try { all = (typeof DRAW_DATA !== 'undefined') ? DRAW_DATA.games : null; } catch (e2) { all = null; }
+      if (!all) return { applied: [], skipped: res.skipped };
+
+      var html = latestDrawsHtml(latestDrawsFromRaw(all, GAMES), GAMES);
+      if (!html) return { applied: [], skipped: res.skipped };  /* 生成不出来 → 保留原样，绝不留白 */
+
+      if (el.outerHTML === html) return res;               /* 一模一样就不用动 DOM */
+      el.outerHTML = html;
+
+      try {
+        if (document.body && document.body.setAttribute) {
+          document.body.setAttribute('data-draws-from', 'server');
+          document.body.setAttribute('data-draws-games', res.applied.join(','));
+        }
+      } catch (e2) { /* 忽略 */ }
+
+      return res;
+    } catch (e) {
+      /* 任何意外都只是「这次没更新开奖」，不能影响页面其它部分 */
+      if (window.console && console.warn) console.warn('[分享页] 最新开奖就地更新失败，保留原内容', e);
+      return { applied: [], skipped: [] };
+    }
+  }
+
+  /* 方便自测 / 排查：控制台里手动调 __roLiveDraws(数据) */
+  window.__roLiveDraws = applyRemoteDrawsToPage;
+
   /* 拉一次服务器上的号码文件 */
   function pullTickets() {
     return fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { return applyRemoteTickets(j); })
+      .then(function (j) {
+        /* 两件事各自独立：号码变了就重画 10 张图，开奖变了就重画顶部区块 */
+        var t = applyRemoteTickets(j);
+        var d = applyRemoteDrawsToPage(j);
+        return t || (d && d.applied.length > 0);
+      })
       .catch(function () { return false; });   /* 打不开服务器（离线/被墙）就继续用内联快照 */
   }
 
   var firstPull = pullTickets();
   window.__roLivePromise = firstPull;
+
+  /* 方便自测 / 排查：控制台里手动拉一次（__roPullOnce().then(...)） */
+  window.__roPullOnce = pullTickets;
 
   /* ============================================================
      【自动刷新】页面开着的时候，隔一段时间自动去服务器看有没有新数据
