@@ -437,14 +437,173 @@ function lunarText(d) {
   return `${lm}月${ld}`;
 }
 
-/** 从号码池里构造 4×4 绕胆图 */
-function buildRaodanGrid(pool, backNums) {
+/* ============================================================
+   绕胆图（4×4）—— 用户指定的【固定模板版式】
+   ------------------------------------------------------------
+   用户原话：「绕胆图模板赢条件金胆只能有三个 银胆只有3个6个托4个蓝
+             蓝球不要在推荐里面选 我提供模板给我固定模板 蓝必须在中间
+             其他的可以随意环绕但是我的要求胆数不能变」
+
+   ① 角色位置表写死（行优先 0~15）：
+        拖 拖 金 拖
+        拖 蓝 蓝 银
+        银 蓝 蓝 金
+        金 拖 拖 银
+   ② 蓝球固定在中间 2×2（位置 5/6/9/10）—— 「蓝必须在中间」
+   ③ 金/银/拖 的号码可以随出号变化，但【角色占的格子永不变】、
+      数量恒定 金3 · 银3 · 拖6 · 蓝4 —— 「胆数不能变」
+   ④ 蓝球取的是【蓝球池】(双色球 1~16 / 大乐透 1~12) 的号，
+      并排除「蓝球推荐」里已经有的 6 个 —— 「蓝球不要在推荐里面选」
+   ============================================================ */
+
+/** 角色位置表（行优先 0~15）—— 绕胆图数据的唯一口径 */
+const RAODAN_ROLES = [
+  'tuo', 'tuo', 'dan', 'tuo',
+  'tuo', 'blue', 'blue', 'yin',
+  'yin', 'blue', 'blue', 'dan',
+  'dan', 'tuo', 'tuo', 'yin'
+];
+
+/** 角色 → 色块 class（render.js 与本表同源，颜色只在 render.js 用） */
+const RAODAN_COLOR = { dan: 'goldred', yin: 'orange', tuo: 'purple', blue: 'blue' };
+
+/** 角色 → 中文字（验收/报告用） */
+const RAODAN_ROLE_CN = { dan: '金', yin: '银', tuo: '拖', blue: '蓝' };
+
+/** 绕胆图每个角色要几个（恒定，任何情况下都不多不少） */
+const RAODAN_COUNT = { dan: 3, yin: 3, tuo: 6, blue: 4 };
+
+/**
+ * 蓝球关注 4 个 —— 只从【蓝球池】取，且排除「蓝球推荐」已有的号
+ *   ① 主路径：recommendNumbers(蓝球区) 的推荐序里，跳过 exclude、取 4 个
+ *      （排除后的候选仍按「专家号码池 → 近 10 期×3 + 近 30 期」排）
+ *   ② 兜底：池子不够 4 个时，用【近 30 期开奖的蓝球频率】补
+ *      （只在「区大小 - 排除数 < 4」时才会触发，双色球 16-6=10、大乐透 12-6=6，
+ *        实际永远够；这里留着是为了数量恒定这条硬性要求）
+ *   ③ 保证：返回的号在 [from,to] 内、互不重复、且必与 exclude 无交集
+ * @returns {number[]} 升序，长度 = min(4, 区大小 - exclude 数)
+ */
+function raodanBluePicks(gameId, areaKey, from, to, exclude) {
+  const size = to - from + 1;
+  const banned = new Set((exclude || []).filter((x) => x >= from && x <= to));
+  const want = Math.min(4, size - banned.size);
+
+  const out = [];
+  const push = (n) => {
+    if (out.length >= want) return;
+    if (!(n >= from && n <= to)) return;
+    if (banned.has(n)) return;
+    if (out.indexOf(n) >= 0) return;
+    out.push(n);
+  };
+
+  /* ① 推荐口径（只是拿它的排序，不用它的号） */
+  let rec = [];
+  try { rec = recommendNumbers(gameId, areaKey, size, from, to); } catch (e) { rec = []; }
+  rec.forEach(push);
+
+  /* ② 近 30 期开奖频率兜底（最热优先，同频按号小优先，保证确定性） */
+  if (out.length < want) {
+    try {
+      const freq = countFrequency(gameId, areaKey, HIST_PERIODS);
+      const ranked = [];
+      for (let n = from; n <= to; n++) ranked.push({ num: n, c: freq.get(n) || 0 });
+      ranked.sort((a, b) => b.c - a.c || a.num - b.num);
+      ranked.forEach((x) => push(x.num));
+    } catch (e) { /* 忽略 */ }
+  }
+
+  /* ③ 极端兜底：池子号码已用尽（正常不会走到） */
+  for (let n = from; n <= to && out.length < want; n++) push(n);
+
+  return out.sort((a, b) => a - b);
+}
+
+/**
+ * 从号码池里构造 4×4 绕胆图（固定版式）
+ *
+ * 取数规则（与模板图一同一套口径，保证整图不自相矛盾）：
+ *   金 3 / 银 3 / 拖 6 —— 都来自 recommendNumbers(主区) 的同一个 16 码池，
+ *                          按原顺序切成 3 / 3 / 6+ 段 → 三段互不重复；
+ *                          池子不足 16 个时用 calcDanTuo() 的胆拖口径补齐
+ *   蓝 4               —— 只来自蓝球池，且排除「蓝球推荐」（见 raodanBluePicks）
+ *
+ * @param {number[]} pool       主区（红球/前区）推荐池
+ * @param {number[]} backNums   蓝球池候选（保留参数，兼容旧调用）
+ * @param {object}   info       { gameId, areaKey, backKey, from, to, blueFrom, blueTo, blueExclude }
+ * @returns {object} { grid_0 .. grid_15 } —— 位置固定，值随出号变
+ */
+function buildRaodanGrid(pool, backNums, info) {
+  const cfg = info || {};
+  const gameId = cfg.gameId || 'ssq';
+  const areaKey = cfg.areaKey || (gameId === 'dlt' ? 'front' : 'red');
+  const from = cfg.from || 1;
+  const to = cfg.to || (gameId === 'dlt' ? 35 : 33);
+  const blueFrom = cfg.blueFrom || 1;
+  const blueTo = cfg.blueTo || (gameId === 'dlt' ? 12 : 16);
+
+  const main = Array.isArray(pool) ? pool.filter((n) => n >= from && n <= to) : [];
+
+  /* ---- 主区：金 3 / 银 3 / 拖 6（互斥） ---- */
+  const uniqIn = (arr) => {
+    const seen = new Set();
+    const out = [];
+    arr.forEach((n) => { if (!seen.has(n)) { seen.add(n); out.push(n); } });
+    return out;
+  };
+  const pick = uniqIn(main);
+  if (pick.length < 12) {
+    /* 池子不足 12 个：用胆拖口径补齐，且绝不与已有号重复 */
+    try {
+      const areas = historyAreas(gameId, areaKey, HIST_PERIODS);
+      const dt = calcDanTuo(gameId, areaKey, areas, from, to);
+      uniqIn(dt.dan.map(Number).concat(dt.tuo.map(Number))).forEach((n) => {
+        if (pick.length < 12 && pick.indexOf(n) < 0) pick.push(n);
+      });
+    } catch (e) { /* 忽略 */ }
+  }
+  for (let n = from; n <= to && pick.length < 12; n++) {
+    if (pick.indexOf(n) < 0) pick.push(n);
+  }
+
+  const dan = pick.slice(0, RAODAN_COUNT.dan);                             // 金 3
+  const yin = pick.slice(RAODAN_COUNT.dan, RAODAN_COUNT.dan + RAODAN_COUNT.yin);   // 银 3
+  const tuo = pick.slice(RAODAN_COUNT.dan + RAODAN_COUNT.yin,
+    RAODAN_COUNT.dan + RAODAN_COUNT.yin + RAODAN_COUNT.tuo);               // 拖 6
+
+  /* ---- 蓝球 4：只从蓝球池取，排除「蓝球推荐」 ---- */
+  const blueExcl = Array.isArray(cfg.blueExclude) ? cfg.blueExclude
+    : (Array.isArray(backNums) && backNums.length ? backNums : []);
+  const blue = raodanBluePicks(gameId, cfg.backKey || (gameId === 'dlt' ? 'back' : 'blue'),
+    blueFrom, blueTo, blueExcl);
+
+  /* ---- 按固定角色表落格（位置不变，值变） ---- */
+  const byRole = { dan, yin, tuo, blue };
+  const cursor = { dan: 0, yin: 0, tuo: 0, blue: 0 };
   const out = {};
-  const main = pool.slice(0, 16);
-  main.forEach((n, i) => { out['grid_' + i] = pad2(n); });
-  const extra = (backNums || []).slice(0, Math.max(0, 16 - main.length));
-  extra.forEach((n, i) => { out['grid_' + (main.length + i)] = pad2(n); });
+  for (let i = 0; i < RAODAN_ROLES.length; i++) {
+    const role = RAODAN_ROLES[i];
+    const n = byRole[role][cursor[role]++];
+    if (n === undefined) continue;                 // 池子异常时不写，渲染成空格
+    out['grid_' + i] = pad2(n);
+  }
   return out;
+}
+
+/**
+ * 蓝球（后区）「推荐」号 —— 即用户说的「推荐」里那批，
+ *   绕胆图的蓝球关注必须避开它们
+ * 口径：与模板图一的「蓝球推荐 / 后区推荐」字段同一个函数、同一组参数
+ *   （双色球 6 个 · 大乐透 2 个），保证两边永远对得上
+ */
+function backRecNumbers(gameId, areaKey, n) {
+  const [from, to] = consRangeOf(gameId, areaKey);
+  const want = Math.min(n, to - from + 1);
+  try {
+    return recommendNumbers(gameId, areaKey, want, from, to);
+  } catch (e) {
+    return [];
+  }
 }
 
 /**
@@ -495,12 +654,23 @@ function autoFillWuxing(gameId) {
   /* ---- 吉利数字 ---- */
   out.wx_ji = recommendNumbers(gameId, areaKey, 6, from, to).map(pad2).join(' ');
 
-  /* ---- 绕胆图 ---- */
+  /* ---- 绕胆图（固定版式：金3 银3 拖6 蓝4，蓝在中宫，蓝球避开推荐） ----
+     金/银/拖 都来自下面这个 16 码推荐池（同一顺序切 3/3/6+，
+     三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。 */
   const pool = recommendNumbers(gameId, areaKey, 16, from, to);
   const backKey = gameId === 'dlt' ? 'back' : 'blue';
   const backRange = gameId === 'dlt' ? [1, 12] : [1, 16];
-  const backNums = recommendNumbers(gameId, backKey, 3, backRange[0], backRange[1]);
-  Object.assign(out, buildRaodanGrid(pool, backNums));
+  const blueRec = backRecNumbers(gameId, backKey, 6);   // 「蓝球推荐」那 6 个
+  Object.assign(out, buildRaodanGrid(pool, [], {
+    gameId,
+    areaKey,
+    backKey,
+    from,
+    to,
+    blueFrom: backRange[0],
+    blueTo: backRange[1],
+    blueExclude: blueRec
+  }));
 
   /* ---- 九转连环 ---- */
   const ringNames = recommendNumbers(gameId, areaKey, 9, from, to);
@@ -1594,6 +1764,20 @@ function fieldRolesOf(gameId, imageKey) {
 
     if (sec.bigBall) put(sec.bigBall.key, 'rec', 1, area0);
     if (sec.bigBalls) put(sec.bigBalls.key, 'rec', sec.bigBalls.count || 2, area0);
+
+    /* ---- 绕胆图（4×4 固定版式）：16 个格子按角色登记 ----
+       金/银/拖 是主区号（登成 pool，顺带纳入「号码不越区」断言），
+       蓝 是蓝球/后区号（登成 rec，纳入「杀号∩推荐=∅」等断言）。
+       角色表就一份：RAODAN_ROLES（上面的常量），不另写一份。 */
+    if (type === 'grid' && Number.isInteger(sec.rows) && sec.cols) {
+      const total = sec.cols * sec.rows;
+      const backArea = (gameId === 'dlt') ? 'back' : 'blue';
+      for (let i = 0; i < total && i < RAODAN_ROLES.length; i++) {
+        const role = RAODAN_ROLES[i];
+        put('grid_' + i, role === 'blue' ? 'rec' : 'pool', 1,
+          role === 'blue' ? backArea : area0);
+      }
+    }
 
     if (sec.left) walk(sec.left);
     if (sec.right) walk(sec.right);
