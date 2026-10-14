@@ -48,7 +48,7 @@ function run(file, args, maxLines) {
       cwd: MOD, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 900000
     });
     out.split('\n')
-      .filter((l) => /✅|❌|⚠️|写入|期|场|来源|占比|晒票|开奖日/.test(l))
+      .filter((l) => /✅|❌|⚠️|写入|期|场|来源|占比|晒票|开奖日|OCR|票面照片|丢弃/.test(l))
       .slice(0, maxLines || 12)
       .forEach((l) => log('      ' + l.trim()));
     return true;
@@ -443,6 +443,26 @@ function runHeatmapStep(plan) {
   const script = path.basename(hit);
   const games = Object.keys(CHINA_DRAW_DAYS).filter((g) => CHINA_DRAW_DAYS[g].indexOf(b.dow) >= 0);
   const force = process.argv.includes('--heatmap-force');
+
+  /* 【OCR 前置检查】热力图的主口径是「票面照片 OCR」。
+     引擎（tesseract.js + WASM）和语言数据都放在 scripts/runtime/ocr/ 下，
+     由本机 sync-cloud.mjs 一起同步过来 —— 云端完全离线可跑。
+     这里只做「在不在」的检查并打日志；缺了也不会中断，
+     build-heatmap.mjs 会自己降级成历史兜底口径。 */
+  const ocrBase = path.join(MOD, 'runtime', 'ocr');
+  const ocrNeed = [
+    ['模块', path.join(MOD, 'ocr-tickets.mjs')],
+    ['引擎', path.join(ocrBase, 'node_modules', 'tesseract.js', 'src', 'index.js')],
+    ['WASM', path.join(ocrBase, 'node_modules', 'tesseract.js-core', 'index.js')],
+    ['模型', path.join(ocrBase, 'tessdata', 'chi_sim.traineddata.gz')]
+  ];
+  const ocrMiss = ocrNeed.filter(([, p]) => !fs.existsSync(p)).map(([n]) => n);
+  if (ocrMiss.length) {
+    log(`  ⚠️ 票面照片 OCR 前置检查：缺 ${ocrMiss.join('、')} → 本次会降级成「近 30 期开奖频率」`);
+    log(`     修复：本机跑一次 cloud\\sync-cloud.mjs 把 runtime/ocr 同步上来`);
+  } else {
+    log('  ✅ 票面照片 OCR 前置检查：模块 + 引擎 + WASM + 语言模型齐备（纯 JS，离线可跑）');
+  }
 
   log(`\n【热力图】${script}（独立于抓取开关，照常执行）`);
   log(`  北京时间 ${b.date} ${b.hhmm} ${WEEK_CN[b.dow]}　班次=${plan.type}（${plan.label}）　热力图动作=${mode}`);
