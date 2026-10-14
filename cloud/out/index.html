@@ -2257,7 +2257,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-14 23:34">
+<body data-built="2026-10-14 23:36">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -15442,7 +15442,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-14 23:34
+   生成时间：2026-10-14 23:36
    生成脚本：build-heatmap.mjs
    本次彩种：dlt
    数据来源：history-fallback
@@ -15455,14 +15455,14 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-14 23:34',
+  updated: '2026-10-14 23:36',
   source: 'history-fallback',
   games: {
     dlt: {
       name: '大乐透',
       issue: '26117',
       drawDate: '2026-10-14',
-      madeAt: '2026-10-14 23:34',
+      madeAt: '2026-10-14 23:35',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
@@ -40977,13 +40977,18 @@ function renderExpertPanel(container, gameId) {
 </script>
 
 <script data-src="materials-data.js">
-/* 临时测试内容 */
+/* ============================================================
+   materials-data.js —— 资料存档
+
+   由 App 内「同步到网页」写入；放到程序目录后，分享页就能显示这些资料。
+   写入时间：2026-10-14 23:09
+   ============================================================ */
+
 const MATERIALS_DATA = {
- "updated": "2026-10-14 23:40",
- "list": [
-  { "id": "t1", "text": "红球：01 02 03", "games": ["ssq"], "time": "2026-10-14 23:40" }
- ]
+ "updated": "2026-10-14 23:09",
+ "list": []
 };
+
 </script>
 
 <script data-src="data-store.js">
@@ -41600,6 +41605,8 @@ function materialRulesFromText(gameId, areaKey, text) {
 
   text = String(text == null ? '' : text);
   if (!text.trim()) return out;
+  /* 一点数字都没有，肯定解析不出号码 —— 直接跳过（资料页实时检查用得到） */
+  if (!/\d/.test(text)) return out;
 
   const put = (arr, nums) => {
     nums.forEach((n) => { if (n >= from && n <= to && arr.indexOf(n) < 0) arr.push(n); });
