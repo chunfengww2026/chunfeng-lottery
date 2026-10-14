@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 04:21 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 05:05 */
 const JC_DATA = {
- "updated": "2026-10-15 04:21",
+ "updated": "2026-10-15 05:05",
  "stat": {
   "total": 14,
   "upcoming": 2,
@@ -82,6 +82,34 @@ const JC_DATA = {
     "margin": 10.8,
     "rqLine": "一球"
    },
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 0.9,
+    "downWater": 0.9,
+    "openHandicap": 0,
+    "openUpWater": 0.77,
+    "openDownWater": 1.02,
+    "totalWater": 1.8,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": 0,
+     "nowHandicap": -1,
+     "initUpWater": 0.77,
+     "nowUpWater": 0.9,
+     "initLine": "平手",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "finished",
    "minute": 0,
    "liveScore": {
@@ -161,6 +189,34 @@ const JC_DATA = {
     "clear": true,
     "margin": 10.6,
     "rqLine": "一球"
+   },
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 0.97,
+    "downWater": 0.82,
+    "openHandicap": -0.75,
+    "openUpWater": 0.95,
+    "openDownWater": 0.85,
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.75,
+     "nowHandicap": -1,
+     "initUpWater": 0.95,
+     "nowUpWater": 0.97,
+     "initLine": "半球/一球",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
    },
    "status": "finished",
    "minute": 0,
@@ -242,6 +298,34 @@ const JC_DATA = {
     "margin": 8.6,
     "rqLine": "两球半"
    },
+   "asianIndex": {
+    "line": "两球半",
+    "from": "live",
+    "handicap": -2.5,
+    "upSide": "home",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": -1.5,
+    "openUpWater": 0.87,
+    "openDownWater": 0.92,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": -1.5,
+     "nowHandicap": -2.5,
+     "initUpWater": 0.87,
+     "nowUpWater": 0.85,
+     "initLine": "球半",
+     "nowLine": "两球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "finished",
    "minute": 0,
    "liveScore": {
@@ -321,6 +405,34 @@ const JC_DATA = {
     "clear": true,
     "margin": 11.8,
     "rqLine": "平手/半球"
+   },
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.82,
+    "downWater": 0.97,
+    "openHandicap": -0.25,
+    "openUpWater": 0.8,
+    "openDownWater": 1,
+    "totalWater": 1.79,
+    "theoryUpPercent": "54.19",
+    "theoryDownPercent": "45.81",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.8,
+     "nowUpWater": 0.82,
+     "initLine": "平手/半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
    },
    "status": "finished",
    "minute": 0,
@@ -402,6 +514,26 @@ const JC_DATA = {
     "margin": 5.5,
     "rqLine": "平手"
    },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": 0.5,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "finished",
    "minute": 0,
    "liveScore": {
@@ -481,6 +613,34 @@ const JC_DATA = {
     "clear": true,
     "margin": 5,
     "rqLine": "受一球"
+   },
+   "asianIndex": {
+    "line": "受一球",
+    "from": "live",
+    "handicap": 1,
+    "upSide": "away",
+    "upWater": 0.7,
+    "downWater": 1.1,
+    "openHandicap": 1.75,
+    "openUpWater": 0.82,
+    "openDownWater": 1.02,
+    "totalWater": 1.8,
+    "theoryUpPercent": "61.11",
+    "theoryDownPercent": "38.89",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": 1.75,
+     "nowHandicap": 1,
+     "initUpWater": 0.82,
+     "nowUpWater": 0.7,
+     "initLine": "受球半/两球",
+     "nowLine": "受一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
    },
    "status": "finished",
    "minute": 0,
@@ -562,6 +722,34 @@ const JC_DATA = {
     "margin": 6.5,
     "rqLine": "平手"
    },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 0.67,
+    "downWater": 1.15,
+    "openHandicap": 0,
+    "openUpWater": 0.77,
+    "openDownWater": 1.1,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "63.19",
+    "theoryDownPercent": "36.81",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0,
+     "nowHandicap": 0,
+     "initUpWater": 0.77,
+     "nowUpWater": 0.67,
+     "initLine": "平手",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
@@ -587,8 +775,8 @@ const JC_DATA = {
     "rank": 16
    },
    "score": {
-    "home": 2,
-    "away": 1
+    "home": 3,
+    "away": 4
    },
    "statusText": "1 - 1 ",
    "odds": {
@@ -642,11 +830,39 @@ const JC_DATA = {
     "margin": 4.7,
     "rqLine": "受半球/一球"
    },
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 1.1,
+    "downWater": 0.7,
+    "openHandicap": 0.5,
+    "openUpWater": 0.87,
+    "openDownWater": 0.97,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 0.5,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.87,
+     "nowUpWater": 1.1,
+     "initLine": "受半球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
-    "away": 1
+    "home": 3,
+    "away": 4
    }
   },
   {
@@ -722,6 +938,34 @@ const JC_DATA = {
     "margin": 5.5,
     "rqLine": "受平手/半球"
    },
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": 0.5,
+    "openUpWater": 1,
+    "openDownWater": 0.85,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": 0.5,
+     "nowHandicap": 0.25,
+     "initUpWater": 1,
+     "nowUpWater": 1.15,
+     "initLine": "受半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
@@ -747,8 +991,8 @@ const JC_DATA = {
     "rank": 28
    },
    "score": {
-    "home": 1,
-    "away": 0
+    "home": 3,
+    "away": 2
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -802,11 +1046,39 @@ const JC_DATA = {
     "margin": 5.5,
     "rqLine": "半球"
    },
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.77,
+    "openHandicap": -0.25,
+    "openUpWater": 0.95,
+    "openDownWater": 0.9,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.95,
+     "nowUpWater": 1.02,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 0
+    "home": 3,
+    "away": 2
    }
   },
   {
@@ -827,8 +1099,8 @@ const JC_DATA = {
     "rank": 6
    },
    "score": {
-    "home": 1,
-    "away": 3
+    "home": 2,
+    "away": 4
    },
    "statusText": "0 - 3 ",
    "odds": {
@@ -882,11 +1154,39 @@ const JC_DATA = {
     "margin": 5.6,
     "rqLine": "半球/一球"
    },
+   "asianIndex": {
+    "line": "半球/一球",
+    "from": "live",
+    "handicap": -0.75,
+    "upSide": "home",
+    "upWater": 1.07,
+    "downWater": 0.72,
+    "openHandicap": -0.25,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.79,
+    "theoryUpPercent": "40.22",
+    "theoryDownPercent": "59.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.75,
+     "initUpWater": 0.92,
+     "nowUpWater": 1.07,
+     "initLine": "平手/半球",
+     "nowLine": "半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 3
+    "home": 2,
+    "away": 4
    }
   },
   {
@@ -907,7 +1207,7 @@ const JC_DATA = {
     "rank": 22
    },
    "score": {
-    "home": 3,
+    "home": 6,
     "away": 0
    },
    "statusText": "3 - 0 ",
@@ -962,10 +1262,38 @@ const JC_DATA = {
     "margin": 5.6,
     "rqLine": "半球/一球"
    },
+   "asianIndex": {
+    "line": "半球/一球",
+    "from": "live",
+    "handicap": -0.75,
+    "upSide": "home",
+    "upWater": 0.75,
+    "downWater": 1.05,
+    "openHandicap": -0.75,
+    "openUpWater": 1,
+    "openDownWater": 0.85,
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.75,
+     "nowHandicap": -0.75,
+     "initUpWater": 1,
+     "nowUpWater": 0.75,
+     "initLine": "半球/一球",
+     "nowLine": "半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 3,
+    "home": 6,
     "away": 0
    }
   },
@@ -1038,6 +1366,34 @@ const JC_DATA = {
     "clear": false,
     "margin": 5,
     "rqLine": "平手"
+   },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1,
+    "downWater": 0.85,
+    "openHandicap": 0,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.85,
+    "theoryUpPercent": "45.95",
+    "theoryDownPercent": "54.05",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0,
+     "nowHandicap": 0,
+     "initUpWater": 0.92,
+     "nowUpWater": 1,
+     "initLine": "平手",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
    },
    "status": "upcoming",
    "minute": 0,
@@ -1112,6 +1468,26 @@ const JC_DATA = {
     "clear": false,
     "margin": 6.3,
     "rqLine": "平手/半球"
+   },
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": 0.25,
+    "openUpWater": 1.02,
+    "openDownWater": 0.77,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
    },
    "status": "upcoming",
    "minute": 0,
