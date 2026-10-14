@@ -671,7 +671,11 @@ function raodanBluePicks(gameId, areaKey, from, to, exclude) {
 
   /* ① 蓝球专家池，按共识度 */
   try {
-    expertPoolOf(gameId, areaKey)
+    const _dbgPool = expertPoolOf(gameId, areaKey);
+    if (typeof console !== 'undefined' && console.log && globalThis.__RAODAN_DEBUG) {
+      console.log('[RAODAN_DBG] pool=', JSON.stringify(_dbgPool), 'area=', areaKey, 'excl=', JSON.stringify([...banned]), 'want=', want);
+    }
+    _dbgPool
       .filter((n) => n >= from && n <= to)
       .forEach(push);
   } catch (e) { /* 忽略 */ }
