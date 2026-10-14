@@ -2179,7 +2179,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-15 00:54">
+<body data-built="2026-10-15 01:07">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -15033,11 +15033,16 @@ function allPeriodsOf(gameId) {
   }));
 }
 /**
- * 摇一个字段的值
+ * 算一个字段的值（确定性算法）
  *   【号码池优先】有专家号码池时，号码一律从池子里取、走势一律围绕池子算；
  *   没有专家池（或 expert-pool.js 没加载）时，完全按原来的算法走。
+ *
+ * ⚠️ 这是「出号」用的那一套：同样的数据 → 同样的结果。
+ *    一键摇号 rollAllGames() / 存档 saved-tickets.js / 分享页 / 一致性收尾
+ *    全都依赖它保持不变（改一个字都会让已上线的号码和页面/存档对不上）。
+ *    需要随机的是骰子 🎲 —— 走下面的 rollValueFor(..., { random: true })。
  */
-function rollValueFor(gameId, spec) {
+function rollValueDeterministic(gameId, spec) {
   const label = spec.label || '';
   let areaKey = spec.areaKey || 'main';
   // 字段自己写了「后区 / 蓝球」就按那个区取（例如七星彩的「后区」行）
@@ -15258,6 +15263,556 @@ function rollValueFor(gameId, spec) {
 }
 
 /* ============================================================
+   摇一个字段的值（对外入口）
+   ------------------------------------------------------------
+   第三参数 opts：
+     · 不传 / opts.random !== true
+         → 完全走 rollValueDeterministic()：同样的数据 → 同样的结果。
+           一键摇号 rollAllGames() 走的就是这条，行为一个字都没动。
+     · opts.random === true
+         → 骰子 🎲 / 「全部随机」走这条：从「合法候选」里随机挑一个。
+           用户点一次应该得到一个「合法的、但不一样」的值。
+           必须满足 stats.js 的一致性不变量（①~⑫）：
+             ①热∩冷=∅ ②杀∩池=∅ ③杀∩胆拖=∅ ④胆拖⊆池 ⑤胆∩拖=∅
+             ⑥档位递减 ⑦推荐∩杀号=∅ ⑧热⊆池 ⑨尾数冷热 ⑩⑪⊆池
+     opts.ctx       当前表单里其它字段的值（可选）：知道「池子 / 杀号 / 胆拖 /
+                   推荐 / 热冷号」现在是什么，随机出来的值才不会和它们打架
+     opts.imageKey  这张图的 key（可选）：用来查 stats.js 的字段语义表 fieldRolesOf()
+
+   拿不准 / 候选不够时返回确定性算法的值（绝不出错）。
+   ============================================================ */
+function rollValueFor(gameId, spec, opts) {
+  if (!opts || opts.random !== true) return rollValueDeterministic(gameId, spec);
+  try {
+    const v = rollValueRandom(gameId, spec, opts);
+    if (v !== undefined && v !== null && String(v).trim() !== '') return String(v);
+  } catch (e) { /* 随机分支出问题 → 确定性算法兜底 */ }
+  return rollValueDeterministic(gameId, spec);
+}
+
+/* ============================================================
+   随机分支（骰子 🎲 / 全部随机 专用）
+   ------------------------------------------------------------
+   铁律：每个字段先算出「合法候选域」，再从域里随机挑 ——
+     · 杀号     = 池外（并避开 推荐 / 定位推荐 / 胆拖）→ ②③⑦ 成立
+     · 热号     = 池内（并避开当前冷号）               → ⑧① 成立
+     · 冷号     = 池外（池子铺满全区时退回全区 + 避开热号）→ ① 成立
+     · 胆码/拖码 = 池内、互不重复、避开杀号            → ③④⑤ 成立
+     · 号码池档位 = 保留比它小的档位，其余从上一层随机补 → ⑥ 成立（小档 ⊆ 大档）
+     · 走势号   = 池内、按真实格式重排（连号 / 同尾 / 邻号 / 跳连 / 同区 / 重复 / 尾数冷热）
+     · 奇偶/大小/012路 = 从该区「真实开过的期次」里随机挑一期推导（球数天然正确）
+     · 和值/跨度 = 理论区间内随机放宽，且一定覆盖近 30 期实际范围
+     · 热号排行（NN出现M次）= 从真实排行里随机挑一条（骰子原本的语义）
+   ============================================================ */
+
+/** 随机取 n 个（不重复、升序） */
+function rrTake(arr, n) {
+  const src = (arr || []).slice();
+  const cnt = Math.max(0, Math.min(Math.floor(n) || 0, src.length));
+  for (let i = src.length - 1; i > 0; i--) {
+    const j = ri(0, i);
+    const t = src[i]; src[i] = src[j]; src[j] = t;
+  }
+  return src.slice(0, cnt).sort((a, b) => a - b);
+}
+
+/** 随机取 n 个（不重复、不打乱成升序 —— 给「连号 01-02 / 03-04」这类字符串用） */
+function rrSome(arr, n) {
+  const src = (arr || []).slice();
+  const cnt = Math.max(0, Math.min(Math.floor(n) || 0, src.length));
+  for (let i = src.length - 1; i > 0; i--) {
+    const j = ri(0, i);
+    const t = src[i]; src[i] = src[j]; src[j] = t;
+  }
+  return src.slice(0, cnt);
+}
+
+/** 随机取 1 个（空数组返回 undefined） */
+function rrOne(arr) {
+  const a = arr || [];
+  return a.length ? a[ri(0, a.length - 1)] : undefined;
+}
+
+/** 号码串 / 号码数组 → 去重号码数组 */
+function rrNums(v) {
+  const out = [];
+  const push = (x) => { if (Number.isInteger(x) && out.indexOf(x) < 0) out.push(x); };
+  if (Array.isArray(v)) v.forEach(push);
+  else (String(v == null ? '' : v).match(/\d+/g) || []).forEach((s) => push(parseInt(s, 10)));
+  return out;
+}
+
+/** 区间内全部号码 */
+function rrAllNums(from, to) {
+  const a = [];
+  for (let i = from; i <= to; i++) a.push(i);
+  return a;
+}
+
+/** 升序去重 */
+function rrSorted(arr) {
+  const out = [];
+  (arr || []).forEach((n) => { if (Number.isInteger(n) && out.indexOf(n) < 0) out.push(n); });
+  return out.sort((a, b) => a - b);
+}
+
+/** 该区最近 N 期的真实开奖号（最新在前） */
+function rrActualAreas(gameId, areaKey, periods) {
+  try {
+    if (typeof historyAreas === 'function') return historyAreas(gameId, areaKey, periods || HIST_PERIODS) || [];
+  } catch (e) { /* 忽略 */ }
+  return [];
+}
+
+/** 位置下标：spec 没给就用标签猜（万位=0 … 个位=4；前N位 / 后区=6） */
+function rrPosIdxOf(label) {
+  const L = String(label || '').trim();
+  const WORDS = ['万位', '千位', '百位', '十位', '个位'];
+  const wi = WORDS.indexOf(L);
+  if (wi >= 0) return wi;
+  let m = L.match(/^前(\d+)(位|杀)$/);
+  if (m) return Number(m[1]) - 1;
+  if (/^后区/.test(L)) return 6;
+  return -1;
+}
+
+/** 该图的字段语义表（key → {role,count,area,posIdx}），stats.js 的唯一实现 */
+function rrRolesOf(gameId, imageKey) {
+  try {
+    if (typeof fieldRolesOf === 'function') return fieldRolesOf(gameId, imageKey || null) || {};
+  } catch (e) { /* 忽略 */ }
+  return {};
+}
+
+/**
+ * 骰子的「当前局面」
+ * @returns {{gameId,areaKey,from,to,all,pool,roles,cur,inArea,curOfRole,curOfPos}}
+ */
+function rrSituation(gameId, areaKey, opts) {
+  const [from, to] = areaRangeOf(gameId, areaKey);
+  const all = rrAllNums(from, to);
+  const roles = rrRolesOf(gameId, opts && opts.imageKey);
+  const rawCtx = (opts && opts.ctx) || {};
+  const cur = {};
+  Object.keys(rawCtx).forEach((k) => { cur[k] = rrNums(rawCtx[k]); });
+
+  const inArea = (k) => !!(roles[k] && roles[k].area === areaKey);
+
+  /* 号码池 = 本图「最大档位」的当前值（和 stats.js enforceConsistency 的定池口径一致），
+     没有档位就用专家号码池，再没有就用 poolCandidates（含资料优先 + 随机补齐） */
+  let pool = [];
+  const tierKeys = Object.keys(roles)
+    .filter((k) => inArea(k) && roles[k].role === 'tier' && cur[k] && cur[k].length)
+    .sort((a, b) => roles[a].count - roles[b].count);
+  if (tierKeys.length) pool = cur[tierKeys[tierKeys.length - 1]].slice();
+  if (!pool.length) {
+    try { pool = expertPoolOf(gameId, areaKey) || []; } catch (e) { pool = []; }
+  }
+  pool = pool.filter((n) => n >= from && n <= to);
+  if (!pool.length && typeof poolCandidates === 'function') {
+    try { pool = poolCandidates(gameId, areaKey, all.length) || []; } catch (e) { pool = []; }
+    pool = pool.filter((n) => n >= from && n <= to);
+  }
+  if (!pool.length) pool = all.slice();
+
+  const curOfRole = (role) => {
+    const out = [];
+    Object.keys(roles).forEach((k) => {
+      if (!inArea(k) || roles[k].role !== role) return;
+      (cur[k] || []).forEach((n) => { if (out.indexOf(n) < 0) out.push(n); });
+    });
+    return out;
+  };
+  const curOfPos = (role, posIdx) => {
+    const out = [];
+    Object.keys(roles).forEach((k) => {
+      if (!inArea(k) || roles[k].role !== role || roles[k].posIdx !== posIdx) return;
+      (cur[k] || []).forEach((n) => { if (out.indexOf(n) < 0) out.push(n); });
+    });
+    return out;
+  };
+
+  return {
+    gameId, areaKey, from, to, all,
+    pool: rrSorted(pool),
+    roles, cur, inArea, curOfRole, curOfPos
+  };
+}
+
+/**
+ * 和值 / 跨度：在理论区间内随机放宽，但必须覆盖近 30 期真实取值范围
+ * （和 stats.js compactRange 的「必须覆盖」规则一致 —— 区间漏掉最近开奖就是错的）
+ */
+function rrRangeText(values, from, to, balls, kind) {
+  const arr = (values || []).filter((x) => Number.isFinite(x)).sort((a, b) => a - b);
+  if (!arr.length) return undefined;
+  const min = arr[0];
+  const max = arr[arr.length - 1];
+  const n = Math.max(1, balls);
+  const loB = (kind === 'sum') ? from * n + (n * (n - 1)) / 2 : 0;
+  const hiB = (kind === 'sum') ? to * n - (n * (n - 1)) / 2 : (to - from);
+  const pad = (kind === 'sum') ? 6 : 3;
+  let a = Math.max(loB, min - ri(0, pad));
+  let b = Math.min(hiB, max + ri(0, pad));
+  if (a > min) a = min;
+  if (b < max) b = max;
+  if (b < a) { a = min; b = max; }
+  return `${a}~${b}`;
+}
+
+/**
+ * 杀号：从「池外」随机挑
+ *   · 普通杀号：避开 号码池 + 推荐 + 定位推荐 + 胆拖（②③⑦ 的硬要求）
+ *   · 每位杀号：这一位必须避开「同一位的定位推荐」，候选不够时逐级放宽
+ *   候选实在不够 → 返回 undefined，交给确定性算法 + 一致性收尾（绝不出矛盾）
+ */
+function rrKillText(S, want, posIdx) {
+  const mate = (posIdx >= 0) ? S.curOfPos('posrec', posIdx) : [];
+  const strict = [].concat(S.pool, S.curOfRole('rec'), S.curOfRole('posrec'),
+    S.curOfRole('dan'), S.curOfRole('tuo'), mate);
+  const hard = (posIdx >= 0)
+    ? mate
+    : [].concat(S.pool, S.curOfRole('rec'), S.curOfRole('posrec'));
+  const uniqStrict = [...new Set(strict)];
+  const uniqHard = [...new Set(hard)];
+  /* 先按最严的来；太严就没得挑（摇 5 次都一样），这时退到「硬要求」那一档 */
+  const enough = Math.min(S.all.length, want + 3);
+  let dom = S.all.filter((n) => uniqStrict.indexOf(n) < 0);
+  if (dom.length < enough) {
+    const relaxed = S.all.filter((n) => uniqHard.indexOf(n) < 0);
+    if (relaxed.length > dom.length) dom = relaxed;
+  }
+  if (dom.length < want) return undefined;
+  return rrTake(dom, want).map(pad2).join(' ');
+}
+
+/**
+ * 号码池档位（20码 / 15码 / 10码 / 3码 / 1码 …）
+ *   保留「比它小的档位」的当前值（小档 ⊆ 大档 永远成立），
+ *   其余从「上一层档位（没有就用号码池）」里随机补足。
+ */
+function rrTierText(S, want) {
+  const roles = S.roles;
+  const tiers = Object.keys(roles)
+    .filter((k) => S.inArea(k) && roles[k].role === 'tier')
+    .map((k) => ({ k, count: roles[k].count || 1 }))
+    .sort((a, b) => a.count - b.count);
+  const smaller = tiers.filter((t) => t.count < want).reverse();
+  const larger = tiers.filter((t) => t.count > want);
+
+  let keep = [];
+  for (let i = 0; i < smaller.length; i++) {
+    const v = S.cur[smaller[i].k];
+    if (v && v.length) { keep = v.slice(); break; }
+  }
+  let dom = [];
+  for (let i = 0; i < larger.length; i++) {
+    const v = S.cur[larger[i].k];
+    if (v && v.length) { dom = v.slice(); break; }
+  }
+  /* 表单里还没有这些档位的值时（比如空白表单），用「出号算法」的对应档位当骨架：
+     poolCandidates 对小档返回的是大档的前缀 —— 小档 ⊆ 大档 照样成立（⑥） */
+  if (!keep.length && smaller.length && typeof poolCandidates === 'function') {
+    try { keep = poolCandidates(S.gameId, S.areaKey, Math.min(smaller[0].count, S.all.length)) || []; } catch (e) { keep = []; }
+  }
+  if (dom.length < want && larger.length && typeof poolCandidates === 'function') {
+    try { dom = poolCandidates(S.gameId, S.areaKey, Math.min(larger[0].count, S.all.length)) || []; } catch (e) { dom = []; }
+  }
+  if (dom.length < want) dom = S.pool.slice();
+  if (dom.length < want) dom = S.all.slice();
+
+  const kept = keep.filter((n) => dom.indexOf(n) >= 0);
+  const rest = dom.filter((n) => kept.indexOf(n) < 0);
+  const picked = kept.concat(rrTake(rest, Math.max(0, want - kept.length)));
+  if (picked.length < Math.min(want, dom.length)) return undefined;
+  return rrSorted(picked).map(pad2).join(' ');
+}
+
+/**
+ * 走势号（连号 / 跳连号 / 同尾号 / 邻号 / 重复号 / 同区号 / 尾数冷热）
+ *   全部只从号码池里取（⑩ 硬要求），格式和 stats.js 的对应函数保持一致；
+ *   池里凑不出这种东西时退回 stats.js 的池内兜底 consPropFallback()。
+ */
+function rrPropText(role, S) {
+  const pool = S.pool;
+  if (!pool.length) return '';
+  const sorted = rrSorted(pool);
+  const set = new Set(sorted);
+  const fallback = () => {
+    try {
+      if (typeof consPropFallback === 'function') {
+        return consPropFallback(role, sorted, S.from, S.to, S.gameId, S.areaKey) || '';
+      }
+    } catch (e) { /* 忽略 */ }
+    return '';
+  };
+
+  if (role === 'lh') {
+    const pairs = [];
+    for (let i = 1; i < sorted.length; i++) {
+      if (sorted[i] - sorted[i - 1] === 1) pairs.push(`${pad2(sorted[i - 1])}-${pad2(sorted[i])}`);
+    }
+    const picked = rrSome(pairs, 3);
+    return picked.length ? picked.join(' / ') : fallback();
+  }
+  if (role === 'tjlh') {
+    const found = [];
+    sorted.forEach((n) => {
+      if (set.has(n + 2) && set.has(n + 4)) found.push(`${pad2(n)}-${pad2(n + 2)}-${pad2(n + 4)}`);
+    });
+    const picked = rrSome(found, 2);
+    return picked.length ? picked.join(' / ') : fallback();
+  }
+  if (role === 'wh') {
+    const byTail = new Map();
+    sorted.forEach((n) => {
+      const t = n % 10;
+      if (!byTail.has(t)) byTail.set(t, []);
+      byTail.get(t).push(n);
+    });
+    const groups = [...byTail.values()].filter((g) => g.length >= 2)
+      .map((g) => g.map(pad2).join('-'));
+    const picked = rrSome(groups, 2);
+    return picked.length ? picked.join(' / ') : fallback();
+  }
+  if (role === 'lin') {
+    const near = [];
+    sorted.forEach((n) => {
+      if (set.has(n + 1)) near.push(n + 1);
+      if (set.has(n - 1)) near.push(n - 1);
+    });
+    const picked = rrTake([...new Set(near)], 6);
+    return picked.length ? picked.map(pad2).join(' ') : fallback();
+  }
+  if (role === 'cf') {
+    const picked = rrTake(sorted, Math.min(sorted.length, ri(1, 3)));
+    return picked.length ? picked.map(pad2).join(',') + `防${picked.length}枚` : fallback();
+  }
+  if (role === 'tqh') {
+    const size = Math.ceil((S.to - S.from + 1) / 3);
+    const zones = [0, 1, 2].map((i) => {
+      const lo = S.from + i * size;
+      const hi = Math.min(S.to, lo + size - 1);
+      return { i, nums: sorted.filter((n) => n >= lo && n <= hi) };
+    }).filter((z) => z.nums.length);
+    const z = rrOne(zones);
+    if (!z) return fallback();
+    return `${['一区', '二区', '三区'][z.i]}${rrTake(z.nums, 6).map(pad2).join(',')}`;
+  }
+  if (role === 'wsl') {
+    /* 尾数冷热：池内尾数按出现次数排，热尾随机 2 个、冷尾随机 1 个。
+       冷尾尽量避开 1码/3码 档位里已有的号；避不开也没关系，
+       一致性收尾会把小档里的冷尾号换掉（⑨）。 */
+    const tail = new Array(10).fill(0);
+    sorted.forEach((n) => { tail[n % 10]++; });
+    const idx = tail.map((c, i) => ({ tail: i, c })).sort((a, b) => (b.c - a.c) || (a.tail - b.tail));
+    const smallNums = Object.keys(S.roles)
+      .filter((k) => S.inArea(k) && S.roles[k].role === 'tier' && (S.roles[k].count || 0) <= 3)
+      .reduce((acc, k) => acc.concat(S.cur[k] || []), []);
+    const smallTails = new Set(smallNums.map((n) => n % 10));
+    const hotList = idx.slice(0, Math.min(5, idx.length)).filter((x) => x.c > 0).map((x) => `${x.tail}尾热`);
+    const coldIdx = idx.slice(-3).filter((x) => !smallTails.has(x.tail));
+    const coldList = (coldIdx.length ? coldIdx : idx.slice(-1)).map((x) => `${x.tail}尾冷`);
+    const v = rrSome(hotList, 2).concat(rrSome(coldList, 1)).join(' ');
+    return String(v).trim() ? v : fallback();
+  }
+  return '';
+}
+
+/** 该字段的随机值；返回 undefined → 交给确定性算法 */
+function rollValueRandom(gameId, spec, opts) {
+  const label = String(spec.label || '');
+  let areaKey = spec.areaKey || 'main';
+  if (/后区|蓝球/.test(label)) areaKey = (gameId === 'ssq') ? 'blue' : 'back';
+
+  const S = rrSituation(gameId, areaKey, opts);
+  const roleInfo = S.roles[spec.key] || {};
+  const role = roleInfo.role || '';
+  const posIdx = Number.isInteger(spec.posIdx) ? spec.posIdx
+    : (Number.isInteger(roleInfo.posIdx) ? roleInfo.posIdx : rrPosIdxOf(label));
+  const count = Math.max(1, Number(spec.count) || 1);
+  const { from, to, all, pool } = S;
+  const joinNums = (arr) => arr.map(pad2).join(' ');
+
+  /* ---- 热号排行（NN出现M次）：从真实排行里随机挑一条 ---- */
+  if (label.includes('排行')) {
+    if (typeof hotRankStrings === 'function') {
+      const ranks = hotRankStrings(gameId, areaKey, count, HIST_PERIODS) || [];
+      const v = rrOne(ranks);
+      if (v) return v;
+    }
+    return undefined;
+  }
+
+  /* ---- 和值 / 合值 ---- */
+  if (label.includes('和值') || label.includes('合值')) {
+    const sums = rrActualAreas(gameId, areaKey, HIST_PERIODS)
+      .map((a) => a.reduce((x, y) => x + y, 0));
+    const v = rrRangeText(sums, from, to, count, 'sum');
+    if (v) return v;
+    /* 没有历史数据 → 用真实球数随机组一批号凑一个和值 */
+    const n = Math.max(1, (typeof areaPickCount === 'function') ? areaPickCount(gameId, areaKey, count) : count);
+    const picks = rrTake(pool.length ? pool : all, n);
+    return picks.length ? `${picks.reduce((x, y) => x + y, 0)}~${picks.reduce((x, y) => x + y, 0)}` : undefined;
+  }
+
+  /* ---- 跨度 ---- */
+  if (label.includes('跨度')) {
+    const spans = rrActualAreas(gameId, areaKey, HIST_PERIODS)
+      .filter((a) => a.length)
+      .map((a) => Math.max(...a) - Math.min(...a));
+    const v = rrRangeText(spans, from, to, count, 'span');
+    if (v) return v;
+    return undefined;
+  }
+
+  /* ---- 奇偶 / 大小 / 012路：随机挑一期真实开奖来推导（球数天然 = 真实球数，⑫成立） ---- */
+  if (label.includes('奇偶') || label.includes('大小') || label.includes('012')) {
+    const areas = rrActualAreas(gameId, areaKey, HIST_PERIODS).filter((a) => a.length);
+    let src = rrOne(areas);
+    if (!src || !src.length) {
+      const n = Math.max(1, (typeof areaPickCount === 'function') ? areaPickCount(gameId, areaKey, count) : count);
+      src = rrTake(pool.length ? pool : all, n);
+    }
+    if (!src.length) return undefined;
+    const d = deriveFromList(src, from, to);
+    if (label.includes('奇偶')) return d.oddEven || undefined;
+    if (label.includes('大小')) return d.bigSmall || undefined;
+    return d.route012 || undefined;
+  }
+
+  /* ---- 区间比 / 质数合数：随机挑一期真实开奖的构成 ---- */
+  if (label.includes('区间比') || label.includes('质数')) {
+    const src = rrOne(rrActualAreas(gameId, areaKey, HIST_PERIODS).filter((a) => a.length));
+    if (!src) return undefined;
+    if (label.includes('区间比')) {
+      const size = Math.ceil((to - from + 1) / 3);
+      const z = [0, 0, 0];
+      src.forEach((x) => { z[Math.min(2, Math.floor((x - from) / size))]++; });
+      return z.join(':');
+    }
+    const p = src.filter((x) => (typeof isPrime === 'function') ? isPrime(x) : false).length;
+    return `${p}:${src.length - p}`;
+  }
+
+  /* ---- 杀号（含 蓝球杀号 / 后区杀 / 每位杀）---- */
+  if (role === 'kill' || role === 'poskill' || /杀/.test(label)) {
+    const want = Math.max(1, roleInfo.count || (role === 'poskill' ? count : Math.min(count, 3)));
+    const v = rrKillText(S, want, (role === 'poskill' || posIdx >= 0) ? posIdx : -1);
+    if (v) return v;
+    return undefined;
+  }
+
+  /* ---- 胆码 / 拖码：池内、互不重复、避开杀号 ---- */
+  if (role === 'dan' || role === 'tuo' || label.includes('胆码') || label.includes('拖码')) {
+    const isDan = (role === 'dan') || (!role && label.includes('胆码'));
+    const want = Math.max(1, roleInfo.count || count);
+    const kills = [].concat(S.curOfRole('kill'), S.curOfRole('poskill'));
+    const other = isDan ? S.curOfRole('tuo') : S.curOfRole('dan');
+    const dom = pool.filter((n) => kills.indexOf(n) < 0 && other.indexOf(n) < 0);
+    const out = rrTake(dom, want);
+    if (out.length >= want) return joinNums(out);
+    return undefined;
+  }
+
+  /* ---- 热号 / 冷号（①⑧ 的硬要求）---- */
+  if (role === 'hot' || role === 'cold' || label.includes('热号') || label.includes('冷号')) {
+    const isHot = (role === 'hot') || (!role && label.includes('热号'));
+    if (isHot) {
+      const want = Math.min(6, pool.length);
+      const coldCur = S.curOfRole('cold');
+      let dom = pool.filter((n) => coldCur.indexOf(n) < 0);
+      if (dom.length < want) dom = pool.slice();
+      const out = rrTake(dom, want);
+      return out.length >= want ? joinNums(out) : undefined;
+    }
+    const poolSet = new Set(pool);
+    const outside = all.filter((n) => !poolSet.has(n));
+    const base = (outside.length && outside.length < all.length) ? outside : all.slice();
+    const hotCur = S.curOfRole('hot');
+    const want = Math.min(6, base.length);
+    let dom = base.filter((n) => hotCur.indexOf(n) < 0);
+    if (dom.length < want) dom = base.slice();
+    const out = rrTake(dom, want);
+    return out.length >= want ? joinNums(out) : undefined;
+  }
+
+  /* ---- 最大遗漏 / 遗漏回补：池内随机挑 ---- */
+  if (role === 'maxomit' || label.includes('最大遗漏')) {
+    const n = rrOne(pool);
+    return (n === undefined) ? undefined : `${pad2(n)}号`;
+  }
+  if (role === 'ylhb' || label.includes('遗漏回补')) {
+    const out = rrTake(pool, Math.min(3, pool.length));
+    return out.length ? joinNums(out) : undefined;
+  }
+
+  /* ---- 走势号 ---- */
+  const PROP = { lh: 1, tjlh: 1, wh: 1, lin: 1, cf: 1, tqh: 1, wsl: 1 };
+  const propRole = PROP[role] ? role
+    : (label.includes('跳连号') ? 'tjlh'
+      : label.includes('连号') ? 'lh'
+        : label.includes('重复号') ? 'cf'
+          : label.includes('同尾号') ? 'wh'
+            : label.includes('邻号') ? 'lin'
+              : label.includes('同区号') ? 'tqh'
+                : label.includes('尾数冷热') ? 'wsl' : '');
+  if (propRole) {
+    const v = rrPropText(propRole, S);
+    if (v) return v;
+    return undefined;
+  }
+
+  /* ---- 号码池档位（20码 / 15码 / 3码 …）---- */
+  if (role === 'tier') {
+    const v = rrTierText(S, roleInfo.count || count);
+    if (v) return v;
+    return undefined;
+  }
+
+  /* ---- 文字型固定值（和尾 = 0~9；防组三 = 对子号）：本来就只有一个合法值 ---- */
+  if (label.includes('和尾') || label.includes('防组三')) return undefined;
+
+  /* ---- 文字 / 配置字段（公历 / 农历 / 干支 / 日五行 / 金银胆 / 中宫 …）----
+     这些根本不是号码：摇成号码会把「公历」「财神」写成 04 这种，
+     用 stats.js 的 autoFillForTemplate() 给的真实值（一键摇号给这张图填的就是它），
+     拿不到就交给确定性算法 —— 绝不给文字字段写号码。 */
+  if (/^(c_|badge|e_|wx_|jg_|grid_)/.test(String(spec.key || ''))
+    || /公历|农历|干支|五行|财神|喜神|福神|贵神|冲煞|旺尾|弱尾|吉利|中宫|关注/.test(label)) {
+    const v = rrAutoFill(gameId, opts, spec.key);
+    if (v !== undefined) return v;
+    return undefined;
+  }
+
+  /* ---- 组选池 / 推荐 / 主推 / 定位推荐 / 号码类：合法域里随机挑一组 ---- */
+  const wantN = Math.max(1, Math.min(count, all.length));
+  const bans = [].concat(S.curOfRole('kill'), S.curOfRole('poskill'));
+  const domOf = (src, ban) => (ban.length ? src.filter((n) => ban.indexOf(n) < 0) : src.slice());
+  let dom = domOf(pool, bans);
+  if (dom.length < wantN) dom = domOf(all, bans);
+  if (dom.length < wantN) {
+    /* ⑦ 对「定位推荐」是逐位比的：最后至少避开同一位的杀号 */
+    const mate = (role === 'posrec' && posIdx >= 0) ? S.curOfPos('poskill', posIdx) : [];
+    dom = mate.length ? domOf(all, mate) : all.slice();
+  }
+  const out = rrTake(dom, wantN);
+  if (out.length) return joinNums(out);
+  return undefined;
+}
+
+/** 文字 / 配置字段的真实值（stats.js 的 autoFillForTemplate，和一键摇号同一套） */
+function rrAutoFill(gameId, opts, key) {
+  if (!key || typeof autoFillForTemplate !== 'function') return undefined;
+  try {
+    const map = autoFillForTemplate(gameId, (opts && opts.imageKey) || 'wuxing');
+    if (map && map[key] !== undefined && map[key] !== null && String(map[key]).trim() !== '') {
+      return String(map[key]);
+    }
+  } catch (e) { /* 忽略 */ }
+  return undefined;
+}
+
+/* ============================================================
    摇号面板（资料页用）
    ============================================================ */
 
@@ -15443,6 +15998,37 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
   const inputMeta = {}; // 每个字段的元信息，供「全部随机」使用
   const fixedKeys = new Set();  // 这些字段不参与全部随机（保持真实统计值）
 
+  /** 收集当前表单里「已经有值」的字段（骰子随机时要知道现在是什么局面） */
+  const formValues = () => {
+    const out = {};
+    Object.keys(inputs).forEach((k) => {
+      const v = String(inputs[k].value == null ? '' : inputs[k].value).trim();
+      if (v) out[k] = v;
+    });
+    return out;
+  };
+
+  /**
+   * 整图一致性收尾（和 rollAllGames 存档前调用的是同一个 enforceConsistencyImage）
+   *   随机摇出来的单个字段可能和图上别的字段打架（比如摇出来的热号不在
+   *   20码池里、杀号摇进了池子），所以摇完立刻过一遍。
+   *   只回写「本来就有值」的字段 —— 点一个骰子不该把空字段填满。
+   * @returns {number} 顺手修掉的字段数
+   */
+  const settleConsistency = () => {
+    if (typeof enforceConsistencyImage !== 'function') return 0;
+    const before = formValues();
+    const work = Object.assign({}, before);
+    try { enforceConsistencyImage(gameId, imageKey, work); } catch (e) { return 0; }
+    let n = 0;
+    Object.keys(work).forEach((k) => {
+      if (!inputs[k] || !(k in before)) return;
+      const v = String(work[k] == null ? '' : work[k]);
+      if (v !== String(inputs[k].value == null ? '' : inputs[k].value)) { inputs[k].value = v; n++; }
+    });
+    return n;
+  };
+
   /** 判断某个区块属于哪个号码区（和 stats.js 同逻辑） */
   const areaKeyOf = (sec, itemLabel) => {
     const texts = [sec.title || '', itemLabel || ''];
@@ -15481,15 +16067,18 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
     const dice = document.createElement('button');
     dice.className = 'tk-dice';
     dice.type = 'button';
-    dice.title = '随机摇一个';
+    dice.title = '随机摇一个（合法的候选里随机挑，每次都不一样）';
     dice.textContent = '🎲';
     dice.addEventListener('click', () => {
+      /* 【骰子 = 随机】必须传 random:true —— 不传就是「出号」用的确定性算法，
+         同样的数据每次算出来都一样，点骰子当然摇不出变化。 */
       inp.value = rollValueFor(gameId, {
         key: spec.key,
         label: spec.label,
         count: spec.count,
         areaKey
-      });
+      }, { random: true, ctx: formValues(), imageKey });
+      settleConsistency();
       dice.classList.add('rolled');
       setTimeout(() => dice.classList.remove('rolled'), 400);
     });
@@ -15681,12 +16270,14 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
           dice.title = '从真实排行里摇一个';
           dice.textContent = '🎲';
           dice.addEventListener('click', () => {
+            /* 【骰子原本的语义】从热号排行的真实结果里随机挑一条。
+               号码区必须按【分组标签】取（蓝球热号排行 → 蓝球），
+               否则会摇出 24 这种根本不是蓝球的号。 */
+            const gArea = areaForGroup(g);
             const ranks = (typeof hotRankStrings === 'function')
-              ? hotRankStrings(gameId, ak, g.count || 6, HIST_PERIODS)
+              ? hotRankStrings(gameId, gArea, g.count || 6, HIST_PERIODS)
               : [];
-            inp.value = ranks.length
-              ? ranks[ri(0, ranks.length - 1)]
-              : '';
+            inp.value = ranks.length ? ranks[ri(0, ranks.length - 1)] : '';
             dice.classList.add('rolled');
             setTimeout(() => dice.classList.remove('rolled'), 400);
           });
@@ -15779,6 +16370,7 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
 
     /* ---- 页脚键值 ---- */
     if (sec.footer) {
+      const ak = areaKeyOf(sec);
       sec.footer.forEach((f) => {
         const row = document.createElement('div');
         row.className = 'tk-numrow';
@@ -15790,6 +16382,10 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
         inp.placeholder = '';
         inp.value = vals[f.key] || '';
         inputs[f.key] = inp;
+        /* 记下元信息：一键摇号会给这些字段填「合值区间 / 和尾 / 防组三 / 杀号」，
+           「全部随机」也要按同一口径填（杀号只要 3 个号），
+           否则空白表单点完还是空的、存档到页面上会画成「—」 */
+        inputMeta[f.key] = { label: f.label, count: /杀/.test(f.label || '') ? 3 : 6, areaKey: ak };
         row.appendChild(inp);
         block.appendChild(row);
       });
@@ -15849,22 +16445,43 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
   allBtn.title = '一次把所有字段都摇出来（热号排行保持真实值不动）';
   allBtn.addEventListener('click', () => {
     let n = 0;
+    /* 逐步累积：后面的字段看得到前面刚摇出来的值，整图才不会自相矛盾 */
+    const work = formValues();
     Object.keys(inputs).forEach((k) => {
-      // 热号排行不参与随机，保持真实统计值
-      if (fixedKeys.has(k)) return;
+      const meta = inputMeta[k];
+      /* 热号排行：保持真实统计值不动。
+         空白表单里这几行还没有值（不然保存后页面上会画成「—」），
+         按「一键摇号」的同一口径给它们填上真实排行的那一条。 */
+      if (fixedKeys.has(k)) {
+        if (meta && !String(inputs[k].value || '').trim() && typeof hotRankStrings === 'function') {
+          const ranks = hotRankStrings(gameId, meta.areaKey, meta.count || 6, HIST_PERIODS) || [];
+          const m = String(k).match(/_(\d+)$/);
+          const idx = m ? Number(m[1]) : 0;
+          if (ranks[idx] !== undefined) { inputs[k].value = ranks[idx]; n++; }
+        }
+        return;
+      }
 
-      const meta = inputMeta[k] || {};
-      inputs[k].value = rollValueFor(gameId, {
+      /* 没有元信息的字段（公历 / 农历 / 五行号码 / 徽章 / 绕胆图格子…）
+         根本不是号码，以前会被写成一个号码，这里保持原样不动 */
+      if (!meta) return;
+
+      /* 【random:true】骰子要的是「合法的、但不一样的值」；
+         不传就是出号用的确定性算法 —— 那才会出现「点了全部随机没变化」。 */
+      const v = rollValueFor(gameId, {
         key: k,
         label: meta.label,
         count: meta.count,
         areaKey: meta.areaKey,
         itemLabel: meta.itemLabel
-      });
+      }, { random: true, ctx: work, imageKey });
+      inputs[k].value = v;
+      if (String(v == null ? '' : v).trim()) work[k] = v;
       n++;
     });
+    const fixed = settleConsistency();
     msg.style.color = '#f0b429';
-    msg.textContent = `已随机 ${n} 个字段（热号排行保持真实值）`;
+    msg.textContent = `已随机 ${n} 个字段（热号排行保持真实值${fixed ? `，顺手修了 ${fixed} 处自相矛盾` : ''}）`;
     setTimeout(() => { msg.textContent = ''; }, 3000);
 
     // 按钮反馈
@@ -16774,7 +17391,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-15 00:45
+   生成时间：2026-10-15 01:06
    生成脚本：build-heatmap.mjs
    本次彩种：ssq
    数据来源：history-fallback
@@ -16787,20 +17404,20 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-15 00:45',
+  updated: '2026-10-15 01:06',
   source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
       issue: '2026118',
       drawDate: '2026-10-15',
-      madeAt: '2026-10-15 00:44',
+      madeAt: '2026-10-15 01:05',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
       numberPosts: 0,
       note: '晒票样本不足，改用近 30 期开奖号码频率（2026088~2026117）',
-      ocr: { posts: 6, urls: 6, downloaded: 6, downloadFailed: 0, cacheHits: 6, recognized: 0, tickets: , secs: 44.1, err: 'OCR 有效票只有 0 张（需 ≥5）' },
+      ocr: { posts: 6, urls: 6, downloaded: 6, downloadFailed: 0, cacheHits: 6, recognized: 0, tickets: 0, secs: 45.1, err: 'OCR 有效票只有 0 张（需 ≥5）' },
       front: { label: '红球', color: 'red', total: 180, items: [{ num: 4, pct: 6.11, count: 11 }, { num: 24, pct: 6.11, count: 11 }, { num: 13, pct: 5, count: 9 }, { num: 14, pct: 5, count: 9 }, { num: 22, pct: 5, count: 9 }, { num: 11, pct: 4.44, count: 8 }, { num: 30, pct: 4.44, count: 8 }, { num: 6, pct: 3.89, count: 7 }, { num: 33, pct: 3.89, count: 7 }, { num: 5, pct: 3.33, count: 6 }, { num: 16, pct: 3.33, count: 6 }, { num: 18, pct: 3.33, count: 6 }, { num: 20, pct: 3.33, count: 6 }, { num: 25, pct: 3.33, count: 6 }, { num: 26, pct: 3.33, count: 6 }, { num: 31, pct: 3.33, count: 6 }, { num: 9, pct: 2.78, count: 5 }, { num: 12, pct: 2.78, count: 5 }, { num: 15, pct: 2.78, count: 5 }, { num: 27, pct: 2.78, count: 5 }, { num: 1, pct: 2.22, count: 4 }, { num: 2, pct: 2.22, count: 4 }, { num: 29, pct: 2.22, count: 4 }, { num: 3, pct: 1.67, count: 3 }, { num: 7, pct: 1.67, count: 3 }, { num: 8, pct: 1.67, count: 3 }, { num: 17, pct: 1.67, count: 3 }, { num: 19, pct: 1.67, count: 3 }, { num: 23, pct: 1.67, count: 3 }, { num: 28, pct: 1.67, count: 3 }, { num: 10, pct: 1.11, count: 2 }, { num: 21, pct: 1.11, count: 2 }, { num: 32, pct: 1.11, count: 2 }] },
       back: { label: '蓝球', color: 'blue', total: 30, items: [{ num: 3, pct: 13.33, count: 4 }, { num: 4, pct: 13.33, count: 4 }, { num: 5, pct: 10, count: 3 }, { num: 11, pct: 10, count: 3 }, { num: 2, pct: 6.67, count: 2 }, { num: 9, pct: 6.67, count: 2 }, { num: 12, pct: 6.67, count: 2 }, { num: 14, pct: 6.67, count: 2 }, { num: 16, pct: 6.67, count: 2 }, { num: 1, pct: 3.33, count: 1 }, { num: 6, pct: 3.33, count: 1 }, { num: 7, pct: 3.33, count: 1 }, { num: 8, pct: 3.33, count: 1 }, { num: 10, pct: 3.33, count: 1 }, { num: 15, pct: 3.33, count: 1 }, { num: 13, pct: 0, count: 0 }] }
     }
