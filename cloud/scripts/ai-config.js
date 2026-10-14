@@ -15,6 +15,12 @@ const AI_CONFIG = {
   baseUrl: 'https://api.deepseek.com',
   model: 'deepseek-chat',
 
+  /* 每日 AI 消费上限（元）：当天累计花费达到这个数就【拒绝调用】，
+     要改就改这个数字（临时想多花一点就写大些，比如 20）。
+     计费按 DeepSeek 官方 deepseek-chat 价：输入未命中 2 元/百万 tokens、
+     缓存命中 0.5、输出 8；每次调用都记在 .ai-cost.json 里。 */
+  dailyLimitCNY: 5,
+
   /* reasoningEffort：只用于「智能助手」页面上显示「推理强度」。
      【如实说明】DeepSeek 的 /chat/completions 接口【没有】reasoning_effort
      这个入参（传了会被 400 拒绝），所以这个值不会发出去，纯展示用。
