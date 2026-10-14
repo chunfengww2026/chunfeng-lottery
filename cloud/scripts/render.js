@@ -158,10 +158,11 @@ const SECTION_RENDER = {
       row.appendChild(el('span', 'r-numlabel', sec.groupLabel || ''));
       const balls = el('span', 'r-ballwrap');
       const nums = parseTicketNums(vals[sec.groupRow.key]);
-      // 第一个金色，其余红色（对应模板里 2 金 + 5 红）
-      nums.forEach((n, i) => balls.appendChild(rBall(String(n), i === 0 ? 'gold' : 'red', 'md')));
+      /* 【6 码统一红色】用户原话：「排三 3D 6码推荐都要给我是红色」
+         以前是「第一个金色，其余红色」，用户要求 6 个码全部红色。 */
+      nums.forEach((n) => balls.appendChild(rBall(String(n), 'red', 'md')));
       for (let i = nums.length; i < sec.groupRow.count; i++) {
-        balls.appendChild(rBall('', i === 0 ? 'gold' : 'red', 'md', 'empty'));
+        balls.appendChild(rBall('', 'red', 'md', 'empty'));
       }
       row.appendChild(balls);
       box.appendChild(row);
