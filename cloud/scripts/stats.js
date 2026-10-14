@@ -820,13 +820,20 @@ function deriveFromPicks(nums, from, to) {
 
   // 奇偶：全部同类就写「N奇」/「N偶」，否则写「2奇1偶」
   let oddEven;
-  if (oddCount === list.length) oddEven = `${list.length}奇`;
+  if (list.length === 1) {
+    /* 【单球】用户要求：蓝球这种只有一个球的时候只写「奇」或「偶」，
+       不要「1奇」这种带个 1 的写法。 */
+    oddEven = oddCount === 1 ? '奇' : '偶';
+  } else if (oddCount === list.length) oddEven = `${list.length}奇`;
   else if (evenCount === list.length) oddEven = `${list.length}偶`;
   else oddEven = `${oddCount}奇${evenCount}偶`;
 
   // 大小：同理
   let bigSmall;
-  if (bigCount === list.length) bigSmall = `${list.length}大`;
+  if (list.length === 1) {
+    /* 【单球】用户原话：「双色球硬模板蓝球要么就是大要么就是小不要加个 1」 */
+    bigSmall = bigCount === 1 ? '大' : '小';
+  } else if (bigCount === list.length) bigSmall = `${list.length}大`;
   else if (smallCount === list.length) bigSmall = `${list.length}小`;
   else bigSmall = `${bigCount}大${smallCount}小`;
 
