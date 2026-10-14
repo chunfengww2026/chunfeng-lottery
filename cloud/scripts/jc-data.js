@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 02:36 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 02:46 */
 const JC_DATA = {
- "updated": "2026-10-15 02:36",
+ "updated": "2026-10-15 02:46",
  "stat": {
   "total": 14,
   "upcoming": 8,
@@ -348,7 +348,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 3,
-    "away": 1
+    "away": 2
    },
    "statusText": "1 - 1 ",
    "odds": {
@@ -406,7 +406,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 3,
-    "away": 1
+    "away": 2
    }
   },
   {
@@ -540,9 +540,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.7,
-      "over": 2.5,
-      "under": 1.1
+      "line": 1.1,
+      "over": 3,
+      "under": 0.7
      }
     }
    },
@@ -614,9 +614,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.87,
-      "over": 3,
-      "under": 0.97
+      "line": 1.07,
+      "over": 3.5,
+      "under": 0.72
      }
     }
    },
@@ -676,9 +676,9 @@ const JC_DATA = {
       "away": 1.75
      },
      "live": {
-      "home": 2.7,
+      "home": 2.63,
       "draw": 3.9,
-      "away": 2.38
+      "away": 2.45
      }
     },
     "overunder": {
@@ -688,23 +688,23 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.97,
-      "over": 3.5,
-      "under": 0.87
+      "line": 0.75,
+      "over": 3,
+      "under": 1.05
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 40.1,
+    "confidence": 39.1,
     "prob": {
-     "home": 35.4,
+     "home": 36.4,
      "draw": 24.5,
-     "away": 40.1
+     "away": 39.1
     },
     "clear": false,
-    "margin": 4.7,
+    "margin": 4.5,
     "rqLine": "受平手/半球"
    },
    "status": "upcoming",
@@ -722,11 +722,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "贝蒂斯",
-    "rank": 13
+    "rank": 12
    },
    "away": {
     "name": "波尔图",
-    "rank": 29
+    "rank": 28
    },
    "score": null,
    "statusText": "- ",
@@ -762,9 +762,9 @@ const JC_DATA = {
       "under": 0.97
      },
      "live": {
-      "line": 0.85,
-      "over": 2.5,
-      "under": 1
+      "line": 1.05,
+      "over": 3,
+      "under": 0.75
      }
     }
    },
@@ -796,11 +796,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "曼城",
-    "rank": 9
+    "rank": 10
    },
    "away": {
     "name": "巴黎圣曼",
-    "rank": 5
+    "rank": 6
    },
    "score": null,
    "statusText": "- ",
@@ -824,9 +824,9 @@ const JC_DATA = {
       "away": 2.75
      },
      "live": {
-      "home": 1.95,
-      "draw": 4,
-      "away": 3.3
+      "home": 1.91,
+      "draw": 4.2,
+      "away": 3.4
      }
     },
     "overunder": {
@@ -845,14 +845,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.1,
+    "confidence": 49.6,
     "prob": {
-     "home": 48.1,
-     "draw": 23.5,
-     "away": 28.4
+     "home": 49.6,
+     "draw": 22.6,
+     "away": 27.9
     },
     "clear": true,
-    "margin": 6.6,
+    "margin": 5.6,
     "rqLine": "半球"
    },
    "status": "upcoming",
@@ -870,7 +870,7 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "维拉",
-    "rank": 12
+    "rank": 15
    },
    "away": {
     "name": "费内巴切",
@@ -910,9 +910,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.97,
+      "line": 1.1,
       "over": 3,
-      "under": 0.87
+      "under": 0.7
      }
     }
    },
