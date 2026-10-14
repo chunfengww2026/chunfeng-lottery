@@ -3,10 +3,15 @@
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
 //
-//  【数据源】jc-data.js —— 体彩竞彩在售比赛
-//    这是官方竞彩场次，每天 10~20 场，看得过来。
-//    之前的 football.js 有 168 场（全世界各种联赛），
-//    太多而且大部分不能买，已改为只显示竞彩场次。
+//  【数据源】
+//    jc-data.js     —— 体彩竞彩【在售】比赛（官方场次，每天 10~20 场）
+//    jc-history.js  —— 竞彩【已完场】累积记录（build-jc.mjs 归档出来的）
+//
+//  【为什么要有 jc-history】
+//    在售列表只含还能买的比赛，一开完赛就从列表里消失 ——
+//    所以「已完场」如果只读 jc-data 会【永远是 0 场】。
+//    build-jc.mjs 每跑一次就把打完的比赛归档进 jc-history.js，
+//    这里把两边合并，已完场才真的能累积起来。
 //
 //  内容：未开赛 / 进行中 / 已完场 三个分区
 //        每场：竞彩编号、联赛、球队+排名、比分、赔率、推荐
@@ -43,6 +48,9 @@ if (!JC || !Array.isArray(JC.games) || !JC.games.length) {
   process.exit(1);
 }
 
+/* 已完场累积记录（可能还没有这个文件 —— 第一次跑 build-jc.mjs 之后才有） */
+const HIST = loadVar('jc-history.js', 'JC_HISTORY');
+
 /* football.js 用来补充实时比分（可选） */
 const FB = loadVar('football.js', 'FOOTBALL_DATA');
 
@@ -70,13 +78,21 @@ const ALL_FB = FB && FB.lists
   ? [...(FB.lists.upcoming || []), ...(FB.lists.live || []), ...(FB.lists.finished || [])]
   : [];
 
-/* 繁简 + 简写对照 */
+/* 繁简 + 简写对照
+   【注意】这份表和 jc-archive.mjs 里的 ALIAS / TRAD 是同一套规则，
+   两边要一起改，否则「归档时能配上的队名、出页面时又配不上」。
+   这里只影响 jc-data 场次去 football.js 补实时比分，漏配只是少个比分，不会出错。 */
 const ALIAS = {
-  '米堡': '米德尔斯堡', '莱红牛': '莱比锡红牛', '拜仁': '拜仁慕尼黑',
-  '巴萨': '巴塞罗那', '马竞': '马德里竞技', '曼联': '曼彻斯特联',
-  '那不勒斯': '拿玻里', '比利亚雷': '比利亚雷亚尔', '加拉塔萨': '加拉塔萨雷',
-  '埃因霍温': 'PSV埃因霍温', '里斯本': '葡萄牙体育', '国米': '国际米兰',
-  '纽喷气机': '纽卡斯尔喷气机', '圣日耳曼': '巴黎圣日尔曼'
+  /* jc-data（竞彩简称）→ football.js（245qq 写法） */
+  '南安普敦': '南安普顿', '贝蒂斯': '皇家贝蒂斯', '维拉': '阿斯顿维拉',
+  '曼城': '曼彻斯特城', '巴黎圣曼': '巴黎圣日耳曼', '弗鲁米嫩': '弗鲁米嫩塞',
+  '帕梅拉斯': '帕尔梅拉斯', '圣路易斯城': '圣路易斯市', '温哥华': '温哥华白帽',
+  '皇马': '皇家马德里', '巴萨': '巴塞罗那', '马竞': '马德里竞技',
+  '曼联': '曼彻斯特联', '国米': '国际米兰', '拜仁': '拜仁慕尼黑',
+  '莱红牛': '莱比锡红牛', '米堡': '米德尔斯堡', '那不勒斯': '拿玻里',
+  '比利亚雷': '比利亚雷亚尔', '加拉塔萨': '加拉塔萨雷',
+  '埃因霍温': 'PSV埃因霍温', '里斯本': '葡萄牙体育',
+  '纽喷气机': '纽卡斯尔喷气机', '博德闪耀': '博多格林特'
 };
 
 /* 繁体 → 简体（队名常见字） */
@@ -84,30 +100,49 @@ const TRAD = {
   '溫': '温', '爾': '尔', '蘭': '兰', '維': '维', '薩': '萨', '羅': '罗',
   '馬': '马', '德': '德', '聯': '联', '競': '竞', '體': '体', '門': '门',
   '興': '兴', '達': '达', '萊': '莱', '錫': '锡', '圖': '图', '倫': '伦',
-  '佈': '布', '雷': '雷', '斯': '斯', '頓': '顿', '漢': '汉', '堡': '堡'
+  '佈': '布', '雷': '雷', '斯': '斯', '頓': '顿', '漢': '汉', '堡': '堡',
+  '聖': '圣', '貝': '贝', '華': '华', '魯': '鲁', '輔': '辅', '亞': '亚',
+  '內': '内', '納': '纳', '傑': '杰', '飛': '飞', '紅': '红', '紐': '纽',
+  '約': '约', '廣': '广', '島': '岛', '國': '国', '際': '际', '業': '业',
+  '費': '费', '熱': '热', '銀': '银', '礦': '矿', '澤': '泽', '車': '车',
+  '東': '东', '蘇': '苏', '愛': '爱'
 };
 
 function toSimp(s) {
   return String(s || '').replace(/[\u4e00-\u9fa5]/g, (ch) => TRAD[ch] || ch);
 }
 
+/** 去掉「U19 / 女足 / 俱乐部 / 后备队」这类噪音 */
+function stripNoise(s) {
+  return String(s || '').replace(
+    /(足球俱乐部|俱乐部|足球队|后备队|预备队|青年队|女足|U\d{2}|FC|SC|CF|AC|BK|IF|FK|SV|SK|CS)/gi,
+    ''
+  );
+}
+
 function norm(s) {
-  return toSimp(String(s || ''))
-    .replace(/[\s\-·.()（）]/g, '')
-    .replace(/(足球俱乐部|俱乐部|足球队|后备队|预备队|青年队|女足|U\d+|FC|SC|CF|AC|BK|IF|FK|SV|SK|CS)/gi, '')
+  const simp = toSimp(String(s || '').trim());
+  const aliased = ALIAS[simp] || simp;
+  return stripNoise(aliased)
+    .replace(/[（(].*?[)）()]/g, '')
+    .replace(/[\s\-·.]/g, '')
     .toLowerCase();
 }
 
-function expand(n) {
-  const t = ALIAS[String(n || '').trim()];
-  return t ? norm(t) : norm(n);
-}
+/* 青年队 / 后备队 / 女足 必须和成年队区分开，否则「维拉」会配到「阿斯顿维拉U19」 */
+const YOUTH_RE = /(U\d{2}|女足|后备队|预备队|青年队|B队|二队|II队)/i;
 
 function sameTeam(a, b) {
-  const x = expand(a), y = norm(b);
+  const ra = String(a || '');
+  const rb = String(b || '');
+  if (YOUTH_RE.test(ra) !== YOUTH_RE.test(rb)) return false;
+  const x = norm(ra);
+  const y = norm(rb);
   if (!x || !y) return false;
   if (x === y) return true;
-  if (x.length >= 2 && y.length >= 2 && (x.includes(y) || y.includes(x))) return true;
+  const short = x.length <= y.length ? x : y;
+  const long = x.length <= y.length ? y : x;
+  if (short.length >= 3 && long.includes(short)) return true;
   return false;
 }
 
@@ -127,6 +162,81 @@ function findFb(g) {
 
 /* ---------- 整理每场的展示数据 ---------- */
 const kindCN = { upcoming: '未开赛', live: '进行中', finished: '已完场' };
+
+/* ============================================================
+   把 jc-history.js 的归档记录转成和 jc-data 一样的形状，
+   这样后面的 prep / renderMatch / 统计全都不用改逻辑。
+   ============================================================ */
+function historyToGame(rec) {
+  const m = /^(\d+)\s*[:：-]\s*(\d+)$/.exec(String(rec.score || ''));
+  const hs = m ? +m[1] : null;
+  const as = m ? +m[2] : null;
+  const hasScore = hs !== null && as !== null;
+
+  const pick = rec.pick || '';
+  const label = rec.pickLabel
+    || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '';
+
+  return {
+    gid: 'hist-' + (rec.code || '') + '-' + String(rec.time || '').replace(/\D/g, ''),
+    code: rec.code || '',
+    league: rec.league || '',
+    round: '',
+    time: rec.time || '',
+    handicap: rec.hc != null ? rec.hc : null,
+    home: { name: rec.home || '?', rank: null },
+    away: { name: rec.away || '?', rank: null },
+    score: hasScore ? { home: hs, away: as } : null,
+    liveScore: null,
+    status: 'finished',
+    minute: 0,
+    odds: rec.odds ? { europe: { open: null, live: rec.odds } } : null,
+    reco: pick ? {
+      pick, label,
+      confidence: rec.conf != null ? rec.conf : null,
+      prob: null, clear: false, margin: null,
+      fromHistory: true
+    } : null
+  };
+}
+
+/* 历史记录的身份键（用来和本次在售的去重） */
+const histKey = (r) => {
+  const ck = /[周週]([一二三四五六日天])\s*0*(\d{1,3})/.exec(String(r.code || ''));
+  if (ck) {
+    const map = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 日: 7, 天: 7 };
+    return 'code:周' + map[ck[1]] + '-' + String(ck[2]).padStart(3, '0');
+  }
+  const tp = [norm(r.home), norm(r.away)].sort().join('|');
+  return tp ? 'id:' + tp + '@' + dayOf(r.time) : '';
+};
+
+/* 本次在售里已有的身份键 —— 历史里重复的就不再单独显示 */
+const jcKeys = new Set();
+JC.games.forEach((g) => {
+  const ck = /[周週]([一二三四五六日天])\s*0*(\d{1,3})/.exec(String(g.code || ''));
+  if (ck) {
+    const map = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 日: 7, 天: 7 };
+    jcKeys.add('code:周' + map[ck[1]] + '-' + String(ck[2]).padStart(3, '0'));
+  }
+  const tp = [norm(g.home && g.home.name), norm(g.away && g.away.name)].sort().join('|');
+  if (tp) jcKeys.add('id:' + tp + '@' + dayOf(g.time));
+});
+
+/* 历史（去重 + 按时间倒序） */
+const HIST_LIST = (HIST && Array.isArray(HIST.list)) ? HIST.list : [];
+const HIST_GAMES = [];
+const seenHist = new Set();
+HIST_LIST.forEach((r) => {
+  if (!r) return;
+  const k = histKey(r);
+  if (k && (jcKeys.has(k) || seenHist.has(k))) return;
+  if (k) seenHist.add(k);
+  HIST_GAMES.push(historyToGame(r));
+});
+
+/* 已完场 = 本次在售里完场的 + 历史累积的 */
+const ALL_GAMES = [...JC.games, ...HIST_GAMES];
 
 function prep(g) {
   const fb = findFb(g);
@@ -162,14 +272,23 @@ function prep(g) {
   };
 }
 
-const MATCHES = JC.games.map(prep);
+/* 【关键】这里必须用合并后的 ALL_GAMES（在售 + 历史），
+   否则「已完场」还是只有本次在售里完场的那几场，历史累积的不显示。 */
+const MATCHES = ALL_GAMES.map(prep);
+
+/* 本次在售有多少场完场（和总数区分开，页面上会标） */
+const JC_FINISHED = JC.games.filter((g) => (g.status || '') === 'finished').length;
 
 /* ---------- 统计 ---------- */
 const stat = {
   total: MATCHES.length,
   upcoming: MATCHES.filter((m) => m.kind === 'upcoming').length,
   live: MATCHES.filter((m) => m.kind === 'live').length,
+  /* finished 含【历史累积】的场次 —— 这就是「已完场能累积」的关键 */
   finished: MATCHES.filter((m) => m.kind === 'finished').length,
+  /* 其中这一次在售里完场的几场（其余是历史归档来的） */
+  finishedToday: JC_FINISHED,
+  history: HIST_GAMES.length,
   settled: 0, hit: 0, miss: 0
 };
 MATCHES.forEach((m) => {
@@ -179,6 +298,12 @@ MATCHES.forEach((m) => {
   }
 });
 stat.rate = stat.settled ? ((stat.hit / stat.settled) * 100).toFixed(1) : '0.0';
+
+/* ---------- 数据更新时间 ----------
+   jc-data.updated 是「在售列表」的时间，jc-history.updated 是归档时间，
+   页面上显示两者里较新的那个，免得页脚写着「更新于」却是几小时前的在售时间。 */
+const LATEST_UPDATED = [JC.updated, HIST && HIST.updated]
+  .filter(Boolean).sort().pop() || JC.updated || '';
 
 const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
@@ -370,7 +495,7 @@ ${nav}
 <body>
 <div class="wrap">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${stat.total} 场 · 更新于 ${esc(JC.updated || '')}</div>
+  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · 更新于 ${esc(LATEST_UPDATED)}</div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
