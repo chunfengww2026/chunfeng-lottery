@@ -2257,7 +2257,7 @@ body {
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-14 23:33">
+<body data-built="2026-10-14 23:34">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -15442,7 +15442,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-14 23:33
+   生成时间：2026-10-14 23:34
    生成脚本：build-heatmap.mjs
    本次彩种：dlt
    数据来源：history-fallback
@@ -15455,14 +15455,14 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-14 23:33',
+  updated: '2026-10-14 23:34',
   source: 'history-fallback',
   games: {
     dlt: {
       name: '大乐透',
       issue: '26117',
       drawDate: '2026-10-14',
-      madeAt: '2026-10-14 23:33',
+      madeAt: '2026-10-14 23:34',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
@@ -15974,18 +15974,20 @@ const SECTION_RENDER = {
       return box;
     }
 
-    /* ---------- 1. 顶部标题条（几何/配色同时写内联，避免缓存里的旧样式表拖累） ---------- */
+    /* ---------- 1. 顶部标题条（几何/配色同时写内联，避免缓存里的旧样式表拖累） ----------
+       【排版】副标题固定「{彩种} 第 {期号} 期 · 全网公开晒票号码占比」（用户指定的模板原文，
+       不加任何括号补充）。字号 11.5px、不加字距，保证在窄屏也不溢出红条；
+       真溢出了就自动换行（不裁切、不贴边）。 */
     const bar = el('div', 'r-hm-titlebar');
     bar.style.cssText = 'background:#b71c1c;border-radius:10px;color:#ffffff;text-align:center;' +
-      'padding:13px 12px 11px;margin-bottom:14px;border:none;';
+      'padding:12px 16px 11px;margin-bottom:14px;border:none;overflow:hidden;box-sizing:border-box;';
     const t1 = el('div', 'r-hm-t1', '春风小店实票统计');
-    t1.style.cssText = 'font-size:23px;font-weight:800;letter-spacing:3px;line-height:1.25;color:#ffffff;';
+    t1.style.cssText = 'font-size:22px;font-weight:800;letter-spacing:2px;line-height:1.25;color:#ffffff;';
     bar.appendChild(t1);
-    const sub = (H.source === 'yiqicai-xysp')
-      ? `${H.name} 第 ${H.issue} 期 · 全网公开晒票号码占比`
-      : `${H.name} 第 ${H.issue} 期 · ${H.sourceLabel || '近30期开奖号码频率'}（晒票样本不足）`;
+    const sub = `${H.name} 第 ${H.issue} 期 · 全网公开晒票号码占比`;
     const t2 = el('div', 'r-hm-t2', sub);
-    t2.style.cssText = 'font-size:12.5px;color:#ffd9d9;margin-top:5px;letter-spacing:0.5px;';
+    t2.style.cssText = 'font-size:11.5px;color:#ffd9d9;margin-top:5px;letter-spacing:0;line-height:1.4;' +
+      'white-space:normal;word-break:keep-all;';
     bar.appendChild(t2);
     box.appendChild(bar);
 
@@ -15998,12 +16000,17 @@ const SECTION_RENDER = {
     box.appendChild(hmChartBlock(front, 'red', 250, pctFont, numFont));
     box.appendChild(hmChartBlock(back, 'blue', 200, '9.5px', '10px'));
 
-    /* ---------- 3. 数据来源标注（不假装是晒票统计） ---------- */
+    /* ---------- 3. 数据来源标注（不假装是晒票统计） ----------
+       OCR 成功 → 「数据来源：全网公开晒票照片识别 · 仅为统计展示」
+       兜底     → 「数据来源：近 30 期开奖号码频率 · 仅为统计展示」 */
     const src = el('div', 'r-hm-src');
-    src.style.cssText = 'font-size:10.5px;color:#9aa0a6;text-align:center;margin-top:4px;';
-    src.textContent = H.source === 'yiqicai-xysp'
-      ? `数据来源：一起彩幸运晒票（当期公开晒票 ${H.sampleCount} 篇）· 生成 ${H.madeAt}`
-      : `数据来源：近 30 期开奖号码频率（晒票样本不足，未采用晒票统计）· 生成 ${H.madeAt}`;
+    src.style.cssText = 'font-size:10.5px;color:#9aa0a6;text-align:center;margin-top:4px;line-height:1.5;';
+    /* 兼容历史数据：没有 source 字段的旧数据（'yiqicai-xysp'）按晒票文字处理 */
+    src.textContent = (H.source === 'ocr-xysp')
+      ? '数据来源：全网公开晒票照片识别 · 仅为统计展示'
+      : (H.source === 'xysp-text' || H.source === 'yiqicai-xysp')
+        ? '数据来源：全网公开晒票 · 仅为统计展示'
+        : '数据来源：近 30 期开奖号码频率 · 仅为统计展示';
     box.appendChild(src);
     const tip = el('div', 'r-hm-tip',
       '仅为公开晒票/历史开奖的统计展示，不构成购彩建议，也不能预测中奖。');
@@ -16071,6 +16078,8 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
   bars.style.cssText = 'position:absolute;left:0;right:0;bottom:0;height:100%;' +
     'display:flex;align-items:flex-end;gap:2px;';
 
+  let prevPct = null;                 // 上一根的占比（用来跳过同占比的重复标签）
+
   items.forEach((it) => {
     const pct = Number(it.pct) || 0;
     const h = pxOf(pct);
@@ -16078,11 +16087,18 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
     const col = el('div', 'r-hm-col');
     col.style.cssText = 'position:relative;flex:1 1 0;min-width:0;height:100%;';
 
-    // 柱顶百分比
-    const pctEl = el('div', 'r-hm-pct', hmPctText(pct));
-    pctEl.style.cssText =
-      `position:absolute;left:-2px;right:-2px;bottom:${h}px;height:12px;line-height:12px;` +
-      `text-align:center;font-size:${pctFont};color:#5f6368;white-space:nowrap;`;
+    /* 柱顶百分比：760px 宽下 35 根柱子只有 ~19px，同占比的相邻标签会挤成一团
+       （实测出现 "6%6%"、"4%4%4%4%4%"）。所以【同占比的连续柱子只标第一根】，
+       剩下的留白 —— 柱子高度/颜色已经能看出是同一个占比。
+       0% 的号也照此处理（第一根 0% 仍然显示 0%）。 */
+    if (prevPct === null || Math.abs(pct - prevPct) > 1e-9) {
+      const pctEl = el('div', 'r-hm-pct', hmPctText(pct));
+      pctEl.style.cssText =
+        `position:absolute;left:-2px;right:-2px;bottom:${h}px;height:12px;line-height:12px;` +
+        `text-align:center;font-size:${pctFont};color:#5f6368;white-space:nowrap;`;
+      col.appendChild(pctEl);
+    }
+    prevPct = pct;
 
     // 柱子本体
     const b = el('div', 'r-hm-bar');
@@ -16090,7 +16106,6 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
       `position:absolute;left:0;right:0;bottom:0;height:${h}px;` +
       `background:${hmColor(pct, maxPct, colorKind)};border-radius:2px 2px 0 0;`;
 
-    col.appendChild(pctEl);
     col.appendChild(b);
     bars.appendChild(col);
   });
@@ -40962,18 +40977,13 @@ function renderExpertPanel(container, gameId) {
 </script>
 
 <script data-src="materials-data.js">
-/* ============================================================
-   materials-data.js —— 资料存档
-
-   由 App 内「同步到网页」写入；放到程序目录后，分享页就能显示这些资料。
-   写入时间：2026-10-14 23:09
-   ============================================================ */
-
+/* 临时测试内容 */
 const MATERIALS_DATA = {
- "updated": "2026-10-14 23:09",
- "list": []
+ "updated": "2026-10-14 23:40",
+ "list": [
+  { "id": "t1", "text": "红球：01 02 03", "games": ["ssq"], "time": "2026-10-14 23:40" }
+ ]
 };
-
 </script>
 
 <script data-src="data-store.js">
@@ -41557,12 +41567,29 @@ function buildKeyLabelMap(gameId) {
 }
 
 /**
- * 取某彩种某区的「资料约束」
+ * 取某彩种某区的「资料约束」（从资料库读）
  * @param {string} gameId
  * @param {string} areaKey red / blue / front / back / main
  * @returns {{pick:number[], kill:number[], dan:number[], tuo:number[]}}
  */
 function materialRulesFor(gameId, areaKey) {
+  const empty = { pick: [], kill: [], dan: [], tuo: [] };
+  let text = '';
+  try {
+    const mats = (typeof materialsFor === 'function') ? materialsFor(gameId) : [];
+    text = mats.map((m) => (m && m.text) || '').join('\n');
+  } catch (e) { return empty; }
+  return materialRulesFromText(gameId, areaKey, text);
+}
+
+/**
+ * 从一段资料文字里解析某彩种某区的号码约束（不读资料库，给「资料页提示」等用）
+ * @param {string} gameId
+ * @param {string} areaKey
+ * @param {string} text
+ * @returns {{pick:number[], kill:number[], dan:number[], tuo:number[]}}
+ */
+function materialRulesFromText(gameId, areaKey, text) {
   const out = { pick: [], kill: [], dan: [], tuo: [] };
   if (!gameId || !areaKey) return out;
 
@@ -41571,12 +41598,8 @@ function materialRulesFor(gameId, areaKey) {
   const from = range[0];
   const to = range[1];
 
-  let text = '';
-  try {
-    const mats = (typeof materialsFor === 'function') ? materialsFor(gameId) : [];
-    text = mats.map((m) => (m && m.text) || '').join('\n');
-  } catch (e) { return out; }
-  if (!String(text).trim()) return out;
+  text = String(text == null ? '' : text);
+  if (!text.trim()) return out;
 
   const put = (arr, nums) => {
     nums.forEach((n) => { if (n >= from && n <= to && arr.indexOf(n) < 0) arr.push(n); });
@@ -41651,7 +41674,7 @@ function materialTextRecognized(gameIds, text) {
     try {
       const spec = materialAreaSpec(g);
       return [spec.mainKey, spec.altKey].some((k) => {
-        const r = materialRulesFor(g, k);
+        const r = materialRulesFromText(g, k, t);
         return (r.pick.length + r.kill.length + r.dan.length + r.tuo.length) > 0;
       });
     } catch (e) { return false; }
