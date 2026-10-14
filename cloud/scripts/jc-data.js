@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 03:00 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 03:05 */
 const JC_DATA = {
- "updated": "2026-10-15 03:00",
+ "updated": "2026-10-15 03:05",
  "stat": {
   "total": 14,
-  "upcoming": 7,
-  "live": 3,
+  "upcoming": 2,
+  "live": 8,
   "finished": 4,
-  "withScore": 7
+  "withScore": 12
  },
  "games": [
   {
@@ -586,7 +586,10 @@ const JC_DATA = {
     "name": "皇马",
     "rank": 16
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -639,9 +642,12 @@ const JC_DATA = {
     "margin": 4.7,
     "rqLine": "受半球/一球"
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1479918",
@@ -660,7 +666,10 @@ const JC_DATA = {
     "name": "多特蒙德",
     "rank": 14
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -670,9 +679,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 0.92,
-      "line": "平手",
-      "away": 0.92
+      "home": 0.67,
+      "line": "受平手/半球",
+      "away": 1.15
      }
     },
     "europe": {
@@ -711,11 +720,14 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 4.5,
-    "rqLine": "平手"
+    "rqLine": "受平手/半球"
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1479911",
@@ -734,7 +746,10 @@ const JC_DATA = {
     "name": "波尔图",
     "rank": 28
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -744,9 +759,9 @@ const JC_DATA = {
       "away": 0.9
      },
      "live": {
-      "home": 1.07,
+      "home": 1.02,
       "line": "半球",
-      "away": 0.72
+      "away": 0.77
      }
     },
     "europe": {
@@ -787,9 +802,12 @@ const JC_DATA = {
     "margin": 5.5,
     "rqLine": "半球"
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1480016",
@@ -808,7 +826,10 @@ const JC_DATA = {
     "name": "巴黎圣曼",
     "rank": 6
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -842,9 +863,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.72,
+      "line": 0.77,
       "over": 3,
-      "under": 1.07
+      "under": 1.02
      }
     }
    },
@@ -861,9 +882,12 @@ const JC_DATA = {
     "margin": 5.6,
     "rqLine": "半球/一球"
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1479883",
@@ -882,7 +906,10 @@ const JC_DATA = {
     "name": "费内巴切",
     "rank": 22
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -935,9 +962,12 @@ const JC_DATA = {
     "margin": 5.6,
     "rqLine": "半球/一球"
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1493845",
