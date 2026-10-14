@@ -347,178 +347,170 @@ function autoKillNumbers(gameId, areaKey, n, from, to, periods) {
    ============================================================ */
 
 /* ============================================================
-   5.5 九转连环图 · 固定同心圆模板【用户指定，不许改】
+   5.5 九转连环图 · 用户新版【用户原话逐字照抄，函数名/常量名不改】
    ------------------------------------------------------------
-   用户原话：「九转连环图必须是这种模板还要有号码」。
+   用户给的原话（原样落地，函数名一字不改）：
+     createJiuZhuan(lastNums, type)  ·  getNumberRoot(num)
+     calcOffsetByLastLottery(list)   ·  createLuoshu9Grid(offset)
+     getCurrentLuoshu(list)          ·  createNineChartPack(lastNums, type)
+     BASE_LUOSHU（基准洛书，只读）
 
-   结构：中心 1 个 + 4 圈 × 8 个方向 = 33 个位置（固定不变）。
-   每圈 8 个方向按【从上开始、顺时针】理解：
-     [0]上 [1]右上 [2]右 [3]右下 [4]下 [5]左下 [6]左 [7]左上
-   所以 rings[i][0] 在正上方、[2] 正右方、[4] 正下方、[6] 正左方。
+   ⚠️ 这版和上一版【完全不一样】，不要拿旧语义读代码：
+     · 九转 = 4 同心圆环 × 8 米字轴 = 32 个交点 + 1 个中心（一共 33 个点）
+       每个交点初始 num:null / isHit:false，然后把【上期开奖号】依次填进
+       前 N 个空位（双色球 6 个、大乐透 5 个）并标 isHit:true，
+       其余点位保持 num:null —— 也就是【图上只出现上期开奖号】，不是全部号码。
+     · 中心【固定】：双色球 17 / 大乐透 18（见 NINE_CHART_BASE）。
+     · getNumberRoot 【没有】0 -> 5 的特判：0 就是 0。
 
-   ⚠️ 下面这张表是用户逐字给的，数组顺序 = 号码摆放位置，
-      不要重排、不要“优化”。
-   ⚠️ 双色球表 = 1~33 各一次（无重复无遗漏）；
-      大乐透表 33 个号，1~35 里缺 01 和 33（用户给的就是这样，照实现，
-      要不要补齐由用户决定，代码不擅自补号）。
+   数据来源（NINE_CHART_BASE，用户原名 nineChartBase）：
+     ssqCenter / dltCenter / ringCount / axisCount 全部从配置读，
+     代码里【不再有第二份写死的 17 / 18 / 4 / 8】。
    ============================================================ */
-const JIUZHUAN_LAYOUT = {
-  ssq: {
-    center: 17,
-    rings: [
-      [16, 9, 25, 11, 23, 13, 21, 7],
-      [15, 4, 28, 5, 29, 19, 22, 2],
-      [18, 3, 30, 6, 27, 20, 24, 1],
-      [14, 8, 31, 10, 33, 12, 26, 32]
-    ]
-  },
-  dlt: {
-    center: 18,
-    rings: [
-      [17, 10, 26, 12, 24, 14, 22, 8],
-      [16, 5, 29, 6, 30, 20, 23, 3],
-      [19, 4, 31, 7, 28, 21, 25, 2],
-      [15, 9, 32, 11, 35, 13, 27, 34]
-    ]
+
+/* ------------------------------------------------------------
+   九转连环图 + 洛书九宫 的基准配置
+   ------------------------------------------------------------
+   用户原名「nineChartBase」，下面是用户给的 JSON 原样：
+
+   {
+     "nineChartBase":{
+       "desc":"九转连环图+洛书九宫，输入上期开奖号，每期自动生成不同图表数据，仅娱乐",
+       "baseLuoshu":[[4,9,2],[3,5,7],[8,1,6]],
+       "jiuzhuan":{
+         "ssqCenter":17,
+         "dltCenter":18,
+         "ringCount":4,
+         "axisCount":8
+       }
+     }
+   }
+
+   ⚠️ 这份配置是【唯一来源】：BASE_LUOSHU 从 baseLuoshu 读，
+      createJiuZhuan 的中心/环数/轴数从 jiuzhuan 读 —— 改配置即生效。
+   ⚠️ 仍然是【只读】：createLuoshu9Grid / 九宫矩阵一律先克隆再改。
+   ⚠️ desc 里的「仅娱乐」在页面上要看得见：render.js 的九转/九宫两个
+      区块会把它当图注印出来（和足球亚指那块同一个口径）。
+   ------------------------------------------------------------ */
+const NINE_CHART_BASE = {
+  desc: '九转连环图+洛书九宫，输入上期开奖号，每期自动生成不同图表数据，仅娱乐',
+  baseLuoshu: [
+    [4,9,2],
+    [3,5,7],
+    [8,1,6]
+  ],
+  jiuzhuan: {
+    ssqCenter: 17,
+    dltCenter: 18,
+    ringCount: 4,
+    axisCount: 8
   }
 };
 
-/** 取某彩种的九转连环固定模板；没有就返回 null（render 那边退回旧画法） */
-function jiuzhuanLayoutOf(gameId) {
-  return JIUZHUAN_LAYOUT[gameId] || null;
-}
-
-/* ---- 【每期变化的中心点】用户要求：「九宫格和九转图每一期中心点还是变一下」 ----
-   用户给的那张表里 center 是写死的（ssq=17 / dlt=18）。要在**不改表**的前提下
-   让中心每期变，用「整条 33 格序列整体轮转 rotate = 中心下标」的办法：
-
-     · 轮转量从【上期开奖号】确定性算出来（同一期 → 同一个中心，刷新不会变）
-     · 中心站哪个位置，就把整串 33 个号绕着这个位置轮转一圈：
-         位置 i 的号 = SEQ[(i - rotate + 33) % 33]
-       于是位置 0（正中心）拿到的正好是 SEQ[rotate]
-     · 其余 32 个位置的号【相对顺序完全保持用户表的原样】，只是整体转了一下，
-       所以「33 个位置 = 全部号码、无重复无遗漏」这两条永远成立
-
-   轮转量口径（可复现、可解释）：
-     数根和 = Σ getNumberRoot(上期每个号)
-     rotate = 数根和 % 33
-   取不到上期号码时 rotate = 0 → 就是用户原表（中心 = 表里的 center）。 */
-function jiuzhuanRotateOf(lastNums, size) {
-  const list = (lastNums || []).filter((n) => Number.isInteger(n));
-  const mod = size || 33;
-  if (!list.length) return 0;
-  let sum = 0;
-  list.forEach((n) => { sum += getNumberRoot(n); });
-  return ((sum % mod) + mod) % mod;
-}
-
-/** 把固定表的 33 格序列按 rotate 整体轮转（保证仍是同一批号、无重复无遗漏） */
-function rotateSeq(seq, rotate) {
-  const n = seq.length;
-  const r = ((rotate % n) + n) % n;
-  const out = [];
-  for (let i = 0; i < n; i++) out.push(seq[(i - r + n) % n]);
-  return out;
-}
+/* ------------------------------------------------------------
+   5.5.1 九转连环图生成【用户原话原样】
+   ------------------------------------------------------------ */
 
 /**
- * 本期九转连环盘面（中心每期变）
- * @returns {{center:number, rings:number[][], seq:number[], rotate:number, last:number[], size:number}}
- *          rings[ri][di] = 第 (ri+1) 圈「第 di 个方向」上的号（0=上，顺时针 45°）
+ * 九转连环图生成
+ * @param {number[]} lastNums 上期开奖号码
+ * @param {string} type 双色球ssq / 大乐透dlt
+ * @returns {object} 九转点位、圆环、轴信息，用于绘图渲染
  */
-function jiuzhuanMatrixFor(gameId) {
-  return jiuzhuanMatrixFromLast(gameId, lastIssueNumsFor(gameId));
-}
+function createJiuZhuan(lastNums, type = "ssq"){
+  /* 中心值：ssq / dlt 各读各的（以前这里写死 17 / 18，现在统一从配置读） */
+  const cfg = NINE_CHART_BASE.jiuzhuan;
+  const centerVal = type === "dlt" ? cfg.dltCenter : cfg.ssqCenter;
+  const ringCount = cfg.ringCount;
+  const axisCount = cfg.axisCount;
 
-/**
- * 同上，但上期开奖号由调用方给（验收/排查时可以直接喂几组号码，不动历史数据）
- * @param {string} gameId
- * @param {number[]} lastNums 上期开奖号（双色球 6 个红球 / 大乐透 5 个前区号）
- */
-function jiuzhuanMatrixFromLast(gameId, lastNums) {
-  const L = jiuzhuanLayoutOf(gameId);
-  if (!L) return null;
-  const seq = [L.center].concat(...L.rings);              // 33 格，用户表的原始顺序
-  const last = (lastNums || []).filter((n) => Number.isInteger(n));
-  const rotate = jiuzhuanRotateOf(last, seq.length);
-  const rotated = rotateSeq(seq, rotate);                 // 位置 i 的号 = SEQ[(i-rotate+n)%n]
+  /* 4同心圆环，4米字轴，一共32交点
+     · radius 仍然是 1..ringCount 的序号（环的序号，不是像素半径）
+     · sum: 68 —— 用户给的代码里每个环都带这个值，配置里没有它，所以
+       这里保留字面量 68（见下面 ringSum 的说明），并且可以由
+       NINE_CHART_BASE.jiuzhuan.ringSum 覆盖。 */
+  const ringSum = Number.isFinite(cfg.ringSum) ? cfg.ringSum : 68;
   const rings = [];
-  for (let ri = 0; ri < L.rings.length; ri++) {
-    rings.push(rotated.slice(1 + ri * 8, 1 + ri * 8 + 8));
+  for(let i = 1; i <= ringCount; i++){
+    rings.push({id:i, radius:i, sum:ringSum});
   }
-  return { center: rotated[0], rings, seq, rotate, last, size: seq.length };
+
+  /* 8 条米字轴：角度 = i × (360 / axisCount) → 0/45/90/…/315，45° 一个。
+     轴名沿用用户写法「轴1…轴8」。 */
+  const axisList = [];
+  for(let i = 0; i < axisCount; i++){
+    axisList.push({name:"轴" + (i + 1), angle: i * (360 / axisCount)});
+  }
+
+  // 所有32个点位
+  const allPoints = [];
+  rings.forEach(ring=>{
+    axisList.forEach(axis=>{
+      allPoints.push({
+        ringId: ring.id,
+        axisName: axis.name,
+        angle: axis.angle,
+        radius: ring.radius,
+        num: null,
+        isHit: false
+      })
+    })
+  })
+
+  // 把上期开奖号码，填充到点位，标记命中
+  const pool = [...allPoints];
+  lastNums.forEach(num=>{
+    const empty = pool.find(p=>p.num === null);
+    if(empty){
+      empty.num = num;
+      empty.isHit = true;
+    }
+  })
+
+  return {
+    center: centerVal,
+    rings,
+    axisList,
+    points: allPoints
+  }
 }
 
-/* ============================================================
-   5.6 九宫图 · 洛书 + 每期自动偏移【用户指定算法，原文照抄】
-   ------------------------------------------------------------
-   用户原话：「九宫图的代码：」+ 下面这段，要求原样落进项目。
-   数据流：上期开奖号 → calcOffsetByLastLottery → offset
-           → matrixOffsetShift(BASE_LU_SHU, offset) → 本期九宫矩阵
-   ============================================================ */
+/* ------------------------------------------------------------
+   5.5.2 洛书九宫 · 每期自动偏移【用户原话原样】
+   ------------------------------------------------------------ */
 
-// 原始基准洛书【只读，不能改】
-const BASE_LU_SHU = [
-  [4,9,2],
-  [3,5,7],
-  [8,1,6]
-];
+// 原始基准洛书【只读，不能修改】
+// 数据来源 = NINE_CHART_BASE.baseLuoshu（值仍然是 4 9 2 / 3 5 7 / 8 1 6）
+const BASE_LUOSHU = NINE_CHART_BASE.baseLuoshu;
 
-// 克隆矩阵（保护基准，所有操作在副本）
-function cloneMatrix(mat){
-  return JSON.parse(JSON.stringify(mat));
-}
-
-// 号码求数根：号码 → 宫号
+/**
+ * 号码求数根：号码 -> 宫号
+ * @param {number} num
+ */
 function getNumberRoot(num){
   let n = num;
-  while(n>=10){
-    let s=0;
+  while(n >=10){
+    let s = 0;
     while(n>0){
-      s += n%10;
-      n = Math.floor(n/10);
+      s += n %10;
+      n = Math.floor(n /10);
     }
     n = s;
   }
-  if(n===0) return 5;
   return n;
 }
 
 /**
- * 【核心！每期自动变化函数】宫位偏移
- * @param mat 九宫矩阵副本
- * @param offset 偏移量 1~9
- */
-function matrixOffsetShift(mat, offset){
-  const m = cloneMatrix(mat);
-  for(let i=0;i<3;i++){
-    for(let j=0;j<3;j++){
-      let val = m[i][j] + offset;
-      if(val >9) val -=9;
-      if(val ===0) val =9;
-      m[i][j] = val;
-    }
-  }
-  return m;
-}
-
-// 复位：回到原始洛书
-function resetLuShu(){
-  return cloneMatrix(BASE_LU_SHU);
-}
-
-/**
- * 【每期自动计算偏移量】输入上期开奖号码，输出offset
- * 业务主函数：每期执行这个，自动得到偏移值
+ * 根据上期开奖号，自动计算九宫偏移量 offset
+ * @param {number[]} lastNumList
+ * @returns {number} offset 1~9
  */
 function calcOffsetByLastLottery(lastNumList){
-  // 1、统计上期开奖号落在各个宫的数量
   const countMap = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
   lastNumList.forEach(num=>{
     const gong = getNumberRoot(num);
     countMap[gong]++;
   });
-  // 2、找出出现次数最多的宫，作为偏移offset
   let maxCount = -1;
   let offset = 1;
   for(let g=1;g<=9;g++){
@@ -530,11 +522,61 @@ function calcOffsetByLastLottery(lastNumList){
   return offset;
 }
 
-/* ---- 把上面两个算法接进出号流程：上期开奖号 → 本期九宫 ---- */
+/**
+ * 生成本期全新九宫盘面（全部数字偏移，每期不同）
+ * @param {number} offset
+ */
+function createLuoshu9Grid(offset){
+  const grid = JSON.parse(JSON.stringify(BASE_LUOSHU));
+  for(let i=0;i<3;i++){
+    for(let j=0;j<3;j++){
+      let val = grid[i][j] + offset;
+      if(val >9) val -=9;
+      if(val ===0) val =9;
+      grid[i][j] = val;
+    }
+  }
+  return grid;
+}
 
 /**
- * 上期开奖号（九宫图用）
- *   双色球 → 6 个红球（不带蓝球）；大乐透 → 5 个前区号（不带后区）
+ * 九宫综合入口函数：输入上期号码，直接输出本期九宫盘面
+ * @param {number[]} lastNumList
+ */
+function getCurrentLuoshu(lastNumList){
+  const offset = calcOffsetByLastLottery(lastNumList);
+  const grid = createLuoshu9Grid(offset);
+  return {
+    offset,
+    grid
+  }
+}
+
+/* ------------------------------------------------------------
+   5.5.3 统一入口：一次性生成九转+九宫两套数据【用户原话原样】
+   ------------------------------------------------------------ */
+
+/**
+ * 九转+九宫一次性生成，每期调用一次
+ * @param {number[]} lastNums 上期开奖号码数组
+ * @param {string} type ssq双色球 / dlt大乐透
+ */
+function createNineChartPack(lastNums, type="ssq"){
+  const jiuZhuanData = createJiuZhuan(lastNums, type);
+  const luoshuData = getCurrentLuoshu(lastNums);
+  return {
+    jiuZhuan: jiuZhuanData,
+    luoshu: luoshuData
+  }
+}
+
+/* ------------------------------------------------------------
+   5.5.4 出图用的小工具【不是用户算法，只是把上面两套数据铺成字段】
+   ------------------------------------------------------------ */
+
+/**
+ * 上期开奖号（九转 / 九宫用）
+ *   双色球 -> 6 个红球（不带蓝球）；大乐透 -> 5 个前区号（不带后区）
  *   取不到就返回 []
  * @returns {number[]}
  */
@@ -544,9 +586,8 @@ function lastIssueNumsFor(gameId) {
     if (!hist.length) return [];
     const areas = (hist[0] && hist[0].areas) || {};
     /* 【按区名找，不按彩种名写死】
-       以前写的是 'dlt' → front / 'ssq' → red / 其它 → main，
-       七乐彩（main）碰巧对，七星彩（实际是 front + back）就永远取不到上期号
-       → 九宫图每期都不偏移、九转连环中心变成「—」。
+       以前写的是 'dlt' -> front / 'ssq' -> red / 其它 -> main，
+       七乐彩（main）碰巧对，七星彩（实际是 front + back）就永远取不到上期号。
        现在按「这个彩种的主区叫什么」逐级回退，新增彩种不用再改这里。 */
     const key = ['front', 'red', 'main'].find((k) => Array.isArray(areas[k]) && areas[k].length);
     const arr = (key ? areas[key] : []).filter((n) => Number.isInteger(n));
@@ -554,22 +595,52 @@ function lastIssueNumsFor(gameId) {
   } catch (e) { return []; }
 }
 
-/**
- * 本期九宫盘面（每期自动变化）
- * @returns {{offset:number, matrix:number[][], last:number[], centerPalace:number, counts:object}}
- */
-function jiugongMatrixFor(gameId) {
-  const last = lastIssueNumsFor(gameId);
-  const counts = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
-  last.forEach((num) => { counts[getNumberRoot(num)]++; });
-  // 没有上期开奖数据时 offset 取算法初值 1，盘面照样出得来
-  const offset = last.length ? calcOffsetByLastLottery(last) : 1;
-  const matrix = matrixOffsetShift(BASE_LU_SHU, offset);
-  const centerPalace = matrix[1][1];           // 中宫 = 基准洛书里 5 那一格
-  return { offset, matrix, last, centerPalace, counts };
+/** 号码 -> 定宽两位数（0 也占两位，保证一个点位固定 2 个字符） */
+function cirPad2(n) {
+  return (Number(n) === 0 ? '0' : String(n)).padStart(2, '0');
 }
 
-/** 中宫那几个宫位对应的号码（号码范围内「数根 == 中宫」的号） */
+/**
+ * 把 createNineChartPack 的结果压成一行字段值（定点解码，长度固定）
+ *   每个点位 2 个字符：数字位上「--」= 空点、isHit=true 时第一位带 H
+ *   例：'H03H11H17H22H28H31--------------------…'（32 个点位 = 64 个字符）
+ *   为什么不存 JSON：这一串会进 saved-tickets.js 存档，定宽最好解码也好排查。
+ * @returns {{str:string, hitCount:number, numCount:number}}
+ */
+function encodeCirPoints(jz) {
+  const pts = (jz && Array.isArray(jz.points)) ? jz.points : [];
+  let str = '';
+  let hitCount = 0;
+  let numCount = 0;
+  pts.forEach((p) => {
+    const head = p.isHit ? 'H' : '-';
+    let tail = '--';
+    if (p.num !== null && p.num !== undefined) {
+      tail = cirPad2(p.num);
+      numCount++;
+    }
+    if (p.isHit) hitCount++;
+    str += head + tail;
+  });
+  return { str, hitCount, numCount };
+}
+
+/** encodeCirPoints 的逆运算（render.js 用；取不到点位就返回 []） */
+function decodeCirPoints(str) {
+  const s = String(str || '');
+  const out = [];
+  /* 每个点位 3 个字符：H/-(命中) + 两位号码（'--' = 空点） */
+  for (let i = 0; i + 2 < s.length; i += 3) {
+    const head = s[i];
+    const body = s.slice(i + 1, i + 3);
+    const hit = head === 'H';
+    const empty = body === '--';
+    out.push({ isHit: hit, num: empty ? null : parseInt(body, 10) });
+  }
+  return out;
+}
+
+/** 九宫中宫那几个宫位对应的号码（号码范围内「数根 == 中宫」的号） */
 function jiugongGuanNums(gameId, centerPalace, from, to) {
   const out = [];
   for (let n = from; n <= to; n++) if (getNumberRoot(n) === centerPalace) out.push(n);
@@ -585,16 +656,10 @@ function jiugongGuanNums(gameId, centerPalace, from, to) {
 /** 五行号码：按尾数归类（金4/9 木3/8 水1/6 火2/7 土5/0） */
 function wuxingNumbers(from, to) {
   const T = { jin: [4, 9], mu: [3, 8], shui: [1, 6], huo: [2, 7], tu: [5, 0] };
-  /* 【0 只出一位】用户硬性要求「号码里的 0 写成单个 0，不写 00」。
-     五行号码这块用 render.js 的 numBalls → twoDigit()，它会把 0 补成 '00'，
-     所以数字型彩种（七星彩等 0 起算的区）这里就把尾数 0 的号排除掉，
-     宁可少一个「土」组的 0，也不在图上出现 00。 */
-  const showZero = from > 0;
   const out = {};
   Object.keys(T).forEach((k) => {
     const arr = [];
     for (let n = from; n <= to; n++) {
-      if (!showZero && n === 0) continue;
       if (T[k].includes(n % 10)) arr.push(n);
     }
     out[k] = arr;
@@ -950,102 +1015,6 @@ function backRecNumbers(gameId, areaKey, n) {
   }
 }
 
-/* ============================================================
-   五行九宫这张图的「号码区」口径（新增彩种只要在 games.js 写清 areas 就对）
-   ------------------------------------------------------------
-   原来这三个值是写死在 autoFillWuxing 里的（1 / dlt?35:33 / dlt?front:red），
-   只对双色球、大乐透成立。七乐彩（1~30）会多铺 31/32/33；
-   七星彩（前六位 0~9 + 最后一位 0~14）整个结构都对不上。
-   统一成"读 games.js 的 areas"后：
-     · 七乐彩  → main 1~30
-     · 七星彩  → front 0~9
-   ============================================================ */
-const WUXING_AREA_OVERRIDE = {
-  /* 双色球：红球（areas[0] 本来就是 red，写在这里只是把口径写明 */
-  ssq: { area: 'red', from: 1, to: 33 },
-  /* 大乐透：前区 */
-  dlt: { area: 'front', from: 1, to: 35 }
-};
-
-/** 五行/九转/九宫这张图用的主号码区 */
-function wuxingAreaOf(gameId) {
-  const o = WUXING_AREA_OVERRIDE[gameId];
-  if (o) return o;
-  const g = (typeof GAMES !== 'undefined' && GAMES) ? GAMES[gameId] : null;
-  const a = (g && Array.isArray(g.areas) && g.areas[0]) || null;
-  if (a && Number.isInteger(a.from) && Number.isInteger(a.to)) {
-    return { area: a.key, from: a.from, to: a.to };
-  }
-  return { area: 'main', from: 1, to: 33 };
-}
-
-/** 后区 / 特别号 的区名（绕胆图「蓝球/后区关注」和它的号码范围都按这个来） */
-function backAreaOf(gameId) {
-  return { ssq: 'blue', dlt: 'back', qxc: 'back', qlc: 'special' }[gameId]
-    || (gameId === 'dlt' ? 'back' : 'blue');
-}
-
-/** 后区 / 特别号 的号码范围（同 consRangeOf，但七乐彩特别号是 1~30） */
-function backRangeOf(gameId) {
-  const per = {
-    ssq:  [1, 16],
-    dlt:  [1, 12],
-    qlc:  [1, 30],
-    qxc:  [0, 14]
-  }[gameId];
-  if (per) return per;
-  const g = (typeof GAMES !== 'undefined' && GAMES) ? GAMES[gameId] : null;
-  const a = (g && Array.isArray(g.areas) && g.areas[1]) || null;
-  if (a && Number.isInteger(a.from) && Number.isInteger(a.to)) return [a.from, a.to];
-  return [1, 16];
-}
-
-/** 「蓝球 / 后区 / 特别号」这一区每期真实开出几个号 */
-function backPickCountOf(gameId, fallback) {
-  const n = AREA_PICK_COUNT[gameId] ? AREA_PICK_COUNT[gameId][backAreaOf(gameId)] : 0;
-  return (Number.isInteger(n) && n > 0) ? n : (fallback || 1);
-}
-
-/**
- * 九转连环「通用铺号」（只给【没有 JIUZHUAN_LAYOUT 固定表】的彩种用）
- *   几何完全是 ssq / dlt 那一套：位置 0 = 中心，位置 1~32 = 第 1~4 圈
- *   各 8 个方向（0=上，顺时针 45°）。
- *   号：按本彩种主区范围 [from,to] 升序循环铺满 33 格。
- *   轮转：本彩种顺序里的上期开奖号 → 每个号取「数根」→ 求和 → mod 33，
- *        让中心每期跟着开奖号变（和 ssq / dlt 的轮转是同一个思路）。
- * @returns {object} cir_num_center / cir_num_01~32 / cir_center / cir_0~7
- */
-function genericCircleNums(gameId, from, to, jzNow) {
-  const cand = [];
-  for (let n = from; n <= to; n++) cand.push(n);
-  const out = {};
-  if (!cand.length) return out;
-
-  const SIZE = 33;
-
-  /* 从大到小铺：这样位置 0（中心）拿到的是范围里最大的号，接近 ssq/dlt
-     中心在 16~18 的位置感，不会一开图中心就是 0 或 01。 */
-  const desc = cand.slice().reverse();
-  const nums = [];
-  for (let i = 0; i < SIZE; i++) nums.push(desc[i % desc.length]);
-
-  const last = (jzNow && Array.isArray(jzNow.last)) ? jzNow.last : [];
-  const rot = last.length
-    ? (last.reduce((s, n) => s + getNumberRoot(n), 0) % SIZE)
-    : 0;
-  if (rot) {
-    const tail = nums.splice(SIZE - rot, rot);
-    nums.unshift.apply(nums, tail);
-  }
-
-  out.cir_num_center = pad2(nums[0]);
-  for (let i = 1; i < SIZE; i++) out['cir_num_' + i] = pad2(nums[i]);
-  /* 旧键（存档里可能还带着）：中心 + 第 1 圈 8 个方向 */
-  out.cir_center = pad2(nums[0]);
-  for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(nums[1 + i]);
-  return out;
-}
-
 /**
  * 五行九宫模板的自动填充
  * @param {string} gameId
@@ -1076,17 +1045,10 @@ function autoFillWuxing(gameId, opts) {
   out.badge4 = dirs['贵神'];
   out.badge5 = dirs['冲煞'];
 
-  /* ---- 号码范围 / 五行号码 ----
-     【不要再按彩种名写死】以前是 from=1、to = dlt ? 35 : 33、areaKey = dlt ? front : red，
-     只对双色球（1~33 红球）和大乐透（1~35 前区）成立：
-       · 七乐彩 1~30 会被铺出 31/32/33 这三个根本不存在的号；
-       · 七星彩主区是 0~9 的数位，「红球 1~33」和它的开奖结构完全对不上。
-     现在统一走「这个彩种的 areas[0]」+ 一个可覆盖表（和 AREA_PICK_COUNT 同口径），
-     新增彩种只要在 games.js 里写清 areas 就自动正确。 */
-  const hs = wuxingAreaOf(gameId);
-  const from = hs.from;
-  const to = hs.to;
-  const areaKey = hs.area;
+  /* ---- 五行号码 ---- */
+  const from = 1;
+  const to = gameId === 'dlt' ? 35 : 33;
+  const areaKey = gameId === 'dlt' ? 'front' : 'red';
   const wx = wuxingNumbers(from, to);
   out.e_jin = wx.jin.map(pad2).join(' ');
   out.e_mu = wx.mu.map(pad2).join(' ');
@@ -1099,7 +1061,7 @@ function autoFillWuxing(gameId, opts) {
        · 每行标出该行两个尾数各自的阴阳（模板里五行元素的 tailsLabel 就是标记来源）
        · 按【真实球数】统计本期推荐号的阳/阴（双色球红球 6、大乐透前区 5，
          不是号码池那 20 个）—— 用 countYinYangStat() */
-  const yyPickN = areaPickCount(gameId, areaKey, (to - from + 1) >= 30 ? 6 : 3);
+  const yyPickN = areaPickCount(gameId, areaKey, gameId === 'dlt' ? 5 : 6);
   const yyNums = recommendNumbers(gameId, areaKey, yyPickN, from, to);
   out.wx_yy = yinYangLine(yyNums);
 
@@ -1121,9 +1083,9 @@ function autoFillWuxing(gameId, opts) {
      三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。
      【单一来源】blueRec 优先用 autoFillForTemplate 传进来的那一份，
      保证「图一印出来的蓝球推荐」和「绕胆图避开的蓝球」是同一批号。 */
-  const pool = recommendNumbers(gameId, areaKey, Math.min(16, to - from + 1), from, to);
-  const backKey = backAreaOf(gameId);
-  const backRange = backRangeOf(gameId);
+  const pool = recommendNumbers(gameId, areaKey, 16, from, to);
+  const backKey = gameId === 'dlt' ? 'back' : 'blue';
+  const backRange = gameId === 'dlt' ? [1, 12] : [1, 16];
   const blueRec = (opts && Array.isArray(opts.backRec) && opts.backRec.length)
     ? opts.backRec
     : backRecNumbers(gameId, backKey, 6);                // 「蓝球推荐」那 6 个
@@ -1138,61 +1100,47 @@ function autoFillWuxing(gameId, opts) {
     blueExclude: blueRec
   }));
 
-  /* ---- 九转连环（固定同心圆模板：中心 1 + 4 圈 × 8 方向 = 33 个位置） ----
-     用户原话：「九转连环图必须是这种模板还要有号码」。
-     · 33 个位置固定不变，号从 JIUZHUAN_LAYOUT 里取，但【整串 33 格按上期开奖号
-       整体轮转】—— 用户补的要求：「九宫格和九转图每一期中心点还是变一下」。
-       轮转后中心每期变，其余 32 格的相对顺序保持用户表的原样；
-       33 个位置仍然是「全部号码、无重复无遗漏」（见 jiuzhuanMatrixFor）。
-     · 推荐的号只用来【高亮】：cir_pool（号码池）· cir_dan（金胆/银胆）·
-       cir_tuo（拖码），口径都走 recommendNumbers（专家池/资料池优先），
-       和图一的号码池、图二的绕胆图同一套池子
-     · 旧键 cir_center / cir_0~7 保留（存档里可能还带着），值改成模板里的真号 */
-  const jzLayout = jiuzhuanLayoutOf(gameId);
-  const jzNow = jiuzhuanMatrixFor(gameId);
-  if (jzLayout && jzNow) {
-    out.cir_center = pad2(jzNow.center);
-    for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(jzNow.rings[0][i]);
+  /* ---- 九转连环（用户新版：4 同心圆环 × 8 米字轴 = 32 交点 + 1 中心） ----
+     用户原话：「九转连环图+洛书九宫，输入上期开奖号，每期自动生成不同图表数据」。
+     数据【一次性】从统一入口拿：createNineChartPack(last, type) → {jiuZhuan, luoshu}。
+       · 中心 = createJiuZhuan 的 center（双色球 17 / 大乐透 18，配置里来的）
+       · 32 个交点初始 num:null，上期开奖号依次填进前 N 个空位并标 isHit:true
+         → 【图上只出现上期开奖号】（双色球 6 个 / 大乐透 5 个），其余交点是空点
+       · 这一版中心是【固定】的，不再随期轮转（和用户更早说的「中心每期变一下」
+         冲突，已按用户最新代码实现，见交付报告里的冲突说明）
+     铺成字段（render.js 只读这几个，不再自己算几何）：
+       cir_points  32 个交点的定宽串（render.js 按几何表逐点解码）
+       cir_center  中心号（17 / 18）
+       cir_hit     命中（= 上期开奖号）个数
+       cir_axis    米字轴条数
+       cir_source  上期开奖号原文，给图注/排查看
+     旧键 cir_num_* / cir_rotate 是上一版（33 格整体轮转）留下的，这一版不再产生。 */
+  const cirLast = lastIssueNumsFor(gameId);
+  const cirType = (gameId === 'dlt') ? 'dlt' : 'ssq';
+  const pack = createNineChartPack(cirLast, cirType);
+  const jz = pack.jiuZhuan;
+  const enc = encodeCirPoints(jz);
 
-    /* 位置号 = 本期盘面里那一格原本写的号：
-         位置 0        → 中心（每期轮转，会变）
-         位置 1+ri*8+di → 第 (ri+1) 圈的「第 di 个方向」（0=上，顺时针 45°）
-       所以 cir_num_01 是第 1 圈上方的号（rotate=0 时双色球=16），不是「号 01」。
-       render.js 按位置号取号 → 位置画在几何点上、号来自本期盘面。 */
-    out.cir_num_center = pad2(jzNow.center);
-    for (let ri = 0; ri < jzNow.rings.length; ri++) {
-      for (let di = 0; di < jzNow.rings[ri].length; di++) {
-        out['cir_num_' + (1 + ri * 8 + di)] = pad2(jzNow.rings[ri][di]);
-      }
-    }
-    out.cir_rotate = String(jzNow.rotate);                 // 本期轮转量（排查用）
-  }
+  out.cir_points = enc.str;
+  out.cir_center = pad2(jz.center);
+  out.cir_hit = String(enc.hitCount);
+  out.cir_axis = String(jz.axisList.length);
+  out.cir_source = cirLast.length ? cirLast.map(pad2).join(' ') : '—';
 
-  /* 【通用兜底】没有 JIUZHUAN_LAYOUT 的彩种（模板表只有 ssq / dlt 两张，
-     是用户逐字给的固定表，不补不改）。
-     照「用和 ssq / dlt 相同的图位定义」办：位置/圈数/方向全部一样
-     （中心 1 + 4 圈 × 8 方向 = 33 格），只是格子里的号按本彩种主区的
-     号码范围循环铺 —— 保证图上【没有一个空格、也没有一个「—」】。
-     ssq / dlt 不受影响（它们走上面那一支，值一模一样）。 */
-  if (!jzLayout) {
-    Object.assign(out, genericCircleNums(gameId, from, to, jzNow));
-  }
-
+  /* 号码池：仍旧按原来的池子算出来（图一、绕胆图共用同一套），本图只报个数 */
   const cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
-  const cirDan = cirPool.slice(0, 3);                       // 金胆 / 银胆（前 3）
-  const cirTuo = cirPool.slice(3, 10);                      // 拖码（后 7）
   out.cir_pool = cirPool.map(pad2).join(' ');
-  out.cir_dan = cirDan.map(pad2).join(' ');
-  out.cir_tuo = cirTuo.map(pad2).join(' ');
 
   /* ---- 九宫（洛书 + 每期自动偏移：上期开奖号 → offset → 本期盘面） ----
-     offset 每期跟着上期开奖号变，所以「中宫」不再固定是 5。 */
-  const jg = jiugongMatrixFor(gameId);
-  out.jg_offset = String(jg.offset);
-  out.jg_matrix = jg.matrix.map((row) => row.join('')).join(',');
-  out.jg_center = String(jg.centerPalace);
-  out.jg_zhong = `中宫${jg.centerPalace}（数根${jg.centerPalace}为旺）`;
-  out.jg_guan = jiugongGuanNums(gameId, jg.centerPalace, from, to)
+     用统一入口吐出来的那套 luoshu（即用户代码里的 getCurrentLuoshu）：
+     BASE_LUOSHU 只读，createLuoshu9Grid 内部克隆后再平移，中宫不再固定是 5。 */
+  const jgGrid = pack.luoshu.grid;
+  const jgCenterPalace = jgGrid[1][1];
+  out.jg_offset = String(pack.luoshu.offset);
+  out.jg_matrix = jgGrid.map((row) => row.join('')).join(',');
+  out.jg_center = String(jgCenterPalace);
+  out.jg_zhong = `中宫${jgCenterPalace}（数根${jgCenterPalace}为旺）`;
+  out.jg_guan = jiugongGuanNums(gameId, jgCenterPalace, from, to)
     .slice(0, 3).map(pad2).join(' ');
 
   return out;
@@ -1202,41 +1150,6 @@ function autoFillWuxing(gameId, opts) {
        所以 0 显示成 '0'；其它个位数仍然补零（1 -> '01'、4 -> '04'）。 */
   const pad2 = (n) => (Number(n) === 0 ? '0' : String(n).padStart(2, '0'));
 const toLine = (arr) => arr.map(pad2).join(' ');
-
-/**
- * 模板里「后区/蓝球/特别号 推荐」那一格写的是几个号
- *   模板写 count 就用它（双色球 6、大乐透 2、七星彩 1）；
- *   模板没写 → 用该区真实球数兜底。
- *   为什么必须从模板读：这个字段既是「图上印出来的推荐」，
- *   又是绕胆图「蓝球关注」的排除名单，两处必须同一个个数。
- */
-function templateBackFieldCount(gameId, imageKey, fallback) {
-  try {
-    const tpl = (typeof TEMPLATES !== 'undefined') ? TEMPLATES[gameId] : null;
-    if (!tpl) return fallback;
-    const img = tpl.images.find((i) => i.key === imageKey) || tpl.images[0];
-    if (!img) return fallback;
-    let found = 0;
-    const walk = (sec) => {
-      if (!sec || typeof sec !== 'object' || found) return;
-      const joined = [sec.title || '']
-        .concat((sec.fields || []).map((f) => f.label || ''))
-        .join(' ');
-      if (/后区|蓝球|特别号/.test(joined) && Array.isArray(sec.fields)) {
-        sec.fields.forEach((f) => {
-          if (found) return;
-          if (String(f.label || '').includes('推荐') && Number.isInteger(f.count) && f.count > 0) {
-            found = f.count;
-          }
-        });
-      }
-      if (sec.left) walk(sec.left);
-      if (sec.right) walk(sec.right);
-    };
-    (img.sections || []).forEach(walk);
-    return found || fallback;
-  } catch (e) { return fallback; }
-}
 
 /** 把历史里某个区的号码按「期」取出来（最新在前） */
 function historyAreas(gameId, areaKey, periods) {
@@ -1561,30 +1474,22 @@ function deriveFromPicks(nums, from, to) {
 }
 
 /* ---------- 和值（区间 = 统计窗口内真实取值范围） ---------- */
-function calcSum(areas, hardMax) {
+function calcSum(areas) {
   const sums = areas.map((a) => a.reduce((x, y) => x + y, 0)).sort((a, b) => a - b);
   if (!sums.length) return '';
   /* 【和值必须是区间】用户原话：
        「双色球和大乐透的和值 是多少到多少 区间宽度在25和25以内」
      所以：非数字彩（双色球/大乐透/七乐彩/快乐8）返回「X~Y」区间，宽度 ≤ 25。
-     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里）
-
-     hardMax：可选【更紧的】硬上限，给号码范围很小的玩法用 ——
-     七星彩前六位是 6 个 0~9 的数位，30 期真实和值本身就能从 10 拉到 48，
-     按 25 的硬上限会给出「11~36」这种宽到没参考价值的区间；
-     模板里把宽度标成 8，这里就贴着中位数收成「24~32」。
-     不传 = 保持原来的 25（双色球/大乐透/七乐彩/快乐8 完全不变）。 */
-  const w = (Number.isFinite(hardMax) && hardMax > 0) ? hardMax : 25;
-  return compactRange(sums, w, w);
+     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里） */
+  return compactRange(sums, 25, 25);
 }
 
 /* ---------- 跨度（区间 = 统计窗口内真实取值范围） ---------- */
-function calcSpan(areas, hardMax) {
+function calcSpan(areas) {
   const spans = areas.map((a) => Math.max(...a) - Math.min(...a)).sort((a, b) => a - b);
   if (!spans.length) return '';
-  /* 同理：跨度也收在 15 以内（可选更紧的硬上限，见 calcSum 注释） */
-  const w = (Number.isFinite(hardMax) && hardMax > 0) ? hardMax : 15;
-  return compactRange(spans, w, w);
+  /* 同理：跨度也收在 15 以内 */
+  return compactRange(spans, 15, 15);
 }
 
 /**
@@ -1950,17 +1855,9 @@ function digitFooterTop(areas, kind, n) {
   return out.slice(0, n);
 }
 
-function calcTrendFields(gameId, areaKey, from, to, pickCount, opts) {
+function calcTrendFields(gameId, areaKey, from, to, pickCount) {
   const areas = historyAreas(gameId, areaKey, 30);
   if (!areas.length) return {};
-
-  /* 【区间宽度】模板可以为「和值 / 跨度」两个字段各标一个宽度上限（w / kdW）。
-     不标 = 沿用原来的 25 / 15（双色球、大乐透、七乐彩、快乐8 一个字都不变）。
-     标了 = 号码范围很小的玩法（七星彩前六位 0~9）能收紧成更有参考价值的区间。 */
-  const o = opts || {};
-  const hzW = (Number.isFinite(o.w) && o.w > 0) ? o.w : 25;
-  const kdW = (Number.isFinite(o.kdW) && o.kdW > 0) ? o.kdW
-    : ((Number.isFinite(o.w) && o.w > 0) ? Math.min(15, o.w) : 15);
 
   const pool = expertPoolOf(gameId, areaKey).filter((n) => n >= from && n <= to);
   const poolSet = new Set(pool);
@@ -2007,8 +1904,8 @@ function calcTrendFields(gameId, areaKey, from, to, pickCount, opts) {
          · 号码个数必须等于该玩法该区的真实球数（双色球红球 6、大乐透前区 5…）。
        号码池有 20 个号，用池子自身的构成会写出「8奇12偶」这种
        和玩法对不上的指标；用「开奖号 ∩ 池子」又会把区间压窄到盖不住最近开奖。 */
-    hz:      calcSum(areas, hzW),
-    kd:      calcSpan(areas, kdW),
+    hz:      calcSum(areas),
+    kd:      calcSpan(areas),
     jq:      calcOddEven(areas, pickCount),
     dx:      calcBigSmall(areas, from, to, pickCount),
     qjb:     calcZone(areas, from, to, pickCount),
@@ -2784,31 +2681,6 @@ function autoFillForTemplate(gameId, imageKey) {
   const img = tpl.images.find((i) => i.key === imageKey) || tpl.images[0];
   const out = {};
 
-  /* ---- 【字段级宽度】模板里给「和值 / 跨度」标的区间宽度上限 ----
-     模板写法：{ key: 'hz', label: '前区和值', w: 8 }（w / kdW，不写就沿用 25 / 15）。
-     为什么放在模板里：号码范围小的玩法（七星彩前六位 0~9）25 的宽度会给出
-     「11~36」这种没参考价值的区间；把它标在字段上，这张图要用多宽一目了然，
-     也不用在 stats.js 里按彩种名写 if。 */
-  const fieldWidths = {};
-  {
-    const scan = (sec) => {
-      if (!sec || typeof sec !== 'object') return;
-      if (Array.isArray(sec.fields)) {
-        sec.fields.forEach((f) => {
-          if (!f || !f.key) return;
-          if (Number.isFinite(f.w) && f.w > 0) {
-            fieldWidths[f.key] = f.w;
-            if (f.key === 'hz') fieldWidths.w = f.w;      // calcTrendFields 读 w
-          }
-          if (Number.isFinite(f.kdW) && f.kdW > 0) fieldWidths.kdW = f.kdW;
-        });
-      }
-      if (sec.left) scan(sec.left);
-      if (sec.right) scan(sec.right);
-    };
-    (img.sections || []).forEach(scan);
-  }
-
   /* ---- 「蓝球推荐 / 后区推荐」那批号：整张图只算一次 ----
      两个用处：① 图一上印出来的「蓝球推荐」字段值
               ② 绕胆图的蓝球关注要避开它（用户：「蓝球不要在推荐里面选」）
@@ -2816,16 +2688,12 @@ function autoFillForTemplate(gameId, imageKey) {
      「图上印的推荐」和「绕胆图避开的推荐」是两批号。
      （没有历史数据时 recommendNumbers 会走随机兜底，
        算两次就会得到两个不同的结果，所以必须只算一次。） */
-  const backArea = backAreaOf(gameId);
-  const backN = backPickCountOf(gameId, 6);
-  /* 【推荐号个数】双色球「蓝球推荐」6 个、大乐透「后区推荐」2 个、
-     七星彩「后区推荐」1 个 —— 都从模板里读，模板没写才用真实球数兜底。
-     以前这里写死「不是 dlt 就是 6」，七星彩会印出 6 个「后区推荐」号，
-     和「最后一位只开 1 个号」的玩法对不上。 */
-  const backFieldN = templateBackFieldCount(gameId, 'main', backN);
-  const hasBackRec = !!AREA_PICK_COUNT[gameId] && !!AREA_PICK_COUNT[gameId][backArea];
-  const backRec = hasBackRec ? backRecNumbers(gameId, backArea, backFieldN) : [];
-  /* 蓝球/后区推荐字段的个数 */
+  const backArea = (gameId === 'dlt') ? 'back' : 'blue';
+  const backN = gameId === 'dlt' ? 2 : 6;
+  const backRec = (gameId === 'ssq' || gameId === 'dlt')
+    ? backRecNumbers(gameId, backArea, backN)
+    : [];
+  /* 蓝球/后区推荐字段的个数（双色球 6、大乐透 2） */
   const backRecN = backRec.length;
 
   // 五行 / 绕胆 / 九转 / 九宫 这张图用专用填充
@@ -2833,13 +2701,11 @@ function autoFillForTemplate(gameId, imageKey) {
     Object.assign(out, autoFillWuxing(gameId, { backRec }));
   }
 
-    /* ---- 号码范围表（按彩种）----
-       qlc 的「特别号」是 1~30（不是蓝球 1~16）：autoFillWuxing / 绕胆图
-       都要按这个范围取号，否则会取出根本不存在的号。 */
+  // 号码范围表（按彩种）
   const RANGE = {
     ssq:  { red: [1, 33], blue: [1, 16], main: [1, 30] },
     dlt:  { front: [1, 35], back: [1, 12] },
-    qlc:  { main: [1, 30], special: [1, 30] },
+    qlc:  { main: [1, 30] },
     kl8:  { main: [1, 80] },
     fc3d: { main: [0, 9] },
     pl3:  { main: [0, 9] },
@@ -2875,15 +2741,6 @@ function autoFillForTemplate(gameId, imageKey) {
       areaKey = isBack ? 'back' : 'front';
       range = isBack ? [0, 14] : [0, 9];
       pickCount = areaPickCount(gameId, areaKey, isBack ? 1 : 6);
-    } else if (gameId === 'qlc') {
-      /* 七乐彩两个区：基本号（1~30 选 7）+ 特别号（1~30 选 1）。
-         以前这里一律落进最后的 else → areaKey='main'，
-         所以「特别号走势分析」实际算的是基本号的走势（数字全错）。
-         判断口径和 consAreaOf 保持一致：标题/字段名里带「特别号」就是 special。 */
-      const isSpecial = /特别号/.test(joined);
-      areaKey = isSpecial ? 'special' : 'main';
-      range = (rng[areaKey]) || [1, 30];
-      pickCount = areaPickCount(gameId, areaKey, isSpecial ? 1 : 7);
     } else {
       areaKey = 'main';
       range = (rng.main) || [1, 33];
@@ -2893,7 +2750,7 @@ function autoFillForTemplate(gameId, imageKey) {
 
     /* ---- 走势分析字段：全部自动算 ---- */
     if (sec.fields) {
-      const trend = calcTrendFields(gameId, areaKey, range[0], range[1], pickCount, fieldWidths);
+      const trend = calcTrendFields(gameId, areaKey, range[0], range[1], pickCount);
 
       // 先算出「推荐号」——奇偶/大小/012路 都要跟着它走
       // 【关键】号码个数 = 该玩法该区的真实球数（双色球红球 6、大乐透前区 5……）
