@@ -455,6 +455,28 @@ async function main() {
     if (s && s.gs === 20) status = 'finished';
     else if (s && s.gs && s.gs !== 1 && s.gs !== 0) status = 'live';
 
+    /* 【按时间兜底判断】—— 修「比赛早打完了还显示进行中」
+       实测问题：2026-10-14 18:00 开赛、比分 3-0 已定，
+                 到 10-15 00:35 页面仍标「进行中」。
+       原因：245qq 有时把已经结束的比赛继续留在 GetRunballList（进行中）里，
+             所以照抄它的 kind 就会一直是 live。
+       规则：只要【两边都有比分】且【开赛时间 + 2.5 小时已经过去】→ 判为完场。
+             正常比赛 90 分钟 + 中场 15 分 + 补时 ≈ 2 小时，留 2.5 小时余量；
+             这样不会把正在进行（含加时/点球）的比赛误判成完场。
+       注意：这条只往 'finished' 方向纠正，不会把完场改回进行中。 */
+    if (hs !== null && hs !== undefined && as_ !== null && as_ !== undefined && status !== 'finished') {
+      /* 开赛时间字段在不同数据源里名字不同，挨个试 */
+      const rawTime = g.time || g.matchTime || g.startTime || g.beginTime || g.kickoff || '';
+      let st = NaN;
+      if (rawTime) {
+        st = new Date(String(rawTime).replace(/-/g, '/')).getTime();
+        if (isNaN(st)) st = new Date(String(rawTime)).getTime();
+      }
+      if (!isNaN(st) && (Date.now() - st) > 2.5 * 3600 * 1000) {
+        status = 'finished';
+      }
+    }
+
     if (hs !== null && hs !== undefined) withScore++;
 
     const eu = odds && odds.europe && (odds.europe.live || odds.europe.open);
