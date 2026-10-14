@@ -51,6 +51,24 @@ function hasExpertPool(gameId, areaKey) {
   return expertPoolOf(gameId, areaKey).length > 0;
 }
 
+/**
+ * 【资料优先】资料（data-store.js）里写明的号码 / 杀号。
+ * 优先级：资料 > 专家池 > 原算法。解析不出来就返回空（静默跳过，不影响原算法）。
+ * @returns {{pick:number[], kill:Set<number>}}
+ */
+function materialFirstOf(gameId, areaKey, from, to) {
+  const out = { pick: [], kill: new Set() };
+  try {
+    if (typeof materialRulesFor !== 'function') return out;
+    const mr = materialRulesFor(gameId, areaKey) || {};
+    const kill = (mr.kill || []).filter((x) => x >= from && x <= to);
+    out.kill = new Set(kill);
+    out.pick = (mr.pick || []).concat(mr.dan || [], mr.tuo || [])
+      .filter((x) => Number.isInteger(x) && x >= from && x <= to && !out.kill.has(x));
+  } catch (e) { out.pick = []; out.kill = new Set(); }
+  return out;
+}
+
 /** 号码池基底（专家池优先，不足时用 fillFn / 随机补齐）；没有池返回 null */
 function expertBaseOf(gameId, areaKey, total, from, to, fillFn) {
   try {
@@ -274,6 +292,17 @@ function autoNumberPool(gameId, areaKey, rowCounts, opts) {
     if (fb !== fa) return fb - fa;
     return a - b;
   });
+
+  /* 【资料优先】资料里写明的号码排最前、资料杀号剔除（资料 > 专家池 > 原算法） */
+  try {
+    const mf = materialFirstOf(gameId, areaKey, from, to);
+    if (mf.pick.length || mf.kill.size) {
+      const kept = candidate.filter((x) => !mf.kill.has(x));
+      const band = (kept.length >= Math.max(...rowCounts.map((c) => c || 1), 1)) ? kept : candidate;
+      const first = mf.pick.filter((x) => band.indexOf(x) >= 0);
+      candidate = first.concat(band.filter((x) => first.indexOf(x) < 0));
+    }
+  } catch (e) { /* 解析不出来就走原来的排序 */ }
 
   // 依次截取
   return rowCounts.map((cnt) => ({
@@ -534,7 +563,12 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
 
   /* 【兜底】没有历史数据时，也要给出号码，避免整张图空着 */
   if (!hist.length) {
-    const out = pool.slice(0, want);
+    let out = pool.slice(0, want);
+    try {
+      const mf = materialFirstOf(gameId, areaKey, from, to);
+      if (mf.pick.length) out = mf.pick.slice(0, want);
+      if (mf.kill.size) out = out.filter((x) => !mf.kill.has(x));
+    } catch (e) { /* 忽略 */ }
     const have = new Set(out);
     const rest = [];
     for (let i = from; i <= to; i++) if (!have.has(i)) rest.push(i);
@@ -573,7 +607,30 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
     return y.score - x.score || x.num - y.num;
   });
 
-  const picked = list.slice(0, want).map((x) => x.num);
+  /* 【资料优先】资料里写明的号码排在最前面（资料 > 专家池 > 原算法） */
+  let ordered = list;
+  try {
+    const mf = materialFirstOf(gameId, areaKey, from, to);
+    if (mf.pick.length || mf.kill.size) {
+      const kept = list.filter((x) => !mf.kill.has(x.num));
+      const band = (kept.length >= want) ? kept : list;
+      const matRank = new Map(mf.pick.map((num, i) => [num, i]));
+      band.sort((x, y) => {
+        const mx = matRank.has(x.num);
+        const my = matRank.has(y.num);
+        if (mx !== my) return mx ? -1 : 1;
+        if (mx) return matRank.get(x.num) - matRank.get(y.num);
+        const px = poolRank.has(x.num);
+        const py = poolRank.has(y.num);
+        if (px !== py) return px ? -1 : 1;
+        if (px) return poolRank.get(x.num) - poolRank.get(y.num);
+        return y.score - x.score || x.num - y.num;
+      });
+      ordered = band;
+    }
+  } catch (e) { ordered = list; }
+
+  const picked = ordered.slice(0, want).map((x) => x.num);
 
   // 如果这个区在历史里从没出现过（比如七星彩后区），随机补足
   if (picked.length < want) {
