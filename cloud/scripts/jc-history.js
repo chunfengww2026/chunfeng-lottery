@@ -2,9 +2,61 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-15 03:10",
+ "updated": "2026-10-15 03:15",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周三005",
+   "league": "欧冠",
+   "home": "费耶诺德",
+   "away": "科莫",
+   "time": "2026-10-15 00:45",
+   "score": "3:2",
+   "hc": null,
+   "odds": {
+    "home": 3,
+    "draw": 3.9,
+    "away": 2.15
+   },
+   "prob": {
+    "home": 31.6,
+    "draw": 24.3,
+    "away": 44.1
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 44.1,
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-15 03:15"
+  },
+  {
+   "code": "周三006",
+   "league": "欧冠",
+   "home": "LASK林茨",
+   "away": "利物浦",
+   "time": "2026-10-15 00:45",
+   "score": "3:6",
+   "hc": null,
+   "odds": {
+    "home": 8,
+    "draw": 5,
+    "away": 1.38
+   },
+   "prob": {
+    "home": 11.9,
+    "draw": 19.1,
+    "away": 69
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 69,
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-10-15 03:15"
+  },
   {
    "code": "周三002",
    "league": "亚冠杯",
