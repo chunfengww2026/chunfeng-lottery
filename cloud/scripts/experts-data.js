@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-15 04:07
+   生成时间：2026-10-15 04:11
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-15 04:07",
+ "updated": "2026-10-15 04:11",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 80,
   "requests": 216,
   "errors": 0,
-  "seconds": 192.9
+  "seconds": 190.4
  },
  "games": {
   "ssq": {
@@ -14551,95 +14551,95 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 40,
-      "pct": 20.6
+      "pct": 23
      },
      {
       "num": 58,
-      "pct": 16.3
-     },
-     {
-      "num": 12,
-      "pct": 8.1
-     },
-     {
-      "num": 41,
-      "pct": 8.1
+      "pct": 14.3
      },
      {
       "num": 70,
-      "pct": 8.1
+      "pct": 9
      },
      {
-      "num": 61,
-      "pct": 5.6
+      "num": 12,
+      "pct": 8.7
+     },
+     {
+      "num": 41,
+      "pct": 7.3
      },
      {
       "num": 2,
-      "pct": 4.4
+      "pct": 5.7
      },
      {
       "num": 3,
-      "pct": 4.4
+      "pct": 5.3
      },
      {
       "num": 51,
-      "pct": 4.4
+      "pct": 5
      },
      {
-      "num": 71,
-      "pct": 4.4
+      "num": 43,
+      "pct": 4.7
      },
      {
-      "num": null,
-      "pct": 3.8
-     },
-     {
-      "num": null,
-      "pct": 3.8
+      "num": 61,
+      "pct": 4.7
      },
      {
       "num": null,
-      "pct": 1.9
+      "pct": 3
      },
      {
       "num": null,
-      "pct": 1.9
+      "pct": 2
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 1.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 1
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 1
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
+     },
+     {
+      "num": null,
+      "pct": 0.3
+     },
+     {
+      "num": null,
+      "pct": 0.3
      },
      {
       "num": null,
