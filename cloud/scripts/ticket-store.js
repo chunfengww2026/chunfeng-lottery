@@ -819,9 +819,28 @@ function rollValueDeterministic(gameId, spec) {
     return picked.map(pad2).join(' ');
   }
 
-  // 10) 文字型固定值
-  if (label.includes('和尾')) return '0~9';
-  if (label.includes('防组三')) return '对子号';
+  /* 10) 【数字彩页脚三项】用户的模板硬性条件：
+       和值 → 3 个数 · 和尾 → 3 个数 · 对子号 → 2 个数
+     （原来是「0~9」「对子号」这种固定文字/区间，用户要求给具体号码）
+     数据来自近 30 期真实开奖统计（digitFooterTop 定义在 stats.js）。 */
+  if (typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
+    const areas30 = historyAreas(gameId, areaKey, 30);
+    if (label.includes('和尾')) {
+      const t = digitFooterTop(areas30, 'tail', 3);
+      if (t.length) return t.join(' ');
+    }
+    if (label.includes('防组三') || label.includes('对子')) {
+      const p = digitFooterTop(areas30, 'pair', 2);
+      if (p.length) return p.join(' ');
+    }
+    if (label.includes('合值') || label.includes('和值')) {
+      const s = digitFooterTop(areas30, 'sum', 3);
+      if (s.length) return s.join(' ');
+    }
+  }
+  /* 兜底（digitFooterTop 不可用时） */
+  if (label.includes('和尾')) return '0 1 2';
+  if (label.includes('防组三')) return '11 22';
 
   // 11) 热号/冷号/邻号等走势：围绕号码池算
   const TREND_KEY = {
