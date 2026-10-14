@@ -44,14 +44,18 @@
   var LATEST_GAME_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'qlc', 'pl5', 'kl8', 'qxc'];
 
   /** 号码补两位（开奖号显示用） */
-  function hc2(n) {
+  /* 【补零】数字彩（福彩3D/排列3/排列5/七星彩）不补零（0 就是 0）；
+     其它彩种补两位（4 → 04）。用户要求：「所有的 0 都是一位数 0」。 */
+  var DIGIT_IDS = ['fc3d', 'pl3', 'pl5', 'qxc'];
+  function hc2(n, gid) {
+    if (DIGIT_IDS.indexOf(gid) >= 0) return String(n);
     return String(n).padStart(2, '0');
   }
 
   /** 号码数组 → 一排球 HTML */
-  function hcBallsHtml(nums, cls) {
+  function hcBallsHtml(nums, cls, gid) {
     return (nums || []).map(function (n) {
-      return '<span class="hc-ball ' + (cls || '') + '">' + hc2(n) + '</span>';
+      return '<span class="hc-ball ' + (cls || '') + '">' + hc2(n, gid) + '</span>';
     }).join('');
   }
 
@@ -149,10 +153,10 @@
 
     var cards = list.map(function (d) {
       var special = (d.special || []).length
-        ? '<span class="hc-plus">★</span>' + hcBallsHtml(d.special, 'sp')
+        ? '<span class="hc-plus">★</span>' + hcBallsHtml(d.special, 'sp', d.gameId)
         : '';
       var blue = (d.blue || []).length
-        ? '<span class="hc-plus">+</span>' + hcBallsHtml(d.blue, 'blue')
+        ? '<span class="hc-plus">+</span>' + hcBallsHtml(d.blue, 'blue', d.gameId)
         : '';
       return '<div class="hc-drawcard">' +
         '<div class="hc-dt">' +
@@ -160,7 +164,7 @@
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
-        '<div class="hc-balls">' + hcBallsHtml(d.red, 'red') + blue + special + '</div>' +
+        '<div class="hc-balls">' + hcBallsHtml(d.red, 'red', d.gameId) + blue + special + '</div>' +
         '</div>';
     }).join('');
 
