@@ -518,7 +518,7 @@ function autoFillWuxing(gameId) {
 
 /* 【补零规则】用户要求：「不要两个 0，所有的 0 都是一位数 0」
        所以 0 显示成 '0'；其它个位数仍然补零（1 -> '01'、4 -> '04'）。 */
-  const pad2 = (n) => (Number(n) === 0 ? '0' : (Number(n) === 0 ? '0' : String(n).padStart(2, '0')));
+  const pad2 = (n) => (Number(n) === 0 ? '0' : String(n).padStart(2, '0'));
 const toLine = (arr) => arr.map(pad2).join(' ');
 
 /** 把历史里某个区的号码按「期」取出来（最新在前） */
