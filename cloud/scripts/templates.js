@@ -168,13 +168,8 @@ const TEMPLATES = {
                    cir_tuo  拖码 随后 7 码   → 图上橙色
                  注意：这里【不写 fields】—— circle 区块的 fields 会被
                  autoFillForTemplate 当成走势字段覆盖掉（推荐池会被截成 6 码）。
-                 区块结构保持原样，只认 centerKey。 */
-              legend: [
-                { label: '金胆/银胆', color: 'gold-red' },
-                { label: '拖码',      color: 'orange'   },
-                { label: '号码池',    color: 'purple'   },
-                { label: '未推荐',    color: 'gray'     }
-              ]
+                 区块结构保持原样，只认 centerKey；图例由 render.js 按
+                 实际用到的颜色自己画。 */
             },
             right: {
               type: 'jiugong',
@@ -345,13 +340,8 @@ const TEMPLATES = {
               /* 【固定同心圆模板】同双色球：中心 1 + 4 圈 × 8 方向 = 33 个位置，
                  用 JIUZHUAN_LAYOUT.dlt 那张固定表（33 个前区号 ——
                  1~35 里缺 01 和 33，用户给的表就是这样，照实现不补号）。
-                 高亮口径同上：cir_pool(红) / cir_dan(金) / cir_tuo(橙)。 */
-              legend: [
-                { label: '金胆/银胆', color: 'gold-red' },
-                { label: '拖码',      color: 'orange'   },
-                { label: '号码池',    color: 'purple'   },
-                { label: '未推荐',    color: 'gray'     }
-              ]
+                 高亮口径同上：cir_pool(红) / cir_dan(金) / cir_tuo(橙)；
+                 图例由 render.js 按实际用到的颜色自己画，这里不写 fields。 */
             },
             right: {
               type: 'jiugong',
