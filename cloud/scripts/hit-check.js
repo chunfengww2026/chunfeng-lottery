@@ -610,7 +610,7 @@ function hcDrawDesc(gameId, draw) {
 /* ============================================================
    最新开奖（供页面顶部展示）
    ============================================================ */
-const HC_GAME_ORDER = ['ssq', 'dlt', 'qlc', 'kl8', 'fc3d', 'pl3', 'pl5', 'qxc'];
+const HC_GAME_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'qlc', 'pl5', 'kl8', 'qxc'];
 
 /** 取所有彩种的最新开奖 */
 function getLatestDraws() {
