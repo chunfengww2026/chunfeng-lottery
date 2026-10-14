@@ -460,8 +460,21 @@ function rollAllGames(opts) {
         if (sec.bigBall) spec.push({ key: sec.bigBall.key, label: sec.bigBall.label || '主推', count: 1, areaKey });
         if (sec.bigBalls) spec.push({ key: sec.bigBalls.key, label: '主推', count: sec.bigBalls.count || 2, areaKey });
         if (Array.isArray(sec.groups)) {
+          /* 【修正】热号排行要【按分组标签】选号码区。
+             原来整段都用 areaKey，导致「蓝球热号排行」拿红球的号
+             （会出现 24 这种根本不是蓝球的号）、「后区热号排行」拿前区的号。
+             这里和 stats.js 的同类逻辑（sec.type==='rank' && sec.groups）保持一致。 */
+          const areaForRankGroup = (lb) => {
+            const s = String(lb || '');
+            if (gameId === 'ssq') return /蓝球/.test(s) ? 'blue' : 'red';
+            if (gameId === 'dlt') return /后区/.test(s) ? 'back' : 'front';
+            if (gameId === 'qxc' || gameId === 'xqxc') return /后区/.test(s) ? 'back' : 'front';
+            if (/后区|蓝球/.test(s)) return 'back';
+            return areaKey;
+          };
           sec.groups.forEach((g) => {
-            const ranks = (typeof hotRankStrings === 'function') ? hotRankStrings(gameId, areaKey, g.count || 6, 30) : [];
+            const gArea = areaForRankGroup(g.label);
+            const ranks = (typeof hotRankStrings === 'function') ? hotRankStrings(gameId, gArea, g.count || 6, 30) : [];
             ranks.forEach((v, i) => spec.push({ key: `${g.label}_${i}`, fixedValue: v }));
           });
         }
@@ -1249,7 +1262,20 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
 
     /* ---- 热号排行（带骰子：从真实排行里摇） ---- */
     if (sec.groups) {
-      const ak = areaKeyOf(sec);
+      /* 【修正】热号排行的号码区要【按分组标签】判断，
+         不能整段用一个 areaKey —— 否则「蓝球热号排行」「后区热号排行」
+         会拿红球/前区的号（会出现 24 这种根本不是蓝球的号）。
+         这里和 stats.js 的同类逻辑保持一致。 */
+      const areaForGroup = (g) => {
+        const base = areaKeyOf(sec);
+        const lb = String((g && g.label) || '');
+        if (gameId === 'ssq') return /蓝球/.test(lb) ? 'blue' : 'red';
+        if (gameId === 'dlt') return /后区/.test(lb) ? 'back' : 'front';
+        if (gameId === 'qxc' || gameId === 'xqxc') return /后区/.test(lb) ? 'back' : 'front';
+        if (/后区|蓝球/.test(lb)) return 'back';
+        return base;
+      };
+      const ak = areaKeyOf(sec);   // 保留：下面非分组的字段（主推球等）仍用它
       sec.groups.forEach((g) => {
         const sub = document.createElement('div');
         sub.className = 'tk-subtitle';
@@ -1272,7 +1298,7 @@ function renderTicketForm(gameId, imageKey, date, container, onSaved) {
           wrap.appendChild(inp);
 
           // 热号排行：属于真实统计值，「全部随机」时保持不动
-          inputMeta[`${g.label}_${i}`] = { label: g.label, count: g.count, areaKey: ak, isRank: true };
+          inputMeta[`${g.label}_${i}`] = { label: g.label, count: g.count, areaKey: areaForGroup(g), isRank: true };
           fixedKeys.add(`${g.label}_${i}`);
 
           const dice = document.createElement('button');
