@@ -466,279 +466,17 @@ GROUPS.forEach((group) => {
 });
 
 /* ============================================================
-   竞彩（体彩在售比赛）段落
+   【已移除】竞彩（体彩在售比赛）段落
+   ------------------------------------------------------------
+   分享页（彩票推荐页）不再显示足球 / 竞彩内容 ——
+   足球只放在独立的「竞彩场次」页：
+     分享包/football.html  ← 由 export-football.mjs 生成
+   顶部导航的「竞彩场次」tab 直接跳到 football.html。
+
+   原来这里有一个 buildJcSection()，会读 jc-data.js 与 football.js，
+   拼出「竞彩 · 推胜负平」卡片组；现在整段删除，
+   分享页生成时也不再需要这两个数据文件。
    ============================================================ */
-function buildJcSection() {
-  /* ---------- 1. 取竞彩在售清单（拿编号与 fid） ---------- */
-  const p = path.join(ROOT, 'jc-data.js');
-  if (!fs.existsSync(p)) return { html: '', count: 0, reco: null };
-
-  let J = null;
-  try {
-    const jctx = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
-    vm.runInContext(fs.readFileSync(p, 'utf8') + '\nglobalThis.__J = JC_DATA;', jctx);
-    J = jctx.__J;
-  } catch (e) { return { html: '', count: 0, reco: null }; }
-
-  if (!J || !Array.isArray(J.games) || !J.games.length) return { html: '', count: 0, reco: null };
-
-  /* 竞彩信息表。
-     注意：500.com 与 245qq 用的是两套不同的比赛 ID，
-     不能按 gid 配，只能按【队名 + 日期】配。 */
-  const normName = (s) => String(s || '')
-    .replace(/[\s\-·.()（）]/g, '')
-    .replace(/(足球队|俱乐部|后备队|女足|U\d+|FC|SC|CF|AC|BK|IF|FK|SV|SK|CS)/gi, '')
-    .toLowerCase();
-
-  const dayOf = (t) => String(t || '').slice(0, 10);
-
-  const jcInfo = {};
-  const jcIndex = [];   // 用于配对
-  J.games.forEach((g) => {
-    const rec = {
-      gid: String(g.gid),
-      code: g.code || '',
-      handicap: g.handicap || null,
-      homeRank: (g.home && g.home.rank) || null,
-      awayRank: (g.away && g.away.rank) || null,
-      homeName: (g.home && g.home.name) || '',
-      awayName: (g.away && g.away.name) || '',
-      day: dayOf(g.time),
-      odds: g.odds || null,
-      reco: g.reco || null
-    };
-    jcInfo[rec.gid] = rec;
-    jcIndex.push(rec);
-  });
-
-  /** 给一场 football 比赛找对应的竞彩记录 */
-  function findJc(g) {
-    const fh = normName(g.home && g.home.name);
-    const fa = normName(g.away && g.away.name);
-    const fd = dayOf(g.time);
-    if (!fh || !fa) return null;
-
-    // 1) 队名匹配 + 同一天
-    let hit = jcIndex.find((x) =>
-      dayOf(x.homeName ? '' : '') === '' &&
-      (normName(x.homeName).includes(fh) || fh.includes(normName(x.homeName))) &&
-      (normName(x.awayName).includes(fa) || fa.includes(normName(x.awayName)))
-    );
-    if (hit) return hit;
-
-    // 2) 队名匹配（不限定日期，差一天也算）
-    hit = jcIndex.find((x) => {
-      const xh = normName(x.homeName), xa = normName(x.awayName);
-      if (!xh || !xa) return false;
-      const hOk = xh.includes(fh) || fh.includes(xh);
-      const aOk = xa.includes(fa) || fa.includes(xa);
-      if (!hOk || !aOk) return false;
-      // 日期相差不超过 1 天
-      const d1 = new Date(x.day + 'T00:00:00').getTime();
-      const d2 = new Date(fd + 'T00:00:00').getTime();
-      return Math.abs(d1 - d2) <= 86400000;
-    });
-    if (hit) return hit;
-
-    // 3) 只匹配主队
-    hit = jcIndex.find((x) => {
-      const xh = normName(x.homeName);
-      return xh && (xh.includes(fh) || fh.includes(xh));
-    });
-    return hit || null;
-  }
-
-  /* ---------- 2. 从 football.js 取这些比赛的实时状态与比分 ---------- */
-  const merged = [];
-  const fp = path.join(ROOT, 'football.js');
-  if (fs.existsSync(fp)) {
-    try {
-      const fctx = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
-      vm.runInContext(fs.readFileSync(fp, 'utf8') + '\nglobalThis.__F = FOOTBALL_DATA;', fctx);
-      const F = fctx.__F;
-      if (F && F.lists) {
-        ['upcoming', 'live', 'finished'].forEach((kind) => {
-          (F.lists[kind] || []).forEach((g) => {
-            const info = jcInfo[String(g.gid)];
-            if (!info) return;   // 只保留竞彩涵盖的比赛
-            merged.push({
-              gid: g.gid,
-              kind,
-              code: info.code,
-              handicap: info.handicap,
-              league: g.league,
-              time: g.time,
-              minute: g.minute,
-              home: g.home,
-              away: g.away,
-              homeRank: info.homeRank,
-              awayRank: info.awayRank,
-              odds: g.odds,
-              reco: g.reco,
-              result: g.result
-            });
-          });
-        });
-      }
-    } catch (e) { /* 忽略，回退到 jc-data */ }
-  }
-
-  /* 若 football.js 没配到，退回 jc-data.js 本身 */
-  if (!merged.length) {
-    J.games.forEach((g) => {
-      merged.push({
-        gid: g.gid,
-        kind: 'upcoming',
-        code: g.code,
-        handicap: g.handicap,
-        league: g.league ? { name: g.league } : null,
-        time: g.time,
-        minute: 0,
-        home: g.home,
-        away: g.away,
-        homeRank: g.home && g.home.rank,
-        awayRank: g.away && g.away.rank,
-        odds: g.odds,
-        reco: g.reco,
-        result: null
-      });
-    });
-  }
-
-  /* ---------- 3. 汇总推荐分布 ---------- */
-  const reco = { home: 0, draw: 0, away: 0, none: 0 };
-  const stats = { upcoming: 0, live: 0, finished: 0, hit: 0, miss: 0 };
-
-  merged.forEach((g) => {
-    if (g.reco) reco[g.reco.pick]++; else reco.none++;
-    stats[g.kind] = (stats[g.kind] || 0) + 1;
-    if (g.result) { if (g.result.hit) stats.hit++; else stats.miss++; }
-  });
-
-  /* ---------- 4. 渲染卡片 ---------- */
-  const esc = (s) => String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-  const oddSpan = (label, v, on) =>
-    (v === null || v === undefined || v === '') ? '' :
-    `<span class="j-ov${on ? ' on' : ''}">${label}${v}</span>`;
-
-  function renderCard(g) {
-    const r = g.reco;
-    const res = g.result;
-    const eu = g.odds && g.odds.europe;
-    const euV = eu && (eu.live || eu.open);
-    const as = g.odds && g.odds.asian;
-    const asV = as && (as.live || as.open);
-    const ou = g.odds && g.odds.overunder;
-    const ouV = ou && (ou.live || ou.open);
-
-    const hc = g.handicap ? `<span class="j-hc">(${g.handicap})</span>` : '';
-    const hs = g.home ? g.home.score : null;
-    const as_ = g.away ? g.away.score : null;
-    const hasScore = hs !== null && hs !== undefined && as_ !== null && as_ !== undefined;
-
-    /* 状态标签 */
-    let st = '';
-    if (g.kind === 'live') {
-      st = `<span class="j-st live">${g.minute ? g.minute + "'" : '进行中'}</span>`;
-    } else if (g.kind === 'finished') {
-      st = `<span class="j-st fin">完场</span>`;
-    }
-
-    return (
-      `<div class="j-card${res ? (res.hit ? ' win' : ' lose') : ''}">` +
-      `<div class="j-top">` +
-      (g.code ? `<span class="j-code">${esc(g.code)}</span>` : '') +
-      `<span class="j-league">${esc(g.league ? g.league.name : '')}</span>` +
-      st +
-      `<span class="j-time">${(g.time || '').slice(5)}</span>` +
-      `</div>` +
-      `<div class="j-teams">` +
-      `<span class="j-team home">${g.homeRank ? `<i>[${g.homeRank}]</i>` : ''}${esc(g.home ? g.home.name : '?')}${hc}</span>` +
-      `<span class="j-vs${g.kind === 'live' ? ' live' : ''}">${hasScore ? hs + ' - ' + as_ : 'VS'}</span>` +
-      `<span class="j-team away">${esc(g.away ? g.away.name : '?')}${g.awayRank ? `<i>[${g.awayRank}]</i>` : ''}</span>` +
-      `</div>` +
-      (euV
-        ? `<div class="j-odds"><span class="j-ol">欧赔</span>` +
-          oddSpan('主 ', euV.home, r && r.pick === 'home') +
-          oddSpan('平 ', euV.draw, r && r.pick === 'draw') +
-          oddSpan('客 ', euV.away, r && r.pick === 'away') +
-          `</div>`
-        : '') +
-      (asV
-        ? `<div class="j-odds"><span class="j-ol">亚盘</span>` +
-          oddSpan('', asV.line, false) +
-          oddSpan('主 ', asV.home, false) +
-          oddSpan('客 ', asV.away, false) +
-          `</div>`
-        : '') +
-      (ouV
-        ? `<div class="j-odds"><span class="j-ol">大小</span>` +
-          oddSpan('', ouV.line, false) +
-          oddSpan('大 ', ouV.over, false) +
-          oddSpan('小 ', ouV.under, false) +
-          `</div>`
-        : '') +
-      (r
-        ? `<div class="j-reco">` +
-          `<span class="j-pick">推荐 <b>${esc(r.label)}</b></span>` +
-          (res ? `<span class="m-rb ${res.hit ? 'hit' : 'miss'}">${res.hit ? '红' : '黑'}</span>` : '') +
-          `<span class="j-conf">${res ? '最终 ' + esc(res.actualLabel) + '（' + res.score + '）' : '信心 ' + r.confidence + '%'}</span>` +
-          `<span class="j-probs">` +
-          `<i class="${r.pick === 'home' ? 'on' : ''}">主${r.prob.home}%</i>` +
-          `<i class="${r.pick === 'draw' ? 'on' : ''}">平${r.prob.draw}%</i>` +
-          `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob.away}%</i>` +
-          `</span></div>`
-        : '<div class="j-reco"><span class="j-noodds">暂无赔率</span></div>') +
-      `</div>`
-    );
-  }
-
-  /* 分组：未开赛 / 进行中 / 已完场 */
-  const order = [['upcoming', '未开赛'], ['live', '进行中'], ['finished', '已完场']];
-  let cards = '';
-  order.forEach(([kind, label]) => {
-    const arr = merged.filter((g) => g.kind === kind);
-    if (!arr.length) return;
-    // 完场按时间倒序（最新在前）
-    if (kind === 'finished') arr.sort((a, b) => String(b.time).localeCompare(String(a.time)));
-    else arr.sort((a, b) => String(a.time).localeCompare(String(b.time)));
-
-    cards += `<div class="j-subhead">${label}<span class="j-subcount">${arr.length}</span></div>`;
-    arr.forEach((g) => { cards += renderCard(g); });
-  });
-
-  const settled = stats.hit + stats.miss;
-
-  const html =
-    `<section class="ro-game">` +
-    `<div class="ro-gamehead">` +
-    `<h2>竞彩 · 推胜负平</h2>` +
-    `<div class="ro-meta">体彩在售 ${merged.length} 场 · 更新于 ${J.updated}</div>` +
-    `</div>` +
-    `<div class="j-stat">` +
-    `<div class="h"><b>${reco.home}</b><span>推荐主胜</span></div>` +
-    `<div class="d"><b>${reco.draw}</b><span>推荐平局</span></div>` +
-    `<div class="a"><b>${reco.away}</b><span>推荐客胜</span></div>` +
-    `</div>` +
-    (settled
-      ? `<div class="j-record">` +
-        `<span class="jr-t">完场战绩</span>` +
-        `<span class="jr-h">红 ${stats.hit}</span>` +
-        `<span class="jr-m">黑 ${stats.miss}</span>` +
-        `<span class="jr-r">命中率 ${(stats.hit / settled * 100).toFixed(1)}%</span>` +
-        `<span class="jr-n">（推荐胜负平比对最终比分）</span>` +
-        `</div>`
-      : '') +
-    cards +
-    `<div class="j-note">推荐由博彩公司赔率反推概率得出（市场共识换算），不构成购彩建议。</div>` +
-    `</section>`;
-
-  return { html, count: J.games.length, reco };
-}
-
-const jcSec = buildJcSection();
 
 /* ============================================================
    组装完整 HTML
@@ -754,7 +492,7 @@ if (status.allReady) {
   statusHtml =
     `<div class="ro-status ok">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐已更新</div>` +
-    `<div class="ro-st-time">更新时间：${status.savedTime || status.nowStamp}</div>` +
+    `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-list">${rows}</div>` +
     `</div>`;
 } else {
@@ -765,6 +503,7 @@ if (status.allReady) {
   statusHtml =
     `<div class="ro-status warn">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
+    `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-time">当前显示的是上一次的内容（${status.savedTime || '无记录'}）</div>` +
     `<div class="ro-st-reason">${reason}</div>` +
     `<div class="ro-st-hint">请稍后再看，或联系发布者更新</div>` +
@@ -1247,6 +986,9 @@ body {
   margin-top: 8px;
   letter-spacing: 0.5px;
 }
+/* 【已移除】标题下面那行「日期 · 共 N 个彩种 / M 张图」（用户要求删掉）。
+   body 上的构建时间属性仍然保留 —— 自愈脚本靠它判断页面新旧，
+   它只是不可见属性，不再渲染成页面上的可见文字。 */
 
 /* ---- 更新状态条 ---- */
 .ro-status {
@@ -1315,59 +1057,8 @@ body {
   font-size: 13px; color: #6b7488; letter-spacing: 2px; white-space: nowrap;
 }
 
-/* ---- 竞彩卡片 ---- */
-.j-stat { display: flex; gap: 8px; margin-bottom: 18px; }
-.j-stat div {
-  flex: 1; text-align: center; padding: 9px 6px;
-  background: #161a21; border: 1px solid #262d3a; border-radius: 10px;
-}
-.j-stat b { display: block; font-size: 18px; font-weight: 800; margin-bottom: 2px; }
-.j-stat span { font-size: 11px; color: #6b7488; }
-.j-stat .h b { color: #6ea8fe; }
-.j-stat .d b { color: #f0b429; }
-.j-stat .a b { color: #47e0a0; }
-
-.j-card {
-  background: #161a21; border: 1px solid #262d3a; border-radius: 12px;
-  padding: 12px 14px; margin-bottom: 10px;
-}
-.j-top { display: flex; align-items: center; gap: 9px; font-size: 11.5px; margin-bottom: 9px; }
-.j-code {
-  background: #2a3346; color: #8ab0f5; padding: 2px 8px;
-  border-radius: 5px; font-weight: 700; font-size: 11px;
-}
-.j-league { color: #8b93a1; font-weight: 600; }
-.j-time { color: #6b7488; font-family: Consolas, monospace; margin-left: auto; }
-.j-hc { color: #f0575c; font-size: 11px; margin-left: 3px; }
-
-.j-teams { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.j-team { flex: 1; min-width: 0; font-size: 14px; color: #e8eaed; line-height: 1.4; word-break: break-word; }
-.j-team.home { text-align: right; }
-.j-team.away { text-align: left; }
-.j-team i { font-style: normal; font-size: 10.5px; color: #5a6272; margin: 0 3px; }
-.j-vs {
-  flex-shrink: 0; min-width: 40px; text-align: center;
-  font-size: 12px; color: #5a6272; font-family: Consolas, monospace;
-}
-
-.j-odds { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #8b93a1; margin-bottom: 6px; font-family: Consolas, monospace; }
-.j-ol { color: #5a6272; min-width: 32px; font-family: "Microsoft YaHei", sans-serif; font-size: 11px; }
-.j-ov { padding: 2px 8px; border-radius: 5px; background: #0f1115; border: 1px solid #1e2430; }
-.j-ov.on { background: rgba(71,224,160,0.13); border-color: rgba(71,224,160,0.4); color: #47e0a0; font-weight: 600; }
-
-.j-reco {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  margin-top: 10px; padding-top: 10px; border-top: 1px dashed #262d3a; font-size: 12.5px;
-}
-.j-pick { color: #c8cfda; }
-.j-pick b { color: #47e0a0; font-size: 15px; font-weight: 800; margin-left: 3px; }
-.j-conf { color: #8b93a1; font-size: 11.5px; }
-.j-noodds { color: #454d5c; font-size: 11.5px; }
-.j-probs { margin-left: auto; display: flex; gap: 6px; }
-.j-probs i { font-style: normal; font-size: 11px; color: #5a6272; padding: 2px 7px; border-radius: 4px; background: #0f1115; }
-.j-probs i.on { color: #47e0a0; background: rgba(71,224,160,0.12); font-weight: 700; }
-
-.j-note { font-size: 11px; color: #454d5c; margin-top: 12px; line-height: 1.8; }
+/* 【已移除】竞彩卡片样式（.j-stat / .j-card / .j-odds / .j-reco …）
+   足球内容移到独立的「竞彩场次」页，分享页不再需要这套样式。 */
 
 .ro-game {
   margin-bottom: 40px;
@@ -1458,6 +1149,31 @@ body {
   line-height: 2;
 }
 
+/* ---- 免责声明（页面最底部，独立区块）----
+   低调但清晰可读：小字号 + 灰色系，跟暗色主题一致；
+   不是弹窗 / 遮罩，不打断阅读。 */
+.ro-disclaimer {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  padding: 16px 18px;
+  background: #12151b;
+  border: 1px solid #1e2430;
+  border-radius: 10px;
+  color: #7c8598;
+  font-size: 11.5px;
+  line-height: 1.95;
+  text-align: left;
+}
+.ro-disclaimer h3 {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #9aa3b2;
+  letter-spacing: 2px;
+  margin-bottom: 7px;
+}
+.ro-disclaimer p { margin: 0; }
+.ro-disclaimer p + p { margin-top: 4px; }
+
 /* 手机上：只收窄页面留白，
    【绝对不改图片内部布局】—— 图片靠 JS 等比缩放 */
 @media (max-width: 600px) {
@@ -1471,7 +1187,6 @@ body {
 
   <div class="ro-top">
     <h1>春风十里送大奖 · 推荐图</h1>
-    <div class="sub">生成时间 ${nowStamp} · 共 ${gameCount} 个彩种 / ${imgCount} 张图</div>
   </div>
 
   ${statusHtml}
@@ -1482,15 +1197,18 @@ body {
 
   ${sectionsHtml}
 
-  <div class="ro-divider"><span>竞彩 · 体彩在售</span></div>
-
-  ${jcSec.html}
-
   ${hitSecHtml}
 
   <div class="ro-foot">
     本页面为只读分享版，仅供观看，无法修改。<br>
     彩票有风险，投注需谨慎。以上内容仅为个人分析，不构成购彩建议，请理性参与。
+  </div>
+
+  <!-- 免责声明（页面最底部，独立区块；浅灰小字，不弹窗、不遮挡） -->
+  <div class="ro-disclaimer">
+    <h3>免责声明</h3>
+    <p>本页所有内容均为公开信息的统计整理，仅供娱乐与数据参考，不构成任何购彩建议，也不承诺任何中奖结果。彩票开奖为独立随机事件，请理性购彩，量力而行。</p>
+    <p>未满 18 周岁禁止购买彩票。</p>
   </div>
 
 </div>
