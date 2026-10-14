@@ -565,27 +565,13 @@ if (latestSecHtml && latestSecHtml.indexOf('id="' + LATEST_DRAWS_ID + '"') < 0) 
 }
 console.log(`  · 最新开奖区块 id = ${LATEST_DRAWS_ID}`);
 
-/* ---- 底部：中奖栏（带图上圈选）---- */
-if (typeof buildWinHtml === 'function') {
-  try {
-    hitSecHtml = buildWinHtml({
-      renderImage: (gameId, imageKey, values, draw) => {
-        // 渲染推荐图，然后把中奖号码圈出来
-        const dom = render(gameId, imageKey, { images: { [imageKey]: values } });
-        if (typeof highlightImage === 'function') {
-          try { highlightImage(dom, gameId, draw, null); } catch (e) { /* 忽略高亮失败 */ }
-        }
-        return toHtml(dom);
-      }
-    });
-    hitSecCss = (typeof ctx.hitSectionCss === 'function') ? ctx.hitSectionCss() : '';
-    winCount = (hitSecHtml.match(/class="hw-card/g) || []).length;
-    console.log(`  · 中奖栏：${winCount} 注中奖${winCount ? '' : '（未中奖则不显示）'}`);
-  } catch (e) {
-    console.log(`  ❌ 中奖栏生成出错：${e.message}`);
-    if (e.stack) console.log('     ' + e.stack.split('\n').slice(1, 3).join('\n     '));
-  }
-}
+/* ---- 底部：中奖栏 ---- 【已按用户要求移除】
+   用户原话：「不要这个东西了」（指着页面的「中奖栏 / 累计命中 N 注 / 奖金合计 X 元」）。
+   这里原来会调 hit-check.js 的 buildWinSectionHtml() 生成中奖卡片（带推荐图圈选）。
+   现在完全不生成：hitSecHtml 恒为空字符串，页面里也就没有这一块。
+   注意：没有动 hit-check.js 本身（App 里可能还要用），只是分享页不再输出。 */
+hitSecHtml = '';
+hitSecCss = '';
 
 const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
 
