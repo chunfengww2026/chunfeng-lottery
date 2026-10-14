@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 00:05 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 00:19 */
 const JC_DATA = {
- "updated": "2026-10-15 00:05",
+ "updated": "2026-10-15 00:19",
  "stat": {
   "total": 14,
   "upcoming": 10,
@@ -356,9 +356,9 @@ const JC_DATA = {
       "away": 0.92
      },
      "live": {
-      "home": 0.67,
+      "home": 0.9,
       "line": "受半球",
-      "away": 1.15
+      "away": 0.95
      }
     },
     "europe": {
@@ -368,9 +368,9 @@ const JC_DATA = {
       "away": 2.2
      },
      "live": {
-      "home": 2.8,
-      "draw": 3.75,
-      "away": 2.3
+      "home": 3,
+      "draw": 3.9,
+      "away": 2.15
      }
     },
     "overunder": {
@@ -389,14 +389,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 41.1,
+    "confidence": 44.1,
     "prob": {
-     "home": 33.7,
-     "draw": 25.2,
-     "away": 41.1
+     "home": 31.6,
+     "draw": 24.3,
+     "away": 44.1
     },
     "clear": false,
-    "margin": 5.9,
+    "margin": 5.5,
     "rqLine": "受半球"
    },
    "status": "upcoming",
@@ -516,9 +516,9 @@ const JC_DATA = {
       "away": 2.7
      },
      "live": {
-      "home": 2.45,
+      "home": 2.35,
       "draw": 3.5,
-      "away": 2.75
+      "away": 2.88
      }
     },
     "overunder": {
@@ -537,11 +537,11 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 38.6,
+    "confidence": 40.2,
     "prob": {
-     "home": 38.6,
+     "home": 40.2,
      "draw": 27,
-     "away": 34.4
+     "away": 32.8
     },
     "clear": false,
     "margin": 5.8,
@@ -812,8 +812,8 @@ const JC_DATA = {
       "away": 2.75
      },
      "live": {
-      "home": 1.95,
-      "draw": 4,
+      "home": 2,
+      "draw": 3.9,
       "away": 3.3
      }
     },
@@ -833,14 +833,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.1,
+    "confidence": 47.2,
     "prob": {
-     "home": 48.1,
-     "draw": 23.5,
-     "away": 28.4
+     "home": 47.2,
+     "draw": 24.2,
+     "away": 28.6
     },
     "clear": true,
-    "margin": 6.6,
+    "margin": 5.9,
     "rqLine": "半球"
    },
    "status": "upcoming",
