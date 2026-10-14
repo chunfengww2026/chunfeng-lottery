@@ -359,6 +359,9 @@ function planForSlot(type, b) {
   const plan = Object.assign({}, SLOT_PLAN[type] || SLOT_PLAN.auto);
   plan.type = type;
   plan.label = SLOT_LABEL[type] || type;
+  /* 把「现在（北京时间）」挂在计划上 —— runHeatmapStep 要用同一个时刻，
+     否则热力图判断和班次判断可能对不上（差一分钟就跨过开奖时刻）。 */
+  plan.bj = b;
 
   /* 【强制重摇】开关：CLOUD_ROLL=force|fill|skip，或命令行 --force-roll / --no-roll */
   const rollEnv = String(process.env.CLOUD_ROLL || '').trim().toLowerCase();
@@ -498,21 +501,51 @@ function writeSavedTickets(ctx) {
   return after;
 }
 
-/** 简报：每个彩种这一期有没有号码（不打印具体号码，日志干净） */
-function rollSummary(ctx) {
+/* ---------- 本期号码覆盖检查 ----------
+   判断「某彩种本期有没有号码」，两个依据【取并集】：
+     ① 存档里「本期开奖日」那条记录：有图 且 期号 == 下一期期号  → 算有
+     ② allPeriodsOf() 里存在「未开奖 且 有图」的期次              → 算有
+   为什么必须两个都看：
+     · 只看 ②：开奖日当天，记录会被 hcFindDraw 按「日期相同」匹配成已开奖，
+               于是明明已经摇了下一期号码，却被判成「没号码」→ 反复重摇。
+     · 只看 ①：nextDrawDate 有些彩种会停在今天，拿到的可能是上一期已开奖的记录。
+   返回：[{ gid, ok, issue }]
+*/
+function coverageOf(ctx) {
   const rows = [];
-  try {
-    Object.keys(ctx.__T).forEach((gid) => {
-      let has = false, issue = '';
+  Object.keys(ctx.__T).forEach((gid) => {
+    let ok = false;
+    let issue = '';
+    try {
+      const nd = ctx.__nextDate ? ctx.__nextDate(gid) : '';
+      const ni = ctx.__nextIssue ? ctx.__nextIssue(gid) : '';
+      const rec = (nd && ctx.__get) ? ctx.__get(gid, nd) : null;
+      if (rec && rec.images && Object.keys(rec.images).length) {
+        if (!ni || !rec.issue || String(rec.issue) === String(ni)) { ok = true; issue = rec.issue || ni; }
+      }
+    } catch (e) { /* 忽略 */ }
+    if (!ok) {
       try {
         const periods = ctx.__all(gid);
         const cur = periods.filter((p) => !p.draw && p.images && Object.keys(p.images).length)[0];
-        if (cur) { has = true; issue = cur.issue || ''; }
+        if (cur) { ok = true; issue = cur.issue || cur.date || ''; }
       } catch (e) { /* 忽略 */ }
-      rows.push(`${gid}${has ? '✅' : '❌'}${issue ? '(' + issue + ')' : ''}`);
-    });
-  } catch (e) { /* 忽略 */ }
-  log('  · 本期号码覆盖：' + rows.join('  '));
+    }
+    rows.push({ gid, ok, issue });
+  });
+  return rows;
+}
+
+/** 本期还没有号码的彩种（「缺才补」就补这些） */
+function missingGames(ctx) {
+  return coverageOf(ctx).filter((r) => !r.ok).map((r) => r.gid);
+}
+
+/** 简报：每个彩种这一期有没有号码（不打印具体号码，日志干净） */
+function rollSummary(ctx) {
+  let rows = [];
+  try { rows = coverageOf(ctx); } catch (e) { /* 忽略 */ }
+  log('  · 本期号码覆盖：' + rows.map((r) => `${r.gid}${r.ok ? '✅' : '❌'}${r.issue ? '(' + r.issue + ')' : ''}`).join('  '));
 }
 
 /* ---------- 主流程 ---------- */
@@ -718,6 +751,7 @@ function main() {
     ['__all', 'allPeriodsOf'],
     ['__roll', 'rollAllGames'],
     ['__load', 'loadTickets'],
+    ['__get', 'getTicket'],
     ['__T', 'TEMPLATES'],
     ['__nextIssue', 'nextIssueFor'],
     ['__nextDate', 'nextDrawDate']
@@ -753,24 +787,17 @@ function main() {
 
   } else {
     /* 【缺才补】本期已经有号码的彩种原样保留，只补没有的 */
-    const missing = [];
-    try {
-      Object.keys(ctx.__T).forEach((gid) => {
-        let has = false;
-        try {
-          const periods = ctx.__all(gid);
-          has = periods.some((p) => !p.draw && p.images && Object.keys(p.images).length);
-        } catch (e) { /* 视为没有 */ }
-        if (!has) missing.push(gid);
-      });
-    } catch (e) { log(`  ⚠️ 检查失败：${e.message}`); }
+    let missing = [];
+    try { missing = missingGames(ctx); } catch (e) { log(`  ⚠️ 检查失败：${e.message}`); }
 
     if (missing.length) {
       log(`  本期还没有号码的彩种：${missing.join(', ')}`);
       log('  → 只补这些（已有号码的彩种保持不动）');
       try {
-        const stat = ctx.__roll({ keepExisting: true });
-        log(`  ✅ 补摇完成：跳过 ${stat.skipped} 个已有号码的彩种 / 处理 ${stat.games} 个彩种 / ${stat.images} 张图`);
+        /* 【关键】必须传 only：不传的话 rollAllGames 会把 8 个彩种全部重摇一遍，
+           已经推送出去、本期已经有号码的彩种也会被换号。 */
+        const stat = ctx.__roll({ only: missing });
+        log(`  ✅ 补摇完成：只补了 ${missing.length} 个彩种 / ${stat.images} 张图（其余彩种原样保留）`);
         writeSavedTickets(ctx);
         rollSummary(ctx);
       } catch (e) {
