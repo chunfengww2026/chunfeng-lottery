@@ -187,6 +187,12 @@ const CODE_MODULES = [
      云端少了它们，分享页会和本地 App 渲染得不一样
      （实测：福彩3D / 排列5 / 七星彩 的奇偶、大小、012路 会对不上）。 */
   'experts-data.js', 'expert-pool.js',
+  /* 【开奖 · 多源抓取】draw-sources.mjs 是 build-draws.mjs / build-history.mjs
+     共用的「多源 fallback 链 + 号码合法性校验」模块。
+     云端（美国 IP）抓不到中国官方接口（福彩 403 / 体彩 567），
+     靠它自动改用 一起彩 / 500XML / 17500。
+     少同步这个文件，云端两个脚本会 import 失败 → 开奖号彻底不更新。 */
+  'draw-sources.mjs',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
   /* 【热力图】云端 18:00 那一班要自己跑这个脚本抓当日晒票 ——
