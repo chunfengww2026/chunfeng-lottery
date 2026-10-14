@@ -313,6 +313,10 @@ function rollAllGames(opts) {
   // 默认就是重摇（点了摇号就是要新号码）
   // 只有明确传 keepExisting:true 时才保留已有号码
   const keepExisting = !!o.keepExisting;
+  /* 【只补这几个】opts.only = ['dlt','qlc'] → 只重摇这几个彩种，其余原样不动。
+     云端「缺才补」那一班用它：只补本期还没有号码的彩种，
+     不会把已经推送出去、本期已经有号码的彩种也一起重摇。 */
+  const only = (Array.isArray(o.only) && o.only.length) ? o.only : null;
   const stat = { games: 0, images: 0, fields: 0, skipped: 0, rolled: 0 };
 
   if (typeof TEMPLATES === 'undefined' || typeof GAMES === 'undefined') return stat;
@@ -320,6 +324,7 @@ function rollAllGames(opts) {
   Object.keys(TEMPLATES).forEach((gameId) => {
     const tpl = TEMPLATES[gameId];
     if (!tpl) return;
+    if (only && only.indexOf(gameId) < 0) return;
     stat.games++;
 
     // 该彩种这一期的期号与开奖日期
