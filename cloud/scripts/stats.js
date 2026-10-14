@@ -1163,6 +1163,54 @@ function calcDanTuo(gameId, areaKey, areas, from, to) {
      · 胆码 / 拖码 / 杀号 → 池内分档
    没有号码池（或池内算不出东西）时，逐项回退到原来的全量口径。
    ------------------------------------------------------------------ */
+/* ============================================================
+   【数字彩页脚三项】用户的模板硬性条件：
+     · 排列3 / 福彩3D 的「和值」 要推荐 3 个数（不是 3~22 这种区间）
+     · 「和尾」 要推荐 3 个数（不是 0~9 这种区间）
+     · 「对子号」要推荐 2 个数（不是"对子号"三个字）
+   做法：从近 30 期真实开奖里统计出现次数，取最热的 N 个。
+         不够 N 个就用最近出现过的补上，保证【一定】给出 N 个。
+   kind: 'sum' 和值 | 'tail' 和尾 | 'pair' 对子号
+   ============================================================ */
+function digitFooterTop(areas, kind, n) {
+  const list = Array.isArray(areas) ? areas.filter((a) => Array.isArray(a) && a.length) : [];
+  if (!list.length) return [];
+
+  const valOf = (a, once) => {
+    if (kind === 'sum') return a.reduce((x, y) => x + y, 0);
+    if (kind === 'tail') return a.reduce((x, y) => x + y, 0) % 10;
+    /* pair：找出这一期里的对子（两个相同数字 → 值 = dd，如 1 → 11） */
+    const cnt = new Map();
+    a.forEach((d) => cnt.set(d, (cnt.get(d) || 0) + 1));
+    const pairs = [...cnt.entries()].filter(([, c]) => c >= 2).map(([d]) => d * 11);
+    if (!pairs.length) return null;
+    return once ? pairs : pairs;
+  };
+
+  const stat = new Map();
+  list.forEach((a) => {
+    const v = valOf(a, false);
+    if (v === null) return;
+    (Array.isArray(v) ? v : [v]).forEach((x) => stat.set(x, (stat.get(x) || 0) + 1));
+  });
+
+  let out = [...stat.entries()].sort((x, y) => y[1] - x[1]).map(([k]) => k);
+
+  /* 不够 n 个 → 用最近出现过的补（先去重再补） */
+  if (out.length < n) {
+    const seen = new Set(out);
+    for (const a of list) {
+      if (out.length >= n) break;
+      const v = valOf(a, true);
+      if (v === null) continue;
+      (Array.isArray(v) ? v : [v]).forEach((x) => {
+        if (out.length < n && !seen.has(x)) { seen.add(x); out.push(x); }
+      });
+    }
+  }
+  return out.slice(0, n);
+}
+
 function calcTrendFields(gameId, areaKey, from, to, pickCount) {
   const areas = historyAreas(gameId, areaKey, 30);
   if (!areas.length) return {};
@@ -2249,17 +2297,27 @@ function autoFillForTemplate(gameId, imageKey) {
         const L = String(f.label || '');
         const K = String(f.key || '');
 
+        /* 【硬性条件】和值 3 个数（不再是区间） */
         if (L.includes('合值') || K === 'hz') {
+          const hzAreas = historyAreas(gameId, areaKey, 30);
+          const hzTop = digitFooterTop(hzAreas, 'sum', 3);
+          if (hzTop.length) { out[f.key] = hzTop.join(' '); return; }
           const td = calcTrendFields(gameId, areaKey, range[0], range[1], pickCount);
           out[f.key] = td.hz || '0~27';
           return;
         }
+        /* 【硬性条件】和尾 3 个数（不再是 0~9） */
         if (L.includes('和尾') || K === 'hw') {
-          out[f.key] = '0~9';
+          const hwAreas = historyAreas(gameId, areaKey, 30);
+          const hwTop = digitFooterTop(hwAreas, 'tail', 3);
+          out[f.key] = hwTop.length ? hwTop.join(' ') : '0 1 2';
           return;
         }
-        if (L.includes('防组三') || K === 'fz3') {
-          out[f.key] = '对子号';
+        /* 【硬性条件】对子号 2 个数（不再是"对子号"三个字） */
+        if (L.includes('防组三') || L.includes('对子') || K === 'fz3') {
+          const fzAreas = historyAreas(gameId, areaKey, 30);
+          const fzTop = digitFooterTop(fzAreas, 'pair', 2);
+          out[f.key] = fzTop.length ? fzTop.join(' ') : '11 22';
           return;
         }
         if (L.includes('杀号') || K === 'sh') {
