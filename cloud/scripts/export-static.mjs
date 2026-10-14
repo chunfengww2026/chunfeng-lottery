@@ -1491,6 +1491,108 @@ body {
 .ro-imagewrap .r-calrow    { flex-wrap: wrap !important; }
 .ro-imagewrap .r-calbadges { flex-wrap: wrap !important; }
 
+/* ============================================================
+   【点击放大】提示图标
+   ------------------------------------------------------------
+   用户原话：「双色球推的图一边一个 可以单独点开图片变大」
+
+   只是在【外层容器】上加一枚半透明小图标（放大镜），
+   绝对不往图里加任何东西 —— 图是 760px 定宽的设计稿，
+   往里塞元素会把版式挤变形。
+   图标 pointer-events: none —— 点它等于点容器，不影响放大。
+   ============================================================ */
+.ro-imagewrap { cursor: zoom-in; }
+.ro-lb-hint {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: rgba(12,14,19,0.55);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.ro-lb-hint svg { width: 15px; height: 15px; display: block; }
+/* 鼠标设备：hover 时提示 */
+@media (hover: hover) and (pointer: fine) {
+  .ro-imagewrap:hover .ro-lb-hint { opacity: .9; }
+}
+/* 触屏设备：没有 hover，图标常驻（淡一点，不抢图） */
+@media (hover: none), (pointer: coarse) {
+  .ro-lb-hint { opacity: .5; width: 30px; height: 30px; }
+}
+
+/* ============================================================
+   【点击放大】全屏遮罩层（一次只看一张）
+   ------------------------------------------------------------
+   · 打开时把【这一张】图的 DOM 克隆进遮罩，容器沿用 .ro-imagewrap，
+     所以「锁死 760px 内部布局」那几条规则照样管用 —— 不变形。
+   · 缩放只是对这张图整体做 transform: scale()，
+     宽高【始终同一个比例】，不会拉伸。
+   · 图层比原图高：手机上手指能看清。
+   · 支持双指缩放（pointer 事件）；不支持的浏览器就是纯滚动 + 双击。
+   ============================================================ */
+#ro-lightbox {
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  z-index: 2147483000;
+  background: rgba(6,8,12,0.95);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;   /* 单指仍可滚动；双指缩放自己接管 */
+  cursor: zoom-out;
+}
+.ro-lb-inner {
+  min-height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 14px 8px 26px;
+  box-sizing: border-box;
+  cursor: default;
+}
+#ro-lightbox[data-zoom="fit"] .ro-lb-inner { align-items: center; }
+/* 克隆进来的容器：对齐方式交给上面的 flex，自身不能有外边距；
+   宽度 / 高度 / 图片 transform 全部由脚本按同一个比例算出来 */
+.ro-lb-scope {
+  margin: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  border-radius: 6px !important;
+  flex: 0 0 auto;
+}
+.ro-lb-scope .r-image { box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+.ro-lb-close {
+  position: fixed;
+  top: 10px; right: 10px;
+  z-index: 2;
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(18,21,27,0.9);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff;
+  font-size: 24px; line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.ro-lb-close:active { background: rgba(60,66,80,0.95); }
+.ro-lb-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  font-size: 12px;
+  color: #98a1b2;
+  background: linear-gradient(180deg, rgba(6,8,12,0), rgba(6,8,12,0.9));
+  pointer-events: none;
+}
+
 .ro-foot {
   text-align: center;
   padding: 30px 16px 50px;
@@ -1666,6 +1768,9 @@ ${RO_RENDER_SCRIPT}
     var wraps = document.querySelectorAll('.ro-imagewrap');
     for (var i = 0; i < wraps.length; i++) {
       var w = wraps[i];
+      /* 【点击放大】遮罩层里那个容器有它自己的缩放算法，
+         不能被这里的「按容器宽度等比缩小」覆盖掉 */
+      if (w.getAttribute && w.getAttribute('data-ro-lb') === 'wrap') continue;
       var img = w.querySelector('.r-image');
       if (!img) continue;
 
@@ -1701,6 +1806,387 @@ ${RO_RENDER_SCRIPT}
   setTimeout(fit, 120);
   setTimeout(fit, 600);
   setTimeout(fit, 1500);
+})();
+
+/* ============================================================
+   【点击放大】单张推荐图放大查看
+   ------------------------------------------------------------
+   用户原话：「双色球推的图一边一个 可以单独点开图片变大」
+
+   只解决一件事：点哪一张，就只放大哪一张。
+
+   【怎么放大】不重新画图，直接把这张图的 DOM 克隆一份放进遮罩层：
+     · 克隆的容器沿用 .ro-imagewrap 类名 →
+       「锁死 760px 内部布局」那几条 CSS 对它一样生效（不变形）
+     · 放大只是给这一个克隆整体做 transform: scale(同一个倍数) →
+       宽高始终同比例，绝不会拉伸
+     · 内部布局一个像素都不动，和 App 里看到的一致
+     · 图片在遮罩层里按真实尺寸裁剪，不设 max-width，
+       所以放大后是「清晰可滚」而不是被压回去
+
+   【一次只放大一张】打开时先清空旧内容、再把旧的遮罩整个删掉，
+   所以连点两张也只可能剩下一张。
+
+   【关闭】点图片外的空白处 / 点右上角关闭按钮 / 按 Esc —— 三种都行；
+   点图片本身不关（方便放大后看细节）。
+
+   【手机】默认比例 = 容器宽 / 760（>=1，手机上就是放大到能看清），
+   双指可继续缩放，图片比一屏高时可以上下滚动。
+
+   【不停留在旧 DOM 上】用的是事件委托 + 每次点击现场查找，
+   所以「热力图被搬到页面顶部 #ro-latest」那种整块替换之后照样能点开；
+   重渲染后图标回调一次 refreshIcons() 补齐。
+   ============================================================ */
+(function () {
+  var BASE = 760;   /* 图片设计宽度，和 .r-image 一致（不许改） */
+
+  /* 放大镜图标：内联 SVG，不引任何外部资源（file:// 打开也能用） */
+  var HINT_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/>' +
+    '<line x1="15.4" y1="15.4" x2="21" y2="21"/></svg>';
+
+  var overlay = null;   /* 当前遮罩（null = 没打开） */
+  var wrap = null;      /* 遮罩里那个容器 */
+  var imgEl = null;     /* 放大中的那张图 */
+  var baseScale = 1;    /* 打开时算出的默认比例 */
+  var ratio = 1;        /* 图片原始宽高比（只用来核对，不用来计算尺寸） */
+  var zoom = 1;         /* 当前倍数（相对 baseScale） */
+  var fingers = {};     /* 双指缩放用：pointerId → {x,y} */
+  var pinchStart = 0;
+  var pinchFrom = 1;
+
+  function log(m) {
+    /* 自测/排查用：window.__roLBLog 里有全部动作记录，
+       线上用户不看控制台，不打日志 */
+    try { (window.__roLBLog = window.__roLBLog || []).push(m); } catch (e) { /* 忽略 */ }
+  }
+
+  /* ---------- 给每个图位补一枚提示图标（只加在外层容器上） ---------- */
+  function refreshIcons() {
+    try {
+      var wraps = document.querySelectorAll('.ro-imagewrap');
+      var added = 0;
+      for (var i = 0; i < wraps.length; i++) {
+        var w = wraps[i];
+        if (!w.querySelector || !w.querySelector('.r-image')) continue;
+        if (w.getAttribute('data-ro-lb') === 'wrap') continue;        /* 遮罩里的克隆不算 */
+        if (w.getAttribute && w.getAttribute('data-ro-lb') === 'hint') continue;
+        if (w.querySelector('[data-ro-lb="hint"]')) continue;         /* 已经有了 */
+        var s = document.createElement('span');
+        s.className = 'ro-lb-hint';
+        s.setAttribute('data-ro-lb', 'hint');
+        s.setAttribute('aria-hidden', 'true');
+        s.innerHTML = HINT_SVG;
+        w.appendChild(s);
+        added++;
+      }
+      return added;
+    } catch (e) { return -1; }
+  }
+
+  /* ---------- 从事件目标往上找「推荐图容器」 ---------- */
+  function wrapOf(node) {
+    var n = node;
+    while (n && n !== document) {
+      if (n.classList && n.classList.contains && n.classList.contains('ro-imagewrap')) return n;
+      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'wrap') return null;   /* 遮罩里的不算 */
+      n = n.parentNode;
+    }
+    return null;
+  }
+
+  /* ---------- 默认倍数：点开后一定比列表里那张大 ----------
+     列表里那张图在手机上被整体等比缩小到容器宽度（约 vw-24 px），
+     点开时把它放大到【屏幕宽度减去左右各 8px】：
+       倍数 = 760 / (窗口宽 - 16)
+       · 手机（390）→ 约 2.03 倍，由「一张屏宽不到的小图」变成「一眼看清」
+       · 平板 / 电脑 → 结果 <= 1，统一按 1 倍（760px 设计宽度本身就是最佳显示）
+     宽和高【用同一个倍数】，比例永远不变。 */
+  function calcBase() {
+    var vw = 0;
+    try { vw = window.innerWidth || 0; } catch (e1) { vw = 0; }
+    if (!vw) { try { vw = document.documentElement.clientWidth || 0; } catch (e2) { vw = 0; } }
+    var avail = vw ? (vw - 16) : BASE;
+    if (!(avail > 0)) avail = BASE;
+    baseScale = BASE / avail;
+    /* 兜底：量不到宽度 / 宽屏 → 1 倍（原始 760px 设计宽度），绝不缩小、绝不出现 0 或 NaN */
+    if (!(baseScale >= 1)) baseScale = 1;
+    return { vw: vw, avail: avail };
+  }
+
+  /* ---------- 设置倍数：宽度、高度、transform 用【同一个倍数】算 ---------- */
+  function applyScale() {
+    if (!wrap || !imgEl) return;
+    var s = baseScale * zoom;
+    var w = BASE * s;
+    var h = imgEl.offsetHeight * s;           /* 高度 = 原始高度 × 同一个倍数 → 比例不变 */
+    imgEl.style.transformOrigin = 'top left';
+    imgEl.style.transform = 'scale(' + s + ')';
+    wrap.style.width = Math.round(w) + 'px';
+    wrap.style.height = Math.round(h) + 'px';
+    try {
+      if (overlay) overlay.setAttribute('data-zoom', Math.abs(s - 1) < 0.002 ? 'fit' : String(Math.round(s * 1000) / 1000));
+    } catch (e) { /* 忽略 */ }
+  }
+
+  /* ---------- 打开：把【这一张】克隆进遮罩 ---------- */
+  function open(srcWrap) {
+    if (!srcWrap) return false;
+    var src = srcWrap.querySelector ? srcWrap.querySelector('.r-image') : null;
+    if (!src) return false;
+
+    close(true);   /* 【一次只放大一张】先彻底清掉上一张 */
+
+    var dim = calcBase();
+    zoom = 1;
+
+    overlay = document.createElement('div');
+    overlay.id = 'ro-lightbox';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-label', '推荐图放大查看');
+    overlay.setAttribute('data-ro-lb', 'overlay');
+
+    var inner = document.createElement('div');
+    inner.className = 'ro-lb-inner';
+
+    /* 克隆：类名沿用 ro-imagewrap（内部布局锁依然生效），
+       额外加 ro-lb-scope 让「遮罩专属样式」接手 */
+    wrap = srcWrap.cloneNode(true);
+    wrap.className = String(srcWrap.className || '') + ' ro-lb-scope';
+    wrap.setAttribute('data-ro-lb', 'wrap');
+    /* 清掉原页面上留下的测量/缩放内联样式，遮罩里由脚本重新算 */
+    wrap.style.height = 'auto';
+    wrap.style.overflow = 'visible';
+
+    var oldHint = wrap.querySelector ? wrap.querySelector('[data-ro-lb="hint"]') : null;
+    if (oldHint && oldHint.parentNode) oldHint.parentNode.removeChild(oldHint);
+
+    imgEl = wrap.querySelector('.r-image');
+    if (!imgEl) { overlay = null; wrap = null; return false; }
+    imgEl.style.transform = 'none';
+    imgEl.style.width = BASE + 'px';
+    imgEl.style.minWidth = BASE + 'px';
+    imgEl.style.maxWidth = BASE + 'px';
+
+    var rw = imgEl.offsetWidth || BASE;
+    var rh = imgEl.offsetHeight || BASE;
+    ratio = rw ? (rh / rw) : 0;
+
+    inner.appendChild(wrap);
+
+    var btnClose = document.createElement('div');
+    btnClose.className = 'ro-lb-close';
+    btnClose.setAttribute('data-ro-lb', 'close');
+    btnClose.setAttribute('role', 'button');
+    btnClose.setAttribute('aria-label', '关闭');
+    btnClose.innerHTML = '&times;';
+
+    var bar = document.createElement('div');
+    bar.className = 'ro-lb-bar';
+    bar.setAttribute('data-ro-lb', 'bar');
+    bar.textContent = '双指缩放（电脑双击放大）· 点空白处或右上角 × 关闭';
+
+    overlay.appendChild(inner);
+    overlay.appendChild(btnClose);
+    overlay.appendChild(bar);
+    document.body.appendChild(overlay);
+
+    applyScale();
+
+    try {
+      document.body.setAttribute('data-ro-lb-open',
+        (srcWrap.getAttribute('data-game') || '') + '/' + (srcWrap.getAttribute('data-image') || ''));
+    } catch (e) { /* 忽略 */ }
+
+    document.addEventListener('keydown', onKey, false);
+    window.addEventListener('resize', onResize, false);
+    window.addEventListener('pointerdown', onWinPointer, false);
+    window.addEventListener('pointerup', onWinPointer, false);
+    window.addEventListener('pointercancel', onWinPointer, false);
+
+    log('open ' + srcWrap.getAttribute('data-game') + '/' + srcWrap.getAttribute('data-image') +
+      ' baseScale=' + baseScale.toFixed(4) + ' vw=' + dim.vw + ' avail=' + dim.avail);
+    return true;
+  }
+
+  /* ---------- 关闭 ---------- */
+  function close(silent) {
+    if (!overlay) return false;
+    try {
+      if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    } catch (e) {
+      if (overlay.style) overlay.style.display = 'none';
+    }
+    overlay = null; wrap = null; imgEl = null;
+    fingers = {};
+    try { document.body.removeAttribute('data-ro-lb-open'); } catch (e) { /* 忽略 */ }
+    document.removeEventListener('keydown', onKey, false);
+    window.removeEventListener('resize', onResize, false);
+    window.removeEventListener('pointerdown', onWinPointer, false);
+    window.removeEventListener('pointerup', onWinPointer, false);
+    window.removeEventListener('pointercancel', onWinPointer, false);
+    if (!silent) log('close');
+    return true;
+  }
+
+  function onKey(e) {
+    var k = e.key || '';
+    if (k === 'Escape' || k === 'Esc' || e.keyCode === 27) { close(); }
+  }
+
+  function onResize() {
+    if (!overlay) return;
+    calcBase();
+    applyScale();
+    log('resize baseScale=' + baseScale.toFixed(4));
+  }
+
+  /* 点一下：点在图上 = 双击判定；点在图外 = 关闭（关掉浮层） */
+  function onClick(e) {
+    if (!overlay) return;
+    if (e.defaultPrevented) return;
+    var t = e.target;
+
+    /* 关闭按钮 */
+    var n = t;
+    while (n && n !== overlay) {
+      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'close') { close(); return; }
+      n = n.parentNode;
+    }
+    /* 点在这张图上（或它的子元素上）→ 先留着，交给 dblclick 判定 */
+    var inImg = false;
+    n = t;
+    while (n && n !== overlay) {
+      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'wrap') { inImg = true; break; }
+      n = n.parentNode;
+    }
+    if (inImg) return;
+    /* 其它一律视为「点空白」→ 关闭 */
+    close();
+  }
+
+  function onDblClick(e) {
+    if (!overlay) return;
+    var n = e.target;
+    while (n && n !== overlay) {
+      if (n.getAttribute && n.getAttribute('data-ro-lb') === 'wrap') {
+        zoom = (zoom > 1.001) ? 1 : 2;
+        var sc = overlay.querySelector ? overlay.querySelector('.ro-lb-inner') : null;
+        var px = 0, py = 0;
+        try {
+          var r = overlay.getBoundingClientRect();
+          px = (e.clientX || 0) - r.left; py = (e.clientY || 0) - r.top;
+        } catch (e2) { /* 忽略 */ }
+        var ox = sc ? sc.scrollWidth : 0;
+        var oy = sc ? sc.scrollHeight : 0;
+        px = px / (ox || 1); py = py / (oy || 1);
+        applyScale();
+        if (sc && sc.scrollTo) {
+          sc.scrollTo(Math.max(0, px * sc.scrollWidth - overlay.clientWidth / 2),
+            Math.max(0, py * sc.scrollHeight - overlay.clientHeight / 2));
+        }
+        log('dblclick zoom=' + zoom);
+        return;
+      }
+      n = n.parentNode;
+    }
+  }
+
+  /* ---------- 双指缩放 ---------- */
+  function dist() {
+    var a = [], k;
+    for (k in fingers) { if (fingers.hasOwnProperty(k)) a.push(fingers[k]); }
+    if (a.length < 2) return 0;
+    var dx = a[0].x - a[1].x, dy = a[0].y - a[1].y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  function fingerCount() {
+    var n = 0, k;
+    for (k in fingers) { if (fingers.hasOwnProperty(k)) n++; }
+    return n;
+  }
+  function onWinPointer(e) {
+    if (!overlay) { fingers = {}; pinchStart = 0; return; }
+    var type = e.type;
+    if (type === 'pointerdown') {
+      if (e.pointerId === undefined || e.pointerId === null) return;
+      fingers[e.pointerId] = { x: e.clientX || 0, y: e.clientY || 0 };
+      if (fingerCount() === 2) { pinchStart = dist(); pinchFrom = zoom; }
+      if (fingerCount() > 2) { /* 三指以上不处理，避免乱跳 */ pinchStart = 0; }
+      return;
+    }
+    /* pointerup / pointercancel */
+    if (e.pointerId !== undefined && e.pointerId !== null) delete fingers[e.pointerId];
+    if (fingerCount() < 2) pinchStart = 0;
+  }
+  function onPointerMove(e) {
+    if (!overlay) return;
+    if (e.pointerId === undefined || e.pointerId === null) return;
+    if (!fingers.hasOwnProperty(e.pointerId)) return;
+    fingers[e.pointerId] = { x: e.clientX || 0, y: e.clientY || 0 };
+    if (fingerCount() !== 2 || !pinchStart) return;
+    var d = dist();
+    if (!d) return;
+    zoom = pinchFrom * (d / pinchStart);
+    if (zoom < 1) zoom = 1;
+    if (zoom > 8) zoom = 8;
+    applyScale();
+    log('pinch zoom=' + zoom.toFixed(3));
+  }
+
+  /* ---------- 事件绑定 ---------- */
+  function bind() {
+    document.addEventListener('click', function (e) {
+      if (overlay) { onClick(e); return; }
+
+      /* 【关键】每次点击现场找容器 —— 热力图搬到顶部、区块整块被替换
+         之后，图还是这张图，照样点得开 */
+      var w = wrapOf(e.target);
+      if (!w) return;
+      if (!w.querySelector || !w.querySelector('.r-image')) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;   /* 用户在做别的操作 */
+      if (open(w)) { try { e.preventDefault(); } catch (e2) { /* 忽略 */ } }
+    }, false);
+
+    document.addEventListener('dblclick', onDblClick, false);
+    document.addEventListener('pointermove', onPointerMove, false);
+    document.addEventListener('contextmenu', function (e) {
+      /* 长按弹菜单很打断「点开看图」，遮罩打开时屏蔽掉 */
+      if (overlay) { try { e.preventDefault(); } catch (e2) { /* 忽略 */ } }
+    }, false);
+
+    refreshIcons();
+    /* 实时渲染/顶部区块切换会重建 DOM，补一次图标 */
+    setTimeout(refreshIcons, 300);
+    setTimeout(refreshIcons, 1200);
+    window.addEventListener('load', refreshIcons, false);
+    document.addEventListener('DOMContentLoaded', refreshIcons, false);
+  }
+
+  /* 给外面自测 / 排查用 */
+  window.__roLB = {
+    open: open,
+    close: close,
+    refreshIcons: refreshIcons,
+    isOpen: function () { return !!overlay; },
+    info: function () {
+      if (!overlay || !imgEl) return null;
+      return {
+        game: wrap ? wrap.getAttribute('data-game') : '',
+        image: wrap ? wrap.getAttribute('data-image') : '',
+        w: imgEl.offsetWidth,
+        h: imgEl.offsetHeight,
+        scale: baseScale * zoom,
+        zoom: zoom,
+        ratio: ratio,
+        overlays: document.querySelectorAll('#ro-lightbox').length,
+        wraps: document.querySelectorAll('#ro-lightbox .ro-imagewrap').length,
+        imgs: document.querySelectorAll('#ro-lightbox .r-image').length
+      };
+    }
+  };
+
+  bind();
 })();
 </script>
 </body>
