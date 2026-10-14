@@ -611,6 +611,8 @@ function materialRulesFromText(gameId, areaKey, text) {
 
   text = String(text == null ? '' : text);
   if (!text.trim()) return out;
+  /* 一点数字都没有，肯定解析不出号码 —— 直接跳过（资料页实时检查用得到） */
+  if (!/\d/.test(text)) return out;
 
   const put = (arr, nums) => {
     nums.forEach((n) => { if (n >= from && n <= to && arr.indexOf(n) < 0) arr.push(n); });
