@@ -1492,6 +1492,48 @@ body {
 .ro-imagewrap .r-calbadges { flex-wrap: wrap !important; }
 
 /* ============================================================
+   【并排·方案B】页面级左右两栏（用户原话：
+     「快乐8和3D布局到一起 3D左边」「排列三和排列五 左边排三 右边排五」）
+   ------------------------------------------------------------
+   ⚠️ 只在【外层容器】上排，推荐图本身【一个字都不改】：
+      · .r-image 还是 760px 定宽（下面那条 !important 没动）
+      · 图里的 .r-twocol / 球径 / 字号 / 版式全部原样
+      · 还是靠 fit() 的 transform: scale() 等比缩放 —— 图不会变形
+   什么时候才并排：
+      · 视口 ≥ 1620px（= 两列各 760px + 32 间距 + 两侧各 34 留白）→ 两栏，
+        每栏正好 ≥760px，图按 1:1 原尺寸显示、一个像素都不缩，看得清号码
+      · 窄于 1620px（含手机、1080p 显示器）→ 自动堆叠成一列，和现在完全一样
+    为什么阈值这么高：1200px 时每栏只有约 580px，760px 的图要缩到 0.76 倍；
+    1560px 时每栏 744px，还是要缩到 0.98 倍才不溢出。
+    用户看图就是为了看清号码，所以宁可到 1620px 才并排，
+    也不在半宽里塞一张缩小过的图。
+   ============================================================ */
+.ro-pair { display: contents; }          /* 默认「不存在」，不影响任何现有布局 */
+@media (min-width: 1620px) {
+  /* 【关键】max(1592px, 100%) 而不是写死 1592px：
+     写死的话视口 1620px 时 .ro-wrap 只有 1592px，减掉两侧各 20px 留白
+     只剩 1552px，两列就只有 (1552−32)/2 = 760px —— 刚好卡在边界上，
+     任何一点额外留白都会让图被缩一丁点。用 max() 保证
+     「视口多宽，容器就多宽」，两列永远是干净的 760px + 760px。 */
+  .ro-wrap { max-width: max(1592px, 100%); }
+  .ro-pair {
+    display: grid;
+    grid-template-columns: 760px 760px;
+    gap: 32px;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .ro-pair > .ro-game { margin-bottom: 0; }
+  /* 网格列宽已经是 760px ⇒ fit() 量到 avail=760 ⇒ scale=1（原样显示）。
+     这里显式写 none，和上面那条桌面端规则同优先级、靠后生效，避免继承到旧值。 */
+  .ro-pair .ro-imagewrap .r-image { transform: none !important; }
+  /* 兜底：万一 transform 在这些浏览器上没生效，
+     容器宽度不许被 760px 的图撑破（宁可横向滑动，也不能挤变形）。 */
+  .ro-pair .ro-imagewrap { min-width: 0; overflow-x: auto; }
+}
+
+/* ============================================================
    【点击放大】提示图标
    ------------------------------------------------------------
    用户原话：「双色球推的图一边一个 可以单独点开图片变大」
@@ -1806,6 +1848,74 @@ ${RO_RENDER_SCRIPT}
   setTimeout(fit, 120);
   setTimeout(fit, 600);
   setTimeout(fit, 1500);
+})();
+
+/* ============================================================
+   【并排·方案B】把需要「布局到一起」的两个彩种区块包进一个两列容器
+   ------------------------------------------------------------
+   用户原话（说了两次）：
+     「快乐8和3D布局到一起 3D左边」
+     「排列三和排列五 也可以用大乐透双色球布局 左边排三 右边排五」
+
+   为什么做成「页面级并排」而不是「画进同一张图」：
+     推荐图是 760px 定宽的设计稿，把两个彩种塞进同一张图的左右两栏，
+     就要改「一张图 = 一个彩种」这个前提 —— 会牵动 stats.js 的字段角色表、
+     一致性收尾和 ticket-store 的摇号（4 个彩种的存档都会受影响），
+     一旦出错就是已推送的推荐号自相矛盾。所以只在【外层容器】上排：
+     两张图各自还是完整的 760px 独立推荐图，一个像素都不动。
+
+   只做两件事：
+     ① 把这对 <section class="ro-game"> 包进一个 .ro-pair 容器
+        （.ro-pair 默认 display:contents，等于「容器不存在」，
+          只有视口 ≥ 1560px 时那条 media query 才把它变成两列网格）
+     ② 包完重算一次 fit()：容器宽度变了，transform: scale() 得跟着重算
+        （两列时每列正好 760px ⇒ scale = 1，图原样显示、不缩小）
+
+   彩种标题（<h2>福彩3D</h2> / <h2>快乐8</h2>）原样保留在各自区块里，
+   所以「左边是什么、右边是什么」一眼就能看出来。
+
+   宽屏两列时 DOM 顺序是 fc3d → kl8 → pl3 → pl5（快乐8 在 3D 后面），
+   靠网格自动排列放进第二列 —— 视觉顺序仍是「左 3D / 右 快乐8」。
+   ============================================================ */
+(function () { /* __PAIR_V1__ 并排·方案B（验收脚本按这个标记提取这一段） */
+  var PAIRS = [
+    { left: 'fc3d', right: 'kl8' },   /* 用户：快乐8和3D布局到一起，3D 左边 */
+    { left: 'pl3',  right: 'pl5' }    /* 用户：左边排三，右边排五 */
+  ];
+
+  function sectionOf(gameId) {
+    var secs = document.querySelectorAll('.ro-game');
+    for (var i = 0; i < secs.length; i++) {
+      /* 在区块内部找这一彩种的图位（图位带 data-game 属性） */
+      if (secs[i].querySelector('.ro-imagewrap[data-game="' + gameId + '"]')) return secs[i];
+    }
+    return null;
+  }
+
+  for (var p = 0; p < PAIRS.length; p++) {
+    var L = sectionOf(PAIRS[p].left);
+    var R = sectionOf(PAIRS[p].right);
+    /* 两个区块都得在、而且还没被包过，才动手（幂等） */
+    if (!L || !R || L === R) continue;
+    if (L.parentNode && L.parentNode.className === 'ro-pair') continue;
+
+    var box = document.createElement('div');
+    box.className = 'ro-pair';
+    box.setAttribute('data-pair', PAIRS[p].left + '+' + PAIRS[p].right);
+
+    /* L 在前（DOM 顺序），insertBefore 把容器放到 L 原来的位置 */
+    L.parentNode.insertBefore(box, L);
+    box.appendChild(L);
+    box.appendChild(R);
+  }
+
+  /* 容器变了 ⇒ 等比缩放的可用宽度也变了，必须重算一次。
+     __roFit 是上面那个 IIFE 暴露出来的 fit()。 */
+  if (typeof window.__roFit === 'function') {
+    window.__roFit();
+    setTimeout(window.__roFit, 80);
+    setTimeout(window.__roFit, 400);
+  }
 })();
 
 /* ============================================================
