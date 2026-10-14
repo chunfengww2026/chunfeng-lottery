@@ -507,8 +507,8 @@ const TEMPLATES = {
               { key: 'wan',  label: '万位', count: 3 },
               { key: 'qian', label: '千位', count: 3 },
               { key: 'bai',  label: '百位', count: 3 },
-              { key: 'shi',  label: '十位', count: 2, color: 'blue' },
-              { key: 'ge',   label: '个位', count: 2, color: 'blue' }
+              { key: 'shi',  label: '十位', count: 3, color: 'blue' },
+              { key: 'ge',   label: '个位', count: 3, color: 'blue' }
             ],
             footerText: '排三百位→排五万位　|　排三十位→排五千位　|　排三个位→排五百位　排三前三位直接带入排五'
           }
