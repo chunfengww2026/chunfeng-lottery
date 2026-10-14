@@ -193,7 +193,13 @@ const CODE_MODULES = [
      这些包和语言数据【不受版本管理】，所以从本机 runtime/ocr/ 一起传上去
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
-  'export-static.mjs', 'export-football.mjs'
+  'export-static.mjs', 'export-football.mjs',
+  /* 【最新开奖 · 实时更新】分享页顶部那块现在会就地重画，靠的就是这两个文件：
+       · latest-draws.js  —— 区块的生成函数 + 客户端更新逻辑（分享页内联它）
+       · export-draws.mjs —— 从 draws.js 取各彩种最新开奖，写进 tickets.json 的 draws
+     不同步的话，云端生成出来的分享页里就没有这段逻辑，
+     手机打开网址还是刷新才能看到新开奖号。 */
+  'latest-draws.js', 'export-draws.mjs'
 ];
 
 /* ============================================================
