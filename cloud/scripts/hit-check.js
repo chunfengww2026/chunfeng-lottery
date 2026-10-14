@@ -785,11 +785,24 @@ function buildWinSectionHtml(opts) {
 
 /* ============================================================
    最新开奖（页面顶部）
+   ------------------------------------------------------------
+   【重要】这里不再自己拼 HTML，而是交给 latest-draws.js 里的
+   latestDrawsHtml() —— 分享页【内联的是同一份文件】，
+   客户端拉到 tickets.json 里的新 draws 后也用这个函数重画。
+   两边同一个函数 → 服务端预渲染的内容和客户端就地替换的内容
+   不可能出现写法漂移（以前这里是唯一实现，浏览器里跑不到，
+   所以那块内容只有刷新整页才能变）。
    ============================================================ */
 function buildLatestDrawHtml() {
   const draws = getLatestDraws();
   if (!draws.length) return '';
 
+  if (typeof latestDrawsHtml === 'function') {
+    return latestDrawsHtml(draws, (typeof GAMES !== 'undefined') ? GAMES : {});
+  }
+
+  /* 兜底：latest-draws.js 没加载成功时，退回原来那段写法
+     （保证页面照样能生成，只是缺少稳定 id、客户端无法就地更新） */
   const cards = draws.map((d) => {
     const sp = d.special.length ? `<span class="hc-plus">★</span>${hcBallsHtml(d.special, 'sp')}` : '';
     const bl = d.blue.length ? `<span class="hc-plus">+</span>${hcBallsHtml(d.blue, 'blue')}` : '';
@@ -804,7 +817,7 @@ function buildLatestDrawHtml() {
   }).join('');
 
   return (
-    `<section class="ro-game">` +
+    `<section class="ro-game" id="ro-latest">` +
     `<div class="ro-gamehead">` +
     `<h2>最新开奖</h2>` +
     `<div class="ro-meta">各彩种最新一期开奖号码</div>` +
