@@ -126,7 +126,7 @@ const TEMPLATES = {
             type: 'twocol',
             left: {
               type: 'wuxing',
-              title: '五行号码（按尾数）',
+              title: '五行号码',
               elements: [
                 { key: 'e_jin',  name: '金', tailsLabel: '尾4、9' },
                 { key: 'e_mu',   name: '木', tailsLabel: '尾3、8' },
@@ -142,7 +142,7 @@ const TEMPLATES = {
             },
             right: {
               type: 'grid',
-              title: '绕胆图（4×4）',
+              title: '绕胆图',
               cols: 4,
               rows: 4,
               legend: [
@@ -162,7 +162,7 @@ const TEMPLATES = {
             },
             right: {
               type: 'jiugong',
-              title: '九宫图（洛书）',
+              title: '九宫图',
               centerKey: 'jg_center',
               footer: [
                 { key: 'jg_zhong', label: '中宫' },
@@ -293,7 +293,7 @@ const TEMPLATES = {
             type: 'twocol',
             left: {
               type: 'wuxing',
-              title: '五行号码（按尾数）',
+              title: '五行号码',
               elements: [
                 { key: 'e_jin',  name: '金', tailsLabel: '尾4、9' },
                 { key: 'e_mu',   name: '木', tailsLabel: '尾3、8' },
@@ -309,7 +309,7 @@ const TEMPLATES = {
             },
             right: {
               type: 'grid',
-              title: '绕胆图（4×4）',
+              title: '绕胆图',
               cols: 4,
               rows: 4,
               legend: [
@@ -329,7 +329,7 @@ const TEMPLATES = {
             },
             right: {
               type: 'jiugong',
-              title: '九宫图（洛书）',
+              title: '九宫图',
               centerKey: 'jg_center',
               footer: [
                 { key: 'jg_zhong', label: '中宫' },
