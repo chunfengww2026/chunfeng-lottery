@@ -374,6 +374,7 @@ ${nav}
   ${cards}
 
   <div class="note">
+    <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
     · 本页只显示<b>体彩竞彩在售</b>比赛，其他联赛不显示。<br>
     · 推荐由博彩公司赔率反推概率得出（市场共识换算），属统计归纳，<b>不是预测</b>。<br>
     · 彩票每期独立随机，任何分析都不能提高中奖概率。本页不构成购彩建议。<br>
