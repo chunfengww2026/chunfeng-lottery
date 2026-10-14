@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-14 18:24
+   生成时间：2026-10-14 05:28
    生成脚本：build-heatmap.mjs
    本次彩种：dlt
    数据来源：history-fallback
@@ -13,18 +13,18 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-14 18:24',
+  updated: '2026-10-14 05:28',
   source: 'history-fallback',
   games: {
     dlt: {
       name: '大乐透',
       issue: '26117',
       drawDate: '2026-10-14',
-      madeAt: '2026-10-14 18:24',
+      madeAt: '2026-10-14 05:28',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
-      numberPosts: 2,
+      numberPosts: 0,
       note: '晒票样本不足，改用近 30 期开奖号码频率（26087~26116）',
       front: { label: '前区', color: 'red', total: 150, items: [{ num: 10, pct: 6, count: 9 }, { num: 14, pct: 6, count: 9 }, { num: 3, pct: 5.33, count: 8 }, { num: 12, pct: 4.67, count: 7 }, { num: 7, pct: 4, count: 6 }, { num: 9, pct: 4, count: 6 }, { num: 11, pct: 4, count: 6 }, { num: 17, pct: 4, count: 6 }, { num: 26, pct: 4, count: 6 }, { num: 33, pct: 4, count: 6 }, { num: 5, pct: 3.33, count: 5 }, { num: 25, pct: 3.33, count: 5 }, { num: 29, pct: 3.33, count: 5 }, { num: 35, pct: 3.33, count: 5 }, { num: 1, pct: 2.67, count: 4 }, { num: 2, pct: 2.67, count: 4 }, { num: 6, pct: 2.67, count: 4 }, { num: 8, pct: 2.67, count: 4 }, { num: 15, pct: 2.67, count: 4 }, { num: 16, pct: 2.67, count: 4 }, { num: 22, pct: 2.67, count: 4 }, { num: 24, pct: 2.67, count: 4 }, { num: 27, pct: 2.67, count: 4 }, { num: 4, pct: 2, count: 3 }, { num: 18, pct: 2, count: 3 }, { num: 19, pct: 2, count: 3 }, { num: 20, pct: 2, count: 3 }, { num: 21, pct: 2, count: 3 }, { num: 32, pct: 2, count: 3 }, { num: 28, pct: 1.33, count: 2 }, { num: 30, pct: 1.33, count: 2 }, { num: 34, pct: 1.33, count: 2 }, { num: 31, pct: 0.67, count: 1 }, { num: 13, pct: 0, count: 0 }, { num: 23, pct: 0, count: 0 }] },
       back: { label: '后区', color: 'blue', total: 60, items: [{ num: 9, pct: 18.33, count: 11 }, { num: 1, pct: 11.67, count: 7 }, { num: 4, pct: 11.67, count: 7 }, { num: 7, pct: 10, count: 6 }, { num: 10, pct: 8.33, count: 5 }, { num: 2, pct: 6.67, count: 4 }, { num: 8, pct: 6.67, count: 4 }, { num: 12, pct: 6.67, count: 4 }, { num: 3, pct: 5, count: 3 }, { num: 5, pct: 5, count: 3 }, { num: 6, pct: 5, count: 3 }, { num: 11, pct: 5, count: 3 }] }
@@ -35,6 +35,13 @@ const HEATMAP_DATA = {
 /* ---------- 开奖日 & 显示时机（客户端与服务端共用同一套判断） ---------- */
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
 const HEATMAP_DRAW_DAYS = { ssq: [0, 2, 4], dlt: [1, 3, 6] };
+
+/* 【开奖后就不要了】各彩种【当天开奖时刻】（北京时间）
+   双色球：周二 / 周四 / 周日 21:15
+   大乐透：周一 / 周三 / 周六 20:30
+   一到这个点，热力图立刻撤下（不再留到第二天 00:00）。
+   与 draw-data.js 的 DRAW_WEEKDAYS / 上面的 HEATMAP_DRAW_DAYS 配套。 */
+const HEATMAP_DRAW_TIME = { ssq: '21:15', dlt: '20:30' };
 
 /**
  * 把任意时刻转成「北京时间的墙上时钟」
@@ -62,12 +69,22 @@ function heatmapToday(now) {
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
 }
 
+/** 'HH:MM' → 当天第几分钟（0~1439）；写错/没配 → -1（表示不做时刻限制） */
+function heatmapClockMinute(hhmm) {
+  var seg = String(hhmm === undefined || hhmm === null ? '' : hhmm).split(':');
+  var h = +seg[0], m = +seg[1];
+  if (!isFinite(h) || !isFinite(m)) return -1;
+  return h * 60 + m;
+}
+
 /**
  * 这张热力图现在该不该显示
  *   ① 必须有这个彩种的数据，且数据就是【今天】生成的
  *   ② 今天必须是这个彩种的开奖日
  *   ③ 必须已经过了 18:00（北京时间）
- * 三个条件缺一不可 —— 平常不透露，第二天自动消失。
+ *   ④ 【开奖后就不要了】还没到当天的开奖时刻
+ *      双色球 21:15 撤下 / 大乐透 20:30 撤下
+ * 四个条件缺一不可 —— 18:00 出现，开奖那一刻就撤下。
  */
 function shouldShowHeatmap(gid, now) {
   var H = (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games)
@@ -80,7 +97,12 @@ function shouldShowHeatmap(gid, now) {
   var days = HEATMAP_DRAW_DAYS[gid];
   if (!days || days.indexOf(bj.getDay()) < 0) return false;
 
-  if (bj.getHours() < 18) return false;
+  var nowMin = bj.getHours() * 60 + bj.getMinutes();
+  if (nowMin < 18 * 60) return false;                    /* 18:00 之前不显示 */
+
+  /* 【开奖后就不要了】到当天开奖时刻就撤下（不再等到第二天 00:00） */
+  var drawMin = heatmapClockMinute(HEATMAP_DRAW_TIME[gid]);
+  if (drawMin >= 0 && nowMin >= drawMin) return false;
 
   return true;
 }
