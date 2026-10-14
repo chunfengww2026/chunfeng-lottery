@@ -2230,7 +2230,18 @@ ${RO_RENDER_SCRIPT}
   /* ---------- 事件绑定 ---------- */
   function bind() {
     document.addEventListener('click', function (e) {
-      if (overlay) { onClick(e); return; }
+      /* 【开关式】遮罩开着时，这一下点击只用来「关闭」。
+         ⚠️ 关掉之后必须给这次事件打个标记并直接返回 ——
+            因为这条监听器是绑在 document 上的，点击会继续冒泡到这里，
+            而 e.target 往往正是遮罩里那份【克隆图】（它也在 .ro-imagewrap 里），
+            wrapOf 找得到、就会把刚关掉的遮罩又打开（实测：点图关不掉、来回闪）。
+            用「事件级」标记而不是全局变量，多个 click 监听器之间也安全。 */
+      if (overlay) {
+        onClick(e);
+        try { e.__roLbHandled = true; } catch (e2) { /* 忽略 */ }
+        return;
+      }
+      if (e.__roLbHandled) return;
 
       /* 【关键】每次点击现场找容器 —— 热力图搬到顶部、区块整块被替换
          之后，图还是这张图，照样点得开 */
