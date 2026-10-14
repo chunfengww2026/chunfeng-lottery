@@ -21,9 +21,14 @@ const AI_CONFIG = {
      缓存命中 0.5、输出 8；每次调用都记在 .ai-cost.json 里。 */
   dailyLimitCNY: 5,
 
-  /* reasoningEffort：只用于「智能助手」页面上显示「推理强度」。
-     【如实说明】DeepSeek 的 /chat/completions 接口【没有】reasoning_effort
-     这个入参（传了会被 400 拒绝），所以这个值不会发出去，纯展示用。
+  /* reasoningEffort：只用于「智能助手」页面上显示「推理强度」（右边那行小字）。
+     【如实说明，别误会】DeepSeek 的 OpenAI 兼容接口在「思考模式」的新模型上
+     确实有 reasoning_effort（官方文档：low / high / max，另有 minimal/medium/
+     xhigh/ultra 等别名）。
+     但本项目用的是 model: 'deepseek-chat'，它不吃这个参数，所以：
+       · 这个值【不会】写进请求体（见 ai-server.mjs 的 callDeepSeek，那里没有用它）
+       · 页面上只是显示，不代表模型真的按这个强度在思考
+       · /ai/status 里返回了 reasoningEffortSupported: false 说明这件事
      可选：'low' | 'medium' | 'high'，默认 'medium'。 */
   reasoningEffort: 'medium'
 };
