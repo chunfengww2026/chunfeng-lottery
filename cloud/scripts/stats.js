@@ -661,33 +661,44 @@ function raodanBluePicks(gameId, areaKey, from, to, exclude) {
     out.push(n);
   };
 
-  /* ① 蓝球（后区）专家号码池：按共识度优先 —— 「没有历史数据」时
-        recommendNumbers 会走随机兜底、完全绕开专家池，
-        而绕胆图的蓝球必须落在蓝球池里，所以这里单独先取一次池子 */
+  /* 【重要】recommendNumbers() 最后一句是 picked.sort((a,b)=>a-b)，
+     它只保证「取哪几个号」，【不保留任何优先级顺序】——
+     所以这里不能拿它当排序源，必须自己按优先级排：
+       ① 蓝球（后区）专家号码池（按共识度）
+       ② 近 10 期×3 + 近 30 期 的频率分（和 recommendNumbers 同一口径）
+       ③ 升序兜底，保证一定要凑够 4 个
+     每一层都跳过「蓝球推荐（exclude）」里已有的号。 */
+
+  /* ① 蓝球专家池，按共识度 */
   try {
     expertPoolOf(gameId, areaKey)
       .filter((n) => n >= from && n <= to)
       .forEach(push);
   } catch (e) { /* 忽略 */ }
 
-  /* ② 推荐口径（只是拿它的排序，不用它的号） */
-  let rec = [];
-  try { rec = recommendNumbers(gameId, areaKey, size, from, to); } catch (e) { rec = []; }
-  rec.forEach(push);
-
-  /* ③ 近 30 期开奖频率兜底（最热优先，同频按号小优先，保证确定性） */
+  /* ② 频率分（近期更活跃的排前面；同分按号小优先，保证确定性） */
   if (out.length < want) {
     try {
-      const freq = countFrequency(gameId, areaKey, HIST_PERIODS);
+      const hist = getHistory(gameId);
+      const recent = new Map();
+      const all = new Map();
+      hist.slice(0, 10).forEach((d) => {
+        ((d.areas && d.areas[areaKey]) || []).forEach((x) => recent.set(x, (recent.get(x) || 0) + 1));
+      });
+      hist.slice(0, HIST_PERIODS).forEach((d) => {
+        ((d.areas && d.areas[areaKey]) || []).forEach((x) => all.set(x, (all.get(x) || 0) + 1));
+      });
       const ranked = [];
-      for (let n = from; n <= to; n++) ranked.push({ num: n, c: freq.get(n) || 0 });
-      ranked.sort((a, b) => b.c - a.c || a.num - b.num);
+      for (let n = from; n <= to; n++) {
+        ranked.push({ num: n, score: (recent.get(n) || 0) * 3 + (all.get(n) || 0) });
+      }
+      ranked.sort((a, b) => b.score - a.score || a.num - b.num);
       ranked.forEach((x) => push(x.num));
     } catch (e) { /* 忽略 */ }
   }
 
-  /* ④ 极端兜底：池子号码已用尽（正常不会走到） */
-  for (let n = from; n <= to && out.length < want; n++) push(n);
+  /* ③ 升序兜底（池子/频率都用完还不够时的最后保险） */
+  for (let n = from; n <= to; n++) push(n);
 
   return out.sort((a, b) => a - b);
 }
@@ -878,10 +889,19 @@ function autoFillWuxing(gameId, opts) {
   if (jzLayout) {
     out.cir_center = pad2(jzLayout.center);
     for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(jzLayout.rings[0][i]);
+
+    /* 位置号 = 模板里那一格原本写的号：
+         位置 0        → 中心
+         位置 1+ri*8+di → 第 (ri+1) 圈的「第 di 个方向」（0=上，顺时针 45°）
+       所以 cir_num_01 是第 1 圈上方的号（双色球=16），不是「号 01」。
+       render.js 按位置号取号 → 位置画在几何点上、号来自模板表。 */
+    out.cir_num_center = pad2(jzLayout.center);
+    for (let ri = 0; ri < jzLayout.rings.length; ri++) {
+      for (let di = 0; di < jzLayout.rings[ri].length; di++) {
+        out['cir_num_' + (1 + ri * 8 + di)] = pad2(jzLayout.rings[ri][di]);
+      }
+    }
   }
-  out.cir_num_center = pad2(jzLayout ? jzLayout.center : 1);
-  const cirSize = jzLayout ? 33 : (to - from + 1);
-  for (let i = 1; i <= cirSize; i++) out['cir_num_' + i] = pad2(i);
 
   const cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
   const cirDan = cirPool.slice(0, 3);                       // 金胆 / 银胆（前 3）
