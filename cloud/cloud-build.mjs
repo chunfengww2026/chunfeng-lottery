@@ -723,6 +723,11 @@ function main() {
     if (doPrizes) {
       log('\n【4/4】抓奖级');
       results.push(run('build-prizes.mjs', []));
+    /* 【专家数据】出号的组合逻辑靠它（抓一起彩的三胆/杀号/共识百分比）。
+       以前云端没这一步 → experts-data.js 一直是旧的 → "按用户的方法出号"不生效。
+       云端从美国访问 yiqicai.com 实测可达；抓不到也不影响（沿用旧的 experts-data.js）。 */
+    try { run('build-experts.mjs', []); }
+    catch (e) { log('  ⚠️ 专家数据抓取失败（沿用上一次的 experts-data.js）：' + e.message); }
     } else {
       log('\n【4/4】抓奖级 —— 本班次跳过');
     }
