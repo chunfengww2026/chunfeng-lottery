@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>足球 · 春风十里送大奖</title>
+  <link rel="icon" href="app.ico" />
+  <link rel="stylesheet" href="styles.css?v=17" />
+</head>
+<body>
+
+  <!-- 左侧固定导航栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"></div>
+      <div class="name">春风十里送大奖</div>
+    </div>
+    <nav class="nav" id="nav">
+      <a class="nav-item" data-nav="home" data-target="index.html">
+        <span class="ico" data-ico="home"></span><span>首页</span>
+      </a>
+
+      <div class="nav-group">中国福利彩票</div>
+      <a class="nav-item" data-nav="ssq"  data-target="game.html#g=ssq"><span class="ico" data-ico="ssq"></span><span>双色球</span></a>
+      <a class="nav-item" data-nav="fc3d" data-target="game.html#g=fc3d"><span class="ico" data-ico="fc3d"></span><span>福彩3D</span></a>
+      <a class="nav-item" data-nav="qlc"  data-target="game.html#g=qlc"><span class="ico" data-ico="qlc"></span><span>七乐彩</span></a>
+      <a class="nav-item" data-nav="kl8"  data-target="game.html#g=kl8"><span class="ico" data-ico="kl8"></span><span>快乐8</span></a>
+
+      <div class="nav-group">中国体育彩票</div>
+      <a class="nav-item" data-nav="dlt"  data-target="game.html#g=dlt"><span class="ico" data-ico="dlt"></span><span>大乐透</span></a>
+      <a class="nav-item" data-nav="pl3"  data-target="game.html#g=pl3"><span class="ico" data-ico="pl3"></span><span>排列3</span></a>
+      <a class="nav-item" data-nav="pl5"  data-target="game.html#g=pl5"><span class="ico" data-ico="pl5"></span><span>排列5</span></a>
+      <a class="nav-item" data-nav="qxc"  data-target="game.html#g=qxc"><span class="ico" data-ico="qxc"></span><span>七星彩</span></a>
+
+      <div class="nav-group">竞彩</div>
+      <a class="nav-item" data-nav="football" data-target="football.html"><span class="ico" data-ico="football"></span><span>竞彩</span></a>
+
+      <div class="nav-group">工具</div>
+      <a class="nav-item" data-nav="data" data-target="data.html"><span class="ico" data-ico="data"></span><span>资料</span></a>
+      <a class="nav-item" data-nav="assistant" data-target="assistant.html"><span class="ico" data-ico="ai"></span><span>智能助手</span></a>
+    </nav>
+  </aside>
+
+  <!-- 右侧内容区 -->
+  <div class="content">
+    <div class="page">
+
+      <div class="game-head">
+        <div class="info">
+          <h2>竞彩场次</h2>
+          <div class="tags">
+            <span class="tag">体彩竞彩在售</span>
+            <span class="tag" id="updTag">—</span>
+            <span class="tag" id="statTag">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 状态切换 -->
+      <div class="mode-tabs" id="kindTabs">
+        <button class="mode-tab on" data-kind="upcoming">未开赛</button>
+        <button class="mode-tab" data-kind="live">进行中</button>
+        <button class="mode-tab" data-kind="finished">已完场</button>
+      </div>
+
+      <!-- 完场战绩 -->
+      <div id="recordBar"></div>
+
+      <div class="fb-layout">
+        <div class="fb-listwrap">
+          <div id="list"></div>
+        </div>
+        <div class="fb-detailwrap">
+          <div id="detail"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="jc-data.js?v=18"></script>
+  <!-- 【已完场累积】在售列表只含还能买的比赛，一开完就消失；
+       已完场全靠这份归档记录，不加载它「已完场」永远是 0 场 -->
+  <script src="jc-history.js?v=18"></script>
+  <script src="fb-page.js?v=18"></script>
+  <script src="icons.js?v=17"></script>
+  <script src="cloud-pull.js?v=17"></script>
+  <script src="app.js?v=17"></script>
+  <script>
+    initNav('football');
+
+    let kind = 'upcoming';
+    let current = null;
+
+    const listEl = document.getElementById('list');
+    const detailEl = document.getElementById('detail');
+    const recordEl = document.getElementById('recordBar');
+
+    const PLACEHOLDER = '<div class="panel fb-detail"><div class="empty">点左侧任意一场比赛，查看对阵数据与指数</div></div>';
+
+    /* ---------- 顶部信息 ---------- */
+    const u = footballUpdated();
+    const st = footballStat();
+    document.getElementById('updTag').textContent = u ? '每 2 小时自动更新（最近一次 ' + u + '）' : '暂无数据';
+    document.getElementById('statTag').textContent =
+      '共 ' + (st.total || 0) + ' 场 · 进行中 ' + (st.live || 0) + ' · 已完场 ' + (st.finished || 0);
+
+    /* ---------- 完场战绩条 ---------- */
+    function renderRecord() {
+      recordEl.innerHTML = '';
+      if (!st.settled) return;
+
+      const box = document.createElement('div');
+      box.className = 'fb-record';
+      box.innerHTML =
+        '<span class="fb-rec-title">完场战绩</span>' +
+        '<span class="fb-rec-hit">红 ' + st.hit + '</span>' +
+        '<span class="fb-rec-miss">黑 ' + st.miss + '</span>' +
+        '<span class="fb-rec-rate">命中率 ' + st.rate + '%</span>' +
+        '<span class="fb-rec-note">（按推荐胜负平比对最终比分）</span>';
+      recordEl.appendChild(box);
+    }
+
+    /* ---------- 标签切换 ---------- */
+    document.querySelectorAll('#kindTabs .mode-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#kindTabs .mode-tab').forEach((b) => b.classList.remove('on'));
+        btn.classList.add('on');
+        kind = btn.dataset.kind;
+        current = null;
+        detailEl.innerHTML = PLACEHOLDER;
+        renderList();
+      });
+    });
+
+    function renderList() {
+      renderFootballList(listEl, footballList(kind), (g) => {
+        current = g;
+
+        /* 高亮当前行 */
+        document.querySelectorAll('.fb-row').forEach((r) => r.classList.remove('active'));
+        const el = document.querySelector('[data-gid="' + g.gid + '"]');
+        if (el) el.classList.add('active');
+
+        /* 渲染详情 */
+        renderFootballDetail(detailEl, g);
+
+        /* 滚动到详情并闪一下，让人一眼看到指数 */
+        try {
+          const target = detailEl.querySelector('.panel') || detailEl;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.classList.remove('flash');
+          void target.offsetWidth;
+          target.classList.add('flash');
+        } catch (e) { /* 忽略 */ }
+      });
+    }
+
+    renderRecord();
+    renderList();
+    detailEl.innerHTML = PLACEHOLDER;
+  </script>
+
+</body>
+</html>
