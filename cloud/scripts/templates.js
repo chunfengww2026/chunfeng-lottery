@@ -158,7 +158,23 @@ const TEMPLATES = {
             left: {
               type: 'circle',
               title: '九转连环图',
-              centerKey: 'cir_center'
+              centerKey: 'cir_center',
+              /* 【固定同心圆模板】中心 1 + 4 圈 × 8 方向 = 33 个位置，
+                 33 个位置放全部红球 01~33 —— 位置表和号码都在
+                 stats.js 的 JIUZHUAN_LAYOUT 里（用户逐字给的，不改）。
+                 stats.js 同时铺好这几个【高亮口径】字段（和图一号码池同一套池子）：
+                   cir_pool 推荐号池 20 码 → 图上红色
+                   cir_dan  金胆/银胆 前 3 码 → 图上金色
+                   cir_tuo  拖码 随后 7 码   → 图上橙色
+                 注意：这里【不写 fields】—— circle 区块的 fields 会被
+                 autoFillForTemplate 当成走势字段覆盖掉（推荐池会被截成 6 码）。
+                 区块结构保持原样，只认 centerKey。 */
+              legend: [
+                { label: '金胆/银胆', color: 'gold-red' },
+                { label: '拖码',      color: 'orange'   },
+                { label: '号码池',    color: 'purple'   },
+                { label: '未推荐',    color: 'gray'     }
+              ]
             },
             right: {
               type: 'jiugong',
@@ -325,7 +341,17 @@ const TEMPLATES = {
             left: {
               type: 'circle',
               title: '九转连环图',
-              centerKey: 'cir_center'
+              centerKey: 'cir_center',
+              /* 【固定同心圆模板】同双色球：中心 1 + 4 圈 × 8 方向 = 33 个位置，
+                 用 JIUZHUAN_LAYOUT.dlt 那张固定表（33 个前区号 ——
+                 1~35 里缺 01 和 33，用户给的表就是这样，照实现不补号）。
+                 高亮口径同上：cir_pool(红) / cir_dan(金) / cir_tuo(橙)。 */
+              legend: [
+                { label: '金胆/银胆', color: 'gold-red' },
+                { label: '拖码',      color: 'orange'   },
+                { label: '号码池',    color: 'purple'   },
+                { label: '未推荐',    color: 'gray'     }
+              ]
             },
             right: {
               type: 'jiugong',
