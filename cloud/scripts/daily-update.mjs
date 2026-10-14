@@ -27,7 +27,16 @@ const LOG = path.join(ROOT, '_daily-update.log');
 
 const argv = process.argv.slice(2);
 const CHECK_ONLY = argv.includes('--check');
-const FORCE = argv.includes('--force');
+  /* 【一次性强制全量更新】
+     用户要求：「今晚2点全部更新，后面按照这个逻辑开始更新」
+       · 今晚 2 点：把所有彩种的推荐号按他的算法全部重出一次
+       · 之后：只补「即将开奖且还没有号码」的彩种（缺才补）
+     实现：项目根放标记文件 .force-roll-once → 本次强制全量重摇，
+           跑完立刻删掉（只生效一次）。这样不用一直挂 --force
+           （那会导致每天都覆盖已经发出去的号）。 */
+  const FORCE_ONCE_FLAG = path.join(ROOT, '.force-roll-once');
+  const FORCE_ONCE = fs.existsSync(FORCE_ONCE_FLAG);
+const FORCE = argv.includes('--force') || FORCE_ONCE;
 
 /* 【重要】默认【不摇号】。
    自动更新只刷新开奖数据与足球，绝不改推荐号码 ——
@@ -271,10 +280,18 @@ function main() {
   }
 
   if (ALLOW_ROLL && (missing.length || FORCE)) {
-    log(`\n【5/5】自动摇号${FORCE ? '（强制）' : ''}`);
+    log(`\n【5/5】自动摇号${FORCE ? (FORCE_ONCE ? '（一次性全量更新）' : '（强制）') : '（缺才补）'}`);
     try {
       const stat = ctx.__roll({ force: !!FORCE });
       log(`  ✅ 摇了 ${stat.rolled || stat.games} 个彩种 / ${stat.images} 张图 / ${stat.fields} 个字段`);
+
+      /* 【用完即焚】一次性全量更新跑完了，删掉标记 —— 明天起自动回到「缺才补」 */
+      if (FORCE_ONCE) {
+        try {
+          fs.unlinkSync(FORCE_ONCE_FLAG);
+          log('  🗑  已删除 .force-roll-once（一次性全量更新结束，下次起走「缺才补」）');
+        } catch (e) { log('  ⚠️ 删标记失败（下次会再全量一次）：' + e.message); }
+      }
 
       // 写回存档
       const after = ctx.__load();
