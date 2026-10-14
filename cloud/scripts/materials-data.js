@@ -7,5 +7,12 @@
 
 const MATERIALS_DATA = {
  "updated": "2026-10-14 23:20",
- "list": []
+ "list": [
+  {
+   "id": "c-A",
+   "text": "并发终测资料 A",
+   "games": [],
+   "time": "2026-10-14 23:35"
+  }
+ ]
 };
