@@ -59,6 +59,51 @@ const DRY_RUN = argv.includes('--dry-run');
 const AI_ALLOWED = argv.includes('--ai');
 
 /* ============================================================
+   【分班抓取】--only=…
+   ------------------------------------------------------------
+   用户原话：「最新开奖是每天福彩 21:30 抓取同步，体彩是 21:45 抓取同步」。
+   两班各抓各的（福彩 21:30 / 体彩 21:45），所以这里要能只抓一部分彩种。
+
+   用法（等价，任选）：
+     node build-draws.mjs --only=ssq,fc3d,qlc,kl8    # 福彩 4 个
+     node build-draws.mjs --only=fucai              # 同上（别名）
+     node build-draws.mjs --only=ticai              # 体彩 4 个：dlt,pl3,pl5,qxc
+     node build-draws.mjs --only=all                # 等同不传（全部 8 个）
+     node build-draws.mjs                           # 全部 8 个（云端 / 02:00 全量班）
+
+   【关键】--only 只抓指定的那几个，但写 draws.js 时会把【没抓到的彩种
+   沿用上一次的值】补回去 —— 否则一次只抓 4 个就会把另外 4 个从
+   draws.js 里抹掉，页面上那 4 个彩种的开奖号码会整块消失。
+   ============================================================ */
+const FUCAI_IDS = ['ssq', 'fc3d', 'qlc', 'kl8'];   /* 中国福利彩票 */
+const TICAI_IDS = ['dlt', 'pl3', 'pl5', 'qxc'];    /* 中国体育彩票 */
+
+function parseOnly(list) {
+  const raw = list
+    .filter((a) => a.indexOf('--only=') === 0)
+    .map((a) => a.slice('--only='.length))
+    .join(',');
+  if (!raw.trim()) return null;
+
+  const out = [];
+  for (const seg of raw.split(',')) {
+    const s = seg.trim().toLowerCase();
+    if (!s) continue;
+    if (s === 'all') return null;                       /* 全量 = 不加限制 */
+    if (s === 'fucai') { out.push(...FUCAI_IDS); continue; }
+    if (s === 'ticai') { out.push(...TICAI_IDS); continue; }
+    if (GAME_IDS.indexOf(s) < 0) {
+      console.error(`❌ --only=${s}：不认识的彩种（可选：${GAME_IDS.join(' / ')} / fucai / ticai / all）`);
+      process.exit(2);
+    }
+    out.push(s);
+  }
+  return out.length ? [...new Set(out)] : null;
+}
+
+const ONLY = parseOnly(argv);
+
+/* ============================================================
    彩种规则
    ------------------------------------------------------------
    RULES / validateAreas / splitNums / normalizeIssue 都从
@@ -394,8 +439,17 @@ async function main() {
   const report = [];
 
   /* 彩种顺序：固定 8 个（与 export-draws.mjs 的 DRAW_GAME_ORDER 一致），
-     保证不会因为配置里漏了某个彩种就静默少抓 */
-  for (const gameId of GAME_IDS) {
+     保证不会因为配置里漏了某个彩种就静默少抓。
+     【分班抓取】--only 时只跑指定的那几个（其余沿用上一次的值，见下面写文件处）。 */
+  const TARGETS = ONLY || GAME_IDS;
+  if (ONLY) {
+    log(`【本班只抓】${ONLY.map((g) => (RULES[g] ? RULES[g].name : g)).join(' / ')}（${ONLY.length} 个）`);
+    const others = GAME_IDS.filter((g) => ONLY.indexOf(g) < 0);
+    log(`  其余 ${others.length} 个沿用上一次的值：${others.map((g) => (RULES[g] ? RULES[g].name : g)).join(' / ')}`);
+    log('');
+  }
+
+  for (const gameId of TARGETS) {
     const rule = RULES[gameId];
     if (!rule) continue;
     const url = pages[gameId] || '';
@@ -542,10 +596,25 @@ async function main() {
 
   // 5. 写文件
   const now = new Date().toISOString().replace('T', ' ').slice(0, 19);
+
+  /* 【分班抓取必须补齐另外几个彩种】------------------------------------------------
+     --only 只抓了 4 个，剩下 4 个如果直接写空，
+     页面上的「最新开奖」就会少 4 张卡、彩种区块也会缺开奖号码。
+     所以这里按固定顺序把【没抓到的彩种沿用上一次快照的值】补回来，
+     保证 draws.js 永远都是完整的 8 个彩种。 */
+  const merged = {};
+  const carried = [];
+  for (const gid of GAME_IDS) {
+    if (results[gid]) { merged[gid] = results[gid]; continue; }
+    if (snapGames[gid]) { merged[gid] = snapGames[gid]; carried.push(gid); }
+  }
+
   const out = {
     updated: now,
-    note: '由 build-draws.mjs 自动生成，请勿手动编辑',
-    games: results
+    note: ONLY
+      ? `由 build-draws.mjs 自动生成（本班只抓 ${ONLY.join(',')}，其余沿用上一次），请勿手动编辑`
+      : '由 build-draws.mjs 自动生成，请勿手动编辑',
+    games: merged
   };
 
   if (DRY_RUN) {
@@ -555,7 +624,8 @@ async function main() {
     const js = `/* 自动生成，请勿手动编辑 · ${now} */\n` +
       `const DRAW_DATA = ${JSON.stringify(out, null, 2)};\n`;
     fs.writeFileSync(OUT_JS, js, 'utf8');
-    log(`✅ 已写入 ${OUT_JS}（${Object.keys(results).length} 个彩种）`);
+    log(`✅ 已写入 ${OUT_JS}（${Object.keys(merged).length} 个彩种` +
+      (carried.length ? `，其中 ${carried.length} 个沿用上一次：${carried.join(' / ')}` : '') + '）');
   }
 
   // 6. 报告
@@ -569,6 +639,11 @@ async function main() {
   const keptCount = report.filter((r) => r.keptOld).length;
   const freshCount = report.filter((r) => r.status.startsWith('成功') && !r.same).length;
   log(`\n  成功 ${okCount} / ${report.length} 个彩种　（其中新一期 ${freshCount} 个，与上次同期 ${okCount - freshCount} 个）`);
+  if (carried.length) {
+    log(`  · 本班不抓的 ${carried.length} 个彩种已沿用上一次的值：` +
+      carried.map((g) => `${RULES[g] ? RULES[g].name : g}(第 ${merged[g].issue} 期)`).join(' / '));
+  }
+  log(`  写出的 draws.js 覆盖 ${Object.keys(merged).length} / ${GAME_IDS.length} 个彩种`);
   if (keptCount) log(`  ⚠️  ${keptCount} 个彩种所有源都失败，已保留上一次的值（没有写入错误数据）`);
   log(`  生成时间：${now}`);
   if (okCount === 0) {
