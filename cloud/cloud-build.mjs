@@ -686,7 +686,9 @@ function main() {
        GitHub 服务器在美国，抓中国彩票接口会被拒绝
        （福彩 403 / 体彩 567），抓失败会用坏数据覆盖好数据。
        所以抓完检查，坏了就还原。 */
-    const DATA_FILES = ['history.js', 'draws.js', 'football.js', 'jc-data.js', 'prize-data.js'];
+    /* jc-history.js 也一起备份：build-jc.mjs 每次都会往里追加已完场记录，
+       抓取失败还原时不能把累积下来的历史一起丢掉。 */
+    const DATA_FILES = ['history.js', 'draws.js', 'football.js', 'jc-data.js', 'jc-history.js', 'prize-data.js'];
     const backup = {};
     DATA_FILES.forEach((f) => {
       const p = path.join(MOD, f);
