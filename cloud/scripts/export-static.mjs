@@ -113,7 +113,12 @@ const ctx = vm.createContext({
 const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                'stats.js', 'templates.js', 'experts-data.js', 'expert-pool.js',
                'ticket-store.js', 'saved-tickets.js',
-               'render.js', 'prize-data.js', 'hit-check.js',
+               'render.js', 'prize-data.js',
+               /* 【最新开奖】区块的生成函数（hcDrawOf / latestDrawsHtml /
+                  applyRemoteDraws…）—— 分享页内联的是同一份文件，
+                  所以服务端预渲染和客户端就地更新用的是同一个函数。
+                  必须排在 hit-check.js 之前：buildLatestDrawHtml 直接调它。 */
+               'latest-draws.js', 'hit-check.js',
                'materials-data.js', 'data-store.js',
                /* 【热力图】按天出的实票统计图靠它取数；文件缺失时
                   shouldShowHeatmap 不存在 → 热力图自动不出，其余图不受影响 */
@@ -169,6 +174,8 @@ vm.runInContext(`
   globalThis.__getTicket = getTicket;
   globalThis.__shouldShowHeatmap = (typeof shouldShowHeatmap === 'function') ? shouldShowHeatmap : null;
   globalThis.__heatmapData = (typeof HEATMAP_DATA !== 'undefined') ? HEATMAP_DATA : null;
+  /* 【最新开奖】区块的稳定 id（来自 latest-draws.js）—— 客户端靠它定位替换 */
+  globalThis.__latestDrawsId = (typeof LATEST_DRAWS_ID !== 'undefined') ? LATEST_DRAWS_ID : 'ro-latest';
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -178,6 +185,7 @@ const nextDate = ctx.__nextDate, nextWeek = ctx.__nextWeek;
 const getTicket = ctx.__getTicket;
 const shouldShowHeatmap = ctx.__shouldShowHeatmap;
 const HEATMAP = ctx.__heatmapData;
+const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
 
 /**
  * 热力图该不该出这张图
@@ -550,6 +558,12 @@ if (typeof buildLatestHtml === 'function') {
     console.log('  ❌ 最新开奖生成失败：' + e.message);
   }
 }
+/* 【稳定 id】客户端就是靠它定位这个区块并整体替换的。
+   没有 id（老版本页面/生成失败）时客户端会退化成「找不到就什么都不做」。 */
+if (latestSecHtml && latestSecHtml.indexOf('id="' + LATEST_DRAWS_ID + '"') < 0) {
+  console.log(`  ⚠️ 最新开奖区块缺少稳定 id（${LATEST_DRAWS_ID}），客户端将无法就地更新`);
+}
+console.log(`  · 最新开奖区块 id = ${LATEST_DRAWS_ID}`);
 
 /* ---- 底部：中奖栏（带图上圈选）---- */
 if (typeof buildWinHtml === 'function') {
@@ -589,6 +603,12 @@ const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
 const INLINE_JS = [
   'games.js',        // 彩种定义 GAMES / GROUPS
   'draws.js',        // 开奖数据装载
+  /* 【最新开奖】区块的生成函数 + 客户端更新逻辑。
+     服务端 export-static.mjs 预渲染时用的是同一份文件（见上面的 FILES），
+     所以「服务端烤进 HTML 的那段」和「客户端拉 tickets.json 后就地替换的那段」
+     是同一个函数渲染出来的，不会两边写法漂移。
+     必须排在页尾的实时渲染脚本之前 —— 它要用 latestDrawsHtml / applyRemoteDraws。 */
+  'latest-draws.js', // latestDrawsHtml / applyRemoteDraws / hcDrawOf
   'history.js',      // 历史开奖
   'draw-data.js',    // getDraw / nextDrawDate / nextIssueFor
   'algo.js',         // 基础算法
@@ -925,16 +945,85 @@ const RO_RENDER_SCRIPT = `
   /* 方便自测 / 排查：页面上可以在控制台手动调 __roLiveApply(数据) */
   window.__roLiveApply = applyRemoteTickets;
 
+  /* ============================================================
+     【最新开奖 · 就地更新】拿到 tickets.json 里的 draws 后重画顶部区块
+     ------------------------------------------------------------
+     以前这块是服务器【预渲染】进 HTML 的静态内容，只有刷新整页才会变。
+     现在 tickets.json 里带上了各彩种最新一期开奖（draws），
+     拉到比页面内联快照更新的一期就：
+       1) 把新号码合并进内存里的 DRAW_DATA（只改属性，只更新有的彩种）
+       2) 用 latestDrawsHtml() 重新生成区块 HTML 并【整体替换】DOM
+     用的就是生成页面时那份同一个函数（latest-draws.js），
+     所以服务端烤进去的和服务端/客户端换上去的写法完全一致。
+
+     降级：拿不到 draws / 只有部分彩种 / 比页面旧 → 一律保持原样，
+           不报错、不留白（这条路径整个用 try 包住）。
+     ============================================================ */
+  function applyRemoteDrawsToPage(j) {
+    var res = { applied: [], skipped: [] };
+    try {
+      if (!j || !j.draws) return res;                      /* 没带就什么都不做 */
+      if (typeof applyRemoteDraws !== 'function' ||
+          typeof latestDrawsHtml !== 'function' ||
+          typeof latestDrawsFromRaw !== 'function') return res;   /* 客户端脚本缺失 → 保持预渲染兜底 */
+
+      /* 1) 合并进内存数据（只更新有的彩种；比页面旧的自动跳过） */
+      res = applyRemoteDraws(j.draws) || res;
+      if (!res.applied.length) return res;                 /* 没有更新 → 区块原样保留 */
+
+      /* 2) 重新生成并整体替换「最新开奖」区块
+         【关键】用合并【之后】的完整数据（DRAW_DATA.games）重画，而不是 j.draws：
+         服务器这次可能只带了一部分彩种，用 j.draws 直接渲染会把别的彩种弄丢。
+         区块必须始终是完整的 8 个彩种。 */
+      var el = document.getElementById(LATEST_DRAWS_ID);
+      if (!el) return { applied: [], skipped: res.skipped };   /* 老页面没有这个 id → 不动 */
+
+      var all = null;
+      try { all = (typeof DRAW_DATA !== 'undefined') ? DRAW_DATA.games : null; } catch (e2) { all = null; }
+      if (!all) return { applied: [], skipped: res.skipped };
+
+      var html = latestDrawsHtml(latestDrawsFromRaw(all, GAMES), GAMES);
+      if (!html) return { applied: [], skipped: res.skipped };  /* 生成不出来 → 保留原样，绝不留白 */
+
+      if (el.outerHTML === html) return res;               /* 一模一样就不用动 DOM */
+      el.outerHTML = html;
+
+      try {
+        if (document.body && document.body.setAttribute) {
+          document.body.setAttribute('data-draws-from', 'server');
+          document.body.setAttribute('data-draws-games', res.applied.join(','));
+        }
+      } catch (e2) { /* 忽略 */ }
+
+      return res;
+    } catch (e) {
+      /* 任何意外都只是「这次没更新开奖」，不能影响页面其它部分 */
+      if (window.console && console.warn) console.warn('[分享页] 最新开奖就地更新失败，保留原内容', e);
+      return { applied: [], skipped: [] };
+    }
+  }
+
+  /* 方便自测 / 排查：控制台里手动调 __roLiveDraws(数据) */
+  window.__roLiveDraws = applyRemoteDrawsToPage;
+
   /* 拉一次服务器上的号码文件 */
   function pullTickets() {
     return fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { return applyRemoteTickets(j); })
+      .then(function (j) {
+        /* 两件事各自独立：号码变了就重画 10 张图，开奖变了就重画顶部区块 */
+        var t = applyRemoteTickets(j);
+        var d = applyRemoteDrawsToPage(j);
+        return t || (d && d.applied.length > 0);
+      })
       .catch(function () { return false; });   /* 打不开服务器（离线/被墙）就继续用内联快照 */
   }
 
   var firstPull = pullTickets();
   window.__roLivePromise = firstPull;
+
+  /* 方便自测 / 排查：控制台里手动拉一次（__roPullOnce().then(...)） */
+  window.__roPullOnce = pullTickets;
 
   /* ============================================================
      【自动刷新】页面开着的时候，隔一段时间自动去服务器看有没有新数据
