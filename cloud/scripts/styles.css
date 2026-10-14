@@ -985,6 +985,8 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .r-wxbadge.wx3 { background: linear-gradient(180deg,#f0575c,#c93236); }
 .r-wxbadge.wx4 { background: linear-gradient(180deg,#c79a62,#8f6533); }
 .r-wxtails { font-size: 11.5px; color: #888; width: 74px; flex-shrink: 0; }
+/* 五行阴阳标记（阳X·阴Y）：行内小字，不占号码区宽度 */
+.r-wxyy { font-size: 10.5px; color: #b07d18; width: 46px; flex-shrink: 0; }
 .r-wxfoot { margin-top: 12px; font-size: 12.5px; color: #444; display: flex; flex-direction: column; gap: 5px; }
 .r-wxfoot b { color: #d92f1e; }
 
@@ -992,7 +994,7 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .r-circwrap { text-align: center; }
 .r-circle {
   position: relative;
-  width: 100%; max-width: 340px; aspect-ratio: 1;
+  width: 100%; max-width: 380px; aspect-ratio: 1;
   margin: 0 auto;
 }
 .r-ring {
@@ -1031,6 +1033,21 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   left: 50%; top: 50%; transform: translate(-50%, -50%);
   z-index: 0;
 }
+.r-cirnum {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 17px; height: 17px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; line-height: 1;
+  font-family: Arial, sans-serif;
+  background: #fff;                                  /* 白底圆点：圆环线从号码底下穿过 */
+  color: #d9d9d9;                                    /* 未推荐：浅色 */
+  z-index: 3;
+}
+/* 三档高亮：都用白底 + 字色区分，保证压在最外圈那根环线上也看得清 */
+.r-cirnum.pool   { color: #e53935; font-weight: 800; }                       /* 号码池 */
+.r-cirnum.silver { color: #d98218; font-weight: 800; }                       /* 拖码 */
+.r-cirnum.core   { color: #a8770a; font-weight: 800; }                       /* 金胆/银胆 */
 .r-circenter {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
@@ -1040,25 +1057,14 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   display: flex; align-items: center; justify-content: center;
   z-index: 4;
 }
-.r-cirnum {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 17px; height: 17px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; line-height: 1;
-  font-family: Arial, sans-serif;
-  background: #fff; color: #d9d9d9;                 /* 未推荐：浅色 */
-  z-index: 3;
-}
-.r-cirnum.pool   { color: #e53935; font-weight: 800; }                       /* 号码池 */
-.r-cirnum.silver { background: #fde3c4; color: #b25b00; font-weight: 800;
-                   box-shadow: 0 0 0 1px #f0b978 inset; }                    /* 拖码 */
-.r-cirnum.core   { background: #e6b422; color: #4a3400; font-weight: 800;
-                   box-shadow: 0 0 0 1px #c9991a inset; }                    /* 金胆/银胆 */
 .r-circenter.pool   { color: #e53935; }
-.r-circenter.silver { background: #fde3c4; color: #b25b00; border-color: #f0b978; }
-.r-circenter.core   { background: #e6b422; color: #4a3400; border-color: #c9991a; }
-.r-dot.gray { background: #cfcfcf; }
+.r-circenter.silver { color: #d98218; }
+.r-circenter.core   { color: #a8770a; }
+/* 图例色点：和图上三档高亮一一对应 */
+.r-dot.core   { background: #a8770a; }
+.r-dot.silver { background: #d98218; }
+.r-dot.pool   { background: #e53935; }
+.r-dot.dim    { background: #d9d9d9; }
 
 /* ---- 九宫 ---- */
 .r-jgwrap { text-align: center; }
@@ -1966,4 +1972,87 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   .ex-c3, .ex-c4, .ex-c5 { width: 48px; }
   .ex-c6 { width: 32px; }
   .ex-c7 { width: 44px; }
+}
+
+/* ============================================================
+   亚指综合换算块（竞彩页「详情」面板 · 手机优先）
+   ------------------------------------------------------------
+   · 数据缺失时整块降级成「只显示水位隐含的理论值 + 如实说明」，
+     不会出现任何编造的数字。
+   · 结论标签只用中性词（爆冷 / 输盘 / 赢盘 / 走水机会 / 胜负难分）。
+   · 格子用 auto-fit，详情面板在桌面端只有 230px 宽也不会挤爆。
+   ============================================================ */
+.fb-ai-block {
+  background: linear-gradient(135deg, #1a2130, #161c27);
+  border: 1px solid #2b3550;
+  border-radius: 12px;
+  padding: 13px 14px;
+  margin-bottom: 18px;
+}
+.fb-ai-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 9px;
+}
+.fb-ai-title { font-size: 13.5px; font-weight: 700; color: #c8cfda; }
+.fb-ai-tag {
+  font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  color: #f0b429; background: rgba(240, 180, 41, 0.14);
+  border: 1px solid rgba(240, 180, 41, 0.35);
+  white-space: nowrap;
+}
+.fb-ai-fun {
+  margin-left: auto; font-size: 10.5px; color: #6b7488;
+  border: 1px solid #2b3550; border-radius: 20px; padding: 1px 8px;
+  white-space: nowrap;
+}
+.fb-ai-line {
+  font-size: 11.5px; color: #8b93a1; line-height: 1.8;
+  font-family: Consolas, monospace;
+  word-break: break-word;            /* 手机上别撑破布局 */
+  margin-bottom: 10px;
+}
+.fb-ai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 7px;
+  margin-bottom: 9px;
+}
+.fb-ai-cell {
+  display: flex; flex-direction: column; gap: 3px;
+  background: #0f1115; border: 1px solid #262d3a;
+  border-radius: 8px; padding: 7px 9px;
+  min-width: 0; overflow: hidden;
+}
+.fb-ai-cell i { font-style: normal; font-size: 10.5px; color: #6b7488; white-space: nowrap; }
+.fb-ai-cell b {
+  font-size: 13.5px; font-weight: 700; color: #c8cfda;
+  font-family: Consolas, monospace;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fb-ai-cell.on { border-color: rgba(71, 224, 160, 0.4); background: rgba(71, 224, 160, 0.08); }
+.fb-ai-cell.on b { color: #47e0a0; }
+.fb-ai-dev { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; margin-bottom: 8px; }
+.fb-ai-dev-v { font-size: 13px; font-weight: 700; font-family: Consolas, monospace; }
+.fb-ai-dev-u { font-size: 10.5px; color: #5a6272; }
+.fb-ai-hot { font-size: 12.5px; color: #f0b429; line-height: 1.75; margin-bottom: 8px; }
+.fb-ai-src { font-size: 10.5px; color: #6b7488; line-height: 1.7; }
+.fb-ai-miss {
+  font-size: 11px; color: #8b93a1; line-height: 1.8;
+  background: #14171d; border: 1px dashed #2b3550;
+  border-radius: 8px; padding: 7px 9px; margin-bottom: 7px;
+}
+.fb-ai-note { font-size: 10.5px; color: #5a6272; line-height: 1.7; }
+/* 盘口升降标签（升盘降水 / 降盘降水 / 升盘升水 / 降盘升水 / 无明显变化） */
+.fb-ai-change { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+.fb-ai-change-tag {
+  font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  color: #8ab0f5; background: rgba(110, 168, 254, 0.12);
+  border: 1px solid rgba(110, 168, 254, 0.3); white-space: nowrap;
+}
+.fb-ai-change-d {
+  font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
+  word-break: break-word;
 }
