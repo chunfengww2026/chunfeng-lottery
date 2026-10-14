@@ -385,7 +385,7 @@ async function downloadImage(url, cacheDir) {
 async function ocrTickets(cfg, posts, expectIssue, opts) {
   const stats = {
     posts: posts.length, urls: 0, downloaded: 0, downloadFailed: 0, cacheHits: 0,
-    recognized: 0, issueMatched: 0, tickets: 0, ms: 0
+    recognized: 0, issueMatched: 0, tickets: [], ms: 0
   };
   const frontCounts = new Array(cfg.frontMax + 1).fill(0);
   const backCounts = new Array(cfg.backMax + 1).fill(0);
@@ -682,7 +682,7 @@ function areaLiteral(area) {
 
 function gameLiteral(g) {
   const ocrLit = g.ocr
-    ? `{ posts: ${g.ocr.posts}, urls: ${g.ocr.urls}, downloaded: ${g.ocr.downloaded}, downloadFailed: ${g.ocr.downloadFailed}, cacheHits: ${g.ocr.cacheHits}, recognized: ${g.ocr.recognized}, tickets: ${g.ocr.tickets}, secs: ${g.ocr.secs}, err: '${String(g.ocr.err || '').replace(/'/g, "\\'")}' }`
+    ? `{ posts: ${g.ocr.posts}, urls: ${g.ocr.urls}, downloaded: ${g.ocr.downloaded}, downloadFailed: ${g.ocr.downloadFailed}, cacheHits: ${g.ocr.cacheHits}, recognized: ${g.ocr.recognized}, tickets: ${Array.isArray(g.ocr.tickets) ? g.ocr.tickets.length : (Number.isFinite(g.ocr.tickets) ? g.ocr.tickets : 0)}, secs: ${g.ocr.secs}, err: '${String(g.ocr.err || '').replace(/'/g, "\\'")}' }`
     : 'null';
   return [
     '    ' + g.id + ': {',
@@ -834,7 +834,7 @@ async function buildGame(cfg, nowBj, opts) {
     }
     if (ocrRes) {
       const s = ocrRes.stats;
-      ocrInfo = { ...s, ok: ocrRes.ok, err: ocrRes.err || '', tickets: ocrRes.tickets };
+      ocrInfo = { ...s, ok: ocrRes.ok, err: ocrRes.err || '', tickets: Array.isArray(ocrRes.tickets) ? ocrRes.tickets : [] };
       log(`  · OCR 统计：候选图 ${s.urls} 张 → 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 有效票 ${s.tickets} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
       if (ocrRes.ok) {
         source = 'ocr-xysp';
@@ -904,7 +904,7 @@ async function buildGame(cfg, nowBj, opts) {
       ? {
         posts: ocrInfo.posts, urls: ocrInfo.urls, downloaded: ocrInfo.downloaded,
         downloadFailed: ocrInfo.downloadFailed, cacheHits: ocrInfo.cacheHits,
-        recognized: ocrInfo.recognized, tickets: ocrInfo.tickets,
+        recognized: ocrInfo.recognized, tickets: Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets : [],
         secs: Math.round(ocrInfo.ms / 100) / 10, err: ocrInfo.err
       }
       : null,
