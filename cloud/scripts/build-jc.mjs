@@ -23,7 +23,8 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import {
-  archiveJcHistory, mergeHistory, trimHistory, renderHistoryJs
+  archiveJcHistory, mergeHistory, trimHistory, renderHistoryJs,
+  findInFootball, toHistoryRecord
 } from './jc-archive.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（造夹具验证归档，见 --archive-test） */
@@ -320,10 +321,48 @@ function archiveStep(oldJc, newJc, stamp) {
   const fresh = archiveJcHistory({
     oldJc, newJc, history: { list: [] }, fbList, now: stamp
   });
-  const addedNow = fresh.list.length;
 
-  /* 和旧历史合并 → 这才是最终的累积历史 */
-  const merged = mergeHistory(oldList, fresh.list);
+  /* ---------- 补比分：老记录当时没配到 football.js 的，再试一次 ----------
+     为什么需要：一场比赛从在售列表消失的那一刻，football.js 里可能还
+     没有它的终场比分（比赛刚结束、数据源还没更新）。那一次只能记成
+     「无结果」，而它之后再也不会出现在 oldJc 里了 ——
+     不补这一步，这场就永远没有比分和红黑。
+     注意：这一步【只补没结果的】，已经有结果的绝不改动。 */
+  let backfilled = 0;
+  const retried = oldList.map((rec) => {
+    if (rec.score && rec.result) return rec;         /* 已有比分/结果 → 不动 */
+    if (!rec.time || !rec.home || !rec.away) return rec;
+
+    /* 做成一场比赛的形状，直接复用归档模块的匹配（同一套别名/青年队规则） */
+    const game = {
+      code: rec.code, league: rec.league, time: rec.time,
+      home: { name: rec.home }, away: { name: rec.away },
+      score: null, liveScore: null,
+      odds: rec.odds ? { europe: { live: rec.odds } } : null,
+      reco: rec.pick
+        ? { pick: rec.pick, label: rec.pickLabel, confidence: rec.conf, prob: rec.prob }
+        : null
+    };
+    const fb = findInFootball(game, fbList);
+    if (!fb) return rec;
+
+    const fixed = toHistoryRecord(game, [fb], rec.at || stamp);
+    if (fixed && fixed.score) { backfilled++; return fixed; }
+    return rec;
+  });
+
+  /* ---------- ① 本次新归档的先和旧历史对齐，避免覆盖已有结果 ----------
+     【为什么必须先过一遍 mergeHistory】
+     同一条历史记录可能被「重新推导」出一条新的（比如这场又出现在了
+     oldJc 里、而 football.js 的比分后来被改了/改错过）。如果直接把
+     新推导的送去合并，一个错比分就会把【已经存下来的正确结果】顶掉。
+     先和旧历史合并一次，mergeHistory 里「已有结果的优先」这条规则
+     就会把旧结果保护住，同时新记录还能补上赔率、概率这些缺失字段。 */
+  const aligned = mergeHistory(retried, fresh.list);
+  const addedNow = aligned.added;
+
+  /* ② 再和旧历史合并（此时两边都已经带上结果保护，幂等） */
+  const merged = mergeHistory(retried, aligned.list);
   const kept = trimHistory(merged.list, HIST_MAX);
 
   const matched = kept.filter((r) => r.matched).length;
@@ -334,10 +373,11 @@ function archiveStep(oldJc, newJc, stamp) {
   log(`\n【归档】竞彩已完场累积`);
   log(`  本次在售 ${newJc.games.length} 场 · 本次归档 ${addedNow} 场 · 历史累计 ${kept.length} 场`);
   log(`  其中 ${matched} 场在 football.js 里找到终场比分 · ${withResult} 场有胜负结果`);
+  if (backfilled) log(`  另有 ${backfilled} 场补上了之前缺的终场比分`);
   log(`  上限 ${HIST_MAX} 场（超出删最旧的）· 已写入 ${path.basename(HIST)}`);
 
   /* 便于调用方一眼看到有没有真的累积起来 */
-  return { added: addedNow, total: kept.length, matched, withResult };
+  return { added: addedNow, total: kept.length, matched, withResult, backfilled };
 }
 
 /* ============================================================
