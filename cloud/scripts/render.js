@@ -422,24 +422,33 @@ const SECTION_RENDER = {
   },
 
   /* ---- 九宫图（洛书 + 每期自动偏移） ----
-     数据流（用户指定的用法）：
-       上期开奖号 → calcOffsetByLastLottery → offset
-       → matrixOffsetShift(BASE_LU_SHU, offset) → 本期矩阵 → 画格子
-     所以中宫不再是固定 5，每期跟着上期开奖号变。
-     BASE_LU_SHU 只读：matrixOffsetShift 内部 cloneMatrix，不改基准。 */
-  jiugong(sec, vals) {
+     【本函数只负责画】本期盘面【由 stats.js 算好】放在 vals.jg_matrix 里
+     （stats.js 的 autoFillWuxing 走统一入口 createNineChartPack → luoshu.grid）。
+     这里优先读 jg_matrix，读不到才退回用户给的基准洛书。
+
+     ⚠️ 为什么不再现算：stats.js 侧那一版九宫重写把
+        resetLuShu / matrixOffsetShift / BASE_LU_SHU / cloneMatrix 都删掉了，
+        而这里原来还在调 resetLuShu() —— 会直接抛 ReferenceError，
+        整张「五行 / 绕胆 / 九转连环 / 九宫」图渲染不出来（实测 ssq/dlt 的
+        wuxing 图位会整块从页面上消失）。现在改成只读 stats.js 铺好的矩阵，
+        两边就不会因为「谁定义了什么函数」而对不上。 */
+  jiugong(sec, vals, build, gameId) {
     const box = el('div', 'r-jgwrap');
     const g = el('div', 'r-jiugong');
 
-    /* 本期矩阵：优先按 offset 现算（和 stats.js 同一个函数）；算不了就用
-       stats.js 铺好的 jg_matrix；再不行退回原始基准洛书 */
-    let cur = resetLuShu();
+    /* 用户给的基准洛书（只读兜底） */
+    const BASE_LU_SHU = [
+      [4, 9, 2],
+      [3, 5, 7],
+      [8, 1, 6]
+    ];
+    let cur = BASE_LU_SHU;
     try {
-      const off = parseInt(vals.jg_offset, 10);
-      if (Number.isFinite(off) && off >= 1 && off <= 9) {
-        cur = matrixOffsetShift(BASE_LU_SHU, off);
-      } else if (typeof vals.jg_matrix === 'string' && vals.jg_matrix.length >= 17) {
-        cur = vals.jg_matrix.split(',').map((row) => row.split('').map(Number));
+      if (typeof vals.jg_matrix === 'string' && vals.jg_matrix.length >= 9) {
+        const rows = vals.jg_matrix.split(',').map((row) => row.split('').map(Number));
+        if (rows.length === 3 && rows.every((r) => r.length === 3 && r.every((n) => Number.isFinite(n)))) {
+          cur = rows;
+        }
       }
     } catch (e) { /* 兜底就是基准洛书 */ }
 
