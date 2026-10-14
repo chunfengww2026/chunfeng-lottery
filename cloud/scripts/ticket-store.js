@@ -716,7 +716,11 @@ function rollValueDeterministic(gameId, spec) {
   if (label.includes('和值') || label.includes('合值')) {
     /* 【数字彩：和值只给 3 个数】用户的模板硬性条件 ——
        原来返回「6~24」这种区间，用户要求给 3 个具体号码。 */
-    if (typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
+    /* 【只对数字彩】排列3/福彩3D/排列5 —— 用户明确要求这三个彩种给 3 个数。
+       双色球/大乐透/七乐彩/快乐8 的和值仍然保持【区间】。 */
+    const DIGIT_GAMES = ['fc3d', 'pl3', 'pl5'];
+    if (DIGIT_GAMES.indexOf(gameId) >= 0
+        && typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
       try {
         const s3 = digitFooterTop(historyAreas(gameId, areaKey, 30), 'sum', 3);
         if (s3 && s3.length === 3) return s3.join(' ');
@@ -831,7 +835,9 @@ function rollValueDeterministic(gameId, spec) {
        和值 → 3 个数 · 和尾 → 3 个数 · 对子号 → 2 个数
      （原来是「0~9」「对子号」这种固定文字/区间，用户要求给具体号码）
      数据来自近 30 期真实开奖统计（digitFooterTop 定义在 stats.js）。 */
-  if (typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
+  const DIGIT_FOOTER_GAMES = ['fc3d', 'pl3', 'pl5'];
+  if (DIGIT_FOOTER_GAMES.indexOf(gameId) >= 0
+      && typeof digitFooterTop === 'function' && typeof historyAreas === 'function') {
     const areas30 = historyAreas(gameId, areaKey, 30);
     if (label.includes('和尾')) {
       const t = digitFooterTop(areas30, 'tail', 3);
