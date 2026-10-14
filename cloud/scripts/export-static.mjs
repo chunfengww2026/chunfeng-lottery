@@ -581,6 +581,8 @@ const INLINE_JS = [
   'render.js',       // renderTicketImage ← App 用的同一个函数
   'experts-data.js', // 专家数据（data-store 依赖）
   'expert-pool.js',  // 专家池
+  'materials-data.js',  // 资料（用户录入的内容）
+
   'data-store.js'    // resolveTemplateValues（三路合并）
 ];
 
