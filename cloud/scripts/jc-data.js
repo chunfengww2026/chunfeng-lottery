@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 03:10 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 03:15 */
 const JC_DATA = {
- "updated": "2026-10-15 03:10",
+ "updated": "2026-10-15 03:15",
  "stat": {
   "total": 14,
   "upcoming": 2,
-  "live": 8,
-  "finished": 4,
+  "live": 6,
+  "finished": 6,
   "withScore": 12
  },
  "games": [
@@ -402,7 +402,7 @@ const JC_DATA = {
     "margin": 5.5,
     "rqLine": "平手"
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -482,7 +482,7 @@ const JC_DATA = {
     "margin": 5,
     "rqLine": "受一球"
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -907,7 +907,7 @@ const JC_DATA = {
     "rank": 22
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "- ",
@@ -965,7 +965,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
