@@ -1685,19 +1685,25 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
   const poolSet = POOL ? new Set(POOL) : null;
   const inPool = (n) => !!poolSet && poolSet.has(n);
 
-  /* ---- 2. 号码池档位：最大档不动，小档必须是上层子集 ---- */
-  if (tiers.length) {
-    let cur = tiers[tiers.length - 1].nums.slice();
+  /* ---- 2. 号码池档位：最大档不动，小档必须是上层子集 ----
+     这个动作在「尾数冷热」换号前后各做一次：换号会往大档里塞号，
+     可能让更小的档（1码对3码）不再是子集。 */
+  const fixTierNesting = () => {
+    if (!tiers.length) return;
+    let cur = consParse('tier', out[tiers[tiers.length - 1].k]);
+    if (!cur.length) cur = tiers[tiers.length - 1].nums.slice();
     for (let i = tiers.length - 2; i >= 0; i--) {
       const t = tiers[i];
-      const have = t.nums.filter((n) => cur.indexOf(n) >= 0);
+      const before = consParse('tier', out[t.k]);
+      const have = before.filter((n) => cur.indexOf(n) >= 0);
       const need = Math.max(0, t.count - have.length);
       const add = need ? cur.filter((n) => have.indexOf(n) < 0).slice(0, need) : [];
       const fixed = have.concat(add).slice(0, t.count);
-      if (!consSame(fixed, t.nums)) out[t.k] = consJoin(fixed);
+      if (!consSame(fixed, before)) out[t.k] = consJoin(fixed);
       cur = fixed;
     }
-  }
+  };
+  fixTierNesting();
 
   /* ---- 3. 尾数冷热：「N尾冷」的号不能进 1码/3码 主推档 ---- */
   if (tiers.length) {
@@ -1715,17 +1721,18 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
         let changed = false;
         for (let i = 0; i < curT.length; i++) {
           if (!isCold(curT[i])) continue;
+          /* 换号：从上一层档位里挑一个「没进这个档、也不是冷尾」的号。
+             上一层不用改 —— 候选号本来就在上一层里，被换下的号本来
+             也在上一层里（小档是大档的子集），只是不再出现在小档。 */
           const cand = curP.find((n) => curT.indexOf(n) < 0 && !isCold(n));
           if (cand === undefined) continue;
-          const removed = curT[i];
-          curP = curP.filter((n) => n !== cand).concat([removed]);
           curT[i] = cand;
           curT = curT.slice().sort((a, b) => a - b);
-          curP = curP.slice().sort((a, b) => a - b);
           changed = true;
         }
-        if (changed) { out[t.k] = consJoin(curT); out[parent.k] = consJoin(curP); }
+        if (changed) out[t.k] = consJoin(curT);
       });
+      fixTierNesting();   // 换号后重新保证「小档 ⊆ 大档」
     }
   }
 
@@ -1767,7 +1774,11 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
   if ((danKeys.length || tuoKeys.length) && POOL) {
     let consensus = [];
     try { consensus = (expertPoolOf(gameId, areaKey) || []).filter((n) => n >= from && n <= to); } catch (e) { consensus = []; }
-    const candOrder = consensus.concat(POOL.filter((n) => consensus.indexOf(n) < 0));
+    /* 候选顺序 = 「专家池共识度顺序 ∩ 本区 POOL」，再接 POOL 里剩下的号。
+       必须过一遍 inPool：本区 POOL 是模板最大档（可能是资料/存档层给的），
+       不一定和专家池完全一致，胆拖绝不能因此掉到池子外面。 */
+    const candOrder = consensus.filter(inPool)
+      .concat(POOL.filter((n) => consensus.indexOf(n) < 0));
 
     const danCur = consUniq(danKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
     let dan = danCur.filter(inPool);
