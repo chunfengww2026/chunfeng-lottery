@@ -590,10 +590,19 @@ const HEATMAP_DRAW_TIME = { ssq: '21:15', dlt: '20:30' };
 /**
  * 把任意时刻转成「北京时间的墙上时钟」
  * @param {Date|string|number} [now] 不传就是当前时刻
+ *
+ * 【注意】之前这里写成「base 无效时才看 HEATMAP_NOW_OVERRIDE」，
+ * 结果是：传了 now 也会被 override/真实时间顶掉，
+ * 导致 shouldShowHeatmap(gid, '2026-10-15T18:00') 这种调用不可靠。
+ * 现在把优先级写清楚：显式 now > HEATMAP_NOW_OVERRIDE > 真实时间。
  */
 function heatmapBeijingNow(now) {
-  var base = (now === undefined || now === null) ? null : new Date(now);
-  if (!base || isNaN(base.getTime())) {
+  var base = null;
+  if (now !== undefined && now !== null) {
+    var d = new Date(now);
+    if (!isNaN(d.getTime())) base = d;
+  }
+  if (!base) {
     base = new Date();
     try {
       if (typeof HEATMAP_NOW_OVERRIDE !== 'undefined' && HEATMAP_NOW_OVERRIDE) {
