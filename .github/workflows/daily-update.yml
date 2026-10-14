@@ -1,25 +1,53 @@
 name: 每日自动更新
 
 # ============================================================
-#  每天自动更新推荐网页
+#  定时更新推荐网页
 #
 #  运行在 GitHub 的服务器上 —— 你的电脑关机也照常执行。
 #
-#  时间说明（UTC）：
-#    18:00 UTC = 北京时间 02:00（次日）
-#    GitHub 的 cron 用 UTC，所以这里写 18:00
+#  【时间表】GitHub 的 cron 只认 UTC，北京时间要减 8 小时。
 #
-#  也可以在仓库 Actions 页面手动点「Run workflow」立即执行。
+#    北京时间       UTC        班次            这一班干什么
+#    ------------  ---------  --------------  ------------------------------------------
+#    02:00         18:00      full            全量：抓全部数据 + 强制重摇 8 彩种 + 出图 + 发布
+#    18:00         10:00      heatmap-only    只加热力图（抓晒票出图）；不重摇号码、不抓开奖
+#    21:00         13:00      heatmap-off     只去掉热力图（清空 heatmap 数据 + 重新出页面）
+#    21:40         13:40      draw-update     更新开奖号码（抓开奖 → 摇下一期 → 出图 → 发布）
+#    其余 8 个点   见下        football-only   只抓足球 + 重新出足球页
+#
+#  【足球 10 个时间点】北京时间 00 / 02 / 04 / 06 / 08 / 12 / 14 / 18 / 20 / 22 点
+#    北京 00:00 → UTC 16    北京 02:00 → UTC 18    北京 04:00 → UTC 20
+#    北京 06:00 → UTC 22    北京 08:00 → UTC 00    北京 12:00 → UTC 04
+#    北京 14:00 → UTC 06    北京 18:00 → UTC 10    北京 20:00 → UTC 12
+#    北京 22:00 → UTC 14
+#    排序后（UTC）：0, 4, 6, 10, 12, 14, 16, 18, 20, 22
+#    其中 UTC 18:00（北京 02:00）是「全量班」、UTC 10:00（北京 18:00）是「只加热力图班」，
+#    其余 8 个是「只更新足球班」。
+#
+#  【班次怎么认出来的】不是拿 cron 字符串做精确比较（一条 cron 可以是一串小时，
+#    同一个表达式在不同小时触发时班次完全不同），而是
+#    「cron 表达式 + 实际触发的北京时间」联合判断 —— 逻辑写在 cloud/cloud-build.mjs
+#    的 resolveSlot() / SLOT_PLAN 里，workflow 只负责把 github.event.schedule 原样传过去。
+#
+#  也可以在仓库 Actions 页面手动点「Run workflow」立即执行（手动触发 = auto 班次）。
 # ============================================================
 
 on:
   schedule:
-    # 每天 18:00 UTC = 北京时间 02:00（常规数据更新）
+    # 【足球 9 个班次】UTC 0/4/6/10/12/14/16/20/22
+    #   = 北京 08/12/14/18/20/22/00/04/06 点
+    #   其中 UTC 10:00（北京 18:00）是本条里的「只加热力图班」。
+    - cron: '0 0,4,6,10,12,14,16,20,22 * * *'
+    # 【全量更新 · 固定凌晨 2 点】UTC 18:00 = 北京 02:00（次日）
+    #   用户明确要求「固定两点更新」——所以这条【单独留着】，不并进上面那条。
+    #   这是唯一会「强制重摇全部彩种」的班次。
     - cron: '0 18 * * *'
-    # 【热力图】UTC 10:00 = 北京时间 18:00
-    #   开奖日当天 18:00 抓当日晒票 → 出实票统计热力图 → 部署到网页。
-    #   GitHub 的 cron 只认 UTC，所以这里必须写 10:00。
-    - cron: '0 10 * * *'
+    # 【去掉热力图】UTC 13:00 = 北京 21:00
+    #   开奖日 21:00 把热力图从网页上撤下来（清空数据 + 重新出页面）。
+    - cron: '0 13 * * *'
+    # 【更新开奖号码】UTC 13:40 = 北京 21:40
+    #   双色球 21:15 / 大乐透 20:30 开奖之后，抓开奖结果 + 摇下一期号码 + 出图 + 发布。
+    - cron: '40 13 * * *'
   workflow_dispatch:        # 允许手动触发（本机 sync-cloud.mjs 就是这么触发的）
     inputs:
       quick:
@@ -27,7 +55,7 @@ on:
         required: false
         default: '1'
       heatmap:
-        description: '热力图：1=抓当日晒票；0=不抓；留空=按事件自动判断'
+        description: '热力图：1=抓当日晒票；0=不抓；留空=按班次自动判断'
         required: false
         default: ''
 
@@ -69,56 +97,54 @@ jobs:
         with:
           node-version: '20'
 
-      # 快速模式：本机刚刚同步过完整数据（cloud/scripts/sync-stamp.json 很新），
-      # 云端直接拿来用，跳过抓开奖/抓几百场赔率那些慢步骤，
-      # 只做「用同步过来的数据重新渲染 + 部署」，把生效时间压到 1 分钟左右。
-      #
-      # 【热力图】单独一个开关，不受 quick 影响：
-      #   · 只有「开奖日 18:00」那个 cron（UTC 10:00）才自动抓当日晒票
-      #   · quick 是 1（同步后的闪电重建）时，热力图照样按这个开关决定
-      #   · 手动触发时可以在界面上把 heatmap 填 1 强制抓
-      - name: 判断是否快速模式 / 是否抓热力图
+      # 判断这一班是「快速模式」还是「完整抓取」，以及热力图要不要抓。
+      # 【班次类型】不在这里判断 —— 由 cloud-build.mjs 按
+      # 「cron 表达式 + 实际北京时间」判断（resolveSlot），
+      # 这里只把 github.event.schedule 原样传下去。
+      - name: 判断是否快速模式 / 热力图开关
         id: mode
         run: |
           QUICK="${{ github.event.inputs.quick }}"
           # 定时任务（schedule）没有输入 → 0，交给 cloud-build.mjs 按
-          # sync-stamp.json 自己判断要不要抓数据（距上次同步 <12 小时就不抓）。
+          # sync-stamp.json 的 12 小时规则 + 班次表自己决定抓什么。
           # 手动触发 → 用输入里的值，默认 1（闪电重建）。
           if [ -z "$QUICK" ]; then QUICK=0; fi
 
+          # 热力图：留空 = 由 cloud-build.mjs 按班次决定
+          # （18:00 班出图 / 21:00 班清空 / 02:00 班清空 / 其余班不动）。
+          # 手动触发时可以在界面上填 1 强制抓、填 0 强制不抓。
           HEATMAP="${{ github.event.inputs.heatmap }}"
-          if [ -z "$HEATMAP" ]; then
-            # 1) 18:00（北京）那个 cron → 抓
-            # 2) 其它触发（含本机同步触发）：只要正好在 17:00-19:59（北京）
-            #    这个窗口里也抓一次，保证「开奖日 18:00 的热力图」不会漏
-            # 3) 其余时间不抓（省时间，闪电重建要快）
-            if [ "${{ github.event.schedule }}" = "0 10 * * *" ]; then
-              HEATMAP=1
-            else
-              H=$(TZ=Asia/Shanghai date +%H)
-              if [ "$H" -ge 17 ] && [ "$H" -le 19 ]; then HEATMAP=1; else HEATMAP=0; fi
-            fi
-          fi
 
-          echo "quick=$QUICK"   >> "$GITHUB_OUTPUT"
+          echo "quick=$QUICK"     >> "$GITHUB_OUTPUT"
           echo "heatmap=$HEATMAP" >> "$GITHUB_OUTPUT"
-          echo "事件=${{ github.event_name }} 快速模式=$QUICK 热力图=$HEATMAP"
+          echo "事件=${{ github.event_name }}　cron=${{ github.event.schedule }}　快速模式=$QUICK　热力图=$HEATMAP"
 
       - name: 执行云端构建
         working-directory: cloud
         env:
           CLOUD_QUICK: ${{ steps.mode.outputs.quick }}
+          # 留空 = 让 cloud-build.mjs 按班次判断；填 0/1 = 强制
           CLOUD_HEATMAP: ${{ steps.mode.outputs.heatmap }}
           # 【关键】把是哪一个 cron 触发的传给 cloud-build.mjs ——
-          # 它靠这个区分「18:00 那一班」（必须出热力图）和其余班次。
+          # 它用「这个 cron 表达式 + 实际北京时间」算出班次类型
+          # （full / heatmap-only / heatmap-off / draw-update / football-only）。
+          # 注意：cron 可以是一串小时，同一个字符串在不同小时触发 → 班次不同，
+          # 所以【绝不能】用字符串相等来判断（原来写死 '0 10 * * *' 就是这么失效的）。
           HEATMAP_SLOT: ${{ github.event.schedule }}
+          # 【强制重摇】不需要在这里传：北京 02:00 那个全量班次由
+          # cloud-build.mjs 的 SLOT_PLAN.full.roll = 'force' 自动决定。
+          # 需要临时强制/禁止时，也可以在这里加 CLOUD_ROLL=force|fill|skip。
         # 【容错】抓取/渲染万一失败，也不要整个流程挂掉：
         # 后面照样会部署「上一次成功的网页 + 本次的 tickets.json」，
         # 分享页拉到新 tickets.json 就能把号码换新（页面自带重渲染逻辑）。
         continue-on-error: true
         run: node cloud-build.mjs
 
+      # 【必须每次都跑】把这一班生成/更新的产物放进 site/。
+      # 用户要求「所有的更新都要同步到网页上」：
+      # 不管哪一班，只要跑到这里，site/ 就是这一班的最新产物，随后一定会被部署。
       - name: 把生成的网页放到站点目录
+        if: always()
         run: |
           mkdir -p site
           cp -f cloud/out/index.html    site/index.html    || true
@@ -131,8 +157,13 @@ jobs:
           ls -lh site/
           echo "--- tickets.json 里的时间 ---"
           node -e "const j=require('./site/tickets.json');console.log('updated='+j.updated,'publishedAt='+j.publishedAt,'source='+j.source)" || true
+          if [ ! -f site/index.html ]; then
+            echo "::error::site/index.html 不存在 —— 本次没有任何页面可以发布"
+          fi
 
       - name: 提交更新后的数据（保留号码与历史）
+        if: always()
+        continue-on-error: true
         run: |
           git config user.name  "auto-update-bot"
           git config user.email "auto-update-bot@users.noreply.github.com"
@@ -144,18 +175,43 @@ jobs:
             git push
           fi
 
+      # 【必须每次都跑】哪怕构建步骤部分失败，也要把当前 site/ 发布出去，
+      # 不能出现「改了数据但网页没更新」。
       - name: 上传站点产物
+        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
   deploy:
     needs: build
+    # 【关键】always() —— 只要 build 这一步跑过（哪怕它有部分失败、
+    # 被 continue-on-error 吞掉），deploy 都必须执行，把当前 site/ 发出去。
+    if: always()
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy1.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
-      - name: 发布到 GitHub Pages
-        id: deployment
+      - name: 发布到 GitHub Pages（第 1 次）
+        id: deploy1
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+
+      - name: 发布到 GitHub Pages（重试一次）
+        id: deployment
+        if: steps.deploy1.outcome != 'success'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      # 【不能静默失败】两次都失败就明确报错，让这一次班次的失败在 Actions 里看得见。
+      - name: 确认发布结果
+        if: always()
+        run: |
+          echo "第 1 次：${{ steps.deploy1.outcome }}"
+          echo "重试　：${{ steps.deployment.outcome }}"
+          if [ "${{ steps.deploy1.outcome }}" != "success" ] && [ "${{ steps.deployment.outcome }}" != "success" ]; then
+            echo "::error::GitHub Pages 两次发布都失败 —— 这一次班次的内容没有更新到网页上"
+            exit 1
+          fi
+          echo "✅ 已发布到网页"
