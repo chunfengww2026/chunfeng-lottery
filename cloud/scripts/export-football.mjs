@@ -258,11 +258,14 @@ const order = [['upcoming', '未开赛'], ['live', '进行中'], ['finished', '�
 let cards = '';
 order.forEach(([kind, label]) => {
   const arr = MATCHES.filter((m) => m.kind === kind);
-  if (!arr.length) return;
   if (kind === 'finished') arr.sort((a, b) => String(b.time).localeCompare(String(a.time)));
   else arr.sort((a, b) => String(a.time).localeCompare(String(b.time)));
-  cards += `<div class="m-subhead">${label}<span class="m-subcount">${arr.length} 场</span></div>`;
-  arr.forEach((m) => { cards += renderMatch(m); });
+  cards += `<div class="m-subhead" id="sec-${kind}">${label}<span class="m-subcount">${arr.length} 场</span></div>`;
+  if (!arr.length) {
+    cards += `<div class="m-empty">这个分类下暂时没有比赛</div>`;
+  } else {
+    arr.forEach((m) => { cards += renderMatch(m); });
+  }
 });
 
 /* ---------- 页面 ---------- */
@@ -332,6 +335,18 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-rb.hit { background: rgba(240,87,92,0.18); color: #f0575c; }
 .m-rb.miss { background: #232a36; color: #6b7488; }
 .m-conf { font-size: 11.5px; color: #8b93a1; }
+/* 【可点击的分类卡】未开赛 / 进行中 / 已完场 */
+.stat a { flex: 1; display: block; text-align: center; text-decoration: none;
+  background: #171b23; border: 1px solid #232a36; border-radius: 10px;
+  padding: 13px 8px 11px; cursor: pointer; transition: border-color .15s, background .15s; }
+.stat a:active { background: #1d222c; border-color: #47e0a0; }
+.stat a b { display: block; font-size: 25px; font-weight: 800; color: #47e0a0;
+  font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat a span { display: block; margin-top: 5px; font-size: 12.5px; color: #8b93a1; }
+.m-empty { padding: 22px 12px; text-align: center; font-size: 13px;
+  color: #5a6272; background: #14171d; border-radius: 10px; margin-bottom: 12px; }
+/* 点分类卡跳过去时，标题不要被顶部导航挡住 */
+.m-subhead { scroll-margin-top: 58px; }
 .m-probs { margin-left: auto; display: flex; gap: 5px; }
 .m-probs i { font-style: normal; font-size: 11px; color: #6b7488;
   background: #1b212b; padding: 2px 7px; border-radius: 4px; }
@@ -358,9 +373,9 @@ ${nav}
   <div class="sub">体彩竞彩在售 ${stat.total} 场 · 更新于 ${esc(JC.updated || '')}</div>
 
   <div class="stat">
-    <div><b>${recoDist.home}</b><span>推荐主胜</span></div>
-    <div><b>${recoDist.draw}</b><span>推荐平局</span></div>
-    <div><b>${recoDist.away}</b><span>推荐客胜</span></div>
+    <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
+    <a href="#sec-live"><b>${stat.live}</b><span>进行中</span></a>
+    <a href="#sec-finished"><b>${stat.finished}</b><span>已完场</span></a>
   </div>
 
   ${stat.settled ? `<div class="record">
