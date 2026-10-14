@@ -408,6 +408,13 @@ const HELPER_SRC = `
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
 const HEATMAP_DRAW_DAYS = { ssq: [0, 2, 4], dlt: [1, 3, 6] };
 
+/* 【开奖后就不要了】各彩种【当天开奖时刻】（北京时间）
+   双色球：周二 / 周四 / 周日 21:15
+   大乐透：周一 / 周三 / 周六 20:30
+   一到这个点，热力图立刻撤下（不再留到第二天 00:00）。
+   与 draw-data.js 的 DRAW_WEEKDAYS / 上面的 HEATMAP_DRAW_DAYS 配套。 */
+const HEATMAP_DRAW_TIME = { ssq: '21:15', dlt: '20:30' };
+
 /**
  * 把任意时刻转成「北京时间的墙上时钟」
  * @param {Date|string|number} [now] 不传就是当前时刻
@@ -434,12 +441,22 @@ function heatmapToday(now) {
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
 }
 
+/** 'HH:MM' → 当天第几分钟（0~1439）；写错/没配 → -1（表示不做时刻限制） */
+function heatmapClockMinute(hhmm) {
+  var seg = String(hhmm === undefined || hhmm === null ? '' : hhmm).split(':');
+  var h = +seg[0], m = +seg[1];
+  if (!isFinite(h) || !isFinite(m)) return -1;
+  return h * 60 + m;
+}
+
 /**
  * 这张热力图现在该不该显示
  *   ① 必须有这个彩种的数据，且数据就是【今天】生成的
  *   ② 今天必须是这个彩种的开奖日
  *   ③ 必须已经过了 18:00（北京时间）
- * 三个条件缺一不可 —— 平常不透露，第二天自动消失。
+ *   ④ 【开奖后就不要了】还没到当天的开奖时刻
+ *      双色球 21:15 撤下 / 大乐透 20:30 撤下
+ * 四个条件缺一不可 —— 18:00 出现，开奖那一刻就撤下。
  */
 function shouldShowHeatmap(gid, now) {
   var H = (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games)
@@ -452,7 +469,12 @@ function shouldShowHeatmap(gid, now) {
   var days = HEATMAP_DRAW_DAYS[gid];
   if (!days || days.indexOf(bj.getDay()) < 0) return false;
 
-  if (bj.getHours() < 18) return false;
+  var nowMin = bj.getHours() * 60 + bj.getMinutes();
+  if (nowMin < 18 * 60) return false;                    /* 18:00 之前不显示 */
+
+  /* 【开奖后就不要了】到当天开奖时刻就撤下（不再等到第二天 00:00） */
+  var drawMin = heatmapClockMinute(HEATMAP_DRAW_TIME[gid]);
+  if (drawMin >= 0 && nowMin >= drawMin) return false;
 
   return true;
 }
