@@ -250,7 +250,10 @@ function beijingNow() {
      · 02:00（UTC 18:00）  full           全量：抓全部数据 + 强制重摇 8 彩种 + 出图 + 发布
      · 18:00（UTC 10:00）  heatmap-only   只加热力图：抓晒票出图 + 抓足球；不重摇号、不抓开奖
      · 21:00（UTC 13:00）  heatmap-off    只去掉热力图：清空热力图数据 + 重新出页面
-     · 21:40（UTC 13:40）  draw-update    更新开奖号码：抓开奖 → 摇下一期 → 出图 → 发布
+     · 21:50（UTC 13:50）  draw-update    更新开奖号码：抓开奖 → 摇下一期 → 出图 → 发布
+                          （原来挂在 21:40；改成 21:50 是因为本机两班抓取
+                            改成了「福彩 21:30 / 体彩 21:45」，云端必须排在这两班
+                            之后才有意义 —— 否则 21:40 那一班永远抓不到当天体彩的新一期）
      · 足球 10 班次（北京 00/02/04/06/08/12/14/18/20/22 点）
                           football-only  只抓足球 + 重新出足球页
                          （其中 02:00 → full、18:00 → heatmap-only）
@@ -259,12 +262,12 @@ function beijingNow() {
    第一条 cron 是「一串小时」——同一个表达式在不同小时触发时班次完全不同，
    所以【不能】拿 cron 字符串做精确比较（这也是它原来会失效的原因）。
    ============================================================ */
-const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:40': 'draw-update' };
+const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:50': 'draw-update' };
 /* 足球的 12 个班次：每 2 小时整点（北京时间） */
 const FOOTBALL_BJ_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 
 /* GitHub 的定时任务经常会延迟几分钟才真正跑，所以给一点容差
-   （from/to 是相对班次时刻的分钟数；21:00 与 21:40 只差 40 分钟，所以容差必须收紧） */
+   （from/to 是相对班次时刻的分钟数；21:00 与 21:50 只差 50 分钟，所以容差必须收紧） */
 const SLOT_TOLERANCE = {
   'full':         { from: -10, to: 90 },
   'heatmap-only': { from: -10, to: 90 },
@@ -276,7 +279,7 @@ const SLOT_LABEL = {
   'full': '全量更新（北京 02:00）',
   'heatmap-only': '只加热力图（北京 18:00）',
   'heatmap-off': '只去掉热力图（北京 21:00）',
-  'draw-update': '更新开奖号码（北京 21:40）',
+  'draw-update': '更新开奖号码（北京 21:50）',
   'football-only': '只更新足球（足球 10 班次之一）',
   'auto': '自动 / 手动触发（沿用原来的行为）'
 };
@@ -337,8 +340,8 @@ function resolveSlot() {
     const seg = at.split(':');
     const atH = +seg[0];
     const atM = +seg[1];
-    /* 【分钟必须先对上】21:40 那条 cron 的分钟是 40，22:00 那条是 0 ——
-       不靠分钟区分的话，北京 22:00 的足球班次会被误判成 21:40 的「更新开奖」班。 */
+    /* 【分钟必须先对上】21:50 那条 cron 的分钟是 50，22:00 那条是 0 ——
+       不靠分钟区分的话，北京 22:00 的足球班次会被误判成 21:50 的「更新开奖」班。 */
     if (atM !== cron.minute) return;
     const atMin = atH * 60 + atM;
     const d = bjMin - atMin;
@@ -616,7 +619,7 @@ function main() {
 
   /* 这一班抓什么：
        dataFetch = true         → 抓开奖 + 历史 + 奖级（全量班）
-       dataFetch = 'draws-only' → 只抓开奖号码（21:40 开奖班）
+       dataFetch = 'draws-only' → 只抓开奖号码（21:50 开奖班）
        dataFetch = false        → 完全不抓（18:00 热力图班 / 21:00 去热力图班）
        dataFetch = 'auto'       → 走原来 shouldFetch() 的 12 小时规则 */
   let doDraws, doHistory, doPrizes;
