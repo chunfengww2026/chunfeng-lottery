@@ -1718,7 +1718,11 @@ function calcConsecutive(areas, max) {
 function calcRepeat(areas) {
   if (areas.length < 2) return '';
   const cur = new Set(areas[0]);
-  const rep = areas[1].filter((x) => cur.has(x));
+  /* 【去重】七星彩这种「按位」玩法，一期里同一个数字能在不同位上重复出现
+     （例如 7 7 5 5 1 3），不过滤就会印出「01,07,07防3枚」这种自带重复的重复号。
+     双色球/大乐透/七乐彩每期号码本身互不重复，去重对它们没有任何影响。 */
+  const rep = [];
+  areas[1].forEach((x) => { if (cur.has(x) && rep.indexOf(x) < 0) rep.push(x); });
   if (!rep.length) return '';
   return rep.sort((a, b) => a - b).map(pad2).join(',') + `防${rep.length}枚`;
 }
@@ -2589,12 +2593,17 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
     const coldOK = coldCur.length === coldWant
       && coldCur.every((n) => coldDomSet.has(n) && !hotSet.has(n));
     if (!coldOK) {
-      let cold = consByFreq(gameId, areaKey, coldDom, false).slice(0, coldWant);
+      /* 【必须排除热号】七星彩这种彩种整区只有 0~9 十个号，池子一占满
+         `coldDom` 就会退回 ALL（=池内），如果不排除热号，
+         热号和冷号会挑出同一批号 → 违反 ①HOT∩COLD=∅ / ⑧COLD∩HOT=∅。
+         所以这里无条件 .filter((n) => !hotSet.has(n))。 */
+      let cold = consByFreq(gameId, areaKey, coldDom, false)
+        .filter((n) => !hotSet.has(n)).slice(0, coldWant);
       if (coldCalcEmpty(cold, coldCur, hotSet)) {
         cold = coldCur.filter((n) => coldDomSet.has(n) && !hotSet.has(n)).slice(0, coldWant);
       }
       if (!cold.length) {
-        /* 池外一个都挑不出来时（极小概率），退回全区最冷 */
+        /* 池外一个都挑不出来时（极小概率），退回全区最冷 —— 同样要排除热号 */
         cold = consByFreq(gameId, areaKey, ALL, false).filter((n) => !hotSet.has(n)).slice(0, coldWant);
       }
       if (cold.length) coldKeys.forEach((k) => { out[k] = consJoin(cold); });
@@ -2663,7 +2672,13 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
       if (!badNow) return;
 
       const outside = ALL.filter((n) => !domSet || !domSet.has(n));
-      if (!outside.length) { out[k] = '无'; return; }
+      /* 【池子 = 全区 ⇒ 没有「池外号」可杀】
+         七星彩前区（0~9）、福彩3D 组选（0~9）这类「候选 = 全部号码」的区，
+         杀号只能从池内挑，挑哪个都撞池（验收 ②KILL∩POOL 必判矛盾）。
+         正确做法就是【不写杀号】：留空串。
+         render.js 对「空串」不再画「—」占位（只有 null/undefined 才画），
+         所以图上这一格是空的，不会出现「杀号 无」也不会出现「杀号 —」。 */
+      if (!outside.length) { out[k] = ''; return; }
       /* ① 先保留原算法（按位杀 / 池内共识度最低）里「本来就合法」的号，
             这样七星彩每位杀号仍然各有各的号，不会全变成同一串；
          ② 不够再用「不在任何推荐/胆拖里」的池外号；
