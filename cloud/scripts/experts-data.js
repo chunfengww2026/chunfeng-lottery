@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-15 04:11
+   生成时间：2026-10-15 04:15
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-15 04:11",
+ "updated": "2026-10-15 04:15",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 80,
   "requests": 216,
   "errors": 0,
-  "seconds": 190.4
+  "seconds": 188.2
  },
  "games": {
   "ssq": {
@@ -11106,75 +11106,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 4,
-      "pct": 95
+      "pct": 94.7
      },
      {
       "num": 8,
-      "pct": 85.6
+      "pct": 82.7
      },
      {
       "num": null,
-      "pct": 70.6
-     },
-     {
-      "num": null,
-      "pct": 60.6
-     },
-     {
-      "num": null,
-      "pct": 44.4
-     },
-     {
-      "num": null,
-      "pct": 42.5
-     },
-     {
-      "num": 8,
-      "pct": 85.6
-     },
-     {
-      "num": 4,
       "pct": 70
      },
      {
       "num": null,
-      "pct": 69.4
+      "pct": 61.3
      },
      {
       "num": null,
-      "pct": 65
+      "pct": 43.3
      },
      {
       "num": null,
-      "pct": 47.5
-     },
-     {
-      "num": null,
-      "pct": 46.9
+      "pct": 41
      },
      {
       "num": 8,
-      "pct": 78.1
+      "pct": 83.7
+     },
+     {
+      "num": 3,
+      "pct": 72
+     },
+     {
+      "num": null,
+      "pct": 68
+     },
+     {
+      "num": null,
+      "pct": 67.7
+     },
+     {
+      "num": null,
+      "pct": 47.7
+     },
+     {
+      "num": null,
+      "pct": 46
      },
      {
       "num": 4,
-      "pct": 77.5
+      "pct": 78.7
+     },
+     {
+      "num": 8,
+      "pct": 77
      },
      {
       "num": null,
-      "pct": 71.3
+      "pct": 70.3
      },
      {
       "num": null,
-      "pct": 66.9
+      "pct": 67.3
      },
      {
       "num": null,
-      "pct": 64.4
+      "pct": 65.3
      },
      {
       "num": null,
-      "pct": 43.8
+      "pct": 42.3
      }
     ],
     "blue": [],
