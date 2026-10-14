@@ -19,7 +19,21 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+
+/* 【多源抓取】官方接口在中国能通、在美国（GitHub 服务器）会被 403/567。
+   所以把「抓一期开奖」做成多源 fallback 链，实现在 draw-sources.mjs 里：
+     ① 官方接口（福彩/体彩）—— 最权威
+     ② 一起彩 www.yiqicai.com/kj/ —— 一个页面覆盖全部 8 个彩种
+     ③ 500彩票网静态 XML、④ 17500.cn 明文 TXT
+   每个源都有超时+重试，号码一律校验合法性，
+   一个源失败【绝不会】让整个彩种丢掉，全部失败才保留上一次的值并明确告警。 */
+import {
+  RULES, GAME_IDS, validateAreas, normalizeIssue, sameAsSnapshot,
+  fetchDrawWithFallback, resolveSourceOrder, forcedFailures, SOURCE_LABELS,
+  log as srcLog
+} from './draw-sources.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = path.join(ROOT, 'deepseek.config.json');
@@ -31,6 +45,14 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 const argv = process.argv.slice(2);
 const NO_AI = argv.includes('--no-ai');
 const DRY_RUN = argv.includes('--dry-run');
+
+/* 【成本红线】DeepSeek 解析默认【关闭】。
+   只有显式传 --ai 才会调用 DeepSeek —— 这样：
+     · 云端构建永远不会偷偷花 token（用户余额紧张）
+     · 本机偶尔需要「页面规则解析也失败」时再手动开一次
+   实测官方接口 + 一起彩 + 500XML + 17500 已经能覆盖全部 8 个彩种，
+   正常情况根本用不到 AI。 */
+const AI_ALLOWED = argv.includes('--ai');
 
 /* ============================================================
    彩种规则（用于校验 AI 的解析结果，防止幻觉）
@@ -45,6 +67,27 @@ const RULES = {
   pl3:  { name: '排列3', areas: [{ key: 'main', need: 3, from: 0, to: 9, allowRepeat: true }] },
   pl5:  { name: '排列5', areas: [{ key: 'main', need: 5, from: 0, to: 9, allowRepeat: true }] }
 };
+
+/* ============================================================
+   当前快照（上一次的 draws.js）
+   ------------------------------------------------------------
+   两个用途：
+     1. 期号格式基准 —— 各源期号写法不一（2026117 / 26117），
+        拿它的宽度把新抓到的期号写回同一种写法
+     2. 「全都抓不到」时保留旧值 —— 【关键】云端 02:00 那一班
+        在官方接口 403 的年份里，靠这个不至于把好数据写没
+   ============================================================ */
+function readSnapshot() {
+  try {
+    if (!fs.existsSync(OUT_JS)) return { games: {} };
+    const src = fs.readFileSync(OUT_JS, 'utf8');
+    const ctx = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math, RegExp });
+    vm.runInContext(src + '\nglobalThis.__V = DRAW_DATA;', ctx, { filename: 'draws.js' });
+    return ctx.__V || { games: {} };
+  } catch (e) {
+    return { games: {} };
+  }
+}
 
 /* ============================================================
    工具
@@ -509,48 +552,73 @@ async function main() {
     log('    才需要 AI 兜底解析。想启用就填 deepseek.config.json 的 apiKey。\n');
   }
 
+  /* 【多源 fallback 链】先读上一次的 draws.js：既当「期号格式基准」，
+     也是全部源都失败时的保底值（宁可保留旧值也不写错数据） */
+  const snapshot = readSnapshot();
+  const snapGames = snapshot.games || {};
+  const IS_CLOUD = process.env.CLOUD_BUILD === '1' || process.env.GITHUB_ACTIONS === 'true';
+  const ORDER = resolveSourceOrder(process.env.DRAW_SOURCE_ORDER, IS_CLOUD);
+  const FORCE_FAIL = forcedFailures(process.env.DRAW_FORCE_FAIL);
+  const TIMEOUT = cfg.fetch?.timeoutMs || 20000;
+
+  log(`【数据源顺序】${ORDER.map((s) => SOURCE_LABELS[s] || s).join(' → ')}`);
+  log(`  出口判定：${IS_CLOUD ? '云端构建（美国出口，官方接口大概率被拒）' : '本机构建（中国出口，官方接口优先）'}`);
+  if (FORCE_FAIL.length) log(`  ⚠️ 故障注入生效：${FORCE_FAIL.join(', ')} 被强制视为失败`);
+  log(`  上次快照：${Object.keys(snapGames).length} 个彩种`);
+  log('');
+
   const pages = cfg.fetch?.pages || {};
   const results = {};
   const report = [];
 
-  for (const [gameId, url] of Object.entries(pages)) {
+  /* 彩种顺序：固定 8 个（与 export-draws.mjs 的 DRAW_GAME_ORDER 一致），
+     保证不会因为配置里漏了某个彩种就静默少抓 */
+  for (const gameId of GAME_IDS) {
     const rule = RULES[gameId];
     if (!rule) continue;
+    const url = pages[gameId] || '';
+    const snap = snapGames[gameId] || null;
     log(`【${rule.name}】`);
 
     let parsed = null;
     let method = '';
     let sourceLabel = '';
+    let triedList = [];
 
-    /* ---------- 第一优先：官方接口 ---------- */
-    const off = await officialFetch(gameId, cfg.fetch?.timeoutMs || 20000);
-    if (off.ok) {
-      const v = validate(gameId, { areas: off.areas });
-      if (v.ok) {
-        parsed = { issue: off.issue, date: off.date, areas: v.areas };
-        method = '官方接口';
-        sourceLabel = off.source;
-        log(`  官方接口成功`);
-      } else {
-        warn(`官方接口数据校验不通过：${v.reason}`);
-      }
+    /* ---------- 第一优先：多源 fallback 链（官方 → 一起彩 → 500XML → 17500） ---------- */
+    const fb = await fetchDrawWithFallback(gameId, {
+      order: ORDER,
+      forceFail: FORCE_FAIL,
+      timeoutMs: TIMEOUT,
+      snapIssue: snap?.issue,
+      onTry: (s) => log(s)
+    });
+    triedList = fb.tried || [];
+
+    if (fb.ok) {
+      parsed = { issue: fb.issue, date: fb.date, areas: fb.areas };
+      method = SOURCE_LABELS[fb.sourceId] || '备选源';
+      sourceLabel = fb.sourceLabel;
     } else {
-      log(`  官方接口不可用（${off.error}），改用 500.com`);
+      warn(`结构化数据源全部失败（${fb.tried.length} 个都试过了）`);
     }
 
-    /* ---------- 第二优先：抓 500.com 页面 ---------- */
+    /* ---------- 兜底：500.com 开奖页（规则解析 / 缓存 / AI） ----------
+       只在上面所有结构化源都失败时才走这条路。
+       注意：这里【绝不调用 DeepSeek】，除非显式传 --ai；
+       云端构建必须零成本，不能因为某个源挂了就偷偷花 token。 */
     let html = '';
     let fromCache = false;
 
-    if (!parsed && cfg.fetch?.enabled !== false) {
-      const r = await fetchPage(url, cfg.fetch?.timeoutMs || 20000);
+    if (!parsed && cfg.fetch?.enabled !== false && url) {
+      const r = await fetchPage(url, TIMEOUT);
       if (r.blocked) {
-        warn(`500.com 被反爬拦截（${r.size} 字节混淆脚本）`);
+        warn(`500.com 页面被反爬拦截（${r.size} 字节混淆脚本）`);
       } else if (!r.ok) {
-        warn(`500.com 抓取失败：${r.error || 'HTTP ' + r.status}`);
+        warn(`500.com 页面抓取失败：${r.error || 'HTTP ' + r.status}`);
       } else {
         html = r.html;
-        log(`  500.com 抓取成功 ${(r.size / 1024).toFixed(1)} KB`);
+        log(`  500.com 页面抓取成功 ${(r.size / 1024).toFixed(1)} KB`);
         if (!DRY_RUN) {
           fs.mkdirSync(CACHE_DIR, { recursive: true });
           fs.writeFileSync(path.join(CACHE_DIR, `${gameId}.html`), html, 'utf8');
@@ -559,7 +627,7 @@ async function main() {
     }
 
     // 抓不到就用上次缓存的页面（数据会旧，但总比没有好）
-    if (!parsed && !html && cfg.fetch?.enabled !== false) {
+    if (!parsed && !html && cfg.fetch?.enabled !== false && url) {
       const cacheFile = path.join(CACHE_DIR, `${gameId}.html`);
       if (fs.existsSync(cacheFile)) {
         html = fs.readFileSync(cacheFile, 'utf8');
@@ -574,35 +642,39 @@ async function main() {
       byRule = ruleParse(gameId, html);
       if (byRule) {
         const v = validate(gameId, byRule);
-        if (v.ok) {
-          parsed = { issue: byRule.issue, date: byRule.date || '', areas: v.areas };
-          method = '规则解析';
+        const iss = normalizeIssue(byRule.issue, snap?.issue);
+        if (v.ok && iss) {
+          parsed = { issue: iss, date: byRule.date || '', areas: v.areas };
+          method = '500页面规则解析';
           sourceLabel = fromCache ? '500彩票网（缓存页面）' : '500彩票网（规则解析）';
+        } else if (!v.ok) {
+          warn(`规则解析结果校验不通过：${v.reason}`);
+        } else {
+          warn(`规则解析期号异常：${byRule.issue}`);
         }
       }
       if (!parsed) warn('规则解析没提取到号码');
     }
 
-    /* ---------- 最后：DeepSeek 解析（需要 Key）---------- */
-    const useAi = cfg.ai?.enabled !== false && !NO_AI && hasKey;
+    /* ---------- 最后：DeepSeek 解析（【只在显式 --ai 时启用，默认关闭】） ---------- */
+    const useAi = cfg.ai?.enabled !== false && AI_ALLOWED && hasKey;
     if (!parsed && html && useAi) {
       const snippet = extractRelevant(html, cfg.ai?.maxHtmlChars || 30000);
       log(`  交给 DeepSeek 解析（${snippet.length} 字符）...`);
       const ai = await aiParse(cfg, gameId, snippet, byRule?.issue);
       if (ai.ok) {
         const v = validate(gameId, ai.data);
-        if (v.ok) {
-          parsed = { issue: ai.data.issue, date: ai.data.date, areas: v.areas };
+        const iss = normalizeIssue(ai.data.issue, snap?.issue);
+        if (v.ok && iss) {
+          parsed = { issue: iss, date: ai.data.date || '', areas: v.areas };
           method = 'AI 解析';
           sourceLabel = '500彩票网（DeepSeek 解析）';
         } else {
-          warn(`AI 结果校验不通过：${v.reason}`);
+          warn(`AI 结果校验不通过：${v.ok ? '期号异常 ' + ai.data.issue : v.reason}`);
         }
       } else {
         warn(`AI 解析失败：${ai.error}`);
       }
-    } else if (!parsed && html && !useAi) {
-      warn('需要 AI 解析但未配置 apiKey');
     }
 
     /* ---------- 汇总 ---------- */
@@ -614,11 +686,34 @@ async function main() {
         areas: parsed.areas
       };
       const shown = Object.entries(parsed.areas).map(([k, v]) => `${k}=${v.join(' ')}`).join('  ');
-      log(`  ✅ ${method} 成功 · 第 ${parsed.issue} 期`);
+      const same = sameAsSnapshot({ issue: parsed.issue, areas: parsed.areas }, snap);
+      log(`  ✅ ${method} 成功 · 第 ${parsed.issue} 期${same ? '（与上次相同）' : '（★ 新一期）'}`);
       log(`     ${shown}`);
-      report.push({ gameId, name: rule.name, status: '成功（' + method + '）' });
+      report.push({
+        gameId, name: rule.name, status: '成功（' + method + '）',
+        source: sourceLabel, issue: String(parsed.issue), date: parsed.date || '', same
+      });
     } else {
-      report.push({ gameId, name: rule.name, status: '未解析出号码' });
+      /* ---------- 【全部源都失败】保留上一次的值 + 明确告警 ----------
+         绝对不写空值：宁可让页面显示旧一期，也不能让开奖号变成空白。
+         这一条是云端构建的「安全网」—— 抓不到时至少不会比同步过去的数据更差。 */
+      if (snap && snap.areas && snap.issue) {
+        results[gameId] = {
+          issue: String(snap.issue),
+          date: snap.date || '',
+          source: (snap.source || '') + '（沿用上一次：本次全部数据源失败）',
+          areas: snap.areas
+        };
+        warn(`全部源都失败 → 【保留上一次的值】第 ${snap.issue} 期（${snap.date || '日期未知'}）`);
+        report.push({
+          gameId, name: rule.name, status: '全部源失败·保留旧值',
+          source: (snap.source || '') + '（沿用上一次）', issue: String(snap.issue), date: snap.date || '', same: true, keptOld: true
+        });
+      } else {
+        warn('全部源都失败，而且上一次也没有数据 → 这个彩种本次没有开奖数据');
+        report.push({ gameId, name: rule.name, status: '全部源失败·且无旧值可保留', source: '', issue: '', date: '', keptOld: true });
+      }
+      log(`     失败明细：${triedList.map((t) => `${t.label}(${t.error})`).join(' / ')}`);
     }
     log('');
   }
@@ -643,17 +738,22 @@ async function main() {
 
   // 6. 报告
   log('\n────────── 结果汇总 ──────────');
+  log('  彩种      期号        日期         来源');
   for (const r of report) {
-    const icon = r.status.startsWith('成功') ? '✅' : '❌';
-    log(`  ${icon} ${r.name.padEnd(6, '　')} ${r.status}`);
+    const icon = r.status.startsWith('成功') ? (r.same ? '＝' : '✅') : '⚠️ ';
+    log(`  ${icon} ${r.name.padEnd(6, '　')} ${String(r.issue || '—').padEnd(10)} ${String(r.date || '—').padEnd(12)} ${r.source || '—'}`);
   }
   const okCount = report.filter((r) => r.status.startsWith('成功')).length;
-  log(`\n  成功 ${okCount} / ${report.length} 个彩种`);
+  const keptCount = report.filter((r) => r.keptOld).length;
+  const freshCount = report.filter((r) => r.status.startsWith('成功') && !r.same).length;
+  log(`\n  成功 ${okCount} / ${report.length} 个彩种　（其中新一期 ${freshCount} 个，与上次同期 ${okCount - freshCount} 个）`);
+  if (keptCount) log(`  ⚠️  ${keptCount} 个彩种所有源都失败，已保留上一次的值（没有写入错误数据）`);
   log(`  生成时间：${now}`);
   if (okCount === 0) {
-    log('\n提示：若全部失败，可能是 500.com 反爬或网络问题。');
-    log('      双色球/大乐透被反爬拦截是已知情况，需要换数据源。');
+    log('\n  ⚠️ 一个彩种都没抓到：所有数据源都不可用。');
+    log('     已尽量保留旧值；请检查网络，或调整 DRAW_SOURCE_ORDER 换源。');
   }
+  if (keptCount) process.exitCode = 0;   // 保留旧值不算失败，云端不该因此回滚
 }
 
 main().catch((e) => {
