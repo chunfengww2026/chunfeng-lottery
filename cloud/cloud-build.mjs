@@ -283,7 +283,7 @@ const SLOT_LABEL = {
 
 /* 每个班次到底干什么 —— 一张表看清楚，避免再散落在 main() 里 */
 const SLOT_PLAN = {
-  'full':          { dataFetch: true,         football: true,   roll: 'force', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true  },
+  'full':          { dataFetch: true,         football: true,   roll: 'fill',  heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true  },
   'heatmap-only':  { dataFetch: false,        football: true,   roll: 'skip',  heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true  },
   'heatmap-off':   { dataFetch: false,        football: false,  roll: 'skip',  heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false },
   'draw-update':   { dataFetch: 'draws-only', football: false,  roll: 'fill',  heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true  },
