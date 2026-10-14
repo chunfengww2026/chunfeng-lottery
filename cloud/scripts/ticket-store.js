@@ -205,9 +205,12 @@ function rollPicks(gameId, areaKey, n) {
 
 /**
  * 号码池基底：长度固定为 want 的号码表
- *   · 有专家号码池（expert-pool.js）→ 池内号码按共识度排序排在前面，
+ *   · 【资料优先】资料（data-store.js）里写明的具体号码排在最前面，
+ *     优先级：资料 > 专家池 > 原算法（用户要求「按我输入的逻辑出号」）；
+ *     资料里的「杀号」会从池子里剔除
+ *   · 有专家号码池（expert-pool.js）→ 池内号码按共识度排序排在资料号码后面，
  *     不足 want 个时用原来的随机算法补齐（不会报错）
- *   · 没有专家池 / 加载失败 → 完全走原来的随机算法
+ *   · 没有资料也没有专家池 / 加载失败 → 完全走原来的随机算法
  * @returns {number[]}  长度 = min(want, 该区号码个数)
  */
 function poolCandidates(gameId, areaKey, want) {
@@ -215,14 +218,30 @@ function poolCandidates(gameId, areaKey, want) {
   const size = to - from + 1;
   const n = Math.max(1, Math.min(want, size));
 
-  let list = null;
+  /* ---- ① 资料优先层（data-store.js 的 materialRulesFor）：解析不出来就静默跳过 ---- */
+  let matPick = [];
+  let matKillSet = new Set();
+  try {
+    if (typeof materialRulesFor === 'function') {
+      const mr = materialRulesFor(gameId, areaKey) || {};
+      matKillSet = new Set((mr.kill || []).filter((x) => x >= from && x <= to));
+      matPick = (mr.pick || []).concat(mr.dan || [], mr.tuo || [])
+        .filter((x) => Number.isInteger(x) && x >= from && x <= to && !matKillSet.has(x));
+    }
+  } catch (e) { matPick = []; matKillSet = new Set(); }
+
+  let list = [];
+  matPick.forEach((x) => { if (list.length < n && list.indexOf(x) < 0) list.push(x); });
+  let acc = list.slice();
+
+  /* ---- ② 专家号码池：按共识度排序排在资料号码后面 ---- */
   try {
     if (typeof expertPoolBase === 'function' && typeof expertsReady === 'function' && expertsReady(gameId)) {
-      list = expertPoolBase(gameId, areaKey, n, from, to, (need) => {
-        // 用原来的随机算法补足（排除已经在池子里的号）
-        const have = new Set(list || []);
+      acc = expertPoolBase(gameId, areaKey, n, from, to, (need) => {
+        // 用原来的随机算法补足（排除已在池子里的号、以及资料里的杀号）
+        const have = new Set(acc);
         const rest = [];
-        for (let i = from; i <= to; i++) if (!have.has(i)) rest.push(i);
+        for (let i = from; i <= to; i++) if (!have.has(i) && !matKillSet.has(i)) rest.push(i);
         for (let i = rest.length - 1; i > 0; i--) {
           const j = ri(0, i);
           [rest[i], rest[j]] = [rest[j], rest[i]];
@@ -230,15 +249,20 @@ function poolCandidates(gameId, areaKey, want) {
         return rest.slice(0, need);
       });
     }
-  } catch (e) { list = null; }
+  } catch (e) { acc = null; }
 
-  if (!Array.isArray(list) || !list.length) return rollPicks(gameId, areaKey, n);
+  /* 专家池的号接在资料号码后面（资料 > 专家池） */
+  if (Array.isArray(acc)) {
+    acc.forEach((x) => {
+      if (list.length < n && !matKillSet.has(x) && list.indexOf(x) < 0) list.push(x);
+    });
+  }
 
-  // 极端情况（专家池加载不全）再兜一层
+  /* ---- ③ 原算法兜底：还是不够就用原来的随机算法补齐 ---- */
   if (list.length < n) {
     const have = new Set(list);
     const rest = [];
-    for (let i = from; i <= to; i++) if (!have.has(i)) rest.push(i);
+    for (let i = from; i <= to; i++) if (!have.has(i) && !matKillSet.has(i)) rest.push(i);
     for (let i = rest.length - 1; i > 0; i--) {
       const j = ri(0, i);
       [rest[i], rest[j]] = [rest[j], rest[i]];
@@ -711,6 +735,15 @@ function rollValueFor(gameId, spec) {
 
   // 6) 杀号（含 蓝球杀号 / 后区杀 / 前1杀）：池内共识度最低的先杀
   if (/杀/.test(label)) {
+    /* 【资料优先】资料里写了杀号 → 直接用资料里的（资料 > 专家池 > 原算法） */
+    try {
+      if (typeof materialRulesFor === 'function') {
+        const mr = materialRulesFor(gameId, areaKey);
+        if (mr && mr.kill && mr.kill.length) {
+          return mr.kill.slice(0, count).map(pad2).join(' ');
+        }
+      }
+    } catch (e) { /* 解析不出来就走原来的算法 */ }
     // 按位杀（七星彩 前N杀 / 后区杀）：每个位置用位置统计，号码池按位置错开
     if (posIdx >= 0 && (/^前\d+杀$/.test(label) || /^后区杀$/.test(label)) && typeof positionKill === 'function') {
       const killed = positionKill(gameId, posIdx, count, from, to, 30);
@@ -725,6 +758,18 @@ function rollValueFor(gameId, spec) {
 
   // 7) 胆码 / 拖码：池内分档（胆=共识最高，拖=次之）
   if (label.includes('胆码') || label.includes('拖码')) {
+    /* 【资料优先】资料里写了胆码 / 拖码 → 直接用资料里的 */
+    try {
+      if (typeof materialRulesFor === 'function') {
+        const mr = materialRulesFor(gameId, areaKey);
+        if (mr) {
+          const mv = label.includes('胆码')
+            ? (mr.dan || []).concat(mr.pick || [])
+            : (mr.tuo || []).concat(mr.pick || []);
+          if (mv.length) return mv.slice(0, count).map(pad2).join(' ');
+        }
+      }
+    } catch (e) { /* 解析不出来就走原来的算法 */ }
     const t = poolTrend();
     const v = t ? (label.includes('胆码') ? t.dm : t.tm) : '';
     if (v) return v;
