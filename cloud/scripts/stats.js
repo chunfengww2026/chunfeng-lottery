@@ -1736,14 +1736,22 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
     }
   }
 
-  /* ---- 4. 热号 / 冷号：都在池内，冷号排除热号 ---- */
+  /* ---- 4. 热号 / 冷号（【方案B】热号从池内取、冷号从池外取）----
+     语义：池内的号是「你看好的」→ 里面最热的几个写热号
+           池外的号是「你没选的」→ 里面最冷的几个写冷号
+     好处：两边天然不重叠（一个在池内、一个在池外），且都能写满 6 个，
+           不会再出现「后区池只有 4 个号 → 热冷各 2 个」这种干瘪的结果。 */
   const hotKeys = roleKeys('hot');
   const coldKeys = roleKeys('cold');
   if ((hotKeys.length || coldKeys.length) && (!POOL || POOL.length >= 2)) {
     const dom = POOL ? POOL.slice() : ALL;
     const domSet = new Set(dom);
-    const hotWant = POOL ? Math.min(6, Math.max(1, Math.ceil(dom.length / 2))) : 6;
-    const coldWant = POOL ? Math.min(6, Math.max(1, dom.length - hotWant)) : 6;
+    /* 冷号候选域：池外。池子等于全区时退回全区 */
+    const coldDom = (POOL && ALL.length > dom.length) ? ALL.filter((n) => !domSet.has(n)) : ALL.slice();
+    const coldDomSet = new Set(coldDom);
+
+    const hotWant = Math.min(6, dom.length);
+    const coldWant = Math.min(6, coldDom.length);
 
     const hotCur = consUniq(hotKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
     const coldCur = consUniq(coldKeys.reduce((a, k) => a.concat(numsOfKey(k)), []));
@@ -1755,15 +1763,20 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
       hot = hotCalc;
     }
     const hotSet = new Set(hot);
+
+    /* 冷号：必须在池外、且不和热号重叠（池内/池外天然不重叠，这里再保险一次） */
     const coldOK = coldCur.length === coldWant
-      && coldCur.every((n) => domSet.has(n) && !hotSet.has(n));
+      && coldCur.every((n) => coldDomSet.has(n) && !hotSet.has(n));
     if (!coldOK) {
-      const rest = dom.filter((n) => !hotSet.has(n));
-      let cold = consByFreq(gameId, areaKey, rest, false).slice(0, coldWant);
-      if (coldCalcEmpty(cold, coldCur, hotSet)) cold = coldCur.filter((n) => !hotSet.has(n)).slice(0, coldWant);
-      if (cold.length) {
-        coldKeys.forEach((k) => { out[k] = consJoin(cold); });
+      let cold = consByFreq(gameId, areaKey, coldDom, false).slice(0, coldWant);
+      if (coldCalcEmpty(cold, coldCur, hotSet)) {
+        cold = coldCur.filter((n) => coldDomSet.has(n) && !hotSet.has(n)).slice(0, coldWant);
       }
+      if (!cold.length) {
+        /* 池外一个都挑不出来时（极小概率），退回全区最冷 */
+        cold = consByFreq(gameId, areaKey, ALL, false).filter((n) => !hotSet.has(n)).slice(0, coldWant);
+      }
+      if (cold.length) coldKeys.forEach((k) => { out[k] = consJoin(cold); });
     }
     if (hotCalc) hotKeys.forEach((k) => { out[k] = consJoin(hot); });
   }
