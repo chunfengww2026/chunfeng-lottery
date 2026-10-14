@@ -13,5 +13,11 @@
 const AI_CONFIG = {
   apiKey: 'sk-726ce9be7c8148d3816c314b14426ebb',                                  // 形如 sk-xxxxxxxx
   baseUrl: 'https://api.deepseek.com',
-  model: 'deepseek-chat'
+  model: 'deepseek-chat',
+
+  /* reasoningEffort：只用于「智能助手」页面上显示「推理强度」。
+     【如实说明】DeepSeek 的 /chat/completions 接口【没有】reasoning_effort
+     这个入参（传了会被 400 拒绝），所以这个值不会发出去，纯展示用。
+     可选：'low' | 'medium' | 'high'，默认 'medium'。 */
+  reasoningEffort: 'medium'
 };
