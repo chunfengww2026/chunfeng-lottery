@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 03:05 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 03:10 */
 const JC_DATA = {
- "updated": "2026-10-15 03:05",
+ "updated": "2026-10-15 03:10",
  "stat": {
   "total": 14,
   "upcoming": 2,
@@ -692,7 +692,7 @@ const JC_DATA = {
      },
      "live": {
       "home": 2.63,
-      "draw": 3.9,
+      "draw": 3.75,
       "away": 2.45
      }
     },
@@ -712,14 +712,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 39.1,
+    "confidence": 38.7,
     "prob": {
-     "home": 36.4,
-     "draw": 24.5,
-     "away": 39.1
+     "home": 36,
+     "draw": 25.3,
+     "away": 38.7
     },
     "clear": false,
-    "margin": 4.5,
+    "margin": 5.5,
     "rqLine": "受平手/半球"
    },
    "status": "live",
