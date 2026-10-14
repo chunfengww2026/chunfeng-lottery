@@ -1021,6 +1021,45 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   z-index: 3;
 }
 
+/* ---- 九转连环 · 固定同心圆模板（中心 1 + 4 圈 × 8 方向 = 33 个位置） ----
+   位置全部由 render.js 用显式坐标表算好、以内联 top/left(%) 写死，
+   这里只管样子：4 个圆环 + 中心点 + 33 个号码。
+   号码三档颜色：金胆/银胆(金) > 拖码(橙) > 号码池(红) > 未推荐(浅灰)。 */
+.r-ring {
+  position: absolute; border-radius: 50%;
+  border: 1.2px solid #e8c877;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  z-index: 0;
+}
+.r-circenter {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #fff; border: 1.5px solid #e0b34a;
+  color: #b8860b; font-weight: 800; font-size: 11.5px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 4;
+}
+.r-cirnum {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 17px; height: 17px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; line-height: 1;
+  font-family: Arial, sans-serif;
+  background: #fff; color: #d9d9d9;                 /* 未推荐：浅色 */
+  z-index: 3;
+}
+.r-cirnum.pool   { color: #e53935; font-weight: 800; }                       /* 号码池 */
+.r-cirnum.silver { background: #fde3c4; color: #b25b00; font-weight: 800;
+                   box-shadow: 0 0 0 1px #f0b978 inset; }                    /* 拖码 */
+.r-cirnum.core   { background: #e6b422; color: #4a3400; font-weight: 800;
+                   box-shadow: 0 0 0 1px #c9991a inset; }                    /* 金胆/银胆 */
+.r-circenter.pool   { color: #e53935; }
+.r-circenter.silver { background: #fde3c4; color: #b25b00; border-color: #f0b978; }
+.r-circenter.core   { background: #e6b422; color: #4a3400; border-color: #c9991a; }
+.r-dot.gray { background: #cfcfcf; }
+
 /* ---- 九宫 ---- */
 .r-jgwrap { text-align: center; }
 .r-jiugong {
