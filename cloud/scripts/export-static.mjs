@@ -174,6 +174,11 @@ vm.runInContext(`
   globalThis.__getTicket = getTicket;
   globalThis.__shouldShowHeatmap = (typeof shouldShowHeatmap === 'function') ? shouldShowHeatmap : null;
   globalThis.__heatmapData = (typeof HEATMAP_DATA !== 'undefined') ? HEATMAP_DATA : null;
+  /* 【热力图顶掉「最新开奖」】的三个共享函数（全部来自 latest-draws.js）——
+     服务端预渲染和客户端就地重画用的是同一份，不会有第二套判断。 */
+  globalThis.__latestBlockMode = (typeof latestBlockMode === 'function') ? latestBlockMode : null;
+  globalThis.__latestBlockHtml = (typeof latestBlockHtml === 'function') ? latestBlockHtml : null;
+  globalThis.__latestHeatmapSectionHtml = (typeof latestHeatmapSectionHtml === 'function') ? latestHeatmapSectionHtml : null;
   /* 【最新开奖】区块的稳定 id（来自 latest-draws.js）—— 客户端靠它定位替换 */
   globalThis.__latestDrawsId = (typeof LATEST_DRAWS_ID !== 'undefined') ? LATEST_DRAWS_ID : 'ro-latest';
 `, ctx);
@@ -185,6 +190,9 @@ const nextDate = ctx.__nextDate, nextWeek = ctx.__nextWeek;
 const getTicket = ctx.__getTicket;
 const shouldShowHeatmap = ctx.__shouldShowHeatmap;
 const HEATMAP = ctx.__heatmapData;
+const latestBlockMode = ctx.__latestBlockMode;
+const latestBlockHtmlFn = ctx.__latestBlockHtml;
+const latestHeatmapSectionHtml = ctx.__latestHeatmapSectionHtml;
 const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
 
 /**
@@ -395,6 +403,58 @@ const status = checkUpdateStatus();
 /* ---------- 状态条 HTML（延后生成，此时 T/G 已可用） ---------- */
 let statusHtml = '';
 
+/* ============================================================
+   【热力图顶掉「最新开奖」】这一页现在该放哪一张
+   ------------------------------------------------------------
+   用户原话：「在开双色球的时候 18 点更新到最新开奖位置覆盖住，过了 20 点
+              就更新回来最新开奖；大乐透 18 点过去，21 点回来。」
+   规则（北京时间，仅开奖日）：
+     双色球 18:00 ≤ now < 20:00 → 双色球热力图占位
+     大乐透 18:00 ≤ now < 21:00 → 大乐透热力图占位
+     其余时刻                   → 「最新开奖」
+
+   【判断只此一处】调 latest-draws.js 的 latestBlockMode()，它内部问的是
+   heatmap-data.js 的 shouldShowHeatmap()（和客户端、App 同一个函数）。
+   同一时刻只会有一个彩种在窗口内（ssq 与 dlt 的开奖日不相交）。
+
+   【图只出现一次】窗口内的热力图【移到页面顶部】，彩种区块里那张
+   「图三：实票统计」就【不再重复渲染】—— 同一张 760px 的图在手机屏上
+   出现两次既浪费流量又会让用户以为出错了。所以：
+     窗口内 → 顶部 1 张（21 个图位总数不变）
+     窗口外 → 一张都不出（和以前「按天出」的规则一致）
+   ============================================================ */
+const blockMode = (typeof latestBlockMode === 'function')
+  ? latestBlockMode()
+  : { mode: 'latest', gameId: '' };
+console.log(`  · 「最新开奖」区块形态 = ${blockMode.mode}` +
+  (blockMode.gameId ? `（${G[blockMode.gameId] ? G[blockMode.gameId].name : blockMode.gameId} 热力图占位）` : '（最新开奖）'));
+
+/**
+ * 渲染某个彩种的某张模板图 → 内联 HTML
+ * 【关键·同源】调用方式和 App 的 renderImagesInto 完全一致：
+ *     manual   = getTicket(gameId, nextDrawDate(gameId)).images[key]
+ *     resolved = resolveTemplateValues(gameId, key, manual)
+ *     data     = { issue, date, images: { [key]: resolved.values } }
+ * 以前这里第三个参数传的是 null，等于把「手动录入」整层丢掉 ——
+ * App 用手动录入的号、网页用自动算的号，10 张图全都不一样。
+ * 现在两边输入一模一样，输出才可能一模一样。
+ * @returns {string} 渲染后的 DOM HTML；失败返回空串
+ */
+function renderImageHtml(id, imgKey) {
+  try {
+    const date = nextDate(id);
+    const issue = nextIssue(id) || '';
+    const manual = manualValuesFor(id, date, imgKey);
+    const resolved = resolve(id, imgKey, manual);
+    const data = { issue, date, images: {} };
+    data.images[imgKey] = resolved.values;
+    return toHtml(render(id, imgKey, data));
+  } catch (e) {
+    console.log(`  ⚠️ 渲染 ${id}/${imgKey} 失败：${e.message}`);
+    return '';
+  }
+}
+
 let sectionsHtml = '';
 let gameCount = 0;
 let imgCount = 0;
@@ -446,11 +506,16 @@ GROUPS.forEach((group) => {
     let imgsHtml = '';
     tpl.images.forEach((img) => {
       /* 【按天出】实票统计热力图：
-         不是该彩种的开奖日 / 数据不是今天的 / 还没到 18:00
-         → 整张图不渲染、不占位（用户原话「不开的时候就不出」）。
+         它现在【只出现在页面顶部的「最新开奖」位置】（见上面的 blockMode），
+         彩种区块里不再重复渲染第二张 —— 所以这里一律跳过：
+           · 在窗口内 → 已经被顶部区块用了（同一张图，不会丢）
+           · 不在窗口内 / 没有当日数据 → 本来就不该出
          判断口径和客户端 shouldShowHeatmap 完全一致。 */
-      if (img.key === 'heatmap' && !heatmapVisible(id)) {
-        console.log(`  · 热力图跳过：${G[id] ? G[id].name : id}（${heatmapWhy(id)}）`);
+      if (img.key === 'heatmap') {
+        console.log(`  · 热力图位置：${G[id] ? G[id].name : id}（` +
+          (heatmapVisible(id) && blockMode.gameId === id
+            ? '已移到页面顶部「最新开奖」位置'
+            : heatmapWhy(id)) + '）');
         return;
       }
       /* 【关键·同源】调用方式和 App 的 renderImagesInto 完全一致：
@@ -460,17 +525,14 @@ GROUPS.forEach((group) => {
          以前这里第三个参数传的是 null，等于把「手动录入」整层丢掉 ——
          App 用手动录入的号、网页用自动算的号，10 张图全都不一样。
          现在两边输入一模一样，输出才可能一模一样。 */
-      const manual = manualValuesFor(id, date, img.key);
-      const resolved = resolve(id, img.key, manual);
-      const data = { issue, date, images: {} };
-      data.images[img.key] = resolved.values;
+      const dom = renderImageHtml(id, img.key);
+      if (!dom) return;
 
-      const dom = render(id, img.key, data);
       /* 图位：data-game / data-image 告诉页尾的实时渲染脚本该填哪张图。
          里面的内容是预渲染兜底 —— JS 没跑或渲染失败时，页面依然有图。 */
       imgsHtml +=
         `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}">` +
-        toHtml(dom) +
+        dom +
         `</div>`;
       imgCount++;
     });
@@ -564,8 +626,26 @@ let winCount = 0;
 console.log(`  · buildLatestDrawHtml = ${typeof buildLatestHtml}`);
 console.log(`  · buildWinSectionHtml = ${typeof buildWinHtml}`);
 
-/* ---- 顶部：最新开奖 ---- */
-if (typeof buildLatestHtml === 'function') {
+/* ---- 顶部：最新开奖 / 热力图 ----
+   【一个入口，两种形态】走 latest-draws.js 的 latestBlockHtml()：
+     · 窗口内（开奖日 18:00→20:00 双色球 / 18:00→21:00 大乐透）
+       → 热力图占位（同一个 id="ro-latest"，客户端照样找得到）
+     · 其余时刻 → 「最新开奖」
+   热力图内部那份 HTML 就是这张模板图的预渲染结果（和 App 同一套渲染调用），
+   页尾的实时渲染脚本会用同一个图位定义把它重画一遍。 */
+if (typeof latestBlockHtmlFn === 'function') {
+  try {
+    latestSecHtml = latestBlockHtmlFn({
+      latest: (typeof ctx.getLatestDraws === 'function') ? ctx.getLatestDraws() : null,
+      games: G,
+      heatmap: (gid) => renderImageHtml(gid, 'heatmap')
+    });
+  } catch (e) {
+    console.log('  ❌ 顶部区块生成失败：' + e.message);
+  }
+}
+/* 兜底：latest-draws.js 没加载成功时，用 hit-check.js 的老写法（只出最新开奖） */
+if (!latestSecHtml && typeof buildLatestHtml === 'function') {
   try {
     latestSecHtml = buildLatestHtml();
   } catch (e) {
@@ -702,9 +782,8 @@ const RO_RENDER_SCRIPT = `
    这里渲染成功后才整体替换掉 —— 万一 JS 挂了，页面也不会空白。
    ============================================================ */
 (function () {
-  function renderSlot(slot) {
-    var gid = slot.getAttribute('data-game');
-    var key = slot.getAttribute('data-image');
+  /* 按「彩种 + 图名」渲染一张推荐图 —— 和 game.html / renderImagesInto 完全一致 */
+  function renderImageDom(gid, key) {
     if (!gid || !key) return null;
     if (typeof TEMPLATES === 'undefined' || typeof renderTicketImage !== 'function') return null;
 
@@ -736,6 +815,11 @@ const RO_RENDER_SCRIPT = `
 
     return renderTicketImage(gid, key, data);
     /* ---------- 以上与 game.html / renderImagesInto 完全一致 ---------- */
+  }
+
+  /** 图位（<div class="ro-imagewrap" data-game data-image>）→ 渲染成图 */
+  function renderSlot(slot) {
+    return renderImageDom(slot.getAttribute('data-game'), slot.getAttribute('data-image'));
   }
 
   function renderAll() {
@@ -818,6 +902,102 @@ const RO_RENDER_SCRIPT = `
         if (window.console && console.log) console.log('[分享页] 热力图时间已定格：' + window.HEATMAP_NOW_OVERRIDE);
       }
     }
+  } catch (e) { /* 忽略 */ }
+
+  /* ============================================================
+     【最新开奖 ⇄ 热力图 · 到点自动切换】
+     ------------------------------------------------------------
+     用户原话：
+       「在开双色球的时候 18 点更新到最新开奖位置覆盖住，过了 20 点就更新回来
+         最新开奖；同样大乐透在 18 点更新过去，21 点更新回来最新开奖。」
+
+     这一段就是「页面一直开着也会自己换」的实现：
+       · 时间窗判断 = latestBlockMode() → heatmap-data.js 的 shouldShowHeatmap()
+         （和服务端预渲染、App 用的是同一个函数，不可能漂移）
+       · 区块 HTML = latestBlockHtml()（同样是服务端那一份）
+       · 只在【形态变了】或【开奖数据更新了】时才动 DOM，平时一次都不碰
+       · 任何一步失败 → 保持原样（绝不留白、绝不出现空区块）
+
+     调用时机：
+       ① 页面刚打开（先用内联快照，本地时钟算一次）
+       ② 每次拉到 tickets.json 之后（90 秒轮询）
+       ③ 每 90 秒的定时器里【独立】再算一次 —— 断网也能到点自动切
+     ============================================================ */
+  var __roBlockMode = '';        /* 页面上这个区块现在是什么形态：'' / 'latest' / 'heatmap:ssq' */
+
+  function blockModeKey() {
+    try {
+      if (typeof latestBlockMode !== 'function') return '';
+      var m = latestBlockMode();
+      return m.mode + (m.gameId ? ':' + m.gameId : '');
+    } catch (e) { return ''; }
+  }
+
+  /**
+   * 把顶部区块换成「现在该有的样子」
+   * @param {boolean} force 开奖数据更新了 → 即使形态没变也要重画一次
+   * @returns {{ok:boolean, mode:string, changed:boolean}}
+   */
+  function refreshLatestBlock(force) {
+    var out = { ok: false, mode: '', changed: false };
+    try {
+      var el = document.getElementById(LATEST_DRAWS_ID);
+      if (!el) return out;                                   /* 老页面没有这个 id → 不动 */
+      if (typeof latestBlockMode !== 'function' || typeof latestBlockHtml !== 'function') return out;
+      if (typeof latestDrawsHtml !== 'function' || typeof latestDrawsFromRaw !== 'function') return out;
+
+      var key = blockModeKey();
+      if (!key) return out;
+      out.mode = key;
+      if (!force && key === __roBlockMode) { out.ok = true; return out; }   /* 形态没变 → 不碰 DOM */
+
+      var all = null;
+      try { all = (typeof DRAW_DATA !== 'undefined') ? DRAW_DATA.games : null; } catch (e1) { all = null; }
+
+      var html = latestBlockHtml({
+        latest: latestDrawsFromRaw(all, (typeof GAMES !== 'undefined') ? GAMES : {}),
+        games: (typeof GAMES !== 'undefined') ? GAMES : {},
+        /* 热力图内部 HTML：和推荐图走同一个渲染函数（同一次调用语义） */
+        heatmap: function (gid) {
+          var dom = renderImageDom(gid, 'heatmap');
+          return (dom && dom.outerHTML) ? dom.outerHTML : '';
+        }
+      });
+      if (!html) return out;                                 /* 生成不出来 → 保持原样，绝不留白 */
+
+      __roBlockMode = key;                                   /* 记住形态，下次没变就不动 */
+      out.ok = true;
+
+      if (el.outerHTML === html) return out;                 /* 一模一样就不用动 DOM */
+      el.outerHTML = html;
+      out.changed = true;
+
+      try {
+        if (document.body && document.body.setAttribute) {
+          document.body.setAttribute('data-block-mode', key);
+        }
+      } catch (e2) { /* 忽略 */ }
+
+      /* 区块里换成了 760px 宽的热力图 → 重新做一次等比缩放 */
+      try {
+        if (typeof window.__roFit === 'function') window.__roFit();
+      } catch (e3) { /* 忽略 */ }
+
+      return out;
+    } catch (e) {
+      if (window.console && console.warn) console.warn('[分享页] 顶部区块切换失败，保留原内容', e);
+      return out;
+    }
+  }
+
+  /* 方便自测 / 排查：控制台里手动换一次（__roRefreshBlock()） */
+  window.__roRefreshBlock = refreshLatestBlock;
+
+  /* 【顺序·重要】先按本地时钟把区块定成该有的形态，再整体渲染图位 ——
+     这样「服务器 02:00 预渲染成最新开奖、用户 19:00 打开」也能立刻显示热力图，
+     而且顶部那张热力图会由下面的 renderAll() 一起渲染出来。 */
+  try {
+    refreshLatestBlock(false);
   } catch (e) { /* 忽略 */ }
 
   /* 页尾脚本执行时，上面的图位已经全部在 DOM 里，直接渲染 */
@@ -952,7 +1132,13 @@ const RO_RENDER_SCRIPT = `
      现在 tickets.json 里带上了各彩种最新一期开奖（draws），
      拉到比页面内联快照更新的一期就：
        1) 把新号码合并进内存里的 DRAW_DATA（只改属性，只更新有的彩种）
-       2) 用 latestDrawsHtml() 重新生成区块 HTML 并【整体替换】DOM
+       2) 调 refreshLatestBlock(true) 重画顶部区块
+          —— 区块现在可能是「最新开奖」，也可能是顶掉它的「热力图」，
+             具体放哪个由 latestBlockMode() 决定（到点会自动切换）：
+               · 形态没变、只是开奖号变了 → 重画「最新开奖」那张卡
+               · 到点该换回来了            → 换成「最新开奖」（带着新号码）
+             【关键】换回来时用的就是刚才合并进 DRAW_DATA 的新号码，
+             所以「20:00 / 21:00 一换回来就是最新一期」，不用等下次刷新。
      用的就是生成页面时那份同一个函数（latest-draws.js），
      所以服务端烤进去的和服务端/客户端换上去的写法完全一致。
 
@@ -963,30 +1149,18 @@ const RO_RENDER_SCRIPT = `
     var res = { applied: [], skipped: [] };
     try {
       if (!j || !j.draws) return res;                      /* 没带就什么都不做 */
-      if (typeof applyRemoteDraws !== 'function' ||
-          typeof latestDrawsHtml !== 'function' ||
-          typeof latestDrawsFromRaw !== 'function') return res;   /* 客户端脚本缺失 → 保持预渲染兜底 */
+      if (typeof applyRemoteDraws !== 'function') return res;   /* 客户端脚本缺失 → 保持预渲染兜底 */
 
       /* 1) 合并进内存数据（只更新有的彩种；比页面旧的自动跳过） */
       res = applyRemoteDraws(j.draws) || res;
       if (!res.applied.length) return res;                 /* 没有更新 → 区块原样保留 */
 
-      /* 2) 重新生成并整体替换「最新开奖」区块
+      /* 2) 按【当前该有的形态】重画区块（形态判断 + HTML 都来自共享函数）
          【关键】用合并【之后】的完整数据（DRAW_DATA.games）重画，而不是 j.draws：
          服务器这次可能只带了一部分彩种，用 j.draws 直接渲染会把别的彩种弄丢。
          区块必须始终是完整的 8 个彩种。 */
-      var el = document.getElementById(LATEST_DRAWS_ID);
-      if (!el) return { applied: [], skipped: res.skipped };   /* 老页面没有这个 id → 不动 */
-
-      var all = null;
-      try { all = (typeof DRAW_DATA !== 'undefined') ? DRAW_DATA.games : null; } catch (e2) { all = null; }
-      if (!all) return { applied: [], skipped: res.skipped };
-
-      var html = latestDrawsHtml(latestDrawsFromRaw(all, GAMES), GAMES);
-      if (!html) return { applied: [], skipped: res.skipped };  /* 生成不出来 → 保留原样，绝不留白 */
-
-      if (el.outerHTML === html) return res;               /* 一模一样就不用动 DOM */
-      el.outerHTML = html;
+      var r = refreshLatestBlock(true);
+      if (!r.ok) return { applied: [], skipped: res.skipped };   /* 画不出来 → 保持原样 */
 
       try {
         if (document.body && document.body.setAttribute) {
@@ -1030,11 +1204,14 @@ const RO_RENDER_SCRIPT = `
      ------------------------------------------------------------
      为什么需要：
        云端在固定时间更新（凌晨 2:00 全量 / 18:00 热力图 /
-       21:40 抓开奖、摇下一期号）。如果你手机上的页面一直开着，
+       21:30 福彩、21:45 体彩抓开奖同步）。如果你手机上的页面一直开着，
        以前只能【手动刷新】才看得到新内容。
      现在：
-       每 90 秒自己拉一次 tickets.json，发现服务器数据更新了
-       就地重渲染（推荐图 + 最新开奖），不用你动手。
+       每 90 秒做两件事，都是就地重渲染，不用你动手：
+         ① 拉一次 tickets.json —— 有新号码就重画推荐图 + 顶部区块
+         ② 【独立】再算一次顶部区块的形态 —— 到 18:00 换成热力图、
+            到 20:00（双色球）/ 21:00（大乐透）换回最新开奖。
+            这一步只看本机时间、不联网，所以断网也照样到点自动切。
      省流量：
        这只是一个小 JSON（几 KB），而且只有页面开着时才轮询；
        切到后台时浏览器会自动降频。
@@ -1046,6 +1223,10 @@ const RO_RENDER_SCRIPT = `
       try {
         pullTickets();
       } catch (e) { /* 忽略：网络问题不能影响页面 */ }
+      /* 【到点自动切换】和网络无关，单独算一次（形态没变时它一个 DOM 都不碰） */
+      try {
+        refreshLatestBlock(false);
+      } catch (e) { /* 忽略 */ }
     }, AUTO_MS);
 
     /* 页面从后台切回前台时也立刻拉一次（手机切回来马上就是新的） */
@@ -1053,6 +1234,7 @@ const RO_RENDER_SCRIPT = `
       document.addEventListener('visibilitychange', function () {
         if (!document.hidden) {
           try { pullTickets(); } catch (e) {}
+          try { refreshLatestBlock(false); } catch (e) {}
         }
       });
     }
