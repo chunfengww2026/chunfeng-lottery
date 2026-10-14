@@ -62,6 +62,8 @@ function historyGame(rec) {
     round: '',
     time: rec.time || '',
     handicap: rec.hc != null ? rec.hc : null,
+    /* 【亚指综合换算】归档时存下来的那份；老归档记录没有 → null → 不显示 */
+    asianIndex: rec.asianIndex || null,
     home: { name: rec.home || '?', rank: null },
     away: { name: rec.away || '?', rank: null },
     score: hasScore ? { home: hs, away: as_ } : null,
@@ -122,6 +124,15 @@ function allJcGames() {
 function adaptJc(g) {
   const kind = g.status || 'upcoming';
 
+  /* 【亚指综合换算】优先用数据里存好的；jc-data.js 还是旧版（没存）时
+     就地用 asian-index.js 算一遍，页面不至于空着。
+     算不出来（没亚盘 / 认不出盘口）→ null → 页面整块不显示。
+     【不编数据】fundUp 没有数据源，所以里面的 analysis 恒为 null。 */
+  let asianIndex = g.asianIndex || null;
+  if (!asianIndex && typeof buildAsianIndex === 'function') {
+    try { asianIndex = buildAsianIndex(g); } catch (e) { asianIndex = null; }
+  }
+
   /* 比分优先级：liveScore > score */
   let hs = null, as_ = null;
   if (g.liveScore && g.liveScore.home !== null && g.liveScore.home !== undefined) {
@@ -159,6 +170,7 @@ function adaptJc(g) {
     reco: g.reco,
     result,
     hasScore,
+    asianIndex,
     fromHistory: !!(g.reco && g.reco.fromHistory)
   };
 }
@@ -407,6 +419,140 @@ function oddsTable(title, rows) {
   return box;
 }
 
+/* ============================================================
+   亚指综合换算（算法在 asian-index.js）
+   ------------------------------------------------------------
+   显示什么：
+     · 真拿到「上盘真实资金占比 fundUp」时：
+         结论标签 + 热度文案 + 理论/真实资金对比 + 偏差
+     · 没拿到时（【当前就是这种】）：
+         【整块不显示热度推演】，只显示由真实水位换算出来的
+         「水位隐含 · 理论均衡占比」+ 走水判定，并如实标注
+         「资金占比暂无数据源」—— 不显示任何编造的数字。
+   【合规】用户给这块的定位就是「仅娱乐」，标题上带「仅娱乐参考」；
+   标签只用中性词（爆冷 / 输盘 / 赢盘 / 走水机会 / 胜负难分）。
+   ============================================================ */
+function renderAsianIndexBlock(ai) {
+  if (!ai) return null;
+
+  const box = document.createElement('div');
+  box.className = 'fb-ai-block';
+
+  const head = document.createElement('div');
+  head.className = 'fb-ai-head';
+  const t = document.createElement('span');
+  t.className = 'fb-ai-title';
+  t.textContent = '亚指综合换算';
+  head.appendChild(t);
+
+  if (ai.hasFund && ai.conclusionTag) {
+    const tg = document.createElement('span');
+    tg.className = 'fb-ai-tag';
+    tg.textContent = ai.conclusionTag;
+    head.appendChild(tg);
+  }
+  const fun = document.createElement('span');
+  fun.className = 'fb-ai-fun';
+  fun.textContent = '仅娱乐参考';
+  if (ai.desc) fun.title = ai.desc;
+  head.appendChild(fun);
+  box.appendChild(head);
+
+  /* 盘口 + 上下盘水位（都是真实抓到的数据） */
+  const line = document.createElement('div');
+  line.className = 'fb-ai-line';
+  line.textContent = '盘口 ' + ai.line + '（' + ai.fromText + '）· ' + ai.handicapText +
+    ' · 上盘 ' + ai.upSideText + ' · 上 ' + ai.upWater + ' / 下 ' + ai.downWater +
+    ' · ' + ai.canWaterText;
+  box.appendChild(line);
+
+  /* 盘口升降（checkHandicapChange 的标签）+ 初盘→即时明细。
+     明细必须一起显示：函数在「盘口不变只水位变」「盘口变水位不变」时
+     会说「盘口水位无明显变化」，只给标签会误导。 */
+  if (ai.changeType) {
+    const ch = document.createElement('div');
+    ch.className = 'fb-ai-change';
+    const ct = document.createElement('span');
+    ct.className = 'fb-ai-change-tag';
+    ct.textContent = ai.changeType;
+    ch.appendChild(ct);
+    const cd = document.createElement('span');
+    cd.className = 'fb-ai-change-d';
+    cd.textContent = ai.changeDetail;
+    ch.appendChild(cd);
+    box.appendChild(ch);
+  }
+
+  /* 数值格子 */
+  const grid = document.createElement('div');
+  grid.className = 'fb-ai-grid';
+  const cell = (label, value, cls) => {
+    const s = document.createElement('span');
+    s.className = 'fb-ai-cell' + (cls ? ' ' + cls : '');
+    const i = document.createElement('i');
+    i.textContent = label;
+    const b = document.createElement('b');
+    b.textContent = value;
+    s.appendChild(i);
+    s.appendChild(b);
+    grid.appendChild(s);
+  };
+
+  if (ai.hasFund) {
+    /* 有真实资金占比 → 理论 / 真实 对比 */
+    cell('理论上盘资金', ai.theoryUp + '%');
+    cell('真实上盘资金', ai.fundUp + '%', 'on');
+    cell('理论下盘资金', ai.theoryDown + '%');
+    cell('真实下盘资金', ai.fundDown + '%', 'on');
+    box.appendChild(grid);
+
+    const dev = document.createElement('div');
+    dev.className = 'fb-ai-dev';
+    const dv = document.createElement('span');
+    dv.className = 'fb-ai-dev-v ' + pctClass(parseFloat(ai.devUp));
+    dv.textContent = '偏差 ' + pctText(parseFloat(ai.devUp));
+    dev.appendChild(dv);
+    const du = document.createElement('span');
+    du.className = 'fb-ai-dev-u';
+    du.textContent = '（上盘真实 − 理论上盘）';
+    dev.appendChild(du);
+    box.appendChild(dev);
+
+    if (ai.hotText) {
+      const hot = document.createElement('div');
+      hot.className = 'fb-ai-hot';
+      hot.textContent = ai.hotText;
+      box.appendChild(hot);
+    }
+    if (ai.fundUpSource) {
+      const src = document.createElement('div');
+      src.className = 'fb-ai-src';
+      src.textContent = '资金占比来源：' + ai.fundUpSource;
+      box.appendChild(src);
+    }
+  } else {
+    /* 没拿到资金占比 → 只给「水位换算」的理论值，不给任何真实资金数字 */
+    cell('水位隐含 · 理论上盘', ai.theoryUp + '%');
+    cell('水位隐含 · 理论下盘', ai.theoryDown + '%');
+    box.appendChild(grid);
+  }
+
+  /* 数据缺失时如实说明（显示这句话，而不是编造的数字） */
+  if (ai.missingText) {
+    const miss = document.createElement('div');
+    miss.className = 'fb-ai-miss';
+    miss.textContent = ai.missingText;
+    box.appendChild(miss);
+  }
+  if (ai.note) {
+    const nt = document.createElement('div');
+    nt.className = 'fb-ai-note';
+    nt.textContent = ai.note;
+    box.appendChild(nt);
+  }
+  return box;
+}
+
 function renderFootballDetail(container, g) {
   container.innerHTML = '';
 
@@ -455,6 +601,16 @@ function renderFootballDetail(container, g) {
       `</div>`;
     box.appendChild(rb);
   }
+
+  /* 【亚指综合换算】放在推荐块下面、赔率表上面。
+     数据凑不齐时 renderAsianIndexBlock 返回 null → 整块不显示。
+     用 try 包住：亚指块出问题绝不能影响整页其它内容。 */
+  try {
+    if (typeof asianIndexView === 'function') {
+      const aiBlock = renderAsianIndexBlock(asianIndexView(g.asianIndex));
+      if (aiBlock) box.appendChild(aiBlock);
+    }
+  } catch (e) { /* 忽略：亚指块是附加信息 */ }
 
   const eu = g.odds && g.odds.europe;
   const as2 = g.odds && g.odds.asian;
