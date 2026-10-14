@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  build-draws.mjs —— 抓取开奖号码 + 交给 DeepSeek 解析
 //
 //  流程：
@@ -155,6 +155,32 @@ async function fetchJson(url, timeoutMs, referer) {
   }
 }
 
+/* 【重试包装】官方接口偶尔会抽风（实测遇到 UND_ERR_CONNECT_TIMEOUT），
+   一次超时就会让那个彩种整个丢掉 —— 彩种少了页面就显示旧数据，
+   而「最新开奖」看起来就像"没更新"。
+   所以这里统一重试 4 次、每次间隔递增（1s/2s/3s）。
+   只重试网络层错误；解析出来的业务错误（接口返回 code!=0）不重试。 */
+async function fetchJsonRetry(url, timeoutMs, referer) {
+  var lastErr = null;
+  for (var attempt = 1; attempt <= 4; attempt++) {
+    try {
+      return await fetchJson(url, timeoutMs, referer);
+    } catch (e) {
+      lastErr = e;
+      var msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e);
+      /* 业务性错误（比如接口明确报错）不重试，直接抛 */
+      if (/接口返回|解析失败|没有数据|not found|404/i.test(msg)) throw e;
+      if (attempt < 4) {
+        var wait = attempt * 1000;
+        console.log('     ↻ 第 ' + attempt + ' 次失败（' + msg.slice(0, 40) + '），' + (wait / 1000) + ' 秒后重试…');
+        await new Promise(function (r) { setTimeout(r, wait); });
+      }
+    }
+  }
+  throw lastErr;
+}
+
+
 /** 把 "04,11,14" 或 "04 11 14" 或 "04\n" 解析成数字数组 */
 function splitNums(str) {
   if (!str) return [];
@@ -175,7 +201,7 @@ async function officialCwl(gameId, timeoutMs) {
   if (!name) return { ok: false, error: '该彩种没有配置福彩接口' };
 
   const url = `https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=${name}&issueCount=1&issueStart=&issueEnd=&dayStart=&dayEnd=`;
-  const r = await fetchJson(url, timeoutMs);
+  const r = await fetchJsonRetry(url, timeoutMs);
   if (!r.ok) return r;
 
   const item = r.json?.result?.[0];
@@ -214,7 +240,7 @@ async function officialSporttery(gameId, timeoutMs) {
   if (!gameNo) return { ok: false, error: '该彩种没有配置体彩接口' };
 
   const url = `https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry?gameNo=${gameNo}&provinceId=0&pageSize=1&isVerify=1&pageNo=1`;
-  const r = await fetchJson(url, timeoutMs, 'https://www.lottery.gov.cn/');
+  const r = await fetchJsonRetry(url, timeoutMs, 'https://www.lottery.gov.cn/');
   if (!r.ok) return r;
 
   const item = r.json?.value?.list?.[0];
