@@ -222,7 +222,8 @@ function hcExtractTicket(gameId, vals) {
   }
 }
 
-function hc2(n) {
+function hc2(n, gid) {
+    if (['fc3d','pl3','pl5','qxc'].indexOf(gid) >= 0) return String(n);
   return String(n).padStart(2, '0');
 }
 
