@@ -1,24 +1,61 @@
-﻿// ============================================================
+// ============================================================
 //  build-jc.mjs —— 抓取体彩「竞彩」在售比赛 + 赔率
 //
 //  数据源（全部 500.com 自家，无需队名配对）：
 //    live.500.com/jczq.php          竞彩在售列表（含竞彩编号、fid）
 //    live.500.com/json/odds.php     欧赔/亚盘/大小球（初盘 + 即时）
 //
-//  产物：jc-data.js  →  const JC_DATA = {...}
+//  产物：
+//    jc-data.js     →  const JC_DATA = {...}   本次「在售」的比赛
+//    jc-history.js  →  const JC_HISTORY = {...} 已完场累积记录
+//
+//  【为什么需要 jc-history】体彩在售列表只含【还能买】的比赛，
+//  一开完赛就从列表里消失 —— 所以「已完场」如果只读 jc-data 会永远是 0。
+//  每次跑这里都会把「上次在售、这次不见了」的比赛归档进 jc-history.js
+//  （按队名+日期去 football.js 里找它的终场比分），已完场才能累积。
+//
 //  用法：node build-jc.mjs
+//        node build-jc.mjs --archive-test   （离线自测归档逻辑，不联网、不碰真数据）
 // ============================================================
 
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import {
+  archiveJcHistory, mergeHistory, trimHistory, renderHistoryJs
+} from './jc-archive.mjs';
 
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
+/* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（造夹具验证归档，见 --archive-test） */
+const ROOT = process.env.DSH_JC_ROOT
+  ? path.resolve(process.env.DSH_JC_ROOT)
+  : path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'jc-data.js');
+const HIST = path.join(ROOT, 'jc-history.js');
+const FB_JS = path.join(ROOT, 'football.js');
+
+/* 历史最多保留多少场（超了删最旧的） */
+const HIST_MAX = 200;
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
 
 const log = (...a) => console.log(...a);
+
+/* ============================================================
+   读取已有的 js 数据文件（jc-data.js / jc-history.js / football.js）
+   ============================================================ */
+function loadVar(file, varName) {
+  const p = path.isAbsolute(file) ? file : path.join(ROOT, file);
+  if (!fs.existsSync(p)) return null;
+  try {
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(p, 'utf8') + `\nglobalThis.__X = ${varName};`, c);
+    return c.__X;
+  } catch (e) {
+    log(`  ⚠️ ${path.basename(file)} 解析失败：${e.message}`);
+    return null;
+  }
+}
 
 /* ---------- 抓取 ---------- */
 async function get(url, referer, asBuffer) {
@@ -258,6 +295,52 @@ function calcReco(odds) {
 }
 
 /* ============================================================
+   3b. 归档：把「打完的比赛」存进 jc-history.js
+   ------------------------------------------------------------
+   规则：
+     ① 上次在售、这次不见了          → 开完赛（或下架）→ 尝试归档
+     ② 这次还在、但状态已是 finished → 也归档
+     ③ 去 football.js 里按「队名 + 日期」找同一场，拿它的终场比分
+     ④ 去重（编号 或 队名+日期 相同只留一条）
+     ⑤ 已有结果的记录，绝不被「没结果」的记录覆盖
+     ⑥ 按时间倒序，最多保留 HIST_MAX 场
+   ============================================================ */
+function archiveStep(oldJc, newJc, stamp) {
+  /* 旧历史（可能还没有这个文件） */
+  const oldHist = loadVar('jc-history.js', 'JC_HISTORY');
+  const oldList = (oldHist && Array.isArray(oldHist.list)) ? oldHist.list : [];
+
+  /* football.js：拿终场比分用的（全世界的比赛，含 245qq 的完场比分） */
+  const FB = loadVar('football.js', 'FOOTBALL_DATA');
+  const fbList = (FB && FB.lists)
+    ? [...(FB.lists.upcoming || []), ...(FB.lists.live || []), ...(FB.lists.finished || [])]
+    : [];
+
+  /* 这次新归档的（用来打印「本次新增 M 场」） */
+  const fresh = archiveJcHistory({
+    oldJc, newJc, history: { list: [] }, fbList, now: stamp
+  });
+  const addedNow = fresh.list.length;
+
+  /* 和旧历史合并 → 这才是最终的累积历史 */
+  const merged = mergeHistory(oldList, fresh.list);
+  const kept = trimHistory(merged.list, HIST_MAX);
+
+  const matched = kept.filter((r) => r.matched).length;
+  const withResult = kept.filter((r) => r.hit || r.result).length;
+
+  fs.writeFileSync(HIST, renderHistoryJs(kept, stamp), 'utf8');
+
+  log(`\n【归档】竞彩已完场累积`);
+  log(`  本次在售 ${newJc.games.length} 场 · 本次归档 ${addedNow} 场 · 历史累计 ${kept.length} 场`);
+  log(`  其中 ${matched} 场在 football.js 里找到终场比分 · ${withResult} 场有胜负结果`);
+  log(`  上限 ${HIST_MAX} 场（超出删最旧的）· 已写入 ${path.basename(HIST)}`);
+
+  /* 便于调用方一眼看到有没有真的累积起来 */
+  return { added: addedNow, total: kept.length, matched, withResult };
+}
+
+/* ============================================================
    主流程
    ============================================================ */
 async function main() {
@@ -265,7 +348,33 @@ async function main() {
   log('  春风十里送大奖 · 竞彩在售比赛抓取');
   log('════════════════════════════════════════════\n');
 
+  /* ============================================================
+     【离线自测】--archive-test
+     不联网、不碰真数据：在 DSH_JC_ROOT 指定的目录里放好
+       old-jc-data.js（上一次在售）/ jc-data.js（这次在售）/
+       football.js（终场比分）/ jc-history.js（旧历史，可无）
+     然后把归档逻辑跑一遍，直接产出 jc-history.js。
+     用来验收「比赛完场了就进已完场」+ 幂等。
+     ============================================================ */
+  if (process.argv.includes('--archive-test')) {
+    const oldJcT = loadVar('old-jc-data.js', 'JC_DATA');
+    const newJcT = loadVar('jc-data.js', 'JC_DATA');
+    if (!newJcT || !Array.isArray(newJcT.games)) {
+      log('❌ 缺少 newJc 夹具：' + path.join(ROOT, 'jc-data.js'));
+      process.exit(1);
+    }
+    log('【自测】归档逻辑（离线，数据目录 ' + ROOT + '）');
+    const r = archiveStep(oldJcT, newJcT, '2026-10-15 12:00');
+    const written = loadVar('jc-history.js', 'JC_HISTORY');
+    log('\n【自测】写出的 jc-history.js：');
+    log(JSON.stringify(written, null, 1));
+    log(`\n【自测】本次在售 ${newJcT.games.length} 场 / 归档 ${r.added} 场 / 历史累计 ${r.total} 场`);
+    return;
+  }
+
   log('【1/3】竞彩在售列表');
+  /* 【归档用】先把上一次的 jc-data 读出来 —— 覆盖之后就没了 */
+  const oldJc = loadVar('jc-data.js', 'JC_DATA');
   const list = await fetchJcList();
   if (!list.length) { log('  ❌ 未取到竞彩列表'); process.exit(1); }
   log(`  ✅ ${list.length} 场在售`);
@@ -345,6 +454,14 @@ async function main() {
   log(`\n✅ 已写入 ${OUT}`);
   log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分`);
   log(`   未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}`);
+
+  /* 【归档】必须在 jc-data.js 写完之后、用【旧数据 + 新数据】对比着算 */
+  try {
+    archiveStep(oldJc, { games }, stamp);
+  } catch (e) {
+    log(`\n⚠️ 归档失败（不影响本次在售数据）：${e.message}`);
+  }
+
   log(`   ${stamp}`);
 }
 
