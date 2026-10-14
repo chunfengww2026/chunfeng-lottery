@@ -388,6 +388,67 @@ function jiuzhuanLayoutOf(gameId) {
   return JIUZHUAN_LAYOUT[gameId] || null;
 }
 
+/* ---- 【每期变化的中心点】用户要求：「九宫格和九转图每一期中心点还是变一下」 ----
+   用户给的那张表里 center 是写死的（ssq=17 / dlt=18）。要在**不改表**的前提下
+   让中心每期变，用「整条 33 格序列整体轮转 rotate = 中心下标」的办法：
+
+     · 轮转量从【上期开奖号】确定性算出来（同一期 → 同一个中心，刷新不会变）
+     · 中心站哪个位置，就把整串 33 个号绕着这个位置轮转一圈：
+         位置 i 的号 = SEQ[(i - rotate + 33) % 33]
+       于是位置 0（正中心）拿到的正好是 SEQ[rotate]
+     · 其余 32 个位置的号【相对顺序完全保持用户表的原样】，只是整体转了一下，
+       所以「33 个位置 = 全部号码、无重复无遗漏」这两条永远成立
+
+   轮转量口径（可复现、可解释）：
+     数根和 = Σ getNumberRoot(上期每个号)
+     rotate = 数根和 % 33
+   取不到上期号码时 rotate = 0 → 就是用户原表（中心 = 表里的 center）。 */
+function jiuzhuanRotateOf(lastNums, size) {
+  const list = (lastNums || []).filter((n) => Number.isInteger(n));
+  const mod = size || 33;
+  if (!list.length) return 0;
+  let sum = 0;
+  list.forEach((n) => { sum += getNumberRoot(n); });
+  return ((sum % mod) + mod) % mod;
+}
+
+/** 把固定表的 33 格序列按 rotate 整体轮转（保证仍是同一批号、无重复无遗漏） */
+function rotateSeq(seq, rotate) {
+  const n = seq.length;
+  const r = ((rotate % n) + n) % n;
+  const out = [];
+  for (let i = 0; i < n; i++) out.push(seq[(i - r + n) % n]);
+  return out;
+}
+
+/**
+ * 本期九转连环盘面（中心每期变）
+ * @returns {{center:number, rings:number[][], seq:number[], rotate:number, last:number[], size:number}}
+ *          rings[ri][di] = 第 (ri+1) 圈「第 di 个方向」上的号（0=上，顺时针 45°）
+ */
+function jiuzhuanMatrixFor(gameId) {
+  return jiuzhuanMatrixFromLast(gameId, lastIssueNumsFor(gameId));
+}
+
+/**
+ * 同上，但上期开奖号由调用方给（验收/排查时可以直接喂几组号码，不动历史数据）
+ * @param {string} gameId
+ * @param {number[]} lastNums 上期开奖号（双色球 6 个红球 / 大乐透 5 个前区号）
+ */
+function jiuzhuanMatrixFromLast(gameId, lastNums) {
+  const L = jiuzhuanLayoutOf(gameId);
+  if (!L) return null;
+  const seq = [L.center].concat(...L.rings);              // 33 格，用户表的原始顺序
+  const last = (lastNums || []).filter((n) => Number.isInteger(n));
+  const rotate = jiuzhuanRotateOf(last, seq.length);
+  const rotated = rotateSeq(seq, rotate);                 // 位置 i 的号 = SEQ[(i-rotate+n)%n]
+  const rings = [];
+  for (let ri = 0; ri < L.rings.length; ri++) {
+    rings.push(rotated.slice(1 + ri * 8, 1 + ri * 8 + 8));
+  }
+  return { center: rotated[0], rings, seq, rotate, last, size: seq.length };
+}
+
 /* ============================================================
    5.6 九宫图 · 洛书 + 每期自动偏移【用户指定算法，原文照抄】
    ------------------------------------------------------------
@@ -482,9 +543,14 @@ function lastIssueNumsFor(gameId) {
     const hist = getHistory(gameId);
     if (!hist.length) return [];
     const areas = (hist[0] && hist[0].areas) || {};
-    const key = gameId === 'dlt' ? 'front' : (gameId === 'ssq' ? 'red' : 'main');
-    const arr = (areas[key] || []).filter((n) => Number.isInteger(n));
-    return arr.slice(0, gameId === 'dlt' ? 5 : 6);
+    /* 【按区名找，不按彩种名写死】
+       以前写的是 'dlt' → front / 'ssq' → red / 其它 → main，
+       七乐彩（main）碰巧对，七星彩（实际是 front + back）就永远取不到上期号
+       → 九宫图每期都不偏移、九转连环中心变成「—」。
+       现在按「这个彩种的主区叫什么」逐级回退，新增彩种不用再改这里。 */
+    const key = ['front', 'red', 'main'].find((k) => Array.isArray(areas[k]) && areas[k].length);
+    const arr = (key ? areas[key] : []).filter((n) => Number.isInteger(n));
+    return arr.slice(0, 6);
   } catch (e) { return []; }
 }
 
@@ -519,15 +585,97 @@ function jiugongGuanNums(gameId, centerPalace, from, to) {
 /** 五行号码：按尾数归类（金4/9 木3/8 水1/6 火2/7 土5/0） */
 function wuxingNumbers(from, to) {
   const T = { jin: [4, 9], mu: [3, 8], shui: [1, 6], huo: [2, 7], tu: [5, 0] };
+  /* 【0 只出一位】用户硬性要求「号码里的 0 写成单个 0，不写 00」。
+     五行号码这块用 render.js 的 numBalls → twoDigit()，它会把 0 补成 '00'，
+     所以数字型彩种（七星彩等 0 起算的区）这里就把尾数 0 的号排除掉，
+     宁可少一个「土」组的 0，也不在图上出现 00。 */
+  const showZero = from > 0;
   const out = {};
   Object.keys(T).forEach((k) => {
     const arr = [];
     for (let n = from; n <= to; n++) {
+      if (!showZero && n === 0) continue;
       if (T[k].includes(n % 10)) arr.push(n);
     }
     out[k] = arr;
   });
   return out;
+}
+
+/* ============================================================
+   6.1 五行阴阳映射【用户指定，原文照抄】
+   ------------------------------------------------------------
+   ⚠️ 用户给这份映射起的正式名字就是 `yinyangTail`（键是字符串 "0"~"9"）。
+      这里定义成 WUXING_YINYANG_TAIL 并在注释里保留用户原名，
+      避免和别处可能出现的同名变量撞车。
+   ⚠️ 尾数归类和 wuxingNumbers() 完全一致（1/6 水、2/7 火、3/8 木、
+      4/9 金、5/0 土），所以现有的「五行号码」分组【不用改】，
+      这份映射新增的是「阴阳」这一维。
+   ============================================================ */
+
+// 五行阴阳映射（用户原名：yinyangTail）
+const WUXING_YINYANG_TAIL = {
+  "1": {wx:"water", yinyang:"yang", name:"阳水"},
+  "6": {wx:"water", yinyang:"yin",  name:"阴水"},
+  "2": {wx:"fire",  yinyang:"yin",  name:"阴火"},
+  "7": {wx:"fire",  yinyang:"yang", name:"阳火"},
+  "3": {wx:"wood",  yinyang:"yang", name:"阳木"},
+  "8": {wx:"wood",  yinyang:"yin",  name:"阴木"},
+  "4": {wx:"metal", yinyang:"yin",  name:"阴金"},
+  "9": {wx:"metal", yinyang:"yang", name:"阳金"},
+  "5": {wx:"earth", yinyang:"yang", name:"阳土"},
+  "0": {wx:"earth", yinyang:"yin",  name:"阴土"}
+};
+
+/**
+ * 获取号码的五行+阴阳
+ * @param {number} num
+ */
+function getNumWuxingYinYang(num){
+  const tail = num %10;
+  // 表里的键是字符串 "0"~"9"；JS 里 obj[1] 和 obj["1"] 等价，
+  // 但这里仍用 String(tail) 显式取，避免踩坑
+  return WUXING_YINYANG_TAIL[String(tail)];
+}
+
+/**
+ * 统计阴阳数量
+ */
+function countYinYangStat(numList){
+  let yangCount = 0;
+  let yinCount =0;
+  numList.forEach(num=>{
+    const info = getNumWuxingYinYang(num);
+    if(info.yinyang === "yang") yangCount++;
+    else yinCount++;
+  })
+  return {yangCount, yinCount};
+}
+
+/** 图上那行「阳 N · 阴 M」的文案（按真实球数统计，不是号码池） */
+function yinYangLine(numList) {
+  const st = countYinYangStat(numList || []);
+  return `阳 ${st.yangCount} · 阴 ${st.yinCount}`;
+}
+
+/** 给五行行补「本行号码各自的阴阳」标记：
+    行内固定两个尾数，一个是阳一个是阴（1/6、2/7、3/8、4/9、5/0），
+    所以结果是「阳X·阴Y」；阳永远写在前面，和行里号码的排列顺序无关。 */
+function yinYangLabelOf(tailsLabel) {
+  const tails = [];
+  (String(tailsLabel || '').match(/\d/g) || []).forEach((d) => {
+    const t = Number(d);
+    if (tails.indexOf(t) < 0) tails.push(t);
+  });
+  let yang = '';
+  let yin = '';
+  tails.forEach((t) => {
+    const info = WUXING_YINYANG_TAIL[String(t)];
+    if (!info) return;
+    if (info.yinyang === 'yang') yang += t;
+    else yin += t;
+  });
+  return `阳${yang}·阴${yin}`;
 }
 
 /* ---------- 干支与神煞（传统对照表） ---------- */
@@ -671,11 +819,7 @@ function raodanBluePicks(gameId, areaKey, from, to, exclude) {
 
   /* ① 蓝球专家池，按共识度 */
   try {
-    const _dbgPool = expertPoolOf(gameId, areaKey);
-    if (typeof console !== 'undefined' && console.log && globalThis.__RAODAN_DEBUG) {
-      console.log('[RAODAN_DBG] pool=', JSON.stringify(_dbgPool), 'area=', areaKey, 'excl=', JSON.stringify([...banned]), 'want=', want);
-    }
-    _dbgPool
+    expertPoolOf(gameId, areaKey)
       .filter((n) => n >= from && n <= to)
       .forEach(push);
   } catch (e) { /* 忽略 */ }
@@ -806,6 +950,102 @@ function backRecNumbers(gameId, areaKey, n) {
   }
 }
 
+/* ============================================================
+   五行九宫这张图的「号码区」口径（新增彩种只要在 games.js 写清 areas 就对）
+   ------------------------------------------------------------
+   原来这三个值是写死在 autoFillWuxing 里的（1 / dlt?35:33 / dlt?front:red），
+   只对双色球、大乐透成立。七乐彩（1~30）会多铺 31/32/33；
+   七星彩（前六位 0~9 + 最后一位 0~14）整个结构都对不上。
+   统一成"读 games.js 的 areas"后：
+     · 七乐彩  → main 1~30
+     · 七星彩  → front 0~9
+   ============================================================ */
+const WUXING_AREA_OVERRIDE = {
+  /* 双色球：红球（areas[0] 本来就是 red，写在这里只是把口径写明 */
+  ssq: { area: 'red', from: 1, to: 33 },
+  /* 大乐透：前区 */
+  dlt: { area: 'front', from: 1, to: 35 }
+};
+
+/** 五行/九转/九宫这张图用的主号码区 */
+function wuxingAreaOf(gameId) {
+  const o = WUXING_AREA_OVERRIDE[gameId];
+  if (o) return o;
+  const g = (typeof GAMES !== 'undefined' && GAMES) ? GAMES[gameId] : null;
+  const a = (g && Array.isArray(g.areas) && g.areas[0]) || null;
+  if (a && Number.isInteger(a.from) && Number.isInteger(a.to)) {
+    return { area: a.key, from: a.from, to: a.to };
+  }
+  return { area: 'main', from: 1, to: 33 };
+}
+
+/** 后区 / 特别号 的区名（绕胆图「蓝球/后区关注」和它的号码范围都按这个来） */
+function backAreaOf(gameId) {
+  return { ssq: 'blue', dlt: 'back', qxc: 'back', qlc: 'special' }[gameId]
+    || (gameId === 'dlt' ? 'back' : 'blue');
+}
+
+/** 后区 / 特别号 的号码范围（同 consRangeOf，但七乐彩特别号是 1~30） */
+function backRangeOf(gameId) {
+  const per = {
+    ssq:  [1, 16],
+    dlt:  [1, 12],
+    qlc:  [1, 30],
+    qxc:  [0, 14]
+  }[gameId];
+  if (per) return per;
+  const g = (typeof GAMES !== 'undefined' && GAMES) ? GAMES[gameId] : null;
+  const a = (g && Array.isArray(g.areas) && g.areas[1]) || null;
+  if (a && Number.isInteger(a.from) && Number.isInteger(a.to)) return [a.from, a.to];
+  return [1, 16];
+}
+
+/** 「蓝球 / 后区 / 特别号」这一区每期真实开出几个号 */
+function backPickCountOf(gameId, fallback) {
+  const n = AREA_PICK_COUNT[gameId] ? AREA_PICK_COUNT[gameId][backAreaOf(gameId)] : 0;
+  return (Number.isInteger(n) && n > 0) ? n : (fallback || 1);
+}
+
+/**
+ * 九转连环「通用铺号」（只给【没有 JIUZHUAN_LAYOUT 固定表】的彩种用）
+ *   几何完全是 ssq / dlt 那一套：位置 0 = 中心，位置 1~32 = 第 1~4 圈
+ *   各 8 个方向（0=上，顺时针 45°）。
+ *   号：按本彩种主区范围 [from,to] 升序循环铺满 33 格。
+ *   轮转：本彩种顺序里的上期开奖号 → 每个号取「数根」→ 求和 → mod 33，
+ *        让中心每期跟着开奖号变（和 ssq / dlt 的轮转是同一个思路）。
+ * @returns {object} cir_num_center / cir_num_01~32 / cir_center / cir_0~7
+ */
+function genericCircleNums(gameId, from, to, jzNow) {
+  const cand = [];
+  for (let n = from; n <= to; n++) cand.push(n);
+  const out = {};
+  if (!cand.length) return out;
+
+  const SIZE = 33;
+
+  /* 从大到小铺：这样位置 0（中心）拿到的是范围里最大的号，接近 ssq/dlt
+     中心在 16~18 的位置感，不会一开图中心就是 0 或 01。 */
+  const desc = cand.slice().reverse();
+  const nums = [];
+  for (let i = 0; i < SIZE; i++) nums.push(desc[i % desc.length]);
+
+  const last = (jzNow && Array.isArray(jzNow.last)) ? jzNow.last : [];
+  const rot = last.length
+    ? (last.reduce((s, n) => s + getNumberRoot(n), 0) % SIZE)
+    : 0;
+  if (rot) {
+    const tail = nums.splice(SIZE - rot, rot);
+    nums.unshift.apply(nums, tail);
+  }
+
+  out.cir_num_center = pad2(nums[0]);
+  for (let i = 1; i < SIZE; i++) out['cir_num_' + i] = pad2(nums[i]);
+  /* 旧键（存档里可能还带着）：中心 + 第 1 圈 8 个方向 */
+  out.cir_center = pad2(nums[0]);
+  for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(nums[1 + i]);
+  return out;
+}
+
 /**
  * 五行九宫模板的自动填充
  * @param {string} gameId
@@ -836,9 +1076,17 @@ function autoFillWuxing(gameId, opts) {
   out.badge4 = dirs['贵神'];
   out.badge5 = dirs['冲煞'];
 
-  /* ---- 五行号码 ---- */
-  const from = 1;
-  const to = gameId === 'dlt' ? 35 : 33;
+  /* ---- 号码范围 / 五行号码 ----
+     【不要再按彩种名写死】以前是 from=1、to = dlt ? 35 : 33、areaKey = dlt ? front : red，
+     只对双色球（1~33 红球）和大乐透（1~35 前区）成立：
+       · 七乐彩 1~30 会被铺出 31/32/33 这三个根本不存在的号；
+       · 七星彩主区是 0~9 的数位，「红球 1~33」和它的开奖结构完全对不上。
+     现在统一走「这个彩种的 areas[0]」+ 一个可覆盖表（和 AREA_PICK_COUNT 同口径），
+     新增彩种只要在 games.js 里写清 areas 就自动正确。 */
+  const hs = wuxingAreaOf(gameId);
+  const from = hs.from;
+  const to = hs.to;
+  const areaKey = hs.area;
   const wx = wuxingNumbers(from, to);
   out.e_jin = wx.jin.map(pad2).join(' ');
   out.e_mu = wx.mu.map(pad2).join(' ');
@@ -846,9 +1094,17 @@ function autoFillWuxing(gameId, opts) {
   out.e_huo = wx.huo.map(pad2).join(' ');
   out.e_tu = wx.tu.map(pad2).join(' ');
 
+  /* ---- 五行阴阳（用户指定的 yinyangTail 映射） ----
+     分组不变（上面五行那 5 行原样），这里只多两件事：
+       · 每行标出该行两个尾数各自的阴阳（模板里五行元素的 tailsLabel 就是标记来源）
+       · 按【真实球数】统计本期推荐号的阳/阴（双色球红球 6、大乐透前区 5，
+         不是号码池那 20 个）—— 用 countYinYangStat() */
+  const yyPickN = areaPickCount(gameId, areaKey, (to - from + 1) >= 30 ? 6 : 3);
+  const yyNums = recommendNumbers(gameId, areaKey, yyPickN, from, to);
+  out.wx_yy = yinYangLine(yyNums);
+
   /* ---- 尾数旺弱（近 30 期真实频次） ---- */
   const hist = getHistory(gameId);
-  const areaKey = gameId === 'dlt' ? 'front' : 'red';
   const tail = new Array(10).fill(0);
   hist.slice(0, 30).forEach((d) => {
     ((d.areas && d.areas[areaKey]) || []).forEach((n) => tail[n % 10]++);
@@ -865,9 +1121,9 @@ function autoFillWuxing(gameId, opts) {
      三段天然互斥）；蓝球单独从蓝球池取，且排除「蓝球推荐」的号。
      【单一来源】blueRec 优先用 autoFillForTemplate 传进来的那一份，
      保证「图一印出来的蓝球推荐」和「绕胆图避开的蓝球」是同一批号。 */
-  const pool = recommendNumbers(gameId, areaKey, 16, from, to);
-  const backKey = gameId === 'dlt' ? 'back' : 'blue';
-  const backRange = gameId === 'dlt' ? [1, 12] : [1, 16];
+  const pool = recommendNumbers(gameId, areaKey, Math.min(16, to - from + 1), from, to);
+  const backKey = backAreaOf(gameId);
+  const backRange = backRangeOf(gameId);
   const blueRec = (opts && Array.isArray(opts.backRec) && opts.backRec.length)
     ? opts.backRec
     : backRecNumbers(gameId, backKey, 6);                // 「蓝球推荐」那 6 个
@@ -884,27 +1140,42 @@ function autoFillWuxing(gameId, opts) {
 
   /* ---- 九转连环（固定同心圆模板：中心 1 + 4 圈 × 8 方向 = 33 个位置） ----
      用户原话：「九转连环图必须是这种模板还要有号码」。
-     · 33 个位置固定不变，号从 JIUZHUAN_LAYOUT 里取（不随出号变化）
+     · 33 个位置固定不变，号从 JIUZHUAN_LAYOUT 里取，但【整串 33 格按上期开奖号
+       整体轮转】—— 用户补的要求：「九宫格和九转图每一期中心点还是变一下」。
+       轮转后中心每期变，其余 32 格的相对顺序保持用户表的原样；
+       33 个位置仍然是「全部号码、无重复无遗漏」（见 jiuzhuanMatrixFor）。
      · 推荐的号只用来【高亮】：cir_pool（号码池）· cir_dan（金胆/银胆）·
        cir_tuo（拖码），口径都走 recommendNumbers（专家池/资料池优先），
        和图一的号码池、图二的绕胆图同一套池子
      · 旧键 cir_center / cir_0~7 保留（存档里可能还带着），值改成模板里的真号 */
   const jzLayout = jiuzhuanLayoutOf(gameId);
-  if (jzLayout) {
-    out.cir_center = pad2(jzLayout.center);
-    for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(jzLayout.rings[0][i]);
+  const jzNow = jiuzhuanMatrixFor(gameId);
+  if (jzLayout && jzNow) {
+    out.cir_center = pad2(jzNow.center);
+    for (let i = 0; i < 8; i++) out['cir_' + i] = pad2(jzNow.rings[0][i]);
 
-    /* 位置号 = 模板里那一格原本写的号：
-         位置 0        → 中心
+    /* 位置号 = 本期盘面里那一格原本写的号：
+         位置 0        → 中心（每期轮转，会变）
          位置 1+ri*8+di → 第 (ri+1) 圈的「第 di 个方向」（0=上，顺时针 45°）
-       所以 cir_num_01 是第 1 圈上方的号（双色球=16），不是「号 01」。
-       render.js 按位置号取号 → 位置画在几何点上、号来自模板表。 */
-    out.cir_num_center = pad2(jzLayout.center);
-    for (let ri = 0; ri < jzLayout.rings.length; ri++) {
-      for (let di = 0; di < jzLayout.rings[ri].length; di++) {
-        out['cir_num_' + (1 + ri * 8 + di)] = pad2(jzLayout.rings[ri][di]);
+       所以 cir_num_01 是第 1 圈上方的号（rotate=0 时双色球=16），不是「号 01」。
+       render.js 按位置号取号 → 位置画在几何点上、号来自本期盘面。 */
+    out.cir_num_center = pad2(jzNow.center);
+    for (let ri = 0; ri < jzNow.rings.length; ri++) {
+      for (let di = 0; di < jzNow.rings[ri].length; di++) {
+        out['cir_num_' + (1 + ri * 8 + di)] = pad2(jzNow.rings[ri][di]);
       }
     }
+    out.cir_rotate = String(jzNow.rotate);                 // 本期轮转量（排查用）
+  }
+
+  /* 【通用兜底】没有 JIUZHUAN_LAYOUT 的彩种（模板表只有 ssq / dlt 两张，
+     是用户逐字给的固定表，不补不改）。
+     照「用和 ssq / dlt 相同的图位定义」办：位置/圈数/方向全部一样
+     （中心 1 + 4 圈 × 8 方向 = 33 格），只是格子里的号按本彩种主区的
+     号码范围循环铺 —— 保证图上【没有一个空格、也没有一个「—」】。
+     ssq / dlt 不受影响（它们走上面那一支，值一模一样）。 */
+  if (!jzLayout) {
+    Object.assign(out, genericCircleNums(gameId, from, to, jzNow));
   }
 
   const cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
@@ -931,6 +1202,41 @@ function autoFillWuxing(gameId, opts) {
        所以 0 显示成 '0'；其它个位数仍然补零（1 -> '01'、4 -> '04'）。 */
   const pad2 = (n) => (Number(n) === 0 ? '0' : String(n).padStart(2, '0'));
 const toLine = (arr) => arr.map(pad2).join(' ');
+
+/**
+ * 模板里「后区/蓝球/特别号 推荐」那一格写的是几个号
+ *   模板写 count 就用它（双色球 6、大乐透 2、七星彩 1）；
+ *   模板没写 → 用该区真实球数兜底。
+ *   为什么必须从模板读：这个字段既是「图上印出来的推荐」，
+ *   又是绕胆图「蓝球关注」的排除名单，两处必须同一个个数。
+ */
+function templateBackFieldCount(gameId, imageKey, fallback) {
+  try {
+    const tpl = (typeof TEMPLATES !== 'undefined') ? TEMPLATES[gameId] : null;
+    if (!tpl) return fallback;
+    const img = tpl.images.find((i) => i.key === imageKey) || tpl.images[0];
+    if (!img) return fallback;
+    let found = 0;
+    const walk = (sec) => {
+      if (!sec || typeof sec !== 'object' || found) return;
+      const joined = [sec.title || '']
+        .concat((sec.fields || []).map((f) => f.label || ''))
+        .join(' ');
+      if (/后区|蓝球|特别号/.test(joined) && Array.isArray(sec.fields)) {
+        sec.fields.forEach((f) => {
+          if (found) return;
+          if (String(f.label || '').includes('推荐') && Number.isInteger(f.count) && f.count > 0) {
+            found = f.count;
+          }
+        });
+      }
+      if (sec.left) walk(sec.left);
+      if (sec.right) walk(sec.right);
+    };
+    (img.sections || []).forEach(walk);
+    return found || fallback;
+  } catch (e) { return fallback; }
+}
 
 /** 把历史里某个区的号码按「期」取出来（最新在前） */
 function historyAreas(gameId, areaKey, periods) {
@@ -1255,22 +1561,30 @@ function deriveFromPicks(nums, from, to) {
 }
 
 /* ---------- 和值（区间 = 统计窗口内真实取值范围） ---------- */
-function calcSum(areas) {
+function calcSum(areas, hardMax) {
   const sums = areas.map((a) => a.reduce((x, y) => x + y, 0)).sort((a, b) => a - b);
   if (!sums.length) return '';
   /* 【和值必须是区间】用户原话：
        「双色球和大乐透的和值 是多少到多少 区间宽度在25和25以内」
      所以：非数字彩（双色球/大乐透/七乐彩/快乐8）返回「X~Y」区间，宽度 ≤ 25。
-     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里） */
-  return compactRange(sums, 25, 25);
+     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里）
+
+     hardMax：可选【更紧的】硬上限，给号码范围很小的玩法用 ——
+     七星彩前六位是 6 个 0~9 的数位，30 期真实和值本身就能从 10 拉到 48，
+     按 25 的硬上限会给出「11~36」这种宽到没参考价值的区间；
+     模板里把宽度标成 8，这里就贴着中位数收成「24~32」。
+     不传 = 保持原来的 25（双色球/大乐透/七乐彩/快乐8 完全不变）。 */
+  const w = (Number.isFinite(hardMax) && hardMax > 0) ? hardMax : 25;
+  return compactRange(sums, w, w);
 }
 
 /* ---------- 跨度（区间 = 统计窗口内真实取值范围） ---------- */
-function calcSpan(areas) {
+function calcSpan(areas, hardMax) {
   const spans = areas.map((a) => Math.max(...a) - Math.min(...a)).sort((a, b) => a - b);
   if (!spans.length) return '';
-  /* 同理：跨度也收在 15 以内 */
-  return compactRange(spans, 15, 15);
+  /* 同理：跨度也收在 15 以内（可选更紧的硬上限，见 calcSum 注释） */
+  const w = (Number.isFinite(hardMax) && hardMax > 0) ? hardMax : 15;
+  return compactRange(spans, w, w);
 }
 
 /**
@@ -1632,9 +1946,17 @@ function digitFooterTop(areas, kind, n) {
   return out.slice(0, n);
 }
 
-function calcTrendFields(gameId, areaKey, from, to, pickCount) {
+function calcTrendFields(gameId, areaKey, from, to, pickCount, opts) {
   const areas = historyAreas(gameId, areaKey, 30);
   if (!areas.length) return {};
+
+  /* 【区间宽度】模板可以为「和值 / 跨度」两个字段各标一个宽度上限（w / kdW）。
+     不标 = 沿用原来的 25 / 15（双色球、大乐透、七乐彩、快乐8 一个字都不变）。
+     标了 = 号码范围很小的玩法（七星彩前六位 0~9）能收紧成更有参考价值的区间。 */
+  const o = opts || {};
+  const hzW = (Number.isFinite(o.w) && o.w > 0) ? o.w : 25;
+  const kdW = (Number.isFinite(o.kdW) && o.kdW > 0) ? o.kdW
+    : ((Number.isFinite(o.w) && o.w > 0) ? Math.min(15, o.w) : 15);
 
   const pool = expertPoolOf(gameId, areaKey).filter((n) => n >= from && n <= to);
   const poolSet = new Set(pool);
@@ -1681,8 +2003,8 @@ function calcTrendFields(gameId, areaKey, from, to, pickCount) {
          · 号码个数必须等于该玩法该区的真实球数（双色球红球 6、大乐透前区 5…）。
        号码池有 20 个号，用池子自身的构成会写出「8奇12偶」这种
        和玩法对不上的指标；用「开奖号 ∩ 池子」又会把区间压窄到盖不住最近开奖。 */
-    hz:      calcSum(areas),
-    kd:      calcSpan(areas),
+    hz:      calcSum(areas, hzW),
+    kd:      calcSpan(areas, kdW),
     jq:      calcOddEven(areas, pickCount),
     dx:      calcBigSmall(areas, from, to, pickCount),
     qjb:     calcZone(areas, from, to, pickCount),
@@ -2447,6 +2769,31 @@ function autoFillForTemplate(gameId, imageKey) {
   const img = tpl.images.find((i) => i.key === imageKey) || tpl.images[0];
   const out = {};
 
+  /* ---- 【字段级宽度】模板里给「和值 / 跨度」标的区间宽度上限 ----
+     模板写法：{ key: 'hz', label: '前区和值', w: 8 }（w / kdW，不写就沿用 25 / 15）。
+     为什么放在模板里：号码范围小的玩法（七星彩前六位 0~9）25 的宽度会给出
+     「11~36」这种没参考价值的区间；把它标在字段上，这张图要用多宽一目了然，
+     也不用在 stats.js 里按彩种名写 if。 */
+  const fieldWidths = {};
+  {
+    const scan = (sec) => {
+      if (!sec || typeof sec !== 'object') return;
+      if (Array.isArray(sec.fields)) {
+        sec.fields.forEach((f) => {
+          if (!f || !f.key) return;
+          if (Number.isFinite(f.w) && f.w > 0) {
+            fieldWidths[f.key] = f.w;
+            if (f.key === 'hz') fieldWidths.w = f.w;      // calcTrendFields 读 w
+          }
+          if (Number.isFinite(f.kdW) && f.kdW > 0) fieldWidths.kdW = f.kdW;
+        });
+      }
+      if (sec.left) scan(sec.left);
+      if (sec.right) scan(sec.right);
+    };
+    (img.sections || []).forEach(scan);
+  }
+
   /* ---- 「蓝球推荐 / 后区推荐」那批号：整张图只算一次 ----
      两个用处：① 图一上印出来的「蓝球推荐」字段值
               ② 绕胆图的蓝球关注要避开它（用户：「蓝球不要在推荐里面选」）
@@ -2454,12 +2801,16 @@ function autoFillForTemplate(gameId, imageKey) {
      「图上印的推荐」和「绕胆图避开的推荐」是两批号。
      （没有历史数据时 recommendNumbers 会走随机兜底，
        算两次就会得到两个不同的结果，所以必须只算一次。） */
-  const backArea = (gameId === 'dlt') ? 'back' : 'blue';
-  const backN = gameId === 'dlt' ? 2 : 6;
-  const backRec = (gameId === 'ssq' || gameId === 'dlt')
-    ? backRecNumbers(gameId, backArea, backN)
-    : [];
-  /* 蓝球/后区推荐字段的个数（双色球 6、大乐透 2） */
+  const backArea = backAreaOf(gameId);
+  const backN = backPickCountOf(gameId, 6);
+  /* 【推荐号个数】双色球「蓝球推荐」6 个、大乐透「后区推荐」2 个、
+     七星彩「后区推荐」1 个 —— 都从模板里读，模板没写才用真实球数兜底。
+     以前这里写死「不是 dlt 就是 6」，七星彩会印出 6 个「后区推荐」号，
+     和「最后一位只开 1 个号」的玩法对不上。 */
+  const backFieldN = templateBackFieldCount(gameId, 'main', backN);
+  const hasBackRec = !!AREA_PICK_COUNT[gameId] && !!AREA_PICK_COUNT[gameId][backArea];
+  const backRec = hasBackRec ? backRecNumbers(gameId, backArea, backFieldN) : [];
+  /* 蓝球/后区推荐字段的个数 */
   const backRecN = backRec.length;
 
   // 五行 / 绕胆 / 九转 / 九宫 这张图用专用填充
@@ -2467,11 +2818,13 @@ function autoFillForTemplate(gameId, imageKey) {
     Object.assign(out, autoFillWuxing(gameId, { backRec }));
   }
 
-  // 号码范围表（按彩种）
+    /* ---- 号码范围表（按彩种）----
+       qlc 的「特别号」是 1~30（不是蓝球 1~16）：autoFillWuxing / 绕胆图
+       都要按这个范围取号，否则会取出根本不存在的号。 */
   const RANGE = {
     ssq:  { red: [1, 33], blue: [1, 16], main: [1, 30] },
     dlt:  { front: [1, 35], back: [1, 12] },
-    qlc:  { main: [1, 30] },
+    qlc:  { main: [1, 30], special: [1, 30] },
     kl8:  { main: [1, 80] },
     fc3d: { main: [0, 9] },
     pl3:  { main: [0, 9] },
@@ -2507,6 +2860,15 @@ function autoFillForTemplate(gameId, imageKey) {
       areaKey = isBack ? 'back' : 'front';
       range = isBack ? [0, 14] : [0, 9];
       pickCount = areaPickCount(gameId, areaKey, isBack ? 1 : 6);
+    } else if (gameId === 'qlc') {
+      /* 七乐彩两个区：基本号（1~30 选 7）+ 特别号（1~30 选 1）。
+         以前这里一律落进最后的 else → areaKey='main'，
+         所以「特别号走势分析」实际算的是基本号的走势（数字全错）。
+         判断口径和 consAreaOf 保持一致：标题/字段名里带「特别号」就是 special。 */
+      const isSpecial = /特别号/.test(joined);
+      areaKey = isSpecial ? 'special' : 'main';
+      range = (rng[areaKey]) || [1, 30];
+      pickCount = areaPickCount(gameId, areaKey, isSpecial ? 1 : 7);
     } else {
       areaKey = 'main';
       range = (rng.main) || [1, 33];
@@ -2516,7 +2878,7 @@ function autoFillForTemplate(gameId, imageKey) {
 
     /* ---- 走势分析字段：全部自动算 ---- */
     if (sec.fields) {
-      const trend = calcTrendFields(gameId, areaKey, range[0], range[1], pickCount);
+      const trend = calcTrendFields(gameId, areaKey, range[0], range[1], pickCount, fieldWidths);
 
       // 先算出「推荐号」——奇偶/大小/012路 都要跟着它走
       // 【关键】号码个数 = 该玩法该区的真实球数（双色球红球 6、大乐透前区 5……）
@@ -2524,27 +2886,42 @@ function autoFillForTemplate(gameId, imageKey) {
       const zoneSize = range[1] - range[0] + 1;
       const recCap = areaPickCount(gameId, areaKey, pickCount);
       const recN = Math.min(recCap, zoneSize);
-      /* 【单一来源】蓝球/后区「推荐」用上面算好的那一份 ——
-         绕胆图避开的就是它，两处必须同源 */
+      /* 【单一来源】蓝球/后区「推荐」用上面算好的那一份（双色球 6 个、大乐透 2 个）——
+         绕胆图避开的正是它，两处必须同源。
+         注意：`recN` 是「该区真实球数」（蓝球 1、后区 2），
+         只用来算奇偶/大小/012路；「蓝球推荐」这个字段的个数看模板，
+         这里不能拿 recN 去截 backRec，否则字段会只剩 1 个号。 */
       const isBackArea = (gameId === 'ssq' && areaKey === 'blue')
-        || (gameId === 'dlt' && areaKey === 'back');
+        || (gameId === 'dlt' && areaKey === 'back')
+        /* 七星彩「后区」（最后一位）和七乐彩「特别号」也走这份唯一来源，
+           绕胆图的「后区/特别号关注」避开的正是它 */
+        || (gameId === 'qxc' && areaKey === 'back');
       const recNums = (isBackArea && backRec.length)
-        ? backRec.slice(0, recN)
+        ? backRec.slice()
         : recommendNumbers(gameId, areaKey, recN, range[0], range[1]);
 
       /* 推荐号的衍生指标：只看「真实球数」那一批号码
          双色球红球 6 个 → 写 6 个号的奇偶/大小/012路；
          大乐透前区 5 个 → 写 5 个号；蓝球 1 个、后区 2 个同理。
          不能拿「号码池自身的构成」来写 —— 池子有 20 个号，
-         会写出「8奇12偶」这种和玩法对不上的指标。 */
-      const derived = deriveFromPicks(recNums, range[0], range[1]);
+         会写出「8奇12偶」这种和玩法对不上的指标。
+         注意：blue 区的 recNums 可能是 6 个（「蓝球推荐」字段要 6 个），
+         但指标只能按真实球数 1 个算 —— 所以这里必须 slice(0, recN)。 */
+      const derived = deriveFromPicks(recNums.slice(0, recN), range[0], range[1]);
 
       sec.fields.forEach((f) => {
         const L = f.label;
 
         // 推荐号本身
         if (L.includes('推荐')) {
-          out[f.key] = recNums.map(pad2).join(' ');
+          /* 蓝球/后区推荐：直接用上面那份【唯一来源】——
+             绕胆图避开的正是它，两处必须是同一批号
+             （没有历史数据时 recommendNumbers 会走随机兜底，
+               这里再算一次就会和绕胆图避开的名单对不上）。
+             个数按模板来（双色球 6、大乐透 2），不按 recN（真实球数 1/2）。 */
+          out[f.key] = (isBackArea && backRec.length)
+            ? backRec.map(pad2).join(' ')
+            : recNums.map(pad2).join(' ');
           return;
         }
         // 热号：近 30 期出现最多
