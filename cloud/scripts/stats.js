@@ -227,20 +227,20 @@ function coldNumbers(gameId, areaKey, n, rangeFrom, rangeTo, periods) {
  */
 function hotRankStrings(gameId, areaKey, n, periods) {
   return hotNumbers(gameId, areaKey, n, periods)
-    .map((h) => `${String(h.num).padStart(2, '0')}出现${h.count}次`);
+    .map((h) => `${Number(h.num) === 0 ? '0' : String(h.num).padStart(2, '0')}出现${h.count}次`);
 }
 
 /** 生成「热号」一行文字 */
 function hotLine(gameId, areaKey, n, periods) {
   return hotNumbers(gameId, areaKey, n, periods)
-    .map((h) => String(h.num).padStart(2, '0'))
+    .map((h) => (Number(h.num) === 0 ? '0' : String(h.num).padStart(2, '0')))
     .join(' ');
 }
 
 /** 生成「冷号」一行文字 */
 function coldLine(gameId, areaKey, n, from, to, periods) {
   return coldNumbers(gameId, areaKey, n, from, to, periods)
-    .map((h) => String(h.num).padStart(2, '0'))
+    .map((h) => (Number(h.num) === 0 ? '0' : String(h.num).padStart(2, '0')))
     .join(' ');
 }
 
@@ -516,7 +516,9 @@ function autoFillWuxing(gameId) {
   return out;
 }
 
-const pad2 = (n) => String(n).padStart(2, '0');
+/* 【补零规则】用户要求：「不要两个 0，所有的 0 都是一位数 0」
+       所以 0 显示成 '0'；其它个位数仍然补零（1 -> '01'、4 -> '04'）。 */
+  const pad2 = (n) => (Number(n) === 0 ? '0' : (Number(n) === 0 ? '0' : String(n).padStart(2, '0')));
 const toLine = (arr) => arr.map(pad2).join(' ');
 
 /** 把历史里某个区的号码按「期」取出来（最新在前） */
@@ -1285,26 +1287,26 @@ function autoSummary(gameId) {
   const hot = hotNumbers(gameId, cfg.area, 6, periods);
   const cold = coldNumbers(gameId, cfg.area, 6, cfg.from, cfg.to, periods);
 
-  const fmt = (arr) => arr.map((x) => String(x.num).padStart(2, '0')).join(' ');
+  const fmt = (arr) => arr.map((x) => (Number(x.num) === 0 ? '0' : String(x.num).padStart(2, '0'))).join(' ');
 
   const lines = [];
   lines.push(`统计范围：最近 ${periods} 期真实开奖数据`);
-  lines.push(`上期${cfg.name}：${nums.map((n) => String(n).padStart(2, '0')).join(' ')}`);
+  lines.push(`上期${cfg.name}：${nums.map((n) => (Number(n) === 0 ? '0' : String(n).padStart(2, '0'))).join(' ')}`);
   lines.push(`热号（出现最多）：${fmt(hot)}`);
   lines.push(`冷号（出现最少）：${fmt(cold)}`);
 
   // 附加：其他区的热号（双色球蓝球 / 大乐透后区 / 七星彩后区）
   if (gameId === 'ssq') {
     const bh = hotNumbers(gameId, 'blue', 4, periods);
-    if (bh.length) lines.push(`蓝球热号：${bh.map((x) => String(x.num).padStart(2, '0')).join(' ')}`);
+    if (bh.length) lines.push(`蓝球热号：${bh.map((x) => (Number(x.num) === 0 ? '0' : String(x.num).padStart(2, '0'))).join(' ')}`);
   }
   if (gameId === 'dlt') {
     const bh = hotNumbers(gameId, 'back', 4, periods);
-    if (bh.length) lines.push(`后区热号：${bh.map((x) => String(x.num).padStart(2, '0')).join(' ')}`);
+    if (bh.length) lines.push(`后区热号：${bh.map((x) => (Number(x.num) === 0 ? '0' : String(x.num).padStart(2, '0'))).join(' ')}`);
   }
   if (gameId === 'qxc') {
     const bh = hotNumbers(gameId, 'back', 4, periods);
-    if (bh.length) lines.push(`后区热号：${bh.map((x) => String(x.num).padStart(2, '0')).join(' ')}`);
+    if (bh.length) lines.push(`后区热号：${bh.map((x) => (Number(x.num) === 0 ? '0' : String(x.num).padStart(2, '0'))).join(' ')}`);
   }
 
   lines.push('');
@@ -2204,7 +2206,7 @@ function autoFillForTemplate(gameId, imageKey) {
     {
       const lo = range[0];
       const hi = range[1];
-      const pad2s = (x) => String(x).padStart(2, '0');
+      const pad2s = (x) => (Number(x) === 0 ? '0' : String(x).padStart(2, '0'));
 
       // 组选：从该区挑 N 个不同号
       if (sec.groupRow) {
@@ -2262,7 +2264,7 @@ function autoFillForTemplate(gameId, imageKey) {
         }
         if (L.includes('杀号') || K === 'sh') {
           out[f.key] = autoKillNumbers(gameId, areaKey, 3, range[0], range[1], 30)
-            .map((x) => String(x).padStart(2, '0')).join(' ');
+            .map((x) => (Number(x) === 0 ? '0' : String(x).padStart(2, '0'))).join(' ');
           return;
         }
         // 其他：给个占位，避免整行空着
