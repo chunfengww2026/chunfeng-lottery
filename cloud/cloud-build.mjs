@@ -24,6 +24,9 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+/* 【最新开奖】从 draws.js 取各彩种最新一期开奖，写进 out/tickets.json 的 draws 字段。
+   分享页拿到它就能就地重画顶部「最新开奖」区块（和 export-cloud-tickets.mjs 同一份实现）。 */
+import { drawsFromDrawData } from './scripts/export-draws.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 /* 所有模块（games.js / build-*.mjs 等）都放在 scripts/ 子目录里 */
@@ -954,7 +957,9 @@ function main() {
 /* ---------- 发布本期的号码 JSON（out/tickets.json） ----------
    两个用途：
      1. 分享页（out/index.html）启动后拉它 → 拉到新的就地重渲染，
-        不用等云端重新构建整个页面（准实时同步的核心）
+        不用等云端重新构建整个页面（准实时同步的核心）。
+        现在里面还带了 draws（各彩种最新一期开奖）——
+        分享页顶部「最新开奖」区块以前是静态预渲染的，拿到它就能就地更新。
      2. 本机程序 cloud-pull.js 下载它，把云端号码同步回本机
    所以它在【生成网页之前】就要写好：网页渲染失败也不影响号码更新。 */
 function publishTicketsJson() {
@@ -967,16 +972,28 @@ function publishTicketsJson() {
     vm.runInContext(fs.readFileSync(savedNow, 'utf8') + '\nglobalThis.__S = SAVED_TICKETS;', c2);
     const S = c2.__S || {};
 
+    /* 各彩种最新一期开奖：字段格式与 draws.js 里的完全一致
+       （从同一个 scripts/ 目录取，和生成网页用的是同一份数据） */
+    let draws = {};
+    try {
+      draws = drawsFromDrawData(MOD) || {};
+    } catch (e) {
+      log(`  ⚠️ 读取开奖数据失败（tickets.json 里不带 draws）：${String(e.message).slice(0, 120)}`);
+      draws = {};
+    }
+
     const payload = {
       updated: S.updated || stamp(),
       publishedAt: new Date().toISOString(),
       source: 'cloud',
       note: '云端自动生成的推荐号码，本机程序会自动下载并采用；分享页也会拉它做准实时更新',
-      tickets: S.tickets || {}
+      tickets: S.tickets || {},
+      draws: draws
     };
 
     fs.writeFileSync(path.join(OUT, 'tickets.json'), JSON.stringify(payload), 'utf8');
-    log(`  tickets.json 已发布（${Object.keys(payload.tickets).length} 个彩种，updated=${payload.updated}）`);
+    log(`  tickets.json 已发布（${Object.keys(payload.tickets).length} 个彩种，` +
+        `${Object.keys(draws).length} 个彩种的开奖号码，updated=${payload.updated}）`);
   } catch (e) {
     log(`  发布 tickets.json 失败：${e.message}`);
   }
