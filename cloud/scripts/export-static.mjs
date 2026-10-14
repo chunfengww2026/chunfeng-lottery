@@ -836,7 +836,8 @@ const RO_RENDER_SCRIPT = `
          服务器生成时已经判断过一次，但页面会被缓存/长期挂在网上 ——
          第二天打开同一张页面时，昨天的热力图必须自动消失。
          判断口径：heatmap-data.js 里的 shouldShowHeatmap
-         （数据必须是今天的 + 今天是开奖日 + 已过北京时间 18:00）。
+         （数据必须是今天的 + 今天是开奖日 + 已过北京时间 18:00 +
+           还没到窗口结束的 20:00 / 21:00）。
          ============================================================ */
       if (slot.getAttribute('data-image') === 'heatmap') {
         var hg = slot.getAttribute('data-game');
@@ -845,7 +846,14 @@ const RO_RENDER_SCRIPT = `
           show = (typeof shouldShowHeatmap === 'function') && shouldShowHeatmap(hg);
         } catch (e) { show = false; }
         if (!show) {
-          /* 整块拿掉，不留占位、不留空白 */
+          /* 【顶部区块里的那一张不能在这里删】
+             现在热力图只出现在 #ro-latest 区块里，把这个图位删掉只会
+             留下一个空区块。交给 refreshLatestBlock 换成「最新开奖」。 */
+          if (isBlockHeatSlot(slot)) {
+            try { refreshLatestBlock(true); } catch (e3) { /* 忽略 */ }
+            continue;
+          }
+          /* 老页面缓存下来的、彩种区块里的热力图 → 整块拿掉，不留占位、不留空白 */
           try {
             if (slot.parentNode && slot.parentNode.removeChild) slot.parentNode.removeChild(slot);
             else slot.style.display = 'none';
@@ -931,6 +939,15 @@ const RO_RENDER_SCRIPT = `
       var m = latestBlockMode();
       return m.mode + (m.gameId ? ':' + m.gameId : '');
     } catch (e) { return ''; }
+  }
+
+  /**
+   * 这个热力图图位就是【顶部区块里那一张】吗？
+   * 现在热力图只出现在 #ro-latest 里（彩种区块不再重复出），
+   * 所以「当前形态里的那个彩种」就是它 —— 用来避免把顶部区块删成空白。
+   */
+  function isBlockHeatSlot(slot) {
+    return blockModeKey() === 'heatmap:' + slot.getAttribute('data-game');
   }
 
   /**
