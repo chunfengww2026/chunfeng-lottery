@@ -188,7 +188,37 @@ const CODE_MODULES = [
   /* 【热力图】云端 18:00 那一班要自己跑这个脚本抓当日晒票 ——
      不同步过去的话，云端就只能用本地传上去的那份数据。 */
   'build-heatmap.mjs',
+  /* 【热力图 · OCR】票面照片识别模块，build-heatmap.mjs 会 import 它。
+     它自己只需要 tesseract.js / jpeg-js / pngjs 三个纯 JS 包 ——
+     这些包和语言数据【不受版本管理】，所以从本机 runtime/ocr/ 一起传上去
+     （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
+  'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs'
+];
+
+/* ============================================================
+   【热力图 · OCR 运行时】从本机 runtime/ocr/ 传上去
+   ------------------------------------------------------------
+   为什么必须一起传：
+     云端（GitHub Actions）没有 tesseract、也不能保证能访问 npm/CDN。
+     把「引擎 + 语言数据」当成普通文件传过去，云端就【完全离线】可跑，
+     而且和本机用的是同一份引擎、同一个模型 —— 结果一致。
+   体积：约 54 MB / 317 个文件
+     · tesseract.js-core 的 *.wasm        ≈ 18 MB（只留 4 个用得到的变体）
+     · tessdata/chi_sim + eng .traineddata.gz ≈ 30 MB
+     · tesseract.js / jpeg-js / pngjs 等  ≈ 6 MB
+   这些文件【几乎不变】，sync-cloud.mjs 的指纹比对会把它们自动跳过，
+   所以只有第一次同步会慢一点。 */
+const OCR_RUNTIME = [
+  'runtime/ocr/tessdata/chi_sim.traineddata.gz',
+  'runtime/ocr/tessdata/eng.traineddata.gz'
+];
+/* runtime/ocr/node_modules 下要传的包（其余不传，省体积） */
+const OCR_PACKAGES = [
+  'tesseract.js', 'tesseract.js-core', 'jpeg-js', 'pngjs',
+  'bmp-js', 'idb-keyval', 'is-url', 'node-fetch', 'wasm-feature-detect', 'zlibjs',
+  'data-uri-to-buffer', 'fetch-blob', 'formdata-polyfill', 'node-domexception',
+  'regenerator-runtime', 'tr46', 'webidl-conversions', 'whatwg-url', 'punycode'
 ];
 
 /* 页面产物：也一起刷新。
@@ -215,6 +245,35 @@ for (const f of [...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS]) {
 }
 log(`  ✅ 已刷新 ${refreshed} 个文件`);
 if (missing.length) log(`  ⏭  本机缺少：${missing.join(', ')}`);
+
+/* 【热力图 · OCR 运行时】把 runtime/ocr 下的引擎 + 语言数据也复制进 cloud/scripts/runtime/ocr/ */
+log('');
+log('【1.2/3】刷新 OCR 运行时（tesseract.js + 语言数据，纯 JS、离线可用）');
+let ocrCopied = 0;
+const OCR_DEST = path.join(SCRIPTS, 'runtime', 'ocr');
+/* 先整个清掉再拷：本机删掉的包/剪掉的体积，云端也要跟着消失，
+   否则旧文件会一直留在仓库里（越传越大，还会传已经被删的垃圾）。 */
+try { fs.rmSync(OCR_DEST, { recursive: true, force: true }); } catch (e) { /* 忽略 */ }
+for (const f of OCR_RUNTIME) {
+  const src = path.join(PARENT, f);
+  if (!fs.existsSync(src)) { log(`  ⚠️ 缺少 ${f}（OCR 在云端会降级成兜底口径）`); continue; }
+  try {
+    const dst = path.join(SCRIPTS, f.replace(/^runtime[\\/]ocr[\\/]/, 'runtime/ocr/'));
+    fs.mkdirSync(path.dirname(dst), { recursive: true });
+    fs.copyFileSync(src, dst);
+    ocrCopied++;
+  } catch (e) { log(`  ⚠️ ${f} 复制失败：${e.message}`); }
+}
+for (const pkg of OCR_PACKAGES) {
+  const src = path.join(PARENT, 'runtime', 'ocr', 'node_modules', pkg);
+  if (!fs.existsSync(src)) { log(`  ⚠️ 缺少 OCR 包 ${pkg}`); continue; }
+  try {
+    const dst = path.join(OCR_DEST, 'node_modules', pkg);
+    fs.cpSync(src, dst, { recursive: true });
+    ocrCopied++;
+  } catch (e) { log(`  ⚠️ OCR 包 ${pkg} 复制失败：${e.message}`); }
+}
+log(`  ✅ OCR 运行时已刷新（${ocrCopied} 项）→ cloud/scripts/runtime/ocr/`);
 
 /* 【准实时】顺手把当前号码重新发布成 cloud/out/tickets.json。
    分享页启动后会拉这个文件，只要它比页面里的内联快照新，
@@ -245,10 +304,23 @@ log('【3/3】上传到 GitHub');
 const SKIP_DIRS = new Set(['out', 'node_modules', '.git']);
 const SKIP_FILES = new Set(['cloud-token.txt']);
 
+/* 【特例】cloud/scripts/runtime/ocr/node_modules 必须传！
+   ------------------------------------------------------------
+   collect() 默认跳过所有 node_modules（那是构建产物），
+   但 OCR 运行时（tesseract.js + WASM）恰恰就放在 node_modules 里，
+   而且它【不在任何 package.json 里】—— 云端没有 npm install，
+   不传过去云端就没有 OCR 引擎，热力图的主口径直接失效。
+   所以这里只对这一个路径开绿灯。 */
+const KEEP_NODE_MODULES_PREFIX = 'cloud/scripts/runtime/ocr/';
+
 function collect(dir, prefix) {
   const out = [];
   for (const name of fs.readdirSync(dir)) {
-    if (SKIP_DIRS.has(name)) continue;
+    if (SKIP_DIRS.has(name)) {
+      /* runtime/ocr 下的 node_modules 例外：继续往下收 */
+      if (name === 'node_modules' && prefix.startsWith(KEEP_NODE_MODULES_PREFIX)) { /* 继续 */ }
+      else continue;
+    }
     const full = path.join(dir, name);
     const st = fs.statSync(full);
     if (st.isDirectory()) out.push(...collect(full, prefix + name + '/'));
