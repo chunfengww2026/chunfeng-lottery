@@ -25,7 +25,10 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
+/* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
+const ROOT = process.env.DSH_JC_ROOT
+  ? path.resolve(process.env.DSH_JC_ROOT)
+  : path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, '足球推荐.html');
 
 /* ---------- 读数据 ---------- */
@@ -167,6 +170,21 @@ const kindCN = { upcoming: '未开赛', live: '进行中', finished: '已完场'
    把 jc-history.js 的归档记录转成和 jc-data 一样的形状，
    这样后面的 prep / renderMatch / 统计全都不用改逻辑。
    ============================================================ */
+/** 老记录可能没存 prob（早期版本），从欧赔反推一下，免得渲染时 r.prob 是 null */
+function probFromOdds(odds) {
+  if (!odds) return null;
+  const h = +odds.home, d = +odds.draw, a = +odds.away;
+  if (!(h > 0) || !(d > 0) || !(a > 0)) return null;
+  const raw = { home: 1 / h, draw: 1 / d, away: 1 / a };
+  const sum = raw.home + raw.draw + raw.away;
+  if (!sum) return null;
+  return {
+    home: +(raw.home / sum * 100).toFixed(1),
+    draw: +(raw.draw / sum * 100).toFixed(1),
+    away: +(raw.away / sum * 100).toFixed(1)
+  };
+}
+
 function historyToGame(rec) {
   const m = /^(\d+)\s*[:：-]\s*(\d+)$/.exec(String(rec.score || ''));
   const hs = m ? +m[1] : null;
@@ -194,7 +212,8 @@ function historyToGame(rec) {
     reco: pick ? {
       pick, label,
       confidence: rec.conf != null ? rec.conf : null,
-      prob: null, clear: false, margin: null,
+      prob: rec.prob || probFromOdds(rec.odds),
+      clear: false, margin: null,
       fromHistory: true
     } : null
   };
@@ -268,7 +287,9 @@ function prep(g) {
     time: g.time, handicap: g.handicap,
     home: g.home, away: g.away,
     minute: (fb && fb.minute) || g.minute || 0,
-    odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result
+    odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result,
+    /* 这场是从 jc-history 归档来的（不是本次在售）→ 卡片样式区分一下 */
+    fromHistory: !!(g.reco && g.reco.fromHistory)
   };
 }
 
@@ -334,8 +355,13 @@ function renderMatch(m) {
   if (m.kind === 'live') st = `<span class="m-st live">${m.minute ? m.minute + "'" : '进行中'}</span>`;
   else if (m.kind === 'finished') st = '<span class="m-st fin">完场</span>';
 
+  /* 历史归档场次：卡片加 .hist（虚线左边框 + 略淡），一眼看出不是本次在售 */
+  const cls = 'm-card'
+    + (m.result && m.result.settled ? (m.result.hit ? ' win' : ' lose') : '')
+    + (m.fromHistory ? ' hist' : '');
+
   return (
-    `<div class="m-card${m.result && m.result.settled ? (m.result.hit ? ' win' : ' lose') : ''}">` +
+    `<div class="${cls}">` +
     `<div class="m-top">` +
     (m.code ? `<span class="m-code">${esc(m.code)}</span>` : '') +
     `<span class="m-league">${esc(m.league || '')}</span>` +
@@ -370,9 +396,10 @@ function renderMatch(m) {
         ? '最终 ' + esc(m.result.actualLabel) + '（' + esc(m.result.score) + '）'
         : '信心 ' + r.confidence + '%'}</span>` +
       `<span class="m-probs">` +
-      `<i class="${r.pick === 'home' ? 'on' : ''}">主${r.prob.home}%</i>` +
-      `<i class="${r.pick === 'draw' ? 'on' : ''}">平${r.prob.draw}%</i>` +
-      `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob.away}%</i>` +
+      /* prob 可能为 null（这场当时没抓到赔率）→ 显示 —，不能直接取 .home */
+      `<i class="${r.pick === 'home' ? 'on' : ''}">主${r.prob ? r.prob.home : '—'}%</i>` +
+      `<i class="${r.pick === 'draw' ? 'on' : ''}">平${r.prob ? r.prob.draw : '—'}%</i>` +
+      `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob ? r.prob.away : '—'}%</i>` +
       `</span></div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     `</div>`
   );
@@ -429,6 +456,10 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border-radius: 11px; padding: 12px 14px; margin-bottom: 10px; }
 .m-card.win { border-left-color: #f0575c; }
 .m-card.lose { border-left-color: #4a5160; }
+/* 历史归档场次：左边框更暗、整卡略淡，和「本次在售」区分开 */
+.m-card.hist { border-left-style: dashed; opacity: .88; }
+.m-card.hist.win { border-left-color: #f0575c; }
+.m-card.hist.lose { border-left-color: #4a5160; }
 .m-top { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
 .m-code { font-size: 11.5px; font-weight: 700; color: #4a83f5;
   background: rgba(74,131,245,0.13); padding: 2px 8px; border-radius: 5px; }
@@ -515,7 +546,8 @@ ${nav}
 
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
-    · 本页只显示<b>体彩竞彩在售</b>比赛，其他联赛不显示。<br>
+    · 本页只显示<b>体彩竞彩</b>比赛，其他联赛不显示。<br>
+    · 「已完场」是<b>累积</b>的：比赛开出结果后会从在售列表消失，程序会把它归档下来继续留在本页${stat.history ? `（当前累积 ${stat.history} 场）` : ''}。<br>
     · 推荐由博彩公司赔率反推概率得出（市场共识换算），属统计归纳，<b>不是预测</b>。<br>
     · 彩票每期独立随机，任何分析都不能提高中奖概率。本页不构成购彩建议。<br>
     · 未满 18 周岁禁止购买彩票。
@@ -530,6 +562,8 @@ fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('✅ 已生成：' + OUT);
 console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
-console.log(`   竞彩场次：${stat.total} 场（未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}）`);
+console.log(`   三卡片：未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 已完场 ${stat.finished}`);
+console.log(`   已完场构成：本次在售完场 ${stat.finishedToday} 场 + 历史归档 ${stat.history} 场`);
+console.log(`   已完场分区卡片数：${MATCHES.filter((m) => m.kind === 'finished').length}`);
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
-console.log(`   数据来源：jc-data.js（体彩竞彩在售）`);
+console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
