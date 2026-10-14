@@ -511,6 +511,13 @@ function rollAllGames(opts) {
         } catch (e) { /* 失败就保留上面摇好的值 */ }
       }
 
+      /* 【一致性收尾】摇完就地把自相矛盾的字段修掉（池子优先）。
+         这一层写进 saved-tickets.js，页面/分享页显示的就是它，
+         所以在存档之前必须过一遍 —— 唯一实现在 stats.js。 */
+      if (typeof enforceConsistencyImage === 'function') {
+        try { enforceConsistencyImage(gameId, img.key, outVals); } catch (e) { /* 失败不影响出号 */ }
+      }
+
       rec.images[img.key] = outVals;
     });
 
@@ -793,30 +800,32 @@ function rollValueFor(gameId, spec) {
   if (label.includes('防组三')) return '对子号';
 
   // 11) 热号/冷号/邻号等走势：围绕号码池算
-  const REAL_LABELS = ['热号', '冷号', '邻号', '同尾号', '连号', '跳连号',
-                       '重复号', '同区号', '尾数冷热', '最大遗漏', '遗漏回补',
-                       '质数/合数', '区间比'];
-  if (REAL_LABELS.some((k) => label.includes(k))) {
+  const TREND_KEY = {
+    '热号': 're', '冷号': 'leng', '邻号': 'lin', '同尾号': 'wh',
+    '连号': 'lh', '跳连号': 'tjlh', '重复号': 'cf', '同区号': 'tqh',
+    '尾数冷热': 'wsl', '最大遗漏': 'maxomit', '遗漏回补': 'ylhb',
+    '质数/合数': 'zhs', '区间比': 'qjb'
+  };
+  /* 关键词按长度从长到短匹配：「跳连号」不能被「连号」抢先匹配到，
+     否则连号/跳连号两个字段会是同一串号（字段自相矛盾）。
+     算不出来就返回空 —— 交给 stats.js 的一致性收尾按号码池补，
+     绝不能再掉到下面「随机抽号」那一档。 */
+  const trendKw = Object.keys(TREND_KEY).sort((a, b) => b.length - a.length)
+    .find((k) => label.includes(k));
+  if (trendKw) {
+    const trendKey = TREND_KEY[trendKw];
     const hist = (typeof getHistory === 'function') ? getHistory(gameId) : [];
-    const trendKey = {
-      '热号': 're', '冷号': 'leng', '邻号': 'lin', '同尾号': 'wh',
-      '连号': 'lh', '跳连号': 'tjlh', '重复号': 'cf', '同区号': 'tqh',
-      '尾数冷热': 'wsl', '最大遗漏': 'maxomit', '遗漏回补': 'ylhb',
-      '质数/合数': 'zhs', '区间比': 'qjb'
-    }[Object.keys({
-      '热号': 1, '冷号': 1, '邻号': 1, '同尾号': 1, '连号': 1, '跳连号': 1,
-      '重复号': 1, '同区号': 1, '尾数冷热': 1, '最大遗漏': 1, '遗漏回补': 1,
-      '质数/合数': 1, '区间比': 1
-    }).find((k) => label.includes(k))];
-
-    if (trendKey && hist.length) {
+    if (hist.length) {
       const t = poolTrend();
       if (t && t[trendKey]) return t[trendKey];
       if (typeof calcTrendFields === 'function') {
-        const v = calcTrendFields(gameId, areaKey, from, to, count)[trendKey];
-        if (v) return v;
+        try {
+          const v = calcTrendFields(gameId, areaKey, from, to, count)[trendKey];
+          if (v) return v;
+        } catch (e) { /* 交给一致性收尾补 */ }
       }
     }
+    return '';
   }
 
   // 12) 五行号码（金木水火土）：按尾数从号码池里挑
