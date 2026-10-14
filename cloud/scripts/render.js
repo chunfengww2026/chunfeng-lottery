@@ -204,21 +204,36 @@ const SECTION_RENDER = {
     return box;
   },
 
-  /* ---- 绕胆图色块 ---- */
+  /* ---- 绕胆图色块（固定 4×4 版式） ----
+     ① 颜色：模板里写死 sec.colors 就用它；没写就读 stats.js 的角色表
+        RAODAN_ROLES（唯一口径）—— 金3 · 银3 · 拖6 · 蓝4，
+        蓝球固定在中间 2×2（位置 5/6/9/10），不随号码变化。
+     ② 版式最外层兜底：老版本 stats.js（没有 RAODAN_ROLES）也不会白屏。
+     格子里的号码怎么取见 stats.js 的 buildRaodanGrid()。 */
   grid(sec, vals) {
     const box = el('div', 'r-gridwrap');
     const grid = el('div', 'r-grid');
     grid.style.gridTemplateColumns = `repeat(${sec.cols || 4}, 1fr)`;
 
-    // 色块颜色循环：按模板里图2的顺序
-    // 双色球：3金胆红 + 3银胆橙 + 7紫拖码 + 3蓝关注
-    // 大乐透：4金胆紫 + 4银胆橙 + 4紫拖码 + 4蓝关注
-    const colors = sec.colors || (sec.cols === 4 && sec.rows === 4
-      ? ['goldred', 'goldred', 'goldred', 'goldred',
-         'orange', 'orange', 'orange', 'orange',
-         'purple', 'purple', 'purple', 'purple',
-         'blue', 'blue', 'blue', 'blue']
-      : []);
+    /* 兜底：stats.js 未加载/是旧版时的 4+4+4+4 老版式 */
+    const LEGACY_COLORS = [
+      'goldred', 'goldred', 'goldred', 'goldred',
+      'orange', 'orange', 'orange', 'orange',
+      'purple', 'purple', 'purple', 'purple',
+      'blue', 'blue', 'blue', 'blue'
+    ];
+    const COLOR_OF_ROLE = { dan: 'goldred', yin: 'orange', tuo: 'purple', blue: 'blue' };
+
+    let colors = sec.colors;
+    if (!colors && sec.cols === 4 && sec.rows === 4) {
+      /* render.js 可能先于 stats.js 被加载 → 必须 typeof 判断，不能直接引用 */
+      if (typeof RAODAN_ROLES !== 'undefined' && RAODAN_ROLES.length === 16) {
+        colors = RAODAN_ROLES.map((r) => COLOR_OF_ROLE[r] || 'purple');
+      } else {
+        colors = LEGACY_COLORS;
+      }
+    }
+    if (!colors) colors = [];
 
     const total = (sec.cols || 4) * (sec.rows || 4);
     for (let i = 0; i < total; i++) {
@@ -271,53 +286,143 @@ const SECTION_RENDER = {
     return box;
   },
 
-  /* ---- 九转连环（同心圆） ---- */
-  circle(sec, vals) {
+  /* ---- 九转连环（固定同心圆模板：中心 1 + 4 圈 × 8 方向 = 33 个位置） ----
+     用户原话：「九转连环图必须是这种模板还要有号码」「所有号码都会在上面，
+     全部是红球」——所以 33 个位置固定，每个位置上都显示号码：
+       双色球 → 01~33 · 大乐透 → 01~35（表里是哪些号就画哪些号）
+     位置来自 stats.js 的 JIUZHUAN_LAYOUT（用户逐字给的固定表），
+     这里只负责画，不重排、不改号。
+
+     ⚠️ 坐标故意写成【显式表】：每圈半径 + 8 个方向向量，不靠三角函数隐式推导，
+        一眼就能看出位置写死在哪。
+        圆心 (50%,50%)；方向从「上」开始顺时针，45° 一个：
+          [0]上 [1]右上 [2]右 [3]右下 [4]下 [5]左下 [6]左 [7]左上
+        位置 = 圆心 + 方向向量 × 该圈半径（单位 %，相对整张圆的直径） */
+  circle(sec, vals, build, gameId) {
+    /* 【固定几何】圆心 + 4 圈半径 + 8 个方向单位向量（0.7071 = √2/2） */
+    const CIR_CENTER = { x: 50, y: 50 };                       // 圆心（%）
+    const CIR_RADII = [15, 26.67, 38.33, 50];                  // 第 1~4 圈半径（%）
+    const CIR_DIRS = [
+      { name: '上',   dx: 0,        dy: -1       },            // 0  上
+      { name: '右上', dx: 0.7071,   dy: -0.7071  },            // 1  右上
+      { name: '右',   dx: 1,        dy: 0        },            // 2  右
+      { name: '右下', dx: 0.7071,   dy: 0.7071   },            // 3  右下
+      { name: '下',   dx: 0,        dy: 1        },            // 4  下
+      { name: '左下', dx: -0.7071,  dy: 0.7071   },            // 5  左下
+      { name: '左',   dx: -1,       dy: 0        },            // 6  左
+      { name: '左上', dx: -0.7071,  dy: -0.7071  }             // 7  左上
+    ];
+
     const box = el('div', 'r-circwrap');
     const c = el('div', 'r-circle');
-    // 4 个同心环
-    for (let i = 4; i >= 1; i--) {
-      const ring = el('div', 'r-ring ring' + i);
-      c.appendChild(ring);
+
+    /* 4 个同心圆环（从大到小入 DOM，保证环线压在号码下面） */
+    for (let i = 4; i >= 1; i--) c.appendChild(el('div', 'r-ring ring' + i));
+
+    /* 高亮集合：推荐号（号码池 / 金胆银胆 / 拖码）—— 口径同 stats.js 的
+       cir_pool / cir_dan / cir_tuo；取不到就不高亮（全部浅色） */
+    const poolSet = new Set(parseTicketNums(vals.cir_pool || ''));
+    const danSet = new Set(parseTicketNums(vals.cir_dan || ''));
+    const tuoSet = new Set(parseTicketNums(vals.cir_tuo || ''));
+
+    /* 33 个位置的号码：优先用 stats.js 铺好的 cir_num_01~33（模板里的固定号），
+       没有（旧存档/手工录入）就退回旧键 cir_center + cir_0~7，保证不空图 */
+    const numAt = {};
+    if (vals.cir_num_center !== undefined) {
+      numAt[0] = vals.cir_num_center;
+      for (let i = 1; i <= 33; i++) {
+        if (vals['cir_num_' + i] !== undefined) numAt[i] = vals['cir_num_' + i];
+      }
+    } else if (typeof jiuzhuanLayoutOf === 'function') {
+      /* 旧存档 / 手工录入没有 cir_num_* 时，直接按固定模板把 33 个号铺上，
+         保证「所有号码都在图上」，不会因为没存档就变成空图 */
+      const L = jiuzhuanLayoutOf(gameId);
+      if (L) {
+        numAt[0] = L.center;
+        for (let ri = 0; ri < L.rings.length; ri++) {
+          for (let di = 0; di < L.rings[ri].length; di++) numAt[1 + ri * 8 + di] = L.rings[ri][di];
+        }
+      }
+    } else {
+      numAt[0] = vals[sec.centerKey];
+      for (let i = 0; i < 8; i++) numAt[i + 1] = vals['cir_' + i];
     }
-    // 中心
-    const center = el('div', 'r-center');
-    center.textContent = vals[sec.centerKey] || '—';
+
+    /* 中心（第 0 个位置） */
+    const centerNum = parseInt(numAt[0], 10);
+    const centerKind = danSet.has(centerNum) ? ' core'
+      : (tuoSet.has(centerNum) ? ' silver' : (poolSet.has(centerNum) ? ' pool' : ''));
+    const center = el('div', 'r-circenter' + centerKind);
+    center.textContent = numAt[0] === undefined || numAt[0] === '' ? '—' : twoDigit(centerNum);
     c.appendChild(center);
 
-    // 8 个位置的号码（米字四轴的端点和中间层）
-    const slots = [
-      { top: '4%',  left: '50%' }, { top: '22%', left: '50%' },
-      { top: '50%', left: '4%'  }, { top: '50%', left: '22%' },
-      { top: '50%', left: '78%' }, { top: '50%', left: '96%' },
-      { top: '78%', left: '50%' }, { top: '96%', left: '50%' }
-    ];
-    slots.forEach((s, i) => {
-      const v = vals['cir_' + i];
-      if (!v) return;
-      const dot = el('div', 'r-ringnum');
-      dot.style.top = s.top;
-      dot.style.left = s.left;
-      dot.textContent = twoDigit(parseInt(v, 10) || v);
-      c.appendChild(dot);
+    /* 4 圈 × 8 方向 */
+    CIR_RADII.forEach((r, ringIdx) => {
+      CIR_DIRS.forEach((d, dirIdx) => {
+        const posIdx = 1 + ringIdx * 8 + dirIdx;               // 1~32
+        const v = numAt[posIdx];
+        if (v === undefined || v === null || v === '') return;
+        const n = parseInt(v, 10);
+        if (!Number.isFinite(n)) return;
+        const kind = danSet.has(n) ? ' core'
+          : (tuoSet.has(n) ? ' silver' : (poolSet.has(n) ? ' pool' : ''));
+        const dot = el('div', 'r-cirnum' + kind);
+        dot.style.top = (CIR_CENTER.y + d.dy * r).toFixed(2) + '%';
+        dot.style.left = (CIR_CENTER.x + d.dx * r).toFixed(2) + '%';
+        dot.textContent = twoDigit(n);
+        c.appendChild(dot);
+      });
     });
 
     box.appendChild(c);
+
+    /* 图例：只列实际用到的颜色，口径和 stats.js 的高亮字段一一对应 */
+    const legend = [];
+    if (danSet.size) legend.push({ label: '金胆/银胆', color: 'gold-red' });
+    if (tuoSet.size) legend.push({ label: '拖码', color: 'orange' });
+    if (poolSet.size) legend.push({ label: '号码池', color: 'purple' });
+    if (legend.length) {
+      legend.push({ label: '未推荐', color: 'gray' });
+      const lg = el('div', 'r-legend');
+      legend.forEach((l) => {
+        const item = el('span', 'r-legenditem');
+        item.appendChild(el('span', 'r-dot ' + l.color));
+        item.appendChild(document.createTextNode(l.label));
+        lg.appendChild(item);
+      });
+      box.appendChild(lg);
+    }
+
     if (sec.note) box.appendChild(el('div', 'r-caption', sec.note));
     return box;
   },
 
-  /* ---- 九宫图（洛书 3×3） ---- */
+  /* ---- 九宫图（洛书 + 每期自动偏移） ----
+     数据流（用户指定的用法）：
+       上期开奖号 → calcOffsetByLastLottery → offset
+       → matrixOffsetShift(BASE_LU_SHU, offset) → 本期矩阵 → 画格子
+     所以中宫不再是固定 5，每期跟着上期开奖号变。
+     BASE_LU_SHU 只读：matrixOffsetShift 内部 cloneMatrix，不改基准。 */
   jiugong(sec, vals) {
     const box = el('div', 'r-jgwrap');
     const g = el('div', 'r-jiugong');
-    // 洛书固定排布
-    const luoshu = [4, 9, 2, 3, 5, 7, 8, 1, 6];
-    luoshu.forEach((base, i) => {
+
+    /* 本期矩阵：优先按 offset 现算（和 stats.js 同一个函数）；算不了就用
+       stats.js 铺好的 jg_matrix；再不行退回原始基准洛书 */
+    let cur = resetLuShu();
+    try {
+      const off = parseInt(vals.jg_offset, 10);
+      if (Number.isFinite(off) && off >= 1 && off <= 9) {
+        cur = matrixOffsetShift(BASE_LU_SHU, off);
+      } else if (typeof vals.jg_matrix === 'string' && vals.jg_matrix.length >= 17) {
+        cur = vals.jg_matrix.split(',').map((row) => row.split('').map(Number));
+      }
+    } catch (e) { /* 兜底就是基准洛书 */ }
+
+    const flat = cur[0].concat(cur[1], cur[2]);
+    flat.forEach((v, i) => {
       const cell = el('div', 'r-jgcell' + (i === 4 ? ' center' : ''));
-      // 中心格可以被用户覆盖
-      const custom = vals['jg_' + i] || (i === 4 ? vals[sec.centerKey] : '');
-      cell.textContent = custom || base;
+      cell.textContent = String(v);
       g.appendChild(cell);
     });
     box.appendChild(g);
@@ -630,7 +735,8 @@ function renderTicketImage(gameId, imageKey, data) {
     let rendererName = sec.type;
     if (sec.type === 'positions2') rendererName = 'positions';   // 兼容旧写法
     const fn = SECTION_RENDER[rendererName];
-    /* 第 4 个参数传 gameId —— 热力图要按彩种去读全局 HEATMAP_DATA */
+    /* 第 4 个参数传 gameId —— 热力图要按彩种去读全局 HEATMAP_DATA，
+       九转连环要按彩种取 JIUZHUAN_LAYOUT 里那张固定位置表 */
     if (fn) block.appendChild(fn(sec, vals, build, gameId));
 
     parent.appendChild(block);
