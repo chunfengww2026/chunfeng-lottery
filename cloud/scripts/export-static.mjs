@@ -106,7 +106,18 @@ const ctx = vm.createContext({
     removeItem: (k) => store.delete(k)
   },
   Blob: function () {}, URL: { createObjectURL: () => '', revokeObjectURL: () => {} },
-  Image: function () {}, ClipboardItem: function () {}, alert: () => {}, confirm: () => true
+  Image: function () {}, ClipboardItem: function () {}, alert: () => {}, confirm: () => true,
+  /* __TIMER_STUB__ 【重要】沙箱里必须有定时器桩。
+     latest-draws.js 末尾的「距下期开奖倒计时」用了 setInterval / setTimeout，
+     服务端预渲染时在 vm 里跑同一份文件 —— 少了这些就会
+     「❌ 加载 latest-draws.js 失败：setInterval is not defined」，
+     导致最新开奖区（含 8 个彩种的 data-nextcd 占位）内联不完整。
+     这里给成 no-op 桩即可：预渲染只需要"能跑过去"，不需要真的定时。 */
+  setInterval: () => 0, clearInterval: () => {},
+  setTimeout: () => 0, clearTimeout: () => {},
+  requestAnimationFrame: () => 0, cancelAnimationFrame: () => {},
+  queueMicrotask: (fn) => { try { fn(); } catch (e) {} },
+  addEventListener: () => {}, removeEventListener: () => {}
 });
 
 /* ---------- 加载全部依赖 ---------- */
