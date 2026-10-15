@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 06:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 06:58 */
 const JC_DATA = {
- "updated": "2026-10-16 06:28",
+ "updated": "2026-10-16 06:58",
  "stat": {
   "total": 13,
   "upcoming": 1,
@@ -1328,9 +1328,9 @@ const JC_DATA = {
       "away": 2.3
      },
      "live": {
-      "home": 3.7,
-      "draw": 3.1,
-      "away": 2.15
+      "home": 4.5,
+      "draw": 3.2,
+      "away": 1.95
      }
     },
     "overunder": {
@@ -1349,14 +1349,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 44,
+    "confidence": 49,
     "prob": {
-     "home": 25.5,
-     "draw": 30.5,
-     "away": 44
+     "home": 21.2,
+     "draw": 29.8,
+     "away": 49
     },
-    "clear": false,
-    "margin": 5.8,
+    "clear": true,
+    "margin": 4.8,
     "rqLine": "受平手/半球"
    },
    "asianIndex": {
@@ -1393,8 +1393,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-10-16 06:28",
   "officialUpdate": "2026-10-15 21:53:14",
   "inSale": 12,
