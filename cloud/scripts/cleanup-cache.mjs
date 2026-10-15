@@ -41,7 +41,15 @@ const NEVER = new Set([
   'index.html', 'game.html', 'data.html', 'football.html', 'assistant.html',
 ]);
 
-const stat = { files: 0, bytes: 0, dirs: 0, logs: 0, kept: 0 };
+/* 【代码文件的硬保护 · 用户明确要求】
+   「抓取数据 72 小时之后删除；所有的程序代码要求这些是不能清除的」。
+   所以：不管它有没有带 _probe_ / _bk_ 之类的临时前缀，
+   只要后缀是下面这些，就【永不删除】——
+   算法、抓取、生成、出号、模板、样式、文档、工作流、配置，一个都不许动。 */
+const CODE_EXT = /\.(mjs|cjs|js|json|css|html|htm|md|txt|yml|yaml|cmd|ps1|wasm|traineddata|gz|bin)$/i;
+const isCodeFile = (name) => CODE_EXT.test(name);
+
+const stat = { files: 0, bytes: 0, dirs: 0, logs: 0, kept: 0, protectedCode: 0 };
 
 function mb(n) { return (n / 1024 / 1024).toFixed(2) + ' MB'; }
 
@@ -61,6 +69,8 @@ for (const d of CACHE_DIRS) {
     let st;
     try { st = fs.statSync(p); } catch (e) { continue; }
     if (!st.isFile()) continue;
+    /* 【硬保护】缓存目录里如果混进了代码/文档，也一律不删 */
+    if (isCodeFile(f)) { stat.protectedCode++; stat.kept++; continue; }
     if (st.mtimeMs < CUTOFF) {
       stat.files++;
       stat.bytes += st.size;
@@ -104,6 +114,8 @@ for (const f of rootFiles) {
 
   const isTmp = TMP_PREFIX.some((pre) => f.startsWith(pre));
   if (!isTmp) continue;
+  /* 【硬保护】代码文件永不删除（哪怕它叫 _probe_xxx.mjs） */
+  if (isCodeFile(f)) { stat.protectedCode++; stat.kept++; continue; }
   if (st.mtimeMs < CUTOFF) {
     stat.files++;
     stat.bytes += st.size;
@@ -122,4 +134,5 @@ console.log('  删除临时/备份文件 : ' + stat.files + ' 个 · ' + mb(stat
 console.log('  删除空目录         : ' + stat.dirs + ' 个');
 console.log('  截断日志           : ' + stat.logs + ' 个');
 console.log('  保留（72h 内）     : ' + stat.kept + ' 个');
+console.log('  🛡 代码文件受保护  : ' + stat.protectedCode + ' 个（*.mjs/js/json/css/html/md/yml/txt 永不删除）');
 console.log('════════════════════════════════════════════');
