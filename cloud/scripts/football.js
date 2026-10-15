@@ -1792,7 +1792,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "夏拉祖",
      "score": 2,
@@ -1830,7 +1830,7 @@ const FOOTBALL_DATA = {
      "color": "3A5500"
     },
     "time": "2026-10-16 02:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "聖瑪利斯",
      "score": 3,
@@ -1896,7 +1896,7 @@ const FOOTBALL_DATA = {
      "color": "774400"
     },
     "time": "2026-10-16 02:45:00",
-    "minute": 52,
+    "minute": 54,
     "home": {
      "name": "卡昂",
      "score": 0,
