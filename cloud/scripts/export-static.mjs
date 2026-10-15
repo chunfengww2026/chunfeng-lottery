@@ -1106,14 +1106,17 @@ function buildAiPickHtml() {
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reset">清空重选</a>` +
     `<span class="ro-aipick-selfnote">自己选的号只放在内存里，刷新页面就没了</span>` +
     `</div>` +
+    `<div class="ro-aipick-card">` +
     `<div class="ro-aipick-line ro-aipick-mineline">` +
     `<span class="ro-aipick-lbl">你的号码</span>` +
     `<span class="ro-aipick-mineout"></span>` +
     `</div>` +
+    `<div class="ro-aipick-calc"></div>` +
+    `</div>` +
     `<div class="ro-aipick-shape" hidden></div>` +
     `</div>` +
     `<div class="ro-aipick-note">号码由系统随机生成，仅供娱乐，不构成购彩建议，请理性购彩。</div>` +
-    `<div class="ro-aipick-note">纯本机随机模拟：不联网、不上传、不保存（刷新页面即回到默认）。</div>` +
+    `<div class="ro-aipick-note">摇出的号 / 自己选的号都只放在内存里：不上传、不保存，刷新页面即回到默认。</div>` +
     `</div>` +
     `</details>`;
 }
@@ -2993,6 +2996,242 @@ body.ro-mob-open { overflow: hidden; }
 .ro-aipick-shape { margin-top: 8px; font-size: 11.5px; line-height: 1.5; color: #8fb8ff; }
 
 /* ============================================================
+   __ANTISHOT__ 防截图锁定（用户给的升级版代码，适配到分享页）
+   ------------------------------------------------------------
+   用途（用户原话）：「就是只能我这个本机可以截屏，别人不能」。
+   · html.locked → #article / #article-rest 模糊 + 灰度 + 不可点
+   · 遮罩 #mask（z-index 99998）/ 水印 #watermark（99997）
+   · 豁免区 .ro-aipick 抬到 99999，locked 时仍然清晰、能点
+   ⚠️ 遮罩设了 pointer-events:none：
+      内容区本身已经 pointer-events:none（点不动），
+      遮罩只负责视觉；这样锁定状态下还能滚到豁免面板去点。
+   ⚠️ 这只能提高门槛，【不能真正禁止截图】—— 详见页尾脚本注释。
+   ============================================================ */
+#article, #article-rest { transition: filter .15s ease; position: relative; z-index: 1; }
+html.locked #article, html.locked #article-rest {
+  filter: blur(30px) grayscale(1);
+  pointer-events: none;
+}
+#mask {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+  background: rgba(0, 0, 0, .96);
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.8;
+  pointer-events: none;              /* 见上面说明：让豁免面板还能点 */
+}
+html.locked #mask { display: flex; }
+#mask .icon { margin-bottom: 20px; font-size: 64px; }
+#mask .tip { margin-top: 16px; font-size: 14px; color: #aaa; }
+#watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 99997;
+  overflow: hidden;
+  opacity: .07;
+  pointer-events: none;
+}
+.wm-item {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  color: #e8eaed;                    /* 【暗色页面】用浅色，别用用户原稿的 #000 */
+  white-space: nowrap;
+  transform: rotate(-30deg);
+}
+html.locked #watermark { opacity: .3; }
+/* 豁免区：locked 时抬到遮罩之上，保持清晰可点 */
+html.locked .ro-aipick {
+  filter: none !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 99999 !important;
+}
+/* 全站禁止选中 / 长按菜单（面板里的输入框例外，否则不好用） */
+body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#ro-aipick input { -webkit-user-select: text; user-select: text; }
+/* 管理员徽章（owner 才显示，用 <a href> 之外的元素 —— 不是按钮标签） */
+#owner-badge {
+  display: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 99999;
+  padding: 6px 12px;
+  border: 1px solid #2f5c3a;
+  border-radius: 999px;
+  background: rgba(20, 40, 28, .92);
+  color: #6ee7a0;
+  font-size: 11.5px;
+  font-weight: 700;
+  pointer-events: none;
+}
+html.is-owner #owner-badge { display: block; }
+/* 打印也模糊（顺手加） */
+@media print {
+  #article, #article-rest { filter: blur(30px) grayscale(1) !important; }
+  #mask { display: flex !important; }
+}
+
+/* ============================================================
+   【面板美化】用户要求「模板好看一点」（只改视觉：颜色 / 间距 / 圆角 /
+   层次 / 字重 / 选中态；功能、文字、行为一个都没变）
+   ------------------------------------------------------------
+   放在面板基础样式【之后】—— 同优先级时后者胜；
+   标题居中那一段带 !important，仍然由它说了算（顺序不影响）。
+   分段控件 / 号码格子 / 预览卡片 / 按钮，四块统一到一套视觉语言。
+   ============================================================ */
+.ro-aipick {
+  background: linear-gradient(180deg, #131822, #10141b);
+  border: 1px solid #232b38;
+  border-radius: 14px;
+  padding: 16px 14px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+}
+.ro-aipick-h2 { font-size: 18px; font-weight: 800; color: #eef2f8; letter-spacing: 2px; }
+.ro-aipick-sub { letter-spacing: .4px; }
+.ro-aipick-body { margin-top: 14px; }
+.ro-aipick-line { gap: 8px; margin-top: 11px; }
+.ro-aipick-lbl {
+  width: 38px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #9aa6b8;
+}
+/* ① 分段控件：选号（机选 / 自己选号）、方式（单式 / 复式） */
+.ro-aipick-seg {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: #0c1016;
+  border: 1px solid #232b38;
+  border-radius: 999px;
+}
+.ro-aipick-seg .ro-aipick-srcbtn,
+.ro-aipick-seg .ro-aipick-segbtn {
+  padding: 6px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 700;
+}
+.ro-aipick-seg .on {
+  background: linear-gradient(180deg, #3d7bfa, #2b5fd9);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 2px 10px rgba(61, 123, 250, .35);
+}
+/* ② 彩种 / 玩法胶囊：选中 = 主题蓝实心 + 微光 */
+.ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-srcbtn, .ro-aipick-segbtn, .ro-aipick-btn {
+  padding: 7px 13px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: #151a22;
+}
+.ro-aipick-tab.on, .ro-aipick-kl8tab.on {
+  background: linear-gradient(180deg, #3d7bfa, #2b5fd9);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 2px 10px rgba(61, 123, 250, .35);
+}
+/* ③ 号码格子：grid + minmax（窄屏也不会溢出），格子更大更好点 */
+.ro-aipick-pblock { margin-top: 14px; }
+.ro-aipick-phead { margin-bottom: 8px; }
+.ro-aipick-plabel { font-size: 12px; font-weight: 700; letter-spacing: .4px; color: #c3ccda; }
+.ro-aipick-pcount { font-size: 11px; }
+.ro-aipick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+  gap: 6px;
+}
+.ro-aipick-pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0;
+  border: 1px solid #262f3d;
+  border-radius: 9px;
+  background: #141a23;
+  color: #c3ccda;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.ro-aipick-pick:active { transform: translateY(1px); }
+.ro-aipick-pick.on {
+  border-color: transparent;
+  background: linear-gradient(180deg, #e2564f, #c03a34);   /* 红球区：红 */
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 2px 10px rgba(226, 86, 79, .35);
+}
+.ro-aipick-pick.blue.on {
+  background: linear-gradient(180deg, #3d7bfa, #2b5fd9);   /* 蓝球 / 后区 / 特别位：主题蓝 */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 2px 10px rgba(61, 123, 250, .35);
+}
+/* ④ 按钮：主操作实心，次操作描边 */
+.ro-aipick-acts { gap: 8px; margin-top: 14px; }
+.ro-aipick-btn { padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; }
+.ro-aipick-btn.on {
+  background: linear-gradient(180deg, #3d7bfa, #2b5fd9);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(61, 123, 250, .3);
+}
+.ro-aipick-btn.ghost { background: #151a22; }
+/* ⑤ 号码预览卡片（自己选号）：注数 / 金额大字 */
+.ro-aipick-card {
+  margin-top: 12px;
+  padding: 12px;
+  background: #0c1016;
+  border: 1px solid #1e2430;
+  border-radius: 12px;
+}
+.ro-aipick-mineline { margin-top: 0; }
+.ro-aipick-mineout { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 5px; min-height: 26px; }
+.ro-aipick-ball {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.ro-aipick-ball.empty { height: 26px; font-weight: 500; }
+.ro-aipick-calc { margin-top: 10px; }
+.ro-aipick-calc-line { font-size: 13px; color: #8b93a1; }
+.ro-aipick-calc-num { margin-right: 6px; font-size: 17px; font-weight: 800; color: #8fb8ff; }
+.ro-aipick-calc-money { margin: 0 6px; font-size: 17px; font-weight: 800; color: #47e0a0; }
+.ro-aipick-calc-sep { font-size: 12px; color: #5f6878; }
+.ro-aipick-calc-tip { margin-top: 6px; font-size: 11px; color: #f0b429; }
+/* ⑥ 结果区也做成卡片 */
+.ro-aipick-out {
+  margin-top: 14px;
+  padding: 12px;
+  background: #0c1016;
+  border: 1px solid #1e2430;
+  border-top: 1px solid #1e2430;
+  border-radius: 12px;
+}
+.ro-aipick-hit { gap: 4px; margin: 0 0 7px; }
+.ro-aipick-idx { min-width: 44px; }
+.ro-aipick-shape { margin-top: 10px; }
+.ro-aipick-selfnote { font-size: 10.5px; color: #6b7488; }
+
+/* ============================================================
    __CENTER_HEAD_AI__ ai选号 标题行【强制居中】（用户配截图要求「字体居中」）
    ------------------------------------------------------------
    写法照抄上面「三个区块标题强制居中」那一套（用户要求「别自创」）：
@@ -3169,6 +3408,17 @@ body.ro-mob-open { overflow: hidden; }
 <body data-built="${nowStamp}" class="ro-toc-pending">
 <div class="ro-wrap">
 
+  <!-- ============================================================
+       【防截图 · 保护容器 #article】
+       用户要求：只有他自己（本机 App 的 file:// 协议，或公网 IP 命中）
+       可以截图，别人打开时一旦切窗口 / 按 PrintScreen 就把内容模糊掉。
+       ⚠️ 为什么拆成 #article + #article-rest 两段：
+          CSS 的 filter 会作用在【整棵子树】上，子元素没法把自己「取消模糊」，
+          所以要把【豁免区】（GPT模型摇号面板）放在 #article 之外。
+          拆成两个纯 div 不影响任何排版（.ro-wrap 里没有 > 子选择器）。
+       豁免区：.ro-aipick（GPT模型摇号面板）—— locked 时仍然清晰、可点。 -->
+  <div id="article">
+
   <div class="ro-top">
     <h1>春风十里送大奖 · 推荐图</h1>
   </div>
@@ -3320,12 +3570,18 @@ body.ro-mob-open { overflow: hidden; }
        卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
   ${xyspHtml}
 
+  </div><!-- /#article · 到这里为止的内容会被防截图模糊 -->
+
   <!-- ============================================================
        【ai选号】用户要求：装在【晒票栏下面】（「晒票栏下面装一个机选的」）。
        所以顺序是：晒票栏 → ai选号 → 最新开奖。
        可折叠（<details> 默认收起），面板里可以自己摇号（单式/复式）。
-       这一块【没有图片】→ 图位数量（data-image）不变。 -->
+       这一块【没有图片】→ 图位数量（data-image）不变。
+       ⚠️ 它【故意】放在 #article 外面：防截图 locked 时这一块仍然清晰、能点
+          （用户自己要用它摇号 / 选号 / 保存图片）。 -->
   ${aiPickHtml}
+
+  <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
   ${latestSecHtml}
 
@@ -3353,7 +3609,27 @@ body.ro-mob-open { overflow: hidden; }
     <p>未满 18 周岁禁止购买彩票。</p>
   </div>
 
+  </div><!-- /#article-rest · 防截图模糊区结束 -->
+
 </div>
+
+<!-- ============================================================
+     【防截图】遮罩 + 动态水印 + 管理员徽章
+     ------------------------------------------------------------
+     ⚠️ 这三个【必须放在 .ro-wrap 外面、body 直下】：
+        .ro-wrap 里的 #article / #article-rest 在 locked 时会被加 filter，
+        而 filter 会给后代建立新的包含块 —— 那样 position:fixed 的遮罩
+        就不再相对视口定位了（会跟着内容跑）。
+     层级：遮罩 99998 > 水印 99997；豁免面板 .ro-aipick 抬到 99999 压在遮罩上。
+     ⚠️ 都是纯 div，没有按钮标签（页面不变量：按钮标签数 = 0）。 -->
+<div id="watermark" aria-hidden="true"></div>
+<div id="mask" aria-hidden="true">
+  <div class="icon">🔒</div>
+  <div>检测到截图或窗口切换</div>
+  <div>内容已自动隐藏</div>
+  <div class="tip">请回到页面继续阅读（4 秒后自动恢复）</div>
+</div>
+<div id="owner-badge" aria-hidden="true">👑 管理员模式 · 本机可截图</div>
 
 ${inlineScriptsHtml}
 <script>
@@ -4261,6 +4537,7 @@ ${RO_RENDER_SCRIPT}
     var selfBox = root.querySelector('.ro-aipick-self');
     var pickBox = root.querySelector('.ro-aipick-picker');
     var mineOut = root.querySelector('.ro-aipick-mineout');
+    var calcBox = root.querySelector('.ro-aipick-calc');
     var shapeBox = root.querySelector('.ro-aipick-shape');
 
     /* ---------- 彩种规则（全部来自 games.js） ---------- */
@@ -4410,6 +4687,39 @@ ${RO_RENDER_SCRIPT}
        ============================================================ */
     function pkey(k) { return st.game + '#' + k; }
     function pickArr(k) { return st.pick[pkey(k)] || []; }
+    /* ---------- 组合数：优先 BigInt（绝无精度问题），老浏览器退回 Number ----------
+       为什么不用 Number 硬算：C(80,20) 这类会超过 2^53 → 结果就不准了。
+       这里只用 BigInt(数字) 构造，不写 1n 这种字面量 ——
+       老引擎（不认 BigInt）在【解析阶段】就会挂，整个面板都会失效。 */
+    var HAS_BIGINT = (function () {
+      try { return typeof BigInt === 'function' && String(BigInt(7) * BigInt(6)) === '42'; }
+      catch (e) { return false; }
+    })();
+    function oneCount() { return HAS_BIGINT ? BigInt(1) : 1; }
+    function zeroCount() { return HAS_BIGINT ? BigInt(0) : 0; }
+    function combCount(n, k) {
+      var i, r;
+      if (k < 0 || k > n) return zeroCount();
+      k = Math.min(k, n - k);
+      if (HAS_BIGINT) {
+        r = BigInt(1);
+        for (i = 1; i <= k; i++) r = r * BigInt(n - k + i) / BigInt(i);
+        return r;
+      }
+      r = 1;
+      for (i = 1; i <= k; i++) r = r * (n - k + i) / i;
+      return r;
+    }
+    function mulCount(a, b) { return HAS_BIGINT ? (a * b) : (a * b); }
+    function countText(c) {                     /* 千分位：1,107,568 */
+      var s = String(c), out = '', i;
+      for (i = 0; i < s.length; i++) {
+        out += s.charAt(i);
+        var rest = s.length - 1 - i;
+        if (rest > 0 && rest % 3 === 0) out += ',';
+      }
+      return out;
+    }
     /* 这个彩种要选哪些「槽位」：号码型 = 每个号码区；数字型 = 每一位 */
     function slotsOf(g) {
       var out = [], i;
@@ -4427,12 +4737,13 @@ ${RO_RENDER_SCRIPT}
       }
       return out;
     }
-    function togglePick(key, num, need) {
+    /* 【用户要求】自己选号【不设上限】：想选几个选几个，全选也可以 ——
+       选超基本个数就是复式，注数/金额实时算（见 selfCalc）。 */
+    function togglePick(key, num) {
       var arr = pickArr(key).slice();
       var at = arr.indexOf(num);
       if (at >= 0) arr.splice(at, 1);
-      else if (arr.length < need) arr.push(num);
-      else return;                     /* 这个区选满了：再点不再增加（和 App 的手动选号一致） */
+      else arr.push(num);
       arr.sort(function (a, b) { return a - b; });
       st.pick[pkey(key)] = arr;
       drawPicker(G());
@@ -4461,7 +4772,7 @@ ${RO_RENDER_SCRIPT}
               a.setAttribute('data-ro-aipick-num', String(num));
               a.addEventListener('click', function (e) {
                 if (e && e.preventDefault) e.preventDefault();
-                togglePick(slot.key, num, slot.need);
+                togglePick(slot.key, num);
               });
               grid.appendChild(a);
             })(n);
@@ -4486,12 +4797,55 @@ ${RO_RENDER_SCRIPT}
       var cnts = pickBox.querySelectorAll('.ro-aipick-pcount');
       for (i = 0; i < cnts.length; i++) {
         var k2 = attr(cnts[i], 'data-ro-aipick-slot');
-        var sl2 = byKey[k2] || { need: 0 };
+        var sl2 = byKey[k2] || { need: 0, label: '' };
         var got = pickArr(k2).length;
+        /* 【用户要求】不要写「已选 6/6」那种上限写法：
+           只报「已选 N 个」，没到最少个数时提示还差几个，超了标「复式」 */
+        var txt = '已选 ' + got + ' 个';
+        if (sl2.need > 0 && got < sl2.need) txt += '（最少 ' + sl2.need + ' 个，可多选成复式）';
+        else if (sl2.need > 0 && got > sl2.need) txt += '（复式）';
         cnts[i].className = 'ro-aipick-pcount' + (sl2.need > 0 && got >= sl2.need ? ' full' : '');
-        cnts[i].textContent = '已选 ' + got + '/' + sl2.need;
+        cnts[i].textContent = txt;
       }
       drawMine(g, slots);
+      drawCalc(g);
+    }
+    /* ---------- 自己选号：实时注数 + 投注额（组合数用 BigInt，绝不丢精度） ---------- */
+    function selfCalc(g) {
+      var slots = slotsOf(g), i;
+      var total = oneCount(), ok = true, wait = [];
+      for (i = 0; i < slots.length; i++) {
+        var n = pickArr(slots[i].key).length;
+        if (n < slots[i].need) { ok = false; wait.push(slots[i].label + '还差 ' + (slots[i].need - n) + ' 个'); continue; }
+        total = mulCount(total, combCount(n, slots[i].need));   /* 号码型 = C(选了几个, 基本个数)；数字彩 = C(n,1) = n */
+      }
+      var per = g.price || 2;
+      var amount = ok ? mulCount(mulCount(total, HAS_BIGINT ? BigInt(per) : per),
+                                 HAS_BIGINT ? BigInt(st.times) : st.times) : zeroCount();
+      return {
+        ok: ok, wait: wait, total: total, amount: amount,
+        totalText: ok ? countText(total) : '',
+        amountText: ok ? countText(amount) : '',
+        big: ok && Number(total) > 100000,
+        simple: ok && Number(total) === 1
+      };
+    }
+    function drawCalc(g) {
+      if (!calcBox) return;
+      clearNode(calcBox);
+      var r = selfCalc(g);
+      if (!r.ok) {
+        calcBox.appendChild(el('div', 'ro-aipick-calc-line', '还差：' + r.wait.join('、')));
+        return;
+      }
+      var line = el('div', 'ro-aipick-calc-line');
+      line.appendChild(el('b', 'ro-aipick-calc-num', r.totalText + ' 注'));
+      line.appendChild(el('b', 'ro-aipick-calc-money', r.amountText + ' 元'));
+      line.appendChild(el('span', 'ro-aipick-calc-sep',
+        '（' + r.totalText + ' 注 × ' + (g.price || 2) + ' 元' + (st.times > 1 ? ' × ' + st.times + ' 倍' : '') + '）'));
+      calcBox.appendChild(line);
+      if (r.big) calcBox.appendChild(el('div', 'ro-aipick-calc-tip', '注数较大，仅供参考'));
+      if (r.simple) calcBox.appendChild(el('div', 'ro-aipick-calc-tip', '单式 1 注'));
     }
     function drawMine(g, slots) {
       if (!mineOut) return;
@@ -4555,20 +4909,24 @@ ${RO_RENDER_SCRIPT}
     function saveHint(msg) {
       if (warnBox) { warnBox.textContent = msg; show(warnBox, true); }
     }
-    /* 当前要出图的号码：机选 = 结果区已摇出来的；自己选号 = 拼完整的那一注 */
+    /* 当前要出图的号码：机选 = 结果区已摇出来的；自己选号 = 已选的那些号（复式也照画） */
     function picData() {
       var g = G(), i;
       if (st.src === 'self') {
-        var slots = slotsOf(g), row = [], areas = [], pos = [], miss = 0;
+        var calc = selfCalc(g);
+        if (!calc.ok) return null;
+        var slots = slotsOf(g), groups = [];
         for (i = 0; i < slots.length; i++) {
-          var sel = pickArr(slots[i].key);
-          if (sel.length < slots[i].need) miss++;
-          if (isDigit(g)) { pos.push({ to: slots[i].to }); row.push(sel.length ? sel[0] : ''); }
-          else { areas.push({ color: slots[i].color, to: slots[i].to }); row.push(sel.slice()); }
+          groups.push({
+            label: slots[i].label, color: slots[i].color, to: slots[i].to,
+            nums: pickArr(slots[i].key).slice()
+          });
         }
-        if (miss) return null;
-        return { kind: isDigit(g) ? 'digit' : 'number', pos: pos, areas: areas, rows: [row],
-                 note: '自己选号 · 1 注' };
+        return {
+          kind: 'self', groups: groups,
+          note: (calc.simple ? '单式 1 注' : '复式 共 ' + calc.totalText + ' 注') +
+                ' · ' + calc.amountText + ' 元' + (st.times > 1 ? '（' + st.times + ' 倍）' : '')
+        };
       }
       if (!st.rows.length) return null;
       return {
@@ -4595,9 +4953,26 @@ ${RO_RENDER_SCRIPT}
     function drawPic(g, data) {
       var W = 720, pad = 28, lineH = 48, ballR = 15, gap = 9;
       var maxRows = 20;
-      var n = Math.min(data.rows.length, maxRows);
       var top = 172, foot = 100;
-      var H = top + n * lineH + (data.rows.length > n ? 34 : 0) + foot;
+      var H, i, j;
+      /* ---- 先算版面高度，再定画布尺寸 ---- */
+      var blocks = null, selfLines = 0;
+      if (data.kind === 'self') {
+        var per = Math.floor((W - pad * 2 - 92) / (ballR * 2 + gap));
+        if (per < 4) per = 4;
+        blocks = [];
+        for (i = 0; i < data.groups.length; i++) {
+          var gp = data.groups[i], lines = [];
+          for (j = 0; j < gp.nums.length; j += per) lines.push(gp.nums.slice(j, j + per));
+          if (!lines.length) lines.push([]);
+          blocks.push({ label: gp.label, color: gp.color, to: gp.to, lines: lines });
+          selfLines += 26 + lines.length * 44 + 10;
+        }
+        H = top + selfLines + 120;
+      } else {
+        var n0 = Math.min(data.rows.length, maxRows);
+        H = top + n0 * lineH + (data.rows.length > n0 ? 34 : 0) + foot;
+      }
       var cv = document.createElement('canvas');
       if (!cv) return null;
       cv.width = W;
@@ -4617,16 +4992,39 @@ ${RO_RENDER_SCRIPT}
       ctx.fillText(g.name + '　' + data.note, pad, 94);
       ctx.fillStyle = '#2a323f';
       ctx.fillRect(0, 127, W, 1);
-      for (var i = 0; i < n; i++) {
-        var y = top + i * lineH;
+      /* ---- 自己选号：一个区一段，段内按行铺开（选 33 个也不会跑出画布） ---- */
+      if (data.kind === 'self') {
+        var y2 = top;
+        for (i = 0; i < blocks.length; i++) {
+          ctx.fillStyle = '#c3ccda';
+          ctx.font = 'bold 20px sans-serif';
+          ctx.textAlign = 'left';
+          ctx.fillText(blocks[i].label, pad, y2 + 8);
+          y2 += 26;
+          for (j = 0; j < blocks[i].lines.length; j++) {
+            var x2 = pad + 92, k2;
+            for (k2 = 0; k2 < blocks[i].lines[j].length; k2++) {
+              var v = blocks[i].lines[j][k2];
+              drawBall(ctx, x2 + ballR, y2 + 8, ballR, blocks[i].color === 'blue',
+                blocks[i].to > 9 ? pad2(v) : String(v));
+              x2 += ballR * 2 + gap;
+            }
+            y2 += 44;
+          }
+          y2 += 10;
+        }
+      } else {
+      var n = Math.min(data.rows.length, maxRows);
+      for (var i3 = 0; i3 < n; i3++) {
+        var y = top + i3 * lineH;
         var x = pad;
         if (data.rows.length > 1) {
           ctx.fillStyle = '#5f6878';
           ctx.font = '16px sans-serif';
-          ctx.fillText('第' + (i + 1) + '注', pad, y + 6);
+          ctx.fillText('第' + (i3 + 1) + '注', pad, y + 6);
           x = pad + 62;
         }
-        var row = data.rows[i] || [];
+        var row = data.rows[i3] || [];
         if (data.kind === 'number') {
           for (var a = 0; a < data.areas.length; a++) {
             if (a > 0) {
@@ -4634,10 +5032,10 @@ ${RO_RENDER_SCRIPT}
               ctx.fillText('+', x + 6, y + 6); x += 24;
             }
             var ar = data.areas[a], picked = row[a] || [];
-            for (var j = 0; j < picked.length; j++) {
+            for (var jj = 0; jj < picked.length; jj++) {
               /* 号码型补两位；数字彩不补（0 就是「0」不是「00」） */
               drawBall(ctx, x + ballR, y, ballR, ar.color === 'blue',
-                ar.to > 9 ? pad2(picked[j]) : String(picked[j]));
+                ar.to > 9 ? pad2(picked[jj]) : String(picked[jj]));
               x += ballR * 2 + gap;
             }
           }
@@ -4657,6 +5055,7 @@ ${RO_RENDER_SCRIPT}
         ctx.fillStyle = '#5f6878';
         ctx.font = '16px sans-serif';
         ctx.fillText('（图里只画前 ' + n + ' 注，实际共 ' + data.rows.length + ' 注）', pad, top + n * lineH + 8);
+      }
       }
       ctx.fillStyle = '#1e2430';
       ctx.fillRect(0, H - foot + 12, W, 1);
@@ -4819,6 +5218,8 @@ ${RO_RENDER_SCRIPT}
         if (warn) { warnBox.textContent = warn; show(warnBox, true); }
         else { warnBox.textContent = ''; show(warnBox, false); }
       }
+      /* 自己选号：倍数改了 / 玩法改了，注数金额要跟着变 */
+      if (st.src === 'self') drawCalc(g);
     }
 
     /* ---------- 出号 ---------- */
@@ -4901,7 +5302,7 @@ ${RO_RENDER_SCRIPT}
       show(lineMode, !self);                       /* 单式 / 复式：只有机选才需要 */
       show(lineSingle, !self && st.mode === 'single');
       show(lineMulti, !self && st.mode === 'multi');
-      show(lineTimes, !self);
+      show(lineTimes, true);        /* 倍数两种模式都要（自己选号也要算投注额） */
       /* 自己选号时这一行只留「保存图片」（手选的号也能出图） */
       show(actNode('roll'), !self);
       show(actNode('reroll'), !self);
@@ -5033,6 +5434,169 @@ ${RO_RENDER_SCRIPT}
       lastImage: function () { return st.pic || null; }        /* 保存图片生成的最后一张（只在内存里） */
     };
   } catch (e) { /* 忽略：面板退化成静态说明，不影响页面其它部分 */ }
+})();
+</script>
+
+<!-- __ANTISHOT_JS__ 防截图锁定（最终版）
+     用户原话：「就是只能我这个本机可以截屏，别人不能」
+     owner 判定（两条，先看协议再看 IP）：
+       ① location.protocol === 'file:'  → 本机 App 打开 → 一定是主人（最可靠，不看 IP）
+       ② 浏览器打开 → 查公网 IP，命中固定 IP 才算主人（4 个源兜底，每源 4 秒超时）
+           实测：api.ipify.org 在用户网络下连不上，所以【绝不能只用它】
+     ⚠️ 不用 localStorage / sessionStorage / cookie（用户要求「所有都不能保存」）：
+        owner 每次打开都重新判定，不落任何存储 ——
+        否则别人在控制台里改一行就能解锁。
+     ⚠️ 判定失败 / 请求超时 → 保持「按别人处理」（安全降级）。
+     ⚠️ 这套代码【不能真正禁止截图】，只能提高门槛：
+        ✅ 能挡：切窗口 / 切标签页（失焦即模糊）、PrintScreen、Win+Shift+S、
+                macOS Cmd+Shift+3·4·5、右键、拖拽、复制、剪切、F12、Ctrl+Shift+I·J·C、Ctrl+U
+        ❌ 挡不住：手机自带截图（不触发任何事件）、已经冻结屏幕的截图工具、
+                录屏软件、另一台手机拍屏、禁用 JS 之后
+        ❌ IP 判定也有局限：家宽 IP 会变、手机流量是另一个 IP、走代理也会变
+        → 真正「截出来全黑」只有 App 端 Electron setContentProtection(true) 能做到。
+     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）；不许用裸按钮标签。 -->
+<script>
+(function () {
+  'use strict';
+  try {
+    var OWNER_IP = '120.231.138.19';
+    var WM_TEXT = '春风十里送大奖 · 仅供观看';
+    var root = document.documentElement;
+    var wmBox = document.getElementById('watermark');
+    var lockTimer = null;
+    var owner = false;                     /* 默认按「别人」处理：先按最严的来，安全降级 */
+
+    function lock() {
+      if (owner) return;
+      root.classList.add('locked');
+      if (lockTimer) clearTimeout(lockTimer);
+      lockTimer = setTimeout(unlock, 4000);        /* 4 秒后自动解锁 */
+    }
+    function unlock() {
+      if (lockTimer) { clearTimeout(lockTimer); lockTimer = null; }
+      root.classList.remove('locked');
+    }
+    function clearClipboard() {
+      if (owner) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText('').catch(function () { /* 忽略 */ });
+        }
+      } catch (e) { /* 忽略 */ }
+    }
+    function isShotKey(e) {
+      if (!e) return false;
+      if (e.key === 'PrintScreen' || e.code === 'PrintScreen') return true;
+      if (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4' || e.key === '5')) return true;
+      if (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) return true;
+      return false;
+    }
+    /* 水印：固定文字（不含任何用户标识），暗色页面所以用浅色 */
+    function drawWatermark(text) {
+      if (!wmBox) return;
+      while (wmBox.firstChild) wmBox.removeChild(wmBox.firstChild);
+      var w = window.innerWidth || 390, h = window.innerHeight || 800, x, y, n;
+      for (y = 0; y < h; y += 120) {
+        for (x = 0; x < w; x += 260) {
+          n = document.createElement('div');
+          n.className = 'wm-item';
+          n.textContent = text;
+          n.style.left = x + 'px';
+          n.style.top = y + 'px';
+          wmBox.appendChild(n);
+        }
+      }
+    }
+    function armProtection() {
+      window.addEventListener('blur', function () { lock(); });
+      window.addEventListener('focus', function () { unlock(); });
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) lock(); else unlock();
+      });
+      window.addEventListener('keydown', function (e) {
+        if (owner) return;
+        if (isShotKey(e)) { lock(); clearClipboard(); }
+      });
+      window.addEventListener('keyup', function (e) {
+        if (owner) return;
+        if (isShotKey(e)) { lock(); clearClipboard(); }
+      });
+      /* 开发者工具入口（照抄用户给的键位） */
+      document.addEventListener('keydown', function (e) {
+        if (owner) return;
+        if (e.key === 'F12') { e.preventDefault(); lock(); return; }
+        if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].indexOf(e.key) >= 0) {
+          e.preventDefault(); lock(); return;
+        }
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
+      });
+      document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+      document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      document.addEventListener('copy', function (e) { e.preventDefault(); });
+      document.addEventListener('cut', function (e) { e.preventDefault(); });
+    }
+    /* ① 本机 App：Electron loadFile 打开的就是 file:// —— 100% 可靠，不看 IP */
+    function protocolIsFile() {
+      try { return String(location.protocol) === 'file:'; } catch (e) { return false; }
+    }
+    /* ② 浏览器打开：查公网 IP，多源兜底（每源 4 秒超时） */
+    function getVisitorIP() {
+      var sources = [
+        { url: 'https://api.ipify.org?format=json', pick: function (j) { return j && j.ip; } },
+        { url: 'https://ipinfo.io/json', pick: function (j) { return j && j.ip; } },
+        { url: 'https://api.ip.sb/jsonip', pick: function (j) { return j && j.ip; } },
+        { url: 'https://ifconfig.me/all.json', pick: function (j) { return j && (j.ip_addr || j.ip); } }
+      ];
+      var i = 0;
+      function next() {
+        if (i >= sources.length) return Promise.resolve(null);
+        var s = sources[i++];
+        var ctl = null, timer = null;
+        try {
+          ctl = new AbortController();
+          timer = setTimeout(function () { try { ctl.abort(); } catch (e2) { /* 忽略 */ } }, 4000);
+        } catch (e) { ctl = null; }
+        return fetch(s.url, ctl ? { signal: ctl.signal, cache: 'no-store' } : { cache: 'no-store' })
+          .then(function (res) {
+            if (timer) { clearTimeout(timer); timer = null; }
+            if (!res || !res.ok) return null;
+            return res.json();
+          })
+          .then(function (j) {
+            var ip = j ? String(s.pick(j) || '').trim() : '';
+            if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return ip;
+            return next();
+          })
+          .catch(function () {
+            if (timer) { clearTimeout(timer); timer = null; }
+            return next();
+          });
+      }
+      return next();
+    }
+    function markOwner() {
+      owner = true;
+      unlock();
+      root.classList.add('is-owner');       /* 右上角出现「👑 管理员模式」徽章 */
+      drawWatermark(WM_TEXT + ' [OWNER]');
+    }
+
+    /* 先按「别人」准备：水印画上、保护装上；
+       查到是主人再撤掉（owner 判定失败时保持最严 = 安全降级） */
+    drawWatermark(WM_TEXT);
+    window.addEventListener('resize', function () {
+      drawWatermark(owner ? WM_TEXT + ' [OWNER]' : WM_TEXT);
+    });
+    armProtection();
+
+    if (protocolIsFile()) {
+      markOwner();                          /* 本机 App：不用联网，立刻生效 */
+    } else {
+      getVisitorIP().then(function (ip) {
+        if (ip && ip === OWNER_IP) markOwner();
+      }).catch(function () { /* 查不到 → 保持按「别人」处理 */ });
+    }
+  } catch (e) { /* 忽略：防截图这段挂了，页面照样能正常看 */ }
 })();
 </script>
 </body>
