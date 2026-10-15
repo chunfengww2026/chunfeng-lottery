@@ -2870,7 +2870,7 @@ body.ro-mob-open { overflow: hidden; }
     <h1>春风十里送大奖 · 推荐图</h1>
   </div>
 
-  <div class="ro-status warn"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div><div class="ro-st-time">所有资料均在下方</div><div class="ro-st-time">2:15 更新</div><div class="ro-st-reason">还缺这些彩种：双色球、快乐8、福彩3D、排列3、排列5、七星彩</div><div class="ro-st-hint">请稍后再看，或联系发布者更新</div></div>
+  <div class="ro-status warn"><div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div><div class="ro-st-time">所有资料均在下方</div><div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div><div class="ro-st-reason">还缺这些彩种：双色球、快乐8、福彩3D、排列3、排列5、七星彩</div><div class="ro-st-hint">请稍后再看，或联系发布者更新</div></div>
 
   <!-- ============================================================
        【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
@@ -47519,6 +47519,31 @@ function renderAlgoTool(container) {
      手机目录表格这时候才真正显示出来（在此之前它一直是隐藏的，
      避免 JS 没跑完时出现「点了没反应」的死格子）。 */
   mark('ro-toc-pending', false);
+})();
+</script>
+
+<!-- __NEXT_CD__ 下一期更新倒计时（目标：每天 02:15，即 2 点全量任务一般跑完的时刻）
+     纯前端 JS，不请求接口、不调 AI → 免费。 -->
+<script>
+(function () {
+  var el = document.getElementById('__NEXT_CD__');
+  if (!el) return;
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function target() {
+    var d = new Date();
+    var t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 2, 15, 0, 0);
+    if (t.getTime() <= d.getTime()) t = new Date(t.getTime() + 86400000);
+    return t;
+  }
+  function draw() {
+    var ms = target().getTime() - Date.now();
+    if (ms <= 0) { el.textContent = '正在更新…'; return; }
+    var s = Math.floor(ms / 1000);
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    el.textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
+  }
+  draw();
+  setInterval(draw, 1000);
 })();
 </script>
 </body>
