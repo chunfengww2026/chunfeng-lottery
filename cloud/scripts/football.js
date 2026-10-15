@@ -853,7 +853,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 70,
+    "minute": 69,
     "home": {
      "name": "利昂内斯",
      "score": 0,
@@ -997,7 +997,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 45,
+    "minute": 44,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -1075,10 +1075,10 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 45,
+    "minute": 44,
     "home": {
      "name": "国际帕尔米拉",
-     "score": 1,
+     "score": 0,
      "red": 0,
      "rank": 10
     },
