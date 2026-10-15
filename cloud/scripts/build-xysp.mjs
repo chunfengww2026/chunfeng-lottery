@@ -98,7 +98,7 @@ const GAMES = [
 ];
 
 /* 只保留 24 小时内的 */
-const KEEP_HOURS = 24;
+const KEEP_HOURS = 72;
 /* 每个彩种最多留几条（别让文件无限长大） */
 const MAX_PER_GAME = 40;
 /* 两个页面之间至少隔这么久（保护数据源） */
