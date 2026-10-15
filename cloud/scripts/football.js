@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "博卡青年后备队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "費羅卡利爾(後備)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -82,16 +82,16 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "科爾多瓦聖地亞哥中央隊(後備)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "贝尔格拉诺后备队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -147,16 +147,16 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "馬大雷拿",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "尤姆博獨立",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -1323,7 +1323,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "巴瑞库拉",
      "score": 2,
