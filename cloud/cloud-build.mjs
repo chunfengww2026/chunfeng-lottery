@@ -343,7 +343,7 @@ const SLOT_TOLERANCE = {
 
 const SLOT_LABEL = {
   'full': '全量更新（北京 02:00）',
-  'regular': '常规更新（每 30 分钟）',
+  'regular': '常规更新（每 10 分钟 · 晒票 10 分钟一轮；文章/在售场次内部钉 30 分钟）',
   'live-only': '只更新比分（每 5 分钟 · 轻量）',
   'heatmap-only': '只加热力图（北京 18:00）',
   'heatmap-off': '只去掉热力图（北京 21:00）',
@@ -455,6 +455,7 @@ function parseCron(expr) {
   const isStep = (n) => minutes.length === Math.ceil(60 / n) && minutes.every((v, i) => v === i * n);
   let kind = 'custom';
   if (allHours && isStep(5)) kind = 'every5';
+  else if (allHours && isStep(10)) kind = 'every10';
   else if (allHours && isStep(30)) kind = 'every30';
 
   return { minute: minutes[0], minutes, hours, kind };
@@ -500,7 +501,22 @@ function resolveSlot() {
     };
   }
 
-  /* ---------- 【密集班次 2】每 30 分钟：常规班 ----------
+  /* ---------- 【密集班次 2】每 10 分钟：常规班（晒票要 10 分钟一轮） ----------
+     用户要求：「晒票…改成10分钟在全网获取一遍」。
+     这一班和 every30 那班【完全同一套动作】（extras 里那两个不需要 10 分钟的
+     步骤由脚本自己的 --min-gap 把关，见 update-articles-30min.cmd 的说明），
+     所以这里直接复用 'regular' 班次计划，不新造一个 plan。
+     ⚠️ 为什么可以两条 cron 都指向 regular：cloud-build 只发布【真的重新生成过】
+        的页面，而且 workflow 上有 concurrency 去重，不会互相踩。 */
+  if (cron.kind === 'every10') {
+    return {
+      type: 'regular',
+      why: `cron「${cronStr}」（每 10 分钟）+ 北京 ${b.hhmm} → 常规班（晒票 10 分钟一轮）`,
+      bj: b, cron: cronStr, hourOk, minuteOk
+    };
+  }
+
+  /* ---------- 【密集班次 3】每 30 分钟：常规班 ----------
      比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 + 缺才补摇 + 发布。
      全量 / 热力图 / 开奖这些重活由专用定时 cron 负责，
      这里【不再】按时刻升级，否则同一分钟两条 cron 会把同一件重活干两遍。 */
@@ -1166,12 +1182,18 @@ function main() {
      ============================================================ */
   if (plan.extras) {
     log('\n【5】附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次');
+    /* ⚠️ 文章 / 在售场次 加 --min-gap 30：
+       云端现在有「每 10 分钟」那条 cron（晒票要 10 分钟一轮），
+       这两个步骤不需要 10 分钟一次，靠 --min-gap 自己把间隔钉在 30 分钟
+       （不足间隔时它们退出码 10 = 本轮跳过，runSoft 会把 10 当"保留上次"）。
+       晒票那两个【不加】—— 它们就是要 10 分钟一轮。
+       （注意：这段注释里不能直接写 cron 表达式，星号斜杠会提前结束块注释。） */
     const extraRows = [
-      ['build-articles.mjs', [], '文章参考'],
+      ['build-articles.mjs', ['--min-gap', '30'], '文章参考'],
       ['build-xysp-tt.mjs', [], '头条+竞彩晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
-      ['build-jc-count.mjs', [], '体彩在售场次']
+      ['build-jc-count.mjs', ['--min-gap', '30'], '体彩在售场次']
     ].map(([file, args, label]) => {
       const r = runSoft(file, args);
       return `${label}=${r.ok ? (r.kept ? '保留上次' : '✅') : '❌ 跳过'}`;
