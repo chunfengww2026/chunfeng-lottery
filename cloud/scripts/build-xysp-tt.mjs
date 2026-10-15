@@ -431,6 +431,9 @@ export function parseTtPage(html, atIso, cat) {
         src: C.src || 'tt',
         cat: C.key,
         game: gameOf(title),
+        /* 【分发到各彩种】认出来的【所有】彩种 key（可能多个）。
+           tt 分类用 gamesOfTitle（数字彩）；jc 分类没有彩种可分发，给空数组。 */
+        games: (C.key === TT_KEY) ? gamesOfTitle(title) : [],
         author,
         when
       });
@@ -468,6 +471,14 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     const t = Date.parse(at);
     if (!isFinite(t)) return;
     if (t < cutoff) { stat.dropped++; return; }          /* 超过保留窗口 → 丢 */
+
+    /* 【迁移】老数据（第一版做"独立 tt 分类"时写的）里没有 games 字段，
+       或者缓存文件是旧版脚本写的 —— 这里按标题【补算】一次彩种归属，
+       不然这些条目永远只会留在「头条晒票」聚合里，分发不出去。
+       （实测踩过：只做"并集"不够，因为老条目的 games 是 undefined。） */
+    let games = Array.isArray(it.games) ? it.games.slice() : null;
+    if (!games && C.key === TT_KEY) games = gamesOfTitle(it.title);
+
     const prev = bucket.get(img);
     if (prev) {
       stat.dupes++;
@@ -476,6 +487,13 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       prev.big = it.big || prev.big;
       prev.url = it.url || prev.url;
       prev.game = it.game || prev.game;
+      /* 【彩种归属取并集】：老数据可能只认出 1 个彩种、新解析认出 2 个，
+         并起来才不会因为"哪一轮先跑"而丢分类。 */
+      if (games && games.length) {
+        const set = new Set(Array.isArray(prev.games) ? prev.games : []);
+        games.forEach((k) => set.add(k));
+        prev.games = [...set];
+      }
       prev.author = it.author || prev.author;
       prev.when = it.when || prev.when;
       if (Date.parse(prev.at) > t) prev.at = at;         /* 保留最早那次 */
@@ -491,6 +509,8 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       src: it.src || C.src || 'tt',
       cat: it.cat || C.key,
       game: it.game || '',
+      /* 认不出彩种 → 空数组（条目仍留在聚合里，不会丢） */
+      games: games || [],
       author: it.author || '',
       when: it.when || ''
     });
