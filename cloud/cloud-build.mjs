@@ -1149,7 +1149,9 @@ function main() {
      这四样是本机「文章-每30分钟 / 开机补抓 / 每日更新」负责的，
      云端实测（GitHub 美国 IP）也能访问，所以全部搬到云端自己做：
        · build-articles.mjs   一起彩专题页 → 文章列表 + 正文（网页「文章参考」）
-       · build-xysp-tt.mjs    【今日头条】搜索页 → 头条晒票（写 xysp-tt-data.js）
+       · build-xysp-tt.mjs    【今日头条】搜索页 → 【两个】缓存（一次抓完）：
+                                xysp-tt-data.js  数字彩晒票（→ 分享页「晒票」栏的 games.tt）
+                                xysp-jc-data.js  竞彩晒票（→ 竞彩页「晒票」区块）
                               ⚠️ 必须排在 build-xysp.mjs 之前：后者会把
                                  xysp-tt-data.js 并进 xysp-data.js 的 games.tt
        · build-xysp.mjs       一起彩晒票 → 图片外链（网页「晒票栏」，含头条那份）
@@ -1166,7 +1168,7 @@ function main() {
     log('\n【5】附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次');
     const extraRows = [
       ['build-articles.mjs', [], '文章参考'],
-      ['build-xysp-tt.mjs', [], '头条晒票'],
+      ['build-xysp-tt.mjs', [], '头条+竞彩晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
       ['build-jc-count.mjs', [], '体彩在售场次']
