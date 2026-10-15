@@ -1,0 +1,95 @@
+// ============================================================
+// main.js —— 主进程（相当于"老板"，负责开窗口）
+// 这一段代码在 Node.js 环境里运行，可以操作文件、系统等等
+// ============================================================
+
+// 从 electron 里拿出我们需要的东西
+const { app, BrowserWindow, globalShortcut } = require('electron');
+const path = require('path');
+
+// 定义一个变量保存窗口对象（先留空）
+let mainWindow = null;
+
+/* ============================================================
+   【防截屏】用户要求：电脑上也不许截屏，但【只有他自己可以】。
+   ------------------------------------------------------------
+   setContentProtection(true) 是 Electron 的系统级能力：
+     · Windows 上任何截图工具截这个窗口 → 截出来是【全黑】
+       （Win+Shift+S / QQ截图 / 微信截图 / 录屏 都失效）
+     · 这是真禁止，不是网页那种"模糊障眼法"
+   默认【开启】；按 Ctrl+Shift+F12 可以临时关掉（方便自己截图），
+   再按一次恢复。重启程序自动回到"开启"状态（不会忘）。
+   ============================================================ */
+let protectOn = true;
+const PROTECT_HOTKEY = 'Control+Shift+F12';
+
+function applyProtect() {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  try {
+    mainWindow.setContentProtection(protectOn);
+    /* 顺便把窗口标题也换一下，让你一眼看出当前状态 */
+    mainWindow.setTitle(
+      protectOn
+        ? '春风十里送大奖  🔒 防截屏已开启（Ctrl+Shift+F12 可临时关闭）'
+        : '春风十里送大奖  ⚠️ 防截屏已关闭（Ctrl+Shift+F12 恢复）'
+    );
+  } catch (e) { /* 某些平台不支持，忽略 */ }
+}
+
+/**
+ * 创建主窗口
+ */
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 1000,        // 窗口宽度（像素）
+    height: 700,        // 窗口高度
+    title: '我的本地程序',
+    autoHideMenuBar: true,   // 隐藏顶部菜单栏（按 Alt 可以临时显示）
+    backgroundColor: '#0f1115',
+    webPreferences: {
+      // 安全设置：渲染进程（网页）不能直接碰 Node，必须通过 preload 桥接
+      contextIsolation: true,
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+
+  // 加载本地网页文件（就是 index.html）
+  mainWindow.loadFile('index.html');
+
+  /* 【防截屏】窗口一建好就打开保护 */
+  applyProtect();
+
+  // 窗口关闭时把变量清空
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
+}
+
+// Electron 初始化完成后，创建窗口
+app.whenReady().then(() => {
+  createWindow();
+
+  /* 【防截屏开关】Ctrl+Shift+F12 —— 只有知道这个键的人才能临时关掉 */
+  try {
+    globalShortcut.register(PROTECT_HOTKEY, () => {
+      protectOn = !protectOn;
+      applyProtect();
+    });
+  } catch (e) { /* 注册失败不影响程序 */ }
+
+  // macOS 习惯：点 Dock 图标且没有窗口时，重新开一个
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+
+/* 退出前注销快捷键（好习惯，避免占用系统按键） */
+app.on('will-quit', () => {
+  try { globalShortcut.unregisterAll(); } catch (e) {}
+});
+
+// 所有窗口关闭时退出程序（macOS 除外）
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
