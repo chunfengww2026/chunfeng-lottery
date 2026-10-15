@@ -6,7 +6,7 @@
 //    2. 抓历史开奖（60 期，8 个彩种）
 //    3. 抓足球赛事 + 比分（245qq）+ 竞彩列表/赔率（500.com）
 //    4. 抓奖级奖金 + 专家数据（一起彩）
-//    5. 附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+//    5. 附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次
 //    6. 【出号】按算法摇号（纯 JS，在 vm 沙箱里跑，不依赖任何接口）
 //    7. 热力图（开奖日 18:00 出图 / 02:00 与 21:00 清空）
 //    8. 生成静态网页到 out/ + 数据新鲜度守护
@@ -69,7 +69,7 @@ function run(file, args, maxLines) {
   }
 }
 
-/* ---------- 跑「可以失败」的子脚本（附属抓取：文章/晒票/开机号/在售场次） ----------
+/* ---------- 跑「可以失败」的子脚本（附属抓取：文章/头条/晒票/开机号/在售场次） ----------
    【为什么单独一个函数，不并进 run()】
      · run() 的返回值会进 results[]，任何 false 都会触发「把数据文件全部还原」。
      · 但附属抓取的退出码 10 表示「本轮没抓到新数据，保留上一次的文件」——
@@ -360,7 +360,7 @@ const SLOT_LABEL = {
                'auto'      走 shouldFetch() 的 12 小时规则
                false       完全不抓
    football  : 抓足球比分（245qq）+ 竞彩列表赔率（500.com）
-   extras    : 附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+   extras    : 附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次
    liveScores: 只跑 update-football-live.mjs（1 个请求的比分班）
    roll      : force 强制重摇全部 / fill 缺才补 / skip 不摇
    heatmap   : build 出图 / purge 清空 / skip 不动 / auto 按时间自动判断
@@ -594,7 +594,7 @@ function describePlan(plan) {
   if (plan.football === true) bits.push('抓足球 + 竞彩 ✅');
   else if (plan.football === false) bits.push('不抓足球');
   else bits.push('足球按 12 小时规则决定');
-  if (plan.extras) bits.push('抓文章/晒票/开机号/在售场次 ✅');
+  if (plan.extras) bits.push('抓文章/头条/晒票/开机号/在售场次 ✅');
   else bits.push('不抓文章/晒票/开机号');
   bits.push(plan.roll === 'force' ? '强制重摇【全部彩种】'
     : plan.roll === 'fill' ? '号码缺才补摇'
@@ -1024,7 +1024,7 @@ function main() {
     mark(doHistory, '【2】抓历史开奖 60 期（build-history.mjs）');
     mark(doFootball, '【3】抓足球比分 + 竞彩赔率（build-football.mjs / build-jc.mjs）');
     mark(doPrizes, '【4】抓奖级奖金（build-prizes.mjs）+ 专家数据（build-experts.mjs）');
-    mark(plan.extras, '【5】附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次');
+    mark(plan.extras, '【5】附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次');
     steps.push(plan.roll === 'skip'
       ? '  ⏭  跳过  【6】推荐号码：不重摇（号码原样保留）'
       : plan.roll === 'force'
@@ -1144,12 +1144,15 @@ function main() {
   }
 
   /* ============================================================
-     【5】附属抓取 —— 文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+     【5】附属抓取 —— 文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次
      ------------------------------------------------------------
      这四样是本机「文章-每30分钟 / 开机补抓 / 每日更新」负责的，
      云端实测（GitHub 美国 IP）也能访问，所以全部搬到云端自己做：
        · build-articles.mjs   一起彩专题页 → 文章列表 + 正文（网页「文章参考」）
-       · build-xysp.mjs       一起彩晒票 → 图片外链（网页「晒票栏」）
+       · build-xysp-tt.mjs    【今日头条】搜索页 → 头条晒票（写 xysp-tt-data.js）
+                              ⚠️ 必须排在 build-xysp.mjs 之前：后者会把
+                                 xysp-tt-data.js 并进 xysp-data.js 的 games.tt
+       · build-xysp.mjs       一起彩晒票 → 图片外链（网页「晒票栏」，含头条那份）
        · build-kjh.mjs        一起彩 → 开机号 + 选号直播
        · build-jc-count.mjs   体彩官网在售场次 → jc-official.js
                               ⚠️ 体彩官网对美国 IP 返回 567，抓不到时
@@ -1160,9 +1163,10 @@ function main() {
        退出码 10（没抓到新数据 / 退避中）算正常，保留上一次的数据。
      ============================================================ */
   if (plan.extras) {
-    log('\n【5】附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次');
+    log('\n【5】附属抓取：文章正文 / 头条晒票 / 晒票图片 / 开机号+直播 / 体彩在售场次');
     const extraRows = [
       ['build-articles.mjs', [], '文章参考'],
+      ['build-xysp-tt.mjs', [], '头条晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
       ['build-jc-count.mjs', [], '体彩在售场次']
@@ -1172,7 +1176,7 @@ function main() {
     });
     log('  附属抓取小结：' + extraRows.join('　'));
   } else {
-    log('\n【5】附属抓取（文章/晒票/开机号/在售场次）—— 本班次跳过');
+    log('\n【5】附属抓取（文章/头条/晒票/开机号/在售场次）—— 本班次跳过');
   }
 
   /* 【12】清理 72 小时缓存（用户要求：抓取缓存只保留 72 小时）
@@ -1570,7 +1574,7 @@ function printSlotTable() {
     else if (pl.dataFetch === 'auto-guard') parts.push('开奖(过期才补)');
     else if (pl.dataFetch === 'auto') parts.push('开奖/历史(按 12 小时规则)');
     if (pl.football === true) parts.push('足球比分+竞彩赔率');
-    if (pl.extras) parts.push('文章+晒票+开机号+在售场次');
+    if (pl.extras) parts.push('文章+头条+晒票+开机号+在售场次');
     if (pl.liveScores) parts.push('实时比分(单独脚本)');
     if (pl.roll !== 'skip') parts.push(pl.roll === 'force' ? '强制重摇全部' : '缺才补摇');
     if (pl.heatmap !== 'skip') parts.push('热力图:' + pl.heatmap);

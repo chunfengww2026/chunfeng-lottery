@@ -86,7 +86,15 @@ function makeEl(tag, opts = {}) {
     }
   };
   el.addEventListener = (t, fn) => { (el._listeners[t] = el._listeners[t] || []).push(fn); };
-  el.dispatch = (t) => { (el._listeners[t] || []).forEach((fn) => fn({ target: el, type: t })); };
+  el.dispatch = (t) => {
+    const ev = {
+      target: el, type: t, defaultPrevented: false, propagationStopped: false,
+      preventDefault() { ev.defaultPrevented = true; },
+      stopPropagation() { ev.propagationStopped = true; }
+    };
+    (el._listeners[t] || []).forEach((fn) => fn(ev));
+    return ev;
+  };
   el.appendChild = (c) => { c.parentNode = el; el.children.push(c); return c; };
   el.querySelectorAll = (sel) => {
     const m = /^([a-zA-Z]+)?\.?([\w-]+)?$/.exec(sel) || [];
@@ -126,14 +134,25 @@ const boxes = root.querySelectorAll('input.calc-cb');
 console.log(`   迷你 DOM：${boxes.length} 个勾选框（页面上的 calc-cb 数量 = ${(calcHtml.match(/class="calc-cb"/g) || []).length}）`);
 ok(boxes.length === (calcHtml.match(/class="calc-cb"/g) || []).length, '勾选框数量与页面一致');
 
-const els = {};
-for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear', 'calcRand']) {
-  const re = new RegExp(`id="${id}"[^>]*>`);
-  const m = re.exec(calcHtml);
-  const vm2 = m ? (/value="([^"]*)"/.exec(m[0]) || [, '']) [1] : '';
+/* 从页面 HTML 里造一个元素（<select> 的当前值 = 带 selected 的那个 option） */
+function elSpec(id) {
+  const m = new RegExp(`id="${id}"[^>]*>`).exec(calcHtml);
   const tag = m ? (/<([a-z]+)[^>]*id="/.exec(m[0]) || [, 'span'])[1] : 'span';
-  els[id] = makeEl(tag, { id, value: vm2 || (id === 'calcMul' ? '1' : '') });
+  const cls = m ? ((/class="([^"]*)"/.exec(m[0]) || [, ''])[1]) : '';
+  let val = m ? ((/value="([^"]*)"/.exec(m[0]) || [, ''])[1]) : '';
+  if (id === 'calcPass') {
+    const sel = /<option value="(\d+)" selected>/.exec(calcHtml);
+    val = sel ? sel[1] : '1';
+  }
+  if (id === 'calcMul' && !val) val = '1';
+  return makeEl(tag, { id, value: val, className: cls });
 }
+
+const CALC_IDS = ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint',
+  'calcWarn', 'calcMul', 'calcClear', 'calcRand', 'calcPass',
+  'calcShot', 'calcShotImg', 'calcShotX', 'calcShotBtn'];
+const els = {};
+for (const id of CALC_IDS) els[id] = elSpec(id);
 els.jcCalcData = makeEl('script', { id: 'jcCalcData', text: payloadText });
 
 const document = {
@@ -306,12 +325,7 @@ for (const m of calcHtml.matchAll(/<label class="calc-opt"><input class="calc-cb
   root2.appendChild(lab); lab.appendChild(b2);
 }
 const els2 = {};
-for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear']) {
-  const m = new RegExp(`id="${id}"[^>]*>`).exec(calcHtml);
-  const tag = m ? (/<([a-z]+)[^>]*id="/.exec(m[0]) || [, 'span'])[1] : 'span';
-  const val = m ? ((/value="([^"]*)"/.exec(m[0]) || [, '']) [1]) : '';
-  els2[id] = makeEl(tag, { id, value: id === 'calcMul' ? (val || '1') : val });
-}
+for (const id of CALC_IDS) els2[id] = elSpec(id);
 els2.jcCalcData = makeEl('script', { id: 'jcCalcData', text: payloadText });
 const doc2 = { getElementById: (id) => (id === 'jcCalc' ? root2 : (els2[id] || null)) };
 vm.runInContext(script, vm.createContext({
@@ -379,8 +393,7 @@ ok(!!calcM, '用的是原生 <details class="m-calc" id="jcCalc">');
 ok(calcM && !/\bopen\b/.test(calcM[1]), '模拟计算默认【收起】（<details> 不带 open）');
 const allDetails = [...html.matchAll(/<details\b([^>]*)>/g)];
 console.log(`   页面里 <details> 共 ${allDetails.length} 个（m-sec ${secs.length} + m-calc 1）· 带 open 的 = ${allDetails.filter((m) => /\bopen\b/.test(m[1])).length}`);
-ok(allDetails.length === 4, `页面里 <details> 数量 = ${allDetails.length}（3 个分段 + 1 个模拟计算）`);
-ok(allDetails.every((m) => !/\bopen\b/.test(m[1])), '所有 <details> 都不带 open（全部默认收起）');
+ok(allDetails.length === 4, `页面里 <details> 数量 = ${allDetails.length}（3 个分段 + 1 个模拟计算）`);ok(allDetails.every((m) => !/\bopen\b/.test(m[1])), '所有 <details> 都不带 open（全部默认收起）');
 ok(/<summary class="calc-head">/.test(html), '<summary class="calc-head"> 标题行在（标题由 summary 承载）');
 ok((html.match(/class="calc-tip"/g) || []).length === 1, `提示 span .calc-tip = ${(html.match(/class="calc-tip"/g) || []).length}（1）`);
 ok(html.includes(".m-calc[open] > summary.calc-head .calc-tip::after { content: '点击收起'; }"), 'CSS：展开时显示「点击收起」');
@@ -401,7 +414,9 @@ ok(/仅供娱乐/.test(disclaimText), '含「仅供娱乐」');
 ok(/不构成购彩建议/.test(disclaimText), '含「不构成购彩建议」');
 const calcEnd = calcHtml.length;
 const dPos = disclaim ? calcHtml.indexOf(disclaim[0]) : -1;
-ok(dPos > 0 && dPos + disclaim[0].length >= calcEnd - 200, '声明在计算器区块的最下面');
+const detailsEndAbs0 = html.indexOf('</details>', iCalc);
+ok(dPos > 0 && html.indexOf(disclaim[0]) + disclaim[0].length <= detailsEndAbs0 + 1,
+  '声明在计算器区块（<details> 内部）的最下面');
 
 H('10. 标题与时间（用户要求：标题=模拟计算 · 不显示抓取时间）');
 /* 页面【可见文字】：去掉 script / 注释 / 标签 */
@@ -481,12 +496,7 @@ for (const m of calcHtml.matchAll(/<label class="calc-opt"><input class="calc-cb
   root3.appendChild(lab); lab.appendChild(b3);
 }
 const els3 = {};
-for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear', 'calcRand']) {
-  const m = new RegExp(`id="${id}"[^>]*>`).exec(calcHtml);
-  const tag = m ? (/<([a-z]+)[^>]*id="/.exec(m[0]) || [, 'span'])[1] : 'span';
-  const val = m ? ((/value="([^"]*)"/.exec(m[0]) || [, '']) [1]) : '';
-  els3[id] = makeEl(tag, { id, value: id === 'calcMul' ? (val || '1') : val });
-}
+for (const id of CALC_IDS) els3[id] = elSpec(id);
 els3.jcCalcData = makeEl('script', { id: 'jcCalcData', text: payloadText });
 vm.runInContext(script, vm.createContext({
   document: { getElementById: (id) => (id === 'jcCalc' ? root3 : (els3[id] || null)) },
@@ -497,6 +507,229 @@ console.log(`   随机后刷新页面：随机前勾了 ${randPickedBefore} 个 
 ok(randAfterReload === 0 && els3.calcPrize.textContent === '¥0.00', 'GPT随机的勾选刷新后清空（不保存）');
 reset();
 
+H('13. 过关方式（先选几串几 → 再 GPT随机 按这个关数挑）');
+const passOpts = [...calcHtml.matchAll(/<option value="(\d+)"( selected)?>(单关|\d+串1)<\/option>/g)]
+  .map((m) => ({ v: Number(m[1]), label: m[3], sel: !!m[2] }));
+console.log(`   选项：${passOpts.map((o) => o.label + (o.sel ? '（默认）' : '')).join(' · ')}`);
+ok(passOpts.length === Math.min(8, rows.length), `选项数 = ${passOpts.length}（= min(8, 可算场次 ${rows.length})）`);
+ok(passOpts[0].v === 1 && passOpts[0].label === '单关', '第一个选项是「单关」');
+ok(passOpts[passOpts.length - 1].label === `${passOpts[passOpts.length - 1].v}串1`, '最后一个是最高关数「N串1」');
+ok(passOpts.filter((o) => o.sel).length === 1 && passOpts.find((o) => o.sel).label === '2串1', '默认选中的是「2串1」');
+ok(!/<button\b/.test(html) && /<select id="calcPass">/.test(html), '用的是 <select>（页面里没有裸 <button>）');
+
+/* 选 2串1，点 5 次 GPT随机 → 每次都必须正好挑 2 场 */
+const setPass = (v) => { els.calcPass.value = String(v); els.calcPass.dispatch('change'); };
+let passOk = true;
+setPass(2);
+for (let n = 1; n <= 5; n++) {
+  els.calcRand.dispatch('click');
+  const picked = boxes.filter((b) => b.checked).map((b) => b.value.split('|'));
+  const codes = picked.map((p) => p[0]);
+  let prod = 2;
+  const detail = picked.map(([code, pool, key]) => {
+    const o = rowMap[code][pool][key];
+    prod *= o;
+    return `${code} ${pool === 'hhad' ? '让球' : '胜平负'} ${label[key]} ${o}`;
+  }).join('  +  ');
+  const one = Math.min(r2(prod), capOf(picked.length));
+  const got = read();
+  const pass = picked.length === 2 && new Set(codes).size === 2 &&
+    got.prize === money(one) && Number(got.bets) === 1;
+  if (!pass) passOk = false;
+  step++;
+  console.log(`   ${pass ? '✅' : '❌'} 步骤${step} 选「2串1」第 ${n} 次随机 → 挑了 ${picked.length} 场`);
+  console.log(`        勾了：${detail}`);
+  console.log(`        算出：预计奖金 ${got.prize}（手算 ${money(one)}）· 已选 ${got.n} 关 · ${got.bets} 注`);
+}
+
+/* 选 5串1，点 2 次 → 正好 5 场 */
+setPass(5);
+for (let n = 1; n <= 2; n++) {
+  els.calcRand.dispatch('click');
+  const picked = boxes.filter((b) => b.checked);
+  const codes = picked.map((b) => b.value.split('|')[0]);
+  const pass = picked.length === 5 && new Set(codes).size === 5;
+  if (!pass) passOk = false;
+  step++;
+  console.log(`   ${pass ? '✅' : '❌'} 步骤${step} 选「5串1」第 ${n} 次随机 → 挑了 ${picked.length} 场（${read().prize}）`);
+}
+ok(passOk, 'GPT随机 严格按「过关方式」选的关数挑（2串1 → 2 场 / 5串1 → 5 场）');
+
+/* 手勾的场数和过关方式不一致 → 软提示，但奖金按【实际勾的场数】算 */
+setPass(2);
+reset();
+setBox(box(A.code, 'had', 'h'), true);
+setBox(box(B.code, 'had', 'a'), true);
+setBox(box(C.code, 'had', 'h'), true);
+st = read();
+const e13 = r2(2 * A.had.h * B.had.a * C.had.h);
+console.log(`   选 2串1 但手勾了 3 场 → 预计奖金 ${st.prize} · 注数 ${st.bets}`);
+console.log(`        说明：${st.hint}`);
+check('勾选场数与过关方式不一致时：奖金按实际 3 关算', st.prize, money(e13));
+ok(/与所选「2串1」不一致/.test(st.hint), '不一致时有软提示（「与所选「2串1」不一致」）');
+setPass(3);
+st = read();
+console.log(`   把过关方式改成 3串1 后 → 提示：${st.hint}`);
+ok(!/不一致/.test(st.hint), '改成一致的关数后，提示消失');
+
+/* 可选的场次不够 N 场时：挑满可用的 + 明确说明（不硬凑、不报错） */
+H('14. 可选场次不足时的行为（用只有 3 场的迷你页面真跑一遍）');
+const smallRows = rows.slice(0, 3);
+const root4 = makeEl('details', { id: 'jcCalc', className: 'm-calc' });
+for (const r of smallRows) {
+  for (const pool of ['had', 'hhad']) {
+    if (!r[pool]) continue;
+    for (const key of ['h', 'd', 'a']) {
+      if (!(r[pool][key] > 0)) continue;
+      const lab = makeEl('label', { className: 'calc-opt' });
+      const b4 = makeEl('input', { className: 'calc-cb', value: `${r.code}|${pool}|${key}` });
+      root4.appendChild(lab); lab.appendChild(b4);
+    }
+  }
+}
+const els4 = {};
+for (const id of CALC_IDS) els4[id] = elSpec(id);
+els4.calcPass.value = '5';                 /* 页面上给到 5串1，但只有 3 场有赔率 */
+els4.jcCalcData = makeEl('script', {
+  id: 'jcCalcData',
+  text: JSON.stringify(smallRows.map((r) => ({ code: r.code, had: r.had, hhad: r.hhad })))
+});
+vm.runInContext(script, vm.createContext({
+  document: { getElementById: (id) => (id === 'jcCalc' ? root4 : (els4[id] || null)) },
+  console, JSON, Math, isFinite, parseInt, parseFloat, String, Number, Array, Object, Date, window: {}
+}), { filename: 'jcCalc-inline-small.js' });
+els4.calcRand.dispatch('click');
+const picked4 = root4.querySelectorAll('input.calc-cb').filter((b) => b.checked);
+console.log(`   页面只给 3 场有赔率、过关方式选了 5串1 → 实际挑了 ${picked4.length} 场`);
+console.log(`        说明：${els4.calcPrizeHint.textContent}`);
+ok(picked4.length === 3, '可选的只有 3 场时：按 3 场随机（不硬凑到 5）');
+ok(/可选的只有 3 场/.test(els4.calcPrizeHint.textContent), '并且明确提示「可选的只有 3 场」');
+
+setPass(2);
+reset();
+
+H('15. 保存图片（canvas 真画一遍 → 全屏层显示 → 关闭不影响勾选）');
+/* --- 造一个带 canvas/事件/history 桩的环境，真跑页面脚本 --- */
+function buildShotDom() {
+  const ops = [], canvases = [], historyCalls = [], docL = {}, winL = {};
+  const ctxStub = new Proxy({}, {
+    get(t, k) {
+      if (k === 'measureText') return (s) => ({ width: String(s).length * 9 });
+      if (k in t) return t[k];
+      return (...args) => { ops.push({ op: String(k), args }); };
+    },
+    set(t, k, v) { ops.push({ op: 'set:' + String(k), args: [v] }); t[k] = v; return true; }
+  });
+  const makeCanvas = () => {
+    const c = makeEl('canvas');
+    c.width = 0; c.height = 0;
+    c.getContext = () => ctxStub;
+    c.toDataURL = () => 'data:image/png;base64,STUB';
+    canvases.push(c);
+    return c;
+  };
+  const r4 = makeEl('details', { id: 'jcCalc', className: 'm-calc' });
+  for (const m of calcHtml.matchAll(/<label class="calc-opt"><input class="calc-cb" type="checkbox" value="([^"]+)">/g)) {
+    const lab = makeEl('label', { className: 'calc-opt' });
+    const bx = makeEl('input', { className: 'calc-cb', value: m[1] });
+    r4.appendChild(lab); lab.appendChild(bx);
+  }
+  const e4 = {};
+  for (const id of CALC_IDS) e4[id] = elSpec(id);
+  e4.jcCalcData = makeEl('script', { id: 'jcCalcData', text: payloadText });
+  const document4 = {
+    getElementById: (id) => (id === 'jcCalc' ? r4 : (e4[id] || null)),
+    createElement: (tag) => (String(tag).toLowerCase() === 'canvas' ? makeCanvas() : makeEl(tag)),
+    addEventListener: (t, fn) => { (docL[t] = docL[t] || []).push(fn); },
+    dispatch: (t, ev) => {
+      const e = ev || { type: t, key: '', preventDefault() {}, stopPropagation() {} };
+      (docL[t] || []).forEach((fn) => fn(e));
+      return e;
+    }
+  };
+  const window4 = {
+    addEventListener: (t, fn) => { (winL[t] = winL[t] || []).push(fn); },
+    dispatch: (t, ev) => { (winL[t] || []).forEach((fn) => fn(ev || { type: t })); }
+  };
+  const history4 = {
+    pushState: (...a) => historyCalls.push(['pushState', ...a]),
+    back: () => historyCalls.push(['back'])
+  };
+  vm.runInContext(script, vm.createContext({
+    document: document4, window: window4, history: history4, console, JSON, Math,
+    isFinite, parseInt, parseFloat, String, Number, Array, Object, Date
+  }), { filename: 'jcCalc-inline-shot.js' });
+  return { root: r4, els: e4, ops, canvases, historyCalls, document: document4, window: window4 };
+}
+const S = buildShotDom();
+const sBox = (code, pool, key) => S.root.querySelectorAll('input.calc-cb').find((b) => b.value === `${code}|${pool}|${key}`);
+const sRead = () => ({ n: S.els.calcN.textContent, bets: S.els.calcBets.textContent, cost: S.els.calcCost.textContent, prize: S.els.calcPrize.textContent, hint: S.els.calcPrizeHint.textContent, warn: S.els.calcWarn.textContent });
+const drawnTexts = () => S.ops.filter((o) => o.op === 'fillText').map((o) => String(o.args[0]));
+
+/* 15.1 没勾选就点 → 提示「请先选择比赛」，不生成空图 */
+S.els.calcShotBtn.dispatch('click');
+console.log(`   没勾选时点「保存图片」→ 提示：${S.els.calcWarn.textContent}`);
+ok(/请先选择比赛/.test(S.els.calcWarn.textContent), '没勾选时提示「请先选择比赛」');
+ok(S.canvases.length === 0, '没勾选时没有生成任何 canvas（不画空图）');
+ok(!S.els.calcShot.classList.contains('on'), '没勾选时全屏层没弹出来');
+
+/* 15.2 勾 2 场 → 点保存图片 → 真画一张 */
+S.els.calcPass.value = '2'; S.els.calcPass.dispatch('change');
+const cbA = sBox(A.code, 'had', 'h'); cbA.checked = true; cbA.dispatch('change');
+const cbB = sBox(B.code, 'had', 'a'); cbB.checked = true; cbB.dispatch('change');
+const uiPrize = S.els.calcPrize.textContent;
+const evShot = S.els.calcShotBtn.dispatch('click');
+const shotTexts = drawnTexts();
+const shotJoined = shotTexts.join('\n');
+const oneShot = Math.min(r2(2 * A.had.h * B.had.a), capOf(2));
+console.log(`   勾了 ${A.code} 主胜 ${A.had.h} + ${B.code} 客胜 ${B.had.a} → 点「保存图片」`);
+console.log(`   画布：canvas × ${S.canvases.length}，尺寸 ${S.canvases[0] ? S.canvases[0].width + '×' + S.canvases[0].height : '(none)'}，fillText 共 ${shotTexts.length} 条`);
+shotTexts.forEach((t) => console.log(`        │ ${t}`));
+ok(evShot.defaultPrevented && evShot.propagationStopped, '点它时 preventDefault + stopPropagation（不会把整块收起）');
+ok(S.canvases.length === 1, '生成了 1 张 canvas');
+ok(S.canvases[0] && S.canvases[0].width === 760 && S.canvases[0].height > 200, '画布尺寸 760×H（H>200）');
+ok(/模拟计算 · 春风十里送大奖/.test(shotJoined), '图上有标题「模拟计算 · 春风十里送大奖」');
+ok(/过关方式 2串1/.test(shotJoined), '图上有「过关方式 2串1」');
+ok(/倍数 1 倍/.test(shotJoined), '图上有倍数');
+ok(shotJoined.includes(A.home.slice(0, 6)) && shotJoined.includes(B.away.slice(0, 6)), '图上有选中的两队队名');
+ok(shotJoined.includes(String(A.had.h)) && shotJoined.includes(String(B.had.a)), '图上有两场的赔率');
+ok(/总投注额/.test(shotJoined) && shotJoined.includes(money(2)), '图上有总投注额 ¥2.00');
+ok(/预计奖金/.test(shotJoined) && shotJoined.includes(money(oneShot)) &&
+  uiPrize === money(oneShot), `图上的预计奖金 = 界面上的 = ${money(oneShot)}`);
+ok(shotJoined.includes('仅供娱乐，不构成购彩建议'), '图上带合规声明「仅供娱乐，不构成购彩建议」');
+ok(S.els.calcShot.classList.contains('on'), '全屏层弹出来了（class 加了 on）');
+ok(S.els.calcShotImg.src === 'data:image/png;base64,STUB', '全屏层的 img.src = canvas 生成的 data URL');
+ok(S.historyCalls.some((c) => c[0] === 'pushState'), '进图时 push 了一个 history 状态（手机返回键能关）');
+console.log(`   全屏层：img.src=${String(S.els.calcShotImg.src).slice(0, 32)}… · class="${S.els.calcShot.className}"`);
+
+/* 15.3 点图片本身不关；点空白 / × / Esc / 手机返回 都能关 */
+S.els.calcShot.dispatch('click');                       /* dispatch 的 target 是 overlay 自己 = 点空白 */
+ok(!S.els.calcShot.classList.contains('on'), '点空白 → 关掉');
+ok(S.historyCalls.filter((c) => c[0] === 'back').length === 1, '关闭时把 history 状态还回去了（history.back）');
+
+S.els.calcShotBtn.dispatch('click');
+const imgEv = { target: S.els.calcShotImg };
+(S.els.calcShot._listeners.click || []).forEach((fn) => fn(imgEv));
+ok(S.els.calcShot.classList.contains('on'), '点图片本身【不】关闭（方便长按保存）');
+
+S.document.dispatch('keydown', { key: 'Escape', preventDefault() {}, stopPropagation() {} });
+ok(!S.els.calcShot.classList.contains('on'), '按 Esc → 关掉');
+
+S.els.calcShotBtn.dispatch('click');
+S.els.calcShotX.dispatch('click');
+ok(!S.els.calcShot.classList.contains('on'), '点 × → 关掉');
+
+S.els.calcShotBtn.dispatch('click');
+S.window.dispatch('popstate');
+ok(!S.els.calcShot.classList.contains('on'), '手机返回键（popstate）→ 关掉');
+
+ok(!S.els.calcShotImg.src, '关闭后把 img.src 清掉了（不留 data URL）');
+const stillChecked = S.root.querySelectorAll('input.calc-cb').filter((b) => b.checked).length;
+console.log(`   关闭后：勾选状态 = ${stillChecked} 个（关闭不影响勾选）· 预计奖金 ${S.els.calcPrize.textContent}`);
+ok(stillChecked === 2, '关闭全屏层不影响勾选状态（还是那 2 个）');
+ok(S.els.calcPrize.textContent === money(oneShot), '关闭后预计奖金不变');
+ok(html.indexOf('id="calcShot"') > html.indexOf('</details>', iCalc), '全屏层在 <details> 外面（折叠状态下也能弹出）');
+
 /* ============================================================
    结果
    ============================================================ */
@@ -505,7 +738,7 @@ if (bad === 0) {
   console.log('════════════════════════════════════════════════════');
   console.log('  ✅ 真跑验证通过（每一步的实际数字见上）');
   console.log(`     · 迷你 DOM 真执行了页面里的计算器脚本（${script.length} 字符）`);
-  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~20 全部与手算一致（含 GPT随机 5 次）`);
+  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~28 全部与手算一致（含 GPT随机 5 次 + 保存图片 canvas 真画）`);
   console.log('════════════════════════════════════════════════════');
 } else {
   console.log(`❌ 真跑验证失败：${bad} 项不通过`);
