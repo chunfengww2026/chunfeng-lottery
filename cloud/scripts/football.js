@@ -1858,7 +1858,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "甘拿斯亞門多薩(後備)",
      "score": 0,
@@ -2094,7 +2094,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "夏拉祖",
      "score": 2,
@@ -2132,7 +2132,7 @@ const FOOTBALL_DATA = {
      "color": "3A5500"
     },
     "time": "2026-10-16 02:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "聖瑪利斯",
      "score": 3,
@@ -2198,7 +2198,7 @@ const FOOTBALL_DATA = {
      "color": "774400"
     },
     "time": "2026-10-16 02:45:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "卡昂",
      "score": 0,
@@ -2740,7 +2740,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "布莱顿",
      "score": 2,
