@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 05:02 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 04:46 */
 const JC_DATA = {
- "updated": "2026-10-16 05:02",
+ "updated": "2026-10-16 04:46",
  "stat": {
   "total": 13,
   "upcoming": 1,
@@ -668,7 +668,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 2
+    "away": 1
    },
    "statusText": "1 - 0 ",
    "odds": {
@@ -754,7 +754,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 2
+    "away": 1
    }
   },
   {
@@ -983,7 +983,7 @@ const JC_DATA = {
     "rank": 19
    },
    "score": {
-    "home": 3,
+    "home": 2,
     "away": 0
    },
    "statusText": "1 - 0 ",
@@ -1069,7 +1069,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 3,
+    "home": 2,
     "away": 0
    }
   },
@@ -1091,7 +1091,7 @@ const JC_DATA = {
     "rank": 29
    },
    "score": {
-    "home": 4,
+    "home": 3,
     "away": 1
    },
    "statusText": "3 - 0 ",
@@ -1177,7 +1177,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 4,
+    "home": 3,
     "away": 1
    }
   },
