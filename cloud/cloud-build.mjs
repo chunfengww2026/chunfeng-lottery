@@ -1388,7 +1388,7 @@ function finishOutput(freshRows) {
     html = html.replace('</head>', nav.split('<div class="site-nav">')[0] + '</head>');
     html = html.replace(/<body([^>]*)>/, `<body$1>${nav.split('</style>')[1]}`);
     /* 【数据新鲜度提示条】独立元素 + 独立 style，插在导航条之前 */
-    html = injectFreshnessBanner(html, freshRows || []);
+    /* html = injectFreshnessBanner(html, freshRows || []); */  /* __NO_FRESH_BANNER__ 用户要求去掉页面横幅 */
     fs.writeFileSync(fp, html, 'utf8');
   }
 
