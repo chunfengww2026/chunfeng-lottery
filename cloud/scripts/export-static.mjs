@@ -801,8 +801,9 @@ function buildArticlesHtml() {
   return `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
-    `<div class="ro-art-sub">每 30 分钟自动更新` +
-    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    `<div class="ro-art-sub">每 1 小时自动更新` +
+    ` · <span id="__ART_CD__">更新倒计时 --:--</span>` +   /* __ART_CD__ 用户要求：改成更新倒计时 */
+    `</div>` +
     `</div>` +
     `<div class="ro-art-groups">${groupsHtml}</div>` +
     `</section>`;
@@ -3516,3 +3517,32 @@ console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce
 console.log(`   生成时间：${todayStr}`);
 console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（只能看，不能改）。');
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
+
+
+/* ============================================================
+   【文章参考 · 更新倒计时】__ART_CD__
+   用户要求：把「更新于 <时间>」改成「更新倒计时」。
+   节奏：每 1 小时（任务在每小时 :16 跑）→ 目标 = 下一个 :16:00（北京时间）。
+   纯前端计算，不联网、不调 AI → 免费。
+   ============================================================ */
+(function () {
+  var el = document.getElementById('__ART_CD__');
+  if (!el) return;
+  function now8() { var t = new Date(); return new Date(t.getTime() + (t.getTimezoneOffset() * 60000) + (8 * 3600000)); }
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function left() {
+    var n = now8();
+    var t = new Date(n.getTime());
+    t.setMinutes(16, 0, 0);
+    if (t.getTime() <= n.getTime()) t = new Date(t.getTime() + 3600000);
+    return t.getTime() - n.getTime();
+  }
+  function draw() {
+    var ms = left();
+    if (ms <= 0) { el.textContent = '正在更新…'; return; }
+    var s = Math.floor(ms / 1000);
+    el.textContent = '更新倒计时 ' + pad(Math.floor(s / 60)) + ':' + pad(s % 60);
+  }
+  draw();
+  setInterval(draw, 1000);
+})();
