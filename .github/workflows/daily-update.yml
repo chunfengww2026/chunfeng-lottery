@@ -236,7 +236,19 @@ jobs:
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
+          # 【分享卡片 / 图标 / PWA】
+          #   这一步以前只拷上面三个文件 —— cloud-build.mjs 明明已经把图标
+          #   拷进 out/ 了，可不在这里 cp 就【永远进不了 site/】，
+          #   线上 favicon.ico / share.png / manifest.webmanifest 全是 404。
+          #   所以这里必须补上（名单和 cloud-build.mjs 的 ICON_FILES、
+          #   两个页面 <head> 里的引用三者要一致）。
+          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png \
+                   apple-touch-icon.png share.png manifest.webmanifest; do
+            cp -f "cloud/out/$f" "site/$f" || true
+          done
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
+          # 兜底列表只放页面（图标缺失时从线上拉回旧的那份没有意义，
+          # 真要缺就在下面的自证里报警，让人去补文件）
           for f in index.html football.html tickets.json; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
