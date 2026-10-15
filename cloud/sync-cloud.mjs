@@ -192,11 +192,19 @@ const FROM_ROOT = [
       （会显示「暂无」，等于把本机刚更新的开机号冲掉）。 */
   'kjh-data.js',
   /* 【晒票栏】图片数据（build-xysp.mjs 每 30 分钟本机抓一次，
-      只保留最近 24 小时内抓到的条目；图片本身是外链、不下载）。
+      只保留最近 72 小时内抓到的条目；图片本身是外链、不下载）。
       必须同步过去：云端重新跑 export-static.mjs 生成分享页时会读它，
       少了它云端生成出来的页面里「晒票栏」就是空的（显示「暂无」），
-      等于把本机刚抓到的晒票冲掉。 */
-  'xysp-data.js'
+      等于把本机刚抓到的晒票冲掉。
+      注：这份里已经包含 games.tt（今日头条那份，下面单独同步它的缓存）。 */
+  'xysp-data.js',
+  /* 【晒票栏 · 头条】今日头条晒票缓存（build-xysp-tt.mjs 每 30 分钟抓一次）。
+      同步过去的用处和 xysp-data.js 一样，是【兜底】：
+      云端那一班如果抓不到头条（退出码 10），build-xysp.mjs 就照旧合并
+      xysp-data.js 里已有的 games.tt —— 但只要 cloud/scripts/xysp-data.js
+      是本机刚同步上去的，头条那 60 条就已经在里面了，页面不会空。
+      单独同步它，是为了让「云端本机两条路都断」时头条仍然有数据可合并。 */
+  'xysp-tt-data.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
@@ -229,6 +237,15 @@ const CODE_MODULES = [
   /* 【晒票栏】抓取脚本（本机每 30 分钟跑一次，跟着文章那一班）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-xysp.mjs',
+  /* 【晒票栏 · 头条】今日头条晒票抓取脚本（本机每 30 分钟跑一次，
+      排在 build-xysp.mjs 【之前】）。
+      ⚠️ 必须同步，两个原因：
+        ① 云端每 30 分钟那一班也要自己抓头条（cloud-build.mjs 的【5】附属抓取）
+        ② build-xysp.mjs 用 import 读它里面的 mergeTt / readTtOld —— 
+           云端 scripts/ 里没有这个文件的话，build-xysp.mjs 直接
+           ERR_MODULE_NOT_FOUND，整个晒票栏（含一起彩那 8 个彩种）全没了。
+      它只写 xysp-tt-data.js；xysp-data.js 永远只由 build-xysp.mjs 写。 */
+  'build-xysp-tt.mjs',
   /* 【文章参考】抓取脚本（本机每小时 :16 跑一次，跟着文章那一班）。
       ⚠️ 必须同步：云端 daily-update.mjs 的【3.7】那一步会跑
       build-articles.mjs 重新抓文章（放在生成网页之前）。
@@ -516,7 +533,7 @@ if (LIST_ONLY) {
   log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
   ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
    'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',
-   'build-articles.mjs', 'build-xysp.mjs', 'build-kjh.mjs', 'build-jc-count.mjs',
+   'build-articles.mjs', 'build-xysp.mjs', 'build-xysp-tt.mjs', 'build-kjh.mjs', 'build-jc-count.mjs',
    'cleanup-cache.mjs', 'update-football-live.mjs', 'build-heatmap.mjs', 'ocr-tickets.mjs',
    'experts-data.js', 'expert-pool.js', 'export-static.mjs', 'export-football.mjs'
   ].forEach((n) => {
