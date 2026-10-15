@@ -355,17 +355,21 @@ function autoKillNumbers(gameId, areaKey, n, from, to, periods) {
      getCurrentLuoshu(list)          ·  createNineChartPack(lastNums, type)
      BASE_LUOSHU（基准洛书，只读）
 
-   ⚠️ 这版和上一版【完全不一样】，不要拿旧语义读代码：
-     · 九转 = 4 同心圆环 × 8 米字轴 = 32 个交点 + 1 个中心（一共 33 个点）
-       每个交点初始 num:null / isHit:false，然后把【上期开奖号】依次填进
-       前 N 个空位（双色球 6 个、大乐透 5 个）并标 isHit:true，
-       其余点位保持 num:null —— 也就是【图上只出现上期开奖号】，不是全部号码。
+   ⚠️ 这版的口径（要改之前先读 5.5.0 的几何表）：
+     · 九转 = 【同心圆环 × 米字轴】的交点，几何【按彩种自适应】：
+         双色球 4 圈 × 8 轴 = 32 交点 + 中心 1 个号码位 = 33 位 → 01~33 全铺满
+         大乐透 5 圈 × 7 轴 = 35 个交点              = 35 位 → 01~35 全铺满
+       每个交点【都有号码】，不再有 num:null 的空点；
+       上期开奖号【所在的那个点】标 isHit:true（深色），其余号码是浅色。
+       —— 也就是「全部号码都在，只是有深有浅、开奖的有标记」。
      · 中心【固定】：双色球 17 / 大乐透 18（见 NINE_CHART_BASE）。
+       双色球那个 17 自己就占一个号码位（17 ∈ 01~33），所以既固定又不漏号。
      · getNumberRoot 【没有】0 -> 5 的特判：0 就是 0。
 
    数据来源（NINE_CHART_BASE，用户原名 nineChartBase）：
-     ssqCenter / dltCenter / ringCount / axisCount 全部从配置读，
-     代码里【不再有第二份写死的 17 / 18 / 4 / 8】。
+     ssqCenter / dltCenter 从配置读；圈数 / 轴数 / 号码范围从
+     JIUZHUAN_GEOMETRY（5.5.0）读 —— 全号铺满必须按彩种定几何，
+     配置里的 ringCount=4 / axisCount=8 是双色球那一档的记载。
    ============================================================ */
 
 /* ------------------------------------------------------------
@@ -387,7 +391,9 @@ function autoKillNumbers(gameId, areaKey, n, from, to, periods) {
    }
 
    ⚠️ 这份配置是【唯一来源】：BASE_LUOSHU 从 baseLuoshu 读，
-      createJiuZhuan 的中心/环数/轴数从 jiuzhuan 读 —— 改配置即生效。
+      createJiuZhuan 的中心值从 jiuzhuan 读 —— 改配置即生效。
+      （圈数 / 轴数见 5.5.0 的 JIUZHUAN_GEOMETRY：要装下 33 / 35 个号，
+        不能所有彩种都用 4 × 8。）
    ⚠️ 仍然是【只读】：createLuoshu9Grid / 九宫矩阵一律先克隆再改。
    ⚠️ desc 里的「仅娱乐」在页面上要看得见：render.js 的九转/九宫两个
       区块会把它当图注印出来（和足球亚指那块同一个口径）。
@@ -408,11 +414,58 @@ const NINE_CHART_BASE = {
 };
 
 /* ------------------------------------------------------------
-   5.5.1 九转连环图生成【用户原话原样】
+   5.5.0 九转连环 · 【按彩种自适应】的几何表
+   ------------------------------------------------------------
+   用户原话：「九转图需要分散4个圈」「每一个号码都在 只是有深浅开奖的有标记」
+             「大乐透双色球都填满不要漏掉的号码」
+
+   为什么必须自适应（数学问题）：
+     双色球有 33 个号、大乐透有 35 个号，而 4 圈 × 8 轴只有 32 个交点 ——
+     32 < 33 / 35，硬塞就一定会有号漏掉。所以按彩种定几何：
+
+     彩种      圈 × 轴      交点数   中心            号码位合计   覆盖号码
+     ssq      4 × 8 = 32    32       占 1 位（=17）   33          01~33 一个不漏
+     dlt      5 × 7 = 35    35       装饰位（=18）    35          01~35 一个不漏
+     其它     4 × 8 = 32    32       装饰位           32          01~32 一个不漏
+
+   【中心冲突怎么解的（双色球）】
+     模板里中心是固定值（配置 ssqCenter = 17）。而 17 本身就是 01~33 里的一个号，
+     所以让「中心这一格也当一个号码位、里面正好放 17」——
+     固定值没有被改掉，33 个号也刚好各出现一次，两个要求同时成立。
+     唯一的副作用：开奖号里出现 17 时，那个「命中」亮点落在中心而不是环上
+     （命中总数仍然是 6，不会少）。
+
+   【大乐透的中心】
+     大乐透走 5 圈 × 7 轴 = 35 个交点，35 个号已经铺满，中心不占号位，
+     继续显示配置里的 dltCenter = 18（固定装饰位）。
+     副作用：18 在图上出现两次（中心一次、环上一次）—— 这是「中心固定」
+     和「35 个号一个不漏」两条要求叠在一起的必然结果，已在交付报告里写明。
+
+   【号码怎么铺】（用户说的「分散4个圈」）
+     从第 1 圈（最内圈）开始，按轴 1→轴 N 顺时针依次放，
+     铺满一圈再铺下一圈；所以每个圈里的号数一样多，不会全挤在第 1 圈。
+   ------------------------------------------------------------ */
+const JIUZHUAN_GEOMETRY = {
+  ssq:     { ringCount: 4, axisCount: 8, min: 1,  max: 33, centerHoldsNumber: true  },
+  dlt:     { ringCount: 5, axisCount: 7, min: 1,  max: 35, centerHoldsNumber: false },
+  /* 目前只有双色球 / 大乐透有九转图位；其它彩种按 4 圈 × 8 轴兜底 */
+  default: { ringCount: 4, axisCount: 8, min: 1,  max: 32, centerHoldsNumber: false }
+};
+
+/** 取某个彩种的九转几何（type: ssq / dlt / 其它） */
+function jiuZhuanGeometry(type) {
+  return JIUZHUAN_GEOMETRY[type] || JIUZHUAN_GEOMETRY.default;
+}
+
+/* ------------------------------------------------------------
+   5.5.1 九转连环图生成【用户原话原样 + 全号铺满】
    ------------------------------------------------------------ */
 
 /**
  * 九转连环图生成
+ *   · 每个交点都有号码（不再有 num:null 的空点）
+ *   · 上期开奖号【所在的那个点】标 isHit:true（其余号码低亮），
+ *     不是像以前那样「把开奖号填进前 N 个空位」
  * @param {number[]} lastNums 上期开奖号码
  * @param {string} type 双色球ssq / 大乐透dlt
  * @returns {object} 九转点位、圆环、轴信息，用于绘图渲染
@@ -420,11 +473,15 @@ const NINE_CHART_BASE = {
 function createJiuZhuan(lastNums, type = "ssq"){
   /* 中心值：ssq / dlt 各读各的（以前这里写死 17 / 18，现在统一从配置读） */
   const cfg = NINE_CHART_BASE.jiuzhuan;
+  const geo = jiuZhuanGeometry(type);
   const centerVal = type === "dlt" ? cfg.dltCenter : cfg.ssqCenter;
-  const ringCount = cfg.ringCount;
-  const axisCount = cfg.axisCount;
 
-  /* 4同心圆环，4米字轴，一共32交点
+  /* 圈数 / 轴数【按彩种】取（见 5.5.0 的几何表）。
+     配置里的 ringCount / axisCount 仍然保留，作为双色球口径的说明。 */
+  const ringCount = geo.ringCount;
+  const axisCount = geo.axisCount;
+
+  /* 同心圆环
      · radius 仍然是 1..ringCount 的序号（环的序号，不是像素半径）
      · sum: 68 —— 用户给的代码里每个环都带这个值，配置里没有它，所以
        这里保留字面量 68（见下面 ringSum 的说明），并且可以由
@@ -435,14 +492,27 @@ function createJiuZhuan(lastNums, type = "ssq"){
     rings.push({id:i, radius:i, sum:ringSum});
   }
 
-  /* 8 条米字轴：角度 = i × (360 / axisCount) → 0/45/90/…/315，45° 一个。
-     轴名沿用用户写法「轴1…轴8」。 */
+  /* 米字轴：角度 = i × (360 / axisCount)。
+     8 轴时就是 0/45/90/…/315，45° 一个（和以前完全一样）；
+     7 轴时是 360/7 ≈ 51.43° 一个。轴名沿用用户写法「轴1…轴N」。 */
   const axisList = [];
   for(let i = 0; i < axisCount; i++){
     axisList.push({name:"轴" + (i + 1), angle: i * (360 / axisCount)});
   }
 
-  // 所有32个点位
+  /* 本彩种的【全部号码】：双色球 01~33、大乐透 01~35，一个都不能漏。 */
+  const allNums = [];
+  for(let n = geo.min; n <= geo.max; n++) allNums.push(n);
+
+  /* 中心算不算一个号码位：
+     只有「配置里的中心值本身就在号码范围内」时才占位（双色球 17 ∈ 01~33 → 占）。
+     大乐透 => 不占（中心只是固定的装饰值 18）。 */
+  const centerHoldsNumber = !!geo.centerHoldsNumber && allNums.indexOf(centerVal) >= 0;
+  const ringNums = centerHoldsNumber
+    ? allNums.filter((n) => n !== centerVal)
+    : allNums.slice();
+
+  // 全部交点（圈 × 轴）
   const allPoints = [];
   rings.forEach(ring=>{
     axisList.forEach(axis=>{
@@ -457,18 +527,32 @@ function createJiuZhuan(lastNums, type = "ssq"){
     })
   })
 
-  // 把上期开奖号码，填充到点位，标记命中
-  const pool = [...allPoints];
-  lastNums.forEach(num=>{
-    const empty = pool.find(p=>p.num === null);
-    if(empty){
-      empty.num = num;
-      empty.isHit = true;
-    }
-  })
+  /* 号码铺满所有交点：圈优先（第 1 圈最内圈开始），一圈一圈往外铺。
+     号码位数和交点数一一对齐，铺完就是「一个不漏、一个不空」。 */
+  allPoints.forEach((p, i) => {
+    if (i < ringNums.length) p.num = ringNums[i];
+  });
+
+  /* 上期开奖号 → 点亮对应点位的「命中」标记：
+     号码位置是固定的（保证不漏号），开奖号只决定哪几个点是深色。 */
+  const hitSet = Object.create(null);
+  (Array.isArray(lastNums) ? lastNums : []).forEach((n) => { hitSet[Number(n)] = true; });
+  let hitCount = 0;
+  allPoints.forEach((p) => {
+    if (p.num !== null && hitSet[p.num]) { p.isHit = true; hitCount++; }
+  });
+  /* 中心本身是号码位时（双色球 17），它也要参与命中统计 */
+  const centerHit = centerHoldsNumber && !!hitSet[centerVal];
+  if (centerHit) hitCount++;
 
   return {
     center: centerVal,
+    centerHoldsNumber: centerHoldsNumber,   // 中心是否占一个号码位（双色球 true）
+    centerHit: centerHit,                   // 中心那个号是不是上期开奖号
+    ringCount: ringCount,
+    axisCount: axisCount,
+    nums: allNums,                          // 铺进图里的全部号码
+    hitCount: hitCount,                     // 命中总数（= 上期开奖号个数，含中心）
     rings,
     axisList,
     points: allPoints
@@ -602,10 +686,13 @@ function cirPad2(n) {
 
 /**
  * 把 createNineChartPack 的结果压成一行字段值（定点解码，长度固定）
- *   每个点位 2 个字符：数字位上「--」= 空点、isHit=true 时第一位带 H
- *   例：'H03H11H17H22H28H31--------------------…'（32 个点位 = 64 个字符）
+ *   每个点位 3 个字符：第 1 位 H = 命中（上期开奖号）/ - = 未开出，
+ *                      后 2 位是号码，「--」= 该交点没有号码（正常情况下不会出现）
+ *   例：'H03-04-05-06…'（32 个点位 = 96 个字符；大乐透 35 个 = 105 个字符）
+ *   ⚠️ 编解码必须是同一份口径：render.js 优先调 decodeCirPoints，
+ *      取不到才用等价的兜底解码（见 render.js 的 circle()）。
  *   为什么不存 JSON：这一串会进 saved-tickets.js 存档，定宽最好解码也好排查。
- * @returns {{str:string, hitCount:number, numCount:number}}
+ * @returns {{str:string, hitCount:number, numCount:number}} hitCount 只数【环上】的命中
  */
 function encodeCirPoints(jz) {
   const pts = (jz && Array.isArray(jz.points)) ? jz.points : [];
@@ -629,7 +716,7 @@ function encodeCirPoints(jz) {
 function decodeCirPoints(str) {
   const s = String(str || '');
   const out = [];
-  /* 每个点位 3 个字符：H/-(命中) + 两位号码（'--' = 空点） */
+  /* 每个点位 3 个字符：H/-(命中) + 两位号码（'--' = 该点没有号码） */
   for (let i = 0; i + 2 < s.length; i += 3) {
     const head = s[i];
     const body = s.slice(i + 1, i + 3);
@@ -1100,21 +1187,31 @@ function autoFillWuxing(gameId, opts) {
     blueExclude: blueRec
   }));
 
-  /* ---- 九转连环（用户新版：4 同心圆环 × 8 米字轴 = 32 交点 + 1 中心） ----
-     用户原话：「九转连环图+洛书九宫，输入上期开奖号，每期自动生成不同图表数据」。
+  /* ---- 九转连环（【全号铺满】版：几何按彩种自适应，一个号不漏） ----
+     用户原话：「九转连环图+洛书九宫，输入上期开奖号，每期自动生成不同图表数据」
+              「九转图需要分散4个圈」「每一个号码都在 只是有深浅开奖的有标记」
+              「大乐透双色球都填满不要漏掉的号码」。
      数据【一次性】从统一入口拿：createNineChartPack(last, type) → {jiuZhuan, luoshu}。
-       · 中心 = createJiuZhuan 的 center（双色球 17 / 大乐透 18，配置里来的）
-       · 32 个交点初始 num:null，上期开奖号依次填进前 N 个空位并标 isHit:true
-         → 【图上只出现上期开奖号】（双色球 6 个 / 大乐透 5 个），其余交点是空点
-       · 这一版中心是【固定】的，不再随期轮转（和用户更早说的「中心每期变一下」
-         冲突，已按用户最新代码实现，见交付报告里的冲突说明）
+       · 几何：双色球 4 圈 × 8 轴 = 32 交点 + 中心 1 位 = 33 个号码位（01~33 全铺）
+               大乐透 5 圈 × 7 轴 = 35 个交点        = 35 个号码位（01~35 全铺）
+       · 每个交点都有号码；上期开奖号【所在的那个点】标 isHit:true（深色），
+         其余号码是浅色 —— 「有深浅」就是这么来的（以前是「只画开奖号、其余空白」）
+       · 中心：双色球固定 17 且它自己就占一个号码位（17 ∈ 01~33，与「中心固定」不冲突）；
+               大乐透固定 18，是装饰位（35 个号已经铺满 35 个交点，中心不占号位）
      铺成字段（render.js 只读这几个，不再自己算几何）：
-       cir_points  32 个交点的定宽串（render.js 按几何表逐点解码）
-       cir_center  中心号（17 / 18）
-       cir_hit     命中（= 上期开奖号）个数
-       cir_axis    米字轴条数
-       cir_source  上期开奖号原文，给图注/排查看
-     旧键 cir_num_* / cir_rotate 是上一版（33 格整体轮转）留下的，这一版不再产生。 */
+       cir_points     环上全部交点的定宽串（3 字符/点，H 或 - 开头）
+       cir_center     中心号（17 / 18）
+       cir_center_pos 中心是不是号码位（1/0）
+       cir_center_hit 中心那个号是不是上期开奖号（1/0）
+       cir_rings      圈数（4 / 5）
+       cir_axes       轴数（8 / 7）
+       cir_hit        命中总数（= 上期开奖号个数，含中心）
+       cir_ring_hit   其中落在环上的命中个数
+       cir_num_count  环上有号码的点数（= 圈数 × 轴数）
+       cir_axis       米字轴条数（= cir_axes）
+       cir_source     上期开奖号原文，给图注/排查看
+     旧键 cir_num_* / cir_rotate 是更早两版留下的，这一版不再产生；
+     render.js 里仍然保留 cir_num_* 的兜底读取，老存档不会画成空白。 */
   const cirLast = lastIssueNumsFor(gameId);
   const cirType = (gameId === 'dlt') ? 'dlt' : 'ssq';
   const pack = createNineChartPack(cirLast, cirType);
@@ -1123,7 +1220,13 @@ function autoFillWuxing(gameId, opts) {
 
   out.cir_points = enc.str;
   out.cir_center = pad2(jz.center);
-  out.cir_hit = String(enc.hitCount);
+  out.cir_center_pos = jz.centerHoldsNumber ? '1' : '0';
+  out.cir_center_hit = jz.centerHit ? '1' : '0';
+  out.cir_rings = String(jz.ringCount);
+  out.cir_axes = String(jz.axisCount);
+  out.cir_hit = String(jz.hitCount);
+  out.cir_ring_hit = String(enc.hitCount);
+  out.cir_num_count = String(enc.numCount);
   out.cir_axis = String(jz.axisList.length);
   out.cir_source = cirLast.length ? cirLast.map(pad2).join(' ') : '—';
 
