@@ -3659,13 +3659,19 @@ ${RO_RENDER_SCRIPT}
         if (!body) return;                       /* 没抓到正文 → 交给浏览器处理 */
         e.preventDefault();                      /* 不跳锚点、不改 hash */
         var li = a.parentNode;
-        var open = false;
         if (li && li.tagName !== 'LI') li = li.parentNode;   /* 结构变了也不至于报错 */
-        if (li && li.className != null) {
-          open = String(li.className).indexOf('ro-art-open') >= 0;
+        if (!li) return;
+        /* 用 classList 加/摘 —— 不要整串重写 className：
+           那样每次收起都会在 class 里留下一串空格，越点越脏。 */
+        var cls = li.classList;
+        var open = cls ? cls.contains('ro-art-open') : false;
+        if (cls && cls.add && cls.remove) {
+          if (open) cls.remove('ro-art-open'); else cls.add('ro-art-open');
+        } else {                                  /* 老浏览器兜底 */
+          var s = (' ' + String(li.className || '') + ' ').replace(/\s+/g, ' ');
           li.className = open
-            ? String(li.className).replace(/\s*ro-art-open\s*/, ' ').replace(/^\s+|\s+$/g, ' ')
-            : (String(li.className) + ' ro-art-open').replace(/^\s+|\s+$/g, '');
+            ? s.replace(' ro-art-open ', ' ').replace(/^ | $/g, '')
+            : (s + 'ro-art-open ').replace(/^ /, '');
         }
         if (!open) reveal(body);
       });
