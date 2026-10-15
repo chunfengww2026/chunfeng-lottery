@@ -802,7 +802,7 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
    【晒票栏】区块（用户新增需求）
    ------------------------------------------------------------
    用户原话：「这里添加一个晒票栏 / 直接给到网页他们想看什么点击什么
-              https://www.yiqicai.com/xysp」
+              https://m.yiqicai.com/xysp」
    用户第二次改口：「晒票栏不要晒图片 可以分几个彩种晒票分列，
                     然后每一个选项点进去就是对应的晒票」
    ⇒ 所以这一块【不抓图片、不显示任何图片】，就是一个【按彩种分列的入口】：
@@ -830,14 +830,14 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
 
 /* 8 个彩种 + 各自的晒票页（用户在源站 /xysp 页面里实测抓到的真实链接） */
 const XYSP_GAMES = [
-  { name: '双色球', url: 'https://www.yiqicai.com/xysp/ssqxysp' },
-  { name: '大乐透', url: 'https://www.yiqicai.com/xysp/dltxysp' },
-  { name: '福彩3D', url: 'https://www.yiqicai.com/xysp/fc3dxysp' },
-  { name: '快乐8',  url: 'https://www.yiqicai.com/xysp/klbxysp' },
-  { name: '排列3',  url: 'https://www.yiqicai.com/xysp/pl3xysp' },
-  { name: '排列5',  url: 'https://www.yiqicai.com/xysp/pl5xysp' },
-  { name: '七星彩', url: 'https://www.yiqicai.com/xysp/xqxcxysp' },
-  { name: '七乐彩', url: 'https://www.yiqicai.com/xysp/qlcxysp' }
+  { name: '双色球', url: 'https://m.yiqicai.com/xysp/ssqxysp' },
+  { name: '大乐透', url: 'https://m.yiqicai.com/xysp/dltxysp' },
+  { name: '福彩3D', url: 'https://m.yiqicai.com/xysp/fc3dxysp' },
+  { name: '快乐8',  url: 'https://m.yiqicai.com/xysp/klbxysp' },
+  { name: '排列3',  url: 'https://m.yiqicai.com/xysp/pl3xysp' },
+  { name: '排列5',  url: 'https://m.yiqicai.com/xysp/pl5xysp' },
+  { name: '七星彩', url: 'https://m.yiqicai.com/xysp/xqxcxysp' },
+  { name: '七乐彩', url: 'https://m.yiqicai.com/xysp/qlcxysp' }
 ];
 
 function buildXyspHtml() {
@@ -941,7 +941,7 @@ function buildLiveHtml() {
   const items = (L && Array.isArray(L.items)) ? L.items : [];
   const updated = (KJH && KJH.updated) ? String(KJH.updated) : '';
   const status = L ? String(L.statusText || (L.onAir ? '正在直播' : '当前暂无直播')) : '当前暂无直播';
-  const home = (L && L.home) ? String(L.home) : 'https://www.yiqicai.com/live';
+  const home = (L && L.home) ? String(L.home) : 'https://m.yiqicai.com/live';
 
   const list = items.map((it) => {
     const meta = [];
