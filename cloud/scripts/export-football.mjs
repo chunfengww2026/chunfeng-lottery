@@ -79,6 +79,13 @@ const HIST = loadVar('jc-history.js', 'JC_HISTORY');
 /* football.js 用来补充实时比分（可选） */
 const FB = loadVar('football.js', 'FOOTBALL_DATA');
 
+/* 【体彩官网在售场次】jc-official.js 由 build-jc-count.mjs 每小时抓一次，
+   里面 JC_OFFICIAL.inSale 是体彩官网公布的【真实】在售场次。
+   读取方式和上面 jc-data.js / jc-history.js / football.js 完全一样。
+   拿不到（文件还没生成 / 解析失败）时返回 null，页面自动退回原来的
+   stat.upcoming + stat.live，绝不会因为少这个文件就崩。 */
+const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
+
 /* ---------- 工具 ---------- */
 const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -352,6 +359,13 @@ MATCHES.forEach((m) => {
   }
 });
 stat.rate = stat.settled ? ((stat.hit / stat.settled) * 100).toFixed(1) : '0.0';
+
+/* ---------- 「体彩竞彩在售 N 场」的那个 N ----------
+   优先用体彩官网的数字（jc-official.js 的 inSale，build-jc-count.mjs 每小时抓）；
+   拿不到就用本地竞彩数据算的 upcoming + live 兜底（和改动前完全一样）。 */
+const OFFICIAL = JC_OFFICIAL && Number.isFinite(Number(JC_OFFICIAL.inSale))
+  ? Number(JC_OFFICIAL.inSale) : null;
+const IN_SALE = OFFICIAL === null ? (stat.upcoming + stat.live) : OFFICIAL;
 
 /* ---------- 数据更新时间 ----------
    jc-data.updated 是「在售列表」的时间，jc-history.updated 是归档时间，
@@ -670,7 +684,7 @@ ${nav}
 <body>
 <div class="wrap">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <span class="cd" data-cd="1"></span></div>
+  <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场累积 ${stat.finished} 场 · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
@@ -740,5 +754,9 @@ console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} 
 console.log(`   三卡片：未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 已完场 ${stat.finished}`);
 console.log(`   已完场构成：本次在售完场 ${stat.finishedToday} 场 + 历史归档 ${stat.history} 场`);
 console.log(`   已完场分区卡片数：${MATCHES.filter((m) => m.kind === 'finished').length}`);
+console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
+  (OFFICIAL === null
+    ? `本地竞彩数据兜底 upcoming+live=${IN_SALE}（没读到 jc-official.js）`
+    : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
