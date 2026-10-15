@@ -980,7 +980,7 @@ function buildXyspHtml() {
     )).join('');
 
   const body = cards.length
-    ? `<div class="ro-xysp-pics" data-ro-xysp-grid>${cards.join('')}</div>` +
+    ? `<div class="ro-xysp-pics allow-save" data-ro-xysp-grid>${cards.join('')}</div>` +
       `<div class="ro-xysp-empty" hidden>该分类 72 小时内暂无晒票</div>`
     : `<div class="ro-xysp-empty">暂无（每 30 分钟自动更新）</div>`;
 
@@ -1060,7 +1060,7 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-sub">系统随机生成 · 仅供娱乐参考</div>` +
     `<span class="ro-aipick-arrow" aria-hidden="true"></span>` +
     `</summary>` +
-    `<div class="ro-aipick-body">` +
+    `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
@@ -3080,6 +3080,28 @@ html.is-owner #owner-badge { display: block; }
   #article, #article-rest { filter: blur(30px) grayscale(1) !important; }
   #mask { display: flex !important; }
 }
+/* ============================================================
+   __NO_SAVE__ 资料图不允许任何人保存（右键另存 / 长按 / 拖拽 / 复制）
+   ------------------------------------------------------------
+   推荐图是 canvas 实时渲染的（本来就没有图片 URL），但还要堵：
+     · iOS 长按菜单      → -webkit-touch-callout: none
+     · 拖拽出去          → -webkit-user-drag: none
+     · 右键另存 / 复制   → 页尾防截图脚本里 preventDefault（见 allowedTarget 白名单）
+   ⚠️ 为什么不给 canvas 加 pointer-events:none：
+      那样会连带影响「点图放大」这类点击；而且推荐图在页面里的入口是
+      手机目录格子（.ro-toc-cell），图片本身没有任何点击绑定，
+      所以只要拦事件 + 关长按菜单就够了，不必盖透明层。
+   ⚠️ 只作用于 #article / #article-rest（资料区）；
+      全屏层（body 直下）和豁免区（晒票 / GPT模型摇号）不受影响 ——
+      晒票和摇号出的图是要能保存的。
+   ============================================================ */
+#article .ro-imagewrap canvas, #article-rest .ro-imagewrap canvas,
+#article .ro-imagewrap img, #article-rest .ro-imagewrap img {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
 /* ============================================================
    【面板美化】用户要求「模板好看一点」（只改视觉：颜色 / 间距 / 圆角 /
@@ -4304,7 +4326,7 @@ ${RO_RENDER_SCRIPT}
         var src = this.getAttribute('href');
         var cap = this.querySelector('.ro-xysp-cap b');
         if (api && typeof api.openUrl === 'function' &&
-            api.openUrl(src, cap ? String(cap.textContent || '') : '')) {
+            api.openUrl(src, cap ? String(cap.textContent || '') : '', true)) {
           e.preventDefault();
         }
       });
@@ -5093,7 +5115,7 @@ ${RO_RENDER_SCRIPT}
       var api = window.__roMobView;
       var opened = false;
       try {
-        opened = !!(api && typeof api.openUrl === 'function' && api.openUrl(pic.url, 'GPT模型摇号 · ' + g.name));
+        opened = !!(api && typeof api.openUrl === 'function' && api.openUrl(pic.url, 'GPT模型摇号 · ' + g.name, true));
       } catch (e) { opened = false; }
       if (!opened) saveHint('图片已经生成，但全屏层没能打开：请刷新页面后再试一次');
       return pic;
@@ -5514,6 +5536,29 @@ ${RO_RENDER_SCRIPT}
         }
       }
     }
+    /* ============================================================
+       【保存权限】三处允许保存、其余一律禁止（用户要求）
+       ------------------------------------------------------------
+       ✅ 允许：① 晒票（实票图，外链 <img>）② GPT模型摇号出的图
+        （以后新加的区块只要带上 class="allow-save" 就自动放行 ——
+          分享页现在没有别的可保存区块）
+       ❌ 禁止：推荐图 / 资料、最新开奖、开机号、直播、文章正文、免责……
+       判断：事件目标往上找，命中 .allow-save 就算放行；
+             全屏看图层再看 view 上的 data-allow（openUrl 传 true = 放行，
+             推荐图走 open() → data-allow=0 = 拦）。
+       ✅ 白名单命中的一律 return（不 preventDefault）。
+       ============================================================ */
+    function allowedTarget(e) {
+      var n = e && e.target;
+      while (n && n.nodeType === 1) {
+        if (n.classList && n.classList.contains && n.classList.contains('allow-save')) return true;
+        if (n.classList && n.classList.contains && n.classList.contains('ro-mob-view')) {
+          return String(n.getAttribute('data-allow') || '0') === '1';
+        }
+        n = n.parentNode;
+      }
+      return false;
+    }
     function armProtection() {
       window.addEventListener('blur', function () { lock(); });
       window.addEventListener('focus', function () { unlock(); });
@@ -5537,10 +5582,12 @@ ${RO_RENDER_SCRIPT}
         }
         if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
       });
-      document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-      document.addEventListener('dragstart', function (e) { e.preventDefault(); });
-      document.addEventListener('copy', function (e) { e.preventDefault(); });
-      document.addEventListener('cut', function (e) { e.preventDefault(); });
+      /* 保存相关的拦截：白名单以外全部拦掉 */
+      document.addEventListener('contextmenu', function (e) { if (!allowedTarget(e)) e.preventDefault(); });
+      document.addEventListener('dragstart', function (e) { if (!allowedTarget(e)) e.preventDefault(); });
+      document.addEventListener('copy', function (e) { if (!allowedTarget(e)) e.preventDefault(); });
+      document.addEventListener('cut', function (e) { if (!allowedTarget(e)) e.preventDefault(); });
+      document.addEventListener('selectstart', function (e) { if (!allowedTarget(e)) e.preventDefault(); });
     }
     /* 是不是点分十进制 IPv4（故意不用正则：正则里的 \d 写进模板字符串会被吃掉） */
     function isIPv4(s) {
