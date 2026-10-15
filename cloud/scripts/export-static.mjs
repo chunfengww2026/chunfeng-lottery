@@ -843,10 +843,15 @@ function buildArticlesHtml() {
         }).join('') + '</ul>'
       : '<div class="ro-art-empty">本期暂无</div>';
 
-    return `<div class="ro-art-group">` +
-      `<div class="ro-art-gname">${escape(label)}<i>${items.length} 篇</i></div>` +
+    /* __GROUP_COL__ 用户要求：每个彩种分组也能收起，并写「点击查看 / 点击收起」。
+       默认【展开】（保持原来一眼看到文章的样子）；点一下收起。
+       用 details/summary 原生折叠，不写 JS。
+       提示文字由 CSS 按 [open] 切换：展开时「点击收起」/ 收起时「点击查看」。 */
+    return `<details class="ro-art-group" open>` +
+      `<summary class="ro-art-gname">${escape(label)}<i>${items.length} 篇</i>` +
+      `<span class="ro-art-tip" aria-hidden="true"></span></summary>` +
       list +
-      `</div>`;
+      `</details>`;
   }).join('');
 
   return `<section class="ro-articles" id="ro-articles">` +
@@ -2388,6 +2393,18 @@ body.ro-mob-open { overflow: hidden; }
 .ro-art-author { font-size: 10.5px; color: #5f6878; margin-right: 8px; }
 .ro-art-date { font-size: 10.5px; color: #5f6878; }
 .ro-art-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
+
+/* __GROUP_COL__ 分组可收起的样式（details/summary 原生折叠） */
+.ro-art-group > summary.ro-art-gname {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; list-style: none; user-select: none;
+}
+.ro-art-group > summary.ro-art-gname::-webkit-details-marker { display: none; }
+.ro-art-group > summary.ro-art-gname::marker { content: ''; }
+.ro-art-tip { margin-left: auto; font-size: 11px; font-weight: 400; color: #8fb8ff; opacity: .85; }
+.ro-art-group[open] > summary.ro-art-gname .ro-art-tip::after { content: '点击收起'; }
+.ro-art-group:not([open]) > summary.ro-art-gname .ro-art-tip::after { content: '点击查看'; }
+.ro-art-group:not([open]) > summary.ro-art-gname { margin-bottom: 0; }
 
 /* —— 文章参考 · 正文（点标题原地展开阅读）——
    用户原话：「微信把 yiqicai.com 拉黑了，点链接跳过去打不开
