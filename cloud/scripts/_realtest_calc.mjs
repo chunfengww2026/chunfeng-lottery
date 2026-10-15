@@ -96,6 +96,15 @@ function makeEl(tag, opts = {}) {
     return ev;
   };
   el.appendChild = (c) => { c.parentNode = el; el.children.push(c); return c; };
+  el.closest = (sel) => {
+    const cls = String(sel).replace(/^\./, '');
+    let n = el;
+    while (n) {
+      if (n.classList && n.classList.contains(cls)) return n;
+      n = n.parentNode;
+    }
+    return null;
+  };
   el.querySelectorAll = (sel) => {
     const m = /^([a-zA-Z]+)?\.?([\w-]+)?$/.exec(sel) || [];
     const tag = (m[1] || '').toUpperCase();
@@ -386,10 +395,11 @@ ok((html.match(/class="m-sectip"/g) || []).length === 3, `m-sectip = ${(html.mat
 ok(html.includes('__FB_SEC_JS__'), '__FB_SEC_JS__（点顶部数字自动展开）还在');
 ok((html.match(/data-cd=/g) || []).length === 1, `data-cd 倒计时 = ${(html.match(/data-cd=/g) || []).length}（1）`);
 ok(/体彩竞彩在售 \d+ 场 · 已完场累积 \d+ 场 ·/.test(html), '头行「体彩竞彩在售 N 场 · 已完场累积 N 场」在');
+ok((html.match(/undefined/g) || []).length === 0, `整页没有 "undefined"（出现 ${(html.match(/undefined/g) || []).length} 次）`);
 
 H('8. 模拟计算可收起（原生 details/summary，默认收起）');
-const calcM = /<details class="m-calc" id="jcCalc"([^>]*)>/.exec(html);
-ok(!!calcM, '用的是原生 <details class="m-calc" id="jcCalc">');
+const calcM = /<details class="m-calc[^"]*" id="jcCalc"([^>]*)>/.exec(html);
+ok(!!calcM, '用的是原生 <details class="m-calc allow-save" id="jcCalc">');
 ok(calcM && !/\bopen\b/.test(calcM[1]), '模拟计算默认【收起】（<details> 不带 open）');
 const allDetails = [...html.matchAll(/<details\b([^>]*)>/g)];
 console.log(`   页面里 <details> 共 ${allDetails.length} 个（m-sec ${secs.length} + m-calc 1）· 带 open 的 = ${allDetails.filter((m) => /\bopen\b/.test(m[1])).length}`);
@@ -880,7 +890,33 @@ if (lockMark < 0) {
     const got = L3.document2.dispatch(t, { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
     if (!got.defaultPrevented) preventOk = false;
   }
-  ok(preventOk, '③ 右键 / 拖拽 / 复制 / 剪切 全部 preventDefault');
+  ok(preventOk, '③ 页面其它地方：右键 / 拖拽 / 复制 / 剪切 全部 preventDefault');
+
+  /* ---- 保存白名单：模拟计算区块 / 生成的选号图 里不拦 ---- */
+  console.log('   ⑥ 保存白名单（.allow-save = 模拟计算区块 + 选号图那一层）');
+  ok(/class="m-calc allow-save"/.test(html), '模拟计算容器带 class="m-calc allow-save"');
+  ok(/class="calc-shot allow-save"/.test(html), '生成的选号图全屏层也带 allow-save（不然没法右键另存）');
+  const statEl = makeEl('a', { className: 'stat-link' });          /* 统计卡（不在白名单） */
+  const cardEl = makeEl('div', { className: 'm-card' });           /* 比赛卡片（不在白名单） */
+  const saveBox = makeEl('details', { className: 'm-calc allow-save' });
+  const saveInput = makeEl('input', { className: 'calc-cb' });
+  const shotImg = makeEl('img', { className: 'calc-shot-img' });
+  const shotBox = makeEl('div', { className: 'calc-shot allow-save' });
+  saveBox.appendChild(saveInput);
+  shotBox.appendChild(shotImg);
+  const mk = (target) => ({ type: 'contextmenu', target, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
+  const evStat = L3.document2.dispatch('contextmenu', mk(statEl));
+  const evCard = L3.document2.dispatch('contextmenu', mk(cardEl));
+  const evSave = L3.document2.dispatch('contextmenu', mk(saveInput));
+  const evShot = L3.document2.dispatch('contextmenu', mk(shotImg));
+  const evCopyStat = L3.document2.dispatch('copy', mk(statEl));
+  console.log(`      统计卡右键 preventDefault = ${evStat.defaultPrevented} · 比赛卡片右键 = ${evCard.defaultPrevented}`);
+  console.log(`      模拟计算里右键 preventDefault = ${evSave.defaultPrevented} · 选号图上右键 = ${evShot.defaultPrevented} · 统计卡复制 = ${evCopyStat.defaultPrevented}`);
+  ok(evStat.defaultPrevented && evCard.defaultPrevented && evCopyStat.defaultPrevented,
+    '⑥ 统计卡 / 比赛卡片 / 统计卡复制 → 仍然被拦（禁止保存）');
+  ok(!evSave.defaultPrevented && !evShot.defaultPrevented,
+    '⑥ 模拟计算区块内 / 选号图上 → 放行（能右键存图、能长按保存）');
+  L3.document2.hidden = false; L3.window2.dispatch('focus');
   const beforeLen = L3.wmEl.innerHTML.length;
   L3.window2.innerWidth = 1600; L3.window2.innerHeight = 1200;
   L3.window2.dispatch('resize');
@@ -903,7 +939,7 @@ if (lockMark < 0) {
   ok(/#mask \{[\s\S]*?z-index: 99998;/.test(html) && /#watermark \{[\s\S]*?z-index: 99997;/.test(html), '遮罩 99998 · 水印 99997（都在豁免区下面）');
   ok(/@media print \{[\s\S]*?filter: blur\(25px\) grayscale\(1\) !important;/.test(html), 'CSS：打印时也模糊（@media print）');
   const ia = html.indexOf('id="article"');
-  const iCalc2 = html.indexOf('<details class="m-calc" id="jcCalc">');
+  const iCalc2 = html.indexOf('<details class="m-calc allow-save" id="jcCalc">');
   const articleEnd = html.indexOf('</div>', html.indexOf('class="record"'));
   ok(iCalc2 > articleEnd && iCalc2 > ia, '模拟计算【不在】#article 里（不会被模糊）');
   const secStart = html.indexOf('<details class="m-sec"', ia);
