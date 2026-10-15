@@ -25,7 +25,10 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const PAGE = path.join(ROOT, '只读分享版.html');
+/* 默认测本机生成的 只读分享版.html；
+   也可以传入一个页面路径（例：把线上抓下来的页面存成 _live_aipick.html）→ 线上同款真跑 */
+const PAGE = process.argv[2] ? path.resolve(process.argv[2]) : path.join(ROOT, '只读分享版.html');
+console.log(`页面：${PAGE}`);
 
 let fail = 0;
 const ok = (cond, label, extra) => {
