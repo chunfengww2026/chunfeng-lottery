@@ -5,7 +5,7 @@
 //    live.500.com/jczq.php          竞彩在售列表（含竞彩编号、fid）
 //    live.500.com/json/odds.php     欧赔/亚盘/大小球（初盘 + 即时）
 //
-//  【额外】体彩官网官方竞彩 SP（奖金试算器要用）：
+//  【额外】体彩官网官方竞彩 SP（模拟计算器要用）：
 //    webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry
 //      m.had  = 胜平负 SP        （主胜 h / 平 d / 客胜 a）
 //      m.hhad = 让球胜平负 SP    （让球数 goalLine + h/d/a）
@@ -15,7 +15,7 @@
 //
 //  产物：
 //    jc-data.js     →  const JC_DATA = {...}   本次「在售」的比赛
-//                      顶层多一个 sp 块：官方竞彩 SP 列表（奖金试算器读它）
+//                      顶层多一个 sp 块：官方竞彩 SP 列表（模拟计算器读它）
 //    jc-history.js  →  const JC_HISTORY = {...} 已完场累积记录
 //
 //  每场比赛还会算一份【亚指综合换算】结果存在 game.asianIndex
@@ -313,7 +313,7 @@ async function fetchOdds(fid) {
 }
 
 /* ============================================================
-   2b. 官方竞彩 SP（胜平负 had / 让球胜平负 hhad）—— 奖金试算器要用
+   2b. 官方竞彩 SP（胜平负 had / 让球胜平负 hhad）—— 模拟计算器要用
    ------------------------------------------------------------
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1，1 次请求）
      m.had  = { h 主胜, d 平, a 客胜 }              ← 竞彩【胜平负】官方 SP
@@ -588,7 +588,7 @@ async function main() {
   const scores = await fetchScores();
   log(`  ✅ 取到 ${scores.size} 场的状态与比分`);
 
-  log('\n【2b/3】抓体彩官网官方竞彩 SP（胜平负 / 让球胜平负，奖金试算器用）');
+  log('\n【2b/3】抓体彩官网官方竞彩 SP（胜平负 / 让球胜平负，模拟计算器用）');
   const spTry = await fetchOfficialSp();
   if (spTry.ok) {
     log(`  ✅ 官方 SP ${spTry.list.length} 场 · 官方更新 ${spTry.officialUpdate || '(无)'}` +
@@ -703,7 +703,7 @@ async function main() {
           : ' · 无让球') +
         `（体彩官网官方 SP${spTry.ok ? '' : ' · 上次值'}）`);
     } else {
-      log('       SP：本场不在体彩官网「在售计算器」列表里（无官方 SP，不进奖金试算器）');
+      log('       SP：本场不在体彩官网「在售计算器」列表里（无官方 SP，不进模拟计算器）');
     }
 
     games.push(Object.assign({}, g, {
@@ -764,7 +764,7 @@ async function main() {
 
   log(`\n✅ 已写入 ${OUT}`);
   log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分 · ${withAsian} 场有亚盘`);
-  log(`   SP（奖金试算器）：${spBlock.source} · ${spBlock.list.length} 场 · ${spBlock.from}`);
+  log(`   SP（模拟计算器）：${spBlock.source} · ${spBlock.list.length} 场 · ${spBlock.from}`);
   log(`   未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}`);
   log(`   亚指综合换算：${withAsian} 场算出 asianIndex` +
       `（其中 ${games.filter((g) => g.asianIndex && g.asianIndex.analysis).length} 场有资金占比 → 显示热度推演）`);

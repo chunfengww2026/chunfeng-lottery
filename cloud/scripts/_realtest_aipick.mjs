@@ -485,6 +485,36 @@ ok(pageInputs === panelInputs && panelInputs > 0, '整页的 <input> 全部在 a
 }
 
 /* ============================================================
+   11) 标题居中（用户配截图要求「字体居中」）
+   ============================================================ */
+H('11. 标题居中：ai选号 + 副标题 + 「点击查看」纵向居中（!important）');
+const head = root.querySelector('.ro-aipick-head');
+const headParts = head
+  ? head.children.filter((n) => n.tagName !== '#text')
+      .map((n) => `${n.tagName}: ${n.textContent || '(文字由 CSS 伪元素出：点击查看 ▸)'}`)
+  : [];
+console.log('  <summary class="ro-aipick-head"> 的子元素（按源码顺序 = 显示顺序，flex-direction: column 纵向排）：');
+headParts.forEach((p, i) => console.log(`   ${i + 1}. ${p}`));
+ok(headParts.length === 3 && headParts[0].indexOf('h2') === 0 &&
+   headParts[1].indexOf('div') === 0 && headParts[2].indexOf('span') === 0,
+  '标题行 = 标题 → 副标题 → 「点击查看」，三个元素（h2 / div / span）');
+ok(/\.ro-aipick-head\s*\{[^}]*flex-direction:\s*column\s*!important/.test(html) &&
+   /\.ro-aipick-head\s*\{[^}]*align-items:\s*center\s*!important/.test(html) &&
+   /\.ro-aipick-head\s*\{[^}]*justify-content:\s*center\s*!important/.test(html) &&
+   /\.ro-aipick-head\s*\{[^}]*text-align:\s*center\s*!important/.test(html),
+  '.ro-aipick-head：flex-direction / align-items / justify-content / text-align 全部 !important');
+ok(/\.ro-aipick-h2\s*\{[^}]*text-align:\s*center\s*!important/.test(html) &&
+   /\.ro-aipick-h2\s*\{[^}]*width:\s*100%\s*!important/.test(html),
+  '.ro-aipick-h2（标题）：text-align / width 都带 !important');
+ok(/\.ro-aipick-sub\s*\{[^}]*text-align:\s*center\s*!important/.test(html) &&
+   /\.ro-aipick-sub\s*\{[^}]*line-height:\s*1\.5\s*!important/.test(html),
+  '.ro-aipick-sub（副标题）：text-align / line-height 都带 !important');
+ok(/\.ro-aipick-arrow\s*\{[^}]*margin:\s*4px auto 0\s*!important/.test(html),
+  '.ro-aipick-arrow（点击查看 ▸）：margin 居中带 !important');
+ok(/\.ro-aipick\[open\] \.ro-aipick-arrow::before \{ content: '点击收起'/.test(html),
+  '「点击查看 / 点击收起」的切换逻辑没改（还是纯 CSS 按 [open] 出）');
+
+/* ============================================================
    结论
    ============================================================ */
 console.log('');

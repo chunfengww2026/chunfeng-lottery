@@ -2913,6 +2913,38 @@ body.ro-mob-open { overflow: hidden; }
 .ro-aipick-note { margin-top: 10px; font-size: 10.5px; line-height: 1.6; color: #5f6878; }
 
 /* ============================================================
+   __CENTER_HEAD_AI__ ai选号 标题行【强制居中】（用户配截图要求「字体居中」）
+   ------------------------------------------------------------
+   写法照抄上面「三个区块标题强制居中」那一套（用户要求「别自创」）：
+   纵向排列 + 居中 + 全程 !important。
+   为什么必须 !important：本段上面的 .ro-aipick-head 自己写了
+   align-items: baseline / flex-wrap: wrap、.ro-aipick-arrow 写了 margin-left: auto，
+   不加 !important 会被它们按同优先级盖掉（这个坑用户已经踩过好几次）。
+   只影响 ai选号 这一个区块，别处不动。
+   ============================================================ */
+.ro-aipick-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 3px !important;
+}
+.ro-aipick-h2 {
+  text-align: center !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.ro-aipick-sub {
+  text-align: center !important;
+  width: 100% !important;
+  line-height: 1.5 !important;
+}
+/* 「点击查看 ▸ / 点击收起 ▾」在纵向布局里要自己居中（切换逻辑不变，只挪位置） */
+.ro-aipick-arrow { margin: 4px auto 0 !important; }
+
+/* ============================================================
    【开机号 / 选号直播】工具栏入口 + 两个可展开区块
    ------------------------------------------------------------
    平时隐藏（:target 命中才显示），不点就跟没有一样 ——

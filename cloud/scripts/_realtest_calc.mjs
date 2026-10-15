@@ -111,7 +111,8 @@ const iNote = html.indexOf('<div class="note">');
 ok(iCalc >= 0 && iNote > iCalc, `计算器区块在【免责声明上方】（jcCalc=${iCalc} < note=${iNote}）`);
 const calcHtml = html.slice(iCalc, iNote > iCalc ? iNote : html.length);
 
-const root = makeEl('div', { id: 'jcCalc', className: 'calc' });
+const root = makeEl('details', { id: 'jcCalc', className: 'm-calc' });
+root.open = false;            /* 页面里的 <details class="m-calc"> 不带 open → 默认收起 */
 const LABELS = [];
 /* 页面上的勾选：<label class="calc-opt"><input class="calc-cb" type="checkbox" value="..."> */
 for (const m of calcHtml.matchAll(/<label class="calc-opt"><input class="calc-cb" type="checkbox" value="([^"]+)">/g)) {
@@ -372,7 +373,27 @@ ok(html.includes('__FB_SEC_JS__'), '__FB_SEC_JS__（点顶部数字自动展开�
 ok((html.match(/data-cd=/g) || []).length === 1, `data-cd 倒计时 = ${(html.match(/data-cd=/g) || []).length}（1）`);
 ok(/体彩竞彩在售 \d+ 场 · 已完场累积 \d+ 场 ·/.test(html), '头行「体彩竞彩在售 N 场 · 已完场累积 N 场」在');
 
-H('8. 合规声明（区块自己的底部）');
+H('8. 模拟计算可收起（原生 details/summary，默认收起）');
+const calcM = /<details class="m-calc" id="jcCalc"([^>]*)>/.exec(html);
+ok(!!calcM, '用的是原生 <details class="m-calc" id="jcCalc">');
+ok(calcM && !/\bopen\b/.test(calcM[1]), '模拟计算默认【收起】（<details> 不带 open）');
+const allDetails = [...html.matchAll(/<details\b([^>]*)>/g)];
+console.log(`   页面里 <details> 共 ${allDetails.length} 个（m-sec ${secs.length} + m-calc 1）· 带 open 的 = ${allDetails.filter((m) => /\bopen\b/.test(m[1])).length}`);
+ok(allDetails.length === 4, `页面里 <details> 数量 = ${allDetails.length}（3 个分段 + 1 个模拟计算）`);
+ok(allDetails.every((m) => !/\bopen\b/.test(m[1])), '所有 <details> 都不带 open（全部默认收起）');
+ok(/<summary class="calc-head">/.test(html), '<summary class="calc-head"> 标题行在（标题由 summary 承载）');
+ok((html.match(/class="calc-tip"/g) || []).length === 1, `提示 span .calc-tip = ${(html.match(/class="calc-tip"/g) || []).length}（1）`);
+ok(html.includes(".m-calc[open] > summary.calc-head .calc-tip::after { content: '点击收起'; }"), 'CSS：展开时显示「点击收起」');
+ok(html.includes(".m-calc:not([open]) > summary.calc-head .calc-tip::after { content: '点击查看'; }"), 'CSS：收起时显示「点击查看」');
+ok(html.includes('.m-calc > summary.calc-head::-webkit-details-marker { display: none; }') &&
+  html.includes(".m-calc > summary.calc-head::marker { content: ''; }"), 'CSS：去掉了 summary 的默认三角');
+ok(html.includes('.m-calc > summary.calc-head { cursor: pointer; list-style: none; user-select: none;'), 'CSS：summary cursor:pointer + list-style:none + user-select:none');
+const detailsEnd = iCalc >= 0 ? html.indexOf('</details>', iCalc) : -1;
+const disclaimInDetails = iCalc >= 0 && detailsEnd > iCalc &&
+  html.slice(iCalc, detailsEnd).includes('class="calc-disclaim"');
+ok(disclaimInDetails, '底部合规声明在 <details> 里面（跟着一起折叠）');
+
+H('9. 合规声明（区块自己的底部）');
 const disclaim = /<div class="calc-disclaim">([\s\S]*?)<\/div>/.exec(calcHtml);
 const disclaimText = disclaim ? disclaim[1].replace(/<[^>]*>/g, '').trim() : '';
 console.log(`   可见文字：${disclaimText}`);
@@ -382,6 +403,39 @@ const calcEnd = calcHtml.length;
 const dPos = disclaim ? calcHtml.indexOf(disclaim[0]) : -1;
 ok(dPos > 0 && dPos + disclaim[0].length >= calcEnd - 200, '声明在计算器区块的最下面');
 
+H('10. 标题与时间（用户要求：标题=模拟计算 · 不显示抓取时间）');
+/* 页面【可见文字】：去掉 script / 注释 / 标签 */
+const visible = (s) => s.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<!--[\s\S]*?-->/g, '')
+  .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+const headM = /<summary class="calc-head">([\s\S]*?)<\/summary>/.exec(calcHtml);
+const headText = headM ? visible(headM[1]) : '';
+console.log(`   标题行可见文字：【${headText}】`);
+ok(/模拟计算/.test(headText), '标题行里有「模拟计算」');
+ok(!/奖金试算/.test(headText), '标题行里没有「奖金试算」');
+ok(/赔率：体彩官网官方 SP/.test(headText), '标题行右边保留「赔率：体彩官网官方 SP」');
+ok(!/抓取于/.test(headText), '标题行里没有「抓取于」');
+
+const pageVisible = visible(html);
+ok(!/奖金试算/.test(pageVisible), `整页可见文字里没有「奖金试算」（出现 ${(pageVisible.match(/奖金试算/g) || []).length} 次）`);
+ok(!/抓取于/.test(pageVisible), `整页可见文字里没有「抓取于」（出现 ${(pageVisible.match(/抓取于/g) || []).length} 次）`);
+ok(!/奖金试算/.test(html), '整页源码（含注释）里也没有「奖金试算」');
+ok(/模拟计算/.test(pageVisible), '整页可见文字里有「模拟计算」');
+console.log(`   底部合规声明：${disclaimText}`);
+
+H('11. 展开后（点一下标题）勾选算奖金仍然正常');
+console.log(`   展开前：details.open = ${root.open}（默认收起，一个勾选框都看不见）`);
+root.open = true;                       /* 模拟用户点了一下 <summary> */
+console.log(`   展开后：details.open = ${root.open}`);
+reset();
+setBox(box(A.code, 'had', 'h'), true);
+setBox(box(B.code, 'had', 'a'), true);
+st = read();
+const e10 = r2(2 * A.had.h * B.had.a);
+check('展开后 2 串 1：奖金 = 2 × 两场赔率之积', st.prize, money(e10));
+console.log(`        ${st.n} 关 · ${st.bets} 注 · 总投注 ${st.cost} · 提示：${st.hint}`);
+reset();
+console.log('   （收起/展开只影响显示，不影响任何计算，也不写任何存储）');
+
 /* ============================================================
    结果
    ============================================================ */
@@ -390,7 +444,7 @@ if (bad === 0) {
   console.log('════════════════════════════════════════════════════');
   console.log('  ✅ 真跑验证通过（每一步的实际数字见上）');
   console.log(`     · 迷你 DOM 真执行了页面里的计算器脚本（${script.length} 字符）`);
-  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~14 全部与手算一致`);
+  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~15 全部与手算一致`);
   console.log('════════════════════════════════════════════════════');
 } else {
   console.log(`❌ 真跑验证失败：${bad} 项不通过`);
