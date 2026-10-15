@@ -92,6 +92,26 @@ function readOld() {
 const st = readState();
 const now = Date.now();
 
+/* 【最小间隔节流】--min-gap <分钟>
+   ------------------------------------------------------------
+   晒票那一班改成每 10 分钟跑之后，用这个参数把「在售场次」钉回 30 分钟
+   （体彩官网没必要 10 分钟问一次）。
+   不足间隔就按「本轮跳过」退出码 10 —— 调用方把 10 当【正常跳过】处理。
+   不传参数 = 老行为（每次都抓），所以 daily-update / cloud-build 不受影响。 */
+const gapIdx = process.argv.indexOf('--min-gap');
+if (gapIdx >= 0) {
+  const minGap = Number(process.argv[gapIdx + 1] || 0);
+  const last = Date.parse(st.lastRun || '');
+  if (minGap > 0 && isFinite(last) && (now - last) < minGap * 60000) {
+    const left = Math.ceil((minGap * 60000 - (now - last)) / 60000);
+    log(`⏸  距上次成功只过了 ${Math.round((now - last) / 60000)} 分钟（要求 >= ${minGap} 分钟），` +
+      `还差 ${left} 分钟 —— 本轮跳过，保留上一份 jc-official.js`);
+    st.skips = (st.skips || 0) + 1;
+    writeState(st);
+    process.exit(10);
+  }
+}
+
 /* ---------- 1. 退避中就直接跳过 ---------- */
 if (st.pausedUntil && now < st.pausedUntil) {
   const left = Math.ceil((st.pausedUntil - now) / 60000);
