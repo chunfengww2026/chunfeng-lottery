@@ -374,10 +374,13 @@ const SIDE_CATS = [
 ].filter(Boolean);
 
 for (const C of SIDE_CATS) {
-  /* ① 先把 xysp-data.js 里已有的那一份按同样的规则过一遍（过期 + 去重 + 上限） */
+  /* ① 先把 xysp-data.js 里已有的那一份按同样的规则过一遍（过期 + 去重 + 上限）。
+     ⚠️ 老的那一份要当成 fresh 传进去 —— mergeTt 只在处理条目时才会
+        「按标题补算彩种归属（games）」。当成旧数据传的话不会补算，
+        那些老条目就永远分发不到各彩种（实测踩过：30 条认不出彩种）。 */
   const prev = (oldData && oldData.games && oldData.games[C.key] &&
     Array.isArray(oldData.games[C.key].items)) ? oldData.games[C.key].items : [];
-  let items = mergeTt({ items: prev }, [], now, C).items;
+  let items = mergeTt(null, prev, now, C).items;
 
   /* ② 再把缓存文件里的条目合进来 */
   const cacheFile = path.join(ROOT, C.file);
