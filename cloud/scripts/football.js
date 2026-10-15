@@ -1247,10 +1247,10 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 0,
+    "minute": 62,
     "home": {
      "name": "塔勒雷斯(後備)",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -1313,7 +1313,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 0,
+    "minute": 62,
     "home": {
      "name": "约森独立队女足",
      "score": 1,
@@ -1379,7 +1379,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 0,
+    "minute": 60,
     "home": {
      "name": "哥連泰斯SP(女)",
      "score": 1,
@@ -1445,10 +1445,10 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 1,
+    "minute": 21,
     "home": {
      "name": "巴瑞库拉",
-     "score": 0,
+     "score": 2,
      "red": 0,
      "rank": 15
     },
