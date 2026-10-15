@@ -382,7 +382,7 @@ const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
 /* ============================================================
-   奖金试算器 · 数据准备（页面上的 SP 赔率）
+   模拟计算器 · 数据准备（页面上的 SP 赔率）
    ------------------------------------------------------------
    【赔率来源】体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）的
    【官方 SP 原值】：had = 胜平负（主胜/平/客胜）、hhad = 让球胜平负（让球数 + 三项）。
@@ -396,7 +396,12 @@ MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none
      · SP 是「沿用上次」的（可能已过几小时）→ 再剔掉已过开赛时间的
    ============================================================ */
 const SP = (JC && JC.sp && Array.isArray(JC.sp.list) && JC.sp.list.length) ? JC.sp : null;
-const SP_SRC_CN = !SP
+/* 【页面可见文字】来源说明：只显示「体彩官网官方 SP」。
+   ⚠️ 用户要求【不显示抓取时间】—— 页面上不出现「（抓取于 …）」。
+   抓取时间仍然存在 jc-data.js 的 sp.updated 里（数据没丢，只是不上页面），
+   构建日志里另外用 SP_SRC_LOG 打出来，方便排查。 */
+const SP_SRC_CN = SP ? '体彩官网官方 SP' : '暂无官方 SP 数据';
+const SP_SRC_LOG = !SP
   ? '暂无官方 SP 数据'
   : (SP.source === 'official'
     ? `体彩官网官方 SP（抓取于 ${SP.updated || '—'}）`
@@ -586,7 +591,7 @@ function renderMatch(m) {
 }
 
 /* ============================================================
-   奖金试算器（渲染）
+   模拟计算器（渲染）
    ------------------------------------------------------------
    · 赔率是【官方 SP 原值】（见上面数据准备段的说明）
    · 勾选 / 倍数由页面上的纯前端脚本实时算（不发任何请求、不刷新页面）
@@ -599,7 +604,7 @@ const CALC_MAX_PARLAY = 8;   /* 体彩：胜平负 / 让球胜平负 最多 8 �
 function renderCalc() {
   const head =
     `<div class="calc-head">` +
-    `<span class="calc-title">奖金试算</span>` +
+    `<span class="calc-title">模拟计算</span>` +
     `<span class="calc-tag">仅供娱乐参考</span>` +
     `<span class="calc-src">赔率：${esc(SP_SRC_CN)}</span>` +
     `</div>`;
@@ -618,7 +623,7 @@ function renderCalc() {
 
   /* 【合规声明】这一块自己的底部声明（不与页面最底部的免责声明重复堆砌） */
   const disclaim =
-    `<div class="calc-disclaim">本工具仅为奖金试算演示，数据仅供参考，` +
+    `<div class="calc-disclaim">本工具仅为模拟计算演示，数据仅供参考，` +
     `<b>仅供娱乐，不构成购彩建议</b>，请理性购彩。</div>`;
 
   if (!CALC_ROWS.length) {
@@ -837,7 +842,7 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid rgba(110,168,254,0.3); white-space: nowrap; }
 .m-ai-change-d { font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
   word-break: break-word; }
-/* ---- 奖金试算器（竞彩页唯一可操作的区块） ---- */
+/* ---- 模拟计算器（竞彩页唯一可操作的区块） ---- */
 .calc { margin-top: 22px; padding: 13px 14px; background: #14171d;
   border: 1px solid #262d3a; border-radius: 12px; }
 .calc-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
@@ -989,7 +994,7 @@ ${nav}
   }, true);
 })();
 </script>
-<!-- __FB_CALC_JS__ 奖金试算器（纯前端：勾选 / 倍数 → 实时算，不发请求、不刷新页面）
+<!-- __FB_CALC_JS__ 模拟计算器（纯前端：勾选 / 倍数 → 实时算，不发请求、不刷新页面）
      赔率来自上面内联的 <script type="application/json" id="jcCalcData">（体彩官网官方 SP）。
      算奖规则按体彩竞彩官方规则，见区块底部「怎么算的」。
      【交互边界】竞彩页上只有这一块可以操作；这里【不写任何本地存储】
@@ -1179,6 +1184,5 @@ console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
     : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
-console.log(`   奖金试算器：${CALC_ROWS.length} 场可试算 · 赔率来源：${SP_SRC_CN}` +
-  `（sp.source=${SP ? SP.source : 'none'}）`);
+console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 赔率来源：${SP_SRC_LOG}`);
 console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字，绝不估算；不写任何本地存储）`);
