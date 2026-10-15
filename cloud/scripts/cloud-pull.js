@@ -193,10 +193,21 @@ function renderCloudPanel(container, onChanged) {
   const pushBtn = document.createElement('button');
   pushBtn.className = 'btn ghost';
   pushBtn.textContent = '推送到云端';
-  pushBtn.title = '把本机号码上传到云端（需要 cloud\\sync-cloud.cmd）';
-  pushBtn.addEventListener('click', () => {
-    msg.style.color = '#8b93a1';
-    msg.textContent = '请双击桌面的「摇号并更新网页」，它会自动上传';
+  pushBtn.title = '把本机号码上传到云端（和页头的「同步到网页」是同一件事）';
+  pushBtn.addEventListener('click', async () => {
+    if (typeof syncToWeb !== 'function') {
+      msg.style.color = '#8b93a1';
+      msg.textContent = '这个页面没加载同步模块，请用页头的「同步到网页」';
+      return;
+    }
+    if (pushBtn.disabled) return;
+    pushBtn.disabled = true;
+    msg.style.color = '#f0b429';
+    msg.textContent = '正在推送…';
+    const r = await syncToWeb((t) => { msg.textContent = t; });
+    pushBtn.disabled = false;
+    msg.style.color = r.ok ? '#7ee787' : '#f0575c';
+    msg.textContent = (r.ok ? '✅ ' : '❌ ') + r.msg;
   });
 
   acts.appendChild(checkBtn);
