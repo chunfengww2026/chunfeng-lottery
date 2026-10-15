@@ -5,11 +5,11 @@
    只保留最近 72 小时内抓到的条目，每个彩种最多 40 条
    （头条晒票单独最多 60 条，来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 06:03
+   更新时间：2026-10-16 06:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-16 06:03",
+ "updated": "2026-10-16 06:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -855,7 +855,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/37d544bdc9db4d65acfe0fb5bfec54c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=fzF5Lzqp6RjuveZGrRUJrohRpX4%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/37d544bdc9db4d65acfe0fb5bfec54c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=fzF5Lzqp6RjuveZGrRUJrohRpX4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bc7dc3918a9d4a62bb78ebac95e25ab9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=Kjcn4Srmtv5iauSmKn3nMjg7Ha8%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bc7dc3918a9d4a62bb78ebac95e25ab9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=kI1%2FJUqdLGIyvaePrU4BlfPeQDw%3D",
      "title": "3D排列3第26272期晒票，单式、倍投各有选法，只当闲暇里的小期待",
      "url": "http://toutiao.com/item/7696947195253096960/",
      "at": "2026-10-15T22:03:03.825Z",
@@ -879,7 +879,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=6vYR7SDFRi8HCYX5DDu4s2WfIM4%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=6vYR7SDFRi8HCYX5DDu4s2WfIM4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=NcvKXWVj2W%2BrnW5g53mJ40Y4JBg%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=LVi6uMO9A4og1abERRO97fGo8sY%3D",
      "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
      "url": "http://toutiao.com/item/7696866419383730742/",
      "at": "2026-10-15T22:01:10.049Z",
@@ -891,7 +891,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=w4HL%2FzNpqpKmdgU9PHr3jD%2B0NpU%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=w4HL%2FzNpqpKmdgU9PHr3jD%2B0NpU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=NcvKXWVj2W%2BrnW5g53mJ40Y4JBg%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=LVi6uMO9A4og1abERRO97fGo8sY%3D",
      "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
      "url": "http://toutiao.com/item/7696866419383730742/",
      "at": "2026-10-15T22:01:10.049Z",
@@ -987,7 +987,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=w%2FQM%2Fny9ZdpOxQVnhwr0DjO6mFE%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=w%2FQM%2Fny9ZdpOxQVnhwr0DjO6mFE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=KFDUYWe4iziT%2BrxCLI564FcLc%2Bs%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=XOexx%2B8Ene1rbqE9y94P3H%2B%2BJEc%3D",
      "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
      "url": "http://toutiao.com/item/7696868106651566618/",
      "at": "2026-10-15T21:57:02.824Z",
@@ -1119,7 +1119,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=gxz9%2F5iU09VOmrIrDxvxAjJZmFs%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=gxz9%2F5iU09VOmrIrDxvxAjJZmFs%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=cCfTJ3mgwuxGWuAaURHxpWqqDlo%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=KwJrBgTzQPtd2nhT3yl7y5wMhOE%3D",
      "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
      "url": "http://toutiao.com/item/7696868137202876982/",
      "at": "2026-10-15T21:56:48.267Z",
@@ -1191,7 +1191,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=dpwLq74i%2Bkv3zFuxE2t2QkDmUIQ%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=dpwLq74i%2Bkv3zFuxE2t2QkDmUIQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=KFDUYWe4iziT%2BrxCLI564FcLc%2Bs%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=XOexx%2B8Ene1rbqE9y94P3H%2B%2BJEc%3D",
      "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
      "url": "http://toutiao.com/item/7696868106651566618/",
      "at": "2026-10-15T21:56:48.267Z",
@@ -1203,7 +1203,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=e70svd5aVWTL1d7sO6rxs9eWcB0%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=e70svd5aVWTL1d7sO6rxs9eWcB0%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=KFDUYWe4iziT%2BrxCLI564FcLc%2Bs%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=XOexx%2B8Ene1rbqE9y94P3H%2B%2BJEc%3D",
      "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
      "url": "http://toutiao.com/item/7696868106651566618/",
      "at": "2026-10-15T21:56:48.267Z",
@@ -1239,7 +1239,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=ZLIfBNK4VfM0hXaAUHgeZ8ciIfU%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=ZLIfBNK4VfM0hXaAUHgeZ8ciIfU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=NcvKXWVj2W%2BrnW5g53mJ40Y4JBg%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=LVi6uMO9A4og1abERRO97fGo8sY%3D",
      "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
      "url": "http://toutiao.com/item/7696866419383730742/",
      "at": "2026-10-15T21:56:48.267Z",
@@ -1311,7 +1311,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/74cd47ccb98946aa8a193a8f55992f13~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=cNEZJwQ%2BrDpMf7tKf9Oqc4ydO9s%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/74cd47ccb98946aa8a193a8f55992f13~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=cNEZJwQ%2BrDpMf7tKf9Oqc4ydO9s%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/74cd47ccb98946aa8a193a8f55992f13~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=qlk67vnVsNy4sZv5bHOd0p1lhAs%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/74cd47ccb98946aa8a193a8f55992f13~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=rIl2K7Lggex%2Fflf6ahN50gYGGdE%3D",
      "title": "大乐透26117期晒票：这些热门号码别扎堆，看看谁的思路更“顺眼”",
      "url": "http://toutiao.com/item/7696750327944446499/",
      "at": "2026-10-15T21:56:48.267Z",
