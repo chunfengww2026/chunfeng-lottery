@@ -1064,12 +1064,12 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
-    `<div class="ro-aipick-tabs">` +
+    `<div class="ro-aipick-tabs ro-aipick-seg">` +
     `<a class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="ai">机选</a>` +
     `<a class="ro-aipick-srcbtn" role="button" tabindex="0" data-ro-aipick-src="self">自己选号</a>` +
     `</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-mode"><span class="ro-aipick-lbl">方式</span>` +
-    `<div class="ro-aipick-tabs">` +
+    `<div class="ro-aipick-tabs ro-aipick-seg">` +
     `<a class="ro-aipick-segbtn on" role="button" tabindex="0" data-ro-aipick-mode="single">单式</a>` +
     `<a class="ro-aipick-segbtn" role="button" tabindex="0" data-ro-aipick-mode="multi">复式</a>` +
     `</div></div>` +
