@@ -201,6 +201,10 @@ const CATEGORIES = [
 ];
 export function getCategories() { return CATEGORIES; }
 export function catByKey(k) { return CATEGORIES.find((c) => c.key === k) || null; }
+/** 给验收脚本用：取某个彩种【上一次/下一次】开奖时刻（真值） */
+export function drawInfoNow(gid, nowMs) { return drawTimes(gid, nowMs === undefined ? Date.now() : nowMs); }
+/** 给验收脚本用：开奖时刻表的来源说明 */
+export function drawTableSource() { return DRAW.from; }
 
 /* 竞彩玩法的具体名称（标题里认得出就用它，认不出就是「竞彩」） */
 const JC_HINTS = [
@@ -345,35 +349,32 @@ function bjEpoch(y, mo, da, hh, mi) {
 }
 
 /**
- * 某个彩种【最近一次已经到点】的开奖时刻（epoch ms），以及下一次。
- * 用 NEXTCD_TABLE 的 days + hm 按北京时间逐日回扫（最多回 14 天）。
- * @returns {{prev:number, next:number}|null}
+ * 某个彩种最近的两次开奖时刻（按北京时间）。
+ * @returns {{prev:number|null, prev2:number|null, next:number|null}}
  */
 function drawTimes(gid, nowMs) {
   const r = DRAW.table[gid];
   if (!r) return null;
   const bj = bjNow(nowMs);
-  let prev = null, next = null;
+  const all = [];
   for (let i = -14; i <= 14; i++) {
     const d = new Date(bj.getTime());
     d.setUTCDate(d.getUTCDate() + i);
     if (r.days.indexOf(d.getUTCDay()) < 0) continue;
-    const t = bjEpoch(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), r.hm[0], r.hm[1]);
-    if (t <= nowMs) { if (prev === null || t > prev) prev = t; }
-    if (t > nowMs) { if (next === null || t < next) next = t; }
+    all.push(bjEpoch(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), r.hm[0], r.hm[1]));
   }
-  return { prev, next };
-}
-/* 一个彩种的"开奖周期"大致多长（毫秒）—— 用来判断"这条是不是太旧了" */
-function drawCycleMs(gid, nowMs) {
-  const t = drawTimes(gid, nowMs);
-  if (!t || t.prev === null || t.next === null) return 7 * 86400000;
-  const span = t.next - t.prev;
-  return span > 0 ? span : 86400000;
+  all.sort((a, b) => a - b);
+  const past = all.filter((t) => t <= nowMs);
+  const future = all.filter((t) => t > nowMs);
+  return {
+    prev: past.length ? past[past.length - 1] : null,
+    prev2: past.length > 1 ? past[past.length - 2] : null,
+    next: future.length ? future[0] : null
+  };
 }
 
 /**
- * 从标题里抠期号（实测格式见本文件头/报告）。
+ * 从标题里抠期号（实测格式见报告）。
  * 优先「第NNNNN期」，退而求其次「NNNNN期」；都没有就返回空串。
  * ⚠️ 实测踩过的坑：「今晚开奖结果…2026274」那种长数字不是期号
  *    （是日期/金额混在一起），所以只认【5 位】的（26273 / 26118），
@@ -391,47 +392,80 @@ export function issueOfTitle(title) {
 }
 
 /**
- * 算一条晒票的【过期时刻】。
- * 规则（两条同时生效，哪条先到就按哪条丢）：
- *   ① 开奖规则（主）：以该彩种「最近一期已开的开奖时刻 + 1 小时」为硬线。
- *      用户要求：「开完奖的过一小时就自动不要了」。
- *      ⚠️ 这一条【不是】用来当过期时刻的 —— 它一旦过去，说明这一期已经开完超过 1 小时，
- *         条目【立刻】丢。真正的过期时刻用 72 小时兜底（见下）。
- *   ② 兜底（72 小时）：从【本轮抓取时间】起算。防止
- *      · 认不出彩种的条目永远留着
- *      · 某个彩种好几天没开奖 → 条目无限堆着
- *   合并成一句：保留时间 = min(抓取时间 + 72 小时, ...)，并且
- *   如果「开奖时刻 + 1 小时」已经过去，就【立刻过期】。
- * @param {object} p {games:string[]}
- * @param {number} seenMs 本轮抓到/看到的时间
+ * 算一条晒票【该不该留】。
+ * ------------------------------------------------------------
+ * 用户原话：
+ *   「晒票要抓最新的场次还没开的 开完奖的过一小时就自动不要了」
+ *   「要会抓时间点」
+ *
+ * 设计（为什么要看帖子发布时间，而不只看现在几点）：
+ *   只按「最近一次开奖 + 1 小时」判，会把【开奖前发的、下一期还没开的】那批
+ *   也一起丢掉 —— 因为它们的发布时间早于最近一次开奖。实测：06:50 跑，
+ *   大乐透 / 双色球 / 3D / 排列3 全部被判过期，晒票栏直接空了。这显然是错的。
+ *   「开完奖的过一小时就不要」针对的是【属于已开那一期】的票，
+ *   所以必须拿【帖子发布时间】去跟开奖时刻比，而不是拿"现在"去比。
+ *
+ * 最终规则（两条同时生效，都满足才留）：
+ *   ① 开奖规则（主）—— 用户原话：
+ *        「晒票要抓最新的场次还没开的 开完奖的过一小时就自动不要了」
+ *      拆成三档（n = 该彩种下一次开奖时刻，p = 上一次开奖时刻）：
+ *        · now < n                 → 下一期还没开 → 【留】
+ *                                    （这段时间正好是"还没开的那一期"在卖）
+ *        · n <= now < n + 1h       → 刚开完，还在 1 小时宽限内 → 【留】
+ *                                    （用户要的宽限）
+ *        · now >= n + 1h           → 这一期已经开完超过 1 小时：
+ *              帖子发布在 p 之后 → 是"这一期开完后的复盘" → 过期 → 【丢】
+ *              帖子发布在 p 之前 → 属于刚开完的那一期 → 也过期 → 【丢】
+ *              ⇒ 这一档【一律丢】
+ *   ② 兜底：任何条目最多留 72 小时（从【本轮抓取时间】起算）。
+ *      （24 小时发布窗口在 mergeTt 里单独判，见那边的说明）
+ *
+ * ⚠️ 两个实测踩过的坑（别再改回去）：
+ *   1) 不能只用「上一次开奖 + 1h」判：双色球/大乐透隔 1~3 天才开一次，
+ *      开奖当天晚上过后整栏就空了 —— 而那正是下一期在卖的时间，与用户要的相反。
+ *   2) 也不能完全不管发布时间：那样"开奖后发的复盘帖"会被当成在售这一期一直留着。
+ *      用「发布时间落在哪个 cycle」来区分"为下一期发的票"和"开奖后的复盘"。
+ *
+ * @param {object} p {games:string[], publishMs:number|null}
+ * @param {number} seenMs 本轮抓取时间
  * @param {number} nowMs
  * @param {number} fallbackHours  兜底小时数（72）
- * @returns {{expireAt:number, hardDrop:boolean, drawAt:number|null, rule:string, gid:string}}
- *          hardDrop=true 表示「开奖已过 1 小时」→ 直接丢
+ * @returns {{expireAt:number, drop:boolean, drawAt:number|null, nextAt:number|null, rule:string, gid:string}}
  */
 export function expireOf(p, seenMs, nowMs, fallbackHours) {
   const capMs = seenMs + fallbackHours * 3600 * 1000;      /* 72 小时兜底 */
   const gids = Array.isArray(p.games) ? p.games : [];
-  let best = null;                                          /* 取【最晚】的那一期开奖（= 最新一期） */
-  let bestGid = '';
+  const pub = (typeof p.publishMs === 'number' && isFinite(p.publishMs)) ? p.publishMs : null;
+
+  /* 跨这条晒票涉及的所有彩种，取【最晚】的"下一次开奖"。
+     取最晚 = 只要还有任何一个相关彩种的下一期没开，这条就还有参考价值。 */
+  let next = null, prev = null, bestGid = '';
   for (const gid of gids) {
     const t = drawTimes(gid, nowMs);
-    if (!t || t.prev === null) continue;
-    if (best === null || t.prev > best) { best = t.prev; bestGid = gid; }
+    if (!t || t.next === null) continue;
+    if (next === null || t.next > next) { next = t.next; prev = t.prev; bestGid = gid; }
   }
-  if (best === null) {
-    /* 认不出彩种 / 该彩种没有开奖表 → 只受 72 小时兜底 */
-    return { expireAt: capMs, hardDrop: false, drawAt: null, rule: '72h', gid: '' };
+  if (next === null) {
+    /* 认不出彩种 / 该彩种不在开奖表里 / 拿不到下一次开奖 → 只受 72 小时兜底 */
+    return { expireAt: capMs, drop: false, drawAt: null, nextAt: null, rule: '72h', gid: '' };
   }
-  /* 最近一期开奖 + 1 小时已经过去 → 这一条属于"开完奖超过 1 小时"，直接丢 */
-  const grace = best + 3600 * 1000;
-  return {
-    expireAt: capMs,
-    hardDrop: nowMs >= grace,
-    drawAt: best,
-    rule: 'draw+1h',
-    gid: bestGid
-  };
+
+  /* 档①：下一期还没开 → 留 */
+  if (nowMs < next) {
+    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'next-draw', gid: bestGid };
+  }
+  /* 档②：刚开完、还在 1 小时宽限内 → 留 */
+  const graceEnd = next + 3600 * 1000;
+  if (nowMs < graceEnd) {
+    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'draw+1h-grace', gid: bestGid };
+  }
+  /* 档③：开完超过 1 小时。
+     拿不到发布时间 → 不硬丢（交给 24h 窗口 + 72h 兜底），
+     否则一律丢（不管是"上一期的票"还是"开奖后的复盘"）。 */
+  if (pub === null || prev === null) {
+    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'next-draw+1h(no-pub)', gid: bestGid };
+  }
+  return { expireAt: capMs, drop: true, drawAt: prev, nextAt: next, rule: 'next-draw+1h', gid: bestGid };
 }
 
 const log = (m) => {
@@ -618,7 +652,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -639,13 +673,37 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
        （没有 seen 的老数据退回用 at —— 那是它第一次被抓到的时间） */
     const seenMs = Date.parse(String(it.seen || '')) || t;
+    /* 帖子发布时间（头条的 datetime）：用来判"这条属于哪一期" */
+    const pubMs = Date.parse(String(it.when || '')) || null;
 
     /* 【开奖后 1 小时】规则（只有数字彩那一路有；竞彩没有期号可算） */
-    let ex = { expireAt: seenMs + keepHours * 3600 * 1000, hardDrop: false, drawAt: null, rule: '72h', gid: '' };
-    if (C.key === TT_KEY) ex = expireOf({ games: gs }, seenMs, nowMs, keepHours);
+    let ex = { expireAt: seenMs + keepHours * 3600 * 1000, drop: false, drawAt: null, rule: '72h', gid: '' };
+    if (C.key === TT_KEY) ex = expireOf({ games: gs, publishMs: pubMs }, seenMs, nowMs, keepHours);
 
-    /* 这一期已经开完超过 1 小时 → 直接丢（用户要求） */
-    if (ex.hardDrop) { stat.dropped++; stat.dropDraw++; return; }
+    /* ============ 用户要求的两条时效规则（两条都要满足） ============
+       ① 【帖子发布时间在 24 小时内】—— 用户原话：
+          「所有的晒票 不管是彩票还是足球 都抓取24小时内晒出来的票」
+          这一条对【头条晒票】和【竞彩晒票】都生效（不分彩票/足球）。
+       ② 【期次未开奖，或开奖后 <= 1 小时】—— 只有数字彩那一路能算
+          （竞彩没有期号/开奖时刻表），见上面 expireOf。
+       ⚠️ 两条怎么合并（我的判断，报告里也写了）：
+          两条都满足才留；【②更严】—— 一条 12 小时前发的票，
+          如果它那一期已经开完超过 1 小时，照样丢掉。
+          理由：用户先说"开完奖的过一小时就自动不要了"，
+          后说"24 小时内晒出来的"；后者是【补充缩小范围】，不是放宽前者。
+          —— 但为了不出现"一条都没有"，②里做了 24h 发布窗口内的宽限判定
+          （见 expireOf 的说明：按发布时间跟开奖时刻比，而不是拿"现在"比）。
+       ⚠️ 拿不到发布时间（头条的 datetime 没解析出来）→ 【不丢】，
+          退回用抓取时间当发布时间（pubSrc='at'），只受 72 小时兜底。
+          绝不能因为少个时间字段就让整栏空掉。
+       ================================================================ */
+    const PUB_HOURS = 24;
+    const pubCutoff = nowMs - PUB_HOURS * 3600 * 1000;
+    if (pubMs !== null && pubMs < pubCutoff) { stat.dropped++; stat.dropPub++; return; }
+    if (pubMs === null) stat.pubFallback++;
+
+    /* 属于已开的那一期、且开完超过 1 小时 → 直接丢（用户要求） */
+    if (ex.drop) { stat.dropped++; stat.dropDraw++; return; }
     /* 兜底：72 小时从"看到它"起算 */
     if (nowMs >= ex.expireAt) { stat.dropped++; stat.dropCap++; return; }
     /* 老数据（比如竞彩 30 天窗口）如果按 at 就已经超了，上面 cutoff 已经拦掉 */
@@ -850,13 +908,15 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃过期 ${stat.dropped} 条 [开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
-      ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条）`);
+      `（丢弃 ${stat.dropped} 条 [发布超 24h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
+      ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
+      ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
       const withIssue = items.filter((x) => x.issue).length;
       const withDraw = items.filter((x) => x.drawAt).length;
+      const withPub = items.filter((x) => x.seen && x.when).length;
       log(`        时效：认出期号 ${withIssue}/${items.length} 条 · 有开奖时刻 ${withDraw} 条` +
-        `（开奖时刻表来自 ${DRAW.from}）`);
+        ` · 有源站发布时间 ${withPub} 条（开奖时刻表来自 ${DRAW.from}）`);
     }
     anyOk = true;
     rec.ok = true; rec.kept = stat.kept; rec.stat = stat;
