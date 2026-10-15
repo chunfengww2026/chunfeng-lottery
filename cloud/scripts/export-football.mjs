@@ -644,8 +644,12 @@ function renderCalc() {
     `<div class="calc-disclaim">本工具仅为模拟计算演示，数据仅供参考，` +
     `<b>仅供娱乐，不构成购彩建议</b>，请理性购彩。</div>`;
 
-  /* 默认收起：<details> 不带 open 属性（刷新后天然回到收起，不做任何持久化） */
-  const open = `<details class="m-calc" id="jcCalc">${head}<div class="calc-body">`;
+  /* 默认收起：<details> 不带 open 属性（刷新后天然回到收起，不做任何持久化）
+     · allow-save：这一块是【允许保存】的白名单区域 —— 区块内的右键 / 长按 /
+       拖拽 / 复制都不拦（用户要能自己复制赔率、自己右键存图）；
+       页面其它地方（统计卡 / 战绩 / 比赛卡片 / 免责声明）照旧全拦。
+     · 生成的选号图那一层（#calcShot）也带 allow-save —— 不然没法右键另存。 */
+  const open = `<details class="m-calc allow-save" id="jcCalc">${head}<div class="calc-body">`;
   const close = `</div></details>`;
 
   if (!CALC_ROWS.length) {
@@ -1054,7 +1058,7 @@ ${nav}
   <!-- 【保存图片 · 全屏层】默认隐藏（display:none），点「保存图片」才显示。
        关闭方式：点空白 / 点 × / Esc / 手机返回键（进去时 push 了一个 history 状态）。
        这一层放在折叠区【外面】—— 整块收起时也能弹出来。 -->
-  <div class="calc-shot" id="calcShot">
+  <div class="calc-shot allow-save" id="calcShot">
     <div class="calc-shot-bar">
       <span class="calc-shot-tip">长按图片 / 右键 → 保存到手机</span>
       <a role="button" tabindex="0" class="calc-shot-x" id="calcShotX">×</a>
@@ -1786,10 +1790,24 @@ ${nav}
     if (isShotKey(e, k)) { lock(); clearClip(); }
   });
 
-  /* 禁右键 / 禁拖拽 / 禁复制剪切（照用户给的规则；owner 不拦） */
+  /* 禁右键 / 禁拖拽 / 禁复制剪切
+     【白名单】事件落在 .allow-save 里（模拟计算区块 / 生成的选号图）→ 直接放行，
+     页面其它地方（统计卡 / 战绩 / 比赛卡片 / 免责声明）一律拦掉。 */
+  function inAllowSave(e) {
+    var t = e && e.target;
+    if (!t) return false;
+    if (t.closest) return !!t.closest('.allow-save');
+    var n = t;                                    /* 老浏览器没有 closest 就自己往上找 */
+    while (n) {
+      if (n.className && String(n.className).indexOf('allow-save') >= 0) return true;
+      n = n.parentNode;
+    }
+    return false;
+  }
   ['contextmenu', 'dragstart', 'copy', 'cut'].forEach(function (t) {
     document.addEventListener(t, function (e) {
       if (!guard()) return;
+      if (inAllowSave(e)) return;                 /* 白名单：允许保存的地方不拦 */
       if (e.preventDefault) e.preventDefault();
     });
   });
