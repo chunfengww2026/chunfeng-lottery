@@ -2870,7 +2870,7 @@ body.ro-mob-open { overflow: hidden; }
     <h1>春风十里送大奖 · 推荐图</h1>
   </div>
 
-  <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div><div class="ro-st-time">所有资料均在下方</div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026119 期<i class="ro-st-date">2026年10月18日</i></span><span class="ro-st-item"><b>大乐透</b> 第 26118 期<i class="ro-st-date">2026年10月17日</i></span><span class="ro-st-item"><b>七乐彩</b> 第 2026119 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>快乐8</b> 第 2026275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>福彩3D</b> 第 2026275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>排列3</b> 第 26275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>排列5</b> 第 26275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>七星彩</b> 第 26118 期<i class="ro-st-date">2026年10月16日</i></span></div></div>
+  <div class="ro-status ok"><div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div><div class="ro-st-time">所有资料均在下方</div><div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div><div class="ro-st-list"><span class="ro-st-item"><b>双色球</b> 第 2026119 期<i class="ro-st-date">2026年10月18日</i></span><span class="ro-st-item"><b>大乐透</b> 第 26118 期<i class="ro-st-date">2026年10月17日</i></span><span class="ro-st-item"><b>七乐彩</b> 第 2026119 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>快乐8</b> 第 2026275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>福彩3D</b> 第 2026275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>排列3</b> 第 26275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>排列5</b> 第 26275 期<i class="ro-st-date">2026年10月16日</i></span><span class="ro-st-item"><b>七星彩</b> 第 26118 期<i class="ro-st-date">2026年10月16日</i></span></div></div>
 
   <!-- ============================================================
        【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
@@ -2918,7 +2918,7 @@ body.ro-mob-open { overflow: hidden; }
           if (!OK[href]) return;
           e.preventDefault();
           var el = document.getElementById(href.slice(1));
-          if (!el) return;
+          if (!els.length) return;
           var wasOpen = el.classList.contains('ro-open');
           roCloseAll();
           if (wasOpen) {
@@ -19699,7 +19699,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-16 02:34
+   生成时间：2026-10-16 02:29
    生成脚本：build-heatmap.mjs
    本次彩种：（无：今天不是开奖日）
    数据来源：none
@@ -19712,13 +19712,13 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-16 02:34',
+  updated: '2026-10-16 02:29',
   source: 'none',
   games: {
   }
 };
 
-/* 本次为 --purge：今天不是任何彩种的开奖日，清空数据，页面上不会出现这张图 */
+/* 今天不是开奖日，未生成任何彩种 */
 
 /* ---------- 开奖日 & 显示时机（客户端与服务端共用同一套判断） ---------- */
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
@@ -47667,7 +47667,7 @@ function renderAlgoTool(container) {
      纯前端 JS，不请求接口、不调 AI → 免费。 -->
 <script>
 (function () {
-  var el = document.getElementById('__NEXT_CD__');
+  var els = [document.getElementById('__NEXT_CD__'), document.getElementById('__NEXT_CD2__')].filter(Boolean);
   if (!el) return;
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function target() {
@@ -47678,10 +47678,10 @@ function renderAlgoTool(container) {
   }
   function draw() {
     var ms = target().getTime() - Date.now();
-    if (ms <= 0) { el.textContent = '正在更新…'; return; }
+    if (ms <= 0) { for (var q = 0; q < els.length; q++) els[q].textContent = '正在更新…'; return; }
     var s = Math.floor(ms / 1000);
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
-    el.textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
+    for (var q2 = 0; q2 < els.length; q2++) els[q2].textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
   }
   draw();
   setInterval(draw, 1000);
