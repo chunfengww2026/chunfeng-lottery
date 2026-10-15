@@ -207,10 +207,33 @@ const allNodes = [];
 const byId = new Map();
 allNodes.forEach((n) => { if (n.attrs.id) byId.set(n.attrs.id, n); });
 
+const cvTexts = [];                     /* 记录 canvas 上所有 fillText 的文字（用来核对图上到底画了什么） */
+const pad2 = (n) => (n < 10 ? '0' + n : String(n));
+function makeCanvasStub() {
+  const cv = new MNode('canvas');
+  cv.width = 0;
+  cv.height = 0;
+  cv.getContext = (type) => {
+    if (String(type) !== '2d') return null;
+    return {
+      fillStyle: '#000', strokeStyle: '#000', lineWidth: 1, font: '',
+      textAlign: 'left', textBaseline: 'alphabetic',
+      fillRect() {}, strokeRect() {}, clearRect() {},
+      beginPath() {}, closePath() {}, moveTo() {}, lineTo() {}, arc() {},
+      fill() {}, stroke() {}, strokeText() {},
+      fillText(t) { cvTexts.push(String(t)); },
+      measureText(t) { return { width: String(t).length * 8 }; },
+      save() {}, restore() {}, translate() {}, scale() {}, rotate() {}
+    };
+  };
+  cv.toDataURL = () => 'data:image/png;base64,STUB-' + cv.width + 'x' + cv.height;
+  return cv;
+}
+
 const documentStub = {
   body: new MNode('body'),
   getElementById: (id) => byId.get(id) || null,
-  createElement: (t) => new MNode(t),
+  createElement: (t) => (String(t).toLowerCase() === 'canvas' ? makeCanvasStub() : new MNode(t)),
   querySelector: (sel) => panel.querySelector(sel),
   querySelectorAll: (sel) => panel.querySelectorAll(sel),
   addEventListener: () => {}
@@ -456,7 +479,9 @@ console.log('  面板里的可操作控件：');
 controls.forEach((c) => console.log(`   · ${c}`));
 ok(block.indexOf('<button') < 0 && (html.match(/<button/g) || []).length === 0, '面板 / 整页都没有 <button> 标签');
 ok(!/localStorage|sessionStorage|document\.cookie/.test(js), '面板脚本里没有新增 localStorage / sessionStorage / cookie');
-ok(!/保存|记住|收藏|提交/.test(js.replace(/不保存/g, '')), '面板脚本里没有「保存 / 记住 / 收藏 / 提交」这类功能');
+ok(!/indexedDB|IndexedDB|openDatabase/.test(js), '面板脚本里没有 IndexedDB / openDatabase');
+ok(!/记住|收藏|提交/.test(js), '面板脚本里没有「记住 / 收藏 / 提交」这类功能');
+ok(/保存图片/.test(js), '面板里只有「保存图片」（= 画成图给用户自己存到手机，不是把状态存进浏览器）');
 /* 其他区块没有被加新控件：把注释和 <style> 去掉之后，
    整页剩下的 <input> 必须全部来自 ai选号 面板 */
 const htmlNoComments = html.replace(/<!--[\s\S]*?-->/g, '').replace(/<style[\s\S]*?<\/style>/gi, '');
@@ -643,7 +668,9 @@ const banned = /localStorage|sessionStorage|document\.cookie|indexedDB|IndexedDB
 console.log(`  面板脚本里搜 localStorage / sessionStorage / cookie / IndexedDB → ` +
   `${banned.test(js) ? '❌ 有命中' : '✅ 0 命中'}`);
 ok(!banned.test(js), '面板脚本里没有任何浏览器存储 API');
-ok(!/保存|记住|收藏|导出|下载/.test(js.replace(/不保存|不落盘|不能保存/g, '')), '面板脚本里没有「保存 / 记住 / 收藏 / 导出 / 下载」功能');
+ok(!/记住|收藏/.test(js), '面板脚本里没有「记住 / 收藏」这类功能');
+ok(/保存图片/.test(block) && /saveImage/.test(js),
+  '只有「保存图片」这一个出图功能（画成 PNG 让用户自己长按保存，不写任何浏览器存储）');
 /* 刷新 = 从零开始：重新执行一遍页面脚本，手选的号也必须没了 */
 {
   const p3 = new MNode('div');
@@ -672,6 +699,85 @@ ok(!/保存|记住|收藏|导出|下载/.test(js.replace(/不保存|不落盘|�
   ok(mine3 && mine3.textContent.replace(/\s+/g, ' ').indexOf('_') >= 0,
     '刷新后「你的号码」也是空的（全是 _）', mine3 ? mine3.textContent.replace(/\s+/g, ' ') : '');
 }
+
+/* ============================================================
+   14) 保存图片（canvas 画图 + 复用 ro-mob-view 全屏层）
+   ============================================================ */
+H('14. 保存图片：画图 / 全屏弹出 / 空结果提示');
+console.log(`  页面里有全屏层 API：window.__roMobView = ${html.indexOf('window.__roMobView') > 0}` +
+  ` · openUrl = ${/openUrl: openUrl/.test(html)} · 直接把 src 赋给 <img>（data: 也能显示）= ${/im\.src = src;/.test(html)}`);
+ok(html.indexOf('window.__roMobView') > 0 && /openUrl: openUrl/.test(html), '页面里确实有 __roMobView.openUrl 这个现成全屏层');
+ok(/im\.src = src;/.test(html), 'openUrl 是把 src 直接赋给 <img> → canvas 的 data:image/png 一样能显示');
+ok(/data-ro-aipick-act="save">保存图片<\/a>/.test(block), '「保存图片」是 <a role="button">（不是裸 <button>）',
+  '整页 <button> = ' + (html.match(/<button/g) || []).length);
+ok(/\.ro-aipick-line-src \.ro-aipick-tabs,\s*\n?\s*\.ro-aipick-line-mode \.ro-aipick-tabs\s*\{[^}]*gap:\s*12px/.test(html),
+  '「选号 / 方式」两行的按钮间距 gap 已改 12px（原来是 7px）');
+ok(/\.ro-aipick-line-src \.ro-aipick-srcbtn,\s*\n?\s*\.ro-aipick-line-mode \.ro-aipick-segbtn\s*\{[^}]*padding-left:\s*15px/.test(html),
+  '两个模式的按钮左右内边距也放大到 15px（手机上不挤）');
+
+/* 还没摇号就点保存图片 → 只提示，不出图 */
+click(gameTab('ssq'));
+const opened = [];                                     /* 记录全屏层被喂进来的 URL */
+win.__roMobView = {
+  openUrl: (src, alt) => { opened.push({ src, alt }); return true; },
+  isOpen: () => true,
+  close: () => {}
+};
+opened.length = 0;
+click(actBtn('save'));
+console.log(`  没摇号就点「保存图片」→ 提示：${q1('.ro-aipick-warn').textContent} · 全屏层调用 ${opened.length} 次`);
+ok(opened.length === 0 && /请先摇号/.test(q1('.ro-aipick-warn').textContent),
+  '空结果时点「保存图片」只给「请先摇号」提示、不生成空图');
+
+/* 摇 2 注 → 出图 */
+setNum(q1('.ro-aipick-in-count'), 2);
+click(actBtn('roll'));
+const imgRows = API.rows().map((r) => r.row);
+const img = (() => { click(actBtn('save')); return API.lastImage(); })();
+console.log(`  摇 2 注后点「保存图片」→ 生成 ${img ? '成功' : '失败'} · 尺寸 ${img ? img.w + '×' + img.h : '-'} · 全屏层调用 ${opened.length} 次`);
+ok(!!img && img.w === 720 && img.h > 200, '画出了 PNG（720 × 高度按注数算）', img ? `${img.w}×${img.h}` : '');
+ok(opened.length === 1 && /^data:image\/png/.test(opened[0].src) && opened[0].alt.indexOf('GPT模型摇号') === 0,
+  '用 data:image/png 的 URL 调用了全屏层（复用 ro-mob-view，不新做弹层）',
+  opened.length ? opened[0].src.slice(0, 24) + '… · alt=' + opened[0].alt : '(没调用)');
+const texts = cvTexts.join(' | ');
+console.log(`  画布上写过的文字（节选）：`);
+cvTexts.filter((t) => t.length > 1).slice(0, 8).forEach((t) => console.log(`   · ${t}`));
+ok(texts.indexOf('GPT模型摇号 · 春风十里送大奖') >= 0, '图片标题 = GPT模型摇号 · 春风十里送大奖');
+ok(texts.indexOf('双色球') >= 0, '图片里有彩种名（双色球）');
+ok(texts.indexOf('仅供娱乐，不构成购彩建议') >= 0, '图片底部有合规小字「仅供娱乐，不构成购彩建议」');
+ok(/生成时间：\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(texts), '图片里有生成时间');
+ok(/共 2 注 · 1 倍 · 合计 4 元/.test(texts), '图片里有注数 / 倍数 / 合计');
+let missNum = 0;
+imgRows.forEach((row) => row.forEach((area) => area.forEach((n) => {
+  if (cvTexts.indexOf(pad2(n)) < 0) missNum++;
+})));
+console.log(`  图上缺失的号码：${missNum} 个（这一轮共 ${imgRows.reduce((s, r) => s + r.reduce((a, x) => a + x.length, 0), 0)} 个号）`);
+ok(missNum === 0, '摇出来的每一个号都画到图上了（逐个对过）');
+console.log(`  这一轮的号码：${imgRows.map((r) => r.map((a) => a.map((n) => pad2(n)).join(' ')).join(' + ')).join('  |  ')}`);
+
+/* 数字彩：0 要画成「0」不是「00」 */
+click(gameTab('fc3d'));
+click(srcBtn('self'));
+click(cellAt('p0', 0)); click(cellAt('p1', 0)); click(cellAt('p2', 0));
+/* 自己选号可以不完整先试一次 */
+click(cellAt('p2', 0));   /* 取消个位 → 不完整 */
+opened.length = 0;
+cvTexts.length = 0;
+click(actBtn('save'));
+console.log(`  自己选号没选完就点保存 → 提示：${q1('.ro-aipick-warn').textContent}`);
+ok(/请先摇号|请先把号码选完/.test(q1('.ro-aipick-warn').textContent) && opened.length === 0,
+  '自己选号没选完时点「保存图片」也只提示、不出图');
+click(cellAt('p2', 4));   /* 选个位 4 → 0 0 4 */
+cvTexts.length = 0;
+const img2 = (() => { click(actBtn('save')); return API.lastImage(); })();
+console.log(`  手选 0 0 4 → 出图 ${img2 ? img2.w + '×' + img2.h : '失败'} · 画布上的号码文字：` +
+  cvTexts.filter((t) => /^\d$|^00$/.test(t)).join(' '));
+ok(!!img2 && cvTexts.indexOf('0') >= 0, '手选的号码也画进图里了');
+ok(cvTexts.indexOf('00') < 0, '数字彩的 0 画成「0」，不是「00」');
+ok(texts.split(' | ').filter((t) => /^\d{2}$/.test(t)).indexOf('00') < 0,
+  '整张双色球图里没有「00」这种号码写法');
+click(actBtn('reset'));
+click(srcBtn('ai'));
 
 /* ============================================================
    结论
