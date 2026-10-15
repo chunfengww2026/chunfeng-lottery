@@ -191,7 +191,7 @@ async function main() {
        · 晚于 24 小时后的（太久以后才踢）→ 删，赔率也没参考价值
      这样 football.js 的体积和刷新成本都稳定在一个小窗口内。
      ============================================================ */
-  const KEEP_HOURS = 24;
+  const KEEP_HOURS = 72;
   const NOW_MS = Date.now();
   const WIN_FROM = NOW_MS - KEEP_HOURS * 3600 * 1000;
   const WIN_TO = NOW_MS + KEEP_HOURS * 3600 * 1000;
