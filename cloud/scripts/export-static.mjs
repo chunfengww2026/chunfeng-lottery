@@ -890,9 +890,9 @@ const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
 function buildToolsHtml() {
   return `<div class="ro-tools">` +
     `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
-    `<b>开机号</b><em>各彩种实时开机号</em></a>` +
+    `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 可收起</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
     `<a class="ro-tool ro-tool-live" href="#ro-live">` +
-    `<b>选号直播</b><em>直播与回放</em></a>` +
+    `<b>选号直播</b><em data-tip="1">直播与回放 · 可收起</em></a>` +
     `</div>`;
 }
 
@@ -2581,12 +2581,24 @@ body.ro-mob-open { overflow: hidden; }
           var wasOpen = el.classList.contains('ro-open');
           roCloseAll();
           if (wasOpen) {
+            try {
+              var tip2 = this.querySelector ? this.querySelector('em[data-tip]') : null;
+              if (tip2 && tip2.getAttribute('data-orig')) tip2.textContent = String(tip2.getAttribute('data-orig'));
+            } catch (e) { /* 忽略 */ }
             /* 再点一下 → 收起；顺便把哈希清掉（保持一致） */
             try { history.replaceState(null, '', location.pathname + location.search); }
             catch (err) { /* 忽略 */ }
             return;
           }
           el.classList.add('ro-open');
+          /* 【提示文字随状态变】展开后把那句改成「点击收起」 */
+          try {
+            var tipEl = this.querySelector ? this.querySelector('em[data-tip]') : null;
+            if (tipEl && !tipEl.getAttribute('data-orig')) {
+              tipEl.setAttribute('data-orig', tipEl.textContent);
+            }
+            if (tipEl) tipEl.textContent = String(tipEl.getAttribute('data-orig') || '').replace('可收起', '点击收起');
+          } catch (e) { /* 忽略 */ }
           try { history.replaceState(null, '', href); } catch (err) { /* 忽略 */ }
           try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
           catch (err) { try { el.scrollIntoView(true); } catch (e2) { /* 忽略 */ } }
