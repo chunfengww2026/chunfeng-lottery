@@ -1094,6 +1094,7 @@ function buildAiPickHtml() {
     `<a class="ro-aipick-btn on" role="button" tabindex="0" data-ro-aipick-act="roll">机选一注</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reroll">重摇</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="clear">清空</a>` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="save">保存图片</a>` +
     `</div>` +
     `<div class="ro-aipick-out"></div>` +
     /* ---- 自己选号：号码格子（全部是 <a role="button">，不是按钮标签） ----
@@ -2886,6 +2887,12 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-aipick-lbl { flex: 0 0 auto; width: 34px; font-size: 12px; color: #8b93a1; }
 .ro-aipick-tabs, .ro-aipick-kl8 { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+/* 【用户要求】「选号」「方式」两行里的选项按钮拉开一点间距（原来 7px 挤在一起）：
+   gap 7 → 12px，按钮左右内边距 11 → 15px（手机上也好点）。只动间距，别的一律不变。 */
+.ro-aipick-line-src .ro-aipick-tabs,
+.ro-aipick-line-mode .ro-aipick-tabs { gap: 12px; }
+.ro-aipick-line-src .ro-aipick-srcbtn,
+.ro-aipick-line-mode .ro-aipick-segbtn { padding-left: 15px; padding-right: 15px; }
 .ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-segbtn, .ro-aipick-btn {
   flex: 0 0 auto;
   padding: 6px 11px;
@@ -3975,7 +3982,10 @@ ${RO_RENDER_SCRIPT}
     var pics = root.querySelectorAll('.ro-xysp-pic');
     var empty = root.querySelector('.ro-xysp-empty');
 
-    /* 只显示某一彩种的卡片（game = 'all' 时全显示）。
+    /* 只显示某一分类的卡片（game = 'all' 时全显示）。
+       分类 = 8 个彩种 key + 'tt'（头条晒票）；
+       这里对 'tt' 【不需要】任何特殊处理 —— 卡片和标签都带的是同一套
+       data-ro-xysp-game 属性，筛选逻辑天然把头条当成第 9 个分类。
        做法是给不匹配的卡片加 hidden 属性，
        样式里有 .ro-xysp-pic[hidden] 把它真的藏起来。 */
     function pick(game) {
@@ -4523,6 +4533,166 @@ ${RO_RENDER_SCRIPT}
       return miss;
     }
 
+    /* ============================================================
+       【保存图片】把当前号码画成一张 PNG，再用页面已有的全屏层弹出来
+       ------------------------------------------------------------
+       用户原话：「也有保存界面 保存就是弹出图片他选着的图片让他自己保存」
+       · 纯 <canvas> 画图，不联网、不上传（图片数据只在本页内存里）
+       · 弹层复用页面已有的 ro-mob-view（window.__roMobView.openUrl 直接
+         把 src 赋给 <img>，所以 data:image/png;base64,… 一样能显示），
+         关闭方式不变：× / 点空白 / Esc / 手机返回键
+       · 还没摇号（或自己选号还没选完）→ 只给提示，不出空图
+       · 出图失败（老浏览器没有 canvas）→ 也只给提示，不静默失败
+       ⚠️ 这张图【不写任何存储】：不落本地存储 / 会话存储 / COOKIE
+          —— 图片只在内存里（st.pic），刷新页面就没了
+       ============================================================ */
+    function nowText() {
+      var d = new Date();
+      var p = function (n) { return n < 10 ? '0' + n : String(n); };
+      return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' +
+             p(d.getHours()) + ':' + p(d.getMinutes());
+    }
+    function saveHint(msg) {
+      if (warnBox) { warnBox.textContent = msg; show(warnBox, true); }
+    }
+    /* 当前要出图的号码：机选 = 结果区已摇出来的；自己选号 = 拼完整的那一注 */
+    function picData() {
+      var g = G(), i;
+      if (st.src === 'self') {
+        var slots = slotsOf(g), row = [], areas = [], pos = [], miss = 0;
+        for (i = 0; i < slots.length; i++) {
+          var sel = pickArr(slots[i].key);
+          if (sel.length < slots[i].need) miss++;
+          if (isDigit(g)) { pos.push({ to: slots[i].to }); row.push(sel.length ? sel[0] : ''); }
+          else { areas.push({ color: slots[i].color, to: slots[i].to }); row.push(sel.slice()); }
+        }
+        if (miss) return null;
+        return { kind: isDigit(g) ? 'digit' : 'number', pos: pos, areas: areas, rows: [row],
+                 note: '自己选号 · 1 注' };
+      }
+      if (!st.rows.length) return null;
+      return {
+        kind: st.rows[0].kind, pos: st.rows[0].pos, areas: st.rows[0].areas,
+        rows: st.rows.map(function (r) { return r.row; }),
+        note: '共 ' + st.rows.length + ' 注 · ' + st.times + ' 倍 · 合计 ' +
+              (st.rows.length * st.times * (g.price || 2)) + ' 元'
+      };
+    }
+    function drawBall(ctx, cx, cy, r, blue, text) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
+      ctx.fillStyle = blue ? '#16233a' : '#3a1d22';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = blue ? '#3d5a86' : '#a34a4a';
+      ctx.stroke();
+      ctx.fillStyle = blue ? '#8fb8ff' : '#ff8b8b';
+      ctx.font = 'bold 17px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(text), cx, cy + 6);
+      ctx.textAlign = 'left';
+    }
+    function drawPic(g, data) {
+      var W = 720, pad = 28, lineH = 48, ballR = 15, gap = 9;
+      var maxRows = 20;
+      var n = Math.min(data.rows.length, maxRows);
+      var top = 172, foot = 100;
+      var H = top + n * lineH + (data.rows.length > n ? 34 : 0) + foot;
+      var cv = document.createElement('canvas');
+      if (!cv) return null;
+      cv.width = W;
+      cv.height = H;
+      var ctx = null;
+      try { ctx = cv.getContext('2d'); } catch (e) { ctx = null; }
+      if (!ctx) return null;
+      ctx.fillStyle = '#0f1115';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#12161d';
+      ctx.fillRect(0, 0, W, 128);
+      ctx.fillStyle = '#e8eaed';
+      ctx.font = 'bold 30px sans-serif';
+      ctx.fillText('GPT模型摇号 · 春风十里送大奖', pad, 56);
+      ctx.fillStyle = '#8fb8ff';
+      ctx.font = '20px sans-serif';
+      ctx.fillText(g.name + '　' + data.note, pad, 94);
+      ctx.fillStyle = '#2a323f';
+      ctx.fillRect(0, 127, W, 1);
+      for (var i = 0; i < n; i++) {
+        var y = top + i * lineH;
+        var x = pad;
+        if (data.rows.length > 1) {
+          ctx.fillStyle = '#5f6878';
+          ctx.font = '16px sans-serif';
+          ctx.fillText('第' + (i + 1) + '注', pad, y + 6);
+          x = pad + 62;
+        }
+        var row = data.rows[i] || [];
+        if (data.kind === 'number') {
+          for (var a = 0; a < data.areas.length; a++) {
+            if (a > 0) {
+              ctx.fillStyle = '#5f6878'; ctx.font = '18px sans-serif';
+              ctx.fillText('+', x + 6, y + 6); x += 24;
+            }
+            var ar = data.areas[a], picked = row[a] || [];
+            for (var j = 0; j < picked.length; j++) {
+              /* 号码型补两位；数字彩不补（0 就是「0」不是「00」） */
+              drawBall(ctx, x + ballR, y, ballR, ar.color === 'blue',
+                ar.to > 9 ? pad2(picked[j]) : String(picked[j]));
+              x += ballR * 2 + gap;
+            }
+          }
+        } else {
+          for (var k = 0; k < row.length; k++) {
+            var isLast = (k === row.length - 1 && data.pos && data.pos[k] && data.pos[k].to === 14);
+            if (isLast) {
+              ctx.fillStyle = '#5f6878'; ctx.font = '18px sans-serif';
+              ctx.fillText('+', x + 6, y + 6); x += 24;
+            }
+            drawBall(ctx, x + ballR, y, ballR, !!isLast, String(row[k]));
+            x += ballR * 2 + gap;
+          }
+        }
+      }
+      if (data.rows.length > n) {
+        ctx.fillStyle = '#5f6878';
+        ctx.font = '16px sans-serif';
+        ctx.fillText('（图里只画前 ' + n + ' 注，实际共 ' + data.rows.length + ' 注）', pad, top + n * lineH + 8);
+      }
+      ctx.fillStyle = '#1e2430';
+      ctx.fillRect(0, H - foot + 12, W, 1);
+      ctx.fillStyle = '#6b7488';
+      ctx.font = '18px sans-serif';
+      ctx.fillText('仅供娱乐，不构成购彩建议，请理性购彩。', pad, H - foot + 48);
+      ctx.fillStyle = '#5f6878';
+      ctx.font = '15px sans-serif';
+      ctx.fillText('生成时间：' + nowText() + ' · 纯本机随机模拟（未联网、不上传、不保存）', pad, H - foot + 76);
+      var url = '';
+      try { url = cv.toDataURL('image/png'); } catch (e) { url = ''; }
+      if (!url) return null;
+      return { url: url, w: W, h: H, rows: n };
+    }
+    function saveImage() {
+      var g = G();
+      var data = picData();
+      if (!data) {
+        saveHint('请先摇号（自己选号的话，请先把号码选完）再点「保存图片」');
+        return null;
+      }
+      var pic = drawPic(g, data);
+      if (!pic || !pic.url) {
+        saveHint('生成图片失败：这个浏览器不支持把号码画成图片，请换个浏览器再试');
+        return null;
+      }
+      st.pic = pic;                      /* 只在内存里留一份，刷新就没了 */
+      var api = window.__roMobView;
+      var opened = false;
+      try {
+        opened = !!(api && typeof api.openUrl === 'function' && api.openUrl(pic.url, 'GPT模型摇号 · ' + g.name));
+      } catch (e) { opened = false; }
+      if (!opened) saveHint('图片已经生成，但全屏层没能打开：请刷新页面后再试一次');
+      return pic;
+    }
+
     /* ---------- 读输入框（注数 / 倍数 / 复式个数） ---------- */    function numOf(inp, def, min, max) {
       var v = NaN;
       if (inp) v = parseInt(String(inp.value === undefined || inp.value === null ? '' : inp.value), 10);
@@ -4721,6 +4891,10 @@ ${RO_RENDER_SCRIPT}
     }
 
     /* 机选 / 自己选号 两种「选号来源」的界面切换（默认机选） */
+    function actNode(a) {
+      for (var i = 0; i < acts.length; i++) if (attr(acts[i], 'data-ro-aipick-act') === a) return acts[i];
+      return null;
+    }
     function applySrc() {
       var g = G();
       var self = st.src === 'self';
@@ -4728,7 +4902,12 @@ ${RO_RENDER_SCRIPT}
       show(lineSingle, !self && st.mode === 'single');
       show(lineMulti, !self && st.mode === 'multi');
       show(lineTimes, !self);
-      show(actsBox, !self);
+      /* 自己选号时这一行只留「保存图片」（手选的号也能出图） */
+      show(actNode('roll'), !self);
+      show(actNode('reroll'), !self);
+      show(actNode('clear'), !self);
+      show(actNode('save'), true);
+      show(actsBox, true);
       show(outBox, !self);
       show(selfBox, self);                         /* 号码格子 */
       show(lineKl8, !!g.playModes);                /* 快乐8 玩法两种模式都要（决定选几个） */
@@ -4825,6 +5004,7 @@ ${RO_RENDER_SCRIPT}
           var act = attr(node, 'data-ro-aipick-act');
           if (act === 'clear') { st.rows = []; drawOut(); refresh(); }
           else if (act === 'reset') { st.pick = {}; drawPicker(G()); }   /* 自己选号：清空重选 */
+          else if (act === 'save') { saveImage(); }                     /* 保存图片：画图 + 全屏弹出 */
           else if (act === 'reroll') { doRoll(true); }
           else { doRoll(false); }
         });
@@ -4849,7 +5029,8 @@ ${RO_RENDER_SCRIPT}
         return { game: st.game, mode: st.mode, count: st.count, times: st.times, kl8: st.kl8,
                  rows: st.rows.length, src: st.src, pick: st.pick };
       },
-      rows: function () { return st.rows; }
+      rows: function () { return st.rows; },
+      lastImage: function () { return st.pic || null; }        /* 保存图片生成的最后一张（只在内存里） */
     };
   } catch (e) { /* 忽略：面板退化成静态说明，不影响页面其它部分 */ }
 })();
