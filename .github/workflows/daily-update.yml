@@ -221,6 +221,12 @@ jobs:
       # 【必须每次都跑】把这一班生成/更新的产物放进 site/。
       # 用户要求「所有的更新都要同步到网页上」：
       # 不管哪一班，只要跑到这里，site/ 就是这一班的最新产物，随后一定会被部署。
+      #
+      # 【兜底：从线上拉回当前那一份】
+      #   cloud-build.mjs 只发布【本次真的重新生成过】的页面（看文件修改时间），
+      #   没生成就不拷贝 → 这里 site/ 就会缺文件。
+      #   缺了就说明「这一班没有新页面」，那就把【正在对外服务的最新那份】拉回来：
+      #   ① 站点永远不会 404；② 绝不会把旧页面当成新页面发出去。
       - name: 把生成的网页放到站点目录
         if: always()
         run: |
@@ -230,17 +236,20 @@ jobs:
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
-          # 【兜底】cloud/out/ 的两个大页面不在版本管理里（见仓库根 .gitignore），
-          # 所以万一本次构建没产出页面（抓取/渲染失败），就从【线上当前那一份】拉回来，
-          # 绝不让站点变成 404。
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
           for f in index.html football.html tickets.json; do
-            if [ ! -s "site/$f" ]; then
-              echo "⚠️ site/$f 缺失 → 从线上兜底拉取"
-              curl -fsSL --max-time 60 "$BASE/$f" -o "site/$f" || echo "⚠️ 兜底也失败：$f"
-            else
+            if [ -s "site/$f" ]; then
               echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
+              continue
             fi
+            echo "⚠️ site/$f 本次没产出 → 从线上拉回当前那一份兜底"
+            ok=0
+            for try in 1 2 3; do
+              if curl -fsSL --max-time 60 -H 'Cache-Control: no-cache' "$BASE/$f?t=$(date +%s)" -o "site/$f"; then ok=1; break; fi
+              echo "   第 $try 次拉取失败，5 秒后重试"
+              sleep 5
+            done
+            if [ "$ok" = "1" ]; then echo "   ✅ 已拉回 $f"; else echo "::warning::兜底也失败：$f"; fi
           done
           touch site/.nojekyll
           echo "--- site 目录内容 ---"
@@ -268,6 +277,31 @@ jobs:
           echo "===== 推荐号码存档 ====="
           grep -oE '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' cloud/scripts/saved-tickets.js | head -1 || true
 
+      # 【仓库体积守护】用户要求仓库长期保持在 100 MB 以内。
+      #   · 真正会撑大仓库的是「每次构建都提交一个 1.27 MB 的网页」——
+      #     这一版已经把那两个页面移出版本管理（见下面提交那一步的 git reset）。
+      #   · 这一步只做「体检 + 报警」，绝不做任何破坏性操作
+      #     （不 force push、不重写历史 —— 代码历史和数据文件一个字都不能丢）。
+      - name: 仓库体积守护（超过 100 MB 报警）
+        if: always()
+        continue-on-error: true
+        run: |
+          echo "===== 仓库体积 ====="
+          SIZE_KB=$(curl -fsSL --max-time 60 \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}" \
+            | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{console.log(Math.round(JSON.parse(s).size||0))}catch(e){console.log(0)}})")
+          echo "GitHub 报告的仓库体积：${SIZE_KB} KB ≈ $((SIZE_KB/1024)) MB"
+          echo "本次 checkout 出来的 .git 体积：$(du -sh .git 2>/dev/null | cut -f1)"
+          echo "cloud/ 目录体积：$(du -sh cloud 2>/dev/null | cut -f1)"
+          echo "（参考）OCR 运行时：$(du -sh cloud/scripts/runtime/ocr 2>/dev/null | cut -f1)"
+          if [ "${SIZE_KB:-0}" -gt 102400 ]; then
+            echo "::warning::仓库体积已超过 100 MB（${SIZE_KB} KB）—— 需要人工做一次历史瘦身（只重写那两个页面的历史，代码/数据不动）"
+          else
+            echo "✅ 仓库体积在 100 MB 以内"
+          fi
+
       - name: 提交更新后的数据（保留号码与历史）
         if: always()
         continue-on-error: true
@@ -275,9 +309,17 @@ jobs:
           git config user.name  "auto-update-bot"
           git config user.email "auto-update-bot@users.noreply.github.com"
           git add -A cloud/ || true
+          # 【关键】这两个页面【不提交回仓库】：
+          #   它们每次构建都会重新生成（只读分享版.html 1.27 MB / 足球推荐.html 52 KB），
+          #   提交进去等于每 30 分钟往仓库塞 1.3 MB —— 一天几十 MB。
+          #   部署用的是运行时的 site/ 目录（上面那一步），和它们在不在仓库里无关；
+          #   万一某班没有新页面，上面那一步已经从线上把当前那份拉回来了。
+          git reset -q -- cloud/scripts/只读分享版.html cloud/scripts/足球推荐.html cloud/out/index.html cloud/out/football.html 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "没有变化，跳过提交"
           else
+            echo "--- 本次要提交的文件 ---"
+            git diff --cached --name-only | head -30
             git commit -m "自动更新 $(date -u '+%Y-%m-%d %H:%M') UTC"
             git push
           fi
