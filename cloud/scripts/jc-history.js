@@ -2,9 +2,171 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-15 23:44",
+ "updated": "2026-10-16 01:01",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周五003",
+   "league": "瑞典超",
+   "home": "布鲁马波",
+   "away": "佐加顿斯",
+   "time": "2026-10-17 01:00",
+   "score": "",
+   "hc": null,
+   "asianIndex": {
+    "line": "受一球",
+    "from": "live",
+    "handicap": 1,
+    "upSide": "away",
+    "upWater": 0.77,
+    "downWater": 1.02,
+    "openHandicap": 1,
+    "openUpWater": 0.77,
+    "openDownWater": 1.02,
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 1,
+     "nowHandicap": 1,
+     "initUpWater": 0.77,
+     "nowUpWater": 0.77,
+     "initLine": "受一球",
+     "nowLine": "受一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 6,
+    "draw": 4.5,
+    "away": 1.46
+   },
+   "prob": {
+    "home": 15.5,
+    "draw": 20.7,
+    "away": 63.8
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 63.8,
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-16 01:01"
+  },
+  {
+   "code": "周五002",
+   "league": "德乙",
+   "home": "科特布斯",
+   "away": "纽伦堡",
+   "time": "2026-10-17 00:30",
+   "score": "",
+   "hc": null,
+   "asianIndex": {
+    "line": "受半球",
+    "from": "live",
+    "handicap": 0.5,
+    "upSide": "away",
+    "upWater": 0.97,
+    "downWater": 0.82,
+    "openHandicap": 0.25,
+    "openUpWater": 0.75,
+    "openDownWater": 1.05,
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
+    "canWater": false,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.5,
+     "initUpWater": 0.75,
+     "nowUpWater": 0.97,
+     "initLine": "受平手/半球",
+     "nowLine": "受半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.1,
+    "draw": 3.9,
+    "away": 2
+   },
+   "prob": {
+    "home": 29.9,
+    "draw": 23.8,
+    "away": 46.3
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 46.3,
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-16 01:01"
+  },
+  {
+   "code": "周五001",
+   "league": "澳超",
+   "home": "悉尼FC",
+   "away": "西悉尼",
+   "time": "2026-10-16 17:00",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.92,
+    "downWater": 0.87,
+    "openHandicap": -0.75,
+    "openUpWater": 0.97,
+    "openDownWater": 0.82,
+    "totalWater": 1.79,
+    "theoryUpPercent": "48.60",
+    "theoryDownPercent": "51.40",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.75,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.92,
+     "initLine": "半球/一球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.2,
+    "draw": 3.7,
+    "away": 3
+   },
+   "prob": {
+    "home": 43,
+    "draw": 25.5,
+    "away": 31.5
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 43,
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-16 01:01"
+  },
   {
    "code": "周三013",
    "league": "解放者杯",
@@ -428,106 +590,6 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-10-15 05:18"
-  },
-  {
-   "code": "周三005",
-   "league": "欧冠",
-   "home": "费耶诺德",
-   "away": "科莫",
-   "time": "2026-10-15 00:45",
-   "score": "3:2",
-   "hc": null,
-   "odds": {
-    "home": 3,
-    "draw": 3.9,
-    "away": 2.15
-   },
-   "prob": {
-    "home": 31.6,
-    "draw": 24.3,
-    "away": 44.1
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 44.1,
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-15 03:15",
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": 0.5,
-    "openUpWater": 0.92,
-    "openDownWater": 0.92,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   }
-  },
-  {
-   "code": "周三006",
-   "league": "欧冠",
-   "home": "LASK林茨",
-   "away": "利物浦",
-   "time": "2026-10-15 00:45",
-   "score": "3:6",
-   "hc": null,
-   "odds": {
-    "home": 8,
-    "draw": 5,
-    "away": 1.38
-   },
-   "prob": {
-    "home": 11.9,
-    "draw": 19.1,
-    "away": 69
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 69,
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-15 03:15",
-   "asianIndex": {
-    "line": "受一球",
-    "from": "live",
-    "handicap": 1,
-    "upSide": "away",
-    "upWater": 0.7,
-    "downWater": 1.1,
-    "openHandicap": 1.75,
-    "openUpWater": 0.82,
-    "openDownWater": 1.02,
-    "totalWater": 1.8,
-    "theoryUpPercent": "61.11",
-    "theoryDownPercent": "38.89",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": 1.75,
-     "nowHandicap": 1,
-     "initUpWater": 0.82,
-     "nowUpWater": 0.7,
-     "initLine": "受球半/两球",
-     "nowLine": "受一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   }
   }
  ]
 };
