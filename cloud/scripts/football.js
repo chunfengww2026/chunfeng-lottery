@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "CC9988"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 19,
+    "minute": 22,
     "home": {
      "name": "蒙特維多國民隊",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 19,
+    "minute": 23,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 19,
+    "minute": 23,
     "home": {
      "name": "国际帕尔米拉",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "558899"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 18,
+    "minute": 21,
     "home": {
      "name": "拉伊奎达德",
      "score": 0,
@@ -249,7 +249,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "拉尼罗斯",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 12
     },
@@ -1063,7 +1063,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 63,
+    "minute": 67,
     "home": {
      "name": "博卡青年后备队",
      "score": 1,
@@ -1129,7 +1129,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 62,
+    "minute": 65,
     "home": {
      "name": "科爾多瓦聖地亞哥中央隊(後備)",
      "score": 1,
@@ -1195,7 +1195,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 59,
+    "minute": 62,
     "home": {
      "name": "馬大雷拿",
      "score": 0,
@@ -1261,7 +1261,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "利昂内斯",
      "score": 0,
