@@ -411,10 +411,20 @@ function kickMs(t) {
   return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
 }
 
+/* 本次【在售列表】(jc-data) 里每场的状态：编号@日期 → status。
+   ⚠️ 只认在售列表，【不认】历史归档 —— 归档记录是「从在售列表消失」就记下来的，
+   没有终场比分的那种（比赛还没开踢）也会被标成 finished，
+   用它来判「这场不能投注」会把还在官方在售的比赛误删。
+   （编号每天复用，所以必须带上日期一起比。） */
+const JC_SALE_STATUS = new Map();
+JC.games.forEach((g) => {
+  if (g && g.code) JC_SALE_STATUS.set(`${g.code}@${dayOf(g.time)}`, g.status || 'upcoming');
+});
+
 const CALC_ROWS = (SP ? SP.list : []).filter((r) => {
   if (!r || !(r.had || r.hhad)) return false;
-  const card = MATCHES.find((m) => m.code && m.code === r.code);
-  if (card && card.kind === 'finished') return false;
+  /* 本次在售里明确已经完场的 → 不能投注，剔掉 */
+  if (JC_SALE_STATUS.get(`${r.code}@${dayOf(r.time)}`) === 'finished') return false;
   if (SP.source === 'carried') {
     const t = kickMs(r.time);
     if (!isNaN(t) && t <= NOW_MS) return false;   /* 已开赛 → 竞彩已停售 */
@@ -573,6 +583,97 @@ function renderMatch(m) {
     renderAsianCard(m) +
     `</div>`
   );
+}
+
+/* ============================================================
+   奖金试算器（渲染）
+   ------------------------------------------------------------
+   · 赔率是【官方 SP 原值】（见上面数据准备段的说明）
+   · 勾选 / 倍数由页面上的纯前端脚本实时算（不发任何请求、不刷新页面）
+   · 【交互边界】竞彩页上只有这一块可以操作；不写任何本地存储
+     （浏览器存储 API 一个都不用），刷新页面全部回到默认（全不勾选、倍数 1）
+   · 规则见区块底部「怎么算的」，合规声明单独一行放在最下面
+   ============================================================ */
+const CALC_MAX_PARLAY = 8;   /* 体彩：胜平负 / 让球胜平负 最多 8 关 */
+
+function renderCalc() {
+  const head =
+    `<div class="calc-head">` +
+    `<span class="calc-title">奖金试算</span>` +
+    `<span class="calc-tag">仅供娱乐参考</span>` +
+    `<span class="calc-src">赔率：${esc(SP_SRC_CN)}</span>` +
+    `</div>`;
+
+  const rules =
+    `<div class="calc-note">` +
+    `<b>怎么算的</b>（按体彩竞彩官方规则）：<br>` +
+    `· 单注固定 <b>2 元</b>。<b>单注奖金</b> = 2 元 × 所选各场固定奖金额连乘，按官方规则保留 2 位小数（第 3 位 0~4 舍、6~9 进、5 看第 2 位奇偶，偶舍奇进）。<br>` +
+    `· <b>总投注额</b> = 注数 × 2 元 × 倍数；中奖时按【中的那一注】算奖金，再乘倍数。<br>` +
+    `· 只勾 1 场 = <b>单关</b>；勾 2 场及以上 = <b>过关</b>（串关）。同一场勾多个结果 = <b>复式</b>，注数 = 各场勾选个数的乘积。<br>` +
+    `· <b>单注最高奖金限额</b>：单关 10 万元 · 2~3 关 20 万元 · 4~5 关 50 万元 · 6 关及以上 100 万元（超出部分按限额兑付）。<br>` +
+    `· 胜平负 / 让球胜平负最多 <b>${CALC_MAX_PARLAY} 关</b>；同一场比赛的「胜平负」与「让球胜平负」<b>不能混合过关</b>（体彩规则，遇到这种勾选本工具不计算并提示）。<br>` +
+    `· 单关只有在官方开放单关的场次才能投注，本工具<b>不判断该资格</b>，请以官方为准。<br>` +
+    `· 赔率随时会变，一切以官方最终公布为准。` +
+    `</div>`;
+
+  /* 【合规声明】这一块自己的底部声明（不与页面最底部的免责声明重复堆砌） */
+  const disclaim =
+    `<div class="calc-disclaim">本工具仅为奖金试算演示，数据仅供参考，` +
+    `<b>仅供娱乐，不构成购彩建议</b>，请理性购彩。</div>`;
+
+  if (!CALC_ROWS.length) {
+    return `<div class="calc" id="jcCalc">${head}` +
+      `<div class="calc-empty">暂无可试算的竞彩 SP 赔率（${esc(SP ? (SP.from || '') : 'jc-data.js 里没有 sp 数据')}）。` +
+      `SP 抓不到时本区块不会显示数字，也绝不估算。</div>` +
+      rules + disclaim + `</div>`;
+  }
+
+  const rows = CALC_ROWS.map((r) => {
+    const opt = (pool, key, label, odds) => (odds == null ? '' :
+      `<label class="calc-opt"><input class="calc-cb" type="checkbox" value="${esc(r.code)}|${pool}|${key}">` +
+      `<span class="calc-opt-t">${label}</span><span class="calc-opt-o">${odds}</span></label>`);
+    return `<div class="calc-row">` +
+      `<div class="calc-mt"><span class="calc-code">${esc(r.code)}</span>` +
+      `<span class="calc-league">${esc(r.league)}</span>` +
+      `<span class="calc-time">${esc(dateMD(r.time))} ${esc(timeHM(r.time))}</span></div>` +
+      `<div class="calc-teams">${esc(r.home)}<span class="calc-vs">VS</span>${esc(r.away)}</div>` +
+      (r.had ? `<div class="calc-opts"><span class="calc-ol">胜平负</span>` +
+        opt('had', 'h', '主胜', r.had.h) + opt('had', 'd', '平', r.had.d) + opt('had', 'a', '客胜', r.had.a) +
+        `</div>` : '') +
+      (r.hhad ? `<div class="calc-opts"><span class="calc-ol">让球${esc(r.hhad.line)}</span>` +
+        opt('hhad', 'h', '主胜', r.hhad.h) + opt('hhad', 'd', '平', r.hhad.d) + opt('hhad', 'a', '客胜', r.hhad.a) +
+        `</div>` : '') +
+      `</div>`;
+  }).join('');
+
+  /* 纯前端脚本要用的赔率：内联成 JSON。
+     【注意】必须把 < 转义，否则 JSON 里的字符串可能提前闭合 <script>。 */
+  const payload = JSON.stringify(CALC_ROWS.map((r) => ({ code: r.code, had: r.had, hhad: r.hhad })))
+    .replace(/</g, '\\u003c');
+
+  const bar =
+    `<script type="application/json" id="jcCalcData">${payload}</script>` +
+    `<div class="calc-bar">` +
+    `<div class="calc-stat">` +
+    `<span>已选 <b id="calcN">0</b> 关</span>` +
+    `<span>共 <b id="calcBets">0</b> 注</span>` +
+    `<span>总投注 <b id="calcCost">¥0.00</b></span>` +
+    `<span class="calc-mul"><label for="calcMul">倍数</label>` +
+    `<input id="calcMul" type="number" min="1" max="99" step="1" value="1"></span>` +
+    `<a role="button" tabindex="0" class="calc-btn" id="calcClear">清空</a>` +
+    `</div>` +
+    `<div class="calc-prize"><span class="calc-prize-l">预计奖金</span>` +
+    `<b id="calcPrize">¥0.00</b>` +
+    `<span class="calc-prize-h" id="calcPrizeHint">还没勾选场次</span></div>` +
+    `<div class="calc-warn" id="calcWarn"></div>` +
+    `<div class="calc-foot">单注 2 元（体彩竞彩固定）；倍数越大，总投注与预计奖金同步放大。</div>` +
+    `</div>`;
+
+  return `<div class="calc" id="jcCalc">${head}` +
+    `<div class="calc-sub">勾选你看好的结果 → 自动按体彩竞彩规则算预计奖金（纯前端计算，不刷新页面）</div>` +
+    `<div class="calc-rows">${rows}</div>` +
+    bar + rules + disclaim +
+    `</div>`;
 }
 
 /* 分组 */
@@ -736,6 +837,60 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid rgba(110,168,254,0.3); white-space: nowrap; }
 .m-ai-change-d { font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
   word-break: break-word; }
+/* ---- 奖金试算器（竞彩页唯一可操作的区块） ---- */
+.calc { margin-top: 22px; padding: 13px 14px; background: #14171d;
+  border: 1px solid #262d3a; border-radius: 12px; }
+.calc-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.calc-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
+.calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
+  border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
+.calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
+.calc-sub { font-size: 11.5px; color: #8b93a1; line-height: 1.7; margin-bottom: 10px; }
+.calc-rows { display: flex; flex-direction: column; gap: 8px; }
+.calc-row { background: #161a21; border: 1px solid #232a36; border-radius: 10px; padding: 9px 10px; }
+.calc-mt { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 6px; }
+.calc-code { font-size: 11px; font-weight: 700; color: #4a83f5;
+  background: rgba(74,131,245,0.13); padding: 1px 7px; border-radius: 5px; }
+.calc-league { font-size: 11px; color: #8b93a1; }
+.calc-time { margin-left: auto; font-size: 11px; color: #6b7488; font-family: Consolas, monospace; }
+.calc-teams { display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  font-size: 13px; font-weight: 600; color: #c8cfda; margin-bottom: 7px; }
+.calc-vs { font-size: 10.5px; font-weight: 400; color: #5a6272; }
+.calc-opts { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+.calc-ol { flex: 0 0 auto; min-width: 52px; font-size: 11px; color: #6b7488; }
+.calc-opt { display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+  background: #1b212b; border: 1px solid #262d3a; border-radius: 7px; padding: 4px 8px;
+  font-size: 11.5px; color: #c8cfda; user-select: none; -webkit-user-select: none; }
+.calc-opt input { width: 14px; height: 14px; margin: 0; cursor: pointer; accent-color: #47e0a0; }
+.calc-opt-o { font-family: Consolas, monospace; color: #8b93a1; }
+.calc-opt.on { background: rgba(71,224,160,0.14); border-color: #47e0a0; color: #47e0a0; }
+.calc-opt.on .calc-opt-o { color: #47e0a0; font-weight: 700; }
+.calc-bar { margin-top: 11px; padding-top: 11px; border-top: 1px solid #1e2430; }
+.calc-stat { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-size: 11.5px; color: #8b93a1; }
+.calc-stat b { color: #e8eaed; font-family: Consolas, monospace; }
+.calc-mul { display: inline-flex; align-items: center; gap: 5px; }
+.calc-mul input { width: 58px; padding: 3px 6px; background: #0f1115; border: 1px solid #2b3550;
+  border-radius: 6px; color: #e8eaed; font-size: 12.5px; font-family: Consolas, monospace; }
+.calc-btn { margin-left: auto; padding: 4px 12px; font-size: 11.5px; color: #8b93a1;
+  background: #1b212b; border: 1px solid #2b3550; border-radius: 7px;
+  cursor: pointer; user-select: none; -webkit-user-select: none; }
+.calc-btn:active { background: #232a36; color: #47e0a0; }
+.calc-prize { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 9px; }
+.calc-prize-l { font-size: 12px; color: #8b93a1; }
+.calc-prize b { font-size: 20px; font-weight: 800; color: #47e0a0;
+  font-family: Consolas, monospace; font-variant-numeric: tabular-nums; }
+.calc-prize-h { font-size: 10.5px; color: #6b7488; }
+.calc-warn { margin-top: 7px; font-size: 11.5px; color: #f0b429; line-height: 1.7; }
+.calc-warn:empty { display: none; }
+.calc-foot { margin-top: 7px; font-size: 10.5px; color: #5a6272; }
+.calc-empty { margin-bottom: 8px; padding: 9px 10px; background: #171b23;
+  border: 1px dashed #2b3550; border-radius: 8px; font-size: 12px; color: #8b93a1; line-height: 1.8; }
+.calc-note { margin-top: 11px; padding: 10px 11px; background: #0f1115;
+  border: 1px solid #1e2430; border-radius: 9px; font-size: 10.5px; color: #6b7488; line-height: 1.9; }
+.calc-disclaim { margin-top: 9px; padding-top: 8px; border-top: 1px dashed #232a36;
+  font-size: 10.5px; color: #6b7488; line-height: 1.8; }
+.calc-disclaim b { color: #8b93a1; font-weight: 700; }
 `;
 
 const html = `<!DOCTYPE html>
@@ -767,6 +922,8 @@ ${nav}
   </div>` : ''}
 
   ${cards}
+
+  ${renderCalc()}
 
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
@@ -832,6 +989,180 @@ ${nav}
   }, true);
 })();
 </script>
+<!-- __FB_CALC_JS__ 奖金试算器（纯前端：勾选 / 倍数 → 实时算，不发请求、不刷新页面）
+     赔率来自上面内联的 <script type="application/json" id="jcCalcData">（体彩官网官方 SP）。
+     算奖规则按体彩竞彩官方规则，见区块底部「怎么算的」。
+     【交互边界】竞彩页上只有这一块可以操作；这里【不写任何本地存储】
+     （浏览器存储 API 一个都不用，代码里搜不到相关字样）——
+     勾选和倍数只存在内存里，刷新页面即回到默认。 -->
+<script>
+(function () {
+  var root = document.getElementById('jcCalc');
+  if (!root) return;
+
+  var elN = document.getElementById('calcN');
+  var elBets = document.getElementById('calcBets');
+  var elCost = document.getElementById('calcCost');
+  var elPrize = document.getElementById('calcPrize');
+  var elHint = document.getElementById('calcPrizeHint');
+  var elWarn = document.getElementById('calcWarn');
+  var elMul = document.getElementById('calcMul');
+  var elClear = document.getElementById('calcClear');
+  if (!elN || !elBets || !elCost || !elPrize || !elHint) return;
+
+  var rows = [];
+  var dataEl = document.getElementById('jcCalcData');
+  if (dataEl) {
+    try { rows = JSON.parse(dataEl.textContent || dataEl.innerHTML || '[]') || []; }
+    catch (e) { rows = []; }
+  }
+  var byCode = {};
+  for (var r = 0; r < rows.length; r++) { if (rows[r] && rows[r].code) byCode[rows[r].code] = rows[r]; }
+
+  var boxes = root.querySelectorAll('input.calc-cb');
+  var MAX_PARLAY = 8;            /* 体彩：胜平负 / 让球胜平负 最多 8 关 */
+
+  function money(v) { return '¥' + v.toFixed(2); }
+
+  /* 官方「单注奖金」保留 2 位小数规则：
+     第 3 位 0~4 舍；6~9 进；5 时看第 2 位奇偶（偶舍、奇进） */
+  function round2(v) {
+    if (!isFinite(v) || v <= 0) return 0;
+    var t = Math.round(v * 1000);        /* 千分位整数（消除浮点噪声） */
+    var third = t % 10;
+    var base = Math.floor(t / 10);       /* 百分位（分） */
+    if (third > 5) return (base + 1) / 100;
+    if (third === 5) return (base % 2 === 0 ? base : base + 1) / 100;
+    return base / 100;
+  }
+  /* 单注最高奖金限额（体彩竞彩官方规则） */
+  function capOf(n) {
+    if (n <= 1) return 100000;
+    if (n <= 3) return 200000;
+    if (n <= 5) return 500000;
+    return 1000000;
+  }
+  function mul() {
+    var m = elMul ? parseInt(elMul.value, 10) : 1;
+    if (!isFinite(m) || m < 1) m = 1;
+    if (m > 99) m = 99;
+    return m;
+  }
+  function warn(t) { if (elWarn) elWarn.textContent = t || ''; }
+
+  function update() {
+    var i, j;
+    var sel = {}, codes = [];
+
+    /* 1) 读勾选（同一场可勾多个结果 → 复式） */
+    for (i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      var on = !!b.checked;
+      var lab = b.parentNode;
+      if (lab && lab.classList) { if (on) lab.classList.add('on'); else lab.classList.remove('on'); }
+      if (!on) continue;
+      var p = String(b.value || '').split('|');
+      if (p.length < 3) continue;
+      if (!sel[p[0]]) { sel[p[0]] = { had: [], hhad: [] }; codes.push(p[0]); }
+      if (p[1] === 'hhad') sel[p[0]].hhad.push(p[2]); else sel[p[0]].had.push(p[2]);
+    }
+
+    var n = codes.length;
+    var m = mul();
+
+    /* 2) 默认（一个都没勾）：0 关 0 注 ¥0 */
+    if (!n) {
+      elN.textContent = '0';
+      elBets.textContent = '0';
+      elCost.textContent = money(0);
+      elPrize.textContent = money(0);
+      elHint.textContent = '还没勾选场次';
+      warn('');
+      return;
+    }
+
+    /* 3) 注数 = 各场勾选个数的乘积；同一场跨玩法（胜平负+让球）→ 混合过关，体彩不允许 */
+    var bets = 1, mixed = false;
+    for (i = 0; i < codes.length; i++) {
+      var s = sel[codes[i]];
+      bets *= (s.had.length + s.hhad.length);
+      if (n >= 2 && s.had.length && s.hhad.length) mixed = true;
+    }
+    elN.textContent = String(n);
+    elBets.textContent = String(bets);
+
+    var bad = '';
+    if (mixed) bad = '同一场比赛不能同时选「胜平负」和「让球胜平负」（体彩混合过关规则），请取消其中一边。';
+    else if (n > MAX_PARLAY) bad = '已选 ' + n + ' 关，超过体彩「胜平负 / 让球胜平负」最多 ' + MAX_PARLAY + ' 关的过关上限，实际不能出票。';
+    if (bad) {
+      elCost.textContent = money(bets * 2 * m);
+      elPrize.textContent = '—';
+      elHint.textContent = '该组合不能出票，未计算奖金';
+      warn(bad);
+      return;
+    }
+
+    /* 4) 单注奖金 = 2 元 × 各场赔率连乘（每场取最小/最大 → 复式的奖金范围） */
+    var minProd = 2, maxProd = 2, hasOdds = true;
+    for (i = 0; i < codes.length; i++) {
+      var rr = byCode[codes[i]] || {};
+      var ss = sel[codes[i]];
+      var lo = Infinity, hi = -Infinity;
+      for (j = 0; j < ss.had.length; j++) {
+        var o1 = rr.had ? rr.had[ss.had[j]] : null;
+        if (o1 > 0) { if (o1 < lo) lo = o1; if (o1 > hi) hi = o1; }
+      }
+      for (j = 0; j < ss.hhad.length; j++) {
+        var o2 = rr.hhad ? rr.hhad[ss.hhad[j]] : null;
+        if (o2 > 0) { if (o2 < lo) lo = o2; if (o2 > hi) hi = o2; }
+      }
+      if (!(lo > 0) || !(hi > 0)) { hasOdds = false; break; }
+      minProd *= lo;
+      maxProd *= hi;
+    }
+    if (!hasOdds) {
+      elCost.textContent = money(bets * 2 * m);
+      elPrize.textContent = '—';
+      elHint.textContent = '所选场次缺少赔率，无法试算';
+      warn('所选里有一场没有可用赔率（官方可能刚更新），取消后重试。');
+      return;
+    }
+
+    var lim = capOf(n);
+    var rawMax = round2(maxProd);
+    var loBet = Math.min(round2(minProd), lim);
+    var hiBet = Math.min(rawMax, lim);
+    var capped = rawMax > lim;
+    var loPrize = loBet * m;
+    var hiPrize = hiBet * m;
+
+    elCost.textContent = money(bets * 2 * m);
+    elPrize.textContent = (loPrize === hiPrize) ? money(hiPrize) : (money(loPrize) + ' ~ ' + money(hiPrize));
+    elHint.textContent = (n === 1 ? '单关' : n + ' 关·串关') +
+      ' · 共 ' + bets + ' 注 · 单注奖金 ' +
+      (loBet === hiBet ? loBet.toFixed(2) : loBet.toFixed(2) + '~' + hiBet.toFixed(2)) + ' 元' +
+      (bets > 1 ? '（复式，中其中一注）' : '') +
+      (capped ? ' · 已按单注最高限额 ' + lim + ' 元封顶' : '') +
+      (n === 1 ? ' · 单关能否投注以官方为准' : '');
+    warn('');
+  }
+
+  for (var k = 0; k < boxes.length; k++) boxes[k].addEventListener('change', update);
+  if (elMul) {
+    elMul.addEventListener('input', update);
+    elMul.addEventListener('change', update);
+  }
+  if (elClear) {
+    elClear.addEventListener('click', function () {
+      for (var i = 0; i < boxes.length; i++) boxes[i].checked = false;
+      if (elMul) elMul.value = '1';
+      update();
+    });
+  }
+
+  update();   /* 初始：一个都没勾 → 0 关 0 注 ¥0.00（刷新后也是这样，不做任何持久化） */
+})();
+</script>
 </body>
 </html>`;
 
@@ -848,3 +1179,6 @@ console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
     : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
+console.log(`   奖金试算器：${CALC_ROWS.length} 场可试算 · 赔率来源：${SP_SRC_CN}` +
+  `（sp.source=${SP ? SP.source : 'none'}）`);
+console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字，绝不估算；不写任何本地存储）`);

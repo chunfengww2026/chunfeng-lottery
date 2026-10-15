@@ -973,7 +973,7 @@ function buildXyspHtml() {
      默认【收起】：<details> 不带 open 属性。 */
   return `<details class="ro-xysp" id="ro-xysp">` +
     `<summary class="ro-xysp-head">` +
-    `<h2 class="ro-xysp-h2">晒票栏</h2>` +
+    `<h2 class="ro-xysp-h2">晒票</h2>` +
     `<div class="ro-xysp-sub">各彩种实票图片 · 实时更新 · 点击查看</div>` +
     `<span class="ro-xysp-arrow" aria-hidden="true"></span>` +
     `</summary>` +
