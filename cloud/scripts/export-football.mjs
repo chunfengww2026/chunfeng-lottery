@@ -1655,7 +1655,22 @@ ${nav}
     { url: 'https://api.ip.sb/jsonip', pick: function (j) { return j && j.ip; } },
     { url: 'https://ifconfig.me/all.json', pick: function (j) { return j && (j.ip_addr || j.ip); } }
   ];
-  function isIPv4(s) { return /^\d+\.\d+\.\d+\.\d+$/.test(String(s == null ? '' : s).trim()); }
+  /* ⚠️ 这里【故意不用正则】：这段代码写在模板字符串里，
+     正则里的 \d 会被模板字符串吃掉（变成 d）→ 判断永远失败。
+     改成纯字符判断，怎么写都不会被转义坑到。 */
+  function isIPv4(s) {
+    var v = String(s == null ? '' : s).trim().split('.');
+    if (v.length !== 4) return false;
+    for (var i = 0; i < 4; i++) {
+      var p = v[i];
+      if (!p || p.length > 3) return false;
+      for (var j = 0; j < p.length; j++) {
+        var c = p.charCodeAt(j);
+        if (c < 48 || c > 57) return false;        /* 只允许 0-9 */
+      }
+    }
+    return true;
+  }
 
   function getVisitorIP() {
     var i = 0;

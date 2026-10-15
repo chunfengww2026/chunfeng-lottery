@@ -730,7 +730,7 @@ ok(stillChecked === 2, '关闭全屏层不影响勾选状态（还是那 2 个�
 ok(S.els.calcPrize.textContent === money(oneShot), '关闭后预计奖金不变');
 ok(html.indexOf('id="calcShot"') > html.indexOf('</details>', iCalc), '全屏层在 <details> 外面（折叠状态下也能弹出）');
 
-H('16. 防截图锁定（真跑那段锁屏脚本：blur / focus / 4 秒自动解锁 / PrintScreen / 豁免区）');
+H('16. 防截图（最终版）：owner 判定 = file: 协议 → 多源 IP 兜底 → 非 owner 才保护');
 const lockMark = html.indexOf('<!-- __FB_LOCK_JS__');
 if (lockMark < 0) {
   ok(false, '页面里找不到 __FB_LOCK_JS__');
@@ -740,129 +740,187 @@ if (lockMark < 0) {
   const lockScript = html.slice(ls + '<script>'.length, le);
   console.log(`   锁屏脚本 ${lockScript.length} 字符`);
 
-  /* --- 迷你 DOM：documentElement / mask / watermark / 事件 / navigator --- */
-  const htmlEl = makeEl('html');
-  const wmEl = makeEl('div', { id: 'watermark' });
-  const clip = [];
-  const winL2 = {}, docL2 = {};
-  const window2 = {
-    innerWidth: 900, innerHeight: 700,
-    addEventListener: (t, fn) => { (winL2[t] = winL2[t] || []).push(fn); },
-    dispatch: (t, ev) => {
-      const e = ev || { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false };
-      (winL2[t] || []).forEach((fn) => fn(e));
-      return e;
-    }
+  /* IP 源：顺序 + 超时（照用户实测：ipify 连不上 → ipinfo → ip.sb → ifconfig） */
+  const urls = [...lockScript.matchAll(/url: '(https:[^']+)'/g)].map((m) => m[1]);
+  console.log(`   IP 源（${urls.length} 个，按顺序）：${urls.join(' → ')}`);
+  ok(urls.length === 4 && urls[0].includes('ipify') && urls[1].includes('ipinfo') &&
+    urls[2].includes('ip.sb') && urls[3].includes('ifconfig.me'), 'IP 源 4 个、顺序 = ipify → ipinfo → ip.sb → ifconfig');
+  ok(/IP_TIME_OUT = 4000/.test(lockScript) && /AbortController/.test(lockScript), '每个源 4 秒超时（AbortController）');
+  ok(/'120\.231\.138\.19'/.test(lockScript), 'OWNER_IP = 120.231.138.19 写在代码里');
+  ok(/location\.protocol === 'file:'/.test(lockScript), "owner 判定优先看 location.protocol === 'file:'");
+  ok(!/localStorage|sessionStorage|document\.cookie/.test(lockScript), '锁屏脚本里没有 localStorage / sessionStorage / cookie');
+
+  const SRC = {
+    ipify: 'https://api.ipify.org?format=json',
+    ipinfo: 'https://ipinfo.io/json',
+    ipsb: 'https://api.ip.sb/jsonip',
+    ifconfig: 'https://ifconfig.me/all.json'
   };
-  const document2 = {
-    documentElement: htmlEl,
-    hidden: false,
-    activeElement: null,
-    getElementById: (id) => (id === 'watermark' ? wmEl : null),
-    addEventListener: (t, fn) => { (docL2[t] = docL2[t] || []).push(fn); },
-    dispatch: (t, ev) => {
-      const e = ev || { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false };
-      (docL2[t] || []).forEach((fn) => fn(e));
-      return e;
-    }
-  };
-  const navigator2 = { clipboard: { writeText: (s) => { clip.push(s); return { catch() {} }; } } };
+  /* 造一个假的 fetch：routes = { 源名: 'throw' | {ip:'…'} }，并记录调用顺序 */
+  function makeFetch(routes) {
+    const calls = [];
+    const fn = (url) => {
+      const name = Object.keys(SRC).find((k) => SRC[k] === url) || url;
+      calls.push(name);
+      const r = routes[name];
+      if (!r || r === 'throw') return Promise.reject(new Error('connect failed'));
+      return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(r) });
+    };
+    return { fn, calls };
+  }
+  function runLock(protocol, routes) {
+    const htmlEl = makeEl('html');
+    const wmEl = makeEl('div', { id: 'watermark' });
+    const winL = {}, docL = {};
+    const clip = [];
+    const window2 = {
+      innerWidth: 900, innerHeight: 700,
+      addEventListener: (t, fn) => { (winL[t] = winL[t] || []).push(fn); },
+      dispatch: (t, ev) => {
+        const e = ev || { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false };
+        (winL[t] || []).forEach((fn) => fn(e));
+        return e;
+      }
+    };
+    const document2 = {
+      documentElement: htmlEl, hidden: false, activeElement: null,
+      getElementById: (id) => (id === 'watermark' ? wmEl : null),
+      addEventListener: (t, fn) => { (docL[t] = docL[t] || []).push(fn); },
+      dispatch: (t, ev) => {
+        const e = ev || { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false };
+        (docL[t] || []).forEach((fn) => fn(e));
+        return e;
+      }
+    };
+    const net = routes ? makeFetch(routes) : { fn: null, calls: [] };
+    const ctx = {
+      document: document2, window: window2, location: { protocol },
+      navigator: { clipboard: { writeText: (s) => { clip.push(s); return { catch() {} }; } } },
+      console, Math, String, Number, Object, Array, Date, JSON, setTimeout, clearTimeout,
+      AbortController, Promise
+    };
+    if (net.fn) ctx.fetch = net.fn;
+    vm.runInContext(lockScript, vm.createContext(ctx), { filename: 'fbLock.js' });
+    return {
+      htmlEl, wmEl, clip, window2, document2, calls: net.calls, net,
+      locked: () => htmlEl.classList.contains('locked'),
+      isOwner: () => htmlEl.classList.contains('is-owner')
+    };
+  }
+  const tick = (ms) => new Promise((r) => setTimeout(r, ms || 80));
 
-  vm.runInContext(lockScript, vm.createContext({
-    document: document2, window: window2, navigator: navigator2, console, Math, String, Number,
-    Object, Array, Date, JSON, setTimeout, clearTimeout
-  }), { filename: 'fbLock.js' });
+  /* ---- 用例 1：本机 App（file: 协议）→ 立刻 owner，不联网、不保护 ---- */
+  const L1 = runLock('file:', null);
+  await tick();
+  console.log(`   ① file: 协议 → is-owner = ${L1.isOwner()} · locked = ${L1.locked()} · IP 请求次数 = ${L1.calls.length}`);
+  ok(L1.isOwner(), "① location.protocol === 'file:' → 判定为自己（is-owner）");
+  ok(L1.calls.length === 0, '① file: 时不发任何 IP 请求（不联网）');
+  const evBlur1 = L1.window2.dispatch('blur');
+  L1.document2.dispatch('visibilitychange');
+  L1.window2.dispatch('keydown', { key: 'PrintScreen', code: 'PrintScreen', preventDefault() {}, defaultPrevented: false });
+  console.log(`   ① 失焦 / 切标签 / PrintScreen 之后：locked = ${L1.locked()}`);
+  ok(!L1.locked(), '① 自己人：失焦 / PrintScreen 都不会被模糊');
+  const evCtx1 = L1.document2.dispatch('contextmenu', { type: 'contextmenu', preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
+  ok(!evCtx1.defaultPrevented, '① 自己人：右键没有被拦');
+  ok(/html\.is-owner \.owner-tag \{ display: inline-flex; \}/.test(html) && /html\.is-owner #watermark \{ display: none; \}/.test(html),
+    '① 自己人：右上角显示「👑 管理员模式 · 可截图」徽章、隐藏水印');
 
-  const locked = () => htmlEl.classList.contains('locked');
-  console.log(`   初始：html.locked = ${locked()} · 水印格子数 = ${(wmEl.innerHTML.match(/wm-item/g) || []).length}（固定文字「春风十里送大奖 · 仅供观看」）`);
-  ok(!locked(), '初始状态没有 locked（页面清晰、能滚、能点）');
-  ok(wmEl.innerHTML.includes('春风十里送大奖 · 仅供观看'), '水印文字是固定字符串（没有读任何本地存储）');
-  ok(/html\.locked #article, html\.locked \.guard \{ filter: blur\(25px\) grayscale\(1\); pointer-events: none; \}/.test(html), 'CSS：locked 时 #article/.guard 模糊 + 不能点');
-  ok(/html\.locked #mask \{ display: flex; \}/.test(html), 'CSS：locked 时显示全屏遮罩');
-  ok(/html\.locked \.m-calc, html\.locked \.m-sec \{ filter: none !important;\s*pointer-events: auto !important; position: relative; z-index: 99999; \}/.test(html), 'CSS：模拟计算 + 三个分段是豁免区（压住遮罩、可点）');
-  ok(/#mask \{[\s\S]*?z-index: 99998;/.test(html) && /#watermark \{[\s\S]*?z-index: 100000;/.test(html), '遮罩 z-index 99998 · 水印 100000（比遮罩高，能盖在豁免区上面）');
-  ok(/@media print \{[\s\S]*?filter: blur\(25px\) grayscale\(1\) !important;/.test(html), 'CSS：打印时也模糊（@media print）');
+  /* ---- 用例 2：网页打开 + ipify 连不上 + ipinfo 返回主人 IP → owner ---- */
+  const routes2 = { ipify: 'throw', ipinfo: { ip: '120.231.138.19' } };
+  const L2 = runLock('https:', routes2);
+  await tick();
+  console.log(`   ② https: · ipify 失败 → ipinfo 给出主人 IP · 请求顺序 = ${L2.calls.join(' → ')} · is-owner = ${L2.isOwner()}`);
+  ok(L2.calls[0] === 'ipify' && L2.calls[1] === 'ipinfo', '② ipify 失败后自动换 ipinfo（多源兜底真的生效）');
+  ok(L2.isOwner(), '② 公网 IP = OWNER_IP → 判定为自己');
+  L2.window2.dispatch('blur');
+  ok(!L2.locked(), '② 自己人（IP 命中）：不会被模糊');
 
-  /* 失焦 → locked；聚焦 → 恢复 */
-  window2.dispatch('blur');
-  console.log(`   失焦（window blur）→ locked = ${locked()}`);
-  ok(locked(), '失焦后 locked（进入模糊 + 遮罩）');
-  window2.dispatch('focus');
-  console.log(`   回焦（window focus）→ locked = ${locked()}`);
-  ok(!locked(), '回焦后恢复清晰');
-
-  /* 切标签页 */
-  document2.hidden = true; document2.dispatch('visibilitychange');
-  ok(locked(), '切到别的标签页（visibilitychange hidden）→ locked');
-  document2.hidden = false; document2.dispatch('visibilitychange');
-  ok(!locked(), '切回来 → 恢复');
-
-  /* PrintScreen → locked + 清剪贴板；再等 4 秒自动解锁 */
-  const evPs = window2.dispatch('keydown', { key: 'PrintScreen', code: 'PrintScreen', preventDefault() {}, defaultPrevented: false });
-  console.log(`   按 PrintScreen → locked = ${locked()} · 清剪贴板调用 = ${clip.length} 次 · preventDefault = ${evPs.defaultPrevented}`);
-  ok(locked(), '按 PrintScreen → locked');
-  ok(clip.length >= 1 && clip[0] === '', '并按规则清空剪贴板（writeText("")）');
-  window2.dispatch('keyup', { key: 'PrintScreen', code: 'PrintScreen', preventDefault() {}, defaultPrevented: false });
-  console.log(`   keyup 之后：locked = ${locked()}（等 4 秒会自动解锁）`);
+  /* ---- 用例 3：网页打开 + IP 是别人 → 全套保护生效 ---- */
+  const L3 = runLock('https:', { ipify: { ip: '8.8.8.8' } });
+  await tick();
+  console.log(`   ③ https: · IP = 8.8.8.8（别人）· is-owner = ${L3.isOwner()} · 请求 = ${L3.calls.join(' → ')}`);
+  ok(!L3.isOwner(), '③ 别人的 IP → 不是 owner');
+  console.log(`      locked 初始 = ${L3.locked()}（打开时页面清晰，但保护已经武装好）`);
+  ok(!L3.locked(), '③ 非 owner：打开时页面清晰（保护已武装，一有截图动作就锁）');
+  L3.window2.dispatch('blur');
+  ok(L3.locked(), '③ 非 owner：一失焦立刻 locked（保护真的武装着）');
+  L3.window2.dispatch('focus');
+  ok(!L3.locked(), '③ 回焦后恢复清晰');
+  L3.window2.dispatch('blur');
+  ok(L3.locked(), '③ 失焦 → locked（内容模糊 + 遮罩）');
+  L3.document2.hidden = true; L3.document2.dispatch('visibilitychange');
+  ok(L3.locked(), '③ 切标签页 → locked');
+  L3.document2.hidden = false; L3.document2.dispatch('visibilitychange');
+  L3.window2.dispatch('blur');
+  const clipBefore = L3.clip.length;
+  L3.window2.dispatch('keydown', { key: 'PrintScreen', code: 'PrintScreen', preventDefault() {}, defaultPrevented: false });
+  console.log(`      按 PrintScreen → locked = ${L3.locked()} · 清剪贴板 = ${L3.clip.length} 次`);
+  ok(L3.locked(), '③ PrintScreen → locked');
+  ok(L3.clip.length > clipBefore && L3.clip[L3.clip.length - 1] === '', '③ PrintScreen → 清空剪贴板');
+  console.log(`      等 4 秒自动解锁 ...`);
   await new Promise((r) => setTimeout(r, 4300));
-  console.log(`   4.3 秒后：locked = ${locked()}（自动解锁）`);
-  ok(!locked(), '4 秒后自动解锁（不会把人永久挡住）');
-
-  /* Win+Shift+S / macOS Cmd+Shift+4 / F12 / Ctrl+Shift+I / Ctrl+U */
-  const cases = [
+  console.log(`      4.3 秒后：locked = ${L3.locked()}`);
+  ok(!L3.locked(), '③ 4 秒后自动解锁（不会永久挡住）');
+  let keyOk = true;
+  for (const [name, ev] of [
     ['Win+Shift+S', { key: 'S', shiftKey: true, preventDefault() {}, defaultPrevented: false }],
-    ['macOS Cmd+Shift+4', { key: '4', metaKey: true, shiftKey: true, preventDefault() {}, defaultPrevented: false }],
+    ['Cmd+Shift+4', { key: '4', metaKey: true, shiftKey: true, preventDefault() {}, defaultPrevented: false }],
     ['F12', { key: 'F12', preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false }],
     ['Ctrl+Shift+I', { key: 'I', ctrlKey: true, shiftKey: true, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false }],
     ['Ctrl+U', { key: 'u', ctrlKey: true, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false }]
-  ];
-  let keyOk = true;
-  for (const [name, ev] of cases) {
-    window2.dispatch('focus');
-    const got = window2.dispatch('keydown', ev);
-    const pass = locked();
-    if (!pass) keyOk = false;
-    console.log(`   ${pass ? '✅' : '❌'} ${name} → locked = ${pass}${/F12|Ctrl/.test(name) ? ` · preventDefault = ${got.defaultPrevented}` : ''}`);
-    document2.dispatch('visibilitychange');       /* 不改变状态，纯触发 */
+  ]) {
+    L3.document2.hidden = false; L3.window2.dispatch('focus');
+    const got = L3.window2.dispatch('keydown', ev);
+    if (!L3.locked()) keyOk = false;
+    console.log(`      ${L3.locked() ? '✅' : '❌'} ${name} → locked${/F12|Ctrl/.test(name) ? ` · preventDefault = ${got.defaultPrevented}` : ''}`);
   }
-  ok(keyOk, '截屏 / 开发者工具按键都会 locked');
-
-  /* 右键 / 拖拽 / 复制 / 剪切 都被拦 */
-  window2.dispatch('focus');
+  ok(keyOk, '③ 截屏键 / 开发者工具键都会 locked');
   let preventOk = true;
   for (const t of ['contextmenu', 'dragstart', 'copy', 'cut']) {
-    const got = document2.dispatch(t, { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
+    const got = L3.document2.dispatch(t, { type: t, preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
     if (!got.defaultPrevented) preventOk = false;
   }
-  ok(preventOk, '右键 / 拖拽 / 复制 / 剪切 全部 preventDefault');
+  ok(preventOk, '③ 右键 / 拖拽 / 复制 / 剪切 全部 preventDefault');
+  const beforeLen = L3.wmEl.innerHTML.length;
+  L3.window2.innerWidth = 1600; L3.window2.innerHeight = 1200;
+  L3.window2.dispatch('resize');
+  console.log(`      水印 resize 重画：${beforeLen} → ${L3.wmEl.innerHTML.length} 字符（${(L3.wmEl.innerHTML.match(/wm-item/g) || []).length} 格，浅色 #e8eaed）`);
+  ok(L3.wmEl.innerHTML.length > beforeLen, '③ resize 后水印重新平铺');
+  ok(L3.wmEl.innerHTML.includes('春风十里送大奖 · 仅供观看'), '③ 水印是固定文字（没有读任何本地存储）');
 
-  /* 水印随窗口尺寸重画 */
-  const before = wmEl.innerHTML.length;
-  window2.innerWidth = 1600; window2.innerHeight = 1200;
-  window2.dispatch('resize');
-  console.log(`   窗口放大后水印重画：${before} → ${wmEl.innerHTML.length} 字符（${(wmEl.innerHTML.match(/wm-item/g) || []).length} 格）`);
-  ok(wmEl.innerHTML.length > before, 'resize 后水印重新平铺（格子变多）');
+  /* ---- 用例 4：IP 全查不到 + https → 安全降级（按非 owner 处理） ---- */
+  const L4 = runLock('https:', {});
+  await tick();
+  L4.window2.dispatch('blur');
+  console.log(`   ④ 4 个源全失败 → 请求 = ${L4.calls.join(' → ')} · is-owner = ${L4.isOwner()} · 失焦后 locked = ${L4.locked()}`);
+  ok(L4.calls.length === 4, '④ 4 个源都试过了');
+  ok(!L4.isOwner() && L4.locked(), '④ IP 查不到 → 安全降级：按非 owner 处理（保护照常生效）');
 
-  /* 结构：豁免区在保护容器之外 + locked 时计算器照样能用 */
+  /* ---- CSS / 结构 ---- */
+  ok(/html\.locked #article, html\.locked \.guard \{ filter: blur\(25px\) grayscale\(1\); pointer-events: none; \}/.test(html), 'CSS：locked 时 #article/.guard 模糊 + 不能点');
+  ok(/html\.locked #mask \{ display: flex; \}/.test(html), 'CSS：locked 时显示全屏遮罩');
+  ok(/html\.locked \.m-calc, html\.locked \.m-sec \{ filter: none !important;\s*pointer-events: auto !important; position: relative; z-index: 99999; \}/.test(html), 'CSS：模拟计算 + 三个分段是豁免区（z-index 99999，压住遮罩）');
+  ok(/#mask \{[\s\S]*?z-index: 99998;/.test(html) && /#watermark \{[\s\S]*?z-index: 99997;/.test(html), '遮罩 99998 · 水印 99997（都在豁免区下面）');
+  ok(/@media print \{[\s\S]*?filter: blur\(25px\) grayscale\(1\) !important;/.test(html), 'CSS：打印时也模糊（@media print）');
   const ia = html.indexOf('id="article"');
   const iCalc2 = html.indexOf('<details class="m-calc" id="jcCalc">');
   const articleEnd = html.indexOf('</div>', html.indexOf('class="record"'));
-  ok(iCalc2 > articleEnd && iCalc2 > ia, '模拟计算【不在】#article 里（所以不会被模糊）');
-  ok(html.slice(html.indexOf('<details class="m-sec"', ia), html.indexOf('</details>', html.indexOf('<details class="m-sec"', ia))).includes('class="guard"'),
-    '三个分段里的比赛卡片包在 .guard 里（locked 时被模糊），summary 留在外面（照样能点）');
+  ok(iCalc2 > articleEnd && iCalc2 > ia, '模拟计算【不在】#article 里（不会被模糊）');
+  const secStart = html.indexOf('<details class="m-sec"', ia);
+  ok(html.slice(secStart, html.indexOf('</details>', secStart)).includes('class="guard"'),
+    '三个分段里的比赛卡片包在 .guard 里（locked 时被模糊），summary 留在外面（照样能点开）');
 
-  /* locked 时，模拟计算照样能勾选算奖金（脚本不依赖 locked，CSS 也豁免了它） */
-  htmlEl.classList.add('locked');
-  S.root.querySelectorAll('input.calc-cb').forEach((b) => {
-    if (b.checked) { b.checked = false; b.dispatch('change'); }
-  });
+  /* ---- locked 时：模拟计算照样能勾选算奖金（豁免区真的可用） ---- */
+  L3.htmlEl.classList.add('locked');
+  S.root.querySelectorAll('input.calc-cb').forEach((b) => { if (b.checked) { b.checked = false; b.dispatch('change'); } });
   const cbLock = sBox(A.code, 'had', 'h');
   cbLock.checked = true; cbLock.dispatch('change');
   const lockPrize = S.els.calcPrize.textContent;
-  console.log(`   locked 状态下勾 1 场（${A.code} 主胜 ${A.had.h}）→ 预计奖金 ${lockPrize}（模拟计算不受锁定影响）`);
-  ok(lockPrize === money(r2(2 * A.had.h)), 'locked 时模拟计算照常能勾选并算出奖金（豁免区真的可用）');
-  htmlEl.classList.remove('locked');
+  console.log(`   ⑤ locked 状态下勾 1 场（${A.code} 主胜 ${A.had.h}）→ 预计奖金 ${lockPrize}`);
+  ok(lockPrize === money(r2(2 * A.had.h)), '⑤ locked 时模拟计算照常能勾选并算出奖金（豁免区真的可用）');
+  L3.htmlEl.classList.remove('locked');
   cbLock.checked = false; cbLock.dispatch('change');
+  console.log('   ⑤ 三个分段在 locked 时可点：summary 在 .guard 之外 + 分段整体 z-index 99999 / pointer-events:auto（CSS 已断言）');
 }
 
 /* ============================================================
@@ -874,7 +932,7 @@ if (bad === 0) {
   console.log('  ✅ 真跑验证通过（每一步的实际数字见上）');
   console.log(`     · 迷你 DOM 真执行了页面里的计算器脚本（${script.length} 字符）`);
   console.log(`     · ${rows.length} 场官方 SP · 步骤 1~28 全部与手算一致` +
-    `（含 GPT随机 5 次 + 保存图片 canvas 真画 + 防截图 locked/blur/4 秒解锁）`);
+    `（含 GPT随机 5 次 + 保存图片 canvas 真画 + 防截图 owner/file:/IP 兜底/4 秒解锁）`);
   console.log('════════════════════════════════════════════════════');
 } else {
   console.log(`❌ 真跑验证失败：${bad} 项不通过`);

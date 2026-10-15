@@ -4086,6 +4086,8 @@ ${RO_RENDER_SCRIPT}
     img = node;
     cur = { game: gameId, image: imageKey };
     zoom = 'fit';
+    /* 【保存权限】推荐图 / 资料：这一层不允许保存（右键 / 长按 / 拖拽都拦） */
+    view.setAttribute('data-allow', '0');
 
     view.removeAttribute('hidden');
     mark('ro-mob-open', true);
@@ -4139,11 +4141,16 @@ ${RO_RENDER_SCRIPT}
      @param {string} src 图片地址
      @param {string} alt 无障碍文字（一般传彩种名）
      @returns {boolean} true = 已打开 */
-  function openUrl(src, alt) {
+  function openUrl(src, alt, allowSave) {
     if (!src) return false;
     build();
     while (holder.firstChild) holder.removeChild(holder.firstChild);
     backTo = null;            /* 这张图不属于任何图位，关掉时不用搬回去 */
+    /* 【保存权限】这一层是不是「允许保存」的来源（晒票 / GPT模型摇号出的图）？
+       设成 1 之后，页尾防截图脚本就会对这里放行（右键 / 长按 + -webkit-touch-callout）
+       都放行；推荐图（open() 走的那条）设成 0 → 一律拦掉。 */
+    if (allowSave) view.setAttribute('data-allow', '1');
+    else view.setAttribute('data-allow', '0');
 
     var box = document.createElement('div');
     box.className = 'ro-imagewrap';
@@ -5535,6 +5542,20 @@ ${RO_RENDER_SCRIPT}
       document.addEventListener('copy', function (e) { e.preventDefault(); });
       document.addEventListener('cut', function (e) { e.preventDefault(); });
     }
+    /* 是不是点分十进制 IPv4（故意不用正则：正则里的 \d 写进模板字符串会被吃掉） */
+    function isIPv4(s) {
+      var p = String(s).trim().split('.');
+      if (p.length !== 4) return false;
+      for (var i = 0; i < 4; i++) {
+        var n = p[i];
+        if (!n.length || n.length > 3) return false;
+        for (var j = 0; j < n.length; j++) {
+          var c = n.charCodeAt(j);
+          if (c < 48 || c > 57) return false;
+        }
+      }
+      return true;
+    }
     /* ① 本机 App：Electron loadFile 打开的就是 file:// —— 100% 可靠，不看 IP */
     function protocolIsFile() {
       try { return String(location.protocol) === 'file:'; } catch (e) { return false; }
@@ -5564,7 +5585,7 @@ ${RO_RENDER_SCRIPT}
           })
           .then(function (j) {
             var ip = j ? String(s.pick(j) || '').trim() : '';
-            if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return ip;
+            if (isIPv4(ip)) return ip;
             return next();
           })
           .catch(function () {
