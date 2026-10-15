@@ -529,9 +529,18 @@ GROUPS.forEach((group) => {
       if (!dom) return;
 
       /* 图位：data-game / data-image 告诉页尾的实时渲染脚本该填哪张图。
-         里面的内容是预渲染兜底 —— JS 没跑或渲染失败时，页面依然有图。 */
+         里面的内容是预渲染兜底 —— JS 没跑或渲染失败时，页面依然有图。
+
+         【手机目录·锚点】图位前面多放一个空 <span id="ro-g-彩种-图名">：
+         手机上的目录表格（见下面的 TOC_ROWS）每一格都链到它。
+         锚点用【紧挨着的空 span】而不是直接给图位加 id ——
+         图位的 class / data 属性一个字节都不动，并排脚本、实时渲染脚本
+         和「按 class 找图位」的验收脚本都不受影响。
+         data-ro-mob="" 是给页尾全屏查看层用的标记：
+         只有带这个属性的图位才能被目录格子打开（实时渲染不会删掉它）。 */
       imgsHtml +=
-        `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}">` +
+        `<span class="ro-anchor" id="ro-g-${id}-${img.key}"></span>` +
+        `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}" data-ro-mob="">` +
         dom +
         `</div>`;
       imgCount++;
@@ -548,6 +557,68 @@ GROUPS.forEach((group) => {
       `</section>`;
   });
 });
+
+/* ============================================================
+   【手机目录表格 · 方案 D】5 行 × 2 列
+   ------------------------------------------------------------
+   用户原话：「我的云端显示布局，上面有用表格截图布局 是实现不了吗？」
+   用户已经在手机上确认选方案 D，顺序 / 文字就是下面这 10 格。
+
+   为什么要有它：
+     手机屏只有约 390px 宽，一张推荐图的设计宽度是 760px，
+     两张并排每张只剩约 185px —— 号码根本看不清。
+     所以手机上【不做真并排】，改成先看这张【文字目录表格】，
+     点某一格 → 全屏看那一张（全屏层叫 ro-mob-view，见页尾脚本）。
+
+   顺序 = 用户给的布局图：
+     第1行 双色球推荐号 | 双色球五行图资料
+     第2行 大乐透推荐号 | 大乐透五行图
+     第3行 3D           | 快乐8
+     第4行 排列三       | 排列五
+     第5行 七乐彩       | 七星彩
+
+   文字口径（用户明确要求）：
+     · 双色球 / 大乐透的左格写「推荐号」（不是「推荐」）
+     · 右边：双色球「五行图资料」、大乐透「五行图」，其余只写彩种名
+
+   这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
+   （下面有断言，不一致时生成日志里会直接报出来）。 */
+const TOC_ROWS = [
+  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球五行图资料', g: 'ssq',  i: 'wuxing' }],
+  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透五行图',     g: 'dlt',  i: 'wuxing' }],
+  [{ t: '3D',               g: 'fc3d', i: 'main' }, { t: '快乐8',            g: 'kl8',  i: 'main'   }],
+  [{ t: '排列三',           g: 'pl3',  i: 'main' }, { t: '排列五',           g: 'pl5',  i: 'main'   }],
+  [{ t: '七乐彩',           g: 'qlc',  i: 'main' }, { t: '七星彩',           g: 'qxc',  i: 'main'   }]
+];
+
+/* 【自检】目录里每一格的锚点 id 在这份 HTML 里必须真的存在。
+   注意要用【已经加了 id 的 sectionsHtml】判断，不能用原始 tpl.images ——
+   qlc / qxc 的 wuxing 在模板里存在但按用户要求不渲染，
+   只看模板会漏报。 */
+let tocCheckedCount = 0;
+let tocMissingCount = 0;
+TOC_ROWS.forEach((row) => row.forEach((cell) => {
+  const aid = `ro-g-${cell.g}-${cell.i}`;
+  const hit = sectionsHtml.indexOf('id="' + aid + '"') >= 0;
+  if (!hit) { tocMissingCount++; console.log(`  ⚠️ 目录格子「${cell.t}」找不到目标图位：${aid}`); }
+  tocCheckedCount++;
+}));
+console.log(`  · 手机目录：${TOC_ROWS.length} 行 × 2 列 = ${tocCheckedCount} 格，` +
+  `锚点缺失 ${tocMissingCount} 个`);
+
+const tocHtml =
+  `<div class="ro-imgtoc-wrap">` +
+  `<div class="ro-imgtoc-head">` +
+  `<div class="ro-imgtoc-title">推荐图目录</div>` +
+  `<div class="ro-imgtoc-sub">点一下，全屏看那张图</div>` +
+  `</div>` +
+  `<table class="ro-imgtoc"><tbody>` +
+  TOC_ROWS.map((row) => `<tr>` + row.map((cell) =>
+    `<td><a class="ro-toc-cell" href="#ro-g-${cell.g}-${cell.i}" ` +
+    `data-ro-toc-game="${cell.g}" data-ro-toc-image="${cell.i}">${cell.t}</a></td>`
+  ).join('') + `</tr>`).join('') +
+  `</tbody></table>` +
+  `</div>`;
 
 /* ============================================================
    【已移除】竞彩（体彩在售比赛）段落
@@ -1444,6 +1515,130 @@ body {
 .ro-ball.red  { background: linear-gradient(180deg, #f0575c, #d32f34); }
 .ro-ball.blue { background: linear-gradient(180deg, #4a83f5, #2158c4); }
 
+/* ============================================================
+   【手机目录表格 · 方案 D】 + 【全屏查看层 ro-mob-view】样式
+   ------------------------------------------------------------
+   目录表格：只在窄屏（<=1365px）显示；宽屏（>=1366px）隐藏 ——
+     宽屏本来就有 5 组并排，不需要目录。
+   全屏查看层：点目录格子才打开，图片本身【不绑点击】。
+   注意：这一层叫 ro-mob-view，跟已经被用户要求删掉的「图片放大器」
+   （那个遮罩层）不是同一个东西，页面里放大器那条链路
+   （遮罩层类名 / 光标放大类名 / 放大镜图标）至今仍然是 0 处。
+   ============================================================ */
+.ro-imgtoc-wrap { display: none; }          /* 宽屏：不显示目录 */
+
+/* 页面平滑滚动（只为了让「目录锚点」跳转更顺；不影响别的） */
+html { scroll-behavior: smooth; }
+
+@media (max-width: 1365px) {
+  .ro-imgtoc-wrap {
+    display: block;
+    background: #161a21;
+    border: 1px solid #2a323f;
+    border-radius: 12px;
+    padding: 14px 12px 12px;
+    margin-bottom: 24px;
+  }
+  .ro-imgtoc-head { text-align: center; margin-bottom: 10px; }
+  .ro-imgtoc-title { font-size: 15px; font-weight: 700; color: #e8eaed; letter-spacing: 1px; }
+  .ro-imgtoc-sub { font-size: 11.5px; color: #8b93a1; margin-top: 3px; }
+
+  .ro-imgtoc { width: 100%; border-collapse: collapse; }
+  .ro-imgtoc td { padding: 3px; width: 50%; }
+
+  /* 浅色格子（浅红/白底 + 深色字），手机上对比度看得清 */
+  .ro-toc-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 9px 6px;
+    box-sizing: border-box;
+    border: 1px solid #f0c9cb;
+    border-radius: 9px;
+    background: #fff6f6;
+    color: #b3262b;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .12s, transform .08s;
+  }
+  .ro-toc-cell:active { background: #ffe3e4; border-color: #e8a7aa; transform: scale(0.97); }
+
+  /* JS 还没跑完（或挂了）→ 目录不显示，避免出现「点了没反应」的死格子。
+     页尾脚本跑完会把 body 上这个标记去掉。 */
+  body.ro-toc-pending .ro-imgtoc-wrap { display: none; }
+}
+
+/* ---- 全屏查看层（手机目录点开的那一张） ---- */
+body.ro-mob-open { overflow: hidden; }
+
+.ro-mob-view { position: fixed; inset: 0; z-index: 9999; background: #0b0d11; }
+.ro-mob-view[hidden] { display: none; }
+
+.ro-mob-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pinch-zoom;          /* 双指缩放：用户想放大看细节时能放大 */
+  padding: 54px 0 66px;
+  box-sizing: border-box;
+}
+
+/* 缩放容器：宽/高都跟着 scale 同比放大，页面能滚到，不会把图裁掉 */
+.ro-mob-holder { position: relative; background: #fff; border-radius: 6px; }
+
+/* 【关键】等比缩放：x / y 永远是同一个 scale ⇒ 图不变形。
+   fit() 在父容器上写 --ro-s，宽高同时乘它，所以纵横比和原图一模一样。 */
+.ro-mob-holder > .r-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 760px !important;
+  min-width: 760px !important;
+  max-width: 760px !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--ro-s, 1));
+}
+
+.ro-mob-x {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 9;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(22,26,33,.9);
+  border: 1px solid #3a4354;
+  color: #e8eaed;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.ro-mob-x:active { background: #2a323f; }
+
+.ro-mob-tip {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  font-size: 12px;
+  color: #98a1b2;
+  background: linear-gradient(180deg, rgba(6,8,12,0), rgba(6,8,12,.94));
+  pointer-events: none;
+}
+
 /* 推荐图容器
    【重要】图片必须保持 760px 设计宽度，内部布局一点都不能变，
    手机上靠 transform: scale() 整体等比缩小，
@@ -1599,7 +1794,7 @@ body {
 }
 </style>
 </head>
-<body data-built="${nowStamp}">
+<body data-built="${nowStamp}" class="ro-toc-pending">
 <div class="ro-wrap">
 
   <div class="ro-top">
@@ -1607,6 +1802,14 @@ body {
   </div>
 
   ${statusHtml}
+
+  <!-- ============================================================
+       【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
+       宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
+       格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
+       JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
+       不会出现「点了没反应」的死格子。 -->
+  ${tocHtml}
 
   ${latestSecHtml}
 
@@ -1733,9 +1936,9 @@ ${RO_RENDER_SCRIPT}
     var wraps = document.querySelectorAll('.ro-imagewrap');
     for (var i = 0; i < wraps.length; i++) {
       var w = wraps[i];
-      /* 【点击放大】遮罩层里那个容器有它自己的缩放算法，
+      /* 【全屏查看层】是它自己的缩放算法（等比铺满屏幕），
          不能被这里的「按容器宽度等比缩小」覆盖掉 */
-      if (w.getAttribute && w.getAttribute('data-ro-lb') === 'wrap') continue;
+      if (w.getAttribute && w.getAttribute('data-ro-mob') === '1') continue;
       var img = w.querySelector('.r-image');
       if (!img) continue;
 
@@ -1884,7 +2087,250 @@ ${RO_RENDER_SCRIPT}
   }
 })();
 
-/* 【点击放大】已按用户要求【整块移除】：用户原话「图片放大器还是不要了」。 */
+/* ============================================================
+   【手机目录 → 全屏查看层】ro-mob-view
+   ------------------------------------------------------------
+   用户原话：「对点一个图看那一张图 这张图是全屏清晰的」
+
+   ⚠️ 这不是被删掉的那个「图片放大器」：
+      · 那个是点图片弹遮罩的旧功能，入口是【点图片本身】，
+        已经被用户要求整块删除（遮罩类名 / 光标放大类名 / 放大镜图标
+        至今都是 0 处）
+      · 这一层叫 ro-mob-view，入口【只有手机目录表格的格子】，
+        图片本身【没有绑任何点击】—— 点图不会打开任何东西
+      · 没有任何放大镜图标
+
+   「全屏清晰」怎么做到的：
+      1. 层铺满整个视口（position:fixed; inset:0），左右不留白
+      2. 图仍然按 760px 设计宽度渲染，靠 transform: scale() 等比缩放
+         —— 纵向和横向用【同一个】scale，所以绝不变形
+      3. 初始按「整张图铺满屏宽」铺满（宽度方向占满 100vw）
+      4. 点一下图 = 再放大一级（铺满屏宽 → 原始尺寸 1:1，循环）
+      5. 层内可上下/左右滚动、可双指缩放（touch-action: pinch-zoom）
+
+   关闭方式（4 种都支持）：
+      · 右上角 ×
+      · 点图的空白处（图片外面）
+      · 手机返回键 / 浏览器后退（history.pushState + popstate）
+      · Esc 键（电脑上）
+   ============================================================ */
+(function () {
+  var view = null, holder = null, img = null, tip = null, scroller = null;
+  var cur = null, zoom = 'fit', scale = 1, backTo = null;
+
+  function build() {
+    if (view) return view;
+    view = document.createElement('div');
+    view.className = 'ro-mob-view';
+    view.setAttribute('hidden', '');
+    view.innerHTML =
+      '<div class="ro-mob-scroll"><div class="ro-mob-holder"></div></div>' +
+      '<div class="ro-mob-x" role="button" aria-label="关闭">\u00d7</div>' +
+      '<div class="ro-mob-tip">点图再放大一级 \u00b7 双指可缩放 \u00b7 点空白 / \u00d7 / 返回键关闭</div>';
+    document.body.appendChild(view);
+
+    scroller = view.querySelector('.ro-mob-scroll');
+    holder = view.querySelector('.ro-mob-holder');
+    tip = view.querySelector('.ro-mob-tip');
+
+    /* 关闭：右上角 × */
+    view.querySelector('.ro-mob-x').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation(); close();
+    });
+    /* 关闭：点图片外的空白（点在图上 = 放大一级） */
+    scroller.addEventListener('click', function (e) {
+      var n = e.target;
+      while (n && n !== scroller) {
+        if (n === holder || n === img) { bumpZoom(); return; }
+        n = n.parentNode;
+      }
+      close();
+    });
+    /* 关闭：Esc（电脑）；返回键由 popstate 处理 */
+    document.addEventListener('keydown', function (e) {
+      if (view && !view.hasAttribute('hidden') && (e.key === 'Escape' || e.keyCode === 27)) close();
+    });
+    return view;
+  }
+
+  /**
+   * 按缩放模式和实测尺寸算 scale。
+   * 【关键】只算一个 scale，宽高同时乘它 —— 纵横比恒定，绝不变形。
+   */
+  function calcScale() {
+    if (!img) return 1;
+    var natW = img.offsetWidth || 760;
+    var natH = img.offsetHeight || 100;
+    var vw = window.innerWidth || 390;
+    var vh = window.innerHeight || 700;
+    var fit = Math.min((vw - 8) / natW, (vh - 130) / natH);   /* 整张尽量铺满视口 */
+    if (zoom === 'width') return (vw - 8) / natW;             /* 铺满屏宽 */
+    if (zoom === 'real') return 1;                            /* 原始尺寸 1:1（最清晰） */
+    return fit;
+  }
+
+  function applyScale() {
+    if (!img || !holder) return;
+    var natW = img.offsetWidth || 760;
+    var natH = img.offsetHeight || 100;
+    scale = calcScale();
+    holder.style.setProperty('--ro-s', String(scale));
+    holder.style.width = Math.round(natW * scale) + 'px';
+    holder.style.height = Math.round(natH * scale) + 'px';
+    if (scroller) scroller.scrollLeft = Math.max(0, Math.round((natW * scale - (window.innerWidth || 390)) / 2));
+    if (tip) {
+      var pct = Math.round(scale * 100);
+      tip.textContent = (zoom === 'fit' ? '整张铺满' : (zoom === 'width' ? '铺满屏宽' : '原始尺寸 1:1')) +
+        ' \u00b7 ' + pct + '% \u00b7 点图放大 \u00b7 \u00d7 / 返回键关闭';
+    }
+  }
+
+  function bumpZoom() {
+    zoom = (zoom === 'fit') ? 'width' : (zoom === 'width' ? 'real' : 'fit');
+    if (scroller) scroller.scrollTop = 0;
+    applyScale();
+  }
+
+  /**
+   * 给 body 加/去一个标记类（幂等：重复加不会堆出两个）
+   * @param {string} cls 类名
+   * @param {boolean} on 加还是去
+   */
+  function mark(cls, on) {
+    if (!document.body) return;
+    var list = String(document.body.className || '').split(/\s+/).filter(function (x) {
+      return x && x !== cls;
+    });
+    if (on) list.push(cls);
+    document.body.className = list.join(' ');
+  }
+
+  /**
+   * 打开某一格对应的那张图（按 彩种 + 图名 找图位）
+   * @returns {boolean} 找到并打开了
+   */
+  function open(gameId, imageKey) {
+    if (!gameId || !imageKey) return false;
+    build();
+
+    var all = document.querySelectorAll('.ro-imagewrap[data-ro-mob]');
+    var src = null;
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].getAttribute('data-game') === gameId &&
+          all[i].getAttribute('data-image') === imageKey) { src = all[i]; break; }
+    }
+    if (!src) return false;
+
+    /* 直接用页面里那一张图（不是克隆一份）：
+       本层的缩放靠 CSS 上的 --ro-s + translateX(-50%)，不写内联 transform，
+       所以页面里那份 transform 会被 CSS 覆盖，图不会重复缩放、也不会变形。
+       直接搬还有一个好处：实时渲染脚本（如果在这之后跑）替换图位内容时，
+       全屏层里显示的就是同一张最新图，不会显示一份旧克隆。 */
+    var node = src.querySelector('.r-image');
+    if (!node) return false;
+
+    while (holder.firstChild) holder.removeChild(holder.firstChild);
+    node.style.transform = 'none';       /* 丢掉页面里那份内联缩放，由本层统一算 */
+    node.style.transformOrigin = 'top left';
+    backTo = src;                        /* 关掉时按原路搬回去 */
+
+    var box = document.createElement('div');
+    box.className = 'ro-imagewrap';
+    box.setAttribute('data-ro-mob', '1');
+    box.appendChild(node);               /* 把原图搬进来 */
+    holder.appendChild(box);
+
+    img = node;
+    cur = { game: gameId, image: imageKey };
+    zoom = 'fit';
+
+    view.removeAttribute('hidden');
+    mark('ro-mob-open', true);
+    /* 返回键 / 后退能关：压一条历史记录，popstate 时关掉 */
+    try { history.pushState({ roMob: cur }, ''); } catch (e) { /* 忽略 */ }
+
+    /* 等一帧再量尺寸：刚插入的节点需要先完成布局 */
+    applyScale();
+    setTimeout(applyScale, 0);
+    setTimeout(applyScale, 60);
+    setTimeout(applyScale, 300);
+    return true;
+  }
+
+  function close() {
+    if (!view || view.hasAttribute('hidden')) return false;   /* 幂等：不会关两次 */
+    view.setAttribute('hidden', '');
+    /* 【重要】把那张图搬回它原来的图位里 —— 下次再点时位置/顺序都不乱。
+       图位本身被并排脚本搬过，所以记的是「打开时它所在的父节点」。 */
+    if (holder && img && backTo) {
+      while (holder.firstChild) holder.removeChild(holder.firstChild);
+      backTo.appendChild(img);
+      img.style.transform = '';
+      img.style.transformOrigin = '';
+    } else if (holder) {
+      while (holder.firstChild) holder.removeChild(holder.firstChild);
+    }
+    img = null; cur = null; backTo = null;
+    mark('ro-mob-open', false);
+    return true;
+  }
+
+  /* 打开：只绑在【目录表格的格子】上；图片本身没有任何点击绑定 */
+  var tiles = document.querySelectorAll('.ro-toc-cell');
+  for (var t = 0; t < tiles.length; t++) {
+    tiles[t].addEventListener('click', function (e) {
+      e.preventDefault();       /* 不跳锚点了，直接开全屏层 */
+      open(this.getAttribute('data-ro-toc-game'), this.getAttribute('data-ro-toc-image'));
+    });
+  }
+
+  window.__roMobView = {
+    open: open,
+    close: close,
+    isOpen: function () { return !!view && !view.hasAttribute('hidden'); },
+    current: function () { return cur; },
+    state: function () {
+      return {
+        open: !!view && !view.hasAttribute('hidden'),
+        game: cur ? cur.game : null,
+        image: cur ? cur.image : null,
+        zoom: zoom,
+        /* scale 是【一个】数：宽高都用它 ⇒ 缩放倍数 x === y（不变形）。
+           x/y 分开报出来，是为了让验收脚本能直接比对。 */
+        scaleX: scale,
+        scaleY: scale,
+        holderW: holder ? holder.style.width : '',
+        holderH: holder ? holder.style.height : '',
+        natW: img ? img.offsetWidth : 0,
+        natH: img ? img.offsetHeight : 0,
+        vw: window.innerWidth || 0,
+        vh: window.innerHeight || 0,
+        layers: document.querySelectorAll('.ro-mob-view').length
+      };
+    },
+    bump: bumpZoom
+  };
+
+  /* 返回键 / 浏览器后退：关的是这一层，不是离开页面。
+     有这一步，手机上按返回键 = 关掉全屏图。 */
+  window.addEventListener('popstate', function () {
+    if (window.__roMobView.isOpen()) {
+      close();
+      /* 再压一条空记录，保证「看完还能继续按返回键」不卡住 */
+      try { history.pushState({ roMobClosed: 1 }, ''); } catch (e) { /* 忽略 */ }
+    }
+  });
+
+  /* 旋转屏幕 / 改窗口大小 ⇒ 重新等比适配 */
+  window.addEventListener('resize', function () {
+    if (window.__roMobView.isOpen()) setTimeout(applyScale, 60);
+  });
+
+  /* 【收尾】页尾脚本都跑完了：去掉 body 上的 ro-toc-pending 标记，
+     手机目录表格这时候才真正显示出来（在此之前它一直是隐藏的，
+     避免 JS 没跑完时出现「点了没反应」的死格子）。 */
+  mark('ro-toc-pending', false);
+})();
 </script>
 </body>
 </html>`;
