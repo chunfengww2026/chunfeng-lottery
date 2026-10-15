@@ -2186,7 +2186,10 @@ ${RO_RENDER_SCRIPT}
   }
 
   function bumpZoom() {
-    zoom = (zoom === 'fit') ? 'width' : (zoom === 'width' ? 'real' : 'fit');
+    /* 【用户要求】改成两档切换：点一下放大（1:1 原始尺寸，最清晰），再点一下回到最开始。
+       用户原话：「点一下就放大铺满.在点一下就回到最开始的」。
+       原来是三档 fit→width→real→fit，现在只留 fit ↔ real。 */
+    zoom = (zoom === 'fit') ? 'real' : 'fit';
     if (scroller) scroller.scrollTop = 0;
     applyScale();
   }
