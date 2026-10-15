@@ -164,6 +164,8 @@
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
+        /* __LATEST_NEXTCD__ 距离下期开奖倒计时（前端算，免费） */
+        '<div class="hc-nextcd" data-nextcd="' + d.gameId + '">—</div>' +
         '<div class="hc-balls">' + hcBallsHtml(d.red, 'red', d.gameId) + blue + special + '</div>' +
         '</div>';
     }).join('');
@@ -376,3 +378,72 @@
   root.latestDrawsNewer = latestDrawsNewer;
   root.applyRemoteDraws = applyRemoteDraws;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
+
+
+/* ============================================================
+   【距离下期开奖倒计时】__LATEST_NEXTCD__
+   ------------------------------------------------------------
+   用户要求：「能不能把每期后面搞一个倒计时 距离下期开奖时间倒计时」
+   做法：写死一张【开奖时刻 + 开奖日】表（官方常规时间），
+         前端每秒算一次「下一个该开奖的时刻」还有多久。
+   ⚠️ 纯前端计算，不联网、不调 AI → 免费。
+   ⚠️ 时间统一按北京时间（东八区）算，避免用户设备时区不同导致偏差。
+   ============================================================ */
+var NEXTCD_TABLE = {
+  ssq:  { hm: [21, 15], days: [0, 2, 4] },        /* 双色球 周二/四/日 21:15 */
+  dlt:  { hm: [20, 30], days: [1, 3, 6] },        /* 大乐透 周一/三/六 20:30 */
+  fc3d: { hm: [21, 15], days: [0,1,2,3,4,5,6] },  /* 福彩3D 每天 21:15 */
+  pl3:  { hm: [20, 30], days: [0,1,2,3,4,5,6] },  /* 排列3  每天 20:30 */
+  pl5:  { hm: [20, 30], days: [0,1,2,3,4,5,6] },  /* 排列5  每天 20:30 */
+  qxc:  { hm: [20, 30], days: [0, 2, 5] },        /* 七星彩 周二/五/日 20:30 */
+  qlc:  { hm: [21, 15], days: [1, 3, 5] },        /* 七乐彩 周一/三/五 21:15 */
+  kl8:  { hm: [21, 30], days: [0,1,2,3,4,5,6] }   /* 快乐8  每天 21:30 */
+};
+
+/* 当前北京时间（不依赖设备时区）：用 UTC 加 8 小时 */
+function nextcdNow() {
+  var t = new Date();
+  return new Date(t.getTime() + (t.getTimezoneOffset() * 60000) + (8 * 3600000));
+}
+
+/* 算出某个彩种【下一个】开奖时刻（按北京时间） */
+function nextcdTarget(gid) {
+  var r = NEXTCD_TABLE[gid];
+  if (!r) return null;
+  var now = nextcdNow();
+  for (var i = 0; i < 8; i++) {
+    var d = new Date(now.getTime());
+    d.setDate(d.getDate() + i);
+    d.setHours(r.hm[0], r.hm[1], 0, 0);
+    if (r.days.indexOf(d.getDay()) < 0) continue;
+    if (d.getTime() > now.getTime()) return d;
+  }
+  return null;
+}
+
+function nextcdText(gid) {
+  var t = nextcdTarget(gid);
+  if (!t) return '';
+  var ms = t.getTime() - nextcdNow().getTime();
+  if (ms <= 0) return '即将开奖';
+  var s = Math.floor(ms / 1000);
+  var dd = Math.floor(s / 86400), hh = Math.floor((s % 86400) / 3600), mm = Math.floor((s % 3600) / 60);
+  var ss = s % 60;
+  function p(n) { return n < 10 ? '0' + n : String(n); }
+  if (dd > 0) return '距下期开奖 ' + dd + ' 天 ' + p(hh) + ':' + p(mm);
+  return '距下期开奖 ' + p(hh) + ':' + p(mm) + ':' + p(ss);
+}
+
+(function () {
+  var els = document.querySelectorAll('[data-nextcd]');
+  if (!els.length) return;
+  function draw() {
+    for (var i = 0; i < els.length; i++) {
+      var gid = els[i].getAttribute('data-nextcd');
+      var txt = nextcdText(gid);
+      if (txt) els[i].textContent = txt;
+    }
+  }
+  draw();
+  setInterval(draw, 1000);
+})();
