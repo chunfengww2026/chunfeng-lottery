@@ -4,56 +4,78 @@ name: 每日自动更新
 #  定时更新推荐网页
 #
 #  运行在 GitHub 的服务器上 —— 你的电脑关机也照常执行。
+#  【目标】电脑关一个月，云端照样：抓数据 → 算号 → 出页面 → 部署。
 #
 #  【时间表】GitHub 的 cron 只认 UTC，北京时间要减 8 小时。
 #
-#    北京时间       UTC        班次            这一班干什么
-#    ------------  ---------  --------------  ------------------------------------------
-#    02:00         18:00      full            全量：抓全部数据 + 强制重摇 8 彩种 + 出图 + 发布
-#    18:00         10:00      heatmap-only    只加热力图（抓晒票出图）；不重摇号码、不抓开奖
-#    21:00         13:00      heatmap-off     只去掉热力图（清空 heatmap 数据 + 重新出页面）
-#    21:50         13:50      draw-update     更新开奖号码（抓开奖 → 摇下一期 → 出图 → 发布）
-#                                              （原来在 21:40；本机抓取改成
-#                                               福彩 21:30 / 体彩 21:45 两班之后，
-#                                               云端排在 21:50 才拿得到当天体彩的新一期）
-#    其余 8 个点   见下        football-only   只抓足球 + 重新出足球页
+#    cron                UTC 触发        北京时间        班次            这一班干什么
+#    ------------------  --------------  --------------  --------------  ------------------------------------------
+#    */5 * * * *         每小时的第 5 分钟 每 5 分钟       live-only       只更新比分（1 个请求的轻量班）
+#                                                                       没有进行中的比赛 → 立刻退出，不部署
+#    */30 * * * *        0 分 / 30 分      每 30 分钟      regular         比分 + 竞彩 + 晒票 + 文章 + 开机号
+#                                                                       + 在售场次 + 缺才补摇 + 出页面 + 发布
+#    0 18 * * *          18:00            次日 02:00      full            全量：抓全部数据（开奖/历史/足球/
+#                                                                       竞彩/奖级/专家）+ 缺才补摇 + 清空热力图
+#                                                                       + 清理 72 小时缓存 + 发布
+#    0 10 * * *          10:00            18:00           heatmap-only    开奖日 18:00 出热力图（抓当日晒票）
+#    0 13 * * *          13:00            21:00           heatmap-off     把热力图从网页上撤下来
+#    30 13 * * *         13:30            21:30           draw-update     抓开奖号码（失败自动重试一次）
+#    45 13 * * *         13:45            21:45           draw-update     再抓一次开奖（重试到抓全）
 #
-#  【足球 10 个时间点】北京时间 00 / 02 / 04 / 06 / 08 / 12 / 14 / 18 / 20 / 22 点
-#    北京 00:00 → UTC 16    北京 02:00 → UTC 18    北京 04:00 → UTC 20
-#    北京 06:00 → UTC 22    北京 08:00 → UTC 00    北京 12:00 → UTC 04
-#    北京 14:00 → UTC 06    北京 18:00 → UTC 10    北京 20:00 → UTC 12
-#    北京 22:00 → UTC 14
-#    排序后（UTC）：0, 4, 6, 10, 12, 14, 16, 18, 20, 22
-#    其中 UTC 18:00（北京 02:00）是「全量班」、UTC 10:00（北京 18:00）是「只加热力图班」，
-#    其余 8 个是「只更新足球班」。
+#  【每天会跑多少次】
+#    每 5 分钟 288 班 + 每 30 分钟 48 班 + 专用 5 班 = 341 班/天。
+#    GitHub 对公开仓库的 Actions 分钟数不收费（本仓库是 public）。
+#  【为什么 5 分钟那一班必须"轻"】
+#    · 只发 1 个请求（245qq 的「进行中」列表）；没有比赛就立刻退出，
+#      不做全量抓取、不重出页面、不重新部署 —— 既不浪费额度，
+#      也不会把数据源打爆（用户最担心的就是被抓取源封掉）。
+#    · 重活（全量抓取 / 热力图 / 开奖 / 出号）全部交给上面那几条专用 cron，
+#      密集班次【永远不】顺手做重活，避免同一分钟两条 cron 把同一件事干两遍
+#      （重复抓取、号码被摇两次、重复部署）。
+#  【GitHub 的 cron 在高峰期会延迟甚至跳过】
+#    所以：① 班次判断用「cron 形态 + 实际北京时间」，延迟几分钟照样认得出；
+#         ② 21:30 与 21:45 两班互为重试，抓不全时 15 分钟后还会再抓；
+#         ③ 每 30 分钟那一班带「开奖数据兜底」：draws.js 超过 20 小时没更新
+#            就顺手补抓一次 —— 万一 21:30/21:45 那两班被跳过了也不怕。
 #
 #  【班次怎么认出来的】不是拿 cron 字符串做精确比较（一条 cron 可以是一串小时，
 #    同一个表达式在不同小时触发时班次完全不同），而是
-#    「cron 表达式 + 实际触发的北京时间」联合判断 —— 逻辑写在 cloud/cloud-build.mjs
+#    「cron 形态 + 实际北京时间」联合判断 —— 逻辑写在 cloud/cloud-build.mjs
 #    的 resolveSlot() / SLOT_PLAN 里，workflow 只负责把 github.event.schedule 原样传过去。
+#    （历史上这里踩过坑：cron 的分钟字段是 */30 这种带斜杠的写法，
+#      老版解析不出来 → 全部退化成 auto；新版专门支持了这种写法。）
 #
-#  也可以在仓库 Actions 页面手动点「Run workflow」立即执行（手动触发 = auto 班次）。
+#  也可以在仓库 Actions 页面手动点「Run workflow」立即执行。
+#  手动触发时可以：· quick=0 → 真的去抓数据（默认 1 = 只重新渲染，最快）
+#                  · slot=full/regular/draw-update/live-only/heatmap-only/heatmap-off
+#                    → 强制跑某一个班次（用来验证 / 补跑）
 # ============================================================
 
 on:
   schedule:
-    # 【足球 9 个班次】UTC 0/4/6/10/12/14/16/20/22
-    #   = 北京 08/12/14/18/20/22/00/04/06 点
-    #   其中 UTC 10:00（北京 18:00）是本条里的「只加热力图班」。
-    - cron: '0 0,2,4,6,8,10,12,14,16,20,22 * * *'
+    # 【每 5 分钟】只更新比分（轻量班：1 个请求，没比赛就立刻退出）
+    - cron: '*/5 * * * *'
+    # 【每 30 分钟】常规班：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 在售场次 + 出页面
+    - cron: '*/30 * * * *'
     # 【全量更新 · 固定凌晨 2 点】UTC 18:00 = 北京 02:00（次日）
-    #   用户明确要求「固定两点更新」——所以这条【单独留着】，不并进上面那条。
-    #   这是唯一会「强制重摇全部彩种」的班次。
+    #   抓全部数据 + 缺才补摇 + 清空热力图 + 清理缓存。
+    #   ⚠️ 这一条和上面 */30 那条会在同一分钟各触发一次（一天两次全量班），
+    #      所以 full 班的摇号用「缺才补」而不是「强制重摇」——两次跑出来的结果一致，
+    #      不会把已经发布出去的号码摇两遍。
     - cron: '0 18 * * *'
+    # 【加热力图】UTC 10:00 = 北京 18:00（开奖日才出图）
+    - cron: '0 10 * * *'
     # 【去掉热力图】UTC 13:00 = 北京 21:00
-    #   开奖日 21:00 把热力图从网页上撤下来（清空数据 + 重新出页面）。
     - cron: '0 13 * * *'
-    # 【更新开奖号码】UTC 13:50 = 北京 21:50
-    #   本机两班抓取：福彩 21:30（update-draws-fucai.cmd）/
-    #                 体彩 21:45（update-draws-ticai.cmd）。
-    #   云端这一班排在这两班之后：抓开奖结果 + 摇下一期号码 + 出图 + 发布。
-    #   （原来挂在 UTC 13:40 = 北京 21:40，那时体彩当天的新一期还没出来。）
-    - cron: '50 13 * * *'
+    # 【更新开奖号码 · 第 1 次】UTC 13:30 = 北京 21:30
+    #   本机也是 21:30 那一班抓（春风十里-开奖更新-2130）；
+    #   云端排在同一时刻：抓开奖 → 摇下一期 → 出页面 → 发布。
+    #   抓不到会自动【重试一次】，15 分钟后还有 21:45 那一班兜底。
+    - cron: '30 13 * * *'
+    # 【更新开奖号码 · 第 2 次】UTC 13:45 = 北京 21:45
+    #   本机体彩那一班（春风十里-开奖更新-2145）之后，云端再抓一遍：
+    #   抓全为止（两班互为重试）。
+    - cron: '45 13 * * *'
   workflow_dispatch:        # 允许手动触发（本机 sync-cloud.mjs 就是这么触发的）
     inputs:
       quick:
@@ -62,6 +84,10 @@ on:
         default: '1'
       heatmap:
         description: '热力图：1=抓当日晒票；0=不抓；留空=按班次自动判断'
+        required: false
+        default: ''
+      slot:
+        description: '强制指定班次（留空=按 cron 自动判断）：full / regular / live-only / draw-update / heatmap-only / heatmap-off'
         required: false
         default: ''
 
@@ -105,9 +131,9 @@ jobs:
 
       # 判断这一班是「快速模式」还是「完整抓取」，以及热力图要不要抓。
       # 【班次类型】不在这里判断 —— 由 cloud-build.mjs 按
-      # 「cron 表达式 + 实际北京时间」判断（resolveSlot），
+      # 「cron 形态 + 实际北京时间」判断（resolveSlot），
       # 这里只把 github.event.schedule 原样传下去。
-      - name: 判断是否快速模式 / 热力图开关
+      - name: 判断是否快速模式 / 热力图开关 / 强制班次
         id: mode
         run: |
           QUICK="${{ github.event.inputs.quick }}"
@@ -121,9 +147,14 @@ jobs:
           # 手动触发时可以在界面上填 1 强制抓、填 0 强制不抓。
           HEATMAP="${{ github.event.inputs.heatmap }}"
 
+          # 【强制班次】留空 = 按 cron 自动判断；填了就直接跑那个班次
+          # （临时补跑某个班次 / 验证某个班次时用）。
+          SLOT="${{ github.event.inputs.slot }}"
+
           echo "quick=$QUICK"     >> "$GITHUB_OUTPUT"
           echo "heatmap=$HEATMAP" >> "$GITHUB_OUTPUT"
-          echo "事件=${{ github.event_name }}　cron=${{ github.event.schedule }}　快速模式=$QUICK　热力图=$HEATMAP"
+          echo "slot=$SLOT"       >> "$GITHUB_OUTPUT"
+          echo "事件=${{ github.event_name }}　cron=${{ github.event.schedule }}　快速模式=$QUICK　热力图=$HEATMAP　强制班次=$SLOT"
 
       # 【热力图 · 票面照片 OCR】
       #   热力图的主口径是「一起彩晒票页 → 下载票面照片 → OCR 识别号码」。
@@ -155,14 +186,15 @@ jobs:
           CLOUD_QUICK: ${{ steps.mode.outputs.quick }}
           # 留空 = 让 cloud-build.mjs 按班次判断；填 0/1 = 强制
           CLOUD_HEATMAP: ${{ steps.mode.outputs.heatmap }}
+          # 留空 = 按 cron 判断班次；填了 = 强制跑这个班次（临时补跑 / 验证用）
+          CLOUD_SLOT: ${{ steps.mode.outputs.slot }}
           # 【关键】把是哪一个 cron 触发的传给 cloud-build.mjs ——
-          # 它用「这个 cron 表达式 + 实际北京时间」算出班次类型
-          # （full / heatmap-only / heatmap-off / draw-update / football-only）。
+          # 它用「这个 cron 的形态（每5分钟/每30分钟/定时）+ 实际北京时间」算出班次类型
+          # （full / regular / live-only / heatmap-only / heatmap-off / draw-update）。
           # 注意：cron 可以是一串小时，同一个字符串在不同小时触发 → 班次不同，
           # 所以【绝不能】用字符串相等来判断（原来写死 '0 10 * * *' 就是这么失效的）。
           HEATMAP_SLOT: ${{ github.event.schedule }}
-          # 【强制重摇】不需要在这里传：北京 02:00 那个全量班次由
-          # cloud-build.mjs 的 SLOT_PLAN.full.roll = 'force' 自动决定。
+          # 【强制重摇】不需要在这里传：缺才补摇由 SLOT_PLAN 自动决定。
           # 需要临时强制/禁止时，也可以在这里加 CLOUD_ROLL=force|fill|skip。
           #
           # 【开奖数据源顺序 · 关键】GitHub 服务器在美国，抓中国彩票官方接口
@@ -198,6 +230,18 @@ jobs:
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
+          # 【兜底】cloud/out/ 的两个大页面不在版本管理里（见仓库根 .gitignore），
+          # 所以万一本次构建没产出页面（抓取/渲染失败），就从【线上当前那一份】拉回来，
+          # 绝不让站点变成 404。
+          BASE="https://chunfengww2026.github.io/chunfeng-lottery"
+          for f in index.html football.html tickets.json; do
+            if [ ! -s "site/$f" ]; then
+              echo "⚠️ site/$f 缺失 → 从线上兜底拉取"
+              curl -fsSL --max-time 60 "$BASE/$f" -o "site/$f" || echo "⚠️ 兜底也失败：$f"
+            else
+              echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
+            fi
+          done
           touch site/.nojekyll
           echo "--- site 目录内容 ---"
           ls -lh site/
@@ -206,6 +250,23 @@ jobs:
           if [ ! -f site/index.html ]; then
             echo "::error::site/index.html 不存在 —— 本次没有任何页面可以发布"
           fi
+
+      - name: 数据新鲜度汇报（每一班都打）
+        if: always()
+        run: |
+          echo "===== 各数据文件自带的更新时间（北京时间）====="
+          for f in draws.js history.js prize-data.js football.js jc-data.js \
+                   articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js ; do
+            if [ -f "cloud/scripts/$f" ]; then
+              S=$(grep -o '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' "cloud/scripts/$f" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
+              if [ -z "$S" ]; then S=$(grep -oE '(更新时间|生成时间)[：:][[:space:]]*[0-9-]+ [0-9:]+' "cloud/scripts/$f" | head -1); fi
+              printf '  %-20s 最后更新：%s\n' "$f" "${S:-（读不到）}"
+            else
+              printf '  %-20s ❌ 文件不存在\n' "$f"
+            fi
+          done
+          echo "===== 推荐号码存档 ====="
+          grep -oE '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' cloud/scripts/saved-tickets.js | head -1 || true
 
       - name: 提交更新后的数据（保留号码与历史）
         if: always()
