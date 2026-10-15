@@ -36,6 +36,11 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const MOD = path.join(ROOT, 'scripts');
 const OUT = path.join(ROOT, 'out');
 
+/* 【本次运行开始的时刻】用来判断「哪些页面是这一班真的重新生成过的」——
+   云端每次都是全新 checkout，只有本次运行里写出来的文件，mtime 才会 >= 这个值。
+   finishOutput() 靠它决定「发布新页面」还是「交给 workflow 从线上拉回兜底」。 */
+const RUN_START_MS = Date.now();
+
 const log = (...a) => console.log(...a);
 
 function stamp() {
@@ -1332,15 +1337,34 @@ function finishOutput(freshRows) {
   log('\n整理输出到 out/ ...');
   fs.mkdirSync(OUT, { recursive: true });
 
+  /* 【只发布「这一班真的重新生成过」的页面】
+     以前不管有没有重新生成，都无条件把 cloud/scripts/只读分享版.html
+     拷成 out/index.html —— 万一这台构建里 export-static.mjs 失败了，
+     拷过去的就是【上一版旧页面】，网站上会悄悄变旧，而且没人发现。
+
+     现在：只看文件的修改时间有没有落在本次运行开始之后。
+     （云端每次都是全新 checkout，所有文件 mtime = 开始时间；
+       子进程在本次运行里写出来的文件 mtime 一定 >= 开始时间 —— 可靠。）
+       · 是本次生成的 → 正常拷贝 + 发布
+       · 不是（这一班没出这个页面 / 出页面失败）→ 把 out/ 里的旧文件删掉，
+         workflow 那一步会发现 site/ 缺文件，自动从【线上当前那份】拉回来兜底，
+         既不会把旧页面当成新页面发出去，也不会让站点 404。 */
   const pairs = [
     ['只读分享版.html', 'index.html'],
     ['足球推荐.html', 'football.html']
   ];
   pairs.forEach(([src, dst]) => {
     const sp = path.join(MOD, src);
-    if (!fs.existsSync(sp)) { log(`  ⚠️ 缺少 ${src}`); return; }
-    fs.copyFileSync(sp, path.join(OUT, dst));
-    log(`  ✅ ${dst}  ${(fs.statSync(sp).size / 1024).toFixed(1)} KB`);
+    const op = path.join(OUT, dst);
+    const fresh = fs.existsSync(sp) && fs.statSync(sp).mtimeMs >= RUN_START_MS;
+    if (fresh) {
+      fs.copyFileSync(sp, op);
+      log(`  ✅ ${dst}  ${(fs.statSync(op).size / 1024).toFixed(1)} KB（本次重新生成）`);
+      return;
+    }
+    if (fs.existsSync(op)) { try { fs.unlinkSync(op); } catch (e) { /* 忽略 */ } }
+    log(`  ⏭  ${dst}：本班次没有重新生成（${fs.existsSync(sp) ? '文件是上一版的' : '文件不存在'}）`
+      + ' → 不发布旧页面，交给 workflow 从线上拉回当前那份兜底');
   });
 
   /* 顶部导航（两个页面互跳） */
