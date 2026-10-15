@@ -62,6 +62,26 @@ const STATE = process.env.FB_LIVE_STATE
   ? path.resolve(process.env.FB_LIVE_STATE)
   : path.join(ROOT, '_football-live-backoff.json');
 
+/* ============================================================
+   --cloud-light —— 云端「每 5 分钟那一班」专用开关
+   ------------------------------------------------------------
+   云端每 5 分钟的班次【只许干一件事：更新比分】。本机跑的时候
+   这个脚本还会顺带做三件"本机才该做"的事，云端必须全部关掉：
+
+     · 关掉 cloud/sync-cloud.mjs（本机 → 云端的上传）
+       云端自己就是云端，再调一次同步既没有 token 也毫无意义，
+       而且失败会把 pendingRebuild 永远挂成 true → 每 5 分钟都白重建一次页面。
+     · 关掉 build-xysp.mjs（晒票抓取）
+       晒票由「每 30 分钟那一班」负责；5 分钟一次抓一起彩等于自己打自己，
+       用户明确要求 5 分钟那班"只更新比分（轻量）"。
+     · 关掉 export-cloud-tickets.mjs（tickets.json 导出）
+       那个脚本在本机是写 项目根/cloud/out/tickets.json；
+       在云端 scripts/ 目录里跑会算成 cloud/scripts/cloud/out/tickets.json（错的路径）。
+       号码没变，云端也不需要重发 tickets.json。
+
+   本机的计划任务【不传这个开关】，所以本机行为一个字节都没变。 */
+const CLOUD_LIGHT = process.argv.includes('--cloud-light');
+
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
 /* 退避规则（和 30 分钟版一致） */
@@ -364,14 +384,15 @@ async function main() {
   st.pendingRebuild = true;
   writeState(st);
 
-  const steps = [
-    /* __ADD_XYSP__ 用户要求：晒票也每 5 分钟抓一次 → 并进这个任务。
-       放在最前面：先把 xysp-data.js 更新掉，再出页面。 */
-    ['build-xysp.mjs', []],
-    ['export-football.mjs', []],
-    ['export-static.mjs', []],
-    ['export-cloud-tickets.mjs', []],
-  ];
+  const steps = [];
+  /* 云端轻量班：不抓晒票（交给每 30 分钟那一班） */
+  if (!CLOUD_LIGHT) steps.push(['build-xysp.mjs', []]);
+  else log('  ☁️ 云端轻量班：跳过晒票抓取（build-xysp.mjs 由每 30 分钟那一班负责）');
+  steps.push(['export-football.mjs', []]);
+  steps.push(['export-static.mjs', []]);
+  /* 云端轻量班：不导出 tickets.json（号码没变；路径也会算错） */
+  if (!CLOUD_LIGHT) steps.push(['export-cloud-tickets.mjs', []]);
+  else log('  ☁️ 云端轻量班：跳过 tickets.json 导出（号码没变，不用重发）');
 
   let softFail = 0, allOk = true;
   for (const [file, args] of steps) {
@@ -385,9 +406,11 @@ async function main() {
     }
   }
 
-  /* 同步云端 */
+  /* 同步云端（云端轻量班跳过：自己就是云端，而且没有 token） */
   let syncOk = true;
-  if (softFail < SOFT_FAIL_LIMIT) {
+  if (CLOUD_LIGHT) {
+    log('  ☁️ 云端轻量班：跳过「同步到云端」这一步（页面已在本机重新生成，随后由 workflow 直接部署）');
+  } else if (softFail < SOFT_FAIL_LIMIT) {
     const sync = runStep(path.join('cloud', 'sync-cloud.mjs'), []);
     if (sync.ok) log('  ✅ 同步云端');
     else { syncOk = false; log(`  ❌ 同步失败：${sync.err.slice(0, 160)}`); }
