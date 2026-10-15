@@ -3505,26 +3505,10 @@ ${RO_RENDER_SCRIPT}
   setInterval(draw, 1000);
 })();
 </script>
-</body>
-</html>`;
 
-fs.writeFileSync(OUT, html, 'utf8');
-
-console.log(`✅ 已生成：${OUT}`);
-console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
-console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
-console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
-console.log(`   生成时间：${todayStr}`);
-console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（只能看，不能改）。');
-console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
-
-
-/* ============================================================
-   【文章参考 · 更新倒计时】__ART_CD__
-   用户要求：把「更新于 <时间>」改成「更新倒计时」。
-   节奏：每 1 小时（任务在每小时 :16 跑）→ 目标 = 下一个 :16:00（北京时间）。
-   纯前端计算，不联网、不调 AI → 免费。
-   ============================================================ */
+<!-- __ART_CD_JS__ 文章参考·更新倒计时（每 1 小时一次，目标 = 下一个 :16:00 北京时间）
+     纯前端计算，不联网、不调 AI → 免费。 -->
+<script>
 (function () {
   var el = document.getElementById('__ART_CD__');
   if (!el) return;
@@ -3546,3 +3530,16 @@ console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走�
   draw();
   setInterval(draw, 1000);
 })();
+</script>
+</body>
+</html>`;
+
+fs.writeFileSync(OUT, html, 'utf8');
+
+console.log(`✅ 已生成：${OUT}`);
+console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
+console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
+console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
+console.log(`   生成时间：${todayStr}`);
+console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（只能看，不能改）。');
+console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
