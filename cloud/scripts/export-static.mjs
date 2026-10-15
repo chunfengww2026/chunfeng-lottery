@@ -933,7 +933,7 @@ if (status.allReady) {
 
   statusHtml =
     `<div class="ro-status ok">` +
-    `<div class="ro-st-head"><span class="ro-st-dot"></span>${nextDayText ? nextDayText + '已更新' : '下一期推荐已更新'}</div>` +
+    `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-list">${rows}</div>` +
     `</div>`;
@@ -946,7 +946,7 @@ if (status.allReady) {
     `<div class="ro-status warn">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
     `<div class="ro-st-time">所有资料均在下方</div>` +
-    `<div class="ro-st-time">当前显示的是上一次的内容（${status.savedTime || '无记录'}）</div>` +
+    `<div class="ro-st-time">2:15 更新</div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
     `<div class="ro-st-hint">请稍后再看，或联系发布者更新</div>` +
     `</div>`;
