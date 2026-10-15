@@ -952,9 +952,44 @@ const XYSP_GAMES = [
 const GAME_NAME = {};
 XYSP_GAMES.forEach((g) => { GAME_NAME[g.key] = g.name; });
 
+/* 【卡片上的时间点】用户要求「要会抓时间点」+「界面上可以显示」。
+   选的是【相对时间】（比绝对值短、手机上一眼就懂），三种写法：
+     · 有发布时间的：  「2 小时前」/「35 分钟前」/「刚刚」
+     · 认得出彩种的：  再接一段「· 距开奖 3 小时」（有 nextAt 才加）
+     · 都没有：        不加任何时间（绝不显示空白/乱码）
+   ⚠️ 只用【相对时间】，不写具体时刻 —— 短、而且不受用户时区影响。
+   ⚠️ 这些是服务端预渲染时算好的（页面是静态的），所以只会随每次重建更新；
+      页面自己不会再算一遍（不新增任何页面脚本、不联网）。 */
+function relTime(isoLike, nowMs) {
+  const t = Date.parse(String(isoLike || ''));
+  if (!isFinite(t)) return '';
+  const d = nowMs - t;
+  if (d < 0) return '刚刚';
+  const min = Math.floor(d / 60000);
+  if (min < 1) return '刚刚';
+  if (min < 60) return min + ' 分钟前';
+  const h = Math.floor(min / 60);
+  if (h < 24) return h + ' 小时前';
+  const dd = Math.floor(h / 24);
+  return dd + ' 天前';
+}
+/* 距下一次开奖还有多久（可能已开完 -> 显示"已开奖"） */
+function untilDraw(isoLike, nowMs) {
+  const t = Date.parse(String(isoLike || ''));
+  if (!isFinite(t)) return '';
+  const d = t - nowMs;
+  if (d <= 0) return '已开奖';
+  const min = Math.floor(d / 60000);
+  if (min < 60) return '距开奖 ' + Math.max(1, min) + ' 分钟';
+  const h = Math.floor(min / 60);
+  if (h < 24) return '距开奖 ' + h + ' 小时';
+  return '距开奖 ' + Math.floor(h / 24) + ' 天';
+}
+
 function buildXyspHtml() {
   const data = (XYSP && XYSP.games) ? XYSP.games : null;
   const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
+  const nowMs = Date.now();
 
   /* 按分类顺序把条目摊平；每张卡片带【多个】彩种 key（空格分隔），供前端筛选用。
      ⚠️ 一张卡片只画一次 —— 多归属靠属性里的多个 key 表达，
@@ -970,7 +1005,14 @@ function buildXyspHtml() {
       const title = String((it && it.title) || '');
       /* 头条：把识别出来的彩种名并进描述行（例：「大乐透 · 10倍与11倍…」） */
       const kind = String((it && it.game) || '');
-      const desc = isTt && kind ? (kind + ' · ' + title) : title;
+      /* 【时间点】发布时间 + 距开奖（有才加），例：「大乐透 · 2 小时前 · 距开奖 3 小时」 */
+      const bits = [];
+      if (isTt && kind) bits.push(kind);
+      const rel = relTime(it && ((it.cat === 'tt') ? (it.when || it.seen || it.at) : (it.pubAt || it.at)), nowMs);
+      if (rel) bits.push(rel);
+      const ud = untilDraw(it && it.nextAt, nowMs);
+      if (ud) bits.push(ud);
+      const desc = bits.length ? (bits.join(' · ') + (title ? ' · ' + title : '')) : title;
 
       /* 【可被哪些标签选中】
          · 一起彩条目：只有它自己那一个 key（老行为，没变）

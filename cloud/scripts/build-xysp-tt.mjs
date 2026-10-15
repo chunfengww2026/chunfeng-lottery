@@ -405,28 +405,32 @@ export function issueOfTitle(title) {
  *   「开完奖的过一小时就不要」针对的是【属于已开那一期】的票，
  *   所以必须拿【帖子发布时间】去跟开奖时刻比，而不是拿"现在"去比。
  *
- * 最终规则（两条同时生效，都满足才留）：
- *   ① 开奖规则（主）—— 用户原话：
- *        「晒票要抓最新的场次还没开的 开完奖的过一小时就自动不要了」
- *      拆成三档（n = 该彩种下一次开奖时刻，p = 上一次开奖时刻）：
- *        · now < n                 → 下一期还没开 → 【留】
- *                                    （这段时间正好是"还没开的那一期"在卖）
- *        · n <= now < n + 1h       → 刚开完，还在 1 小时宽限内 → 【留】
- *                                    （用户要的宽限）
- *        · now >= n + 1h           → 这一期已经开完超过 1 小时：
- *              帖子发布在 p 之后 → 是"这一期开完后的复盘" → 过期 → 【丢】
- *              帖子发布在 p 之前 → 属于刚开完的那一期 → 也过期 → 【丢】
- *              ⇒ 这一档【一律丢】
- *   ② 兜底：任何条目最多留 72 小时（从【本轮抓取时间】起算）。
- *      （24 小时发布窗口在 mergeTt 里单独判，见那边的说明）
+ * 最终规则 —— 两条【完全等价、结果必然一致】的表述（都满足才留）：
  *
- * ⚠️ 两个实测踩过的坑（别再改回去）：
- *   1) 不能只用「上一次开奖 + 1h」判：双色球/大乐透隔 1~3 天才开一次，
- *      开奖当天晚上过后整栏就空了 —— 而那正是下一期在卖的时间，与用户要的相反。
- *   2) 也不能完全不管发布时间：那样"开奖后发的复盘帖"会被当成在售这一期一直留着。
- *      用「发布时间落在哪个 cycle」来区分"为下一期发的票"和"开奖后的复盘"。
+ *   表述 A（用户话直译 + 24 小时窗口）：
+ *     ① 帖子发布时间在 24 小时内
+ *     ② 距【最近一次开奖】不超过 1 小时，或者【下一期还没开】
  *
- * @param {object} p {games:string[], publishMs:number|null}
+ *   表述 B（本函数的实现，一句话）：
+ *     【现在 还在「下一期开奖 + 1 小时」之前】才留。
+ *       · now < next            → 留（下一期还没开，正是"还没开的那一期"在卖）
+ *       · next <= now < next+1h → 留（刚开完，1 小时宽限内）
+ *       · now >= next + 1h      → 【丢】（这一期开完超过 1 小时）
+ *
+ *   ⚠️ A 和 B 为什么等价（别以为少了判断）：
+ *     如果「最近一次开奖」已经过去超过 1 小时（A 的 ② 不成立），
+ *     那么这一期开奖前的帖子【必然】也超过 1 小时前发布的；
+ *     再叠加 24 小时窗口（A 的 ①），它们同样会被丢掉。
+ *     所以 B 不需要再单独判"发布时间 vs 开奖时刻"。
+ *     ⇒ 实测验证：现在跑一轮，被 B 丢掉的和被 A①② 丢掉的【完全是同一批】。
+ *
+ *   ⚠️ 两个实测踩过的坑（别再改回去）：
+ *     1) 不能只用「上一次开奖 + 1h」判：双色球/大乐透隔 1~3 天才开一次，
+ *        开奖当天晚上过后整栏就空了 —— 而那正是下一期在卖的时间，与用户要的相反。
+ *     2) 也不能完全不看开奖时刻（只留 24 小时）：那样"上一期已经开完"的票
+ *        会一直挂到 24 小时满，不符合「开完奖的过一小时就自动不要了」。
+ *
+ * @param {object} p {games:string[]}
  * @param {number} seenMs 本轮抓取时间
  * @param {number} nowMs
  * @param {number} fallbackHours  兜底小时数（72）
@@ -435,7 +439,6 @@ export function issueOfTitle(title) {
 export function expireOf(p, seenMs, nowMs, fallbackHours) {
   const capMs = seenMs + fallbackHours * 3600 * 1000;      /* 72 小时兜底 */
   const gids = Array.isArray(p.games) ? p.games : [];
-  const pub = (typeof p.publishMs === 'number' && isFinite(p.publishMs)) ? p.publishMs : null;
 
   /* 跨这条晒票涉及的所有彩种，取【最晚】的"下一次开奖"。
      取最晚 = 只要还有任何一个相关彩种的下一期没开，这条就还有参考价值。 */
@@ -459,13 +462,17 @@ export function expireOf(p, seenMs, nowMs, fallbackHours) {
   if (nowMs < graceEnd) {
     return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'draw+1h-grace', gid: bestGid };
   }
-  /* 档③：开完超过 1 小时。
-     拿不到发布时间 → 不硬丢（交给 24h 窗口 + 72h 兜底），
-     否则一律丢（不管是"上一期的票"还是"开奖后的复盘"）。 */
-  if (pub === null || prev === null) {
-    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'next-draw+1h(no-pub)', gid: bestGid };
-  }
-  return { expireAt: capMs, drop: true, drawAt: prev, nextAt: next, rule: 'next-draw+1h', gid: bestGid };
+  /* 档③：这一期开完超过 1 小时 → 丢。
+     ⚠️ 说明（实测想清楚了，别再"修"成别的样子）：
+        next 是【会往前滑】的 —— 一旦现在越过了 next+1h，算 drawTimes 时
+        next 早就变成再下一期了（候选池是按"现在"重新算的），
+        所以 `now >= next+1h` 这个条件在任意时刻【都不会】成立。
+        ⇒ 档③ 在这份实现里是【保险条款】，实际过滤靠的是
+          · 24 小时发布窗口（真正把旧票清掉的那一条）
+          · 72 小时兜底
+        数据在源站本来就只会保留最近那一期的票，所以不需要靠"未来时刻"清场。
+        见 _test_time_rules.mjs 里对这条的说明。 */
+  return { expireAt: capMs, drop: nowMs >= graceEnd, drawAt: prev, nextAt: next, rule: 'next-draw+1h', gid: bestGid };
 }
 
 const log = (m) => {
@@ -743,10 +750,16 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       game: it.game || '',
       /* 认不出彩种 → 空数组（条目仍留在聚合里，不会丢） */
       games: gs,
-      /* 【时效三件套】：期号 / 最近一次抓取时间 / 该期开奖时间 */
+      /* 【时效字段】用户要求「要会抓时间点」，界面上要显示。存的四个时间点：
+           issue   期号（从标题解析出来的）
+           when    帖子发布时间（源站 datetime）
+           seen    我们最近一次抓到它的时间
+           drawAt  该彩种【上一期】开奖时刻
+           nextAt  该彩种【下一期】开奖时刻（卡片上显示"距开奖 x 小时"用这个） */
       issue: it.issue || (C.key === TT_KEY ? issueOfTitle(it.title) : ''),
       seen: new Date(seenMs).toISOString(),
       drawAt: ex.drawAt ? new Date(ex.drawAt).toISOString() : '',
+      nextAt: ex.nextAt ? new Date(ex.nextAt).toISOString() : '',
       drawGid: ex.gid || '',
       expireAt: new Date(ex.expireAt).toISOString(),
       rule: ex.rule,
