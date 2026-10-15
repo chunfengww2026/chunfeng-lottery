@@ -735,7 +735,10 @@ order.forEach(([kind, label]) => {
   if (!arr.length) {
     cards += `<div class="m-empty">这个分类下暂时没有比赛</div>`;
   } else {
+    /* .guard = 受保护区域：locked 时这一块会被模糊（分段标题 summary 留在外面，照样能点） */
+    cards += `<div class="guard">`;
     arr.forEach((m) => { cards += renderMatch(m); });
+    cards += `</div>`;
   }
   cards += `</details>`;
 });
@@ -918,6 +921,44 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid #2b3550; border-radius: 8px; padding: 4px 12px; cursor: pointer;
   user-select: none; -webkit-user-select: none; }
 .calc-shot-img { max-width: 100%; max-height: 78vh; border-radius: 10px; background: #0f1115; }
+/* ============================================================
+   防截图锁定（把整页内容在「失焦 / 切窗口 / 截屏按键」时模糊 + 盖一层遮罩）
+   ------------------------------------------------------------
+   · 保护容器： #article（顶部标题/统计卡/战绩） + .guard（三个分段里的比赛卡片、
+                底部免责声明区）
+   · 【豁免】  .m-calc（模拟计算）和 .m-sec（三个分段）—— locked 时浮在遮罩之上，
+                仍然能点开、能勾选；分段里的卡片本身在 .guard 里，照样被模糊
+   · 层高： 内容 < 水印(99997→100000) … 遮罩 99998 < 豁免区 99999 < 水印 100000
+   · ⚠️ 这套东西只是【提高门槛】，不能真正禁止截图（详见页面说明）
+   ============================================================ */
+body { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+input, select, textarea { user-select: auto; -webkit-user-select: auto; }
+#article, .guard { transition: filter .15s ease; }
+html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); pointer-events: none; }
+#mask { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.96); color: #fff; z-index: 99998;
+  align-items: center; justify-content: center; text-align: center;
+  font-size: 20px; line-height: 1.8; padding: 40px; flex-direction: column; }
+html.locked #mask { display: flex; }
+#mask .mask-s { margin-top: 12px; font-size: 13px; color: #8b93a1; line-height: 1.9; }
+#watermark { position: fixed; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none;
+  z-index: 100000; overflow: hidden; opacity: .08; }
+.wm-item { position: absolute; font-size: 14px; white-space: nowrap; font-weight: 700;
+  color: #e8eaed; transform: rotate(-30deg); }
+html.locked #watermark { opacity: .3; }
+/* 【豁免区】locked 时压住遮罩，保持清晰可点 */
+html.locked .m-calc, html.locked .m-sec { filter: none !important;
+  pointer-events: auto !important; position: relative; z-index: 99999; }
+html.locked .m-calc * , html.locked .m-sec > summary { pointer-events: auto !important; }
+html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html.locked .m-calc label {
+  user-select: auto !important; -webkit-user-select: auto !important; }
+/* 保存图片的全屏层始终在最上面（用户自己生成的那张图，locked 时也要能看/能存） */
+.calc-shot { z-index: 100001; }
+@media print {
+  #article, .guard { filter: blur(25px) grayscale(1) !important; }
+  #mask { display: flex !important; }
+  #watermark { opacity: .3 !important; }
+}
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
 .calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
@@ -979,6 +1020,9 @@ ${nav}
 </head>
 <body>
 <div class="wrap">
+  <!-- #article = 受保护区域之一（防截图：locked 时整块模糊 + 不能点）
+       另两块受保护的是三个分段里的 .guard 和底部免责声明 .guard -->
+  <div id="article">
   <h1>竞彩 · 推胜负平</h1>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场累积 ${stat.finished} 场 · <span class="cd" data-cd="1"></span></div>
 
@@ -995,6 +1039,7 @@ ${nav}
     <span class="r">命中率 ${stat.rate}%</span>
     <span class="n">（推荐胜负平比对最终比分）</span>
   </div>` : ''}
+  </div>
 
   ${cards}
 
@@ -1011,6 +1056,7 @@ ${nav}
     <img class="calc-shot-img" id="calcShotImg" alt="模拟计算选号图">
   </div>
 
+  <div class="guard">
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
     · 本页只显示<b>体彩竞彩</b>比赛，其他联赛不显示。<br>
@@ -1024,7 +1070,18 @@ ${nav}
   </div>
 
   <div class="brand">— 小晴推荐官 · 仅供参考 —</div>
+  </div>
 </div>
+
+<!-- 【防截图 · 遮罩】locked 时全屏盖住受保护内容（#article / .guard）；
+     「模拟计算」和三个分段是豁免区，会压在遮罩之上，仍然能用。 -->
+<div id="mask">
+  <div>⚠️ 检测到截图 / 窗口切换，内容已隐藏</div>
+  <div class="mask-s">切回本页后自动恢复（约 4 秒）。<br>
+    「模拟计算」和三个分段的展开/收起不受影响，可以继续用。</div>
+</div>
+<!-- 【防截图 · 水印】固定文字（不读任何本地存储），按窗口尺寸平铺 -->
+<div id="watermark" aria-hidden="true"></div>
 
 <!-- __FB_COUNTDOWN__ 距离下次更新倒数（纯前端，每半小时整点 :00 / :30 为目标）
      免费：只是浏览器里的 setInterval，不请求任何接口、不调 AI。
@@ -1560,6 +1617,105 @@ ${nav}
   }
 
   update();   /* 初始：一个都没勾 → 0 关 0 注 ¥0.00（刷新后也是这样，不做任何持久化） */
+})();
+</script>
+<!-- __FB_LOCK_JS__ 防截图锁定（失焦 / 切窗口 / 切标签 / 截屏按键 → 保护内容模糊 + 遮罩）
+     · 只做前端拦截，【不能真正禁止截图】，只是提高门槛（详见给用户的说明）
+     · 【不写任何本地存储】：水印文字是固定字符串，权限状态只在内存里
+     · 豁免区：.m-calc（模拟计算）和 .m-sec（三个分段）—— locked 时压在遮罩之上照常可用
+     · lock() 后 4 秒自动解锁，不会把人永久挡在外面 -->
+<script>
+(function () {
+  var LOCK_MS = 4000;                    /* lock 之后最多挡这么久，自动恢复 */
+  var userTag = '春风十里送大奖 · 仅供观看';   /* 固定文字：不读任何浏览器本地存储 */
+  var timer = null;
+
+  function lock() {
+    document.documentElement.classList.add('locked');
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(unlock, LOCK_MS);
+  }
+  function unlock() {
+    document.documentElement.classList.remove('locked');
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+  /* 清空剪贴板（能清就清，清不了就算了） */
+  function clearClip() {
+    try {
+      if (typeof navigator !== 'undefined' && navigator && navigator.clipboard &&
+          navigator.clipboard.writeText) {
+        var p = navigator.clipboard.writeText('');
+        if (p && p.catch) p.catch(function () {});
+      }
+    } catch (e) { /* 忽略 */ }
+  }
+  /* 焦点还在页面里的输入框上（手机弹键盘）不算「切窗口」 */
+  function typing() {
+    var ae = document.activeElement;
+    return !!(ae && (ae.tagName === 'INPUT' || ae.tagName === 'SELECT' || ae.tagName === 'TEXTAREA'));
+  }
+
+  window.addEventListener('blur', function () { if (!typing()) lock(); });
+  window.addEventListener('focus', unlock);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) lock(); else unlock();
+  });
+
+  function keyOf(e) {
+    if (!e) return '';
+    if (e.key !== undefined && e.key !== null && e.key !== '') return String(e.key);
+    if (e.code !== undefined && e.code !== null) return String(e.code);
+    return '';
+  }
+  function isShotKey(e, k) {
+    if (k === 'PrintScreen') return true;                       /* PrintScreen */
+    if (k === '3' || k === '4' || k === '5') {                   /* macOS Cmd+Shift+3/4/5 */
+      if (e.metaKey && e.shiftKey) return true;
+    }
+    if (k === 'S' || k === 's') {                                /* Win+Shift+S */
+      if (e.shiftKey) return true;
+    }
+    return false;
+  }
+  function isDevKey(e, k) {
+    if (k === 'F12') return true;
+    if (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c')) return true;
+    if (e.ctrlKey && (k === 'u' || k === 'U')) return true;      /* 查看源码 */
+    return false;
+  }
+
+  window.addEventListener('keydown', function (e) {
+    var k = keyOf(e);
+    if (isShotKey(e, k)) { lock(); clearClip(); }
+    if (isDevKey(e, k)) { if (e.preventDefault) e.preventDefault(); lock(); }
+  });
+  window.addEventListener('keyup', function (e) {
+    var k = keyOf(e);
+    if (isShotKey(e, k)) { lock(); clearClip(); }
+  });
+
+  /* 禁右键 / 禁拖拽 / 禁复制剪切（照用户给的规则） */
+  ['contextmenu', 'dragstart', 'copy', 'cut'].forEach(function (t) {
+    document.addEventListener(t, function (e) { if (e.preventDefault) e.preventDefault(); });
+  });
+
+/* 水印：按窗口尺寸平铺，resize 重画（纯字符串拼接，不读任何浏览器本地存储） */
+  function drawWatermark() {
+    var wm = document.getElementById('watermark');
+    if (!wm) return;
+    var W = window.innerWidth || 1200;
+    var H = window.innerHeight || 800;
+    var out = '', r, c;
+    for (r = 0; r * 120 <= H + 120; r++) {
+      for (c = 0; c * 260 <= W + 260; c++) {
+        out += '<span class="wm-item" style="left:' + (c * 260 + (r % 2 ? 130 : 0)) + 'px;top:' + (r * 120) + 'px">' +
+          userTag + '</span>';
+      }
+    }
+    wm.innerHTML = out;
+  }
+  drawWatermark();
+  window.addEventListener('resize', drawWatermark);
 })();
 </script>
 </body>
