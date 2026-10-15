@@ -935,6 +935,7 @@ if (status.allReady) {
     `<div class="ro-status ok">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     `<div class="ro-st-time">所有资料均在下方</div>` +
+    `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     `<div class="ro-st-list">${rows}</div>` +
     `</div>`;
 } else {
@@ -2481,7 +2482,7 @@ body.ro-mob-open { overflow: hidden; }
           if (!OK[href]) return;
           e.preventDefault();
           var el = document.getElementById(href.slice(1));
-          if (!el) return;
+          if (!els.length) return;
           var wasOpen = el.classList.contains('ro-open');
           roCloseAll();
           if (wasOpen) {
@@ -3108,7 +3109,7 @@ ${RO_RENDER_SCRIPT}
      纯前端 JS，不请求接口、不调 AI → 免费。 -->
 <script>
 (function () {
-  var el = document.getElementById('__NEXT_CD__');
+  var els = [document.getElementById('__NEXT_CD__'), document.getElementById('__NEXT_CD2__')].filter(Boolean);
   if (!el) return;
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function target() {
@@ -3119,10 +3120,10 @@ ${RO_RENDER_SCRIPT}
   }
   function draw() {
     var ms = target().getTime() - Date.now();
-    if (ms <= 0) { el.textContent = '正在更新…'; return; }
+    if (ms <= 0) { for (var q = 0; q < els.length; q++) els[q].textContent = '正在更新…'; return; }
     var s = Math.floor(ms / 1000);
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
-    el.textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
+    for (var q2 = 0; q2 < els.length; q2++) els[q2].textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
   }
   draw();
   setInterval(draw, 1000);
