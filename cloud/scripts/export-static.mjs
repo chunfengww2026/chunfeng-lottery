@@ -2561,6 +2561,11 @@ body.ro-mob-open { overflow: hidden; }
           所以「再点一下」收不起来。改用 class 控制，行为确定。
        CSS 侧：.ro-panel{display:none} .ro-panel.ro-open{display:block}
        :target 规则仍然保留（脚本被禁时还能靠锚点展开，功能不丢）。 */
+      /* 【必须放在最前面】下面两段都要用它；原来定义在最后，
+         脚本一执行 OK 还是 undefined，一读 OK[...] 就抛 TypeError，
+         整段脚本崩溃 → 点击监听根本没绑上 → 区块点不开。 */
+      var OK = { '#ro-kjh': 1, '#ro-live': 1 };
+
       function roCloseAll() {
         var ps = document.querySelectorAll('.ro-panel');
         for (var k = 0; k < ps.length; k++) ps[k].classList.remove('ro-open');
@@ -2595,7 +2600,6 @@ body.ro-mob-open { overflow: hidden; }
         if (el) el.classList.add('ro-open');
       })();
 
-      var OK = { '#ro-kjh': 1, '#ro-live': 1 };
       function go() {
         var id = String(location.hash || '');
         if (!OK[id]) return;
