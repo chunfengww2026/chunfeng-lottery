@@ -2585,6 +2585,40 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-art-sub { font-size: 11.5px; color: #6b7488; }
 
+/* ============================================================
+   __CENTER_HEAD__ 三个区块标题【居中】+ 去掉副标题重叠
+   ------------------------------------------------------------
+   用户要求：「居中」（截图圈了 晒票栏 / 最新开奖 / 文章参考）。
+   原来的写法是 display:flex + align-items:baseline + flex-wrap:wrap，
+   窄屏时副标题会被挤到标题同一行、甚至压在上面 —— 一并修掉。
+   只影响这三个区块，别处不动。
+   ============================================================ */
+.ro-xysp-head, .ro-art-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+.ro-xysp-h2, .ro-art-title { text-align: center; }
+.ro-xysp-sub, .ro-art-sub { text-align: center; line-height: 1.5; }
+
+/* 「最新开奖」标题 —— 实际结构是 .hit-embed .ro-gamehead > h2 + .ro-meta
+   （latest-draws.js 生成，本次不改它的生成逻辑，只用 CSS 摆正）
+   原来 .ro-gamehead 是 flex + align-items:center + flex-wrap:wrap，
+   窄屏会把 h2 和两行 meta 挤在一起、互相压住 —— 改成纵向居中排布。 */
+.hit-embed .ro-gamehead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+.hit-embed .ro-gamehead h2 { text-align: center; width: 100%; margin-bottom: 0; }
+.hit-embed .ro-gamehead .ro-meta { text-align: center; line-height: 1.5; width: 100%; }
+
 .ro-art-groups { display: grid; gap: 10px; grid-template-columns: 1fr; }
 @media (min-width: 560px) {
   .ro-art-groups { grid-template-columns: repeat(auto-fit, minmax(226px, 1fr)); }
@@ -2974,7 +3008,7 @@ body.ro-mob-open { overflow: hidden; }
 .ro-panel.ro-open { display: block; }
 </style>
 </head>
-<body data-built="2026-10-16 04:20" class="ro-toc-pending">
+<body data-built="2026-10-16 04:25" class="ro-toc-pending">
 <div class="ro-wrap">
 
   <div class="ro-top">
@@ -20115,7 +20149,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-16 04:20
+   生成时间：2026-10-16 02:29
    生成脚本：build-heatmap.mjs
    本次彩种：（无：今天不是开奖日）
    数据来源：none
@@ -20128,13 +20162,13 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-16 04:20',
+  updated: '2026-10-16 02:29',
   source: 'none',
   games: {
   }
 };
 
-/* 本次为 --purge：今天不是任何彩种的开奖日，清空数据，页面上不会出现这张图 */
+/* 今天不是开奖日，未生成任何彩种 */
 
 /* ---------- 开奖日 & 显示时机（客户端与服务端共用同一套判断） ---------- */
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
