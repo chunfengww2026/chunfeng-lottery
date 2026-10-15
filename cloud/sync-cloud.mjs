@@ -171,6 +171,11 @@ const FROM_ROOT = [
      jc-data.js 里消失 —— 已完场的累积记录全靠这个文件，不传上去
      云端重新生成竞彩页时「已完场」又会变回 0 场。 */
   'jc-history.js',
+  /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
+      必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
+      的那个 N；云端重新生成竞彩页时少了这个文件就会退回本机竞彩数据算的
+      upcoming + live 兜底，页面上那个数字就会和体彩官网对不上。 */
+  'jc-official.js',
   'deepseek.config.json',
   /* 【热力图】实票统计热力图数据（当天出图的那份）。
      云端 18:00 那一班会自己重新生成；这里同步过去只作为兜底，
@@ -244,6 +249,10 @@ const CODE_MODULES = [
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs',
+  /* 【竞彩在售场次】抓体彩官网在售场次的脚本（1 次请求，不调 AI）。
+      同步过去只是让云端仓库里也有这个脚本；云端的班次表不跑它，
+      数据仍由本机 sync-cloud.mjs 传上去的 jc-official.js 提供。 */
+  'build-jc-count.mjs',
   /* 【最新开奖 · 实时更新】分享页顶部那块现在会就地重画，靠的就是这两个文件：
        · latest-draws.js  —— 区块的生成函数 + 客户端更新逻辑（分享页内联它）
        · export-draws.mjs —— 从 draws.js 取各彩种最新开奖，写进 tickets.json 的 draws
