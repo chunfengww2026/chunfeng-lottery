@@ -598,16 +598,21 @@ function renderMatch(m) {
    · 【交互边界】竞彩页上只有这一块可以操作；不写任何本地存储
      （浏览器存储 API 一个都不用），刷新页面全部回到默认（全不勾选、倍数 1）
    · 规则见区块底部「怎么算的」，合规声明单独一行放在最下面
+   · 【可收起】用原生 <details class="m-calc"> / <summary>，默认【收起】，
+     和三个分段 .m-sec 完全同一套做法（提示文字由 CSS 按 [open] 切换）
    ============================================================ */
 const CALC_MAX_PARLAY = 8;   /* 体彩：胜平负 / 让球胜平负 最多 8 关 */
 
 function renderCalc() {
+  /* summary 里就是标题行；最右边那个 span 负责「点击查看 / 点击收起」，
+     文字由 CSS 按 .m-calc[open] 切换（和 .m-sectip 一模一样） */
   const head =
-    `<div class="calc-head">` +
+    `<summary class="calc-head">` +
     `<span class="calc-title">模拟计算</span>` +
     `<span class="calc-tag">仅供娱乐参考</span>` +
     `<span class="calc-src">赔率：${esc(SP_SRC_CN)}</span>` +
-    `</div>`;
+    `<span class="calc-tip" aria-hidden="true"></span>` +
+    `</summary>`;
 
   const rules =
     `<div class="calc-note">` +
@@ -626,11 +631,15 @@ function renderCalc() {
     `<div class="calc-disclaim">本工具仅为模拟计算演示，数据仅供参考，` +
     `<b>仅供娱乐，不构成购彩建议</b>，请理性购彩。</div>`;
 
+  /* 默认收起：<details> 不带 open 属性（刷新后天然回到收起，不做任何持久化） */
+  const open = `<details class="m-calc" id="jcCalc">${head}<div class="calc-body">`;
+  const close = `</div></details>`;
+
   if (!CALC_ROWS.length) {
-    return `<div class="calc" id="jcCalc">${head}` +
+    return open +
       `<div class="calc-empty">暂无可试算的竞彩 SP 赔率（${esc(SP ? (SP.from || '') : 'jc-data.js 里没有 sp 数据')}）。` +
       `SP 抓不到时本区块不会显示数字，也绝不估算。</div>` +
-      rules + disclaim + `</div>`;
+      rules + disclaim + close;
   }
 
   const rows = CALC_ROWS.map((r) => {
@@ -674,11 +683,10 @@ function renderCalc() {
     `<div class="calc-foot">单注 2 元（体彩竞彩固定）；倍数越大，总投注与预计奖金同步放大。</div>` +
     `</div>`;
 
-  return `<div class="calc" id="jcCalc">${head}` +
+  return open +
     `<div class="calc-sub">勾选你看好的结果 → 自动按体彩竞彩规则算预计奖金（纯前端计算，不刷新页面）</div>` +
     `<div class="calc-rows">${rows}</div>` +
-    bar + rules + disclaim +
-    `</div>`;
+    bar + rules + disclaim + close;
 }
 
 /* 分组 */
@@ -842,11 +850,22 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid rgba(110,168,254,0.3); white-space: nowrap; }
 .m-ai-change-d { font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
   word-break: break-word; }
-/* ---- 模拟计算器（竞彩页唯一可操作的区块） ---- */
-.calc { margin-top: 22px; padding: 13px 14px; background: #14171d;
+/* ---- 模拟计算器（竞彩页唯一可操作的区块；可收起，默认收起） ---- */
+/* 折叠做法和上面三个分段 .m-sec 完全一致：原生 details/summary，
+   提示文字由 CSS 按 [open] 切换，不写 JS 也能用。 */
+.m-calc { margin-top: 22px; background: #14171d;
   border: 1px solid #262d3a; border-radius: 12px; }
-.calc-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
-.calc-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
+.m-calc > summary.calc-head { cursor: pointer; list-style: none; user-select: none;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 12px 14px; }
+.m-calc > summary.calc-head::-webkit-details-marker { display: none; }
+.m-calc > summary.calc-head::marker { content: ''; }
+.calc-tip { margin-left: 8px; font-size: 11.5px; font-weight: 400; color: #47e0a0;
+  opacity: .9; white-space: nowrap; }
+.m-calc[open] > summary.calc-head .calc-tip::after { content: '点击收起'; }
+.m-calc:not([open]) > summary.calc-head .calc-tip::after { content: '点击查看'; }
+.calc-body { padding: 0 14px 13px; }
+.calc-head .calc-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
 .calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
