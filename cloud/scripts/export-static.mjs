@@ -4086,6 +4086,8 @@ ${RO_RENDER_SCRIPT}
     img = node;
     cur = { game: gameId, image: imageKey };
     zoom = 'fit';
+    /* 【保存权限】推荐图 / 资料：这一层不允许保存（右键 / 长按 / 拖拽都拦） */
+    view.setAttribute('data-allow', '0');
 
     view.removeAttribute('hidden');
     mark('ro-mob-open', true);
@@ -4139,11 +4141,16 @@ ${RO_RENDER_SCRIPT}
      @param {string} src 图片地址
      @param {string} alt 无障碍文字（一般传彩种名）
      @returns {boolean} true = 已打开 */
-  function openUrl(src, alt) {
+  function openUrl(src, alt, allowSave) {
     if (!src) return false;
     build();
     while (holder.firstChild) holder.removeChild(holder.firstChild);
     backTo = null;            /* 这张图不属于任何图位，关掉时不用搬回去 */
+    /* 【保存权限】这一层是不是「允许保存」的来源（晒票 / GPT模型摇号出的图）？
+       设成 1 之后，页尾防截图脚本就会对这里放行（右键 / 长按 + -webkit-touch-callout）
+       都放行；推荐图（open() 走的那条）设成 0 → 一律拦掉。 */
+    if (allowSave) view.setAttribute('data-allow', '1');
+    else view.setAttribute('data-allow', '0');
 
     var box = document.createElement('div');
     box.className = 'ro-imagewrap';
