@@ -893,16 +893,17 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
      · 展开后是【图片网格】：每张卡片 = 缩略图 + 彩种名 +（有就显示）描述
      · 图片是【图床外链】—— 不把图片下载下来内联，
        所以页面体积几乎不变（这是选外链而不是下载的原因）
-     · 上面一排彩种筛选（全部 + 8 个彩种）：点了只显示该彩种的图，
+     · 上面一排彩种筛选（全部 + 8 个彩种 + 头条晒票）：点了只显示那一类，
        纯前端切换、不刷新页面、不重新请求
      · 点图片 → 放大看（能看清号码）：复用页尾已有的 ro-mob-view 全屏层
        （就是「推荐图目录」点开时用的那一层，自带 4 种关闭方式）
        —— 【不是】被用户删掉的那个旧放大器，也没有放大镜图标
 
    位置：紧跟在【推荐图目录】(.ro-imgtoc-wrap) 之后 —— 就是截图箭头处（不变）。
-   数据：xysp-data.js（build-xysp.mjs 每 30 分钟抓一次，只保留 24 小时内的条目）。
+   数据：xysp-data.js（build-xysp.mjs 每 30 分钟抓一次，只保留 72 小时内的条目）。
+         里面 games.tt = 今日头条的晒票（build-xysp-tt.mjs 抓，同一份文件里）。
          文件缺失时这一块显示「暂无」，绝不影响别的区块。
-   折叠：仍然是原生 <details>/<summary>，【默认收起】，标题「晒票栏」（不变）。
+   折叠：仍然是原生 <details>/<summary>，【默认收起】，标题「晒票」（不变）。
          · <summary> 不是按钮标签 → 页面不变量「按钮标签数 = 0」不受影响
          · 右侧「展开 ▸ / 收起 ▾」用纯 CSS ::before/::after 跟着 [open] 变
    布局：手机 2 列、宽屏（>=620px）4 列。
@@ -912,11 +913,20 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
    ⚠️ 图片地址一律用 https：页面本身可能是 https 打开的，
       外链写成 http 会被浏览器按「混合内容」直接拦掉（图就白了）。
    ⚠️ 这里【不用】图位属性（data-image / data-ro-mob）——
-      晒票栏的图不占推荐图的图位数量。
+      晒票栏的图（含头条的）不占推荐图的图位数量（不变量 = 21）。
    ⚠️ 页面可见文字里不出现来源字样。
    ============================================================ */
 
-/* 8 个彩种：key 必须和 xysp-data.js 里的 key 一致（顺序 = 筛选按钮顺序） */
+/* 8 个彩种 + 头条：key 必须和 xysp-data.js 里的 key 一致（顺序 = 筛选按钮顺序）
+   ------------------------------------------------------------
+   【头条晒票】用户原话：「把【今日头条】的晒票内容抓下来，并入只读分享页现有的
+   「晒票」栏」，并且要求「筛选标签里加一个（比如「头条晒票」），点它能只看头条的票」。
+   做法：把 tt 当成第 9 个筛选分类塞进同一份 XYSP_GAMES ——
+     · 卡片走【完全一样】的那段渲染代码，所以天然不会产生新的 data-image（图位）
+     · 筛选条、点图放大（复用 ro-mob-view.openUrl）也全都不用改第二套
+     · 标签顺序：全部 / 8 个彩种 / 头条晒票（头条放最后，不挤走原来的 8 个）
+   头条卡片的标题显示：<b>固定写「头条晒票」</b>，把头条能认出来的彩种名并进描述行
+   （it.game，比如「大乐透」）→ 这样一个 <b> + 一个 <i>，不新增任何样式和属性。 */
 const XYSP_GAMES = [
   { key: 'ssq',  name: '双色球' },
   { key: 'dlt',  name: '大乐透' },
@@ -925,22 +935,28 @@ const XYSP_GAMES = [
   { key: 'pl3',  name: '排列3'  },
   { key: 'pl5',  name: '排列5'  },
   { key: 'qxc',  name: '七星彩' },
-  { key: 'qlc',  name: '七乐彩' }
+  { key: 'qlc',  name: '七乐彩' },
+  { key: 'tt',   name: '头条晒票' }
 ];
 
 function buildXyspHtml() {
   const data = (XYSP && XYSP.games) ? XYSP.games : null;
   const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
 
-  /* 按彩种顺序把条目摊平；每张卡片都带自己的彩种 key，供前端筛选用 */
+  /* 按彩种顺序把条目摊平；每张卡片都带自己的彩种 key，供前端筛选用。
+     头条（key='tt'）也走这一段 —— 只有 <b> 和描述行的拼法不一样。 */
   const cards = [];
   XYSP_GAMES.forEach((g) => {
+    const isTt = (g.key === 'tt');
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
     items.forEach((it) => {
       const img = String((it && it.img) || '');
       if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
       const thumb = String((it && it.thumb) || '') || img;
       const title = String((it && it.title) || '');
+      /* 头条：把识别出来的彩种名放在描述行的最前面（例：「大乐透 · 10倍与11倍…」） */
+      const kind = String((it && it.game) || '');
+      const desc = isTt && kind ? (kind + ' · ' + title) : title;
       cards.push(
         /* href 就是原图地址：点图的脚本从 href 取原图去全屏放大。
            这里【不重复写一遍】原图地址（每条再写一次要多 130 字节，
@@ -950,13 +966,13 @@ function buildXyspHtml() {
         `<img class="ro-xysp-thumb" src="${escapeAttr(thumb)}" alt=""` +
         ` loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
         `<span class="ro-xysp-cap"><b>${escape(g.name)}</b>` +
-        (title ? `<i>${escape(title)}</i>` : '') +
+        (desc ? `<i>${escape(desc)}</i>` : '') +
         `</span></a>`
       );
     });
   });
 
-  /* 筛选条：全部 + 8 个彩种。全部都是 <a>（不是按钮标签）。 */
+  /* 筛选条：全部 + 8 个彩种 + 头条晒票。全部都是 <a>（不是按钮标签）。 */
   const tabs = ['<a class="ro-xysp-tab on" href="#ro-xysp" data-ro-xysp-game="all">全部</a>']
     .concat(XYSP_GAMES.map((g) =>
       `<a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="${escapeAttr(g.key)}">` +
@@ -965,7 +981,7 @@ function buildXyspHtml() {
 
   const body = cards.length
     ? `<div class="ro-xysp-pics" data-ro-xysp-grid>${cards.join('')}</div>` +
-      `<div class="ro-xysp-empty" hidden>该彩种 24 小时内暂无晒票</div>`
+      `<div class="ro-xysp-empty" hidden>该分类 72 小时内暂无晒票</div>`
     : `<div class="ro-xysp-empty">暂无（每 30 分钟自动更新）</div>`;
 
   /* 标题那一行 = <summary>（可点、可键盘操作）。
@@ -980,7 +996,7 @@ function buildXyspHtml() {
     (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
     body +
     (updated
-      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 24 小时 · 更新于 ${escape(updated)}</div>`
+      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 72 小时 · 更新于 ${escape(updated)}</div>`
       : '') +
     `</details>`;
 }
@@ -990,6 +1006,8 @@ console.log(`  · 晒票栏：${XYSP_GAMES.map((g) => {
   const gd = XYSP && XYSP.games ? XYSP.games[g.key] : null;
   return g.name + ' ' + ((gd && gd.items) ? gd.items.length : 0) + ' 张';
 }).join(' / ')}${XYSP ? '' : '  ⚠️ 没有 xysp-data.js（显示「暂无」）'}`);
+console.log(`  · 晒票栏筛选标签：` +
+  ['全部'].concat(XYSP_GAMES.map((g) => g.name)).join(' / '));
 
 /* ============================================================
    【ai选号】可折叠小面板（位置：晒票栏下面、最新开奖上面）

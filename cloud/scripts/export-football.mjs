@@ -603,6 +603,16 @@ function renderMatch(m) {
    ============================================================ */
 const CALC_MAX_PARLAY = 8;   /* 体彩：胜平负 / 让球胜平负 最多 8 关 */
 
+/* 【过关方式最多能选到几串1】= min(体彩上限 8, 当前真的能算的场次)
+   —— 只有 5 场有官方 SP 时就最多给到 5串1，不给选不出来的档。 */
+const hasSpOdds = (r) => {
+  const pos = (o) => typeof o === 'number' && o > 0;
+  return !!r && ((r.had && (pos(r.had.h) || pos(r.had.d) || pos(r.had.a))) ||
+    (r.hhad && (pos(r.hhad.h) || pos(r.hhad.d) || pos(r.hhad.a))));
+};
+const CALC_MAX_N = Math.min(CALC_MAX_PARLAY, CALC_ROWS.filter(hasSpOdds).length);
+const passLabel = (n) => (n <= 1 ? '单关' : n + '串1');
+
 function renderCalc() {
   /* summary 里就是标题行；最右边那个 span 负责「点击查看 / 点击收起」，
      文字由 CSS 按 .m-calc[open] 切换（和 .m-sectip 一模一样） */
@@ -683,9 +693,19 @@ function renderCalc() {
     `<div class="calc-foot">单注 2 元（体彩竞彩固定）；倍数越大，总投注与预计奖金同步放大。</div>` +
     `</div>`;
 
+  /* 【过关方式】选项：单关 / 2串1 … N串1（N = min(8, 能算的场次)），默认 2串1。
+     用 <select>（不是 <button>，页面不变量「裸 <button> = 0」不受影响）；
+     手机上是原生选择器，比一排小标签更好点。 */
+  let passOpts = '';
+  for (let n = 1; n <= CALC_MAX_N; n++) {
+    passOpts += `<option value="${n}"${n === (CALC_MAX_N >= 2 ? 2 : 1) ? ' selected' : ''}>${passLabel(n)}</option>`;
+  }
+
   return open +
     `<div class="calc-sub">` +
     `<span class="calc-sub-t">勾选你看好的结果 → 自动按体彩竞彩规则算预计奖金（纯前端计算，不刷新页面）</span>` +
+    `<span class="calc-sel"><label for="calcPass">过关方式</label>` +
+    `<select id="calcPass">${passOpts}</select></span>` +
     /* 【GPT随机】放在说明行右边（不在 <summary> 里，点了不会顺手把区块收起来）。
        用 <a role="button">，不是裸 <button>（页面不变量：裸 <button> = 0）。 */
     `<a role="button" tabindex="0" class="calc-btn calc-rand" id="calcRand">GPT随机</a>` +
@@ -874,6 +894,9 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .calc-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   font-size: 11.5px; color: #8b93a1; line-height: 1.7; margin-bottom: 10px; }
 .calc-sub-t { flex: 1 1 auto; min-width: 0; }
+.calc-sel { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.calc-sel select { padding: 3px 6px; background: #0f1115; border: 1px solid #2b3550;
+  border-radius: 6px; color: #e8eaed; font-size: 12px; font-family: Consolas, monospace; }
 .calc-rand { margin-left: auto; font-weight: 700; color: #47e0a0;
   background: rgba(71,224,160,0.10); border-color: rgba(71,224,160,0.42); }
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
@@ -1042,6 +1065,7 @@ ${nav}
   var elMul = document.getElementById('calcMul');
   var elClear = document.getElementById('calcClear');
   var elRand = document.getElementById('calcRand');
+  var elPass = document.getElementById('calcPass');
   if (!elN || !elBets || !elCost || !elPrize || !elHint) return;
 
   var rows = [];
@@ -1084,6 +1108,18 @@ ${nav}
   }
   function warn(t) { if (elWarn) elWarn.textContent = t || ''; }
 
+  /* 【过关方式】下拉当前选中的关数；拿不到就退回 1（单关） */
+  function passN() {
+    var n = elPass ? parseInt(elPass.value, 10) : 0;
+    if (!isFinite(n) || n < 1) n = 1;
+    if (n > MAX_PARLAY) n = MAX_PARLAY;
+    return n;
+  }
+  function passCn(n) { return n <= 1 ? '单关' : n + '串1'; }
+
+  /* 随机前如果可选场次不够，用这个把说明带给 update()（只显示一次） */
+  var note = '';
+
   function update() {
     var i, j;
     var sel = {}, codes = [];
@@ -1110,7 +1146,8 @@ ${nav}
       elBets.textContent = '0';
       elCost.textContent = money(0);
       elPrize.textContent = money(0);
-      elHint.textContent = '还没勾选场次';
+      elHint.textContent = '还没勾选场次' + (note ? ' · ' + note : '');
+      note = '';
       warn('');
       return;
     }
@@ -1172,12 +1209,23 @@ ${nav}
 
     elCost.textContent = money(bets * 2 * m);
     elPrize.textContent = (loPrize === hiPrize) ? money(hiPrize) : (money(loPrize) + ' ~ ' + money(hiPrize));
+    /* 【过关方式】和实际勾选场数不一致时给出软提示：
+       奖金始终按【实际勾了几场】算（体彩规则里 3 场就是 3串1，没法按 2串1 出票），
+       这里只是提醒用户「你选的档位和勾的场数对不上」。 */
+    var want = passN();
+    /* note 非空 = 是「随机时可选场次不够」那条说明（已经讲了按几关算），
+       就不用再叠一条「与所选不符」的提示，免得两句话重复。 */
+    var passNote = note
+      ? ' · ' + note
+      : (n !== want ? ' · ⚠️ 已勾 ' + n + ' 场，与所选「' + passCn(want) + '」不一致 → 按实际 ' + passCn(n) + ' 计算' : '');
     elHint.textContent = (n === 1 ? '单关' : n + ' 关·串关') +
       ' · 共 ' + bets + ' 注 · 单注奖金 ' +
       (loBet === hiBet ? loBet.toFixed(2) : loBet.toFixed(2) + '~' + hiBet.toFixed(2)) + ' 元' +
       (bets > 1 ? '（复式，中其中一注）' : '') +
       (capped ? ' · 已按单注最高限额 ' + lim + ' 元封顶' : '') +
-      (n === 1 ? ' · 单关能否投注以官方为准' : '');
+      (n === 1 ? ' · 单关能否投注以官方为准' : '') +
+      passNote;
+    note = '';
     warn('');
   }
 
@@ -1197,7 +1245,8 @@ ${nav}
   /* ============================================================
      【GPT随机】—— 纯前端随机帮用户勾几场，再实时算奖金。
        规则（都按体彩真实可投注的组合来）：
-         · 从【有官方 SP 赔率】的场次里随机挑 2~4 关（可用场次不足就少挑几场）
+         · 【先按上面选的过关方式】决定要挑几场：选 2串1 就正好挑 2 场，选 5串1 就 5 场
+           （可用的场次不够 N 场时，挑满可用的那几场并在说明里讲清楚，不硬凑、不报错）
          · 每场只勾 1 个结果，在「胜平负 / 让球胜平负」里随机挑一个玩法，
            再在该玩法的 主胜 / 平 / 客胜 里随机挑一个有赔率的
          · 同一场绝不重复、不重复勾（先清空再勾）
@@ -1233,11 +1282,14 @@ ${nav}
 
     for (i = 0; i < boxes.length; i++) boxes[i].checked = false;   /* 先清空 → 换一批 */
 
-    var want = 2 + Math.floor(Math.random() * 3);                  /* 2 ~ 4 关 */
-    if (want > avail.length) want = avail.length;
-    if (want < 1) want = 1;
+    var want = passN();                                            /* 下拉选的关数 */
+    note = '';
+    if (avail.length < want) {
+      note = '可选的只有 ' + avail.length + ' 场，不足 ' + passCn(want) + ' → 本次按 ' + passCn(avail.length) + ' 随机';
+      want = avail.length;
+    }
 
-    /* Fisher-Yates 洗牌后取前 want 场（保证不重复同一场） */
+    /* Fisher-Yates 洗牌后取前 want 场（保证不重复同一场、每场只勾 1 个结果） */
     for (i = avail.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
       var t = avail[i]; avail[i] = avail[j]; avail[j] = t;
@@ -1251,6 +1303,7 @@ ${nav}
     update();     /* 勾完立刻算奖金（和手动勾选同一条计算路径） */
   }
 
+  if (elPass) elPass.addEventListener('change', update);
   if (elRand) {
     elRand.addEventListener('click', function (e) {
       if (e && e.preventDefault) e.preventDefault();
@@ -1285,5 +1338,6 @@ console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
     : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
-console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 赔率来源：${SP_SRC_LOG}`);
+console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
+  `（单关 ~ ${passLabel(CALC_MAX_N)}）· 赔率来源：${SP_SRC_LOG}`);
 console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字，绝不估算；不写任何本地存储）`);
