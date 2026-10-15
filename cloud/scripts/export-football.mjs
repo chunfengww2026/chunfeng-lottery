@@ -536,12 +536,18 @@ order.forEach(([kind, label]) => {
   const arr = MATCHES.filter((m) => m.kind === kind);
   if (kind === 'finished') arr.sort((a, b) => String(b.time).localeCompare(String(a.time)));
   else arr.sort((a, b) => String(a.time).localeCompare(String(b.time)));
-  cards += `<div class="m-subhead" id="sec-${kind}">${label}<span class="m-subcount">${arr.length} 场</span></div>`;
+  /* __FB_SEC_COL__ 用户要求：三个分段（未开赛/进行中/已完场）
+     也要能收起，默认【收起】，点了才展开 —— 和彩票推荐那边的架构一致。
+     用原生 <details> 折叠（不写 JS 也能用），提示文字由 CSS 按 [open] 切换。 */
+  cards += `<details class="m-sec" id="sec-${kind}">` +
+    `<summary class="m-subhead">${label}<span class="m-subcount">${arr.length} 场</span>` +
+    `<span class="m-sectip" aria-hidden="true"></span></summary>`;
   if (!arr.length) {
     cards += `<div class="m-empty">这个分类下暂时没有比赛</div>`;
   } else {
     arr.forEach((m) => { cards += renderMatch(m); });
   }
+  cards += `</details>`;
 });
 
 /* ---------- 页面 ---------- */
@@ -574,6 +580,15 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .record .n { color: #5a6272; font-size: 11.5px; }
 .m-subhead { display: flex; align-items: center; gap: 8px; font-size: 14px;
   font-weight: 700; color: #b8c2d4; margin: 18px 0 10px; }
+/* __FB_SEC_COL__ 分段可收起的样式（details/summary 原生折叠） */
+.m-sec { margin-bottom: 4px; }
+.m-sec > summary.m-subhead { cursor: pointer; list-style: none; user-select: none; display: flex; align-items: center; gap: 8px; }
+.m-sec > summary.m-subhead::-webkit-details-marker { display: none; }
+.m-sec > summary.m-subhead::marker { content: ''; }
+.m-sectip { margin-left: auto; font-size: 11.5px; font-weight: 400; color: #47e0a0; opacity: .9; }
+.m-sec[open] > summary.m-subhead .m-sectip::after { content: '点击收起'; }
+.m-sec:not([open]) > summary.m-subhead .m-sectip::after { content: '点击查看'; }
+
 .m-subcount { font-size: 11.5px; color: #6b7488; font-weight: 400;
   background: #1b212b; padding: 2px 8px; border-radius: 20px; }
 .m-card { background: #161a21; border: 1px solid #232a36; border-left: 3px solid #2b3550;
@@ -747,6 +762,28 @@ ${nav}
   }
   draw();
   setInterval(draw, 1000);
+})();
+</script>
+
+<!-- __FB_SEC_JS__ 点了顶部「未开赛/进行中/已完场」的数字 → 自动展开那一栏
+     （因为分段默认收起，锚点跳过去如果不展开就看不到内容） -->
+<script>
+(function () {
+  function openTarget() {
+    var h = String(location.hash || '');
+    if (!h || h.indexOf('#sec-') !== 0) return;
+    var el = document.getElementById(h.slice(1));
+    if (el && el.tagName === 'DETAILS') el.open = true;
+  }
+  openTarget();
+  window.addEventListener('hashchange', openTarget);
+  /* 顶部统计卡也是 <a href="#sec-...">，点的时候 hash 变化 → hashchange 会触发 */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#sec-"]') : null;
+    if (!a) return;
+    var el = document.getElementById(String(a.getAttribute('href')).slice(1));
+    if (el && el.tagName === 'DETAILS') el.open = true;
+  }, true);
 })();
 </script>
 </body>
