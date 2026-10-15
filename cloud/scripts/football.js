@@ -1891,7 +1891,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "布莱顿",
      "score": 4,
@@ -2029,7 +2029,7 @@ const FOOTBALL_DATA = {
      "color": "666600"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "利比里亚U20",
      "score": 0,
@@ -2161,7 +2161,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "艾域加多",
      "score": 1,
@@ -2517,7 +2517,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "萨格勒布迪那摩",
      "score": 0,
