@@ -108,8 +108,8 @@ function hmPctText(pct) {
    九转连环的小工具（几何）
    ------------------------------------------------------------
    圈数 / 轴数【必须和 stats.js 的 JIUZHUAN_GEOMETRY 对齐】：
-     ssq 4×8 = 32 交点（+ 中心 1 个号码位 = 33 位）
-     dlt 5×7 = 35 交点
+     两个彩种共用一套几何 —— ssq 4×8 = 32 交点（+ 中心 1 个号码位 = 33 位）
+                                dlt 4×8 = 32 交点（+ 中心 1 位 + 中心旁 34/35 两个小字球 = 35 位）
    优先读 stats.js 铺好的 cir_rings / cir_axes；读不到就按交点数推断，
    保证老存档 / 手写数据也能画出正确的圈数与轴数。
    ============================================================ */
@@ -403,21 +403,26 @@ const SECTION_RENDER = {
 
   /* ---- 九转连环（同心圆环 × 米字轴，【全号铺满】版） ----
      【只画，不造号】版面和号码全部来自 stats.js 的 createJiuZhuan：
-       · 几何【按彩种自适应】（见 stats.js 的 JIUZHUAN_GEOMETRY）：
+       · 几何【两个彩种完全一样】（见 stats.js 的 JIUZHUAN_GEOMETRY）：
            双色球 4 圈 × 8 轴 = 32 交点 + 中心 1 个号码位 = 33 位 → 01~33 全铺满
-           大乐透 5 圈 × 7 轴 = 35 交点              = 35 位 → 01~35 全铺满
+           大乐透 4 圈 × 8 轴 = 32 交点 + 中心 1 个号码位 = 33 位，
+                  余下的 34、35 放在【中心旁边的小字球】里 → 01~35 全铺满
        · 每个交点都有号码；上期开奖号【所在的那个点】isHit:true → 深色，
          其余号码浅色（用户说的「有深浅，开奖的有标记」）
      stats.js 把这些点压成定宽串 vals.cir_points（3 字符/点：H 或 - 开头，
      然后是两位号码）。这里优先调 stats.js 的 decodeCirPoints 解码，
      stats.js 没加载时用下面这段【等价】兜底解码 —— 两边口径必须一致。
 
+     ⚠️ 中心旁边的小字球【不在 cir_points 里】，单独走一个字段
+        vals.cir_side（逗号分隔的两位号，例：大乐透 '34,35'；
+        双色球是空串）。老存档没有这个键 → 不画小字球，行为不变。
+
      ⚠️ 老存档（更早的两版）没有 cir_points、只有逐格键：
         cir_num_1~32（无补零）/ cir_num_01~32（补零）+ cir_num_center，
         这里两种键都读，旧数据不会画成空白。
 
-     ⚠️ 坐标不写死方向表了：轴数按彩种可能是 7 或 8，
-        所以用「角度 → 单位向量」现算（角度 = 圈去 90°，让轴 1 朝正上方，
+     ⚠️ 坐标不写死方向表了：用「角度 → 单位向量」现算
+        （角度 = 圈去 90°，让轴 1 朝正上方，顺时针排；
         8 轴时得到的就是原来的 上/右上/右/…/左上 八个方向，一个不差）。
         圆心 (50%,50%)；最外圈半径 46%（留 4% 边距，避免号码点贴边被切）。 */
   circle(sec, vals, build, gameId) {
@@ -534,12 +539,47 @@ const SECTION_RENDER = {
       }
     });
 
+    /* ---------- 中心旁边的小字球（大乐透的 34、35） ----------
+       stats.js 的 cir_side = 逗号分隔的两位号（大乐透 '34,35'，双色球空串）。
+       它们是【中心 + 32 个交点还装不下】的那几个号，画成中心下方一排小字球，
+       字号比环上的号码点小、位置就在中心 18 旁边 —— 这样几何和双色球一样，
+       号码还一个不漏。老存档没有 cir_side → 这一排不画。 */
+    const sideNums = String(vals.cir_side || '')
+      .split(',')
+      .map((s) => parseInt(s, 10))
+      .filter((n) => Number.isFinite(n));
+    let sideHitCount = 0;
+    /* 命中判定口径和中心/环上一致：这个号在【上期开奖号原文】里出现过 */
+    const sideSrc = String(vals.cir_source || '').split(/[\s,，、]+/).map((s) => parseInt(s, 10));
+    if (sideNums.length) {
+      const sideWrap = el('div', 'r-cirside');
+      /* 布局全部内联：不新增 styles.css 依赖，导出图片时也原样带上 */
+      sideWrap.setAttribute('style',
+        'position:absolute;left:50%;top:68%;transform:translateX(-50%);'
+        + 'display:flex;gap:6px;justify-content:center;z-index:3;pointer-events:none');
+      sideNums.forEach((n) => {
+        const isHit = sideSrc.indexOf(n) >= 0;
+        const ball = el('span', 'r-cirsideball' + (isHit ? ' hit' : ' dim'));
+        ball.setAttribute('style',
+          'display:inline-block;min-width:18px;padding:1px 4px;border-radius:50%;'
+          + 'font-size:11px;line-height:16px;text-align:center;'
+          + 'background:' + (isHit ? '#c62828' : '#eceff1') + ';'
+          + 'color:' + (isHit ? '#fff' : '#455a64') + ';font-weight:bold');
+        ball.setAttribute('data-side', '1');
+        ball.setAttribute('data-hit', isHit ? '1' : '0');
+        ball.textContent = numText(n);
+        sideWrap.appendChild(ball);
+        if (isHit) sideHitCount++;
+      });
+      c.appendChild(sideWrap);
+    }
+
     box.appendChild(c);
 
-    /* 图例：两种深浅（命中 / 其余号码），口径就是 cir_points 的 H 位 */
+    /* 图例：两种深浅（命中 / 其余号码），口径就是 cir_points 的 H 位（含中心/小字球） */
     const legend = [
-      { label: '上期开奖号（命中 ' + (hitCount + (centerHit ? 1 : 0)) + '）', color: 'hit' },
-      { label: '其余号码（' + (numCount - hitCount) + '）', color: 'dim' }
+      { label: '上期开奖号（命中 ' + (hitCount + (centerHit ? 1 : 0) + sideHitCount) + '）', color: 'hit' },
+      { label: '其余号码（' + (numCount - hitCount + sideNums.length - sideHitCount) + '）', color: 'dim' }
     ];
     const lg = el('div', 'r-legend');
     legend.forEach((l) => {
@@ -551,11 +591,16 @@ const SECTION_RENDER = {
     box.appendChild(lg);
 
     /* 图注：本图铺了什么、深浅怎么读 —— 让「一个号不漏」在页面上看得见 */
+    const sideText = sideNums.length
+      ? ' + 中心旁 ' + sideNums.length + ' 个小字球（' + sideNums.map(numText).join(' ') + '）'
+      : '';
+    const covered = numCount + (centerIsPos ? 1 : 0) + sideNums.length;
     const rangeText = geo.rings + ' 圈 × ' + geo.axes + ' 轴'
       + (centerIsPos ? ' + 中心 1 格' : '')
-      + ' = ' + (numCount + (centerIsPos ? 1 : 0)) + ' 个号码位';
+      + sideText
+      + ' = ' + covered + ' 个号码位';
     const capText = '上期开奖号：' + (vals.cir_source || '—')
-      + '　|　' + rangeText + '，本彩种全部号码 1~' + (numCount + (centerIsPos ? 1 : 0))
+      + '　|　' + rangeText + '，本彩种全部号码 1~' + covered
       + ' 一键铺满（浅色为未开出，深色为上期开出）';
     box.appendChild(el('div', 'r-caption', capText));
 
