@@ -104,7 +104,7 @@
     /* ---------- 顶部信息 ---------- */
     const u = footballUpdated();
     const st = footballStat();
-    document.getElementById('updTag').textContent = u ? '每 30 分钟刷新一次（最近一次 ' + u + '）' : '暂无数据';
+    document.getElementById('updTag').textContent = u ? '每半小时整点更新（:00 / :30）· 最近一次 ' + u + '）' : '暂无数据';
     document.getElementById('statTag').textContent =
       '共 ' + (st.total || 0) + ' 场 · 进行中 ' + (st.live || 0) + ' · 已完场 ' + (st.finished || 0);
 
