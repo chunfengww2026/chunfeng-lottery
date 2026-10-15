@@ -731,7 +731,7 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
    【为什么用 <details>/<summary>，不用 JS + <a>】
      · 用户原话：「晒票栏可以收起来要自动点」
      · 原生折叠：不写一行 JS —— 页面里那段实时渲染脚本万一挂了照样能收起/展开
-     · <summary> 不是 <button>，页面不变量「<button 数 = 0」不受影响
+     · <summary> 不是按钮标签，页面不变量「按钮标签数 = 0」不受影响
      · 收起时浏览器不渲染里面的链接，首屏更短；不需要额外的 CSS/JS
      · 右侧「展开 ▸ / 收起 ▾」用纯 CSS ::before/::after 跟着 [open] 变
    ⚠️ 只用 <a>/<details>/<summary>，不出任何按钮标签、不出任何图片
@@ -2203,7 +2203,7 @@ body.ro-mob-open { overflow: hidden; }
        · 收起时浏览器不渲染里面的格子，首屏更短
        · 默认三角用 list-style + ::-webkit-details-marker 去掉，
          换成右侧的纯 CSS 文字提示（展开 ▸ / 收起 ▾），随 [open] 变
-       · <summary> 不是 <button> → 页面不变量「<button 数 = 0」不受影响
+       · <summary> 不是按钮标签 → 页面不变量「按钮标签数 = 0」不受影响
    列数：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
    这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）。
    ============================================================ */
