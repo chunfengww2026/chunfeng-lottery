@@ -1,0 +1,24 @@
+# ============================================================
+#  仓库根的 .gitignore
+#
+#  【为什么需要它】云端（GitHub Actions）每一班跑完都会
+#    git add -A cloud/  →  commit  →  push 回仓库。
+#  以前 cloud/out/index.html（1.27 MB）/ football.html 也在提交范围里，
+#  等于【每跑一班就往仓库塞一个 1.27 MB 的网页】。
+#  定时改成「每 30 分钟一班」后一天 48 次，仓库会迅速膨胀到没法用。
+#
+#  【注意】部署用的是运行时生成的 site/ 目录（workflow 里从 cloud/out/ 拷过去），
+#  和这些文件在不在版本管理里【完全无关】；
+#  万一某次构建没产出页面，workflow 会从线上把当前那份拉回来兜底。
+# ============================================================
+
+# 构建产物的两个大页面（每次构建都会重新生成）
+cloud/out/index.html
+cloud/out/football.html
+
+# 抓取脚本的临时/退避/日志文件（每次构建都会变，没有版本价值）
+cloud/scripts/_*.log
+cloud/scripts/_*.json
+cloud/scripts/_draw-cache/
+cloud/scripts/_ocr-cache/
+cloud/scripts/分享包/
