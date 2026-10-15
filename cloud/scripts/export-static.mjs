@@ -129,13 +129,13 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS，
                      所以页面里不会出现原始链接文本（渲染时会做实体处理）。 */
                'articles-data.js',
-               /* 【晒票栏】晒票（图片）列表（build-xysp.mjs 每 30 分钟抓一次）。
-                  和文章参考一样：文件缺失只打印一行「缺少」，页面显示「本期暂无」，
-                  绝不能因为这个文件不在就让整页生成失败。
+               /* 【开机号 / 选号直播】数据（build-kjh.mjs 每天 2 点抓一次）。
+                  和上面两个一样：文件缺失只打印一行「缺少」，
+                  页面显示「暂无」，绝不能因为这个文件不在就让整页生成失败。
                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS ——
-                     图片是【外链】，页面里只有 <img src> / <a href>，
-                     所以晒票数据不会把页面撑大。 */
-               'xysp-data.js'];
+                     页面里只有链接标签，没有任何图片，
+                     所以这份数据（纯文字）不会产生新的图位。 */
+               'kjh-data.js'];
 
 for (const f of FILES) {
   const p = path.join(ROOT, f);
@@ -197,9 +197,9 @@ vm.runInContext(`
   /* 【文章参考】区块的数据（来自 articles-data.js，build-articles.mjs 生成）。
      没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
   globalThis.__articles = (typeof ARTICLES_DATA !== 'undefined') ? ARTICLES_DATA : null;
-  /* 【晒票栏】的数据（来自 xysp-data.js，build-xysp.mjs 生成）。
-     没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
-  globalThis.__xysp = (typeof XYSP_DATA !== 'undefined') ? XYSP_DATA : null;
+  /* 【开机号 / 选号直播】的数据（来自 kjh-data.js，build-kjh.mjs 每天 2 点生成）。
+     没有这个文件时是 null → 页面出「暂无」，不影响别的区块。 */
+  globalThis.__kjh = (typeof KJH_DATA !== 'undefined') ? KJH_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -215,8 +215,8 @@ const latestHeatmapSectionHtml = ctx.__latestHeatmapSectionHtml;
 const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
 /* 【文章参考】数据（articles-data.js；缺失时为 null） */
 const ARTICLES = ctx.__articles;
-/* 【晒票栏】数据（xysp-data.js；缺失时为 null） */
-const XYSP = ctx.__xysp;
+/* 【开机号 / 选号直播】数据（kjh-data.js；缺失时为 null） */
+const KJH = ctx.__kjh;
 
 /**
  * 热力图该不该出这张图
@@ -716,82 +716,177 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
    ------------------------------------------------------------
    用户原话：「这里添加一个晒票栏 / 直接给到网页他们想看什么点击什么
               https://www.yiqicai.com/xysp」
+   用户第二次改口：「晒票栏不要晒图片 可以分几个彩种晒票分列，
+                    然后每一个选项点进去就是对应的晒票」
+   ⇒ 所以这一块【不抓图片、不显示任何图片】，就是一个【按彩种分列的入口】：
+     8 个彩种格子，点哪个就新窗口打开那个彩种的晒票页。
+
    位置：紧跟在【推荐图目录】(.ro-imgtoc-wrap) 之后 —— 就是截图箭头处。
-   数据：xysp-data.js（build-xysp.mjs 每 30 分钟抓一次）
-   布局：窄屏 2 列；宽屏（容器最宽 820px）3 列 —— 再宽每张就挤了。
-   交互：整张卡片是一个 <a target="_blank" rel="noopener">，
-         点开就是这张票所在彩种的晒票列表页（源站【没有】单条晒票的详情页，
-         所以链接到该彩种的列表页，页面上就能看到这一条）。
-   ⚠️ 只用 <a>，不出任何按钮标签（页面不变量要求 button 数为 0）
-   ⚠️ 图片是【外链】https 缩略图（实测源站无 Referer 防盗链、
-      支持 imageMogr2/thumbnail 缩略参数），不下载、不内联 ——
-      所以这一块只增加十几 KB 的 HTML，页面体积几乎不变。
-   ⚠️ 页面可见文字里不出现来源字样：链接域名里的字母用 HTML 实体写
-      （复用文章参考那套 articleHref）；抓来的用户文字再过一遍 clean()，
-      万一源站文本里带了这些词也不会漏进来。
+   数据：不用任何数据文件 —— 8 个链接是【硬编码】的（用户在源站实测过，
+         每个彩种子页都是 HTTP 200 服务端渲染，链接稳定）。
+         ⇒ 没有抓取脚本、没有 xysp-data.js、不占任何网络请求。
+   布局：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
+   交互：① 整块【默认收起】，点标题那一行展开、再点收起
+          ② 每个彩种格子是一个 <a target="_blank" rel="noopener">
+   【为什么用 <details>/<summary>，不用 JS + <a>】
+     · 用户原话：「晒票栏可以收起来要自动点」
+     · 原生折叠：不写一行 JS —— 页面里那段实时渲染脚本万一挂了照样能收起/展开
+     · <summary> 不是 <button>，页面不变量「<button 数 = 0」不受影响
+     · 收起时浏览器不渲染里面的链接，首屏更短；不需要额外的 CSS/JS
+     · 右侧「展开 ▸ / 收起 ▾」用纯 CSS ::before/::after 跟着 [open] 变
+   ⚠️ 只用 <a>/<details>/<summary>，不出任何按钮标签、不出任何图片
+      ⇒ 本区块【不产生新的图位】，图位数量不变。
+   ⚠️ 页面可见文字里不出现来源字样，所以链接域名用 articleHref()
+      （复用文章参考那套）把域名里的字母写成 HTML 实体 ——
+      浏览器解析属性值时会解码回原字母，点击照样打开正确的网址。
    ============================================================ */
 
-/** 可见文字里不允许出现的来源字样（用户要求全删） */
-const BANNED_WORDS = /数据来源|来自网络|全网公开晒票|仅为统计展示|yiqicai|一起彩/gi;
-
-/** 抓来的用户文字清一遍，保证页面可见文字里没有来源字样 */
-function clean(s) {
-  return String(s == null ? '' : s).replace(BANNED_WORDS, '').replace(/\s+/g, ' ').trim();
-}
+/* 8 个彩种 + 各自的晒票页（用户在源站 /xysp 页面里实测抓到的真实链接） */
+const XYSP_GAMES = [
+  { name: '双色球', url: 'https://www.yiqicai.com/xysp/ssqxysp' },
+  { name: '大乐透', url: 'https://www.yiqicai.com/xysp/dltxysp' },
+  { name: '福彩3D', url: 'https://www.yiqicai.com/xysp/fc3dxysp' },
+  { name: '快乐8',  url: 'https://www.yiqicai.com/xysp/klbxysp' },
+  { name: '排列3',  url: 'https://www.yiqicai.com/xysp/pl3xysp' },
+  { name: '排列5',  url: 'https://www.yiqicai.com/xysp/pl5xysp' },
+  { name: '七星彩', url: 'https://www.yiqicai.com/xysp/xqxcxysp' },
+  { name: '七乐彩', url: 'https://www.yiqicai.com/xysp/qlcxysp' }
+];
 
 function buildXyspHtml() {
-  const list = (XYSP && Array.isArray(XYSP.items)) ? XYSP.items : [];
-  const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
+  const cells = XYSP_GAMES.map((g) =>
+    `<a class="ro-xysp-cell" href="${articleHref(g.url)}"` +
+    ` target="_blank" rel="noopener">${escape(g.name)}</a>`
+  ).join('');
 
-  const head =
-    `<div class="ro-xysp-head">` +
+  /* 标题那一行 = <summary>（可点、可键盘操作）。
+     右侧提示是空 <span>，文字由 CSS 按 [open] 切换 —— 不用 JS。
+     默认【收起】：<details> 不带 open 属性。 */
+  return `<details class="ro-xysp" id="ro-xysp">` +
+    `<summary class="ro-xysp-head">` +
     `<h2 class="ro-xysp-h2">晒票栏</h2>` +
-    `<div class="ro-xysp-sub">每 30 分钟自动更新` +
-    (updated ? ` · 更新于 ${escape(clean(updated))}` : '') +
-    (list.length ? ` · 共 ${list.length} 张` : '') +
-    `</div>` +
-    `</div>`;
-
-  if (!list.length) {
-    return `<section class="ro-xysp" id="ro-xysp">` + head +
-      `<div class="ro-xysp-empty">本期暂无</div>` +
-      `</section>`;
-  }
-
-  const cards = list.map((it) => {
-    const game = clean(it.gameName) || '晒票';
-    const txt = clean(it.title) || (game + '晒票');
-    const who = clean(it.author);
-    const when = clean(it.time);
-    const img = String(it.img == null ? '' : it.img);
-    /* 图片地址异常就不出这个 <img>，避免破图 */
-    const thumb = /^https:\/\//i.test(img)
-      ? `<img class="ro-xysp-img" src="${escapeAttr(img)}" alt="${escapeAttr(game + ' ' + txt)}"` +
-        ` loading="lazy" decoding="async"` +
-        ` onerror="this.onerror=null;this.src=this.src.split('?')[0]">`
-      : '';
-    const meta = [who, when].filter(Boolean).join(' · ');
-    return `<a class="ro-xysp-card" href="${articleHref(it.url)}"` +
-      ` target="_blank" rel="noopener">` +
-      `<div class="ro-xysp-thumb">${thumb}</div>` +
-      `<div class="ro-xysp-info">` +
-      `<div class="ro-xysp-game">${escape(game)}</div>` +
-      `<div class="ro-xysp-txt">${escape(txt)}</div>` +
-      (meta ? `<div class="ro-xysp-meta">${escape(meta)}</div>` : '') +
-      `</div>` +
-      `</a>`;
-  }).join('');
-
-  return `<section class="ro-xysp" id="ro-xysp">` + head +
-    `<div class="ro-xysp-grid">${cards}</div>` +
-    `</section>`;
+    `<div class="ro-xysp-sub">点彩种看晒票</div>` +
+    `<span class="ro-xysp-arrow" aria-hidden="true"></span>` +
+    `</summary>` +
+    `<div class="ro-xysp-grid">${cells}</div>` +
+    `</details>`;
 }
 
 const xyspHtml = buildXyspHtml();
-console.log(`  · 晒票栏：${(XYSP && Array.isArray(XYSP.items)) ? XYSP.items.length : 0} 张` +
-  (((XYSP && Array.isArray(XYSP.items)) && XYSP.items.length)
-    ? '（' + [...new Set(XYSP.items.map((i) => i.gameName))].join('/') + '）'
-    : '（数据缺失 → 页面显示「本期暂无」）'));
+console.log(`  · 晒票栏：${XYSP_GAMES.length} 个彩种入口（硬编码，不抓取、不含图片）：` +
+  XYSP_GAMES.map((g) => g.name).join('/'));
+
+/* ============================================================
+   【开机号 / 选号直播】两个工具栏入口 + 两个可展开区块
+   ------------------------------------------------------------
+   用户原话：「新增两个工具栏。一个是开机号（…/kjh）。
+             一个是选号直播（…/live）。
+             开机号点进去只是实时的开机号（每天2点抓取更新就好了）」
+   位置：用户截图红框 =「推荐图目录」(.ro-imgtoc-wrap) 之后、「最新开奖」之前。
+
+   交互（选的是方案 A：锚点 + :target 展开，样式见 @supports 那一段）：
+     · 两个入口都是 <a>（页面不变量要求没有按钮标签），href 指向下面两个区块的 id
+     · 区块平时 display:none，被 :target 命中才显示 —— 点一下当场在入口下面展开，
+       并平滑滚过去（html { scroll-behavior: smooth } 本来就有）。
+       好处：【不点的时候页面完全不变】，「最新开奖」不会被挤下去。
+     · 为什么不选方案 B（全屏层）：全屏层要与页尾那套全屏查看逻辑抢层级，
+       而且用户刚删掉的旧放大器类名就叫 lightbox ——
+       锚点这套更小、更稳、零 JS、零层级风险。
+   数据：kjh-data.js（build-kjh.mjs 每天 2 点抓一次，跟着 daily-update.mjs）。
+   两个区块都是纯文字（没有图片）→ 图位数量（data-image）不变。
+   ⚠️ 页面上【不出现来源字样】：链接域名里的字母用 HTML 实体写
+      （复用文章参考那个 articleHref，href 里有域名、页面上看不到）。
+   ============================================================ */
+const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
+
+/* 两个入口按钮条：并排两个格子 */
+function buildToolsHtml() {
+  return `<div class="ro-tools">` +
+    `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
+    `<b>开机号</b><em>各彩种实时开机号</em></a>` +
+    `<a class="ro-tool ro-tool-live" href="#ro-live">` +
+    `<b>选号直播</b><em>直播与回放</em></a>` +
+    `</div>`;
+}
+
+/* 开机号区块：每个彩种一行（彩种名 + 期号 + 号码 + 和值等 + 开奖时间） */
+function buildKjhHtml() {
+  const games = (KJH && KJH.games) ? KJH.games : {};
+  const updated = (KJH && KJH.updated) ? String(KJH.updated) : '';
+  const keys = KJH_ORDER.filter((k) => games[k]);
+
+  const rows = keys.map((k) => {
+    const g = games[k] || {};
+    const nums = Array.isArray(g.nums) ? g.nums : [];
+    const blue = Array.isArray(g.blue) ? g.blue : [];
+    /* 红/蓝分开渲染（和「最新开奖」一样：蓝球用蓝底） */
+    const balls = nums.map((n) => `<span class="ro-kjh-ball">${escape(n)}</span>`).join('') +
+      blue.map((n) => `<span class="ro-kjh-ball is-blue">${escape(n)}</span>`).join('');
+    const extra = (Array.isArray(g.extra) && g.extra.length)
+      ? `<div class="ro-kjh-extra">${g.extra.map((t) => escape(t)).join(' · ')}</div>`
+      : '';
+    return `<div class="ro-kjh-item">` +
+      `<div class="ro-kjh-top">` +
+      `<b class="ro-kjh-name">${escape(g.name || k)}</b>` +
+      (g.issue ? `<span class="ro-kjh-issue">第${escape(g.issue)}期</span>` : '') +
+      `</div>` +
+      `<div class="ro-kjh-nums">` +
+      (balls || `<span class="ro-kjh-none">暂无</span>`) +
+      `</div>` + extra +
+      (g.time ? `<div class="ro-kjh-time">开奖时间 ${escape(g.time)}</div>` : '') +
+      `</div>`;
+  }).join('');
+
+  return `<section class="ro-panel ro-kjh-panel" id="ro-kjh">` +
+    `<div class="ro-panel-head">` +
+    `<h2 class="ro-panel-title">开机号</h2>` +
+    `<div class="ro-panel-sub">每天 2:00 自动更新` +
+    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    `</div>` +
+    (rows ? `<div class="ro-kjh-grid">${rows}</div>` : `<div class="ro-panel-none">暂无</div>`) +
+    `</section>`;
+}
+
+/* 选号直播区块：抓得到的是【回放列表】+【当前开播状态】，
+   真正的直播画面在站点自己的播放器里，所以额外给一个「打开直播页」外链。 */
+function buildLiveHtml() {
+  const L = (KJH && KJH.live) ? KJH.live : null;
+  const items = (L && Array.isArray(L.items)) ? L.items : [];
+  const updated = (KJH && KJH.updated) ? String(KJH.updated) : '';
+  const status = L ? String(L.statusText || (L.onAir ? '正在直播' : '当前暂无直播')) : '当前暂无直播';
+  const home = (L && L.home) ? String(L.home) : 'https://www.yiqicai.com/live';
+
+  const list = items.map((it) => {
+    const meta = [];
+    if (it.name) meta.push(`<span class="ro-live-name">${escape(it.name)}</span>`);
+    if (it.game) meta.push(`<span class="ro-live-game">${escape(it.game)}</span>`);
+    if (it.see) meta.push(`<span class="ro-live-see">${escape(it.see)}</span>`);
+    return `<li><a class="ro-live-link" href="${articleHref(it.url)}" ` +
+      `target="_blank" rel="noopener">` +
+      `<span class="ro-live-txt">${escape(it.text || it.name || '直播回放')}</span>` +
+      (meta.length ? `<span class="ro-live-meta">${meta.join('')}</span>` : '') +
+      `</a></li>`;
+  }).join('');
+
+  return `<section class="ro-panel ro-live-panel" id="ro-live">` +
+    `<div class="ro-panel-head">` +
+    `<h2 class="ro-panel-title">选号直播</h2>` +
+    `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
+    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    `</div>` +
+    `<a class="ro-live-more" href="${articleHref(home)}" target="_blank" rel="noopener">` +
+    `打开直播页</a>` +
+    (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
+    `</section>`;
+}
+
+const toolsHtml = buildToolsHtml();
+const kjhHtml = buildKjhHtml();
+const liveHtml = buildLiveHtml();
+console.log(`  · 开机号：${(KJH && KJH.games) ? Object.keys(KJH.games).length : 0} 个彩种` +
+  (((KJH && KJH.games) && Object.keys(KJH.games).length) ? '' : '（数据缺失 → 页面显示「暂无」）'));
+console.log(`  · 选号直播：回放 ${(KJH && KJH.live && Array.isArray(KJH.live.items)) ? KJH.live.items.length : 0} 条` +
+  `（开播状态：${(KJH && KJH.live && KJH.live.statusText) ? KJH.live.statusText : '当前暂无直播'}）`);
 
 /* ============================================================
    【已移除】竞彩（体彩在售比赛）段落
@@ -2099,11 +2194,17 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    位置：紧跟【推荐图目录】(.ro-imgtoc-wrap) 之后。
    配色沿用页面现有暗色那套（#12161d / #161a21 / #262d3a / #e8eaed）。
-   列数：窄屏 2 列；>=620px 3 列（.ro-wrap 最宽 820px，3 列每张约 250px，
-        4 列就只有 195px 太挤了，所以宽屏定 3 列）。
-   缩略图：票图本身很长（实测 1080x2412），整张竖向摆会把页面拉得极长，
-        所以统一裁成 3:4 的预览框（object-fit: cover + 顶部对齐，
-        票面最上面那块信息保留），点开卡片看完整列表页。
+   内容：用户第二次改口「不要晒图片，分几个彩种晒票分列，
+        每一个选项点进去就是对应的晒票」⇒ 就是 8 个彩种格子，
+        纯文字 + 链接，【一块图片都没有】。
+   【默认收起】用户原话：「晒票栏可以收起来要自动点」
+     用原生 <details>/<summary>，一行 JS 都不写：
+       · <summary> = 标题那一行，点一下展开、再点收起（原生行为）
+       · 收起时浏览器不渲染里面的格子，首屏更短
+       · 默认三角用 list-style + ::-webkit-details-marker 去掉，
+         换成右侧的纯 CSS 文字提示（展开 ▸ / 收起 ▾），随 [open] 变
+       · <summary> 不是 <button> → 页面不变量「<button 数 = 0」不受影响
+   列数：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
    这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）。
    ============================================================ */
 .ro-xysp {
@@ -2113,13 +2214,22 @@ body.ro-mob-open { overflow: hidden; }
   padding: 15px 13px 13px;
   margin: 0 0 26px;
 }
+/* 标题那一行就是 <summary>：整条都能点 */
 .ro-xysp-head {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px 10px;
-  margin-bottom: 12px;
+  cursor: pointer;
+  list-style: none;                 /* 去掉默认三角（标准写法） */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
+.ro-xysp-head::-webkit-details-marker { display: none; }   /* 去掉默认三角（WebKit） */
+.ro-xysp-head:hover .ro-xysp-h2, .ro-xysp-head:active .ro-xysp-h2 { color: #fff; }
+.ro-xysp-head:focus-visible { outline: 2px solid #3a5a9c; outline-offset: 2px; border-radius: 6px; }
+
 .ro-xysp-h2 {
   font-size: 17px;
   font-weight: 700;
@@ -2127,74 +2237,192 @@ body.ro-mob-open { overflow: hidden; }
   letter-spacing: 2px;
 }
 .ro-xysp-sub { font-size: 11.5px; color: #6b7488; }
-.ro-xysp-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
 
+/* 右侧提示：文字 + 箭头都由 CSS 按 [open] 切换，不需要 JS */
+.ro-xysp-arrow {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #8fb8ff;
+  white-space: nowrap;
+}
+.ro-xysp-arrow::before { content: '展开'; }
+.ro-xysp-arrow::after { content: ' ▸'; }
+.ro-xysp[open] .ro-xysp-arrow::before { content: '收起'; }
+.ro-xysp[open] .ro-xysp-arrow::after { content: ' ▾'; }
+
+/* 彩种格子：窄屏 2 列 × 4 行 */
 .ro-xysp-grid {
   display: grid;
-  gap: 10px;
+  gap: 9px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;                 /* 收起时不占这块空隙 */
 }
 @media (min-width: 620px) {
-  .ro-xysp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ro-xysp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-.ro-xysp-card {
-  display: block;
-  min-width: 0;
+.ro-xysp-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 6px;
+  box-sizing: border-box;
   background: #161a21;
-  border: 1px solid #262d3a;
-  border-radius: 11px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  -webkit-tap-highlight-color: transparent;
-  transition: border-color .15s, transform .1s;
-}
-.ro-xysp-card:hover, .ro-xysp-card:active { border-color: #3a465c; transform: translateY(-1px); }
-
-.ro-xysp-thumb {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  background: #0e1116;
-  overflow: hidden;
-}
-.ro-xysp-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
-.ro-xysp-info { padding: 8px 9px 9px; }
-.ro-xysp-game {
-  display: inline-block;
-  font-size: 10.5px;
+  border: 1px solid #2a323f;
+  border-radius: 10px;
+  color: #c8cfda;
+  font-size: 13.5px;
   font-weight: 700;
-  line-height: 1.5;
-  color: #ffd9db;
-  background: #4a1f22;
-  border: 1px solid #6d2b30;
-  border-radius: 6px;
-  padding: 0 6px;
-  margin-bottom: 5px;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .15s, border-color .15s, color .15s, transform .1s;
 }
-.ro-xysp-txt {
+.ro-xysp-cell:hover, .ro-xysp-cell:active {
+  background: #1c2530;
+  border-color: #3d5a86;
+  color: #cfe0ff;
+  transform: translateY(-1px);
+}
+/* ============================================================
+   【开机号 / 选号直播】工具栏入口 + 两个可展开区块
+   ------------------------------------------------------------
+   平时隐藏（:target 命中才显示），不点就跟没有一样 ——
+   「最新开奖」的位置一点都不动，也不占版面。
+   老浏览器（不认识 @supports selector()）会跳过整段 → 两个区块直接显示，
+   入口链接照样能跳到它们，功能不丢。
+   ============================================================ */
+.ro-tools { display: flex; gap: 10px; margin: 0 0 22px; }
+.ro-tool {
+  flex: 1 1 0;
+  min-width: 0;
+  display: block;
+  padding: 11px 12px;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #2a323f;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1b212b, #161a21);
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-tool b {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8eaed;
+  letter-spacing: 1px;
+}
+.ro-tool em {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 10.5px;
+  color: #7a8394;
+}
+.ro-tool:hover, .ro-tool:active { border-color: #3a465c; }
+.ro-tool-kjh b { color: #ffd479; }
+.ro-tool-live b { color: #8fb8ff; }
+
+.ro-panel {
+  background: #161a21;
+  border: 1px solid #2a323f;
+  border-radius: 12px;
+  padding: 14px 14px 12px;
+  margin: 0 0 22px;
+}
+.ro-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 10px;
+}
+.ro-panel-title { font-size: 16px; font-weight: 700; color: #e8eaed; letter-spacing: 1px; }
+.ro-panel-sub { font-size: 11px; color: #6b7488; }
+.ro-panel-none { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
+
+/* ---- 开机号 ---- */
+.ro-kjh-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 620px) {
+  .ro-kjh-grid { grid-template-columns: 1fr; }
+}
+.ro-kjh-item {
+  background: #11151b;
+  border: 1px solid #232b37;
+  border-radius: 10px;
+  padding: 9px 10px 8px;
+}
+.ro-kjh-top { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.ro-kjh-name { font-size: 13.5px; font-weight: 700; color: #e8eaed; }
+.ro-kjh-issue { font-size: 11px; color: #7a8394; }
+.ro-kjh-nums { display: flex; flex-wrap: wrap; gap: 5px; }
+/* 号码小球：和「最新开奖」一个口径，红球红、蓝球蓝（数字彩没有蓝球） */
+.ro-kjh-ball {
+  min-width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border-radius: 50%;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #f0575c, #d32f34);
+}
+.ro-kjh-ball.is-blue { background: linear-gradient(180deg, #4a83f5, #2158c4); }
+.ro-kjh-extra { margin-top: 6px; font-size: 10.5px; color: #7a8394; }
+.ro-kjh-time { margin-top: 3px; font-size: 10.5px; color: #5f6878; }
+.ro-kjh-none { font-size: 12px; color: #6b7488; }
+
+/* ---- 选号直播 ---- */
+.ro-live-more {
+  display: inline-block;
+  padding: 5px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #2f3a4c;
+  border-radius: 999px;
   font-size: 12px;
-  line-height: 1.4;
+  color: #8fb8ff;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-live-more:hover, .ro-live-more:active { border-color: #3a465c; color: #bcd4ff; }
+.ro-live-list { list-style: none; margin: 0; padding: 0; }
+.ro-live-list li { border-top: 1px solid #1e2430; }
+.ro-live-list li:first-child { border-top: none; }
+.ro-live-link {
+  display: block;
+  padding: 8px 0;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-live-txt {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.45;
   color: #c8cfda;
   word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
-.ro-xysp-meta {
-  margin-top: 4px;
-  font-size: 10.5px;
-  color: #5f6878;
-  word-break: break-word;
+.ro-live-link:hover .ro-live-txt, .ro-live-link:active .ro-live-txt { color: #bcd4ff; }
+.ro-live-meta { display: block; margin-top: 3px; }
+.ro-live-name { font-size: 10.5px; color: #6b7488; margin-right: 8px; }
+.ro-live-game { font-size: 10.5px; color: #7f8ba0; margin-right: 8px; }
+.ro-live-see { font-size: 10.5px; color: #5f6878; }
+
+/* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
+@supports selector(:target) {
+  .ro-panel { display: none; }
+  .ro-panel:target { display: block; }
 }
 </style>
 </head>
@@ -2216,9 +2444,45 @@ body.ro-mob-open { overflow: hidden; }
   ${tocHtml}
 
   <!-- ============================================================
-       【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处），
-       也就是紧跟在 .ro-imgtoc-wrap 之后。
-       图片是外链（懒加载），不产生新的图位 → data-image 数量不变。 -->
+       【开机号 / 选号直播】两个工具栏入口（用户截图红框处：推荐图目录下面）
+       + 它们点开后的两个区块（平时不显示，:target 命中才展开）。
+       两个入口都是 <a>，href 指向下面两个区块的 id。
+       纯文字区块，没有图片 → 图位数量（data-image）不变。 -->
+  ${toolsHtml}
+
+  ${kjhHtml}
+
+  ${liveHtml}
+
+  <!-- 【开机号 / 选号直播】点入口后把区块滚到视口顶部。
+       为什么要有这几行：区块平时是 display:none，靠 CSS :target 展开；
+       而浏览器「跳到锚点」这一步，在元素刚从 display:none 变显示的那一刻
+       并不总是执行（实测无头 Chrome 时灵时不灵）—— 补一次 scrollIntoView 才稳。
+       显示本身仍然只靠 CSS：这段脚本挂了/被禁，两个区块照样能展开，功能不丢。 -->
+  <script>
+  (function () {
+    try {
+      var OK = { '#ro-kjh': 1, '#ro-live': 1 };
+      function go() {
+        var id = String(location.hash || '');
+        if (!OK[id]) return;
+        var el = document.getElementById(id.slice(1));
+        if (!el) return;
+        try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        catch (e) { try { el.scrollIntoView(true); } catch (e2) { /* 忽略 */ } }
+      }
+      window.addEventListener('hashchange', function () { setTimeout(go, 30); });
+      if (location.hash) window.addEventListener('load', function () { setTimeout(go, 60); });
+    } catch (e) { /* 忽略：区块的显示不依赖这段 */ }
+  })();
+  </script>
+
+  <!-- ============================================================
+       【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处）。
+       （同处目录下方的还有「开机号 / 选号直播」那两个入口，由另一位
+        负责人加的，排在前面 —— 这里不去动它们的顺序。）
+       这一块【没有任何图片】：只有 8 个彩种链接 + 原生折叠，
+       所以图位数量不变。 -->
   ${xyspHtml}
 
   ${latestSecHtml}
