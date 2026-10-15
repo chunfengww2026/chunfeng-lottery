@@ -82,6 +82,7 @@ const VOID_TAGS = new Set(['img', 'br', 'hr', 'input', 'meta', 'link']);
 class MNode {
   constructor(tag) {
     this.tagName = String(tag).toLowerCase();
+    this.nodeType = this.tagName === '#text' ? 3 : 1;
     this.attrs = {};
     this.children = [];
     this.parentNode = null;
@@ -955,6 +956,67 @@ await flush();
 D.win.dispatch('blur');
 console.log(`  D) https + IP 查询全失败 → is-owner=${isOwnerCls(D)} locked=${isLocked(D)}`);
 ok(!isOwnerCls(D) && isLocked(D), 'IP 查询全失败 → 安全降级：仍然按「别人」处理（blur 会 locked）');
+
+/* ============================================================
+   16) 保存权限：三处允许保存 / 其余一律禁止
+   ============================================================ */
+H('16. 保存权限：晒票 + GPT模型摇号（+ 以后加 class 的「模拟计算」）放行，资料一律拦');
+ok(/class="ro-xysp-pics allow-save"/.test(html), '① 晒票栏的图片区带 allow-save（允许保存）');
+ok(/class="ro-aipick-body allow-save"/.test(html), '② GPT模型摇号面板内容区带 allow-save（允许保存）');
+ok(/classList\.contains\('allow-save'\)/.test(antiJs), '③ 白名单是 class 驱动的：以后新加的区块带 class="allow-save" 就自动放行');
+ok(/function allowedTarget\(e\)/.test(antiJs), '防截图脚本里有白名单判断 allowedTarget');
+ok(/'contextmenu', function \(e\) \{ if \(!allowedTarget\(e\)\) e\.preventDefault\(\); \}/.test(antiJs), 'contextmenu 走白名单');
+ok(/'dragstart', function \(e\) \{ if \(!allowedTarget\(e\)\) e\.preventDefault\(\); \}/.test(antiJs), 'dragstart 走白名单');
+ok(/'copy', function \(e\) \{ if \(!allowedTarget\(e\)\) e\.preventDefault\(\); \}/.test(antiJs), 'copy 走白名单');
+ok(/'cut', function \(e\) \{ if \(!allowedTarget\(e\)\) e\.preventDefault\(\); \}/.test(antiJs), 'cut 走白名单');
+ok(/'selectstart', function \(e\) \{ if \(!allowedTarget\(e\)\) e\.preventDefault\(\); \}/.test(antiJs), 'selectstart 走白名单（本次新增）');
+ok(/if \(allowSave\) view\.setAttribute\('data-allow', '1'\)/.test(html), '全屏层按来源打标记：openUrl(allowSave=true) → data-allow=1');
+ok(/view\.setAttribute\('data-allow', '0'\);/.test(html), '推荐图走 open() → data-allow=0（拦）');
+ok(/api\.openUrl\(src, cap \? String\(cap\.textContent \|\| ''\) : '', true\)/.test(html), '晒票点图放大：传了 allowSave = true');
+ok(/#article \.ro-imagewrap canvas, #article-rest \.ro-imagewrap canvas,[\s\S]{0,260}?-webkit-touch-callout: none;/.test(html),
+  '资料图 canvas：关了 iOS 长按菜单（-webkit-touch-callout: none）+ 禁拖拽');
+ok(!/ro-imagewrap canvas \{[\s\S]{0,60}?pointer-events: none/.test(html),
+  '【没有】给 canvas 设 pointer-events:none（点图放大 / 点格子开全屏不受影响）');
+
+/* 用迷你 DOM 造事件目标，真跑一遍白名单判断 */
+const vAllow = new MNode('div');
+vAllow.className = 'ro-mob-view';
+vAllow.setAttribute('data-allow', '1');
+const imgAllow = new MNode('img');
+imgAllow.className = 'r-image';
+vAllow.appendChild(imgAllow);
+const vDeny = new MNode('div');
+vDeny.className = 'ro-mob-view';
+vDeny.setAttribute('data-allow', '0');
+const cvDeny = new MNode('canvas');
+cvDeny.className = 'r-image';
+vDeny.appendChild(cvDeny);
+const boxAllow = new MNode('div');
+boxAllow.className = 'allow-save';
+const spanAllow = new MNode('span');
+boxAllow.appendChild(spanAllow);
+const artText = new MNode('p');
+
+const P = antiSandbox({ protocol: 'https:', fetch: () => Promise.reject(new Error('offline')) });
+await flush();
+const fire = (type, target) => {
+  let prevented = 0;
+  P.doc.dispatch(type, { target, preventDefault() { prevented++; } });
+  return prevented;
+};
+const r1 = fire('contextmenu', imgAllow);       /* 晒票/摇号层内 */
+const r2 = fire('contextmenu', cvDeny);         /* 推荐图层内 */
+const r3 = fire('contextmenu', spanAllow);      /* 面板内 */
+const r4 = fire('contextmenu', artText);        /* 文章正文 */
+console.log(`  白名单实测（0 = 放行、1 = 拦下）：晒票/摇号层=${r1} · 推荐图层=${r2} · 面板内=${r3} · 文章正文=${r4}`);
+ok(r1 === 0 && r3 === 0, '晒票 / 摇号面板里：右键不被拦（能另存）');
+ok(r2 === 1 && r4 === 1, '推荐图全屏层 / 文章正文：右键被拦（不能另存）');
+const r5 = fire('dragstart', artText), r6 = fire('copy', artText), r7 = fire('cut', artText), r8 = fire('selectstart', artText);
+console.log(`  文章正文：拖拽=${r5} 复制=${r6} 剪切=${r7} 选中=${r8}`);
+ok(r5 === 1 && r6 === 1 && r7 === 1 && r8 === 1, '文章正文：拖拽 / 复制 / 剪切 / 选中 全部拦下');
+const r9 = fire('dragstart', imgAllow), r10 = fire('copy', imgAllow);
+console.log(`  晒票层内：拖拽=${r9} 复制=${r10}`);
+ok(r9 === 0 && r10 === 0, '晒票层内：拖拽 / 复制 放行');
 
 /* ============================================================
    结论
