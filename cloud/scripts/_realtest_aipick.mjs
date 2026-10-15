@@ -513,6 +513,12 @@ ok(/\.ro-aipick-arrow\s*\{[^}]*margin:\s*4px auto 0\s*!important/.test(html),
   '.ro-aipick-arrow（点击查看 ▸）：margin 居中带 !important');
 ok(/\.ro-aipick\[open\] \.ro-aipick-arrow::before \{ content: '点击收起'/.test(html),
   '「点击查看 / 点击收起」的切换逻辑没改（还是纯 CSS 按 [open] 出）');
+const subText = (headParts[1] || '').replace(/^div:\s*/, '');
+console.log(`  副标题完整可见文字：${subText}`);
+ok(subText.indexOf('GPT模型') >= 0, '副标题里能搜到「GPT模型」');
+ok(subText.indexOf('ChatGPT') < 0 && block.indexOf('ChatGPT') < 0, '整块里没有「ChatGPT」（用户确认用短名，避免商标风险）');
+ok(block.indexOf('仅供娱乐') >= 0 && block.indexOf('不构成购彩建议') >= 0,
+  '合规声明仍然在（面板底部：仅供娱乐 / 不构成购彩建议）');
 
 /* ============================================================
    结论
