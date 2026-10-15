@@ -3,9 +3,9 @@ const FOOTBALL_DATA = {
  "updated": "2026-10-16 06:58",
  "stat": {
   "upcoming": 14,
-  "live": 5,
+  "live": 6,
   "finished": 41,
-  "total": 60,
+  "total": 61,
   "settled": true,
   "hit": 21,
   "miss": 20,
@@ -968,6 +968,44 @@ const FOOTBALL_DATA = {
   ],
   "live": [
    {
+    "gid": 582128,
+    "kind": "live",
+    "league": {
+     "name": "萨尔后备",
+     "color": "3300BB"
+    },
+    "time": "2026-10-16 05:00:00",
+    "minute": 92,
+    "home": {
+     "name": "路斯天使(後備)",
+     "score": 1,
+     "red": 0,
+     "rank": 0
+    },
+    "away": {
+     "name": "因卡阿魯巴(後備)",
+     "score": 1,
+     "red": 0,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": null,
+      "live": null
+     },
+     "overunder": {
+      "open": null,
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
     "gid": 582111,
     "kind": "live",
     "league": {
@@ -975,7 +1013,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "科万英佩尔",
      "score": 2,
@@ -992,16 +1030,16 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.38",
-       "away": 0.42
+       "line": "1.56",
+       "away": 0.34
       },
       "live": null
      },
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 2,
-       "under": 0.2
+       "over": 1.96,
+       "under": 0.21
       },
       "live": null
      },
@@ -1050,16 +1088,16 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "1.5",
-       "over": 0.92,
-       "under": 0.84
+       "over": 0.99,
+       "under": 0.77
       },
       "live": null
      },
      "europe": {
       "open": {
        "home": 1.68,
-       "draw": 5.5,
-       "away": 2.68
+       "draw": 5.7,
+       "away": 2.63
       },
       "live": null
      }
@@ -1067,14 +1105,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 51.8,
+     "confidence": 51.7,
      "prob": {
-      "home": 51.8,
-      "draw": 15.8,
-      "away": 32.4
+      "home": 51.7,
+      "draw": 15.2,
+      "away": 33
      },
      "clear": true,
-     "margin": 15
+     "margin": 15.1
     },
     "result": {
      "actual": "draw",
@@ -1223,7 +1261,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 43,
+    "minute": 44,
     "home": {
      "name": "利昂内斯",
      "score": 0,
@@ -1248,39 +1286,39 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "1.25",
-       "over": 1.02,
-       "under": 0.78
+       "over": 1,
+       "under": 0.8
       },
       "live": {
        "line": "0.5",
-       "over": 3.33,
-       "under": 0.1
+       "over": 3.12,
+       "under": 0.12
       }
      },
      "europe": {
       "open": {
        "home": 3.05,
-       "draw": 2.82,
-       "away": 2.29
+       "draw": 2.8,
+       "away": 2.31
       },
       "live": {
-       "home": 10.5,
-       "draw": 10,
-       "away": 1.08
+       "home": 9.6,
+       "draw": 9.2,
+       "away": 1.1
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 82.6,
+     "confidence": 81,
      "prob": {
-      "home": 8.5,
-      "draw": 8.9,
-      "away": 82.6
+      "home": 9.3,
+      "draw": 9.7,
+      "away": 81
      },
      "clear": true,
-     "margin": 12.1
+     "margin": 12.2
     },
     "result": {
      "actual": "draw",
