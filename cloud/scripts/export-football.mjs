@@ -1438,7 +1438,7 @@ ${nav}
     });
     /* 键盘可访问：role 已是 button，回车 / 空格也能摇 */
     elRand.addEventListener('keydown', function (e) {
-      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      var key = e ? (e.key || e.code || '') : '';
       if (key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 13 || key === 32) {
         if (e.preventDefault) e.preventDefault();
         gptRandom();
@@ -1569,7 +1569,8 @@ ${nav}
 
     /* 手机返回键也能关：进图时压一个 history 状态（没有 history 就跳过） */
     try {
-      if (typeof history !== 'undefined' && history && history.pushState) {
+      /* 没有 history 或不让 push（file: 等）→ ReferenceError / 抛错都被这里兜住 */
+      if (history && history.pushState) {
         history.pushState({ calcShot: 1 }, '');
         shotHist = true;
       }
@@ -1598,7 +1599,7 @@ ${nav}
       openShot();
     });
     elShotBtn.addEventListener('keydown', function (e) {
-      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      var key = e ? (e.key || e.code || '') : '';
       if (key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 13 || key === 32) {
         if (e.preventDefault) e.preventDefault();
         openShot();
@@ -1620,7 +1621,7 @@ ${nav}
   }
   if (document.addEventListener) {
     document.addEventListener('keydown', function (e) {
-      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      var key = e ? (e.key || e.code || '') : '';
       if (key === 'Escape' || key === 'Esc' || key === 27) closeShot();
     });
   }
@@ -1683,7 +1684,7 @@ ${nav}
       var s = IP_SOURCES[i++];
       return new Promise(function (resolve) {
         var ctl = null, t = null;
-        try { if (typeof AbortController !== 'undefined') ctl = new AbortController(); } catch (e) { ctl = null; }
+        try { ctl = new AbortController(); } catch (e) { ctl = null; }
         if (ctl && ctl.signal) t = setTimeout(function () { try { ctl.abort(); } catch (e) {} }, IP_TIME_OUT);
         var opt = { cache: 'no-store' };
         if (ctl) opt.signal = ctl.signal;
@@ -1711,7 +1712,8 @@ ${nav}
   /* ---------- ② owner 判定：file: 协议优先，其次公网 IP ---------- */
   function isOwner() {
     try {
-      if (typeof location !== 'undefined' && location && location.protocol === 'file:') {
+      /* 读不到 location（比如沙箱里）→ 抛错被这里兜住，当「不是 file:」处理 */
+      if (location && location.protocol === 'file:') {
         return Promise.resolve(true);                  /* 本机 App 打开 → 一定是自己 */
       }
     } catch (e) { /* 读不到协议 → 当网页处理 */ }
@@ -1739,7 +1741,7 @@ ${nav}
   /* 清空剪贴板（能清就清，清不了就算了） */
   function clearClip() {
     try {
-      if (typeof navigator !== 'undefined' && navigator && navigator.clipboard &&
+      if (navigator && navigator.clipboard &&
           navigator.clipboard.writeText) {
         var p = navigator.clipboard.writeText('');
         if (p && p.catch) p.catch(function () {});
@@ -1761,8 +1763,8 @@ ${nav}
 
   function keyOf(e) {
     if (!e) return '';
-    if (e.key !== undefined && e.key !== null && e.key !== '') return String(e.key);
-    if (e.code !== undefined && e.code !== null) return String(e.code);
+    if (e.key) return String(e.key);
+    if (e.code) return String(e.code);
     return '';
   }
   function isShotKey(e, k) {
