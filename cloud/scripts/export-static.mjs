@@ -2349,6 +2349,32 @@ body.ro-mob-open { overflow: hidden; }
 /* 晒票栏右侧那个「展开 ▸」在纵向布局里要自己居中 */
 .ro-xysp-arrow { margin: 4px auto 0 !important; }
 
+/* __LATEST_CENTER__ 「最新开奖」标题也要居中。
+   上一次我写的是 .hit-embed .ro-gamehead —— 但实际结构是
+   <section class="ro-game" id="ro-latest"><div class="ro-gamehead">，
+   【没有 .hit-embed 父级】，所以没匹配上。
+   这里改成 #ro-latest .ro-gamehead，并把裸 .ro-gamehead 也带上兜底。 */
+#ro-latest .ro-gamehead, .ro-gamehead {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 3px !important;
+}
+#ro-latest .ro-gamehead h2, .ro-gamehead h2 {
+  text-align: center !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 0 !important;
+}
+#ro-latest .ro-gamehead .ro-meta, .ro-gamehead .ro-meta {
+  text-align: center !important;
+  width: 100% !important;
+  line-height: 1.5 !important;
+}
+
 /* 手机上：只收窄页面留白，
    【绝对不改图片内部布局】—— 图片靠 JS 等比缩放 */
 @media (max-width: 600px) {
