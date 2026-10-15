@@ -1002,8 +1002,11 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   border: 1.5px solid #e0b34a;
   left: 50%; top: 50%; transform: translate(-50%, -50%);
 }
-.r-ring.ring1 { width: 100%; height: 100%; }
-.r-ring.ring2 { width: 74%; height: 74%; }
+/* 圆环直径和 render.js 的 CIR_RADII（12/24/36/46%）一一对应：
+   直径 92/72/48/24% → 半径 46/36/24/12%，号码点正好落在环线上。
+   最外圈留 4% 边距，否则上/下方向的号码点会贴边被切。 */
+.r-ring.ring1 { width: 92%; height: 92%; }
+.r-ring.ring2 { width: 72%; height: 72%; }
 .r-ring.ring3 { width: 48%; height: 48%; }
 .r-ring.ring4 { width: 24%; height: 24%; }
 .r-center {
