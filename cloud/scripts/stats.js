@@ -2798,9 +2798,164 @@ function coldCalcEmpty(calc, cur, hotSet) {
   return (cur || []).some((n) => !hotSet.has(n));
 }
 
+/* ============================================================
+   ★★★ 硬性条件：三位数字彩「直选」候选号必须避开豹子和组三 ★★★
+   ------------------------------------------------------------
+   用户原话：资料模板计入进去，直选的出号 少匹配一点豹子和组三。
+             尽量百位 十位 个位是组六的情况，只有一组是组三的情况。
+             这个是硬性条件给到 app。
+
+   适用：福彩3D(fc3d) / 排列3(pl3)，以及排列5(pl5)的【前三位】
+        （排列5 前三位 = 排列3 的三位，口径见 positionRecommend）
+
+   定义（用户口径）：
+     组六 = 三个数字互不相同      如 1 5 8
+     组三 = 有两个数字相同        如 3 3 7
+     豹子 = 三个数字全都相同      如 5 5 5
+
+   硬性：① 豹子 = 0 组  ② 组三 ≤ 1 组  ③ 组六 尽可能多
+
+   为什么「组三 ≤ 1」等价于「三个位置的候选号两两不重复」：
+     每个位置 3 个候选号 → 3×3×3 = 27 注直选。
+     只要有两个位置共用 1 个数字 d（d 不在第三个位置里），
+     第三个位置的 3 个号就各凑出 1 注 (d,d,x) —— 3 注组三，已经超过 1 组；
+     若 d 也在第三个位置里，那 1 注是豹子（更不允许）。
+     所以 ② 只能靠「百位 / 十位 / 个位的候选号两两不重复」来满足，
+     满足之后 27 注全是组六（③ 自动满足），豹子也必然为 0（①）。
+
+   做法：只换「被两个位置共用的号」，换号次数最少
+     （资料号 / 专家池号优先保留，补位也优先用资料号和专家池号）。
+   注意：这里的「防组三」是页面页脚的提示性字段，和本函数无关，不要混为一谈。
+   ============================================================ */
+
+/** 数字彩「直选」三位 = 第1位 / 第2位 / 第3位 的字段 key */
+const DIGIT_STRAIGHT_KEYS = {
+  fc3d: ['bai', 'shi', 'ge'],
+  pl3:  ['bai', 'shi', 'ge'],
+  pl5:  ['wan', 'qian', 'bai']    /* 排列5 前三位 = 排列3 三位 */
+};
+
+/** 某个位置候选号的优先级：资料号 > 专家池 > 该位近 30 期频率 > 其余升序 */
+function digitStraightPref(gameId, posIdx, from, to) {
+  const rank = [];
+  const push = (arr) => {
+    (arr || []).forEach((n) => {
+      if (Number.isInteger(n) && n >= from && n <= to && rank.indexOf(n) < 0) rank.push(n);
+    });
+  };
+  /* 资料里指定的号（用户要求「资料模板计入进去」）：排最前，能留就留、能补就补 */
+  try {
+    if (typeof materialRulesFor === 'function') {
+      const mr = materialRulesFor(gameId, 'main');
+      if (mr && mr.pick) push(mr.pick);
+    }
+  } catch (e) { /* 没有资料就跳过 */ }
+  try {
+    if (typeof expertPoolOf === 'function') push(expertPoolOf(gameId, 'main'));
+  } catch (e) { /* 没有专家池就跳过 */ }
+
+  /* 剩下的号按「该位置近 30 期出现次数」排（多的在前），次数相同按号码升序 */
+  const freq = new Map();
+  try {
+    if (typeof getHistory === 'function') {
+      getHistory(gameId).slice(0, HIST_PERIODS).forEach((d) => {
+        const main = (d.areas && (d.areas.main || d.areas.front)) || [];
+        const v = main[posIdx];
+        if (Number.isInteger(v) && v >= from && v <= to) freq.set(v, (freq.get(v) || 0) + 1);
+      });
+    }
+  } catch (e) { /* 没历史就按号码升序 */ }
+  const rest = [];
+  for (let n = from; n <= to; n++) if (rank.indexOf(n) < 0) rest.push(n);
+  rest.sort((a, b) => ((freq.get(b) || 0) - (freq.get(a) || 0)) || (a - b));
+  return rank.concat(rest);
+}
+
+/**
+ * 把三个位置的候选号修成「两两不重复」（= 27 注直选全是组六）
+ * @returns {boolean} 是否改动了 out
+ */
+function enforceDigitStraightGate(gameId, out) {
+  if (!out || typeof out !== 'object') return false;
+  const keys = DIGIT_STRAIGHT_KEYS[gameId];
+  if (!keys) return false;
+  /* 排列5 前三位就是排列3 的三位：连优先级也按排列3 算，
+     这样两个彩种喂进同一个函数、得到的结果一定一样（不能各修各的）。 */
+  const gateGame = (gameId === 'pl5') ? 'pl3' : gameId;
+  const [from, to] = consRangeOf(gameId, 'main');
+
+  const sets = [];
+  for (let i = 0; i < keys.length; i++) {
+    const raw = String(out[keys[i]] == null ? '' : out[keys[i]]);
+    const arr = consUniq((raw.match(/\d+/g) || [])
+      .map((x) => parseInt(x, 10))
+      .filter((n) => Number.isInteger(n) && n >= from && n <= to));
+    /* 每个位置必须是 3 个不重复的号（模板硬性个数）。
+       不满足就不动它：宁可保持原样，也不凭空造号。 */
+    if (arr.length !== 3) return false;
+    sets.push(arr);
+  }
+
+  /* 已经两两不重复 → 27 注全是组六，豹子/组三都是 0，一个号都不换 */
+  const used = new Set();
+  let dup = false;
+  sets.forEach((a) => a.forEach((n) => { if (used.has(n)) dup = true; else used.add(n); }));
+  if (!dup) return false;
+
+  const pref = [];
+  for (let i = 0; i < keys.length; i++) pref.push(digitStraightPref(gateGame, i, from, to));
+  const rankOf = (p, n) => { const i = pref[p].indexOf(n); return i < 0 ? 99 : i; };
+
+  /* ① 每个被两个以上位置共用的数字，只留在一个位置
+        （留给「最想要它」= 优先级最高的那个位置），别的位置把它换掉。
+        这样换号次数最少：Σ(共用位置数 - 1)。 */
+  const keeper = new Map();
+  for (let n = from; n <= to; n++) {
+    const has = [];
+    sets.forEach((a, p) => { if (a.indexOf(n) >= 0) has.push(p); });
+    if (has.length < 2) continue;
+    let best = has[0];
+    has.forEach((p) => { if (rankOf(p, n) < rankOf(best, n)) best = p; });
+    keeper.set(n, best);
+  }
+  const fixed = sets.map((a, p) => a.filter((n) => {
+    const k = keeper.get(n);
+    return k === undefined || k === p;
+  }));
+
+  /* ② 空出来的位置用「还没被任何位置用掉的号」补满（优先级高的先补） */
+  const usedNow = new Set();
+  fixed.forEach((a) => a.forEach((n) => usedNow.add(n)));
+  fixed.forEach((a, p) => {
+    for (let i = 0; i < pref[p].length && a.length < sets[p].length; i++) {
+      const n = pref[p][i];
+      if (usedNow.has(n) || a.indexOf(n) >= 0) continue;
+      a.push(n); usedNow.add(n);
+    }
+  });
+  /* 极端兜底：优先级表凑不够时按号码升序补（0~9 共 10 个号、只用 9 个，正常不会走到这里） */
+  fixed.forEach((a) => {
+    for (let n = from; n <= to && a.length < 3; n++) {
+      if (usedNow.has(n)) continue;
+      a.push(n); usedNow.add(n);
+    }
+  });
+
+  let changed = false;
+  keys.forEach((k, p) => {
+    const before = String(out[k] == null ? '' : out[k]).trim();
+    const v = consJoin(fixed[p]);
+    if (v !== before) { out[k] = v; changed = true; }
+  });
+  return changed;
+}
+
 /** 一整张图的一致性收尾：逐个号码区过一遍 */
 function enforceConsistencyImage(gameId, imageKey, out) {
   if (!out || typeof out !== 'object') return out;
+  /* 【硬性条件】放在最前面：福彩3D / 排列3 / 排列5前三位 的直选候选号
+     必须避开豹子、组三 —— 它不能被后面的异常吞掉，所以先跑。 */
+  try { enforceDigitStraightGate(gameId, out); } catch (e) { /* 失败不影响出号 */ }
   let roles;
   try { roles = fieldRolesOf(gameId, imageKey); } catch (e) { return out; }
   const areas = [];
