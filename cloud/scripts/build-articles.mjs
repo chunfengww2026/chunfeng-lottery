@@ -413,11 +413,34 @@ for (const def of GAME_DEFS) {
   }
 }
 
+/* 3.5 逐彩种兜底：这一轮没抓到的彩种，保留上一轮那一个彩种
+   ------------------------------------------------------------
+   ⚠️ 实测踩过的坑：同时抓 5 个列表页时，头两个偶尔 ECONNRESET，
+      如果不管它，这一轮就会写出「双色球 0 条 / 大乐透 0 条」的
+      articles-data.js —— 页面上这两个彩种的文章直接没了，
+      比不更新还糟。
+   ⇒ 原则：【新数据不能比上一轮差】。某个彩种这一轮抓到 0 条，
+     就用上一轮同彩种的内容（连正文一起），并写清楚日志。 */
+const prev = readPrev();
+const prevGames = (prev && prev.games) ? prev.games : {};
+let keptFromPrev = 0;
+for (const def of GAME_DEFS) {
+  if (groups[def.key].items.length) continue;
+  const old = prevGames[def.key];
+  const oldItems = (old && Array.isArray(old.items)) ? old.items : [];
+  if (oldItems.length) {
+    groups[def.key].items = oldItems;
+    keptFromPrev++;
+    log(`   ↩ ${def.name} 本轮没抓到 → 沿用上一轮的 ${oldItems.length} 条（含正文）`);
+  }
+}
+const total = Object.values(groups).reduce((n, g) => n + g.items.length, 0);
+
+/* 一篇正文都没有 → 整轮作废，绝不用空内容覆盖上一轮的文件 */
 if (bodyOk === 0) {
   st.failStreak = (st.failStreak || 0) + 1;
   log(`⚠️  ${listTotal} 条标题里一篇正文都没抓到（列表结构好、详情页结构可能变了）`);
-  log('    保留上一次的 articles-data.js（页面显示上一轮内容）');
-  if (st.failStreak >= FAIL_PAUSE_AFTER) {
+  log('    保留上一次的 articles-data.js（页面显示上一轮内容）');  if (st.failStreak >= FAIL_PAUSE_AFTER) {
     st.pausedUntil = now + PAUSE_MINUTES * 60000;
     st.failStreak = 0;
     log(`🛑 连续失败达 ${FAIL_PAUSE_AFTER} 次 → 暂停 ${PAUSE_MINUTES} 分钟（保护数据源）`);
@@ -453,6 +476,6 @@ GAME_DEFS.forEach((g) => {
   log(`   ${g.name.padEnd(6)} ${String(items.length).padStart(2)} 条 · 带正文 ${withBody} 篇` +
     (items.length ? ` · 例：${items[0].title.slice(0, 28)}` : ' · ⚠️ 一条都没抓到'));
 });
-log(`   合计 ${listTotal} 条 / 正文成功 ${bodyOk} 篇 / 失败 ${bodyFail} 篇 / 正文字符约 ${charsTotal} · 更新时间 ${data.updated}`);
+log(`   合计 ${total} 条 / 正文成功 ${bodyOk} 篇 / 失败 ${bodyFail} 篇 / 沿用上一轮 ${keptFromPrev} 个彩种 / 正文字符约 ${charsTotal} · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
 process.exit(0);
