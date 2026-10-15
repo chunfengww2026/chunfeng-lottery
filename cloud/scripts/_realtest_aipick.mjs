@@ -549,6 +549,17 @@ const visibleText = block.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
 console.log(`  标题行可见文字（按显示顺序）：${headParts.map((p) => p.replace(/^[a-z0-9]+:\s*/, '')).filter(Boolean).join(' ／ ')}`);
 console.log(`  标题（h2）= ${titleText} · 副标题 = ${subText}`);
 ok(titleText === 'GPT模型摇号', '主标题就是「GPT模型摇号」', titleText);
+
+/* 页面主标题：去掉「推荐图」后缀 + 强制居中（用户后追加的要求） */
+const h1Text = (/<h1>([^<]*)<\/h1>/.exec(html) || [])[1] || '';
+const titleTag = (/<title>([^<]*)<\/title>/.exec(html) || [])[1] || '';
+console.log(`  页面主标题 h1 = ${h1Text} · <title> = ${titleTag}`);
+ok(h1Text === '春风十里送大奖', '页面主标题可见文字 = 春风十里送大奖（去掉了「· 推荐图」）', h1Text);
+ok(html.indexOf('· 推荐图') < 0, '页面里搜不到「· 推荐图」');
+ok(/\.ro-top \{ text-align: center !important; \}/.test(html) &&
+   /\.ro-top h1 \{[\s\S]{0,170}?text-align: center !important/.test(html),
+  '主标题居中用了 !important（.ro-top / .ro-top h1）');
+ok(/<title>春风大奖<\/title>/.test(html), '<title> 标签没动（还是「春风大奖」，本来就没有「推荐图」）');
 ok((visibleText.split('GPT模型摇号').length - 1) === 1, '「GPT模型摇号」在可见文字里只出现 1 次（不重复两行）',
   `出现 ${visibleText.split('GPT模型摇号').length - 1} 次`);
 ok(visibleText.indexOf('ai选号') < 0, '可见文字里没有「ai选号」了');
@@ -836,15 +847,16 @@ ok(/4000/.test(antiJs), '每源 4 秒超时（ipify 连不上也不会卡住其�
 /* ---- CSS / DOM 侧 ---- */
 ok(/html\.locked #article, html\.locked #article-rest \{[^}]*filter: blur\(30px\) grayscale\(1\)/.test(html),
   'locked 时 #article / #article-rest 模糊 30px + grayscale(1)');
-ok(/#mask \{[\s\S]{0,400}?z-index: 99998/.test(html) && /#watermark \{[\s\S]{0,300}?z-index: 99997/.test(html),
-  '遮罩 z-index 99998 / 水印 99997');
+ok(/#mask \{[\s\S]{0,400}?z-index: 99998/.test(html), '遮罩 z-index 99998（水印层已按用户要求删掉）');
 ok(/\.ro-mob-view \{ position: fixed; inset: 0; z-index: 9999;/.test(html),
-  '全屏看图层的 z-index = 9999 → 遮罩/水印都在它上面（看大图时按截图也能盖住）');
+  '全屏看图层的 z-index = 9999 → 遮罩在它上面（看大图时按截图也能盖住）');
 ok(/html\.locked \.ro-aipick \{[\s\S]{0,200}?filter: none !important;[\s\S]{0,120}?pointer-events: auto !important;[\s\S]{0,80}?z-index: 99999 !important/.test(html),
   '豁免面板 .ro-aipick：locked 时 filter:none + 可点 + z-index 99999（压在遮罩上）');
 ok(/@media print \{[\s\S]{0,200}?#article, #article-rest \{ filter: blur\(30px\) grayscale\(1\) !important/.test(html),
   '打印时也模糊');
-ok(/\.wm-item \{[\s\S]{0,220}?color: #e8eaed;/.test(html), '水印是浅色（暗色页面才看得见，不是用户原稿的黑 #000）');
+ok(!/watermark|wm-item|createWatermark|WATERMARK_TEXT|drawWatermark/i.test(html),
+  '水印已【全部删除】（搜 watermark / wm-item / createWatermark / WATERMARK_TEXT / drawWatermark → 0 命中）');
+ok(!/id="watermark"/.test(html) && !/\.wm-item/.test(html), '水印的 DOM 容器和样式也都不在了');
 const iArt = html.indexOf('<div id="article">');
 const iArtEnd = html.indexOf('</div><!-- /#article');
 const iRest = html.indexOf('<div id="article-rest">');
@@ -898,28 +910,25 @@ function antiSandbox(opts) {
 const flush = async () => { for (let i = 0; i < 40; i++) await Promise.resolve(); };
 const isLocked = (s) => s.rootEl.classList.contains('locked');
 const isOwnerCls = (s) => s.rootEl.classList.contains('is-owner');
-const wmTexts = (s) => Array.from(new Set(s.wm.children.map((c) => c.textContent)));
 
 /* A. file:// → 本机 App：立刻 owner，不启用保护 */
 const A = antiSandbox({ protocol: 'file:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '1.2.3.4' }) }) });
 A.win.dispatch('blur');
 A.doc.dispatch('visibilitychange', {});
-console.log(`  A) file:// → is-owner=${isOwnerCls(A)} locked=${isLocked(A)} · 水印块 ${A.wm.children.length} 个 · 文字：${wmTexts(A).join(' / ')}`);
-ok(isOwnerCls(A) && !isLocked(A) && A.wm.children.length > 0,
-  "file:// 打开（本机 App）→ 立刻 owner：blur 也不 locked、徽章 class 有、水印照画");
+console.log(`  A) file:// → is-owner=${isOwnerCls(A)} locked=${isLocked(A)}`);
+ok(isOwnerCls(A) && !isLocked(A), "file:// 打开（本机 App）→ 立刻 owner：blur 也不 locked、徽章 class 有");
 
 /* B. https + IP 命中 owner */
 const B = antiSandbox({ protocol: 'https:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '120.231.138.19' }) }) });
 await flush();
 B.win.dispatch('blur');
-console.log(`  B) https + IP=120.231.138.19 → is-owner=${isOwnerCls(B)} locked=${isLocked(B)} · 水印：${wmTexts(B).join(' / ')}`);
+console.log(`  B) https + IP=120.231.138.19 → is-owner=${isOwnerCls(B)} locked=${isLocked(B)}`);
 ok(isOwnerCls(B) && !isLocked(B), 'https 打开但 IP 命中 → 也是 owner，blur 不 locked');
-ok(wmTexts(B).some((t) => /\[OWNER\]/.test(t)), 'owner 的水印带 [OWNER] 标记');
 
 /* C. https + 别人的 IP：保护生效 */
 const C = antiSandbox({ protocol: 'https:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '8.8.8.8' }) }) });
 await flush();
-console.log(`  C) https + IP=8.8.8.8 → is-owner=${isOwnerCls(C)} locked=${isLocked(C)} · 水印：${wmTexts(C).join(' / ')}`);
+console.log(`  C) https + IP=8.8.8.8 → is-owner=${isOwnerCls(C)} locked=${isLocked(C)}`);
 ok(!isOwnerCls(C), 'https + 别人的 IP → 不是 owner');
 C.win.dispatch('blur');
 const lockedByBlur = isLocked(C);
