@@ -288,7 +288,8 @@ function renderExpertPanel(container, gameId) {
   note.className = 'tk-note';
   note.style.marginBottom = '12px';
   note.innerHTML =
-    `数据来源：一起彩（yiqicai.com）· 更新于 ${d.updated || '?'}<br>` +
+    /* 【用户要求】所有「数据来源/来自网络」字样都不显示 —— 只留统计信息和免责。 */
+    `更新于 ${d.updated || '?'}<br>` +
     `共分析 <b>${g.expertCount || 0}</b> 位专家，筛出 <b>${(g.stable || []).length}</b> 位稳定专家<br>` +
     `<span style="color:#f0b429">稳定性 = 近10期命中率 + 最长连红 + 黑一次马上红 + 上一期是否红</span><br>` +
     `<span style="color:#6b7488">⚠️ 只是历史统计归纳，不是预测，不能提高中奖概率</span>`;
