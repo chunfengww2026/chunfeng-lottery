@@ -381,6 +381,52 @@ const LATEST_UPDATED = [JC.updated, HIST && HIST.updated]
 const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
+/* ============================================================
+   奖金试算器 · 数据准备（页面上的 SP 赔率）
+   ------------------------------------------------------------
+   【赔率来源】体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）的
+   【官方 SP 原值】：had = 胜平负（主胜/平/客胜）、hhad = 让球胜平负（让球数 + 三项）。
+   由 build-jc.mjs 抓到后写进 jc-data.js 顶层的 sp 块 —— 本机可抓，
+   云端（美国 IP）抓不到时 build-jc.mjs 会沿用上一次那份（source='carried'）。
+   这里【原样使用】：不换算、不估算、不编数字。没有 sp 就显示「暂无」。
+
+   【可试算的场次】
+     · 必须有官方 SP（had 或 hhad）
+     · 已完场的去掉（竞彩开赛前就停售，完场更不能投注）
+     · SP 是「沿用上次」的（可能已过几小时）→ 再剔掉已过开赛时间的
+   ============================================================ */
+const SP = (JC && JC.sp && Array.isArray(JC.sp.list) && JC.sp.list.length) ? JC.sp : null;
+const SP_SRC_CN = !SP
+  ? '暂无官方 SP 数据'
+  : (SP.source === 'official'
+    ? `体彩官网官方 SP（抓取于 ${SP.updated || '—'}）`
+    : SP.source === 'carried'
+      ? `体彩官网官方 SP（沿用上次抓取 ${SP.updated || '—'}）`
+      : '暂无官方 SP 数据');
+
+const NOW_MS = Date.now();
+function kickMs(t) {
+  const m = /(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(String(t || ''));
+  if (!m) return NaN;
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
+}
+
+const CALC_ROWS = (SP ? SP.list : []).filter((r) => {
+  if (!r || !(r.had || r.hhad)) return false;
+  const card = MATCHES.find((m) => m.code && m.code === r.code);
+  if (card && card.kind === 'finished') return false;
+  if (SP.source === 'carried') {
+    const t = kickMs(r.time);
+    if (!isNaN(t) && t <= NOW_MS) return false;   /* 已开赛 → 竞彩已停售 */
+  }
+  return true;
+}).map((r) => ({
+  code: r.code || '', league: r.league || '', time: r.time || '',
+  home: r.home || '', away: r.away || '',
+  had: r.had ? { h: r.had.h, d: r.had.d, a: r.had.a } : null,
+  hhad: r.hhad ? { line: r.hhad.line || '', h: r.hhad.h, d: r.hhad.d, a: r.hhad.a } : null
+}));
+
 /* ---------- 渲染 ---------- */
 function oddsRow(label, v, pickKey) {
   if (!v) return '';
