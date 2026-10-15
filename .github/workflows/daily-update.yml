@@ -252,6 +252,23 @@ jobs:
             if [ "$ok" = "1" ]; then echo "   ✅ 已拉回 $f"; else echo "::warning::兜底也失败：$f"; fi
           done
           touch site/.nojekyll
+          # 【分享卡片 / 图标 / PWA】逐个自证
+          #   这些文件由 cloud-build.mjs 从 cloud/scripts/icons/ 拷进 out/，
+          #   上面 cp 完 out/ 就到位了。缺任何一个都说明图标没同步上仓库，
+          #   页面 <head> 里引用的 favicon / manifest / share.png 就会 404。
+          echo "--- 分享图标自证 ---"
+          MISSING=0
+          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.webmanifest; do
+            if [ -s "site/$f" ]; then
+              echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
+            else
+              echo "❌ site/$f 缺失（本机需要跑一次 node make-icons.mjs 再 node sync-cloud.mjs）"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ "$MISSING" != "0" ]; then
+            echo "::warning::$MISSING 个分享图标没进 site/ —— 页面图标会 404（页面本身仍可访问）"
+          fi
           echo "--- site 目录内容 ---"
           ls -lh site/
           echo "--- tickets.json 里的时间 ---"
