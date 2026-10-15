@@ -541,13 +541,17 @@ function createJiuZhuan(lastNums, type = "ssq"){
   /* 中心旁边的小字球（side）：中心 + 32 个交点还装不下的号。
      大乐透 = [34, 35]（01~35 里减掉铺进 32 个交点的、再减掉中心的 18）；
      双色球 = []（33 个位刚好装下 01~33，不画小字球）。
-     这就是「几何和双色球完全一样、号码还一个不漏」的解法。 */
+     这就是「几何和双色球完全一样、号码还一个不漏」的解法。
+     写法：直接从【已经铺到交点上的号码】里筛，谁没上交点谁进小字球 ——
+     不用自己遍历号码范围，也就不会因为遍历顺序写错而漏号。 */
+  const onRing = Object.create(null);
+  allPoints.forEach((p) => { if (p.num !== null && p.num !== undefined) onRing[p.num] = true; });
   const sideNums = [];
   if (centerHoldsNumber && Number.isFinite(geo.sideCount) && geo.sideCount > 0) {
-    const sideMax = Number.isFinite(geo.sideMax) ? geo.sideMax : geo.max;
-    for (let n = 1; n <= sideMax && sideNums.length < geo.sideCount; n++) {
+    for (let i = 0; i < allNums.length && sideNums.length < geo.sideCount; i++) {
+      const n = allNums[i];
       if (n === centerVal) continue;
-      if (ringNums.indexOf(n) < 0) sideNums.push(n);
+      if (!onRing[n]) sideNums.push(n);
     }
   }
 
