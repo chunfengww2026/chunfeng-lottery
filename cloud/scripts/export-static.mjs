@@ -2462,6 +2462,29 @@ body.ro-mob-open { overflow: hidden; }
   <script>
   (function () {
     try {
+      /* __TOOL_TOGGLE__ 【再点一下收起】
+       user request: the 开机号 / 选号直播 entries can be collapsed again.
+       原理：入口是 <a href="#ro-kjh">，靠 CSS :target 展开。
+             若当前 hash 已经等于这一项，说明它【已经展开着】→
+             清掉 hash（replaceState），:target 立刻失配 → 区块收起。
+       ⚠️ 只用捕获阶段撤销默认行为，不改任何 CSS；脚本挂了也只是"不能收起"，
+          展开功能照旧。 */
+      var tools = document.querySelectorAll('.ro-tool');
+      for (var t = 0; t < tools.length; t++) {
+        tools[t].addEventListener('click', function (e) {
+          var href = String(this.getAttribute('href') || '');
+          if (!OK[href]) return;
+          if (String(location.hash || '') === href) {
+            e.preventDefault();
+            try {
+              history.replaceState(null, '', location.pathname + location.search);
+            } catch (err) {
+              location.hash = '';
+            }
+          }
+        }, true);
+      }
+
       var OK = { '#ro-kjh': 1, '#ro-live': 1 };
       function go() {
         var id = String(location.hash || '');
