@@ -975,7 +975,7 @@ const FOOTBALL_DATA = {
      "color": "3300BB"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "路斯天使(後備)",
      "score": 1,
@@ -1051,7 +1051,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "科万英佩尔",
      "score": 2,
@@ -1351,7 +1351,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "利昂内斯",
      "score": 0,
