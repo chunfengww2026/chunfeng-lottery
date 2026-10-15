@@ -3070,8 +3070,8 @@ html.locked #article, html.locked #article-rest {
 html.locked #mask { display: flex; }
 #mask .icon { margin-bottom: 20px; font-size: 64px; }
 #mask .tip { margin-top: 16px; font-size: 14px; color: #aaa; }
-/* 【已删除】原来这里有一层动态水印（#watermark / .wm-item）——
-   用户明确说「不要水印」，所以整层连同样式、脚本一起删掉了。 */
+/* 【已删除】原来这里有一层动态水印（整层 DOM + 样式 + 脚本）——
+   用户明确说「不要水印」，已经整块拿掉，一点残留都不留。 */
 /* 豁免区：locked 时抬到遮罩之上，保持清晰可点 */
 html.locked .ro-aipick {
   filter: none !important;
@@ -3526,6 +3526,24 @@ body, .ro-wrap { background: var(--ro-bg); }
 #__NEXT_CD__, #__NEXT_CD2__, #__ART_CD__ { color: var(--ro-time) !important; }
 /* 警示 */
 .ro-aipick-warn, .ro-aipick-calc-tip { color: var(--ro-warn); }
+
+/* ============================================================
+   __TITLE_CENTER__ 页面主标题：去掉「推荐图」后缀 + 强制居中
+   ------------------------------------------------------------
+   用户原话：「不要推荐图了 就春风十里送大奖 居中」。
+   可见文字只留「春风十里送大奖」；<title> 标签没动（那是分享卡片，
+   另一个专人在管，现在是「春风大奖」，本来就没有「推荐图」）。
+   ⚠️ 用 !important：这个页面的居中规则被后来的同优先级规则盖过好几次。
+   ============================================================ */
+.ro-top { text-align: center !important; }
+.ro-top h1 {
+  display: block !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+.ro-top .sub { width: 100% !important; text-align: center !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -3543,7 +3561,7 @@ body, .ro-wrap { background: var(--ro-bg); }
   <div id="article">
 
   <div class="ro-top">
-    <h1>春风十里送大奖 · 推荐图</h1>
+    <h1>春风十里送大奖</h1>
   </div>
 
   ${statusHtml}
@@ -5619,22 +5637,8 @@ ${RO_RENDER_SCRIPT}
       if (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) return true;
       return false;
     }
-    /* 水印：固定文字（不含任何用户标识），暗色页面所以用浅色 */
-    function drawWatermark(text) {
-      if (!wmBox) return;
-      while (wmBox.firstChild) wmBox.removeChild(wmBox.firstChild);
-      var w = window.innerWidth || 390, h = window.innerHeight || 800, x, y, n;
-      for (y = 0; y < h; y += 120) {
-        for (x = 0; x < w; x += 260) {
-          n = document.createElement('div');
-          n.className = 'wm-item';
-          n.textContent = text;
-          n.style.left = x + 'px';
-          n.style.top = y + 'px';
-          wmBox.appendChild(n);
-        }
-      }
-    }
+    /* 【已删除】原来这里有一个画水印的函数：用户明确说「不要水印」，
+       水印（DOM + 样式 + 函数 + 所有调用）已整块拿掉。 */
     /* ============================================================
        【保存权限】三处允许保存、其余一律禁止（用户要求）
        ------------------------------------------------------------
@@ -5745,15 +5749,11 @@ ${RO_RENDER_SCRIPT}
       owner = true;
       unlock();
       root.classList.add('is-owner');       /* 右上角出现「👑 管理员模式」徽章 */
-      drawWatermark(WM_TEXT + ' [OWNER]');
     }
 
-    /* 先按「别人」准备：水印画上、保护装上；
-       查到是主人再撤掉（owner 判定失败时保持最严 = 安全降级） */
-    drawWatermark(WM_TEXT);
-    window.addEventListener('resize', function () {
-      drawWatermark(owner ? WM_TEXT + ' [OWNER]' : WM_TEXT);
-    });
+    /* 先按「别人」把保护装上；查到是主人再撤掉
+       （owner 判定失败 → 保持最严 = 安全降级）。
+       ⚠️ 这里不再画水印：用户明确说「不要水印」。 */
     armProtection();
 
     if (protocolIsFile()) {
