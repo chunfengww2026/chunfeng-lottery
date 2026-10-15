@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 04:46 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 05:30 */
 const JC_DATA = {
- "updated": "2026-10-16 04:46",
+ "updated": "2026-10-16 05:30",
  "stat": {
   "total": 13,
   "upcoming": 1,
-  "live": 6,
-  "finished": 6,
+  "live": 0,
+  "finished": 12,
   "withScore": 12
  },
  "games": [
@@ -668,7 +668,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 1
+    "away": 2
    },
    "statusText": "1 - 0 ",
    "odds": {
@@ -750,11 +750,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 1
+    "away": 2
    }
   },
   {
@@ -858,7 +858,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -958,7 +958,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
@@ -983,7 +983,7 @@ const JC_DATA = {
     "rank": 19
    },
    "score": {
-    "home": 2,
+    "home": 3,
     "away": 0
    },
    "statusText": "1 - 0 ",
@@ -1066,10 +1066,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 2,
+    "home": 3,
     "away": 0
    }
   },
@@ -1091,7 +1091,7 @@ const JC_DATA = {
     "rank": 29
    },
    "score": {
-    "home": 3,
+    "home": 4,
     "away": 1
    },
    "statusText": "3 - 0 ",
@@ -1174,10 +1174,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 3,
+    "home": 4,
     "away": 1
    }
   },
@@ -1282,7 +1282,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -1316,9 +1316,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 1.02,
+      "home": 1.05,
       "line": "受平手/半球",
-      "away": 0.82
+      "away": 0.8
      }
     },
     "europe": {
@@ -1340,9 +1340,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1.1,
-      "over": 2,
-      "under": 0.77
+      "line": 0.85,
+      "over": 1.5,
+      "under": 1
      }
     }
    },
@@ -1364,21 +1364,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.82,
-    "downWater": 1.02,
+    "upWater": 0.8,
+    "downWater": 1.05,
     "openHandicap": 0.25,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
+    "totalWater": 1.85,
+    "theoryUpPercent": "56.76",
+    "theoryDownPercent": "43.24",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 1,
-     "nowUpWater": 0.82,
+     "nowUpWater": 0.8,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
