@@ -559,7 +559,7 @@ ok(block.indexOf('仅供娱乐') >= 0 && block.indexOf('不构成购彩建议') 
 /* ============================================================
    12) 自己选号（手动点号码）
    ============================================================ */
-H('12. 自己选号：号码格子 / 已选 x/y / 你的号码 / 清空重选');
+H('12. 自己选号：号码格子 / 已选 N 个 / 你的号码 / 实时注数金额 / 清空重选');
 const srcBtn = (v) => qa('.ro-aipick-srcbtn').find((n) => n.getAttribute('data-ro-aipick-src') === v);
 const selfBox = q1('.ro-aipick-self');
 const pickBox = q1('.ro-aipick-picker');
@@ -567,6 +567,9 @@ const mineOut = q1('.ro-aipick-mineout');
 const shapeBox = q1('.ro-aipick-shape');
 const cells = () => qa('.ro-aipick-pick');
 const counts = () => qa('.ro-aipick-pcount');
+const calcBox = q1('.ro-aipick-calc');
+const calcText = () => (calcBox ? calcBox.textContent.replace(/\s+/g, ' ').trim() : '');
+const countTexts = () => counts().map((n) => n.textContent);
 const cellAt = (slot, num) => cells().find((n) =>
   n.getAttribute('data-ro-aipick-slot') === slot && n.getAttribute('data-ro-aipick-num') === String(num));
 const mineText = () => (mineOut ? mineOut.children.map((c) => c.textContent).join(' ') : '');
@@ -578,63 +581,90 @@ ok(state().src === 'ai', '默认选号来源 = 机选', `src=${state().src}`);
 click(srcBtn('self'));
 ok(state().src === 'self' && !selfBox.hidden, '点「自己选号」→ 切到手动模式（格子显示出来）');
 ok(q1('.ro-aipick-out').hidden, '自己选号模式下把「机选结果区」收起来');
-/* 双色球：红 1-33 + 蓝 1-16 → 49 个格子 */
 const slotList = Array.from(new Set(cells().map((n) => n.getAttribute('data-ro-aipick-slot'))));
 console.log(`  双色球格子：${cells().length} 个（槽位 ${slotList.join('/')}）`);
-console.log(`  已选状态：${counts().map((n) => n.textContent).join('   ')}`);
-ok(cells().length === 49 && counts()[0].textContent === '已选 0/6' && counts()[1].textContent === '已选 0/1',
-  '双色球 = 红球 33 格 + 蓝球 16 格，初始「已选 0/6」「已选 0/1」');
+console.log(`  已选状态：${countTexts().join('   ')}`);
+ok(cells().length === 49 && /^已选 0 个/.test(countTexts()[0]) && /^已选 0 个/.test(countTexts()[1]),
+  '双色球 = 红球 33 格 + 蓝球 16 格；初始「已选 0 个」', countTexts().join(' / '));
+ok(countTexts().every((t) => t.indexOf('/') < 0), '「已选 N 个」里【没有 /6、/20 这种上限写法】', countTexts().join(' / '));
 ok(cells().every((n) => n.tagName === 'a' && n.getAttribute('role') === 'button'),
   '格子全是 <a role="button">（不是 <button> 标签）');
 /* 点 3 个红球 + 1 个蓝球 */
 [5, 12, 18].forEach((n) => click(cellAt('a0', n)));
 click(cellAt('a1', 9));
-console.log(`  点了红球 05 12 18 + 蓝球 09 → ${counts().map((n) => n.textContent).join('   ')}`);
-console.log(`  你的号码：${mineText()}`);
-ok(counts()[0].textContent === '已选 3/6' && counts()[1].textContent === '已选 1/1',
-  '「已选 x/y」实时更新', counts().map((n) => n.textContent).join(' / '));
+console.log(`  点了红球 05 12 18 + 蓝球 09 → ${countTexts().join('   ')}`);
+console.log(`  你的号码：${mineText()} · 注数金额：${calcText()}`);
+ok(/已选 3 个/.test(countTexts()[0]) && /已选 1 个/.test(countTexts()[1]),
+  '「已选 N 个」实时更新', countTexts().join(' / '));
 ok(mineText().replace(/\s+/g, ' ') === '05 12 18 _ _ _ + 09', '「你的号码」实时显示（没选的位是 _）', mineText());
 ok(cellAt('a0', 5).className.indexOf(' on') >= 0, '点过的格子高亮（class 带 on）');
-/* 选满 6 个之后不再增加 */
-[1, 2, 3, 4].forEach((n) => click(cellAt('a0', n)));
-console.log(`  红球连点 01 02 03 04（本来只差 3 个）→ ${counts()[0].textContent}`);
+ok(/还差：红球还差 3 个/.test(calcText()), '没选够最少个数时给出「还差」提示', calcText());
+/* 【不设上限】红球一直点到 8 个 */
+[1, 2, 3, 4, 6].forEach((n) => click(cellAt('a0', n)));
+console.log(`  红球连点到 8 个 → ${countTexts()[0]}`);
+ok(/已选 8 个（复式）/.test(countTexts()[0]), '自己选号【不设上限】：红球能选 8 个并标「复式」', countTexts()[0]);
 console.log(`  你的号码：${mineText()}`);
-ok(counts()[0].textContent === '已选 6/6', '选满 6 个后再点不增加（上限 6）');
-ok(mineText().indexOf('_') < 0, '凑齐后「你的号码」没有 _ 了');
+click(cellAt('a1', 9));                      /* 先把刚才那个蓝球取消，测「还差」的提示 */
+console.log(`  注数金额：${calcText()}`);
+ok(/还差：蓝球还差 1 个/.test(calcText()), '蓝球还差 1 个时不出注数（避免只算一半）', calcText());
+click(cellAt('a1', 3)); click(cellAt('a1', 7));
+console.log(`  蓝球再选 03 07 → 注数金额：${calcText()}`);
+ok(/56 注/.test(calcText()) && /112 元/.test(calcText()),
+  '红 8 + 蓝 2 → 注数 C(8,6)×C(2,1) = 28×2 = 56 注 · 112 元', calcText());
+ok(/（56 注 × 2 元）/.test(calcText()), '算价公式写在界面上（56 注 × 2 元）', calcText());
 /* 再点一次已选的号 → 取消 */
-click(cellAt('a1', 9));
-ok(counts()[1].textContent === '已选 0/1', '再点一次已选号 → 取消选中');
+click(cellAt('a1', 3));
+ok(/28 注/.test(calcText()), '取消一个蓝球后注数跟着变（28 注）', calcText());
+click(cellAt('a1', 3));
 /* 清空重选 */
-click(cellAt('a1', 9));
 click(actBtn('reset'));
-console.log(`  点「清空重选」→ ${counts().map((n) => n.textContent).join('   ')} · 你的号码：${mineText()}`);
-ok(counts()[0].textContent === '已选 0/6' && mineText().replace(/\s+/g, ' ').indexOf('_ _ _ _ _ _') >= 0,
+console.log(`  点「清空重选」→ ${countTexts().join('   ')} · 你的号码：${mineText()} · ${calcText()}`);
+ok(/已选 0 个/.test(countTexts()[0]) && mineText().replace(/\s+/g, ' ').indexOf('_ _ _ _ _ _') >= 0,
   '「清空重选」把选中的号全清掉');
+/* 全选：33 红 + 16 蓝 → 注数 / 金额都很巨大，要照实算 */
+for (let n = 1; n <= 33; n++) click(cellAt('a0', n));
+for (let n = 1; n <= 16; n++) click(cellAt('a1', n));
+console.log(`  红球全选 33 + 蓝球全选 16 → ${countTexts().join('   ')}`);
+console.log(`  注数金额：${calcText()}`);
+ok(/17,721,088 注/.test(calcText()), '全选红 33 → C(33,6)=1,107,568 × C(16,1)=16 = 17,721,088 注（千分位）', calcText());
+ok(/35,442,176 元/.test(calcText()), '全选金额 35,442,176 元（照实算，不截断）', calcText());
+ok(!/NaN|Infinity|undefined/.test(calcText()), '大数没有出现 NaN / Infinity / undefined');
+ok(/注数较大，仅供参考/.test(calcText()), '注数特别大时给一句温和提示（但不阻止选）', calcText());
 /* 切彩种 → 清空重选 */
-click(cellAt('a0', 7));
-const beforeSwitch = counts()[0].textContent;
 click(gameTab('fc3d'));
 ok(state().src === 'ai', '切彩种 → 回到默认的【机选】模式', `src=${state().src}`);
 click(srcBtn('self'));
-console.log(`  切彩种前后：${beforeSwitch} → ${counts().map((n) => n.textContent).join('   ')}`);
-ok(counts().length === 3 && counts().every((n) => n.textContent === '已选 0/1'),
-  '福彩3D 自己选号 = 百位/十位/个位 各 10 格，「已选 0/1」三个（切彩种已清空）',
-  counts().map((n) => n.textContent).join(' '));
-console.log(`  福彩3D 格子：${cells().length} 个 = 3 位 × 0-9`);
-/* 数字彩：自己选号不强制组六，但要提醒形态 */
+console.log(`  切到福彩3D后：${countTexts().join('   ')} · 格子 ${cells().length} 个`);
+ok(counts().length === 3 && countTexts().every((t) => /^已选 0 个/.test(t)),
+  '福彩3D 自己选号 = 百位/十位/个位 各 10 格，「已选 0 个」三个（切彩种已清空）', countTexts().join(' '));
+/* 数字彩：每位可以选多个（复式），不强制组六但提醒形态 */
 click(cellAt('p0', 1)); click(cellAt('p1', 1)); click(cellAt('p2', 1));
-console.log(`  手选 1 1 1 → 你的号码：${mineText()} · 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
+console.log(`  手选 1 1 1 → 你的号码：${mineText()} · 形态：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'} · ${calcText()}`);
 ok(shapeBox && !shapeBox.hidden && shapeBox.textContent.indexOf('豹子') >= 0,
   '自己选号不拦豹子，但会提示形态', shapeBox ? shapeBox.textContent : '');
 click(actBtn('reset'));
+click(cellAt('p0', 1)); click(cellAt('p0', 2)); click(cellAt('p1', 3)); click(cellAt('p2', 4)); click(cellAt('p2', 5));
+console.log(`  百位选 1,2 · 十位 3 · 个位 4,5 → ${calcText()}`);
+ok(/4 注/.test(calcText()), '数字彩每位可以多选：2×1×2 = 4 注', calcText());
+click(actBtn('reset'));
 click(cellAt('p0', 1)); click(cellAt('p1', 2)); click(cellAt('p2', 3));
-console.log(`  手选 1 2 3 → 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
+console.log(`  手选 1 2 3 → 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'} · ${calcText()}`);
 ok(shapeBox.textContent.indexOf('组六') >= 0, '1 2 3 被认成组六');
 click(actBtn('reset'));
 click(cellAt('p0', 1)); click(cellAt('p1', 1)); click(cellAt('p2', 3));
 console.log(`  手选 1 1 3 → 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
 ok(shapeBox.textContent.indexOf('组三') >= 0, '1 1 3 被认成组三');
+/* 大乐透全选：前后区都选满 */
+click(gameTab('dlt'));
+click(srcBtn('self'));
+for (let n = 1; n <= 35; n++) click(cellAt('a0', n));
+for (let n = 1; n <= 12; n++) click(cellAt('a1', n));
+console.log(`  大乐透 前区全选 35 + 后区全选 12 → ${calcText()}`);
+ok(/324,632/.test(calcText()) || /21,425,712 注/.test(calcText()),
+  '大乐透全选：C(35,5)=324,632 × C(12,2)=66 → 21,425,712 注', calcText());
+ok(/42,851,424 元/.test(calcText()), '大乐透全选金额 = 42,851,424 元');
 /* 机选模式的组六约束没有被自己选号带坏 */
+click(gameTab('fc3d'));
 click(srcBtn('ai'));
 setNum(q1('.ro-aipick-in-count'), 1);
 for (let i = 0; i < 20; i++) click(actBtn('reroll'));
@@ -649,16 +679,21 @@ ok(state().pick && Object.keys(state().pick).length === 0, '切回机选时手�
 H('12b. 快乐8 自己选号：格子在 01-80，选几个跟着玩法');
 click(gameTab('kl8'));
 click(srcBtn('self'));
-const kl8Counts0 = counts().map((n) => n.textContent).join(' ');
+const kl8Counts0 = countTexts().join(' ');
 console.log(`  默认玩法「选十」→ 格子 ${cells().length} 个 · ${kl8Counts0}`);
-ok(cells().length === 80 && /已选 0\/10/.test(kl8Counts0), '快乐8 自己选号 = 01-80 共 80 格，要选 10 个');
+ok(cells().length === 80 && /已选 0 个/.test(kl8Counts0), '快乐8 自己选号 = 01-80 共 80 格');
+ok(/最少 10 个/.test(kl8Counts0), '玩法「选十」时提示最少 10 个', kl8Counts0);
 const kl8tab3 = qa('.ro-aipick-kl8tab').find((n) => n.getAttribute('data-ro-aipick-kl8') === '3');
 click(kl8tab3);
-console.log(`  切到「选三」→ ${counts().map((n) => n.textContent).join(' ')}`);
-ok(/已选 0\/3/.test(counts()[0].textContent), '切玩法后要选的个数跟着变（选三 = 3 个）');
+console.log(`  切到「选三」→ ${countTexts().join(' ')}`);
+ok(/最少 3 个/.test(countTexts()[0]), '切玩法后最少的个数跟着变（选三 = 3 个）', countTexts()[0]);
 [12, 13, 25].forEach((n) => click(cellAt('a0', n)));
-console.log(`  点了 12 13 25 → 你的号码：${mineText()}`);
+console.log(`  点了 12 13 25 → 你的号码：${mineText()} · ${calcText()}`);
 ok(mineText().replace(/\s+/g, ' ') === '12 13 25', '「你的号码」显示三个号（快乐8 不补零）', mineText());
+ok(/1 注/.test(calcText()) && /2 元/.test(calcText()), '快乐8 选三选 3 个 = 1 注 2 元', calcText());
+click(cellAt('a0', 30));
+console.log(`  再选 1 个（共 4 个）→ ${calcText()}`);
+ok(/4 注/.test(calcText()), '快乐8 选三选 4 个 = C(4,3) = 4 注', calcText());
 
 /* ============================================================
    13) 「所有的都不能保存」
@@ -778,6 +813,148 @@ ok(texts.split(' | ').filter((t) => /^\d{2}$/.test(t)).indexOf('00') < 0,
   '整张双色球图里没有「00」这种号码写法');
 click(actBtn('reset'));
 click(srcBtn('ai'));
+
+/* ============================================================
+   15) 防截图（最终版）
+   ============================================================ */
+H('15. 防截图：保护容器 / 豁免面板 / owner 判定（file: 与 IP）');
+const antiJs = (() => {
+  const i = html.indexOf('__ANTISHOT_JS__');
+  if (i < 0) return '';
+  const s = html.indexOf('<script>', i);
+  const e = html.indexOf('</script>', s);
+  return html.slice(s + '<script>'.length, e);
+})();
+ok(!!antiJs && /OWNER_IP/.test(antiJs), '抠到了防截图脚本', antiJs.length + ' 字符');
+ok(!/localStorage|sessionStorage|document\.cookie|indexedDB/i.test(antiJs), '防截图脚本里【没有】任何浏览器存储 API');
+ok(/String\(location\.protocol\) === 'file:'/.test(antiJs), "① owner 判定优先看 location.protocol === 'file:'（本机 App）");
+ok(/OWNER_IP = '120\.231\.138\.19'/.test(antiJs), '② 其次看公网 IP = 120.231.138.19');
+const ipSrcs = ['api.ipify.org', 'ipinfo.io/json', 'api.ip.sb/jsonip', 'ifconfig.me/all.json'];
+ok(ipSrcs.every((s) => antiJs.indexOf(s) >= 0), 'IP 4 源兜底，顺序：' + ipSrcs.join(' → '));
+ok(/4000/.test(antiJs), '每源 4 秒超时（ipify 连不上也不会卡住其它源）');
+/* ---- CSS / DOM 侧 ---- */
+ok(/html\.locked #article, html\.locked #article-rest \{[^}]*filter: blur\(30px\) grayscale\(1\)/.test(html),
+  'locked 时 #article / #article-rest 模糊 30px + grayscale(1)');
+ok(/#mask \{[\s\S]{0,400}?z-index: 99998/.test(html) && /#watermark \{[\s\S]{0,300}?z-index: 99997/.test(html),
+  '遮罩 z-index 99998 / 水印 99997');
+ok(/\.ro-mob-view \{ position: fixed; inset: 0; z-index: 9999;/.test(html),
+  '全屏看图层的 z-index = 9999 → 遮罩/水印都在它上面（看大图时按截图也能盖住）');
+ok(/html\.locked \.ro-aipick \{[\s\S]{0,200}?filter: none !important;[\s\S]{0,120}?pointer-events: auto !important;[\s\S]{0,80}?z-index: 99999 !important/.test(html),
+  '豁免面板 .ro-aipick：locked 时 filter:none + 可点 + z-index 99999（压在遮罩上）');
+ok(/@media print \{[\s\S]{0,200}?#article, #article-rest \{ filter: blur\(30px\) grayscale\(1\) !important/.test(html),
+  '打印时也模糊');
+ok(/\.wm-item \{[\s\S]{0,220}?color: #e8eaed;/.test(html), '水印是浅色（暗色页面才看得见，不是用户原稿的黑 #000）');
+const iArt = html.indexOf('<div id="article">');
+const iArtEnd = html.indexOf('</div><!-- /#article');
+const iRest = html.indexOf('<div id="article-rest">');
+ok(iArt > 0 && iArtEnd > iArt && iA > iArtEnd && iRest > iA,
+  '面板放在 #article 之外、#article-rest 之前（子元素没法取消父级的 filter，只能这样拆）',
+  `#article(${iArt}) → /#article(${iArtEnd}) → 面板(${iA}) → #article-rest(${iRest})`);
+ok(html.indexOf('id="owner-badge"') > 0 && html.indexOf('👑') > 0, '有管理员徽章元素（html.is-owner 才显示）');
+ok((html.match(/<button/g) || []).length === 0, '整页裸 <button> 仍然 = 0（遮罩/徽章都是 div）');
+
+/* ---- 真跑：把防截图脚本放进迷你 DOM 里执行 ---- */
+function antiSandbox(opts) {
+  const rootEl = new MNode('html');
+  const wm = new MNode('div');
+  const jobs = new Map();
+  let seq = 0;
+  const timers = {
+    setTimeout(fn, ms) { const id = ++seq; jobs.set(id, { fn, ms }); return id; },
+    clearTimeout(id) { jobs.delete(id); },
+    run() { const list = [...jobs.entries()]; jobs.clear(); list.forEach(([, j]) => { try { j.fn(); } catch (e) {} }); return list.map(([, j]) => j.ms); },
+    pending() { return jobs.size; }
+  };
+  const doc = {
+    documentElement: rootEl,
+    hidden: false,
+    _ev: {},
+    getElementById: (id) => (id === 'watermark' ? wm : null),
+    createElement: (t) => new MNode(t),
+    addEventListener(t, fn) { (doc._ev[t] = doc._ev[t] || []).push(fn); },
+    dispatch(t, ev) { (doc._ev[t] || []).forEach((fn) => fn(Object.assign({ preventDefault() {} }, ev || {}))); }
+  };
+  const win = {
+    innerWidth: 390,
+    innerHeight: 800,
+    _ev: {},
+    addEventListener(t, fn) { (win._ev[t] = win._ev[t] || []).push(fn); },
+    dispatch(t, ev) { (win._ev[t] || []).forEach((fn) => fn(Object.assign({ preventDefault() {} }, ev || {}))); }
+  };
+  const sb = {
+    document: doc, window: win,
+    location: { protocol: opts.protocol },
+    navigator: { clipboard: { writeText: () => Promise.resolve() } },
+    setTimeout: timers.setTimeout, clearTimeout: timers.clearTimeout,
+    AbortController: function () { this.abort = function () {}; },
+    fetch: opts.fetch,
+    console
+  };
+  vm.createContext(sb);
+  vm.runInContext(antiJs, sb, { timeout: 8000 });
+  return { rootEl, win, doc, timers, wm };
+}
+const flush = async () => { for (let i = 0; i < 40; i++) await Promise.resolve(); };
+const isLocked = (s) => s.rootEl.classList.contains('locked');
+const isOwnerCls = (s) => s.rootEl.classList.contains('is-owner');
+const wmTexts = (s) => Array.from(new Set(s.wm.children.map((c) => c.textContent)));
+
+/* A. file:// → 本机 App：立刻 owner，不启用保护 */
+const A = antiSandbox({ protocol: 'file:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '1.2.3.4' }) }) });
+A.win.dispatch('blur');
+A.doc.dispatch('visibilitychange', {});
+console.log(`  A) file:// → is-owner=${isOwnerCls(A)} locked=${isLocked(A)} · 水印块 ${A.wm.children.length} 个 · 文字：${wmTexts(A).join(' / ')}`);
+ok(isOwnerCls(A) && !isLocked(A) && A.wm.children.length > 0,
+  "file:// 打开（本机 App）→ 立刻 owner：blur 也不 locked、徽章 class 有、水印照画");
+
+/* B. https + IP 命中 owner */
+const B = antiSandbox({ protocol: 'https:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '120.231.138.19' }) }) });
+await flush();
+B.win.dispatch('blur');
+console.log(`  B) https + IP=120.231.138.19 → is-owner=${isOwnerCls(B)} locked=${isLocked(B)} · 水印：${wmTexts(B).join(' / ')}`);
+ok(isOwnerCls(B) && !isLocked(B), 'https 打开但 IP 命中 → 也是 owner，blur 不 locked');
+ok(wmTexts(B).some((t) => /\[OWNER\]/.test(t)), 'owner 的水印带 [OWNER] 标记');
+
+/* C. https + 别人的 IP：保护生效 */
+const C = antiSandbox({ protocol: 'https:', fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ip: '8.8.8.8' }) }) });
+await flush();
+console.log(`  C) https + IP=8.8.8.8 → is-owner=${isOwnerCls(C)} locked=${isLocked(C)} · 水印：${wmTexts(C).join(' / ')}`);
+ok(!isOwnerCls(C), 'https + 别人的 IP → 不是 owner');
+C.win.dispatch('blur');
+const lockedByBlur = isLocked(C);
+C.win.dispatch('focus');
+console.log(`  切窗口(blur) → locked=${lockedByBlur}；切回来(focus) → locked=${isLocked(C)}`);
+ok(lockedByBlur && !isLocked(C), 'blur → 加 locked（内容模糊 + 出遮罩）；focus → 立刻恢复清晰');
+/* PrintScreen + 4 秒自动解锁 */
+C.win.dispatch('keydown', { key: 'PrintScreen', code: 'PrintScreen' });
+const lockedByShot = isLocked(C);
+const ms = C.timers.run();
+console.log(`  按 PrintScreen → locked=${lockedByShot}；自动解锁定时器 = ${ms.join(',')} ms；解锁后 locked=${isLocked(C)}`);
+ok(lockedByShot, 'PrintScreen 按下 → 立刻 locked');
+ok(ms.indexOf(4000) >= 0, '挂了 4000ms 自动解锁定时器', ms.join(','));
+ok(!isLocked(C), '4 秒到点自动解锁（内容恢复）');
+/* 切标签页 */
+C.doc.hidden = true;
+C.doc.dispatch('visibilitychange', {});
+const lockedByHide = isLocked(C);
+C.doc.hidden = false;
+C.doc.dispatch('visibilitychange', {});
+console.log(`  切标签页 → locked=${lockedByHide}；切回来 → locked=${isLocked(C)}`);
+ok(lockedByHide && !isLocked(C), 'visibilitychange 切走 → locked；切回 → 恢复');
+/* 右键 / 拖拽 / 复制 都被拦掉 */
+let prevented = 0;
+C.doc.dispatch('contextmenu', { preventDefault() { prevented++; } });
+C.doc.dispatch('dragstart', { preventDefault() { prevented++; } });
+C.doc.dispatch('copy', { preventDefault() { prevented++; } });
+C.doc.dispatch('cut', { preventDefault() { prevented++; } });
+ok(prevented === 4, '右键 / 拖拽 / 复制 / 剪切 都被 preventDefault 拦掉', `实际拦了 ${prevented} 个`);
+
+/* D. IP 查询全失败 → 安全降级 */
+const D = antiSandbox({ protocol: 'https:', fetch: () => Promise.reject(new Error('ECONNRESET')) });
+await flush();
+D.win.dispatch('blur');
+console.log(`  D) https + IP 查询全失败 → is-owner=${isOwnerCls(D)} locked=${isLocked(D)}`);
+ok(!isOwnerCls(D) && isLocked(D), 'IP 查询全失败 → 安全降级：仍然按「别人」处理（blur 会 locked）');
 
 /* ============================================================
    结论
