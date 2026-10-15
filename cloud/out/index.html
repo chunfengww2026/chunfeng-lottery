@@ -48155,7 +48155,7 @@ function renderAlgoTool(container) {
 <script>
 (function () {
   var els = [document.getElementById('__NEXT_CD__'), document.getElementById('__NEXT_CD2__')].filter(Boolean);
-  if (!el) return;
+  if (!els.length) return;   /* 【修正】原来写的是 if (!el)，但变量叫 els → 一直抛错，倒计时从来没画出来 */
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function target() {
     var d = new Date();
