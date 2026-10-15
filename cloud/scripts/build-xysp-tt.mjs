@@ -13,9 +13,22 @@
    ⇒ 两个脚本可以在同一个任务里先后跑，也可以只跑其中一个，都不会把对方写坏。
 
    ── 抓什么（实测 2026-10-16，服务端渲染，用 iPhone UA）
-     https://www.toutiao.com/search/?keyword=晒票
+     正式入口 = https://so.toutiao.com/search/?dvpf=pc&keyword=<关键词>
        → HTTP 200 · ~510 KB · 标题 + 图片都在 HTML 里，不需要 __INITIAL_STATE__
-     HTTP 200 也验证了另外两个关键词（双色球晒票 / 大乐透晒票）。
+
+     ⚠️ 为什么不用 https://www.toutiao.com/search/?keyword=…（本机实测也是 200）
+        本机（中国 IP）直连 www 就是 200 + 完整 SSR 页；
+        但【云端 GitHub runner（美国 IP）】取 www 会拿到
+          HTTP 302 → location: https://so.toutiao.com/search/?dvpf=pc&keyword=…
+        用 Node 的 fetch 时 redirect 默认就是 follow，理论上是能跟过去的，
+        但为了【两边走同一条路、不留任何差异】，这里直接写最终的
+        so.toutiao.com + dvpf=pc 地址，并且显式写 redirect: 'follow'。
+        实测：本机 so+dvpf=pc 和 www 拿到的 HTML 字节数只差 3 字节
+        （521401 vs 521404），解析结果完全一样（都是 15 条）。
+
+     ⚠️ 别踩的坑：so.toutiao.com/search/?keyword=… 【不带 dvpf=pc】
+        返回的是另一套渲染（1.39 MB、0 个卡片数据块），解析出来 0 条。
+        m.toutiao.com / 不带 dvpf 的 so 同样 0 个卡片块（实测）。
 
    ── 标题 / 图从哪来（实测的真实结构）
      每一条搜索结果是一个
@@ -86,8 +99,11 @@ const PAUSE_MINUTES = 120;
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 ' +
   '(KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
-/* 搜索入口。至少「晒票」；再加两个按彩种的（实测都是 HTTP 200）。
+/* 搜索入口。至少「晒票」；再加两个按彩种的（实测都能返回结果）。
+   ⚠️ 一律用 so.toutiao.com + dvpf=pc —— 本机和云端（美国 IP）走同一条路，
+      见文件头的「为什么不用 www」。
    ⚠️ 只加【页面真的能返回结果】的关键词，加多了只是白等 1.2s。 */
+const BASE = 'https://so.toutiao.com/search/?dvpf=pc&keyword=';
 const SEARCHES = [
   { key: 'all', kw: '晒票' },
   { key: 'ssq', kw: '双色球 晒票' },
@@ -371,7 +387,7 @@ export async function runTtFetch() {
   for (let i = 0; i < SEARCHES.length; i++) {
     const s = SEARCHES[i];
     if (i > 0) await sleep(GAP_MS);                  /* 请求间隔 >= 1.2s */
-    const url = 'https://www.toutiao.com/search/?keyword=' + encodeURIComponent(s.kw);
+    const url = BASE + encodeURIComponent(s.kw);
     try {
       const r = await fetch(url, {
         headers: {
@@ -379,6 +395,10 @@ export async function runTtFetch() {
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'Accept-Language': 'zh-CN,zh;q=0.9'
         },
+        /* 云端取 www 时会被 302 到 so.toutiao.com；
+           这里显式跟跳转，免得哪天头条又改了入口就直接 0 条。
+           ⚠️ 不设重定向上限的坑：fetch 默认最多跟 20 跳，够用。 */
+        redirect: 'follow',
         signal: AbortSignal.timeout(30000)
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
