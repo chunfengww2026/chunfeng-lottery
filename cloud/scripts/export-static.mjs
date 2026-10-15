@@ -2510,9 +2510,11 @@ body.ro-mob-open { overflow: hidden; }
 /* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
 @supports selector(:target) {
   .ro-panel { display: none; }
-  /* .ro-panel:target 规则【已删除】：浏览器在 history.replaceState 后不会重算 :target，
-     导致「再点一下收不起来」。现在只靠 .ro-panel.ro-open（JS 控制），行为确定。 */
 }
+/* 【展开规则】由 JS 加 .ro-open 类控制（不依赖 :target）。
+   ⚠️ 这条必须存在，否则区块永远打不开 —— 之前误把它写进了 JS 注释里。
+   放在 @supports 外面：即使浏览器不认识 :target，点一下也能展开。 */
+.ro-panel.ro-open { display: block; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
