@@ -246,7 +246,21 @@ const CODE_MODULES = [
      这些包和语言数据【不受版本管理】，所以从本机 runtime/ocr/ 一起传上去
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
-  'export-static.mjs', 'export-football.mjs',
+  'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
+  /* 【出号 / 出页面 · 备用入口】roll-and-export.mjs 与 export-only.mjs。
+     ⚠️ 先说清楚一件事，免得以后有人以为云端少了这两个就不会出号：
+        云端【不靠】这两个脚本出号 —— cloud-build.mjs 自己是把
+        games.js / ticket-store.js / stats.js / templates.js … 全部塞进一个
+        vm 沙箱，直接调 ctx.__roll() 摇号（纯 JS 算法，不碰任何接口），
+        再自己写 saved-tickets.js、自己调 export-static / export-football 出页面。
+        为什么不用 roll-and-export.mjs：它跑完还会去调 cloud/sync-cloud.mjs
+        （云端没有 token，必然失败）和 export-site.mjs（生成要手动上传的分享包），
+        而且它一进来就重摇号码 —— 云端只需要「缺才补」，不能重摇已发布的号。
+     那为什么还要同步这两个文件：
+        ① 让云端仓库里的代码和本机【完全一致】，以后要手工补跑/排查时有据可依；
+        ② 它们的依赖（./export-cloud-tickets.mjs、export-static/football/site）
+           全都在云端，需要时能直接 node roll-and-export.mjs 跑起来。 */
+  'roll-and-export.mjs', 'export-only.mjs',
   /* 【竞彩在售场次】抓体彩官网在售场次的脚本（1 次请求，不调 AI）。
       云端【每 30 分钟那一班】也会跑它；体彩官网对美国 IP 返回 567 时，
       脚本自己保留上一次的 jc-official.js（退出码 10），页面退回兜底算法。 */
