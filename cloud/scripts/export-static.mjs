@@ -747,16 +747,28 @@ const tocHtml =
   `</div>`;
 
 /* ============================================================
-   【文章参考】区块（用户新增需求）
+   【文章参考】区块（用户新增需求 + 2026-10-16 改版）
    ------------------------------------------------------------
-   数据：articles-data.js（build-articles.mjs 抓取，30 分钟一次）
+   数据：articles-data.js（build-articles.mjs 抓取，每小时 :16 一次）
    位置：紧跟【最新开奖】下面 —— 也就是原来「彩票推荐图」那条分隔条的位置
          （那条分隔条已被用户要求全局隐藏，这里不恢复它）
    布局：窄屏竖着一列一列排（每个彩种一块）；宽屏并排（自适应 2~3 列）
-   交互：点标题 → 新窗口打开原文（target=_blank + rel=noopener）
-   ⚠️ 只用 <a>，不出任何按钮标签（页面不变量要求 button 数为 0）
-   ⚠️ 页面上【不出现来源字样】：链接域名里的字母用 HTML 实体写，
-      浏览器会自动解码，点击照样正常打开原文。
+
+   【本次改版 · 用户原话】
+     「微信把 yiqicai.com 拉黑了，点链接跳过去打不开
+       → 要把正文抓到我们页面上」 → 方案 A：标题下【原地展开阅读】
+     · 标题仍然是 <a>（页面不变量：不能出现 button 标签），
+       href 是页内锚点 #ro-art-N（不写源站域名），点一下只展开、不跳转
+     · 为什么用方案 A 而不是复用全屏层(ro-mob-view)：正文是长文本，
+       全屏层是给看图用的（缩放/双指那套），塞文字要改它的层级与手势逻辑，
+       风险大；原地展开零层级风险、段落读起来也顺。
+     · 展开是【点哪篇展开哪篇、默认全部收起】，再点一次收起。
+       scrollIntoView 只在展开时、且仅在正文顶端出到视口上方时才补,
+       避免标题被顶出屏幕（收起不滚动，免得页面乱跳）。
+     · 正文里的段落是【纯文本】，图片是 { i: 地址 } 那一种元素 ——
+       那个元素单独一个 <p class="ro-art-img">，不是用户内容，
+       所以页面上不会出现标签样的字面量。
+     · 正文的图不写 data-image → 图位数量(data-image=)必须仍然是 21。
    ============================================================ */
 const ART_SHORT_NAME = { ssq: '双色球', dlt: '大乐透', fc3d: '3D', pl3: '排三', kl8: '快乐8' };
 const ART_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'kl8'];
@@ -769,11 +781,34 @@ function articleHref(u) {
   return escapeAttr(String(u == null ? '' : u)).replace(/yiqicai/gi, 'yiqic&#97;i');
 }
 
+/* 文章参考 · 正文的每个元素单独一段（段落文字 / 图片）——
+   HTML 里【不出现用户内容之外的标签样字面量】，所以这样铺开写。 */
+function artBodyHtml(body) {
+  if (!Array.isArray(body) || !body.length) return '';
+  const segs = [];
+  for (const seg of body) {
+    if (seg && typeof seg === 'object') {
+      const src = String(seg.i || '');
+      if (!/^https:\/\//i.test(src)) continue;      /* 只认 https，免得混合内容被浏览器拦掉 */
+      segs.push('<p class="ro-art-img">' +
+        '<img src="' + escapeAttr(src) + '" alt="" loading="lazy" decoding="async"' +
+        ' referrerpolicy="no-referrer"></p>');
+    } else {
+      const t = String(seg == null ? '' : seg).trim();
+      if (!t) continue;
+      segs.push('<p class="ro-art-p">' + escape(t) + '</p>');
+    }
+  }
+  return segs.join('');
+}
+
 function buildArticlesHtml() {
   const data = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
   const updated = (ARTICLES && ARTICLES.updated) ? String(ARTICLES.updated) : '';
 
   let total = 0;
+  let artId = 0;                 /* 正文块的 id 序号，页面内唯一，和 data-ro-art 对应 */
+  let bodyCnt = 0;               /* 带正文的篇数，日志用 */
   const groupsHtml = ART_ORDER.map((k) => {
     const g = data ? data[k] : null;
     const items = (g && Array.isArray(g.items)) ? g.items : [];
@@ -785,9 +820,25 @@ function buildArticlesHtml() {
           const meta = [];
           if (it.author) meta.push(`<span class="ro-art-author">${escape(it.author)}</span>`);
           if (it.date) meta.push(`<span class="ro-art-date">${escape(it.date)}</span>`);
-          return `<li><a class="ro-art-link" href="${articleHref(it.url)}" ` +
-            `target="_blank" rel="noopener">${escape(it.title)}</a>` +
+
+          const body = Array.isArray(it.body) ? it.body : null;
+          const hasBody = !!(body && body.length);
+          if (hasBody) bodyCnt++;
+          const id = ++artId;
+
+          /* 正文：默认收起（CSS 里 display:none），点标题才展开 */
+          const bodyHtml = hasBody
+            ? `<div class="ro-art-body" id="ro-art-${id}" data-ro-art="${id}">` +
+              artBodyHtml(body) +
+              `<p class="ro-art-note">正文已抓取到本页，仅供阅读参考。</p>` +
+              `</div>`
+            : '';
+
+          return `<li class="ro-art-item${hasBody ? '' : ' ro-art-nobody'}">` +
+            `<a class="ro-art-link" href="#ro-art-${id}" data-ro-art="${id}">` +
+            `${escape(it.title)}</a>` +
             (meta.length ? `<div class="ro-art-meta">${meta.join('')}</div>` : '') +
+            bodyHtml +
             `</li>`;
         }).join('') + '</ul>'
       : '<div class="ro-art-empty">本期暂无</div>';
@@ -2338,6 +2389,48 @@ body.ro-mob-open { overflow: hidden; }
 .ro-art-date { font-size: 10.5px; color: #5f6878; }
 .ro-art-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
 
+/* —— 文章参考 · 正文（点标题原地展开阅读）——
+   用户原话：「微信把 yiqicai.com 拉黑了，点链接跳过去打不开
+             → 要把正文抓到我们页面上」。
+   默认全部收起：正文 display:none，只有 [data-ro-art] 那一块被 .ro-art-item.ro-art-open
+   命中才显示。展开/收起由页尾那一小段脚本切 class，不刷新、不跳转。
+   正文用纯文本段落，行高 1.8、字号 14.5px，跟页面暗色风格一致。 */
+.ro-art-body {
+  display: none;
+  margin: 7px 0 3px;
+  padding: 9px 10px 7px;
+  background: #12161d;
+  border-left: 2px solid #2f80ed;
+  border-radius: 0 8px 8px 0;
+}
+.ro-art-item.ro-art-open .ro-art-body { display: block; }
+.ro-art-p {
+  margin: 0 0 9px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #d5dae3;
+  word-break: break-word;
+}
+.ro-art-p:last-of-type { margin-bottom: 4px; }
+.ro-art-img { margin: 0 0 9px; }
+.ro-art-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+  background: #1b2029;
+}
+.ro-art-note {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  color: #5b6373;
+  border-top: 1px solid #212836;
+  padding-top: 5px;
+}
+/* 没抓到正文的那一篇：标题照样能点（点开只是没有内容），
+   给个淡一点的颜色，不误导成「点了有正文」。 */
+.ro-art-item.ro-art-nobody .ro-art-link { color: #7d8797; }
+
 /* ============================================================
    【晒票栏】区块样式（用户新增需求）
    ------------------------------------------------------------
@@ -3529,6 +3622,58 @@ ${RO_RENDER_SCRIPT}
   }
   draw();
   setInterval(draw, 1000);
+})();
+</script>
+
+<!-- __ART_BODY_JS__ 文章参考·正文原位展开（方案 A）
+     用户原话：「要把正文抓到我们页面上」→ 点标题在标题下面原地展开正文，
+     再点一次收起。【默认全部收起】。
+     这一段只做两件事：切 .ro-art-open 这个 class + 展开时把正文顶端拉进视口。
+     纯前端，不联网、不调 AI → 免费。
+     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）；
+        以前把页面脚本拼在 .mjs 文件末尾 → Node 里 document 未定义直接崩。 -->
+<script>
+(function () {
+  try {
+    /* 页尾其它脚本都还没跑（script 是顺序执行的），所以这里直接查 DOM 就行；
+       仍然包一层 try，任何意外都不影响正文已经预渲染的事实。 */
+    var links = document.querySelectorAll('a.ro-art-link[data-ro-art]');
+    if (!links.length) return;
+
+    /* 展开时不要把标题顶出屏幕：只有正文顶端已经跑到视口上方才补一点滚动。
+       收起时不滚动 —— 否则页面会乱跳。 */
+    function reveal(box) {
+      if (!box || !box.getBoundingClientRect) return;
+      var top = box.getBoundingClientRect().top;
+      if (top < 0) {
+        try { box.scrollIntoView({ block: 'nearest' }); }
+        catch (e) { /* 老浏览器：不滚动也能看 */ }
+      }
+    }
+
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (e) {
+        var a = this;
+        var id = String(a.getAttribute('data-ro-art') || '');
+        var body = id ? document.getElementById('ro-art-' + id) : null;
+        if (!body) return;                       /* 没抓到正文 → 交给浏览器处理 */
+        e.preventDefault();                      /* 不跳锚点、不改 hash */
+        var li = a.parentNode;
+        var open = false;
+        if (li && li.tagName !== 'LI') li = li.parentNode;   /* 结构变了也不至于报错 */
+        if (li && li.className != null) {
+          open = String(li.className).indexOf('ro-art-open') >= 0;
+          li.className = open
+            ? String(li.className).replace(/\s*ro-art-open\s*/, ' ').replace(/^\s+|\s+$/g, ' ')
+            : (String(li.className) + ' ro-art-open').replace(/^\s+|\s+$/g, '');
+        }
+        if (!open) reveal(body);
+      });
+    }
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__roArt = { links: links.length };
+  } catch (e) { /* 忽略：正文已经预渲染在页面里，展开只是锦上添花 */ }
 })();
 </script>
 </body>
