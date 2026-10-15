@@ -2569,7 +2569,7 @@ body.ro-mob-open { overflow: hidden; }
           if (!OK[href]) return;
           e.preventDefault();
           var el = document.getElementById(href.slice(1));
-          if (!els.length) return;
+          if (!el) return;
           var wasOpen = el.classList.contains('ro-open');
           roCloseAll();
           if (wasOpen) {
