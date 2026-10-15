@@ -620,6 +620,9 @@ function renderCalc() {
     `<summary class="calc-head">` +
     `<span class="calc-title">模拟计算</span>` +
     `<span class="calc-tag">仅供娱乐参考</span>` +
+    /* 【保存图片】在标题行里（<summary> 内）。点了【不会】把整块收起：
+       脚本里对它的 click 调了 preventDefault + stopPropagation。用 <a role="button">，不是裸 <button>。 */
+    `<a role="button" tabindex="0" class="calc-btn calc-shot-btn" id="calcShotBtn">保存图片</a>` +
     `<span class="calc-src">赔率：${esc(SP_SRC_CN)}</span>` +
     `<span class="calc-tip" aria-hidden="true"></span>` +
     `</summary>`;
@@ -670,10 +673,12 @@ function renderCalc() {
       `</div>`;
   }).join('');
 
-  /* 纯前端脚本要用的赔率：内联成 JSON。
+  /* 纯前端脚本要用的赔率 + 队名（保存图片时要画到图上）：内联成 JSON。
      【注意】必须把 < 转义，否则 JSON 里的字符串可能提前闭合 <script>。 */
-  const payload = JSON.stringify(CALC_ROWS.map((r) => ({ code: r.code, had: r.had, hhad: r.hhad })))
-    .replace(/</g, '\\u003c');
+  const payload = JSON.stringify(CALC_ROWS.map((r) => ({
+    code: r.code, league: r.league, time: r.time, home: r.home, away: r.away,
+    had: r.had, hhad: r.hhad
+  }))).replace(/</g, '\\u003c');
 
   const bar =
     `<script type="application/json" id="jcCalcData">${payload}</script>` +
@@ -899,6 +904,20 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border-radius: 6px; color: #e8eaed; font-size: 12px; font-family: Consolas, monospace; }
 .calc-rand { margin-left: auto; font-weight: 700; color: #47e0a0;
   background: rgba(71,224,160,0.10); border-color: rgba(71,224,160,0.42); }
+.calc-shot-btn { margin-left: 2px; color: #8ab0f5; border-color: rgba(110,168,254,0.35);
+  background: rgba(110,168,254,0.10); }
+/* ---- 保存图片 · 全屏层（默认隐藏） ---- */
+.calc-shot { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  z-index: 999; background: rgba(8,9,12,0.95); padding: 14px;
+  flex-direction: column; align-items: center; justify-content: center; }
+.calc-shot.on { display: flex; }
+.calc-shot-bar { width: 100%; max-width: 760px; display: flex; align-items: center;
+  gap: 10px; margin-bottom: 10px; }
+.calc-shot-tip { flex: 1 1 auto; font-size: 12px; color: #8b93a1; }
+.calc-shot-x { font-size: 17px; line-height: 1; color: #c8cfda; background: #1b212b;
+  border: 1px solid #2b3550; border-radius: 8px; padding: 4px 12px; cursor: pointer;
+  user-select: none; -webkit-user-select: none; }
+.calc-shot-img { max-width: 100%; max-height: 78vh; border-radius: 10px; background: #0f1115; }
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
 .calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
@@ -980,6 +999,17 @@ ${nav}
   ${cards}
 
   ${renderCalc()}
+
+  <!-- 【保存图片 · 全屏层】默认隐藏（display:none），点「保存图片」才显示。
+       关闭方式：点空白 / 点 × / Esc / 手机返回键（进去时 push 了一个 history 状态）。
+       这一层放在折叠区【外面】—— 整块收起时也能弹出来。 -->
+  <div class="calc-shot" id="calcShot">
+    <div class="calc-shot-bar">
+      <span class="calc-shot-tip">长按图片 / 右键 → 保存到手机</span>
+      <a role="button" tabindex="0" class="calc-shot-x" id="calcShotX">×</a>
+    </div>
+    <img class="calc-shot-img" id="calcShotImg" alt="模拟计算选号图">
+  </div>
 
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
@@ -1120,11 +1150,9 @@ ${nav}
   /* 随机前如果可选场次不够，用这个把说明带给 update()（只显示一次） */
   var note = '';
 
-  function update() {
-    var i, j;
-    var sel = {}, codes = [];
-
-    /* 1) 读勾选（同一场可勾多个结果 → 复式） */
+  /* ---------- 1) 读勾选（同一场可勾多个结果 → 复式） ---------- */
+  function readSelection() {
+    var sel = {}, codes = [], i;
     for (i = 0; i < boxes.length; i++) {
       var b = boxes[i];
       var on = !!b.checked;
@@ -1136,94 +1164,124 @@ ${nav}
       if (!sel[p[0]]) { sel[p[0]] = { had: [], hhad: [] }; codes.push(p[0]); }
       if (p[1] === 'hhad') sel[p[0]].hhad.push(p[2]); else sel[p[0]].had.push(p[2]);
     }
+    return { sel: sel, codes: codes };
+  }
 
-    var n = codes.length;
-    var m = mul();
+  var KEY_NAME = { h: '主胜', d: '平', a: '客胜' };
+  var POOL_NAME = { had: '胜平负', hhad: '让球' };
 
-    /* 2) 默认（一个都没勾）：0 关 0 注 ¥0 */
-    if (!n) {
-      elN.textContent = '0';
-      elBets.textContent = '0';
-      elCost.textContent = money(0);
+  /* ---------- 2) 算一遍 ----------
+     界面上的数字和「保存图片」画出来的数字【用的是同一个结果对象】，
+     所以图和页面对不上这种事不会发生。 */
+  function analyze() {
+    var got = readSelection(), sel = got.sel, codes = got.codes;
+    var res = {
+      n: codes.length, bets: 1, mul: mul(), groups: [],
+      ok: false, hint: '', warnText: '',
+      loBet: 0, hiBet: 0, capped: false, lim: 0, cost: 0, loPrize: 0, hiPrize: 0,
+      passWant: passN()
+    };
+    if (!res.n) { res.bets = 0; res.hint = '还没勾选场次'; return res; }
+
+    var i, j, mixed = false, missing = false;
+    var minProd = 2, maxProd = 2;
+    for (i = 0; i < codes.length; i++) {
+      var s = sel[codes[i]], rr = byCode[codes[i]] || {};
+      var picks = [], lo = Infinity, hi = -Infinity;
+      for (j = 0; j < s.had.length; j++) {
+        var o1 = rr.had ? rr.had[s.had[j]] : null;
+        if (o1 > 0) {
+          picks.push({ pool: 'had', key: s.had[j], odds: o1 });
+          if (o1 < lo) lo = o1;
+          if (o1 > hi) hi = o1;
+        }
+      }
+      for (j = 0; j < s.hhad.length; j++) {
+        var o2 = rr.hhad ? rr.hhad[s.hhad[j]] : null;
+        if (o2 > 0) {
+          picks.push({ pool: 'hhad', key: s.hhad[j], odds: o2 });
+          if (o2 < lo) lo = o2;
+          if (o2 > hi) hi = o2;
+        }
+      }
+      if (picks.length !== (s.had.length + s.hhad.length)) missing = true;
+
+      res.bets *= (s.had.length + s.hhad.length);
+      if (res.n >= 2 && s.had.length && s.hhad.length) mixed = true;
+      res.groups.push({
+        code: codes[i], league: rr.league || '',
+        home: rr.home || '', away: rr.away || '',
+        line: (rr.hhad && rr.hhad.line) ? rr.hhad.line : '',
+        picks: picks
+      });
+      if (lo > 0 && hi > 0) { minProd *= lo; maxProd *= hi; }
+    }
+
+    if (mixed) {
+      res.hint = '该组合不能出票，未计算奖金';
+      res.warnText = '同一场比赛不能同时选「胜平负」和「让球胜平负」（体彩混合过关规则），请取消其中一边。';
+      return res;
+    }
+    if (res.n > MAX_PARLAY) {
+      res.hint = '该组合不能出票，未计算奖金';
+      res.warnText = '已选 ' + res.n + ' 关，超过体彩「胜平负 / 让球胜平负」最多 ' + MAX_PARLAY + ' 关的过关上限，实际不能出票。';
+      return res;
+    }
+    if (missing) {
+      res.hint = '所选场次缺少赔率，无法试算';
+      res.warnText = '所选里有一场没有可用赔率（官方可能刚更新），取消后重试。';
+      return res;
+    }
+
+    res.lim = capOf(res.n);
+    var rawMax = round2(maxProd);
+    res.loBet = Math.min(round2(minProd), res.lim);
+    res.hiBet = Math.min(rawMax, res.lim);
+    res.capped = rawMax > res.lim;
+    res.loPrize = res.loBet * res.mul;
+    res.hiPrize = res.hiBet * res.mul;
+    res.cost = res.bets * 2 * res.mul;
+    res.ok = true;
+    return res;
+  }
+
+  /* ---------- 3) 把算出来的结果画到界面上 ---------- */
+  function update() {
+    var res = analyze();
+    elN.textContent = String(res.n);
+    elBets.textContent = String(res.bets);
+    elCost.textContent = money(res.cost);
+
+    if (!res.n) {
       elPrize.textContent = money(0);
       elHint.textContent = '还没勾选场次' + (note ? ' · ' + note : '');
       note = '';
       warn('');
       return;
     }
-
-    /* 3) 注数 = 各场勾选个数的乘积；同一场跨玩法（胜平负+让球）→ 混合过关，体彩不允许 */
-    var bets = 1, mixed = false;
-    for (i = 0; i < codes.length; i++) {
-      var s = sel[codes[i]];
-      bets *= (s.had.length + s.hhad.length);
-      if (n >= 2 && s.had.length && s.hhad.length) mixed = true;
-    }
-    elN.textContent = String(n);
-    elBets.textContent = String(bets);
-
-    var bad = '';
-    if (mixed) bad = '同一场比赛不能同时选「胜平负」和「让球胜平负」（体彩混合过关规则），请取消其中一边。';
-    else if (n > MAX_PARLAY) bad = '已选 ' + n + ' 关，超过体彩「胜平负 / 让球胜平负」最多 ' + MAX_PARLAY + ' 关的过关上限，实际不能出票。';
-    if (bad) {
-      elCost.textContent = money(bets * 2 * m);
+    if (!res.ok) {
       elPrize.textContent = '—';
-      elHint.textContent = '该组合不能出票，未计算奖金';
-      warn(bad);
+      elHint.textContent = res.hint;
+      warn(res.warnText);
       return;
     }
 
-    /* 4) 单注奖金 = 2 元 × 各场赔率连乘（每场取最小/最大 → 复式的奖金范围） */
-    var minProd = 2, maxProd = 2, hasOdds = true;
-    for (i = 0; i < codes.length; i++) {
-      var rr = byCode[codes[i]] || {};
-      var ss = sel[codes[i]];
-      var lo = Infinity, hi = -Infinity;
-      for (j = 0; j < ss.had.length; j++) {
-        var o1 = rr.had ? rr.had[ss.had[j]] : null;
-        if (o1 > 0) { if (o1 < lo) lo = o1; if (o1 > hi) hi = o1; }
-      }
-      for (j = 0; j < ss.hhad.length; j++) {
-        var o2 = rr.hhad ? rr.hhad[ss.hhad[j]] : null;
-        if (o2 > 0) { if (o2 < lo) lo = o2; if (o2 > hi) hi = o2; }
-      }
-      if (!(lo > 0) || !(hi > 0)) { hasOdds = false; break; }
-      minProd *= lo;
-      maxProd *= hi;
-    }
-    if (!hasOdds) {
-      elCost.textContent = money(bets * 2 * m);
-      elPrize.textContent = '—';
-      elHint.textContent = '所选场次缺少赔率，无法试算';
-      warn('所选里有一场没有可用赔率（官方可能刚更新），取消后重试。');
-      return;
-    }
-
-    var lim = capOf(n);
-    var rawMax = round2(maxProd);
-    var loBet = Math.min(round2(minProd), lim);
-    var hiBet = Math.min(rawMax, lim);
-    var capped = rawMax > lim;
-    var loPrize = loBet * m;
-    var hiPrize = hiBet * m;
-
-    elCost.textContent = money(bets * 2 * m);
-    elPrize.textContent = (loPrize === hiPrize) ? money(hiPrize) : (money(loPrize) + ' ~ ' + money(hiPrize));
     /* 【过关方式】和实际勾选场数不一致时给出软提示：
-       奖金始终按【实际勾了几场】算（体彩规则里 3 场就是 3串1，没法按 2串1 出票），
-       这里只是提醒用户「你选的档位和勾的场数对不上」。 */
-    var want = passN();
-    /* note 非空 = 是「随机时可选场次不够」那条说明（已经讲了按几关算），
-       就不用再叠一条「与所选不符」的提示，免得两句话重复。 */
+       奖金始终按【实际勾了几场】算（体彩规则里 3 场就是 3串1，没法按 2串1 出票）。
+       note 非空 = 「随机时可选场次不够」那条说明（已经讲了按几关算），不重复叠。 */
     var passNote = note
       ? ' · ' + note
-      : (n !== want ? ' · ⚠️ 已勾 ' + n + ' 场，与所选「' + passCn(want) + '」不一致 → 按实际 ' + passCn(n) + ' 计算' : '');
-    elHint.textContent = (n === 1 ? '单关' : n + ' 关·串关') +
-      ' · 共 ' + bets + ' 注 · 单注奖金 ' +
-      (loBet === hiBet ? loBet.toFixed(2) : loBet.toFixed(2) + '~' + hiBet.toFixed(2)) + ' 元' +
-      (bets > 1 ? '（复式，中其中一注）' : '') +
-      (capped ? ' · 已按单注最高限额 ' + lim + ' 元封顶' : '') +
-      (n === 1 ? ' · 单关能否投注以官方为准' : '') +
+      : (res.n !== res.passWant
+        ? ' · ⚠️ 已勾 ' + res.n + ' 场，与所选「' + passCn(res.passWant) + '」不一致 → 按实际 ' + passCn(res.n) + ' 计算'
+        : '');
+    elPrize.textContent = (res.loPrize === res.hiPrize)
+      ? money(res.hiPrize) : (money(res.loPrize) + ' ~ ' + money(res.hiPrize));
+    elHint.textContent = (res.n === 1 ? '单关' : res.n + ' 关·串关') +
+      ' · 共 ' + res.bets + ' 注 · 单注奖金 ' +
+      (res.loBet === res.hiBet ? res.loBet.toFixed(2) : res.loBet.toFixed(2) + '~' + res.hiBet.toFixed(2)) + ' 元' +
+      (res.bets > 1 ? '（复式，中其中一注）' : '') +
+      (res.capped ? ' · 已按单注最高限额 ' + res.lim + ' 元封顶' : '') +
+      (res.n === 1 ? ' · 单关能否投注以官方为准' : '') +
       passNote;
     note = '';
     warn('');
@@ -1317,6 +1375,188 @@ ${nav}
         gptRandom();
       }
     });
+  }
+
+  /* ============================================================
+     【保存图片】把当前选号画成一张 PNG（纯前端 canvas，不联网、不写任何存储）
+       · 点「保存图片」→ canvas 画出来 → 全屏层显示 → 用户长按 / 右键自己保存
+       · 没勾选 → 提示「请先选择比赛」，不生成空图
+       · 画不出来 → 明说画不出来，绝不静默失败
+       · 图上的数字来自 analyze()，和界面上看到的是同一份
+     ============================================================ */
+  var elShot = document.getElementById('calcShot');
+  var elShotImg = document.getElementById('calcShotImg');
+  var elShotX = document.getElementById('calcShotX');
+  var elShotBtn = document.getElementById('calcShotBtn');
+  var shotOpen = false, shotHist = false;
+
+  function two(v) { return (v < 10 ? '0' : '') + v; }
+  function nowText() {
+    var d = new Date();
+    return d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()) + ' ' +
+      two(d.getHours()) + ':' + two(d.getMinutes());
+  }
+  function cut(s, n) { s = String(s == null ? '' : s); return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+
+  function drawShot(res) {
+    if (typeof document.createElement !== 'function') return null;
+    var canvas = document.createElement('canvas');
+    if (!canvas || typeof canvas.getContext !== 'function') return null;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    var FONT = '"PingFang SC","Microsoft YaHei",sans-serif';
+    var W = 760, pad = 28, y;
+    var heights = res.groups.map(function (g) { return 46 + g.picks.length * 30; });
+    var bodyH = 0;
+    for (var q = 0; q < heights.length; q++) bodyH += heights[q];
+    var H = 168 + bodyH + 186;
+    canvas.width = W;
+    canvas.height = H;
+
+    /* 背景 + 标题区 */
+    ctx.fillStyle = '#0f1115';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#161a21';
+    ctx.fillRect(0, 0, W, 148);
+    ctx.fillStyle = '#e8eaed';
+    ctx.font = 'bold 34px ' + FONT;
+    ctx.fillText('模拟计算 · 春风十里送大奖', pad, 62);
+    ctx.fillStyle = '#47e0a0';
+    ctx.font = '22px ' + FONT;
+    ctx.fillText('过关方式 ' + passCn(res.n) + '　注数 ' + res.bets + ' 注　倍数 ' + res.mul + ' 倍', pad, 100);
+    ctx.fillStyle = '#6b7488';
+    ctx.font = '20px ' + FONT;
+    ctx.fillText('生成时间 ' + nowText(), pad, 130);
+
+    /* 每一场：编号 + 队名 + 勾的结果和赔率 */
+    y = 186;
+    var gi;
+    for (gi = 0; gi < res.groups.length; gi++) {
+      var g = res.groups[gi];
+      var gh = heights[gi];
+      ctx.fillStyle = gi % 2 ? '#14171d' : '#161a21';
+      ctx.fillRect(pad - 8, y - 32, W - (pad - 8) * 2, gh - 8);
+      ctx.fillStyle = '#4a83f5';
+      ctx.font = 'bold 21px ' + FONT;
+      ctx.fillText(cut(g.code, 8), pad, y);
+      ctx.fillStyle = '#c8cfda';
+      ctx.font = 'bold 22px ' + FONT;
+      ctx.fillText(cut(g.home + ' vs ' + g.away, 20), pad + 96, y);
+      ctx.fillStyle = '#6b7488';
+      ctx.font = '18px ' + FONT;
+      ctx.fillText(cut(g.league, 10), W - pad - 96, y);
+      for (var pi = 0; pi < g.picks.length; pi++) {
+        var p = g.picks[pi];
+        ctx.fillStyle = '#47e0a0';
+        ctx.font = '21px ' + FONT;
+        ctx.fillText(POOL_NAME[p.pool] + (p.pool === 'hhad' ? (g.line || '') : '') +
+          ' ' + KEY_NAME[p.key] + '　' + p.odds, pad + 12, y + 28 + pi * 30);
+      }
+      y += gh;
+    }
+
+    /* 底部：投注额 / 预计奖金 / 规则与合规 */
+    var by = y + 4;
+    ctx.fillStyle = '#0f1115';
+    ctx.fillRect(pad - 8, by, W - (pad - 8) * 2, 160);
+    ctx.fillStyle = '#8b93a1';
+    ctx.font = '22px ' + FONT;
+    ctx.fillText('总投注额　' + money(res.cost), pad, by + 38);
+    ctx.fillStyle = '#47e0a0';
+    ctx.font = 'bold 30px ' + FONT;
+    ctx.fillText('预计奖金　' + (res.loPrize === res.hiPrize
+      ? money(res.hiPrize) : (money(res.loPrize) + ' ~ ' + money(res.hiPrize))), pad, by + 86);
+    ctx.fillStyle = '#6b7488';
+    ctx.font = '18px ' + FONT;
+    ctx.fillText('单注 2 元 · 按体彩竞彩官方规则试算（保留 2 位小数）', pad, by + 118);
+    ctx.fillText('仅供娱乐，不构成购彩建议 · 请理性购彩', pad, by + 146);
+
+    return canvas;
+  }
+
+  function openShot() {
+    var res = analyze();
+    if (!res.n) { warn('请先选择比赛，再保存图片。'); return; }
+    if (!res.ok) { warn(res.warnText || res.hint); return; }
+
+    var canvas = null;
+    try { canvas = drawShot(res); } catch (e) { canvas = null; }
+    if (!canvas || typeof canvas.toDataURL !== 'function') {
+      warn('图片生成失败（这个浏览器不支持 canvas），可以先照着页面上的数字自己记一下。');
+      return;
+    }
+    var url = '';
+    try { url = canvas.toDataURL('image/png'); } catch (e) { url = ''; }
+    if (!url) { warn('图片生成失败（canvas 导出为空），换个浏览器再试。'); return; }
+    if (!elShot || !elShotImg) { warn('图片生成失败（页面上没有全屏层）。'); return; }
+
+    elShotImg.src = url;
+    elShotImg.width = canvas.width;
+    elShotImg.height = canvas.height;
+    elShot.classList.add('on');
+    shotOpen = true;
+    warn('');
+
+    /* 手机返回键也能关：进图时压一个 history 状态（没有 history 就跳过） */
+    try {
+      if (typeof history !== 'undefined' && history && history.pushState) {
+        history.pushState({ calcShot: 1 }, '');
+        shotHist = true;
+      }
+    } catch (e) { shotHist = false; }
+  }
+
+  function closeShot() {
+    if (!shotOpen) return;
+    shotOpen = false;
+    if (elShot) elShot.classList.remove('on');
+    if (elShotImg) {
+      if (elShotImg.removeAttribute) elShotImg.removeAttribute('src');
+      else elShotImg.src = '';
+    }
+    if (shotHist) {
+      shotHist = false;
+      try { history.back(); } catch (e) { /* 忽略 */ }
+    }
+  }
+
+  if (elShotBtn) {
+    elShotBtn.addEventListener('click', function (e) {
+      /* 这个按钮在 <summary> 里：阻止默认行为，点了不会顺手把整块收起 */
+      if (e && e.preventDefault) e.preventDefault();
+      if (e && e.stopPropagation) e.stopPropagation();
+      openShot();
+    });
+    elShotBtn.addEventListener('keydown', function (e) {
+      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      if (key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 13 || key === 32) {
+        if (e.preventDefault) e.preventDefault();
+        openShot();
+      }
+    });
+  }
+  if (elShotX) {
+    elShotX.addEventListener('click', function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      closeShot();
+    });
+  }
+  if (elShot) {
+    /* 点空白关掉；点图片本身不关（方便长按保存） */
+    elShot.addEventListener('click', function (e) {
+      if (e && e.target && e.target === elShotImg) return;
+      closeShot();
+    });
+  }
+  if (document.addEventListener) {
+    document.addEventListener('keydown', function (e) {
+      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      if (key === 'Escape' || key === 'Esc' || key === 27) closeShot();
+    });
+  }
+  if (window && window.addEventListener) {
+    window.addEventListener('popstate', function () { closeShot(); });
   }
 
   update();   /* 初始：一个都没勾 → 0 关 0 注 ¥0.00（刷新后也是这样，不做任何持久化） */
