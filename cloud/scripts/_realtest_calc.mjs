@@ -127,7 +127,7 @@ console.log(`   迷你 DOM：${boxes.length} 个勾选框（页面上的 calc-cb
 ok(boxes.length === (calcHtml.match(/class="calc-cb"/g) || []).length, '勾选框数量与页面一致');
 
 const els = {};
-for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear']) {
+for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear', 'calcRand']) {
   const re = new RegExp(`id="${id}"[^>]*>`);
   const m = re.exec(calcHtml);
   const vm2 = m ? (/value="([^"]*)"/.exec(m[0]) || [, '']) [1] : '';
@@ -356,7 +356,7 @@ const outside = {
   roleButton: whole.roleButton - inCalc.roleButton
 };
 console.log(`   计算器里的控件：<input> ${inCalc.input}（${(calcHtml.match(/type="checkbox"/g) || []).length} 勾选框 + 倍数框）` +
-  ` · role="button" ${inCalc.roleButton}（清空）`);
+  ` · role="button" ${inCalc.roleButton}（清空 + GPT随机）`);
 console.log(`   计算器【以外】的控件：<input> ${outside.input} · <select> ${outside.select} ·` +
   ` <textarea> ${outside.textarea} · <button> ${outside.button} · role="button" ${outside.roleButton}`);
 ok(outside.input === 0 && outside.select === 0 && outside.textarea === 0 &&
@@ -436,6 +436,67 @@ console.log(`        ${st.n} 关 · ${st.bets} 注 · 总投注 ${st.cost} · �
 reset();
 console.log('   （收起/展开只影响显示，不影响任何计算，也不写任何存储）');
 
+H('12. GPT随机按钮（点 5 次，打印每次勾了什么 + 算出多少奖金）');
+const randTag = /<a[^>]*id="calcRand"[^>]*>([^<]*)<\/a>/.exec(html);
+ok(!!randTag, `按钮是 <a>：${randTag ? randTag[0] : '(没找到)'}`);
+ok(randTag && !/^<button/.test(randTag[0]) && /role="button"/.test(randTag[0]), 'GPT随机 用的是 <a role="button">（不是裸 <button>）');
+ok(randTag && randTag[1] === 'GPT随机', `按钮文字 = ${randTag ? randTag[1] : ''}`);
+ok(!/<button\b/.test(html), '整页仍然没有裸 <button>');
+const rowMap = {};
+rows.forEach((r) => { rowMap[r.code] = r; });
+reset();                                  /* 倍数回到 1，全不勾 */
+const label = { h: '主胜', d: '平', a: '客胜' };
+let randOk = true;
+for (let n = 1; n <= 5; n++) {
+  els.calcRand.dispatch('click');
+  const picked = boxes.filter((b) => b.checked).map((b) => b.value.split('|'));
+  const codes = picked.map((p) => p[0]);
+  const uniq = new Set(codes).size === codes.length;
+  let prod = 2;
+  const detail = picked.map(([code, pool, key]) => {
+    const o = rowMap[code][pool][key];
+    prod *= o;
+    return `${code} ${pool === 'hhad' ? '让球' : '胜平负'} ${label[key]} ${o}`;
+  }).join('  +  ');
+  const one = Math.min(r2(prod), capOf(picked.length));
+  const got = read();
+  /* 每场只勾 1 个结果 → 复式注数 = 1 注；总投注 = 1 × 2 元 × 倍数(1) = 2 元 */
+  const pass = got.prize === money(one) && uniq && picked.length >= 2 && picked.length <= 4 &&
+    Number(got.bets) === 1 && got.cost === money(2);
+  if (!pass) randOk = false;
+  step++;
+  console.log(`   ${pass ? '✅' : '❌'} 步骤${step} 第 ${n} 次随机：${picked.length} 关（${picked.length === 1 ? '单关' : '串关'}）`);
+  console.log(`        勾了：${detail}`);
+  console.log(`        算出：预计奖金 ${got.prize} · 共 ${got.bets} 注 · 总投注 ${got.cost}　|　手算：${money(one)}`);
+}
+if (!randOk) bad++;
+ok(randOk, '5 次随机的奖金都与手算一致（2 元 × 各场赔率之积，取单注限额）');
+
+/* 随机后再模拟刷新 → 应该全空（不保存） */
+const randPickedBefore = boxes.filter((b) => b.checked).length;
+const root3 = makeEl('details', { id: 'jcCalc', className: 'm-calc' });
+for (const m of calcHtml.matchAll(/<label class="calc-opt"><input class="calc-cb" type="checkbox" value="([^"]+)">/g)) {
+  const lab = makeEl('label', { className: 'calc-opt' });
+  const b3 = makeEl('input', { className: 'calc-cb', value: m[1] });
+  root3.appendChild(lab); lab.appendChild(b3);
+}
+const els3 = {};
+for (const id of ['calcN', 'calcBets', 'calcCost', 'calcPrize', 'calcPrizeHint', 'calcWarn', 'calcMul', 'calcClear', 'calcRand']) {
+  const m = new RegExp(`id="${id}"[^>]*>`).exec(calcHtml);
+  const tag = m ? (/<([a-z]+)[^>]*id="/.exec(m[0]) || [, 'span'])[1] : 'span';
+  const val = m ? ((/value="([^"]*)"/.exec(m[0]) || [, '']) [1]) : '';
+  els3[id] = makeEl(tag, { id, value: id === 'calcMul' ? (val || '1') : val });
+}
+els3.jcCalcData = makeEl('script', { id: 'jcCalcData', text: payloadText });
+vm.runInContext(script, vm.createContext({
+  document: { getElementById: (id) => (id === 'jcCalc' ? root3 : (els3[id] || null)) },
+  console, JSON, Math, isFinite, parseInt, parseFloat, String, Number, Array, Object, Date, window: {}
+}), { filename: 'jcCalc-inline-afterrand.js' });
+const randAfterReload = root3.querySelectorAll('input.calc-cb').filter((b) => b.checked).length;
+console.log(`   随机后刷新页面：随机前勾了 ${randPickedBefore} 个 · 刷新后勾了 ${randAfterReload} 个 · 预计奖金 ${els3.calcPrize.textContent}`);
+ok(randAfterReload === 0 && els3.calcPrize.textContent === '¥0.00', 'GPT随机的勾选刷新后清空（不保存）');
+reset();
+
 /* ============================================================
    结果
    ============================================================ */
@@ -444,7 +505,7 @@ if (bad === 0) {
   console.log('════════════════════════════════════════════════════');
   console.log('  ✅ 真跑验证通过（每一步的实际数字见上）');
   console.log(`     · 迷你 DOM 真执行了页面里的计算器脚本（${script.length} 字符）`);
-  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~15 全部与手算一致`);
+  console.log(`     · ${rows.length} 场官方 SP · 步骤 1~20 全部与手算一致（含 GPT随机 5 次）`);
   console.log('════════════════════════════════════════════════════');
 } else {
   console.log(`❌ 真跑验证失败：${bad} 项不通过`);
