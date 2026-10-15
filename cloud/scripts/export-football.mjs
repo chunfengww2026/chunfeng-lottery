@@ -86,6 +86,20 @@ const FB = loadVar('football.js', 'FOOTBALL_DATA');
    stat.upcoming + stat.live，绝不会因为少这个文件就崩。 */
 const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
 
+/* ============================================================
+   【晒票】竞彩实票图片数据（xysp-jc-data.js）
+   ------------------------------------------------------------
+   用户原话：「竞赛页面 也做一个晒票 你去全网抓取晒票的 和抓彩票的程序编码一样」
+   ⇒ 数据由 build-xysp-tt.mjs 的「竞彩晒票」分类抓（今日头条搜索页，
+     关键词 = 竞彩晒单 / 竞彩 晒票 / 胜负彩 晒票 / 竞彩 实单 / 竞彩足球 晒票），
+     每 30 分钟跟着 update-articles-30min.cmd 刷新一次。
+   读取方式照抄上面几个：文件不在 / 解析失败 → null，
+   页面照常生成，只是「晒票」区块显示「暂无」——绝不让整页生成失败。
+   ⚠️ 只认 https 外链（图是头条签名外链，实测没有防盗链、不下载本体）。
+   保留窗口是 30 天（不是 72 小时）—— 竞彩实票不是每天有人晒，
+   按 72 小时卡这一栏会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。 */
+const XYSP_JC = loadVar('xysp-jc-data.js', 'XYSP_JC_DATA');
+
 /* ---------- 工具 ---------- */
 const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -723,6 +737,101 @@ function renderCalc() {
     bar + rules + disclaim + close;
 }
 
+/* ============================================================
+   【晒票】区块（竞彩实票图片）
+   ------------------------------------------------------------
+   用户原话：「竞赛页面 也做一个晒票 你去全网抓取晒票的 和抓彩票的程序编码一样」
+   位置：模拟计算区块【下面】、免责声明【上面】（用户截图红框处）。
+        具体插在「模拟计算 details 结尾」和「免责声明那个 .guard 开头」之间。
+        ⇒ 这两个区块之间只有这一处空隙（渲染顺序 =
+          cards 三个分段 → 模拟计算 → ★晒票★ → .guard(免责声明)）。
+   形态：和只读分享页的「晒票」栏【一致】——
+     · 原生 <details>/<summary>，默认【收起】，右侧「点击查看/点击收起」纯 CSS 按 [open] 切
+     · 图片网格：手机 2 列 / 宽屏(>=620px) 4 列
+     · 缩略图是【图床外链】（头条签名图，实测没有防盗链）→ 页面不存图片本体
+     · 点图 → 全屏放大（竞彩页原来没有看图机制，所以这里自带一层极简的，
+       关闭方式 4 种：点图外空白 / × / Esc / 手机返回键）
+   ⚠️ 这一块【不出任何裸 button 标签】—— 全用 <a role="button"> 和 <summary>。
+      （注释里也不写那个标签的字面量：页面不变量是靠数 <button 这个串来验的，
+        写在注释里会被一起数进去。这里只写 "button 标签"。）
+   ⚠️ 图【不占】图位属性（没有 data-image / data-ro-mob）。
+   ⚠️ 【不用】水印 —— 用户已明确要求删掉水印，这里也不画。
+   ⚠️ class 带 allow-save：用户规定「晒票是三个允许保存的地方之一」。
+      同时把它从防截图的模糊区里豁免（它不在 #article / .guard 里面，
+      所以 locked 时本来也不会被模糊 —— 位置选在这里也正好有这个好处）。
+   ============================================================ */
+function buildJcXyspHtml() {
+  const data = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items : [];
+  const updated = (XYSP_JC && XYSP_JC.updated) ? String(XYSP_JC.updated) : '';
+
+  const cells = [];
+  data.forEach((it) => {
+    const img = String((it && it.img) || '');
+    if (!/^https:\/\//i.test(img)) return;        /* 只认 https（http 会被浏览器当混合内容拦掉） */
+    const thumb = String((it && it.thumb) || '') || img;
+    const title = String((it && it.title) || '');
+    const kind = String((it && it.game) || '');
+    /* 描述行 = 玩法 + 标题（例：「2串1 · 8 元 2 串 1 喜提 9600…」） */
+    const desc = kind ? (kind + (title ? ' · ' + title : '')) : title;
+    cells.push(
+      /* href = 原图地址（点开看大图）；thumb 只在 src 里。
+         referrerpolicy="no-referrer"：外链图不把来源带过去。 */
+      `<a class="jxp-pic" href="${esc(img)}" data-jxp-i="${cells.length}">` +
+      `<img class="jxp-thumb" src="${esc(thumb)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
+      `<span class="jxp-cap">` +
+      `<b>${esc(kind || '竞彩')}</b>` +
+      (desc ? `<i>${esc(desc)}</i>` : '') +
+      `</span></a>`
+    );
+  });
+
+  const head =
+    `<summary class="jxp-head">` +
+    `<span class="jxp-title">晒票</span>` +
+    `<span class="jxp-tag">竞彩实票</span>` +
+    `<span class="jxp-tip" aria-hidden="true"></span>` +
+    `</summary>`;
+
+  const body = cells.length
+    ? `<div class="jxp-grid">${cells.join('')}</div>`
+    : `<div class="jxp-empty">暂无竞彩晒票（每 30 分钟自动更新）</div>`;
+
+  /* 区块自己的底部：实时更新 + 合规声明（用户要求） */
+  const foot =
+    `<div class="jxp-foot">` +
+    `仅供娱乐，不构成购彩建议` +
+    (updated ? ` · 每 30 分钟自动更新 · 更新于 ${esc(updated)}` : ` · 每 30 分钟自动更新`) +
+    `</div>`;
+
+  return `<details class="m-jxp allow-save" id="jcXysp">` +
+    head +
+    `<div class="jxp-body">` +
+    `<div class="jxp-sub">全网竞彩实票 · 图片仅供参考 · 点图可放大</div>` +
+    body +
+    foot +
+    `</div>` +
+    `</details>`;
+}
+const jcXyspHtml = buildJcXyspHtml();
+
+/* 【看大图 · 全屏层】竞彩页原来没有看图机制，所以这里自带一层极简的。
+   关闭方式 4 种（和分享页那套一致的思路）：
+     · 点图片外的空白
+     · 右上角 ×
+     · Esc
+     · 手机返回键（进去时 push 一个 history 状态，popstate 时关掉）
+   这一层放在页面最下面（折叠区外面），整块收起时也能弹出来。 */
+const JC_XYSP_VIEW =
+  `<div class="jxp-view allow-save" id="jcXyspView" hidden>` +
+  `<div class="jxp-view-bar">` +
+  `<span class="jxp-view-tip">点图外 / × / 返回键 → 关闭</span>` +
+  `<a role="button" tabindex="0" class="jxp-view-x" id="jcXyspViewX">×</a>` +
+  `</div>` +
+  `<div class="jxp-view-box" id="jcXyspViewBox">` +
+  `<img class="jxp-view-img" id="jcXyspViewImg" alt="竞彩晒票大图">` +
+  `</div>` +
+  `</div>`;
+
 /* 分组 */
 const order = [['upcoming', '未开赛'], ['live', '进行中'], ['finished', '已完场']];
 let cards = '';
@@ -913,6 +1022,68 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   background: rgba(71,224,160,0.10); border-color: rgba(71,224,160,0.42); }
 .calc-shot-btn { margin-left: 2px; color: #98a1b2; border-color: #262d3a;
   background: #12151d; }
+/* ---- 【晒票】竞彩实票图片区块（位置：模拟计算下面、免责声明上面） ----
+   用户原话：「竞赛页面 也做一个晒票 你去全网抓取晒票的 和抓彩票的程序编码一样」
+   观感/做法照抄分享页的「晒票」栏和本页的 .m-calc：
+     · 原生 details/summary 折叠，默认【收起】，提示文字纯 CSS 按 [open] 切
+     · 配色沿用本页既有色板：#12151d 底 / #262d3a 边 / #e8eaed 正文 /
+       #98a1b2 次要 / #47e0a0 主色（不引入任何新颜色）
+     · 图片是外链，页面不存本体
+   布局：手机 2 列；宽屏(>=620px) 4 列。 */
+.m-jxp { margin-top: 22px; background: #12151d;
+  border: 1px solid #262d3a; border-radius: 12px; }
+.m-jxp > summary.jxp-head { cursor: pointer; list-style: none; user-select: none;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 12px 14px; }
+.m-jxp > summary.jxp-head::-webkit-details-marker { display: none; }
+.m-jxp > summary.jxp-head::marker { content: ''; }
+.jxp-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
+.jxp-tag { font-size: 11px; color: #47e0a0; background: rgba(71,224,160,0.10);
+  border: 1px solid rgba(71,224,160,0.42); border-radius: 20px; padding: 1px 8px;
+  white-space: nowrap; }
+.jxp-tip { margin-left: auto; font-size: 11.5px; font-weight: 400; color: #47e0a0;
+  opacity: .9; white-space: nowrap; }
+.m-jxp[open] > summary.jxp-head .jxp-tip::after { content: '点击收起'; }
+.m-jxp:not([open]) > summary.jxp-head .jxp-tip::after { content: '点击查看'; }
+.jxp-body { padding: 0 14px 13px; }
+.jxp-sub { font-size: 11.5px; color: #98a1b2; line-height: 1.7; }
+.jxp-grid { display: grid; gap: 9px; margin-top: 11px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 620px) {
+  .jxp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.jxp-pic { display: block; background: #161a21; border: 1px solid #262d3a;
+  border-radius: 10px; overflow: hidden; text-decoration: none;
+  -webkit-tap-highlight-color: transparent; transition: border-color .15s; }
+.jxp-pic:hover, .jxp-pic:active { border-color: #47e0a0; }
+.jxp-thumb { display: block; width: 100%; height: auto; min-height: 60px;
+  background: #0f1115; }
+.jxp-cap { display: block; padding: 5px 7px 6px; }
+.jxp-cap b { display: block; font-size: 11.5px; font-weight: 700; color: #47e0a0; }
+.jxp-cap i { margin-top: 2px; font-style: normal; font-size: 10.5px;
+  line-height: 1.35; color: #98a1b2; word-break: break-word;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; }
+.jxp-empty { margin-top: 11px; font-size: 12px; color: #6b7488; }
+.jxp-foot { margin-top: 10px; font-size: 10.5px; color: #6b7488; }
+/* ---- 看大图全屏层（点晒票的图打开；4 种关闭方式） ----
+   z-index 100002：高于遮罩 #mask(99998) 和保存图片层 calc-shot(100001)，
+   owner 徽章 100002 —— 同层没关系，徽章在右上角、不重叠。 */
+.jxp-view { position: fixed; left: 0; top: 0; right: 0; bottom: 0; display: none;
+  background: rgba(15,17,21,0.97); z-index: 100002; flex-direction: column; }
+.jxp-view[hidden] { display: none !important; }
+.jxp-view:not([hidden]) { display: flex; }
+.jxp-view-bar { display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; flex: 0 0 auto; }
+.jxp-view-tip { flex: 1 1 auto; font-size: 11.5px; color: #98a1b2; }
+.jxp-view-x { flex: 0 0 auto; font-size: 20px; line-height: 1; font-weight: 700;
+  color: #e8eaed; text-decoration: none; padding: 4px 12px;
+  border: 1px solid #262d3a; border-radius: 8px; background: #161a21;
+  cursor: pointer; user-select: none; }
+.jxp-view-box { flex: 1 1 auto; display: flex; align-items: center;
+  justify-content: center; overflow: auto; padding: 0 10px 14px; }
+.jxp-view-img { max-width: 100%; max-height: 100%; border-radius: 10px;
+  background: #0f1115; }
 /* ---- 保存图片 · 全屏层（默认隐藏） ---- */
 .calc-shot { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
   z-index: 999; background: rgba(15,17,21,0.95); padding: 14px;
@@ -1098,6 +1269,16 @@ ${nav}
     <img class="calc-shot-img" id="calcShotImg" alt="模拟计算选号图">
   </div>
 
+  <!-- ★【晒票】区块插在这里（用户截图红框）：
+       上面 = 模拟计算（上面那个 details，已经收起）
+       下面 = .guard（免责声明区）
+       ⚠️ 中间那个 #calcShot 是【固定定位的全屏层】、默认 display:none，
+          不占布局、平时看不见，所以视觉顺序就是「模拟计算 → 晒票 → 免责声明」。
+       ⚠️ 它在 .guard【外面】—— 所以防截图 locked 时【不会】被模糊，
+          照常能看能点（本来也在"允许保存/豁免"的意图里）。
+       ⚠️ 它也不在 #article 里，所以不会被 #article 的模糊带进去。 -->
+  ${jcXyspHtml}
+
   <div class="guard">
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
@@ -1116,14 +1297,20 @@ ${nav}
 </div>
 
 <!-- 【防截图 · 遮罩】locked 时全屏盖住受保护内容（#article / .guard）；
-     「模拟计算」和三个分段是豁免区，会压在遮罩之上，仍然能用。 -->
+     「模拟计算」「晒票」和三个分段是豁免区（不在 #article / .guard 里），
+     会压在遮罩之上，仍然能用。 -->
 <div id="mask">
   <div>⚠️ 检测到截图 / 窗口切换，内容已隐藏</div>
   <div class="mask-s">切回本页后自动恢复（约 4 秒）。<br>
-    「模拟计算」和三个分段的展开/收起不受影响，可以继续用。</div>
+    「模拟计算」「晒票」和三个分段的展开/收起不受影响，可以继续用。</div>
 </div>
 <!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示 -->
 <div id="ownerTag" class="owner-tag">👑 管理员模式 · 可截图</div>
+
+<!-- 【看大图 · 全屏层】点「晒票」里的图 → 打开它。
+     放在页面最下面（折叠区外面），整块收起时也能弹出来。
+     4 种关闭方式见 __FB_XYSP_JS__。 -->
+${JC_XYSP_VIEW}
 
 <!-- __FB_COUNTDOWN__ 距离下次更新倒数（纯前端，每半小时整点 :00 / :30 为目标）
      免费：只是浏览器里的 setInterval，不请求任何接口、不调 AI。
@@ -1851,6 +2038,97 @@ ${nav}
   } catch (e) { /* 同上 */ }
 })();
 </script>
+
+<!-- __FB_XYSP_JS__ 【晒票】点图看大图（外加 4 种关闭方式）
+     用户原话：「竞赛页面 也做一个晒票 …」+「点图放大」
+     做法参考只读分享页那套 ro-mob-view 的思路，但这里是【极简一版】：
+       打开：点 .jxp-pic → 取它的 href（原图）塞进全屏层的 <img>
+       关闭 4 通路：
+         ① 点图片外的空白（.jxp-view 自己 / .jxp-view-box 空白处）
+         ② 右上角 ×（是 <a role="button">，不是 button 标签）
+         ③ Esc 键
+         ④ 手机返回键（打开时 push 一个 history 状态，popstate 时关掉）
+     纯前端：不请求任何接口、不调 AI、不写任何本地存储 → 0 成本。
+     ⚠️ 这一块【不出任何裸 button 标签】（页面不变量靠数那个标签的开头串来验，
+        所以连注释里都不写它的字面量）。
+     脚本挂了也不影响别的区块：晒票图仍会按 href 自己打开原图。 -->
+<script>
+(function () {
+  try {
+    var view = document.getElementById('jcXyspView');
+    var box = document.getElementById('jcXyspViewBox');
+    var img = document.getElementById('jcXyspViewImg');
+    var xBtn = document.getElementById('jcXyspViewX');
+    if (!view || !box || !img) return;
+
+    var pics = document.querySelectorAll('.jxp-pic');
+    var pushed = false;     /* 是否压过一条 history（避免重复压） */
+
+    function isOpen() { return !view.hasAttribute('hidden'); }
+
+    function open(src, alt) {
+      if (!src) return false;
+      img.setAttribute('src', src);
+      img.setAttribute('alt', alt || '竞彩晒票大图');
+      view.removeAttribute('hidden');
+      try { history.pushState({ jcXyspView: 1 }, ''); pushed = true; } catch (e) { pushed = false; }
+      return true;
+    }
+
+    function close() {
+      view.setAttribute('hidden', '');
+      /* 清掉 src，省内存、也避免下次打开先闪上一张 */
+      img.removeAttribute('src');
+      if (pushed) {
+        pushed = false;
+        /* 让 history 回到打开前那一步 —— 但不能把自己再弹一次，
+           所以先摘掉标记：把 state 换成"已关闭"。 */
+        try { history.replaceState({ jcXyspViewClosed: 1 }, ''); } catch (e) { /* 忽略 */ }
+      }
+    }
+
+    /* 打开：只绑在晒票的图上；图打不开时让 href 自己打开原图（功能不丢） */
+    for (var i = 0; i < pics.length; i++) {
+      pics[i].addEventListener('click', function (e) {
+        var src = this.getAttribute('href');
+        if (open(src, '竞彩晒票大图')) {
+          if (e && e.preventDefault) e.preventDefault();
+        }
+      });
+    }
+
+    /* 关闭 ① 点空白（点在层本身或图片容器上，而不是点在图上） */
+    view.addEventListener('click', function (e) {
+      if (e.target === view || e.target === box) close();
+    });
+    /* 关闭 ② × */
+    if (xBtn) {
+      xBtn.addEventListener('click', function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (e && e.stopPropagation) e.stopPropagation();
+        close();
+      });
+    }
+    /* 关闭 ③ Esc */
+    window.addEventListener('keydown', function (e) {
+      if ((e.key === 'Escape' || e.keyCode === 27) && isOpen()) close();
+    });
+    /* 关闭 ④ 手机返回键 / 浏览器后退 */
+    window.addEventListener('popstate', function () {
+      if (isOpen()) close();
+    });
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__jcXysp = {
+      pics: pics.length,
+      open: open,
+      close: close,
+      isOpen: isOpen,
+      current: function () { return img.getAttribute('src') || ''; }
+    };
+  } catch (e) { /* 忽略：晒票的显示不依赖这段脚本 */ }
+})();
+</script>
 </body>
 </html>`;
 
@@ -1870,3 +2148,29 @@ console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js
 console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
   `（单关 ~ ${passLabel(CALC_MAX_N)}）· 赔率来源：${SP_SRC_LOG}`);
 console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字，绝不估算；不写任何本地存储）`);
+
+/* 【晒票】自测输出：位置 + 条数（验收那一栏直接看这几行）
+   ⚠️ 位置判断【不能】直接搜 "<div class=\"guard\">" 或 "免责声明" ——
+      内联 JS 里有 `cards += '<div class="guard">'` 这种字符串、
+      JS 注释里也有"免责声明"字样，先命中它们，位置就判错了（实测踩过）。
+      所以这里锚定【HTML 里唯一的那几个元素 id / class】：
+        jcCalc（模拟计算）→ jcXysp（晒票）→ note-title（免责声明那块的标题）
+      再用 .guard 的【最后一个】出现位置（= 免责声明那个 guard）做交叉验证。 */
+{
+  const n = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items.length : 0;
+  const body = html.slice(html.indexOf('<body>'));
+  const iCalc = body.indexOf('id="jcCalc"');
+  const iXysp = body.indexOf('id="jcXysp"');
+  const iNote = body.indexOf('<div class="note-title"');
+  const guardAt = [];
+  for (let k = body.indexOf('<div class="guard">'); k >= 0; k = body.indexOf('<div class="guard">', k + 1)) guardAt.push(k);
+  const iGuardDoc = guardAt.length ? guardAt[guardAt.length - 1] : -1;   /* 免责声明那个 */
+  const ordered = (iCalc >= 0 && iXysp > iCalc && iNote > iXysp);
+  console.log(`   晒票位置：【模拟计算】下面、免责声明上面`);
+  console.log(`      body 内偏移：jcCalc=${iCalc} → jcXysp=${iXysp} → 免责声明=${iNote}` +
+    `（"<div class=\\"guard\\">" 共 ${guardAt.length} 处）`);
+  console.log(`   晒票位置检查：${ordered ? '✅ 正好插在【模拟计算】和【免责声明】之间' : '❌ 顺序不对'}`);
+  console.log(`      （有序性：jcCalc < jcXysp = ${iXysp > iCalc} · jcXysp < 免责声明 = ${iNote > iXysp}）`);
+  console.log(`   晒票数据：${n} 张竞彩实票` +
+    (n ? ` · 更新于 ${XYSP_JC.updated}` : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）'));
+}
