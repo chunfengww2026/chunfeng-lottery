@@ -670,7 +670,7 @@ ${nav}
 <body>
 <div class="wrap">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>每半小时整点更新</b><span class="cd" data-cd="1"></span> · 最近一次 ${esc(LATEST_UPDATED)}</div>
+  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>每半小时整点更新</b><span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
@@ -724,7 +724,7 @@ ${nav}
     var s = left();
     if (s <= 0) { el.textContent = '正在更新…'; return; }
     var m = Math.floor(s / 60);
-    el.textContent = '距离下次更新 ' + pad(m) + ':' + pad(s % 60);
+    el.textContent = '更新倒计时 ' + pad(m) + ':' + pad(s % 60);
   }
   draw();
   setInterval(draw, 1000);
