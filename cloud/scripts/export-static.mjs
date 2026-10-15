@@ -2510,7 +2510,8 @@ body.ro-mob-open { overflow: hidden; }
 /* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
 @supports selector(:target) {
   .ro-panel { display: none; }
-  .ro-panel:target { display: block; }
+  /* .ro-panel:target 规则【已删除】：浏览器在 history.replaceState 后不会重算 :target，
+     导致「再点一下收不起来」。现在只靠 .ro-panel.ro-open（JS 控制），行为确定。 */
 }
 </style>
 </head>
