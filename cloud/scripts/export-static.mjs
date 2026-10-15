@@ -2915,7 +2915,7 @@ body.ro-mob-open { overflow: hidden; }
 /* ============================================================
    __CENTER_HEAD_AI__ ai选号 标题行【强制居中】（用户配截图要求「字体居中」）
    ------------------------------------------------------------
-   写法照抄上面 __CENTER_HEAD2__ 那一套（用户要求「别自创」）：
+   写法照抄上面「三个区块标题强制居中」那一套（用户要求「别自创」）：
    纵向排列 + 居中 + 全程 !important。
    为什么必须 !important：本段上面的 .ro-aipick-head 自己写了
    align-items: baseline / flex-wrap: wrap、.ro-aipick-arrow 写了 margin-left: auto，
