@@ -2310,6 +2310,37 @@ body.ro-mob-open { overflow: hidden; }
 .ro-disclaimer p { margin: 0; }
 .ro-disclaimer p + p { margin-top: 4px; }
 
+/* ============================================================
+   __CENTER_HEAD2__ 三个区块标题【强制居中】（用户第二次要求）
+   ------------------------------------------------------------
+   上一次加的规则被同文件里【后面】的 .ro-xysp-head / .ro-art-head
+   原规则覆盖了（同优先级，后者胜）—— 所以这次：
+     · 放在 CSS 靠后的位置（顺序靠后）
+     · 加 !important（权重拉满）
+   只影响这三个区块。
+   ============================================================ */
+.ro-xysp-head, .ro-art-head, .hit-embed .ro-gamehead {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 3px !important;
+}
+.ro-xysp-h2, .ro-art-title, .hit-embed .ro-gamehead h2 {
+  text-align: center !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.ro-xysp-sub, .ro-art-sub, .hit-embed .ro-gamehead .ro-meta {
+  text-align: center !important;
+  width: 100% !important;
+  line-height: 1.5 !important;
+}
+/* 晒票栏右侧那个「展开 ▸」在纵向布局里要自己居中 */
+.ro-xysp-arrow { margin: 4px auto 0 !important; }
+
 /* 手机上：只收窄页面留白，
    【绝对不改图片内部布局】—— 图片靠 JS 等比缩放 */
 @media (max-width: 600px) {
