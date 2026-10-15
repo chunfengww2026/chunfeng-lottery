@@ -128,7 +128,14 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                   绝不能因为这个文件不在就让整页生成失败。
                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS，
                      所以页面里不会出现原始链接文本（渲染时会做实体处理）。 */
-               'articles-data.js'];
+               'articles-data.js',
+               /* 【晒票栏】晒票（图片）列表（build-xysp.mjs 每 30 分钟抓一次）。
+                  和文章参考一样：文件缺失只打印一行「缺少」，页面显示「本期暂无」，
+                  绝不能因为这个文件不在就让整页生成失败。
+                  ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS ——
+                     图片是【外链】，页面里只有 <img src> / <a href>，
+                     所以晒票数据不会把页面撑大。 */
+               'xysp-data.js'];
 
 for (const f of FILES) {
   const p = path.join(ROOT, f);
@@ -190,6 +197,9 @@ vm.runInContext(`
   /* 【文章参考】区块的数据（来自 articles-data.js，build-articles.mjs 生成）。
      没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
   globalThis.__articles = (typeof ARTICLES_DATA !== 'undefined') ? ARTICLES_DATA : null;
+  /* 【晒票栏】的数据（来自 xysp-data.js，build-xysp.mjs 生成）。
+     没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
+  globalThis.__xysp = (typeof XYSP_DATA !== 'undefined') ? XYSP_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -205,6 +215,8 @@ const latestHeatmapSectionHtml = ctx.__latestHeatmapSectionHtml;
 const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
 /* 【文章参考】数据（articles-data.js；缺失时为 null） */
 const ARTICLES = ctx.__articles;
+/* 【晒票栏】数据（xysp-data.js；缺失时为 null） */
+const XYSP = ctx.__xysp;
 
 /**
  * 热力图该不该出这张图
@@ -698,6 +710,88 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
   const g = ARTICLES && ARTICLES.games ? ARTICLES.games[k] : null;
   return ART_SHORT_NAME[k] + ' ' + ((g && g.items) ? g.items.length : 0) + ' 条';
 }).join(' / ')}`);
+
+/* ============================================================
+   【晒票栏】区块（用户新增需求）
+   ------------------------------------------------------------
+   用户原话：「这里添加一个晒票栏 / 直接给到网页他们想看什么点击什么
+              https://www.yiqicai.com/xysp」
+   位置：紧跟在【推荐图目录】(.ro-imgtoc-wrap) 之后 —— 就是截图箭头处。
+   数据：xysp-data.js（build-xysp.mjs 每 30 分钟抓一次）
+   布局：窄屏 2 列；宽屏（容器最宽 820px）3 列 —— 再宽每张就挤了。
+   交互：整张卡片是一个 <a target="_blank" rel="noopener">，
+         点开就是这张票所在彩种的晒票列表页（源站【没有】单条晒票的详情页，
+         所以链接到该彩种的列表页，页面上就能看到这一条）。
+   ⚠️ 只用 <a>，不出任何按钮标签（页面不变量要求 button 数为 0）
+   ⚠️ 图片是【外链】https 缩略图（实测源站无 Referer 防盗链、
+      支持 imageMogr2/thumbnail 缩略参数），不下载、不内联 ——
+      所以这一块只增加十几 KB 的 HTML，页面体积几乎不变。
+   ⚠️ 页面可见文字里不出现来源字样：链接域名里的字母用 HTML 实体写
+      （复用文章参考那套 articleHref）；抓来的用户文字再过一遍 clean()，
+      万一源站文本里带了这些词也不会漏进来。
+   ============================================================ */
+
+/** 可见文字里不允许出现的来源字样（用户要求全删） */
+const BANNED_WORDS = /数据来源|来自网络|全网公开晒票|仅为统计展示|yiqicai|一起彩/gi;
+
+/** 抓来的用户文字清一遍，保证页面可见文字里没有来源字样 */
+function clean(s) {
+  return String(s == null ? '' : s).replace(BANNED_WORDS, '').replace(/\s+/g, ' ').trim();
+}
+
+function buildXyspHtml() {
+  const list = (XYSP && Array.isArray(XYSP.items)) ? XYSP.items : [];
+  const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
+
+  const head =
+    `<div class="ro-xysp-head">` +
+    `<h2 class="ro-xysp-h2">晒票栏</h2>` +
+    `<div class="ro-xysp-sub">每 30 分钟自动更新` +
+    (updated ? ` · 更新于 ${escape(clean(updated))}` : '') +
+    (list.length ? ` · 共 ${list.length} 张` : '') +
+    `</div>` +
+    `</div>`;
+
+  if (!list.length) {
+    return `<section class="ro-xysp" id="ro-xysp">` + head +
+      `<div class="ro-xysp-empty">本期暂无</div>` +
+      `</section>`;
+  }
+
+  const cards = list.map((it) => {
+    const game = clean(it.gameName) || '晒票';
+    const txt = clean(it.title) || (game + '晒票');
+    const who = clean(it.author);
+    const when = clean(it.time);
+    const img = String(it.img == null ? '' : it.img);
+    /* 图片地址异常就不出这个 <img>，避免破图 */
+    const thumb = /^https:\/\//i.test(img)
+      ? `<img class="ro-xysp-img" src="${escapeAttr(img)}" alt="${escapeAttr(game + ' ' + txt)}"` +
+        ` loading="lazy" decoding="async"` +
+        ` onerror="this.onerror=null;this.src=this.src.split('?')[0]">`
+      : '';
+    const meta = [who, when].filter(Boolean).join(' · ');
+    return `<a class="ro-xysp-card" href="${articleHref(it.url)}"` +
+      ` target="_blank" rel="noopener">` +
+      `<div class="ro-xysp-thumb">${thumb}</div>` +
+      `<div class="ro-xysp-info">` +
+      `<div class="ro-xysp-game">${escape(game)}</div>` +
+      `<div class="ro-xysp-txt">${escape(txt)}</div>` +
+      (meta ? `<div class="ro-xysp-meta">${escape(meta)}</div>` : '') +
+      `</div>` +
+      `</a>`;
+  }).join('');
+
+  return `<section class="ro-xysp" id="ro-xysp">` + head +
+    `<div class="ro-xysp-grid">${cards}</div>` +
+    `</section>`;
+}
+
+const xyspHtml = buildXyspHtml();
+console.log(`  · 晒票栏：${(XYSP && Array.isArray(XYSP.items)) ? XYSP.items.length : 0} 张` +
+  (((XYSP && Array.isArray(XYSP.items)) && XYSP.items.length)
+    ? '（' + [...new Set(XYSP.items.map((i) => i.gameName))].join('/') + '）'
+    : '（数据缺失 → 页面显示「本期暂无」）'));
 
 /* ============================================================
    【已移除】竞彩（体彩在售比赛）段落
@@ -1999,6 +2093,109 @@ body.ro-mob-open { overflow: hidden; }
 .ro-art-author { font-size: 10.5px; color: #5f6878; margin-right: 8px; }
 .ro-art-date { font-size: 10.5px; color: #5f6878; }
 .ro-art-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
+
+/* ============================================================
+   【晒票栏】区块样式（用户新增需求）
+   ------------------------------------------------------------
+   位置：紧跟【推荐图目录】(.ro-imgtoc-wrap) 之后。
+   配色沿用页面现有暗色那套（#12161d / #161a21 / #262d3a / #e8eaed）。
+   列数：窄屏 2 列；>=620px 3 列（.ro-wrap 最宽 820px，3 列每张约 250px，
+        4 列就只有 195px 太挤了，所以宽屏定 3 列）。
+   缩略图：票图本身很长（实测 1080x2412），整张竖向摆会把页面拉得极长，
+        所以统一裁成 3:4 的预览框（object-fit: cover + 顶部对齐，
+        票面最上面那块信息保留），点开卡片看完整列表页。
+   这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）。
+   ============================================================ */
+.ro-xysp {
+  background: #12161d;
+  border: 1px solid #1e2430;
+  border-radius: 12px;
+  padding: 15px 13px 13px;
+  margin: 0 0 26px;
+}
+.ro-xysp-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 12px;
+}
+.ro-xysp-h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e8eaed;
+  letter-spacing: 2px;
+}
+.ro-xysp-sub { font-size: 11.5px; color: #6b7488; }
+.ro-xysp-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
+
+.ro-xysp-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 620px) {
+  .ro-xysp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.ro-xysp-card {
+  display: block;
+  min-width: 0;
+  background: #161a21;
+  border: 1px solid #262d3a;
+  border-radius: 11px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color .15s, transform .1s;
+}
+.ro-xysp-card:hover, .ro-xysp-card:active { border-color: #3a465c; transform: translateY(-1px); }
+
+.ro-xysp-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #0e1116;
+  overflow: hidden;
+}
+.ro-xysp-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.ro-xysp-info { padding: 8px 9px 9px; }
+.ro-xysp-game {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #ffd9db;
+  background: #4a1f22;
+  border: 1px solid #6d2b30;
+  border-radius: 6px;
+  padding: 0 6px;
+  margin-bottom: 5px;
+}
+.ro-xysp-txt {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #c8cfda;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ro-xysp-meta {
+  margin-top: 4px;
+  font-size: 10.5px;
+  color: #5f6878;
+  word-break: break-word;
+}
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -2017,6 +2214,12 @@ body.ro-mob-open { overflow: hidden; }
        JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
        不会出现「点了没反应」的死格子。 -->
   ${tocHtml}
+
+  <!-- ============================================================
+       【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处），
+       也就是紧跟在 .ro-imgtoc-wrap 之后。
+       图片是外链（懒加载），不产生新的图位 → data-image 数量不变。 -->
+  ${xyspHtml}
 
   ${latestSecHtml}
 
