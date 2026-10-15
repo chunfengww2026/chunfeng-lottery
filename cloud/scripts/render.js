@@ -105,6 +105,86 @@ function hmPctText(pct) {
 }
 
 /* ============================================================
+   九转连环的小工具（几何）
+   ------------------------------------------------------------
+   圈数 / 轴数【必须和 stats.js 的 JIUZHUAN_GEOMETRY 对齐】：
+     ssq 4×8 = 32 交点（+ 中心 1 个号码位 = 33 位）
+     dlt 5×7 = 35 交点
+   优先读 stats.js 铺好的 cir_rings / cir_axes；读不到就按交点数推断，
+   保证老存档 / 手写数据也能画出正确的圈数与轴数。
+   ============================================================ */
+
+/** 交点数量 → { rings, axes } */
+function cirGeometry(pointCount, vals) {
+  const n = Number(pointCount) || 0;
+  const vr = parseInt((vals && vals.cir_rings) || '', 10);
+  const va = parseInt((vals && vals.cir_axes) || '', 10);
+  if (Number.isFinite(vr) && Number.isFinite(va) && vr > 0 && va > 0 && vr * va === n) {
+    return { rings: vr, axes: va };
+  }
+  /* 推断：轴数优先，找一个能整除交点数、且圈数合理的组合 */
+  const AXIS_PREF = [8, 7, 9, 6, 10, 5, 12, 11, 4];
+  for (const a of AXIS_PREF) {
+    if (n % a === 0 && n / a >= 2 && n / a <= 8) return { rings: n / a, axes: a };
+  }
+  if (n === 32) return { rings: 4, axes: 8 };          // 老存档的经典几何
+  const axes = Math.max(1, Math.min(12, Math.ceil(Math.sqrt(n)) || 8));
+  return { rings: Math.max(1, Math.ceil(n / axes)), axes };
+}
+
+/** 圈数 → 每圈半径（%），第 1 个是最内圈。
+    4 圈时【保持原来的 12 / 24 / 36 / 46】，画面和以前一模一样；
+    其它圈数就按同样的最外圈（46%）等分。 */
+function cirRadii(ringCount, outer) {
+  const n = Math.max(1, Number(ringCount) || 4);
+  const max = Number(outer) || 46;
+  if (n === 4) return [12, 24, 36, 46];
+  const out = [];
+  for (let i = 1; i <= n; i++) out.push(Math.round((max * i / n) * 100) / 100);
+  return out;
+}
+
+/* ============================================================
+   字谜区（只有 福彩3D / 排列3 的 main 图用）
+   ------------------------------------------------------------
+   数据来源：全局 ZIMI_DATA（zimi-data.js，build-zimi.mjs 抓的）。
+   结构：ZIMI_DATA[gameId] = { issue, title, lines: ['每行一句', ...] }
+   抓不到 / 文件缺失 → 这里画「本期暂无」，绝不抛错（不能因为字谜把整页弄崩）。
+   ⚠️ 这个文件缺失时 typeof 判断必须留着 —— render.js 可能先于它加载。
+   ============================================================ */
+function zimiDataFor(gameId) {
+  try {
+    if (typeof ZIMI_DATA === 'undefined' || !ZIMI_DATA) return null;
+    const d = ZIMI_DATA[gameId];
+    if (!d || !Array.isArray(d.lines) || !d.lines.length) return null;
+    return d;
+  } catch (e) { return null; }
+}
+
+/** 右侧【竖排】字谜块：标题 + 每行一句 */
+function zimiBlock(gameId) {
+  const box = el('div', 'r-zimi');
+  const d = zimiDataFor(gameId);
+
+  const head = el('div', 'r-zimihead');
+  head.appendChild(el('span', 'r-zimititle', '字谜'));
+  if (d && d.issue) head.appendChild(el('span', 'r-zimiissue', '第 ' + d.issue + ' 期'));
+  box.appendChild(head);
+
+  if (d && d.title) box.appendChild(el('div', 'r-zimisub', d.title));
+
+  const body = el('div', 'r-zimilines');
+  if (d) {
+    /* 竖着排：每行一句 */
+    d.lines.forEach((line) => body.appendChild(el('div', 'r-zimiline', String(line))));
+  } else {
+    body.appendChild(el('div', 'r-zimiline none', '本期暂无'));
+  }
+  box.appendChild(body);
+  return box;
+}
+
+/* ============================================================
    各 section 类型的渲染
    ============================================================ */
 
@@ -169,9 +249,14 @@ const SECTION_RENDER = {
     return box;
   },
 
-  /* ---- 两位数字型（3D/排列） ---- */
-  digit(sec, vals) {
+  /* ---- 两位数字型（3D/排列） ----
+     ⚠️ 模板上打了 zimi: true 的（现在只有 福彩3D / 排列3 的 main 图），
+        右边那 ~330px 空白处会【竖着】排上抓来的字谜（每行一句）。
+        做法：号码那几行全部挂到 host（左栏），最后再拼成「左号码 / 右字谜」两栏。
+        其它彩种没有 zimi: true → host 就是 box 本身，版式和以前一模一样。 */
+  digit(sec, vals, build, gameId) {
     const box = el('div', 'r-rows');
+    const host = sec.zimi ? el('div', 'r-digitmain') : box;
     if (sec.groupRow) {
       const row = el('div', 'r-numrow');
       row.appendChild(el('span', 'r-numlabel', sec.groupLabel || ''));
@@ -184,7 +269,7 @@ const SECTION_RENDER = {
         balls.appendChild(rBall('', 'red', 'md', 'empty'));
       }
       row.appendChild(balls);
-      box.appendChild(row);
+      host.appendChild(row);
     }
     if (sec.positions) {
       sec.positions.forEach((p) => {
@@ -194,7 +279,7 @@ const SECTION_RENDER = {
         const nums = parseTicketNums(vals[p.key]);
         numBalls(nums, p.count, p.color || 'gold', 'md').forEach((b) => balls.appendChild(b));
         row.appendChild(balls);
-        box.appendChild(row);
+        host.appendChild(row);
       });
     }
     if (sec.footer) {
@@ -205,9 +290,16 @@ const SECTION_RENDER = {
         s.appendChild(document.createTextNode(vals[item.key] || '—'));
         f.appendChild(s);
       });
-      box.appendChild(f);
+      host.appendChild(f);
     }
-    if (sec.footerText) box.appendChild(el('div', 'r-note', sec.footerText));
+    if (sec.footerText) host.appendChild(el('div', 'r-note', sec.footerText));
+
+    /* 字谜区只有 fc3d / pl3 的 main 图有（模板里那个 zimi: true） */
+    if (!sec.zimi) return box;
+    const wrap = el('div', 'r-digitwrap');
+    wrap.appendChild(host);
+    wrap.appendChild(zimiBlock(gameId));
+    box.appendChild(wrap);
     return box;
   },
 
@@ -309,73 +401,31 @@ const SECTION_RENDER = {
     return box;
   },
 
-  /* ---- 九转连环（用户模板：4 同心圆环 × 8 米字轴 = 32 个交点 + 1 个中心） ----
-     【只画，不造号】版面和号码全部来自 stats.js 的 createJiuZhuan（用户逐字给的算法）：
-       · 中心 = createJiuZhuan().center —— 双色球 17 / 大乐透 18
-       · 32 个交点 = 4 圈 × 8 轴，每个点是 { ringId, axisName, angle, radius, num, isHit }
-         （radius 是【圈的序号 1~4】，不是像素半径）
-       · 上期开奖号依次填进前 N 个交点并标 isHit:true（双色球 6 / 大乐透 5），
-         其余交点的 num 是 null → 只画空点位、不画数字
-       stats.js 把这 32 个点压成定宽串 vals.cir_points（3 字符/点：H 或 - 开头，
-       然后是两位号码，'--' 表示空位），这里解码后按显式几何表逐点画。
+  /* ---- 九转连环（同心圆环 × 米字轴，【全号铺满】版） ----
+     【只画，不造号】版面和号码全部来自 stats.js 的 createJiuZhuan：
+       · 几何【按彩种自适应】（见 stats.js 的 JIUZHUAN_GEOMETRY）：
+           双色球 4 圈 × 8 轴 = 32 交点 + 中心 1 个号码位 = 33 位 → 01~33 全铺满
+           大乐透 5 圈 × 7 轴 = 35 交点              = 35 位 → 01~35 全铺满
+       · 每个交点都有号码；上期开奖号【所在的那个点】isHit:true → 深色，
+         其余号码浅色（用户说的「有深浅，开奖的有标记」）
+     stats.js 把这些点压成定宽串 vals.cir_points（3 字符/点：H 或 - 开头，
+     然后是两位号码）。这里优先调 stats.js 的 decodeCirPoints 解码，
+     stats.js 没加载时用下面这段【等价】兜底解码 —— 两边口径必须一致。
 
-     ⚠️ 以前图上【一个号码点都画不出来】的原因（这次修的就是它）：
-        渲染器读的是 cir_num_center + cir_num_01~33（上一版「33 格整体轮转」留下的键），
-        中间那层 jiuzhuanLayoutOf() 在重构时已经删掉，typeof 判断永远不成立，
-        最后一层读 cir_center + cir_0~7 —— cir_0~7 根本没人写。
-        于是 32 个点位取到的值全是 undefined，被「没值就 return」逐个跳过 → 空图。
-        写的是 cir_points、读的是 cir_num_*，字段名对不上就是根因。
+     ⚠️ 老存档（更早的两版）没有 cir_points、只有逐格键：
+        cir_num_1~32（无补零）/ cir_num_01~32（补零）+ cir_num_center，
+        这里两种键都读，旧数据不会画成空白。
 
-     ⚠️ 坐标故意写成【显式表】：每圈半径 + 8 个方向向量，不靠三角函数隐式推导，
-        一眼就能看出位置写死在哪。
-        圆心 (50%,50%)；方向从「上」开始顺时针，45° 一个（= 用户 axisList 的 0°~315°）：
-           [0]上 [1]右上 [2]右 [3]右下 [4]下 [5]左下 [6]左 [7]左上
-        位置 = 圆心 + 方向向量 × 该圈半径（单位 %，相对整张圆的直径） */
+     ⚠️ 坐标不写死方向表了：轴数按彩种可能是 7 或 8，
+        所以用「角度 → 单位向量」现算（角度 = 圈去 90°，让轴 1 朝正上方，
+        8 轴时得到的就是原来的 上/右上/右/…/左上 八个方向，一个不差）。
+        圆心 (50%,50%)；最外圈半径 46%（留 4% 边距，避免号码点贴边被切）。 */
   circle(sec, vals, build, gameId) {
-    /* 【固定几何】圆心 + 4 圈半径 + 8 个方向单位向量（0.7071 = √2/2）
-       ⚠️ 这 4 个半径和 styles.css 里 .r-ring.ring1~ring4 的直径是一对一的
-          （ring1 = 92% / ring2 = 72% / ring3 = 48% / ring4 = 24%），
-          所以号码点严格落在圆环线上，不是「大概在附近」。
-       最外圈留 4% 边距（半径 46% + 号码点自身的半径），否则「上 / 下」
-       两个方向的号码点会贴边被切。 */
-    const CIR_CENTER = { x: 50, y: 50 };                       // 圆心（%）
-    const CIR_RADII = [12, 24, 36, 46];                        // 第 1~4 圈半径（第 1 圈最内）
-    const CIR_DIRS = [
-      { name: '上',   dx: 0,        dy: -1       },            // 0  上   轴1  0°
-      { name: '右上', dx: 0.7071,   dy: -0.7071  },            // 1  右上 轴2  45°
-      { name: '右',   dx: 1,        dy: 0        },            // 2  右   轴3  90°
-      { name: '右下', dx: 0.7071,   dy: 0.7071   },            // 3  右下 轴4  135°
-      { name: '下',   dx: 0,        dy: 1        },            // 4  下   轴5  180°
-      { name: '左下', dx: -0.7071,  dy: 0.7071   },            // 5  左下 轴6  225°
-      { name: '左',   dx: -1,       dy: 0        },            // 6  左   轴7  270°
-      { name: '左上', dx: -0.7071,  dy: -0.7071  }             // 7  左上 轴8  315°
-    ];
+    const CIR_CENTER = { x: 50, y: 50 };            // 圆心（%）
+    const CIR_OUTER = 46;                           // 最外圈半径（%）
 
-    const box = el('div', 'r-circwrap');
-    const c = el('div', 'r-circle');
-
-    /* 4 个同心圆环：最内圈先入 DOM、最外圈最后画 → 环线压在号码点下面。
-       直径写死在 styles.css 的 .r-ring.ring1~ring4（92 / 72 / 48 / 24 %）。 */
-    for (let i = 4; i >= 1; i--) c.appendChild(el('div', 'r-ring ring' + i));
-
-    /* 8 条米字轴：每条都是一根过圆心的直线，旋转角 = 用户 axisList 的角度，
-       第 i 条的角度就是 i × 45（0° / 45° / … / 315°），和 createJiuZhuan 的
-       axisList 逐个对应。8 条线两两反向（0° 与 180° 共线），合起来就是
-       「米」字那 4 条直线 / 8 个方向。
-       旋转角用内联 style 写死，不依赖 CSS 变量 —— 导出图片时也原样带上。 */
-    CIR_DIRS.forEach((d, dirIdx) => {
-      const ang = dirIdx * 45;
-      const line = el('div', 'r-ciraxis');
-      line.setAttribute('data-axis', '轴' + (dirIdx + 1));
-      line.setAttribute('data-angle', String(ang));
-      line.setAttribute('style', 'transform:rotate(' + ang + 'deg)');
-      c.appendChild(line);
-    });
-
-    /* ---------- 32 个交点：解码 stats.js 铺好的定宽串 cir_points ----------
-       3 字符一个点：第 1 位 H = 命中（上期开奖号）/ - = 空位，后 2 位是号码。
-       编解码是同一份：优先调 stats.js 的 decodeCirPoints（encodeCirPoints 的逆运算），
-       万一 stats.js 没加载，用下面这段等价解码兜底，保证不会又变成空图。 */
+    /* ---------- 交点：解码 stats.js 铺好的定宽串 cir_points ----------
+       3 字符一个点：第 1 位 H = 命中（上期开奖号）/ - = 未开出，后 2 位是号码。 */
     let pts = [];
     if (typeof decodeCirPoints === 'function') {
       try { pts = decodeCirPoints(vals.cir_points); } catch (e) { pts = []; }
@@ -387,59 +437,109 @@ const SECTION_RENDER = {
       }
     }
 
-    /* 老存档兜底：没有 cir_points、但有上一版逐格键 cir_num_01~32 时，
-       按同一顺序（圈优先）读进来 —— 旧数据也不会画成空白。 */
-    if (!pts.length && vals.cir_num_01 !== undefined) {
-      for (let i = 1; i <= 32; i++) {
-        const n = parseInt(vals['cir_num_' + String(i).padStart(2, '0')], 10);
+    /* 老存档兜底：cir_num_01…/cir_num_1…（两种键都认）+ cir_num_center。
+       读到的号同样按「圈优先」的顺序铺到交点上，旧存档照样出图。 */
+    if (!pts.length && (vals.cir_num_01 !== undefined || vals.cir_num_1 !== undefined)) {
+      const legacyN = parseInt(vals.cir_rings, 10) * parseInt(vals.cir_axes, 10) || 32;
+      for (let i = 1; i <= legacyN; i++) {
+        const padded = vals['cir_num_' + String(i).padStart(2, '0')];
+        const plain = vals['cir_num_' + i];
+        const raw = (padded !== undefined && padded !== '') ? padded : plain;
+        const n = parseInt(raw, 10);
         pts.push({ isHit: false, num: Number.isFinite(n) ? n : null });
       }
     }
 
-    /* ---------- 中心（第 0 个位置）：center = 双色球 17 / 大乐透 18，大号 + 高亮 ---------- */
+    /* ---------- 圈数 / 轴数 ----------
+       优先读 stats.js 铺好的 cir_rings / cir_axes；读不到（老存档、手写数据）
+       就按交点数推断：优先 4×8，其次 5×7，再不行找能整除的轴数。 */
+    const geo = cirGeometry(pts.length, vals);
+    const CIR_RADII = cirRadii(geo.rings, CIR_OUTER);
+
+    const box = el('div', 'r-circwrap');
+    const c = el('div', 'r-circle');
+
+    /* 同心圆环：最内圈先入 DOM、最外圈最后画 → 环线压在号码点下面。
+       直径【内联】写在每个环上（inline 覆盖 styles.css 里 ringN 的旧值），
+       这样 4 圈 / 5 圈都能画，且第 N 圈 = 数据里的 data-ring=N = 从内往外第 N 圈。 */
+    for (let i = geo.rings; i >= 1; i--) {
+      const ring = el('div', 'r-ring ring' + i);
+      ring.style.width = (CIR_RADII[i - 1] * 2).toFixed(2) + '%';
+      ring.style.height = (CIR_RADII[i - 1] * 2).toFixed(2) + '%';
+      ring.setAttribute('data-ring', String(i));
+      c.appendChild(ring);
+    }
+
+    /* 米字轴：每条都是一根过圆心的直线，旋转角 = createJiuZhuan 的 axisList 角度，
+       第 i 条 = i × (360 / 轴数)。8 轴时就是 0/45/…/315（和以前完全一样）。
+       旋转角用内联 style 写死，不依赖 CSS 变量 —— 导出图片时也原样带上。 */
+    for (let i = 0; i < geo.axes; i++) {
+      const ang = Math.round(i * (360 / geo.axes) * 100) / 100;
+      const line = el('div', 'r-ciraxis');
+      line.setAttribute('data-axis', '轴' + (i + 1));
+      line.setAttribute('data-angle', String(ang));
+      line.setAttribute('style', 'transform:rotate(' + ang + 'deg)');
+      c.appendChild(line);
+    }
+
+    /* ---------- 中心：双色球 17 / 大乐透 18（固定值，来自配置） ----------
+       cir_center_pos = 1 表示这一格也算一个号码位（双色球的 17 就在这里），
+       这时它参与命中高亮；= 0 表示是纯装饰位（大乐透 18）。 */
     const centerRaw = (vals.cir_num_center !== undefined && vals.cir_num_center !== '')
       ? vals.cir_num_center : vals[sec.centerKey];
     const centerNum = parseInt(centerRaw, 10);
-    const center = el('div', 'r-circenter hit');
-    center.setAttribute('data-hit', '1');
+    const centerIsPos = String(vals.cir_center_pos || '') === '1';
+    let centerHit = String(vals.cir_center_hit || '') === '1';
+    /* 老存档没有 cir_center_hit 时，用「上期开奖号原文」自己判一下（别把命中判丢） */
+    if (centerHit === false && centerIsPos && vals.cir_source) {
+      const src = String(vals.cir_source).split(/[\s,，、]+/).map((s) => parseInt(s, 10));
+      if (Number.isFinite(centerNum) && src.indexOf(centerNum) >= 0) centerHit = true;
+    }
+    const center = el('div', 'r-circenter' + (centerHit ? ' hit' : ' dim'));
+    center.setAttribute('data-hit', centerHit ? '1' : '0');
+    center.setAttribute('data-center-pos', centerIsPos ? '1' : '0');
     center.textContent = Number.isFinite(centerNum) ? numText(centerNum) : '—';
     c.appendChild(center);
 
-    /* ---------- 4 圈 × 8 轴 = 32 个交点 ----------
+    /* ---------- 圈 × 轴 = 全部交点 ----------
        顺序和 createJiuZhuan 完全一致：圈优先（rings.forEach → axisList.forEach），
-       所以第 i 个点 = 第 floor(i / 8) 圈 × 第 i % 8 个轴。 */
-    let hitCount = 0;
-    let emptyCount = 0;
+       所以第 i 个点 = 第 floor(i / 轴数) 圈 × 第 i % 轴数 个轴。 */
+    let hitCount = 0;      // 环上的命中数
+    let numCount = 0;      // 环上有号码的点数
+    let emptyCount = 0;    // 环上没号码的点数（正常情况下是 0）
     CIR_RADII.forEach((r, ringIdx) => {
-      CIR_DIRS.forEach((d, dirIdx) => {
-        const p = pts[ringIdx * 8 + dirIdx] || { num: null, isHit: false };
+      for (let dirIdx = 0; dirIdx < geo.axes; dirIdx++) {
+        const p = pts[ringIdx * geo.axes + dirIdx] || { num: null, isHit: false };
         const has = p.num !== null && p.num !== undefined && Number.isFinite(Number(p.num));
-        const dot = el('div', 'r-cirnum' + (has ? (p.isHit ? ' hit' : '') : ' empty'));
-        dot.style.top = (CIR_CENTER.y + d.dy * r).toFixed(2) + '%';
-        dot.style.left = (CIR_CENTER.x + d.dx * r).toFixed(2) + '%';
-        dot.setAttribute('data-ring', String(ringIdx + 1));       // = 模板里的 ringId / radius
-        dot.setAttribute('data-axis', '轴' + (dirIdx + 1));       // = 模板里的 axisName
-        dot.setAttribute('data-angle', String(dirIdx * 45));      // = 模板里的 angle
-        dot.setAttribute('data-radius', String(ringIdx + 1));     // radius 是圈的序号 1~4
+        const dot = el('div', 'r-cirnum' + (has ? (p.isHit ? ' hit' : ' dim') : ' empty'));
+        /* 角度 = -90° + i × (360 / 轴数)：轴 1 朝正上方，顺时针排 */
+        const rad = (-90 + dirIdx * (360 / geo.axes)) * Math.PI / 180;
+        dot.style.top = (CIR_CENTER.y + Math.sin(rad) * r).toFixed(2) + '%';
+        dot.style.left = (CIR_CENTER.x + Math.cos(rad) * r).toFixed(2) + '%';
+        dot.setAttribute('data-ring', String(ringIdx + 1));        // = 模板里的 ringId / radius
+        dot.setAttribute('data-axis', '轴' + (dirIdx + 1));        // = 模板里的 axisName
+        dot.setAttribute('data-angle', String(Math.round(dirIdx * (360 / geo.axes) * 100) / 100));
+        dot.setAttribute('data-radius', String(ringIdx + 1));      // radius 是圈的序号
         if (has) {
           dot.textContent = numText(p.num);
           dot.setAttribute('data-hit', p.isHit ? '1' : '0');
+          numCount++;
           if (p.isHit) hitCount++;
         } else {
-          /* 空位：点位（空心虚线圆）照画，就是【不写数字】 */
+          /* 空位：点位照画，就是【不写数字】（全号铺满后这里正常不会出现） */
           dot.setAttribute('data-hit', '0');
           emptyCount++;
         }
         c.appendChild(dot);
-      });
+      }
     });
 
     box.appendChild(c);
 
-    /* 图例：只列图上真实存在的两种状态（命中 / 空位），口径就是 cir_points 的 H 位 */
+    /* 图例：两种深浅（命中 / 其余号码），口径就是 cir_points 的 H 位 */
     const legend = [
-      { label: '上期开奖号（命中 ' + hitCount + '）', color: 'hit' },
-      { label: '空位（' + emptyCount + '）', color: 'empty' }
+      { label: '上期开奖号（命中 ' + (hitCount + (centerHit ? 1 : 0)) + '）', color: 'hit' },
+      { label: '其余号码（' + (numCount - hitCount) + '）', color: 'dim' }
     ];
     const lg = el('div', 'r-legend');
     legend.forEach((l) => {
@@ -449,6 +549,15 @@ const SECTION_RENDER = {
       lg.appendChild(item);
     });
     box.appendChild(lg);
+
+    /* 图注：本图铺了什么、深浅怎么读 —— 让「一个号不漏」在页面上看得见 */
+    const rangeText = geo.rings + ' 圈 × ' + geo.axes + ' 轴'
+      + (centerIsPos ? ' + 中心 1 格' : '')
+      + ' = ' + (numCount + (centerIsPos ? 1 : 0)) + ' 个号码位';
+    const capText = '上期开奖号：' + (vals.cir_source || '—')
+      + '　|　' + rangeText + '，本彩种全部号码 1~' + (numCount + (centerIsPos ? 1 : 0))
+      + ' 一键铺满（浅色为未开出，深色为上期开出）';
+    box.appendChild(el('div', 'r-caption', capText));
 
     if (sec.note) box.appendChild(el('div', 'r-caption', sec.note));
     return box;
