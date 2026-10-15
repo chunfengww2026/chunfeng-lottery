@@ -212,7 +212,12 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
       const at = String(it.at || '');
       const t = Date.parse(at);
       if (!isFinite(t)) return;
-      if (t < cutoff) { stat.dropped++; return; }        // 超过 24 小时 → 丢
+      /* __RELAX_QXC_QLC__ 用户决定：七星彩 / 七乐彩 的晒票【不受 24 小时限制】。
+   原因：这两个彩种源站上本来就更新慢（最新晒票可能超过 24 小时），
+        严格 24 小时会让这两栏永远显示"暂无"。
+   做法：这两个彩种跳过过期判断，只受 MAX_PER_GAME 上限约束（永远显示最新几张）。 */
+      var RELAX_24H = ['qxc', 'qlc'];
+      if (t < cutoff && RELAX_24H.indexOf(g.key) < 0) { stat.dropped++; return; }        // 超过 24 小时 → 丢（qxc/qlc 除外）
       const prev = bucket.get(img);
       if (prev) {
         /* 同一个 img 只留一条：at 保留【最早】那次，其余字段用最新的 */
