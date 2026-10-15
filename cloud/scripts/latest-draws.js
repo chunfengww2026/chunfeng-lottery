@@ -172,6 +172,8 @@
       '<div class="ro-gamehead">' +
       '<h2>最新开奖</h2>' +
       '<div class="ro-meta">各彩种最新一期开奖号码</div>' +
+      /* 【热力图时间提示】用户要求在这里加一行小字，说明两个彩种的热力图公布时段。 */
+      '<div class="ro-meta ro-meta-hm">双色球 18:00-20:00 · 大乐透 18:00-21:00 公布热力图数据</div>' +
       '</div>' +
       '<div class="hc-drawgrid">' + cards + '</div>' +
       '</section>';
