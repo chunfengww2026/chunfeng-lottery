@@ -761,22 +761,22 @@ body { margin: 0; background: #0f1115; color: #e8eaed;
   font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
 .wrap { max-width: 820px; margin: 0 auto; padding: 16px 14px 60px; }
 h1 { font-size: 21px; margin: 6px 0 4px; }
-.sub { font-size: 12.5px; color: #8b93a1; margin-bottom: 14px; line-height: 1.7; }
+.sub { font-size: 12.5px; color: #98a1b2; margin-bottom: 14px; line-height: 1.7; }
 .stat { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-.stat > div { flex: 1 1 90px; background: #161a21; border: 1px solid #232a36;
+.stat > div { flex: 1 1 90px; background: #161a21; border: 1px solid #262d3a;
   border-radius: 10px; padding: 10px 12px; text-align: center; }
 .stat b { display: block; font-size: 19px; color: #47e0a0; }
-.stat span { font-size: 11.5px; color: #8b93a1; }
+.stat span { font-size: 11.5px; color: #98a1b2; }
 .record { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  background: #161a21; border: 1px solid #232a36; border-radius: 10px;
+  background: #161a21; border: 1px solid #262d3a; border-radius: 10px;
   padding: 11px 14px; margin-bottom: 16px; font-size: 13px; }
-.record .t { color: #8b93a1; }
+.record .t { color: #98a1b2; }
 .record .h { color: #f0575c; font-weight: 700; }
 .record .m { color: #6b7488; font-weight: 700; }
-.record .r { color: #ffd54a; font-weight: 700; }
-.record .n { color: #5a6272; font-size: 11.5px; }
+.record .r { color: #f0b429; font-weight: 700; }
+.record .n { color: #6b7488; font-size: 11.5px; }
 .m-subhead { display: flex; align-items: center; gap: 8px; font-size: 14px;
-  font-weight: 700; color: #b8c2d4; margin: 18px 0 10px; }
+  font-weight: 700; color: #e8eaed; margin: 18px 0 10px; }
 /* __FB_SEC_COL__ 分段可收起的样式（details/summary 原生折叠） */
 .m-sec { margin-bottom: 4px; }
 .m-sec > summary.m-subhead { cursor: pointer; list-style: none; user-select: none; display: flex; align-items: center; gap: 8px; }
@@ -787,24 +787,24 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-sec:not([open]) > summary.m-subhead .m-sectip::after { content: '点击查看'; }
 
 .m-subcount { font-size: 11.5px; color: #6b7488; font-weight: 400;
-  background: #1b212b; padding: 2px 8px; border-radius: 20px; }
-.m-card { background: #161a21; border: 1px solid #232a36; border-left: 3px solid #2b3550;
+  background: #12151d; padding: 2px 8px; border-radius: 20px; }
+.m-card { background: #161a21; border: 1px solid #262d3a; border-left: 3px solid #262d3a;
   border-radius: 11px; padding: 12px 14px; margin-bottom: 10px; }
 .m-card.win { border-left-color: #f0575c; }
-.m-card.lose { border-left-color: #4a5160; }
+.m-card.lose { border-left-color: #6b7488; }
 /* 历史归档场次：左边框更暗、整卡略淡，和「本次在售」区分开 */
 .m-card.hist { border-left-style: dashed; opacity: .88; }
 .m-card.hist.win { border-left-color: #f0575c; }
-.m-card.hist.lose { border-left-color: #4a5160; }
+.m-card.hist.lose { border-left-color: #6b7488; }
 .m-top { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
-.m-code { font-size: 11.5px; font-weight: 700; color: #4a83f5;
-  background: rgba(74,131,245,0.13); padding: 2px 8px; border-radius: 5px; }
-.m-league { font-size: 12px; color: #8b93a1; }
-.m-round { font-size: 11px; color: #5a6272; }
+.m-code { font-size: 11.5px; font-weight: 700; color: #98a1b2;
+  background: #12151d; padding: 2px 8px; border-radius: 5px; }
+.m-league { font-size: 12px; color: #98a1b2; }
+.m-round { font-size: 11px; color: #6b7488; }
 .m-time { margin-left: auto; font-size: 12px; color: #6b7488; font-family: Consolas, monospace; }
 .m-st { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 5px; }
 .m-st.live { color: #f0575c; background: rgba(240,87,92,0.14); }
-.m-st.fin { color: #8b93a1; background: #232a36; }
+.m-st.fin { color: #98a1b2; background: #262d3a; }
 .m-teams { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .m-team { flex: 1 1 0; min-width: 0; font-size: 14px; font-weight: 600;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -816,49 +816,49 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-vs.live { color: #47e0a0; }
 .m-odds { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; flex-wrap: wrap; }
 .m-ol { flex: 0 0 34px; font-size: 11.5px; color: #6b7488; }
-.m-ov { font-size: 12px; color: #c8cfda; background: #1b212b;
+.m-ov { font-size: 12px; color: #e8eaed; background: #12151d;
   padding: 2px 9px; border-radius: 5px; font-family: Consolas, monospace; }
 .m-ov.on { background: rgba(71,224,160,0.16); color: #47e0a0; font-weight: 700; }
 .m-reco { display: flex; align-items: center; gap: 9px; margin-top: 9px;
   padding-top: 9px; border-top: 1px solid #1e2430; flex-wrap: wrap; }
-.m-pick { font-size: 12.5px; color: #8b93a1; }
+.m-pick { font-size: 12.5px; color: #98a1b2; }
 .m-pick b { color: #47e0a0; font-size: 14px; }
 .m-rb { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; }
 .m-rb.hit { background: rgba(240,87,92,0.18); color: #f0575c; }
-.m-rb.miss { background: #232a36; color: #6b7488; }
-.m-conf { font-size: 11.5px; color: #8b93a1; }
+.m-rb.miss { background: #262d3a; color: #6b7488; }
+.m-conf { font-size: 11.5px; color: #98a1b2; }
 /* 【可点击的分类卡】未开赛 / 进行中 / 已完场 */
 .stat a { flex: 1; display: block; text-align: center; text-decoration: none;
-  background: #171b23; border: 1px solid #232a36; border-radius: 10px;
+  background: #12151d; border: 1px solid #262d3a; border-radius: 10px;
   padding: 13px 8px 11px; cursor: pointer; transition: border-color .15s, background .15s; }
-.stat a:active { background: #1d222c; border-color: #47e0a0; }
+.stat a:active { background: #12151d; border-color: #47e0a0; }
 .stat a b { display: block; font-size: 25px; font-weight: 800; color: #47e0a0;
   font-variant-numeric: tabular-nums; line-height: 1.1; }
-.stat a span { display: block; margin-top: 5px; font-size: 12.5px; color: #8b93a1; }
+.stat a span { display: block; margin-top: 5px; font-size: 12.5px; color: #98a1b2; }
 .m-empty { padding: 22px 12px; text-align: center; font-size: 13px;
-  color: #5a6272; background: #14171d; border-radius: 10px; margin-bottom: 12px; }
+  color: #6b7488; background: #12151d; border-radius: 10px; margin-bottom: 12px; }
 /* 点分类卡跳过去时，标题不要被顶部导航挡住 */
 .m-subhead { scroll-margin-top: 58px; }
 .m-probs { margin-left: auto; display: flex; gap: 5px; }
 .m-probs i { font-style: normal; font-size: 11px; color: #6b7488;
-  background: #1b212b; padding: 2px 7px; border-radius: 4px; }
+  background: #12151d; padding: 2px 7px; border-radius: 4px; }
 .m-probs i.on { color: #47e0a0; background: rgba(71,224,160,0.14); font-weight: 700; }
-.m-noodds { font-size: 12px; color: #5a6272; }
-.note { margin-top: 22px; padding: 13px 15px; background: #14171d;
+.m-noodds { font-size: 12px; color: #6b7488; }
+.note { margin-top: 22px; padding: 13px 15px; background: #12151d;
   border: 1px solid #1e2430; border-radius: 10px; font-size: 11.5px;
   color: #6b7488; line-height: 1.9; }
 .brand { margin-top: 22px; text-align: center; font-size: 12.5px; color: #f0575c; }
 /* ---- 亚指综合换算卡片（手机优先，格子 auto-fit 自适应） ---- */
-.m-ai { margin-top: 10px; padding: 11px 12px; background: #14171d;
+.m-ai { margin-top: 10px; padding: 11px 12px; background: #12151d;
   border: 1px solid #262d3a; border-radius: 10px; }
 .m-ai-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-.m-ai-title { font-size: 12.5px; font-weight: 700; color: #b8c2d4; }
+.m-ai-title { font-size: 12.5px; font-weight: 700; color: #e8eaed; }
 .m-ai-tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
   color: #f0b429; background: rgba(240,180,41,0.14);
   border: 1px solid rgba(240,180,41,0.35); white-space: nowrap; }
 .m-ai-fun { margin-left: auto; font-size: 10.5px; color: #6b7488;
-  border: 1px solid #2b3550; border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
-.m-ai-line { font-size: 11.5px; color: #8b93a1; line-height: 1.8;
+  border: 1px solid #262d3a; border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
+.m-ai-line { font-size: 11.5px; color: #98a1b2; line-height: 1.8;
   font-family: Consolas, monospace; word-break: break-word; margin-bottom: 9px; }
 .m-ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
   gap: 7px; margin-bottom: 8px; }
@@ -866,7 +866,7 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border: 1px solid #262d3a; border-radius: 8px; padding: 7px 9px;
   min-width: 0; overflow: hidden; }
 .m-ai-cell i { font-style: normal; font-size: 10.5px; color: #6b7488; white-space: nowrap; }
-.m-ai-cell b { font-size: 13.5px; font-weight: 700; color: #c8cfda;
+.m-ai-cell b { font-size: 13.5px; font-weight: 700; color: #e8eaed;
   font-family: Consolas, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .m-ai-cell.on { border-color: rgba(71,224,160,0.4); background: rgba(71,224,160,0.08); }
 .m-ai-cell.on b { color: #47e0a0; }
@@ -874,23 +874,23 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-ai-dev-v { font-size: 12.5px; font-weight: 700; font-family: Consolas, monospace; }
 .m-ai-dev-v.up { color: #f0575c; }
 .m-ai-dev-v.down { color: #47e0a0; }
-.m-ai-dev-u { font-size: 10.5px; color: #5a6272; }
+.m-ai-dev-u { font-size: 10.5px; color: #6b7488; }
 .m-ai-hot { font-size: 12px; color: #f0b429; line-height: 1.75; margin-bottom: 7px; }
 .m-ai-src { font-size: 10.5px; color: #6b7488; line-height: 1.7; }
-.m-ai-miss { font-size: 11px; color: #8b93a1; line-height: 1.8; background: #171b23;
-  border: 1px dashed #2b3550; border-radius: 8px; padding: 7px 9px; margin-bottom: 6px; }
-.m-ai-note { font-size: 10.5px; color: #5a6272; line-height: 1.7; }
+.m-ai-miss { font-size: 11px; color: #98a1b2; line-height: 1.8; background: #12151d;
+  border: 1px dashed #262d3a; border-radius: 8px; padding: 7px 9px; margin-bottom: 6px; }
+.m-ai-note { font-size: 10.5px; color: #6b7488; line-height: 1.7; }
 /* 盘口升降标签（升盘降水 / 降盘降水 / 升盘升水 / 降盘升水 / 无明显变化） */
 .m-ai-change { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
 .m-ai-change-tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
-  color: #8ab0f5; background: rgba(110,168,254,0.12);
-  border: 1px solid rgba(110,168,254,0.3); white-space: nowrap; }
+  color: #98a1b2; background: #12151d;
+  border: 1px solid #262d3a; white-space: nowrap; }
 .m-ai-change-d { font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
   word-break: break-word; }
 /* ---- 模拟计算器（竞彩页唯一可操作的区块；可收起，默认收起） ---- */
 /* 折叠做法和上面三个分段 .m-sec 完全一致：原生 details/summary，
    提示文字由 CSS 按 [open] 切换，不写 JS 也能用。 */
-.m-calc { margin-top: 22px; background: #14171d;
+.m-calc { margin-top: 22px; background: #12151d;
   border: 1px solid #262d3a; border-radius: 12px; }
 .m-calc > summary.calc-head { cursor: pointer; list-style: none; user-select: none;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
@@ -904,25 +904,25 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .calc-body { padding: 0 14px 13px; }
 .calc-head .calc-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
 .calc-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  font-size: 11.5px; color: #8b93a1; line-height: 1.7; margin-bottom: 10px; }
+  font-size: 11.5px; color: #98a1b2; line-height: 1.7; margin-bottom: 10px; }
 .calc-sub-t { flex: 1 1 auto; min-width: 0; }
 .calc-sel { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.calc-sel select { padding: 3px 6px; background: #0f1115; border: 1px solid #2b3550;
+.calc-sel select { padding: 3px 6px; background: #0f1115; border: 1px solid #262d3a;
   border-radius: 6px; color: #e8eaed; font-size: 12px; font-family: Consolas, monospace; }
 .calc-rand { margin-left: auto; font-weight: 700; color: #47e0a0;
   background: rgba(71,224,160,0.10); border-color: rgba(71,224,160,0.42); }
-.calc-shot-btn { margin-left: 2px; color: #8ab0f5; border-color: rgba(110,168,254,0.35);
-  background: rgba(110,168,254,0.10); }
+.calc-shot-btn { margin-left: 2px; color: #98a1b2; border-color: #262d3a;
+  background: #12151d; }
 /* ---- 保存图片 · 全屏层（默认隐藏） ---- */
 .calc-shot { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
-  z-index: 999; background: rgba(8,9,12,0.95); padding: 14px;
+  z-index: 999; background: rgba(15,17,21,0.95); padding: 14px;
   flex-direction: column; align-items: center; justify-content: center; }
 .calc-shot.on { display: flex; }
 .calc-shot-bar { width: 100%; max-width: 760px; display: flex; align-items: center;
   gap: 10px; margin-bottom: 10px; }
-.calc-shot-tip { flex: 1 1 auto; font-size: 12px; color: #8b93a1; }
-.calc-shot-x { font-size: 17px; line-height: 1; color: #c8cfda; background: #1b212b;
-  border: 1px solid #2b3550; border-radius: 8px; padding: 4px 12px; cursor: pointer;
+.calc-shot-tip { flex: 1 1 auto; font-size: 12px; color: #98a1b2; }
+.calc-shot-x { font-size: 17px; line-height: 1; color: #e8eaed; background: #12151d;
+  border: 1px solid #262d3a; border-radius: 8px; padding: 4px 12px; cursor: pointer;
   user-select: none; -webkit-user-select: none; }
 .calc-shot-img { max-width: 100%; max-height: 78vh; border-radius: 10px; background: #0f1115; }
 /* ============================================================
@@ -940,11 +940,11 @@ input, select, textarea { user-select: auto; -webkit-user-select: auto; }
 #article, .guard { transition: filter .15s ease; }
 html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); pointer-events: none; }
 #mask { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.96); color: #fff; z-index: 99998;
+  background: rgba(15,17,21,0.96); color: #e8eaed; z-index: 99998;
   align-items: center; justify-content: center; text-align: center;
   font-size: 20px; line-height: 1.8; padding: 40px; flex-direction: column; }
 html.locked #mask { display: flex; }
-#mask .mask-s { margin-top: 12px; font-size: 13px; color: #8b93a1; line-height: 1.9; }
+#mask .mask-s { margin-top: 12px; font-size: 13px; color: #98a1b2; line-height: 1.9; }
 #watermark { position: fixed; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none;
   z-index: 99997; overflow: hidden; opacity: .07; }
 .wm-item { position: absolute; font-size: 14px; white-space: nowrap; font-weight: 700;
@@ -973,50 +973,50 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
 .calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
 .calc-rows { display: flex; flex-direction: column; gap: 8px; }
-.calc-row { background: #161a21; border: 1px solid #232a36; border-radius: 10px; padding: 9px 10px; }
+.calc-row { background: #161a21; border: 1px solid #262d3a; border-radius: 10px; padding: 9px 10px; }
 .calc-mt { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 6px; }
-.calc-code { font-size: 11px; font-weight: 700; color: #4a83f5;
-  background: rgba(74,131,245,0.13); padding: 1px 7px; border-radius: 5px; }
-.calc-league { font-size: 11px; color: #8b93a1; }
+.calc-code { font-size: 11px; font-weight: 700; color: #98a1b2;
+  background: #12151d; padding: 1px 7px; border-radius: 5px; }
+.calc-league { font-size: 11px; color: #98a1b2; }
 .calc-time { margin-left: auto; font-size: 11px; color: #6b7488; font-family: Consolas, monospace; }
 .calc-teams { display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
-  font-size: 13px; font-weight: 600; color: #c8cfda; margin-bottom: 7px; }
-.calc-vs { font-size: 10.5px; font-weight: 400; color: #5a6272; }
+  font-size: 13px; font-weight: 600; color: #e8eaed; margin-bottom: 7px; }
+.calc-vs { font-size: 10.5px; font-weight: 400; color: #6b7488; }
 .calc-opts { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
 .calc-ol { flex: 0 0 auto; min-width: 52px; font-size: 11px; color: #6b7488; }
 .calc-opt { display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
-  background: #1b212b; border: 1px solid #262d3a; border-radius: 7px; padding: 4px 8px;
-  font-size: 11.5px; color: #c8cfda; user-select: none; -webkit-user-select: none; }
+  background: #12151d; border: 1px solid #262d3a; border-radius: 7px; padding: 4px 8px;
+  font-size: 11.5px; color: #e8eaed; user-select: none; -webkit-user-select: none; }
 .calc-opt input { width: 14px; height: 14px; margin: 0; cursor: pointer; accent-color: #47e0a0; }
-.calc-opt-o { font-family: Consolas, monospace; color: #8b93a1; }
+.calc-opt-o { font-family: Consolas, monospace; color: #98a1b2; }
 .calc-opt.on { background: rgba(71,224,160,0.14); border-color: #47e0a0; color: #47e0a0; }
 .calc-opt.on .calc-opt-o { color: #47e0a0; font-weight: 700; }
 .calc-bar { margin-top: 11px; padding-top: 11px; border-top: 1px solid #1e2430; }
 .calc-stat { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  font-size: 11.5px; color: #8b93a1; }
+  font-size: 11.5px; color: #98a1b2; }
 .calc-stat b { color: #e8eaed; font-family: Consolas, monospace; }
 .calc-mul { display: inline-flex; align-items: center; gap: 5px; }
-.calc-mul input { width: 58px; padding: 3px 6px; background: #0f1115; border: 1px solid #2b3550;
+.calc-mul input { width: 58px; padding: 3px 6px; background: #0f1115; border: 1px solid #262d3a;
   border-radius: 6px; color: #e8eaed; font-size: 12.5px; font-family: Consolas, monospace; }
-.calc-btn { margin-left: auto; padding: 4px 12px; font-size: 11.5px; color: #8b93a1;
-  background: #1b212b; border: 1px solid #2b3550; border-radius: 7px;
+.calc-btn { margin-left: auto; padding: 4px 12px; font-size: 11.5px; color: #98a1b2;
+  background: #12151d; border: 1px solid #262d3a; border-radius: 7px;
   cursor: pointer; user-select: none; -webkit-user-select: none; }
-.calc-btn:active { background: #232a36; color: #47e0a0; }
+.calc-btn:active { background: #262d3a; color: #47e0a0; }
 .calc-prize { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 9px; }
-.calc-prize-l { font-size: 12px; color: #8b93a1; }
+.calc-prize-l { font-size: 12px; color: #98a1b2; }
 .calc-prize b { font-size: 20px; font-weight: 800; color: #47e0a0;
   font-family: Consolas, monospace; font-variant-numeric: tabular-nums; }
 .calc-prize-h { font-size: 10.5px; color: #6b7488; }
 .calc-warn { margin-top: 7px; font-size: 11.5px; color: #f0b429; line-height: 1.7; }
 .calc-warn:empty { display: none; }
-.calc-foot { margin-top: 7px; font-size: 10.5px; color: #5a6272; }
-.calc-empty { margin-bottom: 8px; padding: 9px 10px; background: #171b23;
-  border: 1px dashed #2b3550; border-radius: 8px; font-size: 12px; color: #8b93a1; line-height: 1.8; }
+.calc-foot { margin-top: 7px; font-size: 10.5px; color: #6b7488; }
+.calc-empty { margin-bottom: 8px; padding: 9px 10px; background: #12151d;
+  border: 1px dashed #262d3a; border-radius: 8px; font-size: 12px; color: #98a1b2; line-height: 1.8; }
 .calc-note { margin-top: 11px; padding: 10px 11px; background: #0f1115;
   border: 1px solid #1e2430; border-radius: 9px; font-size: 10.5px; color: #6b7488; line-height: 1.9; }
-.calc-disclaim { margin-top: 9px; padding-top: 8px; border-top: 1px dashed #232a36;
+.calc-disclaim { margin-top: 9px; padding-top: 8px; border-top: 1px dashed #262d3a;
   font-size: 10.5px; color: #6b7488; line-height: 1.8; }
-.calc-disclaim b { color: #8b93a1; font-weight: 700; }
+.calc-disclaim b { color: #98a1b2; font-weight: 700; }
 `;
 
 const html = `<!DOCTYPE html>
@@ -1504,12 +1504,12 @@ ${nav}
     for (gi = 0; gi < res.groups.length; gi++) {
       var g = res.groups[gi];
       var gh = heights[gi];
-      ctx.fillStyle = gi % 2 ? '#14171d' : '#161a21';
+      ctx.fillStyle = gi % 2 ? '#12151d' : '#161a21';
       ctx.fillRect(pad - 8, y - 32, W - (pad - 8) * 2, gh - 8);
-      ctx.fillStyle = '#4a83f5';
+      ctx.fillStyle = '#98a1b2';
       ctx.font = 'bold 21px ' + FONT;
       ctx.fillText(cut(g.code, 8), pad, y);
-      ctx.fillStyle = '#c8cfda';
+      ctx.fillStyle = '#e8eaed';
       ctx.font = 'bold 22px ' + FONT;
       ctx.fillText(cut(g.home + ' vs ' + g.away, 20), pad + 96, y);
       ctx.fillStyle = '#6b7488';
@@ -1529,7 +1529,7 @@ ${nav}
     var by = y + 4;
     ctx.fillStyle = '#0f1115';
     ctx.fillRect(pad - 8, by, W - (pad - 8) * 2, 160);
-    ctx.fillStyle = '#8b93a1';
+    ctx.fillStyle = '#98a1b2';
     ctx.font = '22px ' + FONT;
     ctx.fillText('总投注额　' + money(res.cost), pad, by + 38);
     ctx.fillStyle = '#47e0a0';
