@@ -5,8 +5,17 @@
 //    live.500.com/jczq.php          竞彩在售列表（含竞彩编号、fid）
 //    live.500.com/json/odds.php     欧赔/亚盘/大小球（初盘 + 即时）
 //
+//  【额外】体彩官网官方竞彩 SP（奖金试算器要用）：
+//    webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry
+//      m.had  = 胜平负 SP        （主胜 h / 平 d / 客胜 a）
+//      m.hhad = 让球胜平负 SP    （让球数 goalLine + h/d/a）
+//    这是【官方 SP 原值】，不是欧赔换算、不是估算。
+//    ⚠️ 云端（GitHub Actions，美国 IP）访问该域名会被拒（567）——
+//       抓不到就【沿用上一次 jc-data.js 里的 SP】，绝不写空、绝不崩。
+//
 //  产物：
 //    jc-data.js     →  const JC_DATA = {...}   本次「在售」的比赛
+//                      顶层多一个 sp 块：官方竞彩 SP 列表（奖金试算器读它）
 //    jc-history.js  →  const JC_HISTORY = {...} 已完场累积记录
 //
 //  每场比赛还会算一份【亚指综合换算】结果存在 game.asianIndex
@@ -304,6 +313,98 @@ async function fetchOdds(fid) {
 }
 
 /* ============================================================
+   2b. 官方竞彩 SP（胜平负 had / 让球胜平负 hhad）—— 奖金试算器要用
+   ------------------------------------------------------------
+   数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1，1 次请求）
+     m.had  = { h 主胜, d 平, a 客胜 }              ← 竞彩【胜平负】官方 SP
+     m.hhad = { goalLine 让球数, h/d/a }             ← 竞彩【让球胜平负】官方 SP
+     m.poolList[].single / bettingSingle             ← 官方单关标记（原样存下，页面不据此承诺）
+   这就是体彩竞彩奖金计算器用的 SP 值，【原值使用】，不用欧赔换算、不估算。
+
+   ⚠️ 云端（GitHub Actions，美国 IP）访问这个域名会被拒（567）→
+      抓不到时保留上一次 jc-data.js 里的 SP（source='carried'），绝不写空、绝不崩。
+   ============================================================ */
+const SP_API = 'https://webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry?poolCode=hhad,had&channel=c';
+
+function spNum(v) {
+  const n = parseFloat(v);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+function spStamp(o) {
+  if (!o) return '';
+  return [o.updateDate, o.updateTime].filter(Boolean).join(' ').trim();
+}
+
+async function fetchOfficialSp() {
+  try {
+    const res = await fetch(SP_API, {
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'application/json,text/plain,*/*',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Referer': 'https://www.sporttery.cn/',
+        'Origin': 'https://www.sporttery.cn'
+      },
+      signal: AbortSignal.timeout(25000)
+    });
+    if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
+
+    let j = null;
+    try { j = await res.json(); } catch { return { ok: false, error: '不是 JSON（可能被反爬）' }; }
+    if (!j || j.success === false) return { ok: false, error: `success=false errorCode=${j && j.errorCode}` };
+
+    const v = (j && j.value) || {};
+    const list = [];
+    for (const grp of (v.matchInfoList || [])) {
+      for (const m of ((grp && grp.subMatchList) || [])) {
+        if (!m) continue;
+        const H = m.had || {};
+        const HH = m.hhad || {};
+        const had = (spNum(H.h) || spNum(H.d) || spNum(H.a))
+          ? { h: spNum(H.h), d: spNum(H.d), a: spNum(H.a), update: spStamp(H) } : null;
+        const hhad = (spNum(HH.h) || spNum(HH.d) || spNum(HH.a))
+          ? {
+              line: String(HH.goalLine || ''),
+              h: spNum(HH.h), d: spNum(HH.d), a: spNum(HH.a), update: spStamp(HH)
+            } : null;
+        if (!had && !hhad) continue;
+
+        const pools = {};
+        (m.poolList || []).forEach((p) => {
+          if (p && p.poolCode) pools[String(p.poolCode).toUpperCase()] = p;
+        });
+        const flag = (code) => {
+          const p = pools[code] || {};
+          return {
+            single: Number(p.single) === 1 ? 1 : 0,
+            betSingle: Number(p.bettingSingle) === 1 ? 1 : 0
+          };
+        };
+
+        list.push({
+          code: String(m.matchNumStr || ''),
+          matchNum: m.matchNum != null ? String(m.matchNum) : '',
+          league: String(m.leagueAbbName || ''),
+          time: [String(m.matchDate || ''), String(m.matchTime || '')].filter(Boolean).join(' ').trim(),
+          home: String(m.homeTeamAbbName || m.homeTeamAllName || ''),
+          away: String(m.awayTeamAbbName || m.awayTeamAllName || ''),
+          had, hhad,
+          single: { HAD: flag('HAD'), HHAD: flag('HHAD') }
+        });
+      }
+    }
+    if (!list.length) return { ok: false, error: '接口里没有带 SP 的比赛' };
+    return {
+      ok: true, list,
+      officialUpdate: String(v.lastUpdateTime || ''),
+      inSale: Number.isFinite(Number(v.totalCount)) ? Number(v.totalCount) : null
+    };
+  } catch (e) {
+    return { ok: false, error: (e && e.cause && e.cause.code) || (e && e.message) || String(e) };
+  }
+}
+
+/* ============================================================
    3. 推荐胜负平（赔率反推概率）
    ============================================================ */
 function calcReco(odds) {
@@ -478,9 +579,33 @@ async function main() {
   if (!list.length) { log('  ❌ 未取到竞彩列表'); process.exit(1); }
   log(`  ✅ ${list.length} 场在售`);
 
+  /* 时间戳（SP 块和文件头都用它，所以提前算） */
+  const now = new Date();
+  const p2 = (n) => String(n).padStart(2, '0');
+  const stamp = `${now.getFullYear()}-${p2(now.getMonth() + 1)}-${p2(now.getDate())} ${p2(now.getHours())}:${p2(now.getMinutes())}`;
+
   log('\n【2/3】抓实时比分（未开赛/进行中/完场）');
   const scores = await fetchScores();
   log(`  ✅ 取到 ${scores.size} 场的状态与比分`);
+
+  log('\n【2b/3】抓体彩官网官方竞彩 SP（胜平负 / 让球胜平负，奖金试算器用）');
+  const spTry = await fetchOfficialSp();
+  if (spTry.ok) {
+    log(`  ✅ 官方 SP ${spTry.list.length} 场 · 官方更新 ${spTry.officialUpdate || '(无)'}` +
+        ` · 在售 ${spTry.inSale == null ? '(无)' : spTry.inSale} 场`);
+  } else {
+    log(`  ⚠️ 官方 SP 抓不到（${spTry.error}）→ 保留上一次 jc-data.js 里的 SP 值`);
+  }
+  /* code（竞彩编号，如 周五001）→ SP 行；对不上编号时再用队名兜底 */
+  const spByCode = new Map();
+  const spByTeams = new Map();
+  const teamKey = (h, a) => `${String(h || '').trim()}|${String(a || '').trim()}`;
+  if (spTry.ok) {
+    spTry.list.forEach((r) => {
+      if (r.code) spByCode.set(r.code, r);
+      spByTeams.set(teamKey(r.home, r.away), r);
+    });
+  }
 
   log('\n【3/3】逐场抓赔率并合并比分');
   /* 亚指综合换算（算一次就够，整个循环共用） */
@@ -562,9 +687,24 @@ async function main() {
            : ' · 资金占比无数据源，热度推演不显示'))
       : '无亚盘';
 
+    /* ---- 本场有没有官方竞彩 SP ---- */
+    const spRow = spByCode.get(g.code)
+      || spByTeams.get(teamKey(g.home.name, g.away.name))
+      || null;
+
     log(`  ✅ ${g.code} ${g.time.slice(5)} [${g.league}] ${g.home.name} vs ${g.away.name}`);
     log(`       ${euTxt}  ${reco ? '→ ' + reco.label + ' ' + reco.confidence + '%' : ''}  [${stTxt}${scoreTxt}]`);
     log(`       ${aiTxt}`);
+    if (spRow) {
+      const one = (v) => (v == null ? '—' : v);
+      log(`       SP 胜平负 ${one(spRow.had && spRow.had.h)}/${one(spRow.had && spRow.had.d)}/${one(spRow.had && spRow.had.a)}` +
+        (spRow.hhad
+          ? ` · 让球${spRow.hhad.line || ''} ${one(spRow.hhad.h)}/${one(spRow.hhad.d)}/${one(spRow.hhad.a)}`
+          : ' · 无让球') +
+        `（体彩官网官方 SP${spTry.ok ? '' : ' · 上次值'}）`);
+    } else {
+      log('       SP：本场不在体彩官网「在售计算器」列表里（无官方 SP，不进奖金试算器）');
+    }
 
     games.push(Object.assign({}, g, {
       odds,
@@ -576,10 +716,6 @@ async function main() {
     }));
   }
 
-  const now = new Date();
-  const p = (n) => String(n).padStart(2, '0');
-  const stamp = `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())} ${p(now.getHours())}:${p(now.getMinutes())}`;
-
   const stat = {
     total: games.length,
     upcoming: games.filter((g) => g.status === 'upcoming').length,
@@ -588,13 +724,47 @@ async function main() {
     withScore
   };
 
+  /* ---------- 官方竞彩 SP 汇总块（写进 jc-data.js 顶层 sp） ----------
+     source:
+       official = 本次真的从体彩官网抓到了（本机可抓）
+       carried  = 本次没抓到，沿用上一次 jc-data.js 里那份（云端常态）
+       none     = 一次都没抓到过 → 页面显示「暂无 SP 数据」，绝不编数字 */
+  const oldSpList = (oldJc && oldJc.sp && Array.isArray(oldJc.sp.list)) ? oldJc.sp.list : [];
+  let spBlock;
+  if (spTry.ok) {
+    spBlock = {
+      source: 'official',
+      from: '体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值',
+      updated: stamp,
+      officialUpdate: spTry.officialUpdate || '',
+      inSale: spTry.inSale,
+      list: spTry.list
+    };
+  } else if (oldSpList.length) {
+    spBlock = {
+      source: 'carried',
+      from: `沿用上一次抓到的体彩官方 SP（本次没抓到：${spTry.error}）`,
+      updated: (oldJc.sp && oldJc.sp.updated) || '',
+      officialUpdate: (oldJc.sp && oldJc.sp.officialUpdate) || '',
+      inSale: (oldJc.sp && oldJc.sp.inSale != null) ? oldJc.sp.inSale : null,
+      list: oldSpList
+    };
+  } else {
+    spBlock = {
+      source: 'none',
+      from: `暂无官方 SP（体彩官网接口抓不到：${spTry.error}）`,
+      updated: '', officialUpdate: '', inSale: null, list: []
+    };
+  }
+
   const js = `/* 自动生成，请勿手动编辑 · ${stamp} */\n` +
-    `const JC_DATA = ${JSON.stringify({ updated: stamp, stat, games }, null, 1)};\n`;
+    `const JC_DATA = ${JSON.stringify({ updated: stamp, stat, games, sp: spBlock }, null, 1)};\n`;
 
   fs.writeFileSync(OUT, js, 'utf8');
 
   log(`\n✅ 已写入 ${OUT}`);
   log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分 · ${withAsian} 场有亚盘`);
+  log(`   SP（奖金试算器）：${spBlock.source} · ${spBlock.list.length} 场 · ${spBlock.from}`);
   log(`   未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}`);
   log(`   亚指综合换算：${withAsian} 场算出 asianIndex` +
       `（其中 ${games.filter((g) => g.asianIndex && g.asianIndex.analysis).length} 场有资金占比 → 显示热度推演）`);
