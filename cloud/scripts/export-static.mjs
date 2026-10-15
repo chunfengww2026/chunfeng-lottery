@@ -992,6 +992,96 @@ console.log(`  · 晒票栏：${XYSP_GAMES.map((g) => {
 }).join(' / ')}${XYSP ? '' : '  ⚠️ 没有 xysp-data.js（显示「暂无」）'}`);
 
 /* ============================================================
+   【ai选号】可折叠小面板（位置：晒票栏下面、最新开奖上面）
+   ------------------------------------------------------------
+   用户原话：「晒票栏下面装一个机选的 可以操作随机机选各种彩票
+             复式单式都可以机选 模拟选号 有个折叠小窗口 写上标题：ai选号
+             实际上是系统自动摇号 这里他们可以操作」
+   形态：原生 <details>，【默认收起】，标题行就是 <summary>（不是按钮标签）。
+   成本：纯前端 Math.random()，不联网、不调 AI、0 成本。
+   ⚠️ 只有 <a role="button"> 和 <input type="number">，没有 <button> 标签
+      （页面不变量「裸 button 数 = 0」）。
+   ⚠️ 这一块【不含任何图片】→ 图位数量（data-image）不变。
+   ⚠️ 面板里的规则表【不是手抄的】：下面的 AIPICK_RULES 直接从 games.js 的
+      GAMES 里取真实区间 / 位数 / 选号个数，再注入页面脚本 →
+      以后改 games.js，面板自动跟着变，不会两边对不上。
+   ============================================================ */
+const AIPICK_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
+
+const AIPICK_RULES = AIPICK_ORDER.filter((k) => G && G[k]).map((k) => {
+  const g = G[k];
+  return {
+    id: k,
+    name: g.name,
+    price: g.price || 2,
+    type: g.type || 'areas',                 /* 'digit' / 'qxc' / 'areas' */
+    digits: g.digits || 0,
+    playModes: !!g.playModes,                /* 快乐8：先选玩法（选几） */
+    areas: (g.areas || []).map((a) => ({
+      key: a.key, label: a.label,
+      from: a.from, to: a.to,
+      pick: a.pick || 0,
+      digits: a.digits || 0,
+      color: a.color || 'red'
+    }))
+  };
+});
+const AIPICK_JS_RULES = JSON.stringify(AIPICK_RULES);
+
+console.log(`  · ai选号：${AIPICK_RULES.map((g) => g.name).join(' / ')}`);
+
+function buildAiPickHtml() {
+  const tabs = AIPICK_RULES.map((g, i) =>
+    `<a class="ro-aipick-tab${i === 0 ? ' on' : ''}" role="button" tabindex="0"` +
+    ` data-ro-aipick-game="${escapeAttr(g.id)}">${escape(g.name)}</a>`
+  ).join('');
+
+  return `<details class="ro-aipick" id="ro-aipick">` +
+    `<summary class="ro-aipick-head">` +
+    `<h2 class="ro-aipick-h2">ai选号</h2>` +
+    `<div class="ro-aipick-sub">系统随机生成 · 仅供娱乐参考</div>` +
+    `<span class="ro-aipick-arrow" aria-hidden="true"></span>` +
+    `</summary>` +
+    `<div class="ro-aipick-body">` +
+    `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
+    `<div class="ro-aipick-tabs">${tabs}</div></div>` +
+    `<div class="ro-aipick-line"><span class="ro-aipick-lbl">方式</span>` +
+    `<div class="ro-aipick-tabs">` +
+    `<a class="ro-aipick-segbtn on" role="button" tabindex="0" data-ro-aipick-mode="single">单式</a>` +
+    `<a class="ro-aipick-segbtn" role="button" tabindex="0" data-ro-aipick-mode="multi">复式</a>` +
+    `</div></div>` +
+    `<div class="ro-aipick-line ro-aipick-line-kl8" hidden>` +
+    `<span class="ro-aipick-lbl">玩法</span><div class="ro-aipick-kl8"></div></div>` +
+    `<div class="ro-aipick-rule"></div>` +
+    `<div class="ro-aipick-line ro-aipick-line-single">` +
+    `<span class="ro-aipick-lbl">注数</span>` +
+    `<input class="ro-aipick-in ro-aipick-in-count" type="number" inputmode="numeric"` +
+    ` min="1" max="50" step="1" value="5">` +
+    `<span class="ro-aipick-unit">注</span></div>` +
+    `<div class="ro-aipick-line ro-aipick-line-multi" hidden>` +
+    `<span class="ro-aipick-lbl">复式</span><div class="ro-aipick-multi"></div></div>` +
+    `<div class="ro-aipick-line">` +
+    `<span class="ro-aipick-lbl">倍数</span>` +
+    `<input class="ro-aipick-in ro-aipick-in-times" type="number" inputmode="numeric"` +
+    ` min="1" max="99" step="1" value="1">` +
+    `<span class="ro-aipick-unit">倍</span>` +
+    `<span class="ro-aipick-sum"></span></div>` +
+    `<div class="ro-aipick-warn" hidden></div>` +
+    `<div class="ro-aipick-acts">` +
+    `<a class="ro-aipick-btn on" role="button" tabindex="0" data-ro-aipick-act="roll">机选一注</a>` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reroll">重摇</a>` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="clear">清空</a>` +
+    `</div>` +
+    `<div class="ro-aipick-out"></div>` +
+    `<div class="ro-aipick-note">号码由系统随机生成，仅供娱乐，不构成购彩建议，请理性购彩。</div>` +
+    `<div class="ro-aipick-note">纯本机随机模拟：不联网、不上传、不保存（刷新页面即回到默认）。</div>` +
+    `</div>` +
+    `</details>`;
+}
+
+const aiPickHtml = buildAiPickHtml();
+
+/* ============================================================
    【开机号 / 选号直播】两个工具栏入口 + 两个可展开区块
    ------------------------------------------------------------
    用户原话：「新增两个工具栏。一个是开机号（…/kjh）。
@@ -2693,6 +2783,135 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-xysp-empty { margin-top: 12px; font-size: 12px; color: #6b7488; }
 .ro-xysp-note { margin-top: 10px; font-size: 10.5px; color: #5f6878; }
+
+/* ============================================================
+   【ai选号】可折叠面板（位置：晒票栏下面、最新开奖上面）
+   ------------------------------------------------------------
+   用户原话：「晒票栏下面装一个机选的 可以操作随机机选各种彩票
+             复式单式都可以机选 模拟选号 有个折叠小窗口 写上标题：ai选号」
+   形态：<details> 默认收起（不带 open 属性），标题行就是 <summary>。
+   交互：面板内部只有 <a role="button"> 和 <input type="number">，
+         没有 <button> 标签（页面不变量「按钮标签数 = 0」）。
+   成本：纯前端 Math.random()，不联网、不调 AI、不写任何存储。
+   ⚠️ 这里没有任何图片 → 图位数量（data-image）不受影响。
+   ============================================================ */
+.ro-aipick {
+  background: #12161d;
+  border: 1px solid #1e2430;
+  border-radius: 12px;
+  padding: 15px 13px 13px;
+  margin: 0 0 26px;
+}
+/* 标题那一行就是 <summary>：整条都能点 */
+.ro-aipick-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  cursor: pointer;
+  list-style: none;                 /* 去掉默认三角（标准写法） */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ro-aipick-head::-webkit-details-marker { display: none; }
+.ro-aipick-head:hover .ro-aipick-h2, .ro-aipick-head:active .ro-aipick-h2 { color: #fff; }
+.ro-aipick-head:focus-visible { outline: 2px solid #3a5a9c; outline-offset: 2px; border-radius: 6px; }
+.ro-aipick-h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e8eaed;
+  letter-spacing: 2px;
+}
+.ro-aipick-sub { font-size: 11.5px; color: #6b7488; }
+/* 右侧提示：文字 + 箭头都由 CSS 按 [open] 切换，不需要 JS */
+.ro-aipick-arrow {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #8fb8ff;
+  white-space: nowrap;
+}
+.ro-aipick-arrow::before { content: '点击查看'; }
+.ro-aipick-arrow::after { content: ' ▸'; }
+.ro-aipick[open] .ro-aipick-arrow::before { content: '点击收起'; }
+.ro-aipick[open] .ro-aipick-arrow::after { content: ' ▾'; }
+
+.ro-aipick-body { margin-top: 12px; }
+.ro-aipick [hidden] { display: none !important; }
+.ro-aipick-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 9px;
+}
+.ro-aipick-lbl { flex: 0 0 auto; width: 34px; font-size: 12px; color: #8b93a1; }
+.ro-aipick-tabs, .ro-aipick-kl8 { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-segbtn, .ro-aipick-btn {
+  flex: 0 0 auto;
+  padding: 6px 11px;
+  border: 1px solid #2a323f;
+  border-radius: 999px;
+  background: #161a21;
+  color: #b9c2d0;
+  font-size: 12px;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ro-aipick-tab:hover, .ro-aipick-kl8tab:hover,
+.ro-aipick-segbtn:hover, .ro-aipick-btn:hover { border-color: #3d5a86; color: #cfe0ff; }
+.ro-aipick-tab.on, .ro-aipick-kl8tab.on, .ro-aipick-segbtn.on {
+  background: #1c2530;
+  border-color: #3d5a86;
+  color: #8fb8ff;
+}
+.ro-aipick-in {
+  width: 58px;
+  padding: 5px 7px;
+  border: 1px solid #2a323f;
+  border-radius: 8px;
+  background: #0f1218;
+  color: #e8eaed;
+  font-size: 12.5px;
+  text-align: center;
+}
+.ro-aipick-in:focus { outline: none; border-color: #3d5a86; }
+.ro-aipick-unit { font-size: 11.5px; color: #6b7488; }
+.ro-aipick-mwrap { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
+.ro-aipick-rule { margin-top: 8px; font-size: 11.5px; line-height: 1.5; color: #7a8394; }
+.ro-aipick-sum { margin-left: auto; font-size: 11.5px; color: #8fb8ff; }
+.ro-aipick-warn { margin-top: 8px; font-size: 11.5px; line-height: 1.5; color: #f0b429; }
+.ro-aipick-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.ro-aipick-btn { padding: 7px 14px; border-radius: 9px; font-size: 12.5px; font-weight: 600; }
+.ro-aipick-btn.on { background: #1d2a3d; border-color: #3d5a86; color: #cfe0ff; }
+.ro-aipick-btn.ghost { background: #14181f; color: #8b93a1; }
+.ro-aipick-out { margin-top: 12px; border-top: 1px solid #1e2430; padding-top: 10px; }
+.ro-aipick-empty { font-size: 11.5px; color: #6b7488; }
+.ro-aipick-sumline { margin-bottom: 8px; font-size: 11.5px; color: #8fb8ff; }
+.ro-aipick-hit { display: flex; align-items: center; flex-wrap: wrap; gap: 3px; margin: 0 0 6px; }
+.ro-aipick-idx { flex: 0 0 auto; width: 44px; font-size: 10.5px; color: #5f6878; }
+.ro-aipick-ball {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 4px;
+  border-radius: 6px;
+  background: #2a1c1f;
+  color: #ff8b8b;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.ro-aipick-ball.blue { background: #16233a; color: #8fb8ff; }
+.ro-aipick-sep { padding: 0 1px; font-size: 12px; color: #5f6878; }
+.ro-aipick-more { margin-top: 6px; font-size: 11px; color: #5f6878; }
+.ro-aipick-note { margin-top: 10px; font-size: 10.5px; line-height: 1.6; color: #5f6878; }
+
 /* ============================================================
    【开机号 / 选号直播】工具栏入口 + 两个可展开区块
    ------------------------------------------------------------
@@ -2988,6 +3207,13 @@ body.ro-mob-open { overflow: hidden; }
        这一块现在会显示【晒票图片】（图床外链、不下载本体），
        卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
   ${xyspHtml}
+
+  <!-- ============================================================
+       【ai选号】用户要求：装在【晒票栏下面】（「晒票栏下面装一个机选的」）。
+       所以顺序是：晒票栏 → ai选号 → 最新开奖。
+       可折叠（<details> 默认收起），面板里可以自己摇号（单式/复式）。
+       这一块【没有图片】→ 图位数量（data-image）不变。 -->
+  ${aiPickHtml}
 
   ${latestSecHtml}
 
