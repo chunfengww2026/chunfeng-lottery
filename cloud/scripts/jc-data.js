@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 18:20 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 20:21 */
 const JC_DATA = {
- "updated": "2026-10-15 18:20",
+ "updated": "2026-10-15 20:21",
  "stat": {
   "total": 24,
   "upcoming": 24,
@@ -36,9 +36,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 1,
+      "home": 1.05,
       "line": "平手/半球",
-      "away": 0.85
+      "away": 0.8
      }
     },
     "europe": {
@@ -48,9 +48,9 @@ const JC_DATA = {
       "away": 3.1
      },
      "live": {
-      "home": 2.35,
+      "home": 2.4,
       "draw": 3.7,
-      "away": 2.88
+      "away": 2.75
      }
     },
     "overunder": {
@@ -60,23 +60,23 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.8,
-      "over": 2.5,
-      "under": 1.05
+      "line": 0.97,
+      "over": 3,
+      "under": 0.87
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 40.8,
+    "confidence": 39.7,
     "prob": {
-     "home": 40.8,
-     "draw": 25.9,
-     "away": 33.3
+     "home": 39.7,
+     "draw": 25.7,
+     "away": 34.6
     },
     "clear": false,
-    "margin": 4.3,
+    "margin": 5.1,
     "rqLine": "平手/半球"
    },
    "asianIndex": {
@@ -84,21 +84,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.85,
+    "upWater": 1.05,
+    "downWater": 0.8,
     "openHandicap": -0.25,
     "openUpWater": 0.9,
     "openDownWater": 0.95,
     "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
+    "theoryUpPercent": "43.24",
+    "theoryDownPercent": "56.76",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.9,
-     "nowUpWater": 1,
+     "nowUpWater": 1.05,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -240,9 +240,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.87,
+      "home": 0.92,
       "line": "受球半",
-      "away": 0.97
+      "away": 0.92
      }
     },
     "europe": {
@@ -252,9 +252,9 @@ const JC_DATA = {
       "away": 1.5
      },
      "live": {
-      "home": 8,
-      "draw": 5.25,
-      "away": 1.33
+      "home": 9,
+      "draw": 5.75,
+      "away": 1.3
      }
     },
     "overunder": {
@@ -273,14 +273,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 70.4,
+    "confidence": 73,
     "prob": {
-     "home": 11.7,
-     "draw": 17.8,
-     "away": 70.4
+     "home": 10.5,
+     "draw": 16.5,
+     "away": 73
     },
     "clear": true,
-    "margin": 6.7,
+    "margin": 5.4,
     "rqLine": "受球半"
    },
    "asianIndex": {
@@ -288,21 +288,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 1.5,
     "upSide": "away",
-    "upWater": 0.97,
-    "downWater": 0.87,
+    "upWater": 0.92,
+    "downWater": 0.92,
     "openHandicap": 1,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "47.28",
-    "theoryDownPercent": "52.72",
+    "totalWater": 1.84,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
     "canWater": false,
     "handicapChange": {
      "type": "升盘升水",
      "initHandicap": 1,
      "nowHandicap": 1.5,
      "initUpWater": 0.82,
-     "nowUpWater": 0.97,
+     "nowUpWater": 0.92,
      "initLine": "受一球",
      "nowLine": "受球半"
     },
@@ -468,9 +468,9 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.82,
-      "over": 3,
-      "under": 1.02
+      "line": 1.02,
+      "over": 3.5,
+      "under": 0.82
      }
     }
    },
@@ -648,9 +648,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.9,
+      "home": 0.92,
       "line": "平手",
-      "away": 0.95
+      "away": 0.92
      }
     },
     "europe": {
@@ -660,9 +660,9 @@ const JC_DATA = {
       "away": 2.87
      },
      "live": {
-      "home": 2.55,
+      "home": 2.5,
       "draw": 3.6,
-      "away": 2.6
+      "away": 2.63
      }
     },
     "overunder": {
@@ -672,23 +672,23 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 1.05,
+      "line": 0.87,
       "over": 3,
-      "under": 0.8
+      "under": 0.97
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 37.2,
+    "confidence": 37.8,
     "prob": {
-     "home": 37.2,
+     "home": 37.8,
      "draw": 26.3,
-     "away": 36.5
+     "away": 35.9
     },
     "clear": false,
-    "margin": 5.5,
+    "margin": 5.8,
     "rqLine": "平手"
    },
    "asianIndex": {
@@ -696,21 +696,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0,
     "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.95,
+    "upWater": 0.92,
+    "downWater": 0.92,
     "openHandicap": -0.25,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "51.35",
-    "theoryDownPercent": "48.65",
+    "totalWater": 1.84,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
     "canWater": true,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": -0.25,
      "nowHandicap": 0,
      "initUpWater": 1.02,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.92,
      "initLine": "平手/半球",
      "nowLine": "平手"
     },
@@ -1056,9 +1056,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 0.77,
+      "home": 0.75,
       "line": "受平手/半球",
-      "away": 1.02
+      "away": 1.05
      }
     },
     "europe": {
@@ -1068,9 +1068,9 @@ const JC_DATA = {
       "away": 1.91
      },
      "live": {
-      "home": 3.1,
+      "home": 2.9,
       "draw": 3,
-      "away": 2.45
+      "away": 2.63
      }
     },
     "overunder": {
@@ -1080,23 +1080,23 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 0.82,
+      "line": 0.85,
       "over": 2,
-      "under": 0.97
+      "under": 0.95
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 38.4,
+    "confidence": 35.9,
     "prob": {
-     "home": 30.3,
-     "draw": 31.3,
-     "away": 38.4
+     "home": 32.6,
+     "draw": 31.5,
+     "away": 35.9
     },
     "clear": false,
-    "margin": 6.4,
+    "margin": 5.8,
     "rqLine": "受平手/半球"
    },
    "asianIndex": {
@@ -1104,21 +1104,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.77,
+    "upWater": 1.05,
+    "downWater": 0.75,
     "openHandicap": 0.25,
     "openUpWater": 0.85,
     "openDownWater": 0.95,
-    "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 0.85,
-     "nowUpWater": 1.02,
+     "nowUpWater": 1.05,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
@@ -1182,9 +1182,9 @@ const JC_DATA = {
       "under": 0.97
      },
      "live": {
-      "line": 0.9,
+      "line": 0.87,
       "over": 3.5,
-      "under": 0.95
+      "under": 0.97
      }
     }
    },
@@ -1386,9 +1386,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.77,
+      "line": 0.95,
       "over": 2,
-      "under": 1.1
+      "under": 0.9
      }
     }
    },
@@ -1590,9 +1590,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.77,
+      "line": 1.02,
       "over": 3,
-      "under": 1.02
+      "under": 0.82
      }
     }
    },
@@ -1974,9 +1974,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.87,
-      "line": "两球",
-      "away": 0.97
+      "home": 1.02,
+      "line": "两球/两球半",
+      "away": 0.82
      }
     },
     "europe": {
@@ -1986,8 +1986,8 @@ const JC_DATA = {
       "away": 11
      },
      "live": {
-      "home": 1.18,
-      "draw": 7,
+      "home": 1.17,
+      "draw": 7.5,
       "away": 15
      }
     },
@@ -1998,47 +1998,47 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.87,
+      "line": 0.85,
       "over": 3.5,
-      "under": 0.97
+      "under": 1
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 80.2,
+    "confidence": 81,
     "prob": {
-     "home": 80.2,
-     "draw": 13.5,
+     "home": 81,
+     "draw": 12.6,
      "away": 6.3
     },
     "clear": true,
-    "margin": 5.7,
-    "rqLine": "两球"
+    "margin": 5.5,
+    "rqLine": "两球/两球半"
    },
    "asianIndex": {
-    "line": "两球",
+    "line": "两球/两球半",
     "from": "live",
-    "handicap": -2,
+    "handicap": -2.25,
     "upSide": "home",
-    "upWater": 0.87,
-    "downWater": 0.97,
+    "upWater": 1.02,
+    "downWater": 0.82,
     "openHandicap": -2,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
     "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "52.72",
-    "theoryDownPercent": "47.28",
-    "canWater": true,
+    "theoryUpPercent": "44.57",
+    "theoryDownPercent": "55.43",
+    "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -2,
-     "nowHandicap": -2,
+     "nowHandicap": -2.25,
      "initUpWater": 1.02,
-     "nowUpWater": 0.87,
+     "nowUpWater": 1.02,
      "initLine": "两球",
-     "nowLine": "两球"
+     "nowLine": "两球/两球半"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -2178,9 +2178,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 1.02,
+      "home": 0.95,
       "line": "两球",
-      "away": 0.82
+      "away": 0.9
      }
     },
     "europe": {
@@ -2190,8 +2190,8 @@ const JC_DATA = {
       "away": 10
      },
      "live": {
-      "home": 1.22,
-      "draw": 6.25,
+      "home": 1.2,
+      "draw": 7,
       "away": 12
      }
     },
@@ -2202,23 +2202,23 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.9,
+      "line": 0.8,
       "over": 3.5,
-      "under": 0.95
+      "under": 1
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 77.1,
+    "confidence": 78.7,
     "prob": {
-     "home": 77.1,
-     "draw": 15.1,
-     "away": 7.8
+     "home": 78.7,
+     "draw": 13.5,
+     "away": 7.9
     },
     "clear": true,
-    "margin": 6.3,
+    "margin": 6,
     "rqLine": "两球"
    },
    "asianIndex": {
@@ -2226,21 +2226,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -2,
     "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.82,
+    "upWater": 0.95,
+    "downWater": 0.9,
     "openHandicap": -1.75,
     "openUpWater": 0.85,
     "openDownWater": 1,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
     "canWater": true,
     "handicapChange": {
      "type": "降盘升水",
      "initHandicap": -1.75,
      "nowHandicap": -2,
      "initUpWater": 0.85,
-     "nowUpWater": 1.02,
+     "nowUpWater": 0.95,
      "initLine": "球半/两球",
      "nowLine": "两球"
     },
@@ -2280,9 +2280,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.7,
+      "home": 0.8,
       "line": "平手",
-      "away": 1.1
+      "away": 1
      }
     },
     "europe": {
@@ -2292,7 +2292,7 @@ const JC_DATA = {
       "away": 2.7
      },
      "live": {
-      "home": 2.55,
+      "home": 2.5,
       "draw": 3.2,
       "away": 2.88
      }
@@ -2313,14 +2313,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 37.3,
+    "confidence": 37.7,
     "prob": {
-     "home": 37.3,
-     "draw": 29.7,
-     "away": 33
+     "home": 37.7,
+     "draw": 29.5,
+     "away": 32.8
     },
     "clear": false,
-    "margin": 5.2,
+    "margin": 6,
     "rqLine": "平手"
    },
    "asianIndex": {
@@ -2328,21 +2328,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0,
     "upSide": "home",
-    "upWater": 0.7,
-    "downWater": 1.1,
+    "upWater": 0.8,
+    "downWater": 1,
     "openHandicap": -0.25,
     "openUpWater": 0.97,
     "openDownWater": 0.82,
     "totalWater": 1.8,
-    "theoryUpPercent": "61.11",
-    "theoryDownPercent": "38.89",
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
     "canWater": true,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": -0.25,
      "nowHandicap": 0,
      "initUpWater": 0.97,
-     "nowUpWater": 0.7,
+     "nowUpWater": 0.8,
      "initLine": "平手/半球",
      "nowLine": "平手"
     },
@@ -2382,9 +2382,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 1.02,
+      "home": 1,
       "line": "受平手/半球",
-      "away": 0.82
+      "away": 0.85
      }
     },
     "europe": {
@@ -2394,9 +2394,9 @@ const JC_DATA = {
       "away": 2.3
      },
      "live": {
-      "home": 3.7,
+      "home": 3.8,
       "draw": 3.1,
-      "away": 2.15
+      "away": 2.1
      }
     },
     "overunder": {
@@ -2406,23 +2406,23 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1.02,
-      "over": 2,
-      "under": 0.82
+      "line": 0.77,
+      "over": 1.5,
+      "under": 1.1
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 44,
+    "confidence": 44.8,
     "prob": {
-     "home": 25.5,
-     "draw": 30.5,
-     "away": 44
+     "home": 24.8,
+     "draw": 30.4,
+     "away": 44.8
     },
     "clear": false,
-    "margin": 5.8,
+    "margin": 6.2,
     "rqLine": "受平手/半球"
    },
    "asianIndex": {
@@ -2430,21 +2430,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.82,
-    "downWater": 1.02,
+    "upWater": 0.85,
+    "downWater": 1,
     "openHandicap": 0.25,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
+    "totalWater": 1.85,
+    "theoryUpPercent": "54.05",
+    "theoryDownPercent": "45.95",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 1,
-     "nowUpWater": 0.82,
+     "nowUpWater": 0.85,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
