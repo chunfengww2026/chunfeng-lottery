@@ -24,3 +24,11 @@ cloud/scripts/_*.json
 cloud/scripts/_draw-cache/
 cloud/scripts/_ocr-cache/
 cloud/scripts/分享包/
+
+# 图标生成过程中的中间尺寸（BOM / 调试用）：
+# 真正要发布的是 favicon.ico（16/32/48 全在里面）+ icon-192/512 +
+# apple-touch-icon + share.png；favicon-16/32/48.png 只是 make-icons.py
+# 顺手输出的中间产物，不需要进仓库（make-icons.mjs 也不会分发它们）。
+cloud/scripts/icons/favicon-16.png
+cloud/scripts/icons/favicon-32.png
+cloud/scripts/icons/favicon-48.png
