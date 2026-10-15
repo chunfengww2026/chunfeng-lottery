@@ -379,7 +379,76 @@ const nowStamp = `${todayStr} ${String(now.getHours()).padStart(2, '0')}:${Strin
    ------------------------------------------------------------
    检查存档文件（saved-tickets.js）是否覆盖了各彩种的下一期，
    并判断数据是否够新。给手机页顶部显示提示用。
+
+   【开奖后立刻转黄】用户原话：
+     「开奖后.公布了开奖号码.就要切换下一期暂未更新的模板」
+   判断依据见下面 recOutdatedByDraw()。
    ============================================================ */
+
+/* 【自测开关】STATUS_SIM_DRAW=ssq:2026119,kl8:2026275 …
+   只在「状态判断」这一步，把看到的「最新开奖期号」换成给定值，
+   用来在不开奖的日子里验证「开奖后转黄 / 出号后转绿」。
+   页面上的开奖号码、推荐号码一律不动；不设这个变量时行为完全不变。 */
+const SIM_DRAW_ISSUE = (() => {
+  const out = {};
+  const raw = String(process.env.STATUS_SIM_DRAW || '').trim();
+  if (!raw) return out;
+  raw.split(',').forEach((one) => {
+    const i = one.indexOf(':');
+    if (i < 0) return;
+    const gid = one.slice(0, i).trim();
+    const iss = one.slice(i + 1).trim();
+    if (gid && iss) out[gid] = iss;
+  });
+  return out;
+})();
+
+/** 取期号里的数字（"2026118" → "2026118"）；一个数字都没有时返回 null */
+function issueDigits(s) {
+  const d = String(s === null || s === undefined ? '' : s).replace(/[^0-9]/g, '');
+  return d || null;
+}
+
+/**
+ * 这个彩种【存档里当前那份推荐】是不是「已经开过奖」的那一期
+ * ------------------------------------------------------------
+ * 口径：只看期号，不看时间。
+ *   摇号写进存档的期号 = 摇号那一刻的「最新开奖期号 + 1」
+ *   （ticket-store.js 用的是 nextIssueFor()），也就是这份推荐是给【下一期】做的。
+ *   ⇒ 存档推荐期号 ≤ 最新开奖期号
+ *         = 推荐所依据的那一期已经开奖公布 → 这份推荐过期、需要重出
+ *         → 计入 missing → 顶部显示黄色「下一期推荐暂未更新」
+ *   ⇒ 反过来：刚摇完号恒有「推荐期 = 最新开奖期 + 1」> 开奖期
+ *         → 必然绿色。不会出现「重出完了还一直卡在黄色」。
+ *
+ * 为什么不用「生成时间 / 开奖日期」比：
+ *   存档里的 date 是【要开奖的那一天】，不是生成时间。开奖日当天 2 点摇的号，
+ *   date 就是当天；拿日期比会在当天开奖【之前】就误判成过期。
+ *   期号口径没有这个歧义，而且和摇号写入用的是同一个字段。
+ *
+ * 保守（拿不准就不算过期，保持原来的判断，避免整页卡黄）：
+ *   · 没有该彩种的开奖数据
+ *   · 存档推荐 / 最新开奖任一侧没有期号
+ *   · 两侧期号位数不同（跨年或数据源换了格式）
+ *
+ * @param {string} id  彩种 id
+ * @param {object} rec 存档里「下一期」那条推荐 { issue, date, images }
+ * @returns {boolean} true = 已开奖、需重出
+ */
+function recOutdatedByDraw(id, rec) {
+  if (!rec) return false;
+
+  let draw = null;
+  try { draw = (typeof getDraw === 'function') ? getDraw(id) : null; } catch (e) { draw = null; }
+
+  const drawIssue = SIM_DRAW_ISSUE[id] || (draw && draw.issue) || '';
+  const ri = issueDigits(rec.issue);
+  const di = issueDigits(drawIssue);
+  if (!ri || !di) return false;                  /* 缺期号 → 拿不准，不动 */
+  if (ri.length !== di.length) return false;     /* 跨年 / 换格式 → 拿不准，不动 */
+
+  return Number(ri) <= Number(di);
+}
 
 function checkUpdateStatus() {
   // 读取存档
@@ -407,14 +476,30 @@ function checkUpdateStatus() {
     }
   }
 
-  // 各彩种是否都有下一期的推荐数据
+  // 各彩种是否都有下一期的推荐数据，以及那份推荐是不是已经开过奖了
   const missing = [];
+  const rows = [];
   Object.keys(T).forEach((id) => {
     const wantDate = nextDate(id);
     const rec = tickets[id] && tickets[id][wantDate];
     const hasImgs = rec && rec.images && Object.keys(rec.images).length > 0;
-    if (!hasImgs) missing.push(G[id] ? G[id].name : id);
+    const nm = G[id] ? G[id].name : id;
+
+    let verdict;
+    if (!hasImgs) { missing.push(nm); verdict = '没有这一期的推荐'; }
+    else if (recOutdatedByDraw(id, rec)) { missing.push(nm); verdict = '已开奖，需重出'; }
+    else verdict = '有效';
+
+    /* 自测表：最新开奖期号 / 存档推荐期号 / 判定（一行一个彩种） */
+    let drawIssueNow = '';
+    try { const d = getDraw(id); drawIssueNow = (d && d.issue) || ''; } catch (e) { drawIssueNow = ''; }
+    const shown = SIM_DRAW_ISSUE[id] || drawIssueNow || '（无开奖数据）';
+    rows.push(`     ${nm}：最新开奖 ${shown} / 存档推荐 ${(rec && rec.issue) || '（无）'}` +
+              `（${wantDate}）→ ${verdict}`);
   });
+
+  console.log('  · 开奖后状态判断（推荐期 ≤ 最新开奖期 → 需重出）：');
+  rows.forEach((r) => console.log(r));
 
   const allReady = missing.length === 0 && !stale;
 
@@ -422,6 +507,8 @@ function checkUpdateStatus() {
 }
 
 const status = checkUpdateStatus();
+console.log(`  · 状态条判定：${status.allReady ? '绿色 ok（已更新）' : '黄色 warn（下一期推荐暂未更新）'}` +
+  (status.missing.length ? ` —— 需重出/缺：${status.missing.join('、')}` : ''));
 
 /* ---------- 状态条 HTML（延后生成，此时 T/G 已可用） ---------- */
 let statusHtml = '';
