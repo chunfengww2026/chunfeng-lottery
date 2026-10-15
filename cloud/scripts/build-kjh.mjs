@@ -38,7 +38,7 @@
       「3D试机号 /kj/fc3dkj/sjh.html」，不属于开机号数据，所以本文件的
       每个彩种都【不带试机号字段】—— 有就填、没有就留空，这里是没有。
 
-   ② 选号直播  https://www.yiqicai.com/live  （桌面版；手机版条目不是链接）
+   ② 选号直播  https://m.yiqicai.com/live  （桌面版；手机版条目不是链接）
       页面真实结构：
         <div class="live-adx-lg">当前暂无直播</div>          ← 开播状态
         <h1>精彩回放</h1> <a class="cm-radius-btn" href="/live/list/">更多直播</a>
@@ -88,8 +88,8 @@ const LOG = path.join(ROOT, '_kjh.log');
 const STATE = path.join(ROOT, '_kjh-backoff.json');
 
 const KJH_URL = 'https://m.yiqicai.com/kjh';
-const LIVE_URL = 'https://www.yiqicai.com/live';
-const LIVE_HOME = 'https://www.yiqicai.com/live';
+const LIVE_URL = 'https://m.yiqicai.com/live';
+const LIVE_HOME = 'https://m.yiqicai.com/live';
 
 /* 正常浏览器 UA：手机版页面用手机 UA，桌面版页面用桌面 UA */
 const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 ' +
@@ -263,7 +263,7 @@ function parseLive(html) {
       return r ? stripTags(r[1]) : '';
     };
 
-    const url = /^https?:\/\//i.test(href) ? href : ('https://www.yiqicai.com' + href);
+    const url = /^https?:\/\//i.test(href) ? href : ('https://m.yiqicai.com' + href);
     const item = {
       url,
       name: pick('live-anchor-name', '<'),
@@ -328,7 +328,7 @@ else log(`   ✓ 开机号 ${Object.keys(games).length} 个彩种`);
 
 /* 3. 抓选号直播 */
 await sleep(DELAY_MS);
-const rLive = await grab(LIVE_URL, UA_D, 'https://www.yiqicai.com/');
+const rLive = await grab(LIVE_URL, UA_D, 'https://m.yiqicai.com/');
 let live = null;
 let liveOk = false;
 if (rLive.ok) {
