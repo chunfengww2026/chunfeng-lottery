@@ -362,9 +362,14 @@ stat.rate = stat.settled ? ((stat.hit / stat.settled) * 100).toFixed(1) : '0.0';
 
 /* ---------- 「体彩竞彩在售 N 场」的那个 N ----------
    优先用体彩官网的数字（jc-official.js 的 inSale，build-jc-count.mjs 每小时抓）；
-   拿不到就用本地竞彩数据算的 upcoming + live 兜底（和改动前完全一样）。 */
-const OFFICIAL = JC_OFFICIAL && Number.isFinite(Number(JC_OFFICIAL.inSale))
-  ? Number(JC_OFFICIAL.inSale) : null;
+   拿不到就用本地竞彩数据算的 upcoming + live 兜底（和改动前完全一样）。
+   注意 inSale 必须先确认是「数字本身或纯数字字符串」：
+   Number(null) 是 0、Number('') 也是 0，直接 Number() 会把没值的
+   jc-official.js 当成「在售 0 场」显示出去。 */
+const rawInSale = JC_OFFICIAL ? JC_OFFICIAL.inSale : null;
+const OFFICIAL = (typeof rawInSale === 'number' && Number.isFinite(rawInSale)) ||
+  (typeof rawInSale === 'string' && /^\s*\d+\s*$/.test(rawInSale))
+  ? Number(rawInSale) : null;
 const IN_SALE = OFFICIAL === null ? (stat.upcoming + stat.live) : OFFICIAL;
 
 /* ---------- 数据更新时间 ----------
