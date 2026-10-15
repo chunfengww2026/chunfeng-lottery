@@ -1039,7 +1039,7 @@ function buildAiPickHtml() {
   return `<details class="ro-aipick" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
     `<h2 class="ro-aipick-h2">ai选号</h2>` +
-    `<div class="ro-aipick-sub">系统随机生成 · 仅供娱乐参考</div>` +
+    `<div class="ro-aipick-sub">系统随机生成 · 由 GPT模型 驱动 · 仅供娱乐参考</div>` +
     `<span class="ro-aipick-arrow" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-aipick-body">` +
