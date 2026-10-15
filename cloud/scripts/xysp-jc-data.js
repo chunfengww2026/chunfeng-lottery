@@ -9,12 +9,32 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 06:53
+   更新时间：2026-10-16 06:56
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 06:53",
+ "updated": "2026-10-16 06:56",
  "items": [
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=4HTnrJBEDpwxmvwkplM2ZiUwU5o%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=4HTnrJBEDpwxmvwkplM2ZiUwU5o%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=1e6hhxFw59cIIgyjW%2Flbf%2BSm7BI%3D",
+   "title": "胜负彩142期：欧联杯大乱战！7大冷门埋伏点，强队全有翻车隐患",
+   "url": "http://toutiao.com/item/7696996948368163382/",
+   "at": "2026-10-15T22:56:39.605Z",
+   "src": "tt",
+   "cat": "jc",
+   "game": "胜负彩",
+   "games": [],
+   "issue": "",
+   "seen": "2026-10-15T22:56:39.605Z",
+   "drawAt": "",
+   "drawGid": "",
+   "expireAt": "2026-11-14T22:56:39.605Z",
+   "rule": "72h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 04:39:13"
+  },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/07ad5cc50b5447ebbf0cf21c77b6f1ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=VLt3I6MKQWXznCzuZi9VoPz1AwY%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/07ad5cc50b5447ebbf0cf21c77b6f1ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=VLt3I6MKQWXznCzuZi9VoPz1AwY%3D",
@@ -27,7 +47,7 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-15T22:50:41.234Z",
+   "seen": "2026-10-15T22:56:39.605Z",
    "drawAt": "",
    "drawGid": "",
    "expireAt": "2026-11-14T22:50:41.234Z",
@@ -47,7 +67,7 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-15T22:50:41.234Z",
+   "seen": "2026-10-15T22:56:39.605Z",
    "drawAt": "",
    "drawGid": "",
    "expireAt": "2026-11-14T22:50:41.234Z",
