@@ -847,7 +847,7 @@ function buildArticlesHtml() {
        默认【展开】（保持原来一眼看到文章的样子）；点一下收起。
        用 details/summary 原生折叠，不写 JS。
        提示文字由 CSS 按 [open] 切换：展开时「点击收起」/ 收起时「点击查看」。 */
-    return `<details class="ro-art-group" open>` +
+    return `<details class="ro-art-group">` +   /* 用户要求：默认收起，点了才展开 */
       `<summary class="ro-art-gname">${escape(label)}<i>${items.length} 篇</i>` +
       `<span class="ro-art-tip" aria-hidden="true"></span></summary>` +
       list +
