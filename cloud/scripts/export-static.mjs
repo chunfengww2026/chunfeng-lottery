@@ -2462,28 +2462,47 @@ body.ro-mob-open { overflow: hidden; }
   <script>
   (function () {
     try {
-      /* __TOOL_TOGGLE__ 【再点一下收起】
-       user request: the 开机号 / 选号直播 entries can be collapsed again.
-       原理：入口是 <a href="#ro-kjh">，靠 CSS :target 展开。
-             若当前 hash 已经等于这一项，说明它【已经展开着】→
-             清掉 hash（replaceState），:target 立刻失配 → 区块收起。
-       ⚠️ 只用捕获阶段撤销默认行为，不改任何 CSS；脚本挂了也只是"不能收起"，
-          展开功能照旧。 */
+      
+      /* __CLASS_TOGGLE__ 【点一下展开 / 再点一下收起】
+       user request: 点击一下展开，再点击一下收起来。
+       ⚠️ 为什么不用 :target + replaceState：
+          history.replaceState 清掉哈希后，浏览器【不会】重新计算 :target，
+          所以「再点一下」收不起来。改用 class 控制，行为确定。
+       CSS 侧：.ro-panel{display:none} .ro-panel.ro-open{display:block}
+       :target 规则仍然保留（脚本被禁时还能靠锚点展开，功能不丢）。 */
+      function roCloseAll() {
+        var ps = document.querySelectorAll('.ro-panel');
+        for (var k = 0; k < ps.length; k++) ps[k].classList.remove('ro-open');
+      }
       var tools = document.querySelectorAll('.ro-tool');
       for (var t = 0; t < tools.length; t++) {
         tools[t].addEventListener('click', function (e) {
           var href = String(this.getAttribute('href') || '');
           if (!OK[href]) return;
-          if (String(location.hash || '') === href) {
-            e.preventDefault();
-            try {
-              history.replaceState(null, '', location.pathname + location.search);
-            } catch (err) {
-              location.hash = '';
-            }
+          e.preventDefault();
+          var el = document.getElementById(href.slice(1));
+          if (!el) return;
+          var wasOpen = el.classList.contains('ro-open');
+          roCloseAll();
+          if (wasOpen) {
+            /* 再点一下 → 收起；顺便把哈希清掉（保持一致） */
+            try { history.replaceState(null, '', location.pathname + location.search); }
+            catch (err) { /* 忽略 */ }
+            return;
           }
-        }, true);
+          el.classList.add('ro-open');
+          try { history.replaceState(null, '', href); } catch (err) { /* 忽略 */ }
+          try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          catch (err) { try { el.scrollIntoView(true); } catch (e2) { /* 忽略 */ } }
+        });
       }
+      /* 带 #ro-kjh / #ro-live 直接打开时，也要把 class 加上（跟 :target 对齐） */
+      (function () {
+        var id = String(location.hash || '');
+        if (!OK[id]) return;
+        var el = document.getElementById(id.slice(1));
+        if (el) el.classList.add('ro-open');
+      })();
 
       var OK = { '#ro-kjh': 1, '#ro-live': 1 };
       function go() {
