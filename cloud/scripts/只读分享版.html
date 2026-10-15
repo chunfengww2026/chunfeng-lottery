@@ -20118,8 +20118,9 @@ const SECTION_RENDER = {
     }
 
     /* ---------- 中心：双色球 17 / 大乐透 18（固定值，来自配置） ----------
-       cir_center_pos = 1 表示这一格也算一个号码位（双色球的 17 就在这里），
-       这时它参与命中高亮；= 0 表示是纯装饰位（大乐透 18）。 */
+       cir_center_pos = 1 表示这一格也算一个号码位（两彩种都是 1：
+       双色球 17、大乐透 18 都自己占一个号位），这时它参与命中高亮；
+       = 0 表示是纯装饰位（老存档 / 其它彩种）。 */
     const centerRaw = (vals.cir_num_center !== undefined && vals.cir_num_center !== '')
       ? vals.cir_num_center : vals[sec.centerKey];
     const centerNum = parseInt(centerRaw, 10);
