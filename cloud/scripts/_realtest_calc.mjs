@@ -832,8 +832,8 @@ if (lockMark < 0) {
   ok(!L1.locked(), '① 自己人：失焦 / PrintScreen 都不会被模糊');
   const evCtx1 = L1.document2.dispatch('contextmenu', { type: 'contextmenu', preventDefault() { this.defaultPrevented = true; }, defaultPrevented: false });
   ok(!evCtx1.defaultPrevented, '① 自己人：右键没有被拦');
-  ok(/html\.is-owner \.owner-tag \{ display: inline-flex; \}/.test(html) && /html\.is-owner #watermark \{ display: none; \}/.test(html),
-    '① 自己人：右上角显示「👑 管理员模式 · 可截图」徽章、隐藏水印');
+  ok(/html\.is-owner \.owner-tag \{ display: inline-flex; \}/.test(html),
+    '① 自己人：右上角显示「👑 管理员模式 · 可截图」徽章');
 
   /* ---- 用例 2：网页打开 + ipify 连不上 + ipinfo 返回主人 IP → owner ---- */
   const routes2 = { ipify: 'throw', ipinfo: { ip: '120.231.138.19' } };
@@ -917,12 +917,14 @@ if (lockMark < 0) {
   ok(!evSave.defaultPrevented && !evShot.defaultPrevented,
     '⑥ 模拟计算区块内 / 选号图上 → 放行（能右键存图、能长按保存）');
   L3.document2.hidden = false; L3.window2.dispatch('focus');
-  const beforeLen = L3.wmEl.innerHTML.length;
+  /* 【不要水印】用户明确要求去掉 → 页面里不该有任何水印痕迹 */
   L3.window2.innerWidth = 1600; L3.window2.innerHeight = 1200;
-  L3.window2.dispatch('resize');
-  console.log(`      水印 resize 重画：${beforeLen} → ${L3.wmEl.innerHTML.length} 字符（${(L3.wmEl.innerHTML.match(/wm-item/g) || []).length} 格，浅色 #e8eaed）`);
-  ok(L3.wmEl.innerHTML.length > beforeLen, '③ resize 后水印重新平铺');
-  ok(L3.wmEl.innerHTML.includes('春风十里送大奖 · 仅供观看'), '③ 水印是固定文字（没有读任何本地存储）');
+  L3.window2.dispatch('resize');        /* 以前 resize 会重画水印，现在什么都不该做 */
+  const wmHits = ['watermark', 'wm-item', 'drawWatermark', 'userTag', '仅供观看']
+    .filter((k) => new RegExp(k, 'i').test(html));
+  console.log(`      水印相关字样扫描：${wmHits.length === 0 ? '一个都没有 ✅' : wmHits.join('、')}`);
+  ok(wmHits.length === 0, '③ 水印已彻底删除（watermark / wm-item / drawWatermark / userTag / 水印文字 全搜不到）');
+  ok(!L3.wmEl.innerHTML, '③ resize 之后也没有任何水印内容被画出来');
 
   /* ---- 用例 4：IP 全查不到 + https → 安全降级（按非 owner 处理） ---- */
   const L4 = runLock('https:', {});
@@ -936,7 +938,7 @@ if (lockMark < 0) {
   ok(/html\.locked #article, html\.locked \.guard \{ filter: blur\(25px\) grayscale\(1\); pointer-events: none; \}/.test(html), 'CSS：locked 时 #article/.guard 模糊 + 不能点');
   ok(/html\.locked #mask \{ display: flex; \}/.test(html), 'CSS：locked 时显示全屏遮罩');
   ok(/html\.locked \.m-calc, html\.locked \.m-sec \{ filter: none !important;\s*pointer-events: auto !important; position: relative; z-index: 99999; \}/.test(html), 'CSS：模拟计算 + 三个分段是豁免区（z-index 99999，压住遮罩）');
-  ok(/#mask \{[\s\S]*?z-index: 99998;/.test(html) && /#watermark \{[\s\S]*?z-index: 99997;/.test(html), '遮罩 99998 · 水印 99997（都在豁免区下面）');
+  ok(/#mask \{[\s\S]*?z-index: 99998;/.test(html), '遮罩 z-index 99998（在豁免区 99999 下面）');
   ok(/@media print \{[\s\S]*?filter: blur\(25px\) grayscale\(1\) !important;/.test(html), 'CSS：打印时也模糊（@media print）');
   const ia = html.indexOf('id="article"');
   const iCalc2 = html.indexOf('<details class="m-calc allow-save" id="jcCalc">');
