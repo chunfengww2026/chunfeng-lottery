@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-15 14:22",
+ "updated": "2026-10-15 16:21",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -684,60 +684,6 @@ const JC_HISTORY = {
      "nowUpWater": 0.82,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   }
-  },
-  {
-   "code": "周三001",
-   "league": "亚冠联2",
-   "home": "墨胜利",
-   "away": "首尔FC",
-   "time": "2026-10-14 15:45",
-   "score": "3:0",
-   "hc": "-1",
-   "odds": {
-    "home": 1.53,
-    "draw": 4.1,
-    "away": 4.75
-   },
-   "prob": {
-    "home": 59,
-    "draw": 22,
-    "away": 19
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 59,
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-15 00:34",
-   "asianIndex": {
-    "line": "一球",
-    "from": "live",
-    "handicap": -1,
-    "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.9,
-    "openHandicap": 0,
-    "openUpWater": 0.77,
-    "openDownWater": 1.02,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": 0,
-     "nowHandicap": -1,
-     "initUpWater": 0.77,
-     "nowUpWater": 0.9,
-     "initLine": "平手",
-     "nowLine": "一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
