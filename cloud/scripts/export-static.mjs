@@ -135,7 +135,17 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS ——
                      页面里只有链接标签，没有任何图片，
                      所以这份数据（纯文字）不会产生新的图位。 */
-               'kjh-data.js'];
+               'kjh-data.js',
+                /* 【晒票栏】图片数据（build-xysp.mjs 每 30 分钟抓一次，
+                   只保留最近 24 小时内抓到的条目）。
+                   和上面几个一样：文件缺失只打印一行「缺少」，
+                   晒票栏显示「暂无」，绝不能因为这个文件不在就让整页生成失败。
+                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS。
+                      里面全是【图床外链 URL】，页面里不存图片本体，
+                      所以图片不会把页面撑大（外链引用）。
+                      这里也【不用】图位属性 —— 晒票栏的图不占推荐图的
+                      图位数量，页面上的图位总数必须保持不变。 */
+                'xysp-data.js'];
 
 for (const f of FILES) {
   const p = path.join(ROOT, f);
@@ -200,6 +210,10 @@ vm.runInContext(`
   /* 【开机号 / 选号直播】的数据（来自 kjh-data.js，build-kjh.mjs 每天 2 点生成）。
      没有这个文件时是 null → 页面出「暂无」，不影响别的区块。 */
   globalThis.__kjh = (typeof KJH_DATA !== 'undefined') ? KJH_DATA : null;
+  /* 【晒票栏】的数据（来自 xysp-data.js，build-xysp.mjs 每 30 分钟抓一次、
+      只保留 24 小时内的条目）。没有这个文件时是 null → 晒票栏显示「暂无」，
+      不影响别的区块。 */
+  globalThis.__xysp = (typeof XYSP_DATA !== 'undefined') ? XYSP_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -217,6 +231,8 @@ const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
 const ARTICLES = ctx.__articles;
 /* 【开机号 / 选号直播】数据（kjh-data.js；缺失时为 null） */
 const KJH = ctx.__kjh;
+/* 【晒票栏】数据（xysp-data.js；缺失时为 null → 显示「暂无」） */
+const XYSP = ctx.__xysp;
 
 /**
  * 热力图该不该出这张图
@@ -799,52 +815,90 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
 }).join(' / ')}`);
 
 /* ============================================================
-   【晒票栏】区块（用户新增需求）
+   【晒票栏】区块（用户需求：直接显示晒票图片，页面内看图、不跳转）
    ------------------------------------------------------------
-   用户原话：「这里添加一个晒票栏 / 直接给到网页他们想看什么点击什么
-              https://m.yiqicai.com/xysp」
-   用户第二次改口：「晒票栏不要晒图片 可以分几个彩种晒票分列，
-                    然后每一个选项点进去就是对应的晒票」
-   ⇒ 所以这一块【不抓图片、不显示任何图片】，就是一个【按彩种分列的入口】：
-     8 个彩种格子，点哪个就新窗口打开那个彩种的晒票页。
+   用户原话：「做。一直循环抓取24小时内的 保留24小时内的图片」
+   背景（用户说明）：「微信把 yiqicai.com 拉黑了，点链接跳过去打不开」
+   ⇒ 所以要【在我们自己的页面里直接出图】，不再往源站跳。
 
-   位置：紧跟在【推荐图目录】(.ro-imgtoc-wrap) 之后 —— 就是截图箭头处。
-   数据：不用任何数据文件 —— 8 个链接是【硬编码】的（用户在源站实测过，
-         每个彩种子页都是 HTTP 200 服务端渲染，链接稳定）。
-         ⇒ 没有抓取脚本、没有 xysp-data.js、不占任何网络请求。
-   布局：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
-   交互：① 整块【默认收起】，点标题那一行展开、再点收起
-          ② 每个彩种格子是一个 <a target="_blank" rel="noopener">
-   【为什么用 <details>/<summary>，不用 JS + <a>】
-     · 用户原话：「晒票栏可以收起来要自动点」
-     · 原生折叠：不写一行 JS —— 页面里那段实时渲染脚本万一挂了照样能收起/展开
-     · <summary> 不是按钮标签，页面不变量「按钮标签数 = 0」不受影响
-     · 收起时浏览器不渲染里面的链接，首屏更短；不需要额外的 CSS/JS
-     · 右侧「展开 ▸ / 收起 ▾」用纯 CSS ::before/::after 跟着 [open] 变
-   ⚠️ 只用 <a>/<details>/<summary>，不出任何按钮标签、不出任何图片
-      ⇒ 本区块【不产生新的图位】，图位数量不变。
-   ⚠️ 页面可见文字里不出现来源字样，所以链接域名用 articleHref()
-      （复用文章参考那套）把域名里的字母写成 HTML 实体 ——
-      浏览器解析属性值时会解码回原字母，点击照样打开正确的网址。
+   这一版跟上一版的区别（上一版是「8 个彩种入口格子、不显示图片」）：
+     · 展开后是【图片网格】：每张卡片 = 缩略图 + 彩种名 +（有就显示）描述
+     · 图片是【图床外链】—— 不把图片下载下来内联，
+       所以页面体积几乎不变（这是选外链而不是下载的原因）
+     · 上面一排彩种筛选（全部 + 8 个彩种）：点了只显示该彩种的图，
+       纯前端切换、不刷新页面、不重新请求
+     · 点图片 → 放大看（能看清号码）：复用页尾已有的 ro-mob-view 全屏层
+       （就是「推荐图目录」点开时用的那一层，自带 4 种关闭方式）
+       —— 【不是】被用户删掉的那个旧放大器，也没有放大镜图标
+
+   位置：紧跟在【推荐图目录】(.ro-imgtoc-wrap) 之后 —— 就是截图箭头处（不变）。
+   数据：xysp-data.js（build-xysp.mjs 每 30 分钟抓一次，只保留 24 小时内的条目）。
+         文件缺失时这一块显示「暂无」，绝不影响别的区块。
+   折叠：仍然是原生 <details>/<summary>，【默认收起】，标题「晒票栏」（不变）。
+         · <summary> 不是按钮标签 → 页面不变量「按钮标签数 = 0」不受影响
+         · 右侧「展开 ▸ / 收起 ▾」用纯 CSS ::before/::after 跟着 [open] 变
+   布局：手机 2 列、宽屏（>=620px）4 列。
+   ⚠️ 这一块里【只用 <a>/<details>/<summary>/<img>】，不出任何按钮标签。
+   ⚠️ 图片一律 loading="lazy" + referrerpolicy="no-referrer"
+      （外链图床，不把来源 referrer 带过去、也不拖慢首屏）。
+   ⚠️ 图片地址一律用 https：页面本身可能是 https 打开的，
+      外链写成 http 会被浏览器按「混合内容」直接拦掉（图就白了）。
+   ⚠️ 这里【不用】图位属性（data-image / data-ro-mob）——
+      晒票栏的图不占推荐图的图位数量。
+   ⚠️ 页面可见文字里不出现来源字样。
    ============================================================ */
 
-/* 8 个彩种 + 各自的晒票页（用户在源站 /xysp 页面里实测抓到的真实链接） */
+/* 8 个彩种：key 必须和 xysp-data.js 里的 key 一致（顺序 = 筛选按钮顺序） */
 const XYSP_GAMES = [
-  { name: '双色球', url: 'https://m.yiqicai.com/xysp/ssqxysp' },
-  { name: '大乐透', url: 'https://m.yiqicai.com/xysp/dltxysp' },
-  { name: '福彩3D', url: 'https://m.yiqicai.com/xysp/fc3dxysp' },
-  { name: '快乐8',  url: 'https://m.yiqicai.com/xysp/klbxysp' },
-  { name: '排列3',  url: 'https://m.yiqicai.com/xysp/pl3xysp' },
-  { name: '排列5',  url: 'https://m.yiqicai.com/xysp/pl5xysp' },
-  { name: '七星彩', url: 'https://m.yiqicai.com/xysp/xqxcxysp' },
-  { name: '七乐彩', url: 'https://m.yiqicai.com/xysp/qlcxysp' }
+  { key: 'ssq',  name: '双色球' },
+  { key: 'dlt',  name: '大乐透' },
+  { key: 'fc3d', name: '福彩3D' },
+  { key: 'kl8',  name: '快乐8'  },
+  { key: 'pl3',  name: '排列3'  },
+  { key: 'pl5',  name: '排列5'  },
+  { key: 'qxc',  name: '七星彩' },
+  { key: 'qlc',  name: '七乐彩' }
 ];
 
 function buildXyspHtml() {
-  const cells = XYSP_GAMES.map((g) =>
-    `<a class="ro-xysp-cell" href="${articleHref(g.url)}"` +
-    ` target="_blank" rel="noopener">${escape(g.name)}</a>`
-  ).join('');
+  const data = (XYSP && XYSP.games) ? XYSP.games : null;
+  const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
+
+  /* 按彩种顺序把条目摊平；每张卡片都带自己的彩种 key，供前端筛选用 */
+  const cards = [];
+  XYSP_GAMES.forEach((g) => {
+    const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
+    items.forEach((it) => {
+      const img = String((it && it.img) || '');
+      if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
+      const thumb = String((it && it.thumb) || '') || img;
+      const title = String((it && it.title) || '');
+      cards.push(
+        /* href 就是原图地址：点图的脚本从 href 取原图去全屏放大。
+           这里【不重复写一遍】原图地址（每条再写一次要多 130 字节，
+           彩种多了页面会被白白撑大）。 */
+        `<a class="ro-xysp-pic" href="${escapeAttr(img)}"` +
+        ` data-ro-xysp-game="${escapeAttr(g.key)}">` +
+        `<img class="ro-xysp-thumb" src="${escapeAttr(thumb)}" alt=""` +
+        ` loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
+        `<span class="ro-xysp-cap"><b>${escape(g.name)}</b>` +
+        (title ? `<i>${escape(title)}</i>` : '') +
+        `</span></a>`
+      );
+    });
+  });
+
+  /* 筛选条：全部 + 8 个彩种。全部都是 <a>（不是按钮标签）。 */
+  const tabs = ['<a class="ro-xysp-tab on" href="#ro-xysp" data-ro-xysp-game="all">全部</a>']
+    .concat(XYSP_GAMES.map((g) =>
+      `<a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="${escapeAttr(g.key)}">` +
+      `${escape(g.name)}</a>`
+    )).join('');
+
+  const body = cards.length
+    ? `<div class="ro-xysp-pics" data-ro-xysp-grid>${cards.join('')}</div>` +
+      `<div class="ro-xysp-empty" hidden>该彩种 24 小时内暂无晒票</div>`
+    : `<div class="ro-xysp-empty">暂无（每 30 分钟自动更新）</div>`;
 
   /* 标题那一行 = <summary>（可点、可键盘操作）。
      右侧提示是空 <span>，文字由 CSS 按 [open] 切换 —— 不用 JS。
@@ -852,16 +906,22 @@ function buildXyspHtml() {
   return `<details class="ro-xysp" id="ro-xysp">` +
     `<summary class="ro-xysp-head">` +
     `<h2 class="ro-xysp-h2">晒票栏</h2>` +
-    `<div class="ro-xysp-sub">点彩种看晒票</div>` +
+    `<div class="ro-xysp-sub">各彩种实票图片 · 点击查看</div>` +
     `<span class="ro-xysp-arrow" aria-hidden="true"></span>` +
     `</summary>` +
-    `<div class="ro-xysp-grid">${cells}</div>` +
+    (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
+    body +
+    (updated
+      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 24 小时 · 更新于 ${escape(updated)}</div>`
+      : '') +
     `</details>`;
 }
 
 const xyspHtml = buildXyspHtml();
-console.log(`  · 晒票栏：${XYSP_GAMES.length} 个彩种入口（硬编码，不抓取、不含图片）：` +
-  XYSP_GAMES.map((g) => g.name).join('/'));
+console.log(`  · 晒票栏：${XYSP_GAMES.map((g) => {
+  const gd = XYSP && XYSP.games ? XYSP.games[g.key] : null;
+  return g.name + ' ' + ((gd && gd.items) ? gd.items.length : 0) + ' 张';
+}).join(' / ')}${XYSP ? '' : '  ⚠️ 没有 xysp-data.js（显示「暂无」）'}`);
 
 /* ============================================================
    【开机号 / 选号直播】两个工具栏入口 + 两个可展开区块
@@ -961,8 +1021,8 @@ function buildLiveHtml() {
     `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
     (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
     `</div>` +
-    `<a class="ro-live-more" href="${articleHref(home)}" target="_blank" rel="noopener">` +
-    `打开直播页</a>` +
+    `<a class="ro-live-more" href="${articleHref(home)}" data-copy="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +   /* __COPY_LIVE__ 用户要求：改成点击复制链接 */
+    `点击复制链接进浏览器查看</a>` +
     (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
 }
@@ -2282,18 +2342,16 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    位置：紧跟【推荐图目录】(.ro-imgtoc-wrap) 之后。
    配色沿用页面现有暗色那套（#12161d / #161a21 / #262d3a / #e8eaed）。
-   内容：用户第二次改口「不要晒图片，分几个彩种晒票分列，
-        每一个选项点进去就是对应的晒票」⇒ 就是 8 个彩种格子，
-        纯文字 + 链接，【一块图片都没有】。
+   内容：展开后 = 一排彩种筛选 + 晒票图片网格（图片是图床外链）。
    【默认收起】用户原话：「晒票栏可以收起来要自动点」
-     用原生 <details>/<summary>，一行 JS 都不写：
+     用原生 <details>/<summary>，折叠本身一行 JS 都不写：
        · <summary> = 标题那一行，点一下展开、再点收起（原生行为）
-       · 收起时浏览器不渲染里面的格子，首屏更短
        · 默认三角用 list-style + ::-webkit-details-marker 去掉，
          换成右侧的纯 CSS 文字提示（展开 ▸ / 收起 ▾），随 [open] 变
        · <summary> 不是按钮标签 → 页面不变量「按钮标签数 = 0」不受影响
-   列数：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
-   这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）。
+   列数：手机 2 列；>=620px 4 列。
+   这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）——
+   点图放大走的就是页尾已有的 ro-mob-view 全屏层。
    ============================================================ */
 .ro-xysp {
   background: #12161d;
@@ -2339,42 +2397,90 @@ body.ro-mob-open { overflow: hidden; }
 .ro-xysp[open] .ro-xysp-arrow::before { content: '收起'; }
 .ro-xysp[open] .ro-xysp-arrow::after { content: ' ▾'; }
 
-/* 彩种格子：窄屏 2 列 × 4 行 */
-.ro-xysp-grid {
+/* 删掉上一版的「纯文字彩种格子」样式（.ro-xysp-grid / .ro-xysp-cell）——
+   那一版是「点格子跳到源站晒票页」，已被用户否掉；
+   现在展开后是下面的筛选条 + 图片网格。 */
+
+/* ---- 晒票图片：筛选条 + 图片网格 + 卡片 ----
+   用户要求：直接在页面里看晒票图（不跳转）、点图能放大看清号码。
+   图片是【外链】（图床没有防盗链），所以这里只有排版样式，
+   页面里不存图片本体。 */
+.ro-xysp-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.ro-xysp-tab {
+  flex: 0 0 auto;
+  padding: 6px 11px;
+  border: 1px solid #2a323f;
+  border-radius: 999px;
+  background: #161a21;
+  color: #c8cfda;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-xysp-tab:hover, .ro-xysp-tab:active { border-color: #3d5a86; color: #cfe0ff; }
+.ro-xysp-tab.on { background: #1c2530; border-color: #3d5a86; color: #8fb8ff; }
+
+/* 手机 2 列；宽屏 4 列（用户点名的排法） */
+.ro-xysp-pics {
   display: grid;
   gap: 9px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 12px;                 /* 收起时不占这块空隙 */
+  margin-top: 11px;
 }
 @media (min-width: 620px) {
-  .ro-xysp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ro-xysp-pics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-.ro-xysp-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 10px 6px;
-  box-sizing: border-box;
+/* 被筛掉的卡片：脚本给它加 hidden 属性。
+   ⚠️ 必须显式写 display:none —— 下面 .ro-xysp-pic 用了 display:block，
+   会盖掉浏览器对 hidden 的默认隐藏，不加这条筛选就没效果。 */
+.ro-xysp-pic[hidden] { display: none !important; }
+
+.ro-xysp-pic {
+  display: block;
   background: #161a21;
   border: 1px solid #2a323f;
   border-radius: 10px;
-  color: #c8cfda;
-  font-size: 13.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  text-align: center;
+  overflow: hidden;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  transition: background .15s, border-color .15s, color .15s, transform .1s;
+  transition: border-color .15s;
 }
-.ro-xysp-cell:hover, .ro-xysp-cell:active {
-  background: #1c2530;
-  border-color: #3d5a86;
-  color: #cfe0ff;
-  transform: translateY(-1px);
+.ro-xysp-pic:hover, .ro-xysp-pic:active { border-color: #3d5a86; }
+
+/* 缩略图：宽度铺满卡片、高度按原比例（票是长条，不裁切才看得到全貌） */
+.ro-xysp-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 60px;
+  background: #0f1218;
 }
+
+.ro-xysp-cap { display: block; padding: 5px 7px 6px; }
+.ro-xysp-cap b { display: block; font-size: 11.5px; font-weight: 700; color: #8fb8ff; }
+.ro-xysp-cap i {
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: #7a8394;
+  word-break: break-word;
+  /* 描述最多两行，卡片才不会被拉得高矮不齐 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ro-xysp-empty { margin-top: 12px; font-size: 12px; color: #6b7488; }
+.ro-xysp-note { margin-top: 10px; font-size: 10.5px; color: #5f6878; }
 /* ============================================================
    【开机号 / 选号直播】工具栏入口 + 两个可展开区块
    ------------------------------------------------------------
@@ -2566,6 +2672,43 @@ body.ro-mob-open { overflow: hidden; }
          整段脚本崩溃 → 点击监听根本没绑上 → 区块点不开。 */
       var OK = { '#ro-kjh': 1, '#ro-live': 1 };
 
+      /* __COPY_LIVE__ 【点击复制链接】
+         微信把 yiqicai.com 拉黑了，点外链跳不过去 → 改成复制到剪贴板，
+         用户自己粘到浏览器打开。
+         用 <a>（不是按钮标签），点一下复制 + 把文案临时改成「已复制」。 */
+      var copyEls = document.querySelectorAll('[data-ro-copylive]');
+      for (var ci = 0; ci < copyEls.length; ci++) {
+        copyEls[ci].addEventListener('click', function (e) {
+          var url = String(this.getAttribute('data-copy') || this.getAttribute('href') || '');
+          e.preventDefault();
+          var self = this;
+          var done = function (ok) {
+            var old = self.getAttribute('data-orig') || self.textContent;
+            if (!self.getAttribute('data-orig')) self.setAttribute('data-orig', old);
+            self.textContent = ok ? '已复制 ✅ 请到浏览器粘贴打开' : '复制失败，请长按此处选择复制';
+            setTimeout(function () {
+              self.textContent = self.getAttribute('data-orig') || old;
+            }, 2600);
+          };
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = url;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              var ok = false;
+              try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+              document.body.removeChild(ta);
+              done(ok);
+            }
+          } catch (err) { done(false); }
+        });
+      }
+
       function roCloseAll() {
         var ps = document.querySelectorAll('.ro-panel');
         for (var k = 0; k < ps.length; k++) ps[k].classList.remove('ro-open');
@@ -2630,8 +2773,8 @@ body.ro-mob-open { overflow: hidden; }
        【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处）。
        （同处目录下方的还有「开机号 / 选号直播」那两个入口，由另一位
         负责人加的，排在前面 —— 这里不去动它们的顺序。）
-       这一块【没有任何图片】：只有 8 个彩种链接 + 原生折叠，
-       所以图位数量不变。 -->
+       这一块现在会显示【晒票图片】（图床外链、不下载本体），
+       卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
   ${xyspHtml}
 
   ${latestSecHtml}
@@ -3153,6 +3296,66 @@ ${RO_RENDER_SCRIPT}
     return true;
   }
 
+  /* ------------------------------------------------------------
+     打开一张【外链图片】（晒票栏的图走这条路）
+     ------------------------------------------------------------
+     用户要求：「点图片 → 放大看（能看清号码）」，而且说了
+     「复用已有的 ro-mob-view 那套全屏层最好」。
+     所以这里不新做第二套全屏逻辑，只给这一层加一个入口：
+       · 跟 open() 的区别：晒票栏没有页面里现成的「图位」，
+         所以这里【自己造】一个装图的盒子，里面放一个真的图元素，
+         并给它挂上 r-image 这个类名 ——
+         这样它自动吃到上面那条
+         「全屏层容器 → 中转盒 → r-image」的等比缩放规则，
+         宽高永远同一个 scale，不会变形。
+       · 关闭方式跟原来完全一样（都还挂在同一个层上）：
+         右上角 ×、点图片外的空白、Esc、手机返回键。
+     @param {string} src 图片地址
+     @param {string} alt 无障碍文字（一般传彩种名）
+     @returns {boolean} true = 已打开 */
+  function openUrl(src, alt) {
+    if (!src) return false;
+    build();
+    while (holder.firstChild) holder.removeChild(holder.firstChild);
+    backTo = null;            /* 这张图不属于任何图位，关掉时不用搬回去 */
+
+    var box = document.createElement('div');
+    box.className = 'ro-imagewrap';
+    box.setAttribute('data-ro-mob', '1');
+
+    var im = document.createElement('img');
+    im.className = 'r-image';
+    im.setAttribute('referrerpolicy', 'no-referrer');
+    im.setAttribute('loading', 'eager');
+    im.setAttribute('decoding', 'async');
+    im.setAttribute('alt', alt || '');
+    /* 【必须重算】外链图是过一会儿才加载完的：
+       没加载完时它的高度是 0，fit 会按「高度 0」算出不对的容器高度。
+       图片 load / error 之后各再量一次，缩放就准了。 */
+    im.addEventListener('load', function () { applyScale(); });
+    im.addEventListener('error', function () { applyScale(); });
+    im.src = src;
+    box.appendChild(im);
+    holder.appendChild(box);
+
+    img = im;
+    cur = { game: '', image: '', url: src };
+    zoom = 'fit';
+
+    view.removeAttribute('hidden');
+    mark('ro-mob-open', true);
+    /* 返回键 / 后退能关：压一条历史记录，popstate 时关掉（跟 open() 一样） */
+    try { history.pushState({ roMob: cur }, ''); } catch (e) { /* 忽略 */ }
+
+    applyScale();
+    setTimeout(applyScale, 0);
+    setTimeout(applyScale, 60);
+    setTimeout(applyScale, 300);
+    setTimeout(applyScale, 900);
+    setTimeout(applyScale, 1800);
+    return true;
+  }
+
   /* 打开：只绑在【目录表格的格子】上；图片本身没有任何点击绑定 */
   var tiles = document.querySelectorAll('.ro-toc-cell');
   for (var t = 0; t < tiles.length; t++) {
@@ -3164,6 +3367,7 @@ ${RO_RENDER_SCRIPT}
 
   window.__roMobView = {
     open: open,
+    openUrl: openUrl,
     close: close,
     isOpen: function () { return !!view && !view.hasAttribute('hidden'); },
     current: function () { return cur; },
@@ -3208,6 +3412,71 @@ ${RO_RENDER_SCRIPT}
      手机目录表格这时候才真正显示出来（在此之前它一直是隐藏的，
      避免 JS 没跑完时出现「点了没反应」的死格子）。 */
   mark('ro-toc-pending', false);
+})();
+</script>
+
+<!-- __XYSP_VIEW__ 晒票栏：① 彩种筛选（纯前端、不刷新页面）② 点图放大看
+     位置：排在页尾那个全屏层（ro-mob-view）之后 ——
+     这样执行到这里时那一层已经建好，点图能直接复用它的放大 + 关闭逻辑。
+     用户要求：「用 a（不是 button）」「点图片 → 放大看（能看清号码）」
+               「复用已有的 ro-mob-view 那套全屏层最好」 -->
+<script>
+/* __XYSP_VIEW__ 晒票栏交互（脚本挂了也不影响别的区块：
+   折叠靠原生 details；这里只负责「筛」和「放大」两件事）。 */
+(function () {
+  try {
+    var root = document.getElementById('ro-xysp');
+    if (!root) return;
+
+    var tabs = root.querySelectorAll('.ro-xysp-tab');
+    var pics = root.querySelectorAll('.ro-xysp-pic');
+    var empty = root.querySelector('.ro-xysp-empty');
+
+    /* 只显示某一彩种的卡片（game = 'all' 时全显示）。
+       做法是给不匹配的卡片加 hidden 属性，
+       样式里有 .ro-xysp-pic[hidden] 把它真的藏起来。 */
+    function pick(game) {
+      var shown = 0;
+      for (var i = 0; i < pics.length; i++) {
+        var ok = (game === 'all') || (pics[i].getAttribute('data-ro-xysp-game') === game);
+        pics[i].hidden = !ok;
+        if (ok) shown++;
+      }
+      /* 选中的那一颗标签高亮 */
+      for (var t = 0; t < tabs.length; t++) {
+        var on = tabs[t].getAttribute('data-ro-xysp-game') === game;
+        tabs[t].className = on ? 'ro-xysp-tab on' : 'ro-xysp-tab';
+      }
+      if (empty) empty.hidden = shown > 0;
+      return shown;
+    }
+
+    for (var t2 = 0; t2 < tabs.length; t2++) {
+      tabs[t2].addEventListener('click', function (e) {
+        e.preventDefault();                 /* 不跳锚点，就地在下面过滤 */
+        pick(String(this.getAttribute('data-ro-xysp-game') || 'all'));
+      });
+    }
+
+    /* 点某张图 → 用页尾那层全屏放大看。
+       那一层没准备好时（脚本没跑到）不拦截点击：
+       让 href 自己打开原图，功能不丢。 */
+    for (var p = 0; p < pics.length; p++) {
+      pics[p].addEventListener('click', function (e) {
+        var api = window.__roMobView;
+        /* 原图地址就是 href（缩略图只在 src 里，放大要看清号码，用原图） */
+        var src = this.getAttribute('href');
+        var cap = this.querySelector('.ro-xysp-cap b');
+        if (api && typeof api.openUrl === 'function' &&
+            api.openUrl(src, cap ? String(cap.textContent || '') : '')) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__roXysp = { pick: pick, tabs: tabs.length, pics: pics.length };
+  } catch (e) { /* 忽略：这一块的显示不依赖这段脚本 */ }
 })();
 </script>
 
