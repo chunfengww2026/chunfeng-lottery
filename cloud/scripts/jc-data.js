@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 06:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 07:28 */
 const JC_DATA = {
- "updated": "2026-10-16 06:58",
+ "updated": "2026-10-16 07:28",
  "stat": {
   "total": 13,
   "upcoming": 1,
@@ -1316,9 +1316,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 1.05,
+      "home": 1.1,
       "line": "受平手/半球",
-      "away": 0.8
+      "away": 0.77
      }
     },
     "europe": {
@@ -1328,9 +1328,9 @@ const JC_DATA = {
       "away": 2.3
      },
      "live": {
-      "home": 4.5,
+      "home": 4.2,
       "draw": 3.2,
-      "away": 1.95
+      "away": 2.05
      }
     },
     "overunder": {
@@ -1340,23 +1340,23 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.85,
+      "line": 0.8,
       "over": 1.5,
-      "under": 1
+      "under": 1.05
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 49,
+    "confidence": 47,
     "prob": {
-     "home": 21.2,
-     "draw": 29.8,
-     "away": 49
+     "home": 22.9,
+     "draw": 30.1,
+     "away": 47
     },
     "clear": true,
-    "margin": 4.8,
+    "margin": 3.8,
     "rqLine": "受平手/半球"
    },
    "asianIndex": {
@@ -1364,21 +1364,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.8,
-    "downWater": 1.05,
+    "upWater": 0.77,
+    "downWater": 1.1,
     "openHandicap": 0.25,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
+    "totalWater": 1.87,
+    "theoryUpPercent": "58.82",
+    "theoryDownPercent": "41.18",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 1,
-     "nowUpWater": 0.8,
+     "nowUpWater": 0.77,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
@@ -1395,7 +1395,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 06:58",
+  "updated": "2026-10-16 07:28",
   "officialUpdate": "2026-10-15 21:53:14",
   "inSale": 12,
   "list": [
