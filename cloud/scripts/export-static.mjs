@@ -1976,7 +1976,46 @@ const html = `<!DOCTYPE html>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>春风十里送大奖 · 推荐图</title>
+<!-- ============================================================
+     【分享卡片 / 图标 / PWA】
+       · 标题固定为「春风大奖」（用户指定）
+       · og:image 必须是【绝对 URL】—— 微信 / QQ / Twitter 抓的是绝对地址，
+         相对路径它们抓不到
+       · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
+         再拷进 out/，最后随 site/ 一起发布
+     ============================================================ -->
+<title>春风大奖</title>
+<meta name="description" content="春风大奖 · 八彩种推荐图与竞彩场次整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" type="image/svg+xml" href="icon.svg" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0f1115" />
+<meta name="application-name" content="春风大奖" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="春风大奖" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="春风大奖" />
+<meta property="og:title" content="春风大奖" />
+<meta property="og:description" content="八彩种推荐图与竞彩场次整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
+<meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
+<meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="春风大奖" />
+<meta name="twitter:description" content="八彩种推荐图与竞彩场次整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
+<meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
 <style>
 ${css}
 ${hitSecCss}
@@ -3000,7 +3039,7 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    用途（用户原话）：「就是只能我这个本机可以截屏，别人不能」。
    · html.locked → #article / #article-rest 模糊 + 灰度 + 不可点
-   · 遮罩 #mask（z-index 99998）/ 水印 #watermark（99997）
+   · 遮罩 #mask（z-index 99998）—— 【已按用户要求去掉水印层】
    · 豁免区 .ro-aipick 抬到 99999，locked 时仍然清晰、能点
    ⚠️ 遮罩设了 pointer-events:none：
       内容区本身已经 pointer-events:none（点不动），
@@ -3031,23 +3070,8 @@ html.locked #article, html.locked #article-rest {
 html.locked #mask { display: flex; }
 #mask .icon { margin-bottom: 20px; font-size: 64px; }
 #mask .tip { margin-top: 16px; font-size: 14px; color: #aaa; }
-#watermark {
-  position: fixed;
-  inset: 0;
-  z-index: 99997;
-  overflow: hidden;
-  opacity: .07;
-  pointer-events: none;
-}
-.wm-item {
-  position: absolute;
-  font-size: 14px;
-  font-weight: bold;
-  color: #e8eaed;                    /* 【暗色页面】用浅色，别用用户原稿的 #000 */
-  white-space: nowrap;
-  transform: rotate(-30deg);
-}
-html.locked #watermark { opacity: .3; }
+/* 【已删除】原来这里有一层动态水印（#watermark / .wm-item）——
+   用户明确说「不要水印」，所以整层连同样式、脚本一起删掉了。 */
 /* 豁免区：locked 时抬到遮罩之上，保持清晰可点 */
 html.locked .ro-aipick {
   filter: none !important;
@@ -3719,9 +3743,9 @@ body, .ro-wrap { background: var(--ro-bg); }
         .ro-wrap 里的 #article / #article-rest 在 locked 时会被加 filter，
         而 filter 会给后代建立新的包含块 —— 那样 position:fixed 的遮罩
         就不再相对视口定位了（会跟着内容跑）。
-     层级：遮罩 99998 > 水印 99997；豁免面板 .ro-aipick 抬到 99999 压在遮罩上。
-     ⚠️ 都是纯 div，没有按钮标签（页面不变量：按钮标签数 = 0）。 -->
-<div id="watermark" aria-hidden="true"></div>
+     层级：遮罩 99998；豁免面板 .ro-aipick 抬到 99999 压在遮罩上。
+     ⚠️ 都是纯 div，没有按钮标签（页面不变量：按钮标签数 = 0）。
+     ⚠️ 【没有水印层】—— 用户明确说「不要水印」，那一层已经整个删掉。 -->
 <div id="mask" aria-hidden="true">
   <div class="icon">🔒</div>
   <div>检测到截图或窗口切换</div>
@@ -5566,9 +5590,7 @@ ${RO_RENDER_SCRIPT}
   'use strict';
   try {
     var OWNER_IP = '120.231.138.19';
-    var WM_TEXT = '春风十里送大奖 · 仅供观看';
     var root = document.documentElement;
-    var wmBox = document.getElementById('watermark');
     var lockTimer = null;
     var owner = false;                     /* 默认按「别人」处理：先按最严的来，安全降级 */
 
