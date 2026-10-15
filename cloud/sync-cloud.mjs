@@ -537,6 +537,8 @@ if (LIST_ONLY) {
     (files.some((f) => f.repo === 'cloud/scripts/sync-stamp.json') ? '是' : '否'));
   log('  ✅ 清单中包含仓库根 .gitignore（挡住 cloud/out 的大页面）：' +
     (files.some((f) => f.repo === '.gitignore') ? '是' : '否'));
+  log('  ✅ 清单中包含竞彩页「晒票」要读的数据 cloud/scripts/xysp-jc-data.js：' +
+    (files.some((f) => f.repo === 'cloud/scripts/xysp-jc-data.js') ? '是' : '否 ❌'));
   log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
   ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
    'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',
