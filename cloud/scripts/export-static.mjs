@@ -1140,18 +1140,15 @@ function dateCNRaw(id) {
 }
 
 if (status.allReady) {
-  const rows = Object.keys(T).map((id) => {
-    const nm = G[id] ? G[id].name : id;
-    const d = dateCN(id);
-    return `<span class="ro-st-item"><b>${nm}</b> 第 ${nextIssue(id)} 期${d ? `<i class="ro-st-date">${d}</i>` : ''}</span>`;
-  }).join('');
+  /* __NO_ST_LIST__ 用户要求：状态条里那 8 行「双色球 第 xx 期 日期」不要了。
+     连带把只为它服务的 rows 计算也删掉（省得白算一遍）。 */
 
   statusHtml =
     `<div class="ro-status ok">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
-    `<div class="ro-st-list">${rows}</div>` +
+    /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
     `</div>`;
 } else {
   const reason = status.missing.length
