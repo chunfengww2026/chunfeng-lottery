@@ -1651,7 +1651,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 85,
+    "minute": 86,
     "home": {
      "name": "特温特",
      "score": 1,
@@ -1717,7 +1717,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 85,
+    "minute": 86,
     "home": {
      "name": "布兰",
      "score": 2,
@@ -1981,7 +1981,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 82,
+    "minute": 83,
     "home": {
      "name": "布莱顿",
      "score": 4,
@@ -2073,7 +2073,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 84,
+    "minute": 85,
     "home": {
      "name": "亚特兰大",
      "score": 3,
@@ -2251,7 +2251,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 84,
+    "minute": 85,
     "home": {
      "name": "艾域加多",
      "score": 1,
@@ -2449,7 +2449,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 84,
+    "minute": 85,
     "home": {
      "name": "萨格勒布迪那摩",
      "score": 0,
@@ -3105,7 +3105,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 43,
+    "minute": 44,
     "home": {
      "name": "约森独立队女足",
      "score": 1,
