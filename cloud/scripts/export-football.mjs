@@ -670,7 +670,7 @@ ${nav}
 <body>
 <div class="wrap">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>每半小时整点更新</b><span class="cd" data-cd="1"></span></div>
+  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>实时更新</b><span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
@@ -713,18 +713,18 @@ ${nav}
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function left() {
     var d = new Date();
-    /* 下一个 :00 或 :30 还有多少秒 */
+    /* 【改成每 5 分钟】比分任务每 5 分钟一轮 → 倒计时目标 = 下一个 5 分钟刻度 */
     var sec = d.getMinutes() * 60 + d.getSeconds();
-    var half = 1800;                       /* 30 分钟 */
-    var rem = half - (sec % half);
-    if (rem === half) rem = 0;
+    var step = 300;                        /* 5 分钟 = 300 秒 */
+    var rem = step - (sec % step);
+    if (rem === step) rem = 0;
     return rem;
   }
   function draw() {
     var s = left();
     if (s <= 0) { el.textContent = '正在更新…'; return; }
     var m = Math.floor(s / 60);
-    el.textContent = '更新倒计时 ' + pad(m) + ':' + pad(s % 60);
+    el.textContent = '实时更新倒计时 ' + pad(m) + ':' + pad(s % 60);
   }
   draw();
   setInterval(draw, 1000);
