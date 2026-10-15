@@ -50,7 +50,7 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
      「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」
    原来是「最多 200 场」，会越积越多、翻出好几天前的比赛。
    现在改成：只保留开赛时间在 [现在-24h, 现在+24h] 内的记录。 */
-const HIST_KEEP_HOURS = 24;
+const HIST_KEEP_HOURS = 72;
 const HIST_MAX = 200;   /* 兜底上限：万一时间解析不出来，也不让它无限增长 */
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
