@@ -1,0 +1,44 @@
+name: 测试云端能否抓取（临时）
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 从 GitHub 服务器测试各数据源可访问性
+        run: |
+          node -e "
+          const UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
+          const list = [
+            ['福彩官方(双色球)','https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=ssq&issueCount=3'],
+            ['体彩官方(大乐透)','https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry?gameNo=85&provinceId=0&pageSize=3&isVerify=1&pageNo=1'],
+            ['体彩官方(在售竞彩)','https://webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry?poolCode=hhad,had&channel=c'],
+            ['一起彩(首页)','https://www.yiqicai.com/'],
+            ['一起彩(手机晒票)','https://m.yiqicai.com/xysp'],
+            ['一起彩(手机文章)','https://m.yiqicai.com/spe'],
+            ['一起彩(手机开机号)','https://m.yiqicai.com/kjh'],
+            ['500彩票(竞彩)','https://live.500.com/jczq.php'],
+            ['500彩票(赔率JSON)','https://live.500.com/json/odds.php?fid=1'],
+            ['245qq(足球API)','https://new-jiko.sukeku.com/api/Game/GetRunballList?lang=zh'],
+            ['乐彩网17500','https://www.17500.cn/3d/'],
+            ['中彩网','https://www.zhcw.com/kjxx/3d/']
+          ];
+          (async () => {
+            for (const [name, url] of list) {
+              const t0 = Date.now();
+              try {
+                const ctl = new AbortController();
+                const timer = setTimeout(() => ctl.abort(), 20000);
+                const r = await fetch(url, { headers: { 'User-Agent': UA, 'Accept': 'text/html,application/json,*/*', 'Accept-Language': 'zh-CN,zh;q=0.9' }, signal: ctl.signal, redirect: 'follow' });
+                clearTimeout(timer);
+                const txt = await r.text();
+                const ok = r.status === 200 && txt.length > 1000;
+                console.log((ok ? 'OK  ' : 'BAD ') + name.padEnd(20) + 'HTTP ' + String(r.status).padEnd(5) + (txt.length/1024).toFixed(0).padStart(5) + ' KB  ' + (Date.now()-t0) + 'ms');
+              } catch (e) {
+                console.log('FAIL ' + name.padEnd(20) + String(e.cause && e.cause.code || e.name || e.message).slice(0,40) + '  ' + (Date.now()-t0) + 'ms');
+              }
+            }
+          })();
+          "
