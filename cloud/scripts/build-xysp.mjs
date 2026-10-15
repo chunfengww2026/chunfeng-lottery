@@ -1,65 +1,76 @@
 /* ============================================================
-   build-xysp.mjs —— 抓「晒票栏」数据
+   build-xysp.mjs —— 抓「晒票」图片，产出 xysp-data.js
    ------------------------------------------------------------
-   抓什么：
-     一起彩晒票频道（服务端渲染，能抓到）：
-       主列表   https://www.yiqicai.com/xysp          （「热门」，混彩种）
-       彩种子页 https://www.yiqicai.com/xysp/<g>xysp  （按彩种，每页 10 条）
-     主列表是混彩种的，没法标彩种；所以这里【只抓 8 个彩种子页】，
-     每个彩种留最新的几条 —— 抓下来的每条都能明确标上是哪个彩种。
+   为什么要这个（用户原话）：
+     「做。一直循环抓取24小时内的 保留24小时内的图片」
+     背景：微信把 yiqicai.com 拉黑了，点链接跳过去打不开
+           → 所以要把图片抓到【我们自己的页面】上直接显示。
 
-   页面真实结构（2026-10 实测，见下面的 ITEM_RE）：
-     <div class="tickets-list">
-       <div class="tickets-list-col">
-         <div class="lucky-tickets-x">                     ← 一条晒票
-           <div class="lucky-user">
-             <div class="lucky-avatar"><img src="头像"></div>
-             <dl class="lucky-info">
-               <dt class="lucky-name">高人出山</dt>          ← 昵称
-               <dd class="lucky-msg-txt">10-15 23:46</dd>    ← 时间（无年份）
-             </dl>
-           </div>
-           <div class="lucky-msg">[26275期]这是命不好吗😳</div>   ← 文字（期号+描述）
-           <div class="lucky-pics"><img src="票图URL">…</div>      ← 票图（1~N 张）
-         </div>
-         …
+   抓什么（手机版，服务端渲染，8 个彩种各一页，实测全部 HTTP 200）：
+     https://m.yiqicai.com/xysp/ssqxysp   双色球
+     https://m.yiqicai.com/xysp/dltxysp   大乐透
+     https://m.yiqicai.com/xysp/fc3dxysp  福彩3D
+     https://m.yiqicai.com/xysp/klbxysp   快乐8
+     https://m.yiqicai.com/xysp/pl3xysp   排列3
+     https://m.yiqicai.com/xysp/pl5xysp   排列5
+     https://m.yiqicai.com/xysp/xqxcxysp  七星彩
+     https://m.yiqicai.com/xysp/qlcxysp   七乐彩
+
+   页面真实结构（实测）——一条晒票就是一块：
+     <div class="lucky-tickets-x">
+       <div class="lucky-user">
+         <dl class="lucky-info">
+           <dt class="lucky-name">昵称</dt>
+           <dd class="lucky-msg-txt">10-15 22:37</dd>      ← 源站发布时间
+         </dl>
+       </div>
+       <div class="lucky-msg">[26119期]中5块</div>          ← 描述（当标题用）
+       <div class="lucky-pics">
+         <img src="http://img02.17chdd.com/2026-10-15/xxx.jpg?width=814&amp;height=1800">
+         ...（一条可能有 1~3 张图）
        </div>
      </div>
+   只取 lucky-pics 里的图 —— 头像 / 广告 / 站标都在这个 div 外面，
+   所以不会混进来。
 
-   定位方式（全部按 class 名，不依赖 data-v-xxxx 那种会变的编译哈希）：
-     · 一条晒票   = class="lucky-tickets-x"
-     · 彩种       = 抓的是哪个彩种子页（条目自己没有彩种字段）
-     · 昵称       = class="lucky-name"
-     · 时间       = class="lucky-msg-txt"（形如 10-15 23:46，没有年份）
-     · 文字/标题  = class="lucky-msg"
-     · 图片       = class="lucky-pics" 里的 <img src>
-     · 详情页     = 【源站没有「单条晒票」的详情页】
-                    页面里的 /xysp/ 链接只有 8 个彩种 + 分页。
-                    所以 url 记「该彩种的晒票列表页」——点开就能看到这一条。
+   【图片不下载】图床没有防盗链（实测：不带 Referer / 带 m.yiqicai.com /
+   带 github.io 三种都是 HTTP 200 + 真 JPEG + 字节数完全相同），
+   而且支持 ?imageMogr2/thumbnail/360x 缩略（192377 B → 52104 B，
+   Content-Type 还会被修正成 image/jpeg）。
+   ⇒ 页面里只写【外链 URL】，所以页面体积几乎不变大。
+   注意：图床是 http 的，但 https 同样能取（实测 200）
+        → 一律写成 https，避免 https 页面被浏览器当混合内容拦掉。
 
-   【图片 · 外链不下载】实测结论（2026-10-16）：
-     · 两个图床都不做 Referer 防盗链：不带 Referer / 带一起彩 Referer /
-       带 github.io Referer，三种都是 HTTP 200 + 真 JPEG，字节数完全一样。
-     · http:// 的图床【也支持 https】→ 页面用 https，不会被浏览器当混合内容拦掉。
-     · 图床支持腾讯云万象缩略参数 ?imageMogr2/thumbnail/360x：
-         原图 1080x2412 / 220868 B  →  缩略 360x804 / 40993 B（约 1/5.4）
-       而且加了缩略参数后 Content-Type 从 application/octet-stream 变成
-       image/jpeg（老图床原图那个 octet-stream 有的浏览器会不认）。
-     ⇒ 页面里一律用 https + ?imageMogr2/thumbnail/360x 外链，不下载、不内联，
-       页面本身体积几乎不增长（只是多了十几 KB 的 HTML 标签）。
+   产出 xysp-data.js：
+     const XYSP_DATA = {
+       updated: '2026-10-16 03:30',
+       games: {
+         ssq: { name: '双色球', items: [ { img, thumb, title, url, at } ] },
+         ...
+       }
+     };
+     · at    = 这条晒票的【抓取时间】(ISO)，用于 24 小时过滤
+     · img   = 原图 URL（点开看大图用）
+     · thumb = 缩略图 URL（?imageMogr2/thumbnail/360x）
+     · url   = 详情页 URL；源站列表页每条没有独立详情页 ⇒ 留空
 
-   省成本 / 稳：
-     · 每个彩种最多 MAX_PER_GAME 条，总数不超过 MAX_TOTAL 条
-     · 彩种之间延时 DELAY_MS，只抓 8 个彩种子页（不抓主列表、不翻页）
-     · 失败退避：照 update-football-smart.mjs 的写法
-         - 单个彩种抓失败 → 本轮跳过它，别的彩种照常（不算整轮失败）
-         - 8 个彩种【全失败】 → 记一次失败；连续 FAIL_PAUSE_AFTER 轮全失败 → 暂停
-     · 抓不到不崩、也【不覆盖】上一次的 xysp-data.js（页面显示上一轮内容）
-     · 一律 UTF-8 无 BOM；不涉及任何 token，脚本里没有任何密钥
+   【保留 24 小时】不是每次覆盖清空，而是：
+     1) 先读旧的 xysp-data.js
+     2) 把新抓到的并进去（同一个 img 只留一条，保留【最早】的 at）
+     3) 丢掉 at 早于 24 小时的
+     4) 每个彩种只留最新的 MAX_PER_GAME 条
+   ⇒ 每 30 分钟跑一次 + 24 小时自动过期 = 用户要的「一直循环、只留 24 小时」。
+
+   安全 / 省成本：
+     · 正常手机 User-Agent；8 个页面，请求间隔 >= 1.2s
+     · 失败退避（照 update-football-smart.mjs 那套）：连续 N 轮全失败就停 2 小时
+     · 抓不到不崩、也【不覆盖】上一次的 xysp-data.js（退出码 10）
+     · 一律 UTF-8 无 BOM；绝不请求任何 AI，不涉及任何 token（0 token）
+     · 只在这里用 fetch；生成的页面里没有任何抓取逻辑
 
    退出码：
      0  = 抓到并写入了新的 xysp-data.js（调用方可以继续出页面 + 同步）
-     10 = 本轮跳过（退避中 / 8 个彩种全失败）—— 保留上一次的数据，调用方别同步
+     10 = 本轮跳过（退避中 / 抓不到）—— 保留上一次的数据，调用方别同步
    ============================================================ */
 
 import fs from 'node:fs';
@@ -71,39 +82,31 @@ const OUT = path.join(ROOT, 'xysp-data.js');
 const LOG = path.join(ROOT, '_xysp.log');
 const STATE = path.join(ROOT, '_xysp-backoff.json');
 
-const ORIGIN = 'https://www.yiqicai.com';
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
-  '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 ' +
+  '(KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
-/* 每个彩种最多留几条 × 8 个彩种 = 最多 32 条。
-   为什么是 4：手机窄屏两列、宽屏三列，32 张 ≈ 11 行，
-   加起来的标签体积约 15 KB —— 页面（约 1.06 MB）几乎不变大。
-   再多的收益不大，只会让页面变长（图片是外链，懒加载）。 */
-const MAX_PER_GAME = 4;
-const MAX_TOTAL = 32;
+/* 8 个彩种（顺序 = 页面上筛选按钮的显示顺序） */
+const GAMES = [
+  { key: 'ssq',  name: '双色球', url: 'https://m.yiqicai.com/xysp/ssqxysp' },
+  { key: 'dlt',  name: '大乐透', url: 'https://m.yiqicai.com/xysp/dltxysp' },
+  { key: 'fc3d', name: '福彩3D', url: 'https://m.yiqicai.com/xysp/fc3dxysp' },
+  { key: 'kl8',  name: '快乐8',  url: 'https://m.yiqicai.com/xysp/klbxysp' },
+  { key: 'pl3',  name: '排列3',  url: 'https://m.yiqicai.com/xysp/pl3xysp' },
+  { key: 'pl5',  name: '排列5',  url: 'https://m.yiqicai.com/xysp/pl5xysp' },
+  { key: 'qxc',  name: '七星彩', url: 'https://m.yiqicai.com/xysp/xqxcxysp' },
+  { key: 'qlc',  name: '七乐彩', url: 'https://m.yiqicai.com/xysp/qlcxysp' }
+];
 
-/* 彩种之间延时（ms）—— 8 个请求，别把人家站点打痛 */
-const DELAY_MS = 700;
+/* 只保留 24 小时内的 */
+const KEEP_HOURS = 24;
+/* 每个彩种最多留几条（别让文件无限长大） */
+const MAX_PER_GAME = 40;
+/* 两个页面之间至少隔这么久（保护数据源） */
+const GAP_MS = 1200;
 
 /* 失败退避（写法照 update-football-smart.mjs） */
-const FAIL_PAUSE_AFTER = 6;    // 连续这么多轮【全军覆没】→ 暂停
+const FAIL_PAUSE_AFTER = 6;    // 连续全失败这么多次 → 暂停
 const PAUSE_MINUTES = 120;     // 暂停时长（分钟）
-
-/* 缩略图参数：腾讯云万象，实测把 1080x2412 / 220 KB 压到 360x804 / 41 KB，
-   并且把 Content-Type 修正成 image/jpeg。 */
-const THUMB_Q = 'imageMogr2/thumbnail/360x';
-
-/* 要抓的彩种子页（顺序 = 页面上「晒票栏」的彩种分组顺序） */
-const GAMES = [
-  { key: 'ssq',  name: '双色球', page: '/xysp/ssqxysp' },
-  { key: 'dlt',  name: '大乐透', page: '/xysp/dltxysp' },
-  { key: 'fc3d', name: '福彩3D', page: '/xysp/fc3dxysp' },
-  { key: 'kl8',  name: '快乐8',  page: '/xysp/klbxysp' },
-  { key: 'pl3',  name: '排列3',  page: '/xysp/pl3xysp' },
-  { key: 'pl5',  name: '排列5',  page: '/xysp/pl5xysp' },
-  { key: 'qxc',  name: '七星彩', page: '/xysp/xqxcxysp' },
-  { key: 'qlc',  name: '七乐彩', page: '/xysp/qlcxysp' }
-];
 
 const log = (m) => {
   const line = `[${new Date().toLocaleString('zh-CN', { hour12: false })}] ${m}`;
@@ -117,95 +120,141 @@ function readState() {
 }
 function writeState(s) { try { fs.writeFileSync(STATE, JSON.stringify(s, null, 1), 'utf8'); } catch (e) {} }
 
-function stamp() {
-  const d = new Date();
+function stamp(d) {
+  const t = d || new Date();
   const p = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ` +
-    `${p(d.getHours())}:${p(d.getMinutes())}`;
+  return `${t.getFullYear()}-${p(t.getMonth() + 1)}-${p(t.getDate())} ` +
+    `${p(t.getHours())}:${p(t.getMinutes())}`;
 }
 
-const sleep = (ms) => new Promise((s) => setTimeout(s, ms));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /* ---------- 小工具 ---------- */
-const stripTags = (s) => String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ')
-  .replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
-  .replace(/&quot;/gi, '"').replace(/&#39;/g, "'").replace(/\s+/g, ' ').trim();
+const stripTags = (s) => String(s).replace(/<[^>]*>/g, '')
+  .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<')
+  .replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/g, "'")
+  .replace(/\s+/g, ' ').trim();
 
-/** 源站图片 → 页面能直接外链的 https 缩略图
- *  ① 强制 https（http 图在 https 页面上会被浏览器当混合内容拦掉）
- *  ② 丢掉源站那个只是缓存键的 ?width=&height=
- *  ③ 加上缩略参数（实测有效，体积约 1/5，Content-Type 也变正确） */
-function thumbUrl(raw) {
-  const s = String(raw || '').trim();
-  if (!/^https?:\/\//i.test(s)) return '';
-  let u;
-  try { u = new URL(s.replace(/^http:/i, 'https:')); } catch (e) { return ''; }
-  u.search = '';
-  u.hash = '';
-  return u.href + '?' + THUMB_Q;
+/**
+ * 规范化一张晒票图片的 URL：
+ *   · 把 HTML 实体还原（源页里是 &amp;height=…）
+ *   · 去掉 ?width=…&height=… 那串显示尺寸参数（保留它反而干扰缩略参数）
+ *   · 一律换成 https（图床 http/https 都能取；页面是 https，必须用 https，
+ *     否则浏览器按「混合内容」直接拦截，图就白了）
+ * 不是 http(s) 的（比如站内 /images/logo.png）一律返回空串
+ * @param {string} raw 原始 src
+ * @returns {string} 规范化后的 URL，认不出来返回空串
+ */
+function normImg(raw) {
+  let u = String(raw || '').trim().replace(/&amp;/gi, '&');
+  if (!/^https?:\/\//i.test(u)) return '';
+  if (!/\.(jpe?g|png|webp|gif)(\?|$)/i.test(u)) return '';
+  const q = u.indexOf('?');
+  if (q >= 0) u = u.slice(0, q);
+  u = u.replace(/^http:\/\//i, 'https://');
+  return u;
 }
 
-/** 源站时间「10-15 23:46」（无年份）→ 可排序的时间戳。
- *  当作最近 12 个月内的日期：算出来的时间比现在晚 30 天以上，
- *  就认为它是去年的（跨年那几天不会把顺序排乱）。 */
-function timeKey(mmddhhmm) {
-  const m = /(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/.exec(String(mmddhhmm || ''));
-  if (!m) return 0;
-  const now = new Date();
-  let d = new Date(now.getFullYear(), Number(m[1]) - 1, Number(m[2]),
-    Number(m[3]), Number(m[4]));
-  if (d.getTime() - now.getTime() > 30 * 86400000) d = new Date(now.getFullYear() - 1, Number(m[1]) - 1, Number(m[2]), Number(m[3]), Number(m[4]));
-  return d.getTime();
+/** 缩略图 URL：图床支持 imageMogr2，拿不到就退回原图（页面里 onerror 还会再兜一层） */
+function thumbOf(img) {
+  return img ? img + '?imageMogr2/thumbnail/360x' : '';
 }
 
 /* ============================================================
-   解析一页晒票
+   解析一个彩种页 → 条目数组
    ============================================================ */
-function parsePage(html, game) {
+function parsePage(html, atIso) {
   const items = [];
-  /* 按条切开：每条的起点就是这个 class */
-  const chunks = String(html).split('<div class="lucky-tickets-x"');
-  chunks.shift();                                   // 第 0 段是列表头，不是条目
+  /* 一条晒票 = 从 <div class="lucky-tickets-x"> 开始的那一块。
+     直接按这个开头切：每一段里【第一次】出现的 lucky-msg / lucky-pics
+     就一定是这一条的（两者都排在块内很靠前的位置），
+     所以不需要去猜块在哪里结束，也不会把下一段的内容混进来。 */
+  const parts = String(html).split('<div class="lucky-tickets-x"');
+  parts.shift();                       // 第一个元素是第一条之前的页面头
 
-  for (const c of chunks) {
-    /* 昵称 */
-    const nm = /class="lucky-name"[^>]*>([\s\S]*?)<\/dt>/.exec(c);
-    const author = nm ? stripTags(nm[1]) : '';
+  for (const b of parts) {
+    /* 描述（有什么抓什么；源站每条都有这一句） */
+    const msgM = /<div class="lucky-msg"[^>]*>([\s\S]*?)<\/div>/.exec(b);
+    const title = msgM ? stripTags(msgM[1]).slice(0, 120) : '';
 
-    /* 时间（无年份，形如 10-15 23:46） */
-    const tm = /class="lucky-msg-txt"[^>]*>([\s\S]*?)<\/dd>/.exec(c);
-    const time = tm ? stripTags(tm[1]) : '';
+    /* 图片：只认 lucky-pics 这个 div 里的（头像/广告都在它外面） */
+    const picsM = /<div class="lucky-pics"[^>]*>([\s\S]*?)<\/div>/.exec(b);
+    if (!picsM) continue;
 
-    /* 文字 / 标题。注意要用 class="lucky-msg" 带引号，
-       否则会连 lucky-msg-txt 一起匹配上。 */
-    const ms = /class="lucky-msg"[^>]*>([\s\S]*?)<\/div>/.exec(c);
-    const title = ms ? stripTags(ms[1]) : '';
-
-    /* 票图：lucky-pics 里的第一张（多的不要，页面只放缩略图） */
-    const picsM = /class="lucky-pics"[^>]*>([\s\S]*?)<\/div>/.exec(c);
-    const picsHtml = picsM ? picsM[1] : '';
-    const all = [];
-    const IMG_RE = /<img[^>]*\bsrc="([^"]+)"/g;
+    const IMG = /<img[^>]*\bsrc="([^"]+)"/gi;
     let im = null;
-    while ((im = IMG_RE.exec(picsHtml)) !== null) {
-      const t = thumbUrl(im[1]);
-      if (t) all.push(t);
+    while ((im = IMG.exec(picsM[1])) !== null) {
+      const img = normImg(im[1]);
+      if (!img) continue;
+      if (items.some((x) => x.img === img)) continue;      // 本页内去重
+      items.push({ img, thumb: thumbOf(img), title, url: '', at: atIso });
     }
-    if (!all.length) continue;                      // 没有票图的条目直接丢
-
-    items.push({
-      game: game.key,
-      gameName: game.name,
-      title: title || (game.name + '晒票'),
-      author,
-      time,
-      t: timeKey(time),
-      img: all[0],                                  // 缩略图（列表用）
-      imgFull: all[0].replace(/\?.*$/, ''),         // 原图（备用，页面暂不用）
-      url: ORIGIN + game.page                       // 源站该彩种的晒票列表页
-    });
   }
   return items;
+}
+
+/* ============================================================
+   读旧数据 + 合并 + 24 小时过期 + 去重 + 数量上限
+   ------------------------------------------------------------
+   独立成函数，方便验收脚本直接拿假数据调它。
+   ============================================================ */
+function mergeAndPrune(oldData, freshByGame, nowMs) {
+  const cutoff = nowMs - KEEP_HOURS * 3600 * 1000;
+  const games = {};
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0 };
+
+  for (const g of GAMES) {
+    const bucket = new Map();          // img → 条目（保留最早的 at）
+
+    const push = (it, count) => {
+      const img = it && it.img ? String(it.img) : '';
+      if (!img) return;
+      const at = String(it.at || '');
+      const t = Date.parse(at);
+      if (!isFinite(t)) return;
+      if (t < cutoff) { stat.dropped++; return; }        // 超过 24 小时 → 丢
+      const prev = bucket.get(img);
+      if (prev) {
+        /* 同一个 img 只留一条：at 保留【最早】那次，其余字段用最新的 */
+        stat.dupes++;
+        prev.title = it.title || prev.title;
+        prev.thumb = it.thumb || prev.thumb;
+        prev.url = it.url || prev.url;
+        if (Date.parse(prev.at) > t) prev.at = at;
+        return;
+      }
+      bucket.set(img, {
+        img,
+        thumb: it.thumb || thumbOf(img),
+        title: it.title || '',
+        url: it.url || '',
+        at
+      });
+      if (count) stat.added++;
+    };
+
+    const oldList = (oldData && oldData.games && oldData.games[g.key] &&
+      Array.isArray(oldData.games[g.key].items)) ? oldData.games[g.key].items : [];
+    oldList.forEach((it) => push(it, false));
+    const freshList = Array.isArray(freshByGame[g.key]) ? freshByGame[g.key] : [];
+    freshList.forEach((it) => push(it, true));
+
+    /* 最新的排在前面，再砍到上限 */
+    const list = [...bucket.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
+    games[g.key] = { name: g.name, items: list.slice(0, MAX_PER_GAME) };
+    stat.kept += games[g.key].items.length;
+  }
+  return { games, stat };
+}
+
+/** 从旧的 xysp-data.js 文本里抠出对象（文件是我们自己写的纯 JSON，直接 JSON.parse） */
+function readOld(file) {
+  try {
+    const txt = fs.readFileSync(file, 'utf8');
+    const m = /const XYSP_DATA\s*=\s*(\{[\s\S]*\});/.exec(txt);
+    if (!m) return null;
+    return JSON.parse(m[1]);
+  } catch (e) { return null; }
 }
 
 /* ============================================================
@@ -217,7 +266,7 @@ const now = Date.now();
 /* 1. 退避期？ */
 if (st.pausedUntil && now < st.pausedUntil) {
   const left = Math.ceil((st.pausedUntil - now) / 60000);
-  log(`⏸  退避中（连续失败 ${st.failStreak} 轮），还剩 ${left} 分钟，本轮跳过`);
+  log(`⏸  退避中（连续全失败 ${st.failStreak} 次），还剩 ${left} 分钟，本轮跳过`);
   st.skips = (st.skips || 0) + 1;
   writeState(st);
   process.exit(10);
@@ -226,110 +275,88 @@ if (st.pausedUntil && now < st.pausedUntil) {
 log('—— 本轮开始 ——');
 st.runs = (st.runs || 0) + 1;
 
-/* 2. 逐个彩种抓（每个彩种 1 次请求，之间延时） */
-const picked = [];
-const seenImg = new Set();
-const gameStat = [];
+const roundIso = new Date(now).toISOString();
+const freshByGame = {};
+let httpOk = 0;
+let firstErr = '';
 
-for (let gi = 0; gi < GAMES.length; gi++) {
-  const g = GAMES[gi];
-  if (gi > 0) await sleep(DELAY_MS);
-
-  /* 单个彩种最多试 2 次：实测第一轮前两个请求偶发 ECONNRESET
-     （同一批里的后几个请求都正常，属于源站瞬时拒连），重试一次基本就稳。 */
-  let html = '';
-  let err = '';
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    html = '';
-    err = '';
-    try {
-      const r = await fetch(ORIGIN + g.page, {
-        headers: {
-          'User-Agent': UA,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'zh-CN,zh;q=0.9',
-          'Referer': ORIGIN + '/xysp'
-        },
-        signal: AbortSignal.timeout(25000)
-      });
-      if (!r.ok) err = 'HTTP ' + r.status;
-      else html = await r.text();
-    } catch (e) {
-      err = String((e && (e.cause && e.cause.code)) || (e && e.message) || e).slice(0, 100);
-    }
-    if (!err) break;
-    if (attempt === 1) { log(`   ↻ ${g.name} 第 1 次失败（${err}），1.5 秒后重试`); await sleep(1500); }
+for (let i = 0; i < GAMES.length; i++) {
+  const g = GAMES[i];
+  if (i > 0) await sleep(GAP_MS);            // 请求间隔 >= 1.2s
+  try {
+    const r = await fetch(g.url, {
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Referer': 'https://m.yiqicai.com/'
+      },
+      signal: AbortSignal.timeout(30000)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const html = await r.text();
+    httpOk++;
+    freshByGame[g.key] = parsePage(html, roundIso);
+  } catch (e) {
+    freshByGame[g.key] = [];
+    const msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e).slice(0, 120);
+    if (!firstErr) firstErr = `${g.name} ${msg}`;
+    log(`   ⚠️ ${g.name} 抓取失败：${msg}`);
   }
-
-  if (err) { gameStat.push(`${g.name} ✗(${err})`); continue; }
-
-  let items = [];
-  try { items = parsePage(html, g); }
-  catch (e) { gameStat.push(`${g.name} ✗(解析异常)`); continue; }
-
-  if (!items.length) { gameStat.push(`${g.name} ✗(0 条 / 结构变了)`); continue; }
-
-  /* 源页本身就是新的在前，先按时间再排一遍保险 */
-  items.sort((a, b) => b.t - a.t);
-
-  let kept = 0;
-  for (const it of items) {
-    if (kept >= MAX_PER_GAME) break;
-    if (picked.length >= MAX_TOTAL) break;
-    if (seenImg.has(it.img)) continue;
-    seenImg.add(it.img);
-    picked.push(it);
-    kept++;
-  }
-  gameStat.push(`${g.name} ${kept} 条`);
 }
 
-/* 3. 判定：8 个彩种【全失败】才算整轮失败 */
-if (!picked.length) {
+const freshTotal = Object.values(freshByGame).reduce((n, a) => n + a.length, 0);
+log(`   抓取结束：8 个页面成功 ${httpOk} 个 · 新解析到 ${freshTotal} 条图片`);
+
+/* 2. 一条都没抓到 → 当失败处理（不覆盖旧文件） */
+if (freshTotal === 0) {
   st.failStreak = (st.failStreak || 0) + 1;
-  log(`⚠️  本轮一条都没抓到：${gameStat.join(' · ')}`);
-  log(`    连续失败 ${st.failStreak} 轮`);
-  log('    保留上一次的 xysp-data.js（页面显示上一轮内容）');
+  log(`⚠️  本轮零条（${firstErr || '全部页面都没解析到晒票'}）· 连续全失败 ${st.failStreak} 次`);
+  log('    保留上一次的 xysp-data.js（页面显示上一轮 / 暂无）');
   if (st.failStreak >= FAIL_PAUSE_AFTER) {
     st.pausedUntil = now + PAUSE_MINUTES * 60000;
     st.failStreak = 0;
-    log(`🛑 连续失败达 ${FAIL_PAUSE_AFTER} 轮 → 暂停 ${PAUSE_MINUTES} 分钟（保护数据源）`);
+    log(`🛑 连续全失败达 ${FAIL_PAUSE_AFTER} 次 → 暂停 ${PAUSE_MINUTES} 分钟（保护数据源）`);
   }
   st.skips = (st.skips || 0) + 1;
-  st.lastRun = new Date().toISOString();
+  st.lastRun = roundIso;
   writeState(st);
   process.exit(10);
 }
 
-/* 4. 成功（哪怕只抓到一部分）→ 全量排序 + 写文件 */
-picked.sort((a, b) => b.t - a.t);
+/* 3. 合并旧数据 + 24 小时过期 + 去重 + 上限 */
+const oldData = readOld(OUT);
+const oldTotal = oldData && oldData.games
+  ? Object.values(oldData.games).reduce((n, g) => n + ((g && g.items) ? g.items.length : 0), 0) : 0;
+const { games, stat } = mergeAndPrune(oldData, freshByGame, now);
 
+/* 4. 成功 → 写文件 */
 st.failStreak = 0;
 st.pausedUntil = 0;
 st.ok = (st.ok || 0) + 1;
-st.lastRun = new Date().toISOString();
+st.lastRun = roundIso;
 writeState(st);
 
-/* 把只给排序用的内部字段去掉，再写文件 */
-const items = picked.map((it) => ({
-  game: it.game, gameName: it.gameName, img: it.img,
-  title: it.title, author: it.author, time: it.time,
-  imgFull: it.imgFull, url: it.url
-}));
-const data = { updated: stamp(), count: items.length, items };
-
+const data = { updated: stamp(new Date(now)), games };
 const text =
   `/* ============================================================\n` +
-  `   xysp-data.js —— 「晒票栏」数据（自动生成，请勿手动编辑）\n\n` +
+  `   xysp-data.js —— 「晒票栏」图片数据（自动生成，请勿手动编辑）\n\n` +
   `   由 build-xysp.mjs 生成（每 30 分钟一次）。\n` +
+  `   只保留最近 ${KEEP_HOURS} 小时内抓到的条目，每个彩种最多 ${MAX_PER_GAME} 条。\n` +
+  `   图片是【外链】（图床没有防盗链），页面里不存图片本体。\n` +
   `   更新时间：${data.updated}\n` +
-  `   共 ${data.count} 条。图片是外链缩略图（不下载、不内联）。\n` +
   `   ============================================================ */\n\n` +
   `const XYSP_DATA = ${JSON.stringify(data, null, 1)};\n`;
 fs.writeFileSync(OUT, text, 'utf8');
 
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
-gameStat.forEach((s) => log('   ' + s));
-log(`   合计 ${data.count} 条 · 更新时间 ${data.updated}`);
+log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
+  `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条）`);
+GAMES.forEach((g) => {
+  const items = games[g.key].items;
+  log(`   ${g.name.padEnd(6)} ${String(items.length).padStart(2)} 条` +
+    (items.length ? ` · 例：${items[0].img}` : ' · ⚠️ 24 小时内没有新的'));
+});
+log(`   合计 ${stat.kept} 条 · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
 process.exit(0);
