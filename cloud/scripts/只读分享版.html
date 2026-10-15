@@ -2863,9 +2863,11 @@ body.ro-mob-open { overflow: hidden; }
 /* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
 @supports selector(:target) {
   .ro-panel { display: none; }
-  /* .ro-panel:target 规则【已删除】：浏览器在 history.replaceState 后不会重算 :target，
-     导致「再点一下收不起来」。现在只靠 .ro-panel.ro-open（JS 控制），行为确定。 */
 }
+/* 【展开规则】由 JS 加 .ro-open 类控制（不依赖 :target）。
+   ⚠️ 这条必须存在，否则区块永远打不开 —— 之前误把它写进了 JS 注释里。
+   放在 @supports 外面：即使浏览器不认识 :target，点一下也能展开。 */
+.ro-panel.ro-open { display: block; }
 </style>
 </head>
 <body data-built="2026-10-16 02:52" class="ro-toc-pending">
@@ -19874,7 +19876,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-16 02:52
+   生成时间：2026-10-16 02:29
    生成脚本：build-heatmap.mjs
    本次彩种：（无：今天不是开奖日）
    数据来源：none
@@ -19887,13 +19889,13 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-16 02:52',
+  updated: '2026-10-16 02:29',
   source: 'none',
   games: {
   }
 };
 
-/* 本次为 --purge：今天不是任何彩种的开奖日，清空数据，页面上不会出现这张图 */
+/* 今天不是开奖日，未生成任何彩种 */
 
 /* ---------- 开奖日 & 显示时机（客户端与服务端共用同一套判断） ---------- */
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
