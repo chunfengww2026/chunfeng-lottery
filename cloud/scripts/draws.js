@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-15 18:44:14 */
+/* 自动生成，请勿手动编辑 · 2026-10-15 20:15:27 */
 const DRAW_DATA = {
-  "updated": "2026-10-15 18:44:14",
-  "note": "由 build-draws.mjs 自动生成（本班只抓 dlt,pl3,pl5,qxc，其余沿用上一次），请勿手动编辑",
+  "updated": "2026-10-15 20:15:27",
+  "note": "由 build-draws.mjs 自动生成（本班只抓 ssq,fc3d,qlc,kl8，其余沿用上一次），请勿手动编辑",
   "games": {
     "ssq": {
       "issue": "2026118",
       "date": "2026-10-15",
-      "source": "中国福彩网（官方）",
+      "source": "17500.cn",
       "areas": {
         "red": [
           5,
@@ -42,7 +42,7 @@ const DRAW_DATA = {
     "qlc": {
       "issue": "2026118",
       "date": "2026-10-14",
-      "source": "中国福彩网（官方）",
+      "source": "一起彩（yiqicai.com）",
       "areas": {
         "main": [
           6,
@@ -79,7 +79,7 @@ const DRAW_DATA = {
     "kl8": {
       "issue": "2026274",
       "date": "2026-10-15",
-      "source": "中国福彩网（官方）",
+      "source": "一起彩（yiqicai.com）",
       "areas": {
         "main": [
           8,
@@ -108,7 +108,7 @@ const DRAW_DATA = {
     "fc3d": {
       "issue": "2026274",
       "date": "2026-10-15",
-      "source": "中国福彩网（官方）",
+      "source": "17500.cn",
       "areas": {
         "main": [
           8,
