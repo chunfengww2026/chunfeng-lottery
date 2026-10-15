@@ -47,19 +47,34 @@
        games: {
          ssq: { name: '双色球', items: [ { img, thumb, title, url, at } ] },
          ...
+         tt:  { name: '头条晒票', items: [ { img, thumb, title, url, at, src, game } ] }
        }
      };
-     · at    = 这条晒票的【抓取时间】(ISO)，用于 24 小时过滤
+     · at    = 这条晒票的【抓取时间】(ISO)，用于 72 小时过滤
      · img   = 原图 URL（点开看大图用）
-     · thumb = 缩略图 URL（?imageMogr2/thumbnail/360x）
-     · url   = 详情页 URL；源站列表页每条没有独立详情页 ⇒ 留空
+     · thumb = 缩略图 URL（一起彩用 ?imageMogr2/thumbnail/360x）
+     · url   = 详情页 URL；一起彩列表页每条没有独立详情页 ⇒ 留空
+     · tt    = 【今日头条】的晒票（见下）
 
-   【保留 24 小时】不是每次覆盖清空，而是：
+   ── 【头条晒票】（games.tt）怎么进来的
+     本文件【不自己抓头条】。分工写死，避免两个进程互相覆盖同一个文件：
+       · build-xysp-tt.mjs  → 抓头条 → 写 xysp-tt-data.js（头条专属缓存）
+       · 本文件             → 【唯一】写 xysp-data.js 的人；
+                              跑的时候 readTtOld() 读 xysp-tt-data.js，
+                              用 mergeTt() 合进 games.tt
+     ⇒ 头条没抓到 / 文件不存在时，本文件照常跑，games.tt 保持旧的那份
+       （头条那 60 条不会因为一起彩成功就被清空，反过来也一样）。
+     ⚠️ 头条图【不能】拼 ?imageMogr2/thumbnail/360x：
+       头条 URL 本来就带 query，再拼一个 '?' 会变成第二个 '?'
+        → 验签失败 HTTP 403（实测）。缩略图直接用头条自带的 :450:294 变体
+        （21 KB）。thumbOf() 里已经加了保护，不给头条图拼参数。
+
+   【保留 72 小时】不是每次覆盖清空，而是：
      1) 先读旧的 xysp-data.js
      2) 把新抓到的并进去（同一个 img 只留一条，保留【最早】的 at）
-     3) 丢掉 at 早于 24 小时的
-     4) 每个彩种只留最新的 MAX_PER_GAME 条
-   ⇒ 每 30 分钟跑一次 + 24 小时自动过期 = 用户要的「一直循环、只留 24 小时」。
+     3) 丢掉 at 早于 72 小时的
+     4) 每个彩种只留最新的 MAX_PER_GAME 条（头条单独 TT_MAX 条）
+   ⇒ 每 30 分钟跑一次 + 72 小时自动过期 = 用户要的「一直循环、只留 72 小时」。
 
    安全 / 省成本：
      · 正常手机 User-Agent；8 个页面，请求间隔 >= 1.2s
@@ -76,6 +91,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
+   （build-xysp-tt.mjs 的抓取主流程有 isDirectRun() 关卡，
+     被 import 时不会发请求、不会 exit）。 */
+import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -155,9 +174,14 @@ function normImg(raw) {
   return u;
 }
 
-/** 缩略图 URL：图床支持 imageMogr2，拿不到就退回原图（页面里 onerror 还会再兜一层） */
+/** 缩略图 URL：一起彩图床支持 imageMogr2，拿不到就退回原图（页面里 onerror 还会再兜一层）
+    ⚠️ 【只给一起彩的图拼参数】：头条的 URL 本来就带 query，
+       再拼一个 '?' 会变成第二个 '?' → 验签失败 HTTP 403（实测）。
+       头条的缩略图是它自己给的 :450:294 变体，已经在 it.thumb 里了。 */
 function thumbOf(img) {
-  return img ? img + '?imageMogr2/thumbnail/360x' : '';
+  if (!img) return '';
+  if (!/(^https?:\/\/)?[a-z0-9.\-]*17chdd\.com/i.test(img)) return img;
+  return img + '?imageMogr2/thumbnail/360x';
 }
 
 /* ============================================================
@@ -329,11 +353,36 @@ if (freshTotal === 0) {
   process.exit(10);
 }
 
-/* 3. 合并旧数据 + 24 小时过期 + 去重 + 上限 */
+/* 3. 合并旧数据 + 72 小时过期 + 去重 + 上限 */
 const oldData = readOld(OUT);
 const oldTotal = oldData && oldData.games
   ? Object.values(oldData.games).reduce((n, g) => n + ((g && g.items) ? g.items.length : 0), 0) : 0;
 const { games, stat } = mergeAndPrune(oldData, freshByGame, now);
+
+/* 3.5 【头条晒票】并进 games.tt
+   ------------------------------------------------------------
+   数据源是 build-xysp-tt.mjs 写的 xysp-tt-data.js（不是网络）。
+   头条本身抓失败、或者那个文件还不存在时，这里【不会】把 games.tt 清掉：
+   旧的那份原样搬回来（过期和上限照旧生效），页面上的头条晒票不会闪没。
+   ⚠️ 顺序：games.tt 必须在 mergeAndPrune 之后赋值 —— 它的循环只认 GAMES
+      里那 8 个彩种，本来就不会碰 tt。 */
+const ttOldFile = readTtOld(path.join(ROOT, 'xysp-tt-data.js'));
+const ttMerged = mergeTt({ items: (oldData && oldData.games && oldData.games[TT_KEY] &&
+  Array.isArray(oldData.games[TT_KEY].items)) ? oldData.games[TT_KEY].items : [] }, [], now);
+const ttItems = ttMerged.items;
+games[TT_KEY] = { name: TT_NAME, items: ttItems };
+const ttOldCount = (ttOldFile && Array.isArray(ttOldFile.items)) ? ttOldFile.items.length : 0;
+const ttFresh = (ttOldFile && Array.isArray(ttOldFile.items)) ? ttOldFile.items.length : 0;
+if (ttFresh) {
+  /* 把头条缓存里的条目也过一遍同样的规则（72 小时 + 去重 + 上限） */
+  const m2 = mergeTt({ items: ttItems }, ttOldFile.items, now);
+  games[TT_KEY] = { name: TT_NAME, items: m2.items };
+  log(`   头条晒票：缓存 ${ttFresh} 条 → 合并后 ${m2.items.length} 条` +
+    `（丢弃过期 ${m2.stat.dropped} 条 · 去重 ${m2.stat.dupes} 条 · 上限 ${TT_MAX}）`);
+} else {
+  log(`   头条晒票：没有 xysp-tt-data.js` +
+    (ttItems.length ? `（沿用旧数据 ${ttItems.length} 条）` : '，也没有旧数据 → 页面这一栏空着'));
+}
 
 /* 4. 成功 → 写文件 */
 st.failStreak = 0;
@@ -347,7 +396,8 @@ const text =
   `/* ============================================================\n` +
   `   xysp-data.js —— 「晒票栏」图片数据（自动生成，请勿手动编辑）\n\n` +
   `   由 build-xysp.mjs 生成（每 30 分钟一次）。\n` +
-  `   只保留最近 ${KEEP_HOURS} 小时内抓到的条目，每个彩种最多 ${MAX_PER_GAME} 条。\n` +
+  `   只保留最近 ${KEEP_HOURS} 小时内抓到的条目，每个彩种最多 ${MAX_PER_GAME} 条\n` +
+  `   （头条晒票单独最多 ${TT_MAX} 条，来自 build-xysp-tt.mjs）。\n` +
   `   图片是【外链】（图床没有防盗链），页面里不存图片本体。\n` +
   `   更新时间：${data.updated}\n` +
   `   ============================================================ */\n\n` +
@@ -357,11 +407,11 @@ fs.writeFileSync(OUT, text, 'utf8');
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
 log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
   `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条）`);
-GAMES.forEach((g) => {
-  const items = games[g.key].items;
+GAMES.concat([{ key: TT_KEY, name: TT_NAME }]).forEach((g) => {
+  const items = (games[g.key] && games[g.key].items) || [];
   log(`   ${g.name.padEnd(6)} ${String(items.length).padStart(2)} 条` +
-    (items.length ? ` · 例：${items[0].img}` : ' · ⚠️ 24 小时内没有新的'));
+    (items.length ? ` · 例：${items[0].img}` : ` · ⚠️ ${KEEP_HOURS} 小时内没有新的`));
 });
-log(`   合计 ${stat.kept} 条 · 更新时间 ${data.updated}`);
+log(`   合计 ${stat.kept + games[TT_KEY].items.length} 条 · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
 process.exit(0);
