@@ -78,11 +78,14 @@
     </div>
   </div>
 
-  <script src="jc-data.js?v=18"></script>
+  <script src="jc-data.js?v=19"></script>
   <!-- 【已完场累积】在售列表只含还能买的比赛，一开完就消失；
        已完场全靠这份归档记录，不加载它「已完场」永远是 0 场 -->
-  <script src="jc-history.js?v=18"></script>
-  <script src="fb-page.js?v=18"></script>
+  <script src="jc-history.js?v=19"></script>
+  <!-- 【亚指综合换算 + 盘口升降】算法只有这一份：
+       build-jc.mjs（抓数据时算）和 足球推荐.html 用的是同一个文件 -->
+  <script src="asian-index.js?v=1"></script>
+  <script src="fb-page.js?v=19"></script>
   <script src="icons.js?v=17"></script>
   <script src="cloud-pull.js?v=17"></script>
   <script src="app.js?v=17"></script>
@@ -101,7 +104,7 @@
     /* ---------- 顶部信息 ---------- */
     const u = footballUpdated();
     const st = footballStat();
-    document.getElementById('updTag').textContent = u ? '每 2 小时自动更新（最近一次 ' + u + '）' : '暂无数据';
+    document.getElementById('updTag').textContent = u ? '实时更新（最近一次 ' + u + '）' : '暂无数据';
     document.getElementById('statTag').textContent =
       '共 ' + (st.total || 0) + ' 场 · 进行中 ' + (st.live || 0) + ' · 已完场 ' + (st.finished || 0);
 
