@@ -1539,11 +1539,10 @@ body {
       搬完再量尺寸，所以隐藏不影响显示。
    ============================================================ */
 @media (max-width: 1365px) {
-  /* ⚠️ 关键：最新开奖那个 section 的类名也是 ro-game（它的 id 是 ro-latest）！
+  .ro-divider { display: none !important; }
+  /* ⚠️ 关键：最新开奖 <section class="ro-game" id="ro-latest"> 也在 .ro-game 里！
      所以要 :not(#ro-latest)，否则会把【最新开奖】一起隐藏掉。
-     用户明确说过：「别误删我的最新开奖 我只是想隐藏下面推送的图」。
-     （这里原本把标签整段抄在注释里，会让「页面上 id 出现次数」的验收计数多算一次，
-       所以改成用文字描述 —— 规则本身一个字没动。） */
+     用户明确说过：「别误删我的最新开奖 我只是想隐藏下面推送的图」。 */
   .ro-game:not(#ro-latest) { display: none !important; }
 }
           /* 宽屏：不显示目录 */
