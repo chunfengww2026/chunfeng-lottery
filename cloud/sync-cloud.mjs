@@ -306,14 +306,32 @@ const OCR_PACKAGES = [
   'regenerator-runtime', 'tr46', 'webidl-conversions', 'whatwg-url', 'punycode'
 ];
 
-/* 页面产物：也一起刷新。
-   为什么必须同步这两份 HTML：
-   cloud-build.mjs 生成完网页后会把 cloud/scripts/只读分享版.html
-   复制成 out/index.html。万一云端那次生成网页失败（比如少个模块），
-   复制过去的就是【仓库里这一份】。如果它是老版本，
-   部署上去的页面就没有「拉 tickets.json 就地重渲染」的能力 ——
-   手机看到的还是旧号码。所以这里必须是本机刚生成的新版。 */
-const PAGE_ARTIFACTS = ['只读分享版.html', '足球推荐.html'];
+/* 【网页产物：现在【不再】往云端传】
+   ------------------------------------------------------------
+   以前这里会同步 只读分享版.html（1.27 MB）和 足球推荐.html（52 KB），
+   想法是「万一云端那次生成网页失败，就拿仓库里这一份顶上」。
+   实测下来代价太大、收益接近零：
+     · 本机每 30 分钟就重新生成一次 只读分享版.html，
+       每次同步（本机一天要同步几十次）都会往仓库塞一个 1.27 MB 的新版本；
+       「每 30 分钟一班」上线后，云端自己也会每跑一班就提交一次 ——
+       仓库会以每天几十 MB 的速度膨胀。
+     · 而它本来想兜的那个场景，现在有更好的兜底：
+       cloud-build.mjs 只发布【本次真的重新生成过】的页面
+       （看文件修改时间是否落在本次运行开始之后），
+       没生成就不发布，workflow 会从【线上当前那一份】拉回来 ——
+       拿到的永远是「正在对外服务的最新页面」，而不是仓库里的旧快照。
+   所以：不再同步这两个 HTML，云端仓库里也不保留它们。
+   （页面本身由云端的 export-static.mjs / export-football.mjs 现场生成。） */
+const PAGE_ARTIFACTS = [];
+
+/* 【绝不入库 / 绝不上传的构建产物】
+   cloud-build.mjs 会在云端现场把它们生成出来，提交回仓库只会让仓库膨胀。 */
+const SKIP_REPO_PATHS = new Set([
+  'cloud/scripts/只读分享版.html',
+  'cloud/scripts/足球推荐.html',
+  'cloud/out/index.html',
+  'cloud/out/football.html'
+]);
 
 /* 仓库根目录的杂项文件。
    【.gitignore 为什么必须上传】云端每次跑完都会 `git add -A cloud/` 再提交回仓库 ——
@@ -419,6 +437,7 @@ function collect(dir, prefix) {
     if (st.isDirectory()) out.push(...collect(full, prefix + name + '/'));
     else {
       if (SKIP_FILES.has(name)) continue;
+      if (SKIP_REPO_PATHS.has(prefix + name)) continue;
       out.push({ local: full, repo: prefix + name });
     }
   }
