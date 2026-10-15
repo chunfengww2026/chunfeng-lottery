@@ -2790,8 +2790,8 @@ body.ro-mob-open { overflow: hidden; }
    用户原话：「晒票栏下面装一个机选的 可以操作随机机选各种彩票
              复式单式都可以机选 模拟选号 有个折叠小窗口 写上标题：ai选号」
    形态：<details> 默认收起（不带 open 属性），标题行就是 <summary>。
-   交互：面板内部只有 <a role="button"> 和 <input type="number">，
-         没有 <button> 标签（页面不变量「按钮标签数 = 0」）。
+   交互：面板内部只有 <a role="button"> 和数字输入框（type=number），
+         没有 button 标签（页面不变量「按钮标签数 = 0」）。
    成本：纯前端 Math.random()，不联网、不调 AI、不写任何存储。
    ⚠️ 这里没有任何图片 → 图位数量（data-image）不受影响。
    ============================================================ */
@@ -4027,6 +4027,547 @@ ${RO_RENDER_SCRIPT}
     /* 给验收脚本留一个干净入口（不影响页面行为） */
     window.__roArt = { links: links.length };
   } catch (e) { /* 忽略：正文已经预渲染在页面里，展开只是锦上添花 */ }
+})();
+</script>
+
+<!-- __AIPICK_JS__ ai选号面板交互（纯前端随机模拟）
+     用户要求：
+       · 晒票栏下面这个「ai选号」小窗口里，用户可以自己操作摇号（单式 / 复式）
+       · 除了竞彩页的奖金试算器，整页【只有这一块】可以操作
+       · 不加「保存 / 记住 / 收藏」之类功能，也不写任何浏览器存储
+         （本地存储 / 会话存储 / COOKIE 一个都不用）
+         —— 所有状态都只是内存变量，刷新页面立刻回到默认
+     规则来源：生成时从 games.js 的 GAMES 读真实区间/位数（AIPICK_JS_RULES），
+               前端不重复维护一份规则表。
+     组六约束：福彩3D / 排列3 / 排列5 前三位必须「全组六」（三位两两不同），
+               复用的就是 stats.js enforceDigitStraightGate() 的那条规则
+               （DIGIT_STRAIGHT_KEYS：fc3d/pl3 = 百/十/个，pl5 = 万/千/百）。
+               分享页是单文件、不加载 stats.js，所以这里是同一条规则的前端实现。
+     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）；
+        以前把页面脚本拼在 .mjs 文件末尾 → Node 里 document 未定义直接崩。 -->
+<script>
+(function () {
+  try {
+    var root = document.getElementById('ro-aipick');
+    if (!root) return;
+
+    /* 规则表 = 生成时从 games.js 的 GAMES 里读出来的真实值（不是手抄的） */
+    var RULES = ${AIPICK_JS_RULES};
+    var byId = {};
+    for (var r0 = 0; r0 < RULES.length; r0++) byId[RULES[r0].id] = RULES[r0];
+
+    var MAX_COMBO = 1000;      /* 复式组合注数上限：超了不摇，别把手机卡死 */
+    var MAX_SHOW = 100;        /* 结果区最多画 100 注 */
+    var MAX_SINGLE = 50;       /* 单式一次最多摇 50 注 */
+    var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+    /* 【内存状态】只放在内存里：刷新页面即回到默认（不碰任何浏览器存储） */
+    var st = { game: RULES[0].id, mode: 'single', count: 5, times: 1, kl8: 10, multi: {}, rows: [] };
+
+    /* ---------- 基础工具 ---------- */
+    function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function shuffled(a, b) {
+      var arr = [], i;
+      for (i = a; i <= b; i++) arr.push(i);
+      for (i = arr.length - 1; i > 0; i--) { var j = rnd(0, i); var t = arr[i]; arr[i] = arr[j]; arr[j] = t; }
+      return arr;
+    }
+    /* 不重复抽 n 个（升序）：和 app.js 的 pickNumbers 同一套洗牌法 */
+    function pickDistinct(a, b, n) {
+      var arr = shuffled(a, b);
+      if (n > arr.length) n = arr.length;
+      return arr.slice(0, n).sort(function (x, y) { return x - y; });
+    }
+    function C(n, k) {                       /* 组合数 C(n,k)：复式注数就是它 */
+      if (k < 0 || k > n) return 0;
+      k = Math.min(k, n - k);
+      var r = 1, i;
+      for (i = 1; i <= k; i++) r = r * (n - k + i) / i;
+      return Math.round(r);
+    }
+    function combos(arr, k) {                /* 从 arr 里取 k 个的全部组合 */
+      var res = [];
+      (function rec(start, cur) {
+        if (res.length >= MAX_COMBO) return;
+        if (cur.length === k) { res.push(cur.slice()); return; }
+        for (var i = start; i < arr.length; i++) { cur.push(arr[i]); rec(i + 1, cur); cur.pop(); }
+      })(0, []);
+      return res;
+    }
+    function cartesian(list) {               /* 每个区取一个组合 → 笛卡尔积 = 复式的每一注 */
+      var res = [[]], i, j, k;
+      for (i = 0; i < list.length; i++) {
+        var next = [];
+        for (j = 0; j < res.length; j++) {
+          for (k = 0; k < list[i].length; k++) {
+            if (next.length >= MAX_COMBO) break;
+            next.push(res[j].concat([list[i][k]]));
+          }
+        }
+        res = next;
+      }
+      return res;
+    }
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined && text !== null) n.textContent = String(text);
+      return n;
+    }
+    function clearNode(box) { while (box.firstChild) box.removeChild(box.firstChild); }
+    function show(node, on) {
+      if (!node) return;
+      if (on) node.removeAttribute('hidden');
+      else node.setAttribute('hidden', 'hidden');
+    }
+    function pad2(n) { return n < 10 ? '0' + n : String(n); }
+    function attr(node, name) { return node ? String(node.getAttribute(name) || '') : ''; }
+
+    /* ---------- DOM 元素 ---------- */
+    var gameTabs = root.querySelectorAll('.ro-aipick-tab');
+    var modeBtns = root.querySelectorAll('.ro-aipick-segbtn');
+    var ruleBox = root.querySelector('.ro-aipick-rule');
+    var lineKl8 = root.querySelector('.ro-aipick-line-kl8');
+    var kl8Box = root.querySelector('.ro-aipick-kl8');
+    var lineSingle = root.querySelector('.ro-aipick-line-single');
+    var lineMulti = root.querySelector('.ro-aipick-line-multi');
+    var multiBox = root.querySelector('.ro-aipick-multi');
+    var inCount = root.querySelector('.ro-aipick-in-count');
+    var inTimes = root.querySelector('.ro-aipick-in-times');
+    var sumBox = root.querySelector('.ro-aipick-sum');
+    var warnBox = root.querySelector('.ro-aipick-warn');
+    var outBox = root.querySelector('.ro-aipick-out');
+    var acts = root.querySelectorAll('.ro-aipick-btn');
+
+    /* ---------- 彩种规则（全部来自 games.js） ---------- */
+    function G() { return byId[st.game] || RULES[0]; }
+
+    /* 数字型每一位。gate = 1 的位就是「必须全组六」的那三位：
+       fc3d / pl3 = 百/十/个；pl5 = 万/千/百（与 stats.js DIGIT_STRAIGHT_KEYS 一致） */
+    function posOf(g) {
+      var a = [], i;
+      if (g.id === 'fc3d' || g.id === 'pl3') {
+        a = [{ n: '百位', from: 0, to: 9, gate: 1 },
+             { n: '十位', from: 0, to: 9, gate: 1 },
+             { n: '个位', from: 0, to: 9, gate: 1 }];
+      } else if (g.id === 'pl5') {
+        a = [{ n: '万位', from: 0, to: 9, gate: 1 },
+             { n: '千位', from: 0, to: 9, gate: 1 },
+             { n: '百位', from: 0, to: 9, gate: 1 },
+             { n: '十位', from: 0, to: 9, gate: 0 },
+             { n: '个位', from: 0, to: 9, gate: 0 }];
+      } else if (g.id === 'qxc') {
+        for (i = 0; i < 6; i++) a.push({ n: '第' + (i + 1) + '位', from: 0, to: 9, gate: 0 });
+        a.push({ n: '最后一位', from: 0, to: 14, gate: 0 });
+      }
+      return a;
+    }
+    /* 号码型的「购票用」号码区：去掉特别号（七乐彩的特别号是开奖摇出的，不由购票人选） */
+    function areasOf(g) {
+      var out = [], i;
+      for (i = 0; i < g.areas.length; i++) if (g.areas[i].key !== 'special') out.push(g.areas[i]);
+      return out;
+    }
+    function pickOf(g, a) { return g.playModes ? st.kl8 : (a.pick || 1); }
+    function isDigit(g) { return g.type === 'digit' || g.type === 'qxc'; }
+    function maxMultiOf(g, a) {
+      var base = pickOf(g, a);
+      var max = Math.min(a.to - a.from + 1, 20);          /* 号码型复式最多一个区 20 个号 */
+      if (g.playModes) max = Math.min(a.to - a.from + 1, base + 10);   /* 快乐8 再多就爆注数 */
+      return Math.max(max, base);
+    }
+
+    function ruleText(g) {
+      var i, t;
+      if (g.type === 'digit') {
+        var gateN = 0, pos = posOf(g);
+        for (i = 0; i < pos.length; i++) if (pos[i].gate) gateN++;
+        t = g.digits + ' 位数字（每位 0-9）';
+        if (gateN >= 3) t += ' · 前三位【全组六】：三位数字两两不同（不出豹子、不出组三）';
+        return t;
+      }
+      if (g.type === 'qxc') return '前六位各 0-9 · 最后一位 0-14（共 7 位）';
+      var parts = [];
+      if (g.playModes) parts.push('选' + (CN[st.kl8] || st.kl8) + '：1-80 里选 ' + st.kl8 + ' 个');
+      var areas = areasOf(g);
+      for (i = 0; i < areas.length; i++) {
+        parts.push(areas[i].label + ' ' + pickOf(g, areas[i]) + ' 个（' + areas[i].from + '-' + areas[i].to + ' 不重复）');
+      }
+      if (g.id === 'qlc') parts.push('特别号由开奖摇出，不用选');
+      return parts.join(' · ');
+    }
+
+    /* ---------- 复式：每个区 / 每一位选几个号（内存里记，刷新即忘） ---------- */
+    function mkey(k) { return st.game + '|' + k; }
+    function multiGet(k, def, min, max) {
+      var v = st.multi[mkey(k)];
+      if (typeof v !== 'number' || !isFinite(v)) v = def;
+      if (v < min) v = min;
+      if (v > max) v = max;
+      st.multi[mkey(k)] = v;
+      return v;
+    }
+    function multiInput(label, key, val, min, max) {
+      var wrap = el('span', 'ro-aipick-mwrap');
+      wrap.appendChild(el('span', 'ro-aipick-unit', label));
+      var inp = document.createElement('input');
+      inp.className = 'ro-aipick-in ro-aipick-in-multi';
+      inp.type = 'number';
+      inp.setAttribute('inputmode', 'numeric');
+      inp.setAttribute('min', String(min));
+      inp.setAttribute('max', String(max));
+      inp.setAttribute('step', '1');
+      inp.setAttribute('data-ro-aipick-key', key);
+      inp.setAttribute('data-ro-aipick-min', String(min));
+      inp.setAttribute('data-ro-aipick-max', String(max));
+      inp.value = String(val);
+      inp.addEventListener('input', refresh);
+      inp.addEventListener('change', refresh);
+      wrap.appendChild(inp);
+      wrap.appendChild(el('span', 'ro-aipick-unit', '个'));
+      return wrap;
+    }
+    function buildMultiRow(g) {
+      if (!multiBox) return;
+      clearNode(multiBox);
+      var i;
+      if (isDigit(g)) {
+        var pos = posOf(g);
+        for (i = 0; i < pos.length; i++) {
+          var size = pos[i].to - pos[i].from + 1;
+          var def = (i === 0) ? Math.min(2, size) : 1;
+          multiBox.appendChild(multiInput(pos[i].n + (pos[i].gate ? '·组六位' : ''), 'p' + i,
+            multiGet('p' + i, def, 1, size), 1, size));
+        }
+      } else {
+        var areas = areasOf(g);
+        for (i = 0; i < areas.length; i++) {
+          var a = areas[i], base = pickOf(g, a), max = maxMultiOf(g, a);
+          var d2 = (i === 0) ? Math.min(base + 1, max) : base;
+          multiBox.appendChild(multiInput(a.label, 'a' + i, multiGet('a' + i, d2, base, max), base, max));
+        }
+      }
+    }
+    function buildKl8(g) {
+      if (!kl8Box) return;
+      clearNode(kl8Box);
+      if (!g.playModes) return;
+      for (var i = 10; i >= 1; i--) {          /* 选十 → 选一，和官方顺序一致 */
+        (function (n) {
+          var a = el('a', 'ro-aipick-kl8tab' + (n === st.kl8 ? ' on' : ''), '选' + (CN[n] || n));
+          a.setAttribute('role', 'button');
+          a.setAttribute('tabindex', '0');
+          a.setAttribute('data-ro-aipick-kl8', String(n));
+          a.addEventListener('click', function (e) {
+            if (e && e.preventDefault) e.preventDefault();
+            if (n === st.kl8) return;
+            st.kl8 = n;
+            st.rows = [];
+            st.multi = {};
+            syncTabs();
+            buildMultiRow(G());
+            drawOut();
+            refresh();
+          });
+          kl8Box.appendChild(a);
+        })(i);
+      }
+    }
+
+    /* ---------- 读输入框（注数 / 倍数 / 复式个数） ---------- */
+    function numOf(inp, def, min, max) {
+      var v = NaN;
+      if (inp) v = parseInt(String(inp.value === undefined || inp.value === null ? '' : inp.value), 10);
+      if (!isFinite(v)) v = def;
+      if (typeof v !== 'number' || !isFinite(v)) v = min;
+      if (v < min) v = min;
+      if (v > max) v = max;
+      if (inp && String(inp.value) !== String(v)) { try { inp.value = String(v); } catch (e) { /* 忽略 */ } }
+      return v;
+    }
+    function readInputs() {
+      st.count = numOf(inCount, st.count, 1, MAX_SINGLE);
+      st.times = numOf(inTimes, st.times, 1, 99);
+      var list = root.querySelectorAll('.ro-aipick-in-multi');
+      for (var i = 0; i < list.length; i++) {
+        var key = attr(list[i], 'data-ro-aipick-key');
+        if (!key) continue;
+        var min = parseInt(attr(list[i], 'data-ro-aipick-min'), 10) || 1;
+        var max = parseInt(attr(list[i], 'data-ro-aipick-max'), 10) || 99;
+        var v = numOf(list[i], st.multi[mkey(key)], min, max);
+        st.multi[mkey(key)] = v;
+      }
+    }
+
+    /* ---------- 摇号计划：先算「共几注」，超上限就不摇 ---------- */
+    /* 前三位「全组六」：三个位置的候选数字两两不重复。
+       这就是 stats.js enforceDigitStraightGate() 保证的那个状态
+       （那里保证 fc3d / pl3 / pl5 前三位 27 注直选全是组六、0 豹子）。 */
+    function dealDigits(pos, counts) {
+      var pool = shuffled(0, 9), pi = 0, i;
+      var sets = [];
+      for (i = 0; i < pos.length; i++) sets.push([]);
+      for (i = 0; i < pos.length; i++) {                 /* ① 组六位先分：两两不重复 */
+        if (!pos[i].gate) continue;
+        while (sets[i].length < counts[i] && pi < pool.length) sets[i].push(pool[pi++]);
+      }
+      for (i = 0; i < pos.length; i++) {                 /* ② 其余位：先用剩下的号，不够再按本位随机补 */
+        if (pos[i].gate) continue;
+        while (sets[i].length < counts[i]) {
+          if (pi < pool.length) sets[i].push(pool[pi++]);
+          else sets[i].push(rnd(pos[i].from, pos[i].to));
+        }
+      }
+      for (i = 0; i < sets.length; i++) sets[i].sort(function (x, y) { return x - y; });
+      return sets;
+    }
+    function planDigit(g) {
+      var pos = posOf(g), i, one = [];
+      if (st.mode === 'single') {
+        if (g.type === 'qxc') {
+          for (i = 0; i < 6; i++) one.push(rnd(0, 9));
+          one.push(rnd(0, 14));
+        } else if (g.id === 'pl5') {
+          one = pickDistinct(0, 9, 3).concat([rnd(0, 9), rnd(0, 9)]);   /* 前三位组六 + 后两位任意 */
+        } else {
+          one = pickDistinct(0, 9, 3);                                 /* fc3d / pl3：全组六 */
+        }
+        return { ok: 1, kind: 'digit', count: 1, pos: pos, rows: [one] };
+      }
+      var counts = [], sets, want = 1, prod = 1;
+      for (i = 0; i < pos.length; i++) {
+        var size = pos[i].to - pos[i].from + 1;
+        var def = (i === 0) ? Math.min(2, size) : 1;
+        counts.push(multiGet('p' + i, def, 1, size));
+        want *= counts[i];
+      }
+      sets = dealDigits(pos, counts);
+      for (i = 0; i < sets.length; i++) prod *= sets[i].length;
+      if (want > MAX_COMBO) {
+        return { ok: 0, msg: '复式共 ' + want + ' 注，超过上限 ' + MAX_COMBO + ' 注，请减少各位的数字个数' };
+      }
+      var note = '';
+      if (want !== prod) {
+        var got = [];
+        for (i = 0; i < sets.length; i++) got.push(sets[i].length);
+        note = '前三位受「全组六」约束（号池只有 0-9 十个数字），实际按 ' + got.join('/') + ' 个分配';
+      }
+      return { ok: 1, kind: 'digit', count: prod, pos: pos, sets: sets, rows: cartesian(sets), note: note };
+    }
+    function planNumber(g) {
+      var areas = areasOf(g), i, one = [];
+      if (st.mode === 'single') {
+        for (i = 0; i < areas.length; i++) one.push(pickDistinct(areas[i].from, areas[i].to, pickOf(g, areas[i])));
+        return { ok: 1, kind: 'number', count: 1, areas: areas, rows: [one] };
+      }
+      var sets = [], want = 1;
+      for (i = 0; i < areas.length; i++) {
+        var a = areas[i], base = pickOf(g, a), max = maxMultiOf(g, a);
+        var def = (i === 0) ? Math.min(base + 1, max) : base;
+        var c = multiGet('a' + i, def, base, max);
+        sets.push(pickDistinct(a.from, a.to, c));
+        want *= C(c, base);
+      }
+      if (want <= 1) return { ok: 0, msg: '复式至少要有一个区超过基本个数（例：双色球红球选到 7 个以上）' };
+      if (want > MAX_COMBO) {
+        return { ok: 0, msg: '复式共 ' + want + ' 注，超过上限 ' + MAX_COMBO + ' 注，请减少号码个数' };
+      }
+      var per = [];
+      for (i = 0; i < areas.length; i++) per.push(combos(sets[i], pickOf(g, areas[i])));
+      var rows = cartesian(per);
+      return { ok: 1, kind: 'number', count: rows.length, areas: areas, sets: sets, rows: rows };
+    }
+    function plan(g) { return isDigit(g) ? planDigit(g) : planNumber(g); }
+
+    /* ---------- 界面刷新（规则 / 合计 / 超限提示） ---------- */
+    function refresh() {
+      var g = G();
+      readInputs();
+      if (ruleBox) ruleBox.textContent = ruleText(g);
+      var p = st.mode === 'multi' ? plan(g) : null;
+      var n = 0, warn = '';
+      if (st.mode === 'single') {
+        n = st.count;
+      } else if (p) {
+        if (p.ok) n = p.count; else warn = p.msg || '';
+        if (p.ok && p.note) warn = p.note;
+      }
+      if (sumBox) {
+        sumBox.textContent = (st.mode === 'multi' && !n)
+          ? '复式注数待调整'
+          : '合计 ' + n + ' 注 × ' + st.times + ' 倍 = ' + (n * st.times * (g.price || 2)) + ' 元';
+      }
+      if (warnBox) {
+        if (warn) { warnBox.textContent = warn; show(warnBox, true); }
+        else { warnBox.textContent = ''; show(warnBox, false); }
+      }
+    }
+
+    /* ---------- 出号 ---------- */
+    function hitEl(hit, idx) {
+      var row = el('div', 'ro-aipick-hit'), i, j;
+      row.appendChild(el('span', 'ro-aipick-idx', '第' + (idx + 1) + '注'));
+      if (hit.kind === 'number') {
+        var areas = hit.areas || [];
+        for (i = 0; i < areas.length; i++) {
+          if (i > 0) row.appendChild(el('span', 'ro-aipick-sep', '+'));
+          var a = areas[i], nums = hit.row[i] || [];
+          for (j = 0; j < nums.length; j++) {
+            /* 号码型（双色球/大乐透/七乐彩/快乐8）补两位；数字彩不补（0 就是「0」不是「00」） */
+            row.appendChild(el('span', 'ro-aipick-ball' + (a.color === 'blue' ? ' blue' : ''),
+              a.to > 9 ? pad2(nums[j]) : String(nums[j])));
+          }
+        }
+      } else {
+        var pos = hit.pos || [];
+        for (i = 0; i < hit.row.length; i++) {
+          if (pos[i] && pos[i].to === 14 && i === hit.row.length - 1) row.appendChild(el('span', 'ro-aipick-sep', '+'));
+          row.appendChild(el('span', 'ro-aipick-ball', String(hit.row[i])));
+        }
+      }
+      return row;
+    }
+    function drawOut() {
+      if (!outBox) return;
+      clearNode(outBox);
+      if (!st.rows.length) {
+        outBox.appendChild(el('div', 'ro-aipick-empty', '还没摇号，点「机选一注」开始'));
+        return;
+      }
+      var g = G();
+      outBox.appendChild(el('div', 'ro-aipick-sumline',
+        '本轮 ' + st.rows.length + ' 注 · ' + st.times + ' 倍 · 合计 ' +
+        (st.rows.length * st.times * (g.price || 2)) + ' 元（模拟）'));
+      var n = Math.min(st.rows.length, MAX_SHOW), i;
+      for (i = 0; i < n; i++) outBox.appendChild(hitEl(st.rows[i], i));
+      if (st.rows.length > n) {
+        outBox.appendChild(el('div', 'ro-aipick-more',
+          '只画前 ' + n + ' 注，其余 ' + (st.rows.length - n) + ' 注已省略'));
+      }
+    }
+
+    function doRoll(replace) {
+      var g = G();
+      readInputs();
+      var p = plan(g);
+      if (!p.ok) { refresh(); return 0; }
+      var list = [], i, q;
+      if (st.mode === 'single') {
+        for (i = 0; i < st.count; i++) {          /* 每一注都重新摇一次 */
+          q = plan(g);
+          if (!q.ok) break;
+          list.push({ kind: q.kind, pos: q.pos, areas: q.areas, row: q.rows[0] });
+        }
+      } else {
+        for (i = 0; i < p.rows.length; i++) {
+          list.push({ kind: p.kind, pos: p.pos, areas: p.areas, row: p.rows[i] });
+        }
+      }
+      /* 复式本来就是「一张票 N 注」，所以整组替换；单式的「机选一注」可以连点累加 */
+      if (replace || st.mode === 'multi') st.rows = [];
+      st.rows = st.rows.concat(list);
+      if (st.rows.length > MAX_COMBO) st.rows = st.rows.slice(st.rows.length - MAX_COMBO);
+      drawOut();
+      refresh();
+      return list.length;
+    }
+
+    function syncTabs() {
+      var i, k;
+      for (i = 0; i < gameTabs.length; i++) {
+        k = attr(gameTabs[i], 'data-ro-aipick-game');
+        gameTabs[i].className = 'ro-aipick-tab' + (k === st.game ? ' on' : '');
+      }
+      for (i = 0; i < modeBtns.length; i++) {
+        k = attr(modeBtns[i], 'data-ro-aipick-mode');
+        modeBtns[i].className = 'ro-aipick-segbtn' + (k === st.mode ? ' on' : '');
+      }
+      var kt = kl8Box ? kl8Box.querySelectorAll('.ro-aipick-kl8tab') : [];
+      for (i = 0; i < kt.length; i++) {
+        kt[i].className = 'ro-aipick-kl8tab' + (parseInt(attr(kt[i], 'data-ro-aipick-kl8'), 10) === st.kl8 ? ' on' : '');
+      }
+    }
+
+    /* ---------- 事件 ---------- */
+    for (var t1 = 0; t1 < gameTabs.length; t1++) {
+      (function (node) {
+        node.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          var id = attr(node, 'data-ro-aipick-game');
+          if (!byId[id] || id === st.game) return;
+          /* 切彩种 → 全部重置 + 显示该彩种的规则 */
+          st.game = id;
+          st.mode = 'single';
+          st.count = 5;
+          st.times = 1;
+          st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
+          st.multi = {};
+          st.rows = [];
+          if (inCount) inCount.value = '5';
+          if (inTimes) inTimes.value = '1';
+          buildKl8(byId[id]);
+          buildMultiRow(byId[id]);
+          show(lineKl8, !!byId[id].playModes);
+          show(lineSingle, true);
+          show(lineMulti, false);
+          syncTabs();
+          drawOut();
+          refresh();
+        });
+      })(gameTabs[t1]);
+    }
+    for (var t2 = 0; t2 < modeBtns.length; t2++) {
+      (function (node) {
+        node.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          var m = attr(node, 'data-ro-aipick-mode') === 'multi' ? 'multi' : 'single';
+          if (m === st.mode) return;
+          st.mode = m;
+          st.rows = [];                       /* 单式/复式形状不同，切方式先清空，免得看混 */
+          buildMultiRow(G());
+          show(lineSingle, m === 'single');
+          show(lineMulti, m === 'multi');
+          syncTabs();
+          drawOut();
+          refresh();
+        });
+      })(modeBtns[t2]);
+    }
+    for (var t3 = 0; t3 < acts.length; t3++) {
+      (function (node) {
+        node.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          var act = attr(node, 'data-ro-aipick-act');
+          if (act === 'clear') { st.rows = []; drawOut(); refresh(); }
+          else if (act === 'reroll') { doRoll(true); }
+          else { doRoll(false); }
+        });
+      })(acts[t3]);
+    }
+    if (inCount) { inCount.addEventListener('input', refresh); inCount.addEventListener('change', refresh); }
+    if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
+
+    /* ---------- 初始状态：彩种第一个（双色球）· 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
+    (function setup() {
+      var g = G();
+      buildKl8(g);
+      buildMultiRow(g);
+      show(lineKl8, !!g.playModes);
+      show(lineSingle, st.mode === 'single');
+      show(lineMulti, st.mode === 'multi');
+      syncTabs();
+      drawOut();
+      refresh();
+    })();
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__roAiPick = {
+      state: function () {
+        return { game: st.game, mode: st.mode, count: st.count, times: st.times, kl8: st.kl8, rows: st.rows.length };
+      },
+      rows: function () { return st.rows; }
+    };
+  } catch (e) { /* 忽略：面板退化成静态说明，不影响页面其它部分 */ }
 })();
 </script>
 </body>
