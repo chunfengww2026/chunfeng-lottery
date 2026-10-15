@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 07:55 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 07:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-16 07:55",
+ "updated": "2026-10-16 07:58",
  "stat": {
   "upcoming": 10,
-  "live": 6,
-  "finished": 40,
+  "live": 5,
+  "finished": 41,
   "total": 56,
   "settled": true,
   "hit": 21,
-  "miss": 19,
-  "rate": 52.5
+  "miss": 20,
+  "rate": 51.2
  },
  "lists": {
   "upcoming": [
@@ -676,44 +676,6 @@ const FOOTBALL_DATA = {
   ],
   "live": [
    {
-    "gid": 581917,
-    "kind": "live",
-    "league": {
-     "name": "哥伦乙",
-     "color": "55A0FF"
-    },
-    "time": "2026-10-16 06:00:00",
-    "minute": 94,
-    "home": {
-     "name": "馬大雷拿",
-     "score": 1,
-     "red": 0,
-     "rank": 13
-    },
-    "away": {
-     "name": "尤姆博獨立",
-     "score": 1,
-     "red": 0,
-     "rank": 1
-    },
-    "odds": {
-     "asian": {
-      "open": null,
-      "live": null
-     },
-     "overunder": {
-      "open": null,
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
-   },
-   {
     "gid": 581918,
     "kind": "live",
     "league": {
@@ -721,7 +683,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 80,
+    "minute": 82,
     "home": {
      "name": "利昂内斯",
      "score": 1,
@@ -736,20 +698,48 @@ const FOOTBALL_DATA = {
     },
     "odds": {
      "asian": {
-      "open": null,
+      "open": {
+       "home": 0,
+       "line": "1.26",
+       "away": 0.61
+      },
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "1.5",
+       "over": 1.85,
+       "under": 0.34
+      },
       "live": null
      },
      "europe": {
-      "open": null,
+      "open": {
+       "home": 1.12,
+       "draw": 21,
+       "away": 5.5
+      },
       "live": null
      }
     },
-    "reco": null,
-    "result": null
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 79.6,
+     "prob": {
+      "home": 79.6,
+      "draw": 4.2,
+      "away": 16.2
+     },
+     "clear": true,
+     "margin": 12.2
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
+    }
    },
    {
     "gid": 581938,
@@ -850,8 +840,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.25",
-       "over": 0.79,
-       "under": 1.07
+       "over": 0.8,
+       "under": 1.06
       },
       "live": null
      },
@@ -4051,6 +4041,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": false,
      "score": "1 - 2"
+    }
+   },
+   {
+    "gid": 581917,
+    "kind": "finished",
+    "league": {
+     "name": "哥伦乙",
+     "color": "55A0FF"
+    },
+    "time": "2026-10-16 06:00:00",
+    "minute": 0,
+    "home": {
+     "name": "馬大雷拿",
+     "score": 1,
+     "red": 0,
+     "rank": 13
+    },
+    "away": {
+     "name": "尤姆博獨立",
+     "score": 1,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.5,
+       "line": "0.85",
+       "away": 0.97
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.99",
+       "away": 0.83
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.25",
+       "over": 0.94,
+       "under": 0.86
+      },
+      "live": {
+       "line": "1",
+       "over": 1.09,
+       "under": 0.71
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.85,
+       "draw": 3.7,
+       "away": 3.2
+      },
+      "live": {
+       "home": 2.43,
+       "draw": 4.6,
+       "away": 2.04
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 43.8,
+     "prob": {
+      "home": 36.8,
+      "draw": 19.4,
+      "away": 43.8
+     },
+     "clear": false,
+     "margin": 11.9
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    }
   ]
