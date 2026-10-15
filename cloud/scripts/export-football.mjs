@@ -97,8 +97,35 @@ const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
    页面照常生成，只是「晒票」区块显示「暂无」——绝不让整页生成失败。
    ⚠️ 只认 https 外链（图是头条签名外链，实测没有防盗链、不下载本体）。
    保留窗口是 30 天（不是 72 小时）—— 竞彩实票不是每天有人晒，
-   按 72 小时卡这一栏会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。 */
+   按 72 小时卡这一栏会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
+
+   ⚠️【这里为什么要自己再过一遍窗口】抓取脚本写缓存时会按窗口清，
+      但缓存文件可能很旧（比如 30 分钟任务停了几天），或者被人手动塞了东西。
+      页面不能盲信文件内容 —— 实测造假数据时，"31 天前"的条目会被
+      原样渲染到竞彩页上（踩过）。所以出页面时再按同一个窗口过一遍：
+        · 丢掉超过 30 天的
+        · 按 img 去重（同一个图只留一条）
+      窗口值 JC_KEEP_HOURS 和 build-xysp-tt.mjs 保持一致（720 小时）。 */
+const JC_KEEP_HOURS = 24 * 30;
+const JC_MAX = 60;
+/* 原始文件内容（可能带过期/重复条目）—— 下面立刻过滤成 JC_XYSP */
 const XYSP_JC = loadVar('xysp-jc-data.js', 'XYSP_JC_DATA');
+const JC_XYSP = (function () {
+  const raw = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items : [];
+  const cutoff = Date.now() - JC_KEEP_HOURS * 3600 * 1000;
+  const seen = new Set();
+  const items = [];
+  for (const it of raw) {
+    const img = String((it && it.img) || '');
+    if (!img || seen.has(img)) continue;          /* 去重 */
+    const t = Date.parse(String((it && it.at) || ''));
+    if (!isFinite(t) || t < cutoff) continue;      /* 超出 30 天窗口 → 丢 */
+    seen.add(img);
+    items.push(it);
+  }
+  items.sort((a, b) => Date.parse(String(b.at)) - Date.parse(String(a.at)));
+  return { updated: (XYSP_JC && XYSP_JC.updated) || '', items: items.slice(0, JC_MAX) };
+})();
 
 /* ---------- 工具 ---------- */
 const esc = (s) => String(s == null ? '' : s)
@@ -761,8 +788,10 @@ function renderCalc() {
       所以 locked 时本来也不会被模糊 —— 位置选在这里也正好有这个好处）。
    ============================================================ */
 function buildJcXyspHtml() {
-  const data = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items : [];
-  const updated = (XYSP_JC && XYSP_JC.updated) ? String(XYSP_JC.updated) : '';
+  /* ⚠️ 用【过滤过的】JC_XYSP（已按 30 天窗口去掉过期、按 img 去重），
+     不是原始文件内容 —— 页面不能盲信缓存文件（见上面那段说明）。 */
+  const data = JC_XYSP.items;
+  const updated = String(JC_XYSP.updated || '');
 
   const cells = [];
   data.forEach((it) => {
@@ -2157,7 +2186,7 @@ console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字
         jcCalc（模拟计算）→ jcXysp（晒票）→ note-title（免责声明那块的标题）
       再用 .guard 的【最后一个】出现位置（= 免责声明那个 guard）做交叉验证。 */
 {
-  const n = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items.length : 0;
+  const n = JC_XYSP.items.length;
   const body = html.slice(html.indexOf('<body>'));
   const iCalc = body.indexOf('id="jcCalc"');
   const iXysp = body.indexOf('id="jcXysp"');
@@ -2172,5 +2201,5 @@ console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字
   console.log(`   晒票位置检查：${ordered ? '✅ 正好插在【模拟计算】和【免责声明】之间' : '❌ 顺序不对'}`);
   console.log(`      （有序性：jcCalc < jcXysp = ${iXysp > iCalc} · jcXysp < 免责声明 = ${iNote > iXysp}）`);
   console.log(`   晒票数据：${n} 张竞彩实票` +
-    (n ? ` · 更新于 ${XYSP_JC.updated}` : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）'));
+    (n ? ` · 更新于 ${JC_XYSP.updated}` : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）'));
 }
