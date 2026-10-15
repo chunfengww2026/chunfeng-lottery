@@ -2059,3 +2059,6 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
   font-size: 10.5px; color: #6b7488; font-family: Consolas, monospace;
   word-break: break-word;
 }
+
+/* 【热力图时间提示】用户要求：比副标题再小一点的字 */
+.ro-meta-hm { font-size: 11px; opacity: 0.72; margin-top: 2px; }
