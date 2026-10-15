@@ -684,7 +684,12 @@ function renderCalc() {
     `</div>`;
 
   return open +
-    `<div class="calc-sub">勾选你看好的结果 → 自动按体彩竞彩规则算预计奖金（纯前端计算，不刷新页面）</div>` +
+    `<div class="calc-sub">` +
+    `<span class="calc-sub-t">勾选你看好的结果 → 自动按体彩竞彩规则算预计奖金（纯前端计算，不刷新页面）</span>` +
+    /* 【GPT随机】放在说明行右边（不在 <summary> 里，点了不会顺手把区块收起来）。
+       用 <a role="button">，不是裸 <button>（页面不变量：裸 <button> = 0）。 */
+    `<a role="button" tabindex="0" class="calc-btn calc-rand" id="calcRand">GPT随机</a>` +
+    `</div>` +
     `<div class="calc-rows">${rows}</div>` +
     bar + rules + disclaim + close;
 }
@@ -866,10 +871,14 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-calc:not([open]) > summary.calc-head .calc-tip::after { content: '点击查看'; }
 .calc-body { padding: 0 14px 13px; }
 .calc-head .calc-title { font-size: 14.5px; font-weight: 800; color: #e8eaed; letter-spacing: .5px; }
+.calc-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 11.5px; color: #8b93a1; line-height: 1.7; margin-bottom: 10px; }
+.calc-sub-t { flex: 1 1 auto; min-width: 0; }
+.calc-rand { margin-left: auto; font-weight: 700; color: #47e0a0;
+  background: rgba(71,224,160,0.10); border-color: rgba(71,224,160,0.42); }
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
 .calc-src { margin-left: auto; font-size: 10.5px; color: #6b7488; }
-.calc-sub { font-size: 11.5px; color: #8b93a1; line-height: 1.7; margin-bottom: 10px; }
 .calc-rows { display: flex; flex-direction: column; gap: 8px; }
 .calc-row { background: #161a21; border: 1px solid #232a36; border-radius: 10px; padding: 9px 10px; }
 .calc-mt { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 6px; }
@@ -1032,6 +1041,7 @@ ${nav}
   var elWarn = document.getElementById('calcWarn');
   var elMul = document.getElementById('calcMul');
   var elClear = document.getElementById('calcClear');
+  var elRand = document.getElementById('calcRand');
   if (!elN || !elBets || !elCost || !elPrize || !elHint) return;
 
   var rows = [];
@@ -1181,6 +1191,78 @@ ${nav}
       for (var i = 0; i < boxes.length; i++) boxes[i].checked = false;
       if (elMul) elMul.value = '1';
       update();
+    });
+  }
+
+  /* ============================================================
+     【GPT随机】—— 纯前端随机帮用户勾几场，再实时算奖金。
+       规则（都按体彩真实可投注的组合来）：
+         · 从【有官方 SP 赔率】的场次里随机挑 2~4 关（可用场次不足就少挑几场）
+         · 每场只勾 1 个结果，在「胜平负 / 让球胜平负」里随机挑一个玩法，
+           再在该玩法的 主胜 / 平 / 客胜 里随机挑一个有赔率的
+         · 同一场绝不重复、不重复勾（先清空再勾）
+         · 只改内存里的勾选状态 → 刷新页面即消失（不写任何本地存储） */
+  var POOLS = ['had', 'hhad'];
+  var KEYS = ['h', 'd', 'a'];
+
+  function optionsOf(r) {
+    var out = [];
+    for (var p = 0; p < POOLS.length; p++) {
+      var pool = POOLS[p];
+      if (!r[pool]) continue;
+      for (var i = 0; i < KEYS.length; i++) {
+        var o = r[pool][KEYS[i]];
+        if (o > 0) out.push({ pool: pool, key: KEYS[i], odds: o });
+      }
+    }
+    return out;
+  }
+  function findBox(code, pool, key) {
+    var v = code + '|' + pool + '|' + key;
+    for (var i = 0; i < boxes.length; i++) { if (boxes[i].value === v) return boxes[i]; }
+    return null;
+  }
+
+  function gptRandom() {
+    var avail = [], i, j;
+    for (i = 0; i < rows.length; i++) {
+      var opts = optionsOf(rows[i]);
+      if (opts.length) avail.push({ code: rows[i].code, opts: opts });
+    }
+    if (!avail.length) { warn('暂无可随机的赔率数据。'); return; }
+
+    for (i = 0; i < boxes.length; i++) boxes[i].checked = false;   /* 先清空 → 换一批 */
+
+    var want = 2 + Math.floor(Math.random() * 3);                  /* 2 ~ 4 关 */
+    if (want > avail.length) want = avail.length;
+    if (want < 1) want = 1;
+
+    /* Fisher-Yates 洗牌后取前 want 场（保证不重复同一场） */
+    for (i = avail.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      var t = avail[i]; avail[i] = avail[j]; avail[j] = t;
+    }
+    for (i = 0; i < want; i++) {
+      var item = avail[i];
+      var pick = item.opts[Math.floor(Math.random() * item.opts.length)];
+      var b = findBox(item.code, pick.pool, pick.key);
+      if (b) b.checked = true;
+    }
+    update();     /* 勾完立刻算奖金（和手动勾选同一条计算路径） */
+  }
+
+  if (elRand) {
+    elRand.addEventListener('click', function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      gptRandom();
+    });
+    /* 键盘可访问：role 已是 button，回车 / 空格也能摇 */
+    elRand.addEventListener('keydown', function (e) {
+      var key = e && (e.key !== undefined ? e.key : e.keyCode);
+      if (key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 13 || key === 32) {
+        if (e.preventDefault) e.preventDefault();
+        gptRandom();
+      }
     });
   }
 
