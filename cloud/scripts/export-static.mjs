@@ -919,14 +919,25 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
 
 /* 8 个彩种 + 头条：key 必须和 xysp-data.js 里的 key 一致（顺序 = 筛选按钮顺序）
    ------------------------------------------------------------
-   【头条晒票】用户原话：「把【今日头条】的晒票内容抓下来，并入只读分享页现有的
-   「晒票」栏」，并且要求「筛选标签里加一个（比如「头条晒票」），点它能只看头条的票」。
-   做法：把 tt 当成第 9 个筛选分类塞进同一份 XYSP_GAMES ——
-     · 卡片走【完全一样】的那段渲染代码，所以天然不会产生新的 data-image（图位）
-     · 筛选条、点图放大（复用 ro-mob-view.openUrl）也全都不用改第二套
-     · 标签顺序：全部 / 8 个彩种 / 头条晒票（头条放最后，不挤走原来的 8 个）
-   头条卡片的标题显示：<b>固定写「头条晒票」</b>，把头条能认出来的彩种名并进描述行
-   （it.game，比如「大乐透」）→ 这样一个 <b> + 一个 <i>，不新增任何样式和属性。 */
+   【头条晒票 · 第一版】用户原话：「把【今日头条】的晒票内容抓下来，并入只读
+   分享页现有的「晒票」栏」+「筛选标签里加一个（比如「头条晒票」）」。
+   【头条晒票 · 第二版（用户追加要求）】用户原话：
+     「头条晒票的内容分发到各个对应的彩种地方」（配图圈的是「头条晒票」标签）
+   ⇒ 现在的做法 = 分发 + 保留聚合视图（两个能力都要）：
+     ① 抓取脚本按标题认出【所有】相关彩种 → 每条带 it.games = ['fc3d','pl3', …]
+        （多彩种标题【多归属】：一条同时进 fc3d 和 pl3）
+     ② 这里让【每张卡片都能被多个标签选中】：
+        卡片上写 data-ro-xysp-games="fc3d pl3 dlt"（空格分隔，key 数组）
+        筛选时用【包含判断】而不是相等判断 → 点「排列3」也能看到这条
+     ③ 一张卡片只画一次（不是每个彩种画一张）⇒
+        「全部」的可见数永远等于【去重后的条目总数】，不会重复计数
+     ④ 认出彩种的走各彩种；【认不出彩种的】仍然留在「头条晒票」聚合标签里
+        （it.games 为空 → 只有点「头条晒票」/「全部」才看得到，不会丢）
+     ⑤ 标签顺序不变：全部 / 8 个彩种 / 头条晒票（头条放最后）
+   ⚠️ 一起彩那 8 个彩种的数据【完全没动】：它们每条只有属于自己的那一个 key，
+      data-ro-xysp-games 里就一个值 → 行为跟以前一模一样。
+   头条卡片标题：<b>写它所属分类的名字</b>（在头条聚合里就是「头条晒票」），
+   描述行以「彩种 · 标题」开头（例：「大乐透 · 10倍与11倍单式票…」）。 */
 const XYSP_GAMES = [
   { key: 'ssq',  name: '双色球' },
   { key: 'dlt',  name: '大乐透' },
@@ -938,13 +949,16 @@ const XYSP_GAMES = [
   { key: 'qlc',  name: '七乐彩' },
   { key: 'tt',   name: '头条晒票' }
 ];
+const GAME_NAME = {};
+XYSP_GAMES.forEach((g) => { GAME_NAME[g.key] = g.name; });
 
 function buildXyspHtml() {
   const data = (XYSP && XYSP.games) ? XYSP.games : null;
   const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
 
-  /* 按彩种顺序把条目摊平；每张卡片都带自己的彩种 key，供前端筛选用。
-     头条（key='tt'）也走这一段 —— 只有 <b> 和描述行的拼法不一样。 */
+  /* 按分类顺序把条目摊平；每张卡片带【多个】彩种 key（空格分隔），供前端筛选用。
+     ⚠️ 一张卡片只画一次 —— 多归属靠属性里的多个 key 表达，
+        不是靠把同一条渲染成多张卡片（那样「全部」会重复计数）。 */
   const cards = [];
   XYSP_GAMES.forEach((g) => {
     const isTt = (g.key === 'tt');
@@ -954,18 +968,35 @@ function buildXyspHtml() {
       if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
       const thumb = String((it && it.thumb) || '') || img;
       const title = String((it && it.title) || '');
-      /* 头条：把识别出来的彩种名放在描述行的最前面（例：「大乐透 · 10倍与11倍…」） */
+      /* 头条：把识别出来的彩种名并进描述行（例：「大乐透 · 10倍与11倍…」） */
       const kind = String((it && it.game) || '');
       const desc = isTt && kind ? (kind + ' · ' + title) : title;
+
+      /* 【可被哪些标签选中】
+         · 一起彩条目：只有它自己那一个 key（老行为，没变）
+         · 头条条目：it.games 里的所有彩种 + 它所在的聚合分类（tt）
+           （认不出彩种时 it.games 是空的 → 只剩 tt，仍然留在聚合里不丢） */
+      let keys;
+      if (isTt) {
+        keys = Array.isArray(it && it.games) ? it.games.filter((k) => GAME_NAME[k] && k !== 'tt') : [];
+        if (!keys.length) keys = [g.key];
+      } else {
+        keys = [g.key];
+      }
+      /* <b> 显示哪个名字：头条条目 → 它第一个彩种名（在聚合里就显示「头条晒票」）；
+         一起彩条目 → 自己的名字（和以前完全一样）。
+         ⚠️ 直接复用现有 .ro-xysp-cap b / i 的样式，不新增任何 CSS、不动卡片外观。 */
+      const badge = (isTt && keys[0] !== 'tt' && GAME_NAME[keys[0]]) ? GAME_NAME[keys[0]] : g.name;
+
       cards.push(
         /* href 就是原图地址：点图的脚本从 href 取原图去全屏放大。
            这里【不重复写一遍】原图地址（每条再写一次要多 130 字节，
            彩种多了页面会被白白撑大）。 */
         `<a class="ro-xysp-pic" href="${escapeAttr(img)}"` +
-        ` data-ro-xysp-game="${escapeAttr(g.key)}">` +
+        ` data-ro-xysp-games="${escapeAttr(keys.join(' '))}">` +
         `<img class="ro-xysp-thumb" src="${escapeAttr(thumb)}" alt=""` +
         ` loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
-        `<span class="ro-xysp-cap"><b>${escape(g.name)}</b>` +
+        `<span class="ro-xysp-cap"><b>${escape(badge)}</b>` +
         (desc ? `<i>${escape(desc)}</i>` : '') +
         `</span></a>`
       );
@@ -4407,15 +4438,22 @@ ${RO_RENDER_SCRIPT}
     var empty = root.querySelector('.ro-xysp-empty');
 
     /* 只显示某一分类的卡片（game = 'all' 时全显示）。
-       分类 = 8 个彩种 key + 'tt'（头条晒票）；
-       这里对 'tt' 【不需要】任何特殊处理 —— 卡片和标签都带的是同一套
-       data-ro-xysp-game 属性，筛选逻辑天然把头条当成第 9 个分类。
+       分类 = 8 个彩种 key + 'tt'（头条晒票）。
+       ⚠️ 【包含判断，不是相等判断】：
+          卡片上是 data-ro-xysp-games（复数）="fc3d pl3 dlt" —— 一条头条帖子
+          经常同时提几个彩种，用户要求「分发到各个对应的彩种地方」，
+          所以点「排列3」时这条也要出现。
+          一起彩的条目属性里只有它自己一个 key，包含判断的实际效果
+          和以前的相等判断完全一样（老行为没变）。
        做法是给不匹配的卡片加 hidden 属性，
        样式里有 .ro-xysp-pic[hidden] 把它真的藏起来。 */
     function pick(game) {
       var shown = 0;
       for (var i = 0; i < pics.length; i++) {
-        var ok = (game === 'all') || (pics[i].getAttribute('data-ro-xysp-game') === game);
+        var keys = String(pics[i].getAttribute('data-ro-xysp-games') || '').split(/\s+/);
+        var ok = false;
+        if (game === 'all') ok = true;
+        else { for (var k = 0; k < keys.length; k++) { if (keys[k] === game) { ok = true; break; } } }
         pics[i].hidden = !ok;
         if (ok) shown++;
       }

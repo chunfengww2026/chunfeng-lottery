@@ -371,19 +371,28 @@ const interactive = (s) => ({
   button: (s.match(/<button\b/g) || []).length,
   roleButton: (s.match(/role="button"/g) || []).length
 });
-const inCalc = interactive(calcHtml);
-const whole = interactive(html);
+const stripC = (s) => String(s).replace(/<!--[\s\S]*?-->/g, '');
+const inCalc = interactive(stripC(calcHtml));
+const whole = interactive(stripC(html));
+/* 【允许有交互控件的只有两块】：模拟计算（含它的选号图全屏层）和 晒票（另一个专人做的，
+   含它的看大图全屏层）。其余任何地方出现 input/select/textarea/button/role=button 都算违规。
+   ⚠️ 注释里的 `role="button"` 字样不算（先 stripC 去掉注释）。 */
+const xyspViewRegion = stripC(html.slice(html.indexOf('id="jcXyspView"'), html.indexOf('<!-- __FB_LOCK_JS__')));
+const allowed = interactive(stripC(calcHtml) + xyspViewRegion);
 const outside = {
-  input: whole.input - inCalc.input, select: whole.select - inCalc.select,
-  textarea: whole.textarea - inCalc.textarea, button: whole.button - inCalc.button,
-  roleButton: whole.roleButton - inCalc.roleButton
+  input: whole.input - allowed.input,
+  select: whole.select - allowed.select,
+  textarea: whole.textarea - allowed.textarea,
+  button: whole.button - allowed.button,
+  roleButton: whole.roleButton - allowed.roleButton
 };
-console.log(`   计算器里的控件：<input> ${inCalc.input}（${(calcHtml.match(/type="checkbox"/g) || []).length} 勾选框 + 倍数框）` +
-  ` · role="button" ${inCalc.roleButton}（清空 + GPT随机）`);
-console.log(`   计算器【以外】的控件：<input> ${outside.input} · <select> ${outside.select} ·` +
+console.log(`   模拟计算里的控件：<input> ${inCalc.input}（${(calcHtml.match(/type="checkbox"/g) || []).length} 勾选框 + 倍数框）` +
+  ` · role="button" ${inCalc.roleButton}（清空 + GPT随机 + 保存图片 + ×）`);
+console.log(`   晒票看大图全屏层里的控件：role="button" ${interactive(xyspViewRegion).roleButton}`);
+console.log(`   这两块【以外】的控件：<input> ${outside.input} · <select> ${outside.select} ·` +
   ` <textarea> ${outside.textarea} · <button> ${outside.button} · role="button" ${outside.roleButton}`);
 ok(outside.input === 0 && outside.select === 0 && outside.textarea === 0 &&
-  outside.button === 0 && outside.roleButton === 0, '页面上除计算器外没有任何可交互控件');
+  outside.button === 0 && outside.roleButton === 0, '模拟计算 / 晒票以外，页面没有任何可交互控件');
 ok(whole.button === 0, `页面上裸 <button> = ${whole.button}（必须 0）`);
 ok((html.match(/data-image/g) || []).length === 0, `计算器没有用 data-image（整页 data-image = ${(html.match(/data-image/g) || []).length}）`);
 
@@ -403,7 +412,8 @@ ok(!!calcM, '用的是原生 <details class="m-calc allow-save" id="jcCalc">');
 ok(calcM && !/\bopen\b/.test(calcM[1]), '模拟计算默认【收起】（<details> 不带 open）');
 const allDetails = [...html.matchAll(/<details\b([^>]*)>/g)];
 console.log(`   页面里 <details> 共 ${allDetails.length} 个（m-sec ${secs.length} + m-calc 1）· 带 open 的 = ${allDetails.filter((m) => /\bopen\b/.test(m[1])).length}`);
-ok(allDetails.length === 4, `页面里 <details> 数量 = ${allDetails.length}（3 个分段 + 1 个模拟计算）`);ok(allDetails.every((m) => !/\bopen\b/.test(m[1])), '所有 <details> 都不带 open（全部默认收起）');
+ok(allDetails.length === 6, `页面里 <details> 数量 = ${allDetails.length}（3 个分段 + 模拟计算 + 晒票 + 推荐可串）`);
+ok(allDetails.every((m) => !/\bopen\b/.test(m[1])), '所有 <details> 都不带 open（全部默认收起）');
 ok(/<summary class="calc-head">/.test(html), '<summary class="calc-head"> 标题行在（标题由 summary 承载）');
 ok((html.match(/class="calc-tip"/g) || []).length === 1, `提示 span .calc-tip = ${(html.match(/class="calc-tip"/g) || []).length}（1）`);
 ok(html.includes(".m-calc[open] > summary.calc-head .calc-tip::after { content: '点击收起'; }"), 'CSS：展开时显示「点击收起」');
@@ -959,6 +969,121 @@ if (lockMark < 0) {
   L3.htmlEl.classList.remove('locked');
   cbLock.checked = false; cbLock.dispatch('change');
   console.log('   ⑤ 三个分段在 locked 时可点：summary 在 .guard 之外 + 分段整体 z-index 99999 / pointer-events:auto（CSS 已断言）');
+}
+
+H('17. 推荐可串（在售 × 信心 ≥55%）—— 真跑核对 + 迷你 DOM 展开');
+{
+  /* ---- 测试脚本自己独立算一遍（不看页面的结果，用 jc-data.js + sp 重算） ---- */
+  const jcSrc = fs.readFileSync(path.join(ROOT, 'jc-data.js'), 'utf8');
+  const jctx = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+  vm.runInContext(jcSrc + '\nglobalThis.__J = JC_DATA;', jctx);
+  const JD = jctx.__J;
+  const dayOf = (t) => String(t || '').slice(0, 10);
+  const REC_MIN = 55;
+  const byKey = new Map();
+  JD.games.forEach((g) => {
+    if (!g || !g.code || !g.reco || g.reco.confidence == null) return;
+    byKey.set(`${g.code}@${dayOf(g.time)}`, g);
+  });
+  const cand = (JD.sp && Array.isArray(JD.sp.list) ? JD.sp.list : [])
+    .map((r) => {
+      const g = byKey.get(`${r.code}@${dayOf(r.time)}`);
+      if (!g) return null;
+      const eu = g.odds && g.odds.europe && (g.odds.europe.live || g.odds.europe.open) || {};
+      return {
+        code: r.code,
+        label: g.reco.label || '',
+        odds: g.reco.pick ? eu[g.reco.pick] : null,
+        conf: g.reco.confidence
+      };
+    })
+    .filter(Boolean);
+  const want = cand.filter((r) => r.conf >= REC_MIN).sort((a, b) => b.conf - a.conf);
+  const low = cand.filter((r) => r.conf < REC_MIN);
+  console.log(`   在售（官方 Selling）${(JD.sp && JD.sp.list ? JD.sp.list.length : 0)} 场 · 其中有推荐/信心数据的 ${cand.length} 场`);
+  console.log(`   符合「信心 ≥${REC_MIN}%」的 ${want.length} 场：` + (want.length ? want.map((r) => `${r.code} ${r.label} ${r.odds} ${r.conf}%`).join(' | ') : '（无）'));
+  console.log(`   被排除（信心 <${REC_MIN}%）的 ${low.length} 场：` + (low.length ? low.map((r) => `${r.code} ${r.conf}%`).join(' | ') : '（无）'));
+  console.log(`   说明：信心 = jc-data.js 的 reco.confidence = 欧赔反推概率里最高的那个 = 推荐结果的百分比（每场一个值）`);
+
+  /* ---- 页面渲染出来的行 ---- */
+  const recM = /<details class="m-rec" id="jcRec"([^>]*)>([\s\S]*?)<\/details>/.exec(html);
+  ok(!!recM, '页面里有 <details class="m-rec" id="jcRec">');
+  const recInner = recM ? recM[2] : '';
+  const rows = [...recInner.matchAll(/<div class="m-recrow">([\s\S]*?)<\/div>/g)].map((m) => {
+    const t = m[1];
+    const pick = (cls) => {
+      const r = new RegExp(`<span class="${cls}[^"]*">([^<]*)<`).exec(t);
+      return r ? r[1] : '';
+    };
+    return { code: pick('m-reccode'), label: pick('m-recpick'), odds: pick('m-recodds'), conf: pick('m-recconf') };
+  });
+  console.log(`   页面里渲染出 ${rows.length} 行`);
+  rows.forEach((r) => console.log(`      · ${r.code} ${r.label} ${r.odds} ${r.conf}`));
+  ok(rows.length === want.length, `行数 = 符合条件场数（页面 ${rows.length} · 独立算 ${want.length}）`);
+  const same = JSON.stringify(rows.map((r) => r.code + r.conf)) === JSON.stringify(want.map((r) => r.code + r.conf + '%'));
+  ok(same, '每行的编号 + 信心与独立算的完全一致（顺序也一样：信心从高到低）');
+  if (want.length > 1) {
+    const confs = rows.map((r) => parseFloat(r.conf));
+    ok(confs.every((v, i) => i === 0 || confs[i - 1] >= v), '排序按信心从高到低');
+  }
+  const lowShown = low.filter((r) => rows.some((x) => x.code === r.code));
+  ok(lowShown.length === 0, `信心 <${REC_MIN}% 的一场都没显示（排除 ${low.length} 场，页面里混入 ${lowShown.length} 场）`);
+  if (!rows.length) {
+    ok(/m-recempty/.test(recInner) && /暂无/.test(recInner), '没有符合条件的场次 → 显示「暂无」空态（不是空白块）');
+    const empt = /<div class="m-recempty">([^<]*)<\/div>/.exec(recInner);
+    console.log(`      空态文案：${empt ? empt[1] : '(无)'}`);
+  } else {
+    ok(!/m-recempty/.test(recInner), '有符合条件的场次 → 不显示空态');
+  }
+
+  /* ---- 区块形态：可收起 + 默认收起 + 提示伪元素 + 位置 ---- */
+  ok(recM && !/\bopen\b/.test(recM[1]), '推荐可串【默认收起】（<details> 不带 open）');
+  ok(/<summary class="m-rechead">/.test(recInner) && /class="m-rectitle">推荐可串</.test(recInner), 'summary 里是「推荐可串」标题');
+  ok(/class="m-reccount">在售 · 信心 ≥55% · \d+ 场</.test(recInner), '副标题带「在售 · 信心 ≥55% · N 场」');
+  ok((recInner.match(/class="m-rectip"/g) || []).length === 1, '提示 span .m-rectip 有 1 个');
+  ok(html.includes(".m-rec[open] > summary.m-rechead .m-rectip::after { content: '点击收起'; }"), 'CSS：展开时显示「点击收起」');
+  ok(html.includes(".m-rec:not([open]) > summary.m-rechead .m-rectip::after { content: '点击查看'; }"), 'CSS：收起时显示「点击查看」');
+  ok(html.includes('.m-rec > summary.m-rechead::-webkit-details-marker { display: none; }') &&
+    html.includes(".m-rec > summary.m-rechead::marker { content: ''; }"), 'CSS：去掉了 summary 默认三角');
+  ok(html.includes('.m-rec > summary.m-rechead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;\n  cursor: pointer; list-style: none; user-select: none;'), 'CSS：summary cursor:pointer + list-style:none + user-select:none');
+
+  /* 位置：完场战绩下面、未开赛（第一个 m-sec）上面 */
+  const iArt = html.indexOf('id="article"');
+  const iRec = html.indexOf('id="jcRec"');
+  const iArtEnd = html.indexOf('</div>', html.indexOf('class="record"'));
+  const iSec = html.indexOf('<details class="m-sec"');
+  console.log(`   位置：record结束=${iArtEnd} < jcRec=${iRec} < 第一个 m-sec=${iSec}`);
+  ok(iRec > iArtEnd && iRec < iSec, '位置正确：在「完场战绩」下面、「未开赛」分段上面');
+  ok(iRec > iArt && iRec < iArtEnd + 400, '在 #article 保护容器里（locked 时会被模糊保护，和其它推荐内容一致）');
+
+  /* 紧凑排版：字号 / 行距 / 窄屏不溢出 */
+  const fs414 = {};
+  for (const m of html.matchAll(/\.(m-rec[a-z-]*) \{([^}]*)\}/g)) fs414[m[1]] = m[2].replace(/\s+/g, ' ').trim();
+  console.log(`   字号：行 ${(fs414['m-recteams'].match(/font-size: ([\d.]+)px/) || [])[1]}px · 编号 ${(fs414['m-reccode'].match(/font-size: ([\d.]+)px/) || [])[1]}px · 信心 ${(fs414['m-recconf'].match(/font-size: ([\d.]+)px/) || [])[1]}px（比赛卡片正文是 14px）`);
+  ok(/minmax\(0, 1fr\)/.test(fs414['m-recrow']), 'CSS：队名列用 minmax(0,1fr)（窄屏靠省略号截断，不会把页面撑宽）');
+  ok(/text-overflow: ellipsis/.test(fs414['m-recteams']) && /white-space: nowrap/.test(fs414['m-recteams']), 'CSS：队长名超长会省略号截断');
+  ok(/white-space: nowrap/.test(fs414['m-recodds']) && /white-space: nowrap/.test(fs414['m-recconf']), 'CSS：赔率/信心不换行（不会被挤成两行）');
+  ok(/font-size: 12\.5px/.test(fs414['m-recteams']), 'CSS：一行一场字号 12.5px（比比赛卡片 14px 小一档）');
+  ok(/border-bottom: 1px solid #1e2430/.test(fs414['m-recrow']), 'CSS：行之间用 1px 细线分隔（行距紧，不靠大留白）');
+  ok(/\.m-recconf\.strong \{ color: #47e0a0/.test(html), 'CSS：信心 ≥60% 用主题绿 #47e0a0（55~59% 用普通文字色 #98a1b2）');
+
+  /* ---- 迷你 DOM：真执行页面脚本 → jcRec 保持收起 → 展开后可见行数 ---- */
+  const noScript = !/jcRec/.test(script) && !/jcRec/.test(html.slice(html.indexOf('<!-- __FB_LOCK_JS__'), html.indexOf('</html>')));
+  ok(noScript, '没有任何内联脚本引用 jcRec（纯 <details>，不写 JS 也能用）');
+  const recEl = makeEl('details', { id: 'jcRec', className: 'm-rec' });
+  recEl.open = false;                       /* 页面 markup 没带 open → 默认收起 */
+  const bodyWrap = makeEl('div', { className: 'm-recbody' });
+  recEl.appendChild(bodyWrap);
+  rows.forEach(() => bodyWrap.appendChild(makeEl('div', { className: 'm-recrow' })));
+  /* 浏览器行为：<details> 收起时，非 summary 的子节点不渲染 → 可见行数 0 */
+  const visibleRows = () => (recEl.open ? bodyWrap.children.length : 0);
+  console.log(`   迷你 DOM：初始 open=${recEl.open} → 可见行数 ${visibleRows()}（收起时行隐藏）`);
+  ok(visibleRows() === 0, '收起状态下可见行数 = 0');
+  recEl.open = true;
+  console.log(`   迷你 DOM：点开（open=true）→ 可见行数 ${visibleRows()} · 期望 ${want.length}`);
+  ok(visibleRows() === want.length, `展开后可见行数 = 符合条件的场数（${visibleRows()} = ${want.length}）`);
+  const rowEls = bodyWrap.querySelectorAll('div.m-recrow');
+  ok(rowEls.length === rows.length, `迷你 DOM 里程式化出的行数 = 页面 HTML 里的行数（${rowEls.length} = ${rows.length}）`);
 }
 
 /* ============================================================

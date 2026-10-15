@@ -103,7 +103,15 @@ const STATE = path.join(ROOT, '_xysp-tt-backoff.json');
 export const TT_KEY = 'tt';
 export const TT_NAME = '头条晒票';
 export const TT_KEEP_HOURS = 72;
-export const TT_MAX = 60;
+/* 【数量上限】用户要求「云端页面上抓多少就放多少」，所以从 60 放宽到 200。
+   为什么是 200 而不是无限：
+     · 一条卡片大约 250~330 字节 HTML（图是外链，不占体积）
+       → 200 条 ≈ 60~70 KB 文本，页面完全扛得住
+     · 再往上（比如 500）意义不大：头条搜索页每个关键词一页只给十几个结果，
+       8 个关键词一轮最多也就 100~150 条去重后的图，200 已经装得下
+     · 有硬上限才能保证文件/页面不会因为"某天源站抽风返回几千条"而爆掉
+   竞彩那一路同理放宽到 200。 */
+export const TT_MAX = 200;
 const GAP_MS = 1200;
 const FAIL_PAUSE_AFTER = 6;
 const PAUSE_MINUTES = 120;
@@ -129,7 +137,7 @@ const BASE = 'https://so.toutiao.com/search/?dvpf=pc&keyword=';
 export const JC_KEY = 'jc';
 export const JC_NAME = '竞彩晒票';
 export const JC_DATA_FILE = 'xysp-jc-data.js';
-export const JC_MAX = 60;
+export const JC_MAX = 200;
 
 /* ⚠️ 为什么竞彩用【30 天】而不是 72 小时（实测结论，别照抄 tt 的 72h）
    ------------------------------------------------------------
@@ -281,6 +289,151 @@ export function gamesOfTitle(title) {
       或者找允许外链的走势图图床），那已经不属于"复用头条抓取器"的范围了。
    ============================================================ */
 
+/* ============================================================
+   【晒票时效】期号解析 + 开奖时刻表 + 过期时刻
+   ------------------------------------------------------------
+   用户原话：
+     「晒票要抓最新的场次还没开的 开完奖的过一小时就自动不要了」
+     「要会抓时间点 云端页面上抓多少就放多少」
+   规则（本文件实现的）：
+     now < 该彩种【最近一期开奖时刻】+ 1 小时  → 保留（还没开 / 刚开完的 1 小时宽限）
+     now ≥ 开奖时刻 + 1 小时                   → 丢掉
+     【兜底】任何条目最多留 72 小时（抓取时间起算）—— 见下面 72h 说明。
+
+   ⚠️ 开奖时刻表【不另写一份】：直接从 latest-draws.js 抠出 NEXTCD_TABLE
+      （那是页面倒计时一直在用的同一张表：hm=[时,分]，days=[0=周日…6=周六]）。
+      抠不到就退回「只用 72 小时兜底」，绝不让整个抓取挂掉。
+   ============================================================ */
+
+/* 从 latest-draws.js 里读 NEXTCD_TABLE（正则抠，不 import —— 它是浏览器脚本） */
+function loadDrawTable() {
+  const fallback = {
+    ssq: { hm: [21, 15], days: [0, 2, 4] }, dlt: { hm: [20, 30], days: [1, 3, 6] },
+    fc3d: { hm: [21, 15], days: [0, 1, 2, 3, 4, 5, 6] }, pl3: { hm: [20, 30], days: [0, 1, 2, 3, 4, 5, 6] },
+    pl5: { hm: [20, 30], days: [0, 1, 2, 3, 4, 5, 6] }, qxc: { hm: [20, 30], days: [0, 2, 5] },
+    qlc: { hm: [21, 15], days: [1, 3, 5] }, kl8: { hm: [21, 30], days: [0, 1, 2, 3, 4, 5, 6] }
+  };
+  try {
+    const p = path.join(ROOT, 'latest-draws.js');
+    if (!fs.existsSync(p)) return { table: fallback, from: '内置兜底（没有 latest-draws.js）' };
+    const txt = fs.readFileSync(p, 'utf8');
+    const blk = /NEXTCD_TABLE\s*=\s*\{([\s\S]*?)\};/.exec(txt);
+    if (!blk) return { table: fallback, from: '内置兜底（latest-draws.js 里没找到 NEXTCD_TABLE）' };
+    const table = {};
+    const re = /(\w+)\s*:\s*\{\s*hm\s*:\s*\[\s*(\d+)\s*,\s*(\d+)\s*\]\s*,\s*days\s*:\s*\[([\d,\s]+)\]\s*\}/g;
+    let m;
+    while ((m = re.exec(blk[1])) !== null) {
+      table[m[1]] = { hm: [Number(m[2]), Number(m[3])], days: m[4].split(',').map((x) => Number(x.trim())) };
+    }
+    if (!Object.keys(table).length) return { table: fallback, from: '内置兜底（NEXTCD_TABLE 解析出 0 项）' };
+    return { table, from: 'latest-draws.js 的 NEXTCD_TABLE' };
+  } catch (e) {
+    return { table: fallback, from: '内置兜底（读 latest-draws.js 失败：' + e.message + '）' };
+  }
+}
+const DRAW = loadDrawTable();
+
+/* 北京时间（不依赖本机时区）：UTC+8 */
+function bjNow(ms) {
+  const d = new Date((ms === undefined ? Date.now() : ms) + 8 * 3600 * 1000);
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(),
+    d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()));
+}
+/* 把"北京时间的某一天某时某分"换成真实 epoch 毫秒 */
+function bjEpoch(y, mo, da, hh, mi) {
+  return Date.UTC(y, mo, da, hh - 8, mi, 0, 0);
+}
+
+/**
+ * 某个彩种【最近一次已经到点】的开奖时刻（epoch ms），以及下一次。
+ * 用 NEXTCD_TABLE 的 days + hm 按北京时间逐日回扫（最多回 14 天）。
+ * @returns {{prev:number, next:number}|null}
+ */
+function drawTimes(gid, nowMs) {
+  const r = DRAW.table[gid];
+  if (!r) return null;
+  const bj = bjNow(nowMs);
+  let prev = null, next = null;
+  for (let i = -14; i <= 14; i++) {
+    const d = new Date(bj.getTime());
+    d.setUTCDate(d.getUTCDate() + i);
+    if (r.days.indexOf(d.getUTCDay()) < 0) continue;
+    const t = bjEpoch(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), r.hm[0], r.hm[1]);
+    if (t <= nowMs) { if (prev === null || t > prev) prev = t; }
+    if (t > nowMs) { if (next === null || t < next) next = t; }
+  }
+  return { prev, next };
+}
+/* 一个彩种的"开奖周期"大致多长（毫秒）—— 用来判断"这条是不是太旧了" */
+function drawCycleMs(gid, nowMs) {
+  const t = drawTimes(gid, nowMs);
+  if (!t || t.prev === null || t.next === null) return 7 * 86400000;
+  const span = t.next - t.prev;
+  return span > 0 ? span : 86400000;
+}
+
+/**
+ * 从标题里抠期号（实测格式见本文件头/报告）。
+ * 优先「第NNNNN期」，退而求其次「NNNNN期」；都没有就返回空串。
+ * ⚠️ 实测踩过的坑：「今晚开奖结果…2026274」那种长数字不是期号
+ *    （是日期/金额混在一起），所以只认【5 位】的（26273 / 26118），
+ *    6 位以上一律不认，宁可认不出也不认错。
+ * @param {string} title
+ * @returns {string} 期号（如 '26273'）；认不出返回 ''
+ */
+export function issueOfTitle(title) {
+  const t = String(title || '');
+  let m = /第\s*(\d{5})\s*期/.exec(t);
+  if (m) return m[1];
+  m = /(\d{5})\s*期/.exec(t);
+  if (m) return m[1];
+  return '';
+}
+
+/**
+ * 算一条晒票的【过期时刻】。
+ * 规则（两条同时生效，哪条先到就按哪条丢）：
+ *   ① 开奖规则（主）：以该彩种「最近一期已开的开奖时刻 + 1 小时」为硬线。
+ *      用户要求：「开完奖的过一小时就自动不要了」。
+ *      ⚠️ 这一条【不是】用来当过期时刻的 —— 它一旦过去，说明这一期已经开完超过 1 小时，
+ *         条目【立刻】丢。真正的过期时刻用 72 小时兜底（见下）。
+ *   ② 兜底（72 小时）：从【本轮抓取时间】起算。防止
+ *      · 认不出彩种的条目永远留着
+ *      · 某个彩种好几天没开奖 → 条目无限堆着
+ *   合并成一句：保留时间 = min(抓取时间 + 72 小时, ...)，并且
+ *   如果「开奖时刻 + 1 小时」已经过去，就【立刻过期】。
+ * @param {object} p {games:string[]}
+ * @param {number} seenMs 本轮抓到/看到的时间
+ * @param {number} nowMs
+ * @param {number} fallbackHours  兜底小时数（72）
+ * @returns {{expireAt:number, hardDrop:boolean, drawAt:number|null, rule:string, gid:string}}
+ *          hardDrop=true 表示「开奖已过 1 小时」→ 直接丢
+ */
+export function expireOf(p, seenMs, nowMs, fallbackHours) {
+  const capMs = seenMs + fallbackHours * 3600 * 1000;      /* 72 小时兜底 */
+  const gids = Array.isArray(p.games) ? p.games : [];
+  let best = null;                                          /* 取【最晚】的那一期开奖（= 最新一期） */
+  let bestGid = '';
+  for (const gid of gids) {
+    const t = drawTimes(gid, nowMs);
+    if (!t || t.prev === null) continue;
+    if (best === null || t.prev > best) { best = t.prev; bestGid = gid; }
+  }
+  if (best === null) {
+    /* 认不出彩种 / 该彩种没有开奖表 → 只受 72 小时兜底 */
+    return { expireAt: capMs, hardDrop: false, drawAt: null, rule: '72h', gid: '' };
+  }
+  /* 最近一期开奖 + 1 小时已经过去 → 这一条属于"开完奖超过 1 小时"，直接丢 */
+  const grace = best + 3600 * 1000;
+  return {
+    expireAt: capMs,
+    hardDrop: nowMs >= grace,
+    drawAt: best,
+    rule: 'draw+1h',
+    gid: bestGid
+  };
+}
+
 const log = (m) => {
   const line = `[${new Date().toLocaleString('zh-CN', { hour12: false })}] ${m}`;
   console.log(line);
@@ -431,6 +584,12 @@ export function parseTtPage(html, atIso, cat) {
         src: C.src || 'tt',
         cat: C.key,
         game: gameOf(title),
+        /* 【分发到各彩种】认出来的【所有】彩种 key（可能多个）。
+           tt 分类用 gamesOfTitle（数字彩）；jc 分类没有彩种可分发，给空数组。 */
+        games: (C.key === TT_KEY) ? gamesOfTitle(title) : [],
+        /* 【时效】期号 + 本轮抓取时间（后面的中间处理会补 drawAt / expireAt） */
+        issue: (C.key === TT_KEY) ? issueOfTitle(title) : '',
+        seen: atIso,
         author,
         when
       });
@@ -459,7 +618,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -467,7 +626,30 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     const at = String(it.at || '');
     const t = Date.parse(at);
     if (!isFinite(t)) return;
-    if (t < cutoff) { stat.dropped++; return; }          /* 超过保留窗口 → 丢 */
+    if (t < cutoff) { stat.dropped++; stat.dropCap++; return; }   /* 超过保留窗口 → 丢 */
+
+    /* 【迁移】老数据（第一版做"独立 tt 分类"时写的）里没有 games 字段，
+       或者缓存文件是旧版脚本写的 —— 这里按标题【补算】一次彩种归属，
+       不然这些条目永远只会留在「头条晒票」聚合里，分发不出去。
+       （实测踩过：只做"并集"不够，因为老条目的 games 是 undefined。） */
+    let games = Array.isArray(it.games) ? it.games.slice() : null;
+    if (!games && C.key === TT_KEY) games = gamesOfTitle(it.title);
+    const gs = games || [];
+
+    /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
+       （没有 seen 的老数据退回用 at —— 那是它第一次被抓到的时间） */
+    const seenMs = Date.parse(String(it.seen || '')) || t;
+
+    /* 【开奖后 1 小时】规则（只有数字彩那一路有；竞彩没有期号可算） */
+    let ex = { expireAt: seenMs + keepHours * 3600 * 1000, hardDrop: false, drawAt: null, rule: '72h', gid: '' };
+    if (C.key === TT_KEY) ex = expireOf({ games: gs }, seenMs, nowMs, keepHours);
+
+    /* 这一期已经开完超过 1 小时 → 直接丢（用户要求） */
+    if (ex.hardDrop) { stat.dropped++; stat.dropDraw++; return; }
+    /* 兜底：72 小时从"看到它"起算 */
+    if (nowMs >= ex.expireAt) { stat.dropped++; stat.dropCap++; return; }
+    /* 老数据（比如竞彩 30 天窗口）如果按 at 就已经超了，上面 cutoff 已经拦掉 */
+
     const prev = bucket.get(img);
     if (prev) {
       stat.dupes++;
@@ -476,8 +658,18 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       prev.big = it.big || prev.big;
       prev.url = it.url || prev.url;
       prev.game = it.game || prev.game;
+      /* 【彩种归属取并集】：老数据可能只认出 1 个彩种、新解析认出 2 个，
+         并起来才不会因为"哪一轮先跑"而丢分类。 */
+      if (gs.length) {
+        const set = new Set(Array.isArray(prev.games) ? prev.games : []);
+        gs.forEach((k) => set.add(k));
+        prev.games = [...set];
+      }
+      if (it.issue) prev.issue = it.issue;
       prev.author = it.author || prev.author;
       prev.when = it.when || prev.when;
+      /* seen 取【较晚】那次（我们最近一次看到它是什么时候） */
+      if (seenMs > (Date.parse(String(prev.seen || '')) || 0)) prev.seen = new Date(seenMs).toISOString();
       if (Date.parse(prev.at) > t) prev.at = at;         /* 保留最早那次 */
       return;
     }
@@ -491,6 +683,15 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       src: it.src || C.src || 'tt',
       cat: it.cat || C.key,
       game: it.game || '',
+      /* 认不出彩种 → 空数组（条目仍留在聚合里，不会丢） */
+      games: gs,
+      /* 【时效三件套】：期号 / 最近一次抓取时间 / 该期开奖时间 */
+      issue: it.issue || (C.key === TT_KEY ? issueOfTitle(it.title) : ''),
+      seen: new Date(seenMs).toISOString(),
+      drawAt: ex.drawAt ? new Date(ex.drawAt).toISOString() : '',
+      drawGid: ex.gid || '',
+      expireAt: new Date(ex.expireAt).toISOString(),
+      rule: ex.rule,
       author: it.author || '',
       when: it.when || ''
     });
@@ -501,8 +702,10 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   oldList.forEach((it) => push(it, false));
   (Array.isArray(fresh) ? fresh : []).forEach((it) => push(it, true));
 
+  /* 排序：先按 at（最新抓到的在前），再按 expireAt 兜底 */
   const items = [...bucket.values()]
-    .sort((a, b) => Date.parse(b.at) - Date.parse(a.at))
+    .sort((a, b) => (Date.parse(b.at) - Date.parse(a.at)) ||
+      (Date.parse(String(b.expireAt || 0)) - Date.parse(String(a.expireAt || 0))))
     .slice(0, max);
   stat.kept = items.length;
   stat.keepHours = keepHours;
@@ -647,7 +850,14 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条）`);
+      `（丢弃过期 ${stat.dropped} 条 [开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
+      ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条）`);
+    if (C.key === TT_KEY) {
+      const withIssue = items.filter((x) => x.issue).length;
+      const withDraw = items.filter((x) => x.drawAt).length;
+      log(`        时效：认出期号 ${withIssue}/${items.length} 条 · 有开奖时刻 ${withDraw} 条` +
+        `（开奖时刻表来自 ${DRAW.from}）`);
+    }
     anyOk = true;
     rec.ok = true; rec.kept = stat.kept; rec.stat = stat;
     perCat.push(rec);
