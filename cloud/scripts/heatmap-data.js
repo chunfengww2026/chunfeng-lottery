@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-15 05:37
+   生成时间：2026-10-15 18:22
    生成脚本：build-heatmap.mjs
    本次彩种：ssq
    数据来源：history-fallback
@@ -14,20 +14,20 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-15 05:37',
+  updated: '2026-10-15 18:22',
   source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
       issue: '2026118',
       drawDate: '2026-10-15',
-      madeAt: '2026-10-15 05:36',
+      madeAt: '2026-10-15 18:20',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
-      numberPosts: 0,
+      numberPosts: 2,
       note: '晒票样本不足，改用近 30 期开奖号码频率（2026088~2026117）',
-      ocr: { posts: 6, urls: 6, downloaded: 6, downloadFailed: 0, cacheHits: 6, recognized: 0, tickets: 0, secs: 43.9, err: 'OCR 有效票只有 0 张（需 ≥5）' },
+      ocr: { posts: 10, urls: 16, downloaded: 16, downloadFailed: 0, cacheHits: 0, recognized: 1, tickets: 1, secs: 96.4, err: 'OCR 有效票只有 1 张（需 ≥5）' },
       front: { label: '红球', color: 'red', total: 180, items: [{ num: 4, pct: 6.11, count: 11 }, { num: 24, pct: 6.11, count: 11 }, { num: 13, pct: 5, count: 9 }, { num: 14, pct: 5, count: 9 }, { num: 22, pct: 5, count: 9 }, { num: 11, pct: 4.44, count: 8 }, { num: 30, pct: 4.44, count: 8 }, { num: 6, pct: 3.89, count: 7 }, { num: 33, pct: 3.89, count: 7 }, { num: 5, pct: 3.33, count: 6 }, { num: 16, pct: 3.33, count: 6 }, { num: 18, pct: 3.33, count: 6 }, { num: 20, pct: 3.33, count: 6 }, { num: 25, pct: 3.33, count: 6 }, { num: 26, pct: 3.33, count: 6 }, { num: 31, pct: 3.33, count: 6 }, { num: 9, pct: 2.78, count: 5 }, { num: 12, pct: 2.78, count: 5 }, { num: 15, pct: 2.78, count: 5 }, { num: 27, pct: 2.78, count: 5 }, { num: 1, pct: 2.22, count: 4 }, { num: 2, pct: 2.22, count: 4 }, { num: 29, pct: 2.22, count: 4 }, { num: 3, pct: 1.67, count: 3 }, { num: 7, pct: 1.67, count: 3 }, { num: 8, pct: 1.67, count: 3 }, { num: 17, pct: 1.67, count: 3 }, { num: 19, pct: 1.67, count: 3 }, { num: 23, pct: 1.67, count: 3 }, { num: 28, pct: 1.67, count: 3 }, { num: 10, pct: 1.11, count: 2 }, { num: 21, pct: 1.11, count: 2 }, { num: 32, pct: 1.11, count: 2 }] },
       back: { label: '蓝球', color: 'blue', total: 30, items: [{ num: 3, pct: 13.33, count: 4 }, { num: 4, pct: 13.33, count: 4 }, { num: 5, pct: 10, count: 3 }, { num: 11, pct: 10, count: 3 }, { num: 2, pct: 6.67, count: 2 }, { num: 9, pct: 6.67, count: 2 }, { num: 12, pct: 6.67, count: 2 }, { num: 14, pct: 6.67, count: 2 }, { num: 16, pct: 6.67, count: 2 }, { num: 1, pct: 3.33, count: 1 }, { num: 6, pct: 3.33, count: 1 }, { num: 7, pct: 3.33, count: 1 }, { num: 8, pct: 3.33, count: 1 }, { num: 10, pct: 3.33, count: 1 }, { num: 15, pct: 3.33, count: 1 }, { num: 13, pct: 0, count: 0 }] }
     }
