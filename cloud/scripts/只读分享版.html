@@ -2962,7 +2962,7 @@ body.ro-mob-open { overflow: hidden; }
 .ro-panel.ro-open { display: block; }
 </style>
 </head>
-<body data-built="2026-10-16 03:51" class="ro-toc-pending">
+<body data-built="2026-10-16 03:52" class="ro-toc-pending">
 <div class="ro-wrap">
 
   <div class="ro-top">
@@ -20092,7 +20092,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-16 03:51
+   生成时间：2026-10-16 02:29
    生成脚本：build-heatmap.mjs
    本次彩种：（无：今天不是开奖日）
    数据来源：none
@@ -20105,13 +20105,13 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-16 03:51',
+  updated: '2026-10-16 02:29',
   source: 'none',
   games: {
   }
 };
 
-/* 本次为 --purge：今天不是任何彩种的开奖日，清空数据，页面上不会出现这张图 */
+/* 今天不是开奖日，未生成任何彩种 */
 
 /* ---------- 开奖日 & 显示时机（客户端与服务端共用同一套判断） ---------- */
 /* 各彩种开奖日（0=周日），与 draw-data.js 的 DRAW_WEEKDAYS 保持一致 */
@@ -48267,13 +48267,19 @@ function renderAlgoTool(container) {
         if (!body) return;                       /* 没抓到正文 → 交给浏览器处理 */
         e.preventDefault();                      /* 不跳锚点、不改 hash */
         var li = a.parentNode;
-        var open = false;
         if (li && li.tagName !== 'LI') li = li.parentNode;   /* 结构变了也不至于报错 */
-        if (li && li.className != null) {
-          open = String(li.className).indexOf('ro-art-open') >= 0;
+        if (!li) return;
+        /* 用 classList 加/摘 —— 不要整串重写 className：
+           那样每次收起都会在 class 里留下一串空格，越点越脏。 */
+        var cls = li.classList;
+        var open = cls ? cls.contains('ro-art-open') : false;
+        if (cls && cls.add && cls.remove) {
+          if (open) cls.remove('ro-art-open'); else cls.add('ro-art-open');
+        } else {                                  /* 老浏览器兜底 */
+          var s = (' ' + String(li.className || '') + ' ').replace(/s+/g, ' ');
           li.className = open
-            ? String(li.className).replace(/s*ro-art-opens*/, ' ').replace(/^s+|s+$/g, ' ')
-            : (String(li.className) + ' ro-art-open').replace(/^s+|s+$/g, '');
+            ? s.replace(' ro-art-open ', ' ').replace(/^ | $/g, '')
+            : (s + 'ro-art-open ').replace(/^ /, '');
         }
         if (!open) reveal(body);
       });
