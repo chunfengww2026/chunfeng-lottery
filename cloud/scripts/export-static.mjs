@@ -1539,8 +1539,10 @@ body {
       搬完再量尺寸，所以隐藏不影响显示。
    ============================================================ */
 @media (max-width: 1365px) {
-  .ro-divider { display: none !important; }
-  .ro-game { display: none !important; }
+  /* ⚠️ 关键：最新开奖 <section class="ro-game" id="ro-latest"> 也在 .ro-game 里！
+     所以要 :not(#ro-latest)，否则会把【最新开奖】一起隐藏掉。
+     用户明确说过：「别误删我的最新开奖 我只是想隐藏下面推送的图」。 */
+  .ro-game:not(#ro-latest) { display: none !important; }
 }
           /* 宽屏：不显示目录 */
 
