@@ -103,7 +103,7 @@ const MAX_PER_GAME = 5;        /* 每彩种最多 5 篇（用户要求每轮 25 
 const MAX_PARAS = 40;          /* 每篇正文最多 40 段 */
 const MAX_CHARS = 4000;        /* 每篇正文最多 4000 字符 */
 
-const DELAY_LIST = 1200;       /* 列表页之间的延时（毫秒） */
+const DELAY_LIST = 1600;       /* 列表页之间的延时（毫秒） */
 const DELAY_BODY = 1500;       /* 详情页之间的延时（毫秒） */
 
 /* 失败退避（写法照 update-football-smart.mjs） */
@@ -298,7 +298,9 @@ function parseList(html, def) {
 /* ============================================================
    网络
    ============================================================ */
-async function getHtml(url, referer) {
+
+/** 一次请求，失败退避重试（源站偶尔 ECONNRESET，重试一次就好） */
+async function getHtmlOnce(url, referer) {
   const r = await fetch(url, {
     headers: {
       'User-Agent': UA,
@@ -310,6 +312,27 @@ async function getHtml(url, referer) {
   });
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return await r.text();
+}
+
+async function getHtml(url, referer, tries) {
+  const n = tries || 3;
+  let last = null;
+  for (let i = 0; i < n; i++) {
+    try { return await getHtmlOnce(url, referer); }
+    catch (e) {
+      last = e;
+      if (i < n - 1) await sleep(1800 * (i + 1));      /* 1.8s → 3.6s */
+    }
+  }
+  throw last;
+}
+
+/** 读上一轮的 articles-data.js（合并兜底用）；读不到返回 null */
+function readPrev() {
+  try {
+    const src = fs.readFileSync(OUT, 'utf8');
+    return new Function(src + '\nreturn ARTICLES_DATA;')();
+  } catch (e) { return null; }
 }
 
 /* ============================================================
