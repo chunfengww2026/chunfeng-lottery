@@ -3953,17 +3953,28 @@ function nextcdText(gid) {
 }
 
 (function () {
-  var els = document.querySelectorAll('[data-nextcd]');
-  if (!els.length) return;
+  /* 【每次重新查询元素，不缓存】
+     原因：页面的「实时渲染」脚本会重画「最新开奖」区块，
+           缓存的元素会被替换掉 → 倒计时变回占位符 "—"。
+           每次 draw 都重新 querySelectorAll 就永远跟得上。 */
   function draw() {
+    var els = document.querySelectorAll('[data-nextcd]');
     for (var i = 0; i < els.length; i++) {
       var gid = els[i].getAttribute('data-nextcd');
       var txt = nextcdText(gid);
       if (txt) els[i].textContent = txt;
     }
   }
-  draw();
-  setInterval(draw, 1000);
+  function boot() {
+    draw();
+    setInterval(draw, 1000);
+    /* 头几秒多画几次：实时渲染可能稍后才把区块重画出来 */
+    setTimeout(draw, 200);
+    setTimeout(draw, 800);
+    setTimeout(draw, 2000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 
 </script>
