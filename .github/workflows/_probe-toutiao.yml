@@ -1,0 +1,31 @@
+name: _probe-toutiao
+# 临时探针：验证 GitHub Actions runner（美国 IP）能不能抓今日头条搜索页。
+# 用完即删（delete 这个文件即可）。
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe Toutiao search page
+        run: |
+          echo "=== 头条搜索页可达性（云端 runner）==="
+          URL="https://www.toutiao.com/search/?keyword=%E6%99%92%E7%A5%A8"
+          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+          CODE=$(curl -s -o /tmp/tt.html -w '%{http_code}' -A "$UA" -H 'Accept-Language: zh-CN,zh;q=0.9' --max-time 40 "$URL")
+          echo "HTTP=$CODE"
+          echo "BYTES=$(wc -c < /tmp/tt.html)"
+          echo "CARDS=$(grep -o 'data-druid-card-data-id' /tmp/tt.html | wc -l)"
+          echo "SIGNED_IMGS=$(grep -o 'x-signature=' /tmp/tt.html | wc -l)"
+          echo "TITLES=$(grep -o '\"title\":\"[^\"]\{6,\}\"' /tmp/tt.html | head -3)"
+      - name: Probe one signed image (no referer)
+        run: |
+          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+          IMG=$(grep -o 'https://p[0-9]*-sign\.toutiaoimg\.com/[^"]*~tplv-[^"]*x-signature=[^"&]*' /tmp/tt.html | head -1)
+          echo "IMG=${IMG:0:120}"
+          if [ -n "$IMG" ]; then
+            curl -s -o /tmp/one.jpg -w 'IMG_HTTP=%{http_code} TYPE=%{content_type} SIZE=%{size_download}\n' -A "$UA" --max-time 30 "$IMG"
+          else
+            echo "IMG_HTTP=none"
+          fi
