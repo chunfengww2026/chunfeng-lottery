@@ -1792,7 +1792,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-16 01:45:00",
-    "minute": 99,
+    "minute": 100,
     "home": {
      "name": "罗迪纳明斯克",
      "score": 2,
@@ -1858,7 +1858,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 87,
+    "minute": 88,
     "home": {
      "name": "甘拿斯亞門多薩(後備)",
      "score": 0,
@@ -1924,7 +1924,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 88,
+    "minute": 89,
     "home": {
      "name": "巴拉卡斯中央后备队",
      "score": 0,
@@ -1990,7 +1990,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 91,
+    "minute": 92,
     "home": {
      "name": "圣洛伦索后备队",
      "score": 1,
@@ -2094,7 +2094,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 02:00:00",
-    "minute": 84,
+    "minute": 85,
     "home": {
      "name": "夏拉祖",
      "score": 2,
@@ -2132,7 +2132,7 @@ const FOOTBALL_DATA = {
      "color": "3A5500"
     },
     "time": "2026-10-16 02:30:00",
-    "minute": 60,
+    "minute": 61,
     "home": {
      "name": "聖瑪利斯",
      "score": 3,
@@ -2740,10 +2740,10 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "布莱顿",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -2974,7 +2974,7 @@ const FOOTBALL_DATA = {
      "color": "666600"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "利比里亚U20",
      "score": 0,
