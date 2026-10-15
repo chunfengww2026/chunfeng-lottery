@@ -1531,7 +1531,7 @@ body {
   .ro-imagepair > .ro-imagewrap { overflow-x: hidden; }
 }
 
-/* 【点击放大】已按用户要求【移除】：用户原话「图片放大器还是不要了」。 */
+/* 【点击放大】已按用户要求【移除】。 */
 
 /* ============================================================
    【自愈】页面确实旧了就整页刷新（兜底）
@@ -1636,7 +1636,6 @@ ${RO_RENDER_SCRIPT}
       var w = wraps[i];
       /* 【点击放大】遮罩层里那个容器有它自己的缩放算法，
          不能被这里的「按容器宽度等比缩小」覆盖掉 */
-      if (w.getAttribute && w.getAttribute('data-ro-lb') === 'wrap') continue;
       var img = w.querySelector('.r-image');
       if (!img) continue;
 
