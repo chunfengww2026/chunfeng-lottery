@@ -890,9 +890,9 @@ const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
 function buildToolsHtml() {
   return `<div class="ro-tools">` +
     `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
-    `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 可收起</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
+    `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 点击查看</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
     `<a class="ro-tool ro-tool-live" href="#ro-live">` +
-    `<b>选号直播</b><em data-tip="1">直播与回放 · 可收起</em></a>` +
+    `<b>选号直播</b><em data-tip="1">直播与回放 · 点击查看</em></a>` +
     `</div>`;
 }
 
@@ -2597,7 +2597,7 @@ body.ro-mob-open { overflow: hidden; }
             if (tipEl && !tipEl.getAttribute('data-orig')) {
               tipEl.setAttribute('data-orig', tipEl.textContent);
             }
-            if (tipEl) tipEl.textContent = String(tipEl.getAttribute('data-orig') || '').replace('可收起', '点击收起');
+            if (tipEl) tipEl.textContent = String(tipEl.getAttribute('data-orig') || '').replace('点击查看', '点击收起');
           } catch (e) { /* 忽略 */ }
           try { history.replaceState(null, '', href); } catch (err) { /* 忽略 */ }
           try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
