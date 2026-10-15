@@ -4492,7 +4492,12 @@ ${RO_RENDER_SCRIPT}
     function pick(game) {
       var shown = 0;
       for (var i = 0; i < pics.length; i++) {
-        var keys = String(pics[i].getAttribute('data-ro-xysp-games') || '').split(/\s+/);
+        /* ⚠️ 这里不能用 /\s+/ —— 这段脚本是写在【模板字符串】里的，
+           一个反斜杠会被模板字符串吃掉，页面里会变成 /s+/（拿 "s" 当分隔符），
+           筛选就全错（实测踩过：点「双色球」可见 0 张）。
+           所以改成不含反斜杠的写法：按空格切；连续空格只会产生空串，
+           空串跟任何 key 都不相等，不影响筛选结果。 */
+        var keys = String(pics[i].getAttribute('data-ro-xysp-games') || '').split(' ');
         var ok = false;
         if (game === 'all') ok = true;
         else { for (var k = 0; k < keys.length; k++) { if (keys[k] === game) { ok = true; break; } } }
