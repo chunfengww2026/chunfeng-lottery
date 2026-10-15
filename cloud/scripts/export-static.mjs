@@ -3425,6 +3425,83 @@ html.is-owner #owner-badge { display: block; }
    ⚠️ 这条必须存在，否则区块永远打不开 —— 之前误把它写进了 JS 注释里。
    放在 @supports 外面：即使浏览器不认识 :target，点一下也能展开。 */
 .ro-panel.ro-open { display: block; }
+
+/* ============================================================
+   __COLOR_UNIFY__ 配色统一（用户要求「网页颜色 色系帮我协调一点」）
+   ------------------------------------------------------------
+   只改【颜色】，结构 / 文字 / 功能 / 交互一个都不动。
+   做法：整套色板收成「一个主色 + 一个强调色 + 三级灰」，
+   「同一语义 = 同一个值」，层次靠亮度差，不靠色相差。
+   ⚠️ 这一段放在样式表【最后】：同优先级时后者胜，不用堆 !important。
+   色板：
+     页面底 #0f1115 · 卡片底 #161a21 · 内嵌底 #12151d
+     边框 常规 #262d3a · 轻微 #1e2430
+     主文字 #e8eaed · 次文字 #98a1b2 · 弱文字 #6b7488
+     主色（绿）#47e0a0 · 强调色（蓝）#6ea8fe
+     警示 红 #f0575c · 注意 黄 #f0b429 · 时间（倒计时）金 #e8c877
+   ============================================================ */
+:root {
+  --ro-bg: #0f1115;
+  --ro-card: #161a21;
+  --ro-sunken: #12151d;
+  --ro-line: #262d3a;
+  --ro-line-soft: #1e2430;
+  --ro-fg: #e8eaed;
+  --ro-fg2: #98a1b2;
+  --ro-fg3: #6b7488;
+  --ro-ok: #47e0a0;
+  --ro-link: #6ea8fe;
+  --ro-warn: #f0b429;
+  --ro-danger: #f0575c;
+  --ro-time: #e8c877;
+}
+/* ---- 背景三层 ---- */
+body, .ro-wrap { background: var(--ro-bg); }
+.ro-status, .ro-xysp, .ro-aipick, .ro-panel, .ro-tool, .ro-imgtoc-wrap {
+  background: var(--ro-card);
+  border-color: var(--ro-line);
+}
+.ro-status.ok { background: rgba(71, 224, 160, .07); border-color: rgba(71, 224, 160, .3); }
+.ro-status.warn { background: rgba(240, 180, 41, .08); border-color: rgba(240, 180, 41, .32); }
+.ro-aipick-out, .ro-aipick-card, .ro-aipick-in, .ro-mob-view, .ro-kjh-item {
+  background: var(--ro-sunken);
+  border-color: var(--ro-line-soft);
+}
+.ro-xysp-tab, .ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-srcbtn,
+.ro-aipick-segbtn, .ro-aipick-btn, .ro-aipick-seg, .ro-aipick-pick {
+  background: var(--ro-card);
+  border-color: var(--ro-line);
+}
+.ro-aipick-seg { background: var(--ro-bg); }
+.ro-xysp-pic { border-color: var(--ro-line-soft); }
+/* ---- 文字三级灰（同语义同色） ---- */
+.ro-xysp-h2, .ro-aipick-h2, .ro-art-title, .ro-imgtoc-title, .ro-panel-title,
+.ro-gamehead h2, .ro-divider span, .ro-tool b, .ro-kjh-name, .ro-disclaimer h3,
+.ro-status .ro-st-head { color: var(--ro-fg); }
+.ro-art-body p { color: var(--ro-fg); }
+.ro-xysp-sub, .ro-aipick-sub, .ro-art-sub, .ro-meta, .ro-imgtoc-sub, .ro-panel-sub,
+.ro-tool em, .ro-live-txt, .ro-kjh-nums, .ro-st-time, .ro-foot { color: var(--ro-fg2); }
+.ro-xysp-note, .ro-aipick-note, .ro-aipick-selfnote, .ro-aipick-empty, .ro-aipick-more,
+.ro-aipick-idx, .ro-aipick-calc-sep, .ro-disclaimer p, .ro-status .ro-st-reason,
+.ro-status .ro-st-hint, .ro-live-meta, .ro-live-see, .ro-live-name, .ro-live-game,
+.ro-panel-none, .ro-kjh-issue, .ro-xysp-cap i, .ro-xysp-empty { color: var(--ro-fg3); }
+/* ---- 主色（绿）/ 强调色（蓝）：只留这两种彩色 ---- */
+.ro-status.ok .ro-st-head, .ro-aipick-pcount.full, .ro-aipick-calc-money { color: var(--ro-ok); }
+.ro-aipick-kl8tab.on, .ro-aipick-tab.on { background: linear-gradient(180deg, #4ce3a6, #2fbe86); }
+.ro-tool-live b, .ro-live-link:hover .ro-live-txt, .ro-aipick-arrow,
+.ro-aipick-sum, .ro-aipick-sumline, .ro-aipick-calc-num, .ro-aipick-plabel,
+.ro-art-link { color: var(--ro-link); }
+.ro-aipick-seg .on, .ro-aipick-btn.on, .ro-aipick-pick.blue.on {
+  background: linear-gradient(180deg, #6ea8fe, #3f7ce8);
+}
+.ro-aipick-pick.on { background: linear-gradient(180deg, #f0575c, #cf3b40); }
+.ro-aipick-ball { color: var(--ro-danger); }
+.ro-aipick-ball.blue { color: var(--ro-link); }
+.ro-aipick-pick.blue.on { border-color: transparent; }
+/* 时间（倒计时）统一金色 —— 只给时间 */
+#__NEXT_CD__, #__NEXT_CD2__, #__ART_CD__ { color: var(--ro-time) !important; }
+/* 警示 */
+.ro-aipick-warn, .ro-aipick-calc-tip { color: var(--ro-warn); }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
