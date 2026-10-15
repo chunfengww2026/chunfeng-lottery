@@ -2701,8 +2701,21 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
         domain = recs.length ? recs : null;
       }
       const domSet = domain ? new Set(domain) : null;
+      /* 该字段「不能撞的号」：自己的池（或该位推荐）+ 图上所有推荐 / 定位推荐 / 胆拖 */
+      const ban = new Set(domain || []);
+      consUniq(roleKeys('rec').concat(roleKeys('posrec'))
+        .reduce((a, m) => a.concat(numsOfKey(m)), []))
+        .concat(danTuoNums)
+        .forEach((n) => ban.add(n));
+      /* 【硬性条件配套】福彩3D / 排列3 / 排列5前三位：定位推荐被约束成
+         「两两不重复」（占掉 9 个号），杀号又必须「既不撞池子、也不撞任何一位推荐」
+         —— 能挑的号必然凑不满 3 个。这时候宁缺毋滥：只给挑得到的号，
+         绝不允许为了凑满 3 个去撞定位推荐（那就是自相矛盾的页面）。
+         其它彩种（七星彩每位杀号等）保持原样：最后仍允许用池外号兜底。 */
+      const STRICT = (gameId === 'fc3d' || gameId === 'pl3' || gameId === 'pl5');
       const badNow = cur.length !== want
         || (domSet && cur.some((n) => domSet.has(n)))
+        || (STRICT && cur.some((n) => ban.has(n)))
         || cur.some((n) => n < from || n > to);
       if (!badNow) return;
 
@@ -2716,7 +2729,7 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
       /* ① 先保留原算法（按位杀 / 池内共识度最低）里「本来就合法」的号，
             这样七星彩每位杀号仍然各有各的号，不会全变成同一串；
          ② 不够再用「不在任何推荐/胆拖里」的池外号；
-         ③ 再不够就用池外最冷的号。 */
+         ③ 再不够就用池外最冷的号（福彩3D/排列3/排列5 不再走 ③：宁缺毋滥）。 */
       let algo = [];
       try {
         if (role === 'poskill' && typeof positionKill === 'function') {
@@ -2725,17 +2738,6 @@ function enforceConsistency(gameId, areaKey, out, imageKey) {
           algo = autoKillNumbers(gameId, areaKey, want, from, to, HIST_PERIODS) || [];
         }
       } catch (e) { algo = []; }
-      const ban = new Set(domain || []);
-      consUniq(roleKeys('rec').concat(roleKeys('posrec'))
-        .reduce((a, m) => a.concat(numsOfKey(m)), []))
-        .concat(danTuoNums)
-        .forEach((n) => ban.add(n));
-      /* 【硬性条件配套】福彩3D / 排列3 / 排列5前三位 的定位推荐被约束成
-         「两两不重复」（占掉 9 个号），杀号又必须「既不撞池子、也不撞任何一位推荐」
-         —— 能挑的号必然凑不满 3 个。这时候宁缺毋滥：只给挑得到的号，
-         绝不允许为了凑满 3 个去撞定位推荐（那就是自相矛盾的页面）。
-         其它彩种（七星彩每位杀号等）保持原样：最后仍允许用池外号兜底。 */
-      const STRICT = (gameId === 'fc3d' || gameId === 'pl3' || gameId === 'pl5');
       const okNum = (n) => n >= from && n <= to
         && (!domSet || !domSet.has(n)) && (!STRICT || !ban.has(n));
       const algoOK = algo.filter(okNum);
