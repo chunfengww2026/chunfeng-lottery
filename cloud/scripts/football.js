@@ -1317,7 +1317,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 89,
+    "minute": 92,
     "home": {
      "name": "约森独立队女足",
      "score": 1,
@@ -1383,7 +1383,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 88,
+    "minute": 91,
     "home": {
      "name": "哥連泰斯SP(女)",
      "score": 2,
@@ -1521,10 +1521,10 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "科万英佩尔",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 11
     },
