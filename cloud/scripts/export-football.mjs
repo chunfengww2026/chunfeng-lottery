@@ -942,10 +942,16 @@ html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); poin
 html.locked #mask { display: flex; }
 #mask .mask-s { margin-top: 12px; font-size: 13px; color: #8b93a1; line-height: 1.9; }
 #watermark { position: fixed; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none;
-  z-index: 100000; overflow: hidden; opacity: .08; }
+  z-index: 99997; overflow: hidden; opacity: .07; }
 .wm-item { position: absolute; font-size: 14px; white-space: nowrap; font-weight: 700;
   color: #e8eaed; transform: rotate(-30deg); }
 html.locked #watermark { opacity: .3; }
+/* owner（自己）：隐藏水印 + 右上角小徽章 */
+html.is-owner #watermark { display: none; }
+.owner-tag { display: none; position: fixed; right: 10px; top: 10px; z-index: 100002;
+  font-size: 11.5px; font-weight: 700; color: #f0b429; background: rgba(240,180,41,0.12);
+  border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px; }
+html.is-owner .owner-tag { display: inline-flex; }
 /* 【豁免区】locked 时压住遮罩，保持清晰可点 */
 html.locked .m-calc, html.locked .m-sec { filter: none !important;
   pointer-events: auto !important; position: relative; z-index: 99999; }
@@ -1080,8 +1086,10 @@ ${nav}
   <div class="mask-s">切回本页后自动恢复（约 4 秒）。<br>
     「模拟计算」和三个分段的展开/收起不受影响，可以继续用。</div>
 </div>
-<!-- 【防截图 · 水印】固定文字（不读任何本地存储），按窗口尺寸平铺 -->
+<!-- 【防截图 · 水印】固定文字（不读任何浏览器本地存储），按窗口尺寸平铺 -->
 <div id="watermark" aria-hidden="true"></div>
+<!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示 -->
+<div id="ownerTag" class="owner-tag">👑 管理员模式 · 可截图</div>
 
 <!-- __FB_COUNTDOWN__ 距离下次更新倒数（纯前端，每半小时整点 :00 / :30 为目标）
      免费：只是浏览器里的 setInterval，不请求任何接口、不调 AI。
@@ -1619,18 +1627,82 @@ ${nav}
   update();   /* 初始：一个都没勾 → 0 关 0 注 ¥0.00（刷新后也是这样，不做任何持久化） */
 })();
 </script>
-<!-- __FB_LOCK_JS__ 防截图锁定（失焦 / 切窗口 / 切标签 / 截屏按键 → 保护内容模糊 + 遮罩）
-     · 只做前端拦截，【不能真正禁止截图】，只是提高门槛（详见给用户的说明）
-     · 【不写任何本地存储】：水印文字是固定字符串，权限状态只在内存里
+<!-- __FB_LOCK_JS__ 防截图锁定（最终版）
+     · 【谁是主人 owner】先看协议、再看公网 IP：
+         ① location.protocol === 'file:' → 本机 App 打开的（一定是自己，立刻放行，不联网）
+         ② 网页打开的 → 多源查公网 IP（ipify → ipinfo → ip.sb → ifconfig，每源 4 秒超时），
+            只有等于 OWNER_IP 才算自己
+       ⚠️ 判定结果只放在内存里，【不写任何浏览器本地存储】；每次打开重新查一遍
+     · 【owner】只加 html.is-owner（右上角出现「👑 管理员模式 · 可截图」徽章），不拦任何操作
+     · 【别人】失焦 / 切窗口 / 切标签 / 截屏按键 → 保护内容模糊 + 全屏遮罩（4 秒后自动解锁）
      · 豁免区：.m-calc（模拟计算）和 .m-sec（三个分段）—— locked 时压在遮罩之上照常可用
-     · lock() 后 4 秒自动解锁，不会把人永久挡在外面 -->
+     · ⚠️ 默认就当「别人」处理（保护先开着），等 IP 查完确认是自己再解除 ——
+        避免刚打开那几百毫秒完全没有保护；IP 全查不到时也按「别人」处理（安全降级）
+     · ⚠️ 这只是提高门槛，【不能真正禁止截图】（详见给用户的说明） -->
 <script>
 (function () {
-  var LOCK_MS = 4000;                    /* lock 之后最多挡这么久，自动恢复 */
+  var OWNER_IP = '120.231.138.19';   /* 主人公网 IP（家宽 IP 会变，所以还有 file: 那条兜底） */
+  var LOCK_MS = 4000;                /* lock 之后最多挡这么久，自动恢复 */
+  var IP_TIME_OUT = 4000;            /* 每个 IP 源最多等这么久 */
   var userTag = '春风十里送大奖 · 仅供观看';   /* 固定文字：不读任何浏览器本地存储 */
+  var ownerMode = false;             /* 默认按「别人」处理 → 先保护 */
   var timer = null;
 
+  /* ---------- ① 多源查公网 IP（一个源不灵就换下一个） ---------- */
+  var IP_SOURCES = [
+    { url: 'https://api.ipify.org?format=json', pick: function (j) { return j && j.ip; } },
+    { url: 'https://ipinfo.io/json', pick: function (j) { return j && j.ip; } },
+    { url: 'https://api.ip.sb/jsonip', pick: function (j) { return j && j.ip; } },
+    { url: 'https://ifconfig.me/all.json', pick: function (j) { return j && (j.ip_addr || j.ip); } }
+  ];
+  function isIPv4(s) { return /^\d+\.\d+\.\d+\.\d+$/.test(String(s == null ? '' : s).trim()); }
+
+  function getVisitorIP() {
+    var i = 0;
+    function next() {
+      if (i >= IP_SOURCES.length) return Promise.resolve(null);
+      var s = IP_SOURCES[i++];
+      return new Promise(function (resolve) {
+        var ctl = null, t = null;
+        try { if (typeof AbortController !== 'undefined') ctl = new AbortController(); } catch (e) { ctl = null; }
+        if (ctl && ctl.signal) t = setTimeout(function () { try { ctl.abort(); } catch (e) {} }, IP_TIME_OUT);
+        var opt = { cache: 'no-store' };
+        if (ctl) opt.signal = ctl.signal;
+        Promise.resolve()
+          .then(function () { return fetch(s.url, opt); })
+          .then(function (res) {
+            if (!res || !res.ok) throw new Error('HTTP ' + (res && res.status));
+            return res.json();
+          })
+          .then(function (j) {
+            if (t) clearTimeout(t);
+            var ip = s.pick(j);
+            if (isIPv4(ip)) resolve(String(ip).trim());
+            else resolve(next());                      /* 这个源没给出 IP → 换下一个 */
+          })
+          .catch(function () {
+            if (t) clearTimeout(t);
+            resolve(next());                           /* 连不上 / 超时 → 换下一个 */
+          });
+      });
+    }
+    return next();
+  }
+
+  /* ---------- ② owner 判定：file: 协议优先，其次公网 IP ---------- */
+  function isOwner() {
+    try {
+      if (typeof location !== 'undefined' && location && location.protocol === 'file:') {
+        return Promise.resolve(true);                  /* 本机 App 打开 → 一定是自己 */
+      }
+    } catch (e) { /* 读不到协议 → 当网页处理 */ }
+    return getVisitorIP().then(function (ip) { return !!(ip && ip === OWNER_IP); });
+  }
+
+  function guard() { return !ownerMode; }              /* true = 需要保护（别人） */
+
   function lock() {
+    if (!guard()) return;
     document.documentElement.classList.add('locked');
     if (timer) clearTimeout(timer);
     timer = setTimeout(unlock, LOCK_MS);
@@ -1639,6 +1711,12 @@ ${nav}
     document.documentElement.classList.remove('locked');
     if (timer) { clearTimeout(timer); timer = null; }
   }
+  function markOwner() {
+    ownerMode = true;
+    unlock();                                          /* 自己人：立刻解除锁定 */
+    document.documentElement.classList.add('is-owner');
+  }
+
   /* 清空剪贴板（能清就清，清不了就算了） */
   function clearClip() {
     try {
@@ -1655,9 +1733,10 @@ ${nav}
     return !!(ae && (ae.tagName === 'INPUT' || ae.tagName === 'SELECT' || ae.tagName === 'TEXTAREA'));
   }
 
-  window.addEventListener('blur', function () { if (!typing()) lock(); });
-  window.addEventListener('focus', unlock);
+  window.addEventListener('blur', function () { if (guard() && !typing()) lock(); });
+  window.addEventListener('focus', function () { if (guard()) unlock(); });
   document.addEventListener('visibilitychange', function () {
+    if (!guard()) return;
     if (document.hidden) lock(); else unlock();
   });
 
@@ -1668,38 +1747,39 @@ ${nav}
     return '';
   }
   function isShotKey(e, k) {
-    if (k === 'PrintScreen') return true;                       /* PrintScreen */
-    if (k === '3' || k === '4' || k === '5') {                   /* macOS Cmd+Shift+3/4/5 */
-      if (e.metaKey && e.shiftKey) return true;
-    }
-    if (k === 'S' || k === 's') {                                /* Win+Shift+S */
-      if (e.shiftKey) return true;
-    }
+    if (k === 'PrintScreen') return true;                        /* PrintScreen */
+    if ((k === '3' || k === '4' || k === '5') && e.metaKey && e.shiftKey) return true;   /* macOS */
+    if ((k === 'S' || k === 's') && e.shiftKey) return true;      /* Win+Shift+S */
     return false;
   }
   function isDevKey(e, k) {
     if (k === 'F12') return true;
-    if (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c')) return true;
+    if (e.ctrlKey && e.shiftKey && 'IiJjCc'.indexOf(k) >= 0) return true;
     if (e.ctrlKey && (k === 'u' || k === 'U')) return true;      /* 查看源码 */
     return false;
   }
 
   window.addEventListener('keydown', function (e) {
+    if (!guard()) return;
     var k = keyOf(e);
     if (isShotKey(e, k)) { lock(); clearClip(); }
     if (isDevKey(e, k)) { if (e.preventDefault) e.preventDefault(); lock(); }
   });
   window.addEventListener('keyup', function (e) {
+    if (!guard()) return;
     var k = keyOf(e);
     if (isShotKey(e, k)) { lock(); clearClip(); }
   });
 
-  /* 禁右键 / 禁拖拽 / 禁复制剪切（照用户给的规则） */
+  /* 禁右键 / 禁拖拽 / 禁复制剪切（照用户给的规则；owner 不拦） */
   ['contextmenu', 'dragstart', 'copy', 'cut'].forEach(function (t) {
-    document.addEventListener(t, function (e) { if (e.preventDefault) e.preventDefault(); });
+    document.addEventListener(t, function (e) {
+      if (!guard()) return;
+      if (e.preventDefault) e.preventDefault();
+    });
   });
 
-/* 水印：按窗口尺寸平铺，resize 重画（纯字符串拼接，不读任何浏览器本地存储） */
+  /* 水印：按窗口尺寸平铺，resize 重画（纯字符串拼接，不读任何浏览器本地存储） */
   function drawWatermark() {
     var wm = document.getElementById('watermark');
     if (!wm) return;
@@ -1716,6 +1796,13 @@ ${nav}
   }
   drawWatermark();
   window.addEventListener('resize', drawWatermark);
+
+  /* ---------- ③ 查一次身份：是自己就解除保护 + 亮徽章 ---------- */
+  try {
+    isOwner().then(function (own) {
+      if (own) markOwner();
+    }).catch(function () { /* 判定失败 → 保持「别人」的保护状态（安全降级） */ });
+  } catch (e) { /* 同上 */ }
 })();
 </script>
 </body>
