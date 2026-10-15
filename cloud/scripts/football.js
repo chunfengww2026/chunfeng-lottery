@@ -436,6 +436,71 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 581972,
+    "kind": "upcoming",
+    "league": {
+     "name": "阿後備",
+     "color": "5ca39a"
+    },
+    "time": "2026-10-16 06:00:00",
+    "minute": 0,
+    "home": {
+     "name": "博卡青年后备队",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "away": {
+     "name": "費羅卡利爾(後備)",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1.25,
+       "line": "1",
+       "away": 0.82
+      },
+      "live": {
+       "home": 0,
+       "line": "",
+       "away": null
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.88,
+       "under": 0.92
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 1.36,
+       "draw": 5.6,
+       "away": 4.2
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 63.8,
+     "prob": {
+      "home": 63.8,
+      "draw": 15.5,
+      "away": 20.7
+     },
+     "clear": true,
+     "margin": 15.2
+    },
+    "result": null
+   },
+   {
     "gid": 581917,
     "kind": "upcoming",
     "league": {
@@ -1167,8 +1232,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.25",
-       "over": 0.65,
-       "under": 1.05
+       "over": 0.69,
+       "under": 1.01
       },
       "live": {
        "line": "1.25",
@@ -1543,7 +1608,7 @@ const FOOTBALL_DATA = {
      "color": "CC9988"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 85,
+    "minute": 86,
     "home": {
      "name": "西班牙中心",
      "score": 0,
@@ -1552,7 +1617,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "丹纽比奥",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 13
     },
@@ -1589,7 +1654,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 85,
+    "minute": 87,
     "home": {
      "name": "亚特兰大",
      "score": 3,
@@ -1687,10 +1752,10 @@ const FOOTBALL_DATA = {
      "margin": 9.7
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "2 - 1"
     }
    },
    {
@@ -1701,7 +1766,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 85,
+    "minute": 86,
     "home": {
      "name": "圣图尔登",
      "score": 1,
@@ -1885,10 +1950,10 @@ const FOOTBALL_DATA = {
      "margin": 10.3
     },
     "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    },
    {
@@ -1991,7 +2056,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 87,
+    "minute": 88,
     "home": {
      "name": "哥本哈根",
      "score": 3,
@@ -2463,7 +2528,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 87,
+    "minute": 88,
     "home": {
      "name": "霍芬海姆",
      "score": 2,
@@ -2529,7 +2594,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-16 03:00:00",
-    "minute": 86,
+    "minute": 87,
     "home": {
      "name": "伯恩茅斯",
      "score": 2,
@@ -2889,7 +2954,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 04:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "塔勒雷斯(後備)",
      "score": 1,
