@@ -204,7 +204,14 @@ const FROM_ROOT = [
       xysp-data.js 里已有的 games.tt —— 但只要 cloud/scripts/xysp-data.js
       是本机刚同步上去的，头条那 60 条就已经在里面了，页面不会空。
       单独同步它，是为了让「云端本机两条路都断」时头条仍然有数据可合并。 */
-  'xysp-tt-data.js'
+  'xysp-tt-data.js',
+  /* 【竞彩晒票】竞彩实票缓存（build-xysp-tt.mjs 的「竞彩晒票」分类抓的）。
+      ⚠️ 必须同步：竞彩页 足球推荐.html 是云端 export-football.mjs 现场生成的，
+         它直接读这个文件（loadVar('xysp-jc-data.js')）。
+         少了它，云端生成出来的竞彩页里「晒票」区块就是「暂无」，
+         等于把本机刚抓到的竞彩实票冲掉。
+         另外 build-xysp.mjs 也会把它合进 xysp-data.js 的 games.jc（备用）。 */
+  'xysp-jc-data.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
