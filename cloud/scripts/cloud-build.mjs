@@ -1,15 +1,18 @@
 // ============================================================
 //  cloud-build.mjs —— 云端构建（GitHub Actions 里跑）
 //
-//  流程：
-//    1. 抓开奖号码（官方接口）
+//  流程（按班次决定跑哪几步，见下面的 SLOT_PLAN）：
+//    1. 抓开奖号码（多源链：一起彩 / 500 / 17500，官方 403 只作兜底）
 //    2. 抓历史开奖（60 期，8 个彩种）
-//    3. 抓足球赛事 + 比分
-//    4. 抓奖级奖金
-//    5. 读取/初始化推荐号码（保存在 saved-tickets.js）
-//    6. 生成静态网页到 out/
+//    3. 抓足球赛事 + 比分（245qq）+ 竞彩列表/赔率（500.com）
+//    4. 抓奖级奖金 + 专家数据（一起彩）
+//    5. 附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+//    6. 【出号】按算法摇号（纯 JS，在 vm 沙箱里跑，不依赖任何接口）
+//    7. 热力图（开奖日 18:00 出图 / 02:00 与 21:00 清空）
+//    8. 生成静态网页到 out/ + 数据新鲜度守护
+//    9. 清理 72 小时缓存
 //
-//  【重要】不会重摇推荐号码，保护已推送出去的号。
+//  【重要】「缺才补」摇号：本期已经有号码的彩种原样保留，保护已推送出去的号。
 //
 //  用法：node cloud-build.mjs
 // ============================================================
@@ -24,11 +27,19 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+/* 【最新开奖】从 draws.js 取各彩种最新一期开奖，写进 out/tickets.json 的 draws 字段。
+   分享页拿到它就能就地重画顶部「最新开奖」区块（和 export-cloud-tickets.mjs 同一份实现）。 */
+import { drawsFromDrawData } from './scripts/export-draws.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 /* 所有模块（games.js / build-*.mjs 等）都放在 scripts/ 子目录里 */
 const MOD = path.join(ROOT, 'scripts');
 const OUT = path.join(ROOT, 'out');
+
+/* 【本次运行开始的时刻】用来判断「哪些页面是这一班真的重新生成过的」——
+   云端每次都是全新 checkout，只有本次运行里写出来的文件，mtime 才会 >= 这个值。
+   finishOutput() 靠它决定「发布新页面」还是「交给 workflow 从线上拉回兜底」。 */
+const RUN_START_MS = Date.now();
 
 const log = (...a) => console.log(...a);
 
@@ -48,13 +59,56 @@ function run(file, args, maxLines) {
       cwd: MOD, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 900000
     });
     out.split('\n')
-      .filter((l) => /✅|❌|⚠️|写入|期|场|来源|占比|晒票|开奖日/.test(l))
+      .filter((l) => /✅|❌|⚠️|写入|期|场|来源|占比|晒票|开奖日|OCR|票面照片|丢弃/.test(l))
       .slice(0, maxLines || 12)
       .forEach((l) => log('      ' + l.trim()));
     return true;
   } catch (e) {
     log(`  ❌ ${file} 失败：${String(e.message).slice(0, 200)}`);
     return false;
+  }
+}
+
+/* ---------- 跑「可以失败」的子脚本（附属抓取：文章/晒票/开机号/在售场次） ----------
+   【为什么单独一个函数，不并进 run()】
+     · run() 的返回值会进 results[]，任何 false 都会触发「把数据文件全部还原」。
+     · 但附属抓取的退出码 10 表示「本轮没抓到新数据，保留上一次的文件」——
+       这是【正常的容错结果】，不是失败，绝不该因此把开奖数据也一起还原。
+   所以这里：退出码 10 → 视为成功（保留上次）；其它错误 → 只跳过这一步。 */
+function runSoft(file, args) {
+  const fp = path.join(MOD, file);
+  if (!fs.existsSync(fp)) {
+    log(`  ⚠️ 找不到 ${file} → 跳过这一步（不影响后面的步骤）`);
+    return { ok: false, reason: 'missing' };
+  }
+  log(`  ▶ ${file} ${(args || []).join(' ')}`);
+  try {
+    const out = execFileSync(process.execPath, [fp, ...(args || [])], {
+      cwd: MOD, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 600000
+    });
+    out.split('\n')
+      .filter((l) => /✅|❌|⚠️|写入|条|篇|张|场|期|保留|来源|退避/.test(l))
+      .slice(0, 8)
+      .forEach((l) => log('      ' + l.trim()));
+    return { ok: true };
+  } catch (e) {
+    const code = (e && typeof e.status === 'number') ? e.status : null;
+
+    /* 把子进程已经打出来的日志也带出来（最多 10 行），方便定位 */
+    try {
+      String((e && (e.stdout || '')) || '').split('\n')
+        .filter((l) => /✅|❌|⚠️|退避|保留|失败/.test(l))
+        .slice(0, 10)
+        .forEach((l) => log('      ' + l.trim()));
+    } catch (e2) { /* 忽略 */ }
+
+    if (code === 10) {
+      log('  ↩ 退出码 10 = 本轮没抓到新数据 →【保留上一次的数据】，继续跑后面的步骤');
+      return { ok: true, kept: true };
+    }
+    log(`  ⚠️ 失败（${code === null ? '没有退出码' : '退出码 ' + code}）：${String(e.message).slice(0, 160)}`);
+    log('     → 只跳过这一步，后面的步骤照常跑（开奖 / 号码 / 出页面都不受影响）');
+    return { ok: false, code };
   }
 }
 
@@ -244,24 +298,42 @@ function beijingNow() {
    班次（slot）—— 一个 workflow 里挂了好几条 cron，每条干的事不一样
    ------------------------------------------------------------
    北京时间 → 班次类型（UTC = 北京 - 8）：
-     · 02:00（UTC 18:00）  full           全量：抓全部数据 + 强制重摇 8 彩种 + 出图 + 发布
-     · 18:00（UTC 10:00）  heatmap-only   只加热力图：抓晒票出图 + 抓足球；不重摇号、不抓开奖
-     · 21:00（UTC 13:00）  heatmap-off    只去掉热力图：清空热力图数据 + 重新出页面
-     · 21:40（UTC 13:40）  draw-update    更新开奖号码：抓开奖 → 摇下一期 → 出图 → 发布
-     · 足球 10 班次（北京 00/02/04/06/08/12/14/18/20/22 点）
-                          football-only  只抓足球 + 重新出足球页
-                         （其中 02:00 → full、18:00 → heatmap-only）
 
-   【判断方式】cron 表达式 + 实际触发的北京时间 联合判断。
-   第一条 cron 是「一串小时」——同一个表达式在不同小时触发时班次完全不同，
-   所以【不能】拿 cron 字符串做精确比较（这也是它原来会失效的原因）。
+   【密集班次】只看 cron 的形态，不看时刻：
+     · 每 5 分钟（cron 分钟字段是 星号/5）   live-only      只更新比分：1 个请求，没比赛立刻退出
+     · 每 30 分钟（cron 分钟字段是 星号/30） regular        常规：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面
+                                                            + 缺才补摇 + 发布 tickets.json
+   【密集班次为什么要「只看形态」】
+     如果每 30 分钟那一班也按时刻升级成 full / heatmap-only / draw-update，
+     同一分钟就会有两条 cron 同时干同一件重活（抓两遍、号码摇两遍、部署两次）。
+     所以重活只交给下面这些【专用定时 cron】，密集班永远只干自己那份活。
+
+   【定时班次】cron 分钟 + 实际北京时间 联合判断：
+     · 02:00（UTC 18:00）  full           全量：抓全部数据（开奖/历史/足球/竞彩/奖级/专家）
+                                          + 缺才补摇 + 清空热力图 + 清理缓存 + 发布
+     · 18:00（UTC 10:00）  heatmap-only   只加热力图：抓晒票出图 + 抓足球 + 出页面；不摇号、不抓开奖
+     · 21:00（UTC 13:00）  heatmap-off    只去掉热力图：清空热力图数据 + 重新出页面
+     · 21:30 / 21:45（UTC 13:30 / 13:45）
+                           draw-update    更新开奖号码：抓开奖（失败自动重试一次）→ 摇下一期
+                                          → 出页面 → 发布
+                           （两班互为重试：福彩 21:30 前后出号、体彩 21:45 前后出号，
+                             抓不全时下一班 15 分钟后会再抓一遍）
+     · 老式足球整点 cron（北京 00/02/04/06/08/12/14/16/18/20/22 点）
+                           football-only  只抓足球 + 重新出足球页（现在足球由每 30 分钟那班负责，
+                                          这条只是兜底）
+
+   【判断方式】cron 形态 + 实际北京时间 联合判断。
+   【不能】拿 cron 字符串做精确比较（一条 cron 可以是一串小时，
+   同一个表达式在不同小时触发时班次完全不同 —— 这也是它原来会失效的原因）。
    ============================================================ */
-const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:40': 'draw-update' };
-/* 足球的 12 个班次：每 2 小时整点（北京时间） */
+const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:30': 'draw-update', '21:45': 'draw-update' };
+/* 足球的 12 个班次：每 2 小时整点（北京时间）—— 只给「老式定时 cron」兜底用，
+   现在足球由「每 30 分钟常规班」负责，不再依赖这张表。 */
 const FOOTBALL_BJ_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 
 /* GitHub 的定时任务经常会延迟几分钟才真正跑，所以给一点容差
-   （from/to 是相对班次时刻的分钟数；21:00 与 21:40 只差 40 分钟，所以容差必须收紧） */
+   （from/to 是相对班次时刻的分钟数；21:00 / 21:30 / 21:45 三条挨得近，
+    靠「分钟必须在同一条 cron 里」那一关来区分，容差不能太宽） */
 const SLOT_TOLERANCE = {
   'full':         { from: -10, to: 90 },
   'heatmap-only': { from: -10, to: 90 },
@@ -271,32 +343,121 @@ const SLOT_TOLERANCE = {
 
 const SLOT_LABEL = {
   'full': '全量更新（北京 02:00）',
+  'regular': '常规更新（每 30 分钟）',
+  'live-only': '只更新比分（每 5 分钟 · 轻量）',
   'heatmap-only': '只加热力图（北京 18:00）',
   'heatmap-off': '只去掉热力图（北京 21:00）',
-  'draw-update': '更新开奖号码（北京 21:40）',
-  'football-only': '只更新足球（足球 10 班次之一）',
+  'draw-update': '更新开奖号码（北京 21:30 / 21:45）',
+  'football-only': '只更新足球（老式足球定时班次）',
   'auto': '自动 / 手动触发（沿用原来的行为）'
 };
 
-/* 每个班次到底干什么 —— 一张表看清楚，避免再散落在 main() 里 */
+/* 每个班次到底干什么 —— 一张表看清楚，避免再散落在 main() 里
+   ------------------------------------------------------------
+   dataFetch : true        抓开奖 + 历史 + 奖级（全量班）
+               'draws-only' 只抓开奖号码（21:30 / 21:45 开奖班）
+               'auto-guard' 只有开奖数据明显过期（> 20 小时）才抓（常规班兜底）
+               'auto'      走 shouldFetch() 的 12 小时规则
+               false       完全不抓
+   football  : 抓足球比分（245qq）+ 竞彩列表赔率（500.com）
+   extras    : 附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+   liveScores: 只跑 update-football-live.mjs（1 个请求的比分班）
+   roll      : force 强制重摇全部 / fill 缺才补 / skip 不摇
+   heatmap   : build 出图 / purge 清空 / skip 不动 / auto 按时间自动判断
+   cleanup   : 跑 cleanup-cache.mjs（72 小时缓存清理） */
 const SLOT_PLAN = {
-  'full':          { dataFetch: true,         football: true,   roll: 'force', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true  },
-  'heatmap-only':  { dataFetch: false,        football: true,   roll: 'skip',  heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true  },
-  'heatmap-off':   { dataFetch: false,        football: false,  roll: 'skip',  heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false },
-  'draw-update':   { dataFetch: 'draws-only', football: false,  roll: 'fill',  heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true  },
-  'football-only': { dataFetch: 'auto',       football: true,   roll: 'skip',  heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true  },
-  'auto':          { dataFetch: 'auto',       football: 'auto', roll: 'fill',  heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true  }
+  /* 【全量班】抓全部数据 + 缺才补摇 + 清空热力图
+     ⚠️ roll 用 fill 而不是 force：同一分钟会有两条 cron 都落到这一班
+        （每 30 分钟那条 + 专用 0 18 那条），force 会把已经发布出去的号码摇两遍。 */
+  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
+  /* 【常规班】每 30 分钟：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 */
+  'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
+  /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
+  'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, cleanup: false },
+  'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true,  cleanup: false },
+  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
+  'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
+  'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true,  cleanup: false },
+  'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false }
 };
 
-/** 从 cron 表达式里解析出「分钟」和「UTC 小时」集合
- *  '0 0,4,6,10,12,14,16,18,20,22 * * *' → { minute: 0, hours: [0,4,6,10,12,14,16,18,20,22] } */
+/** 解析 cron 的「分钟 / 小时」字段（支持 5、5,10、1-5、星号/步长 三种写法）
+ *  返回排好序的数组；解析不出来返回空数组 */
+function parseCronField(spec, max) {
+  const out = new Set();
+  String(spec || '').split(',').forEach((raw) => {
+    const part = raw.trim();
+    if (!part) return;
+
+    /* 通配符：*  → 整个区间（0..max） */
+    if (part === '*') {
+      for (let v = 0; v <= max; v++) out.add(v);
+      return;
+    }
+
+    /* 星号/步长：星号/30 → 0,30 ；3-15/2 → 3,5,7… */
+    const step = /^(.+?)\/(\d+)$/.exec(part);
+    if (step) {
+      const n = parseInt(step[2], 10);
+      if (!n) return;
+      let lo = 0, hi = max;
+      if (step[1] !== '*') {
+        const r = /^(\d+)-(\d+)$/.exec(step[1]);
+        if (r) { lo = parseInt(r[1], 10); hi = parseInt(r[2], 10); }
+        else {
+          const v = parseInt(step[1], 10);
+          if (isNaN(v)) return;
+          lo = v; hi = max;
+        }
+      }
+      for (let v = lo; v <= hi; v += n) out.add(v);
+      return;
+    }
+
+    /* 区间：1-5 */
+    const range = /^(\d+)-(\d+)$/.exec(part);
+    if (range) {
+      for (let v = +range[1]; v <= +range[2]; v++) out.add(v);
+      return;
+    }
+
+    /* 单个数字 */
+    const one = parseInt(part, 10);
+    if (!isNaN(one)) out.add(one);
+  });
+  return Array.from(out).filter((n) => n >= 0 && n <= max).sort((a, b) => a - b);
+}
+
+/** 从 cron 表达式里解析出「分钟集合」「UTC 小时集合」，并识别两个密集班次
+ *
+ *  '0 0,4,6 * * *'            → minutes=[0]      hours=[0,4,6]  kind='custom'
+ *  星号斜杠30 星号 星号 星号 星号 → minutes=[0,30]   hours=0..23   kind='every30'
+ *  星号斜杠5  星号 星号 星号 星号 → minutes=[0,5..55] hours=0..23  kind='every5'
+ *
+ *  【为什么必须能解析 星号/30 和 星号/5】这两条 cron 的分钟字段不是纯数字，
+ *  旧版用 parseInt('星号/30') 会得到 NaN → 整条 cron 被判成「读不懂」→
+ *  班次全部退化成 auto，等于定时任务全废。这是最容易踩的坑，必须支持。
+ *
+ *  kind 的用途（把「密集班次」和「定时班次」分开）：
+ *    · every5  → 轻量班：只更新比分（1 个请求，没比赛就立刻退出）
+ *    · every30 → 常规班：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面
+ *    · custom  → 定时班：按时刻判断（02:00 全量 / 18:00 热力图 / 21:00 去热力图 /
+ *                21:30 与 21:45 开奖）—— 重活只由这些专用 cron 干，避免重复。 */
 function parseCron(expr) {
   const f = String(expr || '').trim().split(/\s+/);
   if (f.length < 5) return null;
-  const minute = parseInt(f[0], 10);
-  const hours = f[1].split(',').map((s) => parseInt(s, 10)).filter((n) => !isNaN(n));
-  if (isNaN(minute) || !hours.length) return null;
-  return { minute, hours };
+
+  const minutes = parseCronField(f[0], 59);
+  const hours = parseCronField(f[1], 23);
+  if (!minutes.length || !hours.length) return null;
+
+  const allHours = hours.length === 24;
+  const isStep = (n) => minutes.length === Math.ceil(60 / n) && minutes.every((v, i) => v === i * n);
+  let kind = 'custom';
+  if (allHours && isStep(5)) kind = 'every5';
+  else if (allHours && isStep(30)) kind = 'every30';
+
+  return { minute: minutes[0], minutes, hours, kind };
 }
 
 /**
@@ -326,6 +487,30 @@ function resolveSlot() {
   /* cron 用的是 UTC；换算成北京小时后要确认这一班确实在这条 cron 里 */
   const utcHour = (b.hh - 8 + 24) % 24;
   const hourOk = cron.hours.indexOf(utcHour) >= 0;
+  const minuteOk = cron.minutes.indexOf(b.mm) >= 0;
+
+  /* ---------- 【密集班次 1】每 5 分钟：只更新比分（最轻） ----------
+     一次请求；没有进行中的比赛就立刻退出（脚本自己判断）。
+     绝不做全量：不做 heatmap、不摇号、不抓开奖、不抓文章/晒票。 */
+  if (cron.kind === 'every5') {
+    return {
+      type: 'live-only',
+      why: `cron「${cronStr}」（每 5 分钟）+ 北京 ${b.hhmm} → 只更新比分（轻量班）`,
+      bj: b, cron: cronStr, hourOk, minuteOk
+    };
+  }
+
+  /* ---------- 【密集班次 2】每 30 分钟：常规班 ----------
+     比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 + 缺才补摇 + 发布。
+     全量 / 热力图 / 开奖这些重活由专用定时 cron 负责，
+     这里【不再】按时刻升级，否则同一分钟两条 cron 会把同一件重活干两遍。 */
+  if (cron.kind === 'every30') {
+    return {
+      type: 'regular',
+      why: `cron「${cronStr}」（每 30 分钟）+ 北京 ${b.hhmm} → 常规班（重活交给专用定时 cron）`,
+      bj: b, cron: cronStr, hourOk, minuteOk
+    };
+  }
 
   const bjMin = b.hh * 60 + b.mm;
   let best = null;
@@ -334,9 +519,10 @@ function resolveSlot() {
     const seg = at.split(':');
     const atH = +seg[0];
     const atM = +seg[1];
-    /* 【分钟必须先对上】21:40 那条 cron 的分钟是 40，22:00 那条是 0 ——
-       不靠分钟区分的话，北京 22:00 的足球班次会被误判成 21:40 的「更新开奖」班。 */
-    if (atM !== cron.minute) return;
+    /* 【分钟必须先对上】21:30 那条 cron 的分钟是 30、21:45 那条是 45、
+       21:00 那条是 0 —— 不靠分钟区分的话，
+       北京 21:30 会被误判成 21:00 的「去热力图」班，21:45 又会被判成 21:30。 */
+    if (cron.minutes.indexOf(atM) < 0) return;
     const atMin = atH * 60 + atM;
     const d = bjMin - atMin;
     const tol = SLOT_TOLERANCE[type] || { from: -10, to: 90 };
@@ -395,14 +581,21 @@ function planForSlot(type, b) {
 
 /** 计划表 → 一行中文，写进日志，方便一眼确认这一班要干嘛 */
 function describePlan(plan) {
+  if (plan.liveScores) {
+    return '只跑实时比分（1 个请求；没有进行中的比赛就立刻退出）｜不抓开奖/不摇号/不发布 tickets.json'
+      + '｜页面由那个脚本自己按需重出';
+  }
   const bits = [];
-  bits.push(plan.dataFetch === true ? '抓全部数据（开奖+历史+足球+奖级）'
+  bits.push(plan.dataFetch === true ? '抓全部数据（开奖+历史+足球+奖级+专家）'
     : plan.dataFetch === 'draws-only' ? '只抓开奖号码'
+    : plan.dataFetch === 'auto-guard' ? '开奖数据过期（>20 小时）才补抓'
     : plan.dataFetch === false ? '不抓开奖/历史（本班次不碰）'
     : '开奖/历史按 12 小时规则决定');
-  if (plan.football === true) bits.push('抓足球 ✅');
+  if (plan.football === true) bits.push('抓足球 + 竞彩 ✅');
   else if (plan.football === false) bits.push('不抓足球');
   else bits.push('足球按 12 小时规则决定');
+  if (plan.extras) bits.push('抓文章/晒票/开机号/在售场次 ✅');
+  else bits.push('不抓文章/晒票/开机号');
   bits.push(plan.roll === 'force' ? '强制重摇【全部彩种】'
     : plan.roll === 'fill' ? '号码缺才补摇'
     : '不摇号');
@@ -411,6 +604,7 @@ function describePlan(plan) {
     : plan.heatmap === 'skip' ? '热力图：不动'
     : '热力图：按时间自动判断');
   bits.push(plan.publishTickets ? '发布 tickets.json' : '不发布 tickets.json');
+  if (plan.cleanup) bits.push('清理 72 小时缓存');
   const ex = [];
   if (plan.exportStatic === true) ex.push('彩票页');
   else if (plan.exportStatic === 'auto') ex.push('彩票页(按需)');
@@ -443,6 +637,26 @@ function runHeatmapStep(plan) {
   const script = path.basename(hit);
   const games = Object.keys(CHINA_DRAW_DAYS).filter((g) => CHINA_DRAW_DAYS[g].indexOf(b.dow) >= 0);
   const force = process.argv.includes('--heatmap-force');
+
+  /* 【OCR 前置检查】热力图的主口径是「票面照片 OCR」。
+     引擎（tesseract.js + WASM）和语言数据都放在 scripts/runtime/ocr/ 下，
+     由本机 sync-cloud.mjs 一起同步过来 —— 云端完全离线可跑。
+     这里只做「在不在」的检查并打日志；缺了也不会中断，
+     build-heatmap.mjs 会自己降级成历史兜底口径。 */
+  const ocrBase = path.join(MOD, 'runtime', 'ocr');
+  const ocrNeed = [
+    ['模块', path.join(MOD, 'ocr-tickets.mjs')],
+    ['引擎', path.join(ocrBase, 'node_modules', 'tesseract.js', 'src', 'index.js')],
+    ['WASM', path.join(ocrBase, 'node_modules', 'tesseract.js-core', 'index.js')],
+    ['模型', path.join(ocrBase, 'tessdata', 'chi_sim.traineddata.gz')]
+  ];
+  const ocrMiss = ocrNeed.filter(([, p]) => !fs.existsSync(p)).map(([n]) => n);
+  if (ocrMiss.length) {
+    log(`  ⚠️ 票面照片 OCR 前置检查：缺 ${ocrMiss.join('、')} → 本次会降级成「近 30 期开奖频率」`);
+    log(`     修复：本机跑一次 cloud\\sync-cloud.mjs 把 runtime/ocr 同步上来`);
+  } else {
+    log('  ✅ 票面照片 OCR 前置检查：模块 + 引擎 + WASM + 语言模型齐备（纯 JS，离线可跑）');
+  }
 
   log(`\n【热力图】${script}（独立于抓取开关，照常执行）`);
   log(`  北京时间 ${b.date} ${b.hhmm} ${WEEK_CN[b.dow]}　班次=${plan.type}（${plan.label}）　热力图动作=${mode}`);
@@ -499,6 +713,126 @@ function checkHistory(required) {
   } catch (e) {
     return { ok: false, missing: required, detail: '解析失败：' + e.message };
   }
+}
+
+/* ============================================================
+   【数据新鲜度守护】
+   ------------------------------------------------------------
+   用户最怕的一件事：电脑长期不开，网页【悄悄】变旧了还不知道。
+   做法：直接读每个数据文件【自己写在里面的】更新时间字段（北京时间字符串），
+   再和「现在」比 —— 超过预期就算「可能未更新」：
+     · 构建日志里 ❌ / ⚠️ 明着报警（同时给 Actions 一条注解）
+     · 网页顶部加一条醒目提示条（新元素，绝不碰原有倒计时和状态条）
+
+   【为什么不用文件的修改时间】
+     GitHub Actions 每次都是全新 checkout，所有文件的 mtime 都被刷成
+     「刚刚」—— mtime 在云端完全不可信。数据文件里自带的 updated 字段
+     是跟着内容走的，commit 回来也还在，才是可靠的依据。
+   ============================================================ */
+const FRESHNESS = [
+  { file: 'draws.js',         label: '开奖号码',     maxH: 30, crit: true  },
+  { file: 'history.js',       label: '历史开奖',     maxH: 30, crit: true  },
+  { file: 'prize-data.js',    label: '奖级奖金',     maxH: 30, crit: false },
+  { file: 'football.js',      label: '足球比分',     maxH: 4,  crit: false },
+  { file: 'jc-data.js',       label: '竞彩赔率',     maxH: 4,  crit: false },
+  { file: 'articles-data.js', label: '文章参考',     maxH: 4,  crit: false },
+  { file: 'xysp-data.js',     label: '晒票栏',       maxH: 4,  crit: false },
+  { file: 'kjh-data.js',      label: '开机号/直播',  maxH: 30, crit: false },
+  { file: 'experts-data.js',  label: '专家数据',     maxH: 30, crit: false },
+  { file: 'jc-official.js',   label: '体彩在售场次', maxH: 26, crit: false,
+    note: '体彩官网在美国 IP 被拒（HTTP 567），云端抓不到，只能沿用本机同步过来的值' }
+];
+
+/** 把「2026-10-16 02:33(:09)」这样的北京时间字符串转成时间戳（和服务器时区无关） */
+function parseBeijingStamp(s) {
+  const m = /(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?/.exec(String(s || ''));
+  if (!m) return null;
+  return Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - 8, +m[5], +(m[6] || 0));
+}
+
+/** 从数据文件里抠出更新时间：优先 "updated" 字段，退而求其次找「更新时间/生成时间：」 */
+function readDataStamp(file) {
+  const p = path.join(MOD, file);
+  if (!fs.existsSync(p)) return { stamp: '', missing: true };
+  let head = '';
+  try {
+    head = fs.readFileSync(p, 'utf8').slice(0, 4000);
+  } catch (e) {
+    return { stamp: '', missing: false };
+  }
+  const m1 = /"updated"\s*:\s*"([^"]+)"/.exec(head);
+  if (m1) return { stamp: m1[1], missing: false };
+  const m2 = /(?:更新时间|生成时间)\s*[:：]\s*([0-9]{4}-[0-9]{2}-[0-9]{2}[ T][0-9]{2}:[0-9]{2})/.exec(head);
+  if (m2) return { stamp: m2[1], missing: false };
+  return { stamp: '', missing: false };
+}
+
+/** 逐项体检，返回 [{file,label,maxH,crit,stamp,ageH,stale,missing}] */
+function checkFreshness() {
+  const now = Date.now();
+  return FRESHNESS.map((it) => {
+    const r = readDataStamp(it.file);
+    const t = parseBeijingStamp(r.stamp);
+    const ageH = t === null ? null : (now - t) / 3600000;
+    return Object.assign({}, it, r, { ageH, stale: (ageH === null) || (ageH > it.maxH) });
+  });
+}
+
+/** 体检结果 → 日志（❌/⚠️ 明着报警）+ Actions 注解 */
+function reportFreshness(rows) {
+  log('\n【数据新鲜度守护】每个数据文件自己的更新时间 vs 现在');
+  rows.forEach((r) => {
+    const ageTxt = r.ageH === null
+      ? `读不到时间戳${r.stamp ? '（' + r.stamp + '）' : ''}`
+      : `${r.ageH.toFixed(1)} 小时前（${r.stamp}）`;
+    if (r.stale) {
+      log(`  ${r.crit ? '❌' : '⚠️'} ${r.label}：最后更新 ${ageTxt}　预期 ≤ ${r.maxH} 小时`);
+      if (r.note) log(`      说明：${r.note}`);
+      /* Actions 界面上也会出现一条醒目注解 */
+      console.log(`::${r.crit ? 'error' : 'warning'}::【数据可能未更新】${r.label}：最后更新 ${r.stamp || '未知'}，已超过预期 ${r.maxH} 小时`);
+    } else {
+      log(`  ✅ ${r.label}：${ageTxt}`);
+    }
+  });
+  const stale = rows.filter((r) => r.stale);
+  const crit = stale.filter((r) => r.crit);
+  log(stale.length
+    ? `  结论：${crit.length ? '❌' : '⚠️'} ${stale.length} 项数据可能未更新（${stale.map((r) => r.label).join('、')}）`
+      + ' → 网页顶部会有醒目提示条'
+    : '  结论：✅ 全部数据都在预期时间内（网页顶部会显示绿色的"云端自动更新正常"）');
+  return { stale: stale.length, crit: crit.length };
+}
+
+/** 把提示条插进网页（新元素，独立 style/id，和原有倒计时/状态条完全无关） */
+function injectFreshnessBanner(html, rows) {
+  const b = beijingNow();
+  const stale = rows.filter((r) => r.stale);
+  const crit = stale.filter((r) => r.crit);
+  const cls = crit.length ? 'bad' : (stale.length ? 'warn' : 'ok');
+  const head = stale.length
+    ? (crit.length ? '❌ 数据可能未更新' : '⚠️ 部分数据可能未更新')
+    : '✅ 云端自动更新正常';
+  const detail = stale.length
+    ? stale.slice(0, 4).map((r) =>
+        `${r.label} 最后更新 ${r.stamp || '未知'}（已 ${r.ageH === null ? '?' : r.ageH.toFixed(1)} 小时）`).join('　·　')
+      + (stale.length > 4 ? `　·　另有 ${stale.length - 4} 项` : '')
+    : `所有数据都在预期时间内　构建于 ${b.date} ${b.hhmm}`;
+
+  const style = '<style id="roFreshGuardStyle">'
+    + '.ro-fresh-guard{font:12px/1.6 -apple-system,"Microsoft YaHei",Arial,sans-serif;'
+    + 'padding:7px 12px;text-align:center;letter-spacing:.2px;background:#15321f;color:#bfe9d2;'
+    + 'border-bottom:1px solid #1f4a2e}'
+    + '.ro-fresh-guard.warn{background:#4a3410;color:#ffe6b0;border-bottom-color:#7a5a1a}'
+    + '.ro-fresh-guard.bad{background:#4a1414;color:#ffc9c9;border-bottom-color:#7a1a1a}'
+    + '.ro-fresh-guard b{color:#fff;font-weight:700}'
+    + '</style>';
+  const bar = `<div class="ro-fresh-guard ${cls}" id="roFreshGuard"><b>${head}</b>　${detail}</div>`;
+
+  let out = String(html);
+  if (out.indexOf('id="roFreshGuard"') >= 0) return out;   /* 已经有了就不重复插 */
+  out = out.replace('</head>', style + '</head>');
+  out = out.replace(/<body([^>]*)>/, `<body$1>${bar}`);
+  return out;
 }
 
 /* ---------- 把沙箱里的存档写回 saved-tickets.js ---------- */
@@ -588,17 +922,75 @@ function main() {
   log(`  现在：北京 ${slot.bj.date} ${slot.bj.hhmm} ${WEEK_CN[slot.bj.dow]}`);
   log(`  这一班要做：${describePlan(plan)}`);
 
+  /* ============================================================
+     【每 5 分钟那一班】只更新比分 —— 最轻的一班
+     ------------------------------------------------------------
+     只有 1 个请求（245qq 的「进行中」列表）：
+       · 没有进行中的比赛 → 脚本自己立刻退出（不重写、不出页面、不同步）
+       · 有比赛 → 只把比分/比赛时间写回 football.js，然后按需重出页面
+     ⚠️ 用的是 --cloud-light：跳过本机同步、跳过晒票抓取、跳过 tickets 导出
+        （晒票和 tickets 由每 30 分钟那一班负责，这里绝不重复抓）。
+     ============================================================ */
+  if (plan.liveScores) {
+    log('\n【实时比分】本班次只更新比分（轻量班：不抓开奖、不摇号、不动号码）');
+    if (process.argv.includes('--dry-run')) {
+      log('\n【--dry-run】这一班的完整步骤：');
+      log('  ✅ 会跑  【1】实时比分（update-football-live.mjs --cloud-light）：1 个请求');
+      log('  ⏭  跳过  没有进行中的比赛 / 比分没变化 → 脚本自己退出，不重出页面、不部署');
+      log('  ✅ 会跑  【2】数据新鲜度守护（体检 + 网页顶部提示条）');
+      log('  ✅ 会跑  【3】整理输出到 out/ → 交给 workflow 部署');
+      log('\n  班次类型：live-only');
+      return;
+    }
+    const liveFp = path.join(MOD, 'update-football-live.mjs');
+    if (!fs.existsSync(liveFp)) {
+      log('  ⚠️ 找不到 update-football-live.mjs → 本班次什么都不做（不影响网站）');
+    } else {
+      let liveOut = '';
+      try {
+        liveOut = execFileSync(process.execPath, [liveFp, '--cloud-light'], {
+          cwd: MOD, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 480000
+        });
+      } catch (e) {
+        liveOut = String((e && (e.stdout || '')) || '');
+        log(`  ⚠️ 实时比分脚本退出异常（不影响网站，下一次 5 分钟班次会再来）：${String(e.message).slice(0, 140)}`);
+      }
+      String(liveOut).split('\n')
+        .filter((l) => /✅|❌|⚠️|⚽|📝|💤|⏸|⏭|🔒|🛑|↩/.test(l))
+        .slice(0, 16)
+        .forEach((l) => log('    ' + l.trim()));
+    }
+    /* 页面已经由那个脚本按需重出（没有变化就不重出，省一次部署）——
+       这里只负责把产物整理到 out/ 并加上新鲜度提示条 */
+    const freshRows = checkFreshness();
+    reportFreshness(freshRows);
+    finishOutput(freshRows);
+    return;
+  }
+
   const decision = shouldFetch();
   const histBefore = checkHistory(ALL_GAMES);
 
   /* 这一班抓什么：
        dataFetch = true         → 抓开奖 + 历史 + 奖级（全量班）
-       dataFetch = 'draws-only' → 只抓开奖号码（21:40 开奖班）
+       dataFetch = 'draws-only' → 只抓开奖号码（21:30 / 21:45 开奖班）
+       dataFetch = 'auto-guard' → 只有开奖数据明显过期（> 20 小时）才补抓（常规班兜底）
        dataFetch = false        → 完全不抓（18:00 热力图班 / 21:00 去热力图班）
        dataFetch = 'auto'       → 走原来 shouldFetch() 的 12 小时规则 */
   let doDraws, doHistory, doPrizes;
   if (plan.dataFetch === true) { doDraws = true; doHistory = true; doPrizes = true; }
   else if (plan.dataFetch === 'draws-only') { doDraws = true; doHistory = false; doPrizes = false; }
+  else if (plan.dataFetch === 'auto-guard') {
+    /* 【兜底保护】常规班（每 30 分钟）本来不抓开奖 ——
+       但万一是「电脑关了一个月 + 21:30/21:45 那两班也被 GitHub 跳过了」，
+       开奖数据就会一直旧着。所以这里加一道保险：
+       开奖数据已经超过 20 小时没更新 → 本班顺手补抓一次。 */
+    const dRow = checkFreshness().filter((r) => r.file === 'draws.js')[0];
+    doDraws = !!(dRow && dRow.stale && dRow.ageH !== null && dRow.ageH > 20);
+    doHistory = false; doPrizes = false;
+    log(`  🛡  开奖数据兜底检查：draws.js ${dRow && dRow.ageH !== null ? dRow.ageH.toFixed(1) + ' 小时前更新' : '读不到时间戳'}`
+      + ` → ${doDraws ? '已过期，本班顺手补抓一次' : '还新鲜，本班不抓'}`);
+  }
   else if (plan.dataFetch === 'auto') { doDraws = decision.fetch; doHistory = decision.fetch; doPrizes = decision.fetch; }
   else { doDraws = false; doHistory = false; doPrizes = false; }
 
@@ -628,27 +1020,30 @@ function main() {
   if (process.argv.includes('--dry-run')) {
     const steps = [];
     const mark = (ok, text) => steps.push(`  ${ok ? '✅ 会跑  ' : '⏭  跳过 '} ${text}`);
-    mark(doDraws, '【1/4】抓开奖号码（build-draws.mjs）');
-    mark(doHistory, '【2/4】抓历史开奖 60 期（build-history.mjs）');
-    mark(doFootball, '【3/4】抓足球 + 竞彩（build-football.mjs / build-jc.mjs）');
-    mark(doPrizes, '【4/4】抓奖级奖金（build-prizes.mjs）');
+    mark(doDraws, '【1】抓开奖号码（build-draws.mjs，多源链：一起彩/500/17500）');
+    mark(doHistory, '【2】抓历史开奖 60 期（build-history.mjs）');
+    mark(doFootball, '【3】抓足球比分 + 竞彩赔率（build-football.mjs / build-jc.mjs）');
+    mark(doPrizes, '【4】抓奖级奖金（build-prizes.mjs）+ 专家数据（build-experts.mjs）');
+    mark(plan.extras, '【5】附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次');
     steps.push(plan.roll === 'skip'
-      ? '  ⏭  跳过  【推荐号码】不重摇（号码原样保留）'
+      ? '  ⏭  跳过  【6】推荐号码：不重摇（号码原样保留）'
       : plan.roll === 'force'
-        ? '  ✅ 会跑  【推荐号码】强制重摇【全部彩种】'
-        : '  ✅ 会跑  【推荐号码】缺才补摇（已有号码的彩种不动）');
-    mark(plan.publishTickets, '发布 out/tickets.json（分享页准实时数据源）');
+        ? '  ✅ 会跑  【6】推荐号码：强制重摇【全部彩种】'
+        : '  ✅ 会跑  【6】推荐号码：缺才补摇（已有号码的彩种不动）');
+    mark(plan.publishTickets, '【7】发布 out/tickets.json（分享页准实时数据源）');
     steps.push(plan.heatmap === 'skip'
-      ? '  ⏭  跳过  【热力图】本班次不动热力图'
+      ? '  ⏭  跳过  【8】热力图：本班次不动'
       : plan.heatmap === 'build'
-        ? '  ✅ 会跑  【热力图】抓当日晒票 → 出图'
+        ? '  ✅ 会跑  【8】热力图：抓当日晒票 → 出图'
         : plan.heatmap === 'purge'
-          ? '  ✅ 会跑  【热力图】清空热力图数据'
-          : '  ✅ 会跑  【热力图】按时间自动判断（18:00 之后出图）');
+          ? '  ✅ 会跑  【8】热力图：清空热力图数据'
+          : '  ✅ 会跑  【8】热力图：按时间自动判断（18:00 之后出图）');
     mark(plan.exportStatic === true || (plan.exportStatic === 'auto' && (doDraws || doHistory || doPrizes)),
-      '生成彩票页（export-static.mjs）→ 只读分享版.html');
-    mark(plan.exportFootball, '生成足球页（export-football.mjs）→ 足球推荐.html');
-    steps.push('  ✅ 会跑  整理输出到 out/（index.html / football.html / tickets.json）→ 交给 workflow 部署到网页');
+      '【9】生成彩票页（export-static.mjs）→ 只读分享版.html');
+    mark(plan.exportFootball, '【10】生成足球页（export-football.mjs）→ 足球推荐.html');
+    steps.push('  ✅ 会跑  【11】数据新鲜度守护：体检每个数据文件的更新时间 + 网页顶部提示条 + 日志报警');
+    mark(plan.cleanup, '【12】清理 72 小时缓存（cleanup-cache.mjs）');
+    steps.push('  ✅ 会跑  【13】整理输出到 out/（index.html / football.html / tickets.json）→ 交给 workflow 部署到网页');
 
     log('\n【--dry-run】这一班的完整步骤：');
     steps.forEach((s) => log(s));
@@ -663,7 +1058,9 @@ function main() {
        GitHub 服务器在美国，抓中国彩票接口会被拒绝
        （福彩 403 / 体彩 567），抓失败会用坏数据覆盖好数据。
        所以抓完检查，坏了就还原。 */
-    const DATA_FILES = ['history.js', 'draws.js', 'football.js', 'jc-data.js', 'prize-data.js'];
+    /* jc-history.js 也一起备份：build-jc.mjs 每次都会往里追加已完场记录，
+       抓取失败还原时不能把累积下来的历史一起丢掉。 */
+    const DATA_FILES = ['history.js', 'draws.js', 'football.js', 'jc-data.js', 'jc-history.js', 'prize-data.js'];
     const backup = {};
     DATA_FILES.forEach((f) => {
       const p = path.join(MOD, f);
@@ -674,32 +1071,46 @@ function main() {
     const results = [];
 
     if (doDraws) {
-      log('\n【1/4】抓开奖号码');
-      results.push(run('build-draws.mjs', []));
+      log('\n【1】抓开奖号码');
+      let drawsOk = run('build-draws.mjs', []);
+      /* 【重试到抓全】开奖是整条链上最要紧的数据：
+         失败（多源都没抓到 / 号码校验不过）就立刻再试一次。
+         另外 21:30 与 21:45 两班本身就是互为重试的第二、第三次机会。 */
+      if (!drawsOk) {
+        log('  ↩ 第 1 次没抓到 → 立刻重试一次（官方 403 / 体彩 567 时自动走一起彩/500/17500）');
+        drawsOk = run('build-draws.mjs', []);
+        if (drawsOk) log('  ✅ 重试成功');
+      }
+      results.push(drawsOk);
     } else {
-      log('\n【1/4】抓开奖号码 —— 本班次跳过');
+      log('\n【1】抓开奖号码 —— 本班次跳过');
     }
 
     if (doHistory) {
-      log('\n【2/4】抓历史开奖（60 期）');
+      log('\n【2】抓历史开奖（60 期）');
       results.push(run('build-history.mjs', ['60']));
     } else {
-      log('\n【2/4】抓历史开奖 —— 本班次跳过');
+      log('\n【2】抓历史开奖 —— 本班次跳过');
     }
 
     if (doFootball) {
-      log('\n【3/4】抓足球 + 竞彩');
+      log('\n【3】抓足球比分 + 竞彩赔率');
       results.push(run('build-football.mjs', []));
       results.push(run('build-jc.mjs', []));
     } else {
-      log('\n【3/4】抓足球 + 竞彩 —— 本班次跳过');
+      log('\n【3】抓足球 + 竞彩 —— 本班次跳过');
     }
 
     if (doPrizes) {
-      log('\n【4/4】抓奖级');
+      log('\n【4】抓奖级');
       results.push(run('build-prizes.mjs', []));
+    /* 【专家数据】出号的组合逻辑靠它（抓一起彩的三胆/杀号/共识百分比）。
+       以前云端没这一步 → experts-data.js 一直是旧的 → "按用户的方法出号"不生效。
+       云端从美国访问 yiqicai.com 实测可达；抓不到也不影响（沿用旧的 experts-data.js）。 */
+    try { run('build-experts.mjs', []); }
+    catch (e) { log('  ⚠️ 专家数据抓取失败（沿用上一次的 experts-data.js）：' + e.message); }
     } else {
-      log('\n【4/4】抓奖级 —— 本班次跳过');
+      log('\n【4】抓奖级 + 专家数据 —— 本班次跳过');
     }
 
     /* 检查抓取结果，坏了就还原 */
@@ -728,8 +1139,48 @@ function main() {
       log(`\n  ✅ 历史数据完整：${histAfter.detail}`);
     }
   } else {
-    log('\n【1-4/4】本班次不需要抓取');
+    log('\n【1-4】本班次不需要抓取');
     log(`  ✅ 历史数据：${histBefore.detail}`);
+  }
+
+  /* ============================================================
+     【5】附属抓取 —— 文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次
+     ------------------------------------------------------------
+     这四样是本机「文章-每30分钟 / 开机补抓 / 每日更新」负责的，
+     云端实测（GitHub 美国 IP）也能访问，所以全部搬到云端自己做：
+       · build-articles.mjs   一起彩专题页 → 文章列表 + 正文（网页「文章参考」）
+       · build-xysp.mjs       一起彩晒票 → 图片外链（网页「晒票栏」）
+       · build-kjh.mjs        一起彩 → 开机号 + 选号直播
+       · build-jc-count.mjs   体彩官网在售场次 → jc-official.js
+                              ⚠️ 体彩官网对美国 IP 返回 567，抓不到时
+                                 脚本自己保留上一次的值（退出码 10），页面退回兜底算法
+
+     【容错原则】任何一个失败都只跳过它自己：
+       这里【不】把结果并进 results[]，所以绝不会触发「开奖数据被还原」。
+       退出码 10（没抓到新数据 / 退避中）算正常，保留上一次的数据。
+     ============================================================ */
+  if (plan.extras) {
+    log('\n【5】附属抓取：文章正文 / 晒票图片 / 开机号+直播 / 体彩在售场次');
+    const extraRows = [
+      ['build-articles.mjs', [], '文章参考'],
+      ['build-xysp.mjs', [], '晒票栏'],
+      ['build-kjh.mjs', [], '开机号+直播'],
+      ['build-jc-count.mjs', [], '体彩在售场次']
+    ].map(([file, args, label]) => {
+      const r = runSoft(file, args);
+      return `${label}=${r.ok ? (r.kept ? '保留上次' : '✅') : '❌ 跳过'}`;
+    });
+    log('  附属抓取小结：' + extraRows.join('　'));
+  } else {
+    log('\n【5】附属抓取（文章/晒票/开机号/在售场次）—— 本班次跳过');
+  }
+
+  /* 【12】清理 72 小时缓存（用户要求：抓取缓存只保留 72 小时）
+     放在抓取之后、出页面之前 —— 清掉的都是已经用不到的旧文件。
+     --dry 只报告不删；这里真删。失败不影响后续任何步骤。 */
+  if (plan.cleanup) {
+    log('\n【12】清理 72 小时缓存（cleanup-cache.mjs，KEEP_HOURS=72）');
+    runSoft('cleanup-cache.mjs', []);
   }
 
   /* ============================================================
@@ -868,19 +1319,52 @@ function main() {
     }
   }
 
-  /* 4. 复制到 out/ 并生成入口页 */
+  /* 4. 复制到 out/ + 数据新鲜度守护 + 发布清单 */
+  const freshRows = checkFreshness();
+  reportFreshness(freshRows);
+  finishOutput(freshRows);
+}
+
+/* ---------- 把产物整理到 out/（每个班次最后都要跑） ----------
+   步骤：
+     ① 只读分享版.html → out/index.html ；足球推荐.html → out/football.html
+     ② 注入顶部导航（两个页面互跳）
+     ③ 注入【数据新鲜度】提示条（新元素，不碰原有倒计时 / 状态条）
+     ④ .nojekyll + 发布清单
+   【为什么抽成函数】每 5 分钟那一班（live-only）自己在别处出完页面，
+   最后也要走同一套整理 + 提示条，绝不能有两份实现。 */
+function finishOutput(freshRows) {
   log('\n整理输出到 out/ ...');
   fs.mkdirSync(OUT, { recursive: true });
 
+  /* 【只发布「这一班真的重新生成过」的页面】
+     以前不管有没有重新生成，都无条件把 cloud/scripts/只读分享版.html
+     拷成 out/index.html —— 万一这台构建里 export-static.mjs 失败了，
+     拷过去的就是【上一版旧页面】，网站上会悄悄变旧，而且没人发现。
+
+     现在：只看文件的修改时间有没有落在本次运行开始之后。
+     （云端每次都是全新 checkout，所有文件 mtime = 开始时间；
+       子进程在本次运行里写出来的文件 mtime 一定 >= 开始时间 —— 可靠。）
+       · 是本次生成的 → 正常拷贝 + 发布
+       · 不是（这一班没出这个页面 / 出页面失败）→ 把 out/ 里的旧文件删掉，
+         workflow 那一步会发现 site/ 缺文件，自动从【线上当前那份】拉回来兜底，
+         既不会把旧页面当成新页面发出去，也不会让站点 404。 */
   const pairs = [
     ['只读分享版.html', 'index.html'],
     ['足球推荐.html', 'football.html']
   ];
   pairs.forEach(([src, dst]) => {
     const sp = path.join(MOD, src);
-    if (!fs.existsSync(sp)) { log(`  ⚠️ 缺少 ${src}`); return; }
-    fs.copyFileSync(sp, path.join(OUT, dst));
-    log(`  ✅ ${dst}  ${(fs.statSync(sp).size / 1024).toFixed(1)} KB`);
+    const op = path.join(OUT, dst);
+    const fresh = fs.existsSync(sp) && fs.statSync(sp).mtimeMs >= RUN_START_MS;
+    if (fresh) {
+      fs.copyFileSync(sp, op);
+      log(`  ✅ ${dst}  ${(fs.statSync(op).size / 1024).toFixed(1)} KB（本次重新生成）`);
+      return;
+    }
+    if (fs.existsSync(op)) { try { fs.unlinkSync(op); } catch (e) { /* 忽略 */ } }
+    log(`  ⏭  ${dst}：本班次没有重新生成（${fs.existsSync(sp) ? '文件是上一版的' : '文件不存在'}）`
+      + ' → 不发布旧页面，交给 workflow 从线上拉回当前那份兜底');
   });
 
   /* 顶部导航（两个页面互跳） */
@@ -903,6 +1387,8 @@ function main() {
                    .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '');
     html = html.replace('</head>', nav.split('<div class="site-nav">')[0] + '</head>');
     html = html.replace(/<body([^>]*)>/, `<body$1>${nav.split('</style>')[1]}`);
+    /* 【数据新鲜度提示条】独立元素 + 独立 style，插在导航条之前 */
+    /* html = injectFreshnessBanner(html, freshRows || []); */  /* __NO_FRESH_BANNER__ 用户要求去掉页面横幅 */
     fs.writeFileSync(fp, html, 'utf8');
   }
 
@@ -924,9 +1410,17 @@ function main() {
     log(`  ✅ ${f}  ${(st.size / 1024).toFixed(1)} KB  修改于 ${fmt(st.mtime)}`);
   });
 
+  /* 提示条真的插进去了吗？（自证，避免静默失效） */
+  try {
+    const hp = path.join(OUT, 'index.html');
+    if (fs.existsSync(hp)) {
+      const t = fs.readFileSync(hp, 'utf8');
+      log(`  🔎 数据新鲜度提示条检查：${t.indexOf('id="roFreshGuard"') >= 0 ? '✅ 已在 index.html 顶部' : '❌ 没插进去'}`);
+    }
+  } catch (e) { /* 忽略 */ }
+
   log(`\n════════════════════════════════════════════`);
   log(`  完成 · ${stamp()}`);
-  log(`  班次：${plan.type}（${plan.label}）`);
   log(`  输出目录：${OUT}`);
   log('════════════════════════════════════════════');
 }
@@ -934,7 +1428,9 @@ function main() {
 /* ---------- 发布本期的号码 JSON（out/tickets.json） ----------
    两个用途：
      1. 分享页（out/index.html）启动后拉它 → 拉到新的就地重渲染，
-        不用等云端重新构建整个页面（准实时同步的核心）
+        不用等云端重新构建整个页面（准实时同步的核心）。
+        现在里面还带了 draws（各彩种最新一期开奖）——
+        分享页顶部「最新开奖」区块以前是静态预渲染的，拿到它就能就地更新。
      2. 本机程序 cloud-pull.js 下载它，把云端号码同步回本机
    所以它在【生成网页之前】就要写好：网页渲染失败也不影响号码更新。 */
 function publishTicketsJson() {
@@ -947,16 +1443,28 @@ function publishTicketsJson() {
     vm.runInContext(fs.readFileSync(savedNow, 'utf8') + '\nglobalThis.__S = SAVED_TICKETS;', c2);
     const S = c2.__S || {};
 
+    /* 各彩种最新一期开奖：字段格式与 draws.js 里的完全一致
+       （从同一个 scripts/ 目录取，和生成网页用的是同一份数据） */
+    let draws = {};
+    try {
+      draws = drawsFromDrawData(MOD) || {};
+    } catch (e) {
+      log(`  ⚠️ 读取开奖数据失败（tickets.json 里不带 draws）：${String(e.message).slice(0, 120)}`);
+      draws = {};
+    }
+
     const payload = {
       updated: S.updated || stamp(),
       publishedAt: new Date().toISOString(),
       source: 'cloud',
       note: '云端自动生成的推荐号码，本机程序会自动下载并采用；分享页也会拉它做准实时更新',
-      tickets: S.tickets || {}
+      tickets: S.tickets || {},
+      draws: draws
     };
 
     fs.writeFileSync(path.join(OUT, 'tickets.json'), JSON.stringify(payload), 'utf8');
-    log(`  tickets.json 已发布（${Object.keys(payload.tickets).length} 个彩种，updated=${payload.updated}）`);
+    log(`  tickets.json 已发布（${Object.keys(payload.tickets).length} 个彩种，` +
+        `${Object.keys(draws).length} 个彩种的开奖号码，updated=${payload.updated}）`);
   } catch (e) {
     log(`  发布 tickets.json 失败：${e.message}`);
   }
@@ -996,52 +1504,82 @@ function printSlotTable() {
     if (!c) { log(`  ⚠️ 读不懂这条 cron：${cron}`); return; }
     log('');
     log(`  ┌─ cron: '${cron}'`);
-    log(`  │   UTC 分钟=${W(c.minute)}　UTC 小时=${c.hours.join(',')}`);
+    log(`  │   UTC 分钟=${c.minutes.join(',')}　UTC 小时=${c.hours.join(',')}　班次形态=${c.kind}`);
     log(`  │   ${'UTC 小时'.padEnd(10)}${'北京时间'.padEnd(12)}${'星期'.padEnd(6)}班次类型`);
-    c.hours.slice().sort((a, b) => a - b).forEach((uh) => {
-      const bjH = (uh + 8) % 24;
-      const bjM = c.minute;
-      /* 用真逻辑跑一遍：把「现在」和 cron 都喂给 resolveSlot() */
-      const savedNow = process.env.HEATMAP_NOW;
-      const savedSlot = process.env.HEATMAP_SLOT;
-      process.env.HEATMAP_NOW = `2026-10-20T${W(bjH)}:${W(bjM)}`;
-      process.env.HEATMAP_SLOT = cron;
-      delete process.env.CLOUD_SLOT;
-      let type = '?';
-      try { type = resolveSlot().type; } catch (e) { type = 'ERR:' + e.message; }
-      if (savedNow === undefined) delete process.env.HEATMAP_NOW; else process.env.HEATMAP_NOW = savedNow;
-      if (savedSlot === undefined) delete process.env.HEATMAP_SLOT; else process.env.HEATMAP_SLOT = savedSlot;
+    /* 【密集班次】每 5 分钟 / 每 30 分钟的 cron 覆盖 24 小时 × 全部分钟数，
+       逐小时展开会刷屏 288 行，所以只演示「每个小时里会被触发的分钟」。 */
+    const hoursToShow = c.kind === 'custom' ? c.hours.slice().sort((a, b) => a - b) : [null];
+    const minutesToShow = c.kind === 'custom' ? c.minutes : c.minutes.slice(0, 3);
 
-      const isFb = FOOTBALL.indexOf(bjH) >= 0;
-      const note = SLOT_LABEL[type] ? SLOT_LABEL[type] : type;
-      rows.push({ cron, uh, bjH, bjM, type });
-      log(`  │   ${String(W(uh) + ':00').padEnd(10)}${(W(bjH) + ':' + W(bjM)).padEnd(12)}${''.padEnd(6)}${type}  ← ${note}${isFb ? '  【足球班次】' : ''}`);
+    hoursToShow.forEach((uh) => {
+      minutesToShow.forEach((mm) => {
+        const bjH = uh === null ? null : (uh + 8) % 24;
+        const bjM = mm;
+        const bjTxt = bjH === null
+          ? `每小时 :${W(bjM)}…（共 ${c.minutes.length} 个分钟）`
+          : `${W(bjH)}:${W(bjM)}`;
+        const utcTxt = uh === null ? '每小时' : `${W(uh)}:${W(bjM)}`;
+
+        /* 用真逻辑跑一遍：把「现在」和 cron 都喂给 resolveSlot() */
+        const savedNow = process.env.HEATMAP_NOW;
+        const savedSlot = process.env.HEATMAP_SLOT;
+        if (bjH === null) {
+          /* 密集班次：形态就决定了班次，随便取一个整点时刻演示 */
+          process.env.HEATMAP_NOW = `2026-10-20T${W(12)}:${W(bjM)}`;
+        } else {
+          process.env.HEATMAP_NOW = `2026-10-20T${W(bjH)}:${W(bjM)}`;
+        }
+        process.env.HEATMAP_SLOT = cron;
+        delete process.env.CLOUD_SLOT;
+        let type = '?';
+        try { type = resolveSlot().type; } catch (e) { type = 'ERR:' + e.message; }
+        if (savedNow === undefined) delete process.env.HEATMAP_NOW; else process.env.HEATMAP_NOW = savedNow;
+        if (savedSlot === undefined) delete process.env.HEATMAP_SLOT; else process.env.HEATMAP_SLOT = savedSlot;
+
+        const isFb = bjH !== null && FOOTBALL.indexOf(bjH) >= 0;
+        const note = SLOT_LABEL[type] ? SLOT_LABEL[type] : type;
+        rows.push({ cron, uh: uh === null ? -1 : uh, bjH: bjH === null ? -1 : bjH, bjM, type });
+        log(`  │   ${utcTxt.padEnd(10)}${bjTxt.padEnd(12)}${''.padEnd(6)}${type}  ← ${note}${isFb ? '  【足球班次】' : ''}`);
+      });
     });
+    if (c.kind !== 'custom' && c.minutes.length > 3) log(`  │   …（每分钟都触发，共 ${c.minutes.length} 个分钟）`);
     log('  └─');
   });
 
-  /* 汇总：确认 10 个足球点都在 */
+  /* 汇总：特殊班次（重活）覆盖检查 */
   log('');
-  log('  ── 足球 10 个时间点覆盖检查（北京时间 00/02/04/06/08/12/14/18/20/22）──');
-  const covered = new Set(rows.map((r) => r.bjH));
-  const lines = FOOTBALL_BJ_HOURS.map((h) => {
-    const ok = covered.has(h);
-    const r = rows.filter((x) => x.bjH === h)[0];
-    return `   北京 ${W(h)}:${r ? W(r.bjM) : '??'}  ${ok ? '✅' : '❌ 没有排班'}  ${r ? r.type : ''}`;
-  });
-  lines.forEach((l) => log(l));
-  const miss = FOOTBALL_BJ_HOURS.filter((h) => !covered.has(h));
-  log(`  结论：${miss.length ? '❌ 缺 ' + miss.map((h) => W(h) + ':00').join(', ') : '✅ 10 个足球时间点全部有排班'}`);
-
-  /* 汇总：特殊班次 */
-  log('');
-  log('  ── 特殊班次检查 ──');
+  log('  ── 特殊班次（重活）检查 ──');
   ['full', 'heatmap-only', 'heatmap-off', 'draw-update'].forEach((t) => {
     const hit = rows.filter((r) => r.type === t);
-    log(`   ${t.padEnd(14)} ${hit.length ? '✅ ' + hit.map((r) => `北京 ${W(r.bjH)}:${W(r.bjM)}（UTC ${W(r.uh)}:${W(r.bjM)}）`).join('、') : '❌ 没有'}`);
+    log(`   ${t.padEnd(14)} ${hit.length ? '✅ ' + hit.map((r) => `北京 ${W(r.bjH)}:${W(r.bjM)}`).join('、') : '❌ 没有'}`);
   });
-  const fbOnly = rows.filter((r) => r.type === 'football-only');
-  log(`   ${'football-only'.padEnd(14)} ${fbOnly.length} 班：` + (fbOnly.length ? fbOnly.map((r) => `北京 ${W(r.bjH)}:${W(r.bjM)}`).join('、') : '无'));
+  const dense = rows.filter((r) => r.type === 'regular' || r.type === 'live-only');
+  log(`   ${'regular/live'.padEnd(14)} ✅ 常规班 ${rows.filter((r) => r.type === 'regular').length} 个采样点 · 轻量班 ${rows.filter((r) => r.type === 'live-only').length} 个采样点`);
+  log(`   ${'football-only'.padEnd(14)} ${rows.filter((r) => r.type === 'football-only').length} 个采样点（老式足球 cron 兜底）`);
+
+  /* 汇总：每个班次能覆盖到哪几样数据 —— 直接对应验收清单 */
+  log('');
+  log('  ── 每个班次负责的数据（对验收清单） ──');
+  const order = ['full', 'regular', 'live-only', 'draw-update', 'heatmap-only', 'heatmap-off', 'auto'];
+  order.forEach((t) => {
+    const pl = SLOT_PLAN[t];
+    if (!pl) return;
+    const parts = [];
+    if (pl.dataFetch === true) parts.push('开奖+历史+奖级+专家');
+    else if (pl.dataFetch === 'draws-only') parts.push('开奖');
+    else if (pl.dataFetch === 'auto-guard') parts.push('开奖(过期才补)');
+    else if (pl.dataFetch === 'auto') parts.push('开奖/历史(按 12 小时规则)');
+    if (pl.football === true) parts.push('足球比分+竞彩赔率');
+    if (pl.extras) parts.push('文章+晒票+开机号+在售场次');
+    if (pl.liveScores) parts.push('实时比分(单独脚本)');
+    if (pl.roll !== 'skip') parts.push(pl.roll === 'force' ? '强制重摇全部' : '缺才补摇');
+    if (pl.heatmap !== 'skip') parts.push('热力图:' + pl.heatmap);
+    if (pl.publishTickets) parts.push('tickets.json');
+    if (pl.exportStatic) parts.push('彩票页');
+    if (pl.exportFootball) parts.push('足球页');
+    if (pl.cleanup) parts.push('72 小时缓存清理');
+    log(`   ${t.padEnd(14)} ${parts.join(' + ')}`);
+  });
   log('══════════════════════════════════════════════════════════════════════════════');
 }
 
