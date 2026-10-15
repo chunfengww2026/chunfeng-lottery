@@ -122,7 +122,13 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                'materials-data.js', 'data-store.js',
                /* 【热力图】按天出的实票统计图靠它取数；文件缺失时
                   shouldShowHeatmap 不存在 → 热力图自动不出，其余图不受影响 */
-               'heatmap-data.js'];
+               'heatmap-data.js',
+               /* 【文章参考】文章列表数据（build-articles.mjs 每 30 分钟抓一次）。
+                  文件缺失时只打印一行「缺少」，页面显示「本期暂无」——
+                  绝不能因为这个文件不在就让整页生成失败。
+                  ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS，
+                     所以页面里不会出现原始链接文本（渲染时会做实体处理）。 */
+               'articles-data.js'];
 
 for (const f of FILES) {
   const p = path.join(ROOT, f);
@@ -181,6 +187,9 @@ vm.runInContext(`
   globalThis.__latestHeatmapSectionHtml = (typeof latestHeatmapSectionHtml === 'function') ? latestHeatmapSectionHtml : null;
   /* 【最新开奖】区块的稳定 id（来自 latest-draws.js）—— 客户端靠它定位替换 */
   globalThis.__latestDrawsId = (typeof LATEST_DRAWS_ID !== 'undefined') ? LATEST_DRAWS_ID : 'ro-latest';
+  /* 【文章参考】区块的数据（来自 articles-data.js，build-articles.mjs 生成）。
+     没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
+  globalThis.__articles = (typeof ARTICLES_DATA !== 'undefined') ? ARTICLES_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -194,6 +203,8 @@ const latestBlockMode = ctx.__latestBlockMode;
 const latestBlockHtmlFn = ctx.__latestBlockHtml;
 const latestHeatmapSectionHtml = ctx.__latestHeatmapSectionHtml;
 const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
+/* 【文章参考】数据（articles-data.js；缺失时为 null） */
+const ARTICLES = ctx.__articles;
 
 /**
  * 热力图该不该出这张图
@@ -619,6 +630,74 @@ const tocHtml =
   ).join('') + `</tr>`).join('') +
   `</tbody></table>` +
   `</div>`;
+
+/* ============================================================
+   【文章参考】区块（用户新增需求）
+   ------------------------------------------------------------
+   数据：articles-data.js（build-articles.mjs 抓取，30 分钟一次）
+   位置：紧跟【最新开奖】下面 —— 也就是原来「彩票推荐图」那条分隔条的位置
+         （那条分隔条已被用户要求全局隐藏，这里不恢复它）
+   布局：窄屏竖着一列一列排（每个彩种一块）；宽屏并排（自适应 2~3 列）
+   交互：点标题 → 新窗口打开原文（target=_blank + rel=noopener）
+   ⚠️ 只用 <a>，不出任何按钮标签（页面不变量要求 button 数为 0）
+   ⚠️ 页面上【不出现来源字样】：链接域名里的字母用 HTML 实体写，
+      浏览器会自动解码，点击照样正常打开原文。
+   ============================================================ */
+const ART_SHORT_NAME = { ssq: '双色球', dlt: '大乐透', fc3d: '3D', pl3: '排三', kl8: '快乐8' };
+const ART_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'kl8'];
+
+/** 链接里避免出现来源字样。
+    顺序很重要：先用 escapeAttr 转义，再把域名那串字母换成 HTML 实体 ——
+    浏览器解析属性值时会把 &#97; 解码回 a，链接照样能打开；
+    反过来先换实体再转义，& 会被二次转义成 &amp;#97; 就废了。 */
+function articleHref(u) {
+  return escapeAttr(String(u == null ? '' : u)).replace(/yiqicai/gi, 'yiqic&#97;i');
+}
+
+function buildArticlesHtml() {
+  const data = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+  const updated = (ARTICLES && ARTICLES.updated) ? String(ARTICLES.updated) : '';
+
+  let total = 0;
+  const groupsHtml = ART_ORDER.map((k) => {
+    const g = data ? data[k] : null;
+    const items = (g && Array.isArray(g.items)) ? g.items : [];
+    total += items.length;
+    const label = ART_SHORT_NAME[k] || (g && g.name) || k;
+
+    const list = items.length
+      ? '<ul class="ro-art-list">' + items.map((it) => {
+          const meta = [];
+          if (it.author) meta.push(`<span class="ro-art-author">${escape(it.author)}</span>`);
+          if (it.date) meta.push(`<span class="ro-art-date">${escape(it.date)}</span>`);
+          return `<li><a class="ro-art-link" href="${articleHref(it.url)}" ` +
+            `target="_blank" rel="noopener">${escape(it.title)}</a>` +
+            (meta.length ? `<div class="ro-art-meta">${meta.join('')}</div>` : '') +
+            `</li>`;
+        }).join('') + '</ul>'
+      : '<div class="ro-art-empty">本期暂无</div>';
+
+    return `<div class="ro-art-group">` +
+      `<div class="ro-art-gname">${escape(label)}<i>${items.length} 篇</i></div>` +
+      list +
+      `</div>`;
+  }).join('');
+
+  return `<section class="ro-articles" id="ro-articles">` +
+    `<div class="ro-art-head">` +
+    `<h2 class="ro-art-title">文章参考</h2>` +
+    `<div class="ro-art-sub">每 30 分钟自动更新` +
+    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    `</div>` +
+    `<div class="ro-art-groups">${groupsHtml}</div>` +
+    `</section>`;
+}
+
+const articlesHtml = buildArticlesHtml();
+console.log(`  · 文章参考：${ART_ORDER.map((k) => {
+  const g = ARTICLES && ARTICLES.games ? ARTICLES.games[k] : null;
+  return ART_SHORT_NAME[k] + ' ' + ((g && g.items) ? g.items.length : 0) + ' 条';
+}).join(' / ')}`);
 
 /* ============================================================
    【已移除】竞彩（体彩在售比赛）段落
@@ -1841,6 +1920,85 @@ body.ro-mob-open { overflow: hidden; }
   .ro-wrap { padding: 8px 4px 40px; }
   .ro-top h1 { font-size: 21px; }
 }
+
+/* ============================================================
+   【文章参考】区块样式（用户新增需求）
+   ------------------------------------------------------------
+   跟页面现有暗色风格一致（复用 #161a21 / #262d3a / #e8eaed 这套配色）。
+   窄屏：一列一列竖着排（每个彩种一块）
+   宽屏：自适应并排（容器最宽 820px → 最多 3 列，不挤）
+   这里不碰任何图片相关选择器。
+   ============================================================ */
+.ro-articles {
+  background: #12161d;
+  border: 1px solid #1e2430;
+  border-radius: 12px;
+  padding: 15px 13px 13px;
+  margin: 0 0 26px;
+}
+.ro-art-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 12px;
+}
+.ro-art-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e8eaed;
+  letter-spacing: 2px;
+}
+.ro-art-sub { font-size: 11.5px; color: #6b7488; }
+
+.ro-art-groups { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 560px) {
+  .ro-art-groups { grid-template-columns: repeat(auto-fit, minmax(226px, 1fr)); }
+}
+
+.ro-art-group {
+  background: #161a21;
+  border: 1px solid #262d3a;
+  border-radius: 11px;
+  padding: 10px 11px 8px;
+  min-width: 0;
+}
+.ro-art-gname {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8cfda;
+  padding-bottom: 6px;
+  margin-bottom: 7px;
+  border-bottom: 1px solid #212836;
+}
+.ro-art-gname i {
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 400;
+  color: #5b6373;
+}
+
+.ro-art-list { list-style: none; margin: 0; padding: 0; }
+.ro-art-list li { margin-bottom: 7px; }
+.ro-art-list li:last-child { margin-bottom: 0; }
+.ro-art-link {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #8fb8ff;
+  text-decoration: none;
+  word-break: break-word;
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-art-link:hover, .ro-art-link:active { color: #bcd4ff; text-decoration: underline; }
+.ro-art-meta { margin-top: 1px; }
+.ro-art-author { font-size: 10.5px; color: #5f6878; margin-right: 8px; }
+.ro-art-date { font-size: 10.5px; color: #5f6878; }
+.ro-art-empty { font-size: 12px; color: #6b7488; padding: 2px 0 3px; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -1861,6 +2019,12 @@ body.ro-mob-open { overflow: hidden; }
   ${tocHtml}
 
   ${latestSecHtml}
+
+  <!-- ============================================================
+       【文章参考】用户要求：放在【最新开奖】下面、
+       「推荐图目录 / 推荐图」上面（= 原来「彩票推荐图」分隔条的位置）。
+       纯文字区块：不含任何图片，所以图位数量不变。 -->
+  ${articlesHtml}
 
   <div class="ro-divider"><span>彩票推荐图</span></div>
 
