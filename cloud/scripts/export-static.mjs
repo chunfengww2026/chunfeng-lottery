@@ -857,7 +857,7 @@ function buildArticlesHtml() {
   return `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
-    `<div class="ro-art-sub">每 1 小时自动更新` +
+    `<div class="ro-art-sub">每 30 分钟自动更新` +
     ` · <span id="__ART_CD__">更新倒计时 --:--</span>` +   /* __ART_CD__ 用户要求：改成更新倒计时 */
     `</div>` +
     `</div>` +
@@ -3625,10 +3625,13 @@ ${RO_RENDER_SCRIPT}
   function now8() { var t = new Date(); return new Date(t.getTime() + (t.getTimezoneOffset() * 60000) + (8 * 3600000)); }
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function left() {
+    /* 【改成 30 分钟】用户要求：文章抓取改回每 30 分钟一次，
+       任务在每小时 :16 / :46 跑 → 倒计时目标 = 下一个 :16 或 :46。 */
     var n = now8();
     var t = new Date(n.getTime());
     t.setMinutes(16, 0, 0);
-    if (t.getTime() <= n.getTime()) t = new Date(t.getTime() + 3600000);
+    if (t.getTime() <= n.getTime()) t.setMinutes(46, 0, 0);
+    if (t.getTime() <= n.getTime()) t = new Date(t.getTime() + 3600000 - 1800000);
     return t.getTime() - n.getTime();
   }
   function draw() {
