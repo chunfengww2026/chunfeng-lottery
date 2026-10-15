@@ -94,7 +94,7 @@ import { fileURLToPath } from 'node:url';
 /* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
    （build-xysp-tt.mjs 的抓取主流程有 isDirectRun() 关卡，
      被 import 时不会发请求、不会 exit）。 */
-import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX } from './build-xysp-tt.mjs';
+import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -359,29 +359,40 @@ const oldTotal = oldData && oldData.games
   ? Object.values(oldData.games).reduce((n, g) => n + ((g && g.items) ? g.items.length : 0), 0) : 0;
 const { games, stat } = mergeAndPrune(oldData, freshByGame, now);
 
-/* 3.5 【头条晒票】并进 games.tt
+/* 3.5 【头条晒票 + 竞彩晒票】并进 games.tt / games.jc
    ------------------------------------------------------------
-   数据源是 build-xysp-tt.mjs 写的 xysp-tt-data.js（不是网络）。
-   头条本身抓失败、或者那个文件还不存在时，这里【不会】把 games.tt 清掉：
-   旧的那份原样搬回来（过期和上限照旧生效），页面上的头条晒票不会闪没。
-   ⚠️ 顺序：games.tt 必须在 mergeAndPrune 之后赋值 —— 它的循环只认 GAMES
-      里那 8 个彩种，本来就不会碰 tt。 */
-const ttOldFile = readTtOld(path.join(ROOT, 'xysp-tt-data.js'));
-const ttMerged = mergeTt({ items: (oldData && oldData.games && oldData.games[TT_KEY] &&
-  Array.isArray(oldData.games[TT_KEY].items)) ? oldData.games[TT_KEY].items : [] }, [], now);
-const ttItems = ttMerged.items;
-games[TT_KEY] = { name: TT_NAME, items: ttItems };
-const ttOldCount = (ttOldFile && Array.isArray(ttOldFile.items)) ? ttOldFile.items.length : 0;
-const ttFresh = (ttOldFile && Array.isArray(ttOldFile.items)) ? ttOldFile.items.length : 0;
-if (ttFresh) {
-  /* 把头条缓存里的条目也过一遍同样的规则（72 小时 + 去重 + 上限） */
-  const m2 = mergeTt({ items: ttItems }, ttOldFile.items, now);
-  games[TT_KEY] = { name: TT_NAME, items: m2.items };
-  log(`   头条晒票：缓存 ${ttFresh} 条 → 合并后 ${m2.items.length} 条` +
-    `（丢弃过期 ${m2.stat.dropped} 条 · 去重 ${m2.stat.dupes} 条 · 上限 ${TT_MAX}）`);
-} else {
-  log(`   头条晒票：没有 xysp-tt-data.js` +
-    (ttItems.length ? `（沿用旧数据 ${ttItems.length} 条）` : '，也没有旧数据 → 页面这一栏空着'));
+   数据源是 build-xysp-tt.mjs 写的两个缓存文件（不是网络）：
+     xysp-tt-data.js → games.tt（数字彩晒票，分享页「晒票」栏里挂着）
+     xysp-jc-data.js → games.jc（竞彩晒票，给竞彩页用；分享页不显示它）
+   抓失败、或者缓存文件还不存在时，这里【不会】把 games.tt/jc 清掉：
+   旧的那份原样搬回来（过期和上限照旧生效），页面那一栏不会闪没。
+   ⚠️ 顺序：必须在 mergeAndPrune 之后赋值 —— 它的循环只认 GAMES
+      里那 8 个彩种，本来就不会碰 tt/jc。 */
+const SIDE_CATS = [
+  catByKey(TT_KEY),
+  catByKey(JC_KEY)
+].filter(Boolean);
+
+for (const C of SIDE_CATS) {
+  /* ① 先把 xysp-data.js 里已有的那一份按同样的规则过一遍（过期 + 去重 + 上限） */
+  const prev = (oldData && oldData.games && oldData.games[C.key] &&
+    Array.isArray(oldData.games[C.key].items)) ? oldData.games[C.key].items : [];
+  let items = mergeTt({ items: prev }, [], now, C).items;
+
+  /* ② 再把缓存文件里的条目合进来 */
+  const cacheFile = path.join(ROOT, C.file);
+  const cache = readTtOld(cacheFile, C);
+  const freshN = (cache && Array.isArray(cache.items)) ? cache.items.length : 0;
+  if (freshN) {
+    const m = mergeTt({ items }, cache.items, now, C);
+    items = m.items;
+    log(`   ${C.name}：缓存 ${freshN} 条 → 合并后 ${items.length} 条` +
+      `（丢弃过期 ${m.stat.dropped} 条 · 去重 ${m.stat.dupes} 条 · 上限 ${C.max} · 保留 ${C.keepHours} 小时）`);
+  } else {
+    log(`   ${C.name}：没有 ${C.file}` +
+      (items.length ? `（沿用旧数据 ${items.length} 条）` : '，也没有旧数据 → 页面这一栏空着'));
+  }
+  games[C.key] = { name: C.name, items };
 }
 
 /* 4. 成功 → 写文件 */
@@ -397,7 +408,7 @@ const text =
   `   xysp-data.js —— 「晒票栏」图片数据（自动生成，请勿手动编辑）\n\n` +
   `   由 build-xysp.mjs 生成（每 30 分钟一次）。\n` +
   `   只保留最近 ${KEEP_HOURS} 小时内抓到的条目，每个彩种最多 ${MAX_PER_GAME} 条\n` +
-  `   （头条晒票单独最多 ${TT_MAX} 条，来自 build-xysp-tt.mjs）。\n` +
+  `   （头条晒票最多 ${TT_MAX} 条、竞彩晒票最多 ${JC_MAX} 条，都来自 build-xysp-tt.mjs）。\n` +
   `   图片是【外链】（图床没有防盗链），页面里不存图片本体。\n` +
   `   更新时间：${data.updated}\n` +
   `   ============================================================ */\n\n` +
@@ -407,11 +418,12 @@ fs.writeFileSync(OUT, text, 'utf8');
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
 log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
   `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条）`);
-GAMES.concat([{ key: TT_KEY, name: TT_NAME }]).forEach((g) => {
+GAMES.concat([{ key: TT_KEY, name: TT_NAME }, { key: JC_KEY, name: JC_NAME }]).forEach((g) => {
   const items = (games[g.key] && games[g.key].items) || [];
+  const h = (g.key === JC_KEY) ? JC_KEEP_HOURS : KEEP_HOURS;
   log(`   ${g.name.padEnd(6)} ${String(items.length).padStart(2)} 条` +
-    (items.length ? ` · 例：${items[0].img}` : ` · ⚠️ ${KEEP_HOURS} 小时内没有新的`));
+    (items.length ? ` · 例：${items[0].img}` : ` · ⚠️ ${h} 小时内没有新的`));
 });
-log(`   合计 ${stat.kept + games[TT_KEY].items.length} 条 · 更新时间 ${data.updated}`);
+log(`   合计 ${stat.kept + games[TT_KEY].items.length + games[JC_KEY].items.length} 条 · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
 process.exit(0);

@@ -1,15 +1,28 @@
 /* ============================================================
-   build-xysp-tt.mjs —— 抓【今日头条】的晒票内容，产出 xysp-tt-data.js
+   build-xysp-tt.mjs —— 抓【今日头条】的晒票内容
    ------------------------------------------------------------
-   为什么要有它（用户原话）：
+   产出【两个】缓存文件（同一个源、同一套逻辑，只换关键词）：
+     · xysp-tt-data.js  → 数字彩晒票（双色球/大乐透/3D…）
+                          build-xysp.mjs 合并进 xysp-data.js 的 games.tt
+                          → 只读分享页「晒票」栏
+     · xysp-jc-data.js  → 【竞彩晒票】（足球竞彩实票）
+                          export-football.mjs 直接读它
+                          → 竞彩页 足球推荐.html「晒票」区块
+
+   为什么要有它（用户原话，第一次）：
      「把【今日头条】的晒票内容抓下来，并入 只读分享页现有的「晒票」栏」
+   为什么要加竞彩那一路（用户原话，第二次）：
+     「竞赛页面 也做一个晒票 你去全网抓取晒票的 和抓彩票的程序编码一样」
+     ⇒ "和抓彩票的程序编码一样" = 复用这一整套（抓取/解析/去重/退避/防盗链处理），
+       只换关键词 + 换输出文件 + 换保留窗口。所以这里是【分类驱动】的：
+       CATEGORIES 里加一项就多一路，抓取主流程一行不改。
 
    它【不直接改】xysp-data.js —— 那是 build-xysp.mjs 的文件。
    分工（谁写哪个文件写死，避免两个进程互相覆盖）：
-     · 本文件      → 只写 xysp-tt-data.js（头条专属缓存）
-     · build-xysp.mjs → 唯一写 xysp-data.js 的人；
-                        它跑的时候会 import 本文件里的 mergeTt()，
-                        把 xysp-tt-data.js 合进 xysp-data.js 的 games.tt
+     · 本文件          → 只写 xysp-tt-data.js / xysp-jc-data.js
+     · build-xysp.mjs  → 唯一写 xysp-data.js 的人；
+                         它跑的时候会 import 本文件里的 mergeTt()，
+                         把 xysp-tt-data.js 合进 xysp-data.js 的 games.tt
    ⇒ 两个脚本可以在同一个任务里先后跑，也可以只跑其中一个，都不会把对方写坏。
 
    ── 抓什么（实测 2026-10-16，服务端渲染，用 iPhone UA）
@@ -84,7 +97,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(ROOT, 'xysp-tt-data.js');
 const LOG = path.join(ROOT, '_xysp-tt.log');
 const STATE = path.join(ROOT, '_xysp-tt-backoff.json');
 
@@ -104,11 +116,101 @@ const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/6
       见文件头的「为什么不用 www」。
    ⚠️ 只加【页面真的能返回结果】的关键词，加多了只是白等 1.2s。 */
 const BASE = 'https://so.toutiao.com/search/?dvpf=pc&keyword=';
-const SEARCHES = [
-  { key: 'all', kw: '晒票' },
-  { key: 'ssq', kw: '双色球 晒票' },
-  { key: 'dlt', kw: '大乐透 晒票' }
+
+/* ============================================================
+   【竞彩晒票】第二个分类（用户新需求）
+   ------------------------------------------------------------
+   用户原话：「竞赛页面 也做一个晒票 你去全网抓取晒票的 和抓彩票的程序编码一样」
+   ⇒ 就是【同一套抓取/解析/去重/退避逻辑】，只换关键词 + 换输出文件 + 换保留窗口。
+   页面：竞彩页 足球推荐.html（export-football.mjs 渲染）
+     · 位置：模拟计算区块下面、免责声明上面
+     · 形态：和分享页「晒票」栏一致（<details> 可折叠 + 图片网格 + 点图放大）
+   ============================================================ */
+export const JC_KEY = 'jc';
+export const JC_NAME = '竞彩晒票';
+export const JC_DATA_FILE = 'xysp-jc-data.js';
+export const JC_MAX = 60;
+
+/* ⚠️ 为什么竞彩用【30 天】而不是 72 小时（实测结论，别照抄 tt 的 72h）
+   ------------------------------------------------------------
+   实测（2026-10-16）：5 个竞彩关键词抓下来一共只有 26 张图 / 10 个帖子，
+   而且【没有一个帖子在 72 小时内】：
+       最近的  2026-10-16 04:39（胜负彩 142 期）
+       其次    2026-10-15 13:03
+       再往前  2026-10-09 / 10-08 / 08-28
+       更早    2022-12（世界杯那批「高手晒单」）
+   注意 at 用的是【抓取时间】不是源站发布时间，所以条目一抓进来就"新鲜"；
+   但如果改成按源站发布时间严格卡 72 小时 → 这一栏【永远是空的】。
+   竞彩实票（足球竞彩）本来就不是每天有人晒 —— 所以按用户对
+   "更新慢的彩种不卡 24 小时" 的先例，这里放宽到 30 天，只受 JC_MAX 和
+   去重约束。想改回 72 小时只需改这一个数（JC_KEEP_HOURS）。 */
+export const JC_KEEP_HOURS = 24 * 30;
+
+/* ---- 分类定义：每个分类 = 一批关键词 + 一个输出文件 + 一套保留规则 ----
+   ⚠️ 每个关键词页面之间固定等 GAP_MS（>=1.2s），分类之间也等。 */
+const CATEGORIES = [
+  {
+    key: TT_KEY,
+    name: TT_NAME,
+    file: 'xysp-tt-data.js',
+    constName: 'XYSP_TT_DATA',
+    keepHours: TT_KEEP_HOURS,
+    max: TT_MAX,
+    src: 'tt',
+    gameOf: (title) => gameOfTitle(title),      /* 数字彩：标题里认彩种名 */
+    searches: [
+      { kw: '晒票' },
+      { kw: '双色球 晒票' },
+      { kw: '大乐透 晒票' }
+    ]
+  },
+  {
+    key: JC_KEY,
+    name: JC_NAME,
+    file: JC_DATA_FILE,
+    constName: 'XYSP_JC_DATA',
+    keepHours: JC_KEEP_HOURS,
+    max: JC_MAX,
+    src: 'tt',                                  /* 还是头条这个源，只换关键词 */
+    gameOf: (title) => gameOfJc(title),
+    /* 关键词实测结果（2026-10-16，默认排序）：
+        竞彩晒单      12 条/4 帖（最多）   胜负彩 晒票    6 条/4 帖
+        竞彩 晒票      5 条/4 帖            竞彩 实单      3 条/3 帖
+        竞彩足球 晒票   3 条/2 帖            竞彩 单子      3 条/3 帖
+        足球 实单 晒票   3 条/3 帖            竞彩 二串一     3 条/1 帖
+        足球 彩票 实票   1 条/1 帖
+        ❌ 0 条（已剔除，不再浪费请求）：「竞彩 3串1」「足彩 晒票」
+       加 sort_type=2（按时间）实测【没用】：返回的是同一批 2022 欧冠旧帖。
+       ⇒ 只留下面 5 个覆盖面重叠度最低、实测有结果的词。 */
+    searches: [
+      { kw: '竞彩晒单' },
+      { kw: '竞彩 晒票' },
+      { kw: '胜负彩 晒票' },
+      { kw: '竞彩 实单' },
+      { kw: '竞彩足球 晒票' }
+    ]
+  }
 ];
+export function getCategories() { return CATEGORIES; }
+export function catByKey(k) { return CATEGORIES.find((c) => c.key === k) || null; }
+
+/* 竞彩玩法的具体名称（标题里认得出就用它，认不出就是「竞彩」） */
+const JC_HINTS = [
+  { re: /胜负彩|14 场|十四场/, name: '胜负彩' },
+  { re: /半全场/,              name: '半全场' },
+  { re: /比分/,                name: '比分'   },
+  { re: /进球数|总进球/,       name: '进球数' },
+  { re: /二串一|2 ?串 ?1/,     name: '2串1'  },
+  { re: /三串一|3 ?串 ?1/,     name: '3串1'  },
+  { re: /四串一|4 ?串 ?1/,     name: '4串1'  },
+  { re: /过关|串关/,           name: '过关'   },
+  { re: /胜平负|让球/,         name: '胜平负' }
+];
+function gameOfJc(title) {
+  const t = String(title || '');
+  for (const g of JC_HINTS) if (g.re.test(t)) return g.name;
+  return '竞彩';
+}
 
 const log = (m) => {
   const line = `[${new Date().toLocaleString('zh-CN', { hour12: false })}] ${m}`;
@@ -196,8 +298,13 @@ function gameOfTitle(title) {
    ------------------------------------------------------------
    每条搜索结果 = 一个 type="application/json" 的 <script> 块，内容是被转义的 JSON。
    独立成函数（不碰网络），方便验收脚本拿真 HTML 直接调。
+   @param {string} html
+   @param {string} atIso   抓取时间
+   @param {object} [cat]   分类（决定 src / gameOf / 每帖最多几张）；不传就按 tt 算
    ============================================================ */
-export function parseTtPage(html, atIso) {
+export function parseTtPage(html, atIso, cat) {
+  const C = cat || catByKey(TT_KEY);
+  const gameOf = C.gameOf || ((t) => gameOfTitle(t));
   const items = [];
   /* ⚠️ 只按【卡片数据块】切：data-druid-card-data-id。
      用 "-argus" / id="…" 都切不到（那个是 nonce 的尾巴，见文件头说明）。 */
@@ -252,8 +359,9 @@ export function parseTtPage(html, atIso) {
         title,
         url: link,
         at: atIso,
-        src: 'tt',
-        game: gameOfTitle(title),
+        src: C.src || 'tt',
+        cat: C.key,
+        game: gameOf(title),
         author,
         when
       });
@@ -263,20 +371,24 @@ export function parseTtPage(html, atIso) {
 }
 
 /* ============================================================
-   合并旧数据 + 72 小时过期 + 去重 + 上限
+   合并旧数据 + 过期 + 去重 + 上限
    ------------------------------------------------------------
    规则跟 build-xysp.mjs 的 mergeAndPrune 完全一致：
      · 同一个 img 只留一条，at 保留【最早】那次，字段用最新的
-     · at 早于 72 小时前的丢
-     · 按 at 倒序，砍到 TT_MAX
+     · at 早于 (keepHours) 前的丢      ← 数字彩 72 小时 / 竞彩 30 天
+     · 按 at 倒序，砍到 max
    独立成函数，方便验收脚本拿假数据直接调（72 小时过滤那条测试就靠它）。
-   @param {object|null} oldData   旧 xysp-tt-data.js 的内容
+   @param {object|null} oldData   旧缓存文件的内容
    @param {Array} fresh          本轮新解析到的条目
    @param {number} nowMs
+   @param {object} [cat]         分类（决定 keepHours / max / src）；不传按 tt 算
    @returns {{items: Array, stat: {kept:number,dropped:number,dupes:number,added:number}}}
    ============================================================ */
-export function mergeTt(oldData, fresh, nowMs) {
-  const cutoff = nowMs - TT_KEEP_HOURS * 3600 * 1000;
+export function mergeTt(oldData, fresh, nowMs, cat) {
+  const C = cat || catByKey(TT_KEY);
+  const keepHours = C.keepHours || TT_KEEP_HOURS;
+  const max = C.max || TT_MAX;
+  const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
   const stat = { kept: 0, dropped: 0, dupes: 0, added: 0 };
 
@@ -286,7 +398,7 @@ export function mergeTt(oldData, fresh, nowMs) {
     const at = String(it.at || '');
     const t = Date.parse(at);
     if (!isFinite(t)) return;
-    if (t < cutoff) { stat.dropped++; return; }          /* 超过 72 小时 → 丢 */
+    if (t < cutoff) { stat.dropped++; return; }          /* 超过保留窗口 → 丢 */
     const prev = bucket.get(img);
     if (prev) {
       stat.dupes++;
@@ -307,7 +419,8 @@ export function mergeTt(oldData, fresh, nowMs) {
       title: it.title || '',
       url: it.url || '',
       at,
-      src: 'tt',
+      src: it.src || C.src || 'tt',
+      cat: it.cat || C.key,
       game: it.game || '',
       author: it.author || '',
       when: it.when || ''
@@ -321,33 +434,48 @@ export function mergeTt(oldData, fresh, nowMs) {
 
   const items = [...bucket.values()]
     .sort((a, b) => Date.parse(b.at) - Date.parse(a.at))
-    .slice(0, TT_MAX);
+    .slice(0, max);
   stat.kept = items.length;
+  stat.keepHours = keepHours;
   return { items, stat };
 }
 
-/** 读旧的 xysp-tt-data.js（文件是我们自己写的纯 JSON，直接 JSON.parse） */
-export function readTtOld(file) {
+/** 读旧的缓存文件（文件是我们自己写的纯 JSON，直接 JSON.parse）
+    @param {string} file  文件路径
+    @param {object} [cat] 分类（决定常量名）；不传按 tt 算 */
+export function readTtOld(file, cat) {
+  const C = cat || catByKey(TT_KEY);
   try {
-    const txt = fs.readFileSync(file || OUT, 'utf8');
-    const m = /const XYSP_TT_DATA\s*=\s*(\{[\s\S]*\});/.exec(txt);
+    const txt = fs.readFileSync(file || path.join(ROOT, C.file), 'utf8');
+    const m = new RegExp('const ' + (C.constName || 'XYSP_TT_DATA') + '\\s*=\\s*(\\{[\\s\\S]*\\});').exec(txt);
     if (!m) return null;
     return JSON.parse(m[1]);
   } catch (e) { return null; }
 }
 
-/** 把数据写成 xysp-tt-data.js 的文本（纯函数，方便测试直接比对） */
-export function ttFileText(data) {
+/** 把数据写成缓存文件的文本（纯函数，方便测试直接比对）
+    @param {object} data  {updated, items}
+    @param {object} [cat] 分类（决定文件名 / 常量名 / 保留窗口说明）；不传按 tt 算 */
+export function ttFileText(data, cat) {
+  const C = cat || catByKey(TT_KEY);
+  const isJc = C.key === JC_KEY;
+  const note = isJc
+    ? `   ⚠️ 本文件【只】给竞彩页 足球推荐.html 用（export-football.mjs 读它）。\n` +
+      `      分享页读的是 xysp-data.js（里面 games.tt / games.jc 是 build-xysp.mjs\n` +
+      `      从这两个缓存合并出来的）。\n` +
+      `   ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，\n` +
+      `      按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。\n`
+    : `   ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进\n` +
+      `      xysp-data.js 的 games.tt，页面只读 xysp-data.js。\n`;
   return `/* ============================================================\n` +
-    `   xysp-tt-data.js —— 「头条晒票」数据（自动生成，请勿手动编辑）\n\n` +
+    `   ${C.file} —— 「${C.name}」数据（自动生成，请勿手动编辑）\n\n` +
     `   由 build-xysp-tt.mjs 生成（跟着 30 分钟任务跑）。\n` +
-    `   只保留最近 ${TT_KEEP_HOURS} 小时内抓到的条目，最多 ${TT_MAX} 条。\n` +
-    `   ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进\n` +
-    `      xysp-data.js 的 games.tt，页面只读 xysp-data.js。\n` +
+    `   只保留最近 ${C.keepHours} 小时内抓到的条目，最多 ${C.max} 条。\n` +
+    note +
     `   图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。\n` +
     `   更新时间：${data.updated}\n` +
     `   ============================================================ */\n\n` +
-    `const XYSP_TT_DATA = ${JSON.stringify(data, null, 1)};\n`;
+    `const ${C.constName} = ${JSON.stringify(data, null, 1)};\n`;
 }
 
 /* ============================================================
@@ -380,50 +508,89 @@ export async function runTtFetch() {
   st.runs = (st.runs || 0) + 1;
 
   const roundIso = new Date(now).toISOString();
-  const fresh = [];
-  let httpOk = 0;
+  let httpOk = 0, httpTotal = 0;
   let firstErr = '';
+  let anyOk = false;
+  const perCat = [];
 
-  for (let i = 0; i < SEARCHES.length; i++) {
-    const s = SEARCHES[i];
-    if (i > 0) await sleep(GAP_MS);                  /* 请求间隔 >= 1.2s */
-    const url = BASE + encodeURIComponent(s.kw);
-    try {
-      const r = await fetch(url, {
-        headers: {
-          'User-Agent': UA,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'zh-CN,zh;q=0.9'
-        },
-        /* 云端取 www 时会被 302 到 so.toutiao.com；
-           这里显式跟跳转，免得哪天头条又改了入口就直接 0 条。
-           ⚠️ 不设重定向上限的坑：fetch 默认最多跟 20 跳，够用。 */
-        redirect: 'follow',
-        signal: AbortSignal.timeout(30000)
-      });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const html = await r.text();
-      httpOk++;
-      const got = parseTtPage(html, roundIso);
-      log(`   ${s.kw}：${got.length} 条`);
-      fresh.push(...got);
-    } catch (e) {
-      const msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e).slice(0, 120);
-      if (!firstErr) firstErr = `${s.kw} ${msg}`;
-      log(`   ⚠️ 头条「${s.kw}」抓取失败：${msg}`);
+  /* 分类之间也保持 >=1.2s 的间隔（同一个域名，别连打） */
+  for (let ci = 0; ci < CATEGORIES.length; ci++) {
+    const C = CATEGORIES[ci];
+    const fresh = [];
+    log(`  ── ${C.name}（${C.searches.length} 个关键词 · 保留 ${C.keepHours} 小时 · 上限 ${C.max}）──`);
+
+    for (let i = 0; i < C.searches.length; i++) {
+      const s = C.searches[i];
+      if (i > 0 || ci > 0) await sleep(GAP_MS);       /* 请求间隔 >= 1.2s */
+      httpTotal++;
+      const url = BASE + encodeURIComponent(s.kw);
+      try {
+        const r = await fetch(url, {
+          headers: {
+            'User-Agent': UA,
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh;q=0.9'
+          },
+          /* 云端取 www 时会被 302 到 so.toutiao.com；
+             这里显式跟跳转，免得哪天头条又改了入口就直接 0 条。
+             ⚠️ 不重定向上限的坑：fetch 默认最多跟 20 跳，够用。 */
+          redirect: 'follow',
+          signal: AbortSignal.timeout(30000)
+        });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const html = await r.text();
+        httpOk++;
+        const got = parseTtPage(html, roundIso, C);
+        log(`     ${s.kw}：${got.length} 条`);
+        fresh.push(...got);
+      } catch (e) {
+        const msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e).slice(0, 120);
+        if (!firstErr) firstErr = `${s.kw} ${msg}`;
+        log(`     ⚠️ 「${s.kw}」抓取失败：${msg}`);
+      }
     }
+
+    /* 跨关键词再去一次重（同一条帖子可能多个关键词都命中） */
+    const uniq = new Map();
+    for (const it of fresh) if (!uniq.has(it.img)) uniq.set(it.img, it);
+    const freshList = [...uniq.values()];
+    log(`     小结：${C.searches.length} 个关键词 · 解析到 ${freshList.length} 条图片`);
+
+    const rec = { key: C.key, name: C.name, file: C.file, fresh: freshList.length, ok: false, kept: 0 };
+
+    if (!freshList.length) {
+      /* 这一分类零条 —— 不是致命错误：另一个分类可能好着。
+         保留上一次的这个文件，继续跑下一个分类。 */
+      log(`     ⚠️ ${C.name} 本轮零条 → 保留上一次的 ${C.file}`);
+      perCat.push(rec);
+      continue;
+    }
+
+    /* 合并旧数据 + 过期 + 去重 + 上限 */
+    const file = path.join(ROOT, C.file);
+    const oldData = readTtOld(file, C);
+    const oldTotal = (oldData && Array.isArray(oldData.items)) ? oldData.items.length : 0;
+    const { items, stat } = mergeTt(oldData, freshList, now, C);
+
+    const data = { updated: stamp(new Date(now)), items };
+    const text = ttFileText(data, C);
+    fs.writeFileSync(file, text, 'utf8');
+
+    log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
+    log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
+      `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条）`);
+    anyOk = true;
+    rec.ok = true; rec.kept = stat.kept; rec.stat = stat;
+    perCat.push(rec);
   }
 
-  /* 跨关键词再去一次重（同一条帖子可能两个关键词都命中） */
-  const uniq = new Map();
-  for (const it of fresh) if (!uniq.has(it.img)) uniq.set(it.img, it);
-  const freshList = [...uniq.values()];
-  log(`   抓取结束：${SEARCHES.length} 个关键词成功 ${httpOk} 个 · 解析到 ${freshList.length} 条图片`);
+  const totalFresh = perCat.reduce((n, c) => n + c.fresh, 0);
+  log(`   抓取结束：${httpTotal} 个关键词页面成功 ${httpOk} 个 · 解析到 ${totalFresh} 条图片`);
 
-  if (!freshList.length) {
+  if (!anyOk) {
     st.failStreak = (st.failStreak || 0) + 1;
-    log(`⚠️  本轮零条（${firstErr || '页面里没解析到头条晒票'}）· 连续全失败 ${st.failStreak} 次`);
-    log('    保留上一次的 xysp-tt-data.js');
+    log(`⚠️  本轮【所有分类】都零条（${firstErr || '页面里没解析到晒票'}）· 连续全失败 ${st.failStreak} 次`);
+    log('    保留上一次的所有缓存文件');
     if (st.failStreak >= FAIL_PAUSE_AFTER) {
       st.pausedUntil = now + PAUSE_MINUTES * 60000;
       st.failStreak = 0;
@@ -432,13 +599,8 @@ export async function runTtFetch() {
     st.skips = (st.skips || 0) + 1;
     st.lastRun = roundIso;
     writeState(st);
-    return { ok: false, skipped: false, fresh: [], httpOk, failStreak: st.failStreak, firstErr };
+    return { ok: false, skipped: false, fresh: [], perCat, httpOk, failStreak: st.failStreak, firstErr };
   }
-
-  /* 合并旧数据 + 过期 + 去重 + 上限 */
-  const oldData = readTtOld(OUT);
-  const oldTotal = (oldData && Array.isArray(oldData.items)) ? oldData.items.length : 0;
-  const { items, stat } = mergeTt(oldData, freshList, now);
 
   st.failStreak = 0;
   st.pausedUntil = 0;
@@ -446,15 +608,8 @@ export async function runTtFetch() {
   st.lastRun = roundIso;
   writeState(st);
 
-  const data = { updated: stamp(new Date(now)), items };
-  const text = ttFileText(data);
-  fs.writeFileSync(OUT, text, 'utf8');
-
-  log(`✅ 已写入 xysp-tt-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
-  log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-    `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共解析 ${freshList.length} 条）`);
   log('—— 头条本轮结束（有新数据）——');
-  return { ok: true, skipped: false, fresh: freshList, items, stat, httpOk, updated: data.updated };
+  return { ok: true, skipped: false, fresh: totalFresh, perCat, httpOk, updated: stamp(new Date(now)) };
 }
 
 /* ---------- 直接运行：跑完按退出码退出 ---------- */
