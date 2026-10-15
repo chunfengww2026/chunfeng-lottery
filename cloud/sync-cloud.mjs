@@ -181,11 +181,11 @@ const FROM_ROOT = [
      少了它云端生成出来的页面就没有「文章参考」这个区块的内容
      （会显示「本期暂无」，等于把本机刚更新的文章冲掉）。 */
   'articles-data.js',
-  /* 【晒票栏】晒票（图片）列表数据（build-xysp.mjs 每 30 分钟本机抓一次）。
+  /* 【开机号 / 选号直播】数据（build-kjh.mjs 每天 2 点本机抓一次）。
       必须同步过去：云端重新跑 export-static.mjs 生成分享页时会读它，
-      少了它云端生成出来的页面就没有「晒票栏」这个区块的内容
-      （会显示「本期暂无」，等于把本机刚更新的晒票冲掉）。 */
-  'xysp-data.js'
+      少了它云端生成出来的页面里「开机号 / 选号直播」两个区块就是空的
+      （会显示「暂无」，等于把本机刚更新的开机号冲掉）。 */
+  'kjh-data.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
@@ -212,9 +212,10 @@ const CODE_MODULES = [
   'draw-sources.mjs',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
-  /* 【晒票栏】云端某次要自己抓晒票时用它；本机 30 分钟那一班也跑它。
-      不同步过去的话，云端仓库里就没有这个脚本。 */
-  'build-articles.mjs', 'build-xysp.mjs',
+  /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
+      同步过去只是让云端仓库里也有这个脚本；云端的班次表不跑它，
+      数据仍由本机 sync-cloud.mjs 传上去的 kjh-data.js 提供。 */
+  'build-kjh.mjs',
   /* 【热力图】云端 18:00 那一班要自己跑这个脚本抓当日晒票 ——
      不同步过去的话，云端就只能用本地传上去的那份数据。 */
   'build-heatmap.mjs',
