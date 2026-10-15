@@ -670,7 +670,7 @@ ${nav}
 <body>
 <div class="wrap">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>实时更新</b>（最近一次 ${esc(LATEST_UPDATED)}）</div>
+  <div class="sub">体彩竞彩在售 ${stat.upcoming + stat.live} 场 · 已完场累积 ${stat.finished} 场 · <b>每 30 分钟刷新一次</b>（最近一次 ${esc(LATEST_UPDATED)}）</div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
