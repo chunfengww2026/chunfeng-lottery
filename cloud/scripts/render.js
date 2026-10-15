@@ -592,7 +592,8 @@ const SECTION_RENDER = {
     const t1 = el('div', 'r-hm-t1', '春风小店实票统计');
     t1.style.cssText = 'font-size:22px;font-weight:800;letter-spacing:2px;line-height:1.25;color:#ffffff;';
     bar.appendChild(t1);
-    const sub = `${H.name} 第 ${H.issue} 期 · 全网公开晒票号码占比`;
+    /* 【副标题】用户要求去掉「· 全网公开晒票号码占比」—— 只留「彩种 第 X 期」。 */
+    const sub = `${H.name} 第 ${H.issue} 期`;
     const t2 = el('div', 'r-hm-t2', sub);
     t2.style.cssText = 'font-size:11.5px;color:#ffd9d9;margin-top:5px;letter-spacing:0;line-height:1.4;' +
       'white-space:normal;word-break:keep-all;';
@@ -608,18 +609,10 @@ const SECTION_RENDER = {
     box.appendChild(hmChartBlock(front, 'red', 250, pctFont, numFont));
     box.appendChild(hmChartBlock(back, 'blue', 200, '9.5px', '10px'));
 
-    /* ---------- 3. 数据来源标注（不假装是晒票统计） ----------
-       OCR 成功 → 「数据来源：全网公开晒票照片识别 · 仅为统计展示」
-       兜底     → 「数据来源：近 30 期开奖号码频率 · 仅为统计展示」 */
-    const src = el('div', 'r-hm-src');
-    src.style.cssText = 'font-size:10.5px;color:#9aa0a6;text-align:center;margin-top:4px;line-height:1.5;';
-    /* 兼容历史数据：没有 source 字段的旧数据（'yiqicai-xysp'）按晒票文字处理 */
-    src.textContent = (H.source === 'ocr-xysp')
-      ? '数据来源：全网公开晒票照片识别 · 仅为统计展示'
-      : (H.source === 'xysp-text' || H.source === 'yiqicai-xysp')
-        ? '数据来源：全网公开晒票 · 仅为统计展示'
-        : '数据来源：近 30 期开奖号码频率 · 仅为统计展示';
-    box.appendChild(src);
+        /* ---------- 3. 数据来源标注 —— 【用户要求整块删掉】 ----------
+       用户原话：「我框起来的不要了」（框的是「数据来源：近 30 期开奖频率 · 仅为统计展示」）。
+       现在这一行不再输出。数据来源信息仍然存在于 heatmap-data.js 的
+       source / sourceLabel / note 字段里，需要时可以去那里查。 */
     const tip = el('div', 'r-hm-tip',
       '仅为公开晒票/历史开奖的统计展示，不构成购彩建议，也不能预测中奖。');
     tip.style.cssText = 'font-size:10.5px;color:#b0b4b9;text-align:center;margin-top:3px;';
