@@ -1013,7 +1013,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "科万英佩尔",
      "score": 2,
@@ -1261,7 +1261,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "利昂内斯",
      "score": 0,
