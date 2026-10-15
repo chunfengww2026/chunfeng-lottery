@@ -324,7 +324,10 @@ async function fetchOdds(fid) {
    ⚠️ 云端（GitHub Actions，美国 IP）访问这个域名会被拒（567）→
       抓不到时保留上一次 jc-data.js 里的 SP（source='carried'），绝不写空、绝不崩。
    ============================================================ */
-const SP_API = 'https://webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry?poolCode=hhad,had&channel=c';
+/* 【自测用】JC_SP_API 可以把 SP 接口指到别处（比如死端口），
+   用来演练「抓不到 → 沿用上一次 SP、不写空、不崩」这条路（云端就是这个情况）。 */
+const SP_API = process.env.JC_SP_API ||
+  'https://webapi.sporttery.cn/gateway/jc/football/getMatchCalculatorV1.qry?poolCode=hhad,had&channel=c';
 
 function spNum(v) {
   const n = parseFloat(v);
