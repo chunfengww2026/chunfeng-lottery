@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 13,
+    "minute": 10,
     "home": {
      "name": "博卡青年后备队",
      "score": 0,
@@ -82,7 +82,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 14,
+    "minute": 10,
     "home": {
      "name": "科爾多瓦聖地亞哥中央隊(後備)",
      "score": 0,
@@ -147,7 +147,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:00:00",
-    "minute": 11,
+    "minute": 8,
     "home": {
      "name": "馬大雷拿",
      "score": 0,
@@ -1285,7 +1285,7 @@ const FOOTBALL_DATA = {
      "color": "3300BB"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 47,
+    "minute": 0,
     "home": {
      "name": "路斯天使(後備)",
      "score": 1,
@@ -1323,7 +1323,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 05:00:00",
-    "minute": 54,
+    "minute": 50,
     "home": {
      "name": "巴瑞库拉",
      "score": 2,
