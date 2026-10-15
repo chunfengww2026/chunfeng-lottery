@@ -2278,8 +2278,9 @@ body.ro-mob-open { overflow: hidden; }
 .ro-foot {
   text-align: center;
   padding: 30px 16px 50px;
-  font-size: 11.5px;
-  color: #454d5c;
+  /* __BIG_DISCLAIMER__ 用户要求：字体大一点 */
+  font-size: 14.5px;
+  color: #6b7688;
   line-height: 2;
 }
 
@@ -2290,6 +2291,10 @@ body.ro-mob-open { overflow: hidden; }
   max-width: 640px;
   margin: 0 auto 40px;
   padding: 16px 18px;
+  /* __BIG_DISCLAIMER__ 用户要求：字体大一点 */
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: #98a1b2;
   background: #12151b;
   border: 1px solid #1e2430;
   border-radius: 10px;
@@ -2299,7 +2304,8 @@ body.ro-mob-open { overflow: hidden; }
   text-align: left;
 }
 .ro-disclaimer h3 {
-  font-size: 12.5px;
+  /* __BIG_DISCLAIMER__ 用户要求：字体大一点 */
+  font-size: 15.5px;
   font-weight: 700;
   color: #9aa3b2;
   letter-spacing: 2px;
