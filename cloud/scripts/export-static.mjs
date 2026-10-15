@@ -1039,13 +1039,18 @@ function buildAiPickHtml() {
   return `<details class="ro-aipick" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
     `<h2 class="ro-aipick-h2">ai选号</h2>` +
-    `<div class="ro-aipick-sub">系统随机生成 · 由 GPT模型 驱动 · 仅供娱乐参考</div>` +
+    `<div class="ro-aipick-sub">GPT模型摇号</div>` +
     `<span class="ro-aipick-arrow" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-aipick-body">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
-    `<div class="ro-aipick-line"><span class="ro-aipick-lbl">方式</span>` +
+    `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
+    `<div class="ro-aipick-tabs">` +
+    `<a class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="ai">机选</a>` +
+    `<a class="ro-aipick-srcbtn" role="button" tabindex="0" data-ro-aipick-src="self">自己选号</a>` +
+    `</div></div>` +
+    `<div class="ro-aipick-line ro-aipick-line-mode"><span class="ro-aipick-lbl">方式</span>` +
     `<div class="ro-aipick-tabs">` +
     `<a class="ro-aipick-segbtn on" role="button" tabindex="0" data-ro-aipick-mode="single">单式</a>` +
     `<a class="ro-aipick-segbtn" role="button" tabindex="0" data-ro-aipick-mode="multi">复式</a>` +
@@ -1060,7 +1065,7 @@ function buildAiPickHtml() {
     `<span class="ro-aipick-unit">注</span></div>` +
     `<div class="ro-aipick-line ro-aipick-line-multi" hidden>` +
     `<span class="ro-aipick-lbl">复式</span><div class="ro-aipick-multi"></div></div>` +
-    `<div class="ro-aipick-line">` +
+    `<div class="ro-aipick-line ro-aipick-line-times">` +
     `<span class="ro-aipick-lbl">倍数</span>` +
     `<input class="ro-aipick-in ro-aipick-in-times" type="number" inputmode="numeric"` +
     ` min="1" max="99" step="1" value="1">` +
@@ -1073,6 +1078,21 @@ function buildAiPickHtml() {
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="clear">清空</a>` +
     `</div>` +
     `<div class="ro-aipick-out"></div>` +
+    /* ---- 自己选号：号码格子（全部是 <a role="button">，不是按钮标签） ----
+       点格子选中/取消；每个区显示「已选 x/y」；下面实时显示「你的号码」。
+       全部只存在内存里：切彩种 / 切模式 / 点「清空重选」/ 刷新页面都会清空。 */
+    `<div class="ro-aipick-self" hidden>` +
+    `<div class="ro-aipick-picker"></div>` +
+    `<div class="ro-aipick-line ro-aipick-selfacts">` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reset">清空重选</a>` +
+    `<span class="ro-aipick-selfnote">自己选的号只放在内存里，刷新页面就没了</span>` +
+    `</div>` +
+    `<div class="ro-aipick-line ro-aipick-mineline">` +
+    `<span class="ro-aipick-lbl">你的号码</span>` +
+    `<span class="ro-aipick-mineout"></span>` +
+    `</div>` +
+    `<div class="ro-aipick-shape" hidden></div>` +
+    `</div>` +
     `<div class="ro-aipick-note">号码由系统随机生成，仅供娱乐，不构成购彩建议，请理性购彩。</div>` +
     `<div class="ro-aipick-note">纯本机随机模拟：不联网、不上传、不保存（刷新页面即回到默认）。</div>` +
     `</div>` +
@@ -2912,6 +2932,41 @@ body.ro-mob-open { overflow: hidden; }
 .ro-aipick-more { margin-top: 6px; font-size: 11px; color: #5f6878; }
 .ro-aipick-note { margin-top: 10px; font-size: 10.5px; line-height: 1.6; color: #5f6878; }
 
+/* ---- 自己选号：号码格子（点一下选中，再点一下取消） ---- */
+.ro-aipick-self { margin-top: 10px; }
+.ro-aipick-pblock { margin-top: 11px; }
+.ro-aipick-pblock:first-child { margin-top: 0; }
+.ro-aipick-phead { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.ro-aipick-plabel { font-size: 12px; color: #b9c2d0; }
+.ro-aipick-pcount { font-size: 11px; color: #6b7488; }
+.ro-aipick-pcount.full { color: #47e0a0; }
+.ro-aipick-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.ro-aipick-pick {
+  flex: 0 0 auto;
+  min-width: 26px;
+  padding: 5px 0;
+  border: 1px solid #2a323f;
+  border-radius: 7px;
+  background: #161a21;
+  color: #b9c2d0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ro-aipick-pick:hover, .ro-aipick-pick:active { border-color: #3d5a86; color: #cfe0ff; }
+.ro-aipick-pick.on { background: #3a1d22; border-color: #a34a4a; color: #ff8b8b; font-weight: 700; }
+.ro-aipick-pick.blue.on { background: #16233a; border-color: #3d5a86; color: #8fb8ff; }
+.ro-aipick-selfnote { font-size: 10.5px; color: #5f6878; }
+.ro-aipick-mineline { align-items: center; }
+.ro-aipick-mineout { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+.ro-aipick-ball.empty { background: #171b22; color: #4d5666; font-weight: 400; }
+.ro-aipick-shape { margin-top: 8px; font-size: 11.5px; line-height: 1.5; color: #8fb8ff; }
+
 /* ============================================================
    __CENTER_HEAD_AI__ ai选号 标题行【强制居中】（用户配截图要求「字体居中」）
    ------------------------------------------------------------
@@ -4094,7 +4149,8 @@ ${RO_RENDER_SCRIPT}
     var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /* 【内存状态】只放在内存里：刷新页面即回到默认（不碰任何浏览器存储） */
-    var st = { game: RULES[0].id, mode: 'single', count: 5, times: 1, kl8: 10, multi: {}, rows: [] };
+    var st = { game: RULES[0].id, mode: 'single', count: 5, times: 1, kl8: 10, multi: {}, rows: [],
+               src: 'ai', pick: {} };
 
     /* ---------- 基础工具 ---------- */
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -4170,6 +4226,14 @@ ${RO_RENDER_SCRIPT}
     var warnBox = root.querySelector('.ro-aipick-warn');
     var outBox = root.querySelector('.ro-aipick-out');
     var acts = root.querySelectorAll('.ro-aipick-btn');
+    var srcBtns = root.querySelectorAll('.ro-aipick-srcbtn');
+    var lineMode = root.querySelector('.ro-aipick-line-mode');
+    var lineTimes = root.querySelector('.ro-aipick-line-times');
+    var actsBox = root.querySelector('.ro-aipick-acts');
+    var selfBox = root.querySelector('.ro-aipick-self');
+    var pickBox = root.querySelector('.ro-aipick-picker');
+    var mineOut = root.querySelector('.ro-aipick-mineout');
+    var shapeBox = root.querySelector('.ro-aipick-shape');
 
     /* ---------- 彩种规则（全部来自 games.js） ---------- */
     function G() { return byId[st.game] || RULES[0]; }
@@ -4296,18 +4360,152 @@ ${RO_RENDER_SCRIPT}
             st.kl8 = n;
             st.rows = [];
             st.multi = {};
+            st.pick = {};                 /* 玩法变了：要选的个数也变了，重选 */
             syncTabs();
             buildMultiRow(G());
-            drawOut();
-            refresh();
+            applySrc();
           });
           kl8Box.appendChild(a);
         })(i);
       }
     }
 
-    /* ---------- 读输入框（注数 / 倍数 / 复式个数） ---------- */
-    function numOf(inp, def, min, max) {
+    /* ============================================================
+       【自己选号】号码格子
+       ------------------------------------------------------------
+       每格都是一个 <a role="button">（页面不变量：不能有 button 标签）。
+       点一下选中、再点一下取消；每个区显示「已选 x/y」；
+       下面实时显示「你的号码」（没选的位显示 _）。
+       全部只存在内存里：切彩种 / 切模式 / 点「清空重选」/ 刷新页面都会清空。
+       ⚠️ 自己选号【不强制】组六（组六是机选的硬性条件），
+          但数字彩会把当前形态（豹子 / 组三 / 组六）提醒一下。
+       ============================================================ */
+    function pkey(k) { return st.game + '#' + k; }
+    function pickArr(k) { return st.pick[pkey(k)] || []; }
+    /* 这个彩种要选哪些「槽位」：号码型 = 每个号码区；数字型 = 每一位 */
+    function slotsOf(g) {
+      var out = [], i;
+      if (isDigit(g)) {
+        var pos = posOf(g);
+        for (i = 0; i < pos.length; i++) {
+          out.push({ key: 'p' + i, label: pos[i].n, from: pos[i].from, to: pos[i].to, need: 1, gate: pos[i].gate });
+        }
+      } else {
+        var areas = areasOf(g);
+        for (i = 0; i < areas.length; i++) {
+          out.push({ key: 'a' + i, label: areas[i].label, from: areas[i].from, to: areas[i].to,
+                     need: pickOf(g, areas[i]), color: areas[i].color });
+        }
+      }
+      return out;
+    }
+    function togglePick(key, num, need) {
+      var arr = pickArr(key).slice();
+      var at = arr.indexOf(num);
+      if (at >= 0) arr.splice(at, 1);
+      else if (arr.length < need) arr.push(num);
+      else return;                     /* 这个区选满了：再点不再增加（和 App 的手动选号一致） */
+      arr.sort(function (a, b) { return a - b; });
+      st.pick[pkey(key)] = arr;
+      drawPicker(G());
+    }
+    function buildPicker(g) {
+      if (!pickBox) return;
+      clearNode(pickBox);
+      var slots = slotsOf(g), i;
+      for (i = 0; i < slots.length; i++) {
+        (function (slot) {
+          var block = el('div', 'ro-aipick-pblock');
+          var head = el('div', 'ro-aipick-phead');
+          head.appendChild(el('span', 'ro-aipick-plabel', slot.label));
+          var cnt = el('span', 'ro-aipick-pcount');
+          cnt.setAttribute('data-ro-aipick-slot', slot.key);
+          head.appendChild(cnt);
+          block.appendChild(head);
+          var grid = el('div', 'ro-aipick-grid');
+          for (var n = slot.from; n <= slot.to; n++) {
+            (function (num) {
+              /* 号码型补两位（01-33）；数字彩就一位（0 显示成「0」不是「00」） */
+              var a = el('a', 'ro-aipick-pick', slot.to > 9 ? pad2(num) : String(num));
+              a.setAttribute('role', 'button');
+              a.setAttribute('tabindex', '0');
+              a.setAttribute('data-ro-aipick-slot', slot.key);
+              a.setAttribute('data-ro-aipick-num', String(num));
+              a.addEventListener('click', function (e) {
+                if (e && e.preventDefault) e.preventDefault();
+                togglePick(slot.key, num, slot.need);
+              });
+              grid.appendChild(a);
+            })(n);
+          }
+          block.appendChild(grid);
+          pickBox.appendChild(block);
+        })(slots[i]);
+      }
+      drawPicker(g);
+    }
+    function drawPicker(g) {
+      if (!pickBox) return;
+      var slots = slotsOf(g), i, byKey = {};
+      for (i = 0; i < slots.length; i++) byKey[slots[i].key] = slots[i];
+      var cells = pickBox.querySelectorAll('.ro-aipick-pick');
+      for (i = 0; i < cells.length; i++) {
+        var k = attr(cells[i], 'data-ro-aipick-slot');
+        var sl = byKey[k] || {};
+        var sel = pickArr(k).indexOf(parseInt(attr(cells[i], 'data-ro-aipick-num'), 10)) >= 0;
+        cells[i].className = 'ro-aipick-pick' + (sel ? ' on' : '') + (sl.color === 'blue' ? ' blue' : '');
+      }
+      var cnts = pickBox.querySelectorAll('.ro-aipick-pcount');
+      for (i = 0; i < cnts.length; i++) {
+        var k2 = attr(cnts[i], 'data-ro-aipick-slot');
+        var sl2 = byKey[k2] || { need: 0 };
+        var got = pickArr(k2).length;
+        cnts[i].className = 'ro-aipick-pcount' + (sl2.need > 0 && got >= sl2.need ? ' full' : '');
+        cnts[i].textContent = '已选 ' + got + '/' + sl2.need;
+      }
+      drawMine(g, slots);
+    }
+    function drawMine(g, slots) {
+      if (!mineOut) return;
+      clearNode(mineOut);
+      var i, j, miss = 0, kk;
+      for (i = 0; i < slots.length; i++) {
+        var sl = slots[i];
+        var sel = pickArr(sl.key);
+        /* 分隔符：蓝球区前面一个 + ；七星彩最后一位前面一个 + */
+        if (i > 0 && (sl.color === 'blue' || (g.type === 'qxc' && i === slots.length - 1))) {
+          mineOut.appendChild(el('span', 'ro-aipick-sep', '+'));
+        }
+        for (j = 0; j < sl.need; j++) {
+          if (j < sel.length) {
+            mineOut.appendChild(el('span', 'ro-aipick-ball' + (sl.color === 'blue' ? ' blue' : ''),
+              sl.to > 9 ? pad2(sel[j]) : String(sel[j])));
+          } else {
+            mineOut.appendChild(el('span', 'ro-aipick-ball empty', '_'));
+            miss++;
+          }
+        }
+      }
+      if (shapeBox) {
+        var txt = '';
+        if (isDigit(g) && g.type !== 'qxc') {
+          var gate = [];
+          for (i = 0; i < slots.length; i++) if (slots[i].gate) gate.push(pickArr(slots[i].key)[0]);
+          if (gate.length === 3 && gate[0] !== undefined && gate[1] !== undefined && gate[2] !== undefined) {
+            var uniq = {}, cnt2 = 0;
+            for (i = 0; i < 3; i++) uniq[gate[i]] = 1;
+            for (kk in uniq) cnt2++;
+            var shape = cnt2 === 1 ? '豹子（三位全同）' : (cnt2 === 2 ? '组三（有两位相同）' : '组六（三位两两不同）');
+            txt = '当前形态：' + shape + ' —— 自己选号不强制组六，这里只是提醒';
+          }
+        }
+        if (txt) { shapeBox.textContent = txt; show(shapeBox, true); }
+        else { shapeBox.textContent = ''; show(shapeBox, false); }
+      }
+      return miss;
+    }
+
+    /* ---------- 读输入框（注数 / 倍数 / 复式个数） ---------- */    function numOf(inp, def, min, max) {
       var v = NaN;
       if (inp) v = parseInt(String(inp.value === undefined || inp.value === null ? '' : inp.value), 10);
       if (!isFinite(v)) v = def;
@@ -4504,6 +4702,27 @@ ${RO_RENDER_SCRIPT}
       return list.length;
     }
 
+    /* 机选 / 自己选号 两种「选号来源」的界面切换（默认机选） */
+    function applySrc() {
+      var g = G();
+      var self = st.src === 'self';
+      show(lineMode, !self);                       /* 单式 / 复式：只有机选才需要 */
+      show(lineSingle, !self && st.mode === 'single');
+      show(lineMulti, !self && st.mode === 'multi');
+      show(lineTimes, !self);
+      show(actsBox, !self);
+      show(outBox, !self);
+      show(selfBox, self);                         /* 号码格子 */
+      show(lineKl8, !!g.playModes);                /* 快乐8 玩法两种模式都要（决定选几个） */
+      if (self) {
+        if (warnBox) { warnBox.textContent = ''; show(warnBox, false); }
+        buildPicker(g);
+      } else {
+        drawOut();
+        refresh();
+      }
+    }
+
     function syncTabs() {
       var i, k;
       for (i = 0; i < gameTabs.length; i++) {
@@ -4513,6 +4732,10 @@ ${RO_RENDER_SCRIPT}
       for (i = 0; i < modeBtns.length; i++) {
         k = attr(modeBtns[i], 'data-ro-aipick-mode');
         modeBtns[i].className = 'ro-aipick-segbtn' + (k === st.mode ? ' on' : '');
+      }
+      for (i = 0; i < srcBtns.length; i++) {
+        k = attr(srcBtns[i], 'data-ro-aipick-src');
+        srcBtns[i].className = 'ro-aipick-srcbtn' + (k === st.src ? ' on' : '');
       }
       var kt = kl8Box ? kl8Box.querySelectorAll('.ro-aipick-kl8tab') : [];
       for (i = 0; i < kt.length; i++) {
@@ -4527,7 +4750,7 @@ ${RO_RENDER_SCRIPT}
           if (e && e.preventDefault) e.preventDefault();
           var id = attr(node, 'data-ro-aipick-game');
           if (!byId[id] || id === st.game) return;
-          /* 切彩种 → 全部重置 + 显示该彩种的规则 */
+          /* 切彩种 → 全部重置 + 显示该彩种的规则（自己选的号也一起清掉） */
           st.game = id;
           st.mode = 'single';
           st.count = 5;
@@ -4535,18 +4758,30 @@ ${RO_RENDER_SCRIPT}
           st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
           st.multi = {};
           st.rows = [];
+          st.src = 'ai';
+          st.pick = {};
           if (inCount) inCount.value = '5';
           if (inTimes) inTimes.value = '1';
           buildKl8(byId[id]);
           buildMultiRow(byId[id]);
-          show(lineKl8, !!byId[id].playModes);
-          show(lineSingle, true);
-          show(lineMulti, false);
           syncTabs();
-          drawOut();
-          refresh();
+          applySrc();
         });
       })(gameTabs[t1]);
+    }
+    for (var t4 = 0; t4 < srcBtns.length; t4++) {
+      (function (node) {
+        node.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          var v = attr(node, 'data-ro-aipick-src') === 'self' ? 'self' : 'ai';
+          if (v === st.src) return;
+          st.src = v;
+          st.rows = [];
+          st.pick = {};                            /* 切模式 → 重选，之前选的清掉 */
+          syncTabs();
+          applySrc();
+        });
+      })(srcBtns[t4]);
     }
     for (var t2 = 0; t2 < modeBtns.length; t2++) {
       (function (node) {
@@ -4571,6 +4806,7 @@ ${RO_RENDER_SCRIPT}
           if (e && e.preventDefault) e.preventDefault();
           var act = attr(node, 'data-ro-aipick-act');
           if (act === 'clear') { st.rows = []; drawOut(); refresh(); }
+          else if (act === 'reset') { st.pick = {}; drawPicker(G()); }   /* 自己选号：清空重选 */
           else if (act === 'reroll') { doRoll(true); }
           else { doRoll(false); }
         });
@@ -4579,23 +4815,21 @@ ${RO_RENDER_SCRIPT}
     if (inCount) { inCount.addEventListener('input', refresh); inCount.addEventListener('change', refresh); }
     if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
 
-    /* ---------- 初始状态：彩种第一个（双色球）· 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
+    /* ---------- 初始状态：双色球 · 机选 · 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
     (function setup() {
       var g = G();
       buildKl8(g);
       buildMultiRow(g);
-      show(lineKl8, !!g.playModes);
-      show(lineSingle, st.mode === 'single');
-      show(lineMulti, st.mode === 'multi');
+      buildPicker(g);
       syncTabs();
-      drawOut();
-      refresh();
+      applySrc();
     })();
 
     /* 给验收脚本留一个干净入口（不影响页面行为） */
     window.__roAiPick = {
       state: function () {
-        return { game: st.game, mode: st.mode, count: st.count, times: st.times, kl8: st.kl8, rows: st.rows.length };
+        return { game: st.game, mode: st.mode, count: st.count, times: st.times, kl8: st.kl8,
+                 rows: st.rows.length, src: st.src, pick: st.pick };
       },
       rows: function () { return st.rows; }
     };

@@ -444,6 +444,7 @@ ok(hits().length === 1, '切玩法时结果被清掉（只留新摇的 1 注）'
 H('10. 交互边界');
 const controls = [];
 qa('.ro-aipick-tab').forEach((n) => controls.push(`彩种切换 <a role=button> ${n.textContent}`));
+qa('.ro-aipick-srcbtn').forEach((n) => controls.push(`选号来源 <a role=button> ${n.textContent}`));
 qa('.ro-aipick-segbtn').forEach((n) => controls.push(`方式切换 <a role=button> ${n.textContent}`));
 qa('.ro-aipick-kl8tab').forEach((n) => controls.push(`快乐8玩法 <a role=button> ${n.textContent}`));
 qa('.ro-aipick-btn').forEach((n) => controls.push(`操作按钮 <a role=button> ${n.textContent}`));
@@ -515,10 +516,153 @@ ok(/\.ro-aipick\[open\] \.ro-aipick-arrow::before \{ content: '点击收起'/.te
   '「点击查看 / 点击收起」的切换逻辑没改（还是纯 CSS 按 [open] 出）');
 const subText = (headParts[1] || '').replace(/^div:\s*/, '');
 console.log(`  副标题完整可见文字：${subText}`);
-ok(subText.indexOf('GPT模型') >= 0, '副标题里能搜到「GPT模型」');
+ok(subText.indexOf('GPT模型摇号') >= 0, '副标题里能搜到「GPT模型摇号」');
 ok(subText.indexOf('ChatGPT') < 0 && block.indexOf('ChatGPT') < 0, '整块里没有「ChatGPT」（用户确认用短名，避免商标风险）');
 ok(block.indexOf('仅供娱乐') >= 0 && block.indexOf('不构成购彩建议') >= 0,
   '合规声明仍然在（面板底部：仅供娱乐 / 不构成购彩建议）');
+ok(/<h2 class="ro-aipick-h2">ai选号<\/h2>/.test(block), '标题仍然是「ai选号」');
+
+/* ============================================================
+   12) 自己选号（手动点号码）
+   ============================================================ */
+H('12. 自己选号：号码格子 / 已选 x/y / 你的号码 / 清空重选');
+const srcBtn = (v) => qa('.ro-aipick-srcbtn').find((n) => n.getAttribute('data-ro-aipick-src') === v);
+const selfBox = q1('.ro-aipick-self');
+const pickBox = q1('.ro-aipick-picker');
+const mineOut = q1('.ro-aipick-mineout');
+const shapeBox = q1('.ro-aipick-shape');
+const cells = () => qa('.ro-aipick-pick');
+const counts = () => qa('.ro-aipick-pcount');
+const cellAt = (slot, num) => cells().find((n) =>
+  n.getAttribute('data-ro-aipick-slot') === slot && n.getAttribute('data-ro-aipick-num') === String(num));
+const mineText = () => (mineOut ? mineOut.children.map((c) => c.textContent).join(' ') : '');
+
+click(gameTab('ssq'));                       /* 从双色球开始（上一段停在快乐8） */
+ok(state().game === 'ssq', '先切回双色球', `game=${state().game}`);
+ok(!!selfBox && selfBox.hidden, '默认【机选】模式：自己选号的格子在 DOM 里但隐藏（hidden）');
+ok(state().src === 'ai', '默认选号来源 = 机选', `src=${state().src}`);
+click(srcBtn('self'));
+ok(state().src === 'self' && !selfBox.hidden, '点「自己选号」→ 切到手动模式（格子显示出来）');
+ok(q1('.ro-aipick-out').hidden, '自己选号模式下把「机选结果区」收起来');
+/* 双色球：红 1-33 + 蓝 1-16 → 49 个格子 */
+const slotList = Array.from(new Set(cells().map((n) => n.getAttribute('data-ro-aipick-slot'))));
+console.log(`  双色球格子：${cells().length} 个（槽位 ${slotList.join('/')}）`);
+console.log(`  已选状态：${counts().map((n) => n.textContent).join('   ')}`);
+ok(cells().length === 49 && counts()[0].textContent === '已选 0/6' && counts()[1].textContent === '已选 0/1',
+  '双色球 = 红球 33 格 + 蓝球 16 格，初始「已选 0/6」「已选 0/1」');
+ok(cells().every((n) => n.tagName === 'a' && n.getAttribute('role') === 'button'),
+  '格子全是 <a role="button">（不是 <button> 标签）');
+/* 点 3 个红球 + 1 个蓝球 */
+[5, 12, 18].forEach((n) => click(cellAt('a0', n)));
+click(cellAt('a1', 9));
+console.log(`  点了红球 05 12 18 + 蓝球 09 → ${counts().map((n) => n.textContent).join('   ')}`);
+console.log(`  你的号码：${mineText()}`);
+ok(counts()[0].textContent === '已选 3/6' && counts()[1].textContent === '已选 1/1',
+  '「已选 x/y」实时更新', counts().map((n) => n.textContent).join(' / '));
+ok(mineText().replace(/\s+/g, ' ') === '05 12 18 _ _ _ + 09', '「你的号码」实时显示（没选的位是 _）', mineText());
+ok(cellAt('a0', 5).className.indexOf(' on') >= 0, '点过的格子高亮（class 带 on）');
+/* 选满 6 个之后不再增加 */
+[1, 2, 3, 4].forEach((n) => click(cellAt('a0', n)));
+console.log(`  红球连点 01 02 03 04（本来只差 3 个）→ ${counts()[0].textContent}`);
+console.log(`  你的号码：${mineText()}`);
+ok(counts()[0].textContent === '已选 6/6', '选满 6 个后再点不增加（上限 6）');
+ok(mineText().indexOf('_') < 0, '凑齐后「你的号码」没有 _ 了');
+/* 再点一次已选的号 → 取消 */
+click(cellAt('a1', 9));
+ok(counts()[1].textContent === '已选 0/1', '再点一次已选号 → 取消选中');
+/* 清空重选 */
+click(cellAt('a1', 9));
+click(actBtn('reset'));
+console.log(`  点「清空重选」→ ${counts().map((n) => n.textContent).join('   ')} · 你的号码：${mineText()}`);
+ok(counts()[0].textContent === '已选 0/6' && mineText().replace(/\s+/g, ' ').indexOf('_ _ _ _ _ _') >= 0,
+  '「清空重选」把选中的号全清掉');
+/* 切彩种 → 清空重选 */
+click(cellAt('a0', 7));
+const beforeSwitch = counts()[0].textContent;
+click(gameTab('fc3d'));
+ok(state().src === 'ai', '切彩种 → 回到默认的【机选】模式', `src=${state().src}`);
+click(srcBtn('self'));
+console.log(`  切彩种前后：${beforeSwitch} → ${counts().map((n) => n.textContent).join('   ')}`);
+ok(counts().length === 3 && counts().every((n) => n.textContent === '已选 0/1'),
+  '福彩3D 自己选号 = 百位/十位/个位 各 10 格，「已选 0/1」三个（切彩种已清空）',
+  counts().map((n) => n.textContent).join(' '));
+console.log(`  福彩3D 格子：${cells().length} 个 = 3 位 × 0-9`);
+/* 数字彩：自己选号不强制组六，但要提醒形态 */
+click(cellAt('p0', 1)); click(cellAt('p1', 1)); click(cellAt('p2', 1));
+console.log(`  手选 1 1 1 → 你的号码：${mineText()} · 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
+ok(shapeBox && !shapeBox.hidden && shapeBox.textContent.indexOf('豹子') >= 0,
+  '自己选号不拦豹子，但会提示形态', shapeBox ? shapeBox.textContent : '');
+click(actBtn('reset'));
+click(cellAt('p0', 1)); click(cellAt('p1', 2)); click(cellAt('p2', 3));
+console.log(`  手选 1 2 3 → 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
+ok(shapeBox.textContent.indexOf('组六') >= 0, '1 2 3 被认成组六');
+click(actBtn('reset'));
+click(cellAt('p0', 1)); click(cellAt('p1', 1)); click(cellAt('p2', 3));
+console.log(`  手选 1 1 3 → 形态提示：${shapeBox && !shapeBox.hidden ? shapeBox.textContent : '(无)'}`);
+ok(shapeBox.textContent.indexOf('组三') >= 0, '1 1 3 被认成组三');
+/* 机选模式的组六约束没有被自己选号带坏 */
+click(srcBtn('ai'));
+setNum(q1('.ro-aipick-in-count'), 1);
+for (let i = 0; i < 20; i++) click(actBtn('reroll'));
+const d3c = qa('.ro-aipick-hit').map(ballsOf);
+let bao3 = 0, zu33 = 0;
+d3c.forEach((b) => { const t = typeOf(b); if (t === '豹子') bao3++; else if (t === '组三') zu33++; });
+console.log(`  从「自己选号」切回「机选」再摇 20 次：豹子 ${bao3} · 组三 ${zu33} · 例：${d3c.slice(0, 3).map(hitText).join(' | ')}`);
+ok(bao3 + zu33 === 0, '机选的组六约束没被自己选号影响（仍然 0 豹子 / 0 组三）');
+ok(state().pick && Object.keys(state().pick).length === 0, '切回机选时手动选的号已清空');
+
+/* 快乐8 自己选号：格子数跟着玩法走 */
+H('12b. 快乐8 自己选号：格子在 01-80，选几个跟着玩法');
+click(gameTab('kl8'));
+click(srcBtn('self'));
+const kl8Counts0 = counts().map((n) => n.textContent).join(' ');
+console.log(`  默认玩法「选十」→ 格子 ${cells().length} 个 · ${kl8Counts0}`);
+ok(cells().length === 80 && /已选 0\/10/.test(kl8Counts0), '快乐8 自己选号 = 01-80 共 80 格，要选 10 个');
+const kl8tab3 = qa('.ro-aipick-kl8tab').find((n) => n.getAttribute('data-ro-aipick-kl8') === '3');
+click(kl8tab3);
+console.log(`  切到「选三」→ ${counts().map((n) => n.textContent).join(' ')}`);
+ok(/已选 0\/3/.test(counts()[0].textContent), '切玩法后要选的个数跟着变（选三 = 3 个）');
+[12, 13, 25].forEach((n) => click(cellAt('a0', n)));
+console.log(`  点了 12 13 25 → 你的号码：${mineText()}`);
+ok(mineText().replace(/\s+/g, ' ') === '12 13 25', '「你的号码」显示三个号（快乐8 不补零）', mineText());
+
+/* ============================================================
+   13) 「所有的都不能保存」
+   ============================================================ */
+H('13. 没有存储：localStorage / sessionStorage / cookie / IndexedDB');
+const banned = /localStorage|sessionStorage|document\.cookie|indexedDB|IndexedDB|openDatabase|window\.name\s*=/;
+console.log(`  面板脚本里搜 localStorage / sessionStorage / cookie / IndexedDB → ` +
+  `${banned.test(js) ? '❌ 有命中' : '✅ 0 命中'}`);
+ok(!banned.test(js), '面板脚本里没有任何浏览器存储 API');
+ok(!/保存|记住|收藏|导出|下载/.test(js.replace(/不保存|不落盘|不能保存/g, '')), '面板脚本里没有「保存 / 记住 / 收藏 / 导出 / 下载」功能');
+/* 刷新 = 从零开始：重新执行一遍页面脚本，手选的号也必须没了 */
+{
+  const p3 = new MNode('div');
+  p3.innerHTML = block;
+  const nodes3 = [];
+  (function walk(n) { n.children.forEach((c) => { nodes3.push(c); walk(c); }); })(p3);
+  const byId3 = new Map();
+  nodes3.forEach((n) => { if (n.attrs.id) byId3.set(n.attrs.id, n); });
+  const doc3 = {
+    getElementById: (id) => byId3.get(id) || null,
+    createElement: (t) => new MNode(t),
+    querySelector: (sel) => p3.querySelector(sel),
+    querySelectorAll: (sel) => p3.querySelectorAll(sel)
+  };
+  const win3 = {};
+  const sb3 = { document: doc3, window: win3, console };
+  vm.createContext(sb3);
+  vm.runInContext(js, sb3, { timeout: 8000 });
+  const s3 = win3.__roAiPick.state();
+  const mine3 = p3.querySelector('.ro-aipick-mineout');
+  console.log(`  「刷新页面」后：game=${s3.game} src=${s3.src} mode=${s3.mode} count=${s3.count} rows=${s3.rows} ` +
+    `手选中的号=${Object.keys(s3.pick).length} 组`);
+  ok(s3.game === 'ssq' && s3.src === 'ai' && s3.mode === 'single' && s3.count === 5 &&
+     s3.rows === 0 && Object.keys(s3.pick).length === 0,
+    '刷新页面 → 彩种/模式/注数/摇出的号/手选的号【全部】回到默认（什么都不留）');
+  ok(mine3 && mine3.textContent.replace(/\s+/g, ' ').indexOf('_') >= 0,
+    '刷新后「你的号码」也是空的（全是 _）', mine3 ? mine3.textContent.replace(/\s+/g, ' ') : '');
+}
 
 /* ============================================================
    结论
