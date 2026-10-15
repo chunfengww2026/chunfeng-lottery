@@ -116,9 +116,20 @@ const GAMES = [
   { key: 'qlc',  name: '七乐彩', url: 'https://m.yiqicai.com/xysp/qlcxysp' }
 ];
 
-/* 只保留 24 小时内的 */
-const KEEP_HOURS = 72;
-/* 每个彩种最多留几条（别让文件无限长大） */
+/* 【发布时间窗口】用户要求（新）：
+   「所有的晒票 不管是彩票还是足球 都抓取24小时内晒出来的票」
+   ⇒ 一起彩这 8 个彩种：只看【帖子发布时间】在 24 小时内的。
+   （发布时间从页面上的 lucky-msg-txt 解析，实测格式 "10-15 22:37"）
+   ⚠️ 这条【取代】了以前那个 KEEP_HOURS=72 的抓取时间窗口，也取代了
+      "七星彩/七乐彩 不受 24 小时限制" 那个老特例 —— 现在所有彩种一视同仁。 */
+const PUB_HOURS = 24;
+/* 每个彩种最多留几条。
+   ⚠️ 和"抓多少放多少"的关系：用户说的是【云端页面上抓多少就放多少】，
+      主要针对头条/竞彩那两路（它们一轮能抓 20~100 条）。一起彩这边
+      每个彩种一轮只有 10~30 条，而且源站自己就只给这么多，
+      40 条的上限实测【从来没有被顶到过】。为了不改变一起彩的既有行为，
+      这里保持 40 不动（放宽它不会多出一条数据）。
+      真正放宽到 200 的是 TT_MAX / JC_MAX（见 build-xysp-tt.mjs）。 */
 const MAX_PER_GAME = 40;
 /* 两个页面之间至少隔这么久（保护数据源） */
 const GAP_MS = 1200;
@@ -185,10 +196,34 @@ function thumbOf(img) {
 }
 
 /* ============================================================
+   【发布时间】从一起彩的 lucky-msg-txt 解析
+   ------------------------------------------------------------
+   实测（2026-10-16）：每条晒票里都有
+     <dd class="lucky-msg-txt">10-15 22:37</dd>
+   —— 这就是【源站的发布时间】，格式固定 "MM-DD HH:MM"（没有年份）。
+   用户要求（新）：「所有的晒票 不管是彩票还是足球 都抓取24小时内晒出来的票」
+   ⇒ 拿它当 pubAt；拿不到就退回 at（抓取时间）—— 见 mergeAndPrune 的说明。
+   年份推定：先按【当前年】；若算出来比"现在"晚了一天以上，说明跨年了 → 退一年。
+   @returns {number|null} epoch ms，认不出返回 null
+   ============================================================ */
+function parsePubAt(b, atIso, nowMs) {
+  const m = /<dd class="lucky-msg-txt"[^>]*>\s*(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/.exec(b);
+  if (!m) return null;
+  const [, mm, dd, hh, mi] = m;
+  const base = new Date(nowMs);
+  /* 用北京时间的那一天做基准（源站显示的是北京时间） */
+  const bj = new Date(nowMs + 8 * 3600 * 1000);
+  let t = Date.UTC(bj.getUTCFullYear(), Number(mm) - 1, Number(dd), Number(hh) - 8, Number(mi), 0, 0);
+  if (t - nowMs > 24 * 3600 * 1000) t -= 365 * 24 * 3600 * 1000;   /* 跨年 → 退一年 */
+  return isFinite(t) ? t : null;
+}
+
+/* ============================================================
    解析一个彩种页 → 条目数组
    ============================================================ */
-function parsePage(html, atIso) {
+function parsePage(html, atIso, nowMs) {
   const items = [];
+  const now = nowMs || Date.parse(atIso) || Date.now();
   /* 一条晒票 = 从 <div class="lucky-tickets-x"> 开始的那一块。
      直接按这个开头切：每一段里【第一次】出现的 lucky-msg / lucky-pics
      就一定是这一条的（两者都排在块内很靠前的位置），
@@ -201,6 +236,9 @@ function parsePage(html, atIso) {
     const msgM = /<div class="lucky-msg"[^>]*>([\s\S]*?)<\/div>/.exec(b);
     const title = msgM ? stripTags(msgM[1]).slice(0, 120) : '';
 
+    /* 【发布时间】源站页面上就有 —— 实测 "10-15 22:37" */
+    const pub = parsePubAt(b, atIso, now);
+
     /* 图片：只认 lucky-pics 这个 div 里的（头像/广告都在它外面） */
     const picsM = /<div class="lucky-pics"[^>]*>([\s\S]*?)<\/div>/.exec(b);
     if (!picsM) continue;
@@ -211,7 +249,13 @@ function parsePage(html, atIso) {
       const img = normImg(im[1]);
       if (!img) continue;
       if (items.some((x) => x.img === img)) continue;      // 本页内去重
-      items.push({ img, thumb: thumbOf(img), title, url: '', at: atIso });
+      items.push({
+        img, thumb: thumbOf(img), title, url: '', at: atIso,
+        /* pubAt = 帖子发布时间；pubSrc 记明来源，便于报告/排查 */
+        pubAt: pub ? new Date(pub).toISOString() : '',
+        pubSrc: pub ? 'page' : 'at',
+        pubMs: pub || 0
+      });
     }
   }
   return items;
@@ -223,9 +267,9 @@ function parsePage(html, atIso) {
    独立成函数，方便验收脚本直接拿假数据调它。
    ============================================================ */
 function mergeAndPrune(oldData, freshByGame, nowMs) {
-  const cutoff = nowMs - KEEP_HOURS * 3600 * 1000;
+  const cutoff = nowMs - PUB_HOURS * 3600 * 1000;      /* 24 小时：看【发布时间】 */
   const games = {};
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropPub: 0, dropDraw: 0, dropCap: 0, pubFallback: 0 };
 
   for (const g of GAMES) {
     const bucket = new Map();          // img → 条目（保留最早的 at）
@@ -236,12 +280,40 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
       const at = String(it.at || '');
       const t = Date.parse(at);
       if (!isFinite(t)) return;
-      /* __RELAX_QXC_QLC__ 用户决定：七星彩 / 七乐彩 的晒票【不受 24 小时限制】。
-   原因：这两个彩种源站上本来就更新慢（最新晒票可能超过 24 小时），
-        严格 24 小时会让这两栏永远显示"暂无"。
-   做法：这两个彩种跳过过期判断，只受 MAX_PER_GAME 上限约束（永远显示最新几张）。 */
-      var RELAX_24H = ['qxc', 'qlc'];
-      if (t < cutoff && RELAX_24H.indexOf(g.key) < 0) { stat.dropped++; return; }        // 超过 24 小时 → 丢（qxc/qlc 除外）
+
+      /* ============ 用户要求的两条时效规则（两条都要满足） ============
+         ① 【发布时间在 24 小时内】—— 用户原话：
+            「所有的晒票 不管是彩票还是足球 都抓取24小时内晒出来的票」
+         ② 【期次未开奖，或开奖后 <= 1 小时】—— 见 build-xysp-tt.mjs 的 expireOf
+
+         ⚠️ 拿不到发布时间怎么办（这里的关键决定）：
+            一起彩页面上【有】发布时间（lucky-msg-txt = "10-15 22:37"），
+            所以正常情况下走 ①。万一某条解析不出时间：
+              · 【不丢】—— 绝不能因为少个时间字段就把整个彩种清空（用户红线）
+              · 退回用【抓取时间 at】当发布时间（pubSrc='at'）——
+                我们刚抓到它，所以它必然过 ①；真正的清理交给
+                at + 24 小时的下限（老数据到点自然掉出去）。
+              · 为什么要下限：一条条目会一直被重新抓到（at 保留最早那次），
+                所以"最早抓到的时间 + 24 小时"就是它的最长期限，
+                不会出现某条永远赖着不走。
+            ⚠️ 注意：这里【不能】直接用 at 判 24 小时 ——
+                at 是"我们第一次抓到它"的时间，不是帖子发布时间；
+                源站上一条 3 天前发的票，我们第一次抓到也会是"现在"。
+                所以【有 pubAt 就必须用 pubAt】。
+         ================================================================ */
+      const pubRaw = String(it.pubAt || '');
+      let pubMs = Date.parse(pubRaw);
+      if (!isFinite(pubMs)) {
+        const fb = Number(it.pubMs);
+        pubMs = isFinite(fb) && fb > 0 ? fb : 0;
+      }
+      let pubSrc = it.pubSrc || '';
+      if (!pubMs) { pubMs = t; pubSrc = 'at'; stat.pubFallback++; }   /* 退回抓取时间 */
+      if (pubSrc !== 'at' && pubMs < cutoff) { stat.dropped++; stat.dropPub++; return; }
+
+      /* 条目本身的兜底下限：最早抓到的时间 + 24 小时 */
+      if (t < cutoff) { stat.dropped++; stat.dropCap++; return; }
+
       const prev = bucket.get(img);
       if (prev) {
         /* 同一个 img 只留一条：at 保留【最早】那次，其余字段用最新的 */
@@ -249,6 +321,11 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
         prev.title = it.title || prev.title;
         prev.thumb = it.thumb || prev.thumb;
         prev.url = it.url || prev.url;
+        /* 【发布时间取"有就更新"】—— 老数据里没有 pubAt（第一版没存这个字段），
+           新抓到的同一条带着 pubAt 时必须补进去，
+           否则 24 小时发布规则对它们永远失效（实测踩过：重建后 pubAt 全空）。 */
+        if (it.pubAt) { prev.pubAt = it.pubAt; prev.pubMs = pubMs; }
+        if (pubSrc && pubSrc !== 'at') prev.pubSrc = pubSrc;
         if (Date.parse(prev.at) > t) prev.at = at;
         return;
       }
@@ -257,7 +334,10 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
         thumb: it.thumb || thumbOf(img),
         title: it.title || '',
         url: it.url || '',
-        at
+        at,
+        pubAt: it.pubAt || (pubSrc === 'at' ? '' : new Date(pubMs).toISOString()),
+        pubMs,
+        pubSrc
       });
       if (count) stat.added++;
     };
@@ -268,8 +348,10 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     const freshList = Array.isArray(freshByGame[g.key]) ? freshByGame[g.key] : [];
     freshList.forEach((it) => push(it, true));
 
-    /* 最新的排在前面，再砍到上限 */
-    const list = [...bucket.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
+    /* 排序：发布时间新的在前（没有发布时间的用抓取时间），再砍到上限 */
+    const list = [...bucket.values()].sort((a, b) =>
+      ((b.pubMs || Date.parse(b.at)) - (a.pubMs || Date.parse(a.at))) ||
+      (Date.parse(b.at) - Date.parse(a.at)));
     games[g.key] = { name: g.name, items: list.slice(0, MAX_PER_GAME) };
     stat.kept += games[g.key].items.length;
   }
@@ -325,7 +407,7 @@ for (let i = 0; i < GAMES.length; i++) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const html = await r.text();
     httpOk++;
-    freshByGame[g.key] = parsePage(html, roundIso);
+    freshByGame[g.key] = parsePage(html, roundIso, now);
   } catch (e) {
     freshByGame[g.key] = [];
     const msg = String((e && (e.cause && e.cause.code)) || (e && e.message) || e).slice(0, 120);
@@ -409,8 +491,11 @@ const data = { updated: stamp(new Date(now)), games };
 const text =
   `/* ============================================================\n` +
   `   xysp-data.js —— 「晒票栏」图片数据（自动生成，请勿手动编辑）\n\n` +
-  `   由 build-xysp.mjs 生成（每 30 分钟一次）。\n` +
-  `   只保留最近 ${KEEP_HOURS} 小时内抓到的条目，每个彩种最多 ${MAX_PER_GAME} 条\n` +
+  `   由 build-xysp.mjs 生成（晒票每 10 分钟一次；本文件跟着刷新）。\n` +
+  `   时效规则（用户要求，两条都要满足）：\n` +
+  `     · 帖子【发布时间】在 ${PUB_HOURS} 小时内\n` +
+  `     · 期次未开奖，或开奖后不超过 1 小时\n` +
+  `   每个彩种最多 ${MAX_PER_GAME} 条\n` +
   `   （头条晒票最多 ${TT_MAX} 条、竞彩晒票最多 ${JC_MAX} 条，都来自 build-xysp-tt.mjs）。\n` +
   `   图片是【外链】（图床没有防盗链），页面里不存图片本体。\n` +
   `   更新时间：${data.updated}\n` +
@@ -420,12 +505,14 @@ fs.writeFileSync(OUT, text, 'utf8');
 
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
 log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-  `（丢弃过期 ${stat.dropped} 条 · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条）`);
+  `（丢弃 ${stat.dropped} 条 [发布时间超 ${PUB_HOURS}h ${stat.dropPub} · 兜底超时 ${stat.dropCap}]` +
+  ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条` +
+  ` · 发布时间取不到退回抓取时间 ${stat.pubFallback} 条）`);
 GAMES.concat([{ key: TT_KEY, name: TT_NAME }, { key: JC_KEY, name: JC_NAME }]).forEach((g) => {
   const items = (games[g.key] && games[g.key].items) || [];
-  const h = (g.key === JC_KEY) ? JC_KEEP_HOURS : KEEP_HOURS;
+  const h = (g.key === JC_KEY) ? (JC_KEEP_HOURS / 24) + ' 天' : PUB_HOURS + ' 小时';
   log(`   ${g.name.padEnd(6)} ${String(items.length).padStart(2)} 条` +
-    (items.length ? ` · 例：${items[0].img}` : ` · ⚠️ ${h} 小时内没有新的`));
+    (items.length ? ` · 例：${items[0].img}` : ` · ⚠️ ${h} 内没有新的`));
 });
 log(`   合计 ${stat.kept + games[TT_KEY].items.length + games[JC_KEY].items.length} 条 · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
