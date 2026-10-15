@@ -607,8 +607,8 @@ GROUPS.forEach((group) => {
    这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
    （下面有断言，不一致时生成日志里会直接报出来）。 */
 const TOC_ROWS = [
-  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球五行图资料', g: 'ssq',  i: 'wuxing' }],
-  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透五行图',     g: 'dlt',  i: 'wuxing' }],
+  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 五行/绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
+  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 五行/绕胆/九转/九宫',     g: 'dlt',  i: 'wuxing' }],
   [{ t: '3D',               g: 'fc3d', i: 'main' }, { t: '快乐8',            g: 'kl8',  i: 'main'   }],
   [{ t: '排列三',           g: 'pl3',  i: 'main' }, { t: '排列五',           g: 'pl5',  i: 'main'   }],
   [{ t: '七乐彩',           g: 'qlc',  i: 'main' }, { t: '七星彩',           g: 'qxc',  i: 'main'   }]
