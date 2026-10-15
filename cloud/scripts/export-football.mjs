@@ -945,13 +945,7 @@ html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); poin
   font-size: 20px; line-height: 1.8; padding: 40px; flex-direction: column; }
 html.locked #mask { display: flex; }
 #mask .mask-s { margin-top: 12px; font-size: 13px; color: #98a1b2; line-height: 1.9; }
-#watermark { position: fixed; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none;
-  z-index: 99997; overflow: hidden; opacity: .07; }
-.wm-item { position: absolute; font-size: 14px; white-space: nowrap; font-weight: 700;
-  color: #e8eaed; transform: rotate(-30deg); }
-html.locked #watermark { opacity: .3; }
-/* owner（自己）：隐藏水印 + 右上角小徽章 */
-html.is-owner #watermark { display: none; }
+/* 【不要水印】—— 用户明确要求去掉，页面里不再有任何水印容器 / 样式 / 绘制逻辑 */
 .owner-tag { display: none; position: fixed; right: 10px; top: 10px; z-index: 100002;
   font-size: 11.5px; font-weight: 700; color: #f0b429; background: rgba(240,180,41,0.12);
   border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px; }
@@ -967,7 +961,6 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 @media print {
   #article, .guard { filter: blur(25px) grayscale(1) !important; }
   #mask { display: flex !important; }
-  #watermark { opacity: .3 !important; }
 }
 .calc-tag { font-size: 10.5px; color: #f0b429; background: rgba(240,180,41,0.13);
   border: 1px solid rgba(240,180,41,0.32); border-radius: 20px; padding: 1px 8px; white-space: nowrap; }
@@ -1090,8 +1083,6 @@ ${nav}
   <div class="mask-s">切回本页后自动恢复（约 4 秒）。<br>
     「模拟计算」和三个分段的展开/收起不受影响，可以继续用。</div>
 </div>
-<!-- 【防截图 · 水印】固定文字（不读任何浏览器本地存储），按窗口尺寸平铺 -->
-<div id="watermark" aria-hidden="true"></div>
 <!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示 -->
 <div id="ownerTag" class="owner-tag">👑 管理员模式 · 可截图</div>
 
@@ -1649,7 +1640,6 @@ ${nav}
   var OWNER_IP = '120.231.138.19';   /* 主人公网 IP（家宽 IP 会变，所以还有 file: 那条兜底） */
   var LOCK_MS = 4000;                /* lock 之后最多挡这么久，自动恢复 */
   var IP_TIME_OUT = 4000;            /* 每个 IP 源最多等这么久 */
-  var userTag = '春风十里送大奖 · 仅供观看';   /* 固定文字：不读任何浏览器本地存储 */
   var ownerMode = false;             /* 默认按「别人」处理 → 先保护 */
   var timer = null;
 
@@ -1813,24 +1803,6 @@ ${nav}
       if (e.preventDefault) e.preventDefault();
     });
   });
-
-  /* 水印：按窗口尺寸平铺，resize 重画（纯字符串拼接，不读任何浏览器本地存储） */
-  function drawWatermark() {
-    var wm = document.getElementById('watermark');
-    if (!wm) return;
-    var W = window.innerWidth || 1200;
-    var H = window.innerHeight || 800;
-    var out = '', r, c;
-    for (r = 0; r * 120 <= H + 120; r++) {
-      for (c = 0; c * 260 <= W + 260; c++) {
-        out += '<span class="wm-item" style="left:' + (c * 260 + (r % 2 ? 130 : 0)) + 'px;top:' + (r * 120) + 'px">' +
-          userTag + '</span>';
-      }
-    }
-    wm.innerHTML = out;
-  }
-  drawWatermark();
-  window.addEventListener('resize', drawWatermark);
 
   /* ---------- ③ 查一次身份：是自己就解除保护 + 亮徽章 ---------- */
   try {
