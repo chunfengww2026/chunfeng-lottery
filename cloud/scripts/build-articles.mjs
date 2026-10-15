@@ -341,6 +341,28 @@ function readPrev() {
 const st = readState();
 const now = Date.now();
 
+/* 【最小间隔节流】--min-gap <分钟>
+   ------------------------------------------------------------
+   为什么加：晒票那一班改成【每 10 分钟】跑（用户要求「改成10分钟在全网
+   获取一遍」），而文章仍然只要【每 30 分钟】（再快没意义，还会白打源站）。
+   这个 .cmd 是同一个任务，所以靠这个参数把文章钉在 30 分钟。
+   做法：看 state 里的 lastRun，不足 min-gap 就按「本轮跳过」退出码 10 ——
+   调用方已经把 10 当作【正常跳过、保留旧文件】处理，不会当成失败。
+   不传这个参数 = 老行为（每次都抓），所以 daily-update 那边不受影响。 */
+const gapIdx = process.argv.indexOf('--min-gap');
+if (gapIdx >= 0) {
+  const minGap = Number(process.argv[gapIdx + 1] || 0);
+  const last = Date.parse(st.lastRun || '');
+  if (minGap > 0 && isFinite(last) && (now - last) < minGap * 60000) {
+    const left = Math.ceil((minGap * 60000 - (now - last)) / 60000);
+    log(`⏸  距上次成功只过了 ${Math.round((now - last) / 60000)} 分钟（要求 >= ${minGap} 分钟），` +
+      `还差 ${left} 分钟 —— 本轮跳过，保留上一份 articles-data.js`);
+    st.skips = (st.skips || 0) + 1;
+    writeState(st);
+    process.exit(10);
+  }
+}
+
 /* 1. 退避期？ */
 if (st.pausedUntil && now < st.pausedUntil) {
   const left = Math.ceil((st.pausedUntil - now) / 60000);
