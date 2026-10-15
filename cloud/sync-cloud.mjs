@@ -224,12 +224,10 @@ const CODE_MODULES = [
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
-      同步过去只是让云端仓库里也有这个脚本；云端的班次表不跑它，
-      数据仍由本机 sync-cloud.mjs 传上去的 kjh-data.js 提供。 */
+      云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
   /* 【晒票栏】抓取脚本（本机每 30 分钟跑一次，跟着文章那一班）。
-      同步过去只是让云端仓库里也有这个脚本；云端的班次表不跑它，
-      数据仍由本机 sync-cloud.mjs 传上去的 xysp-data.js 提供。 */
+      云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-xysp.mjs',
   /* 【文章参考】抓取脚本（本机每小时 :16 跑一次，跟着文章那一班）。
       ⚠️ 必须同步：云端 daily-update.mjs 的【3.7】那一步会跑
@@ -250,9 +248,17 @@ const CODE_MODULES = [
   'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs',
   /* 【竞彩在售场次】抓体彩官网在售场次的脚本（1 次请求，不调 AI）。
-      同步过去只是让云端仓库里也有这个脚本；云端的班次表不跑它，
-      数据仍由本机 sync-cloud.mjs 传上去的 jc-official.js 提供。 */
+      云端【每 30 分钟那一班】也会跑它；体彩官网对美国 IP 返回 567 时，
+      脚本自己保留上一次的 jc-official.js（退出码 10），页面退回兜底算法。 */
   'build-jc-count.mjs',
+  /* 【72 小时缓存清理】云端全量班（北京 02:00）会跑它。
+      注意：cloud/scripts/ 里的临时/缓存/退避文件已经写进仓库根的 .gitignore，
+      清理掉它们不会被提交回仓库，也不会影响同步。 */
+  'cleanup-cache.mjs',
+  /* 【实时比分 · 每 5 分钟那一班】云端用 --cloud-light 跑它：
+      1 个请求；没有进行中的比赛就立刻退出；只改 football.js 的比分/时间字段。
+      ⚠️ 必须与项目根目录保持同一版本（本机的「足球比分-每5分钟」计划任务也在用）。 */
+  'update-football-live.mjs',
   /* 【最新开奖 · 实时更新】分享页顶部那块现在会就地重画，靠的就是这两个文件：
        · latest-draws.js  —— 区块的生成函数 + 客户端更新逻辑（分享页内联它）
        · export-draws.mjs —— 从 draws.js 取各彩种最新开奖，写进 tickets.json 的 draws
@@ -294,6 +300,14 @@ const OCR_PACKAGES = [
    部署上去的页面就没有「拉 tickets.json 就地重渲染」的能力 ——
    手机看到的还是旧号码。所以这里必须是本机刚生成的新版。 */
 const PAGE_ARTIFACTS = ['只读分享版.html', '足球推荐.html'];
+
+/* 仓库根目录的杂项文件。
+   【.gitignore 为什么必须上传】云端每次跑完都会 `git add -A cloud/` 再提交回仓库 ——
+   以前 cloud/out/index.html（1.27 MB）也在这个范围里，等于每跑一班就往仓库里
+   塞一个 1.27 MB 的网页；改成「每 30 分钟一班」之后一天 48 次，仓库会迅速膨胀。
+   现在用 .gitignore 把这两个大页面挡在版本管理之外（部署用的是运行时的 site/ 目录，
+   完全不受影响；万一某次构建没产出页面，workflow 会从线上把当前那份拉回来兜底）。 */
+const REPO_ROOT_FILES = ['.gitignore', '.github/workflows/daily-update.yml'];
 
 log('【1/3】刷新云端模块');
 let refreshed = 0;
@@ -415,6 +429,15 @@ if (fs.existsSync(TICKETS_JSON)) {
 const wf = path.join(PARENT, '.github', 'workflows', 'daily-update.yml');
 if (fs.existsSync(wf)) files.push({ local: wf, repo: '.github/workflows/daily-update.yml' });
 
+/* 仓库根目录的 .gitignore（把 cloud/out 的两个大页面挡在版本管理之外） */
+REPO_ROOT_FILES.forEach((rel) => {
+  const src = path.join(PARENT, rel);
+  if (!fs.existsSync(src)) { log(`  ⚠️ 缺少 ${rel}，本次不会上传`); return; }
+  if (files.some((f) => f.repo === rel)) return;   /* 上面已经加过 workflow */
+  files.push({ local: src, repo: rel });
+  log(`  📤 ${rel} 已加入上传列表`);
+});
+
 log(`  共 ${files.length} 个文件`);
 
 /* ---------- 比指纹，挑出真正变了的文件 ---------- */
@@ -455,6 +478,25 @@ if (LIST_ONLY) {
     (files.some((f) => f.repo === 'cloud/scripts/saved-tickets.js') ? '是' : '否'));
   log('  ✅ 清单中包含 cloud/scripts/sync-stamp.json：' +
     (files.some((f) => f.repo === 'cloud/scripts/sync-stamp.json') ? '是' : '否'));
+  log('  ✅ 清单中包含仓库根 .gitignore（挡住 cloud/out 的大页面）：' +
+    (files.some((f) => f.repo === '.gitignore') ? '是' : '否'));
+  log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
+  ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
+   'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',
+   'build-articles.mjs', 'build-xysp.mjs', 'build-kjh.mjs', 'build-jc-count.mjs',
+   'cleanup-cache.mjs', 'update-football-live.mjs', 'build-heatmap.mjs', 'ocr-tickets.mjs',
+   'experts-data.js', 'expert-pool.js', 'export-static.mjs', 'export-football.mjs'
+  ].forEach((n) => {
+    const hit = files.some((f) => f.repo === 'cloud/scripts/' + n);
+    log(`      ${hit ? '✅' : '❌'} cloud/scripts/${n}`);
+  });
+  log('  ✅ 本机 App 专属文件绝不上云（红线）：');
+  ['ai-config.js', 'ai-analyze.js', 'assistant-client.js', 'export-image.js',
+   'main.js', 'preload.js', 'sync-client.js', 'ai-server.mjs'
+  ].forEach((n) => {
+    const hit = files.some((f) => f.repo === 'cloud/scripts/' + n || f.repo === 'cloud/' + n);
+    log(`      ${hit ? '❌ 竟然在清单里！' : '✅ 不在'} ${n}`);
+  });
   log(`  ✅ 本次实际需要上传 ${changedFiles.length} 个文件（指纹比对耗时 ${Date.now() - t0} ms）`);
   process.exit(0);
 }
