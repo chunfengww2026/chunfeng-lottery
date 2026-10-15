@@ -291,7 +291,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/TP2P0Kt5gK02g1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=kSXc7E%2FOY5k%2FZqVX9lmtd%2BR4z%2Bc%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/TP2P0Kt5gK02g1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=kSXc7E%2FOY5k%2FZqVX9lmtd%2BR4z%2Bc%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/TNittAB7QZ640a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=ETWM2MPWjvvHPz37c%2FeLaJVz%2BjE%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/TNittAB7QZ640a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=Mwu0fE6HabTRI7Iwq7JTnn1i70M%3D",
    "title": "高手晒单 |单挑荷兰3比1和阿根廷2比1，命中竞彩比分2串1，擒120倍奖金",
    "url": "http://static.zhoudaosh.com/AE3B771E87EE128294A543AE65061F38BE48BCEBA89EFFF2D02440DEF2FEF4DA",
    "at": "2026-10-15T22:31:28.347Z",
@@ -317,7 +317,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6cb12788135f4b0783977aa3135c8f52~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=VAciwpDtUx6yysaEwYb4R8xIXwY%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6cb12788135f4b0783977aa3135c8f52~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=VAciwpDtUx6yysaEwYb4R8xIXwY%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6cb12788135f4b0783977aa3135c8f52~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=pxmBRLQoVWIUpjvs%2BBjmWeUBXaQ%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6cb12788135f4b0783977aa3135c8f52~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=fcJU7cmSZxEvvcjyJ5wWOAHDyrA%3D",
    "title": "两张竞彩实单晒出！一张 6 场 3.5 关，一张 2 串 1，同天出票结局大不同",
    "url": "https://toutiao.com/group/7694158836206174756/",
    "at": "2026-10-15T22:31:28.347Z",
@@ -332,13 +332,13 @@ const XYSP_JC_DATA = {
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/52398b64a7b0405caa97efec6e048cdc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=5Jm49ny02%2FNzbbArBDdnfFsdPa4%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/52398b64a7b0405caa97efec6e048cdc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=jpGhidTWQY1CRJybiI%2F8fNPZf%2FE%3D",
    "title": "8 元 2 串 1 喜提 9600！5 张竞彩实单晒出，足球竞猜的惊喜谁懂",
-   "url": "http://toutiao.com/item/7694111662416069174/",
+   "url": "https://toutiao.com/group/7694085008340124203/",
    "at": "2026-10-15T22:31:28.347Z",
    "src": "tt",
    "cat": "jc",
    "game": "2串1",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-08 10:02:50"
+   "author": "笑壹说天下",
+   "when": "2026-10-08 08:21:49"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1f7337868816475c8d238e9eb5d280c0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=PEoSOPkqkbUHigHF%2F177YNmqr80%3D",
@@ -358,18 +358,18 @@ const XYSP_JC_DATA = {
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ee7b9b89cdc4608a1de2b12a599a6e6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=ApTSVM1Pc%2BTdbNcfeR48wXFERVc%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ee7b9b89cdc4608a1de2b12a599a6e6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=jbwnLSheH5%2F1n6QBuuOqn4MMEPw%3D",
    "title": "900元博百万！网传竞彩晒票引热议，单挑冷门比分看点十足！",
-   "url": "http://toutiao.com/item/7679025043476578822/",
+   "url": "https://toutiao.com/group/7678966289792090647/",
    "at": "2026-10-15T22:31:28.347Z",
    "src": "tt",
    "cat": "jc",
    "game": "比分",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-08-28 18:19:03"
+   "author": "彩市清醒派",
+   "when": "2026-08-28 14:31:51"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=OPpE7YQOauqm48qJfHWi0A3hNp4%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=OPpE7YQOauqm48qJfHWi0A3hNp4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=9iK79MobJsjl4aKxk2MF2XF%2BEl0%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f1ea12904637489698bb8dbd04a6230e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800748800&x-signature=1e6hhxFw59cIIgyjW%2Flbf%2BSm7BI%3D",
    "title": "胜负彩142期：欧联杯大乱战！7大冷门埋伏点，强队全有翻车隐患",
    "url": "http://toutiao.com/item/7696996948368163382/",
    "at": "2026-10-15T22:31:28.347Z",

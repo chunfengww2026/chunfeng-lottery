@@ -632,9 +632,88 @@ function renderMatch(m) {
 }
 
 /* ============================================================
+   【推荐可串】在售 + 信心 ≥55% 的紧凑列表
+   ------------------------------------------------------------
+   数据全部来自页面【已有】的字段，没有新算法、不编数：
+     · 「在售」= 体彩官网公布的 Selling 场次 = jc-data.js 顶层 sp.list
+       （和「模拟计算」里能勾选的是同一批场次）
+     · 「信心指数」= jc-data.js 每场的 reco.confidence ——
+       build-jc.mjs 的 calcReco() 算的就是「欧赔反推概率里最高的那个」，
+       所以 reco.confidence === max(prob.home, prob.draw, prob.away)
+       === 推荐结果（reco.pick）的百分比。每场【只有一个】信心值。
+     · 「赔率」= 该场 reco.pick 对应的欧赔（live 优先，没 live 用 open）——
+       和信心的来源是同一份赔率，不混用官方 SP，免得两个来源对不上。
+     · 在售列表里没有它 / 没有 reco（数据缺失）→ 不显示，绝不填 0 凑数。
+   ============================================================ */
+const REC_MIN = 55;                    /* 用户要求：信心 ≥55% 才进推荐 */
+
+const REC_BY_KEY = new Map();          /* 编号@日期 → 这场在 jc-data 里的推荐数据 */
+JC.games.forEach((g) => {
+  if (!g || !g.code || !g.reco || g.reco.confidence == null) return;
+  const eu = g.odds && g.odds.europe && (g.odds.europe.live || g.odds.europe.open);
+  const pick = g.reco.pick;
+  REC_BY_KEY.set(`${g.code}@${dayOf(g.time)}`, {
+    code: g.code,
+    league: g.league || '',
+    time: g.time || '',
+    home: (g.home && g.home.name) || '',
+    away: (g.away && g.away.name) || '',
+    label: g.reco.label || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '',
+    odds: (eu && pick && eu[pick] != null) ? eu[pick] : null,
+    conf: g.reco.confidence
+  });
+});
+
+/* 在售（官方 Selling）× 有信心数据；低于 55% 的一律不要 */
+const REC_ALL = (SP ? SP.list : [])
+  .map((r) => REC_BY_KEY.get(`${r.code}@${dayOf(r.time)}`))
+  .filter(Boolean);
+const REC_ROWS = REC_ALL
+  .filter((r) => r.conf >= REC_MIN)
+  /* 排序：信心从高到低（推荐列表当然先看最有把握的）；
+     信心相同再按开赛时间从早到晚（早开赛的先用得上）。 */
+  .sort((a, b) => (b.conf - a.conf) || String(a.time).localeCompare(String(b.time)));
+const REC_LOW = REC_ALL.filter((r) => r.conf < REC_MIN);
+/* 一条都没有时，把「在售里最好的那个」写出来 —— 让用户知道是筛选生效而不是坏了 */
+const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.conf)) : null;
+
+/* ============================================================
+   渲染
+   ============================================================ */
+function renderRec() {
+  const head =
+    `<summary class="m-rechead">` +
+    `<span class="m-rectitle">推荐可串</span>` +
+    `<span class="m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
+    `<span class="m-rectip" aria-hidden="true"></span>` +
+    `</summary>`;
+
+  const note =
+    `<div class="m-recnote">只在<b>官方在售</b>场次里挑信心 ≥${REC_MIN}% 的 · ` +
+    `信心＝欧赔反推概率里最高那个（统计归纳，不是预测）</div>`;
+
+  const body = REC_ROWS.length
+    ? REC_ROWS.map((r) =>
+      `<div class="m-recrow">` +
+      `<span class="m-reccode">${esc(r.code)}</span>` +
+      `<span class="m-recteams">${esc(r.home)} vs ${esc(r.away)}` +
+      (r.league ? `<i>${esc(r.league)}</i>` : '') + `</span>` +
+      `<span class="m-recpick">${esc(r.label)}</span>` +
+      `<span class="m-recodds">${r.odds == null ? '—' : r.odds}</span>` +
+      `<span class="m-recconf${r.conf >= 60 ? ' strong' : ''}">${r.conf}%</span>` +
+      `</div>`).join('')
+    : `<div class="m-recempty">暂无（在售场次里` +
+      (REC_MAXCONF == null
+        ? `还没有推荐数据`
+        : `带推荐数据的 ${REC_ALL.length} 场，最高信心 ${REC_MAXCONF}% < ${REC_MIN}%`) +
+      `）</div>`;
+
+  return `<details class="m-rec" id="jcRec">${head}${note}${body}</details>`;
+}
+
+/* ============================================================
    模拟计算器（渲染）
    ------------------------------------------------------------
-   · 赔率是【官方 SP 原值】（见上面数据准备段的说明）
    · 勾选 / 倍数由页面上的纯前端脚本实时算（不发任何请求、不刷新页面）
    · 【交互边界】竞彩页上只有这一块可以操作；不写任何本地存储
      （浏览器存储 API 一个都不用），刷新页面全部回到默认（全不勾选、倍数 1）
@@ -1210,6 +1289,32 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .calc-disclaim { margin-top: 9px; padding-top: 8px; border-top: 1px dashed #262d3a;
   font-size: 10.5px; color: #6b7488; line-height: 1.8; }
 .calc-disclaim b { color: #98a1b2; font-weight: 700; }
+/* ---- 【推荐可串】紧凑列表（可收起、默认收起；一行一场，字号比比赛卡片小一档） ---- */
+.m-rec { margin-bottom: 4px; }
+.m-rec > summary.m-rechead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  cursor: pointer; list-style: none; user-select: none; margin: 14px 0 8px; }
+.m-rec > summary.m-rechead::-webkit-details-marker { display: none; }
+.m-rec > summary.m-rechead::marker { content: ''; }
+.m-rectitle { font-size: 14px; font-weight: 700; color: #e8eaed; }
+.m-reccount { font-size: 11px; color: #6b7488; background: #12151d;
+  padding: 2px 8px; border-radius: 20px; }
+.m-rectip { margin-left: auto; font-size: 11.5px; font-weight: 400; color: #47e0a0; opacity: .9; }
+.m-rec[open] > summary.m-rechead .m-rectip::after { content: '点击收起'; }
+.m-rec:not([open]) > summary.m-rechead .m-rectip::after { content: '点击查看'; }
+.m-recnote { font-size: 10px; color: #6b7488; line-height: 1.6; margin: 0 0 4px; }
+.m-recrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #1e2430; }
+.m-recrow:last-child { border-bottom: 0; }
+.m-reccode { font-size: 11px; font-weight: 700; color: #98a1b2; background: #12151d;
+  padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.m-recteams { font-size: 12.5px; color: #e8eaed; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.m-recteams i { font-style: normal; font-size: 10.5px; color: #6b7488; margin-left: 5px; }
+.m-recpick { font-size: 12.5px; font-weight: 700; color: #47e0a0; white-space: nowrap; }
+.m-recodds { font-size: 12.5px; color: #98a1b2; white-space: nowrap; font-family: Consolas, monospace; }
+.m-recconf { font-size: 12px; color: #98a1b2; white-space: nowrap; font-family: Consolas, monospace; }
+.m-recconf.strong { color: #47e0a0; font-weight: 700; }
+.m-recempty { font-size: 11.5px; color: #6b7488; padding: 8px 2px 10px; }
 `;
 
 const html = `<!DOCTYPE html>
@@ -1281,6 +1386,8 @@ ${nav}
     <span class="r">命中率 ${stat.rate}%</span>
     <span class="n">（推荐胜负平比对最终比分）</span>
   </div>` : ''}
+
+  ${renderRec()}
   </div>
 
   ${cards}
@@ -2176,6 +2283,11 @@ if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.mi
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
 console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
   `（单关 ~ ${passLabel(CALC_MAX_N)}）· 赔率来源：${SP_SRC_LOG}`);
+console.log(`   推荐可串（在售 · 信心 ≥${REC_MIN}%）：符合 ${REC_ROWS.length} 场` +
+  (REC_ROWS.length ? ` → ${REC_ROWS.map((r) => `${r.code} ${r.label} ${r.conf}%`).join(' | ')}` : '（无）'));
+console.log(`   其中信心 <${REC_MIN}% 被排除 ${REC_LOW.length} 场` +
+  (REC_LOW.length ? ` → ${REC_LOW.map((r) => `${r.code} ${r.conf}%`).join(' | ')}` : '（无）') +
+  ` · 在售里有推荐数据的共 ${REC_ALL.length} 场`);
 console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字，绝不估算；不写任何本地存储）`);
 
 /* 【晒票】自测输出：位置 + 条数（验收那一栏直接看这几行）
