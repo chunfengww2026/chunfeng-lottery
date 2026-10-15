@@ -321,7 +321,20 @@ jobs:
             echo "--- 本次要提交的文件 ---"
             git diff --cached --name-only | head -30
             git commit -m "自动更新 $(date -u '+%Y-%m-%d %H:%M') UTC"
-            git push
+            # 【推送必须抗并发】本机同步（sync-cloud.mjs 走 GitHub API）随时可能
+            # 往同一个分支写东西，实测出现过 `! [rejected] main -> main (fetch first)`
+            # —— 那一次的数据（含刚摇出来的号）就白丢了。
+            # 所以：先把远端拉下来合并（冲突时 -X ours = 以【本次云端算出来的】为准，
+            # 因为这里面可能有刚发布的新号码，绝不能被覆盖），然后重试推送 5 次。
+            ok=0
+            for i in 1 2 3 4 5; do
+              git fetch -q origin main || true
+              git merge --no-edit -X ours origin/main >/dev/null 2>&1 || true
+              if git push -q origin HEAD:main; then ok=1; break; fi
+              echo "第 $i 次推送失败（多半是同时有别的东西在推），5 秒后重试"
+              sleep 5
+            done
+            if [ "$ok" = "1" ]; then echo "✅ 数据已推回仓库"; else echo "::warning::重试 5 次都没推上去 —— 下次构建会重新抓一遍，网页本身不受影响"; fi
           fi
 
       # 【必须每次都跑】哪怕构建步骤部分失败，也要把当前 site/ 发布出去，
