@@ -2076,6 +2076,10 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 .ro-meta-hm { font-size: 11px; opacity: 0.72; margin-top: 2px; }
 
 
+/* 【距离下期开奖倒计时】比日期小一点、金色 */
+.hc-nextcd { font-size: 11px; color: #e8c877; opacity: 0.9; margin-top: 3px; letter-spacing: 0.3px; }
+
+
 
 /* ============================================================
    只读分享版专用样式
@@ -2635,18 +2639,16 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    位置：紧跟【推荐图目录】(.ro-imgtoc-wrap) 之后。
    配色沿用页面现有暗色那套（#12161d / #161a21 / #262d3a / #e8eaed）。
-   内容：用户第二次改口「不要晒图片，分几个彩种晒票分列，
-        每一个选项点进去就是对应的晒票」⇒ 就是 8 个彩种格子，
-        纯文字 + 链接，【一块图片都没有】。
+   内容：展开后 = 一排彩种筛选 + 晒票图片网格（图片是图床外链）。
    【默认收起】用户原话：「晒票栏可以收起来要自动点」
-     用原生 <details>/<summary>，一行 JS 都不写：
+     用原生 <details>/<summary>，折叠本身一行 JS 都不写：
        · <summary> = 标题那一行，点一下展开、再点收起（原生行为）
-       · 收起时浏览器不渲染里面的格子，首屏更短
        · 默认三角用 list-style + ::-webkit-details-marker 去掉，
          换成右侧的纯 CSS 文字提示（展开 ▸ / 收起 ▾），随 [open] 变
        · <summary> 不是按钮标签 → 页面不变量「按钮标签数 = 0」不受影响
-   列数：窄屏 2 列 × 4 行；>=620px 4 列 × 2 行（用户点名的排法）。
-   这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）。
+   列数：手机 2 列；>=620px 4 列。
+   这里不碰任何已有图片选择器（ro-imagewrap / ro-imagepair / ro-mob-view）——
+   点图放大走的就是页尾已有的 ro-mob-view 全屏层。
    ============================================================ */
 .ro-xysp {
   background: #12161d;
@@ -2692,42 +2694,90 @@ body.ro-mob-open { overflow: hidden; }
 .ro-xysp[open] .ro-xysp-arrow::before { content: '收起'; }
 .ro-xysp[open] .ro-xysp-arrow::after { content: ' ▾'; }
 
-/* 彩种格子：窄屏 2 列 × 4 行 */
-.ro-xysp-grid {
+/* 删掉上一版的「纯文字彩种格子」样式（.ro-xysp-grid / .ro-xysp-cell）——
+   那一版是「点格子跳到源站晒票页」，已被用户否掉；
+   现在展开后是下面的筛选条 + 图片网格。 */
+
+/* ---- 晒票图片：筛选条 + 图片网格 + 卡片 ----
+   用户要求：直接在页面里看晒票图（不跳转）、点图能放大看清号码。
+   图片是【外链】（图床没有防盗链），所以这里只有排版样式，
+   页面里不存图片本体。 */
+.ro-xysp-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.ro-xysp-tab {
+  flex: 0 0 auto;
+  padding: 6px 11px;
+  border: 1px solid #2a323f;
+  border-radius: 999px;
+  background: #161a21;
+  color: #c8cfda;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ro-xysp-tab:hover, .ro-xysp-tab:active { border-color: #3d5a86; color: #cfe0ff; }
+.ro-xysp-tab.on { background: #1c2530; border-color: #3d5a86; color: #8fb8ff; }
+
+/* 手机 2 列；宽屏 4 列（用户点名的排法） */
+.ro-xysp-pics {
   display: grid;
   gap: 9px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 12px;                 /* 收起时不占这块空隙 */
+  margin-top: 11px;
 }
 @media (min-width: 620px) {
-  .ro-xysp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ro-xysp-pics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-.ro-xysp-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 10px 6px;
-  box-sizing: border-box;
+/* 被筛掉的卡片：脚本给它加 hidden 属性。
+   ⚠️ 必须显式写 display:none —— 下面 .ro-xysp-pic 用了 display:block，
+   会盖掉浏览器对 hidden 的默认隐藏，不加这条筛选就没效果。 */
+.ro-xysp-pic[hidden] { display: none !important; }
+
+.ro-xysp-pic {
+  display: block;
   background: #161a21;
   border: 1px solid #2a323f;
   border-radius: 10px;
-  color: #c8cfda;
-  font-size: 13.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  text-align: center;
+  overflow: hidden;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  transition: background .15s, border-color .15s, color .15s, transform .1s;
+  transition: border-color .15s;
 }
-.ro-xysp-cell:hover, .ro-xysp-cell:active {
-  background: #1c2530;
-  border-color: #3d5a86;
-  color: #cfe0ff;
-  transform: translateY(-1px);
+.ro-xysp-pic:hover, .ro-xysp-pic:active { border-color: #3d5a86; }
+
+/* 缩略图：宽度铺满卡片、高度按原比例（票是长条，不裁切才看得到全貌） */
+.ro-xysp-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 60px;
+  background: #0f1218;
 }
+
+.ro-xysp-cap { display: block; padding: 5px 7px 6px; }
+.ro-xysp-cap b { display: block; font-size: 11.5px; font-weight: 700; color: #8fb8ff; }
+.ro-xysp-cap i {
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: #7a8394;
+  word-break: break-word;
+  /* 描述最多两行，卡片才不会被拉得高矮不齐 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ro-xysp-empty { margin-top: 12px; font-size: 12px; color: #6b7488; }
+.ro-xysp-note { margin-top: 10px; font-size: 10.5px; color: #5f6878; }
 /* ============================================================
    【开机号 / 选号直播】工具栏入口 + 两个可展开区块
    ------------------------------------------------------------
@@ -2876,7 +2926,7 @@ body.ro-mob-open { overflow: hidden; }
 .site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
 </style>
 </head>
-<body data-built="2026-10-16 03:18" class="ro-toc-pending">
+<body data-built="2026-10-16 03:30" class="ro-toc-pending">
 <div class="site-nav">
   <a href="index.html" class="on">彩票推荐</a>
   <a href="football.html" class="">竞彩场次</a>
@@ -2906,7 +2956,7 @@ body.ro-mob-open { overflow: hidden; }
 
   <section class="ro-panel ro-kjh-panel" id="ro-kjh"><div class="ro-panel-head"><h2 class="ro-panel-title">开机号</h2><div class="ro-panel-sub">每天 2:00 自动更新 · 更新于 2026-10-16 02:33</div></div><div class="ro-kjh-grid"><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">双色球</b><span class="ro-kjh-issue">第26119期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">02</span><span class="ro-kjh-ball">03</span><span class="ro-kjh-ball">05</span><span class="ro-kjh-ball">15</span><span class="ro-kjh-ball">29</span><span class="ro-kjh-ball">33</span><span class="ro-kjh-ball is-blue">16</span></div><div class="ro-kjh-extra">和值: 87 · 奇偶: 5:1 · 大小: 2:4 · 跨度: 31</div><div class="ro-kjh-time">开奖时间 2026年10月18日 星期日 21:15</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">超级大乐透</b><span class="ro-kjh-issue">第26118期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">07</span><span class="ro-kjh-ball">09</span><span class="ro-kjh-ball">24</span><span class="ro-kjh-ball">28</span><span class="ro-kjh-ball">33</span><span class="ro-kjh-ball is-blue">05</span><span class="ro-kjh-ball is-blue">12</span></div><div class="ro-kjh-extra">和值: 101 · 奇偶: 3:2 · 大小: 3:2 · 跨度: 26</div><div class="ro-kjh-time">开奖时间 2026年10月17日 星期六 21:25</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">福彩3D</b><span class="ro-kjh-issue">第26275期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">8</span><span class="ro-kjh-ball">6</span><span class="ro-kjh-ball">3</span></div><div class="ro-kjh-extra">和值: 17 · 奇偶: 1:2 · 大小: 2:1 · 跨度: 5</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:15</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">快乐8</b><span class="ro-kjh-issue">第26275期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">05</span><span class="ro-kjh-ball">06</span><span class="ro-kjh-ball">10</span><span class="ro-kjh-ball">18</span><span class="ro-kjh-ball">21</span><span class="ro-kjh-ball">23</span><span class="ro-kjh-ball">24</span><span class="ro-kjh-ball">32</span><span class="ro-kjh-ball">34</span><span class="ro-kjh-ball">39</span><span class="ro-kjh-ball">43</span><span class="ro-kjh-ball">44</span><span class="ro-kjh-ball">46</span><span class="ro-kjh-ball">48</span><span class="ro-kjh-ball">52</span><span class="ro-kjh-ball">55</span><span class="ro-kjh-ball">58</span><span class="ro-kjh-ball">70</span><span class="ro-kjh-ball">74</span><span class="ro-kjh-ball">75</span></div><div class="ro-kjh-extra">和值: 777 · 奇偶: 7:13 · 大小: 10:10 · 跨度: 70</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:30</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">排列3</b><span class="ro-kjh-issue">第26275期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">1</span><span class="ro-kjh-ball">9</span><span class="ro-kjh-ball">7</span></div><div class="ro-kjh-extra">和值: 17 · 奇偶: 3:0 · 大小: 2:1 · 跨度: 8</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:25</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">排列5</b><span class="ro-kjh-issue">第26275期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">2</span><span class="ro-kjh-ball">4</span><span class="ro-kjh-ball">9</span><span class="ro-kjh-ball">4</span><span class="ro-kjh-ball">1</span></div><div class="ro-kjh-extra">和值: 20 · 奇偶: 2:3 · 大小: 1:4 · 跨度: 8</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:25</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">七星彩</b><span class="ro-kjh-issue">第26118期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">5</span><span class="ro-kjh-ball">4</span><span class="ro-kjh-ball">9</span><span class="ro-kjh-ball">0</span><span class="ro-kjh-ball">1</span><span class="ro-kjh-ball">7</span><span class="ro-kjh-ball is-blue">6</span></div><div class="ro-kjh-extra">和值: 26 · 奇偶: 4:2 · 大小: 3:3 · 跨度: 9</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:25</div></div><div class="ro-kjh-item"><div class="ro-kjh-top"><b class="ro-kjh-name">七乐彩</b><span class="ro-kjh-issue">第26119期</span></div><div class="ro-kjh-nums"><span class="ro-kjh-ball">01</span><span class="ro-kjh-ball">10</span><span class="ro-kjh-ball">11</span><span class="ro-kjh-ball">17</span><span class="ro-kjh-ball">20</span><span class="ro-kjh-ball">25</span><span class="ro-kjh-ball">29</span><span class="ro-kjh-ball is-blue">22</span></div><div class="ro-kjh-extra">和值: 113 · 奇偶: 5:2 · 大小: 4:3 · 跨度: 28</div><div class="ro-kjh-time">开奖时间 2026年10月16日 星期五 21:15</div></div></div></section>
 
-  <section class="ro-panel ro-live-panel" id="ro-live"><div class="ro-panel-head"><h2 class="ro-panel-title">选号直播</h2><div class="ro-panel-sub">当前暂无直播 · 每天 2:00 自动更新 · 更新于 2026-10-16 02:33</div></div><a class="ro-live-more" href="https://m.yiqic&#97;i.com/live" target="_blank" rel="noopener">打开直播页</a><ul class="ro-live-list"><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90864.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八260期分析：小车选五复七中6</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">194人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90748.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八259期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">180人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90645.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八258期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">323人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90546.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八257期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">310人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90438.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八256期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">225人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90273.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八255期分析：小车四胆、选二中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">347人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90232.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八254期分析：圈子选二复四中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">409人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90051.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八253期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">298人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90002.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八252期分析： 小车选二单式中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">166人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89887.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八251期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">384人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89705.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八249期分析：昨天选二复四中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">257人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89606.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八248期分析：小车选二单式中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">317人看过</span></span></a></li></ul></section>
+  <section class="ro-panel ro-live-panel" id="ro-live"><div class="ro-panel-head"><h2 class="ro-panel-title">选号直播</h2><div class="ro-panel-sub">当前暂无直播 · 每天 2:00 自动更新 · 更新于 2026-10-16 02:33</div></div><a class="ro-live-more" href="https://m.yiqic&#97;i.com/live" data-copy="https://m.yiqic&#97;i.com/live" data-ro-copylive="1" rel="noopener">点击复制链接进浏览器查看</a><ul class="ro-live-list"><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90864.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八260期分析：小车选五复七中6</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">194人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90748.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八259期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">180人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90645.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八258期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">323人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90546.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八257期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">310人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90438.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八256期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">225人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90273.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八255期分析：小车四胆、选二中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">347人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90232.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八254期分析：圈子选二复四中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">409人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90051.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八253期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">298人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history90002.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八252期分析： 小车选二单式中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">166人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89887.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八251期分析：小车重点关注选二</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">384人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89705.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八249期分析：昨天选二复四中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">257人看过</span></span></a></li><li><a class="ro-live-link" href="https://m.yiqic&#97;i.com/live/list/history89606.html" target="_blank" rel="noopener"><span class="ro-live-txt">小义快乐八248期分析：小车选二单式中</span><span class="ro-live-meta"><span class="ro-live-name">快乐八小义</span><span class="ro-live-game">快乐8</span><span class="ro-live-see">317人看过</span></span></a></li></ul></section>
 
   <!-- 【开机号 / 选号直播】点入口后把区块滚到视口顶部。
        为什么要有这几行：区块平时是 display:none，靠 CSS :target 展开；
@@ -2928,6 +2978,43 @@ body.ro-mob-open { overflow: hidden; }
          脚本一执行 OK 还是 undefined，一读 OK[...] 就抛 TypeError，
          整段脚本崩溃 → 点击监听根本没绑上 → 区块点不开。 */
       var OK = { '#ro-kjh': 1, '#ro-live': 1 };
+
+      /* __COPY_LIVE__ 【点击复制链接】
+         微信把 yiqicai.com 拉黑了，点外链跳不过去 → 改成复制到剪贴板，
+         用户自己粘到浏览器打开。
+         用 <a>（不是按钮标签），点一下复制 + 把文案临时改成「已复制」。 */
+      var copyEls = document.querySelectorAll('[data-ro-copylive]');
+      for (var ci = 0; ci < copyEls.length; ci++) {
+        copyEls[ci].addEventListener('click', function (e) {
+          var url = String(this.getAttribute('data-copy') || this.getAttribute('href') || '');
+          e.preventDefault();
+          var self = this;
+          var done = function (ok) {
+            var old = self.getAttribute('data-orig') || self.textContent;
+            if (!self.getAttribute('data-orig')) self.setAttribute('data-orig', old);
+            self.textContent = ok ? '已复制 ✅ 请到浏览器粘贴打开' : '复制失败，请长按此处选择复制';
+            setTimeout(function () {
+              self.textContent = self.getAttribute('data-orig') || old;
+            }, 2600);
+          };
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = url;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              var ok = false;
+              try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+              document.body.removeChild(ta);
+              done(ok);
+            }
+          } catch (err) { done(false); }
+        });
+      }
 
       function roCloseAll() {
         var ps = document.querySelectorAll('.ro-panel');
@@ -2993,11 +3080,11 @@ body.ro-mob-open { overflow: hidden; }
        【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处）。
        （同处目录下方的还有「开机号 / 选号直播」那两个入口，由另一位
         负责人加的，排在前面 —— 这里不去动它们的顺序。）
-       这一块【没有任何图片】：只有 8 个彩种链接 + 原生折叠，
-       所以图位数量不变。 -->
-  <details class="ro-xysp" id="ro-xysp"><summary class="ro-xysp-head"><h2 class="ro-xysp-h2">晒票栏</h2><div class="ro-xysp-sub">点彩种看晒票</div><span class="ro-xysp-arrow" aria-hidden="true"></span></summary><div class="ro-xysp-grid"><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/ssqxysp" target="_blank" rel="noopener">双色球</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/dltxysp" target="_blank" rel="noopener">大乐透</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/fc3dxysp" target="_blank" rel="noopener">福彩3D</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/klbxysp" target="_blank" rel="noopener">快乐8</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/pl3xysp" target="_blank" rel="noopener">排列3</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/pl5xysp" target="_blank" rel="noopener">排列5</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/xqxcxysp" target="_blank" rel="noopener">七星彩</a><a class="ro-xysp-cell" href="https://m.yiqic&#97;i.com/xysp/qlcxysp" target="_blank" rel="noopener">七乐彩</a></div></details>
+       这一块现在会显示【晒票图片】（图床外链、不下载本体），
+       卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
+  <details class="ro-xysp" id="ro-xysp"><summary class="ro-xysp-head"><h2 class="ro-xysp-h2">晒票栏</h2><div class="ro-xysp-sub">各彩种实票图片 · 点击查看</div><span class="ro-xysp-arrow" aria-hidden="true"></span></summary><div class="ro-xysp-filter"><a class="ro-xysp-tab on" href="#ro-xysp" data-ro-xysp-game="all">全部</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="ssq">双色球</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="dlt">大乐透</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="fc3d">福彩3D</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="kl8">快乐8</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="pl3">排列3</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="pl5">排列5</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="qxc">七星彩</a><a class="ro-xysp-tab" href="#ro-xysp" data-ro-xysp-game="qlc">七乐彩</a></div><div class="ro-xysp-pics" data-ro-xysp-grid><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/6aa3c70c-f33d-423c-9288-65595e379bed1792075012816.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/6aa3c70c-f33d-423c-9288-65595e379bed1792075012816.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]中5块</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/69a64bbd-ebb5-40f5-92d2-a9e2235b657f1792073150262.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/69a64bbd-ebb5-40f5-92d2-a9e2235b657f1792073150262.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]26118期，再次命中蓝球！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/b977e9d9-435c-4624-b81d-39ae6c8259f91792073161452.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/b977e9d9-435c-4624-b81d-39ae6c8259f91792073161452.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]上期中四个 这期也是中四个</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/ff49db4b-23dd-4366-8a6a-84a0ff91302c1792072874958.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/ff49db4b-23dd-4366-8a6a-84a0ff91302c1792072874958.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]冥冥之中自有天意，哎2等飞了，怎么不在研究研究</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/b56d6e77-1255-4e5a-bb08-9030c48495c01792072135403.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/b56d6e77-1255-4e5a-bb08-9030c48495c01792072135403.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]好可惜啊</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/79e00375-509b-451f-ae0f-a3e62bf623041792070960496.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/79e00375-509b-451f-ae0f-a3e62bf623041792070960496.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]不就是个蓝码14吗，很难吗，红球一个没有，彩票需要敬畏……不贪</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/d4384138-03e6-48bc-a94c-8154376593551792070996936.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/d4384138-03e6-48bc-a94c-8154376593551792070996936.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]果然是买小开大，不亏</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/a346a7ed-6400-4c77-9c27-a1bc9974d3671792070996922.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/a346a7ed-6400-4c77-9c27-a1bc9974d3671792070996922.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]果然是买小开大，不亏</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/cc9b7ab9-5534-4e55-a606-17804c505f471792070756919.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/cc9b7ab9-5534-4e55-a606-17804c505f471792070756919.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]我都呵呵了</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/22da15ba-e0ee-47fb-ae9a-99fc498ab51b1792068410991.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/22da15ba-e0ee-47fb-ae9a-99fc498ab51b1792068410991.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]今日双色球</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/f950eeaf-deca-429e-aa4b-d552374335661792065649009.jpg" data-ro-xysp-game="ssq"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/f950eeaf-deca-429e-aa4b-d552374335661792065649009.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>双色球</b><i>[26119期]大吉大利今晚吃鸡</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/bb1529d9-992b-4222-b688-fbbd6b1ec4831792077383796.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/bb1529d9-992b-4222-b688-fbbd6b1ec4831792077383796.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]八方来财</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/21aceb21-e157-4ea6-a93b-cef2af3946461792030987499.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/21aceb21-e157-4ea6-a93b-cef2af3946461792030987499.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]🌹🌹🌹🌹🌹🌹🌹🌹</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/05683a6e-3005-4b66-8e08-dc6385f924f71792030987567.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/05683a6e-3005-4b66-8e08-dc6385f924f71792030987567.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]🌹🌹🌹🌹🌹🌹🌹🌹</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/a58ecbcb-8925-4003-93ea-16a3738721561792020394322.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/a58ecbcb-8925-4003-93ea-16a3738721561792020394322.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]幸运</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/c622a7b7-30fe-4c4d-b420-a939ddcba4e31791988235706.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/c622a7b7-30fe-4c4d-b420-a939ddcba4e31791988235706.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]脱离群众</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/63d2eb12-29c0-4007-9e4b-872dcfb59a651791987202243.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/63d2eb12-29c0-4007-9e4b-872dcfb59a651791987202243.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]区间比都对了，差点就上岸了</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/54403488-08ad-4e2b-bb27-ce3b351a75131791986902681.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/54403488-08ad-4e2b-bb27-ce3b351a75131791986902681.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]这一期依旧做你们的明灯</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/9968afab-8d5c-4fab-817d-83f1e9153a261791986719732.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/9968afab-8d5c-4fab-817d-83f1e9153a261791986719732.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]机选差一号二等</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/37192003-f5a8-4f83-9c54-a1699bc5e3881791986434303.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/37192003-f5a8-4f83-9c54-a1699bc5e3881791986434303.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]号码出来了上一期 两个99的票一个号没对</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/76411fa3-ab78-4ff6-90ff-00fbfaa063bc1791985295512.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/76411fa3-ab78-4ff6-90ff-00fbfaa063bc1791985295512.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]可惜了我的04 13</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/6dbad14d-74b8-47b5-b175-79f6ae174a011791982848080.jpg" data-ro-xysp-game="dlt"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/6dbad14d-74b8-47b5-b175-79f6ae174a011791982848080.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>大乐透</b><i>[26118期]让我回点吧</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-16/fcc8cc66-e637-4641-b0ec-3142ca3dcda81792086400151.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-16/fcc8cc66-e637-4641-b0ec-3142ca3dcda81792086400151.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]连着几天2D，今天随便挑了几个冷号五码组六两倍中了，双色球也中了个蓝球，看半天还不如随手挑一个呢！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-16/db114cfb-32fe-4674-924f-be67f011df8c1792081076534.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-16/db114cfb-32fe-4674-924f-be67f011df8c1792081076534.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]真的服了啊</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/5e937960-71e0-4c59-bd2a-d2f91c5459e41792072069139.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/5e937960-71e0-4c59-bd2a-d2f91c5459e41792072069139.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]真无语了，就是看823这样的直组没开过才不要，它就这样开</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/4663b120-686d-454c-adb6-238ba43182de1792072014473.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/4663b120-686d-454c-adb6-238ba43182de1792072014473.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]可惜后两位</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/6ddcc32e-cbfc-4e29-b879-592c0df1b0991792071887049.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/6ddcc32e-cbfc-4e29-b879-592c0df1b0991792071887049.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]福家金蛋8，体家银胆1中😍，两边六码七码 中🥰🥰🥰。福家重锤单挑853🤣来了个823🤣，全网看体组三，我也跟了个风，下了重注17 36组三，还好组选保个本了。一帮白嫖小可爱，叽叽喳喳的，明天免费的午餐一条动态都不</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/9f1b9b9c-ff58-40d5-b82a-00e4c59bd59b1792071887068.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/9f1b9b9c-ff58-40d5-b82a-00e4c59bd59b1792071887068.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]福家金蛋8，体家银胆1中😍，两边六码七码 中🥰🥰🥰。福家重锤单挑853🤣来了个823🤣，全网看体组三，我也跟了个风，下了重注17 36组三，还好组选保个本了。一帮白嫖小可爱，叽叽喳喳的，明天免费的午餐一条动态都不</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/78526e1a-7674-4c44-a445-1a63f0afd54c1792071887054.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/78526e1a-7674-4c44-a445-1a63f0afd54c1792071887054.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]福家金蛋8，体家银胆1中😍，两边六码七码 中🥰🥰🥰。福家重锤单挑853🤣来了个823🤣，全网看体组三，我也跟了个风，下了重注17 36组三，还好组选保个本了。一帮白嫖小可爱，叽叽喳喳的，明天免费的午餐一条动态都不</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/40e222c4-21e6-4849-91fc-4a856f2907d51792070740540.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/40e222c4-21e6-4849-91fc-4a856f2907d51792070740540.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]得吃咯</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/61c5ca6b-fc5d-4d65-ad9d-b7a34a65df0b1792068423815.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/61c5ca6b-fc5d-4d65-ad9d-b7a34a65df0b1792068423815.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]今天出</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/3c6fe137-5fc9-4fdf-891e-39244a390e131792067703462.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/3c6fe137-5fc9-4fdf-891e-39244a390e131792067703462.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]不是3就是6了 不是5就是8 不是3就是7</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/2aed4a43-d4f6-40af-8c89-f3599d6cd9561792067703498.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/2aed4a43-d4f6-40af-8c89-f3599d6cd9561792067703498.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]不是3就是6了 不是5就是8 不是3就是7</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/ba408ff3-2c38-47bf-9862-7e5daa5666471792067495669.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/ba408ff3-2c38-47bf-9862-7e5daa5666471792067495669.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26275期]今天的号都在里面了</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/57d06f4f-9fcb-49a0-ab9a-55f2d9dc54511792066336989.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/57d06f4f-9fcb-49a0-ab9a-55f2d9dc54511792066336989.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26274期]你们看好的不</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/26769a4c-6253-4411-aa20-fdd27587674f1792066336990.jpg" data-ro-xysp-game="fc3d"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/26769a4c-6253-4411-aa20-fdd27587674f1792066336990.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>福彩3D</b><i>[26274期]你们看好的不</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/e743d0bc-a295-403f-aaa2-66f9bf03bd3e1792079141665.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/e743d0bc-a295-403f-aaa2-66f9bf03bd3e1792079141665.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]这是命不好吗😳😳😳</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/c69ebaa8-b388-48e5-85f3-66d2a1bb02b51792079141666.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/c69ebaa8-b388-48e5-85f3-66d2a1bb02b51792079141666.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]这是命不好吗😳😳😳</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/3d6d22c1-0ed6-4bd4-bd5d-930a50eb9dae1792079141641.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/3d6d22c1-0ed6-4bd4-bd5d-930a50eb9dae1792079141641.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]这是命不好吗😳😳😳</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/2c6aa41c-77c2-4478-812b-6d33c37f4f571792076823130.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/2c6aa41c-77c2-4478-812b-6d33c37f4f571792076823130.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]回点血</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/ffde25e7-e14d-4a37-9abb-ea022116c0211792073849901.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/ffde25e7-e14d-4a37-9abb-ea022116c0211792073849901.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]跑不掉了吧，选五拿下今天，17+27+53+45+46+4849-54+56+78+昨天的出多少</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/2dbe5e86-b884-40b0-b693-27ab9aadc0dc1792071516728.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/2dbe5e86-b884-40b0-b693-27ab9aadc0dc1792071516728.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]连着两天拿下十倍😁</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/59c688c9-6ea8-40f6-9273-3f25982269771792069300291.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/59c688c9-6ea8-40f6-9273-3f25982269771792069300291.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]最后一刻，赶着送钱</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/73f30456-bae4-45c7-9242-50c7ec82bd191792069373549.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/73f30456-bae4-45c7-9242-50c7ec82bd191792069373549.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]44</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/7fd6ed56-b528-4b4a-a044-0951b46e5fee1792069275510.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/7fd6ed56-b528-4b4a-a044-0951b46e5fee1792069275510.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26275期]福彩快乐八 今夜我要发</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/50391e1f-b6b8-49cf-ae05-f891491c468c1792068668918.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/50391e1f-b6b8-49cf-ae05-f891491c468c1792068668918.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]欣赏娱乐小单！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/ac008c91-9213-4dfa-918e-27e45c0fec1d1792068669005.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/ac008c91-9213-4dfa-918e-27e45c0fec1d1792068669005.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]欣赏娱乐小单！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/f4d94acf-f63c-4cc9-afb5-fffc853935861792061994696.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/f4d94acf-f63c-4cc9-afb5-fffc853935861792061994696.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]四组选三，，守号五天，，第三组是今天更换的，，选五的话，可跟可不跟，，因为我这里有活动，只要中奖就有增票</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/1ce48378-499d-4289-ad15-fa04bbba94c91792061994780.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/1ce48378-499d-4289-ad15-fa04bbba94c91792061994780.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]四组选三，，守号五天，，第三组是今天更换的，，选五的话，可跟可不跟，，因为我这里有活动，只要中奖就有增票</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/38b83bb4-4e8a-40b4-8025-0f0ddb453e651792061680994.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/38b83bb4-4e8a-40b4-8025-0f0ddb453e651792061680994.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]理性购彩</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/c6f2b251-4c48-46e2-9773-004e5db645331792061681019.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/c6f2b251-4c48-46e2-9773-004e5db645331792061681019.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]理性购彩</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/c45542b1-fe25-4fc2-8840-07199e01d8dc1792061735968.jpg" data-ro-xysp-game="kl8"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/c45542b1-fe25-4fc2-8840-07199e01d8dc1792061735968.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>快乐8</b><i>[26274期]理性购彩</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-16/b8ff1939-a09b-4f63-bfe1-d6a5b0b01b601792084304323.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-16/b8ff1939-a09b-4f63-bfe1-d6a5b0b01b601792084304323.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]每次都要差一个</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/48afc6ed-89ef-46aa-a51b-97c9d488858f1792074054514.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/48afc6ed-89ef-46aa-a51b-97c9d488858f1792074054514.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]就想问问什么意思，心态崩了</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/572de2ca-68d6-4e7e-884a-bd0b3d7eedbe1792073232231.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/572de2ca-68d6-4e7e-884a-bd0b3d7eedbe1792073232231.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]可惜了，没打团</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/601d7339-fd31-4bc7-9dd8-3fe6cc7bdeba1792073113795.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/601d7339-fd31-4bc7-9dd8-3fe6cc7bdeba1792073113795.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]昨天的，真会玩</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/85d22a40-906e-4659-ae17-70d6500361521792072623425.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/85d22a40-906e-4659-ae17-70d6500361521792072623425.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]低调，低调，低调，那来的对错 奖号361</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/b17be75b-a1d9-44ef-9051-b33ce73b2c591792072357173.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/b17be75b-a1d9-44ef-9051-b33ce73b2c591792072357173.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]无法预测未来😮‍💨</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/a4897566-0180-4e12-bb2f-998edf6f760c1792071231788.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/a4897566-0180-4e12-bb2f-998edf6f760c1792071231788.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]惜败。</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/13b0bb6c-6b2a-43a7-82c4-1b63962bf74e1792071231525.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/13b0bb6c-6b2a-43a7-82c4-1b63962bf74e1792071231525.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]惜败。</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/27b11a7a-74d9-422b-a297-5900b27bfdd11792069459630.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/27b11a7a-74d9-422b-a297-5900b27bfdd11792069459630.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]✌️</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/d55267d4-3644-4edf-a50b-152bb3742c701792069298792.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/d55267d4-3644-4edf-a50b-152bb3742c701792069298792.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]实票</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/c97e7d1b-556e-4e92-920e-1c54c66f03041792069257386.jpg" data-ro-xysp-game="pl3"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/c97e7d1b-556e-4e92-920e-1c54c66f03041792069257386.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列3</b><i>[26275期]不知道追不追得上</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/d781dfc0-cf85-48ed-bebc-d6d1122aafa21792075368548.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/d781dfc0-cf85-48ed-bebc-d6d1122aafa21792075368548.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26275期]不想说什么了 这玩意真的有人中吗</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/8e1139cc-0023-4f84-a85d-0ee85e0001e91792074988807.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/8e1139cc-0023-4f84-a85d-0ee85e0001e91792074988807.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26275期]思路是对了，但结果是错的</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/f7fbc3d6-4339-4525-9b4b-f31a479de2961792072205306.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/f7fbc3d6-4339-4525-9b4b-f31a479de2961792072205306.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26275期]不是不早发 是票实在太多了 可惜 还好排三吃肉</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/7d3cf35b-c26a-41a7-bdc2-9a7e6332ae981792069279352.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/7d3cf35b-c26a-41a7-bdc2-9a7e6332ae981792069279352.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26275期]怡情养性</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/e3f78207-c981-413d-8acc-9fc689acf26d1792069178886.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/e3f78207-c981-413d-8acc-9fc689acf26d1792069178886.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]碰碰</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/1d03f7ad-a78e-4092-bdea-1299303ed9c91792069178872.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/1d03f7ad-a78e-4092-bdea-1299303ed9c91792069178872.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]碰碰</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/db43134d-b7df-433c-9ec2-be422f885c271792069178941.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/db43134d-b7df-433c-9ec2-be422f885c271792069178941.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]碰碰</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/11ef51e8-b852-4fb5-bfa3-a2fd092116531792068183763.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/11ef51e8-b852-4fb5-bfa3-a2fd092116531792068183763.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]随便玩玩！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/5845895c-35b3-427e-9730-75ab988261401792066783926.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/5845895c-35b3-427e-9730-75ab988261401792066783926.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]坦白讲，旭哥并没有什么绝妙的技巧和话术，但是可以保证对自己说的话负责，探索的思路必须自己先打为敬，是坑我先踩。排五大底144注，以后每天在里面选，今天看7</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/a7504ef5-54d1-4f03-8584-2da8b780f1da1792066783931.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/a7504ef5-54d1-4f03-8584-2da8b780f1da1792066783931.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]坦白讲，旭哥并没有什么绝妙的技巧和话术，但是可以保证对自己说的话负责，探索的思路必须自己先打为敬，是坑我先踩。排五大底144注，以后每天在里面选，今天看7</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/6e9684ec-2d2e-4d17-89ab-2ec53117d6c81792060660909.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/6e9684ec-2d2e-4d17-89ab-2ec53117d6c81792060660909.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]前三和16。后两位7*6，好运。</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/3e580b40-e500-4f44-950e-6f2c2d097e461792042352517.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/3e580b40-e500-4f44-950e-6f2c2d097e461792042352517.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]加油努力，坚持就是胜利，给我中个奖吧</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/b7f84ba1-37e3-42ca-978d-9dbcaa5c135c1792042385710.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/b7f84ba1-37e3-42ca-978d-9dbcaa5c135c1792042385710.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]加油努力，坚持就是胜利，给我中个奖吧</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-15/807ddc25-ffa8-461e-832f-5c71237a4d221792036070311.jpg" data-ro-xysp-game="pl5"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-15/807ddc25-ffa8-461e-832f-5c71237a4d221792036070311.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>排列5</b><i>[26274期]照例，晒一波费票</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-09/60d35f13-6565-44f3-a155-496eda65fc271791526977363.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-09/60d35f13-6565-44f3-a155-496eda65fc271791526977363.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26115期]超级加倍</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-29/6c8c6304-bf71-4f83-a6cb-2489e1c579631790664764837.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-29/6c8c6304-bf71-4f83-a6cb-2489e1c579631790664764837.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26113期]好运来</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-29/243a2833-f3b9-4089-88be-dc3baaa53fa21790656118130.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-29/243a2833-f3b9-4089-88be-dc3baaa53fa21790656118130.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26113期]8，5，4，3，7，0+6两倍</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-27/b2b2704f-e914-45a6-add5-36269a1f9de61790521191524.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-27/b2b2704f-e914-45a6-add5-36269a1f9de61790521191524.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26113期]我这个人呀</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-27/e8f2a459-dfb2-43fa-a7cd-8d6ee223c5fa1790489485568.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-27/e8f2a459-dfb2-43fa-a7cd-8d6ee223c5fa1790489485568.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26112期]好运来</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-25/aa6e66eb-b1ac-4ee5-9ee0-d644c03231d51790351825170.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-25/aa6e66eb-b1ac-4ee5-9ee0-d644c03231d51790351825170.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26112期]玛德，顺子？</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-25/c331532b-b2cb-4caa-b431-8cf92675c0861790326623984.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-25/c331532b-b2cb-4caa-b431-8cf92675c0861790326623984.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26111期]超级加倍</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-22/5343bec1-7e6c-4f93-8ab3-5574ca576a041790056996795.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-22/5343bec1-7e6c-4f93-8ab3-5574ca576a041790056996795.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26110期]超级加倍</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-20/b446ecd1-2ea6-4c38-9e90-881a9b9836d11789914393292.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-20/b446ecd1-2ea6-4c38-9e90-881a9b9836d11789914393292.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26110期]不容易啊，买了三年</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-18/1b7e3498-b62d-44d7-8e5f-401f76a5b6341789726583390.jpg" data-ro-xysp-game="qxc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-18/1b7e3498-b62d-44d7-8e5f-401f76a5b6341789726583390.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七星彩</b><i>[26108期]祝好运气！</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-14/55f1df2f-eee5-4d61-8a7d-d0957ffe2dfd1791958757213.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-14/55f1df2f-eee5-4d61-8a7d-d0957ffe2dfd1791958757213.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26118期]根据开机号与试机号选</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-12/fb1d98aa-2e39-4cb6-ae33-6909382357c71791796631626.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-12/fb1d98aa-2e39-4cb6-ae33-6909382357c71791796631626.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26117期]根据开机号与试机号选</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-09/8ba36122-12d1-4a7c-8416-98ece60a4cd01791529698231.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-09/8ba36122-12d1-4a7c-8416-98ece60a4cd01791529698231.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26116期]这注号码完全来自开机号与试机号</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-08/31fb4231-1184-4110-bf54-59e559e642861791456994819.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-08/31fb4231-1184-4110-bf54-59e559e642861791456994819.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26116期]机选，</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-07/56f8a30b-ee9f-4693-a6f6-37147e49c7b21791368150234.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-07/56f8a30b-ee9f-4693-a6f6-37147e49c7b21791368150234.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26115期]7，8，15，17，18，27，28</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-10-05/10e376e5-17b5-4c55-865f-1d388164eb171791186782071.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-10-05/10e376e5-17b5-4c55-865f-1d388164eb171791186782071.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26114期]看好3，5，8，15，18，24，28</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-30/c6f30cd8-b83e-4bd4-804a-574f026e8d101790762882076.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-30/c6f30cd8-b83e-4bd4-804a-574f026e8d101790762882076.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26113期]3，8，10，15，24，25，28</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-30/9abc40f3-87ec-47b2-8ff0-532b27da21da1790730309221.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-30/9abc40f3-87ec-47b2-8ff0-532b27da21da1790730309221.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26113期]机选，</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-24/3358b57e-886a-45f6-a830-655fd4821cc41790237147436.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-24/3358b57e-886a-45f6-a830-655fd4821cc41790237147436.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26111期]机选，</i></span></a><a class="ro-xysp-pic" href="https://img02.17chdd.com/2026-09-23/cbce2218-987e-4832-9e02-17fb2eddc77b1790146277784.jpg" data-ro-xysp-game="qlc"><img class="ro-xysp-thumb" src="https://img02.17chdd.com/2026-09-23/cbce2218-987e-4832-9e02-17fb2eddc77b1790146277784.jpg?imageMogr2/thumbnail/360x" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="ro-xysp-cap"><b>七乐彩</b><i>[26110期]号码7，8，14，15，17，24，27</i></span></a></div><div class="ro-xysp-empty" hidden>该彩种 24 小时内暂无晒票</div><div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 24 小时 · 更新于 2026-10-16 03:26</div></details>
 
-  <section class="ro-game" id="ro-latest"><div class="ro-gamehead"><h2>最新开奖</h2><div class="ro-meta">各彩种最新一期开奖号码</div><div class="ro-meta ro-meta-hm">双色球 18:00-20:00 · 大乐透 18:00-21:00 公布热力图数据</div></div><div class="hc-drawgrid"><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">双色球</span><span class="hc-iss">第 2026118 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-balls"><span class="hc-ball red">05</span><span class="hc-ball red">21</span><span class="hc-ball red">22</span><span class="hc-ball red">23</span><span class="hc-ball red">28</span><span class="hc-ball red">31</span><span class="hc-plus">+</span><span class="hc-ball blue">14</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">大乐透</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-14</span></div><div class="hc-balls"><span class="hc-ball red">04</span><span class="hc-ball red">13</span><span class="hc-ball red">19</span><span class="hc-ball red">29</span><span class="hc-ball red">31</span><span class="hc-plus">+</span><span class="hc-ball blue">02</span><span class="hc-ball blue">12</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">福彩3D</span><span class="hc-iss">第 2026274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-balls"><span class="hc-ball red">8</span><span class="hc-ball red">2</span><span class="hc-ball red">3</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列3</span><span class="hc-iss">第 26274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-balls"><span class="hc-ball red">3</span><span class="hc-ball red">6</span><span class="hc-ball red">1</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七乐彩</span><span class="hc-iss">第 2026118 期</span><span class="hc-date">2026-10-14</span></div><div class="hc-balls"><span class="hc-ball red">06</span><span class="hc-ball red">08</span><span class="hc-ball red">14</span><span class="hc-ball red">17</span><span class="hc-ball red">19</span><span class="hc-ball red">23</span><span class="hc-ball red">26</span><span class="hc-plus">★</span><span class="hc-ball sp">28</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列5</span><span class="hc-iss">第 26274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-balls"><span class="hc-ball red">3</span><span class="hc-ball red">6</span><span class="hc-ball red">1</span><span class="hc-ball red">9</span><span class="hc-ball red">5</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">快乐8</span><span class="hc-iss">第 2026274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">15</span><span class="hc-ball red">17</span><span class="hc-ball red">27</span><span class="hc-ball red">29</span><span class="hc-ball red">35</span><span class="hc-ball red">38</span><span class="hc-ball red">43</span><span class="hc-ball red">44</span><span class="hc-ball red">45</span><span class="hc-ball red">46</span><span class="hc-ball red">47</span><span class="hc-ball red">48</span><span class="hc-ball red">54</span><span class="hc-ball red">56</span><span class="hc-ball red">63</span><span class="hc-ball red">64</span><span class="hc-ball red">70</span><span class="hc-ball red">78</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七星彩</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-balls"><span class="hc-ball red">7</span><span class="hc-ball red">7</span><span class="hc-ball red">5</span><span class="hc-ball red">5</span><span class="hc-ball red">1</span><span class="hc-ball red">3</span><span class="hc-plus">+</span><span class="hc-ball blue">11</span></div></div></div></section>
+  <section class="ro-game" id="ro-latest"><div class="ro-gamehead"><h2>最新开奖</h2><div class="ro-meta">各彩种最新一期开奖号码</div><div class="ro-meta ro-meta-hm">双色球 18:00-20:00 · 大乐透 18:00-21:00 公布热力图数据</div></div><div class="hc-drawgrid"><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">双色球</span><span class="hc-iss">第 2026118 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-nextcd" data-nextcd="ssq">—</div><div class="hc-balls"><span class="hc-ball red">05</span><span class="hc-ball red">21</span><span class="hc-ball red">22</span><span class="hc-ball red">23</span><span class="hc-ball red">28</span><span class="hc-ball red">31</span><span class="hc-plus">+</span><span class="hc-ball blue">14</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">大乐透</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-14</span></div><div class="hc-nextcd" data-nextcd="dlt">—</div><div class="hc-balls"><span class="hc-ball red">04</span><span class="hc-ball red">13</span><span class="hc-ball red">19</span><span class="hc-ball red">29</span><span class="hc-ball red">31</span><span class="hc-plus">+</span><span class="hc-ball blue">02</span><span class="hc-ball blue">12</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">福彩3D</span><span class="hc-iss">第 2026274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-nextcd" data-nextcd="fc3d">—</div><div class="hc-balls"><span class="hc-ball red">8</span><span class="hc-ball red">2</span><span class="hc-ball red">3</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列3</span><span class="hc-iss">第 26274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-nextcd" data-nextcd="pl3">—</div><div class="hc-balls"><span class="hc-ball red">3</span><span class="hc-ball red">6</span><span class="hc-ball red">1</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七乐彩</span><span class="hc-iss">第 2026118 期</span><span class="hc-date">2026-10-14</span></div><div class="hc-nextcd" data-nextcd="qlc">—</div><div class="hc-balls"><span class="hc-ball red">06</span><span class="hc-ball red">08</span><span class="hc-ball red">14</span><span class="hc-ball red">17</span><span class="hc-ball red">19</span><span class="hc-ball red">23</span><span class="hc-ball red">26</span><span class="hc-plus">★</span><span class="hc-ball sp">28</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">排列5</span><span class="hc-iss">第 26274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-nextcd" data-nextcd="pl5">—</div><div class="hc-balls"><span class="hc-ball red">3</span><span class="hc-ball red">6</span><span class="hc-ball red">1</span><span class="hc-ball red">9</span><span class="hc-ball red">5</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">快乐8</span><span class="hc-iss">第 2026274 期</span><span class="hc-date">2026-10-15</span></div><div class="hc-nextcd" data-nextcd="kl8">—</div><div class="hc-balls"><span class="hc-ball red">08</span><span class="hc-ball red">09</span><span class="hc-ball red">15</span><span class="hc-ball red">17</span><span class="hc-ball red">27</span><span class="hc-ball red">29</span><span class="hc-ball red">35</span><span class="hc-ball red">38</span><span class="hc-ball red">43</span><span class="hc-ball red">44</span><span class="hc-ball red">45</span><span class="hc-ball red">46</span><span class="hc-ball red">47</span><span class="hc-ball red">48</span><span class="hc-ball red">54</span><span class="hc-ball red">56</span><span class="hc-ball red">63</span><span class="hc-ball red">64</span><span class="hc-ball red">70</span><span class="hc-ball red">78</span></div></div><div class="hc-drawcard"><div class="hc-dt"><span class="hc-gn">七星彩</span><span class="hc-iss">第 26117 期</span><span class="hc-date">2026-10-13</span></div><div class="hc-nextcd" data-nextcd="qxc">—</div><div class="hc-balls"><span class="hc-ball red">7</span><span class="hc-ball red">7</span><span class="hc-ball red">5</span><span class="hc-ball red">5</span><span class="hc-ball red">1</span><span class="hc-ball red">3</span><span class="hc-plus">+</span><span class="hc-ball blue">11</span></div></div></div></section>
 
   <!-- ============================================================
        【文章参考】用户要求：放在【最新开奖】下面、
@@ -3541,6 +3628,8 @@ const DRAW_DATA = {
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
+        /* __LATEST_NEXTCD__ 距离下期开奖倒计时（前端算，免费） */
+        '<div class="hc-nextcd" data-nextcd="' + d.gameId + '">—</div>' +
         '<div class="hc-balls">' + hcBallsHtml(d.red, 'red', d.gameId) + blue + special + '</div>' +
         '</div>';
     }).join('');
@@ -3753,6 +3842,75 @@ const DRAW_DATA = {
   root.latestDrawsNewer = latestDrawsNewer;
   root.applyRemoteDraws = applyRemoteDraws;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
+
+
+/* ============================================================
+   【距离下期开奖倒计时】__LATEST_NEXTCD__
+   ------------------------------------------------------------
+   用户要求：「能不能把每期后面搞一个倒计时 距离下期开奖时间倒计时」
+   做法：写死一张【开奖时刻 + 开奖日】表（官方常规时间），
+         前端每秒算一次「下一个该开奖的时刻」还有多久。
+   ⚠️ 纯前端计算，不联网、不调 AI → 免费。
+   ⚠️ 时间统一按北京时间（东八区）算，避免用户设备时区不同导致偏差。
+   ============================================================ */
+var NEXTCD_TABLE = {
+  ssq:  { hm: [21, 15], days: [0, 2, 4] },        /* 双色球 周二/四/日 21:15 */
+  dlt:  { hm: [20, 30], days: [1, 3, 6] },        /* 大乐透 周一/三/六 20:30 */
+  fc3d: { hm: [21, 15], days: [0,1,2,3,4,5,6] },  /* 福彩3D 每天 21:15 */
+  pl3:  { hm: [20, 30], days: [0,1,2,3,4,5,6] },  /* 排列3  每天 20:30 */
+  pl5:  { hm: [20, 30], days: [0,1,2,3,4,5,6] },  /* 排列5  每天 20:30 */
+  qxc:  { hm: [20, 30], days: [0, 2, 5] },        /* 七星彩 周二/五/日 20:30 */
+  qlc:  { hm: [21, 15], days: [1, 3, 5] },        /* 七乐彩 周一/三/五 21:15 */
+  kl8:  { hm: [21, 30], days: [0,1,2,3,4,5,6] }   /* 快乐8  每天 21:30 */
+};
+
+/* 当前北京时间（不依赖设备时区）：用 UTC 加 8 小时 */
+function nextcdNow() {
+  var t = new Date();
+  return new Date(t.getTime() + (t.getTimezoneOffset() * 60000) + (8 * 3600000));
+}
+
+/* 算出某个彩种【下一个】开奖时刻（按北京时间） */
+function nextcdTarget(gid) {
+  var r = NEXTCD_TABLE[gid];
+  if (!r) return null;
+  var now = nextcdNow();
+  for (var i = 0; i < 8; i++) {
+    var d = new Date(now.getTime());
+    d.setDate(d.getDate() + i);
+    d.setHours(r.hm[0], r.hm[1], 0, 0);
+    if (r.days.indexOf(d.getDay()) < 0) continue;
+    if (d.getTime() > now.getTime()) return d;
+  }
+  return null;
+}
+
+function nextcdText(gid) {
+  var t = nextcdTarget(gid);
+  if (!t) return '';
+  var ms = t.getTime() - nextcdNow().getTime();
+  if (ms <= 0) return '即将开奖';
+  var s = Math.floor(ms / 1000);
+  var dd = Math.floor(s / 86400), hh = Math.floor((s % 86400) / 3600), mm = Math.floor((s % 3600) / 60);
+  var ss = s % 60;
+  function p(n) { return n < 10 ? '0' + n : String(n); }
+  if (dd > 0) return '距下期开奖 ' + dd + ' 天 ' + p(hh) + ':' + p(mm);
+  return '距下期开奖 ' + p(hh) + ':' + p(mm) + ':' + p(ss);
+}
+
+(function () {
+  var els = document.querySelectorAll('[data-nextcd]');
+  if (!els.length) return;
+  function draw() {
+    for (var i = 0; i < els.length; i++) {
+      var gid = els[i].getAttribute('data-nextcd');
+      var txt = nextcdText(gid);
+      if (txt) els[i].textContent = txt;
+    }
+  }
+  draw();
+  setInterval(draw, 1000);
+})();
 
 </script>
 
@@ -19902,7 +20060,7 @@ const SAVED_TICKETS = {
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-16 03:18
+   生成时间：2026-10-16 03:30
    生成脚本：build-heatmap.mjs
    本次彩种：（无：今天不是开奖日）
    数据来源：none
@@ -19915,7 +20073,7 @@ const SAVED_TICKETS = {
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-16 03:18',
+  updated: '2026-10-16 03:30',
   source: 'none',
   games: {
   }
@@ -47808,6 +47966,66 @@ function renderAlgoTool(container) {
     return true;
   }
 
+  /* ------------------------------------------------------------
+     打开一张【外链图片】（晒票栏的图走这条路）
+     ------------------------------------------------------------
+     用户要求：「点图片 → 放大看（能看清号码）」，而且说了
+     「复用已有的 ro-mob-view 那套全屏层最好」。
+     所以这里不新做第二套全屏逻辑，只给这一层加一个入口：
+       · 跟 open() 的区别：晒票栏没有页面里现成的「图位」，
+         所以这里【自己造】一个装图的盒子，里面放一个真的图元素，
+         并给它挂上 r-image 这个类名 ——
+         这样它自动吃到上面那条
+         「全屏层容器 → 中转盒 → r-image」的等比缩放规则，
+         宽高永远同一个 scale，不会变形。
+       · 关闭方式跟原来完全一样（都还挂在同一个层上）：
+         右上角 ×、点图片外的空白、Esc、手机返回键。
+     @param {string} src 图片地址
+     @param {string} alt 无障碍文字（一般传彩种名）
+     @returns {boolean} true = 已打开 */
+  function openUrl(src, alt) {
+    if (!src) return false;
+    build();
+    while (holder.firstChild) holder.removeChild(holder.firstChild);
+    backTo = null;            /* 这张图不属于任何图位，关掉时不用搬回去 */
+
+    var box = document.createElement('div');
+    box.className = 'ro-imagewrap';
+    box.setAttribute('data-ro-mob', '1');
+
+    var im = document.createElement('img');
+    im.className = 'r-image';
+    im.setAttribute('referrerpolicy', 'no-referrer');
+    im.setAttribute('loading', 'eager');
+    im.setAttribute('decoding', 'async');
+    im.setAttribute('alt', alt || '');
+    /* 【必须重算】外链图是过一会儿才加载完的：
+       没加载完时它的高度是 0，fit 会按「高度 0」算出不对的容器高度。
+       图片 load / error 之后各再量一次，缩放就准了。 */
+    im.addEventListener('load', function () { applyScale(); });
+    im.addEventListener('error', function () { applyScale(); });
+    im.src = src;
+    box.appendChild(im);
+    holder.appendChild(box);
+
+    img = im;
+    cur = { game: '', image: '', url: src };
+    zoom = 'fit';
+
+    view.removeAttribute('hidden');
+    mark('ro-mob-open', true);
+    /* 返回键 / 后退能关：压一条历史记录，popstate 时关掉（跟 open() 一样） */
+    try { history.pushState({ roMob: cur }, ''); } catch (e) { /* 忽略 */ }
+
+    applyScale();
+    setTimeout(applyScale, 0);
+    setTimeout(applyScale, 60);
+    setTimeout(applyScale, 300);
+    setTimeout(applyScale, 900);
+    setTimeout(applyScale, 1800);
+    return true;
+  }
+
   /* 打开：只绑在【目录表格的格子】上；图片本身没有任何点击绑定 */
   var tiles = document.querySelectorAll('.ro-toc-cell');
   for (var t = 0; t < tiles.length; t++) {
@@ -47819,6 +48037,7 @@ function renderAlgoTool(container) {
 
   window.__roMobView = {
     open: open,
+    openUrl: openUrl,
     close: close,
     isOpen: function () { return !!view && !view.hasAttribute('hidden'); },
     current: function () { return cur; },
@@ -47863,6 +48082,71 @@ function renderAlgoTool(container) {
      手机目录表格这时候才真正显示出来（在此之前它一直是隐藏的，
      避免 JS 没跑完时出现「点了没反应」的死格子）。 */
   mark('ro-toc-pending', false);
+})();
+</script>
+
+<!-- __XYSP_VIEW__ 晒票栏：① 彩种筛选（纯前端、不刷新页面）② 点图放大看
+     位置：排在页尾那个全屏层（ro-mob-view）之后 ——
+     这样执行到这里时那一层已经建好，点图能直接复用它的放大 + 关闭逻辑。
+     用户要求：「用 a（不是 button）」「点图片 → 放大看（能看清号码）」
+               「复用已有的 ro-mob-view 那套全屏层最好」 -->
+<script>
+/* __XYSP_VIEW__ 晒票栏交互（脚本挂了也不影响别的区块：
+   折叠靠原生 details；这里只负责「筛」和「放大」两件事）。 */
+(function () {
+  try {
+    var root = document.getElementById('ro-xysp');
+    if (!root) return;
+
+    var tabs = root.querySelectorAll('.ro-xysp-tab');
+    var pics = root.querySelectorAll('.ro-xysp-pic');
+    var empty = root.querySelector('.ro-xysp-empty');
+
+    /* 只显示某一彩种的卡片（game = 'all' 时全显示）。
+       做法是给不匹配的卡片加 hidden 属性，
+       样式里有 .ro-xysp-pic[hidden] 把它真的藏起来。 */
+    function pick(game) {
+      var shown = 0;
+      for (var i = 0; i < pics.length; i++) {
+        var ok = (game === 'all') || (pics[i].getAttribute('data-ro-xysp-game') === game);
+        pics[i].hidden = !ok;
+        if (ok) shown++;
+      }
+      /* 选中的那一颗标签高亮 */
+      for (var t = 0; t < tabs.length; t++) {
+        var on = tabs[t].getAttribute('data-ro-xysp-game') === game;
+        tabs[t].className = on ? 'ro-xysp-tab on' : 'ro-xysp-tab';
+      }
+      if (empty) empty.hidden = shown > 0;
+      return shown;
+    }
+
+    for (var t2 = 0; t2 < tabs.length; t2++) {
+      tabs[t2].addEventListener('click', function (e) {
+        e.preventDefault();                 /* 不跳锚点，就地在下面过滤 */
+        pick(String(this.getAttribute('data-ro-xysp-game') || 'all'));
+      });
+    }
+
+    /* 点某张图 → 用页尾那层全屏放大看。
+       那一层没准备好时（脚本没跑到）不拦截点击：
+       让 href 自己打开原图，功能不丢。 */
+    for (var p = 0; p < pics.length; p++) {
+      pics[p].addEventListener('click', function (e) {
+        var api = window.__roMobView;
+        /* 原图地址就是 href（缩略图只在 src 里，放大要看清号码，用原图） */
+        var src = this.getAttribute('href');
+        var cap = this.querySelector('.ro-xysp-cap b');
+        if (api && typeof api.openUrl === 'function' &&
+            api.openUrl(src, cap ? String(cap.textContent || '') : '')) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__roXysp = { pick: pick, tabs: tabs.length, pics: pics.length };
+  } catch (e) { /* 忽略：这一块的显示不依赖这段脚本 */ }
 })();
 </script>
 
