@@ -46,8 +46,15 @@ const NEVER = new Set([
    所以：不管它有没有带 _probe_ / _bk_ 之类的临时前缀，
    只要后缀是下面这些，就【永不删除】——
    算法、抓取、生成、出号、模板、样式、文档、工作流、配置，一个都不许动。 */
-const CODE_EXT = /\.(mjs|cjs|js|json|css|html|htm|md|txt|yml|yaml|cmd|ps1|wasm|traineddata|gz|bin)$/i;
+const CODE_EXT = /\.(mjs|cjs|js|json|css|html|htm|md|txt|yml|yaml|cmd|ps1)$/i;
 const isCodeFile = (name) => CODE_EXT.test(name);
+
+/* 缓存目录（_ocr-cache / _draw-cache 之类）里装的【就是缓存】：
+   图片、html 快照、.bin 二进制都在这里，超 72 小时就该删。
+   所以这里只保护「真正的代码/文档」，不保护 .html/.json/.txt/.bin —— 
+   否则 _draw-cache/*.html 和 _ocr-cache/*.bin 永远清不掉，
+   用户担心的「缓存太多」就解决不了。 */
+const CODE_EXT_IN_CACHE = /\.(mjs|cjs|js|css|md|yml|yaml)$/i;
 
 const stat = { files: 0, bytes: 0, dirs: 0, logs: 0, kept: 0, protectedCode: 0 };
 
@@ -70,7 +77,7 @@ for (const d of CACHE_DIRS) {
     try { st = fs.statSync(p); } catch (e) { continue; }
     if (!st.isFile()) continue;
     /* 【硬保护】缓存目录里如果混进了代码/文档，也一律不删 */
-    if (isCodeFile(f)) { stat.protectedCode++; stat.kept++; continue; }
+    if (CODE_EXT_IN_CACHE.test(f)) { stat.protectedCode++; stat.kept++; continue; }
     if (st.mtimeMs < CUTOFF) {
       stat.files++;
       stat.bytes += st.size;
