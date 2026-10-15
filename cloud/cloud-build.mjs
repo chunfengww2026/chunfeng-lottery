@@ -1400,6 +1400,46 @@ function finishOutput(freshRows) {
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '', 'utf8');
 
   /* ============================================================
+     【分享卡片 / 图标 / PWA】把图标文件也拷进 out/
+     ------------------------------------------------------------
+     文件来源：cloud/scripts/icons/（由本机的 make-icons.mjs 生成后
+       sync-cloud.mjs 自动同步上来的 —— 它在 cloud/ 下面，所以会被
+       collect() 直接收走，不用改 sync-cloud.mjs）。
+     为什么在这里拷、而不是在 workflow 里拷：
+       finishOutput() 是每一班（含 5 分钟那一班）最后都必跑的一步，
+       拷到这里 out/ 就永远和 site/ 一致；
+       另外两个页面的 <head> 用的就是这些文件名，缺一个就是死链。
+     用 copyFileSync 覆盖式拷贝：文件是静态的，每班拷一遍成本可忽略。
+     ============================================================ */
+  const ICON_SRC = path.join(MOD, 'icons');
+  const ICON_FILES = [
+    'favicon.ico',
+    'icon.ico',
+    'icon.svg',
+    'icon-192.png',
+    'icon-512.png',
+    'apple-touch-icon.png',
+    'share.png',
+    'manifest.webmanifest'
+  ];
+  let iconCopied = 0;
+  const iconMissing = [];
+  ICON_FILES.forEach((f) => {
+    const sp = path.join(ICON_SRC, f);
+    if (!fs.existsSync(sp)) { iconMissing.push(f); return; }
+    fs.copyFileSync(sp, path.join(OUT, f));
+    iconCopied++;
+  });
+  if (iconMissing.length) {
+    /* 不抛异常：图标缺失不该阻止当班页面发布（页面本身没问题），
+       但一定要在日志里吼一声，不然静默 404 很久都没人发现。 */
+    log(`  ⚠️ 图标缺失 ${iconMissing.length} 个（cloud/scripts/icons/ 里没有）：${iconMissing.join(', ')}`);
+    log('     → 本机跑一次 node make-icons.mjs 生成并同步即可');
+  } else {
+    log(`  ✅ 分享图标 ${iconCopied} 个已拷入 out/（favicon.ico / icon.svg / share.png / manifest.webmanifest …）`);
+  }
+
+  /* ============================================================
      【发布清单】把 out/ 里即将被 workflow 拷到 site/ 的文件逐个列出来
      （文件名 + 大小 + 修改时间）—— 用来证明「这一班确实有东西要发布」。
      workflow 的「把生成的网页放到站点目录」那一步拷的就是这几个文件。
@@ -1407,7 +1447,7 @@ function finishOutput(freshRows) {
   const p = (n) => String(n).padStart(2, '0');
   const fmt = (d) => `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
   log('\n【发布清单】out/ 里会被发布到网页的文件：');
-  ['index.html', 'football.html', 'tickets.json'].forEach((f) => {
+  [...['index.html', 'football.html', 'tickets.json'], ...ICON_FILES].forEach((f) => {
     const fp = path.join(OUT, f);
     if (!fs.existsSync(fp)) { log(`  ❌ ${f} 不存在 —— 这一项本次不会更新`); return; }
     const st = fs.statSync(fp);
