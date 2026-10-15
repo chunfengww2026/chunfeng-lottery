@@ -5535,6 +5535,20 @@ ${RO_RENDER_SCRIPT}
       document.addEventListener('copy', function (e) { e.preventDefault(); });
       document.addEventListener('cut', function (e) { e.preventDefault(); });
     }
+    /* 是不是点分十进制 IPv4（故意不用正则：正则里的 \d 写进模板字符串会被吃掉） */
+    function isIPv4(s) {
+      var p = String(s).trim().split('.');
+      if (p.length !== 4) return false;
+      for (var i = 0; i < 4; i++) {
+        var n = p[i];
+        if (!n.length || n.length > 3) return false;
+        for (var j = 0; j < n.length; j++) {
+          var c = n.charCodeAt(j);
+          if (c < 48 || c > 57) return false;
+        }
+      }
+      return true;
+    }
     /* ① 本机 App：Electron loadFile 打开的就是 file:// —— 100% 可靠，不看 IP */
     function protocolIsFile() {
       try { return String(location.protocol) === 'file:'; } catch (e) { return false; }
@@ -5564,7 +5578,7 @@ ${RO_RENDER_SCRIPT}
           })
           .then(function (j) {
             var ip = j ? String(s.pick(j) || '').trim() : '';
-            if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return ip;
+            if (isIPv4(ip)) return ip;
             return next();
           })
           .catch(function () {
