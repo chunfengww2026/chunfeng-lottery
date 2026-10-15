@@ -2345,6 +2345,40 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-art-sub { font-size: 11.5px; color: #6b7488; }
 
+/* ============================================================
+   __CENTER_HEAD__ 三个区块标题【居中】+ 去掉副标题重叠
+   ------------------------------------------------------------
+   用户要求：「居中」（截图圈了 晒票栏 / 最新开奖 / 文章参考）。
+   原来的写法是 display:flex + align-items:baseline + flex-wrap:wrap，
+   窄屏时副标题会被挤到标题同一行、甚至压在上面 —— 一并修掉。
+   只影响这三个区块，别处不动。
+   ============================================================ */
+.ro-xysp-head, .ro-art-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+.ro-xysp-h2, .ro-art-title { text-align: center; }
+.ro-xysp-sub, .ro-art-sub { text-align: center; line-height: 1.5; }
+
+/* 「最新开奖」标题 —— 实际结构是 .hit-embed .ro-gamehead > h2 + .ro-meta
+   （latest-draws.js 生成，本次不改它的生成逻辑，只用 CSS 摆正）
+   原来 .ro-gamehead 是 flex + align-items:center + flex-wrap:wrap，
+   窄屏会把 h2 和两行 meta 挤在一起、互相压住 —— 改成纵向居中排布。 */
+.hit-embed .ro-gamehead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+.hit-embed .ro-gamehead h2 { text-align: center; width: 100%; margin-bottom: 0; }
+.hit-embed .ro-gamehead .ro-meta { text-align: center; line-height: 1.5; width: 100%; }
+
 .ro-art-groups { display: grid; gap: 10px; grid-template-columns: 1fr; }
 @media (min-width: 560px) {
   .ro-art-groups { grid-template-columns: repeat(auto-fit, minmax(226px, 1fr)); }
