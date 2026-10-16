@@ -2904,11 +2904,76 @@ function digitStraightPref(gameId, posIdx, from, to) {
   return rank.concat(rest);
 }
 
+/* 【6 码池 =「6码可组选」那 6 个号】用户 2026-10-17：
+   「排三3D 很冲突 下面定位绝对不允许和组六不同」——定位只能从这 6 个号里挑。 */
+const DIGIT_POOL_KEY = { fc3d: 'grp', pl3: 'grp' };
+const DIGIT_POOL_PER = 2;          /* 6 码拆三对 → 每个位置 2 个号（8 注直选，全组六） */
+
+/** 从一个字段串里取出合法号码（去重、限定范围） */
+function digitsOfField(v, from, to) {
+  return consUniq((String(v == null ? '' : v).match(/\d+/g) || [])
+    .map((x) => parseInt(x, 10))
+    .filter((n) => Number.isInteger(n) && n >= from && n <= to));
+}
+
+/** 取「6码可组选」那 6 个号：fc3d / pl3 读本图的 grp；
+    排列5 没有这一行（模板里前三位＝排三带入）→ 去【排三存档】里按内容找到同一期，取它那 6 个号。
+    ⚠️ 不能用 recommendNumbers 现算：历史每天都在变，现算出来的 6 码和历史卡片上那 6 个号不一样
+       （实测 2026-10-14 存档 [0,1,4,5,7,8] vs 现算 [0,1,2,3,6,8]）。 */
+/** 找到「同一期排三」那张卡的数据（排五前三位＝排三三位，模板里就是"直接带入"）
+ *  ① ctx.date 精确命中（迁移/重算必须走这条）
+ *  ② 按内容匹配（排五 万/千/百 == 排三 百/十/个）
+ *  ③ 最新一期（摇号时排三先摇完，最新的就是本期） */
+function pl3MainFor(out, ctx) {
+  try {
+    if (typeof loadTickets !== 'function') return null;
+    const p3 = (loadTickets() || {}).pl3 || {};
+    const dates = Object.keys(p3).filter((k) => /^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+    const mainOf = (d) => { const m = ((p3[d] || {}).images || {}).main; return (m && m.grp != null) ? m : null; };
+    if (ctx && ctx.date) { const m = mainOf(ctx.date); if (m) return m; }
+    const want = ['wan', 'qian', 'bai'].map((k) => digitsOfField(out[k], 0, 9).join(','));
+    for (let i = 0; i < dates.length; i++) {
+      const m = mainOf(dates[i]); if (!m) continue;
+      const got = ['bai', 'shi', 'ge'].map((k) => digitsOfField(m[k], 0, 9).join(','));
+      if (got[0] === want[0] && got[1] === want[1] && got[2] === want[2]) return m;
+    }
+    for (let i = dates.length - 1; i >= 0; i--) { const m = mainOf(dates[i]); if (m) return m; }
+  } catch (e) { /* 忽略 */ }
+  return null;
+}
+
+function digitPoolOf(gameId, out, ctx) {
+  const key = DIGIT_POOL_KEY[gameId];
+  if (key && out && out[key] != null) {
+    const a = digitsOfField(out[key], 0, 9);
+    if (a.length >= 6) return a.slice(0, 6);
+    return null;
+  }
+  if (gameId === 'pl5') {
+    const m = pl3MainFor(out, ctx);
+    if (m) {
+      const a = digitsOfField(m.grp, 0, 9);
+      if (a.length >= 6) return a.slice(0, 6);
+    }
+    /* 兜底：现算排三的 6 码（历史不同会不一样，所以只当最后手段） */
+    try {
+      if (typeof recommendNumbers === 'function') {
+        const a = consUniq(recommendNumbers('pl3', 'main', 6, 0, 9));
+        if (a.length >= 6) return a.slice(0, 6);
+      }
+    } catch (e) { /* 拿不到就退回老逻辑，不硬编 */ }
+  }
+  return null;
+}
+
 /**
- * 把三个位置的候选号修成「两两不重复」（= 27 注直选全是组六）
+ * 把三个位置的候选号修成【与「6码可组选」完全一致】+【两两不重复】
+ *   · 有 6 码池（fc3d / pl3 / pl5 前三位）：每位 2 号，正好把 6 码拆成 3 对
+ *     → 8 注直选全是组六、豹子 0、组三 0，且定位里不会出现 6 码以外的号
+ *   · 没有池（老数据 / 异常）：退回原来的「每位 3 号两两不重复」（27 注全组六）
  * @returns {boolean} 是否改动了 out
  */
-function enforceDigitStraightGate(gameId, out) {
+function enforceDigitStraightGate(gameId, out, ctx) {
   if (!out || typeof out !== 'object') return false;
   const keys = DIGIT_STRAIGHT_KEYS[gameId];
   if (!keys) return false;
@@ -2916,17 +2981,93 @@ function enforceDigitStraightGate(gameId, out) {
      这样两个彩种喂进同一个函数、得到的结果一定一样（不能各修各的）。 */
   const gateGame = (gameId === 'pl5') ? 'pl3' : gameId;
   const [from, to] = consRangeOf(gameId, 'main');
+  /* 【6 码池】有池 → 每位 2 号（方案 A）；没池 → 老口径每位 3 号 */
+  const pool = digitPoolOf(gameId, out, ctx);
+  const per = (pool && pool.length >= keys.length * DIGIT_POOL_PER) ? DIGIT_POOL_PER : 3;
 
   const sets = [];
   for (let i = 0; i < keys.length; i++) {
-    const raw = String(out[keys[i]] == null ? '' : out[keys[i]]);
-    const arr = consUniq((raw.match(/\d+/g) || [])
-      .map((x) => parseInt(x, 10))
-      .filter((n) => Number.isInteger(n) && n >= from && n <= to));
-    /* 每个位置必须是 3 个不重复的号（模板硬性个数）。
-       不满足就不动它：宁可保持原样，也不凭空造号。 */
-    if (arr.length !== 3) return false;
+    const arr = digitsOfField(out[keys[i]], from, to);
+    /* 有 6 码池：至少 2 个号就够了（老数据是 3 个 → 这次要收编成 2 个）
+       没有池：必须正好 3 个号（老口径，不满足就不动它、不凭空造号） */
+    if (arr.length < (pool ? DIGIT_POOL_PER : 3)) return false;
+    if (!pool && arr.length !== 3) return false;
     sets.push(arr);
+  }
+
+  const pref = [];
+  for (let i = 0; i < keys.length; i++) pref.push(digitStraightPref(gateGame, i, from, to));
+  const rankOf = (p, n) => { const i = pref[p].indexOf(n); return i < 0 ? 99 : i; };
+
+  /* ============================================================
+     方案 A（用户 2026-10-17 选定）：定位必须全部取自「6码可组选」
+     ------------------------------------------------------------
+     原话：「排三3D 很冲突 下面定位绝对不允许和组六不同」。
+     数学：各位 3 号 + 全落在 6 码内 ⇒ 组三 ≥ 9 注（不可能全组六，见文件头）；
+           改成【各位 2 号】⇒ 6 码正好拆成 3 对互不相交 ⇒ 8 注直选全组六、
+           豹子 0、组三 0，且三个位置一个不缺地正好用完那 6 个号。
+     ⇒ 有 6 码池时每位 2 号；没有池（老数据/异常）时退回原来的每位 3 号。
+     ============================================================ */
+  if (pool) {
+    /* 【排列五前三位】＝排三那三位「直接带入」：照抄排三这张卡的三个位置，
+       不要自己重新配对 —— 各配各的会分叉（踩过：排五用了现算的 6 码，
+       结果 万/千/百 和排三 百/十/个 对不上）。 */
+    if (gameId === 'pl5') {
+      const src = pl3MainFor(out, ctx);
+      const srcKeys = ['bai', 'shi', 'ge'];
+      if (src) {
+        let c2 = false;
+        keys.forEach((k, p) => {
+          const a = digitsOfField(src[srcKeys[p]], from, to);
+          if (a.length !== DIGIT_POOL_PER) return;         /* 排三那边还没收编好 → 不动，等下一轮 */
+          const before = String(out[k] == null ? '' : out[k]).trim();
+          const v = consJoin(a);
+          if (v !== before) { out[k] = v; c2 = true; }
+        });
+        if (c2) return true;
+        /* 已经和排三一致 → 继续走下面的「两两不重复」自检（通常直接 return false） */
+      }
+    }
+    const used = new Set();
+    let dup = false;
+    sets.forEach((a) => a.forEach((n) => { if (used.has(n)) dup = true; else used.add(n); }));
+    const allInPool = sets.every((a) => a.every((n) => pool.indexOf(n) >= 0));
+    if (allInPool && !dup) return false;          /* 已达标：一个号都不换（幂等） */
+
+    /* 贪心配对：把 6 码按「最想要它的位置」依次分配，每个位置最多 2 个 */
+    const bestRank = (n) => {
+      let m = 99;
+      keys.forEach((k, p) => { const r = rankOf(p, n); if (r < m) m = r; });
+      return m;
+    };
+    const order = pool.slice().sort((x, y) => (bestRank(x) - bestRank(y)) || (x - y));
+    const pair = keys.map(() => []);
+    order.forEach((n) => {
+      let best = -1;
+      keys.forEach((k, p) => {
+        if (pair[p].length >= DIGIT_POOL_PER) return;
+        if (best < 0 || rankOf(p, n) < rankOf(best, n)) best = p;
+      });
+      if (best >= 0) pair[best].push(n);
+    });
+    /* 保底：极端情况下某位置没分够，就按池顺序补（6 号 / 3 位 × 2 正常不会走到） */
+    keys.forEach((k, p) => {
+      for (let i = 0; i < pool.length && pair[p].length < DIGIT_POOL_PER; i++) {
+        const n = pool[i];
+        if (pair.some((q) => q.indexOf(n) >= 0)) continue;
+        pair[p].push(n);
+      }
+    });
+    /* 每个位置内部按该位置的偏好排序（最想要的排前面，页面顺序更合理） */
+    pair.forEach((a, p) => a.sort((x, y) => rankOf(p, x) - rankOf(p, y)));
+
+    let changed = false;
+    keys.forEach((k, p) => {
+      const before = String(out[k] == null ? '' : out[k]).trim();
+      const v = consJoin(pair[p]);
+      if (v !== before) { out[k] = v; changed = true; }
+    });
+    return changed;
   }
 
   /* 已经两两不重复 → 27 注全是组六，豹子/组三都是 0，一个号都不换 */
@@ -2934,10 +3075,6 @@ function enforceDigitStraightGate(gameId, out) {
   let dup = false;
   sets.forEach((a) => a.forEach((n) => { if (used.has(n)) dup = true; else used.add(n); }));
   if (!dup) return false;
-
-  const pref = [];
-  for (let i = 0; i < keys.length; i++) pref.push(digitStraightPref(gateGame, i, from, to));
-  const rankOf = (p, n) => { const i = pref[p].indexOf(n); return i < 0 ? 99 : i; };
 
   /* ① 每个被两个以上位置共用的数字，只留在一个位置
         （留给「最想要它」= 优先级最高的那个位置），别的位置把它换掉。
@@ -2989,17 +3126,16 @@ function enforceDigitStraightGate(gameId, out) {
  * @returns {{bao:number,zu3:number,zu6:number,total:number,distinct:number}|null}
  *          三位候选号不足 3 个 → 返回 null（不猜、不硬编）
  */
-function digitStraightTally(gameId, out) {
+function digitStraightTally(gameId, out, ctx) {
   if (!out || typeof out !== 'object') return null;
   const keys = DIGIT_STRAIGHT_KEYS[gameId];
   if (!keys) return null;
   const [from, to] = consRangeOf(gameId, 'main');
   const sets = [];
   for (let i = 0; i < keys.length; i++) {
-    const arr = consUniq((String(out[keys[i]] == null ? '' : out[keys[i]]).match(/\d+/g) || [])
-      .map((x) => parseInt(x, 10))
-      .filter((n) => Number.isInteger(n) && n >= from && n <= to));
-    if (arr.length !== 3) return null;
+    const arr = digitsOfField(out[keys[i]], from, to);
+    /* 每位个数必须一致且 ≥2：2 = 方案 A（6 码拆三对）、3 = 老口径 */
+    if (arr.length < 2 || arr.length !== (sets.length ? sets[0].length : arr.length)) return null;
     sets.push(arr);
   }
   let bao = 0, zu3 = 0, zu6 = 0;
@@ -3009,15 +3145,21 @@ function digitStraightTally(gameId, out) {
     else zu6++;
   })));
   const all = sets[0].concat(sets[1], sets[2]);
-  return { bao, zu3, zu6, total: bao + zu3 + zu6, distinct: consUniq(all).length };
+  const pool = digitPoolOf(gameId, out, ctx);
+  return {
+    bao, zu3, zu6, total: bao + zu3 + zu6, distinct: consUniq(all).length,
+    per: sets[0].length,
+    pool: pool ? pool.length : 0,
+    outside: pool ? consUniq(all.filter((n) => pool.indexOf(n) < 0)).length : 0
+  };
 }
 
 /** 一整张图的一致性收尾：逐个号码区过一遍 */
-function enforceConsistencyImage(gameId, imageKey, out) {
+function enforceConsistencyImage(gameId, imageKey, out, ctx) {
   if (!out || typeof out !== 'object') return out;
   /* 【硬性条件】放在最前面：福彩3D / 排列3 / 排列5前三位 的直选候选号
-     必须避开豹子、组三 —— 它不能被后面的异常吞掉，所以先跑。 */
-  try { enforceDigitStraightGate(gameId, out); } catch (e) { /* 失败不影响出号 */ }
+     必须避开豹子、组三，且【全部取自「6码可组选」】—— 它不能被后面的异常吞掉，所以先跑。 */
+  try { enforceDigitStraightGate(gameId, out, ctx); } catch (e) { /* 失败不影响出号 */ }
   let roles;
   try { roles = fieldRolesOf(gameId, imageKey); } catch (e) { return out; }
   const areas = [];
@@ -3026,14 +3168,14 @@ function enforceConsistencyImage(gameId, imageKey, out) {
     try { enforceConsistency(gameId, a, out, imageKey); } catch (e) { /* 单个区失败不影响其它 */ }
   });
   /* 【硬性条件的最终保证】一致性收尾在后半段仍可能改写号码字段，
-     所以最后【再验一遍 27 注】：只要出现豹子或组三（>1）就重跑一次直选闸。
-     enforceDigitStraightGate 是幂等的（已合规的输入一个号都不换），
-     0~9 有 10 个号 ≥ 9 个位置号 ⇒ 重跑必然收敛到「全组六」。
-     这一步是给"以后有人往 enforceConsistency 里加规则"兜底的，
-     当前各彩种实测都是首轮就达标（见文件头可行性说明）。 */
+     所以最后【再验一遍】：
+       · 出现豹子或组三（>1）→ 重跑直选闸；
+       · 【6 码一致性】定位里出现「6码可组选」以外的号 → 也重跑
+         （用户 2026-10-17：「下面定位绝对不允许和组六不同」）。
+     enforceDigitStraightGate 是幂等的（已合规的输入一个号都不换）。 */
   try {
-    const t = digitStraightTally(gameId, out);
-    if (t && (t.bao > 0 || t.zu3 > 1)) enforceDigitStraightGate(gameId, out);
+    const t = digitStraightTally(gameId, out, ctx);
+    if (t && (t.bao > 0 || t.zu3 > 1 || t.outside > 0)) enforceDigitStraightGate(gameId, out, ctx);
   } catch (e) { /* 失败不影响出号 */ }
   return out;
 }
