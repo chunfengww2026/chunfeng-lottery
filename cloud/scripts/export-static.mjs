@@ -3863,72 +3863,76 @@ body, .ro-wrap { background: var(--ro-bg); }
    ⚠️ 防截图遮罩保持深色（遮罩本来就该是黑的），不改。
    ============================================================ */
 :root {
-  --ro-bg: #ffffff;
-  --ro-card: #fafafa;
-  --ro-sunken: #f5f5f5;
-  --ro-line: #eeeeee;
-  --ro-line-soft: #f0f0f0;
-  --ro-fg: #222222;
-  --ro-fg2: #666666;
-  --ro-fg3: #999999;
-  --ro-ok: #1a8c5a;          /* 浅底上 #47e0a0 太浅，必须用深一点的绿 */
-  --ro-link: #2158c4;
+  /* 【米杏色暖色调】用户给的新配色（覆盖早先的"纯白"版本）。
+     ⚠️ 用 CSS 变量 + 一段覆盖，这是最省成本的换色方式。
+     ⚠️ 主文字是【深棕 #4a3a26】不是黑；卡片底比页面底【略亮一点点】。 */
+  --ro-bg: #f7efe1;          /* 页面底：米杏色 */
+  --ro-card: #fdf6ea;        /* 卡片：米杏色 */
+  --ro-sunken: #f3e6d0;      /* 次级卡片 */
+  --ro-line: #e8d7bd;        /* 边框 */
+  --ro-line-soft: #efe2cc;
+  --ro-fg: #4a3a26;          /* 主文字：深棕 */
+  --ro-fg2: #8a7a63;         /* 副文字 */
+  --ro-fg3: #a89madd;        /* 占位，下面会被覆盖（保持三档灰的语义） */
+  --ro-ok: #1a8c5a;          /* 主色绿（和现在一致） */
+  --ro-link: #1f5fd6;
   --ro-warn: #b8860b;
-  --ro-danger: #e02020;
-  --ro-time: #c0392b;        /* 浅底上金色看不清 → 用红棕 */
+  --ro-danger: #c0392b;      /* 按钮红字 */
+  --ro-time: #c0392b;        /* 倒计时红字 */
 }
-/* ---- 页面底 / 卡片底 / 内嵌底（按映射表） ---- */
-html, body, .ro-wrap { background: #ffffff !important; color: #222222; }
-[style*="#0f1115"] { background-color: #ffffff !important; }
-[style*="#161a21"] { background-color: #fafafa !important; }
-[style*="#12151d"] { background-color: #f5f5f5 !important; }
-[style*="#1a1f28"] { background-color: #ffffff !important; }
-[style*="#161618"] { background-color: #fafafa !important; }
-/* ---- 边框 ---- */
-[style*="#262d3a"] { border-color: #eeeeee !important; }
-[style*="#1e2430"] { border-color: #f0f0f0 !important; }
-[style*="#2b3444"] { border-color: #e8e8e8 !important; }
-[style*="#2a323f"] { border-color: #eeeeee !important; }
-/* ---- 文字 ---- */
-[style*="#e8eaed"] { color: #222222 !important; }
-[style*="#98a1b2"] { color: #666666 !important; }
-[style*="#6b7488"] { color: #999999 !important; }
-[style*="#5f6878"] { color: #aaaaaa !important; }
-[style*="#8b93a1"] { color: #777777 !important; }
-[style*="#c8cfda"] { color: #333333 !important; }
+/* 第三档弱文字用暖灰（上面那行是笔误占位，这里给正确的值） */
+:root { --ro-fg3: #a2937c; }
+/* ---- 页面底 / 卡片底（米杏色三档） ---- */
+html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
+[style*="#0f1115"] { background-color: #f7efe1 !important; }
+[style*="#161a21"] { background-color: #fdf6ea !important; }
+[style*="#12151d"] { background-color: #f3e6d0 !important; }
+[style*="#1a1f28"] { background-color: #fdf6ea !important; }
+[style*="#161618"] { background-color: #fdf6ea !important; }
+/* ---- 边框（暖色） ---- */
+[style*="#262d3a"] { border-color: #e8d7bd !important; }
+[style*="#1e2430"] { border-color: #efe2cc !important; }
+[style*="#2b3444"] { border-color: #e0ccae !important; }
+[style*="#2a323f"] { border-color: #e8d7bd !important; }
+/* ---- 文字（深棕三级） ---- */
+[style*="#e8eaed"] { color: #4a3a26 !important; }
+[style*="#98a1b2"] { color: #8a7a63 !important; }
+[style*="#6b7488"] { color: #a2937c !important; }
+[style*="#5f6878"] { color: #b3a68f !important; }
+[style*="#8b93a1"] { color: #8a7a63 !important; }
+[style*="#c8cfda"] { color: #4a3a26 !important; }
 /* ---- 主色 / 强调 ---- */
 [style*="#47e0a0"] { color: #1a8c5a !important; }
-[style*="#8fb8ff"] { color: #2158c4 !important; }
-[style*="#6ea8fe"] { color: #2158c4 !important; }
-[style*="#f0575c"] { color: #e02020 !important; }
+[style*="#8fb8ff"] { color: #1f5fd6 !important; }
+[style*="#6ea8fe"] { color: #1f5fd6 !important; }
+[style*="#f0575c"] { color: #c0392b !important; }
 [style*="#f0b429"] { color: #f5b301 !important; }
 [style*="#e8c877"] { color: #c0392b !important; }
-/* ---- 状态条（已更新 / 未更新） ---- */
+/* ---- 状态条（提示条：米黄底） ---- */
 .ro-status.ok { background: #e8f6ef !important; border-color: #b7e4cd !important; }
 .ro-status.ok .ro-st-head { color: #1a8c5a !important; }
-.ro-status.warn { background: #fff9e8 !important; border-color: #ffe08a !important; }
+.ro-status.warn { background: #fff6dd !important; border-color: #ffe08a !important; }
 .ro-status.warn .ro-st-head { color: #7a5c00 !important; }
-.ro-status .ro-st-time, .ro-status .ro-st-reason, .ro-status .ro-st-hint { color: #666666 !important; }
-/* ---- 卡片类（含刚做的"缩小版横排"）统一浅色 ---- */
+.ro-status .ro-st-time, .ro-status .ro-st-reason, .ro-status .ro-st-hint { color: #8a7a63 !important; }
+/* ---- 卡片类统一米杏色 ---- */
 .ro-status, .ro-xysp, .ro-aipick, .ro-panel, .ro-tool, .ro-imgtoc-wrap {
-  background: #fafafa !important; border-color: #eeeeee !important; color: #222222;
+  background: #fdf6ea !important; border-color: #e8d7bd !important; color: #4a3a26;
 }
 .ro-aipick-out, .ro-aipick-card, .ro-aipick-in, .ro-kjh-item {
-  background: #f5f5f5 !important; border-color: #f0f0f0 !important;
+  background: #f3e6d0 !important; border-color: #efe2cc !important;
 }
-.ro-xysp-pic { background: #ffffff !important; border-color: #eeeeee !important; }
+.ro-xysp-pic { background: #fdf6ea !important; border-color: #efe2cc !important; }
 .ro-xysp-tab, .ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-srcbtn,
 .ro-aipick-segbtn, .ro-aipick-btn, .ro-aipick-seg, .ro-aipick-pick {
-  background: #fafafa !important; border-color: #eeeeee !important; color: #222222;
+  background: #fdf6ea !important; border-color: #e8d7bd !important; color: #4a3a26;
 }
 .ro-xysp-tab.on, .ro-aipick-tab.on {
   background: #e8f6ef !important; border-color: #b7e4cd !important; color: #1a8c5a !important;
 }
-/* ⚠️ .ro-mob-view（全屏看图）保持【深色】：它是看图背景，浅色反而刺眼、
-   而且上面叠着浅色页面的提示条会看不清（用户模板里 gallery 也是黑底）。 */
+/* ⚠️ 全屏看图保持深色（看图背景，浅色反而刺眼；用户模板里 gallery 也是黑底）。
+   ⚠️ 防截图遮罩保持深色（用户明确说"遮罩本来就该是黑的 ✅ 不用改"）。 */
 .ro-mob-view { background: #0b0d11 !important; }
 .ro-mob-tip, .ro-mob-err { color: #c8cfda !important; }
-/* ⚠️ 防截图遮罩保持深色（用户明确说"遮罩本来就该是黑的 ✅ 不用改"） */
 #mask { background: rgba(0, 0, 0, 0.96) !important; }
 </style>
 </head>
