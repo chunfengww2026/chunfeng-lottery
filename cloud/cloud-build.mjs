@@ -1344,6 +1344,11 @@ function main() {
   /* 【走势图】纯前端表格页：只读 history.js 真开奖数据，不抓网络、不调 AI。
      必须排在 export-static/export-football 之后 —— 它读的是本班次刚落盘的开奖数据。 */
   if (plan.exportTrend) exportList.push(['build-trend.mjs', '走势图页']);
+  /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
+     必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
+     它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
+     ⚠️ 跟着 exportFootball 走：不出竞彩页的班次就没必要重出详情页。 */
+  if (plan.exportFootball) exportList.push(['build-match.mjs', '比赛详情页']);
   if (!exportList.length) log('  ⏭  本班次不需要重新生成页面');
 
   for (const [file, label] of exportList) {
@@ -1396,7 +1401,11 @@ function finishOutput(freshRows) {
     /* 【走势图】它【不在】exportTrend 的班次里就不会重新生成，
        上面那段"只发布本次重新生成过的页面"的逻辑对同样适用：
        不是本次生成的 → 删掉 out/ 里那份，交给 workflow 从线上拉回兜底。 */
-    ['走势图.html', '走势图.html']
+    ['走势图.html', '走势图.html'],
+    /* 【比赛详情页】竞彩页每张卡片都指向 比赛详情.html?c=编号（__MATCH_DETAIL_LINK__）。
+       同上面三条逻辑：只发布【本次真的重新生成过】的那一份；
+       这一班没出 → 删掉 out/ 里那份，由 workflow 从线上拉回当前那份兜底。 */
+    ['比赛详情.html', '比赛详情.html']
   ];
   pairs.forEach(([src, dst]) => {
     const sp = path.join(MOD, src);
