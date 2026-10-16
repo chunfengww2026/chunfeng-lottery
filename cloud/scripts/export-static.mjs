@@ -990,8 +990,7 @@ function buildExpertsHtml() {
     '<span class="ro-xj-count">' + totalShown + '</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
-    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自一起彩公开的专家历史命中统计，' +
-    '仅统计参考，不是预测</div>' +
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自于开发者自费</div>' +
     '<div class="ro-xj-list">' + groups + '</div>' +
     '<div class="ro-xj-more">已加载全部</div>' +
     '</details>';
@@ -4461,6 +4460,12 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-disclaimer h3 { color: var(--ro-fg) !important; }
 .ro-disclaimer p { color: var(--ro-fg2) !important; }
 .ro-drawblock { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
+/* 洛书九宫图那个「0 单独外置」格（#luoshuZero）—— 它是 DOM 格、不是 canvas，
+   实测底色 rgb(22,26,33) 是深色，跟着一起换成米杏（用户 2026-10-17 确认）。 */
+.luoshu-zero, .luoshu-zero.pick, .luoshu-zero.hit {
+  background: var(--ro-sunken) !important;
+  border: 1px solid var(--ro-line) !important;
+}
 
 /* ============================================================
    【顶部三段统一 12px】
