@@ -15437,7 +15437,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "悉尼FC",
      "score": 0,
@@ -15737,7 +15737,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "共和國",
      "score": 1,
@@ -15746,7 +15746,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "奧林匹克塔什干II隊",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
