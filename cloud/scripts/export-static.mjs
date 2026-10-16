@@ -2986,6 +2986,66 @@ body.ro-mob-open { overflow: hidden; }
   margin: 0 0 26px;
 }
 /* 标题那一行就是 <summary>：整条都能点 */
+/* ============================================================
+   __MINI_CARD__ 缩小版横排卡片（用户要求：只改【晒票】和【GPT模型摇号】这两块）
+   ------------------------------------------------------------
+   用户原话：「区块标题改成缩小版卡片样式」，并选了方案 C：
+     · 只改 .ro-xysp（晒票）和 .ro-aipick（GPT模型摇号）两个区块的 <summary>
+     · 其它区块（最新开奖 / 文章参考 / 开机号 / 选号直播 / 推荐图目录 / 竞彩页）
+       【保持原来的纵向居中】，一个都不动
+   样式：
+     左：标题（15~16px 粗体）+ 副标题（11px 灰，单行省略号）
+     右：「点击查看 / 点击收起」胶囊（12px，描边圆角）
+   ⚠️ 颜色全用页面的变量（--ro-card / --ro-line / --ro-fg / --ro-ok），
+      这样浅色主题那段覆盖会自动生效 —— 不要再写死颜色，否则浅色下会花。
+   ⚠️ 「点击查看/点击收起」仍然是 CSS 伪元素按 [open] 切换（机制没变），
+      标签仍然是 <summary>（不是裸 button）。
+   ============================================================ */
+.ro-xysp > .ro-xysp-head,
+.ro-aipick > .ro-aipick-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--ro-card);
+  border: 1px solid var(--ro-line);
+  border-radius: 10px;
+}
+/* 晒票稍微突出一点（用户要求 primary 那种感觉） */
+.ro-xysp > .ro-xysp-head {
+  background: var(--ro-card);
+  border-color: var(--ro-line);
+}
+/* 左边的标题+副标题竖排；副标题单行省略 */
+.ro-xysp > .ro-xysp-head .ro-xysp-h2,
+.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 16px; letter-spacing: .5px; }
+.ro-xysp > .ro-xysp-head .ro-xysp-sub,
+.ro-aipick > .ro-aipick-head .ro-aipick-sub {
+  font-size: 11px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 62vw;
+}
+/* 右侧胶囊：复用原来的 .ro-xysp-arrow / .ro-aipick-arrow（伪元素按 [open] 换字） */
+.ro-xysp > .ro-xysp-head .ro-xysp-arrow,
+.ro-aipick > .ro-aipick-head .ro-aipick-arrow {
+  margin: 0 !important;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ro-ok);
+  border: 1px solid var(--ro-ok);
+  border-radius: 14px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.ro-xysp > .ro-xysp-head .ro-xysp-arrow::after,
+.ro-aipick > .ro-aipick-head .ro-aipick-arrow::after { content: ''; }
+
 .ro-xysp-head {
   display: flex;
   align-items: baseline;
