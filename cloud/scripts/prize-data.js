@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 02:29 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 02:00 */
 const PRIZE_DATA = {
- "updated": "2026-10-16 02:29",
+ "updated": "2026-10-17 02:00",
  "games": {
   "ssq": {
    "issue": "2026118",
@@ -59,22 +59,22 @@ const PRIZE_DATA = {
    "source": "福彩官网"
   },
   "qlc": {
-   "issue": "2026118",
-   "date": "2026-10-14(三)",
+   "issue": "2026119",
+   "date": "2026-10-16(五)",
    "numbers": [
-    "06",
+    "02",
     "08",
     "14",
-    "17",
-    "19",
-    "23",
-    "26"
+    "15",
+    "16",
+    "28",
+    "29"
    ],
    "special": [
-    "28"
+    "30"
    ],
-   "sales": 3407408,
-   "pool": 1474602,
+   "sales": 5501734,
+   "pool": 2706811,
    "levels": [
     {
      "level": 1,
@@ -85,70 +85,70 @@ const PRIZE_DATA = {
     {
      "level": 2,
      "name": "二等奖",
-     "count": 5,
-     "money": 23309
+     "count": 19,
+     "money": 9264
     },
     {
      "level": 3,
      "name": "三等奖",
-     "count": 109,
-     "money": 2138
+     "count": 222,
+     "money": 1585
     },
     {
      "level": 4,
      "name": "四等奖",
-     "count": 337,
+     "count": 836,
      "money": 200
     },
     {
      "level": 5,
      "name": "五等奖",
-     "count": 3395,
+     "count": 6220,
      "money": 50
     },
     {
      "level": 6,
      "name": "六等奖",
-     "count": 6283,
+     "count": 11659,
      "money": 10
     },
     {
      "level": 7,
      "name": "七等奖",
-     "count": 40834,
+     "count": 68152,
      "money": 5
     }
    ],
    "source": "福彩官网"
   },
   "kl8": {
-   "issue": "2026274",
-   "date": "2026-10-15(四)",
+   "issue": "2026275",
+   "date": "2026-10-16(五)",
    "numbers": [
-    "08",
-    "09",
-    "15",
-    "17",
-    "27",
-    "29",
-    "35",
+    "11",
+    "31",
+    "32",
+    "33",
+    "37",
     "38",
-    "43",
-    "44",
-    "45",
-    "46",
-    "47",
+    "39",
     "48",
-    "54",
+    "51",
+    "55",
     "56",
+    "60",
     "63",
     "64",
-    "70",
+    "65",
+    "67",
+    "68",
+    "72",
+    "73",
     "78"
    ],
    "special": [],
-   "sales": 113899448,
-   "pool": 115958597.06,
+   "sales": 125037784,
+   "pool": 120825898.64,
    "levels": [
     {
      "level": null,
@@ -159,229 +159,229 @@ const PRIZE_DATA = {
     {
      "level": null,
      "name": "x10z9等奖",
-     "count": 58,
+     "count": 40,
      "money": 8000
     },
     {
      "level": null,
      "name": "x10z8等奖",
-     "count": 1095,
+     "count": 1049,
      "money": 720
     },
     {
      "level": null,
      "name": "x10z7等奖",
-     "count": 12220,
+     "count": 12611,
      "money": 80
     },
     {
      "level": null,
      "name": "x10z6等奖",
-     "count": 89908,
+     "count": 90846,
      "money": 5
     },
     {
      "level": null,
      "name": "x10z5等奖",
-     "count": 385292,
+     "count": 411821,
      "money": 3
     },
     {
      "level": null,
      "name": "x10z0等奖",
-     "count": 310709,
+     "count": 566943,
      "money": 2
     },
     {
      "level": null,
      "name": "x9z9等奖",
-     "count": 9,
+     "count": 6,
      "money": 250000
     },
     {
      "level": null,
      "name": "x9z8等奖",
-     "count": 467,
+     "count": 201,
      "money": 2000
     },
     {
      "level": null,
      "name": "x9z7等奖",
-     "count": 4207,
+     "count": 2925,
      "money": 225
     },
     {
      "level": null,
      "name": "x9z6等奖",
-     "count": 31949,
+     "count": 26857,
      "money": 22
     },
     {
      "level": null,
      "name": "x9z5等奖",
-     "count": 160755,
+     "count": 148351,
      "money": 5
     },
     {
      "level": null,
      "name": "x9z4等奖",
-     "count": 529447,
+     "count": 517210,
      "money": 3
     },
     {
      "level": null,
      "name": "x9z0等奖",
-     "count": 252643,
+     "count": 423363,
      "money": 2
     },
     {
      "level": null,
      "name": "x8z8等奖",
-     "count": 27,
+     "count": 5,
      "money": 50000
     },
     {
      "level": null,
      "name": "x8z7等奖",
-     "count": 500,
+     "count": 373,
      "money": 800
     },
     {
      "level": null,
      "name": "x8z6等奖",
-     "count": 8153,
+     "count": 6668,
      "money": 80
     },
     {
      "level": null,
      "name": "x8z5等奖",
-     "count": 61180,
+     "count": 50242,
      "money": 10
     },
     {
      "level": null,
      "name": "x8z4等奖",
-     "count": 242558,
+     "count": 222472,
      "money": 3
     },
     {
      "level": null,
      "name": "x8z0等奖",
-     "count": 225942,
+     "count": 362991,
      "money": 2
     },
     {
      "level": null,
      "name": "x7z7等奖",
-     "count": 182,
+     "count": 71,
      "money": 8500
     },
     {
      "level": null,
      "name": "x7z6等奖",
-     "count": 3327,
+     "count": 1955,
      "money": 300
     },
     {
      "level": null,
      "name": "x7z5等奖",
-     "count": 29831,
+     "count": 24286,
      "money": 30
     },
     {
      "level": null,
      "name": "x7z4等奖",
-     "count": 161896,
+     "count": 147328,
      "money": 4
     },
     {
      "level": null,
      "name": "x7z0等奖",
-     "count": 307732,
+     "count": 487020,
      "money": 2
     },
     {
      "level": null,
      "name": "x6z6等奖",
-     "count": 2229,
+     "count": 707,
      "money": 2880
     },
     {
      "level": null,
      "name": "x6z5等奖",
-     "count": 28180,
+     "count": 22683,
      "money": 30
     },
     {
      "level": null,
      "name": "x6z4等奖",
-     "count": 219913,
+     "count": 193520,
      "money": 10
     },
     {
      "level": null,
      "name": "x6z3等奖",
-     "count": 932201,
+     "count": 891014,
      "money": 3
     },
     {
      "level": null,
      "name": "x5z5等奖",
-     "count": 20274,
+     "count": 12334,
      "money": 1000
     },
     {
      "level": null,
      "name": "x5z4等奖",
-     "count": 284227,
+     "count": 234778,
      "money": 20
     },
     {
      "level": null,
      "name": "x5z3等奖",
-     "count": 1756632,
+     "count": 1654615,
      "money": 3
     },
     {
      "level": null,
      "name": "x4z4等奖",
-     "count": 5673,
+     "count": 2718,
      "money": 93
     },
     {
      "level": null,
      "name": "x4z3等奖",
-     "count": 56120,
+     "count": 51776,
      "money": 5
     },
     {
      "level": null,
      "name": "x4z2等奖",
-     "count": 247903,
+     "count": 231075,
      "money": 3
     },
     {
      "level": null,
      "name": "x3z3等奖",
-     "count": 54584,
+     "count": 61281,
      "money": 52
     },
     {
      "level": null,
      "name": "x3z2等奖",
-     "count": 489237,
+     "count": 446665,
      "money": 3
     },
     {
      "level": null,
      "name": "x2z2等奖",
-     "count": 585911,
+     "count": 462892,
      "money": 19
     },
     {
      "level": null,
      "name": "x1z1等奖",
-     "count": 48801,
+     "count": 50418,
      "money": 4.5
     }
    ],
@@ -452,12 +452,12 @@ const PRIZE_DATA = {
    "source": "体彩官网"
   },
   "pl3": {
-   "issue": "26274",
-   "date": "2026-10-15",
+   "issue": "26275",
+   "date": "2026-10-16",
    "numbers": [
-    "3",
-    "6",
-    "1"
+    "2",
+    "0",
+    "6"
    ],
    "special": [],
    "sales": null,
@@ -482,14 +482,14 @@ const PRIZE_DATA = {
    "source": "体彩官网"
   },
   "pl5": {
-   "issue": "26274",
-   "date": "2026-10-15",
+   "issue": "26275",
+   "date": "2026-10-16",
    "numbers": [
-    "3",
+    "2",
+    "0",
     "6",
-    "1",
-    "9",
-    "5"
+    "6",
+    "6"
    ],
    "special": [],
    "sales": null,
@@ -497,23 +497,23 @@ const PRIZE_DATA = {
    "levels": [
     {
      "name": "一等奖",
-     "count": 119,
+     "count": 67,
      "money": 100000
     }
    ],
    "source": "体彩官网"
   },
   "qxc": {
-   "issue": "26117",
-   "date": "2026-10-13",
+   "issue": "26118",
+   "date": "2026-10-16",
    "numbers": [
-    "7",
-    "7",
-    "5",
-    "5",
-    "1",
-    "3",
-    "11"
+    "0",
+    "6",
+    "8",
+    "4",
+    "2",
+    "8",
+    "7"
    ],
    "special": [],
    "sales": null,
@@ -521,17 +521,17 @@ const PRIZE_DATA = {
    "levels": [
     {
      "name": "二等奖",
-     "count": 7,
-     "money": 56453
+     "count": 3,
+     "money": 137377
     },
     {
      "name": "三等奖",
-     "count": 57,
+     "count": 32,
      "money": 3000
     },
     {
      "name": "四等奖",
-     "count": 935,
+     "count": null,
      "money": 500
     },
     {
