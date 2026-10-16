@@ -43,6 +43,20 @@
      ============================================================ */
   var SVGNS = 'http://www.w3.org/2000/svg';
 
+  /* ============================================================
+     【斜连】用户 2026-10-17 给的规则：
+       上期 a、本期 b，|a-b|=1 → 普通斜连；
+       隔 N 期，|a-b|=N → 间隔斜连。
+     ⚠️ 实测量级：差1 最多 278 条（可接受）；连上间隔斜连最多 3477 条
+        （快乐8，占格子 626%）→ 一定糊。所以做成三档，默认【只差1】：
+          off   = 不画
+          slant = 只画差 1（默认）
+          gap   = 差 1 + 间隔斜连（用户自己要才开）
+     ============================================================ */
+  var SLANT_MODES = ['off', 'slant', 'gap'];
+  var SLANT_LABEL = { off: '斜连：关', slant: '斜连：差1', gap: '斜连：含间隔' };
+  var slantMode = 'slant';
+
   function drawTrendLines(block) {
     var gid = block.getAttribute("data-tr-block");
     var game = null;
@@ -54,8 +68,7 @@
     var box = table.getBoundingClientRect();
     if (!box || !box.width || !box.height) return 0;   /* 量不到 → 跳过 */
 
-    /* 先清掉上一次画的覆盖层：切换彩种时会重画，不清就会越叠越多层。
-       （实测：不清的话同一个块切两次回来就有 2 层重叠的线。） */
+    /* 先清掉上一次画的覆盖层：切换彩种/切换斜连都会重画，不清就会越叠越多层。 */
     if (block.querySelectorAll) {
       toArr(block.querySelectorAll("svg.tr-lines")).forEach(function (old) {
         if (old.parentNode && old.parentNode.removeChild) old.parentNode.removeChild(old);
@@ -113,6 +126,33 @@
         segCount++;
       });
     });
+
+    /* ③b 斜连（用户规则：|a-b| === 相隔期数）。用不同颜色区分开。 */
+    if (slantMode !== "off") {
+      var sl = trSlantFor(TREND_DATA, gid, { includeGapSlant: slantMode === "gap" });
+      if (sl) {
+        var colOfNum = function (n, cls) {
+          if (cls === "extra") return mainCols + 1 + (n - game.extra.lo);
+          return n - game.main.lo;
+        };
+        sl.all.forEach(function (L) {
+          /* 点名：第 i 期在自己列里命中 a、第 j 期命中 b（斜着差 gap 格） */
+          var ca = colOfNum(L.a, L.cls), cb = colOfNum(L.b, L.cls);
+          var ra = map[L.i + "," + ca], rb = map[L.j + "," + cb];
+          /* 同列（a === b，gap 不可能为 0 所以不会发生）跳过；缺格跳过 */
+          if (!ra || !rb) return;
+          var el = document.createElementNS(SVGNS, "line");
+          el.setAttribute("x1", ra.x.toFixed(1));
+          el.setAttribute("y1", ra.y.toFixed(1));
+          el.setAttribute("x2", rb.x.toFixed(1));
+          el.setAttribute("y2", rb.y.toFixed(1));
+          el.setAttribute("class", "tr-line tr-slant tr-slant-" + L.type + " tr-slant-" + L.cls);
+          el.setAttribute("data-tr-slant-gap", String(L.gap));
+          svg.appendChild(el);
+          segCount++;
+        });
+      }
+    }
     if (!segCount) return 0;
 
     /* 放进 .tr-scroll（定位参考层），跟着表格横向滚动 */
@@ -125,6 +165,34 @@
   var blocks = toArr(root.querySelectorAll("[data-tr-block]"));
   var tabs = toArr(root.querySelectorAll("[data-tr-tab]"));
 
+  /* 当前显示的是哪个彩种（斜连开关切换时要知道该重画哪一个） */
+  var curId = null;
+
+  /* ============================================================
+     斜连开关（点一下换一档：关 → 差1 → 含间隔 → 关 …）
+     ------------------------------------------------------------
+     为什么必须做成开关：实测量级差太大 ——
+       只画差1：双色球 92 条（好看）
+       连间隔一起：快乐8 3477 条（糊成一团）
+     所以默认「差1」，用户想看更全的自己点。
+     ============================================================ */
+  var slantBtn = null;
+  function paintSlantBtn() {
+    if (!slantBtn) return;
+    slantBtn.textContent = SLANT_LABEL[slantMode];
+    slantBtn.setAttribute("data-tr-slant-mode", slantMode);
+    var on = slantMode !== "off";
+    slantBtn.className = "tr-slantbtn" + (on ? " on" : "");
+  }
+  function cycleSlant() {
+    var k = SLANT_MODES.indexOf(slantMode);
+    slantMode = SLANT_MODES[(k + 1) % SLANT_MODES.length];
+    paintSlantBtn();
+    /* 重画当前这块（档位变了，线要重算） */
+    if (curId) drawOne(curId);
+    else drawAll();
+  }
+
   /* 画连线；线条数报到块上（data-tr-lines），验收脚本可直接读。
      单块失败不影响别的块，也不影响彩种切换。 */
   function drawAll() {
@@ -135,7 +203,6 @@
       } catch (e) { /* 忽略：画不出线不影响页面功能 */ }
     });
   }
-  drawAll();
 
   /* ⚠️ 隐藏的块量不到坐标 → 初始只画了【当前显示】的那一块。
      所以每次切换都要给刚显示出来的块补画一次（实测：不补的话，
@@ -151,6 +218,54 @@
     });
   }
 
+  drawAll();
+
+  /* ============================================================
+     斜连开关（点一下换一档：关 → 差1 → 含间隔 → 关 …）
+     ------------------------------------------------------------
+     为什么必须做成开关：实测量级差太大 ——
+       只画差1：双色球 92 条（好看）
+       连间隔一起：快乐8 3477 条（糊成一团）
+     所以默认「差1」，用户想看更全的自己点。
+     ⚠️ 顺序：必须等 drawAll/drawOne 都定义好再建按钮、绑事件。
+     ============================================================ */
+  var slantBtn = null;
+  function paintSlantBtn() {
+    if (!slantBtn) return;
+    slantBtn.textContent = SLANT_LABEL[slantMode];
+    slantBtn.setAttribute("data-tr-slant-mode", slantMode);
+    slantBtn.className = "tr-slantbtn" + (slantMode !== "off" ? " on" : "");
+  }
+  function cycleSlant() {
+    var k = SLANT_MODES.indexOf(slantMode);
+    slantMode = SLANT_MODES[(k + 1) % SLANT_MODES.length];
+    paintSlantBtn();
+    /* 档位变了 → 当前这块的线要重算重画 */
+    if (curId) drawOne(curId);
+    else drawAll();
+  }
+
+  /* 把开关放进彩种切换条那一行（渲染层没有它，这里补一个） */
+  (function mountSlantBtn() {
+    var tabsBar = root.querySelector(".tr-tabs");
+    if (!tabsBar || !document.createElement) return;
+    slantBtn = document.createElement("a");
+    slantBtn.setAttribute("href", "#");
+    slantBtn.setAttribute("role", "button");
+    slantBtn.setAttribute("title", "切换斜连显示：关 / 只差1 / 含间隔");
+    slantBtn.className = "tr-slantbtn on";
+    slantBtn.textContent = SLANT_LABEL[slantMode];
+    slantBtn.setAttribute("data-tr-slant-mode", slantMode);
+    if (slantBtn.addEventListener) {
+      slantBtn.addEventListener("click", function (ev) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        cycleSlant();
+        return false;
+      });
+    }
+    if (tabsBar.appendChild) tabsBar.appendChild(slantBtn);
+  })();
+
   function show(id) {
     /* 用 setAttribute('hidden') 而不是 .hidden 属性：
        ① 真浏览器里 [hidden] 一定生效（CSS 里也写了兜底）
@@ -163,6 +278,8 @@
       var on = (t.getAttribute('data-tr-tab') === id);
       t.className = 'tr-tab' + (on ? ' on' : '');
     });
+    /* 记下当前彩种：斜连开关切换时要重画这一块 */
+    curId = id;
     /* 刚显示出来的块现在才有坐标 → 补画连线（隐藏时量不到，跳过了） */
     drawOne(id);
     /* ⚠️ file:// 下 history.replaceState 会抛 SecurityError —— 必须吞掉异常，
