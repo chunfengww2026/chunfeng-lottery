@@ -94,7 +94,7 @@ import { fileURLToPath } from 'node:url';
 /* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
    （build-xysp-tt.mjs 的抓取主流程有 isDirectRun() 关卡，
      被 import 时不会发请求、不会 exit）。 */
-import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter } from './build-xysp-tt.mjs';
+import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter, sortTimeMs, whenToMs, anyToMs } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -351,7 +351,10 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
            算出这条帖子对应的是哪一期开奖（= 发布时间之后最近那次开奖）。
            纯解析、0 成本；算不出来就是 null，页面就不显示那一段
            （绝不给一个编出来的日期）。见 build-xysp-tt.mjs 的 nextDrawAfter。 */
-        nextAt: it.nextAt || nextDrawAfter(g.key, pubMs || Date.parse(at)) || null
+        nextAt: it.nextAt || nextDrawAfter(g.key, pubMs || Date.parse(at)) || null,
+        atMs: Date.parse(at) || null,
+        seenMs: (typeof it.seenMs === 'number' && isFinite(it.seenMs)) ? it.seenMs : (Date.parse(String(it.seen || '')) || Date.parse(at) || null),
+        whenMs: null
       });
       if (count) stat.added++;
     };
@@ -362,12 +365,15 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     const freshList = Array.isArray(freshByGame[g.key]) ? freshByGame[g.key] : [];
     freshList.forEach((it) => push(it, true));
 
-    /* 排序：发布时间新的在前（没有发布时间的用抓取时间），再砍到上限。
-       ⚠️ 砍到上限会【记账】（stat.capped），主流程会打印警告 ——
-          用户明确要求"别偷偷砍"，所以绝不静默。 */
+    /* 【排序】按【发布时间】倒序（最新的在最前）—— 用户明确要求。
+       用 sortTimeMs（统一数值 UTC 毫秒）：发布(pubMs/whenMs) > 最近抓到(seenMs) > 首次抓到(atMs)；
+       三个都没有 → -Infinity → 【排最后】（用户要求"不要排最前，避免假新"）。
+       ⚠️ 不要用 b.pubMs || Date.parse(b.at) 这种混合表达式：一个是数值、
+          一个是"本地时间字符串解析出的毫秒"，基准可能差一个时区。
+       ⚠️ 砍到上限会【记账】（stat.capped），主流程打印警告 —— 绝不静默。 */
     const list = [...bucket.values()].sort((a, b) =>
-      ((b.pubMs || Date.parse(b.at)) - (a.pubMs || Date.parse(a.at))) ||
-      (Date.parse(b.at) - Date.parse(a.at)));
+      (sortTimeMs(b) - sortTimeMs(a)) ||
+      ((b.pubMs || 0) - (a.pubMs || 0)));
     const keptList = list.slice(0, MAX_PER_GAME);
     if (list.length > keptList.length) {
       stat.capped = (stat.capped || 0) + (list.length - keptList.length);

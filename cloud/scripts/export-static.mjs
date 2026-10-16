@@ -1021,6 +1021,49 @@ function faceDate(drawIso) {
   return `${p(bj.getUTCMonth() + 1)}-${p(bj.getUTCDate())}`;
 }
 
+/* ============================================================
+   【排序键】晒票按发布时间倒序（用户要求「最新的在最前面」）
+   ------------------------------------------------------------
+   优先级（和服务端排序用的 sortTimeMs 保持一致）：
+     发布时间(pubMs / whenMs) > 最近抓到(seenMs) > 首次抓到(atMs)
+   全都没有 → 0，排最后（用户要求「不要排最前，避免"假新"」）。
+   ⚠️ 为什么不直接 import sortTimeMs：export-static 是【独立跑】的导出器，
+      不想把抓取模块拉进来（那会把整条网络依赖带进来）。
+      这里的实现刻意和 build-xysp-tt.mjs 的 sortTimeMs 一行行对齐，
+      改一边要改另一边。
+   ⚠️ when 是 "YYYY-MM-DD HH:MM:SS"（空格、无时区）—— 要按【北京时间】解析，
+      不能直接 Date.parse（不同宿主解释不同）。见 whenMsOf。
+   ============================================================ */
+const BJ_MS = 8 * 3600 * 1000;
+/* ⚠️ 必须【区分格式】（实测踩过，别偷懒用一个解析器）：
+     · "2026-10-16 22:27:45"        → 空格分隔、无时区 → 头条返回的【北京时间墙钟】
+     · "2026-10-16T15:06:01.727Z"   → 带 Z → 已经是 UTC
+     · "2026-10-16T08:45:00.000Z"   → 带 Z → 已经是 UTC
+   如果对带 Z 的也减 8 小时，就会把一起彩的时间整体提早 8 小时，
+   排序时它们会错误地排到前面（实测：ssq 第 18 位出现 1 处逆序）。
+   ⇒ 有明确时区标记（Z / ±HH:MM）就交给 Date.parse；没有才按北京时间解释。 */
+function whenMsOf(v) {
+  const s = String(v == null ? '' : v).trim();
+  if (!s) return 0;
+  if (/[zZ]$|[+-]\d{2}:?\d{2}$/.test(s)) {          /* 带时区标记 → 直接解析 */
+    const t = Date.parse(s);
+    return isFinite(t) ? t : 0;
+  }
+  if (/^\d{10,}$/.test(s)) return Number(s);        /* 纯数值时间戳 */
+  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?/.exec(s);
+  if (!m) { const t = Date.parse(s); return isFinite(t) ? t : 0; }
+  const u = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0));
+  return isFinite(u) ? u - BJ_MS : 0;
+}
+function sortMsOf(it) {
+  if (!it) return 0;
+  const cand = [it.pubMs, it.whenMs,
+    (it.when ? whenMsOf(it.when) : 0), (it.pubAt ? whenMsOf(it.pubAt) : 0),
+    (it.seen ? whenMsOf(it.seen) : 0), (it.at ? whenMsOf(it.at) : 0)];
+  for (const c of cand) if (typeof c === 'number' && isFinite(c) && c > 0) return c;
+  return 0;
+}
+
 function buildXyspHtml() {
   const data = (XYSP && XYSP.games) ? XYSP.games : null;
   const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
@@ -1030,6 +1073,8 @@ function buildXyspHtml() {
      ⚠️ 一张卡片只画一次 —— 多归属靠属性里的多个 key 表达，
         不是靠把同一条渲染成多张卡片（那样「全部」会重复计数）。 */
   const cards = [];
+  /* 和 cards[i] 一一对应的【数值排序键】（见下面的全局排序） */
+  const cardSorts = [];
   XYSP_GAMES.forEach((g) => {
     const isTt = (g.key === 'tt');
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
@@ -1056,6 +1101,8 @@ function buildXyspHtml() {
       const ud = untilDraw(it && it.nextAt, nowMs);
       if (ud) bits.push(ud);
       const desc = bits.length ? (bits.join(' · ') + (title ? ' · ' + title : '')) : title;
+      /* 【排序】数值时间戳，写进卡片的 data-ro-xysp-sort（验收脚本 + 全屏"第 N/M 张"用） */
+      const sortMs = sortMsOf(it);
 
       /* 【可被哪些标签选中】
          · 一起彩条目：只有它自己那一个 key（老行为，没变）
@@ -1087,15 +1134,39 @@ function buildXyspHtml() {
            这里【不重复写一遍】原图地址（每条再写一次要多 130 字节，
            彩种多了页面会被白白撑大）。 */
         `<a class="ro-xysp-pic" href="${escapeAttr(img)}"` +
-        ` data-ro-xysp-games="${escapeAttr(keys.join(' '))}">` +
+        ` data-ro-xysp-games="${escapeAttr(keys.join(' '))}"` +
+        /* 【排序】把数值时间戳写进属性（用户要求倒序）。
+           · 服务端已经排好了，这个属性是给【验收脚本】验顺序用的，
+             也是全屏看图时"第 N / M 张"的依据。
+           · 0 = 没有可用时间戳（排序时被放到最后），属性里保留 0 便于核查。 */
+        ` data-ro-xysp-sort="${sortMs > 0 ? sortMs : 0}">` +
         `<img class="ro-xysp-thumb" src="${escapeAttr(thumb)}" alt=""` +
         ` loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
         `<span class="ro-xysp-cap"><b>${escape(badge)}</b>` +
         (desc ? `<i>${escape(desc)}</i>` : '') +
         `</span></a>`
       );
+      cardSorts.push(sortMs > 0 ? sortMs : 0);
     });
   });
+
+  /* ============================================================
+     【全局排序】晒票按发布时间倒序（最新在最前）—— 用户要求
+     ------------------------------------------------------------
+     ⚠️ 踩过的坑（很重要，别退回按分类分块渲染）：
+       卡片原来是【按分类分块】push 的（先一起彩 8 个彩种、再头条、再竞彩），
+       每个块【内部】已经倒序，但块与块之间不是 ——
+       于是「全部」标签读下来是"块内有序、块间断层"：
+         第 17 张 10-15 16:58 → 第 18 张 10-16 12:57（又变新了）。
+       用户要的是「最新的在最前面」，所以这里必须【整体再排一次】。
+     ⚠️ 一起排（而不是每个标签各自排）：页面上只有【一份】卡片列表，
+       点标签只是显示/隐藏（见 __XYSP_VIEW__）；只要全局倒序成立，
+       每个标签天然也倒序（子序列保持有序）。
+     ⚠️ 稳定性：时间戳相同的卡片保持原有相对顺序（Array.sort 在现代
+       V8 里是稳定的），所以同一帖子的多张票不会被搅乱。
+     ============================================================ */
+  const order = cards.map((_, i) => i).sort((a, b) => (cardSorts[b] - cardSorts[a]) || (a - b));
+  const sortedCards = order.map((i) => cards[i]);
 
   /* 筛选条：全部 + 8 个彩种 + 头条晒票。全部都是 <a>（不是按钮标签）。 */
   const tabs = ['<a class="ro-xysp-tab on" href="#ro-xysp" data-ro-xysp-game="all">全部</a>']
@@ -1121,7 +1192,7 @@ function buildXyspHtml() {
     (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
     body +
     (updated
-      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 72 小时 · 更新于 ${escape(updated)}</div>`
+      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 72 小时</div>`  /* __NO_UPDATED__ 用户要求删掉「更新于」 */
       : '') +
     `</details>`;
 }
@@ -1313,7 +1384,7 @@ function buildKjhHtml() {
     `<div class="ro-panel-head">` +
     `<h2 class="ro-panel-title">开机号</h2>` +
     `<div class="ro-panel-sub">每天 2:00 自动更新` +
-    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
     (rows ? `<div class="ro-kjh-grid">${rows}</div>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
@@ -1344,7 +1415,7 @@ function buildLiveHtml() {
     `<div class="ro-panel-head">` +
     `<h2 class="ro-panel-title">选号直播</h2>` +
     `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
-    (updated ? ` · 更新于 ${escape(updated)}` : '') + `</div>` +
+    /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
     `<a class="ro-live-more" href="${articleHref(home)}" data-copy="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +   /* __COPY_LIVE__ 用户要求：改成点击复制链接 */
     `点击复制链接进浏览器查看</a>` +

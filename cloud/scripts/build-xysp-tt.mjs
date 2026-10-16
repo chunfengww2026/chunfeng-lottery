@@ -302,6 +302,72 @@ export function nextDrawAfter(gid, tMs) {
   return info.prev || info.next || null;
 }
 
+/* ============================================================
+   【统一的数值时间戳】用户要求：「晒票按发布时间倒序（最新的在最前面）」
+   ------------------------------------------------------------
+   问题（实测发现的，别改回去）：
+     · `when`（源站发布时间）存的是 `"2026-10-16 22:27:45"` ——
+       中间是【空格】、且【没有时区标记】。`Date.parse()` 对它的解释
+       依赖宿主（本机 CST 会当本地时间），而 `seen` 是 ISO（带 Z）。
+       两个混在一起排序 = 拿两个不同时区基准的数比大小 → 顺序会错。
+     · 而且 `when` 是【字符串】，直接比字符串会出
+       "10-15" vs "9-30" 这种错（用户原话里也提到这个坑）。
+   ⇒ 所以加【数值字段】：
+       whenMs = when 的 UTC 毫秒（按北京时间解释 —— 头条返回的就是北京时间）
+       seenMs = 最近一次抓到的时间（UTC 毫秒）
+     ⚠️ 只加数值字段，【不改 when 原有格式】—— 页面上还要显示它，
+        而且老数据里已经存了这个字符串。
+   ============================================================ */
+const BJ_OFFSET_MS = 8 * 3600 * 1000;
+/**
+ * 把头条的 `when` 解析成 UTC 毫秒。
+ * 支持三种写法（实测都出现过）：
+ *   "2026-10-16 22:27:45" / "2026-10-16 22:27" / "2026-10-16T22:27:45"
+ * 都按【北京时间】解释（头条返回的是北京时间墙钟）。
+ * @returns {number|null}
+ */
+export function whenToMs(when) {
+  const s = String(when == null ? '' : when).trim();
+  if (!s) return null;
+  if (/^\d{10,}$/.test(s)) return Number(s);                 /* 纯数值时间戳 */
+  /* ⚠️ 带明确时区标记（Z / ±HH:MM）→ 已经是 UTC，交给 Date.parse。
+     不能对它减 8 小时 —— 那会把一起彩的时间整体提早 8 小时，
+     排序时错误地排到前面（实测：ssq 出现逆序）。 */
+  if (/[zZ]$|[+-]\d{2}:?\d{2}$/.test(s)) {
+    const t = Date.parse(s);
+    return isFinite(t) ? t : null;
+  }
+  /* 无时区标记 → 按【北京时间墙钟】解释（头条返回的就是这个格式） */
+  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?/.exec(s);
+  if (!m) {
+    const t = Date.parse(s);
+    return isFinite(t) ? t : null;
+  }
+  const [, Y, Mo, D, H, Mi, S] = m;
+  const utc = Date.UTC(Number(Y), Number(Mo) - 1, Number(D), Number(H), Number(Mi), Number(S || 0));
+  return isFinite(utc) ? (utc - BJ_OFFSET_MS) : null;
+}
+/** 解析成 UTC 毫秒（ISO 或 "YYYY-MM-DD HH:MM" 都能吃） */
+export function anyToMs(v) {
+  if (v === null || v === undefined || v === '') return null;
+  if (typeof v === 'number') return isFinite(v) ? v : null;
+  const s = String(v).trim();
+  if (/^\d{10,}$/.test(s)) return Number(s);
+  return whenToMs(s) !== null ? whenToMs(s) : (isFinite(Date.parse(s)) ? Date.parse(s) : null);
+}
+/**
+ * 排序用的【唯一时间键】（UTC 毫秒，倒序用）。
+ * 优先级：发布时间(pubMs / whenMs) > 最近抓到(seenMs) > 首次抓到(atMs)。
+ * 全都没有 → 返回 -Infinity，让它【排在最后】——用户要求
+ *   「都没有的 → 排最后（不要排最前，避免"假新"）」。
+ */
+export function sortTimeMs(it) {
+  if (!it) return -Infinity;
+  const cand = [it.pubMs, it.whenMs, anyToMs(it.when), anyToMs(it.pubAt), anyToMs(it.seen), anyToMs(it.at)];
+  for (const c of cand) if (typeof c === 'number' && isFinite(c) && c > 0) return c;
+  return -Infinity;
+}
+
 /* 竞彩玩法的具体名称（标题里认得出就用它，认不出就是「竞彩」） */
 const JC_HINTS = [
   { re: /胜负彩|14 场|十四场/, name: '胜负彩' },
@@ -727,6 +793,9 @@ export function parseTtPage(html, atIso, cat) {
         /* 【时效】期号 + 本轮抓取时间（后面的中间处理会补 drawAt / expireAt） */
         issue: (C.key === TT_KEY) ? issueOfTitle(title) : '',
         seen: atIso,
+        /* 【数值时间戳】排序必须用数值（用户要求倒序），见 whenToMs / sortTimeMs 的说明 */
+        whenMs: whenToMs(when),
+        seenMs: Date.parse(atIso) || null,
         author,
         when
       });
@@ -886,8 +955,17 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
            nextAt  该彩种【下一期】开奖时刻（卡片上显示"距开奖 x 小时"用这个） */
       issue: it.issue || (C.key === TT_KEY ? issueOfTitle(it.title) : ''),
       seen: new Date(seenMs).toISOString(),
+      /* 【数值时间戳】—— 排序用（见 sortTimeMs）；同时把 nextAt 统一成【数值】
+         ⚠️ 踩过的坑：早先这里存的是 ISO 字符串，而一起彩那条路存的是数值
+            （build-xysp.mjs 里 nextDrawAfter 返回 number）→ 同一个字段两种类型。
+            现在两边【都存 UTC 毫秒数值】，页面显示时再格式化。 */
+      whenMs: (typeof it.whenMs === 'number' && isFinite(it.whenMs)) ? it.whenMs : whenToMs(it.when),
+      seenMs,
+      drawMs: ex.drawAt || null,
+      nextMs: ex.nextAt || null,
+      atMs: t,
       drawAt: ex.drawAt ? new Date(ex.drawAt).toISOString() : '',
-      nextAt: ex.nextAt ? new Date(ex.nextAt).toISOString() : '',
+      nextAt: ex.nextAt || null,
       drawGid: ex.gid || '',
       expireAt: new Date(ex.expireAt).toISOString(),
       rule: ex.rule,
@@ -902,9 +980,15 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   (Array.isArray(fresh) ? fresh : []).forEach((it) => push(it, true));
 
   /* 排序：先按 at（最新抓到的在前），再按 expireAt 兜底 */
+  /* 【排序】按【发布时间】倒序（最新的在最前）—— 用户明确要求。
+     ⚠️ 用 sortTimeMs（数值 UTC 毫秒），不要用 Date.parse(b.at)：
+        · at 是"抓到的时间"，不是"发布的时间"；同一条帖子被抓到的时间都一样，
+          用它排序等于没排序（实测踩过）。
+        · 也不能比 when 字符串："10-15" vs "9-30" 会错。
+     同分时用 expireAt 兜底，保证顺序稳定。 */
   const items = [...bucket.values()]
-    .sort((a, b) => (Date.parse(b.at) - Date.parse(a.at)) ||
-      (Date.parse(String(b.expireAt || 0)) - Date.parse(String(a.expireAt || 0))))
+    .sort((a, b) => (sortTimeMs(b) - sortTimeMs(a)) ||
+      (anyToMs(b.expireAt) || 0) - (anyToMs(a.expireAt) || 0))
     .slice(0, max);
   stat.kept = items.length;
   stat.keepHours = keepHours;
