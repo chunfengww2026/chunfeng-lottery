@@ -44,6 +44,25 @@
           算法：各家【即时】欧赔逐方向算 cv = 标准差 ÷ 均值，按 3.0% / 5.5% 分低/中/高。
         · 这一场在 titan007 赛程里没对上号 / 只抓到 1 家 / jc-divergence.js 缺失时，
           仍然如实显示「暂无多家赔率数据，无法计算分歧」，绝不用单源硬造低/中/高。
+     ⑦ 欧赔对比（2026-10-17 第 3 步）：同一趟抓取还产出 jc-titan.js ——
+        每场【主流 12 家】的 初盘 / 即时 / 返还率 / 凯利 明细（英文原名映射成中文习惯名）。
+        由 build-odds-divergence.mjs 一起写出来（一趟抓取两个出口，源上只请求一遍），
+        这一页同样在【构建时内嵌】。缺文件 / 这一场没有 → 显示「暂无」，不编。
+
+   【⚠️ 硬性规则 · 页面上【不许】出现任何"数据是从哪儿来的"】
+     用户要求：全页面不要有任何地方显示在哪里抓取的数据（含站名 / 域名 / 接口 / 文件名）。
+     所以这一页里：
+       · 不再写「数据源：xxx」「数据来源：xxx」「来自 xxx」「取自 xxx」「接入 xxx」；
+       · 不再出现 500.com / 球探 / titan007 / leisu / jc-data.js / jc-history.js /
+         jc-divergence.js / jc-titan.js 这些字眼（连页内 <script> 的注释里都不写）；
+       · 「公司」列里那唯一一行不再叫 500.com，改叫「综合」（列本身要保留 ——
+         对比表里的博彩公司名是"公司"，不是"我们的来源"）；
+       · 各表格里的【368 家】【共 64 场】【更新时间 2026-10-17 05:26】这类统计和时间
+         不含来源信息 → 保留。
+     ⚠️ 这一条由文件最后那段【留痕断言】强制执行：命中黑名单 → 生成失败 exit 1。
+        所以以后谁再往页面里加站名 / 文件名，构建会当场报错，不会悄悄发上线。
+     ⚠️ 用户自己起的两个标签名【数据检测报告】【体育抓取】要保留 —— 那是功能名，
+        不含来源信息（断言里先剔除这两个词再扫「抓取」）。
 
    用法：node build-match.mjs         → 写 比赛详情.html
    ============================================================ */
@@ -86,6 +105,18 @@ const OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
    ============================================================ */
 const DIV = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
 const DIV_GAMES = (DIV && DIV.games && typeof DIV.games === 'object') ? DIV.games : null;
+
+/* ============================================================
+   【欧赔对比 · 主流公司的初盘/即时/返还率/凯利】jc-titan.js
+   ------------------------------------------------------------
+   同一趟抓取（build-odds-divergence.mjs）产出的第二份文件：
+   每场只留主流 12 家（该场共 320~370 家，全存要 11 MB，不值当）。
+   ⚠️ 文件不存在 / 这一场没有 → 这一档显示「暂无」，绝不拿别处的数字顶。
+   ⚠️ 页面里【不显示】source / sourceUrl 这两个字段（硬性规则：不留来源痕迹），
+      所以下面内嵌时只取 updated / main / count / games。
+   ============================================================ */
+const TITAN = loadVar('jc-titan.js', 'JC_TITAN');
+const TITAN_GAMES = (TITAN && TITAN.games && typeof TITAN.games === 'object') ? TITAN.games : null;
 
 if (!JC || !Array.isArray(JC.games)) {
   console.error('❌ build-match.mjs：读不到 jc-data.js 的 JC_DATA.games');
@@ -228,16 +259,26 @@ const DATA_JSON = JSON.stringify({
   inSale: IN_SALE,
   liveCount: LIVE_GAMES.length,
   histCount: histAdded,
-  /* 【分歧指】球探 titan007 的多公司欧赔离散度（jc-divergence.js）。
+  /* 【分歧指】多公司欧赔的离散度（jc-divergence.js）。
      整体内嵌进页面 —— 线上站点目录里【没有】jc-divergence.js，
-     所以绝不能让页面去 <script src> 它（那样线上必然 404，和 jc-data.js 同一个道理）。 */
+     所以绝不能让页面去 <script src> 它（那样线上必然 404，和 jc-data.js 同一个道理）。
+     ⚠️ 这里【不内嵌 source / sourceUrl / note】—— 页面上不许留来源痕迹（硬性规则），
+        字符串"球探 titan007"只要进了这个 JSON 就等于进了 HTML，断言也会拦下来。 */
   div: DIV_GAMES ? {
     updated: DIV.updated || '',
-    source: DIV.source || '球探 titan007',
     metric: DIV.metric || '',
     levels: DIV.levels || null,
     count: Object.keys(DIV_GAMES).length,
     games: DIV_GAMES
+  } : null,
+  /* 【欧赔对比】主流 12 家的明细（jc-titan.js）。同样整体内嵌、同样不带 source。
+     main = [[公司ID, 英文原名, 中文习惯名], …]，页面按这个顺序和名字显示；
+     以后调名单只改 build-odds-divergence.mjs 的 MAIN_COMPANIES，页面不用动。 */
+  multi: TITAN_GAMES ? {
+    updated: TITAN.updated || '',
+    main: Array.isArray(TITAN.main) ? TITAN.main : [],
+    count: Object.keys(TITAN_GAMES).length,
+    games: TITAN_GAMES
   } : null,
   games: ORDERED
 }).replace(/</g, '\\u003c').replace(/\u2028|\u2029/g, '');
@@ -277,18 +318,27 @@ a { color: var(--ro-ok); text-decoration: none; }
 
 .md-wrap { padding: 12px 12px 0; max-width: 560px; margin: 0 auto; }
 
-/* ② 数据源切换（本次只做样式；雷速体育 = 占位，点了不报错） */
+/* ② 顶部三档标签：全部 / 数据检测报告 / 体育抓取
+      ⚠️ 「数据检测报告」6 个字比原来的「检测」长得多，320px 下三个标签平分一行
+         会挤 —— 所以：标签文字【不换行】+ 窄屏(<360px)自动缩字号和左右内边距。
+         实测（CDP 设备模拟）：375px 每个标签 111.7px、320px 每个 93.3px，
+         「数据检测报告」在 12.5px 下 75px、11.5px 下 69px，都装得下，不溢出。 */
 .md-src { display: flex; gap: 8px; margin-bottom: 12px; }
 .md-srcbtn {
   flex: 1 1 0; min-width: 0; text-align: center; cursor: pointer;
-  font-size: 13px; font-weight: 700; color: var(--ro-fg2);
+  font-size: 12.5px; font-weight: 700; color: var(--ro-fg2);
   background: var(--ro-card); border: 1px solid var(--ro-line);
   border-radius: 9px; padding: 8px 4px;
+  white-space: nowrap;
 }
 .md-srcbtn.on { color: #fff; background: var(--ro-ok); border-color: var(--ro-ok); }
-.md-srcbtn.soon { color: #a99a82; }
-.md-srcbtn.soon::after { content: '即将'; font-size: 9px; margin-left: 3px; opacity: .8; }
+@media (max-width: 360px) {
+  .md-src { gap: 6px; }
+  .md-srcbtn { font-size: 11.5px; padding: 8px 2px; }
+}
+/* 提示语为空时【不占位】（「全部」那一档没有提示，删掉后不能留一条空白） */
 .md-srcnote { font-size: 11.5px; color: var(--ro-fg2); margin: -6px 0 12px; min-height: 16px; }
+.md-srcnote:empty { display: none; }
 
 /* ③ 比赛头部 */
 .md-head {
@@ -355,6 +405,26 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-divsum { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
 .md-divsum span { flex: 1 1 0; min-width: 0; text-align: center; font-size: 12px; color: var(--ro-fg2); background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 8px; padding: 7px 4px; }
 .md-divsum span b { display: block; margin-top: 3px; font-size: 13.5px; }
+/* ⑦ 欧赔对比（主流 12 家 × 初盘 / 即时 / 返还率 / 凯利）
+   一屏 5 列，320px 下每列只有 46~70px —— 所以每格里的三个数字（主/平/客）
+   用 inline-block 小格【自己折行】，绝不用省略号把赔率吃掉。
+   「初盘 → 即时」的变化就看【即时那三格的颜色】：绿＝比初盘高，红＝比初盘低。
+   颜色对比度在米杏底(#fdf6ea)上量过：#146c46 ≈5.6:1 · #a5281b ≈6.5:1，都过 4.5:1。 */
+.md-eu th { font-size: 11px; line-height: 1.25; }
+.md-eu th em { font-style: normal; font-weight: 400; font-size: 9.5px; color: var(--ro-fg2); }
+.md-eu td { padding: 6px 1px; vertical-align: top; }
+.md-eu td.co { font-size: 12px; font-weight: 700; color: var(--ro-fg); white-space: normal; overflow: visible; line-height: 1.25; }
+.md-eu td.nums { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.35; }
+.md-eu td.nums i {
+  display: inline-block; font-style: normal; font-family: Consolas, monospace;
+  font-size: 11.5px; color: var(--ro-fg); margin: 0 3px 1px 0;
+}
+.md-eu td.nums.small i { font-size: 10.5px; }
+.md-eu td.nums i.up { color: #146c46; font-weight: 800; }
+.md-eu td.nums i.down { color: #a5281b; font-weight: 800; }
+.md-eu td.rate { font-family: Consolas, monospace; font-size: 11.5px; font-weight: 700; color: var(--ro-fg); line-height: 1.3; }
+.md-eu td.rate span { display: block; font-size: 10px; font-weight: 400; color: var(--ro-fg2); }
+.md-eu td.wide { font-size: 11px; white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.3; }
 /* 分歧指：单源算不出来时的如实占位（虚线框，一眼看出是「没有」而不是「空着」） */
 .md-na {
   border: 1px dashed var(--ro-line); border-radius: 9px;
@@ -399,7 +469,7 @@ a { color: var(--ro-ok); text-decoration: none; }
   var pct = function (v) { var n = num(v); return n === null ? null : (Math.round(n * 10) / 10) + '%'; };
 
   /* 盘口数值 → 中文写法：只作【兜底】。
-     正常情况一律用 500.com 原始字符串（odds.asian.*.line），它本身就带「让/受」前缀；
+     正常情况一律用原始字符串（odds.asian.*.line），它本身就带「让/受」前缀；
      从数值再拼一次会拼出「受让平手/半球」这种两边都没有的写法 → 那属于编数据。 */
   function hcFallback(h) {
     var n = num(h); if (n === null) return null;
@@ -439,11 +509,82 @@ a { color: var(--ro-ok); text-decoration: none; }
                   : '<span class="md-badge">' + esc(text || '初盘') + '</span>';
   };
 
-  function card(title, badgeHtml, bodyHtml, emptyText) {
-    return '<section class="md-card"><div class="md-chead"><span class="md-ctitle">' + esc(title) + '</span>'
+  /* grp = 这一档归哪一档标签：'report' = 数据检测报告 · 'sports' = 体育抓取 ·
+     'report sports' = 两档都显示（亚盘那两档只有一份数据，两档里都该看得到）。
+     点标签时按 data-grp 显示/隐藏，「全部」＝都显示。 */
+  function card(title, badgeHtml, bodyHtml, emptyText, grp) {
+    return '<section class="md-card" data-grp="' + esc(grp || 'report') + '"><div class="md-chead"><span class="md-ctitle">' + esc(title) + '</span>'
       + (badgeHtml || '') + '</div>'
       + (bodyHtml || ('<div class="md-empty">' + esc(emptyText) + '</div>'))
       + '</section>';
+  }
+
+  /* ---- ④-7 欧赔对比（主流 12 家：初盘 / 即时 / 返还率 / 凯利） ----
+     ⚠️ 页面上【不写】这些数字是从哪儿来的（硬性规则，见文件头）。
+        这一档只说「主流 12 家」「这一场共 N 家」—— 不透露来源。
+     ⚠️ 该场没有明细 → 如实显示「暂无」，绝不拿别处的均值或别场的数字顶。
+     ⚠️ 「初盘 → 即时 的变化」用【颜色】表达：即时那三格比初盘高＝绿、低＝红。 */
+  function euNums(o) {
+    var h = '';
+    for (var i = 0; i < 3; i++) {
+      var v = num(o && o[i]);
+      h += '<i>' + (v === null ? '—' : v.toFixed(2)) + '</i>';
+    }
+    return h;
+  }
+  function euLiveNums(o, l) {
+    var h = '';
+    for (var i = 0; i < 3; i++) {
+      var a = num(o && o[i]), b = num(l && l[i]);
+      var cls = (a === null || b === null || b === a) ? '' : (b > a ? 'up' : 'down');
+      h += '<i class="' + cls + '">' + (b === null ? '—' : b.toFixed(2)) + '</i>';
+    }
+    return h;
+  }
+  function euRow(name, d) {
+    var o = (d && d.o) || [], l = (d && d.l) || [], r = (d && d.r) || [], k = (d && d.k) || [];
+    var live = num(r[1]), open = num(r[0]);
+    return '<tr><td class="co">' + esc0(name) + '</td>'
+      + '<td class="nums">' + euNums(o) + '</td>'
+      + '<td class="nums">' + euLiveNums(o, l) + '</td>'
+      + '<td class="rate">' + (live === null ? '—' : live.toFixed(1) + '%')
+      + (open === null ? '' : '<span>初 ' + open.toFixed(1) + '</span>') + '</td>'
+      + '<td class="nums small">' + euNums(k) + '</td></tr>';
+  }
+  function renderTitanEuro(g) {
+    var mg = (D.multi && D.multi.games) ? D.multi.games[String(g.code || '')] : null;
+    var na = function (why) {
+      return card('欧赔对比', '<span class="md-badge">多公司欧赔</span>',
+        '<div class="md-na">暂无多家公司的赔率对比数据。<br><em>' + esc0(why)
+        + '这一档就不显示数值 —— 不用别处的数字顶。</em></div>', null, 'sports');
+    };
+    if (!D.multi) return na('本次构建没有拿到这一档的数据。');
+    if (!mg || !mg.eu) return na('这一场没有对上号（或这一场没有可列的公司）。');
+    var main = D.multi.main || [];
+    var t = '<table class="md-tbl md-eu"><thead><tr>'
+      + '<th style="width:20%">公司</th>'
+      + '<th style="width:22%">初盘<br><em>主/平/客</em></th>'
+      + '<th style="width:24%">即时<br><em>主/平/客</em></th>'
+      + '<th style="width:17%">返还率</th>'
+      + '<th style="width:17%">凯利<br><em>主/平/客</em></th>'
+      + '</tr></thead><tbody>';
+    var n = 0;
+    for (var i = 0; i < main.length; i++) {
+      var d = mg.eu[main[i][1]];
+      if (!d) continue;              /* 这一场这家没有三项齐全的即时赔率 → 整行不显示，不补 */
+      t += euRow(main[i][2] || main[i][1], d);
+      n++;
+    }
+    t += '</tbody></table>';
+    if (!n) return na('这一场没有可列的公司。');
+    t += '<div class="md-one">每格按 <b>主 / 平 / 客</b> 三个方向排列；'
+      + '即时那三格的颜色＝与初盘相比：<b class="up">绿</b> 是赔率升高、<b class="down">红</b> 是赔率降低'
+      + '（只标变化，不代表任何结论）。返还率那一格＝即时，小字是初盘；凯利＝即时凯利指数。'
+      + '<br>本表固定列主流 <b>' + n + '</b> 家 —— 这一场共 <b>' + esc0(mg.companies) + '</b> 家公司有即时欧赔，'
+      + '其余不逐个列出（320px 一屏塞不下，也为了这一页别做成几十兆）。'
+      + (has(mg.league) ? ' · ' + esc0(mg.league) : '')
+      + ' · 更新时间 ' + esc0(D.multi.updated || '—') + '。</div>';
+    return card('欧赔对比', '<span class="md-badge live">主流 ' + n + ' 家</span>', t, null, 'sports');
   }
 
   /* ---- ④-1 欧指：三格，最高的那个用主色 ---- */
@@ -473,11 +614,11 @@ a { color: var(--ro-ok); text-decoration: none; }
     return card('欧指', badge(isLive, '初盘', g), body);
   }
 
-  /* ---- ④-2 大小：一行 = 一个数据源（现在只有 500.com 一家） ---- */
+  /* ---- ④-2 大小：一行 —— 这一档只有一个口径（没有第二家的数据，不硬凑行） ---- */
   function renderOU(g) {
     var ou = g.odds && g.odds.overunder;
     if (!ou) return card('大小', '', null, g.src === 'hist'
-      ? '归档场次没有存大小球数据（jc-history.js 只存欧赔即时 + 亚指即时）' : '这一场没有大小球数据');
+      ? '归档场次没有存大小球数据（归档只留了欧赔即时 + 亚指即时两档）' : '这一场没有大小球数据');
     var live = ou.live || ou.open, open = ou.open;
     if (!live) return card('大小', '', null, '这一场没有大小球数据');
     var over = num(live.over), line = num(live.line), under = num(live.under);
@@ -485,7 +626,7 @@ a { color: var(--ro-ok); text-decoration: none; }
     var isLive = !!ou.live;
     var t = '<table class="md-tbl"><thead><tr><th style="width:28%">公司</th>'
       + '<th style="width:24%">大</th><th style="width:24%">盘口</th><th style="width:24%">小</th></tr></thead><tbody>'
-      + '<tr><td class="s">500.com</td>'
+      + '<tr><td class="s">综合</td>'
       + '<td class="n">' + (over === null ? '—' : over.toFixed(2)) + '</td>'
       + '<td class="n">' + (line === null ? '—' : line.toFixed(1)) + '</td>'
       + '<td class="n">' + (under === null ? '—' : under.toFixed(2)) + '</td></tr>'
@@ -496,13 +637,14 @@ a { color: var(--ro-ok); text-decoration: none; }
           + (num(open.line) === null ? '—' : num(open.line).toFixed(1)) + ' / '
           + (num(open.under) === null ? '—' : num(open.under).toFixed(2)) : ' · 初盘与即时一致')
       + '</div>';
-    return card('大小', badge(isLive, '初盘', g), t);
+    return card('大小', badge(isLive, '初盘', g), t, null, 'report');
   }
 
   /* ---- ④-3 让球：公司 / 盘口 / 主水 / 客水 ----
-     用户规格里写的是「主让 / 盘口 / 客让」，但 jc-data.js 里 500.com 实际只给三个值：
+     用户规格里写的是「主让 / 盘口 / 客让」，但这一档的数据里实际只给三个值：
      odds.asian.*.line（盘口字符串）+ home / away（两边的【水位】）。
-     没有「主让 0.85」这种独立字段 —— 所以表头如实写 盘口/主水/客水，不硬套规格名字。 */
+     没有「主让 0.85」这种独立字段 —— 所以表头如实写 盘口/主水/客水，不硬套规格名字。
+     ⚠️ 「公司」列里那一行叫「综合」而不是某个站名（页面上不许留来源痕迹）。 */
   function renderRQ(g) {
     var as = g.odds && g.odds.asian;
     if (!as) return card('让球', '', null, g.src === 'hist'
@@ -513,13 +655,13 @@ a { color: var(--ro-ok); text-decoration: none; }
       ? '归档只存了亚指一档（在下面那张「亚指」卡里）'
       : '这一场没有让球数据');
     var home = num(live.home), away = num(live.away);
-    /* 盘口只写 500.com 的原样字符串；没有字符串时才退回数值换算 */
+    /* 盘口只写原样字符串；没有字符串时才退回数值换算 */
     var zhLine = has(live.line) ? String(live.line) : hcFallback(g.asianIndex ? g.asianIndex.handicap : null);
     if (home === null && away === null && !has(zhLine)) return card('让球', '', null, '这一场没有让球数据');
     var isLive = !!as.live;
     var t = '<table class="md-tbl"><thead><tr><th style="width:28%">公司</th>'
       + '<th style="width:24%">盘口</th><th style="width:24%">主水</th><th style="width:24%">客水</th></tr></thead><tbody>'
-      + '<tr><td class="s">500.com</td>'
+      + '<tr><td class="s">综合</td>'
       + '<td class="s">' + (has(zhLine) ? esc(zhLine) : '—') + '</td>'
       + '<td class="n">' + (home === null ? '—' : home.toFixed(2)) + '</td>'
       + '<td class="n">' + (away === null ? '—' : away.toFixed(2)) + '</td></tr>'
@@ -528,10 +670,11 @@ a { color: var(--ro-ok); text-decoration: none; }
       + (as.open && has(as.open.line) && String(as.open.line) !== String(live.line)
         ? ' · 初盘 ' + esc(as.open.line) : '')
       + '</div>';
-    return card('让球', badge(isLive, '初盘', g), t);
+    /* 亚盘只有这一份数据 → 「数据检测报告」和「体育抓取」两档里都显示 */
+    return card('让球', badge(isLive, '初盘', g), t, null, 'report sports');
   }
 
-  /* ---- ④-4 亚指：只有 1 家（jc-data 里没有任何公司名）→ 有几家显示几家 ---- */
+  /* ---- ④-4 亚指：这一档只有 1 个口径（没有第二家的数据）→ 有几家显示几家 ---- */
   function renderAsian(g) {
     var as = g.odds && g.odds.asian;
     var ai = g.asianIndex;
@@ -544,7 +687,7 @@ a { color: var(--ro-ok); text-decoration: none; }
     var change = chg(o && o.home, l && l.home, openLine, nowLine);
     var t = '<table class="md-tbl"><thead><tr><th style="width:24%">公司</th>'
       + '<th style="width:26%">初盘</th><th style="width:26%">即时</th><th style="width:24%">变化</th></tr></thead><tbody>';
-    t += '<tr><td class="s">500.com</td>'
+    t += '<tr><td class="s">综合</td>'
       + '<td class="s wrap">' + (has(openLine) ? esc(openLine) : '—')
       + (num(openWater) !== null ? '<br><span>' + num(openWater).toFixed(2) + '</span>' : '') + '</td>'
       + '<td class="s wrap">' + (has(nowLine) ? esc(nowLine) : '—')
@@ -560,12 +703,13 @@ a { color: var(--ro-ok); text-decoration: none; }
         + (num(ai.totalWater) !== null ? '总水 ' + num(ai.totalWater).toFixed(2) : '')
         + '</div>';
     }
-    return card('亚指', badge(!!l, '初盘', g), t);
+    /* 亚盘只有这一份数据 → 两档标签里都显示 */
+    return card('亚指', badge(!!l, '初盘', g), t, null, 'report sports');
   }
 
   /* ---- ④-5 泊松指数 ----
      ⚠️【名字叫「泊松指数」，但它不是泊松分布模型】—— 这一点必须对用户如实写清楚。
-     本模块的算法只有两步，全部来自 jc-data.js 里【已经有的】欧赔，不新抓任何数据：
+     本模块的算法只有两步，全部用这一页【已经有的】欧赔，不新取任何数据：
        ① 反推原始概率：p主 = 1/主赔, p平 = 1/平赔, p客 = 1/客赔（庄家赔率的倒数）
        ② 归一化（让三项加起来正好 100%）：P主 = p主 / (p主+p平+p客)
      返还率列【不是编的】：用【页面上显示的那三个赔率】按 100% / (1/主+1/平+1/客) 现算，
