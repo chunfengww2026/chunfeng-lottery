@@ -467,7 +467,10 @@ function neutralText(s, collapseSpace = true) {
 export function assertNoSourceTrace(html, label, opts = {}) {
   let target = html;
   if (opts.selfTestInsert) {
-    target = html.replace(/<\/body>/i, '<div class="kg-selftest">' + opts.selfTestInsert + '</div></body>');
+    /* ⚠️ 不能插在【首个】</body> 前：成品页（只读分享版.html）里第一条 </body>
+       出现在 HTML 注释的设计说明里，插进去等于写进注释 —— 注释按设计不算命中
+       → 自测会【假通过】（实测踩过）。追加到文档末尾，保证落在【可见文本】区。 */
+    target = html + '<div class="kg-selftest">' + opts.selfTestInsert + '</div>';
     console.log('   🧪 自测：故意塞入「' + opts.selfTestInsert + '」，断言【必须】拦住');
   }
   const hits = findSourceTraces(target);
