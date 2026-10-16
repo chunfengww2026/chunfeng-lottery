@@ -580,7 +580,7 @@ function renderTrendHtml(payload) {
           (c ? '<s></s>' : '') + '</td>');
       }
       if (withExtra) {
-        L.push('<td class="tr-td-sep">' + __trPreselExtra(g) + '</td>');
+        L.push('<td class="tr-td-sep"></td>');
         for (let i = 0; i < exCols; i++) {
           const c = hitExtra[i];
           L.push('<td class="tr-td-num tr-td-extra' + (c ? ' on' : '') + '" data-tr-zone="x" data-tr-hit="' + c + '">' +
