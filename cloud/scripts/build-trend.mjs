@@ -1,23 +1,44 @@
 /* ============================================================
-   build-trend.mjs —— 生成【走势图（表格版）】独立子页
+   build-trend.mjs —— 生成【走势图（表格版）】的内联片段
    ------------------------------------------------------------
-   产物：走势图.html —— 自包含单文件（数据 + 样式 + 脚本全内嵌，双击就能看）
+   ⚠️ 2026-10-17 用户要求：「留在近30期走势预选参考里面. 删除单独走势图独立页」。
+      所以本文件【不再产出任何独立 HTML 文件】，改成 export 一个片段函数
+      renderTrendFragment(payload)，由 export-static.mjs 插进分享页的
+      <details class="ro-trend">（「走势图 / 近 30 期走势 · 预选参考」）里。
+      （方式 A：片段导出。原来那种"先生成独立页、export-static 再读文件内联"
+        的写法有构建顺序依赖，现在 import 直接用 —— 只跑 export-static.mjs 就够。）
 
    数据来源：history.js 的 DRAW_HISTORY（每彩种真开奖 60 期，取最近 N 期）
      · 只在【构建时】读一次，把快照内嵌进页面 → 页面零联网、零成本
      · 不写 localStorage、不调 AI、不抓网络
+     ⚠️ 页面上不能出现任何「数据从哪来」的字样：这条口径由 source-guard.mjs 兜底。
+        以前是本文件自己 removeSourceWords + assertNoSourceTrace；
+        现在片段是分享页的一部分，断言在 export-static.mjs 写文件前
+        对整个页面跑一次（同一个模块、同一套词表，口径不变）。
 
    代码来源（单一真源，不再手抄）：
      · trend-render.js  渲染内核（纯函数 renderTrendHtml / trAreaStats）
      · trend-mount.js   挂载 + 彩种切换
-   这两个文件被【原文读进来】注入页面；页面和验收脚本跑的完全是同一份。
+   这两个文件被【原文读进来】注入片段；页面和验收脚本跑的完全是同一份。
+   （内联后挂载层有 3 处要做「独立页 → 内联」适配：改 <title>、
+     别把分享页滚到顶、别把 ?g= 写回分享页地址栏 —— 见 adaptMountForInline。
+     trend-mount.js 本身【不动】，它是别的窗口也在读的单一真源。）
 
-   ⚠️ 为什么这么拆（踩过的坑，都记在这）：
-     最早是把内核"再手抄一份"写进 buildHtml 的模板字符串里，结果：
+   ⚠️ 内联后和分享页【共用同一个 document / 全局作用域】，所以：
+     · 整段脚本包在 IIFE 里（TREND_DATA / renderTrendHtml / trEsc 不污染全局）
+     · 根节点 id 加前缀：tr-root → ro-trend-root
+     · 样式表整张过 scopeTrendCss() 收进 .ro-trend-embed
+       （分享页里也有一份 .ro-wrap / .ro-top / .ro-status / .ro-foot / .btn，
+         不加前缀会把整个分享页一起改掉）
+     · 片段里【没有】顶部那排页面标签（彩票推荐 / 竞彩·足球 / 走势图）：
+       用户明确要求删掉；独立页时代 HTML 和样式就一起删了，内联版更不能加回来。
+
+   ⚠️ 为什么把内核与挂载拆成独立文件（踩过的坑，都记在这）：
+     最早是把内核"再手抄一份"写进模板字符串里，结果：
        ① 手抄版被整体转义，section 开头标签没插值、hidden 一个都没设上
        ② 往模板字符串里插值内核源码时，内核里的反引号会把外层模板提前截断
        ③ 把内核源码拼进 <script> 时，里面 renderTrendHtml 返回值中的
-          "</script>" 字面量会让浏览器提前闭合 script 标签
+          "<script" 字面量会让浏览器提前闭合 script 标签
      现在：内核与挂载各自独立成文件 → 构建时 readText → 只做一次
      "占位符 → 源码文本" 的字符串替换（split/join，不用 replace 以免
      $& 之类被当成替换模式）。转义只在一个地方做，逻辑一目了然。
@@ -29,21 +50,19 @@
    ⚠️ 数字型彩种（qxc/fc3d/pl3/pl5）的号码是【位】不是【集合】：0 是合法开出值，
       重复数字各算一次，所以不去重、不排序，保持官方开奖顺序。
 
-   用法：
-     node build-trend.mjs          # 默认最近 30 期
-     node build-trend.mjs 20       # 改期数（10~60）
+   用法（只作为模块被 export-static.mjs import，没有命令行入口）：
+     import { loadHistory, buildPayload, renderTrendFragment } from './build-trend.mjs';
    ============================================================ */
+
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { GAME_IDS, LOTTERY_SPEC } from './lottery-rules.mjs';
-/* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
-import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(ROOT, '走势图.html');
-const PERIODS = Math.max(10, Math.min(60, Number(process.argv[2]) || 30));
+/* 折块里固定展示最近 30 期（和分享页折叠块副标题「近 30 期走势 · 预选参考」对齐） */
+export const TREND_PERIODS = 30;
 
 /* ---------- 彩种元数据（由 lottery-rules.mjs【派生】，不再手写第二份） ----------
    ⚠️ 这里的 pick = 【每期画几个号】= 规则表的 opens，【不是】玩法默认选号数。
@@ -74,7 +93,7 @@ export function loadHistory() {
 
 /* ---------- 组装 payload（页面里的唯一数据源） ---------- */
 export function buildPayload(hist, periods) {
-  const N = periods || PERIODS;
+  const N = periods || TREND_PERIODS;
   const games = [];
   for (const g of TREND_GAMES) {
     const all = (hist.games && hist.games[g.id]) || [];
@@ -116,7 +135,7 @@ export const MOUNT_SRC = fs.readFileSync(path.join(ROOT, 'trend-mount.js'), 'utf
 
    ⚠️ 为什么不去改 trend-render.js / trend-mount.js：
       那两个是"单一真源"，别的窗口/别的验收脚本也在读；
-      本轮的边界是「只改 build-trend.mjs + 重新生成 走势图.html」，
+      本轮的边界是「只改 build-trend.mjs 这一个文件」，
       所以这里用【锚点注入】：不改那两个文件，只在构建时把
         · 工具栏 <div> 插到每个彩种块的 .tr-head 前面
         · 预选行 <tr> 插到每张表 tbody 的第一行
@@ -986,35 +1005,18 @@ export function appendInteract(renderSrc) {
 }
 
 /* ============================================================
-   页面外壳（米杏色，变量值和分享页 export-static.mjs 的 __LIGHT_THEME__ 一致）
+   样式表：原独立页（已按用户要求删除）的那张 <style>（值一个字不改）
    ------------------------------------------------------------
-   __TREND_SCRIPT_BODY__ 是占位符：构建时替换成
-     "数据快照 + 渲染内核 + 挂载逻辑"。
-   ⚠️ 占位符必须写成拼出来的字符串，不能写成模板字符串里的 ${...}，
-      否则模板解析时就会把它求值掉。
+   ⚠️ 从 2026-10-17 起走势图【不再有独立页面】——
+      用户原话：「留在近30期走势预选参考里面. 删除单独走势图独立页」。
+      这张表改由 export-static.mjs 内联进分享页的 <details class="ro-trend">，
+      所以必须先过 scopeTrendCss() 收作用域：
+      分享页里本来就有一份 .ro-wrap / .ro-top / .ro-status / .ro-foot / .btn，
+      不加前缀会把【整个分享页】一起改掉（.ro-wrap 会把页面挤窄、
+      html/body 那条会把分享页刷成另一个底色）。样式值本身一个字不动，
+      所以走势图那一块的外观和独立页完全一致。
    ============================================================ */
-const PLACEHOLDER = '__TREND_SCRIPT_BODY__';
-
-export function buildHtml(payload) {
-  const updated = payload.updated || '';
-  const shell = `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>春风大奖 · 走势图</title>
-<meta name="description" content="春风大奖 · 走势图：8 个彩种最近 30 期开奖号码走势表（真实开奖数据）。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
-<meta name="format-detection" content="telephone=no" />
-<link rel="icon" type="image/svg+xml" href="icon.svg" />
-<link rel="icon" type="image/x-icon" href="favicon.ico" />
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<meta name="theme-color" content="#f7efe1" />
-<meta name="application-name" content="春风大奖" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="春风大奖" />
-<style>
+const TREND_CSS = `
 /* ============================================================
    走势图页 · 米杏色主题
    ============================================================ */
@@ -1038,7 +1040,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
 
 /* ① 顶部那排页面标签 —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
-      原因：走势图.html 会被分享页用 <iframe> 嵌进折叠块里，
+      原因：这一块会被分享页内联进折叠块里，
       在 iframe 内点那两个跳转标签会跳出当前页、体验很怪；
       而只剩本页自己那一个也没意义、还白占一行 → HTML 和样式一起删。
       ⚠️ 别复活：删掉后首屏第一个可见元素就是下面 ② 那行小字。 */
@@ -1224,103 +1226,233 @@ svg.tr-lines-draw.on { pointer-events:auto; }
   .tr-block { padding: 10px 8px 8px; }
   .tr-td-tail, .tr-th-tail { display: none; }
 }
-</style>
-</head>
-<body data-built="${updated}">
-<div class="ro-wrap">
-
-  <!-- 顶部那排页面标签已按用户 2026-10-17 要求【整排彻底删除】：本页不再有 .top-tabs。
-       不是"只在 iframe 里隐藏" —— 独立打开 走势图.html 时也没有这一排。
-       原因：这页会被分享页用 <iframe src="走势图.html"> 嵌进折叠块，
-       在 iframe 里点另外两页的跳转标签会跳走、体验很怪；
-       只剩本页自己那一个也没意义 → 整排去掉，页面顶部直接就是下面这行小字。 -->
-
-  <div class="ro-top">
-    <div class="sub">走势图 · 8 个彩种 · 最近 ${payload.periods} 期真实开奖</div>
-  </div>
-
-  <!-- 免责声明：这段【必须保留】（「只看数据，不荐号…不预测、不保证」）。
-       ⚠️ 页面上【不再印任何时间】—— 用户 2026-10-17 要求去掉原来那行红色时间。
-          历史坑别再踩：早先印过「数据快照 <构建时间>」，那个时间曾是 UTC
-          （比北京时间早 8 小时，见 build-history.mjs 的说明），会被当成"数据是 8 小时前的"；
-          构建时间现在只留在 <body data-built="…"> 属性里，排查时看那里。
-          客户端那段按北京时间刷新的脚本也一并删了（元素没了，留着只是死代码）。 -->
-  <div class="ro-status">
-    <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。
-  </div>
-
-  <div id="tr-root"></div>
-
-  <div class="ro-foot">
-    本页数据：构建时生成的快照（最近 ${payload.periods} 期，页面自带、打开即用）· 页面零联网、不调 AI · 仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。
-  </div>
-</div>
-
-<script>
-__TREND_SCRIPT_BODY__
-</script>
-</body>
-</html>
 `;
-  /* 数据快照 + 渲染内核（含工具栏/预选行锚点注入）+ 挂载逻辑 + 互动层
-     ⚠️ 互动层（工具栏行为 / 预选行点选 / 手画线）只能拼进【同一个 <script>】：
-        页面不变量要求整页恰好 1 对 <script> 标签。 */
+
+/* 唯一字符串替换 + 当场断言「恰好命中 1 次」。
+   和 injectMarkers 的 assertOne 同一个思路：上游一改就构建失败，
+   绝不静默生成半截页面。 */
+function swapOnce(src, needle, repl, label) {
+  const n = src.split(needle).length - 1;
+  if (n !== 1) throw new Error(`内联适配锚点「${label}」命中 ${n} 次（必须恰好 1 次）：${needle}`);
+  return src.split(needle).join(repl);
+}
+
+/* ============================================================
+   给整张样式表加作用域前缀
+   ------------------------------------------------------------
+   ① :root / * / html, body / .ro-wrap 这 4 条不是「加前缀」能解决的，
+      逐条显式改（见下面 ①②③④）
+   ② 其余规则统一前缀 .ro-trend-embed（已经带前缀的整条跳过）
+   ⚠️ 只动【选择器】：注释原样抄、声明体一个字不改、@media 递归进去处理。
+   ============================================================ */
+function mapSelectors(css, fn) {
+  let out = '';
+  let i = 0;
+  const n = css.length;
+  while (i < n) {
+    /* 注释：原样抄（CSS 注释里带着 __LAYOUT__ 那类标记和设计说明，不能动） */
+    if (css.startsWith('/*', i)) {
+      const e = css.indexOf('*/', i + 2);
+      const seg = css.slice(i, e < 0 ? n : e + 2);
+      out += seg;
+      i += seg.length;
+      continue;
+    }
+    /* @media … { … }：prelude 原样、块内递归 */
+    if (css[i] === '@') {
+      const b = css.indexOf('{', i);
+      if (b < 0) { out += css.slice(i); break; }
+      let depth = 1, j = b + 1;
+      while (j < n && depth > 0) {
+        if (css[j] === '{') depth++;
+        else if (css[j] === '}') depth--;
+        j++;
+      }
+      out += css.slice(i, b + 1) + mapSelectors(css.slice(b + 1, j - 1), fn) + '}';
+      i = j;
+      continue;
+    }
+    /* 普通规则：{ 之前是选择器，到下一个 } 是声明体 */
+    const b = css.indexOf('{', i);
+    if (b < 0) { out += css.slice(i); break; }
+    const e = css.indexOf('}', b);
+    const bodyEnd = e < 0 ? n : e;
+    out += fn(css.slice(i, b)) + css.slice(b, bodyEnd + 1);
+    i = bodyEnd + 1;
+  }
+  return out;
+}
+
+export function scopeTrendCss(css) {
+  let s = css;
+  /* ① :root { --ro-* } → 挂到片段根上。
+        这些变量本来就是继承的，收进片段后连「分享页改了同名变量」
+        都影响不到走势图这一块（分享页自己也定义了 --ro-*）。 */
+  s = swapOnce(s, ':root {', '.ro-trend-embed {', 'CSS :root');
+  /* ② 全局重置：原来作用于独立页的整个文档，内联后会把分享页的字号一起改掉 */
+  s = swapOnce(s,
+    '* { box-sizing: border-box; -webkit-text-size-adjust: 100%; }',
+    '.ro-trend-embed, .ro-trend-embed * { box-sizing: border-box; }',
+    'CSS 全局重置');
+  /* ③ html, body：内联后会给【整个分享页】设米杏底 + 去掉页边距。
+        字体族/前景色保留（走势图这一块要和独立页同款），背景和 margin 丢掉。 */
+  s = swapOnce(s,
+    'html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);\n' +
+    '  font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }',
+    '.ro-trend-embed { color: var(--ro-fg); font-family: "Microsoft YaHei", "PingFang SC", ' +
+    'system-ui, -apple-system, sans-serif; }',
+    'CSS html/body');
+  /* ④ .ro-wrap：原独立页的最外层容器（也是分享页主容器的类名）。
+        换成片段根，并把【独立页那份米杏底】给回来 —— 折叠块卡片本身是
+        --ro-card（浅一档），这样走势图这一块和原来嵌在独立页里看到的一样，
+        是「米杏面板 + 浅色卡片」，层次不会糊成一片。 */
+  s = swapOnce(s,
+    '.ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }',
+    '.ro-trend-embed { padding: 0 0 14px; background: var(--ro-bg); border-radius: 10px; }',
+    'CSS .ro-wrap');
+  /* ⑤ 其余规则统一加前缀（逗号分组逐个加；已经带前缀的跳过） */
+  return mapSelectors(s, (sel) => sel.split(',').map((one) => {
+    const t = one.trim();
+    if (!t || t.startsWith('.ro-trend-embed')) return one;
+    return ' .ro-trend-embed ' + t + ' ';
+  }).join(','));
+}
+
+/* ============================================================
+   内联适配：挂载层里那几处「只有独立页才说得通」的东西
+   ------------------------------------------------------------
+   trend-mount.js 是别的窗口/别的验收脚本也在读的【单一真源】，
+   所以【不改那个文件】—— 只对内联出来的这份文本做唯一字符串替换，
+   上游一改（换个写法）就当场抛错，不会静默失效。
+   ① <title> 那一句：独立页拿它当自检标记；内联后它会改掉【分享页】的标题
+      → 换成折叠块要用的「补画连线」钩子（顺带把它挂出去给内联壳调用）
+   ② 深链那一跳会把分享页滚回顶部：彩种切换条在页面中段，跳顶很难用
+   ③ 不把 ?g=xxx 写回分享页地址栏（会把分享页自己的 hash / 参数弄丢）
+   ============================================================ */
+export function adaptMountForInline(src) {
+  let s = src;
+  s = swapOnce(s,
+    "document.title = '走势图 OK · ' + TREND_DATA.games.length + '彩种/' + TREND_DATA.periods + '期';",
+    '/* 内联版：不改分享页标题；改成「展开折叠块时补画连线」的钩子 */\n' +
+    '  window.__roTrendRedraw = function () { drawAll(); if (curId) drawOne(curId); };',
+    '挂载层 document.title');
+  s = swapOnce(s,
+    'if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) {} }',
+    '/* 内联版：不滚分享页 */',
+    '挂载层 scrollTo');
+  s = swapOnce(s,
+    "window.history.replaceState(null, '', '?g=' + id);",
+    '/* 内联版：不动分享页的地址栏 */',
+    '挂载层 replaceState');
+  return s;
+}
+
+/* ============================================================
+   片段外壳：内联给分享页 <details class="ro-trend"> 的那一块
+   ------------------------------------------------------------
+   产物结构（export-static.mjs 插在 .ro-trend-body 里）：
+     <style>  作用域收好的走势图样式  </style>
+     <div class="ro-trend-embed">
+       页眉小字 · 免责声明 · #ro-trend-root（渲染内核挂这里）· 页脚
+     </div>
+     <script> 数据快照 + 渲染内核 + 挂载 + 互动层 </script>
+
+   ⚠️ 这里【没有】顶部那排页面标签（彩票推荐 / 竞彩·足球 / 走势图）——
+      用户 2026-10-17 明确要求删掉；独立页时代就从 HTML 和样式里一起删了，
+      内联版更不能加回来（那排标签在折叠块里点会跳出分享页）。
+   ⚠️ 整段脚本包一层 IIFE：内联后和分享页【共用同一个 document / 全局】，
+      不包的话 TREND_DATA / renderTrendHtml / trEsc / esc 这些名字会污染
+      分享页的全局（分享页自己也有 esc / root / tabs 这类短名字）。
+      对外的入口都带前缀：window.__roTrend（本块）/ window.__TREND_PRESEL
+      · window.__TREND_DRAW（互动层自己挂的验收入口，原来就有）。
+   ⚠️ 根节点 id 也带前缀：tr-root → ro-trend-root
+      （分享页里 tr-root / ssq… 这些 id 实测均不存在，加前缀是双保险）。
+   ============================================================ */
+const EMBED_CLASS = 'ro-trend-embed';
+
+export function renderTrendFragment(payload) {
+  const updated = payload.updated || '';
+  const N = payload.periods;
   const body = [
-    '/* 走势图数据快照 —— 构建时生成并内嵌（本页唯一真数据） */',
+    '(function () {',
+    '/* 走势图数据快照 —— 构建时生成并内嵌（本块唯一真数据） */',
     'var TREND_DATA = ' + JSON.stringify(payload) + ';',
     '',
     appendInteract(RENDER_SRC),
     '',
-    MOUNT_SRC,
+    adaptMountForInline(MOUNT_SRC),
     '',
-    INTERACT_SRC
+    INTERACT_SRC,
+    '',
+    '/* 验收 / 调试入口（带前缀，不和分享页的全局撞名） */',
+    'window.__roTrend = {',
+    '  data: TREND_DATA,',
+    '  periods: TREND_DATA.periods,',
+    '  render: renderTrendHtml,',
+    '  redraw: function () { if (typeof window.__roTrendRedraw === "function") window.__roTrendRedraw(); }',
+    '};',
+    '',
+    '/* ===== 内联版：折叠块展开时补画走势连线 =====',
+    '   独立页整页一打开就是可见的，量得到每格坐标；',
+    '   内联后 <details> 默认【收起】→ 里面的表格 getBoundingClientRect 全是 0，',
+    '   挂载层会（按设计）跳过画线。所以这里在【展开时】补画一次。',
+    '   锁定：不写 localStorage、不改地址栏、只在 open 时画。 */',
+    '(function () {',
+    '  var box = document.getElementById("ro-trend");',
+    '  if (!box || !box.addEventListener) return;',
+    '  var redraw = window.__roTrend.redraw;',
+    '  box.addEventListener("toggle", function () { if (box.open) window.setTimeout(redraw, 30); });',
+    '  if (box.open) redraw();',
+    '})();',
+    '})();'
   ].join('\n');
 
-  /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
-     注入的脚本里含 '<script>' 与 '</script>' 字面量（内核代码里确实有）。
-     HTML 的 script 数据状态规则：一旦在脚本文本里遇到 "<script"，
-     解析器就会等一个配对的 "</script" 才结束 ——
-     只转义结束标签的话，会出现"3 个 <script 只有 1 个 </script>"，
-     后面的脚本全被吞成页面文本，表现成"整页没渲染、深链失效"（实测踩过）。
-     两边都写成 "<\/script" 后：浏览器解析等价、脚本内容不变。
-     用 split/join 而不是 replace，避免替换串里的 $& / $1 被当成替换模式。 */
+  /* ⚠️ 唯一一处转义：注入的脚本里含 '<script' 字面量（内核源码里确实有）。
+      不转的话浏览器会按 HTML 的 script 数据状态规则提前结束脚本标签。 */
   const safeBody = body.split('<script').join('<\\/script');
 
-  const parts = shell.split(PLACEHOLDER);
-  if (parts.length !== 2) throw new Error('页面模板里的脚本占位符数量异常：' + parts.length);
-  return parts[0] + safeBody + parts[1];
+  const markup = [
+    '<div class="' + EMBED_CLASS + '" data-tr-embed="1" data-built="' + updated + '">',
+    '  <div class="ro-top">',
+    '    <div class="sub">走势图 · 8 个彩种 · 最近 ' + N + ' 期真实开奖</div>',
+    '  </div>',
+    '  <div class="ro-status">',
+    '    <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。',
+    '  </div>',
+    '  <div id="ro-trend-root"></div>',
+    '  <div class="ro-foot">',
+    '    本块数据：构建时生成的快照（最近 ' + N + ' 期，页面自带、打开即用）· 页面零联网、不调 AI · 仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。',
+    '  </div>',
+    '</div>'
+  ].join('\n');
+
+  const out = '<style>\n' + scopeTrendCss(TREND_CSS) + '\n</style>\n' + markup +
+    '\n<script>\n' + safeBody + '\n</script>';
+  /* 内联后【不该出现】的东西在这里硬失败，不留到线上 */
+  assertInlineFragment(out, '走势图内联片段');
+  return out;
 }
 
 /* ============================================================
-   CLI：生成 走势图.html
+   自检（导出给 export-static.mjs 用 / 也能单独跑）
+   ------------------------------------------------------------
+   「内联后不能出现的东西」在这里硬失败，不留到线上：
+     · 顶部那排页面标签（彩票推荐 / 竞彩·足球 / 走势图）
+     · 「在新页面打开走势图」这类跳独立页的链接
+     · 指向 走势图.html 的任何链接
    ============================================================ */
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (isMain) {
-  const hist = loadHistory();
-  const payload = buildPayload(hist, PERIODS);
-
-  /* 自检：8 个彩种都得有真数据，缺一个就报出来（不硬编、不用假数据） */
-  let bad = 0;
-  payload.games.forEach((g) => {
-    const f = g.rows.reduce((a, r) => a + r.nums.length, 0);
-    const okLen = g.rows.every((r) => r.nums.length === g.main.pick);
-    console.log(`  ${g.id.padEnd(5)} ${g.name.padEnd(4)} ${String(g.rows.length).padStart(2)}期 ` +
-      `${g.rows[0].issue}→${g.rows[g.rows.length - 1].issue} · 号码共 ${f} 个 · 每期个数${okLen ? '✅' : '❌'}` +
-      (g.extra ? ` · ${g.extra.label} ${g.rows.reduce((a, r) => a + r.extra.length, 0)} 个` : ''));
-    if (!okLen) bad++;
-  });
-  if (bad) { console.error(`\n❌ 有 ${bad} 个彩种每期号码个数和规则不符，已中止（不生成假页面）`); process.exit(1); }
-
-  /* ============================================================
-     留痕断言（用户硬性要求）：页面上不能看出「数据是从哪来的」
-       ① removeSourceWords —— 把可见文本里的来源字样换成中性说法
-          （只读依赖模块吐出来的字也在这一步收拾，语义不变）
-       ② assertNoSourceTrace —— 再扫一遍；命中 → 打印命中内容 → exit 1
-     两条都来自共用模块 source-guard.mjs。
-     ============================================================ */
-  const safe = removeSourceWords(buildHtml(payload));
-  assertNoSourceTrace(safe, '走势图.html');
-  fs.writeFileSync(OUT, safe, 'utf8');
-  console.log(`\n✅ 已生成 ${OUT}（${(Buffer.byteLength(safe, 'utf8') / 1024).toFixed(1)} KB · ` +
-    `${payload.games.length} 彩种 · 每彩种 ${payload.periods} 期）`);
+export function assertInlineFragment(html, label) {
+  const bad = [
+    [/class="top-tabs"/, '顶部那排页面标签（.top-tabs）'],
+    [/href="走势图\.html"/, '指向 走势图.html 的链接'],
+    [/在新页面打开走势图/, '「在新页面打开走势图」链接'],
+    [/<iframe/i, 'iframe'],
+    [/<\/script>[\s\S]*<\/script>/, '多余的 </script>']
+  ];
+  const hit = bad.filter((b) => b[0].test(html)).map((b) => b[1]);
+  if (hit.length) throw new Error(`走势图片段自检失败（${label || '片段'}）：出现了 ${hit.join(' / ')}`);
+  const pairs = html.split('<script').length - 1;
+  const closes = html.split('</script>').length - 1;
+  if (pairs !== closes) throw new Error(`走势图片段自检失败：<script> ${pairs} 个 / </script> ${closes} 个 不成对`);
+  return true;
 }
