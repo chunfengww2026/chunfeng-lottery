@@ -14972,7 +14972,7 @@ const FOOTBALL_DATA = {
     "minute": 45,
     "home": {
      "name": "同塔",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 7
     },
@@ -15035,7 +15035,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 0,
+    "minute": 50,
     "home": {
      "name": "奥布隆",
      "score": 1,
