@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 06:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 07:28 */
 const JC_DATA = {
- "updated": "2026-10-17 06:58",
+ "updated": "2026-10-17 07:28",
  "stat": {
   "total": 11,
-  "upcoming": 1,
-  "live": 0,
+  "upcoming": 0,
+  "live": 1,
   "finished": 10,
-  "withScore": 10
+  "withScore": 11
  },
  "games": [
   {
@@ -1116,7 +1116,10 @@ const JC_DATA = {
     "name": "巴西国际",
     "rank": 16
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1126,9 +1129,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 0.72,
-      "line": "平手/半球",
-      "away": 1.07
+      "home": 1.05,
+      "line": "半球",
+      "away": 0.75
      }
     },
     "europe": {
@@ -1150,9 +1153,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.77,
+      "line": 1.05,
       "over": 2.5,
-      "under": 1.02
+      "under": 0.75
      }
     }
    },
@@ -1167,80 +1170,52 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.3,
-    "rqLine": "平手/半球",
+    "rqLine": "半球",
     "type": "unbeaten"
    },
    "asianIndex": {
-    "line": "平手/半球",
+    "line": "半球",
     "from": "live",
-    "handicap": -0.25,
+    "handicap": -0.5,
     "upSide": "home",
-    "upWater": 0.72,
-    "downWater": 1.07,
+    "upWater": 1.05,
+    "downWater": 0.75,
     "openHandicap": -0.25,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.79,
-    "theoryUpPercent": "59.78",
-    "theoryDownPercent": "40.22",
-    "canWater": true,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": false,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘升水",
      "initHandicap": -0.25,
-     "nowHandicap": -0.25,
+     "nowHandicap": -0.5,
      "initUpWater": 1,
-     "nowUpWater": 0.72,
+     "nowUpWater": 1.05,
      "initLine": "平手/半球",
-     "nowLine": "平手/半球"
+     "nowLine": "半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-17 06:58",
+  "updated": "2026-10-17 07:28",
   "officialUpdate": "2026-10-16 21:46:05",
-  "inSale": 35,
+  "inSale": 34,
   "list": [
-   {
-    "code": "周五011",
-    "matchNum": "5011",
-    "league": "巴甲",
-    "time": "2026-10-17 07:00:00",
-    "home": "米拉索尔",
-    "away": "巴西国际",
-    "had": {
-     "h": 2.02,
-     "d": 2.95,
-     "a": 3.38,
-     "update": "2026-10-16 18:55:19"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 4.3,
-     "d": 3.58,
-     "a": 1.62,
-     "update": "2026-10-16 13:50:37"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周六001",
     "matchNum": "6001",
