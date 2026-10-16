@@ -933,7 +933,10 @@ function renderMatch(m) {
       (m.result && m.result.settled ? `<span class="m-rb ${m.result.hit ? 'hit' : 'miss'}">${m.result.hit ? '红' : '黑'}</span>` : '') +
       `<span class="m-conf">${m.result && m.result.settled
         ? '最终 ' + esc(m.result.actualLabel) + '（' + esc(m.result.score) + '）'
-        : '信心 ' + rConf + '%'}</span>` +
+        : (m.kind === 'finished' && !m.hasScore
+          /* 已完场但两边数据都没有这一场的比分 → 如实说明，别让用户以为漏了一行 */
+          ? '最终比分未记录'
+          : '信心 ' + rConf + '%')}</span>` +
       /* 【两组百分比胶囊】推荐行右侧，推荐的那个用 .opt.active（主色底 + 白字）高亮：
            胜平负  3 个：主 X% / 平 Y% / 客 Z%
            不败    2 个：主不败 X% / 客不败 Z%（= P(主胜)+P(平) / P(客胜)+P(平)）
@@ -1473,9 +1476,12 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-team.home { text-align: right; }
 .m-team i { font-style: normal; font-size: 11px; color: #6b7488; margin: 0 3px; }
 .m-hc { font-size: 11px; color: #f0b429; margin-left: 3px; }
-.m-vs { flex: 0 0 auto; min-width: 62px; text-align: center; font-size: 14px;
-  color: #6b7488; font-family: Consolas, monospace; font-weight: 700; }
+.m-vs { flex: 0 0 auto; min-width: 62px; text-align: center; font-size: 14px;  color: #6b7488; font-family: Consolas, monospace; font-weight: 700; }
 .m-vs.live { color: #47e0a0; }
+/* 【已完场比分】用户 2026-10-17：「已完场要有比分显示」。
+   .final = 已完场的最终比分，主色加粗（和「进行中」同一套 .m-vs，只换颜色）；
+   ⚠️ 没比分时这个 span 里是「—」（.m-vs.final 也适用，看着就是"记录缺失"）。 */
+.m-vs.final { color: #e8eaed; font-weight: 800; letter-spacing: .3px; }
 .m-odds { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; flex-wrap: wrap; }
 .m-ol { flex: 0 0 34px; font-size: 11.5px; color: #6b7488; }
 .m-ov { font-size: 12px; color: #e8eaed; background: #12151d;
@@ -2109,6 +2115,9 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-hc { color: #b8860b !important; }
 .m-vs { color: #a2937c !important; }
 .m-vs.live { color: #1a8c5a !important; }
+/* 【已完场比分 · 米杏色主题】最终比分用主文字色加粗（比进行中的主色稍弱一档，
+   一眼能区分"已结束"和"进行中"；未记录时显示 —，同一个颜色规则） */
+.m-vs.final { color: #4a3a26 !important; font-weight: 800 !important; }
 
 /* ④ 欧赔那一行 */
 .m-ol { color: #a2937c !important; }
