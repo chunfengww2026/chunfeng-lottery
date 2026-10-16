@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "城市隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
     "away": {
      "name": "巴斯顺达拉国王",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "PWD體育",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "莫哈末丹达卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -15668,7 +15668,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "青島西海岸(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
