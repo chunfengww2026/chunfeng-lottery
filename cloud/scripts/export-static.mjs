@@ -2216,8 +2216,20 @@ const RO_RENDER_SCRIPT = `
   /* 方便自测 / 排查：控制台里手动调 __roLiveDraws(数据) */
   window.__roLiveDraws = applyRemoteDrawsToPage;
 
+  /* 【离线单文件 · 不拉】file:// 下 tickets.json 永远不存在 ——
+     它只发布在【网站根目录】（cloud/out/tickets.json，云端每班次刷新），
+     离线打开（手机分享单个 html / App 里 file://）时这个相对路径必然 404。
+     后果实测：首拉 1 次 + 补拉 4 次 + 自愈 1 次 = 6 条 404 红字（页面不白屏，
+     因为顶部区块和 10 张推荐图都预渲染在 HTML 里了）。
+     → file:// 直接不拉：少 6 条红字、少 6 次无用请求，功能一点不少（有预渲染兜底）。
+     ⚠️ http(s) 上（线上网址）照旧拉，线上「号码就地更新 / 最新开奖就地更新」不受影响。 */
+  function canPullTickets() {
+    try { return String(location.protocol || '') !== 'file:'; } catch (e) { return true; }
+  }
+
   /* 拉一次服务器上的号码文件 */
   function pullTickets() {
+    if (!canPullTickets()) return Promise.resolve(false);   /* 离线单文件：不拉，直接用内联快照 */
     return fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
@@ -2286,6 +2298,7 @@ const RO_RENDER_SCRIPT = `
 
   firstPull.then(function (applied) {
     if (applied) return;                       /* 已经换成新号码了，不用补拉 */
+    if (!canPullTickets()) return;             /* 离线单文件（file://）：不补拉，省掉 4 条 404 */
     var delays = window.__roLiveRetryDelays || [];
     var step = function (i) {
       if (i >= delays.length) return;
@@ -4931,16 +4944,21 @@ ${inlineScriptsHtml}
     }
     window.__roSelfHealDecide = decide;   /* 方便自测 / 排查 */
 
-    fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) {
-        /* 等页尾的准实时逻辑先跑完，再决定要不要刷新整页（免得跟它抢） */
-        var p = (typeof window.__roLivePromise !== 'undefined') ? window.__roLivePromise : null;
-        var later = function () { setTimeout(function () { decide(j); }, 0); };
-        if (p && typeof p.then === 'function') p.then(later, later);
-        else later();
-      })
-      .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
+    /* 【离线单文件 · 不拉】file:// 下 tickets.json 必然 404（它只发布在网站根目录）
+       → 这一条自愈用的请求也跳过，控制台干干净净。
+       注意：这段只管「要不要整页刷新」，不拉就没有远程时间可比 → 不刷新（离线本来就该保持原样）。 */
+    if (String(location.protocol || '') !== 'file:') {
+      fetch('tickets.json?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          /* 等页尾的准实时逻辑先跑完，再决定要不要刷新整页（免得跟它抢） */
+          var p = (typeof window.__roLivePromise !== 'undefined') ? window.__roLivePromise : null;
+          var later = function () { setTimeout(function () { decide(j); }, 0); };
+          if (p && typeof p.then === 'function') p.then(later, later);
+          else later();
+        })
+        .catch(function () { /* 网络问题就忽略，别影响浏览 */ });
+    }
   } catch (e) { /* 忽略 */ }
 })();
 ${RO_RENDER_SCRIPT}
@@ -6912,33 +6930,18 @@ ${RO_RENDER_SCRIPT}
 </script>
 
 <!-- __HOT_OWNER__ 热度计数（只有 owner 会看到；拿不到就隐藏） -->
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script>
-(function () {
-  try {
-    var box = document.getElementById('ro-hot');
-    var num = document.getElementById('busuanzi_value_site_uv');
-    if (!box || !num) return;
-    var tries = 0;
-    var t = setInterval(function () {
-      tries++;
-      var v = String(num.textContent || '').trim();
-      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到。
-         ⚠️ 2026-10-17 修：原来写的是斜杠 d 那种写法，这段脚本在【模板字符串】里，
-            反斜杠会被吃掉 → 生成出来变成 /^d+$/ → 永远匹配不到数字
-            → 热度计数【谁都看不到】（连主人也看不到）。改用 [0-9] 就没有反斜杠。 */
-      if (/^[0-9]+$/.test(v)) {
-        box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
-        clearInterval(t);
-      } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
-                                        （30s 是为了覆盖 IP 判定最多 3 轮重试 ≈18s） */
-        clearInterval(t);
-        box.hidden = true;
-      }
-    }, 500);
-  } catch (e) { /* 这段挂了不影响页面 */ }
-})();
-</script>
+<!-- 【2026-10-17 去掉第三方统计（不蒜子）】
+     原来这里挂着 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+     + 一段 30 秒轮询把 UV 数字写进 #ro-hot 的脚本。
+     为什么去掉：
+       · 分享页是【离线单文件分享 + 零外部依赖】—— 多一个第三方域名就是多一个外部请求；
+       · file:// 下它必然失败（DNS/网络都可能没有），纯属白等 30 秒 + 一条失败请求；
+       · 用户要求零外部依赖。
+     去掉后：
+       · #ro-hot 那块（含 .ro-hot CSS 和 __HOT_OWNER__ 注释）【原样保留】，
+         但没人再往里写数字 → box 永远保持 hidden，页面上一个像素都不变；
+       · 页面其它功能一律不受影响（这段本来就只负责那个小数字，挂了也是「隐藏」）。
+     想再要访客数的话：不要引第三方脚本，让云端的 tickets.json 带一个字段即可。 -->
 </body>
 </html>`;
 
