@@ -15262,7 +15262,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "艾文代爾",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
