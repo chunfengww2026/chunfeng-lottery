@@ -80,7 +80,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.7,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -188,7 +189,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 7.3,
-    "rqLine": "受半球"
+    "rqLine": "受半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受半球",
@@ -296,7 +298,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.3,
-    "rqLine": "受一球"
+    "rqLine": "受一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "受一球",
@@ -404,7 +407,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.6,
-    "rqLine": "一球"
+    "rqLine": "一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "一球",
@@ -512,7 +516,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.3,
-    "rqLine": "一球"
+    "rqLine": "一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "一球",
@@ -620,7 +625,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5,
-    "rqLine": "半球"
+    "rqLine": "半球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "半球",
@@ -728,7 +734,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.5,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -836,7 +843,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.3,
-    "rqLine": "受半球"
+    "rqLine": "受半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受半球",
@@ -944,7 +952,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.3,
-    "rqLine": "受平手/半球"
+    "rqLine": "受平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受平手/半球",
@@ -1052,7 +1061,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.5,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -1157,7 +1167,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.1,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
