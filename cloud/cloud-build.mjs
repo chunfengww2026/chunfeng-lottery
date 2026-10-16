@@ -1465,7 +1465,7 @@ function finishOutput(freshRows) {
 </style>
 <div class="site-nav">
   <a href="index.html" class="__ACTIVE_INDEX__">彩票推荐</a>
-  <a href="football.html" class="__ACTIVE_FB__">竞彩场次</a>
+  <a href="football.html" class="__ACTIVE_FB__">竞彩/足球</a>
   <a href="走势图.html" class="__ACTIVE_TREND__">走势图</a>
 </div>`;
 
