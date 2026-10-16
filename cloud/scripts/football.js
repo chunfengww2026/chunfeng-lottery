@@ -96,7 +96,7 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "CD奥林匹亚",
      "score": 0,
