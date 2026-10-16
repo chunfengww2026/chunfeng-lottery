@@ -349,6 +349,14 @@ const CODE_MODULES = [
       1 个请求；没有进行中的比赛就立刻退出；只改 football.js 的比分/时间字段。
       ⚠️ 必须与项目根目录保持同一版本（本机的「足球比分-每5分钟」计划任务也在用）。 */
   'update-football-live.mjs',
+  /* 【必须同步】daily-update.mjs —— 云端「常规班」的主脚本：
+       workflow → cloud-build.mjs → 跑 cloud/scripts/daily-update.mjs。
+     ⚠️ 它以前【不在白名单里】→ 本机怎么改都上不去云，云端一直跑旧版：
+        实测根目录 10-16 版 21133 B、cloud/scripts 里还是 10-15 版 19127 B（差 2006 字节），
+        也就是说后来往它里面加的步骤，云端一个都没执行过。
+     ⚠️ 规矩：凡是「云端会执行的脚本」都必须在这里列出来 —— 漏一个就是静默跑旧代码，
+        不报错，只有页面/数据表现不一致，极难发现。 */
+  'daily-update.mjs',
   /* 【最新开奖 · 实时更新】分享页顶部那块现在会就地重画，靠的就是这两个文件：
        · latest-draws.js  —— 区块的生成函数 + 客户端更新逻辑（分享页内联它）
        · export-draws.mjs —— 从 draws.js 取各彩种最新开奖，写进 tickets.json 的 draws

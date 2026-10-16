@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 03:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 04:58 */
 const JC_DATA = {
- "updated": "2026-10-17 03:58",
+ "updated": "2026-10-17 04:58",
  "stat": {
   "total": 11,
   "upcoming": 1,
-  "live": 7,
-  "finished": 3,
+  "live": 5,
+  "finished": 5,
   "withScore": 10
  },
  "games": [
@@ -434,7 +434,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 4,
@@ -542,7 +542,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -567,7 +567,7 @@ const JC_DATA = {
     "rank": 10
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "0 - 0 ",
@@ -653,7 +653,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -675,7 +675,7 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 3,
+    "home": 4,
     "away": 2
    },
    "statusText": "3 - 2 ",
@@ -761,7 +761,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 3,
+    "home": 4,
     "away": 2
    }
   },
@@ -784,7 +784,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 1
+    "away": 3
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -870,7 +870,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 1
+    "away": 3
    }
   },
   {
@@ -892,7 +892,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 1
+    "away": 2
    },
    "statusText": "1 - 1 ",
    "odds": {
@@ -978,7 +978,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 1
+    "away": 2
    }
   },
   {
@@ -999,8 +999,8 @@ const JC_DATA = {
     "rank": 17
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -1085,8 +1085,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    }
   },
   {
@@ -1195,7 +1195,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-17 03:58",
+  "updated": "2026-10-17 04:58",
   "officialUpdate": "2026-10-16 21:46:05",
   "inSale": 35,
   "list": [
