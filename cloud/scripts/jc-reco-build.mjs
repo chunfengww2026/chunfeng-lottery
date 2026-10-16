@@ -29,7 +29,7 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const R = require(path.join(ROOT, 'jc-reco-archive.js'));
 
-const OUT = path.join(ROOT, 'jc-reco-archive.js');
+const OUT = path.join(ROOT, 'jc-reco-data.js');
 const DRY = process.argv.includes('--dry');
 const REC_MIN = 55;                     /* 和 export-football.mjs 的 REC_MIN 保持一致 */
 
@@ -100,7 +100,7 @@ function currentRows(jc, official) {
 const jc = loadVar('jc-data.js', 'JC_DATA');
 const official = loadVar('jc-official.js', 'JC_OFFICIAL');
 const hist = loadVar('jc-history.js', 'JC_HISTORY');
-const oldArch = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
+const oldArch = loadVar('jc-reco-data.js', 'JC_RECO_DATA');
 
 if (!jc) { log('❌ 读不到 jc-data.js，中止（不生成空存档）'); process.exit(1); }
 
@@ -141,6 +141,6 @@ enriched.archive.batches.forEach((b) => {
 if (DRY) {
   log('\n  （--dry：不写文件）');
 } else {
-  fs.writeFileSync(OUT, R.renderRecoJs(enriched.archive, R.bjStamp(now)), 'utf8');
+  fs.writeFileSync(OUT, R.renderDataJs(enriched.archive, R.bjStamp(now)), 'utf8');
   log(`\n  ✅ 已写入 ${path.basename(OUT)}（${(fs.statSync(OUT).size / 1024).toFixed(1)} KB）`);
 }
