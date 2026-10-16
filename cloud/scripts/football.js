@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
@@ -301,7 +301,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 24,
+    "minute": 26,
     "home": {
      "name": "路斯天使",
      "score": 0,
@@ -379,7 +379,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "艾斯特利",
      "score": 0,
@@ -457,7 +457,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "金迪奥",
      "score": 0,
@@ -535,7 +535,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 25,
+    "minute": 27,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -544,7 +544,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "圣佩德罗体育",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
