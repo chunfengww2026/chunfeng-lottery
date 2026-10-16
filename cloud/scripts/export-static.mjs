@@ -4215,7 +4215,12 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-xj-more { text-align: center; font-size: 11.5px; color: var(--ro-fg3);
   padding: 8px 0 12px; }
 @media (max-width: 420px) {
+  /* ⚠️ 窄屏上这一行本来就挤（排名+名字+类别+命中率+连中+中否），
+     实测 430px 下「中/未中」徽章会被挤出右边缘 ——
+     把类别和中否收起来，保留最要紧的四项（排名/名字/命中率/连中）。
+     数据没丢：宽屏或横屏下仍然看得到。 */
   .ro-xj-cat { display: none; }
+  .ro-xj-last { display: none; }
 }
 
   /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示 */
