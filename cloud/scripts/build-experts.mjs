@@ -276,10 +276,43 @@ function parseExpertHistory(html, game, maxPeriods) {
     }
     const hitCount = haveDraw ? hitNums.length : (siteHitCount ?? hitNums.length);
 
-    rows.push({ issue, picks, hits: hitNums, bluePicks, draw, drawBlue, hitCount, siteHitCount, badHits });
+    /* td[4] = 「查看」→ 这一期的【分类详情页】（按分类拆开他这一期推的号）
+       形如 /ex/ssqex/tjxq_5_168_2026118.html
+       专家页每期只有一栏（大池 25 个），按分类拆开的号在详情页里 —— 见 parseCatDetail()。 */
+    let detailPath = '';
+    const dm = /href="([^"]*tjxq[^"]*\.html)"/.exec(tds[4] || '');
+    if (dm) detailPath = dm[1];
+
+    rows.push({ issue, picks, hits: hitNums, bluePicks, draw, drawBlue, hitCount, siteHitCount, badHits, detailPath });
     if (rows.length >= maxPeriods) break;
   }
   return rows;
+}
+
+/* ---------- 某一期的「分类详情页」：按分类列出他这一期推的号 ----------
+   用户 2026-10-17 原话：「点开后抓取专家的资料是这一期免费公开的 N 胆 具体数字」。
+   实测页面结构（www.yiqicai.com/ex/ssqex/tjxq_5_168_2026118.html）：
+     <li class="liTable-body">
+       <div class="tbl-td">红球三胆</div>            ← 分类名
+       <div class="tbl-td"><div class="lotto-scheme-num"><em>9</em><em>22</em><em>31</em></div></div>
+       <div class="tbl-td"><a href="/ex/ssqex_1003">查看红球三胆排行</a></div>
+     </li>
+   ⇒ 取出【分类名 === 这位专家的分类】那一行的号码，就是他这一期的 N 胆。
+   ⚠️ 对不上、或这一期没有这个分类 → 返回 null（调用方就不显示这块，绝不编数字）。 */
+function parseCatDetail(html, catLabel) {
+  const blocks = String(html).split('<li class="liTable-body"').slice(1);
+  for (const blk of blocks) {
+    const tds = blk.split('<div class="tbl-td"').slice(1);
+    if (tds.length < 2) continue;
+    /* td[0] 的分类名：去掉标签本身和里面的属性残留（split 会留下 " data-v-xxx>红球三胆"） */
+    const name = tds[0].replace(/^[^>]*>/, '').replace(/<[^>]*>/g, '').trim();
+    if (name !== catLabel) continue;
+    const nums = (tds[1].match(/<em[^>]*>(\d+)<\/em>/g) || [])
+      .map((x) => Number(String(x).replace(/<[^>]*>/g, '')))
+      .filter(Number.isFinite);
+    if (nums.length) return nums;
+  }
+  return null;
 }
 
 /* ---------- 选号分布页（共识百分比） ---------- */
@@ -631,6 +664,25 @@ async function runGame(game, cfg, opts, report) {
     }
     const st = computeStats(recent, cfg);
     const siteFit = calibrateThreshold(st.rows, st.picksN, e.hit10, e.siteMaxStreak);
+
+    /* 【这一期免费公开的 N 胆】用户 2026-10-17：
+       专家页每一期只有一栏（他的大池），按分类拆开的号在「查看」进去的详情页里；
+       页面上要显示的就是【最新一期】那一页 —— 所以只多抓这一页（每位专家 +1 次请求）。
+       ⚠️ 抓不到 / 这一期他没公开这个分类 → catLatest = null，页面上那块不显示，绝不编数字。 */
+    let catLatest = null;
+    const latestRow = st.rows[0];
+    if (latestRow && latestRow.detailPath) {
+      const dr = await httpGet(latestRow.detailPath);
+      await sleep(randDelay());
+      if (dr.ok) {
+        const nums = parseCatDetail(dr.text, e.catLabel);
+        if (nums) catLatest = { issue: latestRow.issue, nums };
+        else log(`         ⚠️ 详情页里没有分类「${e.catLabel}」（这一期没公开？）→ 不显示`);
+      } else {
+        log(`         ⚠️ 详情页抓取失败：${dr.error || dr.status} → 不显示`);
+      }
+    }
+
     const expert = {
       name: e.name,
       url: e.path,
@@ -640,6 +692,7 @@ async function runGame(game, cfg, opts, report) {
       listHit10: e.hit10,
       siteMaxStreak: e.siteMaxStreak,
       siteFit,
+      catLatest,
       ...st,
       score: scoreExpert(st)
     };
@@ -762,6 +815,9 @@ async function runGame(game, cfg, opts, report) {
     name: e.name,
     url: e.url,
     cat: e.cat,
+    /* 【这一期免费公开的 N 胆】{ issue, nums } —— 页面详情面板就显示它；
+       抓不到时是 null（面板不显示这块）。见 parseCatDetail() 的说明。 */
+    catLatest: e.catLatest || null,
     siteMetrics: e.siteMetrics,
     siteHit10: e.listHit10,
     rawHit10: e.rawHit10,
