@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 19:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 19:58 */
 const JC_DATA = {
- "updated": "2026-10-16 19:28",
+ "updated": "2026-10-16 19:58",
  "stat": {
   "total": 44,
   "upcoming": 43,
-  "live": 1,
-  "finished": 0,
+  "live": 0,
+  "finished": 1,
   "withScore": 1
  },
  "games": [
@@ -20,11 +20,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "麦克阿瑟FC",
-    "rank": null
+    "rank": 11
    },
    "away": {
     "name": "珀斯",
-    "rank": null
+    "rank": 7
    },
    "score": null,
    "statusText": "- ",
@@ -212,7 +212,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
@@ -842,11 +842,11 @@ const JC_DATA = {
    "handicap": null,
    "home": {
     "name": "中央海岸",
-    "rank": null
+    "rank": 4
    },
    "away": {
     "name": "纽喷气机",
-    "rank": null
+    "rank": 5
    },
    "score": null,
    "statusText": "- ",
@@ -4483,8 +4483,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 19:28",
-  "officialUpdate": "2026-10-16 19:22:33",
+  "updated": "2026-10-16 19:58",
+  "officialUpdate": "2026-10-16 19:44:14",
   "inSale": 44,
   "list": [
    {
@@ -4526,17 +4526,17 @@ const JC_DATA = {
     "home": "布鲁马波",
     "away": "佐加顿斯",
     "had": {
-     "h": 6,
-     "d": 4.75,
-     "a": 1.33,
-     "update": "2026-10-16 13:11:18"
+     "h": 6.25,
+     "d": 4.85,
+     "a": 1.31,
+     "update": "2026-10-16 19:30:31"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.72,
+     "h": 2.78,
      "d": 3.82,
-     "a": 2,
-     "update": "2026-10-16 13:11:15"
+     "a": 1.97,
+     "update": "2026-10-16 19:30:22"
     },
     "single": {
      "HAD": {
@@ -4744,9 +4744,9 @@ const JC_DATA = {
     "away": "莱万特",
     "had": {
      "h": 2.01,
-     "d": 3.15,
-     "a": 3.18,
-     "update": "2026-10-15 13:27:15"
+     "d": 3.1,
+     "a": 3.23,
+     "update": "2026-10-16 19:44:14"
     },
     "hhad": {
      "line": "-1",
