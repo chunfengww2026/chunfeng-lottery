@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 6,
+    "minute": 11,
     "home": {
      "name": "同塔",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "奥布隆",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "奈蒂沃特马卡比",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "切塔罗沃莫斯科青年队",
      "score": 0,
@@ -249,7 +249,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫斯科中央陆军青年队",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -15552,10 +15552,10 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "阿德莱德城",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -15618,7 +15618,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "欧克莱卡诺",
      "score": 2,
@@ -15684,10 +15684,10 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "日惹",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 16
     },
@@ -15750,7 +15750,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "PWD體育",
      "score": 0,
@@ -15816,7 +15816,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15882,7 +15882,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "蒂察爾阿爾曼",
      "score": 0,
