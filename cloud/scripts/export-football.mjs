@@ -24,6 +24,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs）
+   ⚠️ 用相对路径 import：与 DSH_JC_ROOT（只改数据目录）无关，代码目录恒为本文件所在目录 */
+import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
 const ROOT = process.env.DSH_JC_ROOT
@@ -2303,7 +2306,7 @@ ${nav}
     · 「已完场」是<b>累积</b>的：比赛开出结果后会从在售列表消失，程序会把它归档下来继续留在本页${stat.history ? `（当前累积 ${stat.history} 场）` : ''}。<br>
     · 推荐由博彩公司赔率反推概率得出（市场共识换算），属统计归纳，<b>不是预测</b>。<br>
     · 「亚指综合换算」「盘口升降」是<b>亚盘水位与资金热度的推演</b>，<b>仅娱乐参考</b>，不是预测，也不代表任何结果倾向。<br>
-    · 上盘<b>真实资金占比暂无公开数据源</b>，所以不显示热度 / 爆冷推演；页面上的「水位隐含 · 理论均衡占比」是由亚盘水位换算出来的，<b>不是真实资金数据</b>。<br>
+    · 上盘<b>真实资金占比暂无公开数据</b>，所以不显示热度 / 爆冷推演；页面上的「水位隐含 · 理论均衡占比」是由亚盘水位换算出来的，<b>不是真实资金数据</b>。<br>
     · 盘口升降的「初盘 → 即时」原始数据一并列出，便于自行核对（盘口或水位只有一边变化时，程序也会照原始判定显示「无明显变化」）。<br>
     · 彩票每期独立随机，任何分析都不能提高中奖概率。本页不构成购彩建议。<br>
     · 未满 18 周岁禁止购买彩票。
@@ -3291,7 +3294,18 @@ ${JC_XYSP_VIEW}
 </body>
 </html>`;
 
-fs.writeFileSync(OUT, html, 'utf8');
+/* ============================================================
+   最后两道关卡（顺序不能反）：
+     ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
+     ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
+   两条都来自共用模块 make-keygate.mjs。
+   ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+   ============================================================ */
+const safeHtml = neutralizeSourceWords(html);
+assertNoSourceTrace(safeHtml, '足球推荐.html');
+const gatedHtml = await prepareKeyGate(safeHtml, { label: '足球推荐.html' });
+fs.writeFileSync(OUT, gatedHtml, 'utf8');
+console.log('   🔒 密码门：正文已加密（改密码只改 make-keygate.mjs 的 KEYGATE_PASSWORD）');
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
@@ -3307,7 +3321,7 @@ fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
 }) + ';\n', 'utf8');
 
 console.log('✅ 已生成：' + OUT);
-console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
+console.log(`   大小：${(Buffer.byteLength(gatedHtml, 'utf8') / 1024).toFixed(1)} KB（含密文正文）`);
 console.log(`   三卡片：未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 已完场 ${stat.finished}`);
 console.log(`   已完场构成：本次在售完场 ${stat.finishedToday} 场 + 历史归档 ${stat.history} 场`);
 console.log(`   已完场分区卡片数：${MATCHES.filter((m) => m.kind === 'finished').length}`);
