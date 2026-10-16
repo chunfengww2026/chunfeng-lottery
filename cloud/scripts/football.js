@@ -15399,7 +15399,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "蒂察爾阿爾曼",
      "score": 2,
@@ -15437,7 +15437,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "悉尼FC",
      "score": 0,
@@ -15503,7 +15503,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "同塔",
      "score": 0,
@@ -15581,7 +15581,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "奥布隆",
      "score": 1,
@@ -15659,7 +15659,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "奈蒂沃特马卡比",
      "score": 0,
@@ -15737,10 +15737,10 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "共和國",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -15815,7 +15815,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "切塔罗沃莫斯科青年队",
      "score": 0,
