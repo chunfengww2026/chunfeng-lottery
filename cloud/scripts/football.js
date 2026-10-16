@@ -15371,7 +15371,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 79,
+    "minute": 81,
     "home": {
      "name": "卡巴比爾",
      "score": 1,
@@ -15409,7 +15409,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 2,
@@ -15447,7 +15447,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "乌拉尔青年队",
      "score": 2,
@@ -15456,7 +15456,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫斯科火車頭U19",
-     "score": 6,
+     "score": 7,
      "red": 0,
      "rank": 5
     },
@@ -15695,7 +15695,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 41,
+    "minute": 43,
     "home": {
      "name": "PWD體育",
      "score": 0,
@@ -15773,7 +15773,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15851,7 +15851,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "蒂察爾阿爾曼",
      "score": 0,
@@ -15929,7 +15929,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 16,
+    "minute": 18,
     "home": {
      "name": "悉尼FC",
      "score": 0,
