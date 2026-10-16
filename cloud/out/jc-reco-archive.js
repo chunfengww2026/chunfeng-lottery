@@ -254,11 +254,18 @@
    *   · pendingMatches = 还没打完的【场次数】（补充字段，方便排查 / 别处复用）
    * 整串口径仍然保留在 summarize() / verdictOf() 里，给「往期详情」用。
    */
-  function matchStats(archive) {
+  function matchStats(archive, opt) {
+    const o = opt || {};
     const out = (archive && Array.isArray(archive.batches)) ? archive : emptyArchive();
     let red = 0, black = 0, pendingMatches = 0, pendingGroups = 0, rows = 0;
     out.batches.forEach((b) => {
-      const list = Array.isArray(b.rows) ? b.rows : [];
+      /* 【逐场窗口过滤】用户口径：「24 小时前后的，超过 24 小时的比赛就不要了」。
+         以前只按【整批】丢（批次里只要有一场还在窗口内，整批都留下），
+         于是批内超出 24 小时的那几场也会被算进红黑 —— 口径不严。
+         现在逐场过滤：超窗口的场次既不算红黑、也不算"没打完"。
+         （传 { ignoreWindow: true } 可以关掉过滤，调试/回看历史用。） */
+      const list = (Array.isArray(b.rows) ? b.rows : [])
+        .filter((r) => (o.ignoreWindow ? true : inWindow(r.time, o.now)));
       rows += list.length;
       let pend = 0;
       list.forEach((r) => {
