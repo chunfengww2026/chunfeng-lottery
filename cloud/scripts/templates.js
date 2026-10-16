@@ -466,10 +466,15 @@ const TEMPLATES = {
             type: 'digit',
             groupLabel: '6码可组选',
             groupRow: { key: 'grp', count: 6 },
+            /* 【每位 2 号】用户 2026-10-17：「排三3D 很冲突 下面定位绝对不允许和组六不同」
+               → 定位必须全部取自上面那行「6码可组选」（grp 的 6 个号）。
+               数学：各位 3 号 + 全落在 6 码内 ⇒ 组三 ≥ 9 注（做不到全组六）；
+                     各位 2 号 ⇒ 6 码正好拆成 3 对互不相交 ⇒ 8 注直选全组六、豹子 0、组三 0。
+               （final gate：stats.js 的 enforceDigitStraightGate 会按 grp 重新配对并兜底） */
             positions: [
-              { key: 'bai', label: '百位', count: 3 },
-              { key: 'shi', label: '十位', count: 3 },
-              { key: 'ge',  label: '个位', count: 3 }
+              { key: 'bai', label: '百位', count: 2 },
+              { key: 'shi', label: '十位', count: 2 },
+              { key: 'ge',  label: '个位', count: 2 }
             ],
             footer: [
               { key: 'hz',  label: '合值' },
@@ -496,10 +501,15 @@ const TEMPLATES = {
             type: 'digit',
             groupLabel: '6码可组选',
             groupRow: { key: 'grp', count: 6 },
+            /* 【每位 2 号】用户 2026-10-17：「排三3D 很冲突 下面定位绝对不允许和组六不同」
+               → 定位必须全部取自上面那行「6码可组选」（grp 的 6 个号）。
+               数学：各位 3 号 + 全落在 6 码内 ⇒ 组三 ≥ 9 注（做不到全组六）；
+                     各位 2 号 ⇒ 6 码正好拆成 3 对互不相交 ⇒ 8 注直选全组六、豹子 0、组三 0。
+               （final gate：stats.js 的 enforceDigitStraightGate 会按 grp 重新配对并兜底） */
             positions: [
-              { key: 'bai', label: '百位', count: 3 },
-              { key: 'shi', label: '十位', count: 3 },
-              { key: 'ge',  label: '个位', count: 3 }
+              { key: 'bai', label: '百位', count: 2 },
+              { key: 'shi', label: '十位', count: 2 },
+              { key: 'ge',  label: '个位', count: 2 }
             ],
             footer: [
               { key: 'hz',  label: '合值' },
@@ -526,9 +536,11 @@ const TEMPLATES = {
           {
             type: 'digit',
             positions: [
-              { key: 'wan',  label: '万位', count: 3 },
-              { key: 'qian', label: '千位', count: 3 },
-              { key: 'bai',  label: '百位', count: 3 },
+              /* 【前三位每位 2 号】＝排三那三位直接带入（排三已是 6 码拆三对）。
+                 后两位保持原来的 3 号：它们不在「6码可组选」的约束里。 */
+              { key: 'wan',  label: '万位', count: 2 },
+              { key: 'qian', label: '千位', count: 2 },
+              { key: 'bai',  label: '百位', count: 2 },
               { key: 'shi',  label: '十位', count: 3, color: 'blue' },
               { key: 'ge',   label: '个位', count: 3, color: 'blue' }
             ],
