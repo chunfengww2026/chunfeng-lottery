@@ -1344,6 +1344,16 @@ function main() {
   /* 【走势图】纯前端表格页：只读 history.js 真开奖数据，不抓网络、不调 AI。
      必须排在 export-static/export-football 之后 —— 它读的是本班次刚落盘的开奖数据。 */
   if (plan.exportTrend) exportList.push(['build-trend.mjs', '走势图页']);
+  /* 【分歧指 · 数据】用户 2026-10-17 第 2 步：详情页的分歧指要多家公司欧赔。
+     jc-data.js 只有 500.com 一个源（一场一份欧赔），算不出分歧 ——
+     这个脚本去球探 titan007 抓真·多公司欧赔（1x2d.titan007.com/{ScheduleID}.js，
+     每场 320~370 家公司），算好离散度写 jc-divergence.js。
+     ⚠️ 必须排在 build-match.mjs【之前】：详情页在【构建时】就把 jc-divergence.js
+        内嵌进 HTML（自包含，和 games 一样）。跑晚了这一班就只能显示「暂无」。
+     ⚠️ 它自己带 20 分钟 min-gap：足球班次 30 分钟一班，不会把它连着抓两遍。
+     ⚠️ 失败不影响后面：build-match.mjs 读不到文件就照旧显示「暂无多家赔率数据」，
+        绝不用单源硬造低/中/高（那是编数据）。 */
+  if (plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指数据（球探 titan007 多公司欧赔）']);
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。

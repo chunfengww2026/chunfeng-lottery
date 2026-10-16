@@ -212,6 +212,30 @@ const INTERACT_SRC = `
       h.className = 'tr-modehint';
       h.setAttribute('data-tr-modehint', gid);
       if (bar.parentNode && bar.parentNode.insertBefore) bar.parentNode.insertBefore(h, bar.nextSibling);
+      /* 画法子档（自由 / 直线 / 逐点）：只在「画线」档显示，paintTools 里切 .on。
+         做小了并单独一行，免得 8 个彩种的工具栏被挤爆。 */
+      var row = document.createElement('div');
+      row.className = 'drawstyles';
+      row.setAttribute('data-tr-drawstyles', gid);
+      row.setAttribute('role', 'group');
+      row.setAttribute('aria-label', '画线画法');
+      var lab = document.createElement('span');
+      lab.className = 'drawstyles-label';
+      lab.textContent = '画法';
+      row.appendChild(lab);
+      DRAW_STYLES.forEach(function (st) {
+        var sb = document.createElement('div');
+        sb.className = 'btn btn-sub';
+        sb.setAttribute('data-tr-drawstyle', st.s);
+        sb.setAttribute('data-tr-drawstyle-for', gid);
+        sb.setAttribute('role', 'button');
+        sb.setAttribute('tabindex', '0');
+        sb.setAttribute('title', st.title);
+        sb.textContent = st.label;
+        row.appendChild(sb);
+        styleEls.push(sb);
+      });
+      if (h.parentNode && h.parentNode.insertBefore) h.parentNode.insertBefore(row, h.nextSibling);
     });
     paintTools();
   }
@@ -223,10 +247,23 @@ const INTERACT_SRC = `
       b.className = 'btn' + (on ? ' active' : '') +
         (b.getAttribute('data-tool') === 'autoPreview' && b.getAttribute('data-tr-done') === '1' ? ' done' : '');
     });
+    /* 画法子档：只在「画线」档显示，当前画法高亮 */
+    styleEls.forEach(function (b) {
+      var on = (b.getAttribute('data-tr-drawstyle') === drawStyle);
+      b.className = 'btn btn-sub' + (on ? ' active' : '');
+    });
+    qsa('[data-tr-drawstyles]').forEach(function (r) {
+      r.className = 'drawstyles' + (mode === 'line' ? ' on' : '');
+      r.setAttribute('data-tr-drawstyle-on', mode === 'line' ? '1' : '0');
+    });
     qsa('[data-tr-modehint]').forEach(function (h) {
-      h.textContent = mode === 'line'
-        ? '画线中：按住鼠标 / 手指在表格上拖动即可画线；再点一次「画线」或点「默认」退出。'
-        : '默认：只显示自动走势连线（竖向 + 斜连）。想自己画线请点「画线」。';
+      h.textContent = mode !== 'line'
+        ? '默认：只显示自动走势连线（竖向 + 斜连）。想自己画线请点「画线」。'
+        : (drawStyle === 'straight'
+            ? '画线中（直线）：从起点拖到终点，松手画一条直线；用「画法」可换自由 / 逐点。'
+            : (drawStyle === 'dots'
+                ? '画线中（逐点）：点一个格子标一个点，再点下一个自动连成线；用「画法」可换自由 / 直线。'
+                : '画线中（自由）：按住鼠标 / 手指在表格上拖动，怎么拖怎么画；用「画法」可换直线 / 逐点。'));
     });
   }
 
@@ -398,9 +435,28 @@ const INTERACT_SRC = `
     return null;
   }
 
-  function renderStroke(block, pts) {
+  function renderStroke(block, pts, style) {
     var svg = overlayOf(block);
     if (!svg || !pts || !pts.length) return;
+    /* 逐点档：每个点标一个实心圆点（不标的话"点了一个格子"看不见），
+       点与点之间再用折线连起来。 */
+    if (style === 'dots') {
+      if (pts.length > 1) {
+        var pl = document.createElementNS(SVGNS, 'polyline');
+        pl.setAttribute('points', pts.map(function (p) { return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' '));
+        pl.setAttribute('class', 'tr-draw');
+        svg.appendChild(pl);
+      }
+      pts.forEach(function (p) {
+        var dot = document.createElementNS(SVGNS, 'circle');
+        dot.setAttribute('cx', p.x.toFixed(1));
+        dot.setAttribute('cy', p.y.toFixed(1));
+        dot.setAttribute('r', '3.5');
+        dot.setAttribute('class', 'tr-dot');
+        svg.appendChild(dot);
+      });
+      return;
+    }
     var el;
     if (pts.length === 1) {
       el = document.createElementNS(SVGNS, 'line');
@@ -423,7 +479,7 @@ const INTERACT_SRC = `
       if (s.getAttribute('data-tr-draw-for') === gid) svg = s;
     });
     if (svg) toArr(svg.childNodes).forEach(function (c) { if (svg.removeChild) svg.removeChild(c); });
-    (strokes[gid] || []).forEach(function (st) { renderStroke(block, st.pts); });
+    (strokes[gid] || []).forEach(function (st) { renderStroke(block, st.pts, st.style); });
   }
 
   function clearStrokes() {
@@ -481,18 +537,40 @@ const INTERACT_SRC = `
     if (drag.pts.length > 1200) return;           /* 兜底，别让一笔无限长 */
     drag.pts.push(p);
   }
+  /* 逐点连线：往这一彩种的【最后一条逐点链】上再接一个点；没有就新起一条。
+     同一个格子连点两次不重复标；一条链最多 200 个点（兜底）。 */
+  function addDot(block, pt) {
+    var gid = block.getAttribute('data-tr-block');
+    if (!strokes[gid]) strokes[gid] = [];
+    var list = strokes[gid], chain = null;
+    for (var i = list.length - 1; i >= 0; i--) {
+      if (list[i] && list[i].style === 'dots') { chain = list[i]; break; }
+    }
+    if (!chain) { chain = { style: 'dots', pts: [] }; list.push(chain); }
+    var last = chain.pts[chain.pts.length - 1];
+    if (last && Math.abs(last.x - pt.x) < 0.6 && Math.abs(last.y - pt.y) < 0.6) return;
+    if (chain.pts.length >= 200) return;
+    chain.pts.push({ x: pt.x, y: pt.y });
+    block.setAttribute('data-tr-strokes', String(list.length));
+    block.setAttribute('data-tr-dots', String(chain.pts.length));
+    redrawBlock(block);
+  }
+
   function onDown(block, ev) {
     if (mode !== 'line') return;
     if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
     var m = measureCells(block);
     if (!m) return;
-    drag = { block: block, pts: [], lastCell: null };
     var p = ptFrom(ev, m.box);
     var c = cellAt(m, p.x, p.y);
-    drag.lastCell = c;
-    pushPoint(c ? { x: c.x, y: c.y } : p, true);
+    var hit = c ? { x: c.x, y: c.y } : p;        /* 落在格子里 → 吸附到格心 */
+    /* 逐点档：一次点击 = 标一个点，就在 onDown 里落好。
+       ⚠️ 手机上只认 pointerdown / touchstart 这一路，touchend 不再补一次，
+          所以不会"点一下标两个点"。 */
+    if (drawStyle === 'dots') { addDot(block, hit); return; }
+    drag = { block: block, pts: [hit], lastCell: c, style: drawStyle };
     redrawBlock(block);
-    renderStroke(block, drag.pts);
+    renderStroke(block, drag.pts, drag.style);
   }
   function onMove(block, ev) {
     if (!drag || drag.block !== block) return;
@@ -503,7 +581,18 @@ const INTERACT_SRC = `
     var p = ptFrom(ev, box);
     var m = measureCells(block);
     var c = m ? cellAt(m, p.x, p.y) : null;
-    /* 落在同一个格子里 → 这一笔不重复记（线停在格心） */
+    /* 直线档：这一笔只保留【起点 → 当前点】两个端点，拖到哪预览到哪 */
+    if (drag.style === 'straight') {
+      var a = drag.pts[0];
+      var end = c ? { x: c.x, y: c.y } : p;
+      if (a && Math.abs(a.x - end.x) < 0.6 && Math.abs(a.y - end.y) < 0.6) end = a;
+      drag.pts = [a, end];
+      drag.lastCell = c;
+      redrawBlock(block);
+      renderStroke(block, drag.pts, 'straight');
+      return;
+    }
+    /* 自由档：落格吸格心；格子外按像素距离抽稀（免得一笔上万个点） */
     if (c && c === drag.lastCell) return;
     if (c) {
       pushPoint({ x: c.x, y: c.y }, true);        /* 吸附到格心 */
@@ -512,13 +601,19 @@ const INTERACT_SRC = `
     }
     drag.lastCell = c;                            /* c 为 null 时也要记，否则回格子后不吸附 */
     redrawBlock(block);
-    renderStroke(block, drag.pts);
+    renderStroke(block, drag.pts, drag.style);
   }
   function onUp(block) {
     if (!drag || drag.block !== block) return;
     var gid = block.getAttribute('data-tr-block');
     if (!strokes[gid]) strokes[gid] = [];
-    if (drag.pts.length) strokes[gid].push({ pts: drag.pts.slice() });
+    var pts = drag.pts.slice();
+    /* 直线档没拖动（起终点重合）→ 只留一个点，和自由档"点一下"的表现一致 */
+    if (drag.style === 'straight' && pts.length > 1) {
+      var a = pts[0], b = pts[pts.length - 1];
+      if (Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) < 2) pts = [a];
+    }
+    if (pts.length) strokes[gid].push({ pts: pts, style: drag.style });
     block.setAttribute('data-tr-strokes', String(strokes[gid].length));
     drag = null;
     redrawBlock(block);
@@ -610,6 +705,20 @@ const INTERACT_SRC = `
     if (t) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
   });
 
+  /* 画法档（自由 / 直线 / 逐点）：点一下就换画法（点文字也算，往上一层找按钮） */
+  root.addEventListener('click', function (ev) {
+    var el = ev && ev.target;
+    while (el && el.getAttribute && el.getAttribute('data-tr-drawstyle') == null &&
+           el.parentNode && el.parentNode.getAttribute) el = el.parentNode;
+    if (!el || !el.getAttribute) return;
+    var s = el.getAttribute('data-tr-drawstyle');
+    if (!s) return;
+    if (ev.preventDefault) ev.preventDefault();
+    drawStyle = s;
+    if (mode !== 'line') mode = 'line';          /* 兜底：在别的档点到也切进画线 */
+    applyMode();
+  });
+
   /* 浏览器的"补发鼠标事件"要挡掉：
      ① 能出 PointerEvent 的浏览器：pointerdown 里 preventDefault，本来就打断补发；
      ② 只有 touch 的老浏览器：touchstart 里 preventDefault，同样打断补发；
@@ -654,6 +763,14 @@ const INTERACT_SRC = `
     if (!el || !el.getAttribute) return;
     var t = el.getAttribute('data-tool');
     if (t && (ev.key === 'Enter' || ev.key === ' ')) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
+    var s = el.getAttribute('data-tr-drawstyle');
+    if (s && (ev.key === 'Enter' || ev.key === ' ')) {
+      if (ev.preventDefault) ev.preventDefault();
+      drawStyle = s;
+      if (mode !== 'line') mode = 'line';
+      applyMode();
+      return;
+    }
     if (el.getAttribute('data-tr-presel') != null && (ev.key === 'Enter' || ev.key === ' ')) {
       if (ev.preventDefault) ev.preventDefault();
       toggleCell(el);
@@ -672,6 +789,7 @@ const INTERACT_SRC = `
   window.__TREND_PRESEL = sel;
   window.__TREND_DRAW = {
     mode: function () { return mode; },
+    style: function () { return drawStyle; },     /* free / straight / dots */
     strokes: function () { return strokes; },
     count: function () {
       var n = 0; Object.keys(strokes).forEach(function (k) { n += strokes[k].length; });
@@ -1043,11 +1161,16 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
    四个按钮：默认 / 画线 / 清空画线 / 自动衍生预选。
    ⚠️ 用 <div class="btn">，不是 <button> —— 页面不变量要求"裸 <button> = 0"。 */
 .toolbar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
-.toolbar .btn { padding:5px 10px; border-radius:8px; background:#fdf6ea;
+.toolbar .btn, .drawstyles .btn { padding:5px 10px; border-radius:8px; background:#fdf6ea;
   border:1px solid #e8d7bd; font-size:12px; color:#4a3a26; cursor:pointer; }
-.toolbar .btn.active { background:#1a8c5a; color:#fff; border-color:#1a8c5a; }
+.toolbar .btn.active, .drawstyles .btn.active { background:#1a8c5a; color:#fff; border-color:#1a8c5a; }
 .toolbar .btn.done { background:#e8f6ef; border-color:#b7e4cd; color:#1a8c5a; }
 .tr-modehint { margin:-4px 0 10px; font-size:11.5px; color:var(--ro-fg3); line-height:1.7; }
+/* 画法子档（自由 / 直线 / 逐点）：只在「画线」档显示，做小一圈别挤爆工具栏 */
+.drawstyles { display:none; flex-wrap:wrap; align-items:center; gap:6px; margin:-4px 0 10px; }
+.drawstyles.on { display:flex; }
+.drawstyles-label { font-size:11.5px; color:var(--ro-fg3); }
+.drawstyles .btn { padding:3px 9px; border-radius:999px; font-size:11.5px; }
 
 /* ⑫ 预选行（表头下面第一行，格子里点一下就是选中/取消）
    ------------------------------------------------------------
@@ -1070,6 +1193,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 svg.tr-lines-draw { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
 svg.tr-lines-draw.on { pointer-events:auto; }
 .tr-draw { stroke:#c0392b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.tr-dot { fill:#c0392b; stroke:#fff; stroke-width:1; }   /* 逐点档标的那个点 */
 .tr-draw-line { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
 /* 画线模式：手指拖动只画线，不滚动（否则线画不出来） */
 .tr-block.tr-drawing .tr-scroll { touch-action:none; }
