@@ -548,7 +548,7 @@ function renderTrendHtml(payload) {
     L.push('</tr></thead>');
 
     /* 表体：每期一行 */
-    L.push('<tbody>' + __trPreselRow(g) + '</tbody>');
+    L.push('<tbody>');
     rows.forEach((r, ri) => {
       const isLast = ri === rows.length - 1;
       /* 数字型彩种按【位】标记：重复号码各算一格（例如 2,8,7） */
@@ -578,7 +578,7 @@ function renderTrendHtml(payload) {
       L.push('<td class="tr-td-tail">' + esc(tail) + '</td>');
       L.push('</tr>');
     });
-    L.push('</tbody>');
+    L.push(__trPreselRow(g) + '</tbody>');
 
     /* 表尾：出现次数 / 当前遗漏 / 最大遗漏 */
     const stats = trAreaStats(rows.map((r) => r.nums), nCols, g.main.lo);
