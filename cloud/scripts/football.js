@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "米拉索",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
     "away": {
      "name": "國際體育會RS",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 17
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "94240a"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "科隆蒙得維的亞",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "烏拉坎孟特維迪歐",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -2397,10 +2397,10 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "卡洛圣佩德鲁",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -2501,7 +2501,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "防卫者",
      "score": 0,
@@ -2567,7 +2567,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "卡拉普瓜",
      "score": 1,
@@ -2605,7 +2605,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "卡利博卡青年",
      "score": 0,
@@ -2709,7 +2709,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "塞罗",
      "score": 1,
@@ -2853,7 +2853,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "庞特普雷塔",
      "score": 0,
