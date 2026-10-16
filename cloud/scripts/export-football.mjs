@@ -921,9 +921,8 @@ function renderMultiCard(m) {
           `<em>${cvPct(d.cv)}</em></span>`;
       }).join('') +
       `</div>`;
-    if (dd.companies) {
-      dv += `<div class="m-dv-sum">${dd.companies} 家公司参与统计 · 分歧＝即时欧赔的变异系数 cv</div>`;
-    }
+    /* 【去掉了重复的家数行】原来这里还有一行 "N 家公司参与统计 · 分歧＝…"，
+       但标题上已经写了 "N 家公司 · 即时盘"、末尾也讲了算法 —— 重复，去掉。 */
   }
 
   /* ---- 即时赔率的区间（"对比"最直观的一眼）---- */
@@ -945,10 +944,8 @@ function renderMultiCard(m) {
   /* 说明只讲分歧的算法（返还率那段随明细一起去掉了）。
      口径照抄 build-match.mjs：用 cv 不用标准差 —— 主胜 1.5 与客胜 8.0 的
      标准差天然差几倍，只有变异系数（除以均值）才可比。 */
-  const note = `<div class="m-mc-note">算法：各家【即时】欧赔逐方向算 ` +
-    `变异系数 cv ＝ 标准差 ÷ 均值（除以均值才可比）· ` +
-    `档位 cv < 3.0% 低 · 3.0%~5.5% 中 · ≥ 5.5% 高 · ` +
-    `差得越大＝各家公司看法越不一致 · 仅娱乐参考</div>`;
+  const note = `<div class="m-mc-note">分歧＝各家【即时】欧赔的变异系数 cv（标准差÷均值）` +
+    ` · 低<3% / 中3~5.5% / 高≥5.5% · 越大＝各家公司看法越不一致 · 仅娱乐参考</div>`;
 
   return `<div class="m-mc">${head}${dv}${rng}${note}</div>`;
 }
