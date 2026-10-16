@@ -950,7 +950,9 @@ function buildExpertsHtml() {
   const groups = order.map((gid) => {
     const g = E.games[gid];
     if (!g) return '';
-    const list = Array.isArray(g.stable) ? g.stable.slice(0, 10) : [];
+    /* 用户 2026-10-17：每位彩种展示的专家从 10 位扩到 20 位
+       （build-experts.mjs 的 stableTop 同步改成 20，否则这里取不到那么多）。 */
+    const list = Array.isArray(g.stable) ? g.stable.slice(0, 20) : [];
     if (!list.length) return '';
     totalShown += list.length;
     const rows = list.map((x, i) => {
@@ -1000,7 +1002,7 @@ function buildExpertsHtml() {
     '<span class="ro-xj-count">' + totalShown + '</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
-    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 在线整理</div>' +
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 20 位 · 在线整理</div>' +
     '<div class="ro-xj-list">' + groups + '</div>' +
     '<div class="ro-xj-more">已加载全部</div>' +
     '</details>';

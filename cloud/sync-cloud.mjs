@@ -623,6 +623,33 @@ function collect(dir, prefix) {
 }
 
 selfCheckStale();
+/* 【日志瘦身】cloud/scripts/_*.log 每次同步都整份上传（实测 _xysp.log 1.25 MB、
+   _xysp-tt.log 429 KB、_articles.log 84 KB …），而它们只被各自的抓取脚本用来判断
+   「上次成功时间 / 是否该退避」——这些都只看【尾部】；
+   连续失败次数存在独立的 *_backoff.json 里，不是从日志数行。
+   ⇒ 只留尾部 200 行就够用，前面的旧记录没有读者。
+   ⚠️ 只裁 .log。*_backoff.json 与 _ticket-ocr-cache.json 【一律不动】：
+      前者是结构化退避状态、后者是 OCR 识别结果缓存，裁了会改变行为。
+   ⚠️ 裁不动也不许影响同步（整个包在 try 里）。 */
+function trimLogs() {
+  let n = 0, saved = 0;
+  try {
+    const dir = path.join(ROOT, 'scripts');
+    for (const name of fs.readdirSync(dir)) {
+      if (!/^_.*\.log$/.test(name)) continue;
+      const p = path.join(dir, name);
+      const st = fs.statSync(p);
+      if (st.size < 64 * 1024) continue;                 /* 小的不值得动 */
+      const lines = fs.readFileSync(p, 'utf8').split(/\r?\n/);
+      if (lines.length <= 200) continue;
+      const kept = lines.slice(-200).join('\n') + '\n';
+      fs.writeFileSync(p, kept, 'utf8');
+      n++; saved += st.size - Buffer.byteLength(kept, 'utf8');
+    }
+  } catch (e) { /* 忽略：日志瘦身失败不能拦住同步 */ }
+  if (n) log(`  🧹 日志瘦身：${n} 个 _*.log 只留尾部 200 行（本次少传 ${(saved / 1048576).toFixed(2)} MB）`);
+}
+trimLogs();
 const files = collect(ROOT, 'cloud/');
 
 /* 【必须单独加回来】cloud/out/tickets.json

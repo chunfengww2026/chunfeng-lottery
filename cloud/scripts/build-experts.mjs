@@ -61,7 +61,7 @@ const DEFAULTS = {
   blueExpertSlots: 3,        // 抓取队列里给「蓝球/后区类」专家保留的名额
   maxExpertsPerGame: 20,     // 每个彩种最多抓多少位专家的历史页
   maxPeriods: 10,            // 每位专家最多解析最近多少期
-  stableTop: 10,             // 每个彩种输出多少位稳定专家
+  stableTop: 20,             // 每个彩种输出多少位稳定专家（用户 2026-10-17：10 → 20 位）
   prescreenHit10: 5,         // 列表页「近10中」低于此值的专家不进入专家页抓取队列
   minPeriodsForStable: 6,    // 进入 stable 至少要有多少期历史
   retries: 3,
