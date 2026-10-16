@@ -2371,6 +2371,21 @@ const RO_RENDER_SCRIPT = `
 })();
 `;
 
+/* ============================================================
+   【走势图 · 内联片段】
+   ------------------------------------------------------------
+   数据：history.js 的 DRAW_HISTORY（真开奖），构建时读一次、快照内嵌；
+        页面零联网、不调 AI、不写 localStorage。
+   期数：近 30 期（和折叠块副标题「近 30 期走势 · 预选参考」对齐）。
+   ⚠️ 「数据从哪来」的字样由文件末尾那道 source-guard 统一兜底 ——
+      走势图这一段现在也是分享页的一部分，跟着整页一起过关。
+   ============================================================ */
+const trendHtml = renderTrendFragment(
+  buildTrendPayload(loadTrendHistory(), TREND_PERIODS)
+);
+console.log('\n  · 走势图（内联进「近 30 期走势 · 预选参考」折叠块，不是 iframe）：'
+  + `8 彩种 × 近 ${TREND_PERIODS} 期 · ${(Buffer.byteLength(trendHtml, 'utf8') / 1024).toFixed(1)} KB`);
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -4301,10 +4316,10 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-trend[open] > .ro-trend-head .ro-trend-arrow::before { content: '点击收起'; }
 .ro-trend[open] > .ro-trend-head .ro-trend-arrow::after { content: ' ▾'; }
 .ro-trend-body { padding: 0 0 12px; }
-.ro-trend-frame { display: block; width: 100%; height: 520px; border: 1px solid var(--ro-line);
-  border-radius: 10px; background: var(--ro-sunken); }
-.ro-trend-tip { margin-top: 8px; text-align: center; font-size: 11.5px; color: var(--ro-fg3); }
-.ro-trend-tip a { color: var(--ro-ok); text-decoration: none; }
+/* ⚠️ 原来这里有 .ro-trend-frame（iframe 520px 高）和 .ro-trend-tip（跳独立页的兜底链接）。
+   2026-10-17 用户要求「删除单独走势图独立页」→ 内容改成内联，这两条一起删掉：
+   走势图那一块的样式全部由 build-trend.mjs 的片段自带（选择器都带
+   .ro-trend-embed 前缀，收在片段内部，不会漏到分享页其它地方）。 */
 ${P3D_SECTION_CSS}
 
 
@@ -4912,17 +4927,20 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        纯文字区块：不含任何图片，所以图位数量不变。 -->
   <!-- ============================================================
        __TREND_ENTRY__ 「走势图」入口 —— 用户要求放在【文章参考】上面。
-       【本轮改版】原来是 <a href="走势图.html">（跳去独立页面）；
-       现在改成 <details> 折叠块 → 【点一下就地展开】，不再跳走。
+       【本轮改版】原来是 <a href> 跳去独立页；上一版改成 <details> +
+       <iframe src>。2026-10-17 用户再明确一次：
+         「留在近30期走势预选参考里面. 删除单独走势图独立页」
+       → 展开体里【直接内联走势图内容】（表格 + 工具栏 + 画线脚本），
+         独立页已删除，页面上不再有任何指向它的链接。
        ⚠️ 折叠机制和「晒票 / GPT模型摇号」同一套：<details> + <summary>，
           「点击查看 / 点击收起」由 CSS 伪元素按 [open] 切换，
           不用 JS、不用裸 <button>（用户铁律）、不用裸 <div onclick>。
-       ⚠️ 展开内容用 <iframe src="走势图.html">：
-          · loading="lazy" → 【不展开就不加载】，不额外吃流量
-          · file:// 和 https 下都能用（fetch 在 file:// 会被 CORS 拦，iframe 不会）
-          · 固定高度 520px + 可滚动
-       ⚠️ 独立页面 走势图.html 本身【保留】，iframe 里还能直接打开。
-       ⚠️ 页面不变量：纯文字 + iframe，没有 <img> → data-image 不变（仍 21）。
+       ⚠️ 内联的那一块自己做了三件事（见 build-trend.mjs 的 renderTrendFragment）：
+          ① 样式全部收进 .ro-trend-embed（分享页也有 .ro-wrap / .ro-top /
+             .ro-status / .ro-foot / .btn，不收就波及整页）
+          ② 脚本整段包 IIFE + 根节点 id 加前缀（和分享页共用 document）
+          ③ 里面【没有】顶部那排页面标签（彩票推荐 / 竞彩·足球 / 走势图）
+       ⚠️ 页面不变量：纯文字 + 表格，没有 <img> → data-image 不变（仍 21）。
        ============================================================ -->
   <details class="ro-trend" id="ro-trend">
     <summary class="ro-trend-head">
@@ -4931,9 +4949,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
       <span class="ro-trend-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-trend-body">
-      <iframe class="ro-trend-frame" src="走势图.html" loading="lazy"
-              title="走势图（近 30 期）"></iframe>
-      <div class="ro-trend-tip">看不了？<a href="走势图.html" target="_blank" rel="noopener">在新页面打开走势图 →</a></div>
+${trendHtml}
     </div>
   </details>
 
