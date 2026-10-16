@@ -106,6 +106,8 @@ export const P3D_CSS = `
 .luoshu-table td.hit.pick { border: 2px solid #d9a300;
   box-shadow: 0 0 0 2px rgba(31, 95, 214, .45), 0 0 6px rgba(217, 163, 0, .6); }
 .luoshu-zero { font-size: 11px; color: var(--ro-fg2); margin-top: 6px; }
+/* 动态盘说明：标明本盘偏移量 + 由上期哪一期推得（"每期自动变化"看得见） */
+.luoshu-tip { font-size: 10.5px; color: var(--ro-fg3); margin-top: 3px; }
 .luoshu-zero.hit { color: var(--ro-danger); font-weight: 700; }
 .luoshu-zero.pick { color: var(--ro-link); font-weight: 700; }
 .luoshu-legend { display: flex; gap: 12px; justify-content: center; margin-top: 8px;
@@ -185,10 +187,15 @@ const P3D_JS = `
   }
   function renderLuoshu(meta, liuSet) {
     var hitMap = meta.luoshuLast.cells || {}, html = '', r, c, v, cls;
-    for (r = 0; r < LUOSHU.length; r++) {
+    /* 【动态盘】用户 2026-10-17 定：不再用静态基盘，改用 stats.js 那套
+       「输入上期开奖号、每期自动生成不同图表数据」——盘面整体按 offset 偏移。
+       ⚠️ 所以这里的数字要从 meta.luoshuLast.grid 取，不能再用静态 LUOSHU；
+          用静态的话命中格会全错（盘面都换了）。 */
+    var grid = (meta.luoshuLast && meta.luoshuLast.grid) || LUOSHU;
+    for (r = 0; r < grid.length; r++) {
       html += '<tr>';
-      for (c = 0; c < LUOSHU[r].length; c++) {
-        v = LUOSHU[r][c]; cls = [];
+      for (c = 0; c < grid[r].length; c++) {
+        v = grid[r][c]; cls = [];
         if (hitMap[r + ',' + c]) cls.push('hit');
         if (liuSet[v]) cls.push('pick');
         html += '<td class="' + cls.join(' ') + '">' + v + '</td>';
@@ -200,6 +207,14 @@ const P3D_JS = `
     var zeroHit = meta.luoshuLast.zero, zeroPick = !!liuSet[0];
     z.className = 'luoshu-zero' + (zeroHit ? ' hit' : '') + (zeroPick ? ' pick' : '');
     z.textContent = zeroHit ? '外置 0 号：【0】' : (zeroPick ? '外置 0 号（六码含 0）' : '0 单独外置');
+    /* 标明这是动态盘：偏移量 + 由上期哪一期推得（让"每期不同"这件事看得见） */
+    var tip = $('luoshuTip');
+    if (tip) {
+      var off = meta.luoshuLast.offset;
+      tip.textContent = '本盘偏移 ' + (off == null ? '-' : off) +
+        (meta.luoshuLast.prevIssue ? ' · 由上期 ' + meta.luoshuLast.prevIssue + ' 推得' : '') +
+        ' · 每期自动变化';
+    }
   }
   function renderTables(draws) {
     $('posTableBody').innerHTML = draws.map(function (d) {
@@ -374,8 +389,8 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     'pl3': { title: '排列三 手绘参考图（民间算法）', name: '排列三' }
   };
   const LIUMA_MAP = opt.liuMaMap || {
-    '3d': { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4, 8] },
-    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6, 9] }
+    '3d': { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4] },
+    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6] }
   };
 
   const data = {}, meta = {};
@@ -428,6 +443,7 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
       `<div class="p3d-block"><div class="p3d-block-title">洛书九宫图</div>` +
         `<div class="luoshu-wrap"><table class="luoshu-table" id="luoshuTable"></table>` +
         `<div class="luoshu-zero" id="luoshuZero">0 单独外置</div>` +
+        `<div class="luoshu-tip" id="luoshuTip"></div>` +
         `<div class="luoshu-legend"><span><i class="k-hit"></i>本期开奖命中</span>` +
         `<span><i class="k-pick"></i>六码圈选</span></div></div></div>` +
       `<div class="p3d-block"><div class="p3d-block-title">百/十/个位连线图</div>` +
