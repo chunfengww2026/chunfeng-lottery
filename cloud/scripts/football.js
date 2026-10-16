@@ -683,7 +683,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 82,
+    "minute": 84,
     "home": {
      "name": "利昂内斯",
      "score": 1,
