@@ -1,18 +1,68 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 03:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 03:55 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-17 03:28",
+ "updated": "2026-10-17 03:55",
  "stat": {
   "upcoming": 47,
-  "live": 44,
-  "finished": 77,
-  "total": 168,
+  "live": 33,
+  "finished": 84,
+  "total": 164,
   "settled": true,
-  "hit": 28,
-  "miss": 49,
-  "rate": 36.4
+  "hit": 30,
+  "miss": 54,
+  "rate": 35.7
  },
  "lists": {
   "upcoming": [
+   {
+    "gid": 582670,
+    "kind": "upcoming",
+    "league": {
+     "name": "女自由杯",
+     "color": "660012"
+    },
+    "time": "2026-10-17 04:00:00",
+    "minute": 0,
+    "home": {
+     "name": "玻利瓦爾(女)",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "away": {
+     "name": "奧林匹亞(女)",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 3.5,
+       "line": "1.13",
+       "away": 0.7
+      },
+      "live": {
+       "home": 0,
+       "line": "",
+       "away": null
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "4.5",
+       "over": 0.75,
+       "under": 1.05
+      },
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
    {
     "gid": 582593,
     "kind": "upcoming",
@@ -84,56 +134,6 @@ const FOOTBALL_DATA = {
      "clear": false,
      "margin": 15.1
     },
-    "result": null
-   },
-   {
-    "gid": 582670,
-    "kind": "upcoming",
-    "league": {
-     "name": "女自由杯",
-     "color": "660012"
-    },
-    "time": "2026-10-17 04:00:00",
-    "minute": 0,
-    "home": {
-     "name": "玻利瓦爾(女)",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "away": {
-     "name": "奧林匹亞(女)",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 3.5,
-       "line": "1.13",
-       "away": 0.7
-      },
-      "live": {
-       "home": 0,
-       "line": "",
-       "away": null
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "4.5",
-       "over": 0.75,
-       "under": 1.05
-      },
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
     "result": null
    },
    {
@@ -234,8 +234,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.97",
-       "away": 0.91
+       "line": "1",
+       "away": 0.88
       },
       "live": {
        "home": 0,
@@ -307,13 +307,13 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.99",
-       "away": 0.83
+       "line": "0.92",
+       "away": 0.9
       },
       "live": {
        "home": 0,
-       "line": "0.74",
-       "away": 1.08
+       "line": "0.68",
+       "away": 1.16
       }
      },
      "overunder": {
@@ -330,13 +330,13 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.2,
-       "draw": 2.81,
-       "away": 3.25
+       "home": 2.17,
+       "draw": 2.9,
+       "away": 3.2
       },
       "live": {
-       "home": 2.86,
-       "draw": 3.45,
+       "home": 2.78,
+       "draw": 3.55,
        "away": 2.09
       }
      }
@@ -344,14 +344,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 42.8,
+     "confidence": 42.7,
      "prob": {
-      "home": 31.3,
-      "draw": 25.9,
-      "away": 42.8
+      "home": 32.1,
+      "draw": 25.2,
+      "away": 42.7
      },
      "clear": false,
-     "margin": 11.8
+     "margin": 12
     },
     "result": null
    },
@@ -418,8 +418,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.99",
-       "away": 0.85
+       "line": "1.03",
+       "away": 0.81
       },
       "live": {
        "home": 0,
@@ -441,25 +441,25 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.14,
-       "draw": 2.65,
+       "home": 2.2,
+       "draw": 2.58,
        "away": 3.6
       },
       "live": {
-       "home": 2.67,
-       "draw": 3.1,
-       "away": 2.36
+       "home": 2.72,
+       "draw": 3.05,
+       "away": 2.35
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 37.8,
+     "confidence": 38,
      "prob": {
-      "home": 33.4,
-      "draw": 28.8,
-      "away": 37.8
+      "home": 32.8,
+      "draw": 29.2,
+      "away": 38
      },
      "clear": false,
      "margin": 12.1
@@ -710,25 +710,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.5,
-       "line": "1.01",
-       "away": 0.81
+       "line": "0.95",
+       "away": 0.75
       },
       "live": {
        "home": 0.25,
-       "line": "0.87",
-       "away": 0.95
+       "line": "0.81",
+       "away": 0.89
       }
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.78,
-       "under": 1.02
+       "over": 0.73,
+       "under": 0.97
       },
       "live": {
        "line": "1.25",
-       "over": 1.03,
-       "under": 0.77
+       "over": 0.98,
+       "under": 0.72
       }
      },
      "europe": {
@@ -868,8 +868,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.81,
-       "under": 0.99
+       "over": 0.82,
+       "under": 0.98
       },
       "live": {
        "line": "1",
@@ -1002,51 +1002,51 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.72",
-       "away": 1.11
+       "line": "0.62",
+       "away": 1.16
       },
       "live": {
        "home": -0.25,
-       "line": "1.09",
-       "away": 0.73
+       "line": "1.01",
+       "away": 0.75
       }
      },
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.97,
-       "under": 0.83
+       "over": 0.89,
+       "under": 0.87
       },
       "live": {
        "line": "1",
-       "over": 0.93,
-       "under": 0.87
+       "over": 0.86,
+       "under": 0.9
       }
      },
      "europe": {
       "open": {
-       "home": 1.97,
-       "draw": 3.25,
-       "away": 3.3
+       "home": 1.9,
+       "draw": 3.35,
+       "away": 3.35
       },
       "live": {
-       "home": 2.54,
-       "draw": 3.95,
-       "away": 2.11
+       "home": 2.46,
+       "draw": 4.05,
+       "away": 2.15
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 42.3,
+     "confidence": 41.6,
      "prob": {
-      "home": 35.1,
-      "draw": 22.6,
-      "away": 42.3
+      "home": 36.3,
+      "draw": 22.1,
+      "away": 41.6
      },
      "clear": false,
-     "margin": 12.1
+     "margin": 11.9
     },
     "result": null
    },
@@ -1148,8 +1148,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.79",
-       "away": 1.11
+       "line": "0.8",
+       "away": 1.09
       },
       "live": {
        "home": -0.25,
@@ -1177,22 +1177,22 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": 2.63,
-       "draw": 3.6,
-       "away": 2.26
+       "draw": 3.75,
+       "away": 2.21
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 40.2,
+     "confidence": 41.2,
      "prob": {
       "home": 34.6,
-      "draw": 25.2,
-      "away": 40.2
+      "draw": 24.3,
+      "away": 41.2
      },
      "clear": false,
-     "margin": 10
+     "margin": 9.9
     },
     "result": null
    },
@@ -1226,8 +1226,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": 0,
-       "line": "0.65",
-       "away": 1.2
+       "line": "0.64",
+       "away": 1.21
       }
      },
      "overunder": {
@@ -1244,9 +1244,9 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.13,
-       "draw": 2.94,
-       "away": 3.2
+       "home": 2.19,
+       "draw": 2.89,
+       "away": 3.15
       },
       "live": {
        "home": 2.78,
@@ -1294,25 +1294,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.5,
-       "line": "1.01",
-       "away": 0.81
+       "line": "0.95",
+       "away": 0.75
       },
       "live": {
        "home": -0.25,
-       "line": "1.12",
-       "away": 0.71
+       "line": "1.05",
+       "away": 0.65
       }
      },
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.93,
-       "under": 0.87
+       "over": 0.88,
+       "under": 0.82
       },
       "live": {
        "line": "1",
-       "over": 0.89,
-       "under": 0.91
+       "over": 0.84,
+       "under": 0.86
       }
      },
      "europe": {
@@ -1367,25 +1367,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -1.5,
-       "line": "1.13",
-       "away": 0.7
+       "line": "1.06",
+       "away": 0.64
       },
       "live": {
        "home": -0.5,
-       "line": "0.79",
-       "away": 1.03
+       "line": "0.73",
+       "away": 0.97
       }
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.8,
-       "under": 1
+       "over": 0.75,
+       "under": 0.95
       },
       "live": {
        "line": "1.25",
-       "over": 0.99,
-       "under": 0.81
+       "over": 0.94,
+       "under": 0.76
       }
      },
      "europe": {
@@ -1440,8 +1440,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.05",
-       "away": 0.84
+       "line": "1.03",
+       "away": 0.86
       },
       "live": {
        "home": 0,
@@ -1562,6 +1562,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 582671,
+    "kind": "upcoming",
+    "league": {
+     "name": "女自由杯",
+     "color": "660012"
+    },
+    "time": "2026-10-17 08:00:00",
+    "minute": 0,
+    "home": {
+     "name": "高士路MG女足",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "away": {
+     "name": "奎托(女)",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1,
+       "line": "1.17",
+       "away": 0.67
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.78",
+       "away": 1.04
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.78,
+       "under": 1.02
+      },
+      "live": {
+       "line": "1",
+       "over": 0.74,
+       "under": 1.06
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.58,
+       "draw": 4.1,
+       "away": 3.65
+      },
+      "live": {
+       "home": 2.16,
+       "draw": 4.45,
+       "away": 2.16
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 40.2,
+     "prob": {
+      "home": 40.2,
+      "draw": 19.5,
+      "away": 40.2
+     },
+     "clear": false,
+     "margin": 15.1
+    },
+    "result": null
+   },
+   {
     "gid": 582628,
     "kind": "upcoming",
     "league": {
@@ -1635,79 +1708,6 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 582671,
-    "kind": "upcoming",
-    "league": {
-     "name": "女自由杯",
-     "color": "660012"
-    },
-    "time": "2026-10-17 08:00:00",
-    "minute": 0,
-    "home": {
-     "name": "高士路MG女足",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "away": {
-     "name": "奎托(女)",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -1,
-       "line": "1.13",
-       "away": 0.7
-      },
-      "live": {
-       "home": -0.25,
-       "line": "0.78",
-       "away": 1.04
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.78,
-       "under": 1.02
-      },
-      "live": {
-       "line": "1",
-       "over": 0.74,
-       "under": 1.06
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.58,
-       "draw": 4.1,
-       "away": 3.65
-      },
-      "live": {
-       "home": 2.16,
-       "draw": 4.45,
-       "away": 2.16
-      }
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 40.2,
-     "prob": {
-      "home": 40.2,
-      "draw": 19.5,
-      "away": 40.2
-     },
-     "clear": false,
-     "margin": 15.1
-    },
-    "result": null
-   },
-   {
     "gid": 581944,
     "kind": "upcoming",
     "league": {
@@ -1744,8 +1744,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.25",
-       "over": 0.87,
-       "under": 0.93
+       "over": 0.83,
+       "under": 0.97
       },
       "live": {
        "line": "1.25",
@@ -2024,25 +2024,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "0.9",
-       "away": 0.98
+       "line": "0.81",
+       "away": 0.89
       },
       "live": {
        "home": 0,
-       "line": "1.12",
-       "away": 0.77
+       "line": "1.02",
+       "away": 0.68
       }
      },
      "overunder": {
       "open": {
        "line": "3.25",
-       "over": 1,
-       "under": 0.86
+       "over": 0.92,
+       "under": 0.78
       },
       "live": {
        "line": "1.25",
-       "over": 0.88,
-       "under": 0.98
+       "over": 0.8,
+       "under": 0.9
       }
      },
      "europe": {
@@ -2097,8 +2097,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -1,
-       "line": "0.97",
-       "away": 0.92
+       "line": "0.96",
+       "away": 0.93
       },
       "live": {
        "home": -0.5,
@@ -2120,9 +2120,9 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 1.51,
-       "draw": 6.3,
-       "away": 3.8
+       "home": 1.5,
+       "draw": 6.5,
+       "away": 3.85
       },
       "live": {
        "home": 2.16,
@@ -2255,8 +2255,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.84,
-       "under": 0.96
+       "over": 0.91,
+       "under": 0.89
       },
       "live": {
        "line": "1",
@@ -2462,8 +2462,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.01",
-       "away": 0.88
+       "line": "1.06",
+       "away": 0.83
       },
       "live": {
        "home": 0,
@@ -2485,8 +2485,8 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.54,
-       "draw": 2.45,
+       "home": 2.65,
+       "draw": 2.36,
        "away": 3.6
       },
       "live": {
@@ -2507,6 +2507,79 @@ const FOOTBALL_DATA = {
      },
      "clear": false,
      "margin": 9.9
+    },
+    "result": null
+   },
+   {
+    "gid": 582681,
+    "kind": "upcoming",
+    "league": {
+     "name": "日聯U21",
+     "color": "B5A152"
+    },
+    "time": "2026-10-17 10:00:00",
+    "minute": 0,
+    "home": {
+     "name": "名古屋鯨魚U21",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "away": {
+     "name": "神户勝利船U21",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.7",
+       "away": 1.13
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.02",
+       "away": 0.8
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.83,
+       "under": 0.97
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.89,
+       "under": 0.91
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.93,
+       "draw": 3.05,
+       "away": 3.65
+      },
+      "live": {
+       "home": 2.39,
+       "draw": 3.55,
+       "away": 2.38
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 37.5,
+     "prob": {
+      "home": 37.3,
+      "draw": 25.1,
+      "away": 37.5
+     },
+     "clear": false,
+     "margin": 12
     },
     "result": null
    },
@@ -2657,79 +2730,6 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 582681,
-    "kind": "upcoming",
-    "league": {
-     "name": "日聯U21",
-     "color": "B5A152"
-    },
-    "time": "2026-10-17 10:00:00",
-    "minute": 0,
-    "home": {
-     "name": "名古屋鯨魚U21",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "away": {
-     "name": "神户勝利船U21",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.7",
-       "away": 1.13
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.02",
-       "away": 0.8
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 0.83,
-       "under": 0.97
-      },
-      "live": {
-       "line": "1.25",
-       "over": 0.89,
-       "under": 0.91
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.93,
-       "draw": 3.05,
-       "away": 3.65
-      },
-      "live": {
-       "home": 2.39,
-       "draw": 3.55,
-       "away": 2.38
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 37.5,
-     "prob": {
-      "home": 37.3,
-      "draw": 25.1,
-      "away": 37.5
-     },
-     "clear": false,
-     "margin": 12
-    },
-    "result": null
-   },
-   {
     "gid": 582292,
     "kind": "upcoming",
     "league": {
@@ -2754,8 +2754,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.96",
-       "away": 0.88
+       "line": "0.95",
+       "away": 0.89
       },
       "live": {
        "home": 0,
@@ -2777,13 +2777,13 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.47,
-       "draw": 2.36,
+       "home": 2.45,
+       "draw": 2.37,
        "away": 3.45
       },
       "live": {
        "home": 3,
-       "draw": 2.92,
+       "draw": 2.93,
        "away": 2.24
       }
      }
@@ -2794,11 +2794,11 @@ const FOOTBALL_DATA = {
      "confidence": 39.8,
      "prob": {
       "home": 29.7,
-      "draw": 30.5,
+      "draw": 30.4,
       "away": 39.8
      },
      "clear": false,
-     "margin": 12.2
+     "margin": 12.1
     },
     "result": null
    },
@@ -2827,13 +2827,13 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.84",
-       "away": 1
+       "line": "0.92",
+       "away": 0.92
       },
       "live": {
        "home": 0,
-       "line": "0.86",
-       "away": 0.98
+       "line": "0.92",
+       "away": 0.92
       }
      },
      "overunder": {
@@ -2850,13 +2850,13 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 2.28,
-       "draw": 2.47,
+       "home": 2.37,
+       "draw": 2.37,
        "away": 3.9
       },
       "live": {
-       "home": 2.74,
-       "draw": 2.91,
+       "home": 2.82,
+       "draw": 2.82,
        "away": 2.43
       }
      }
@@ -2866,12 +2866,12 @@ const FOOTBALL_DATA = {
      "label": "客胜",
      "confidence": 36.7,
      "prob": {
-      "home": 32.6,
-      "draw": 30.7,
+      "home": 31.6,
+      "draw": 31.6,
       "away": 36.7
      },
      "clear": false,
-     "margin": 12
+     "margin": 12.1
     },
     "result": null
    },
@@ -2900,8 +2900,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.75",
-       "away": 1.07
+       "line": "0.77",
+       "away": 1.05
       },
       "live": {
        "home": 0,
@@ -2973,25 +2973,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.14",
-       "away": 0.75
+       "line": "0.96",
+       "away": 0.74
       },
       "live": {
        "home": 0,
-       "line": "1.03",
-       "away": 0.85
+       "line": "0.94",
+       "away": 0.76
       }
      },
      "overunder": {
       "open": {
        "line": "3",
-       "over": 0.83,
-       "under": 1.03
+       "over": 0.75,
+       "under": 0.95
       },
       "live": {
        "line": "1.25",
-       "over": 0.89,
-       "under": 0.97
+       "over": 0.81,
+       "under": 0.89
       }
      },
      "europe": {
@@ -3389,72 +3389,6 @@ const FOOTBALL_DATA = {
   ],
   "live": [
    {
-    "gid": 582559,
-    "kind": "live",
-    "league": {
-     "name": "比女超",
-     "color": "CC9911"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 92,
-    "home": {
-     "name": "拉路維爾(女)",
-     "score": 2,
-     "red": 0,
-     "rank": 5
-    },
-    "away": {
-     "name": "布鲁日女足",
-     "score": 2,
-     "red": 0,
-     "rank": 1
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.5,
-       "line": "0.75",
-       "away": 0.95
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "4",
-       "over": 1.02,
-       "under": 0.68
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.75,
-       "draw": 4.8,
-       "away": 2.71
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 49.7,
-     "prob": {
-      "home": 49.7,
-      "draw": 18.1,
-      "away": 32.1
-     },
-     "clear": true,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 1"
-    }
-   },
-   {
     "gid": 582273,
     "kind": "live",
     "league": {
@@ -3462,7 +3396,7 @@ const FOOTBALL_DATA = {
      "color": "ff1111"
     },
     "time": "2026-10-17 02:00:00",
-    "minute": 92,
+    "minute": 93,
     "home": {
      "name": "诺丁汉森林U21",
      "score": 3,
@@ -3478,46 +3412,46 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0.25,
-       "line": "0.69",
-       "away": 1.17
+       "home": 0,
+       "line": "1.33",
+       "away": 0.59
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "4",
-       "over": 0.85,
-       "under": 0.97
+       "line": "5.5",
+       "over": 2.04,
+       "under": 0.31
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 12,
-       "draw": 1.23,
-       "away": 4.55
+       "home": 1.11,
+       "draw": 23,
+       "away": 5.7
       },
       "live": null
      }
     },
     "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 72.8,
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 80.5,
      "prob": {
-      "home": 7.5,
-      "draw": 72.8,
-      "away": 19.7
+      "home": 80.5,
+      "draw": 3.9,
+      "away": 15.7
      },
      "clear": true,
-     "margin": 11.6
+     "margin": 12
     },
     "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "1 - 2"
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "3 - 2"
     }
    },
    {
@@ -3543,204 +3477,6 @@ const FOOTBALL_DATA = {
     },
     "odds": {
      "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "1.13",
-       "away": 0.72
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 1.09,
-       "under": 0.73
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 5.9,
-       "draw": 2.14,
-       "away": 2.06
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 43.3,
-     "prob": {
-      "home": 15.1,
-      "draw": 41.6,
-      "away": 43.3
-     },
-     "clear": false,
-     "margin": 12.2
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
-    }
-   },
-   {
-    "gid": 582272,
-    "kind": "live",
-    "league": {
-     "name": "英U21",
-     "color": "ff1111"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 90,
-    "home": {
-     "name": "诺维奇U21",
-     "score": 4,
-     "red": 0,
-     "rank": 12
-    },
-    "away": {
-     "name": "韋斯咸U21",
-     "score": 2,
-     "red": 0,
-     "rank": 15
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "1.13",
-       "away": 0.72
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "6",
-       "over": 0.96,
-       "under": 0.86
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.23,
-       "draw": 11.5,
-       "away": 4.55
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 72.6,
-     "prob": {
-      "home": 72.6,
-      "draw": 7.8,
-      "away": 19.6
-     },
-     "clear": true,
-     "margin": 12
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "3 - 2"
-    }
-   },
-   {
-    "gid": 582271,
-    "kind": "live",
-    "league": {
-     "name": "英U21",
-     "color": "ff1111"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 92,
-    "home": {
-     "name": "埃弗顿U21",
-     "score": 2,
-     "red": 0,
-     "rank": 14
-    },
-    "away": {
-     "name": "米德爾斯堡U21",
-     "score": 1,
-     "red": 0,
-     "rank": 27
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "1.07",
-       "away": 0.77
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "4",
-       "over": 1.04,
-       "under": 0.78
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.33,
-       "draw": 9.2,
-       "away": 3.8
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 66.9,
-     "prob": {
-      "home": 66.9,
-      "draw": 9.7,
-      "away": 23.4
-     },
-     "clear": true,
-     "margin": 12.4
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 1"
-    }
-   },
-   {
-    "gid": 580994,
-    "kind": "live",
-    "league": {
-     "name": "秘鲁甲",
-     "color": "FF9999"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 94,
-    "home": {
-     "name": "万卡约",
-     "score": 2,
-     "red": 0,
-     "rank": 4
-    },
-    "away": {
-     "name": "库斯科",
-     "score": 1,
-     "red": 0,
-     "rank": 10
-    },
-    "odds": {
-     "asian": {
       "open": null,
       "live": null
      },
@@ -3757,114 +3493,48 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 582551,
+    "gid": 580994,
     "kind": "live",
     "league": {
-     "name": "瑞士杯",
-     "color": "1BA578"
+     "name": "秘鲁甲",
+     "color": "FF9999"
     },
     "time": "2026-10-17 02:00:00",
-    "minute": 91,
+    "minute": 95,
     "home": {
-     "name": "拉珀斯维尔",
-     "score": 0,
-     "red": 0,
-     "rank": 7
-    },
-    "away": {
-     "name": "圣加仑",
+     "name": "万卡约",
      "score": 2,
      "red": 0,
      "rank": 4
     },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.5,
-       "line": "0.82",
-       "away": 1.04
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2",
-       "over": 0.99,
-       "under": 0.85
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 21,
-       "draw": 1.07,
-       "away": 7.2
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 83.4,
-     "prob": {
-      "home": 4.2,
-      "draw": 83.4,
-      "away": 12.4
-     },
-     "clear": true,
-     "margin": 12.1
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 1"
-    }
-   },
-   {
-    "gid": 581508,
-    "kind": "live",
-    "league": {
-     "name": "匈甲",
-     "color": "665566"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 92,
-    "home": {
-     "name": "MTK匈格利亚",
+    "away": {
+     "name": "库斯科",
      "score": 1,
      "red": 0,
-     "rank": 9
-    },
-    "away": {
-     "name": "华沙斯",
-     "score": 0,
-     "red": 0,
-     "rank": 2
+     "rank": 10
     },
     "odds": {
      "asian": {
       "open": {
-       "home": 0,
-       "line": "1.11",
-       "away": 0.74
+       "home": -0.25,
+       "line": "5",
+       "away": 0.08
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.75",
-       "over": 0.8,
-       "under": 1.02
+       "line": "3.5",
+       "over": 5.26,
+       "under": 0.05
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.31,
-       "draw": 10,
-       "away": 3.85
+       "home": 1.01,
+       "draw": 23,
+       "away": 14
       },
       "live": null
      }
@@ -3872,20 +3542,20 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 68,
+     "confidence": 89.6,
      "prob": {
-      "home": 68,
-      "draw": 8.9,
-      "away": 23.1
+      "home": 89.6,
+      "draw": 3.9,
+      "away": 6.5
      },
      "clear": true,
-     "margin": 12.3
+     "margin": 10.5
     },
     "result": {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
-     "score": "1 - 0"
+     "score": "2 - 1"
     }
    },
    {
@@ -3906,52 +3576,102 @@ const FOOTBALL_DATA = {
     "away": {
      "name": "博托沙尼",
      "score": 0,
+     "red": 1,
+     "rank": 10
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "5.88",
+       "away": 0.05
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 5.88,
+       "under": 0.03
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 0,
+       "draw": 0,
+       "away": 0
+      },
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
+    "gid": 580550,
+    "kind": "live",
+    "league": {
+     "name": "荷乙",
+     "color": "FF7777"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 84,
+    "home": {
+     "name": "埃因霍溫",
+     "score": 0,
+     "red": 0,
+     "rank": 15
+    },
+    "away": {
+     "name": "维迪斯",
+     "score": 1,
      "red": 0,
      "rank": 10
     },
     "odds": {
      "asian": {
       "open": {
-       "home": -0.5,
-       "line": "1.06",
-       "away": 0.82
+       "home": 0,
+       "line": "1.05",
+       "away": 0.83
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "0.75",
-       "over": 0.72,
-       "under": 1.16
+       "line": "1.5",
+       "over": 1.66,
+       "under": 0.46
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.06,
-       "draw": 7.3,
-       "away": 2.09
+       "home": 26,
+       "draw": 1.1,
+       "away": 6.4
       },
       "live": null
      }
     },
     "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 44.1,
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 82.4,
      "prob": {
-      "home": 44.1,
-      "draw": 12.4,
-      "away": 43.5
+      "home": 3.5,
+      "draw": 82.4,
+      "away": 14.2
      },
-     "clear": false,
-     "margin": 10.1
+     "clear": true,
+     "margin": 10.4
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 0"
+     "score": "0 - 1"
     }
    },
    {
@@ -3979,222 +3699,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.98",
-       "away": 0.9
+       "line": "4.54",
+       "away": 0.1
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "6.25",
-       "over": 0.89,
-       "under": 0.97
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 5.7,
-       "draw": 1.61,
-       "away": 3.3
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 56.5,
-     "prob": {
-      "home": 16,
-      "draw": 56.5,
-      "away": 27.6
-     },
-     "clear": true,
-     "margin": 10
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "2 - 3"
-    }
-   },
-   {
-    "gid": 580547,
-    "kind": "live",
-    "league": {
-     "name": "荷乙",
-     "color": "FF7777"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 88,
-    "home": {
-     "name": "赫尔蒙特",
-     "score": 0,
-     "red": 0,
-     "rank": 17
-    },
-    "away": {
-     "name": "布雷达",
-     "score": 2,
-     "red": 0,
-     "rank": 5
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.65",
-       "away": 1.29
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.86,
-       "under": 1
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 23,
-       "draw": 1.01,
-       "away": 14.5
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 89.8,
-     "prob": {
-      "home": 3.9,
-      "draw": 89.8,
-      "away": 6.3
-     },
-     "clear": true,
-     "margin": 10.3
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 2"
-    }
-   },
-   {
-    "gid": 580550,
-    "kind": "live",
-    "league": {
-     "name": "荷乙",
-     "color": "FF7777"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 84,
-    "home": {
-     "name": "埃因霍溫",
-     "score": 0,
-     "red": 0,
-     "rank": 15
-    },
-    "away": {
-     "name": "维迪斯",
-     "score": 1,
-     "red": 0,
-     "rank": 10
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.78",
-       "away": 1.11
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 1.08,
-       "under": 0.78
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 11.5,
-       "draw": 1.25,
-       "away": 4.65
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 72.6,
-     "prob": {
-      "home": 7.9,
-      "draw": 72.6,
-      "away": 19.5
-     },
-     "clear": true,
-     "margin": 10.2
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 1"
-    }
-   },
-   {
-    "gid": 580549,
-    "kind": "live",
-    "league": {
-     "name": "荷乙",
-     "color": "FF7777"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 89,
-    "home": {
-     "name": "邓伯什",
-     "score": 2,
-     "red": 0,
-     "rank": 14
-    },
-    "away": {
-     "name": "托普奥斯",
-     "score": 1,
-     "red": 0,
-     "rank": 13
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.69",
-       "away": 1.23
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 1.08,
-       "under": 0.78
+       "line": "7.5",
+       "over": 4,
+       "under": 0.11
       },
       "live": null
      },
      "europe": {
       "open": {
        "home": 1.02,
-       "draw": 23,
-       "away": 12.5
+       "draw": 31,
+       "away": 11
       },
       "live": null
      }
@@ -4205,8 +3727,8 @@ const FOOTBALL_DATA = {
      "confidence": 88.8,
      "prob": {
       "home": 88.8,
-      "draw": 3.9,
-      "away": 7.2
+      "draw": 2.9,
+      "away": 8.2
      },
      "clear": true,
      "margin": 10.4
@@ -4215,185 +3737,7 @@ const FOOTBALL_DATA = {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
-     "score": "2 - 0"
-    }
-   },
-   {
-    "gid": 580514,
-    "kind": "live",
-    "league": {
-     "name": "法乙",
-     "color": "A93F3F"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 91,
-    "home": {
-     "name": "拉瓦尔",
-     "score": 3,
-     "red": 0,
-     "rank": 18
-    },
-    "away": {
-     "name": "克莱蒙特",
-     "score": 3,
-     "red": 0,
-     "rank": 17
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "1.03",
-       "away": 0.85
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3.75",
-       "over": 1.07,
-       "under": 0.79
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 20,
-       "draw": 1.01,
-       "away": 16
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 89.8,
-     "prob": {
-      "home": 4.5,
-      "draw": 89.8,
-      "away": 5.7
-     },
-     "clear": true,
-     "margin": 10.3
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 3"
-    }
-   },
-   {
-    "gid": 581536,
-    "kind": "live",
-    "league": {
-     "name": "法乙",
-     "color": "A93F3F"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 90,
-    "home": {
-     "name": "兰斯",
-     "score": 4,
-     "red": 0,
-     "rank": 4
-    },
-    "away": {
-     "name": "第戎",
-     "score": 2,
-     "red": 0,
-     "rank": 7
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.88",
-       "away": 1
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "6",
-       "over": 1.13,
-       "under": 0.74
-      },
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
-   },
-   {
-    "gid": 580513,
-    "kind": "live",
-    "league": {
-     "name": "法乙",
-     "color": "A93F3F"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 92,
-    "home": {
-     "name": "甘冈",
-     "score": 1,
-     "red": 0,
-     "rank": 11
-    },
-    "away": {
-     "name": "波城",
-     "score": 2,
-     "red": 0,
-     "rank": 8
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "1.03",
-       "away": 0.85
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.8,
-       "under": 1.06
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 23,
-       "draw": 1.05,
-       "away": 9.5
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 86.5,
-     "prob": {
-      "home": 3.9,
-      "draw": 86.5,
-      "away": 9.6
-     },
-     "clear": true,
-     "margin": 10.1
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 2"
+     "score": "4 - 3"
     }
    },
    {
@@ -4404,7 +3748,7 @@ const FOOTBALL_DATA = {
      "color": "A93F3F"
     },
     "time": "2026-10-17 02:00:00",
-    "minute": 88,
+    "minute": 89,
     "home": {
      "name": "格勒诺布尔",
      "score": 0,
@@ -4421,177 +3765,45 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.21",
-       "away": 0.7
+       "line": "0.75",
+       "away": 1.14
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "0.5",
-       "over": 0.84,
-       "under": 1.02
+       "line": "1.5",
+       "over": 3.7,
+       "under": 0.13
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 4.45,
-       "draw": 3.45,
-       "away": 1.71
+       "home": 31,
+       "draw": 1.04,
+       "away": 9.6
       },
       "live": null
      }
     },
     "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 53.2,
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 87.6,
      "prob": {
-      "home": 20.4,
-      "draw": 26.4,
-      "away": 53.2
+      "home": 2.9,
+      "draw": 87.6,
+      "away": 9.5
      },
      "clear": true,
-     "margin": 9.9
+     "margin": 9.8
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 0"
-    }
-   },
-   {
-    "gid": 580515,
-    "kind": "live",
-    "league": {
-     "name": "法乙",
-     "color": "A93F3F"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 92,
-    "home": {
-     "name": "昂纳西",
-     "score": 1,
-     "red": 0,
-     "rank": 6
-    },
-    "away": {
-     "name": "南锡",
-     "score": 2,
-     "red": 0,
-     "rank": 5
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.65",
-       "away": 1.29
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.89,
-       "under": 0.97
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 5.5,
-       "draw": 3,
-       "away": 1.7
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 53.3,
-     "prob": {
-      "home": 16.5,
-      "draw": 30.2,
-      "away": 53.3
-     },
-     "clear": true,
-     "margin": 10.3
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
-    }
-   },
-   {
-    "gid": 580609,
-    "kind": "live",
-    "league": {
-     "name": "荷甲",
-     "color": "FF6699"
-    },
-    "time": "2026-10-17 02:00:00",
-    "minute": 89,
-    "home": {
-     "name": "海伦芬",
-     "score": 4,
-     "red": 0,
-     "rank": 10
-    },
-    "away": {
-     "name": "SBV精英队",
-     "score": 0,
-     "red": 0,
-     "rank": 9
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.88",
-       "away": 1
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 1.02,
-       "under": 0.85
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.01,
-       "draw": 29,
-       "away": 17.5
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 91.5,
-     "prob": {
-      "home": 91.5,
-      "draw": 3.2,
-      "away": 5.3
-     },
-     "clear": true,
-     "margin": 8.2
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 0"
+     "score": "0 - 1"
     }
    },
    {
@@ -4618,15 +3830,15 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0.75,
-       "line": "1.11",
-       "away": 0.76
+       "home": 0.25,
+       "line": "0.64",
+       "away": 1.28
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "3.5",
+       "line": "2.5",
        "over": 1,
        "under": 0.84
       },
@@ -4634,31 +3846,15 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 16.5,
-       "draw": 1.01,
-       "away": 13.5
+       "home": 0,
+       "draw": 0,
+       "away": 0
       },
       "live": null
      }
     },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 88,
-     "prob": {
-      "home": 5.4,
-      "draw": 88,
-      "away": 6.6
-     },
-     "clear": true,
-     "margin": 12.5
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 2"
-    }
+    "reco": null,
+    "result": null
    },
    {
     "gid": 581483,
@@ -4685,24 +3881,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.99",
-       "away": 0.89
+       "line": "1.03",
+       "away": 0.85
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.5",
-       "over": 0.98,
-       "under": 0.88
+       "line": "1",
+       "over": 0.91,
+       "under": 0.95
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.85,
-       "draw": 2.72,
-       "away": 2.62
+       "home": 3.3,
+       "draw": 3,
+       "away": 2.15
       },
       "live": null
      }
@@ -4710,14 +3906,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 34.7,
+     "confidence": 42.2,
      "prob": {
-      "home": 31.9,
-      "draw": 33.4,
-      "away": 34.7
+      "home": 27.5,
+      "draw": 30.3,
+      "away": 42.2
      },
      "clear": false,
-     "margin": 10
+     "margin": 10.1
     },
     "result": {
      "actual": "draw",
@@ -4734,7 +3930,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-10-17 02:30:00",
-    "minute": 66,
+    "minute": 67,
     "home": {
      "name": "华斯兰德",
      "score": 2,
@@ -4750,47 +3946,27 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -1.75,
-       "line": "1.01",
-       "away": 0.81
+       "home": -0.75,
+       "line": "0.78",
+       "away": 1.04
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "3",
-       "over": 0.79,
-       "under": 1.01
+       "line": "3.25",
+       "over": 1.01,
+       "under": 0.79
       },
       "live": null
      },
      "europe": {
-      "open": {
-       "home": 1.01,
-       "draw": 19,
-       "away": 12.5
-      },
+      "open": null,
       "live": null
      }
     },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 88.2,
-     "prob": {
-      "home": 88.2,
-      "draw": 4.7,
-      "away": 7.1
-     },
-     "clear": true,
-     "margin": 12.3
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
+    "reco": null,
+    "result": null
    },
    {
     "gid": 582168,
@@ -4800,7 +3976,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-10-17 02:30:00",
-    "minute": 61,
+    "minute": 62,
     "home": {
      "name": "韦斯特鲁",
      "score": 1,
@@ -4816,25 +3992,25 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.5,
-       "line": "0.99",
-       "away": 0.83
+       "home": -0.25,
+       "line": "0.89",
+       "away": 0.87
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.5",
-       "over": 0.82,
-       "under": 0.98
+       "line": "2",
+       "over": 1.02,
+       "under": 0.74
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.18,
-       "draw": 12,
-       "away": 5.3
+       "home": 1.14,
+       "draw": 16.5,
+       "away": 5.5
       },
       "live": null
      }
@@ -4842,14 +4018,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 75.7,
+     "confidence": 78.3,
      "prob": {
-      "home": 75.7,
-      "draw": 7.4,
-      "away": 16.9
+      "home": 78.3,
+      "draw": 5.4,
+      "away": 16.2
      },
      "clear": true,
-     "margin": 11.9
+     "margin": 12
     },
     "result": {
      "actual": "home",
@@ -4882,25 +4058,25 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0.5,
-       "line": "0.77",
-       "away": 1.05
+       "home": 0.25,
+       "line": "0.76",
+       "away": 1.06
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.75",
-       "over": 0.82,
-       "under": 0.98
+       "line": "3",
+       "over": 0.95,
+       "under": 0.85
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 9.5,
-       "draw": 1.23,
-       "away": 5
+       "home": 19.5,
+       "draw": 1.01,
+       "away": 12
       },
       "live": null
      }
@@ -4908,20 +4084,20 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "draw",
      "label": "平局",
-     "confidence": 72.7,
+     "confidence": 88,
      "prob": {
-      "home": 9.4,
-      "draw": 72.7,
-      "away": 17.9
+      "home": 4.6,
+      "draw": 88,
+      "away": 7.4
      },
      "clear": true,
-     "margin": 11.8
+     "margin": 12.5
     },
     "result": {
      "actual": "away",
      "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 1"
+     "score": "0 - 2"
     }
    },
    {
@@ -4949,24 +4125,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.89",
-       "away": 0.95
+       "line": "1.28",
+       "away": 0.62
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.25",
-       "over": 0.94,
-       "under": 0.88
+       "line": "2.75",
+       "over": 0.97,
+       "under": 0.85
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.19,
-       "draw": 12.5,
-       "away": 5
+       "home": 1.01,
+       "draw": 18.5,
+       "away": 12.5
       },
       "live": null
      }
@@ -4974,20 +4150,20 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 75,
+     "confidence": 88.1,
      "prob": {
-      "home": 75,
-      "draw": 7.1,
-      "away": 17.9
+      "home": 88.1,
+      "draw": 4.8,
+      "away": 7.1
      },
      "clear": true,
-     "margin": 12
+     "margin": 12.4
     },
     "result": {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
-     "score": "1 - 0"
+     "score": "2 - 0"
     }
    },
    {
@@ -4998,7 +4174,7 @@ const FOOTBALL_DATA = {
      "color": "6F3FD2"
     },
     "time": "2026-10-17 02:30:00",
-    "minute": 68,
+    "minute": 69,
     "home": {
      "name": "瓦克蒂罗尔",
      "score": 0,
@@ -5014,46 +4190,46 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0,
-       "line": "0.76",
-       "away": 1.13
+       "home": -0.25,
+       "line": "1.13",
+       "away": 0.76
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.25",
-       "over": 0.87,
-       "under": 0.99
+       "line": "1.75",
+       "over": 0.83,
+       "under": 1.03
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.64,
-       "draw": 3.2,
-       "away": 2.46
+       "home": 8.8,
+       "draw": 1.42,
+       "away": 3.55
       },
       "live": null
      }
     },
     "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 37,
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 64,
      "prob": {
-      "home": 34.5,
-      "draw": 28.5,
-      "away": 37
+      "home": 10.3,
+      "draw": 64,
+      "away": 25.6
      },
-     "clear": false,
-     "margin": 9.8
+     "clear": true,
+     "margin": 10
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 0"
+     "score": "0 - 1"
     }
    },
    {
@@ -5064,7 +4240,7 @@ const FOOTBALL_DATA = {
      "color": "990099"
     },
     "time": "2026-10-17 02:30:00",
-    "minute": 63,
+    "minute": 64,
     "home": {
      "name": "法兰克福",
      "score": 0,
@@ -5081,24 +4257,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.82",
-       "away": 1.07
+       "line": "0.83",
+       "away": 1.06
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.75",
-       "over": 0.92,
-       "under": 0.96
+       "line": "1",
+       "over": 0.78,
+       "under": 1.11
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.15,
-       "draw": 4,
-       "away": 2.99
+       "home": 2.3,
+       "draw": 4.95,
+       "away": 2.42
       },
       "live": null
      }
@@ -5106,11 +4282,11 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 44.3,
+     "confidence": 41.4,
      "prob": {
-      "home": 44.3,
-      "draw": 23.8,
-      "away": 31.9
+      "home": 41.4,
+      "draw": 19.2,
+      "away": 39.4
      },
      "clear": false,
      "margin": 5
@@ -5146,25 +4322,25 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.75,
-       "line": "0.96",
-       "away": 0.92
+       "home": -0.5,
+       "line": "1.01",
+       "away": 0.87
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "3.5",
-       "over": 0.8,
-       "under": 1.06
+       "line": "3",
+       "over": 1.05,
+       "under": 0.81
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.7,
-       "draw": 5.8,
-       "away": 2.97
+       "home": 2.01,
+       "draw": 7.4,
+       "away": 2.13
       },
       "live": null
      }
@@ -5172,14 +4348,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 53.6,
+     "confidence": 45.1,
      "prob": {
-      "home": 53.6,
-      "draw": 15.7,
-      "away": 30.7
+      "home": 45.1,
+      "draw": 12.3,
+      "away": 42.6
      },
      "clear": true,
-     "margin": 9.7
+     "margin": 10.2
     },
     "result": {
      "actual": "draw",
@@ -5196,7 +4372,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-10-17 02:30:00",
-    "minute": 66,
+    "minute": 67,
     "home": {
      "name": "莱加内斯",
      "score": 0,
@@ -5213,24 +4389,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.05",
-       "away": 0.83
+       "line": "1.21",
+       "away": 0.7
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.25",
-       "over": 0.83,
-       "under": 1.03
+       "line": "0.75",
+       "over": 1.01,
+       "under": 0.85
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 3.15,
-       "draw": 2.95,
-       "away": 2.35
+       "home": 4.35,
+       "draw": 3.3,
+       "away": 1.83
       },
       "live": null
      }
@@ -5238,94 +4414,20 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 39.3,
+     "confidence": 50.6,
      "prob": {
-      "home": 29.3,
-      "draw": 31.3,
-      "away": 39.3
+      "home": 21.3,
+      "draw": 28.1,
+      "away": 50.6
      },
-     "clear": false,
-     "margin": 8.2
+     "clear": true,
+     "margin": 7.9
     },
     "result": {
      "actual": "draw",
      "actualLabel": "平局",
      "hit": false,
      "score": "0 - 0"
-    }
-   },
-   {
-    "gid": 580953,
-    "kind": "live",
-    "league": {
-     "name": "爱甲",
-     "color": "006666"
-    },
-    "time": "2026-10-17 02:45:00",
-    "minute": 53,
-    "home": {
-     "name": "韦克斯福德青年",
-     "score": 1,
-     "red": 0,
-     "rank": 8
-    },
-    "away": {
-     "name": "都柏林大学",
-     "score": 3,
-     "red": 0,
-     "rank": 3
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.82",
-       "away": 1.06
-      },
-      "live": {
-       "home": 0,
-       "line": "0.86",
-       "away": 1.02
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "5.75",
-       "over": 0.8,
-       "under": 1.06
-      },
-      "live": {
-       "line": "4.5",
-       "over": 3.57,
-       "under": 0.14
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 14.5,
-       "draw": 1.11,
-       "away": 7.7
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 81.9,
-     "prob": {
-      "home": 6.3,
-      "draw": 81.9,
-      "away": 11.8
-     },
-     "clear": true,
-     "margin": 10
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "1 - 3"
     }
    },
    {
@@ -5353,57 +4455,111 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.12",
-       "away": 0.77
+       "line": "1.14",
+       "away": 0.75
       },
-      "live": {
-       "home": 0.25,
-       "line": "0.02",
-       "away": 7.14
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.25",
-       "over": 0.82,
-       "under": 1.04
+       "line": "2",
+       "over": 1.04,
+       "under": 0.82
       },
-      "live": {
-       "line": "1.5",
-       "over": 6.25,
-       "under": 0.02
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.44,
-       "draw": 7,
-       "away": 3.75
+       "home": 1.36,
+       "draw": 9.4,
+       "away": 3.85
       },
-      "live": {
-       "home": 1.01,
-       "draw": 23,
-       "away": 14.5
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 89.8,
+     "confidence": 66.8,
      "prob": {
-      "home": 89.8,
-      "draw": 3.9,
-      "away": 6.3
+      "home": 66.8,
+      "draw": 9.7,
+      "away": 23.6
      },
      "clear": true,
-     "margin": 10.3
+     "margin": 10.1
     },
     "result": {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
      "score": "1 - 0"
+    }
+   },
+   {
+    "gid": 580953,
+    "kind": "live",
+    "league": {
+     "name": "爱甲",
+     "color": "006666"
+    },
+    "time": "2026-10-17 02:45:00",
+    "minute": 53,
+    "home": {
+     "name": "韦克斯福德青年",
+     "score": 1,
+     "red": 0,
+     "rank": 8
+    },
+    "away": {
+     "name": "都柏林大学",
+     "score": 3,
+     "red": 0,
+     "rank": 3
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "0.96",
+       "away": 0.92
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "5.5",
+       "over": 0.94,
+       "under": 0.92
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 19.5,
+       "draw": 1.06,
+       "away": 9.2
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 85.5,
+     "prob": {
+      "home": 4.6,
+      "draw": 85.5,
+      "away": 9.9
+     },
+     "clear": true,
+     "margin": 10.3
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "1 - 3"
     }
    },
    {
@@ -5431,51 +4587,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.98",
-       "away": 0.84
+       "line": "0.82",
+       "away": 1
       },
-      "live": {
-       "home": 0,
-       "line": "0.96",
-       "away": 0.86
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.5",
-       "over": 0.79,
-       "under": 1.01
+       "line": "2.25",
+       "over": 0.97,
+       "under": 0.83
       },
-      "live": {
-       "line": "1.5",
-       "over": 3.03,
-       "under": 0.13
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.43,
-       "draw": 6.3,
-       "away": 3.85
+       "home": 1.31,
+       "draw": 8.8,
+       "away": 4.05
       },
-      "live": {
-       "home": 1.03,
-       "draw": 26,
-       "away": 9.1
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 86.7,
+     "confidence": 67.9,
      "prob": {
-      "home": 86.7,
-      "draw": 3.4,
-      "away": 9.8
+      "home": 67.9,
+      "draw": 10.1,
+      "away": 22
      },
      "clear": true,
-     "margin": 11.9
+     "margin": 12.4
     },
     "result": {
      "actual": "home",
@@ -5509,57 +4653,45 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.75,
-       "line": "0.99",
-       "away": 0.89
+       "line": "0.81",
+       "away": 1.07
       },
-      "live": {
-       "home": 0,
-       "line": "2.5",
-       "away": 0.28
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.5",
-       "over": 0.87,
-       "under": 0.99
+       "line": "3.25",
+       "over": 0.93,
+       "under": 0.93
       },
-      "live": {
-       "line": "1.5",
-       "over": 3.84,
-       "under": 0.12
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 2.29,
-       "draw": 3.1,
-       "away": 2.92
+       "home": 1.24,
+       "draw": 9.7,
+       "away": 5.2
       },
-      "live": {
-       "home": 1.08,
-       "draw": 31,
-       "away": 7
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 84.1,
+     "confidence": 73.2,
      "prob": {
-      "home": 84.1,
-      "draw": 2.9,
-      "away": 13
+      "home": 73.2,
+      "draw": 9.4,
+      "away": 17.5
      },
      "clear": true,
-     "margin": 10.1
+     "margin": 10.2
     },
     "result": {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
-     "score": "1 - 0"
+     "score": "2 - 0"
     }
    },
    {
@@ -5570,7 +4702,7 @@ const FOOTBALL_DATA = {
      "color": "009966"
     },
     "time": "2026-10-17 02:45:00",
-    "minute": 52,
+    "minute": 53,
     "home": {
      "name": "德罗赫达联",
      "score": 1,
@@ -5587,47 +4719,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "1.06",
-       "away": 0.82
+       "line": "0.81",
+       "away": 1.07
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.25",
-       "over": 0.77,
-       "under": 1.09
+       "line": "2",
+       "over": 0.8,
+       "under": 1.06
       },
-      "live": {
-       "line": "1.5",
-       "over": 4.34,
-       "under": 0.09
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.72,
-       "draw": 5.1,
-       "away": 3.3
+       "home": 1.49,
+       "draw": 7.5,
+       "away": 3.6
       },
-      "live": {
-       "home": 1.03,
-       "draw": 31,
-       "away": 10
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 88,
+     "confidence": 62,
      "prob": {
-      "home": 88,
-      "draw": 2.9,
-      "away": 9.1
+      "home": 62,
+      "draw": 12.3,
+      "away": 25.7
      },
      "clear": true,
-     "margin": 10.3
+     "margin": 8.2
     },
     "result": {
      "actual": "home",
@@ -5644,7 +4768,7 @@ const FOOTBALL_DATA = {
      "color": "009966"
     },
     "time": "2026-10-17 02:45:00",
-    "minute": 53,
+    "minute": 54,
     "home": {
      "name": "波希米亚人",
      "score": 1,
@@ -5661,51 +4785,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.91",
-       "away": 0.97
+       "line": "0.98",
+       "away": 0.9
       },
-      "live": {
-       "home": 0,
-       "line": "0.6",
-       "away": 1.38
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "3.5",
-       "over": 1.03,
-       "under": 0.83
+       "line": "3",
+       "over": 0.79,
+       "under": 1.07
       },
-      "live": {
-       "line": "2.5",
-       "over": 4.16,
-       "under": 0.1
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 2.26,
-       "draw": 3.85,
-       "away": 2.65
+       "home": 2.4,
+       "draw": 4.4,
+       "away": 2.29
       },
-      "live": {
-       "home": 10.5,
-       "draw": 14,
-       "away": 1.07
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 84.9,
+     "confidence": 40.4,
      "prob": {
-      "home": 8.6,
-      "draw": 6.5,
-      "away": 84.9
+      "home": 38.6,
+      "draw": 21,
+      "away": 40.4
      },
-     "clear": true,
-     "margin": 10.1
+     "clear": false,
+     "margin": 8.1
     },
     "result": {
      "actual": "draw",
@@ -5739,57 +4851,45 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "0.91",
-       "away": 0.97
+       "line": "0.7",
+       "away": 1.21
       },
-      "live": {
-       "home": 0,
-       "line": "1.44",
-       "away": 0.57
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.5",
-       "over": 0.99,
-       "under": 0.88
+       "line": "2.25",
+       "over": 1.02,
+       "under": 0.85
       },
-      "live": {
-       "line": "0.5",
-       "over": 5.26,
-       "under": 0.06
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 3.9,
-       "draw": 2.26,
-       "away": 2.6
+       "home": 10.5,
+       "draw": 1.3,
+       "away": 4.6
       },
-      "live": {
-       "home": 15.5,
-       "draw": 12,
-       "away": 1.05
-      }
+      "live": null
      }
     },
     "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 86.6,
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 71.1,
      "prob": {
-      "home": 5.9,
-      "draw": 7.6,
-      "away": 86.6
+      "home": 8.8,
+      "draw": 71.1,
+      "away": 20.1
      },
      "clear": true,
-     "margin": 10
+     "margin": 8.2
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 0"
+     "score": "0 - 1"
     }
    },
    {
@@ -5817,51 +4917,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.98",
-       "away": 0.91
+       "line": "0.92",
+       "away": 0.97
       },
-      "live": {
-       "home": 0,
-       "line": "0.97",
-       "away": 0.92
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "7.25",
-       "over": 1.03,
-       "under": 0.85
+       "line": "6.75",
+       "over": 0.92,
+       "under": 0.96
       },
-      "live": {
-       "line": "5.5",
-       "over": 2.7,
-       "under": 0.25
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.58,
-       "draw": 5.6,
-       "away": 4.2
+       "home": 1.42,
+       "draw": 7.6,
+       "away": 4.6
       },
-      "live": {
-       "home": 1.1,
-       "draw": 36,
-       "away": 7
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 84.2,
+     "confidence": 66.9,
      "prob": {
-      "home": 84.2,
-      "draw": 2.6,
-      "away": 13.2
+      "home": 66.9,
+      "draw": 12.5,
+      "away": 20.6
      },
      "clear": true,
-     "margin": 8
+     "margin": 5.3
     },
     "result": {
      "actual": "home",
@@ -5894,52 +4982,40 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.25,
-       "line": "1.05",
-       "away": 0.79
-      },
-      "live": {
        "home": 0,
-       "line": "0.74",
-       "away": 1.11
-      }
+       "line": "0.77",
+       "away": 1.07
+      },
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "3.25",
-       "over": 1.05,
-       "under": 0.77
+       "line": "2.5",
+       "over": 0.94,
+       "under": 0.88
       },
-      "live": {
-       "line": "1.5",
-       "over": 1.03,
-       "under": 0.79
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 4.8,
-       "draw": 1.54,
-       "away": 3.8
+       "home": 6.3,
+       "draw": 1.44,
+       "away": 3.7
       },
-      "live": {
-       "home": 15,
-       "draw": 1.21,
-       "away": 4.4
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "draw",
      "label": "平局",
-     "confidence": 73.8,
+     "confidence": 61.8,
      "prob": {
-      "home": 6,
-      "draw": 73.8,
-      "away": 20.3
+      "home": 14.1,
+      "draw": 61.8,
+      "away": 24.1
      },
      "clear": true,
-     "margin": 12
+     "margin": 12.3
     },
     "result": {
      "actual": "away",
@@ -5972,58 +5048,46 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -1,
-       "line": "1",
-       "away": 0.82
+       "home": -0.75,
+       "line": "0.83",
+       "away": 0.99
       },
-      "live": {
-       "home": -0.25,
-       "line": "1.09",
-       "away": 0.73
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2",
-       "over": 0.78,
-       "under": 1.02
+       "line": "2.75",
+       "over": 0.94,
+       "under": 0.86
       },
-      "live": {
-       "line": "0.5",
-       "over": 1.05,
-       "under": 0.75
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.5,
-       "draw": 5.7,
-       "away": 3.6
+       "home": 1.08,
+       "draw": 17.5,
+       "away": 7.3
       },
-      "live": {
-       "home": 2.8,
-       "draw": 7.5,
-       "away": 1.59
-      }
+      "live": null
      }
     },
     "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 56.2,
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 82.7,
      "prob": {
-      "home": 31.9,
-      "draw": 11.9,
-      "away": 56.2
+      "home": 82.7,
+      "draw": 5.1,
+      "away": 12.2
      },
      "clear": true,
-     "margin": 11.9
+     "margin": 12
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "0 - 0"
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
     }
    },
    {
@@ -6050,58 +5114,46 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.75,
-       "line": "0.83",
-       "away": 1.05
+       "home": -0.5,
+       "line": "0.98",
+       "away": 0.9
       },
-      "live": {
-       "home": -0.25,
-       "line": "1.25",
-       "away": 0.68
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2",
-       "over": 0.87,
-       "under": 0.99
+       "line": "2.5",
+       "over": 0.93,
+       "under": 0.93
       },
-      "live": {
-       "line": "0.5",
-       "over": 1.13,
-       "under": 0.74
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.65,
-       "draw": 5.3,
-       "away": 3.5
+       "home": 1.17,
+       "draw": 16,
+       "away": 6.1
       },
-      "live": {
-       "home": 3,
-       "draw": 7.5,
-       "away": 1.57
-      }
+      "live": null
      }
     },
     "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 57.7,
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 79.1,
      "prob": {
-      "home": 30.2,
-      "draw": 12.1,
-      "away": 57.7
+      "home": 79.1,
+      "draw": 5.8,
+      "away": 15.2
      },
      "clear": true,
-     "margin": 10.4
+     "margin": 8.1
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "0 - 0"
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
     }
    },
    {
@@ -6128,52 +5180,40 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.75,
-       "line": "0.95",
-       "away": 0.87
-      },
-      "live": {
        "home": -0.25,
-       "line": "1.28",
-       "away": 0.6
-      }
+       "line": "0.77",
+       "away": 1.05
+      },
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.75",
-       "over": 0.96,
-       "under": 0.84
+       "line": "2.25",
+       "over": 0.85,
+       "under": 0.95
       },
-      "live": {
-       "line": "1.5",
-       "over": 1.26,
-       "under": 0.59
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.1,
-       "draw": 15.5,
-       "away": 6.6
+       "home": 1.17,
+       "draw": 13.5,
+       "away": 5.3
       },
-      "live": {
-       "home": 1.04,
-       "draw": 26,
-       "away": 8.3
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 85.8,
+     "confidence": 76.5,
      "prob": {
-      "home": 85.8,
-      "draw": 3.4,
-      "away": 10.8
+      "home": 76.5,
+      "draw": 6.6,
+      "away": 16.9
      },
      "clear": true,
-     "margin": 12
+     "margin": 11.7
     },
     "result": {
      "actual": "home",
@@ -6207,57 +5247,45 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.09",
-       "away": 0.79
+       "line": "0.81",
+       "away": 1.07
       },
-      "live": {
-       "home": 0,
-       "line": "1.02",
-       "away": 0.86
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "3",
-       "over": 0.88,
-       "under": 0.98
+       "line": "3.5",
+       "over": 1.06,
+       "under": 0.8
       },
-      "live": {
-       "line": "1.5",
-       "over": 1.05,
-       "under": 0.81
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 1.52,
-       "draw": 5.6,
-       "away": 4.1
+       "home": 2.57,
+       "draw": 3.15,
+       "away": 2.69
       },
-      "live": {
-       "home": 1.23,
-       "draw": 15.5,
-       "away": 4.55
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 74.1,
+     "confidence": 36.1,
      "prob": {
-      "home": 74.1,
-      "draw": 5.9,
-      "away": 20
+      "home": 36.1,
+      "draw": 29.4,
+      "away": 34.5
      },
-     "clear": true,
-     "margin": 9.7
+     "clear": false,
+     "margin": 7.8
     },
     "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    },
    {
@@ -6285,51 +5313,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.88",
-       "away": 1.01
+       "line": "1.05",
+       "away": 0.84
       },
-      "live": {
-       "home": 0,
-       "line": "0.6",
-       "away": 1.4
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "1.75",
-       "over": 0.88,
-       "under": 1
+       "line": "1.25",
+       "over": 0.98,
+       "under": 0.9
       },
-      "live": {
-       "line": "0.5",
-       "over": 1.21,
-       "under": 0.7
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 2.23,
-       "draw": 3.95,
-       "away": 2.88
+       "home": 2.5,
+       "draw": 4.4,
+       "away": 2.35
       },
-      "live": {
-       "home": 3.65,
-       "draw": 5.6,
-       "away": 1.59
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 58.2,
+     "confidence": 40.4,
      "prob": {
-      "home": 25.3,
-      "draw": 16.5,
-      "away": 58.2
+      "home": 38,
+      "draw": 21.6,
+      "away": 40.4
      },
-     "clear": true,
-     "margin": 8.1
+     "clear": false,
+     "margin": 5.3
     },
     "result": {
      "actual": "draw",
@@ -6363,51 +5379,51 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.5,
-       "line": "1.01",
-       "away": 0.81
+       "line": "1.07",
+       "away": 0.75
       },
       "live": {
-       "home": -0.25,
-       "line": "1.2",
-       "away": 0.65
+       "home": 0,
+       "line": "0.45",
+       "away": 1.58
       }
      },
      "overunder": {
       "open": {
-       "line": "2",
-       "over": 0.89,
-       "under": 0.91
+       "line": "1.25",
+       "over": 0.77,
+       "under": 1.03
       },
       "live": {
-       "line": "0.75",
-       "over": 1.03,
-       "under": 0.77
+       "line": "0.5",
+       "over": 2.94,
+       "under": 0.14
       }
      },
      "europe": {
       "open": {
-       "home": 2.01,
-       "draw": 3.45,
-       "away": 3
+       "home": 2.07,
+       "draw": 4.2,
+       "away": 2.5
       },
       "live": {
-       "home": 2.83,
-       "draw": 4.8,
-       "away": 1.79
+       "home": 7.1,
+       "draw": 11.5,
+       "away": 1.12
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 49.9,
+     "confidence": 79.7,
      "prob": {
-      "home": 31.5,
-      "draw": 18.6,
-      "away": 49.9
+      "home": 12.6,
+      "draw": 7.8,
+      "away": 79.7
      },
      "clear": true,
-     "margin": 12
+     "margin": 12.1
     },
     "result": {
      "actual": "draw",
@@ -6415,515 +5431,87 @@ const FOOTBALL_DATA = {
      "hit": false,
      "score": "0 - 0"
     }
-   }
-  ],
-  "finished": [
-   {
-    "gid": 582657,
-    "kind": "finished",
-    "league": {
-     "name": "印米左超",
-     "color": "887792"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "拉姆塔爾文",
-     "score": 3,
-     "red": 0,
-     "rank": 0
-    },
-    "away": {
-     "name": "米佐拉姆警察",
-     "score": 2,
-     "red": 0,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": null,
-      "live": null
-     },
-     "overunder": {
-      "open": null,
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
    },
    {
-    "gid": 582435,
-    "kind": "finished",
+    "gid": 580715,
+    "kind": "live",
     "league": {
-     "name": "斯亞乙",
-     "color": "666611"
+     "name": "冰岛超",
+     "color": "CC9999"
     },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
+    "time": "2026-10-17 03:15:00",
+    "minute": 38,
     "home": {
-     "name": "卢布尔雅那",
-     "score": 0,
-     "red": 0,
-     "rank": 6
+     "name": "贝雷达比历克",
+     "score": 1,
+     "red": 1,
+     "rank": 4
     },
     "away": {
-     "name": "塔博塞扎纳",
-     "score": 1,
+     "name": "維京古",
+     "score": 0,
      "red": 0,
      "rank": 1
     },
     "odds": {
      "asian": {
       "open": {
-       "home": 0.5,
-       "line": "0.77",
-       "away": 0.93
+       "home": 1.75,
+       "line": "1.05",
+       "away": 0.83
       },
       "live": {
        "home": 0.25,
-       "line": "0.66",
-       "away": 1.04
+       "line": "0.8",
+       "away": 1.08
       }
      },
      "overunder": {
       "open": {
-       "line": "2.5",
-       "over": 0.92,
-       "under": 0.78
-      },
-      "live": {
-       "line": "1",
-       "over": 0.88,
-       "under": 0.82
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 3.1,
-       "draw": 1.93,
-       "away": 3.25
-      },
-      "live": {
-       "home": 3.75,
-       "draw": 2.51,
-       "away": 2.06
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 42.2,
-     "prob": {
-      "home": 23.2,
-      "draw": 34.6,
-      "away": 42.2
-     },
-     "clear": false,
-     "margin": 15.1
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": true,
-     "score": "0 - 1"
-    }
-   },
-   {
-    "gid": 582267,
-    "kind": "finished",
-    "league": {
-     "name": "克罗乙",
-     "color": "C5508C"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "歐帕提加",
-     "score": 1,
-     "red": 0,
-     "rank": 13
-    },
-    "away": {
-     "name": "雷迪塞瓦特",
-     "score": 0,
-     "red": 0,
-     "rank": 11
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.91",
-       "away": 0.79
-      },
-      "live": {
-       "home": 0,
-       "line": "0.64",
-       "away": 1.06
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 1.02,
-       "under": 0.68
-      },
-      "live": {
-       "line": "0.75",
-       "over": 0.74,
-       "under": 0.96
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.14,
-       "draw": 2.88,
-       "away": 2.96
-      },
-      "live": {
-       "home": 2.9,
-       "draw": 3.65,
-       "away": 1.89
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 46.1,
-     "prob": {
-      "home": 30,
-      "draw": 23.9,
-      "away": 46.1
-     },
-     "clear": true,
-     "margin": 14.8
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": false,
-     "score": "1 - 0"
-    }
-   },
-   {
-    "gid": 582438,
-    "kind": "finished",
-    "league": {
-     "name": "克罗乙",
-     "color": "C5508C"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "薩格勒布戴拿模U21",
-     "score": 0,
-     "red": 0,
-     "rank": 6
-    },
-    "away": {
-     "name": "卡洛华克",
-     "score": 1,
-     "red": 0,
-     "rank": 7
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.5,
-       "line": "0.82",
-       "away": 0.88
-      },
-      "live": {
-       "home": -0.25,
-       "line": "0.97",
-       "away": 0.73
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 0.77,
+       "line": "3.75",
+       "over": 0.93,
        "under": 0.93
       },
       "live": {
-       "line": "1",
-       "over": 0.96,
-       "under": 0.74
+       "line": "1.5",
+       "over": 1.35,
+       "under": 0.6
       }
      },
      "europe": {
       "open": {
-       "home": 1.82,
-       "draw": 3.45,
-       "away": 3.2
+       "home": 4.45,
+       "draw": 1.62,
+       "away": 3.9
       },
       "live": {
-       "home": 2.41,
-       "draw": 4.1,
-       "away": 2.03
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 42.8,
-     "prob": {
-      "home": 36,
-      "draw": 21.2,
-      "away": 42.8
-     },
-     "clear": false,
-     "margin": 15.1
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": true,
-     "score": "0 - 1"
-    }
-   },
-   {
-    "gid": 582434,
-    "kind": "finished",
-    "league": {
-     "name": "挪U19",
-     "color": "666677"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "布兰U19",
-     "score": 1,
-     "red": 0,
-     "rank": 0
-    },
-    "away": {
-     "name": "费德列斯达U19",
-     "score": 1,
-     "red": 0,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -1.25,
-       "line": "0.95",
-       "away": 0.87
-      },
-      "live": {
-       "home": -0.5,
-       "line": "0.9",
-       "away": 0.92
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "4.25",
-       "over": 1,
-       "under": 0.8
-      },
-      "live": {
-       "line": "1.75",
-       "over": 0.82,
-       "under": 0.98
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.46,
-       "draw": 4.35,
-       "away": 4.9
-      },
-      "live": {
-       "home": 1.9,
-       "draw": 4.05,
-       "away": 2.9
+       "home": 1.41,
+       "draw": 11,
+       "away": 3.3
       }
      }
     },
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 47.1,
+     "confidence": 64.3,
      "prob": {
-      "home": 47.1,
-      "draw": 22.1,
-      "away": 30.8
+      "home": 64.3,
+      "draw": 8.2,
+      "away": 27.5
      },
      "clear": true,
-     "margin": 11.8
+     "margin": 10.3
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
-    }
-   },
-   {
-    "gid": 582154,
-    "kind": "finished",
-    "league": {
-     "name": "南非甲",
-     "color": "3366CC"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "戈摩拉聯",
-     "score": 2,
-     "red": 1,
-     "rank": 5
-    },
-    "away": {
-     "name": "开普敦城",
-     "score": 3,
-     "red": 0,
-     "rank": 3
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "1",
-       "away": 0.7
-      },
-      "live": {
-       "home": 0,
-       "line": "0.97",
-       "away": 0.73
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2",
-       "over": 0.92,
-       "under": 0.78
-      },
-      "live": {
-       "line": "0.75",
-       "over": 0.82,
-       "under": 0.88
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.71,
-       "draw": 2.31,
-       "away": 2.88
-      },
-      "live": {
-       "home": 3.5,
-       "draw": 3.1,
-       "away": 1.84
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 47.2,
-     "prob": {
-      "home": 24.8,
-      "draw": 28,
-      "away": 47.2
-     },
-     "clear": true,
-     "margin": 15.2
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
+     "actual": "home",
+     "actualLabel": "主胜",
      "hit": true,
-     "score": "2 - 3"
+     "score": "1 - 0"
     }
-   },
-   {
-    "gid": 582437,
-    "kind": "finished",
-    "league": {
-     "name": "南非甲",
-     "color": "3366CC"
-    },
-    "time": "2026-10-16 21:30:00",
-    "minute": 0,
-    "home": {
-     "name": "海布里",
-     "score": 1,
-     "red": 0,
-     "rank": 4
-    },
-    "away": {
-     "name": "勒魯莫獅子",
-     "score": 2,
-     "red": 0,
-     "rank": 10
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.75",
-       "away": 0.95
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.13",
-       "away": 0.58
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2",
-       "over": 0.9,
-       "under": 0.8
-      },
-      "live": {
-       "line": "0.75",
-       "over": 0.8,
-       "under": 0.9
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.01,
-       "draw": 3.25,
-       "away": 2.91
-      },
-      "live": {
-       "home": 2.74,
-       "draw": 4.05,
-       "away": 1.85
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 46.9,
-     "prob": {
-      "home": 31.7,
-      "draw": 21.4,
-      "away": 46.9
-     },
-     "clear": true,
-     "margin": 15.2
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": true,
-     "score": "1 - 2"
-    }
-   },
+   }
+  ],
+  "finished": [
    {
     "gid": 581507,
     "kind": "finished",
@@ -7081,84 +5669,6 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 582156,
-    "kind": "finished",
-    "league": {
-     "name": "乌兹超",
-     "color": "887790"
-    },
-    "time": "2026-10-16 22:00:00",
-    "minute": 0,
-    "home": {
-     "name": "特尔梅兹",
-     "score": 0,
-     "red": 0,
-     "rank": 12
-    },
-    "away": {
-     "name": "花剌子模乌尔根奇",
-     "score": 0,
-     "red": 0,
-     "rank": 14
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.83",
-       "away": 1.03
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.19",
-       "away": 0.7
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.9,
-       "under": 0.94
-      },
-      "live": {
-       "line": "1",
-       "over": 0.85,
-       "under": 0.99
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.08,
-       "draw": 3.1,
-       "away": 3.35
-      },
-      "live": {
-       "home": 2.61,
-       "draw": 3.65,
-       "away": 2.16
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 41.3,
-     "prob": {
-      "home": 34.2,
-      "draw": 24.5,
-      "away": 41.3
-     },
-     "clear": false,
-     "margin": 12
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "0 - 0"
-    }
-   },
-   {
     "gid": 582290,
     "kind": "finished",
     "league": {
@@ -7234,6 +5744,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": false,
      "score": "2 - 4"
+    }
+   },
+   {
+    "gid": 582156,
+    "kind": "finished",
+    "league": {
+     "name": "乌兹超",
+     "color": "887790"
+    },
+    "time": "2026-10-16 22:00:00",
+    "minute": 0,
+    "home": {
+     "name": "特尔梅兹",
+     "score": 0,
+     "red": 0,
+     "rank": 12
+    },
+    "away": {
+     "name": "花剌子模乌尔根奇",
+     "score": 0,
+     "red": 0,
+     "rank": 14
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.83",
+       "away": 1.03
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.19",
+       "away": 0.7
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.9,
+       "under": 0.94
+      },
+      "live": {
+       "line": "1",
+       "over": 0.85,
+       "under": 0.99
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.08,
+       "draw": 3.1,
+       "away": 3.35
+      },
+      "live": {
+       "home": 2.61,
+       "draw": 3.65,
+       "away": 2.16
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 41.3,
+     "prob": {
+      "home": 34.2,
+      "draw": 24.5,
+      "away": 41.3
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "0 - 0"
     }
    },
    {
@@ -8173,84 +6761,6 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 582159,
-    "kind": "finished",
-    "league": {
-     "name": "斯伐甲",
-     "color": "224488"
-    },
-    "time": "2026-10-16 23:00:00",
-    "minute": 0,
-    "home": {
-     "name": "塔特拉",
-     "score": 1,
-     "red": 1,
-     "rank": 9
-    },
-    "away": {
-     "name": "尼克勒霍塔波德夫塔奇尼科姆",
-     "score": 0,
-     "red": 0,
-     "rank": 10
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.75,
-       "line": "0.85",
-       "away": 0.97
-      },
-      "live": {
-       "home": -0.25,
-       "line": "0.79",
-       "away": 1.03
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 0.96,
-       "under": 0.84
-      },
-      "live": {
-       "line": "1.25",
-       "over": 0.97,
-       "under": 0.83
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.71,
-       "draw": 3.7,
-       "away": 3.75
-      },
-      "live": {
-       "home": 2.04,
-       "draw": 4.65,
-       "away": 2.41
-      }
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 43.8,
-     "prob": {
-      "home": 43.8,
-      "draw": 19.2,
-      "away": 37
-     },
-     "clear": false,
-     "margin": 12
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
-   },
-   {
     "gid": 582160,
     "kind": "finished",
     "league": {
@@ -8326,6 +6836,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "平局",
      "hit": false,
      "score": "0 - 0"
+    }
+   },
+   {
+    "gid": 582159,
+    "kind": "finished",
+    "league": {
+     "name": "斯伐甲",
+     "color": "224488"
+    },
+    "time": "2026-10-16 23:00:00",
+    "minute": 0,
+    "home": {
+     "name": "塔特拉",
+     "score": 1,
+     "red": 1,
+     "rank": 9
+    },
+    "away": {
+     "name": "尼克勒霍塔波德夫塔奇尼科姆",
+     "score": 0,
+     "red": 0,
+     "rank": 10
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.85",
+       "away": 0.97
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.79",
+       "away": 1.03
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.96,
+       "under": 0.84
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.97,
+       "under": 0.83
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.71,
+       "draw": 3.7,
+       "away": 3.75
+      },
+      "live": {
+       "home": 2.04,
+       "draw": 4.65,
+       "away": 2.41
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 43.8,
+     "prob": {
+      "home": 43.8,
+      "draw": 19.2,
+      "away": 37
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
     }
    },
    {
@@ -9265,84 +7853,6 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 582162,
-    "kind": "finished",
-    "league": {
-     "name": "巴林超",
-     "color": "33CC99"
-    },
-    "time": "2026-10-17 00:00:00",
-    "minute": 0,
-    "home": {
-     "name": "伊迪法克",
-     "score": 2,
-     "red": 0,
-     "rank": 1
-    },
-    "away": {
-     "name": "麦纳麦",
-     "score": 2,
-     "red": 0,
-     "rank": 12
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.75,
-       "line": "0.99",
-       "away": 0.83
-      },
-      "live": {
-       "home": -0.25,
-       "line": "0.89",
-       "away": 0.93
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.97,
-       "under": 0.83
-      },
-      "live": {
-       "line": "1",
-       "over": 0.73,
-       "under": 1.07
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.77,
-       "draw": 3.65,
-       "away": 3.55
-      },
-      "live": {
-       "home": 2.28,
-       "draw": 4.3,
-       "away": 2.23
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 40.1,
-     "prob": {
-      "home": 39.2,
-      "draw": 20.8,
-      "away": 40.1
-     },
-     "clear": false,
-     "margin": 12
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "2 - 2"
-    }
-   },
-   {
     "gid": 582163,
     "kind": "finished",
     "league": {
@@ -9421,6 +7931,84 @@ const FOOTBALL_DATA = {
     }
    },
    {
+    "gid": 582162,
+    "kind": "finished",
+    "league": {
+     "name": "巴林超",
+     "color": "33CC99"
+    },
+    "time": "2026-10-17 00:00:00",
+    "minute": 0,
+    "home": {
+     "name": "伊迪法克",
+     "score": 2,
+     "red": 0,
+     "rank": 1
+    },
+    "away": {
+     "name": "麦纳麦",
+     "score": 2,
+     "red": 0,
+     "rank": 12
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.99",
+       "away": 0.83
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.89",
+       "away": 0.93
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.97,
+       "under": 0.83
+      },
+      "live": {
+       "line": "1",
+       "over": 0.73,
+       "under": 1.07
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.77,
+       "draw": 3.65,
+       "away": 3.55
+      },
+      "live": {
+       "home": 2.28,
+       "draw": 4.3,
+       "away": 2.23
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 40.1,
+     "prob": {
+      "home": 39.2,
+      "draw": 20.8,
+      "away": 40.1
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "2 - 2"
+    }
+   },
+   {
     "gid": 581554,
     "kind": "finished",
     "league": {
@@ -9496,84 +8084,6 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": true,
      "score": "0 - 1"
-    }
-   },
-   {
-    "gid": 581968,
-    "kind": "finished",
-    "league": {
-     "name": "捷乙",
-     "color": "ff7788"
-    },
-    "time": "2026-10-17 00:00:00",
-    "minute": 0,
-    "home": {
-     "name": "坡斯特乔",
-     "score": 2,
-     "red": 0,
-     "rank": 13
-    },
-    "away": {
-     "name": "列本",
-     "score": 2,
-     "red": 0,
-     "rank": 3
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.7",
-       "away": 1.16
-      },
-      "live": {
-       "home": 0,
-       "line": "1.03",
-       "away": 0.81
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.84,
-       "under": 0.98
-      },
-      "live": {
-       "line": "1.25",
-       "over": 1.08,
-       "under": 0.74
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.51,
-       "draw": 2.35,
-       "away": 3.65
-      },
-      "live": {
-       "home": 3.1,
-       "draw": 2.8,
-       "away": 2.26
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 39.4,
-     "prob": {
-      "home": 28.7,
-      "draw": 31.8,
-      "away": 39.4
-     },
-     "clear": false,
-     "margin": 12.2
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "2 - 2"
     }
    },
    {
@@ -9730,6 +8240,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": false,
      "score": "2 - 3"
+    }
+   },
+   {
+    "gid": 581968,
+    "kind": "finished",
+    "league": {
+     "name": "捷乙",
+     "color": "ff7788"
+    },
+    "time": "2026-10-17 00:00:00",
+    "minute": 0,
+    "home": {
+     "name": "坡斯特乔",
+     "score": 2,
+     "red": 0,
+     "rank": 13
+    },
+    "away": {
+     "name": "列本",
+     "score": 2,
+     "red": 0,
+     "rank": 3
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.25,
+       "line": "0.7",
+       "away": 1.16
+      },
+      "live": {
+       "home": 0,
+       "line": "1.03",
+       "away": 0.81
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.84,
+       "under": 0.98
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.08,
+       "under": 0.74
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.51,
+       "draw": 2.35,
+       "away": 3.65
+      },
+      "live": {
+       "home": 3.1,
+       "draw": 2.8,
+       "away": 2.26
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 39.4,
+     "prob": {
+      "home": 28.7,
+      "draw": 31.8,
+      "away": 39.4
+     },
+     "clear": false,
+     "margin": 12.2
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "2 - 2"
     }
    },
    {
@@ -11527,7 +10115,7 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 580938,
+    "gid": 580940,
     "kind": "finished",
     "league": {
      "name": "丹麦甲",
@@ -11536,72 +10124,72 @@ const FOOTBALL_DATA = {
     "time": "2026-10-17 01:00:00",
     "minute": 0,
     "home": {
-     "name": "科尔丁IF",
-     "score": 2,
+     "name": "阿晓斯费马",
+     "score": 0,
      "red": 0,
-     "rank": 10
+     "rank": 6
     },
     "away": {
-     "name": "文德斯尔",
-     "score": 1,
+     "name": "埃斯比約",
+     "score": 0,
      "red": 0,
-     "rank": 9
+     "rank": 12
     },
     "odds": {
      "asian": {
       "open": {
-       "home": -0.25,
-       "line": "0.93",
-       "away": 0.96
+       "home": 0,
+       "line": "0.82",
+       "away": 1.07
       },
       "live": {
        "home": 0,
-       "line": "0.7",
-       "away": 1.21
+       "line": "0.82",
+       "away": 1.05
       }
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 1,
-       "under": 0.86
+       "over": 0.9,
+       "under": 0.96
       },
       "live": {
        "line": "1.25",
-       "over": 1.08,
-       "under": 0.78
+       "over": 1.06,
+       "under": 0.8
       }
      },
      "europe": {
       "open": {
-       "home": 2.25,
-       "draw": 2.8,
-       "away": 3.6
+       "home": 2.3,
+       "draw": 2.63,
+       "away": 3.75
       },
       "live": {
-       "home": 2.65,
-       "draw": 3.45,
-       "away": 2.31
+       "home": 2.84,
+       "draw": 3.15,
+       "away": 2.33
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 39.4,
+     "confidence": 39.1,
      "prob": {
-      "home": 34.3,
-      "draw": 26.3,
-      "away": 39.4
+      "home": 32,
+      "draw": 28.9,
+      "away": 39.1
      },
      "clear": false,
-     "margin": 10
+     "margin": 9.9
     },
     "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
+     "actual": "draw",
+     "actualLabel": "平局",
      "hit": false,
-     "score": "2 - 1"
+     "score": "0 - 0"
     }
    },
    {
@@ -11683,7 +10271,7 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 580940,
+    "gid": 580938,
     "kind": "finished",
     "league": {
      "name": "丹麦甲",
@@ -11692,72 +10280,72 @@ const FOOTBALL_DATA = {
     "time": "2026-10-17 01:00:00",
     "minute": 0,
     "home": {
-     "name": "阿晓斯费马",
-     "score": 0,
+     "name": "科尔丁IF",
+     "score": 2,
      "red": 0,
-     "rank": 6
+     "rank": 10
     },
     "away": {
-     "name": "埃斯比約",
-     "score": 0,
+     "name": "文德斯尔",
+     "score": 1,
      "red": 0,
-     "rank": 12
+     "rank": 9
     },
     "odds": {
      "asian": {
       "open": {
-       "home": 0,
-       "line": "0.82",
-       "away": 1.07
+       "home": -0.25,
+       "line": "0.93",
+       "away": 0.96
       },
       "live": {
        "home": 0,
-       "line": "0.82",
-       "away": 1.05
+       "line": "0.7",
+       "away": 1.21
       }
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.9,
-       "under": 0.96
+       "over": 1,
+       "under": 0.86
       },
       "live": {
        "line": "1.25",
-       "over": 1.06,
-       "under": 0.8
+       "over": 1.08,
+       "under": 0.78
       }
      },
      "europe": {
       "open": {
-       "home": 2.3,
-       "draw": 2.63,
-       "away": 3.75
+       "home": 2.25,
+       "draw": 2.8,
+       "away": 3.6
       },
       "live": {
-       "home": 2.84,
-       "draw": 3.15,
-       "away": 2.33
+       "home": 2.65,
+       "draw": 3.45,
+       "away": 2.31
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 39.1,
+     "confidence": 39.4,
      "prob": {
-      "home": 32,
-      "draw": 28.9,
-      "away": 39.1
+      "home": 34.3,
+      "draw": 26.3,
+      "away": 39.4
      },
      "clear": false,
-     "margin": 9.9
+     "margin": 10
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "home",
+     "actualLabel": "主胜",
      "hit": false,
-     "score": "0 - 0"
+     "score": "2 - 1"
     }
    },
    {
@@ -12307,6 +10895,384 @@ const FOOTBALL_DATA = {
     }
    },
    {
+    "gid": 582270,
+    "kind": "finished",
+    "league": {
+     "name": "丹麦乙",
+     "color": "3792cc"
+    },
+    "time": "2026-10-17 01:45:00",
+    "minute": 0,
+    "home": {
+     "name": "奈司特維德",
+     "score": 2,
+     "red": 0,
+     "rank": 6
+    },
+    "away": {
+     "name": "堡鲁本B93",
+     "score": 1,
+     "red": 0,
+     "rank": 3
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "1.07",
+       "away": 0.75
+      },
+      "live": {
+       "home": 0,
+       "line": "1.07",
+       "away": 0.75
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 1.05,
+       "under": 0.75
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.01,
+       "under": 0.79
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.71,
+       "draw": 2.15,
+       "away": 3.5
+      },
+      "live": {
+       "home": 3.2,
+       "draw": 2.69,
+       "away": 2.3
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 38.9,
+     "prob": {
+      "home": 27.9,
+      "draw": 33.2,
+      "away": 38.9
+     },
+     "clear": false,
+     "margin": 11.9
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "2 - 1"
+    }
+   },
+   {
+    "gid": 582552,
+    "kind": "finished",
+    "league": {
+     "name": "馬爾甲",
+     "color": "FC7555"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "马沙斯洛克",
+     "score": 2,
+     "red": 0,
+     "rank": 3
+    },
+    "away": {
+     "name": "比尔基卡拉",
+     "score": 0,
+     "red": 1,
+     "rank": 8
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "0.96",
+       "away": 0.74
+      },
+      "live": {
+       "home": 0,
+       "line": "0.88",
+       "away": 0.82
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.93,
+       "under": 0.77
+      },
+      "live": {
+       "line": "1",
+       "over": 0.89,
+       "under": 0.81
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.43,
+       "draw": 2.35,
+       "away": 3.2
+      },
+      "live": {
+       "home": 3.05,
+       "draw": 2.99,
+       "away": 2.04
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 42.5,
+     "prob": {
+      "home": 28.4,
+      "draw": 29,
+      "away": 42.5
+     },
+     "clear": false,
+     "margin": 15.3
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "2 - 0"
+    }
+   },
+   {
+    "gid": 582559,
+    "kind": "finished",
+    "league": {
+     "name": "比女超",
+     "color": "CC9911"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "拉路維爾(女)",
+     "score": 2,
+     "red": 0,
+     "rank": 5
+    },
+    "away": {
+     "name": "布鲁日女足",
+     "score": 2,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 1.25,
+       "line": "0.81",
+       "away": 0.89
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "3.25",
+       "over": 0.91,
+       "under": 0.79
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 5,
+       "draw": 1.38,
+       "away": 4.35
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 62.8,
+     "prob": {
+      "home": 17.3,
+      "draw": 62.8,
+      "away": 19.9
+     },
+     "clear": true,
+     "margin": 15.5
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": true,
+     "score": "2 - 2"
+    }
+   },
+   {
+    "gid": 582271,
+    "kind": "finished",
+    "league": {
+     "name": "英U21",
+     "color": "ff1111"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "埃弗顿U21",
+     "score": 2,
+     "red": 0,
+     "rank": 14
+    },
+    "away": {
+     "name": "米德爾斯堡U21",
+     "score": 1,
+     "red": 0,
+     "rank": 27
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "1",
+       "away": 0.7
+      },
+      "live": {
+       "home": 0,
+       "line": "1",
+       "away": 0.7
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.25",
+       "over": 0.68,
+       "under": 1.02
+      },
+      "live": {
+       "line": "1.5",
+       "over": 0.97,
+       "under": 0.73
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.56,
+       "draw": 2.15,
+       "away": 4.05
+      },
+      "live": {
+       "home": 2.94,
+       "draw": 2.61,
+       "away": 2.52
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 35.4,
+     "prob": {
+      "home": 30.4,
+      "draw": 34.2,
+      "away": 35.4
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "2 - 1"
+    }
+   },
+   {
+    "gid": 582272,
+    "kind": "finished",
+    "league": {
+     "name": "英U21",
+     "color": "ff1111"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "诺维奇U21",
+     "score": 4,
+     "red": 0,
+     "rank": 12
+    },
+    "away": {
+     "name": "韋斯咸U21",
+     "score": 2,
+     "red": 0,
+     "rank": 15
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.8",
+       "away": 0.9
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.04",
+       "away": 0.66
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.5",
+       "over": 0.95,
+       "under": 0.75
+      },
+      "live": {
+       "line": "1.5",
+       "over": 1,
+       "under": 0.7
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.03,
+       "draw": 2.84,
+       "away": 3.95
+      },
+      "live": {
+       "home": 2.48,
+       "draw": 3.15,
+       "away": 2.5
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 36,
+     "prob": {
+      "home": 36,
+      "draw": 28.3,
+      "away": 35.7
+     },
+     "clear": false,
+     "margin": 12.1
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "4 - 2"
+    }
+   },
+   {
     "gid": 581011,
     "kind": "finished",
     "league": {
@@ -12343,6 +11309,708 @@ const FOOTBALL_DATA = {
     },
     "reco": null,
     "result": null
+   },
+   {
+    "gid": 582551,
+    "kind": "finished",
+    "league": {
+     "name": "瑞士杯",
+     "color": "1BA578"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "拉珀斯维尔",
+     "score": 0,
+     "red": 0,
+     "rank": 7
+    },
+    "away": {
+     "name": "圣加仑",
+     "score": 2,
+     "red": 0,
+     "rank": 4
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 1.5,
+       "line": "0.86",
+       "away": 0.84
+      },
+      "live": {
+       "home": 0.5,
+       "line": "1.02",
+       "away": 0.68
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.5",
+       "over": 0.8,
+       "under": 0.9
+      },
+      "live": {
+       "line": "1.5",
+       "over": 0.93,
+       "under": 0.77
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 6,
+       "draw": 1.28,
+       "away": 4.9
+      },
+      "live": {
+       "home": 5.5,
+       "draw": 1.68,
+       "away": 2.67
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 51.7,
+     "prob": {
+      "home": 15.8,
+      "draw": 51.7,
+      "away": 32.5
+     },
+     "clear": true,
+     "margin": 15.2
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 2"
+    }
+   },
+   {
+    "gid": 581508,
+    "kind": "finished",
+    "league": {
+     "name": "匈甲",
+     "color": "665566"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "MTK匈格利亚",
+     "score": 1,
+     "red": 1,
+     "rank": 9
+    },
+    "away": {
+     "name": "华沙斯",
+     "score": 0,
+     "red": 0,
+     "rank": 2
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "0.84",
+       "away": 1
+      },
+      "live": {
+       "home": 0,
+       "line": "0.86",
+       "away": 0.98
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.83,
+       "under": 0.99
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.87,
+       "under": 0.95
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.29,
+       "draw": 2.49,
+       "away": 3.8
+      },
+      "live": {
+       "home": 2.78,
+       "draw": 2.96,
+       "away": 2.37
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 37.7,
+     "prob": {
+      "home": 32.1,
+      "draw": 30.2,
+      "away": 37.7
+     },
+     "clear": false,
+     "margin": 11.9
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "1 - 0"
+    }
+   },
+   {
+    "gid": 580549,
+    "kind": "finished",
+    "league": {
+     "name": "荷乙",
+     "color": "FF7777"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "邓伯什",
+     "score": 2,
+     "red": 0,
+     "rank": 14
+    },
+    "away": {
+     "name": "托普奥斯",
+     "score": 1,
+     "red": 0,
+     "rank": 13
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1,
+       "line": "0.97",
+       "away": 0.91
+      },
+      "live": {
+       "home": -0.5,
+       "line": "1.01",
+       "away": 0.87
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.25",
+       "over": 0.9,
+       "under": 0.96
+      },
+      "live": {
+       "line": "1.5",
+       "over": 1.04,
+       "under": 0.82
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.53,
+       "draw": 4.5,
+       "away": 4.45
+      },
+      "live": {
+       "home": 2.01,
+       "draw": 4.4,
+       "away": 2.53
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 44.4,
+     "prob": {
+      "home": 44.4,
+      "draw": 20.3,
+      "away": 35.3
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "2 - 1"
+    }
+   },
+   {
+    "gid": 580547,
+    "kind": "finished",
+    "league": {
+     "name": "荷乙",
+     "color": "FF7777"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "赫尔蒙特",
+     "score": 0,
+     "red": 0,
+     "rank": 17
+    },
+    "away": {
+     "name": "布雷达",
+     "score": 2,
+     "red": 0,
+     "rank": 5
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 1.25,
+       "line": "0.95",
+       "away": 0.93
+      },
+      "live": {
+       "home": 0.5,
+       "line": "1",
+       "away": 0.88
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.5",
+       "over": 0.99,
+       "under": 0.87
+      },
+      "live": {
+       "line": "1.5",
+       "over": 0.99,
+       "under": 0.87
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 5.3,
+       "draw": 1.42,
+       "away": 4.8
+      },
+      "live": {
+       "home": 4.85,
+       "draw": 1.88,
+       "away": 2.62
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 47.5,
+     "prob": {
+      "home": 18.4,
+      "draw": 47.5,
+      "away": 34.1
+     },
+     "clear": true,
+     "margin": 12
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 2"
+    }
+   },
+   {
+    "gid": 580515,
+    "kind": "finished",
+    "league": {
+     "name": "法乙",
+     "color": "A93F3F"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "昂纳西",
+     "score": 1,
+     "red": 0,
+     "rank": 6
+    },
+    "away": {
+     "name": "南锡",
+     "score": 2,
+     "red": 0,
+     "rank": 5
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.25,
+       "line": "0.93",
+       "away": 0.95
+      },
+      "live": {
+       "home": 0,
+       "line": "1.25",
+       "away": 0.68
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.25",
+       "over": 0.92,
+       "under": 0.94
+      },
+      "live": {
+       "line": "1",
+       "over": 1.06,
+       "under": 0.8
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 3.05,
+       "draw": 2.23,
+       "away": 3.1
+      },
+      "live": {
+       "home": 3.6,
+       "draw": 2.72,
+       "away": 2.1
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 42.5,
+     "prob": {
+      "home": 24.8,
+      "draw": 32.8,
+      "away": 42.5
+     },
+     "clear": false,
+     "margin": 12.2
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": true,
+     "score": "1 - 2"
+    }
+   },
+   {
+    "gid": 580513,
+    "kind": "finished",
+    "league": {
+     "name": "法乙",
+     "color": "A93F3F"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "甘冈",
+     "score": 1,
+     "red": 0,
+     "rank": 11
+    },
+    "away": {
+     "name": "波城",
+     "score": 2,
+     "red": 0,
+     "rank": 8
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.97",
+       "away": 0.91
+      },
+      "live": {
+       "home": 0,
+       "line": "0.72",
+       "away": 1.19
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 1.03,
+       "under": 0.83
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.25,
+       "under": 0.66
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.25,
+       "draw": 2.85,
+       "away": 3.3
+      },
+      "live": {
+       "home": 2.72,
+       "draw": 3.45,
+       "away": 2.16
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 41.3,
+     "prob": {
+      "home": 32.8,
+      "draw": 25.9,
+      "away": 41.3
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": true,
+     "score": "1 - 2"
+    }
+   },
+   {
+    "gid": 580514,
+    "kind": "finished",
+    "league": {
+     "name": "法乙",
+     "color": "A93F3F"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "拉瓦尔",
+     "score": 3,
+     "red": 0,
+     "rank": 18
+    },
+    "away": {
+     "name": "克莱蒙特",
+     "score": 3,
+     "red": 0,
+     "rank": 17
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.88",
+       "away": 1
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.2",
+       "away": 0.71
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.98,
+       "under": 0.88
+      },
+      "live": {
+       "line": "1",
+       "over": 0.86,
+       "under": 1
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.13,
+       "draw": 3.05,
+       "away": 3.3
+      },
+      "live": {
+       "home": 2.61,
+       "draw": 3.55,
+       "away": 2.2
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 40.6,
+     "prob": {
+      "home": 34.2,
+      "draw": 25.2,
+      "away": 40.6
+     },
+     "clear": false,
+     "margin": 11.9
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "3 - 3"
+    }
+   },
+   {
+    "gid": 581536,
+    "kind": "finished",
+    "league": {
+     "name": "法乙",
+     "color": "A93F3F"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "兰斯",
+     "score": 4,
+     "red": 0,
+     "rank": 4
+    },
+    "away": {
+     "name": "第戎",
+     "score": 2,
+     "red": 0,
+     "rank": 7
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.5,
+       "line": "0.85",
+       "away": 1.03
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.96",
+       "away": 0.92
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 1.03,
+       "under": 0.83
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.97,
+       "under": 0.89
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.85,
+       "draw": 3.45,
+       "away": 3.75
+      },
+      "live": {
+       "home": 2.35,
+       "draw": 3.8,
+       "away": 2.32
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 38.5,
+     "prob": {
+      "home": 38,
+      "draw": 23.5,
+      "away": 38.5
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "4 - 2"
+    }
+   },
+   {
+    "gid": 580609,
+    "kind": "finished",
+    "league": {
+     "name": "荷甲",
+     "color": "FF6699"
+    },
+    "time": "2026-10-17 02:00:00",
+    "minute": 0,
+    "home": {
+     "name": "海伦芬",
+     "score": 4,
+     "red": 0,
+     "rank": 10
+    },
+    "away": {
+     "name": "SBV精英队",
+     "score": 0,
+     "red": 0,
+     "rank": 9
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1,
+       "line": "0.97",
+       "away": 0.92
+      },
+      "live": {
+       "home": -0.5,
+       "line": "1.03",
+       "away": 0.85
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.25",
+       "over": 0.86,
+       "under": 1.02
+      },
+      "live": {
+       "line": "1.5",
+       "over": 1.05,
+       "under": 0.83
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.6,
+       "draw": 4.8,
+       "away": 4.55
+      },
+      "live": {
+       "home": 2.03,
+       "draw": 4.6,
+       "away": 2.57
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 44.8,
+     "prob": {
+      "home": 44.8,
+      "draw": 19.8,
+      "away": 35.4
+     },
+     "clear": false,
+     "margin": 9.9
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "4 - 0"
+    }
    }
   ]
  }
