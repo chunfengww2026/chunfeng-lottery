@@ -327,7 +327,7 @@ jobs:
           echo "===== 各数据文件自带的更新时间（北京时间）====="
           for f in draws.js history.js prize-data.js football.js jc-data.js \
                    articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js \
-                   jc-divergence.js jc-titan.js ; do
+                   jc-divergence.js jc-titan.js jc-bifa.js ; do
             if [ -f "cloud/scripts/$f" ]; then
               S=$(grep -o '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' "cloud/scripts/$f" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
               if [ -z "$S" ]; then S=$(grep -oE '(更新时间|生成时间)[：:][[:space:]]*[0-9-]+ [0-9:]+' "cloud/scripts/$f" | head -1); fi
@@ -390,6 +390,11 @@ jobs:
           #   每个足球班次都会重抓 → 数字每轮都在变，内容【已经内嵌在 比赛详情.html 里】，
           #   单独提交等于同一份数据存两遍。仓库里永远有本机同步过来的兜底一份。
           git reset -q -- cloud/scripts/jc-titan.js 2>/dev/null || true
+          # 【雷达寻胆 · 成交资金面】2026-10-17 第 4 步加的 jc-bifa.js（约 10~60 KB）同上【不提交】：
+          #   成交额/成交价每轮都在变 → 每个足球班次都会重抓，内容【已经内嵌在 比赛详情.html 里】，
+          #   单独提交等于同一份数据存两遍。仓库里永远有本机同步过来的兜底一份；
+          #   就算没有，云端每班也会自己重新生成 —— 拿不到只是「雷达寻胆」少一档，不影响页面。
+          git reset -q -- cloud/scripts/jc-bifa.js 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "没有变化，跳过提交"
           else
