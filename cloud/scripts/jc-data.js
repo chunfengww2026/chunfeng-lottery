@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 19:39 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 19:28 */
 const JC_DATA = {
- "updated": "2026-10-16 19:39",
+ "updated": "2026-10-16 19:28",
  "stat": {
   "total": 44,
   "upcoming": 43,
-  "live": 0,
-  "finished": 1,
+  "live": 1,
+  "finished": 0,
   "withScore": 1
  },
  "games": [
@@ -20,11 +20,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "麦克阿瑟FC",
-    "rank": 11
+    "rank": null
    },
    "away": {
     "name": "珀斯",
-    "rank": 7
+    "rank": null
    },
    "score": null,
    "statusText": "- ",
@@ -212,7 +212,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "finished",
+   "status": "live",
    "minute": 0,
    "liveScore": {
     "home": 0,
@@ -842,11 +842,11 @@ const JC_DATA = {
    "handicap": null,
    "home": {
     "name": "中央海岸",
-    "rank": 4
+    "rank": null
    },
    "away": {
     "name": "纽喷气机",
-    "rank": 5
+    "rank": null
    },
    "score": null,
    "statusText": "- ",
@@ -4481,8 +4481,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
   "updated": "2026-10-16 19:28",
   "officialUpdate": "2026-10-16 19:22:33",
   "inSale": 44,
