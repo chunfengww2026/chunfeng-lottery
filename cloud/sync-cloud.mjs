@@ -308,7 +308,7 @@ const CODE_MODULES = [
         竞彩页就退回"推荐串 0 / 0% / 暂未开始统计"的旧样子（实测踩过：
         第一版同名混用把内核换成了数据，线上就一直没生效）。
      ⚠️ 存档【数据】是另一个文件 jc-reco-data.js，在下面 FROM_ROOT 里同步。 */
-  'jc-reco-archive.js', 'jc-reco-build.mjs',
+  'jc-reco-archive.js', 'jc-reco-build.mjs', 'jc-reco-view.js',   /* __RECO_VIEW_SYNC__ 页面侧 30 秒刷新脚本（漏同步会让线上 404、刷新静默失效） */
   /* 【出号 / 出页面 · 备用入口】roll-and-export.mjs 与 export-only.mjs。
      ⚠️ 先说清楚一件事，免得以后有人以为云端少了这两个就不会出号：
         云端【不靠】这两个脚本出号 —— cloud-build.mjs 自己是把
