@@ -1628,9 +1628,13 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 
 /* ①-补：上面 4 条要真的成立还差这几句（规格里没写，不写会散）：
    .left 必须竖排（标题一行、副标题一行），.right 必须靠右且不吃掉剩余宽度。
-   基础规则 .m-sec > summary.m-subhead 也设了 gap，这里提优先级压回规格值。 */
+   基础规则 .m-sec > summary.m-subhead 也设了 gap，这里提优先级压回规格值。
+   ⚠️ background / border 必须 !important —— 米杏色主题里有一条
+      `.jxp-pic, .m-subhead, .jxp-view-box { background:#f3e6d0 !important; border-color:#efe2cc !important }`
+      （实测：三个分段的 entry 行会变成 #f3e6d0 + #efe2cc，和推荐串那条 #fdf6ea 不一致）。 */
 .m-sec > summary.entry-item,
 .m-rec > summary.entry-item { gap: 4px 10px !important; }
+.entry-item { background: var(--card) !important; border: 1px solid var(--border) !important; }
 .entry-item .left { display: flex; flex-direction: column; min-width: 0; flex: 1 1 auto; }
 .entry-item .left .t { color: var(--text) !important; }
 /* 场次数（副标题）：去掉原来的深色小胶囊，只留 11px 副文字色 */
