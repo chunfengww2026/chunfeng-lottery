@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "亞特蘭大聯2隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "CT聯隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "防卫者",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "恩斯蒂图",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "卡拉普瓜",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
     "away": {
      "name": "雷西斯滕西亚",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "卡利博卡青年",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "卡利竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -386,16 +386,16 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "塞罗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "切洛拉高",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
@@ -3016,7 +3016,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "库恩卡",
      "score": 1,
@@ -3082,7 +3082,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 1,
@@ -3214,7 +3214,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,

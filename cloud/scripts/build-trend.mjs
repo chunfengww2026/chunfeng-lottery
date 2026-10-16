@@ -1266,7 +1266,7 @@ __TREND_SCRIPT_BODY__
      ⚠️ 互动层（工具栏行为 / 预选行点选 / 手画线）只能拼进【同一个 <script>】：
         页面不变量要求整页恰好 1 对 <script> 标签。 */
   const body = [
-    '/* 走势图数据快照 —— 构建时从 history.js 内嵌（本页唯一真数据源） */',
+    '/* 走势图数据快照 —— 构建时生成并内嵌（本页唯一真数据） */',
     'var TREND_DATA = ' + JSON.stringify(payload) + ';',
     '',
     appendInteract(RENDER_SRC),

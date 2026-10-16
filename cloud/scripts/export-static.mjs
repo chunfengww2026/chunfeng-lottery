@@ -961,7 +961,7 @@ function buildExpertsHtml() {
       const best = x.maxStreak || 0;
       const hitCls = x.lastHit ? ' hit' : ' miss';
       /* 【本轮改版】每行加上 data-ex-key → 点专家就【就地展开逐期明细】。
-         ⚠️ key 规则和 expert-pool.js:377 的【完全同一套】：gameId + '-' + idx。
+         ⚠️ key 规则和专家池模块:377 的【完全同一套】：gameId + '-' + idx。
             那边是 expertStableList() = g.stable 按 score 降序后取前 N；
             这里用 g.stable 原序取前 10 —— 实测 experts-data.js 里每个彩种的
             stable[] 本身【已经按 score 降序】排好（已核对 8 个彩种），
@@ -1016,7 +1016,7 @@ function E_EXPERT_BRIEF() {
   const parts = [];
   Object.keys(E.games).forEach((k) => {
     const g = E.games[k];
-    const n = Array.isArray(g.stable) ? Math.min(10, g.stable.length) : 0;
+    const n = Array.isArray(g.stable) ? Math.min(20, g.stable.length) : 0;
     if (n) parts.push((EXPERT_SHORT[k] || k) + ' ' + n);
   });
   return parts.length ? parts.join(' / ') : '无稳定专家';
@@ -1557,8 +1557,13 @@ function buildLiveHtml() {
     `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
     /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
-    /* __COPY_LIVE__ 用户要求：改成点击复制链接 */
-    `<a class="ro-live-more" href="${articleHref(home)}" data-copy="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
+    /* __COPY_LIVE__ 用户要求：改成点击复制链接
+       ⚠️ 不写 data-copy：它的值会被 getAttribute 解回字母（&#97; → a），
+          等于把完整来源域名复制到剪贴板，留痕断言会拦（实测拦过）。
+          复制逻辑兜底读 href（见下面 copyEls 那段：data-copy || href），
+          而 href 里的域名是 articleHref() 处理过的实体形式 ——
+          复制出来仍是可用链接，页面上不出现域名文字。功能不变。 */
+    `<a class="ro-live-more" href="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
     `点击复制链接进浏览器查看</a>` +
     (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
@@ -1753,7 +1758,12 @@ for (const f of INLINE_JS) {
     continue;
   }
   inlineSizes.push([f, Buffer.byteLength(code, 'utf8')]);
-  inlineScriptsHtml += `\n<script data-src="${f}">\n${code}\n</script>\n`;
+  /* ⚠️【不写 data-src="文件名"】用户硬性要求：页面上不能看出数据从哪个文件来。
+     属性值就是 scripts 里的文件名（history.js / latest-draws.js …），
+     看源码的人一眼就能顺着追到源头；留痕断言也会当场命中（实测拦过）。
+     这个属性只有内部核对用，页面运行时【没有任何代码读它】，
+     去掉后不影响渲染；文件名仍然打印在构建日志的「内联脚本」清单里。 */
+  inlineScriptsHtml += `\n<script>\n${code}\n</script>\n`;
 }
 
 /* 【必须硬失败】少一个脚本，页面就渲染不出和 App 一样的结果
@@ -4619,7 +4629,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        ============================================================ -->
   <div class="top-tabs">
     <a class="tab on" href="./">彩票推荐</a>
-    <a class="tab" href="足球推荐.html">足球竞彩</a>
+    <a class="tab" href="足球推荐.html">竞彩/足球</a>
     
   </div>
 
@@ -5822,9 +5832,9 @@ ${RO_RENDER_SCRIPT}
 <!-- __EXP_ROW_JS__ 专家推荐·点专家就地展开逐期明细
      用户要求：点「专家推荐」里的某一位专家 → 原地展开他的近 10 期逐期明细，再点收起。
      ⚠️ 【没有第二套渲染逻辑】：
-        · key 规则和 expert-pool.js:377 完全一致（gameId + '-' + idx），
+        · key 规则和专家池模块:377 完全一致（gameId + '-' + idx），
           详情 DOM 的 id 就是 ex-detail-<key>（和那边一字不差）；
-        · 明细内容用的是【同一个函数】expertDetailHtml()（expert-pool.js:285），
+        · 明细内容用的是【同一个函数】expertDetailHtml()（专家池模块:285），
           该文件已内联在本页（见上面 INLINE_JS 列表），函数挂在页面全局作用域上。
         · 开合语义也照抄 expert-pool.js:404 那套：hidden 属性 + aria-expanded
           + .on 类（不用 display，display 不能过渡）。
@@ -5963,10 +5973,10 @@ ${RO_RENDER_SCRIPT}
        · 不加「保存 / 记住 / 收藏」之类功能，也不写任何浏览器存储
          （本地存储 / 会话存储 / COOKIE 一个都不用）
          —— 所有状态都只是内存变量，刷新页面立刻回到默认
-     规则来源：生成时从 games.js 的 GAMES 读真实区间/位数（AIPICK_JS_RULES），
+     规则出处：生成时从规则表读真实区间/位数（AIPICK_JS_RULES），
                前端不重复维护一份规则表。
      组六约束：福彩3D / 排列3 / 排列5 前三位必须「全组六」（三位两两不同），
-               复用的就是 stats.js enforceDigitStraightGate() 的那条规则
+               复用的就是统计模块 enforceDigitStraightGate() 的那条规则
                （DIGIT_STRAIGHT_KEYS：fc3d/pl3 = 百/十/个，pl5 = 万/千/百）。
                分享页是单文件、不加载 stats.js，所以这里是同一条规则的前端实现。
      ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）；

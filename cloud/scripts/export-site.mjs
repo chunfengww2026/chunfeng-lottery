@@ -78,7 +78,7 @@ function injectNav(html, active) {
   const nav =
     `<div class="site-nav">` +
     `<a href="index.html" class="${active === 'lottery' ? 'on' : ''}">彩票推荐</a>` +
-    `<a href="football.html" class="${active === 'football' ? 'on' : ''}">竞彩场次</a>` +
+    `<a href="football.html" class="${active === 'football' ? 'on' : ''}">竞彩/足球</a>` +
     `<a href="走势图.html" class="${active === 'trend' ? 'on' : ''}">走势图</a>` +
     `</div>`;
 
