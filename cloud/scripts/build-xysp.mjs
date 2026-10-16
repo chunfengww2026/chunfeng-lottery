@@ -123,14 +123,15 @@ const GAMES = [
    ⚠️ 这条【取代】了以前那个 KEEP_HOURS=72 的抓取时间窗口，也取代了
       "七星彩/七乐彩 不受 24 小时限制" 那个老特例 —— 现在所有彩种一视同仁。 */
 const PUB_HOURS = 24;
-/* 每个彩种最多留几条。
-   ⚠️ 和"抓多少放多少"的关系：用户说的是【云端页面上抓多少就放多少】，
-      主要针对头条/竞彩那两路（它们一轮能抓 20~100 条）。一起彩这边
-      每个彩种一轮只有 10~30 条，而且源站自己就只给这么多，
-      40 条的上限实测【从来没有被顶到过】。为了不改变一起彩的既有行为，
-      这里保持 40 不动（放宽它不会多出一条数据）。
-      真正放宽到 200 的是 TT_MAX / JC_MAX（见 build-xysp-tt.mjs）。 */
-const MAX_PER_GAME = 40;
+/* 每个彩种最多留几条 —— 【只是防爆，不砍窗口内的内容】。
+   用户强调：「有多少放多少 要内容多」+「24小时以内抓取的全部都在呈现出来」。
+   ⚠️ 以前是 40。实测（2026-10-16）：单页实际 10~35 条，没撞到过，
+      但"没撞到过"不等于安全 —— 源站某天多放几张就会被砍。
+      现在放到 1000：
+        · 一起彩 8 个彩种单页实测各 10~35 条 → 1000 是 30~100 倍余量
+        · 8 个彩种全满 1000 也不可能（源站一页就给几十条）
+        · 真撞到上限会在日志里【明确打印警告】（见主流程），不会静默砍 */
+const MAX_PER_GAME = 1000;
 /* 两个页面之间至少隔这么久（保护数据源） */
 const GAP_MS = 1200;
 
@@ -348,11 +349,18 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     const freshList = Array.isArray(freshByGame[g.key]) ? freshByGame[g.key] : [];
     freshList.forEach((it) => push(it, true));
 
-    /* 排序：发布时间新的在前（没有发布时间的用抓取时间），再砍到上限 */
+    /* 排序：发布时间新的在前（没有发布时间的用抓取时间），再砍到上限。
+       ⚠️ 砍到上限会【记账】（stat.capped），主流程会打印警告 ——
+          用户明确要求"别偷偷砍"，所以绝不静默。 */
     const list = [...bucket.values()].sort((a, b) =>
       ((b.pubMs || Date.parse(b.at)) - (a.pubMs || Date.parse(a.at))) ||
       (Date.parse(b.at) - Date.parse(a.at)));
-    games[g.key] = { name: g.name, items: list.slice(0, MAX_PER_GAME) };
+    const keptList = list.slice(0, MAX_PER_GAME);
+    if (list.length > keptList.length) {
+      stat.capped = (stat.capped || 0) + (list.length - keptList.length);
+      stat.cappedGames = (stat.cappedGames || []).concat([`${g.name} ${list.length}→${keptList.length}`]);
+    }
+    games[g.key] = { name: g.name, items: keptList };
     stat.kept += games[g.key].items.length;
   }
   return { games, stat };
@@ -508,6 +516,15 @@ log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
   `（丢弃 ${stat.dropped} 条 [发布时间超 ${PUB_HOURS}h ${stat.dropPub} · 兜底超时 ${stat.dropCap}]` +
   ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条` +
   ` · 发布时间取不到退回抓取时间 ${stat.pubFallback} 条）`);
+/* 【上限警告】用户明确要求"别偷偷砍"。真撞到上限就【大声打出来】，
+   并且把上限值和被砍的彩种都列清楚，方便马上调大。 */
+if (stat.capped) {
+  log(`   ⚠️⚠️ 上限告警：有 ${stat.capped} 条因为 MAX_PER_GAME=${MAX_PER_GAME} 被砍掉了！`);
+  log(`        被砍的：${(stat.cappedGames || []).join(' · ')}`);
+  log(`        → 这些都在窗口内，按用户要求【不该被砍】。请把 MAX_PER_GAME 调大。`);
+} else {
+  log(`   上限检查：没有条目因为 MAX_PER_GAME=${MAX_PER_GAME} 被砍（每条都是窗口内的）`);
+}
 GAMES.concat([{ key: TT_KEY, name: TT_NAME }, { key: JC_KEY, name: JC_NAME }]).forEach((g) => {
   const items = (games[g.key] && games[g.key].items) || [];
   const h = (g.key === JC_KEY) ? (JC_KEEP_HOURS / 24) + ' 天' : PUB_HOURS + ' 小时';
