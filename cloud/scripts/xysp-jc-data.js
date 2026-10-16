@@ -9,12 +9,33 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 14:18
+   更新时间：2026-10-16 14:26
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 14:18",
+ "updated": "2026-10-16 14:26",
  "items": [
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b525609806634c4d8e20e7a646f9fdcc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=pPKFTz6ZqT2%2FaVdXEUXsYvoV2O8%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b525609806634c4d8e20e7a646f9fdcc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=pPKFTz6ZqT2%2FaVdXEUXsYvoV2O8%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b525609806634c4d8e20e7a646f9fdcc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=4ZADKlH8Uk0ae8uHKzuwctQIL5c%3D",
+   "title": "今日竞彩分享：德甲德乙+荷甲荷乙（二串一、四串一）",
+   "url": "https://toutiao.com/group/7697141746483970615/",
+   "at": "2026-10-16T06:26:01.280Z",
+   "src": "tt",
+   "cat": "jc",
+   "game": "2串1",
+   "games": [],
+   "issue": "",
+   "seen": "2026-10-16T06:26:01.280Z",
+   "drawAt": "",
+   "nextAt": "",
+   "drawGid": "",
+   "expireAt": "2026-10-17T06:26:01.280Z",
+   "rule": "cap",
+   "author": "体坛银哥",
+   "when": "2026-10-16 14:09:22"
+  },
   {
    "img": "https://p6-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/f773ff4eca3135e0845ec825b71e52cc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=zG6EJ70kfopHsvoZaTNWNxj4aVw%3D",
    "thumb": "https://p6-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/f773ff4eca3135e0845ec825b71e52cc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=zG6EJ70kfopHsvoZaTNWNxj4aVw%3D",
@@ -90,7 +111,7 @@ const XYSP_JC_DATA = {
    "game": "2串1",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:18:20.667Z",
+   "seen": "2026-10-16T06:16:01.290Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -111,7 +132,7 @@ const XYSP_JC_DATA = {
    "game": "比分",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:18:20.667Z",
+   "seen": "2026-10-16T06:26:01.280Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -132,7 +153,7 @@ const XYSP_JC_DATA = {
    "game": "比分",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:16:01.290Z",
+   "seen": "2026-10-16T06:26:01.280Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -153,7 +174,7 @@ const XYSP_JC_DATA = {
    "game": "2串1",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:18:20.667Z",
+   "seen": "2026-10-16T06:26:01.280Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -195,7 +216,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:18:20.667Z",
+   "seen": "2026-10-16T06:26:01.280Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -207,7 +228,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=EmlPj3ggnwI2O1v5ye8g0SPQhTg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=z3jo36KThzWt2%2FrOVNw8aXPIaqY%3D",
    "title": "体彩足彩竞彩中奖票",
    "url": "https://toutiao.com/group/7697108049638539804/",
    "at": "2026-10-16T03:56:02.176Z",
@@ -216,7 +237,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T06:18:20.667Z",
+   "seen": "2026-10-16T06:26:01.280Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
