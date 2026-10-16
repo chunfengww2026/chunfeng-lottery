@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 10:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 10:58 */
 const JC_DATA = {
- "updated": "2026-10-16 10:28",
+ "updated": "2026-10-16 10:58",
  "stat": {
   "total": 11,
   "upcoming": 11,
@@ -48,9 +48,9 @@ const JC_DATA = {
       "away": 4
      },
      "live": {
-      "home": 2.3,
-      "draw": 3.6,
-      "away": 2.88
+      "home": 2.25,
+      "draw": 3.7,
+      "away": 2.9
      }
     },
     "overunder": {
@@ -69,11 +69,11 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41,
+    "confidence": 41.9,
     "prob": {
-     "home": 41,
-     "draw": 26.2,
-     "away": 32.8
+     "home": 41.9,
+     "draw": 25.5,
+     "away": 32.5
     },
     "clear": false,
     "margin": 6,
@@ -1135,8 +1135,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 10:28",
-  "officialUpdate": "2026-10-16 10:12:45",
+  "updated": "2026-10-16 10:58",
+  "officialUpdate": "2026-10-16 10:33:33",
   "inSale": 11,
   "list": [
    {
@@ -1178,17 +1178,17 @@ const JC_DATA = {
     "home": "科特布斯",
     "away": "纽伦堡",
     "had": {
-     "h": 2.85,
-     "d": 3.97,
-     "a": 1.9,
-     "update": "2026-10-15 13:27:15"
+     "h": 2.95,
+     "d": 4,
+     "a": 1.85,
+     "update": "2026-10-16 10:30:53"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.7,
-     "d": 4.05,
-     "a": 3.4,
-     "update": "2026-10-15 13:27:15"
+     "h": 1.75,
+     "d": 4,
+     "a": 3.25,
+     "update": "2026-10-16 10:30:59"
     },
     "single": {
      "HAD": {
@@ -1271,10 +1271,10 @@ const JC_DATA = {
     "home": "登博思",
     "away": "奥斯",
     "had": {
-     "h": 1.56,
-     "d": 4.2,
-     "a": 4,
-     "update": "2026-10-15 13:27:15"
+     "h": 1.54,
+     "d": 4.25,
+     "a": 4.08,
+     "update": "2026-10-16 10:33:33"
     },
     "hhad": {
      "line": "-1",
