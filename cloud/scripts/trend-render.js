@@ -167,16 +167,25 @@ function trSlantAdjacent(draws) {
 }
 
 /**
- * 隔号斜连（用户的严格定义，原样实现）。
+ * 隔号斜连（用户的严格定义）。
  * @param {Array<Array<number>>} draws
- * @param {number} maxGap 默认 3
+ * @param {number} maxGap 最大相隔期数，默认 3
+ *
+ * ⚠️ 这里【故意偏离】了用户给的那行循环一个细节，说明清楚：
+ *      用户写的是  j <= Math.min(i + maxGap + 1, …)
+ *      那个 `+1` 会让 maxGap 比名字多放一期：maxGap=2 时 gap=3 也进得来
+ *      （实测：maxGap=2 → [[1],[],[],[4]] 仍出 gap=3；maxGap=3 会出 gap=4）。
+ *      按"maxGap = 最大相隔期数"的直觉，这里用 j <= i + maxGap，让
+ *      maxGap 严格等于上限。若哪天要退回用户那版字面语义，把 bound 改成
+ *      `Math.min(i + mg + 1, rows.length - 1)` 即可。
  */
 function trSlantGap(draws, maxGap) {
   const rows = Array.isArray(draws) ? draws : [];
   const mg = maxGap == null ? 3 : maxGap;
   const results = [];
   for (let i = 0; i < rows.length; i++) {
-    for (let j = i + 2; j <= Math.min(i + mg + 1, rows.length - 1); j++) {
+    const bound = Math.min(i + mg, rows.length - 1);
+    for (let j = i + 2; j <= bound; j++) {
       const gap = j - i;
       const from = rows[i] || [], to = rows[j] || [];
       for (let x = 0; x < from.length; x++) {
