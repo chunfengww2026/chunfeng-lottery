@@ -913,8 +913,8 @@ const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
     'pl3': { title: '排列三 手绘参考图（民间算法）', name: '排列三' }
   },
   liuMaMap: {
-    '3d':  { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4, 8] },
-    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6, 9] }
+    '3d':  { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4] },
+    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6] }
   }
 });
 console.log('  · 3D 手绘参考图：' + (p3dHtml
