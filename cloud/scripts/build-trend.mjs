@@ -696,27 +696,37 @@ const INTERACT_SRC = `
     }
   }
 
+  /* 从事件目标往上找带某个属性的元素（按钮里的文字被点到，也能找到按钮本身） */
+  function findUp(el, attr) {
+    while (el && el.getAttribute) {
+      if (el.getAttribute(attr) != null) return el;
+      el = el.parentNode;
+    }
+    return null;
+  }
+  /* 切画法：自由 / 直线 / 逐点 */
+  function applyStyle(s) {
+    if (!s) return;
+    drawStyle = s;
+    if (mode !== 'line') mode = 'line';          /* 兜底：在别的档点到也切进画线 */
+    applyMode();
+  }
+
   root.addEventListener('click', function (ev) {
-    var el = ev && ev.target;
-    if (!el || !el.getAttribute) return;
-    /* 按钮里的文字被点到 → 往上找 .btn */
-    if (!el.getAttribute('data-tool') && el.parentNode && el.parentNode.getAttribute) el = el.parentNode;
-    var t = el.getAttribute && el.getAttribute('data-tool');
-    if (t) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
+    if (isSyntheticAfterTouch(ev)) return;       /* 触摸已经在 touchend 里处理过 */
+    var el = findUp(ev && ev.target, 'data-tool');
+    if (!el) return;
+    var t = el.getAttribute('data-tool');
+    if (t) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); }
   });
 
   /* 画法档（自由 / 直线 / 逐点）：点一下就换画法（点文字也算，往上一层找按钮） */
   root.addEventListener('click', function (ev) {
-    var el = ev && ev.target;
-    while (el && el.getAttribute && el.getAttribute('data-tr-drawstyle') == null &&
-           el.parentNode && el.parentNode.getAttribute) el = el.parentNode;
-    if (!el || !el.getAttribute) return;
-    var s = el.getAttribute('data-tr-drawstyle');
-    if (!s) return;
+    if (isSyntheticAfterTouch(ev)) return;       /* 触摸已经在 touchend 里处理过 */
+    var el = findUp(ev && ev.target, 'data-tr-drawstyle');
+    if (!el) return;
     if (ev.preventDefault) ev.preventDefault();
-    drawStyle = s;
-    if (mode !== 'line') mode = 'line';          /* 兜底：在别的档点到也切进画线 */
-    applyMode();
+    applyStyle(el.getAttribute('data-tr-drawstyle'));
   });
 
   /* 浏览器的"补发鼠标事件"要挡掉：
@@ -747,7 +757,15 @@ const INTERACT_SRC = `
   });
   root.addEventListener('touchend', function (ev) {
     touchAt = (ev && ev.timeStamp) || 0;
-    if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();   /* 打断补发的 click */
+    /* ⚠️ 下面这条 preventDefault 会打断浏览器【补发的 click】——
+       所以「工具栏按钮 / 画法档 / 预选格」的触摸动作必须在这里自己处理完，
+       不能只等 click：实测（真机 + CDP 触摸）手指点按钮，click 不来 → 按钮没反应。
+       桌面鼠标没有 touchAt，照旧走 click，互不干扰。 */
+    if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
+    var toolEl = findUp(ev && ev.target, 'data-tool');
+    if (toolEl) { toolClicked(toolEl.getAttribute('data-tool'), toolEl); return; }
+    var styleEl = findUp(ev && ev.target, 'data-tr-drawstyle');
+    if (styleEl) { applyStyle(styleEl.getAttribute('data-tr-drawstyle')); return; }
     handlePreselTap(ev);
   });
   root.addEventListener('touchstart', function (ev) {
