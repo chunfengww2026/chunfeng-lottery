@@ -61,7 +61,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -173,7 +173,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 90,
+    "minute": 92,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -239,7 +239,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "CD奥林匹亚",
      "score": 2,
