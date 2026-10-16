@@ -16010,7 +16010,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 39,
+    "minute": 41,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
@@ -16048,7 +16048,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 1,
@@ -16086,7 +16086,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 25,
+    "minute": 27,
     "home": {
      "name": "乌拉尔青年队",
      "score": 0,
