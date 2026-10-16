@@ -499,7 +499,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "飓风队",
      "score": 1,
@@ -508,7 +508,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "拉普拉塔体操",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 12
     },
@@ -631,7 +631,7 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
