@@ -171,10 +171,14 @@ const FROM_ROOT = [
      jc-data.js 里消失 —— 已完场的累积记录全靠这个文件，不传上去
      云端重新生成竞彩页时「已完场」又会变回 0 场。 */
   'jc-history.js',
-  /* 【推荐串存档】jc-reco-archive.js 是 jc-reco-build.mjs 的【产物】，
+  /* 【推荐串存档 · 数据】jc-reco-data.js 是 jc-reco-build.mjs 的【产物】，
       同时也是竞彩页要读的数据。同步过去当兜底：万一云端那一班
       jc-reco-build.mjs 失败了，页面上仍然有本机刚算好的红黑统计，
-      不会被冲成"暂无已结算"。 */
+      不会被冲成"暂无已结算"。
+      ⚠️【代码和数据是两个文件，别合并】：jc-reco-archive.js 是计算内核
+         （代码，见下面 CODE_MODULES），jc-reco-data.js 才是这份存档数据。
+         第一版把两者挤在同一个文件名上 → 云端 require 到的成了数据 →
+         直接报 "R.bjStamp is not a function"，排查了好久。 */
   'jc-reco-data.js',
   /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
       必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
@@ -292,11 +296,13 @@ const CODE_MODULES = [
   'build-trend.mjs', 'trend-render.js', 'trend-mount.js',
   /* 【推荐串存档】用户 2026-10-17 第④项（前后 24 小时 + 红黑 + 存档比对）：
        · jc-reco-archive.js  纯计算内核（Node 侧 require、页面侧 vm 读，双模式）
-       · jc-reco-build.mjs   构建脚本：存这一期 + 回填红黑 → 写 jc-reco-archive.js
-     ⚠️ 两个都要同步：云端 cloud-build.mjs 会跑 jc-reco-build.mjs，
-        它 require jc-reco-archive.js —— 少了内核就连页面都出不来。
-     ⚠️ 生成物 jc-reco-archive.js【本身也是数据文件】，在下面 FROM_ROOT 里同步。 */
-  'jc-reco-build.mjs',
+       · jc-reco-build.mjs   构建脚本：存这一期 + 回填红黑 → 写 jc-reco-data.js
+     ⚠️【内核必须同步】：云端 cloud-build.mjs 会跑 jc-reco-build.mjs，
+        而它 require jc-reco-archive.js —— 少了内核这一步直接失败，
+        竞彩页就退回"推荐串 0 / 0% / 暂未开始统计"的旧样子（实测踩过：
+        第一版同名混用把内核换成了数据，线上就一直没生效）。
+     ⚠️ 存档【数据】是另一个文件 jc-reco-data.js，在下面 FROM_ROOT 里同步。 */
+  'jc-reco-archive.js', 'jc-reco-build.mjs',
   /* 【出号 / 出页面 · 备用入口】roll-and-export.mjs 与 export-only.mjs。
      ⚠️ 先说清楚一件事，免得以后有人以为云端少了这两个就不会出号：
         云端【不靠】这两个脚本出号 —— cloud-build.mjs 自己是把
