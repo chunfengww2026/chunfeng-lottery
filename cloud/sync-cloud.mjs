@@ -230,7 +230,15 @@ const FROM_ROOT = [
          所以 sync-cloud / cloud-build 的 out/ / workflow 的 site/ 【三处里只需要这一处】。
          云端自己每次足球班次也会重抓一遍（脚本自带 20 分钟 min-gap）；
          这里同步过去是【兜底】：云端抓不到时，页面仍有本机刚算好的那一份。 */
-  'jc-divergence.js'
+  'jc-divergence.js',
+  /* 【欧赔对比 · 数据】主流 12 家的 初盘/即时/返还率/凯利 明细
+     （同一趟抓取由 build-odds-divergence.mjs 写出来的第二份文件 jc-titan.js）。
+     ⚠️ 必须同步，理由和 jc-divergence.js 一模一样：详情页「欧赔对比」那一档是
+        构建时内嵌的，云端少了它就退回「暂无」。
+     ⚠️ 同样【不发布到线上】：页面自包含，线上站点目录里没有也不需要这个文件 →
+        sync-cloud / cloud-build 的 out/ / workflow 的 site/ 三处里【只需要这一处】。
+     ⚠️ 体积：只存主流 12 家（该场 320~370 家全存要 11 MB），64 场约 200 KB。 */
+  'jc-titan.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
@@ -686,6 +694,11 @@ if (LIST_ONLY) {
     (files.some((f) => f.repo === '.gitignore') ? '是' : '否'));
   log('  ✅ 清单中包含竞彩页「晒票」要读的数据 cloud/scripts/xysp-jc-data.js：' +
     (files.some((f) => f.repo === 'cloud/scripts/xysp-jc-data.js') ? '是' : '否 ❌'));
+  /* 【比赛详情页】两份构建时内嵌的数据：分歧指 + 欧赔对比（同一趟抓取的两个出口）。
+     少了任一个，云端出的详情页就会有一档退回「暂无」（静默降级，所以这里明着体检）。 */
+  log('  ✅ 清单中包含详情页要内嵌的两份数据 jc-divergence.js + jc-titan.js：' +
+    ((files.some((f) => f.repo === 'cloud/scripts/jc-divergence.js') &&
+      files.some((f) => f.repo === 'cloud/scripts/jc-titan.js')) ? '是' : '否 ❌'));
   log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
   ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
    'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',
