@@ -16,6 +16,8 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
+/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs） */
+import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
@@ -866,7 +868,7 @@ function buildArticlesHtml() {
           const bodyHtml = hasBody
             ? `<div class="ro-art-body" id="ro-art-${id}" data-ro-art="${id}">` +
               artBodyHtml(body) +
-              `<p class="ro-art-note">正文已抓取到本页，仅供阅读参考。</p>` +
+              `<p class="ro-art-note">正文已存入本页，仅供阅读参考。</p>` +
               `</div>`
             : '';
 
@@ -998,7 +1000,7 @@ function buildExpertsHtml() {
     '<span class="ro-xj-count">' + totalShown + '</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
-    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自于开发者自费</div>' +
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 在线整理</div>' +
     '<div class="ro-xj-list">' + groups + '</div>' +
     '<div class="ro-xj-more">已加载全部</div>' +
     '</details>';
@@ -6946,7 +6948,19 @@ ${RO_RENDER_SCRIPT}
 </body>
 </html>`;
 
-fs.writeFileSync(OUT, html, 'utf8');
+/* ============================================================
+   最后两道关卡（顺序不能反）：
+     ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
+     ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
+   两条都来自共用模块 make-keygate.mjs（4 个页面共用；比赛详情页由它自己的
+   生成脚本走同一套模块，见 build-match.mjs）。
+   ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+   ============================================================ */
+const safeHtml = neutralizeSourceWords(html);
+assertNoSourceTrace(safeHtml, '只读分享版.html');
+const gatedHtml = await prepareKeyGate(safeHtml, { label: '只读分享版.html' });
+fs.writeFileSync(OUT, gatedHtml, 'utf8');
+console.log('   🔒 密码门：正文已加密（改密码只改 make-keygate.mjs 的 KEYGATE_PASSWORD）');
 
 console.log(`✅ 已生成：${OUT}`);
 console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
