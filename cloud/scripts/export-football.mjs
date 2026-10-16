@@ -1740,6 +1740,11 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 `;
 
 
+/* 【30 秒实时刷新】页面里 id="jcRecStat" 那个条可以被脚本原地换掉内容：
+   data-reco-updated = 页面里这份存档的时间戳（拿它跟 jc-reco-view.js 里的比，一样就不动）。
+   ⚠️ 这段说明【必须写在模板外面】——
+      写在下面那个 const html 的反引号里面，会被当成正文渲染到页面上（用户 2026-10-17 截图报过，
+      同一位置原来写的就是一段 JS 块注释，结果被当成正文印到了页面上）。 */
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1810,8 +1815,6 @@ ${nav}
     <span class="n">（推荐胜负平比对最终比分）</span>
   </div>` : ''}
 
-  /* 【30 秒实时刷新】这个条可以被脚本原地换掉内容：
-     data-reco-updated = 页面里这份存档的时间戳（拿它跟 jc-reco-view.js 里的比，一样就不动） */
   <div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</div>
 
   ${renderRec()}
