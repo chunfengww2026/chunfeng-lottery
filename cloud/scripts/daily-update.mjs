@@ -223,6 +223,11 @@ function main() {
     run('build-football.mjs', ['all']);
     run('build-jc.mjs', []);
     run('build-prizes.mjs', []);
+    /* 【推荐串存档】必须紧跟 build-jc.mjs（它写 jc-history.js = 已完场累积）：
+       这一步把「这一期的推荐串」存进 jc-reco-archive.js，并拿已有终场比分回填红黑。
+       顺序很重要：晚于 build-jc（才有最新的已完场记录），早于出页面（页面要读它）。
+       纯本地计算、不联网、不调 AI。 */
+    run('jc-reco-build.mjs', []);
   } else log('  （--check 跳过）');
 
   /* 3.5 实票统计热力图（按天出）
@@ -281,6 +286,12 @@ function main() {
          此时它【不会覆盖】上一次的 xysp-data.js，页面继续显示上一轮内容。 */
   log('\n【3.8/5】抓晒票图片（网页「晒票栏」区块）');
   if (!CHECK_ONLY) {
+    /* 【3.8a】先抓今日头条的晒票（build-xysp-tt.mjs → xysp-tt-data.js）。
+       必须排在 build-xysp.mjs【之前】—— 后者要把这份缓存并进
+       xysp-data.js 的 games.tt。它抓不到只是退出码 10，
+       不影响下一步，也不影响出页面。 */
+    const ttOk = run('build-xysp-tt.mjs', []);
+    if (!ttOk) log('  ⚠️ 头条晒票本轮跳过（退出码 10 = 抓不到/退避中，沿用上一次的头条数据）');
     const xyspOk = run('build-xysp.mjs', []);
     if (!xyspOk) log('  ⚠️ 晒票本轮跳过（退出码 10 = 抓不到/退避中，沿用上一次的晒票数据）');
   } else log('  （--check 跳过）');
@@ -306,6 +317,21 @@ function main() {
    --dry 只报告不删；这里真删。失败不影响后续步骤。 */
 try { run('cleanup-cache.mjs', []); } catch (e) { /* 忽略：清理失败不影响出页面 */ }
     if (!kjhOk) log('  ⚠️ 开机号/选号直播本轮跳过（退出码 10 = 抓取失败/退避中，沿用上一次的数据）');
+  } else log('  （--check 跳过）');
+
+  /* 3.10 【竞彩在售场次】抓体彩官网公布的【真实】在售场次
+     ============================================================
+     用户原话：「上面竞猜在售多少场，一小时抓一下数据，提供真实数据，
+               体彩在售的场次」（网址 www.sporttery.cn/jc/jsq/zqspf/）
+     竞彩页那一行「体彩竞彩在售 N 场」的 N 就是这个数。
+     真正每小时一次交给「春风十里-文章-每小时」那一班（同一个任务里多跑
+     一步 build-jc-count.mjs），这里只是每天 2 点跟着再抓一次。
+     1 次请求，抓不到不覆盖旧 jc-official.js（退出码 10），页面自动退回
+     原来的 upcoming + live 兜底 —— 绝不会挡住出页面。 */
+  log('\n【3.10/5】抓体彩官网在售场次（竞彩页「在售 N 场」的数字）');
+  if (!CHECK_ONLY) {
+    const cntOk = run('build-jc-count.mjs', []);
+    if (!cntOk) log('  ⚠️ 在售场次本轮跳过（退出码 10 = 抓不到/退避中，沿用上一次的 jc-official.js）');
   } else log('  （--check 跳过）');
 
   /* 2. 归档 + 判断 */
