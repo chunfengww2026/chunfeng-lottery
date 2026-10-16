@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "拉普拉塔大学生",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 18
     },
     "away": {
      "name": "弗拉门戈",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -572,10 +572,10 @@ const FOOTBALL_DATA = {
      "color": "CC9988"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "蒙特維多國民隊",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
@@ -622,7 +622,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 66,
+    "minute": 72,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -688,7 +688,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "国际帕尔米拉",
      "score": 1,
@@ -754,7 +754,7 @@ const FOOTBALL_DATA = {
      "color": "558899"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "拉伊奎达德",
      "score": 3,
@@ -792,7 +792,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 28,
+    "minute": 34,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
