@@ -1133,10 +1133,10 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
-  "updated": "2026-10-16 09:58",
-  "officialUpdate": "2026-10-16 09:27:00",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-16 10:28",
+  "officialUpdate": "2026-10-16 10:12:45",
   "inSale": 11,
   "list": [
    {
