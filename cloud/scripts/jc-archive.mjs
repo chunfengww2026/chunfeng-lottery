@@ -304,6 +304,46 @@ function probFromOdds(odds) {
   };
 }
 
+/* ============================================================
+   3b. 推荐类型：three（胜负平）/ unbeaten（不败）
+   ------------------------------------------------------------
+   【为什么要存进归档】在售列表（jc-data.js）的 reco.type 是 build-jc.mjs
+   的 calcReco() 当场算的；一场比赛离开在售列表后只剩归档记录 —— 归档不带
+   type 的话，卡片就只能按 'three' 判红黑，同一个推荐「在售时算红、进归档后
+   算黑」，口径会变。所以归档必须把 type 一起留下来。
+
+   【规则】和 build-jc.mjs 的 recoTypeOf(pick, prob) 【一字不差】（改一边
+   必须改另一边，否则在售卡和归档卡的口径又会分叉）：
+     pick === 'draw'                     → 'three'（平局没法用"不败"表达）
+     prob[pick] >= 50%                   → 'three'（多数事件，单推合理）
+     prob[pick] < 50% 且 +平局 >= 50%    → 'unbeaten'（改推更稳的那一边不败）
+     概率缺失（当时没抓到赔率）           → 'three'（算不出来就不改推荐）
+
+   【值从哪来 —— 优先从 prob 现算，不瞎填】
+     · prob 本来就存在归档记录里（页面「主 x% / 平 y% / 客 z%」要用它），
+       按同一套规则现算即可，不需要猜、也不编数。
+     · game.reco.type 有值时以它为准（那是同一套规则当场算出来的同一个值）；
+       老数据没有 type 就走现算 —— 这就是为什么 2026-10-17 之前的 59 场
+       老归档也能补齐口径。
+   ============================================================ */
+const RECO_UNBEATEN_TOP = 50;
+
+function recoTypeOf(pick, prob) {
+  if (!pick || !prob) return 'three';        /* 算不出来 → 不改推荐 */
+  if (pick === 'draw') return 'three';       /* 平局没法用「不败」表达 */
+  const top = Number(prob[pick]);
+  if (!Number.isFinite(top) || top >= RECO_UNBEATEN_TOP) return 'three';
+  const ub = top + Number(prob.draw || 0);   /* 不败 = 胜 或 平 */
+  if (!Number.isFinite(ub) || ub < RECO_UNBEATEN_TOP) return 'three';   /* 兜底 */
+  return 'unbeaten';
+}
+
+/** 这场推荐是哪一种：reco.type 有值就用它，否则按 prob 现算（没有 prob → 'three'） */
+function recoTypeOfRecord(reco, prob) {
+  if (reco && (reco.type === 'unbeaten' || reco.type === 'three')) return reco.type;
+  return recoTypeOf(reco && reco.pick, prob);
+}
+
 /**
  * 把一场比赛做成历史记录。
  * 返回 null 表示「这场没有任何有用信息」——既没比分也没推荐，收了也是空壳。
@@ -342,6 +382,11 @@ function toHistoryRecord(game, fbList, at) {
     || (fb && fb.reco && fb.reco.prob)
     || probFromOdds(odds);
 
+  /* 【推荐类型】three / unbeaten —— 规则和来源见上面 3b 段。
+     注意用的是【算完的 prob】（优先当时存的，其次从赔率反推），
+     所以老数据没 type 也能现算出来，不会瞎填。 */
+  const type = recoTypeOfRecord(reco, prob);
+
   return {
     code: game.code || '',
     league: game.league || (fb && fb.league && fb.league.name) || '',
@@ -360,6 +405,10 @@ function toHistoryRecord(game, fbList, at) {
     pick,
     pickLabel: reco && reco.label ? reco.label : '',
     conf: reco && reco.confidence != null ? reco.confidence : null,
+    /* 【推荐类型】three（胜负平）/ unbeaten（不败）—— 判定规则见上面 3b 段。
+       出页面时按它判红黑（不败：主胜或平 / 客胜或平都算中），
+       保证「在售时怎么算、进了归档还怎么算」，口径不漂移。 */
+    type,
     result,
     hit,
     matched: !!fb,
@@ -552,5 +601,7 @@ export {
   norm, sameTeam, codeKey, identityKeys, dayOf, scoresOf,
   findInFootball, archiveJcHistory, toHistoryRecord,
   mergeHistory, trimHistory, hasRealResult, recordKeys,
-  historyToGame, renderHistoryJs
+  historyToGame, renderHistoryJs,
+  /* 【推荐类型】给回填老归档 / 单测复用，保证用的是同一个 recoTypeOf */
+  RECO_UNBEATEN_TOP, recoTypeOf, recoTypeOfRecord
 };

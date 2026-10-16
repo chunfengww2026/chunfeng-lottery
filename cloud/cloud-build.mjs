@@ -1478,6 +1478,40 @@ function finishOutput(freshRows) {
     fs.writeFileSync(fp, html, 'utf8');
   }
 
+  /* ============================================================
+     【链接改写】站点上的文件名 ≠ 本机文件名
+     ------------------------------------------------------------
+     本机：竞彩页的文件名是 足球推荐.html（export-football.mjs 写出来的）
+     线上：它在上面 pairs 里被改名发布成 football.html
+     → 任何页面里写死 href="足球推荐.html" 的链接，上线后都是【死链】。
+       实测（2026-10-17）：线上直接打开 比赛详情.html，点「← 返回」→ 404。
+
+     这里把 out/ 那几份页面里的 href="足球推荐.html" 统一改成 href="football.html"。
+     ⚠️【只替换 href 的值】—— 详情页的返回键长这样：
+         <a class="md-back" id="mdBack" role="button" href="足球推荐.html"
+            onclick="if(history.length>1){history.back();return false}">
+        onclick 必须原样保留：history.back() 是「从竞彩页点进来」时的首选返回路径，
+        href 只是「直接打开详情页 / history 为空」时的兜底。改 href 不动 onclick。
+     ⚠️ 正则只匹配 href="足球推荐.html" 这一小段，不碰 onclick、不碰别的文字。
+     ⚠️ 覆盖四份页面：index/football/走势图 里本身没有这个 href
+        （顶部 Tab 已经在上面按站点文件名重写过），多写一遍是幂等的 ——
+        真要有，也正好一起修掉，不会再出现"只改了三份、漏了详情页"。
+     ⚠️ 静默失效自证：命中几处就打在日志里，0 处也打（说明这份页面本来就没有这个链接）。
+     ============================================================ */
+  {
+    const LINK_FIX_FILES = ['index.html', 'football.html', '走势图.html', '比赛详情.html'];
+    LINK_FIX_FILES.forEach((dst) => {
+      const fp = path.join(OUT, dst);
+      if (!fs.existsSync(fp)) return;
+      let html = fs.readFileSync(fp, 'utf8');
+      const hit = html.split('href="足球推荐.html"').length - 1;
+      if (!hit) { log(`  🔗 ${dst}：没有 href="足球推荐.html"（无需改写）`); return; }
+      html = html.replace(/href="足球推荐\.html"/g, 'href="football.html"');
+      fs.writeFileSync(fp, html, 'utf8');
+      log(`  🔗 ${dst}：改写 ${hit} 处 href="足球推荐.html" → href="football.html"（onclick 原样保留）`);
+    });
+  }
+
   /* 首页跳转说明 */
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '', 'utf8');
 
