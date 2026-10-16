@@ -14150,7 +14150,7 @@ const FOOTBALL_DATA = {
     "minute": 49,
     "home": {
      "name": "诺维贝尔格莱德U19",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
