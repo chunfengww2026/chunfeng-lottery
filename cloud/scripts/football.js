@@ -14776,7 +14776,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 90,
+    "minute": 92,
     "home": {
      "name": "共和國",
      "score": 2,
@@ -15106,7 +15106,7 @@ const FOOTBALL_DATA = {
      "color": "880030"
     },
     "time": "2026-10-16 19:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "库克斯",
      "score": 0,
@@ -15184,7 +15184,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-16 19:35:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "河南队",
      "score": 0,
