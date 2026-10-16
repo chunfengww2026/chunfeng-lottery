@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "迪波特斯(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "彭美拉斯SP女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -683,7 +683,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 06:15:00",
-    "minute": 84,
+    "minute": 87,
     "home": {
      "name": "利昂内斯",
      "score": 1,
