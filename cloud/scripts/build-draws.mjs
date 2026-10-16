@@ -595,7 +595,12 @@ async function main() {
   }
 
   // 5. 写文件
-  const now = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  /* 【时区·别再改回 toISOString】必须用【北京时间】（理由同 build-history.mjs）：
+     toISOString() 是 UTC，会让页面「数据快照」比真实时间早 8 小时 ——
+     实测 draws.js 的 mtime 是 10-17 02:00:02，updated 却写 10-16 18:00:02。 */
+  const _d = new Date(), _p2 = (x) => String(x).padStart(2, '0');
+  const now = `${_d.getFullYear()}-${_p2(_d.getMonth() + 1)}-${_p2(_d.getDate())} `
+    + `${_p2(_d.getHours())}:${_p2(_d.getMinutes())}:${_p2(_d.getSeconds())}`;
 
   /* 【分班抓取必须补齐另外几个彩种】------------------------------------------------
      --only 只抓了 4 个，剩下 4 个如果直接写空，
