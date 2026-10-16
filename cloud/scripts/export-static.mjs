@@ -1176,7 +1176,7 @@ function buildXyspHtml() {
     )).join('');
 
   const body = cards.length
-    ? `<div class="ro-xysp-pics allow-save" data-ro-xysp-grid>${cards.join('')}</div>` +
+    ? `<div class="ro-xysp-pics allow-save" data-ro-xysp-grid>${sortedCards.join('')}</div>` +
       `<div class="ro-xysp-empty" hidden>该分类 72 小时内暂无晒票</div>`
     : `<div class="ro-xysp-empty">暂无（每 30 分钟自动更新）</div>`;
 
@@ -2533,6 +2533,20 @@ body.ro-mob-open { overflow: hidden; }
   font-size: 12px;
   color: #98a1b2;
   background: linear-gradient(180deg, rgba(6,8,12,0), rgba(6,8,12,.94));
+  pointer-events: none;
+}
+
+/* 全屏看图 · 图片加载失败时的兜底提示（用户要求"别显示破图"）。
+   定位和 .ro-mob-tip 错开，免得两行字叠在一起。 */
+.ro-mob-err {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 52px;
+  z-index: 9;
+  text-align: center;
+  font-size: 12.5px;
+  color: #e0a35c;
+  padding: 0 16px;
   pointer-events: none;
 }
 
@@ -4502,20 +4516,33 @@ ${RO_RENDER_SCRIPT}
     /* 【必须重算】外链图是过一会儿才加载完的：
        没加载完时它的高度是 0，fit 会按「高度 0」算出不对的容器高度。
        图片 load / error 之后各再量一次，缩放就准了。 */
-    im.addEventListener('load', function () { applyScale(); });
-    im.addEventListener('error', function () { applyScale(); });
+    im.addEventListener('load', function () { applyScale(); if (box.__roErr) { box.__roErr.parentNode && box.__roErr.parentNode.removeChild(box.__roErr); box.__roErr = null; } });
+    /* 【加载失败兜底】别显示破图：给一句提示，缩放仍然算一次
+       （用户给的参考实现直接设 src，没有兜底 → 网络不好时是一片空白）。 */
+    im.addEventListener('error', function () {
+      applyScale();
+      if (!box.__roErr) {
+        box.__roErr = document.createElement('div');
+        box.__roErr.className = 'ro-mob-err';
+        box.__roErr.textContent = '这张图加载失败，换个网络再试 · 上下滑动看别的';
+        holder.appendChild(box.__roErr);
+      }
+    });
     im.src = src;
     box.appendChild(im);
     holder.appendChild(box);
 
     img = im;
     cur = { game: '', image: '', url: src };
-    zoom = 'fit';
+    zoom = 'fit';             /* ⚠️ 切图后【必须重置成 fit】（用户明确要求） */
 
     view.removeAttribute('hidden');
     mark('ro-mob-open', true);
-    /* 返回键 / 后退能关：压一条历史记录，popstate 时关掉（跟 open() 一样） */
-    try { history.pushState({ roMob: cur }, ''); } catch (e) { /* 忽略 */ }
+    /* 返回键 / 后退能关：压一条历史记录，popstate 时关掉（跟 open() 一样）。
+       ⚠️ 浏览相册时【不要每切一张就压一条历史】——
+          那样按一次返回键只退回上一张，要按 200 次才能关掉。
+          所以切图走 flipTo()，它不压历史。 */
+    if (!CALLER_SETS_HISTORY) { try { history.pushState({ roMob: cur }, ''); } catch (e) { /* 忽略 */ } }
 
     applyScale();
     setTimeout(applyScale, 0);
@@ -4524,6 +4551,118 @@ ${RO_RENDER_SCRIPT}
     setTimeout(applyScale, 900);
     setTimeout(applyScale, 1800);
     return true;
+  }
+
+  /* ============================================================
+     【相册 · 上下滑动切换上一张/下一张】
+     用户要求：
+       「点某张图 → 全屏 → 向上滑 → 下一张 / 向下滑 → 上一张；
+         第一张向下 / 最后一张向上 → 停在原地；
+         切图后缩放重置成 fit；4 种关闭方式不能坏」
+     ------------------------------------------------------------
+     设计要点（踩过的坑都写在注释里）：
+       · 【复用这一层】，不新造第二个全屏层 —— 用户明确要求，
+         否则页面里会有两套看图逻辑互相打架。
+       · 列表顺序 = 页面上的顺序 = 【按发布时间倒序】（最新在前）。
+         由调用方（__XYSP_VIEW__）传入，这里只负责前后移动。
+       · 手势判定（和"点一下切缩放"共存）：
+           按下→抬起，位移 < 10px 且 < 300ms  → 算【点击】→ 交给原有的
+              click 处理去切缩放（这里不动，也不 preventDefault）
+           位移 > 50px                        → 算【滑动】→ 切上一张/下一张
+           介于两者之间                        → 什么也不做（避免误触）
+         只认【纵向】滑动（|dy| > |dx|），横向留给浏览器/系统手势。
+       · 只在【全屏层打开时】才 preventDefault 拦滚动 —— 用户明确要求。
+       · 切图时【不压历史】：否则按返回键要一张一张退回去，关不掉。
+     ============================================================ */
+  var gallery = null;         /* { list:[{src,cap}], i:number } */
+  var CALLER_SETS_HISTORY = false;   /* 切图期间不压历史（见上） */
+
+  function galleryHint() {
+    if (!gallery || !gallery.list || gallery.list.length < 2) return '';
+    return '第 ' + (gallery.i + 1) + ' / ' + gallery.list.length + ' 张 · 上下滑动切换';
+  }
+  function updateTip() {
+    if (!tip) return;
+    var h = galleryHint();
+    /* 相册模式下把提示换成「第 N / M 张 · 上下滑动切换」；
+       非相册（目录格子 / 推荐图）保持原来那句。 */
+    tip.textContent = h || '点图再放大一级 \u00b7 双指可缩放 \u00b7 点空白 / \u00d7 / 返回键关闭';
+  }
+  /** 切到相册里的第 i 张（带边界：越界就停在原地） */
+  function flipTo(i) {
+    if (!gallery || !Array.isArray(gallery.list) || !gallery.list.length) return false;
+    var n = gallery.list.length;
+    if (i < 0 || i >= n) { updateTip(); return false; }   /* 第一张再向上 / 最后一张再向下 → 停住 */
+    gallery.i = i;
+    var it = gallery.list[i] || {};
+    CALLER_SETS_HISTORY = true;        /* 这次 openUrl 不压历史 */
+    try {
+      openUrl(it.src, it.cap || '', true);
+    } finally {
+      CALLER_SETS_HISTORY = false;
+    }
+    updateTip();
+    return true;
+  }
+
+  /* ---- 触摸手势：滑动切图 ---- */
+  var tStartX = 0, tStartY = 0, tStartT = 0, tActive = false;
+  function bindSwipe() {
+    if (!scroller || scroller.__roSwipeBound) return;
+    scroller.__roSwipeBound = true;
+
+    scroller.addEventListener('touchstart', function (e) {
+      if (!gallery || !gallery.list || gallery.list.length < 2) return;
+      if (!e.touches || e.touches.length !== 1) return;   /* 多指 = 缩放，不参与 */
+      tActive = true;
+      tStartX = e.touches[0].clientX;
+      tStartY = e.touches[0].clientY;
+      tStartT = Date.now();
+    }, { passive: true });
+
+    scroller.addEventListener('touchmove', function (e) {
+      if (!tActive || !e.touches || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - tStartX;
+      var dy = e.touches[0].clientY - tStartY;
+      /* 只认纵向滑动；已经明确是纵向且超过阈值 → 拦掉页面滚动
+         ⚠️ 必须 preventDefault，否则页面会跟着滚（用户明确要求）；
+            只在打开 + 单指 + 纵向超阈值时才拦。 */
+      if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) {
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    scroller.addEventListener('touchend', function (e) {
+      if (!tActive) return;
+      tActive = false;
+      var t = (e.changedTouches && e.changedTouches[0]) || null;
+      if (!t) return;
+      var dx = t.clientX - tStartX;
+      var dy = t.clientY - tStartY;
+      var dt = Date.now() - tStartT;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      /* 位移 < 10px 且 < 300ms → 算点击，交给原有 click 处理切缩放，这里不管 */
+      if (dist < 10 && dt < 300) return;
+      /* 位移 > 40px 且是纵向 → 切图 */
+      if (Math.abs(dy) > 50 && Math.abs(dy) > Math.abs(dx)) {
+        if (dy < 0) flipTo(gallery.i + 1);   /* 向上滑 → 下一张（列表里更新的在下一位） */
+        else flipTo(gallery.i - 1);          /* 向下滑 → 上一张 */
+      }
+    }, { passive: true });
+
+    /* 桌面也能用：鼠标滚轮（可选，用户说"你判断"）。
+       只在相册打开 + 单张已经稳定时响应，且做节流，避免一次滚动跳好几张。 */
+    var wheelLock = 0;
+    scroller.addEventListener('wheel', function (e) {
+      if (!gallery || !gallery.list || gallery.list.length < 2) return;
+      var now = Date.now();
+      if (now - wheelLock < 320) { if (e.cancelable) e.preventDefault(); return; }
+      var d = e.deltaY || 0;
+      if (Math.abs(d) < 8) return;
+      wheelLock = now;
+      if (e.cancelable) e.preventDefault();
+      if (d > 0) flipTo(gallery.i + 1); else flipTo(gallery.i - 1);
+    }, { passive: false });
   }
 
   /* 打开：只绑在【目录表格的格子】上；图片本身没有任何点击绑定 */
@@ -4535,10 +4674,40 @@ ${RO_RENDER_SCRIPT}
     });
   }
 
+  /* 【相册入口】调用方（__XYSP_VIEW__）在点图时把【当前标签下可见的图片列表】
+     传进来，这样"上下滑动"就能在可见的那批里前后走 —— 而不是在全部 600 张里走
+     （用户点了「双色球」标签，滑动当然应该在双色球里走）。
+     list = [{src, cap}, ...]；i = 当前这张在列表里的下标。 */
+  function setGallery(list, i, src, cap) {
+    build();
+    bindSwipe();                       /* 第一次用时才绑手势 */
+    gallery = { list: Array.isArray(list) ? list : [], i: Number(i) || 0 };
+    CALLER_SETS_HISTORY = true;        /* 首张也不重复压历史：openUrl 之外由调用方压 */
+    try {
+      openUrl(src, cap, true);
+    } finally {
+      CALLER_SETS_HISTORY = false;
+    }
+    updateTip();
+    return true;
+  }
+  function galleryState() {
+    if (!gallery) return { on: false, i: -1, n: 0 };
+    return { on: true, i: gallery.i, n: gallery.list.length, hint: galleryHint() };
+  }
+  /** 给验收脚本用：直接调"上一张/下一张"，不用造触摸事件 */
+  function galleryStep(dir) {
+    if (!gallery) return false;
+    return flipTo(gallery.i + (dir > 0 ? 1 : -1));
+  }
+
   window.__roMobView = {
     open: open,
     openUrl: openUrl,
     close: close,
+    setGallery: setGallery,
+    galleryStep: galleryStep,
+    gallery: galleryState,
     isOpen: function () { return !!view && !view.hasAttribute('hidden'); },
     current: function () { return cur; },
     state: function () {
@@ -4643,24 +4812,42 @@ ${RO_RENDER_SCRIPT}
       });
     }
 
-    /* 点某张图 → 用页尾那层全屏放大看。
+    /* 点某张图 → 用页尾那层全屏放大看，并把【当前筛选结果】作为相册列表传进去，
+       这样上下滑动只在"当前这个标签下看得见的那批"里前后走
+       （用户点了「双色球」再看图，滑动当然应该在双色球里走，而不是在全部 600 张里走）。
        那一层没准备好时（脚本没跑到）不拦截点击：
        让 href 自己打开原图，功能不丢。 */
+    function visibleList() {
+      var list = [];
+      for (var i = 0; i < pics.length; i++) {
+        if (pics[i].hidden) continue;
+        var b = pics[i].querySelector('.ro-xysp-cap b');
+        list.push({ src: pics[i].getAttribute('href'), el: pics[i], cap: b ? String(b.textContent || '') : '' });
+      }
+      return list;
+    }
     for (var p = 0; p < pics.length; p++) {
       pics[p].addEventListener('click', function (e) {
         var api = window.__roMobView;
         /* 原图地址就是 href（缩略图只在 src 里，放大要看清号码，用原图） */
         var src = this.getAttribute('href');
         var cap = this.querySelector('.ro-xysp-cap b');
-        if (api && typeof api.openUrl === 'function' &&
-            api.openUrl(src, cap ? String(cap.textContent || '') : '', true)) {
+        var capText = cap ? String(cap.textContent || '') : '';
+        if (api && typeof api.setGallery === 'function') {
+          var list = visibleList();
+          var idx = 0;
+          for (var q = 0; q < list.length; q++) { if (list[q].el === this) { idx = q; break; } }
+          if (list.length > 1 && api.setGallery(list, idx, src, capText)) { e.preventDefault(); return; }
+        }
+        /* 兜底：列表只有一张 / 老版全屏层 → 走原来的单图打开 */
+        if (api && typeof api.openUrl === 'function' && api.openUrl(src, capText, true)) {
           e.preventDefault();
         }
       });
     }
 
     /* 给验收脚本留一个干净入口（不影响页面行为） */
-    window.__roXysp = { pick: pick, tabs: tabs.length, pics: pics.length };
+    window.__roXysp = { pick: pick, tabs: tabs.length, pics: pics.length, visible: visibleList };
   } catch (e) { /* 忽略：这一块的显示不依赖这段脚本 */ }
 })();
 </script>
