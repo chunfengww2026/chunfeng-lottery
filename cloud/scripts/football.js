@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 0,
@@ -3347,7 +3347,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 04:00:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "卡利体育会女足",
      "score": 0,
@@ -3413,7 +3413,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 04:00:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "玻利瓦爾(女)",
      "score": 1,
@@ -3557,7 +3557,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 1,

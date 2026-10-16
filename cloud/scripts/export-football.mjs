@@ -93,6 +93,24 @@ const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
    文件缺失时返回 null，页面退回「暂未开始统计」，绝不填 0 凑数。 */
 const JC_RECO = loadVar('jc-reco-data.js', 'JC_RECO_DATA');
 
+/* 【推荐串计算内核】jc-reco-archive.js（纯函数，UMD：无 module 时挂到 globalThis）
+   用和上面几个数据文件【同一套 vm 读法】加载，不必额外引 createRequire。
+   ⚠️ 必须用【同一个内核】算红黑：以前这里自己写了一段"整串口径"的循环，
+      结果 3 场全中只显示「红 1」，和 jc-reco-stats.mjs（单场口径）不一致。 */
+const RECO_KERNEL = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
+
+/* 【泊松指数内核】jc-poisson.js（纯函数，UMD：无 module 时挂到 globalThis）
+   ------------------------------------------------------------
+   用户队列⑥「泊松指数 + 分歧指 + 亚指多家」，并定「先做能从现有数据算出来的」。
+   能做：泊松指数 —— 由 odds.europe（欧指）+ odds.overunder（大小盘）反推期望进球。
+   做不了：分歧指数 / 亚指多家 —— 它们需要【多家博彩公司】的赔率离散度，
+           而 jc-data.js 里只有一家（open/live 是同公司两个时点，不是公司间分歧）。
+   ⚠️ 字段名有误导：odds.overunder 里【over 才是盘口】，line 其实是大球水位。
+      依据：竞彩页现显示「大小 0.8 大 3 小 1」，对应 {line:0.8, over:3, under:1}。
+   ⚠️ 内核已知局限：独立泊松会系统性【低估平局】（真数据 11 场平均低 1.6pp）。
+      内核把偏差算出来（drawBias），页面上如实显示，不加说不清的修正系数。 */
+const POISSON = loadVar('jc-poisson.js', 'JC_POISSON');
+
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
    ------------------------------------------------------------
@@ -534,11 +552,17 @@ const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
 /* ---------- 【推荐串 · 红黑统计】来自 jc-reco-archive.js 存档 ----------
-   口径（和 jc-reco-archive.js 里写的一致）：
-     · 一批 = 某一期存下来的那一串推荐
-     · 全中 = 红；有一场没中 = 黑；还有比赛没打完 = 待定（不进命中率分母）
-     · 命中率 = 红 / (红 + 黑)；一群全待定时是 null（页面显示"暂未开始统计"）
-   ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"。 */
+   口径（用户 2026-10-17 明确要求）：【按单场判定】，不是按整串 ——
+     原话「按单场判定（用户设计里每行是一场），不是按整串」。
+     · red   = 已完场且推荐选项命中的【场次数】
+     · black = 已完场且没中的【场次数】
+     · rate  = red / (red + black)；一场都没结算 → null（页面显示"—"）
+     · pending = 还没打完的【组数】（一批里只要还有一场没结算就算一组）
+                页面备注写「还有 K 组没打完」/ K=0 时写「实时更新」
+   ⚠️【修 bug】这里原来是自己写的一段【整串口径】循环（miss===0 才 red++）：
+      于是「推荐串 3 场全中」只算成 1 红，用户看到的数字比实际少。
+      现在统一走内核 matchStats()，和 jc-reco-stats.mjs 的口径完全一致。
+   ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"（统计不到就显示"暂未开始统计"）。 */
 let REC_STAT = null;
 let REC_ROWS_ARCHIVE = [];
 /* 【30 秒实时刷新用】存档的时间戳 = 判断"这份数据比页面里那份新"的依据 */
@@ -546,30 +570,19 @@ const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
 /* 【30 秒实时刷新用】往期比对列表的【内层】HTML —— 由 renderRec() 渲染时顺手存下来，
    给 jc-reco-view.js 复用（保证页面内和刷新后是【同一套渲染】，不写第二份渲染逻辑） */
 let REC_ARCH_INNER = '';
-if (JC_RECO && Array.isArray(JC_RECO.batches)) {
-  const batches = JC_RECO.batches;
-  let red = 0, black = 0, pending = 0, rows = 0;
-  batches.forEach((b) => {
-    const list = Array.isArray(b.rows) ? b.rows : [];
-    rows += list.length;
-    let miss = 0, pend = 0;
-    list.forEach((r) => {
-      if (r.hit === true) return;
-      if (r.hit === false) { miss++; return; }
-      pend++;
-    });
-    if (pend > 0) pending++;
-    else if (miss === 0) red++;
-    else black++;
-  });
-  const decided = red + black;
+if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
+  const MS = RECO_KERNEL.matchStats(JC_RECO);
   REC_STAT = {
-    batches: batches.length, rows, red, black, pending, decided,
-    rate: decided ? ((red / decided) * 100).toFixed(1) : null,
+    batches: MS.batches, rows: MS.rows,
+    red: MS.red, black: MS.black,
+    pending: MS.unfinished,              /* 未打完的【组】数（备注文案用） */
+    pendingMatches: MS.pendingMatches,
+    decided: MS.decided,
+    rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
     updated: JC_RECO.updated || ''
   };
   /* 详情：按存档时间倒序（最近的一期在最上面） */
-  REC_ROWS_ARCHIVE = batches
+  REC_ROWS_ARCHIVE = JC_RECO.batches
     .slice()
     .sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
 }
@@ -714,6 +727,59 @@ function renderAsianCard(m) {
   return `<div class="m-ai">${head}${line}${change}${grid}${miss}${note}</div>`;
 }
 
+/* 【泊松指数】比赛卡片里的一块（用户队列⑥）
+   ------------------------------------------------------------
+   数据：odds.europe（欧指）+ odds.overunder（大小盘）→ 反推期望进球 λ。
+   算不出来（缺欧指）就【整块不显示】，绝不填假数。
+   ⚠️ 页面上写明「由欧指反推 · 非官方数据」，并显示拟合偏差与平局偏差，
+      不让人误以为这是博彩公司公布的泊松值。 */
+function renderPoissonCard(m) {
+  if (!POISSON || typeof POISSON.compute !== 'function') return '';
+  let r = null;
+  try { r = POISSON.compute(m); } catch (e) { return ''; }
+  if (!r) return '';                       /* 数据不全 → 整块不显示 */
+
+  const pct = (v) => (v == null ? '—' : v.toFixed(1) + '%');
+  const head =
+    `<div class="m-ps-head">` +
+    `<span class="m-ps-title">泊松指数</span>` +
+    `<span class="m-ps-src">${r.source === 'live' ? '即时盘' : '开盘'}反推</span>` +
+    `<span class="m-ps-fun">非官方数据</span>` +
+    `</div>`;
+
+  const line =
+    `<div class="m-ps-line">期望进球 主 <b>${r.lambdaHome}</b> · 客 <b>${r.lambdaAway}</b>` +
+    ` · 合计 <b>${r.lambdaTotal}</b></div>`;
+
+  const grid =
+    `<div class="m-ps-grid">` +
+    `<span class="m-ps-cell"><i>主胜</i><b>${pct(r.poisson.home)}</b><em>${pct(r.market.home)}</em></span>` +
+    `<span class="m-ps-cell"><i>平</i><b>${pct(r.poisson.draw)}</b><em>${pct(r.market.draw)}</em></span>` +
+    `<span class="m-ps-cell"><i>客胜</i><b>${pct(r.poisson.away)}</b><em>${pct(r.market.away)}</em></span>` +
+    `</div>`;
+
+  const ou = r.overunder
+    ? `<div class="m-ps-line">大小 ${esc(String(r.overunder.line))}：` +
+      `模型 大 <b>${pct(r.overunder.poisson.over)}</b> / 小 <b>${pct(r.overunder.poisson.under)}</b>` +
+      ` · 市场 ${pct(r.overunder.market.over)} / ${pct(r.overunder.market.under)}</div>`
+    : '';
+
+  const top = r.topScores && r.topScores.length
+    ? `<div class="m-ps-scores">最可能比分 ` +
+      r.topScores.slice(0, 3).map((s) => `<span>${esc(s.score)} <b>${s.p}%</b></span>`).join('') +
+      `</div>`
+    : '';
+
+  /* 如实暴露模型局限：拟合偏差 + 平局偏差（独立泊松会低估平局） */
+  const note =
+    `<div class="m-ps-note">大号字＝泊松算出的、小号字＝市场去水后的值` +
+    ` · 拟合偏差 ${r.fitError}pp` +
+    ` · 平局偏差 ${r.drawBias > 0 ? '+' : ''}${r.drawBias}pp（独立泊松会略低估平局）` +
+    ` · 仅娱乐参考</div>`;
+
+  return `<div class="m-ps">${head}${line}${grid}${ou}${top}${note}</div>`;
+}
+
 function renderMatch(m) {
   const eu = m.odds && m.odds.europe;
   const euV = eu && (eu.live || eu.open);
@@ -819,6 +885,7 @@ function renderMatch(m) {
           `</span>`) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderAsianCard(m) +
+    renderPoissonCard(m) +
     (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
 
   return m.code
@@ -2016,6 +2083,71 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 /* __JC_CONTRAST_TAIL__ 收尾两处（上一轮漏的：亚指单元格标签 / 计算器行时间） */
 .m-ai-cell i { color: #8a7a63 !important; }
 .calc-time { color: #8a7a63 !important; }
+
+
+/* ============================================================
+   __JC_COMPACT__ 竞彩页紧凑排版（用户：「整个版面压缩一下，零零闪闪不好看」）
+   ------------------------------------------------------------
+   和分享页同一套口径：区块之间 12px、卡片内边距 10~12px。
+   只改【纵向】间距；不写 font-size、不压 line-height、不用简写。
+   ============================================================ */
+:root { --jc-gap: 12px; }
+
+/* ① 页面上下留白收敛（原来 wrap pb=60px） */
+.wrap { padding-top: 12px !important; padding-bottom: 22px !important; }
+
+/* ② 顶部：标题 → 副标题 → 统计条 → 战绩条 */
+.sub { margin-bottom: 10px !important; }
+.stat { margin-bottom: var(--jc-gap) !important; }
+.record { margin-bottom: var(--jc-gap) !important; }
+
+/* ③ 三个分段（未开赛/进行中/已完场）与它们的分段头 */
+.m-sec { margin-bottom: 0 !important; }
+.m-subhead { margin-top: 10px !important; margin-bottom: 8px !important;
+  padding-top: 10px !important; padding-bottom: 10px !important; }
+
+/* ④ 比赛卡片：卡片间距 8px、内边距 10px（原来 10/12） */
+.m-card { margin-bottom: 8px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-top { margin-bottom: 6px !important; }        /* 卡片头部那行 */
+.m-teams { margin-bottom: 6px !important; }      /* 队名/比分那行 */
+.m-reco { margin-top: 6px !important; padding-top: 6px !important; }
+.m-ai { margin-top: 8px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-godetail { margin-top: 6px !important; }
+
+/* ⑤ 说明条 / 模拟计算 / 晒票：原来都是 mt=22，统一成 12 */
+.note { margin-top: var(--jc-gap) !important; padding-top: 12px !important; padding-bottom: 12px !important; }
+.m-calc, .m-jxp { margin-top: var(--jc-gap) !important; }
+.calc-head { margin-top: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.jxp-head { padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-rechead { margin-top: var(--jc-gap) !important; }
+.m-rechead2 { margin-top: var(--jc-gap) !important; }
+.guard { margin-top: var(--jc-gap) !important; }
+
+
+/* ============ 泊松指数（用户队列⑥；米杏配色，和 .m-ai 同一套口径） ============ */
+.m-ps { margin-top: 8px; padding: 10px 12px; background: #f3e6d0;
+  border: 1px solid #e8d7bd; border-radius: 10px; }
+.m-ps-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.m-ps-title { font-size: 12.5px; font-weight: 700; color: #4a3a26; }
+.m-ps-src { font-size: 10.5px; color: #a2937c; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-ps-fun { margin-left: auto; font-size: 10.5px; color: #a2937c;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-ps-line { font-size: 11.5px; color: #8a7a63; line-height: 1.7; margin-bottom: 6px; }
+.m-ps-line b { color: #4a3a26; font-family: Consolas, monospace; }
+.m-ps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px; margin-bottom: 6px; }
+.m-ps-cell { display: flex; flex-direction: column; gap: 1px; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 8px; padding: 6px 8px; min-width: 0; }
+.m-ps-cell i { font-style: normal; font-size: 10.5px; color: #a2937c; }
+.m-ps-cell b { font-size: 14px; font-weight: 700; color: #1a8c5a;
+  font-family: Consolas, monospace; }
+.m-ps-cell em { font-style: normal; font-size: 10.5px; color: #a2937c;
+  font-family: Consolas, monospace; }
+.m-ps-scores { display: flex; gap: 10px; flex-wrap: wrap; font-size: 11.5px;
+  color: #8a7a63; margin-bottom: 4px; }
+.m-ps-scores b { color: #c0392b; font-family: Consolas, monospace; }
+.m-ps-note { font-size: 10.5px; color: #a2937c; line-height: 1.7; }
 
 `;
 

@@ -326,7 +326,8 @@ jobs:
         run: |
           echo "===== 各数据文件自带的更新时间（北京时间）====="
           for f in draws.js history.js prize-data.js football.js jc-data.js \
-                   articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js ; do
+                   articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js \
+                   jc-divergence.js ; do
             if [ -f "cloud/scripts/$f" ]; then
               S=$(grep -o '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' "cloud/scripts/$f" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
               if [ -z "$S" ]; then S=$(grep -oE '(更新时间|生成时间)[：:][[:space:]]*[0-9-]+ [0-9:]+' "cloud/scripts/$f" | head -1); fi
@@ -376,6 +377,14 @@ jobs:
           #   部署用的是运行时的 site/ 目录（上面那一步），和它们在不在仓库里无关；
           #   万一某班没有新页面，上面那一步已经从线上把当前那份拉回来了。
           git reset -q -- cloud/scripts/只读分享版.html cloud/scripts/足球推荐.html cloud/out/index.html cloud/out/football.html 2>/dev/null || true
+          # 【分歧指数据】2026-10-17 第 2 步加的 jc-divergence.js（44 KB）同理【不提交】：
+          #   它每个足球班次都会被 build-odds-divergence.mjs 从球探 titan007 重新抓一遍
+          #   （每场 320~370 家公司，数字每轮都在变 → git 存不下多少增量），
+          #   一天几十班就是几 MB 的仓库体积，而它的内容【已经内嵌在 比赛详情.html 里】，
+          #   单独存一份等于同一份数据存两遍（比赛详情.html 本身仍然照常提交）。
+          #   ⚠️ 本机 sync-cloud.mjs 会把本机那一份正常传上仓库，所以仓库里永远有兜底的一份；
+          #      就算没有，云端 cloud-build.mjs 每班也会自己重新生成，不影响任何页面。
+          git reset -q -- cloud/scripts/jc-divergence.js 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "没有变化，跳过提交"
           else

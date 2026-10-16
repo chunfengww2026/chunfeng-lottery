@@ -28,6 +28,17 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const R = require(path.join(ROOT, 'jc-reco-archive.js'));
+/* 【统计 JSON 的写出器】单场口径（红/黑 = 场次），页面 30 秒刷新那份也用它。
+   ⚠️ 以前没人调用它 → jc-reco-stats.json 一直不存在，而 cloud-build.mjs 的
+      RECO_FILES 里一直等着拷这个文件（清单里有、盘上没有）。
+   ⚠️ 容错：云端同步清单目前不含 jc-reco-stats.mjs（本机才有）——
+      缺了它不能让整个存档构建失败，所以这里 catch 掉，只是本次不写统计 JSON。 */
+let writeStatsFile = null;
+try {
+  ({ writeStatsFile } = await import('./jc-reco-stats.mjs'));
+} catch (e) {
+  writeStatsFile = null;
+}
 
 const OUT = path.join(ROOT, 'jc-reco-data.js');
 const DRY = process.argv.includes('--dry');
@@ -143,4 +154,17 @@ if (DRY) {
 } else {
   fs.writeFileSync(OUT, R.renderDataJs(enriched.archive, R.bjStamp(now)), 'utf8');
   log(`\n  ✅ 已写入 ${path.basename(OUT)}（${(fs.statSync(OUT).size / 1024).toFixed(1)} KB）`);
+  /* ④ 顺手更新【统计 JSON】jc-reco-stats.json（单场口径）
+     —— 页面靠 jc-reco-view.js 刷新，但 cloud-build 的 RECO_FILES 里也列了这个 JSON，
+        必须真的存在，否则云端那一步一直在警告"文件缺失"。 */
+  try {
+    if (!writeStatsFile) throw new Error('本机缺少 jc-reco-stats.mjs（云端同步清单里也没有它）');
+    const st = writeStatsFile({ archive: enriched.archive, now });
+    log(st.ok
+      ? `  ✅ 已更新 jc-reco-stats.json（单场口径 · 红 ${st.stats.red} 黑 ${st.stats.black}` +
+        ` · 命中率 ${st.stats.rate == null ? '—' : st.stats.rate + '%'}）`
+      : `  ⚠️ jc-reco-stats.json 未更新（${st.skipped ? '读不到存档' : '未知原因'}）`);
+  } catch (e) {
+    log(`  ⚠️ jc-reco-stats.json 更新失败：${e.message}`);
+  }
 }
