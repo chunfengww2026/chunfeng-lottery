@@ -4078,10 +4078,37 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   border-radius: 10px; margin: 0 12px 12px; padding: 14px 12px; }
 .trend-entry .te-t { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
 .trend-entry .te-d { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-ok); font-weight: 600; }
+
+  /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示 */
+  .ro-hot {
+    position: fixed; top: 8px; left: 8px; z-index: 9990;
+    display: none; align-items: center; gap: 3px;
+    padding: 3px 9px 3px 7px; border-radius: 12px;
+    background: rgba(255,255,255,.86);
+    border: 1px solid var(--ro-line);
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    font-size: 12.5px; font-weight: 700; line-height: 1.5;
+    color: #c0392b; user-select: none;
+  }
+  html.is-owner .ro-hot:not([hidden]) { display: inline-flex; }
+  .ro-hot-i { font-size: 13px; }
+  .ro-hot-n { letter-spacing: .4px; }
+  @media print { .ro-hot { display: none !important; } }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 <div class="ro-wrap">
+  <!-- ============================================================
+       __HOT_OWNER__ 热度计数（只有本机 owner 看得到）
+       用户 2026-10-17：「有个热度小图标和实时抓取ip人数 只要数字+热度小图标」
+                        「我只想我自己刷新」→ 选 A：只有我能看到
+       · 数字来自不蒜子（免费），口径 = 累计独立访客（UV，刷不动）
+       · 别人的浏览器里这段是 display:none，完全看不到
+       · 拿不到数字（不蒜子挂了/被墙）→ 整个隐藏，不显示 0 或 --
+       ============================================================ -->
+  <div class="ro-hot" id="ro-hot" hidden>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
+  </div>
 
   <!-- ============================================================
        __TOP_TABS__ 顶部 Tab（彩票推荐 / 竞彩场次）+ 管理员徽章
@@ -6535,6 +6562,31 @@ ${RO_RENDER_SCRIPT}
       }).catch(function () { /* 查不到 → 保持按「别人」处理 */ });
     }
   } catch (e) { /* 忽略：防截图这段挂了，页面照样能正常看 */ }
+})();
+</script>
+
+<!-- __HOT_OWNER__ 热度计数（只有 owner 会看到；拿不到就隐藏） -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  try {
+    var box = document.getElementById('ro-hot');
+    var num = document.getElementById('busuanzi_value_site_uv');
+    if (!box || !num) return;
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      var v = String(num.textContent || '').trim();
+      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到 */
+      if (/^\d+$/.test(v)) {
+        box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
+        clearInterval(t);
+      } else if (tries > 40) {       /* 20 秒还拿不到 → 整块隐藏，不显示 -- */
+        clearInterval(t);
+        box.hidden = true;
+      }
+    }, 500);
+  } catch (e) { /* 这段挂了不影响页面 */ }
 })();
 </script>
 </body>
