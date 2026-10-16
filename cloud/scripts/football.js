@@ -15794,7 +15794,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15872,7 +15872,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -15950,7 +15950,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 9,
+    "minute": 11,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
