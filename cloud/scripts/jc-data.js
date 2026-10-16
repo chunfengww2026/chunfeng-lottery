@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 10:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 11:00 */
 const JC_DATA = {
- "updated": "2026-10-16 10:58",
+ "updated": "2026-10-16 11:00",
  "stat": {
   "total": 11,
   "upcoming": 11,
@@ -1133,8 +1133,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-10-16 10:58",
   "officialUpdate": "2026-10-16 10:33:33",
   "inSale": 11,
