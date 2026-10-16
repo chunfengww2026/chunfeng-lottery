@@ -287,6 +287,13 @@ const CODE_MODULES = [
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
+  /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
+     · build-match.mjs  生成脚本（读 jc-data.js + jc-official.js → 写 比赛详情.html）
+     ⚠️ 必须同步：cloud-build.mjs 的 exportList 里会跑它，
+        云端少了这个文件 → 云端出不了详情页 → 竞彩页 64 张卡片全点到 404。
+     （这个页面【自包含】：它把 games 数组在构建时内嵌进 HTML。
+       线上站点目录里没有 jc-data.js —— export-football.mjs 也是同样的自包含做法。） */
+  'build-match.mjs',
   /* 【走势图】用户 2026-10-17 新增的第三个独立子页（和彩票页/竞彩页并列）。
      ⚠️ 三个文件必须一起同步，缺一个云端就出不了这一页：
         · build-trend.mjs  生成脚本（读 history.js → 写 走势图.html）
