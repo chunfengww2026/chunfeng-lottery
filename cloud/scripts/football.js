@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "路斯天使",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "因卡阿魯巴",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 5,
+    "minute": 10,
     "home": {
      "name": "艾斯特利",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "金迪奥",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "卡达根拿",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "苏奇特佩基",
      "score": 0,
@@ -565,7 +565,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
@@ -631,7 +631,7 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
