@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-16 19:35:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "河南队",
      "score": 0,
@@ -14922,10 +14922,10 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "同塔",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 7
     },
@@ -14988,7 +14988,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "奥布隆",
      "score": 2,
@@ -15054,10 +15054,10 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "奈蒂沃特马卡比",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -15120,7 +15120,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "共和國",
      "score": 2,
@@ -15186,7 +15186,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "切塔罗沃莫斯科青年队",
      "score": 2,
@@ -15252,7 +15252,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "扎维达",
      "score": 1,
@@ -15330,7 +15330,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "诺维贝尔格莱德U19",
      "score": 1,
@@ -15408,7 +15408,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "拖雷斯",
      "score": 1,
