@@ -16,6 +16,21 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
+/* 【走势图 · 内联片段】用户 2026-10-17：
+     「留在近30期走势预选参考里面. 删除单独走势图独立页」
+   → 走势图不再有独立 HTML 文件；样式 / 表格 / 脚本由 build-trend.mjs
+     导出成一个片段（方式 A：片段导出），在这里插进
+     <details class="ro-trend">（「走势图 / 近 30 期走势 · 预选参考」）里。
+   ⚠️ 不走 iframe、不读任何产物文件 → 只跑 export-static.mjs 一个就够，
+      没有"先跑 build-trend 再跑 export-static"的顺序依赖。
+   ⚠️ 片段自带的作用域前缀是 .ro-trend-embed（样式全部收在里面），
+      根节点 id 是 ro-trend-root（不和分享页的 id 撞名）。 */
+import {
+  loadHistory as loadTrendHistory,
+  buildPayload as buildTrendPayload,
+  renderTrendFragment,
+  TREND_PERIODS
+} from './build-trend.mjs';
 /* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
 import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
