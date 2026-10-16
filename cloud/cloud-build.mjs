@@ -1424,6 +1424,15 @@ function finishOutput(freshRows) {
     const fp = path.join(OUT, dst);
     if (!fs.existsSync(fp)) continue;
     let html = fs.readFileSync(fp, 'utf8');
+    /* ⚠️ 先删掉页面【自带】的顶部 Tab（.top-tabs），再注入 .site-nav。
+       实测：线上彩票页和走势图页都出现了【两条导航叠在一起】——
+         · 页面自带的 .top-tabs（彩票页 2 个 Tab / 走势图页 3 个 Tab）
+         · 这里注入的 .site-nav
+       而且页内那条在站上部分链接是死的（分享页那条 href="./"、走势图那条
+       href="足球推荐.html"，而站点上的文件名是 index.html / football.html）。
+       本机分享包走 export-site.mjs 时已经这么删过了（那边有同一条正则），
+       云端这条链路以前漏了 —— 现在两边行为一致。 */
+    html = html.replace(/<div class="top-tabs">[\s\S]*?<\/div>\s*/, '');
     const nav = NAV.replace('__ACTIVE_INDEX__', active === 'index' ? 'on' : '')
                    .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '')
                    .replace('__ACTIVE_TREND__', active === 'trend' ? 'on' : '');
