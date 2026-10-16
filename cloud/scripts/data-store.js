@@ -346,7 +346,7 @@ function buildMaterialsHtml() {
     `<section class="ro-game" id="matSection">` +
     `<div class="ro-gamehead">` +
     `<h2>资料</h2>` +
-    `<div class="ro-meta">发布者提供的参考资料 · 共 ${data.list.length} 条 · 更新于 ${esc(data.updated || '')}</div>` +
+    `<div class="ro-meta">发布者提供的参考资料 · 共 ${data.list.length} 条 </div>` +
     `</div>` +
     body +
     `</section>`
