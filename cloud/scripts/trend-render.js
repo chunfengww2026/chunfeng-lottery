@@ -299,13 +299,18 @@ function renderTrendHtml(payload) {
         esc(String(r.date).slice(5)) + '</i></td>');
       for (let i = 0; i < nCols; i++) {
         const c = hitMain[i];
-        L.push('<td class="tr-td-num' + (c ? ' on' : '') + '" data-tr-hit="' + c + '">' + (c ? '<s></s>' : '') + '</td>');
+        L.push('<td class="tr-td-num' + (c ? ' on' : '') + '" data-tr-hit="' + c + '">' +
+          /* 【背景板号数】用户 2026-10-17：每格印上该列号数（很浅），不用抬头看表头 */
+          '<i class="tr-ghost">' + (g.main.lo + i) + '</i>' +
+          (c ? '<s></s>' : '') + '</td>');
       }
       if (withExtra) {
         L.push('<td class="tr-td-sep"></td>');
         for (let i = 0; i < exCols; i++) {
           const c = hitExtra[i];
-          L.push('<td class="tr-td-num tr-td-extra' + (c ? ' on' : '') + '" data-tr-zone="x" data-tr-hit="' + c + '">' + (c ? '<s></s>' : '') + '</td>');
+          L.push('<td class="tr-td-num tr-td-extra' + (c ? ' on' : '') + '" data-tr-zone="x" data-tr-hit="' + c + '">' +
+            '<i class="tr-ghost">' + (g.extra.lo + i) + '</i>' +
+            (c ? '<s></s>' : '') + '</td>');
         }
       }
       /* 行尾：本期原始开奖号（数字型彩种用它看"位"的顺序） */
