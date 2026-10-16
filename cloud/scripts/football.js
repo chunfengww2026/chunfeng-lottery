@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "魁北克",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "米拉索",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "94240a"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "科隆蒙得維的亞",
      "score": 0,
@@ -2397,7 +2397,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 1,
@@ -2435,7 +2435,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "亞特蘭大聯2隊",
      "score": 0,
@@ -2501,7 +2501,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "防卫者",
      "score": 0,
@@ -2567,7 +2567,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "卡拉普瓜",
      "score": 1,
@@ -2605,7 +2605,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "卡利博卡青年",
      "score": 0,
@@ -2614,7 +2614,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "卡利竞技",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
@@ -2671,7 +2671,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "紮奇英雄B隊",
      "score": 0,
@@ -2709,7 +2709,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "塞罗",
      "score": 1,
@@ -2853,7 +2853,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "庞特普雷塔",
      "score": 1,
