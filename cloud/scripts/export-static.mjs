@@ -3447,6 +3447,9 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-aipick-ball.blue { background: #16233a; color: #8fb8ff; }
 .ro-aipick-sep { padding: 0 1px; font-size: 12px; color: #5f6878; }
+/* 【数字彩·位置分隔】一条号码里，百位/十位/个位 各自的号用一个小点隔开
+   （用户 2026-10-17：摇号一次只出一条，各位有几个号就画几个 —— 位置必须能分得清） */
+.ro-aipick-possep { padding: 0 4px; font-size: 12px; color: #a2937c; }
 .ro-aipick-more { margin-top: 6px; font-size: 11px; color: #5f6878; }
 .ro-aipick-note { margin-top: 10px; font-size: 10.5px; line-height: 1.6; color: #5f6878; }
 
@@ -6470,7 +6473,8 @@ ${RO_RENDER_SCRIPT}
         for (i = 0; i < sets.length; i++) got.push(sets[i].length);
         note = '前三位受「全组六」约束（号池只有 0-9 十个数字），实际按 ' + got.join('/') + ' 个分配';
       }
-      return { ok: 1, kind: 'digit', count: prod, pos: pos, sets: sets, rows: cartesian(sets), note: note };
+      /* 数字彩同理：只出【一条】（各位原样画，不再展开成 各位相乘 条） */
+      return { ok: 1, kind: 'digit', count: prod, pos: pos, sets: sets, rows: [sets], note: note };
     }
     function planNumber(g) {
       var areas = areasOf(g), i;
@@ -6490,8 +6494,13 @@ ${RO_RENDER_SCRIPT}
       }
       var per = [];
       for (i = 0; i < areas.length; i++) per.push(combos(sets[i], pickOf(g, areas[i])));
-      var rows = cartesian(per);
-      return { ok: 1, kind: 'number', count: rows.length, areas: areas, sets: sets, rows: rows };
+      /* 【一次摇号 = 一条号码】用户 2026-10-17：
+         「摇号一次只能摇一注出来。前区选几就是摇出几个，后区要几个就是摇几个」
+         → 不再把复式展开成 C(n,基本个数) 条单式（那是 6 条几乎一样的号，看着乱），
+           只出【一条】：每个区原样画你选的那几个号（前区填 6 就画 6 个、后区填 2 就画 2 个）。
+         注数仍然算准（want），放在 count 里 —— 页面顶部「合计 N 注 × M 倍 = X 元」用它。 */
+      var rows = [sets];
+      return { ok: 1, kind: 'number', count: want, areas: areas, sets: sets, rows: rows };
     }
     function plan(g) { return isDigit(g) ? planDigit(g) : planNumber(g); }
 
@@ -6520,7 +6529,9 @@ ${RO_RENDER_SCRIPT}
     /* ---------- 出号 ---------- */
     function hitEl(hit, idx) {
       var row = el('div', 'ro-aipick-hit'), i, j;
-      row.appendChild(el('span', 'ro-aipick-idx', '第' + (idx + 1) + '注'));
+      /* 【标签】折合多注的复式 → 标「复式」，单式 → 标「第 N 注」 */
+      row.appendChild(el('span', 'ro-aipick-idx',
+        (hit.count && hit.count > 1) ? '复式' : ('第' + (idx + 1) + '注')));
       if (hit.kind === 'number') {
         var areas = hit.areas || [];
         for (i = 0; i < areas.length; i++) {
@@ -6532,10 +6543,17 @@ ${RO_RENDER_SCRIPT}
               a.to > 9 ? pad2(nums[j]) : String(nums[j])));
           }
         }
+      } else if (hit.sets && hit.sets.length) {
+        /* 数字彩：一条号码 = 按【位置】分组画（百位那几个号 · 十位那几个号 · 个位那几个号） */
+        for (i = 0; i < hit.sets.length; i++) {
+          if (i > 0) row.appendChild(el('span', 'ro-aipick-possep', '·'));
+          var sn = hit.sets[i] || [];
+          for (j = 0; j < sn.length; j++) row.appendChild(el('span', 'ro-aipick-ball', String(sn[j])));
+        }
       } else {
-        var pos = hit.pos || [];
+        var pos2 = hit.pos || [];
         for (i = 0; i < hit.row.length; i++) {
-          if (pos[i] && pos[i].to === 14 && i === hit.row.length - 1) row.appendChild(el('span', 'ro-aipick-sep', '+'));
+          if (pos2[i] && pos2[i].to === 14 && i === hit.row.length - 1) row.appendChild(el('span', 'ro-aipick-sep', '+'));
           row.appendChild(el('span', 'ro-aipick-ball', String(hit.row[i])));
         }
       }
@@ -6549,9 +6567,10 @@ ${RO_RENDER_SCRIPT}
         return;
       }
       var g = G();
+      var betN = st.betCount || st.rows.length;
       outBox.appendChild(el('div', 'ro-aipick-sumline',
-        '本轮 ' + st.rows.length + ' 注 · ' + st.times + ' 倍 · 合计 ' +
-        (st.rows.length * st.times * (g.price || 2)) + ' 元（模拟）'));
+        '本轮 1 条号码 · 折合 ' + betN + ' 注 × ' + st.times + ' 倍 = ' +
+        (betN * st.times * (g.price || 2)) + ' 元（模拟）'));
       var n = Math.min(st.rows.length, MAX_SHOW), i;
       for (i = 0; i < n; i++) outBox.appendChild(hitEl(st.rows[i], i));
       if (st.rows.length > n) {
@@ -6567,9 +6586,11 @@ ${RO_RENDER_SCRIPT}
       if (!p.ok) { refresh(); return 0; }
       var list = [], i;
       for (i = 0; i < p.rows.length; i++) {
-        list.push({ kind: p.kind, pos: p.pos, areas: p.areas, row: p.rows[i] });
+        /* count 带下去：折合几注（复式）→ 行标签显示「复式」而不是「第1注」 */
+        list.push({ kind: p.kind, pos: p.pos, areas: p.areas, row: p.rows[i], sets: p.sets, count: p.count });
       }
-      st.rows = list;                 /* 一次摇出「一张票」的整组号码，整组替换 */
+      st.rows = list;                 /* 一次摇出「一条号码」，整组替换 */
+      st.betCount = p.count;          /* 折合注数（算钱用；一条号码可能是复式） */
       drawOut();
       refresh();
       return list.length;
