@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>春风大奖 · 走势图</title>
+<meta name="description" content="春风大奖 · 走势图：8 个彩种最近 30 期开奖号码走势表（真实开奖数据）。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" type="image/svg+xml" href="icon.svg" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#f7efe1" />
+<meta name="application-name" content="春风大奖" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="春风大奖" />
+<style>
+/* ============================================================
+   走势图页 · 米杏色主题
+   ============================================================ */
+:root {
+  --ro-bg: #f7efe1;
+  --ro-card: #fdf6ea;
+  --ro-sunken: #f3e6d0;
+  --ro-line: #e8d7bd;
+  --ro-line-soft: #efe2cc;
+  --ro-fg: #4a3a26;
+  --ro-fg2: #8a7a63;
+  --ro-fg3: #a2937c;
+  --ro-ok: #1a8c5a;
+  --ro-link: #1f5fd6;
+  --ro-warn: #b8860b;
+  --ro-danger: #c0392b;
+}
+* { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
+html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }
+.ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
+
+/* ① 顶部 Tab（同款：未选中灰、选中绿 + 2px 短线） */
+.top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px; }
+.top-tabs .tab { flex: 1; text-align: center; padding: 12px 8px; font-size: 14px;
+  font-weight: 600; color: var(--ro-fg2); text-decoration: none; position: relative; }
+.top-tabs .tab.on { color: var(--ro-ok); font-weight: 700; }
+.top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
+  bottom: 0; height: 2px; background: var(--ro-ok); border-radius: 2px; }
+
+/* ② 主标题 */
+.ro-top { padding: 22px 12px 8px; text-align: center; }
+.ro-top h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--ro-ok); letter-spacing: 1px; }
+.ro-top .sub { margin-top: 8px; font-size: 12px; color: var(--ro-fg2); }
+
+/* ③ 提示条（米黄底） */
+.ro-status { margin: 0 0 14px; border-radius: 10px; padding: 12px 14px; font-size: 13px;
+  line-height: 1.8; background: #fff6dd; border: 1px solid #ffe08a; color: var(--ro-fg2); }
+.ro-status b { color: #7a5c00; }
+.ro-status .ro-st-time { color: var(--ro-danger); font-weight: 700; }
+
+/* ④ 彩种切换条 */
+.tr-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.tr-tab { flex: 0 0 auto; padding: 7px 13px; font-size: 13px; font-weight: 600;
+  border-radius: 16px; text-decoration: none; color: var(--ro-fg2);
+  background: var(--ro-card); border: 1px solid var(--ro-line); }
+.tr-tab:hover { border-color: var(--ro-ok); }
+.tr-tab.on { background: #e8f6ef; border-color: #b7e4cd; color: var(--ro-ok); }
+
+/* ⑤ 每个彩种一块卡片 */
+.tr-block { background: var(--ro-card); border: 1px solid var(--ro-line);
+  border-radius: 12px; padding: 12px 12px 10px; margin: 0 0 16px; }
+.tr-block[hidden] { display: none; }
+.tr-head { padding: 0 2px 10px; }
+.tr-title { margin: 0; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
+.tr-sub { margin-top: 5px; font-size: 12px; color: var(--ro-fg2); line-height: 1.7; }
+.tr-sub b { color: var(--ro-fg); }
+
+/* ⑥ 表格：横轴号码、纵轴期号；手机上能横向滑 */
+.tr-scroll { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--ro-line-soft); border-radius: 10px; background: #fffdf8; }
+.tr-table { border-collapse: separate; border-spacing: 0; table-layout: fixed;
+  font-variant-numeric: tabular-nums; font-size: 12px; }
+.tr-table th, .tr-table td { border-right: 1px solid var(--ro-line-soft);
+  border-bottom: 1px solid var(--ro-line-soft); text-align: center; padding: 0; }
+.tr-table thead th { position: sticky; top: 0; z-index: 3; background: var(--ro-sunken);
+  color: var(--ro-fg2); font-weight: 700; font-size: 11px; height: 30px; }
+.tr-th-issue { width: 76px; min-width: 76px; }
+.tr-th-num { width: 22px; min-width: 22px; }
+.tr-th-pos { width: 26px; min-width: 26px; }
+.tr-th-extra { width: 20px; min-width: 20px; color: var(--ro-link); }
+.tr-th-sep, .tr-td-sep { width: 7px; min-width: 7px; background: var(--ro-sunken);
+  border-right: 2px solid var(--ro-line); }
+.tr-th-tail, .tr-td-tail { width: 96px; min-width: 96px; border-right: 0; }
+.tr-th-tail { font-size: 10px; }
+
+/* 第 1 列【期号】横向也吸住，滑号码时不会看丢是哪一期 */
+.tr-sticky { position: sticky; left: 0; z-index: 2; background: var(--ro-card);
+  border-right: 1px solid var(--ro-line) !important; }
+.tr-table thead .tr-sticky { z-index: 4; background: var(--ro-sunken); }
+
+.tr-row:nth-child(even) td { background: #fbf3e6; }
+.tr-row:nth-child(even) .tr-sticky { background: #fbf3e6; }
+.tr-td-issue { height: 24px; line-height: 1.1; padding: 2px 4px !important; }
+.tr-td-issue b { display: block; font-size: 11px; font-weight: 700; color: var(--ro-fg); }
+.tr-td-issue i { display: block; font-style: normal; font-size: 9.5px; color: var(--ro-fg3); }
+.tr-td-num { height: 24px; }
+.tr-td-num.on { background: #d8efe2 !important; }
+.tr-td-num s { display: inline-block; width: 11px; height: 11px; border-radius: 50%;
+  background: var(--ro-ok); text-decoration: none; vertical-align: middle; }
+.tr-td-extra s { background: var(--ro-link); }
+.tr-row-last td { background: #fff6dd !important; }
+.tr-row-last .tr-td-issue b { color: var(--ro-warn); }
+.tr-td-tail { font-size: 11px; color: var(--ro-fg2); padding: 0 6px !important; text-align: left;
+  white-space: nowrap; letter-spacing: .5px; }
+
+/* 表尾三行：出现次数 / 当前遗漏 / 最大遗漏 */
+.tr-table tfoot td { height: 22px; font-size: 11px; font-weight: 700;
+  background: var(--ro-sunken); color: var(--ro-fg2); }
+.tr-tf-label { text-align: left !important; padding: 0 6px !important; font-size: 10.5px;
+  white-space: nowrap; }
+.tr-td-freq { color: var(--ro-fg); }
+.tr-td-gap.zero { color: var(--ro-danger); }
+.tr-td-extra { color: var(--ro-link); }
+.tr-table tfoot .tr-sticky { background: var(--ro-sunken); }
+
+.tr-note { margin-top: 8px; font-size: 11.5px; color: var(--ro-fg3); line-height: 1.7; }
+
+/* ⑦ 图例 */
+.tr-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 2px 18px;
+  font-size: 11.5px; color: var(--ro-fg2); }
+.tr-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px;
+  margin-right: 5px; vertical-align: middle; }
+.tr-lg-on { background: #d8efe2; border: 1px solid #b7e4cd; }
+.tr-lg-last { background: #fff6dd; border: 1px solid #ffe08a; }
+.tr-lg-gap { background: #fffdf8; border: 1px solid var(--ro-line); }
+
+/* ⑧ 页脚 */
+.ro-foot { margin: 0 2px; font-size: 11px; color: var(--ro-fg3); line-height: 1.9; }
+@media (max-width: 420px) {
+  .ro-top h1 { font-size: 19px; }
+  .tr-block { padding: 10px 8px 8px; }
+  .tr-td-tail, .tr-th-tail { display: none; }
+}
+</style>
+</head>
+<body data-built="2026-10-16 13:56:34">
+<div class="ro-wrap">
+
+  <!-- 顶部 Tab：走势图页当前页带 .on；另外两个页面是同级静态页 -->
+  <div class="top-tabs">
+    <a class="tab" href="./">彩票推荐</a>
+    <a class="tab" href="足球推荐.html">竞彩场次</a>
+    <a class="tab on" href="走势图.html">走势图</a>
+  </div>
+
+  <div class="ro-top">
+    <h1>春风十里送大奖</h1>
+    <div class="sub">走势图 · 8 个彩种 · 最近 30 期真实开奖</div>
+  </div>
+
+  <div class="ro-status">
+    <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。
+    <span class="ro-st-time">数据快照 2026-10-16 13:56:34</span>
+  </div>
+
+  <div id="tr-root"></div>
+
+  <div class="ro-foot">
+    数据来源：本页自带的 history.js 快照（最近 30 期）· 页面零联网、不调 AI · 仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。
+  </div>
+</div>
+
+<script>
+/* 走势图数据快照 —— 构建时从 history.js 内嵌（本页唯一真数据源） */
+var TREND_DATA = {"updated":"2026-10-16 13:56:34","periods":30,"games":[{"id":"ssq","name":"双色球","main":{"key":"red","label":"红球","lo":1,"hi":33,"pick":6,"positional":false},"extra":{"key":"blue","label":"蓝球","lo":1,"hi":16,"pick":1},"rows":[{"issue":"2026089","date":"2026-08-04","nums":[5,18,23,24,27,33],"extra":[3]},{"issue":"2026090","date":"2026-08-06","nums":[2,4,15,23,25,27],"extra":[3]},{"issue":"2026091","date":"2026-08-09","nums":[2,13,14,16,20,24],"extra":[5]},{"issue":"2026092","date":"2026-08-11","nums":[9,11,12,25,30,33],"extra":[11]},{"issue":"2026093","date":"2026-08-13","nums":[5,8,15,20,21,24],"extra":[9]},{"issue":"2026094","date":"2026-08-16","nums":[6,13,15,17,24,25],"extra":[1]},{"issue":"2026095","date":"2026-08-18","nums":[4,6,14,21,22,33],"extra":[16]},{"issue":"2026096","date":"2026-08-20","nums":[1,4,16,22,26,31],"extra":[4]},{"issue":"2026097","date":"2026-08-23","nums":[5,16,24,26,29,30],"extra":[2]},{"issue":"2026098","date":"2026-08-25","nums":[8,16,18,22,25,26],"extra":[7]},{"issue":"2026099","date":"2026-08-27","nums":[1,12,14,18,30,31],"extra":[2]},{"issue":"2026100","date":"2026-08-30","nums":[3,4,9,13,22,31],"extra":[4]},{"issue":"2026101","date":"2026-09-01","nums":[5,6,8,9,24,25],"extra":[12]},{"issue":"2026102","date":"2026-09-03","nums":[3,4,10,13,16,25],"extra":[9]},{"issue":"2026103","date":"2026-09-06","nums":[4,11,20,27,28,30],"extra":[15]},{"issue":"2026104","date":"2026-09-08","nums":[11,12,13,19,20,31],"extra":[3]},{"issue":"2026105","date":"2026-09-10","nums":[2,4,13,14,15,30],"extra":[8]},{"issue":"2026106","date":"2026-09-13","nums":[6,11,13,14,22,30],"extra":[14]},{"issue":"2026107","date":"2026-09-15","nums":[1,5,9,17,24,33],"extra":[4]},{"issue":"2026108","date":"2026-09-17","nums":[6,11,13,14,20,28],"extra":[16]},{"issue":"2026109","date":"2026-09-20","nums":[9,12,15,26,30,33],"extra":[6]},{"issue":"2026110","date":"2026-09-22","nums":[2,5,16,19,26,32],"extra":[14]},{"issue":"2026111","date":"2026-09-24","nums":[6,7,14,22,31,32],"extra":[5]},{"issue":"2026112","date":"2026-09-27","nums":[1,4,11,12,17,29],"extra":[11]},{"issue":"2026113","date":"2026-09-29","nums":[3,4,20,24,29,30],"extra":[11]},{"issue":"2026114","date":"2026-10-06","nums":[7,18,23,24,29,31],"extra":[10]},{"issue":"2026115","date":"2026-10-08","nums":[4,13,14,18,22,24],"extra":[3]},{"issue":"2026116","date":"2026-10-11","nums":[10,19,24,27,28,33],"extra":[12]},{"issue":"2026117","date":"2026-10-13","nums":[4,11,14,22,26,27],"extra":[4]},{"issue":"2026118","date":"2026-10-15","nums":[5,21,22,23,28,31],"extra":[14]}],"total":60},{"id":"dlt","name":"大乐透","main":{"key":"front","label":"前区","lo":1,"hi":35,"pick":5,"positional":false},"extra":{"key":"back","label":"后区","lo":1,"hi":12,"pick":2},"rows":[{"issue":"26088","date":"2026-08-05","nums":[3,9,11,24,27],"extra":[5,11]},{"issue":"26089","date":"2026-08-08","nums":[3,7,12,14,26],"extra":[5,11]},{"issue":"26090","date":"2026-08-10","nums":[9,14,17,19,24],"extra":[2,9]},{"issue":"26091","date":"2026-08-12","nums":[3,4,7,12,32],"extra":[1,2]},{"issue":"26092","date":"2026-08-15","nums":[12,16,19,29,33],"extra":[7,9]},{"issue":"26093","date":"2026-08-17","nums":[8,10,22,26,29],"extra":[3,10]},{"issue":"26094","date":"2026-08-19","nums":[5,14,15,17,33],"extra":[1,7]},{"issue":"26095","date":"2026-08-22","nums":[4,6,8,10,14],"extra":[4,5]},{"issue":"26096","date":"2026-08-24","nums":[8,9,10,11,25],"extra":[4,12]},{"issue":"26097","date":"2026-08-26","nums":[3,10,12,20,25],"extra":[1,9]},{"issue":"26098","date":"2026-08-29","nums":[7,9,18,19,21],"extra":[2,9]},{"issue":"26099","date":"2026-08-31","nums":[2,17,20,29,33],"extra":[8,9]},{"issue":"26100","date":"2026-09-02","nums":[2,6,11,15,31],"extra":[7,8]},{"issue":"26101","date":"2026-09-05","nums":[9,11,18,26,33],"extra":[9,11]},{"issue":"26102","date":"2026-09-07","nums":[1,3,7,27,28],"extra":[6,7]},{"issue":"26103","date":"2026-09-09","nums":[3,16,17,32,35],"extra":[2,12]},{"issue":"26104","date":"2026-09-12","nums":[1,6,14,15,26],"extra":[8,9]},{"issue":"26105","date":"2026-09-14","nums":[10,14,30,33,34],"extra":[9,12]},{"issue":"26106","date":"2026-09-16","nums":[14,17,21,25,28],"extra":[4,6]},{"issue":"26107","date":"2026-09-19","nums":[2,5,7,14,22],"extra":[4,10]},{"issue":"26108","date":"2026-09-21","nums":[1,5,7,21,35],"extra":[1,4]},{"issue":"26109","date":"2026-09-23","nums":[12,14,16,27,34],"extra":[4,8]},{"issue":"26110","date":"2026-09-26","nums":[3,24,25,26,35],"extra":[7,9]},{"issue":"26111","date":"2026-09-28","nums":[10,11,17,26,29],"extra":[1,3]},{"issue":"26112","date":"2026-09-30","nums":[1,3,5,10,22],"extra":[3,9]},{"issue":"26113","date":"2026-10-05","nums":[2,4,6,10,11],"extra":[1,10]},{"issue":"26114","date":"2026-10-07","nums":[8,12,15,29,30],"extra":[9,12]},{"issue":"26115","date":"2026-10-10","nums":[12,20,32,33,35],"extra":[6,7]},{"issue":"26116","date":"2026-10-12","nums":[9,18,22,25,35],"extra":[1,10]},{"issue":"26117","date":"2026-10-14","nums":[4,13,19,29,31],"extra":[2,12]}],"total":60},{"id":"qlc","name":"七乐彩","main":{"key":"main","label":"基本号","lo":1,"hi":30,"pick":7,"positional":false},"extra":{"key":"special","label":"特别号","lo":1,"hi":30,"pick":1},"rows":[{"issue":"2026090","date":"2026-08-07","nums":[2,4,6,7,8,17,19],"extra":[25]},{"issue":"2026091","date":"2026-08-10","nums":[1,6,7,8,15,26,30],"extra":[10]},{"issue":"2026092","date":"2026-08-12","nums":[2,10,12,14,22,27,28],"extra":[13]},{"issue":"2026093","date":"2026-08-14","nums":[6,7,8,12,21,27,29],"extra":[15]},{"issue":"2026094","date":"2026-08-17","nums":[2,3,10,21,22,24,26],"extra":[13]},{"issue":"2026095","date":"2026-08-19","nums":[13,15,17,18,20,22,25],"extra":[7]},{"issue":"2026096","date":"2026-08-21","nums":[5,14,17,24,26,28,29],"extra":[16]},{"issue":"2026097","date":"2026-08-24","nums":[1,12,19,21,23,25,29],"extra":[22]},{"issue":"2026098","date":"2026-08-26","nums":[6,7,9,14,16,24,30],"extra":[11]},{"issue":"2026099","date":"2026-08-28","nums":[3,6,7,8,12,22,23],"extra":[13]},{"issue":"2026100","date":"2026-08-31","nums":[1,8,11,13,23,25,28],"extra":[24]},{"issue":"2026101","date":"2026-09-02","nums":[2,6,12,13,18,25,27],"extra":[9]},{"issue":"2026102","date":"2026-09-04","nums":[1,4,5,10,14,21,29],"extra":[30]},{"issue":"2026103","date":"2026-09-07","nums":[1,8,20,21,23,26,30],"extra":[29]},{"issue":"2026104","date":"2026-09-09","nums":[9,16,18,21,22,23,26],"extra":[27]},{"issue":"2026105","date":"2026-09-11","nums":[8,19,20,21,23,27,30],"extra":[16]},{"issue":"2026106","date":"2026-09-14","nums":[3,9,10,13,24,26,28],"extra":[7]},{"issue":"2026107","date":"2026-09-16","nums":[1,4,6,18,19,21,22],"extra":[2]},{"issue":"2026108","date":"2026-09-18","nums":[11,13,19,20,25,28,29],"extra":[26]},{"issue":"2026109","date":"2026-09-21","nums":[5,7,13,16,17,24,29],"extra":[19]},{"issue":"2026110","date":"2026-09-23","nums":[6,7,8,11,23,26,27],"extra":[17]},{"issue":"2026111","date":"2026-09-25","nums":[2,4,5,14,16,17,22],"extra":[20]},{"issue":"2026112","date":"2026-09-28","nums":[2,4,7,9,13,23,26],"extra":[30]},{"issue":"2026113","date":"2026-09-30","nums":[6,10,11,12,23,29,30],"extra":[13]},{"issue":"2026114","date":"2026-10-05","nums":[9,14,19,21,22,25,29],"extra":[27]},{"issue":"2026115","date":"2026-10-07","nums":[1,4,5,13,24,28,30],"extra":[2]},{"issue":"2026116","date":"2026-10-09","nums":[1,6,7,13,17,25,28],"extra":[14]},{"issue":"2026117","date":"2026-10-12","nums":[1,8,12,14,17,25,27],"extra":[23]},{"issue":"2026118","date":"2026-10-14","nums":[6,8,14,17,19,23,26],"extra":[28]},{"issue":"2026119","date":"2026-10-16","nums":[2,8,14,15,16,28,29],"extra":[30]}],"total":60},{"id":"qxc","name":"七星彩","main":{"key":"front","label":"前6位","lo":0,"hi":9,"pick":6,"positional":true},"extra":{"key":"back","label":"第7位","lo":0,"hi":14,"pick":1},"rows":[{"issue":"26089","date":"2026-08-04","nums":[7,1,8,9,3,4],"extra":[0]},{"issue":"26090","date":"2026-08-07","nums":[7,0,1,6,1,2],"extra":[6]},{"issue":"26091","date":"2026-08-09","nums":[7,9,5,8,5,0],"extra":[6]},{"issue":"26092","date":"2026-08-11","nums":[7,8,3,8,5,6],"extra":[12]},{"issue":"26093","date":"2026-08-14","nums":[4,9,6,5,0,8],"extra":[7]},{"issue":"26094","date":"2026-08-16","nums":[0,6,0,2,4,0],"extra":[0]},{"issue":"26095","date":"2026-08-18","nums":[6,6,4,9,0,8],"extra":[7]},{"issue":"26096","date":"2026-08-21","nums":[1,4,2,6,9,5],"extra":[5]},{"issue":"26097","date":"2026-08-23","nums":[8,2,7,4,4,8],"extra":[12]},{"issue":"26098","date":"2026-08-25","nums":[5,6,8,6,3,3],"extra":[3]},{"issue":"26099","date":"2026-08-28","nums":[9,4,6,3,3,4],"extra":[5]},{"issue":"26100","date":"2026-08-30","nums":[8,3,1,1,7,3],"extra":[0]},{"issue":"26101","date":"2026-09-01","nums":[6,8,6,1,0,5],"extra":[13]},{"issue":"26102","date":"2026-09-04","nums":[1,7,5,5,8,8],"extra":[6]},{"issue":"26103","date":"2026-09-06","nums":[0,0,0,6,0,2],"extra":[8]},{"issue":"26104","date":"2026-09-08","nums":[7,4,0,7,2,8],"extra":[14]},{"issue":"26105","date":"2026-09-11","nums":[5,9,9,5,3,3],"extra":[0]},{"issue":"26106","date":"2026-09-13","nums":[5,1,9,5,8,5],"extra":[11]},{"issue":"26107","date":"2026-09-15","nums":[2,8,3,4,5,6],"extra":[4]},{"issue":"26108","date":"2026-09-18","nums":[9,5,2,0,8,6],"extra":[9]},{"issue":"26109","date":"2026-09-20","nums":[2,9,0,5,0,3],"extra":[9]},{"issue":"26110","date":"2026-09-22","nums":[6,2,5,9,6,9],"extra":[13]},{"issue":"26111","date":"2026-09-25","nums":[7,8,9,1,0,1],"extra":[1]},{"issue":"26112","date":"2026-09-27","nums":[4,2,6,4,1,4],"extra":[8]},{"issue":"26113","date":"2026-09-29","nums":[7,0,6,8,7,4],"extra":[0]},{"issue":"26114","date":"2026-10-06","nums":[1,3,8,4,1,5],"extra":[9]},{"issue":"26115","date":"2026-10-09","nums":[6,3,9,3,7,3],"extra":[3]},{"issue":"26116","date":"2026-10-11","nums":[8,7,1,5,7,0],"extra":[6]},{"issue":"26117","date":"2026-10-13","nums":[7,7,5,5,1,3],"extra":[11]},{"issue":"26118","date":"2026-10-16","nums":[0,6,8,4,2,8],"extra":[7]}],"total":60},{"id":"kl8","name":"快乐8","main":{"key":"main","label":"号码","lo":1,"hi":80,"pick":20,"positional":false},"extra":null,"rows":[{"issue":"2026246","date":"2026-09-13","nums":[3,8,10,16,18,20,23,29,31,35,51,53,54,56,58,69,70,75,78,80],"extra":[]},{"issue":"2026247","date":"2026-09-14","nums":[5,7,19,22,28,29,38,39,41,42,43,44,55,58,61,65,66,71,72,73],"extra":[]},{"issue":"2026248","date":"2026-09-15","nums":[3,5,9,15,23,28,31,33,34,35,39,42,48,50,53,70,73,74,76,78],"extra":[]},{"issue":"2026249","date":"2026-09-16","nums":[4,8,10,11,13,26,29,34,41,50,51,52,53,57,59,65,66,73,74,77],"extra":[]},{"issue":"2026250","date":"2026-09-17","nums":[4,5,6,8,17,22,23,31,35,47,49,51,59,60,62,65,67,68,76,78],"extra":[]},{"issue":"2026251","date":"2026-09-18","nums":[1,4,8,9,10,11,18,26,28,29,43,49,51,52,53,54,62,66,70,76],"extra":[]},{"issue":"2026252","date":"2026-09-19","nums":[2,3,4,8,36,38,40,41,46,49,50,52,53,56,57,62,63,65,68,72],"extra":[]},{"issue":"2026253","date":"2026-09-20","nums":[1,2,8,17,23,24,29,31,40,41,46,47,51,54,59,62,65,72,74,79],"extra":[]},{"issue":"2026254","date":"2026-09-21","nums":[2,4,10,13,18,20,21,26,32,37,43,49,50,57,62,66,69,73,78,80],"extra":[]},{"issue":"2026255","date":"2026-09-22","nums":[2,9,12,16,18,23,26,31,36,44,47,52,54,55,59,60,61,66,72,77],"extra":[]},{"issue":"2026256","date":"2026-09-23","nums":[1,2,6,11,12,14,15,22,24,32,33,35,38,46,67,68,71,73,74,76],"extra":[]},{"issue":"2026257","date":"2026-09-24","nums":[1,4,7,8,10,13,23,24,31,33,39,40,47,48,58,61,65,74,76,79],"extra":[]},{"issue":"2026258","date":"2026-09-25","nums":[7,13,14,15,17,19,20,24,28,30,35,44,50,51,54,57,60,64,75,78],"extra":[]},{"issue":"2026259","date":"2026-09-26","nums":[5,6,13,26,29,30,34,36,44,50,54,56,61,62,66,73,74,76,79,80],"extra":[]},{"issue":"2026260","date":"2026-09-27","nums":[2,7,16,19,21,25,30,31,33,35,42,45,50,52,53,55,56,60,63,72],"extra":[]},{"issue":"2026261","date":"2026-09-28","nums":[1,11,17,21,23,27,28,35,37,42,45,46,48,61,72,73,75,78,79,80],"extra":[]},{"issue":"2026262","date":"2026-09-29","nums":[4,6,9,12,15,17,20,33,42,44,49,54,55,59,61,65,72,73,78,80],"extra":[]},{"issue":"2026263","date":"2026-09-30","nums":[7,8,9,10,11,13,22,24,25,26,31,33,37,45,50,51,62,67,70,80],"extra":[]},{"issue":"2026264","date":"2026-10-05","nums":[5,15,16,21,24,30,34,37,42,47,54,60,62,63,64,66,73,77,79,80],"extra":[]},{"issue":"2026265","date":"2026-10-06","nums":[2,7,9,12,13,20,23,25,31,34,35,36,39,50,51,56,59,73,77,78],"extra":[]},{"issue":"2026266","date":"2026-10-07","nums":[2,4,8,9,14,32,36,45,48,51,52,54,56,57,64,65,66,72,73,77],"extra":[]},{"issue":"2026267","date":"2026-10-08","nums":[3,16,20,26,29,35,41,42,43,44,45,49,50,54,59,60,61,68,74,79],"extra":[]},{"issue":"2026268","date":"2026-10-09","nums":[1,2,6,7,16,19,26,31,35,40,45,46,48,49,52,59,62,68,73,79],"extra":[]},{"issue":"2026269","date":"2026-10-10","nums":[1,2,3,7,11,13,15,18,25,27,30,35,44,46,55,57,60,63,70,73],"extra":[]},{"issue":"2026270","date":"2026-10-11","nums":[3,6,7,8,9,16,21,22,23,27,39,40,41,44,48,54,60,65,68,75],"extra":[]},{"issue":"2026271","date":"2026-10-12","nums":[10,17,20,22,30,31,37,40,41,43,44,45,50,52,56,58,59,63,71,76],"extra":[]},{"issue":"2026272","date":"2026-10-13","nums":[11,14,19,20,39,40,41,43,47,51,57,62,64,66,67,68,72,76,77,80],"extra":[]},{"issue":"2026273","date":"2026-10-14","nums":[9,10,12,14,23,24,27,31,35,38,49,51,52,54,55,58,61,63,65,76],"extra":[]},{"issue":"2026274","date":"2026-10-15","nums":[8,9,15,17,27,29,35,38,43,44,45,46,47,48,54,56,63,64,70,78],"extra":[]},{"issue":"2026275","date":"2026-10-16","nums":[11,31,32,33,37,38,39,48,51,55,56,60,63,64,65,67,68,72,73,78],"extra":[]}],"total":60},{"id":"fc3d","name":"福彩3D","main":{"key":"main","label":"号码","lo":0,"hi":9,"pick":3,"positional":true},"extra":null,"rows":[{"issue":"2026246","date":"2026-09-13","nums":[9,8,2],"extra":[]},{"issue":"2026247","date":"2026-09-14","nums":[6,0,9],"extra":[]},{"issue":"2026248","date":"2026-09-15","nums":[8,7,6],"extra":[]},{"issue":"2026249","date":"2026-09-16","nums":[6,8,9],"extra":[]},{"issue":"2026250","date":"2026-09-17","nums":[9,5,4],"extra":[]},{"issue":"2026251","date":"2026-09-18","nums":[7,7,7],"extra":[]},{"issue":"2026252","date":"2026-09-19","nums":[0,9,2],"extra":[]},{"issue":"2026253","date":"2026-09-20","nums":[0,3,4],"extra":[]},{"issue":"2026254","date":"2026-09-21","nums":[8,5,0],"extra":[]},{"issue":"2026255","date":"2026-09-22","nums":[6,9,9],"extra":[]},{"issue":"2026256","date":"2026-09-23","nums":[0,5,1],"extra":[]},{"issue":"2026257","date":"2026-09-24","nums":[4,8,6],"extra":[]},{"issue":"2026258","date":"2026-09-25","nums":[6,3,5],"extra":[]},{"issue":"2026259","date":"2026-09-26","nums":[7,3,1],"extra":[]},{"issue":"2026260","date":"2026-09-27","nums":[6,1,9],"extra":[]},{"issue":"2026261","date":"2026-09-28","nums":[5,1,1],"extra":[]},{"issue":"2026262","date":"2026-09-29","nums":[3,4,7],"extra":[]},{"issue":"2026263","date":"2026-09-30","nums":[9,8,7],"extra":[]},{"issue":"2026264","date":"2026-10-05","nums":[1,1,9],"extra":[]},{"issue":"2026265","date":"2026-10-06","nums":[1,6,1],"extra":[]},{"issue":"2026266","date":"2026-10-07","nums":[3,4,6],"extra":[]},{"issue":"2026267","date":"2026-10-08","nums":[8,5,7],"extra":[]},{"issue":"2026268","date":"2026-10-09","nums":[8,9,0],"extra":[]},{"issue":"2026269","date":"2026-10-10","nums":[3,4,1],"extra":[]},{"issue":"2026270","date":"2026-10-11","nums":[0,8,4],"extra":[]},{"issue":"2026271","date":"2026-10-12","nums":[2,8,0],"extra":[]},{"issue":"2026272","date":"2026-10-13","nums":[0,1,5],"extra":[]},{"issue":"2026273","date":"2026-10-14","nums":[9,0,2],"extra":[]},{"issue":"2026274","date":"2026-10-15","nums":[8,2,3],"extra":[]},{"issue":"2026275","date":"2026-10-16","nums":[2,8,7],"extra":[]}],"total":60},{"id":"pl3","name":"排列3","main":{"key":"main","label":"号码","lo":0,"hi":9,"pick":3,"positional":true},"extra":null,"rows":[{"issue":"26246","date":"2026-09-13","nums":[2,8,6],"extra":[]},{"issue":"26247","date":"2026-09-14","nums":[0,5,1],"extra":[]},{"issue":"26248","date":"2026-09-15","nums":[1,2,6],"extra":[]},{"issue":"26249","date":"2026-09-16","nums":[8,7,2],"extra":[]},{"issue":"26250","date":"2026-09-17","nums":[9,8,5],"extra":[]},{"issue":"26251","date":"2026-09-18","nums":[2,3,7],"extra":[]},{"issue":"26252","date":"2026-09-19","nums":[1,9,0],"extra":[]},{"issue":"26253","date":"2026-09-20","nums":[8,9,3],"extra":[]},{"issue":"26254","date":"2026-09-21","nums":[0,6,9],"extra":[]},{"issue":"26255","date":"2026-09-22","nums":[7,6,4],"extra":[]},{"issue":"26256","date":"2026-09-23","nums":[6,9,0],"extra":[]},{"issue":"26257","date":"2026-09-24","nums":[4,9,3],"extra":[]},{"issue":"26258","date":"2026-09-25","nums":[1,3,7],"extra":[]},{"issue":"26259","date":"2026-09-26","nums":[3,7,9],"extra":[]},{"issue":"26260","date":"2026-09-27","nums":[4,4,9],"extra":[]},{"issue":"26261","date":"2026-09-28","nums":[5,3,8],"extra":[]},{"issue":"26262","date":"2026-09-29","nums":[2,7,3],"extra":[]},{"issue":"26263","date":"2026-09-30","nums":[1,7,1],"extra":[]},{"issue":"26264","date":"2026-10-05","nums":[5,9,2],"extra":[]},{"issue":"26265","date":"2026-10-06","nums":[9,5,4],"extra":[]},{"issue":"26266","date":"2026-10-07","nums":[1,2,1],"extra":[]},{"issue":"26267","date":"2026-10-08","nums":[2,1,6],"extra":[]},{"issue":"26268","date":"2026-10-09","nums":[3,0,0],"extra":[]},{"issue":"26269","date":"2026-10-10","nums":[0,6,7],"extra":[]},{"issue":"26270","date":"2026-10-11","nums":[6,4,1],"extra":[]},{"issue":"26271","date":"2026-10-12","nums":[6,2,2],"extra":[]},{"issue":"26272","date":"2026-10-13","nums":[8,9,0],"extra":[]},{"issue":"26273","date":"2026-10-14","nums":[7,0,3],"extra":[]},{"issue":"26274","date":"2026-10-15","nums":[3,6,1],"extra":[]},{"issue":"26275","date":"2026-10-16","nums":[2,0,6],"extra":[]}],"total":60},{"id":"pl5","name":"排列5","main":{"key":"main","label":"号码","lo":0,"hi":9,"pick":5,"positional":true},"extra":null,"rows":[{"issue":"26246","date":"2026-09-13","nums":[2,8,6,6,5],"extra":[]},{"issue":"26247","date":"2026-09-14","nums":[0,5,1,9,8],"extra":[]},{"issue":"26248","date":"2026-09-15","nums":[1,2,6,2,2],"extra":[]},{"issue":"26249","date":"2026-09-16","nums":[8,7,2,4,1],"extra":[]},{"issue":"26250","date":"2026-09-17","nums":[9,8,5,8,1],"extra":[]},{"issue":"26251","date":"2026-09-18","nums":[2,3,7,7,1],"extra":[]},{"issue":"26252","date":"2026-09-19","nums":[1,9,0,9,0],"extra":[]},{"issue":"26253","date":"2026-09-20","nums":[8,9,3,5,1],"extra":[]},{"issue":"26254","date":"2026-09-21","nums":[0,6,9,4,0],"extra":[]},{"issue":"26255","date":"2026-09-22","nums":[7,6,4,2,5],"extra":[]},{"issue":"26256","date":"2026-09-23","nums":[6,9,0,4,3],"extra":[]},{"issue":"26257","date":"2026-09-24","nums":[4,9,3,3,0],"extra":[]},{"issue":"26258","date":"2026-09-25","nums":[1,3,7,4,1],"extra":[]},{"issue":"26259","date":"2026-09-26","nums":[3,7,9,0,2],"extra":[]},{"issue":"26260","date":"2026-09-27","nums":[4,4,9,1,0],"extra":[]},{"issue":"26261","date":"2026-09-28","nums":[5,3,8,5,9],"extra":[]},{"issue":"26262","date":"2026-09-29","nums":[2,7,3,0,2],"extra":[]},{"issue":"26263","date":"2026-09-30","nums":[1,7,1,4,2],"extra":[]},{"issue":"26264","date":"2026-10-05","nums":[5,9,2,0,1],"extra":[]},{"issue":"26265","date":"2026-10-06","nums":[9,5,4,6,7],"extra":[]},{"issue":"26266","date":"2026-10-07","nums":[1,2,1,7,2],"extra":[]},{"issue":"26267","date":"2026-10-08","nums":[2,1,6,2,1],"extra":[]},{"issue":"26268","date":"2026-10-09","nums":[3,0,0,7,6],"extra":[]},{"issue":"26269","date":"2026-10-10","nums":[0,6,7,4,0],"extra":[]},{"issue":"26270","date":"2026-10-11","nums":[6,4,1,2,4],"extra":[]},{"issue":"26271","date":"2026-10-12","nums":[6,2,2,4,6],"extra":[]},{"issue":"26272","date":"2026-10-13","nums":[8,9,0,2,0],"extra":[]},{"issue":"26273","date":"2026-10-14","nums":[7,0,3,6,7],"extra":[]},{"issue":"26274","date":"2026-10-15","nums":[3,6,1,9,5],"extra":[]},{"issue":"26275","date":"2026-10-16","nums":[2,0,6,6,6],"extra":[]}],"total":60}]};
+
+/* ============================================================
+   trend-render.js —— 走势图渲染内核（页面 + 验收脚本共用）
+   ------------------------------------------------------------
+   这份文件【只被读取、被内嵌】，本身不会被 <\/script src> 引用，所以：
+     · 不用 import / export，纯全局函数，页面里直接可用
+     · 迷你 DOM 验收里用 vm.runInContext 直接跑同一份文件
+   只做纯函数：给同一份 payload，永远出同一段 HTML。
+   ============================================================ */
+
+/* 单区统计：出现次数 / 当前遗漏 / 最大遗漏
+   遗漏 = 从最新一期往回数，连续多少期没出现（0 = 最新一期就开了）。
+   数字型彩种（positional）按"位"统计：某位等于该数字就算开出。 */
+function trAreaStats(series, nCols, lo) {
+  const out = [];
+  const periods = series.length;
+  for (let i = 0; i < nCols; i++) {
+    const want = lo + i;
+    const hits = series.map((arr) => arr.filter((v) => v === want).length);
+    const freq = hits.reduce((a, b) => a + b, 0);
+    let gap = 0;
+    for (let k = periods - 1; k >= 0; k--) { if (hits[k] > 0) break; gap++; }
+    let maxGap = 0, cur = 0;
+    for (let k = 0; k < periods; k++) { if (hits[k] > 0) { cur = 0; } else { cur++; if (cur > maxGap) maxGap = cur; } }
+    out.push({ n: want, freq, gap, maxGap });
+  }
+  return out;
+}
+
+function trEsc(s) {
+  return String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
+}
+
+/* 渲染整块：彩种切换条 + 8 张走势表 + 图例 */
+function renderTrendHtml(payload) {
+  const esc = trEsc;
+  const games = payload.games;
+  const L = [];
+
+  /* ① 彩种切换条 */
+  L.push('<div class="tr-tabs" role="tablist" aria-label="彩种切换">');
+  games.forEach((g, i) => {
+    L.push('<a class="tr-tab' + (i === 0 ? ' on' : '') + '" href="#g=' + esc(g.id) +
+      '" data-tr-tab="' + esc(g.id) + '">' + esc(g.name) + '</a>');
+  });
+  L.push('</div>');
+
+  /* ② 每个彩种一块 */
+  games.forEach((g) => {
+    const rows = g.rows;
+    const nCols = g.main.hi - g.main.lo + 1;
+    const exCols = g.extra ? (g.extra.hi - g.extra.lo + 1) : 0;
+    const withExtra = exCols > 0;
+
+    L.push('<section class="tr-block" id="' + esc(g.id) + '" data-tr-block="' + esc(g.id) + '">');
+    L.push('<div class="tr-head">');
+    L.push('<h2 class="tr-title">' + esc(g.name) + ' · 走势图</h2>');
+    L.push('<div class="tr-sub">最近 <b>' + rows.length + '</b> 期 · 期号 <b>' + esc(rows[0].issue) +
+      '</b> → <b>' + esc(rows[rows.length - 1].issue) + '</b> · 每期 ' + g.main.pick + ' 个' +
+      esc(g.main.label) + (g.extra ? ' + ' + g.extra.pick + ' 个' + esc(g.extra.label) : '') + '</div>');
+    L.push('</div>');
+
+    L.push('<div class="tr-scroll">');
+    L.push('<table class="tr-table" data-tr-table="' + esc(g.id) + '">');
+
+    /* 表头：期号 + 号码列（+ 第二区）+ 开出 */
+    L.push('<thead><tr>');
+    L.push('<th class="tr-th-issue tr-sticky">期号</th>');
+    for (let n = g.main.lo; n <= g.main.hi; n++) {
+      L.push('<th class="tr-th-num' + (g.main.positional ? ' tr-th-pos' : '') + '">' + n + '</th>');
+    }
+    if (withExtra) {
+      L.push('<th class="tr-th-sep" aria-label="' + esc(g.extra.label) + '"></th>');
+      for (let n = g.extra.lo; n <= g.extra.hi; n++) {
+        L.push('<th class="tr-th-num tr-th-extra">' + n + '</th>');
+      }
+    }
+    L.push('<th class="tr-th-tail">开出</th>');
+    L.push('</tr></thead>');
+
+    /* 表体：每期一行 */
+    L.push('<tbody>');
+    rows.forEach((r, ri) => {
+      const isLast = ri === rows.length - 1;
+      /* 数字型彩种按【位】标记：重复号码各算一格（例如 2,8,7） */
+      const hitMain = new Array(nCols).fill(0);
+      r.nums.forEach((v) => { const idx = v - g.main.lo; if (idx >= 0 && idx < nCols) hitMain[idx]++; });
+      const hitExtra = new Array(exCols).fill(0);
+      if (withExtra) r.extra.forEach((v) => { const idx = v - g.extra.lo; if (idx >= 0 && idx < exCols) hitExtra[idx]++; });
+
+      L.push('<tr class="tr-row' + (isLast ? ' tr-row-last' : '') + '" data-tr-issue="' + esc(r.issue) + '">');
+      L.push('<td class="tr-td-issue tr-sticky"><b>' + esc(r.issue) + '</b><i>' +
+        esc(String(r.date).slice(5)) + '</i></td>');
+      for (let i = 0; i < nCols; i++) {
+        const c = hitMain[i];
+        L.push('<td class="tr-td-num' + (c ? ' on' : '') + '" data-tr-hit="' + c + '">' + (c ? '<s></s>' : '') + '</td>');
+      }
+      if (withExtra) {
+        L.push('<td class="tr-td-sep"></td>');
+        for (let i = 0; i < exCols; i++) {
+          const c = hitExtra[i];
+          L.push('<td class="tr-td-num tr-td-extra' + (c ? ' on' : '') + '" data-tr-zone="x" data-tr-hit="' + c + '">' + (c ? '<s></s>' : '') + '</td>');
+        }
+      }
+      /* 行尾：本期原始开奖号（数字型彩种用它看"位"的顺序） */
+      const tail = g.main.positional
+        ? r.nums.join('')
+        : (r.nums.slice().sort((a, b) => a - b).join(' ') + (withExtra ? ' + ' + r.extra.join(' ') : ''));
+      L.push('<td class="tr-td-tail">' + esc(tail) + '</td>');
+      L.push('</tr>');
+    });
+    L.push('</tbody>');
+
+    /* 表尾：出现次数 / 当前遗漏 / 最大遗漏 */
+    const stats = trAreaStats(rows.map((r) => r.nums), nCols, g.main.lo);
+    const xstats = withExtra ? trAreaStats(rows.map((r) => r.extra), exCols, g.extra.lo) : null;
+    L.push('<tfoot>');
+    L.push('<tr class="tr-freq"><td class="tr-tf-label tr-sticky">出现次数</td>');
+    stats.forEach((s) => L.push('<td class="tr-td-freq">' + s.freq + '</td>'));
+    if (withExtra) {
+      L.push('<td class="tr-td-sep"></td>');
+      xstats.forEach((s) => L.push('<td class="tr-td-freq tr-td-extra">' + s.freq + '</td>'));
+    }
+    L.push('<td class="tr-td-tail"></td></tr>');
+    L.push('<tr class="tr-gap"><td class="tr-tf-label tr-sticky">当前遗漏</td>');
+    stats.forEach((s) => L.push('<td class="tr-td-gap' + (s.gap === 0 ? ' zero' : '') + '">' + s.gap + '</td>'));
+    if (withExtra) {
+      L.push('<td class="tr-td-sep"></td>');
+      xstats.forEach((s) => L.push('<td class="tr-td-gap tr-td-extra' + (s.gap === 0 ? ' zero' : '') + '">' + s.gap + '</td>'));
+    }
+    L.push('<td class="tr-td-tail"></td></tr>');
+    L.push('<tr class="tr-maxgap"><td class="tr-tf-label tr-sticky">最大遗漏</td>');
+    stats.forEach((s) => L.push('<td class="tr-td-gap">' + s.maxGap + '</td>'));
+    if (withExtra) {
+      L.push('<td class="tr-td-sep"></td>');
+      xstats.forEach((s) => L.push('<td class="tr-td-gap tr-td-extra">' + s.maxGap + '</td>'));
+    }
+    L.push('<td class="tr-td-tail"></td></tr>');
+    L.push('</tfoot>');
+
+    L.push('</table></div>');
+    L.push('<div class="tr-note">横轴 = ' + esc(g.main.label) + '号码 ' + g.main.lo + '~' + g.main.hi +
+      (withExtra ? ' · 右侧 ' + esc(g.extra.label) + ' ' + g.extra.lo + '~' + g.extra.hi : '') +
+      ' · 纵轴 = 期号（越往下越新）· 米色格 = 该期开出' +
+      (g.main.positional ? '（数字型按"位"标记，重复号码各算一次）' : '') + '</div>');
+    L.push('</section>');
+  });
+
+  /* ③ 图例 */
+  L.push('<div class="tr-legend">');
+  L.push('<span><i class="tr-lg-on"></i>该期开出</span>');
+  L.push('<span><i class="tr-lg-last"></i>最新一期</span>');
+  L.push('<span><i class="tr-lg-gap"></i>当前遗漏 = 0（刚开过）</span>');
+  L.push('</div>');
+  return L.join('');
+}
+
+
+/* ============================================================
+   trend-mount.js —— 走势图页面的挂载 + 彩种切换
+   ------------------------------------------------------------
+   被 build-trend.mjs 内嵌进页面 <\/script>（readText 后注入），
+   所以这里是普通脚本（无 import/export）。
+   依赖页面里先有：TREND_DATA、renderTrendHtml。
+   ============================================================ */
+(function () {
+  var root = document.getElementById('tr-root');
+  root.innerHTML = renderTrendHtml(TREND_DATA);
+
+  /* ⚠️ querySelectorAll 返回的是 NodeList，只有 forEach 没有 some/filter/slice。
+     最初直接写 tabs.some(...) → 带 ?g= 深链时抛
+     "tabs.some is not a function"，后面的"隐藏其它块 / 写标题"全没执行，
+     表现成"深链失效、8 块全露"（实测踩过）。统一转成真数组。 */
+  var toArr = function (nl) { return Array.prototype.slice.call(nl); };
+  var blocks = toArr(root.querySelectorAll('[data-tr-block]'));
+  var tabs = toArr(root.querySelectorAll('[data-tr-tab]'));
+
+  function show(id) {
+    /* 用 setAttribute('hidden') 而不是 .hidden 属性：
+       ① 真浏览器里 [hidden] 一定生效（CSS 里也写了兜底）
+       ② 迷你 DOM 验收脚本能按属性查到，真的能验证"只显示一块" */
+    blocks.forEach(function (b) {
+      if (b.getAttribute('data-tr-block') === id) b.removeAttribute('hidden');
+      else b.setAttribute('hidden', '');
+    });
+    tabs.forEach(function (t) {
+      var on = (t.getAttribute('data-tr-tab') === id);
+      t.className = 'tr-tab' + (on ? ' on' : '');
+    });
+    /* ⚠️ file:// 下 history.replaceState 会抛 SecurityError —— 必须吞掉异常，
+       否则后面的"隐藏其它块 / 写标题"全都不执行（实测踩过：
+       页面 8 块全露、标题也没改，看起来像脚本没跑）。
+       不写 localStorage（用户明令）；这里只是把当前彩种写回地址栏方便返回。 */
+    try {
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', '?g=' + id);
+      }
+    } catch (e) { /* file:// 下静默失败即可，功能不受影响 */ }
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      show(t.getAttribute('data-tr-tab'));
+    });
+  });
+
+  var first = tabs[0] && tabs[0].getAttribute('data-tr-tab');
+  var want = first;
+
+  /* ① 支持 ?g=kl8 深链（手机收藏 / 分享指定彩种 / 截图定位）。
+     ⚠️ 用查询参数而不是 hash：各 section 的 id 就是彩种名，
+        裸 #kl8 会被浏览器当成锚点自己跳转；而且 file:// 下改 hash 会有额外风险。
+     不写 localStorage（用户明令），只读地址栏。 */
+  var q = '';
+  try { q = (window.location && window.location.search) ? String(window.location.search) : ''; } catch (e) { q = ''; }
+  var m = /[?&]g=([a-z0-9]+)/i.exec(q);
+  if (m) {
+    var id0 = m[1];
+    if (tabs.some(function (t) { return t.getAttribute('data-tr-tab') === id0; })) want = id0;
+  }
+
+  /* ② 兼容老的 #g=kl8 形式（不强求，读不到就用默认） */
+  if (!m) {
+    var hash = '';
+    try { hash = (window.location && window.location.hash) ? String(window.location.hash) : ''; } catch (e) { hash = ''; }
+    var m2 = /^#g=([a-z0-9]+)/i.exec(hash);
+    if (m2 && tabs.some(function (t) { return t.getAttribute('data-tr-tab') === m2[1]; })) want = m2[1];
+  }
+
+  if (want) {
+    show(want);
+    if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) {} }
+  }
+
+  /* 自检标记：验收脚本读它 */
+  document.title = '走势图 OK · ' + TREND_DATA.games.length + '彩种/' + TREND_DATA.periods + '期';
+})();
+
+</script>
+</body>
+</html>
