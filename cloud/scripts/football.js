@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "阿德莱德城",
      "score": 0,
@@ -94,10 +94,10 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "欧克莱卡诺",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "城市隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
     "away": {
      "name": "巴斯顺达拉国王",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -313,16 +313,16 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "PWD體育",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "莫哈末丹达卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -15878,7 +15878,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15887,7 +15887,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "青島西海岸(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -15944,7 +15944,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -16048,7 +16048,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 2,
@@ -16086,7 +16086,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "乌拉尔青年队",
      "score": 1,
