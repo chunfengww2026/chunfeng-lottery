@@ -15409,7 +15409,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 3,
@@ -15447,10 +15447,10 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "乌拉尔青年队",
-     "score": 2,
+     "score": 4,
      "red": 0,
      "rank": 12
     },
@@ -15497,7 +15497,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "阿德莱德城",
      "score": 0,
@@ -15563,7 +15563,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "欧克莱卡诺",
      "score": 2,
@@ -15629,7 +15629,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -15773,7 +15773,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15851,7 +15851,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "蒂察爾阿爾曼",
      "score": 0,
@@ -15929,7 +15929,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "悉尼FC",
      "score": 0,
