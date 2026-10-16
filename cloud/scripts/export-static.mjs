@@ -4629,7 +4629,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        ============================================================ -->
   <div class="top-tabs">
     <a class="tab on" href="./">彩票推荐</a>
-    <a class="tab" href="足球推荐.html">足球竞彩</a>
+    <a class="tab" href="足球推荐.html">竞彩/足球</a>
     
   </div>
 
