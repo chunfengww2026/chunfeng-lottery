@@ -801,7 +801,8 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
        会在这一轮被清掉（不然它会一直留在文件里）。 */
     if (C.key === TT_KEY) {
       const cv = cachedVerdict(img);
-      if (cv && !cv.ok) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
+      /* ⚠️ 只有【确认不是票】(false) 才丢；null = 读不出字 → 保留 */
+      if (cv && cv.ok === false) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
     }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
@@ -1061,18 +1062,21 @@ export async function runTtFetch() {
     if (toCheck.length) {
       log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheck.length} 张…`);
       const v = await verifyBatch(toCheck.map((x) => x.img), { max: 400, gap: 120 });
-      log(`        校验完成：通过 ${v.passed} · 挡掉 ${v.failed} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
-      for (const f of v.failedList.slice(0, 6)) log(`          ✗ 挡掉（${f.why}）：${f.img.slice(50, 110)}`);
-      rec.ocrChecked = v.checked; rec.ocrFailed = v.failed;
+      log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字(保留) ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
+      for (const f of v.failedList.slice(0, 6)) log(`          ✗ 确认不是票（${f.why}）：${f.img.slice(50, 104)}`);
+      rec.ocrChecked = v.checked; rec.ocrFailed = v.failed; rec.ocrUnreadable = v.unreadable;
     }
-    /* 用缓存里的判定结果过滤（包含本轮刚校验的 + 以前校验过的） */
+    /* 用缓存里的判定结果过滤：
+       ⚠️ 只挡【确认不是票】的（cv.ok === false）。
+          cv.ok === null（读不出字）和"没判定过"都【放行】——
+          用户要的是别放假图，不是把读不出来的真票删掉（实测这样会误删 7 张真票）。 */
     const beforeOcr = freshList.length;
     freshList = freshList.filter((it) => {
       const cv = cachedVerdict(it.img);
-      return !cv || cv.ok;                            /* 没判定过 = 放行（下一轮会补校验） */
+      return !(cv && cv.ok === false);
     });
     rec.ocrDropped = beforeOcr - freshList.length;
-    if (rec.ocrDropped) log(`        因"图里不是票"挡掉 ${rec.ocrDropped} 张`);
+    if (rec.ocrDropped) log(`        因"确认不是票"挡掉 ${rec.ocrDropped} 张`);
 
     if (!freshList.length) {
       /* 这一分类零条 —— 不是致命错误：另一个分类可能好着。
