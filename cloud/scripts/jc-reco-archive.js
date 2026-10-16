@@ -173,6 +173,8 @@
     }
 
     out.batches.push(snap);
+    /* 硬上限：只留最近的 RECO_MAX_BATCHES 批 */
+    if (out.batches.length > RECO_MAX_BATCHES) out.batches = out.batches.slice(-RECO_MAX_BATCHES);
     out.updated = bjStamp(o.now);
     return { archive: out, added: 1, updated: 0, reason: '' };
   }
@@ -236,11 +238,68 @@
     });
     const dropped = before - out.batches.length;
 
+    /* 硬上限兜底（窗口按比赛时间滤不掉的行，这里再兜一道） */
+    let over = 0;
+    if (out.batches.length > RECO_MAX_BATCHES) {
+      over = out.batches.length - RECO_MAX_BATCHES;
+      out.batches = out.batches.slice(-RECO_MAX_BATCHES);
+    }
+
     out.updated = bjStamp(o.now);
-    return { archive: out, filled, changed, dropped };
+    return { archive: out, filled, changed, dropped: dropped + over };
   }
 
-  /** 汇总：红 / 黑 / 命中率（待定不算分母） */
+  /* ============================================================
+     2.5 存档上限：最多保留多少批
+     ------------------------------------------------------------
+     窗口（开赛前后 24 小时）本来就会把老批次滤掉，但那是按【比赛时间】滤的：
+     如果某批里全是解析不出时间的行，它就永远不会被窗口清掉。
+     再加一道硬上限兜底，保证 jc-reco-data.js 不会无限长大
+     （它是数据文件、要同步上云端，体积必须可控）。
+     ============================================================ */
+  const RECO_MAX_BATCHES = 200;
+
+  /**
+   * 【单场口径】的统计 —— 页面顶部「推荐串」战绩条用的就是这一份。
+   *
+   * ⚠️ 用户 2026-10-17 明确要求：红/黑【按单场判定】，不是按整串。
+   *      原话「按单场判定（用户设计里每行是一场），不是按整串」。
+   *   · red   = 已完场且推荐选项命中的【场次数】
+   *   · black = 已完场且没中的【场次数】
+   *   · rate  = red / (red + black)；一场都没结算 → null
+   *             （页面显示 "—"，绝不用 0 冒充"算过了"）
+   *   · unfinished    = 还没打完的【组数】—— 一批推荐里只要还有一场没结算
+   *                     就算一组。用户原话：「还有 N 组没打完」。
+   *   · pendingMatches = 还没打完的【场次数】（补充字段，方便排查 / 别处复用）
+   * 整串口径仍然保留在 summarize() / verdictOf() 里，给「往期详情」用。
+   */
+  function matchStats(archive) {
+    const out = (archive && Array.isArray(archive.batches)) ? archive : emptyArchive();
+    let red = 0, black = 0, pendingMatches = 0, pendingGroups = 0, rows = 0;
+    out.batches.forEach((b) => {
+      const list = Array.isArray(b.rows) ? b.rows : [];
+      rows += list.length;
+      let pend = 0;
+      list.forEach((r) => {
+        if (r.hit === true) red++;
+        else if (r.hit === false) black++;
+        else { pendingMatches++; pend++; }
+      });
+      if (pend > 0) pendingGroups++;
+    });
+    const decided = red + black;
+    return {
+      red, black,
+      unfinished: pendingGroups,
+      pendingGroups,
+      pendingMatches,
+      rows, batches: out.batches.length, decided,
+      rate: decided ? +((red / decided) * 100).toFixed(1) : null,
+      updated: out.updated || bjStamp()
+    };
+  }
+
+  /** 汇总：红 / 黑 / 命中率（待定不算分母）——【整串口径】，给「往期详情」用 */
   function summarize(archive) {
     const out = (archive && Array.isArray(archive.batches)) ? archive : emptyArchive();
     let red = 0, black = 0, pending = 0, rows = 0;
@@ -292,9 +351,45 @@
       'const JC_RECO_DATA = ' + JSON.stringify(body, null, 1) + ';\n';
   }
 
+  /* ============================================================
+     生成【统计 JSON】jc-reco-stats.json 的文本
+     ------------------------------------------------------------
+     为什么单独出一个 JSON（而不是让页面读 jc-reco-data.js）：
+       · 页面是静态托管的（GitHub Pages），没有后端。
+         jc-reco-data.js 是 <script> 全局，页面打开时才加载一次，
+         「还有几组没打完」这类数字会一直停在构建那一刻。
+       · 这个 JSON 由页面用 fetch 每 30 秒拉一次（带 ?t= 时间戳防缓存），
+         拉到了就更新战绩条 → 不需要刷新页面。
+       · ⚠️【零 localStorage / sessionStorage / cookie】：
+            拉到的新数字只放在 JS 内存变量里，页面一关就没了。
+     rate 字段口径：一律是【字符串】—— 还没有已结算的场次时是 "—"，
+                    否则是保留 1 位小数的数字串（如 "66.7"）。
+     ============================================================ */
+  function renderStatsJson(stats, updatedAt) {
+    const s = stats || {};
+    const rateStr = (s.rate == null) ? '—' : Number(s.rate).toFixed(1);
+    const body = {
+      red: s.red || 0,
+      black: s.black || 0,
+      rate: rateStr,
+      unfinished: s.unfinished || 0,      updated: updatedAt || s.updated || bjStamp(),
+      /* —— 下面是给排查 / 别处复用的补充字段，页面只认上面五个 —— */
+      rateNum: (s.rate == null) ? null : s.rate,
+      decided: s.decided || 0,
+      rows: s.rows || 0,
+      batches: s.batches || 0,
+      pendingMatches: s.pendingMatches || 0,
+      source: 'jc-reco-data.js',
+      note: '竞彩推荐串单场战绩（程序生成，勿手改）· 窗口：比赛时间前后 ' +
+        RECO_KEEP_HOURS + ' 小时'
+    };
+    return JSON.stringify(body, null, 1) + '\n';
+  }
+
   return {
-    RECO_KEEP_HOURS, bjNow, bjParse, bjStamp,
+    RECO_KEEP_HOURS, RECO_MAX_BATCHES, bjNow, bjParse, bjStamp,
     emptyArchive, rowKey, buildSnapshot, verdictOf,
-    mergeArchive, enrichArchive, inWindow, summarize, visibleBatches, renderDataJs
+    mergeArchive, enrichArchive, inWindow, summarize, matchStats,
+    visibleBatches, renderDataJs, renderStatsJson
   };
 });
