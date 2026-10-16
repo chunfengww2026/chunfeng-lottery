@@ -990,8 +990,7 @@ function buildExpertsHtml() {
     '<span class="ro-xj-count">' + totalShown + '</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
-    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自一起彩公开的专家历史命中统计，' +
-    '仅统计参考，不是预测</div>' +
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自于开发者自费</div>' +
     '<div class="ro-xj-list">' + groups + '</div>' +
     '<div class="ro-xj-more">已加载全部</div>' +
     '</details>';
@@ -1409,29 +1408,21 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
-    /* 【本轮改版】选号栏只留【一个】可切换 chip
-       用户原话：「选号栏只留一个 chip」。原来这里是「机选 / 自己选号」两个 chip，
-       现在合并成一个：文案显示【当前】的选号来源（选号：机选 / 选号：自己选号），
-       点一下就在两者之间切。仍然是 <a role="button">（页面不变量：没有 button 标签）。 */
+    /* 【本轮改版】选号栏只剩【一个】chip：「自己选号」
+       用户原话：「选号 那里只剩一个chip 自己选号 不要机选」。
+       只剩一个 → 没有什么可切换的，所以它是 <span>，不是可点控件（更不是 button 标签）。 */
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
-    `<a class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="ai">选号：机选</a>` +
-    `</div></div>` +
-    `<div class="ro-aipick-line ro-aipick-line-mode"><span class="ro-aipick-lbl">方式</span>` +
-    `<div class="ro-aipick-tabs ro-aipick-seg">` +
-    `<a class="ro-aipick-segbtn on" role="button" tabindex="0" data-ro-aipick-mode="single">单式</a>` +
-    `<a class="ro-aipick-segbtn" role="button" tabindex="0" data-ro-aipick-mode="multi">复式</a>` +
+    `<span class="ro-aipick-srcbtn on">自己选号</span>` +
     `</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-kl8" hidden>` +
     `<span class="ro-aipick-lbl">玩法</span><div class="ro-aipick-kl8"></div></div>` +
     `<div class="ro-aipick-rule"></div>` +
-    `<div class="ro-aipick-line ro-aipick-line-single">` +
-    `<span class="ro-aipick-lbl">注数</span>` +
-    `<input class="ro-aipick-in ro-aipick-in-count" type="number" inputmode="numeric"` +
-    ` min="1" max="50" step="1" value="5">` +
-    `<span class="ro-aipick-unit">注</span></div>` +
-    `<div class="ro-aipick-line ro-aipick-line-multi" hidden>` +
-    `<span class="ro-aipick-lbl">复式</span><div class="ro-aipick-multi"></div></div>` +
+    /* 【用户原话】「复式 改成输入要选几个号 比如红球要选几个」：
+       单式 / 复式开关拿掉了，这一行【始终显示】——每个号码区一个输入框
+       （双色球 = 红球 / 蓝球，大乐透 = 前区 / 后区…），内容由 buildMultiRow() 现算。 */
+    `<div class="ro-aipick-line ro-aipick-line-multi">` +
+    `<span class="ro-aipick-lbl">选几个</span><div class="ro-aipick-multi"></div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-times">` +
     `<span class="ro-aipick-lbl">倍数</span>` +
     `<input class="ro-aipick-in ro-aipick-in-times" type="number" inputmode="numeric"` +
@@ -1440,32 +1431,16 @@ function buildAiPickHtml() {
     `<span class="ro-aipick-sum"></span></div>` +
     `<div class="ro-aipick-warn" hidden></div>` +
     `<div class="ro-aipick-acts">` +
-    `<a class="ro-aipick-btn on" role="button" tabindex="0" data-ro-aipick-act="roll">机选一注</a>` +
+    `<a class="ro-aipick-btn on" role="button" tabindex="0" data-ro-aipick-act="roll">开始摇号</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reroll">重摇</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="clear">清空</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="save">保存图片</a>` +
     `</div>` +
     `<div class="ro-aipick-out"></div>` +
-    /* ---- 自己选号：号码格子（全部是 <a role="button">，不是按钮标签） ----
-       点格子选中/取消；每个区显示「已选 x/y」；下面实时显示「你的号码」。
-       全部只存在内存里：切彩种 / 切模式 / 点「清空重选」/ 刷新页面都会清空。 */
-    `<div class="ro-aipick-self" hidden>` +
-    `<div class="ro-aipick-picker"></div>` +
-    `<div class="ro-aipick-line ro-aipick-selfacts">` +
-    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reset">清空重选</a>` +
-    `<span class="ro-aipick-selfnote">自己选的号只放在内存里，刷新页面就没了</span>` +
-    `</div>` +
-    `<div class="ro-aipick-card">` +
-    `<div class="ro-aipick-line ro-aipick-mineline">` +
-    `<span class="ro-aipick-lbl">你的号码</span>` +
-    `<span class="ro-aipick-mineout"></span>` +
-    `</div>` +
-    `<div class="ro-aipick-calc"></div>` +
-    `</div>` +
-    `<div class="ro-aipick-shape" hidden></div>` +
-    `</div>` +
-    `<div class="ro-aipick-note">号码由系统随机生成，仅供娱乐，不构成购彩建议，请理性购彩。</div>` +
-    `<div class="ro-aipick-note">摇出的号 / 自己选的号都只放在内存里：不上传、不保存，刷新页面即回到默认。</div>` +
+    /* 【底部两行小字】用户原话给的就是这两句，一字不改。
+       第二句是真的：这一块【完全不写任何浏览器存储】，状态只放在内存里。 */
+    `<div class="ro-aipick-note">号码由系统随机生成，仅用于摇号娱乐，不代表任何预测或建议。</div>` +
+    `<div class="ro-aipick-note">所有数据仅存在本地，不上传、不保存。</div>` +
     `</div>` +
     `</details>`;
 }
@@ -4461,6 +4436,12 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-disclaimer h3 { color: var(--ro-fg) !important; }
 .ro-disclaimer p { color: var(--ro-fg2) !important; }
 .ro-drawblock { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
+/* 洛书九宫图那个「0 单独外置」格（#luoshuZero）—— 它是 DOM 格、不是 canvas，
+   实测底色 rgb(22,26,33) 是深色，跟着一起换成米杏（用户 2026-10-17 确认）。 */
+.luoshu-zero, .luoshu-zero.pick, .luoshu-zero.hit {
+  background: var(--ro-sunken) !important;
+  border: 1px solid var(--ro-line) !important;
+}
 
 /* ============================================================
    【顶部三段统一 12px】
@@ -5923,12 +5904,10 @@ ${RO_RENDER_SCRIPT}
 
     var MAX_COMBO = 1000;      /* 复式组合注数上限：超了不摇，别把手机卡死 */
     var MAX_SHOW = 100;        /* 结果区最多画 100 注 */
-    var MAX_SINGLE = 50;       /* 单式一次最多摇 50 注 */
     var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /* 【内存状态】只放在内存里：刷新页面即回到默认（不碰任何浏览器存储） */
-    var st = { game: RULES[0].id, mode: 'single', count: 5, times: 1, kl8: 10, multi: {}, rows: [],
-               src: 'ai', pick: {} };
+    var st = { game: RULES[0].id, times: 1, kl8: 10, multi: {}, rows: [] };
 
     /* ---------- 基础工具 ---------- */
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -5991,28 +5970,18 @@ ${RO_RENDER_SCRIPT}
 
     /* ---------- DOM 元素 ---------- */
     var gameTabs = root.querySelectorAll('.ro-aipick-tab');
-    var modeBtns = root.querySelectorAll('.ro-aipick-segbtn');
     var ruleBox = root.querySelector('.ro-aipick-rule');
     var lineKl8 = root.querySelector('.ro-aipick-line-kl8');
     var kl8Box = root.querySelector('.ro-aipick-kl8');
-    var lineSingle = root.querySelector('.ro-aipick-line-single');
     var lineMulti = root.querySelector('.ro-aipick-line-multi');
     var multiBox = root.querySelector('.ro-aipick-multi');
-    var inCount = root.querySelector('.ro-aipick-in-count');
     var inTimes = root.querySelector('.ro-aipick-in-times');
     var sumBox = root.querySelector('.ro-aipick-sum');
     var warnBox = root.querySelector('.ro-aipick-warn');
     var outBox = root.querySelector('.ro-aipick-out');
     var acts = root.querySelectorAll('.ro-aipick-btn');
-    var srcBtns = root.querySelectorAll('.ro-aipick-srcbtn');
-    var lineMode = root.querySelector('.ro-aipick-line-mode');
     var lineTimes = root.querySelector('.ro-aipick-line-times');
     var actsBox = root.querySelector('.ro-aipick-acts');
-    var selfBox = root.querySelector('.ro-aipick-self');
-    var pickBox = root.querySelector('.ro-aipick-picker');
-    var mineOut = root.querySelector('.ro-aipick-mineout');
-    var calcBox = root.querySelector('.ro-aipick-calc');
-    var shapeBox = root.querySelector('.ro-aipick-shape');
 
     /* ---------- 彩种规则（全部来自 games.js） ---------- */
     function G() { return byId[st.game] || RULES[0]; }
@@ -6099,18 +6068,14 @@ ${RO_RENDER_SCRIPT}
       inp.addEventListener('input', refresh);
       inp.addEventListener('change', refresh);
       wrap.appendChild(inp);
-      /* 【本轮改版】标签本身已经写了「要选几个号」时，不要再吊一个「个」，
-         否则读起来是「红球：要选几个号 个」（实测截图里就是这么重复的）。 */
+      /* 单位「个」：红球 [6] 个 / 百位 2 个（hideUnit 留给以后要长标签的彩种用） */
       if (!hideUnit) wrap.appendChild(el('span', 'ro-aipick-unit', '个'));
       return wrap;
     }
-    /* 【本轮改版】复式：号码型只留【一个】输入框
-       用户原话：「复式改成『输入要选几个号』」。
-       以前是每个区一个输入框（双色球就有红球 / 蓝球两个），现在只给
-       【第一个区】一个框，单位从「个」改成「位」的提示写在标签里：
-         「红球：要选几个号」[7]
-       其余区 / 位保持官方基本个数（蓝球 1 个、后区 2 个…），不做复式 ——
-       要那种精细玩法再用「自己选号」，那里可以随便选几个。
+    /* 【本轮改版·最终】号码型：每个区都给一个「选几个」输入框
+       用户原话：「复式 改成输入要选几个号 比如红球要选几个」。
+       双色球就是「红球 [6] 个 蓝球 [1] 个」；个数 ≥ 官方基本个数，
+       超出的部分按复式算（注数 = C(红球个数,6) × C(蓝球个数,1)，由 plan() 现算）。
        数字彩照旧每位一个框（0-9 池子就 10 个号，本来就没几个可选）。 */
     function buildMultiRow(g) {
       if (!multiBox) return;
@@ -6125,12 +6090,15 @@ ${RO_RENDER_SCRIPT}
             multiGet('p' + i, def, 1, size), 1, size));
         }
       } else {
-        var a = areasOf(g)[0];
-        if (!a) return;
-        var base = pickOf(g, a), max = maxMultiOf(g, a);
-        var d = Math.min(base + 1, max);
-        multiBox.appendChild(multiInput(a.label + '：要选几个号', 'a0',
-          multiGet('a0', d, base, max), base, max, true));
+        /* 【本轮改版】每个号码区一个「选几个」框：红球 / 蓝球（大乐透 = 前区 / 后区…）。
+           第一个区默认多给 1 个（= 最小的复式），其余区按官方基本个数。 */
+        var areas = areasOf(g);
+        for (i = 0; i < areas.length; i++) {
+          var base = pickOf(g, areas[i]), max = maxMultiOf(g, areas[i]);
+          var d = (i === 0) ? Math.min(base + 1, max) : base;
+          multiBox.appendChild(multiInput(areas[i].label, 'a' + i,
+            multiGet('a' + i, d, base, max), base, max));
+        }
       }
     }
     function buildKl8(g) {
@@ -6149,7 +6117,6 @@ ${RO_RENDER_SCRIPT}
             st.kl8 = n;
             st.rows = [];
             st.multi = {};
-            st.pick = {};                 /* 玩法变了：要选的个数也变了，重选 */
             syncTabs();
             buildMultiRow(G());
             applySrc();
@@ -6160,218 +6127,6 @@ ${RO_RENDER_SCRIPT}
     }
 
     /* ============================================================
-       【自己选号】号码格子
-       ------------------------------------------------------------
-       每格都是一个 <a role="button">（页面不变量：不能有 button 标签）。
-       点一下选中、再点一下取消；每个区显示「已选 x/y」；
-       下面实时显示「你的号码」（没选的位显示 _）。
-       全部只存在内存里：切彩种 / 切模式 / 点「清空重选」/ 刷新页面都会清空。
-       ⚠️ 自己选号【不强制】组六（组六是机选的硬性条件），
-          但数字彩会把当前形态（豹子 / 组三 / 组六）提醒一下。
-       ============================================================ */
-    function pkey(k) { return st.game + '#' + k; }
-    function pickArr(k) { return st.pick[pkey(k)] || []; }
-    /* ---------- 组合数：优先 BigInt（绝无精度问题），老浏览器退回 Number ----------
-       为什么不用 Number 硬算：C(80,20) 这类会超过 2^53 → 结果就不准了。
-       这里只用 BigInt(数字) 构造，不写 1n 这种字面量 ——
-       老引擎（不认 BigInt）在【解析阶段】就会挂，整个面板都会失效。 */
-    var HAS_BIGINT = (function () {
-      try { return typeof BigInt === 'function' && String(BigInt(7) * BigInt(6)) === '42'; }
-      catch (e) { return false; }
-    })();
-    function oneCount() { return HAS_BIGINT ? BigInt(1) : 1; }
-    function zeroCount() { return HAS_BIGINT ? BigInt(0) : 0; }
-    function combCount(n, k) {
-      var i, r;
-      if (k < 0 || k > n) return zeroCount();
-      k = Math.min(k, n - k);
-      if (HAS_BIGINT) {
-        r = BigInt(1);
-        for (i = 1; i <= k; i++) r = r * BigInt(n - k + i) / BigInt(i);
-        return r;
-      }
-      r = 1;
-      for (i = 1; i <= k; i++) r = r * (n - k + i) / i;
-      return r;
-    }
-    function mulCount(a, b) { return HAS_BIGINT ? (a * b) : (a * b); }
-    function countText(c) {                     /* 千分位：1,107,568 */
-      var s = String(c), out = '', i;
-      for (i = 0; i < s.length; i++) {
-        out += s.charAt(i);
-        var rest = s.length - 1 - i;
-        if (rest > 0 && rest % 3 === 0) out += ',';
-      }
-      return out;
-    }
-    /* 这个彩种要选哪些「槽位」：号码型 = 每个号码区；数字型 = 每一位 */
-    function slotsOf(g) {
-      var out = [], i;
-      if (isDigit(g)) {
-        var pos = posOf(g);
-        for (i = 0; i < pos.length; i++) {
-          out.push({ key: 'p' + i, label: pos[i].n, from: pos[i].from, to: pos[i].to, need: 1, gate: pos[i].gate });
-        }
-      } else {
-        var areas = areasOf(g);
-        for (i = 0; i < areas.length; i++) {
-          out.push({ key: 'a' + i, label: areas[i].label, from: areas[i].from, to: areas[i].to,
-                     need: pickOf(g, areas[i]), color: areas[i].color });
-        }
-      }
-      return out;
-    }
-    /* 【用户要求】自己选号【不设上限】：想选几个选几个，全选也可以 ——
-       选超基本个数就是复式，注数/金额实时算（见 selfCalc）。 */
-    function togglePick(key, num) {
-      var arr = pickArr(key).slice();
-      var at = arr.indexOf(num);
-      if (at >= 0) arr.splice(at, 1);
-      else arr.push(num);
-      arr.sort(function (a, b) { return a - b; });
-      st.pick[pkey(key)] = arr;
-      drawPicker(G());
-    }
-    function buildPicker(g) {
-      if (!pickBox) return;
-      clearNode(pickBox);
-      var slots = slotsOf(g), i;
-      for (i = 0; i < slots.length; i++) {
-        (function (slot) {
-          var block = el('div', 'ro-aipick-pblock');
-          var head = el('div', 'ro-aipick-phead');
-          head.appendChild(el('span', 'ro-aipick-plabel', slot.label));
-          var cnt = el('span', 'ro-aipick-pcount');
-          cnt.setAttribute('data-ro-aipick-slot', slot.key);
-          head.appendChild(cnt);
-          block.appendChild(head);
-          var grid = el('div', 'ro-aipick-grid');
-          for (var n = slot.from; n <= slot.to; n++) {
-            (function (num) {
-              /* 号码型补两位（01-33）；数字彩就一位（0 显示成「0」不是「00」） */
-              var a = el('a', 'ro-aipick-pick', slot.to > 9 ? pad2(num) : String(num));
-              a.setAttribute('role', 'button');
-              a.setAttribute('tabindex', '0');
-              a.setAttribute('data-ro-aipick-slot', slot.key);
-              a.setAttribute('data-ro-aipick-num', String(num));
-              a.addEventListener('click', function (e) {
-                if (e && e.preventDefault) e.preventDefault();
-                togglePick(slot.key, num);
-              });
-              grid.appendChild(a);
-            })(n);
-          }
-          block.appendChild(grid);
-          pickBox.appendChild(block);
-        })(slots[i]);
-      }
-      drawPicker(g);
-    }
-    function drawPicker(g) {
-      if (!pickBox) return;
-      var slots = slotsOf(g), i, byKey = {};
-      for (i = 0; i < slots.length; i++) byKey[slots[i].key] = slots[i];
-      var cells = pickBox.querySelectorAll('.ro-aipick-pick');
-      for (i = 0; i < cells.length; i++) {
-        var k = attr(cells[i], 'data-ro-aipick-slot');
-        var sl = byKey[k] || {};
-        var sel = pickArr(k).indexOf(parseInt(attr(cells[i], 'data-ro-aipick-num'), 10)) >= 0;
-        cells[i].className = 'ro-aipick-pick' + (sel ? ' on' : '') + (sl.color === 'blue' ? ' blue' : '');
-      }
-      var cnts = pickBox.querySelectorAll('.ro-aipick-pcount');
-      for (i = 0; i < cnts.length; i++) {
-        var k2 = attr(cnts[i], 'data-ro-aipick-slot');
-        var sl2 = byKey[k2] || { need: 0, label: '' };
-        var got = pickArr(k2).length;
-        /* 【用户要求】不要写「已选 6/6」那种上限写法：
-           只报「已选 N 个」，没到最少个数时提示还差几个，超了标「复式」 */
-        var txt = '已选 ' + got + ' 个';
-        if (sl2.need > 0 && got < sl2.need) txt += '（最少 ' + sl2.need + ' 个，可多选成复式）';
-        else if (sl2.need > 0 && got > sl2.need) txt += '（复式）';
-        cnts[i].className = 'ro-aipick-pcount' + (sl2.need > 0 && got >= sl2.need ? ' full' : '');
-        cnts[i].textContent = txt;
-      }
-      drawMine(g, slots);
-      drawCalc(g);
-    }
-    /* ---------- 自己选号：实时注数 + 投注额（组合数用 BigInt，绝不丢精度） ---------- */
-    function selfCalc(g) {
-      var slots = slotsOf(g), i;
-      var total = oneCount(), ok = true, wait = [];
-      for (i = 0; i < slots.length; i++) {
-        var n = pickArr(slots[i].key).length;
-        if (n < slots[i].need) { ok = false; wait.push(slots[i].label + '还差 ' + (slots[i].need - n) + ' 个'); continue; }
-        total = mulCount(total, combCount(n, slots[i].need));   /* 号码型 = C(选了几个, 基本个数)；数字彩 = C(n,1) = n */
-      }
-      var per = g.price || 2;
-      var amount = ok ? mulCount(mulCount(total, HAS_BIGINT ? BigInt(per) : per),
-                                 HAS_BIGINT ? BigInt(st.times) : st.times) : zeroCount();
-      return {
-        ok: ok, wait: wait, total: total, amount: amount,
-        totalText: ok ? countText(total) : '',
-        amountText: ok ? countText(amount) : '',
-        big: ok && Number(total) > 100000,
-        simple: ok && Number(total) === 1
-      };
-    }
-    function drawCalc(g) {
-      if (!calcBox) return;
-      clearNode(calcBox);
-      var r = selfCalc(g);
-      if (!r.ok) {
-        calcBox.appendChild(el('div', 'ro-aipick-calc-line', '还差：' + r.wait.join('、')));
-        return;
-      }
-      var line = el('div', 'ro-aipick-calc-line');
-      line.appendChild(el('b', 'ro-aipick-calc-num', r.totalText + ' 注'));
-      line.appendChild(el('b', 'ro-aipick-calc-money', r.amountText + ' 元'));
-      line.appendChild(el('span', 'ro-aipick-calc-sep',
-        '（' + r.totalText + ' 注 × ' + (g.price || 2) + ' 元' + (st.times > 1 ? ' × ' + st.times + ' 倍' : '') + '）'));
-      calcBox.appendChild(line);
-      if (r.big) calcBox.appendChild(el('div', 'ro-aipick-calc-tip', '注数较大，仅供参考'));
-      if (r.simple) calcBox.appendChild(el('div', 'ro-aipick-calc-tip', '单式 1 注'));
-    }
-    function drawMine(g, slots) {
-      if (!mineOut) return;
-      clearNode(mineOut);
-      var i, j, miss = 0, kk;
-      for (i = 0; i < slots.length; i++) {
-        var sl = slots[i];
-        var sel = pickArr(sl.key);
-        /* 分隔符：蓝球区前面一个 + ；七星彩最后一位前面一个 + */
-        if (i > 0 && (sl.color === 'blue' || (g.type === 'qxc' && i === slots.length - 1))) {
-          mineOut.appendChild(el('span', 'ro-aipick-sep', '+'));
-        }
-        for (j = 0; j < sl.need; j++) {
-          if (j < sel.length) {
-            mineOut.appendChild(el('span', 'ro-aipick-ball' + (sl.color === 'blue' ? ' blue' : ''),
-              sl.to > 9 ? pad2(sel[j]) : String(sel[j])));
-          } else {
-            mineOut.appendChild(el('span', 'ro-aipick-ball empty', '_'));
-            miss++;
-          }
-        }
-      }
-      if (shapeBox) {
-        var txt = '';
-        if (isDigit(g) && g.type !== 'qxc') {
-          var gate = [];
-          for (i = 0; i < slots.length; i++) if (slots[i].gate) gate.push(pickArr(slots[i].key)[0]);
-          if (gate.length === 3 && gate[0] !== undefined && gate[1] !== undefined && gate[2] !== undefined) {
-            var uniq = {}, cnt2 = 0;
-            for (i = 0; i < 3; i++) uniq[gate[i]] = 1;
-            for (kk in uniq) cnt2++;
-            var shape = cnt2 === 1 ? '豹子（三位全同）' : (cnt2 === 2 ? '组三（有两位相同）' : '组六（三位两两不同）');
-            txt = '当前形态：' + shape + ' —— 自己选号不强制组六，这里只是提醒';
-          }
-        }
-        if (txt) { shapeBox.textContent = txt; show(shapeBox, true); }
-        else { shapeBox.textContent = ''; show(shapeBox, false); }
-      }
-      return miss;
-    }
-
-    /* ============================================================
        【保存图片】把当前号码画成一张 PNG，再用页面已有的全屏层弹出来
        ------------------------------------------------------------
        用户原话：「也有保存界面 保存就是弹出图片他选着的图片让他自己保存」
@@ -6379,7 +6134,7 @@ ${RO_RENDER_SCRIPT}
        · 弹层复用页面已有的 ro-mob-view（window.__roMobView.openUrl 直接
          把 src 赋给 <img>，所以 data:image/png;base64,… 一样能显示），
          关闭方式不变：× / 点空白 / Esc / 手机返回键
-       · 还没摇号（或自己选号还没选完）→ 只给提示，不出空图
+       · 还没摇号 → 只给提示，不出空图
        · 出图失败（老浏览器没有 canvas）→ 也只给提示，不静默失败
        ⚠️ 这张图【不写任何存储】：不落本地存储 / 会话存储 / COOKIE
           —— 图片只在内存里（st.pic），刷新页面就没了
@@ -6393,25 +6148,9 @@ ${RO_RENDER_SCRIPT}
     function saveHint(msg) {
       if (warnBox) { warnBox.textContent = msg; show(warnBox, true); }
     }
-    /* 当前要出图的号码：机选 = 结果区已摇出来的；自己选号 = 已选的那些号（复式也照画） */
+    /* 当前要出图的号码：结果区已经摇出来的那几注 */
     function picData() {
-      var g = G(), i;
-      if (st.src === 'self') {
-        var calc = selfCalc(g);
-        if (!calc.ok) return null;
-        var slots = slotsOf(g), groups = [];
-        for (i = 0; i < slots.length; i++) {
-          groups.push({
-            label: slots[i].label, color: slots[i].color, to: slots[i].to,
-            nums: pickArr(slots[i].key).slice()
-          });
-        }
-        return {
-          kind: 'self', groups: groups,
-          note: (calc.simple ? '单式 1 注' : '复式 共 ' + calc.totalText + ' 注') +
-                ' · ' + calc.amountText + ' 元' + (st.times > 1 ? '（' + st.times + ' 倍）' : '')
-        };
-      }
+      var g = G();
       if (!st.rows.length) return null;
       return {
         kind: st.rows[0].kind, pos: st.rows[0].pos, areas: st.rows[0].areas,
@@ -6558,7 +6297,7 @@ ${RO_RENDER_SCRIPT}
       var g = G();
       var data = picData();
       if (!data) {
-        saveHint('请先摇号（自己选号的话，请先把号码选完）再点「保存图片」');
+        saveHint('请先摇号再点「保存图片」');
         return null;
       }
       var pic = drawPic(g, data);
@@ -6576,7 +6315,7 @@ ${RO_RENDER_SCRIPT}
       return pic;
     }
 
-    /* ---------- 读输入框（注数 / 倍数 / 复式个数） ---------- */    function numOf(inp, def, min, max) {
+    /* ---------- 读输入框（倍数 / 每个区选几个号） ---------- */    function numOf(inp, def, min, max) {
       var v = NaN;
       if (inp) v = parseInt(String(inp.value === undefined || inp.value === null ? '' : inp.value), 10);
       if (!isFinite(v)) v = def;
@@ -6587,7 +6326,6 @@ ${RO_RENDER_SCRIPT}
       return v;
     }
     function readInputs() {
-      st.count = numOf(inCount, st.count, 1, MAX_SINGLE);
       st.times = numOf(inTimes, st.times, 1, 99);
       var list = root.querySelectorAll('.ro-aipick-in-multi');
       for (var i = 0; i < list.length; i++) {
@@ -6623,18 +6361,7 @@ ${RO_RENDER_SCRIPT}
       return sets;
     }
     function planDigit(g) {
-      var pos = posOf(g), i, one = [];
-      if (st.mode === 'single') {
-        if (g.type === 'qxc') {
-          for (i = 0; i < 6; i++) one.push(rnd(0, 9));
-          one.push(rnd(0, 14));
-        } else if (g.id === 'pl5') {
-          one = pickDistinct(0, 9, 3).concat([rnd(0, 9), rnd(0, 9)]);   /* 前三位组六 + 后两位任意 */
-        } else {
-          one = pickDistinct(0, 9, 3);                                 /* fc3d / pl3：全组六 */
-        }
-        return { ok: 1, kind: 'digit', count: 1, pos: pos, rows: [one] };
-      }
+      var pos = posOf(g), i;
       var counts = [], sets, want = 1, prod = 1;
       for (i = 0; i < pos.length; i++) {
         var size = pos[i].to - pos[i].from + 1;
@@ -6656,11 +6383,7 @@ ${RO_RENDER_SCRIPT}
       return { ok: 1, kind: 'digit', count: prod, pos: pos, sets: sets, rows: cartesian(sets), note: note };
     }
     function planNumber(g) {
-      var areas = areasOf(g), i, one = [];
-      if (st.mode === 'single') {
-        for (i = 0; i < areas.length; i++) one.push(pickDistinct(areas[i].from, areas[i].to, pickOf(g, areas[i])));
-        return { ok: 1, kind: 'number', count: 1, areas: areas, rows: [one] };
-      }
+      var areas = areasOf(g), i;
       var sets = [], want = 1;
       for (i = 0; i < areas.length; i++) {
         var a = areas[i], base = pickOf(g, a), max = maxMultiOf(g, a);
@@ -6669,7 +6392,9 @@ ${RO_RENDER_SCRIPT}
         sets.push(pickDistinct(a.from, a.to, c));
         want *= C(c, base);
       }
-      if (want <= 1) return { ok: 0, msg: '复式至少要有一个区超过基本个数（例：双色球红球选到 7 个以上）' };
+      /* ⚠️ 这里原来有一条「复式至少要有一个区超过基本个数」的拦截：
+         现在每个区都是「选几个」输入框，红球 6 / 蓝球 1 就是最普通的 1 注，
+         再拦就没法出号了 —— 去掉。 */
       if (want > MAX_COMBO) {
         return { ok: 0, msg: '复式共 ' + want + ' 注，超过上限 ' + MAX_COMBO + ' 注，请减少号码个数' };
       }
@@ -6685,25 +6410,21 @@ ${RO_RENDER_SCRIPT}
       var g = G();
       readInputs();
       if (ruleBox) ruleBox.textContent = ruleText(g);
-      var p = st.mode === 'multi' ? plan(g) : null;
+      var p = plan(g);
       var n = 0, warn = '';
-      if (st.mode === 'single') {
-        n = st.count;
-      } else if (p) {
+      if (p) {
         if (p.ok) n = p.count; else warn = p.msg || '';
         if (p.ok && p.note) warn = p.note;
       }
       if (sumBox) {
-        sumBox.textContent = (st.mode === 'multi' && !n)
-          ? '复式注数待调整'
+        sumBox.textContent = !n
+          ? '注数待调整'
           : '合计 ' + n + ' 注 × ' + st.times + ' 倍 = ' + (n * st.times * (g.price || 2)) + ' 元';
       }
       if (warnBox) {
         if (warn) { warnBox.textContent = warn; show(warnBox, true); }
         else { warnBox.textContent = ''; show(warnBox, false); }
       }
-      /* 自己选号：倍数改了 / 玩法改了，注数金额要跟着变 */
-      if (st.src === 'self') drawCalc(g);
     }
 
     /* ---------- 出号 ---------- */
@@ -6734,7 +6455,7 @@ ${RO_RENDER_SCRIPT}
       if (!outBox) return;
       clearNode(outBox);
       if (!st.rows.length) {
-        outBox.appendChild(el('div', 'ro-aipick-empty', '还没摇号，点「机选一注」开始'));
+        outBox.appendChild(el('div', 'ro-aipick-empty', '还没摇号，点「开始摇号」开始'));
         return;
       }
       var g = G();
@@ -6749,60 +6470,42 @@ ${RO_RENDER_SCRIPT}
       }
     }
 
-    function doRoll(replace) {
+    function doRoll() {
       var g = G();
       readInputs();
       var p = plan(g);
       if (!p.ok) { refresh(); return 0; }
-      var list = [], i, q;
-      if (st.mode === 'single') {
-        for (i = 0; i < st.count; i++) {          /* 每一注都重新摇一次 */
-          q = plan(g);
-          if (!q.ok) break;
-          list.push({ kind: q.kind, pos: q.pos, areas: q.areas, row: q.rows[0] });
-        }
-      } else {
-        for (i = 0; i < p.rows.length; i++) {
-          list.push({ kind: p.kind, pos: p.pos, areas: p.areas, row: p.rows[i] });
-        }
+      var list = [], i;
+      for (i = 0; i < p.rows.length; i++) {
+        list.push({ kind: p.kind, pos: p.pos, areas: p.areas, row: p.rows[i] });
       }
-      /* 复式本来就是「一张票 N 注」，所以整组替换；单式的「机选一注」可以连点累加 */
-      if (replace || st.mode === 'multi') st.rows = [];
-      st.rows = st.rows.concat(list);
-      if (st.rows.length > MAX_COMBO) st.rows = st.rows.slice(st.rows.length - MAX_COMBO);
+      st.rows = list;                 /* 一次摇出「一张票」的整组号码，整组替换 */
       drawOut();
       refresh();
       return list.length;
     }
 
-    /* 机选 / 自己选号 两种「选号来源」的界面切换（默认机选） */
+    /* 按 data-ro-aipick-act 找按钮节点 */
     function actNode(a) {
       for (var i = 0; i < acts.length; i++) if (attr(acts[i], 'data-ro-aipick-act') === a) return acts[i];
       return null;
     }
+    /* 【本轮改版】没有「选号来源」可切了：面板只剩一条路 ——
+       在「选几个」里填每个区要选的个数 → 点「开始摇号」出号。
+       这里只负责把该显示的行显示出来。 */
     function applySrc() {
       var g = G();
-      var self = st.src === 'self';
-      show(lineMode, !self);                       /* 单式 / 复式：只有机选才需要 */
-      show(lineSingle, !self && st.mode === 'single');
-      show(lineMulti, !self && st.mode === 'multi');
-      show(lineTimes, true);        /* 倍数两种模式都要（自己选号也要算投注额） */
-      /* 自己选号时这一行只留「保存图片」（手选的号也能出图） */
-      show(actNode('roll'), !self);
-      show(actNode('reroll'), !self);
-      show(actNode('clear'), !self);
+      show(lineMulti, true);                       /* 「选几个」输入行：始终显示 */
+      show(lineTimes, true);
+      show(actNode('roll'), true);
+      show(actNode('reroll'), true);
+      show(actNode('clear'), true);
       show(actNode('save'), true);
       show(actsBox, true);
-      show(outBox, !self);
-      show(selfBox, self);                         /* 号码格子 */
-      show(lineKl8, !!g.playModes);                /* 快乐8 玩法两种模式都要（决定选几个） */
-      if (self) {
-        if (warnBox) { warnBox.textContent = ''; show(warnBox, false); }
-        buildPicker(g);
-      } else {
-        drawOut();
-        refresh();
-      }
+      show(outBox, true);
+      show(lineKl8, !!g.playModes);                /* 快乐8：先选玩法（玩法决定选几个） */
+      drawOut();
+      refresh();
     }
 
     function syncTabs() {
@@ -6810,16 +6513,6 @@ ${RO_RENDER_SCRIPT}
       for (i = 0; i < gameTabs.length; i++) {
         k = attr(gameTabs[i], 'data-ro-aipick-game');
         gameTabs[i].className = 'ro-aipick-tab' + (k === st.game ? ' on' : '');
-      }
-      for (i = 0; i < modeBtns.length; i++) {
-        k = attr(modeBtns[i], 'data-ro-aipick-mode');
-        modeBtns[i].className = 'ro-aipick-segbtn' + (k === st.mode ? ' on' : '');
-      }
-      /* 【本轮改版】选号栏只有 1 个 chip：文案显示【当前】来源，点一下切换 */
-      for (i = 0; i < srcBtns.length; i++) {
-        k = attr(srcBtns[i], 'data-ro-aipick-src');
-        srcBtns[i].className = 'ro-aipick-srcbtn' + (k === st.src ? ' on' : '');
-        srcBtns[i].textContent = '选号：' + (st.src === 'self' ? '自己选号' : '机选');
       }
       var kt = kl8Box ? kl8Box.querySelectorAll('.ro-aipick-kl8tab') : [];
       for (i = 0; i < kt.length; i++) {
@@ -6836,15 +6529,11 @@ ${RO_RENDER_SCRIPT}
           if (!byId[id] || id === st.game) return;
           /* 切彩种 → 全部重置 + 显示该彩种的规则（自己选的号也一起清掉） */
           st.game = id;
-          st.mode = 'single';
-          st.count = 5;
           st.times = 1;
           st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
           st.multi = {};
           st.rows = [];
-          st.src = 'ai';
-          st.pick = {};
-          if (inCount) inCount.value = '5';
+          if (inTimes) inTimes.value = '1';
           if (inTimes) inTimes.value = '1';
           buildKl8(byId[id]);
           buildMultiRow(byId[id]);
@@ -6853,52 +6542,17 @@ ${RO_RENDER_SCRIPT}
         });
       })(gameTabs[t1]);
     }
-    /* 【本轮改版】选号栏只有 1 个 chip，点一下就在「机选 / 自己选号」之间切。
-       data-ro-aipick-src 固定写 "ai"（只用来认这是那个 chip），
-       真正的来源看 st.src；文案由 syncTabs() 按 st.src 写。 */
-    for (var t4 = 0; t4 < srcBtns.length; t4++) {
-      (function (node) {
-        node.addEventListener('click', function (e) {
-          if (e && e.preventDefault) e.preventDefault();
-          st.src = (st.src === 'self') ? 'ai' : 'self';
-          st.rows = [];
-          st.pick = {};                            /* 切模式 → 重选，之前选的清掉 */
-          syncTabs();
-          applySrc();
-        });
-      })(srcBtns[t4]);
-    }
-    for (var t2 = 0; t2 < modeBtns.length; t2++) {
-      (function (node) {
-        node.addEventListener('click', function (e) {
-          if (e && e.preventDefault) e.preventDefault();
-          var m = attr(node, 'data-ro-aipick-mode') === 'multi' ? 'multi' : 'single';
-          if (m === st.mode) return;
-          st.mode = m;
-          st.rows = [];                       /* 单式/复式形状不同，切方式先清空，免得看混 */
-          buildMultiRow(G());
-          show(lineSingle, m === 'single');
-          show(lineMulti, m === 'multi');
-          syncTabs();
-          drawOut();
-          refresh();
-        });
-      })(modeBtns[t2]);
-    }
     for (var t3 = 0; t3 < acts.length; t3++) {
       (function (node) {
         node.addEventListener('click', function (e) {
           if (e && e.preventDefault) e.preventDefault();
           var act = attr(node, 'data-ro-aipick-act');
-          if (act === 'clear') { st.rows = []; drawOut(); refresh(); }
-          else if (act === 'reset') { st.pick = {}; drawPicker(G()); }   /* 自己选号：清空重选 */
-          else if (act === 'save') { saveImage(); }                     /* 保存图片：画图 + 全屏弹出 */
-          else if (act === 'reroll') { doRoll(true); }
-          else { doRoll(false); }
+          if (act === 'clear') { st.rows = []; drawOut(); refresh(); }    /* 清空：把已摇的号清掉 */
+          else if (act === 'save') { saveImage(); }                       /* 保存图片：画图 + 全屏弹出 */
+          else { doRoll(); }                                             /* 开始摇号 / 重摇：整组重摇 */
         });
       })(acts[t3]);
     }
-    if (inCount) { inCount.addEventListener('input', refresh); inCount.addEventListener('change', refresh); }
     if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
 
     /* ---------- 初始状态：双色球 · 机选 · 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
@@ -6906,7 +6560,6 @@ ${RO_RENDER_SCRIPT}
       var g = G();
       buildKl8(g);
       buildMultiRow(g);
-      buildPicker(g);
       syncTabs();
       applySrc();
     })();
@@ -6914,8 +6567,9 @@ ${RO_RENDER_SCRIPT}
     /* 给验收脚本留一个干净入口（不影响页面行为） */
     window.__roAiPick = {
       state: function () {
-        return { game: st.game, mode: st.mode, count: st.count, times: st.times, kl8: st.kl8,
-                 rows: st.rows.length, src: st.src, pick: st.pick };
+        return { game: st.game, times: st.times, kl8: st.kl8, rows: st.rows.length,
+                 multi: st.multi };
+      },
       },
       rows: function () { return st.rows; },
       lastImage: function () { return st.pic || null; }        /* 保存图片生成的最后一张（只在内存里） */

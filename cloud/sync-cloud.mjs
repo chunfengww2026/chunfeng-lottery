@@ -509,6 +509,60 @@ const SKIP_FILES = new Set(['cloud-token.txt']);
       不挡 .log（_jc-count.log 是云端要读的计数日志，必须继续传）。 */
 const SKIP_NAME_RE = /\.(bak|orig|tmp|swp)([.-].*)?$|~$/i;
 
+/* 【本机专用文件：永不上云】
+   ------------------------------------------------------------
+   1) cloud-pull.js —— App 三页（index/game/data.html）引用的「云同步面板」，
+      云端从头到尾不执行它（cloud-build.mjs 里只有一句注释提到"本机程序 cloud-pull.js 下载它"）。
+      以前它被传到 cloud/scripts/ 只是个历史遗留副本，删掉不影响任何功能。
+   2) _realtest_*.mjs / _verify_*.mjs —— 本机验收/审计脚本，
+      核查过：cloud-build.mjs / workflow / export-static.mjs 全都不引用它们。
+   ⚠️ 【不要顺手把 _*.log / _*-backoff.json / _*cache*.json 也挡掉】
+      它们是云端【要读】的状态（_jc-count.log 是计数日志、_xysp-backoff.json 是退避状态），
+      挡掉 = 云端行为改变（该退避的不退避、计数丢失），这是实打实的回归。 */
+const SKIP_LOCAL_ONLY_RE = /^(?:_(?:realtest|verify)_.*\.mjs|cloud-pull\.js)$/;
+
+/* 白名单并集（自检用） */
+const WL_ALL = new Set([...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS]);
+
+/* 【同步自检】云端会跑、却不在白名单里的脚本 = 本机改了也永远上不去云
+   ------------------------------------------------------------
+   实测踩到过：daily-update.mjs（云端「常规班」主脚本）不在 CODE_MODULES 里，
+   于是云端一直跑 10-15 的旧版，本机后面加的所有步骤云端一个都没执行，
+   而且【不报错】—— 只有页面表现不一致，极难发现。
+   这里的判据：某个文件【在根目录和 cloud/scripts 里同时存在】，说明它就是给云端用的；
+   若它又不在白名单里，那 cloud/scripts 里那份永远不会被刷新，必然越来越旧。
+   ⚠️ 只警告、不中止同步：万一只是本机临时对照的文件，不该拦住整次同步。 */
+function selfCheckStale() {
+  const names = [];
+  /* 只盯【云端可能执行的脚本】：.mjs / .js，且不是 _ 开头（_ 开头那是本机临时/验证/状态文件）。
+     ⚠️ 故意不看 _*.log / _*-backoff.json / _*cache*.json：
+        它们是各机器自己的运行状态（本机写 ROOT、云端写 cloud/scripts），
+        两边内容不同是正常的，不该报警。 */
+  const CODE_RE = /\.(mjs|js)$/;
+  const IGNORE = new Set([
+    'app.js',                        /* App 专用，云端不执行 */
+    /* 下面三个都核查过：云端只在【注释】里提到它们，实际不执行（本机/App 自己的工具） */
+    'export-cloud-tickets.mjs',      /* cloud-build.mjs:31 只是注释「和它同一份实现」 */
+    'update-draws-retry.mjs',        /* 本机补抓开奖用 */
+    'update-football-smart.mjs'      /* 本机智能补抓用 */
+  ]);
+  for (const name of fs.readdirSync(path.join(ROOT, 'scripts'))) {
+    if (!CODE_RE.test(name) || name.startsWith('_') || IGNORE.has(name)) continue;
+    if (SKIP_LOCAL_ONLY_RE.test(name)) continue;
+    if (SKIP_FILES.has(name) || SKIP_NAME_RE.test(name)) continue;
+    const rootFile = path.join(PARENT, name);        /* ⚠️ ROOT 是 cloud/，根目录是 PARENT */
+    if (!fs.existsSync(rootFile) || !fs.statSync(rootFile).isFile()) continue;
+    if (WL_ALL.has(name)) continue;                 /* 已在白名单 → 每次都会刷新，没问题 */
+    names.push(name);
+  }
+  if (!names.length) return;
+  log('');
+  log('  ⚠️ 自检：下面这些文件【根目录有、cloud/scripts 里也有】，却不在白名单里 ——');
+  log('     它们的云端副本永远不会被刷新，会一直跑旧版（本机怎么改都上不去）：');
+  names.sort().forEach((n) => log('       · ' + n));
+  log('     → 云端要用的，加进 CODE_MODULES；本机专用的，加进 SKIP_LOCAL_ONLY_RE。');
+}
+
 /* 【特例】cloud/scripts/runtime/ocr/node_modules 必须传！
    ------------------------------------------------------------
    collect() 默认跳过所有 node_modules（那是构建产物），
@@ -533,6 +587,8 @@ function collect(dir, prefix) {
       if (SKIP_FILES.has(name)) continue;
       /* 备份/临时文件（.bak / .orig / ~ / .tmp / .swp）不上传 —— 见上面 SKIP_NAME_RE 的说明 */
       if (SKIP_NAME_RE.test(name)) continue;
+      /* 【本机专用，永不上云】见下面 SKIP_LOCAL_ONLY_RE 的说明 */
+      if (SKIP_LOCAL_ONLY_RE.test(name)) continue;
       if (SKIP_REPO_PATHS.has(prefix + name)) continue;
       out.push({ local: full, repo: prefix + name });
     }
@@ -540,6 +596,7 @@ function collect(dir, prefix) {
   return out;
 }
 
+selfCheckStale();
 const files = collect(ROOT, 'cloud/');
 
 /* 【必须单独加回来】cloud/out/tickets.json
