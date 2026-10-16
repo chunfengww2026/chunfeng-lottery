@@ -4238,6 +4238,29 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   .ro-hot-i { font-size: 13px; }
   .ro-hot-n { letter-spacing: .4px; }
   @media print { .ro-hot { display: none !important; } }
+
+  /* __TOC_EQH__ 推荐图目录：所有卡片统一高度，消除「行被撑高留空档」
+     用户 2026-10-17：「这一块的布局是贴合的」→ 选方案 A（等高等宽）
+     · 固定高度 56px：一行的标题居中；两行的标题缩到 12.5px 也放得下
+     · 文字超长时自动省略，不再撑高整行
+     · 只作用在 .ro-imgtoc 里的格子，不影响别处 */
+  .ro-imgtoc .ro-toc-cell {
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
+    padding: 4px 8px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1.28 !important;
+    overflow: hidden !important;
+    font-size: 14px !important;
+  }
+  /* 两行文字的格子：字号收一点，保证在 56px 内不挤、不溢出 */
+  .ro-imgtoc .ro-toc-cell br + *,
+  .ro-imgtoc .ro-toc-cell.two-line { font-size: 12.5px !important; }
+  .ro-imgtoc .ro-toc-cell > * { max-height: 100%; overflow: hidden; }
+  /* 网格行：让每行高度由固定 56px 决定，不再被内容撑开 */
+  .ro-imgtoc { grid-auto-rows: 56px !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
