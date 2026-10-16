@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
@@ -3181,7 +3181,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "库恩卡",
      "score": 1,
@@ -3247,7 +3247,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 1,
@@ -3313,7 +3313,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 2,
