@@ -947,6 +947,10 @@ const JC_XYSP_VIEW =
   `<div class="jxp-view-box" id="jcXyspViewBox">` +
   `<img class="jxp-view-img" id="jcXyspViewImg" alt="竞彩晒票大图">` +
   `</div>` +
+  /* 【滑动提示】用户要求底部给一句「上下滑动切换」。
+     有相册时脚本会把它改成「第 N / M 张 · 上下滑动切换」。
+     ⚠️ 用 <span>（不是 button 标签），且 pointer-events:none 不挡点击。 */
+  `<span class="jxp-view-hint" id="jcXyspHint">上下滑动切换</span>` +
   `</div>`;
 
 /* 分组 */
@@ -1201,6 +1205,12 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   justify-content: center; overflow: auto; padding: 0 10px 14px; }
 .jxp-view-img { max-width: 100%; max-height: 100%; border-radius: 10px;
   background: #0f1115; }
+/* 【滑动提示】底部居中一句「第 N / M 张 · 上下滑动切换」。
+   不挡点击（pointer-events:none），文字小而灰，和分享页那条提示风格一致。 */
+.jxp-view-hint { position: absolute; left: 0; right: 0;
+  bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  text-align: center; font-size: 11.5px; color: #98a1b2;
+  pointer-events: none; }
 /* ---- 保存图片 · 全屏层（默认隐藏） ---- */
 .calc-shot { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
   z-index: 999; background: rgba(15,17,21,0.95); padding: 14px;
@@ -2209,6 +2219,78 @@ ${JC_XYSP_VIEW}
     var pics = document.querySelectorAll('.jxp-pic');
     var pushed = false;     /* 是否压过一条 history（避免重复压） */
 
+    /* ============================================================
+       【相册 · 上下滑动切换】用户要求（和分享页同一套手感）：
+         向上滑 → 下一张 / 向下滑 → 上一张
+         第一张向下、最后一张向上 → 停在原地
+         切图后缩放（这里没有两档缩放，只是换图）重置
+       手势判定（和"点一下"共存）：
+         位移 < 10px 且 < 300ms → 算点击（这里点了不做别的，交给原逻辑）
+         位移 > 50px（纵向）    → 算滑动 → 切图
+       只在【全屏层打开 + 单指 + 纵向超阈值】时才 preventDefault，
+       避免平时页面滚动被拦。
+       ⚠️ 切图【不压历史】—— 否则返回键要一张一张退回去，关不掉。
+       ⚠️ 这里【不新造第二个全屏层】，就在已有的 #jcXyspView 上加手势。
+       ============================================================ */
+    var galleryList = [];   /* [{src, cap}] 页面上的顺序 = 发布时间倒序 */
+    var galleryIdx = 0;
+
+    function flipTo(i) {
+      if (!galleryList.length) return false;
+      if (i < 0 || i >= galleryList.length) return false;   /* 边界：停住 */
+      galleryIdx = i;
+      var it = galleryList[i] || {};
+      img.setAttribute('src', it.src || '');
+      img.setAttribute('alt', it.cap || '竞彩晒票大图');
+      updateHint();
+      return true;
+    }
+    function updateHint() {
+      var h = document.getElementById('jcXyspHint');
+      if (!h) return;
+      if (galleryList.length > 1) h.textContent = '第 ' + (galleryIdx + 1) + ' / ' + galleryList.length + ' 张 · 上下滑动切换';
+      else h.textContent = '上下滑动切换';
+    }
+    function visiblePics() {
+      var out = [];
+      for (var k = 0; k < pics.length; k++) out.push(pics[k]);
+      return out;
+    }
+
+    var sX = 0, sY = 0, sT = 0, sOn = false;
+    view.addEventListener('touchstart', function (e) {
+      if (!isOpen() || !e.touches || e.touches.length !== 1) return;
+      sOn = true; sX = e.touches[0].clientX; sY = e.touches[0].clientY; sT = Date.now();
+    }, { passive: true });
+    view.addEventListener('touchmove', function (e) {
+      if (!sOn || !e.touches || e.touches.length !== 1) return;
+      var dy = e.touches[0].clientY - sY, dx = e.touches[0].clientX - sX;
+      if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { if (e.cancelable) e.preventDefault(); }
+    }, { passive: false });
+    view.addEventListener('touchend', function (e) {
+      if (!sOn) return; sOn = false;
+      var t = (e.changedTouches && e.changedTouches[0]) || null;
+      if (!t) return;
+      var dy = t.clientY - sY, dx = t.clientX - sX;
+      var dist = Math.sqrt(dx * dx + dy * dy), dt = Date.now() - sT;
+      if (dist < 10 && dt < 300) return;                    /* 点击 → 不切图 */
+      if (Math.abs(dy) > 50 && Math.abs(dy) > Math.abs(dx)) {
+        if (dy < 0) flipTo(galleryIdx + 1); else flipTo(galleryIdx - 1);
+      }
+    }, { passive: true });
+    /* 桌面：鼠标滚轮（节流，避免一次滚动跳好几张） */
+    var wheelLock = 0;
+    view.addEventListener('wheel', function (e) {
+      if (!isOpen() || galleryList.length < 2) return;
+      var now = Date.now();
+      if (now - wheelLock < 320) { if (e.cancelable) e.preventDefault(); return; }
+      var d = e.deltaY || 0;
+      if (Math.abs(d) < 8) return;
+      wheelLock = now;
+      if (e.cancelable) e.preventDefault();
+      if (d > 0) flipTo(galleryIdx + 1); else flipTo(galleryIdx - 1);
+    }, { passive: false });
+
     function isOpen() { return !view.hasAttribute('hidden'); }
 
     function open(src, alt) {
@@ -2236,7 +2318,19 @@ ${JC_XYSP_VIEW}
     for (var i = 0; i < pics.length; i++) {
       pics[i].addEventListener('click', function (e) {
         var src = this.getAttribute('href');
+        /* 把【页面上这批图】作为相册列表（顺序 = 页面顺序 = 发布时间倒序），
+           并定位到被点的那一张，这样上下滑动就在这批里前后走。 */
+        var list = visiblePics();
+        var idx = 0;
+        for (var q = 0; q < list.length; q++) { if (list[q] === this) { idx = q; break; } }
+        galleryList = [];
+        for (var w = 0; w < list.length; w++) {
+          var b = list[w].querySelector('.jxp-cap');
+          galleryList.push({ src: list[w].getAttribute('href'), cap: b ? String(b.textContent || '') : '' });
+        }
+        galleryIdx = idx;
         if (open(src, '竞彩晒票大图')) {
+          updateHint();
           if (e && e.preventDefault) e.preventDefault();
         }
       });
@@ -2269,7 +2363,16 @@ ${JC_XYSP_VIEW}
       open: open,
       close: close,
       isOpen: isOpen,
-      current: function () { return img.getAttribute('src') || ''; }
+      current: function () { return img.getAttribute('src') || ''; },
+      /* 【相册】给验收脚本用：直接切上一张/下一张，不用造触摸事件 */
+      setGallery: function (list, i, src, cap) {
+        galleryList = Array.isArray(list) ? list : [];
+        galleryIdx = Number(i) || 0;
+        if (open(src, cap)) { updateHint(); return true; }
+        return false;
+      },
+      step: flipTo,
+      gallery: function () { return { i: galleryIdx, n: galleryList.length }; }
     };
   } catch (e) { /* 忽略：晒票的显示不依赖这段脚本 */ }
 })();
