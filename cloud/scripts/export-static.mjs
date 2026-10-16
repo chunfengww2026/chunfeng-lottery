@@ -986,6 +986,41 @@ function untilDraw(isoLike, nowMs) {
   return '距开奖 ' + Math.floor(h / 24) + ' 天';
 }
 
+/* ============================================================
+   【票面开奖日】faceAt —— 用户要求「发布时间和票面公布的时间都要抓取」
+   ------------------------------------------------------------
+   实测（2026-10-16，抽 10 张票面图放大看）：票面上确实印着两个东西
+     · 期号     例「第26118期」（和标题里的期号一致）
+     · 开奖日期 例「2026年10月17日开奖」
+   而且【项目自带 OCR】（ocr-tickets.mjs，runtime/ocr 已装好）实测能读出来 ——
+   但准确率只有 40%~60%（10 张里读到日期 4 张、期号 5 张），
+   因为票面是手机拍的斜图、有反光、数字还可能是金额/流水号，容易误判。
+
+   ⇒ 所以这里【不接 OCR】，走更准更省的路（用户给的方案 A）：
+       标题里已经有期号（实测认出 45/57 条），
+       而期号对应的【开奖日】是确定的（和页面倒计时同一张表 NEXTCD_TABLE
+       算出来的 nextAt，北京时间的日期）。
+     · 准确率：期号来自标题文本，不受图片质量影响 → 比 OCR 高得多
+     · 成本：0（纯解析，不跑 tesseract、不下载图片本体）
+     · 验算：大乐透 26118 → nextAt 2026-10-17 20:30（周六，大乐透开奖日 ✅）
+             票面印的正是「2026年10月17日开奖」→ 完全一致
+             排列3 26274 → 2026-10-15（当天开奖）✅ 也和票面一致
+
+   ⚠️ 它【不是】出票时间：真正的"这张票什么时候买的"只有票面图上印
+      （实测能看到"出票时间"字样），OCR 才拿得到 —— 准确率不够就不硬上。
+      想真做的话：把 ocr-tickets.mjs 接进来 + 叠加"和标题期号交叉校验"
+      （OCR 出的 5 位数必须等于标题期号才算数，实测这样能挡掉误判），
+      但那是另一件事，要单独评估成本（3.6 秒/张 × 几百张）。
+   ============================================================ */
+function faceDate(drawIso) {
+  const t = Date.parse(String(drawIso || ''));
+  if (!isFinite(t)) return '';
+  /* 北京时间（东八区）那段日期 —— 票面印的是北京时间 */
+  const bj = new Date(t + 8 * 3600 * 1000);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${p(bj.getUTCMonth() + 1)}-${p(bj.getUTCDate())}`;
+}
+
 function buildXyspHtml() {
   const data = (XYSP && XYSP.games) ? XYSP.games : null;
   const updated = (XYSP && XYSP.updated) ? String(XYSP.updated) : '';
@@ -1005,11 +1040,19 @@ function buildXyspHtml() {
       const title = String((it && it.title) || '');
       /* 头条：把识别出来的彩种名并进描述行（例：「大乐透 · 10倍与11倍…」） */
       const kind = String((it && it.game) || '');
-      /* 【时间点】发布时间 + 距开奖（有才加），例：「大乐透 · 2 小时前 · 距开奖 3 小时」 */
+      /* 【时间点 · 两个时间都要显示】用户要求：
+           「发布时间和票面公布的时间都要抓取」+「卡片上都要显示出来」
+         ① 发布时间（相对时间）：头条 → when；一起彩 → pubAt
+         ② 票面开奖日：nextAt 转成北京时间的 MM-DD（见 faceDate 的说明）
+            ⚠️ 不是"出票时间"（那个只有 OCR 拿得到，准确率不够，没上）
+         格式（尽量短，手机上一眼看清）：
+           「大乐透 · 3 小时前 · 票面开奖日 10-17 · 距开奖 1 天 · <标题>」 */
       const bits = [];
       if (isTt && kind) bits.push(kind);
       const rel = relTime(it && ((it.cat === 'tt') ? (it.when || it.seen || it.at) : (it.pubAt || it.at)), nowMs);
       if (rel) bits.push(rel);
+      const fd = faceDate(it && it.nextAt);
+      if (fd) bits.push('票面开奖日 ' + fd);
       const ud = untilDraw(it && it.nextAt, nowMs);
       if (ud) bits.push(ud);
       const desc = bits.length ? (bits.join(' · ') + (title ? ' · ' + title : '')) : title;
