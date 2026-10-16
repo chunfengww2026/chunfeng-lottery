@@ -388,6 +388,12 @@ function historyToGame(rec) {
       pick, label,
       confidence: rec.conf != null ? rec.conf : null,
       prob: rec.prob || probFromOdds(rec.odds),
+      /* 【推荐类型】归档里【存了】type 就用它（见 jc-archive.mjs 的
+         toHistoryRecord / recoTypeOf）—— 这样「在售时怎么判红黑、
+         进了归档还怎么判」，不会因为离开在售列表就退回 'three'。
+         老归档（2026-10-17 之前那批，没存 type）→ 'three' 兜底，
+         和改动前完全一样（向后兼容，不瞎猜）。 */
+      type: (rec.type === 'unbeaten' || rec.type === 'three') ? rec.type : 'three',
       clear: false, margin: null,
       fromHistory: true
     } : null
