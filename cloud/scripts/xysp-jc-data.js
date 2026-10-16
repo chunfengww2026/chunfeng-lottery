@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 22:10
+   更新时间：2026-10-16 22:06
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 22:10",
+ "updated": "2026-10-16 22:06",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/bcf770f48e684226b0584bd93e85df88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5rTmqkh%2FDpfvluzu3hWXwfqYHTs%3D",
@@ -384,7 +384,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T14:10:37.832Z",
+   "seen": "2026-10-16T13:56:01.659Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
@@ -405,11 +405,11 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T14:10:37.832Z",
+   "seen": "2026-10-16T14:06:01.687Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T14:06:01.687Z",
+   "expireAt": "2026-10-17T13:56:01.659Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
