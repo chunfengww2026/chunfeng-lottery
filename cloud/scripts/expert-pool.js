@@ -274,31 +274,35 @@ function exEsc(s) {
 }
 
 /**
- * 一位专家的【展开详情】—— 只显示【这一期（最新一期）】他推的资料，一个数字都不写死。
- *     格式：期号 类别：号码        例：2026118 红球三胆：01 03 04 05 …
+ * 一位专家的【展开详情】—— 只显示【这一期】他【免费公开的那个分类】的具体号码。
+ *     格式：期号 分类：号码      例：2026118 红球三胆：09 22 31
+ *                                   2026118 蓝球定五：03 04 14 15 16
  *
- * 用户 2026-10-17 原话要求：
- *   · 「不看历史数据」        → 原来那段「历史推荐（近 10 期）」逐期列表整段去掉
- *   · 「也不要推25个中多少个」 → 去掉「推 N 个 · 中 M」和 命中/未中 标签
- *   · 「要这一期数据」
- *     「多少期 红球三胆：然后就是号码」 → 就三段：期号 + 类别 + 号码
- *   · 「所有的彩种逻辑一样」   → 类别名直接用数据里的 cat
- *                              （红球三胆 / 七码组选 / 9码 …），不写任何彩种判断
+ * 用户 2026-10-17 原话：
+ *   「点开后抓取专家的资料是这一期免费公开的 N 胆 具体数字」
+ *   「多少期 红球三胆：然后就是号码」「所有的彩种逻辑一样」「不看历史数据」
  *
- * ⚠️ 号码取 r.picks = 他这一期推的【全部号码】（抓取到的原始资料），
- *    不是 hits（hits 是「开奖号 ∩ 他的池」，是推算出来的，不是他的推送）。
- * ⚠️ recent[] 按由新到旧排，第 0 条就是最新一期。
- * ⚠️ 这个函数是【App 和分享页共用】的：分享页在 export-static.mjs:5844 直接调它，
- *    所以改这里一处，两边同时生效（这也是为什么不能在这里写 App 专属的东西）。
+ * 数据来自 experts-data.js 的 e.catLatest = { issue, nums }：
+ *   由 build-experts.mjs 抓【这一期的分类详情页】（页面上那个「查看」链接）得到，
+ *   取的就是【跟他分类同名那一行】的号码 —— 所以「红球三胆」必然是 3 个号、
+ *   「红球25码」必然是 25 个、「蓝球定五」必然是 5 个，不会再把大池当成 N 胆。
+ *
+ * ⚠️ 以前这里显示的是 recent[0].picks（他那一期的大池，25/15/7 个号），
+ *    配上「红球三胆」的标签 → 标签和号码对不上。已改为 catLatest。
+ * ⚠️ catLatest 缺失（这一期没公开 / 抓取失败 / 数据还是旧的）→ 明说取不到，
+ *    绝不退回大池冒充 N 胆，也绝不编数字。
+ * ⚠️ 这个函数是【App 和分享页共用】的（分享页在 export-static.mjs:5844 直接调它），
+ *    所以只改这一处，两边同时生效。
  */
 function expertDetailHtml(e) {
-  const rec = Array.isArray(e.recent) ? e.recent : [];
-  const r = rec[0];
-  if (!r) return '<div class="ex-drow">这位专家这一期没有推送数据</div>';
-  const nums = (Array.isArray(r.picks) ? r.picks : [])
-    .map((n) => String(n).padStart(2, '0')).join(' ');
-  return '<div class="ex-drow ex-drow-lb">' +
-    exEsc(r.issue || '') + ' ' + exEsc(e.cat || '') + '：' + nums + '</div>';
+  const cat = (e && e.cat) || '';
+  const cl = e && e.catLatest;
+  if (cl && Array.isArray(cl.nums) && cl.nums.length) {
+    const nums = cl.nums.map((n) => String(n).padStart(2, '0')).join(' ');
+    return '<div class="ex-drow ex-drow-lb">' +
+      exEsc(cl.issue || '') + ' ' + exEsc(cat) + '：' + nums + '</div>';
+  }
+  return '<div class="ex-drow">这一期暂时取不到他公开的「' + exEsc(cat || '推荐') + '」号码</div>';
 }
 
 function renderExpertPanel(container, gameId) {
