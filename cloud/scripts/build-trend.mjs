@@ -647,6 +647,94 @@ const INTERACT_SRC = `
 `;
 
 /* ============================================================
+   构建时锚点注入：把工具栏 / 预选行"种"进渲染内核产出的 HTML 里
+   ------------------------------------------------------------
+   ⚠️ 不改 trend-render.js / trend-mount.js（它们是别的窗口也在读的单一真源），
+      这里只对【读进来的源码文本】做一次唯一字符串替换：
+        · '<div class="tr-head">'   ← 每个彩种块一块工具栏
+        · '<td class="tr-td-sep">'  ← 第二区（蓝球/后区）的预选格
+        · '</tbody>'                ← 预选行插在 tbody 最上面
+      每个锚点在源码里都必须【恰好出现 1 次】，否则直接抛错、不生成页面。
+   ============================================================ */
+function assertOne(src, needle, label) {
+  const n = src.split(needle).length - 1;
+  if (n !== 1) throw new Error(`注入锚点「${label}」在源码里出现了 ${n} 次（必须恰好 1 次）：${needle}`);
+  return src;
+}
+
+export function injectMarkers(src) {
+  let s = src;
+  /* 工具栏：插在彩种块的 .tr-head 前面。
+     ⚠️ 这个锚点在 trend-render.js 里【就在一段字符串拼接的中间】
+        （L.push('<div class="tr-head">');），所以插进去的东西必须是
+        同一行、且是合法 JS（' + esc(g.id) + '）——
+        在这里换行会把那个字符串拆断，整页脚本直接语法错误（踩过）。 */
+  const TOOL_ANCHOR = '<div class="tr-head">';
+  const TOOL_FIX = '<div class="tr-preseltool" data-tr-preseltool="\' + esc(g.id) + \'"></div>' + TOOL_ANCHOR;
+  assertOne(s, TOOL_ANCHOR, '彩种块头');
+  s = s.split(TOOL_ANCHOR).join(TOOL_FIX);
+
+  /* 第二区分隔列：只认【表体】那一处（表尾三行里也有 <td class="tr-td-sep">，
+     所以锚点必须带上下面的循环头，保证全局唯一） */
+  const SEP_BODY = "L.push('<td class=\"tr-td-sep\"></td>');\n        for (let i = 0; i < exCols; i++) {";
+  assertOne(s, SEP_BODY, '第二区分隔列（表体）');
+  s = s.split(SEP_BODY).join(
+    "L.push('<td class=\"tr-td-sep\">' + __trPreselExtra(g) + '</td>');\n" +
+    '        for (let i = 0; i < exCols; i++) {');
+
+  const TB = "'<tbody>'";
+  assertOne(s, TB, '表体开头');
+  s = s.split(TB).join("'<tbody>' + __trPreselRow(g) + '</tbody>'");
+  return s;
+}
+
+/* 页面里真正干活的注入脚本（运行时用模板拼出预选行 HTML）
+   ⚠️ 这段必须是【合法 JS 字符串拼接】——所以整段写成模板字符串（可读），
+      而不是塞在数组里双层转义。拼出来的代码形如：
+        return '<tr class="tr-row-presel">' + '<td ...>预选</td>' + ...
+      这些单引号都是"生成代码"里的引号，不是这里的引号。 */
+const INJECT_SRC = `
+/* ===== build-trend.mjs 注入：预选行（运行时拼 HTML） ===== */
+function __trMainCells(g) {
+  var o = [];
+  for (var i = g.main.lo; i <= g.main.hi; i++) {
+    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0"></td>');
+  }
+  return o.join('');
+}
+function __trExtraCells(g) {
+  var o = [];
+  if (!g.extra) return '';
+  for (var i = g.extra.lo; i <= g.extra.hi; i++) {
+    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0"></td>');
+  }
+  return o.join('');
+}
+var __TREND_PRESEL_ROW__ = '';
+var __TREND_PRESEL_EXTRA__ = '';
+function __trPreselRow(g) {
+  return '<tr class="tr-row-presel tr-row" data-tr-issue="__presel__" data-tr-presel-row="' + g.id + '">' +
+    '<td class="tr-td-issue tr-sticky tr-td-presel" data-tr-presel="label">预选</td>' +
+    __trMainCells(g) + __trPreselExtra(g) + '</tr>';
+}
+function __trPreselExtra(g) {
+  return g.extra ? ('<td class="tr-td-sep"></td>' + __trExtraCells(g)) : '';
+}
+`;
+
+/* ⚠️ 说明：__TREND_PRESEL_ROW__ / __TREND_PRESEL_EXTRA__ 两个标记必须
+   【在 renderTrendHtml 里面】求值（那里才有 g），所以注入点写成
+   "\' + __trPreselRow(g) + \'" —— 上面那两个同名 var 只是给标记留个名字，
+   实际拼 HTML 用的是 __trPreselRow(g) / __trPreselExtra(g) 两个函数。 */
+
+export function appendInteract(renderSrc) {
+  const s = injectMarkers(renderSrc);
+  assertOne(s, '__trPreselRow(g)', '预选行运行时调用');
+  assertOne(s, '__trPreselExtra(g)', '第二区预选运行时调用');
+  return s + '\n' + INJECT_SRC;
+}
+
+/* ============================================================
    页面外壳（米杏色，变量值和分享页 export-static.mjs 的 __LIGHT_THEME__ 一致）
    ------------------------------------------------------------
    __TREND_SCRIPT_BODY__ 是占位符：构建时替换成
@@ -905,14 +993,18 @@ __TREND_SCRIPT_BODY__
 </body>
 </html>
 `;
-  /* 数据快照 + 渲染内核 + 挂载逻辑 */
+  /* 数据快照 + 渲染内核（含工具栏/预选行锚点注入）+ 挂载逻辑 + 互动层
+     ⚠️ 互动层（工具栏行为 / 预选行点选 / 手画线）只能拼进【同一个 <script>】：
+        页面不变量要求整页恰好 1 对 <script> 标签。 */
   const body = [
     '/* 走势图数据快照 —— 构建时从 history.js 内嵌（本页唯一真数据源） */',
     'var TREND_DATA = ' + JSON.stringify(payload) + ';',
     '',
-    RENDER_SRC,
+    appendInteract(RENDER_SRC),
     '',
-    MOUNT_SRC
+    MOUNT_SRC,
+    '',
+    INTERACT_SRC
   ].join('\n');
 
   /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
