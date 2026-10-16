@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-17 00:20
+   更新时间：2026-10-17 00:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-17 00:20",
+ "updated": "2026-10-17 00:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1418,6 +1418,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-16/aa01f2f2-ee16-4ce4-88ca-6e477fd1db491792165955405.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/aa01f2f2-ee16-4ce4-88ca-6e477fd1db491792165955405.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26276期]今晚选二看我主页的应该都中了吧😄",
+     "url": "",
+     "at": "2026-10-16T16:25:02.062Z",
+     "pubAt": "2026-10-16T15:53:00.000Z",
+     "pubMs": 1792165980000,
+     "pubSrc": "page",
+     "nextAt": 1792243800000,
+     "atMs": 1792167902062,
+     "seenMs": 1792167902062,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-16/d39e7bd2-7992-4c99-9cff-ab25950196ee1792161689397.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/d39e7bd2-7992-4c99-9cff-ab25950196ee1792161689397.jpg?imageMogr2/thumbnail/360x",
@@ -3234,6 +3248,20 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-17/c5a373e8-d42e-45a9-aa29-e408955923521792166669145.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-17/c5a373e8-d42e-45a9-aa29-e408955923521792166669145.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26276期]20999，哎",
+     "url": "",
+     "at": "2026-10-16T16:25:02.062Z",
+     "pubAt": "2026-10-16T16:04:00.000Z",
+     "pubMs": 1792166640000,
+     "pubSrc": "page",
+     "nextAt": 1792240200000,
+     "atMs": 1792167902062,
+     "seenMs": 1792167902062,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-16/1109f982-4b20-44a3-88ea-3f6cf948393b1792160281882.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/1109f982-4b20-44a3-88ea-3f6cf948393b1792160281882.jpg?imageMogr2/thumbnail/360x",
