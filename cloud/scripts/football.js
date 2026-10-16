@@ -64,7 +64,7 @@ const FOOTBALL_DATA = {
     "minute": 77,
     "home": {
      "name": "萨普里沙",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 1
     },

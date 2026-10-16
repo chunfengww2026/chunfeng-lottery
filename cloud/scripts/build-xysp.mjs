@@ -94,7 +94,7 @@ import { fileURLToPath } from 'node:url';
 /* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
    （build-xysp-tt.mjs 的抓取主流程有 isDirectRun() 关卡，
      被 import 时不会发请求、不会 exit）。 */
-import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey } from './build-xysp-tt.mjs';
+import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -327,6 +327,13 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
            否则 24 小时发布规则对它们永远失效（实测踩过：重建后 pubAt 全空）。 */
         if (it.pubAt) { prev.pubAt = it.pubAt; prev.pubMs = pubMs; }
         if (pubSrc && pubSrc !== 'at') prev.pubSrc = pubSrc;
+        /* 【票面开奖日】也一样"有就补"—— 老数据没这个字段，
+           新抓到的同一条算出了 nextAt 就补进去，不然老条目永远不显示。 */
+        if (it.nextAt) prev.nextAt = it.nextAt;
+        if (!prev.nextAt) {
+          const na = nextDrawAfter(g.key, prev.pubMs || Date.parse(prev.at) || 0);
+          if (na) prev.nextAt = na;
+        }
         if (Date.parse(prev.at) > t) prev.at = at;
         return;
       }
@@ -338,7 +345,13 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
         at,
         pubAt: it.pubAt || (pubSrc === 'at' ? '' : new Date(pubMs).toISOString()),
         pubMs,
-        pubSrc
+        pubSrc,
+        /* 【票面开奖日】一起彩的条目本来没有这个字段（只有头条那条路才算），
+           用户要求"发布时间和票面公布的时间都要显示" → 这里按【发布时间】
+           算出这条帖子对应的是哪一期开奖（= 发布时间之后最近那次开奖）。
+           纯解析、0 成本；算不出来就是 null，页面就不显示那一段
+           （绝不给一个编出来的日期）。见 build-xysp-tt.mjs 的 nextDrawAfter。 */
+        nextAt: it.nextAt || nextDrawAfter(g.key, pubMs || Date.parse(at)) || null
       });
       if (count) stat.added++;
     };

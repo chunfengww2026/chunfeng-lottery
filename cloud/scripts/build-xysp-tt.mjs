@@ -252,13 +252,21 @@ const CATEGORIES = [
         足球 彩票 实票   1 条/1 帖
         ❌ 0 条（已剔除，不再浪费请求）：「竞彩 3串1」「足彩 晒票」
        加 sort_type=2（按时间）实测【没用】：返回的是同一批 2022 欧冠旧帖。
-       ⇒ 只留下面 5 个覆盖面重叠度最低、实测有结果的词。 */
+       ⇒ 只留下面几个覆盖面重叠度最低、实测有结果的词。
+    ⚠️ 用户要求「把 24 小时内的抓满，而不是放宽窗口」，所以又扩测了一轮
+       （2026-10-16，14 个候选词）：只有「竞彩 二串一」有实质新增（新增 3 条、
+       3 条都在 24h 内 ✅），已加入。「胜负彩 实票 / 任九 实票 / 足彩 晒单 /
+       竞彩 中奖 / 竞彩 过关 / 北单 实票」实测 0 条，「足彩 实票 / 竞彩 单子 /
+       竞彩足球 实票 / 竞彩 实票」各只新增 0~1 条 → 都不加。
+    ⚠️ 竞彩在 24 小时窗口内【本来就只有个位数】——这是真实的源站情况，
+       不是我们漏抓（实测 14 个词全跑一遍，24h 内合计只有 5 张唯一图）。 */
     searches: [
       { kw: '竞彩晒单' },
       { kw: '竞彩 晒票' },
       { kw: '胜负彩 晒票' },
       { kw: '竞彩 实单' },
-      { kw: '竞彩足球 晒票' }
+      { kw: '竞彩足球 晒票' },
+      { kw: '竞彩 二串一' }      /* 实测新增 3 条且都在 24h 内 */
     ]
   }
 ];
@@ -268,6 +276,29 @@ export function catByKey(k) { return CATEGORIES.find((c) => c.key === k) || null
 export function drawInfoNow(gid, nowMs) { return drawTimes(gid, nowMs === undefined ? Date.now() : nowMs); }
 /** 给验收脚本用：开奖时刻表的来源说明 */
 export function drawTableSource() { return DRAW.from; }
+
+/** ============================================================
+    给【一起彩】条目补"票面开奖日"用：某彩种在 t 时刻对应的"下一期开奖时刻"
+    ------------------------------------------------------------
+    为什么需要这个：头条条目在 mergeTt 里已经算好 nextAt 了，但一起彩的条目
+    走的是另一条路（build-xysp.mjs 的 mergeAndPrune），那边没有 nextAt 字段，
+    所以一起彩的卡片只有"发布时间"、没有"票面开奖日"。
+    用户要求两个时间都要显示 → 这里给一个纯函数，按【发布时间】算出
+    这条帖子对应的是哪一期开奖（= 发布时间之后最近的那次开奖）。
+    ⚠️ game key 要用开奖表的 key（ssq/dlt/fc3d/kl8/pl3/pl5/qxc/qlc），
+       一起彩的 key 和这套是一致的（实测）。
+    找不到就返回 null（调用方不要瞎编一个时间）。
+    ============================================================ */
+export function nextDrawAfter(gid, tMs) {
+  const t = Number(tMs) || 0;
+  if (!t) return null;
+  const info = drawTimes(gid, t);
+  if (!info) return null;
+  /* 发布时间之后最近的这次开奖 */
+  if (info.next && info.next >= t) return info.next;
+  /* next 已经早于发布时间（理论上不该发生）→ 用 prev 兜底 */
+  return info.prev || info.next || null;
+}
 
 /* 竞彩玩法的具体名称（标题里认得出就用它，认不出就是「竞彩」） */
 const JC_HINTS = [
@@ -722,7 +753,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -739,6 +770,28 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     let games = Array.isArray(it.games) ? it.games.slice() : null;
     if (!games && C.key === TT_KEY) games = gamesOfTitle(it.title);
     const gs = games || [];
+
+    /* ============================================================
+       【必须是"晒票"：图里得真有一张票】用户原话：「晒票是指 一定出现了票」
+       ------------------------------------------------------------
+       实测（2026-10-16，抽 20 张实际抓到的图肉眼判）：
+         · 16 张是真实票面照（超级大乐透/排列3/排列5，票面能看清期号+金额）
+         · 4 张【不是票】：一条"女子花228元买景区门票，附赠的彩票中了770万"
+           的新闻，配图是景区兑奖现场照片（有人物/横幅，没有票面）
+         · 真票图占比 = 80%
+       而且这 4 张（以及同类）的【标题里认不出任何彩种】——
+       实测：21 条"无彩种归属"的条目里，全是这类新闻/购物晒单
+       （「女子…景区门票…」「买微星 X 系列外设晒单即有奖」「Apple 18 Pro 晒单」），
+       而【6 条"像新闻"的条目全部无彩种、0 条误杀】。
+       ⇒ 所以规则：头条条目【必须能认出彩种】才收。
+         · 会不会误杀真票？会一点点 —— 标题没提彩种名的真票会被丢。
+           但这类帖子的图本来就常是"合集/无关图"，宁可不要（用户要的是"一定有票"）。
+         · 认不出彩种的条目【不会破坏聚合栏】：它们只是不进 games.tt，
+           日志里会打印丢了多少条。
+         ⚠️ 为什么不用 OCR 判"图里有没有票"：见文件末尾的实测记录
+            （10 张里只读出 4 张日期 / 5 张期号，还要 3.6 秒一张）。
+       ============================================================ */
+    if (C.key === TT_KEY && !gs.length) { stat.dropped++; stat.dropNoTicket = (stat.dropNoTicket || 0) + 1; return; }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
        （没有 seen 的老数据退回用 at —— 那是它第一次被抓到的时间） */
@@ -1003,7 +1056,7 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
+      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
