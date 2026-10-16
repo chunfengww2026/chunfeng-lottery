@@ -2,18 +2,18 @@
    xysp-jc-data.js —— 「竞彩晒票」数据（自动生成，请勿手动编辑）
 
    由 build-xysp-tt.mjs 生成（跟着 30 分钟任务跑）。
-   只保留最近 720 小时内抓到的条目，最多 200 条。
+   只保留最近 72 小时内抓到的条目，最多 200 条。
    ⚠️ 本文件【只】给竞彩页 足球推荐.html 用（export-football.mjs 读它）。
       分享页读的是 xysp-data.js（里面 games.tt / games.jc 是 build-xysp.mjs
       从这两个缓存合并出来的）。
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 11:01
+   更新时间：2026-10-16 11:04
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 11:01",
+ "updated": "2026-10-16 11:04",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3b477b873f94b54bc24a13ba8e428ae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=cxAin4L%2Bbq%2B%2Bpmuo%2FvvSj55jnFY%3D",
@@ -31,15 +31,15 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:56:02.132Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:56:02.132Z",
+   "rule": "cap",
    "author": "绿茵王蛇",
    "when": "2026-10-16 10:16:56"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3b477b873f94b54bc24a13ba8e428ae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hFKq3f5lWpJOr33hhav1Uf9OeWM%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3b477b873f94b54bc24a13ba8e428ae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hFKq3f5lWpJOr33hhav1Uf9OeWM%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3b477b873f94b54bc24a13ba8e428ae~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=3GzrNpPNNVFevMb1xdpsHWbeCQc%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3b477b873f94b54bc24a13ba8e428ae~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=KStmt3JUk7MuWl9VDObv8fb%2FPD4%3D",
    "title": "足彩26142期:斯巴达冷平难挡火锅格局！任九611元，头奖10万！",
    "url": "https://toutiao.com/group/7697061995551490615/",
    "at": "2026-10-16T02:36:02.107Z",
@@ -48,12 +48,12 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T03:01:30.241Z",
+   "seen": "2026-10-16T02:36:02.107Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:36:02.107Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:36:02.107Z",
+   "rule": "cap",
    "author": "绿茵王蛇",
    "when": "2026-10-16 10:16:56"
   },
@@ -73,8 +73,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:36:02.107Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:36:02.107Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -94,8 +94,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:36:02.027Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:36:02.027Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -115,8 +115,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:36:02.027Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:36:02.027Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -136,8 +136,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:36:02.027Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:36:02.027Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -157,8 +157,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:56:02.132Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:56:02.132Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -178,8 +178,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:56:02.132Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:56:02.132Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -195,19 +195,19 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T03:01:30.241Z",
+   "seen": "2026-10-16T02:56:02.132Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:56:02.132Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:56:02.132Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=fFbdlsdoxvgmbNas0a%2BIkpHUnYc%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=fFbdlsdoxvgmbNas0a%2BIkpHUnYc%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=3qtOhFy5ASmZp9zj1ateL%2BUyi4U%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=lgDKXArhUYYAWpVRYcbmJmevE3Y%3D",
    "title": "【26143期任九】8元防冷小单！联赛混战高投底单参考",
    "url": "https://toutiao.com/group/7697039507275416104/",
    "at": "2026-10-16T00:06:02.007Z",
@@ -216,54 +216,12 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T03:01:30.241Z",
+   "seen": "2026-10-16T02:36:02.107Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:36:02.107Z",
-   "rule": "72h",
-   "author": "马姆瑞克",
-   "when": "2026-10-16 07:26:48"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/bef685effec54777821a70a0d0536161~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gUnPV0GNoin9xI9XjYCAR6bLsTE%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/bef685effec54777821a70a0d0536161~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gUnPV0GNoin9xI9XjYCAR6bLsTE%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=3qtOhFy5ASmZp9zj1ateL%2BUyi4U%3D",
-   "title": "【26143期任九】8元防冷小单！联赛混战高投底单参考",
-   "url": "https://toutiao.com/group/7697039507275416104/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "jc",
-   "game": "竞彩",
-   "games": [],
-   "issue": "",
-   "seen": "2026-10-16T02:56:02.132Z",
-   "drawAt": "",
-   "nextAt": "",
-   "drawGid": "",
-   "expireAt": "2026-11-15T02:36:02.107Z",
-   "rule": "72h",
-   "author": "马姆瑞克",
-   "when": "2026-10-16 07:26:48"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a12f55f10cc84d4e8ab7e50cfa6f2724~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=srWjOWumPIid9qyK%2FT2Xfa8Xvcw%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a12f55f10cc84d4e8ab7e50cfa6f2724~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=srWjOWumPIid9qyK%2FT2Xfa8Xvcw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=3qtOhFy5ASmZp9zj1ateL%2BUyi4U%3D",
-   "title": "【26143期任九】8元防冷小单！联赛混战高投底单参考",
-   "url": "https://toutiao.com/group/7697039507275416104/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "jc",
-   "game": "竞彩",
-   "games": [],
-   "issue": "",
-   "seen": "2026-10-16T02:56:02.132Z",
-   "drawAt": "",
-   "nextAt": "",
-   "drawGid": "",
-   "expireAt": "2026-11-15T02:16:02.099Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:36:02.107Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -279,12 +237,12 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T03:01:30.241Z",
+   "seen": "2026-10-16T02:16:02.099Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T02:16:02.099Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T02:16:02.099Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -304,8 +262,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:26:02.024Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:26:02.024Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -325,8 +283,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:26:02.024Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:26:02.024Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -346,8 +304,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T00:26:02.024Z",
-   "rule": "72h",
+   "expireAt": "2026-10-19T00:26:02.024Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -367,8 +325,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:46:02.000Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:46:02.000Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -388,8 +346,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -409,8 +367,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -430,8 +388,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -451,8 +409,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:46:02.000Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:46:02.000Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -472,8 +430,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:46:02.000Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:46:02.000Z",
+   "rule": "cap",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
   },
@@ -493,8 +451,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -514,8 +472,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -535,8 +493,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:46:02.000Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:46:02.000Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -556,8 +514,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:56:02.004Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:56:02.004Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -577,8 +535,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T23:46:02.000Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T23:46:02.000Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   },
@@ -598,8 +556,8 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-14T22:52:26.511Z",
-   "rule": "72h",
+   "expireAt": "2026-10-18T22:52:26.511Z",
+   "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 04:39:13"
   }
