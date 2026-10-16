@@ -1414,6 +1414,22 @@ function finishOutput(freshRows) {
     if (fresh) {
       fs.copyFileSync(sp, op);
       log(`  ✅ ${dst}  ${(fs.statSync(op).size / 1024).toFixed(1)} KB（本次重新生成）`);
+      /* 【竞彩页 30 秒刷新】足球推荐.html 会定期去拉同目录的 jc-reco-view.js
+         （不是 fetch，是 <script src>，所以本地 file:// 也能用）。
+         它由 export-football.mjs 生成在 MOD（cloud/scripts/）里，
+         这里必须【跟 football.html 同时】拷到 out/ —— 线上站点根目录就是 out/。
+         ⚠️ 不跟着 football.html 发的话，线上的刷新会一直 404：
+            前端拿不到文件时什么都不做（页面照旧是构建时那份数据），不会坏，
+            但也不会自动更新 —— 属于"静默失效"，所以要在这里接上。 */
+      if (dst === 'football.html') {
+        const rv = path.join(MOD, 'jc-reco-view.js');
+        if (fs.existsSync(rv)) {
+          fs.copyFileSync(rv, path.join(OUT, 'jc-reco-view.js'));
+          log(`  ✅ jc-reco-view.js ${(fs.statSync(rv).size / 1024).toFixed(1)} KB（竞彩页 30 秒刷新用）`);
+        } else {
+          log('  ℹ️ 没有 jc-reco-view.js（本班没跑 export-football.mjs？）→ 线上刷新这轮不生效');
+        }
+      }
       return;
     }
     if (fs.existsSync(op)) { try { fs.unlinkSync(op); } catch (e) { /* 忽略 */ } }
