@@ -446,6 +446,11 @@ MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none
    ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"。 */
 let REC_STAT = null;
 let REC_ROWS_ARCHIVE = [];
+/* 【30 秒实时刷新用】存档的时间戳 = 判断"这份数据比页面里那份新"的依据 */
+const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
+/* 【30 秒实时刷新用】往期比对列表的【内层】HTML —— 由 renderRec() 渲染时顺手存下来，
+   给 jc-reco-view.js 复用（保证页面内和刷新后是【同一套渲染】，不写第二份渲染逻辑） */
+let REC_ARCH_INNER = '';
 if (JC_RECO && Array.isArray(JC_RECO.batches)) {
   const batches = JC_RECO.batches;
   let red = 0, black = 0, pending = 0, rows = 0;
@@ -737,6 +742,20 @@ const REC_LOW = REC_ALL.filter((r) => r.conf < REC_MIN);
 /* 一条都没有时，把「在售里最好的那个」写出来 —— 让用户知道是筛选生效而不是坏了 */
 const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.conf)) : null;
 
+/* 【推荐串红黑条 · 内层 HTML】—— 抽成函数只为了【一处渲染、两处使用】：
+   页面里是 <div class="record" id="jcRecStat">…</div>，
+   30 秒刷新用的 jc-reco-view.js 里也放这同一串（换 innerHTML）。
+   ⚠️ 数字口径一个字没动：没比对出来就是 0/—，绝不用 0 冒充"算过了"。 */
+function recoStatBarInner() {
+  return `<span class="t">推荐串</span>` +
+    `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
+    `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
+    `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
+    `<span class="n">（推荐串比对最终比分 · 前后 24 小时 · ${REC_STAT
+      ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
+      : '暂未开始统计'}）</span>`;
+}
+
 /* ============================================================
    渲染
    ============================================================ */
@@ -812,7 +831,11 @@ function renderRec() {
       }).join('')
     : '';
 
-  return `<details class="m-rec" id="jcRec">${head}${note}${body}${detail}</details>`;
+  /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
+  REC_ARCH_INNER = detail;
+  return `<details class="m-rec" id="jcRec">${head}${note}${body}` +
+    (detail ? `<div id="jcRecArch">${detail}</div>` : '') +
+    `</details>`;
 }
 
 /* ============================================================
@@ -1787,15 +1810,9 @@ ${nav}
     <span class="n">（推荐胜负平比对最终比分）</span>
   </div>` : ''}
 
-  <div class="record">
-    <span class="t">推荐串</span>
-    <span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>
-    <span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>
-    <span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>
-    <span class="n">（推荐串比对最终比分 · 前后 24 小时 · ${REC_STAT
-      ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
-      : '暂未开始统计'}）</span>
-  </div>
+  /* 【30 秒实时刷新】这个条可以被脚本原地换掉内容：
+     data-reco-updated = 页面里这份存档的时间戳（拿它跟 jc-reco-view.js 里的比，一样就不动） */
+  <div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</div>
 
   ${renderRec()}
   </div>
@@ -2768,10 +2785,72 @@ ${JC_XYSP_VIEW}
   } catch (e) { /* 忽略：晒票的显示不依赖这段脚本 */ }
 })();
 </script>
+<script>
+/* ============================================================
+   【推荐串红黑 · 每 30 秒重读一次】
+   ------------------------------------------------------------
+   为什么能实时：5 分钟那一班跑完比分后会重建页面 + 重写下面的数据文件，
+   所以这里只要定期把新数据拿回来、原地换掉那两块就行。
+   ⚠️ 用 <script src> 而不是 fetch()：本机是 file:// 直接打开的，
+      fetch 会被 CORS 拦掉，而经典脚本加载在 file:// 下照样能读同目录文件。
+   ⚠️ 不用任何浏览器存储（localStorage / sessionStorage 一个都不用）——
+      上一份数据只放在这个闭包的变量里。
+   ⚠️ 拿不到 / 解析失败 / 时间戳没变 → 什么都不做，页面上还是构建时那份数据，
+      绝不显示空白、绝不填 0。
+   ⚠️ 只换 #jcRecStat / #jcRecArch 两块的 innerHTML，其它元素一律不碰
+      （模拟计算、三个分段、晒票、免责声明都不受影响）。 */
+(function () {
+  var VIEW = 'jc-reco-view.js';
+  var POLL_MS = 30000;
+  var bar = document.getElementById('jcRecStat');
+  if (!bar) return;
+  var last = bar.getAttribute('data-reco-updated') || '';
+
+  function apply() {
+    var v = window.JC_RECO_VIEW;
+    if (!v || !v.updated || v.updated === last) return;
+    if (typeof v.stat === 'string') bar.innerHTML = v.stat;
+    var arch = document.getElementById('jcRecArch');
+    if (arch && typeof v.arch === 'string') arch.innerHTML = v.arch;
+    bar.setAttribute('data-reco-updated', v.updated);
+    last = v.updated;
+  }
+
+  function tick() {
+    var s = document.createElement('script');
+    s.src = VIEW + '?t=' + Date.now();
+    s.onload = function () {
+      try { apply(); } catch (e) { /* 数据格式不对就保持原样 */ }
+      if (s.parentNode) s.parentNode.removeChild(s);
+    };
+    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); };
+    document.body.appendChild(s);
+  }
+
+  /* 【验收钩子】和页面里 window.__jcXysp 同一套做法：给测试脚本一个立刻拉取的口子 */
+  window.__jcRecoRefresh = tick;
+  window.__jcRecoApplied = function () { return last; };
+
+  if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+</script>
 </body>
 </html>`;
 
 fs.writeFileSync(OUT, html, 'utf8');
+
+/* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
+   内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
+     · 不在页面里写第二套渲染逻辑（避免"两处渲染慢慢长歪"）
+     · updated 没变 → 前端不换 DOM，就不会白闪
+   ⚠️ 上传到网页那份要跟着页面一起发（cloud/out/ 里），否则线上这次刷新拿不到文件；
+      拿不到时前端【什么都不做】，页面照旧是构建时那份数据。 */
+const RECO_VIEW_OUT = path.join(ROOT, 'jc-reco-view.js');
+fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
+  updated: RECO_STAMP,
+  stat: recoStatBarInner(),
+  arch: REC_ARCH_INNER
+}) + ';\n', 'utf8');
 
 console.log('✅ 已生成：' + OUT);
 console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
