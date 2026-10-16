@@ -1382,6 +1382,99 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .jxp-view { background: rgba(11, 13, 17, .97) !important; }
 .jxp-view-tip, .jxp-view-hint { color: #c8cfda !important; }
 #mask { background: rgba(0, 0, 0, 0.96) !important; }
+
+/* ============================================================
+   __JC_ALIGN__ 竞彩页顶部几块对齐米杏色（用户 2026-10-17 给了整页设计参考）
+   ------------------------------------------------------------
+   为什么单独补这一段：上面那层覆盖用的是【属性选择器】（[style*="#161a21"]），
+   只对行内样式生效；而 .stat / .record / .m-subcount / .m-subhead 这些颜色
+   是写在 <style> 的【类规则】里的，所以一直是深色没被换掉 ——
+   实测截图里：统计是黑卡片、战绩条黑底、四个入口是深色小胶囊配灰字，几乎看不清。
+   ⚠️ 这一段【只改颜色/间距/字号】，不动任何结构、不动 JS：
+      · .stat 里三个数字仍是 <a href="#sec-...">（点一下跳到那一栏，功能保留）
+      · .m-sec > summary / .m-rec > summary 仍是原生 details 折叠（保留）
+      · 模拟计算那块的功能一个字没动，只把底栏 .calc-bar 换成浅色
+   ⚠️ 规则必须写在这个位置（样式表最后、!important），才能压过上面的深色类规则。
+   ============================================================ */
+/* ① 统计条：三张米杏卡片（数字绿 / 标签灰） */
+.stat { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important; margin: 0 0 12px !important; padding: 0 !important; }
+.stat > a { display: block !important; background: #fdf6ea !important;
+  border: 1px solid #e8d7bd !important; border-radius: 10px !important;
+  padding: 14px 6px !important; text-align: center !important; text-decoration: none !important; }
+.stat > a b { display: block !important; font-size: 26px !important; font-weight: 700 !important;
+  line-height: 1.1 !important; color: #1a8c5a !important; font-variant-numeric: tabular-nums; }
+.stat > a span { display: block !important; margin-top: 6px !important;
+  font-size: 12px !important; color: #8a7a63 !important; }
+/* ② 战绩条：米杏卡片 · 标签深棕加粗 · 红/黑/命中率按设计参考配色 */
+.record { display: flex !important; align-items: center !important; flex-wrap: wrap !important;
+  background: #fdf6ea !important; border: 1px solid #e8d7bd !important; border-radius: 10px !important;
+  padding: 12px 14px !important; margin: 0 0 10px !important; font-size: 13px !important; gap: 0 !important; }
+.record .t { color: #4a3a26 !important; font-weight: 700 !important; margin-right: 10px !important; }
+.record .h { color: #c0392b !important; font-weight: 700 !important; }
+.record .m { color: #8a7a63 !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record .r { color: #c0392b !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record .n { color: #8a7a63 !important; font-size: 11px !important; margin-left: 8px !important; }
+/* ③ 分段入口 / 推荐串入口：深色小胶囊 → 浅底可读（深色胶囊配灰字实测看不清） */
+.m-subhead { color: #4a3a26 !important; }
+.m-subcount, .m-reccount { background: #f3e6d0 !important; color: #8a7a63 !important; }
+.m-rechead .m-rectitle { color: #4a3a26 !important; }
+/* ④ 模拟计算底栏：浅色（功能不动） */
+.calc-bar { border-top-color: #efe2cc !important; }
+.calc-stat { color: #8a7a63 !important; }
+.calc-stat b { color: #4a3a26 !important; }
+.calc-mul input { background: #fffdf8 !important; border-color: #e8d7bd !important; color: #4a3a26 !important; }
+.calc-bar .calc-btn { background: #fdf6ea !important; border: 1px solid #e8d7bd !important; color: #4a3a26 !important; }
+/* 主按钮 + 金标签：对齐设计参考。
+   ⚠️ 这里【只】写竞彩页真实存在的按钮：
+      .calc-shot-btn =「保存图片」、.calc-rand = App 端「GPT随机」（竞彩页没有，不写）。
+   用 :is() 把优先级提到 (0,2,1)，压过基础规则 .calc-btn.calc-shot-btn（0,2,0）——
+   否则两条打平只能靠书写顺序决胜，以后谁挪一下位置就又变深色了。 */
+.calc-bar :is(.calc-btn).calc-rand { background: #1a8c5a !important; border-color: #1a8c5a !important;
+  color: #fff !important; font-weight: 600 !important; }
+.calc-bar .tag { font-size: 11px !important; color: #d9a300 !important;
+  border: 1px solid #d9a300 !important; border-radius: 10px !important; padding: 2px 8px !important; }
+/* ⑤ 折叠区标题（模拟计算 / 晒票）：按设计参考改成绿字加粗 */
+.calc-head .calc-title, .jxp-head .jxp-title { color: #1a8c5a !important; }
+.calc-tag, .jxp-tag { color: #d9a300 !important; background: rgba(217, 163, 0, .12) !important;
+  border-color: #d9a300 !important; }
+/* ⑥ 折叠标题行里的按钮（保存图片 / 晒票那条）：
+   ⚠️ 它们不在 .calc-bar 里，而是 <summary class="calc-head"> 的直接子元素，
+      所以上面那条 .calc-bar .calc-btn 命中不到（实测：还是深色 #12151d + 灰字）。
+   用 :is() 提优先级，压过基础规则 .calc-btn.calc-shot-btn（两条同优先级会靠顺序决胜）。 */
+.calc-head :is(.calc-btn), .jxp-head :is(.calc-btn) { background: #fdf6ea !important;
+  border: 1px solid #e8d7bd !important; color: #4a3a26 !important; }
+/* ⑦ 模拟计算【内容区】也改成浅色
+   ------------------------------------------------------------
+   用户 2026-10-17 反馈：把外壳换成浅色后，展开内容还是黑底（比赛卡片 / 下拉 /
+   GPT随机按钮 / 选项勾选 / 奖金数字 / 怎么算的），成了"浅色壳 + 深色内容"的夹生页。
+   这一段把展开态的元素一起换成米杏色；【只改颜色和边框】，
+   不动结构、不动 JS（勾选、几串几、注数金额计算全部照旧）。 */
+.calc-body { color: #4a3a26 !important; }
+.calc-sub, .calc-sub-t { color: #8a7a63 !important; }
+.calc-sel select, .calc-sel select option { background: #fffdf8 !important;
+  border-color: #e8d7bd !important; color: #4a3a26 !important; }
+.calc-rand { background: #e3f2ea !important; border-color: #b7e4cd !important; color: #1a8c5a !important; }
+.calc-row { background: #fdf6ea !important; border-color: #e8d7bd !important; }
+.calc-code { background: #f3e6d0 !important; color: #4a3a26 !important; }
+.calc-league { color: #8a7a63 !important; }
+.calc-time { color: #a2937c !important; }
+.calc-teams { color: #4a3a26 !important; }
+.calc-vs { color: #a2937c !important; }
+.calc-ol { color: #8a7a63 !important; }
+.calc-opt { background: #fffdf8 !important; border-color: #e8d7bd !important; color: #4a3a26 !important; }
+.calc-opt-o { color: #8a7a63 !important; }
+.calc-opt.on { background: #e8f6ef !important; border-color: #1a8c5a !important; color: #1a8c5a !important; }
+.calc-opt.on .calc-opt-o { color: #1a8c5a !important; }
+.calc-opt input { accent-color: #1a8c5a !important; }
+.calc-prize-l, .calc-prize-h { color: #8a7a63 !important; }
+.calc-prize b { color: #1a8c5a !important; }
+.calc-warn { color: #b8860b !important; }
+.calc-foot { color: #a2937c !important; }
+.calc-note { background: #f3e6d0 !important; border-color: #efe2cc !important; color: #8a7a63 !important; }
+.calc-note b { color: #4a3a26 !important; }
+.calc-disclaim { border-top-color: #e8d7bd !important; color: #8a7a63 !important; }
+.calc-disclaim b { color: #4a3a26 !important; }
 `;
 
 const html = `<!DOCTYPE html>
