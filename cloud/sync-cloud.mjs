@@ -253,6 +253,13 @@ const CODE_MODULES = [
            ERR_MODULE_NOT_FOUND，整个晒票栏（含一起彩那 8 个彩种）全没了。
       它只写 xysp-tt-data.js；xysp-data.js 永远只由 build-xysp.mjs 写。 */
   'build-xysp-tt.mjs',
+  /* 【票图校验】OCR 判"图里到底有没有票"（用户要求「整票百分百」）。
+      ⚠️ 必须同步：build-xysp-tt.mjs 里 `import ... from './verify-ticket.mjs'`，
+      云端 scripts/ 里没有它 → ERR_MODULE_NOT_FOUND → 整个头条晒票分类挂掉。
+      ⚠️ 它的【缓存文件】_ticket-ocr-cache.json 不在这里 ——
+      那个是本机运行态数据（几百 KB、每轮都变），已在 .gitignore 里排除；
+      云端没有缓存就重新 OCR 一遍，只是慢一点，不影响正确性。 */
+  'verify-ticket.mjs',
   /* 【文章参考】抓取脚本（本机每小时 :16 跑一次，跟着文章那一班）。
       ⚠️ 必须同步：云端 daily-update.mjs 的【3.7】那一步会跑
       build-articles.mjs 重新抓文章（放在生成网页之前）。
