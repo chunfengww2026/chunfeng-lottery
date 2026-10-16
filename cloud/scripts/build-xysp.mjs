@@ -97,7 +97,7 @@ import { fileURLToPath } from 'node:url';
 import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter, sortTimeMs, whenToMs, anyToMs,
   /* 【加强去重】两层去重规则都写在 build-xysp-tt.mjs 里（两边共用同一份实现，
      避免"两个脚本各写一套、规则慢慢跑偏"）。见那些函数的说明。 */
-  dedupeItems, imgFingerprint, imgSizeScore, titleKey, postKeyOf, pubMsOf } from './build-xysp-tt.mjs';
+  dedupeItems, imgFingerprint, imgSizeScore, titleKey, normTitle, titlesSimilar, postKeyOf, pubMsOf } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -437,30 +437,38 @@ function crossSourceDedupe(games, stat) {
     const gObj = games[g.key];
     const mine = (gObj && Array.isArray(gObj.items)) ? gObj.items : [];
     if (!mine.length) continue;
-    /* 这个彩种下、头条那一路的条目：titleKey → 条目 */
-    const byKey = new Map();
+    /* 这个彩种下、头条那一路的条目，按"归一化前 10 字"装桶（titleSimilar 的必要条件） */
+    const bucket = new Map();
     for (const it of tt) {
       if (dropTt.has(it)) continue;
       if (!Array.isArray(it.games) || it.games.indexOf(g.key) < 0) continue;
-      const k = titleKey(it.title);
-      if (k && !byKey.has(k)) byKey.set(k, it);
+      const nk = normTitle(it.title);
+      if (nk.length < 10) continue;                    /* 太短的标题不参与（同 titlesSimilar） */
+      const k = nk.slice(0, 10);
+      if (!bucket.has(k)) bucket.set(k, []);
+      bucket.get(k).push(it);
     }
-    if (!byKey.size) continue;
+    if (!bucket.size) continue;
     const keepMine = new Set(mine);
     for (const it of mine) {
-      const k = titleKey(it.title);
-      if (!k) continue;                                   /* 无标题 → 跳过这条规则 */
-      const t = byKey.get(k);
-      if (!t) continue;
-      /* 同一条帖子（跨源理论上不会有；有就不删，宁可留） */
-      const pkY = postKeyOf(it), pkT = postKeyOf(t);
-      if (pkY && pkY === pkT) continue;
-      const yMs = pubMsOf(it), tMs = pubMsOf(t);
-      const dropYq = !!(tMs && (!yMs || tMs < yMs));      /* 头条更早 → 删一起彩那条 */
-      if (dropYq) keepMine.delete(it); else dropTt.add(t);
-      res.removed++;
-      if (res.examples.length < 3) {
-        res.examples.push({ key: k, side: dropYq ? 'yq' : 'tt', keep: String(dropYq ? t.img : it.img).slice(-40), drop: String(dropYq ? it.img : t.img).slice(-40) });
+      const nk = normTitle(it.title);
+      if (nk.length < 10) continue;                    /* 无标题 / 太短 → 跳过这条规则 */
+      const cand = bucket.get(nk.slice(0, 10));
+      if (!cand) continue;
+      for (const t of cand) {
+        if (!titlesSimilar(nk, t.title)) continue;
+        /* 同一条帖子（跨源理论上不会有；有就不删，宁可留） */
+        const pkY = postKeyOf(it), pkT = postKeyOf(t);
+        if (pkY && pkY === pkT) break;
+        const yMs = pubMsOf(it), tMs = pubMsOf(t);
+        const dropYq = !!(tMs && (!yMs || tMs < yMs));  /* 头条更早 → 删一起彩那条 */
+        if (dropYq) {
+          if (keepMine.has(it)) { keepMine.delete(it); res.removed++; }
+        } else if (!dropTt.has(t)) { dropTt.add(t); res.removed++; }
+        if (res.examples.length < 3) {
+          res.examples.push({ key: titleKey(it.title), side: dropYq ? 'yq' : 'tt', keep: String(dropYq ? t.img : it.img).slice(-40), drop: String(dropYq ? it.img : t.img).slice(-40) });
+        }
+        break;
       }
     }
     if (keepMine.size !== mine.length) games[g.key] = Object.assign({}, gObj, { items: mine.filter((x) => keepMine.has(x)) });
