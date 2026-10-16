@@ -9,53 +9,53 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 17:26
+   更新时间：2026-10-16 17:36
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 17:26",
+ "updated": "2026-10-16 17:36",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=f7Zw30kdM0%2FKqR9PKctchePl9cQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=f7Zw30kdM0%2FKqR9PKctchePl9cQ%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gki3klLhUchb6aaMyX7aO79Sft4%3D",
    "title": "胜负彩26143期没有神胆，只有少错！这期真正的钱，藏在防平里！",
-   "url": "http://toutiao.com/item/7697182290023023155/",
+   "url": "https://toutiao.com/group/7697154460392391177/",
    "at": "2026-10-16T07:36:01.342Z",
    "src": "tt",
    "cat": "jc",
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:26:01.444Z",
+   "seen": "2026-10-16T09:36:01.462Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:16:01.434Z",
+   "expireAt": "2026-10-17T09:26:01.444Z",
    "rule": "cap",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 16:38:26"
+   "author": "广东热心市民",
+   "when": "2026-10-16 14:53:12"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=WkwdMDPuaPblruwMQnndXVOeDD0%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=WkwdMDPuaPblruwMQnndXVOeDD0%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2eVJhzBsDMTcRH%2BEv4vZ3hCb6Ms%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gki3klLhUchb6aaMyX7aO79Sft4%3D",
    "title": "胜负彩26143期没有神胆，只有少错！这期真正的钱，藏在防平里！",
-   "url": "https://toutiao.com/group/7697154460392391177/",
+   "url": "http://toutiao.com/item/7697182290023023155/",
    "at": "2026-10-16T07:06:01.335Z",
    "src": "tt",
    "cat": "jc",
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:26:01.444Z",
+   "seen": "2026-10-16T09:36:01.462Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:16:01.434Z",
+   "expireAt": "2026-10-17T09:26:01.444Z",
    "rule": "cap",
-   "author": "广东热心市民",
-   "when": "2026-10-16 14:53:12"
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 16:38:26"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-tjoges91tu/f773ff4eca3135e0845ec825b71e52cc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HPieJDqO5T6tqQp5%2B5trztUaVEA%3D",
@@ -321,11 +321,11 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:26:01.444Z",
+   "seen": "2026-10-16T09:36:01.462Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:16:01.434Z",
+   "expireAt": "2026-10-17T09:26:01.444Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
@@ -333,7 +333,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=EmlPj3ggnwI2O1v5ye8g0SPQhTg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=z3jo36KThzWt2%2FrOVNw8aXPIaqY%3D",
    "title": "体彩足彩竞彩中奖票",
    "url": "https://toutiao.com/group/7697108049638539804/",
    "at": "2026-10-16T03:56:02.176Z",
@@ -342,7 +342,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:16:01.434Z",
+   "seen": "2026-10-16T09:36:01.462Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
