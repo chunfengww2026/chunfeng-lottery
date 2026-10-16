@@ -1325,6 +1325,16 @@ function main() {
      【关键】每个班次都必须重新生成它该出的页面，
      否则「数据改了但网页没变」，等于这次班次白跑。 */
   log('\n生成静态网页 ...');
+  /* 【推荐串存档】出页面【之前】跑一步：把这一期的推荐串存进 jc-reco-archive.js，
+     并拿 jc-history.js 的终场比分回填红黑。
+     · 它读 jc-data.js / jc-official.js / jc-history.js（都是同步上去的）
+     · 纯本地计算、不联网、不调 AI → 放这里零成本
+     · 必须在 export-football.mjs 之前：竞彩页要读这个存档显示
+       「推荐串 红 X 黑 Y 命中率 Z%」和往期详情。 */
+  {
+    const r = runSoft('jc-reco-build.mjs', []);
+    log(`  推荐串存档：${r.ok ? '✅ 已更新 jc-reco-archive.js' : '⚠️ 跳过（保留上次存档）'}`);
+  }
   const doExportStatic = plan.exportStatic === true
     || (plan.exportStatic === 'auto' && (doDraws || doHistory || doPrizes));
 
