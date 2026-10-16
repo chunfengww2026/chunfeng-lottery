@@ -540,7 +540,7 @@ function renderTrendHtml(payload) {
     L.push('</tr></thead>');
 
     /* 表体：每期一行 */
-    L.push('<tbody>' + __trPreselRow(g) + '</tbody>');
+    L.push('<tbody>' + __trPreselRow(g) + ');
     rows.forEach((r, ri) => {
       const isLast = ri === rows.length - 1;
       /* 数字型彩种按【位】标记：重复号码各算一格（例如 2,8,7） */
