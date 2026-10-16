@@ -16,6 +16,8 @@
 //  产物：
 //    jc-data.js     →  const JC_DATA = {...}   本次「在售」的比赛
 //                      顶层多一个 sp 块：官方竞彩 SP 列表（模拟计算器读它）
+//                      每场 game.reco.type = 'three' | 'unbeaten'
+//                      （推荐类型：胜负平 / 不败，判定规则见 recoTypeOf 的注释）
 //    jc-history.js  →  const JC_HISTORY = {...} 已完场累积记录
 //
 //  每场比赛还会算一份【亚指综合换算】结果存在 game.asianIndex
@@ -32,6 +34,8 @@
 //
 //  用法：node build-jc.mjs
 //        node build-jc.mjs --archive-test   （离线自测归档逻辑，不联网、不碰真数据）
+//        node build-jc.mjs --retype         （离线补算 reco.type：不联网、不归档、
+//                                            不碰 jc-history.js，只给 jc-data.js 补 type）
 // ============================================================
 
 import fs from 'node:fs';
