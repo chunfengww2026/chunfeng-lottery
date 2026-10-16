@@ -1,0 +1,65 @@
+name: probe-odds (TEMP - delete after use)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Cloud egress IP
+        run: |
+          echo "===== CLOUD IP ====="
+          curl -s --max-time 20 https://api.ipify.org || true
+          echo ""
+          curl -s --max-time 20 https://ipinfo.io/json || true
+          echo ""
+          echo "===== DATE ====="
+          date -u
+
+      - name: Probe odds sources
+        run: |
+          set +e
+          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
+          probe () {
+            local label="$1"; local url="$2"; local ref="$3"
+            echo ""
+            echo "########## $label"
+            echo "URL: $url"
+            local code
+            code=$(curl -s -o /tmp/body.bin -w '%{http_code} %{size_download} %{time_total}' \
+              --max-time 30 -L --compressed \
+              -H "User-Agent: $UA" -H "Referer: $ref" -H "Accept: */*" \
+              "$url")
+            echo "RESULT: $code"
+            echo "FIRST200: $(head -c 200 /tmp/body.bin | tr -d '\r\n' | head -c 200)"
+            echo "LEN_BYTES: $(wc -c < /tmp/body.bin)"
+            echo "--- markers ---"
+            echo "title_count: $(grep -o 'title' /tmp/body.bin | wc -l)"
+            echo "companyish: $(grep -oE '(威廉|立博|Bet365|bet365|澳门|皇冠|易胜博|韦德|Pinnacle|平博)' /tmp/body.bin | sort -u | head -8 | tr '\n' ' ')"
+            echo "numcount: $(grep -oE '[0-9]+\.[0-9]{2}' /tmp/body.bin | wc -l)"
+            echo "jsonish: $(head -c 60 /tmp/body.bin | tr -d '\n')"
+          }
+
+          probe "1_titan007_euro_http"  "http://1x2d.titan007.com/2910927.js"                       "https://1x2d.titan007.com/"
+          probe "2_titan007_euro_https" "https://1x2d.titan007.com/2910927.js"                      "https://1x2d.titan007.com/"
+          probe "3_7m_ah_http"          "http://px-odds.7mdt.com/DataByLive2/5007206_ah.js"         "https://px-odds.7mdt.com/"
+          probe "4_7m_ah_https"         "https://px-odds.7mdt.com/DataByLive2/5007206_ah.js"        "https://px-odds.7mdt.com/"
+          probe "5_7m_schedule"         "https://js-live.7mdt.com/datafile/sxl.js"                  "https://js-live.7mdt.com/"
+          probe "6_7m_meta"             "https://px-data.7mdt.com/goaldata/js/5007/5007206.js"      "https://px-data.7mdt.com/"
+          probe "7_titan007_asian_page" "https://vip.titan007.com/AsianOdds_n.aspx?id=2910927"      "https://vip.titan007.com/"
+          probe "8_titan007_oddslist"   "https://1x2d.titan007.com/oddslist/2910927.js"             "https://1x2d.titan007.com/"
+          probe "9_baseline_toutiao"    "https://so.toutiao.com/"                                   "https://so.toutiao.com/"
+          probe "10_baseline_github"    "https://api.github.com/"                                   "https://github.com/"
+
+          echo ""
+          echo "===== SAMPLE: titan007 first 400 chars (if any) ====="
+          curl -s --max-time 30 -H "User-Agent: $UA" -H "Referer: https://1x2d.titan007.com/" \
+            "https://1x2d.titan007.com/2910927.js" | head -c 400
+          echo ""
+          echo "===== SAMPLE: 7M ah first 400 chars (if any) ====="
+          curl -s --max-time 30 -H "User-Agent: $UA" -H "Referer: https://px-odds.7mdt.com/" \
+            "https://px-odds.7mdt.com/DataByLive2/5007206_ah.js" | head -c 400
+          echo ""
+          echo "===== DONE ====="
