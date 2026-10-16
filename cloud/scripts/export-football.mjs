@@ -271,6 +271,93 @@ function probFromOdds(odds) {
   };
 }
 
+/* ============================================================
+   【推荐类型】three（胜负平）/ unbeaten（不败）__RECO_UNBEATEN__
+   ------------------------------------------------------------
+   用户要求：推荐类型支持两种
+     type='three'    推胜负平：主胜 / 平 / 客胜        ← 原来只有这个
+     type='unbeaten' 推不败：主不败 / 客不败           ← 2026-10-17 新增
+
+   ① 不败概率怎么算（纯数学，不编数字）
+      数据源 = reco.prob —— jc-data.js 里由 build-jc.mjs 的 calcReco()
+      用欧赔 1/赔率 归一化反推出来的 home / draw / away 三个概率。
+        主不败 = P(主胜) + P(平)      ← 主胜或平，两种结果都算"主队不败"
+        客不败 = P(客胜) + P(平)
+      实例：周五001  prob = 39.4 / 25.6 / 35
+            主不败 = 39.4 + 25.6 = 65.0%     客不败 = 35 + 25.6 = 60.6%
+      ⚠️ 两个"不败"【不是互斥】事件（都含"平"），相加 ≠ 100% ——
+         这就是"双选 / 不败"的算法本身；prob 为 null（当时没抓到赔率）
+         时算不出来 → 不显示数字，绝不填 0 凑数。
+
+   ② type 从哪来
+      jc-data.js 的 reco 里【目前没有 type 字段】（已核实：只有
+      pick / label / confidence / prob / clear / margin / rqLine）——
+      所以这里【按数据里已有的字段推导】，不新增字段、不改 jc-data.js：
+        ① 数据里带了 reco.type → 原样用（上游以后加了自动生效）
+        ② pick === 'draw' → 'three'（"平"没法用"不败"表达）
+        ③ reco.clear === false（build-jc.mjs 的既有标记：信心 <45%，
+           胜负平方向不够清晰）→ 'unbeaten'：推更稳的那个"不败"
+        ④ 其余 → 'three'
+      ⚠️ 只影响【卡片显示 + 卡片自己的红黑判定】：reco.confidence、
+         jc-data.js、推荐串（在售 × 信心 ≥55%）的口径一个字都没动。
+
+   ③ 【开关】RECO_DERIVE_UNBEATEN
+      默认 false = 【不改变上游的推荐】：一律用数据里的 type（没有就是 'three'），
+      卡片照旧显示"推荐 主胜 / 信心 46.4%"和原来的红黑判定，
+      只是右侧【多出一行"不败"胶囊】（不败概率照算、照显示）。
+      ⇒ 想要"不够清晰的场次改推不败"，把这里改成 true 即可（一行）。
+      ⚠️ 为什么默认 false：jc-data.js 的 reco 里【没有 type 字段】，
+         而上面的 ③ 规则要拿 reco.clear 当依据 —— 实测 historyToGame()
+         给【所有归档场次】写死了 clear:false（那里的 false 是"未知"，
+         不是"算出来不清晰"），一开就会把 64 张卡里的 57 张历史卡
+         全变成"主不败/客不败"，连它们的红黑判定口径也跟着换 ——
+         这超出"只做加法"的范围了。
+      ⇒ 正解是上游 build-jc.mjs 的 calcReco() 直接给出 reco.type，
+         这里会自动优先用数据的 type（见 ② 的第 ① 条）。
+   ============================================================ */
+const RECO_DERIVE_UNBEATEN = false;
+
+/** 主不败 / 客不败 的概率（= reco.prob 里的 主胜+平 / 客胜+平；算不出来返回 null） */
+function ubProb(prob) {
+  if (!prob) return null;
+  const h = +prob.home, d = +prob.draw, a = +prob.away;
+  if (!Number.isFinite(h) || !Number.isFinite(d) || !Number.isFinite(a)) return null;
+  return { home: +(h + d).toFixed(1), away: +(a + d).toFixed(1) };
+}
+
+/** 这场按哪种类型推荐（'three' | 'unbeaten'），规则见上面 ② */
+function recoTypeOf(r) {
+  if (!r) return 'three';
+  if (r.type === 'unbeaten') return 'unbeaten';   /* 数据里写了就用数据的 */
+  if (r.type === 'three') return 'three';
+  if (!RECO_DERIVE_UNBEATEN) return 'three';
+  if (r.pick === 'draw') return 'three';          /* 平局没法用"不败"表达 */
+  if (r.clear === false && ubProb(r.prob)) return 'unbeaten';
+  return 'three';
+}
+
+/** 「不败」推荐的那一边（'home' | 'away' | ''）；平局推荐没有"不败"边 */
+function unbeatenSide(r) {
+  if (!r) return '';
+  return r.pick === 'home' ? 'home' : (r.pick === 'away' ? 'away' : '');
+}
+
+/** 不败推荐的显示名 */
+function unbeatenLabel(r) {
+  return r && r.pick === 'away' ? '客不败' : '主不败';
+}
+
+/* 推荐结果是否命中：两种类型判据不同，不能用同一套 ——
+     three    ：只中那一个结果（主胜/平/客胜 之一）
+     unbeaten ：主胜或平 / 客胜或平 都算中（双选）
+   ⚠️ 不败推荐如果还用 pick===actual 判，平局会被错判成「黑」。 */
+function recoHit(r, actual) {
+  if (!r || !actual) return false;
+  const side = unbeatenSide(r);
+  if (recoTypeOf(r) === 'unbeaten' && side) return actual === 'draw' || actual === side;
+  return r.pick === actual;
+}
+
 function historyToGame(rec) {
   const m = /^(\d+)\s*[:：-]\s*(\d+)$/.exec(String(rec.score || ''));
   const hs = m ? +m[1] : null;
@@ -374,7 +461,9 @@ function prep(g) {
   if (hasScore) {
     const actual = hs > as ? 'home' : (hs === as ? 'draw' : 'away');
     const actualLabel = actual === 'home' ? '主胜' : (actual === 'draw' ? '平局' : '客胜');
-    const hit = !!(g.reco && g.reco.pick === actual);
+    /* ⚠️ 判据必须跟推荐类型配套（不败推荐：主胜或平 / 客胜或平 都算中），
+       否则"不败"在平局时会被错判成黑。见上面的 recoHit()。 */
+    const hit = recoHit(g.reco, actual);
     result = { actual, actualLabel, hit, score: `${hs} - ${as}`, settled: kind === 'finished' };
   }
 
@@ -628,6 +717,25 @@ function renderMatch(m) {
   const ouV = ou && (ou.live || ou.open);
   const r = m.reco;
 
+  /* ---- 推荐类型 / 不败概率 / 胶囊高亮（定义见文件上半部 __RECO_UNBEATEN__ 段） ---- */
+  const ub = r ? ubProb(r.prob) : null;
+  const rtype = recoTypeOf(r);
+  const ubSide = unbeatenSide(r);
+  /* 推荐名：不败类型显示"主不败 / 客不败"，其余照旧用数据里的 label */
+  const rLabel = !r ? ''
+    : (rtype === 'unbeaten' && ubSide ? unbeatenLabel(r)
+      : (r.label || { home: '主胜', draw: '平局', away: '客胜' }[r.pick] || ''));
+  /* "信心"= 【推荐的那个选项】的概率：three → reco.confidence；
+     unbeaten → 那一侧的"不败"概率（推荐的是不败，信心就该是不败的概率）。
+     prob 拿不到时退回 reco.confidence，不编数。 */
+  const rConf = (rtype === 'unbeaten' && ub && ubSide) ? ub[ubSide] : (r ? r.confidence : null);
+  /* 每张卡片【只有一个】高亮 = 那一场的推荐（不会两个类型同时亮）：
+       three    → 高亮 reco.pick 那个
+       unbeaten → 高亮对应那一侧的"不败" */
+  const onThree = rtype === 'unbeaten' ? '' : (r ? r.pick : '');
+  const onUb = rtype === 'unbeaten' ? ubSide : '';
+  const opt = (txt, on) => `<span class="opt${on ? ' active' : ''}">${txt}</span>`;
+
   const hc = m.handicap ? `<span class="m-hc">(${esc(m.handicap)})</span>` : '';
   const hs = m.home && m.home.rank ? `<i>[${m.home.rank}]</i>` : '';
   const asR = m.away && m.away.rank ? `<i>[${m.away.rank}]</i>` : '';
@@ -675,17 +783,35 @@ function renderMatch(m) {
       (ouV.under != null ? `<span class="m-ov">小 ${ouV.under}</span>` : '') +
       `</div>` : '') +
     (r ? `<div class="m-reco">` +
-      `<span class="m-pick">推荐 <b>${esc(r.label)}</b></span>` +
+      `<span class="m-pick">推荐 <b>${esc(rLabel)}</b></span>` +
       (m.result && m.result.settled ? `<span class="m-rb ${m.result.hit ? 'hit' : 'miss'}">${m.result.hit ? '红' : '黑'}</span>` : '') +
       `<span class="m-conf">${m.result && m.result.settled
         ? '最终 ' + esc(m.result.actualLabel) + '（' + esc(m.result.score) + '）'
-        : '信心 ' + r.confidence + '%'}</span>` +
-      `<span class="m-probs">` +
-      /* prob 可能为 null（这场当时没抓到赔率）→ 显示 —，不能直接取 .home */
-      `<i class="${r.pick === 'home' ? 'on' : ''}">主${r.prob ? r.prob.home : '—'}%</i>` +
-      `<i class="${r.pick === 'draw' ? 'on' : ''}">平${r.prob ? r.prob.draw : '—'}%</i>` +
-      `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob ? r.prob.away : '—'}%</i>` +
-      `</span></div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
+        : '信心 ' + rConf + '%'}</span>` +
+      /* 【两组百分比胶囊】推荐行右侧，推荐的那个用 .opt.active（主色底 + 白字）高亮：
+           胜平负  3 个：主 X% / 平 Y% / 客 Z%
+           不败    2 个：主不败 X% / 客不败 Z%（= P(主胜)+P(平) / P(客胜)+P(平)）
+         用户给的 HTML 设计只画了【一组】（按类型 3 个 or 2 个）——
+         这里两组都出（信息更全），但【只有推荐的那个】高亮。
+         prob 为 null（这场当时没抓到赔率）→ 显示 —，不能直接取 .home。 */
+      (r.prob
+        ? `<span class="m-probrows">` +
+          `<span class="m-probrow"><span class="m-problab">胜平负</span>` +
+          opt(`主${esc(r.prob.home)}%`, onThree === 'home') +
+          opt(`平${esc(r.prob.draw)}%`, onThree === 'draw') +
+          opt(`客${esc(r.prob.away)}%`, onThree === 'away') +
+          `</span>` +
+          (ub ? `<span class="m-probrow"><span class="m-problab">不败</span>` +
+            opt(`主不败${esc(ub.home)}%`, onUb === 'home') +
+            opt(`客不败${esc(ub.away)}%`, onUb === 'away') +
+            `</span>` : '') +
+          `</span>`
+        : `<span class="m-probs">` +
+          opt(`主—%`, onThree === 'home') +
+          opt(`平—%`, onThree === 'draw') +
+          opt(`客—%`, onThree === 'away') +
+          `</span>`) +
+      `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderAsianCard(m) +
     (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
 
@@ -1221,6 +1347,19 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   background: #12151d; padding: 2px 7px; border-radius: 4px; }
 .m-probs i.on { color: #47e0a0; background: rgba(71,224,160,0.14); font-weight: 700; }
 .m-noodds { font-size: 12px; color: #6b7488; }
+/* 【两组百分比胶囊】推荐行右侧：胜平负（3 个）+ 不败（2 个）__RECO_UNBEATEN__
+   .opt        = 没被推荐的那个（次级色底 + 副文字）
+   .opt.active = 推荐的那个（主色底 + 白字 + 加粗）
+   ⚠️ 原来那三个 <i> 的规则（上面的 .m-probs i）【原样保留没动】；
+      这里用新类名 .opt，和计算器已有的 .calc-opt 是两个类名，不冲突。 */
+.m-probrows { margin-left: auto; display: flex; flex-direction: column;
+  align-items: flex-end; gap: 4px; min-width: 0; }
+.m-probrow { display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  justify-content: flex-end; }
+.m-problab { font-size: 10.5px; color: #6b7488; margin-right: 1px; white-space: nowrap; }
+.opt { font-style: normal; font-size: 11px; padding: 3px 8px; border-radius: 12px;
+  background: #12151d; color: #6b7488; white-space: nowrap; }
+.opt.active { background: #47e0a0; color: #0b0d11; font-weight: 700; }
 .note { margin-top: 22px; padding: 13px 15px; background: #12151d;
   border: 1px solid #1e2430; border-radius: 10px; font-size: 11.5px;
   color: #6b7488; line-height: 1.9; }
@@ -1801,6 +1940,11 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-subcount { color: #a2937c !important; background: #f3e6d0 !important; }
 .m-probs i { color: #a2937c !important; background: #f3e6d0 !important; }
 .m-probs i.on { color: #1a8c5a !important; background: #e3f2ea !important; }
+/* 【两组百分比胶囊】米杏色主题（用户给的设计：次级色底 + 副文字 / 主色底 + #fff 加粗）
+   __RECO_UNBEATEN__ —— 必须写在这里（!important + 靠后），才压得过上面的深色 .opt */
+.m-problab { color: #8a7a63 !important; }
+.opt { background: #f3e6d0 !important; color: #8a7a63 !important; }
+.opt.active { background: #1a8c5a !important; color: #fff !important; font-weight: 700 !important; }
 .m-noodds { color: #a2937c !important; }
 .m-empty { color: #a2937c !important; background: #f3e6d0 !important; }
 .note { background: #f3e6d0 !important; border-color: #e8d7bd !important; color: #8a7a63 !important; }
