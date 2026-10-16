@@ -57,7 +57,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周日016",
@@ -111,7 +112,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周日010",
@@ -157,7 +159,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周日012",
@@ -211,7 +214,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周日006",
@@ -265,7 +269,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周日005",
@@ -319,7 +324,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周日004",
@@ -373,7 +379,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周日003",
@@ -427,7 +434,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六029",
@@ -481,7 +489,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六028",
@@ -535,7 +544,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六027",
@@ -589,7 +599,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六024",
@@ -643,7 +654,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六025",
@@ -697,7 +709,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六026",
@@ -751,7 +764,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六023",
@@ -805,7 +819,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六022",
@@ -859,7 +874,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六021",
@@ -913,7 +929,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六018",
@@ -967,7 +984,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六019",
@@ -1021,7 +1039,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六020",
@@ -1075,7 +1094,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六013",
@@ -1121,7 +1141,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六014",
@@ -1175,7 +1196,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六015",
@@ -1221,7 +1243,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六016",
@@ -1275,7 +1298,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六017",
@@ -1329,7 +1353,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六011",
@@ -1383,7 +1408,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六009",
@@ -1437,7 +1463,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六007",
@@ -1491,7 +1518,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六005",
@@ -1545,7 +1573,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六004",
@@ -1599,7 +1628,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六003",
@@ -1653,7 +1683,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周六001",
@@ -1707,7 +1738,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "unbeaten"
   },
   {
    "code": "周六002",
@@ -1761,7 +1793,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28"
+   "at": "2026-10-17 00:28",
+   "type": "three"
   },
   {
    "code": "周五006",
@@ -1815,7 +1848,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-17 05:13"
+   "at": "2026-10-17 05:13",
+   "type": "three"
   },
   {
    "code": "周五004",
@@ -1869,7 +1903,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-17 04:58"
+   "at": "2026-10-17 04:58",
+   "type": "three"
   },
   {
    "code": "周五005",
@@ -1923,7 +1958,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-17 04:58"
+   "at": "2026-10-17 04:58",
+   "type": "three"
   },
   {
    "code": "周五003",
@@ -1977,7 +2013,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-17 03:55"
+   "at": "2026-10-17 03:55",
+   "type": "three"
   },
   {
    "code": "周五002",
@@ -2031,7 +2068,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-16 01:01"
+   "at": "2026-10-16 01:01",
+   "type": "unbeaten"
   },
   {
    "code": "周五001",
@@ -2085,7 +2123,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 01:01"
+   "at": "2026-10-16 01:01",
+   "type": "unbeaten"
   },
   {
    "code": "周四014",
@@ -2139,7 +2178,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 10:28"
+   "at": "2026-10-16 10:28",
+   "type": "unbeaten"
   },
   {
    "code": "周四008",
@@ -2193,7 +2233,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "unbeaten"
   },
   {
    "code": "周四009",
@@ -2247,7 +2288,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "three"
   },
   {
    "code": "周四010",
@@ -2293,7 +2335,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "unbeaten"
   },
   {
    "code": "周四011",
@@ -2347,7 +2390,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "three"
   },
   {
    "code": "周四012",
@@ -2401,7 +2445,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "three"
   },
   {
    "code": "周四013",
@@ -2455,7 +2500,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 05:30"
+   "at": "2026-10-16 05:30",
+   "type": "unbeaten"
   },
   {
    "code": "周四001",
@@ -2509,7 +2555,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "unbeaten"
   },
   {
    "code": "周四002",
@@ -2563,7 +2610,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "three"
   },
   {
    "code": "周四003",
@@ -2617,7 +2665,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "three"
   },
   {
    "code": "周四004",
@@ -2671,7 +2720,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "unbeaten"
   },
   {
    "code": "周四005",
@@ -2725,7 +2775,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "unbeaten"
   },
   {
    "code": "周四006",
@@ -2771,7 +2822,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-16 03:58"
+   "at": "2026-10-16 03:58",
+   "type": "unbeaten"
   },
   {
    "code": "周三013",
@@ -2825,7 +2877,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-15 23:02"
+   "at": "2026-10-15 23:02",
+   "type": "unbeaten"
   },
   {
    "code": "周三014",
@@ -2871,7 +2924,8 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-15 23:02"
+   "at": "2026-10-15 23:02",
+   "type": "unbeaten"
   },
   {
    "code": "周三008",
@@ -2925,7 +2979,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-15 05:36"
+   "at": "2026-10-15 05:36",
+   "type": "three"
   },
   {
    "code": "周三009",
@@ -2979,7 +3034,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-15 05:36"
+   "at": "2026-10-15 05:36",
+   "type": "unbeaten"
   },
   {
    "code": "周三010",
@@ -3033,7 +3089,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-15 05:36"
+   "at": "2026-10-15 05:36",
+   "type": "unbeaten"
   },
   {
    "code": "周三011",
@@ -3087,7 +3144,8 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-15 05:36"
+   "at": "2026-10-15 05:36",
+   "type": "unbeaten"
   },
   {
    "code": "周三012",
@@ -3141,7 +3199,8 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-15 05:36"
+   "at": "2026-10-15 05:36",
+   "type": "three"
   }
  ]
 };
