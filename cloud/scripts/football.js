@@ -14814,10 +14814,10 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 79,
+    "minute": 85,
     "home": {
      "name": "奥布隆",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 15
     },
@@ -14883,7 +14883,7 @@ const FOOTBALL_DATA = {
     "minute": 81,
     "home": {
      "name": "奈蒂沃特马卡比",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -15021,7 +15021,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫斯科中央陆军青年队",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 1
     },
