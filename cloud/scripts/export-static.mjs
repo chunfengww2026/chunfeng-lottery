@@ -766,6 +766,13 @@ console.log(`  · 手机目录：${TOC_ROWS.length} 行 × 2 列 = ${tocCheckedC
   `锚点缺失 ${tocMissingCount} 个`);
 
 const tocHtml =
+  /* 【__TOC_EQH__ 留痕】这里额外补一条【HTML 注释】形式的标记，原因：
+     真正的等高规则写在下面的样式表里（56px 固定高 + grid-auto-rows），但那一段是
+     <style> 里的 CSS 注释 —— 构建最后那道「留痕断言」会把 <style>/<script> 里的注释
+     整体剥掉，标记会跟着消失（规则本身不受影响）。
+     HTML 注释不在被剥的范围里，所以标记留在成品页上，改高度前能搜到它。
+     ⚠️ 这条注释里【不写任何文件名/站名】。 */
+  `<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->` +
   `<div class="ro-imgtoc-wrap">` +
   `<div class="ro-imgtoc-head">` +
   `<div class="ro-imgtoc-title">推荐图目录</div>` +
