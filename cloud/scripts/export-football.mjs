@@ -86,12 +86,12 @@ const FB = loadVar('football.js', 'FOOTBALL_DATA');
    stat.upcoming + stat.live，绝不会因为少这个文件就崩。 */
 const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
 
-/* 【推荐串存档】jc-reco-archive.js 由 jc-reco-build.mjs 生成：
+/* 【推荐串存档】jc-reco-data.js 由 jc-reco-build.mjs 生成：
    每期把「当时那一串推荐（在售 × 信心 ≥55%）」原样存下来，
    比赛打完后回填终场比分与红黑 → 页面上「推荐串 红 X 黑 Y 命中率 Z%」
    才有数可显示（以前这里是写死的 0 / 0%）。
    文件缺失时返回 null，页面退回「暂未开始统计」，绝不填 0 凑数。 */
-const JC_RECO = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
+const JC_RECO = loadVar('jc-reco-data.js', 'JC_RECO_DATA');
 
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
