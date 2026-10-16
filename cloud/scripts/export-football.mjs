@@ -96,34 +96,41 @@ const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
    读取方式照抄上面几个：文件不在 / 解析失败 → null，
    页面照常生成，只是「晒票」区块显示「暂无」——绝不让整页生成失败。
    ⚠️ 只认 https 外链（图是头条签名外链，实测没有防盗链、不下载本体）。
-   保留窗口是 30 天（不是 72 小时）—— 竞彩实票不是每天有人晒，
-   按 72 小时卡这一栏会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
+   窗口（用户 2026-10-16 决定）：竞彩晒票 = 发布 72 小时内的（从 24 小时放宽，
+   因为 24 小时只剩 6 条）。见 build-xysp-tt.mjs 里 JC_KEEP_HOURS 的说明。
 
    ⚠️【这里为什么要自己再过一遍窗口】抓取脚本写缓存时会按窗口清，
-      但缓存文件可能很旧（比如 30 分钟任务停了几天），或者被人手动塞了东西。
-      页面不能盲信文件内容 —— 实测造假数据时，"31 天前"的条目会被
-      原样渲染到竞彩页上（踩过）。所以出页面时再按同一个窗口过一遍：
-        · 丢掉超过 30 天的
+      但缓存文件可能很旧（比如 30 分钟任务停了几天 / 脚本刚改过窗口值），
+      或者被人手动塞了东西。页面不能盲信文件内容 ——
+      实测踩过两次：造假数据时"31 天前"的条目被原样渲染到竞彩页上；
+      后来窗口从 30 天改成 72 小时后，页面这边没跟着改，
+      又把"发布 73 小时前"的条目渲染了出来。所以出页面时按【同一套规则】再过一遍：
+        · 丢掉发布时间超过 72 小时的（拿不到发布时间就退回用 at）
         · 按 img 去重（同一个图只留一条）
-      窗口值 JC_KEEP_HOURS 和 build-xysp-tt.mjs 保持一致（720 小时）。 */
-const JC_KEEP_HOURS = 24 * 30;
-const JC_MAX = 60;
+      窗口值必须和 build-xysp-tt.mjs 的 JC_KEEP_HOURS / JC_PUB_HOURS 保持一致。 */
+const JC_KEEP_HOURS = 72;
+const JC_MAX = 200;
 /* 原始文件内容（可能带过期/重复条目）—— 下面立刻过滤成 JC_XYSP */
 const XYSP_JC = loadVar('xysp-jc-data.js', 'XYSP_JC_DATA');
 const JC_XYSP = (function () {
   const raw = (XYSP_JC && Array.isArray(XYSP_JC.items)) ? XYSP_JC.items : [];
-  const cutoff = Date.now() - JC_KEEP_HOURS * 3600 * 1000;
+  const now = Date.now();
+  const cutoff = now - JC_KEEP_HOURS * 3600 * 1000;
   const seen = new Set();
   const items = [];
   for (const it of raw) {
     const img = String((it && it.img) || '');
     if (!img || seen.has(img)) continue;          /* 去重 */
-    const t = Date.parse(String((it && it.at) || ''));
-    if (!isFinite(t) || t < cutoff) continue;      /* 超出 30 天窗口 → 丢 */
+    /* 发布窗口：优先看 when（源站发布时间），拿不到才退回 at（抓取时间） */
+    const pub = Date.parse(String((it && it.when) || '')) || Date.parse(String((it && it.at) || ''));
+    if (!isFinite(pub) || pub < cutoff) continue;  /* 超出 72 小时窗口 → 丢 */
     seen.add(img);
     items.push(it);
   }
-  items.sort((a, b) => Date.parse(String(b.at)) - Date.parse(String(a.at)));
+  /* 排序：发布时间新的在前（没有发布时间的用抓取时间） */
+  items.sort((a, b) =>
+    ((Date.parse(String(b.when || '')) || Date.parse(String(b.at))) -
+     (Date.parse(String(a.when || '')) || Date.parse(String(a.at)))));
   return { updated: (XYSP_JC && XYSP_JC.updated) || '', items: items.slice(0, JC_MAX) };
 })();
 
