@@ -1574,7 +1574,126 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-recrow-arch { padding: 3px 0; border-bottom: 1px dotted #e8d7bd; }
 .m-recrow-arch:last-child { border-bottom: 0; }
 .m-rb.wait { background: #fdf6ea; color: #8a7a63; border: 1px solid #e8d7bd; }
+
+/* ============================================================
+   __FB_ENTRY_BAR__ 竞彩页 · entry 行 + 底部操作条（用户设计）
+   ------------------------------------------------------------
+   这一整块【只改样式，不动任何功能】：
+     · 折叠：仍然是原生 <details>/<summary>，[open] 切换逻辑一个字没变
+       （「点击查看 / 点击收起」还是 .m-sectip / .m-rectip 的 CSS 伪元素）
+     · 模拟计算：5 个元素（模拟计算 / 仅供娱乐参考 / 保存图片 / 赔率 / 点击查看）
+       本来就已经在同一个 <summary class="calc-head"> 里排成一行 →
+       这里只是把它【画成】底部操作条的样子，markup 一个字没动。
+   ⚠️ 全部用变量色（--ro-*），米杏色主题自动生效。
+   ============================================================ */
+
+/* ① 推荐串 + 三个分段 → 横排 entry 行
+   ⚠️ 三个分段的 <summary class="m-subhead"> 里就是「标签 + N 场 + 点击查看」，
+      改成 flex 左右两端 → 左标题右动作，折叠行为完全不受影响
+      （<details> 仍然支持点 summary / 键盘空格回车开合）。 */
+.m-rec > summary.m-rechead,
+.m-sec > summary.m-subhead {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 4px 10px !important;
+  background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 8px !important;
+}
+/* 左边：标题 14px/600 主文字色 */
+.m-rec > summary.m-rechead .m-rectitle,
+.m-sec > summary.m-subhead .m-subname {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--ro-fg) !important;
+  flex: 1 1 auto;
+}
+/* 副标题（场次数）：11px 副文字色、落在标题下面一行 */
+.m-rec > summary.m-rechead .m-reccount,
+.m-sec > summary.m-subhead .m-subcount {
+  flex: 1 1 100%;
+  order: 5;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: var(--ro-fg2) !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+/* 右侧「点击查看 / 点击收起」：12px 绿字、靠右、不换行 */
+.m-sectip, .m-rectip {
+  order: 9;
+  margin-left: auto !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: var(--ro-ok) !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+  flex: 0 0 auto;
+}
+
+/* ② 底部操作条：模拟计算 / 仅供娱乐参考 / 保存图片 / 赔率 / 点击查看
+   ⚠️ markup 没动（都在 .calc-head 这一个 <summary> 里），只排成一行并上色。 */
+.calc-head {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  margin-top: 16px;
+}
+/* 「模拟计算」= primary（绿底白字） */
+.calc-head .calc-title {
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  background: var(--ro-ok) !important;
+  color: #fff !important;
+  border: 1px solid var(--ro-ok) !important;
+  letter-spacing: 0 !important;
+}
+/* 「仅供娱乐参考」= 金色小胶囊 */
+.calc-head .calc-tag {
+  font-size: 11px !important;
+  color: var(--ro-time) !important;
+  background: transparent !important;
+  border: 1px solid var(--ro-time) !important;
+  border-radius: 10px !important;
+  padding: 2px 8px !important;
+}
+/* 「保存图片」= 普通按钮（卡片底 + 边框） */
+.calc-head .calc-shot-btn {
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important;
+  color: var(--ro-fg) !important;
+  margin-left: 0 !important;
+}
+/* 「赔率：…」+「点击查看」靠右 */
+.calc-head .calc-src {
+  margin-left: auto !important;
+  font-size: 12px !important;
+  color: var(--ro-fg2) !important;
+}
+.calc-head .calc-tip {
+  margin-left: 6px !important;
+  font-size: 12px !important;
+  color: var(--ro-ok) !important;
+}
+
+/* ③ 三个统计卡颜色：未开赛绿 / 进行中【白】/ 已完场绿
+   ⚠️ 米杏色主题下「白」用主文字色（浅底上纯白看不见）。 */
+.stat a:nth-child(2) b { color: var(--ro-fg) !important; }
+.stat a:not(:nth-child(2)) b { color: var(--ro-ok) !important; }
 `;
+
 
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
