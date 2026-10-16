@@ -120,9 +120,10 @@ function tokenize(html) {
 }
 
 /* 硬词扫描范围（精确划定，避免误杀，也避免假阴性）：
-   ✅ 扫：【可见文本】+【<script> 字符串（已去注释）】+【<style> 内容】+【会复制走的外链属性】
-   ❌ 不扫：HTML 注释（维护者看的，用户看不到；用户原话"注释/JS 变量名里的这些词
-           （页面看不到，不算）"）、href/src 属性里的域名（用户原话"URL 在 src
+   ✅ 扫：【可见文本】+【<script> 字符串（已去注释）】+【<style> 内容（已去 CSS 注释）】
+          +【会复制走的外链属性】
+   ❌ 不扫：HTML 注释 / CSS 注释 / JS 注释（维护者看的，用户看不到；用户原话"注释/JS 变量名里的
+           这些词（页面看不到，不算）"）、href/src 属性里的域名（用户原话"URL 在 src
            属性里没问题"）。
    词按空格拼出来再 split 还原，避免脚本自己的源码命中自己（假阳性）。
    额外：href/src 里的主机名单独列一份【报告】（不拦构建），方便人工看一眼。 */
@@ -192,10 +193,15 @@ function visibleRegions(html) {
     if (name === 'script' || name === 'style') {
       const close = html.toLowerCase().indexOf('</' + name, j + 1);
       const code = html.slice(j + 1, close < 0 ? n : close);
+      /* <script>：保留字符串字面量、只去 JS 注释（内嵌文件的行首注释里写着文件名，用户看不到）。
+         <style>：CSS 注释同理 —— 是给开发者看的标记/设计说明，不是「用户看得到的东西」，
+                  所以【扫描时】也先去注释，避免维护性注释把构建拦下来。
+         ⚠️ 这里只是【扫描口径】；写出成品时 <style> 是【原样保留】的
+            （见 removeSourceWords），标记（__TOC_EQH__ 等）会留在页面上。 */
       const stripped = name === 'script'
         ? code.replace(/\/\*[\s\S]*?\*\//g, (m) => '\n'.repeat((m.match(/\n/g) || []).length))
           .replace(/(^|[^:])\/\/[^\n]*/g, '$1 ')
-        : code;
+        : code.replace(/\/\*[\s\S]*?\*\//g, (m) => '\n'.repeat((m.match(/\n/g) || []).length));
       if (stripped.trim()) out.push({ kind: name === 'script' ? 'JS字符串' : '样式', text: stripped, line: tagLine });
       bump(code);
       i = close < 0 ? n : close;
@@ -294,7 +300,8 @@ export function listAttrHosts(html) {
    文件清单里。实测：export-football.mjs 内嵌的 asian-index.js（只读）里
      missingText = '上盘真实资金占比暂无公开数据源，故不显示热度 / 爆冷推演'
    会写进竞彩页正文。这里在最后一道把这类词换成中性说法（语义不变）。
-   只动可见文本 —— 注释 / <script> / <style> / 标签属性一律原样保留。
+   只动【<script>】—— 去注释 + 中性化字符串里的来源字样。
+   HTML 注释 / <style>（含里面的标记与设计说明）/ 标签属性一律原样保留。
    ------------------------------------------------------------------------- */
 const NEUTRALIZE = [
   ['暂无公开数据源', '暂无公开数据'],
@@ -353,14 +360,18 @@ export function removeSourceWords(html) {
     if (keepWhole) {
       const close = html.toLowerCase().indexOf('</' + name, j + 1);
       const seg = html.slice(j + 1, close < 0 ? n : close);
-      /* <script> 里的【纯注释行】也收拾一遍：
+      /* <script> 里的注释收拾一遍：
          分享页把 stats.js / history.js / latest-draws.js 整文件内嵌，
          这些文件的行首注释里写着文件名，硬词扫全文件会命中。
-         只删【整行注释】（行首是 // 或 * 或 /*），不做通用注释剥离 ——
-         免得碰坏正则 / 模板字符串里的内容。代码本身一个字符不动。 */
-      out += (name === 'script' || name === 'style')
-        ? neutralText(stripJsComments(seg), false)   /* 去注释 + 顺手中性化字符串里的来源字样 */
-        : seg;
+         去注释 + 顺手中性化字符串里的来源字样（⚠️ 这个行为【不变】，别削弱）。
+         <style>：【原样保留】—— 里面的注释是标记 + 设计说明
+         （__TOC_EQH__ / __LAYOUT__ / __COMPACT2__ / __LIGHT_THEME__ / __COLOR_UNIFY__），
+         剥掉等于把标记一起弄丢；它也不是"给用户看的文案"。
+         扫描时（findHardTraces → visibleRegions）会先去掉 CSS 注释，
+         所以「保留注释」不会让断言变松。 */
+      out += (name === 'script')
+        ? neutralText(stripJsComments(seg), false)   /* 去注释 + 中性化来源字样 */
+        : seg;                                        /* style：一字不动 */
       i = close < 0 ? n : close;
       continue;
     }
