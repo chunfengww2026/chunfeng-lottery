@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 60,
+    "minute": 59,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -47,8 +47,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3",
-       "over": 0.96,
-       "under": 0.86
+       "over": 1.03,
+       "under": 0.79
       },
       "live": null
      },
@@ -68,7 +68,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 73,
+    "minute": 71,
     "home": {
      "name": "艾斯特利",
      "score": 1,
@@ -134,7 +134,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 66,
+    "minute": 64,
     "home": {
      "name": "金迪奥",
      "score": 1,
@@ -159,16 +159,16 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "1.75",
-       "over": 1.02,
-       "under": 0.78
+       "over": 0.99,
+       "under": 0.81
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.21,
-       "draw": 14,
-       "away": 4.5
+       "home": 1.22,
+       "draw": 13.5,
+       "away": 4.45
       },
       "live": null
      }
@@ -176,14 +176,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 73.8,
+     "confidence": 73.3,
      "prob": {
-      "home": 73.8,
-      "draw": 6.4,
-      "away": 19.8
+      "home": 73.3,
+      "draw": 6.6,
+      "away": 20.1
      },
      "clear": true,
-     "margin": 12
+     "margin": 11.8
     },
     "result": {
      "actual": "home",
@@ -200,7 +200,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 62,
+    "minute": 60,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -332,7 +332,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 28,
+    "minute": 26,
     "home": {
      "name": "萨普里沙",
      "score": 2,
@@ -349,8 +349,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.75,
-       "line": "0.92",
-       "away": 0.9
+       "line": "0.93",
+       "away": 0.89
       },
       "live": {
        "home": -0.25,
@@ -361,8 +361,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4.25",
-       "over": 0.99,
-       "under": 0.81
+       "over": 1.01,
+       "under": 0.79
       },
       "live": {
        "line": "2.5",
@@ -376,27 +376,15 @@ const FOOTBALL_DATA = {
        "draw": 19.5,
        "away": 12.5
       },
-      "live": null
+      "live": {
+       "home": 0,
+       "draw": 0,
+       "away": 0
+      }
      }
     },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 88.3,
-     "prob": {
-      "home": 88.3,
-      "draw": 4.6,
-      "away": 7.1
-     },
-     "clear": true,
-     "margin": 12.1
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 0"
-    }
+    "reco": null,
+    "result": null
    }
   ],
   "finished": [
