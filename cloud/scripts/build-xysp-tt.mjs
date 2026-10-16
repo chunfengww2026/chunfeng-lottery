@@ -95,6 +95,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 【票图校验】OCR 判"图里到底有没有票"（详见 verify-ticket.mjs 的说明） */
+import { verifyBatch, cachedVerdict, cacheStats, closeTicketOcr } from './verify-ticket.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const LOG = path.join(ROOT, '_xysp-tt.log');
@@ -753,7 +755,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0, dropOcr: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -792,6 +794,15 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
             （10 张里只读出 4 张日期 / 5 张期号，还要 3.6 秒一张）。
        ============================================================ */
     if (C.key === TT_KEY && !gs.length) { stat.dropped++; stat.dropNoTicket = (stat.dropNoTicket || 0) + 1; return; }
+
+    /* 【票图校验的第二道闸】这里再过一遍 OCR 判定缓存。
+       第一道在 runTtFetch 里（挡掉没校验/校验不通过的）；
+       这里再过一遍是为了【老数据】：早先入缓存、后来 OCR 判为"不是票"的图，
+       会在这一轮被清掉（不然它会一直留在文件里）。 */
+    if (C.key === TT_KEY) {
+      const cv = cachedVerdict(img);
+      if (cv && !cv.ok) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
+    }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
        （没有 seen 的老数据退回用 at —— 那是它第一次被抓到的时间） */
@@ -1031,10 +1042,37 @@ export async function runTtFetch() {
     /* 跨关键词再去一次重（同一条帖子可能多个关键词都命中） */
     const uniq = new Map();
     for (const it of fresh) if (!uniq.has(it.img)) uniq.set(it.img, it);
-    const freshList = [...uniq.values()];
+    let freshList = [...uniq.values()];
     log(`     小结：本轮 ${picked.length} 个关键词（共 ${allKw.length} 个在轮换）· 解析到 ${freshList.length} 条图片`);
 
-    const rec = { key: C.key, name: C.name, file: C.file, fresh: freshList.length, ok: false, kept: 0 };
+    /* ============================================================
+       【票图校验】用户要求「一定出现了票」「乱图片 明星人物图片都不要」
+                              「整票百分百」
+       这里对【还没校验过的图】跑 OCR，把不是票的挡掉。
+       ⚠️ 只校验【第一层没做过的】+ 缓存里没有的 → 稳态下每轮只跑几十张。
+       ⚠️ 放在 mergeTt 之前：不合格的图根本不进缓存文件，页面自然不会显示。
+       判据和实测定参见 verify-ticket.mjs 的说明（命中"3 位以上数字"或彩票词）。
+       ============================================================ */
+    const rec = { key: C.key, name: C.name, file: C.file, fresh: freshList.length, ok: false, kept: 0, ocrChecked: 0, ocrFailed: 0 };
+    const toCheck = freshList.filter((it) => {
+      if (it.__ocrOk === true) return false;          /* 抓取时已经标过 */
+      return !cachedVerdict(it.img);                  /* 缓存里已有判定就不重复 OCR */
+    });
+    if (toCheck.length) {
+      log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheck.length} 张…`);
+      const v = await verifyBatch(toCheck.map((x) => x.img), { max: 400, gap: 120 });
+      log(`        校验完成：通过 ${v.passed} · 挡掉 ${v.failed} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
+      for (const f of v.failedList.slice(0, 6)) log(`          ✗ 挡掉（${f.why}）：${f.img.slice(50, 110)}`);
+      rec.ocrChecked = v.checked; rec.ocrFailed = v.failed;
+    }
+    /* 用缓存里的判定结果过滤（包含本轮刚校验的 + 以前校验过的） */
+    const beforeOcr = freshList.length;
+    freshList = freshList.filter((it) => {
+      const cv = cachedVerdict(it.img);
+      return !cv || cv.ok;                            /* 没判定过 = 放行（下一轮会补校验） */
+    });
+    rec.ocrDropped = beforeOcr - freshList.length;
+    if (rec.ocrDropped) log(`        因"图里不是票"挡掉 ${rec.ocrDropped} 张`);
 
     if (!freshList.length) {
       /* 这一分类零条 —— 不是致命错误：另一个分类可能好着。
@@ -1056,7 +1094,7 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}]` +
+      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}${stat.dropOcr ? ` · 图里没有票 ${stat.dropOcr}` : ''}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
