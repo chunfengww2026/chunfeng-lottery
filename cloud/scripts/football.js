@@ -15552,7 +15552,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 59,
+    "minute": 61,
     "home": {
      "name": "阿德莱德城",
      "score": 1,
@@ -15618,7 +15618,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "欧克莱卡诺",
      "score": 2,
@@ -15684,7 +15684,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -15750,7 +15750,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 45,
+    "minute": 47,
     "home": {
      "name": "PWD體育",
      "score": 0,
@@ -15759,7 +15759,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫哈末丹达卡",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -15816,7 +15816,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 53,
+    "minute": 55,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15948,7 +15948,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "悉尼FC",
      "score": 0,
