@@ -360,7 +360,10 @@ a { color: var(--ro-ok); text-decoration: none; }
     return '';
   }
 
-  var badge = function (isLive, text) {
+  /* 角标：在售场次用 live/open 区分；归档场次只存了一档，它是
+     【归档那一刻的快照】—— 写「实时」会误导（这场可能早就踢完了）。 */
+  var badge = function (isLive, text, g) {
+    if (g && g.src === 'hist') return '<span class="md-badge">归档快照</span>';
     return isLive ? '<span class="md-badge live">实时</span>'
                   : '<span class="md-badge">' + esc(text || '初盘') + '</span>';
   };
@@ -396,7 +399,7 @@ a { color: var(--ro-ok); text-decoration: none; }
         + ' / ' + (num(op.away) !== null ? num(op.away).toFixed(2) : '—') + '</span>'
         + '<span>最高值＝主色</span></div>';
     }
-    return card('欧指', badge(isLive, '初盘'), body);
+    return card('欧指', badge(isLive, '初盘', g), body);
   }
 
   /* ---- ④-2 大小：一行 = 一个数据源（现在只有 500.com 一家） ---- */
@@ -422,7 +425,7 @@ a { color: var(--ro-ok); text-decoration: none; }
           + (num(open.line) === null ? '—' : num(open.line).toFixed(1)) + ' / '
           + (num(open.under) === null ? '—' : num(open.under).toFixed(2)) : ' · 初盘与即时一致')
       + '</div>';
-    return card('大小', badge(isLive, '初盘'), t);
+    return card('大小', badge(isLive, '初盘', g), t);
   }
 
   /* ---- ④-3 让球：公司 / 盘口 / 主水 / 客水 ----
@@ -450,7 +453,7 @@ a { color: var(--ro-ok); text-decoration: none; }
       + (as.open && has(as.open.line) && String(as.open.line) !== String(live.line)
         ? ' · 初盘 ' + esc(as.open.line) : '')
       + '</div>';
-    return card('让球', badge(isLive, '初盘'), t);
+    return card('让球', badge(isLive, '初盘', g), t);
   }
 
   /* ---- ④-4 亚指：只有 1 家（jc-data 里没有任何公司名）→ 有几家显示几家 ---- */
@@ -482,7 +485,7 @@ a { color: var(--ro-ok); text-decoration: none; }
         + (num(ai.totalWater) !== null ? '总水 ' + num(ai.totalWater).toFixed(2) : '')
         + '</div>';
     }
-    return card('亚指', badge(!!l, '初盘'), t);
+    return card('亚指', badge(!!l, '初盘', g), t);
   }
 
   /* ---- ③ 比赛头部 ---- */
