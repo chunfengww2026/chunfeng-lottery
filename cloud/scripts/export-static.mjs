@@ -4042,6 +4042,12 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-aipick-out, .ro-aipick-card, .ro-aipick-in, .ro-kjh-item {
   background: #f3e6d0 !important; border-color: #efe2cc !important;
 }
+/* ⚠️ 【摇号面板输入框的字】.ro-aipick-in 自己的 color 还是暗色版的 #e8eaed，
+   压在米杏底 #f3e6d0 上实测对比度只有 1.02（等于看不见字）；上面那套
+   [style*="#e8eaed"] 改不到它 —— 那不是行内样式。而「选几个」现在是本面板的
+   主输入框（红球 / 蓝球），所以按主题主文字补一条颜色：只加颜色，别的都不动。
+   （.ro-aipick-in 只被 GPT模型摇号 面板用到，不牵连别的区块。） */
+.ro-aipick-in { color: var(--ro-fg) !important; }
 .ro-xysp-pic { background: #fdf6ea !important; border-color: #efe2cc !important; }
 .ro-xysp-tab, .ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-srcbtn,
 .ro-aipick-segbtn, .ro-aipick-btn, .ro-aipick-seg, .ro-aipick-pick {
