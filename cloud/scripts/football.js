@@ -2375,7 +2375,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "米拉索",
      "score": 0,
