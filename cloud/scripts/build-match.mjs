@@ -912,8 +912,8 @@ a { color: var(--ro-ok); text-decoration: none; }
   /* ---- 组装整页 ---- */
   function render(g) {
     var body = srcBar() + renderHead(g)
-      + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
-      + renderPoisson(g) + renderTitanEuro(g) + renderDivergence(g);
+      + renderEurope(g) + renderTitanEuro(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
+      + renderPoisson(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
     applySrc('all');
 
