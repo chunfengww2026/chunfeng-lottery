@@ -2565,6 +2565,23 @@ body.ro-mob-open { overflow: hidden; }
   pointer-events: none;
 }
 
+/* 全屏看图 · 左上角计数器「第 N / M 张」（用户给的设计：counter 左上、close 右上）。
+   只有相册模式才显示；pointer-events:none 不挡点击。 */
+.ro-mob-count {
+  position: absolute;
+  left: 12px;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  z-index: 9;
+  font-size: 12px;
+  color: #c8cfda;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: rgba(6, 8, 12, .72);
+  border: 1px solid rgba(200, 207, 218, .22);
+  pointer-events: none;
+}
+.ro-mob-count[hidden] { display: none; }
+
 /* 推荐图容器
    【重要】图片必须保持 760px 设计宽度，内部布局一点都不能变，
    手机上靠 transform: scale() 整体等比缩小，
@@ -3769,6 +3786,90 @@ body, .ro-wrap { background: var(--ro-bg); }
   text-align: center !important;
 }
 .ro-top .sub { width: 100% !important; text-align: center !important; }
+
+/* ============================================================
+   __LIGHT_THEME__ 整体浅色主题（一段覆盖，加在样式表【最后】）
+   ------------------------------------------------------------
+   用户原话：「整体换成浅色系主题 我要节约成本做」+ 明确要求
+     「用一段 CSS 覆盖在样式表最后统一换色 —— 这是最省钱的路径」
+   所以这里【不逐个区块改】，只在最后统一覆盖：
+     ① 覆盖 :root 上的 --ro-* 变量（页面主体早就变量化了，改这里最省）
+     ② 用属性选择器把【写死的颜色字面量】按映射表逐条替换
+        （[style*="#0f1115"] 这种写法能一次覆盖所有硬编码点）
+     ③ 少量需要特殊处理的（状态条、遮罩、canvas 容器）单独写
+   ⚠️ canvas 出的图（推荐图 / 热力图 / 九转图）不动：
+      那些颜色写死在 JS 的 fillStyle 里，改了要重做模板（成本高）。
+      做法是给 canvas/图区套一个【深色容器】，让它在浅色页面上也看得清。
+   ⚠️ 防截图遮罩保持深色（遮罩本来就该是黑的），不改。
+   ============================================================ */
+:root {
+  --ro-bg: #ffffff;
+  --ro-card: #fafafa;
+  --ro-sunken: #f5f5f5;
+  --ro-line: #eeeeee;
+  --ro-line-soft: #f0f0f0;
+  --ro-fg: #222222;
+  --ro-fg2: #666666;
+  --ro-fg3: #999999;
+  --ro-ok: #1a8c5a;          /* 浅底上 #47e0a0 太浅，必须用深一点的绿 */
+  --ro-link: #2158c4;
+  --ro-warn: #b8860b;
+  --ro-danger: #e02020;
+  --ro-time: #c0392b;        /* 浅底上金色看不清 → 用红棕 */
+}
+/* ---- 页面底 / 卡片底 / 内嵌底（按映射表） ---- */
+html, body, .ro-wrap { background: #ffffff !important; color: #222222; }
+[style*="#0f1115"] { background-color: #ffffff !important; }
+[style*="#161a21"] { background-color: #fafafa !important; }
+[style*="#12151d"] { background-color: #f5f5f5 !important; }
+[style*="#1a1f28"] { background-color: #ffffff !important; }
+[style*="#161618"] { background-color: #fafafa !important; }
+/* ---- 边框 ---- */
+[style*="#262d3a"] { border-color: #eeeeee !important; }
+[style*="#1e2430"] { border-color: #f0f0f0 !important; }
+[style*="#2b3444"] { border-color: #e8e8e8 !important; }
+[style*="#2a323f"] { border-color: #eeeeee !important; }
+/* ---- 文字 ---- */
+[style*="#e8eaed"] { color: #222222 !important; }
+[style*="#98a1b2"] { color: #666666 !important; }
+[style*="#6b7488"] { color: #999999 !important; }
+[style*="#5f6878"] { color: #aaaaaa !important; }
+[style*="#8b93a1"] { color: #777777 !important; }
+[style*="#c8cfda"] { color: #333333 !important; }
+/* ---- 主色 / 强调 ---- */
+[style*="#47e0a0"] { color: #1a8c5a !important; }
+[style*="#8fb8ff"] { color: #2158c4 !important; }
+[style*="#6ea8fe"] { color: #2158c4 !important; }
+[style*="#f0575c"] { color: #e02020 !important; }
+[style*="#f0b429"] { color: #f5b301 !important; }
+[style*="#e8c877"] { color: #c0392b !important; }
+/* ---- 状态条（已更新 / 未更新） ---- */
+.ro-status.ok { background: #e8f6ef !important; border-color: #b7e4cd !important; }
+.ro-status.ok .ro-st-head { color: #1a8c5a !important; }
+.ro-status.warn { background: #fff9e8 !important; border-color: #ffe08a !important; }
+.ro-status.warn .ro-st-head { color: #7a5c00 !important; }
+.ro-status .ro-st-time, .ro-status .ro-st-reason, .ro-status .ro-st-hint { color: #666666 !important; }
+/* ---- 卡片类（含刚做的"缩小版横排"）统一浅色 ---- */
+.ro-status, .ro-xysp, .ro-aipick, .ro-panel, .ro-tool, .ro-imgtoc-wrap {
+  background: #fafafa !important; border-color: #eeeeee !important; color: #222222;
+}
+.ro-aipick-out, .ro-aipick-card, .ro-aipick-in, .ro-kjh-item {
+  background: #f5f5f5 !important; border-color: #f0f0f0 !important;
+}
+.ro-xysp-pic { background: #ffffff !important; border-color: #eeeeee !important; }
+.ro-xysp-tab, .ro-aipick-tab, .ro-aipick-kl8tab, .ro-aipick-srcbtn,
+.ro-aipick-segbtn, .ro-aipick-btn, .ro-aipick-seg, .ro-aipick-pick {
+  background: #fafafa !important; border-color: #eeeeee !important; color: #222222;
+}
+.ro-xysp-tab.on, .ro-aipick-tab.on {
+  background: #e8f6ef !important; border-color: #b7e4cd !important; color: #1a8c5a !important;
+}
+/* ⚠️ .ro-mob-view（全屏看图）保持【深色】：它是看图背景，浅色反而刺眼、
+   而且上面叠着浅色页面的提示条会看不清（用户模板里 gallery 也是黑底）。 */
+.ro-mob-view { background: #0b0d11 !important; }
+.ro-mob-tip, .ro-mob-err { color: #c8cfda !important; }
+/* ⚠️ 防截图遮罩保持深色（用户明确说"遮罩本来就该是黑的 ✅ 不用改"） */
+#mask { background: rgba(0, 0, 0, 0.96) !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -4279,7 +4380,7 @@ ${RO_RENDER_SCRIPT}
       · Esc 键（电脑上）
    ============================================================ */
 (function () {
-  var view = null, holder = null, img = null, tip = null, scroller = null;
+  var view = null, holder = null, img = null, tip = null, scroller = null, count = null;
   var cur = null, zoom = 'fit', scale = 1, backTo = null;
 
   function build() {
@@ -4290,12 +4391,16 @@ ${RO_RENDER_SCRIPT}
     view.innerHTML =
       '<div class="ro-mob-scroll"><div class="ro-mob-holder"></div></div>' +
       '<div class="ro-mob-x" role="button" aria-label="关闭">\u00d7</div>' +
+      /* 【计数器】左上角「第 N / M 张」（用户给的设计：counter 左上、close 右上）。
+         非相册时不显示。 */
+      '<div class="ro-mob-count" hidden></div>' +
       '<div class="ro-mob-tip">点图再放大一级 \u00b7 双指可缩放 \u00b7 点空白 / \u00d7 / 返回键关闭</div>';
     document.body.appendChild(view);
 
     scroller = view.querySelector('.ro-mob-scroll');
     holder = view.querySelector('.ro-mob-holder');
     tip = view.querySelector('.ro-mob-tip');
+    count = view.querySelector('.ro-mob-count');
 
     /* 关闭：右上角 × */
     view.querySelector('.ro-mob-x').addEventListener('click', function (e) {
@@ -4597,6 +4702,15 @@ ${RO_RENDER_SCRIPT}
     return '第 ' + (gallery.i + 1) + ' / ' + gallery.list.length + ' 张 · 上下滑动切换';
   }
   function updateTip() {
+    /* 【计数器】左上角「第 N / M 张」；非相册时隐藏 */
+    if (count) {
+      if (gallery && gallery.list && gallery.list.length) {
+        count.textContent = (gallery.i + 1) + ' / ' + gallery.list.length;
+        count.removeAttribute('hidden');
+      } else {
+        count.setAttribute('hidden', '');
+      }
+    }
     if (!tip) return;
     var h = galleryHint();
     /* 相册模式下把提示换成「第 N / M 张 · 上下滑动切换」；
