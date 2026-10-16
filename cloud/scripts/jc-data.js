@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 08:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 08:58 */
 const JC_DATA = {
- "updated": "2026-10-16 08:28",
+ "updated": "2026-10-16 08:58",
  "stat": {
   "total": 13,
-  "upcoming": 1,
-  "live": 0,
+  "upcoming": 0,
+  "live": 1,
   "finished": 12,
-  "withScore": 12
+  "withScore": 13
  },
  "games": [
   {
@@ -1306,7 +1306,10 @@ const JC_DATA = {
     "name": "弗拉门戈",
     "rank": null
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1316,9 +1319,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 1,
+      "home": 0.97,
       "line": "受平手/半球",
-      "away": 0.8
+      "away": 0.82
      }
     },
     "europe": {
@@ -1340,9 +1343,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1.02,
+      "line": 1,
       "over": 2,
-      "under": 0.77
+      "under": 0.8
      }
     }
    },
@@ -1364,21 +1367,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.8,
-    "downWater": 1,
+    "upWater": 0.82,
+    "downWater": 0.97,
     "openHandicap": 0.25,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
+    "totalWater": 1.79,
+    "theoryUpPercent": "54.19",
+    "theoryDownPercent": "45.81",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 1,
-     "nowUpWater": 0.8,
+     "nowUpWater": 0.82,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
@@ -1387,49 +1390,21 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 08:28",
-  "officialUpdate": "2026-10-15 20:16:47",
-  "inSale": 12,
+  "updated": "2026-10-16 08:58",
+  "officialUpdate": "2026-10-15 13:27:15",
+  "inSale": 11,
   "list": [
-   {
-    "code": "周四014",
-    "matchNum": "4014",
-    "league": "解放者杯",
-    "time": "2026-10-16 08:30:00",
-    "home": "拉普大学",
-    "away": "弗拉门戈",
-    "had": {
-     "h": 3.97,
-     "d": 2.8,
-     "a": 1.92,
-     "update": "2026-10-15 20:16:47"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 1.69,
-     "d": 3.25,
-     "a": 4.35,
-     "update": "2026-10-15 19:15:25"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周五001",
     "matchNum": "5001",
