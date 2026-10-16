@@ -16,6 +16,21 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
+/* 【走势图 · 内联片段】用户 2026-10-17：
+     「留在近30期走势预选参考里面. 删除单独走势图独立页」
+   → 走势图不再有独立 HTML 文件；样式 / 表格 / 脚本由 build-trend.mjs
+     导出成一个片段（方式 A：片段导出），在这里插进
+     <details class="ro-trend">（「走势图 / 近 30 期走势 · 预选参考」）里。
+   ⚠️ 不走 iframe、不读任何产物文件 → 只跑 export-static.mjs 一个就够，
+      没有"先跑 build-trend 再跑 export-static"的顺序依赖。
+   ⚠️ 片段自带的作用域前缀是 .ro-trend-embed（样式全部收在里面），
+      根节点 id 是 ro-trend-root（不和分享页的 id 撞名）。 */
+import {
+  loadHistory as loadTrendHistory,
+  buildPayload as buildTrendPayload,
+  renderTrendFragment,
+  TREND_PERIODS
+} from './build-trend.mjs';
 /* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
 import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
@@ -778,17 +793,23 @@ const tocHtml =
   `<div class="ro-imgtoc-title">推荐图目录</div>` +
   `<div class="ro-imgtoc-sub">点一下，全屏看那张图</div>` +
   `</div>` +
-  `<table class="ro-imgtoc"><tbody>` +
-  TOC_ROWS.map((row) => `<tr>` + row.map((cell) =>
+  /* 【改成两列网格】用户 2026-10-17：「宽一点居中」。
+     原来是 <table> + <td width:50%>：实测列宽被表格自身的布局规则钉住，
+     渲染出来两列只占中间一段（右边空一大片），加 !important 也压不动。
+     改成 grid 两列（1fr 1fr），宽度完全由我们掌控 —— 两列等宽、铺满、居中。
+     ⚠️ 类名全部不变（.ro-imgtoc / .ro-toc-cell / .ro-toc-t / .ro-toc-s），
+        点击照旧是 <a href="#…">，所以 CSS 和点击逻辑都不用跟着改。 */
+  '<div class="ro-imgtoc">' +
+  TOC_ROWS.map((row) => row.map((cell) =>
     /* 【主标题 + 副标题】长名字（五行/绕胆/九转/九宫）拆成两行小字，一行放得下，
        格子就不会被折 3 行撑破（用户 2026-10-17 要求）。点击照旧：整块都在 <a> 里。 */
-    `<td><a class="ro-toc-cell${cell.s ? ' two-line' : ''}" href="#ro-g-${cell.g}-${cell.i}" ` +
+    `<a class="ro-toc-cell${cell.s ? ' two-line' : ''}" href="#ro-g-${cell.g}-${cell.i}" ` +
     `data-ro-toc-game="${cell.g}" data-ro-toc-image="${cell.i}">` +
     `<b class="ro-toc-t">${cell.t}</b>` +
     (cell.s ? `<i class="ro-toc-s">${cell.s}</i>` : '') +
-    `</a></td>`
-  ).join('') + `</tr>`).join('') +
-  `</tbody></table>` +
+    `</a>`
+  ).join('')).join('') +
+  `</div>` +
   `</div>`;
 
 /* ============================================================
@@ -4644,6 +4665,38 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-xj > .ro-xj-header .ro-xj-count { position: absolute; right: 62px; top: 50%; transform: translateY(-50%); }
 .ro-xj > .ro-xj-header .ro-xj-arrow { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
 .ro-xj > .ro-xj-header .ro-xj-title { flex: 1 1 auto; text-align: center; }
+
+/* ============================================================
+   【推荐图目录 · 宽一点居中】用户 2026-10-17 截图圈了「推荐图目录」说「宽一点居中」。
+   ------------------------------------------------------------
+   实测（视口 676）：这块被两层 12px 内边距夹住 ——
+     .ro-wrap 的 padding: 0 12px（12px）+ 自己那句 .ro-imgtoc { padding: 0 12px 12px }（12px）
+   ⇒ 左右各空 24px，格子显得窄。
+   做法：这一块【贴到屏幕两边】——用负外边距抵消 .ro-wrap 的 12px，
+         表格自己的左右内边距收成 6px；整块仍然居中（左右对称），格子变宽。
+   ⚠️ 只在窄屏（≤1365px）生效，和「目录只在窄屏显示」的规则一致；
+      不影响别的区块、不动全局 padding。 */
+@media (max-width: 1365px) {
+  /* 【推荐图目录 · 宽一点居中】用户 2026-10-17。
+     原来：<table> + <td width:50%>，实测列宽被表格布局钉住 → 两列只占中间一段。
+     现在：markup 改成 grid 容器，这里把两列钉成等分、铺满、左右对称。
+     负外边距抵消 .ro-wrap 的 12px 内边距 → 整块贴到屏幕两边。 */
+  .ro-imgtoc-wrap { margin-left: -12px !important; margin-right: -12px !important; }
+  .ro-imgtoc {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;   /* 两列等宽 */
+    gap: 6px !important;
+    width: 100% !important;
+    padding: 0 6px 12px !important;
+    box-sizing: border-box !important;
+    border-collapse: unset !important;
+  }
+  .ro-imgtoc .ro-toc-cell { width: 100% !important; box-sizing: border-box !important; }
+  /* 兼容：万一别处还有旧的 <table class="ro-imgtoc">（缓存/旧页面），也别再挤 */
+
+  table.ro-imgtoc { table-layout: fixed !important; width: 100% !important; }
+  table.ro-imgtoc td { width: 50% !important; padding: 3px 5px !important; }
+}
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
