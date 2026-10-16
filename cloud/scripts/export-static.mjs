@@ -4350,6 +4350,50 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-sub, .ro-art-sub, .p3d-sub, .chart-sub { margin-top: 0; }
 .ro-aipick-head, .ro-xysp-head { margin-bottom: var(--c-title); }
 .p3d-block-title { margin-bottom: 6px; }
+
+/* ============================================================
+   【紧凑排版·打穿 !important】
+   ------------------------------------------------------------
+   页面里有个「米杏色覆盖块」用了 147 个 !important，把 7 处纵向间距锁住了，
+   普通声明压不动，所以这里对这 7 处显式补 !important。
+   ⚠️ 只覆盖【纵向】长属性；横向内边距/外边距一律不动（照抄原值的横向部分）。
+   ⚠️ 不写 font-size、不写 line-height。
+   ============================================================ */
+.ro-top { padding-top: 10px !important; padding-bottom: 10px !important; }
+.ro-status { margin-bottom: var(--c-gap) !important; }
+.ro-imgtoc { padding-bottom: 12px !important; }
+.ro-tools { padding-bottom: 12px !important; }
+.ro-tool { padding-top: 12px !important; padding-bottom: 12px !important; }
+.ro-art-groups { padding-bottom: 12px !important; }
+.ro-game { padding-bottom: 12px !important; }
+/* 折叠块入口行（点击查看/收起那行）统一 */
+.ro-xysp > .ro-xysp-head, .ro-aipick > .ro-aipick-head { padding-top: 8px !important; padding-bottom: 8px !important; }
+
+/* ============================================================
+   __RO_DARK_LEFT__ 还残留的深底区块 → 米杏色（只改配色，内容一个字不动）
+   ------------------------------------------------------------
+   为什么还得补这一块：上面那层浅色覆盖用的是【属性选择器】
+   （[style*="#0f1115"] / [style*="#161a21"] / [style*="#12151d"]），
+   只对【行内样式】生效；而下面这几个区块的底色写在【类规则】里，
+   一直是深色没被换掉。实测（真浏览器读 computed style，排除 canvas/img/svg）：
+     · section.ro-articles   文章参考的外层容器   rgb(18,22,29)
+     · .ro-art-body          文章正文展开区       rgb(18,22,29)
+     · div.ro-disclaimer     免责声明（所有实例）  rgb(18,21,27)
+     · div.ro-drawblock      开奖号码块（多个）    rgb(22,26,33)
+   ⚠️ 只写背景 / 边框 / 文字色，不动布局、字号、间距、圆角、内边距。
+   ⚠️ 颜色一律走页面已有变量（--ro-card / --ro-sunken / --ro-line / --ro-fg / --ro-fg2），
+      不引新色；以后换主题只改变量。
+   ⚠️ canvas / img / svg 出的图（推荐图 / 热力图 / 手绘图）不在这里面，保持深色。
+   ⚠️ 必须写在样式表【最后】：同文件后面还有 .ro-art-head / .ro-xysp-head 那类规则，
+      写在前面会被顺序盖掉（上次踩过）。 */
+.ro-articles { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
+.ro-art-body { background: var(--ro-sunken) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
+.ro-art-body p, .ro-art-body .ro-art-p { color: var(--ro-fg) !important; }
+.ro-art-link, .ro-art-body a { color: var(--ro-link) !important; }
+.ro-disclaimer { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg2) !important; }
+.ro-disclaimer h3 { color: var(--ro-fg) !important; }
+.ro-disclaimer p { color: var(--ro-fg2) !important; }
+.ro-drawblock { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
