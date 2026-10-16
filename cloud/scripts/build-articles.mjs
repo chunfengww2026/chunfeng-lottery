@@ -90,13 +90,21 @@ const STATE = path.join(ROOT, '_articles-backoff.json');
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 ' +
   '(KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
-/* 5 个彩种：列表页 + URL 前缀 + 详情页正文选择器都一样，只有前缀不同 */
+/* 5 个彩种：列表页 + URL 前缀 + 详情页正文选择器都一样，只有前缀不同。
+   【用户 2026-10-17 指定源】换成同站的【预测】栏目 /<彩种>/yc/：
+     https://www.yiqicai.com/ssq/yc/ · /dlt/yc/ · /klb/yc/ · /pl3/yc/ · /fc3d/yc/
+   ⚠️ 原来抓的是 /<彩种>/jq/（技巧），已按用户要求改掉。
+   ✅ 实测：手机版 https://m.yiqicai.com/<彩种>/yc/ 与下面那套解析完全兼容 ——
+      列表页同样是 .cm-news / .cm-news-list / .cm-default-tit，
+      详情页同样有 .article-content / .article-tit / .article-source / .article-desc，
+      所以【只改了 jq→yc 这一个词】，解析代码一行没动。
+      （www 的那份是另一套模板 .news-article-txt/.news-article-time，故用 m. 版。） */
 const GAME_DEFS = [
-  { key: 'ssq',  name: '双色球', prefix: '/ssq/jq/',  list: 'https://m.yiqicai.com/ssq/jq/',  re: /双色球/ },
-  { key: 'dlt',  name: '大乐透', prefix: '/dlt/jq/',  list: 'https://m.yiqicai.com/dlt/jq/',  re: /大乐透/ },
-  { key: 'fc3d', name: '福彩3D', prefix: '/fc3d/jq/', list: 'https://m.yiqicai.com/fc3d/jq/', re: /福彩\s*3\s*D|3\s*D/i },
-  { key: 'kl8',  name: '快乐8',  prefix: '/klb/jq/',  list: 'https://m.yiqicai.com/klb/jq/',  re: /快乐\s*8/ },
-  { key: 'pl3',  name: '排列3',  prefix: '/pl3/jq/',  list: 'https://m.yiqicai.com/pl3/jq/',  re: /排列\s*3|排列三/ }
+  { key: 'ssq',  name: '双色球', prefix: '/ssq/yc/',  list: 'https://m.yiqicai.com/ssq/yc/',  re: /双色球/ },
+  { key: 'dlt',  name: '大乐透', prefix: '/dlt/yc/',  list: 'https://m.yiqicai.com/dlt/yc/',  re: /大乐透/ },
+  { key: 'fc3d', name: '福彩3D', prefix: '/fc3d/yc/', list: 'https://m.yiqicai.com/fc3d/yc/', re: /福彩\s*3\s*D|3\s*D/i },
+  { key: 'kl8',  name: '快乐8',  prefix: '/klb/yc/',  list: 'https://m.yiqicai.com/klb/yc/',  re: /快乐\s*8/ },
+  { key: 'pl3',  name: '排列3',  prefix: '/pl3/yc/',  list: 'https://m.yiqicai.com/pl3/yc/',  re: /排列\s*3|排列三/ }
 ];
 
 const MAX_PER_GAME = 5;        /* 每彩种最多 5 篇（用户要求每轮 25 篇正文） */
@@ -136,10 +144,26 @@ const stripTags = (s) => String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, '
   .replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
   .replace(/&quot;/gi, '"').replace(/&#39;/g, "'").replace(/\s+/g, ' ').trim();
 
+/** 从标题推出作者名。
+ *  【2026-10-17 换成 /yc/ 源后补的一条】yc 的标题基本是
+ *     「{作者}{彩种}{期号}期：…」  例：周横双色球119期：红球三区比看好1：1：4
+ *                                 徐志瑶双色球26119期：红球双胆推荐07 27
+ *     「{作者}{彩种}：…」         例：阿燕大乐透：前期方案累计中奖1460万
+ *  所以【标题最前面那 2~6 个字】就是作者（后面紧跟彩种名/期号），这是从标题本身取的，
+ *  不是猜的：只有「prefix 里没有数字/标点」且「紧跟着彩种名」才认。 */
+function authorFromTitlePrefix(title) {
+  const s = String(title || '').trim();
+  const m = /^([^\d：:，,。.、|｜\s]{2,6}?)(?=双色球|大乐透|福彩\s*3\s*D|快乐\s*[8八]|排列\s*[三3])/.exec(s);
+  return m ? m[1] : '';
+}
+
 /** 从标题推出作者名（老的 /spe 列表页那种标题才管用）。
     jq 列表页的标题是「{作者}{彩种}{期号}期：…」这种，推不出来，
     所以详情页能拿到 authorName 时以详情页为准（见 parseBody）。 */
 function authorOf(title, gameName) {
+  /* 先试「{作者}{彩种}…」这种前缀（/yc/ 源基本都是这个形态） */
+  const pref = authorFromTitlePrefix(title);
+  if (pref) return pref;
   let s = String(title || '').trim();
   const SUFFIX = ['综合预测', '号码推荐', '号码预测', '推荐', '预测', '技巧', '分析', '杀号', '定胆', '精选'];
   for (const suf of SUFFIX) {
@@ -156,11 +180,16 @@ function authorOf(title, gameName) {
   return s;
 }
 
-/** 详情页里渲染出来的作者名（首选）。
-    页面是 SSR，作者名只出现在内联数据里（authorName:"…" / nickName:"…"），
-    没有独立的 DOM 节点，所以从内联数据取。取不到就返回 ''。 */
+/** 详情页内联数据里的作者名（首选）。
+ *  ⚠️ 2026-10-17 实测（/yc/ 详情页）：authorName 在页面里是压缩变量 ——
+ *     o.infoDetail={authorAvatar:a,authorId:p,authorName:a,content:…}
+ *     等号右边不是字符串字面量，所以正则匹配不到；而页面【别处】还有一堆
+ *     nickName:"…"（右侧「专家推荐」小部件里的其它专家）—— 以前拿它当兜底，
+ *     结果把别人的名字当成这篇文章的作者（实测：周横的文章显示成「梦幻美系」）。
+ *     ⇒ 去掉 nickName 兜底：宁可为空（页面就不显示作者），也绝不写错人。
+ *     真正的作者由上面的 authorOf(标题前缀) 取。 */
 function authorFromPage(html) {
-  const m = /authorName\s*:\s*"([^"]{1,20})"/.exec(html) || /nickName\s*:\s*"([^"]{1,20})"/.exec(html);
+  const m = /authorName\s*:\s*"([^"]{1,20})"/.exec(html);
   if (!m) return '';
   let s = '';
   try { s = JSON.parse('"' + m[1] + '"'); } catch (e) { s = m[1]; }
@@ -280,8 +309,13 @@ function parseBody(html) {
 /** 列表页 → [{ title, url, author, date }]（每彩种最多 MAX_PER_GAME 条） */
 function parseList(html, def) {
   const out = [];
+  /* 文章 id 有两种形态（实测 /yc/ 列表页里两种都出现）：
+       yc_N2610161441458444756.html   ← 数字型（N + 一串数字）
+       yc_f212dac408631e8e3951c5bd1d494744.html ← 32 位十六进制
+     以前这里写死 'jq_[0-9a-f]{32}'，换成 yc 后一条都匹配不到（列表 0 条）。
+     现在两种都收，而且 id 段直接跟着栏目前缀走，以后再换栏目不用再改这里。 */
   const RE = new RegExp('<a[^>]*href="(' + def.prefix.replace(/\//g, '\\/') +
-    'jq_[0-9a-f]{32}\\.html)"[^>]*>([\\s\\S]*?)<\\/a>', 'gi');
+    '[A-Za-z0-9]+_(?:[0-9a-f]{32}|N\\d+)\\.html)"[^>]*>([\\s\\S]*?)<\\/a>', 'gi');
   let m = null;
   while ((m = RE.exec(html)) !== null) {
     if (out.length >= MAX_PER_GAME) break;
