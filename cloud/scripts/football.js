@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "庞特普雷塔",
      "score": 0,
@@ -2571,7 +2571,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 4,
@@ -2637,7 +2637,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
@@ -2947,7 +2947,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "紮奇英雄B隊",
      "score": 0,
