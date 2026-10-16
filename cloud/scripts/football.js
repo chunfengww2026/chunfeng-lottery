@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 9,
+    "minute": 15,
     "home": {
      "name": "蒂察爾阿爾曼",
      "score": 0,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "悉尼FC",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "西悉尼流浪者",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -15513,7 +15513,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15579,7 +15579,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 84,
+    "minute": 90,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -15645,7 +15645,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "卡巴比爾",
      "score": 1,
@@ -15683,7 +15683,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 2,
@@ -15721,16 +15721,16 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 49,
+    "minute": 55,
     "home": {
      "name": "乌拉尔青年队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 12
     },
     "away": {
      "name": "莫斯科火車頭U19",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 5
     },
@@ -15771,7 +15771,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 34,
+    "minute": 40,
     "home": {
      "name": "欧克莱卡诺",
      "score": 2,
@@ -15849,7 +15849,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "阿德莱德城",
      "score": 0,
@@ -15927,7 +15927,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 39,
+    "minute": 45,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -16005,7 +16005,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 23,
+    "minute": 29,
     "home": {
      "name": "PWD體育",
      "score": 0,
@@ -16083,7 +16083,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 24,
+    "minute": 30,
     "home": {
      "name": "城市隊",
      "score": 0,
