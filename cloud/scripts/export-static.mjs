@@ -1450,13 +1450,15 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
-    /* 【选号 chip】用户 2026-10-17：「改成随机」
-       —— 这一栏写「随机」：号码默认是随机摇出来的（点「开始摇号 / 重摇」）；
-          下面的格子是【想手选时】才点，点过就以你点的为准（结果区标「手选」）。
-       ⚠️ 仍然只有一个 chip，所以它是 <span>，不是可点控件（更不是 button 标签）。 */
+    /* 【选号 chip：随机 / 自选】用户 2026-10-17：
+       ①「改成随机」→ 号码默认随机摇（点「开始摇号 / 重摇」）；
+       ②「加一个：自选 这样他们可以自己选自己看好的」→ 旁边加一个「自选」：
+          切到自选后不摇随机号，直接用下面格子里你点的号（点完自动算注数/金额）。
+       两个 chip 都可点（<span role="button">，页面不变量：绝不用 button 标签）。 */
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
-    `<span class="ro-aipick-srcbtn on">随机</span>` +
+    `<span class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="random">随机</span>` +
+    `<span class="ro-aipick-srcbtn" role="button" tabindex="0" data-ro-aipick-src="manual">自选</span>` +
     `</div></div>` +
     /* 【自己选号：点格子选号】用户 2026-10-17：
        「还要加一个：选号 就是自己点击去选号码」
@@ -6116,7 +6118,8 @@ ${RO_RENDER_SCRIPT}
     var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /* 【内存状态】只放在内存里：刷新页面即回到默认（不碰任何浏览器存储） */
-    var st = { game: RULES[0].id, times: 1, kl8: 10, multi: {}, rows: [], pick: {}, betCount: 0 };
+    var st = { game: RULES[0].id, times: 1, kl8: 10, multi: {}, rows: [], pick: {}, betCount: 0,
+               src: 'random' };   /* src: 'random' 随机摇号 | 'manual' 自选（用户 2026-10-17 要求加「自选」） */
 
     /* ---------- 基础工具 ---------- */
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -6999,9 +7002,38 @@ ${RO_RENDER_SCRIPT}
           /* 清空重选：只清「自己选号」那套格子 */
           else if (act === 'reset') { resetPicks(); }
           else if (act === 'save') { saveImage(); }                       /* 保存图片：画图 + 全屏弹出 */
-          else { doRoll(); }                                             /* 开始摇号 / 重摇：整组重摇 */
+          /* 【自选模式】用户 2026-10-17：「加一个：自选 这样他们可以自己选自己看好的」——
+             自选时「开始摇号」不生成随机号，直接用你点的号（applyPicks 会在不够时提示还差几个） */
+          else if (st.src === 'manual') { applyPicks(); }
+          else { doRoll(); }                                             /* 随机模式：开始摇号 / 重摇：整组重摇 */
         });
       })(acts[t3]);
+    }
+
+    /* ---------- 「随机 / 自选」两个 chip 的点击（用户 2026-10-17 要求加「自选」） ---------- */
+    var srcBtns = root.querySelectorAll('[data-ro-aipick-src]');
+    function syncSrc() {
+      for (var i = 0; i < srcBtns.length; i++) {
+        var on = attr(srcBtns[i], 'data-ro-aipick-src') === st.src;
+        srcBtns[i].className = 'ro-aipick-srcbtn' + (on ? ' on' : '');
+      }
+    }
+    for (var t4 = 0; t4 < srcBtns.length; t4++) {
+      (function (node) {
+        node.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          st.src = attr(node, 'data-ro-aipick-src') === 'manual' ? 'manual' : 'random';
+          syncSrc();
+          if (st.src === 'manual') {
+            /* 切到自选：清掉之前摇出来的号，提示去点号码 */
+            st.rows = []; st.betCount = 0; drawOut(); refresh();
+            if (warnBox) { warnBox.textContent = '自选：点下面的号码，选够个数就算好注数'; show(warnBox, true); }
+          } else {
+            if (warnBox) show(warnBox, false);
+            doRoll();                     /* 切回随机：立刻摇一组 */
+          }
+        });
+      })(srcBtns[t4]);
     }
     if (inTimes) {
       /* 同 multiInput：不能在 input 事件里 refresh/夹取（那样打不出两位数）。
@@ -7020,6 +7052,7 @@ ${RO_RENDER_SCRIPT}
       buildMultiRow(g);
       buildPicker(g);                     /* 自己选号：初始格子 */
       syncTabs();
+      syncSrc();                          /* 「随机 / 自选」两个 chip 的高亮 */
       applySrc();
     })();
 
