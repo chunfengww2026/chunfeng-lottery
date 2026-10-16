@@ -2825,6 +2825,21 @@ function coldCalcEmpty(calc, cur, hotSet) {
 
    硬性：① 豹子 = 0 组  ② 组三 ≤ 1 组  ③ 组六 尽可能多
 
+   【数学可行性 —— 穷举验证过，别再"硬编"其它做法】
+     设三个位置候选集合 A / B / C（各 3 个号），则
+       豹子 = |A∩B∩C|
+       组三 = 3·(|A∩B| + |A∩C| + |B∩C|) − 3·|A∩B∩C|
+     ⇒ 组三 永远是 3 的倍数 ⇒「组三 ≤ 1」只能等于 0；
+       而 组三 = 0 ⇔ 三个位置两两不相交 ⇔ 9 个号互不相同。
+     穷举 120^3 = 1,728,000 种三位候选（0~9 各取 3 个）实测：
+       · 满足「豹子=0 且 组三 ≤ 1」的组合 = 16800 种，【全部】组三 = 0；
+       · 豹子 = 0 时，最小的【正】组三 = 3（例 A={0,1,2} B={0,3,4} C={5,6,7}）；
+       · 0~9 共 10 个号 ≥ 9 ⇒ 可行（只剩 1 个号余量）。
+     ⚠️ 若另外要求「9 个位置号都取自模板那 6 码」⇒ 只有 6 个号却要 9 个
+        互不相同的号 ⇒ 同样穷举结果【可行组合 = 0】，「组三 ≤ 1」在这条
+        约束下【数学上不可能】，只能二选一：
+          ① 全组六 + 6码另算（= 当前做法）；② 位置号 ⊆ 6码 + 组三 ≥ 3。
+
    为什么「组三 ≤ 1」等价于「三个位置的候选号两两不重复」：
      每个位置 3 个候选号 → 3×3×3 = 27 注直选。
      只要有两个位置共用 1 个数字 d（d 不在第三个位置里），
@@ -2960,6 +2975,35 @@ function enforceDigitStraightGate(gameId, out) {
   return changed;
 }
 
+/**
+ * 按「27 注直选」统计三个位置候选号的 豹子 / 组三 / 组六 注数（纯函数，验收用）。
+ * 口径与用户一致：豹子 = 三位全同 · 组三 = 两位同 · 组六 = 三位互不相同。
+ * @returns {{bao:number,zu3:number,zu6:number,total:number,distinct:number}|null}
+ *          三位候选号不足 3 个 → 返回 null（不猜、不硬编）
+ */
+function digitStraightTally(gameId, out) {
+  if (!out || typeof out !== 'object') return null;
+  const keys = DIGIT_STRAIGHT_KEYS[gameId];
+  if (!keys) return null;
+  const [from, to] = consRangeOf(gameId, 'main');
+  const sets = [];
+  for (let i = 0; i < keys.length; i++) {
+    const arr = consUniq((String(out[keys[i]] == null ? '' : out[keys[i]]).match(/\d+/g) || [])
+      .map((x) => parseInt(x, 10))
+      .filter((n) => Number.isInteger(n) && n >= from && n <= to));
+    if (arr.length !== 3) return null;
+    sets.push(arr);
+  }
+  let bao = 0, zu3 = 0, zu6 = 0;
+  sets[0].forEach((a) => sets[1].forEach((b) => sets[2].forEach((c) => {
+    if (a === b && b === c) bao++;
+    else if (a === b || a === c || b === c) zu3++;
+    else zu6++;
+  })));
+  const all = sets[0].concat(sets[1], sets[2]);
+  return { bao, zu3, zu6, total: bao + zu3 + zu6, distinct: consUniq(all).length };
+}
+
 /** 一整张图的一致性收尾：逐个号码区过一遍 */
 function enforceConsistencyImage(gameId, imageKey, out) {
   if (!out || typeof out !== 'object') return out;
@@ -2973,6 +3017,16 @@ function enforceConsistencyImage(gameId, imageKey, out) {
   areas.forEach((a) => {
     try { enforceConsistency(gameId, a, out, imageKey); } catch (e) { /* 单个区失败不影响其它 */ }
   });
+  /* 【硬性条件的最终保证】一致性收尾在后半段仍可能改写号码字段，
+     所以最后【再验一遍 27 注】：只要出现豹子或组三（>1）就重跑一次直选闸。
+     enforceDigitStraightGate 是幂等的（已合规的输入一个号都不换），
+     0~9 有 10 个号 ≥ 9 个位置号 ⇒ 重跑必然收敛到「全组六」。
+     这一步是给"以后有人往 enforceConsistency 里加规则"兜底的，
+     当前各彩种实测都是首轮就达标（见文件头可行性说明）。 */
+  try {
+    const t = digitStraightTally(gameId, out);
+    if (t && (t.bao > 0 || t.zu3 > 1)) enforceDigitStraightGate(gameId, out);
+  } catch (e) { /* 失败不影响出号 */ }
   return out;
 }
 
