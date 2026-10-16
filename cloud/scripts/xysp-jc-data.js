@@ -55,7 +55,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T23:16:50.105Z",
+   "seen": "2026-10-16T23:16:02.158Z",
    "whenMs": 1792122654000,
    "seenMs": 1792191962166,
    "drawMs": null,
