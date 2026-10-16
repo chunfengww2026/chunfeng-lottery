@@ -24,9 +24,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs）
+/* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs）
    ⚠️ 用相对路径 import：与 DSH_JC_ROOT（只改数据目录）无关，代码目录恒为本文件所在目录 */
-import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
+import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
 const ROOT = process.env.DSH_JC_ROOT
@@ -3295,17 +3295,15 @@ ${JC_XYSP_VIEW}
 </html>`;
 
 /* ============================================================
-   最后两道关卡（顺序不能反）：
-     ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
-     ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
-   两条都来自共用模块 make-keygate.mjs。
-   ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+   留痕断言（用户硬性要求）：页面上不能看出「数据是从哪来的」
+     ① removeSourceWords —— 把可见文本里的来源字样换成中性说法
+        （内嵌的只读模块吐出来的字也在这一步收拾，语义不变）
+     ② assertNoSourceTrace —— 再扫一遍；命中 → 打印命中内容 → exit 1
+   两条都来自共用模块 source-guard.mjs。
    ============================================================ */
-const safeHtml = neutralizeSourceWords(html);
+const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '足球推荐.html');
-const gatedHtml = await prepareKeyGate(safeHtml, { label: '足球推荐.html' });
-fs.writeFileSync(OUT, gatedHtml, 'utf8');
-console.log('   🔒 密码门：正文已加密（改密码只改 make-keygate.mjs 的 KEYGATE_PASSWORD）');
+fs.writeFileSync(OUT, safeHtml, 'utf8');
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
@@ -3321,7 +3319,7 @@ fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
 }) + ';\n', 'utf8');
 
 console.log('✅ 已生成：' + OUT);
-console.log(`   大小：${(Buffer.byteLength(gatedHtml, 'utf8') / 1024).toFixed(1)} KB（含密文正文）`);
+console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(1)} KB`);
 console.log(`   三卡片：未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 已完场 ${stat.finished}`);
 console.log(`   已完场构成：本次在售完场 ${stat.finishedToday} 场 + 历史归档 ${stat.history} 场`);
 console.log(`   已完场分区卡片数：${MATCHES.filter((m) => m.kind === 'finished').length}`);

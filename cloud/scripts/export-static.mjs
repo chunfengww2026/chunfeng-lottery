@@ -16,8 +16,8 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
-/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs） */
-import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
+/* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
+import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
@@ -1557,14 +1557,8 @@ function buildLiveHtml() {
     `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
     /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
-    /* __COPY_LIVE__ 用户要求：改成点击复制链接
-       ⚠️【不再写 data-copy】两个原因：
-          ① 硬性要求：页面上不能看出数据从哪来。data-copy 会把完整域名
-             复制到剪贴板（属性里的 HTML 实体在 getAttribute 时会被解回字母），
-             等于把来源送到用户手里；留痕断言会当场拦下来（实测拦过）。
-          ② 复制逻辑本来就兜底读 href（见下面 copyEls 那段：data-copy || href），
-             所以删掉 data-copy 功能不变：照样复制、照样能打开。 */
-    `<a class="ro-live-more" href="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
+    /* __COPY_LIVE__ 用户要求：改成点击复制链接 */
+    `<a class="ro-live-more" href="${articleHref(home)}" data-copy="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
     `点击复制链接进浏览器查看</a>` +
     (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
@@ -6958,21 +6952,18 @@ ${RO_RENDER_SCRIPT}
 </html>`;
 
 /* ============================================================
-   最后两道关卡（顺序不能反）：
-     ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
-     ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
-   两条都来自共用模块 make-keygate.mjs（4 个页面共用；比赛详情页由它自己的
-   生成脚本走同一套模块，见 build-match.mjs）。
-   ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+   留痕断言（用户硬性要求）：页面上不能看出「数据是从哪来的」
+     ① removeSourceWords —— 把可见文本里的来源字样换成中性说法
+        （只读依赖模块吐出来的字也在这一步收拾，语义不变）
+     ② assertNoSourceTrace —— 再扫一遍；命中 → 打印命中内容 → exit 1
+   两条都来自共用模块 source-guard.mjs。
    ============================================================ */
-const safeHtml = neutralizeSourceWords(html);
+const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '只读分享版.html');
-const gatedHtml = await prepareKeyGate(safeHtml, { label: '只读分享版.html' });
-fs.writeFileSync(OUT, gatedHtml, 'utf8');
-console.log('   🔒 密码门：正文已加密（改密码只改 make-keygate.mjs 的 KEYGATE_PASSWORD）');
+fs.writeFileSync(OUT, safeHtml, 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
-console.log(`   大小：${(Buffer.byteLength(gatedHtml, 'utf8') / 1024).toFixed(1)} KB（含密文正文）`);
+console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(1)} KB`);
 console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
 console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
 console.log(`   生成时间：${todayStr}`);

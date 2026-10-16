@@ -38,8 +38,8 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { GAME_IDS, LOTTERY_SPEC } from './lottery-rules.mjs';
-/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs） */
-import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
+/* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
+import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, '走势图.html');
@@ -1312,17 +1312,15 @@ if (isMain) {
   if (bad) { console.error(`\n❌ 有 ${bad} 个彩种每期号码个数和规则不符，已中止（不生成假页面）`); process.exit(1); }
 
   /* ============================================================
-     最后两道关卡（顺序不能反）：
-       ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
-       ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
-     两条都写在共用模块 make-keygate.mjs 里，4 个页面共用一套。
-     ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+     留痕断言（用户硬性要求）：页面上不能看出「数据是从哪来的」
+       ① removeSourceWords —— 把可见文本里的来源字样换成中性说法
+          （只读依赖模块吐出来的字也在这一步收拾，语义不变）
+       ② assertNoSourceTrace —— 再扫一遍；命中 → 打印命中内容 → exit 1
+     两条都来自共用模块 source-guard.mjs。
      ============================================================ */
-  let safe = neutralizeSourceWords(buildHtml(payload));
+  const safe = removeSourceWords(buildHtml(payload));
   assertNoSourceTrace(safe, '走势图.html');
-  const gated = await prepareKeyGate(safe, { label: '走势图.html' });
-  fs.writeFileSync(OUT, gated, 'utf8');
-  console.log(`\n✅ 已生成 ${OUT}（${(Buffer.byteLength(gated, 'utf8') / 1024).toFixed(1)} KB · ` +
-    `${payload.games.length} 彩种 · 每彩种 ${payload.periods} 期 · 🔒 正文已加密）`);
-  console.log('   密码门：改密码只改 make-keygate.mjs 第 40 行附近那个 KEYGATE_PASSWORD 常量');
+  fs.writeFileSync(OUT, safe, 'utf8');
+  console.log(`\n✅ 已生成 ${OUT}（${(Buffer.byteLength(safe, 'utf8') / 1024).toFixed(1)} KB · ` +
+    `${payload.games.length} 彩种 · 每彩种 ${payload.periods} 期）`);
 }
