@@ -713,9 +713,19 @@ export function injectMarkers(src) {
            表格外面、预选行也少一格（tbody 只剩 1 行），却一点报错都不抛。
         正确写法：两端单引号都必须带上，且中间不能再出现闭合 tbody。
         下面这一行 + assertInjected 里的断言就是为这两件事兜底的。 */
-  const TB = "'<tbody>'";
-  assertOne(s, TB, '表体开头');
-  s = s.split(TB).join("'<tbody>' + __trPreselRow(g) + '</tbody>'");
+  /* 预选行：放到 tbody 的【最后一行】—— 用户 2026-10-17 要求
+     「预选号放到最新开奖一期的下面」。表体顺序是【老 → 新】，最新一期在最后，
+     所以预选行就排在它下面。
+     ⚠️ 这一改同时修掉一个真 bug（实测出来的）：
+        预选行原来插在 tbody 开头，而 trend-mount.js 的 map 是按【DOM 行号】建的、
+        trTrendLines 的 y1 用的是【数据行号】—— 两者只在「数据行的 DOM 行号 ==
+        数据行号」时才对齐。放在开头时数据行 0 的 DOM 行号是 1，导致每条走势线
+        （含斜连）整体上移一行；放到最后之后，数据行 DOM 行号就是 0..N-1，天然对齐。
+     ⚠️ 闭合 tbody 的字符串只能剩 1 处：老写法多补了一个 '</tbody>'，
+        tbody 被提前关闭（数据行被挤到表格外、tbody 只剩 1 行，还不报错）。 */
+  const TB = "'</tbody>'";
+  assertOne(s, TB, '表体结尾');
+  s = s.split(TB).join("__trPreselRow(g) + '</tbody>'");
   return s;
 }
 
@@ -731,13 +741,13 @@ export function injectMarkers(src) {
 export function assertInjected(src, original) {
   const n = (s, t) => s.split(t).length - 1;
   const checks = [
-    /* src = 注入后的渲染内核 + 注入脚本本身，所以各字符串的期望次数要连注入脚本一起算 */
-    [n(src, "'<tbody>' + __trPreselRow(g) + '") === 1,
-      "预选行拼接串完整：'<tbody>' + __trPreselRow(g) + '"],
-    /* '</tbody>' 应恰好 2 处：注入点 1 处 + rows.forEach 之后原有的那句。
-       多补一处 → tbody 提前关闭（数据行跑到表格外、tbody 只剩 1 行）；
-       少写一处（引号不成对）→ 整页 SyntaxError、8 块全不渲染。 */
-    [n(src, "'</tbody>'") === 2, "闭合 tbody 字符串恰好 2 处（注入点 1 + 原有 1）"],
+    /* src = 注入后的渲染内核（不含 INJECT_SRC 那段注入脚本） */
+    [n(src, "__trPreselRow(g) + '</tbody>'") === 1,
+      "预选行拼接串完整：__trPreselRow(g) + '</tbody>'（插在表体最后 = 最新一期下面）"],
+    /* '</tbody>' 应恰好 1 处：只有 rows.forEach 之后原有那一句。
+       老写法（插在 tbody 开头）会多补一个闭合标签 → tbody 提前关闭、
+       数据行跑到表格外；少写一处（引号不成对）→ 整页 SyntaxError、8 块全不渲染。 */
+    [n(src, "'</tbody>'") === 1, "闭合 tbody 字符串恰好 1 处（不再多补）"],
     [n(original, '<div class="tr-head">') === 1 && n(src, '<div class="tr-head">') === 1,
       '工具栏占位插在 tr-head 前（注入后锚点仍是 1 个）'],
     [n(src, '__trPreselRow(g)') === 1 && n(original, '__trPreselRow(g)') === 0,
