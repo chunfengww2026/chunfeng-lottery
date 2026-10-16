@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "萨普里沙",
      "score": 1,
@@ -162,7 +162,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -228,7 +228,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "艾斯特利",
      "score": 1,
@@ -237,7 +237,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "幕尼西波尔哈拉帕",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
@@ -294,7 +294,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "金迪奥",
      "score": 1,
@@ -360,7 +360,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "CD奥林匹亚",
      "score": 1,
