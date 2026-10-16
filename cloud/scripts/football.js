@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "萨普里沙",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -96,7 +96,7 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
@@ -162,7 +162,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -228,7 +228,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "艾斯特利",
      "score": 1,
@@ -294,10 +294,10 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "金迪奥",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 7
     },
@@ -360,7 +360,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "CD奥林匹亚",
      "score": 1,
@@ -435,7 +435,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "伊斯柏納",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
