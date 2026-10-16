@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "艾斯特利",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
     "away": {
      "name": "幕尼西波尔哈拉帕",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "苏奇特佩基",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
     "away": {
      "name": "圣佩德罗体育",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -631,7 +631,7 @@ const FOOTBALL_DATA = {
      "color": "660000"
     },
     "time": "2026-10-16 08:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
