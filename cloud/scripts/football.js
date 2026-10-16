@@ -11964,7 +11964,7 @@ const FOOTBALL_DATA = {
      "color": "880013"
     },
     "time": "2026-10-16 21:00:00",
-    "minute": 95,
+    "minute": 97,
     "home": {
      "name": "富伊拉",
      "score": 2,
@@ -12002,7 +12002,7 @@ const FOOTBALL_DATA = {
      "color": "A60065"
     },
     "time": "2026-10-16 21:05:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "迪哈夫拉",
      "score": 5,
@@ -12048,7 +12048,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-16 21:15:00",
-    "minute": 80,
+    "minute": 82,
     "home": {
      "name": "卡达西亚",
      "score": 2,
@@ -12094,7 +12094,7 @@ const FOOTBALL_DATA = {
      "color": "887792"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "拉姆塔爾文",
      "score": 3,
@@ -12160,7 +12160,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "卢布尔雅那",
      "score": 0,
@@ -12226,7 +12226,7 @@ const FOOTBALL_DATA = {
      "color": "C5508C"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 72,
+    "minute": 74,
     "home": {
      "name": "歐帕提加",
      "score": 1,
@@ -12292,7 +12292,7 @@ const FOOTBALL_DATA = {
      "color": "C5508C"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "薩格勒布戴拿模U21",
      "score": 0,
@@ -12358,7 +12358,7 @@ const FOOTBALL_DATA = {
      "color": "666677"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 72,
+    "minute": 74,
     "home": {
      "name": "布兰U19",
      "score": 1,
@@ -12424,7 +12424,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-16 21:30:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "戈摩拉聯",
      "score": 1,
@@ -12886,7 +12886,7 @@ const FOOTBALL_DATA = {
      "color": "993300"
     },
     "time": "2026-10-16 22:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "奥德阿库",
      "score": 0,
@@ -12964,7 +12964,7 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-16 22:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "多哈艾阿里",
      "score": 0,
