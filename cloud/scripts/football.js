@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "卡巴比爾",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "達利亞阿卡梅夏普爾",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -15825,7 +15825,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-16 14:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "水邊卡羅里(女)",
      "score": 1,
