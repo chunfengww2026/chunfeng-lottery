@@ -99,6 +99,18 @@ const JC_RECO = loadVar('jc-reco-data.js', 'JC_RECO_DATA');
       结果 3 场全中只显示「红 1」，和 jc-reco-stats.mjs（单场口径）不一致。 */
 const RECO_KERNEL = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
 
+/* 【泊松指数内核】jc-poisson.js（纯函数，UMD：无 module 时挂到 globalThis）
+   ------------------------------------------------------------
+   用户队列⑥「泊松指数 + 分歧指 + 亚指多家」，并定「先做能从现有数据算出来的」。
+   能做：泊松指数 —— 由 odds.europe（欧指）+ odds.overunder（大小盘）反推期望进球。
+   做不了：分歧指数 / 亚指多家 —— 它们需要【多家博彩公司】的赔率离散度，
+           而 jc-data.js 里只有一家（open/live 是同公司两个时点，不是公司间分歧）。
+   ⚠️ 字段名有误导：odds.overunder 里【over 才是盘口】，line 其实是大球水位。
+      依据：竞彩页现显示「大小 0.8 大 3 小 1」，对应 {line:0.8, over:3, under:1}。
+   ⚠️ 内核已知局限：独立泊松会系统性【低估平局】（真数据 11 场平均低 1.6pp）。
+      内核把偏差算出来（drawBias），页面上如实显示，不加说不清的修正系数。 */
+const POISSON = loadVar('jc-poisson.js', 'JC_POISSON');
+
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
    ------------------------------------------------------------
@@ -715,6 +727,59 @@ function renderAsianCard(m) {
   return `<div class="m-ai">${head}${line}${change}${grid}${miss}${note}</div>`;
 }
 
+/* 【泊松指数】比赛卡片里的一块（用户队列⑥）
+   ------------------------------------------------------------
+   数据：odds.europe（欧指）+ odds.overunder（大小盘）→ 反推期望进球 λ。
+   算不出来（缺欧指）就【整块不显示】，绝不填假数。
+   ⚠️ 页面上写明「由欧指反推 · 非官方数据」，并显示拟合偏差与平局偏差，
+      不让人误以为这是博彩公司公布的泊松值。 */
+function renderPoissonCard(m) {
+  if (!POISSON || typeof POISSON.compute !== 'function') return '';
+  let r = null;
+  try { r = POISSON.compute(m); } catch (e) { return ''; }
+  if (!r) return '';                       /* 数据不全 → 整块不显示 */
+
+  const pct = (v) => (v == null ? '—' : v.toFixed(1) + '%');
+  const head =
+    `<div class="m-ps-head">` +
+    `<span class="m-ps-title">泊松指数</span>` +
+    `<span class="m-ps-src">${r.source === 'live' ? '即时盘' : '开盘'}反推</span>` +
+    `<span class="m-ps-fun">非官方数据</span>` +
+    `</div>`;
+
+  const line =
+    `<div class="m-ps-line">期望进球 主 <b>${r.lambdaHome}</b> · 客 <b>${r.lambdaAway}</b>` +
+    ` · 合计 <b>${r.lambdaTotal}</b></div>`;
+
+  const grid =
+    `<div class="m-ps-grid">` +
+    `<span class="m-ps-cell"><i>主胜</i><b>${pct(r.poisson.home)}</b><em>${pct(r.market.home)}</em></span>` +
+    `<span class="m-ps-cell"><i>平</i><b>${pct(r.poisson.draw)}</b><em>${pct(r.market.draw)}</em></span>` +
+    `<span class="m-ps-cell"><i>客胜</i><b>${pct(r.poisson.away)}</b><em>${pct(r.market.away)}</em></span>` +
+    `</div>`;
+
+  const ou = r.overunder
+    ? `<div class="m-ps-line">大小 ${esc(String(r.overunder.line))}：` +
+      `模型 大 <b>${pct(r.overunder.poisson.over)}</b> / 小 <b>${pct(r.overunder.poisson.under)}</b>` +
+      ` · 市场 ${pct(r.overunder.market.over)} / ${pct(r.overunder.market.under)}</div>`
+    : '';
+
+  const top = r.topScores && r.topScores.length
+    ? `<div class="m-ps-scores">最可能比分 ` +
+      r.topScores.slice(0, 3).map((s) => `<span>${esc(s.score)} <b>${s.p}%</b></span>`).join('') +
+      `</div>`
+    : '';
+
+  /* 如实暴露模型局限：拟合偏差 + 平局偏差（独立泊松会低估平局） */
+  const note =
+    `<div class="m-ps-note">大号字＝泊松算出的、小号字＝市场去水后的值` +
+    ` · 拟合偏差 ${r.fitError}pp` +
+    ` · 平局偏差 ${r.drawBias > 0 ? '+' : ''}${r.drawBias}pp（独立泊松会略低估平局）` +
+    ` · 仅娱乐参考</div>`;
+
+  return `<div class="m-ps">${head}${line}${grid}${ou}${top}${note}</div>`;
+}
+
 function renderMatch(m) {
   const eu = m.odds && m.odds.europe;
   const euV = eu && (eu.live || eu.open);
@@ -820,6 +885,7 @@ function renderMatch(m) {
           `</span>`) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderAsianCard(m) +
+    renderPoissonCard(m) +
     (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
 
   return m.code
@@ -2056,6 +2122,32 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-rechead { margin-top: var(--jc-gap) !important; }
 .m-rechead2 { margin-top: var(--jc-gap) !important; }
 .guard { margin-top: var(--jc-gap) !important; }
+
+
+/* ============ 泊松指数（用户队列⑥；米杏配色，和 .m-ai 同一套口径） ============ */
+.m-ps { margin-top: 8px; padding: 10px 12px; background: #f3e6d0;
+  border: 1px solid #e8d7bd; border-radius: 10px; }
+.m-ps-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.m-ps-title { font-size: 12.5px; font-weight: 700; color: #4a3a26; }
+.m-ps-src { font-size: 10.5px; color: #a2937c; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-ps-fun { margin-left: auto; font-size: 10.5px; color: #a2937c;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-ps-line { font-size: 11.5px; color: #8a7a63; line-height: 1.7; margin-bottom: 6px; }
+.m-ps-line b { color: #4a3a26; font-family: Consolas, monospace; }
+.m-ps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px; margin-bottom: 6px; }
+.m-ps-cell { display: flex; flex-direction: column; gap: 1px; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 8px; padding: 6px 8px; min-width: 0; }
+.m-ps-cell i { font-style: normal; font-size: 10.5px; color: #a2937c; }
+.m-ps-cell b { font-size: 14px; font-weight: 700; color: #1a8c5a;
+  font-family: Consolas, monospace; }
+.m-ps-cell em { font-style: normal; font-size: 10.5px; color: #a2937c;
+  font-family: Consolas, monospace; }
+.m-ps-scores { display: flex; gap: 10px; flex-wrap: wrap; font-size: 11.5px;
+  color: #8a7a63; margin-bottom: 4px; }
+.m-ps-scores b { color: #c0392b; font-family: Consolas, monospace; }
+.m-ps-note { font-size: 10.5px; color: #a2937c; line-height: 1.7; }
 
 `;
 
