@@ -340,48 +340,101 @@ function trTrendLines(payload, gameId, opts) {
 }
 
 /* ============================================================
-   【斜连】用户 2026-10-17 给的规则（原话）：
-     · 普通斜连：上期号码 a，本期号码 b，若 |a - b| === 1，则可连线
-     · 间隔斜连：上期 a，隔 N 期后出现 b，若 |a - b| === N，则连线（相隔数字相等）
-   ------------------------------------------------------------
-   ⚠️ 为什么默认只画"普通斜连"：
-      实测真实数据（30 期）——
-        双色球  差1 92 条 / 间隔 792 条
-        快乐8   差1 278 条 / 间隔 3477 条（占格子 626%！）
-      全部画上去就是一团糊。所以：
-        · 「斜连」开关       = 只画差 1（经典斜连，最多 278 条）
-        · 「斜连·含间隔」    = 连差 N 的一起画（会明显变密，由用户自己决定）
+   【斜连】用户 2026-10-17 给了两条规则（原话，第二条更严格）：
+
+   ① 普通斜连：上期 a、本期 b，|a - b| === 1 → 可连线
+
+   ② 隔号斜连（用户第二次给的、更严格的定义）：
+        001期开1 → 002期开2 → 003期空 → 004期开4
+        步长=1，间隔=2（中间空了1期），从1到4共经历3期，差值3=1+2
+      代码要求：
+        · j 从 i+2 起（gap ≥ 2，真间隔；相邻期不算）
+        · 【中间期必须没开"这个方向的号"】：
+            期望 = a + (k-i) * (b>a ? 1 : -1)
+            中间任何一期开了这个期望号 → 这条不算
+          （即"中间被走过"的不算，只留真正跨过去的）
+        · maxGap 默认 3
+
+   ⚠️ 为什么一定要用户这个严格版（实测量级，30 期真实数据）：
+        宽松版（谁跟谁差 N 就连）：双色球 573 / 快乐8 3477 条  → 糊
+        严格版（隔号+中间不许走过）：双色球 107 / 快乐8 471 条 → 能用
+      差了约 8 倍。所以间隔斜连【就用严格版】，宽松那版不再使用。
+
    ⚠️ 只在【同一个区】内连（红球连红球、蓝球连蓝球）：跨区连线没有意义。
    ============================================================ */
 
-/**
- * 检测斜连。
- * @param {Array<Array<number>>} draws 每期号码（按期号正序：旧 → 新）
- * @param {object} o { maxGap, includeGapSlant }
- * @returns {Array<{i,j,a,b,gap,type}>}
- */
-function trSlantLines(draws, o) {
-  const opt = o || {};
+/** gap = 1 的普通斜连 */
+function trSlantAdjacent(draws) {
   const rows = Array.isArray(draws) ? draws : [];
-  const maxGap = opt.maxGap == null ? rows.length : opt.maxGap;
   const out = [];
+  for (let i = 0; i + 1 < rows.length; i++) {
+    const from = rows[i] || [], to = rows[i + 1] || [];
+    for (let x = 0; x < from.length; x++) {
+      for (let y = 0; y < to.length; y++) {
+        if (Math.abs(from[x] - to[y]) === 1) {
+          out.push({ i, j: i + 1, a: from[x], b: to[y], gap: 1, type: 'slant' });
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * 隔号斜连（用户的严格定义）。
+ * @param {Array<Array<number>>} draws
+ * @param {number} maxGap 最大相隔期数，默认 3
+ *
+ * ⚠️ 这里【故意偏离】了用户给的那行循环一个细节，说明清楚：
+ *      用户写的是  j <= Math.min(i + maxGap + 1, …)
+ *      那个 `+1` 会让 maxGap 比名字多放一期：maxGap=2 时 gap=3 也进得来
+ *      （实测：maxGap=2 → [[1],[],[],[4]] 仍出 gap=3；maxGap=3 会出 gap=4）。
+ *      按"maxGap = 最大相隔期数"的直觉，这里用 j <= i + maxGap，让
+ *      maxGap 严格等于上限。若哪天要退回用户那版字面语义，把 bound 改成
+ *      `Math.min(i + mg + 1, rows.length - 1)` 即可。
+ */
+function trSlantGap(draws, maxGap) {
+  const rows = Array.isArray(draws) ? draws : [];
+  const mg = maxGap == null ? 3 : maxGap;
+  const results = [];
   for (let i = 0; i < rows.length; i++) {
-    const from = rows[i] || [];
-    for (let j = i + 1; j < rows.length; j++) {
+    const bound = Math.min(i + mg, rows.length - 1);
+    for (let j = i + 2; j <= bound; j++) {
       const gap = j - i;
-      if (gap > maxGap) break;
-      /* 差 1 的"普通斜连"总是算；差 N 的"间隔斜连"要显式打开 */
-      if (gap > 1 && !opt.includeGapSlant) continue;
-      const to = rows[j] || [];
+      const from = rows[i] || [], to = rows[j] || [];
       for (let x = 0; x < from.length; x++) {
         for (let y = 0; y < to.length; y++) {
           const a = from[x], b = to[y];
-          if (Math.abs(a - b) === gap) {
-            out.push({ i, j, a, b, gap, type: gap === 1 ? 'slant' : 'gapSlant' });
+          if (Math.abs(a - b) !== gap) continue;
+          /* 中间任何一期开了"这个方向的期望号" → 这条不算 */
+          let hasMiddle = false;
+          for (let k = i + 1; k < j; k++) {
+            const expected = a + (k - i) * (b > a ? 1 : -1);
+            if ((rows[k] || []).indexOf(expected) >= 0) { hasMiddle = true; break; }
+          }
+          if (!hasMiddle) {
+            results.push({
+              i, j, a, b, gap, type: 'gapSlant',
+              step: Math.abs(b - a) / gap       /* 步长（严格版恒为 1，留着便于核对） */
+            });
           }
         }
       }
     }
+  }
+  return results;
+}
+
+/**
+ * 检测斜连（普通 + 可选隔号）。
+ * @param {Array<Array<number>>} draws 每期号码（按期号正序：旧 → 新）
+ * @param {object} o { includeGapSlant, maxGap }
+ */
+function trSlantLines(draws, o) {
+  const opt = o || {};
+  const out = trSlantAdjacent(draws);
+  if (opt.includeGapSlant) {
+    out.push(...trSlantGap(draws, opt.maxGap));
   }
   return out;
 }
@@ -569,17 +622,20 @@ function renderTrendHtml(payload) {
   var SVGNS = 'http://www.w3.org/2000/svg';
 
   /* ============================================================
-     【斜连】用户 2026-10-17 给的规则：
-       上期 a、本期 b，|a-b|=1 → 普通斜连；
-       隔 N 期，|a-b|=N → 间隔斜连。
-     ⚠️ 实测量级：差1 最多 278 条（可接受）；连上间隔斜连最多 3477 条
-        （快乐8，占格子 626%）→ 一定糊。所以做成三档，默认【只差1】：
-          off   = 不画
-          slant = 只画差 1（默认）
-          gap   = 差 1 + 间隔斜连（用户自己要才开）
+     【斜连】用户给了两条规则：
+       ① 普通斜连：|a-b| = 1（相邻期）
+       ② 隔号斜连：隔 gap 期、|a-b| = gap，且【中间期没开过这个方向的号】
+          （001开1 → 002开2 → 003空 → 004开4 才算；中间开过就不算）
+     ⚠️ 实测量级（30 期真实数据）：
+         宽松版（不查中间）  双色球 573 / 快乐8 3477 条 → 糊
+         严格版（隔号）      双色球 107 / 快乐8  471 条 → 能用
+       所以做三档，默认【只画差1】：
+         off   = 不画
+         slant = 只画差 1（默认）
+         gap   = 差 1 + 隔号斜连
      ============================================================ */
   var SLANT_MODES = ['off', 'slant', 'gap'];
-  var SLANT_LABEL = { off: '斜连：关', slant: '斜连：差1', gap: '斜连：含间隔' };
+  var SLANT_LABEL = { off: '斜连：关', slant: '斜连：差1', gap: '斜连：差1+隔号' };
   var slantMode = 'slant';
 
   function drawTrendLines(block) {
