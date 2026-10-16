@@ -93,6 +93,12 @@ const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
    文件缺失时返回 null，页面退回「暂未开始统计」，绝不填 0 凑数。 */
 const JC_RECO = loadVar('jc-reco-data.js', 'JC_RECO_DATA');
 
+/* 【推荐串计算内核】jc-reco-archive.js（纯函数，UMD：无 module 时挂到 globalThis）
+   用和上面几个数据文件【同一套 vm 读法】加载，不必额外引 createRequire。
+   ⚠️ 必须用【同一个内核】算红黑：以前这里自己写了一段"整串口径"的循环，
+      结果 3 场全中只显示「红 1」，和 jc-reco-stats.mjs（单场口径）不一致。 */
+const RECO_KERNEL = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
+
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
    ------------------------------------------------------------
@@ -534,11 +540,17 @@ const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
 /* ---------- 【推荐串 · 红黑统计】来自 jc-reco-archive.js 存档 ----------
-   口径（和 jc-reco-archive.js 里写的一致）：
-     · 一批 = 某一期存下来的那一串推荐
-     · 全中 = 红；有一场没中 = 黑；还有比赛没打完 = 待定（不进命中率分母）
-     · 命中率 = 红 / (红 + 黑)；一群全待定时是 null（页面显示"暂未开始统计"）
-   ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"。 */
+   口径（用户 2026-10-17 明确要求）：【按单场判定】，不是按整串 ——
+     原话「按单场判定（用户设计里每行是一场），不是按整串」。
+     · red   = 已完场且推荐选项命中的【场次数】
+     · black = 已完场且没中的【场次数】
+     · rate  = red / (red + black)；一场都没结算 → null（页面显示"—"）
+     · pending = 还没打完的【组数】（一批里只要还有一场没结算就算一组）
+                页面备注写「还有 K 组没打完」/ K=0 时写「实时更新」
+   ⚠️【修 bug】这里原来是自己写的一段【整串口径】循环（miss===0 才 red++）：
+      于是「推荐串 3 场全中」只算成 1 红，用户看到的数字比实际少。
+      现在统一走内核 matchStats()，和 jc-reco-stats.mjs 的口径完全一致。
+   ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"（统计不到就显示"暂未开始统计"）。 */
 let REC_STAT = null;
 let REC_ROWS_ARCHIVE = [];
 /* 【30 秒实时刷新用】存档的时间戳 = 判断"这份数据比页面里那份新"的依据 */
@@ -546,30 +558,19 @@ const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
 /* 【30 秒实时刷新用】往期比对列表的【内层】HTML —— 由 renderRec() 渲染时顺手存下来，
    给 jc-reco-view.js 复用（保证页面内和刷新后是【同一套渲染】，不写第二份渲染逻辑） */
 let REC_ARCH_INNER = '';
-if (JC_RECO && Array.isArray(JC_RECO.batches)) {
-  const batches = JC_RECO.batches;
-  let red = 0, black = 0, pending = 0, rows = 0;
-  batches.forEach((b) => {
-    const list = Array.isArray(b.rows) ? b.rows : [];
-    rows += list.length;
-    let miss = 0, pend = 0;
-    list.forEach((r) => {
-      if (r.hit === true) return;
-      if (r.hit === false) { miss++; return; }
-      pend++;
-    });
-    if (pend > 0) pending++;
-    else if (miss === 0) red++;
-    else black++;
-  });
-  const decided = red + black;
+if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
+  const MS = RECO_KERNEL.matchStats(JC_RECO);
   REC_STAT = {
-    batches: batches.length, rows, red, black, pending, decided,
-    rate: decided ? ((red / decided) * 100).toFixed(1) : null,
+    batches: MS.batches, rows: MS.rows,
+    red: MS.red, black: MS.black,
+    pending: MS.unfinished,              /* 未打完的【组】数（备注文案用） */
+    pendingMatches: MS.pendingMatches,
+    decided: MS.decided,
+    rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
     updated: JC_RECO.updated || ''
   };
   /* 详情：按存档时间倒序（最近的一期在最上面） */
-  REC_ROWS_ARCHIVE = batches
+  REC_ROWS_ARCHIVE = JC_RECO.batches
     .slice()
     .sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
 }
@@ -2016,6 +2017,45 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 /* __JC_CONTRAST_TAIL__ 收尾两处（上一轮漏的：亚指单元格标签 / 计算器行时间） */
 .m-ai-cell i { color: #8a7a63 !important; }
 .calc-time { color: #8a7a63 !important; }
+
+
+/* ============================================================
+   __JC_COMPACT__ 竞彩页紧凑排版（用户：「整个版面压缩一下，零零闪闪不好看」）
+   ------------------------------------------------------------
+   和分享页同一套口径：区块之间 12px、卡片内边距 10~12px。
+   只改【纵向】间距；不写 font-size、不压 line-height、不用简写。
+   ============================================================ */
+:root { --jc-gap: 12px; }
+
+/* ① 页面上下留白收敛（原来 wrap pb=60px） */
+.wrap { padding-top: 12px !important; padding-bottom: 22px !important; }
+
+/* ② 顶部：标题 → 副标题 → 统计条 → 战绩条 */
+.sub { margin-bottom: 10px !important; }
+.stat { margin-bottom: var(--jc-gap) !important; }
+.record { margin-bottom: var(--jc-gap) !important; }
+
+/* ③ 三个分段（未开赛/进行中/已完场）与它们的分段头 */
+.m-sec { margin-bottom: 0 !important; }
+.m-subhead { margin-top: 10px !important; margin-bottom: 8px !important;
+  padding-top: 10px !important; padding-bottom: 10px !important; }
+
+/* ④ 比赛卡片：卡片间距 8px、内边距 10px（原来 10/12） */
+.m-card { margin-bottom: 8px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-top { margin-bottom: 6px !important; }        /* 卡片头部那行 */
+.m-teams { margin-bottom: 6px !important; }      /* 队名/比分那行 */
+.m-reco { margin-top: 6px !important; padding-top: 6px !important; }
+.m-ai { margin-top: 8px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-godetail { margin-top: 6px !important; }
+
+/* ⑤ 说明条 / 模拟计算 / 晒票：原来都是 mt=22，统一成 12 */
+.note { margin-top: var(--jc-gap) !important; padding-top: 12px !important; padding-bottom: 12px !important; }
+.m-calc, .m-jxp { margin-top: var(--jc-gap) !important; }
+.calc-head { margin-top: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+.jxp-head { padding-top: 10px !important; padding-bottom: 10px !important; }
+.m-rechead { margin-top: var(--jc-gap) !important; }
+.m-rechead2 { margin-top: var(--jc-gap) !important; }
+.guard { margin-top: var(--jc-gap) !important; }
 
 `;
 
