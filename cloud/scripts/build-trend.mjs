@@ -1039,11 +1039,11 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
   font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }
 .ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
 
-/* ① 顶部那排页面标签 —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
+/* ① 顶部那排页面标签 —— 用户 2026-10-17 要求【整排删除】，这里不再有那排标签。
       原因：这一块会被分享页内联进折叠块里，
-      在 iframe 内点那两个跳转标签会跳出当前页、体验很怪；
-      而只剩本页自己那一个也没意义、还白占一行 → HTML 和样式一起删。
-      ⚠️ 别复活：删掉后首屏第一个可见元素就是下面 ② 那行小字。 */
+      在折叠块里点那两个跳转标签会跳出分享页、体验很怪；
+      而只剩它自己那一个也没意义、还白占一行 → HTML 和样式一起删。
+      ⚠️ 别复活：删掉后这块最上面第一个可见元素就是下面 ② 那行小字。 */
 
 /* ② 页眉小字（原来那行绿色大标题也按用户要求删了，只留这行说明）
       上边距给足：顶部 Tab 和大标题都没了，这里就是首屏第一块内容 */
@@ -1318,6 +1318,18 @@ export function scopeTrendCss(css) {
   }).join(','));
 }
 
+/* ① 根节点 id 统一加前缀：tr-root → ro-trend-root。
+      分享页里没有 tr-root（实测逐个数过），但分享页自己一堆 #article /
+      #mask / #owner-badge 之类的 id，加前缀是双保险。
+      挂载层和互动层【各有一处】getElementById('tr-root')，都得跟着改：
+      漏一处 = 块渲染不出来（挂载层拿到 null）或工具栏/预选行全不挂。 */
+function renameRootId(src, label) {
+  return swapOnce(src,
+    "document.getElementById('tr-root')",
+    "document.getElementById('ro-trend-root')",
+    label);
+}
+
 /* ============================================================
    内联适配：挂载层里那几处「只有独立页才说得通」的东西
    ------------------------------------------------------------
@@ -1380,9 +1392,9 @@ export function renderTrendFragment(payload) {
     '',
     appendInteract(RENDER_SRC),
     '',
-    adaptMountForInline(MOUNT_SRC),
+    renameRootId(adaptMountForInline(MOUNT_SRC), '挂载层根节点 id'),
     '',
-    INTERACT_SRC,
+    renameRootId(INTERACT_SRC, '互动层根节点 id'),
     '',
     '/* 验收 / 调试入口（带前缀，不和分享页的全局撞名） */',
     'window.__roTrend = {',
@@ -1447,10 +1459,12 @@ export function assertInlineFragment(html, label) {
     [/href="走势图\.html"/, '指向 走势图.html 的链接'],
     [/在新页面打开走势图/, '「在新页面打开走势图」链接'],
     [/<iframe/i, 'iframe'],
+    [/getElementById\('tr-root'\)/, '旧的根节点 id（tr-root 没加前缀）'],
     [/<\/script>[\s\S]*<\/script>/, '多余的 </script>']
   ];
   const hit = bad.filter((b) => b[0].test(html)).map((b) => b[1]);
   if (hit.length) throw new Error(`走势图片段自检失败（${label || '片段'}）：出现了 ${hit.join(' / ')}`);
+  if (!html.includes('id="ro-trend-root"')) throw new Error('走势图片段自检失败：没有 id="ro-trend-root"');
   const pairs = html.split('<script').length - 1;
   const closes = html.split('</script>').length - 1;
   if (pairs !== closes) throw new Error(`走势图片段自检失败：<script> ${pairs} 个 / </script> ${closes} 个 不成对`);
