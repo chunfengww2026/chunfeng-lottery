@@ -4640,6 +4640,24 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 /* ⑧ 金色球（.lm-ball.lm-gold，洛书/球那套新加的元素）：白字压金底实测只有 2.29，
       改成深棕字（对金底 ≈5.1）—— 球还是金色，只是号码看得清。 */
 .lm-ball.lm-gold { color: var(--ro-fg) !important; }
+/* ⑨ 主标题「春风十里送大奖」：红字 + 白边 + 立体感
+      （用户 2026-10-17 连着三条要求：「改成红色字体」→「红字白边」→「有立体感」）
+      做法：
+        · 红字：#d92b2b（亮红，大字用，米杏底上 ≈4.3 —— 22px/800 属大字号，达标）
+        · 白边：-webkit-text-stroke 3px 白 + paint-order:stroke fill
+                （关键：paint-order 让白边画在红字【外面】，否则描边会吃掉笔画变细）
+        · 立体感：三层逐级压深的红（0 1px→0 3px）做出"厚度"，再加一层柔和落地投影
+        · 兜底：不支持 text-stroke 的引擎靠 text-shadow 的那几层也能看出白边+厚度
+      只改这一个标题，页面别的字一律不动。 */
+.ro-top h1 {
+  color: #d92b2b !important;
+  -webkit-text-stroke: 3px #ffffff !important;
+  paint-order: stroke fill;
+  text-shadow:
+    0 1px 0 #ffffff, 0 -1px 0 #ffffff, 1px 0 0 #ffffff, -1px 0 0 #ffffff,
+    0 2px 0 #b3201f, 0 3px 0 #9c1a1a, 0 4px 0 #831616,
+    0 6px 9px rgba(80, 20, 16, .30) !important;
+}
 
 /* ============================================================
    推荐图目录：手机窄屏整齐化（用户 2026-10-17）
