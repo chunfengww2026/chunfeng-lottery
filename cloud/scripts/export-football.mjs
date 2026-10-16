@@ -258,16 +258,32 @@ function sameTeam(a, b) {
 
 const dayOf = (t) => String(t || '').slice(0, 10);
 
-/** 找 football.js 里对应的那场（用来拿实时比分） */
+/** 找 football.js 里对应的那场（用来拿比分 / 实时状态）
+ *  ⚠️ 两级匹配（2026-10-17 补：用户要求「已完场要有比分显示」）：
+ *     ① 先按【同一天 ±1 天 + 主客队名都认得】—— 最稳，能拿到实时比分和分钟数
+ *     ② ① 找不到时，只按队名再找一次（不限日期，取日期最接近的那场）——
+ *        归档（jc-history）里有些场次的日期和 football.js 的对不上一天，
+ *        只靠 ① 会白白丢掉本来拿得到的比分。
+ *     两级都找不到 → 返回 null（调用方如实显示「—」，不编）。 */
 function findFb(g) {
   if (!ALL_FB.length) return null;
   const jd = dayOf(g.time);
-  return ALL_FB.find((m) => {
-    const d1 = new Date(jd + 'T00:00:00').getTime();
+  const t0 = new Date(jd + 'T00:00:00').getTime();
+  const near = ALL_FB.find((m) => {
+    const d1 = t0;
     const d2 = new Date(dayOf(m.time) + 'T00:00:00').getTime();
     if (Math.abs(d1 - d2) > 86400000) return false;
     return sameTeam(g.home.name, m.home.name) && sameTeam(g.away.name, m.away.name);
-  }) || null;
+  });
+  if (near) return near;
+  /* ② 同队名、不限日期，取日期最近的那一场 */
+  let best = null, bestGap = Infinity;
+  for (const m of ALL_FB) {
+    if (!sameTeam(g.home.name, m.home.name) || !sameTeam(g.away.name, m.away.name)) continue;
+    const gap = Math.abs(t0 - new Date(dayOf(m.time) + 'T00:00:00').getTime());
+    if (gap < bestGap) { best = m; bestGap = gap; }
+  }
+  return best;
 }
 
 /* ---------- 整理每场的展示数据 ---------- */
@@ -888,7 +904,13 @@ function renderMatch(m) {
     `</div>` +
     `<div class="m-teams">` +
     `<span class="m-team home">${hs}${esc(m.home.name)}${hc}</span>` +
-    `<span class="m-vs${m.kind === 'live' ? ' live' : ''}">${m.hasScore ? m.hs + ' - ' + m.as : 'VS'}</span>` +
+    /* 【比分显示】用户 2026-10-17：「已完场要有比分显示」（进行中本来就有）。
+       有比分 → 「4 - 2」；已完场但两边数据都没有这一场的比分 → 「—」
+       （不是「VS」：VS 看着像还没开踢，会让用户以为卡在未开赛状态）；
+       其余（未开赛）才显示 VS。⚠️ 拿不到就如实显示 —，绝不编一个比分。 */
+    `<span class="m-vs${m.kind === 'live' ? ' live' : ''}${m.kind === 'finished' ? ' final' : ''}">` +
+    (m.hasScore ? m.hs + ' - ' + m.as : (m.kind === 'finished' ? '—' : 'VS')) +
+    `</span>` +
     `<span class="m-team away">${esc(m.away.name)}${asR}</span>` +
     `</div>` +
     (euV ? `<div class="m-odds"><span class="m-ol">欧赔</span>` +
@@ -1032,11 +1054,18 @@ function renderRec() {
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
     `<span class="t m-rectitle">推荐串</span>` +
-    `<span class="m-recstat" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</span>` +
     `<span class="d m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
     `</span>` +
     `<span class="right m-rectip" aria-hidden="true"></span>` +
     `</summary>`;
+
+  /* 【战绩数字搬到展开后的内容里】用户 2026-10-17 截图圈掉这一行里的
+     「红 N 黑 M 命中率 X%（前后 24 小时 · 实时更新）」→ 说「去掉」。
+     所以入口行只留「推荐串 · 在售·信心≥55%·N 场 · 点击查看」；
+     数字本身没丢，挪到展开后的第一行（原来就是这么显示的，再往上一轮被人搬进了行里）。
+     ⚠️ id="jcRecStat" + data-reco-updated 【必须留着】：30 秒刷新脚本靠这两个属性定位。 */
+  const statBar =
+    `<div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</div>`;
 
   const note =
     `<div class="m-recnote">只在<b>官方在售</b>场次里挑信心 ≥${REC_MIN}% 的 · ` +
@@ -1099,7 +1128,7 @@ function renderRec() {
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
-  return `<details class="m-rec" id="jcRec">${head}${note}${body}` +
+  return `<details class="m-rec" id="jcRec">${head}${note}${statBar}${body}` +
     (detail ? `<div id="jcRecArch">${detail}</div>` : '') +
     `</details>`;
 }
