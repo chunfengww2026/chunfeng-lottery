@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-17 03:59
+   生成时间：2026-10-17 05:32
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-17 03:59",
+ "updated": "2026-10-17 05:32",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 80,
-  "requests": 216,
+  "requests": 376,
   "errors": 0,
-  "seconds": 192.9
+  "seconds": 328.4
  },
  "games": {
   "ssq": {
@@ -144,6 +144,14 @@ const EXPERTS_DATA = {
      "name": "我定会中奖",
      "url": "/ex/ssqex/tjsy_5_168.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       9,
+       22,
+       31
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -564,6 +572,14 @@ const EXPERTS_DATA = {
      "name": "不恋水的鱼",
      "url": "/ex/ssqex/tjsy_5_26.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       15,
+       16,
+       22
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -987,6 +1003,14 @@ const EXPERTS_DATA = {
      "name": "巴西第一号",
      "url": "/ex/ssqex/tjsy_5_2000.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       3,
+       19,
+       23
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -1405,6 +1429,14 @@ const EXPERTS_DATA = {
      "name": "安静的美少女",
      "url": "/ex/ssqex/tjsy_5_1126.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       12,
+       23,
+       32
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -1826,6 +1858,16 @@ const EXPERTS_DATA = {
      "name": "今年一定发",
      "url": "/ex/ssqex/tjsy_5_323.html",
      "cat": "蓝球定五",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       3,
+       4,
+       14,
+       15,
+       16
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "蓝球定五",
@@ -2248,6 +2290,14 @@ const EXPERTS_DATA = {
      "name": "飞利浦",
      "url": "/ex/ssqex/tjsy_5_786.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       23,
+       25,
+       27
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -2667,6 +2717,14 @@ const EXPERTS_DATA = {
      "name": "红发紫",
      "url": "/ex/ssqex/tjsy_5_306.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       12,
+       21,
+       22
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -3087,6 +3145,14 @@ const EXPERTS_DATA = {
      "name": "紫萸漫步",
      "url": "/ex/ssqex/tjsy_5_1392.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       14,
+       21,
+       29
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -3505,6 +3571,14 @@ const EXPERTS_DATA = {
      "name": "梦幻美系",
      "url": "/ex/ssqex/tjsy_5_1679.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       5,
+       13,
+       26
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -3927,6 +4001,14 @@ const EXPERTS_DATA = {
      "name": "彩金宝",
      "url": "/ex/ssqex/tjsy_5_750.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       22,
+       23,
+       33
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -4574,6 +4656,14 @@ const EXPERTS_DATA = {
      "name": "洗牙帝",
      "url": "/ex/dltex/tjsy_39_81.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       13,
+       14,
+       20
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -4988,6 +5078,14 @@ const EXPERTS_DATA = {
      "name": "起名重名",
      "url": "/ex/dltex/tjsy_39_1056.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       4,
+       6,
+       16
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -5399,6 +5497,31 @@ const EXPERTS_DATA = {
      "name": "ZiHao",
      "url": "/ex/dltex/tjsy_39_1071.html",
      "cat": "红球20码",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       1,
+       5,
+       6,
+       7,
+       8,
+       11,
+       13,
+       14,
+       16,
+       17,
+       18,
+       19,
+       22,
+       24,
+       26,
+       27,
+       28,
+       29,
+       31,
+       32
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球20码",
@@ -5809,6 +5932,14 @@ const EXPERTS_DATA = {
      "name": "老白老师",
      "url": "/ex/dltex/tjsy_39_634.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       4,
+       7,
+       29
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -6220,6 +6351,13 @@ const EXPERTS_DATA = {
      "name": "孙茂琨",
      "url": "/ex/dltex/tjsy_39_816.html",
      "cat": "蓝球定二",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       4,
+       12
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "蓝球定二",
@@ -6630,6 +6768,31 @@ const EXPERTS_DATA = {
      "name": "军歌嘹亮",
      "url": "/ex/dltex/tjsy_39_1407.html",
      "cat": "红球20码",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       2,
+       3,
+       4,
+       7,
+       9,
+       12,
+       13,
+       14,
+       18,
+       19,
+       20,
+       23,
+       24,
+       26,
+       27,
+       30,
+       31,
+       32,
+       34,
+       35
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球20码",
@@ -7038,6 +7201,14 @@ const EXPERTS_DATA = {
      "name": "飞利浦",
      "url": "/ex/dltex/tjsy_39_786.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       1,
+       25,
+       29
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -7448,6 +7619,14 @@ const EXPERTS_DATA = {
      "name": "ak770",
      "url": "/ex/dltex/tjsy_39_42.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       5,
+       13,
+       15
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -7857,6 +8036,14 @@ const EXPERTS_DATA = {
      "name": "基本面分析",
      "url": "/ex/dltex/tjsy_39_659.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       13,
+       19,
+       27
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -8262,6 +8449,14 @@ const EXPERTS_DATA = {
      "name": "大星派",
      "url": "/ex/dltex/tjsy_39_1656.html",
      "cat": "红球三胆",
+     "catLatest": {
+      "issue": "2026117",
+      "nums": [
+       4,
+       13,
+       31
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "红球三胆",
@@ -8926,6 +9121,18 @@ const EXPERTS_DATA = {
      "name": "KYMDA",
      "url": "/ex/fc3dex/tjsy_6_76.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       3,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -9150,6 +9357,16 @@ const EXPERTS_DATA = {
      "name": "此生必中",
      "url": "/ex/fc3dex/tjsy_6_109.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       2,
+       6,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -9367,6 +9584,16 @@ const EXPERTS_DATA = {
      "name": "静心等待",
      "url": "/ex/fc3dex/tjsy_6_1458.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       2,
+       4,
+       5,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -9585,6 +9812,16 @@ const EXPERTS_DATA = {
      "name": "向钱一镖",
      "url": "/ex/fc3dex/tjsy_6_1576.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       5,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -9802,6 +10039,16 @@ const EXPERTS_DATA = {
      "name": "AiKD35",
      "url": "/ex/fc3dex/tjsy_6_116.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       2,
+       6,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -10019,6 +10266,16 @@ const EXPERTS_DATA = {
      "name": "伯乐中五百万",
      "url": "/ex/fc3dex/tjsy_6_90.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       2,
+       3,
+       4,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -10235,6 +10492,16 @@ const EXPERTS_DATA = {
      "name": "风雪心情",
      "url": "/ex/fc3dex/tjsy_6_240.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       3,
+       6,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -10451,6 +10718,16 @@ const EXPERTS_DATA = {
      "name": "铭汇字牌",
      "url": "/ex/fc3dex/tjsy_6_716.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       2,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -10667,6 +10944,18 @@ const EXPERTS_DATA = {
      "name": "爱回原点",
      "url": "/ex/fc3dex/tjsy_6_1450.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       7
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -10887,6 +11176,16 @@ const EXPERTS_DATA = {
      "name": "蜂毒",
      "url": "/ex/fc3dex/tjsy_6_896.html",
      "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       3,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "五码组选",
@@ -11106,59 +11405,59 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 8,
-      "pct": 93.1
+      "pct": 92.7
      },
      {
       "num": 2,
-      "pct": 85
+      "pct": 84
      },
      {
       "num": null,
-      "pct": 72.5
+      "pct": 73.7
      },
      {
       "num": null,
-      "pct": 62.5
+      "pct": 59.3
      },
      {
       "num": null,
-      "pct": 59.4
+      "pct": 57.7
      },
      {
       "num": null,
-      "pct": 32.5
+      "pct": 35.7
      },
      {
       "num": 8,
-      "pct": 95.6
+      "pct": 94.3
      },
      {
       "num": 2,
-      "pct": 76.9
+      "pct": 74.3
      },
      {
       "num": null,
-      "pct": 65
+      "pct": 67
      },
      {
       "num": null,
-      "pct": 58.8
+      "pct": 56.7
      },
      {
       "num": null,
-      "pct": 50
+      "pct": 51.7
      },
      {
       "num": null,
-      "pct": 45
+      "pct": 46.3
      },
      {
       "num": 8,
-      "pct": 95.6
+      "pct": 93.7
      },
      {
       "num": 2,
-      "pct": 81.9
+      "pct": 81
      },
      {
       "num": null,
@@ -11166,15 +11465,15 @@ const EXPERTS_DATA = {
      },
      {
       "num": null,
-      "pct": 51.9
+      "pct": 51.3
      },
      {
       "num": null,
-      "pct": 40
+      "pct": 40.3
      },
      {
       "num": null,
-      "pct": 39.4
+      "pct": 38.7
      }
     ],
     "blue": [],
@@ -11348,6 +11647,20 @@ const EXPERTS_DATA = {
      "name": "诺日朗168",
      "url": "/ex/klbex/tjsy_8_1554.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       14,
+       15,
+       19,
+       29,
+       39,
+       45,
+       50,
+       63
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -11665,6 +11978,20 @@ const EXPERTS_DATA = {
      "name": "阿伦",
      "url": "/ex/klbex/tjsy_8_1235.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       13,
+       14,
+       18,
+       33,
+       39,
+       58,
+       60,
+       67,
+       68
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -11986,6 +12313,23 @@ const EXPERTS_DATA = {
      "name": "中大奖啊",
      "url": "/ex/klbex/tjsy_8_884.html",
      "cat": "12码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       5,
+       7,
+       8,
+       12,
+       35,
+       36,
+       41,
+       50,
+       51,
+       65,
+       73,
+       79
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "12码",
@@ -12300,6 +12644,20 @@ const EXPERTS_DATA = {
      "name": "六儿小沙弥",
      "url": "/ex/klbex/tjsy_8_201.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       24,
+       31,
+       33,
+       37,
+       41,
+       49,
+       50,
+       51,
+       64
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -12614,6 +12972,20 @@ const EXPERTS_DATA = {
      "name": "孤独心",
      "url": "/ex/klbex/tjsy_8_1322.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       12,
+       19,
+       29,
+       31,
+       48,
+       55,
+       68,
+       72,
+       77
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -12926,6 +13298,20 @@ const EXPERTS_DATA = {
      "name": "王兴刚",
      "url": "/ex/klbex/tjsy_8_936.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       5,
+       16,
+       18,
+       19,
+       39,
+       51,
+       66,
+       67,
+       75
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -13244,6 +13630,20 @@ const EXPERTS_DATA = {
      "name": "liujunyan",
      "url": "/ex/klbex/tjsy_8_40.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       7,
+       11,
+       22,
+       31,
+       38,
+       43,
+       47,
+       52,
+       63
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -13558,6 +13958,26 @@ const EXPERTS_DATA = {
      "name": "冰封之心",
      "url": "/ex/klbex/tjsy_8_1138.html",
      "cat": "15码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       3,
+       6,
+       11,
+       33,
+       37,
+       38,
+       42,
+       51,
+       55,
+       61,
+       66,
+       68,
+       72,
+       76,
+       79
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "15码",
@@ -13874,6 +14294,20 @@ const EXPERTS_DATA = {
      "name": "飞龙在天",
      "url": "/ex/klbex/tjsy_8_1352.html",
      "cat": "9码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       3,
+       13,
+       17,
+       21,
+       25,
+       53,
+       60,
+       69,
+       72
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "9码",
@@ -14192,6 +14626,21 @@ const EXPERTS_DATA = {
      "name": "止戈",
      "url": "/ex/klbex/tjsy_8_893.html",
      "cat": "10码",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       3,
+       19,
+       21,
+       33,
+       37,
+       38,
+       48,
+       49,
+       65,
+       72
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "10码",
@@ -14515,47 +14964,51 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 45,
-      "pct": 29.4
-     },
-     {
-      "num": 70,
-      "pct": 12.5
-     },
-     {
-      "num": 47,
-      "pct": 11.9
+      "pct": 26.3
      },
      {
       "num": 72,
-      "pct": 8.8
+      "pct": 11.7
+     },
+     {
+      "num": 70,
+      "pct": 11
+     },
+     {
+      "num": 47,
+      "pct": 9.7
      },
      {
       "num": 31,
-      "pct": 7.5
+      "pct": 7.3
      },
      {
       "num": 44,
-      "pct": 6.3
-     },
-     {
-      "num": 43,
-      "pct": 5
+      "pct": 6.7
      },
      {
       "num": 46,
-      "pct": 5
+      "pct": 6.7
      },
      {
       "num": 32,
-      "pct": 3.8
+      "pct": 5
      },
      {
-      "num": 71,
-      "pct": 2.5
+      "num": 43,
+      "pct": 4.3
+     },
+     {
+      "num": 63,
+      "pct": 2.3
      },
      {
       "num": null,
-      "pct": 1.9
+      "pct": 2.3
+     },
+     {
+      "num": null,
+      "pct": 1.7
      },
      {
       "num": null,
@@ -14567,27 +15020,23 @@ const EXPERTS_DATA = {
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0.6
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
-     },
-     {
-      "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
@@ -14820,6 +15269,18 @@ const EXPERTS_DATA = {
      "name": "生生",
      "url": "/ex/pl3ex/tjsy_63_1568.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -15037,6 +15498,18 @@ const EXPERTS_DATA = {
      "name": "Ting",
      "url": "/ex/pl3ex/tjsy_63_686.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       6,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -15264,6 +15737,18 @@ const EXPERTS_DATA = {
      "name": "北仑小情人",
      "url": "/ex/pl3ex/tjsy_63_1796.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -15479,6 +15964,18 @@ const EXPERTS_DATA = {
      "name": "帅哥哥love",
      "url": "/ex/pl3ex/tjsy_63_948.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       6,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -15694,6 +16191,18 @@ const EXPERTS_DATA = {
      "name": "或者",
      "url": "/ex/pl3ex/tjsy_63_1170.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -15915,6 +16424,18 @@ const EXPERTS_DATA = {
      "name": "太友乾",
      "url": "/ex/pl3ex/tjsy_63_1735.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       4,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -16130,6 +16651,18 @@ const EXPERTS_DATA = {
      "name": "蔡泽川",
      "url": "/ex/pl3ex/tjsy_63_1503.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -16357,6 +16890,18 @@ const EXPERTS_DATA = {
      "name": "寂寞零度168",
      "url": "/ex/pl3ex/tjsy_63_802.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       6,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -16573,6 +17118,18 @@ const EXPERTS_DATA = {
      "name": "草月花舍",
      "url": "/ex/pl3ex/tjsy_63_1671.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       6,
+       7
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -16794,6 +17351,18 @@ const EXPERTS_DATA = {
      "name": "发家致富奔",
      "url": "/ex/pl3ex/tjsy_63_1819.html",
      "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       5,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "七码组选",
@@ -17011,23 +17580,23 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 6,
-      "pct": 98.8
+      "pct": 96.7
      },
      {
       "num": 5,
-      "pct": 82.5
+      "pct": 85
      },
      {
       "num": null,
-      "pct": 78.8
+      "pct": 76
      },
      {
       "num": null,
-      "pct": 71.9
+      "pct": 72.3
      },
      {
       "num": null,
-      "pct": 63.8
+      "pct": 62
      },
      {
       "num": null,
@@ -17035,51 +17604,51 @@ const EXPERTS_DATA = {
      },
      {
       "num": 8,
-      "pct": 93.8
+      "pct": 95.7
      },
      {
-      "num": 6,
-      "pct": 90
-     },
-     {
-      "num": null,
-      "pct": 89.4
+      "num": 3,
+      "pct": 88.7
      },
      {
       "num": null,
-      "pct": 60
+      "pct": 88.7
      },
      {
       "num": null,
-      "pct": 55
+      "pct": 59
      },
      {
       "num": null,
-      "pct": 54.4
+      "pct": 56.7
      },
      {
-      "num": 6,
-      "pct": 95
+      "num": null,
+      "pct": 51.3
      },
      {
       "num": 8,
-      "pct": 91.9
+      "pct": 94.7
+     },
+     {
+      "num": 6,
+      "pct": 92.7
      },
      {
       "num": null,
-      "pct": 65.6
+      "pct": 69
      },
      {
       "num": null,
-      "pct": 64.4
+      "pct": 62
      },
      {
       "num": null,
-      "pct": 56.3
+      "pct": 54.7
      },
      {
       "num": null,
-      "pct": 43.1
+      "pct": 41.3
      }
     ],
     "blue": [],
@@ -17303,6 +17872,16 @@ const EXPERTS_DATA = {
      "name": "草月花舍",
      "url": "/ex/pl5ex/tjsy_64_1671.html",
      "cat": "千位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       3,
+       4,
+       6
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "千位定5",
@@ -17425,6 +18004,16 @@ const EXPERTS_DATA = {
      "name": "专注竞彩",
      "url": "/ex/pl5ex/tjsy_64_820.html",
      "cat": "千位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       5,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "千位定5",
@@ -17553,6 +18142,16 @@ const EXPERTS_DATA = {
      "name": "我爱竞彩",
      "url": "/ex/pl5ex/tjsy_64_701.html",
      "cat": "百位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "百位定5",
@@ -17683,6 +18282,16 @@ const EXPERTS_DATA = {
      "name": "午夜后者",
      "url": "/ex/pl5ex/tjsy_64_706.html",
      "cat": "千位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       3,
+       5,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "千位定5",
@@ -17811,6 +18420,16 @@ const EXPERTS_DATA = {
      "name": "顺其自然",
      "url": "/ex/pl5ex/tjsy_64_458.html",
      "cat": "十位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       2,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "十位定5",
@@ -17941,6 +18560,16 @@ const EXPERTS_DATA = {
      "name": "jayxhou",
      "url": "/ex/pl5ex/tjsy_64_1837.html",
      "cat": "十位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       2,
+       6,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "十位定5",
@@ -18069,6 +18698,16 @@ const EXPERTS_DATA = {
      "name": "浪子",
      "url": "/ex/pl5ex/tjsy_64_1944.html",
      "cat": "百位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       4,
+       6,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "百位定5",
@@ -18197,6 +18836,16 @@ const EXPERTS_DATA = {
      "name": "中了一千万",
      "url": "/ex/pl5ex/tjsy_64_1759.html",
      "cat": "十位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       1,
+       3,
+       5,
+       6,
+       7
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "十位定5",
@@ -18325,6 +18974,16 @@ const EXPERTS_DATA = {
      "name": "彩票小达人",
      "url": "/ex/pl5ex/tjsy_64_1027.html",
      "cat": "十位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       7
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "十位定5",
@@ -18451,6 +19110,16 @@ const EXPERTS_DATA = {
      "name": "LanCe",
      "url": "/ex/pl5ex/tjsy_64_703.html",
      "cat": "百位定5",
+     "catLatest": {
+      "issue": "2026275",
+      "nums": [
+       0,
+       1,
+       3,
+       4,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "百位定5",
@@ -18686,6 +19355,19 @@ const EXPERTS_DATA = {
      "name": "vicky",
      "url": "/ex/xqxcex/tjsy_7_433.html",
      "cat": "后区定8",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       3,
+       5,
+       6,
+       7,
+       8,
+       9,
+       13
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "后区定8",
@@ -18845,6 +19527,16 @@ const EXPERTS_DATA = {
      "name": "青峰云烟",
      "url": "/ex/xqxcex/tjsy_7_282.html",
      "cat": "前1定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       1,
+       4,
+       6,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前1定5",
@@ -19008,6 +19700,19 @@ const EXPERTS_DATA = {
      "name": "无爱的苦逼",
      "url": "/ex/xqxcex/tjsy_7_818.html",
      "cat": "后区定8",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       11,
+       13,
+       14
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "后区定8",
@@ -19173,6 +19878,19 @@ const EXPERTS_DATA = {
      "name": "業獄殇",
      "url": "/ex/xqxcex/tjsy_7_632.html",
      "cat": "后区定8",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       4,
+       5,
+       6,
+       7,
+       8,
+       11,
+       14
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "后区定8",
@@ -19332,6 +20050,16 @@ const EXPERTS_DATA = {
      "name": "飞花轻似梦",
      "url": "/ex/xqxcex/tjsy_7_1074.html",
      "cat": "前2定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       4,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前2定5",
@@ -19492,6 +20220,16 @@ const EXPERTS_DATA = {
      "name": "聚缘",
      "url": "/ex/xqxcex/tjsy_7_633.html",
      "cat": "前6定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       2,
+       4,
+       7,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前6定5",
@@ -19649,6 +20387,16 @@ const EXPERTS_DATA = {
      "name": "健健康康八",
      "url": "/ex/xqxcex/tjsy_7_1864.html",
      "cat": "前3定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前3定5",
@@ -19813,6 +20561,16 @@ const EXPERTS_DATA = {
      "name": "就这么一次",
      "url": "/ex/xqxcex/tjsy_7_489.html",
      "cat": "前1定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       2,
+       3,
+       6,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前1定5",
@@ -19981,6 +20739,16 @@ const EXPERTS_DATA = {
      "name": "阿力",
      "url": "/ex/xqxcex/tjsy_7_862.html",
      "cat": "前2定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       1,
+       4,
+       7,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前2定5",
@@ -20140,6 +20908,16 @@ const EXPERTS_DATA = {
      "name": "换名求改运",
      "url": "/ex/xqxcex/tjsy_7_1770.html",
      "cat": "前3定5",
+     "catLatest": {
+      "issue": "2026118",
+      "nums": [
+       0,
+       1,
+       5,
+       8,
+       9
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "前3定5",
@@ -20383,6 +21161,29 @@ const EXPERTS_DATA = {
      "name": "貔貅招财来",
      "url": "/ex/qlcex/tjsy_13_1118.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       1,
+       2,
+       6,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       19,
+       21,
+       22,
+       23,
+       24,
+       28,
+       29,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -20783,6 +21584,29 @@ const EXPERTS_DATA = {
      "name": "郭贱人",
      "url": "/ex/qlcex/tjsy_13_1537.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       3,
+       4,
+       5,
+       7,
+       8,
+       10,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       23,
+       24,
+       25,
+       26,
+       29,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -21183,6 +22007,29 @@ const EXPERTS_DATA = {
      "name": "華陽玥",
      "url": "/ex/qlcex/tjsy_13_1975.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       2,
+       4,
+       6,
+       7,
+       9,
+       11,
+       12,
+       14,
+       16,
+       17,
+       18,
+       20,
+       22,
+       23,
+       26,
+       28,
+       29,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -21580,6 +22427,14 @@ const EXPERTS_DATA = {
      "name": "wwaann",
      "url": "/ex/qlcex/tjsy_13_1145.html",
      "cat": "三胆",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       8,
+       19,
+       26
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "三胆",
@@ -21976,6 +22831,29 @@ const EXPERTS_DATA = {
      "name": "伤心",
      "url": "/ex/qlcex/tjsy_13_383.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       1,
+       2,
+       3,
+       5,
+       8,
+       9,
+       11,
+       12,
+       14,
+       15,
+       16,
+       18,
+       21,
+       22,
+       24,
+       25,
+       26,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -22371,6 +23249,29 @@ const EXPERTS_DATA = {
      "name": "笑起来真好看",
      "url": "/ex/qlcex/tjsy_13_163.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       2,
+       3,
+       5,
+       6,
+       7,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       20,
+       22,
+       24,
+       25,
+       28,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -22771,6 +23672,29 @@ const EXPERTS_DATA = {
      "name": "饮酒微醉",
      "url": "/ex/qlcex/tjsy_13_518.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       1,
+       2,
+       3,
+       4,
+       6,
+       7,
+       8,
+       10,
+       11,
+       12,
+       13,
+       15,
+       17,
+       20,
+       22,
+       24,
+       26,
+       28
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -23172,6 +24096,29 @@ const EXPERTS_DATA = {
      "name": "buzhidao",
      "url": "/ex/qlcex/tjsy_13_313.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       1,
+       3,
+       6,
+       8,
+       9,
+       10,
+       14,
+       16,
+       17,
+       18,
+       19,
+       20,
+       22,
+       24,
+       25,
+       28,
+       29,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
@@ -23573,6 +24520,14 @@ const EXPERTS_DATA = {
      "name": "山泉",
      "url": "/ex/qlcex/tjsy_13_1830.html",
      "cat": "三胆",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       1,
+       10,
+       16
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "三胆",
@@ -23970,6 +24925,29 @@ const EXPERTS_DATA = {
      "name": "MRL",
      "url": "/ex/qlcex/tjsy_13_924.html",
      "cat": "18码",
+     "catLatest": {
+      "issue": "2026119",
+      "nums": [
+       2,
+       3,
+       5,
+       6,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       16,
+       17,
+       19,
+       20,
+       21,
+       26,
+       28,
+       30
+      ]
+     },
      "siteMetrics": [
       {
        "cat": "18码",
