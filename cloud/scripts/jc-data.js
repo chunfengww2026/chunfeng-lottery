@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 04:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 05:13 */
 const JC_DATA = {
- "updated": "2026-10-17 04:58",
+ "updated": "2026-10-17 05:13",
  "stat": {
   "total": 11,
   "upcoming": 1,
-  "live": 5,
-  "finished": 5,
+  "live": 4,
+  "finished": 6,
   "withScore": 10
  },
  "games": [
@@ -80,7 +80,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.7,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -188,7 +189,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 7.3,
-    "rqLine": "受半球"
+    "rqLine": "受半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受半球",
@@ -296,7 +298,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.3,
-    "rqLine": "受一球"
+    "rqLine": "受一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "受一球",
@@ -404,7 +407,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.6,
-    "rqLine": "一球"
+    "rqLine": "一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "一球",
@@ -512,7 +516,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.3,
-    "rqLine": "一球"
+    "rqLine": "一球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "一球",
@@ -620,7 +625,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5,
-    "rqLine": "半球"
+    "rqLine": "半球",
+    "type": "three"
    },
    "asianIndex": {
     "line": "半球",
@@ -650,7 +656,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -728,7 +734,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.5,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -836,7 +843,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.3,
-    "rqLine": "受半球"
+    "rqLine": "受半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受半球",
@@ -944,7 +952,8 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.3,
-    "rqLine": "受平手/半球"
+    "rqLine": "受平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受平手/半球",
@@ -1052,7 +1061,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.5,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -1157,7 +1167,8 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 5.1,
-    "rqLine": "平手/半球"
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -1193,8 +1204,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
   "updated": "2026-10-17 04:58",
   "officialUpdate": "2026-10-16 21:46:05",
   "inSale": 35,

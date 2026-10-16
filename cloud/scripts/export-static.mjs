@@ -738,8 +738,11 @@ GROUPS.forEach((group) => {
    这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
    （下面有断言，不一致时生成日志里会直接报出来）。 */
 const TOC_ROWS = [
-  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 五行/绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
-  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 五行/绕胆/九转/九宫',     g: 'dlt',  i: 'wuxing' }],
+  /* 【长名字拆两行】用户 2026-10-17：手机 335px 下「双色球 五行/绕胆/九转/九宫」会折 3 行
+     → 撑破 56px 的格子（第三行被裁掉，看着就是"高矮不齐 + 空档"）。
+     所以拆成【主标题 t】+【副标题 s】：一行放得下，格子自然整齐；没有 s 的就是单行格子。 */
+  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 · 五行',  s: '绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
+  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 · 五行',  s: '绕胆/九转/九宫', g: 'dlt',  i: 'wuxing' }],
   [{ t: '3D',               g: 'fc3d', i: 'main' }, { t: '快乐8',            g: 'kl8',  i: 'main'   }],
   [{ t: '排列三',           g: 'pl3',  i: 'main' }, { t: '排列五',           g: 'pl5',  i: 'main'   }],
   [{ t: '七乐彩',           g: 'qlc',  i: 'main' }, { t: '七星彩',           g: 'qxc',  i: 'main'   }]
@@ -768,8 +771,13 @@ const tocHtml =
   `</div>` +
   `<table class="ro-imgtoc"><tbody>` +
   TOC_ROWS.map((row) => `<tr>` + row.map((cell) =>
-    `<td><a class="ro-toc-cell" href="#ro-g-${cell.g}-${cell.i}" ` +
-    `data-ro-toc-game="${cell.g}" data-ro-toc-image="${cell.i}">${cell.t}</a></td>`
+    /* 【主标题 + 副标题】长名字（五行/绕胆/九转/九宫）拆成两行小字，一行放得下，
+       格子就不会被折 3 行撑破（用户 2026-10-17 要求）。点击照旧：整块都在 <a> 里。 */
+    `<td><a class="ro-toc-cell${cell.s ? ' two-line' : ''}" href="#ro-g-${cell.g}-${cell.i}" ` +
+    `data-ro-toc-game="${cell.g}" data-ro-toc-image="${cell.i}">` +
+    `<b class="ro-toc-t">${cell.t}</b>` +
+    (cell.s ? `<i class="ro-toc-s">${cell.s}</i>` : '') +
+    `</a></td>`
   ).join('') + `</tr>`).join('') +
   `</tbody></table>` +
   `</div>`;
@@ -4519,6 +4527,48 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-aipick-btn.ghost { color: var(--ro-fg) !important; }
 .p3d-type-btn.active { color: var(--ro-fg) !important; }
 #luoshuZero, .luoshu-zero { color: #f2ead9 !important; }
+
+/* ============================================================
+   推荐图目录：手机窄屏整齐化（用户 2026-10-17）
+   ------------------------------------------------------------
+   实测（headless 335px，真浏览器量 box）：__TOC_EQH__ 的固定 56px 其实【已经在生效】
+   （10 个格子全是 56px 高）——真正的问题是【长名字折 3 行 → 溢出被裁】：
+     .ro-toc-cell scrollHeight 62 > 56，第三行被 overflow:hidden 切掉，
+     所以看起来"高矮不齐 + 一片空档"。
+     ① 强制等高：沿用固定 56px + 网格行高，这里再显式兜一层（防被后面的规则盖掉）
+     ② 主标题 + 副标题：长名字拆成两行小字（配合 TOC_ROWS 里的 s 字段，一行放得下）
+     ③ 兜底：< 360px 改单列（两列时每格只有 ~150px，塞长字必然折行）
+   ⚠️ 只动布局/字号/颜色；点击功能照旧（整块都在 a 标签里，JS 也是按 .ro-toc-cell 找的）。
+   ⚠️ 目录格子数不变（5 行 × 2 列 = 10 格，不变量「ro-toc-cell ≥ 10」保持）。 */
+.ro-imgtoc .ro-toc-cell { display: flex !important; flex-direction: column !important;
+  align-items: center !important; justify-content: center !important;
+  height: 56px !important; min-height: 56px !important; max-height: 56px !important;
+  overflow: hidden !important; padding: 4px 8px !important; line-height: 1.22 !important; }
+.ro-imgtoc { grid-auto-rows: 56px !important; }
+.ro-imgtoc .ro-toc-cell .ro-toc-t { display: block; font-size: 13.5px; font-weight: 700; color: var(--ro-fg); }
+.ro-imgtoc .ro-toc-cell .ro-toc-s { display: block; font-style: normal; font-weight: 400;
+  font-size: 10.5px; margin-top: 1px; color: var(--ro-fg2); white-space: nowrap; }
+.ro-imgtoc .ro-toc-cell.two-line { font-size: 13.5px !important; }
+@media (max-width: 360px) {
+  .ro-imgtoc { grid-template-columns: 1fr !important; }
+  .ro-imgtoc .ro-toc-cell .ro-toc-t { font-size: 15px; }
+  .ro-imgtoc .ro-toc-cell .ro-toc-s { font-size: 11.5px; }
+}
+
+/* ============================================================
+   【专家推荐 · 入口行居中】用户 2026-10-17 截图点名：「居中」。
+   ------------------------------------------------------------
+   原来这一行是 flex：图标 + 标题(flex:1) + 人数 + 展开箭头，
+   标题虽然占剩余宽度，但左右都被挤着 → 视觉上是【左对齐】；
+   而「走势图」「文章参考」那几行都是居中标题，风格不统一。
+   做法：把 图标 / 人数 / 箭头 移出文档流（绝对定位钉在左右两端），
+   标题独占整行 + text-align:center ⇒ 真正居中，两端信息一个不少。
+   ⚠️ 只动这一行的排版：不改文案、不改结构、不加删元素。 */
+.ro-xj > .ro-xj-header { position: relative; }
+.ro-xj > .ro-xj-header .ro-xj-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
+.ro-xj > .ro-xj-header .ro-xj-count { position: absolute; right: 62px; top: 50%; transform: translateY(-50%); }
+.ro-xj > .ro-xj-header .ro-xj-arrow { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
+.ro-xj > .ro-xj-header .ro-xj-title { flex: 1 1 auto; text-align: center; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -6527,13 +6577,12 @@ ${RO_RENDER_SCRIPT}
           if (e && e.preventDefault) e.preventDefault();
           var id = attr(node, 'data-ro-aipick-game');
           if (!byId[id] || id === st.game) return;
-          /* 切彩种 → 全部重置 + 显示该彩种的规则（自己选的号也一起清掉） */
+          /* 切彩种 → 全部重置 + 显示该彩种的规则（「选几个」也回到默认个数） */
           st.game = id;
           st.times = 1;
           st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
           st.multi = {};
           st.rows = [];
-          if (inTimes) inTimes.value = '1';
           if (inTimes) inTimes.value = '1';
           buildKl8(byId[id]);
           buildMultiRow(byId[id]);
@@ -6555,7 +6604,7 @@ ${RO_RENDER_SCRIPT}
     }
     if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
 
-    /* ---------- 初始状态：双色球 · 机选 · 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
+    /* ---------- 初始状态：双色球 · 自己选号 · 红球 7 个 / 蓝球 1 个 · 倍数 1 · 结果为空 ---------- */
     (function setup() {
       var g = G();
       buildKl8(g);
@@ -6569,7 +6618,6 @@ ${RO_RENDER_SCRIPT}
       state: function () {
         return { game: st.game, times: st.times, kl8: st.kl8, rows: st.rows.length,
                  multi: st.multi };
-      },
       },
       rows: function () { return st.rows; },
       lastImage: function () { return st.pic || null; }        /* 保存图片生成的最后一张（只在内存里） */
