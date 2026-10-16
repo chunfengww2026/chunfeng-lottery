@@ -294,6 +294,13 @@ const CODE_MODULES = [
         · trend-mount.js   挂载 + 彩种切换（同样被内嵌）
      它们只读本机同步上去的 history.js，不抓网络、不调 AI → 云端零成本可跑。 */
   'build-trend.mjs', 'trend-render.js', 'trend-mount.js',
+  /* 【3D & 排列三 手绘参考图】区块（用户 2026-10-17 规格）。
+      必须同步：export-static.mjs 现在 import 了 p3d-section.mjs、
+      require 了 p3d-analyzer.js。云端重新生成分享页时少了任一个，
+      node 会直接 Cannot find module → 整个分享页构建失败
+      （不只是少一块，是整页生成挂掉）。 */
+  'p3d-section.mjs',
+  'p3d-analyzer.js',
   /* 【彩种规则 · 唯一真源】lottery-rules.mjs —— 号码区范围/每区个数/位型 只写一处。
      ⚠️ 必须同步：build-trend.mjs 与 ocr-tickets.mjs 都 import 它，
         云端少这一个文件 → ERR_MODULE_NOT_FOUND → 走势图页 + OCR 认票整块挂掉。
