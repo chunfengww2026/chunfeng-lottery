@@ -2,13 +2,13 @@
    kjh-data.js —— 「开机号」+「选号直播」数据（自动生成，请勿手动编辑）
 
    由 build-kjh.mjs 生成（每天 2 点一次，跟着 daily-update.mjs）。
-   更新时间：2026-10-16 16:28
-   开机号 8 个彩种 · 回放 0 条。
+   更新时间：2026-10-16 02:33
+   开机号 8 个彩种 · 回放 12 条。
    只有文字，没有图片（不下载、不外链图片）。
    ============================================================ */
 
 const KJH_DATA = {
- "updated": "2026-10-16 16:28",
+ "updated": "2026-10-16 02:33",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -198,7 +198,92 @@ const KJH_DATA = {
  "live": {
   "onAir": false,
   "statusText": "当前暂无直播",
-  "items": [],
+  "items": [
+   {
+    "url": "https://m.yiqicai.com/live/list/history90864.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八260期分析：小车选五复七中6",
+    "see": "194人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90748.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八259期分析：小车重点关注选二",
+    "see": "180人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90645.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八258期分析：小车重点关注选二",
+    "see": "323人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90546.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八257期分析：小车重点关注选二",
+    "see": "310人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90438.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八256期分析：小车重点关注选二",
+    "see": "225人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90273.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八255期分析：小车四胆、选二中",
+    "see": "347人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90232.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八254期分析：圈子选二复四中",
+    "see": "409人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90051.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八253期分析：小车重点关注选二",
+    "see": "298人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history90002.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八252期分析： 小车选二单式中",
+    "see": "166人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history89887.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八251期分析：小车重点关注选二",
+    "see": "384人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history89705.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八249期分析：昨天选二复四中",
+    "see": "257人看过"
+   },
+   {
+    "url": "https://m.yiqicai.com/live/list/history89606.html",
+    "name": "快乐八小义",
+    "game": "快乐8",
+    "text": "小义快乐八248期分析：小车选二单式中",
+    "see": "317人看过"
+   }
+  ],
   "home": "https://m.yiqicai.com/live"
  }
 };
