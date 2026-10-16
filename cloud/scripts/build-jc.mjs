@@ -628,6 +628,41 @@ async function main() {
     return;
   }
 
+  /* ============================================================
+     【离线补算】--retype
+     不联网、不抓数据：读【已有的 jc-data.js】，用它里面已经由真实赔率
+     算好的 reco.prob 重新判一遍类型（用的是 calcReco 里同一个
+     recoTypeOf），把 reco.type 补进文件再原样写回去；其余字段不变。
+     为什么需要这个模式：500.com 抓不到时（本机网络不通 / 云端被拒），
+     「不败」类型不能一直干等下一次联网生效。
+     ⚠️ 只写 jc-data.js —— 不归档、绝不碰 jc-history.js
+        （历史归档记录不带 type，出页面时仍按 'three' 判红黑）。
+     ============================================================ */
+  if (process.argv.includes('--retype')) {
+    const cur = loadVar('jc-data.js', 'JC_DATA');
+    if (!cur || !Array.isArray(cur.games)) { log('❌ 读不到 jc-data.js'); process.exit(1); }
+    let three = 0, unbeaten = 0, none = 0;
+    log('【离线补算】推荐类型 reco.type（只读已有 reco.prob，不联网、不抓数据）');
+    cur.games.forEach((g) => {
+      const r = g.reco;
+      if (!r) { none++; log(`  ${g.code} 无 reco（当时没抓到赔率）→ 不写 type`); return; }
+      const t = recoTypeOf(r.pick, r.prob);
+      r.type = t;
+      if (t === 'unbeaten') unbeaten++; else three++;
+      const top = r.prob
+        ? Math.max(Number(r.prob.home), Number(r.prob.draw), Number(r.prob.away))
+        : null;
+      log(`  ${g.code} ${g.home.name} vs ${g.away.name} · ${r.label} ` +
+          `最高概率 ${top == null ? '—' : top + '%'} → type=${t}`);
+    });
+    fs.writeFileSync(OUT, `/* 自动生成，请勿手动编辑 · ${cur.updated} */\n` +
+      `const JC_DATA = ${JSON.stringify(cur, null, 1)};\n`, 'utf8');
+    log(`\n✅ 已写回 ${OUT}（数据内容没变，只补了 reco.type）`);
+    log(`   共 ${cur.games.length} 场：three ${three} · unbeaten ${unbeaten} · 无 reco ${none}`);
+    log('   jc-history.js 未被触碰：历史归档记录不带 type，出页面时仍按 three 判红黑');
+    return;
+  }
+
   log('【1/3】竞彩在售列表');
   /* 【归档用】先把上一次的 jc-data 读出来 —— 覆盖之后就没了 */
   const oldJc = loadVar('jc-data.js', 'JC_DATA');
