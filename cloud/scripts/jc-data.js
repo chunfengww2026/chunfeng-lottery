@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 15:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 15:58 */
 const JC_DATA = {
- "updated": "2026-10-16 15:28",
+ "updated": "2026-10-16 15:58",
  "stat": {
   "total": 44,
   "upcoming": 44,
@@ -48,9 +48,9 @@ const JC_DATA = {
       "away": 4
      },
      "live": {
-      "home": 2.25,
-      "draw": 3.75,
-      "away": 2.9
+      "home": 2.3,
+      "draw": 3.8,
+      "away": 2.75
      }
     },
     "overunder": {
@@ -69,14 +69,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 42.1,
+    "confidence": 41,
     "prob": {
-     "home": 42.1,
-     "draw": 25.3,
-     "away": 32.7
+     "home": 41,
+     "draw": 24.8,
+     "away": 34.3
     },
     "clear": false,
-    "margin": 5.6,
+    "margin": 6.2,
     "rqLine": "平手/半球"
    },
    "asianIndex": {
@@ -4477,8 +4477,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 15:28",
-  "officialUpdate": "2026-10-16 15:17:42",
+  "updated": "2026-10-16 15:58",
+  "officialUpdate": "2026-10-16 15:43:38",
   "inSale": 45,
   "list": [
    {
@@ -4489,17 +4489,17 @@ const JC_DATA = {
     "home": "悉尼FC",
     "away": "西悉尼",
     "had": {
-     "h": 2.03,
+     "h": 2.09,
      "d": 3.53,
-     "a": 2.83,
-     "update": "2026-10-16 13:40:55"
+     "a": 2.72,
+     "update": "2026-10-16 15:43:31"
     },
     "hhad": {
      "line": "-1",
-     "h": 3.95,
-     "d": 3.92,
-     "a": 1.61,
-     "update": "2026-10-16 13:41:21"
+     "h": 4,
+     "d": 4.05,
+     "a": 1.58,
+     "update": "2026-10-16 15:43:38"
     },
     "single": {
      "HAD": {
