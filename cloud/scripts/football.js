@@ -15221,7 +15221,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "阿德莱德城",
      "score": 2,
@@ -15287,7 +15287,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 75,
+    "minute": 77,
     "home": {
      "name": "PWD體育",
      "score": 0,
@@ -15353,7 +15353,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 83,
+    "minute": 85,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15399,10 +15399,10 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "蒂察爾阿爾曼",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -15437,7 +15437,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 58,
+    "minute": 60,
     "home": {
      "name": "悉尼FC",
      "score": 0,
@@ -15503,7 +15503,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 29,
+    "minute": 31,
     "home": {
      "name": "同塔",
      "score": 0,
@@ -15581,7 +15581,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 25,
+    "minute": 27,
     "home": {
      "name": "奥布隆",
      "score": 1,
@@ -15659,7 +15659,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "奈蒂沃特马卡比",
      "score": 0,
@@ -15737,7 +15737,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 18,
+    "minute": 20,
     "home": {
      "name": "共和國",
      "score": 0,
@@ -15815,7 +15815,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "切塔罗沃莫斯科青年队",
      "score": 0,
