@@ -917,7 +917,7 @@ function buildJcXyspHtml() {
   const foot =
     `<div class="jxp-foot">` +
     `仅供娱乐，不构成购彩建议` +
-    (updated ? ` · 每 30 分钟自动更新 · 更新于 ${esc(updated)}` : ` · 每 30 分钟自动更新`) +
+    ` · 每 30 分钟自动更新`   /* __NO_UPDATED__ 用户要求删掉「更新于」 */ +
     `</div>`;
 
   return `<details class="m-jxp allow-save" id="jcXysp">` +
@@ -2322,5 +2322,5 @@ console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字
   console.log(`   晒票位置检查：${ordered ? '✅ 正好插在【模拟计算】和【免责声明】之间' : '❌ 顺序不对'}`);
   console.log(`      （有序性：jcCalc < jcXysp = ${iXysp > iCalc} · jcXysp < 免责声明 = ${iNote > iXysp}）`);
   console.log(`   晒票数据：${n} 张竞彩实票` +
-    (n ? ` · 更新于 ${JC_XYSP.updated}` : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）'));
+    (n ? '' : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）')   /* __NO_UPDATED__ */);
 }
