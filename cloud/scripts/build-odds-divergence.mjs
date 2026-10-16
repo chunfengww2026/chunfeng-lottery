@@ -362,11 +362,14 @@ async function main() {
   const HIST = loadVar('jc-history.js', 'JC_HISTORY');
   const list = [];
   (JC && Array.isArray(JC.games) ? JC.games : []).forEach((g) => list.push({
-    code: g.code, home: (g.home || {}).name, away: (g.away || {}).name, time: g.time, league: g.league, from: 'sale'
+    code: g.code, home: (g.home || {}).name, away: (g.away || {}).name, time: g.time, league: g.league,
+    from: 'sale', settled: g.status === 'finished'
   }));
   /* ⚠️ jc-history.js 的数组字段叫 list（不是 games）—— 和 build-match.mjs 保持一致 */
   (HIST && Array.isArray(HIST.list) ? HIST.list : []).forEach((g) => list.push({
-    code: g.code, home: g.home, away: g.away, time: g.time, league: g.league, from: 'hist'
+    code: g.code, home: g.home, away: g.away, time: g.time, league: g.league,
+    /* 归档里【有比分】才是真打完的；没比分的其实还没开赛（实测 56 条里 35 条是未来的） */
+    from: 'hist', settled: !!(g.score && String(g.score).indexOf(':') > 0)
   }));
   const uniq = new Map();
   list.forEach((g) => { if (g.code && !uniq.has(g.code)) uniq.set(g.code, g); });
@@ -374,17 +377,64 @@ async function main() {
   if (LIMIT) games = games.slice(0, LIMIT);
   log(`【分歧指】我们的比赛 ${uniq.size} 场（去重后）${LIMIT ? `，本次只抓前 ${LIMIT} 场` : ''}`);
 
+  /* ============================================================
+     【省请求 · 保护数据源】不是每一场每一轮都要重抓
+     ------------------------------------------------------------
+     实测我们库里 64 场：53 场已完场（欧赔早就冻结了）、11 场"还能买/正在进行"。
+     不区分的话，每 30 分钟一班都要把 64 场全抓一遍（64 次请求 × 300 KB），
+     云端 + 本机一天几千次、几百 MB —— 项目一贯的"别把源抓封了"就是这么踩出来的。
+     规则（三条，全部按【开赛时间】判断）：
+       ① 已完场（有比分 / status=finished）→ 永不重抓，直接沿用上次结果
+       ② 已开赛 / 3 小时内就要开赛        → 赔率在动，每轮都抓（至少隔 10 分钟）
+       ③ 更远的场次                        → 2 小时抓一次就够，其余时间沿用
+     ⚠️ 沿用前必须验【开赛时间 ≤ 3 小时】：竞彩编号每周循环（上周的周五001 也是这个编号），
+        编号对上但其实是另一场的话，沿用就等于【拿旧数据当新的】。
+     ============================================================ */
+  const prev = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
+  const prevGames = (prev && prev.games && typeof prev.games === 'object') ? prev.games : {};
+  const ageMinOf = (c) => {
+    const t = c && c.at ? new Date(String(c.at).replace(' ', 'T') + ':00').getTime() : NaN;
+    return Number.isFinite(t) ? (Date.now() - t) / 60000 : 1e9;
+  };
+  const needsFetch = (g, c) => {
+    if (FORCE) return true;
+    if (!c || !(c.companies >= 2)) return true;          /* 没有缓存 / 缓存不可用 */
+    const gap = minutesApart(c.time, g.time);
+    if (gap !== null && gap > 180) return true;          /* 缓存是别的场次（跨周串号） */
+    if (g.settled) return false;                         /* ① 已完场：欧赔冻结 */
+    const until = (new Date(String(g.time).replace(' ', 'T') + ':00').getTime() - Date.now()) / 60000;
+    if (!Number.isFinite(until)) return true;
+    if (until <= 180) return ageMinOf(c) >= 10;          /* ② 已开赛 / 快开赛 */
+    return ageMinOf(c) >= 120;                           /* ③ 更远：2 小时一次 */
+  };
+
+  const out = {};
+  const carried = [];
+  const targets = [];
+  games.forEach((g) => {
+    const c = prevGames[g.code];
+    if (!needsFetch(g, c)) { out[g.code] = c; carried.push(g.code); return; }
+    targets.push(g);
+  });
+  if (carried.length) log(`  ♻️  沿用上一次的 ${carried.length} 场（已完场 / 2 小时内不需要重抓）`);
+  log(`  本次需要抓的：${targets.length} 场`);
+
+  if (!targets.length) {
+    /* 没有要抓的 → 不写文件（不白白刷新 updated，免得看起来像"刚更新过"） */
+    log('  ⏭  这一轮没有需要重抓的比赛 —— 保留上一次的 jc-divergence.js 不动');
+    return;
+  }
+
   log('  正在列 titan007 赛程（拿 ScheduleID）…');
   const { idx, notes, fromList, fromResult } = await scheduleIndex();
   notes.forEach((n) => log('    · ' + n));
   log(`  ScheduleID 索引：${idx.size} 个编号（在售 ${fromList} + 已完场 ${fromResult}）`);
 
-  const matched = games.filter((g) => idx.has(g.code));
-  const missing = games.filter((g) => !idx.has(g.code));
-  log(`  编号能对上 titan007 的：${matched.length} / ${games.length}`);
-  if (missing.length) log(`    对不上的编号：${missing.map((g) => g.code).join(' ')}`);
+  const matched = targets.filter((g) => idx.has(g.code));
+  const missing = targets.filter((g) => !idx.has(g.code));
+  log(`  编号能对上 titan007 的：${matched.length} / ${targets.length}`);
+  if (missing.length) log(`    对不上的编号：${missing.map((g) => g.code).join(' ')}（沿用/暂无，不编）`);
 
-  const out = {};
   const rejected = [];
   const oneSignal = [];
   let done = 0;
@@ -433,6 +483,10 @@ async function main() {
           match: `${t.tHome} vs ${t.tAway}`,
           league: t.league || g.league || '',
           time: v.jsTimeBj || cand.time || g.time || '',
+          /* 【这一条是什么时候抓的】—— 下一轮判断"要不要重抓"就看它。
+             已完场的条目会一直被沿用，所以每条必须带自己的时间，
+             不能只看文件顶上的 updated。 */
+          at: new Date().toLocaleString('sv-SE').slice(0, 16),
           companies,
           records: rows.length,
           live: {
@@ -469,7 +523,8 @@ async function main() {
     sourceUrl: 'https://1x2d.titan007.com/',
     metric: '即时欧赔变异系数 cv = 标准差 / 均值',
     levels: { 低: `< ${(CV_LEVELS[0].max * 100).toFixed(1)}%`, 中: `${(CV_LEVELS[0].max * 100).toFixed(1)}% ~ ${(CV_LEVELS[1].max * 100).toFixed(1)}%`, 高: `≥ ${(CV_LEVELS[1].max * 100).toFixed(1)}%` },
-    note: '各家即时欧赔的离散度。cv 越小＝各家公司意见越一致（分歧低）。只用抓到的真数据，抓不到就不写这一场。',
+    note: '各家即时欧赔的离散度。cv 越小＝各家公司意见越一致（分歧低）。只用抓到的真数据，抓不到就不写这一场。'
+      + '已完场的场次沿用上一次抓取的结果（欧赔已冻结），所以每条自带 at（该条的抓取时间）。',
     games: out
   };
 
@@ -480,8 +535,9 @@ async function main() {
   fs.writeFileSync(OUT_FILE, '/* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */\nconst JC_DIVERGENCE = ' + body + ';\n', 'utf8');
 
   log(`✅ jc-divergence.js 已生成 ${(fs.statSync(OUT_FILE).size / 1024).toFixed(1)} KB`);
-  log(`   有分歧指数据的比赛：${codes.length} 场（公司数中位 ` +
-    `${rowsForReport.map((r) => r.companies).sort((a, b) => a - b)[Math.floor(rowsForReport.length / 2)]} 家）`);
+  const allCo = codes.map((c) => out[c].companies).sort((a, b) => a - b);
+  log(`   有分歧指数据的比赛：${codes.length} 场（本次新抓 ${codes.length - carried.length} + 沿用 ${carried.length}）` +
+    `，公司数中位 ${allCo[Math.floor(allCo.length / 2)]} 家（最少 ${allCo[0]} / 最多 ${allCo[allCo.length - 1]}）`);
   if (rejected.length) {
     log(`   丢弃 ${rejected.length} 场（队名/时间都对不上或抓失败）—— 一律不写假数据：`);
     rejected.slice(0, 8).forEach((r) => log('     · ' + r));
