@@ -385,6 +385,13 @@ async function main() {
   writeState(st);
 
   const steps = [];
+  /* 【推荐串红黑 · 每 5 分钟比对一次】用户要求「每 5 分钟的比分任务跑完，去比对」。
+     ⚠️ 必须排在 export-football.mjs【之前】：它是纯本地计算（读 jc-data /
+        jc-official / jc-history 回填红黑，写 jc-reco-data.js），不联网、不调 AI；
+        页面再读它，这样重建出来的页面带的就是刚比对完的红黑。
+     ⚠️ 它不抓任何东西 —— 云端「5 分钟那班只更新比分」的约束没有被破坏
+        （唯一的网络请求还是那次比分抓取）。 */
+  steps.push(['jc-reco-build.mjs', []]);
   /* 云端轻量班：不抓晒票（交给每 30 分钟那一班） */
   if (!CLOUD_LIGHT) steps.push(['build-xysp.mjs', []]);
   else log('  ☁️ 云端轻量班：跳过晒票抓取（build-xysp.mjs 由每 30 分钟那一班负责）');
