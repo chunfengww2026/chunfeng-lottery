@@ -641,7 +641,7 @@ function renderMatch(m) {
 }
 
 /* ============================================================
-   【推荐可串】在售 + 信心 ≥55% 的紧凑列表
+   【推荐串】在售 + 信心 ≥55% 的紧凑列表
    ------------------------------------------------------------
    数据全部来自页面【已有】的字段，没有新算法、不编数：
      · 「在售」= 体彩官网公布的 Selling 场次 = jc-data.js 顶层 sp.list
@@ -679,9 +679,17 @@ const REC_ALL = (SP ? SP.list : [])
   .filter(Boolean);
 const REC_ROWS = REC_ALL
   .filter((r) => r.conf >= REC_MIN)
-  /* 排序：信心从高到低（推荐列表当然先看最有把握的）；
-     信心相同再按开赛时间从早到晚（早开赛的先用得上）。 */
-  .sort((a, b) => (b.conf - a.conf) || String(a.time).localeCompare(String(b.time)));
+  /* 【排序：按比赛时间升序】用户明确要求（这条覆盖了之前"按信心从高到低"）：
+       「核心：按比赛时间升序排列（越早开赛越靠前）」
+     ⇒ 信心【不再参与排序】，只作为筛选条件（≥ REC_MIN）。
+     用 Date.parse 比较时间戳（不是字符串比较）—— 时间字段是 ISO 串，
+     能被 new Date() 正确解析；字符串比较在跨天/跨月时会出错。
+     时间相同的再按信心从高到低兜底，保证顺序稳定。 */
+  .sort((a, b) => {
+    const ta = Date.parse(String(a.time || '')) || 0;
+    const tb = Date.parse(String(b.time || '')) || 0;
+    return (ta - tb) || (b.conf - a.conf);
+  });
 const REC_LOW = REC_ALL.filter((r) => r.conf < REC_MIN);
 /* 一条都没有时，把「在售里最好的那个」写出来 —— 让用户知道是筛选生效而不是坏了 */
 const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.conf)) : null;
@@ -692,7 +700,7 @@ const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.c
 function renderRec() {
   const head =
     `<summary class="m-rechead">` +
-    `<span class="m-rectitle">推荐可串</span>` +
+    `<span class="m-rectitle">推荐串</span>` +
     `<span class="m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
     `<span class="m-rectip" aria-hidden="true"></span>` +
     `</summary>`;
@@ -708,7 +716,7 @@ function renderRec() {
       `<span class="m-recteams">${esc(r.home)} vs ${esc(r.away)}` +
       (r.league ? `<i>${esc(r.league)}</i>` : '') + `</span>` +
       `<span class="m-recpick">${esc(r.label)}</span>` +
-      `<span class="m-recodds">${r.odds == null ? '—' : r.odds}</span>` +
+      `<span class="m-recodds">${r.odds == null ? '—' : Number(r.odds).toFixed(2)}</span>` +
       `<span class="m-recconf${r.conf >= 60 ? ' strong' : ''}">${r.conf}%</span>` +
       `</div>`).join('')
     : `<div class="m-recempty">暂无（在售场次里` +
@@ -1065,6 +1073,9 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .stat a b { display: block; font-size: 25px; font-weight: 800; color: #47e0a0;
   font-variant-numeric: tabular-nums; line-height: 1.1; }
 .stat a span { display: block; margin-top: 5px; font-size: 12.5px; color: #98a1b2; }
+/* 【三个统计卡的颜色】用户要求：只有「进行中」用白色，其余（未开赛/已完场）用绿色。
+   ⚠️ 用 :nth-child(2) 定位"进行中"（顺序 = 未开赛 / 进行中 / 已完场，见上面的 .stat）。 */
+.stat a:nth-child(2) b { color: #e8eaed; }
 .m-empty { padding: 22px 12px; text-align: center; font-size: 13px;
   color: #6b7488; background: #12151d; border-radius: 10px; margin-bottom: 12px; }
 /* 点分类卡跳过去时，标题不要被顶部导航挡住 */
@@ -1308,7 +1319,7 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .calc-disclaim { margin-top: 9px; padding-top: 8px; border-top: 1px dashed #262d3a;
   font-size: 10.5px; color: #6b7488; line-height: 1.8; }
 .calc-disclaim b { color: #98a1b2; font-weight: 700; }
-/* ---- 【推荐可串】紧凑列表（可收起、默认收起；一行一场，字号比比赛卡片小一档） ---- */
+/* ---- 【推荐串】紧凑列表（可收起、默认收起；一行一场，字号比比赛卡片小一档） ---- */
 .m-rec { margin-bottom: 4px; }
 .m-rec > summary.m-rechead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   cursor: pointer; list-style: none; user-select: none; margin: 14px 0 8px; }
@@ -1405,6 +1416,14 @@ ${nav}
     <span class="r">命中率 ${stat.rate}%</span>
     <span class="n">（推荐胜负平比对最终比分）</span>
   </div>` : ''}
+
+  <div class="record">
+    <span class="t">推荐串</span>
+    <span class="h">红 0</span>
+    <span class="m">黑 0</span>
+    <span class="r">命中率 0%</span>
+    <span class="n">（推荐串比对最终比分 · 暂未开始统计）</span>
+  </div>
 
   ${renderRec()}
   </div>
@@ -2395,7 +2414,7 @@ if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.mi
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
 console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
   `（单关 ~ ${passLabel(CALC_MAX_N)}）· 赔率来源：${SP_SRC_LOG}`);
-console.log(`   推荐可串（在售 · 信心 ≥${REC_MIN}%）：符合 ${REC_ROWS.length} 场` +
+console.log(`   推荐串（在售 · 信心 ≥${REC_MIN}%）：符合 ${REC_ROWS.length} 场` +
   (REC_ROWS.length ? ` → ${REC_ROWS.map((r) => `${r.code} ${r.label} ${r.conf}%`).join(' | ')}` : '（无）'));
 console.log(`   其中信心 <${REC_MIN}% 被排除 ${REC_LOW.length} 场` +
   (REC_LOW.length ? ` → ${REC_LOW.map((r) => `${r.code} ${r.conf}%`).join(' | ')}` : '（无）') +
