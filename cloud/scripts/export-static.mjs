@@ -938,6 +938,11 @@ console.log(`  · 文章参考：${ART_ORDER.map((k) => {
       data-ro-xysp-games 里就一个值 → 行为跟以前一模一样。
    头条卡片标题：<b>写它所属分类的名字</b>（在头条聚合里就是「头条晒票」），
    描述行以「彩种 · 标题」开头（例：「大乐透 · 10倍与11倍单式票…」）。 */
+/* ⚠️ 用户最终要求：去掉「头条晒票」这个标签（标签从 10 个减到 9 个）。
+   头条的内容【仍然存在】，只是全部通过 games 分发到各彩种里了
+   （实测：头条条目 100% 都能认出彩种 —— 认不出的在抓取阶段就被
+     "必须是票"那道闸挡掉了，所以 tt 聚合标签已经没有独占内容）。
+   认不出彩种的条目（理论上不该有）仍然留在「全部」里，只是没有专属标签。 */
 const XYSP_GAMES = [
   { key: 'ssq',  name: '双色球' },
   { key: 'dlt',  name: '大乐透' },
@@ -946,8 +951,7 @@ const XYSP_GAMES = [
   { key: 'pl3',  name: '排列3'  },
   { key: 'pl5',  name: '排列5'  },
   { key: 'qxc',  name: '七星彩' },
-  { key: 'qlc',  name: '七乐彩' },
-  { key: 'tt',   name: '头条晒票' }
+  { key: 'qlc',  name: '七乐彩' }
 ];
 const GAME_NAME = {};
 XYSP_GAMES.forEach((g) => { GAME_NAME[g.key] = g.name; });
@@ -1075,7 +1079,16 @@ function buildXyspHtml() {
   const cards = [];
   /* 和 cards[i] 一一对应的【数值排序键】（见下面的全局排序） */
   const cardSorts = [];
-  XYSP_GAMES.forEach((g) => {
+  /* ⚠️ 渲染用的分类 = 8 个彩种 + 头条那一路（data.games.tt）。
+     为什么还要单独列出 tt：头条条目【都存在 data.games.tt 里】，
+     只是靠 it.games 分发到各彩种。如果把 tt 从渲染列表里去掉，
+     313 条头条内容会【整块消失】（它们不在 games.ssq/dlt… 里）。
+     所以这里保留 tt 作为"渲染来源"（内部键），
+     但【筛选标签里不再有 tt】—— 见 XYSP_GAMES（只有 8 个）。
+     渲染时把 tt 这个 key 从卡片的 keys 里剔掉，
+     于是头条条目只会出现在它命中彩种的标签下 + 「全部」。 */
+  const RENDER_SOURCES = XYSP_GAMES.concat([{ key: 'tt', name: '头条晒票' }]);
+  RENDER_SOURCES.forEach((g) => {
     const isTt = (g.key === 'tt');
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
     items.forEach((it) => {
@@ -1119,8 +1132,10 @@ function buildXyspHtml() {
          ⚠️ `<b>` 徽标仍然显示第一个彩种名（不带 tt）—— 好看且和以前一致。 */
       let keys;
       if (isTt) {
+        /* ⚠️ 用户要求去掉「头条晒票」标签 → 这里【不再把 tt 塞进 keys】。
+           头条条目只出现在它命中彩种的标签下（多归属）+ 「全部」。
+           认不出彩种的条目 keys 会是空数组 → 只在「全部」里能看到（用户接受）。 */
         keys = Array.isArray(it && it.games) ? it.games.filter((k) => GAME_NAME[k] && k !== 'tt') : [];
-        if (!keys.includes('tt')) keys.push('tt');     /* 永远留在聚合标签里 */
       } else {
         keys = [g.key];
       }
