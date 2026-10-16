@@ -120,7 +120,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 <body>
 
 <div class="md-top">
-  <a class="md-back" id="mdBack" href="football.html">← 返回</a>
+  <a class="md-back" id="mdBack" role="button" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">← 返回</a>
   <span class="md-title">比赛详情</span>
   <span class="md-live" id="mdLive"></span>
 </div>
@@ -444,8 +444,8 @@ a { color: var(--ro-ok); text-decoration: none; }
   function srcBar() {
     return '<div class="md-src" id="mdSrc">'
       + '<div class="md-srcbtn on" data-src="all" role="button" tabindex="0">全部</div>'
-      + '<div class="md-srcbtn" data-src="500" role="button" tabindex="0">500.com</div>'
-      + '<div class="md-srcbtn soon" data-src="leisu" role="button" tabindex="0" aria-disabled="true">雷速体育</div>'
+      + '<div class="md-srcbtn" data-src="500" role="button" tabindex="0">检测</div>'
+      + '<div class="md-srcbtn soon" data-src="leisu" role="button" tabindex="0" aria-disabled="true">体育抓取</div>'
       + '</div><div class="md-srcnote" id="mdSrcNote"></div>';
   }
 
@@ -467,7 +467,7 @@ a { color: var(--ro-ok); text-decoration: none; }
       if (!el) return;
       var s = el.getAttribute('data-src');
       if (s === 'leisu') {
-        note.textContent = '雷速体育数据源暂未接入（本次只有 500.com）';
+        note.textContent = '体育抓取数据源暂未接入（本次只有 500.com）';
         return;
       }
       var all = bar.querySelectorAll('.md-srcbtn');
@@ -482,19 +482,34 @@ a { color: var(--ro-ok); text-decoration: none; }
     });
   }
 
-  /* ---- 找不到那一场：不白屏、给回去的路 ---- */
-  function renderMiss(code) {
+  /* ---- 找不到那一场：不白屏、给回去的路 ----
+     兜底页也只回显【合法】编号：格式不对的 ?c=（"?c=abc def" 之类）连这个字符串
+     都不往页面上摆 —— 虽然 esc0 已经转义了，但把用户的输入原样印出来依然不好看。
+     返回键同样：href 写实际文件名 足球推荐.html，能回历史就回历史。 */
+  function renderMiss(code, badFormat) {
+    var d = badFormat
+      ? '编号格式不对 —— 只接受「周X + 3 位数字」的竞彩编号（例如 周五002）。'
+      : ((code ? '编号 ' + esc0(code) + ' ' : '') + '不在当前数据里（已过保留期被清理，或编号写错了）。');
     document.getElementById('mdBody').innerHTML =
       '<div class="md-miss"><div class="t">没有找到这场比赛的详情</div>'
-      + '<div class="d">' + (code ? '编号 ' + esc0(code) + ' ' : '') + '不在当前数据里（已过保留期被清理，或编号写错了）。</div>'
-      + '<a href="football.html">← 回到竞彩页</a></div>';
+      + '<div class="d">' + d + '</div>'
+      + '<a href="足球推荐.html" role="button" onclick="if(history.length>1){history.back();return false}">← 回到竞彩页</a></div>';
     document.getElementById('mdLive').innerHTML = '';
   }
 
-  /* ---- 入口：?c=周五002 ---- */
-  var code = null;
-  try { code = new URLSearchParams(location.search).get('c'); } catch (e) { code = null; }
-  if (code) code = String(code).trim();
+  /* ---- 入口：?c=周五002 ----
+     ⚠️ ?c= 只接受「周X + 3 位数字」：
+        实测 jc-data.js / jc-history.js 里的编号全是「周五001」「周日018」这种形状，
+        别的字符串（"abc def"、"<b>x</b>"、超长串）一律走兜底页，
+        既不拿去匹配，也不拿去回显。
+     ⚠️ 正则里用 [0-9] 不用 \d —— 这段代码写在模板字符串里，反斜杠会被先吃一遍。 */
+  var CODE_RE = /^(周[一二三四五六日])[0-9]{3}$/;
+  var raw = null;
+  try { raw = new URLSearchParams(location.search).get('c'); } catch (e) { raw = null; }
+  if (raw !== null && raw !== undefined) raw = String(raw).trim();
+  if (!raw) raw = null;
+  var code = (raw && CODE_RE.test(raw)) ? raw : null;
+  var badFormat = !!raw && code === null;
 
   var g = null;
   if (code) {
@@ -502,11 +517,12 @@ a { color: var(--ro-ok); text-decoration: none; }
       if (String(games[i].code || '').trim() === code) { g = games[i]; break; }
     }
   }
-  /* 没带参数：只有一场就直接展示（用户从别处手滑点进来也不白屏） */
-  if (!g && !code && games.length === 1) g = games[0];
+  /* 没带参数：只有一场就直接展示（用户从别处手滑点进来也不白屏）；
+     格式不对的参数不算「没带参数」，别顺手塞一场别的比赛给他 */
+  if (!g && !code && !badFormat && games.length === 1) g = games[0];
 
   document.getElementById('mdLive').innerHTML = '更新 <i>' + esc0((D.updated || '').slice(11) || '—') + '</i>';
-  if (g) render(g); else renderMiss(code);
+  if (g) render(g); else renderMiss(code, badFormat);
 })();
 </script>
 
@@ -522,11 +538,12 @@ a { color: var(--ro-ok); text-decoration: none; }
     + '「分歧指」需要多家公司欧赔，当前只有 500.com 一个源，故暂不显示数值。'
     + '<br>本页只陈列数据，不构成投注建议。';
   document.getElementById('mdFoot').innerHTML = foot;
-  /* 返回：优先浏览器历史，站内直接进来的就回竞彩页 */
-  var back = document.getElementById('mdBack');
-  back.addEventListener('click', function (ev) {
-    if (document.referrer && history.length > 1) { ev.preventDefault(); history.back(); }
-  });
+  /* 返回键的「优先回浏览器历史」写在 <a id="mdBack"> 的 onclick 里（见上面 md-top）。
+     ⚠️ 这里【不要】再挂一个 click 监听去 history.back()：
+        两处都调用会连退两级（回到竞彩页的上一页）。
+     另外原来那句用 referrer 判断的写法是失效的 ——
+        file:// 下 file→file 跳转没有 referrer（实测 document.referrer === ''），
+        条件永远为假 → history.back() 从来没生效过，才会落到死链 football.html。 */
 })();
 </script>
 </body>
