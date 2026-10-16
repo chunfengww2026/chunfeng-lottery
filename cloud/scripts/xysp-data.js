@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 21:00
+   更新时间：2026-10-16 21:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-16 21:00",
+ "updated": "2026-10-16 21:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -633,6 +633,17 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-16/31026c2f-4c02-4030-b9e2-4665a550f2401792154827552.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/31026c2f-4c02-4030-b9e2-4665a550f2401792154827552.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26276期]看02 或者 03",
+     "url": "",
+     "at": "2026-10-16T13:05:01.625Z",
+     "pubAt": "2026-10-16T12:47:00.000Z",
+     "pubMs": 1792154820000,
+     "pubSrc": "page",
+     "nextAt": 1792156500000
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-16/446985ae-8dee-4211-9d95-6b525c4018fb1792153249780.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/446985ae-8dee-4211-9d95-6b525c4018fb1792153249780.jpg?imageMogr2/thumbnail/360x",
      "title": "[26275期]昨天排三遗憾错位，有点难受",
@@ -1143,6 +1154,28 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-16/e0897505-46db-4a0c-8de3-0e8bec5fbbb31792155500934.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/e0897505-46db-4a0c-8de3-0e8bec5fbbb31792155500934.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]来不及看，任凭感觉走",
+     "url": "",
+     "at": "2026-10-16T13:05:01.625Z",
+     "pubAt": "2026-10-16T12:58:00.000Z",
+     "pubMs": 1792155480000,
+     "pubSrc": "page",
+     "nextAt": 1792157400000
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-16/349c1784-23de-4b82-8e64-93cd20498f591792154765205.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/349c1784-23de-4b82-8e64-93cd20498f591792154765205.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]参考",
+     "url": "",
+     "at": "2026-10-16T13:05:01.625Z",
+     "pubAt": "2026-10-16T12:46:00.000Z",
+     "pubMs": 1792154760000,
+     "pubSrc": "page",
+     "nextAt": 1792157400000
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-16/64a1c379-6812-4fec-b35b-1553997e9e581792154565223.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/64a1c379-6812-4fec-b35b-1553997e9e581792154565223.jpg?imageMogr2/thumbnail/360x",
@@ -1703,39 +1736,6 @@ const XYSP_DATA = {
      "pubMs": 1792071480000,
      "pubSrc": "page",
      "nextAt": 1792157400000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/59c688c9-6ea8-40f6-9273-3f25982269771792069300291.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/59c688c9-6ea8-40f6-9273-3f25982269771792069300291.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]最后一刻，赶着送钱",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:03:00.000Z",
-     "pubMs": 1792069380000,
-     "pubSrc": "page",
-     "nextAt": 1792071000000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/73f30456-bae4-45c7-9242-50c7ec82bd191792069373549.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/73f30456-bae4-45c7-9242-50c7ec82bd191792069373549.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]44",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:03:00.000Z",
-     "pubMs": 1792069380000,
-     "pubSrc": "page",
-     "nextAt": 1792071000000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/7fd6ed56-b528-4b4a-a044-0951b46e5fee1792069275510.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/7fd6ed56-b528-4b4a-a044-0951b46e5fee1792069275510.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]福彩快乐八 今夜我要发",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:01:00.000Z",
-     "pubMs": 1792069260000,
-     "pubSrc": "page",
-     "nextAt": 1792071000000
     }
    ]
   },
@@ -2324,45 +2324,23 @@ const XYSP_DATA = {
      "pubMs": 1792071180000,
      "pubSrc": "page",
      "nextAt": 1792153800000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/27b11a7a-74d9-422b-a297-5900b27bfdd11792069459630.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/27b11a7a-74d9-422b-a297-5900b27bfdd11792069459630.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]✌️",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:04:00.000Z",
-     "pubMs": 1792069440000,
-     "pubSrc": "page",
-     "nextAt": 1792153800000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/d55267d4-3644-4edf-a50b-152bb3742c701792069298792.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/d55267d4-3644-4edf-a50b-152bb3742c701792069298792.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]实票",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:02:00.000Z",
-     "pubMs": 1792069320000,
-     "pubSrc": "page",
-     "nextAt": 1792153800000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/c97e7d1b-556e-4e92-920e-1c54c66f03041792069257386.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/c97e7d1b-556e-4e92-920e-1c54c66f03041792069257386.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]不知道追不追得上",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:01:00.000Z",
-     "pubMs": 1792069260000,
-     "pubSrc": "page",
-     "nextAt": 1792153800000
     }
    ]
   },
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-16/cf3edc2a-1fb9-4c0a-ab81-f1786f98b6d11792154895800.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/cf3edc2a-1fb9-4c0a-ab81-f1786f98b6d11792154895800.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]参考优先，对错勿怪。",
+     "url": "",
+     "at": "2026-10-16T13:05:01.625Z",
+     "pubAt": "2026-10-16T12:48:00.000Z",
+     "pubMs": 1792154880000,
+     "pubSrc": "page",
+     "nextAt": 1792240200000
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-16/d19a1faa-a1a3-470e-a5c6-fb75bb8fb1d31792153640276.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/d19a1faa-a1a3-470e-a5c6-fb75bb8fb1d31792153640276.jpg?imageMogr2/thumbnail/360x",
@@ -2668,17 +2646,6 @@ const XYSP_DATA = {
      "at": "2026-10-15T19:26:35.322Z",
      "pubAt": "2026-10-15T13:50:00.000Z",
      "pubMs": 1792072200000,
-     "pubSrc": "page",
-     "nextAt": 1792153800000
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-15/7d3cf35b-c26a-41a7-bdc2-9a7e6332ae981792069279352.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-15/7d3cf35b-c26a-41a7-bdc2-9a7e6332ae981792069279352.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26275期]怡情养性",
-     "url": "",
-     "at": "2026-10-15T19:26:35.322Z",
-     "pubAt": "2026-10-15T13:01:00.000Z",
-     "pubMs": 1792069260000,
      "pubSrc": "page",
      "nextAt": 1792153800000
     }
