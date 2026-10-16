@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 05:13 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 05:58 */
 const JC_DATA = {
- "updated": "2026-10-17 05:13",
+ "updated": "2026-10-17 05:58",
  "stat": {
   "total": 11,
   "upcoming": 1,
-  "live": 4,
-  "finished": 6,
+  "live": 0,
+  "finished": 10,
   "withScore": 10
  },
  "games": [
@@ -765,7 +765,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 4,
@@ -874,7 +874,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
@@ -983,7 +983,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -1092,7 +1092,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -1139,7 +1139,7 @@ const JC_DATA = {
      },
      "live": {
       "home": 2.05,
-      "draw": 3.6,
+      "draw": 3.5,
       "away": 3.5
      }
     },
@@ -1159,14 +1159,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 46.4,
+    "confidence": 46.1,
     "prob": {
-     "home": 46.4,
-     "draw": 26.4,
-     "away": 27.2
+     "home": 46.1,
+     "draw": 27,
+     "away": 27
     },
     "clear": true,
-    "margin": 5.1,
+    "margin": 5.9,
     "rqLine": "平手/半球",
     "type": "unbeaten"
    },
@@ -1204,9 +1204,9 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
-  "updated": "2026-10-17 04:58",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-17 05:58",
   "officialUpdate": "2026-10-16 21:46:05",
   "inSale": 35,
   "list": [
