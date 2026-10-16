@@ -1358,6 +1358,16 @@ function main() {
      ⚠️ 失败不影响后面：build-match.mjs 读不到文件就照旧显示「暂无」，
         绝不用单源硬造低/中/高，也绝不拿别场的数字顶（那是编数据）。 */
   if (plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指 + 欧赔对比数据（球探 titan007 多公司欧赔）']);
+  /* 【雷达寻胆 · 成交资金面】用户 2026-10-17 第 4 步：详情页要一个"自己算出来的胆"。
+     这个脚本取【当天比分行】(比赛ID + 主客队名)，按队名 + 别名把我们的场次对上号，
+     再问那场有没有成交资金数据（三项成交量/占比/成交价 + 挂单量 + 大小球），写 jc-bifa.js。
+     ⚠️ 必须排在 build-match.mjs【之前】：详情页在【构建时】就把这份数据内嵌进 HTML。
+     ⚠️【临场才有】：成交额是赛前才累积起来的 —— 距开赛太远、或打完很久之后都返回空。
+        所以扫【当天的比分行】就够了，也正好覆盖"即将开赛 / 正在进行"那批。
+     ⚠️ 它只读 jc-data.js / jc-history.js（决定要问哪几场），只写 jc-bifa.js。
+     ⚠️ 失败 / 一场都没取到 → 【不覆盖旧文件】，build-match.mjs 读不到就降成
+        欧赔+盘口+凯利三个维度（不是错，是少一档），绝不让整班挂掉。 */
+  if (plan.exportFootball) exportList.push(['fetch-bifa.mjs', '雷达寻胆 · 成交资金面']);
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
