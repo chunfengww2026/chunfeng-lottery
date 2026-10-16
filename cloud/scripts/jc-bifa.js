@@ -1,9 +1,9 @@
 /* jc-bifa.js —— 成交资金面（程序生成，勿手改）
    每场：total 总成交额 · amount/ratio/price 主平客的成交量、占比、成交价
         back/lay 主平客挂单量 · over/under 大小球 · top 前几笔大宗
-   ⚠️ 只放数字，不放任何来源字眼（详情页整段内嵌，有硬断言）。 */
+   ⚠️ 只放数字，正文里一个字都不写（详情页整段内嵌，有硬断言）。 */
 const JC_BIFA = {
- "updated": "2026-10-17 06:20",
+ "updated": "2026-10-17 06:24",
  "metric": "已成交资金的三项分布、成交价与盘口挂单量",
  "games": {
   "周五001": {
@@ -597,36 +597,36 @@ const JC_BIFA = {
    ]
   },
   "周五011": {
-   "total": 48353,
+   "total": 51848,
    "amount": {
     "home": 21818,
-    "draw": 14289,
-    "away": 12246
+    "draw": 15958,
+    "away": 14072
    },
    "ratio": {
-    "home": 45,
-    "draw": 30,
-    "away": 25
+    "home": 42,
+    "draw": 31,
+    "away": 27
    },
    "price": {
     "home": 2.16,
     "draw": 3.65,
-    "away": 3.85
+    "away": 3.8
    },
    "back": {
     "home": 5,
-    "draw": 6257,
-    "away": 3345
+    "draw": 2413,
+    "away": 2002
    },
    "lay": {
-    "home": 3427,
-    "draw": 3435,
-    "away": 525
+    "home": 3356,
+    "draw": 4439,
+    "away": 614
    },
-   "over": 4819,
-   "overRatio": 25,
+   "over": 5805,
+   "overRatio": 29,
    "under": 14299,
-   "underRatio": 75,
+   "underRatio": 71,
    "top": [
     {
      "a": 20698,
