@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 17:16
+   更新时间：2026-10-16 17:22
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 17:16",
+ "updated": "2026-10-16 17:22",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=f7Zw30kdM0%2FKqR9PKctchePl9cQ%3D",
@@ -27,11 +27,11 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:16:01.434Z",
+   "seen": "2026-10-16T09:22:47.791Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:06:01.425Z",
+   "expireAt": "2026-10-17T09:16:01.434Z",
    "rule": "cap",
    "author": "广东热心市民",
    "when": "2026-10-16 14:53:12"
@@ -48,11 +48,11 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:16:01.434Z",
+   "seen": "2026-10-16T09:22:47.791Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:06:01.425Z",
+   "expireAt": "2026-10-17T09:16:01.434Z",
    "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 16:38:26"
@@ -325,7 +325,7 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:06:01.425Z",
+   "expireAt": "2026-10-17T09:16:01.434Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
@@ -342,11 +342,11 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T09:16:01.434Z",
+   "seen": "2026-10-16T09:22:47.791Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T09:06:01.425Z",
+   "expireAt": "2026-10-17T09:16:01.434Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
