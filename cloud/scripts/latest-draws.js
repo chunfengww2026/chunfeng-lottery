@@ -241,10 +241,13 @@
     });
 
     if (res.applied.length) {
-      /* 页面顶部「最新开奖」用的是内存数据；本机 localStorage 里可能存着
-         更旧的手动录入开奖号（loadDraws 里本地优先），清掉才不会盖回去 */
+      /* 页面顶部「最新开奖」用的是刚拉到的新数据；
+         draw-data.js 里可能还留着旧的【内存】覆盖（loadDraws 里内存优先），
+         清掉才不会盖回去。
+         ⚠️ 用户明令不许用 localStorage —— 这里改成调 draw-data.js 的 clearDrawCache()，
+            原来是 localStorage.removeItem(DRAW_KEY)。 */
       try {
-        if (typeof localStorage !== 'undefined' && localStorage) localStorage.removeItem(DRAW_KEY);
+        if (typeof clearDrawCache === 'function') clearDrawCache();
       } catch (e) { /* 忽略 */ }
     }
 
