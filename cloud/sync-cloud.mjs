@@ -252,6 +252,8 @@ const FROM_ROOT = [
   
   /* 【留痕断言模块】3 个生成脚本（export-static / export-football / build-trend）
      import 它做"不许出现数据来源字样"的硬校验。
+     ⚠️ 2026-10-17 起走势图不再自己写文件：build-trend.mjs 只出片段，
+        断言由 export-static.mjs 在写分享页【之前】对整页跑一次（同一个模块）。
      ⚠️【必须同步】：少了它云端构建会 ERR_MODULE_NOT_FOUND → 整班挂掉。 */
   'source-guard.mjs',
 ];
@@ -342,11 +344,16 @@ const CODE_MODULES = [
      ⚠️ 云端能访问（实测 200）；拿不到就【不覆盖旧文件】、这一档降一档，不会让构建挂掉。
      它只读 jc-data.js / jc-history.js（决定要问哪几场），只写 jc-bifa.js。 */
   'fetch-bifa.mjs',
-  /* 【走势图】用户 2026-10-17 新增的第三个独立子页（和彩票页/竞彩页并列）。
-     ⚠️ 三个文件必须一起同步，缺一个云端就出不了这一页：
-        · build-trend.mjs  生成脚本（读 history.js → 写 走势图.html）
-        · trend-render.js  渲染内核（build-trend.mjs 用 readFileSync 内嵌进页面）
+  /* 【走势图】2026-10-17 起它【不再是独立子页】——
+     用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」：
+     走势图改成 export-static.mjs import build-trend.mjs 拿一个 HTML 片段，
+     内联进分享页的 <details class="ro-trend">（近 30 期走势 · 预选参考）里。
+     ⚠️ 三个文件仍然必须一起同步，缺一个云端就出不了这一块：
+        · build-trend.mjs  片段生成器（读 history.js → 出片段，export-static import 它）
+        · trend-render.js  渲染内核（build-trend.mjs 用 readFileSync 内嵌进片段）
         · trend-mount.js   挂载 + 彩种切换（同样被内嵌）
+     ⚠️ 少了 build-trend.mjs 不是"少一块"，是 export-static.mjs
+        ERR_MODULE_NOT_FOUND →【整个分享页构建失败】（和 p3d-section 同一类坑）。
      它们只读本机同步上去的 history.js，不抓网络、不调 AI → 云端零成本可跑。 */
   'build-trend.mjs', 'trend-render.js', 'trend-mount.js',
   /* 【3D & 排列三 手绘参考图】区块（用户 2026-10-17 规格）。

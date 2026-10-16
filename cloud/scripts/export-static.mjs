@@ -4318,7 +4318,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-trend[open] > .ro-trend-head .ro-trend-arrow::before { content: '点击收起'; }
 .ro-trend[open] > .ro-trend-head .ro-trend-arrow::after { content: ' ▾'; }
 .ro-trend-body { padding: 0 0 12px; }
-/* ⚠️ 原来这里有 .ro-trend-frame（iframe 520px 高）和 .ro-trend-tip（跳独立页的兜底链接）。
+/* ⚠️ 原来这里有 .ro-trend-frame（520px 高的嵌入框）和 .ro-trend-tip（跳独立页的兜底链接）。
    2026-10-17 用户要求「删除单独走势图独立页」→ 内容改成内联，这两条一起删掉：
    走势图那一块的样式全部由 build-trend.mjs 的片段自带（选择器都带
    .ro-trend-embed 前缀，收在片段内部，不会漏到分享页其它地方）。 */
@@ -4929,8 +4929,8 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        纯文字区块：不含任何图片，所以图位数量不变。 -->
   <!-- ============================================================
        __TREND_ENTRY__ 「走势图」入口 —— 用户要求放在【文章参考】上面。
-       【本轮改版】原来是 <a href> 跳去独立页；上一版改成 <details> +
-       <iframe src>。2026-10-17 用户再明确一次：
+       【本轮改版】原来是 <a href> 跳去独立页；上一版改成 <details> 里
+       嵌一个独立页的小窗口。2026-10-17 用户再明确一次：
          「留在近30期走势预选参考里面. 删除单独走势图独立页」
        → 展开体里【直接内联走势图内容】（表格 + 工具栏 + 画线脚本），
          独立页已删除，页面上不再有任何指向它的链接。
@@ -7025,8 +7025,12 @@ ${RO_RENDER_SCRIPT}
           st.src = attr(node, 'data-ro-aipick-src') === 'manual' ? 'manual' : 'random';
           syncSrc();
           if (st.src === 'manual') {
-            /* 切到自选：清掉之前摇出来的号，提示去点号码 */
-            st.rows = []; st.betCount = 0; drawOut(); refresh();
+            /* 切到自选：清掉之前摇出来的号【和格子里的勾选】，让你从头点。
+               ⚠️ 光清 st.rows 不够：摇号会把号镜像进格子（st.pick），
+                  那些勾还在的话，再点几个会累加成超大复式 ——
+                  实测：先摇 6+2、再点 5+2 → 变成 11+4 = 2772 注 5544 元。 */
+            st.rows = []; st.betCount = 0; st.pick = {}; drawPicker(G());
+            drawOut(); refresh();
             if (warnBox) { warnBox.textContent = '自选：点下面的号码，选够个数就算好注数'; show(warnBox, true); }
           } else {
             if (warnBox) show(warnBox, false);

@@ -278,6 +278,28 @@
         cycleSlant();
         return false;
       });
+      /* 【手机点不动】用户 2026-10-17：手机上点「斜连：差1」完全没反应、文字都不变。
+         原因：这个键挂在【横向可滚动的彩种条】最右端，手指轻点很容易被判成"滑动"，
+         click 事件直接不触发（干净桌面浏览器实测正常，所以只在手机上出问题）。
+         做法：自己接 touch 事件 + 位移阈值 —— 手指移动 < 8px 就当成"点击"，
+         即使浏览器把这次触摸解释成滚动，我们的处理照样跑；真滑动（>8px）则不动。
+         ⚠️ touchend 里 preventDefault 是为了不让它再补发一次 click（否则一次点击换两档）。 */
+      var tSX = 0, tSY = 0, tMoved = false;
+      slantBtn.addEventListener("touchstart", function (ev) {
+        var t = ev.touches && ev.touches[0];
+        if (!t) return;
+        tSX = t.clientX; tSY = t.clientY; tMoved = false;
+      }, { passive: true });
+      slantBtn.addEventListener("touchmove", function (ev) {
+        var t = ev.touches && ev.touches[0];
+        if (!t) return;
+        if (Math.abs(t.clientX - tSX) > 8 || Math.abs(t.clientY - tSY) > 8) tMoved = true;
+      }, { passive: true });
+      slantBtn.addEventListener("touchend", function (ev) {
+        if (tMoved) return;                      /* 真滑动 → 不当成点击 */
+        if (ev && ev.preventDefault) ev.preventDefault();
+        cycleSlant();
+      }, { passive: false });
     }
     if (tabsBar.appendChild) tabsBar.appendChild(slantBtn);
   })();

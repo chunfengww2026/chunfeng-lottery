@@ -46,8 +46,11 @@ if (fs.existsSync(srcFootball)) {
       （rgba(15,17,21,.95) 黑底 + #6b7488 灰字），和已经换成米杏色的
       分享页 / 竞彩页拼在一起就是"米杏页面顶着一条黑导航"。
       现在跟着页面一起用米杏色（值取自 export-static.mjs 的 __LIGHT_THEME__）。
-   ⚠️ 同时补上第三个 Tab【走势图】：以前这里根本没有走势图页，
-      导出后分享包里缺 走势图.html（点了就是 404）。
+   ⚠️ 2026-10-17 再修正：这里原来还有第三个 Tab【走势图】，指向包内的独立页。
+      用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」→
+      独立页不再产出，那个 Tab 点了必然是 404，所以【整块删掉】，
+      导航回到「彩票推荐 / 竞彩/足球」两栏。
+      走势图内容现在内联在 index.html 的「近 30 期走势 · 预选参考」折叠块里。
    ============================================================ */
 const NAV_CSS = `
 <style>
@@ -79,18 +82,17 @@ function injectNav(html, active) {
     `<div class="site-nav">` +
     `<a href="index.html" class="${active === 'lottery' ? 'on' : ''}">彩票推荐</a>` +
     `<a href="football.html" class="${active === 'football' ? 'on' : ''}">竞彩/足球</a>` +
-    `<a href="走势图.html" class="${active === 'trend' ? 'on' : ''}">走势图</a>` +
     `</div>`;
 
   let out = html;
 
   /* ⚠️ 去掉页面【自带】的那条顶部 Tab（.top-tabs）。
      实测踩到：分享包里于是有两条导航叠在一起 ——
-       · 注入的 .site-nav（3 个 Tab，指向包内 index/football/走势图.html）
+       · 注入的 .site-nav（指向包内 index/football.html）
        · 页面自带的 .top-tabs（2 个 Tab，href 是 "./" 和 "足球推荐.html"）
      后者的链接在分享包里是【死链】（包里的文件名是 football.html），
      而且两条都占顶部、字叠字（截图里导航宽 490px 超出 430 视口）。
-     这里的 .site-nav 就是它的替代品（多了走势图那一栏），所以整块删掉。 */
+     这里的 .site-nav 就是它的替代品，所以整块删掉。 */
   out = out.replace(/<div class="top-tabs">[\s\S]*?<\/div>\s*/, '');
 
   /* ⚠️ 只在页面【自己没定义 .site-nav 样式】时才补这段 CSS。
@@ -98,7 +100,7 @@ function injectNav(html, active) {
      `.site-nav { background: rgba(247,239,225,.96) !important; ... }`，
      而这里插的样式在它【后面】、两条同优先级 —— 后面那条赢，
      于是导航又变回深色（分享包里 football.html 就是这么被压黑的）。
-     分享页和走势图页则相反：它们自己【没有】这条规则，需要这里补。 */
+     分享页自己【没有】这条规则，需要这里补。 */
   if (!/\.site-nav\s*\{/.test(html)) {
     out = out.replace('</head>', NAV_CSS + '</head>');
   }
@@ -112,17 +114,12 @@ function injectNav(html, active) {
 lottery = injectNav(lottery, 'lottery');
 if (football) football = injectNav(football, 'football');
 
-/* ---------- 2b. 走势图页 ----------
-   用户 2026-10-17 新增的独立子页（build-trend.mjs 生成）。
-   和上面两页同源处理：读进来 → 注入同一条米杏色导航 → 写进分享包。
-   文件缺失时只提示、不中断（和足球页一样的容错）。 */
-const srcTrend = path.join(ROOT, '走势图.html');
-let trend = '';
-if (fs.existsSync(srcTrend)) {
-  trend = injectNav(fs.readFileSync(srcTrend, 'utf8'), 'trend');
-} else {
-  log('⚠️ 找不到 走势图.html，跳过（先跑 node build-trend.mjs）');
-}
+/* ---------- 2b. （已删除）走势图独立页 ----------
+   2026-10-17 用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」：
+   走势图不再有独立 HTML 产物 —— 它的样式 / 表格 / 脚本由 build-trend.mjs
+   出成片段，被 export-static.mjs 内联进 index.html（= 只读分享版.html）的
+   <details class="ro-trend">（近 30 期走势 · 预选参考）里。
+   所以这里【整段删掉】：不再读独立页、不再往包里写、导航也没有它那一栏。 */
 
 /* ---------- 3. 写文件 ---------- */
 fs.writeFileSync(path.join(SITE, 'index.html'), lottery, 'utf8');
@@ -144,10 +141,7 @@ if (football) {
   }
 }
 
-if (trend) {
-  fs.writeFileSync(path.join(SITE, '走势图.html'), trend, 'utf8');
-  log(`✅ 走势图.html   ${(Buffer.byteLength(trend, 'utf8') / 1024).toFixed(1)} KB`);
-}
+/* （走势图独立页的写入也一并删掉了：包内不再有 走势图.html 这个文件） */
 
 /* ---------- 4. 说明文件 ---------- */
 const readme = `春风十里送大奖 · 分享站点
