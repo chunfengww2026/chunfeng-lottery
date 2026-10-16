@@ -1,0 +1,88 @@
+# ============================================================
+#  probe-npp.yml —— 【临时】探测牛票票（33633.cn）在云端能不能访问
+#
+#  用途：本机（中国 IP）能抓，但云端（美国 IP）不一定能。
+#        在接入之前先验证，避免白做。
+#
+#  测两个域（不同域，图床可能单独被墙）：
+#    ① p.33633.cn          栏目页
+#    ② img33633.cpyc.cn    图床
+#
+#  ⚠️ 这是临时文件，测完就删。不碰 daily-update.yml。
+# ============================================================
+name: probe-npp
+
+on:
+  workflow_dispatch:      # 只手动触发
+  push:
+    paths:
+      - '.github/workflows/probe-npp.yml'   # 推上来就跑一次
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 探测牛票票两个域
+        run: |
+          echo "=========== 云端 IP ==========="
+          curl -s --max-time 15 https://api.ipify.org || echo "(取 IP 失败)"
+          echo ""
+          echo "Cloud region: ${{ runner.location || 'unknown' }}"
+
+          echo ""
+          echo "=========== ① 栏目页 p.33633.cn ==========="
+          echo "--- http://p.33633.cn/jingcai/ ---"
+          curl -s -o /tmp/npp.html -w "HTTP=%{http_code} size=%{size_download} time=%{time_total}s\n" \
+            --max-time 30 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \
+            "http://p.33633.cn/jingcai/" || echo "curl 失败 exit=$?"
+
+          echo "--- 首页 http://p.33633.cn/ ---"
+          curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download}\n" \
+            --max-time 30 -A "Mozilla/5.0" "http://p.33633.cn/" || echo "curl 失败 exit=$?"
+
+          echo ""
+          echo "=========== ② 图床 img33633.cpyc.cn ==========="
+          for U in \
+            "http://img33633.cpyc.cn/" \
+            "https://img33633.cpyc.cn/" \
+            ; do
+            echo "--- $U ---"
+            curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download} time=%{time_total}s\n" \
+              --max-time 20 -A "Mozilla/5.0" "$U" || echo "curl 失败 exit=$?"
+          done
+
+          echo ""
+          echo "=========== ③ 从栏目页里抽几张图试试 ==========="
+          if [ -f /tmp/npp.html ]; then
+            echo "页面大小: $(wc -c < /tmp/npp.html) 字节"
+            echo "--- 页面里前 5 个 img src ---"
+            grep -oE 'src="[^"]*\.(webp|jpg|jpeg|png)"' /tmp/npp.html | head -5 || echo "(没匹配到)"
+            echo "--- 逐个下载测试 ---"
+            grep -oE 'src="[^"]*\.(webp|jpg|jpeg|png)"' /tmp/npp.html \
+              | sed 's/src="//; s/"$//' | head -5 | while read -r IMG; do
+                case "$IMG" in
+                  http*) FULL="$IMG" ;;
+                  //*)   FULL="http:$IMG" ;;
+                  /*)    FULL="http://p.33633.cn$IMG" ;;
+                  *)     FULL="http://p.33633.cn/jingcai/$IMG" ;;
+                esac
+                printf "  %-90s " "$FULL"
+                curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download}\n" \
+                  --max-time 20 -A "Mozilla/5.0" -e "http://p.33633.cn/" "$FULL" || echo "失败"
+              done
+          else
+            echo "页面没下下来，跳过"
+          fi
+
+          echo ""
+          echo "=========== ④ 对照：已知云端可用的基线 ==========="
+          for U in "https://m.yiqicai.com/xysp/ssq.html" "https://www.baidu.com" ; do
+            printf "  %-50s " "$U"
+            curl -s -o /dev/null -w "HTTP=%{http_code}\n" --max-time 20 "$U" || echo "失败"
+          done
+
+          echo ""
+          echo "=========== 结论判读 ==========="
+          echo "· p.33633.cn 栏目页 200 → 云端能抓列表"
+          echo "· img33633.cpyc.cn 200 → 云端能显示图（关键！）"
+          echo "· 图床不通 → 接入也没用（图片显示不出来）"
