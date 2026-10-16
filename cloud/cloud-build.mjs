@@ -369,16 +369,16 @@ const SLOT_PLAN = {
   /* 【全量班】抓全部数据 + 缺才补摇 + 清空热力图
      ⚠️ roll 用 fill 而不是 force：同一分钟会有两条 cron 都落到这一班
         （每 30 分钟那条 + 专用 0 18 那条），force 会把已经发布出去的号码摇两遍。 */
-  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
+  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: true  },
   /* 【常规班】每 30 分钟：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 */
-  'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
+  'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
   /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
-  'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, cleanup: false },
-  'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true,  cleanup: false },
-  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
-  'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
-  'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true,  cleanup: false },
-  'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false }
+  'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, exportTrend: false, cleanup: false },
+  'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
+  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, exportTrend: true, cleanup: false },
+  'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
+  'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true, exportTrend: false,  cleanup: false },
+  'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false }
 };
 
 /** 解析 cron 的「分钟 / 小时」字段（支持 5、5,10、1-5、星号/步长 三种写法）
@@ -1331,6 +1331,9 @@ function main() {
   const exportList = [];
   if (doExportStatic) exportList.push(['export-static.mjs', '彩票页']);
   if (plan.exportFootball) exportList.push(['export-football.mjs', '足球页']);
+  /* 【走势图】纯前端表格页：只读 history.js 真开奖数据，不抓网络、不调 AI。
+     必须排在 export-static/export-football 之后 —— 它读的是本班次刚落盘的开奖数据。 */
+  if (plan.exportTrend) exportList.push(['build-trend.mjs', '走势图页']);
   if (!exportList.length) log('  ⏭  本班次不需要重新生成页面');
 
   for (const [file, label] of exportList) {
@@ -1379,7 +1382,11 @@ function finishOutput(freshRows) {
          既不会把旧页面当成新页面发出去，也不会让站点 404。 */
   const pairs = [
     ['只读分享版.html', 'index.html'],
-    ['足球推荐.html', 'football.html']
+    ['足球推荐.html', 'football.html'],
+    /* 【走势图】它【不在】exportTrend 的班次里就不会重新生成，
+       上面那段"只发布本次重新生成过的页面"的逻辑对同样适用：
+       不是本次生成的 → 删掉 out/ 里那份，交给 workflow 从线上拉回兜底。 */
+    ['走势图.html', '走势图.html']
   ];
   pairs.forEach(([src, dst]) => {
     const sp = path.join(MOD, src);
@@ -1398,21 +1405,28 @@ function finishOutput(freshRows) {
   /* 顶部导航（两个页面互跳） */
   const NAV = `
 <style>
-.site-nav { position: sticky; top: 0; z-index: 99; display: flex; background: rgba(15,17,21,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid #262d3a; }
-.site-nav a { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; font-weight: 600; color: #6b7488; text-decoration: none; border-bottom: 2px solid transparent; }
-.site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
+/* ⚠️ 2026-10-17：这条原来是【深色】（rgba(15,17,21,0.96) 黑底 + #6b7488 灰字）。
+     它是由云端 finishOutput 注入的、位置在样式表【最后】——
+     所以连页面自己浅色主题里那条 .site-nav !important 都压不住它，
+     实测线上竞彩页就是"米杏页面顶一条黑导航"。
+     现在改成跟着页面一致的米杏色。 */
+.site-nav { position: sticky; top: 0; z-index: 99; display: flex; background: rgba(247,239,225,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid #e8d7bd; }
+.site-nav a { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; font-weight: 600; color: #8a7a63; text-decoration: none; border-bottom: 2px solid transparent; }
+.site-nav a.on { color: #1a8c5a; border-bottom-color: #1a8c5a; }
 </style>
 <div class="site-nav">
   <a href="index.html" class="__ACTIVE_INDEX__">彩票推荐</a>
   <a href="football.html" class="__ACTIVE_FB__">竞彩场次</a>
+  <a href="走势图.html" class="__ACTIVE_TREND__">走势图</a>
 </div>`;
 
-  for (const [dst, active] of [['index.html', 'index'], ['football.html', 'fb']]) {
+  for (const [dst, active] of [['index.html', 'index'], ['football.html', 'fb'], ['走势图.html', 'trend']]) {
     const fp = path.join(OUT, dst);
     if (!fs.existsSync(fp)) continue;
     let html = fs.readFileSync(fp, 'utf8');
     const nav = NAV.replace('__ACTIVE_INDEX__', active === 'index' ? 'on' : '')
-                   .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '');
+                   .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '')
+                   .replace('__ACTIVE_TREND__', active === 'trend' ? 'on' : '');
     html = html.replace('</head>', nav.split('<div class="site-nav">')[0] + '</head>');
     html = html.replace(/<body([^>]*)>/, `<body$1>${nav.split('</style>')[1]}`);
     /* 【数据新鲜度提示条】独立元素 + 独立 style，插在导航条之前 */

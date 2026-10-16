@@ -278,6 +278,13 @@ const CODE_MODULES = [
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
+  /* 【走势图】用户 2026-10-17 新增的第三个独立子页（和彩票页/竞彩页并列）。
+     ⚠️ 三个文件必须一起同步，缺一个云端就出不了这一页：
+        · build-trend.mjs  生成脚本（读 history.js → 写 走势图.html）
+        · trend-render.js  渲染内核（build-trend.mjs 用 readFileSync 内嵌进页面）
+        · trend-mount.js   挂载 + 彩种切换（同样被内嵌）
+     它们只读本机同步上去的 history.js，不抓网络、不调 AI → 云端零成本可跑。 */
+  'build-trend.mjs', 'trend-render.js', 'trend-mount.js',
   /* 【出号 / 出页面 · 备用入口】roll-and-export.mjs 与 export-only.mjs。
      ⚠️ 先说清楚一件事，免得以后有人以为云端少了这两个就不会出号：
         云端【不靠】这两个脚本出号 —— cloud-build.mjs 自己是把
