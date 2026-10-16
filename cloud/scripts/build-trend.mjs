@@ -107,6 +107,634 @@ export const RENDER_SRC = fs.readFileSync(path.join(ROOT, 'trend-render.js'), 'u
 export const MOUNT_SRC = fs.readFileSync(path.join(ROOT, 'trend-mount.js'), 'utf8');
 
 /* ============================================================
+   走势图互动层：工具栏 + 预选行 + 手画线
+   ------------------------------------------------------------
+   这是【只由 build-trend.mjs 注入】的一段页面脚本，附在 trend-mount.js 之后
+   同一个 <script> 里（页面不变量：只有 1 对 <script> 标签）。
+
+   ⚠️ 为什么不去改 trend-render.js / trend-mount.js：
+      那两个是"单一真源"，别的窗口/别的验收脚本也在读；
+      本轮的边界是「只改 build-trend.mjs + 重新生成 走势图.html」，
+      所以这里用【锚点注入】：不改那两个文件，只在构建时把
+        · 工具栏 <div> 插到每个彩种块的 .tr-head 前面
+        · 预选行 <tr> 插到每张表 tbody 的第一行
+      注入点全部是【唯一字符串】，下面 assertOnce 会当场校验，
+      上游一改模板就会构建失败 —— 不会静默画出半截页面。
+
+   四个按钮（都是 <div class="btn">，不是 <button>）：
+     · 默认        不画线：只显示原本就有的自动走势连线（竖向 + 斜连）
+     · 画线        手指/鼠标在表格上拖动 → 画一条手画线（红色，覆盖在走势线上）
+     · 清空画线    清掉所有手画线
+     · 自动衍生预选 一键选出【近 N 期出现次数最多】的号（见 pickNumbers）
+
+   预选行：
+     · 每个号码格点一下 = 选中（金色实心 .num.gold）/ 再点 = 取消（虚线空心 .num.empty）
+     · 蓝球/后区那一行同样能点（用户的 if (isBlue) return 是没实现完，这里补上）
+     · 自动衍生预选：主区选「该彩种每期开几个」那么多，第二区选「每期开几个」那么多
+       （双色球 6 红 + 1 蓝 / 大乐透 5 前 + 2 后 / 快乐8 10 / 3D·排列3 3 / 排列5 5）
+   零 localStorage：选中状态只活在内存里。
+   ============================================================ */
+const INTERACT_SRC = `
+/* ============================================================
+   走势图互动层（工具栏 / 预选行 / 手画线）
+   ------------------------------------------------------------
+   由 build-trend.mjs 注入，附在 trend-mount.js 之后（同一个 <script>）。
+   依赖：TREND_DATA、renderTrendHtml；不依赖 trend-mount.js 里的局部变量
+   （那些都在 IIFE 里，外面拿不到 —— 所以这里只用 document 查询 + 事件委托）。
+   ============================================================ */
+(function () {
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var root = document.getElementById('tr-root');
+  if (!root) return;
+  var toArr = function (nl) { return Array.prototype.slice.call(nl); };
+  var qsa = function (sel, host) { return toArr((host || root).querySelectorAll(sel)); };
+
+  /* 工具模式：none=默认（不画线） line=画线 */
+  var mode = 'none';
+  /* 手画线：按彩种存，每条是一串"格心坐标" */
+  var strokes = {};
+  /* 预选：按彩种存两个集合（号码"格子"的编号，位置彩种同号会出现多次 → 用编号） */
+  var sel = {};
+  var slugOf = function (s) { return String(s).replace(/[^A-Za-z0-9_-]/g, '_'); };
+
+  function gameOf(id) {
+    var g = null;
+    (TREND_DATA.games || []).forEach(function (x) { if (x.id === id) g = x; });
+    return g;
+  }
+
+  /* ============================================================
+     ① 工具栏：每个彩种块一个（只有 .tr-block 是显示/隐藏的，放块里就跟着切）
+     ============================================================ */
+  var TOOLS = [
+    { t: 'none', label: '默认', title: '默认：不画线，只显示自动走势连线' },
+    { t: 'line', label: '画线', title: '在表格上按住拖动，画一条线' },
+    { t: 'clear', label: '清空画线', title: '清掉手画的线' },
+    { t: 'autoPreview', label: '自动衍生预选', title: '按近 N 期出现次数选号' }
+  ];
+  var btnEls = [];
+
+  function mountToolbars() {
+    qsa('.tr-preseltool').forEach(function (tb) {
+      var gid = tb.getAttribute('data-tr-preseltool');
+      var bar = document.createElement('div');
+      bar.className = 'toolbar';
+      bar.setAttribute('data-tr-toolbar', gid);
+      bar.setAttribute('role', 'toolbar');
+      TOOLS.forEach(function (t) {
+        var b = document.createElement('div');
+        b.className = 'btn';
+        b.setAttribute('data-tool', t.t);
+        b.setAttribute('data-tr-toolbar-for', gid);
+        b.setAttribute('role', 'button');
+        b.setAttribute('tabindex', '0');
+        b.setAttribute('title', t.title);
+        b.textContent = t.label;
+        bar.appendChild(b);
+        btnEls.push(b);
+      });
+      if (tb.parentNode && tb.parentNode.insertBefore) tb.parentNode.insertBefore(bar, tb);
+      /* 提示行：告诉用户当前档位在干什么 */
+      var h = document.createElement('div');
+      h.className = 'tr-modehint';
+      h.setAttribute('data-tr-modehint', gid);
+      if (bar.parentNode && bar.parentNode.insertBefore) bar.parentNode.insertBefore(h, bar.nextSibling);
+    });
+    paintTools();
+  }
+
+  /* 按钮状态：当前档位高亮；"自动衍生预选"给个一次性的"已选中 N 个"反馈 */
+  function paintTools() {
+    btnEls.forEach(function (b) {
+      var on = (b.getAttribute('data-tool') === mode);
+      b.className = 'btn' + (on ? ' active' : '') +
+        (b.getAttribute('data-tool') === 'autoPreview' && b.getAttribute('data-tr-done') === '1' ? ' done' : '');
+    });
+    qsa('[data-tr-modehint]').forEach(function (h) {
+      h.textContent = mode === 'line'
+        ? '画线中：按住鼠标 / 手指在表格上拖动即可画线；再点一次「画线」或点「默认」退出。'
+        : '默认：只显示自动走势连线（竖向 + 斜连）。想自己画线请点「画线」。';
+    });
+  }
+
+  /* ============================================================
+     ② 预选行：表头下面第一行，每格点一下选中/取消
+     ============================================================ */
+  function buildPreselRows() {
+    qsa('[data-tr-table]').forEach(function (table) {
+      var gid = table.getAttribute('data-tr-table');
+      var tbody = table.querySelector('tbody');
+      if (!tbody) return;
+      var g = gameOf(gid);
+      if (!g) return;
+      if (!sel[gid]) sel[gid] = { main: {}, extra: {} };
+      var cells = qsa('[data-tr-presel]', table);
+      var headCell = null;
+      toArr(tbody.children).forEach(function (tr) {
+        toArr(tr.children).forEach(function (td) {
+          if (td.getAttribute && td.getAttribute('data-tr-presel') === 'label') headCell = td;
+        });
+      });
+      if (headCell) headCell.className = 'tr-td-issue tr-sticky tr-td-presel';
+      cells.forEach(function (td) {
+        var zone = td.getAttribute('data-tr-presel');
+        if (zone === 'label') return;
+        var isExtra = (zone === 'x');
+        td.className = 'tr-td-presel tr-td-num' + (isExtra ? ' is-extra' : '');
+        td.setAttribute('role', 'button');
+        td.setAttribute('tabindex', '0');
+        var wrap = document.createElement('span');
+        wrap.className = 'num empty';
+        td.appendChild(wrap);
+        var key = td.getAttribute('data-tr-key');
+        var on = !!(isExtra ? sel[gid].extra[key] : sel[gid].main[key]);
+        paintCell(td, on);
+      });
+    });
+  }
+
+  function paintCell(td, on) {
+    var wrap = td.querySelector('.num');
+    if (!wrap) return;
+    wrap.className = 'num ' + (on ? 'gold' : 'empty');
+    td.setAttribute('data-tr-sel', on ? '1' : '0');
+    td.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function toggleCell(td) {
+    var table = td;
+    while (table && table.getAttribute && !table.getAttribute('data-tr-table')) table = table.parentNode;
+    if (!table || !table.getAttribute) return;
+    var gid = table.getAttribute('data-tr-table');
+    if (!sel[gid]) sel[gid] = { main: {}, extra: {} };
+    var isExtra = (td.getAttribute('data-tr-presel') === 'x');
+    var key = td.getAttribute('data-tr-key');
+    var bag = isExtra ? sel[gid].extra : sel[gid].main;
+    bag[key] = !bag[key];
+    paintCell(td, bag[key]);
+  }
+
+  /* ============================================================
+     ③ 自动衍生预选：near N 期出现次数最多的号
+     ------------------------------------------------------------
+     N = 该区【每期开几个】（= 规则表的 pick）：
+       双色球 红6 / 蓝1 · 大乐透 前5 / 后2 · 快乐8 10 · 3D·排列3 3 · 排列5 5
+     · freq 从页面自带的 TREND_DATA 现算，不再调后端、不联网
+     · 次数相同按号码从小到大（确定性，方便验收对账）
+     · 数字型彩种（3D/排列3/排列5）的 freq = 该数字在【任意一位】出现的次数，
+       所以"出现次数最多的 3 个数字"就是它最热的 3 个候选号 —— 表里一格 = 一个数字。
+     ============================================================ */
+  function pickNumbers(arrs, lo, hi, pick) {
+    var freq = {}, n;
+    for (n = lo; n <= hi; n++) freq[n] = 0;
+    (arrs || []).forEach(function (arr) {
+      (arr || []).forEach(function (v) { if (freq[v] != null) freq[v]++; });
+    });
+    var list = [];
+    for (n = lo; n <= hi; n++) list.push({ n: n, c: freq[n], idx: n - lo });
+    list.sort(function (a, b) { return (b.c - a.c) || (a.idx - b.idx); });
+    var want = Math.max(1, Math.min(pick || 1, list.length));
+    return list.slice(0, want);
+  }
+
+  function autoPreview() {
+    var report = [];
+    qsa('[data-tr-table]').forEach(function (table) {
+      var gid = table.getAttribute('data-tr-table');
+      var g = gameOf(gid);
+      if (!g) return;
+      if (!sel[gid]) sel[gid] = { main: {}, extra: {} };
+      sel[gid] = { main: {}, extra: {} };
+      var hit = { main: [], extra: [] };
+      var rows = g.rows || [];
+      pickNumbers(rows.map(function (r) { return r.nums; }), g.main.lo, g.main.hi, g.main.pick)
+        .forEach(function (x) { hit.main.push(x.n); sel[gid].main[x.idx] = 1; });
+      if (g.extra) {
+        pickNumbers(rows.map(function (r) { return r.extra; }), g.extra.lo, g.extra.hi, g.extra.pick)
+          .forEach(function (x) { hit.extra.push(x.n); sel[gid].extra[x.idx] = 1; });
+      }
+      /* 把这一块的预选行重画成新选中状态 */
+      qsa('[data-tr-presel]', table).forEach(function (td) {
+        var zone = td.getAttribute('data-tr-presel');
+        if (zone === 'label') return;
+        var key = td.getAttribute('data-tr-key');
+        var on = (zone === 'x') ? !!sel[gid].extra[key] : !!sel[gid].main[key];
+        paintCell(td, on);
+      });
+      report.push({ game: gid, main: hit.main.join(' '), extra: hit.extra.join(' ') });
+    });
+    return report;
+  }
+
+  /* ============================================================
+     ④ 手画线：在表格上拖动画线（SVG 覆盖层，和走势连线同一套坐标）
+     ------------------------------------------------------------
+     ⚠️ 为什么用 SVG 覆盖层：和现有走势连线一致，且能精确贴在格心上。
+     ⚠️ 为什么格心要在每笔开头重新量：表格能横向滚动、第一列是吸住的，
+        缓存坐标会在滚动后画歪。
+     ⚠️ pointer-events 默认 none（不挡滑动/点选），只有画线模式才 auto。
+     ============================================================ */
+  function overlayOf(block) {
+    var table = block.querySelector('[data-tr-table]');
+    if (!table) return null;
+    var host = table.parentNode;
+    if (!host) return null;
+    var svg = null;
+    toArr(block.querySelectorAll('svg.tr-lines-draw')).forEach(function (s) {
+      if (s.getAttribute('data-tr-draw-for') === block.getAttribute('data-tr-block')) svg = s;
+    });
+    if (!svg) {
+      svg = document.createElementNS(SVGNS, 'svg');
+      svg.setAttribute('class', 'tr-lines-draw');
+      svg.setAttribute('data-tr-draw-for', block.getAttribute('data-tr-block'));
+      svg.setAttribute('aria-hidden', 'true');
+      host.appendChild(svg);
+    }
+    var box = table.getBoundingClientRect();
+    svg.setAttribute('width', String(box.width || 0));
+    svg.setAttribute('height', String(box.height || 0));
+    svg.setAttribute('viewBox', '0 0 ' + (box.width || 0) + ' ' + (box.height || 0));
+    return svg;
+  }
+
+  function measureCells(block) {
+    var table = block.querySelector('[data-tr-table]');
+    if (!table || !table.getBoundingClientRect) return null;
+    var box = table.getBoundingClientRect();
+    if (!box || !box.width || !box.height) return null;
+    var cells = [];
+    toArr(table.querySelectorAll('[data-tr-hit]')).forEach(function (td) {
+      var r = td.getBoundingClientRect();
+      if (!r || !r.width || !r.height) return;
+      cells.push({
+        td: td,
+        x: r.left - box.left + r.width / 2,
+        y: r.top - box.top + r.height / 2,
+        l: r.left - box.left, rr: r.right - box.left,
+        t: r.top - box.top, b: r.bottom - box.top
+      });
+    });
+    return cells.length ? { box: box, cells: cells } : null;
+  }
+
+  function cellAt(m, x, y) {
+    for (var i = 0; i < m.cells.length; i++) {
+      var c = m.cells[i];
+      if (x >= c.l && x <= c.rr && y >= c.t && y <= c.b) return c;
+    }
+    return null;
+  }
+
+  function renderStroke(block, pts) {
+    var svg = overlayOf(block);
+    if (!svg || !pts || !pts.length) return;
+    var el;
+    if (pts.length === 1) {
+      el = document.createElementNS(SVGNS, 'line');
+      el.setAttribute('x1', (pts[0].x - 6).toFixed(1));
+      el.setAttribute('y1', pts[0].y.toFixed(1));
+      el.setAttribute('x2', (pts[0].x + 6).toFixed(1));
+      el.setAttribute('y2', pts[0].y.toFixed(1));
+    } else {
+      el = document.createElementNS(SVGNS, 'polyline');
+      el.setAttribute('points', pts.map(function (p) { return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' '));
+    }
+    el.setAttribute('class', 'tr-draw');
+    svg.appendChild(el);
+  }
+
+  function redrawBlock(block) {
+    var gid = block.getAttribute('data-tr-block');
+    var svg = null;
+    toArr(block.querySelectorAll('svg.tr-lines-draw')).forEach(function (s) {
+      if (s.getAttribute('data-tr-draw-for') === gid) svg = s;
+    });
+    if (svg) toArr(svg.childNodes).forEach(function (c) { if (svg.removeChild) svg.removeChild(c); });
+    (strokes[gid] || []).forEach(function (st) { renderStroke(block, st.pts); });
+  }
+
+  function clearStrokes() {
+    var n = 0;
+    Object.keys(strokes).forEach(function (k) { n += strokes[k].length; });
+    strokes = {};
+    qsa('[data-tr-block]').forEach(function (b) {
+      var gid = b.getAttribute('data-tr-block');
+      toArr(b.querySelectorAll('svg.tr-lines-draw')).forEach(function (s) {
+        if (s.getAttribute('data-tr-draw-for') === gid) toArr(s.childNodes).forEach(function (c) { if (s.removeChild) s.removeChild(c); });
+      });
+      b.setAttribute('data-tr-strokes', '0');
+    });
+    return n;
+  }
+
+  function activeBlock() {
+    var list = qsa('[data-tr-block]').filter(function (b) { return !b.hasAttribute('hidden'); });
+    return list[0] || null;
+  }
+
+  function applyMode() {
+    qsa('[data-tr-block]').forEach(function (b) {
+      var gid = b.getAttribute('data-tr-block');
+      var on = (mode === 'line');
+      b.className = 'tr-block' + (on ? ' tr-drawing' : '');
+      toArr(b.querySelectorAll('svg.tr-lines-draw')).forEach(function (s) {
+        if (s.getAttribute('data-tr-draw-for') === gid) s.setAttribute('class', 'tr-lines-draw' + (on ? ' on' : ''));
+      });
+    });
+    paintTools();
+  }
+
+  /* 拖动画一笔 */
+  var drag = null;
+  function ptFrom(ev, box) {
+    var cx = (ev && ev.clientX) || 0, cy = (ev && ev.clientY) || 0;
+    return { x: cx - box.left, y: cy - box.top };
+  }
+  /* 往当前这一笔里加一个点。
+     ⚠️ force=true 用于"真取到了格心"：格心可能离上一个点很近（相邻列），
+        按像素距离过滤会把格心丢掉 → 线就不落在格子上了。
+        所以只有"自由画（没落在任何格子里的原始坐标）"才按距离过滤，
+        免得一条线存上万个点。 */
+  function pushPoint(p, force) {
+    if (!drag) return;
+    var last = drag.pts[drag.pts.length - 1];
+    if (last && !force) {
+      var d = Math.sqrt((last.x - p.x) * (last.x - p.x) + (last.y - p.y) * (last.y - p.y));
+      if (d < 5) return;
+    }
+    if (drag.pts.length > 1200) return;           /* 兜底，别让一笔无限长 */
+    drag.pts.push(p);
+  }
+  function onDown(block, ev) {
+    if (mode !== 'line') return;
+    if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
+    var m = measureCells(block);
+    if (!m) return;
+    drag = { block: block, pts: [], lastCell: null };
+    var p = ptFrom(ev, m.box);
+    var c = cellAt(m, p.x, p.y);
+    drag.lastCell = c;
+    pushPoint(c ? { x: c.x, y: c.y } : p, true);
+    redrawBlock(block);
+    renderStroke(block, drag.pts);
+  }
+  function onMove(block, ev) {
+    if (!drag || drag.block !== block) return;
+    if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
+    var table = block.querySelector('[data-tr-table]');
+    if (!table || !table.getBoundingClientRect) return;
+    var box = table.getBoundingClientRect();
+    var p = ptFrom(ev, box);
+    var m = measureCells(block);
+    var c = m ? cellAt(m, p.x, p.y) : null;
+    /* 落在同一个格子里 → 这一笔不重复记（线停在格心） */
+    if (c && c === drag.lastCell) return;
+    if (c) {
+      pushPoint({ x: c.x, y: c.y }, true);        /* 吸附到格心 */
+    } else {
+      pushPoint(p, false);                        /* 格子外：自由画，按距离过滤 */
+    }
+    drag.lastCell = c;                            /* c 为 null 时也要记，否则回格子后不吸附 */
+    redrawBlock(block);
+    renderStroke(block, drag.pts);
+  }
+  function onUp(block) {
+    if (!drag || drag.block !== block) return;
+    var gid = block.getAttribute('data-tr-block');
+    if (!strokes[gid]) strokes[gid] = [];
+    if (drag.pts.length) strokes[gid].push({ pts: drag.pts.slice() });
+    block.setAttribute('data-tr-strokes', String(strokes[gid].length));
+    drag = null;
+    redrawBlock(block);
+  }
+
+  function hasPointer() { return typeof window !== 'undefined' && typeof window.PointerEvent === 'function'; }
+  var PTR = hasPointer();
+
+  qsa('[data-tr-block]').forEach(function (block) {
+    var host = (block.querySelector('[data-tr-table]') || {}).parentNode;
+    if (!host || !host.addEventListener) return;
+    if (PTR) {
+      host.addEventListener('pointerdown', function (ev) { onDown(block, ev); }, { passive: false });
+      host.addEventListener('pointermove', function (ev) { onMove(block, ev); }, { passive: false });
+      host.addEventListener('pointerup', function (ev) { onUp(block, ev); });
+      host.addEventListener('pointercancel', function (ev) { onUp(block, ev); });
+    } else {
+      host.addEventListener('mousedown', function (ev) { onDown(block, ev); });
+      host.addEventListener('mousemove', function (ev) { onMove(block, ev); });
+      host.addEventListener('mouseup', function (ev) { onUp(block, ev); });
+      host.addEventListener('touchstart', function (ev) { onDown(block, ev.touches && ev.touches[0] || ev); }, { passive: false });
+      host.addEventListener('touchmove', function (ev) { onMove(block, ev.touches && ev.touches[0] || ev); }, { passive: false });
+      host.addEventListener('touchend', function (ev) { onUp(block, ev); });
+      host.addEventListener('touchcancel', function (ev) { onUp(block, ev); });
+    }
+  });
+
+  /* 移动端：手画到表格外也要收笔（否则线会一直粘着手指） */
+  if (typeof window !== 'undefined' && window.addEventListener) {
+    var endAll = function () { if (drag) onUp(drag.block); };
+    window.addEventListener('pointerup', endAll);
+    window.addEventListener('pointercancel', endAll);
+    window.addEventListener('mouseup', endAll);
+    window.addEventListener('touchend', endAll);
+    window.addEventListener('touchcancel', endAll);
+  }
+
+  /* ============================================================
+     ⑤ 事件委托：工具栏按钮 + 预选行点选
+     ------------------------------------------------------------
+     ⚠️ 用委托（不是每格绑定）：
+        · 预选行格子很多（快乐8 一口 80 格），逐个绑事件太重
+        · 彩种切换会重画连线覆盖层，委托不受影响
+     ============================================================ */
+  function toolClicked(t, btn) {
+    if (t === 'none') { mode = 'none'; applyMode(); return; }
+    if (t === 'line') { mode = (mode === 'line') ? 'none' : 'line'; applyMode(); return; }
+    if (t === 'clear') {
+      var n = clearStrokes();
+      if (btn) {
+        btn.setAttribute('data-tr-cleared', String(n));
+        var old = btn.textContent;
+        btn.textContent = '已清空 ' + n + ' 条';
+        if (window.setTimeout) window.setTimeout(function () { btn.textContent = old; btn.removeAttribute('data-tr-cleared'); }, 1200);
+      }
+      return;
+    }
+    if (t === 'autoPreview') {
+      var rep = autoPreview();
+      /* 打印一次实例，肉眼/验收脚本都能查（不影响用户界面） */
+      try {
+        if (window.console && console.log) {
+          console.log('[自动衍生预选] 近 ' + (TREND_DATA.periods || 0) + ' 期出现次数最多的号：');
+          rep.forEach(function (r) {
+            console.log('  ' + r.game + ' → ' + r.main + (r.extra ? '  +  ' + r.extra : ''));
+          });
+        }
+      } catch (e) { /* 控制台不可用就算了 */ }
+      window.__TREND_PRESEL_REPORT = rep;
+      if (btn) btn.setAttribute('data-tr-done', '1');
+      paintTools();
+      if (btn && window.setTimeout) window.setTimeout(function () { btn.removeAttribute('data-tr-done'); paintTools(); }, 1600);
+      return;
+    }
+  }
+
+  root.addEventListener('click', function (ev) {
+    var el = ev && ev.target;
+    if (!el || !el.getAttribute) return;
+    /* 按钮里的文字被点到 → 往上找 .btn */
+    if (!el.getAttribute('data-tool') && el.parentNode && el.parentNode.getAttribute) el = el.parentNode;
+    var t = el.getAttribute && el.getAttribute('data-tool');
+    if (t) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
+  });
+
+  /* 预选行点选：按下就响应（手指/鼠标都行）
+     ⚠️ 触摸设备上 touchend 之后浏览器还会补一次 click ——
+        两个都处理就会"选中又立刻取消"。用一个短标志位吃掉这次补发的 click。 */
+  var touchHandled = false;
+  function handlePreselTap(ev) {
+    var el = ev && ev.target;
+    while (el && el.getAttribute && el.getAttribute('data-tr-presel') == null) el = el.parentNode;
+    if (!el || !el.getAttribute) return;
+    var zone = el.getAttribute('data-tr-presel');
+    if (zone === 'label') return;
+    if (mode === 'line') return;                 /* 画线模式下别同时改预选 */
+    toggleCell(el);
+  }
+  root.addEventListener('click', function (ev) {
+    if (touchHandled) return;
+    handlePreselTap(ev);
+  });
+  root.addEventListener('touchend', function (ev) {
+    touchHandled = true;
+    if (window.setTimeout) window.setTimeout(function () { touchHandled = false; }, 420);
+    handlePreselTap(ev);
+  });
+
+  /* 键盘可达（桌面无障碍）：空格/回车切换 */
+  root.addEventListener('keydown', function (ev) {
+    var el = ev && ev.target;
+    if (!el || !el.getAttribute) return;
+    var t = el.getAttribute('data-tool');
+    if (t && (ev.key === 'Enter' || ev.key === ' ')) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
+    if (el.getAttribute('data-tr-presel') != null && (ev.key === 'Enter' || ev.key === ' ')) {
+      if (ev.preventDefault) ev.preventDefault();
+      toggleCell(el);
+    }
+  });
+
+  /* ============================================================
+     ⑥ 收尾：建工具栏、建预选行、给验收脚本留几个可读标记
+     ============================================================ */
+  qsa('[data-tr-block]').forEach(function (b) { if (!b.hasAttribute('data-tr-strokes')) b.setAttribute('data-tr-strokes', '0'); });
+  buildPreselRows();
+  mountToolbars();
+  applyMode();
+
+  /* 验收/自检用：页面脚本跑完后把这些挂在 window 上（不写 localStorage） */
+  window.__TREND_PRESEL = sel;
+  window.__TREND_DRAW = {
+    mode: function () { return mode; },
+    strokes: function () { return strokes; },
+    count: function () {
+      var n = 0; Object.keys(strokes).forEach(function (k) { n += strokes[k].length; });
+      return n;
+    },
+    autoPreview: autoPreview,
+    clear: clearStrokes
+  };
+})();
+`;
+
+/* ============================================================
+   构建时锚点注入：把工具栏 / 预选行"种"进渲染内核产出的 HTML 里
+   ------------------------------------------------------------
+   ⚠️ 不改 trend-render.js / trend-mount.js（它们是别的窗口也在读的单一真源），
+      这里只对【读进来的源码文本】做一次唯一字符串替换：
+        · '<div class="tr-head">'   ← 每个彩种块一块工具栏
+        · '<td class="tr-td-sep">'  ← 第二区（蓝球/后区）的预选格
+        · '</tbody>'                ← 预选行插在 tbody 最上面
+      每个锚点在源码里都必须【恰好出现 1 次】，否则直接抛错、不生成页面。
+   ============================================================ */
+function assertOne(src, needle, label) {
+  const n = src.split(needle).length - 1;
+  if (n !== 1) throw new Error(`注入锚点「${label}」在源码里出现了 ${n} 次（必须恰好 1 次）：${needle}`);
+  return src;
+}
+
+export function injectMarkers(src) {
+  let s = src;
+  /* 工具栏：插在彩种块的 .tr-head 前面。
+     ⚠️ 这个锚点在 trend-render.js 里【就在一段字符串拼接的中间】
+        （L.push('<div class="tr-head">');），所以插进去的东西必须是
+        同一行、且是合法 JS（' + esc(g.id) + '）——
+        在这里换行会把那个字符串拆断，整页脚本直接语法错误（踩过）。 */
+  const TOOL_ANCHOR = '<div class="tr-head">';
+  const TOOL_FIX = '<div class="tr-preseltool" data-tr-preseltool="\' + esc(g.id) + \'"></div>' + TOOL_ANCHOR;
+  assertOne(s, TOOL_ANCHOR, '彩种块头');
+  s = s.split(TOOL_ANCHOR).join(TOOL_FIX);
+
+  /* 第二区分隔列：只认【表体】那一处（表尾三行里也有 <td class="tr-td-sep">，
+     所以锚点必须带上下面的循环头，保证全局唯一） */
+  const SEP_BODY = "L.push('<td class=\"tr-td-sep\"></td>');\n        for (let i = 0; i < exCols; i++) {";
+  assertOne(s, SEP_BODY, '第二区分隔列（表体）');
+  s = s.split(SEP_BODY).join(
+    "L.push('<td class=\"tr-td-sep\">' + __trPreselExtra(g) + '</td>');\n" +
+    '        for (let i = 0; i < exCols; i++) {');
+
+  const TB = "'<tbody>'";
+  assertOne(s, TB, '表体开头');
+  s = s.split(TB).join("'<tbody>' + __trPreselRow(g) + '</tbody>'");
+  return s;
+}
+
+/* 页面里真正干活的注入脚本（运行时用模板拼出预选行 HTML）
+   ⚠️ 这段必须是【合法 JS 字符串拼接】——所以整段写成模板字符串（可读），
+      而不是塞在数组里双层转义。拼出来的代码形如：
+        return '<tr class="tr-row-presel">' + '<td ...>预选</td>' + ...
+      这些单引号都是"生成代码"里的引号，不是这里的引号。 */
+const INJECT_SRC = `
+/* ===== build-trend.mjs 注入：预选行（运行时拼 HTML） ===== */
+function __trMainCells(g) {
+  var o = [];
+  for (var i = g.main.lo; i <= g.main.hi; i++) {
+    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0"></td>');
+  }
+  return o.join('');
+}
+function __trExtraCells(g) {
+  var o = [];
+  if (!g.extra) return '';
+  for (var i = g.extra.lo; i <= g.extra.hi; i++) {
+    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0"></td>');
+  }
+  return o.join('');
+}
+var __TREND_PRESEL_ROW__ = '';
+var __TREND_PRESEL_EXTRA__ = '';
+function __trPreselRow(g) {
+  return '<tr class="tr-row-presel tr-row" data-tr-issue="__presel__" data-tr-presel-row="' + g.id + '">' +
+    '<td class="tr-td-issue tr-sticky tr-td-presel" data-tr-presel="label">预选</td>' +
+    __trMainCells(g) + __trPreselExtra(g) + '</tr>';
+}
+function __trPreselExtra(g) {
+  return g.extra ? ('<td class="tr-td-sep"></td>' + __trExtraCells(g)) : '';
+}
+`;
+
+/* ⚠️ 说明：__TREND_PRESEL_ROW__ / __TREND_PRESEL_EXTRA__ 两个标记必须
+   【在 renderTrendHtml 里面】求值（那里才有 g），所以注入点写成
+   "\' + __trPreselRow(g) + \'" —— 上面那两个同名 var 只是给标记留个名字，
+   实际拼 HTML 用的是 __trPreselRow(g) / __trPreselExtra(g) 两个函数。 */
+
+export function appendInteract(renderSrc) {
+  const s = injectMarkers(renderSrc);
+  assertOne(s, '__trPreselRow(g)', '预选行运行时调用');
+  assertOne(s, '__trPreselExtra(g)', '第二区预选运行时调用');
+  return s + '\n' + INJECT_SRC;
+}
+
+/* ============================================================
    页面外壳（米杏色，变量值和分享页 export-static.mjs 的 __LIGHT_THEME__ 一致）
    ------------------------------------------------------------
    __TREND_SCRIPT_BODY__ 是占位符：构建时替换成
@@ -246,8 +874,13 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
   border-right: 1px solid var(--ro-line) !important; }
 .tr-table thead .tr-sticky { z-index: 4; background: var(--ro-sunken); }
 
-.tr-row:nth-child(even) td { background: #fbf3e6; }
-.tr-row:nth-child(even) .tr-sticky { background: #fbf3e6; }
+/* 行底色：体行默认白，隔一行淡米色。
+   ⚠️ 这里原来写的是 nth-child(even) —— 加了【预选行】（tbody 第 1 行）之后
+      整列后的白色会整体错一行，所以改成"体行默认白 + nth-child(odd) 淡米色"，
+      第 1 行（预选行）不是 .tr-row，不参与，也就不会串行。 */
+.tr-row td { background: #fffdf8; }
+.tr-row:nth-child(odd) td { background: #fbf3e6; }
+.tr-row:nth-child(odd) .tr-sticky { background: #fbf3e6; }
 .tr-td-issue { height: 24px; line-height: 1.1; padding: 2px 4px !important; }
 .tr-td-issue b { display: block; font-size: 11px; font-weight: 700; color: var(--ro-fg); }
 .tr-td-issue i { display: block; font-style: normal; font-size: 9.5px; color: var(--ro-fg3); }
@@ -281,6 +914,42 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-lg-on { background: #d8efe2; border: 1px solid #b7e4cd; }
 .tr-lg-last { background: #fff6dd; border: 1px solid #ffe08a; }
 .tr-lg-gap { background: #fffdf8; border: 1px solid var(--ro-line); }
+
+/* ⑪ 工具栏（用户 2026-10-17 要求：走势图页加一排工具按钮）
+   ------------------------------------------------------------
+   四个按钮：默认 / 画线 / 清空画线 / 自动衍生预选。
+   ⚠️ 用 <div class="btn">，不是 <button> —— 页面不变量要求"裸 <button> = 0"。 */
+.toolbar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.toolbar .btn { padding:5px 10px; border-radius:8px; background:#fdf6ea;
+  border:1px solid #e8d7bd; font-size:12px; color:#4a3a26; cursor:pointer; }
+.toolbar .btn.active { background:#1a8c5a; color:#fff; border-color:#1a8c5a; }
+.toolbar .btn.done { background:#e8f6ef; border-color:#b7e4cd; color:#1a8c5a; }
+.tr-modehint { margin:-4px 0 10px; font-size:11.5px; color:var(--ro-fg3); line-height:1.7; }
+
+/* ⑫ 预选行（表头下面第一行，格子里点一下就是选中/取消）
+   ------------------------------------------------------------
+   选中 = 金色实心球；未选 = 虚线空心。
+   ⚠️ 预选行也是 <tr data-tr-issue> + 每格 data-tr-hit ——
+      走势连线（drawTrendLines）会照旧量到它，连线不会被这行顶歪。 */
+.tr-th-presel { color:#8a6a00; font-size:11px; font-weight:800; }
+.tr-td-presel { height:24px; cursor:pointer; }
+.tr-td-presel .num { display:inline-block; width:16px; height:16px; border-radius:50%;
+  vertical-align:middle; box-sizing:border-box; }
+.tr-td-presel .num.empty { border:1.5px dashed #c9b48c; background:transparent; }
+.tr-td-presel .num.gold { background:#d9a300; border:1.5px solid #b8860b; }
+.tr-td-presel.is-extra .num.empty { border-color:#a9c0ef; }
+.tr-td-presel.is-extra .num.gold { background:#1f5fd6; border-color:#1a4cae; }
+
+/* ⑬ 手画的线（SVG 覆盖层，画在自动走势连线上面）
+   ------------------------------------------------------------
+   ⚠️ 默认 pointer-events:none —— 不能挡住表格的横向滑动和点选。
+      只有「画线」模式下由脚本改成 auto，画完/切回默认再改回 none。 */
+svg.tr-lines-draw { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
+svg.tr-lines-draw.on { pointer-events:auto; }
+.tr-draw { stroke:#c0392b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.tr-draw-line { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
+/* 画线模式：手指拖动只画线，不滚动（否则线画不出来） */
+.tr-block.tr-drawing .tr-scroll { touch-action:none; }
 
 /* ⑧ 页脚 */
 .ro-foot { margin: 0 2px; font-size: 11px; color: var(--ro-fg3); line-height: 1.9; }
@@ -324,14 +993,18 @@ __TREND_SCRIPT_BODY__
 </body>
 </html>
 `;
-  /* 数据快照 + 渲染内核 + 挂载逻辑 */
+  /* 数据快照 + 渲染内核（含工具栏/预选行锚点注入）+ 挂载逻辑 + 互动层
+     ⚠️ 互动层（工具栏行为 / 预选行点选 / 手画线）只能拼进【同一个 <script>】：
+        页面不变量要求整页恰好 1 对 <script> 标签。 */
   const body = [
     '/* 走势图数据快照 —— 构建时从 history.js 内嵌（本页唯一真数据源） */',
     'var TREND_DATA = ' + JSON.stringify(payload) + ';',
     '',
-    RENDER_SRC,
+    appendInteract(RENDER_SRC),
     '',
-    MOUNT_SRC
+    MOUNT_SRC,
+    '',
+    INTERACT_SRC
   ].join('\n');
 
   /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
