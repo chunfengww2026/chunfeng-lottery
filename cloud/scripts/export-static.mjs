@@ -948,13 +948,31 @@ function buildExpertsHtml() {
       const streak = x.curStreak || 0;
       const best = x.maxStreak || 0;
       const hitCls = x.lastHit ? ' hit' : ' miss';
-      return '<div class="ro-xj-row">' +
+      /* 【本轮改版】每行加上 data-ex-key → 点专家就【就地展开逐期明细】。
+         ⚠️ key 规则和 expert-pool.js:377 的【完全同一套】：gameId + '-' + idx。
+            那边是 expertStableList() = g.stable 按 score 降序后取前 N；
+            这里用 g.stable 原序取前 10 —— 实测 experts-data.js 里每个彩种的
+            stable[] 本身【已经按 score 降序】排好（已核对 8 个彩种），
+            所以两边的 idx 指向【同一位专家】，key 对得上。
+         ⚠️ 展开/收起【没有第二套逻辑】：详情 DOM 的 id 就叫 ex-detail-<key>，
+            内容和「稳定专家」面板用的是同一个函数 expertDetailHtml()
+            （expert-pool.js:285，它挂在页面的全局作用域上，脚本已内联进本页）。
+         ⚠️ 不能是裸 <div onclick>（键盘聚焦不到）、更不能是裸 <button>
+            （页面不变量：button 标签 = 0）→ 用 <a role="button" tabindex="0">，
+            和 expert-pool.js 里完全一样的写法。 */
+      const exKey = gid + '-' + i;
+      return '<div class="ro-xj-item">' +
+        '<a class="ro-xj-row" role="button" tabindex="0"' +
+        ' data-ex-key="' + escapeAttr(exKey) + '" aria-expanded="false">' +
         '<span class="ro-xj-rank">' + (i + 1) + '</span>' +
         '<span class="ro-xj-name">' + escape(x.name || '') + '</span>' +
         '<span class="ro-xj-cat">' + escape(x.cat || '') + '</span>' +
         '<span class="ro-xj-rate">命中 ' + pct + '%</span>' +
         '<span class="ro-xj-streak">连' + streak + ' · 最长' + best + '</span>' +
         '<span class="ro-xj-last' + hitCls + '">' + (x.lastHit ? '中' : '未中') + '</span>' +
+        '</a>' +
+        /* 详情默认 hidden（= 收起）；展开了再填内容（同一套 expertDetailHtml()） */
+        '<div class="ro-xj-detail" id="ex-detail-' + escapeAttr(exKey) + '" hidden></div>' +
         '</div>';
     }).join('');
     return '<div class="ro-xj-group">' +
@@ -4188,13 +4206,36 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-art-group[open] > summary.ro-art-gname .ro-art-tip::after { content: '点击收起'; }
 
 /* ⑩ 走势图入口（__TREND_ENTRY__）：和晒票/GPT摇号同一套「居中单卡片」外观。
-   ⚠️ 它是 <a>（跳独立页面 走势图.html），不是 <details>，所以单独给样式；
-      视觉上和 .ro-xysp-head / .ro-aipick-head 完全一致（用户要求一致）。 */
-.trend-entry { display: block; text-align: center; text-decoration: none;
-  background: var(--ro-card); border: 1px solid var(--ro-line);
-  border-radius: 10px; margin: 0 12px 12px; padding: 14px 12px; }
-.trend-entry .te-t { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
-.trend-entry .te-d { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-ok); font-weight: 600; }
+   ⚠️ 【本轮改版】它现在是 <details>（不是 <a> 跳转）：
+      点一下【就地展开】走势图（iframe），默认收起。
+   ⚠️ 「点击查看 ▸ / 点击收起 ▾」用的是 .ro-aipick-arrow 那一套写法
+      （伪元素 ::before/::after 按 [open] 换字），不是新机制、不是裸 <button>。
+   ⚠️ 只用变量色（--ro-fg / --ro-ok / --ro-card / --ro-line / --ro-sunken），
+      米杏色主题和浅色主题那段覆盖都能自动生效。 */
+.ro-trend { background: var(--ro-card); border: 1px solid var(--ro-line);
+  border-radius: 10px; margin: 0 12px 12px; padding: 12px 12px 0; }
+.ro-trend > .ro-trend-head { display: block; text-align: center; cursor: pointer;
+  list-style: none; -webkit-tap-highlight-color: transparent; user-select: none;
+  padding: 2px 0 12px; }
+.ro-trend > .ro-trend-head::-webkit-details-marker { display: none; }
+.ro-trend > .ro-trend-head::marker { content: ''; }
+.ro-trend-h2 { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg);
+  letter-spacing: .5px; }
+.ro-trend-sub { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-fg2);
+  font-weight: 600; }
+/* 右侧胶囊：和晒票 / GPT摇号 / 专家推荐 一模一样的「点击查看/点击收起」 */
+.ro-trend-arrow { display: inline-block; margin: 8px auto 0; font-size: 12px;
+  font-weight: 600; color: var(--ro-ok); border: 1px solid var(--ro-ok);
+  border-radius: 14px; padding: 4px 10px; white-space: nowrap; }
+.ro-trend-arrow::before { content: '点击查看'; }
+.ro-trend-arrow::after { content: ' ▸'; }
+.ro-trend[open] > .ro-trend-head .ro-trend-arrow::before { content: '点击收起'; }
+.ro-trend[open] > .ro-trend-head .ro-trend-arrow::after { content: ' ▾'; }
+.ro-trend-body { padding: 0 0 12px; }
+.ro-trend-frame { display: block; width: 100%; height: 520px; border: 1px solid var(--ro-line);
+  border-radius: 10px; background: var(--ro-sunken); }
+.ro-trend-tip { margin-top: 8px; text-align: center; font-size: 11.5px; color: var(--ro-fg3); }
+.ro-trend-tip a { color: var(--ro-ok); text-decoration: none; }
 ${P3D_SECTION_CSS}
 
 
@@ -4231,7 +4272,33 @@ ${P3D_SECTION_CSS}
 .ro-xj-gcount { font-size: 11px; color: var(--ro-fg3); }
 .ro-xj-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px;
   border-bottom: 1px dotted var(--ro-line-soft); font-size: 12px; }
-.ro-xj-row:last-child { border-bottom: 0; }
+.ro-xj-item:last-child .ro-xj-row { border-bottom: 0; }
+/* 【本轮改版】行从 <div> 变成 <a role="button">（可点、可键盘聚焦）——
+   去掉链接的下划线/默认色，外观和原来一模一样。 */
+a.ro-xj-row { color: inherit; text-decoration: none; cursor: pointer;
+  border-radius: 6px; -webkit-tap-highlight-color: transparent; }
+a.ro-xj-row:focus-visible { outline: 2px solid var(--ro-ok); outline-offset: 1px; }
+a.ro-xj-row.on { background: var(--ro-sunken); }
+/* ---------- 展开后的逐期明细（内容 = expert-pool.js 的 expertDetailHtml()）----------
+   ⚠️ 这些类名（.ex-drow / .ex-dhist…）在 App 的 styles.css 里有暗色样式；
+      分享页不加载那份 CSS，所以这里补一套【只用变量色】的，
+      米杏色/浅色主题自动生效。 */
+.ro-xj-detail { padding: 4px 8px 8px; }
+.ro-xj-detail[hidden] { display: none; }
+.ro-xj-detail .ex-drow { font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
+.ro-xj-detail .ex-drow b { color: var(--ro-ok); }
+.ro-xj-detail .ex-drow-lb { margin: 6px 0 2px; font-weight: 700; color: var(--ro-fg); }
+.ro-xj-detail .ex-dhist { display: flex; align-items: center; gap: 8px;
+  padding: 3px 0; border-top: 1px dotted var(--ro-line-soft); font-size: 11px;
+  color: var(--ro-fg2); }
+.ro-xj-detail .ex-dissue { flex: 0 0 auto; color: var(--ro-fg3); }
+.ro-xj-detail .ex-dcat { flex: 0 0 auto; color: var(--ro-fg3); }
+.ro-xj-detail .ex-dpicks { flex: 0 0 auto; }
+.ro-xj-detail .ex-dhits { flex: 1 1 auto; min-width: 0; color: var(--ro-fg);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ro-xj-detail .ex-dres { flex: 0 0 auto; font-weight: 700; }
+.ro-xj-detail .ex-dhist.hit .ex-dres { color: var(--ro-ok); }
+.ro-xj-detail .ex-dhist.miss .ex-dres { color: var(--ro-fg3); }
 .ro-xj-rank { flex: 0 0 18px; text-align: center; font-size: 11px; font-weight: 700;
   color: var(--ro-fg3); }
 .ro-xj-name { flex: 1 1 auto; min-width: 0; font-weight: 700; color: var(--ro-fg);
@@ -4407,6 +4474,57 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    ============================================================ */
 .ro-top { padding-top: 12px !important; padding-bottom: 0 !important; }
 .ro-top h1 { margin-bottom: 0 !important; }
+/* ============================================================
+   【文字对比度 · 最终修正】米杏底上"看不清"的字统一加深（用户 2026-10-17）
+   ------------------------------------------------------------
+   依据：真浏览器逐文本节点实测（_contrast_probe.mjs —— 比较"颜色"和它**真正的背景**，
+        不是猜；排除 canvas/img/svg）。实测最差的 10 组（达标线 4.5）：
+     #e8eaed 1.06  .hc-gn            开奖卡彩种名（8 处）
+     #ffffff 1.07  .ro-aipick-*.on   选号面板选中态 —— 白字压在米杏底上，等于看不见（3 处）
+     #e8c877 1.42  .hc-nextcd        开奖卡倒计时（8 处）
+     #c8cfda 1.46  .ro-art-gname     文章参考的彩种名（5 处）
+     #8fb8ff 1.87  .ro-xysp-cap b    晒票卡片的彩种名（378 处）
+     #9aa6b8 2.29  .ro-aipick-lbl    选号面板标签（5 处）
+     #d9a300 2.29  .shape-baozi      手绘图表格里的"豹子"格（白底，1 处）
+     #a2937c 2.43  "还没摇号 / 未中"  提示文字（19 处）
+     #8b93a1 2.71  .hc-iss           开奖卡期号（8 处）
+     #a2937c 2.79  .ro-xysp-cap i    晒票卡片的副标题（165 处）
+   三档口径（用户给）：主文字 var(--ro-fg) #4a3a26 · 次要 var(--ro-fg2) #8a7a63 · 最弱 var(--ro-fg3) #a2937c
+   ⚠️ 只改颜色（原有 font-weight:700 一律保留），不动任何文字内容 / 字号 / 间距 / 布局。
+   ⚠️ canvas / img / svg 出的图（推荐图 / 热力图 / 手绘图）不在这里面，保持深色。
+   ⚠️ 必须写在样式表【最后】（紧邻 </style>）—— 前面那些 .ro-art-* / .hc-* 规则会盖掉它。 */
+/* ① 文章参考：彩种名加深 + 加粗；「N 篇」次要色；"点击查看/收起"绿色；底色/边框显式米杏 */
+.ro-art-group { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; }
+.ro-art-group > summary.ro-art-gname { color: var(--ro-fg) !important; font-weight: 700 !important; }
+.ro-art-group > summary.ro-art-gname i { color: var(--ro-fg2) !important; font-weight: 400 !important; }
+.ro-art-group > summary.ro-art-gname .ro-art-tip::after { color: var(--ro-ok) !important; }
+.ro-art-body { background: var(--ro-sunken) !important; border-color: var(--ro-line) !important; }
+.ro-art-empty, .ro-art-note { color: var(--ro-fg2) !important; }
+.ro-art-item.ro-art-nobody .ro-art-link { color: var(--ro-fg3) !important; }
+.ro-art-link, .ro-art-body a { color: var(--ro-link) !important; }
+.ro-art-link:hover, .ro-art-link:active { color: var(--ro-link) !important; }   /* 原来 hover 是浅蓝 #bcd4ff（1.4） */
+/* ② 开奖号码卡片：彩种名 / 期号 / 日期 / 倒计时 */
+.hc-gn { color: var(--ro-fg) !important; font-weight: 700 !important; }
+.hc-iss, .hc-date, .hc-rgame { color: var(--ro-fg2) !important; }
+.hc-nextcd { color: var(--ro-time) !important; }                                /* 原浅金 #e8c877 只有 1.42 */
+/* ③ 晒票卡片：彩种名（主文字）+ 下面的时间/期号（次要） */
+.ro-xysp-cap b { color: var(--ro-fg) !important; }
+.ro-xysp-cap i { color: var(--ro-fg2) !important; }
+/* ④ 选号面板：标签用次要色；选中态给实心绿（原来是白字压米杏底，等于看不见） */
+.ro-aipick-lbl { color: var(--ro-fg2) !important; }
+.ro-aipick-srcbtn.on, .ro-aipick-segbtn.on, .ro-aipick-btn.on,
+.ro-aipick-tab.on, .ro-aipick-kl8tab.on { background: var(--ro-ok) !important; color: #fff !important; }
+.ro-aipick-empty { color: var(--ro-fg2) !important; }
+.ro-xj-last.miss { color: var(--ro-fg2) !important; }
+.ro-aipick-rule, .ro-tool em, .ro-kjh-issue, .ro-kjh-extra, .ro-imgtoc-sub, .ro-st-time { color: var(--ro-fg2) !important; }
+/* ⑤ 悬停态：浅蓝/浅金一律换成可读的深色或主色 */
+.ro-xysp-tab:hover, .ro-xysp-tab:active, .ro-aipick-tab:hover, .ro-aipick-tab:active,
+.ro-aipick-kl8tab:hover, .ro-aipick-segbtn:hover, .ro-aipick-pick:hover, .ro-aipick-pick:active { color: var(--ro-fg) !important; }
+.ro-live-more:hover, .ro-live-more:active, .ro-live-link:hover .ro-live-txt, .ro-live-link:active .ro-live-txt { color: var(--ro-link) !important; }
+/* ⑥ 零散：手绘图表格里的金色字（白底 2.29）用项目已有的深金 #8a6a00；标题类统一主文字 */
+.metric-table td.shape-baozi { color: #8a6a00 !important; }
+.p3d-type-btn { color: var(--ro-fg2) !important; }
+.ro-gamehead h2, .ro-imgtoc-title, .ro-art-title, .ro-xysp-h2, .ro-aipick-h2, .ro-disclaimer h3 { color: var(--ro-fg) !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -4621,16 +4739,30 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        纯文字区块：不含任何图片，所以图位数量不变。 -->
   <!-- ============================================================
        __TREND_ENTRY__ 「走势图」入口 —— 用户要求放在【文章参考】上面。
-       ⚠️ 这是【跳转到独立页面 走势图.html】，不是展开内容 →
-          所以不能用 <details>（那是折叠），用 <a>。
-       ⚠️ 样式复用 .ro-aipick-head 那套「居中单卡片」（和晒票/GPT摇号一致），
-          靠 .trend-entry 这个类名借用同一组样式，不新增第二套外观。
-       ⚠️ 页面不变量：纯链接、不含图片 → data-image 不变（仍 21）。
+       【本轮改版】原来是 <a href="走势图.html">（跳去独立页面）；
+       现在改成 <details> 折叠块 → 【点一下就地展开】，不再跳走。
+       ⚠️ 折叠机制和「晒票 / GPT模型摇号」同一套：<details> + <summary>，
+          「点击查看 / 点击收起」由 CSS 伪元素按 [open] 切换，
+          不用 JS、不用裸 <button>（用户铁律）、不用裸 <div onclick>。
+       ⚠️ 展开内容用 <iframe src="走势图.html">：
+          · loading="lazy" → 【不展开就不加载】，不额外吃流量
+          · file:// 和 https 下都能用（fetch 在 file:// 会被 CORS 拦，iframe 不会）
+          · 固定高度 520px + 可滚动
+       ⚠️ 独立页面 走势图.html 本身【保留】，iframe 里还能直接打开。
+       ⚠️ 页面不变量：纯文字 + iframe，没有 <img> → data-image 不变（仍 21）。
        ============================================================ -->
-  <a class="trend-entry" href="走势图.html">
-    <span class="te-t">走势图</span>
-    <span class="te-d">近 30 期走势 · 预选参考 · 点击查看 →</span>
-  </a>
+  <details class="ro-trend" id="ro-trend">
+    <summary class="ro-trend-head">
+      <span class="ro-trend-h2">走势图</span>
+      <span class="ro-trend-sub">近 30 期走势 · 预选参考</span>
+      <span class="ro-trend-arrow" aria-hidden="true"></span>
+    </summary>
+    <div class="ro-trend-body">
+      <iframe class="ro-trend-frame" src="走势图.html" loading="lazy"
+              title="走势图（近 30 期）"></iframe>
+      <div class="ro-trend-tip">看不了？<a href="走势图.html" target="_blank" rel="noopener">在新页面打开走势图 →</a></div>
+    </div>
+  </details>
 
   ${p3dHtml}
 
@@ -5610,6 +5742,85 @@ ${RO_RENDER_SCRIPT}
   }
   draw();
   setInterval(draw, 1000);
+})();
+</script>
+
+<!-- __EXP_ROW_JS__ 专家推荐·点专家就地展开逐期明细
+     用户要求：点「专家推荐」里的某一位专家 → 原地展开他的近 10 期逐期明细，再点收起。
+     ⚠️ 【没有第二套渲染逻辑】：
+        · key 规则和 expert-pool.js:377 完全一致（gameId + '-' + idx），
+          详情 DOM 的 id 就是 ex-detail-<key>（和那边一字不差）；
+        · 明细内容用的是【同一个函数】expertDetailHtml()（expert-pool.js:285），
+          该文件已内联在本页（见上面 INLINE_JS 列表），函数挂在页面全局作用域上。
+        · 开合语义也照抄 expert-pool.js:404 那套：hidden 属性 + aria-expanded
+          + .on 类（不用 display，display 不能过渡）。
+     ⚠️ 为什么本页要自己挂一个委托监听：expert-pool.js 里的委托监听是
+        【挂在它自己创建的那个面板容器上】的（t.addEventListener，
+        仅在 renderExpertPanel(container, gameId) 被调用时才会挂）——
+        分享页是预渲染好的静态 HTML、从来不调 renderExpertPanel，
+        所以那个监听在本页不存在。这里用【同一个 toggle 语义 + 同一个函数】
+        在 document 上挂一次委托，服务本页的 .ro-xj-row[data-ex-key]。
+     ⚠️ 不能用裸 <button>（页面不变量：button 标签 = 0），
+        行本身是 <a role="button" tabindex="0">（见 buildExpertsHtml）。
+     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）。 -->
+<script>
+(function () {
+  try {
+    if (!document.querySelector('a.ro-xj-row[data-ex-key]')) return;
+
+    var keyOf = function (node) {
+      return (node && node.closest) ? node.closest('[data-ex-key]') : null;
+    };
+
+    var toggle = function (row) {
+      if (!row) return;
+      var detail = document.getElementById('ex-detail-' + (row.getAttribute('data-ex-key') || ''));
+      if (!detail) return;
+      var willOpen = detail.hasAttribute('hidden');
+      if (willOpen) {
+        /* 第一次展开才填内容（省得页面里塞 80 份没人看的明细）；
+           填的就是 expertDetailHtml() 的输出 —— 和 App 里一模一样。 */
+        if (!detail.getAttribute('data-filled')) {
+          var key = String(row.getAttribute('data-ex-key') || '');
+          var gp = key.split('-');
+          var idx = parseInt(gp.pop(), 10);
+          var gid = gp.join('-');
+          var e = null;
+          try {
+            e = (typeof expertsFor === 'function') ? expertsFor(gid) : null;
+            e = (e && Array.isArray(e.stable) && e.stable[idx]) ? e.stable[idx] : null;
+          } catch (e0) { e = null; }
+          if (e && typeof expertDetailHtml === 'function') {
+            detail.innerHTML = expertDetailHtml(e);
+            detail.setAttribute('data-filled', '1');
+          }
+        }
+        detail.removeAttribute('hidden');
+      } else {
+        detail.setAttribute('hidden', '');
+      }
+      row.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (row.classList) row.classList.toggle('on', willOpen);
+    };
+
+    document.addEventListener('click', function (ev) {
+      var row = keyOf(ev.target);
+      if (!row) return;
+      ev.preventDefault();
+      toggle(row);
+    });
+    document.addEventListener('keydown', function (ev) {
+      var k = ev.key || '';
+      if (k !== 'Enter' && k !== ' ' && k !== 'Spacebar') return;
+      var row = keyOf(ev.target);
+      if (!row) return;
+      ev.preventDefault();
+      toggle(row);
+    });
+
+    /* 给验收脚本留一个干净入口（不影响页面行为） */
+    window.__roExpRow = { rows: document.querySelectorAll('a.ro-xj-row[data-ex-key]').length };
+  } catch (e) { /* 忽略：专家推荐本身已经预渲染在页面里，展开只是锦上添花 */ }
 })();
 </script>
 
