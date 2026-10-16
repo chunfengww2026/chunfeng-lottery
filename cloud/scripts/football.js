@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "56b70f"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "科隆福圖納",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "666666"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "泽德",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "1BA578"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "洛桑奥奇",
      "score": 2,
@@ -824,7 +824,7 @@ const FOOTBALL_DATA = {
      "color": "CC9999"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 21,
+    "minute": 26,
     "home": {
      "name": "韦斯特曼纳埃亚尔",
      "score": 1,
@@ -897,7 +897,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "阿晓斯费马",
      "score": 0,
@@ -970,7 +970,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "靴尔科治",
      "score": 0,
@@ -1043,7 +1043,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "科尔丁IF",
      "score": 0,
@@ -1116,7 +1116,7 @@ const FOOTBALL_DATA = {
      "color": "00a629"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "科鲁姆",
      "score": 0,
@@ -1189,7 +1189,7 @@ const FOOTBALL_DATA = {
      "color": "6869EE"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "霍森斯",
      "score": 0,
@@ -1262,7 +1262,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-17 01:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "布洛马波卡纳",
      "score": 0,
@@ -9318,7 +9318,7 @@ const FOOTBALL_DATA = {
      "color": "A60065"
     },
     "time": "2026-10-16 23:45:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "班尼亚斯",
      "score": 0,
@@ -9384,10 +9384,10 @@ const FOOTBALL_DATA = {
      "color": "FC7000"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "維奇斯塔",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 16
     },
@@ -9450,7 +9450,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "拖里格拉瓦",
      "score": 0,
@@ -9488,7 +9488,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "德拉维加",
      "score": 1,
@@ -9554,7 +9554,7 @@ const FOOTBALL_DATA = {
      "color": "10A9FB"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "史洛加多波",
      "score": 0,
@@ -9620,7 +9620,7 @@ const FOOTBALL_DATA = {
      "color": "0755A4"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "意诺西斯",
      "score": 1,
@@ -9686,7 +9686,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "考诺萨基列斯B队",
      "score": 0,
@@ -9695,7 +9695,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "特蘭斯因維斯特B隊",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 14
     },
@@ -9764,7 +9764,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "约纳瓦",
      "score": 3,
@@ -9830,7 +9830,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "伊迪法克",
      "score": 2,
@@ -9896,7 +9896,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "艾阿利",
      "score": 0,
@@ -9962,7 +9962,7 @@ const FOOTBALL_DATA = {
      "color": "005555"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "洛特伏尔加格勒",
      "score": 0,
@@ -10028,7 +10028,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "坡斯特乔",
      "score": 2,
@@ -10037,7 +10037,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "列本",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -10094,7 +10094,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "普布拉姆",
      "score": 1,
@@ -10160,7 +10160,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "欧帕瓦",
      "score": 1,
@@ -10226,7 +10226,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "延特拉",
      "score": 0,
@@ -10292,7 +10292,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "鲁达士",
      "score": 0,
@@ -10358,7 +10358,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "波兹南瓦尔塔",
      "score": 1,
@@ -10850,7 +10850,7 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-17 00:45:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "艾沙哈尼亚",
      "score": 0,
