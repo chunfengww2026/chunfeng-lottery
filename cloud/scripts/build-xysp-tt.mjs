@@ -852,11 +852,34 @@ export function imgSizeScore(raw) {
    ------------------------------------------------------------
    用户要求（原话）：「同一个帖子被不同关键词抓到 → 标题略有不同 → 当成两条
      （例："双色球26118期晒票" 和 "双色球26118期晒票赏析"）」
-   规则（简单可靠）：标题去掉【空格/标点/符号】后，【前 16 个字】完全相同 → 同一条。
-   ⚠️ 无标题 → 返回 ''，调用方【跳过这条规则】—— 绝不把"无标题"的互相合并。
+   规则（简单可靠）：
+     · 标题去掉【空格/标点/符号】后取【前 16 个字】
+     · 两个标题的【公共前 16 字部分】完全相同 → 视为同一条
+       （都 ≥16 字 → 就是"前 16 字完全相同"；有一个短于 16 字 →
+         短的那个（至少要 10 个字）必须整个是对方的开头）
+     · ⚠️ 不足 10 个字的标题【不参与】—— 一起彩上有 "26275期21" / "26275期22" /
+       "26275期" / "26275期1" 这种极短标题，只按前几个字比会把【不同人的不同票】
+       合并掉（实测确认过，这是最容易误合并的地方）。
+     · 无标题 → titleKey 返回 ''，调用方【跳过这条规则】（无标题的绝不互相合并）。
+   实测对照（用户给的那对例子必须命中）：
+     "双色球26118期晒票"（10 字） vs "双色球26118期晒票赏析" → 公共 10 字相同 ✅
+     "26275期21" vs "26275期22" → 公共只有 8 字 < 10 → 不合并 ✅
    ============================================================ */
+/** 标题归一化：去空格/标点/符号（保留汉字、字母、数字） */
+export function normTitle(title) {
+  return String(title == null ? '' : title).replace(/[\s\p{P}\p{S}]/gu, '');
+}
+/** 标题前 16 字（归一化后）。认不出（空标题）返回 '' */
 export function titleKey(title) {
-  return String(title == null ? '' : title).replace(/[\s\p{P}\p{S}]/gu, '').slice(0, 16);
+  return normTitle(title).slice(0, 16);
+}
+/** 两个标题是不是"同一条"（见上面规则）。任一为空 / 公共部分不足 10 字 → false */
+export function titlesSimilar(a, b) {
+  const ka = titleKey(a), kb = titleKey(b);
+  if (!ka || !kb) return false;
+  const n = Math.min(ka.length, kb.length);          /* 两个都 ≥16 时 n=16 */
+  if (n < 10) return false;                          /* 太短的标题不参与（防误合并） */
+  return ka.slice(0, n) === kb.slice(0, n);
 }
 
 /** 一条晒票的【发布时间】数值（UTC 毫秒，排序/取早期用）；拿不到返回 0 */
@@ -966,39 +989,52 @@ export function dedupeItems(list, stat) {
     stage.push(merged);
   }
 
-  /* ---------- ② 标题相似度（前 16 字） ---------- */
-  const out = [];
-  const idxOf = new Map();          /* titleKey → out 里的下标 */
-  const posts = new Map();          /* titleKey → Set(postKey)：这个标题已经出现过哪些帖子 */
+  /* ---------- ② 标题相似度（前 16 字 / 短标题前缀，见 titlesSimilar） ---------- */
+  const clusters = [];              /* {rep, items}：一组"标题视为同一条"的条目 */
+  const bucket = new Map();         /* 归一化前 10 字 → clusters 下标（够快，不用两两比全部） */
   for (const it of stage) {
-    const tk = titleKey(it && it.title);
+    const nk = normTitle(it && it.title);
     const pk = postKeyOf(it);
-    /* ⚠️ 无标题（tk 空）→ 跳过这条规则（无标题的绝不互相合并） */
-    if (!tk || !pk) { out.push(it); continue; }
-    if (!idxOf.has(tk)) { idxOf.set(tk, out.length); posts.set(tk, new Set([pk])); out.push(it); continue; }
-    const seenPosts = posts.get(tk);
-    /* 同一个帖子的另一张票 → 保留（一个帖子晒 6 张票就是 6 条，不能砍） */
-    if (seenPosts.has(pk)) { out.push(it); continue; }
-    /* 不同帖子、标题前 16 字相同 → 视为同一条：留【发布时间最早】的 */
-    seenPosts.add(pk);
-    st.titleDup = (st.titleDup || 0) + 1;
-    const i = idxOf.get(tk);
-    const cur = out[i];
-    const tIt = pubMsOf(it), tCur = pubMsOf(cur);
-    if (tIt && (!tCur || tIt < tCur)) {
-      const keepIt = Object.assign({}, it);
-      if (!keepIt.url) keepIt.url = cur.url || '';
-      if (!keepIt.thumb) keepIt.thumb = cur.thumb || '';
-      if (!keepIt.big) keepIt.big = cur.big || '';
-      if (!keepIt.author) keepIt.author = cur.author || '';
-      if (Array.isArray(cur.games)) keepIt.games = [...new Set((keepIt.games || []).concat(cur.games))];
-      const a1 = Date.parse(String(keepIt.at || '')) || 0;
-      const a2 = Date.parse(String(cur.at || '')) || 0;
-      if (a2 && (!a1 || a2 < a1)) { keepIt.at = cur.at; keepIt.atMs = a2; }   /* at 仍保留最早那次 */
-      out[i] = keepIt;
+    /* ⚠️ 无标题 / 认不出帖子 → 【跳过这条规则】（无标题的绝不互相合并） */
+    if (!nk || !pk) continue;
+    const bk = nk.slice(0, 10);
+    let ci = -1;
+    const cand = bucket.get(bk);
+    if (cand) for (const i of cand) { if (titlesSimilar(nk, clusters[i].rep)) { ci = i; break; } }
+    if (ci < 0) {
+      ci = clusters.length;
+      clusters.push({ rep: nk, items: [] });
+      if (cand) cand.push(ci); else bucket.set(bk, [ci]);
+    }
+    clusters[ci].items.push(it);
+  }
+  /* 每组的处理：留【发布时间最早的那个帖子】（那就是原始帖子）的【全部】票，
+     别的帖子（标题前 16 字撞车的那些）删掉。
+     ⚠️ "同一个帖子的多张票"通过 postKeyOf 认出来 —— 它们本来就是同一条，
+        全部保留（否则一个晒 6 张票的帖子会被标题规则砍成 1 张 = 误合并）。 */
+  const drop = new Set();
+  for (const c of clusters) {
+    if (c.items.length < 2) continue;
+    const posts = new Map();        /* postKey → 这个帖子最早的发布时间（拿不到 = Infinity） */
+    for (const it of c.items) {
+      const pk = postKeyOf(it);
+      const ms = pubMsOf(it) || Infinity;
+      const e = posts.get(pk);
+      if (!e) posts.set(pk, ms); else if (ms < e) posts.set(pk, ms);
+    }
+    if (posts.size < 2) continue;   /* 整组就是同一个帖子 → 一张都不删 */
+    let keepPk = null, best = Infinity;
+    for (const [pk, ms] of posts) {
+      if (keepPk === null || ms < best) { keepPk = pk; best = ms; }   /* 全无时间 → 留先出现的 */
+    }
+    if (keepPk === null) continue;
+    for (const it of c.items) {
+      if (postKeyOf(it) === keepPk) continue;
+      drop.add(it);
+      st.titleDup = (st.titleDup || 0) + 1;
     }
   }
-  return out;
+  return drop.size ? stage.filter((it) => !drop.has(it)) : stage;
 }
 
 /* ============================================================
