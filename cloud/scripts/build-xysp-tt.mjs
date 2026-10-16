@@ -770,6 +770,238 @@ function gameOfTitle(title) {
 }
 
 /* ============================================================
+   【加强去重 · 第①层】图片指纹：同一张图的不同"变体"= 同一张图
+   ------------------------------------------------------------
+   用户要求：「现在只按完整 img URL 去重，有漏洞」→ 补上指纹去重。
+   实测（2026-10-17，xysp-tt-data.js 336 条）同一张图会有【多个 URL】：
+     · 尺寸变体    …~tplv-xxx:450:294.jpg  vs  …~tplv-xxx:300:200.jpg
+     · 签名/过期变体 同一张图、同一个尺寸，x-signature / x-expires 每轮都不同
+                    ——336 条里 128 组就是这种，白占 190 条（这是最大的一处）
+     · CDN 节点变体 同一 path 出现在 p3-sign / p9-sign / p11-sign（实测 128 处）
+     · query 尺寸   ?w=450 / ?width=814&height=1800 / ?q=80 / ?format=jpg …
+   ⇒ 指纹 = 【路径里的图片主体（哈希）】+【query 里"像图片 ID"的参数】。
+        尺寸段 :宽:高、尺寸/质量/签名/过期/来源参数、CDN 主机名 一律忽略。
+   ⚠️ 现有"按完整 URL 去重"【保留】—— 指纹只是它【之上】再加的一层。
+   ============================================================ */
+const IMG_SIZE_SEG_RE = /:\d{1,5}:\d{1,5}(?=\.(?:jpe?g|png|webp|gif|bmp|heic)$)/i;
+/* query 里【只保留】像图片 ID 的参数；其余（w/width/h/height/q/quality/format/
+   size/resize/x-signature/x-expires/_iz/from/lk3s… ）全部丢掉 —— 它们只影响
+   "怎么取这张图"，不影响"是哪张图"。名字排序后拼回，参数顺序无关。 */
+const IMG_ID_PARAM_RE = /^(?:id|iid|img|imgid|image|imageid|pic|picid|photo|photoid|hash|key|file|filename|path|name|src|url|objectkey|obj)$/i;
+
+/**
+ * 取一张图的【指纹】（同一张图 → 同一个字符串）。
+ * 认不出来（空串/非 http）返回 ''，调用方当成"不参与指纹去重"。
+ * @param {string} raw
+ * @returns {string}
+ */
+export function imgFingerprint(raw) {
+  const s = String(raw == null ? '' : raw).trim().replace(/&amp;/gi, '&');
+  if (!s || !/^https?:\/\//i.test(s)) return '';
+  let p = s, params = [];
+  try {
+    const u = new URL(s);
+    p = u.pathname;                    /* ⚠️ 不要 host：CDN 节点会换（同上） */
+    params = [...u.searchParams.entries()];
+  } catch (e) {
+    const q = s.indexOf('?');
+    p = q >= 0 ? s.slice(0, q) : s;
+    params = (q >= 0 ? s.slice(q + 1) : '').split('&').filter(Boolean).map((kv) => {
+      const i = kv.indexOf('=');
+      return i < 0 ? [kv, ''] : [kv.slice(0, i), kv.slice(i + 1)];
+    });
+  }
+  p = p.replace(IMG_SIZE_SEG_RE, '');                 /* 头条的 :宽:高 段 */
+  const ids = params
+    .filter(([k, v]) => v && IMG_ID_PARAM_RE.test(k))
+    .map(([k, v]) => (k.toLowerCase() + '=' + v))
+    .sort();
+  let out = p;
+  try { out = decodeURIComponent(p); } catch (e) { /* % 不合法就用原样 */ }
+  out = out.toLowerCase();
+  return ids.length ? (out + '?' + ids.join('&').toLowerCase()) : out;
+}
+
+/**
+ * 一张图的【尺寸分】（越大越清楚，用于"留尺寸最大的那张"）。拿不到尺寸返回 0。
+ * 依次尝试：URL 里的 :宽:高（头条）→ query 的 w/width/h/height → 路径里的 360x640。
+ * ⚠️ 只有宽没有高（头条的 large_image_url 就是 ":960:0"）→ 用 宽×宽 当面积，
+ *    这样 960:0 一定排在 450:294 前面，不会被当成"面积 0"。
+ * @param {string} raw
+ * @returns {number}
+ */
+export function imgSizeScore(raw) {
+  const s = String(raw == null ? '' : raw);
+  const area = (w, h) => {
+    if (w && h) return w * h;
+    const x = w || h;
+    return x ? x * x : 0;
+  };
+  let m = /:(\d{1,5}):(\d{1,5})/.exec(s);
+  if (m) return area(Number(m[1]), Number(m[2]));
+  const wm = /[?&](?:w|width)=(\d{1,5})/i.exec(s);
+  const hm = /[?&](?:h|height)=(\d{1,5})/i.exec(s);
+  if (wm || hm) return area(wm ? Number(wm[1]) : 0, hm ? Number(hm[1]) : 0);
+  m = /(?:^|[\/_@-])(\d{2,5})x(\d{2,5})(?=[.\/]|$)/i.exec(s);
+  if (m) return area(Number(m[1]), Number(m[2]));
+  return 0;
+}
+
+/* ============================================================
+   【加强去重 · 第②层】标题相似度：同一帖子被不同关键词抓到
+   ------------------------------------------------------------
+   用户要求（原话）：「同一个帖子被不同关键词抓到 → 标题略有不同 → 当成两条
+     （例："双色球26118期晒票" 和 "双色球26118期晒票赏析"）」
+   规则（简单可靠）：标题去掉【空格/标点/符号】后，【前 16 个字】完全相同 → 同一条。
+   ⚠️ 无标题 → 返回 ''，调用方【跳过这条规则】—— 绝不把"无标题"的互相合并。
+   ============================================================ */
+export function titleKey(title) {
+  return String(title == null ? '' : title).replace(/[\s\p{P}\p{S}]/gu, '').slice(0, 16);
+}
+
+/** 一条晒票的【发布时间】数值（UTC 毫秒，排序/取早期用）；拿不到返回 0 */
+export function pubMsOf(it) {
+  if (!it) return 0;
+  for (const v of [it.pubMs, it.whenMs, anyToMs(it.when), anyToMs(it.pubAt)]) {
+    if (typeof v === 'number' && isFinite(v) && v > 0) return v;
+  }
+  return 0;
+}
+
+/**
+ * 条目属于【哪一个帖子】—— 用来避免把"同一个帖子的多张票"当成标题重复删掉。
+ * （一个帖子往往晒 3~6 张票，标题一模一样 ⇒ 只按标题合并会把 6 张砍成 1 张，
+ *   那是【误合并】，用户要的是"有多少放多少"。）
+ * 优先级：group_id/item_id > 帖子链接里的 id > 标题+发布时间。
+ * @param {object} it
+ * @returns {string} 空串 = 认不出帖子（调用方跳过标题规则）
+ */
+export function postKeyOf(it) {
+  if (!it) return '';
+  const pid = String(it.postId || '').trim();
+  if (pid) return 'g' + pid;
+  const u = String(it.url || '').trim();
+  if (u) {
+    const m = /\/(?:item|group|article|a|video|w)\/(\d{6,})/.exec(u);
+    if (m) return 'g' + m[1];
+    return 'u' + u.replace(/^https?:\/\//i, '').replace(/[?#].*$/, '').replace(/\/+$/, '').toLowerCase();
+  }
+  /* 没有帖子链接（一起彩那 8 个彩种）→ 用「标题前 16 字 + 发布时间」当帖子身份：
+       同一个帖子的多张票 = 同标题 + 同一发布时间 → 不合并（保住多图）；
+       两个不同帖子（发布时间不同）→ 会合并（这才是用户要的那条）。 */
+  const tk = titleKey(it.title);
+  return tk ? ('t' + tk + '@' + pubMsOf(it)) : '';
+}
+
+/**
+ * ============================================================
+ * 【加强去重】在"按完整 URL 去重"之上再加的两层（两个抓取脚本共用）
+ * ============================================================
+ *  ① 图片指纹：同一张图的不同尺寸/签名/CDN 节点变体 → 只留一条，
+ *     留【尺寸最大的那张】（拿不到尺寸 → 留【先出现的】）；
+ *     缩略图仍取组里【最小】的那张（网格省流量），原图/大图用最大的那张。
+ *  ② 标题相似度：前 16 字相同且【不是同一个帖子】→ 只留一条，
+ *     留【发布时间最早】的那条（那是原始帖子）。
+ * ⚠️ 现有"按完整 URL 去重"由调用方的 bucket 负责，本函数不碰它。
+ * ⚠️ 必须在 slice(上限) 【之前】调用 —— 去重腾出的名额给窗口内其他条目。
+ * @param {Array} list  已经过滤/排序好的条目
+ * @param {object} [stat] 计数对象（累加 imgDup / titleDup）
+ * @returns {Array} 去重后的新数组（组内被合并的条目不再出现）
+ */
+export function dedupeItems(list, stat) {
+  const st = stat || {};
+  const src = Array.isArray(list) ? list : [];
+  const px = (it) => {
+    const p = Number(it && it.px);
+    return (isFinite(p) && p > 0) ? p : imgSizeScore(it && it.img);
+  };
+
+  /* ---------- ① 图片指纹 ---------- */
+  const order = [];
+  const groups = new Map();
+  for (const it of src) {
+    const fp = imgFingerprint(it && it.img);
+    const key = fp || ('\u0000' + order.length);      /* 指纹取不到 → 各自独立成组 */
+    if (!groups.has(key)) { groups.set(key, []); order.push(key); }
+    groups.get(key).push(it);
+  }
+  const stage = [];
+  for (const key of order) {
+    const g = groups.get(key);
+    if (g.length === 1) { stage.push(g[0]); continue; }
+    /* 留尺寸最大的；尺寸一样/都拿不到 → 留【先出现的】 */
+    let win = g[0], winPx = px(g[0]);
+    for (let i = 1; i < g.length; i++) {
+      const p = px(g[i]);
+      if (p > winPx) { win = g[i]; winPx = p; }
+    }
+    const merged = Object.assign({}, win);
+    for (const it of g) {
+      if (it === win) continue;
+      /* 丢掉的只是同一张图的另一个变体 —— 字段有缺就补上，信息不丢 */
+      if (!merged.title) merged.title = it.title || '';
+      if (!merged.url) merged.url = it.url || '';
+      if (!merged.author) merged.author = it.author || '';
+      if (!merged.issue) merged.issue = it.issue || '';
+      if (!merged.postId) merged.postId = it.postId || '';
+      if (Array.isArray(it.games)) merged.games = [...new Set((merged.games || []).concat(it.games))];
+      const a1 = Date.parse(String(merged.at || '')) || 0;
+      const a2 = Date.parse(String(it.at || '')) || 0;
+      if (a2 && (!a1 || a2 < a1)) { merged.at = it.at; merged.atMs = a2; }     /* at 保留最早那次 */
+      const s1 = Date.parse(String(merged.seen || '')) || 0;
+      const s2 = Date.parse(String(it.seen || '')) || 0;
+      if (s2 > s1) { merged.seen = it.seen; merged.seenMs = it.seenMs; }       /* seen 取最近那次 */
+    }
+    /* 缩略图用组里【最小】的那张（网格里显示小图），img/big 是最小的那张的对立面：
+       merged.img 已经是"尺寸最大的那张"（用户要「看清票面」）。 */
+    let small = null, smallPx = 0;
+    for (const it of g) {
+      const p = px(it);
+      if (p > 0 && (!small || p < smallPx)) { small = it; smallPx = p; }
+    }
+    if (small && small.thumb) merged.thumb = small.thumb;
+    merged.imgPx = winPx || 0;
+    merged.dedupeImgs = g.length;                       /* 便于报告/排查 */
+    st.imgDup = (st.imgDup || 0) + (g.length - 1);
+    stage.push(merged);
+  }
+
+  /* ---------- ② 标题相似度（前 16 字） ---------- */
+  const out = [];
+  const idxOf = new Map();          /* titleKey → out 里的下标 */
+  const posts = new Map();          /* titleKey → Set(postKey)：这个标题已经出现过哪些帖子 */
+  for (const it of stage) {
+    const tk = titleKey(it && it.title);
+    const pk = postKeyOf(it);
+    /* ⚠️ 无标题（tk 空）→ 跳过这条规则（无标题的绝不互相合并） */
+    if (!tk || !pk) { out.push(it); continue; }
+    if (!idxOf.has(tk)) { idxOf.set(tk, out.length); posts.set(tk, new Set([pk])); out.push(it); continue; }
+    const seenPosts = posts.get(tk);
+    /* 同一个帖子的另一张票 → 保留（一个帖子晒 6 张票就是 6 条，不能砍） */
+    if (seenPosts.has(pk)) { out.push(it); continue; }
+    /* 不同帖子、标题前 16 字相同 → 视为同一条：留【发布时间最早】的 */
+    seenPosts.add(pk);
+    st.titleDup = (st.titleDup || 0) + 1;
+    const i = idxOf.get(tk);
+    const cur = out[i];
+    const tIt = pubMsOf(it), tCur = pubMsOf(cur);
+    if (tIt && (!tCur || tIt < tCur)) {
+      const keepIt = Object.assign({}, it);
+      if (!keepIt.url) keepIt.url = cur.url || '';
+      if (!keepIt.thumb) keepIt.thumb = cur.thumb || '';
+      if (!keepIt.big) keepIt.big = cur.big || '';
+      if (!keepIt.author) keepIt.author = cur.author || '';
+      if (Array.isArray(cur.games)) keepIt.games = [...new Set((keepIt.games || []).concat(cur.games))];
+      const a1 = Date.parse(String(keepIt.at || '')) || 0;
+      const a2 = Date.parse(String(cur.at || '')) || 0;
+      if (a2 && (!a1 || a2 < a1)) { keepIt.at = cur.at; keepIt.atMs = a2; }   /* at 仍保留最早那次 */
+      out[i] = keepIt;
+    }
+  }
+  return out;
+}
+
+/* ============================================================
    解析一个搜索页 → 条目数组
    ------------------------------------------------------------
    每条搜索结果 = 一个 type="application/json" 的 <script> 块，内容是被转义的 JSON。
@@ -782,6 +1014,8 @@ export function parseTtPage(html, atIso, cat) {
   const C = cat || catByKey(TT_KEY);
   const gameOf = C.gameOf || ((t) => gameOfTitle(t));
   const items = [];
+  /* 【图片指纹】本页内去重用：fp → items 里的下标（"本页内按完整 URL 去重"仍然保留） */
+  const fpSeen = new Map();
   /* ⚠️ 只按【卡片数据块】切：data-druid-card-data-id。
      用 "-argus" / id="…" 都切不到（那个是 nonce 的尾巴，见文件头说明）。 */
   const blocks = String(html).split(/<script[^>]*data-druid-card-data-id[^>]*>/i);
@@ -804,6 +1038,9 @@ export function parseTtPage(html, atIso, cat) {
     if (!title) continue;               /* 没标题的块（导航/底栏等）直接跳过 */
 
     const link = String(d.article_url || d.share_url || d.source_url || '');
+    /* 【帖子身份】group_id（微头条）/ item_id（文章）—— 标题相似度去重要用它
+       区分"同一个帖子的多张票"和"两个帖子标题撞车"（见 postKeyOf）。 */
+    const postId = String(d.group_id || d.item_id || d.groupId || d.itemId || '');
     const author = plainText(d.media_name || (d.source && d.source.text) || '');
     const when = String(d.datetime || '');
 
@@ -826,30 +1063,43 @@ export function parseTtPage(html, atIso, cat) {
     if (!use.length && big) use.push(big);
     if (!use.length) continue;          /* 一张图都拿不到 → 这条没用 */
 
+    const mk = (u) => ({
+      img: u,                                     /* 缩略（450 宽，实测 21 KB） */
+      thumb: u,
+      big: big || u,                              /* 点开放大用的（960 宽） */
+      title,
+      url: link,
+      at: atIso,
+      src: C.src || 'tt',
+      cat: C.key,
+      game: gameOf(title),
+      /* 【分发到各彩种】认出来的【所有】彩种 key（可能多个）。
+         tt 分类用 gamesOfTitle（数字彩）；jc 分类没有彩种可分发，给空数组。 */
+      games: (C.key === TT_KEY) ? gamesOfTitle(title) : [],
+      /* 【时效】期号 + 本轮抓取时间（后面的中间处理会补 drawAt / expireAt） */
+      issue: (C.key === TT_KEY) ? issueOfTitle(title) : '',
+      seen: atIso,
+      /* 【数值时间戳】排序必须用数值（用户要求倒序），见 whenToMs / sortTimeMs 的说明 */
+      whenMs: whenToMs(when),
+      seenMs: Date.parse(atIso) || null,
+      author,
+      when,
+      /* 【帖子身份 / 图片尺寸】给"加强去重"用（dedupeItems / postKeyOf） */
+      postId,
+      px: imgSizeScore(u)
+    });
+
     for (const u of use) {
-      if (items.some((x) => x.img === u)) continue;   /* 本页内去重 */
-      items.push({
-        img: u,                                     /* 缩略（450 宽，实测 21 KB） */
-        thumb: u,
-        big: big || u,                              /* 点开放大用的（960 宽） */
-        title,
-        url: link,
-        at: atIso,
-        src: C.src || 'tt',
-        cat: C.key,
-        game: gameOf(title),
-        /* 【分发到各彩种】认出来的【所有】彩种 key（可能多个）。
-           tt 分类用 gamesOfTitle（数字彩）；jc 分类没有彩种可分发，给空数组。 */
-        games: (C.key === TT_KEY) ? gamesOfTitle(title) : [],
-        /* 【时效】期号 + 本轮抓取时间（后面的中间处理会补 drawAt / expireAt） */
-        issue: (C.key === TT_KEY) ? issueOfTitle(title) : '',
-        seen: atIso,
-        /* 【数值时间戳】排序必须用数值（用户要求倒序），见 whenToMs / sortTimeMs 的说明 */
-        whenMs: whenToMs(when),
-        seenMs: Date.parse(atIso) || null,
-        author,
-        when
-      });
+      if (items.some((x) => x.img === u)) continue;   /* 本页内去重（按完整 URL，保留） */
+      /* 【本页内指纹去重】同一张图的不同尺寸/签名变体 → 只留【尺寸最大的】那张 */
+      const fp = imgFingerprint(u);
+      if (fp && fpSeen.has(fp)) {
+        const i = fpSeen.get(fp);
+        if (imgSizeScore(u) > imgSizeScore(items[i].img)) items[i] = mk(u);
+        continue;
+      }
+      if (fp) fpSeen.set(fp, items.length);
+      items.push(mk(u));
     }
   }
   return items;
@@ -875,7 +1125,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0, dropOcr: 0, dropJcPlain: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0, dropOcr: 0, dropJcPlain: 0, imgDup: 0, titleDup: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -1009,6 +1259,10 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       if (it.issue) prev.issue = it.issue;
       prev.author = it.author || prev.author;
       prev.when = it.when || prev.when;
+      /* 【帖子身份】老数据里可能没有 postId（第一版没存）→ 有就补上，
+         标题相似度去重（含"同一帖子多张票不合并"）才判得准。 */
+      if (it.postId) prev.postId = it.postId;
+      if (typeof it.px === 'number' && (!prev.px || it.px > prev.px)) prev.px = it.px;
       /* seen 取【较晚】那次（我们最近一次看到它是什么时候） */
       if (seenMs > (Date.parse(String(prev.seen || '')) || 0)) prev.seen = new Date(seenMs).toISOString();
       if (Date.parse(prev.at) > t) prev.at = at;         /* 保留最早那次 */
@@ -1049,7 +1303,10 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       expireAt: new Date(ex.expireAt).toISOString(),
       rule: ex.rule,
       author: it.author || '',
-      when: it.when || ''
+      when: it.when || '',
+      /* 【帖子身份 / 图片尺寸】给 dedupeItems / postKeyOf 用（见那两个函数的说明） */
+      postId: it.postId || '',
+      px: (typeof it.px === 'number' && it.px > 0) ? it.px : imgSizeScore(img)
     });
     if (isFresh) stat.added++;
   };
@@ -1065,10 +1322,19 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
           用它排序等于没排序（实测踩过）。
         · 也不能比 when 字符串："10-15" vs "9-30" 会错。
      同分时用 expireAt 兜底，保证顺序稳定。 */
-  const items = [...bucket.values()]
+  const sorted = [...bucket.values()]
     .sort((a, b) => (sortTimeMs(b) - sortTimeMs(a)) ||
-      (anyToMs(b.expireAt) || 0) - (anyToMs(a.expireAt) || 0))
-    .slice(0, max);
+      (anyToMs(b.expireAt) || 0) - (anyToMs(a.expireAt) || 0));
+  /* ============================================================
+     【加强去重】用户要求：只按完整 img URL 去重不够，要再加两层规则。
+       · ① 图片指纹（尺寸 / 签名 / CDN 节点变体 → 留【尺寸最大】的那张）
+       · ② 标题前 16 字相同且不是同一个帖子（→ 留【发布时间最早】的那条）
+     ⚠️ 上面 bucket 那条"按完整 URL 去重"【原样保留】—— 这里是它【之上】的一层。
+     ⚠️ 必须在 slice(max) 之前做：去重腾出来的名额留给窗口内其他条目，
+        绝不能"重复占了名额"把 24 小时内的内容挤掉（用户红线）。
+     ============================================================ */
+  const deduped = dedupeItems(sorted, stat);
+  const items = deduped.slice(0, max);
   stat.kept = items.length;
   stat.keepHours = keepHours;
   return { items, stat };
@@ -1289,6 +1555,7 @@ export async function runTtFetch() {
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
       `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}${stat.dropOcr ? ` · 图里没有票 ${stat.dropOcr}` : ''}${stat.dropJcPlain ? ` · 足球普通图 ${stat.dropJcPlain}` : ''}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
+      ` · 【加强去重】图片指纹 ${stat.imgDup} 条 · 标题相似 ${stat.titleDup} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
       const withIssue = items.filter((x) => x.issue).length;
