@@ -1341,9 +1341,16 @@ function main() {
   const exportList = [];
   if (doExportStatic) exportList.push(['export-static.mjs', '彩票页']);
   if (plan.exportFootball) exportList.push(['export-football.mjs', '足球页']);
-  /* 【走势图】纯前端表格页：只读 history.js 真开奖数据，不抓网络、不调 AI。
-     必须排在 export-static/export-football 之后 —— 它读的是本班次刚落盘的开奖数据。 */
-  if (plan.exportTrend) exportList.push(['build-trend.mjs', '走势图页']);
+  /* 【走势图】用户 2026-10-17：「留在近30期走势预选参考里面. 删除单独走势图独立页」
+     → 走势图【不再有独立页面】，也不再需要单独跑一步生成器：
+        它的样式/表格/脚本由 build-trend.mjs 出成片段，
+        被 export-static.mjs import 进去，内联在分享页的
+        <details class="ro-trend">（近 30 期走势 · 预选参考）里。
+       所以这里【删掉原来那一行】：
+         原来会往 exportList 里 push 一步「生成走势图页」的 build-trend.mjs。
+       ⚠️ 跟着 export-static.mjs 走 → 老的开奖数据不会再被单独一次
+          build-trend 覆盖（少一个"谁后跑谁赢"的顺序坑）。
+         计划表里那个已经没人读的 exportTrend 标志也一并删了。 */
   /* 【分歧指 · 数据】用户 2026-10-17 第 2 步：详情页的分歧指要多家公司欧赔。
      jc-data.js 只有 500.com 一个源（一场一份欧赔），算不出分歧 ——
      这个脚本去球探 titan007 抓真·多公司欧赔（1x2d.titan007.com/{ScheduleID}.js，
@@ -1422,12 +1429,13 @@ function finishOutput(freshRows) {
   const pairs = [
     ['只读分享版.html', 'index.html'],
     ['足球推荐.html', 'football.html'],
-    /* 【走势图】它【不在】exportTrend 的班次里就不会重新生成，
-       上面那段"只发布本次重新生成过的页面"的逻辑对同样适用：
-       不是本次生成的 → 删掉 out/ 里那份，交给 workflow 从线上拉回兜底。 */
-    ['走势图.html', '走势图.html'],
+    /* 【走势图 2026-10-17】原来这里还有一条 ['走势图.html', '走势图.html']。
+       用户要求「删除单独走势图独立页」→ 页面本身已经不再生成，
+       走势图内容内联进了 out/index.html 的折叠块里，所以这一条【删掉】：
+       留着它只会每次都走一遍"文件不存在 → 删掉 out/ 里那份"的分支，
+       还会让 workflow 的兜底列表继续去线上拉一个已经不存在的页面。 */
     /* 【比赛详情页】竞彩页每张卡片都指向 比赛详情.html?c=编号（__MATCH_DETAIL_LINK__）。
-       同上面三条逻辑：只发布【本次真的重新生成过】的那一份；
+       同上面两条逻辑：只发布【本次真的重新生成过】的那一份；
        这一班没出 → 删掉 out/ 里那份，由 workflow 从线上拉回当前那份兜底。 */
     ['比赛详情.html', '比赛详情.html']
   ];
@@ -1461,7 +1469,12 @@ function finishOutput(freshRows) {
       + ' → 不发布旧页面，交给 workflow 从线上拉回当前那份兜底');
   });
 
-  /* 顶部导航（两个页面互跳） */
+  /* 顶部导航（两个页面互跳）
+     ⚠️ 2026-10-17：原来是【三个】Tab（多一个「走势图」指向独立页 走势图.html）。
+        用户要求「删除单独走势图独立页」→ 独立页不再发布，那个 Tab 点了必然 404，
+        所以这里【只删不加】地去掉它：导航回到「彩票推荐 / 竞彩·足球」两栏。
+        走势图内容现在内联在 index.html 的「近 30 期走势 · 预选参考」折叠块里，
+        从首页即可展开 → 不丢入口。 */
   const NAV = `
 <style>
 /* ⚠️ 2026-10-17：这条原来是【深色】（rgba(15,17,21,0.96) 黑底 + #6b7488 灰字）。
@@ -1476,25 +1489,23 @@ function finishOutput(freshRows) {
 <div class="site-nav">
   <a href="index.html" class="__ACTIVE_INDEX__">彩票推荐</a>
   <a href="football.html" class="__ACTIVE_FB__">竞彩/足球</a>
-  <a href="走势图.html" class="__ACTIVE_TREND__">走势图</a>
 </div>`;
 
-  for (const [dst, active] of [['index.html', 'index'], ['football.html', 'fb'], ['走势图.html', 'trend']]) {
+  for (const [dst, active] of [['index.html', 'index'], ['football.html', 'fb']]) {
     const fp = path.join(OUT, dst);
     if (!fs.existsSync(fp)) continue;
     let html = fs.readFileSync(fp, 'utf8');
     /* ⚠️ 先删掉页面【自带】的顶部 Tab（.top-tabs），再注入 .site-nav。
-       实测：线上彩票页和走势图页都出现了【两条导航叠在一起】——
-         · 页面自带的 .top-tabs（彩票页 2 个 Tab / 走势图页 3 个 Tab）
+       实测：线上彩票页曾经出现过【两条导航叠在一起】——
+         · 页面自带的 .top-tabs（分享页 2 个 Tab）
          · 这里注入的 .site-nav
-       而且页内那条在站上部分链接是死的（分享页那条 href="./"、走势图那条
+       而且页内那条在站上部分链接是死的（分享页那条 href="./"、
        href="足球推荐.html"，而站点上的文件名是 index.html / football.html）。
        本机分享包走 export-site.mjs 时已经这么删过了（那边有同一条正则），
        云端这条链路以前漏了 —— 现在两边行为一致。 */
     html = html.replace(/<div class="top-tabs">[\s\S]*?<\/div>\s*/, '');
     const nav = NAV.replace('__ACTIVE_INDEX__', active === 'index' ? 'on' : '')
-                   .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '')
-                   .replace('__ACTIVE_TREND__', active === 'trend' ? 'on' : '');
+                   .replace('__ACTIVE_FB__', active === 'fb' ? 'on' : '');
     html = html.replace('</head>', nav.split('<div class="site-nav">')[0] + '</head>');
     html = html.replace(/<body([^>]*)>/, `<body$1>${nav.split('</style>')[1]}`);
     /* 【数据新鲜度提示条】独立元素 + 独立 style，插在导航条之前 */
@@ -1517,13 +1528,16 @@ function finishOutput(freshRows) {
         onclick 必须原样保留：history.back() 是「从竞彩页点进来」时的首选返回路径，
         href 只是「直接打开详情页 / history 为空」时的兜底。改 href 不动 onclick。
      ⚠️ 正则只匹配 href="足球推荐.html" 这一小段，不碰 onclick、不碰别的文字。
-     ⚠️ 覆盖四份页面：index/football/走势图 里本身没有这个 href
+     ⚠️ 覆盖三份页面：index/football 里本身没有这个 href
         （顶部 Tab 已经在上面按站点文件名重写过），多写一遍是幂等的 ——
-        真要有，也正好一起修掉，不会再出现"只改了三份、漏了详情页"。
-     ⚠️ 静默失效自证：命中几处就打在日志里，0 处也打（说明这份页面本来就没有这个链接）。
+        真要有，也正好一起修掉，不会再出现"只改了两份、漏了详情页"。
+      ⚠️ 2026-10-17：原来这里还列了 走势图.html（第三个独立页）。用户要求
+        「删除单独走势图独立页」→ 那一页不再发布，从名单里【删掉】，
+        免得每次构建都对着一个不存在的文件打"没有这个 href（无需改写）"的日志。
+      ⚠️ 静默失效自证：命中几处就打在日志里，0 处也打（说明这份页面本来就没有这个链接）。
      ============================================================ */
   {
-    const LINK_FIX_FILES = ['index.html', 'football.html', '走势图.html', '比赛详情.html'];
+    const LINK_FIX_FILES = ['index.html', 'football.html', '比赛详情.html'];
     LINK_FIX_FILES.forEach((dst) => {
       const fp = path.join(OUT, dst);
       if (!fs.existsSync(fp)) return;
