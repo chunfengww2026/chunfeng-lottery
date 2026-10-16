@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-16 19:35:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "河南队",
      "score": 0,
@@ -15120,7 +15120,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "共和國",
      "score": 2,
@@ -15330,7 +15330,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "诺维贝尔格莱德U19",
      "score": 1,
