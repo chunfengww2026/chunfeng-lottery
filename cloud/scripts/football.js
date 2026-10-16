@@ -15256,7 +15256,7 @@ const FOOTBALL_DATA = {
     "minute": 64,
     "home": {
      "name": "阿德莱德城",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -15322,7 +15322,7 @@ const FOOTBALL_DATA = {
     "minute": 74,
     "home": {
      "name": "日惹",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 16
     },
