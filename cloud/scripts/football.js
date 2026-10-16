@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "圣地亚哥漫游者",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "流浪者",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
@@ -3215,7 +3215,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-17 03:15:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "艾科坎",
      "score": 1,
@@ -3281,7 +3281,7 @@ const FOOTBALL_DATA = {
      "color": "CC9999"
     },
     "time": "2026-10-17 03:15:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "贝雷达比历克",
      "score": 1,
@@ -3347,7 +3347,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 04:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "卡利体育会女足",
      "score": 0,
@@ -3413,7 +3413,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 04:00:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "玻利瓦爾(女)",
      "score": 1,
@@ -3479,7 +3479,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "库恩卡",
      "score": 1,
@@ -3488,7 +3488,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "泰尼科",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 14
     },
@@ -3557,7 +3557,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 0,
