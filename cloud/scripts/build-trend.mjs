@@ -700,11 +700,20 @@ export function injectMarkers(src) {
 
   /* 第二区分隔列：只认【表体】那一处（表尾三行里也有 <td class="tr-td-sep">，
      所以锚点必须带上下面的循环头，保证全局唯一） */
+  /* ⚠️ 【数据行不再注入预选格】——用户看到的症状是"第二区整体右移一格 + 每行多一大块空白"。
+     原来这里把 __trPreselExtra(g) 拼进了数据行的分隔列：
+       L.push('<td class="tr-td-sep">' + __trPreselExtra(g) + '</td>');
+     而 __trPreselExtra(g) 返回的是【一串 td】：
+       '<td class="tr-td-sep"></td>' + 16 个 '<td class="tr-td-presel...">'
+     于是一串 td 被拼进了另一个 td 内部 → 浏览器自动闭合外层 td →
+     每个数据行多出 1 个空 sep + 16 个可见空格子。
+     实测：表头 52 列 / 预选行 52 列 / 数据行 69 列，
+           第二区起点 表头 937 vs 数据行 957（右移 20px），一行多 396px 死白。
+     而预选行的格子由 __trPreselRow(g) 内部自己拼（它已经调了一次
+     __trPreselExtra(g)），本来就对 —— 数据行这次注入纯属多余。
+     所以：这里只做【锚点存在性检查】，不再替换。 */
   const SEP_BODY = "L.push('<td class=\"tr-td-sep\"></td>');\n        for (let i = 0; i < exCols; i++) {";
   assertOne(s, SEP_BODY, '第二区分隔列（表体）');
-  s = s.split(SEP_BODY).join(
-    "L.push('<td class=\"tr-td-sep\">' + __trPreselExtra(g) + '</td>');\n" +
-    '        for (let i = 0; i < exCols; i++) {');
 
   /* 预选行：把  L.push('<tbody>');   改成   L.push('<tbody>' + 预选行 + '</tbody>');
      ⚠️ 这里踩过两次坑（都是手写替换串惹的）：
@@ -752,8 +761,11 @@ export function assertInjected(src, original) {
       '工具栏占位插在 tr-head 前（注入后锚点仍是 1 个）'],
     [n(src, '__trPreselRow(g)') === 1 && n(original, '__trPreselRow(g)') === 0,
       '__trPreselRow(g) 只在 tbody 那一处被调用'],
-    [n(src, '__trPreselExtra(g)') === 1 && n(original, '__trPreselExtra(g)') === 0,
-      '__trPreselExtra(g) 只在第二区分隔列那一处被调用'],
+    /* 【数据行不再注入预选格】__trPreselExtra(g) 只属于预选行 —— 由 INJECT_SRC 里的
+       __trPreselRow(g) 内部调用一次；注入后的【渲染源码】里应当是 0 处。
+       （原来断言是 1 处，那 1 处正是把数据行撑成 69 列的元凶。） */
+    [n(src, '__trPreselExtra(g)') === 0 && n(original, '__trPreselExtra(g)') === 0,
+      '渲染源码里不调用 __trPreselExtra(g)（数据行不再多出预选格）'],
     [n(src, 'svg.tr-lines') === n(original, 'svg.tr-lines') && n(src, 'tr-line') === n(original, 'tr-line'),
       '原有走势连线代码一字未动'],
   ];
@@ -804,7 +816,16 @@ function __trPreselExtra(g) {
 export function appendInteract(renderSrc) {
   const s = injectMarkers(renderSrc);
   assertOne(s, '__trPreselRow(g)', '预选行运行时调用');
-  assertOne(s, '__trPreselExtra(g)', '第二区预选运行时调用');
+  /* 【数据行不再注入预选格】__trPreselExtra(g) 只属于【预选行】——
+     它由 INJECT_SRC 里的 __trPreselRow(g) 内部调用一次（那段在后面才追加，
+     不在这个 s 里）。注入后的渲染源码里应当是 0 处。
+     ⚠️ 原来这里断言"恰好 1 处"，那 1 处正是被拼进数据行分隔列、
+        把数据行撑成 69 列（表头只有 52）的元凶：
+        一串 <td> 被拼进另一个 <td> 内部，浏览器自动闭合外层 td →
+        每个数据行多 1 个空 sep + 16 个可见空格，第二区整体右移 20px。 */
+  if (s.split('__trPreselExtra(g)').length - 1 !== 0) {
+    throw new Error('渲染源码里不应出现 __trPreselExtra(g)（它只属于预选行，见 INJECT_SRC 的 __trPreselRow）');
+  }
   assertInjected(s, renderSrc);
   return s + '\n' + INJECT_SRC;
 }
