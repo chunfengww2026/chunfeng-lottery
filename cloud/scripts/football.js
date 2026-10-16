@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "日惹",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
     "away": {
      "name": "PSM马卡萨",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
@@ -15878,7 +15878,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15944,7 +15944,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -16010,7 +16010,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
@@ -16048,10 +16048,10 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "奈坦亞庫列特科恩",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -16086,16 +16086,16 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "乌拉尔青年队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 12
     },
     "away": {
      "name": "莫斯科火車頭U19",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
