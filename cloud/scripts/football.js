@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 9,
+    "minute": 12,
     "home": {
      "name": "內塔尼亞科勒特",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 7,
+    "minute": 10,
     "home": {
      "name": "乌拉尔青年队",
      "score": 0,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫斯科火車頭U19",
-     "score": 1,
+     "score": 2,
      "red": null,
      "rank": 5
     },
@@ -15794,7 +15794,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 39,
+    "minute": 42,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15872,7 +15872,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 39,
+    "minute": 42,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -15950,7 +15950,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 21,
+    "minute": 24,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
