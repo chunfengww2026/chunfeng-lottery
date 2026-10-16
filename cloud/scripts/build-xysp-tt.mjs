@@ -368,6 +368,46 @@ export function sortTimeMs(it) {
   return -Infinity;
 }
 
+/* ============================================================
+   【竞彩/足球："普通图"过滤】用户要求：
+     「其他的乱图片 明星人物图片都不要」
+     「过滤掉足球普通图片：队徽 / 球员照 / 比赛页截图 / 赛事海报」
+   ------------------------------------------------------------
+   实测（2026-10-16）：
+     · 图址本身【没用】—— 头条给的是哈希路径
+       （/tos-cn-i-xxxx/<32位hex>~tplv-…），不含 match/player/队徽 这些词；
+       54 条里"图址含坏词"的 6 条全是【文章链接域名】命中的。
+     · 但【帖子 URL（原文链接）有用】，而且抓到了真问题：
+         6 条 url = https://news.zhibo8.com/zuqiu/…（直播吧的体育新闻）
+         标题「传足胜负彩第26145期看点：曼联多事之秋 皇马大将停赛」
+         → 这是【足彩新闻/看点】，配图是球队/球员新闻图，不是票面。
+       这正是用户说的"足球普通图"，所以把它挡掉。
+     · 标题白名单实测 54 条【100% 命中】（竞彩那批帖子标题都带
+       「胜负彩 / 竞彩 / 二串一 / 推单」这类词），所以白名单是最后一道保险。
+   ⇒ 规则（只对竞彩分类生效）：
+       ① 帖子 URL 命中【体育新闻/资讯站】黑名单 → 丢
+          （直播吧/懂球帝/虎扑/新浪体育/腾讯体育/网易体育… 这些站出的是新闻图）
+       ② 标题必须命中"票/推单"类关键词，一个都不命中 → 丢
+   ============================================================ */
+const JC_NEWS_HOST_RE = /(^|\.)(zhibo8\.com|zhibo8\.cc|dongqiudi\.com|hupu\.com|sina\.com\.cn|sports\.qq\.com|sports\.163\.com|sohu\.com|baidu\.com|toutiao\.com\/article|weibo\.com|zhihu\.com)/i;
+const JC_TICKET_WORDS = [
+  '晒票', '实票', '晒单', '推单', '中奖票',
+  '竞彩', '足彩', '胜负彩', '任九', '北单', '让球', '胜平负', '二串一', '串关', '过关',
+  '双色球', '大乐透', '福彩3D', '排列3', '排列5', '七星彩', '七乐彩', '快乐8'
+];
+/** 竞彩条目是不是"票/推单"（不是足球普通新闻图） */
+export function jcIsTicketLike(title, url) {
+  const u = String(url || '');
+  /* ① 来源是体育新闻站 → 不要（那些配图是球队/球员/赛场，不是票面） */
+  if (u) {
+    try { if (JC_NEWS_HOST_RE.test(new URL(u).host)) return { ok: false, why: 'news-source' }; } catch (e) { /* url 不是合法地址就跳过这条 */ }
+  }
+  /* ② 标题必须命中"票/推单"类词 */
+  const t = String(title || '');
+  for (const w of JC_TICKET_WORDS) if (t.includes(w)) return { ok: true, why: 'title:' + w };
+  return { ok: false, why: 'no-ticket-word' };
+}
+
 /* 竞彩玩法的具体名称（标题里认得出就用它，认不出就是「竞彩」） */
 const JC_HINTS = [
   { re: /胜负彩|14 场|十四场/, name: '胜负彩' },
@@ -824,7 +864,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const max = C.max || TT_MAX;
   const cutoff = nowMs - keepHours * 3600 * 1000;
   const bucket = new Map();
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0, dropOcr: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropDraw: 0, dropCap: 0, dropPub: 0, pubFallback: 0, dropNoTicket: 0, dropOcr: 0, dropJcPlain: 0 };
 
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
@@ -864,14 +904,42 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
        ============================================================ */
     if (C.key === TT_KEY && !gs.length) { stat.dropped++; stat.dropNoTicket = (stat.dropNoTicket || 0) + 1; return; }
 
-    /* 【票图校验的第二道闸】这里再过一遍 OCR 判定缓存。
-       第一道在 runTtFetch 里（挡掉没校验/校验不通过的）；
-       这里再过一遍是为了【老数据】：早先入缓存、后来 OCR 判为"不是票"的图，
-       会在这一轮被清掉（不然它会一直留在文件里）。 */
-    if (C.key === TT_KEY) {
+    /* 【竞彩/足球：挡掉"普通图"】用户要求「队徽/球员照/比赛页截图/赛事海报都不要」。
+       规则见 jcIsTicketLike 的说明（新闻站来源 + 标题必须像"票/推单"）。 */
+    if (C.key === JC_KEY) {
+      const v = jcIsTicketLike(it.title, it.url);
+      if (!v.ok) { stat.dropped++; stat.dropJcPlain = (stat.dropJcPlain || 0) + 1; return; }
+    }
+
+    /* ============================================================
+       【票图校验的第二道闸】这里再过一遍 OCR 判定缓存。
+       ------------------------------------------------------------
+       ⚠️ 两个分类的【宽严不同】，这是实测出来的，别统一：
+         · 彩票类 tt：只挡【确认不是票】(false)。
+           "读不出字"(null) 【保留】—— 实测把 null 当假图会误删真票
+           （上线第一版就这么干，误删 7 张，后来救回 22 张）。
+         · 竞彩 jc：必须【确认是票】(true)，也就是 OCR 得读到
+           彩票词或 3 位以上数字；null 一律丢。
+           为什么竞彩可以更严（实测依据）：
+             竞彩里混进来的"足球普通图"（比赛现场照 / 球员照 / 赛场足球图）
+             OCR 全都读不出字（全是草皮和人，没文字）；
+             而真正的竞彩票 / 推单截图 OCR 都能读到数字
+             （实测：9 张真票全是 digits/keyword，19 张读不出字的
+               全是"胜负彩143期深度拆解"那类分析帖的比赛配图）。
+           代价：少数拍得很糊的真票会被丢 —— 但用户明确说
+             「宁可少，不可假」「队徽球员照都不要」，所以这个方向是对的。
+       ============================================================ */
+    if (C.key === TT_KEY || C.key === JC_KEY) {
       const cv = cachedVerdict(img);
-      /* ⚠️ 只有【确认不是票】(false) 才丢；null = 读不出字 → 保留 */
-      if (cv && cv.ok === false) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
+      if (cv) {
+        const bad = (C.key === JC_KEY) ? (cv.ok !== true) : (cv.ok === false);
+        if (bad) {
+          stat.dropped++;
+          if (C.key === JC_KEY) stat.dropJcPlain = (stat.dropJcPlain || 0) + 1;
+          else stat.dropOcr = (stat.dropOcr || 0) + 1;
+          return;
+        }
+      }
     }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
@@ -1153,14 +1221,17 @@ export async function runTtFetch() {
     /* 用缓存里的判定结果过滤：
        ⚠️ 只挡【确认不是票】的（cv.ok === false）。
           cv.ok === null（读不出字）和"没判定过"都【放行】——
-          用户要的是别放假图，不是把读不出来的真票删掉（实测这样会误删 7 张真票）。 */
+          用户要的是别放假图，不是把读不出来的真票删掉（实测这样会误删 7 张真票）。
+       ⚠️ 竞彩分类例外：它要求【确认是票】(cv.ok === true)，
+          读不出字的一律挡掉 —— 依据见 mergeTt 里那段说明。 */
     const beforeOcr = freshList.length;
     freshList = freshList.filter((it) => {
       const cv = cachedVerdict(it.img);
-      return !(cv && cv.ok === false);
+      if (!cv) return true;                                   /* 还没判过 → 放行，下一轮补判 */
+      return (C.key === JC_KEY) ? (cv.ok === true) : (cv.ok !== false);
     });
     rec.ocrDropped = beforeOcr - freshList.length;
-    if (rec.ocrDropped) log(`        因"确认不是票"挡掉 ${rec.ocrDropped} 张`);
+    if (rec.ocrDropped) log(`        因"图里不是票"挡掉 ${rec.ocrDropped} 张`);
 
     if (!freshList.length) {
       /* 这一分类零条 —— 不是致命错误：另一个分类可能好着。
@@ -1182,7 +1253,7 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}${stat.dropOcr ? ` · 图里没有票 ${stat.dropOcr}` : ''}]` +
+      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}${stat.dropNoTicket ? ` · 认不出彩种(非票图) ${stat.dropNoTicket}` : ''}${stat.dropOcr ? ` · 图里没有票 ${stat.dropOcr}` : ''}${stat.dropJcPlain ? ` · 足球普通图 ${stat.dropJcPlain}` : ''}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
