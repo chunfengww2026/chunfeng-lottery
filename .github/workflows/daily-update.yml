@@ -240,6 +240,8 @@ jobs:
           mkdir -p site
           cp -f cloud/out/index.html    site/index.html    || true
           cp -f cloud/out/football.html site/football.html || true
+          # 【走势图】独立页面（分享页点「走势图」跳过来）
+          cp -f cloud/out/走势图.html  site/走势图.html  || true
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
@@ -256,7 +258,7 @@ jobs:
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
           # 兜底列表只放页面（图标缺失时从线上拉回旧的那份没有意义，
           # 真要缺就在下面的自证里报警，让人去补文件）
-          for f in index.html football.html tickets.json; do
+          for f in index.html football.html 走势图.html tickets.json; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
               continue
