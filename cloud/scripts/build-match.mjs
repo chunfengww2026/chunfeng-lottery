@@ -37,9 +37,13 @@
         任何一项拿不到就写「—」。模块说明里【如实写明这不是泊松分布模型】，
         免得用户以为用了进球数模型。
      ⑥ 分歧指：分歧＝多家公司欧赔的离散程度，【至少要 2 家】才成立。
-        实测 jc-data.js 每场只有 500.com 一个源的一组 {home,draw,away}（无公司名字段）
-        → 一份赔率算不出分歧 → 如实显示「暂无多家赔率数据，无法计算分歧」，
-        不用单源硬造低/中/高。
+        · 第 2 步（2026-10-17）已接上第二个源：球探 titan007 的欧赔比较
+          （1x2d.titan007.com/{ScheduleID}.js，每场 320~370 家公司）。
+          抓取 + 计算在 build-odds-divergence.mjs 里，结果写 jc-divergence.js，
+          由这一页在【构建时内嵌】进去（自包含：线上站点目录里没有那个 js，也不会 404）。
+          算法：各家【即时】欧赔逐方向算 cv = 标准差 ÷ 均值，按 3.0% / 5.5% 分低/中/高。
+        · 这一场在 titan007 赛程里没对上号 / 只抓到 1 家 / jc-divergence.js 缺失时，
+          仍然如实显示「暂无多家赔率数据，无法计算分歧」，绝不用单源硬造低/中/高。
 
    用法：node build-match.mjs         → 写 比赛详情.html
    ============================================================ */
@@ -72,6 +76,17 @@ function loadVar(file, varName) {
 const JC = loadVar('jc-data.js', 'JC_DATA');
 const HIST = loadVar('jc-history.js', 'JC_HISTORY');
 const OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
+/* ============================================================
+   【分歧指 · 多公司欧赔】jc-divergence.js（build-odds-divergence.mjs 生成）
+   ------------------------------------------------------------
+   它抓的是球探 titan007 的 https://1x2d.titan007.com/{ScheduleID}.js ——
+   每场 320~370 家公司的【初盘 + 即时】欧赔，用它才算得出"分歧"。
+   ⚠️ 文件不存在也不算错：这一页照旧运行，分歧指那一档显示「暂无多家赔率数据」。
+      绝不因为少一个可选数据文件就让整页生成失败（竞彩页 64 张卡片都指着它）。
+   ============================================================ */
+const DIV = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
+const DIV_GAMES = (DIV && DIV.games && typeof DIV.games === 'object') ? DIV.games : null;
+
 if (!JC || !Array.isArray(JC.games)) {
   console.error('❌ build-match.mjs：读不到 jc-data.js 的 JC_DATA.games');
   process.exit(1);
@@ -213,6 +228,17 @@ const DATA_JSON = JSON.stringify({
   inSale: IN_SALE,
   liveCount: LIVE_GAMES.length,
   histCount: histAdded,
+  /* 【分歧指】球探 titan007 的多公司欧赔离散度（jc-divergence.js）。
+     整体内嵌进页面 —— 线上站点目录里【没有】jc-divergence.js，
+     所以绝不能让页面去 <script src> 它（那样线上必然 404，和 jc-data.js 同一个道理）。 */
+  div: DIV_GAMES ? {
+    updated: DIV.updated || '',
+    source: DIV.source || '球探 titan007',
+    metric: DIV.metric || '',
+    levels: DIV.levels || null,
+    count: Object.keys(DIV_GAMES).length,
+    games: DIV_GAMES
+  } : null,
   games: ORDERED
 }).replace(/</g, '\\u003c').replace(/\u2028|\u2029/g, '');
 
@@ -317,8 +343,18 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-tbl td.wrap { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.35; }
 .md-tbl td.wrap span { font-size: 12px; color: var(--ro-fg2); white-space: nowrap; }
 .md-one { font-size: 12.5px; color: var(--ro-fg2); }
-/* 分歧指那三行的「低/中/高」档 —— 纯文字 + 实色，不靠浅灰（用户抱怨过太淡） */
+/* 分歧指那三行的「低/中/高」档 —— 纯文字 + 实色，不靠浅灰（用户抱怨过太淡）
+   ⚠️ 颜色都在米杏底(#fdf6ea)上量过对比度：低 #146c46 ≈5.6:1 / 中 #8a5a00 ≈5.4:1 /
+      高 #a5281b ≈6.5:1，都过 4.5:1；底色只作提示，不承担"看得见"的责任。 */
 .md-tbl td.lv { font-weight: 800; color: var(--ro-fg); }
+.md-lv { display: inline-block; min-width: 34px; text-align: center; font-weight: 800; font-size: 12.5px; border-radius: 6px; padding: 2px 8px; }
+.md-lv.low { color: #146c46; background: rgba(26,140,90,0.13); }
+.md-lv.mid { color: #8a5a00; background: rgba(191,145,0,0.16); }
+.md-lv.high { color: #a5281b; background: rgba(192,57,43,0.12); }
+/* 分歧指的一句话结论（主胜分歧 低 / 平局分歧 中 / 客胜分歧 低） */
+.md-divsum { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
+.md-divsum span { flex: 1 1 0; min-width: 0; text-align: center; font-size: 12px; color: var(--ro-fg2); background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 8px; padding: 7px 4px; }
+.md-divsum span b { display: block; margin-top: 3px; font-size: 13.5px; }
 /* 分歧指：单源算不出来时的如实占位（虚线框，一眼看出是「没有」而不是「空着」） */
 .md-na {
   border: 1px dashed var(--ro-line); border-radius: 9px;
@@ -584,25 +620,67 @@ a { color: var(--ro-ok); text-decoration: none; }
     return card('泊松指数', badge(false, '模型', g), t);
   }
 
-  /* ---- ④-6 分歧指（欧赔分歧） ----
-     ⚠️【这一档目前算不出来，原因是实测的、不是猜的】：
-       分歧指 = 多家公司欧赔的【离散程度】，至少要有 2 家（理想 5~10 家）的欧赔才谈得上「分歧」。
-       实测 jc-data.js：每场只有 odds.europe.{open,live} 各一组 {home,draw,away}，
-       全库 41KB / 64 场里【没有任何公司名、没有多公司数组】—— 只有 500.com 一个源。
-       也就是说同一场比赛我们手里只有【一份】欧赔：一份赔率自己跟自己的离散度恒等于 0。
-       硬用「初盘 vs 即时」或「500.com vs 别家（其实没有别家）」去造一个低/中/高，
-       那是【编数据】，所以这里如实写「暂无多家赔率数据，无法计算分歧」。
-       将来 jc-data.js 里真有了多公司欧赔（odds.europe.list 之类），把 rows 换成真算的那段即可。 */
-  function renderDivergence() {
+  /* ---- ④-6 分歧指（多公司欧赔的离散程度） ----
+     2026-10-17 第 2 步：以前这里永远是「暂无多家赔率数据」——
+     因为 jc-data.js 只有 500.com 一个源、一场只有一份欧赔，算不出分歧。
+     现在加了第二个源：球探 titan007 的欧赔比较（1x2d.titan007.com/{ScheduleID}.js），
+     每场 320~370 家公司的即时欧赔，由 build-odds-divergence.mjs 抓好、算好，
+     写进 jc-divergence.js，构建时【内嵌】进这一页（和 games 一样自包含，
+     线上站点目录里没有 jc-divergence.js 也不会 404）。
+
+     算法（模块里如实写出来，不让用户瞎猜）：
+       每个方向取各家公司的【即时】欧赔 x₁…xₙ
+       均值 m = Σxᵢ/n ，标准差 s = √(Σ(xᵢ-m)²/n) ，变异系数 cv = s/m
+       档位：cv < 3.0% 低 · 3.0%~5.5% 中 · ≥5.5% 高（阈值按实测 192 个样本定）
+     ⚠️ 这一场在 titan007 赛程里没对上号 / 只抓到 1 家 → 仍然如实显示「暂无」，
+        绝不用"初盘 vs 即时"或单源硬造一个低/中/高。 */
+  function lvChip(level) {
+    var cls = level === '低' ? 'low' : (level === '中' ? 'mid' : (level === '高' ? 'high' : ''));
+    return '<span class="md-lv ' + cls + '">' + esc0(level) + '</span>';
+  }
+  function renderDivergence(g) {
     var need = '<b>主胜分歧</b> / <b>平局分歧</b> / <b>客胜分歧</b>';
-    var body = '<div class="md-na">'
-      + '暂无多家赔率数据，无法计算分歧。<br>'
-      + '<em>分歧指＝多家公司欧赔的离散程度，至少要 2 家才成立；'
-      + 'jc-data.js 每场只有 500.com 一个源的一组欧赔（{home,draw,away}，无公司名字段），'
-      + '一份赔率算不出分歧，所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em><br>'
-      + '数据源：500.com'
-      + '</div>';
-    return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body);
+    var dd = (D.div && D.div.games) ? D.div.games[String(g.code || '')] : null;
+    if (!dd || !dd.live) {
+      var why = D.div
+        ? '这一场没能在球探 titan007 的赛程里对上号（或那场只抓到 1 家公司的欧赔），'
+        : '本次构建没有拿到 titan007 的分歧指数据（jc-divergence.js 缺失）。';
+      var body = '<div class="md-na">'
+        + '暂无多家赔率数据，无法计算分歧。<br>'
+        + '<em>分歧指＝多家公司欧赔的离散程度，至少要 2 家才成立。'
+        + why + '所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em><br>'
+        + '数据源：500.com（欧赔单源，算不出分歧）'
+        + (D.div ? ' · 球探 titan007（多公司欧赔，本场无数据）' : '')
+        + '</div>';
+      return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body);
+    }
+    var dirs = [['主胜分歧', 'home'], ['平局分歧', 'draw'], ['客胜分歧', 'away']];
+    var sum = '<div class="md-divsum">';
+    var t = '<table class="md-tbl"><thead><tr><th style="width:34%">方向</th>'
+      + '<th style="width:22%">分歧</th><th style="width:22%">变异系数</th><th style="width:22%">均值</th></tr></thead><tbody>';
+    for (var i = 0; i < dirs.length; i++) {
+      var d = dd.live[dirs[i][1]];
+      if (!d) continue;
+      sum += '<span>' + esc0(dirs[i][0]) + '<b>' + lvChip(d.level) + '</b></span>';
+      t += '<tr><td class="s">' + esc0(dirs[i][0]) + '</td>'
+        + '<td class="lv">' + lvChip(d.level) + '</td>'
+        + '<td class="n">' + (num(d.cv) === null ? '—' : (Math.round(num(d.cv) * 10000) / 100) + '%') + '</td>'
+        + '<td class="dim">' + (num(d.mean) === null ? '—' : num(d.mean).toFixed(2)) + '</td></tr>';
+    }
+    t += '</tbody></table>';
+    sum += '</div>';
+    /* 算法 + 数据源如实写在这一档里（和泊松指数同一套写法） */
+    var note = '<div class="md-one" style="margin-top:9px">算法：<b>欧赔离散度</b> —— '
+      + '各家公司的【即时】欧赔，逐方向算 变异系数 cv = 标准差 ÷ 均值'
+      + '（用 cv 不用标准差：主胜 1.5 与客胜 8.0 的标准差天然差几倍）。'
+      + '档位：cv &lt; ' + ((D.div.levels && D.div.levels['低']) ? esc0(String(D.div.levels['低']).replace(/[<>]/g, '')) : '3.0%').trim()
+      + ' 低 · 3.0%~5.5% 中 · ≥5.5% 高。'
+      + 'cv 越小＝各家越一致（分歧低）。<br>'
+      + '数据源：<b>' + esc0(D.div.source || '球探 titan007') + '</b> · ' + esc0(dd.companies) + ' 家公司'
+      + (dd.match ? ' · ' + esc0(dd.match) : '')
+      + ' · 更新时间 ' + esc0(D.div.updated || '—') + '。'
+      + '这一档只描述"各家赔率有多不一致"，不是预测、不是推荐。</div>';
+    return card('分歧指', '<span class="md-badge live">' + esc0(D.div.source || '球探') + ' · ' + esc0(dd.companies) + ' 家</span>', sum + t + note);
   }
 
   /* ---- ③ 比赛头部 ---- */
@@ -748,12 +826,18 @@ a { color: var(--ro-ok); text-decoration: none; }
 <script>
 (function () {
   var D; try { D = JSON.parse(document.getElementById('mdData').textContent); } catch (e) { D = {}; }
-  var foot = '数据源：<b>500.com</b>（欧赔 / 亚盘 / 大小球）· 共 ' + ((D.games || []).length) + ' 场在库'
+  var foot = '数据源：<b>500.com</b>（欧赔 / 亚盘 / 大小球）'
+    + (D.div ? ' · <b>' + (D.div.source || '球探 titan007') + '</b>（多公司欧赔 → 分歧指，共 ' + (D.div.count || 0) + ' 场）' : '')
+    + ' · 共 ' + ((D.games || []).length) + ' 场在库'
     + '（在售 ' + (D.liveCount || 0) + ' + 归档 ' + (D.histCount || 0) + '）'
     + (D.inSale ? ' · 体彩官方在售 ' + D.inSale + ' 场' : '')
     + '<br>在售数据更新时间：' + (D.updated || '—') + (D.histUpdated ? ' · 归档数据更新时间：' + D.histUpdated : '')
+    + (D.div && D.div.updated ? ' · 分歧指数据更新时间：' + D.div.updated : '')
     + '<br>「泊松指数」= 由 500.com 欧赔反推（1/赔率 → 归一化），<b>不是</b>泊松分布模型；'
-    + '「分歧指」需要多家公司欧赔，当前只有 500.com 一个源，故暂不显示数值。'
+    + (D.div
+      ? '「分歧指」= 球探 titan007 各家公司的【即时】欧赔离散度（变异系数 cv = 标准差 ÷ 均值），'
+        + 'cv 越小＝各家越一致。'
+      : '「分歧指」需要多家公司欧赔，本次构建没有拿到 titan007 的数据，故暂不显示数值。')
     + '<br>本页只陈列数据，不构成投注建议。';
   document.getElementById('mdFoot').innerHTML = foot;
   /* 返回键的「优先回浏览器历史」写在 <a id="mdBack"> 的 onclick 里（见上面 md-top）。
@@ -786,6 +870,13 @@ if (!html.includes('欧指') || !html.includes('亚指')) problems.push('输出�
 if (!html.includes('泊松指数') || !html.includes('分歧指')) problems.push('输出里找不到「泊松指数/分歧指」');
 if (!html.includes('欧赔反推')) problems.push('输出里找不到「欧赔反推」（泊松指数的算法说明丢了）');
 if (!html.includes('暂无多家赔率数据')) problems.push('输出里找不到分歧指的如实占位文案');
+/* 【分歧指】有数据时必须能自证：数据真的内嵌进去了、档位色块也在。
+   少一个都会变成"静默失效"（页面照旧显示暂无，但没人知道为什么）。 */
+if (DIV_GAMES) {
+  if (html.indexOf('"div":{') < 0) problems.push('jc-divergence.js 读到了，但没内嵌进页面（D.div 丢了）');
+  if (!html.includes('md-lv')) problems.push('输出里找不到分歧指的档位样式 .md-lv（CSS 丢了）');
+  if (!html.includes('变异系数')) problems.push('输出里找不到分歧指的「变异系数」说明');
+}
 if (/<button[\s>]/.test(html)) problems.push('输出里出现了裸 <button> 元素');
 /* 返回键的死链回归：竞彩页的文件名是 足球推荐.html，不是 football.html */
 if (html.includes('href="football.html"')) problems.push('返回链接还写着 football.html（竞彩页实际文件名是 足球推荐.html）');
@@ -805,4 +896,7 @@ console.log('✅ 比赛详情.html 已生成  ' + (fs.statSync(OUT_FILE).size / 
 console.log('   内嵌比赛：' + ORDERED.length + ' 场（在售 ' + LIVE_GAMES.length + ' + 归档 ' + histAdded + '）'
   + ' · 在售数据时间 ' + (UPDATED || '—') + ' · 归档数据时间 ' + ((HIST && HIST.updated) || '—')
   + ' · 体彩官方在售 ' + (IN_SALE == null ? '—' : IN_SALE) + ' 场');
+console.log('   分歧指：' + (DIV_GAMES
+  ? '球探 titan007 多公司欧赔 ' + Object.keys(DIV_GAMES).length + ' 场（数据时间 ' + (DIV.updated || '—') + '）'
+  : '⚠️ 没有 jc-divergence.js → 页面显示「暂无多家赔率数据」（不会报错，但这一档是空的）'));
 console.log('   入口：比赛详情.html?c=周五002');
