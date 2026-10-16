@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-17 00:00
+   更新时间：2026-10-17 00:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-17 00:00",
+ "updated": "2026-10-17 00:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1629,6 +1629,20 @@ const XYSP_DATA = {
      "whenMs": null
     },
     {
+     "img": "https://img02.17chdd.com/2026-10-16/3f67d364-4803-465c-89bd-ef13a48e5b9b1792155334656.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/3f67d364-4803-465c-89bd-ef13a48e5b9b1792155334656.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]接好运",
+     "url": "",
+     "at": "2026-10-16T16:05:02.125Z",
+     "pubAt": "2026-10-16T12:56:00.000Z",
+     "pubMs": 1792155360000,
+     "pubSrc": "page",
+     "nextAt": 1792157400000,
+     "atMs": 1792166702125,
+     "seenMs": 1792166702125,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-16/ab4e9182-4fd1-429d-882d-6f274060335f1792154885837.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/ab4e9182-4fd1-429d-882d-6f274060335f1792154885837.jpg?imageMogr2/thumbnail/360x",
      "title": "[26275期]“东海妈祖娘娘，南海观音菩萨，阿弥陀佛，接富贵”",
@@ -1671,6 +1685,20 @@ const XYSP_DATA = {
      "whenMs": null
     },
     {
+     "img": "https://img02.17chdd.com/2026-10-16/83b3fdff-6b13-4fc2-ab3f-af3f4a8647d31792154904080.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/83b3fdff-6b13-4fc2-ab3f-af3f4a8647d31792154904080.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]好运连连",
+     "url": "",
+     "at": "2026-10-16T16:05:02.125Z",
+     "pubAt": "2026-10-16T12:48:00.000Z",
+     "pubMs": 1792154880000,
+     "pubSrc": "page",
+     "nextAt": 1792157400000,
+     "atMs": 1792166702125,
+     "seenMs": 1792166702125,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-16/f3a75dcd-cb8a-46e2-90b6-9ce1bc093eb01792154805909.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-16/f3a75dcd-cb8a-46e2-90b6-9ce1bc093eb01792154805909.jpg?imageMogr2/thumbnail/360x",
      "title": "[26275期]尽力",
@@ -1710,6 +1738,20 @@ const XYSP_DATA = {
      "nextAt": 1792157400000,
      "atMs": 1792155001675,
      "seenMs": 1792155001675,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-16/5391ee5d-f7b0-42f3-b4f3-32c2082e4dd01792154287426.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-16/5391ee5d-f7b0-42f3-b4f3-32c2082e4dd01792154287426.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26275期]参考，快乐八选五",
+     "url": "",
+     "at": "2026-10-16T16:05:02.125Z",
+     "pubAt": "2026-10-16T12:38:00.000Z",
+     "pubMs": 1792154280000,
+     "pubSrc": "page",
+     "nextAt": 1792157400000,
+     "atMs": 1792166702125,
+     "seenMs": 1792166702125,
      "whenMs": null
     },
     {
