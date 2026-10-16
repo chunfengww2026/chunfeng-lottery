@@ -1073,6 +1073,8 @@ function buildXyspHtml() {
      ⚠️ 一张卡片只画一次 —— 多归属靠属性里的多个 key 表达，
         不是靠把同一条渲染成多张卡片（那样「全部」会重复计数）。 */
   const cards = [];
+  /* 和 cards[i] 一一对应的【数值排序键】（见下面的全局排序） */
+  const cardSorts = [];
   XYSP_GAMES.forEach((g) => {
     const isTt = (g.key === 'tt');
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
@@ -1144,8 +1146,27 @@ function buildXyspHtml() {
         (desc ? `<i>${escape(desc)}</i>` : '') +
         `</span></a>`
       );
+      cardSorts.push(sortMs > 0 ? sortMs : 0);
     });
   });
+
+  /* ============================================================
+     【全局排序】晒票按发布时间倒序（最新在最前）—— 用户要求
+     ------------------------------------------------------------
+     ⚠️ 踩过的坑（很重要，别退回按分类分块渲染）：
+       卡片原来是【按分类分块】push 的（先一起彩 8 个彩种、再头条、再竞彩），
+       每个块【内部】已经倒序，但块与块之间不是 ——
+       于是「全部」标签读下来是"块内有序、块间断层"：
+         第 17 张 10-15 16:58 → 第 18 张 10-16 12:57（又变新了）。
+       用户要的是「最新的在最前面」，所以这里必须【整体再排一次】。
+     ⚠️ 一起排（而不是每个标签各自排）：页面上只有【一份】卡片列表，
+       点标签只是显示/隐藏（见 __XYSP_VIEW__）；只要全局倒序成立，
+       每个标签天然也倒序（子序列保持有序）。
+     ⚠️ 稳定性：时间戳相同的卡片保持原有相对顺序（Array.sort 在现代
+       V8 里是稳定的），所以同一帖子的多张票不会被搅乱。
+     ============================================================ */
+  const order = cards.map((_, i) => i).sort((a, b) => (cardSorts[b] - cardSorts[a]) || (a - b));
+  const sortedCards = order.map((i) => cards[i]);
 
   /* 筛选条：全部 + 8 个彩种 + 头条晒票。全部都是 <a>（不是按钮标签）。 */
   const tabs = ['<a class="ro-xysp-tab on" href="#ro-xysp" data-ro-xysp-game="all">全部</a>']
