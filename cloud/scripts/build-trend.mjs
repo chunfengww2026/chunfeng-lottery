@@ -196,7 +196,21 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 
 /* ⑥ 表格：横轴号码、纵轴期号；手机上能横向滑 */
 .tr-scroll { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--ro-line-soft); border-radius: 10px; background: #fffdf8; }
+  border: 1px solid var(--ro-line-soft); border-radius: 10px; background: #fffdf8;
+  /* ⚠️ 必须是定位参考：走势连线的 SVG 覆盖层绝对定位在它里面，靠它对准表格 */
+  position: relative; }
+/* ⑨ 走势连线（用户 2026-10-17 要求：「加走势连线」，先双色球 + 大乐透）
+   ------------------------------------------------------------
+   挂载层量出每格中心后，在这里盖一层绝对定位的 SVG 画线。
+   ⚠️ 覆盖层必须 pointer-events:none —— 否则会挡住下面的单元格，
+      手指滑动/点按全失效（表格是能横向滚的）。 */
+.tr-lines { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 1; }
+.tr-line { stroke-width: 1.4; stroke-linecap: round; fill: none; }
+.tr-line-main { stroke: rgba(26, 140, 90, 0.55); }
+.tr-line-extra { stroke: rgba(31, 95, 214, 0.55); }
+/* 短线头 = 该号断开的区间边界（不是真连线，画淡一点、带虚线感） */
+.tr-line-gap { stroke-opacity: 0.5; stroke-dasharray: 3 2.5; }
+/* 说明：实线 = 相邻两期连续开出；虚线 = 中间隔了遗漏期（跨过去了） */
 .tr-table { border-collapse: separate; border-spacing: 0; table-layout: fixed;
   font-variant-numeric: tabular-nums; font-size: 12px; }
 .tr-table th, .tr-table td { border-right: 1px solid var(--ro-line-soft);
