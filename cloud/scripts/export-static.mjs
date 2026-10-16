@@ -6705,7 +6705,7 @@ ${RO_RENDER_SCRIPT}
          api.ipify.org → 实测 ECONNRESET，连不上 → 只能放最后
        已淘汰：ipapi.co(403) · api.myip.com(3s 超时) · ip.seeip.org(3s 超时)
        前三名并行抢答，谁先成功用谁 → 判定时间从「最坏 16 秒」降到约 0.4 秒。 */
-    var IP_CACHE = null;            /* 【只在内存里】本次会话记下的 IP —— 绝不用 localStorage */
+    var IP_CACHE = null;            /* 【只在内存里】本次会话记下的 IP —— 不碰任何持久化存储 */
     var IP_PENDING = null;          /* 并发去重：多处同时要 IP 时共用同一个 Promise */
     var IP_TIMEOUT = 3000;          /* 每源 3 秒（原来是 4 秒）：更快失败、更快换下一个 */
     var IP_WAVE1 = [
@@ -6843,8 +6843,11 @@ ${RO_RENDER_SCRIPT}
     var t = setInterval(function () {
       tries++;
       var v = String(num.textContent || '').trim();
-      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到 */
-      if (/^\d+$/.test(v)) {
+      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到。
+         ⚠️ 2026-10-17 修：原来写的是斜杠 d 那种写法，这段脚本在【模板字符串】里，
+            反斜杠会被吃掉 → 生成出来变成 /^d+$/ → 永远匹配不到数字
+            → 热度计数【谁都看不到】（连主人也看不到）。改用 [0-9] 就没有反斜杠。 */
+      if (/^[0-9]+$/.test(v)) {
         box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
         clearInterval(t);
       } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
