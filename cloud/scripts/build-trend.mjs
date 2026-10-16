@@ -784,7 +784,10 @@ const INJECT_SRC = `
 function __trMainCells(g) {
   var o = [];
   for (var i = g.main.lo; i <= g.main.hi; i++) {
-    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0"></td>');
+    /* 【预选行也印号数】用户 2026-10-17：预选行也印上该列号数（和数据行同一个 .tr-ghost），
+       这样点选时能看出自己在选几号。选中后是实心球，球会把号数盖住（和数据行一致）。 */
+    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0">' +
+      '<i class="tr-ghost">' + i + '</i></td>');
   }
   return o.join('');
 }
@@ -792,7 +795,8 @@ function __trExtraCells(g) {
   var o = [];
   if (!g.extra) return '';
   for (var i = g.extra.lo; i <= g.extra.hi; i++) {
-    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0"></td>');
+    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0">' +
+      '<i class="tr-ghost">' + i + '</i></td>');
   }
   return o.join('');
 }
