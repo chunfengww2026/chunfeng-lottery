@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 6,
+    "minute": 11,
     "home": {
      "name": "亞特蘭大聯2隊",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "防卫者",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "卡拉普瓜",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "卡利博卡青年",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "紮奇英雄B隊",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "塞罗",
      "score": 0,
@@ -3016,7 +3016,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "库恩卡",
      "score": 1,
@@ -3082,7 +3082,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 1,
@@ -3148,7 +3148,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 2,
@@ -3214,7 +3214,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
