@@ -13712,7 +13712,7 @@ const FOOTBALL_DATA = {
      "color": "880030"
     },
     "time": "2026-10-16 19:30:00",
-    "minute": 46,
+    "minute": 48,
     "home": {
      "name": "库克斯",
      "score": 1,
@@ -13778,7 +13778,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-16 19:35:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "河南队",
      "score": 0,
@@ -14464,7 +14464,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "泰拉桑那",
      "score": 2,
@@ -14526,7 +14526,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 20,
+    "minute": 22,
     "home": {
      "name": "Proxy",
      "score": 0,
@@ -14604,7 +14604,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 21,
+    "minute": 23,
     "home": {
      "name": "佩哈亚克",
      "score": 0,
@@ -14682,7 +14682,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "巴拉蒂耶",
      "score": 0,
@@ -14760,7 +14760,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 24,
+    "minute": 26,
     "home": {
      "name": "艾奢卡艾哈迪德",
      "score": 0,
@@ -14838,7 +14838,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-10-16 20:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "波里索夫巴特II隊",
      "score": 0,
