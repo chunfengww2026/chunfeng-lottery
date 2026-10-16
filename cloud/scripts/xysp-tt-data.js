@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 11:17
+   更新时间：2026-10-16 11:20
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-16 11:17",
+ "updated": "2026-10-16 11:20",
  "items": [
   {
    "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=W3e%2FONvJQVBB1TVRhjp1kBnhvYM%3D",
@@ -77,7 +77,7 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:15:53"
@@ -123,7 +123,7 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:39:20"
@@ -142,7 +142,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -165,7 +165,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:04:47.294Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
@@ -188,11 +188,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:06:02.156Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:15:53"
@@ -215,30 +215,7 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 10:15:53"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0abe6c1fdfd1464c858574842adb0d60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hGsdXixjKWDHxZKKwkeLT3slzVI%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0abe6c1fdfd1464c858574842adb0d60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hGsdXixjKWDHxZKKwkeLT3slzVI%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e2b259f30eec41fb9a1f560a65b89d1e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=VOZasdSlj%2FsFPUY%2B9fEoPT7q8n8%3D",
-   "title": "50倍单式票面革新，22倍单式一以贯之！26118期双色球晒票鉴赏",
-   "url": "http://toutiao.com/item/7697083706086785577/",
-   "at": "2026-10-16T02:26:02.104Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:15:53"
@@ -261,10 +238,56 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 10:15:53"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0abe6c1fdfd1464c858574842adb0d60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hGsdXixjKWDHxZKKwkeLT3slzVI%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0abe6c1fdfd1464c858574842adb0d60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hGsdXixjKWDHxZKKwkeLT3slzVI%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e2b259f30eec41fb9a1f560a65b89d1e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=VOZasdSlj%2FsFPUY%2B9fEoPT7q8n8%3D",
+   "title": "50倍单式票面革新，22倍单式一以贯之！26118期双色球晒票鉴赏",
+   "url": "http://toutiao.com/item/7697083706086785577/",
+   "at": "2026-10-16T02:26:02.104Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
    "expireAt": "2026-10-19T03:16:02.157Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:15:53"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=I9penpcMoPjtFjRxcgQuEXjccMo%3D",
+   "title": "20倍单式票圈定05到17，大乐透26117期晒票，后区还防了09和10",
+   "url": "http://toutiao.com/item/7697074111138234920/",
+   "at": "2026-10-16T02:16:02.099Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26117",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 09:38:39"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hbstxGwRsol3DiCLRy7LE0bLxYg%3D",
@@ -285,29 +308,6 @@ const XYSP_TT_DATA = {
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
    "expireAt": "2026-10-19T03:06:02.156Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 09:38:39"
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=I9penpcMoPjtFjRxcgQuEXjccMo%3D",
-   "title": "20倍单式票圈定05到17，大乐透26117期晒票，后区还防了09和10",
-   "url": "http://toutiao.com/item/7697074111138234920/",
-   "at": "2026-10-16T02:16:02.099Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26117",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:05:58.558Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:38:39"
@@ -349,11 +349,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26117",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:38:39"
@@ -430,7 +430,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/777cdd29f12c498588c5eb6f6ecd5a3a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=8WqvU2qNe%2FPhzOQzTgu2yCKsSEQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/777cdd29f12c498588c5eb6f6ecd5a3a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=8WqvU2qNe%2FPhzOQzTgu2yCKsSEQ%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tLaStmeTaY%2FpiRGdfIJzTWfxw8M%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=MOnC2oKqn%2FAlE%2Bcg1zDVEbqdFeo%3D",
    "title": "118期大乐透晒票：小票同台竞技 胆拖与倍投走出完全不一样的思路",
    "url": "https://toutiao.com/group/7697069284387734039/",
    "at": "2026-10-16T01:56:02.091Z",
@@ -441,14 +441,37 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "浮云",
    "when": "2026-10-16 09:21:47"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BtNMSIe7oibx39pgrOUhHr6rUjs%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BtNMSIe7oibx39pgrOUhHr6rUjs%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=I9penpcMoPjtFjRxcgQuEXjccMo%3D",
+   "title": "20倍单式票圈定05到17，大乐透26117期晒票，后区还防了09和10",
+   "url": "http://toutiao.com/item/7697074111138234920/",
+   "at": "2026-10-16T01:46:02.075Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26117",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 09:38:39"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=7ihyE%2BzkxOiTL5ip21hYG0a1gp8%3D",
@@ -464,7 +487,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26117",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -497,29 +520,6 @@ const XYSP_TT_DATA = {
    "when": "2026-10-16 09:38:39"
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BtNMSIe7oibx39pgrOUhHr6rUjs%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BtNMSIe7oibx39pgrOUhHr6rUjs%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=I9penpcMoPjtFjRxcgQuEXjccMo%3D",
-   "title": "20倍单式票圈定05到17，大乐透26117期晒票，后区还防了09和10",
-   "url": "http://toutiao.com/item/7697074111138234920/",
-   "at": "2026-10-16T01:46:02.075Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26117",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 09:38:39"
-  },
-  {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S7Z7JOUMqGtTHxNpbBQTx%2Bax%2B1M%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S7Z7JOUMqGtTHxNpbBQTx%2Bax%2B1M%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=MOnC2oKqn%2FAlE%2Bcg1zDVEbqdFeo%3D",
@@ -533,7 +533,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:04:47.294Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -660,7 +660,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=jGbPzsfkYWQqnbotKUjXGk9hpzw%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=jGbPzsfkYWQqnbotKUjXGk9hpzw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=bFHrDulvbK2Sl9W%2B93KLts69U5c%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=UE3c6AYEPfhMbySspxCxfi8RhsI%3D",
    "title": "双色球118期晒票：168元复式砸场，70元5倍单挑蓝9能逆袭？",
    "url": "http://toutiao.com/item/7697068806509691419/",
    "at": "2026-10-16T01:36:02.075Z",
@@ -671,11 +671,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:18:04"
@@ -683,7 +683,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/04499f6c5c8b4778897b9ff07560f92c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=AiOBlqDFzE4X%2FddcQVQ6YFZyxxI%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/04499f6c5c8b4778897b9ff07560f92c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=AiOBlqDFzE4X%2FddcQVQ6YFZyxxI%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HxQwByXW7bwKf8T%2F%2B5OorqnrYik%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=KnnjKke%2B458Xu8F8EQeulUfgMk4%3D",
    "title": "26118期大乐透晒票出炉！三连号扎堆，5倍小票凭何出圈？",
    "url": "https://toutiao.com/group/7697065913320768050/",
    "at": "2026-10-16T01:36:02.075Z",
@@ -694,11 +694,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "浮云",
    "when": "2026-10-16 09:08:20"
@@ -706,7 +706,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e072c3f8d2f5417194612d27bb29e3c5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kEWu2qElC8mE%2BXNYMmMT4uGHgiU%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e072c3f8d2f5417194612d27bb29e3c5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kEWu2qElC8mE%2BXNYMmMT4uGHgiU%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tLaStmeTaY%2FpiRGdfIJzTWfxw8M%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4b50751cb1e844eb97652ba96c39c6ff~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=MOnC2oKqn%2FAlE%2Bcg1zDVEbqdFeo%3D",
    "title": "118期大乐透晒票：小票同台竞技 胆拖与倍投走出完全不一样的思路",
    "url": "https://toutiao.com/group/7697069284387734039/",
    "at": "2026-10-16T01:36:02.075Z",
@@ -717,11 +717,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "浮云",
    "when": "2026-10-16 09:21:47"
@@ -744,7 +744,7 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "安然观云舒",
    "when": "2026-10-16 08:48:12"
@@ -752,7 +752,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BfvHDrhUiIccmMn2VWoh1CZd8WY%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BfvHDrhUiIccmMn2VWoh1CZd8WY%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HxQwByXW7bwKf8T%2F%2B5OorqnrYik%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=KnnjKke%2B458Xu8F8EQeulUfgMk4%3D",
    "title": "26118期大乐透晒票出炉！三连号扎堆，5倍小票凭何出圈？",
    "url": "https://toutiao.com/group/7697065913320768050/",
    "at": "2026-10-16T01:36:02.075Z",
@@ -763,11 +763,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "浮云",
    "when": "2026-10-16 09:08:20"
@@ -913,7 +913,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b889328e3df045ce8868dfc2ae2743b3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wH2LU64Wm4gDOBU%2BQm0kTY3wJpI%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b889328e3df045ce8868dfc2ae2743b3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wH2LU64Wm4gDOBU%2BQm0kTY3wJpI%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=bFHrDulvbK2Sl9W%2B93KLts69U5c%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=UE3c6AYEPfhMbySspxCxfi8RhsI%3D",
    "title": "双色球118期晒票：168元复式砸场，70元5倍单挑蓝9能逆袭？",
    "url": "http://toutiao.com/item/7697068806509691419/",
    "at": "2026-10-16T01:26:02.072Z",
@@ -924,11 +924,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:18:04"
@@ -936,7 +936,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/985c2f861b9f428aa54a5a8c34370dfd~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IiG18tVFfjUwI4xBigbiTcwqERY%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/985c2f861b9f428aa54a5a8c34370dfd~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IiG18tVFfjUwI4xBigbiTcwqERY%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=bFHrDulvbK2Sl9W%2B93KLts69U5c%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b0ff34a042bd46b8902af25913ea601f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=UE3c6AYEPfhMbySspxCxfi8RhsI%3D",
    "title": "双色球118期晒票：168元复式砸场，70元5倍单挑蓝9能逆袭？",
    "url": "http://toutiao.com/item/7697068806509691419/",
    "at": "2026-10-16T01:26:02.072Z",
@@ -947,11 +947,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:18:04"
@@ -974,7 +974,7 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "浮云",
    "when": "2026-10-16 09:21:47"
@@ -982,7 +982,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=9VdlBAcOGzD%2BxRi%2B2513qiD8LHY%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=9VdlBAcOGzD%2BxRi%2B2513qiD8LHY%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HxQwByXW7bwKf8T%2F%2B5OorqnrYik%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=KnnjKke%2B458Xu8F8EQeulUfgMk4%3D",
    "title": "26118期大乐透晒票出炉！三连号扎堆，5倍小票凭何出圈？",
    "url": "https://toutiao.com/group/7697065913320768050/",
    "at": "2026-10-16T01:26:02.072Z",
@@ -993,7 +993,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -1166,7 +1166,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=jkiSlcm3bnEWKczNs52uuOOUk64%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=jkiSlcm3bnEWKczNs52uuOOUk64%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=QBI1dsk675w7CHkxKzTFHjxlu1w%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=4jzYgRNQJfJ4TCm6Me2NHADDDAA%3D",
    "title": "百元内小票比拼，大乐透本期晒票，胆拖票和倍投票风格反差明显",
    "url": "https://toutiao.com/group/7697060621120045612/",
    "at": "2026-10-16T01:16:02.055Z",
@@ -1177,37 +1177,14 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "安然观云舒",
    "when": "2026-10-16 08:48:12"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=eHmi2crvuBrxjkLg1Y5e9wu69p8%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=eHmi2crvuBrxjkLg1Y5e9wu69p8%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HxQwByXW7bwKf8T%2F%2B5OorqnrYik%3D",
-   "title": "26118期大乐透晒票出炉！三连号扎堆，5倍小票凭何出圈？",
-   "url": "https://toutiao.com/group/7697065913320768050/",
-   "at": "2026-10-16T01:16:02.055Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:06:02.156Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
-   "rule": "next-draw",
-   "author": "浮云",
-   "when": "2026-10-16 09:08:20"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=fw%2BBncFjFtmBliIWa5iuYx4F8xI%3D",
@@ -1224,6 +1201,29 @@ const XYSP_TT_DATA = {
    ],
    "issue": "26118",
    "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "浮云",
+   "when": "2026-10-16 09:08:20"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=eHmi2crvuBrxjkLg1Y5e9wu69p8%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0f46de278fa34c608c2eeca7ccf1821b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=eHmi2crvuBrxjkLg1Y5e9wu69p8%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9666344ecd104148ad579a1f44714c6c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=HxQwByXW7bwKf8T%2F%2B5OorqnrYik%3D",
+   "title": "26118期大乐透晒票出炉！三连号扎堆，5倍小票凭何出圈？",
+   "url": "https://toutiao.com/group/7697065913320768050/",
+   "at": "2026-10-16T01:16:02.055Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:06:02.156Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -1350,7 +1350,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/900d5d3c8eaa41929ff528d159537168~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=F8g6b%2BCVWQEb3iy6f8PKacurTL4%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/900d5d3c8eaa41929ff528d159537168~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=F8g6b%2BCVWQEb3iy6f8PKacurTL4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=QBI1dsk675w7CHkxKzTFHjxlu1w%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8f6e28d049cb47ab8e71a5789234f508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=4jzYgRNQJfJ4TCm6Me2NHADDDAA%3D",
    "title": "百元内小票比拼，大乐透本期晒票，胆拖票和倍投票风格反差明显",
    "url": "https://toutiao.com/group/7697060621120045612/",
    "at": "2026-10-16T01:06:02.050Z",
@@ -1361,11 +1361,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "安然观云舒",
    "when": "2026-10-16 08:48:12"
@@ -1433,14 +1433,37 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "安然观云舒",
    "when": "2026-10-16 08:48:12"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4174635f4d4f43e8bd65c4b3783e013e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=euU0S4RIFcDUWv5vpkM4v9s79F4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4174635f4d4f43e8bd65c4b3783e013e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=euU0S4RIFcDUWv5vpkM4v9s79F4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
+   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
+   "url": "http://toutiao.com/item/7697025367055270440/",
+   "at": "2026-10-16T00:56:02.044Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 06:29:30"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/900d5d3c8eaa41929ff528d159537168~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=pjECj41u%2BxiJDFdtCTwe9jodQ2s%3D",
@@ -1456,7 +1479,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -1489,29 +1512,6 @@ const XYSP_TT_DATA = {
    "when": "2026-10-16 08:48:12"
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4174635f4d4f43e8bd65c4b3783e013e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=euU0S4RIFcDUWv5vpkM4v9s79F4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4174635f4d4f43e8bd65c4b3783e013e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=euU0S4RIFcDUWv5vpkM4v9s79F4%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
-   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
-   "url": "http://toutiao.com/item/7697025367055270440/",
-   "at": "2026-10-16T00:56:02.044Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 06:29:30"
-  },
-  {
    "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/462d2d53895b4478a174784b41c1a9eb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=zl4tTga%2F47y6D%2BOUZ3JDzuZ%2Fo0k%3D",
    "thumb": "https://p9-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/462d2d53895b4478a174784b41c1a9eb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=zl4tTga%2F47y6D%2BOUZ3JDzuZ%2Fo0k%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
@@ -1537,7 +1537,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e4f69c1b2e9437f9a5ae6eda8192192~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=cLDUdQvZrwbXNQA7TZW3lK5i62U%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e4f69c1b2e9437f9a5ae6eda8192192~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=cLDUdQvZrwbXNQA7TZW3lK5i62U%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BnzY1%2B0k0KIVCpM7gLrdinKrNY8%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wQzxJEsoT7X8ZDanxgFmYfFDSiQ%3D",
    "title": "10倍复式三雄争锋，20倍单式靓丽收场！双色球第26118期晒票亮相",
    "url": "http://toutiao.com/item/7697050022960955939/",
    "at": "2026-10-16T00:46:02.028Z",
@@ -1548,11 +1548,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 08:05:11"
@@ -1571,11 +1571,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:39:20"
@@ -1602,6 +1602,29 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "彩民闲谈",
    "when": "2026-10-16 06:35:00"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GEpXd7E%2BYqOwijN6CMEW0o25RQc%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GEpXd7E%2BYqOwijN6CMEW0o25RQc%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=l9GPjOISOolVZdH6kMnEahnV%2BV0%3D",
+   "title": "大乐透26118期晒票：三连号扎堆出现？10元5倍票成全场焦点！",
+   "url": "http://toutiao.com/item/7697089750120792618/",
+   "at": "2026-10-16T00:36:02.027Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 10:39:20"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3a04746da0b8480eae61701da4b2ebd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=dtruE70ZwNTjlIhE8RC%2BsxyF8gU%3D",
@@ -1654,29 +1677,6 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/669cbca9d70644eea5b978bad5b3b330~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=TTk%2BgvLpwKxkP4UMuyFWL7hcspI%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/669cbca9d70644eea5b978bad5b3b330~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=TTk%2BgvLpwKxkP4UMuyFWL7hcspI%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2dUU0osM8%2FhdY9PObnHZenx0KJs%3D",
-   "title": "大乐透26118期晒票：三连号扎堆出现？10元5倍票成全场焦点！",
-   "url": "http://toutiao.com/item/7697089750120792618/",
-   "at": "2026-10-16T00:36:02.027Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:06:02.156Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 10:39:20"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GEpXd7E%2BYqOwijN6CMEW0o25RQc%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GEpXd7E%2BYqOwijN6CMEW0o25RQc%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/24589f097dbf415e9b629c9fdb9f73c9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=l9GPjOISOolVZdH6kMnEahnV%2BV0%3D",
    "title": "大乐透26118期晒票：三连号扎堆出现？10元5倍票成全场焦点！",
    "url": "http://toutiao.com/item/7697089750120792618/",
@@ -1688,11 +1688,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:05:58.558Z",
+   "expireAt": "2026-10-19T03:06:02.156Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 10:39:20"
@@ -1724,7 +1724,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/51df914e26d941e089a2877743471f81~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=JX9gFf5iIQfaqM1l3WQnP8titJY%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/51df914e26d941e089a2877743471f81~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=JX9gFf5iIQfaqM1l3WQnP8titJY%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BnzY1%2B0k0KIVCpM7gLrdinKrNY8%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wQzxJEsoT7X8ZDanxgFmYfFDSiQ%3D",
    "title": "10倍复式三雄争锋，20倍单式靓丽收场！双色球第26118期晒票亮相",
    "url": "http://toutiao.com/item/7697050022960955939/",
    "at": "2026-10-16T00:26:02.024Z",
@@ -1735,11 +1735,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 08:05:11"
@@ -1758,14 +1758,61 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 08:05:11"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6036499666a14861ac16910512189120~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tMTAgVnOZnaGk9vDDczIbNCNvNM%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6036499666a14861ac16910512189120~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tMTAgVnOZnaGk9vDDczIbNCNvNM%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
+   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
+   "url": "http://toutiao.com/item/7697025367055270440/",
+   "at": "2026-10-16T00:26:02.024Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26118",
    "seen": "2026-10-16T03:17:59.115Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 08:05:11"
+   "when": "2026-10-16 06:29:30"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hwYGdcu5Zz08ZNVl6gv6AG6Uh%2Bc%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hwYGdcu5Zz08ZNVl6gv6AG6Uh%2Bc%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GoAcQlSjcP1P9CKY%2BCKEGuxgVXg%3D",
+   "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
+   "url": "http://toutiao.com/item/7696866419383730742/",
+   "at": "2026-10-16T00:26:02.024Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d",
+    "pl3"
+   ],
+   "issue": "26273",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-16T13:15:00.000Z",
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:12:42"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8801a1cd2709400d93042e4b501168d1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=VsQdMO5%2FA3gicbzxog%2By35ObkUE%3D",
@@ -1791,53 +1838,6 @@ const XYSP_TT_DATA = {
    "when": "2026-10-16 09:33:33"
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6036499666a14861ac16910512189120~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tMTAgVnOZnaGk9vDDczIbNCNvNM%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6036499666a14861ac16910512189120~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tMTAgVnOZnaGk9vDDczIbNCNvNM%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
-   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
-   "url": "http://toutiao.com/item/7697025367055270440/",
-   "at": "2026-10-16T00:26:02.024Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 06:29:30"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hwYGdcu5Zz08ZNVl6gv6AG6Uh%2Bc%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=hwYGdcu5Zz08ZNVl6gv6AG6Uh%2Bc%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GoAcQlSjcP1P9CKY%2BCKEGuxgVXg%3D",
-   "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
-   "url": "http://toutiao.com/item/7696866419383730742/",
-   "at": "2026-10-16T00:26:02.024Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d",
-    "pl3"
-   ],
-   "issue": "26273",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-16T13:15:00.000Z",
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:12:42"
-  },
-  {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=z2Tnlx5BgnMETRL0cr4VYBptQHo%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=z2Tnlx5BgnMETRL0cr4VYBptQHo%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=T3BPM8EPYhnjfyHi7f%2Fyu%2BVjwdE%3D",
@@ -1853,7 +1853,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26273",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-16T13:15:00.000Z",
    "drawGid": "fc3d",
@@ -1959,7 +1959,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e4f69c1b2e9437f9a5ae6eda8192192~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Z8wsm0bq6k8CZbpO4bfwE8BDsAo%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e4f69c1b2e9437f9a5ae6eda8192192~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Z8wsm0bq6k8CZbpO4bfwE8BDsAo%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wQzxJEsoT7X8ZDanxgFmYfFDSiQ%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BnzY1%2B0k0KIVCpM7gLrdinKrNY8%3D",
    "title": "10倍复式三雄争锋，20倍单式靓丽收场！双色球第26118期晒票亮相",
    "url": "http://toutiao.com/item/7697050022960955939/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -1970,11 +1970,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 08:05:11"
@@ -1982,7 +1982,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/462d2d53895b4478a174784b41c1a9eb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2FsOV%2BahRNsoqIqjR%2BMYorxprKkw%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/462d2d53895b4478a174784b41c1a9eb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2FsOV%2BahRNsoqIqjR%2BMYorxprKkw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1rhQGEgBMmxPI8kLskpr8egcdOs%3D",
    "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
    "url": "http://toutiao.com/item/7696829631277564470/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -1993,11 +1993,11 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 17:49:57"
@@ -2016,11 +2016,11 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 09:33:33"
@@ -2043,10 +2043,132 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 01:58:43"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2NMqn430J0fw3tEULRGpx1ftUvU%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2NMqn430J0fw3tEULRGpx1ftUvU%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
+   "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
+   "url": "http://toutiao.com/item/7696829631277564470/",
+   "at": "2026-10-16T00:16:02.005Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 17:49:57"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IUmrtOammTNSuFA2PA3YR%2F%2FUNJ4%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IUmrtOammTNSuFA2PA3YR%2F%2FUNJ4%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
+   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
+   "url": "http://toutiao.com/item/7696868137202876982/",
+   "at": "2026-10-16T00:16:02.005Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt",
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:22"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gkg%2FcV3HYAjdAauadRTAe2IgRz4%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gkg%2FcV3HYAjdAauadRTAe2IgRz4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
+   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
+   "url": "http://toutiao.com/item/7697025367055270440/",
+   "at": "2026-10-16T00:16:02.005Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 06:29:30"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=DT%2FtMwod0FXsnUInE%2BuRa8bcUOE%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=DT%2FtMwod0FXsnUInE%2BuRa8bcUOE%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=T3BPM8EPYhnjfyHi7f%2Fyu%2BVjwdE%3D",
+   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
+   "url": "http://toutiao.com/item/7696868106651566618/",
+   "at": "2026-10-16T00:16:02.005Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "26273",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-16T13:15:00.000Z",
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:15"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BDLeFNf9yFUatOrxSabN8Gmjxfo%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BDLeFNf9yFUatOrxSabN8Gmjxfo%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=vi46GsrRQduR2G4ZWp0g760o9EI%3D",
+   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
+   "url": "http://toutiao.com/item/7696868106651566618/",
+   "at": "2026-10-16T00:16:02.005Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "26273",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-16T13:15:00.000Z",
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:15"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=KqlsWkjDr3cL8Vqzl0leTb%2BFRKo%3D",
@@ -2074,7 +2196,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/51df914e26d941e089a2877743471f81~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=T4IKRo8vOOlIVxqfdVi1%2FQ5bUcw%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/51df914e26d941e089a2877743471f81~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=T4IKRo8vOOlIVxqfdVi1%2FQ5bUcw%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=wQzxJEsoT7X8ZDanxgFmYfFDSiQ%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BnzY1%2B0k0KIVCpM7gLrdinKrNY8%3D",
    "title": "10倍复式三雄争锋，20倍单式靓丽收场！双色球第26118期晒票亮相",
    "url": "http://toutiao.com/item/7697050022960955939/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -2085,7 +2207,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
@@ -2097,7 +2219,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=CMRtRx7Pj4wSYWo16RPy8YyjVLE%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=CMRtRx7Pj4wSYWo16RPy8YyjVLE%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=uT3ITMrVQTjULE0miAxhEgw%2BYag%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5WiNExRU6LFhjsB%2Fh1k3m2pEAbs%3D",
    "title": "大乐透26118期晒票：小票竞技，112元胆拖和30元倍投却风格迥异？",
    "url": "http://toutiao.com/item/7697072796274262564/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -2108,7 +2230,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -2118,32 +2240,9 @@ const XYSP_TT_DATA = {
    "when": "2026-10-16 09:33:33"
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2NMqn430J0fw3tEULRGpx1ftUvU%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=2NMqn430J0fw3tEULRGpx1ftUvU%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
-   "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
-   "url": "http://toutiao.com/item/7696829631277564470/",
-   "at": "2026-10-16T00:16:02.005Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 17:49:57"
-  },
-  {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=NMGUZkTHx2tSyS07OKeLwLokLv4%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=NMGUZkTHx2tSyS07OKeLwLokLv4%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=SpVDmMeymaH3QS%2Fo3q5ae1hrmKA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GoAcQlSjcP1P9CKY%2BCKEGuxgVXg%3D",
    "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
    "url": "http://toutiao.com/item/7696866419383730742/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -2155,7 +2254,7 @@ const XYSP_TT_DATA = {
     "pl3"
    ],
    "issue": "26273",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-16T13:15:00.000Z",
    "drawGid": "fc3d",
@@ -2167,7 +2266,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=xsawtXgqd7L7GVyiTX3kTQbacUQ%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=xsawtXgqd7L7GVyiTX3kTQbacUQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1rhQGEgBMmxPI8kLskpr8egcdOs%3D",
    "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
    "url": "http://toutiao.com/item/7696829631277564470/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -2178,7 +2277,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:06:02.156Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
@@ -2186,80 +2285,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 17:49:57"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IUmrtOammTNSuFA2PA3YR%2F%2FUNJ4%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ea2b0192f4424fb79f790b8141e0e11f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=IUmrtOammTNSuFA2PA3YR%2F%2FUNJ4%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=9WnnukKleV%2Bkrsq%2BJJvba3wOlGo%3D",
-   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
-   "url": "http://toutiao.com/item/7696868137202876982/",
-   "at": "2026-10-16T00:16:02.005Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt",
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:22"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gkg%2FcV3HYAjdAauadRTAe2IgRz4%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=gkg%2FcV3HYAjdAauadRTAe2IgRz4%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=K9Mvq5UvJi%2F3XNH0gn3Ej2R%2FB9A%3D",
-   "title": "几张双色球单式票亮相！26118期晒票，小额票藏惊喜",
-   "url": "http://toutiao.com/item/7697025367055270440/",
-   "at": "2026-10-16T00:16:02.005Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 06:29:30"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=DT%2FtMwod0FXsnUInE%2BuRa8bcUOE%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=DT%2FtMwod0FXsnUInE%2BuRa8bcUOE%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=vi46GsrRQduR2G4ZWp0g760o9EI%3D",
-   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
-   "url": "http://toutiao.com/item/7696868106651566618/",
-   "at": "2026-10-16T00:16:02.005Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "26273",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-16T13:15:00.000Z",
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:15"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=U%2F2vAEP0Srm%2BjmOsb7%2FABciHwQM%3D",
@@ -2284,31 +2309,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:12:42"
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BDLeFNf9yFUatOrxSabN8Gmjxfo%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BDLeFNf9yFUatOrxSabN8Gmjxfo%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=vi46GsrRQduR2G4ZWp0g760o9EI%3D",
-   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
-   "url": "http://toutiao.com/item/7696868106651566618/",
-   "at": "2026-10-16T00:16:02.005Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "26273",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-16T13:15:00.000Z",
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-19T03:04:47.294Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:15"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a8e5cfc03954c8098555787cd41825a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=cmsm7P3zzUERu8tqR8lp6LKG8%2Fs%3D",
@@ -2452,7 +2452,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Men7yd5lZA%2BAtwpVUQqm2VB2OgA%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Men7yd5lZA%2BAtwpVUQqm2VB2OgA%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=9WnnukKleV%2Bkrsq%2BJJvba3wOlGo%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
    "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
    "url": "http://toutiao.com/item/7696868137202876982/",
    "at": "2026-10-16T00:06:02.007Z",
@@ -2466,11 +2466,11 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:19:22"
@@ -2478,7 +2478,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BVSZGNSb%2Bhk1KOktWEgCcMFRAoc%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=%2BVSZGNSb%2Bhk1KOktWEgCcMFRAoc%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=9WnnukKleV%2Bkrsq%2BJJvba3wOlGo%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
    "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
    "url": "http://toutiao.com/item/7696868137202876982/",
    "at": "2026-10-16T00:06:02.007Z",
@@ -2492,11 +2492,11 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:19:22"
@@ -2522,10 +2522,226 @@ const XYSP_TT_DATA = {
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
+   "expireAt": "2026-10-19T03:17:59.115Z",
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:19:22"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=J1boFQDakyotczjMoAWsYadvhbU%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=J1boFQDakyotczjMoAWsYadvhbU%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
+   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
+   "url": "http://toutiao.com/item/7696868137202876982/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt",
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:22"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=XexU4X7aQ27yjfPCEorXwSntD2M%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=XexU4X7aQ27yjfPCEorXwSntD2M%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GoAcQlSjcP1P9CKY%2BCKEGuxgVXg%3D",
+   "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
+   "url": "http://toutiao.com/item/7696866419383730742/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d",
+    "pl3"
+   ],
+   "issue": "26273",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-16T13:15:00.000Z",
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:12:42"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Cq08Inf7%2FVQc0JOw0jtgdtwUq58%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Cq08Inf7%2FVQc0JOw0jtgdtwUq58%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
+   "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
+   "url": "http://toutiao.com/item/7696829631277564470/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-18T13:15:00.000Z",
+   "drawGid": "ssq",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 17:49:57"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ptrevWbUd%2FtwVdINL598xr4uKAQ%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ptrevWbUd%2FtwVdINL598xr4uKAQ%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1KY1el49jKjm8ZZW5dZ3XJuucbM%3D",
+   "title": "10倍与11倍单式票均出现断区，大乐透第26117期晒票，3倍小复式前区同带30",
+   "url": "http://toutiao.com/item/7696955584695763475/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26117",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 01:58:43"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfb0644987384a97936af61b6586c8c8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ov9s7MYZz9AqHGC5W0fy7F06Ngs%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfb0644987384a97936af61b6586c8c8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ov9s7MYZz9AqHGC5W0fy7F06Ngs%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1KY1el49jKjm8ZZW5dZ3XJuucbM%3D",
+   "title": "10倍与11倍单式票均出现断区，大乐透第26117期晒票，3倍小复式前区同带30",
+   "url": "http://toutiao.com/item/7696955584695763475/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26117",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 01:58:43"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZAnxma2ZALP3xpprY6hs7YQWh5o%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZAnxma2ZALP3xpprY6hs7YQWh5o%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5WiNExRU6LFhjsB%2Fh1k3m2pEAbs%3D",
+   "title": "大乐透26118期晒票：小票竞技，112元胆拖和30元倍投却风格迥异？",
+   "url": "http://toutiao.com/item/7697072796274262564/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 09:33:33"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=PeLfp9Y4ycHxMVxogTM81EBpYXA%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=PeLfp9Y4ycHxMVxogTM81EBpYXA%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=vi46GsrRQduR2G4ZWp0g760o9EI%3D",
+   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
+   "url": "http://toutiao.com/item/7696868106651566618/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "26273",
+   "seen": "2026-10-16T03:17:59.115Z",
+   "drawAt": "2026-10-15T13:15:00.000Z",
+   "nextAt": "2026-10-16T13:15:00.000Z",
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:15"
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kHxMvZB3WvI0I1d9AVVwaLfbFSA%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kHxMvZB3WvI0I1d9AVVwaLfbFSA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
+   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
+   "url": "http://toutiao.com/item/7696868137202876982/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt",
+    "fc3d",
+    "pl3",
+    "pl5"
+   ],
+   "issue": "",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-15 20:19:22"
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8801a1cd2709400d93042e4b501168d1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BHTCZzgkdMiCf4qJDyT%2BV7Thj5s%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8801a1cd2709400d93042e4b501168d1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BHTCZzgkdMiCf4qJDyT%2BV7Thj5s%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5WiNExRU6LFhjsB%2Fh1k3m2pEAbs%3D",
+   "title": "大乐透26118期晒票：小票竞技，112元胆拖和30元倍投却风格迥异？",
+   "url": "http://toutiao.com/item/7697072796274262564/",
+   "at": "2026-10-16T00:06:02.007Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "26118",
+   "seen": "2026-10-16T03:20:50.374Z",
+   "drawAt": "2026-10-14T12:30:00.000Z",
+   "nextAt": "2026-10-17T12:30:00.000Z",
+   "drawGid": "dlt",
+   "expireAt": "2026-10-19T03:17:59.115Z",
+   "rule": "next-draw",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-16 09:33:33"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/55d39d2fb2a149d598c53a19c7a6a0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=OyoYsbWmHCi02vCvFKdFPueNsbM%3D",
@@ -2541,7 +2757,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
@@ -2566,7 +2782,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26273",
-   "seen": "2026-10-16T03:16:02.157Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-16T13:15:00.000Z",
    "drawGid": "fc3d",
@@ -2574,32 +2790,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:19:15"
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=J1boFQDakyotczjMoAWsYadvhbU%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f9d90dba88ea4a158b8288e533aa009c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=J1boFQDakyotczjMoAWsYadvhbU%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
-   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
-   "url": "http://toutiao.com/item/7696868137202876982/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt",
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:22"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfb0644987384a97936af61b6586c8c8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=7RQdPGXEFg3S4kYnQzu5ALyOJvQ%3D",
@@ -2616,76 +2806,6 @@ const XYSP_TT_DATA = {
    ],
    "issue": "26117",
    "seen": "2026-10-16T03:16:02.157Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 01:58:43"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=XexU4X7aQ27yjfPCEorXwSntD2M%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=XexU4X7aQ27yjfPCEorXwSntD2M%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GoAcQlSjcP1P9CKY%2BCKEGuxgVXg%3D",
-   "title": "3d、排列3第26273期晒票：比你优秀的人都在努力，你有啥资格躺平",
-   "url": "http://toutiao.com/item/7696866419383730742/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d",
-    "pl3"
-   ],
-   "issue": "26273",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-16T13:15:00.000Z",
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:12:42"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Cq08Inf7%2FVQc0JOw0jtgdtwUq58%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/06c0284c03e64f668877b8196527dfcf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Cq08Inf7%2FVQc0JOw0jtgdtwUq58%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
-   "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
-   "url": "http://toutiao.com/item/7696829631277564470/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-18T13:15:00.000Z",
-   "drawGid": "ssq",
-   "expireAt": "2026-10-19T03:16:02.157Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 17:49:57"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ptrevWbUd%2FtwVdINL598xr4uKAQ%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ptrevWbUd%2FtwVdINL598xr4uKAQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1KY1el49jKjm8ZZW5dZ3XJuucbM%3D",
-   "title": "10倍与11倍单式票均出现断区，大乐透第26117期晒票，3倍小复式前区同带30",
-   "url": "http://toutiao.com/item/7696955584695763475/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26117",
-   "seen": "2026-10-16T03:17:59.115Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -2720,7 +2840,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=QvZXwi6wzGcGTGQA4uaStIYb6Mc%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=QvZXwi6wzGcGTGQA4uaStIYb6Mc%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=aD1k9mTWmJhEKA9C1TKxJRvGan4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7140722dc9b9407485b57a153521067b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1rhQGEgBMmxPI8kLskpr8egcdOs%3D",
    "title": "蓝06/13被死磕，红球连号扎堆，百元大单压轴？118期双色球晒票",
    "url": "http://toutiao.com/item/7696829631277564470/",
    "at": "2026-10-16T00:06:02.007Z",
@@ -2731,7 +2851,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-16T03:06:02.156Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
@@ -2739,29 +2859,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 17:49:57"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfb0644987384a97936af61b6586c8c8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ov9s7MYZz9AqHGC5W0fy7F06Ngs%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfb0644987384a97936af61b6586c8c8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ov9s7MYZz9AqHGC5W0fy7F06Ngs%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1KY1el49jKjm8ZZW5dZ3XJuucbM%3D",
-   "title": "10倍与11倍单式票均出现断区，大乐透第26117期晒票，3倍小复式前区同带30",
-   "url": "http://toutiao.com/item/7696955584695763475/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26117",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 01:58:43"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4174635f4d4f43e8bd65c4b3783e013e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=tsYW325P8%2Fz87IqXPHegZzclqMc%3D",
@@ -2787,32 +2884,9 @@ const XYSP_TT_DATA = {
    "when": "2026-10-16 06:29:30"
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZAnxma2ZALP3xpprY6hs7YQWh5o%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZAnxma2ZALP3xpprY6hs7YQWh5o%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5WiNExRU6LFhjsB%2Fh1k3m2pEAbs%3D",
-   "title": "大乐透26118期晒票：小票竞技，112元胆拖和30元倍投却风格迥异？",
-   "url": "http://toutiao.com/item/7697072796274262564/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:06:02.156Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 09:33:33"
-  },
-  {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4a62d9f05c1c46158b86c047cbc45997~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZtsA9eik78Bxw7PTz3mofFfDuws%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4a62d9f05c1c46158b86c047cbc45997~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ZtsA9eik78Bxw7PTz3mofFfDuws%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=MLr%2FKyBCIL%2B0onJcNC8dAS%2Bmz5s%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7c0afcb66c9409298a78d86d474c6de~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=1KY1el49jKjm8ZZW5dZ3XJuucbM%3D",
    "title": "10倍与11倍单式票均出现断区，大乐透第26117期晒票，3倍小复式前区同带30",
    "url": "http://toutiao.com/item/7696955584695763475/",
    "at": "2026-10-16T00:06:02.007Z",
@@ -2823,7 +2897,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26117",
-   "seen": "2026-10-16T03:05:58.558Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-14T12:30:00.000Z",
    "nextAt": "2026-10-17T12:30:00.000Z",
    "drawGid": "dlt",
@@ -2831,31 +2905,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-16 01:58:43"
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=PeLfp9Y4ycHxMVxogTM81EBpYXA%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=PeLfp9Y4ycHxMVxogTM81EBpYXA%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=vi46GsrRQduR2G4ZWp0g760o9EI%3D",
-   "title": "3d、排列3、5第26273期晒票：优秀的背后，都有一段默默扎根的日子",
-   "url": "http://toutiao.com/item/7696868106651566618/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "26273",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-15T13:15:00.000Z",
-   "nextAt": "2026-10-16T13:15:00.000Z",
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:15"
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=MaVBl1Iyx%2FgyWtawFpTGp6ZypA0%3D",
@@ -2880,55 +2929,6 @@ const XYSP_TT_DATA = {
    "rule": "next-draw",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-15 20:12:42"
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kHxMvZB3WvI0I1d9AVVwaLfbFSA%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=kHxMvZB3WvI0I1d9AVVwaLfbFSA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b69046fca4534ec8b58e407028381a0a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=Yb0ut0nWWJXI6wGz3Bf10VpOU9A%3D",
-   "title": "今日排列3/5大乐透/3D晒票：50多张实票云集，一次看过瘾",
-   "url": "http://toutiao.com/item/7696868137202876982/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt",
-    "fc3d",
-    "pl3",
-    "pl5"
-   ],
-   "issue": "",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-15 20:19:22"
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8801a1cd2709400d93042e4b501168d1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BHTCZzgkdMiCf4qJDyT%2BV7Thj5s%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8801a1cd2709400d93042e4b501168d1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=BHTCZzgkdMiCf4qJDyT%2BV7Thj5s%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac777e84857446338b4ab6741c24a287~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=5WiNExRU6LFhjsB%2Fh1k3m2pEAbs%3D",
-   "title": "大乐透26118期晒票：小票竞技，112元胆拖和30元倍投却风格迥异？",
-   "url": "http://toutiao.com/item/7697072796274262564/",
-   "at": "2026-10-16T00:06:02.007Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "26118",
-   "seen": "2026-10-16T03:17:59.115Z",
-   "drawAt": "2026-10-14T12:30:00.000Z",
-   "nextAt": "2026-10-17T12:30:00.000Z",
-   "drawGid": "dlt",
-   "expireAt": "2026-10-19T03:05:58.558Z",
-   "rule": "next-draw",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-16 09:33:33"
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8a39a17e6f6b460abb3c5cd400ab9f93~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=ty0dSIzoR6hT%2B8PuNkURURbbAuU%3D",
@@ -2968,7 +2968,7 @@ const XYSP_TT_DATA = {
     "pl3"
    ],
    "issue": "26273",
-   "seen": "2026-10-16T03:05:58.558Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-16T13:15:00.000Z",
    "drawGid": "fc3d",
@@ -3014,7 +3014,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26118",
-   "seen": "2026-10-16T02:56:02.132Z",
+   "seen": "2026-10-16T03:20:50.374Z",
    "drawAt": "2026-10-15T13:15:00.000Z",
    "nextAt": "2026-10-18T13:15:00.000Z",
    "drawGid": "ssq",
