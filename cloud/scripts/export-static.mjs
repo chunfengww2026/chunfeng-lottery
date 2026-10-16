@@ -1274,10 +1274,13 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
+    /* 【本轮改版】选号栏只留【一个】可切换 chip
+       用户原话：「选号栏只留一个 chip」。原来这里是「机选 / 自己选号」两个 chip，
+       现在合并成一个：文案显示【当前】的选号来源（选号：机选 / 选号：自己选号），
+       点一下就在两者之间切。仍然是 <a role="button">（页面不变量：没有 button 标签）。 */
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
-    `<a class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="ai">机选</a>` +
-    `<a class="ro-aipick-srcbtn" role="button" tabindex="0" data-ro-aipick-src="self">自己选号</a>` +
+    `<a class="ro-aipick-srcbtn on" role="button" tabindex="0" data-ro-aipick-src="ai">选号：机选</a>` +
     `</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-mode"><span class="ro-aipick-lbl">方式</span>` +
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
@@ -3993,25 +3996,33 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-tool em { display: block; margin-top: 3px; font-style: normal;
   font-size: 11px; color: var(--ro-fg2) !important; }
 
-/* ⑥⑦ 晒票 / GPT模型摇号：居中单卡片（覆盖上一版的横排） */
+/* ⑥⑦ 晒票 / GPT模型摇号：居中单卡片 —— __COMPACT2__
+   用户 2026-10-17：「把这两个布局做小一点 太占屏幕大小了」
+   做法：三行（标题 / 副标题 / 展开）压成一行，内边距和字号都收小。
+   机制没变：仍是 <summary> + CSS 伪元素按 [open] 换字。 */
 .ro-xysp > .ro-xysp-head,
 .ro-aipick > .ro-aipick-head {
-  display: block !important; text-align: center !important;
-  margin: 0 12px 12px !important; padding: 14px 12px !important; border-radius: 10px !important;
+  display: flex !important; align-items: baseline !important;
+  justify-content: center !important; flex-wrap: wrap !important;
+  gap: 0 7px !important; text-align: center !important;
+  margin: 0 12px 8px !important; padding: 7px 10px !important; border-radius: 8px !important;
 }
 .ro-xysp > .ro-xysp-head .ro-xysp-h2,
-.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 15px !important; font-weight: 800 !important; }
+.ro-aipick > .ro-aipick-head .ro-aipick-h2 {
+  font-size: 13.5px !important; font-weight: 800 !important; line-height: 1.35 !important;
+}
 .ro-xysp > .ro-xysp-head .ro-xysp-sub,
 .ro-aipick > .ro-aipick-head .ro-aipick-sub {
-  font-size: 12px !important; color: var(--ro-fg2) !important;
-  margin: 4px 0 0 !important; max-width: none !important; white-space: normal !important;
+  font-size: 10.5px !important; color: var(--ro-fg2) !important;
+  margin: 0 !important; max-width: none !important; white-space: normal !important;
+  line-height: 1.35 !important;
 }
 .ro-xysp > .ro-xysp-head .ro-xysp-arrow,
 .ro-aipick > .ro-aipick-head .ro-aipick-arrow {
-  display: block !important; margin: 6px auto 0 !important;
-  font-size: 12px !important; font-weight: 600 !important;
+  display: inline-block !important; margin: 0 !important;
+  font-size: 10.5px !important; font-weight: 600 !important;
   color: var(--ro-ok) !important; border: 0 !important; border-radius: 0 !important;
-  padding: 0 !important; text-align: center !important;
+  padding: 0 !important; text-align: center !important; line-height: 1.35 !important;
 }
 
 /* ⑧ 开奖号码：2 列卡片 + 24px 球 */
@@ -5489,6 +5500,14 @@ ${RO_RENDER_SCRIPT}
       wrap.appendChild(el('span', 'ro-aipick-unit', '个'));
       return wrap;
     }
+    /* 【本轮改版】复式：号码型只留【一个】输入框
+       用户原话：「复式改成『输入要选几个号』」。
+       以前是每个区一个输入框（双色球就有红球 / 蓝球两个），现在只给
+       【第一个区】一个框，单位从「个」改成「位」的提示写在标签里：
+         「红球：要选几个号」[7]
+       其余区 / 位保持官方基本个数（蓝球 1 个、后区 2 个…），不做复式 ——
+       要那种精细玩法再用「自己选号」，那里可以随便选几个。
+       数字彩照旧每位一个框（0-9 池子就 10 个号，本来就没几个可选）。 */
     function buildMultiRow(g) {
       if (!multiBox) return;
       clearNode(multiBox);
@@ -5502,12 +5521,12 @@ ${RO_RENDER_SCRIPT}
             multiGet('p' + i, def, 1, size), 1, size));
         }
       } else {
-        var areas = areasOf(g);
-        for (i = 0; i < areas.length; i++) {
-          var a = areas[i], base = pickOf(g, a), max = maxMultiOf(g, a);
-          var d2 = (i === 0) ? Math.min(base + 1, max) : base;
-          multiBox.appendChild(multiInput(a.label, 'a' + i, multiGet('a' + i, d2, base, max), base, max));
-        }
+        var a = areasOf(g)[0];
+        if (!a) return;
+        var base = pickOf(g, a), max = maxMultiOf(g, a);
+        var d = Math.min(base + 1, max);
+        multiBox.appendChild(multiInput(a.label + '：要选几个号', 'a0',
+          multiGet('a0', d, base, max), base, max));
       }
     }
     function buildKl8(g) {
@@ -6192,9 +6211,11 @@ ${RO_RENDER_SCRIPT}
         k = attr(modeBtns[i], 'data-ro-aipick-mode');
         modeBtns[i].className = 'ro-aipick-segbtn' + (k === st.mode ? ' on' : '');
       }
+      /* 【本轮改版】选号栏只有 1 个 chip：文案显示【当前】来源，点一下切换 */
       for (i = 0; i < srcBtns.length; i++) {
         k = attr(srcBtns[i], 'data-ro-aipick-src');
         srcBtns[i].className = 'ro-aipick-srcbtn' + (k === st.src ? ' on' : '');
+        srcBtns[i].textContent = '选号：' + (st.src === 'self' ? '自己选号' : '机选');
       }
       var kt = kl8Box ? kl8Box.querySelectorAll('.ro-aipick-kl8tab') : [];
       for (i = 0; i < kt.length; i++) {
@@ -6228,13 +6249,14 @@ ${RO_RENDER_SCRIPT}
         });
       })(gameTabs[t1]);
     }
+    /* 【本轮改版】选号栏只有 1 个 chip，点一下就在「机选 / 自己选号」之间切。
+       data-ro-aipick-src 固定写 "ai"（只用来认这是那个 chip），
+       真正的来源看 st.src；文案由 syncTabs() 按 st.src 写。 */
     for (var t4 = 0; t4 < srcBtns.length; t4++) {
       (function (node) {
         node.addEventListener('click', function (e) {
           if (e && e.preventDefault) e.preventDefault();
-          var v = attr(node, 'data-ro-aipick-src') === 'self' ? 'self' : 'ai';
-          if (v === st.src) return;
-          st.src = v;
+          st.src = (st.src === 'self') ? 'ai' : 'self';
           st.rows = [];
           st.pick = {};                            /* 切模式 → 重选，之前选的清掉 */
           syncTabs();
