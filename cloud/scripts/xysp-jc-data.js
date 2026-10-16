@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-16 20:56
+   更新时间：2026-10-16 21:01
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-16 20:56",
+ "updated": "2026-10-16 21:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86df321afc284c699a7af17ff55094f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=f7Zw30kdM0%2FKqR9PKctchePl9cQ%3D",
@@ -325,7 +325,7 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T12:36:01.618Z",
+   "expireAt": "2026-10-17T12:56:01.628Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
@@ -333,7 +333,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=S%2FfReTpbfroOXZ82sPBHmNZ5wrQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=EmlPj3ggnwI2O1v5ye8g0SPQhTg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=z3jo36KThzWt2%2FrOVNw8aXPIaqY%3D",
    "title": "体彩足彩竞彩中奖票",
    "url": "https://toutiao.com/group/7697108049638539804/",
    "at": "2026-10-16T03:56:02.176Z",
@@ -342,11 +342,11 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T12:56:01.628Z",
+   "seen": "2026-10-16T13:01:06.380Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-10-17T12:46:01.625Z",
+   "expireAt": "2026-10-17T12:56:01.628Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54"
