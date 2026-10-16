@@ -1462,7 +1462,7 @@ function buildAiPickHtml() {
     /* 【倍数输入框】同样不能用 number：number 不支持选区 → 聚焦全选失效、打字变追加。
        并且它的监听也改成只在 change/回车时 refresh（input 里夹取会打不出两位数）。 */
     `<input class="ro-aipick-in ro-aipick-in-times" type="text" inputmode="numeric"` +
-    ` pattern="[0-9]*" autocomplete="off" min="1" max="99" value="1">` +
+    ` pattern="[0-9]*" autocomplete="off" min="1" value="1">` +
     `<span class="ro-aipick-unit">倍</span>` +
     `<span class="ro-aipick-sum"></span></div>` +
     `<div class="ro-aipick-warn" hidden></div>` +
@@ -6033,7 +6033,16 @@ ${RO_RENDER_SCRIPT}
     var byId = {};
     for (var r0 = 0; r0 < RULES.length; r0++) byId[RULES[r0].id] = RULES[r0];
 
-    var MAX_COMBO = 1000;      /* 复式组合注数上限：超了不摇，别把手机卡死 */
+    /* 【注数上限】用户 2026-10-17：1000 → 10000。
+       它的作用【不是限制选几个号】（号码个数的上限已经去掉，可以选满池子），
+       而是防止一次真的生成上百万注把手机/浏览器卡死（33 个红球 = C(33,6) = 1,107,568 注）。
+       注数超过这个数时：只显示注数、不摇号（页面提示"注数待调整"）。 */
+    var MAX_COMBO = 10000;
+    /* 【倍数上限】用户 2026-10-17：「完全去掉」。
+       原来公式里夹到 1~99（99 是体彩/福彩单票的官方上限）。
+       现在不夹了，只留一个天文数字当保险丝，纯防止数字溢出成 Infinity/NaN
+       （注数 × 倍数 × 2 的金额算式）。也就是说正常使用下【没有】倍数限制。 */
+    var MAX_TIMES = 1e9;
     var MAX_SHOW = 100;        /* 结果区最多画 100 注 */
     var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
@@ -6503,7 +6512,7 @@ ${RO_RENDER_SCRIPT}
       return v;
     }
     function readInputs() {
-      st.times = numOf(inTimes, st.times, 1, 99);
+      st.times = numOf(inTimes, st.times, 1, MAX_TIMES);
       var list = root.querySelectorAll('.ro-aipick-in-multi');
       for (var i = 0; i < list.length; i++) {
         var key = attr(list[i], 'data-ro-aipick-key');
