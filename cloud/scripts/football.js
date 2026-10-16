@@ -15447,7 +15447,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "乌拉尔青年队",
      "score": 4,
@@ -15497,10 +15497,10 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "阿德莱德城",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
@@ -15563,7 +15563,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "欧克莱卡诺",
      "score": 2,
@@ -15572,7 +15572,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "悉尼奥林匹克",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 16
     },
@@ -15629,7 +15629,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -15638,7 +15638,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "PSM马卡萨",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 15
     },
@@ -15773,7 +15773,7 @@ const FOOTBALL_DATA = {
      "color": "037AB0"
     },
     "time": "2026-10-16 16:45:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "城市隊",
      "score": 0,
@@ -15782,7 +15782,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴斯顺达拉国王",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -15929,7 +15929,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "悉尼FC",
      "score": 0,
