@@ -238,6 +238,17 @@ const FROM_ROOT = [
      ⚠️ 同样【不发布到线上】：页面自包含，线上站点目录里没有也不需要这个文件 →
         sync-cloud / cloud-build 的 out/ / workflow 的 site/ 三处里【只需要这一处】。
      ⚠️ 体积：只存主流 12 家（该场 320~370 家全存要 11 MB），64 场约 200 KB。 */
+  'jc-titan.js',
+  /* 【雷达寻胆 · 成交资金面】jc-bifa.js（fetch-bifa.mjs 生成）。
+     每场三项的成交量/占比/成交价 + 挂单量 + 大小球，详情页「雷达寻胆」用。
+     ⚠️ 必须同步，理由同上：详情页是【构建时内嵌】的，云端少了它就只剩
+        欧赔+盘口+凯利三个维度（不是错，是静默降一档，所以放进来兜底）。
+     ⚠️ 同样【不发布到线上】：页面自包含，线上站点目录里没有也不需要它。
+     ⚠️ 体积很小：只存数字，64 场约 10~60 KB（每场只留前 5 笔大宗）。
+     ⚠️【关键】只有临近开赛的比赛才有这一份数据：成交额是赛前才累积起来的，
+        距开赛太远、或打完很久之后接口返回空数组。云端自己每次足球班次也会
+        现场跑 fetch-bifa.mjs 重抓一遍；这里同步过去是【兜底】。 */
+  'jc-bifa.js',
   
   /* 【留痕断言模块】3 个生成脚本（export-static / export-football / build-trend）
      import 它做"不许出现数据来源字样"的硬校验。
@@ -324,6 +335,13 @@ const CODE_MODULES = [
         （实测云端能访问 titan007：200 · 183 KB · 325 家，所以云端自己抓是可行的）。
      它只读 jc-data.js / jc-history.js（决定要抓哪几场），只写 jc-divergence.js。 */
   'build-odds-divergence.mjs',
+  /* 【雷达寻胆 · 抓取脚本】用户 2026-10-17 第 4 步。
+     ⚠️ 必须同步：cloud-build.mjs 的 exportList 里排在 build-match.mjs 【之前】跑它，
+        现场取当天的比分行、按队名把我们的场次对上号，再问那场有没有成交资金数据，
+        写 jc-bifa.js，由 build-match.mjs 内嵌进详情页「雷达寻胆」那一档。
+     ⚠️ 云端能访问（实测 200）；拿不到就【不覆盖旧文件】、这一档降一档，不会让构建挂掉。
+     它只读 jc-data.js / jc-history.js（决定要问哪几场），只写 jc-bifa.js。 */
+  'fetch-bifa.mjs',
   /* 【走势图】用户 2026-10-17 新增的第三个独立子页（和彩票页/竞彩页并列）。
      ⚠️ 三个文件必须一起同步，缺一个云端就出不了这一页：
         · build-trend.mjs  生成脚本（读 history.js → 写 走势图.html）
@@ -737,6 +755,9 @@ if (LIST_ONLY) {
   log('  ✅ 清单中包含详情页要内嵌的两份数据 jc-divergence.js + jc-titan.js：' +
     ((files.some((f) => f.repo === 'cloud/scripts/jc-divergence.js') &&
       files.some((f) => f.repo === 'cloud/scripts/jc-titan.js')) ? '是' : '否 ❌'));
+  log('  ✅ 清单中包含雷达寻胆要内嵌的成交资金面 jc-bifa.js + 抓取脚本 fetch-bifa.mjs：' +
+    ((files.some((f) => f.repo === 'cloud/scripts/jc-bifa.js') &&
+      files.some((f) => f.repo === 'cloud/scripts/fetch-bifa.mjs')) ? '是' : '否 ❌'));
   log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
   ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
    'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',

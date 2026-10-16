@@ -1429,6 +1429,18 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
     `<span class="ro-aipick-srcbtn on">自己选号</span>` +
     `</div></div>` +
+    /* 【自己选号：点格子选号】用户 2026-10-17：
+       「还要加一个：选号 就是自己点击去选号码」
+       → 把以前那套号码格子搬回来（CSS 一直在，只有标记和 JS 被摘掉了）：
+         每个号码区（数字彩=每一位）一段，点一下选中、再点一下取消；
+         点出来的号直接进结果区（st.rows 一条），所以「保存图片」照用同一套。
+       ⚠️ 格子是 <a role="button">，不能用 button 标签（页面不变量）。 */
+    `<div class="ro-aipick-self">` +
+    `<div class="ro-aipick-picker"></div>` +
+    `<div class="ro-aipick-line ro-aipick-selfacts">` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reset">清空重选</a>` +
+    `<span class="ro-aipick-selfnote">点号码就能自己选；自己选的号只放在内存里，刷新页面就没了</span>` +
+    `</div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-kl8" hidden>` +
     `<span class="ro-aipick-lbl">玩法</span><div class="ro-aipick-kl8"></div></div>` +
     `<div class="ro-aipick-rule"></div>` +
@@ -6002,7 +6014,7 @@ ${RO_RENDER_SCRIPT}
     var CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
     /* 【内存状态】只放在内存里：刷新页面即回到默认（不碰任何浏览器存储） */
-    var st = { game: RULES[0].id, times: 1, kl8: 10, multi: {}, rows: [] };
+    var st = { game: RULES[0].id, times: 1, kl8: 10, multi: {}, rows: [], pick: {}, betCount: 0 };
 
     /* ---------- 基础工具 ---------- */
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -6074,6 +6086,7 @@ ${RO_RENDER_SCRIPT}
     var sumBox = root.querySelector('.ro-aipick-sum');
     var warnBox = root.querySelector('.ro-aipick-warn');
     var outBox = root.querySelector('.ro-aipick-out');
+    var pickBox = root.querySelector('.ro-aipick-picker');   /* 自己选号：号码格子 */
     var acts = root.querySelectorAll('.ro-aipick-btn');
     var lineTimes = root.querySelector('.ro-aipick-line-times');
     var actsBox = root.querySelector('.ro-aipick-acts');
@@ -6212,8 +6225,10 @@ ${RO_RENDER_SCRIPT}
             st.kl8 = n;
             st.rows = [];
             st.multi = {};
+            st.pick = {};
             syncTabs();
             buildMultiRow(G());
+            buildPicker(G());              /* 玩法换了 → 「自己选号」每个区最少个数也变了，重画 */
             applySrc();
           });
           kl8Box.appendChild(a);
@@ -6247,11 +6262,25 @@ ${RO_RENDER_SCRIPT}
     function picData() {
       var g = G();
       if (!st.rows.length) return null;
+      var r0 = st.rows[0];
+      /* 【自己选号】手选的那条：用「按区分组」的画法（一个区一段，选多也不跑版） */
+      if (r0 && r0.manual) {
+        var slots = slotsOf(g), groups = [], i;
+        for (i = 0; i < slots.length; i++) {
+          groups.push({ label: slots[i].label, color: slots[i].color, to: slots[i].to,
+                        nums: pickArr(slots[i].key).slice() });
+        }
+        return {
+          kind: 'self', groups: groups,
+          note: '手动选号 · 折合 ' + (st.betCount || 0) + ' 注 × ' + st.times + ' 倍 = ' +
+                ((st.betCount || 0) * st.times * (g.price || 2)) + ' 元'
+        };
+      }
       return {
-        kind: st.rows[0].kind, pos: st.rows[0].pos, areas: st.rows[0].areas,
+        kind: r0.kind, pos: r0.pos, areas: r0.areas,
         rows: st.rows.map(function (r) { return r.row; }),
-        note: '共 ' + st.rows.length + ' 注 · ' + st.times + ' 倍 · 合计 ' +
-              (st.rows.length * st.times * (g.price || 2)) + ' 元'
+        note: '共 ' + (st.betCount || st.rows.length) + ' 注 · ' + st.times + ' 倍 · 合计 ' +
+              ((st.betCount || st.rows.length) * st.times * (g.price || 2)) + ' 元'
       };
     }
     function drawBall(ctx, cx, cy, r, blue, text) {
@@ -6364,8 +6393,19 @@ ${RO_RENDER_SCRIPT}
               ctx.fillStyle = '#5f6878'; ctx.font = '18px sans-serif';
               ctx.fillText('+', x + 6, y + 6); x += 24;
             }
-            drawBall(ctx, x + ballR, y, ballR, !!isLast, String(row[k]));
-            x += ballR * 2 + gap;
+            /* 【一位多个号】复式/自己选号时 row[k] 是这一位的号数组（如百位 [0,8]）——
+               老写法直接把数组当文本画（会印出「0,8」），这里逐个数画，
+               位与位之间补一个小圆点，免得看不出哪几个号是哪一位。 */
+            var cell = row[k];
+            var list = (Object.prototype.toString.call(cell) === '[object Array]') ? cell : [cell];
+            for (var kk = 0; kk < list.length; kk++) {
+              drawBall(ctx, x + ballR, y, ballR, !!isLast, String(list[kk]));
+              x += ballR * 2 + gap;
+            }
+            if (list.length > 1 && k < row.length - 1) {
+              ctx.fillStyle = '#5f6878'; ctx.font = '16px sans-serif';
+              ctx.fillText('·', x + 1, y + 6); x += 14;
+            }
           }
         }
       }
@@ -6528,12 +6568,184 @@ ${RO_RENDER_SCRIPT}
       }
     }
 
+    /* ============================================================
+       【自己选号 · 点格子】用户 2026-10-17：「选号 就是自己点击去选号码」
+       ------------------------------------------------------------
+       · 每个槽位（号码型 = 每个号码区；数字彩 = 每一位）一段格子，格子里是
+         <a role="button">（页面不变量：不能用 button 标签）。
+       · 点一下选中、再点一下取消；每段显示「已选 N 个（最少 X 个，可多选成复式）」。
+       · 点完立刻把已选号变成【一条号码】放进结果区（st.rows）—— 和摇号出来那条同构，
+         所以「注数/金额」「保存图片」全都自动跟着走，不用第二套渲染。
+       · 只存在内存里（st.pick）：切彩种 / 点清空 / 刷新页面都会没了。
+       ============================================================ */
+    function pkey(k) { return st.game + '#' + k; }
+    function pickArr(k) { return st.pick[pkey(k)] || []; }
+    /* 这个彩种要选哪些「槽位」：号码型 = 每个号码区；数字型 = 每一位 */
+    function slotsOf(g) {
+      var out = [], i;
+      if (isDigit(g)) {
+        var pos = posOf(g);
+        for (i = 0; i < pos.length; i++) {
+          out.push({ key: 'p' + i, label: pos[i].n, from: pos[i].from, to: pos[i].to, need: 1, gate: pos[i].gate });
+        }
+      } else {
+        var areas = areasOf(g);
+        for (i = 0; i < areas.length; i++) {
+          out.push({ key: 'a' + i, label: areas[i].label, from: areas[i].from, to: areas[i].to,
+                     need: pickOf(g, areas[i]), color: areas[i].color });
+        }
+      }
+      return out;
+    }
+    function buildPicker(g) {
+      if (!pickBox) return;
+      clearNode(pickBox);
+      var slots = slotsOf(g), i;
+      for (i = 0; i < slots.length; i++) {
+        (function (slot) {
+          var block = el('div', 'ro-aipick-pblock');
+          var head = el('div', 'ro-aipick-phead');
+          head.appendChild(el('span', 'ro-aipick-plabel', slot.label));
+          var cnt = el('span', 'ro-aipick-pcount');
+          cnt.setAttribute('data-ro-aipick-slot', slot.key);
+          head.appendChild(cnt);
+          block.appendChild(head);
+          var grid = el('div', 'ro-aipick-grid');
+          for (var n = slot.from; n <= slot.to; n++) {
+            (function (num) {
+              /* 号码型补两位（01-33）；数字彩就一位（0 显示成「0」不是「00」） */
+              var a = el('a', 'ro-aipick-pick', slot.to > 9 ? pad2(num) : String(num));
+              a.setAttribute('role', 'button');
+              a.setAttribute('tabindex', '0');
+              a.setAttribute('data-ro-aipick-slot', slot.key);
+              a.setAttribute('data-ro-aipick-num', String(num));
+              a.addEventListener('click', function (e) {
+                if (e && e.preventDefault) e.preventDefault();
+                togglePick(slot.key, num);
+              });
+              grid.appendChild(a);
+            })(n);
+          }
+          block.appendChild(grid);
+          pickBox.appendChild(block);
+        })(slots[i]);
+      }
+      drawPicker(g);
+    }
+    function drawPicker(g) {
+      if (!pickBox) return;
+      var slots = slotsOf(g), i, byKey = {};
+      for (i = 0; i < slots.length; i++) byKey[slots[i].key] = slots[i];
+      var cells = pickBox.querySelectorAll('.ro-aipick-pick');
+      for (i = 0; i < cells.length; i++) {
+        var k = attr(cells[i], 'data-ro-aipick-slot');
+        var sl = byKey[k] || {};
+        var sel = pickArr(k).indexOf(parseInt(attr(cells[i], 'data-ro-aipick-num'), 10)) >= 0;
+        cells[i].className = 'ro-aipick-pick' + (sel ? ' on' : '') + (sl.color === 'blue' ? ' blue' : '');
+      }
+      var cnts = pickBox.querySelectorAll('.ro-aipick-pcount');
+      for (i = 0; i < cnts.length; i++) {
+        var k2 = attr(cnts[i], 'data-ro-aipick-slot');
+        var sl2 = byKey[k2] || { need: 0 };
+        var got = pickArr(k2).length;
+        var txt = '已选 ' + got + ' 个';
+        if (sl2.need > 0 && got < sl2.need) txt += '（最少 ' + sl2.need + ' 个，可多选成复式）';
+        else if (sl2.need > 0 && got > sl2.need) txt += '（复式）';
+        cnts[i].className = 'ro-aipick-pcount' + (sl2.need > 0 && got >= sl2.need ? ' full' : '');
+        cnts[i].textContent = txt;
+      }
+    }
+    function togglePick(key, num) {
+      var arr = pickArr(key).slice();
+      var at = arr.indexOf(num);
+      if (at >= 0) arr.splice(at, 1); else arr.push(num);
+      arr.sort(function (a, b) { return a - b; });
+      st.pick[pkey(key)] = arr;
+      drawPicker(G());
+      applyPicks();                       /* 点完立刻算注数 + 更新结果区 */
+    }
+    /* 把已选的号变成「一条号码」：每个槽位都够最少个数才算完整 */
+    function pickPlan(g) {
+      var slots = slotsOf(g), sets = [], cnt = 1, i;
+      for (i = 0; i < slots.length; i++) {
+        var sel = pickArr(slots[i].key).slice();
+        if (sel.length < slots[i].need) return null;
+        sets.push(sel);
+        cnt *= C(sel.length, slots[i].need);
+      }
+      return { sets: sets, count: cnt, slots: slots };
+    }
+    /* 「选几个」输入框跟着已选个数走 —— 这样顶部「合计 N 注」和结果区永远一致 */
+    function syncMultiInputs(slots) {
+      var i, ins = multiBox ? multiBox.querySelectorAll('.ro-aipick-in-multi') : [];
+      for (i = 0; i < slots.length; i++) {
+        var n = pickArr(slots[i].key).length;
+        if (n > 0) st.multi[mkey(slots[i].key)] = n;
+      }
+      for (i = 0; i < ins.length; i++) {
+        var k = attr(ins[i], 'data-ro-aipick-key');
+        var v = st.multi[mkey(k)];
+        if (typeof v === 'number' && ins[i].value !== String(v)) ins[i].value = String(v);
+      }
+    }
+    /* 点格子 → 立刻生效：结果区一条号码 + 注数 + 「选几个」同步 */
+    function applyPicks() {
+      var g = G(), pp = pickPlan(g);
+      if (!pp) {                          /* 还没选够 → 结果区保持原样，只提示差多少 */
+        var slots0 = slotsOf(g), wait = [], q;
+        for (q = 0; q < slots0.length; q++) {
+          var got = pickArr(slots0[q].key).length;
+          if (got < slots0[q].need) wait.push(slots0[q].label + '还差 ' + (slots0[q].need - got) + ' 个');
+        }
+        if (warnBox) {
+          warnBox.textContent = wait.length ? ('自己选号：' + wait.join('、')) : '';
+          show(warnBox, !!wait.length);
+        }
+        return;
+      }
+      if (pp.count > MAX_COMBO) {
+        if (warnBox) {
+          warnBox.textContent = '复式共 ' + pp.count + ' 注，超过上限 ' + MAX_COMBO + ' 注，请少选几个';
+          show(warnBox, true);
+        }
+        return;
+      }
+      syncMultiInputs(pp.slots);
+      st.rows = [{ kind: isDigit(g) ? 'digit' : 'number',
+                   pos: isDigit(g) ? posOf(g) : null,
+                   areas: isDigit(g) ? null : areasOf(g),
+                   row: pp.sets, sets: pp.sets, count: pp.count, manual: true }];
+      st.betCount = pp.count;
+      drawOut();
+      refresh();
+    }
+    /* 摇号出来的号也同步到格子（能看、能接着改） */
+    function mirrorToPicks(p) {
+      if (!p) return;
+      var i;
+      if (p.kind === 'number') {
+        for (i = 0; i < (p.sets || []).length; i++) st.pick[pkey('a' + i)] = (p.sets[i] || []).slice();
+      } else {
+        for (i = 0; i < (p.sets || []).length; i++) st.pick[pkey('p' + i)] = (p.sets[i] || []).slice();
+      }
+      drawPicker(G());
+    }
+    function resetPicks() {
+      st.pick = {};
+      st.rows = [];
+      st.betCount = 0;
+      buildPicker(G());
+      drawOut();
+      refresh();
+    }
+
     /* ---------- 出号 ---------- */
     function hitEl(hit, idx) {
       var row = el('div', 'ro-aipick-hit'), i, j;
-      /* 【标签】折合多注的复式 → 标「复式」，单式 → 标「第 N 注」 */
+      /* 【标签】手选 → 「手选」；折合多注的复式 → 「复式」；单式 → 「第 N 注」 */
       row.appendChild(el('span', 'ro-aipick-idx',
-        (hit.count && hit.count > 1) ? '复式' : ('第' + (idx + 1) + '注')));
+        hit.manual ? '手选'
+          : ((hit.count && hit.count > 1) ? '复式' : ('第' + (idx + 1) + '注'))));
       if (hit.kind === 'number') {
         var areas = hit.areas || [];
         for (i = 0; i < areas.length; i++) {
@@ -6593,6 +6805,7 @@ ${RO_RENDER_SCRIPT}
       }
       st.rows = list;                 /* 一次摇出「一条号码」，整组替换 */
       st.betCount = p.count;          /* 折合注数（算钱用；一条号码可能是复式） */
+      mirrorToPicks(p);               /* 摇出来的号同步到「自己选号」格子（能看能改） */
       drawOut();
       refresh();
       return list.length;
@@ -6646,9 +6859,11 @@ ${RO_RENDER_SCRIPT}
           st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
           st.multi = {};
           st.rows = [];
+          st.pick = {};                    /* 自己勾的格子也跟着清（换彩种=换号池） */
           if (inTimes) inTimes.value = '1';
           buildKl8(byId[id]);
           buildMultiRow(byId[id]);
+          buildPicker(byId[id]);           /* 自己选号：按新彩种重画格子 */
           syncTabs();
           applySrc();
         });
@@ -6659,7 +6874,10 @@ ${RO_RENDER_SCRIPT}
         node.addEventListener('click', function (e) {
           if (e && e.preventDefault) e.preventDefault();
           var act = attr(node, 'data-ro-aipick-act');
-          if (act === 'clear') { st.rows = []; drawOut(); refresh(); }    /* 清空：把已摇的号清掉 */
+          /* 清空：把已摇的号 + 自己勾的格子一起清掉 */
+          if (act === 'clear') { st.rows = []; st.betCount = 0; st.pick = {}; drawPicker(G()); drawOut(); refresh(); }
+          /* 清空重选：只清「自己选号」那套格子 */
+          else if (act === 'reset') { resetPicks(); }
           else if (act === 'save') { saveImage(); }                       /* 保存图片：画图 + 全屏弹出 */
           else { doRoll(); }                                             /* 开始摇号 / 重摇：整组重摇 */
         });
@@ -6672,6 +6890,7 @@ ${RO_RENDER_SCRIPT}
       var g = G();
       buildKl8(g);
       buildMultiRow(g);
+      buildPicker(g);                     /* 自己选号：初始格子 */
       syncTabs();
       applySrc();
     })();

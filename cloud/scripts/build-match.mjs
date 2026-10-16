@@ -118,6 +118,23 @@ const DIV_GAMES = (DIV && DIV.games && typeof DIV.games === 'object') ? DIV.game
 const TITAN = loadVar('jc-titan.js', 'JC_TITAN');
 const TITAN_GAMES = (TITAN && TITAN.games && typeof TITAN.games === 'object') ? TITAN.games : null;
 
+/* ============================================================
+   【雷达寻胆 · 成交资金面】jc-bifa.js（fetch-bifa.mjs 生成）
+   ------------------------------------------------------------
+   现有的「信心」全部来自各家公司的【报价】（欧赔反推 / 盘口水位）——
+   报价是"公司怎么说"。这一份补的是【已经成交的钱】：三项成交量、占比、
+   成交价、盘口挂单量、大小球资金。
+   ⚠️ 只有临近开赛的比赛才有这一份：成交额是赛前才累积起来的，
+      距开赛太远 / 打完一阵子之后都会变空。没有就是没有 ——
+      这一档显示「暂无」，绝不拿报价去反推一个成交量出来。
+   ⚠️ 文件不存在 / 这一场没有 → 整个寻胆只用「欧赔 + 盘口 + 凯利」三个维度，
+      权重在「投过票的维度」之间重新归一（不因为少一个维度就整体失真）。
+   ⚠️ 内嵌时【只取 games 的数字】，不内嵌 metric / updated 之外的任何字段 ——
+      页面上不许留来源痕迹（硬性规则）。
+   ============================================================ */
+const BIFA = loadVar('jc-bifa.js', 'JC_BIFA');
+const BIFA_GAMES = (BIFA && BIFA.games && typeof BIFA.games === 'object') ? BIFA.games : null;
+
 if (!JC || !Array.isArray(JC.games)) {
   console.error('❌ build-match.mjs：读不到 jc-data.js 的 JC_DATA.games');
   process.exit(1);
@@ -280,6 +297,14 @@ const DATA_JSON = JSON.stringify({
     count: Object.keys(TITAN_GAMES).length,
     games: TITAN_GAMES
   } : null,
+  /* 【雷达寻胆 · 成交资金面】每场三项的成交量 / 占比 / 成交价 + 挂单量 + 大小球。
+     ⚠️ 只内嵌 games（纯数字）；metric / updated 之外一个字段都不带，
+        免得把说明性文字带进 HTML 被断言拦下来。 */
+  money: BIFA_GAMES ? {
+    updated: BIFA.updated || '',
+    count: Object.keys(BIFA_GAMES).length,
+    games: BIFA_GAMES
+  } : null,
   games: ORDERED
 }).replace(/</g, '\\u003c').replace(/\u2028|\u2029/g, '');
 
@@ -405,6 +430,37 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-divsum { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
 .md-divsum span { flex: 1 1 0; min-width: 0; text-align: center; font-size: 12px; color: var(--ro-fg2); background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 8px; padding: 7px 4px; }
 .md-divsum span b { display: block; margin-top: 3px; font-size: 13.5px; }
+/* ⑥-2 雷达寻胆（四维共识）
+   · 三行信心条：标签 + 横条 + 百分比。横条用两层 span（外框 + 内层 i 控宽），
+     宽度由页内脚本按算出来的分数写进 style —— 320px 下横条会自己压窄，不溢出。
+   · 「本期胆」那一条用米杏浅底 + 深棕字，和这一页其它卡片的层级一致。
+   · 颜色沿用本页既有色：#1a8c5a（绿＝选中）· #8a7a63（次要字）· #c0392b（提醒）。 */
+.md-radar-pick { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 9px;
+  padding: 10px 12px; margin-bottom: 10px; }
+.md-radar-pick .lb { font-size: 12px; color: var(--ro-fg2); }
+.md-radar-pick b { font-size: 21px; font-weight: 800; color: var(--ro-ok); line-height: 1.1; }
+.md-radar-pick .cf { font-size: 12.5px; color: var(--ro-fg2); }
+/* 「本场无胆」那一条：字色换成次要色，别一眼看着像推荐 */
+.md-radar-pick.none b { color: var(--ro-fg2); }
+.md-radar-pick.none .cf { flex: 1 1 100%; }
+.md-radar-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12.5px; }
+.md-radar-row .k { flex: 0 0 40px; color: var(--ro-fg2); }
+.md-radar-row .bar { flex: 1 1 auto; min-width: 0; height: 9px; border-radius: 5px;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); overflow: hidden; }
+.md-radar-row .bar i { display: block; height: 100%; background: #c9b28e; }
+.md-radar-row.on .k { color: var(--ro-fg); font-weight: 700; }
+.md-radar-row.on .bar i { background: var(--ro-ok); }
+.md-radar-row .v { flex: 0 0 46px; text-align: right; color: var(--ro-fg2);
+  font-variant-numeric: tabular-nums; }
+.md-radar-row.on .v { color: var(--ro-fg); font-weight: 700; }
+.md-radar-votes { margin-top: 9px; font-size: 12px; color: var(--ro-fg2); line-height: 1.7; }
+.md-radar-votes span { display: inline-block; margin-right: 8px; }
+.md-radar-votes span b { color: var(--ro-fg2); }
+.md-radar-votes span.on b { color: var(--ro-ok); }
+.md-radar-money { margin-top: 7px; font-size: 12px; color: var(--ro-fg2); line-height: 1.6;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 8px; padding: 7px 9px; }
+.md-radar-money b { color: var(--ro-fg); }
 /* ⑦ 欧赔对比（主流 12 家 × 初盘 / 即时 / 返还率 / 凯利）
    一屏 5 列，320px 下每列只有 46~70px —— 所以每格里的三个数字（主/平/客）
    用 inline-block 小格【自己折行】，绝不用省略号把赔率吃掉。
@@ -829,6 +885,280 @@ a { color: var(--ro-ok); text-decoration: none; }
     return card('分歧指', '<span class="md-badge live">' + esc0(dd.companies) + ' 家</span>', sum + t + note, null, 'sports');
   }
 
+  /* ---- ④-8 雷达寻胆（四个维度的共识） ----
+     用户要求：「自己算一个胆出来，而且要能解释清楚道理，别瞎加权」。
+
+     思路：胆 = 四个【互相独立】的市场维度里，指向最一致的那一项。
+     每个维度先各自换算成「主/平/客」三项的分布，再用【加权几何平均】合并
+     （对数池：这是合并多个独立概率估计的标准做法 ——
+      任一个维度强烈反对，乘积就把这一项拉下来，这正是"共识"该有的样子；
+      用加权平均（算术）的话，一个维度喊 90%、另一个喊 5%，平均出来还是很高，
+      那种"平均"会把分歧藏起来，所以不用它）。
+
+     四个维度与权重 —— 权重只由【独立性】和【是不是真钱】决定，不是拍脑袋调的：
+       ① 欧赔反推  1.0  各家公司报价去水后的共识概率（基础口径）
+       ② 盘口水位  1.0  独立的让球市场；⚠️ 亚盘只有上下盘、没有平局这一项，
+                          所以它【只在主/客两项上投票】，平局那一项它弃权
+                          （不硬凑一张票，也不把它的一票折算成两项）
+       ③ 凯利修正  0.5  它是对①的二阶修正、和①【同源】，给满票等于同一件事投两次，
+                          所以只算半票；原始离散只有 ±3%，放大到能说话的尺度
+       ④ 成交资金  2.0  真金白银、和所有报价都独立，所以信它最多
+
+     ⚠️ 权重只在「对这一项投过票的维度」之间归一 ——
+        一个不投平局的维度，不能因为弃权就把平局的分数压低。
+     ⚠️ 拿不到成交资金（距开赛还远、或已经打完很久）→ 它就不投票，
+        其余三个维度权重重归一，整块照常算得出胆。
+     ⚠️ 这一档是【统计归纳】，不是预测，也不是推荐（页面上明写）。 */
+  var RADAR_KEYS = [['home', '主胜'], ['draw', '平'], ['away', '客胜']];
+
+  /* 夹值：防止某一项把总分带跑偏（成交价隐含概率的尾部会极端，比如 21.00） */
+  function clampNum(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+  /* 维度①：欧赔反推概率（现成的 reco.prob 就是"三项去水后归一"） */
+  function dimEuro(g) {
+    var p = g.reco && g.reco.prob;
+    if (!p) return null;
+    var v = [num(p.home), num(p.draw), num(p.away)];
+    if (v[0] === null || v[1] === null || v[2] === null) return null;
+    if (!(v[0] + v[1] + v[2] > 0)) return null;
+    return { name: '欧赔反推', w: 1, p: v, vote: ['home', 'draw', 'away'],
+      why: '各家公司报价去水后的共识概率' };
+  }
+
+  /* 维度②：盘口水位 —— 上下盘两边水位各自取倒数后去水归一 = "上盘赢盘"的概率 */
+  function dimAsian(g) {
+    var a = g.asianIndex;
+    if (!a) return null;
+    var uw = num(a.upWater), dw = num(a.downWater);
+    if (uw === null || dw === null || !(uw > 0) || !(dw > 0)) return null;
+    if (a.upSide !== 'home' && a.upSide !== 'away') return null;
+    var iu = 1 / uw, id = 1 / dw;
+    var qUp = iu / (iu + id);
+    var p = a.upSide === 'home'
+      ? [qUp * 100, 0, (1 - qUp) * 100]
+      : [(1 - qUp) * 100, 0, qUp * 100];
+    return { name: '盘口水位', w: 1, p: p, vote: ['home', 'away'],
+      why: '让球盘两边水位去水后的上下盘概率（亚盘没有"平局"这一项，所以它弃权）' };
+  }
+
+  /* 维度③：凯利修正
+     凯利值 = 某家赔率 × 市场平均概率。一家公司把某一项的凯利压得比别家低，
+     说明它在这一项上收赔率、防着这一项 → 压得越狠＝越防。
+     12 家取均值 → 取倒数 → 三次方放大（原始离散只有 ±3%，不放大等于没投票）。 */
+  function dimKelly(g) {
+    var tg = (D.multi && D.multi.games) ? D.multi.games[String(g.code || '')] : null;
+    if (!tg || !tg.eu) return null;
+    var rows = [], k;
+    for (k in tg.eu) {
+      if (!Object.prototype.hasOwnProperty.call(tg.eu, k)) continue;
+      var kk = tg.eu[k] && tg.eu[k].k;
+      if (!kk || kk.length !== 3) continue;
+      var v = [num(kk[0]), num(kk[1]), num(kk[2])];
+      if (v[0] === null || v[1] === null || v[2] === null) continue;
+      if (!(v[0] > 0 && v[1] > 0 && v[2] > 0)) continue;
+      rows.push(v);
+    }
+    if (rows.length < 3) return null;   /* 少于 3 家就不算——均值没有代表性 */
+    var avg = [0, 0, 0], i, j;
+    for (i = 0; i < rows.length; i++) {
+      for (j = 0; j < 3; j++) avg[j] += rows[i][j];
+    }
+    for (j = 0; j < 3; j++) avg[j] = avg[j] / rows.length;
+    var inv = [1 / avg[0], 1 / avg[1], 1 / avg[2]];
+    var mean = (inv[0] + inv[1] + inv[2]) / 3;
+    var cube = [Math.pow(inv[0] / mean, 3), Math.pow(inv[1] / mean, 3), Math.pow(inv[2] / mean, 3)];
+    var s = cube[0] + cube[1] + cube[2];
+    if (!(s > 0)) return null;
+    return { name: '凯利修正', w: 0.5,
+      p: [cube[0] / s * 100, cube[1] / s * 100, cube[2] / s * 100],
+      vote: ['home', 'draw', 'away'],
+      why: rows.length + ' 家即时凯利的均值取倒数再放大（公司越压某一项的赔率＝越防着它）' };
+  }
+
+  /* 维度④：成交资金（用户建议的那条式子）
+       资金分 = 成交量占比 × 挂牌量比 × 凯利修正
+     挂牌量比 = 买入挂单 ÷ 该项挂单总量；0.5 = 买卖均衡 → 归一成 1.0 倍的系数
+     凯利修正 = 成交量占比 ÷ 成交价的隐含概率；>1 = 钱比价更看好这一项 */
+  function dimMoney(g) {
+    var m = (D.money && D.money.games) ? D.money.games[String(g.code || '')] : null;
+    if (!m || !m.ratio || !m.price) return null;
+    var K = ['home', 'draw', 'away'], share = [], price = [], i;
+    for (i = 0; i < 3; i++) {
+      share.push(num(m.ratio[K[i]]));
+      price.push(num(m.price[K[i]]));
+    }
+    for (i = 0; i < 3; i++) {
+      if (share[i] === null || price[i] === null || !(price[i] > 0)) return null;
+    }
+    var imp = [1 / price[0], 1 / price[1], 1 / price[2]];
+    var si = imp[0] + imp[1] + imp[2];
+    imp = [imp[0] / si, imp[1] / si, imp[2] / si];
+    var f = [], part = [];
+    for (i = 0; i < 3; i++) {
+      var rs = share[i] / 100;
+      var book = 1;
+      if (m.back && m.lay) {
+        var bk = num(m.back[K[i]]), ly = num(m.lay[K[i]]);
+        if (bk !== null && ly !== null && (bk + ly) > 0) book = clampNum((bk / (bk + ly)) / 0.5, 0.5, 2);
+      }
+      var kf = clampNum(rs / imp[i], 0.5, 2);
+      f.push(rs * book * kf);
+      part.push([Math.round(rs * 1000) / 10, Math.round(book * 100) / 100, Math.round(kf * 100) / 100]);
+    }
+    var sf = f[0] + f[1] + f[2];
+    if (!(sf > 0)) return null;
+    return { name: '成交资金', w: 2,
+      p: [f[0] / sf * 100, f[1] / sf * 100, f[2] / sf * 100],
+      vote: ['home', 'draw', 'away'], part: part,
+      why: '成交量占比 × 挂牌量比 × 凯利修正（真金白银，和报价互相独立，所以权重最高）' };
+  }
+
+  function radarCalc(g) {
+    var dims = [], d;
+    d = dimEuro(g); if (d) dims.push(d);
+    d = dimAsian(g); if (d) dims.push(d);
+    d = dimKelly(g); if (d) dims.push(d);
+    d = dimMoney(g); if (d) dims.push(d);
+    if (!dims.length) return null;
+    var S = [0, 0, 0], i, j;
+    for (i = 0; i < 3; i++) {
+      var key = RADAR_KEYS[i][0], logSum = 0, wSum = 0;
+      for (j = 0; j < dims.length; j++) {
+        if (dims[j].vote.indexOf(key) < 0) continue;       /* 它在这一项上弃权 */
+        var p = dims[j].p[i];
+        if (!(p > 0)) continue;
+        logSum += dims[j].w * Math.log(p);
+        wSum += dims[j].w;
+      }
+      S[i] = wSum > 0 ? Math.exp(logSum / wSum) : 0;
+    }
+    var tot = S[0] + S[1] + S[2];
+    if (!(tot > 0)) return null;
+    var score = [S[0] / tot * 100, S[1] / tot * 100, S[2] / tot * 100];
+    var best = 0;
+    if (score[1] > score[best]) best = 1;
+    if (score[2] > score[best]) best = 2;
+    var votes = [], wTotal = 0, wAgree = 0;
+    for (j = 0; j < dims.length; j++) {
+      var bi = -1;
+      for (i = 0; i < 3; i++) {
+        if (dims[j].vote.indexOf(RADAR_KEYS[i][0]) < 0) continue;
+        if (bi < 0 || dims[j].p[i] > dims[j].p[bi]) bi = i;
+      }
+      if (bi < 0) continue;
+      wTotal += dims[j].w;
+      if (bi === best) wAgree += dims[j].w;
+      votes.push({ name: dims[j].name, pick: RADAR_KEYS[bi][1], w: dims[j].w, hit: bi === best });
+    }
+    var agree = 0;
+    for (j = 0; j < votes.length; j++) if (votes[j].hit) agree++;
+    var agreePct = wTotal > 0 ? (wAgree / wTotal * 100) : 0;
+    /* 【什么时候才配叫"胆"】
+       两项同时满足才算，否则这一场显示「本期无胆」——
+       · 最高分 ≥ 40%：三项均分是 33.3%，不到 40% 说明根本没拉开差距；
+       · 加权同意度 ≥ 60%：按【权重】算多大比例的维度站在它这边
+         （不是数人头：成交资金一票顶欧赔两票，所以它反对也得算进去）。
+       ⚠️ 这一步是【防自欺】：算出来最高分那一项如果只有 1 个维度支持，
+          标题还写「本期胆」就是在骗人 —— 宁可写「本场无胆」。 */
+    var qualified = score[best] >= 40 && agreePct >= 60;
+    return {
+      score: score, best: best, dims: dims, votes: votes,
+      agree: agree, agreePct: agreePct, qualified: qualified
+    };
+  }
+
+  function renderRadar(g) {
+    var r = radarCalc(g);
+    if (!r) {
+      return card('雷达寻胆', '<span class="md-badge">共识</span>',
+        '<div class="md-na">这一场连「欧赔反推概率」都没有，算不出胆。<br>'
+        + '<em>寻胆至少要有一档报价数据；没有就如实空着，不猜一个出来。</em></div>', null, 'report');
+    }
+    var bars = '', i;
+    for (i = 0; i < 3; i++) {
+      var w = clampNum(r.score[i], 0, 100);
+      w = Math.round(w * 10) / 10;
+      bars += '<div class="md-radar-row' + (i === r.best ? ' on' : '') + '">'
+        + '<span class="k">' + RADAR_KEYS[i][1] + '</span>'
+        + '<span class="bar"><i style="width:' + w + '%"></i></span>'
+        + '<span class="v">' + w + '%</span></div>';
+    }
+    var head = r.qualified
+      ? '<div class="md-radar-pick"><span class="lb">本期胆</span>'
+        + '<b>' + RADAR_KEYS[r.best][1] + '</b>'
+        + '<span class="cf">信心 ' + (Math.round(r.score[r.best] * 10) / 10) + '%</span></div>'
+      : '<div class="md-radar-pick none"><span class="lb">本期</span>'
+        + '<b>无胆</b>'
+        + '<span class="cf">各维度分歧过大 —— 最高一项「' + RADAR_KEYS[r.best][1] + '」只有 '
+        + (Math.round(r.score[r.best] * 10) / 10) + '% 分、'
+        + (Math.round(r.agreePct)) + '% 的维度权重支持它，不配当胆</span></div>';
+
+    var voteTxt = [];
+    for (i = 0; i < r.votes.length; i++) {
+      voteTxt.push('<span class="' + (r.votes[i].hit ? 'on' : '') + '">'
+        + esc0(r.votes[i].name) + '→<b>' + esc0(r.votes[i].pick) + '</b></span>');
+    }
+    var voteLine = '<div class="md-radar-votes">' + r.votes.length + ' 个维度投票：' + voteTxt.join(' · ') + '</div>';
+
+    /* 资金面明细：有才显示，没有整行不出现（不写"暂无"占位，免得像漏了数据） */
+    var m = (D.money && D.money.games) ? D.money.games[String(g.code || '')] : null;
+    var moneyLine = '';
+    if (m && m.total) {
+      var wan = function (x) { var v = num(x); return v === null ? '—' : (Math.round(v / 1000) / 10) + ' 万'; };
+      var rr = m.ratio || {};
+      moneyLine = '<div class="md-radar-money">资金面：成交 <b>' + wan(m.total) + '</b>'
+        + ' · 占比 主 ' + (num(rr.home) === null ? '—' : num(rr.home) + '%')
+        + ' / 平 ' + (num(rr.draw) === null ? '—' : num(rr.draw) + '%')
+        + ' / 客 ' + (num(rr.away) === null ? '—' : num(rr.away) + '%')
+        + ((m.over != null || m.under != null)
+          ? ' · 大小球 ' + wan(m.over) + ' / ' + wan(m.under) : '')
+        + '</div>';
+    }
+
+    /* 一句话结论：几个维度同意 + 资金面是否与胆同向 */
+    var same = null;
+    for (i = 0; i < r.votes.length; i++) if (r.votes[i].name === '成交资金') same = r.votes[i].hit;
+    var verdict;
+    if (r.qualified && r.agree === r.votes.length) {
+      verdict = '所有维度都指向<b>' + RADAR_KEYS[r.best][1] + '</b>，共识最干净。';
+    } else if (r.qualified) {
+      verdict = r.votes.length + ' 个维度里 <b>' + r.agree + '</b> 个指向<b>' + RADAR_KEYS[r.best][1] + '</b>'
+        + '（按权重算 <b>' + Math.round(r.agreePct) + '%</b> 支持），其余不同意 —— 属于有分歧，信心要打折。';
+    } else {
+      verdict = '各维度分歧太大（最高一项「' + RADAR_KEYS[r.best][1] + '」只有 '
+        + Math.round(r.agreePct) + '% 的维度权重支持）→ <b>这一场不设胆</b>。'
+        + '下面三行只是把各维度合成后的排序摆出来，不是说' + RADAR_KEYS[r.best][1] + '值得买。';
+    }
+    if (same === true) verdict += ' 资金面与它同向。';
+    else if (same === false) verdict += ' ⚠️ 而且资金面投给了别的一项。';
+
+    var note = '<div class="md-one" style="margin-top:9px">算法：<b>四维共识</b> —— '
+      + '每个维度先各自换算成「主/平/客」的分布，再按权重做<b>加权几何平均</b>'
+      + '（用几何平均不用算术平均：算术平均会把分歧藏起来 —— '
+      + '一个维度喊 90%、另一个喊 5%，平均出来还是很高；几何平均会被那个 5% 直接压下去）。<br>'
+      + '权重：成交资金 2 · 欧赔反推 1 · 盘口水位 1 · 凯利修正 0.5。'
+      + '权重只看<b>独立性</b>和<b>是不是真钱</b>：资金是真金白银、和报价独立，所以权重最高；'
+      + '凯利是对欧赔的二阶修正、两者同源，给满票等于同一件事投两次，所以只算半票。'
+      + '某一项上弃权的维度不参与那一项的归一（比如亚盘不投平局，平局不会因此被压低）。<br>'
+      + '各维度口径：'
+      + '<b>欧赔反推</b>＝' + esc0(dimWhy(r, '欧赔反推')) + '；'
+      + '<b>盘口水位</b>＝' + esc0(dimWhy(r, '盘口水位')) + '；'
+      + '<b>凯利修正</b>＝' + esc0(dimWhy(r, '凯利修正')) + '；'
+      + '<b>成交资金</b>＝' + esc0(dimWhy(r, '成交资金')) + '。'
+      + (m ? '（这一场有成交资金数据，所以四个维度都投了票。）' : '（这一场没有成交资金数据 —— 它没投票，其余三个维度权重重归一。）')
+      + '<br>什么时候才写「本期胆」：最高分 <b>≥ 40%</b>（三项均分是 33.3%，不到 40% 就是没拉开）'
+      + '且 <b>≥ 60% 的维度权重</b>支持它；两条缺一条就写「本场无胆」—— 算得出来不等于配叫胆。'
+      + '<br>这一档是<b>统计归纳</b>，不是预测、也不是推荐。</div>';
+
+    return card('雷达寻胆', '<span class="md-badge live">' + r.votes.length + ' 维共识</span>',
+      head + bars + voteLine + moneyLine + '<div class="md-one">结论：' + verdict + '</div>' + note, null, 'report');
+  }
+
+  function dimWhy(r, name) {
+    for (var i = 0; i < r.dims.length; i++) if (r.dims[i].name === name) return r.dims[i].why;
+    return '这一场没有这一档数据';
+  }
+
   /* ---- ③ 比赛头部 ---- */
   /* 归档场次用的是另一种数据形状，这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
@@ -912,6 +1242,7 @@ a { color: var(--ro-ok); text-decoration: none; }
   /* ---- 组装整页 ---- */
   function render(g) {
     var body = srcBar() + renderHead(g)
+      + renderRadar(g)
       + renderEurope(g) + renderTitanEuro(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
       + renderPoisson(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
@@ -1060,6 +1391,16 @@ if (TITAN_GAMES) {
   if (!html.includes('md-eu')) problems.push('输出里找不到欧赔对比的表格样式 .md-eu（CSS 丢了）');
   if (!html.includes('欧赔对比')) problems.push('输出里找不到「欧赔对比」这一档');
   if (!html.includes('主流')) problems.push('输出里找不到欧赔对比的「主流 N 家」说明');
+}
+/* 【雷达寻胆】必须始终在页面上（每场都能算：至少欧赔那一档一定有）；
+   有成交资金数据时还要能自证"真的内嵌进去了 + 横条样式在"，
+   少一样就会变成静默失效（页面照旧显示，但数字其实没进来）。 */
+if (!html.includes('雷达寻胆')) problems.push('输出里找不到「雷达寻胆」这一档');
+if (!html.includes('md-radar-row')) problems.push('输出里找不到雷达寻胆的信心横条样式 .md-radar-row（CSS 丢了）');
+if (!html.includes('加权几何平均')) problems.push('输出里找不到雷达寻胆的算法口径说明');
+if (BIFA_GAMES) {
+  if (html.indexOf('"money":{') < 0) problems.push('jc-bifa.js 读到了，但没内嵌进页面（D.money 丢了）');
+  if (!html.includes('资金面：成交')) problems.push('输出里找不到雷达寻胆的「资金面：成交」明细行（成交资金那一维没接上）');
 }
 
 /* ============================================================
