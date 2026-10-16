@@ -94,12 +94,23 @@
     });
     if (!Object.keys(map).length) return 0;
 
-    /* ② 算连线数据（纯函数）。extra 区在主场号码之后，中间隔 1 列分隔列。 */
+    /* ② 算连线数据（纯函数）。extra 区紧跟在主场号码之后，中间隔 1 个分隔格。 */
     var data = trTrendLines(TREND_DATA, gid);
     if (!data) return 0;
     var mainCols = game.main.hi - game.main.lo + 1;
+    /* ⚠️ 列号换算踩过一次坑，写清楚：
+       map 的列号来自 tr.querySelectorAll("[data-tr-hit]")，它【只数号码格】——
+       那个分隔格（.tr-td-sep）没有 data-tr-hit，不占编号。
+       所以：
+         主场 n（lo..hi） → 列号 n - lo                （0 .. mainCols-1）
+         分隔格           → 不在编号里
+         第二区 n         → 列号 mainCols + (n - lo)    （mainCols .. mainCols+exCols-1）
+       第一版我在第二区上多加了 1（mainCols + 1 + …），结果第二区最后一个号
+       算出 49、而实际只有 0..48 → 那一条竖向线永远画不出来，
+       连带两条隔号斜连也画不出（实测：竖向 162→161、隔号 93→91）。
+       行尾还有一格"开出"(.tr-td-tail)，但它也没有 data-tr-hit，同样不占编号。 */
     var colOf = function (line) {
-      if (line.cls === "extra") return mainCols + 1 + (line.n - game.extra.lo);
+      if (line.cls === "extra") return mainCols + (line.n - game.extra.lo);
       return line.n - game.main.lo;
     };
 
@@ -134,8 +145,10 @@
     if (slantMode !== "off") {
       var sl = trSlantFor(TREND_DATA, gid, { includeGapSlant: slantMode === "gap" });
       if (sl) {
+        /* ⚠️ 和上面 colOf 同一个口径：第二区【不加分隔格那 1 列】，
+           因为 map 的列号只数 data-tr-hit（分隔格没有它）。 */
         var colOfNum = function (n, cls) {
-          if (cls === "extra") return mainCols + 1 + (n - game.extra.lo);
+          if (cls === "extra") return mainCols + (n - game.extra.lo);
           return n - game.main.lo;
         };
         sl.all.forEach(function (L) {
