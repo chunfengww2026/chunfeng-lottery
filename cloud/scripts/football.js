@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -68,7 +68,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 93,
+    "minute": 98,
     "home": {
      "name": "艾斯特利",
      "score": 1,
@@ -134,7 +134,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "金迪奥",
      "score": 1,
@@ -200,7 +200,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -266,10 +266,10 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "CD奥林匹亚",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 2
     },
