@@ -662,8 +662,8 @@ a { color: var(--ro-ok); text-decoration: none; }
   function srcBar() {
     return '<div class="md-src" id="mdSrc">'
       + '<div class="md-srcbtn on" data-src="all" role="button" tabindex="0">全部</div>'
-      + '<div class="md-srcbtn" data-src="500" role="button" tabindex="0">500.com</div>'
-      + '<div class="md-srcbtn soon" data-src="leisu" role="button" tabindex="0" aria-disabled="true">雷速体育</div>'
+      + '<div class="md-srcbtn" data-src="500" role="button" tabindex="0">检测</div>'
+      + '<div class="md-srcbtn soon" data-src="leisu" role="button" tabindex="0" aria-disabled="true">体育抓取</div>'
       + '</div><div class="md-srcnote" id="mdSrcNote"></div>';
   }
 
@@ -685,7 +685,7 @@ a { color: var(--ro-ok); text-decoration: none; }
       if (!el) return;
       var s = el.getAttribute('data-src');
       if (s === 'leisu') {
-        note.textContent = '雷速体育数据源暂未接入（本次只有 500.com）';
+        note.textContent = '体育抓取数据源暂未接入（本次只有 500.com）';
         return;
       }
       var all = bar.querySelectorAll('.md-srcbtn');
