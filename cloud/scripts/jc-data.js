@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 08:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 09:28 */
 const JC_DATA = {
- "updated": "2026-10-16 08:58",
+ "updated": "2026-10-16 09:28",
  "stat": {
   "total": 13,
   "upcoming": 0,
@@ -1310,7 +1310,7 @@ const JC_DATA = {
     "home": 0,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -1401,8 +1401,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-16 08:58",
-  "officialUpdate": "2026-10-15 13:27:15",
+  "updated": "2026-10-16 09:28",
+  "officialUpdate": "2026-10-16 09:26:54",
   "inSale": 11,
   "list": [
    {
@@ -1475,10 +1475,10 @@ const JC_DATA = {
     "home": "布鲁马波",
     "away": "佐加顿斯",
     "had": {
-     "h": 5.35,
-     "d": 4.4,
-     "a": 1.4,
-     "update": "2026-10-15 13:27:15"
+     "h": 5.72,
+     "d": 4.55,
+     "a": 1.36,
+     "update": "2026-10-16 09:26:54"
     },
     "hhad": {
      "line": "+1",
