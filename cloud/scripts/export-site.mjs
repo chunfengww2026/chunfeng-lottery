@@ -131,6 +131,17 @@ log(`✅ index.html    ${(Buffer.byteLength(lottery, 'utf8') / 1024).toFixed(1)}
 if (football) {
   fs.writeFileSync(path.join(SITE, 'football.html'), football, 'utf8');
   log(`✅ football.html ${(Buffer.byteLength(football, 'utf8') / 1024).toFixed(1)} KB`);
+  /* 【推荐串红黑 · 30 秒实时刷新】竞彩页会定期去拉这个数据文件（同目录、相对路径）。
+     必须跟 football.html 一起发到站点根目录，否则线上那次刷新拿不到文件 ——
+     拿不到时前端什么都不做（页面仍是构建时那份数据），不会坏，但也就不会自动更新。
+     ⚠️ 本机是 file:// 打开的，走的是 <script src>（不是 fetch），所以本地不依赖这一步。 */
+  const recoView = path.join(ROOT, 'jc-reco-view.js');
+  if (fs.existsSync(recoView)) {
+    fs.copyFileSync(recoView, path.join(SITE, 'jc-reco-view.js'));
+    log(`✅ jc-reco-view.js ${(fs.statSync(recoView).size / 1024).toFixed(1)} KB（竞彩页 30 秒刷新用）`);
+  } else {
+    log('ℹ️ 没有 jc-reco-view.js（先跑 export-football.mjs 生成），跳过');
+  }
 }
 
 if (trend) {
