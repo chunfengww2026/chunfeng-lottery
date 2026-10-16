@@ -32,12 +32,12 @@ jobs:
           echo ""
           echo "=========== ① 栏目页 p.33633.cn ==========="
           echo "--- http://p.33633.cn/jingcai/ ---"
-          curl -s -o /tmp/npp.html -w "HTTP=%{http_code} size=%{size_download} time=%{time_total}s\n" \
+          curl -sL -o /tmp/npp.html -w "HTTP=%{http_code} final=%{url_effective} size=%{size_download} time=%{time_total}s\n" \
             --max-time 30 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \
             "http://p.33633.cn/jingcai/" || echo "curl 失败 exit=$?"
 
           echo "--- 首页 http://p.33633.cn/ ---"
-          curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download}\n" \
+          curl -sL -o /dev/null -w "HTTP=%{http_code} final=%{url_effective} size=%{size_download}\n" \
             --max-time 30 -A "Mozilla/5.0" "http://p.33633.cn/" || echo "curl 失败 exit=$?"
 
           echo ""
@@ -47,7 +47,7 @@ jobs:
             "https://img33633.cpyc.cn/" \
             ; do
             echo "--- $U ---"
-            curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download} time=%{time_total}s\n" \
+            curl -sL -o /dev/null -w "HTTP=%{http_code} final=%{url_effective} size=%{size_download} time=%{time_total}s\n" \
               --max-time 20 -A "Mozilla/5.0" "$U" || echo "curl 失败 exit=$?"
           done
 
@@ -67,7 +67,7 @@ jobs:
                   *)     FULL="http://p.33633.cn/jingcai/$IMG" ;;
                 esac
                 printf "  %-90s " "$FULL"
-                curl -s -o /dev/null -w "HTTP=%{http_code} size=%{size_download}\n" \
+                curl -sL -o /dev/null -w "HTTP=%{http_code} final=%{url_effective} size=%{size_download}\n" \
                   --max-time 20 -A "Mozilla/5.0" -e "http://p.33633.cn/" "$FULL" || echo "失败"
               done
           else
@@ -78,7 +78,7 @@ jobs:
           echo "=========== ④ 对照：已知云端可用的基线 ==========="
           for U in "https://m.yiqicai.com/xysp/ssq.html" "https://www.baidu.com" ; do
             printf "  %-50s " "$U"
-            curl -s -o /dev/null -w "HTTP=%{http_code}\n" --max-time 20 "$U" || echo "失败"
+            curl -sL -o /dev/null -w "HTTP=%{http_code} final=%{url_effective}\n" --max-time 20 "$U" || echo "失败"
           done
 
           echo ""
