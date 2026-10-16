@@ -61,7 +61,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-16 09:00:00",
-    "minute": 90,
+    "minute": 94,
     "home": {
      "name": "路斯天使",
      "score": 2,
@@ -239,7 +239,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 64,
+    "minute": 68,
     "home": {
      "name": "CD奥林匹亚",
      "score": 2,
