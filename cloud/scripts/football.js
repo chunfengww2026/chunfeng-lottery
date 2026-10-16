@@ -15187,7 +15187,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-16 17:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "悉尼FC",
      "score": 0,
