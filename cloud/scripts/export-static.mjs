@@ -225,6 +225,11 @@ vm.runInContext(`
       只保留 24 小时内的条目）。没有这个文件时是 null → 晒票栏显示「暂无」，
       不影响别的区块。 */
   globalThis.__xysp = (typeof XYSP_DATA !== 'undefined') ? XYSP_DATA : null;
+  /* 【专家推荐】区块的数据（来自 experts-data.js，build-experts.mjs 生成）。
+     ⚠️ 它是 const 声明 —— const 是词法绑定，跑完不会出现在 ctx 上，
+        所以必须像这样显式挂到 globalThis 再取，别在主模块里直接引用。
+     没有这个文件时是 null → 专家推荐整块不渲染（不显示空壳）。 */
+  globalThis.__experts = (typeof EXPERTS_DATA !== 'undefined') ? EXPERTS_DATA : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -244,6 +249,8 @@ const ARTICLES = ctx.__articles;
 const KJH = ctx.__kjh;
 /* 【晒票栏】数据（xysp-data.js；缺失时为 null → 显示「暂无」） */
 const XYSP = ctx.__xysp;
+/* 【专家推荐】数据（experts-data.js；缺失时为 null → 整块不渲染） */
+const EXPERTS = ctx.__experts;
 
 /**
  * 热力图该不该出这张图
@@ -877,6 +884,86 @@ function buildArticlesHtml() {
 }
 
 const articlesHtml = buildArticlesHtml();
+
+/* ============================================================
+   【专家推荐】区块（用户新增指令）
+   ------------------------------------------------------------
+   用户原话（逐字）：「专家推荐（可展开收起）」+ 给了结构：
+     头部 = 👤 专家推荐 + 数量徽章 + ▾ 折叠箭头
+     内容 = 列表（JS 动态渲染）+ 「已加载全部」
+   数据来源：experts-data.js（build-experts.mjs 抓的一起彩专家统计）
+     · 每个彩种取 games[g].stable（「稳定专家」榜，已按 score 排好）
+     · 用户选择：按彩种分，每彩种显示稳定专家【前 10】
+   ⚠️ 页面不变量：这一块【纯文字、不含任何图片】→ data-image 仍是 21。
+   ⚠️ 折叠用原生 <details>/<summary>（和晒票 / GPT摇号同一套），
+      页面里【不能出现裸 <button>】（用户铁律）。
+   ⚠️ 数据缺失（没抓到 / 文件不在）时返回空字符串 —— 整块不渲染，
+      不显示空壳、不编造专家。
+   ============================================================ */
+const EXPERT_SHORT = { ssq: '双色球', dlt: '大乐透', fc3d: '福彩3D', klb: '快乐8',
+  pl3: '排列3', pl5: '排列5', xqxc: '七星彩', qlc: '七乐彩' };
+function buildExpertsHtml() {
+  const E = EXPERTS;
+  if (!E || !E.games) return '';
+  const order = ['ssq', 'dlt', 'qlc', 'xqxc', 'klb', 'fc3d', 'pl3', 'pl5'];
+  let totalShown = 0;
+  const groups = order.map((gid) => {
+    const g = E.games[gid];
+    if (!g) return '';
+    const list = Array.isArray(g.stable) ? g.stable.slice(0, 10) : [];
+    if (!list.length) return '';
+    totalShown += list.length;
+    const rows = list.map((x, i) => {
+      const pct = Math.round((x.hitRate10 || 0) * 100);
+      const streak = x.curStreak || 0;
+      const best = x.maxStreak || 0;
+      const hitCls = x.lastHit ? ' hit' : ' miss';
+      return '<div class="ro-xj-row">' +
+        '<span class="ro-xj-rank">' + (i + 1) + '</span>' +
+        '<span class="ro-xj-name">' + escape(x.name || '') + '</span>' +
+        '<span class="ro-xj-cat">' + escape(x.cat || '') + '</span>' +
+        '<span class="ro-xj-rate">命中 ' + pct + '%</span>' +
+        '<span class="ro-xj-streak">连' + streak + ' · 最长' + best + '</span>' +
+        '<span class="ro-xj-last' + hitCls + '">' + (x.lastHit ? '中' : '未中') + '</span>' +
+        '</div>';
+    }).join('');
+    return '<div class="ro-xj-group">' +
+      '<div class="ro-xj-ghead"><span class="ro-xj-gname">' +
+      escape(EXPERT_SHORT[gid] || g.name || gid) + '</span>' +
+      '<span class="ro-xj-gcount">' + list.length + ' 位</span></div>' +
+      rows + '</div>';
+  }).filter(Boolean).join('');
+  if (!totalShown) return '';
+
+  return '<details class="ro-xj">' +
+    '<summary class="ro-xj-header">' +
+    '<span class="ro-xj-icon" aria-hidden="true">👤</span>' +
+    '<span class="ro-xj-title">专家推荐</span>' +
+    '<span class="ro-xj-count">' + totalShown + '</span>' +
+    '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
+    '</summary>' +
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 10 位 · 数据来自一起彩公开的专家历史命中统计，' +
+    '仅统计参考，不是预测</div>' +
+    '<div class="ro-xj-list">' + groups + '</div>' +
+    '<div class="ro-xj-more">已加载全部</div>' +
+    '</details>';
+}
+
+const expertsHtml = buildExpertsHtml();
+console.log(`  · 专家推荐：${E_EXPERT_BRIEF()}`);
+function E_EXPERT_BRIEF() {
+  const E = EXPERTS;
+  if (!E || !E.games) return '无数据（区块不渲染）';
+  const parts = [];
+  Object.keys(E.games).forEach((k) => {
+    const g = E.games[k];
+    const n = Array.isArray(g.stable) ? Math.min(10, g.stable.length) : 0;
+    if (n) parts.push((EXPERT_SHORT[k] || k) + ' ' + n);
+  });
+  return parts.length ? parts.join(' / ') : '无稳定专家';
+}
+
+/* __EXPERT_MARK__ 上面是专家推荐区块的构建函数 */
 console.log(`  · 文章参考：${ART_ORDER.map((k) => {
   const g = ARTICLES && ARTICLES.games ? ARTICLES.games[k] : null;
   return ART_SHORT_NAME[k] + ' ' + ((g && g.items) ? g.items.length : 0) + ' 条';
@@ -4079,6 +4166,58 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .trend-entry .te-t { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
 .trend-entry .te-d { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-ok); font-weight: 600; }
 
+
+/* ============================================================
+   __EXPERT_BLOCK__ 专家推荐（用户新增指令：可展开收起）
+   ------------------------------------------------------------
+   头部 = 👤 + 标题 + 数量徽章 + 折叠箭头（箭头由 [open] 换字，和
+   晒票 / GPT摇号 的 .ro-*-head 同一套做法，不新增第二套外观）。
+   内容 = 8 个彩种分组，每组 10 行：排名 / 专家名 / 类别 / 命中率 /
+   连中与最长 / 最近一期的中否。
+   全部用变量色（--ro-*），米杏色主题自动生效。
+   ⚠️ 纯文字，无图片 → data-image 不变（仍 21）。
+   ============================================================ */
+.ro-xj { background: var(--ro-card); border: 1px solid var(--ro-line);
+  border-radius: 10px; margin: 0 12px 14px; overflow: hidden; }
+.ro-xj > .ro-xj-header { display: flex; align-items: center; gap: 8px;
+  padding: 11px 14px; cursor: pointer; list-style: none; user-select: none; }
+.ro-xj > .ro-xj-header::-webkit-details-marker { display: none; }
+.ro-xj > .ro-xj-header::marker { content: ''; }
+.ro-xj-icon { font-size: 15px; }
+.ro-xj-title { flex: 1; font-size: 14px; font-weight: 700; color: var(--ro-fg); }
+.ro-xj-count { font-size: 11.5px; font-weight: 700; color: var(--ro-ok);
+  background: #e8f6ef; border: 1px solid #b7e4cd; border-radius: 20px;
+  padding: 2px 9px; }
+.ro-xj-arrow { font-size: 12px; color: var(--ro-fg3); }
+.ro-xj[open] > .ro-xj-header .ro-xj-arrow::after { content: '收起 ▴'; }
+.ro-xj:not([open]) > .ro-xj-header .ro-xj-arrow::after { content: '展开 ▾'; }
+.ro-xj-note { padding: 0 14px 8px; font-size: 11.5px; color: var(--ro-fg3); line-height: 1.7; }
+.ro-xj-list { padding: 0 10px 4px; }
+.ro-xj-group { border-top: 1px dashed var(--ro-line); padding: 8px 0 4px; }
+.ro-xj-group:first-child { border-top: 0; }
+.ro-xj-ghead { display: flex; align-items: baseline; gap: 8px; padding: 2px 4px 6px; }
+.ro-xj-gname { font-size: 13px; font-weight: 700; color: var(--ro-fg); }
+.ro-xj-gcount { font-size: 11px; color: var(--ro-fg3); }
+.ro-xj-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px;
+  border-bottom: 1px dotted var(--ro-line-soft); font-size: 12px; }
+.ro-xj-row:last-child { border-bottom: 0; }
+.ro-xj-rank { flex: 0 0 18px; text-align: center; font-size: 11px; font-weight: 700;
+  color: var(--ro-fg3); }
+.ro-xj-name { flex: 1 1 auto; min-width: 0; font-weight: 700; color: var(--ro-fg);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ro-xj-cat { flex: 0 0 auto; font-size: 11px; color: var(--ro-fg3); }
+.ro-xj-rate { flex: 0 0 auto; font-size: 11.5px; font-weight: 700; color: var(--ro-ok); }
+.ro-xj-streak { flex: 0 0 auto; font-size: 11px; color: var(--ro-fg2); }
+.ro-xj-last { flex: 0 0 auto; font-size: 10.5px; font-weight: 700; border-radius: 5px;
+  padding: 1px 7px; }
+.ro-xj-last.hit { background: #fbe9e7; color: #c0392b; }
+.ro-xj-last.miss { background: var(--ro-sunken); color: var(--ro-fg3); }
+.ro-xj-more { text-align: center; font-size: 11.5px; color: var(--ro-fg3);
+  padding: 8px 0 12px; }
+@media (max-width: 420px) {
+  .ro-xj-cat { display: none; }
+}
+
   /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示 */
   .ro-hot {
     position: fixed; top: 8px; left: 8px; z-index: 9990;
@@ -4299,6 +4438,8 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
   ${latestSecHtml}
+
+  ${expertsHtml}
 
   <!-- ============================================================
        【文章参考】用户要求：放在【最新开奖】下面、
