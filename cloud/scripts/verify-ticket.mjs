@@ -48,6 +48,9 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 export const CACHE_FILE = path.join(ROOT, '_ticket-ocr-cache.json');
 
+/** 抓图用的 UA（头条图不带 Referer 也能取，实测三种 Referer 都是 200 + 同样字节数） */
+const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+
 /* 判据：票面一定印 3 位以上连续数字 */
 const HAS_DIGITS = /\d{3,}/;
 /* 辅助：彩票特征词（命中就【直接】放行，不用等数字 —— 更保险） */
@@ -112,6 +115,31 @@ export function cachedVerdict(img) {
   return (v && typeof v === 'object') ? v : null;
 }
 
+/** 抓一张图 → Buffer（出错抛异常，交给调用方按"判不了"处理） */
+async function fetchImageBytes(img, ua, timeout) {
+  const r = await fetch(img, { headers: { 'User-Agent': ua }, signal: AbortSignal.timeout(timeout || 20000) });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return Buffer.from(await r.arrayBuffer());
+}
+
+/* ============================================================
+   【提速】预取槽：让"抓图"和"OCR"重叠起来
+   ------------------------------------------------------------
+   抓图实测 148ms/张（19~21KB 的头条缩略图），OCR 0.56~1.04s/张 ——
+   串行时那 148ms 是纯白等。verifyBatch 在处理第 i 张时，先把第 i+1 张的
+   抓图请求发出去，于是单张墙钟时间从 (抓图 + OCR) 变成 max(抓图, OCR)。
+   ⚠️ 只预取 1 张（不提高请求速率，不给图源加压力），也不改公开行为。
+   ============================================================ */
+const _pre = new Map();
+/** 提前把这张图的抓图请求发出去（verifyBatch 用） */
+export function prefetchTicketImage(img, opts = {}) {
+  const ua = opts.ua || UA;
+  const p = fetchImageBytes(img, ua, opts.timeout).then((buf) => ({ buf })).catch((err) => ({ err }));
+  _pre.set(img, p);
+  if (_pre.size > 2) _pre.delete(_pre.keys().next().value);   /* 只留最近两格，长跑不泄漏 */
+  return p;
+}
+
 /**
  * 校验一张图是不是"票"。
  *
@@ -135,15 +163,19 @@ export async function verifyTicketImage(img, opts = {}) {
   if (c[ck] && c[ck].ok !== undefined && !opts.force) {
     return { ok: c[ck].ok, why: c[ck].why || 'cache', text: c[ck].t || '', ms: 0, cached: true };
   }
-  const ua = opts.ua || 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+  const ua = opts.ua || UA;
   const t0 = Date.now();
   let text = '', ok = null, why = 'unknown';
   try {
-    const r = await fetch(img, { headers: { 'User-Agent': ua }, signal: AbortSignal.timeout(opts.timeout || 20000) });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const buf = Buffer.from(await r.arrayBuffer());
+    /* 有预取好的就用它（省一次等待），否则现在抓 */
+    let buf;
+    const pre = _pre.get(img);
+    if (pre) { _pre.delete(img); const got = await pre; if (got.err) throw got.err; buf = got.buf; }
+    else buf = await fetchImageBytes(img, ua, opts.timeout);
     const { makeVariants, recognizeBuffer } = await ocrMod();
-    const vs = await makeVariants(buf);
+    /* 【提速】只做第 1 个变体：下面只用 vs[0]，
+       再让 ocr-tickets 生成 90° 那份 = 白转一次 + 白编码一份 PNG。 */
+    const vs = await makeVariants(buf, { only: 1 });
     /* 只用第 1 个变体（r0，不旋转）—— 实测平均 1.03s，用全变体会翻倍 */
     const res = await recognizeBuffer(vs[0].png, 'auto');
     text = String((res && res.text) || '');
@@ -163,10 +195,14 @@ export async function verifyTicketImage(img, opts = {}) {
 /** 批量校验（串行，避免同时开太多 tesseract 把它们挤爆）；返回统计 */
 export async function verifyBatch(imgs, opts = {}) {
   const max = opts.max || 300;
+  const list = (Array.isArray(imgs) ? imgs : []).slice(0, max);
   let checked = 0, passed = 0, failed = 0, unreadable = 0, cacheHit = 0, ms = 0;
   const failedList = [], unreadableList = [];
-  for (const img of imgs) {
-    if (checked >= max) break;
+  for (let i = 0; i < list.length; i++) {
+    const img = list[i];
+    /* 【提速】先把下一张的抓图发出去，和这一张的 OCR 重叠（见 prefetchTicketImage） */
+    const nxt = list[i + 1];
+    if (nxt && !cachedVerdict(nxt)) prefetchTicketImage(nxt, opts);
     const r = await verifyTicketImage(img, opts);
     checked++;
     if (r.cached) cacheHit++;
