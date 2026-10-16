@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "FB2203"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "地拉纳迪纳摩",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "8855ee"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "巴卡",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "6F3FD2"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "ASK沃提斯堡",
      "score": 0,
@@ -249,7 +249,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "第一維也納",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 2
     },
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "6F3FD2"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "圣珀尔滕",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "6F3FD2"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "奥地利维也纳青年",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "CA00CA"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "科特布斯",
      "score": 0,
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "CA00CA"
     },
     "time": "2026-10-17 00:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "荷尔斯泰因基尔",
      "score": 0,
@@ -605,16 +605,16 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-17 00:45:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "艾沙哈尼亚",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "多哈艾阿拉比",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -9812,7 +9812,7 @@ const FOOTBALL_DATA = {
      "color": "FF6633"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "拿加沙U21",
      "score": 1,
@@ -9821,7 +9821,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "艾特萊U21",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -9878,7 +9878,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "赫拉尼斯",
      "score": 2,
@@ -9944,7 +9944,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "苏尔杜利察",
      "score": 2,
@@ -9990,7 +9990,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "安曼FC",
      "score": 2,
@@ -10028,7 +10028,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "阿尔利",
      "score": 4,
@@ -10094,7 +10094,7 @@ const FOOTBALL_DATA = {
      "color": "FC7022"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "FC西伯利亚人",
      "score": 2,
@@ -10160,7 +10160,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "苏姆盖特",
      "score": 2,
@@ -10292,7 +10292,7 @@ const FOOTBALL_DATA = {
      "color": "224488"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "波赫隆尼",
      "score": 0,
@@ -10358,7 +10358,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "维拉斯姆",
      "score": 1,
@@ -10424,7 +10424,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-16 23:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "加拉迪",
      "score": 1,
@@ -10490,7 +10490,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-16 23:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "卡爾維納",
      "score": 2,
@@ -10556,7 +10556,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-16 23:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "亚鲁米尼",
      "score": 0,
@@ -10622,7 +10622,7 @@ const FOOTBALL_DATA = {
      "color": "A60065"
     },
     "time": "2026-10-16 23:45:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "班尼亚斯",
      "score": 0,
@@ -10700,7 +10700,7 @@ const FOOTBALL_DATA = {
      "color": "FC7000"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "維奇斯塔",
      "score": 0,
@@ -10778,7 +10778,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "拖里格拉瓦",
      "score": 0,
@@ -10816,7 +10816,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "德拉维加",
      "score": 1,
@@ -10894,7 +10894,7 @@ const FOOTBALL_DATA = {
      "color": "10A9FB"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "史洛加多波",
      "score": 0,
@@ -10972,7 +10972,7 @@ const FOOTBALL_DATA = {
      "color": "0755A4"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "意诺西斯",
      "score": 1,
@@ -11050,7 +11050,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "考诺萨基列斯B队",
      "score": 0,
@@ -11128,7 +11128,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "约纳瓦",
      "score": 3,
@@ -11202,7 +11202,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "艾阿利",
      "score": 0,
@@ -11280,7 +11280,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "伊迪法克",
      "score": 1,
@@ -11318,7 +11318,7 @@ const FOOTBALL_DATA = {
      "color": "005555"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "洛特伏尔加格勒",
      "score": 0,
@@ -11396,7 +11396,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "坡斯特乔",
      "score": 1,
@@ -11474,7 +11474,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "普布拉姆",
      "score": 1,
@@ -11552,7 +11552,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "欧帕瓦",
      "score": 1,
@@ -11630,7 +11630,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "延特拉",
      "score": 0,
@@ -11708,7 +11708,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "鲁达士",
      "score": 0,
@@ -11786,7 +11786,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-10-17 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "波兹南瓦尔塔",
      "score": 1,
