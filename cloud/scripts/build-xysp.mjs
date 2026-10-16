@@ -94,7 +94,10 @@ import { fileURLToPath } from 'node:url';
 /* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
    （build-xysp-tt.mjs 的抓取主流程有 isDirectRun() 关卡，
      被 import 时不会发请求、不会 exit）。 */
-import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter, sortTimeMs, whenToMs, anyToMs } from './build-xysp-tt.mjs';
+import { mergeTt, readTtOld, TT_KEY, TT_NAME, TT_MAX, JC_KEY, JC_NAME, JC_MAX, JC_KEEP_HOURS, catByKey, nextDrawAfter, sortTimeMs, whenToMs, anyToMs,
+  /* 【加强去重】两层去重规则都写在 build-xysp-tt.mjs 里（两边共用同一份实现，
+     避免"两个脚本各写一套、规则慢慢跑偏"）。见那些函数的说明。 */
+  dedupeItems, imgFingerprint, imgSizeScore, titleKey, postKeyOf, pubMsOf } from './build-xysp-tt.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'xysp-data.js');
@@ -225,6 +228,10 @@ function parsePubAt(b, atIso, nowMs) {
 function parsePage(html, atIso, nowMs) {
   const items = [];
   const now = nowMs || Date.parse(atIso) || Date.now();
+  /* 【图片指纹】本页内去重用：fp → items 里的下标
+     （原来那条"本页内按完整 URL 去重"保留，指纹是它上面再加的一层） */
+  const fpSeen = new Map();
+  let postIdx = 0;
   /* 一条晒票 = 从 <div class="lucky-tickets-x"> 开始的那一块。
      直接按这个开头切：每一段里【第一次】出现的 lucky-msg / lucky-pics
      就一定是这一条的（两者都排在块内很靠前的位置），
@@ -244,19 +251,35 @@ function parsePage(html, atIso, nowMs) {
     const picsM = /<div class="lucky-pics"[^>]*>([\s\S]*?)<\/div>/.exec(b);
     if (!picsM) continue;
 
+    /* 【帖子身份】一条 lucky-tickets-x 块 = 一个帖子（一个帖子可能 1~3 张票）。
+       标题相似度去重要用它区分"同帖多图"（不合并）和"跨帖标题撞车"（合并）。
+       ⚠️ 每轮块的顺序可能变，所以再带上"标题+发布时间"做二次核对（见 postKeyOf）。 */
+    const postId = 'yq' + (postIdx++) + ':' + String(pub || '') + ':' + titleKey(title);
+    const mk = (img) => ({
+      img, thumb: thumbOf(img), title, url: '', at: atIso,
+      /* pubAt = 帖子发布时间；pubSrc 记明来源，便于报告/排查 */
+      pubAt: pub ? new Date(pub).toISOString() : '',
+      pubSrc: pub ? 'page' : 'at',
+      pubMs: pub || 0,
+      postId,
+      px: imgSizeScore(img)
+    });
+
     const IMG = /<img[^>]*\bsrc="([^"]+)"/gi;
     let im = null;
     while ((im = IMG.exec(picsM[1])) !== null) {
       const img = normImg(im[1]);
       if (!img) continue;
-      if (items.some((x) => x.img === img)) continue;      // 本页内去重
-      items.push({
-        img, thumb: thumbOf(img), title, url: '', at: atIso,
-        /* pubAt = 帖子发布时间；pubSrc 记明来源，便于报告/排查 */
-        pubAt: pub ? new Date(pub).toISOString() : '',
-        pubSrc: pub ? 'page' : 'at',
-        pubMs: pub || 0
-      });
+      if (items.some((x) => x.img === img)) continue;      // 本页内去重（按完整 URL，保留）
+      /* 【本页内指纹去重】同一张图的不同尺寸/签名变体 → 只留【尺寸最大的】那张 */
+      const fp = imgFingerprint(img);
+      if (fp && fpSeen.has(fp)) {
+        const i = fpSeen.get(fp);
+        if (imgSizeScore(img) > imgSizeScore(items[i].img)) items[i] = mk(img);
+        continue;
+      }
+      if (fp) fpSeen.set(fp, items.length);
+      items.push(mk(img));
     }
   }
   return items;
@@ -270,7 +293,7 @@ function parsePage(html, atIso, nowMs) {
 function mergeAndPrune(oldData, freshByGame, nowMs) {
   const cutoff = nowMs - PUB_HOURS * 3600 * 1000;      /* 24 小时：看【发布时间】 */
   const games = {};
-  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropPub: 0, dropDraw: 0, dropCap: 0, pubFallback: 0 };
+  const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropPub: 0, dropDraw: 0, dropCap: 0, pubFallback: 0, imgDup: 0, titleDup: 0 };
 
   for (const g of GAMES) {
     const bucket = new Map();          // img → 条目（保留最早的 at）
@@ -374,15 +397,79 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     const list = [...bucket.values()].sort((a, b) =>
       (sortTimeMs(b) - sortTimeMs(a)) ||
       ((b.pubMs || 0) - (a.pubMs || 0)));
-    const keptList = list.slice(0, MAX_PER_GAME);
-    if (list.length > keptList.length) {
-      stat.capped = (stat.capped || 0) + (list.length - keptList.length);
-      stat.cappedGames = (stat.cappedGames || []).concat([`${g.name} ${list.length}→${keptList.length}`]);
+    /* 【加强去重】在"按完整 URL 去重（bucket）"之上再加两层（和头条那一路同一份实现）：
+         · ① 图片指纹（尺寸/签名/CDN 节点变体 → 留尺寸最大的那张）
+         · ② 标题前 16 字相同且不是同一个帖子（→ 留发布时间最早的）
+       ⚠️ 必须在 slice(MAX_PER_GAME) 之前 —— 去重腾出的名额给窗口内其他条目。 */
+    const deduped = dedupeItems(list, stat);
+    const keptList = deduped.slice(0, MAX_PER_GAME);
+    if (deduped.length > keptList.length) {
+      /* ⚠️ 只用【去重后】的条数算上限被砍 —— 去重合并掉的不算"被上限砍"，
+         不然日志会误报（用户明确要求"别偷偷砍"，但也别虚报）。 */
+      stat.capped = (stat.capped || 0) + (deduped.length - keptList.length);
+      stat.cappedGames = (stat.cappedGames || []).concat([`${g.name} ${deduped.length}→${keptList.length}`]);
     }
     games[g.key] = { name: g.name, items: keptList };
     stat.kept += games[g.key].items.length;
   }
   return { games, stat };
+}
+
+/* ============================================================
+   【跨源去重】头条 vs 一起彩（用户要求：合并时也要再跑一次）
+   ------------------------------------------------------------
+   为什么必须放在【本文件】：两个源的数据在这里才第一次碰面 ——
+     games.ssq…qlc = 一起彩抓的；games.tt = 头条抓的（靠 it.games 分发到各彩种）。
+   规则（和 mergeTt 里的标题规则【同一份实现】）：
+     同一个彩种里，一起彩某条 与 头条某条 标题前 16 字相同、且不是同一条帖子
+       → 只留【发布时间最早】的那条，另一条从它所在的那一侧删掉。
+   ⚠️ 同源之间的重复【不在这里做】—— 已经由 mergeAndPrune / mergeTt 各自处理，
+      这里再比一次只会重复干同一件事（也可能误删）。
+   ⚠️ 不按"图片指纹"跨源删：两个源的主机不同，指纹本来就不同；
+      真出现同一张图跨源，说明是同一内容，标题规则能兜住。
+   ============================================================ */
+function crossSourceDedupe(games, stat) {
+  const tt = (games[TT_KEY] && Array.isArray(games[TT_KEY].items)) ? games[TT_KEY].items : [];
+  const res = { removed: 0, examples: [] };
+  if (!tt.length) return res;
+  const dropTt = new Set();
+  for (const g of GAMES) {
+    const gObj = games[g.key];
+    const mine = (gObj && Array.isArray(gObj.items)) ? gObj.items : [];
+    if (!mine.length) continue;
+    /* 这个彩种下、头条那一路的条目：titleKey → 条目 */
+    const byKey = new Map();
+    for (const it of tt) {
+      if (dropTt.has(it)) continue;
+      if (!Array.isArray(it.games) || it.games.indexOf(g.key) < 0) continue;
+      const k = titleKey(it.title);
+      if (k && !byKey.has(k)) byKey.set(k, it);
+    }
+    if (!byKey.size) continue;
+    const keepMine = new Set(mine);
+    for (const it of mine) {
+      const k = titleKey(it.title);
+      if (!k) continue;                                   /* 无标题 → 跳过这条规则 */
+      const t = byKey.get(k);
+      if (!t) continue;
+      /* 同一条帖子（跨源理论上不会有；有就不删，宁可留） */
+      const pkY = postKeyOf(it), pkT = postKeyOf(t);
+      if (pkY && pkY === pkT) continue;
+      const yMs = pubMsOf(it), tMs = pubMsOf(t);
+      const dropYq = !!(tMs && (!yMs || tMs < yMs));      /* 头条更早 → 删一起彩那条 */
+      if (dropYq) keepMine.delete(it); else dropTt.add(t);
+      res.removed++;
+      if (res.examples.length < 3) {
+        res.examples.push({ key: k, side: dropYq ? 'yq' : 'tt', keep: String(dropYq ? t.img : it.img).slice(-40), drop: String(dropYq ? it.img : t.img).slice(-40) });
+      }
+    }
+    if (keepMine.size !== mine.length) games[g.key] = Object.assign({}, gObj, { items: mine.filter((x) => keepMine.has(x)) });
+  }
+  if (dropTt.size) {
+    games[TT_KEY] = Object.assign({}, games[TT_KEY], { items: tt.filter((x) => !dropTt.has(x)) });
+  }
+  if (stat) stat.crossDup = res.removed;
+  return res;
 }
 
 /** 从旧的 xysp-data.js 文本里抠出对象（文件是我们自己写的纯 JSON，直接 JSON.parse） */
@@ -507,6 +594,18 @@ for (const C of SIDE_CATS) {
   games[C.key] = { name: C.name, items };
 }
 
+/* ============================================================
+   3.6 【跨源去重】头条 vs 一起彩 —— 用户要求"合并时再跑一次"
+   ------------------------------------------------------------
+   规则与 mergeTt 里的标题规则完全一致（titleKey 前 16 字），只是这次跨源比：
+   同一个彩种下，一起彩某条与头条某条标题前 16 字相同、且不是同一条帖子
+     → 只留【发布时间最早】的那条。
+   ⚠️ 放在 SIDE_CATS 之后、写文件之前 —— 这是两个源的数据唯一碰面的时刻。
+   ============================================================ */
+const cross = crossSourceDedupe(games, stat);
+log(`   跨源去重（头条 vs 一起彩）：标题前 16 字撞车 → 合并 ${cross.removed} 条` +
+  (cross.examples.length ? `（例：${cross.examples.map((x) => `「${x.key}」丢了${x.side === 'tt' ? '头条' : '一起彩'}那条`).join(' · ')}）` : ''));
+
 /* 4. 成功 → 写文件 */
 st.failStreak = 0;
 st.pausedUntil = 0;
@@ -533,7 +632,9 @@ fs.writeFileSync(OUT, text, 'utf8');
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
 log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
   `（丢弃 ${stat.dropped} 条 [发布时间超 ${PUB_HOURS}h ${stat.dropPub} · 兜底超时 ${stat.dropCap}]` +
-  ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条` +
+  ` · 去重合并 ${stat.dupes} 条 · 【加强去重】图片指纹 ${stat.imgDup} 条 · 标题相似 ${stat.titleDup} 条` +
+  ` · 跨源去重 ${stat.crossDup || 0} 条` +
+  ` · 本轮新加入 ${stat.added} 条 / 共抓到 ${freshTotal} 条` +
   ` · 发布时间取不到退回抓取时间 ${stat.pubFallback} 条）`);
 /* 【上限警告】用户明确要求"别偷偷砍"。真撞到上限就【大声打出来】，
    并且把上限值和被砍的彩种都列清楚，方便马上调大。 */
