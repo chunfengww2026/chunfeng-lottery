@@ -3993,25 +3993,33 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-tool em { display: block; margin-top: 3px; font-style: normal;
   font-size: 11px; color: var(--ro-fg2) !important; }
 
-/* ⑥⑦ 晒票 / GPT模型摇号：居中单卡片（覆盖上一版的横排） */
+/* ⑥⑦ 晒票 / GPT模型摇号：居中单卡片 —— __COMPACT2__
+   用户 2026-10-17：「把这两个布局做小一点 太占屏幕大小了」
+   做法：三行（标题 / 副标题 / 展开）压成一行，内边距和字号都收小。
+   机制没变：仍是 <summary> + CSS 伪元素按 [open] 换字。 */
 .ro-xysp > .ro-xysp-head,
 .ro-aipick > .ro-aipick-head {
-  display: block !important; text-align: center !important;
-  margin: 0 12px 12px !important; padding: 14px 12px !important; border-radius: 10px !important;
+  display: flex !important; align-items: baseline !important;
+  justify-content: center !important; flex-wrap: wrap !important;
+  gap: 0 7px !important; text-align: center !important;
+  margin: 0 12px 8px !important; padding: 7px 10px !important; border-radius: 8px !important;
 }
 .ro-xysp > .ro-xysp-head .ro-xysp-h2,
-.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 15px !important; font-weight: 800 !important; }
+.ro-aipick > .ro-aipick-head .ro-aipick-h2 {
+  font-size: 13.5px !important; font-weight: 800 !important; line-height: 1.35 !important;
+}
 .ro-xysp > .ro-xysp-head .ro-xysp-sub,
 .ro-aipick > .ro-aipick-head .ro-aipick-sub {
-  font-size: 12px !important; color: var(--ro-fg2) !important;
-  margin: 4px 0 0 !important; max-width: none !important; white-space: normal !important;
+  font-size: 10.5px !important; color: var(--ro-fg2) !important;
+  margin: 0 !important; max-width: none !important; white-space: normal !important;
+  line-height: 1.35 !important;
 }
 .ro-xysp > .ro-xysp-head .ro-xysp-arrow,
 .ro-aipick > .ro-aipick-head .ro-aipick-arrow {
-  display: block !important; margin: 6px auto 0 !important;
-  font-size: 12px !important; font-weight: 600 !important;
+  display: inline-block !important; margin: 0 !important;
+  font-size: 10.5px !important; font-weight: 600 !important;
   color: var(--ro-ok) !important; border: 0 !important; border-radius: 0 !important;
-  padding: 0 !important; text-align: center !important;
+  padding: 0 !important; text-align: center !important; line-height: 1.35 !important;
 }
 
 /* ⑧ 开奖号码：2 列卡片 + 24px 球 */
