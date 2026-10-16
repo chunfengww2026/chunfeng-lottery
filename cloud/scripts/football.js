@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "扎维达",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
     "away": {
      "name": "切列波维茨",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "诺维贝尔格莱德U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "布达勒斯U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -159,16 +159,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "拖雷斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "卡斯比II隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -232,16 +232,16 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-10-16 19:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "克斯拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "FK薩法",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 11
     },
@@ -15253,7 +15253,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "同塔",
      "score": 0,
@@ -15319,7 +15319,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "奥布隆",
      "score": 1,
@@ -15385,7 +15385,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "奈蒂沃特马卡比",
      "score": 0,
@@ -15517,7 +15517,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 18:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "切塔罗沃莫斯科青年队",
      "score": 0,
