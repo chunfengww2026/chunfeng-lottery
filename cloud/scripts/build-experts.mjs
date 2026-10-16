@@ -673,10 +673,9 @@ async function runGame(game, cfg, opts, report) {
     const latestRow = st.rows[0];
     if (latestRow && latestRow.detailPath) {
       /* 详情页链接是【根相对路径】（/ex/ssqex/tjxq_x_期号.html），
-         而 httpGet 只吃绝对 URL —— 用专家页的地址当基准拼出来（两种形式都能吃）。 */
+         而 httpGet 只吃绝对 URL —— 用 BASE 拼（BASE 就是抓取用的站点根）。 */
       let detailUrl = '';
-      try { detailUrl = new URL(latestRow.detailPath, e.path).href; }
-      catch (err) { detailUrl = ''; }
+      try { detailUrl = new URL(latestRow.detailPath, BASE + '/').href; } catch (err) { detailUrl = ''; }
       const dr = detailUrl ? await httpGet(detailUrl) : { ok: false, error: '详情页链接拼不出来' };
       await sleep(randDelay());
       if (dr.ok) {
