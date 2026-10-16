@@ -17,11 +17,18 @@
    方式打开，浏览器不允许 fetch 本地文件（CORS）。
    ============================================================ */
 
-const DRAW_KEY = 'cdd.draws.v1';
+const DRAW_KEY = 'cdd.draws.v1';   /* 旧 localStorage 的键名，仅留作注释参考，已不再使用 */
+
+/* 【不再用 localStorage —— 用户明令「不要用 localStorage」】
+   原来这里是 localStorage.getItem/setItem(DRAW_KEY)：把开奖数据缓存在浏览器里。
+   现在只存在下面这个【内存变量】里：刷新页面自然丢失 → 每次重新读 draws.js / 重新拉最新数据。
+   ⚠️ 存的是 JSON 字符串（和原来 localStorage 里存的东西一模一样），
+      所以读取侧的 JSON.parse 逻辑一行都不用改，行为差别只有"刷新后不再有本地覆盖"。 */
+let DRAW_CACHE_JSON = null;
 
 /* ---------------- 读取 ---------------- */
 
-/** 读出全部开奖数据（合并文件数据与本地数据，本地优先） */
+/** 读出全部开奖数据（合并文件数据与内存里的数据，内存优先） */
 function loadDraws() {
   let fromFile = {};
   try {
@@ -33,8 +40,7 @@ function loadDraws() {
 
   let fromLocal = {};
   try {
-    const raw = localStorage.getItem(DRAW_KEY);
-    if (raw) fromLocal = JSON.parse(raw);
+    if (DRAW_CACHE_JSON) fromLocal = JSON.parse(DRAW_CACHE_JSON);
   } catch (e) { /* 忽略 */ }
 
   return Object.assign({}, fromFile, fromLocal);
@@ -50,15 +56,21 @@ function getDrawDataTime() {
   return null;
 }
 
-/** 写入全部开奖数据（仅本地部分） */
+/** 写入全部开奖数据（仅内存部分）—— 不再落 localStorage */
 function saveDraws(all) {
   try {
-    localStorage.setItem(DRAW_KEY, JSON.stringify(all));
+    DRAW_CACHE_JSON = JSON.stringify(all);
     return true;
   } catch (e) {
     console.warn('保存开奖数据失败:', e);
     return false;
   }
+}
+
+/** 清掉内存缓存（latest-draws.js 用：页面顶部已经用新拉到的数据重画过了，
+    不能再让旧的本地覆盖盖回去）—— 原来是 localStorage.removeItem(DRAW_KEY) */
+function clearDrawCache() {
+  DRAW_CACHE_JSON = null;
 }
 
 /** 取某个彩种的最新开奖 */

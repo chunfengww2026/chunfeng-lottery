@@ -114,6 +114,17 @@ const RECO_KERNEL = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
       内核把偏差算出来（drawBias），页面上如实显示，不加说不清的修正系数。 */
 const POISSON = loadVar('jc-poisson.js', 'JC_POISSON');
 
+/* 【多家公司欧赔 + 分歧指数据】
+   ------------------------------------------------------------
+   用户 2026-10-17：「竞彩页卡片上加欧赔对比 + 分歧」。
+   这两份是【比赛详情页】本来就在用的数据，这里只是让竞彩页也读一份：
+     JC_TITAN      主流 12 家公司的 初盘/即时/返还率/凯利（每场还标了参与统计的公司总数）
+     JC_DIVERGENCE 分歧指 —— 各家【即时】欧赔逐方向算的变异系数 cv = 标准差 ÷ 均值
+   口径和 build-match.mjs 的 renderDivergence 保持一致（同一个"分歧"不能两套算法）。
+   ⚠️ 拿不到就整块不显示，绝不用单源硬造（和泊松块同一套原则）。 */
+const TITAN = loadVar('jc-titan.js', 'JC_TITAN');
+const DIVERGENCE = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
+
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
    ------------------------------------------------------------
@@ -866,6 +877,79 @@ function renderPoissonCard(m) {
   return `<div class="m-ps">${head}${line}${grid}${ou}${top}${note}</div>`;
 }
 
+/* 【欧赔对比 + 分歧】比赛卡片里的一块（用户 2026-10-17 要求）
+   ------------------------------------------------------------
+   ⚠️ 算法口径照抄 build-match.mjs 的 renderDivergence：
+      分歧 = 各家【即时】欧赔逐方向算 cv = 标准差 ÷ 均值
+      （用 cv 不用标准差：主胜 1.5 与客胜 8.0 的标准差天然差几倍）
+      档位 cv < 3.0% 低 · 3.0%~5.5% 中 · ≥ 5.5% 高
+   ⚠️ 文案里不写数据源名 / 文件名（项目硬性规则）。
+   ⚠️ 12 家明细平铺（整卡是 <a>，内部不能放可点击的折叠控件）。 */
+function renderMultiCard(m) {
+  const code = String(m.code || '');
+  const tt = (TITAN && TITAN.games) ? TITAN.games[code] : null;
+  const dd = (DIVERGENCE && DIVERGENCE.games) ? DIVERGENCE.games[code] : null;
+  if (!tt && !dd) return '';                 /* 两样都没有 → 整块不显示 */
+
+  const num = (v) => { const n = parseFloat(v); return Number.isFinite(n) ? n : null; };
+  const lvName = (lv) => (lv === '低' || lv === '中' || lv === '高') ? lv : '';
+  const lvCls = (lv) => lv === '低' ? 'lo' : (lv === '高' ? 'hi' : 'mi');
+  /* cv 在数据里是小数（0.046 = 4.6%），和详情页一样 ×100 显示 */
+  const cvPct = (v) => { const n = num(v); return n === null ? '—' : (Math.round(n * 10000) / 100) + '%'; };
+
+  /* 【去掉了 12 家明细】用户 2026-10-17：「卡片上只留分歧 3 档 + 各家区间 + 公司家数」。
+     12 家逐家明细占 ~293px/卡 × 64 张 = +18.8k px，页面到 69061px 太高，
+     而且比赛详情页本来就有完整的 12 家明细 —— 那里看不挤。
+     所以这里标题也跟着改成「欧赔分歧」（明细没了就不再叫"对比"）。 */
+  const head =
+    `<div class="m-mc-head">` +
+    `<span class="m-mc-title">欧赔分歧</span>` +
+    `<span class="m-mc-sub">${dd && dd.companies ? dd.companies + ' 家公司 · 即时盘' : '即时盘'}</span>` +
+    `<span class="m-mc-fun">仅娱乐参考</span>` +
+    `</div>`;
+
+  /* ---- 分歧：三方向档位 + 变异系数 ---- */
+  let dv = '';
+  if (dd && dd.live) {
+    const dirs = [['主胜', 'home'], ['平局', 'draw'], ['客胜', 'away']];
+    dv = `<div class="m-dv">` +
+      dirs.map(([label, k]) => {
+        const d = dd.live[k];
+        if (!d) return '';
+        return `<span class="m-dv-i"><i>${label}</i>` +
+          (lvName(d.level) ? `<b class="${lvCls(d.level)}">${lvName(d.level)}</b>` : '') +
+          `<em>${cvPct(d.cv)}</em></span>`;
+      }).join('') +
+      `</div>`;
+    /* 【去掉了重复的家数行】原来这里还有一行 "N 家公司参与统计 · 分歧＝…"，
+       但标题上已经写了 "N 家公司 · 即时盘"、末尾也讲了算法 —— 重复，去掉。 */
+  }
+
+  /* ---- 即时赔率的区间（"对比"最直观的一眼）---- */
+  let rng = '';
+  if (tt && tt.eu) {
+    const keys = Object.keys(tt.eu);
+    const pick = (idx) => {
+      const vals = keys.map((k) => (Array.isArray(tt.eu[k].l) ? num(tt.eu[k].l[idx]) : null)).filter((v) => v !== null);
+      if (vals.length < 2) return null;
+      return { lo: Math.min.apply(null, vals), hi: Math.max.apply(null, vals) };
+    };
+    const a = pick(0), b = pick(1), c = pick(2);
+    if (a || b || c) {
+      const f = (o) => o ? `${o.lo.toFixed(2)}~${o.hi.toFixed(2)}` : '—';
+      rng = `<div class="m-mc-rng">各家区间 主 <b>${f(a)}</b> · 平 <b>${f(b)}</b> · 客 <b>${f(c)}</b></div>`;
+    }
+  }
+
+  /* 说明只讲分歧的算法（返还率那段随明细一起去掉了）。
+     口径照抄 build-match.mjs：用 cv 不用标准差 —— 主胜 1.5 与客胜 8.0 的
+     标准差天然差几倍，只有变异系数（除以均值）才可比。 */
+  const note = `<div class="m-mc-note">分歧＝各家【即时】欧赔的变异系数 cv（标准差÷均值）` +
+    ` · 低<3% / 中3~5.5% / 高≥5.5% · 越大＝各家公司看法越不一致 · 仅娱乐参考</div>`;
+
+  return `<div class="m-mc">${head}${dv}${rng}${note}</div>`;
+}
+
 function renderMatch(m) {
   const eu = m.odds && m.odds.europe;
   const euV = eu && (eu.live || eu.open);
@@ -982,6 +1066,7 @@ function renderMatch(m) {
     renderScorePick(m) +
     renderAsianCard(m) +
     renderPoissonCard(m) +
+    renderMultiCard(m) +
     (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
 
   return m.code
@@ -1486,7 +1571,9 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
    只是包一层，卡片自身的边框/底色/圆角一个字没动；
    display:block + color:inherit 保证里面的文字颜色不被链接色改掉。 */
 .m-cardlink { display: block; color: inherit; text-decoration: none; cursor: pointer; }
-.m-cardlink:active .m-card { background: #1b2029; }
+/* 【修】原来这里是 #1b2029（深色主题遗留）—— 米杏主题下按下卡片会闪一下深蓝黑。
+   换成米杏的深一档（--ro-sunken 再压深），按下只是"按下去"的感觉。 */
+.m-cardlink:active .m-card { background: #eadfc8; }
 /* 卡片右下角那句「看这场数据 ›」，提示这卡能点 */
 .m-godetail { display: block; margin-top: 8px; text-align: right;
   font-size: 11.5px; font-weight: 700; color: #47e0a0; }
@@ -2331,6 +2418,33 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
   .m-team { white-space: normal !important; overflow: visible !important;
     overflow-wrap: break-word !important; }
 }
+
+
+/* ============ 欧赔对比 + 分歧（用户 2026-10-17：竞彩页卡片上也要）============
+   ⚠️ 卡片整体是 <a>，所以这里【不能有可点击元素】—— 明细平铺，两列。 */
+.m-mc { margin-top: 8px; padding: 10px 12px; background: #f3e6d0;
+  border: 1px solid #e8d7bd; border-radius: 10px; }
+.m-mc-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.m-mc-title { font-size: 12.5px; font-weight: 700; color: #4a3a26; }
+.m-mc-sub { font-size: 10.5px; color: #a2937c; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-mc-fun { margin-left: auto; font-size: 10.5px; color: #a2937c;
+  border: 1px solid #e8d7bd; border-radius: 20px; padding: 1px 8px; }
+.m-dv { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 4px; }
+.m-dv-i { display: flex; align-items: center; gap: 5px; background: #fdf6ea;
+  border: 1px solid #e8d7bd; border-radius: 8px; padding: 5px 8px; min-width: 0; }
+.m-dv-i i { font-style: normal; font-size: 10.5px; color: #8a7a63; }
+.m-dv-i b { font-size: 10.5px; font-weight: 700; border-radius: 20px; padding: 0 6px; }
+.m-dv-i b.lo { background: #e3f2ea; color: #1a8c5a; }
+.m-dv-i b.mi { background: #fff6dd; color: #9c7000; }
+.m-dv-i b.hi { background: #fdeceb; color: #c0392b; }
+.m-dv-i em { font-style: normal; margin-left: auto; font-size: 10.5px; color: #a2937c;
+  font-family: Consolas, monospace; }
+.m-dv-sum { font-size: 10.5px; color: #a2937c; line-height: 1.7; margin-bottom: 5px; }
+.m-mc-rng { font-size: 11px; color: #8a7a63; line-height: 1.7; margin-bottom: 6px; }
+.m-mc-rng b { color: #4a3a26; font-family: Consolas, monospace; }
+/* 【去掉了 12 家明细】.m-mc-grid / .m-mc-r 的样式已删（卡片上不放 12 家明细了）。 */
+.m-mc-note { font-size: 10.5px; color: #a2937c; line-height: 1.7; }
 
 `;
 
