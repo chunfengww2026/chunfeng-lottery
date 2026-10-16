@@ -928,10 +928,29 @@ export async function runTtFetch() {
   for (let ci = 0; ci < CATEGORIES.length; ci++) {
     const C = CATEGORIES[ci];
     const fresh = [];
-    log(`  ── ${C.name}（${C.searches.length} 个关键词 · 发布窗口 ${C.pubHours} 小时 · 兜底 ${C.keepHours} 小时 · 上限 ${C.max}）──`);
 
-    for (let i = 0; i < C.searches.length; i++) {
-      const s = C.searches[i];
+    /* 【关键词轮换】rotate 是每轮实际抓几个词（不写 = 全抓）。
+       轮换用【当前 10 分钟槽位】当游标：同一个槽位每次跑都取同一批词，
+       所以「这一轮抓哪几个」是可复现的，不会随机跳来跳去。
+       ⚠️ 顺序上，第一个词（晒票）是基线，每轮都要抓 —— 保证"最新那一批"
+          一定进来；剩下的词轮换补量。 */
+    const allKw = C.searches;
+    let picked = allKw;
+    if (C.rotate && C.rotate < allKw.length) {
+      const base = allKw[0];
+      const rest = allKw.slice(1);
+      const slots = Math.ceil(rest.length / Math.max(1, C.rotate - 1));
+      const slot = Math.floor(now / (10 * 60 * 1000)) % slots;      /* 10 分钟一个槽 */
+      const start = slot * (C.rotate - 1);
+      const chunk = rest.slice(start, start + (C.rotate - 1));
+      picked = [base].concat(chunk.length ? chunk : rest.slice(0, C.rotate - 1));
+    }
+
+    log(`  ── ${C.name}（本轮抓 ${picked.length}/${allKw.length} 个关键词 · 发布窗口 ${C.pubHours} 小时 · 兜底 ${C.keepHours} 小时 · 上限 ${C.max}）──`);
+    log(`     本轮关键词：${picked.map((x) => x.kw).join(' / ')}`);
+
+    for (let i = 0; i < picked.length; i++) {
+      const s = picked[i];
       if (i > 0 || ci > 0) await sleep(GAP_MS);       /* 请求间隔 >= 1.2s */
       httpTotal++;
       const url = BASE + encodeURIComponent(s.kw);
@@ -965,7 +984,7 @@ export async function runTtFetch() {
     const uniq = new Map();
     for (const it of fresh) if (!uniq.has(it.img)) uniq.set(it.img, it);
     const freshList = [...uniq.values()];
-    log(`     小结：${C.searches.length} 个关键词 · 解析到 ${freshList.length} 条图片`);
+    log(`     小结：本轮 ${picked.length} 个关键词（共 ${allKw.length} 个在轮换）· 解析到 ${freshList.length} 条图片`);
 
     const rec = { key: C.key, name: C.name, file: C.file, fresh: freshList.length, ok: false, kept: 0 };
 
@@ -989,7 +1008,7 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃 ${stat.dropped} 条 [发布超 ${pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
+      `（丢弃 ${stat.dropped} 条 [发布超 ${C.pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
