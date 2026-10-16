@@ -949,17 +949,20 @@ const REC_LOW = REC_ALL.filter((r) => r.conf < REC_MIN);
 const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.conf)) : null;
 
 /* 【推荐串红黑条 · 内层 HTML】—— 抽成函数只为了【一处渲染、两处使用】：
-   页面里是 <div class="record" id="jcRecStat">…</div>，
+   页面里是 <span class="m-recstat" id="jcRecStat">…</span>（在「推荐串」那一行的标题里），
    30 秒刷新用的 jc-reco-view.js 里也放这同一串（换 innerHTML）。
+   ⚠️ 用户 2026-10-17：「把这一栏移除，功能放到下面显示」
+      → 原来悬在列表上方那条独立的战绩条搬进了「推荐串」入口行，
+        所以这里【不再输出「推荐串」这三个字】（行标题里已经有了，否则重复两遍）。
    ⚠️ 数字口径一个字没动：没比对出来就是 0/—，绝不用 0 冒充"算过了"。 */
 function recoStatBarInner() {
-  return `<span class="t">推荐串</span>` +
-    `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
+  const note = REC_STAT
+    ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
+    : '暂未开始统计';
+  return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
     `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
     `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
-    `<span class="n">（推荐串比对最终比分 · 前后 24 小时 · ${REC_STAT
-      ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
-      : '暂未开始统计'}）</span>`;
+    `<span class="n">（前后 24 小时 · ${note}）</span>`;
 }
 
 /* ============================================================
@@ -967,12 +970,16 @@ function recoStatBarInner() {
    ============================================================ */
 function renderRec() {
   /* __FB_ENTRY_ROW__ 和三个分段同一套「横排 entry 行」：
-     左「推荐串」+ 副标题（在售 · 信心 ≥55% · N 场），右「点击查看」。
-     ⚠️ 还是 <details>/<summary> 折叠；[open] 切换靠 .m-rec[open] 的 ::after。 */
+     左「推荐串」+ 战绩数字 + 副标题（在售 · 信心 ≥55% · N 场），右「点击查看」。
+     ⚠️ 还是 <details>/<summary> 折叠；[open] 切换靠 .m-rec[open] 的 ::after。
+     ⚠️【战绩数字在这一行里】用户 2026-10-17：「把这一栏移除，功能放到下面显示」
+        —— 顶部那条独立战绩条搬到这里（原来悬在列表上方，和下面这一行重复）。
+        id="jcRecStat" / data-reco-updated 两个属性【必须保留】：30 秒刷新脚本按它们找。 */
   const head =
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
     `<span class="t m-rectitle">推荐串</span>` +
+    `<span class="m-recstat" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</span>` +
     `<span class="d m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
     `</span>` +
     `<span class="right m-rectip" aria-hidden="true"></span>` +
@@ -1767,6 +1774,14 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-subhead { color: #4a3a26 !important; }
 .m-subcount, .m-reccount { background: #f3e6d0 !important; color: #8a7a63 !important; }
 .m-rechead .m-rectitle { color: #4a3a26 !important; }
+/* ③b 【推荐串战绩数字】从顶部那条搬进「推荐串」入口行（用户 2026-10-17 要求）：
+   沿用原来那条的配色（红=#c0392b / 黑与备注=#8a7a63），不引新色。 */
+.m-recstat { display: inline-flex !important; align-items: center !important; gap: 8px !important;
+  flex-wrap: wrap !important; font-size: 12.5px !important; line-height: 1.5 !important; }
+.m-recstat .h { color: #c0392b !important; font-weight: 700 !important; }
+.m-recstat .m { color: #8a7a63 !important; font-weight: 700 !important; }
+.m-recstat .r { color: #c0392b !important; font-weight: 700 !important; }
+.m-recstat .n { color: #8a7a63 !important; font-size: 11px !important; }
 /* ④ 模拟计算底栏：浅色（功能不动） */
 .calc-bar { border-top-color: #efe2cc !important; }
 .calc-stat { color: #8a7a63 !important; }
@@ -2245,10 +2260,13 @@ ${nav}
     <span class="h">红 ${stat.hit}</span>
     <span class="m">黑 ${stat.miss}</span>
     <span class="r">命中率 ${stat.rate}%</span>
-    <span class="n">（推荐胜负平比对最终比分）</span>
+    <span class="n">（推荐比对最终比分）</span>
   </div>` : ''}
 
-  <div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</div>
+  <!-- 【推荐串战绩数字】已搬到下面「推荐串」那一行的标题里
+       （用户 2026-10-17：「把这一栏移除，功能放到下面显示」）。
+       原来这里是一条独立的 <div class="record" id="jcRecStat">，现在不在这个位置了；
+       30 秒刷新脚本仍按 id="jcRecStat" 找它 —— 它在 renderRec() 的 summary 里。 -->
 
   ${renderRec()}
   </div>
