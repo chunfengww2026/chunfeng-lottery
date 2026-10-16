@@ -882,18 +882,16 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
   font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }
 .ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
 
-/* ① 顶部 Tab（同款：未选中灰、选中绿 + 2px 短线） */
-.top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px; }
-.top-tabs .tab { flex: 1; text-align: center; padding: 12px 8px; font-size: 14px;
-  font-weight: 600; color: var(--ro-fg2); text-decoration: none; position: relative; }
-.top-tabs .tab.on { color: var(--ro-ok); font-weight: 700; }
-.top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
-  bottom: 0; height: 2px; background: var(--ro-ok); border-radius: 2px; }
+/* ① 顶部 Tab —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
+      原因：走势图.html 会被分享页用 <iframe> 嵌进折叠块里，
+      在 iframe 内点「彩票推荐 / 竞彩场次」会跳出当前页、体验很怪；
+      而只剩「走势图」一个 Tab 没意义、还白占一行 → 连 HTML 带样式一起删。
+      ⚠️ 别复活：删掉后首屏第一个可见元素就是下面 ② 那行小字。 */
 
-/* ② 主标题 */
-.ro-top { padding: 22px 12px 8px; text-align: center; }
-.ro-top h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--ro-ok); letter-spacing: 1px; }
-.ro-top .sub { margin-top: 8px; font-size: 12px; color: var(--ro-fg2); }
+/* ② 页眉小字（原来的大标题「春风十里送大奖」也按用户要求删了，只留这行说明）
+      上边距给足：顶部 Tab 和大标题都没了，这里就是首屏第一块内容 */
+.ro-top { padding: 18px 12px 10px; text-align: center; }
+.ro-top .sub { margin-top: 0; font-size: 12px; color: var(--ro-fg2); }
 
 /* ③ 提示条（米黄底） */
 .ro-status { margin: 0 0 14px; border-radius: 10px; padding: 12px 14px; font-size: 13px;
