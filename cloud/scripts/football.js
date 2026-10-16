@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "福建南安成功(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "河南萬仙山(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "上海申花上體(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "青島西海岸(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -15825,7 +15825,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-16 14:00:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "水邊卡羅里(女)",
      "score": 1,
