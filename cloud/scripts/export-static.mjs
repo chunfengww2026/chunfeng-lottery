@@ -134,7 +134,7 @@ const FILES = ['games.js', 'draws.js', 'history.js', 'draw-data.js', 'algo.js',
                /* 【热力图】按天出的实票统计图靠它取数；文件缺失时
                   shouldShowHeatmap 不存在 → 热力图自动不出，其余图不受影响 */
                'heatmap-data.js',
-               /* 【文章参考】文章列表数据（build-articles.mjs 每 30 分钟抓一次）。
+               /* 【文件参考】文章列表数据（build-articles.mjs 每 30 分钟抓一次）。
                   文件缺失时只打印一行「缺少」，页面显示「本期暂无」——
                   绝不能因为这个文件不在就让整页生成失败。
                   ⚠️ 只在服务端预渲染时读；不放进 INLINE_JS，
@@ -215,7 +215,7 @@ vm.runInContext(`
   globalThis.__latestHeatmapSectionHtml = (typeof latestHeatmapSectionHtml === 'function') ? latestHeatmapSectionHtml : null;
   /* 【最新开奖】区块的稳定 id（来自 latest-draws.js）—— 客户端靠它定位替换 */
   globalThis.__latestDrawsId = (typeof LATEST_DRAWS_ID !== 'undefined') ? LATEST_DRAWS_ID : 'ro-latest';
-  /* 【文章参考】区块的数据（来自 articles-data.js，build-articles.mjs 生成）。
+  /* 【文件参考】区块的数据（来自 articles-data.js，build-articles.mjs 生成）。
      没有这个文件时是 null → 页面出「本期暂无」，不影响别的区块。 */
   globalThis.__articles = (typeof ARTICLES_DATA !== 'undefined') ? ARTICLES_DATA : null;
   /* 【开机号 / 选号直播】的数据（来自 kjh-data.js，build-kjh.mjs 每天 2 点生成）。
@@ -238,7 +238,7 @@ const latestBlockMode = ctx.__latestBlockMode;
 const latestBlockHtmlFn = ctx.__latestBlockHtml;
 const latestHeatmapSectionHtml = ctx.__latestHeatmapSectionHtml;
 const LATEST_DRAWS_ID = ctx.__latestDrawsId || 'ro-latest';
-/* 【文章参考】数据（articles-data.js；缺失时为 null） */
+/* 【文件参考】数据（articles-data.js；缺失时为 null） */
 const ARTICLES = ctx.__articles;
 /* 【开机号 / 选号直播】数据（kjh-data.js；缺失时为 null） */
 const KJH = ctx.__kjh;
@@ -758,7 +758,7 @@ const tocHtml =
   `</div>`;
 
 /* ============================================================
-   【文章参考】区块（用户新增需求 + 2026-10-16 改版）
+   【文件参考】区块（用户新增需求 + 2026-10-16 改版）
    ------------------------------------------------------------
    数据：articles-data.js（build-articles.mjs 抓取，每小时 :16 一次）
    位置：紧跟【最新开奖】下面 —— 也就是原来「彩票推荐图」那条分隔条的位置
@@ -792,7 +792,7 @@ function articleHref(u) {
   return escapeAttr(String(u == null ? '' : u)).replace(/yiqicai/gi, 'yiqic&#97;i');
 }
 
-/* 文章参考 · 正文的每个元素单独一段（段落文字 / 图片）——
+/* 文件参考 · 正文的每个元素单独一段（段落文字 / 图片）——
    HTML 里【不出现用户内容之外的标签样字面量】，所以这样铺开写。 */
 function artBodyHtml(body) {
   if (!Array.isArray(body) || !body.length) return '';
@@ -867,7 +867,7 @@ function buildArticlesHtml() {
 
   return `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
-    `<h2 class="ro-art-title">文章参考</h2>` +
+    `<h2 class="ro-art-title">文件参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
     ` · <span id="__ART_CD__">更新倒计时 --:--</span>` +   /* __ART_CD__ 用户要求：改成更新倒计时 */
     `</div>` +
@@ -877,7 +877,7 @@ function buildArticlesHtml() {
 }
 
 const articlesHtml = buildArticlesHtml();
-console.log(`  · 文章参考：${ART_ORDER.map((k) => {
+console.log(`  · 文件参考：${ART_ORDER.map((k) => {
   const g = ARTICLES && ARTICLES.games ? ARTICLES.games[k] : null;
   return ART_SHORT_NAME[k] + ' ' + ((g && g.items) ? g.items.length : 0) + ' 条';
 }).join(' / ')}`);
@@ -1353,7 +1353,7 @@ const aiPickHtml = buildAiPickHtml();
    数据：kjh-data.js（build-kjh.mjs 每天 2 点抓一次，跟着 daily-update.mjs）。
    两个区块都是纯文字（没有图片）→ 图位数量（data-image）不变。
    ⚠️ 页面上【不出现来源字样】：链接域名里的字母用 HTML 实体写
-      （复用文章参考那个 articleHref，href 里有域名、页面上看不到）。
+      （复用文件参考那个 articleHref，href 里有域名、页面上看不到）。
    ============================================================ */
 const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
 
@@ -2796,7 +2796,7 @@ body.ro-mob-open { overflow: hidden; }
 }
 
 /* ============================================================
-   【文章参考】区块样式（用户新增需求）
+   【文件参考】区块样式（用户新增需求）
    ------------------------------------------------------------
    跟页面现有暗色风格一致（复用 #161a21 / #262d3a / #e8eaed 这套配色）。
    窄屏：一列一列竖着排（每个彩种一块）
@@ -2828,7 +2828,7 @@ body.ro-mob-open { overflow: hidden; }
 /* ============================================================
    __CENTER_HEAD__ 三个区块标题【居中】+ 去掉副标题重叠
    ------------------------------------------------------------
-   用户要求：「居中」（截图圈了 晒票栏 / 最新开奖 / 文章参考）。
+   用户要求：「居中」（截图圈了 晒票栏 / 最新开奖 / 文件参考）。
    原来的写法是 display:flex + align-items:baseline + flex-wrap:wrap，
    窄屏时副标题会被挤到标题同一行、甚至压在上面 —— 一并修掉。
    只影响这三个区块，别处不动。
@@ -2920,7 +2920,7 @@ body.ro-mob-open { overflow: hidden; }
 .ro-art-group:not([open]) > summary.ro-art-gname .ro-art-tip::after { content: '点击查看'; }
 .ro-art-group:not([open]) > summary.ro-art-gname { margin-bottom: 0; }
 
-/* —— 文章参考 · 正文（点标题原地展开阅读）——
+/* —— 文件参考 · 正文（点标题原地展开阅读）——
    用户原话：「微信把 yiqicai.com 拉黑了，点链接跳过去打不开
              → 要把正文抓到我们页面上」。
    默认全部收起：正文 display:none，只有 [data-ro-art] 那一块被 .ro-art-item.ro-art-open
@@ -2991,7 +2991,7 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    用户原话：「区块标题改成缩小版卡片样式」，并选了方案 C：
      · 只改 .ro-xysp（晒票）和 .ro-aipick（GPT模型摇号）两个区块的 <summary>
-     · 其它区块（最新开奖 / 文章参考 / 开机号 / 选号直播 / 推荐图目录 / 竞彩页）
+     · 其它区块（最新开奖 / 文件参考 / 开机号 / 选号直播 / 推荐图目录 / 竞彩页）
        【保持原来的纵向居中】，一个都不动
    样式：
      左：标题（15~16px 粗体）+ 副标题（11px 灰，单行省略号）
@@ -3934,10 +3934,135 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-mob-view { background: #0b0d11 !important; }
 .ro-mob-tip, .ro-mob-err { color: #c8cfda !important; }
 #mask { background: rgba(0, 0, 0, 0.96) !important; }
+
+/* ============================================================
+   __LAYOUT__ 推荐页布局（按用户给的设计）
+   ------------------------------------------------------------
+   页面顺序（模板里已经是这个，本轮没动结构）：
+     Tab → 主标题 → 提示条 → 推荐图目录 → 开机号/选号直播
+       → 晒票 → GPT模型摇号 → 开奖号码 → 文件参考
+   这一整块【只加样式，不动功能】：倒计时 / 看图 / 折叠 / 展开 全部保留。
+   ⚠️ 全部用变量色（--ro-*），米杏色主题自动生效。
+   ⚠️ ⑥⑦ 晒票和 GPT 摇号从上一版的【横排】改回【居中单卡片】
+      （用户最终要居中；上一版横排是我按更早的要求做的，这里改回）。
+   ============================================================ */
+/* ① 顶部 Tab */
+.top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px; }
+.top-tabs .tab { flex: 1; text-align: center; padding: 12px 8px; font-size: 14px;
+  font-weight: 600; color: var(--ro-fg2); text-decoration: none; position: relative; }
+.top-tabs .tab.on { color: var(--ro-ok); font-weight: 700; }
+.top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
+  bottom: 0; height: 2px; background: var(--ro-ok); border-radius: 2px; }
+#owner-badge { font-size: 12px !important; color: var(--ro-ok) !important;
+  background: #e3f2ea !important; border: 1px solid #b7e4cd !important;
+  border-radius: 14px !important; padding: 4px 10px !important; }
+
+/* ② 主标题：居中 · 22px · 800 · 绿 */
+.ro-top { padding: 22px 12px 14px !important; }
+.ro-top h1 { font-size: 22px !important; font-weight: 800 !important;
+  color: var(--ro-ok) !important; letter-spacing: 1px; }
+.ro-top .sub { font-size: 12px !important; color: var(--ro-fg2) !important; }
+
+/* ③ 提示条：米黄底 + 暖边框 */
+.ro-status { margin: 0 12px 16px !important; border-radius: 10px !important;
+  padding: 12px 14px !important; font-size: 13px !important; line-height: 1.8; }
+.ro-status .ro-st-head { font-size: 13px !important; }
+.ro-status .ro-st-time { color: var(--ro-danger) !important; font-weight: 700; }
+
+/* ④ 推荐图目录：2 列网格 · 卡片 · 红字 */
+.ro-imgtoc-wrap { background: transparent !important; border: 0 !important; padding: 0 !important; }
+.ro-imgtoc-head { padding: 0 12px 8px; }
+.ro-imgtoc-title { text-align: center; font-size: 15px; font-weight: 700; }
+.ro-imgtoc-sub { text-align: center; font-size: 12px; color: var(--ro-fg2); }
+.ro-imgtoc { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important; padding: 0 12px 20px !important; width: auto !important; }
+.ro-imgtoc tbody, .ro-imgtoc tr { display: contents !important; }
+.ro-imgtoc td { display: block !important; padding: 0 !important; border: 0 !important; }
+.ro-toc-cell { display: block !important; background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important; border-radius: 10px !important;
+  padding: 14px 8px !important; text-align: center !important; text-decoration: none !important;
+  font-size: 14px !important; font-weight: 700 !important; color: var(--ro-danger) !important; }
+
+/* ⑤ 开机号 / 选号直播：2 列 */
+.ro-tools { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important; padding: 0 12px 16px !important; }
+.ro-tool { display: block !important; background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important; border-radius: 10px !important;
+  padding: 14px 8px !important; text-align: center !important; text-decoration: none !important; }
+.ro-tool b { display: block; font-size: 14px; font-weight: 700; color: var(--ro-fg) !important; }
+.ro-tool em { display: block; margin-top: 3px; font-style: normal;
+  font-size: 11px; color: var(--ro-fg2) !important; }
+
+/* ⑥⑦ 晒票 / GPT模型摇号：居中单卡片（覆盖上一版的横排） */
+.ro-xysp > .ro-xysp-head,
+.ro-aipick > .ro-aipick-head {
+  display: block !important; text-align: center !important;
+  margin: 0 12px 12px !important; padding: 14px 12px !important; border-radius: 10px !important;
+}
+.ro-xysp > .ro-xysp-head .ro-xysp-h2,
+.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 15px !important; font-weight: 800 !important; }
+.ro-xysp > .ro-xysp-head .ro-xysp-sub,
+.ro-aipick > .ro-aipick-head .ro-aipick-sub {
+  font-size: 12px !important; color: var(--ro-fg2) !important;
+  margin: 4px 0 0 !important; max-width: none !important; white-space: normal !important;
+}
+.ro-xysp > .ro-xysp-head .ro-xysp-arrow,
+.ro-aipick > .ro-aipick-head .ro-aipick-arrow {
+  display: block !important; margin: 6px auto 0 !important;
+  font-size: 12px !important; font-weight: 600 !important;
+  color: var(--ro-ok) !important; border: 0 !important; border-radius: 0 !important;
+  padding: 0 !important; text-align: center !important;
+}
+
+/* ⑧ 开奖号码：2 列卡片 + 24px 球 */
+#ro-latest .hc-drawgrid { display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+#ro-latest .hc-drawcard { background: #f9efdd !important; border: 1px solid var(--ro-line) !important;
+  border-radius: 10px !important; padding: 12px 10px !important; }
+#ro-latest .hc-dt { display: flex !important; justify-content: space-between !important;
+  align-items: baseline !important; gap: 6px; font-size: 12px !important; color: var(--ro-fg2) !important; }
+#ro-latest .hc-dt b { font-weight: 700 !important; color: var(--ro-fg) !important; }
+#ro-latest .hc-cd, #ro-latest .hc-countdown { font-size: 11px !important; color: var(--ro-danger) !important; }
+#ro-latest .hc-balls, #ro-latest .hc-nums { display: flex !important; flex-wrap: wrap !important; gap: 4px !important; margin-top: 8px; }
+#ro-latest .hc-ball { width: 24px !important; height: 24px !important; line-height: 24px !important;
+  border-radius: 50% !important; font-size: 12px !important; text-align: center !important;
+  background: var(--ro-danger) !important; color: #fff !important; font-weight: 700; }
+#ro-latest .hc-ball.blue { background: #1f5fd6 !important; }
+#ro-latest .hc-ball.gold, #ro-latest .hc-ball.special { background: #d9a300 !important; }
+#ro-latest .ro-gamehead h2 { text-align: center !important; font-size: 15px !important; font-weight: 700 !important; }
+#ro-latest .ro-gamehead .ro-meta { text-align: center !important; font-size: 12px !important; color: var(--ro-fg2) !important; }
+
+/* ⑨ 文件参考：2 列卡片 */
+.ro-art-head { padding: 0 12px 8px; }
+.ro-art-title { text-align: center !important; font-size: 15px !important; font-weight: 700 !important; }
+.ro-art-sub { text-align: center !important; font-size: 11px !important; color: var(--ro-danger) !important; }
+.ro-art-groups { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important; padding: 0 12px 20px !important; background: transparent !important; border: 0 !important; }
+.ro-art-group { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important;
+  border-radius: 10px !important; padding: 12px !important; margin: 0 !important; }
+.ro-art-group > summary.ro-art-gname { display: flex !important; align-items: center !important;
+  justify-content: space-between !important; font-size: 13px !important; font-weight: 700 !important;
+  cursor: pointer; list-style: none; }
+.ro-art-group > summary.ro-art-gname i { font-style: normal; font-size: 12px !important;
+  color: var(--ro-fg2) !important; font-weight: 400; }
+.ro-art-group > summary.ro-art-gname .ro-art-tip::after { content: '点击查看'; font-size: 12px; color: var(--ro-ok) !important; }
+.ro-art-group[open] > summary.ro-art-gname .ro-art-tip::after { content: '点击收起'; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 <div class="ro-wrap">
+
+  <!-- ============================================================
+       __TOP_TABS__ 顶部 Tab（彩票推荐 / 竞彩场次）+ 管理员徽章
+       用户设计：flex 横排 · 底部 1px 边框 · 未选中灰、选中绿+2px 短线。
+       ⚠️ 都是 <a>（页面不变量：没有按钮标签）。
+       ⚠️ 「竞彩场次」跳的是足球页；当前页（彩票推荐）带 .on。
+       徽章 #owner-badge 是原有元素（owner 才显示），这里只把它挪进 Tab 条右侧。
+       ============================================================ -->
+  <div class="top-tabs">
+    <a class="tab on" href="./">彩票推荐</a>
+    <a class="tab" href="足球推荐.html">竞彩场次</a>
+  </div>
 
   <!-- ============================================================
        【防截图 · 保护容器 #article】
@@ -4117,7 +4242,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   ${latestSecHtml}
 
   <!-- ============================================================
-       【文章参考】用户要求：放在【最新开奖】下面、
+       【文件参考】用户要求：放在【最新开奖】下面、
        「推荐图目录 / 推荐图」上面（= 原来「彩票推荐图」分隔条的位置）。
        纯文字区块：不含任何图片，所以图位数量不变。 -->
   ${articlesHtml}
@@ -5070,7 +5195,7 @@ ${RO_RENDER_SCRIPT}
 })();
 </script>
 
-<!-- __ART_CD_JS__ 文章参考·更新倒计时（每 1 小时一次，目标 = 下一个 :16:00 北京时间）
+<!-- __ART_CD_JS__ 文件参考·更新倒计时（每 1 小时一次，目标 = 下一个 :16:00 北京时间）
      纯前端计算，不联网、不调 AI → 免费。 -->
 <script>
 (function () {
@@ -5099,7 +5224,7 @@ ${RO_RENDER_SCRIPT}
 })();
 </script>
 
-<!-- __ART_BODY_JS__ 文章参考·正文原位展开（方案 A）
+<!-- __ART_BODY_JS__ 文件参考·正文原位展开（方案 A）
      用户原话：「要把正文抓到我们页面上」→ 点标题在标题下面原地展开正文，
      再点一次收起。【默认全部收起】。
      这一段只做两件事：切 .ro-art-open 这个 class + 展开时把正文顶端拉进视口。
