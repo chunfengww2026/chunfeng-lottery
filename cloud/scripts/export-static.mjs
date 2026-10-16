@@ -7025,8 +7025,12 @@ ${RO_RENDER_SCRIPT}
           st.src = attr(node, 'data-ro-aipick-src') === 'manual' ? 'manual' : 'random';
           syncSrc();
           if (st.src === 'manual') {
-            /* 切到自选：清掉之前摇出来的号，提示去点号码 */
-            st.rows = []; st.betCount = 0; drawOut(); refresh();
+            /* 切到自选：清掉之前摇出来的号【和格子里的勾选】，让你从头点。
+               ⚠️ 光清 st.rows 不够：摇号会把号镜像进格子（st.pick），
+                  那些勾还在的话，再点几个会累加成超大复式 ——
+                  实测：先摇 6+2、再点 5+2 → 变成 11+4 = 2772 注 5544 元。 */
+            st.rows = []; st.betCount = 0; st.pick = {}; drawPicker(G());
+            drawOut(); refresh();
             if (warnBox) { warnBox.textContent = '自选：点下面的号码，选够个数就算好注数'; show(warnBox, true); }
           } else {
             if (warnBox) show(warnBox, false);
