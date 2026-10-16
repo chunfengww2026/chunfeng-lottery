@@ -302,7 +302,16 @@ async function main() {
     log('');
   }
 
-  const now = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  /* 【时区·别再改回 toISOString】必须用【北京时间】。
+     原来这里是 new Date().toISOString() —— 那是 UTC，比北京时间早 8 小时。
+     实测（2026-10-17）：history.js 的 mtime 是 10-17 02:00:05，文件头和
+     updated 却写 10-16 18:00:05；而走势图页 build-trend.mjs 把 updated 直接
+     印成「数据快照 …」⇒ 用户看到的时间永远差 8 小时。
+     项目里其它数据文件（heatmap / xysp-tt / jc / kjh）用的都是本地时间戳，
+     build-history 与 build-draws 这两处是唯二的例外，统一改成同一口径。 */
+  const _d = new Date(), _p2 = (x) => String(x).padStart(2, '0');
+  const now = `${_d.getFullYear()}-${_p2(_d.getMonth() + 1)}-${_p2(_d.getDate())} `
+    + `${_p2(_d.getHours())}:${_p2(_d.getMinutes())}:${_p2(_d.getSeconds())}`;
   const js = `/* 自动生成，请勿手动编辑 · ${now} */\n` +
     `const DRAW_HISTORY = ${JSON.stringify({ updated: now, count: COUNT, games: out }, null, 1)};\n`;
   fs.writeFileSync(OUT_JS, js, 'utf8');
