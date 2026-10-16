@@ -258,6 +258,11 @@ function sameTeam(a, b) {
 
 const dayOf = (t) => String(t || '').slice(0, 10);
 
+/** 「现在」的北京时间墙钟（和 jc-data / jc-history 里 '2026-10-17 06:07' 同一口径）。
+ *  用途：判断某场的开赛时间是不是还没到 —— 见 prep() 里那段「按开赛时间如实分档」。
+ *  ⚠️ 不能用 new Date() 的 UTC 值直接比：数据里写的是北京时间。 */
+const nowCN = () => new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 16).replace('T', ' ');
+
 /** 找 football.js 里对应的那场（用来拿比分 / 实时状态）
  *  ⚠️ 两级匹配（2026-10-17 补：用户要求「已完场要有比分显示」）：
  *     ① 先按【同一天 ±1 天 + 主客队名都认得】—— 最稳，能拿到实时比分和分钟数
@@ -497,7 +502,20 @@ function prep(g) {
   }
 
   const hasScore = hs !== null && hs !== undefined && as !== null && as !== undefined;
-  const kind = g.status || 'upcoming';
+  let kind = g.status || 'upcoming';
+
+  /* 【已完场要有比分显示】用户 2026-10-17 追加。
+     实测发现：归档（jc-history）里有些场次【还没开赛就被归档成了 finished】——
+     10-18 那 33 场，时间都在「现在」之后，比分自然拿不到，
+     于是卡片上就只能显示「—」，用户看到的就是"已完场没有比分"。
+     正解不是编一个比分，而是【按开赛时间如实分档】：
+       没比分 + 开赛时间还没到 → 它不是"已完场"，退回「未开赛」。
+     这样「已完场」里剩下的每一场要么有比分，要么是真·记录缺失（会显示 — 并说明）。
+     ⚠️ 只动【没有比分】的那些：有比分的归档一律保持 finished
+        （有比分 = 确实踢完了，开赛时间写在未来只是数据源口径问题）。 */
+  if (kind === 'finished' && !hasScore && g.time && String(g.time) > nowCN()) {
+    kind = 'upcoming';
+  }
 
   /* 判定结果 */
   let result = null;
