@@ -2397,7 +2397,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 59,
+    "minute": 61,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
@@ -2853,7 +2853,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "庞特普雷塔",
      "score": 0,
