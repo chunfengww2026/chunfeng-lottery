@@ -45,14 +45,25 @@ export const P3D_CSS = `
   border-radius: 10px;
 }
 .p3d-head {
-  display: flex; align-items: center; justify-content: space-between;
+  /* 【标题居中】用户 2026-10-17：「手绘参考图」原来左对齐 → 居中
+     （和晒票 / GPT模型摇号那两个折叠入口行是同一套居中做法）。
+     做法：标题撑满整行 + text-align:center；右端「点击查看/收起」绝对定位，
+     这样标题落在【整行】正中，而不是被右侧提示挤得偏左。 */
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
   gap: 10px; padding: 12px 14px; cursor: pointer;
-  list-style: none; user-select: none;
+  list-style: none; user-select: none; text-align: center;
 }
 .p3d-head::-webkit-details-marker { display: none; }
 .p3d-head::marker { content: ''; }
-.p3d-head-t { font-size: 14px; font-weight: 600; color: var(--ro-fg); }
-.p3d-head-tip { font-size: 12px; font-weight: 400; color: var(--ro-ok); white-space: nowrap; }
+/* 标题左右各留 56px：正好避开右端「点击查看/收起」（4 字 ×12px ≈ 48px），窄屏不重叠 */
+.p3d-head-t { flex: 1 1 auto; padding: 0 56px; text-align: center;
+  font-size: 14px; font-weight: 600; color: var(--ro-fg); }
+/* 副标题「（民间3D/排三）」：小字、常规字重，跟在主标题后面 */
+.p3d-head-sub { font-style: normal; font-size: 12px; font-weight: 400;
+  color: var(--ro-fg2); margin-left: 4px; }
+.p3d-head-tip { position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 12px; font-weight: 400; color: var(--ro-ok); white-space: nowrap; }
 .p3d-section[open] > .p3d-head .p3d-head-tip::after { content: '点击收起'; }
 .p3d-section:not([open]) > .p3d-head .p3d-head-tip::after { content: '点击查看'; }
 .p3d-body {
@@ -398,11 +409,12 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
 
   return `<details class="p3d-section" id="p3dSection">` +
     /* 【可折叠】用户要求：「这里可折叠可展开，就写『手绘参考图』」。
-       入口行只写泛称「手绘参考图」；里面 #p3dTitle 仍然是按彩种的标题
+       入口行 = 泛称 + 括注小字「手绘参考图（民间3D/排三）」（2026-10-17 改名）；
+       里面 #p3dTitle 仍然是按彩种的标题
        （「3D 手绘参考图」/「排列三 手绘参考图」）——它由脚本按彩种切换，
        验收脚本也在断言它，所以保留。 */
     `<summary class="p3d-head">` +
-      `<span class="p3d-head-t">手绘参考图</span>` +
+      `<span class="p3d-head-t">手绘参考图<i class="p3d-head-sub">（民间3D/排三）</i></span>` +
       `<span class="p3d-head-tip" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="p3d-body">` +
@@ -435,7 +447,6 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     `</div>` +
     `<div class="p3d-summary" id="p3dSummary"></div>` +
     `<div class="p3d-note" id="p3dLiuma"></div>` +
-    `<div class="p3d-note" style="color:var(--ro-ok)">数据来源：history.js 真实开奖（非示例数据）</div>` +
     `</div>` +
     `</details>` +
     `<script>var P3D_SECTION = ${JSON.stringify(payload)};<\/script>` +
