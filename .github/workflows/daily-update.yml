@@ -255,6 +255,22 @@ jobs:
                    apple-touch-icon.png share.png manifest.webmanifest; do
             cp -f "cloud/out/$f" "site/$f" || true
           done
+          # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
+          # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
+          # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
+          for f in jc-reco-view.js jc-reco-data.js jc-reco-archive.js jc-reco-stats.json; do
+            cp -f "cloud/out/$f" "site/$f" || true
+          done
+          RECO_OK=0
+          for f in jc-reco-view.js jc-reco-data.js jc-reco-archive.js; do
+            if [ -s "site/$f" ]; then
+              echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
+              RECO_OK=$((RECO_OK+1))
+            else
+              echo "⚠️ site/$f 缺失 -> 线上 404，推荐串刷新会静默失效"
+            fi
+          done
+          echo "推荐串文件进 site/ 的个数：$RECO_OK / 3"
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
           # 兜底列表只放页面（图标缺失时从线上拉回旧的那份没有意义，
           # 真要缺就在下面的自证里报警，让人去补文件）
