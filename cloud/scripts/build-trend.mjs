@@ -38,6 +38,8 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { GAME_IDS, LOTTERY_SPEC } from './lottery-rules.mjs';
+/* 密码钥匙层 + 数据源留痕断言（4 个页面共用一份，见 make-keygate.mjs） */
+import { prepareKeyGate, assertNoSourceTrace, neutralizeSourceWords } from './make-keygate.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, '走势图.html');
@@ -1250,7 +1252,7 @@ svg.tr-lines-draw.on { pointer-events:auto; }
   <div id="tr-root"></div>
 
   <div class="ro-foot">
-    数据来源：本页自带的 history.js 快照（最近 ${payload.periods} 期）· 页面零联网、不调 AI · 仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。
+    本页数据：构建时生成的快照（最近 ${payload.periods} 期，页面自带、打开即用）· 页面零联网、不调 AI · 仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。
   </div>
 </div>
 
@@ -1309,8 +1311,18 @@ if (isMain) {
   });
   if (bad) { console.error(`\n❌ 有 ${bad} 个彩种每期号码个数和规则不符，已中止（不生成假页面）`); process.exit(1); }
 
-  const html = buildHtml(payload);
-  fs.writeFileSync(OUT, html, 'utf8');
-  console.log(`\n✅ 已生成 ${OUT}（${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB · ` +
-    `${payload.games.length} 彩种 · 每彩种 ${payload.periods} 期）`);
+  /* ============================================================
+     最后两道关卡（顺序不能反）：
+       ① 数据源留痕断言 —— 扫【可见文本】；出现「数据从哪来」的字样直接 exit 1
+       ② 密码钥匙层 —— 把 </head> 之后的正文整段加密，装进密码门外壳
+     两条都写在共用模块 make-keygate.mjs 里，4 个页面共用一套。
+     ⚠️ 断言必须跑在【加密之前】：加密后正文是 base64 密文，扫不到人看的字。
+     ============================================================ */
+  let safe = neutralizeSourceWords(buildHtml(payload));
+  assertNoSourceTrace(safe, '走势图.html');
+  const gated = await prepareKeyGate(safe, { label: '走势图.html' });
+  fs.writeFileSync(OUT, gated, 'utf8');
+  console.log(`\n✅ 已生成 ${OUT}（${(Buffer.byteLength(gated, 'utf8') / 1024).toFixed(1)} KB · ` +
+    `${payload.games.length} 彩种 · 每彩种 ${payload.periods} 期 · 🔒 正文已加密）`);
+  console.log('   密码门：改密码只改 make-keygate.mjs 第 40 行附近那个 KEYGATE_PASSWORD 常量');
 }
