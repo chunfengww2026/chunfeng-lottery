@@ -31,6 +31,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { areasOf } from './lottery-rules.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 
@@ -225,10 +226,17 @@ export async function recognizeBuffer(png, layout = 'auto') {
 /* ============================================================
    四、文本 → 号码（多重校验）
    ============================================================ */
-export const GAME_SPEC = {
-  ssq: { front: 6, back: 1, frontMax: 33, backMin: 1, backMax: 16, frontLabel: '红球', backLabel: '蓝球' },
-  dlt: { front: 5, back: 2, frontMax: 35, backMin: 1, backMax: 12, frontLabel: '前区', backLabel: '后区' }
-};
+/* 由 lottery-rules.mjs【派生】—— OCR 只认双色球/大乐透这两种复式票，
+   号码区范围与个数不再手写第二份（改规则只改 lottery-rules.mjs 一处）。 */
+function ocrSpecOf(id) {
+  const a = areasOf(id);
+  return {
+    front: a[0].pick, back: a[1].pick,
+    frontMax: a[0].max, backMin: a[1].min, backMax: a[1].max,
+    frontLabel: a[0].label, backLabel: a[1].label
+  };
+}
+export const GAME_SPEC = { ssq: ocrSpecOf('ssq'), dlt: ocrSpecOf('dlt') };
 
 /** OCR 常见字符混淆归一化 */
 export function normalizeText(s) {
