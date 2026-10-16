@@ -144,7 +144,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "库恩卡",
      "score": 1,
@@ -217,7 +217,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-17 04:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 0,
@@ -4818,7 +4818,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-17 03:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "學術DB",
      "score": 0,
@@ -5016,7 +5016,7 @@ const FOOTBALL_DATA = {
      "color": "009966"
     },
     "time": "2026-10-17 03:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "查维斯",
      "score": 2,
@@ -5082,7 +5082,7 @@ const FOOTBALL_DATA = {
      "color": "cc4400"
     },
     "time": "2026-10-17 03:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "伯恩利",
      "score": 1,
@@ -5148,7 +5148,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-10-17 03:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "拉科鲁尼亚",
      "score": 1,
@@ -5214,7 +5214,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-17 03:15:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "艾科坎",
      "score": 1,
@@ -5223,7 +5223,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "韦斯卡",
-     "score": 2,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -5292,7 +5292,7 @@ const FOOTBALL_DATA = {
      "color": "CC9999"
     },
     "time": "2026-10-17 03:15:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "贝雷达比历克",
      "score": 1,
