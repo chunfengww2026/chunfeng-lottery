@@ -220,7 +220,17 @@ const FROM_ROOT = [
          少了它，云端生成出来的竞彩页里「晒票」区块就是「暂无」，
          等于把本机刚抓到的竞彩实票冲掉。
          另外 build-xysp.mjs 也会把它合进 xysp-data.js 的 games.jc（备用）。 */
-  'xysp-jc-data.js'
+  'xysp-jc-data.js',
+  /* 【分歧指 · 数据】多公司欧赔离散度（build-odds-divergence.mjs 抓球探 titan007 生成）。
+     ⚠️ 必须同步：云端的 比赛详情.html 是 cloud-build.mjs 现场跑 build-match.mjs 出的，
+         build-match.mjs 读它把分歧指内嵌进页面。云端少了这个文件 →
+         那一班分歧指只能显示「暂无多家赔率数据」（页面本身不坏，是静默降级）。
+     ⚠️【它不需要发布到线上】：详情页是【自包含】的，构建时就把数据内嵌进 HTML了 ——
+         和 jc-data.js 一样，线上站点目录里【没有】也不需要这个文件，
+         所以 sync-cloud / cloud-build 的 out/ / workflow 的 site/ 【三处里只需要这一处】。
+         云端自己每次足球班次也会重抓一遍（脚本自带 20 分钟 min-gap）；
+         这里同步过去是【兜底】：云端抓不到时，页面仍有本机刚算好的那一份。 */
+  'jc-divergence.js'
 ];
 
 /* 代码模块：与项目根目录保持一致 */
@@ -294,6 +304,14 @@ const CODE_MODULES = [
      （这个页面【自包含】：它把 games 数组在构建时内嵌进 HTML。
        线上站点目录里没有 jc-data.js —— export-football.mjs 也是同样的自包含做法。） */
   'build-match.mjs',
+  /* 【分歧指 · 抓取脚本】用户 2026-10-17 第 2 步。
+     ⚠️ 必须同步：cloud-build.mjs 的 exportList 里排在 build-match.mjs 【之前】跑它，
+        现场抓球探 titan007 的多公司欧赔（1x2d.titan007.com/{ScheduleID}.js），
+        算好离散度写 jc-divergence.js，再由 build-match.mjs 内嵌进详情页。
+        云端少了这个文件 → 云端出不了分歧指数据 → 详情页那一档退回「暂无」
+        （实测云端能访问 titan007：200 · 183 KB · 325 家，所以云端自己抓是可行的）。
+     它只读 jc-data.js / jc-history.js（决定要抓哪几场），只写 jc-divergence.js。 */
+  'build-odds-divergence.mjs',
   /* 【走势图】用户 2026-10-17 新增的第三个独立子页（和彩票页/竞彩页并列）。
      ⚠️ 三个文件必须一起同步，缺一个云端就出不了这一页：
         · build-trend.mjs  生成脚本（读 history.js → 写 走势图.html）
