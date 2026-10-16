@@ -1197,70 +1197,8 @@ const JC_DATA = {
   "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-10-17 02:58",
   "officialUpdate": "2026-10-16 21:46:05",
-  "inSale": 37,
+  "inSale": 35,
   "list": [
-   {
-    "code": "周五009",
-    "matchNum": "5009",
-    "league": "英冠",
-    "time": "2026-10-17 03:00:00",
-    "home": "伯恩利",
-    "away": "伍尔弗",
-    "had": {
-     "h": 3.24,
-     "d": 3,
-     "a": 2.05,
-     "update": "2026-10-16 20:15:39"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 1.57,
-     "d": 3.8,
-     "a": 4.36,
-     "update": "2026-10-16 19:06:38"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
-   {
-    "code": "周五010",
-    "matchNum": "5010",
-    "league": "西甲",
-    "time": "2026-10-17 03:00:00",
-    "home": "拉科",
-    "away": "莱万特",
-    "had": {
-     "h": 2.01,
-     "d": 3.1,
-     "a": 3.23,
-     "update": "2026-10-16 19:44:14"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 4.35,
-     "d": 3.64,
-     "a": 1.6,
-     "update": "2026-10-16 11:45:43"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周五011",
     "matchNum": "5011",

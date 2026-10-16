@@ -3576,8 +3576,8 @@ const FOOTBALL_DATA = {
       "draw": 70.9,
       "away": 20.5
      },
-     "clear": true,
-     "margin": 11.9
+     "clear": false,
+     "margin": 12.2
     },
     "result": {
      "actual": "away",
@@ -3729,7 +3729,7 @@ const FOOTBALL_DATA = {
     "minute": 67,
     "home": {
      "name": "万卡约",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -4469,8 +4469,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.82",
-       "away": 1.06
+       "line": "0.88",
+       "away": 1
       },
       "live": null
      },
@@ -5523,7 +5523,7 @@ const FOOTBALL_DATA = {
     "minute": 40,
     "home": {
      "name": "戈尔韦联队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 7
     },
