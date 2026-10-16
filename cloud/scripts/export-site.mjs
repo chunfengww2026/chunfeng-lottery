@@ -40,16 +40,23 @@ if (fs.existsSync(srcFootball)) {
 }
 
 /* ============================================================
-   给两个页面加上互跳导航
+   给页面加上互跳导航
+   ------------------------------------------------------------
+   ⚠️ 2026-10-17 修正：这段导航以前是【深色】的
+      （rgba(15,17,21,.95) 黑底 + #6b7488 灰字），和已经换成米杏色的
+      分享页 / 竞彩页拼在一起就是"米杏页面顶着一条黑导航"。
+      现在跟着页面一起用米杏色（值取自 export-static.mjs 的 __LIGHT_THEME__）。
+   ⚠️ 同时补上第三个 Tab【走势图】：以前这里根本没有走势图页，
+      导出后分享包里缺 走势图.html（点了就是 404）。
    ============================================================ */
 const NAV_CSS = `
 <style>
 .site-nav {
   position: sticky; top: 0; z-index: 99;
   display: flex; gap: 0;
-  background: rgba(15,17,21,0.95);
+  background: rgba(247,239,225,0.96);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #262d3a;
+  border-bottom: 1px solid #e8d7bd;
 }
 .site-nav a {
   flex: 1;
@@ -57,28 +64,44 @@ const NAV_CSS = `
   padding: 13px 10px;
   font-size: 14px;
   font-weight: 600;
-  color: #6b7488;
+  color: #8a7a63;
   text-decoration: none;
   border-bottom: 2px solid transparent;
   transition: all .15s;
 }
-.site-nav a:hover { color: #c8cfda; }
-.site-nav a.on { color: #47e0a0; border-bottom-color: #47e0a0; }
+.site-nav a:hover { color: #4a3a26; }
+.site-nav a.on { color: #1a8c5a; border-bottom-color: #1a8c5a; }
 </style>
 `;
 
 function injectNav(html, active) {
   const nav =
-    `${NAV_CSS}`.replace('</head>', '') +
     `<div class="site-nav">` +
     `<a href="index.html" class="${active === 'lottery' ? 'on' : ''}">彩票推荐</a>` +
     `<a href="football.html" class="${active === 'football' ? 'on' : ''}">竞彩场次</a>` +
+    `<a href="走势图.html" class="${active === 'trend' ? 'on' : ''}">走势图</a>` +
     `</div>`;
 
   let out = html;
 
-  // 样式插到 </head> 前
-  out = out.replace('</head>', NAV_CSS + '</head>');
+  /* ⚠️ 去掉页面【自带】的那条顶部 Tab（.top-tabs）。
+     实测踩到：分享包里于是有两条导航叠在一起 ——
+       · 注入的 .site-nav（3 个 Tab，指向包内 index/football/走势图.html）
+       · 页面自带的 .top-tabs（2 个 Tab，href 是 "./" 和 "足球推荐.html"）
+     后者的链接在分享包里是【死链】（包里的文件名是 football.html），
+     而且两条都占顶部、字叠字（截图里导航宽 490px 超出 430 视口）。
+     这里的 .site-nav 就是它的替代品（多了走势图那一栏），所以整块删掉。 */
+  out = out.replace(/<div class="top-tabs">[\s\S]*?<\/div>\s*/, '');
+
+  /* ⚠️ 只在页面【自己没定义 .site-nav 样式】时才补这段 CSS。
+     原因（实测踩过）：竞彩页 export-football.mjs 的浅色主题里已经有一条
+     `.site-nav { background: rgba(247,239,225,.96) !important; ... }`，
+     而这里插的样式在它【后面】、两条同优先级 —— 后面那条赢，
+     于是导航又变回深色（分享包里 football.html 就是这么被压黑的）。
+     分享页和走势图页则相反：它们自己【没有】这条规则，需要这里补。 */
+  if (!/\.site-nav\s*\{/.test(html)) {
+    out = out.replace('</head>', NAV_CSS + '</head>');
+  }
 
   // 导航条插到 <body> 后
   out = out.replace(/<body([^>]*)>/, `<body$1>${nav}`);
@@ -89,6 +112,18 @@ function injectNav(html, active) {
 lottery = injectNav(lottery, 'lottery');
 if (football) football = injectNav(football, 'football');
 
+/* ---------- 2b. 走势图页 ----------
+   用户 2026-10-17 新增的独立子页（build-trend.mjs 生成）。
+   和上面两页同源处理：读进来 → 注入同一条米杏色导航 → 写进分享包。
+   文件缺失时只提示、不中断（和足球页一样的容错）。 */
+const srcTrend = path.join(ROOT, '走势图.html');
+let trend = '';
+if (fs.existsSync(srcTrend)) {
+  trend = injectNav(fs.readFileSync(srcTrend, 'utf8'), 'trend');
+} else {
+  log('⚠️ 找不到 走势图.html，跳过（先跑 node build-trend.mjs）');
+}
+
 /* ---------- 3. 写文件 ---------- */
 fs.writeFileSync(path.join(SITE, 'index.html'), lottery, 'utf8');
 log(`✅ index.html    ${(Buffer.byteLength(lottery, 'utf8') / 1024).toFixed(1)} KB`);
@@ -96,6 +131,11 @@ log(`✅ index.html    ${(Buffer.byteLength(lottery, 'utf8') / 1024).toFixed(1)}
 if (football) {
   fs.writeFileSync(path.join(SITE, 'football.html'), football, 'utf8');
   log(`✅ football.html ${(Buffer.byteLength(football, 'utf8') / 1024).toFixed(1)} KB`);
+}
+
+if (trend) {
+  fs.writeFileSync(path.join(SITE, '走势图.html'), trend, 'utf8');
+  log(`✅ 走势图.html   ${(Buffer.byteLength(trend, 'utf8') / 1024).toFixed(1)} KB`);
 }
 
 /* ---------- 4. 说明文件 ---------- */
