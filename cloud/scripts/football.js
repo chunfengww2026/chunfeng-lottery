@@ -15825,7 +15825,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-16 14:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "水邊卡羅里(女)",
      "score": 1,
