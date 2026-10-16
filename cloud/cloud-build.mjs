@@ -1348,12 +1348,16 @@ function main() {
      jc-data.js 只有 500.com 一个源（一场一份欧赔），算不出分歧 ——
      这个脚本去球探 titan007 抓真·多公司欧赔（1x2d.titan007.com/{ScheduleID}.js，
      每场 320~370 家公司），算好离散度写 jc-divergence.js。
-     ⚠️ 必须排在 build-match.mjs【之前】：详情页在【构建时】就把 jc-divergence.js
+     【欧赔对比 · 用户 2026-10-17 第 3 步】同一次抓取还写出第二份文件 jc-titan.js：
+      每场主流 12 家的 初盘/即时/返还率/凯利 明细（详情页「欧赔对比」那一档用）。
+      ⚠️ 一个脚本两个出口 = 同一场只请求一次（一场 180~600 KB，抓两遍纯属浪费）。
+     ⚠️ 必须排在 build-match.mjs【之前】：详情页在【构建时】就把这两份数据
         内嵌进 HTML（自包含，和 games 一样）。跑晚了这一班就只能显示「暂无」。
-     ⚠️ 它自己带 20 分钟 min-gap：足球班次 30 分钟一班，不会把它连着抓两遍。
-     ⚠️ 失败不影响后面：build-match.mjs 读不到文件就照旧显示「暂无多家赔率数据」，
-        绝不用单源硬造低/中/高（那是编数据）。 */
-  if (plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指数据（球探 titan007 多公司欧赔）']);
+     ⚠️ 它自己带 20 分钟 min-gap（要 jc-divergence.js / jc-titan.js 两份都还新才跳过）：
+        足球班次 30 分钟一班，不会把它连着抓两遍。
+     ⚠️ 失败不影响后面：build-match.mjs 读不到文件就照旧显示「暂无」，
+        绝不用单源硬造低/中/高，也绝不拿别场的数字顶（那是编数据）。 */
+  if (plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指 + 欧赔对比数据（球探 titan007 多公司欧赔）']);
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
