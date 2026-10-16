@@ -31,7 +31,7 @@ const XYSP_JC_DATA = {
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
-   "expireAt": "2026-11-15T01:36:02.075Z",
+   "expireAt": "2026-11-15T01:48:58.558Z",
    "rule": "72h",
    "author": "马姆瑞克",
    "when": "2026-10-16 07:26:48"
@@ -132,7 +132,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T01:46:02.075Z",
+   "seen": "2026-10-16T01:51:31.977Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
