@@ -961,6 +961,18 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-td-issue i { display: block; font-style: normal; font-size: 9.5px; color: var(--ro-fg3); }
 .tr-td-num { height: 24px; }
 .tr-td-num.on { background: #d8efe2 !important; }
+/* 【背景板号数】用户 2026-10-17：「背景板要有浅色 很浅的号数」
+   ------------------------------------------------------------
+   每个格子里印上该列的号数，颜色很浅 —— 这样看某一列是几号
+   不用抬头看表头。命中格有绿球，号数隐掉让位给球（经典走势图画法，
+   避免数字和球叠在一起显脏）。
+   ⚠️ 号数是 <i class="tr-ghost">，pointer-events:none —— 不挡点击/连线测量。 */
+.tr-td-num { text-align: center; vertical-align: middle; }
+.tr-ghost { font-style: normal; font-weight: 400; font-size: 9.5px;
+  line-height: 1; color: #ded1b9; user-select: none; pointer-events: none;
+  letter-spacing: 0; }
+.tr-td-extra .tr-ghost { color: #d7d9e2; }          /* 第二区（蓝球）偏冷一点 */
+.tr-td-num.on .tr-ghost { visibility: hidden; }      /* 命中格让位给球 */
 .tr-td-num s { display: inline-block; width: 11px; height: 11px; border-radius: 50%;
   background: var(--ro-ok); text-decoration: none; vertical-align: middle; }
 .tr-td-extra s { background: var(--ro-link); }
