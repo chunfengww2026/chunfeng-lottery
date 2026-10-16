@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 06:57 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 06:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-17 06:57",
+ "updated": "2026-10-17 06:58",
  "stat": {
   "upcoming": 32,
   "live": 10,
@@ -2359,7 +2359,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 94,
+    "minute": 95,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 4,
@@ -2397,7 +2397,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 05:30:00",
-    "minute": 59,
+    "minute": 61,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
@@ -2853,7 +2853,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "庞特普雷塔",
      "score": 0,
@@ -2882,13 +2882,13 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.25",
-       "over": 0.84,
-       "under": 1.02
+       "over": 0.86,
+       "under": 1
       },
       "live": {
        "line": "0.5",
-       "over": 0.85,
-       "under": 1.01
+       "over": 0.88,
+       "under": 0.98
       }
      },
      "europe": {
