@@ -3972,11 +3972,22 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-status .ro-st-head { font-size: 13px !important; }
 .ro-status .ro-st-time { color: var(--ro-danger) !important; font-weight: 700; }
 
-/* ④ 推荐图目录：2 列网格 · 卡片 · 红字 */
+/* ④ 推荐图目录：2 列网格 · 卡片 · 红字
+   ------------------------------------------------------------
+   【本轮修正】用户给了这块的 CSS 规格（section-title / section-sub / grid / .btn 四段）。
+   ⚠️ 注意：这段 CSS 是写在模板字符串里的，注释里【不能出现反引号】，
+      否则外层模板会被提前截断 → "SyntaxError: Unexpected token ';'"（本次实测踩到）。
+   对照实测发现两个缺口——根因是页面里有一条全局 reset（星号选择器 margin:0; padding:0）：
+     · .ro-imgtoc-title 的 margin 从来没写过 → 被 reset 吃成 0
+     · .ro-imgtoc-sub 的 margin-bottom 也没写过 → 也是 0
+     结果标题 / 副标题 / 第一行卡片挤成一条（实测 title→sub 只有 3px）。
+   现在按规格补上：6px 0 4px 和 14px（并显式写 color，和规格一致，不再只靠继承）。
+   ⚠️ 只加/补这几条，不动其它布局；改完必须重跑不变量与截图。 */
 .ro-imgtoc-wrap { background: transparent !important; border: 0 !important; padding: 0 !important; }
-.ro-imgtoc-head { padding: 0 12px 8px; }
-.ro-imgtoc-title { text-align: center; font-size: 15px; font-weight: 700; }
-.ro-imgtoc-sub { text-align: center; font-size: 12px; color: var(--ro-fg2); }
+.ro-imgtoc-head { padding: 0 12px 0; }
+.ro-imgtoc-title { text-align: center; font-size: 15px; font-weight: 700;
+  color: var(--ro-fg); margin: 6px 0 4px; }
+.ro-imgtoc-sub { text-align: center; font-size: 12px; color: var(--ro-fg2); margin-bottom: 14px; }
 .ro-imgtoc { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 10px !important; padding: 0 12px 20px !important; width: auto !important; }
 .ro-imgtoc tbody, .ro-imgtoc tr { display: contents !important; }
