@@ -779,7 +779,7 @@ var __TREND_PRESEL_EXTRA__ = '';
 function __trPreselRow(g) {
   return '<tr class="tr-row-presel tr-row" data-tr-issue="__presel__" data-tr-presel-row="' + g.id + '">' +
     '<td class="tr-td-issue tr-sticky tr-td-presel" data-tr-presel="label">预选</td>' +
-    __trMainCells(g) + __trPreselExtra(g) + '</tr>';
+    __trMainCells(g) + __trPreselExtra(g) + '<td class="tr-td-tail"></td></tr>';
 }
 function __trPreselExtra(g) {
   return g.extra ? ('<td class="tr-td-sep"></td>' + __trExtraCells(g)) : '';
@@ -1040,13 +1040,17 @@ svg.tr-lines-draw.on { pointer-events:auto; }
     <div class="sub">走势图 · 8 个彩种 · 最近 ${payload.periods} 期真实开奖</div>
   </div>
 
-  <!-- 免责声明：这一条【只留声明，不印时间】（用户 2026-10-17 明确要求）。
-       不要再往这里加「数据快照 <时间>」：
-         · 那个时间原来还是 UTC（比北京时间早 8 小时，见 build-history.mjs 的说明），
-           印在页面上会被当成"数据是 8 小时前的"；
-         · 构建时间仍然保留在 <body data-built="…"> 属性里，需要排查时看那里。 -->
+  <!-- 免责声明：这里【不印"数据快照"时间】，只印【页面时间】。
+       两条踩过的坑，别再改回去：
+         ① 「数据快照 <构建时间>」不能用 —— 那个时间以前是 UTC（比北京时间早 8 小时，
+            见 build-history.mjs 的说明），印在页面上会被当成"数据是 8 小时前的"；
+            构建时间仍保留在 <body data-built="…"> 属性里，排查时看那里。
+         ② 客户端刷新【不要用 toLocaleString()】：它跟着设备时区+语言变
+            （美区手机会显示 10/16/2026, 8:00:05 PM），这里固定按北京时间格式化。
+       ⇒ 静态兜底印构建时间，页面加载后由脚本刷新成"本机时钟"的北京时间。 -->
   <div class="ro-status">
     <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。
+    <span class="ro-st-time" id="snapshotTime">页面时间 ${updated}</span>
   </div>
 
   <div id="tr-root"></div>
@@ -1073,7 +1077,21 @@ __TREND_SCRIPT_BODY__
     '',
     MOUNT_SRC,
     '',
-    INTERACT_SRC
+    INTERACT_SRC,
+    '',
+    /* 【页面时间】构建时印的是构建时间，页面打开后用【本机时钟】现场刷新。
+       ⚠️ 别用 toLocaleString()：它跟着设备时区+语言走（美区手机会变成
+          10/16/2026, 8:00:05 PM）；这里固定按北京时间（UTC+8，中国无夏令时）
+          格式化成 YYYY-MM-DD HH:mm:ss，和全项目的时间写法一致。
+       ⚠️ 必须拼进这【同一个 <script>】—— 页面不变量要求整页恰好 1 对 <script>；
+          脚本在 </body> 前，所以取元素时它已经存在。 */
+    '/* 页面时间：本机时钟，固定北京时间格式 */',
+    '(function () {',
+    '  var el = document.getElementById("snapshotTime");',
+    '  if (!el) return;',
+    '  var d = new Date(Date.now() + 8 * 3600 * 1000);',
+    '  el.textContent = "页面时间 " + d.toISOString().slice(0, 19).replace("T", " ");',
+    '})();'
   ].join('\n');
 
   /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
