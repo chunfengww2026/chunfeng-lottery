@@ -642,8 +642,11 @@ function renderMatch(m) {
     + (m.result && m.result.settled ? (m.result.hit ? ' win' : ' lose') : '')
     + (m.fromHistory ? ' hist' : '');
 
-  return (
-    `<div class="${cls}">` +
+  /* 【比赛详情页】整张卡片可点 → 比赛详情.html?c=编号（__MATCH_DETAIL_LINK__）
+     只在有编号时包链接：没编号（少数归档场次）就还是普通卡片，不产生死链。
+     目标页由 build-match.mjs 生成，发布名单见 sync-cloud.mjs / cloud-build.mjs /
+     .github/workflows/daily-update.yml 三处。 */
+  const body =
     `<div class="m-top">` +
     (m.code ? `<span class="m-code">${esc(m.code)}</span>` : '') +
     `<span class="m-league">${esc(m.league || '')}</span>` +
@@ -684,8 +687,12 @@ function renderMatch(m) {
       `<i class="${r.pick === 'away' ? 'on' : ''}">客${r.prob ? r.prob.away : '—'}%</i>` +
       `</span></div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderAsianCard(m) +
-    `</div>`
-  );
+    (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
+
+  return m.code
+    ? `<a class="m-cardlink" href="比赛详情.html?c=${encodeURIComponent(m.code)}" aria-label="${esc(m.code)} 比赛详情">`
+      + `<div class="${cls}">${body}</div></a>`
+    : `<div class="${cls}">${body}</div>`;
 }
 
 /* ============================================================
@@ -1155,6 +1162,14 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-card.hist { border-left-style: dashed; opacity: .88; }
 .m-card.hist.win { border-left-color: #f0575c; }
 .m-card.hist.lose { border-left-color: #6b7488; }
+/* 【比赛详情页】整张卡片的 <a> 外壳（__MATCH_DETAIL_LINK__）——
+   只是包一层，卡片自身的边框/底色/圆角一个字没动；
+   display:block + color:inherit 保证里面的文字颜色不被链接色改掉。 */
+.m-cardlink { display: block; color: inherit; text-decoration: none; cursor: pointer; }
+.m-cardlink:active .m-card { background: #1b2029; }
+/* 卡片右下角那句「看这场数据 ›」，提示这卡能点 */
+.m-godetail { display: block; margin-top: 8px; text-align: right;
+  font-size: 11.5px; font-weight: 700; color: #47e0a0; }
 .m-top { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
 .m-code { font-size: 11.5px; font-weight: 700; color: #98a1b2;
   background: #12151d; padding: 2px 8px; border-radius: 5px; }
@@ -1737,6 +1752,121 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-rec .m-recodds { color: var(--text) !important; }
 .m-rec .m-recconf { color: var(--text-sub) !important; }
 .m-rec .m-recconf.strong { color: var(--green) !important; }
+
+/* ============================================================
+   __JC_ALIGN_CARD__ 比赛详情 / 亚指块 换米杏色（用户：「竞猜这边点开也要换色」）
+   ------------------------------------------------------------
+   上面那层 __JC_ALIGN__ 覆盖的是统计条/战绩条/模拟计算；
+   这一层补【比赛详情卡片】那批 —— 它们仍是 CSS 类规则里的深色。
+   ⚠️ 只改颜色，不动结构/间距/字号；全屏看图与遮罩保持深色。
+   ============================================================ */
+/* ① 比赛卡片本体 */
+.m-card { background: #fdf6ea !important; border-color: #e8d7bd !important;
+  border-left: 3px solid #e8d7bd !important; }
+.m-card.win { border-left-color: #c0392b !important; }
+.m-card.lose { border-left-color: #a2937c !important; }
+.m-card.hist { opacity: .95 !important; }
+.m-card.hist.win { border-left-color: #c0392b !important; }
+.m-card.hist.lose { border-left-color: #a2937c !important; }
+
+/* ② 卡片头部：编号 / 联赛 / 轮次 / 时间 / 状态 */
+.m-code { background: #f3e6d0 !important; color: #8a7a63 !important; }
+.m-league { color: #8a7a63 !important; }
+.m-round, .m-time { color: #a2937c !important; }
+.m-st { color: #8a7a63 !important; background: #f3e6d0 !important; }
+.m-st.live { color: #c0392b !important; background: #fbe4e2 !important; }
+.m-st.fin { color: #8a7a63 !important; background: #efe2cc !important; }
+
+/* ③ 队名 / 比分 / 让球标记 */
+.m-team { color: #4a3a26 !important; }
+.m-team i { color: #a2937c !important; }
+.m-hc { color: #b8860b !important; }
+.m-vs { color: #a2937c !important; }
+.m-vs.live { color: #1a8c5a !important; }
+
+/* ④ 欧赔那一行 */
+.m-ol { color: #a2937c !important; }
+.m-ov { color: #4a3a26 !important; background: #f3e6d0 !important; }
+.m-ov.on { background: #e3f2ea !important; color: #1a8c5a !important; }
+
+/* ⑤ 推荐那一行 */
+.m-reco { border-top-color: #efe2cc !important; }
+.m-pick { color: #8a7a63 !important; }
+.m-pick b { color: #1a8c5a !important; }
+.m-rb.hit { background: #fbe4e2 !important; color: #c0392b !important; }
+.m-rb.miss { background: #efe2cc !important; color: #8a7a63 !important; }
+.m-conf { color: #8a7a63 !important; }
+
+/* ⑥ 分类小标签 / 空态 / 说明条 */
+.m-subcount { color: #a2937c !important; background: #f3e6d0 !important; }
+.m-probs i { color: #a2937c !important; background: #f3e6d0 !important; }
+.m-probs i.on { color: #1a8c5a !important; background: #e3f2ea !important; }
+.m-noodds { color: #a2937c !important; }
+.m-empty { color: #a2937c !important; background: #f3e6d0 !important; }
+.note { background: #f3e6d0 !important; border-color: #e8d7bd !important; color: #8a7a63 !important; }
+.brand { color: #c0392b !important; }
+
+/* ⑦ 亚指综合换算（.m-ai 及其子件） */
+.m-ai { background: #f3e6d0 !important; border-color: #e8d7bd !important; }
+.m-ai-title { color: #4a3a26 !important; }
+.m-ai-tag { color: #b8860b !important; background: rgba(184,134,11,.12) !important;
+  border-color: rgba(184,134,11,.32) !important; }
+.m-ai-fun { color: #a2937c !important; border-color: #e8d7bd !important; }
+.m-ai-line { color: #8a7a63 !important; }
+.m-ai-cell { background: #fdf6ea !important; border-color: #e8d7bd !important; }
+.m-ai-cell i { color: #a2937c !important; }
+.m-ai-cell b { color: #4a3a26 !important; }
+.m-ai-cell.on { border-color: rgba(26,140,90,.42) !important; background: #e3f2ea !important; }
+.m-ai-cell.on b { color: #1a8c5a !important; }
+.m-ai-dev-v.up { color: #c0392b !important; }
+.m-ai-dev-v.down { color: #1a8c5a !important; }
+.m-ai-dev-u, .m-ai-src, .m-ai-note, .m-ai-change-d { color: #a2937c !important; }
+.m-ai-hot { color: #b8860b !important; }
+.m-ai-miss { color: #8a7a63 !important; background: #f3e6d0 !important; border-color: #e8d7bd !important; }
+.m-ai-change-tag { color: #8a7a63 !important; background: #fdf6ea !important;
+  border-color: #e8d7bd !important; }
+
+/* ⑧ 其它零散深色小件 */
+.m-reccode { color: #8a7a63 !important; background: #f3e6d0 !important; }
+.jxp-thumb { background: #efe2cc !important; }
+.m-sec .m-subhead { color: #4a3a26 !important; }
+.m-sectip { color: #1a8c5a !important; }
+
+
+/* ============================================================
+   __JC_CONTRAST_FIX__ 文字对比度兜底（米杏底上的字要看得清）
+   ------------------------------------------------------------
+   改完深色卡片后实测 48 处文字对比度 < 3.0，最差 1.37（几乎看不见）。
+   原因：① 我上一版把弱文字映射成 #a2937c 太浅；
+        ② 旧主题的 #98a1b2 / #47e0a0 / #d9a300 / #f0b429 还留在浅底上。
+   这里统一加深：#8a7a63（≈3.3~3.8）· #1a8c5a（≈4.0）· #9c7000（≈4.0）。
+   ⚠️ 只改颜色；只在这几处加 !important（原值在类规则里）。
+   ============================================================ */
+/* ① 我上一版映射过浅的：弱文字统一加深到 #8a7a63 */
+.m-round, .m-time, .m-vs, .m-ol, .m-league, .m-code, .m-conf, .m-pick,
+.m-subcount, .m-noodds, .m-empty, .m-team i,
+.m-ai-fun, .m-ai-note, .m-ai-src, .m-ai-dev-u, .m-ai-change-d, .m-ai-line,
+.m-probs i, .m-st, .m-st.fin, .m-rb.miss, .note, .calc-foot { color: #8a7a63 !important; }
+
+/* ② 前一轮漏改文字的（旧主题色留在浅底上） */
+.cd, .jxp-sub { color: #8a7a63 !important; }
+.jxp-cap i { color: #8a7a63 !important; }
+.jxp-cap b { color: #1a8c5a !important; }          /* 「2串1」原来是旧绿 #47e0a0 */
+.m-godetail { color: #1a8c5a !important; }          /* 「看这场数据 ›」原来 1.37 */
+.calc-tag.tag, .jxp-tag { color: #9c7000 !important; }
+#ownerTag.owner-tag { color: #9c7000 !important; background: #fff6dd !important;
+  border-color: #e8d7bd !important; }
+
+/* ③ 绿/红强调也换成米杏主题里那对（旧 #47e0a0 / #f0575c 在浅底上偏亮） */
+.m-pick b, .m-vs.live, .m-ai-cell.on b, .m-ai-dev-v.down { color: #1a8c5a !important; }
+.m-ai-dev-v.up, .m-rb.hit, .m-st.live { color: #c0392b !important; }
+.m-hc, .m-ai-hot { color: #9c7000 !important; }
+
+
+/* __JC_CONTRAST_TAIL__ 收尾两处（上一轮漏的：亚指单元格标签 / 计算器行时间） */
+.m-ai-cell i { color: #8a7a63 !important; }
+.calc-time { color: #8a7a63 !important; }
+
 `;
 
 

@@ -242,6 +242,11 @@ jobs:
           cp -f cloud/out/football.html site/football.html || true
           # 【走势图】独立页面（分享页点「走势图」跳过来）
           cp -f cloud/out/走势图.html  site/走势图.html  || true
+          # 【比赛详情页】竞彩页每张比赛卡片都指向 比赛详情.html?c=编号
+          #   （__MATCH_DETAIL_LINK__ 由 export-football.mjs 加的卡片链接）。
+          #   不在这里 cp 的话，即使 cloud-build.mjs 把它拷进了 out/，
+          #   也【永远进不了 site/】→ 线上 64 张卡片全点到 404。
+          cp -f cloud/out/比赛详情.html site/比赛详情.html || true
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
@@ -274,7 +279,9 @@ jobs:
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
           # 兜底列表只放页面（图标缺失时从线上拉回旧的那份没有意义，
           # 真要缺就在下面的自证里报警，让人去补文件）
-          for f in index.html football.html 走势图.html tickets.json; do
+          # ⚠️ 比赛详情.html 也在这里：这一班没出详情页时，从线上拉回当前那份，
+          #    免得竞彩页 64 张卡片的链接集体 404。
+          for f in index.html football.html 走势图.html 比赛详情.html tickets.json; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
               continue
