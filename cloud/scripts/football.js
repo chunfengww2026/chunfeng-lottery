@@ -127,10 +127,10 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "萨普里沙",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 1
     },
