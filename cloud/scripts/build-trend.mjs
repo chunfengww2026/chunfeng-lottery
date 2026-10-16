@@ -1100,10 +1100,20 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-slant-extra { stroke: rgba(217, 140, 0, 0.75); }
 /* 间隔斜连比"差1"更弱一点，免得抢眼糊成一片 */
 .tr-slant-gapSlant { stroke-opacity: 0.5; stroke-dasharray: 4 2.5; }
-/* 斜连开关（挂到彩种切换条那一行的右端） */
+/* 斜连开关（挂到彩种切换条那一行的右端）
+   【触摸友好】用户 2026-10-17 反馈「这里点不动」（手机上看走势图，点这个斜连键没反应）。
+   干净环境实测这个键是好的（命中测试在最上层、真实鼠标点击能换档：差1 → 差1+隔号 → 关），
+   所以手机上"点不动"十有八九是触摸被当成滑动/双击缩放吃掉了 —— 这一行是横向可滚动的彩种条，
+   小圆点在手指稍微一动时就会判成滚动，click 直接不触发。所以：
+     · touch-action: manipulation → 关掉双击缩放等待、让轻点立刻算点击
+     · 加高到 34px、左右内边距加大 → 手指更容易命中
+     · user-select:none + 关掉点击高亮 → 不会出现"选中文字"的干扰 */
 .tr-slantbtn { margin-left: auto; flex: 0 0 auto; font-size: 11.5px; font-weight: 700;
   color: #8a7a63; background: #fdf6ea; border: 1px solid #e8d7bd;
-  border-radius: 20px; padding: 3px 10px; text-decoration: none; cursor: pointer; }
+  border-radius: 20px; padding: 0 12px; min-height: 34px; display: inline-flex;
+  align-items: center; justify-content: center; box-sizing: border-box;
+  text-decoration: none; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
 .tr-slantbtn.on { color: #b8860b; border-color: #f0dfa8; background: #fff6dd; }
 .tr-table { border-collapse: separate; border-spacing: 0; table-layout: fixed;
   font-variant-numeric: tabular-nums; font-size: 12px; }
