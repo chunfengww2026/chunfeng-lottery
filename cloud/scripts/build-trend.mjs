@@ -37,29 +37,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { GAME_IDS, LOTTERY_SPEC } from './lottery-rules.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, '走势图.html');
 const PERIODS = Math.max(10, Math.min(60, Number(process.argv[2]) || 30));
 
-/* ---------- 彩种元数据（key = history.js 里的 areas 键） ---------- */
-export const TREND_GAMES = [
-  { id: 'ssq',  name: '双色球',  main: { key: 'red',   label: '红球', lo: 1, hi: 33, pick: 6 },
-    extra: { key: 'blue',    label: '蓝球',   lo: 1, hi: 16, pick: 1 } },
-  { id: 'dlt',  name: '大乐透',  main: { key: 'front', label: '前区', lo: 1, hi: 35, pick: 5 },
-    extra: { key: 'back',    label: '后区',   lo: 1, hi: 12, pick: 2 } },
-  { id: 'qlc',  name: '七乐彩',  main: { key: 'main',  label: '基本号', lo: 1, hi: 30, pick: 7 },
-    extra: { key: 'special', label: '特别号', lo: 1, hi: 30, pick: 1 } },
-  /* ⚠️ 七星彩是 7 位，但 history.js 是【6+1】口径（build-history.mjs 第 108 行：
-     front = 前 6 位、back = 第 7 位，第 7 位取值 0~14）。
-     最初按"前区 7 位"写，构建自检直接报「每期个数❌」——以真数据为准。 */
-  { id: 'qxc',  name: '七星彩',  main: { key: 'front', label: '前6位', lo: 0, hi: 9,  pick: 6, positional: true },
-    extra: { key: 'back',    label: '第7位',  lo: 0, hi: 14, pick: 1 } },
-  { id: 'kl8',  name: '快乐8',   main: { key: 'main',  label: '号码', lo: 1, hi: 80, pick: 20 } },
-  { id: 'fc3d', name: '福彩3D',  main: { key: 'main',  label: '号码', lo: 0, hi: 9,  pick: 3, positional: true } },
-  { id: 'pl3',  name: '排列3',   main: { key: 'main',  label: '号码', lo: 0, hi: 9,  pick: 3, positional: true } },
-  { id: 'pl5',  name: '排列5',   main: { key: 'main',  label: '号码', lo: 0, hi: 9,  pick: 5, positional: true } }
-];
+/* ---------- 彩种元数据（由 lottery-rules.mjs【派生】，不再手写第二份） ----------
+   ⚠️ 这里的 pick = 【每期画几个号】= 规则表的 opens，【不是】玩法默认选号数。
+      全项目只有快乐8 两者不同：走势图画 20 个（每期开奖数），
+      玩法默认是「选十」（10 个）。以前手写这张表时 kl8 写 pick:20，
+      很容易被读成"玩法选 20 个" —— 现在显式取 opens，语义落在字段名上。
+   ⚠️ 位型标记（qxc/fc3d/pl3/pl5）来自规则表的 positional，只挂在主区。 */
+export const TREND_GAMES = GAME_IDS.map((id) => {
+  const spec = LOTTERY_SPEC[id];
+  const areaOf = (a, withPositional) => {
+    const o = { key: a.key, label: a.label, lo: a.min, hi: a.max, pick: a.opens };
+    if (withPositional && spec.positional) o.positional = true;
+    return o;
+  };
+  const row = { id, name: spec.name, main: areaOf(spec.areas[0], true) };
+  if (spec.areas[1]) row.extra = areaOf(spec.areas[1], false);
+  return row;
+});
 
 /* ---------- 读 history.js（真开奖） ---------- */
 export function loadHistory() {

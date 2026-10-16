@@ -125,6 +125,65 @@ function trTrendLines(payload, gameId, opts) {
   };
 }
 
+/* ============================================================
+   【斜连】用户 2026-10-17 给的规则（原话）：
+     · 普通斜连：上期号码 a，本期号码 b，若 |a - b| === 1，则可连线
+     · 间隔斜连：上期 a，隔 N 期后出现 b，若 |a - b| === N，则连线（相隔数字相等）
+   ------------------------------------------------------------
+   ⚠️ 为什么默认只画"普通斜连"：
+      实测真实数据（30 期）——
+        双色球  差1 92 条 / 间隔 792 条
+        快乐8   差1 278 条 / 间隔 3477 条（占格子 626%！）
+      全部画上去就是一团糊。所以：
+        · 「斜连」开关       = 只画差 1（经典斜连，最多 278 条）
+        · 「斜连·含间隔」    = 连差 N 的一起画（会明显变密，由用户自己决定）
+   ⚠️ 只在【同一个区】内连（红球连红球、蓝球连蓝球）：跨区连线没有意义。
+   ============================================================ */
+
+/**
+ * 检测斜连。
+ * @param {Array<Array<number>>} draws 每期号码（按期号正序：旧 → 新）
+ * @param {object} o { maxGap, includeGapSlant }
+ * @returns {Array<{i,j,a,b,gap,type}>}
+ */
+function trSlantLines(draws, o) {
+  const opt = o || {};
+  const rows = Array.isArray(draws) ? draws : [];
+  const maxGap = opt.maxGap == null ? rows.length : opt.maxGap;
+  const out = [];
+  for (let i = 0; i < rows.length; i++) {
+    const from = rows[i] || [];
+    for (let j = i + 1; j < rows.length; j++) {
+      const gap = j - i;
+      if (gap > maxGap) break;
+      /* 差 1 的"普通斜连"总是算；差 N 的"间隔斜连"要显式打开 */
+      if (gap > 1 && !opt.includeGapSlant) continue;
+      const to = rows[j] || [];
+      for (let x = 0; x < from.length; x++) {
+        for (let y = 0; y < to.length; y++) {
+          const a = from[x], b = to[y];
+          if (Math.abs(a - b) === gap) {
+            out.push({ i, j, a, b, gap, type: gap === 1 ? 'slant' : 'gapSlant' });
+          }
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/** 某个彩种要连的斜连（主场 + 第二区各自算，不跨区） */
+function trSlantFor(payload, gameId, opts) {
+  const o = opts || {};
+  const game = (payload.games || []).filter((g) => g.id === gameId)[0];
+  if (!game) return null;
+  const main = trSlantLines(game.rows.map((r) => r.nums), o).map((x) => ({ ...x, cls: 'main' }));
+  const extra = game.extra
+    ? trSlantLines(game.rows.map((r) => r.extra), o).map((x) => ({ ...x, cls: 'extra' }))
+    : [];
+  return { game: gameId, main, extra, all: main.concat(extra) };
+}
+
 /* 渲染整块：彩种切换条 + 8 张走势表 + 图例 */
 function renderTrendHtml(payload) {
   const esc = trEsc;

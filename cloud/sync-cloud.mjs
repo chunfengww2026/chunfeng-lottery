@@ -294,6 +294,12 @@ const CODE_MODULES = [
         · trend-mount.js   挂载 + 彩种切换（同样被内嵌）
      它们只读本机同步上去的 history.js，不抓网络、不调 AI → 云端零成本可跑。 */
   'build-trend.mjs', 'trend-render.js', 'trend-mount.js',
+  /* 【彩种规则 · 唯一真源】lottery-rules.mjs —— 号码区范围/每区个数/位型 只写一处。
+     ⚠️ 必须同步：build-trend.mjs 与 ocr-tickets.mjs 都 import 它，
+        云端少这一个文件 → ERR_MODULE_NOT_FOUND → 走势图页 + OCR 认票整块挂掉。
+     ⚠️ 它是 ESM（.mjs）。云端的 cloud-build.mjs / daily-update.mjs 都是 ESM，
+        能直接 import；不需要它变成浏览器全局。 */
+  'lottery-rules.mjs',
   /* 【推荐串存档】用户 2026-10-17 第④项（前后 24 小时 + 红黑 + 存档比对）：
        · jc-reco-archive.js  纯计算内核（Node 侧 require、页面侧 vm 读，双模式）
        · jc-reco-build.mjs   构建脚本：存这一期 + 回填红黑 → 写 jc-reco-data.js
