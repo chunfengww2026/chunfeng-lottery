@@ -258,6 +258,59 @@ const P3D_JS = `
     });
   });
   renderP3D();
+
+  /* ============================================================
+     对外接口 —— 给「六码推荐」之类的外部模块同步手绘图用
+     ------------------------------------------------------------
+     用户 2026-10-17 给的用法是：
+       function switchLiuyuan(type) {
+         ...六码推荐自己的渲染...
+         currentP3DType = type;                                   // ← 直接改我的内部变量
+         document.querySelectorAll('.p3d-type-btn').forEach(b => {
+           b.classList.toggle('active', b.dataset.p3d === type);
+         });
+         renderP3D();
+       }
+
+     ⚠️ 这个写法有三处会出问题，所以改成走公开接口：
+       ① currentP3DType 是我这个 IIFE 里的局部变量。外部函数在别的
+          作用域里赋值，只会创建一个【新的全局变量】或改到别人同名变量，
+          我这边的 currentP3DType 根本不会变 —— 图表不动，
+          排查起来还很难看出原因（典型的隐式全局踩坑）。
+       ② 外部直接调 renderP3D() 也不行：它同样在 IIFE 内，外部拿不到。
+       ③ 没有【非法值防护】：万一传进来 'ssq' / undefined，
+          renderP3D 里 TYPE_MAP[key].title 会直接抛 TypeError，
+          整块图空白（用户看到的是"图没了"，不是报错）。
+       ④ 用全局 .p3d-type-btn 选择器：同一页出现第二块时会互相干扰。
+
+     所以这里暴露一个带校验的接口。外部只需：
+       window.P3DChart.switchTo('pl3')      // 返回 true=成功，false=彩种不支持
+       window.P3DChart.current()            // '3d' | 'pl3'
+       window.P3DChart.types()              // ['3d','pl3']
+     ============================================================ */
+  window.P3DChart = {
+    switchTo: function (key) {
+      /* 非法彩种/空值一律拒绝，绝不让 renderP3D 拿到不存在的 key */
+      if (!key || !Object.prototype.hasOwnProperty.call(TYPE_MAP, key)) return false;
+      if (key === currentP3DType) return true;      /* 已经是这个彩种，幂等 */
+      currentP3DType = key;
+      renderP3D();                                  /* 内部会 paintTypeRow() 同步按钮高亮 */
+      return true;
+    },
+    current: function () { return currentP3DType; },
+    types: function () { return Object.keys(TYPE_MAP); },
+    /* 让外部能判断图表是否已就绪（比如在它自己的 DOM 之前被调用） */
+    ready: function () { return !!document.getElementById('p3dSection'); }
+  };
+
+  /* 顺手暴露给六码推荐那种"先渲染自己再同步别人"的典型调用姿势：
+     外部这样写就够了 ——
+       function switchLiuyuan(type) {
+         ...六码推荐自己的渲染...
+         if (window.P3DChart) window.P3DChart.switchTo(type);
+       }
+     （不用去碰 .p3d-type-btn 的高亮，switchTo 内部会同步） */
+
   var rz = null;
   window.addEventListener('resize', function () {
     if (rz) clearTimeout(rz);
