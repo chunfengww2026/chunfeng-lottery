@@ -622,7 +622,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 72,
+    "minute": 71,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -792,7 +792,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 34,
+    "minute": 33,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
