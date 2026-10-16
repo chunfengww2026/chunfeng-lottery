@@ -69,7 +69,7 @@ const XYSP_JC_DATA = {
    "game": "比分",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T05:06:01.219Z",
+   "seen": "2026-10-16T05:26:01.249Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
