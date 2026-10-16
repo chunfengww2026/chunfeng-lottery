@@ -4069,6 +4069,15 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   color: var(--ro-fg2) !important; font-weight: 400; }
 .ro-art-group > summary.ro-art-gname .ro-art-tip::after { content: '点击查看'; font-size: 12px; color: var(--ro-ok) !important; }
 .ro-art-group[open] > summary.ro-art-gname .ro-art-tip::after { content: '点击收起'; }
+
+/* ⑩ 走势图入口（__TREND_ENTRY__）：和晒票/GPT摇号同一套「居中单卡片」外观。
+   ⚠️ 它是 <a>（跳独立页面 走势图.html），不是 <details>，所以单独给样式；
+      视觉上和 .ro-xysp-head / .ro-aipick-head 完全一致（用户要求一致）。 */
+.trend-entry { display: block; text-align: center; text-decoration: none;
+  background: var(--ro-card); border: 1px solid var(--ro-line);
+  border-radius: 10px; margin: 0 12px 12px; padding: 14px 12px; }
+.trend-entry .te-t { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
+.trend-entry .te-d { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-ok); font-weight: 600; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -4084,6 +4093,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   <div class="top-tabs">
     <a class="tab on" href="./">彩票推荐</a>
     <a class="tab" href="足球推荐.html">竞彩场次</a>
+    <a class="tab" href="走势图.html">走势图</a>
   </div>
 
   <!-- ============================================================
@@ -4267,6 +4277,19 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
        【文章参考】用户要求：放在【最新开奖】下面、
        「推荐图目录 / 推荐图」上面（= 原来「彩票推荐图」分隔条的位置）。
        纯文字区块：不含任何图片，所以图位数量不变。 -->
+  <!-- ============================================================
+       __TREND_ENTRY__ 「走势图」入口 —— 用户要求放在【文章参考】上面。
+       ⚠️ 这是【跳转到独立页面 走势图.html】，不是展开内容 →
+          所以不能用 <details>（那是折叠），用 <a>。
+       ⚠️ 样式复用 .ro-aipick-head 那套「居中单卡片」（和晒票/GPT摇号一致），
+          靠 .trend-entry 这个类名借用同一组样式，不新增第二套外观。
+       ⚠️ 页面不变量：纯链接、不含图片 → data-image 不变（仍 21）。
+       ============================================================ -->
+  <a class="trend-entry" href="走势图.html">
+    <span class="te-t">走势图</span>
+    <span class="te-d">近 30 期走势 · 预选参考 · 点击查看 →</span>
+  </a>
+
   ${articlesHtml}
 
   <div class="ro-divider"><span>彩票推荐图</span></div>
