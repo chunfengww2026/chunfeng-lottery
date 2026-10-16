@@ -565,7 +565,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 46,
+    "minute": 47,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
