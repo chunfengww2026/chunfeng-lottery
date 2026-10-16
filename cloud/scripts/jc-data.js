@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 11:33 */
 const JC_DATA = {
- "updated": "2026-10-16 11:28",
+ "updated": "2026-10-16 11:33",
  "stat": {
   "total": 44,
   "upcoming": 44,
@@ -2190,9 +2190,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 2.3,
+      "home": 2.35,
       "draw": 3.6,
-      "away": 3
+      "away": 2.9
      }
     },
     "overunder": {
@@ -2211,14 +2211,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41.6,
+    "confidence": 40.6,
     "prob": {
-     "home": 41.6,
-     "draw": 26.6,
-     "away": 31.9
+     "home": 40.6,
+     "draw": 26.5,
+     "away": 32.9
     },
     "clear": false,
-    "margin": 4.6,
+    "margin": 4.8,
     "rqLine": "平手/半球"
    },
    "asianIndex": {
@@ -3276,9 +3276,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 0.8,
+      "home": 0.77,
       "line": "受一球",
-      "away": 1.05
+      "away": 1.1
      }
     },
     "europe": {
@@ -3288,9 +3288,9 @@ const JC_DATA = {
       "away": 1.57
      },
      "live": {
-      "home": 5.75,
+      "home": 6,
       "draw": 3.9,
-      "away": 1.62
+      "away": 1.6
      }
     },
     "overunder": {
@@ -3309,11 +3309,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 58.9,
+    "confidence": 59.6,
     "prob": {
-     "home": 16.6,
+     "home": 15.9,
      "draw": 24.5,
-     "away": 58.9
+     "away": 59.6
     },
     "clear": true,
     "margin": 4.8,
@@ -3324,21 +3324,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 1,
     "upSide": "away",
-    "upWater": 1.05,
-    "downWater": 0.8,
+    "upWater": 1.1,
+    "downWater": 0.77,
     "openHandicap": 1,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
+    "totalWater": 1.87,
+    "theoryUpPercent": "41.18",
+    "theoryDownPercent": "58.82",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 1,
      "nowHandicap": 1,
      "initUpWater": 1,
-     "nowUpWater": 1.05,
+     "nowUpWater": 1.1,
      "initLine": "受一球",
      "nowLine": "受一球"
     },
@@ -4116,9 +4116,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.82,
-      "over": 3.5,
-      "under": 1.02
+      "line": 1.02,
+      "over": 4,
+      "under": 0.82
      }
     }
    },
@@ -4475,8 +4475,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-10-16 11:28",
   "officialUpdate": "2026-10-16 11:18:15",
   "inSale": 45,

@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-16 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-16 11:33 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-16 11:28",
+ "updated": "2026-10-16 11:33",
  "stat": {
   "upcoming": 1,
-  "live": 2,
-  "finished": 15,
+  "live": 1,
+  "finished": 16,
   "total": 18,
   "settled": true,
   "hit": 4,
-  "miss": 11,
-  "rate": 26.7
+  "miss": 12,
+  "rate": 25
  },
  "lists": {
   "upcoming": [
@@ -54,72 +54,6 @@ const FOOTBALL_DATA = {
   ],
   "live": [
    {
-    "gid": 582121,
-    "kind": "live",
-    "league": {
-     "name": "洪都甲",
-     "color": "442f14"
-    },
-    "time": "2026-10-16 09:30:00",
-    "minute": 94,
-    "home": {
-     "name": "CD奥林匹亚",
-     "score": 2,
-     "red": 0,
-     "rank": 2
-    },
-    "away": {
-     "name": "伊斯柏納",
-     "score": 1,
-     "red": 0,
-     "rank": 1
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.59",
-       "away": 1.12
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3.5",
-       "over": 2.27,
-       "under": 0.14
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.01,
-       "draw": 23,
-       "away": 8.7
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 86.2,
-     "prob": {
-      "home": 86.2,
-      "draw": 3.8,
-      "away": 10
-     },
-     "clear": true,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 1"
-    }
-   },
-   {
     "gid": 581444,
     "kind": "live",
     "league": {
@@ -127,7 +61,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 69,
+    "minute": 72,
     "home": {
      "name": "萨普里沙",
      "score": 5,
@@ -144,16 +78,16 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.95",
-       "away": 0.87
+       "line": "1.02",
+       "away": 0.8
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "4.75",
-       "over": 0.73,
-       "under": 1.07
+       "line": "5.75",
+       "over": 1,
+       "under": 0.8
       },
       "live": null
      },
@@ -1311,6 +1245,84 @@ const FOOTBALL_DATA = {
      "margin": 10.2
     },
     "result": null
+   },
+   {
+    "gid": 582121,
+    "kind": "finished",
+    "league": {
+     "name": "洪都甲",
+     "color": "442f14"
+    },
+    "time": "2026-10-16 09:30:00",
+    "minute": 0,
+    "home": {
+     "name": "CD奥林匹亚",
+     "score": 2,
+     "red": 0,
+     "rank": 2
+    },
+    "away": {
+     "name": "伊斯柏納",
+     "score": 1,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.5,
+       "line": "0.95",
+       "away": 0.75
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.05",
+       "away": 0.65
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.84,
+       "under": 0.86
+      },
+      "live": {
+       "line": "1",
+       "over": 0.83,
+       "under": 0.87
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.95,
+       "draw": 3.3,
+       "away": 3
+      },
+      "live": {
+       "home": 2.56,
+       "draw": 3.85,
+       "away": 2
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 43.5,
+     "prob": {
+      "home": 34,
+      "draw": 22.6,
+      "away": 43.5
+     },
+     "clear": false,
+     "margin": 15
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": false,
+     "score": "2 - 1"
+    }
    }
   ]
  }
