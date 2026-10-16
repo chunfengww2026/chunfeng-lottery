@@ -682,10 +682,48 @@ export function injectMarkers(src) {
     "L.push('<td class=\"tr-td-sep\">' + __trPreselExtra(g) + '</td>');\n" +
     '        for (let i = 0; i < exCols; i++) {');
 
+  /* 预选行：把  L.push('<tbody>');   改成   L.push('<tbody>' + __trPreselRow(g) + '</tbody>');
+     ⚠️ 这里踩过两次坑（都是手写替换串惹的）：
+        ① 替换串引号不成对 → 整页 SyntaxError，8 块全不渲染；
+        ② 替换串里多写一个 '</tbody>' → tbody 提前关闭，30 期数据行全被挤到
+           表格外面、预选行也少一格（tbody 只剩 1 行），却一点报错都不抛。
+        正确写法：两端单引号都必须带上，且中间不能再出现 </tbody>。
+        下面这一行 + assertInjected 里的断言就是为这两件事兜底的。 */
   const TB = "'<tbody>'";
   assertOne(s, TB, '表体开头');
-  s = s.split(TB).join("'<tbody>' + __trPreselRow(g) + '</tbody>'");
+  s = s.split(TB).join("'<tbody>' + __trPreselRow(g) + '");
   return s;
+}
+
+/* ============================================================
+   自检：注入是"字符串手术"，错了会【静默】生成半截页面
+   （真踩过：把模板里的 '</tbody>' 写丢一个引号，
+     生成出来是 ... __trPreselRow(g) + '__trPreselRow(g) ... 拼串错位 →
+     预选行一渲染就把 tbody 提前关掉，后面 30 期数据行全跑到表格外面，
+     页面看着"只剩一行"，却一点报错都没有）。
+   这里asssert 的是【结构上能静态判定】的那几件事；
+   "到底渲染出几行几列"由真浏览器验收（必须 31 行 / 表头 52 列）兜底。
+   ============================================================ */
+export function assertInjected(src, original) {
+  const n = (s, t) => s.split(t).length - 1;
+  const checks = [
+    [n(src, "'<tbody>' + __trPreselRow(g) + '") === 1,
+      "预选行拼接串完整：'<tbody>' + __trPreselRow(g) + '"],
+    /* '</tbody>' 只该有 1 处（rows.forEach 之后原有的那句）；
+       注入点【绝对不能】再补一个，多补就让 tbody 提前关闭。 */
+    [n(src, "'</tbody>'") === 1, "'</tbody>' 恰好 1 处（没有多补的）"],
+    [n(original, '<div class="tr-head">') === 1 && n(src, '<div class="tr-head">') === 1,
+      '工具栏占位插在 tr-head 前（注入后锚点仍是 1 个）'],
+    [n(src, '__trPreselRow(g)') === 1 && n(original, '__trPreselRow(g)') === 0,
+      '__trPreselRow(g) 只在 tbody 那一处被调用'],
+    [n(src, '__trPreselExtra(g)') === 1 && n(original, '__trPreselExtra(g)') === 0,
+      '__trPreselExtra(g) 只在第二区分隔列那一处被调用'],
+    [n(src, 'svg.tr-lines') === n(original, 'svg.tr-lines') && n(src, 'tr-line') === n(original, 'tr-line'),
+      '原有走势连线代码一字未动'],
+  ];
+  const bad = checks.filter((c) => !c[0]).map((c) => c[1]);
+  if (bad.length) throw new Error('注入自检失败：\n  - ' + bad.join('\n  - '));
+  return true;
 }
 
 /* 页面里真正干活的注入脚本（运行时用模板拼出预选行 HTML）
@@ -731,6 +769,7 @@ export function appendInteract(renderSrc) {
   const s = injectMarkers(renderSrc);
   assertOne(s, '__trPreselRow(g)', '预选行运行时调用');
   assertOne(s, '__trPreselExtra(g)', '第二区预选运行时调用');
+  assertInjected(s, renderSrc);
   return s + '\n' + INJECT_SRC;
 }
 
