@@ -265,6 +265,45 @@ function expertPoolFields(gameId, spec) {
 /* ============================================================
    界面：稳定专家面板
    ============================================================ */
+
+/** 极简转义：专家名 / 期号 都是从一起彩抓来的第三方字符串，直接塞 innerHTML 有风险 */
+function exEsc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/**
+ * 一位专家的【展开详情】—— 全部来自 experts-data.js 的 recent[]（近 10 期逐期明细），
+ * 一个数字都不写死：
+ *   · 近 N 期命中 x 期  ← recent 里 hit===true 的条数（不是估算）
+ *   · 连中 / 最长       ← curStreak / maxStreak
+ *   · 每一期：期号 · 类别 · 推了几个号 · 中了几个 · 中的是哪几个
+ * ⚠️ 每期会推 25 个号（picks[]），全列出来太长 —— 只列【命中的号】+ 个数，
+ *    想知道全部推荐号可以点「专家号码池」，那里有。
+ */
+function expertDetailHtml(e) {
+  const rec = Array.isArray(e.recent) ? e.recent : [];
+  const head = '<div class="ex-drow">近 ' + rec.length + ' 期命中 <b>' +
+    rec.filter((r) => r.hit).length + '</b> 期 · 连中 <b>' + (e.curStreak || 0) +
+    '</b> 期 · 最长 <b>' + (e.maxStreak || 0) + '</b> 期' +
+    (e.cat ? ' · ' + exEsc(e.cat) : '') + '</div>';
+  if (!rec.length) return head + '<div class="ex-drow">这位专家没有逐期明细（recent 为空）</div>';
+  const rows = rec.map((r) => {
+    const picks = Array.isArray(r.picks) ? r.picks.length : 0;
+    const hits = Array.isArray(r.hits) ? r.hits : [];
+    const hitTxt = hits.length ? hits.map((n) => String(n).padStart(2, '0')).join(' ') : '—';
+    return '<div class="ex-dhist ' + (r.hit ? 'hit' : 'miss') + '">' +
+      '<span class="ex-dissue">' + exEsc(r.issue) + '</span>' +
+      '<span class="ex-dcat">' + exEsc(e.cat || '') + '</span>' +
+      '<span class="ex-dpicks">推 ' + picks + ' 个 · 中 ' + hits.length + '</span>' +
+      '<span class="ex-dhits">' + hitTxt + '</span>' +
+      '<span class="ex-dres">' + (r.hit ? '命中' : '未中') + '</span>' +
+      '</div>';
+  }).join('');
+  return head + '<div class="ex-drow ex-drow-lb">历史推荐（近 ' + rec.length + ' 期）</div>' + rows;
+}
+
 function renderExpertPanel(container, gameId) {
   const box = document.createElement('div');
   box.className = 'panel';
@@ -328,21 +367,62 @@ function renderExpertPanel(container, gameId) {
       '<span class="ex-c6">上期</span>' +
       '<span class="ex-c7">评分</span>' +
       '</div>';
-    list.forEach((e) => {
+    list.forEach((e, idx) => {
       const rr = (e.recoverRate === null || e.recoverRate === undefined)
         ? '—' : Math.round(e.recoverRate * 100) + '%';
-      html += '<div class="ex-row">' +
-        `<span class="ex-c1">${e.name || '?'}</span>` +
+      /* ⚠️ 专家数据里【没有 id】：experts-data.js 的 stable[] 只有
+         name/url/cat/siteHit10/hitRate10/curStreak/maxStreak/lastHit/periods/recent…
+         直接照抄 item.id 会拿到 undefined → 10 行的详情 div 全叫 detail-undefined，
+         点哪一行都只会展开第一行。所以 key 用「彩种 + 序号」自己造。 */
+      const key = gameId + '-' + idx;
+      /* ⚠️ 不能用裸 <button>（页面铁律）；也不能用裸 <div onclick>（键盘聚焦不到）。
+         用 <a role="button" tabindex="0"> + data-ex-key，事件走下面的委托监听。 */
+      /* ⚠️ 行 + 详情包一层 .ex-item：表格的「隔行变色」用的是 :nth-child(even)，
+         直接往表里插详情 div 会让它数到详情上、斑马纹错位（实测过）。 */
+      html += '<div class="ex-item">' +
+        '<a class="ex-row ex-row-btn" role="button" tabindex="0"' +
+        ' data-ex-key="' + key + '" aria-expanded="false">' +
+        `<span class="ex-c1">${exEsc(e.name || '?')}<i class="ex-arrow" aria-hidden="true">▾</i></span>` +
         `<span class="ex-c2">${Math.round((e.hitRate10 || 0) * 10)}/10</span>` +
         `<span class="ex-c3">${e.maxStreak || 0}</span>` +
         `<span class="ex-c4">${e.curStreak || 0}</span>` +
         `<span class="ex-c5">${rr}</span>` +
         `<span class="ex-c6">${e.lastHit ? '<b style="color:#f0575c">红</b>' : '<b style="color:#6b7488">黑</b>'}</span>` +
         `<span class="ex-c7">${(e.score || 0).toFixed(1)}</span>` +
+        '</a>' +
+        `<div class="ex-detail" id="ex-detail-${key}" hidden>${expertDetailHtml(e)}</div>` +
         '</div>';
     });
     html += '</div>';
     t.innerHTML = html;
+
+    /* 【展开 / 收起】一个委托监听搞定（10~15 行只挂 2 个监听）：
+       · 状态用 hidden 属性 + .on 类，不用 style.display —— display 不能过渡，
+         而且和项目里 <details>/[open] 那套做法不一致，容易越写越乱
+       · Enter / 空格 也能开合（<a role="button" tabindex="0"> 才聚焦得到）
+       · aria-expanded 跟着变 */
+    const toggleRow = (row) => {
+      if (!row || !t.contains(row)) return;
+      const detail = document.getElementById('ex-detail-' + (row.getAttribute('data-ex-key') || ''));
+      if (!detail) return;
+      const willOpen = detail.hasAttribute('hidden');
+      if (willOpen) detail.removeAttribute('hidden');
+      else detail.setAttribute('hidden', '');
+      row.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      row.classList.toggle('on', willOpen);
+    };
+    const rowOf = (node) => (node && node.closest) ? node.closest('[data-ex-key]') : null;
+    t.addEventListener('click', (ev) => {
+      const row = rowOf(ev.target);
+      if (row) { ev.preventDefault(); toggleRow(row); }
+    });
+    t.addEventListener('keydown', (ev) => {
+      const k = ev.key || '';
+      if (k !== 'Enter' && k !== ' ' && k !== 'Spacebar') return;
+      const row = rowOf(ev.target);
+      if (row) { ev.preventDefault(); toggleRow(row); }
+    });
+
     box.appendChild(t);
   }
 
