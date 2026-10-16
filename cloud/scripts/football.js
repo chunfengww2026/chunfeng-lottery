@@ -239,7 +239,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-16 09:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "CD奥林匹亚",
      "score": 2,
@@ -305,7 +305,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-16 10:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "萨普里沙",
      "score": 3,
