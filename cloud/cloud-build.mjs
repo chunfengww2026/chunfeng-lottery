@@ -369,16 +369,16 @@ const SLOT_PLAN = {
   /* 【全量班】抓全部数据 + 缺才补摇 + 清空热力图
      ⚠️ roll 用 fill 而不是 force：同一分钟会有两条 cron 都落到这一班
         （每 30 分钟那条 + 专用 0 18 那条），force 会把已经发布出去的号码摇两遍。 */
-  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: true  },
+  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
   /* 【常规班】每 30 分钟：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 */
-  'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
+  'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
   /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
-  'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, exportTrend: false, cleanup: false },
-  'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
-  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, exportTrend: true, cleanup: false },
-  'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false },
-  'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true, exportTrend: false,  cleanup: false },
-  'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true, exportTrend: true,  cleanup: false }
+  'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, cleanup: false },
+  'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true,  cleanup: false },
+  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
+  'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
+  'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true,  cleanup: false },
+  'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false }
 };
 
 /** 解析 cron 的「分钟 / 小时」字段（支持 5、5,10、1-5、星号/步长 三种写法）
