@@ -2216,19 +2216,19 @@ const XYSP_DATA = {
      "when": "2026-10-16 10:15:53"
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/dbf29d3ea86b4b7d932fbdfa71342aaf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=t8YZYBlzv98wmlrF2ZOAVPv89ik%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/dbf29d3ea86b4b7d932fbdfa71342aaf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=t8YZYBlzv98wmlrF2ZOAVPv89ik%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e2b259f30eec41fb9a1f560a65b89d1e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=LCXyMzbKBIGSuwWnr4RH3%2BlDxbI%3D",
-     "title": "50倍单式票面革新，22倍单式一以贯之！26118期双色球晒票鉴赏",
-     "url": "http://toutiao.com/item/7697083706086785577/",
-     "at": "2026-10-16T02:26:02.104Z",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58f9626f3e6c4db6bcb36008ba82c88d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=I9penpcMoPjtFjRxcgQuEXjccMo%3D",
+     "title": "20倍单式票圈定05到17，大乐透26117期晒票，后区还防了09和10",
+     "url": "http://toutiao.com/item/7697074111138234920/",
+     "at": "2026-10-16T02:16:02.099Z",
      "src": "tt",
      "cat": "tt",
-     "game": "双色球",
+     "game": "大乐透",
      "games": [
-      "ssq"
+      "dlt"
      ],
-     "issue": "26118",
+     "issue": "26117",
      "seen": "2026-10-16T03:17:59.115Z",
      "drawAt": "2026-10-15T13:15:00.000Z",
      "nextAt": "2026-10-18T13:15:00.000Z",
@@ -2259,7 +2259,7 @@ const XYSP_DATA = {
      "expireAt": "2026-10-19T03:16:02.157Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-16 10:15:53"
+     "when": "2026-10-16 09:38:39"
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45114250b8b3490098f3250446f7ca5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=nnrpACka1UawNKTGer4rgfWrIuA%3D",
