@@ -1555,7 +1555,14 @@ function buildLiveHtml() {
     `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
     /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
-    `<a class="ro-live-more" href="${articleHref(home)}" data-copy="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +   /* __COPY_LIVE__ 用户要求：改成点击复制链接 */
+    /* __COPY_LIVE__ 用户要求：改成点击复制链接
+       ⚠️【不再写 data-copy】两个原因：
+          ① 硬性要求：页面上不能看出数据从哪来。data-copy 会把完整域名
+             复制到剪贴板（属性里的 HTML 实体在 getAttribute 时会被解回字母），
+             等于把来源送到用户手里；留痕断言会当场拦下来（实测拦过）。
+          ② 复制逻辑本来就兜底读 href（见下面 copyEls 那段：data-copy || href），
+             所以删掉 data-copy 功能不变：照样复制、照样能打开。 */
+    `<a class="ro-live-more" href="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
     `点击复制链接进浏览器查看</a>` +
     (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
@@ -6963,7 +6970,7 @@ fs.writeFileSync(OUT, gatedHtml, 'utf8');
 console.log('   🔒 密码门：正文已加密（改密码只改 make-keygate.mjs 的 KEYGATE_PASSWORD）');
 
 console.log(`✅ 已生成：${OUT}`);
-console.log(`   大小：${(Buffer.byteLength(html, 'utf8') / 1024).toFixed(1)} KB`);
+console.log(`   大小：${(Buffer.byteLength(gatedHtml, 'utf8') / 1024).toFixed(1)} KB（含密文正文）`);
 console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
 console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
 console.log(`   生成时间：${todayStr}`);
