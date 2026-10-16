@@ -106,6 +106,8 @@ export const P3D_CSS = `
 .luoshu-table td.hit.pick { border: 2px solid #d9a300;
   box-shadow: 0 0 0 2px rgba(31, 95, 214, .45), 0 0 6px rgba(217, 163, 0, .6); }
 .luoshu-zero { font-size: 11px; color: var(--ro-fg2); margin-top: 6px; }
+/* 动态盘说明：标明本盘偏移量 + 由上期哪一期推得（"每期自动变化"看得见） */
+.luoshu-tip { font-size: 10.5px; color: var(--ro-fg3); margin-top: 3px; }
 .luoshu-zero.hit { color: var(--ro-danger); font-weight: 700; }
 .luoshu-zero.pick { color: var(--ro-link); font-weight: 700; }
 .luoshu-legend { display: flex; gap: 12px; justify-content: center; margin-top: 8px;
@@ -146,6 +148,26 @@ export const P3D_CSS = `
 .p3d-summary b { color: var(--ro-fg); }
 .p3d-note { text-align: center; font-size: 11px; color: var(--ro-fg2); margin-top: 8px; }
 .p3d-scroll { max-height: 420px; overflow-y: auto; }
+
+/* ============ 六码推荐（用户 2026-10-17：建在分享页） ============ */
+.lm-section { margin: 0 12px var(--c-gap, 12px); background: var(--ro-card);
+  border: 1px solid var(--ro-line); border-radius: 10px; padding: 12px; }
+.lm-title { text-align: center; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
+.lm-sub { text-align: center; font-size: 11.5px; color: var(--ro-fg2);
+  margin: 4px 0 8px; }
+.lm-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 6px 0; border-top: 1px dashed var(--ro-line-soft); }
+.lm-row:first-of-type { border-top: none; }
+.lm-k { flex: 0 0 40px; font-size: 12px; font-weight: 700; color: var(--ro-fg2); }
+.lm-balls { display: flex; gap: 6px; flex-wrap: wrap; }
+.lm-ball { display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 800;
+  color: #fff; font-variant-numeric: tabular-nums; }
+.lm-gold { background: #d9a300; box-shadow: 0 0 0 2px #fff6dd; }
+.lm-silver { background: #8a7a63; box-shadow: 0 0 0 2px #efe2cc; }
+.lm-tuo { background: var(--ro-ok); }
+.lm-none { font-size: 11.5px; color: var(--ro-fg3); }
+.lm-count { margin-left: auto; font-size: 11.5px; color: var(--ro-fg2); }
 `;
 
 /* ---------- 运行时的渲染脚本（数据已在构建期算好并内联） ---------- */
@@ -185,10 +207,15 @@ const P3D_JS = `
   }
   function renderLuoshu(meta, liuSet) {
     var hitMap = meta.luoshuLast.cells || {}, html = '', r, c, v, cls;
-    for (r = 0; r < LUOSHU.length; r++) {
+    /* 【动态盘】用户 2026-10-17 定：不再用静态基盘，改用 stats.js 那套
+       「输入上期开奖号、每期自动生成不同图表数据」——盘面整体按 offset 偏移。
+       ⚠️ 所以这里的数字要从 meta.luoshuLast.grid 取，不能再用静态 LUOSHU；
+          用静态的话命中格会全错（盘面都换了）。 */
+    var grid = (meta.luoshuLast && meta.luoshuLast.grid) || LUOSHU;
+    for (r = 0; r < grid.length; r++) {
       html += '<tr>';
-      for (c = 0; c < LUOSHU[r].length; c++) {
-        v = LUOSHU[r][c]; cls = [];
+      for (c = 0; c < grid[r].length; c++) {
+        v = grid[r][c]; cls = [];
         if (hitMap[r + ',' + c]) cls.push('hit');
         if (liuSet[v]) cls.push('pick');
         html += '<td class="' + cls.join(' ') + '">' + v + '</td>';
@@ -200,6 +227,14 @@ const P3D_JS = `
     var zeroHit = meta.luoshuLast.zero, zeroPick = !!liuSet[0];
     z.className = 'luoshu-zero' + (zeroHit ? ' hit' : '') + (zeroPick ? ' pick' : '');
     z.textContent = zeroHit ? '外置 0 号：【0】' : (zeroPick ? '外置 0 号（六码含 0）' : '0 单独外置');
+    /* 标明这是动态盘：偏移量 + 由上期哪一期推得（让"每期不同"这件事看得见） */
+    var tip = $('luoshuTip');
+    if (tip) {
+      var off = meta.luoshuLast.offset;
+      tip.textContent = '本盘偏移 ' + (off == null ? '-' : off) +
+        (meta.luoshuLast.prevIssue ? ' · 由上期 ' + meta.luoshuLast.prevIssue + ' 推得' : '') +
+        ' · 每期自动变化';
+    }
   }
   function renderTables(draws) {
     $('posTableBody').innerHTML = draws.map(function (d) {
@@ -259,6 +294,32 @@ const P3D_JS = `
     });
     return n;
   }
+  /* 【六码推荐】渲染（用户 2026-10-17：建在分享页，与手绘图同步）
+     ⚠️ 这里没有自己的彩种状态 —— 直接用 currentP3DType，两块永远一致。 */
+  function renderLiuMa(key) {
+    var rec = LIUMA_MAP[key] || {};
+    var setArr = liuMaSetOf(key);
+    var balls = function (list, cls) {
+      return list.map(function (n) { return '<span class="lm-ball ' + cls + '">' + n + '</span>'; }).join('');
+    };
+    var gold = rec.goldDan == null ? [] : [rec.goldDan];
+    var silver = rec.silverDan == null ? [] : [rec.silverDan];
+    var tuo = rec.tuoList || [];
+    $('lmBody').innerHTML =
+      '<div class="lm-row"><span class="lm-k">金胆</span><span class="lm-balls">' +
+        (gold.length ? balls(gold, 'lm-gold') : '<span class="lm-none">未给</span>') + '</span></div>' +
+      '<div class="lm-row"><span class="lm-k">银胆</span><span class="lm-balls">' +
+        (silver.length ? balls(silver, 'lm-silver') : '<span class="lm-none">未给</span>') + '</span></div>' +
+      '<div class="lm-row"><span class="lm-k">拖码</span><span class="lm-balls">' +
+        (tuo.length ? balls(tuo, 'lm-tuo') : '<span class="lm-none">未给</span>') +
+        '</span><span class="lm-count">共 ' + setArr.length + ' 个号</span></div>';
+    /* 六码推荐自己的按钮高亮 */
+    Array.prototype.slice.call(document.querySelectorAll('#lmTypeRow .p3d-type-btn')).forEach(function (el) {
+      var on = el.getAttribute('data-lm') === key;
+      el.className = 'p3d-type-btn' + (on ? ' active' : '');
+    });
+  }
+
   function renderP3D() {
     var key = currentP3DType, meta = META[key], draws = DRAWS[key] || [];
     var setArr = liuMaSetOf(key), liuSet = {}, rec = LIUMA_MAP[key] || {};
@@ -267,6 +328,7 @@ const P3D_JS = `
     $('p3dSub').textContent = '近 ' + meta.periods + ' 期真开奖 · 期号 ' + meta.first + ' → ' + meta.last +
       ' · 每期只填 3 个号码 | 圈号 + 连线 + 标路数';
     paintTypeRow();
+    renderLiuMa(key);          /* 【六码推荐】和手绘图共用同一个彩种状态，一起重画 */
     renderLuoshu(meta, liuSet);
     renderTables(draws);
     var sc = meta.shapeCount;
@@ -286,6 +348,16 @@ const P3D_JS = `
       renderP3D();
     });
   });
+  /* 【六码推荐】的彩种按钮：走公开接口 window.P3DChart.switchTo(type)
+     —— 就是用户给的 switchLiuyuan(type) 里那一行的写法。
+     switchTo 内部会 renderP3D()，从而把六码推荐和手绘图一起刷新。 */
+  Array.prototype.slice.call(document.querySelectorAll('#lmTypeRow .p3d-type-btn')).forEach(function (el) {
+    el.addEventListener('click', function () {
+      var key = el.getAttribute('data-lm');
+      if (window.P3DChart) window.P3DChart.switchTo(key);
+    });
+  });
+
   renderP3D();
 
   /* 【折叠 → 展开时必须重画位连线】
@@ -374,8 +446,8 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     'pl3': { title: '排列三 手绘参考图（民间算法）', name: '排列三' }
   };
   const LIUMA_MAP = opt.liuMaMap || {
-    '3d': { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4, 8] },
-    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6, 9] }
+    '3d': { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4] },
+    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6] }
   };
 
   const data = {}, meta = {};
@@ -407,7 +479,16 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     data, meta
   };
 
-  return `<details class="p3d-section" id="p3dSection">` +
+  return `<section class="lm-section" id="lmSection">` +
+    `<div class="lm-title">六码推荐</div>` +
+    `<div class="lm-sub">金胆 · 银胆 · 拖码 —— 共 6 个号 · 与下方手绘图同步</div>` +
+    `<div class="p3d-type-row" id="lmTypeRow">` +
+      `<div class="p3d-type-btn active" data-lm="3d">${TYPE_MAP['3d'].name}</div>` +
+      `<div class="p3d-type-btn" data-lm="pl3">${TYPE_MAP['pl3'].name}</div>` +
+    `</div>` +
+    `<div id="lmBody"></div>` +
+    `</section>` +
+    `<details class="p3d-section" id="p3dSection">` +
     /* 【可折叠】用户要求：「这里可折叠可展开，就写『手绘参考图』」。
        入口行 = 泛称 + 括注小字「手绘参考图（民间3D/排三）」（2026-10-17 改名）；
        里面 #p3dTitle 仍然是按彩种的标题
@@ -428,6 +509,7 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
       `<div class="p3d-block"><div class="p3d-block-title">洛书九宫图</div>` +
         `<div class="luoshu-wrap"><table class="luoshu-table" id="luoshuTable"></table>` +
         `<div class="luoshu-zero" id="luoshuZero">0 单独外置</div>` +
+        `<div class="luoshu-tip" id="luoshuTip"></div>` +
         `<div class="luoshu-legend"><span><i class="k-hit"></i>本期开奖命中</span>` +
         `<span><i class="k-pick"></i>六码圈选</span></div></div></div>` +
       `<div class="p3d-block"><div class="p3d-block-title">百/十/个位连线图</div>` +

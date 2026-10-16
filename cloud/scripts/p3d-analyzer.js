@@ -33,10 +33,60 @@
   'use strict';
 
   /* 洛书九宫基盘 —— 和项目一致（stats.js 的 NINE_CHART_BASE.baseLuoshu）。
-     ⚠️ 项目的洛书是【按上期号码算 offset 动态旋转】的（createLuoshu9Grid）；
-        这里是【静态基盘】，只用于"标出本期命中的宫位"这种参考图。
-        要动态盘请用 stats.js 的 getCurrentLuoshu()，别在这里再实现一遍。 */
+     ⚠️ 2026-10-17 用户定：3D 参考图要【动态盘】，不再用静态基盘。
+        动态盘就是 stats.js 那一套（getNumberRoot → calcOffsetByLastLottery
+        → createLuoshu9Grid），下面按【原样复刻】，并且
+        _realtest_p3d.mjs 里拿 stats.js 真跑一遍逐格比对，证明完全一致
+        （否则就是"又抄了一份会漂移的规则"）。
+     ⚠️ 原样保留的一个怪癖：数字 0 的数根是 0，而 countMap 只有 1~9，
+        所以 0 不参与 offset 计算（三位数字彩里 0 很常见，但这是项目既有口径，
+        不擅自"修"它 —— 改了就和 stats.js 不一致了）。 */
   const LUOSHU = [[4, 9, 2], [3, 5, 7], [8, 1, 6]];
+
+  /** 号码求数根：号码 → 宫号（照抄 stats.js 的 getNumberRoot） */
+  function getNumberRoot(num) {
+    let n = Number(num);
+    while (n >= 10) {
+      let s = 0;
+      while (n > 0) { s += n % 10; n = Math.floor(n / 10); }
+      n = s;
+    }
+    return n;
+  }
+
+  /** 由上期开奖号算九宫偏移量 offset（照抄 stats.js 的 calcOffsetByLastLottery） */
+  function calcOffsetByLastLottery(lastNumList) {
+    const countMap = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 };
+    (Array.isArray(lastNumList) ? lastNumList : []).forEach((num) => {
+      const gong = getNumberRoot(num);
+      countMap[gong]++;                 /* 0 落不进 countMap → NaN，和 stats.js 一致 */
+    });
+    let maxCount = -1, offset = 1;
+    for (let g = 1; g <= 9; g++) {
+      if (countMap[g] > maxCount) { maxCount = countMap[g]; offset = g; }
+    }
+    return offset;
+  }
+
+  /** 基盘按 offset 整体偏移 1~9（照抄 stats.js 的 createLuoshu9Grid） */
+  function createLuoshu9Grid(offset) {
+    const grid = LUOSHU.map((row) => row.slice());
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        let val = grid[i][j] + offset;
+        if (val > 9) val -= 9;
+        if (val === 0) val = 9;
+        grid[i][j] = val;
+      }
+    }
+    return grid;
+  }
+
+  /** 综合入口：输入【上期】号码 → 输出【本期】盘面（等价 stats.js 的 getCurrentLuoshu） */
+  function currentLuoshu(lastNumList) {
+    const offset = calcOffsetByLastLottery(lastNumList);
+    return { grid: createLuoshu9Grid(offset), offset };
+  }
 
   /** 012 路：就是 num % 3（用户的 ROAD_MAP 完全等价于此） */
   function roadOf(n) { return ((n % 3) + 3) % 3; }
@@ -65,19 +115,21 @@
   /**
    * 洛书九宫命中情况（把一批号码落到九宫格上）。
    * @param {number[]} nums 号码（0~9）
+   * @param {number[][]} [grid] 要落的盘面；不传则用静态基盘
    * @returns {{cells: Object, zero: boolean}}
    *          cells 的键是 "r,c"，值是命中该格的原号码数组
    */
-  function luoshuHits(nums) {
+  function luoshuHits(nums, grid) {
+    const g = (Array.isArray(grid) && grid.length === 3) ? grid : LUOSHU;
     const cells = {};
     let zero = false;
     (Array.isArray(nums) ? nums : []).forEach((n) => {
       const v = Number(n);
       if (v === 0) { zero = true; return; }       /* 0 单独外置（用户的规则） */
       if (v < 1 || v > 9) return;
-      for (let r = 0; r < LUOSHU.length; r++) {
-        for (let c = 0; c < LUOSHU[r].length; c++) {
-          if (LUOSHU[r][c] === v) {
+      for (let r = 0; r < g.length; r++) {
+        for (let c = 0; c < g[r].length; c++) {
+          if (g[r][c] === v) {
             const k = r + ',' + c;
             (cells[k] = cells[k] || []).push(v);
             return;
@@ -111,12 +163,27 @@
     });
     if (!draws.length) { sumMin = sumMax = spanMin = spanMax = null; }
 
-    /* 洛书：把所有期次的号码并起来标（不是只看最后一期 —— 用户原 JS 只看最后一期，
-       但那和旁边三张"显示全部期次"的表不一致；这里给两个都有，调用方自己选） */
+    /* ============================================================
+       洛书九宫：用户 2026-10-17 定【动态盘】（不再用静态基盘）
+       ------------------------------------------------------------
+       口径照 stats.js：「输入上期开奖号，每期自动生成不同图表数据」
+         · offset 由【上期】号码算（calcOffsetByLastLottery）
+         · 盘面 = 基盘按 offset 偏移（createLuoshu9Grid）
+         · 命中 = 【本期】号码落在盘面的哪些格
+       所以最后一期要用【倒数第二期】算 offset。
+       另外仍然保留 luoshuAll（全部期次并起来标）供调用方选。
+       ============================================================ */
     const allNums = [];
     draws.forEach((d) => d.raw.forEach((n) => allNums.push(n)));
     const luoshuAll = luoshuHits(allNums);
-    const luoshuLast = draws.length ? luoshuHits(draws[draws.length - 1].raw) : { cells: {}, zero: false };
+
+    const lastIdx = draws.length - 1;
+    const prev = lastIdx >= 1 ? draws[lastIdx - 1].raw : (draws.length ? draws[0].raw : []);
+    const luo = currentLuoshu(prev);                 /* 上期 → 本期盘面 */
+    const luoshuLast = draws.length
+      ? Object.assign({ grid: luo.grid, offset: luo.offset, prevIssue: lastIdx >= 1 ? draws[lastIdx - 1].issue : '' },
+          luoshuHits(draws[lastIdx].raw, luo.grid))
+      : { grid: luo.grid, offset: luo.offset, prevIssue: '', cells: {}, zero: false };
 
     return {
       draws,
@@ -148,5 +215,9 @@
     return out.sort((a, b) => a - b);
   }
 
-  return { LUOSHU, roadOf, parseDraw, luoshuHits, analyze, liuMaSet };
+  return {
+    LUOSHU, roadOf, parseDraw, luoshuHits, analyze, liuMaSet,
+    /* 洛书动态盘那套（原样复刻 stats.js，_realtest_p3d.mjs 逐格比对过） */
+    getNumberRoot, calcOffsetByLastLottery, createLuoshu9Grid, currentLuoshu
+  };
 });

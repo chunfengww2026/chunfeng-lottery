@@ -123,9 +123,15 @@ export const MOUNT_SRC = fs.readFileSync(path.join(ROOT, 'trend-mount.js'), 'utf
 
    四个按钮（都是 <div class="btn">，不是 <button>）：
      · 默认        不画线：只显示原本就有的自动走势连线（竖向 + 斜连）
-     · 画线        手指/鼠标在表格上拖动 → 画一条手画线（红色，覆盖在走势线上）
+     · 画线        进画线档；下面会多出一排【画法】子档（见下）
      · 清空画线    清掉所有手画线
      · 自动衍生预选 一键选出【近 N 期出现次数最多】的号（见 pickNumbers）
+
+   画线的三种画法（用户 2026-10-17：「两种都要 就是个人想怎么画就怎么画」）：
+     · 自由       手指/鼠标怎么拖怎么画（跟手），默认档
+     · 直线       从起点拖到终点，只连一条直线（不跟手抖）
+     · 逐点       点一个格子标一个点，再点一个自动和上一个点连成线
+   三条都是 <div class="btn btn-sub">，只在「画线」档显示；手机上都是点/拖各触发一次。
 
    预选行：
      · 每个号码格点一下 = 选中（金色实心 .num.gold）/ 再点 = 取消（虚线空心 .num.empty）
@@ -172,7 +178,14 @@ const INTERACT_SRC = `
     { t: 'clear', label: '清空画线', title: '清掉手画的线' },
     { t: 'autoPreview', label: '自动衍生预选', title: '按近 N 期出现次数选号' }
   ];
+  var DRAW_STYLES = [
+    { s: 'free', label: '自由', title: '自由手拖：手指/鼠标怎么拖就怎么画（跟手）' },
+    { s: 'straight', label: '直线', title: '直线：从起点拖到终点，只画一条直线' },
+    { s: 'dots', label: '逐点', title: '逐点连线：点一个格子标一个点，自动和上一个点连成线' }
+  ];
+  var drawStyle = 'free';
   var btnEls = [];
+  var styleEls = [];
 
   function mountToolbars() {
     qsa('.tr-preseltool').forEach(function (tb) {
@@ -784,7 +797,10 @@ const INJECT_SRC = `
 function __trMainCells(g) {
   var o = [];
   for (var i = g.main.lo; i <= g.main.hi; i++) {
-    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0"></td>');
+    /* 【预选行也印号数】用户 2026-10-17：预选行也印上该列号数（和数据行同一个 .tr-ghost），
+       这样点选时能看出自己在选几号。选中后是实心球，球会把号数盖住（和数据行一致）。 */
+    o.push('<td class="tr-td-presel tr-td-num" data-tr-presel="m" data-tr-key="' + (i - g.main.lo) + '" data-tr-hit="0">' +
+      '<i class="tr-ghost">' + i + '</i></td>');
   }
   return o.join('');
 }
@@ -792,7 +808,8 @@ function __trExtraCells(g) {
   var o = [];
   if (!g.extra) return '';
   for (var i = g.extra.lo; i <= g.extra.hi; i++) {
-    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0"></td>');
+    o.push('<td class="tr-td-presel tr-td-num is-extra" data-tr-presel="x" data-tr-key="' + (i - g.extra.lo) + '" data-tr-hit="0">' +
+      '<i class="tr-ghost">' + i + '</i></td>');
   }
   return o.join('');
 }
@@ -882,13 +899,13 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
   font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }
 .ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
 
-/* ① 顶部 Tab —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
+/* ① 顶部那排页面标签 —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
       原因：走势图.html 会被分享页用 <iframe> 嵌进折叠块里，
-      在 iframe 内点「彩票推荐 / 竞彩场次」会跳出当前页、体验很怪；
-      而只剩「走势图」一个 Tab 没意义、还白占一行 → 连 HTML 带样式一起删。
+      在 iframe 内点那两个跳转标签会跳出当前页、体验很怪；
+      而只剩本页自己那一个也没意义、还白占一行 → HTML 和样式一起删。
       ⚠️ 别复活：删掉后首屏第一个可见元素就是下面 ② 那行小字。 */
 
-/* ② 页眉小字（原来的大标题「春风十里送大奖」也按用户要求删了，只留这行说明）
+/* ② 页眉小字（原来那行绿色大标题也按用户要求删了，只留这行说明）
       上边距给足：顶部 Tab 和大标题都没了，这里就是首屏第一块内容 */
 .ro-top { padding: 18px 12px 10px; text-align: center; }
 .ro-top .sub { margin-top: 0; font-size: 12px; color: var(--ro-fg2); }
@@ -897,7 +914,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .ro-status { margin: 0 0 14px; border-radius: 10px; padding: 12px 14px; font-size: 13px;
   line-height: 1.8; background: #fff6dd; border: 1px solid #ffe08a; color: var(--ro-fg2); }
 .ro-status b { color: #7a5c00; }
-/* 原 .ro-status .ro-st-time（红色「页面时间」）随用户 2026-10-17 的要求一起去掉 */
+/* 原 .ro-status .ro-st-time（那行红色时间）随用户 2026-10-17 的要求一起去掉 */
 
 /* ④ 彩种切换条 */
 .tr-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
@@ -1068,18 +1085,18 @@ svg.tr-lines-draw.on { pointer-events:auto; }
 <body data-built="${updated}">
 <div class="ro-wrap">
 
-  <!-- 顶部 Tab 已按用户 2026-10-17 要求【整排彻底删除】：本页不再有 .top-tabs。
+  <!-- 顶部那排页面标签已按用户 2026-10-17 要求【整排彻底删除】：本页不再有 .top-tabs。
        不是"只在 iframe 里隐藏" —— 独立打开 走势图.html 时也没有这一排。
        原因：这页会被分享页用 <iframe src="走势图.html"> 嵌进折叠块，
-       在 iframe 里点「彩票推荐 / 竞彩场次」会跳走、体验很怪；
-       只剩「走势图」一个 Tab 也没意义 → 整排去掉，页面顶部直接就是下面这行小字。 -->
+       在 iframe 里点另外两页的跳转标签会跳走、体验很怪；
+       只剩本页自己那一个也没意义 → 整排去掉，页面顶部直接就是下面这行小字。 -->
 
   <div class="ro-top">
     <div class="sub">走势图 · 8 个彩种 · 最近 ${payload.periods} 期真实开奖</div>
   </div>
 
   <!-- 免责声明：这段【必须保留】（「只看数据，不荐号…不预测、不保证」）。
-       ⚠️ 页面上【不再印任何时间】—— 用户 2026-10-17 要求去掉原来那行红字「页面时间」。
+       ⚠️ 页面上【不再印任何时间】—— 用户 2026-10-17 要求去掉原来那行红色时间。
           历史坑别再踩：早先印过「数据快照 <构建时间>」，那个时间曾是 UTC
           （比北京时间早 8 小时，见 build-history.mjs 的说明），会被当成"数据是 8 小时前的"；
           构建时间现在只留在 <body data-built="…"> 属性里，排查时看那里。
