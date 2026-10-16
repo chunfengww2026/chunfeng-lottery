@@ -149,9 +149,12 @@ export const P3D_CSS = `
 .p3d-note { text-align: center; font-size: 11px; color: var(--ro-fg2); margin-top: 8px; }
 .p3d-scroll { max-height: 420px; overflow-y: auto; }
 
-/* ============ 六码推荐（用户 2026-10-17：建在分享页） ============ */
-.lm-section { margin: 0 12px var(--c-gap, 12px); background: var(--ro-card);
-  border: 1px solid var(--ro-line); border-radius: 10px; padding: 12px; }
+/* ============ 六码推荐（用户 2026-10-17：建在分享页 → 同日并入「手绘参考图」） ============
+   用户原话：「把这个推荐融合到手绘参考图里面去」。
+   所以这里不再是一张独立卡片（原来 .lm-section 自带 margin/背景/边框/圆角）；
+   改成「手绘参考图」块【内部】的一块区域：只留一点内边距 + 一条虚线分隔。
+   下面的 .lm-title / .lm-row / .lm-ball 等样式原样继续用。 */
+.lm-inner { padding: 0 0 8px; margin: 0 0 8px; border-bottom: 1px dashed var(--ro-line-soft); }
 .lm-title { text-align: center; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
 .lm-sub { text-align: center; font-size: 11.5px; color: var(--ro-fg2);
   margin: 4px 0 8px; }
@@ -479,16 +482,7 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     data, meta
   };
 
-  return `<section class="lm-section" id="lmSection">` +
-    `<div class="lm-title">六码推荐</div>` +
-    `<div class="lm-sub">金胆 · 银胆 · 拖码 —— 共 6 个号 · 与下方手绘图同步</div>` +
-    `<div class="p3d-type-row" id="lmTypeRow">` +
-      `<div class="p3d-type-btn active" data-lm="3d">${TYPE_MAP['3d'].name}</div>` +
-      `<div class="p3d-type-btn" data-lm="pl3">${TYPE_MAP['pl3'].name}</div>` +
-    `</div>` +
-    `<div id="lmBody"></div>` +
-    `</section>` +
-    `<details class="p3d-section" id="p3dSection">` +
+  return `<details class="p3d-section" id="p3dSection">` +
     /* 【可折叠】用户要求：「这里可折叠可展开，就写『手绘参考图』」。
        入口行 = 泛称 + 括注小字「手绘参考图（民间3D/排三）」（2026-10-17 改名）；
        里面 #p3dTitle 仍然是按彩种的标题
@@ -504,6 +498,17 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     `<div class="p3d-type-row" id="p3dTypeRow">` +
       `<div class="p3d-type-btn active" data-p3d="3d">${TYPE_MAP['3d'].name}</div>` +
       `<div class="p3d-type-btn" data-p3d="pl3">${TYPE_MAP['pl3'].name}</div>` +
+    `</div>` +
+    /* 【六码推荐 · 已并进来】用户 2026-10-17 截图 + 原话：「把这个推荐融合到手绘参考图里面去」。
+       原来它是【外面并列的一个独立卡片】（.lm-section，自带标题 + 自己那排彩种按钮），
+       现在放进 .p3d-body 里、跟着上面这一排 #p3dTypeRow 的彩种走 —— 不再有两个一模一样的切换条。
+       ⚠️ id 保持 lmSection / lmBody：脚本 renderLiuMa() 就是往 #lmBody 里填金胆/银胆/拖码，
+          它在 renderP3D() 里被调用，所以切彩种时六码和手绘图一起重画（本来就是共用一个状态）。
+       ⚠️ 原来那排 data-lm 按钮已删除；renderLiuMa 里对 #lmTypeRow 的高亮查询会返回空数组，无害。 */
+    `<div class="lm-inner" id="lmSection">` +
+      `<div class="lm-title">六码推荐</div>` +
+      `<div class="lm-sub">金胆 · 银胆 · 拖码 —— 共 6 个号（圈在下面的洛书九宫里）</div>` +
+      `<div id="lmBody"></div>` +
     `</div>` +
     `<div class="p3d-top">` +
       `<div class="p3d-block"><div class="p3d-block-title">洛书九宫图</div>` +
