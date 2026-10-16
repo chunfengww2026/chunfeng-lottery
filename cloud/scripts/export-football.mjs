@@ -1630,7 +1630,8 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    .left 必须竖排（标题一行、副标题一行），.right 必须靠右且不吃掉剩余宽度。
    基础规则 .m-sec > summary.m-subhead 也设了 gap，这里提优先级压回规格值。
    ⚠️ background / border 必须 !important —— 米杏色主题里有一条
-      `.jxp-pic, .m-subhead, .jxp-view-box { background:#f3e6d0 !important; border-color:#efe2cc !important }`
+      「.jxp-pic, .m-subhead, .jxp-view-box { background:#f3e6d0 !important;
+        border-color:#efe2cc !important }」
       （实测：三个分段的 entry 行会变成 #f3e6d0 + #efe2cc，和推荐串那条 #fdf6ea 不一致）。 */
 .m-sec > summary.entry-item,
 .m-rec > summary.entry-item { gap: 4px 10px !important; }
@@ -1648,8 +1649,9 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
       markup 只加了 .bottom-bar / .btn2 / .tag 三个类名，文字一个字没动、功能一个字没动。
       「保存图片」是 <a role="button">，不是裸 <button>。
    ⚠️ 「模拟计算」= .btn2.primary（绿底白字）·「仅供娱乐参考」= .tag（金标签）·
-      「保存图片」= .btn2（卡片底 + 边框）·「赔率 + 点击查看」用 margin-left:auto 顶到最右
-      —— 等价于规格里的 .bottom-bar .spacer{flex:1}，但不用多插一个 <span>（少动 DOM）。 */
+      「保存图片」= .btn2（卡片底 + 边框）·「赔率 + 点击查看」顶到最右
+      —— 规格里写的是 .bottom-bar .spacer{flex:1}，这里用 .bottom-bar::before
+      当那个弹性空档，省得为了排版多插一个 <span>（少动 DOM）。 */
 .bottom-bar { display:flex; align-items:center; gap:8px; margin-top:16px; flex-wrap:wrap; }
 .btn2 { padding:8px 14px; border-radius:8px; font-size:13px; border:1px solid var(--border);
   background:var(--card); }
@@ -1657,20 +1659,41 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .tag { font-size:11px; color:var(--gold); border:1px solid var(--gold);
   border-radius:10px; padding:2px 8px; }
 .bottom-bar .spacer { flex:1; }
+/* 弹性空档（等价于 .spacer{flex:1}）：宽屏把「赔率 / 点击查看」顶到最右。
+   ⚠️ 必须同时给「赔率 / 点击查看」排 order（8 / 9）—— 空档自己是 order:7，
+      不排的话它会被放到最后一位（默认 order:0），变成"吃掉尾巴的空白"而不是空档，
+      实测「赔率」会紧贴在「保存图片」右边、右边一大片空的。 */
+.bottom-bar::before { content: ''; order: 7; flex: 1 1 0; min-width: 0; }
 
 /* ②-补：上面 4 条要压过【本段之前】的基础深色规则 + 米杏主题里的那些 !important。
-   （.calc-btn 基础规则自带 margin-left:auto，这里归零，否则「保存图片」会被顶到最右、
-     和「赔率」抢剩余空间；靠右这件事交给 .calc-src 的 margin-left:auto 一个人做。） */
-.bottom-bar .btn2 { background: var(--card) !important; border: 1px solid var(--border) !important;
-  color: var(--text) !important; margin-left: 0 !important; }
+   ⚠️ 必须连 font-size / padding / border-radius 一起 !important：
+      基础规则「.calc-head .calc-title」是 (0,2,0)，比「.btn2」的 (0,1,0) 高 ——
+      只写 .btn2 的话「模拟计算」会按 14.5px/800 渲染（实测 88px 宽、比另外两个按钮高）。
+   ⚠️ .calc-btn 基础规则自带 margin-left:auto，这里归零，否则「保存图片」会被顶到最右、
+      和「赔率」抢剩余空间；靠右这件事交给上面那个 ::before 空档一个人做。 */
+.bottom-bar .btn2 { padding: 8px 14px !important; border-radius: 8px !important;
+  font-size: 13px !important; background: var(--card) !important;
+  border: 1px solid var(--border) !important; color: var(--text) !important;
+  margin-left: 0 !important; }
 .bottom-bar .btn2.primary { background: var(--green) !important; border-color: var(--green) !important;
   color: #fff !important; font-weight: 600 !important; letter-spacing: 0 !important; }
-.bottom-bar .tag { color: var(--gold) !important; background: transparent !important;
+.bottom-bar .tag { font-size: 11px !important; border-radius: 10px !important; padding: 2px 8px !important;
+  color: var(--gold) !important; background: transparent !important;
   border: 1px solid var(--gold) !important; }
-.bottom-bar .calc-src { margin-left: auto !important; font-size: 12px !important;
-  color: var(--text-sub) !important; }
-.bottom-bar .calc-tip { margin-left: 6px !important; font-size: 12px !important;
+.bottom-bar .calc-src { order: 8; margin-left: 0 !important; font-size: 12px !important;
+  color: var(--text-sub) !important; white-space: nowrap !important; }
+.bottom-bar .calc-tip { order: 9; margin-left: 0 !important; font-size: 12px !important;
   color: var(--green) !important; }
+
+/* ②-窄屏：这 5 个元素在手机上挤不进一行（实测 442px 内容宽要 460px+）。
+   规格里的 flex-wrap 本来就是留给这种情况的，但直接让它自己折会把「点击查看」
+   单独甩到第三行左侧 —— 所以窄屏主动排成两行：
+     第一行三个按钮（保存图片吃掉剩余宽度）· 第二行「赔率 + 点击查看」整体靠右。 */
+@media (max-width: 620px) {
+  .bottom-bar::before { display: none !important; }
+  .bottom-bar { justify-content: flex-end !important; }
+  .bottom-bar .calc-shot-btn { margin-right: auto !important; }
+}
 
 /* ③ 三个统计卡颜色：未开赛=绿 · 进行中=白 · 已完场=绿
    ⚠️ 本页已经是米杏【浅色】主题，纯白（#fff）在浅底上根本看不见 ——
@@ -1678,6 +1701,19 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
       顺序 = 未开赛 / 进行中 / 已完场（见页面里的 .stat）→ :nth-child(2) 就是进行中。 */
 .stat a:nth-child(2) b { color: var(--text) !important; }
 .stat a:not(:nth-child(2)) b { color: var(--green) !important; }
+
+/* ③-补 推荐串列表 · 浅色主题下的可读性（只换色，不动 grid → 还是一行一场）
+   ------------------------------------------------------------
+   实测：这一行的颜色还是【深色主题】那一套 —— 队名 #e8eaed（近白）画在米杏底上
+   几乎看不见，行间分隔线 #1e2430（近黑）也过重。这里只覆盖颜色。
+   ⚠️ 结构一个字没动：还是 .m-recrow 那 5 列 grid（编号 + 队名/联赛 + 推荐 + 赔率 + 信心）。 */
+.m-rec .m-recrow { border-bottom-color: #efe2cc !important; }
+.m-rec .m-recteams { color: var(--text) !important; }
+.m-rec .m-recteams i { color: var(--text-sub) !important; }
+.m-rec .m-recpick { color: var(--green) !important; }
+.m-rec .m-recodds { color: var(--text) !important; }
+.m-rec .m-recconf { color: var(--text-sub) !important; }
+.m-rec .m-recconf.strong { color: var(--green) !important; }
 `;
 
 

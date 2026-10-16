@@ -389,7 +389,18 @@ export function sortTimeMs(it) {
           （直播吧/懂球帝/虎扑/新浪体育/腾讯体育/网易体育… 这些站出的是新闻图）
        ② 标题必须命中"票/推单"类关键词，一个都不命中 → 丢
    ============================================================ */
-const JC_NEWS_HOST_RE = /(^|\.)(zhibo8\.com|zhibo8\.cc|dongqiudi\.com|hupu\.com|sina\.com\.cn|sports\.qq\.com|sports\.163\.com|sohu\.com|baidu\.com|toutiao\.com\/article|weibo\.com|zhihu\.com)/i;
+const JC_NEWS_HOST_RE = /(^|\.)(zhibo8\.com|zhibo8\.cc|dongqiudi\.com|hupu\.com|sina\.com\.cn|sports\.qq\.com|sports\.163\.com|sohu\.com|baidu\.com|toutiao\.com\/(article|item)\/|weibo\.com|zhihu\.com)/i;
+/* 2026-10-17 补测（竞彩 26 条 / 9 张唯一图，肉眼逐张判过）：
+     · 上面的黑名单当时【一条都没命中】—— url 全是 toutiao.com/group/…
+       （微头条，真票都在这儿）或 toutiao.com/item/…；
+     · 而 toutiao.com/item/… 的 2 条帖子【全是分析贴】：
+       「足彩26142期:…火锅格局」配图是 500 的赔率表、
+       「胜负彩142期：欧联杯大乱战」配图是"14场大势拆解 / 临场变数"海报。
+       group（微头条）vs item（文章）在这批数据里 2/2 分得开，
+       所以把 item 也纳入黑名单（老规则里那个 `toutiao.com/article`
+       其实从来没匹配上任何一种 url）。
+     · 标题白名单对这批【26/26 全命中】：分析贴标题也带"足彩/胜负彩/任九"，
+       所以它挡不住分析贴 —— 真正干活的是 OCR 那条（jcVerdictStrict）。 */
 const JC_TICKET_WORDS = [
   '晒票', '实票', '晒单', '推单', '中奖票',
   '竞彩', '足彩', '胜负彩', '任九', '北单', '让球', '胜平负', '二串一', '串关', '过关',
@@ -934,9 +945,12 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
       /* 彩票类：只有【确认不是票】才丢；null（读不出字）保留 —— 见上面长注释 */
       if (cv && cv.ok === false) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
     } else if (C.key === JC_KEY) {
-      /* 竞彩：必须【命中彩票关键词】才算票（更严，理由见 verify-ticket.mjs） */
+      /* 竞彩：必须【确认是票】(true) 才留 —— false / null 都挡。
+         实测（2026-10-17）：26 条里 20 条从没被判过（null），旧规则让它们
+         全部穿过这道闸；改成"必须 true"后，没判定的图一律不进文件。
+         理由见 verify-ticket.mjs 的 jcVerdictStrict。 */
       const jv = jcVerdictStrict(img);
-      if (jv === false) { stat.dropped++; stat.dropJcPlain = (stat.dropJcPlain || 0) + 1; return; }
+      if (jv !== true) { stat.dropped++; stat.dropJcPlain = (stat.dropJcPlain || 0) + 1; return; }
     }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
@@ -1199,19 +1213,38 @@ export async function runTtFetch() {
        【票图校验】用户要求「一定出现了票」「乱图片 明星人物图片都不要」
                               「整票百分百」
        这里对【还没校验过的图】跑 OCR，把不是票的挡掉。
-       ⚠️ 只校验【第一层没做过的】+ 缓存里没有的 → 稳态下每轮只跑几十张。
+       ⚠️ 只校验【缓存里没有的】→ 稳态下每轮只跑几十张。
        ⚠️ 放在 mergeTt 之前：不合格的图根本不进缓存文件，页面自然不会显示。
-       判据和实测定参见 verify-ticket.mjs 的说明（命中"3 位以上数字"或彩票词）。
+       判据和实测定参见 verify-ticket.mjs 的说明。
+
+       ⚠️⚠️ 【竞彩必须连"文件里的老图"一起判】实测（2026-10-17）：
+       旧版只把【本轮新解析到的图】送去 OCR，于是
+         · 上一轮 OCR 抓图/识别报错（出错不写缓存）→ 老图永远没有判定，
+         · 上一版脚本写进文件、当时还没有竞彩强判据的图，
+       这些图在 mergeTt 里拿到的是 null（"还没判过"）→ 按旧规则【放行】→
+       一直留在页面上。真实数据：竞彩 26 条里 20 条从来没被 OCR 判过 ——
+       这正是"球员照 / 分析海报还能看到"的根因（不是判据不够严）。
+       ⇒ 竞彩这一路：toCheck = 本轮新图 + 文件里所有还没判定的老图。
+         只对竞彩放开（jc 体量小，几十张）；彩票类 tt 保持"只判新图"，
+         免得一次补判几百张把一轮任务拖长。
        ============================================================ */
     const rec = { key: C.key, name: C.name, file: C.file, fresh: freshList.length, ok: false, kept: 0, ocrChecked: 0, ocrFailed: 0 };
-    const toCheck = freshList.filter((it) => {
-      if (it.__ocrOk === true) return false;          /* 抓取时已经标过 */
-      return !cachedVerdict(it.img);                  /* 缓存里已有判定就不重复 OCR */
-    });
-    if (toCheck.length) {
-      log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheck.length} 张…`);
-      const v = await verifyBatch(toCheck.map((x) => x.img), { max: 400, gap: 120 });
-      log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字(保留) ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
+    const file = path.join(ROOT, C.file);
+    const oldData = readTtOld(file, C);
+    const oldTotal = (oldData && Array.isArray(oldData.items)) ? oldData.items.length : 0;
+    const toCheckImgs = [];
+    const pendSeen = new Set();
+    const addPend = (u) => {
+      if (!u || pendSeen.has(u)) return;
+      pendSeen.add(u);
+      if (!cachedVerdict(u)) toCheckImgs.push(u);     /* 缓存里已有判定就不重复 OCR */
+    };
+    freshList.forEach((it) => { if (it.__ocrOk !== true) addPend(it.img); });
+    if (C.key === JC_KEY) ((oldData && oldData.items) || []).forEach((it) => addPend(it && it.img));
+    if (toCheckImgs.length) {
+      log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheckImgs.length} 张…`);
+      const v = await verifyBatch(toCheckImgs, { max: 400, gap: 120 });
+      log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字 ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
       for (const f of v.failedList.slice(0, 6)) log(`          ✗ 确认不是票（${f.why}）：${f.img.slice(50, 104)}`);
       rec.ocrChecked = v.checked; rec.ocrFailed = v.failed; rec.ocrUnreadable = v.unreadable;
     }
@@ -1224,8 +1257,11 @@ export async function runTtFetch() {
     const beforeOcr = freshList.length;
     freshList = freshList.filter((it) => {
       if (C.key === JC_KEY) {
-        const jv = jcVerdictStrict(it.img);
-        return jv !== false;                                  /* null（没判过）放行，下一轮补判 */
+        /* 【竞彩】必须【确认是票】才留：true 才算过，false/null 都挡。
+           null 意味着 OCR 连图都没抓下来/识别崩了 —— 用户要「整票百分百」，
+           所以这一路宁缺毋滥（下一轮还会重判，抓图恢复后真票能回来）。
+           依据见 verify-ticket.mjs 里 jcVerdictStrict 的实测说明。 */
+        return jcVerdictStrict(it.img) === true;
       }
       const cv = cachedVerdict(it.img);
       if (!cv) return true;                                   /* 还没判过 → 放行 */
@@ -1242,10 +1278,7 @@ export async function runTtFetch() {
       continue;
     }
 
-    /* 合并旧数据 + 过期 + 去重 + 上限 */
-    const file = path.join(ROOT, C.file);
-    const oldData = readTtOld(file, C);
-    const oldTotal = (oldData && Array.isArray(oldData.items)) ? oldData.items.length : 0;
+    /* 合并旧数据 + 过期 + 去重 + 上限（oldData 已在上面读好，这里复用） */
     const { items, stat } = mergeTt(oldData, freshList, now, C);
 
     const data = { updated: stamp(new Date(now)), items };

@@ -34,8 +34,11 @@
    缓存（必须，否则跑不完）
    ------------------------------------------------------------
    一轮新图约 100~300 张 × 1 秒 = 100~300 秒，而任务每 10 分钟一轮。
-   所以：按 img URL 缓存判定结果到 `_ticket-ocr-cache.json`，
-   已经判过的图【永不重复 OCR】→ 稳态下每轮只 OCR 新增的那几十张。
+   所以：按【图片身份】（32 位 hex 图名，见 cacheKeyOf）缓存判定结果到
+   `_ticket-ocr-cache.json`，已经判过的图【永不重复 OCR】
+   → 稳态下每轮只 OCR 新增的那几十张。
+   ⚠️ 键必须是图片身份而不是整条 URL：头条每轮换 x-signature，
+      用 URL 当键会让同一张图每轮重判、且旧结论落不到新 URL 上（实测踩过）。
    ⚠️ 缓存文件是本机运行态数据，不参与云端同步（见 sync-cloud.mjs 的说明）。
    ============================================================ */
 import fs from 'node:fs';
@@ -50,13 +53,45 @@ const HAS_DIGITS = /\d{3,}/;
 /* 辅助：彩票特征词（命中就【直接】放行，不用等数字 —— 更保险） */
 const TICKET_KEYWORD = /彩票|福利彩票|体育彩票|福彩|体彩|双色球|大乐透|排列三|排列3|排列五|排列5|七星彩|七乐彩|快乐8|竞彩|超级大乐透|投注|开奖/;
 
+/* ============================================================
+   【缓存键 = 图片身份，不是 URL】
+   ------------------------------------------------------------
+   实测（2026-10-17）踩到的坑，改回去会立刻复发：
+     头条给同一条微头条里的同一张图，每次解析出的 `x-signature` /
+     `x-expires` 都不一样 → 同一张图（路径里那 32 位 hex 相同）会得到
+     【不同的 URL】。旧版把整条 URL 当缓存键，后果是两条：
+       ① 同一张图每轮都重判一次 OCR（白烧 CPU）；
+       ② 上一轮已经判成「不是票」的结论【落不到】这一轮的 URL 上 ——
+          竞彩 26 条里 20 条因此从没被判过，球员照/分析图就留在页面上。
+     ⇒ 缓存键统一成「32 位 hex 图名」（拿不到就用去掉 query 的 URL）。
+   ============================================================ */
+export function cacheKeyOf(img) {
+  const u = String(img || '');
+  const m = u.match(/\/([0-9a-f]{32})~/i);
+  if (m) return 'h:' + m[1].toLowerCase();
+  return u.split('?')[0];
+}
+
 let _cache = null;
 function loadCache() {
   if (_cache) return _cache;
-  try {
-    _cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
-  } catch (e) { _cache = {}; }
-  if (!_cache || typeof _cache !== 'object') _cache = {};
+  let raw = null;
+  try { raw = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')); } catch (e) { raw = null; }
+  if (!raw || typeof raw !== 'object') raw = {};
+  /* 【键迁移·幂等】老缓存的键是带签名的整条 URL → 这里统一换算成身份键。
+     同一个身份键撞车时留「更可信」的那条：确认是票 > 确认不是票 > 判不了；
+     同级留 OCR 文字更长的（读得更全）。已经是身份键的原样保留。 */
+  const rank = (v) => (v.ok === true ? 3 : (v.ok === false ? 2 : 1));
+  const out = {};
+  Object.keys(raw).forEach((k) => {
+    const v = raw[k];
+    if (!v || typeof v !== 'object') return;
+    const nk = cacheKeyOf(k);
+    const old = out[nk];
+    if (!old || rank(v) > rank(old)
+      || (rank(v) === rank(old) && String(v.t || '').length > String(old.t || '').length)) out[nk] = v;
+  });
+  _cache = out;
   return _cache;
 }
 function saveCache() {
@@ -70,10 +105,10 @@ async function ocrMod() {
   return _ocr;
 }
 
-/** 缓存里已有的判定；没有就返回 null */
+/** 缓存里已有的判定；没有就返回 null（按【图片身份】查，见 cacheKeyOf） */
 export function cachedVerdict(img) {
   const c = loadCache();
-  const v = c[img];
+  const v = c[cacheKeyOf(img)];
   return (v && typeof v === 'object') ? v : null;
 }
 
@@ -96,8 +131,9 @@ export function cachedVerdict(img) {
  */
 export async function verifyTicketImage(img, opts = {}) {
   const c = loadCache();
-  if (c[img] && c[img].ok !== undefined && !opts.force) {
-    return { ok: c[img].ok, why: c[img].why || 'cache', text: c[img].t || '', ms: 0, cached: true };
+  const ck = cacheKeyOf(img);
+  if (c[ck] && c[ck].ok !== undefined && !opts.force) {
+    return { ok: c[ck].ok, why: c[ck].why || 'cache', text: c[ck].t || '', ms: 0, cached: true };
   }
   const ua = opts.ua || 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
   const t0 = Date.now();
@@ -120,7 +156,7 @@ export async function verifyTicketImage(img, opts = {}) {
     return { ok: null, why: 'error:' + String(e.message).slice(0, 40), text: '', ms: Date.now() - t0, cached: false };
   }
   const ms = Date.now() - t0;
-  c[img] = { ok, why, t: text.slice(0, 300), ms, at: new Date().toISOString() };
+  c[cacheKeyOf(img)] = { ok, why, t: text.slice(0, 300), ms, at: new Date().toISOString() };
   return { ok, why, text, ms, cached: false };
 }
 
@@ -163,26 +199,48 @@ export async function closeTicketOcr() {
 }
 
 /* ============================================================
-   【竞彩专用：更严的判据】只认"彩票关键词"，不认"有数字"
+   【竞彩专用：更严的判据】票据词【必须】命中 + 分析图/赔率图词【必须】不命中
    ------------------------------------------------------------
    为什么竞彩不能用"有 3 位以上数字"（实测踩过，很重要）：
      竞彩那批帖子里混着"比赛现场照 / 球员庆祝照 / 球队合影"，
      这些图里【有记分牌、球衣号码、排名表数字】→ OCR 能读到数字 →
-     被判成"是票"混进来（抽 20 张实测：还有 8 张是球员/球队照）。
-     而真正的竞彩票 / 推单截图 OCR 能读到【彩票类词】：
-       中国体育彩票 / 竞彩 / 胜负彩 / 任九 / 过关方式 / 让球 / 胜平负 /
-       串关 / 2串1 / 4串1 / 投注 / 开奖 …
-   ⇒ 所以竞彩这条闸要求命中【彩票关键词】才算票。
-   ⚠️ 代价：拍得模糊、关键字没识别出来的真票会被丢（宁可少，不可假）。
+     被判成"是票"混进来。
+   ------------------------------------------------------------
+   2026-10-17 拿真实数据重判（竞彩 26 条 = 9 张唯一图，逐张肉眼看过，
+   缩略图存在 _jc_probe/uniq/），三类：
+     · 真票 2 张：①竞彩过关截图 → 450px 缩略 OCR 读到「过关方式 / 让球平(3.90)」
+                 ②体彩竞彩纸票 → 读到「固定奖金 / 单倍注数 / 兑奖 / 元」
+     · 假图 7 张：③球员庆祝照与赛场照 ×3（OCR 一个字都读不出来）
+                  ④500 赔率表 ×1（读到「专业媒体倾向 / 欧赔总汇 / 平均赔率 /
+                    欧洲投注初盘」—— 只按"彩票词"判会把它当票放进来）
+                  ⑤分析海报 ×3（读到「14场赛事大势拆解 / 正路参考 /
+                    临场变数 / 观赛参考 / 不盲目投入」）
+   ⇒ 单条判据都不够：
+       · 只要求"命中彩票词" → 会丢掉那张真纸票（450 宽缩略图认不出票面抬头的
+         "体彩 竞彩"，实测 OCR 输出里【没有】这两个词）；
+       · 只要求"读到字" → 赔率表 + 分析海报 4 张假图照样进。
+     所以做成两段判据（JC_STRICT_KEYWORD + JC_BLOCK_WORD）。
+   ⚠️ 代价：拍得模糊、票据词没识别出来的真票会被丢（宁可少，不可假）。
    ⚠️ 缓存里存了最多 300 字的 OCR 文本（t 字段），这里直接复用，不用重跑 OCR。
+   ⚠️ 这仍是"按实测把口子收紧"，做不到 100%：根治要换图源
+      （头条只给 450×294 缩略图，原图 ~noop.jpeg 实测 403）。
    ============================================================ */
-export const JC_STRICT_KEYWORD = /中国体育彩票|体育彩票|中国福利彩票|福利彩票|竞彩|胜负彩|任九|北单|过关方式|过关|让球|胜平负|二串一|串关|4串1|2串1|3串1|投注|开奖|彩票|超级大乐透|双色球|排列三|排列五|七星彩|七乐彩|快乐8|福彩3D/;
-/** 竞彩条目：OCR 文本必须命中彩票关键词。
+export const JC_STRICT_KEYWORD = /中国体育彩票|体育彩票|中国福利彩票|福利彩票|竞彩|胜负彩|任九|北单|过关方式|过关|让球|胜平负|二串一|串关|4串1|2串1|3串1|单倍注数|固定奖金|兑奖|注数|倍投|期号|投注|开奖|中奖|彩票|超级大乐透|双色球|排列三|排列五|七星彩|七乐彩|快乐8|福彩3D/;
+/** 分析图 / 赔率图 / 复盘海报上【一定】会出现、而真票票面【不会】出现的词。
+ *  实测依据见下面 jcVerdictStrict 的说明（500 赔率表 / 分析海报就是这么挡掉的）。 */
+export const JC_BLOCK_WORD = /赔率|欧赔|亚盘|盘口|初盘|火线|水位|倾向|媒体倾向|新浪网友|调查|复盘|拆解|大势|正路|冷门|观赛参考|临场变数|强队隐患|战意|轮换|伤病|理性看球|不盲目投入|预测|仅供/;
+/** 竞彩条目：OCR 文本必须命中票据词、且不得命中分析图词。
+ *  @param {string} img           图 URL
+ *  @param {string} [textOverride] 直接给 OCR 文本（验收/回放用，不读缓存）
  *  @returns {boolean|null} true=确认是票 · false=确认不是 · null=还没判过 */
-export function jcVerdictStrict(img) {
+export function jcVerdictStrict(img, textOverride) {
   const c = loadCache();
-  const v = c[img];
-  if (!v) return null;                                  /* 还没判过 → 调用方决定 */
-  if (v.ok !== true) return false;                      /* 之前判成不是票 / 读不出字 */
-  return JC_STRICT_KEYWORD.test(String(v.t || ''));     /* 必须命中彩票关键词 */
+  const v = c[cacheKeyOf(img)];
+  if (textOverride === undefined) {
+    if (!v) return null;                                /* 还没判过 → 调用方决定 */
+    if (v.ok !== true) return false;                    /* 之前判成不是票 / 读不出字 */
+  }
+  const text = (textOverride === undefined) ? String(v.t || '') : String(textOverride);
+  if (JC_BLOCK_WORD.test(text)) return false;           /* 分析图 / 赔率表 → 否 */
+  return JC_STRICT_KEYWORD.test(text);                  /* 必须命中票据词 */
 }
