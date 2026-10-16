@@ -55,7 +55,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T22:36:10.831Z",
+   "seen": "2026-10-16T22:36:02.154Z",
    "whenMs": 1792122654000,
    "seenMs": 1792190162154,
    "drawMs": null,
@@ -69,7 +69,9 @@ const XYSP_JC_DATA = {
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54",
    "postId": "7697108049638539804",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   }
  ]
 };
