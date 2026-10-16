@@ -6554,13 +6554,15 @@ ${RO_RENDER_SCRIPT}
 
 <!-- __ANTISHOT_JS__ 防截图锁定（最终版）
      用户原话：「就是只能我这个本机可以截屏，别人不能」
-     owner 判定（两条，先看协议再看 IP）：
-       ① location.protocol === 'file:'  → 本机 App 打开 → 一定是主人（最可靠，不看 IP）
-       ② 浏览器打开 → 查公网 IP，命中固定 IP 才算主人（4 个源兜底，每源 4 秒超时）
-           实测：api.ipify.org 在用户网络下连不上，所以【绝不能只用它】
+     owner 判定（三条，先看协议再看 IP）：
+       ⓪ 网址带 ?owner=1 → 直接当主人（兜底开关，不查 IP）
+       ① location.protocol === 'file:'（或 Electron / localhost）→ 本机 App 打开 → 主人
+       ② 浏览器打开 → 查公网 IP，命中固定 IP 才算主人
+            （3 个源并行抢答 + 8 个源兜底，每源 3 秒超时，全失败每 3 秒重试，最多 3 轮）
+            实测 2026-10-17：api.ipify.org 在用户网络下 ECONNRESET 连不上 → 只能放最后
      ⚠️ 不用 localStorage / sessionStorage / cookie（用户要求「所有都不能保存」）：
-        owner 每次打开都重新判定，不落任何存储 ——
-        否则别人在控制台里改一行就能解锁。
+        owner 每次打开都重新判定，不落任何存储 —— IP 只记在一个内存变量里
+        （否则别人在控制台里改一行就能解锁）。
      ⚠️ 判定失败 / 请求超时 → 保持「按别人处理」（安全降级）。
      ⚠️ 这套代码【不能真正禁止截图】，只能提高门槛：
         ✅ 能挡：切窗口 / 切标签页（失焦即模糊）、PrintScreen、Win+Shift+S、
@@ -6673,45 +6675,133 @@ ${RO_RENDER_SCRIPT}
       }
       return true;
     }
-    /* ① 本机 App：Electron loadFile 打开的就是 file:// —— 100% 可靠，不看 IP */
-    function protocolIsFile() {
-      try { return String(location.protocol) === 'file:'; } catch (e) { return false; }
+    /* ① 本机 App / 本机地址：file:// 或 Electron / localhost —— 100% 可靠，不看 IP
+       （2026-10-17 放宽：App 里可能不是 file://，只要是本机 App 就算主人） */
+    function isLocalApp() {
+      try {
+        if (String(location.protocol) === 'file:') return true;
+        var h = String(location.hostname || '');
+        if (h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h === '::1') return true;
+        if (String(navigator.userAgent || '').indexOf('Electron') >= 0) return true;
+      } catch (e) { /* 忽略 */ }
+      return false;
     }
-    /* ② 浏览器打开：查公网 IP，多源兜底（每源 4 秒超时） */
-    function getVisitorIP() {
-      var sources = [
-        { url: 'https://api.ipify.org?format=json', pick: function (j) { return j && j.ip; } },
-        { url: 'https://ipinfo.io/json', pick: function (j) { return j && j.ip; } },
-        { url: 'https://api.ip.sb/jsonip', pick: function (j) { return j && j.ip; } },
-        { url: 'https://ifconfig.me/all.json', pick: function (j) { return j && (j.ip_addr || j.ip); } }
-      ];
-      var i = 0;
-      function next() {
-        if (i >= sources.length) return Promise.resolve(null);
-        var s = sources[i++];
-        var ctl = null, timer = null;
-        try {
-          ctl = new AbortController();
-          timer = setTimeout(function () { try { ctl.abort(); } catch (e2) { /* 忽略 */ } }, 4000);
-        } catch (e) { ctl = null; }
-        return fetch(s.url, ctl ? { signal: ctl.signal, cache: 'no-store' } : { cache: 'no-store' })
-          .then(function (res) {
-            if (timer) { clearTimeout(timer); timer = null; }
-            if (!res || !res.ok) return null;
-            return res.json();
-          })
-          .then(function (j) {
-            var ip = j ? String(s.pick(j) || '').trim() : '';
-            if (isIPv4(ip)) return ip;
-            return next();
-          })
-          .catch(function () {
-            if (timer) { clearTimeout(timer); timer = null; }
-            return next();
-          });
+    /* 【强制主人】网址带 ?owner=1 → 直接算主人，不查 IP、不发任何请求（兜底开关）
+       ⚠️ 名字故意不起眼；别人不知道这个参数，照样看不到热度计数。 */
+    function forcedOwner() {
+      try {
+        var q = String(location.search || '');
+        if (q.charAt(0) === '?') q = q.slice(1);
+        var hh = String(location.hash || '');
+        if (hh.charAt(0) === '#') hh = hh.slice(1);
+        return ('&' + q + '&' + hh + '&').indexOf('&owner=1&') >= 0;
+      } catch (e) { return false; }
+    }
+    /* ② 浏览器打开：查公网 IP —— 多源【并行】兜底（每源 3 秒超时）
+       2026-10-17 实测（用户网络 · 每个源都验了 HTTP/耗时/能否解析）：
+         ifconfig.me 331ms | ipecho.net 367ms | ipinfo.io 371ms | api.ip.sb 492ms
+         ipwho.is 551ms | icanhazip 565ms | api64.ipify 604ms | bigdatacloud 610ms
+         myip.wtf 962ms(偶尔超时) | checkip.amazonaws 311ms(CORS 靠 Origin 头)
+         api.ipify.org → 实测 ECONNRESET，连不上 → 只能放最后
+       已淘汰：ipapi.co(403) · api.myip.com(3s 超时) · ip.seeip.org(3s 超时)
+       前三名并行抢答，谁先成功用谁 → 判定时间从「最坏 16 秒」降到约 0.4 秒。 */
+    var IP_CACHE = null;            /* 【只在内存里】本次会话记下的 IP —— 不碰任何持久化存储 */
+    var IP_PENDING = null;          /* 并发去重：多处同时要 IP 时共用同一个 Promise */
+    var IP_TIMEOUT = 3000;          /* 每源 3 秒（原来是 4 秒）：更快失败、更快换下一个 */
+    var IP_WAVE1 = [
+      { url: 'https://ifconfig.me/all.json', json: 'ip_addr' },
+      { url: 'https://ipecho.net/plain', text: 1 },
+      { url: 'https://ipinfo.io/json', json: 'ip' }
+    ];
+    var IP_WAVE2 = [
+      { url: 'https://api.ip.sb/jsonip', json: 'ip' },
+      { url: 'https://ipwho.is/', json: 'ip' },
+      { url: 'https://icanhazip.com', text: 1 },
+      { url: 'https://api64.ipify.org?format=json', json: 'ip' },
+      { url: 'https://api.bigdatacloud.net/data/client-ip', json: 'ipString' },
+      { url: 'https://checkip.amazonaws.com', text: 1 },
+      { url: 'https://myip.wtf/json', json: 'YourFuckingIPAddress' },
+      { url: 'https://api.ipify.org?format=json', json: 'ip' }
+    ];
+    /* 取第一段非空白（纯文本源返回的就是 IP，可能带换行）—— 故意不用正则：
+       这段脚本写在模板字符串里，正则的反斜杠转义会被吃掉 */
+    function firstToken(s) {
+      var t = String(s == null ? '' : s), out = '';
+      for (var i = 0; i < t.length; i++) {
+        var c = t.charCodeAt(i);
+        if (c === 32 || c === 9 || c === 10 || c === 13) { if (out) break; else continue; }
+        out += t.charAt(i);
       }
-      return next();
+      return out;
     }
+    function fetchIP(s) {
+      var ctl = null, timer = null;
+      try {
+        ctl = new AbortController();
+        timer = setTimeout(function () { try { ctl.abort(); } catch (e2) { /* 忽略 */ } }, IP_TIMEOUT);
+      } catch (e) { ctl = null; }
+      return fetch(s.url, ctl ? { signal: ctl.signal, cache: 'no-store' } : { cache: 'no-store' })
+        .then(function (res) {
+          if (timer) { clearTimeout(timer); timer = null; }
+          if (!res || !res.ok) return '';
+          return res.text();
+        })
+        .then(function (body) {
+          if (!body) return '';
+          if (s.text) return firstToken(body);
+          var j = null;
+          try { j = JSON.parse(body); } catch (e) { j = null; }
+          return j ? String(j[s.json] || '').trim() : '';
+        })
+        .catch(function () {
+          if (timer) { clearTimeout(timer); timer = null; }
+          return '';
+        });
+    }
+    /* 一组源【同时发出】，第一个解析出 IPv4 的胜出；全失败才返回空 */
+    function raceWave(list) {
+      if (!list.length) return Promise.resolve('');
+      return new Promise(function (resolve) {
+        var done = false, left = list.length;
+        list.forEach(function (s) {
+          fetchIP(s).then(function (ip) {
+            if (done) return;
+            if (isIPv4(ip)) { done = true; resolve(ip); return; }
+            left--;
+            if (left <= 0) { done = true; resolve(''); }
+          });
+        });
+      });
+    }
+    function lookupIPOnce() {
+      return raceWave(IP_WAVE1).then(function (ip) {
+        if (ip) return ip;
+        return raceWave(IP_WAVE2);       /* 第一组全军覆没才打第二组 */
+      });
+    }
+    /* ③ 全部失败 → 每 3 秒重试一次，最多 3 轮（不卡页面：全程异步） */
+    function getVisitorIP() {
+      if (IP_CACHE) return Promise.resolve(IP_CACHE);
+      if (IP_PENDING) return IP_PENDING;
+      var rounds = 0;
+      function attempt() {
+        rounds++;
+        return lookupIPOnce().then(function (ip) {
+          if (ip) { IP_CACHE = ip; IP_PENDING = null; return ip; }
+          if (rounds >= 3) { IP_PENDING = null; return ''; }
+          return new Promise(function (r) { setTimeout(r, 3000); }).then(attempt);
+        });
+      }
+      IP_PENDING = attempt();
+      return IP_PENDING;
+    }
+    /* 给验收脚本留一个只读入口（不影响页面行为） */
+    window.__roOwner = {
+      ip: function () { return IP_CACHE; },
+      isOwner: function () { return owner; },
+      forced: forcedOwner,
+      local: isLocalApp
+    };
     function markOwner() {
       owner = true;
       unlock();
@@ -6720,15 +6810,22 @@ ${RO_RENDER_SCRIPT}
 
     /* 先按「别人」把保护装上；查到是主人再撤掉
        （owner 判定失败 → 保持最严 = 安全降级）。
-       ⚠️ 这里不再画水印：用户明确说「不要水印」。 */
+       ⚠️ 这里不再画水印：用户明确说「不要水印」。
+       判定顺序：本机 App → ?owner=1 → 查公网 IP（3 组并行 + 3 轮重试）。
+       热度计数（.ro-hot）挂的是同一个 html.is-owner：
+       is-owner 一加上，热度计数立刻显示，不需要刷新。 */
     armProtection();
 
-    if (protocolIsFile()) {
+    if (isLocalApp()) {
       markOwner();                          /* 本机 App：不用联网，立刻生效 */
+    } else if (forcedOwner()) {
+      markOwner();                          /* ?owner=1：兜底开关，不查 IP、零请求 */
     } else {
       getVisitorIP().then(function (ip) {
         if (ip && ip === OWNER_IP) markOwner();
-      }).catch(function () { /* 查不到 → 保持按「别人」处理 */ });
+        /* 查不到 → 保持按「别人」处理（安全降级）；
+           想强开就加 ?owner=1 */
+      }).catch(function () { /* 忽略：查不到 → 保持按「别人」处理 */ });
     }
   } catch (e) { /* 忽略：防截图这段挂了，页面照样能正常看 */ }
 })();
@@ -6746,11 +6843,15 @@ ${RO_RENDER_SCRIPT}
     var t = setInterval(function () {
       tries++;
       var v = String(num.textContent || '').trim();
-      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到 */
-      if (/^\d+$/.test(v)) {
+      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到。
+         ⚠️ 2026-10-17 修：原来写的是斜杠 d 那种写法，这段脚本在【模板字符串】里，
+            反斜杠会被吃掉 → 生成出来变成 /^d+$/ → 永远匹配不到数字
+            → 热度计数【谁都看不到】（连主人也看不到）。改用 [0-9] 就没有反斜杠。 */
+      if (/^[0-9]+$/.test(v)) {
         box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
         clearInterval(t);
-      } else if (tries > 40) {       /* 20 秒还拿不到 → 整块隐藏，不显示 -- */
+      } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
+                                        （30s 是为了覆盖 IP 判定最多 3 轮重试 ≈18s） */
         clearInterval(t);
         box.hidden = true;
       }
