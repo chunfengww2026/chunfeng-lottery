@@ -86,6 +86,13 @@ const FB = loadVar('football.js', 'FOOTBALL_DATA');
    stat.upcoming + stat.live，绝不会因为少这个文件就崩。 */
 const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
 
+/* 【推荐串存档】jc-reco-archive.js 由 jc-reco-build.mjs 生成：
+   每期把「当时那一串推荐（在售 × 信心 ≥55%）」原样存下来，
+   比赛打完后回填终场比分与红黑 → 页面上「推荐串 红 X 黑 Y 命中率 Z%」
+   才有数可显示（以前这里是写死的 0 / 0%）。
+   文件缺失时返回 null，页面退回「暂未开始统计」，绝不填 0 凑数。 */
+const JC_RECO = loadVar('jc-reco-archive.js', 'JC_RECO_ARCHIVE');
+
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
    ------------------------------------------------------------
@@ -431,6 +438,42 @@ const LATEST_UPDATED = [JC.updated, HIST && HIST.updated]
 const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
+/* ---------- 【推荐串 · 红黑统计】来自 jc-reco-archive.js 存档 ----------
+   口径（和 jc-reco-archive.js 里写的一致）：
+     · 一批 = 某一期存下来的那一串推荐
+     · 全中 = 红；有一场没中 = 黑；还有比赛没打完 = 待定（不进命中率分母）
+     · 命中率 = 红 / (红 + 黑)；一群全待定时是 null（页面显示"暂未开始统计"）
+   ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"。 */
+let REC_STAT = null;
+let REC_ROWS_ARCHIVE = [];
+if (JC_RECO && Array.isArray(JC_RECO.batches)) {
+  const batches = JC_RECO.batches;
+  let red = 0, black = 0, pending = 0, rows = 0;
+  batches.forEach((b) => {
+    const list = Array.isArray(b.rows) ? b.rows : [];
+    rows += list.length;
+    let miss = 0, pend = 0;
+    list.forEach((r) => {
+      if (r.hit === true) return;
+      if (r.hit === false) { miss++; return; }
+      pend++;
+    });
+    if (pend > 0) pending++;
+    else if (miss === 0) red++;
+    else black++;
+  });
+  const decided = red + black;
+  REC_STAT = {
+    batches: batches.length, rows, red, black, pending, decided,
+    rate: decided ? ((red / decided) * 100).toFixed(1) : null,
+    updated: JC_RECO.updated || ''
+  };
+  /* 详情：按存档时间倒序（最近的一期在最上面） */
+  REC_ROWS_ARCHIVE = batches
+    .slice()
+    .sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
+}
+
 /* ============================================================
    模拟计算器 · 数据准备（页面上的 SP 赔率）
    ------------------------------------------------------------
@@ -725,7 +768,46 @@ function renderRec() {
         : `带推荐数据的 ${REC_ALL.length} 场，最高信心 ${REC_MAXCONF}% < ${REC_MIN}%`) +
       `）</div>`;
 
-  return `<details class="m-rec" id="jcRec">${head}${note}${body}</details>`;
+  /* ---------- 【详情：往期推荐串的比对结果】 ----------
+     用户要求：「推荐串详情 —— 前后24小时窗口 + 红黑结果 + 存档+比对机制」。
+     数据来自 jc-reco-archive.js（jc-reco-build.mjs 每期存一次、打完回填）。
+     · 窗口：开赛时间前后 24 小时（和 build-jc.mjs 同一口径）
+     · 红 / 黑 / 待定：全中=红、有一场没中=黑、没打完=待定
+     · 每一场都列出终场比分；没打完的显示"未开赛/进行中"
+     ⚠️ 没有存档时这一整块【不渲染】（不显示空标题、不填假数据）。 */
+  const detail = REC_ROWS_ARCHIVE.length
+    ? `<div class="m-rechead2">往期推荐串（前后 24 小时 · 自动比对）` +
+      (REC_STAT && REC_STAT.decided
+        ? `<span class="m-recsum">红 ${REC_STAT.red} · 黑 ${REC_STAT.black}` +
+          ` · 命中率 ${REC_STAT.rate}%</span>`
+        : `<span class="m-recsum">红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0}` +
+          ` · 暂无已结算</span>`) +
+      `</div>` +
+      REC_ROWS_ARCHIVE.map((b) => {
+        const rows = Array.isArray(b.rows) ? b.rows : [];
+        const cls = b.verdict === '红' ? 'hit' : (b.verdict === '黑' ? 'miss' : 'wait');
+        const tag = b.verdict || '待定';
+        return `<div class="m-recbatch">` +
+          `<div class="m-recbhead">` +
+          `<span class="m-recbat">${esc(b.at || '')}</span>` +
+          `<span class="m-rb ${cls}">${esc(tag)}</span>` +
+          `<span class="m-recbnote">${rows.length} 场` +
+          (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
+          `</div>` +
+          rows.map((r) =>
+            `<div class="m-recrow m-recrow-arch">` +
+            `<span class="m-reccode">${esc(r.code || '')}</span>` +
+            `<span class="m-recteams">${esc(r.home || '')} vs ${esc(r.away || '')}</span>` +
+            `<span class="m-recpick">${esc(r.label || '')}</span>` +
+            `<span class="m-recodds">${r.score ? esc(r.score) : '—'}</span>` +
+            `<span class="m-rb ${r.hit === true ? 'hit' : (r.hit === false ? 'miss' : 'wait')}">${
+              r.hit === true ? '红' : (r.hit === false ? '黑' : '待')}</span>` +
+            `</div>`).join('') +
+          `</div>`;
+      }).join('')
+    : '';
+
+  return `<details class="m-rec" id="jcRec">${head}${note}${body}${detail}</details>`;
 }
 
 /* ============================================================
@@ -1475,6 +1557,23 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .calc-note b { color: #4a3a26 !important; }
 .calc-disclaim { border-top-color: #e8d7bd !important; color: #8a7a63 !important; }
 .calc-disclaim b { color: #4a3a26 !important; }
+/* ⑧ 推荐串【详情：往期比对】 —— 用户要求「前后24小时窗口 + 红黑结果 + 存档比对」
+   结构和 .m-recrow 一致，只是多一层"批次"（某一期的一串）分组。
+   ⚠️ 第三种状态"待定"（比赛还没打完）：.m-rb 原本只有 hit/miss 两种，
+      这里补 .wait —— 绝不能把待定显示成黑（那是在编造结果）。 */
+.m-rechead2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin: 12px 0 6px; padding-top: 10px; border-top: 1px dashed #e8d7bd;
+  font-size: 12.5px; font-weight: 700; color: #4a3a26; }
+.m-recsum { margin-left: auto; font-size: 11.5px; font-weight: 700; color: #c0392b; }
+.m-recbatch { background: #f3e6d0; border: 1px solid #efe2cc; border-radius: 8px;
+  padding: 8px 10px; margin-bottom: 8px; }
+.m-recbhead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 6px; font-size: 11.5px; }
+.m-recbat { color: #4a3a26; font-weight: 700; }
+.m-recbnote { color: #8a7a63; font-size: 11px; }
+.m-recrow-arch { padding: 3px 0; border-bottom: 1px dotted #e8d7bd; }
+.m-recrow-arch:last-child { border-bottom: 0; }
+.m-rb.wait { background: #fdf6ea; color: #8a7a63; border: 1px solid #e8d7bd; }
 `;
 
 const html = `<!DOCTYPE html>
@@ -1549,10 +1648,12 @@ ${nav}
 
   <div class="record">
     <span class="t">推荐串</span>
-    <span class="h">红 0</span>
-    <span class="m">黑 0</span>
-    <span class="r">命中率 0%</span>
-    <span class="n">（推荐串比对最终比分 · 暂未开始统计）</span>
+    <span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>
+    <span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>
+    <span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>
+    <span class="n">（推荐串比对最终比分 · 前后 24 小时 · ${REC_STAT
+      ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
+      : '暂未开始统计'}）</span>
   </div>
 
   ${renderRec()}
