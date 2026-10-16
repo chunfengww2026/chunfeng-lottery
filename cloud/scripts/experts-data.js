@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-17 02:26
+   生成时间：2026-10-17 02:04
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-17 02:26",
+ "updated": "2026-10-17 02:04",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 80,
   "requests": 216,
   "errors": 0,
-  "seconds": 227.3
+  "seconds": 191.8
  },
  "games": {
   "ssq": {
@@ -17015,63 +17015,59 @@ const EXPERTS_DATA = {
      },
      {
       "num": 5,
-      "pct": 79.2
+      "pct": 76.3
      },
      {
       "num": null,
-      "pct": 79.2
+      "pct": 76.3
      },
      {
       "num": null,
-      "pct": 70.8
+      "pct": 68.8
      },
      {
       "num": null,
-      "pct": 63.3
+      "pct": 67.5
      },
      {
       "num": null,
-      "pct": 46.7
-     },
-     {
-      "num": 8,
-      "pct": 92.5
+      "pct": 47.5
      },
      {
       "num": 6,
-      "pct": 90
-     },
-     {
-      "num": null,
-      "pct": 86.7
-     },
-     {
-      "num": null,
-      "pct": 60.8
-     },
-     {
-      "num": null,
-      "pct": 59.2
-     },
-     {
-      "num": null,
-      "pct": 53.3
-     },
-     {
-      "num": 6,
-      "pct": 96.7
+      "pct": 91.3
      },
      {
       "num": 8,
-      "pct": 92.5
+      "pct": 88.8
      },
      {
       "num": null,
-      "pct": 61.7
+      "pct": 86.3
      },
      {
       "num": null,
-      "pct": 61.7
+      "pct": 61.3
+     },
+     {
+      "num": null,
+      "pct": 58.8
+     },
+     {
+      "num": null,
+      "pct": 50
+     },
+     {
+      "num": 6,
+      "pct": 96.3
+     },
+     {
+      "num": 8,
+      "pct": 88.8
+     },
+     {
+      "num": null,
+      "pct": 67.5
      },
      {
       "num": null,
@@ -17079,7 +17075,11 @@ const EXPERTS_DATA = {
      },
      {
       "num": null,
-      "pct": 45
+      "pct": 56.3
+     },
+     {
+      "num": null,
+      "pct": 47.5
      }
     ],
     "blue": [],
