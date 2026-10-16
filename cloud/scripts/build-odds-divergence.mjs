@@ -50,7 +50,10 @@
      node build-odds-divergence.mjs --force      忽略 min-gap，强制重抓
      node build-odds-divergence.mjs --report     额外打印 cv 分布（调阈值用）
      node build-odds-divergence.mjs --limit 8    只抓前 8 场（调试用）
-   写：jc-divergence.js
+   写两份文件（同一趟抓取，源上只请求一遍）：
+     · jc-divergence.js —— 每场一份离散度统计（详情页「分歧指」用）
+     · jc-titan.js      —— 每场主流 12 家的初盘/即时/返还率/凯利明细（详情页「欧赔对比」表用）
+                           一场 320~370 家全存要 11 MB，所以只留主流那 12 家。
    ============================================================ */
 'use strict';
 
@@ -60,6 +63,16 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_FILE = path.join(HERE, 'jc-divergence.js');
+/* ============================================================
+   【同一趟抓取，产两份文件】——
+     ① jc-divergence.js：每场一份离散度（分歧指用，只要统计量）
+     ② jc-titan.js   ：每场【主流 8~12 家】的初盘 / 即时 / 返还率 / 凯利明细
+        （详情页的「欧赔对比」表用）
+   ⚠️ 为什么两份都在这一个脚本里出：1x2d.titan007.com/{id}.js 每场 180~600 KB，
+      64 场 ≈ 11 MB。如果为了明细再开一个脚本，等于把同样这 11 MB 抓两遍 ——
+      一趟抓完、一次解析、两个出口，源上只被请求一遍。
+   ============================================================ */
+const OUT_TITAN = path.join(HERE, 'jc-titan.js');
 
 const FORCE = process.argv.includes('--force');
 const REPORT = process.argv.includes('--report');
@@ -95,6 +108,38 @@ function cvLevel(cv) {
   if (cv < CV_LEVELS[1].max) return '中';
   return '高';
 }
+
+/* ============================================================
+   【主流公司名单】详情页的「欧赔对比」表只列这几家
+   ------------------------------------------------------------
+   一场 320~370 家，全存下来 64 场 ≈ 11 MB —— 太大（详情页是自包含页，
+   数据要在构建时内嵌进 HTML）。所以只留下面这张固定名单（12 家主流），
+   其余公司【只参与分歧指的统计】，不进资料文件、也不进页面。
+
+   【怎么认公司】优先用 titan007 自己的【公司ID】（全局稳定），英文名只做兜底：
+     f[0] = 公司ID   f[2] = 公司英文名   f[21] = 公司中文名（打码的，只露头一个字）
+   实测对应关系：281=Bet 365 · 115=William Hill · 80=Macauslot · 82=Ladbrokes ·
+                177=Pinnacle · 81=Vcbet · 90=Easybets · 104=Interwetten ·
+                545=Crown · 474=Sbobet · 18=12bet · 517=Mansion88
+   ⚠️ 中文名用【英文原名映射】，不用数据里那个打码的中文名（"威*" 没法给用户看）。
+   ============================================================ */
+const MAIN_COMPANIES = [
+  { id: '281', en: 'Bet 365',      cn: 'Bet365' },
+  { id: '115', en: 'William Hill', cn: '威廉希尔' },
+  { id: '80',  en: 'Macauslot',    cn: '澳门' },
+  { id: '82',  en: 'Ladbrokes',    cn: '立博' },
+  { id: '177', en: 'Pinnacle',     cn: '平博' },
+  { id: '81',  en: 'Vcbet',        cn: '伟德' },
+  { id: '90',  en: 'Easybets',     cn: '易胜博' },
+  { id: '104', en: 'Interwetten',  cn: '英特威腾' },
+  { id: '545', en: 'Crown',        cn: '皇冠' },
+  { id: '474', en: 'Sbobet',       cn: '利记' },
+  { id: '18',  en: '12bet',        cn: '12bet' },
+  { id: '517', en: 'Mansion88',    cn: '明陞' }
+];
+const normKey = (s) => String(s == null ? '' : s).toLowerCase().replace(/[\s._-]/g, '');
+const MAIN_BY_ID = new Map(MAIN_COMPANIES.map((c) => [c.id, c]));
+const MAIN_BY_EN = new Map(MAIN_COMPANIES.map((c) => [normKey(c.en), c]));
 
 const log = (...a) => console.log(...a);
 
@@ -303,6 +348,12 @@ function toOdds(f, i) {
   const v = Number(f[i]);
   return Number.isFinite(v) && v > 1.001 ? v : null;
 }
+/* jc-titan.js 要显示的两档数字：赔率（>1.001 才算有效）+ 返还率/凯利（0~200 之间） */
+function o2(f, i) { const v = toOdds(f, i); return v === null ? null : Math.round(v * 100) / 100; }
+function n2(f, i) {
+  const v = Number(f[i]);
+  return Number.isFinite(v) && v > 0 && v < 200 ? Math.round(v * 100) / 100 : null;
+}
 
 /* ---------- ④ 离散度：均值 / 总体标准差 / 变异系数 ---------- */
 function dispersion(values) {
@@ -348,11 +399,14 @@ function verify(ours, cand, t) {
 
 /* ---------- ⑥ 主流程 ---------- */
 async function main() {
-  /* min-gap：同一个数据文件 20 分钟内不重复抓（本机/云端一个班次里可能被调两次） */
-  if (!FORCE && fs.existsSync(OUT_FILE)) {
-    const age = (Date.now() - fs.statSync(OUT_FILE).mtimeMs) / 60000;
-    if (age < MIN_GAP_MIN) {
-      log(`⏭  跳过：jc-divergence.js 是 ${age.toFixed(1)} 分钟前刚生成的（< ${MIN_GAP_MIN} 分钟）`);
+  /* min-gap：同一个数据文件 20 分钟内不重复抓（本机/云端一个班次里可能被调两次）
+     ⚠️ 这里要【两份文件都还新】才跳过：第一次跑（jc-titan.js 还没出生）时必须照跑，
+        否则新加的「欧赔对比」永远拿不到明细。 */
+  if (!FORCE) {
+    const ageMin = (f) => (fs.existsSync(f) ? (Date.now() - fs.statSync(f).mtimeMs) / 60000 : Infinity);
+    const aDiv = ageMin(OUT_FILE), aTitan = ageMin(OUT_TITAN);
+    if (aDiv < MIN_GAP_MIN && aTitan < MIN_GAP_MIN) {
+      log(`⏭  跳过：jc-divergence.js 是 ${aDiv.toFixed(1)} 分钟前、jc-titan.js 是 ${aTitan.toFixed(1)} 分钟前刚生成的（< ${MIN_GAP_MIN} 分钟）`);
       log('   要强制重抓：node build-odds-divergence.mjs --force');
       return;
     }
@@ -392,6 +446,9 @@ async function main() {
      ============================================================ */
   const prev = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
   const prevGames = (prev && prev.games && typeof prev.games === 'object') ? prev.games : {};
+  /* 【欧赔对比】那份明细的上一版（沿用规则和分歧指共用一套"省请求"判断） */
+  const prevTitan = loadVar('jc-titan.js', 'JC_TITAN');
+  const prevTitanGames = (prevTitan && prevTitan.games && typeof prevTitan.games === 'object') ? prevTitan.games : {};
   const ageMinOf = (c) => {
     const t = c && c.at ? new Date(String(c.at).replace(' ', 'T') + ':00').getTime() : NaN;
     return Number.isFinite(t) ? (Date.now() - t) / 60000 : 1e9;
@@ -409,11 +466,28 @@ async function main() {
   };
 
   const out = {};
+  const titanOut = {};
   const carried = [];
   const targets = [];
+  /* 【欧赔对比】另加一条：明细不存在（或不足 2 家）→ 这一场必须抓。
+     第一次跑这个功能时 jc-divergence.js 可能还很新、而 jc-titan.js 根本不存在，
+     只看上面那套沿用规则会一场都不抓 → 明细永远是空的。 */
+  const needsFetchTitan = (g, c) => {
+    if (FORCE) return true;
+    if (!c || !c.eu || Object.keys(c.eu).length < 2) return true;
+    const gap = minutesApart(c.time, g.time);
+    if (gap !== null && gap > 180) return true;          /* 明细是别的场次（跨周串号） */
+    return needsFetch(g, c);                             /* 其余与分歧指同一套省请求规则 */
+  };
   games.forEach((g) => {
     const c = prevGames[g.code];
-    if (!needsFetch(g, c)) { out[g.code] = c; carried.push(g.code); return; }
+    const tc = prevTitanGames[g.code];
+    if (!needsFetch(g, c) && !needsFetchTitan(g, tc)) {
+      out[g.code] = c;
+      if (tc) titanOut[g.code] = tc;
+      carried.push(g.code);
+      return;
+    }
     targets.push(g);
   });
   if (carried.length) log(`  ♻️  沿用上一次的 ${carried.length} 场（已完场 / 2 小时内不需要重抓）`);
@@ -421,7 +495,7 @@ async function main() {
 
   if (!targets.length) {
     /* 没有要抓的 → 不写文件（不白白刷新 updated，免得看起来像"刚更新过"） */
-    log('  ⏭  这一轮没有需要重抓的比赛 —— 保留上一次的 jc-divergence.js 不动');
+    log('  ⏭  这一轮没有需要重抓的比赛 —— 保留上一次的 jc-divergence.js / jc-titan.js 不动');
     return;
   }
 
@@ -517,6 +591,40 @@ async function main() {
           }
         };
         rowsForReport.push({ code: g.code, companies, h: H.cv, d: D.cv, a: A.cv });
+
+        /* ---------- 【欧赔对比】只挑主流那几家（MAIN_COMPANIES） ----------
+           字段（逐字段对过实数据，见文件头的字段表）：
+             f[0] 公司ID  f[2] 英文名  f[21] 中文名（打码）
+             f[3][4][5] 初盘 主/平/客      f[9]  初盘返还率
+             f[10][11][12] 即时 主/平/客   f[16] 即时返还率
+             f[17][18][19] 即时凯利 主/平/客
+           ⚠️ 三项即时赔率不齐的公司【不列】—— 不拿初盘或别家的数字去补。
+           ⚠️ 认公司先看 ID、再看英文名（ID 是 titan007 自己的编号，最稳）。 */
+        const eu = {};
+        rows.forEach((f) => {
+          const meta = MAIN_BY_ID.get(String(f[0])) || MAIN_BY_EN.get(normKey(f[2]));
+          if (!meta) return;
+          const l = [o2(f, 10), o2(f, 11), o2(f, 12)];
+          if (l[0] === null || l[1] === null || l[2] === null) return;
+          eu[meta.en] = {
+            o: [o2(f, 3), o2(f, 4), o2(f, 5)],
+            l,
+            r: [n2(f, 9), n2(f, 16)],
+            k: [n2(f, 17), n2(f, 18), n2(f, 19)]
+          };
+        });
+        if (Object.keys(eu).length) {
+          titanOut[g.code] = {
+            sid: cand.sid,
+            match: `${t.tHome} vs ${t.tAway}`,
+            league: t.league || g.league || '',
+            time: v.jsTimeBj || cand.time || g.time || '',
+            at: new Date().toLocaleString('sv-SE').slice(0, 16),
+            companies,                       /* 该场即时欧赔公司【总】家数（页面写「共 N 家」） */
+            listed: Object.keys(eu).length,   /* 本文件实际列了几家 */
+            eu
+          };
+        }
       } catch (e) {
         rejected.push(`${g.code} 抓取失败：${String(e.message).slice(0, 80)}`);
       }
@@ -551,6 +659,41 @@ async function main() {
   fs.writeFileSync(OUT_FILE, '/* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */\nconst JC_DIVERGENCE = ' + body + ';\n', 'utf8');
 
   log(`✅ jc-divergence.js 已生成 ${(fs.statSync(OUT_FILE).size / 1024).toFixed(1)} KB`);
+
+  /* ============================================================
+     【第二份出口】jc-titan.js —— 主流 8~12 家的初盘/即时/返还率/凯利明细
+     ------------------------------------------------------------
+     详情页的「欧赔对比」表读它，构建时内嵌进 HTML（自包含，线上没有这个文件）。
+     ⚠️ 一场 320~370 家全存下来 ≈ 11 MB，所以【只存 MAIN_COMPANIES 这 12 家】；
+        按 12 家算，64 场大约 100~200 KB。
+     ⚠️ 一条明细都没整理出来 → 【不写文件】，保留上一次的（页面显示「暂无」），
+        绝不用 jc-divergence 的均值/别场的数字顶一份出来。
+     ============================================================ */
+  const titanCodes = Object.keys(titanOut);
+  if (titanCodes.length) {
+    const tPayload = {
+      updated: new Date().toLocaleString('sv-SE').slice(0, 16),
+      source: '球探 titan007',
+      sourceUrl: 'https://1x2d.titan007.com/',
+      /* 主流名单本身也写进文件：页面按这个顺序和中文名显示，
+         以后要调整名单只改 MAIN_COMPANIES 一处，不用再动页面代码。 */
+      main: MAIN_COMPANIES.map((c) => [c.id, c.en, c.cn]),
+      note: '每场只列主流 12 家公司的欧赔明细（该场共 companies 家，其余只参与分歧指的统计，不存）。'
+        + 'o=初盘 主/平/客 · l=即时 主/平/客 · r=[初盘返还率, 即时返还率] · k=即时凯利 主/平/客。'
+        + '三项即时赔率不齐的公司不列（绝不补数字）。已完场沿用上一次结果（欧赔已冻结），每条自带 at。',
+      games: titanOut
+    };
+    fs.writeFileSync(OUT_TITAN,
+      '/* 主流公司欧赔明细（球探 titan007）—— build-odds-divergence.mjs 生成，勿手改 */\nconst JC_TITAN = ' +
+      JSON.stringify(tPayload, null, 1) + ';\n', 'utf8');
+    const listed = titanCodes.map((c) => titanOut[c].listed);
+    log(`✅ jc-titan.js 已生成 ${(fs.statSync(OUT_TITAN).size / 1024).toFixed(1)} KB`);
+    log(`   有欧赔明细的比赛：${titanCodes.length} 场 · 每场列 ${Math.min(...listed)}~${Math.max(...listed)} 家` +
+      `（该场公司总数中位 ${titanCodes.map((c) => titanOut[c].companies).sort((a, b) => a - b)[Math.floor(titanCodes.length / 2)]} 家）`);
+  } else {
+    log('   ⚠️ 一份欧赔明细都没整理出来 → 保留上一次的 jc-titan.js 不动（页面显示「暂无」，绝不用别处的数字顶）');
+  }
+
   const allCo = codes.map((c) => out[c].companies).sort((a, b) => a - b);
   log(`   有分歧指数据的比赛：${codes.length} 场（本次新抓 ${codes.length - carried.length} + 沿用 ${carried.length}）` +
     `，公司数中位 ${allCo[Math.floor(allCo.length / 2)]} 家（最少 ${allCo[0]} / 最多 ${allCo[allCo.length - 1]}）`);
