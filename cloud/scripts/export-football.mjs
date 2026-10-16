@@ -897,10 +897,14 @@ function renderMultiCard(m) {
   /* cv 在数据里是小数（0.046 = 4.6%），和详情页一样 ×100 显示 */
   const cvPct = (v) => { const n = num(v); return n === null ? '—' : (Math.round(n * 10000) / 100) + '%'; };
 
+  /* 【去掉了 12 家明细】用户 2026-10-17：「卡片上只留分歧 3 档 + 各家区间 + 公司家数」。
+     12 家逐家明细占 ~293px/卡 × 64 张 = +18.8k px，页面到 69061px 太高，
+     而且比赛详情页本来就有完整的 12 家明细 —— 那里看不挤。
+     所以这里标题也跟着改成「欧赔分歧」（明细没了就不再叫"对比"）。 */
   const head =
     `<div class="m-mc-head">` +
-    `<span class="m-mc-title">欧赔对比</span>` +
-    `<span class="m-mc-sub">主流 12 家 · 即时盘</span>` +
+    `<span class="m-mc-title">欧赔分歧</span>` +
+    `<span class="m-mc-sub">${dd && dd.companies ? dd.companies + ' 家公司 · 即时盘' : '即时盘'}</span>` +
     `<span class="m-mc-fun">仅娱乐参考</span>` +
     `</div>`;
 
@@ -922,27 +926,6 @@ function renderMultiCard(m) {
     }
   }
 
-  /* ---- 12 家明细（两列，公司 + 即时 主/平/客 + 返还率）---- */
-  let grid = '';
-  if (tt && tt.eu) {
-    const nameOf = {};
-    (TITAN.main || []).forEach((c) => { nameOf[c[1]] = c[2] || c[1]; });
-    const order = (TITAN.main || []).map((c) => c[1]).filter((n) => tt.eu[n]);
-    const rest = Object.keys(tt.eu).filter((n) => order.indexOf(n) < 0);
-    const rows = order.concat(rest).map((name) => {
-      const e = tt.eu[name] || {};
-      const l = Array.isArray(e.l) ? e.l : null;
-      const rr = Array.isArray(e.r) ? e.r[1] : null;      /* 即时返还率 */
-      if (!l) return '';
-      const short = nameOf[name] || name;
-      return `<span class="m-mc-r"><i>${esc(short)}</i>` +
-        `<b>${l.map((x) => (num(x) === null ? '—' : num(x).toFixed(2))).join('/')}</b>` +
-        (num(rr) === null ? '' : `<em>${num(rr).toFixed(1)}%</em>`) +
-        `</span>`;
-    }).filter(Boolean);
-    if (rows.length) grid = `<div class="m-mc-grid">${rows.join('')}</div>`;
-  }
-
   /* ---- 即时赔率的区间（"对比"最直观的一眼）---- */
   let rng = '';
   if (tt && tt.eu) {
@@ -959,10 +942,15 @@ function renderMultiCard(m) {
     }
   }
 
-  const note = `<div class="m-mc-note">返还率＝1÷Σ(1÷三家赔率) · 分歧＝即时欧赔变异系数 · ` +
+  /* 说明只讲分歧的算法（返还率那段随明细一起去掉了）。
+     口径照抄 build-match.mjs：用 cv 不用标准差 —— 主胜 1.5 与客胜 8.0 的
+     标准差天然差几倍，只有变异系数（除以均值）才可比。 */
+  const note = `<div class="m-mc-note">算法：各家【即时】欧赔逐方向算 ` +
+    `变异系数 cv ＝ 标准差 ÷ 均值（除以均值才可比）· ` +
+    `档位 cv < 3.0% 低 · 3.0%~5.5% 中 · ≥ 5.5% 高 · ` +
     `差得越大＝各家公司看法越不一致 · 仅娱乐参考</div>`;
 
-  return `<div class="m-mc">${head}${dv}${rng}${grid}${note}</div>`;
+  return `<div class="m-mc">${head}${dv}${rng}${note}</div>`;
 }
 
 function renderMatch(m) {
@@ -2458,16 +2446,7 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-dv-sum { font-size: 10.5px; color: #a2937c; line-height: 1.7; margin-bottom: 5px; }
 .m-mc-rng { font-size: 11px; color: #8a7a63; line-height: 1.7; margin-bottom: 6px; }
 .m-mc-rng b { color: #4a3a26; font-family: Consolas, monospace; }
-.m-mc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3px 8px; margin-bottom: 5px; }
-.m-mc-r { display: flex; align-items: baseline; gap: 5px; min-width: 0;
-  border-bottom: 1px dashed #efe2cc; padding-bottom: 3px; }
-.m-mc-r i { font-style: normal; font-size: 10.5px; color: #8a7a63; flex: 0 0 auto;
-  max-width: 62px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.m-mc-r b { font-size: 10.5px; color: #4a3a26; font-family: Consolas, monospace;
-  font-weight: 600; flex: 1 1 auto; min-width: 0; }
-.m-mc-r em { font-style: normal; font-size: 10px; color: #a2937c;
-  font-family: Consolas, monospace; flex: 0 0 auto; }
+/* 【去掉了 12 家明细】.m-mc-grid / .m-mc-r 的样式已删（卡片上不放 12 家明细了）。 */
 .m-mc-note { font-size: 10.5px; color: #a2937c; line-height: 1.7; }
 
 `;
