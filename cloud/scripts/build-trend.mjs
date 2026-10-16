@@ -897,7 +897,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .ro-status { margin: 0 0 14px; border-radius: 10px; padding: 12px 14px; font-size: 13px;
   line-height: 1.8; background: #fff6dd; border: 1px solid #ffe08a; color: var(--ro-fg2); }
 .ro-status b { color: #7a5c00; }
-.ro-status .ro-st-time { color: var(--ro-danger); font-weight: 700; }
+/* 原 .ro-status .ro-st-time（红色「页面时间」）随用户 2026-10-17 的要求一起去掉 */
 
 /* ④ 彩种切换条 */
 .tr-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
@@ -1060,7 +1060,6 @@ svg.tr-lines-draw.on { pointer-events:auto; }
 /* ⑧ 页脚 */
 .ro-foot { margin: 0 2px; font-size: 11px; color: var(--ro-fg3); line-height: 1.9; }
 @media (max-width: 420px) {
-  .ro-top h1 { font-size: 19px; }
   .tr-block { padding: 10px 8px 8px; }
   .tr-td-tail, .tr-th-tail { display: none; }
 }
@@ -1069,29 +1068,24 @@ svg.tr-lines-draw.on { pointer-events:auto; }
 <body data-built="${updated}">
 <div class="ro-wrap">
 
-  <!-- 顶部 Tab：走势图页当前页带 .on；另外两个页面是同级静态页 -->
-  <div class="top-tabs">
-    <a class="tab" href="./">彩票推荐</a>
-    <a class="tab" href="足球推荐.html">竞彩场次</a>
-    <a class="tab on" href="走势图.html">走势图</a>
-  </div>
+  <!-- 顶部 Tab 已按用户 2026-10-17 要求【整排彻底删除】：本页不再有 .top-tabs。
+       不是"只在 iframe 里隐藏" —— 独立打开 走势图.html 时也没有这一排。
+       原因：这页会被分享页用 <iframe src="走势图.html"> 嵌进折叠块，
+       在 iframe 里点「彩票推荐 / 竞彩场次」会跳走、体验很怪；
+       只剩「走势图」一个 Tab 也没意义 → 整排去掉，页面顶部直接就是下面这行小字。 -->
 
   <div class="ro-top">
-    <h1>春风十里送大奖</h1>
     <div class="sub">走势图 · 8 个彩种 · 最近 ${payload.periods} 期真实开奖</div>
   </div>
 
-  <!-- 免责声明：这里【不印"数据快照"时间】，只印【页面时间】。
-       两条踩过的坑，别再改回去：
-         ① 「数据快照 <构建时间>」不能用 —— 那个时间以前是 UTC（比北京时间早 8 小时，
-            见 build-history.mjs 的说明），印在页面上会被当成"数据是 8 小时前的"；
-            构建时间仍保留在 <body data-built="…"> 属性里，排查时看那里。
-         ② 客户端刷新【不要用 toLocaleString()】：它跟着设备时区+语言变
-            （美区手机会显示 10/16/2026, 8:00:05 PM），这里固定按北京时间格式化。
-       ⇒ 静态兜底印构建时间，页面加载后由脚本刷新成"本机时钟"的北京时间。 -->
+  <!-- 免责声明：这段【必须保留】（「只看数据，不荐号…不预测、不保证」）。
+       ⚠️ 页面上【不再印任何时间】—— 用户 2026-10-17 要求去掉原来那行红字「页面时间」。
+          历史坑别再踩：早先印过「数据快照 <构建时间>」，那个时间曾是 UTC
+          （比北京时间早 8 小时，见 build-history.mjs 的说明），会被当成"数据是 8 小时前的"；
+          构建时间现在只留在 <body data-built="…"> 属性里，排查时看那里。
+          客户端那段按北京时间刷新的脚本也一并删了（元素没了，留着只是死代码）。 -->
   <div class="ro-status">
     <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。
-    <span class="ro-st-time" id="snapshotTime">页面时间 ${updated}</span>
   </div>
 
   <div id="tr-root"></div>
@@ -1118,21 +1112,7 @@ __TREND_SCRIPT_BODY__
     '',
     MOUNT_SRC,
     '',
-    INTERACT_SRC,
-    '',
-    /* 【页面时间】构建时印的是构建时间，页面打开后用【本机时钟】现场刷新。
-       ⚠️ 别用 toLocaleString()：它跟着设备时区+语言走（美区手机会变成
-          10/16/2026, 8:00:05 PM）；这里固定按北京时间（UTC+8，中国无夏令时）
-          格式化成 YYYY-MM-DD HH:mm:ss，和全项目的时间写法一致。
-       ⚠️ 必须拼进这【同一个 <script>】—— 页面不变量要求整页恰好 1 对 <script>；
-          脚本在 </body> 前，所以取元素时它已经存在。 */
-    '/* 页面时间：本机时钟，固定北京时间格式 */',
-    '(function () {',
-    '  var el = document.getElementById("snapshotTime");',
-    '  if (!el) return;',
-    '  var d = new Date(Date.now() + 8 * 3600 * 1000);',
-    '  el.textContent = "页面时间 " + d.toISOString().slice(0, 19).replace("T", " ");',
-    '})();'
+    INTERACT_SRC
   ].join('\n');
 
   /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
