@@ -234,9 +234,9 @@ vm.runInContext(`
         所以必须像这样显式挂到 globalThis 再取，别在主模块里直接引用。
      没有这个文件时是 null → 专家推荐整块不渲染（不显示空壳）。 */
   globalThis.__experts = (typeof EXPERTS_DATA !== 'undefined') ? EXPERTS_DATA : null;
-  /* 【3D/排列三 手绘参考图】要用开奖历史（history.js）。
-     ⚠️ history.js 里是 `const DRAW_HISTORY` —— const 是词法绑定，跑完不会出现在 ctx 上，
-        必须像 __experts 这样显式挂到 globalThis 再取（和 experts 那次踩的同一个坑）。 */
+  /* 【3D/排列三 手绘参考图】要用开奖历史（history.js 里的 DRAW_HISTORY）。
+     它同样是 const 声明，所以照上面的办法显式挂到 globalThis 再取。
+     取不到时是 null → 该区块整块不渲染（不显示空壳、更不放假数据）。 */
   globalThis.__hist = (typeof DRAW_HISTORY !== 'undefined') ? DRAW_HISTORY : null;
 `, ctx);
 
@@ -259,7 +259,7 @@ const KJH = ctx.__kjh;
 const XYSP = ctx.__xysp;
 /* 【专家推荐】数据（experts-data.js；缺失时为 null → 整块不渲染） */
 const EXPERTS = ctx.__experts;
-/* 【开奖历史】数据（history.js；3D/排列三 手绘参考图要用） */
+/* 【开奖历史】（history.js）—— 3D/排列三 手绘参考图要用 */
 const HIST = ctx.__hist;
 
 /**
@@ -894,8 +894,9 @@ function buildArticlesHtml() {
 }
 
 /* ---------- 【3D & 排列三 手绘参考图】区块 ----------
-   用户 2026-10-17 给的完整规格；实现在 p3d-section.mjs（构建期把数据算好内联）。
-   六码用用户给的 LIUMA_RECOMMEND_MAP；数据用 history.js 真开奖近 30 期。 */
+   用户 2026-10-17 给的完整规格；实现在 p3d-section.mjs（构建期把数据算好内联，
+   页面运行时不需要分析器）。数据用 history.js 真开奖近 30 期。
+   六码用用户给的 LIUMA_RECOMMEND_MAP（按彩种分开）。 */
 const P3D = require(path.join(ROOT, 'p3d-analyzer.js'));
 const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
   periods: 30,
@@ -908,7 +909,9 @@ const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
     'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6, 9] }
   }
 });
-console.log(`  · 3D 手绘参考图：${p3dHtml ? '已生成（' + (Buffer.byteLength(p3dHtml, 'utf8') / 1024).toFixed(1) + ' KB）' : '无数据 → 整块不渲染'}`);
+console.log('  · 3D 手绘参考图：' + (p3dHtml
+  ? '已生成（' + (Buffer.byteLength(p3dHtml, 'utf8') / 1024).toFixed(1) + ' KB）'
+  : '无数据 → 整块不渲染'));
 
 const articlesHtml = buildArticlesHtml();
 
