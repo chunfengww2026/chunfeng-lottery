@@ -16,9 +16,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="春风大奖" />
 <style>
-
-
-
+/* ============================================================
+   走势图页 · 米杏色主题
+   ============================================================ */
 :root {
   --ro-bg: #f7efe1;
   --ro-card: #fdf6ea;
@@ -38,24 +38,24 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
   font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif; }
 .ro-wrap { max-width: 1180px; margin: 0 auto; padding: 0 12px 40px; }
 
+/* ① 顶部那排页面标签 —— 用户 2026-10-17 要求【整排删除】，本页不再有 .top-tabs。
+      原因：走势图.html 会被分享页用 <iframe> 嵌进折叠块里，
+      在 iframe 内点那两个跳转标签会跳出当前页、体验很怪；
+      而只剩本页自己那一个也没意义、还白占一行 → HTML 和样式一起删。
+      ⚠️ 别复活：删掉后首屏第一个可见元素就是下面 ② 那行小字。 */
 
-
-
-
-
-
-
-
+/* ② 页眉小字（原来那行绿色大标题也按用户要求删了，只留这行说明）
+      上边距给足：顶部 Tab 和大标题都没了，这里就是首屏第一块内容 */
 .ro-top { padding: 18px 12px 10px; text-align: center; }
 .ro-top .sub { margin-top: 0; font-size: 12px; color: var(--ro-fg2); }
 
-
+/* ③ 提示条（米黄底） */
 .ro-status { margin: 0 0 14px; border-radius: 10px; padding: 12px 14px; font-size: 13px;
   line-height: 1.8; background: #fff6dd; border: 1px solid #ffe08a; color: var(--ro-fg2); }
 .ro-status b { color: #7a5c00; }
+/* 原 .ro-status .ro-st-time（那行红色时间）随用户 2026-10-17 的要求一起去掉 */
 
-
-
+/* ④ 彩种切换条 */
 .tr-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
 .tr-tab { flex: 0 0 auto; padding: 7px 13px; font-size: 13px; font-weight: 600;
   border-radius: 16px; text-decoration: none; color: var(--ro-fg2);
@@ -63,7 +63,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-tab:hover { border-color: var(--ro-ok); }
 .tr-tab.on { background: #e8f6ef; border-color: #b7e4cd; color: var(--ro-ok); }
 
-
+/* ⑤ 每个彩种一块卡片 */
 .tr-block { background: var(--ro-card); border: 1px solid var(--ro-line);
   border-radius: 12px; padding: 12px 12px 10px; margin: 0 0 16px; }
 .tr-block[hidden] { display: none; }
@@ -72,34 +72,34 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-sub { margin-top: 5px; font-size: 12px; color: var(--ro-fg2); line-height: 1.7; }
 .tr-sub b { color: var(--ro-fg); }
 
-
+/* ⑥ 表格：横轴号码、纵轴期号；手机上能横向滑 */
 .tr-scroll { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch;
   border: 1px solid var(--ro-line-soft); border-radius: 10px; background: #fffdf8;
-  
+  /* ⚠️ 必须是定位参考：走势连线的 SVG 覆盖层绝对定位在它里面，靠它对准表格 */
   position: relative; }
-
-
-
-
-
+/* ⑨ 走势连线（用户 2026-10-17 要求：「加走势连线」，先双色球 + 大乐透）
+   ------------------------------------------------------------
+   挂载层量出每格中心后，在这里盖一层绝对定位的 SVG 画线。
+   ⚠️ 覆盖层必须 pointer-events:none —— 否则会挡住下面的单元格，
+      手指滑动/点按全失效（表格是能横向滚的）。 */
 .tr-lines { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 1; }
 .tr-line { stroke-width: 1.4; stroke-linecap: round; fill: none; }
 .tr-line-main { stroke: rgba(26, 140, 90, 0.55); }
 .tr-line-extra { stroke: rgba(31, 95, 214, 0.55); }
-
+/* 短线头 = 该号断开的区间边界（不是真连线，画淡一点、带虚线感） */
 .tr-line-gap { stroke-opacity: 0.5; stroke-dasharray: 3 2.5; }
+/* 说明：实线 = 相邻两期连续开出；虚线 = 中间隔了遗漏期（跨过去了） */
 
-
-
-
-
-
-
+/* ⑩ 斜连（用户 2026-10-17 规则：|a-b| === 相隔期数）
+   ------------------------------------------------------------
+   用【金色】和竖向走势线（绿）区分开，一眼能分出两类线。
+   ⚠️ 斜连默认只画"差1"那一档；"含间隔"那档线非常多（实测快乐8 可到
+      3477 条，占格子 626%），由用户点开关自己开 —— 见 .tr-slantbtn。 */
 .tr-slant { stroke: rgba(217, 163, 0, 0.75); stroke-width: 1.1; }
 .tr-slant-extra { stroke: rgba(217, 140, 0, 0.75); }
-
+/* 间隔斜连比"差1"更弱一点，免得抢眼糊成一片 */
 .tr-slant-gapSlant { stroke-opacity: 0.5; stroke-dasharray: 4 2.5; }
-
+/* 斜连开关（挂到彩种切换条那一行的右端） */
 .tr-slantbtn { margin-left: auto; flex: 0 0 auto; font-size: 11.5px; font-weight: 700;
   color: #8a7a63; background: #fdf6ea; border: 1px solid #e8d7bd;
   border-radius: 20px; padding: 3px 10px; text-decoration: none; cursor: pointer; }
@@ -119,15 +119,15 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-th-tail, .tr-td-tail { width: 96px; min-width: 96px; border-right: 0; }
 .tr-th-tail { font-size: 10px; }
 
-
+/* 第 1 列【期号】横向也吸住，滑号码时不会看丢是哪一期 */
 .tr-sticky { position: sticky; left: 0; z-index: 2; background: var(--ro-card);
   border-right: 1px solid var(--ro-line) !important; }
 .tr-table thead .tr-sticky { z-index: 4; background: var(--ro-sunken); }
 
-
-
-
-
+/* 行底色：体行默认白，隔一行淡米色。
+   ⚠️ 这里原来写的是 nth-child(even) —— 加了【预选行】（tbody 第 1 行）之后
+      整列后的白色会整体错一行，所以改成"体行默认白 + nth-child(odd) 淡米色"，
+      第 1 行（预选行）不是 .tr-row，不参与，也就不会串行。 */
 .tr-row td { background: #fffdf8; }
 .tr-row:nth-child(odd) td { background: #fbf3e6; }
 .tr-row:nth-child(odd) .tr-sticky { background: #fbf3e6; }
@@ -136,18 +136,18 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-td-issue i { display: block; font-style: normal; font-size: 9.5px; color: var(--ro-fg3); }
 .tr-td-num { height: 24px; }
 .tr-td-num.on { background: #d8efe2 !important; }
-
-
-
-
-
-
+/* 【背景板号数】用户 2026-10-17：「背景板要有浅色 很浅的号数」
+   ------------------------------------------------------------
+   每个格子里印上该列的号数，颜色很浅 —— 这样看某一列是几号
+   不用抬头看表头。命中格有绿球，号数隐掉让位给球（经典走势图画法，
+   避免数字和球叠在一起显脏）。
+   ⚠️ 号数是 <i class="tr-ghost">，pointer-events:none —— 不挡点击/连线测量。 */
 .tr-td-num { text-align: center; vertical-align: middle; }
 .tr-ghost { font-style: normal; font-weight: 400; font-size: 9.5px;
   line-height: 1; color: #ded1b9; user-select: none; pointer-events: none;
   letter-spacing: 0; }
-.tr-td-extra .tr-ghost { color: #d7d9e2; }          
-.tr-td-num.on .tr-ghost { visibility: hidden; }      
+.tr-td-extra .tr-ghost { color: #d7d9e2; }          /* 第二区（蓝球）偏冷一点 */
+.tr-td-num.on .tr-ghost { visibility: hidden; }      /* 命中格让位给球 */
 .tr-td-num s { display: inline-block; width: 11px; height: 11px; border-radius: 50%;
   background: var(--ro-ok); text-decoration: none; vertical-align: middle; }
 .tr-td-extra s { background: var(--ro-link); }
@@ -156,7 +156,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-td-tail { font-size: 11px; color: var(--ro-fg2); padding: 0 6px !important; text-align: left;
   white-space: nowrap; letter-spacing: .5px; }
 
-
+/* 表尾三行：出现次数 / 当前遗漏 / 最大遗漏 */
 .tr-table tfoot td { height: 22px; font-size: 11px; font-weight: 700;
   background: var(--ro-sunken); color: var(--ro-fg2); }
 .tr-tf-label { text-align: left !important; padding: 0 6px !important; font-size: 10.5px;
@@ -168,7 +168,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 
 .tr-note { margin-top: 8px; font-size: 11.5px; color: var(--ro-fg3); line-height: 1.7; }
 
-
+/* ⑦ 图例 */
 .tr-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 2px 18px;
   font-size: 11.5px; color: var(--ro-fg2); }
 .tr-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px;
@@ -177,27 +177,27 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-lg-last { background: #fff6dd; border: 1px solid #ffe08a; }
 .tr-lg-gap { background: #fffdf8; border: 1px solid var(--ro-line); }
 
-
-
-
-
+/* ⑪ 工具栏（用户 2026-10-17 要求：走势图页加一排工具按钮）
+   ------------------------------------------------------------
+   四个按钮：默认 / 画线 / 清空画线 / 自动衍生预选。
+   ⚠️ 用 <div class="btn">，不是 <button> —— 页面不变量要求"裸 <button> = 0"。 */
 .toolbar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
 .toolbar .btn, .drawstyles .btn { padding:5px 10px; border-radius:8px; background:#fdf6ea;
   border:1px solid #e8d7bd; font-size:12px; color:#4a3a26; cursor:pointer; }
 .toolbar .btn.active, .drawstyles .btn.active { background:#1a8c5a; color:#fff; border-color:#1a8c5a; }
 .toolbar .btn.done { background:#e8f6ef; border-color:#b7e4cd; color:#1a8c5a; }
 .tr-modehint { margin:-4px 0 10px; font-size:11.5px; color:var(--ro-fg3); line-height:1.7; }
-
+/* 画法子档（自由 / 直线 / 逐点）：只在「画线」档显示，做小一圈别挤爆工具栏 */
 .drawstyles { display:none; flex-wrap:wrap; align-items:center; gap:6px; margin:-4px 0 10px; }
 .drawstyles.on { display:flex; }
 .drawstyles-label { font-size:11.5px; color:var(--ro-fg3); }
 .drawstyles .btn { padding:3px 9px; border-radius:999px; font-size:11.5px; }
 
-
-
-
-
-
+/* ⑫ 预选行（表头下面第一行，格子里点一下就是选中/取消）
+   ------------------------------------------------------------
+   选中 = 金色实心球；未选 = 虚线空心。
+   ⚠️ 预选行也是 <tr data-tr-issue> + 每格 data-tr-hit ——
+      走势连线（drawTrendLines）会照旧量到它，连线不会被这行顶歪。 */
 .tr-th-presel { color:#8a6a00; font-size:11px; font-weight:800; }
 .tr-td-presel { height:24px; cursor:pointer; }
 .tr-td-presel .num { display:inline-block; width:16px; height:16px; border-radius:50%;
@@ -207,19 +207,19 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .tr-td-presel.is-extra .num.empty { border-color:#a9c0ef; }
 .tr-td-presel.is-extra .num.gold { background:#1f5fd6; border-color:#1a4cae; }
 
-
-
-
-
+/* ⑬ 手画的线（SVG 覆盖层，画在自动走势连线上面）
+   ------------------------------------------------------------
+   ⚠️ 默认 pointer-events:none —— 不能挡住表格的横向滑动和点选。
+      只有「画线」模式下由脚本改成 auto，画完/切回默认再改回 none。 */
 svg.tr-lines-draw { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
 svg.tr-lines-draw.on { pointer-events:auto; }
 .tr-draw { stroke:#c0392b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-.tr-dot { fill:#c0392b; stroke:#fff; stroke-width:1; }   
+.tr-dot { fill:#c0392b; stroke:#fff; stroke-width:1; }   /* 逐点档标的那个点 */
 .tr-draw-line { position:absolute; top:0; left:0; pointer-events:none; z-index:2; }
-
+/* 画线模式：手指拖动只画线，不滚动（否则线画不出来） */
 .tr-block.tr-drawing .tr-scroll { touch-action:none; }
 
-
+/* ⑧ 页脚 */
 .ro-foot { margin: 0 2px; font-size: 11px; color: var(--ro-fg3); line-height: 1.9; }
 @media (max-width: 420px) {
   .tr-block { padding: 10px 8px 8px; }
