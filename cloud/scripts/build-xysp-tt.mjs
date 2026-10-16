@@ -96,7 +96,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 /* 【票图校验】OCR 判"图里到底有没有票"（详见 verify-ticket.mjs 的说明） */
-import { verifyBatch, cachedVerdict, cacheStats, closeTicketOcr } from './verify-ticket.mjs';
+import { verifyBatch, cachedVerdict, cacheStats, closeTicketOcr, jcVerdictStrict } from './verify-ticket.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const LOG = path.join(ROOT, '_xysp-tt.log');
@@ -929,17 +929,14 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
            代价：少数拍得很糊的真票会被丢 —— 但用户明确说
              「宁可少，不可假」「队徽球员照都不要」，所以这个方向是对的。
        ============================================================ */
-    if (C.key === TT_KEY || C.key === JC_KEY) {
+    if (C.key === TT_KEY) {
       const cv = cachedVerdict(img);
-      if (cv) {
-        const bad = (C.key === JC_KEY) ? (cv.ok !== true) : (cv.ok === false);
-        if (bad) {
-          stat.dropped++;
-          if (C.key === JC_KEY) stat.dropJcPlain = (stat.dropJcPlain || 0) + 1;
-          else stat.dropOcr = (stat.dropOcr || 0) + 1;
-          return;
-        }
-      }
+      /* 彩票类：只有【确认不是票】才丢；null（读不出字）保留 —— 见上面长注释 */
+      if (cv && cv.ok === false) { stat.dropped++; stat.dropOcr = (stat.dropOcr || 0) + 1; return; }
+    } else if (C.key === JC_KEY) {
+      /* 竞彩：必须【命中彩票关键词】才算票（更严，理由见 verify-ticket.mjs） */
+      const jv = jcVerdictStrict(img);
+      if (jv === false) { stat.dropped++; stat.dropJcPlain = (stat.dropJcPlain || 0) + 1; return; }
     }
 
     /* 【时效】本轮"看到"的时间：新条目 = 现在；老条目沿用它自己的 seen。
@@ -1226,9 +1223,13 @@ export async function runTtFetch() {
           读不出字的一律挡掉 —— 依据见 mergeTt 里那段说明。 */
     const beforeOcr = freshList.length;
     freshList = freshList.filter((it) => {
+      if (C.key === JC_KEY) {
+        const jv = jcVerdictStrict(it.img);
+        return jv !== false;                                  /* null（没判过）放行，下一轮补判 */
+      }
       const cv = cachedVerdict(it.img);
-      if (!cv) return true;                                   /* 还没判过 → 放行，下一轮补判 */
-      return (C.key === JC_KEY) ? (cv.ok === true) : (cv.ok !== false);
+      if (!cv) return true;                                   /* 还没判过 → 放行 */
+      return cv.ok !== false;                                 /* 只挡【确认不是票】 */
     });
     rec.ocrDropped = beforeOcr - freshList.length;
     if (rec.ocrDropped) log(`        因"图里不是票"挡掉 ${rec.ocrDropped} 张`);
