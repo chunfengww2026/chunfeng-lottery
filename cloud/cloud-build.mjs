@@ -1468,6 +1468,28 @@ function finishOutput(freshRows) {
        另外两个页面的 <head> 用的就是这些文件名，缺一个就是死链。
      用 copyFileSync 覆盖式拷贝：文件是静态的，每班拷一遍成本可忽略。
      ============================================================ */
+  /* ============================================================
+     __RECO_OUT_COPY__ 【推荐串存档】把页面要用的文件也拷进 out/
+     ------------------------------------------------------------
+     页面（竞彩页）会加载这几个文件：
+       jc-reco-view.js / jc-reco-data.js / jc-reco-archive.js / jc-reco-stats.json
+     少任何一个 -> 线上 404 -> 30 秒刷新【静默失效】（不报错、不白屏，极难发现）
+     来源：cloud/scripts/（sync-cloud.mjs 同步上来的）。
+     ============================================================ */
+  {
+    const RECO_FILES = ['jc-reco-view.js', 'jc-reco-data.js', 'jc-reco-archive.js', 'jc-reco-stats.json'];
+    const recoCopied = [];
+    const recoMissing = [];
+    RECO_FILES.forEach((f) => {
+      const sp = path.join(MOD, f);
+      if (!fs.existsSync(sp)) { recoMissing.push(f); return; }
+      fs.copyFileSync(sp, path.join(OUT, f));
+      recoCopied.push(f);
+    });
+    if (recoCopied.length) log('  ✅ 推荐串文件 ' + recoCopied.length + ' 个已拷入 out/（' + recoCopied.join(' / ') + '）');
+    if (recoMissing.length) log('  ⚠️ 推荐串文件缺失 ' + recoMissing.length + ' 个：' + recoMissing.join(', ') + ' -> 线上会 404');
+  }
+
   const ICON_SRC = path.join(MOD, 'icons');
   const ICON_FILES = [
     'favicon.ico',
