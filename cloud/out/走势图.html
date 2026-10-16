@@ -1618,6 +1618,20 @@ function __trPreselExtra(g) {
     applyStyle(el.getAttribute('data-tr-drawstyle'));
   });
 
+  /* 画法档（自由 / 直线 / 逐点）：点一下就换画法（点文字也算，往上一层找按钮） */
+  root.addEventListener('click', function (ev) {
+    var el = ev && ev.target;
+    while (el && el.getAttribute && el.getAttribute('data-tr-drawstyle') == null &&
+           el.parentNode && el.parentNode.getAttribute) el = el.parentNode;
+    if (!el || !el.getAttribute) return;
+    var s = el.getAttribute('data-tr-drawstyle');
+    if (!s) return;
+    if (ev.preventDefault) ev.preventDefault();
+    drawStyle = s;
+    if (mode !== 'line') mode = 'line';          /* 兜底：在别的档点到也切进画线 */
+    applyMode();
+  });
+
   /* 浏览器的"补发鼠标事件"要挡掉：
      ① 能出 PointerEvent 的浏览器：pointerdown 里 preventDefault，本来就打断补发；
      ② 只有 touch 的老浏览器：touchstart 里 preventDefault，同样打断补发；
