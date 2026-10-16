@@ -240,8 +240,12 @@ jobs:
           mkdir -p site
           cp -f cloud/out/index.html    site/index.html    || true
           cp -f cloud/out/football.html site/football.html || true
-          # 【走势图】独立页面（分享页点「走势图」跳过来）
-          cp -f cloud/out/走势图.html  site/走势图.html  || true
+          # 【走势图】2026-10-17：原来这里还有一行
+          #   cp -f cloud/out/走势图.html site/走势图.html || true
+          # 用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」→
+          # 独立页不再生成、也不再发布；走势图内容内联在 index.html 的
+          # 「近 30 期走势 · 预选参考」折叠块里，所以这一行【删掉】
+          # （留着只会往 site/ 拷一个不存在的文件，日志里白白多一行 || true）。
           # 【比赛详情页】竞彩页每张比赛卡片都指向 比赛详情.html?c=编号
           #   （__MATCH_DETAIL_LINK__ 由 export-football.mjs 加的卡片链接）。
           #   不在这里 cp 的话，即使 cloud-build.mjs 把它拷进了 out/，
@@ -281,7 +285,10 @@ jobs:
           # 真要缺就在下面的自证里报警，让人去补文件）
           # ⚠️ 比赛详情.html 也在这里：这一班没出详情页时，从线上拉回当前那份，
           #    免得竞彩页 64 张卡片的链接集体 404。
-          for f in index.html football.html 走势图.html 比赛详情.html tickets.json; do
+          # ⚠️ 2026-10-17：兜底列表里原来还有 走势图.html（第三个独立页）。
+          #    用户要求「删除单独走势图独立页」→ 那一页不再发布，从列表里【删掉】，
+          #    否则每次构建都会去线上拉一个已经不存在的页面（拉了也是 404）。
+          for f in index.html football.html 比赛详情.html tickets.json; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f 由本次构建产出（$(du -h "site/$f" | cut -f1)）"
               continue
