@@ -1,5 +1,5 @@
 /* ============================================================
-   build-match.mjs —— 生成【比赛详情.html】（比赛详情页 · 第 1 步：框架 + 已有数据）
+   build-match.mjs —— 生成【比赛详情.html】（比赛详情页 · 第 2 步：加「泊松指数」+「分歧指」）
    ------------------------------------------------------------
    用户在竞彩页（足球推荐.html）点某一场比赛 → 进这一页看这场的数据。
 
@@ -20,6 +20,16 @@
      reco(pick/label/confidence/prob/clear/margin)、asianIndex(整套换算)。
      这些全部来自 500.com 一个源 —— jc-data.js 里【没有任何公司名】，
      所以「大小 / 让球 / 亚指」表里只有 1 行，公司列如实写 500.com。
+
+   【第 2 步新加的两个模块 —— 都只用已有数据，缺的不编】
+     ⑤ 泊松指数：名字叫泊松，实际算法是【欧赔反推】（1/赔率 → 归一化到 100%）。
+        返还率用「页面上显示的那三个赔率」现算 100%/(1/主+1/平+1/客)，
+        任何一项拿不到就写「—」。模块说明里【如实写明这不是泊松分布模型】，
+        免得用户以为用了进球数模型。
+     ⑥ 分歧指：分歧＝多家公司欧赔的离散程度，【至少要 2 家】才成立。
+        实测 jc-data.js 每场只有 500.com 一个源的一组 {home,draw,away}（无公司名字段）
+        → 一份赔率算不出分歧 → 如实显示「暂无多家赔率数据，无法计算分歧」，
+        不用单源硬造低/中/高。
 
    用法：node build-match.mjs         → 写 比赛详情.html
    ============================================================ */
@@ -264,7 +274,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-htip { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--ro-line); font-size: 12.5px; color: var(--ro-fg); }
 .md-htip b { color: var(--ro-ok); }
 
-/* ④ 四个模块卡片 */
+/* ④ 六个模块卡片（欧指 / 大小 / 让球 / 亚指 / 泊松指数 / 分歧指） */
 .md-card { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px 13px; margin-bottom: 12px; }
 .md-chead { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .md-ctitle { font-size: 14.5px; font-weight: 800; color: var(--ro-fg); }
@@ -297,6 +307,15 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-tbl td.wrap { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.35; }
 .md-tbl td.wrap span { font-size: 12px; color: var(--ro-fg2); white-space: nowrap; }
 .md-one { font-size: 12.5px; color: var(--ro-fg2); }
+/* 分歧指那三行的「低/中/高」档 —— 纯文字 + 实色，不靠浅灰（用户抱怨过太淡） */
+.md-tbl td.lv { font-weight: 800; color: var(--ro-fg); }
+/* 分歧指：单源算不出来时的如实占位（虚线框，一眼看出是「没有」而不是「空着」） */
+.md-na {
+  border: 1px dashed var(--ro-line); border-radius: 9px;
+  padding: 11px 12px; font-size: 12.5px; line-height: 1.6; color: var(--ro-fg);
+}
+.md-na b { color: var(--ro-fg); }
+.md-na em { font-style: normal; color: var(--ro-fg2); }
 
 .md-foot { max-width: 560px; margin: 2px auto 0; padding: 0 12px; font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
 .md-foot b { color: var(--ro-fg); }
@@ -345,10 +364,16 @@ a { color: var(--ro-ok); text-decoration: none; }
   /* 初盘 vs 即时：盘口值谁大谁「升」 */
   function chg(openH, liveH, openLine, liveLine) {
     var a = num(openH), b = num(liveH);
-    if (a === null || b === null) return has(liveLine) ? esc(liveLine) : '—';
+    var lineDiff = has(openLine) && has(liveLine) && String(openLine) !== String(liveLine);
+    if (a === null || b === null) {
+      /* 没有盘口值可比较时，靠盘口文字判断；两个文字一样就【如实说不变】，
+         不能把「受一球」这种盘口文字当成变化说明重复显示一遍。 */
+      if (lineDiff) return '<span class="up">变盘</span>';
+      return '<span class="dim">不变</span>';
+    }
     if (b > a) return '<span class="up">升盘</span>';
     if (b < a) return '<span class="down">降盘</span>';
-    if (has(openLine) && has(liveLine) && String(openLine) !== String(liveLine)) return '<span class="up">变盘</span>';
+    if (lineDiff) return '<span class="up">变盘</span>';
     return '<span class="dim">不变</span>';
   }
   /* 水位变化箭头 */
@@ -434,9 +459,13 @@ a { color: var(--ro-ok); text-decoration: none; }
      没有「主让 0.85」这种独立字段 —— 所以表头如实写 盘口/主水/客水，不硬套规格名字。 */
   function renderRQ(g) {
     var as = g.odds && g.odds.asian;
-    if (!as) return card('让球', '', null, '这一场没有让球数据');
+    if (!as) return card('让球', '', null, g.src === 'hist'
+      ? '归档只存了亚指一档（在下面那张「亚指」卡里），没有单独的让球水位'
+      : '这一场没有让球数据');
     var live = as.live || as.open;
-    if (!live) return card('让球', '', null, '这一场没有让球数据');
+    if (!live) return card('让球', '', null, g.src === 'hist'
+      ? '归档只存了亚指一档（在下面那张「亚指」卡里）'
+      : '这一场没有让球数据');
     var home = num(live.home), away = num(live.away);
     /* 盘口只写 500.com 的原样字符串；没有字符串时才退回数值换算 */
     var zhLine = has(live.line) ? String(live.line) : hcFallback(g.asianIndex ? g.asianIndex.handicap : null);
@@ -486,6 +515,84 @@ a { color: var(--ro-ok); text-decoration: none; }
         + '</div>';
     }
     return card('亚指', badge(!!l, '初盘', g), t);
+  }
+
+  /* ---- ④-5 泊松指数 ----
+     ⚠️【名字叫「泊松指数」，但它不是泊松分布模型】—— 这一点必须对用户如实写清楚。
+     本模块的算法只有两步，全部来自 jc-data.js 里【已经有的】欧赔，不新抓任何数据：
+       ① 反推原始概率：p主 = 1/主赔, p平 = 1/平赔, p客 = 1/客赔（庄家赔率的倒数）
+       ② 归一化（让三项加起来正好 100%）：P主 = p主 / (p主+p平+p客)
+     返还率列【不是编的】：用【页面上显示的那三个赔率】按 100% / (1/主+1/平+1/客) 现算，
+     这就是这套赔率本身隐含的返还率（口径与庄家一致，≈89%~95% 属正常区间）；
+     三项赔率有任何一个缺失，这一列就写「—」，绝不拿别的数硬凑。
+     所以：这个指数【等于】把庄家赔率换算成百分比，不是用进球数做的独立预测。 */
+  function poissonModel(o) {
+    if (!o) return null;
+    var h = num(o.home), d = num(o.draw), a = num(o.away);
+    var ps = [h, d, a].map(function (v) { return (v === null || v <= 1) ? null : 1 / v; });
+    if (ps[0] === null || ps[1] === null || ps[2] === null) return null;
+    var s = ps[0] + ps[1] + ps[2];
+    if (!isFinite(s) || s <= 0) return null;
+    var pay = 100 / s;
+    /* 防守：赔率被写坏时（比如三项都是 1.01）返还率会离谱 → 这一列宁可写「—」 */
+    var payOk = isFinite(pay) && pay >= 60 && pay <= 120;
+    return {
+      p: [ps[0] / s * 100, ps[1] / s * 100, ps[2] / s * 100],
+      pay: payOk ? pay : null
+    };
+  }
+
+  function renderPoisson(g) {
+    var eu = g.odds && g.odds.europe;
+    var pick = eu ? (eu.live || eu.open) : null;
+    if (!pick) return card('泊松指数', badge(false, '模型', g), null, '这一场没有欧赔数据，无法反推概率');
+    var m = poissonModel(pick);
+    if (!m) return card('泊松指数', badge(false, '模型', g), null, '这一场欧赔不完整（三项赔率有缺），无法反推概率');
+    var mx = Math.max(m.p[0], m.p[1], m.p[2]);
+    var rows = [['主胜', m.p[0]], ['平', m.p[1]], ['客胜', m.p[2]]];
+    var t = '<table class="md-tbl"><thead><tr><th style="width:34%">选项</th>'
+      + '<th style="width:33%">理论概率</th><th style="width:33%">返还率</th></tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++) {
+      var top = (rows[i][1] === mx);
+      t += '<tr><td class="' + (top ? 'up' : 's') + '">' + rows[i][0] + '</td>'
+        + '<td class="' + (top ? 'up' : 'n') + '">' + pct(rows[i][1]) + '</td>'
+        + '<td class="' + (i === 0 && m.pay !== null ? 'n' : 'dim') + '">'
+        + (i === 0 && m.pay !== null ? m.pay.toFixed(1) + '%' : '—') + '</td></tr>';
+    }
+    t += '</tbody></table>';
+    /* 算法如实写在模块里 —— 不让用户以为这是真的泊松模型 */
+    t += '<div class="md-one">算法：<b>欧赔反推</b>，不是泊松分布模型 —— '
+      + '理论概率 = (1/赔率) 归一化到三项合计 100%；返还率 = 100% ÷（1/主+1/平+1/客），'
+      + '用本档赔率现算，三项有缺就写「—」。数据源：500.com 欧赔'
+      + (eu.live ? '【即时】' : '【初盘】') + '；概率最高的一项用主色。</div>';
+    /* 站内自己的推荐概率在同一份数据里 —— 并排放一次，方便对照，不另算 */
+    var rp = g.reco && g.reco.prob;
+    if (rp && num(rp.home) !== null && num(rp.draw) !== null && num(rp.away) !== null) {
+      t += '<div class="md-ourow"><span>站内推荐概率 ' + pct(rp.home) + ' / ' + pct(rp.draw)
+        + ' / ' + pct(rp.away) + '</span><span>口径：推荐模型</span></div>';
+    }
+    return card('泊松指数', badge(false, '模型', g), t);
+  }
+
+  /* ---- ④-6 分歧指（欧赔分歧） ----
+     ⚠️【这一档目前算不出来，原因是实测的、不是猜的】：
+       分歧指 = 多家公司欧赔的【离散程度】，至少要有 2 家（理想 5~10 家）的欧赔才谈得上「分歧」。
+       实测 jc-data.js：每场只有 odds.europe.{open,live} 各一组 {home,draw,away}，
+       全库 41KB / 64 场里【没有任何公司名、没有多公司数组】—— 只有 500.com 一个源。
+       也就是说同一场比赛我们手里只有【一份】欧赔：一份赔率自己跟自己的离散度恒等于 0。
+       硬用「初盘 vs 即时」或「500.com vs 别家（其实没有别家）」去造一个低/中/高，
+       那是【编数据】，所以这里如实写「暂无多家赔率数据，无法计算分歧」。
+       将来 jc-data.js 里真有了多公司欧赔（odds.europe.list 之类），把 rows 换成真算的那段即可。 */
+  function renderDivergence() {
+    var need = '<b>主胜分歧</b> / <b>平局分歧</b> / <b>客胜分歧</b>';
+    var body = '<div class="md-na">'
+      + '暂无多家赔率数据，无法计算分歧。<br>'
+      + '<em>分歧指＝多家公司欧赔的离散程度，至少要 2 家才成立；'
+      + 'jc-data.js 每场只有 500.com 一个源的一组欧赔（{home,draw,away}，无公司名字段），'
+      + '一份赔率算不出分歧，所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em><br>'
+      + '数据源：500.com'
+      + '</div>';
+    return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body);
   }
 
   /* ---- ③ 比赛头部 ---- */
@@ -555,7 +662,8 @@ a { color: var(--ro-ok); text-decoration: none; }
   /* ---- 组装整页 ---- */
   function render(g) {
     var body = srcBar() + renderHead(g)
-      + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g);
+      + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
+      + renderPoisson(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
 
     /* 数据源：全部/500.com 可点（只切高亮 + 一句说明，不改数据、不报错）；
@@ -618,6 +726,8 @@ a { color: var(--ro-ok); text-decoration: none; }
     + '（在售 ' + (D.liveCount || 0) + ' + 归档 ' + (D.histCount || 0) + '）'
     + (D.inSale ? ' · 体彩官方在售 ' + D.inSale + ' 场' : '')
     + '<br>在售数据更新时间：' + (D.updated || '—') + (D.histUpdated ? ' · 归档数据更新时间：' + D.histUpdated : '')
+    + '<br>「泊松指数」= 由 500.com 欧赔反推（1/赔率 → 归一化），<b>不是</b>泊松分布模型；'
+    + '「分歧指」需要多家公司欧赔，当前只有 500.com 一个源，故暂不显示数值。'
     + '<br>本页只陈列数据，不构成投注建议。';
   document.getElementById('mdFoot').innerHTML = foot;
   /* 返回：优先浏览器历史，站内直接进来的就回竞彩页 */
@@ -632,6 +742,32 @@ a { color: var(--ro-ok); text-decoration: none; }
 `;
 
 fs.writeFileSync(OUT_FILE, html, 'utf8');
+
+/* ============================================================
+   【输出自检】看到红字就说明这个脚本的源码被别的工具【转码弄坏了】
+   ------------------------------------------------------------
+   实测踩过：用 PowerShell 的 Get-Content -Raw / Set-Content 改这个文件，
+   会按系统 ANSI(GBK) 往返一次 → 所有中文变成「娆ф寚」这种乱码，还会加 BOM。
+   乱码会让页面上的中文全错，而且不会报错 —— 所以这里主动拦一道。
+   正确改法：用编辑工具改（读写都是 UTF-8），不要用 PowerShell 文本管道。
+   ============================================================ */
+const problems = [];
+if (html.charCodeAt(0) === 0xFEFF) problems.push('输出带了 BOM');
+if (html.includes('\uFFFD')) problems.push('输出里有 U+FFFD 替换字符');
+if (!html.includes('比赛详情')) problems.push('输出里找不到「比赛详情」（中文可能已损坏）');
+if (!html.includes('欧指') || !html.includes('亚指')) problems.push('输出里找不到「欧指/亚指」');
+if (!html.includes('泊松指数') || !html.includes('分歧指')) problems.push('输出里找不到「泊松指数/分歧指」');
+if (!html.includes('欧赔反推')) problems.push('输出里找不到「欧赔反推」（泊松指数的算法说明丢了）');
+if (!html.includes('暂无多家赔率数据')) problems.push('输出里找不到分歧指的如实占位文案');
+if (/<button[\s>]/.test(html)) problems.push('输出里出现了裸 <button> 元素');
+if (html.includes('localStorage') || html.includes('sessionStorage')) problems.push('输出里出现了 localStorage/sessionStorage');
+if (/[\u00C0-\u00FF]{4,}/.test(html)) problems.push('输出里有连续高位字节（乱码迹象）');
+if (problems.length) {
+  console.error('❌ 编码自检失败：' + problems.join(' / '));
+  console.error('   说明 build-match.mjs 或数据文件被非 UTF-8 工具改过，请用编辑工具重存一遍。');
+  process.exit(1);
+}
+
 console.log('✅ 比赛详情.html 已生成  ' + (fs.statSync(OUT_FILE).size / 1024).toFixed(1) + ' KB');
 console.log('   内嵌比赛：' + ORDERED.length + ' 场（在售 ' + LIVE_GAMES.length + ' + 归档 ' + histAdded + '）'
   + ' · 在售数据时间 ' + (UPDATED || '—') + ' · 归档数据时间 ' + ((HIST && HIST.updated) || '—')
