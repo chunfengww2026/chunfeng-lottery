@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "內塔尼亞科勒特",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "乌拉尔青年队",
      "score": 0,
@@ -15950,7 +15950,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
