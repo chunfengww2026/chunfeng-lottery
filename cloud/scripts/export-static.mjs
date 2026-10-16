@@ -5480,7 +5480,7 @@ ${RO_RENDER_SCRIPT}
       st.multi[mkey(k)] = v;
       return v;
     }
-    function multiInput(label, key, val, min, max) {
+    function multiInput(label, key, val, min, max, hideUnit) {
       var wrap = el('span', 'ro-aipick-mwrap');
       wrap.appendChild(el('span', 'ro-aipick-unit', label));
       var inp = document.createElement('input');
@@ -5497,7 +5497,9 @@ ${RO_RENDER_SCRIPT}
       inp.addEventListener('input', refresh);
       inp.addEventListener('change', refresh);
       wrap.appendChild(inp);
-      wrap.appendChild(el('span', 'ro-aipick-unit', '个'));
+      /* 【本轮改版】标签本身已经写了「要选几个号」时，不要再吊一个「个」，
+         否则读起来是「红球：要选几个号 个」（实测截图里就是这么重复的）。 */
+      if (!hideUnit) wrap.appendChild(el('span', 'ro-aipick-unit', '个'));
       return wrap;
     }
     /* 【本轮改版】复式：号码型只留【一个】输入框
@@ -5526,7 +5528,7 @@ ${RO_RENDER_SCRIPT}
         var base = pickOf(g, a), max = maxMultiOf(g, a);
         var d = Math.min(base + 1, max);
         multiBox.appendChild(multiInput(a.label + '：要选几个号', 'a0',
-          multiGet('a0', d, base, max), base, max));
+          multiGet('a0', d, base, max), base, max, true));
       }
     }
     function buildKl8(g) {
