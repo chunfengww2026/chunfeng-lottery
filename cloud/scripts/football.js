@@ -14949,7 +14949,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-16 14:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "水邊卡羅里(女)",
      "score": 1,
@@ -14958,7 +14958,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "威靈頓鳳凰後備(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
