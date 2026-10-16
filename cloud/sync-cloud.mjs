@@ -338,6 +338,13 @@ const CODE_MODULES = [
       （不只是少一块，是整页生成挂掉）。 */
   'p3d-section.mjs',
   'p3d-analyzer.js',
+  /* 【泊松指数内核】jc-poisson.js（2026-10-17 加）。
+     必须同步：export-football.mjs 用 loadVar('jc-poisson.js') 读它。
+     ⚠️ loadVar 是【防御式】的 —— 文件缺失只返回 null、不报错，
+        结果是云端构建成功但【泊松块整块不渲染】（线上实测 0/64，本机 64/64）。
+        所以这类"新加的被读取文件"一定要记得进 CODE_MODULES，
+        否则症状是"静默少一块"，比 Cannot find module 更难查。 */
+  'jc-poisson.js',
   /* 【彩种规则 · 唯一真源】lottery-rules.mjs —— 号码区范围/每区个数/位型 只写一处。
      ⚠️ 必须同步：build-trend.mjs 与 ocr-tickets.mjs 都 import 它，
         云端少这一个文件 → ERR_MODULE_NOT_FOUND → 走势图页 + OCR 认票整块挂掉。

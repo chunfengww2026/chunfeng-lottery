@@ -1002,7 +1002,9 @@ function buildExpertsHtml() {
     '<span class="ro-xj-count">' + totalShown + '</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
-    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 20 位 · 在线整理</div>' +
+    /* 【文案】用户 2026-10-17 定稿：「数据来自于开发者自费」
+       （中间被改成过「在线整理」，用户明确要求保持他说的这版，已写回） */
+    '<div class="ro-xj-note">按彩种分 · 只取「稳定专家」前 20 位 · 数据来自于开发者自费</div>' +
     '<div class="ro-xj-list">' + groups + '</div>' +
     '<div class="ro-xj-more">已加载全部</div>' +
     '</details>';
