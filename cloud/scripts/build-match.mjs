@@ -7,6 +7,16 @@
      竞彩页的卡片点多、就地弹层会挡住列表；独立页返回逻辑天然（history.back），
      而且可以单独发布到云端，不影响竞彩页的排版。
 
+   【返回键：href 写实际文件名 + 优先走浏览器历史】
+     竞彩页的文件名是【足球推荐.html】（不是 football.html）—— 实测点「← 返回」
+     原来落到 football.html 这个不存在的文件上，属于死链。
+     现在：href="足球推荐.html"（直接打开也能回去），
+     同时 href 上带 onclick="if(history.length>1){history.back();return false}"。
+     ⚠️ 为什么不用第二段脚本里那句 document.referrer 判断：
+        file:// 下 Chrome 不给 file→file 的跳转发 referrer（实测 document.referrer === ''），
+        于是 "referrer && history.length>1" 永远为假 → history.back() 从来没生效过。
+        history.length 才是 file:// 下唯一可靠的信号，所以判断挪到 href 的 onclick 里。
+
    【为什么整份数据内嵌进 HTML】
      云端发布出去的是 cloud/out/football.html，它是【自包含】的 ——
      线上站点目录里【没有】jc-data.js（实测：out/football.html 里搜不到
@@ -328,7 +338,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 <body>
 
 <div class="md-top">
-  <a class="md-back" id="mdBack" href="football.html">← 返回</a>
+  <a class="md-back" id="mdBack" role="button" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">← 返回</a>
   <span class="md-title">比赛详情</span>
   <span class="md-live" id="mdLive"></span>
 </div>
@@ -690,19 +700,34 @@ a { color: var(--ro-ok); text-decoration: none; }
     });
   }
 
-  /* ---- 找不到那一场：不白屏、给回去的路 ---- */
-  function renderMiss(code) {
+  /* ---- 找不到那一场：不白屏、给回去的路 ----
+     兜底页也只回显【合法】编号：格式不对的 ?c=（"?c=abc def" 之类）连这个字符串
+     都不往页面上摆 —— 虽然 esc0 已经转义了，但把用户的输入原样印出来依然不好看。
+     返回键同样：href 写实际文件名 足球推荐.html，能回历史就回历史。 */
+  function renderMiss(code, badFormat) {
+    var d = badFormat
+      ? '编号格式不对 —— 只接受「周X + 3 位数字」的竞彩编号（例如 周五002）。'
+      : ((code ? '编号 ' + esc0(code) + ' ' : '') + '不在当前数据里（已过保留期被清理，或编号写错了）。');
     document.getElementById('mdBody').innerHTML =
       '<div class="md-miss"><div class="t">没有找到这场比赛的详情</div>'
-      + '<div class="d">' + (code ? '编号 ' + esc0(code) + ' ' : '') + '不在当前数据里（已过保留期被清理，或编号写错了）。</div>'
-      + '<a href="football.html">← 回到竞彩页</a></div>';
+      + '<div class="d">' + d + '</div>'
+      + '<a href="足球推荐.html" role="button" onclick="if(history.length>1){history.back();return false}">← 回到竞彩页</a></div>';
     document.getElementById('mdLive').innerHTML = '';
   }
 
-  /* ---- 入口：?c=周五002 ---- */
-  var code = null;
-  try { code = new URLSearchParams(location.search).get('c'); } catch (e) { code = null; }
-  if (code) code = String(code).trim();
+  /* ---- 入口：?c=周五002 ----
+     ⚠️ ?c= 只接受「周X + 3 位数字」：
+        实测 jc-data.js / jc-history.js 里的编号全是「周五001」「周日018」这种形状，
+        别的字符串（"abc def"、"<b>x</b>"、超长串）一律走兜底页，
+        既不拿去匹配，也不拿去回显。
+     ⚠️ 正则里用 [0-9] 不用 \\d —— 这段代码写在模板字符串里，反斜杠会被先吃一遍。 */
+  var CODE_RE = /^(周[一二三四五六日])[0-9]{3}$/;
+  var raw = null;
+  try { raw = new URLSearchParams(location.search).get('c'); } catch (e) { raw = null; }
+  if (raw !== null && raw !== undefined) raw = String(raw).trim();
+  if (!raw) raw = null;
+  var code = (raw && CODE_RE.test(raw)) ? raw : null;
+  var badFormat = !!raw && code === null;
 
   var g = null;
   if (code) {
@@ -710,11 +735,12 @@ a { color: var(--ro-ok); text-decoration: none; }
       if (String(games[i].code || '').trim() === code) { g = games[i]; break; }
     }
   }
-  /* 没带参数：只有一场就直接展示（用户从别处手滑点进来也不白屏） */
-  if (!g && !code && games.length === 1) g = games[0];
+  /* 没带参数：只有一场就直接展示（用户从别处手滑点进来也不白屏）；
+     格式不对的参数不算「没带参数」，别顺手塞一场别的比赛给他 */
+  if (!g && !code && !badFormat && games.length === 1) g = games[0];
 
   document.getElementById('mdLive').innerHTML = '更新 <i>' + esc0((D.updated || '').slice(11) || '—') + '</i>';
-  if (g) render(g); else renderMiss(code);
+  if (g) render(g); else renderMiss(code, badFormat);
 })();
 </script>
 
@@ -730,11 +756,12 @@ a { color: var(--ro-ok); text-decoration: none; }
     + '「分歧指」需要多家公司欧赔，当前只有 500.com 一个源，故暂不显示数值。'
     + '<br>本页只陈列数据，不构成投注建议。';
   document.getElementById('mdFoot').innerHTML = foot;
-  /* 返回：优先浏览器历史，站内直接进来的就回竞彩页 */
-  var back = document.getElementById('mdBack');
-  back.addEventListener('click', function (ev) {
-    if (document.referrer && history.length > 1) { ev.preventDefault(); history.back(); }
-  });
+  /* 返回键的「优先回浏览器历史」写在 <a id="mdBack"> 的 onclick 里（见上面 md-top）。
+     ⚠️ 这里【不要】再挂一个 click 监听去 history.back()：
+        两处都调用会连退两级（回到竞彩页的上一页）。
+     另外原来那句用 referrer 判断的写法是失效的 ——
+        file:// 下 file→file 跳转没有 referrer（实测 document.referrer === ''），
+        条件永远为假 → history.back() 从来没生效过，才会落到死链 football.html。 */
 })();
 </script>
 </body>
@@ -760,6 +787,12 @@ if (!html.includes('泊松指数') || !html.includes('分歧指')) problems.push
 if (!html.includes('欧赔反推')) problems.push('输出里找不到「欧赔反推」（泊松指数的算法说明丢了）');
 if (!html.includes('暂无多家赔率数据')) problems.push('输出里找不到分歧指的如实占位文案');
 if (/<button[\s>]/.test(html)) problems.push('输出里出现了裸 <button> 元素');
+/* 返回键的死链回归：竞彩页的文件名是 足球推荐.html，不是 football.html */
+if (html.includes('href="football.html"')) problems.push('返回链接还写着 football.html（竞彩页实际文件名是 足球推荐.html）');
+if (!html.includes('href="足球推荐.html"')) problems.push('输出里找不到 href="足球推荐.html"（返回链接丢了）');
+if (html.includes('document.referrer && history.length')) problems.push('返回键还在用 document.referrer 判断（file:// 下恒为假）');
+/* ?c= 的编号校验必须只认「周X + 3 位数字」 */
+if (!html.includes('周[一二三四五六日])[0-9]{3}')) problems.push('输出里找不到 ?c= 的编号校验正则 /^(周[一二三四五六日])[0-9]{3}$/');
 if (html.includes('localStorage') || html.includes('sessionStorage')) problems.push('输出里出现了 localStorage/sessionStorage');
 if (/[\u00C0-\u00FF]{4,}/.test(html)) problems.push('输出里有连续高位字节（乱码迹象）');
 if (problems.length) {
