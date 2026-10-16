@@ -1345,6 +1345,43 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-recconf { font-size: 12px; color: #98a1b2; white-space: nowrap; font-family: Consolas, monospace; }
 .m-recconf.strong { color: #47e0a0; font-weight: 700; }
 .m-recempty { font-size: 11.5px; color: #6b7488; padding: 8px 2px 10px; }
+
+/* ============================================================
+   __LIGHT_THEME__ 竞彩页 · 米杏色暖色调（和分享页同一套）
+   ------------------------------------------------------------
+   用户要求「整体换成浅色系主题」并给了米杏色配色，
+   且明确「用一段 CSS 覆盖在样式表最后统一换色 —— 最省钱的路径」。
+   ⚠️ 颜色和 export-static.mjs 里那段完全一致（两页统一），要改一起改。
+   ⚠️ 防截图遮罩保持深色；模拟计算区块的功能一个字没动（只换色）。
+   ============================================================ */
+html, body { background: #f7efe1 !important; color: #4a3a26; }
+.site-nav { background: rgba(247, 239, 225, .96) !important; border-bottom-color: #e8d7bd !important; }
+.site-nav a { color: #8a7a63 !important; }
+.site-nav a.on { color: #1a8c5a !important; border-bottom-color: #1a8c5a !important; }
+[style*="#0f1115"] { background-color: #f7efe1 !important; }
+[style*="#161a21"] { background-color: #fdf6ea !important; }
+[style*="#12151d"] { background-color: #f3e6d0 !important; }
+[style*="#0b0b0b"] { background-color: #f7efe1 !important; }
+[style*="#141414"] { background-color: #fdf6ea !important; }
+[style*="#222"]    { background-color: #e8d7bd !important; }
+[style*="#262d3a"] { border-color: #e8d7bd !important; }
+[style*="#1e2430"] { border-color: #efe2cc !important; }
+[style*="#e8eaed"] { color: #4a3a26 !important; }
+[style*="#98a1b2"] { color: #8a7a63 !important; }
+[style*="#6b7488"] { color: #a2937c !important; }
+[style*="#47e0a0"] { color: #1a8c5a !important; }
+[style*="#22c07a"] { color: #1a8c5a !important; }
+[style*="#f0575c"] { color: #c0392b !important; }
+[style*="#f0b429"] { color: #f5b301 !important; }
+/* 主要容器换米杏底 + 暖边框（列举式覆盖，不动布局） */
+body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
+.m-sec, .m-calc, .m-jxp, .m-rec { background: #fdf6ea !important; border-color: #e8d7bd !important; }
+.jxp-pic, .m-subhead, .jxp-view-box { background: #f3e6d0 !important; border-color: #efe2cc !important; }
+.m-sectip { color: #1a8c5a !important; }
+/* 全屏看图保持深色（看图背景）+ 遮罩保持深色 */
+.jxp-view { background: rgba(11, 13, 17, .97) !important; }
+.jxp-view-tip, .jxp-view-hint { color: #c8cfda !important; }
+#mask { background: rgba(0, 0, 0, 0.96) !important; }
 `;
 
 const html = `<!DOCTYPE html>
