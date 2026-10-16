@@ -1244,7 +1244,7 @@ export async function runTtFetch() {
     if (toCheckImgs.length) {
       log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheckImgs.length} 张…`);
       const v = await verifyBatch(toCheckImgs, { max: 400, gap: 120 });
-      log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字 ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
+      log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字${C.key === JC_KEY ? '' : '(保留)'} ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
       for (const f of v.failedList.slice(0, 6)) log(`          ✗ 确认不是票（${f.why}）：${f.img.slice(50, 104)}`);
       rec.ocrChecked = v.checked; rec.ocrFailed = v.failed; rec.ocrUnreadable = v.unreadable;
     }
