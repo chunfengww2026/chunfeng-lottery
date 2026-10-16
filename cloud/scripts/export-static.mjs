@@ -1459,8 +1459,10 @@ function buildAiPickHtml() {
     `<span class="ro-aipick-lbl">选几个</span><div class="ro-aipick-multi"></div></div>` +
     `<div class="ro-aipick-line ro-aipick-line-times">` +
     `<span class="ro-aipick-lbl">倍数</span>` +
-    `<input class="ro-aipick-in ro-aipick-in-times" type="number" inputmode="numeric"` +
-    ` min="1" max="99" step="1" value="1">` +
+    /* 【倍数输入框】同样不能用 number：number 不支持选区 → 聚焦全选失效、打字变追加。
+       并且它的监听也改成只在 change/回车时 refresh（input 里夹取会打不出两位数）。 */
+    `<input class="ro-aipick-in ro-aipick-in-times" type="text" inputmode="numeric"` +
+    ` pattern="[0-9]*" autocomplete="off" min="1" max="99" value="1">` +
     `<span class="ro-aipick-unit">倍</span>` +
     `<span class="ro-aipick-sum"></span></div>` +
     `<div class="ro-aipick-warn" hidden></div>` +
@@ -4597,6 +4599,9 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    所以这里改成次要文字色；.pick / .hit 的强调色仍由 p3d-section.mjs
    （.luoshu-zero.pick → 链接蓝 / .hit → 危险红）单独管。 */
 #luoshuZero, .luoshu-zero { color: var(--ro-fg2) !important; }
+/* ⑧ 金色球（.lm-ball.lm-gold，洛书/球那套新加的元素）：白字压金底实测只有 2.29，
+      改成深棕字（对金底 ≈5.1）—— 球还是金色，只是号码看得清。 */
+.lm-ball.lm-gold { color: var(--ro-fg) !important; }
 
 /* ============================================================
    推荐图目录：手机窄屏整齐化（用户 2026-10-17）
@@ -6143,9 +6148,14 @@ ${RO_RENDER_SCRIPT}
     function isDigit(g) { return g.type === 'digit' || g.type === 'qxc'; }
     function maxMultiOf(g, a) {
       var base = pickOf(g, a);
-      var max = Math.min(a.to - a.from + 1, 20);          /* 号码型复式最多一个区 20 个号 */
-      if (g.playModes) max = Math.min(a.to - a.from + 1, base + 10);   /* 快乐8 再多就爆注数 */
-      return Math.max(max, base);
+      /* 【去掉人为上限】用户 2026-10-17：「是不是限额额度原因 不要给我限制」。
+         原来：号码型最多一个区 20 个号、快乐8 封成 base+10 —— 都是人为封顶，
+         也正是「打 10 显示成 20」的来源：打「1」被夹到下限 6，再打「0」变成 60，
+         又被夹到上限 20 ⇒ 看到 20。
+         现在上限 = 【号码池实际大小】（双色球红球 33、大乐透前区 35、蓝球 16、快乐8 80…），
+         也就是物理上不可能再多的那个数，不再做任何人为限制。
+         ⚠️ 代价：注数会非常大（红球选满 33 个 = C(33,6) = 1,107,568 注），页面照实算、不拦。 */
+      return Math.max(a.to - a.from + 1, base);
     }
 
     function ruleText(g) {
@@ -6183,16 +6193,29 @@ ${RO_RENDER_SCRIPT}
       wrap.appendChild(el('span', 'ro-aipick-unit', label));
       var inp = document.createElement('input');
       inp.className = 'ro-aipick-in ro-aipick-in-multi';
-      inp.type = 'number';
+      /* 【必须是 text，不能是 number】
+         number 类型不支持选区 API（selectionStart 恒为 null）→ 聚焦全选做不到，
+         光标停在旧值后面，打字就变成"追加"。text + inputmode=numeric 两者兼得。 */
+      inp.type = 'text';
       inp.setAttribute('inputmode', 'numeric');
+      inp.setAttribute('pattern', '[0-9]*');
+      inp.autocomplete = 'off';
       inp.setAttribute('min', String(min));
       inp.setAttribute('max', String(max));
-      inp.setAttribute('step', '1');
       inp.setAttribute('data-ro-aipick-key', key);
       inp.setAttribute('data-ro-aipick-min', String(min));
       inp.setAttribute('data-ro-aipick-max', String(max));
       inp.value = String(val);
-      inp.addEventListener('input', refresh);
+      /* 【关键修复 · 用户 2026-10-17 报的「一位数能改、两位数改不了」】
+         原来这里是 addEventListener('input', refresh)：
+         每按一个键就 refresh → multiGet 立刻把值夹进 [min,max] ——
+         打「10」时按「1」就先被夹成 6（双色球红球 min=6）或 2（大乐透后区 min=2），
+         再按「0」就接在 6 / 2 后面 → 所以永远出不来两位数（用户看到的「20」就是 2+0）。
+         现在：打字过程【完全不碰它】，只在 change（失焦）或回车时 refresh（那时才夹取/纠正）。 */
+      inp.addEventListener('focus', function () { try { inp.select(); } catch (e) { /* 忽略 */ } });
+      inp.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') { ev.preventDefault(); refresh(); try { inp.blur(); } catch (e) { /* 忽略 */ } }
+      });
       inp.addEventListener('change', refresh);
       wrap.appendChild(inp);
       /* 单位「个」：红球 [6] 个 / 百位 2 个（hideUnit 留给以后要长标签的彩种用） */
@@ -6902,7 +6925,15 @@ ${RO_RENDER_SCRIPT}
         });
       })(acts[t3]);
     }
-    if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
+    if (inTimes) {
+      /* 同 multiInput：不能在 input 事件里 refresh/夹取（那样打不出两位数）。
+         只在失焦(change) 或回车时生效；聚焦时全选，直接打字即替换。 */
+      inTimes.addEventListener('focus', function () { try { inTimes.select(); } catch (e) { /* 忽略 */ } });
+      inTimes.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') { ev.preventDefault(); refresh(); try { inTimes.blur(); } catch (e) { /* 忽略 */ } }
+      });
+      inTimes.addEventListener('change', refresh);
+    }
 
     /* ---------- 初始状态：双色球 · 自己选号 · 红球 7 个 / 蓝球 1 个 · 倍数 1 · 结果为空 ---------- */
     (function setup() {
