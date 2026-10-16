@@ -3311,13 +3311,17 @@ body.ro-mob-open { overflow: hidden; }
 }
 .ro-xysp-pic:hover, .ro-xysp-pic:active { border-color: #3d5a86; }
 
-/* 缩略图：宽度铺满卡片、高度按原比例（票是长条，不裁切才看得到全貌） */
+/* 缩略图：宽度铺满卡片、高度按原比例（票是长条，不裁切才看得到全貌）
+   ⚠️ 占位底色原来是 #0f1218（深色主题遗留）。晒票图是【外部链接】（头条签名外链），
+      加载中 / 某张挂了，米杏页面上就露一块黑 —— 线上实测 310 张全是黑底。
+      改成米杏的沉底 --ro-sunken：加载中是米杏块，挂了也只是空一块，不刺眼。
+      （用户 2026-10-17 决定：「改成米杏底色」） */
 .ro-xysp-thumb {
   display: block;
   width: 100%;
   height: auto;
   min-height: 60px;
-  background: #0f1218;
+  background: var(--ro-sunken);
 }
 
 .ro-xysp-cap { display: block; padding: 5px 7px 6px; }
@@ -4585,7 +4589,14 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
      只把上面的蓝字（#1f5fd6 压深底只有 3.05）改成浅色，看得清。 */
 .ro-aipick-btn.ghost { color: var(--ro-fg) !important; }
 .p3d-type-btn.active { color: var(--ro-fg) !important; }
-#luoshuZero, .luoshu-zero { color: #f2ead9 !important; }
+/* ⚠️ 【修正】原来这里是 color: #f2ead9 —— 写它的时候前提是「黑圆底色不动」
+   （见上面 ④ 的注释）。但同文件更早的那层已经把这个格的底色换成了米杏
+   （.luoshu-zero { background: var(--ro-sunken) }，用户确认过的）——
+   两层前提矛盾，结果浅米字压米杏底，对比度只有 1.03，那句话等于看不见。
+   用户 2026-10-17 决定：「底色保留米杏、把文字改成看得见」。
+   所以这里改成次要文字色；.pick / .hit 的强调色仍由 p3d-section.mjs
+   （.luoshu-zero.pick → 链接蓝 / .hit → 危险红）单独管。 */
+#luoshuZero, .luoshu-zero { color: var(--ro-fg2) !important; }
 
 /* ============================================================
    推荐图目录：手机窄屏整齐化（用户 2026-10-17）
