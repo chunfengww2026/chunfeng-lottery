@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-16 08:00:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "迪波特斯(女)",
      "score": 0,
@@ -749,7 +749,7 @@ const FOOTBALL_DATA = {
      "color": "CC9988"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "蒙特維多國民隊",
      "score": 1,
@@ -815,7 +815,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -881,7 +881,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "国际帕尔米拉",
      "score": 1,
@@ -947,7 +947,7 @@ const FOOTBALL_DATA = {
      "color": "558899"
     },
     "time": "2026-10-16 07:00:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "拉伊奎达德",
      "score": 2,
