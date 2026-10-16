@@ -1061,16 +1061,30 @@ function recoStatBarInner() {
     `<span class="n">（前后 24 小时 · ${note}）</span>`;
 }
 
+/* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
+     「红 N 黑 M 命中率 X%（前后 24 小时 · 实时更新）」原来在「推荐串」折叠块【里面】，
+     要挪到【外面】，紧跟在「完场战绩」下面做第二条同款战绩条，
+     不展开折叠块也能看见红黑数。
+   ⚠️ id="jcRecStat" + data-reco-updated 两个属性【必须保留】：
+      30 秒实时刷新那段脚本就是按这个 id 找元素、原地换 innerHTML 的（搬到哪都行）。
+   ⚠️ 没有统计结果时【整条不渲染】—— 不显示空标题、不拿 0 冒充"算过了"。 */
+function recoStatBarTop() {
+  if (!REC_STAT) return '';
+  return `<div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">` +
+    `<span class="t">推荐串战绩</span>` +
+    recoStatBarInner() +
+    `</div>`;
+}
+
 /* ============================================================
    渲染
    ============================================================ */
 function renderRec() {
   /* __FB_ENTRY_ROW__ 和三个分段同一套「横排 entry 行」：
-     左「推荐串」+ 战绩数字 + 副标题（在售 · 信心 ≥55% · N 场），右「点击查看」。
+     左「推荐串」+ 副标题（在售 · 信心 ≥55% · N 场），右「点击查看」。
      ⚠️ 还是 <details>/<summary> 折叠；[open] 切换靠 .m-rec[open] 的 ::after。
-     ⚠️【战绩数字在这一行里】用户 2026-10-17：「把这一栏移除，功能放到下面显示」
-        —— 顶部那条独立战绩条搬到这里（原来悬在列表上方，和下面这一行重复）。
-        id="jcRecStat" / data-reco-updated 两个属性【必须保留】：30 秒刷新脚本按它们找。 */
+     ⚠️ 这一行【只放入口】，不放战绩数字 —— 战绩数字在折叠块外面那条
+        recoStatBarTop() 上（用户 2026-10-17 追加要求：放外面）。 */
   const head =
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
@@ -1080,13 +1094,10 @@ function renderRec() {
     `<span class="right m-rectip" aria-hidden="true"></span>` +
     `</summary>`;
 
-  /* 【战绩数字搬到展开后的内容里】用户 2026-10-17 截图圈掉这一行里的
-     「红 N 黑 M 命中率 X%（前后 24 小时 · 实时更新）」→ 说「去掉」。
-     所以入口行只留「推荐串 · 在售·信心≥55%·N 场 · 点击查看」；
-     数字本身没丢，挪到展开后的第一行（原来就是这么显示的，再往上一轮被人搬进了行里）。
-     ⚠️ id="jcRecStat" + data-reco-updated 【必须留着】：30 秒刷新脚本靠这两个属性定位。 */
-  const statBar =
-    `<div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">${recoStatBarInner()}</div>`;
+  /* 【战绩数字已搬出折叠块】用户 2026-10-17 追加要求：截图圈掉这一行 →
+     要挪到折叠块【外面】、紧跟「完场战绩」做第二条同款条。
+     所以折叠块里【不再渲染这一条】（避免里外重复显示），
+     改由 recoStatBarTop() 在顶层渲染；id / data 属性照旧，刷新脚本不用改。 */
 
   const note =
     `<div class="m-recnote">只在<b>官方在售</b>场次里挑信心 ≥${REC_MIN}% 的 · ` +
@@ -1149,7 +1160,7 @@ function renderRec() {
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
-  return `<details class="m-rec" id="jcRec">${head}${note}${statBar}${body}` +
+  return `<details class="m-rec" id="jcRec">${head}${note}${body}` +
     (detail ? `<div id="jcRecArch">${detail}</div>` : '') +
     `</details>`;
 }
@@ -2399,10 +2410,12 @@ ${nav}
     <span class="n">（推荐比对最终比分）</span>
   </div>` : ''}
 
-  <!-- 【推荐串战绩数字】已搬到下面「推荐串」那一行的标题里
-       （用户 2026-10-17：「把这一栏移除，功能放到下面显示」）。
-       原来这里是一条独立的 <div class="record" id="jcRecStat">，现在不在这个位置了；
-       30 秒刷新脚本仍按 id="jcRecStat" 找它 —— 它在 renderRec() 的 summary 里。 -->
+  <!-- 【推荐串战绩条】就紧跟在「完场战绩」下面，和它同款、同级（都在顶层）。
+       用户 2026-10-17 追加要求：这一行原来在「推荐串」折叠块【里面】，
+       圈出来说「把他放外面」→ 现在不展开折叠块也能看见红黑数。
+       30 秒刷新脚本按 id="jcRecStat" 原地换内容，位置变了不用改脚本。 -->
+
+  ${recoStatBarTop()}
 
   ${renderRec()}
   </div>
