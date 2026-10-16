@@ -1540,9 +1540,9 @@ console.log(`  · 选号直播：回放 ${(KJH && KJH.live && Array.isArray(KJH.
    【已移除】竞彩（体彩在售比赛）段落
    ------------------------------------------------------------
    分享页（彩票推荐页）不再显示足球 / 竞彩内容 ——
-   足球只放在独立的「竞彩场次」页：
+   足球只放在独立的「足球竞彩」页：
      分享包/football.html  ← 由 export-football.mjs 生成
-   顶部导航的「竞彩场次」tab 直接跳到 football.html。
+   顶部导航的「足球竞彩」tab 直接跳到 football.html。
 
    原来这里有一个 buildJcSection()，会读 jc-data.js 与 football.js，
    拼出「竞彩 · 推胜负平」卡片组；现在整段删除，
@@ -2286,7 +2286,7 @@ const html = `<!DOCTYPE html>
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
 <title>春风大奖</title>
-<meta name="description" content="春风大奖 · 八彩种推荐图与竞彩场次整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<meta name="description" content="春风大奖 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -2303,7 +2303,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="春风大奖" />
 <meta property="og:title" content="春风大奖" />
-<meta property="og:description" content="八彩种推荐图与竞彩场次整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta property="og:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
@@ -2314,7 +2314,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:locale" content="zh_CN" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风大奖" />
-<meta name="twitter:description" content="八彩种推荐图与竞彩场次整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta name="twitter:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
 <style>
@@ -2428,7 +2428,7 @@ body {
 }
 
 /* 【已移除】竞彩卡片样式（.j-stat / .j-card / .j-odds / .j-reco …）
-   足球内容移到独立的「竞彩场次」页，分享页不再需要这套样式。 */
+   足球内容移到独立的「足球竞彩」页，分享页不再需要这套样式。 */
 
 .ro-game {
   margin-bottom: 40px;
@@ -4278,16 +4278,16 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   </div>
 
   <!-- ============================================================
-       __TOP_TABS__ 顶部 Tab（彩票推荐 / 竞彩场次）+ 管理员徽章
+       __TOP_TABS__ 顶部 Tab（彩票推荐 / 足球竞彩）+ 管理员徽章
        用户设计：flex 横排 · 底部 1px 边框 · 未选中灰、选中绿+2px 短线。
        ⚠️ 都是 <a>（页面不变量：没有按钮标签）。
-       ⚠️ 「竞彩场次」跳的是足球页；当前页（彩票推荐）带 .on。
+       ⚠️ 「足球竞彩」跳的是足球页；当前页（彩票推荐）带 .on。
        徽章 #owner-badge 是原有元素（owner 才显示），这里只把它挪进 Tab 条右侧。
        ============================================================ -->
   <div class="top-tabs">
     <a class="tab on" href="./">彩票推荐</a>
-    <a class="tab" href="足球推荐.html">竞彩场次</a>
-    <a class="tab" href="走势图.html">走势图</a>
+    <a class="tab" href="足球推荐.html">足球竞彩</a>
+    
   </div>
 
   <!-- ============================================================
@@ -4526,7 +4526,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   <div>内容已自动隐藏</div>
   <div class="tip">请回到页面继续阅读（4 秒后自动恢复）</div>
 </div>
-<div id="owner-badge" aria-hidden="true">👑 管理员模式 · 本机可截图</div>
+<div id="owner-badge" aria-hidden="true">管理员模式 · 本机可截图</div>
 
 ${inlineScriptsHtml}
 <script>
@@ -6805,7 +6805,7 @@ ${RO_RENDER_SCRIPT}
     function markOwner() {
       owner = true;
       unlock();
-      root.classList.add('is-owner');       /* 右上角出现「👑 管理员模式」徽章 */
+      root.classList.add('is-owner');       /* 右上角出现「管理员模式」徽章 */
     }
 
     /* 先按「别人」把保护装上；查到是主人再撤掉
