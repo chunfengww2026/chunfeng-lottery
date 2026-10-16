@@ -162,17 +162,41 @@ async function encodePng(g, w, h) {
 }
 
 const TARGET_LONG = Number(process.env.OCR_TARGET_LONG || 1800);
+/* ============================================================
+   【提速·别再改回去】小图不许放大太多
+   ------------------------------------------------------------
+   原来不管原图多大都拉到 1800 长边 —— 但头条晒票只给 450×294 的缩略图，
+   于是每一张都被双线性插值放大 4 倍（1800×1176 = 2.1M 像素），
+   再编码【两份】PNG，tesseract 也要啃 2.1M 像素。
+   实测（2026-10-17，9 张真图 = 2 张真票 + 1 张赔率表 + 3 张球员照 + 3 张分析海报）：
+     · TARGET_LONG=1800：变体预处理 3.5s + OCR 5.8s = 9.3s（1.04s/张）
+     · TARGET_LONG= 900：变体预处理 1.0s + OCR 4.0s = 5.0s（0.56s/张）
+       ⇒ 快 1.86 倍，而且【判定结果逐张完全一致】（还是只留那 2 张真票，
+         假图一张都没漏；赔率表/空海报还多识别出了判定理由）
+     · TARGET_LONG=1200：6.2s（0.69s/张），判定同样一致
+   所以默认「最多把小图放大 2 倍」：原图长边 ≥900 的（手机实拍票）行为不变，
+   只有 450 这类小缩略图不再被拉成 4 倍虚影。
+   想恢复旧行为：环境变量 OCR_MAX_UPSCALE=99。 */
+const MAX_UPSCALE = Number(process.env.OCR_MAX_UPSCALE || 2);
 
 /**
  * 一张原图 → 若干预处理变体
+ * @param {Buffer} buf
+ * @param {{targetLong?:number, maxUpscale?:number, only?:number}} [opts]
+ *        only = 1 → 只出第 1 个变体（verify-ticket 只用第 1 个，
+ *        省掉 90° 那份的旋转 + PNG 编码；默认 2 个，build-heatmap 要靠多变体投票）
  * @returns {Promise<Array<{name:string, png:Buffer, w:number, h:number}>>}
  */
-export async function makeVariants(buf) {
+export async function makeVariants(buf, opts) {
+  const o = opts || {};
+  const targetLong = Number(o.targetLong || TARGET_LONG);
+  const maxUp = Number(o.maxUpscale === undefined ? MAX_UPSCALE : o.maxUpscale);
   const img = await decodeImage(buf);
   let g = toGray(img);
   let w = img.width, h = img.height;
 
-  const scale = TARGET_LONG / Math.max(w, h);
+  let scale = targetLong / Math.max(w, h);
+  if (maxUp > 0 && scale > maxUp) scale = maxUp;      /* 小图不许放大太多，见上面的实测 */
   if (Math.abs(scale - 1) > 0.02) {
     const nw = Math.max(8, Math.round(w * scale)), nh = Math.max(8, Math.round(h * scale));
     g = resizeGray(g, w, h, nw, nh); w = nw; h = nh;
@@ -180,7 +204,8 @@ export async function makeVariants(buf) {
   g = stretch(g);
 
   const out = [];
-  for (const k of [0, 1]) {                       // 0°、顺时针 90°
+  const ks = (o.only === 1) ? [0] : [0, 1];
+  for (const k of ks) {                       // 0°、顺时针 90°
     const r = rotate90(g, w, h, k);
     out.push({ name: 'r' + k * 90, png: await encodePng(r.g, r.w, r.h), w: r.w, h: r.h });
   }
