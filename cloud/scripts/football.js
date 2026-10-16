@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 06:30:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "庞特普雷塔",
      "score": 0,
@@ -2571,7 +2571,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-17 05:00:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "圣地亚哥漫游者",
      "score": 3,
@@ -2675,7 +2675,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "亞特蘭大聯2隊",
      "score": 0,
@@ -2753,7 +2753,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "防卫者",
      "score": 0,
@@ -2831,7 +2831,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "卡拉普瓜",
      "score": 1,
@@ -2869,7 +2869,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "卡利博卡青年",
      "score": 0,
@@ -2947,7 +2947,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "紮奇英雄B隊",
      "score": 0,
@@ -2985,7 +2985,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-10-17 06:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "塞罗",
      "score": 1,
@@ -3023,7 +3023,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-17 06:20:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "雷科莱塔(PAR)",
      "score": 0,
