@@ -878,7 +878,7 @@ export async function runTtFetch() {
   for (let ci = 0; ci < CATEGORIES.length; ci++) {
     const C = CATEGORIES[ci];
     const fresh = [];
-    log(`  ── ${C.name}（${C.searches.length} 个关键词 · 保留 ${C.keepHours} 小时 · 上限 ${C.max}）──`);
+    log(`  ── ${C.name}（${C.searches.length} 个关键词 · 发布窗口 ${C.pubHours} 小时 · 兜底 ${C.keepHours} 小时 · 上限 ${C.max}）──`);
 
     for (let i = 0; i < C.searches.length; i++) {
       const s = C.searches[i];
@@ -939,7 +939,7 @@ export async function runTtFetch() {
 
     log(`     ✅ 已写入 ${C.file}（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
     log(`        旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
-      `（丢弃 ${stat.dropped} 条 [发布超 24h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
+      `（丢弃 ${stat.dropped} 条 [发布超 ${pubHours}h ${stat.dropPub} · 开奖超 1 小时 ${stat.dropDraw} · 兜底超时 ${stat.dropCap}]` +
       ` · 去重合并 ${stat.dupes} 条 · 本轮新加入 ${stat.added} 条` +
       ` · 发布时间取不到 ${stat.pubFallback} 条）`);
     if (C.key === TT_KEY) {
