@@ -66,7 +66,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-htip { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--ro-line); font-size: 12.5px; color: var(--ro-fg); }
 .md-htip b { color: var(--ro-ok); }
 
-/* ④ 六个模块卡片（欧指 / 大小 / 让球 / 亚指 / 泊松指数 / 分歧指） */
+/* ④ 四个模块卡片 */
 .md-card { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px 13px; margin-bottom: 12px; }
 .md-chead { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .md-ctitle { font-size: 14.5px; font-weight: 800; color: var(--ro-fg); }
@@ -99,15 +99,6 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-tbl td.wrap { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.35; }
 .md-tbl td.wrap span { font-size: 12px; color: var(--ro-fg2); white-space: nowrap; }
 .md-one { font-size: 12.5px; color: var(--ro-fg2); }
-/* 分歧指那三行的「低/中/高」档 —— 纯文字 + 实色，不靠浅灰（用户抱怨过太淡） */
-.md-tbl td.lv { font-weight: 800; color: var(--ro-fg); }
-/* 分歧指：单源算不出来时的如实占位（虚线框，一眼看出是「没有」而不是「空着」） */
-.md-na {
-  border: 1px dashed var(--ro-line); border-radius: 9px;
-  padding: 11px 12px; font-size: 12.5px; line-height: 1.6; color: var(--ro-fg);
-}
-.md-na b { color: var(--ro-fg); }
-.md-na em { font-style: normal; color: var(--ro-fg2); }
 
 .md-foot { max-width: 560px; margin: 2px auto 0; padding: 0 12px; font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
 .md-foot b { color: var(--ro-fg); }
@@ -309,84 +300,6 @@ a { color: var(--ro-ok); text-decoration: none; }
     return card('亚指', badge(!!l, '初盘', g), t);
   }
 
-  /* ---- ④-5 泊松指数 ----
-     ⚠️【名字叫「泊松指数」，但它不是泊松分布模型】—— 这一点必须对用户如实写清楚。
-     本模块的算法只有两步，全部来自 jc-data.js 里【已经有的】欧赔，不新抓任何数据：
-       ① 反推原始概率：p主 = 1/主赔, p平 = 1/平赔, p客 = 1/客赔（庄家赔率的倒数）
-       ② 归一化（让三项加起来正好 100%）：P主 = p主 / (p主+p平+p客)
-     返还率列【不是编的】：用【页面上显示的那三个赔率】按 100% / (1/主+1/平+1/客) 现算，
-     这就是这套赔率本身隐含的返还率（口径与庄家一致，≈89%~95% 属正常区间）；
-     三项赔率有任何一个缺失，这一列就写「—」，绝不拿别的数硬凑。
-     所以：这个指数【等于】把庄家赔率换算成百分比，不是用进球数做的独立预测。 */
-  function poissonModel(o) {
-    if (!o) return null;
-    var h = num(o.home), d = num(o.draw), a = num(o.away);
-    var ps = [h, d, a].map(function (v) { return (v === null || v <= 1) ? null : 1 / v; });
-    if (ps[0] === null || ps[1] === null || ps[2] === null) return null;
-    var s = ps[0] + ps[1] + ps[2];
-    if (!isFinite(s) || s <= 0) return null;
-    var pay = 100 / s;
-    /* 防守：赔率被写坏时（比如三项都是 1.01）返还率会离谱 → 这一列宁可写「—」 */
-    var payOk = isFinite(pay) && pay >= 60 && pay <= 120;
-    return {
-      p: [ps[0] / s * 100, ps[1] / s * 100, ps[2] / s * 100],
-      pay: payOk ? pay : null
-    };
-  }
-
-  function renderPoisson(g) {
-    var eu = g.odds && g.odds.europe;
-    var pick = eu ? (eu.live || eu.open) : null;
-    if (!pick) return card('泊松指数', badge(false, '模型', g), null, '这一场没有欧赔数据，无法反推概率');
-    var m = poissonModel(pick);
-    if (!m) return card('泊松指数', badge(false, '模型', g), null, '这一场欧赔不完整（三项赔率有缺），无法反推概率');
-    var mx = Math.max(m.p[0], m.p[1], m.p[2]);
-    var rows = [['主胜', m.p[0]], ['平', m.p[1]], ['客胜', m.p[2]]];
-    var t = '<table class="md-tbl"><thead><tr><th style="width:34%">选项</th>'
-      + '<th style="width:33%">理论概率</th><th style="width:33%">返还率</th></tr></thead><tbody>';
-    for (var i = 0; i < rows.length; i++) {
-      var top = (rows[i][1] === mx);
-      t += '<tr><td class="' + (top ? 'up' : 's') + '">' + rows[i][0] + '</td>'
-        + '<td class="' + (top ? 'up' : 'n') + '">' + pct(rows[i][1]) + '</td>'
-        + '<td class="' + (i === 0 && m.pay !== null ? 'n' : 'dim') + '">'
-        + (i === 0 && m.pay !== null ? m.pay.toFixed(1) + '%' : '—') + '</td></tr>';
-    }
-    t += '</tbody></table>';
-    /* 算法如实写在模块里 —— 不让用户以为这是真的泊松模型 */
-    t += '<div class="md-one">算法：<b>欧赔反推</b>，不是泊松分布模型 —— '
-      + '理论概率 = (1/赔率) 归一化到三项合计 100%；返还率 = 100% ÷（1/主+1/平+1/客），'
-      + '用本档赔率现算，三项有缺就写「—」。数据源：500.com 欧赔'
-      + (eu.live ? '【即时】' : '【初盘】') + '；概率最高的一项用主色。</div>';
-    /* 站内自己的推荐概率在同一份数据里 —— 并排放一次，方便对照，不另算 */
-    var rp = g.reco && g.reco.prob;
-    if (rp && num(rp.home) !== null && num(rp.draw) !== null && num(rp.away) !== null) {
-      t += '<div class="md-ourow"><span>站内推荐概率 ' + pct(rp.home) + ' / ' + pct(rp.draw)
-        + ' / ' + pct(rp.away) + '</span><span>口径：推荐模型</span></div>';
-    }
-    return card('泊松指数', badge(false, '模型', g), t);
-  }
-
-  /* ---- ④-6 分歧指（欧赔分歧） ----
-     ⚠️【这一档目前算不出来，原因是实测的、不是猜的】：
-       分歧指 = 多家公司欧赔的【离散程度】，至少要有 2 家（理想 5~10 家）的欧赔才谈得上「分歧」。
-       实测 jc-data.js：每场只有 odds.europe.{open,live} 各一组 {home,draw,away}，
-       全库 41KB / 64 场里【没有任何公司名、没有多公司数组】—— 只有 500.com 一个源。
-       也就是说同一场比赛我们手里只有【一份】欧赔：一份赔率自己跟自己的离散度恒等于 0。
-       硬用「初盘 vs 即时」或「500.com vs 别家（其实没有别家）」去造一个低/中/高，
-       那是【编数据】，所以这里如实写「暂无多家赔率数据，无法计算分歧」。
-       将来 jc-data.js 里真有了多公司欧赔（odds.europe.list 之类），把 rows 换成真算的那段即可。 */
-  function renderDivergence() {
-    var need = '<b>主胜分歧</b> / <b>平局分歧</b> / <b>客胜分歧</b>';
-    var body = '<div class="md-na">'
-      + '暂无多家赔率数据，无法计算分歧。<br>'
-      + '<em>分歧指＝多家公司欧赔的离散程度，至少要 2 家才成立；'
-      + 'jc-data.js 每场只有 500.com 一个源的一组欧赔（{home,draw,away}，无公司名字段），'
-      + '一份赔率算不出分歧，所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em><br>'
-      + '数据源：500.com'
-      + '</div>';
-    return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body);
-  }
-
   /* ---- ③ 比赛头部 ---- */
   /* 归档场次用的是另一种数据形状（jc-history.js），这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
@@ -454,8 +367,7 @@ a { color: var(--ro-ok); text-decoration: none; }
   /* ---- 组装整页 ---- */
   function render(g) {
     var body = srcBar() + renderHead(g)
-      + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
-      + renderPoisson(g) + renderDivergence(g);
+      + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g);
     document.getElementById('mdBody').innerHTML = body;
 
     /* 数据源：全部/500.com 可点（只切高亮 + 一句说明，不改数据、不报错）；
@@ -518,8 +430,6 @@ a { color: var(--ro-ok); text-decoration: none; }
     + '（在售 ' + (D.liveCount || 0) + ' + 归档 ' + (D.histCount || 0) + '）'
     + (D.inSale ? ' · 体彩官方在售 ' + D.inSale + ' 场' : '')
     + '<br>在售数据更新时间：' + (D.updated || '—') + (D.histUpdated ? ' · 归档数据更新时间：' + D.histUpdated : '')
-    + '<br>「泊松指数」= 由 500.com 欧赔反推（1/赔率 → 归一化），<b>不是</b>泊松分布模型；'
-    + '「分歧指」需要多家公司欧赔，当前只有 500.com 一个源，故暂不显示数值。'
     + '<br>本页只陈列数据，不构成投注建议。';
   document.getElementById('mdFoot').innerHTML = foot;
   /* 返回：优先浏览器历史，站内直接进来的就回竞彩页 */
