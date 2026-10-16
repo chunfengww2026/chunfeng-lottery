@@ -148,6 +148,26 @@ export const P3D_CSS = `
 .p3d-summary b { color: var(--ro-fg); }
 .p3d-note { text-align: center; font-size: 11px; color: var(--ro-fg2); margin-top: 8px; }
 .p3d-scroll { max-height: 420px; overflow-y: auto; }
+
+/* ============ 六码推荐（用户 2026-10-17：建在分享页） ============ */
+.lm-section { margin: 0 12px var(--c-gap, 12px); background: var(--ro-card);
+  border: 1px solid var(--ro-line); border-radius: 10px; padding: 12px; }
+.lm-title { text-align: center; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
+.lm-sub { text-align: center; font-size: 11.5px; color: var(--ro-fg2);
+  margin: 4px 0 8px; }
+.lm-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 6px 0; border-top: 1px dashed var(--ro-line-soft); }
+.lm-row:first-of-type { border-top: none; }
+.lm-k { flex: 0 0 40px; font-size: 12px; font-weight: 700; color: var(--ro-fg2); }
+.lm-balls { display: flex; gap: 6px; flex-wrap: wrap; }
+.lm-ball { display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 800;
+  color: #fff; font-variant-numeric: tabular-nums; }
+.lm-gold { background: #d9a300; box-shadow: 0 0 0 2px #fff6dd; }
+.lm-silver { background: #8a7a63; box-shadow: 0 0 0 2px #efe2cc; }
+.lm-tuo { background: var(--ro-ok); }
+.lm-none { font-size: 11.5px; color: var(--ro-fg3); }
+.lm-count { margin-left: auto; font-size: 11.5px; color: var(--ro-fg2); }
 `;
 
 /* ---------- 运行时的渲染脚本（数据已在构建期算好并内联） ---------- */
@@ -274,6 +294,32 @@ const P3D_JS = `
     });
     return n;
   }
+  /* 【六码推荐】渲染（用户 2026-10-17：建在分享页，与手绘图同步）
+     ⚠️ 这里没有自己的彩种状态 —— 直接用 currentP3DType，两块永远一致。 */
+  function renderLiuMa(key) {
+    var rec = LIUMA_MAP[key] || {};
+    var setArr = liuMaSetOf(key);
+    var balls = function (list, cls) {
+      return list.map(function (n) { return '<span class="lm-ball ' + cls + '">' + n + '</span>'; }).join('');
+    };
+    var gold = rec.goldDan == null ? [] : [rec.goldDan];
+    var silver = rec.silverDan == null ? [] : [rec.silverDan];
+    var tuo = rec.tuoList || [];
+    $('lmBody').innerHTML =
+      '<div class="lm-row"><span class="lm-k">金胆</span><span class="lm-balls">' +
+        (gold.length ? balls(gold, 'lm-gold') : '<span class="lm-none">未给</span>') + '</span></div>' +
+      '<div class="lm-row"><span class="lm-k">银胆</span><span class="lm-balls">' +
+        (silver.length ? balls(silver, 'lm-silver') : '<span class="lm-none">未给</span>') + '</span></div>' +
+      '<div class="lm-row"><span class="lm-k">拖码</span><span class="lm-balls">' +
+        (tuo.length ? balls(tuo, 'lm-tuo') : '<span class="lm-none">未给</span>') +
+        '</span><span class="lm-count">共 ' + setArr.length + ' 个号</span></div>';
+    /* 六码推荐自己的按钮高亮 */
+    Array.prototype.slice.call(document.querySelectorAll('#lmTypeRow .p3d-type-btn')).forEach(function (el) {
+      var on = el.getAttribute('data-lm') === key;
+      el.className = 'p3d-type-btn' + (on ? ' active' : '');
+    });
+  }
+
   function renderP3D() {
     var key = currentP3DType, meta = META[key], draws = DRAWS[key] || [];
     var setArr = liuMaSetOf(key), liuSet = {}, rec = LIUMA_MAP[key] || {};
@@ -282,6 +328,7 @@ const P3D_JS = `
     $('p3dSub').textContent = '近 ' + meta.periods + ' 期真开奖 · 期号 ' + meta.first + ' → ' + meta.last +
       ' · 每期只填 3 个号码 | 圈号 + 连线 + 标路数';
     paintTypeRow();
+    renderLiuMa(key);          /* 【六码推荐】和手绘图共用同一个彩种状态，一起重画 */
     renderLuoshu(meta, liuSet);
     renderTables(draws);
     var sc = meta.shapeCount;
@@ -301,6 +348,16 @@ const P3D_JS = `
       renderP3D();
     });
   });
+  /* 【六码推荐】的彩种按钮：走公开接口 window.P3DChart.switchTo(type)
+     —— 就是用户给的 switchLiuyuan(type) 里那一行的写法。
+     switchTo 内部会 renderP3D()，从而把六码推荐和手绘图一起刷新。 */
+  Array.prototype.slice.call(document.querySelectorAll('#lmTypeRow .p3d-type-btn')).forEach(function (el) {
+    el.addEventListener('click', function () {
+      var key = el.getAttribute('data-lm');
+      if (window.P3DChart) window.P3DChart.switchTo(key);
+    });
+  });
+
   renderP3D();
 
   /* 【折叠 → 展开时必须重画位连线】
@@ -422,7 +479,16 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     data, meta
   };
 
-  return `<details class="p3d-section" id="p3dSection">` +
+  return `<section class="lm-section" id="lmSection">` +
+    `<div class="lm-title">六码推荐</div>` +
+    `<div class="lm-sub">金胆 · 银胆 · 拖码 —— 共 6 个号 · 与下方手绘图同步</div>` +
+    `<div class="p3d-type-row" id="lmTypeRow">` +
+      `<div class="p3d-type-btn active" data-lm="3d">${TYPE_MAP['3d'].name}</div>` +
+      `<div class="p3d-type-btn" data-lm="pl3">${TYPE_MAP['pl3'].name}</div>` +
+    `</div>` +
+    `<div id="lmBody"></div>` +
+    `</section>` +
+    `<details class="p3d-section" id="p3dSection">` +
     /* 【可折叠】用户要求：「这里可折叠可展开，就写『手绘参考图』」。
        入口行 = 泛称 + 括注小字「手绘参考图（民间3D/排三）」（2026-10-17 改名）；
        里面 #p3dTitle 仍然是按彩种的标题
