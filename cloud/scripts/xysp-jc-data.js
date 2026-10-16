@@ -102,7 +102,7 @@ const XYSP_JC_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=yQhjMSWWdNSVrF9OT%2F5DRfTHEnk%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=yQhjMSWWdNSVrF9OT%2F5DRfTHEnk%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=3qtOhFy5ASmZp9zj1ateL%2BUyi4U%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3954959e203b433c8c049f5f5f7809a9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=lgDKXArhUYYAWpVRYcbmJmevE3Y%3D",
    "title": "【26143期任九】8元防冷小单！联赛混战高投底单参考",
    "url": "https://toutiao.com/group/7697039507275416104/",
    "at": "2026-10-16T00:16:02.005Z",
@@ -111,7 +111,7 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-16T00:16:02.005Z",
+   "seen": "2026-10-16T00:46:38.647Z",
    "drawAt": "",
    "nextAt": "",
    "drawGid": "",
