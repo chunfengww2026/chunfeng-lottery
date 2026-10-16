@@ -173,8 +173,6 @@
     }
 
     out.batches.push(snap);
-    /* 硬上限：只留最近的 RECO_MAX_BATCHES 批 */
-    if (out.batches.length > RECO_MAX_BATCHES) out.batches = out.batches.slice(-RECO_MAX_BATCHES);
     out.updated = bjStamp(o.now);
     return { archive: out, added: 1, updated: 0, reason: '' };
   }
@@ -238,26 +236,9 @@
     });
     const dropped = before - out.batches.length;
 
-    /* 硬上限兜底（窗口按比赛时间滤不掉的行，这里再兜一道） */
-    let over = 0;
-    if (out.batches.length > RECO_MAX_BATCHES) {
-      over = out.batches.length - RECO_MAX_BATCHES;
-      out.batches = out.batches.slice(-RECO_MAX_BATCHES);
-    }
-
     out.updated = bjStamp(o.now);
-    return { archive: out, filled, changed, dropped: dropped + over };
+    return { archive: out, filled, changed, dropped };
   }
-
-  /* ============================================================
-     2.5 存档上限：最多保留多少批
-     ------------------------------------------------------------
-     窗口（开赛前后 24 小时）本来就会把老批次滤掉，但那是按【比赛时间】滤的：
-     如果某批里全是解析不出时间的行，它就永远不会被窗口清掉。
-     再加一道硬上限兜底，保证 jc-reco-data.js 不会无限长大
-     （它是数据文件、要同步上云端，体积必须可控）。
-     ============================================================ */
-  const RECO_MAX_BATCHES = 200;
 
   /**
    * 【单场口径】的统计 —— 页面顶部「推荐串」战绩条用的就是这一份。
@@ -387,7 +368,7 @@
   }
 
   return {
-    RECO_KEEP_HOURS, RECO_MAX_BATCHES, bjNow, bjParse, bjStamp,
+    RECO_KEEP_HOURS, bjNow, bjParse, bjStamp,
     emptyArchive, rowKey, buildSnapshot, verdictOf,
     mergeArchive, enrichArchive, inWindow, summarize, matchStats,
     visibleBatches, renderDataJs, renderStatsJson
