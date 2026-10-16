@@ -6527,13 +6527,12 @@ ${RO_RENDER_SCRIPT}
           if (e && e.preventDefault) e.preventDefault();
           var id = attr(node, 'data-ro-aipick-game');
           if (!byId[id] || id === st.game) return;
-          /* 切彩种 → 全部重置 + 显示该彩种的规则（自己选的号也一起清掉） */
+          /* 切彩种 → 全部重置 + 显示该彩种的规则（「选几个」也回到默认个数） */
           st.game = id;
           st.times = 1;
           st.kl8 = byId[id].playModes ? (byId[id].areas[0].pick || 10) : 10;
           st.multi = {};
           st.rows = [];
-          if (inTimes) inTimes.value = '1';
           if (inTimes) inTimes.value = '1';
           buildKl8(byId[id]);
           buildMultiRow(byId[id]);
@@ -6555,7 +6554,7 @@ ${RO_RENDER_SCRIPT}
     }
     if (inTimes) { inTimes.addEventListener('input', refresh); inTimes.addEventListener('change', refresh); }
 
-    /* ---------- 初始状态：双色球 · 机选 · 单式 · 注数 5 · 倍数 1 · 结果为空 ---------- */
+    /* ---------- 初始状态：双色球 · 自己选号 · 红球 7 个 / 蓝球 1 个 · 倍数 1 · 结果为空 ---------- */
     (function setup() {
       var g = G();
       buildKl8(g);
@@ -6569,7 +6568,6 @@ ${RO_RENDER_SCRIPT}
       state: function () {
         return { game: st.game, times: st.times, kl8: st.kl8, rows: st.rows.length,
                  multi: st.multi };
-      },
       },
       rows: function () { return st.rows; },
       lastImage: function () { return st.pic || null; }        /* 保存图片生成的最后一张（只在内存里） */
