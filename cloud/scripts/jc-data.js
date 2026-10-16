@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 03:11 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 02:58 */
 const JC_DATA = {
- "updated": "2026-10-17 03:11",
+ "updated": "2026-10-17 02:58",
  "stat": {
   "total": 11,
-  "upcoming": 1,
-  "live": 8,
-  "finished": 2,
-  "withScore": 10
+  "upcoming": 3,
+  "live": 7,
+  "finished": 1,
+  "withScore": 8
  },
  "games": [
   {
@@ -218,7 +218,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "finished",
+   "status": "live",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -354,7 +354,7 @@ const JC_DATA = {
     "home": 1,
     "away": 0
    },
-   "statusText": "1 - 0 ",
+   "statusText": "- ",
    "odds": {
     "asian": {
      "open": {
@@ -462,7 +462,7 @@ const JC_DATA = {
     "home": 2,
     "away": 0
    },
-   "statusText": "2 - 0 ",
+   "statusText": "- ",
    "odds": {
     "asian": {
      "open": {
@@ -675,8 +675,8 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 1,
-    "away": 1
+    "home": 0,
+    "away": 0
    },
    "statusText": "- ",
    "odds": {
@@ -761,8 +761,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 1
+    "home": 0,
+    "away": 0
    }
   },
   {
@@ -890,10 +890,7 @@ const JC_DATA = {
     "name": "伍尔弗汉普顿",
     "rank": 10
    },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -903,9 +900,9 @@ const JC_DATA = {
       "away": 1.05
      },
      "live": {
-      "home": 0.72,
-      "line": "受平手/半球",
-      "away": 1.07
+      "home": 1.15,
+      "line": "平手",
+      "away": 0.67
      }
     },
     "europe": {
@@ -944,42 +941,31 @@ const JC_DATA = {
     },
     "clear": false,
     "margin": 5.3,
-    "rqLine": "受平手/半球"
+    "rqLine": "平手"
    },
    "asianIndex": {
-    "line": "受平手/半球",
+    "line": "平手",
     "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 1.07,
-    "downWater": 0.72,
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.15,
+    "downWater": 0.67,
     "openHandicap": 0.25,
     "openUpWater": 1.05,
     "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "40.22",
-    "theoryDownPercent": "59.78",
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
     "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.25,
-     "initUpWater": 1.05,
-     "nowUpWater": 1.07,
-     "initLine": "受平手/半球",
-     "nowLine": "受平手/半球"
-    },
-    "handicapChangeWhy": "",
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
     "fundUp": null,
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1428073",
@@ -998,10 +984,7 @@ const JC_DATA = {
     "name": "莱万特",
     "rank": 17
    },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
+   "score": null,
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1011,9 +994,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 0.75,
+      "home": 0.67,
       "line": "平手/半球",
-      "away": 1.05
+      "away": 1.15
      }
     },
     "europe": {
@@ -1023,9 +1006,9 @@ const JC_DATA = {
       "away": 3.4
      },
      "live": {
-      "home": 1.95,
-      "draw": 3.5,
-      "away": 3.9
+      "home": 2,
+      "draw": 3.6,
+      "away": 3.7
      }
     },
     "overunder": {
@@ -1035,23 +1018,23 @@ const JC_DATA = {
       "under": 0.8
      },
      "live": {
-      "line": 0.72,
-      "over": 2,
-      "under": 1.07
+      "line": 1.15,
+      "over": 2.5,
+      "under": 0.67
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.6,
+    "confidence": 47.7,
     "prob": {
-     "home": 48.6,
-     "draw": 27.1,
-     "away": 24.3
+     "home": 47.7,
+     "draw": 26.5,
+     "away": 25.8
     },
     "clear": true,
-    "margin": 5.5,
+    "margin": 4.8,
     "rqLine": "平手/半球"
    },
    "asianIndex": {
@@ -1059,21 +1042,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 0.75,
-    "downWater": 1.05,
+    "upWater": 0.67,
+    "downWater": 1.15,
     "openHandicap": -0.25,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.8,
-    "theoryUpPercent": "58.33",
-    "theoryDownPercent": "41.67",
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "63.19",
+    "theoryDownPercent": "36.81",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.82,
-     "nowUpWater": 0.75,
+     "nowUpWater": 0.67,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -1082,12 +1065,9 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "upcoming",
    "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
+   "liveScore": null
   },
   {
    "gid": "1362513",
@@ -1128,9 +1108,9 @@ const JC_DATA = {
       "away": 3
      },
      "live": {
-      "home": 2,
-      "draw": 3.6,
-      "away": 3.6
+      "home": 2.05,
+      "draw": 3.5,
+      "away": 3.5
      }
     },
     "overunder": {
@@ -1149,14 +1129,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 47.4,
+    "confidence": 46.1,
     "prob": {
-     "home": 47.4,
-     "draw": 26.3,
-     "away": 26.3
+     "home": 46.1,
+     "draw": 27,
+     "away": 27
     },
     "clear": true,
-    "margin": 5.6,
+    "margin": 5.9,
     "rqLine": "平手/半球"
    },
    "asianIndex": {
@@ -1193,8 +1173,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
   "updated": "2026-10-17 02:58",
   "officialUpdate": "2026-10-16 21:46:05",
   "inSale": 37,
