@@ -736,6 +736,55 @@ function renderAsianCard(m) {
    算不出来（缺欧指）就【整块不显示】，绝不填假数。
    ⚠️ 页面上写明「由欧指反推 · 非官方数据」，并显示拟合偏差与平局偏差，
       不让人误以为这是博彩公司公布的泊松值。 */
+/* ============================================================
+   【比分推荐 · 3 个】用户 2026-10-17 追加：竞彩卡片上给三个推荐比分
+   ------------------------------------------------------------
+   怎么算（和详情页那个「泊松指数」是同一条路，口径统一）：
+     · 内核 = jc-poisson.js 的 compute(m)，本页已有的模块，不新增算法
+     · 它用欧赔/亚盘/大小球反解两队的期望进球 λ主 / λ客（solveLambdas），
+       再按【独立泊松】P(i;λ主)·P(j;λ客) 算每个比分的概率
+     · 这里取概率最高的【三个】比分，按概率从高到低排
+   如实说明（页面上也写着）：λ 是市场赔率反推的、不是真泊松模型拟合；
+     独立泊松会略低估平局 —— 所以叫「参考」，不叫预测。
+   ⚠️ 拿不到赔率的场次（prob 为空 / 归档老记录）→ 内核返回 null
+      → 这一行显示「—」，绝不编数字。
+   ⚠️ 页面上不出现任何"数据从哪来"的字样（站名 / 文件名 / 接口都不写），
+      由 source-guard.mjs 的留痕断言兜底。
+   ============================================================ */
+const POISSON_CACHE = new Map();
+function poissonOf(m) {
+  if (!POISSON || typeof POISSON.compute !== 'function') return null;
+  if (POISSON_CACHE.has(m.code)) return POISSON_CACHE.get(m.code);
+  let r = null;
+  try { r = POISSON.compute(m); } catch (e) { r = null; }
+  POISSON_CACHE.set(m.code, r);
+  return r;
+}
+
+function renderScorePick(m) {
+  const r = poissonOf(m);
+  const top = r && Array.isArray(r.topScores) ? r.topScores.slice(0, 3) : [];
+  if (!top.length) {
+    /* 没数据就如实显示 —（不编、不留空） */
+    return `<div class="m-scorepick">` +
+      `<span class="m-sp-lab">比分推荐</span>` +
+      `<span class="m-sp-none">—</span>` +
+      `<span class="m-sp-note">这一场没有可用的赔率，算不出比分</span>` +
+      `</div>`;
+  }
+  return `<div class="m-scorepick">` +
+    `<span class="m-sp-lab">比分推荐</span>` +
+    `<span class="m-sp-list">` +
+    top.map((s) => {
+      /* 内核给的是 '2-1' 写法，这里统一成用户要的 '2:1' */
+      const score = String(s.score).replace('-', ':');
+      return `<span class="m-sp-item"><b>${esc(score)}</b><i>${esc(String(s.p))}%</i></span>`;
+    }).join('') +
+    `</span>` +
+    `<span class="m-sp-note">按赔率反推的期望进球算</span>` +
+    `</div>`;
+}
+
 function renderPoissonCard(m) {
   if (!POISSON || typeof POISSON.compute !== 'function') return '';
   let r = null;
@@ -887,6 +936,7 @@ function renderMatch(m) {
           opt(`客—%`, onThree === 'away') +
           `</span>`) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
+    renderScorePick(m) +
     renderAsianCard(m) +
     renderPoissonCard(m) +
     (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
@@ -1440,6 +1490,23 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-probrow { display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
   justify-content: flex-end; }
 .m-problab { font-size: 10.5px; color: #6b7488; margin-right: 1px; white-space: nowrap; }
+/* 【比分推荐 · 3 个】用户 2026-10-17 追加。
+   一行放「比分推荐」标签 + 三个比分胶囊（大号比分 + 小号百分比）+ 一句说明。
+   ⚠️ 375 / 320 都要不挤爆：胶囊 white-space:nowrap 但整行 flex-wrap，
+      320px 下三个胶囊放不下会折到第二行（不横向溢出）。 */
+.m-scorepick { display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 7px; padding-top: 7px; border-top: 1px dashed #262d3a; }
+.m-sp-lab { font-size: 10.5px; color: #6b7488; white-space: nowrap; }
+.m-sp-list { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; min-width: 0; }
+.m-sp-item { display: inline-flex; align-items: baseline; gap: 3px;
+  padding: 2px 8px; border-radius: 12px; background: #12151d;
+  border: 1px solid #262d3a; white-space: nowrap; }
+.m-sp-item b { font-size: 12.5px; font-weight: 800; color: #e8eaed; letter-spacing: .2px; }
+.m-sp-item i { font-style: normal; font-size: 10px; color: #6b7488; }
+.m-sp-item:first-child { border-color: rgba(71,224,160,0.45); }
+.m-sp-item:first-child b { color: #47e0a0; }
+.m-sp-none { font-size: 12.5px; color: #6b7488; }
+.m-sp-note { font-size: 10px; color: #6b7488; margin-left: auto; white-space: nowrap; }
 .opt { font-style: normal; font-size: 11px; padding: 3px 8px; border-radius: 12px;
   background: #12151d; color: #6b7488; white-space: nowrap; }
 .opt.active { background: #47e0a0; color: #0b0d11; font-weight: 700; }
@@ -2037,6 +2104,16 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .opt { background: #f3e6d0 !important; color: #8a7a63 !important; }
 .opt.active { background: #1a8c5a !important; color: #fff !important; font-weight: 700 !important; }
 .m-noodds { color: #a2937c !important; }
+/* 【比分推荐 · 3 个】米杏色主题覆盖（必须写在深色规则后面 + !important，才压得过） */
+.m-scorepick { border-top-color: #efe2cc !important; }
+.m-sp-lab { color: #8a7a63 !important; }
+.m-sp-item { background: #f3e6d0 !important; border-color: #e8d7bd !important; }
+.m-sp-item b { color: #4a3a26 !important; }
+.m-sp-item i { color: #8a7a63 !important; }
+.m-sp-item:first-child { border-color: #1a8c5a !important; background: #e3f2ea !important; }
+.m-sp-item:first-child b { color: #1a8c5a !important; }
+.m-sp-none { color: #a2937c !important; }
+.m-sp-note { color: #a2937c !important; }
 .m-empty { color: #a2937c !important; background: #f3e6d0 !important; }
 .note { background: #f3e6d0 !important; border-color: #e8d7bd !important; color: #8a7a63 !important; }
 .brand { color: #c0392b !important; }
