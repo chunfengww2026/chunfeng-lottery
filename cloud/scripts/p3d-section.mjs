@@ -278,7 +278,7 @@ const P3D_JS = `
   renderP3D();
 
   /* 【折叠 → 展开时必须重画位连线】
-     收起时内容没有布局，drawPosLines() 量到的宽高全是 0（它开头就 `!box.width → return 0`），
+     收起时内容没有布局，drawPosLines() 量到的宽高全是 0（它开头就是「拿不到宽度直接 return 0」），
      所以初始化那次画不出来；打开这一下不会触发 resize，
      不在 toggle 里补画的话，位连线图会一直是空的。 */
   var p3dSec = document.getElementById('p3dSection');
