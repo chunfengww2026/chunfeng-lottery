@@ -4492,7 +4492,12 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    三档口径（用户给）：主文字 var(--ro-fg) #4a3a26 · 次要 var(--ro-fg2) #8a7a63 · 最弱 var(--ro-fg3) #a2937c
    ⚠️ 只改颜色（原有 font-weight:700 一律保留），不动任何文字内容 / 字号 / 间距 / 布局。
    ⚠️ canvas / img / svg 出的图（推荐图 / 热力图 / 手绘图）不在这里面，保持深色。
-   ⚠️ 必须写在样式表【最后】（紧邻 </style>）—— 前面那些 .ro-art-* / .hc-* 规则会盖掉它。 */
+   ⚠️ 必须写在样式表【最后】（紧邻样式表的结束标签）—— 前面那些 .ro-art-* / .hc-* 规则会盖掉它。
+   ⚠️ ⚠️ 这段注释里【绝对不能出现 style 的结束标签字面量，也不能出现反引号】：
+        · 结束标签字面量 → HTML 解析器提前关掉整个 style 块；
+        · 反引号 → 会提前闭合本文件包住这段 CSS 的 JS 模板字符串（直接 SyntaxError）。
+        这次真踩了：CSS 只解析到 .ro-top h1 那条，我这 20 多条一条都没生效，
+        页面上还漏出一堆 CSS 文本。 */
 /* ① 文章参考：彩种名加深 + 加粗；「N 篇」次要色；"点击查看/收起"绿色；底色/边框显式米杏 */
 .ro-art-group { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; }
 .ro-art-group > summary.ro-art-gname { color: var(--ro-fg) !important; font-weight: 700 !important; }
@@ -4525,6 +4530,14 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .metric-table td.shape-baozi { color: #8a6a00 !important; }
 .p3d-type-btn { color: var(--ro-fg2) !important; }
 .ro-gamehead h2, .ro-imgtoc-title, .ro-art-title, .ro-xysp-h2, .ro-aipick-h2, .ro-disclaimer h3 { color: var(--ro-fg) !important; }
+/* ⑦ 收尾补漏（同样以真浏览器实测为准）
+   · 「重摇 / 清空」这类按钮：原 #8b93a1（2.88）→ 主文字色
+   · 手绘图里选中的彩种标签（浅绿底 #e3f2ea）：次要色只有 3.6 → 主文字色
+   · 洛书九宫图的「外置 0 号」黑圆：按用户 ④（手绘图保持深色）【底色不动】，
+     只把上面的蓝字（#1f5fd6 压深底只有 3.05）改成浅色，看得清。 */
+.ro-aipick-btn.ghost { color: var(--ro-fg) !important; }
+.p3d-type-btn.active { color: var(--ro-fg) !important; }
+#luoshuZero, .luoshu-zero { color: #f2ead9 !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
