@@ -484,6 +484,16 @@ log('【3/3】上传到 GitHub');
 const SKIP_DIRS = new Set(['out', 'node_modules', '.git']);
 const SKIP_FILES = new Set(['cloud-token.txt']);
 
+/* 【编辑器/脚本备份文件：一律不上传】
+   ------------------------------------------------------------
+   实测踩到过：改 sync-cloud.mjs 时留的 sync-cloud.mjs.bak-p3d
+   被 collect() 当成正常文件传到了云端仓库，白白多一个垃圾文件。
+   根因是 SKIP_FILES 只匹配【精确文件名】，没有通配能力。
+   这里加模式过滤，挡住常见的备份/临时形态。
+   ⚠️ 只挡 .bak / .orig / ~ 结尾 / .tmp / .swp 这类明确的编辑器产物；
+      不挡 .log（_jc-count.log 是云端要读的计数日志，必须继续传）。 */
+const SKIP_NAME_RE = /\.(bak|orig|tmp|swp)([.-].*)?$|~$/i;
+
 /* 【特例】cloud/scripts/runtime/ocr/node_modules 必须传！
    ------------------------------------------------------------
    collect() 默认跳过所有 node_modules（那是构建产物），
@@ -506,6 +516,8 @@ function collect(dir, prefix) {
     if (st.isDirectory()) out.push(...collect(full, prefix + name + '/'));
     else {
       if (SKIP_FILES.has(name)) continue;
+      /* 备份/临时文件（.bak / .orig / ~ / .tmp / .swp）不上传 —— 见上面 SKIP_NAME_RE 的说明 */
+      if (SKIP_NAME_RE.test(name)) continue;
       if (SKIP_REPO_PATHS.has(prefix + name)) continue;
       out.push({ local: full, repo: prefix + name });
     }
