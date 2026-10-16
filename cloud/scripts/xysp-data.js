@@ -827,7 +827,7 @@ const XYSP_DATA = {
      "thumb": "https://img02.17chdd.com/2026-10-16/3b847d17-932c-40f6-b8d4-4144a4c526c31792119219561.jpg?imageMogr2/thumbnail/360x",
      "title": "[26275期]能不能连中三天😋",
      "url": "",
-     "at": "2026-10-16T03:10:01.504Z",
+     "at": "2026-10-16T03:10:44.736Z",
      "pubAt": "2026-10-16T02:53:00.000Z",
      "pubMs": 1792119180000,
      "pubSrc": "page"
@@ -6734,27 +6734,6 @@ const XYSP_DATA = {
      "rule": "cap",
      "author": "绿茵王蛇",
      "when": "2026-10-16 10:16:56"
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/fake-jc-keep~tplv-x:450:294.jpg?x-signature=FKEEP",
-     "thumb": "https://p3-sign.toutiaoimg.com/fake-jc-keep~tplv-x:450:294.jpg?x-signature=FKEEP",
-     "big": "https://p3-sign.toutiaoimg.com/fake-jc-keep~tplv-x:450:294.jpg?x-signature=FKEEP",
-     "title": "假数据 71 小时前（窗口内边界）",
-     "url": "",
-     "at": "2026-10-16T02:10:03.402Z",
-     "src": "tt",
-     "cat": "jc",
-     "game": "2串1",
-     "games": [],
-     "issue": "",
-     "seen": "2026-10-16T02:10:03.402Z",
-     "drawAt": "",
-     "nextAt": "",
-     "drawGid": "",
-     "expireAt": "2026-10-19T02:10:03.402Z",
-     "rule": "cap",
-     "author": "",
-     "when": "2026-10-13T04:10:03.402Z"
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a12f55f10cc84d4e8ab7e50cfa6f2724~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=GulJQ28xCyOYGN2m65fPd4LmhVU%3D",
