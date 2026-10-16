@@ -1181,7 +1181,7 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 /* ⑪ 工具栏（用户 2026-10-17 要求：走势图页加一排工具按钮）
    ------------------------------------------------------------
    四个按钮：默认 / 画线 / 清空画线 / 自动衍生预选。
-   ⚠️ 用 <div class="btn">，不是 <button> —— 页面不变量要求"裸 <button> = 0"。 */
+   ⚠️ 用 <div class="btn">，不是按钮标签 —— 页面不变量要求"裸按钮标签 = 0"。 */
 .toolbar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
 .toolbar .btn, .drawstyles .btn { padding:5px 10px; border-radius:8px; background:#fdf6ea;
   border:1px solid #e8d7bd; font-size:12px; color:#4a3a26; cursor:pointer; }
