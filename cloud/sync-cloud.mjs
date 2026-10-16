@@ -238,7 +238,11 @@ const FROM_ROOT = [
      ⚠️ 同样【不发布到线上】：页面自包含，线上站点目录里没有也不需要这个文件 →
         sync-cloud / cloud-build 的 out/ / workflow 的 site/ 三处里【只需要这一处】。
      ⚠️ 体积：只存主流 12 家（该场 320~370 家全存要 11 MB），64 场约 200 KB。 */
-  'jc-titan.js'
+  
+  /* 【留痕断言模块】3 个生成脚本（export-static / export-football / build-trend）
+     import 它做"不许出现数据来源字样"的硬校验。
+     ⚠️【必须同步】：少了它云端构建会 ERR_MODULE_NOT_FOUND → 整班挂掉。 */
+  'source-guard.mjs',
 ];
 
 /* 代码模块：与项目根目录保持一致 */
