@@ -6148,9 +6148,14 @@ ${RO_RENDER_SCRIPT}
     function isDigit(g) { return g.type === 'digit' || g.type === 'qxc'; }
     function maxMultiOf(g, a) {
       var base = pickOf(g, a);
-      var max = Math.min(a.to - a.from + 1, 20);          /* 号码型复式最多一个区 20 个号 */
-      if (g.playModes) max = Math.min(a.to - a.from + 1, base + 10);   /* 快乐8 再多就爆注数 */
-      return Math.max(max, base);
+      /* 【去掉人为上限】用户 2026-10-17：「是不是限额额度原因 不要给我限制」。
+         原来：号码型最多一个区 20 个号、快乐8 封成 base+10 —— 都是人为封顶，
+         也正是「打 10 显示成 20」的来源：打「1」被夹到下限 6，再打「0」变成 60，
+         又被夹到上限 20 ⇒ 看到 20。
+         现在上限 = 【号码池实际大小】（双色球红球 33、大乐透前区 35、蓝球 16、快乐8 80…），
+         也就是物理上不可能再多的那个数，不再做任何人为限制。
+         ⚠️ 代价：注数会非常大（红球选满 33 个 = C(33,6) = 1,107,568 注），页面照实算、不拦。 */
+      return Math.max(a.to - a.from + 1, base);
     }
 
     function ruleText(g) {
