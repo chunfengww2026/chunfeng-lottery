@@ -32,3 +32,10 @@ cloud/scripts/分享包/
 cloud/scripts/icons/favicon-16.png
 cloud/scripts/icons/favicon-32.png
 cloud/scripts/icons/favicon-48.png
+
+# 【票图校验】OCR 判定缓存的【本机运行态】文件：
+#  · 每张图一条 {ok, why, text, ms, at}，几百 KB 且每轮都在变
+#  · 云端不需要它（云端自己会重新校验/或直接用数据），
+#    传上去只会让仓库每轮都涨一个 60~200 KB 的文件
+#  · 代码（verify-ticket.mjs）会同步到云端；缓存不传
+_ticket-ocr-cache.json
