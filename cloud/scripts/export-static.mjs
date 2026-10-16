@@ -4394,6 +4394,19 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-disclaimer h3 { color: var(--ro-fg) !important; }
 .ro-disclaimer p { color: var(--ro-fg2) !important; }
 .ro-drawblock { background: var(--ro-card) !important; border: 1px solid var(--ro-line) !important; color: var(--ro-fg) !important; }
+
+/* ============================================================
+   【顶部三段统一 12px】
+   ------------------------------------------------------------
+   实测压缩后顶部三段是 10 / 26 / 12px（不统一，26 那处刺眼）。
+   这里把三段做成一致的 12px：
+     .ro-top 上下 padding 10 → 12 / 0（h1 的下边距归零）
+   依据：h1 与 .ro-top 的 margin-bottom 会和外层合并，所以
+         「主标题→提示条」最终只等于 .ro-top 自己的 margin-bottom（12px）。
+   ⚠️ 只动纵向；只在这两处加 !important（原值被页面的 !important 锁着）。
+   ============================================================ */
+.ro-top { padding-top: 12px !important; padding-bottom: 0 !important; }
+.ro-top h1 { margin-bottom: 0 !important; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
