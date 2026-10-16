@@ -750,33 +750,33 @@ a { color: var(--ro-ok); text-decoration: none; }
         + (i === 0 && m.pay !== null ? m.pay.toFixed(1) + '%' : '—') + '</td></tr>';
     }
     t += '</tbody></table>';
-    /* 算法如实写在模块里 —— 不让用户以为这是真的泊松模型 */
+    /* 算法如实写在模块里 —— 不让用户以为这是真的泊松模型。
+       ⚠️ 这里【不写】这些赔率是从哪儿来的（硬性规则），只写用哪一档（初盘/即时）。 */
     t += '<div class="md-one">算法：<b>欧赔反推</b>，不是泊松分布模型 —— '
       + '理论概率 = (1/赔率) 归一化到三项合计 100%；返还率 = 100% ÷（1/主+1/平+1/客），'
-      + '用本档赔率现算，三项有缺就写「—」。数据源：500.com 欧赔'
-      + (eu.live ? '【即时】' : '【初盘】') + '；概率最高的一项用主色。</div>';
+      + '用本档赔率现算，三项有缺就写「—」。本档用的是'
+      + (eu.live ? '【即时】赔率' : '【初盘】赔率') + '；概率最高的一项用主色。</div>';
     /* 站内自己的推荐概率在同一份数据里 —— 并排放一次，方便对照，不另算 */
     var rp = g.reco && g.reco.prob;
     if (rp && num(rp.home) !== null && num(rp.draw) !== null && num(rp.away) !== null) {
       t += '<div class="md-ourow"><span>站内推荐概率 ' + pct(rp.home) + ' / ' + pct(rp.draw)
         + ' / ' + pct(rp.away) + '</span><span>口径：推荐模型</span></div>';
     }
-    return card('泊松指数', badge(false, '模型', g), t);
+    return card('泊松指数', badge(false, '模型', g), t, null, 'report');
   }
 
   /* ---- ④-6 分歧指（多公司欧赔的离散程度） ----
      2026-10-17 第 2 步：以前这里永远是「暂无多家赔率数据」——
-     因为 jc-data.js 只有 500.com 一个源、一场只有一份欧赔，算不出分歧。
-     现在加了第二个源：球探 titan007 的欧赔比较（1x2d.titan007.com/{ScheduleID}.js），
-     每场 320~370 家公司的即时欧赔，由 build-odds-divergence.mjs 抓好、算好，
-     写进 jc-divergence.js，构建时【内嵌】进这一页（和 games 一样自包含，
-     线上站点目录里没有 jc-divergence.js 也不会 404）。
+     因为一份数据里一场只有一份欧赔，自己跟自己的离散度恒等于 0，算不出分歧。
+     现在这一档用的是【多公司】欧赔（每场 320~370 家即时欧赔），
+     由 build-odds-divergence.mjs 抓好、算好写进文件，构建时【内嵌】进这一页
+     （和 games 一样自包含，线上站点目录里没有那个文件也不会 404）。
 
      算法（模块里如实写出来，不让用户瞎猜）：
        每个方向取各家公司的【即时】欧赔 x₁…xₙ
        均值 m = Σxᵢ/n ，标准差 s = √(Σ(xᵢ-m)²/n) ，变异系数 cv = s/m
        档位：cv < 3.0% 低 · 3.0%~5.5% 中 · ≥5.5% 高（阈值按实测 192 个样本定）
-     ⚠️ 这一场在 titan007 赛程里没对上号 / 只抓到 1 家 → 仍然如实显示「暂无」，
+     ⚠️ 这一场没对上号 / 只有 1 家 → 仍然如实显示「暂无」，
         绝不用"初盘 vs 即时"或单源硬造一个低/中/高。 */
   function lvChip(level) {
     var cls = level === '低' ? 'low' : (level === '中' ? 'mid' : (level === '高' ? 'high' : ''));
@@ -786,17 +786,17 @@ a { color: var(--ro-ok); text-decoration: none; }
     var need = '<b>主胜分歧</b> / <b>平局分歧</b> / <b>客胜分歧</b>';
     var dd = (D.div && D.div.games) ? D.div.games[String(g.code || '')] : null;
     if (!dd || !dd.live) {
+      /* ⚠️ 这段文案里【不写】来源与文件名（硬性规则）：
+         原来写的是"没能在 xxx 的赛程里对上号""xxx 缺失"，现在只说"没对上号 / 这一档没有数据"。 */
       var why = D.div
-        ? '这一场没能在球探 titan007 的赛程里对上号（或那场只抓到 1 家公司的欧赔），'
-        : '本次构建没有拿到 titan007 的分歧指数据（jc-divergence.js 缺失）。';
+        ? '这一场没有对上号，或者这一场只有 1 家公司的欧赔（1 家算不出分歧）。'
+        : '本次构建没有拿到这一档的数据。';
       var body = '<div class="md-na">'
         + '暂无多家赔率数据，无法计算分歧。<br>'
         + '<em>分歧指＝多家公司欧赔的离散程度，至少要 2 家才成立。'
-        + why + '所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em><br>'
-        + '数据源：500.com（欧赔单源，算不出分歧）'
-        + (D.div ? ' · 球探 titan007（多公司欧赔，本场无数据）' : '')
+        + why + '所以 ' + need + ' 这三档不显示数值 —— 不用单源硬造。</em>'
         + '</div>';
-      return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body);
+      return card('分歧指', '<span class="md-badge">欧赔分歧</span>', body, null, 'sports');
     }
     var dirs = [['主胜分歧', 'home'], ['平局分歧', 'draw'], ['客胜分歧', 'away']];
     var sum = '<div class="md-divsum">';
@@ -813,22 +813,24 @@ a { color: var(--ro-ok); text-decoration: none; }
     }
     t += '</tbody></table>';
     sum += '</div>';
-    /* 算法 + 数据源如实写在这一档里（和泊松指数同一套写法） */
+    /* 算法如实写在这一档里（和泊松指数同一套写法）；
+       ⚠️ 原来这里还有一段「数据源：xxx · N 家公司」，按硬性规则【删掉了】——
+          算法、家数、场次、时间都留着，只是不再说这些数字是哪来的。 */
     var note = '<div class="md-one" style="margin-top:9px">算法：<b>欧赔离散度</b> —— '
       + '各家公司的【即时】欧赔，逐方向算 变异系数 cv = 标准差 ÷ 均值'
       + '（用 cv 不用标准差：主胜 1.5 与客胜 8.0 的标准差天然差几倍）。'
       + '档位：cv &lt; ' + ((D.div.levels && D.div.levels['低']) ? esc0(String(D.div.levels['低']).replace(/[<>]/g, '')) : '3.0%').trim()
       + ' 低 · 3.0%~5.5% 中 · ≥5.5% 高。'
       + 'cv 越小＝各家越一致（分歧低）。<br>'
-      + '数据源：<b>' + esc0(D.div.source || '球探 titan007') + '</b> · ' + esc0(dd.companies) + ' 家公司'
+      + '共 <b>' + esc0(dd.companies) + '</b> 家公司'
       + (dd.match ? ' · ' + esc0(dd.match) : '')
       + ' · 更新时间 ' + esc0(D.div.updated || '—') + '。'
       + '这一档只描述"各家赔率有多不一致"，不是预测、不是推荐。</div>';
-    return card('分歧指', '<span class="md-badge live">' + esc0(D.div.source || '球探') + ' · ' + esc0(dd.companies) + ' 家</span>', sum + t + note);
+    return card('分歧指', '<span class="md-badge live">' + esc0(dd.companies) + ' 家</span>', sum + t + note, null, 'sports');
   }
 
   /* ---- ③ 比赛头部 ---- */
-  /* 归档场次用的是另一种数据形状（jc-history.js），这里统一推出一个状态。
+  /* 归档场次用的是另一种数据形状，这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
   function gameState(g) {
     if (g.status === 'live') return { cls: ' live', txt: g.minute ? (g.minute + "' 进行中") : '进行中', done: false };
@@ -876,46 +878,66 @@ a { color: var(--ro-ok); text-decoration: none; }
       + '<span class="md-team away">' + esc(an) + (ar ? '<em>' + ar + '</em>' : '') + '</span></div>'
       + '<div class="md-htime">' + esc(g.time || '') + (has(g.handicap) ? ' · 让球 ' + esc(g.handicap) : '') + '</div>'
       + tip
-      + (isHist ? '<div class="md-one" style="margin-top:8px">这场已过【在售】窗口，数据来自 归档记录（jc-history.js）—— 只存了欧赔即时/亚指即时一档</div>' : '')
+      + (isHist ? '<div class="md-one" style="margin-top:8px">这场已过【在售】窗口，用的是归档记录 —— 只留了欧赔即时 / 亚指即时两档</div>' : '')
       + '</section>';
   }
 
-  /* ---- ② 数据源切换（本次只做样式，点了不报错） ---- */
+  /* ---- ② 顶部三档标签 ----
+     用户起的两个功能名【保留】：数据检测报告 / 体育抓取（都不含来源信息）。
+     ⚠️ 原来第三档带「即将」角标、点了只说一句"暂未接入" —— 现在已经接上了，
+        角标去掉、点了真的切内容。
+     ⚠️ data-src 的值只是页内用的开关名，不带任何站点/文件名：
+        all = 全部 · report = 数据检测报告 · sports = 体育抓取。 */
   function srcBar() {
     return '<div class="md-src" id="mdSrc">'
       + '<div class="md-srcbtn on" data-src="all" role="button" tabindex="0">全部</div>'
-      + '<div class="md-srcbtn" data-src="500" role="button" tabindex="0">检测</div>'
-      + '<div class="md-srcbtn soon" data-src="leisu" role="button" tabindex="0" aria-disabled="true">体育抓取</div>'
+      + '<div class="md-srcbtn" data-src="report" role="button" tabindex="0">数据检测报告</div>'
+      + '<div class="md-srcbtn" data-src="sports" role="button" tabindex="0">体育抓取</div>'
       + '</div><div class="md-srcnote" id="mdSrcNote"></div>';
   }
 
   function esc0(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+  /* 按标签显示/隐藏各档卡片：卡片上有 data-grp（'report' / 'sports' / 'report sports'）。
+     「全部」＝都显示。 */
+  function applySrc(s) {
+    var cards = document.querySelectorAll('#mdBody .md-card');
+    for (var i = 0; i < cards.length; i++) {
+      var grp = cards[i].getAttribute('data-grp') || 'report';
+      var show = (s === 'all') || (' ' + grp + ' ').indexOf(' ' + s + ' ') >= 0;
+      cards[i].style.display = show ? '' : 'none';
+    }
+  }
+
   /* ---- 组装整页 ---- */
   function render(g) {
     var body = srcBar() + renderHead(g)
       + renderEurope(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
-      + renderPoisson(g) + renderDivergence(g);
+      + renderPoisson(g) + renderTitanEuro(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
+    applySrc('all');
 
-    /* 数据源：全部/500.com 可点（只切高亮 + 一句说明，不改数据、不报错）；
-       雷速体育 = 占位，点了给一句「暂未接入」 */
+    /* 三档标签：切高亮 + 切内容 + 一句说明。
+       ⚠️ 提示语里【不许】出现来源 / 站名 / 文件名（硬性规则）；
+          「全部」那一档的用户可见提示已按用户要求【整条删除】，所以那里是空字符串
+          （CSS 里 .md-srcnote:empty 会把它收起来，不留空白）。 */
     var note = document.getElementById('mdSrcNote');
     var bar = document.getElementById('mdSrc');
+    var TIP = {
+      all: '',
+      report: '赔率、盘口、大小球和模型推算这几档',
+      sports: '各家博彩公司的初盘 / 即时赔率对比'
+    };
     bar.addEventListener('click', function (ev) {
       var el = ev.target.closest ? ev.target.closest('.md-srcbtn') : null;
       if (!el) return;
-      var s = el.getAttribute('data-src');
-      if (s === 'leisu') {
-        note.textContent = '体育抓取数据源暂未接入（本次只有 500.com）';
-        return;
-      }
+      var s = el.getAttribute('data-src') || 'all';
+      if (!TIP.hasOwnProperty(s)) s = 'all';
       var all = bar.querySelectorAll('.md-srcbtn');
       for (var i = 0; i < all.length; i++) all[i].classList.remove('on');
       el.classList.add('on');
-      note.textContent = (s === 'all')
-        ? '当前只有 500.com 一个数据源，这一页显示的就是它'
-        : '数据源：500.com';
+      applySrc(s);
+      note.textContent = TIP[s];
     });
     bar.addEventListener('keydown', function (ev) {
       if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.target.click(); }
@@ -939,7 +961,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 
   /* ---- 入口：?c=周五002 ----
      ⚠️ ?c= 只接受「周X + 3 位数字」：
-        实测 jc-data.js / jc-history.js 里的编号全是「周五001」「周日018」这种形状，
+        实测库里的编号全是「周五001」「周日018」这种形状，
         别的字符串（"abc def"、"<b>x</b>"、超长串）一律走兜底页，
         既不拿去匹配，也不拿去回显。
      ⚠️ 正则里用 [0-9] 不用 \\d —— 这段代码写在模板字符串里，反斜杠会被先吃一遍。 */
@@ -969,27 +991,28 @@ a { color: var(--ro-ok); text-decoration: none; }
 <div class="md-foot" id="mdFoot"></div>
 <script>
 (function () {
-  var D; try { D = JSON.parse(document.getElementById('mdData').textContent); } catch (e) { D = {}; }
-  var foot = '数据源：<b>500.com</b>（欧赔 / 亚盘 / 大小球）'
-    + (D.div ? ' · <b>' + (D.div.source || '球探 titan007') + '</b>（多公司欧赔 → 分歧指，共 ' + (D.div.count || 0) + ' 场）' : '')
-    + ' · 共 ' + ((D.games || []).length) + ' 场在库'
-    + '（在售 ' + (D.liveCount || 0) + ' + 归档 ' + (D.histCount || 0) + '）'
-    + (D.inSale ? ' · 体彩官方在售 ' + D.inSale + ' 场' : '')
-    + '<br>在售数据更新时间：' + (D.updated || '—') + (D.histUpdated ? ' · 归档数据更新时间：' + D.histUpdated : '')
-    + (D.div && D.div.updated ? ' · 分歧指数据更新时间：' + D.div.updated : '')
-    + '<br>「泊松指数」= 由 500.com 欧赔反推（1/赔率 → 归一化），<b>不是</b>泊松分布模型；'
-    + (D.div
-      ? '「分歧指」= 球探 titan007 各家公司的【即时】欧赔离散度（变异系数 cv = 标准差 ÷ 均值），'
-        + 'cv 越小＝各家越一致。'
-      : '「分歧指」需要多家公司欧赔，本次构建没有拿到 titan007 的数据，故暂不显示数值。')
-    + '<br>本页只陈列数据，不构成投注建议。';
-  document.getElementById('mdFoot').innerHTML = foot;
+  /* 【底部脚注 · 2026-10-17 第 3 步】用户把整块圈出来要求删掉。原来这里有四行：
+       ①「数据源：xxx（欧赔/亚盘/大小球）· xxx（多公司欧赔 → 分歧指，共 N 场）」
+       ② 场次统计「共 64 场在库（在售 11 + 归档 53）· 体彩官方在售 35 场」
+       ③ 三个更新时间（在售 / 归档 / 分歧指）
+       ④「泊松指数 = 由 xxx 欧赔反推…；分歧指 = xxx 各家公司的即时欧赔离散度…」两个口径说明
+     处理：
+       · ①④ 里点了来源 → 按硬性规则【必须删】，连同站名一起删干净；
+       · ②③ 本身不含来源信息，但用户圈的是【整块】、要求一起删 → 也一并删掉。
+         删了不会让用户少看什么：更新时间在顶栏「更新 05:13」那一处仍然有，
+         归档场次的头部也各自带「已完场 · 归档」标记。
+       · 【唯一保留】最后那句免责声明 —— 这一页上【只有这一处】免责声明
+         （全文搜过 '投注建议'，仅此一处），删了就没有了，所以按用户给的
+         「唯一一处 → 保留」处理，留在原来的 .md-foot 位置（页尾）。
+     ⚠️ 以后往这里加字，同样不许出现站名 / 域名 / 接口 / 文件名 —— 页面尾部那段
+        【留痕断言】会当场拦下来（命中就 exit 1，构建失败）。 */
+  document.getElementById('mdFoot').innerHTML = '本页只陈列数据，不构成投注建议。';
   /* 返回键的「优先回浏览器历史」写在 <a id="mdBack"> 的 onclick 里（见上面 md-top）。
      ⚠️ 这里【不要】再挂一个 click 监听去 history.back()：
         两处都调用会连退两级（回到竞彩页的上一页）。
      另外原来那句用 referrer 判断的写法是失效的 ——
         file:// 下 file→file 跳转没有 referrer（实测 document.referrer === ''），
-        条件永远为假 → history.back() 从来没生效过，才会落到死链 football.html。 */
+        条件永远为假 → history.back() 从来没生效过，才会落到死链上。 */
 })();
 </script>
 </body>
@@ -1030,6 +1053,63 @@ if (html.includes('document.referrer && history.length')) problems.push('返回�
 if (!html.includes('周[一二三四五六日])[0-9]{3}')) problems.push('输出里找不到 ?c= 的编号校验正则 /^(周[一二三四五六日])[0-9]{3}$/');
 if (html.includes('localStorage') || html.includes('sessionStorage')) problems.push('输出里出现了 localStorage/sessionStorage');
 if (/[\u00C0-\u00FF]{4,}/.test(html)) problems.push('输出里有连续高位字节（乱码迹象）');
+/* 【欧赔对比】有数据时同样要能自证：明细真的内嵌了、表格样式也在。
+   少了任何一样都会变成"静默失效"（页面显示暂无，但没人知道为什么）。 */
+if (TITAN_GAMES) {
+  if (html.indexOf('"multi":{') < 0) problems.push('jc-titan.js 读到了，但没内嵌进页面（D.multi 丢了）');
+  if (!html.includes('md-eu')) problems.push('输出里找不到欧赔对比的表格样式 .md-eu（CSS 丢了）');
+  if (!html.includes('欧赔对比')) problems.push('输出里找不到「欧赔对比」这一档');
+  if (!html.includes('主流')) problems.push('输出里找不到欧赔对比的「主流 N 家」说明');
+}
+
+/* ============================================================
+   【留痕断言 · 硬性条件】页面上不许出现任何"数据是从哪儿来的"
+   ------------------------------------------------------------
+   用户 2026-10-17 反复强调：全页面不要有任何地方显示在哪里抓取的数据
+   （站名 / 域名 / 接口 / 数据文件名都不行）。这一条不靠人自觉 ——
+   生成完 HTML 当场扫一遍，命中就 exit 1（构建失败），并打印命中了什么。
+   以后谁再往页面里加站名 / 文件名，构建会红，不会悄悄发上线。
+
+   两道网，都是硬失败：
+     ① 硬词（站名 / 域名 / 数据文件名）—— 扫【整个 HTML】，连 <script> 注释里
+        都不许有：这些词只要出现在文件里，看源码的人就能顺着追到源头。
+     ② 软词（数据源 / 数据来源 / 来源 / 来自 / 取自 / 接入 / 接口 / 抓取 / 爬 / API）
+        —— 只扫【可见文本】：HTML 注释、<style>、JS 注释都不算（用户看不到），
+        标签属性也不算（那是 data-src="report" 这种页内开关名，不是给用户看的字）。
+        ⚠️【关键】这一页的字几乎全是页内 <script> 用 JS 拼出来再塞进 DOM 的，
+           所以【不能整块丢掉 <script>】—— 那样等于什么都没扫。
+           正确做法：留下 <script> 里的【字符串】，只把 JS 的块注释和行注释去掉。
+           实测踩过：第一版整块丢掉 script，结果往脚注里塞"数据源见上"照样 exit 0（漏拦）。
+        ⚠️ 用户自己起的两个功能名【数据检测报告】【体育抓取】先剔除再扫 ——
+           那是功能名、不含来源信息，必须保留。
+   ============================================================ */
+function visibleText(h) {
+  return String(h)
+    .replace(/<!--[\s\S]*?-->/g, ' ')                  /* HTML 注释 */
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')         /* 样式表整块 */
+    /* <script>：留字符串、去 JS 注释（// 前面排除冒号，免得把 https:// 当注释切掉） */
+    .replace(/<script([^>]*)>([\s\S]*?)<\/script>/gi, (m, attrs, code) =>
+      ' ' + String(code)
+        .replace(/\/\*[\s\S]*?\*\//g, ' ')
+        .replace(/(^|[^:])\/\/[^\n]*/g, '$1 ') + ' ')
+    .replace(/<[^>]*>/g, ' ');                          /* 剩下的标签（含属性）去掉 */
+}
+const HARD_WORDS = ['500.com', '500网', '球探', 'titan007', '7m', '雷速', 'leisu',
+  'yiqicai', '一起彩', 'toutiao', '头条', 'bf_jc', 'JcResult',
+  'jc-data.js', 'jc-history.js', 'jc-divergence.js', 'jc-titan.js', 'history.js',
+  'http://', 'https://'];
+const hardHit = HARD_WORDS.filter((w) => html.toLowerCase().includes(w.toLowerCase()));
+if (hardHit.length) {
+  problems.push('页面里出现了"数据是从哪儿来的"痕迹（硬词 · 全文件扫）：' + hardHit.join(' / '));
+}
+const SOFT_WORDS = ['数据源', '数据来源', '来源', '来自', '取自', '接入', '接口', '抓取', '爬'];
+const vis = visibleText(html).replace(/数据检测报告|体育抓取/g, ' ');
+const softHit = SOFT_WORDS.filter((w) => vis.includes(w));
+if (/(^|[^A-Za-z])api([^A-Za-z]|$)/i.test(vis)) softHit.push('API');
+if (softHit.length) {
+  problems.push('可见文本里出现了"数据是从哪儿来的"字样（软词 · 只扫可见文本）：' + softHit.join(' / '));
+}
+
 if (problems.length) {
   console.error('❌ 编码自检失败：' + problems.join(' / '));
   console.error('   说明 build-match.mjs 或数据文件被非 UTF-8 工具改过，请用编辑工具重存一遍。');
@@ -1043,4 +1123,9 @@ console.log('   内嵌比赛：' + ORDERED.length + ' 场（在售 ' + LIVE_GAME
 console.log('   分歧指：' + (DIV_GAMES
   ? '球探 titan007 多公司欧赔 ' + Object.keys(DIV_GAMES).length + ' 场（数据时间 ' + (DIV.updated || '—') + '）'
   : '⚠️ 没有 jc-divergence.js → 页面显示「暂无多家赔率数据」（不会报错，但这一档是空的）'));
+console.log('   欧赔对比：' + (TITAN_GAMES
+  ? '主流 ' + ((TITAN && TITAN.main) ? TITAN.main.length : 0) + ' 家的明细 ' + Object.keys(TITAN_GAMES).length
+    + ' 场（数据时间 ' + (TITAN.updated || '—') + '）'
+  : '⚠️ 没有 jc-titan.js → 页面显示「暂无多家公司的赔率对比数据」（不会报错，但这一档是空的）'));
+console.log('   ✅ 留痕断言：页面里没有任何站名 / 域名 / 接口 / 数据文件名（可见文本也扫过了）');
 console.log('   入口：比赛详情.html?c=周五002');
