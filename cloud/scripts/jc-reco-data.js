@@ -22,9 +22,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.5,
      "conf": 62.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:2",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周五005",
@@ -57,7 +57,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 3,
+   "pending": 2,
    "verdict": ""
   }
  ]

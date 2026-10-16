@@ -437,6 +437,9 @@ const INTERACT_SRC = `
       var gid = b.getAttribute('data-tr-block');
       var on = (mode === 'line');
       b.className = 'tr-block' + (on ? ' tr-drawing' : '');
+      /* 画线层可能还没建过（一笔没画时就没有 svg）→ 进画线模式先建出来，
+         不然「画线」按下去没有任何视觉反馈，验收也量不到 pointer-events。 */
+      if (on) overlayOf(b);
       toArr(b.querySelectorAll('svg.tr-lines-draw')).forEach(function (s) {
         if (s.getAttribute('data-tr-draw-for') === gid) s.setAttribute('class', 'tr-lines-draw' + (on ? ' on' : ''));
       });
@@ -509,6 +512,7 @@ const INTERACT_SRC = `
   }
 
   function hasPointer() { return typeof window !== 'undefined' && typeof window.PointerEvent === 'function'; }
+  function hasTouch() { return typeof window !== 'undefined' && ('ontouchstart' in window); }
   var PTR = hasPointer();
 
   qsa('[data-tr-block]').forEach(function (block) {
@@ -519,14 +523,17 @@ const INTERACT_SRC = `
       host.addEventListener('pointermove', function (ev) { onMove(block, ev); }, { passive: false });
       host.addEventListener('pointerup', function (ev) { onUp(block, ev); });
       host.addEventListener('pointercancel', function (ev) { onUp(block, ev); });
-    } else {
-      host.addEventListener('mousedown', function (ev) { onDown(block, ev); });
-      host.addEventListener('mousemove', function (ev) { onMove(block, ev); });
-      host.addEventListener('mouseup', function (ev) { onUp(block, ev); });
+    } else if (hasTouch()) {
+      /* ⚠️ 只认触摸的机器（老 Android / 老 iOS WebView）：只绑 touch，
+         再绑一套 mouse 会和触摸补发的 mousedown/mouseup/click 撞车。 */
       host.addEventListener('touchstart', function (ev) { onDown(block, ev.touches && ev.touches[0] || ev); }, { passive: false });
       host.addEventListener('touchmove', function (ev) { onMove(block, ev.touches && ev.touches[0] || ev); }, { passive: false });
       host.addEventListener('touchend', function (ev) { onUp(block, ev); });
       host.addEventListener('touchcancel', function (ev) { onUp(block, ev); });
+    } else {
+      host.addEventListener('mousedown', function (ev) { onDown(block, ev); });
+      host.addEventListener('mousemove', function (ev) { onMove(block, ev); });
+      host.addEventListener('mouseup', function (ev) { onUp(block, ev); });
     }
   });
 
@@ -535,9 +542,11 @@ const INTERACT_SRC = `
     var endAll = function () { if (drag) onUp(drag.block); };
     window.addEventListener('pointerup', endAll);
     window.addEventListener('pointercancel', endAll);
-    window.addEventListener('mouseup', endAll);
-    window.addEventListener('touchend', endAll);
-    window.addEventListener('touchcancel', endAll);
+    if (!hasPointer()) {
+      window.addEventListener('mouseup', endAll);
+      window.addEventListener('touchend', endAll);
+      window.addEventListener('touchcancel', endAll);
+    }
   }
 
   /* ============================================================
@@ -588,10 +597,14 @@ const INTERACT_SRC = `
     if (t) { if (ev.preventDefault) ev.preventDefault(); toolClicked(t, el); return; }
   });
 
-  /* 预选行点选：按下就响应（手指/鼠标都行）
-     ⚠️ 触摸设备上 touchend 之后浏览器还会补一次 click ——
-        两个都处理就会"选中又立刻取消"。用一个短标志位吃掉这次补发的 click。 */
-  var touchHandled = false;
+  /* 浏览器的"补发鼠标事件"要挡掉：
+     ① 能出 PointerEvent 的浏览器：pointerdown 里 preventDefault，本来就打断补发；
+     ② 只有 touch 的老浏览器：touchstart 里 preventDefault，同样打断补发；
+     ③ 裸鼠标桌面：不存在补发。
+     eventLockUntil 是最后一道保险（万一某个浏览器还是补了 click，
+     就用"刚处理过触摸"这个标志把它吃掉），实测不加保险时
+     手指点一下预选格会"选中又立刻取消"（touchend + 补发 click 各 toggle 一次）。 */
+  var touchAt = 0;
   function handlePreselTap(ev) {
     var el = ev && ev.target;
     while (el && el.getAttribute && el.getAttribute('data-tr-presel') == null) el = el.parentNode;
@@ -601,15 +614,26 @@ const INTERACT_SRC = `
     if (mode === 'line') return;                 /* 画线模式下别同时改预选 */
     toggleCell(el);
   }
+  function isSyntheticAfterTouch(ev) {
+    if (!touchAt) return false;
+    var now = (ev && ev.timeStamp) || 0;
+    return !now || (now - touchAt) < 800;
+  }
   root.addEventListener('click', function (ev) {
-    if (touchHandled) return;
+    if (isSyntheticAfterTouch(ev)) return;
     handlePreselTap(ev);
   });
   root.addEventListener('touchend', function (ev) {
-    touchHandled = true;
-    if (window.setTimeout) window.setTimeout(function () { touchHandled = false; }, 420);
+    touchAt = (ev && ev.timeStamp) || 0;
+    if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();   /* 打断补发的 click */
     handlePreselTap(ev);
   });
+  root.addEventListener('touchstart', function (ev) {
+    var el = ev && ev.target;
+    while (el && el.getAttribute && el.getAttribute('data-tr-presel') == null) el = el.parentNode;
+    if (el && el.getAttribute && el.getAttribute('data-tr-presel') !== 'label' &&
+        mode !== 'line' && ev.cancelable && ev.preventDefault) ev.preventDefault();
+  }, { passive: false });
 
   /* 键盘可达（桌面无障碍）：空格/回车切换 */
   root.addEventListener('keydown', function (ev) {
@@ -755,7 +779,7 @@ var __TREND_PRESEL_EXTRA__ = '';
 function __trPreselRow(g) {
   return '<tr class="tr-row-presel tr-row" data-tr-issue="__presel__" data-tr-presel-row="' + g.id + '">' +
     '<td class="tr-td-issue tr-sticky tr-td-presel" data-tr-presel="label">预选</td>' +
-    __trMainCells(g) + __trPreselExtra(g) + '</tr>';
+    __trMainCells(g) + __trPreselExtra(g) + '<td class="tr-td-tail"></td></tr>';
 }
 function __trPreselExtra(g) {
   return g.extra ? ('<td class="tr-td-sep"></td>' + __trExtraCells(g)) : '';
@@ -1016,9 +1040,17 @@ svg.tr-lines-draw.on { pointer-events:auto; }
     <div class="sub">走势图 · 8 个彩种 · 最近 ${payload.periods} 期真实开奖</div>
   </div>
 
+  <!-- 免责声明：这里【不印"数据快照"时间】，只印【页面时间】。
+       两条踩过的坑，别再改回去：
+         ① 「数据快照 <构建时间>」不能用 —— 那个时间以前是 UTC（比北京时间早 8 小时，
+            见 build-history.mjs 的说明），印在页面上会被当成"数据是 8 小时前的"；
+            构建时间仍保留在 <body data-built="…"> 属性里，排查时看那里。
+         ② 客户端刷新【不要用 toLocaleString()】：它跟着设备时区+语言变
+            （美区手机会显示 10/16/2026, 8:00:05 PM），这里固定按北京时间格式化。
+       ⇒ 静态兜底印构建时间，页面加载后由脚本刷新成"本机时钟"的北京时间。 -->
   <div class="ro-status">
     <b>只看数据，不荐号。</b>下面每一格都是历史开奖记录，不预测、不保证。
-    <span class="ro-st-time">数据快照 ${updated}</span>
+    <span class="ro-st-time" id="snapshotTime">页面时间 ${updated}</span>
   </div>
 
   <div id="tr-root"></div>
@@ -1045,7 +1077,21 @@ __TREND_SCRIPT_BODY__
     '',
     MOUNT_SRC,
     '',
-    INTERACT_SRC
+    INTERACT_SRC,
+    '',
+    /* 【页面时间】构建时印的是构建时间，页面打开后用【本机时钟】现场刷新。
+       ⚠️ 别用 toLocaleString()：它跟着设备时区+语言走（美区手机会变成
+          10/16/2026, 8:00:05 PM）；这里固定按北京时间（UTC+8，中国无夏令时）
+          格式化成 YYYY-MM-DD HH:mm:ss，和全项目的时间写法一致。
+       ⚠️ 必须拼进这【同一个 <script>】—— 页面不变量要求整页恰好 1 对 <script>；
+          脚本在 </body> 前，所以取元素时它已经存在。 */
+    '/* 页面时间：本机时钟，固定北京时间格式 */',
+    '(function () {',
+    '  var el = document.getElementById("snapshotTime");',
+    '  if (!el) return;',
+    '  var d = new Date(Date.now() + 8 * 3600 * 1000);',
+    '  el.textContent = "页面时间 " + d.toISOString().slice(0, 19).replace("T", " ");',
+    '})();'
   ].join('\n');
 
   /* ⚠️ 唯一一处转义，而且【开始/结束标签都要转】：
