@@ -33,12 +33,30 @@
 /* ---------- CSS（用户给的原样 + 我补的断点/洛书双色） ---------- */
 export const P3D_CSS = `
 /* ============ 3D & 排列三 手绘参考图（用户 2026-10-17 规格） ============ */
+/* 【可折叠】用户要求「这里可折叠可展开，就写『手绘参考图』」：
+   .p3d-section 从 <section> 改成 <details>（原生折叠，和其它块同一套做法）。
+   入口行 = .p3d-head（左泛称 + 右「点击查看/收起」）；内容全在 .p3d-body 里。
+   ⚠️ 手绘纸张质感那层底纹从 .p3d-section 挪到了 .p3d-body ——
+      留在外层的话，收起时入口行也会铺满格子纸，和别的入口行不一致。 */
 .p3d-section {
   margin: 0 12px 14px;
   background: var(--ro-card);
   border: 1px solid var(--ro-line);
   border-radius: 10px;
-  padding: 14px 12px 12px;
+}
+.p3d-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 12px 14px; cursor: pointer;
+  list-style: none; user-select: none;
+}
+.p3d-head::-webkit-details-marker { display: none; }
+.p3d-head::marker { content: ''; }
+.p3d-head-t { font-size: 14px; font-weight: 600; color: var(--ro-fg); }
+.p3d-head-tip { font-size: 12px; font-weight: 400; color: var(--ro-ok); white-space: nowrap; }
+.p3d-section[open] > .p3d-head .p3d-head-tip::after { content: '点击收起'; }
+.p3d-section:not([open]) > .p3d-head .p3d-head-tip::after { content: '点击查看'; }
+.p3d-body {
+  padding: 0 12px 12px;
   /* 手绘纸张质感 */
   background-image:
     linear-gradient(rgba(232, 215, 189, 0.25) 1px, transparent 1px),
@@ -259,6 +277,17 @@ const P3D_JS = `
   });
   renderP3D();
 
+  /* 【折叠 → 展开时必须重画位连线】
+     收起时内容没有布局，drawPosLines() 量到的宽高全是 0（它开头就 `!box.width → return 0`），
+     所以初始化那次画不出来；打开这一下不会触发 resize，
+     不在 toggle 里补画的话，位连线图会一直是空的。 */
+  var p3dSec = document.getElementById('p3dSection');
+  if (p3dSec && p3dSec.addEventListener) {
+    p3dSec.addEventListener('toggle', function () {
+      setTimeout(function () { try { drawPosLines(); } catch (e) { /* 忽略 */ } }, 30);
+    });
+  }
+
   /* ============================================================
      对外接口 —— 给「六码推荐」之类的外部模块同步手绘图用
      ------------------------------------------------------------
@@ -367,7 +396,16 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     data, meta
   };
 
-  return `<section class="p3d-section" id="p3dSection">` +
+  return `<details class="p3d-section" id="p3dSection">` +
+    /* 【可折叠】用户要求：「这里可折叠可展开，就写『手绘参考图』」。
+       入口行只写泛称「手绘参考图」；里面 #p3dTitle 仍然是按彩种的标题
+       （「3D 手绘参考图」/「排列三 手绘参考图」）——它由脚本按彩种切换，
+       验收脚本也在断言它，所以保留。 */
+    `<summary class="p3d-head">` +
+      `<span class="p3d-head-t">手绘参考图</span>` +
+      `<span class="p3d-head-tip" aria-hidden="true"></span>` +
+    `</summary>` +
+    `<div class="p3d-body">` +
     `<div class="p3d-title" id="p3dTitle"></div>` +
     `<div class="p3d-sub" id="p3dSub"></div>` +
     `<div class="p3d-type-row" id="p3dTypeRow">` +
@@ -398,7 +436,8 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
     `<div class="p3d-summary" id="p3dSummary"></div>` +
     `<div class="p3d-note" id="p3dLiuma"></div>` +
     `<div class="p3d-note" style="color:var(--ro-ok)">数据来源：history.js 真实开奖（非示例数据）</div>` +
-    `</section>` +
+    `</div>` +
+    `</details>` +
     `<script>var P3D_SECTION = ${JSON.stringify(payload)};<\/script>` +
     `<script>${P3D_JS}<\/script>`;
 }
