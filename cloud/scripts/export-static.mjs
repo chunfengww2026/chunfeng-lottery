@@ -14,8 +14,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+import * as P3D_SECTION_MOD from './p3d-section.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
 const OUT = path.join(ROOT, '只读分享版.html');
 
 /* ============================================================
@@ -230,6 +234,10 @@ vm.runInContext(`
         所以必须像这样显式挂到 globalThis 再取，别在主模块里直接引用。
      没有这个文件时是 null → 专家推荐整块不渲染（不显示空壳）。 */
   globalThis.__experts = (typeof EXPERTS_DATA !== 'undefined') ? EXPERTS_DATA : null;
+  /* 【3D/排列三 手绘参考图】要用开奖历史（history.js）。
+     ⚠️ history.js 里是 `const DRAW_HISTORY` —— const 是词法绑定，跑完不会出现在 ctx 上，
+        必须像 __experts 这样显式挂到 globalThis 再取（和 experts 那次踩的同一个坑）。 */
+  globalThis.__hist = (typeof DRAW_HISTORY !== 'undefined') ? DRAW_HISTORY : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -251,6 +259,8 @@ const KJH = ctx.__kjh;
 const XYSP = ctx.__xysp;
 /* 【专家推荐】数据（experts-data.js；缺失时为 null → 整块不渲染） */
 const EXPERTS = ctx.__experts;
+/* 【开奖历史】数据（history.js；3D/排列三 手绘参考图要用） */
+const HIST = ctx.__hist;
 
 /**
  * 热力图该不该出这张图
@@ -882,6 +892,23 @@ function buildArticlesHtml() {
     `<div class="ro-art-groups">${groupsHtml}</div>` +
     `</section>`;
 }
+
+/* ---------- 【3D & 排列三 手绘参考图】区块 ----------
+   用户 2026-10-17 给的完整规格；实现在 p3d-section.mjs（构建期把数据算好内联）。
+   六码用用户给的 LIUMA_RECOMMEND_MAP；数据用 history.js 真开奖近 30 期。 */
+const P3D = require(path.join(ROOT, 'p3d-analyzer.js'));
+const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
+  periods: 30,
+  typeMap: {
+    '3d':  { title: '3D 手绘参考图',    name: '福彩3D' },
+    'pl3': { title: '排列三 手绘参考图', name: '排列三' }
+  },
+  liuMaMap: {
+    '3d':  { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4, 8] },
+    'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6, 9] }
+  }
+});
+console.log(`  · 3D 手绘参考图：${p3dHtml ? '已生成（' + (Buffer.byteLength(p3dHtml, 'utf8') / 1024).toFixed(1) + ' KB）' : '无数据 → 整块不渲染'}`);
 
 const articlesHtml = buildArticlesHtml();
 
@@ -4165,6 +4192,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   border-radius: 10px; margin: 0 12px 12px; padding: 14px 12px; }
 .trend-entry .te-t { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg); }
 .trend-entry .te-d { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-ok); font-weight: 600; }
+${P3D_SECTION_CSS}
 
 
 /* ============================================================
@@ -4485,6 +4513,8 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
     <span class="te-t">走势图</span>
     <span class="te-d">近 30 期走势 · 预选参考 · 点击查看 →</span>
   </a>
+
+  ${p3dHtml}
 
   ${articlesHtml}
 
