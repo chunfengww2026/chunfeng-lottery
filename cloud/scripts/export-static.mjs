@@ -1429,12 +1429,13 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
-    /* 【本轮改版】选号栏只剩【一个】chip：「自己选号」
-       用户原话：「选号 那里只剩一个chip 自己选号 不要机选」。
-       只剩一个 → 没有什么可切换的，所以它是 <span>，不是可点控件（更不是 button 标签）。 */
+    /* 【选号 chip】用户 2026-10-17：「改成随机」
+       —— 这一栏写「随机」：号码默认是随机摇出来的（点「开始摇号 / 重摇」）；
+          下面的格子是【想手选时】才点，点过就以你点的为准（结果区标「手选」）。
+       ⚠️ 仍然只有一个 chip，所以它是 <span>，不是可点控件（更不是 button 标签）。 */
     `<div class="ro-aipick-line ro-aipick-line-src"><span class="ro-aipick-lbl">选号</span>` +
     `<div class="ro-aipick-tabs ro-aipick-seg">` +
-    `<span class="ro-aipick-srcbtn on">自己选号</span>` +
+    `<span class="ro-aipick-srcbtn on">随机</span>` +
     `</div></div>` +
     /* 【自己选号：点格子选号】用户 2026-10-17：
        「还要加一个：选号 就是自己点击去选号码」
