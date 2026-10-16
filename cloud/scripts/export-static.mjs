@@ -4292,6 +4292,64 @@ ${P3D_SECTION_CSS}
   .ro-imgtoc .ro-toc-cell > * { max-height: 100%; overflow: hidden; }
   /* 网格行：让每行高度由固定 56px 决定，不再被内容撑开 */
   .ro-imgtoc { grid-auto-rows: 56px !important; }
+
+/* ============================================================
+   【紧凑排版】统一收口层
+   ------------------------------------------------------------
+   用户要求：「整个版面压缩一下，零零闪闪不好看」——
+     ① 顶部 Tab → 主标题 → 提示条 → 推荐图目录 间距统一收紧
+     ② 所有区块 margin-bottom 统一 12px（原来 0/2/12/14/16/22/24/26/40 九种）
+     ③ 卡片内边距统一 12px（原来 0/12/14/15/16/22/30 七种）
+     ④ 标题/副标题间距统一 4px
+     ⑤ 页面上下空白收敛（原来 wrap pt8/pb40、foot pt30/pb50、disclaimer mb40）
+     ⑥ 紧凑连贯，但行高保持 ≥1.4、字号一律不缩小
+
+   ⚠️ 本层只改【纵向间距】：margin-bottom / padding-top / padding-bottom。
+      绝不用 padding/margin 简写 —— 横向内边距一个都不碰。
+   ⚠️ 不写任何 font-size，也不压 line-height。
+   ⚠️ 放在样式表最后，靠级联覆盖之前的散值；要回滚删掉整层即可。
+   ============================================================ */
+:root {
+  --c-gap: 12px;      /* 区块之间统一间距 */
+  --c-pad: 12px;      /* 卡片统一内边距 */
+  --c-title: 4px;     /* 标题与副标题之间 */
+}
+
+/* ---------- ② 区块之间统一 12px ---------- */
+.ro-wrap > * { margin-bottom: var(--c-gap); }
+#article > * { margin-bottom: var(--c-gap); }
+#article-rest > * { margin-bottom: var(--c-gap); }
+.ro-status, .ro-imgtoc-wrap, .ro-tools,
+.ro-xysp, .ro-aipick, .ro-xj, .trend-entry, .p3d-section,
+.ro-articles, .ro-game, .ro-art-group { margin-bottom: var(--c-gap); }
+/* 分隔条原来 mt34/mb26，是整页最大的一处断口 */
+.ro-divider { margin-top: 14px; margin-bottom: var(--c-gap); }
+/* 免责声明原来 mb40 */
+.ro-disclaimer { margin-bottom: var(--c-gap); }
+
+/* ---------- ③ 卡片内边距统一 ---------- */
+.ro-status,
+.ro-xysp, .ro-aipick, .ro-articles,
+.trend-entry, .ro-art-group { padding-top: var(--c-pad); padding-bottom: var(--c-pad); }
+/* 各个折叠块的入口行（点击查看/收起那一行）也统一 */
+.ro-xysp > summary, .ro-aipick > summary, .p3d-head, .ro-xj > summary,
+details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padding-bottom: 10px; }
+
+/* ---------- ⑤ 页面上下空白收敛 ---------- */
+.ro-wrap { padding-top: 6px; padding-bottom: 18px; }
+.ro-foot { padding-top: 18px; padding-bottom: 22px; }
+.ro-disclaimer { padding-top: 14px; padding-bottom: 14px; }
+
+/* ---------- ① 顶部四段收紧（Tab → 主标题 → 提示条 → 目录）---------- */
+.top-tabs { margin-bottom: 0; }
+.ro-top { padding-top: 10px; padding-bottom: 10px; }
+.ro-status { margin-bottom: var(--c-gap); }
+
+/* ---------- ④ 标题/副标题间距统一 4px ---------- */
+.ro-top h1, .ro-title { margin-bottom: var(--c-title); }
+.ro-sub, .ro-art-sub, .p3d-sub, .chart-sub { margin-top: 0; }
+.ro-aipick-head, .ro-xysp-head { margin-bottom: var(--c-title); }
+.p3d-block-title { margin-bottom: 6px; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
