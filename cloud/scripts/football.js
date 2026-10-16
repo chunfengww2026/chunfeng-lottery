@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "阿德莱德城",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
     "away": {
      "name": "艾文代爾",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "欧克莱卡诺",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
     "away": {
      "name": "悉尼奥林匹克",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-16 16:30:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "日惹",
      "score": 0,
@@ -15878,7 +15878,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "上海申花上體(女)",
      "score": 0,
@@ -15944,7 +15944,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-10-16 15:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "福建南安成功(女)",
      "score": 0,
@@ -16010,7 +16010,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 15:45:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "卡巴比爾",
      "score": 0,
@@ -16048,7 +16048,7 @@ const FOOTBALL_DATA = {
      "color": "0779BC"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "奈坦亞庫列特科恩",
      "score": 2,
@@ -16086,7 +16086,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-16 16:00:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "乌拉尔青年队",
      "score": 1,
