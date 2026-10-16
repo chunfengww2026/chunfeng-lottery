@@ -211,6 +211,21 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 /* 短线头 = 该号断开的区间边界（不是真连线，画淡一点、带虚线感） */
 .tr-line-gap { stroke-opacity: 0.5; stroke-dasharray: 3 2.5; }
 /* 说明：实线 = 相邻两期连续开出；虚线 = 中间隔了遗漏期（跨过去了） */
+
+/* ⑩ 斜连（用户 2026-10-17 规则：|a-b| === 相隔期数）
+   ------------------------------------------------------------
+   用【金色】和竖向走势线（绿）区分开，一眼能分出两类线。
+   ⚠️ 斜连默认只画"差1"那一档；"含间隔"那档线非常多（实测快乐8 可到
+      3477 条，占格子 626%），由用户点开关自己开 —— 见 .tr-slantbtn。 */
+.tr-slant { stroke: rgba(217, 163, 0, 0.75); stroke-width: 1.1; }
+.tr-slant-extra { stroke: rgba(217, 140, 0, 0.75); }
+/* 间隔斜连比"差1"更弱一点，免得抢眼糊成一片 */
+.tr-slant-gapSlant { stroke-opacity: 0.5; stroke-dasharray: 4 2.5; }
+/* 斜连开关（挂到彩种切换条那一行的右端） */
+.tr-slantbtn { margin-left: auto; flex: 0 0 auto; font-size: 11.5px; font-weight: 700;
+  color: #8a7a63; background: #fdf6ea; border: 1px solid #e8d7bd;
+  border-radius: 20px; padding: 3px 10px; text-decoration: none; cursor: pointer; }
+.tr-slantbtn.on { color: #b8860b; border-color: #f0dfa8; background: #fff6dd; }
 .tr-table { border-collapse: separate; border-spacing: 0; table-layout: fixed;
   font-variant-numeric: tabular-nums; font-size: 12px; }
 .tr-table th, .tr-table td { border-right: 1px solid var(--ro-line-soft);
