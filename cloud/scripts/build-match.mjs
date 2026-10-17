@@ -489,6 +489,31 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-na b { color: var(--ro-fg); }
 .md-na em { font-style: normal; color: var(--ro-fg2); }
 
+/* ⑧ 资金分布（三项成交占比的横条）
+   · 三条横条：标签 + 横条 + 占比。横条宽度＝该项占比，由页内脚本按数据写进 style ——
+     320px 下横条自己压窄（flex:1 1 auto + min-width:0），不会把页面撑宽。
+   · 三条同层级实色，靠明度区分，不靠"浅到看不见"的灰：
+     主 #1a8c5a（本页主色）· 平 #a8842c · 客 #7a6248，都在米杏底(#fdf6ea)上看着有分量。
+   · 占比那一格用等宽字体 + nowrap，「100%」在 320px 下也装得下。 */
+.md-money-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 9px;
+  padding: 10px 12px; margin-bottom: 10px; }
+.md-money-top .k { font-size: 12px; color: var(--ro-fg2); }
+.md-money-top b { font-size: 21px; font-weight: 800; color: var(--ro-fg);
+  line-height: 1.1; font-family: Consolas, monospace; }
+.md-money-top .ex { font-size: 11.5px; color: var(--ro-fg2); font-family: Consolas, monospace; }
+.md-money-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12.5px; }
+.md-money-row .k { flex: 0 0 30px; color: var(--ro-fg); font-weight: 700; }
+.md-money-row .bar { flex: 1 1 auto; min-width: 0; height: 12px; border-radius: 6px;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); overflow: hidden; }
+.md-money-row .bar i { display: block; height: 100%; background: #1a8c5a; }
+.md-money-row .bar i.draw { background: #a8842c; }
+.md-money-row .bar i.away { background: #7a6248; }
+.md-money-row .v { flex: 0 0 42px; text-align: right; white-space: nowrap;
+  color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
+.md-money-amt { margin-top: 7px; font-size: 12px; color: var(--ro-fg2); line-height: 1.7; }
+.md-money-amt b { color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
+
 .md-foot { max-width: 560px; margin: 2px auto 0; padding: 0 12px; font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
 .md-foot b { color: var(--ro-fg); }
 .md-miss { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 16px; text-align: center; }
@@ -1159,6 +1184,72 @@ a { color: var(--ro-ok); text-decoration: none; }
     return '这一场没有这一档数据';
   }
 
+  /* ---- ④-8 资金分布（三个方向的成交额 + 占比横条） ----
+     ⚠️ 这一档只说「成交额 / 占比 / 金额」，【不写】这些数字是从哪儿来的（硬性规则，见文件头）。
+        所以模块名用中性的「资金分布」，正文里也不出现任何站名 / 产品名 / 文件名。
+     ⚠️ 成交额只在【临场窗口】里累积：
+        · 距开赛还早 → 没有；比赛打完一阵子 → 会清空。两种情况都是【正常】的，不是 bug。
+        · 没有时显示「本场暂无成交量数据」，【绝不显示 0】—— 0 和"没数据"不是一回事。
+     ⚠️ 占比直接取数据里的整数百分比，不自己重新归一（改口径就等于改数据）；
+        三项里有任何一项缺失 → 整档按"没数据"处理，不拿 0 顶。 */
+  var MONEY_KEYS = [['home', '主'], ['draw', '平'], ['away', '客']];
+
+  /* 千分位：3879905 这种位数，不点开就看不清是多少 */
+  function fmInt(v) {
+    var n = num(v);
+    if (n === null) return null;
+    return String(Math.round(n)).replace(/[0-9](?=(?:[0-9]{3})+$)/g, '$&,');
+  }
+  /* 大额转「万」留 1 位小数；不到 1 万就原样按千分位写 */
+  function fmWan(v) {
+    var n = num(v);
+    if (n === null || !(n > 0)) return null;
+    if (n >= 10000) return (Math.round(n / 1000) / 10).toFixed(1) + ' 万';
+    return fmInt(n);
+  }
+  function moneyView(g) {
+    var m = (D.money && D.money.games) ? D.money.games[String(g.code || '')] : null;
+    if (!m) return null;
+    var total = num(m.total);
+    if (total === null || !(total > 0)) return null;      /* 0 / 空 → 当"没数据" */
+    var rows = [], i, sum = 0;
+    for (i = 0; i < 3; i++) {
+      var p = num(m.ratio && m.ratio[MONEY_KEYS[i][0]]);
+      if (p === null || !(p >= 0)) return null;           /* 缺一项就整档不画，不拿 0 顶 */
+      rows.push({ p: p, a: num(m.amount && m.amount[MONEY_KEYS[i][0]]) });
+      sum += p;
+    }
+    if (!(sum > 0)) return null;                          /* 三项全 0 ＝ 还没累积，按"没数据" */
+    return { total: total, rows: rows };
+  }
+  function renderMoney(g) {
+    var mv = moneyView(g);
+    if (!mv) {
+      return card('资金分布', '<span class="md-badge">临场累计</span>',
+        '<div class="md-na">本场暂无成交量数据。<br>'
+        + '<em>成交额只在【临场窗口】里累积 —— 距开赛还早、或者已经打完一阵子，这一档都会空着。'
+        + '比赛临近时才统计，到时再回来看。这里不写 0：0 和"没数据"不是一回事。</em></div>', null, 'report');
+    }
+    var i, w, body = '<div class="md-money-top"><span class="k">总成交</span>'
+      + '<b>' + fmWan(mv.total) + '</b>'
+      + '<span class="ex">' + fmInt(mv.total) + '</span></div>';
+    var amt = [];
+    for (i = 0; i < 3; i++) {
+      w = Math.round(mv.rows[i].p * 10) / 10;
+      body += '<div class="md-money-row">'
+        + '<span class="k">' + MONEY_KEYS[i][1] + '</span>'
+        + '<span class="bar"><i class="' + MONEY_KEYS[i][0] + '" style="width:' + w + '%"></i></span>'
+        + '<span class="v">' + w + '%</span></div>';
+      var at = fmWan(mv.rows[i].a);
+      if (at) amt.push(MONEY_KEYS[i][1] + ' <b>' + at + '</b>');
+    }
+    if (amt.length === 3) body += '<div class="md-money-amt">成交金额：' + amt.join(' · ') + '</div>';
+    body += '<div class="md-one" style="margin-top:6px">'
+      + '占比＝该方向已成交的金额占总额的比例（主 / 平 / 客 三项合计约 100%）。'
+      + '成交额越接近开赛越完整，打完一阵子会清空。</div>';
+    return card('资金分布', '<span class="md-badge">临场累计</span>', body, null, 'report');
+  }
+
   /* ---- ③ 比赛头部 ---- */
   /* 归档场次用的是另一种数据形状，这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
@@ -1244,7 +1335,7 @@ a { color: var(--ro-ok); text-decoration: none; }
     var body = srcBar() + renderHead(g)
       + renderRadar(g)
       + renderEurope(g) + renderTitanEuro(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
-      + renderPoisson(g) + renderDivergence(g);
+      + renderPoisson(g) + renderMoney(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
     applySrc('all');
 
