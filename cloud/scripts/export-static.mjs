@@ -1861,7 +1861,7 @@ function buildHeatmapHtml() {
     /* 两个彩种的图都预渲染在 DOM 里，只按「当前该看哪个」显隐 —— 展开即见，不用等 */
     return `<div class="ro-hm-block" data-ro-hm-game="${g}"${g === nowId ? '' : ' hidden'}>` +
       `<div class="ro-hm-head"><b>${escape(name)} 实票统计</b>` +
-      `<span>${escape(srcText)}${stamp ? ' · ' + escape(stamp) : ''}</span></div>` +
+      `<span data-ro-hm-cd="1">刷新倒计时 59:59</span></div>` +
       `<div class="ro-imagewrap" data-game="${g}" data-image="heatmap">${inner}</div>` +
       `</div>`;
   }).join('');
@@ -10319,6 +10319,30 @@ ${CHAT_JS}
 <script>
 /* __AI_CANDS__ 构建时算好的三套候选号码（冷号回补 / 热号延续 / 均衡分布） */
 var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
+</script>
+
+
+<script>
+/* __HM_CD__ 热力图刷新倒计时（用户 2026-10-18：一小时更新一次，就倒计时一小时）
+   口径：倒计时到【下一个整点】，到点后自动重载本页一次（拿到最新热力图数据）。 */
+(function () {
+  var els = document.querySelectorAll('[data-ro-hm-cd]');
+  if (!els.length) return;
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tick() {
+    var now = new Date();
+    var next = new Date(now.getTime());
+    next.setMinutes(0, 0, 0);
+    next.setHours(now.getHours() + 1);
+    var left = Math.max(0, next.getTime() - now.getTime());
+    var m = Math.floor(left / 60000), sec = Math.floor((left % 60000) / 1000);
+    var txt = '刷新倒计时 ' + pad(m) + ':' + pad(sec);
+    for (var i = 0; i < els.length; i++) els[i].textContent = txt;
+    if (left <= 1000) location.reload();
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 
 </body>
