@@ -422,7 +422,15 @@ jobs:
         run: |
           git config user.name  "auto-update-bot"
           git config user.email "auto-update-bot@users.noreply.github.com"
-          git add -A cloud/ || true
+          # 【仓库瘦身 · 用户 2026-10-18 选 A「只提交小数据」】
+          #   原来 `git add -A cloud/` 会把 cloud/out 下的大页面一起提交：
+          #     index.html 1.9MB / 比赛详情.html 0.36MB / share.png + 图标 0.27MB
+          #   实测仓库 10 分钟涨 1.2MB（≈170MB/天）→ 约 6 天就顶到 GitHub 的 1GB 上限。
+          #   现在只提交【下一班构建还要用的小数据】（合计几十 KB）：
+          #     推荐存档 data/recommend.json · 推荐串派生 js · 票 · 热力图累存
+          #   大页面不靠 git 发布（部署走 upload-pages-artifact 的站点产物），
+          #   每班也会重新生成，所以不提交它们不会影响线上。
+          git add -A cloud/out/data/ cloud/out/jc-reco-data.js cloud/out/jc-reco-archive.js cloud/out/jc-reco-view.js cloud/out/tickets.json cloud/scripts/heatmap-data.js || true
           # 【关键】这两个页面【不提交回仓库】：
           #   它们每次构建都会重新生成（只读分享版.html 1.27 MB / 足球推荐.html 52 KB），
           #   提交进去等于每 30 分钟往仓库塞 1.3 MB —— 一天几十 MB。
