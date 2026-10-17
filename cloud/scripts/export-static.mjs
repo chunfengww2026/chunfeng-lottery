@@ -10396,7 +10396,7 @@ ${CHAT_JS_SHARE}
         n = ns[j];
         if (!map[n]) map[n] = { f: 0, gap: ctx.n };
         map[n].f++;
-        if (map[n].gap === ctx.n) map[n].gap = ctx.rows.length - 1 - i;
+        map[n].gap = ctx.rows.length - 1 - i;   /* 越晚出现 → 覆盖成更小的遗漏（最后写进去的就是最近一次） */
       }
     }
     return map;
@@ -10902,7 +10902,7 @@ ${CHAT_JS_SHARE}
         n = ns[j];
         if (!map[n]) map[n] = { f: 0, gap: rows.length };
         map[n].f++;
-        if (map[n].gap === rows.length) map[n].gap = rows.length - 1 - i;
+        map[n].gap = rows.length - 1 - i;       /* 同上：留最近一次的遗漏 */
       }
     }
     return map;
