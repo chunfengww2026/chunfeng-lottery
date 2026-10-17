@@ -708,8 +708,18 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
     rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
     updated: JC_RECO.updated || ''
   };
-  /* 【规则①】只留已出结果的批次；【规则②】再按推荐时间 48 小时筛 */
-  const winBatches = JC_RECO.batches.filter(recArchInWindow);
+  /* 【规则⓪】用户 2026-10-17：「48小时内推荐信心大于等于58%比赛结束就更新到里面 实时更新」
+     → 往期列表里的每一场也只留【信心 ≥58%】的：
+         先把每批的 rows 按 conf >= 58 过滤，整批一场不剩的直接丢掉，
+         再走原来的「48 小时窗口 / 只列已结算」两条规则。
+     ⚠️ 这样标题（REC_STAT，已带 min:58）和列表（REC_ROWS_ARCHIVE）口径就完全一致了。 */
+  const REC_MIN_CONF = 58;
+  const winBatches = JC_RECO.batches
+    .map((b) => Object.assign({}, b, {
+      rows: (Array.isArray(b.rows) ? b.rows : []).filter((r) => r.conf != null && r.conf >= REC_MIN_CONF)
+    }))
+    .filter((b) => b.rows.length)
+    .filter(recArchInWindow);
   REC_ARCH_PENDING = winBatches.filter((b) => !recArchDecided(b)).length;
   /* 详情：按存档时间倒序（最近的一期在最上面） */
   REC_ROWS_ARCHIVE = winBatches
