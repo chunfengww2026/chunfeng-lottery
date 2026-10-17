@@ -15,6 +15,13 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+/* 【设备门 + PWA】共用模块（不写 localStorage、不用裸 button、不含任何出处字样）：
+     · 设备门：本机 / ?admin=1 / 手机平板 → 放行；电脑浏览器 / 电脑微信 → 拦
+     · PWA：manifest.json + theme-color + 「📱 一键桌面」
+   ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
+import {
+  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY, INSTALL_CSS, INSTALL_HTML, INSTALL_JS
+} from './device-gate.mjs';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
 /* 【走势图 · 内联片段】用户 2026-10-17：
      「留在近30期走势预选参考里面. 删除单独走势图独立页」
@@ -2714,8 +2721,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#0f1115" />
+${PWA_HEAD}
 <meta name="application-name" content="春风大奖" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="春风大奖" />
@@ -5152,8 +5158,12 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   .ro-mq { flex: 0 0 auto; width: 100%; }
 }
 </style>
+<!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
+     放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}</style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
+${DEVICE_GATE_BODY}
 <div class="ro-wrap">
   <!-- ============================================================
        __HOT_OWNER__ 热度计数（只有本机 owner 看得到）
@@ -7816,6 +7826,8 @@ ${RO_RENDER_SCRIPT}
   } catch (e) { /* 这段挂了不影响页面 */ }
 })();
 </script>
+${INSTALL_HTML}
+${INSTALL_JS}
 </body>
 </html>`;
 
