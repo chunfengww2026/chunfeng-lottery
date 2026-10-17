@@ -616,6 +616,8 @@ export const CHAT_HTML = `<!-- __CHAT__ 春风小助手（右下角）
     <span class="cf-title">春风小助手</span>
     <div class="cf-close" id="cfClose" role="button" tabindex="0" aria-label="收起">×</div>
   </div>
+  <!-- __CF_VIDEO_SLOT__ 祝福视频占位：只有分享页（export-static.mjs）会把这一行
+       换成 CHAT_VIDEO_HTML；其它页（足球页）不替换 → 这里就只是个注释，什么都不显示 -->
   <div class="cf-body" id="cfBody" aria-live="polite"></div>
   <div class="cf-quick" id="cfQuick">
     <div class="cf-chip" role="button" tabindex="0" data-q="推荐号">推荐号</div>
@@ -1127,6 +1129,17 @@ export const CHAT_JS = `
       body.appendChild(d);
       body.scrollTop = body.scrollHeight;
     }
+    /* 【祝福视频】给页面别处留一个「追加一条助手气泡」的入口（2026-10-18）。
+       只走上面这套 push —— 记录 / 40 条上限 / 滚到底 全都一致，不另建一套 DOM。
+       cls 只是给这一条气泡补个类名（例如黄色祝福气泡），别的一模一样。 */
+    window.__cfSay = function (t, cls) {
+      try {
+        if (!body) return;
+        push('bot', String(t == null ? '' : t));
+        var last = body.lastChild;
+        if (cls && last && last.classList) last.classList.add(String(cls));
+      } catch (e) { }
+    };
     function ask(text) {
       var q = squeeze(text);
       if (!q) return;
@@ -1152,6 +1165,9 @@ export const CHAT_JS = `
       panel.classList.add('cf-on');
       panel.setAttribute('aria-hidden', 'false');
       document.body.classList.add('cf-open');
+      /* 【祝福视频·懒加载】第一次打开聊天框才让它去 load blessing.mp4（2.82 MB
+         不进首屏）。钩子只有分享页装了，别的页面这里是 undefined，静默跳过。 */
+      try { if (typeof window.__cfVideoBoot === 'function') window.__cfVideoBoot(); } catch (e) { }
       if (!mem.length) {
         push('bot', '我是春风。想看号、想看战绩、想问走势，直接说就行。');
       }
@@ -1217,6 +1233,197 @@ export const CHAT_JS = `
       if (k === 'Escape' && isOpen()) close();
     });
   } catch (e) { /* 聊天框出任何错都不影响看页面 */ }
+})();
+</script>
+`;
+
+/* ============================================================================
+   【祝福视频】聊天框顶部视频区（用户 2026-10-18：把「火山方舟.mp4」做成祝福视频）
+   ----------------------------------------------------------------------------
+   只有分享页（export-static.mjs）引这三个 export；足球页 / 比赛详情页【不引】，
+   所以它们两个页面连 <div class="cf-video"> 都不会有，也不会去请求 blessing.mp4。
+
+   三条硬约束（都是用户定死的）：
+     ① 视频 2.82 MB —— 必须懒加载：preload="none"，只有【聊天框第一次打开】
+        才 video.load()（钩子是 CHAT_JS 里的 open() → window.__cfVideoBoot()）
+     ② 视频挂了 / 文件不在 → 黑底占位块（▶ 点击播放视频），点一下 = 中文 TTS
+        语音祝福（speechSynthesis，念完就 stop）+ 2.5 秒后一条黄色气泡
+     ③ 不用 alert、不用裸 <button>（可点是 div[role=button][tabindex=0]）、
+        不写任何浏览器存储；气泡走聊天框【自己已有的】push（window.__cfSay）
+   ============================================================================ */
+
+export const CHAT_VIDEO_CSS = `
+/* ===== __CF_VIDEO__ 祝福视频（聊天框顶部；只有分享页引这一块） ===== */
+/* 面板带视频 → 允许更高一点，否则 180px 视频挤得输入框出不来 */
+.cf-panel.cf-video-on { max-height: min(78vh, 560px); }
+
+.cf-video { flex: 0 0 auto; position: relative; width: 100%; height: 180px;
+  background: #000; overflow: hidden; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.cf-video video { display: block; width: 100%; height: 100%;
+  object-fit: cover; background: #000; }
+.cf-video:focus-visible { outline: 2px solid #1a8c5a; outline-offset: -2px; }
+
+/* 占位块：视频 404 / 解码失败时才 display:flex（JS 加 .cf-video-fail） */
+.cf-video-ph { position: absolute; inset: 0; display: none;
+  flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(160deg, #241c14, #3d2f21 55%, #4a3a26);
+  color: #ffe9b8; font-size: 12px; text-align: center; padding: 0 10px;
+  box-sizing: border-box; }
+.cf-video.cf-video-fail .cf-video-ph { display: flex; }
+.cf-video-play { width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 233, 184, 0.15); border: 1px solid rgba(255, 233, 184, 0.55);
+  font-size: 17px; line-height: 1; padding-left: 3px;
+  animation: cf-vplay 1.9s ease-in-out infinite; }
+@keyframes cf-vplay { 0%, 100% { transform: scale(1); opacity: 0.88; }
+  50% { transform: scale(1.09); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .cf-video-play { animation: none; } }
+.cf-video-txt { letter-spacing: 0.5px; line-height: 1.5; }
+/* 矮屏（横屏手机 / 小屏）：视频压一档，保证输入框不被挤出面板 */
+@media (max-height: 520px) { .cf-video { height: 110px; } }
+@media (max-width: 340px) { .cf-video { height: 146px; } }
+
+/* 【黄色气泡】只有祝福视频这一条用（用户指定黄色；其它气泡样式不动） */
+.cf-msg.cf-bless { background: #ffe9a3; color: #7a4a00; border: 1px solid #f0cb63;
+  border-bottom-left-radius: 4px; }
+`;
+
+export const CHAT_VIDEO_HTML = `<!-- __CF_VIDEO__ 祝福视频（聊天框顶部）
+     ⚠️ 可点是 div[role=button][tabindex=0]（页面不变量：裸 <button> = 0）
+     ⚠️ preload="none" + 没有 src 请求：只有聊天框第一次打开才 load()（2.82 MB 不进首屏）
+     ⚠️ 不用 alert、不写浏览器存储；视频挂了就占位 + TTS 语音祝福 -->
+<div class="cf-video" id="cfVideoBox" role="button" tabindex="0" aria-label="祝福视频，点一下播放或暂停">
+  <video id="cfVideo" src="./blessing.mp4" loop playsinline preload="none"></video>
+  <div class="cf-video-ph" id="cfVideoPh">
+    <div class="cf-video-play" aria-hidden="true">▶</div>
+    <div class="cf-video-txt" id="cfVideoTxt">点击播放视频</div>
+  </div>
+</div>`;
+
+export const CHAT_VIDEO_JS = `
+<script>
+/* __CF_VIDEO_JS__ 祝福视频：懒加载 + TTS 语音祝福 + 黄色气泡
+   · 懒加载：preload="none"，只有【聊天框第一次打开】才 video.load()
+     （2.82 MB 不参与首屏；页面一开始一个字节都不拉）
+   · 视频 404 / 解码失败 → 黑底占位块（▶ 点击播放视频）
+     点一下 = 中文 TTS 祝福 + 2.5 秒后一条黄色气泡
+   · 浏览器不支持 speechSynthesis → 静默跳过，绝不报错；念完立刻 stop（不一直念）
+   · 气泡走聊天框自己的追加函数（window.__cfSay → CHAT_JS 里的 push），不另写一套
+   ⚠️ 这段也在模板字符串里：只用单引号、不写反引号、不写 \${、不写反斜杠 */
+(function () {
+  'use strict';
+  try {
+    var box = document.getElementById('cfVideoBox');
+    var video = document.getElementById('cfVideo');
+    var phTxt = document.getElementById('cfVideoTxt');
+    if (!box || !video) return;
+
+    var loaded = false;       /* 有没有 load() 过（懒加载开关） */
+    var failed = false;       /* 视频是不是挂了 → 走占位 + TTS */
+    var ttsTimer = 0;         /* TTS 兜底 stop 的定时器 */
+    var bubbleTimer = 0;      /* 2.5 秒气泡的定时器 */
+    var LINE = '恭喜发财！祝大家中大奖，好运连连！';
+    var BUBBLE = '🎉 恭喜发财！看了这个视频，下一期大奖就是你的了！';
+
+    /* ---------- 1. 懒加载：聊天框第一次打开才 load ---------- */
+    function boot() {
+      if (loaded) return;
+      loaded = true;
+      try { video.preload = 'auto'; video.load(); } catch (e) { }
+      /* 兜底：4 秒还一个字节都没拿到 → 当加载失败，先亮占位块 */
+      setTimeout(function () {
+        if (!failed && !video.readyState) fallback();
+      }, 4000);
+    }
+    window.__cfVideoBoot = boot;   /* ← CHAT_JS 的 open() 调的就是这个 */
+
+    function fallback() {
+      if (failed) return;
+      failed = true;
+      try { video.pause(); } catch (e) { }
+      box.classList.add('cf-video-fail');
+      if (phTxt) phTxt.textContent = '点击播放视频';
+    }
+
+    /* ---------- 2. TTS 语音祝福（不支持就静默跳过；念完 stop） ---------- */
+    function stopSpeak() {
+      if (ttsTimer) { clearTimeout(ttsTimer); ttsTimer = 0; }
+      try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) { }
+    }
+    function speak() {
+      try {
+        if (!window.speechSynthesis || typeof window.SpeechSynthesisUtterance !== 'function') return;
+        var u = new window.SpeechSynthesisUtterance(LINE);
+        u.lang = 'zh-CN';
+        u.rate = 1.0;
+        u.pitch = 1.1;
+        u.onend = stopSpeak;      /* 念完就停，不留尾巴 */
+        u.onerror = stopSpeak;
+        stopSpeak();              /* 连点也不叠着念 */
+        window.speechSynthesis.speak(u);
+        ttsTimer = setTimeout(stopSpeak, 9000);   /* 兜底：有的内核不触发 onend */
+      } catch (e) { /* 不支持就跳过 */ }
+    }
+
+    /* ---------- 3. 2.5 秒后一条黄色气泡（用聊天框已有的追加函数） ---------- */
+    function bubble() {
+      if (bubbleTimer) return;      /* 2.5 秒内的连点不重复弹 */
+      bubbleTimer = setTimeout(function () {
+        bubbleTimer = 0;
+        try {
+          if (typeof window.__cfSay === 'function') window.__cfSay(BUBBLE, 'cf-bless');
+        } catch (e) { }
+      }, 2500);
+    }
+
+    /* ---------- 4. 点一下：能播就 播/暂停；挂了就 TTS + 气泡 ---------- */
+    function playMyVideo() {
+      boot();
+      if (failed) {
+        if (phTxt) phTxt.textContent = '🎉 祝大家中大奖！';
+        speak();
+      } else {
+        try {
+          if (video.paused) {
+            var p = video.play();
+            if (p && p.catch) p.catch(function () { fallback(); });
+          } else {
+            video.pause();
+          }
+        } catch (e) { fallback(); if (phTxt) phTxt.textContent = '🎉 祝大家中大奖！'; speak(); }
+      }
+      bubble();
+    }
+    window.playMyVideo = playMyVideo;   /* 和用户给的设计同名，方便页面里直接调 */
+
+    function tap(ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      playMyVideo();
+    }
+    box.addEventListener('click', tap);
+    box.addEventListener('keydown', function (ev) {
+      var k = ev ? String(ev.key || '') : '';
+      if (k === 'Enter' || k === ' ' || k === 'Spacebar') {
+        if (ev.preventDefault) ev.preventDefault();
+        playMyVideo();
+      }
+    });
+    video.addEventListener('error', fallback);
+
+    /* ---------- 5. 聊天框收起 → 暂停视频 + 停掉语音（不在后台偷偷响） ---------- */
+    try {
+      var panel = document.getElementById('cfPanel');
+      if (panel && window.MutationObserver) {
+        new MutationObserver(function () {
+          if (!panel.classList.contains('cf-on')) {
+            try { video.pause(); } catch (e) { }
+            stopSpeak();
+          }
+        }).observe(panel, { attributes: true, attributeFilter: ['class'] });
+      }
+    } catch (e) { }
+  } catch (e) { /* 视频区出任何错都不影响看页面 / 用聊天框 */ }
 })();
 </script>
 `;
