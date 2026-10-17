@@ -1595,6 +1595,377 @@ const AIPICK_JS_RULES = JSON.stringify(AIPICK_RULES);
    ⚠️ 这里只放【配置】（区间 / 位数），不放任何开奖结果；
       号码一律由页面脚本从 DRAW_HISTORY 现算，绝不预先写死结果。
    ============================================================ */
+/* ============================================================
+   __REC__ 「本期推荐号码」—— 多源共振打分（构建时算好，页面只负责显示）
+   ------------------------------------------------------------
+   用户 2026-10-18 原话：「我不管你用自己的模板ai一套计算方式 都要在下面
+   按照我的要求出号码」；补充硬性条件：「自己的算法 每期都变」。
+     · 8 个智能分析子页面（数据统计 / 趋势分析 / 实时热点 / 均线分析 /
+       指数预测 / 遗漏宝 / 智能规律 / AI推荐）的最底部都要给出【具体号码】：
+       双色球 红6+蓝1、大乐透 前5+后2、七乐彩 基本7+特别1、快乐8 选10、
+       数字彩（3D/排3/排5/七星彩）定位号 + 6 码组选
+     · 号码 = f(彩种, 下一期期号)：同一期永远同一组（刷新 / 换设备都一样），
+       期号 +1 或换彩种 → 重新算，一组号就换掉
+     · 只用本页已有的近 30 期真实开奖算；不用 Math.random，不联网
+   ------------------------------------------------------------
+   六个打分项（各自归一化到 0~1，再按权重相加 = 单号分）：
+     ① 热号     近 30 期出现次数 / 最高次数
+     ② 冷号回补 当前遗漏 / (2 倍理论遗漏)，封顶 1
+     ③ 和值合理 号码离「近 30 期和值均值 ÷ 每期个数」的距离，越近分越高
+     ④ 分区覆盖 三个分区里近 30 期出现密度低的那一区加分（回补）
+     ⑤ 奇偶平衡 选号阶段按近 30 期奇号占比补足（差在选号时补，不塞进单号分）
+     ⑥ 连号同尾 只有历史出现率 ≥40% / ≥50% 时才加分，且最多各一对（适度）
+   排序口径（两步，缺一不可）：
+     第一步 单号分 = 上面几项加权 → 先取「共振池」= 单号分最高的 need×2 个
+            （分不够的号根本没资格进候选，保证号码不是随便摇的）
+     第二步 池内排序键 = 单号分 × 0.45 + 期号种子 × 0.55
+            → 每期种子变 → 每期从池子里换一批出来；
+              同一期刷新一万次都是同一组（种子是期号，不是时间、不是随机数）。
+   蓝球 / 后区 / 特别号：单独一套（只看出现次数 + 遗漏），池子 = need+3。
+   数字彩：按【位】算冷热 + 遗漏 → 每位 3 个定位号；3D / 排3 的三位、
+   排5 的前三位，三组数字两两不重复（同一条老规则）→ 27 注单选全是组六、
+   0 豹子；再给 6 码组选（6 个互不相同的数字 → 20 注全是组六：
+   组三 0 注、豹子 0 注，符合「组三 ≤1、豹子 0」）。
+   ============================================================ */
+const REC_SPAN = 30;
+
+/* 自测用：REC_ISSUE=2026120 时把 8 个彩种的种子期号统一换成这个值，
+   只为验证「换期号 → 号码变」，日常生成不设这个变量。 */
+const REC_ISSUE_OVERRIDE = String(process.env.REC_ISSUE || '').trim();
+
+function recHash32(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+/* 期号种子 → 0~1（纯函数：同一个 key 永远同一个数，不用 Math.random） */
+function recSeed01(key) { return (recHash32(String(key)) % 1000003) / 1000003; }
+
+/* 下一期期号：优先用页面那套 nextIssueFor（同一个函数、同一口径），
+   拿不到就按最新一期 +1（跨年 400 期封顶，和那套完全一致）。 */
+function recNextIssue(gid, draws) {
+  try { if (typeof nextIssue === 'function') { const v = nextIssue(gid); if (v) return String(v); } } catch (e) { /* 忽略 */ }
+  const s = String((draws[0] && draws[0].issue) || '').trim();
+  if (!/^[0-9]{5,8}$/.test(s)) return s;
+  const yearLen = s.length >= 7 ? 4 : 2;
+  const yearNum = parseInt(s.slice(0, yearLen), 10);
+  const seqRaw = s.slice(yearLen);
+  let seq = parseInt(seqRaw, 10) + 1;
+  let ny = yearNum;
+  if (seq > 400) { seq = 1; ny = yearNum + 1; }
+  const ys = yearLen === 4 ? String(ny).padStart(4, '0') : String(ny % 100).padStart(2, '0');
+  return ys + String(seq).padStart(seqRaw.length, '0');
+}
+
+/* 号码型一个「区」的近 N 期统计：次数 / 当前遗漏 / 和值均值 / 奇号占比 /
+   分区密度 / 连号与同尾出现率 */
+function recAreaStat(draws, key, from, to) {
+  const rows = [];
+  const span = Math.min(draws.length, REC_SPAN);
+  for (let i = 0; i < span; i++) {
+    const a = ((draws[i] && draws[i].areas && draws[i].areas[key]) || []).map(Number);
+    if (a.length) rows.push(a);
+  }
+  let perDraw = 0;
+  for (let i = 0; i < rows.length; i++) if (rows[i].length > perDraw) perDraw = rows[i].length;
+  const total = to - from + 1;
+  const theo = perDraw ? total / perDraw : 0;
+  const freq = {}, cur = {};
+  for (let v = from; v <= to; v++) { freq[v] = 0; cur[v] = rows.length; }
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < rows[i].length; j++) {
+      const v = rows[i][j];
+      if (freq[v] == null) continue;
+      freq[v]++;
+      if (cur[v] === rows.length) cur[v] = i;
+    }
+  }
+  let maxFreq = 1;
+  let sumAll = 0, cntAll = 0, oddN = 0;
+  for (let v = from; v <= to; v++) {
+    if (freq[v] > maxFreq) maxFreq = freq[v];
+    sumAll += freq[v] * v;
+    cntAll += freq[v];
+    if (v % 2) oddN += freq[v];
+  }
+  const oddShare = cntAll ? oddN / cntAll : 0.5;
+  const zones = 3;
+  const zoneOf = (v) => Math.min(zones - 1, Math.floor((v - from) * zones / total));
+  const zc = [0, 0, 0];
+  for (let v = from; v <= to; v++) zc[zoneOf(v)] += freq[v];
+  let consecDraws = 0, tailDraws = 0;
+  for (let i = 0; i < rows.length; i++) {
+    const a = rows[i].slice().sort((x, y) => x - y);
+    let c = false, t = false;
+    for (let j = 1; j < a.length; j++) if (a[j] - a[j - 1] === 1) c = true;
+    const seen = {};
+    for (let j = 0; j < a.length; j++) { const d = a[j] % 10; if (seen[d]) t = true; seen[d] = 1; }
+    if (c) consecDraws++;
+    if (t) tailDraws++;
+  }
+  return {
+    n: rows.length, perDraw, total, theo, freq, cur, maxFreq, oddShare, zones, zoneOf, zc,
+    sumAvg: rows.length ? sumAll / rows.length : 0,
+    consecRate: rows.length ? consecDraws / rows.length : 0,
+    tailRate: rows.length ? tailDraws / rows.length : 0
+  };
+}
+
+/* 单号分：① 热 ② 冷 ③ 和值 ④ 分区（权重见文件头） */
+function recItems(st, cfg, withSum) {
+  const out = [];
+  for (let v = cfg.from; v <= cfg.to; v++) {
+    const hot = st.maxFreq ? st.freq[v] / st.maxFreq : 0;
+    const cold = st.theo ? Math.min(st.cur[v] / (st.theo * 2), 1) : 0;
+    const sumFit = (withSum && st.perDraw && st.sumAvg)
+      ? 1 - Math.min(Math.abs(v - st.sumAvg / st.perDraw) / (st.total / 2), 1) : 0.5;
+    const exp = st.n ? (st.perDraw / st.zones) : 0;
+    const act = st.n ? st.zc[st.zoneOf(v)] / st.n : 0;
+    const zoneFit = exp ? Math.max(0, 1 - act / exp / 2) : 0.5;
+    const data = withSum
+      ? hot * 0.30 + cold * 0.26 + sumFit * 0.18 + zoneFit * 0.26
+      : hot * 0.45 + cold * 0.45 + zoneFit * 0.10;
+    out.push({ n: v, data });
+  }
+  return out;
+}
+
+/* 共振池：先按单号分取前 poolN 个（分数不够的号根本没资格进），
+   再在池子里用期号种子排序 —— 既保证「分高的号更容易进」，
+   又保证换一期就换一批（池子大小 > 要选的个数，才有换的余地）。 */
+function recPool(items, poolN) {
+  const arr = items.slice().sort((a, b) => (b.data - a.data) || (a.n - b.n));
+  return arr.slice(0, Math.max(1, Math.min(poolN, arr.length)));
+}
+
+/* 蓝球 / 后区 / 特别号：单独一套（次数 + 遗漏），池子 + 期号种子 */
+function recPickSimple(items, need, seedTag) {
+  const pool = recPool(items, need + 3);
+  const arr = pool.map((it) => ({
+    n: it.n,
+    s: it.data * 0.45 + recSeed01(seedTag + '|' + it.n) * 0.55
+  }));
+  arr.sort((a, b) => (b.s - a.s) || (a.n - b.n));
+  return arr.slice(0, need).map((x) => x.n).sort((a, b) => a - b);
+}
+
+/* 主要号区：五项打分先筛出「共振池」（`need × 2` 个），再在池子里选 ——
+   ⑤ 奇偶补足 ⑥ 连号同尾 都在选到阶段才算（避免挤成一串）
+   池内排序键 = 单号分 × 0.45 + 期号种子 × 0.55 */
+function recPickMain(items, need, st, seedTag) {
+  const left = recPool(items, Math.max(need + 3, Math.round(need * 2)))
+    .map((it) => ({ n: it.n, data: it.data }));
+  const pick = [];
+  const zc = [0, 0, 0];
+  const quota = Math.max(1, Math.floor(need / st.zones));
+  const oddQuota = Math.round(need * (st.oddShare || 0.5));
+  let oddN = 0, hasConsec = false, hasTail = false;
+  for (let k = 0; k < need; k++) {
+    let bi = -1, bv = -1e9;
+    for (let i = 0; i < left.length; i++) {
+      const it = left[i];
+      if (it.taken) continue;
+      let s = it.data * 0.45 + recSeed01(seedTag + '|' + it.n + '|' + k) * 0.55;
+      const odd = it.n % 2 === 1;
+      if (odd && oddN < oddQuota) s += 0.10;
+      if (!odd && (k - oddN) < (need - oddQuota)) s += 0.10;
+      const z = st.zoneOf(it.n);
+      if (zc[z] === 0 && k < need - (st.zones - 1)) s += 0.10;
+      else if (zc[z] >= quota + 1) s -= 0.07;
+      if (!hasConsec && st.consecRate >= 0.4) {
+        for (let q = 0; q < pick.length; q++) if (Math.abs(pick[q] - it.n) === 1) { s += 0.06; break; }
+      }
+      if (!hasTail && st.tailRate >= 0.5) {
+        for (let q = 0; q < pick.length; q++) if (pick[q] % 10 === it.n % 10) { s += 0.04; break; }
+      }
+      if (s > bv) { bv = s; bi = i; }
+    }
+    if (bi < 0) break;
+    const ch = left[bi];
+    ch.taken = true;
+    pick.push(ch.n);
+    zc[st.zoneOf(ch.n)]++;
+    if (ch.n % 2 === 1) oddN++;
+    for (let q = 0; q < pick.length - 1; q++) {
+      if (Math.abs(pick[q] - ch.n) === 1) hasConsec = true;
+      if (pick[q] % 10 === ch.n % 10) hasTail = true;
+    }
+  }
+  return pick.sort((a, b) => a - b);
+}
+
+/* 数字彩「一位」的统计（一行一个数位，允许重复开奖） */
+function recColStat(rows, from, to) {
+  const n = rows.length, total = to - from + 1;
+  const freq = {}, cur = {};
+  for (let v = from; v <= to; v++) { freq[v] = 0; cur[v] = n; }
+  for (let i = 0; i < n; i++) {
+    const v = Number(rows[i]);
+    if (freq[v] == null) continue;
+    freq[v]++;
+    if (cur[v] === n) cur[v] = i;
+  }
+  let maxFreq = 1;
+  for (let v = from; v <= to; v++) if (freq[v] > maxFreq) maxFreq = freq[v];
+  return { n, total, freq, cur, maxFreq, theo: n ? total / n : 0 };
+}
+function recColData(st, v) {
+  const hot = st.maxFreq ? st.freq[v] / st.maxFreq : 0;
+  const cold = st.theo ? Math.min(st.cur[v] / (st.theo * 2), 1) : 0;
+  return hot * 0.5 + cold * 0.5;
+}
+
+/* 数字彩：每位 3 个定位号（gate 位三组两两不重复）+ 6 码组选 */
+function recDigits(gid, g, draws, issue) {
+  const span = Math.min(draws.length, REC_SPAN);
+  const list = draws.slice(0, span);
+  const posDefs = [];
+  const areaOf = (i) => {
+    if (g.type === 'qxc') return i < 6 ? { key: 'front', idx: i } : { key: 'back', idx: 0 };
+    return { key: 'main', idx: i };
+  };
+  if (g.type === 'qxc') {
+    for (let i = 0; i < 6; i++) posDefs.push({ label: '第' + (i + 1) + '位', from: 0, to: 9, gate: false });
+    posDefs.push({ label: '最后一位', from: 0, to: 14, gate: false });
+  } else if (gid === 'pl5') {
+    ['万位', '千位', '百位', '十位', '个位'].forEach((nm, i) => {
+      posDefs.push({ label: nm, from: 0, to: 9, gate: i < 3 });
+    });
+  } else {
+    ['百位', '十位', '个位'].forEach((nm) => posDefs.push({ label: nm, from: 0, to: 9, gate: true }));
+  }
+  const cols = posDefs.map((pd, i) => {
+    const a = areaOf(i);
+    const rows = [];
+    for (let d = 0; d < list.length; d++) {
+      const arr = ((list[d] && list[d].areas && list[d].areas[a.key]) || []);
+      if (arr.length > a.idx) rows.push(Number(arr[a.idx]));
+    }
+    return recColStat(rows, pd.from, pd.to);
+  });
+  const sets = posDefs.map(() => []);
+  const used = {};
+  /* 每一位先筛「共振池」（该位冷热 + 遗漏得分最高的 6 个 / 非 gate 位 5 个），
+     再在池子里按期号种子挑 3 个 —— 换一期就换一批，但换不出统计上的冷号。 */
+  const pools = posDefs.map((pd, p) => {
+    const st = cols[p], arr = [];
+    for (let v = pd.from; v <= pd.to; v++) arr.push({ n: v, data: recColData(st, v) });
+    return recPool(arr, pd.gate ? 6 : 5).map((x) => x.n);
+  });
+  for (let r = 0; r < 3; r++) {
+    for (let p = 0; p < posDefs.length; p++) {
+      const pd = posDefs[p], st = cols[p];
+      let bi = -1, bv = -1e9;
+      const cand = pools[p];
+      for (let ci = 0; ci < cand.length; ci++) {
+        const v = cand[ci];
+        if (sets[p].indexOf(v) >= 0) continue;
+        if (pd.gate && used[v]) continue;
+        const s = recColData(st, v) * 0.45 + recSeed01(issue + '|' + gid + '|p' + p + '|' + v + '|' + r) * 0.55;
+        if (s > bv) { bv = s; bi = v; }
+      }
+      /* 池子被别的位占满了 → 退到全区间补（gate 位仍然不许重复） */
+      if (bi < 0) {
+        for (let v = pd.from; v <= pd.to; v++) {
+          if (sets[p].indexOf(v) >= 0) continue;
+          if (pd.gate && used[v]) continue;
+          const s = recColData(st, v) * 0.45 + recSeed01(issue + '|' + gid + '|p' + p + '|' + v + '|x' + r) * 0.55;
+          if (s > bv) { bv = s; bi = v; }
+        }
+      }
+      if (bi < 0) continue;
+      sets[p].push(bi);
+      if (pd.gate) used[bi] = 1;
+    }
+  }
+  const blocks = posDefs.map((pd, i) => ({
+    label: pd.label, kind: 'digit', color: '', nums: sets[i].sort((a, b) => a - b)
+  }));
+  /* 6 码组选（3D / 排3 有组选玩法；6 个互不相同的数字 → 20 注全是组六） */
+  if (gid === 'fc3d' || gid === 'pl3') {
+    const agg = {};
+    for (let v = 0; v <= 9; v++) agg[v] = { f: 0, cur: 0, n: 0 };
+    for (let p = 0; p < 3; p++) {
+      const st = cols[p] || cols[cols.length - 1];
+      if (!st) continue;
+      for (let v = 0; v <= 9; v++) { agg[v].f += st.freq[v] || 0; agg[v].cur += st.cur[v] || 0; agg[v].n++; }
+    }
+    let maxF = 1;
+    for (let v = 0; v <= 9; v++) if (agg[v].f > maxF) maxF = agg[v].f;
+    const grpScore = [];
+    for (let v = 0; v <= 9; v++) {
+      const hot = agg[v].f / maxF;
+      const curAvg = agg[v].n ? agg[v].cur / agg[v].n : 0;
+      const cold = Math.min(curAvg / 20, 1);
+      const data = hot * 0.5 + cold * 0.5;
+      grpScore.push({ n: v, data: data });
+    }
+    /* 组选同样走「共振池（前 8 个）+ 期号种子」：6 个互不相同的数字 */
+    const grpPool = recPool(grpScore, 8).map((it) => ({
+      n: it.n, s: it.data * 0.45 + recSeed01(issue + '|' + gid + '|grp|' + it.n) * 0.55
+    }));
+    grpPool.sort((a, b) => (b.s - a.s) || (a.n - b.n));
+    blocks.push({ label: '6 码组选', kind: 'digit', color: '', nums: grpPool.slice(0, 6).map((x) => x.n).sort((a, b) => a - b) });
+  }
+  const gateN = posDefs.filter((p) => p.gate).length;
+  let basis = '定位号：近 ' + span + ' 期每位冷热 + 遗漏';
+  if (gateN >= 3) basis += '（前三位三组数字两两不同 → 27 注单选全组六、0 豹子）';
+  if (gid === 'fc3d' || gid === 'pl3') basis += '；6 码组选 6 个互不相同的数字 → 20 注全组六（组三 0 注、豹子 0 注）';
+  return { blocks, basis, span };
+}
+
+/* 主入口：8 个彩种各算一组 */
+function buildRecNumbers() {
+  const GAMESOBJ = G || {};
+  const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
+  const out = {};
+  const lines = [];
+  ['ssq', 'dlt', 'qlc', 'qxc', 'kl8', 'fc3d', 'pl3', 'pl5'].forEach((gid) => {
+    const g = GAMESOBJ[gid];
+    if (!g) return;
+    const draws = Array.isArray(HIST[gid]) ? HIST[gid] : [];
+    if (!draws.length) return;
+    const issue = REC_ISSUE_OVERRIDE || recNextIssue(gid, draws);
+    let rec = null;
+    if (g.type === 'digit' || g.type === 'qxc') {
+      rec = recDigits(gid, g, draws, issue);
+    } else if (Array.isArray(g.areas) && g.areas.length) {
+      const blocks = [];
+      let span = 0;
+      g.areas.forEach((cfg, ai) => {
+        const st = recAreaStat(draws, cfg.key, cfg.from, cfg.to);
+        span = st.n;
+        if (!st.n) return;
+        const need = Math.max(1, Number(cfg.pick || 1));
+        const items = recItems(st, cfg, ai === 0);
+        const nums = (ai === 0)
+          ? recPickMain(items, need, st, issue + '|' + gid + '|' + cfg.key)
+          : recPickSimple(items, need, issue + '|' + gid + '|' + cfg.key);
+        blocks.push({
+          label: cfg.label || ('区' + (ai + 1)),
+          kind: 'ball',
+          color: (cfg.color === 'blue' || ai === 1) ? 'blue' : 'red',
+          nums: nums
+        });
+      });
+      const basis = '热号 30% · 冷号回补 26% · 和值合理 18% · 分区覆盖 26%' +
+        '（奇偶平衡 / 连号同尾在选号时补），期号做种子';
+      rec = { blocks, basis, span: span || Math.min(draws.length, REC_SPAN) };
+    }
+    if (!rec || !rec.blocks.length) return;
+    out[gid] = {
+      issue, name: String(g.name || gid), span: rec.span,
+      basis: rec.basis, blocks: rec.blocks
+    };
+    const txt = rec.blocks.map((b) => b.label + ' ' + b.nums.map((x) => (b.kind === 'digit' ? String(x) : String(x).padStart(2, '0'))).join(' ')).join(' · ');
+    lines.push('    ' + String(g.name || gid) + ' 第 ' + issue + ' 期：' + txt);
+  });
+  if (lines.length) {
+    console.log(`  · 本期推荐号码（多源共振 · 种子=下一期期号${REC_ISSUE_OVERRIDE ? ' · 自测期号覆盖 ' + REC_ISSUE_OVERRIDE : ''}）：`);
+    lines.forEach((l) => console.log(l));
+  }
+  return out;
+}
 const TOOL_ORDER = ['ssq', 'dlt', 'qlc', 'qxc', 'kl8', 'fc3d', 'pl3', 'pl5'];
 const TOOL_GAMES = TOOL_ORDER.filter((k) => G && G[k]).map((k) => {
   const g = G[k];
@@ -1612,6 +1983,9 @@ const TOOL_GAMES = TOOL_ORDER.filter((k) => G && G[k]).map((k) => {
   return { id: k, name: String(g.name || k), type: String(g.type || 'areas'), areas };
 });
 const TOOL_GAMES_JS = JSON.stringify(TOOL_GAMES);
+
+/* __REC__ 构建时算好的「本期推荐号码」（多源共振打分 · 种子 = 下一期期号） */
+const REC_JS = JSON.stringify(buildRecNumbers());
 
 console.log(`  · ai选号：${AIPICK_RULES.map((g) => g.name).join(' / ')}`);
 
