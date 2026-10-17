@@ -260,10 +260,18 @@ jobs:
           #   线上 favicon.ico / share.png / manifest.webmanifest 全是 404。
           #   所以这里必须补上（名单和 cloud-build.mjs 的 ICON_FILES、
           #   两个页面 <head> 里的引用三者要一致）。
+          #   ⚠️ manifest.json 是页面现在引用的清单文件（相对路径，用户指定）；
+          #      manifest.webmanifest 是旧文件名，留着不删以免老页面/老缓存 404。
           for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png \
-                   apple-touch-icon.png share.png manifest.webmanifest; do
+                   apple-touch-icon.png share.png manifest.json manifest.webmanifest; do
             cp -f "cloud/out/$f" "site/$f" || true
           done
+          # 【PWA · Service Worker】必须在站点【根目录】（和 index.html 同级），
+          #   scope 才覆盖全站 —— 它不在 icons/ 里，cloud-build.mjs 是单独拷进 out/ 的。
+          #   ⚠️ 这一步以前【漏了】→ 线上 service-worker.js 一直 404
+          #      → 浏览器判定"不可安装" → beforeinstallprompt 永远不触发
+          #      → 「📱 一键桌面」在安卓 Chrome 上点了只能出引导提示，弹不出原生安装框。
+          cp -f cloud/out/service-worker.js site/service-worker.js || true
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
           # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
           # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
@@ -309,7 +317,7 @@ jobs:
           #   页面 <head> 里引用的 favicon / manifest / share.png 就会 404。
           echo "--- 分享图标自证 ---"
           MISSING=0
-          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.webmanifest; do
+          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.json manifest.webmanifest; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
             else
@@ -319,6 +327,12 @@ jobs:
           done
           if [ "$MISSING" != "0" ]; then
             echo "::warning::$MISSING 个分享图标没进 site/ —— 页面图标会 404（页面本身仍可访问）"
+          fi
+          # 【PWA 自证】SW 必须真的在站点根目录，否则「一键桌面」装不上。
+          if [ -s "site/service-worker.js" ]; then
+            echo "✅ site/service-worker.js  $(du -h "site/service-worker.js" | cut -f1)（纯透传，不缓存）"
+          else
+            echo "⚠️ site/service-worker.js 缺失 -> 线上 PWA 不可安装（页面仍可访问）"
           fi
           echo "--- site 目录内容 ---"
           ls -lh site/
