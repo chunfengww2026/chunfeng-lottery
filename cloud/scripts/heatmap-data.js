@@ -19,7 +19,7 @@ const HEATMAP_DATA = {
   games: {
     dlt: {
       name: '大乐透',
-      issue: '26119',
+      issue: '26118',
       drawDate: '2026-10-17',
       madeAt: '2026-10-17 23:30',
       source: 'history-fallback',
