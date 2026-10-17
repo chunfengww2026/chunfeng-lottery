@@ -288,6 +288,17 @@ jobs:
             fi
           done
           echo "推荐串文件进 site/ 的个数：$RECO_OK / 3"
+          # 【往期推荐串 · 前端拉取】用户 2026-10-17 要求页面每 60 秒 fetch
+          #   ./data/recommend.json（云端每 5 分钟的班重建它）。
+          #   cloud-build.mjs 已经把它拷进 out/data/，这里必须再放进 site/data/
+          #   —— 不加这行线上永远 404，前端拉取静默失效（页面退回烘好的那份）。
+          mkdir -p site/data
+          cp -f cloud/out/data/recommend.json site/data/recommend.json || true
+          if [ -s site/data/recommend.json ]; then
+            echo "✅ site/data/recommend.json $(du -h site/data/recommend.json | cut -f1)"
+          else
+            echo "⚠️ site/data/recommend.json 缺失 -> 线上 404，往期推荐串拉取会退回页面烘好的那份"
+          fi
           BASE="https://chunfengww2026.github.io/chunfeng-lottery"
           # 兜底列表只放页面（图标缺失时从线上拉回旧的那份没有意义，
           # 真要缺就在下面的自证里报警，让人去补文件）
