@@ -2878,9 +2878,12 @@ const html = `<!DOCTYPE html>
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
 <title>春风十万里 - 综合数据平台</title>
-<meta name="description" content="春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<meta name="description" content="春风十万里：免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
-${metaItemprop('春风彩票', '春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。')}
+<!-- 微信 / QQ 兼容标签（用户 2026-10-18 给的文案；image 必须是绝对地址，用站点根的 share.png） -->
+<meta itemprop="name" content="春风十万里 - 免费推荐与智能选号" />
+<meta itemprop="description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
+<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -2906,10 +2909,8 @@ ${PWA_HEAD}
 <meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
-<!-- 微信 / QQ 专用的兼容标签（作用同上） -->
-<meta itemprop="name" content="春风十万里 - 免费推荐与智能选号" />
-<meta itemprop="description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
-<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
+<!-- 微信 / QQ 专用的兼容标签 → 已挪到 <head> 靠前的位置（和 title 在一起），
+     这里不再重复，避免 itemprop 出现两套（实测会导致微信读到旧文案）。 -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风十万里 - 免费推荐与智能选号" />
 <meta name="twitter:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
