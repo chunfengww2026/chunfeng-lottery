@@ -1484,6 +1484,34 @@ const AIPICK_RULES = AIPICK_ORDER.filter((k) => G && G[k]).map((k) => {
 });
 const AIPICK_JS_RULES = JSON.stringify(AIPICK_RULES);
 
+/* ============================================================
+   【智能分析工具栏 · 8 个入口】号码区间 / 位数（构建期算一次，注入页面）
+   ------------------------------------------------------------
+   为什么要在这里算：子页面里的「和值 / 跨度 / 大小 / 遗漏」都要知道
+   每个号码区的【最小值 / 最大值 / 每期出几个】，这些全部来自 games.js
+   的真配置（GAMES → G），不是手抄的常量 —— 以后改 games.js，
+   统计口径自动跟着变，不会两边对不上。
+   ⚠️ 这里只放【配置】（区间 / 位数），不放任何开奖结果；
+      号码一律由页面脚本从 DRAW_HISTORY 现算，绝不预先写死结果。
+   ============================================================ */
+const TOOL_ORDER = ['ssq', 'dlt', 'qlc', 'qxc', 'kl8', 'fc3d', 'pl3', 'pl5'];
+const TOOL_GAMES = TOOL_ORDER.filter((k) => G && G[k]).map((k) => {
+  const g = G[k];
+  let areas = (g.areas || []).map((a) => ({
+    key: String(a.key || ''), label: String(a.label || ''),
+    from: Number(a.from || 0), to: Number(a.to || 0), pick: Number(a.pick || 0)
+  }));
+  /* 数字彩（福彩3D / 排列3 / 排列5）：games.js 里没有 areas，只有位数 →
+     当成一个 0~9 的号码区，每期出 digits 个（开奖允许重复）。 */
+  if (!areas.length && g.type === 'digit') {
+    areas = [{ key: 'main', label: '各位', from: 0, to: 9, pick: Number(g.digits || 3) }];
+  }
+  /* 七星彩：前六位 / 最后一位 是【位】，不是「从 N 个号里选 M 个」→
+     pick 留 0，页面按实际开出的位数算（见各子页面的 picksOf()）。 */
+  return { id: k, name: String(g.name || k), type: String(g.type || 'areas'), areas };
+});
+const TOOL_GAMES_JS = JSON.stringify(TOOL_GAMES);
+
 console.log(`  · ai选号：${AIPICK_RULES.map((g) => g.name).join(' / ')}`);
 
 function buildAiPickHtml() {
@@ -5639,40 +5667,119 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
      放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
-<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}/* __TOOLS_GRID__ 智能分析：8 个工具按钮 + 详情层（用户 2026-10-18 要求） */
-.tools-box { background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 12px; margin: 10px 0 12px; }
-.tools-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.tools-title { font-size: 14px; font-weight: 700; color: #4a3a26; }
-.tools-note { font-size: 11px; color: #8a7a63; }
-.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.tool-item { background: #fffaf2; border: 1px solid #e8d7bd; border-radius: 10px; padding: 10px 2px; text-align: center; cursor: pointer; }
-.tool-item:active { background: #f9efdd; transform: scale(0.96); }
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}/* __TOOLS_GRID__ 智能分析：8 个入口 + 全屏子页面（用户 2026-10-18 要求）
+   ------------------------------------------------------------
+   入口 = 4 列网格 8 张图标卡（不是裸 button：div role="button" tabindex="0"）；
+   子页面 = position:fixed 全屏覆盖（z-index 高），自带「← 返回」。
+   页面里【没有 alert()】：所有提示都在页面内展开。
+   颜色全部走 --ro-* 变量（米杏主题），不引任何外部图表库。 */
+.tools-box { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px; margin: 0 12px 12px; }
+.tools-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; }
+.tools-title { font-size: 14px; font-weight: 700; color: var(--ro-fg); }
+.tools-note { font-size: 11px; color: var(--ro-fg2); white-space: nowrap; }
+.tool-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.tool-item { background: #fffaf2; border: 1px solid var(--ro-line); border-radius: 10px;
+  padding: 10px 2px; text-align: center; cursor: pointer; min-width: 0;
+  -webkit-tap-highlight-color: transparent; }
+.tool-item:active { background: #f9efdd; }
+.tool-item:focus-visible { outline: 2px solid var(--ro-ok); outline-offset: 1px; }
 .tool-item .icon { font-size: 20px; line-height: 1.2; }
-.tool-item .name { font-size: 11px; font-weight: 700; color: #4a3a26; margin-top: 4px; }
-.tool-view { position: fixed; inset: 0; background: #f7efe1; z-index: 100000; display: none; flex-direction: column; }
+.tool-item .name { font-size: 11px; font-weight: 700; color: var(--ro-fg); margin-top: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- 子页面（全屏覆盖） ---------- */
+.tool-view { position: fixed; inset: 0; background: var(--ro-bg); z-index: 100000;
+  display: none; flex-direction: column; }
 .tool-view.on { display: flex; }
-.tool-view-head { display: flex; align-items: center; gap: 12px; padding: 14px; background: #fff; border-bottom: 1px solid #e8d7bd; }
-.tool-back { font-size: 14px; color: #1a8c5a; font-weight: 700; cursor: pointer; }
-.tool-view-title { font-size: 15px; font-weight: 700; color: #4a3a26; }
-.tool-view-body { flex: 1; overflow-y: auto; padding: 14px; }
-.tv-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
-.tv-h { font-size: 13px; font-weight: 700; color: #4a3a26; margin-bottom: 8px; }
-.tv-row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 5px 0; border-bottom: 1px solid #f4ead6; }
+.tool-view-head { display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--ro-card); border-bottom: 1px solid var(--ro-line);
+  position: sticky; top: 0; z-index: 2; }
+.tool-back { font-size: 14px; color: var(--ro-ok); font-weight: 700; cursor: pointer;
+  padding: 4px 8px; margin-left: -8px; border-radius: 8px;
+  -webkit-tap-highlight-color: transparent; }
+.tool-back:active { background: #f9efdd; }
+.tool-view-title { font-size: 15px; font-weight: 700; color: var(--ro-fg); }
+.tool-view-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 12px 12px 28px; }
+.tv-card { background: #fff; border: 1px solid var(--ro-line); border-radius: 10px;
+  padding: 12px; margin-bottom: 10px; }
+.tv-h { font-size: 13px; font-weight: 700; color: var(--ro-fg); margin-bottom: 8px; }
+.tv-h span { font-weight: 400; font-size: 11px; color: var(--ro-fg2); margin-left: 6px; }
+.tv-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px;
+  padding: 5px 0; border-bottom: 1px solid #f4ead6; }
 .tv-row:last-child { border-bottom: 0; }
-.tv-k { color: #8a7a63; } .tv-v { font-weight: 700; color: #4a3a26; }
+.tv-k { color: var(--ro-fg2); flex: 0 0 auto; }
+.tv-v { font-weight: 700; color: var(--ro-fg); text-align: right; overflow-wrap: break-word; word-break: break-word; }
+.tv-v em { font-style: normal; color: var(--ro-danger); }
 .tv-note { font-size: 11.5px; color: #a89a80; line-height: 1.6; margin-top: 6px; }
-.tv-none { font-size: 13px; color: #8a7a63; line-height: 1.7; }
-/* __ENTRY2__ */
-.entry2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 12px; }
-.entry2-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; }
-.entry2-card:active { background: #f9efdd; transform: scale(0.98); }
-.entry2-t { font-size: 15px; font-weight: 700; color: #4a3a26; }
-.entry2-s { font-size: 11px; color: #8a7a63; margin-top: 4px; }
-.entry2-a { font-size: 12px; font-weight: 700; color: #1a8c5a; margin-top: 8px; }
+.tv-none { font-size: 13px; color: var(--ro-fg2); line-height: 1.75; }
+.tv-none b { display: block; font-size: 14px; color: var(--ro-fg); margin-bottom: 4px; }
+/* 彩种 / 号码区 切换胶囊 */
+.tv-seg { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.tv-chip { flex: 0 0 auto; padding: 5px 10px; border: 1px solid var(--ro-line);
+  border-radius: 999px; background: #fffaf2; color: var(--ro-fg2); font-size: 12px;
+  font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.tv-chip.on { background: var(--ro-ok); border-color: var(--ro-ok); color: #fff; }
+.tv-chip:active { background: #f9efdd; }
+.tv-chip.on:active { background: var(--ro-ok); }
+/* 简单表格（明细） */
+.tv-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; table-layout: fixed; }
+.tv-tbl th, .tv-tbl td { padding: 4px 2px; text-align: center; border-bottom: 1px solid #f4ead6;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tv-tbl th { color: var(--ro-fg2); font-weight: 600; }
+.tv-tbl td { color: var(--ro-fg); font-weight: 600; }
+.tv-tbl td.l { text-align: left; }
+/* 遗漏格：号码 + 当前遗漏 */
+.tv-cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 5px; }
+.tv-cell { border: 1px solid var(--ro-line); border-radius: 8px; background: #fffaf2;
+  padding: 4px 0; text-align: center; line-height: 1.25; }
+.tv-cell b { display: block; font-size: 12.5px; color: var(--ro-fg); }
+.tv-cell i { display: block; font-style: normal; font-size: 10.5px; color: var(--ro-fg2); }
+.tv-cell.hot i { color: var(--ro-ok); font-weight: 700; }
+.tv-cell.bad { border-color: var(--ro-danger); background: #fdeeee; }
+.tv-cell.bad b, .tv-cell.bad i { color: var(--ro-danger); font-weight: 700; }
+/* 走势折线（内联 SVG，不用图表库） */
+.tv-spark { display: block; width: 100%; height: 96px; }
+.tv-spark-x { display: flex; justify-content: space-between; font-size: 10.5px;
+  color: var(--ro-fg2); margin-top: 2px; }
+.tv-legend { display: flex; gap: 12px; font-size: 11px; color: var(--ro-fg2); margin-top: 6px; }
+.tv-legend i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+/* 横向条形（热度） */
+.tv-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 3px 0; }
+.tv-bar b { flex: 0 0 46px; font-weight: 700; color: var(--ro-fg); }
+.tv-bar span { flex: 1; height: 8px; border-radius: 4px; background: #f1e5cf; overflow: hidden; display: block; }
+.tv-bar span i { display: block; height: 100%; border-radius: 4px; background: var(--ro-ok); }
+.tv-bar em { flex: 0 0 auto; font-style: normal; color: var(--ro-fg2); font-size: 11px; min-width: 46px; text-align: right; }
+.tv-bar.cold span i { background: #9db4c9; }
+/* 页面内的操作条（不是裸 button） */
+.tv-btn { display: inline-block; padding: 7px 14px; border-radius: 999px;
+  background: var(--ro-ok); color: #fff; font-size: 12.5px; font-weight: 700;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.tv-btn.ghost { background: transparent; color: var(--ro-ok); border: 1px solid var(--ro-ok); }
+.tv-btn:active { opacity: .85; }
+.tv-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+/* 随机号球 */
+.tv-balls { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.tv-ball { width: 30px; height: 30px; line-height: 30px; border-radius: 50%; text-align: center;
+  font-size: 13px; font-weight: 700; background: var(--ro-danger); color: #fff; }
+.tv-ball.blue { background: #1f5fd6; }
+.tv-ball.digit { border-radius: 8px; background: #fff; color: var(--ro-fg); border: 1px solid var(--ro-line); }
+@media (max-width: 360px) {
+  .tools-box { margin: 0 8px 10px; padding: 10px; }
+  .tool-grid { gap: 6px; }
+  .tool-item { padding: 8px 1px; }
+  .tool-item .icon { font-size: 18px; }
+  .tool-item .name { font-size: 10px; }
+  .tool-view-body { padding: 10px 10px 24px; }
+  .tv-tbl { font-size: 11px; }
+  .tv-cells { grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 4px; }
+}
+/* __ENTRY2__ 已撤：那组「晒票 / 摇号」入口卡和页面上真正的那两张卡重复，
+   已按要求把「晒票 + GPT模型摇号」做成区块级并排（.grid-2-col-action），
+   入口就是卡片本身，不再单独放一组跳转卡。 */
 .install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
 .install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
 .install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
-.entry2-card.on { outline: 2px solid #1a8c5a; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -5734,15 +5841,6 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-<!-- __ENTRY2__ 晒票 / 摇号 两列入口（用户 2026-10-18 要求） -->
-<div class="entry2">
-  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-xysp">
-    <div class="entry2-t">晒票</div><div class="entry2-s">各种实票图片</div><div class="entry2-a">展开 ▾</div>
-  </div>
-  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-aipick">
-    <div class="entry2-t">GPT模型摇号</div><div class="entry2-s">系统随机生成</div><div class="entry2-a">点击查看 ▸</div>
-  </div>
-</div>
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
@@ -8755,22 +8853,7 @@ ${CHAT_JS}
   <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
 </div>
 <script>
-(function () {
-  var cards = document.querySelectorAll(".entry2-card");
-  for (var i = 0; i < cards.length; i++) {
-    (function (el) {
-      function go() {
-        var id = el.getAttribute("data-jump");
-        var t = document.getElementById(id);
-        if (!t) return;
-        var d = t.closest("details"); if (d) d.open = true;
-        t.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-      el.addEventListener("click", go);
-      el.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
-    })(cards[i]);
-  }
-})();
+/* __ENTRY2__ 跳转脚本已撤（那组入口卡和区块本身重复，见上面样式表里的说明）。 */
 </script>
 </body>
 </html>`;
