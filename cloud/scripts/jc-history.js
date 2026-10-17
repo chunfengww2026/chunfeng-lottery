@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 19:53",
+ "updated": "2026-10-17 20:31",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1417,36 +1417,9 @@ const JC_HISTORY = {
    "home": "西班牙人",
    "away": "马竞",
    "time": "2026-10-17 20:00",
-   "score": "",
+   "score": "0:0",
    "hc": null,
-   "asianIndex": {
-    "line": "受半球",
-    "from": "live",
-    "handicap": 0.5,
-    "upSide": "away",
-    "upWater": 0.7,
-    "downWater": 1.1,
-    "openHandicap": 0.75,
-    "openUpWater": 0.95,
-    "openDownWater": 0.9,
-    "totalWater": 1.8,
-    "theoryUpPercent": "61.11",
-    "theoryDownPercent": "38.89",
-    "canWater": false,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": 0.75,
-     "nowHandicap": 0.5,
-     "initUpWater": 0.95,
-     "nowUpWater": 0.7,
-     "initLine": "受半球/一球",
-     "nowLine": "受半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "asianIndex": null,
    "odds": {
     "home": 4.75,
     "draw": 3.8,
@@ -1460,11 +1433,11 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 55,
-   "result": "",
+   "type": "three",
+   "result": "lose",
    "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "matched": true,
+   "at": "2026-10-17 00:28"
   },
   {
    "code": "周六007",
@@ -1495,27 +1468,109 @@ const JC_HISTORY = {
    "at": "2026-10-17 00:28"
   },
   {
+   "code": "周六006",
+   "league": "日职乙",
+   "home": "宫崎惊奇牛鸟",
+   "away": "磐田喜悦",
+   "time": "2026-10-17 18:00",
+   "score": "1:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.92,
+    "downWater": 0.87,
+    "openHandicap": 0,
+    "openUpWater": 0.95,
+    "openDownWater": 0.85,
+    "totalWater": 1.79,
+    "theoryUpPercent": "48.60",
+    "theoryDownPercent": "51.40",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": 0,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.95,
+     "nowUpWater": 0.92,
+     "initLine": "平手",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.3,
+    "draw": 3,
+    "away": 3.1
+   },
+   "prob": {
+    "home": 39.9,
+    "draw": 30.6,
+    "away": 29.6
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 39.9,
+   "type": "unbeaten",
+   "result": "lose",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-17 20:31"
+  },
+  {
    "code": "周六005",
    "league": "日职",
    "home": "柏太阳神",
    "away": "名古屋鲸",
    "time": "2026-10-17 18:00",
    "score": "1:1",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球/一球",
+    "from": "live",
+    "handicap": -0.75,
+    "upSide": "home",
+    "upWater": 0.8,
+    "downWater": 1,
+    "openHandicap": -1,
+    "openUpWater": 1.05,
+    "openDownWater": 0.75,
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -1,
+     "nowHandicap": -0.75,
+     "initUpWater": 1.05,
+     "nowUpWater": 0.8,
+     "initLine": "一球",
+     "nowLine": "半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 1.6,
-    "draw": 4,
+    "home": 1.61,
+    "draw": 3.75,
     "away": 4.75
    },
    "prob": {
-    "home": 57.6,
-    "draw": 23,
-    "away": 19.4
+    "home": 56.6,
+    "draw": 24.3,
+    "away": 19.2
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 57.6,
+   "conf": 56.6,
    "type": "three",
    "result": "lose",
    "hit": false,
