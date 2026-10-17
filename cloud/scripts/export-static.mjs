@@ -1023,10 +1023,26 @@ function buildExpertsHtml() {
         '<div class="ro-xj-detail" id="ex-detail-' + escapeAttr(exKey) + '" hidden></div>' +
         '</div>';
     }).join('');
+/* 【期号状态】把这一组专家「最新已出号的期次」标出来 + 说明下一期待出号。
+   取该组所有专家 catLatest.issue 的最大值（就是源站最新那期），一个都没有就不显示。 */
+function issueNote(list) {
+  let iss = '';
+  (list || []).forEach((e) => {
+    const i = e && e.catLatest && e.catLatest.issue;
+    if (i && (!iss || String(i) > String(iss))) iss = String(i);
+  });
+  if (!iss) return '';
+  return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· 下一期待出号</span>';
+}
+
     return '<div class="ro-xj-group">' +
       '<div class="ro-xj-ghead"><span class="ro-xj-gname">' +
       escape(EXPERT_SHORT[gid] || g.name || gid) + '</span>' +
-      '<span class="ro-xj-gcount">' + list.length + ' 位</span></div>' +
+      '<span class="ro-xj-gcount">' + list.length + ' 位</span>' +
+      /* 【期号状态】用户 2026-10-17：「抓取下一期开奖的号码」→ 选了「标注清楚 + 等源站出号」。
+         专家推荐表里最新的一期就是源站已出的那期（通常 = 最近已开奖期），
+         下一期要等专家出号（开奖当天下午后才发）—— 这里只标事实，不预告号码。 */
+      issueNote(list) + '</div>' +
       rows + '</div>';
   }).filter(Boolean).join('');
   if (!totalShown) return '';
@@ -4706,6 +4722,8 @@ ${P3D_SECTION_CSS}
 .ro-xj-ghead { display: flex; align-items: baseline; gap: 8px; padding: 2px 4px 6px; }
 .ro-xj-gname { font-size: 13px; font-weight: 700; color: var(--ro-fg); }
 .ro-xj-gcount { font-size: 11px; color: var(--ro-fg3); }
+/* 期号状态：最新已出号那一期 + 「下一期待出号」（只是事实标注，不预告号码） */
+.ro-xj-giss { font-size: 10.5px; color: var(--ro-fg3); margin-left: auto; white-space: nowrap; }
 .ro-xj-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px;
   border-bottom: 1px dotted var(--ro-line-soft); font-size: 12px; }
 .ro-xj-item:last-child .ro-xj-row { border-bottom: 0; }

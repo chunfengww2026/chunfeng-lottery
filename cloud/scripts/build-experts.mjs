@@ -30,6 +30,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+
+/* 【昵称打码】用户页面上不能出现站名片段（source-guard 会拦）——
+   实测重抓时出现过昵称「我中500万」，命中硬词「500万」导致整页构建失败。
+   这里在写数据前统一打码：命中站名片段就替换成等长全角＊，专家本身保留。 */
+const NAME_BAD = [/500万/g, /500\s*网/g, /500\.com/gi, /球探/g, /雷速/g, /leisu/gi, /titan0*7/gi, /一起彩/g, /yiqicai/gi, /头条/g];
+function safeName(n) {
+  let out = String(n || '');
+  for (const re of NAME_BAD) out = out.replace(re, (m) => '＊'.repeat(Math.max(1, m.length)));
+  return out;
+}
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT_JS = path.join(ROOT, 'experts-data.js');
 
@@ -358,7 +368,7 @@ function parseConsensus(html) {
   const box = html.match(/<div class="cm-box w-exp-accurate"[\s\S]*$/);
   if (box) {
     for (const e of parseExpertList(box[0]).slice(0, 10)) {
-      topExperts.push({ name: e.name, url: e.path, hit10: e.hit10 });
+      topExperts.push({ name: safeName(e.name), url: e.path, hit10: e.hit10 });
     }
   }
 
@@ -688,7 +698,7 @@ async function runGame(game, cfg, opts, report) {
     }
 
     const expert = {
-      name: e.name,
+      name: safeName(e.name),
       url: e.path,
       cat: e.catLabel,
       blue: !!e.blue,
@@ -816,7 +826,7 @@ async function runGame(game, cfg, opts, report) {
 
   /* 8) 输出用的 stable（去掉内部字段） */
   g.stable = stable.map((e) => ({
-    name: e.name,
+    name: safeName(e.name),
     url: e.url,
     cat: e.cat,
     /* 【这一期免费公开的 N 胆】{ issue, nums } —— 页面详情面板就显示它；
