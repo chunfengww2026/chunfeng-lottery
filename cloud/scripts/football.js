@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 11:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 11:59 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-17 11:58",
+ "updated": "2026-10-17 11:59",
  "stat": {
   "upcoming": 0,
   "live": 8,
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 96,
+    "minute": 98,
     "home": {
      "name": "波特兰伐木者B队",
      "score": 2,
@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 88,
+    "minute": 89,
     "home": {
      "name": "温哥华FC",
      "score": 2,
@@ -83,14 +83,18 @@ const FOOTBALL_DATA = {
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "3.5",
+       "over": 2.43,
+       "under": 0.11
+      },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.02,
-       "draw": 26,
-       "away": 9.6
+       "home": 1.01,
+       "draw": 23,
+       "away": 10.5
       },
       "live": null
      }
@@ -98,14 +102,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 87.3,
+     "confidence": 87.7,
      "prob": {
-      "home": 87.3,
-      "draw": 3.4,
-      "away": 9.3
+      "home": 87.7,
+      "draw": 3.9,
+      "away": 8.4
      },
      "clear": true,
-     "margin": 12.3
+     "margin": 12.9
     },
     "result": {
      "actual": "home",
@@ -122,7 +126,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 3,
@@ -147,8 +151,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4",
-       "over": 0.78,
-       "under": 0.98
+       "over": 0.91,
+       "under": 0.85
       },
       "live": null
      },
@@ -234,7 +238,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "奥克兰联女足",
      "score": 1,
@@ -289,8 +293,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 1,
-       "line": "1.02",
-       "away": 0.8
+       "line": "1.06",
+       "away": 0.76
       },
       "live": null
      },
@@ -363,8 +367,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "1.5",
-       "over": 0.92,
-       "under": 0.94
+       "over": 0.89,
+       "under": 0.97
       },
       "live": null
      },
@@ -421,8 +425,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.97",
-       "away": 0.91
+       "line": "0.94",
+       "away": 0.94
       },
       "live": null
      },
