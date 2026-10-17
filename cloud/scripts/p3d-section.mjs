@@ -191,7 +191,7 @@ const P3D_JS = `
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m];
     });
   }
-  export function liuMaSetOf(key) {
+  function liuMaSetOf(key) {
     var rec = LIUMA_MAP[key] || {}, raw = [], seen = {}, out = [];
     if (rec.goldDan != null) raw.push(rec.goldDan);
     if (rec.silverDan != null) raw.push(rec.silverDan);

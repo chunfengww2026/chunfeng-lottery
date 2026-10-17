@@ -3012,8 +3012,10 @@ ${PWA_HEAD}
 <meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
-<!-- 微信 / QQ 专用的兼容标签 → 已挪到 <head> 靠前的位置（和 title 在一起），
-     这里不再重复，避免 itemprop 出现两套（实测会导致微信读到旧文案）。 -->
+<!-- 微信 / QQ 专用的兼容标签 → 已挪到 head 开标签靠前的位置（和 title 在一起），
+     这里不再重复，避免 itemprop 出现两套（实测会导致微信读到旧文案）。
+     ⚠️ 这里别写字面的 head 标签（开标签或收尾标签）：页面里只要出现第二个，
+        export-site.mjs 的注入就会插错位置（历史上整段 CSS 被塞进注释里）。 -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风十万里 - 免费推荐与智能选号" />
 <meta name="twitter:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
@@ -5969,6 +5971,9 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   .ro-install-faq dd { font-size: 11px; }
 }
 </style>
+<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位（第一层防护）：export-site.mjs 只认这个标记，
+     把导航样式插在这一行；页面里【有且只有这一处】，所以不存在"替换第一处"的坑。
+     ⚠️ 别删这一行，也别在页面里再写一处 head 开/收尾标签的字面量。 -->
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 ${DEVICE_GATE_BODY}
@@ -9418,8 +9423,57 @@ ${CHAT_JS}
 
   /* ================= ⑧ AI推荐（系统随机） ================= */
   function randOf(from, to) { return from + Math.floor(Math.random() * (to - from + 1)); }
+
+  /* 【三套算法 + 随机取一套】用户 2026-10-18：
+     「AI推荐自己用前几期数据自己算几套算法出来，然后随机给到（以后不要收费我的）」
+     · 数据：页面里已有的近 30 期开奖（drawsOf）
+     · 成本：纯前端，0 请求、0 费用
+     · 不装神：标签写清楚用的是哪套算法，并说明"不是预测" */
+  function algoCandidates(gid, cfg, pickCount) {
+    var draws = drawsOf(gid), freq = {}, lastSeen = {}, v;
+    for (v = cfg.from; v <= cfg.to; v++) { freq[v] = 0; lastSeen[v] = 999; }
+    for (var d = 0; d < Math.min(draws.length, 30); d++) {
+      var ns = numsOf(draws[d], cfg.key) || [];
+      for (var k = 0; k < ns.length; k++) {
+        var n = Number(ns[k]);
+        if (freq[n] != null) { freq[n]++; if (lastSeen[n] === 999) lastSeen[n] = d; }
+      }
+    }
+    var all = [];
+    for (v = cfg.from; v <= cfg.to; v++) all.push(v);
+    function uniqTake(arr, count) {
+      var seen = {}, out = [];
+      for (var q = 0; q < arr.length && out.length < count; q++) {
+        var x = arr[q];
+        if (!seen[x]) { seen[x] = 1; out.push(x); }
+      }
+      return out.sort(function (a, b) { return a - b; });
+    }
+    /* ① 冷号回补：出现次数升序，次数相同看谁更久没出 */
+    var cold = all.slice().sort(function (a, b) {
+      return (freq[a] - freq[b]) || (lastSeen[b] - lastSeen[a]) || (a - b);
+    });
+    /* ② 热号延续：出现次数降序 */
+    var hot = all.slice().sort(function (a, b) { return (freq[b] - freq[a]) || (a - b); });
+    /* ③ 均衡分布：奇偶交替挑，尽量取接近中位数的号 */
+    var mid = (cfg.from + cfg.to) / 2;
+    var bal = all.slice().sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
+    var odd = [], even = [];
+    for (var bq = 0; bq < bal.length; bq++) (bal[bq] % 2 ? odd : even).push(bal[bq]);
+    var mixed = [];
+    for (var mq = 0; mq < bal.length; mq++) {
+      if (mq % 2 === 0) { if (odd.length) mixed.push(odd.shift()); else if (even.length) mixed.push(even.shift()); }
+      else { if (even.length) mixed.push(even.shift()); else if (odd.length) mixed.push(odd.shift()); }
+    }
+    return [
+      { algo: '冷号回补', nums: uniqTake(cold, pickCount) },
+      { algo: '热号延续', nums: uniqTake(hot, pickCount) },
+      { algo: '均衡分布', nums: uniqTake(mixed, pickCount) }
+    ];
+  }
+
   function pickFor(gid) {
-    var g = gameById(gid), out = [];
+    var g = gameById(gid), out = [], usedAlgos = [];
     for (var a = 0; a < g.areas.length; a++) {
       var cfg = g.areas[a];
       var pick = cfg.pick;
@@ -9429,27 +9483,38 @@ ${CHAT_JS}
         pick = ln || 1;
       }
       var repeatable = (g.type === 'digit' || g.type === 'qxc');
-      var nums = [];
+      var nums = [], algo = '随机';
       if (repeatable) {
         for (var i = 0; i < pick; i++) nums.push(randOf(cfg.from, cfg.to));
       } else {
-        var pool = [];
-        for (var v = cfg.from; v <= cfg.to; v++) pool.push(v);
-        for (var k = 0; k < pick && pool.length; k++) {
-          var idx = Math.floor(Math.random() * pool.length);
-          nums.push(pool[idx]);
-          pool.splice(idx, 1);
+        /* 三套算法各出一注，然后随机取一套 */
+        var cands = algoCandidates(gid, cfg, pick);
+        cands = cands.filter(function (c) { return c.nums.length === pick; });
+        if (cands.length) {
+          var chosen = cands[Math.floor(Math.random() * cands.length)];
+          nums = chosen.nums;
+          algo = chosen.algo;
+        } else {
+          /* 数据不够（比如新彩种）→ 退回纯随机，并如实标"随机" */
+          var pool = [];
+          for (var v = cfg.from; v <= cfg.to; v++) pool.push(v);
+          for (var k2 = 0; k2 < pick && pool.length; k2++) {
+            var idx = Math.floor(Math.random() * pool.length);
+            nums.push(pool[idx]);
+            pool.splice(idx, 1);
+          }
+          nums.sort(function (x, y) { return x - y; });
         }
-        nums.sort(function (x, y) { return x - y; });
       }
-      out.push({ key: cfg.key, label: cfg.label || '', color: (a === 1 ? 'blue' : ''), nums: nums, repeatable: repeatable });
+      usedAlgos.push(algo);
+      out.push({ key: cfg.key, label: cfg.label || '', color: (a === 1 ? 'blue' : ''), nums: nums, repeatable: repeatable, algo: algo });
     }
-    return out;
+    return { areas: out, algo: usedAlgos.join(' + ') };
   }
   function pageAi() {
     var g = gameById(st.game);
     var h = chipsGame();
-    if (!st.ai || st.ai.game !== g.id) { st.ai = { game: g.id, picks: pickFor(g.id) }; }
+    if (!st.ai || st.ai.game !== g.id) { var _p = pickFor(g.id); st.ai = { game: g.id, picks: _p.areas, algo: _p.algo }; }
     var picks = st.ai.picks, i, j;
     var inner = '';
     for (i = 0; i < picks.length; i++) {
@@ -9460,12 +9525,12 @@ ${CHAT_JS}
       }
       inner += '</div>';
     }
-    h += card('系统随机生成 · 仅供娱乐参考<span>第 ' + (st.aiTimes + 1) + ' 次</span>', inner);
+    h += card('前 30 期数据 · ' + esc(st.ai.algo || '随机') + '<span>第 ' + (st.aiTimes + 1) + ' 次</span>', inner);
     h += '<div class="tv-acts">' +
       '<div class="tv-btn" role="button" tabindex="0" data-tv-act="reroll">换一组</div>' +
       '<div class="tv-btn ghost" role="button" tabindex="0" data-tv-act="goto-roll">去摇号面板自选</div>' +
       '</div>';
-    h += note('这组号码就是浏览器里的随机数（Math.random）当场摇出来的，不是 AI 算的，也不是预测，只当娱乐。彩票每期独立随机，任何号码组合的中奖概率都一样。');
+    h += note('这组号码是按「' + (st.ai.algo || '随机') + '」这套算法、用本页近 30 期开奖数据算出来的，每次随机从几套算法里取一套；不是预测，也不联网、不收费。彩票每期独立随机，任何号码组合的中奖概率都一样。');
     return h;
   }
 
@@ -9877,10 +9942,79 @@ ${CHAT_JS}
    ============================================================ */
 const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '只读分享版.html');
-fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
+
+/* ============================================================
+   【第二层防护 · 构建时硬断言】写文件之前先过这一关
+   ------------------------------------------------------------
+   事故（2026-10-17）：export-site.mjs 用 String.replace(收尾标签, CSS + 收尾标签)
+   注入导航样式，只替换【第一处】；而本页 HTML 注释里也字面写着一个收尾标签 →
+   整段 NAV_CSS 被插进注释内部 → CSS 全废 → 分享页 Tab 变蓝下划线链接。
+   现在本页产出【写盘之前】就自检，任一不过 → exit 1（一个字节都不写）：
+     ① head 开标签正好 1 个
+     ② head 收尾标签正好 1 个（≠1 → 打印次数 + 行号/偏移）
+     ③ 唯一槽位标记 __HEAD_SLOT__ 正好 1 个，且落在 head 区间内
+     ④ perfify() 追加的那条 CSS 落在 head 内，且【不在 HTML 注释里】
+        （判据：样式首字符往前找最近的 <!-- 和 -->，谁更近）
+   ⚠️ 标签字面量故意拆开拼，本文件里不出现完整的 head 开/收尾标签。
+   ============================================================ */
+const T_HEAD_OPEN = '<' + 'head>';
+const T_HEAD_CLOSE = '</' + 'head>';
+const HEAD_SLOT_TAG = '<!--__HEAD_SLOT__-->';
+function headTagPositions(s, tag) {
+  const out = [];
+  let i = 0;
+  while ((i = s.indexOf(tag, i)) !== -1) { out.push(i); i += tag.length; }
+  return out;
+}
+function headLineNo(s, pos) {
+  let line = 1;
+  for (let i = 0; i < pos && i < s.length; i++) if (s.charCodeAt(i) === 10) line++;
+  return line;
+}
+function assertHeadOnce(finalHtml, label, cssText) {
+  const bad = [];
+  const open = headTagPositions(finalHtml, T_HEAD_OPEN);
+  const close = headTagPositions(finalHtml, T_HEAD_CLOSE);
+  const slots = headTagPositions(finalHtml, HEAD_SLOT_TAG);
+  const where = (arr) => arr.map((p) => `第 ${headLineNo(finalHtml, p)} 行（偏移 ${p}）`).join(' / ');
+
+  if (open.length !== 1) bad.push(`${T_HEAD_OPEN} 出现 ${open.length} 次（必须 1 次）${open.length ? ' → ' + where(open) : ''}`);
+  if (close.length !== 1) bad.push(`${T_HEAD_CLOSE} 出现 ${close.length} 次（必须 1 次）${close.length ? ' → ' + where(close) : ''}`);
+  if (slots.length !== 1) bad.push(`${HEAD_SLOT_TAG} 出现 ${slots.length} 次（必须 1 次）${slots.length ? ' → ' + where(slots) : ''}`);
+  if (slots.length === 1 && open.length === 1 && close.length === 1
+      && !(slots[0] > open[0] && slots[0] < close[0])) {
+    bad.push(`注入槽位不在 head 里（槽位偏移 ${slots[0]}，head 区间 ${open[0]}~${close[0]}）`);
+  }
+  if (cssText) {
+    const ci = finalHtml.indexOf(cssText);
+    if (ci < 0) {
+      bad.push('perfify() 追加的样式在产物里找不到');
+    } else {
+      const cOpen = finalHtml.lastIndexOf('<!--', ci);
+      const cClose = finalHtml.lastIndexOf('-->', ci);
+      if (cOpen > cClose) {
+        bad.push(`perfify() 追加的样式落在 HTML 注释内部（最近的 <!-- 偏移 ${cOpen} / --> 偏移 ${cClose}）→ 这条 CSS 会失效`);
+      }
+      if (open.length === 1 && close.length === 1 && !(ci > open[0] && ci < close[0])) {
+        bad.push(`perfify() 追加的样式不在 head 里（样式偏移 ${ci}，head 区间 ${open[0]}~${close[0]}）`);
+      }
+    }
+  }
+  if (bad.length) {
+    console.error(`\n❌ ${label}：head 结构自检失败（${bad.length} 项），产物【没有写出】`);
+    bad.forEach((b, i) => console.error(`   ${i + 1}) ${b}`));
+    console.error('   常见原因：页面别处（尤其是 HTML 注释里）又写了字面的 head 开/收尾标签。\n');
+    process.exit(1);
+  }
+  console.log(`   ✅ head 自检：${T_HEAD_OPEN}=1 · ${T_HEAD_CLOSE}=1 · 槽位=1（在 head 内）`);
+}
+
+const finalHtml = perfify(safeHtml);
+assertHeadOnce(finalHtml, '只读分享版.html', '.ro-game{content-visibility:auto');
+fs.writeFileSync(OUT, finalHtml, 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
-console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(1)} KB`);
+console.log(`   大小：${(Buffer.byteLength(finalHtml, 'utf8') / 1024).toFixed(1)} KB`);
 console.log(`   内容：${gameCount} 个彩种，${imgCount} 张图（${imgCount} 个实时渲染图位）`);
 console.log(`   内联脚本：${inlineSizes.length} 个 / ${(inlineSizes.reduce((a, b) => a + b[1], 0) / 1024).toFixed(1)} KB`);
 console.log(`   生成时间：${todayStr}`);
