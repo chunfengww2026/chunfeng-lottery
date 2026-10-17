@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -4431,17 +4431,28 @@ const RECOMMEND_JSON = {
   red: REC_STAT ? REC_STAT.red : 0,
   black: REC_STAT ? REC_STAT.black : 0,
   rate: (REC_STAT && REC_STAT.rate != null) ? String(REC_STAT.rate) + '%' : '—',
-  history: (REC_ROWS_ARCHIVE || []).map((b) => ({
-    dateStr: b.at || '',
-    finishTime: bjMs(b.at),
-    matches: (Array.isArray(b.rows) ? b.rows : []).map((r) => ({
-      matchNo: r.code || '',
-      teams: `${r.home || ''} vs ${r.away || ''}`,
-      pick: r.label || '',
-      score: r.score || '—',
-      result: r.hit === true ? 'red' : (r.hit === false ? 'black' : 'pending')
-    }))
-  }))
+  history: (REC_ROWS_ARCHIVE || []).map((b) => {
+    const rows = Array.isArray(b.rows) ? b.rows : [];
+    return {
+      dateStr: b.at || '',
+      finishTime: bjMs(b.at),
+      verdict: b.verdict || '',
+      matches: rows.map((r) => ({
+        matchNo: r.code || '',
+        teams: `${r.home || ''} vs ${r.away || ''}`,
+        pick: r.label || '',
+        score: r.score || '—',
+        result: r.hit === true ? 'red' : (r.hit === false ? 'black' : 'pending'),
+        /* —— 「扁平口径」也够用的字段（用户 2026-10-17：分组/扁平两种结构都兼容）—— */
+        confidence: (typeof r.conf === 'number' ? r.conf : null),
+        status: (r.hit === true || r.hit === false) ? 'finished' : 'pending',
+        finishTime: bjMs(b.at),
+        league: r.league || '',
+        odds: (typeof r.odds === 'number' ? r.odds : null),
+        time: r.time || ''
+      }))
+    };
+  })
 };
 for (const dir of [path.join(ROOT, 'data'), path.join(ROOT, 'cloud', 'out', 'data')]) {
   try {
