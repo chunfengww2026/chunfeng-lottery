@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 12:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 12:58 */
 const JC_DATA = {
- "updated": "2026-10-17 12:28",
+ "updated": "2026-10-17 12:58",
  "stat": {
   "total": 63,
   "upcoming": 63,
@@ -58,7 +58,7 @@ const JC_DATA = {
       "away": 4.5
      },
      "live": {
-      "home": 1.9,
+      "home": 1.86,
       "draw": 3.8,
       "away": 3.7
      }
@@ -79,16 +79,16 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 49.7,
+    "confidence": 50.2,
     "prob": {
-     "home": 49.7,
-     "draw": 24.8,
-     "away": 25.5
+     "home": 50.2,
+     "draw": 24.6,
+     "away": 25.2
     },
     "clear": true,
-    "margin": 6,
+    "margin": 7.1,
     "rqLine": "半球",
-    "type": "unbeaten"
+    "type": "three"
    },
    "asianIndex": {
     "line": "半球",
@@ -367,9 +367,9 @@ const JC_DATA = {
       "away": 5.75
      },
      "live": {
-      "home": 1.5,
-      "draw": 4,
-      "away": 5.75
+      "home": 1.48,
+      "draw": 4.1,
+      "away": 6
      }
     },
     "overunder": {
@@ -388,14 +388,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 61.1,
+    "confidence": 62.2,
     "prob": {
-     "home": 61.1,
-     "draw": 22.9,
-     "away": 15.9
+     "home": 62.2,
+     "draw": 22.5,
+     "away": 15.3
     },
     "clear": true,
-    "margin": 9.1,
+    "margin": 8.6,
     "rqLine": "一球",
     "type": "three"
    },
@@ -1648,9 +1648,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3.1,
+      "home": 3,
       "draw": 3.8,
-      "away": 2.15
+      "away": 2.2
      }
     },
     "overunder": {
@@ -1669,11 +1669,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 44.3,
+    "confidence": 43.2,
     "prob": {
-     "home": 30.7,
+     "home": 31.7,
      "draw": 25,
-     "away": 44.3
+     "away": 43.2
     },
     "clear": false,
     "margin": 5.1,
@@ -1957,9 +1957,9 @@ const JC_DATA = {
       "away": 3.6
      },
      "live": {
-      "home": 1.57,
-      "draw": 3.9,
-      "away": 5.5
+      "home": 1.65,
+      "draw": 3.8,
+      "away": 5.25
      }
     },
     "overunder": {
@@ -1978,14 +1978,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 59.2,
+    "confidence": 57.2,
     "prob": {
-     "home": 59.2,
-     "draw": 23.8,
-     "away": 16.9
+     "home": 57.2,
+     "draw": 24.8,
+     "away": 18
     },
     "clear": true,
-    "margin": 7.5,
+    "margin": 6,
     "rqLine": "一球",
     "type": "three"
    },
@@ -6160,8 +6160,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-17 12:28",
-  "officialUpdate": "2026-10-17 12:26:40",
+  "updated": "2026-10-17 12:58",
+  "officialUpdate": "2026-10-17 12:56:11",
   "inSale": 63,
   "list": [
    {
@@ -6234,17 +6234,17 @@ const JC_DATA = {
     "home": "蔚山现代",
     "away": "富川FC",
     "had": {
-     "h": 1.5,
-     "d": 3.9,
-     "a": 4.85,
-     "update": "2026-10-17 11:16:28"
+     "h": 1.48,
+     "d": 4,
+     "a": 4.9,
+     "update": "2026-10-17 12:27:33"
     },
     "hhad": {
      "line": "-1",
-     "h": 2.65,
-     "d": 3.31,
-     "a": 2.22,
-     "update": "2026-10-17 11:40:00"
+     "h": 2.63,
+     "d": 3.28,
+     "a": 2.25,
+     "update": "2026-10-17 12:27:42"
     },
     "single": {
      "HAD": {
@@ -6296,17 +6296,17 @@ const JC_DATA = {
     "home": "柏太阳神",
     "away": "名古屋鲸",
     "had": {
-     "h": 1.41,
-     "d": 4.4,
-     "a": 5.2,
-     "update": "2026-10-17 11:45:06"
+     "h": 1.5,
+     "d": 4.15,
+     "a": 4.5,
+     "update": "2026-10-17 12:55:53"
     },
     "hhad": {
      "line": "-1",
-     "h": 2.25,
+     "h": 2.5,
      "d": 3.65,
-     "a": 2.43,
-     "update": "2026-10-17 11:45:15"
+     "a": 2.2,
+     "update": "2026-10-17 12:56:11"
     },
     "single": {
      "HAD": {
@@ -6327,17 +6327,17 @@ const JC_DATA = {
     "home": "宫崎牛鸟",
     "away": "磐田喜悦",
     "had": {
-     "h": 2.42,
-     "d": 3,
+     "h": 2.48,
+     "d": 2.92,
      "a": 2.61,
-     "update": "2026-10-17 11:56:23"
+     "update": "2026-10-17 12:50:20"
     },
     "hhad": {
      "line": "-1",
-     "h": 5.75,
+     "h": 6.1,
      "d": 3.9,
-     "a": 1.43,
-     "update": "2026-10-17 11:56:23"
+     "a": 1.41,
+     "update": "2026-10-17 12:50:28"
     },
     "single": {
      "HAD": {
@@ -6570,17 +6570,17 @@ const JC_DATA = {
     "home": "不来梅",
     "away": "帕德博恩",
     "had": {
-     "h": 1.57,
-     "d": 4.02,
-     "a": 4.1,
-     "update": "2026-10-16 20:15:05"
+     "h": 1.55,
+     "d": 4.1,
+     "a": 4.16,
+     "update": "2026-10-17 12:33:24"
     },
     "hhad": {
      "line": "-1",
-     "h": 2.75,
-     "d": 3.6,
-     "a": 2.05,
-     "update": "2026-10-16 09:42:06"
+     "h": 2.71,
+     "d": 3.55,
+     "a": 2.09,
+     "update": "2026-10-17 12:33:30"
     },
     "single": {
      "HAD": {
@@ -6632,17 +6632,17 @@ const JC_DATA = {
     "home": "汉堡",
     "away": "斯图加特",
     "had": {
-     "h": 3.78,
-     "d": 4.1,
-     "a": 1.61,
-     "update": "2026-10-16 09:42:06"
+     "h": 3.85,
+     "d": 4.15,
+     "a": 1.59,
+     "update": "2026-10-17 12:40:13"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.01,
+     "h": 2.04,
      "d": 3.8,
-     "a": 2.72,
-     "update": "2026-10-16 09:42:06"
+     "a": 2.66,
+     "update": "2026-10-17 12:40:09"
     },
     "single": {
      "HAD": {
@@ -6913,10 +6913,10 @@ const JC_DATA = {
     "had": null,
     "hhad": {
      "line": "-2",
-     "h": 1.95,
-     "d": 4.75,
-     "a": 2.46,
-     "update": "2026-10-17 11:23:27"
+     "h": 1.92,
+     "d": 4.8,
+     "a": 2.5,
+     "update": "2026-10-17 12:36:15"
     },
     "single": {
      "HAD": {
@@ -7557,17 +7557,17 @@ const JC_DATA = {
     "home": "格罗宁根",
     "away": "阿贾克斯",
     "had": {
-     "h": 3.9,
+     "h": 3.73,
      "d": 4.1,
-     "a": 1.59,
-     "update": "2026-10-16 09:42:06"
+     "a": 1.62,
+     "update": "2026-10-17 12:38:06"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.03,
-     "d": 3.85,
-     "a": 2.65,
-     "update": "2026-10-16 09:42:06"
+     "h": 1.98,
+     "d": 3.9,
+     "a": 2.72,
+     "update": "2026-10-17 12:38:03"
     },
     "single": {
      "HAD": {
