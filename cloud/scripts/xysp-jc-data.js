@@ -16,8 +16,8 @@ const XYSP_JC_DATA = {
  "updated": "2026-10-17 09:56",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=bK9r4Y6uJSxFMTvzsenj5KiwYTc%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=bK9r4Y6uJSxFMTvzsenj5KiwYTc%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0SDvG7yXWzYK9scTkvbIA5m9TGU%3D",
    "title": "今日竞彩分享：早场日韩澳（二串一、四串一）",
    "url": "https://toutiao.com/group/7697442972413018679/",
@@ -29,19 +29,21 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-10-17T01:56:55.939Z",
    "whenMs": 1792201005000,
-   "seenMs": 1792201561270,
+   "seenMs": 1792202161272,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792201561270,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-18T01:46:01.270Z",
+   "expireAt": "2026-10-18T01:56:01.272Z",
    "rule": "cap",
    "author": "体坛银哥",
    "when": "2026-10-17 09:36:45",
    "postId": "7697442972413018679",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b525609806634c4d8e20e7a646f9fdcc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=0bqWT8yy%2FKX6RPFtE97oqegxL1I%3D",
@@ -97,9 +99,7 @@ const XYSP_JC_DATA = {
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54",
    "postId": "7697108049638539804",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   }
  ]
 };
