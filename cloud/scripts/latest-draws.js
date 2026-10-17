@@ -298,12 +298,25 @@
    * @returns {string|null} 彩种 id（'ssq' / 'dlt'）；不该顶掉时返回 null
    */
   function heatmapBlockGameId(now) {
+    /* 【用户 2026-10-17 改口径：热力图不再顶掉「最新开奖」】
+       原话：「热力图不在最新开奖里面，折叠到（热力图）这里面」——
+       所以这里【永远返回 null】：区块永远是最新开奖；
+       热力图改到「热力图」入口区块里显示（export-static.mjs 的 #ro-heatmap），
+       数据由云端每小时重抓晒票 OCR 更新。
+       ⚠️ 服务端预渲染和客户端重画都走这个函数 → 改这一处两边同时生效。 */
+    void now;
+    return null;
+  }
+
+  /* 旧判定保留（不删）：万一以后要恢复「18:00 顶掉」只改上面 return 即可。
+     原逻辑：取 HEATMAP_BLOCK_ORDER 里第一个 shouldShowHeatmap() 通过的彩种。 */
+  function heatmapBlockGameIdLegacy(now) {
     for (var i = 0; i < HEATMAP_BLOCK_ORDER.length; i++) {
       var gid = HEATMAP_BLOCK_ORDER[i];
       var on = false;
       try {
         on = (typeof shouldShowHeatmap === 'function') && !!shouldShowHeatmap(gid, now);
-      } catch (e) { on = false; }          /* 判断异常 → 当作不显示，区块保持原样 */
+      } catch (e) { on = false; }
       if (on) return gid;
     }
     return null;

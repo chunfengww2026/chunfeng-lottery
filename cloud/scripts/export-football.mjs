@@ -2116,10 +2116,12 @@ html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); poin
 html.locked #mask { display: flex; }
 #mask .mask-s { margin-top: 12px; font-size: 13px; color: #98a1b2; line-height: 1.9; }
 /* 【不要水印】—— 用户明确要求去掉，页面里不再有任何水印容器 / 样式 / 绘制逻辑 */
-.owner-tag { display: none; position: fixed; right: 10px; top: 10px; z-index: 100002;
+.owner-tag { display: none; width: max-content; max-width: 100%;
+  margin: 2px 0 2px auto;
   font-size: 11.5px; font-weight: 700; color: #f0b429; background: rgba(240,180,41,0.12);
-  border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px; }
-html.is-owner .owner-tag { display: inline-flex; }
+  border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px;
+  white-space: nowrap; pointer-events: none; }
+html.is-owner .owner-tag { display: block; }
 /* 【豁免区】locked 时压住遮罩，保持清晰可点 */
 html.locked .m-calc, html.locked .m-sec { filter: none !important;
   pointer-events: auto !important; position: relative; z-index: 99999; }
@@ -2855,11 +2857,31 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
   .m-titlerow h1 { font-size: 18px !important; }
   .m-titlerow { gap: 8px; }
 }
-/* 【本机 owner 专用】右上角那枚「👑 管理员模式 · 可截图」徽章是 position:fixed
+/* 【本机 owner 专用】徽章「👑 管理员模式 · 可截图」原来也是 position:fixed
    （top:10px/right:10px），和标题行同一高度 —— 实测会把喇叭盖掉一大半。
-   只有本机/主人会看到这枚徽章，所以只在 is-owner 时把标题行往下让 24px，
-   徽章独占最上面那条；别人的页面布局一个像素都不动。 */
-html.is-owner .m-titlerow { margin-top: 30px; }
+   ⚠️ 2026-10-18 改：徽章挪进顶部 Tab 条下面那一行（流内、靠右），
+      所以这里【不再】需要把标题行往下让 30px（再让就是多出来一块空白）。 */
+
+/* ============================================================
+   __TOP_TABS__ 顶部 Tab 条（彩票推荐 / 竞彩-足球）
+   ------------------------------------------------------------
+   用户 2026-10-18：「竞彩页没有 Tab 条 / 没有回分享页的链接 → 过去了回不来」。
+   这里补一条和分享页同款的 Tab 条：flex 横排 · 底部 1px 边框 ·
+   未选中灰、选中绿 + 2px 短线。
+   ⚠️ 只用 <a>（页面铁律：0 个裸 button）。
+   ⚠️ 放在 #article【外面】—— 防截图 locked 时 #article 会整块模糊 + 不能点，
+      放里面会连「回分享页」一起锁死。
+   ⚠️ 颜色全走变量（--border / --text-sub / --green），米杏色主题自动生效。
+   ⚠️ 横向压缩：两个 Tab 各占一半、white-space:nowrap，320px 也不会把字挤换行。
+   ============================================================ */
+.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 10px 6px;
+  font-size: 14px; font-weight: 600; color: var(--text-sub); text-decoration: none;
+  position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.top-tabs .tab.on { color: var(--green); font-weight: 700; }
+.top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
+  bottom: 0; height: 2px; background: var(--green); border-radius: 2px; }
+
 
 `;
 
@@ -3064,6 +3086,36 @@ ${nav}
 <body>
 ${DEVICE_GATE_BODY}
 <div class="wrap">
+  <!-- ============================================================
+       __TOP_TABS__ 顶部 Tab 条（彩票推荐 / 竞彩-足球）
+       用户 2026-10-18：「竞彩页没有 Tab 条、也没回分享页的入口 → 过去了回不来」。
+       和分享页同款结构 / 类名（.top-tabs / .tab / .tab.on），样式见 __TOP_TABS__ CSS。
+       ⚠️ 都是 <a>（页面不变量：0 个裸 button）。
+       ⚠️ 放在 #article 外面：locked 时不会被模糊，永远点得到。
+       ⚠️ 当前页是竞彩，所以「竞彩/足球」带 .on。
+       ============================================================ -->
+  <div class="top-tabs">
+    <a class="tab" href="./" data-tab-home="1">彩票推荐</a>
+    <a class="tab on" href="足球推荐.html">竞彩/足球</a>
+  </div>
+  <!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示。
+       ⚠️ 2026-10-18 改：原来 position:fixed 在右上角，正好压住顶部 Tab / 喇叭；
+          现在排在 Tab 条正下方、靠右，流内定位，不遮任何东西。 -->
+  <div id="ownerTag" class="owner-tag">👑 管理员模式 · 可截图</div>
+  <script>
+  /* __TOP_TABS_HOME__ Tab1「彩票推荐」的地址按协议切换（零存储 · 零外部依赖）：
+     · 线上（http / https）→ "./"     = 站点根 index.html
+     · 本机（file://）     → "只读分享版.html"
+       本机分享页的文件名就是这个；file:// 下 "./" 会落成【目录索引】，
+       一点就离开本页、还把整个项目目录列出来。 */
+  (function () {
+    try {
+      if (String(location.protocol) !== 'file:') return;
+      var a = document.querySelector('.top-tabs .tab[data-tab-home]');
+      if (a) a.setAttribute('href', '只读分享版.html');
+    } catch (e) {}
+  })();
+  </script>
   <!-- #article = 受保护区域之一（防截图：locked 时整块模糊 + 不能点）
        另两块受保护的是三个分段里的 .guard 和底部免责声明 .guard -->
   <div id="article">
@@ -3153,8 +3205,7 @@ ${DEVICE_GATE_BODY}
   <div class="mask-s">切回本页后自动恢复（约 4 秒）。<br>
     「模拟计算」「晒票」和三个分段的展开/收起不受影响，可以继续用。</div>
 </div>
-<!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示 -->
-<div id="ownerTag" class="owner-tag">👑 管理员模式 · 可截图</div>
+<!-- 【owner 徽章】已经挪到页面顶部 Tab 条下面（见 __TOP_TABS__ 那段），这里不再重复放。 -->
 
 <!-- 【看大图 · 全屏层】点「晒票」里的图 → 打开它。
      放在页面最下面（折叠区外面），整块收起时也能弹出来。
