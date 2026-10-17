@@ -4104,6 +4104,17 @@ ${JC_XYSP_VIEW}
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
   var isWX = /MicroMessenger/i.test(ua);
 
+  /* 【注册 Service Worker】用户 2026-10-17 给的写法（真 PWA 安装必需）。
+     ⚠️ service-worker.js 是【纯透传、不缓存】的版本 —— 本站有 30 秒实时刷新，
+        做缓存会把数字冻住（所以那个 SW 里 fetch 一律走网络）。
+     ⚠️ file:// 下注册必然失败（浏览器规范不允许），catch 住即可，不影响 App 使用；
+        真正生效的是 https 的线上站点。 */
+  if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
+    try {
+      navigator.serviceWorker.register('service-worker.js').catch(function () { /* 忽略 */ });
+    } catch (e) { /* 忽略 */ }
+  }
+
   function hint(txt) {
     var old = document.querySelector('.install-hint');
     if (old && old.parentNode) old.parentNode.removeChild(old);
@@ -4127,7 +4138,21 @@ ${JC_XYSP_VIEW}
 
   btn.addEventListener('click', function (ev) {
     if (ev && ev.preventDefault) ev.preventDefault();
-    if (deferred && deferred.prompt) { deferred.prompt(); deferred = null; return; }
+    if (deferred && deferred.prompt) {
+      /* 用户给的参考实现：prompt() 之后等 userChoice，接受了就把按钮藏起来 */
+      var d = deferred;
+      deferred = null;
+      d.prompt();
+      if (d.userChoice && d.userChoice.then) {
+        d.userChoice.then(function (choice) {
+          if (choice && choice.outcome === 'accepted') {
+            btn.style.display = 'none';
+            hint('已添加到桌面 ✓');
+          }
+        }).catch(function () { /* 忽略 */ });
+      }
+      return;
+    }
     if (isWX) hint('微信里不能直接添加：点右上角 ··· → 在浏览器打开 → 再点「一键桌面」');
     else if (isIOS) hint('Safari：点底部「分享」按钮 →「添加到主屏幕」');
     else hint('在这个浏览器的菜单里选「安装应用」或「添加到主屏幕」');
