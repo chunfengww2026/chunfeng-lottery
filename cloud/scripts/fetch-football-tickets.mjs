@@ -57,7 +57,10 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'football-tickets.js');
 const STATE = path.join(ROOT, '_football-tickets-state.json');
-const LOG = path.join(ROOT, '_football-tickets.log');
+/* ⚠️ 这里【不自己写日志文件】：stdout 由调用方落到文件 ——
+     · 计划任务：update-football-tickets-10min.cmd 里 >> _football-tickets.log
+     · 30 分钟链：update-football-smart.mjs 用 execFileSync 收走，写进 _football-smart.log
+   两边都写会变成一份日志两遍（踩过）。 */
 
 const MAX_ITEMS = 60;      /* 页面只放最新 60 条（滚动窗口，防止无限增长） */
 const KEEP_DAYS = 7;       /* 超过 7 天的票不再留着 */
@@ -81,9 +84,8 @@ const SITE_WORDS = [
 ];
 
 const log = (...a) => {
-  const line = `[${new Date().toISOString()}] ${a.join(' ')}`;
-  console.log(line);
-  try { fs.appendFileSync(LOG, line + '\n', 'utf8'); } catch { }
+  /* 只走 stdout（原因见上面 LOG 那段注释） */
+  console.log(`[${new Date().toISOString()}] ${a.join(' ')}`);
 };
 
 function md5(s) { return crypto.createHash('md5').update(s, 'utf8').digest('hex'); }
