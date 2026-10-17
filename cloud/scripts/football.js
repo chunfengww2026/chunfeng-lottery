@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "名古屋鯨魚U21",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "長崎成功丸U21",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "川崎前鋒U21",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "波特兰伐木者B队",
      "score": 1,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "温哥华FC",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "惠灵顿奥林匹克",
      "score": 0,
@@ -1010,7 +1010,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 08:30:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "博卡青年",
      "score": 2,
@@ -1076,7 +1076,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -1142,7 +1142,7 @@ const FOOTBALL_DATA = {
      "color": "5A95B3"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "瓜达卢普",
      "score": 0,
@@ -1208,7 +1208,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "聖特克拉國際",
      "score": 1,
@@ -1217,7 +1217,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "利梅诺",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 8
     },
@@ -1274,7 +1274,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "甘拿斯亚迪罗",
      "score": 1,
@@ -1340,7 +1340,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "拿加沙",
      "score": 0,
