@@ -1911,10 +1911,11 @@ function buildHitMarquee() {
   const rate = compared ? Math.round((winCount / compared) * 1000) / 10 : 0;
   const rateText = rate.toFixed(1) + '%';
 
-  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期 */
+  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期。
+     ⚠️ 这句要能在 320px 的框里一行放下（约 191px < 258px），多了会被省略号切掉。 */
   if (!recent.length) {
     const none = compared
-      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报 · 命中率 ' + rateText
+      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报'
       : '暂无可比对的期次 · 暂无中奖播报';
     return {
       count: 0, compared, rate: rateText,
@@ -5031,6 +5032,37 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 
   table.ro-imgtoc { table-layout: fixed !important; width: 100% !important; }
   table.ro-imgtoc td { width: 50% !important; padding: 3px 5px !important; }
+}
+
+/* ============================================================
+   【手机端 8px 横向溢出 · 修】用户 2026-10-17
+   ------------------------------------------------------------
+   现象：375 / 320 手机上页面能左右拉一点点 ——
+         document.documentElement.scrollWidth 比 clientWidth 大 8px。
+   真浏览器量出来的元凶是【推荐图目录】那块 .ro-imgtoc-wrap，
+   不是走势图表格（走势图表格外面那层 .tr-scroll 已经 overflow-x: auto，
+   它自己溢出的部分被裁掉了，不参与文档宽度）。
+   为什么多出 8px：
+     · ≤1365px 那句 margin-left/-right: -12px 是为了抵消 .ro-wrap 的 12px 内边距
+       → 整块贴屏幕两边；
+     · 但 ≤600px 那句把 .ro-wrap 的内边距改成了 4px（padding: 8px 4px 40px）；
+     ⇒ 负外边距比内边距多抵消 8px：
+        块宽 = (375 - 8) + 12 + 12 = 391，left = 4 - 12 = -8，right = 383
+        ⇒ 左边跑出 -8（不产生滚动）、右边超出 8 ⇒ 文档多出 8px 横向滚动。
+   修法：让负外边距【跟着内边距走】—— 用一个变量存 .ro-wrap 的左右内边距，
+        两处都读它，以后谁再改内边距都不会再错位。
+   ⚠️ 只动这一处外边距：不改结构、不改 .tr-scroll（横向滚动照旧）、
+      不改任何颜色 / 字体 / 断点，不引入任何脚本。
+   ============================================================ */
+.ro-wrap { --ro-pad-x: 12px; }
+@media (max-width: 600px) {
+  .ro-wrap { --ro-pad-x: 4px; }   /* 和上面 .ro-wrap { padding: 8px 4px 40px } 保持一致 */
+}
+.ro-imgtoc-wrap {
+  margin-left: calc(-1 * var(--ro-pad-x, 12px)) !important;
+  margin-right: calc(-1 * var(--ro-pad-x, 12px)) !important;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 /* ============================================================
