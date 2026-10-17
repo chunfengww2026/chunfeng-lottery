@@ -417,9 +417,11 @@ body.cf-open .install-fab { display: none !important; }
 
 export const INSTALL_HTML = `<!-- __INSTALL_APP__ 一键桌面（a[role=button]，不用 button 标签）
      用户 2026-10-18：改成一进来就显示（原来要等浏览器允许安装才出现，很多机型永远不出现）。
-     另外加了一个圆形 📱 按钮（「💬 保留 + 再加一个 📱」），点它同一个动作。 -->
-<a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面">📱 一键桌面</a>
-<a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面">📱</a>`;
+     另外加了一个圆形按钮（「💬 保留 + 再加一个手机图标」），点它同一个动作。
+     ⚠️ 【用内联 SVG 手机图标，不用 📱 emoji】：用户手机上 📱 渲染成了「紫色骰子」，
+        被另一处 CSS 直接隐藏了。SVG 不依赖系统 emoji 字体，任何机型都画成手机。 -->
+<a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="vertical-align:-3px;margin-right:5px"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg>一键桌面</a>
+<a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg></a>`;
 
 export const INSTALL_JS = `
 <script>
