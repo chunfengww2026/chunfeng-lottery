@@ -3215,6 +3215,17 @@ ${nav}
   100% { transform: scale(1); }
 }
 @media (prefers-reduced-motion: reduce) { .install-btn { animation: none !important; } }
+/* 【📱 圆形轻浮按钮】用户 2026-10-18：「💬 保留 + 再加一个 📱」
+   位置在聊天气泡左边一档（right:78 bottom:20），点它 = 一键桌面。 */
+.install-fab { position: fixed !important;
+  right: 78px !important; bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+  top: auto !important; z-index: 9998 !important;
+  width: 50px !important; height: 50px !important; border-radius: 50% !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  background: #1a8c5a !important; color: #fff !important; font-size: 22px !important; line-height: 1 !important;
+  text-decoration: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.18) !important;
+  cursor: pointer !important; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.install-fab:active { transform: scale(0.95) !important; }
 .install-hint { position: fixed; left: 50%;
   bottom: calc(142px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
@@ -3272,8 +3283,10 @@ ${DEVICE_GATE_BODY}
   </div>
   <!-- 【一键桌面】用户 2026-10-17：放在顶部（喇叭同一行的右端）。
        ⚠️ 还是 <a role="button">，不用 <button> 标签 —— 页面不变量（0 裸 button）。
-       默认 display:none，由脚本按浏览器能力决定显示（见页尾 installApp 那段）。 -->
-  <a id="installAppBtn" class="install-btn" role="button" tabindex="0" style="display:none">📱 一键桌面</a>
+       用户 2026-10-18：改成一进来就显示（不再等浏览器允许安装），
+       并在右下角加了一个圆形 📱（💬 保留 + 再加一个 📱）。 -->
+  <a id="installAppBtn" class="install-btn" role="button" tabindex="0">📱 一键桌面</a>
+  <a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面">📱</a>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
@@ -4614,6 +4627,17 @@ ${JC_XYSP_VIEW}
   btn.addEventListener('keydown', function (ev) {
     if (ev.key === 'Enter' || ev.key === ' ') { if (ev.preventDefault) ev.preventDefault(); btn.click(); }
   });
+  /* 【圆形 📱 按钮】用户 2026-10-18：和文字按钮同一个动作 */
+  var fab = document.getElementById('installFab');
+  if (fab) {
+    fab.addEventListener('click', function (ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      btn.click();
+    });
+    fab.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { if (ev.preventDefault) ev.preventDefault(); btn.click(); }
+    });
+  }
   show();   /* 入口始终给（能力不足时点击是引导，不是死键） */
 })();
 
