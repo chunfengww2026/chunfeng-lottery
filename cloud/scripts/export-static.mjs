@@ -8413,7 +8413,7 @@ ${CHAT_JS}
   var titleEl = document.getElementById("toolTitle");
   if (!view || !body) return;
   function txt(el) { return el ? (el.textContent || "").replace(/\s+/g, " ").trim() : ""; }
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c]; }); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function row(k, v) { return "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(k) + "</span><span class=\"tv-v\">" + esc(v) + "</span></div>"; }
   function card(h, inner) { return "<div class=\"tv-card\"><div class=\"tv-h\">" + esc(h) + "</div>" + inner + "</div>"; }
   function statTool() {
