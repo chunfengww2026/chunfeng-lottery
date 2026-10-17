@@ -1462,51 +1462,57 @@ function renderRec() {
      · 每一场都列出终场比分；红/黑由内核按单场 hit 算出来，不在这里另判
      · 近 48 小时一场结果都没有 → 显示一句说明（不留空白、不填假数字）
      ⚠️ 没有存档时这一整块【不渲染】（不显示空标题）。 */
-  const archHead = `<div class="m-rechead2">往期推荐串（近 ${REC_ARCH_HOURS} 小时 · 自动比对）` +
-    (REC_STAT && REC_STAT.decided
-      ? `<span class="m-recsum">红 ${REC_STAT.red} · 黑 ${REC_STAT.black}` +
-        ` · 命中率 ${REC_STAT.rate}%</span>`
-      : `<span class="m-recsum">红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0}` +
-        ` · 暂无已结算</span>`) +
-    (REC_ARCH_PENDING
-      ? `<span class="m-recpending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</span>`
-      : '') +
-    `</div>`;
+  /* 【往期推荐串】用户 2026-10-17 给的模块结构（选 B：替换掉原来那块，页面上只留一份）：
+       .past-recommend-section > .past-header(.title-left .label + .stats-right#pastStats)
+                                 > .past-list#pastList
+     · 外层仍带 id="jcRecArch" —— 30 秒刷新脚本按它换 innerHTML，机制不变
+     · 统计口径和顶部那条一致（单场判定 REC_STAT），两处数字永远相同
+     · 列表项沿用现有 .m-recbatch / .m-recrow-arch（数据、红黑判定不动） */
+  const pastStats = (REC_STAT && REC_STAT.decided)
+    ? `红 ${REC_STAT.red} · 黑 ${REC_STAT.black} · 命中率 ${REC_STAT.rate}%`
+    : `红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0} · 命中率 —`;
+  const pastHead =
+    `<div class="past-header">` +
+    `<div class="title-left"><span class="label">往期推荐串</span></div>` +
+    `<div class="stats-right" id="pastStats">${pastStats}</div>` +
+    `</div>` +
+    (REC_ARCH_PENDING ? `<div class="past-pending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</div>` : '');
+  const pastItems = REC_ROWS_ARCHIVE.map((b) => {
+    const rows = Array.isArray(b.rows) ? b.rows : [];
+    const cls = b.verdict === '红' ? 'hit' : (b.verdict === '黑' ? 'miss' : 'wait');
+    const tag = b.verdict || '待定';
+    return `<div class="m-recbatch">` +
+      `<div class="m-recbhead">` +
+      `<span class="m-recbat">${esc(b.at || '')}</span>` +
+      `<span class="m-rb ${cls}">${esc(tag)}</span>` +
+      `<span class="m-recbnote">${rows.length} 场` +
+      (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
+      `</div>` +
+      rows.map((r) =>
+        `<div class="m-recrow m-recrow-arch">` +
+        `<span class="m-reccode">${esc(r.code || '')}</span>` +
+        `<span class="m-recteams">${esc(r.home || '')} vs ${esc(r.away || '')}</span>` +
+        `<span class="m-recpick">${esc(r.label || '')}</span>` +
+        `<span class="m-recodds">${r.score ? esc(r.score) : '—'}</span>` +
+        `<span class="m-rb ${r.hit === true ? 'hit' : (r.hit === false ? 'miss' : 'wait')}">${
+          r.hit === true ? '红' : (r.hit === false ? '黑' : '待')}</span>` +
+        `</div>`).join('') +
+      `</div>`;
+  }).join('');
 
   const detail = REC_ROWS_ARCHIVE.length
-    ? archHead + REC_ROWS_ARCHIVE.map((b) => {
-        const rows = Array.isArray(b.rows) ? b.rows : [];
-        const cls = b.verdict === '红' ? 'hit' : (b.verdict === '黑' ? 'miss' : 'wait');
-        const tag = b.verdict || '待定';
-        return `<div class="m-recbatch">` +
-          `<div class="m-recbhead">` +
-          `<span class="m-recbat">${esc(b.at || '')}</span>` +
-          `<span class="m-rb ${cls}">${esc(tag)}</span>` +
-          `<span class="m-recbnote">${rows.length} 场` +
-          (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
-          `</div>` +
-          rows.map((r) =>
-            `<div class="m-recrow m-recrow-arch">` +
-            `<span class="m-reccode">${esc(r.code || '')}</span>` +
-            `<span class="m-recteams">${esc(r.home || '')} vs ${esc(r.away || '')}</span>` +
-            `<span class="m-recpick">${esc(r.label || '')}</span>` +
-            `<span class="m-recodds">${r.score ? esc(r.score) : '—'}</span>` +
-            `<span class="m-rb ${r.hit === true ? 'hit' : (r.hit === false ? 'miss' : 'wait')}">${
-              r.hit === true ? '红' : (r.hit === false ? '黑' : '待')}</span>` +
-            `</div>`).join('') +
-          `</div>`;
-      }).join('')
+    ? pastHead + `<div class="past-list" id="pastList">${pastItems}</div>`
     : (JC_RECO && Array.isArray(JC_RECO.batches) && JC_RECO.batches.length
-      /* 【空态】48 小时内一场结果都没有 → 明确说明，不留白、不填假的 */
-      ? archHead +
-        `<div class="m-recempty">近 ${REC_ARCH_HOURS} 小时暂无已出结果的推荐` +
-        (REC_ARCH_PENDING ? `（还有 ${REC_ARCH_PENDING} 组没打完）` : '') + `</div>`
+      /* 【空态】窗口内一场结果都没有 → 明确说明，不留白、不填假的 */
+      ? pastHead + `<div class="past-list" id="pastList">` +
+        `<div class="past-empty">近 ${REC_ARCH_HOURS} 小时暂无已出结果的推荐` +
+        (REC_ARCH_PENDING ? `（还有 ${REC_ARCH_PENDING} 组没打完）` : '') + `</div></div>`
       : '');
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
   return `<details class="m-rec" id="jcRec">${head}${note}${body}` +
-    (detail ? `<div id="jcRecArch">${detail}</div>` : '') +
+    (detail ? `<div class="past-recommend-section" id="jcRecArch">${detail}</div>` : '') +
     `</details>`;
 }
 
@@ -2357,6 +2363,20 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-recrow-arch { padding: 3px 0; border-bottom: 1px dotted #e8d7bd; }
 .m-recrow-arch:last-child { border-bottom: 0; }
 .m-rb.wait { background: #fdf6ea; color: #8a7a63; border: 1px solid #e8d7bd; }
+
+/* ---- 【往期推荐串】用户 2026-10-17 给的模块结构（替换掉旧的 .m-rechead2 那套标题）----
+   .past-recommend-section > .past-header(.title-left .label + .stats-right#pastStats)
+                             > .past-list#pastList
+   列表项沿用现有的 .m-recbatch/.m-recrow-arch（数据口径不变，只是标题换成新的） */
+.past-recommend-section { margin-top: var(--jc-gap); }
+.past-header { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 2px 0 8px; border-bottom: 1px solid #efe2cc; }
+.past-header .title-left .label { font-size: 13.5px; font-weight: 700; color: #4a3a26; }
+.past-header .stats-right { font-size: 11.5px; font-weight: 700; color: #c0392b; }
+.past-list { margin-top: 8px; }
+.past-list .loading-text { font-size: 11px; color: #8a7a63; }
+.past-pending { font-size: 11px; color: #8a7a63; padding: 0 0 6px; }
+.past-empty { font-size: 11.5px; color: #8a7a63; padding: 6px 0; }
 
 /* ============================================================
    __FB_ENTRY_BAR__ 竞彩页 · entry 行 + 底部操作条（用户设计稿）
