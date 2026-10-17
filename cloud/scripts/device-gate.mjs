@@ -1364,9 +1364,7 @@ export const CHAT_VIDEO_JS = `
       function applyRatio() {
         try {
           if (!video.videoWidth || !video.videoHeight) return;
-          box.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
-          box.style.height = 'auto';
-          box.style.maxHeight = '42vh';   /* 竖屏别把聊天区和输入框挤出面板（实测 62vh 会把聊天顶没） */
+          /* 尺寸统一交给 CSS（9:16 + 33vh 上限）：这里再写 inline 会把 CSS 顶掉，实测过 */
         } catch (e) { }
       }
       video.addEventListener('loadedmetadata', applyRatio);
