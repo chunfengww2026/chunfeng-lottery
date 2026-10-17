@@ -912,6 +912,8 @@ function parseArgs(argv) {
        ⚠️ 全量一轮 2000+ 请求 / 30~60 分钟 —— 只放云端（凌晨 2 点全量班）跑。 */
     /* 【抓到就停】用户 2026-10-18：已抓够的彩种直接跳过，等下一期开奖再抓 */
     if (a === '--skip-done') { opts.skipDone = true; continue; }
+    /* 【防回退闸门】故意接受"比上一版更小"的抓取结果时才加这个（见输出段的说明） */
+    if (a === '--allow-shrink') { opts.allowShrink = true; continue; }
     if (a === '--all') {
       opts.perCategoryLimit = DEFAULTS.allPerCategoryLimit;
       opts.perCategoryLimitSet = true;
@@ -1031,6 +1033,34 @@ async function main() {
     },
     games: report.games
   };
+
+  /* ---------- 【防回退闸门】写出前先比上一版 ----------
+     2026-10-18 事故复盘：有人调试时跑了 `node build-experts.mjs ssq`
+     （只抓 1 个彩种 / 默认上限），一轮 37 个请求 23 秒就把上一班全量抓到的
+     「8 彩种 · 160 位专家」覆盖成「1 彩种 · 15 位」。
+     数据没编、也没报错（errors=0），但线上的专家推荐可点行 169 → 24、
+     页面体积掉了 610 KB。这种"静默变小"必须拦住。
+     规则：新一轮【彩种数变少】或【专家数掉到上一版的 70% 以下】时，
+     【不覆盖】正式文件，把结果写成 experts-data.js.rejected-<时间戳> 备查，
+     并大声报错；确认就是要接受更小的数据集时，加 --allow-shrink 再跑。 */
+  const prevGamesN = Number(PREV_DATA && PREV_DATA.stat && PREV_DATA.stat.games) || 0;
+  const prevExpertsN = Number(PREV_DATA && PREV_DATA.stat && PREV_DATA.stat.experts) || 0;
+  const shrunkGames = prevGamesN > 0 && out.stat.games < prevGamesN;
+  const shrunkExperts = prevExpertsN > 0 && out.stat.experts < Math.ceil(prevExpertsN * 0.7);
+  if (!opts.allowShrink && (shrunkGames || shrunkExperts)) {
+    const rejFile = OUT_JS + '.rejected-' + stamp.replace(/[^\d]/g, '');
+    fs.writeFileSync(rejFile, header + `const EXPERTS_DATA = ${JSON.stringify(out, null, 1)};\n`, 'utf8');
+    log('\n⛔ 已拒绝覆盖 experts-data.js —— 这一轮抓到的数据【比上一版少】：');
+    log(`   上一版：${prevGamesN} 个彩种 / ${prevExpertsN} 位专家`);
+    log(`   这一轮：${out.stat.games} 个彩种 / ${out.stat.experts} 位专家` +
+      `（请求 ${out.stat.requests} · 错误 ${out.stat.errors}）`);
+    log('   常见原因：手工只指定了部分彩种（如 `node build-experts.mjs ssq`）、' +
+      '或源站限流导致某些彩种整块抓空。');
+    log(`   正式文件保持原样，本轮结果留在：${path.basename(rejFile)}`);
+    log('   确实要接受更小的数据集，请加 --allow-shrink 重跑。');
+    process.exitCode = 2;
+    return;
+  }
 
   const header = `/* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
