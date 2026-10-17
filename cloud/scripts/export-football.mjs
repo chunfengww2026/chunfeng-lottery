@@ -1364,6 +1364,14 @@ JC.games.forEach((g) => {
     away: (g.away && g.away.name) || '',
     label: g.reco.label || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '',
     odds: (eu && pick && eu[pick] != null) ? eu[pick] : null,
+    /* 【排名 + 三项欧赔】用户 2026-10-18 要「爆冷预警 / 差异分析」：
+       排名和赔率我们本来就有（jc-data.js 的 home.rank / away.rank / odds.europe），
+       这里一并带进推荐串行，页面上标事实（不写"谨防平局"那种判断）。 */
+    rankH: (g.home && g.home.rank != null) ? g.home.rank : null,
+    rankA: (g.away && g.away.rank != null) ? g.away.rank : null,
+    euHome: (eu && eu.home != null) ? eu.home : null,
+    euDraw: (eu && eu.draw != null) ? eu.draw : null,
+    euAway: (eu && eu.away != null) ? eu.away : null,
     conf: g.reco.confidence
   });
 });
@@ -1456,6 +1464,24 @@ function recoStatBarTop() {
 /* ============================================================
    渲染
    ============================================================ */
+
+/* 【值得注意 · 口诀口径但只讲事实】用户 2026-10-18：要「爆冷预警 / 差异分析」。
+   只用真实字段（主客排名 + 主/平/客三项欧赔）做判定，陈述事实，不下"谨防平局"这类断言；
+   页面上同时给免责声明。返回空串表示没有可说的（不硬凑）。 */
+function recNoteHtml(r) {
+  if (!r) return "";
+  const bits = [];
+  const rh = r.rankH, ra = r.rankA, eh = r.euHome, ed = r.euDraw, ea = r.euAway;
+  if (eh != null && eh < 1.40) bits.push("主胜 " + Number(eh).toFixed(2) + " 属低赔（热门方）");
+  if (rh != null && ra != null && Math.abs(rh - ra) <= 3 && ed != null && ed < 3.50)
+    bits.push("排名接近（#" + rh + " vs #" + ra + "），平赔 " + Number(ed).toFixed(2) + " 偏低");
+  if (rh != null && ra != null && rh <= 5 && ra >= 15 && ea != null && ea > 4.00)
+    bits.push("主队排名靠前（#" + rh + "）、客队靠后（#" + ra + "），客胜 " + Number(ea).toFixed(2) + " 高赔");
+  if (!bits.length) return "";
+  return '<div class="m-recknow">🔥 值得注意：' + bits.join("；") +
+    '<i>（按排名与赔率统计的事实，不是预测；彩票有风险，理性投注）</i></div>';
+}
+
 function renderRec() {
   /* __FB_ENTRY_ROW__ 和三个分段同一套「横排 entry 行」：
      左「推荐串」+ 副标题（在售 · 信心 ≥58% · N 场），右「点击查看」。
@@ -1490,8 +1516,12 @@ function renderRec() {
       (r.league ? `<i>${esc(r.league)}</i>` : '') + `</span>` +
       `<span class="m-recpick">${esc(r.label)}</span>` +
       `<span class="m-recodds">${r.odds == null ? '—' : Number(r.odds).toFixed(2)}</span>` +
+      /* 【排名】用户 2026-10-18：主客排名是真实字段（jc-data 的 home.rank / away.rank），直接标出来 */
+      (r.rankH != null || r.rankA != null
+        ? `<span class="m-recrank">#${r.rankH == null ? '—' : r.rankH} : #${r.rankA == null ? '—' : r.rankA}</span>`
+        : '') +
       `<span class="m-recconf${r.conf >= 60 ? ' strong' : ''}">${r.conf}%</span>` +
-      `</div>`).join('')
+      `</div>` + recNoteHtml(r)).join('')
     : `<div class="m-recempty">暂无（在售场次里` +
       (REC_MAXCONF == null
         ? `还没有推荐数据`
@@ -2249,6 +2279,10 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-rec > summary.m-rechead::marker { content: ''; }
 /* 推荐卡片里的提示行（用户指定文案） */
 .m-rectips { font-size: 11px; color: #a89a80; padding: 2px 2px 8px; }
+/* 推荐串行里的主客排名（真实字段，不是估算） */
+.m-recrank { font-size: 11px; color: #8a7a63; }
+.m-recknow { font-size: 11px; color: #8a6a3a; background: #fff6e6; border: 1px solid #f0dfa8; border-radius: 8px; padding: 6px 8px; margin: -2px 0 8px; line-height: 1.5; }
+.m-recknow i { display: block; font-style: normal; color: #a89a80; font-size: 10.5px; margin-top: 2px; }
 .m-rectitle { font-size: 14px; font-weight: 700; color: #e8eaed; }
 .m-reccount { font-size: 11px; color: #6b7488; background: #12151d;
   padding: 2px 8px; border-radius: 20px; }
