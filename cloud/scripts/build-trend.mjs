@@ -786,13 +786,33 @@ const INTERACT_SRC = `
        不能只等 click：实测（真机 + CDP 触摸）手指点按钮，click 不来 → 按钮没反应。
        桌面鼠标没有 touchAt，照旧走 click，互不干扰。 */
     if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
+    /* 手指移动位移：用来区分「点」和「滑」 */
+    var t1 = ev && ev.changedTouches && ev.changedTouches[0];
+    if (t1) {
+      if (Math.abs(t1.clientX - touchX) > 8 || Math.abs(t1.clientY - touchY) > 8) touchMoved = true;
+    }
     var toolEl = findUp(ev && ev.target, 'data-tool');
     if (toolEl) { toolClicked(toolEl.getAttribute('data-tool'), toolEl); return; }
     var styleEl = findUp(ev && ev.target, 'data-tr-drawstyle');
     if (styleEl) { applyStyle(styleEl.getAttribute('data-tr-drawstyle')); return; }
+    /* 【彩种切换按钮】用户 2026-10-17 实测：「手机版本点不动这些按钮」
+       （双色球 / 大乐透 / 七乐彩 / 七星彩 / 快乐8 / 福彩3D / 排列3 / 排列5）。
+       根因：这几颗按钮的事件绑在 trend-mount.js 里，只有 click；
+       而本层上面那条 preventDefault 把浏览器【补发的 click】打断了 →
+       手机上 touchend 来了、click 永远不来 → 点了不切表格（桌面鼠标不受影响）。
+       做法：触摸路径在这里替它触发一次 click（mount 自己的 click 处理器照常跑 show()），
+       一次触摸只切一次（补发的 click 已被上面 preventDefault 挡掉）。
+       真滑动（>8px）不切，免得滚页面时误切彩种。 */
+    var tabEl = findUp(ev && ev.target, 'data-tr-tab');
+    if (tabEl) {
+      if (!touchMoved && tabEl.click) tabEl.click();
+      return;
+    }
     handlePreselTap(ev);
   });
   root.addEventListener('touchstart', function (ev) {
+    var t0 = ev && ev.touches && ev.touches[0];
+    if (t0) { touchX = t0.clientX; touchY = t0.clientY; touchMoved = false; }
     var el = ev && ev.target;
     while (el && el.getAttribute && el.getAttribute('data-tr-presel') == null) el = el.parentNode;
     if (el && el.getAttribute && el.getAttribute('data-tr-presel') !== 'label' &&
@@ -1059,11 +1079,19 @@ html, body { margin: 0; background: var(--ro-bg); color: var(--ro-fg);
 .ro-status b { color: #7a5c00; }
 /* 原 .ro-status .ro-st-time（那行红色时间）随用户 2026-10-17 的要求一起去掉 */
 
-/* ④ 彩种切换条 */
+/* ④ 彩种切换条
+   【触摸友好】用户 2026-10-17 反馈「手机版本点不动这些按钮」：
+   根因是互动层为了防止补发 click 把 touch 补发的 click 挡掉了（见互动层 touchend），
+   这里再补两条：touch-action: manipulation 关掉双击缩放的等待；
+   去掉点击高亮 + 禁止选中文字。事件侧已经在互动层里自己处理触摸，见那里的注释。 */
 .tr-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
 .tr-tab { flex: 0 0 auto; padding: 7px 13px; font-size: 13px; font-weight: 600;
   border-radius: 16px; text-decoration: none; color: var(--ro-fg2);
-  background: var(--ro-card); border: 1px solid var(--ro-line); }
+  background: var(--ro-card); border: 1px solid var(--ro-line);
+  min-height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  box-sizing: border-box; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none; }
 .tr-tab:hover { border-color: var(--ro-ok); }
 .tr-tab.on { background: #e8f6ef; border-color: #b7e4cd; color: var(--ro-ok); }
 
