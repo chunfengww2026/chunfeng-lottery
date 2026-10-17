@@ -2764,7 +2764,74 @@ const html = `<!DOCTYPE html>
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
 ${nav}
-<style>${CSS}</style>
+<style>${CSS}
+/* ============================================================
+   【比赛卡片 · 米杏浅色主题】用户 2026-10-17 直接给的 CSS 设计。
+   ------------------------------------------------------------
+   他那份用的是新类名（.match-card/.match-header/.odds-row/.recommend-bar/
+   .ev-bar/.score-row…），而页面现有的卡片是 .m-card/.m-top/.m-odds/.m-reco/.m-ev/.m-scorepick
+   —— 重命名会牵连十几处已有样式（历史/红黑/详情链接/欧赔分歧…），所以这里做【映射】：
+      .match-card → .m-card        .match-header → .m-top
+      .match-body → .m-body        .odds-row/.odds-item → .m-odds（三列同款底）
+      .recommend-bar → .m-reco     .right-tags .tag → .m-tag / .m-probrow .opt
+      .ev-bar/.ev-item → .m-ev/.m-evitem     .score-row/.score-tag → .m-scorepick/.m-sp-item
+   颜色/圆角/间距/字体全部照他给的值；EV>0 用红、EV<0 用灰（他明确：positive 红、negative 灰）。
+   放在 ${CSS} 之后 + 必要的 !important → 稳稳盖住旧的暗色残留。 */
+.m-card { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 12px !important; margin-bottom: 12px !important; overflow: hidden !important; }
+.m-card .m-top { padding: 12px 14px !important; position: relative; cursor: pointer; }
+.m-card .m-top:active { background: #f9efdd !important; }
+.m-card .m-league, .m-card .m-time, .m-card .m-round, .m-card .m-code,
+.m-card .m-st { color: #8a7a63 !important; }
+.m-card .m-team { color: #4a3a26 !important; font-weight: 700 !important; font-size: 15px !important; }
+.m-card .m-vs { color: #8a7a63 !important; }
+.m-card .m-fold { color: #8a7a63 !important; font-size: 12px !important; }
+.m-card .m-body { padding: 0 14px 14px !important; border-top: 1px solid #f0e2cc !important;
+  max-height: 2000px; overflow: hidden; transition: max-height .35s ease; background: transparent !important; }
+.m-card.folded .m-body { max-height: 0 !important; padding-bottom: 0 !important; display: block !important; }
+/* 赔率行：三块浅底小方块 */
+.m-card .m-odds { background: #f9efdd !important; border: 1px solid #f0e2cc !important;
+  border-radius: 6px !important; padding: 8px !important; margin: 8px 0 !important;
+  justify-content: center !important; gap: 10px !important; }
+.m-card .m-ol { color: #8a7a63 !important; }
+.m-card .m-ov { color: #4a3a26 !important; background: transparent !important; }
+.m-card .m-ov.on { color: #1a8c5a !important; font-weight: 700 !important; }
+/* 推荐行 */
+.m-card .m-reco { background: #fff6dd !important; border: 0 !important; border-radius: 8px !important;
+  padding: 8px 12px !important; margin: 10px 0 !important; }
+.m-card .m-pick { color: #4a3a26 !important; font-size: 13px !important; }
+.m-card .m-pick b { color: #c0392b !important; font-size: 14px !important; }
+.m-card .m-conf { color: #8a7a63 !important; font-size: 11px !important; margin-left: 6px; }
+.m-card .m-problab { color: #8a7a63 !important; }
+.m-card .m-tag, .m-card .m-probrow .opt {
+  font-size: 11px !important; padding: 3px 8px !important; border-radius: 12px !important;
+  background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  color: #8a7a63 !important; font-style: normal !important; font-weight: 400 !important; }
+.m-card .m-probrow .opt.active { background: #1a8c5a !important; color: #fff !important;
+  border-color: #1a8c5a !important; font-weight: 700 !important; }
+.m-card .m-tag.orange { background: #f5b301 !important; color: #fff !important;
+  border-color: #f5b301 !important; font-weight: 700 !important; }
+/* EV 行 */
+.m-card .m-ev { background: #f4f8f5 !important; border: 1px solid #d0e5d8 !important;
+  border-radius: 8px !important; padding: 8px 12px !important; margin: 0 0 10px !important; }
+.m-card .m-evlab { color: #1a8c5a !important; font-weight: 700 !important; font-size: 12px !important; }
+.m-card .m-evitem { background: transparent !important; color: #8a7a63 !important;
+  font-weight: 700 !important; padding: 0 !important; font-size: 12px !important; }
+.m-card .m-evitem.pos { color: #c0392b !important; }   /* EV > 0 红 */
+.m-card .m-evitem.neg { color: #8a7a63 !important; }   /* EV < 0 灰 */
+/* 比分推荐 */
+.m-card .m-scorepick { border-top: 0 !important; }
+.m-card .m-sp-lab, .m-card .m-sp-note { color: #8a7a63 !important; }
+.m-card .m-sp-item { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 10px !important; color: #4a3a26 !important; }
+.m-card .m-sp-item.on { background: #e3f2ea !important; border-color: #1a8c5a !important;
+  color: #1a8c5a !important; font-weight: 700 !important; }
+/* 亚指换算 / 欧赔分歧 / 泊松 / 多选：跟着卡片换成浅底 */
+.m-card .m-ai, .m-card .m-mc, .m-card .m-poisson, .m-card .m-multi {
+  background: #f9efdd !important; border: 1px solid #f0e2cc !important; border-radius: 8px !important; }
+.m-card .m-ai-title, .m-card .m-mc-title, .m-card .m-sp-lab { color: #8a7a63 !important; }
+.m-card .m-godetail { color: #1a8c5a !important; }
+</style>
 </head>
 <body>
 <div class="wrap">
