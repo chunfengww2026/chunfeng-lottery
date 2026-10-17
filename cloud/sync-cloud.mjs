@@ -357,6 +357,13 @@ const CODE_MODULES = [
            ERR_MODULE_NOT_FOUND，整个晒票栏（含一起彩那 8 个彩种）全没了。
       它只写 xysp-tt-data.js；xysp-data.js 永远只由 build-xysp.mjs 写。 */
   'build-xysp-tt.mjs',
+  /* 【足球晒票 · 票面照片】抓取脚本（本机每 30 分钟跑一次，
+      跟着 update-football-smart.mjs 的 0.5 步；产物 football-tickets.js）。
+      ⚠️ 同步它只是为了【云端那个「尽力而为」的抓取步骤有脚本可跑】——
+         实测云端访问源站是 405（阿里云 WAF），这一步在云端【永远抓不到】，
+         真正的数据靠本机同步过去的 football-tickets.js。
+         哪天 WAF 放开了，云端这个步骤会自动开始出数据，不用再改代码。 */
+  'fetch-football-tickets.mjs',
   /* 【票图校验】OCR 判"图里到底有没有票"（用户要求「整票百分百」）。
       ⚠️ 必须同步：build-xysp-tt.mjs 里 `import ... from './verify-ticket.mjs'`，
       云端 scripts/ 里没有它 → ERR_MODULE_NOT_FOUND → 整个头条晒票分类挂掉。
