@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 15:21",
+ "updated": "2026-10-17 16:01",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1637,36 +1637,9 @@ const JC_HISTORY = {
    "home": "蔚山现代",
    "away": "富川FC",
    "time": "2026-10-17 15:30",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": -0.75,
-    "openUpWater": 0.8,
-    "openDownWater": 1,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.8,
-     "nowUpWater": 0.85,
-     "initLine": "半球/一球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "1:1",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 1.61,
     "draw": 3.8,
@@ -1680,11 +1653,11 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 56.7,
-   "result": "",
+   "type": "three",
+   "result": "lose",
    "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "matched": true,
+   "at": "2026-10-17 00:28"
   },
   {
    "code": "周六001",
