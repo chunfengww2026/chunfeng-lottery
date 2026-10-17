@@ -734,6 +734,16 @@ a { color: var(--ro-ok); text-decoration: none; }
   touch-action: manipulation; user-select: none; }
 .md-fab-back:active { transform: scale(.94); }
 @media print { .md-fab-back { display: none; } }
+/* __SAFE_TOP__ 用户 2026-10-18：「苹果手机在时间哪里所以点不到」
+   —— 顶部返回栏原来贴着屏幕最上沿，被 iOS 状态栏（时间/刘海）盖住，点不到。
+   这里加 safe-area 安全区，并给导航栏留足高度。 */
+body { padding-top: env(safe-area-inset-top, 0px) !important; }
+.md-top { padding-top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: 8px !important; min-height: 44px !important; box-sizing: border-box; }
+.md-back { min-height: 40px !important; display: inline-flex !important; align-items: center !important;
+  padding: 0 10px !important; }
+/* 右下角那个返回钮也不要压到 iOS 底部小横条 */
+.md-fab-back { bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important; }
 </style>
 </head>
 <body>
