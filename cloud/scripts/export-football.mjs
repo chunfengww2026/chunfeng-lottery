@@ -3024,13 +3024,20 @@ ${nav}
   font-weight: 700 !important; line-height: 18px !important; }
 .broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
 .broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
-/* 【一键桌面 · 位置/外观按用户 2026-10-17 给的 CSS】
-   固定右上角（top 55px / right 15px）、实心绿 #1a8c5a + 白字、20px 胶囊、阴影、呼吸灯 2s。
+/* 【一键桌面 · 位置/外观按用户 2026-10-17 给的 CSS，位置改到右下角】
+   外观照用户原样：实心绿 #1a8c5a + 白字、20px 胶囊、阴影、呼吸灯 2s。
+   ⚠️【位置改过】（2026-10-18）：用户原话是 top 55px / right 15px，
+      但那个位置会【压住顶部横向滚动的播报喇叭】（「推荐串：红 20 黑 9 …」），
+      所以改成和分享页 / 详情页一致的【右下角】，让开喇叭；
+      右下角下面 52px 是聊天框按钮，这里锚在它上面（80px），两者不打架；
+      聊天框打开时 body 会挂 .cf-open → 本按钮 display:none 自动让位。
    ⚠️ 全部 !important：页面里有别的胶囊/按钮样式会抢（之前播报条的圆角就被抢过），
       固定定位也必须压过容器。
    ⚠️ 呼吸灯的关键帧改名 install-pulse（原名叫 pulse，页面里已有同名 keyframes 会打架）。
    ⚠️ 系统开了「减少动态效果」→ 关掉呼吸灯（无障碍）。 */
-.install-btn { position: fixed !important; top: 55px !important; right: 15px !important; z-index: 9999 !important;
+.install-btn { position: fixed !important;
+  right: 12px !important; bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+  top: auto !important; z-index: 9998 !important;
   display: inline-flex !important; align-items: center !important; justify-content: center !important;
   background: #1a8c5a !important; color: #fff !important; border: none !important;
   border-radius: 20px !important; padding: 6px 12px !important; font-size: 12px !important;
@@ -3045,7 +3052,8 @@ ${nav}
   100% { transform: scale(1); }
 }
 @media (prefers-reduced-motion: reduce) { .install-btn { animation: none !important; } }
-.install-hint { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+.install-hint { position: fixed; left: 50%;
+  bottom: calc(142px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
   padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 </style>
