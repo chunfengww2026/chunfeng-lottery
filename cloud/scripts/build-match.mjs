@@ -379,6 +379,13 @@ const DATA_JSON = JSON.stringify({
     count: Object.keys(BIFA_GAMES).length,
     games: BIFA_GAMES
   } : null,
+  /* 【联赛积分榜 · 真实积分】只内嵌 leagues（名次/积分/场次/胜平负/进球/失球/队名），
+     「综合模型」那一档的埃罗要用它算真实积分差。
+     ⚠️ 队名也内嵌（认队要用它），但页面【只显示积分】，不显示任何一个队名以外的东西。 */
+  stand: STAND_LEAGUES ? {
+    updated: STAND_UPDATED,
+    leagues: STAND_LEAGUES
+  } : null,
   games: ORDERED
 }).replace(/</g, '\\u003c').replace(/\u2028|\u2029/g, '');
 
@@ -1973,8 +1980,9 @@ ${DEVICE_GATE_BODY}
   }
   /* 在这一场的联赛积分榜里认这一支球队：认不准就返回 null（宁可退档也不认错） */
   function fusStandTeam(g, side) {
-    if (!STAND_LEAGUES) return null;
-    var L = STAND_LEAGUES[String(g.sid == null ? '' : g.sid)];
+    var ST = (D.stand && D.stand.leagues) ? D.stand.leagues : null;
+    if (!ST) return null;
+    var L = ST[String(g.sid == null ? '' : g.sid)];
     if (!L || !L.teams || !L.teams.length) return null;
     var raw = String((g[side] && g[side].name) || '');
     if (!raw) return null;
@@ -2360,8 +2368,8 @@ ${DEVICE_GATE_BODY}
         + '<td class="' + (Math.abs(dpp) > 0.05 ? 'up' : 'n') + '">' + (mb.qAdj * 100).toFixed(1) + '%</td></tr>'
         + '<tr><td class="s">上/下盘水位比</td><td class="n">' + mb.ratio0.toFixed(3) + '</td>'
         + '<td class="' + (Math.abs(mb.ratio1 - mb.ratio0) > 0.002 ? 'up' : 'n') + '">' + mb.ratio1.toFixed(3) + '</td></tr>'
-        + '<tr><td class="s">修正幅度</td><td class="dim">—</td>'
-        + '<td class="' + (Math.abs(dpp) > 0.05 ? 'up' : 'dim') + '">' + (dpp > 0 ? '+' : '') + dpp.toFixed(1) + ' 个百分点</td></tr>'
+        + '<tr><td class="s wrap">修正幅度（个百分点）</td><td class="dim">—</td>'
+        + '<td class="' + (Math.abs(dpp) > 0.05 ? 'up' : 'dim') + '">' + (dpp > 0 ? '+' : '') + dpp.toFixed(1) + '</td></tr>'
         + '</tbody></table>'
         + '<div class="md-one" style="margin-top:5px;line-height:1.7">'
         + '<b>b 的算法</b>：q =（1/上盘水）÷（1/上盘水 + 1/下盘水）＝ <b>' + (mb.q * 100).toFixed(2)
@@ -2370,7 +2378,9 @@ ${DEVICE_GATE_BODY}
         + 'b = (q − p) ÷ p。修正：上盘 q ÷（1 + 0.5b）、下盘 (1−q) ÷（1 − 0.5b）再归一 —— '
         + '<b>b = 0 时两式相同，归一后相消，水位比一点不动</b>；所以上面那个 b 只要不是 0，'
         + '水位比就真的变了。抽水率 c =（1/上盘水 + 1/下盘水）÷ 2 − 1 ＝ <b>' + (mb.c * 100).toFixed(1)
-        + '%</b>，它是上下两边共同的乘数，归一后自消，因此抽水本身不改变水位比 —— 只有 b 会。</div>';
+        + '%</b>，它是上下两边共同的乘数，归一后自消，因此抽水本身不改变水位比 —— 只有 b 会。'
+        + '<br>⚠️ 这一块的上盘概率是<b>修正后</b>的；上面「差异分析」那一档用的是<b>未修正</b>的原始水位换算 —— '
+        + '两处数字不一样是有意的（那边描述两个盘口的原始差，这边才是修正口径），不是哪一个算错了。</div>';
     }
 
     /* 盘口信号 */
@@ -2862,6 +2872,11 @@ console.log('   欧赔对比：' + (TITAN_GAMES
 console.log('   资金分布：' + (BIFA_GAMES
   ? Object.keys(BIFA_GAMES).length + ' 场有成交额（其余场次显示「本场暂无成交量数据」，绝不写 0）'
   : '⚠️ 没有 jc-bifa.js → 这一档全部显示「本场暂无成交量数据」（不会报错）'));
+console.log('   联赛积分榜：' + (STAND_LEAGUES
+  ? Object.keys(STAND_LEAGUES).length + ' 个联赛 · ' + Object.keys(STAND_LEAGUES)
+      .reduce((n, k) => n + ((STAND_LEAGUES[k].teams || []).length), 0) + ' 支队（数据时间 ' + (STAND_UPDATED || '—') + '）'
+    + ' → 综合模型里的埃罗优先用真实积分，认不出队名 / 归档场次退回名次折算并标明'
+  : '⚠️ 没有 jc-standings.js → 埃罗全部退回「名次折算」（不会报错，但那一档不是真实积分）'));
 console.log('   爆冷预警 / 差异分析：每场都出（口诀阈值 1.40 / 3.50 / 4.00 原样保留，触发条件用本页真实欧赔 / 排名 / 亚盘水位；'
   + '归档场次没有排名 → 口诀 ②③ 如实写「无法判」）');
 console.log('   ✅ 留痕断言：页面里没有任何站名 / 域名 / 接口 / 数据文件名（可见文本也扫过了）');
