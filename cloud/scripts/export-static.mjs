@@ -4716,13 +4716,26 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
    ⚠️ ⑥⑦ 晒票和 GPT 摇号从上一版的【横排】改回【居中单卡片】
       （用户最终要居中；上一版横排是我按更早的要求做的，这里改回）。
    ============================================================ */
-/* ① 顶部 Tab */
+/* ① 顶部 Tab —— 2026-10-18 修（两页必须一模一样，竞彩页同名规则同步改）：
+   · 值对齐竞彩页：flex 1 1 0 / min-width:0 / white-space:nowrap /
+     -webkit-tap-highlight-color:transparent。
+     原来这里是 flex:1 + 没有 nowrap —— 窄屏＋系统大字号时「竞彩/足球」会折行，
+     手机上点 Tab 还会闪一下系统高亮方块（竞彩页早就写过这两条，本页漏了）。
+   · 高度锁定 = 12 + 19(14px 行盒) + 12 = 43px，和竞彩页完全一致
+     （原来竞彩页 padding 10px/6px → 39px，两页来回切会跳 4px）。
+   · .tab.on::after 改成 bottom:-1px：正好压住整条 Tab 的那条 1px 底线。
+     原来 bottom:0，绿线底下还露出 1px 米色（4x 截图实测：绿 49–51px、米色 51–52px），
+     看起来像「双线」，也让人以为非激活那句也有下划线。
+   · 悬停/键盘焦点用主题色，不让浏览器默认黑框出现。 */
 .top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px; }
-.top-tabs .tab { flex: 1; text-align: center; padding: 12px 8px; font-size: 14px;
-  font-weight: 600; color: var(--ro-fg2); text-decoration: none; position: relative; }
+.top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 8px;
+  font-size: 14px; font-weight: 600; color: var(--ro-fg2); text-decoration: none;
+  position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
 .top-tabs .tab.on { color: var(--ro-ok); font-weight: 700; }
 .top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
-  bottom: 0; height: 2px; background: var(--ro-ok); border-radius: 2px; }
+  bottom: -1px; height: 2px; background: var(--ro-ok); border-radius: 2px; }
+.tab:focus-visible { outline: 2px solid var(--ro-ok); outline-offset: -3px; border-radius: 6px; }
+.tab:hover { color: var(--ro-fg); }
 #owner-badge { font-size: 12px !important; color: var(--ro-ok) !important;
   background: #e3f2ea !important; border: 1px solid #b7e4cd !important;
   border-radius: 14px !important; padding: 4px 10px !important; }
