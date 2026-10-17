@@ -4422,6 +4422,14 @@ html.is-owner #owner-badge { display: block; }
   padding: 0 0 6px; font-size: 12px; color: #4a3a26; }
 .ro-hm-head b { font-size: 13px; }
 .ro-hm-head span { font-size: 11px; color: #8a7a63; }
+/* 【手机窄屏】图块标题那行「双色球 实票统计」+「口径 · 日期」挤在一行会
+   把「统计」两个字折成两行（实测 375px 就这样）→ 窄屏改成上下两行：
+   第一行只放彩种名（不折行），第二行放口径说明。 */
+@media (max-width: 560px) {
+  .ro-heat .ro-hm-head { flex-wrap: wrap; row-gap: 2px; }
+  .ro-heat .ro-hm-head b { white-space: nowrap; }
+  .ro-heat .ro-hm-head span { flex: 1 1 100%; width: 100%; }
+}
 
 /* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
 @supports selector(:target) {
