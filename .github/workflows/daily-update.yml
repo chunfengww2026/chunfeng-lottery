@@ -379,7 +379,7 @@ jobs:
           echo "===== 各数据文件自带的更新时间（北京时间）====="
           for f in draws.js history.js prize-data.js football.js jc-data.js \
                    articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js \
-                   jc-divergence.js jc-titan.js jc-bifa.js ; do
+                   jc-divergence.js jc-titan.js jc-bifa.js jc-standings.js ; do
             if [ -f "cloud/scripts/$f" ]; then
               S=$(grep -o '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' "cloud/scripts/$f" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
               if [ -z "$S" ]; then S=$(grep -oE '(更新时间|生成时间)[：:][[:space:]]*[0-9-]+ [0-9:]+' "cloud/scripts/$f" | head -1); fi
