@@ -742,12 +742,22 @@ const MQ_ITEMS_HTML = MQ_ITEMS.join('');
 const MQ_TEXT = MQ_ITEMS_HTML.replace(/<[^>]*>/g, '');
 const MQ_PX = [...MQ_TEXT].reduce((n, ch) => n + (/[\x00-\xff]/.test(ch) ? 6.4 : 11.5), 0);
 const MQ_DUR = Math.min(40, Math.max(12, Math.round(MQ_PX / 36)));
-const HIT_MQ_HTML = `<div class="m-mq" id="jcHitMq">` +
-  `<span class="m-mq-ico" aria-hidden="true">📢</span>` +
-  `<div class="m-mq-view">` +
-  `<div class="m-mq-track" style="animation-duration:${MQ_DUR}s">` +
-  `<div class="m-mq-group">${MQ_ITEMS_HTML}</div>` +
-  `<div class="m-mq-group" aria-hidden="true">${MQ_ITEMS_HTML}</div>` +
+/* 【结构对齐用户 2026-10-17 给的播报条】
+     <div class="broadcast-bar" id="broadcastBar">
+       <div class="horn-icon">📢</div>
+       <div class="broadcast-content"><div class="marquee" id="marqueeText">…</div></div>
+     </div>
+   两套类名同时挂着（broadcast-bar/horn-icon/broadcast-content/marquee + 原有的 m-mq*），
+   这样他给的 CSS 能直接选中，页面原有动画/暂停/减少动效逻辑也照旧生效。
+   ⚠️ 内容仍然是【页面上已经算好的数字】，不是「中奖播报」——
+      这个页面没有中奖数据，绝不编；没有数字可播时才显示「暂无最新播报」。 */
+const MQ_INNER = MQ_ITEMS_HTML || `<span class="m-mq-item">暂无最新播报</span>`;
+const HIT_MQ_HTML = `<div class="m-mq broadcast-bar" id="broadcastBar">` +
+  `<div class="m-mq-ico horn-icon" aria-hidden="true">📢</div>` +
+  `<div class="m-mq-view broadcast-content">` +
+  `<div class="m-mq-track marquee" id="marqueeText" style="animation-duration:${MQ_DUR}s">` +
+  `<div class="m-mq-group">${MQ_INNER}</div>` +
+  `<div class="m-mq-group" aria-hidden="true">${MQ_INNER}</div>` +
   `</div></div></div>`;
 
 /* ============================================================
@@ -2880,6 +2890,15 @@ ${nav}
 .record-bar .black { color: #4a3a26 !important; font-weight: 700 !important; margin-left: 8px !important; }
 .record-bar .rate { color: #1a8c5a !important; font-weight: 700 !important; margin-left: 8px !important; }
 .record-bar .note { color: #8a7a63 !important; margin-left: 8px !important; font-weight: 400 !important; }
+/* 【播报条】用户 2026-10-17 给的结构：.broadcast-bar / .horn-icon / .broadcast-content / .marquee
+   （和原有 .m-mq* 是同一套元素的别名类名，这里只补他这几个类名的样式，
+     动画/暂停/减少动效都在 .m-mq-track 上，不受影响） */
+.broadcast-bar { display: flex !important; align-items: center !important; gap: 6px !important;
+  height: 24px !important; padding: 0 8px !important; border-radius: 8px !important;
+  background: #fdf6ea !important; border: 1px solid #e8d7bd !important; overflow: hidden !important; }
+.broadcast-bar .horn-icon { flex: 0 0 auto; font-size: 12px; line-height: 1; }
+.broadcast-bar .broadcast-content { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.broadcast-bar .marquee { display: flex; width: max-content; }
 </style>
 </head>
 <body>
@@ -3916,7 +3935,7 @@ ${JC_XYSP_VIEW}
     if (arch && typeof v.arch === 'string') arch.innerHTML = v.arch;
     /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
        轨道本身和动画不动，不会重新从左边滚） */
-    var mq = document.getElementById('jcHitMq');
+    var mq = document.getElementById('broadcastBar') || document.getElementById('jcHitMq');
     if (mq && typeof v.mq === 'string') {
       var gs = mq.querySelectorAll('.m-mq-group');
       for (var i = 0; i < gs.length; i++) gs[i].innerHTML = v.mq;
