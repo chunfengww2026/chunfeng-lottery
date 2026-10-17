@@ -5075,7 +5075,7 @@ const FOOTBALL_DATA = {
      "color": "8C3434"
     },
     "time": "2026-10-18 03:00:00",
-    "minute": 90,
+    "minute": 92,
     "home": {
      "name": "巴黎圣日尔曼女足",
      "score": 0,
@@ -5121,7 +5121,7 @@ const FOOTBALL_DATA = {
      "color": "009966"
     },
     "time": "2026-10-18 03:15:00",
-    "minute": 84,
+    "minute": 86,
     "home": {
      "name": "科英布拉大学",
      "score": 3,
@@ -5183,7 +5183,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-18 03:30:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "特里斯顿",
      "score": 1,
@@ -5249,7 +5249,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-18 03:30:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "塞阿拉",
      "score": 0,
@@ -5909,7 +5909,7 @@ const FOOTBALL_DATA = {
      "color": "997744"
     },
     "time": "2026-10-18 04:15:00",
-    "minute": 41,
+    "minute": 43,
     "home": {
      "name": "卡萨大学队",
      "score": 1,
@@ -5987,7 +5987,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "普拉腾斯",
      "score": 0,
@@ -5996,7 +5996,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "拉努斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -6065,7 +6065,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "门多萨独立",
      "score": 1,
@@ -6143,7 +6143,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 17,
+    "minute": 19,
     "home": {
      "name": "明尼苏达联",
      "score": 0,
