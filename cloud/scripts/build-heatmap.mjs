@@ -735,9 +735,16 @@ function readExistingGames() {
     vm.runInContext(fs.readFileSync(OUT, 'utf8') + '\nglobalThis.__H = HEATMAP_DATA;', c);
     const H = c.__H;
     const G = (H && H.games) ? H.games : {};
-    /* 补回 id（产物里不存 id）—— 合并写回时要靠它当 key */
-    Object.keys(G).forEach((k) => { if (G[k] && !G[k].id) G[k].id = k; });
-    return G;
+    /* 补回 id（产物里不存 id）—— 合并写回时要靠它当 key；
+       顺便把不认识的 key（历史脏数据，例如被写成 `undefined:` 的）丢掉，
+       否则它会一层层被写回、永远留在文件里 */
+    const clean = {};
+    Object.keys(G).forEach((k) => {
+      if (!CFG[k] || !G[k]) return;
+      if (!G[k].id) G[k].id = k;
+      clean[k] = G[k];
+    });
+    return clean;
   } catch (e) { return {}; }
 }
 
@@ -1039,10 +1046,11 @@ async function main() {
     const G = games[g];
     log(`${G.name} 第 ${G.issue} 期 · 开奖日 ${G.drawDate} · 来源 ${G.source}（${G.sourceLabel}）· 样本 ${G.sampleCount}`);
     if (G.ocr) {
+      const nt = Array.isArray(G.ocr.tickets) ? G.ocr.tickets.length : G.ocr.tickets;   /* tickets 是数组，别直接打印 */
       log(`  OCR：候选图 ${G.ocr.urls} / 下载 ${G.ocr.downloaded}（失败 ${G.ocr.downloadFailed}、缓存 ${G.ocr.cacheHits}）` +
-          ` / 期号匹配 ${G.ocr.recognized} / 最终有效票 ${G.ocr.tickets} / 用时 ${G.ocr.secs}s` +
+          ` / 期号匹配 ${G.ocr.recognized} / 最终有效票 ${nt} / 用时 ${G.ocr.secs}s` +
           (G.ocr.err ? ` / 降级原因：${G.ocr.err}` : ''));
-      log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${G.ocr.tickets}` +
+      log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${nt}` +
           `（丢弃 ${Math.max(0, G.ocr.downloaded - G.ocr.recognized)} 张）`);
     }
     log(`  ${G.front.label}（${G.front.items.length} 个号，共 ${G.front.total} 次）：`);
