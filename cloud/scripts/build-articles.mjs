@@ -22,7 +22,7 @@
       ⚠️ 旧的 https://m.yiqicai.com/spe 每彩种只给 5 个【专家主页】链接，
          那些页面本身没有正文（实测），所以列表改从上面 5 个 jq 页取。
 
-   B. 详情页（每篇 1 个，最多 25 篇）
+   B. 详情页（每篇 1 个，最多 50 篇）
         https://m.yiqicai.com/<彩种>/jq/jq_<32位>.html
       结构：<div class="article-content">
               <h1 class="article-tit">…</h1>
@@ -63,7 +63,8 @@
       这样页面上不会出现标签样的字面量。
 
    ── 限制（用户要求，防撑大页面） ──
-     · 每彩种最多 5 篇（5 彩种 × 5 篇 = 25 篇）
+     · 每彩种最多 10 篇（5 彩种 × 10 篇 = 50 篇）
+       ← 2026-10-17 用户要求：从 5 篇改成 10 篇（见 MAX_PER_GAME）
      · 每篇正文最多 40 段 / 4000 字符
      · 请求延时：列表页之间 ≥1.2s；详情页之间 ≥1.5s（别刷太快）
 
@@ -107,7 +108,11 @@ const GAME_DEFS = [
   { key: 'pl3',  name: '排列3',  prefix: '/pl3/yc/',  list: 'https://m.yiqicai.com/pl3/yc/',  re: /排列\s*3|排列三/ }
 ];
 
-const MAX_PER_GAME = 5;        /* 每彩种最多 5 篇（用户要求每轮 25 篇正文） */
+/* ⚠️ 2026-10-17 用户要求：每个彩种抓 10 篇（原来是 5 篇）。
+   ⇒ 5 彩种 × 10 篇 = 50 篇正文。改这一个常量就够了，
+     显示侧（export-static.mjs）是数据驱动的（读 items.length），
+     没有第二处硬编码 5，不用动。 */
+const MAX_PER_GAME = 10;       /* 每彩种最多 10 篇（用户要求每轮 50 篇正文） */
 const MAX_PARAS = 40;          /* 每篇正文最多 40 段 */
 const MAX_CHARS = 4000;        /* 每篇正文最多 4000 字符 */
 
@@ -143,6 +148,36 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const stripTags = (s) => String(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ')
   .replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
   .replace(/&quot;/gi, '"').replace(/&#39;/g, "'").replace(/\s+/g, ' ').trim();
+
+/* ---------- 来源字样清洗（用户硬性要求：页面不能出现「数据从哪来」） ----------
+   用户原话：「页面不能出现任何『数据从哪来』的字样」，source-guard.mjs 命中就构建 exit 1。
+   抓来的正文里可能带：转载声明「来源：××」、作者简介里的站名、裸网址……
+   ⇒ 在【写入 articles-data.js 之前】就洗掉，而不是只靠出页面时兜底。
+   两条规则：
+     ① 整段是引用/来源声明 → 整段丢掉（比改成「出处：本站」更干净，不留痕迹）
+     ② 其余文字里的站名 / 域名 / 数据文件名 / 「来源」「来自」类词 → 换成中性说法
+   注意：图片地址（{ i: url }）不动 —— 它是 src 属性，用户看不见 URL 文字。 */
+const SRC_DROP_RE = /^\s*(?:来源|文章来源|本文来源|稿件来源|数据来源|数据源|原文链接|原文|原标题|转载|转自|声明|免责声明|版权|投稿|编辑[:：])/;
+const SRC_SCRUB = [
+  [/来自于/g, '出自于'],
+  [/数据来源|数据源/g, '数据'],
+  [/来源/g, '出处'],
+  [/来自/g, '出自'],
+  [/取自/g, '收录'],
+  [/抓取|爬取/g, '整理'],
+  [/接口/g, '通道'],          /* 软词，source-guard 会拦「接口」「接入」 */
+  [/接入/g, '连接'],
+  [/一起彩|yiqicai/gi, '本站'],
+  [/球探|雷速|titan0*7|okooo|win0*7|17chdd|toutiaoi?mg?|头条|sporttery|245qq/gi, ''],
+  [/500\.com|500网|500万/gi, ''],
+  [/https?:\/\/[^\s"'<>）)】,，]+/g, '']
+];
+function cleanText(s) {
+  let t = String(s == null ? '' : s);
+  if (SRC_DROP_RE.test(t)) return '';
+  for (const pair of SRC_SCRUB) t = t.replace(pair[0], pair[1]);
+  return t.replace(/\s+/g, ' ').trim();
+}
 
 /** 从标题推出作者名。
  *  【2026-10-17 换成 /yc/ 源后补的一条】yc 的标题基本是
@@ -193,7 +228,7 @@ function authorFromPage(html) {
   if (!m) return '';
   let s = '';
   try { s = JSON.parse('"' + m[1] + '"'); } catch (e) { s = m[1]; }
-  s = String(s).trim();
+  s = cleanText(String(s).trim());
   if (!s || s.length > 8 || /[0-9：:，,。.、|｜]/.test(s)) return '';
   return s;
 }
@@ -223,7 +258,11 @@ const RE_VISIBLE = /<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>|<p\b[^>]*>([\s\S]*?)<\/p
  */
 function extractBlocks(seg) {
   const items = [];
-  const push = (txt, at) => { if (txt) items.push({ at, txt }); };
+  const push = (txt, at) => {
+    if (!txt) return;
+    const c = cleanText(txt);          /* ← 来源字样在这里就洗掉（见 cleanText） */
+    if (c) items.push({ at, txt: c });
+  };
   let textCnt = 0;
 
   /* ① 块级文字 */
@@ -270,7 +309,7 @@ function parseBody(html) {
 
   /* 标题 / 时间 / 作者 */
   const tM = /<h1[^>]*class="[^"]*\barticle-tit\b[^"]*"[^>]*>([\s\S]*?)<\/h1>/i.exec(html);
-  const title = tM ? stripTags(tM[1]) : '';
+  const title = cleanText(tM ? stripTags(tM[1]) : '');
   const sM = /<div[^>]*class="[^"]*\barticle-source\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i.exec(html);
   const date = sM
     ? (/(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/.exec(stripTags(sM[1])) || [])[1] || ''
@@ -319,7 +358,7 @@ function parseList(html, def) {
   let m = null;
   while ((m = RE.exec(html)) !== null) {
     if (out.length >= MAX_PER_GAME) break;
-    const title = stripTags(m[2]);
+    const title = cleanText(stripTags(m[2]));
     if (!title) continue;
     let url = '';
     try { url = new URL(m[1], 'https://m.yiqicai.com').href; } catch (e) { continue; }
@@ -406,7 +445,7 @@ if (st.pausedUntil && now < st.pausedUntil) {
   process.exit(10);
 }
 
-log('—— 本轮开始（列表 5 次 + 正文最多 25 次）——');
+log(`—— 本轮开始（列表 ${GAME_DEFS.length} 次 + 正文最多 ${GAME_DEFS.length * MAX_PER_GAME} 次，每彩种 ${MAX_PER_GAME} 篇）——`);
 st.runs = (st.runs || 0) + 1;
 
 /* 2. 抓 5 个列表页（每个彩种 1 次） */
