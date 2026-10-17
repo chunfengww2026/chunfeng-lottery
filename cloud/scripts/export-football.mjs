@@ -2944,6 +2944,30 @@ ${nav}
   font-weight: 700 !important; line-height: 18px !important; }
 .broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
 .broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
+/* 【一键桌面 · 位置/外观按用户 2026-10-17 给的 CSS】
+   固定右上角（top 55px / right 15px）、实心绿 #1a8c5a + 白字、20px 胶囊、阴影、呼吸灯 2s。
+   ⚠️ 全部 !important：页面里有别的胶囊/按钮样式会抢（之前播报条的圆角就被抢过），
+      固定定位也必须压过容器。
+   ⚠️ 呼吸灯的关键帧改名 install-pulse（原名叫 pulse，页面里已有同名 keyframes 会打架）。
+   ⚠️ 系统开了「减少动态效果」→ 关掉呼吸灯（无障碍）。 */
+.install-btn { position: fixed !important; top: 55px !important; right: 15px !important; z-index: 9999 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  background: #1a8c5a !important; color: #fff !important; border: none !important;
+  border-radius: 20px !important; padding: 6px 12px !important; font-size: 12px !important;
+  font-weight: 700 !important; text-decoration: none !important; white-space: nowrap !important;
+  box-shadow: 0 2px 8px rgba(26, 140, 90, 0.4) !important; cursor: pointer !important;
+  animation: install-pulse 2s infinite !important;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+.install-btn:active { transform: scale(0.97) !important; animation: none !important; }
+@keyframes install-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .install-btn { animation: none !important; } }
+.install-hint { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
+  padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 </style>
 </head>
 <body>
@@ -2957,6 +2981,10 @@ ${nav}
   <h1>竞彩 · 推胜负平</h1>
   ${HIT_MQ_HTML}
   </div>
+  <!-- 【一键桌面】用户 2026-10-17：放在顶部（喇叭同一行的右端）。
+       ⚠️ 还是 <a role="button">，不用 <button> 标签 —— 页面不变量（0 裸 button）。
+       默认 display:none，由脚本按浏览器能力决定显示（见页尾 installApp 那段）。 -->
+  <a id="installAppBtn" class="install-btn" role="button" tabindex="0" style="display:none">📱 一键桌面</a>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
@@ -4046,6 +4074,93 @@ ${JC_XYSP_VIEW}
   window.__jcLoadBroadcast = loadBroadcast;   /* 给验收脚本一个口子 */
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadBroadcast);
   else loadBroadcast();
+})();
+
+/* ============================================================
+   【一键桌面】用户 2026-10-17 给的按钮（<a role="button">，不用 button 标签）。
+   ------------------------------------------------------------
+   能力分三档，都不做成"死键"：
+     ① 浏览器支持 beforeinstallprompt（Chrome/Edge 安卓等）→ 直接弹原生安装
+     ② 微信内置浏览器 → 提示「右上角 ··· → 在浏览器打开」
+     ③ iOS Safari → 提示「分享 → 添加到主屏幕」
+   已经是桌面应用模式（display-mode: standalone / navigator.standalone）→ 不显示。
+   ⚠️ 真正的 PWA 安装需要 service worker；本项目没有 SW（也不建议加：
+      会和 30 秒实时刷新、CDN 缓存打架），所以这里做的是【入口 + 分平台引导】，
+      不承诺"一定弹系统安装框"。
+   ============================================================ */
+(function () {
+  if (typeof document === 'undefined') return;
+  var btn = document.getElementById('installAppBtn');
+  if (!btn) return;
+  var standalone = false;
+  try {
+    standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+      (navigator.standalone === true);
+  } catch (e) { standalone = false; }
+  if (standalone) { btn.style.display = 'none'; return; }
+
+  var deferred = null;
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  var isWX = /MicroMessenger/i.test(ua);
+
+  /* 【注册 Service Worker】用户 2026-10-17 给的写法（真 PWA 安装必需）。
+     ⚠️ service-worker.js 是【纯透传、不缓存】的版本 —— 本站有 30 秒实时刷新，
+        做缓存会把数字冻住（所以那个 SW 里 fetch 一律走网络）。
+     ⚠️ file:// 下注册必然失败（浏览器规范不允许），catch 住即可，不影响 App 使用；
+        真正生效的是 https 的线上站点。 */
+  if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
+    try {
+      navigator.serviceWorker.register('service-worker.js').catch(function () { /* 忽略 */ });
+    } catch (e) { /* 忽略 */ }
+  }
+
+  function hint(txt) {
+    var old = document.querySelector('.install-hint');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    var d = document.createElement('div');
+    d.className = 'install-hint';
+    d.textContent = txt;
+    document.body.appendChild(d);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 4600);
+  }
+  function show() { btn.style.display = 'inline-flex'; }
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    deferred = e;
+    show();
+  });
+  window.addEventListener('appinstalled', function () {
+    btn.style.display = 'none';
+    hint('已添加到桌面 ✓');
+  });
+
+  btn.addEventListener('click', function (ev) {
+    if (ev && ev.preventDefault) ev.preventDefault();
+    if (deferred && deferred.prompt) {
+      /* 用户给的参考实现：prompt() 之后等 userChoice，接受了就把按钮藏起来 */
+      var d = deferred;
+      deferred = null;
+      d.prompt();
+      if (d.userChoice && d.userChoice.then) {
+        d.userChoice.then(function (choice) {
+          if (choice && choice.outcome === 'accepted') {
+            btn.style.display = 'none';
+            hint('已添加到桌面 ✓');
+          }
+        }).catch(function () { /* 忽略 */ });
+      }
+      return;
+    }
+    if (isWX) hint('微信里不能直接添加：点右上角 ··· → 在浏览器打开 → 再点「一键桌面」');
+    else if (isIOS) hint('Safari：点底部「分享」按钮 →「添加到主屏幕」');
+    else hint('在这个浏览器的菜单里选「安装应用」或「添加到主屏幕」');
+  });
+  btn.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter' || ev.key === ' ') { if (ev.preventDefault) ev.preventDefault(); btn.click(); }
+  });
+  show();   /* 入口始终给（能力不足时点击是引导，不是死键） */
 })();
 
 /* ============================================================

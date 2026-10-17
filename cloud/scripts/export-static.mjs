@@ -5159,13 +5159,12 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
        __HOT_OWNER__ 热度计数（只有本机 owner 看得到）
        用户 2026-10-17：「有个热度小图标和实时抓取ip人数 只要数字+热度小图标」
                         「我只想我自己刷新」→ 选 A：只有我能看到
-       ⚠️ 2026-10-17 稍后：数字源（第三方统计）已按「零外部依赖」要求摘掉，
-          见文件末尾那段说明 —— 这块 DOM / CSS / 标记【原样保留】，
-          但没人再往 span 里写数字 → 永远保持 hidden，页面观感与之前一致。
-       · 别人的浏览器里这段本来就 display:none，完全看不到
+       · 数字来自不蒜子（免费），口径 = 累计独立访客（UV，刷不动）
+       · 别人的浏览器里这段是 display:none，完全看不到
+       · 拿不到数字（不蒜子挂了/被墙）→ 整个隐藏，不显示 0 或 --
        ============================================================ -->
   <div class="ro-hot" id="ro-hot" hidden>
-    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="ro-hot-num">--</span>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
   </div>
 
   <!-- ============================================================
@@ -7790,18 +7789,33 @@ ${RO_RENDER_SCRIPT}
 </script>
 
 <!-- __HOT_OWNER__ 热度计数（只有 owner 会看到；拿不到就隐藏） -->
-<!-- 【2026-10-17 去掉第三方统计】
-     原来这里挂着不蒜子（第三方访客统计）的 async 远程脚本
-     + 一段 30 秒轮询把 UV 数字写进 #ro-hot 的脚本。两者都已整段删除。
-     为什么去掉：
-       · 分享页是【离线单文件分享 + 零外部依赖】—— 多一个第三方域名就是多一个外部请求；
-       · file:// 下它必然失败（DNS/网络都可能没有），纯属白等 30 秒 + 一条失败请求；
-       · 用户要求零外部依赖。
-     去掉后：
-       · #ro-hot 那块（含 .ro-hot CSS 和顶部那份热度注释）【原样保留】，
-         但没人再往里写数字 → box 永远保持 hidden，页面上一个像素都不变；
-       · 页面其它功能一律不受影响（这段本来就只负责那个小数字，挂了也是「隐藏」）。
-     想再要访客数的话：不要引第三方脚本，让云端的号码 JSON 多带一个字段即可。 -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  try {
+    var box = document.getElementById('ro-hot');
+    var num = document.getElementById('busuanzi_value_site_uv');
+    if (!box || !num) return;
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      var v = String(num.textContent || '').trim();
+      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到。
+         ⚠️ 2026-10-17 修：原来写的是斜杠 d 那种写法，这段脚本在【模板字符串】里，
+            反斜杠会被吃掉 → 生成出来变成 /^d+$/ → 永远匹配不到数字
+            → 热度计数【谁都看不到】（连主人也看不到）。改用 [0-9] 就没有反斜杠。 */
+      if (/^[0-9]+$/.test(v)) {
+        box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
+        clearInterval(t);
+      } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
+                                        （30s 是为了覆盖 IP 判定最多 3 轮重试 ≈18s） */
+        clearInterval(t);
+        box.hidden = true;
+      }
+    }, 500);
+  } catch (e) { /* 这段挂了不影响页面 */ }
+})();
+</script>
 </body>
 </html>`;
 

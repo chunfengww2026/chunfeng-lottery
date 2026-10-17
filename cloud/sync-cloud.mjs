@@ -185,6 +185,18 @@ const FROM_ROOT = [
      近 7 天窗口。export-football.mjs 构建时读它，把「命中一等奖/二等奖」
      接进播报条。必须同步：否则云端构建时这个文件不存在，播报就退回只有战绩数字。 */
   'broadcast.json',
+  /* 【PWA 安装（一键桌面）】用户 2026-10-17：页面上要能"添加到桌面"。
+     这四个文件原来【不在白名单里】→ 线上 manifest/图标全 404 →
+     浏览器判定"不可安装"，beforeinstallprompt 永远不触发（按钮点了没反应）。
+     现在补齐：
+       · manifest.webmanifest  清单（start_url/display/icons）
+       · icon-192.png / icon-512.png  清单里引用的两个图标（缺一个都不算可安装）
+       · service-worker.js    纯透传、不缓存的 SW —— 只满足"可安装"条件，
+                              绝不做 cache-first（否则 30 秒实时刷新会被冻住） */
+  'manifest.webmanifest',
+  'icon-192.png',
+  'icon-512.png',
+  'service-worker.js',
   /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
       必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
       的那个 N；云端重新生成竞彩页时少了这个文件就会退回本机竞彩数据算的

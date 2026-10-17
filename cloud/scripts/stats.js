@@ -1611,23 +1611,43 @@ function deriveFromPicks(nums, from, to) {
   return { oddEven, bigSmall, route012 };
 }
 
-/* ---------- 和值（区间 = 统计窗口内真实取值范围） ---------- */
-function calcSum(areas) {
-  const sums = areas.map((a) => a.reduce((x, y) => x + y, 0)).sort((a, b) => a - b);
-  if (!sums.length) return '';
-  /* 【和值必须是区间】用户原话：
-       「双色球和大乐透的和值 是多少到多少 区间宽度在25和25以内」
-     所以：非数字彩（双色球/大乐透/七乐彩/快乐8）返回「X~Y」区间，宽度 ≤ 25。
-     （数字彩 3D/排列3/排列5 的 3 个数由 ticket-store.js 单独处理，不走这里） */
-  return compactRange(sums, 25, 25);
+/* ---------- 和值 / 跨度：区间 = 【最窄的、能覆盖最近 10 期中 6 期的那个窗口】 ----------
+   用户 2026-10-17 定的口径（方案 B）：
+     · 区间要【窄】（宽了没参考价值，用户原话「和值 71~141 太宽」）；
+     · 但也不能被实际开奖打脸 —— 要求覆盖最近 10 期里的【大多数（≥6 期）】。
+   于是取「覆盖 6 期的最窄窗口」：既满足 ≥6 期，又是这类窗口里最窄的，
+   不用再拍一个宽度上限（原来 hardMax=20 会让双色球/快乐8 直接盖不住）。 */
+const TREND_RECENT = 10;      /* 看最近 10 期 */
+const TREND_COVER = 6;        /* 至少覆盖 6 期 */
+
+/** recent: 最近 10 期的取值（原始顺序）→ 返回覆盖 ≥6 期的最窄 [a,b] */
+function narrowCoverRange(recent) {
+  const s = (recent || []).filter((x) => typeof x === 'number' && isFinite(x)).sort((a, b) => a - b);
+  if (!s.length) return null;
+  const k = Math.min(TREND_COVER, s.length);
+  const mid = s[Math.floor(s.length / 2)];
+  let best = null;
+  for (let i = 0; i + k - 1 < s.length; i++) {
+    const a = s[i], b = s[i + k - 1];
+    const w = b - a;
+    const off = Math.abs((a + b) / 2 - mid);
+    if (!best || w < best.w || (w === best.w && off < best.off)) best = { a, b, w, off };
+  }
+  return best;
 }
 
-/* ---------- 跨度（区间 = 统计窗口内真实取值范围） ---------- */
+function calcSum(areas) {
+  if (!areas || !areas.length) return '';
+  const recent = areas.slice(0, TREND_RECENT).map((a) => a.reduce((x, y) => x + y, 0));
+  const r = narrowCoverRange(recent);
+  return r ? `${r.a}~${r.b}` : '';
+}
+
 function calcSpan(areas) {
-  const spans = areas.map((a) => Math.max(...a) - Math.min(...a)).sort((a, b) => a - b);
-  if (!spans.length) return '';
-  /* 同理：跨度也收在 15 以内 */
-  return compactRange(spans, 15, 15);
+  if (!areas || !areas.length) return '';
+  const recent = areas.slice(0, TREND_RECENT).map((a) => Math.max(...a) - Math.min(...a));
+  const r = narrowCoverRange(recent);
+  return r ? `${r.a}~${r.b}` : '';
 }
 
 /**
