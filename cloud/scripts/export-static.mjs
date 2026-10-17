@@ -938,30 +938,9 @@ const tocHtml =
   <div class="px9-methods" id="px9Methods"></div>
   <div class="px9-out" id="px9Out"></div>
   <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
-<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->` +
-  `<div class="ro-imgtoc-wrap">` +
-  `<div class="ro-imgtoc-head">` +
-  `<div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div>` +
-  `<div class="ro-imgtoc-sub">点一下，全屏看那张图</div>` +
-  `</div>` +
-  /* 【改成两列网格】用户 2026-10-17：「宽一点居中」。
-     原来是 <table> + <td width:50%>：实测列宽被表格自身的布局规则钉住，
-     渲染出来两列只占中间一段（右边空一大片），加 !important 也压不动。
-     改成 grid 两列（1fr 1fr），宽度完全由我们掌控 —— 两列等宽、铺满、居中。
-     ⚠️ 类名全部不变（.ro-imgtoc / .ro-toc-cell / .ro-toc-t / .ro-toc-s），
-        点击照旧是 <a href="#…">，所以 CSS 和点击逻辑都不用跟着改。 */
-  '<div class="ro-imgtoc">' +
-  TOC_ROWS.map((row) => row.map((cell) =>
-    /* 【主标题 + 副标题】长名字（五行/绕胆/九转/九宫）拆成两行小字，一行放得下，
-       格子就不会被折 3 行撑破（用户 2026-10-17 要求）。点击照旧：整块都在 <a> 里。 */
-    `<a class="ro-toc-cell${cell.s ? ' two-line' : ''}" href="#ro-g-${cell.g}-${cell.i}" ` +
-    `data-ro-toc-game="${cell.g}" data-ro-toc-image="${cell.i}">` +
-    `<b class="ro-toc-t">${cell.t}</b>` +
-    (cell.s ? `<i class="ro-toc-s">${cell.s}</i>` : '') +
-    `</a>`
-  ).join('')).join('') +
-  `</div>` +
-  `</div>`;
+<!-- 【已删除】旧的「推荐图目录」4 格（双色球推荐号 / 双色球·五行 / 大乐透推荐号 / 大乐透·五行）
+     —— 用户 2026-10-18：「删除换成新的」→ 换成上面的 #px9 方法目录（2 彩种 × 9 方法）。 -->
+`;
 
 /* ============================================================
    【文章参考】区块（用户新增需求 + 2026-10-16 改版）
