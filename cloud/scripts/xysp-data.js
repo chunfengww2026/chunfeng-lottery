@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 06:56
+   更新时间：2026-10-18 07:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 06:56",
+ "updated": "2026-10-18 07:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1541,14 +1541,14 @@ const XYSP_DATA = {
      "issue": "26276",
      "seen": "2026-10-17T22:56:01.692Z",
      "whenMs": 1792270885000,
-     "seenMs": 1792277161715,
+     "seenMs": 1792277761692,
      "drawMs": 1792243800000,
      "nextMs": 1792330200000,
      "atMs": 1792271761669,
      "drawAt": "2026-10-17T13:30:00.000Z",
      "nextAt": 1792330200000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-20T22:46:01.715Z",
+     "expireAt": "2026-10-20T22:56:01.692Z",
      "rule": "next-draw",
      "author": "美洋羊",
      "when": "2026-10-18 05:01:25",
@@ -1584,9 +1584,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 04:57:19",
      "postId": "7697743782854263323",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a3fe2e4a328f40dc8673535e4134157c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=Uqg%2BZMFjmOynGpKsggGjYt3OmVQ%3D",
@@ -1605,14 +1603,14 @@ const XYSP_DATA = {
      "issue": "26275",
      "seen": "2026-10-17T22:56:01.692Z",
      "whenMs": 1792270639000,
-     "seenMs": 1792277161715,
+     "seenMs": 1792277761692,
      "drawMs": 1792240200000,
      "nextMs": 1792326600000,
      "atMs": 1792272961654,
      "drawAt": "2026-10-17T12:30:00.000Z",
      "nextAt": 1792326600000,
      "drawGid": "pl3",
-     "expireAt": "2026-10-20T22:46:01.715Z",
+     "expireAt": "2026-10-20T22:56:01.692Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 04:57:19",
@@ -1636,14 +1634,14 @@ const XYSP_DATA = {
      "issue": "26275",
      "seen": "2026-10-17T22:56:01.692Z",
      "whenMs": 1792270639000,
-     "seenMs": 1792277161715,
+     "seenMs": 1792277761692,
      "drawMs": 1792240200000,
      "nextMs": 1792326600000,
      "atMs": 1792272961654,
      "drawAt": "2026-10-17T12:30:00.000Z",
      "nextAt": 1792326600000,
      "drawGid": "pl3",
-     "expireAt": "2026-10-20T22:46:01.715Z",
+     "expireAt": "2026-10-20T22:56:01.692Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 04:57:19",
@@ -1679,9 +1677,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
      "postId": "7697718814191911443",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5228a42821c841b99d468da57f68f84d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=27PPcCNx2HSJqdwrQHVrhbBtepU%3D",
@@ -1712,9 +1708,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
      "postId": "7697718814191911443",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62200744d997458bac64cc60f2f165e0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=iX323Ss3eIPzhRrDUIdcD%2BaahU8%3D",
@@ -1745,9 +1739,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
      "postId": "7697718814191911443",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b869614bee1c436b9b355cbfed025d20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2ByVCDAETp90RdE1weLNwn2KLDuk%3D",
@@ -2320,9 +2312,7 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:32:26",
      "postId": "7697536272339960381",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7d7f5ee57650432198105ce662d5a48c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=Uy7oFd2QHJ3MYl74sQSICGW98CU%3D",
@@ -2352,9 +2342,7 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:32:26",
      "postId": "7697536272339960381",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7207b6b31ea6410da30e4089a54c4d39~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=OzKIx1InMQzPFfOfhIHz5fSEZjI%3D",
@@ -2384,9 +2372,7 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:32:26",
      "postId": "7697536272339960381",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e59d9196c8784badbbd005e80620f363~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=SFzNSPto9IKjzF6W38XQ0gX%2FaXI%3D",
@@ -2416,9 +2402,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 12:18:55",
      "postId": "7697486497892532776",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2b8be8e0ecc9488fac2f5656a8a4e248~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6T2QIru9sJDY%2B4wn4%2BJ4gS1duf4%3D",
@@ -2448,9 +2432,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 12:18:55",
      "postId": "7697486497892532776",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/86485cbbbce6422194e82df1c8b8ae9a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=F4fCV8ku48eY2%2FJBAP6n8e2lkE4%3D",
