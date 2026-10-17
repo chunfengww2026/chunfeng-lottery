@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 09:28",
+ "updated": "2026-10-17 09:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1795,6 +1795,61 @@ const JC_HISTORY = {
    "matched": false,
    "at": "2026-10-17 00:28",
    "type": "three"
+  },
+  {
+   "code": "周五011",
+   "league": "巴甲",
+   "home": "米拉索尔",
+   "away": "巴西国际",
+   "time": "2026-10-17 07:00",
+   "score": "2:0",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": -0.25,
+    "openUpWater": 1,
+    "openDownWater": 0.85,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 1,
+     "nowUpWater": 1.05,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2,
+    "draw": 3.5,
+    "away": 3.6
+   },
+   "prob": {
+    "home": 47,
+    "draw": 26.9,
+    "away": 26.1
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 47,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-10-17 09:58"
   },
   {
    "code": "周五009",
