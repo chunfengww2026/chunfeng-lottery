@@ -1572,6 +1572,7 @@ function renderRec() {
         return `<div class="past-match-row">` +
           `<span class="teams">${esc(r.code || '')} ${esc(r.home || '')} vs ${esc(r.away || '')}` +
           (r.label ? ` · ${esc(r.label)}` : '') + `</span>` +
+          `<span class="arch-conf">${r.conf != null ? esc(String(r.conf)) + '%' : '—'}</span>` +
           `<span class="result">${r.score ? esc(r.score) : '—'}</span>` +
           `<span class="${stCls}">${st}</span>` +
           `</div>`;
@@ -2285,6 +2286,7 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-rectips { font-size: 11px; color: #a89a80; padding: 2px 2px 8px; }
 /* 推荐串行里的主客排名（真实字段，不是估算） */
 .m-recrank { font-size: 11px; color: #8a7a63; }
+.arch-conf { font-size: 11px; color: #8a7a63; margin-right: 6px; font-variant-numeric: tabular-nums; }
 .m-recknow { font-size: 11px; color: #8a6a3a; background: #fff6e6; border: 1px solid #f0dfa8; border-radius: 8px; padding: 6px 8px; margin: -2px 0 8px; line-height: 1.5; }
 .m-recknow i { display: block; font-style: normal; color: #a89a80; font-size: 10.5px; margin-top: 2px; }
 .m-rectitle { font-size: 14px; font-weight: 700; color: #e8eaed; }
@@ -3020,11 +3022,11 @@ const html = `<!DOCTYPE html>
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风十万里 · 竞彩场次</title>
-<meta name="description" content="春风十万里 · 竞彩场次：免费提供竞彩足球推单、比分与战绩统计等服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<title>春风 · 竞彩场次</title>
+<meta name="description" content="春风 · 竞彩场次：免费提供竞彩足球推单、比分与战绩统计等服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
 <!-- 微信 / QQ 兼容标签（用户 2026-10-18 给的文案；image 必须是绝对地址，用站点根的 share.png） -->
-<meta itemprop="name" content="春风十万里 - 竞彩足球推荐" />
+<meta itemprop="name" content="春风 - 竞彩足球推荐" />
 <meta itemprop="description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -3038,26 +3040,26 @@ ${PWA_HEAD}
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
-     ⚠️ 用户 2026-10-18 统一品牌为「春风十万里」；图仍是站点根 share.png（绝对地址） -->
+     ⚠️ 用户 2026-10-18 统一品牌为「春风」；图仍是站点根 share.png（绝对地址） -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风十万里" />
-<meta property="og:title" content="春风十万里 - 竞彩足球推荐" />
+<meta property="og:site_name" content="春风" />
+<meta property="og:title" content="春风 - 竞彩足球推荐" />
 <meta property="og:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
 <!-- 微信 / QQ 兼容标签已挪到 head 开标签靠前位置（和 title 在一起），这里不重复。
      ⚠️ 这里别写字面的 head 标签：页面里出现第二个，注入就会插错位置。 -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风十万里 - 竞彩足球推荐" />
+<meta name="twitter:title" content="春风 - 竞彩足球推荐" />
 <meta name="twitter:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风 —— 彩票球图标与页面标题" />
 ${nav}
 <style>${CSS}
 /* ============================================================
@@ -3734,7 +3736,7 @@ ${JC_XYSP_VIEW}
     ctx.fillRect(0, 0, W, 148);
     ctx.fillStyle = '#e8eaed';
     ctx.font = 'bold 34px ' + FONT;
-    ctx.fillText('模拟计算 · 春风十里送大奖', pad, 62);
+    ctx.fillText('模拟计算 · 春风', pad, 62);
     ctx.fillStyle = '#47e0a0';
     ctx.font = '22px ' + FONT;
     ctx.fillText('过关方式 ' + passCn(res.n) + '　注数 ' + res.bets + ' 注　倍数 ' + res.mul + ' 倍', pad, 100);
