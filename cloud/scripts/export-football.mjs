@@ -2628,6 +2628,11 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
   .m-titlerow h1 { font-size: 18px !important; }
   .m-titlerow { gap: 8px; }
 }
+/* 【本机 owner 专用】右上角那枚「👑 管理员模式 · 可截图」徽章是 position:fixed
+   （top:10px/right:10px），和标题行同一高度 —— 实测会把喇叭盖掉一大半。
+   只有本机/主人会看到这枚徽章，所以只在 is-owner 时把标题行往下让 24px，
+   徽章独占最上面那条；别人的页面布局一个像素都不动。 */
+html.is-owner .m-titlerow { margin-top: 30px; }
 
 `;
 
