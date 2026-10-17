@@ -1506,7 +1506,7 @@ function renderRec() {
 
   const note =
     `<div class="m-recnote">只在<b>官方在售</b>场次里挑信心 ≥${REC_MIN}% 的 · ` +
-    `信心＝欧赔反推概率里最高那个（统计归纳，不是预测）</div>`;
+    `信心＝欧赔反推概率里最高那个（参考胜负平指数推演）</div>`;
 
   const body = REC_ROWS.length
     ? REC_ROWS.map((r) =>
@@ -1578,7 +1578,7 @@ function renderRec() {
   }).join('');
 
   /* 【提示文案】用户 2026-10-17 指定的那句（和设计稿一致） */
-  const tips = '<div class="m-rectips">在售场次里挑信心 ≥ 58% 的比赛（统计归纳，不是预测）</div>';
+  const tips = '<div class="m-rectips">在售场次里挑信心 ≥ 58% 的比赛（参考胜负平指数推演）</div>';
   /* 【刷新心跳】用户 2026-10-18：「显示最后更新时间，让用户看到在刷」。
      这一行小字（.reco-sync）＝ 数据是什么时候更新的；30 秒刷新脚本每次拉到文件后
      会把它改写成「数据更新 02:05 · 已同步 02:31:12」—— 秒数一直往前走，
