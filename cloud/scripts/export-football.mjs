@@ -2850,6 +2850,9 @@ ${nav}
    放在 ${CSS} 之后 + 必要的 !important → 稳稳盖住旧的暗色残留。 */
 .m-card { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
   border-radius: 12px !important; margin-bottom: 12px !important; overflow: hidden !important; }
+/* 圆角钉死 12px：另有一条更强选择器的 11px 规则抢过（差 1px，肉眼几乎看不出），
+   这里用双类名提高特异性压住它。 */
+.m-card.m-card { border-radius: 12px !important; }
 .m-card .m-top { padding: 12px 14px !important; position: relative; cursor: pointer; }
 .m-card .m-top:active { background: #f9efdd !important; }
 .m-card .m-league, .m-card .m-time, .m-card .m-round, .m-card .m-code,
@@ -4076,6 +4079,11 @@ ${JC_XYSP_VIEW}
     }
     var top = card.querySelector('.m-top');
     if (top) top.setAttribute('aria-expanded', now ? 'false' : 'true');
+    /* 【箭头换字符，不依赖 transform】用户批准的小修：
+       ▾ 的 rotate 被页面里别的 transform 规则压住过（加 !important 也没用），
+       所以折叠时直接把字符换成 ▸ —— 一样清楚，且永远不会被 CSS 吃掉。 */
+    var fold = card.querySelector('.m-fold');
+    if (fold) fold.textContent = now ? '▸' : '▾';
   }
   /* 兼容用户参考实现里的 toggleMatch(cardId) 全局函数 */
   window.toggleMatch = function (id) { toggleCard(document.getElementById(id)); };
