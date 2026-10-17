@@ -436,6 +436,9 @@ export function parseNumberLine(line, gid) {
   s = s.replace(/\d{4}\s*[/\-.]\s*\d{1,2}\b/g, ' ');
   s = s.replace(/\d+\s*[.,]\s*\d{2}\s*元/g, ' ');
   s = s.replace(/[¥￥]\s*[\d.,]+/g, ' ');
+  /* 【倍数要整块删掉】福彩票面把倍数印在行尾：`… 32- 6 (1)`
+     如果只把括号换成空格，就剩一个孤零零的 1 → 后区被读成 1（实测把蓝球 6 读成 1）。 */
+  s = s.replace(/[（(]\s*\d{1,3}\s*[)）]/g, ' ');
   s = s.replace(/[<>《》【】\[\](){}]/g, ' ');
 
   const toks = digitTokens(s);
@@ -450,9 +453,20 @@ export function parseNumberLine(line, gid) {
     const right = digitTokens(s.slice(sp + 1));
     if (left.length < spec.front || right.length < spec.back) continue;
 
-    /* 前区：必须正好切出 spec.front 个；切不出就说明这行不是号码行。
-       OCR 常在号码行里混进一个噪点数字，所以允许「丢掉任意 1 个 token」再试。 */
+    /* 前区：
+       ① 【复式票】福彩票面就是这么印的 ——「8 15 16 17 30 32 - 6」，
+          左区印 6 个号（复式 6+1）。以前这里死要求「正好 spec.front(5) 个」，
+          于是只能硬丢一个号凑 5 个 → 读出来的号码是错的（实测把 8 丢了），
+          而且不同变体丢的号不一样 → 判「识别结果不稳定」整张丢掉。
+          所以先允许「左区 token 数 == 面数」这种一带不丢的读法（waste=0，评分最高）。
+       ② 【单式票】仍然要求正好 spec.front 个；OCR 常混进一个噪点数字，
+          所以保留「丢掉任意 1 个 token」再试。 */
     const fronts = [];
+    const maxClean = Math.min(12, left.length);
+    if (maxClean > spec.front) {
+      const fBig = searchSplit(left, maxClean, spec.frontMax);
+      if (fBig) fronts.push(fBig);
+    }
     const f1 = searchSplit(left, spec.front, spec.frontMax);
     if (f1) fronts.push(f1);
     for (let d = 0; d < left.length; d++) {
@@ -472,8 +486,8 @@ export function parseNumberLine(line, gid) {
     if (!backs.length) continue;
 
     for (const frontAll of fronts) {
-      const front = frontAll.slice(0, spec.front);
-      if (front.length !== spec.front) continue;
+      const front = frontAll.slice(0);                 /* 复式票可以 >5 个号，别截断 */
+      if (front.length < spec.front) continue;
       if (new Set(front).size !== front.length) continue;
       if (front.some((x) => x < 1 || x > spec.frontMax)) continue;
       for (const backRaw of backs) {
@@ -482,7 +496,7 @@ export function parseNumberLine(line, gid) {
         if (new Set(back).size !== back.length) continue;
         if (back.some((x) => x < spec.backMin || x > spec.backMax)) continue;
 
-        const waste = left.length - spec.front + right.length - spec.back;
+        const waste = left.length - front.length + right.length - back.length;
         let score = 100 - waste * 5 - front.reduce((x, y) => x + y, 0) / 1000;
         if (s[sp] === '+') score += 8;
         if (gid === 'dlt' && !(Math.max(...front) < Math.min(...back))) score -= 12;
