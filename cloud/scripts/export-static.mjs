@@ -3012,8 +3012,10 @@ ${PWA_HEAD}
 <meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
-<!-- 微信 / QQ 专用的兼容标签 → 已挪到 <head> 靠前的位置（和 title 在一起），
-     这里不再重复，避免 itemprop 出现两套（实测会导致微信读到旧文案）。 -->
+<!-- 微信 / QQ 专用的兼容标签 → 已挪到 head 开标签靠前的位置（和 title 在一起），
+     这里不再重复，避免 itemprop 出现两套（实测会导致微信读到旧文案）。
+     ⚠️ 这里别写字面的 head 标签（开标签或收尾标签）：页面里只要出现第二个，
+        export-site.mjs 的注入就会插错位置（历史上整段 CSS 被塞进注释里）。 -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风十万里 - 免费推荐与智能选号" />
 <meta name="twitter:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
