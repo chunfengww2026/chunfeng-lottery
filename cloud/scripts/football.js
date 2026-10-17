@@ -527,7 +527,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -593,7 +593,7 @@ const FOOTBALL_DATA = {
      "color": "5A95B3"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "瓜达卢普",
      "score": 0,
@@ -659,7 +659,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "聖特克拉國際",
      "score": 1,
