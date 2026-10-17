@@ -67,16 +67,50 @@ export function metaItemprop(title, desc) {
    ⚠️ Service Worker 【不能】用 Blob 注册（浏览器规范禁止 blob: 脚本注册 SW），
       所以 SW 仍然指 site 根目录的 service-worker.js（纯透传、不缓存）。
    ------------------------------------------------------------------------- */
-export const PWA_HEAD = `<!-- __PWA_HEAD__ 一键桌面：manifest 用【真实文件】manifest.json
-  ⚠️ 原来这里是「脚本用 Blob 现场生成 manifest」，看着很聪明，但浏览器【不认】：
-     · 可安装判定要求 manifest 是同源的 http(s) URL —— blob: 会被忽略
-     · 那份 Blob 里 192/512 图标是 SVG，Chrome 的安装判定只认 PNG
-  ⇒ 结果就是主分享页永远不弹原生安装框（只有引导提示）。
-  现在改成直接引用文件：manifest.json（和 manifest.webmanifest 同一份内容，两个都发布），
-  图标用 icon-192.png / icon-512.png（已随发布清单一起上线）。 -->
+export const PWA_HEAD = `<!-- __PWA_HEAD__ 一键桌面（manifest）
+   主路径 = 真实文件 manifest.json：Chrome 的可安装判定只认【同源 http(s) URL】
+            + PNG 图标（icon-192.png / icon-512.png），纯 blob: manifest 会被忽略，
+            真机上就变成「点了一键桌面不弹原生安装框」。
+   兜底   = __PWA_BLOB_FALLBACK__：同一份内容当场用 Blob 生成；
+            万一 manifest.json 拿不到（老部署 / 文件丢了 / 404），自动切到 blob 地址。
+   ⇒ 用户要的「Blob 现场生成、不新增文件」和「真机装得上」两件事同时成立。
+   ⚠️ Service Worker 不能走 Blob（浏览器禁止 blob: 注册 SW），仍用 service-worker.js。 -->
 <link rel="manifest" id="pwaManifest" href="manifest.json" />
 <meta name="theme-color" content="#1a8c5a" />
-<link rel="apple-touch-icon" href="icon-192.png" />`;
+<link rel="apple-touch-icon" href="icon-192.png" />
+<script>
+/* manifest 兜底：文件拿不到时，用 Blob 现场生成同一份清单（0 新增文件、0 本地存储） */
+(function () {
+  try {
+    var el = document.getElementById('pwaManifest');
+    if (!el || !window.Blob || !window.URL || !URL.createObjectURL) return;
+    if (!/^https?:/.test(location.protocol)) return;   /* file:// 本来也装不了 */
+    function abs(p) { try { return new URL(p, location.href).href; } catch (e) { return p; } }
+    function swap() {
+      var ICON = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231a2130%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23080a0e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22r%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ffb0a2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238e121c%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23c2e0ff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23123492%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%22url(%23c)%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%22146%22%20cy%3D%22300%22%20r%3D%22125%22%20fill%3D%22url(%23b)%22%2F%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%22182%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22164%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22376%22%20cy%3D%22220%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%22510%22%20height%3D%22510%22%20rx%3D%22113%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E';
+      var m = {
+        name: '春风彩票', short_name: '春风彩票',
+        start_url: abs('index.html'), scope: abs('./'),
+        display: 'standalone', orientation: 'portrait',
+        background_color: '#f7efe1', theme_color: '#1a8c5a', lang: 'zh-CN',
+        icons: [
+          { src: ICON, sizes: '192x192', type: 'image/svg+xml' },
+          { src: ICON, sizes: '512x512', type: 'image/svg+xml' },
+          { src: abs('icon-192.png'), sizes: '192x192', type: 'image/png' },
+          { src: abs('icon-512.png'), sizes: '512x512', type: 'image/png' }
+        ]
+      };
+      try {
+        var url = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
+        el.setAttribute('href', url);
+      } catch (e) { }
+    }
+    fetch(el.getAttribute('href'), { cache: 'no-store' })
+      .then(function (r) { if (!r || !r.ok) swap(); })
+      ['catch'](function () { swap(); });
+  } catch (e) { /* 兜底逻辑出问题不影响页面 */ }
+})();
+</script>`;
 
 /* ---------------------------------------------------------------------------
    ② 设备门的样式（放 <head>，越早越好，避免电脑端先闪出内容）
