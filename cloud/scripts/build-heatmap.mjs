@@ -722,6 +722,18 @@ function gameLiteral(g) {
   ].join('\n');
 }
 
+/* 【读现有数据】用于「合并写回」：本次没跑的彩种保留原条目。
+   读不到 / 解析失败就返回 {}（宁可只写本次的，也不报错中断） */
+function readExistingGames() {
+  try {
+    if (!fs.existsSync(OUT)) return {};
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(OUT, 'utf8') + '\nglobalThis.__H = HEATMAP_DATA;', c);
+    const H = c.__H;
+    return (H && H.games) ? H.games : {};
+  } catch (e) { return {}; }
+}
+
 function writeFile(games, meta) {
   const nowBj = bj();
   const list = Object.keys(games);
@@ -974,10 +986,11 @@ async function main() {
     const before = want.length;
     want = want.filter((g) => todayDraw.includes(g));
     if (before && !want.length) {
-      log(`  今天（${WEEK_CN[nowBj.dow]}）不是双色球/大乐透的开奖日 → 本期不出这张图`);
-      const src = writeFile({}, { extraNote: '今天不是开奖日，未生成任何彩种' });
-      log('  ✅ 已写出空的 heatmap-data.js（games: {}）');
-      log(`  输出：${OUT}`);
+      /* 【不再写空文件】用户 2026-10-17：热力图改每小时更新后，
+         一次「非开奖日」的调用会把别的彩种已抓到的数据一起抹掉（实测：
+         跑 dlt 把 ssq 也清空了）→ 现在【保留现有数据、什么都不写】。 */
+      log(`  今天（${WEEK_CN[nowBj.dow]}）不是所请求彩种的开奖日 → 保留现有数据，不写文件`);
+      log(`  输出（未改动）：${OUT}`);
       log('════════════════════════════════════════════');
       return;
     }
@@ -986,8 +999,7 @@ async function main() {
   }
 
   if (!want.length) {
-    log('  没有要处理的彩种');
-    writeFile({}, null);
+    log('  没有要处理的彩种 → 保留现有数据，不写文件');
     return;
   }
 
@@ -1010,7 +1022,9 @@ async function main() {
     if (want.length > 1) await sleep(politeDelay());
   }
 
-  const src = writeFile(games, null);
+  /* 【合并写回】本次只更新跑到的彩种，其它彩种保留原数据 ——
+     否则一次单彩种调用（或某个彩种抓取失败）就会把别的好数据抹掉。 */
+  const src = writeFile(Object.assign({}, readExistingGames(), games), null);
 
   log('');
   log('────────────── 结果 ──────────────');
