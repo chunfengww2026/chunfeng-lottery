@@ -6059,13 +6059,7 @@ ${DEVICE_GATE_BODY}
     <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
     <div class="tool-grid">
       <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-<!-- __RE_ENTRY2_HTML__ 两列入口：晒票 / GPT模型摇号 -->
-<div class="entry2">
-  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-xysp">
-    <div class="entry2-t">晒票</div><div class="entry2-s">各种实票图片</div><div class="entry2-a">展开 ▾</div>
   </div>
-  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-aipick">
-    <div class="entry2-t">GPT模型摇号</div><div class="entry2-s">系统随机生成</div><div class="entry2-a">点击查看 ▸</div>
   </div>
 </div>
 <!-- __RE_SINA_HTML__ 下一期参考（有数据才显示） -->
@@ -9738,13 +9732,6 @@ ${CHAT_JS}
 .sx-t { color: #4a3a26; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sx-f { color: #c0392b; font-weight: 700; white-space: nowrap; }
 .sx-b { color: #1f5fd6; font-weight: 700; white-space: nowrap; }
-/* __RE_ENTRY2__ 两列入口卡 */
-.entry2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 12px; }
-.entry2-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; }
-.entry2-card:active { background: #f9efdd; transform: scale(0.98); }
-.entry2-t { font-size: 15px; font-weight: 700; color: #4a3a26; }
-.entry2-s { font-size: 11px; color: #8a7a63; margin-top: 4px; }
-.entry2-a { font-size: 12px; font-weight: 700; color: #1a8c5a; margin-top: 8px; }
 /* __RE_GUIDE__ 安装指南 */
 .install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
 .install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
@@ -9920,14 +9907,6 @@ ${CHAT_JS}
   </svg>
   <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
 </div>
-<script>
-(function(){var c=document.querySelectorAll(".entry2-card");for(var i=0;i<c.length;i++){(function(el){
-  function go(){var id=el.getAttribute("data-jump");var t=document.getElementById(id);if(!t)return;
-    var d=t.closest("details");if(d)d.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});}
-  el.addEventListener("click",go);
-  el.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go();}});
-})(c[i]);}})();
-</script>
 </body>
 </html>`;
 
