@@ -278,7 +278,11 @@
          现在逐场过滤：超窗口的场次既不算红黑、也不算"没打完"。
          （传 { ignoreWindow: true } 可以关掉过滤，调试/回看历史用。） */
       const list = (Array.isArray(b.rows) ? b.rows : [])
-        .filter((r) => (o.ignoreWindow ? true : inWindow(r.time, o.now)));
+        .filter((r) => (o.ignoreWindow ? true : inWindow(r.time, o.now)))
+        /* 【信心门槛】用户 2026-10-17：「推荐串战绩指信心大于等于58%的场次，
+           低于58%的不算」—— 传 { min: 58 } 之后，历史里那些 <58% 的场次
+           既不算红黑、也不算"没打完"，直接从口径里剔除。 */
+        .filter((r) => (o.min == null ? true : (r.conf != null && r.conf >= o.min)));
       rows += list.length;
       let pend = 0;
       list.forEach((r) => {
