@@ -35,6 +35,26 @@ import {
   CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop
 } from './device-gate.mjs';
 
+
+/* 【性能优化】用户 2026-10-17：「网页和桌面顺畅一点」。
+   ① 所有 <img> 补 loading="lazy" + decoding="async"（首屏不用等 226 张图）
+   ② 长页面加 content-visibility:auto（推荐图那 8～10 段先不渲染，滚到才渲染）
+      ⚠️ 只加在 .ro-game（推荐图分节）上 —— 走势图要 JS 量坐标，不能跳过渲染。 */
+function perfify(html) {
+  let s = String(html);
+  s = s.replace(/<img\b([^>]*)>/g, (all, attrs) => {
+    let a = attrs || '';
+    if (!/\bloading=/.test(a)) a += ' loading="lazy"';
+    if (!/\bdecoding=/.test(a)) a += ' decoding="async"';
+    return '<img' + a + '>';
+  });
+  if (!/content-visibility/.test(s)) {
+    s = s.replace(/<\/style>/,
+      '.ro-game{content-visibility:auto;contain-intrinsic-size:auto 900px;}\n</style>');
+  }
+  return s;
+}
+
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
 const ROOT = process.env.DSH_JC_ROOT
   ? path.resolve(process.env.DSH_JC_ROOT)
@@ -4499,7 +4519,7 @@ ${CHAT_JS}
    ============================================================ */
 const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '足球推荐.html');
-fs.writeFileSync(OUT, safeHtml, 'utf8');
+fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
