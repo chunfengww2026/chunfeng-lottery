@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 16:27 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 16:30 */
 const JC_DATA = {
- "updated": "2026-10-17 16:27",
+ "updated": "2026-10-17 16:30",
  "stat": {
   "total": 63,
   "upcoming": 60,
-  "live": 3,
-  "finished": 0,
+  "live": 1,
+  "finished": 2,
   "withScore": 3,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -327,7 +327,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -634,7 +634,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -662,7 +662,7 @@ const JC_DATA = {
     "home": 0,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {

@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 16:27",
+ "updated": "2026-10-17 16:30",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1665,7 +1665,7 @@ const JC_HISTORY = {
    "home": "麦克阿瑟FC",
    "away": "珀斯",
    "time": "2026-10-17 14:00",
-   "score": "",
+   "score": "2:1",
    "hc": "-1",
    "asianIndex": {
     "line": "半球",
@@ -1696,23 +1696,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.91,
-    "draw": 3.75,
-    "away": 3.6
+    "home": 1.95,
+    "draw": 3.7,
+    "away": 3.5
    },
    "prob": {
-    "home": 49,
-    "draw": 25,
-    "away": 26
+    "home": 48,
+    "draw": 25.3,
+    "away": 26.7
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 49,
-   "result": "",
-   "hit": false,
+   "conf": 48,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "unbeaten"
+   "at": "2026-10-17 16:30"
   },
   {
    "code": "周六002",
@@ -1720,7 +1720,7 @@ const JC_HISTORY = {
    "home": "鹿岛鹿角",
    "away": "长崎航海",
    "time": "2026-10-17 14:00",
-   "score": "",
+   "score": "2:0",
    "hc": "-1",
    "asianIndex": {
     "line": "一球",
@@ -1751,23 +1751,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.48,
-    "draw": 4.1,
+    "home": 1.46,
+    "draw": 4,
     "away": 5.75
    },
    "prob": {
     "home": 61.8,
-    "draw": 22.3,
-    "away": 15.9
+    "draw": 22.5,
+    "away": 15.7
    },
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 61.8,
-   "result": "",
-   "hit": false,
+   "type": "three",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "at": "2026-10-17 16:30"
   },
   {
    "code": "周五011",
