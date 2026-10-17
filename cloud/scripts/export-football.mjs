@@ -2890,15 +2890,26 @@ ${nav}
 .record-bar .black { color: #4a3a26 !important; font-weight: 700 !important; margin-left: 8px !important; }
 .record-bar .rate { color: #1a8c5a !important; font-weight: 700 !important; margin-left: 8px !important; }
 .record-bar .note { color: #8a7a63 !important; margin-left: 8px !important; font-weight: 400 !important; }
-/* 【播报条】用户 2026-10-17 给的结构：.broadcast-bar / .horn-icon / .broadcast-content / .marquee
-   （和原有 .m-mq* 是同一套元素的别名类名，这里只补他这几个类名的样式，
-     动画/暂停/减少动效都在 .m-mq-track 上，不受影响） */
-.broadcast-bar { display: flex !important; align-items: center !important; gap: 6px !important;
-  height: 24px !important; padding: 0 8px !important; border-radius: 8px !important;
-  background: #fdf6ea !important; border: 1px solid #e8d7bd !important; overflow: hidden !important; }
-.broadcast-bar .horn-icon { flex: 0 0 auto; font-size: 12px; line-height: 1; }
-.broadcast-bar .broadcast-content { flex: 1 1 0; min-width: 0; overflow: hidden; }
-.broadcast-bar .marquee { display: flex; width: max-content; }
+/* 【播报条 · 视觉按用户 2026-10-17 给的 CSS】浅黄底 #fff6dd + 边 #f0dfa8 + 6px 圆角
+   + 14px 喇叭 + 18px 高的滚动区 + 红字 12px 加粗。
+   ⚠️ 动画保留页面原来的那套（.m-mq-track 的 keyframes jc-mq-roll：两组内容 + translateX(-50%)
+      → 无缝循环、悬停暂停、prefers-reduced-motion 时可拖动）。
+      没有用他贴的 padding-left:100% + translateX(-100%) 单段写法 ——
+      那种滚完会在屏幕左侧留一整条空白再从头来，看起来像"卡一下"。 */
+.broadcast-bar { display: flex !important; align-items: center !important;
+  background: #fff6dd !important; border: 1px solid #f0dfa8 !important;
+  border-radius: 6px !important; padding: 6px 10px !important; margin-top: 8px !important;
+  overflow: hidden !important; height: auto !important; }
+.broadcast-bar .horn-icon { font-size: 14px !important; margin-right: 8px !important;
+  flex-shrink: 0 !important; line-height: 1 !important; }
+.broadcast-bar .broadcast-content { flex: 1 1 0 !important; min-width: 0 !important;
+  overflow: hidden !important; white-space: nowrap !important; position: relative !important;
+  height: 18px !important; line-height: 18px !important; }
+.broadcast-bar .marquee { color: #c0392b !important; font-size: 12px !important; font-weight: 700 !important; }
+.broadcast-bar .m-mq-item { color: #c0392b !important; font-size: 12px !important;
+  font-weight: 700 !important; line-height: 18px !important; }
+.broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
+.broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
 </style>
 </head>
 <body>
