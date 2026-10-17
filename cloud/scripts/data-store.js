@@ -270,7 +270,7 @@ function renderMaterialExportPanel(container, onChanged) {
       a.click();
       setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
       msg.style.color = '#7ee787';
-      msg.textContent = '已下载，放到 D:\\春风十里送大奖\\ 目录（覆盖原文件）';
+      msg.textContent = '已下载，放到 D:\\春风\\ 目录（覆盖原文件）';
     } catch (e) {
       msg.style.color = '#f0575c';
       msg.textContent = '导出失败：' + e.message;
