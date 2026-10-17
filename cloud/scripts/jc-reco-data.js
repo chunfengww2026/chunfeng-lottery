@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-17 12:28",
+ "updated": "2026-10-17 12:30",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -307,7 +307,7 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "odds": 1.5,
-     "conf": 61.9,
+     "conf": 61.1,
      "score": "",
      "hit": null,
      "result": ""
