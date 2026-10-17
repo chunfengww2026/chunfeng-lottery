@@ -1510,6 +1510,8 @@ function renderRec() {
       `</div>`;
   }).join('');
 
+  /* 【提示文案】用户 2026-10-17 指定的那句（和设计稿一致） */
+  const tips = '<div class="m-rectips">在售场次里挑信心 ≥ 58% 的比赛（统计归纳，不是预测）</div>';
   const detail = REC_ROWS_ARCHIVE.length
     ? pastHead + `<div class="past-list" id="pastList">${pastItems}</div>`
     : (JC_RECO && Array.isArray(JC_RECO.batches) && JC_RECO.batches.length
@@ -1524,7 +1526,7 @@ function renderRec() {
   /* 【三卡片化】用户 2026-10-17：推荐单 / 推荐（在售）/ 推荐历史结果 各成一张卡。
    把「推荐历史结果」（#jcRecArch）移出 <details>，成为独立的第三张卡；
    id 不变 → 30 秒刷新脚本照样能换内容。 */
-  return `<details class="m-rec" id="jcRec">${head}${note}${body}</details>` +
+  return `<details class="m-rec" id="jcRec" open>${head}${tips}${note}${body}</details>` +
     (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '');
 }
 
@@ -2202,6 +2204,8 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
   cursor: pointer; list-style: none; user-select: none; margin: 14px 0 8px; }
 .m-rec > summary.m-rechead::-webkit-details-marker { display: none; }
 .m-rec > summary.m-rechead::marker { content: ''; }
+/* 推荐卡片里的提示行（用户指定文案） */
+.m-rectips { font-size: 11px; color: #a89a80; padding: 2px 2px 8px; }
 .m-rectitle { font-size: 14px; font-weight: 700; color: #e8eaed; }
 .m-reccount { font-size: 11px; color: #6b7488; background: #12151d;
   padding: 2px 8px; border-radius: 20px; }
