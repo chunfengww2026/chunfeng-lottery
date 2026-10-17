@@ -66,6 +66,19 @@
            两者口径不同 —— 卡片里如实写明"差只作横向参照"，不假装是同一件事。
      两块底部都带「以上为民间口诀算法自动推演，仅供参考」。
 
+   【第 5 步 · 加一张「综合模型」】（2026-10-18，原 11 张卡 → 12 张）
+     ⑪ 综合模型：把多模型融合摆在一张卡里，六块全部用本页已有的数现算 ——
+        · 欧赔隐含（1/赔率 归一）+ 水位和（overround）+ 返还率
+        · 埃罗概率：主 0.448+0.0053×积分差 / 客 0.245−0.0039×积分差 / 平＝1−主−客；
+          积分差用【名次差 × 2】折算（本页没有真实埃罗积分，如实写明是折算）
+        · 泊松·Dixon-Coles 比分矩阵：ρ=−0.05，0~8 球 81 个比分求和；
+          λ 由欧赔三项隐含概率在 0.20~3.60 网格上拟合（不是拍脑袋的常数）
+        · 融合：0.6×欧赔隐含 + 0.4×模型（有排名用埃罗，没排名用泊松），再归一
+        · 盘口信号：平手 / 平半 / 半球 各 2 条 + 通用 2 条，权重求和＝net bias
+        · 凯利仓位：f=(b·p−(1−p))÷b，取半凯利、单场上限 10%，f≤0 写 0
+     原来的 11 张卡一张没动、相对顺序没变，只在这中间插了一块；
+     底部标注「以上为多模型融合，仅供参考，不保证中奖」。
+
    【⚠️ 硬性规则 · 页面上【不许】出现任何"数据是从哪儿来的"】
      用户要求：全页面不要有任何地方显示在哪里抓取的数据（含站名 / 域名 / 接口 / 文件名）。
      所以这一页里：
@@ -513,6 +526,21 @@ a { color: var(--ro-ok); text-decoration: none; }
 }
 .md-na b { color: var(--ro-fg); }
 .md-na em { font-style: normal; color: var(--ro-fg2); }
+
+/* ⑪ 综合模型（欧赔隐含 / 埃罗 / 泊松·Dixon-Coles / 融合 / 盘口信号 / 半凯利）
+   · 主色用深青 #12616e（在米杏底 #fdf6ea 上 ≈6.1:1，过 WCAG AA 4.5:1），
+     和「差异分析」的蓝 #1f4e79 区分开 —— 两张卡都是"两盘/多模型对照"，
+     用同一个蓝会看起来像同一张卡。
+   · 三格概率直接复用 .md-ou（375/320 下已经验证过不溢出）；
+     盘口信号一行用 flex + wrap，权重贴右边，窄屏时名字和说明先折行、权重不掉行。 */
+.md-card.md-fusion { border-color: rgba(18,97,110,0.42); }
+.md-card.md-fusion .md-ctitle { color: #12616e; }
+.md-fusion-sig { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  padding: 4px 0; border-bottom: 1px dashed var(--ro-line); font-size: 12px; line-height: 1.5; }
+.md-fusion-sig:last-child { border-bottom: 0; }
+.md-fusion-sig .nm { flex: 0 0 auto; font-weight: 800; color: #12616e; }
+.md-fusion-sig .ms { flex: 1 1 auto; min-width: 0; color: var(--ro-fg); }
+.md-fusion-sig .w { flex: 0 0 auto; font-family: Consolas, monospace; font-weight: 800; color: var(--ro-fg); }
 
 /* ⑧ 资金分布（三项成交占比的横条）
    · 三条横条：标签 + 横条 + 占比。横条宽度＝该项占比，由页内脚本按数据写进 style ——
@@ -1818,6 +1846,346 @@ ${DEVICE_GATE_BODY}
     return card('📊 差异分析', '<span class="md-badge blue">两盘对照</span>', body, null, 'report sports', 'md-diff');
   }
 
+  /* ============================================================
+     ⑪ 综合模型（多模型融合）
+     ------------------------------------------------------------
+     这一档把六样东西摆在一起，每一个都用【本页已有的数】现算，不新取任何数据：
+       ① 欧赔隐含   (1/赔率) 归一化 → 主/平/客 合计 100%
+                    水位和 = 1/主 + 1/平 + 1/客（>1 的那部分就是抽水）
+                    返还率 = 100 ÷ 水位和
+       ② 埃罗概率   主 = 0.448 + 0.0053×积分差，客 = 0.245 − 0.0039×积分差，
+                    平 = 1 − 主 − 客；三项夹在 5%~90%，
+                    平局不足 5% 时按比例从主/客扣回（正好扣回到 5%）。
+                    ⚠️ 积分差用【名次差 × 2】折算：整季 20 队的名次-积分间距
+                       大约就是每名 2 分。本页没有真实埃罗积分（那要跑全季
+                       历史比赛逐场算），所以这一项只作参考，不冒充真埃罗评级。
+       ③ 泊松矩阵   P(k) = e^(−λ)·λ^k ÷ k!，主客各自一个 λ，
+                    再叠 Dixon-Coles 的 ρ 低比分修正（0-0 / 0-1 / 1-0 / 1-1 四格），
+                    遍历 0~8 球共 81 个比分求和 → 主胜 / 平 / 客胜。
+                    λ 不是拍脑袋写的常数：在 0.20~3.60 的网格上搜一对 λ，
+                    让这个矩阵的三项最贴近欧赔隐含三项（网格先粗后细）。
+       ④ 融合       融合 = 0.6×欧赔隐含 + 0.4×模型（有排名用埃罗，没排名用泊松矩阵），
+                    三项再归一。用的是哪一个模型，卡片上写明。
+       ⑤ 盘口信号   平手 / 平半 / 半球 三条盘型各 2 条 + 通用 2 条，共 8 条；
+                    命中几条记几条，权重求和 = net bias（正＝偏上盘）。
+       ⑥ 凯利仓位   f = (b×p − (1−p)) ÷ b，b = 赔率 − 1；
+                    取【半凯利】（f × 0.5），单场上限 10%；
+                    f ≤ 0 就写 0 —— 没有正期望就不给仓位，不硬凑一个数。
+     ⚠️ 这一档【不写】这些数是从哪儿来的（硬性规则，见文件头）。
+     ⚠️ 缺数就写「算不了」，不拿别场的均值、也不拿 0 顶位置。
+     ============================================================ */
+  var FUS_ALPHA = 0.6;      /* 欧赔权重 */
+  var FUS_RHO = -0.05;      /* Dixon-Coles 低比分修正参数 */
+  var FUS_MAXG = 8;         /* 比分矩阵 0~8 球 */
+  var FUS_KELLY_CAP = 0.10; /* 单场仓位上限 */
+  var FUS_KEYS = ['主胜', '平', '客胜'];
+
+  /* ① 欧赔隐含 + 水位和 + 返还率（和「泊松指数」同一口径，只是这里留小数不取整） */
+  function fusImplied(o) {
+    if (!o) return null;
+    var h = num(o.home), d = num(o.draw), a = num(o.away);
+    if (h === null || d === null || a === null) return null;
+    if (!(h > 1) || !(d > 1) || !(a > 1)) return null;   /* 赔率 ≤ 1 是坏值，不参与 */
+    var inv = [1 / h, 1 / d, 1 / a];
+    var s = inv[0] + inv[1] + inv[2];
+    if (!isFinite(s) || !(s > 0)) return null;
+    var pay = 100 / s;
+    return {
+      p: [inv[0] / s, inv[1] / s, inv[2] / s],
+      overround: s,
+      pay: (isFinite(pay) && pay >= 60 && pay <= 120) ? pay : null,
+      odds: [h, d, a]
+    };
+  }
+
+  /* ② 埃罗：积分差由【名次差 × 2】折算（夹在 ±60，超过就没意义了） */
+  function fusRankDiff(g) {
+    var hr = num(g.home && g.home.rank), ar = num(g.away && g.away.rank);
+    if (hr === null || ar === null || hr <= 0 || ar <= 0) return null;
+    return { hr: hr, ar: ar, diff: clampNum((ar - hr) * 2, -60, 60) };
+  }
+  function fusElo(diff) {
+    var H = clampNum(0.448 + 0.0053 * diff, 0.05, 0.90);
+    var A = clampNum(0.245 - 0.0039 * diff, 0.05, 0.90);
+    var D = 1 - H - A;
+    if (D < 0.05) {
+      /* 平局不足 5%：把超额按比例从主/客扣回，扣完正好 H+A = 0.95 */
+      var tot = H + A;
+      if (tot > 0) { H = 0.95 * (H / tot); A = 0.95 * (A / tot); }
+      D = 0.05;
+    }
+    return [H, D, A];
+  }
+
+  /* ③ 泊松矩阵（0~8 球）+ Dixon-Coles 修正 */
+  function fusPmf(lam, n) {
+    var out = [], k;
+    out[0] = Math.exp(-lam);
+    for (k = 1; k <= n; k++) out[k] = out[k - 1] * lam / k;
+    return out;
+  }
+  function fusMatrix(lh, la) {
+    var ph = fusPmf(lh, FUS_MAXG), pa = fusPmf(la, FUS_MAXG);
+    var H = 0, D = 0, A = 0, i, j, tau, p;
+    for (i = 0; i <= FUS_MAXG; i++) {
+      for (j = 0; j <= FUS_MAXG; j++) {
+        tau = 1;
+        if (i === 0 && j === 0) tau = 1 - lh * la * FUS_RHO;
+        else if (i === 0 && j === 1) tau = 1 + lh * FUS_RHO;
+        else if (i === 1 && j === 0) tau = 1 + la * FUS_RHO;
+        else if (i === 1 && j === 1) tau = 1 - FUS_RHO;
+        p = ph[i] * pa[j] * tau;
+        if (p < 0) p = 0;                       /* τ 把某一格拉负时按 0 收，不让概率变负 */
+        if (i > j) H += p; else if (i === j) D += p; else A += p;
+      }
+    }
+    var s = H + D + A;
+    if (!isFinite(s) || !(s > 0)) return null;
+    return [H / s, D / s, A / s];
+  }
+  /* 网格搜 λ：先 0.10 步长粗搜，再在最优解附近 0.02 步长细搜 */
+  function fusFit(target) {
+    var best = null, i, j, p, e, k, d;
+    function at(a, b) {
+      p = fusMatrix(a, b);
+      if (!p) return;
+      e = 0;
+      for (k = 0; k < 3; k++) { d = p[k] - target[k]; e += d * d; }
+      if (!best || e < best.e) best = { e: e, lh: a, la: b, p: p };
+    }
+    for (i = 0; i <= 34; i++) {
+      for (j = 0; j <= 34; j++) {
+        at(Math.round((0.2 + i * 0.1) * 100) / 100, Math.round((0.2 + j * 0.1) * 100) / 100);
+      }
+    }
+    if (!best) return null;
+    var h0 = best.lh, a0 = best.la;
+    for (i = -4; i <= 4; i++) {
+      for (j = -4; j <= 4; j++) {
+        at(clampNum(h0 + i * 0.02, 0.2, 3.6), clampNum(a0 + j * 0.02, 0.2, 3.6));
+      }
+    }
+    return best;
+  }
+
+  /* ⑤ 盘口信号：平手 / 平半 / 半球 各 2 条 + 通用 2 条。
+     ⚠️ 升盘 / 降盘按【盘口数值变大 / 变小】判 —— 和「亚指」卡的走势同一个口径，
+        免得同一场在两处显示相反的方向。升水 / 降水按上盘水位判。 */
+  function fusHandicap(g) {
+    var ai = g.asianIndex || {};
+    var hc = ai.handicapChange || {};
+    var now = num(hc.nowHandicap); if (now === null) now = num(ai.handicap);
+    var open = num(hc.initHandicap); if (open === null) open = num(ai.openHandicap);
+    var curW = num(hc.nowUpWater); if (curW === null) curW = num(ai.upWater);
+    var openW = num(hc.initUpWater); if (openW === null) openW = num(ai.openUpWater);
+    var side = (ai.upSide === 'home' || ai.upSide === 'away') ? ai.upSide : null;
+    if (now === null || open === null || curW === null || openW === null) {
+      return { ok: false, side: side,
+        lack: (now === null || open === null) ? '让球线' : '上盘水位' };
+    }
+    var ab = Math.abs(now);
+    var typ = (ab < 0.125) ? '平手' : (Math.abs(ab - 0.25) < 0.125 ? '平半'
+      : (Math.abs(ab - 0.5) < 0.125 ? '半球' : '其它盘口'));
+    var upLine = (now - open) > 0.001, dnLine = (now - open) < -0.001;
+    var upW = (curW - openW) > 0.005, dnW = (curW - openW) < -0.005;
+    var sig = [], i;
+    if (typ === '平手') {
+      if (openW < 0.90) sig.push({ nm: '平手低水', ms: '上盘偏热', w: 0.05 });
+      if (openW > 1.00) sig.push({ nm: '平手高水', ms: '下盘 / 平局留意', w: 0.05 });
+    } else if (typ === '平半') {
+      if (openW < 0.90 && Math.abs(curW - openW) < 0.05) sig.push({ nm: '平半低水稳水', ms: '上盘信号', w: 0.06 });
+      if (openW > 1.00 && Math.abs(curW - openW) < 0.05) sig.push({ nm: '平半高水不变', ms: '下盘信号', w: 0.06 });
+    } else if (typ === '半球') {
+      if (openW < 0.90 && upLine && curW > 0.95) sig.push({ nm: '半球低水升盘后高水', ms: '上盘信号', w: 0.06 });
+      if (openW > 1.00 && dnLine) sig.push({ nm: '半球高水降盘', ms: '下盘信号，尤其警惕', w: 0.08 });
+    }
+    if (upLine && dnW) sig.push({ nm: '升盘降水', ms: '需结合时间判断', w: 0 });
+    if (dnLine && upW) sig.push({ nm: '降盘升水', ms: '历史上偏向上盘', w: 0.03 });
+    var net = 0;
+    for (i = 0; i < sig.length; i++) net += sig[i].w;
+    return { ok: true, side: side, typ: typ, now: now, open: open, curW: curW, openW: openW,
+      lineTxt: has(ai.line) ? String(ai.line) : null,
+      upLine: upLine, dnLine: dnLine, upW: upW, dnW: dnW, sig: sig, net: net };
+  }
+
+  /* ⑥ 凯利：b = 赔率 − 1，f = (b·p − (1−p)) ÷ b；负值按 0（不上场） */
+  function fusKelly(p, odds) {
+    var b = odds - 1;
+    if (!(b > 0) || !(p > 0)) return null;
+    var f = (b * p - (1 - p)) / b;
+    if (!isFinite(f)) return null;
+    return f > 0 ? f : 0;
+  }
+
+  function fusPct(x) { return (Math.round(x * 1000) / 10).toFixed(1) + '%'; }
+
+  function fusCalc(g) {
+    var eu = g.odds && g.odds.europe;
+    var lv = eu ? (eu.live || eu.open) : null;
+    var im = fusImplied(lv);
+    if (!im) return null;
+    var rk = fusRankDiff(g);
+    var elo = rk ? fusElo(rk.diff) : null;
+    var fit = fusFit(im.p);
+    /* 融合用哪个模型：有排名 → 埃罗（和欧赔互相独立，才是真的两个视角）；
+       没排名 → 泊松矩阵（它的 λ 是由欧赔拟合出来的，所以会贴近欧赔，卡片上写明这一点）。 */
+    var model = null, mname = '';
+    if (elo) { model = elo; mname = '埃罗'; }
+    else if (fit) { model = fit.p; mname = '泊松'; }
+    var fu = [im.p[0], im.p[1], im.p[2]], i, t;
+    if (model) {
+      for (i = 0; i < 3; i++) fu[i] = FUS_ALPHA * im.p[i] + (1 - FUS_ALPHA) * model[i];
+      t = fu[0] + fu[1] + fu[2];
+      if (t > 0) for (i = 0; i < 3; i++) fu[i] = fu[i] / t;
+    }
+    /* 模型和欧赔差多少 —— 差太大时明确提示"融合被模型一侧拉动"，别让它看着像共识 */
+    var gap = null;
+    if (elo) {
+      gap = 0;
+      for (i = 0; i < 3; i++) {
+        var gd = Math.abs(elo[i] - im.p[i]);
+        if (gd > gap) gap = gd;
+      }
+    }
+    var hc = fusHandicap(g);
+    var kel = [], full = [];
+    for (i = 0; i < 3; i++) {
+      var ff = fusKelly(fu[i], im.odds[i]);
+      full.push(ff);
+      kel.push(ff === null ? null : clampNum(ff * 0.5, 0, FUS_KELLY_CAP));
+    }
+    return { im: im, rk: rk, elo: elo, fit: fit, model: model, mname: mname, gap: gap,
+      fu: fu, hc: hc, kel: kel, full: full, live: !!eu.live };
+  }
+
+  function renderFusion(g) {
+    var BD = '<span class="md-badge">多模型融合</span>';
+    var r = fusCalc(g);
+    if (!r) {
+      return card('综合模型', BD,
+        '<div class="md-na">这一场没有三项齐全的欧赔，四个概率、盘口信号、凯利仓位都算不出来。<br>'
+        + '<em>这一档不拿别场的均值、也不拿 0 顶位置 —— 缺就是缺，点回竞彩页换一场看。</em></div>',
+        null, 'report', 'md-fusion');
+    }
+    var i, cell, mx = 0;
+    function cells(arr, hot) {
+      var h = '', k;
+      for (k = 0; k < 3; k++) {
+        h += '<td class="' + (hot && k === mx ? 'up' : 'n') + '">' + fusPct(arr[k]) + '</td>';
+      }
+      return h;
+    }
+    var dash = '<td class="dim">—</td><td class="dim">—</td><td class="dim">—</td>';
+
+    /* 顶部：融合后的三格（复用 .md-ou，375/320 已验证不溢出） */
+    for (i = 1; i < 3; i++) if (r.fu[i] > r.fu[mx]) mx = i;
+    var top = '<div class="md-ou">';
+    for (i = 0; i < 3; i++) {
+      top += '<div' + (i === mx ? ' class="top"' : '') + '><span>' + FUS_KEYS[i] + '</span><b>'
+        + fusPct(r.fu[i]) + '</b></div>';
+    }
+    top += '</div>'
+      + '<div class="md-ourow"><span>融合 = 0.6 欧赔 + 0.4 ' + esc0(r.mname || '模型') + '</span>'
+      + '<span>已归一 100%</span></div>';
+
+    /* 四行对照表 */
+    var t = '<table class="md-tbl"><thead><tr><th style="width:34%">口径</th>'
+      + '<th style="width:22%">主胜</th><th style="width:22%">平</th><th style="width:22%">客胜</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td class="s">欧赔隐含</td>' + cells(r.im.p, false) + '</tr>'
+      + '<tr><td class="s">埃罗</td>' + (r.elo ? cells(r.elo, false) : dash) + '</tr>'
+      + '<tr><td class="s">泊松·DC</td>' + (r.fit ? cells(r.fit.p, false) : dash) + '</tr>'
+      + '<tr><td class="s">融合</td>' + cells(r.fu, true) + '</tr>'
+      + '</tbody></table>'
+      + '<div class="md-one" style="margin-top:8px">返还率 <b>'
+      + (r.im.pay === null ? '—' : r.im.pay.toFixed(1) + '%') + '</b>'
+      + ' · 水位和 <b>' + r.im.overround.toFixed(3) + '</b>'
+      + '（＝1/主 + 1/平 + 1/客，>1 的那部分就是抽水）· 本档用'
+      + (r.live ? '【即时】' : '【初盘】') + '赔率；融合概率最高的一项用主色。</div>';
+
+    /* 口径明细：名次差 / λ / 融合权重 */
+    var note = '<div class="md-one" style="margin-top:6px;line-height:1.75">'
+      + '<b>埃罗</b>：' + (r.rk
+        ? '两队名次 <b>' + r.rk.hr + '</b> / <b>' + r.rk.ar + '</b>，名次差 <b>'
+          + Math.abs(r.rk.ar - r.rk.hr) + '</b> → 积分差按每名约 2 分折算成 <b>'
+          + (r.rk.diff > 0 ? '+' : '') + r.rk.diff + '</b>（本页没有真实埃罗积分，只能这样折算）'
+        : '本场没有两队排名 → 这一行不算，融合改用泊松矩阵')
+      + '。<br><b>泊松·Dixon-Coles</b>：' + (r.fit
+        ? 'λ 主 <b>' + r.fit.lh.toFixed(2) + '</b> / λ 客 <b>' + r.fit.la.toFixed(2)
+          + '</b>，ρ = −0.05，0~8 球共 81 个比分求和'
+        : 'λ 拟合失败')
+      + '。<br><b>融合</b>：0.6 × 欧赔隐含 + 0.4 × '
+      + esc0(r.mname || '模型') + '，三项再归一。'
+      + (r.rk ? '' : '⚠️ 泊松的 λ 是由欧赔拟合出来的，所以这一场的融合会贴近欧赔本身 —— 如实写明。')
+      + (r.gap !== null && r.gap > 0.15
+        ? '<br>⚠️ 埃罗和欧赔在这一场最大差了 <b>' + (Math.round(r.gap * 1000) / 10).toFixed(1)
+          + '</b> 个百分点 —— 表里四行都在，差异看得见；融合结果主要是被模型一侧拉开的，'
+          + '凯利仓位也就跟着变大，只作数理参考。'
+        : '')
+      + '</div>';
+
+    /* 盘口信号 */
+    var hc = r.hc, hb;
+    if (!hc.ok) {
+      hb = '<div class="md-diff-sub">盘口信号</div>'
+        + '<div class="md-one">本场缺<b>' + esc0(hc.lack) + '</b>，这 8 条判不了 —— '
+        + '不拿另一档水位顶，也不猜一个方向。</div>';
+    } else {
+      var rows = '';
+      if (!hc.sig.length) {
+        rows = '<div class="md-one">8 条一条都没触发 → net bias <b>0.00</b>，盘口这一侧不给方向。</div>';
+      } else {
+        for (i = 0; i < hc.sig.length; i++) {
+          rows += '<div class="md-fusion-sig"><span class="nm">' + esc0(hc.sig[i].nm) + '</span>'
+            + '<span class="ms">' + esc0(hc.sig[i].ms) + '</span>'
+            + '<span class="w">' + (hc.sig[i].w > 0 ? '+' : '') + hc.sig[i].w.toFixed(2) + '</span></div>';
+        }
+      }
+      var netTxt = (hc.net > 0 ? '+' : '') + hc.net.toFixed(2);
+      var dirTxt = hc.net > 0.0001 ? '偏上盘' : (hc.net < -0.0001 ? '偏下盘' : '中性');
+      hb = '<div class="md-diff-sub">盘口信号 · 触发 <b>' + hc.sig.length + '</b> 条 / 共 8 条</div>'
+        + rows
+        + '<div class="md-one" style="margin-top:5px">盘型 <b>' + esc0(hc.typ)
+        + (hc.lineTxt ? '（' + esc0(hc.lineTxt) + '）' : '') + '</b>'
+        + (hc.side ? ' · 上盘＝' + (hc.side === 'home' ? '主队' : '客队') : '')
+        + ' · 让球线（主视角）' + hc.open + ' → ' + hc.now
+        + ' · 上盘水 ' + hc.openW.toFixed(2) + ' → ' + hc.curW.toFixed(2)
+        + ' · <b>net bias ' + netTxt + '</b>（' + dirTxt + '）</div>';
+    }
+
+    /* 凯利仓位（半凯利） */
+    var kt = '<div class="md-diff-sub">凯利仓位 · 半凯利</div>'
+      + '<table class="md-tbl"><thead><tr><th style="width:22%">方向</th>'
+      + '<th style="width:26%">融合概率</th><th style="width:22%">赔率</th>'
+      + '<th style="width:30%">半凯利仓位</th></tr></thead><tbody>';
+    for (i = 0; i < 3; i++) {
+      var f = r.kel[i];
+      kt += '<tr><td class="s">' + FUS_KEYS[i] + '</td>'
+        + '<td class="n">' + fusPct(r.fu[i]) + '</td>'
+        + '<td class="dim">' + r.im.odds[i].toFixed(2) + '</td>'
+        + '<td class="' + (f !== null && f > 0.0005 ? 'up' : 'dim') + '">'
+        /* 0.05% 以下按 0 显示：320px 那一列只有 ~80px，写「0（无正期望）」会被省略号吃掉 */
+        + (f === null ? '—' : (f <= 0.0005 ? '0' : (Math.round(f * 1000) / 10).toFixed(1) + '%'))
+        + '</td></tr>';
+    }
+    kt += '</tbody></table>'
+      + '<div class="md-one" style="margin-top:6px">仓位 = 半凯利（全凯利的 0.5 倍），单场上限 <b>10%</b>；'
+      + 'f ≤ 0 就是 0 —— 没有正期望就不给仓位。这是数学口径的期望测算，不是投注建议。</div>';
+
+    var foot = '<div class="md-cold-note">算法口径：'
+      + '<b>欧赔隐含</b>＝(1/赔率) 归一化到三项合计 100%，返还率＝100 ÷（1/主+1/平+1/客）；'
+      + '<b>埃罗</b>＝主 0.448 + 0.0053×积分差、客 0.245 − 0.0039×积分差、平＝1−主−客'
+      + '（三项夹在 5%~90%，平局不足 5% 时按比例扣回）；'
+      + '<b>泊松</b>＝e^(−λ)·λ^k ÷ k!，叠 ρ=−0.05 的 Dixon-Coles 低比分修正，λ 由欧赔三项隐含概率拟合（0.20~3.60 网格）；'
+      + '<b>融合</b>＝0.6×欧赔 + 0.4×模型，再归一；'
+      + '<b>盘口信号</b>＝平手 / 平半 / 半球 各 2 条 + 升盘降水 / 降盘升水 2 条，权重求和＝net bias（正＝偏上盘）；'
+      + '<b>凯利</b>＝(b×p−(1−p))÷b，b＝赔率−1，取半凯利、单场上限 10%。'
+      + '<br><b>以上为多模型融合，仅供参考，不保证中奖</b>。<br>'
+      + '这一档是模型推演，不是推荐，也不是投注建议。</div>';
+
+    return card('综合模型', BD, top + t + note + hb + kt + foot, null, 'report', 'md-fusion');
+  }
+
   /* ---- ③ 比赛头部 ---- */
   /* 归档场次用的是另一种数据形状，这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
@@ -1899,16 +2267,16 @@ ${DEVICE_GATE_BODY}
   }
 
   /* ---- 组装整页 ----
-     卡片顺序（11 张）：雷达寻胆 · 欧指 · 欧赔对比 · 大小 · 让球 · 亚指 ·
-       🔥 爆冷预警 · 📊 差异分析 · 泊松指数 · 资金分布 · 分歧指。
-     ⚠️ 新加的两块放在【欧指 / 让球 / 亚指 之后】——它们读的就是那几张卡的数字；
-        原来的 9 张卡一张没动、相对顺序也没变（只是中间插了两块）。 */
+     卡片顺序（12 张）：雷达寻胆 · 欧指 · 欧赔对比 · 大小 · 让球 · 亚指 ·
+       爆冷预警 · 差异分析 · 泊松指数 · 综合模型 · 资金分布 · 分歧指。
+     ⚠️ 原来那 11 张卡一张没动、相对顺序也没变 —— 新的「综合模型」插在
+        「泊松指数」后面（它读的就是欧赔 / 埃罗 / 泊松 / 盘口这几档的数）。 */
   function render(g) {
     var body = srcBar() + renderHead(g)
       + renderRadar(g)
       + renderEurope(g) + renderTitanEuro(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
       + renderCold(g) + renderDiff(g)
-      + renderPoisson(g) + renderMoney(g) + renderDivergence(g);
+      + renderPoisson(g) + renderFusion(g) + renderMoney(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
     applySrc('all');
 
@@ -2135,6 +2503,27 @@ if (!html.includes('大热必死') || !html.includes('强强对话') || !html.in
   problems.push('输出里找不到三条口诀的判词名（大热必死 / 强强对话 / 哀兵必胜）');
 }
 if (!html.includes('亚盘推算')) problems.push('输出里找不到差异分析的「亚盘推算」（两个概率的差没画出来）');
+
+/* 【⑪ 综合模型】必须始终在页面上（每场都出：连欧赔都没有也要给如实的「算不了」）。
+   六块口径 + 底部那句标注，任何一样丢了都会变成"静默失效"（页面照旧能开，但那块没了）
+   → 逐个断言，命中就 exit 1。 */
+if (!html.includes('综合模型')) problems.push('输出里找不到「综合模型」这一档');
+if (!html.includes('md-fusion')) problems.push('输出里找不到综合模型的样式 .md-fusion（CSS 丢了）');
+if (!html.includes('Dixon-Coles')) problems.push('输出里找不到综合模型的「Dixon-Coles」低比分修正说明');
+if (!html.includes('埃罗')) problems.push('输出里找不到综合模型的「埃罗」概率行');
+if (!html.includes('半凯利')) problems.push('输出里找不到综合模型的「半凯利」仓位');
+if (!html.includes('net bias')) problems.push('输出里找不到综合模型盘口信号的「net bias」');
+if (!html.includes('水位和')) problems.push('输出里找不到综合模型的「水位和」（overround 那一项）');
+if (!html.includes('λ')) problems.push('输出里找不到综合模型的 λ（泊松比分矩阵的参数说明丢了）');
+if (!html.includes('以上为多模型融合，仅供参考，不保证中奖')) {
+  problems.push('输出里找不到「以上为多模型融合，仅供参考，不保证中奖」这句标注');
+}
+/* 【12 张卡一张都不能少】顺序见 render()；这里只断言标题都在 ——
+   以后加卡 / 改卡时误删了某一张，构建当场就红，不会悄悄少一块。 */
+const CARD_TITLES = ['雷达寻胆', '欧指', '欧赔对比', '大小', '让球', '亚指',
+  '爆冷预警', '差异分析', '泊松指数', '综合模型', '资金分布', '分歧指'];
+const missCard = CARD_TITLES.filter((t) => !html.includes(t));
+if (missCard.length) problems.push('输出里少了这 ' + missCard.length + ' 张卡：' + missCard.join(' / '));
 
 /* ============================================================
    【留痕断言 · 硬性条件】页面上不许出现任何"数据是从哪儿来的"
