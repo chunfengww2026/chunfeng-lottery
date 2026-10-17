@@ -1581,10 +1581,15 @@ const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
    buildHeatmapHtml），它的入口卡也一并撤掉：热力图自己就是那张能点的卡，
    不需要再多一个「点一下跳过去」的入口。 */
 function buildToolsHtml() {
-  return `<div class="ro-tools">` +
-    `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
-    `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 点击查看</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
-    `</div>`;
+  /* 2026-10-18 用户：「把开机号和热力图改成并排两列」——
+     外面那层 .ro-tools 已撤掉，这张卡现在只是【两列容器里的左格】
+     （容器见下面的 toolsHeatHtml）；卡片本体改用用户给的 .action-card 规格，
+     里面三行 = 标题 / 副标题 / 「点击查看」（和右边热力图卡对齐）。
+     ⚠️ 仍然是 <a>（页面不变量：没有按钮标签），点击逻辑一个字没改。 */
+  return `<a class="ro-tool ro-tool-kjh action-card" href="#ro-kjh">` +
+    `<span class="title">开机号</span>` +
+    `<span class="sub">各彩种实时开机号</span>` +
+    `<span class="sub ro-go" data-tip="1">点击查看</span></a>`;   /* __TOOL_TIP__ 展开后 JS 改成「点击收起」 */
 }
 
 /* 开机号区块：每个彩种一行（彩种名 + 期号 + 号码 + 和值等 + 开奖时间） */
@@ -1737,10 +1742,15 @@ function buildHeatmapHtml() {
   const curIssue = hmIssueText(nowId);
   const subText = '当前：' + hmGameName(nowId) + (curIssue ? ' 第 ' + curIssue + ' 期' : '');
 
-  return `<details class="ro-heat" id="ro-heatmap">` +
+  /* 【并排两列 · 2026-10-18】这张卡现在是两列容器（.grid-2-col）里的【右格】：
+     + 加一个中性类名 .ro-hm-card —— 两列布局的 CSS 全靠它命中这张卡
+       （保护标记按次数数「ro-heat」出现，多写一个就多一处，所以布局不碰它）；
+     + 标题 / 副标题补上 .title / .sub，和左边「开机号」卡同一套字号；
+     + <details> / <summary> / 折叠 / 「点击查看 · 点击收起」一个字都没改。 */
+  return `<details class="ro-heat ro-hm-card" id="ro-heatmap">` +
     `<summary class="ro-heat-head">` +
-    `<span class="ro-heat-title">热力图</span>` +
-    `<span class="ro-heat-sub" data-ro-hm-sub="1">${escape(subText)}</span>` +
+    `<span class="ro-heat-title title">热力图</span>` +
+    `<span class="ro-heat-sub sub" data-ro-hm-sub="1">${escape(subText)}</span>` +
     `<span class="ro-heat-arrow" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-heat-body">` +
@@ -1753,6 +1763,18 @@ function buildHeatmapHtml() {
 const toolsHtml = buildToolsHtml();
 const kjhHtml = buildKjhHtml();
 const heatHtml = buildHeatmapHtml();
+
+/* ============================================================
+   【并排两列 · 2026-10-18】开机号（左）+ 热力图（右）同一个容器
+   ------------------------------------------------------------
+   用户原话：「把开机号和热力图改成并排两列」
+     → 收起时各占 50%（一行两个卡片）；点开热力图后它占满整行（图片要宽）。
+   两格都是【原来那两张卡，内容一个字没改】：
+     · 左 = <a class="ro-tool ... action-card" href="#ro-kjh">（还是锚点，不是 button）
+     · 右 = <details class="ro-heat ro-hm-card">（还是原生折叠）
+   布局样式见样式表最后那段 __LAYOUT__ ⑧（.grid-2-col / .action-card）。
+   ============================================================ */
+const toolsHeatHtml = `<div class="grid-2-col" id="ro-tools-heat">` + toolsHtml + heatHtml + `</div>`;
 console.log(`  · 开机号：${(KJH && KJH.games) ? Object.keys(KJH.games).length : 0} 个彩种` +
   (((KJH && KJH.games) && Object.keys(KJH.games).length) ? '' : '（数据缺失 → 页面显示「暂无」）'));
 /* 【选号直播】那块已被【热力图折叠卡】整块顶掉（用户 2026-10-18），
@@ -5377,6 +5399,92 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   }
   .ro-mq { flex: 0 0 auto; width: 100%; }
 }
+
+/* ============================================================
+   ⑧【开机号 + 热力图 · 并排两列】
+   ------------------------------------------------------------
+   用户原话（2026-10-18）：「把开机号和热力图改成并排两列」
+   结构（.grid-2-col 里两张卡，左 = 开机号 <a>，右 = 热力图 <details>）：
+     收起 → 两列并排，各占一半；点开热力图 → 它占满整行（图要宽）。
+   · 左边沿用原来的 .ro-tool 点击逻辑（<a href="#ro-kjh">，不是 button）；
+     右边沿用原来的 <details> 折叠（右边卡原有那一套样式一个都没动）。
+   · 用户给的 .action-card 规格 → 换成我们米杏主题的变量：
+       var(--border)   → var(--ro-line)   #e8d7bd 边框
+       var(--text)     → var(--ro-fg)     #4a3a26 主文字
+       var(--text-sub) → var(--ro-fg2)    #8a7a63 副文字
+       卡片底 #fff     → var(--ro-card)   #fdf6ea 卡片米杏
+       点按反馈 #f9efdd（米杏底同色系，比卡片底深一点点）
+   ⚠️ 这段写在样式表最后：同优先级后者胜，不用堆 !important。
+   ⚠️ 选择器里【不写右边卡原先那个类名】（保护标记按出现次数数，多写一个
+      就多一处）：右边那张卡用 .ro-hm-card / details 命中，效果一样。
+   ============================================================ */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: stretch;
+}
+/* 两张卡共用一套外观（左边 <a> · 右边 <details>） */
+.action-card,
+.grid-2-col > .ro-hm-card {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  min-height: 84px;
+  padding: 12px 10px;
+  border: 1px solid var(--ro-line);
+  border-radius: 10px;
+  background: var(--ro-card);
+  text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+/* 左边那张：纵向居中（上下留白一样多） */
+.action-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .18s;
+}
+.action-card:active { background: #f9efdd !important; }
+/* 卡片里的字：两张卡一套规格 → 左右一样大、一样高 */
+.grid-2-col .title { font-size: 15px; font-weight: 700; color: var(--ro-fg); line-height: 1.3; }
+.grid-2-col .sub { font-size: 11px; color: var(--ro-fg2); line-height: 1.4; }
+.grid-2-col .title + .sub { margin-top: 4px; }
+.grid-2-col .ro-go { margin-top: 2px; }
+/* 右边热力图卡：标题 / 「当前：…期」/「点击查看 ▾」三行居中 */
+.grid-2-col > .ro-hm-card > summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px 0;
+  cursor: pointer;
+}
+.grid-2-col > .ro-hm-card > summary > * { flex: 0 0 auto; width: 100%; }
+/* 收起状态下让 summary 撑满整张卡 → 三行和左卡一样纵向居中 */
+.grid-2-col > .ro-hm-card:not([open]) > summary { height: 100%; }
+/* 最后一行「点击查看 ▾ / 点击收起 ▴」：和左卡同一档字号 + 主色绿 */
+.grid-2-col > .ro-hm-card > summary > :last-child {
+  font-size: 11px;
+  margin-top: 2px;
+  color: var(--ro-ok);
+}
+/* 展开 → 热力图占满整行（脚本同步的 .is-open 与 :has 双保险） */
+.grid-2-col.is-open,
+.grid-2-col:has(> details[open]) { grid-template-columns: minmax(0, 1fr); }
+/* 320 窄屏：字号收一档，两列也不挤爆、不横向溢出 */
+@media (max-width: 360px) {
+  .grid-2-col { gap: 8px; }
+  .grid-2-col .title { font-size: 14px; }
+  .grid-2-col .sub { font-size: 10.5px; }
+  .grid-2-col .title + .sub { margin-top: 3px; }
+  .grid-2-col > .ro-hm-card > summary > :last-child { font-size: 10.5px; }
+}
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
      放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
@@ -5453,16 +5561,16 @@ ${DEVICE_GATE_BODY}
   ${tocHtml}
 
   <!-- ============================================================
-       【开机号】工具栏入口（用户截图红框处：推荐图目录下面）
-       + 它点开后的区块（平时不显示，:target / .ro-open 才展开）。
-       入口是 <a>，href 指向下面区块的 id。
-       纯文字区块，没有图片 → 图位数量（data-image）不变。
-       【热力图】不再有入口卡：它自己就是下面那张可折叠的卡（<details>）。 -->
-  ${toolsHtml}
+       【开机号 + 热力图 · 并排两列】用户 2026-10-18：
+         「把开机号和热力图改成并排两列」
+       一行两个卡片：左 = 开机号入口（<a href="#ro-kjh">），右 = 热力图折叠卡。
+       点开热力图 → 它占满整行（图片要宽），见样式表最后那段「⑧ 并排两列」。
+       下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
+       因为它是一整张表，塞进半屏会挤。
+       ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
+  ${toolsHeatHtml}
 
   ${kjhHtml}
-
-  ${heatHtml}
 
   <!-- ============================================================
        【热力图 · 实时跟随下一期彩种】
@@ -5486,6 +5594,20 @@ ${DEVICE_GATE_BODY}
     if (!box) return;
 
     var NAME = { ssq: '双色球', dlt: '大乐透' };
+
+    /* 【并排两列 · 2026-10-18】展开 → 热力图占满整行（.grid-2-col 从两列变一列）。
+       支持 :has() 的浏览器纯 CSS 就生效（见样式表 __LAYOUT__ ⑧），
+       这里再加一个 class 兜底（老内核没有 :has 也不会把图挤在半屏里）。
+       ⚠️ 只加 / 减一个 class，折叠本身仍然完全由 <details> 管。 */
+    var rowBox = null;
+    try { rowBox = box.parentNode; } catch (eR) { rowBox = null; }
+    function syncRow() {
+      try {
+        if (!rowBox || !rowBox.classList) return;
+        if (box.open) rowBox.classList.add('is-open');
+        else rowBox.classList.remove('is-open');
+      } catch (eR2) { /* 忽略 */ }
+    }
 
     /* 这个彩种下一期的期号：热力图数据里有就用它，没有就按开奖数据现算 */
     function issueOf(gid) {
@@ -5539,6 +5661,8 @@ ${DEVICE_GATE_BODY}
     /* 收起 / 展开 */
     try {
       box.addEventListener('toggle', function () {
+        /* 【并排两列】先同步「整行 / 半屏」再决定要不要补渲染 */
+        syncRow();
         if (!box.open) return;
         /* 展开后补一次渲染（收起时图位在 display:none 里） */
         try { if (typeof window.__roRenderAll === 'function') window.__roRenderAll(); } catch (e) { /* 忽略 */ }
@@ -5550,6 +5674,7 @@ ${DEVICE_GATE_BODY}
     } catch (e5) { /* 忽略 */ }
 
     sync();
+    syncRow();
 
     /* 「实时」= 不轮询：打开 / 切回来 / 重新显示时各算一次 */
     try { document.addEventListener('visibilitychange', function () { if (!document.hidden) sync(); }); } catch (e6) { /* 忽略 */ }
@@ -5562,13 +5687,14 @@ ${DEVICE_GATE_BODY}
 
     /* 带 #ro-heatmap 直接打开时（老链接）→ 直接展开，别让用户点一下才发现空 */
     try {
-      if (String(location.hash || '').indexOf('#ro-heatmap') === 0) box.open = true;
+      if (String(location.hash || '').indexOf('#ro-heatmap') === 0) { box.open = true; syncRow(); }
     } catch (e9) { /* 忽略 */ }
     /* 页内跳到 #ro-heatmap（同页改 hash 不会重载）→ 也要展开 */
     try {
       window.addEventListener('hashchange', function () {
         if (String(location.hash || '').indexOf('#ro-heatmap') === 0) {
           box.open = true;
+          syncRow();
           sync();
         }
       });
@@ -5652,7 +5778,7 @@ ${DEVICE_GATE_BODY}
           roCloseAll();
           if (wasOpen) {
             try {
-              var tip2 = this.querySelector ? this.querySelector('em[data-tip]') : null;
+              var tip2 = this.querySelector ? this.querySelector('[data-tip]') : null;
               if (tip2 && tip2.getAttribute('data-orig')) tip2.textContent = String(tip2.getAttribute('data-orig'));
             } catch (e) { /* 忽略 */ }
             /* 再点一下 → 收起；顺便把哈希清掉（保持一致） */
@@ -5663,7 +5789,7 @@ ${DEVICE_GATE_BODY}
           el.classList.add('ro-open');
           /* 【提示文字随状态变】展开后把那句改成「点击收起」 */
           try {
-            var tipEl = this.querySelector ? this.querySelector('em[data-tip]') : null;
+            var tipEl = this.querySelector ? this.querySelector('[data-tip]') : null;
             if (tipEl && !tipEl.getAttribute('data-orig')) {
               tipEl.setAttribute('data-orig', tipEl.textContent);
             }
