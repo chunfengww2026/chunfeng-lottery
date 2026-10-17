@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -3004,7 +3004,22 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    ⚠️ 颜色全走变量（--border / --text-sub / --green），米杏色主题自动生效。
    ⚠️ 横向压缩：两个 Tab 各占一半、white-space:nowrap，320px 也不会把字挤换行。
    ============================================================ */
+/* 【Tab 条贴边 · 底线贯穿全宽】用户 2026-10-18：「两个首页的 tab 上面封顶宽一点」
+   ------------------------------------------------------------
+   本页 Tab 条被 .wrap 的左右内边距夹住（.wrap { padding: 16px 14px 60px }），
+   所以整条 Tab + 它那条 1px 底线两边各留 14px 空档
+   （实测 375px：条 14→361，只占 347；320px：14→306，只占 292），
+   看起来就是「上面封顶那块窄」。
+   做法：把 .wrap 的左右内边距存成变量 --jc-pad-x（14px，全宽度都不变，
+        本页没有窄屏改左右 padding 的规则），再用负外边距抵消掉 ——
+        Tab 条撑到屏幕两边，border-bottom 自然贯穿整屏；
+        吸顶时两边也不会透出下面滚动的内容。
+   ⚠️ 只加左右外边距：高度 43px（Tab）/ 44px（条）、两列 50%/50%、
+      激活态下划线 2px / bottom:-1px、吸顶阴影、徽章位置 全都不动。 */
+.wrap { --jc-pad-x: 14px; }   /* 和 .wrap { padding: 16px 14px 60px } 的左右内边距保持一致 */
 .top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 0;
+  margin-left: calc(-1 * var(--jc-pad-x, 14px));
+  margin-right: calc(-1 * var(--jc-pad-x, 14px));
   position: -webkit-sticky; position: sticky; top: 0; z-index: 60;
   background: var(--bg, #f7efe1); }
 .top-tabs.stuck { box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10); }
