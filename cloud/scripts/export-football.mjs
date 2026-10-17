@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -1831,6 +1831,66 @@ function buildJcXyspHtml() {
 }
 const jcXyspHtml = buildJcXyspHtml();
 
+/* ============================================================
+   【专家推荐 · 20 篇 · 每小时抓】
+   用户 2026-10-18：「竞彩晒票下面新增：专家推荐 / 文章要有 20 篇 /
+     去抓取今日头条和一起彩和 www.500.com / 一小时抓一次 / 按时间顺序一直抓」
+   数据来自 jc-articles.js（build-jc-articles.mjs 生成）。
+   构建时读一次；读不到就整块不渲染（绝不影响整页生成）。
+   ============================================================ */
+function buildJcArticlesHtml() {
+  let data = null;
+  try {
+    const f = path.join(ROOT, 'jc-articles.js');
+    if (fs.existsSync(f)) {
+      const ctx = vm.createContext({});
+      vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A = JC_ARTICLES;', ctx);
+      data = ctx.__A;
+    }
+  } catch (e) { data = null; }
+  if (!data || !Array.isArray(data.list) || !data.list.length) return '';
+
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  /* 时间显示：抓到具体时间就显示「MM-DD HH:MM」，没有就留空（按时间倒序已经排过） */
+  const fmtTime = (ms) => {
+    if (!ms) return '';
+    const d = new Date(ms);
+    const p = (n) => String(n).padStart(2, '0');
+    return `${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  };
+
+  const okSources = (data.sources || []).filter((s) => s.ok).map((s) => s.name);
+  const badSources = (data.sources || []).filter((s) => !s.ok).map((s) => s.name);
+
+  const rows = data.list.slice(0, 20).map((it, i) => {
+    const t = fmtTime(it.time);
+    /* ⚠️ 不做外链：项目有「数据源留痕」断言，页面里出现来源站域名会直接让构建失败。
+       所以这里只展示「标题 + 时间」，点不了外链（想看原文可以按标题自己去搜）。 */
+    return '<div class="jca-row">' +
+      '<span class="jca-idx">' + (i + 1) + '</span>' +
+      '<span class="jca-main"><span class="jca-title">' + esc(it.title) + '</span>' +
+      '<span class="jca-meta">' +
+      (t ? '<span class="jca-time">' + esc(t) + '</span>' : '<span class="jca-time">刚刚</span>') +
+      '</span></span>' +
+      '</div>';
+  }).join('');
+
+  return '<details class="m-card3 jca" id="jcExpertArticles" open>' +
+    '<summary class="jca-head">' +
+    '<span class="jca-h-title">专家推荐</span>' +
+    '<span class="jca-h-sub">' + data.list.length + ' 篇 · 每小时更新 · ' +
+    '综合整理' + '</span>' +
+    '<span class="jca-h-go">点击收起</span>' +
+    '</summary>' +
+    '<div class="jca-list">' + rows + '</div>' +
+    (badSources.length ? '<div class="jca-note">部分内容暂时抓不到（对方页面是 JS 渲染 / 有反爬），已自动跳过 ✔</div>' : '') +
+    (data.updated ? '<div class="jca-upd">更新时间 ' + esc(data.updated) + '</div>' : '') +
+    '</details>';
+}
+const jcArticlesHtml = buildJcArticlesHtml();
+
 /* 【看大图 · 全屏层】竞彩页原来没有看图机制，所以这里自带一层极简的。
    关闭方式 4 种（和分享页那套一致的思路）：
      · 点图片外的空白
@@ -3248,6 +3308,29 @@ ${nav}
   text-decoration: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.18) !important;
   cursor: pointer !important; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .install-fab:active { transform: scale(0.95) !important; }
+/* ===== 【专家推荐 · 20 篇】用户 2026-10-18（竞彩晒票下面新增） ===== */
+.jca { padding: 0 12px 10px; }
+.jca-head { display: flex; align-items: center; gap: 8px; padding: 12px 0 10px; cursor: pointer; list-style: none; }
+.jca-head::-webkit-details-marker { display: none; }
+.jca-h-title { font-size: 15px; font-weight: 800; color: #1a8c5a; letter-spacing: 0.5px; }
+.jca-h-sub { font-size: 11px; color: #8a7a63; }
+.jca-h-go { margin-left: auto; font-size: 11px; color: #1a8c5a; }
+.jca-list { display: flex; flex-direction: column; gap: 1px; }
+.jca-row { display: flex; align-items: flex-start; gap: 8px; padding: 9px 2px; text-decoration: none;
+  border-bottom: 1px dashed #efe3cf; color: inherit; }
+.jca-row:active { background: #fdf6ea; }
+.jca-idx { flex: 0 0 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 50%;
+  background: #e3f2ea; color: #1a8c5a; font-size: 11px; font-weight: 800; margin-top: 1px; }
+.jca-main { flex: 1 1 auto; min-width: 0; }
+.jca-title { display: block; font-size: 13px; line-height: 1.45; color: #3d2f21; }
+.jca-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
+.jca-src { font-size: 10.5px; color: #1a8c5a; background: #eef8f2; border: 1px solid #cbe9d9;
+  border-radius: 8px; padding: 1px 6px; }
+.jca-time { font-size: 10.5px; color: #8a7a63; }
+.jca-go { flex: 0 0 auto; font-size: 11px; color: #1a8c5a; margin-top: 2px; }
+.jca-note { margin-top: 8px; font-size: 10.5px; color: #a94a3c; line-height: 1.5;
+  background: #fdf1ef; border: 1px solid #f3d3cc; border-radius: 8px; padding: 6px 8px; }
+.jca-upd { margin-top: 6px; font-size: 10.5px; color: #a8987a; text-align: right; }
 .install-hint { position: fixed; left: 50%;
   bottom: calc(142px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
@@ -3521,6 +3604,12 @@ ${DEVICE_GATE_BODY}
           照常能看能点（本来也在"允许保存/豁免"的意图里）。
        ⚠️ 它也不在 #article 里，所以不会被 #article 的模糊带进去。 -->
   ${jcXyspHtml}
+
+  <!-- 【专家推荐 · 用户 2026-10-18】
+       「竞彩晒票下面新增：专家推荐 / 文章要有 20 篇 / 一小时抓一次 / 按时间顺序一直抓」
+       数据：build-jc-articles.mjs 每小时抓一次，合并去重后取最新 20 篇（jc-articles.js）。
+       ⚠️ 页面里不出现任何来源站名/域名（项目有「数据源留痕」断言，出现即构建失败）。 -->
+  ${jcArticlesHtml}
 
   <div class="guard">
   <div class="note">
