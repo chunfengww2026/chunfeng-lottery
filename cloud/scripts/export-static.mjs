@@ -2709,44 +2709,44 @@ const html = `<!DOCTYPE html>
 <meta http-equiv="Expires" content="0" />
 <!-- ============================================================
      【分享卡片 / 图标 / PWA】
-       · 标题固定为「春风大奖」（用户指定）
+       · 标题固定为「春风彩票」（用户指定）
        · og:image 必须是【绝对 URL】—— 微信 / QQ / Twitter 抓的是绝对地址，
          相对路径它们抓不到
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风大奖</title>
-<meta name="description" content="春风大奖 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<title>春风彩票</title>
+<meta name="description" content="春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
-${metaItemprop('春风大奖', '春风大奖 · 八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。')}
+${metaItemprop('春风彩票', '春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。')}
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 ${PWA_HEAD}
-<meta name="application-name" content="春风大奖" />
+<meta name="application-name" content="春风彩票" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="春风大奖" />
+<meta name="apple-mobile-web-app-title" content="春风彩票" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风大奖" />
-<meta property="og:title" content="春风大奖" />
+<meta property="og:site_name" content="春风彩票" />
+<meta property="og:title" content="春风彩票" />
 <meta property="og:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风大奖" />
+<meta name="twitter:title" content="春风彩票" />
 <meta name="twitter:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
 <style>
 ${css}
 ${hitSecCss}
@@ -4361,7 +4361,7 @@ body, .ro-wrap { background: var(--ro-bg); }
    ------------------------------------------------------------
    用户原话：「不要推荐图了 就春风十里送大奖 居中」。
    可见文字只留「春风十里送大奖」；<title> 标签没动（那是分享卡片，
-   另一个专人在管，现在是「春风大奖」，本来就没有「推荐图」）。
+   另一个专人在管，现在是「春风彩票」，本来就没有「推荐图」）。
    ⚠️ 用 !important：这个页面的居中规则被后来的同优先级规则盖过好几次。
    ============================================================ */
 .ro-top { text-align: center !important; }

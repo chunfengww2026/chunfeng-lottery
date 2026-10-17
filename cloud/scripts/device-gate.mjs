@@ -609,7 +609,7 @@ body.cf-open .install-btn { display: none !important; }
 export const CHAT_HTML = `<!-- __CHAT__ 春风小助手（右下角）
      ⚠️ 按钮 / 发送 / 关闭 / 快捷词全部是 div[role=button][tabindex=0]，
         不用 button 标签、不用内联 onclick（页面不变量：裸 button = 0）
-     ⚠️ 聊天记录只在内存里（页面关掉就没了），不写 localStorage -->
+     ⚠️ 聊天记录只在内存里（页面关掉就没了），不写任何浏览器存储 -->
 <div class="cf-panel" id="cfPanel" role="dialog" aria-label="春风小助手" aria-hidden="true">
   <div class="cf-head">
     <span class="cf-ava" aria-hidden="true">🌿</span>
@@ -1043,16 +1043,43 @@ export const CHAT_JS = `
        · 但它家公开的占位 key 已失效（实测 401 wrong api key）→ 必须换你自己申请的有效 key
        · key 写在这（页面 JS 里）就等于公开，介意的话应该自建一个中转接口
        · 拿不到回答（超时 / 限流 / key 失效 / 断网）→ 一律退回本地关键词回答 */
-    var AI = { url: 'https://api.chatanywhere.tech/v1/chat/completions', key: '', model: 'gpt-3.5-turbo' };
+    /* 【默认接口】用户 2026-10-17：「换成千问」。实测 dashscope 的 compatible-mode
+       允许浏览器直连（OPTIONS 200 · ACAO: * · Allow-Headers: content-type,authorization），
+       所以前端可以直连；key 留空 = AI 关闭（走本地回答），填上就生效。
+       （chatanywhere 那种免 Key 站实测 key 已失效，不再作默认。） */
+    var AI = { url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', key: '', model: 'qwen-turbo' };
     try { if (window.__CF_AI__) for (var ak in window.__CF_AI__) if (window.__CF_AI__[ak]) AI[ak] = window.__CF_AI__[ak]; } catch (e) {}
     AI.on = !!(AI.url && AI.key);
+
+    /* 【当前页面上下文】用户 2026-10-17 的思路：把这一页的关键数字喂给模型，
+       免得它瞎答。数字全部取自页面 DOM（和本地回答同一套来源），拿不到就空着。 */
+    function pageCtx() {
+      var k = kind();
+      var bits = [];
+      if (k === 'fb') {
+        var b = T(byId('recStatsBar'));
+        if (b) bits.push('竞彩页 · 推荐串战绩：' + b.slice(0, 60));
+      } else if (k === 'md') {
+        bits.push('比赛详情页');
+      } else {
+        var kj = T(one('.ro-kjh-item'));
+        if (kj) bits.push('彩票页 · 最新开机号：' + kj.slice(0, 70));
+      }
+      return bits.join('；');
+    }
 
     function askAI(q) {
       return new Promise(function (resolve, reject) {
         var sys = '你是「春风」平台的助手。平台免费提供：八种彩票推荐图（双色球/大乐透/福彩3D/快乐8/排列3/排列5/七乐彩/七星彩）、';
         sys += 'GPT摇号（随机/自选）、近30期走势预选参考、开机号、晒票、竞彩足球推单。';
         sys += '要求：回答简短热情（不超过 120 字）；不编造平台没有的功能；不给购彩建议；不预测中奖；提到数字必须来自用户问的内容。';
-        var payload = { model: AI.model, messages: [{ role: 'system', content: sys }, { role: 'user', content: q }], stream: false };
+        sys += '绝不暴露你是 AI 或大模型，你就叫「春风」。问到数据来源，统一回答：大部分是人工计算推理，小部分是参考其他数据，不提任何网址。';
+        var ctx = '';
+        try { ctx = pageCtx(); } catch (e) { ctx = ''; }
+        var msgs = [{ role: 'system', content: sys }];
+        if (ctx) msgs.push({ role: 'system', content: '【当前页面上下文】' + ctx });
+        msgs.push({ role: 'user', content: q });
+        var payload = { model: AI.model, messages: msgs, stream: false, temperature: 0.7 };
         var called = false;
         var timer = setTimeout(function () {
           if (!called) { called = true; reject(new Error('timeout')); }

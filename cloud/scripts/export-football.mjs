@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -2876,44 +2876,44 @@ const html = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- ============================================================
      【分享卡片 / 图标 / PWA】
-       · 标题固定为「春风大奖」（用户指定）
+       · 标题固定为「春风彩票」（用户指定）
        · og:image 必须是【绝对 URL】—— 微信 / QQ / Twitter 抓的是绝对地址，
          相对路径它们抓不到
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风大奖 · 竞彩场次</title>
-<meta name="description" content="春风大奖 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<title>春风彩票 · 竞彩场次</title>
+<meta name="description" content="春风彩票 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
-${metaItemprop('春风大奖 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
+${metaItemprop('春风彩票 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 ${PWA_HEAD}
-<meta name="application-name" content="春风大奖" />
+<meta name="application-name" content="春风彩票" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="春风大奖" />
+<meta name="apple-mobile-web-app-title" content="春风彩票" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风大奖" />
-<meta property="og:title" content="春风大奖 · 竞彩场次" />
+<meta property="og:site_name" content="春风彩票" />
+<meta property="og:title" content="春风彩票 · 竞彩场次" />
 <meta property="og:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风大奖 · 竞彩场次" />
+<meta name="twitter:title" content="春风彩票 · 竞彩场次" />
 <meta name="twitter:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
 ${nav}
 <style>${CSS}
 /* ============================================================
@@ -4161,8 +4161,40 @@ ${JC_XYSP_VIEW}
       listEl.innerHTML = '<div class="past-empty">暂无往期推荐</div>';
       return;
     }
-    hist.sort(function (a, b) { return (b.finishTime || 0) - (a.finishTime || 0); });
-    listEl.innerHTML = hist.map(function (g) {
+    /* 【两种结构都吃】用户 2026-10-17 给的生成器输出的是「扁平场次列表」，
+       而前端示例按「批次分组」渲染 —— 这里统一归一化：
+         ① 分组：[{dateStr, finishTime, verdict, matches:[...]}]
+         ② 扁平：[{matchNo, teams, pick, score, result, dateStr, finishTime}]
+         扁平的先按 dateStr 分组（没有 dateStr 就归到「往期」），再走同一套渲染。 */
+    var groups = [];
+    var isGrouped = !!(hist[0] && Array.isArray(hist[0].matches));
+    if (isGrouped) {
+      groups = hist.map(function (g) {
+        return {
+          dateStr: g.dateStr, finishTime: g.finishTime || 0, verdict: g.verdict || '',
+          matches: Array.isArray(g.matches) ? g.matches : []
+        };
+      });
+    } else {
+      var byKey = {};
+      hist.forEach(function (m) {
+        var k = m.dateStr || '往期';
+        if (!byKey[k]) byKey[k] = { dateStr: k, finishTime: m.finishTime || 0, verdict: '', matches: [] };
+        byKey[k].matches.push(m);
+        if ((m.finishTime || 0) > byKey[k].finishTime) byKey[k].finishTime = m.finishTime || 0;
+      });
+      groups = Object.keys(byKey).map(function (k) {
+        var g = byKey[k];
+        if (!g.verdict) {
+          var r = 0, b = 0;
+          g.matches.forEach(function (m) { if (m.result === 'red') r++; else if (m.result === 'black') b++; });
+          g.verdict = r && !b ? '红' : (b && !r ? '黑' : '');
+        }
+        return g;
+      });
+    }
+    groups.sort(function (a, b) { return (b.finishTime || 0) - (a.finishTime || 0); });
+    listEl.innerHTML = groups.map(function (g) {
       var ms = Array.isArray(g.matches) ? g.matches : [];
       return '<div class="past-item">' +
         '<div class="past-item-head">' +
@@ -4431,17 +4463,28 @@ const RECOMMEND_JSON = {
   red: REC_STAT ? REC_STAT.red : 0,
   black: REC_STAT ? REC_STAT.black : 0,
   rate: (REC_STAT && REC_STAT.rate != null) ? String(REC_STAT.rate) + '%' : '—',
-  history: (REC_ROWS_ARCHIVE || []).map((b) => ({
-    dateStr: b.at || '',
-    finishTime: bjMs(b.at),
-    matches: (Array.isArray(b.rows) ? b.rows : []).map((r) => ({
-      matchNo: r.code || '',
-      teams: `${r.home || ''} vs ${r.away || ''}`,
-      pick: r.label || '',
-      score: r.score || '—',
-      result: r.hit === true ? 'red' : (r.hit === false ? 'black' : 'pending')
-    }))
-  }))
+  history: (REC_ROWS_ARCHIVE || []).map((b) => {
+    const rows = Array.isArray(b.rows) ? b.rows : [];
+    return {
+      dateStr: b.at || '',
+      finishTime: bjMs(b.at),
+      verdict: b.verdict || '',
+      matches: rows.map((r) => ({
+        matchNo: r.code || '',
+        teams: `${r.home || ''} vs ${r.away || ''}`,
+        pick: r.label || '',
+        score: r.score || '—',
+        result: r.hit === true ? 'red' : (r.hit === false ? 'black' : 'pending'),
+        /* —— 「扁平口径」也够用的字段（用户 2026-10-17：分组/扁平两种结构都兼容）—— */
+        confidence: (typeof r.conf === 'number' ? r.conf : null),
+        status: (r.hit === true || r.hit === false) ? 'finished' : 'pending',
+        finishTime: bjMs(b.at),
+        league: r.league || '',
+        odds: (typeof r.odds === 'number' ? r.odds : null),
+        time: r.time || ''
+      }))
+    };
+  })
 };
 for (const dir of [path.join(ROOT, 'data'), path.join(ROOT, 'cloud', 'out', 'data')]) {
   try {
