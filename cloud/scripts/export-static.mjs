@@ -6122,25 +6122,23 @@ ${DEVICE_GATE_BODY}
           算不出的写「暂不支持」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
-    <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
-    <div class="tool-grid">
-      <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-  </div>
+  <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
+  <div class="tool-grid">
+    <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
   </div>
 </div>
-<!-- __RE_SINA_HTML__ 下一期参考（有数据才显示） -->
-${sinaNextHtml()}
-      <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
-      <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
-    </div>
-  </div>
 
-  <!-- ============================================================
+<!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
+${sinaNextHtml()}
+
+<!-- ============================================================
        【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
        宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
        格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
