@@ -2877,7 +2877,7 @@ const html = `<!DOCTYPE html>
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风彩票</title>
+<title>春风十万里 - 综合数据平台</title>
 <meta name="description" content="春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
 ${metaItemprop('春风彩票', '春风彩票 · 八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。')}
@@ -2888,7 +2888,7 @@ ${metaItemprop('春风彩票', '春风彩票 · 八彩种推荐图与足球竞�
 ${PWA_HEAD}
 <meta name="application-name" content="春风彩票" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="春风彩票" />
+<meta name="apple-mobile-web-app-title" content="春风十万里" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
