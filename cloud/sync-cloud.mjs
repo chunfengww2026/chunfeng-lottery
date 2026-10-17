@@ -200,6 +200,14 @@ const FROM_ROOT = [
   'icon-192.png',
   'icon-512.png',
   'service-worker.js',
+  /* 【祝福视频】用户 2026-10-18：分享页聊天框顶部的那个祝福视频（blessing.mp4，
+     2.82 MB，源文件是「火山方舟.mp4」，改成英文名避免 URL 编码麻烦）。
+     页面里写的是 <video src="./blessing.mp4" preload="none"> —— 懒加载，
+     不进首屏；但【文件必须发布】：不在 FROM_ROOT 里，cloud/scripts/ 就没有它，
+     workflow 也就拷不进 site/ → 线上 404 → 聊天框里只剩「点击播放视频」占位
+     （点一下倒是能出 TTS 语音 + 黄色气泡，但视频永远播不了）。
+     同步路径：本机根目录 → cloud/scripts/blessing.mp4 → (workflow) site/blessing.mp4。 */
+  'blessing.mp4',
   /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
       必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
       的那个 N；云端重新生成竞彩页时少了这个文件就会退回本机竞彩数据算的
