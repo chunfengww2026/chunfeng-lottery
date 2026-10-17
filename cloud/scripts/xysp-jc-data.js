@@ -9,16 +9,16 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-17 10:52
+   更新时间：2026-10-17 10:46
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-17 10:52",
+ "updated": "2026-10-17 10:46",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0SDvG7yXWzYK9scTkvbIA5m9TGU%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=bK9r4Y6uJSxFMTvzsenj5KiwYTc%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=bK9r4Y6uJSxFMTvzsenj5KiwYTc%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=o5Isy16ZQ6wHWsnKadUxYT5Xemc%3D",
    "title": "今日竞彩分享：早场日韩澳（二串一、四串一）",
    "url": "https://toutiao.com/group/7697442972413018679/",
    "at": "2026-10-17T01:46:01.270Z",
@@ -27,16 +27,16 @@ const XYSP_JC_DATA = {
    "game": "2串1",
    "games": [],
    "issue": "",
-   "seen": "2026-10-17T02:52:32.663Z",
+   "seen": "2026-10-17T02:46:01.317Z",
    "whenMs": 1792201005000,
-   "seenMs": 1792205337845,
+   "seenMs": 1792204561306,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792201561270,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-18T02:48:57.845Z",
+   "expireAt": "2026-10-18T02:36:01.306Z",
    "rule": "cap",
    "author": "体坛银哥",
    "when": "2026-10-17 09:36:45",
@@ -72,8 +72,8 @@ const XYSP_JC_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=WkeapWzMEexRj%2FE15pWDISr3FHY%3D",
-   "thumb": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=WkeapWzMEexRj%2FE15pWDISr3FHY%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=pHraEjfdaohScuJ9pWQFSSOWQIo%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=pHraEjfdaohScuJ9pWQFSSOWQIo%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=XchUvXCUxkUp%2Ff78%2BZvSrH7nYx8%3D",
    "title": "体彩足彩竞彩中奖票",
    "url": "https://toutiao.com/group/7697108049638539804/",
@@ -83,16 +83,16 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-17T02:52:32.663Z",
+   "seen": "2026-10-17T02:46:01.317Z",
    "whenMs": 1792122654000,
-   "seenMs": 1792205552663,
+   "seenMs": 1792205161317,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792122962176,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-18T02:52:32.663Z",
+   "expireAt": "2026-10-18T02:46:01.317Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54",
