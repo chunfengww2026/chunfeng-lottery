@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-static.mjs —— 生成只读分享版 HTML
 //
 //  产物：只读分享版.html —— 一个自包含文件（样式+内容全内嵌）
@@ -5628,7 +5628,18 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
      原来 bottom:0，绿线底下还露出 1px 米色（4x 截图实测：绿 49–51px、米色 51–52px），
      看起来像「双线」，也让人以为非激活那句也有下划线。
    · 悬停/键盘焦点用主题色，不让浏览器默认黑框出现。 */
-.top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px; }
+.top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px;
+  /* 【吸顶 · 用户 2026-10-18「还是跟着滑动吧」】往下翻的时候这排 tab 跟着走，
+     始终留在屏幕顶部，随时能切「彩票推荐 / 竞彩·足球」。 */
+  position: -webkit-sticky; position: sticky; top: 0; z-index: 60;
+  background: var(--ro-bg, #f7efe1); }
+/* 吸顶那一层要和页面底色一致，否则内容会从缝里透出来 */
+.top-tabs.stuck { box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10); }
+/* 【小字提示 + 箭头 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】 */
+.ro-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin: 0 0 2px; padding: 5px 10px 3px; font-size: 11px; line-height: 1.2;
+  color: #8a7a63; background: transparent; letter-spacing: 0.2px; }
+.ro-swipe-hint .ar { font-size: 12px; color: #1a8c5a; font-weight: 700; }
 .top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 8px;
   font-size: 14px; font-weight: 600; color: var(--ro-fg2); text-decoration: none;
   position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
@@ -7093,10 +7104,69 @@ ${DEVICE_GATE_BODY}
        徽章 #owner-badge 是原有元素（owner 才显示），放在 Tab 条正下方、靠右，
        不再用 fixed 浮在右上角（那样会压住第二个 Tab）。
        ============================================================ -->
+  <!-- 【左滑返回提示 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】
+       小字 + 箭头，告诉用户「往左一滑就返回」。 -->
+  <div class="ro-swipe-hint" id="roSwipeHint">
+    <span class="ar">←</span><span>左滑返回上一页</span>
+  </div>
   <div class="top-tabs">
     <a class="tab on" href="./" data-tab-home="1">彩票推荐</a>
     <a class="tab" href="足球推荐.html">竞彩/足球</a>
   </div>
+  <script>
+  /* __RO_SWIPE__ 吸顶阴影 + 左滑返回（用户 2026-10-18：
+     「还是跟着滑动吧，然后做一个返回的功能就是左滑返回」）
+     · 吸顶：tab 条滚到顶上就贴住，并加一点阴影提示"它现在浮着"
+     · 左滑返回：手指往左快速划 60px 以上、竖直位移小于 60px、700ms 内 → history.back()
+       在有横向滚动的区块里（走势图表格等）不抢手势
+     ⚠️ 这段在模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
+  (function () {
+    'use strict';
+    try {
+      var tabs = document.querySelector('.top-tabs');
+      if (tabs) {
+        var onScroll = function () {
+          try {
+            var r = tabs.getBoundingClientRect();
+            if (r.top <= 0) tabs.classList.add('stuck'); else tabs.classList.remove('stuck');
+          } catch (e) { }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+      var sx = 0, sy = 0, st = 0, tracking = false;
+      function inScrollableX(el) {
+        var n = el;
+        while (n && n !== document.body && n !== document.documentElement) {
+          var cs = null;
+          try { cs = window.getComputedStyle(n); } catch (e) { cs = null; }
+          if (cs && (cs.overflowX === 'auto' || cs.overflowX === 'scroll') &&
+              n.scrollWidth > n.clientWidth + 4) return true;
+          n = n.parentNode;
+        }
+        return false;
+      }
+      document.addEventListener('touchstart', function (ev) {
+        if (!ev.touches || ev.touches.length !== 1) { tracking = false; return; }
+        if (inScrollableX(ev.target)) { tracking = false; return; }
+        var t = ev.touches[0];
+        sx = t.clientX; sy = t.clientY; st = Date.now(); tracking = true;
+      }, { passive: true });
+      document.addEventListener('touchend', function (ev) {
+        if (!tracking) return;
+        tracking = false;
+        var t = ev.changedTouches && ev.changedTouches[0];
+        if (!t) return;
+        var dx = t.clientX - sx, dy = t.clientY - sy, dt = Date.now() - st;
+        if (dt > 700) return;
+        if (Math.abs(dy) > 60) return;
+        if (dx > -60) return;
+        if (Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        if (window.history && window.history.length > 1) window.history.back();
+      }, { passive: true });
+    } catch (e) { }
+  })();
+  </script>
   <!-- 管理员徽章：从原来的 fixed 浮层（top:10/right:10/z-index:99999）挪到这里 ——
        Tab 条正下方的一行，靠右，流内定位。仍然只有 html.is-owner 才显示。 -->
   <div id="owner-badge" aria-hidden="true">管理员模式 · 本机可截图</div>
