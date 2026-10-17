@@ -10202,6 +10202,7 @@ ${CHAT_JS_SHARE}
       h += card('冷号（出现最少）<span>' + span2 + '</span>', bars(f.arr.slice(-6).reverse(), f.total, true));
     }
     h += note('热号 = 这段时间出现次数最多的号码，冷号 = 最少的。次数只描述已经发生的开奖，不代表下一期的概率 —— 每个号码每期都是独立随机的。');
+    h += recBlock(g.id);
     return h;
   }
   function bars(arr, tot, cold) {
@@ -10232,6 +10233,7 @@ ${CHAT_JS_SHARE}
       row('同尾（个位相同）期数', p.sameTail + ' / ' + p.used + ' 期') +
       row('最常见奇偶比', p.bestCnt >= 0 ? ('奇 ' + p.bestOdd + ' : 偶 ' + (numsOf(drawsOf(g.id)[0], key).length - p.bestOdd) + '（' + p.bestCnt + ' 期）') : '—'));
     h += note('这几项都是「已经开过的号码里数出来的」：连号 = 相邻两个号都出（如 12 13）；重号 = 和上一期重复的号码；同尾 = 个位数字相同。它们描述过去，不能用来预测下一期。');
+    h += recBlock(g.id);
     return h;
   }
 
@@ -10256,14 +10258,19 @@ ${CHAT_JS_SHARE}
     } else {
       h += card('能算的部分：和值均线', none('需要更多数据', '这个彩种本页的开奖期数不够算 10 期均线。'));
     }
+    /* 「暂不支持」的页面也照样出号码：这里只用和值 / 遗漏 / 冷热等
+       本页确实能算的指标 —— 不假装算了 K 线均线。 */
+    h += recBlock(g.id, '这一页没有 K 线价格序列，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
     return h;
   }
 
   /* ================= ⑦ 指数预测 ================= */
   function pageIndex() {
     var g = gameById(st.game);
-    return chipsGame() + card('指数预测 · 暂不支持',
+    var h = chipsGame() + card('指数预测 · 暂不支持',
       none('暂不支持', '指数预测要专业的指数模型和本页没有的行情数据；这里不提供，也不写一个假的涨跌数字糊弄人。'));
+    h += recBlock(g.id, '这一页没有行情数据，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
+    return h;
   }
 
   /* ================= ⑧ AI推荐（系统随机） ================= */
@@ -10393,6 +10400,9 @@ ${CHAT_JS_SHARE}
       '<div class="tv-btn ghost" role="button" tabindex="0" data-tv-act="goto-roll">去摇号面板自选</div>' +
       '</div>';
     h += note('这组号码是按「' + (st.ai.algo || '随机') + '」这套算法、用本页近 30 期开奖数据算出来的，每次随机从几套算法里取一套；不是预测，也不联网、不收费。彩票每期独立随机，任何号码组合的中奖概率都一样。');
+    /* 底部再给一组【固定号】：同期永远同一组（种子是期号），
+       和上面「换一组」的随机组合分开摆，不混在一起。 */
+    h += recBlock(gid, '上面那组可以点「换一组」随便换；下面这组是按期号定死的，同一期永远一样。');
     return h;
   }
 
