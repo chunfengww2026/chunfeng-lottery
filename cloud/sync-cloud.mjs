@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  sync-cloud.mjs —— 把本机的代码 + 数据全部同步到云端
 //
 //  为什么必须这样做：
@@ -874,16 +874,66 @@ log('');
 log('触发云端重新构建（快速模式：直接用刚同步过去的数据，不重新抓取）...');
 const tDispatch = Date.now();
 const dispatchUrl = `/repos/${OWNER}/${REPO}/actions/workflows/daily-update.yml/dispatches`;
-let trigger = await gh('POST', dispatchUrl, { ref: BRANCH, inputs: { quick: '1' } });
 
-/* 万一云端仓库里的 workflow 还没声明 quick 这个输入（会返回 422），
-   退一步用普通方式再触发一次，保证「一定会有一次构建」。 */
-if (trigger.status === 422) {
-  log('  ⚠️ 快速模式参数被拒（422），改用普通触发重试一次');
-  trigger = await gh('POST', dispatchUrl, { ref: BRANCH });
+/* ============================================================
+   【错峰 + 去重】用户 2026-10-18：「给 sync-cloud 加错峰去重」
+   ------------------------------------------------------------
+   问题（实测）：多窗口/定时任务同时同步 → 一分钟内触发好几次构建 →
+   云端排队互相【取消】（最近 100 次运行里 62 次 cancelled）→ 线上更新滞后 5~10 分钟。
+   现在两道闸：
+     ① 去重：30 秒内的重复派发【只算一次】（记在本机一个小状态文件里）
+     ② 错峰：云端已经有 pending / in_progress 的运行 → 这次【不派发】，
+        那班跑完会带上最新代码；下一次定时班（每 10 分钟）也会补上。
+   ⚠️ 状态文件只放本机（不进云端、不影响页面）：.sync-last-dispatch.json
+   ============================================================ */
+const DISPATCH_STATE = path.join(PARENT, '.sync-last-dispatch.json');   /* 项目根目录 */
+const DEDUPE_MS = 30 * 1000;
+let skipDispatch = '';
+try {
+  if (fs.existsSync(DISPATCH_STATE)) {
+    const st = JSON.parse(fs.readFileSync(DISPATCH_STATE, 'utf8') || '{}');
+    const last = Number(st.lastDispatchAt || 0);
+    if (last && Date.now() - last < DEDUPE_MS) {
+      skipDispatch = `距上次派发只有 ${Math.round((Date.now() - last) / 1000)} 秒（<30）→ 去重，不再派发`;
+    }
+  }
+} catch (e) { /* 状态文件坏了就当没有 */ }
+
+if (!skipDispatch) {
+  /* 错峰：看云端队列 */
+  try {
+    const runsRes = await gh('GET', `/repos/${OWNER}/${REPO}/actions/runs?per_page=5`);
+    if (runsRes && runsRes.ok) {
+      const data = await runsRes.json();
+      const busy = (data.workflow_runs || []).filter((x) => x.status === 'pending' || x.status === 'in_progress');
+      if (busy.length) {
+        skipDispatch = `云端已有 ${busy.length} 个运行在排队/进行中（${busy.map((x) => x.status).join('、')}）→ 错峰，不再派发`;
+      }
+    }
+  } catch (e) { /* 查不到就照常派发 */ }
 }
 
-if (trigger.ok || trigger.status === 204) {
+let trigger = null;
+if (skipDispatch) {
+  log(`  ⏭  跳过派发：${skipDispatch}`);
+  log('     · 最新代码已经上传；云端正在跑的那班会带上它，下一次定时班（每 10 分钟）也会补上');
+} else {
+  trigger = await gh('POST', dispatchUrl, { ref: BRANCH, inputs: { quick: '1' } });
+
+  /* 万一云端仓库里的 workflow 还没声明 quick 这个输入（会返回 422），
+     退一步用普通方式再触发一次，保证「一定会有一次构建」。 */
+  if (trigger.status === 422) {
+    log('  ⚠️ 快速模式参数被拒（422），改用普通触发重试一次');
+    trigger = await gh('POST', dispatchUrl, { ref: BRANCH });
+  }
+  try {
+    fs.writeFileSync(DISPATCH_STATE, JSON.stringify({ lastDispatchAt: Date.now(), at: new Date().toISOString() }), 'utf8');
+  } catch (e) { /* 写不了就不去重，不影响功能 */ }
+}
+
+if (!trigger) {
+  /* 被错峰/去重跳过：不算失败 */
+} else if (trigger.ok || trigger.status === 204) {
   log(`  ✅ 已触发（用时 ${((Date.now() - tDispatch) / 1000).toFixed(1)} 秒）`);
   log(`  ⏱  本次同步总共用时 ${((Date.now() - tAll) / 1000).toFixed(1)} 秒（改之前要 80 多秒）`);
   log('     · 网站上的 tickets.json：约 1 分钟（云端构建 + 部署）');
