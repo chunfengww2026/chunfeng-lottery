@@ -2116,10 +2116,12 @@ html.locked #article, html.locked .guard { filter: blur(25px) grayscale(1); poin
 html.locked #mask { display: flex; }
 #mask .mask-s { margin-top: 12px; font-size: 13px; color: #98a1b2; line-height: 1.9; }
 /* 【不要水印】—— 用户明确要求去掉，页面里不再有任何水印容器 / 样式 / 绘制逻辑 */
-.owner-tag { display: none; position: fixed; right: 10px; top: 10px; z-index: 100002;
+.owner-tag { display: none; width: max-content; max-width: 100%;
+  margin: 2px 0 2px auto;
   font-size: 11.5px; font-weight: 700; color: #f0b429; background: rgba(240,180,41,0.12);
-  border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px; }
-html.is-owner .owner-tag { display: inline-flex; }
+  border: 1px solid rgba(240,180,41,0.42); border-radius: 20px; padding: 3px 10px;
+  white-space: nowrap; pointer-events: none; }
+html.is-owner .owner-tag { display: block; }
 /* 【豁免区】locked 时压住遮罩，保持清晰可点 */
 html.locked .m-calc, html.locked .m-sec { filter: none !important;
   pointer-events: auto !important; position: relative; z-index: 99999; }
@@ -2855,11 +2857,31 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
   .m-titlerow h1 { font-size: 18px !important; }
   .m-titlerow { gap: 8px; }
 }
-/* 【本机 owner 专用】右上角那枚「👑 管理员模式 · 可截图」徽章是 position:fixed
+/* 【本机 owner 专用】徽章「👑 管理员模式 · 可截图」原来也是 position:fixed
    （top:10px/right:10px），和标题行同一高度 —— 实测会把喇叭盖掉一大半。
-   只有本机/主人会看到这枚徽章，所以只在 is-owner 时把标题行往下让 24px，
-   徽章独占最上面那条；别人的页面布局一个像素都不动。 */
-html.is-owner .m-titlerow { margin-top: 30px; }
+   ⚠️ 2026-10-18 改：徽章挪进顶部 Tab 条下面那一行（流内、靠右），
+      所以这里【不再】需要把标题行往下让 30px（再让就是多出来一块空白）。 */
+
+/* ============================================================
+   __TOP_TABS__ 顶部 Tab 条（彩票推荐 / 竞彩-足球）
+   ------------------------------------------------------------
+   用户 2026-10-18：「竞彩页没有 Tab 条 / 没有回分享页的链接 → 过去了回不来」。
+   这里补一条和分享页同款的 Tab 条：flex 横排 · 底部 1px 边框 ·
+   未选中灰、选中绿 + 2px 短线。
+   ⚠️ 只用 <a>（页面铁律：0 个裸 button）。
+   ⚠️ 放在 #article【外面】—— 防截图 locked 时 #article 会整块模糊 + 不能点，
+      放里面会连「回分享页」一起锁死。
+   ⚠️ 颜色全走变量（--border / --text-sub / --green），米杏色主题自动生效。
+   ⚠️ 横向压缩：两个 Tab 各占一半、white-space:nowrap，320px 也不会把字挤换行。
+   ============================================================ */
+.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 10px 6px;
+  font-size: 14px; font-weight: 600; color: var(--text-sub); text-decoration: none;
+  position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.top-tabs .tab.on { color: var(--green); font-weight: 700; }
+.top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
+  bottom: 0; height: 2px; background: var(--green); border-radius: 2px; }
+
 
 `;
 
