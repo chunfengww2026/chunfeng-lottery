@@ -1602,6 +1602,10 @@ function finishOutput(freshRows) {
     'icon-512.png',
     'apple-touch-icon.png',
     'share.png',
+    /* PWA 清单两个文件名都发：manifest.json 是页面现在引用的那个，
+       manifest.webmanifest 是旧版页面/老缓存还在引用的那个（缺了 404）。
+       ⚠️ 名单要和 make-icons.mjs 的 PUBLISH、daily-update.yml 的 cp 循环一致。 */
+    'manifest.json',
     'manifest.webmanifest'
   ];
   let iconCopied = 0;
