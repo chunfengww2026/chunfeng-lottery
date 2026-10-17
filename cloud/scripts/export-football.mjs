@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -2922,7 +2922,7 @@ const html = `<!DOCTYPE html>
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风彩票 · 竞彩场次</title>
+<title>春风十万里 · 竞彩场次</title>
 <meta name="description" content="春风彩票 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
 ${metaItemprop('春风彩票 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
@@ -2936,24 +2936,29 @@ ${PWA_HEAD}
 <meta name="apple-mobile-web-app-title" content="春风彩票" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
-<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
+<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
+     ⚠️ 用户 2026-10-18 统一品牌为「春风十万里」；图仍是站点根 share.png（绝对地址） -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风彩票" />
-<meta property="og:title" content="春风彩票 · 竞彩场次" />
-<meta property="og:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta property="og:site_name" content="春风十万里" />
+<meta property="og:title" content="春风十万里 - 竞彩足球推荐" />
+<meta property="og:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
+<!-- 微信 / QQ 专用的兼容标签（作用同上） -->
+<meta itemprop="name" content="春风十万里 - 竞彩足球推荐" />
+<meta itemprop="description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
+<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风彩票 · 竞彩场次" />
-<meta name="twitter:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta name="twitter:title" content="春风十万里 - 竞彩足球推荐" />
+<meta name="twitter:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 ${nav}
 <style>${CSS}
 /* ============================================================
