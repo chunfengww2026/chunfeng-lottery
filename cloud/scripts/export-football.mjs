@@ -696,7 +696,9 @@ const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
    给 jc-reco-view.js 复用（保证页面内和刷新后是【同一套渲染】，不写第二份渲染逻辑） */
 let REC_ARCH_INNER = '';
 if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
-  const MS = RECO_KERNEL.matchStats(JC_RECO);
+  /* 用户 2026-10-17：「推荐串战绩只算信心 ≥58% 的场次，低于 58% 的不算」。
+     ⚠️ 这里用字面量 58：REC_MIN 的 const 声明在文件更后面，直接引用会踩 TDZ 报错。 */
+  const MS = RECO_KERNEL.matchStats(JC_RECO, { min: 58 });
   REC_STAT = {
     batches: MS.batches, rows: MS.rows,
     red: MS.red, black: MS.black,
