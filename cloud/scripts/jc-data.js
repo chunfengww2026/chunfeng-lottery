@@ -2,18 +2,18 @@
 const JC_DATA = {
  "updated": "2026-10-18 04:58",
  "stat": {
-  "total": 30,
+  "total": 28,
   "upcoming": 1,
-  "live": 2,
+  "live": 0,
   "finished": 27,
-  "withScore": 29,
-  "droppedNotOnSale": 0,
+  "withScore": 27,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
-  "droppedNotOnSale": 0,
+  "officialGate": true,
+  "officialCodes": 34,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -2939,224 +2939,6 @@ const JC_DATA = {
    }
   },
   {
-   "gid": "1414160",
-   "fid": "1414160",
-   "sid": "19826",
-   "code": "周六028",
-   "league": "意甲",
-   "round": "第7轮",
-   "time": "2026-10-18 02:45",
-   "handicap": "-1",
-   "home": {
-    "name": "罗马",
-    "rank": 3
-   },
-   "away": {
-    "name": "热那亚",
-    "rank": 17
-   },
-   "score": {
-    "home": 2,
-    "away": 0
-   },
-   "statusText": "0 - 0 ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.85,
-      "line": "球半",
-      "away": 1
-     },
-     "live": {
-      "home": 0.75,
-      "line": "半球/一球",
-      "away": 1.05
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 1.29,
-      "draw": 5,
-      "away": 10
-     },
-     "live": {
-      "home": 1.62,
-      "draw": 3.8,
-      "away": 5.75
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.9,
-      "over": 3,
-      "under": 0.95
-     },
-     "live": {
-      "line": 1.15,
-      "over": 2.5,
-      "under": 0.67
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 58.5,
-    "prob": {
-     "home": 58.5,
-     "draw": 25,
-     "away": 16.5
-    },
-    "clear": true,
-    "margin": 5.4,
-    "rqLine": "半球/一球",
-    "type": "three"
-   },
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 0.75,
-    "downWater": 1.05,
-    "openHandicap": -1.5,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "58.33",
-    "theoryDownPercent": "41.67",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -1.5,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.85,
-     "nowUpWater": 0.75,
-     "initLine": "球半",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "live",
-   "minute": 0,
-   "liveScore": {
-    "home": 2,
-    "away": 0
-   }
-  },
-  {
-   "gid": "1428082",
-   "fid": "1428082",
-   "sid": "19947",
-   "code": "周六029",
-   "league": "西甲",
-   "round": "第9轮",
-   "time": "2026-10-18 03:00",
-   "handicap": null,
-   "home": {
-    "name": "巴伦西亚",
-    "rank": 19
-   },
-   "away": {
-    "name": "毕尔巴鄂",
-    "rank": 11
-   },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
-   "statusText": "0 - 0 ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.97,
-      "line": "受平手/半球",
-      "away": 0.87
-     },
-     "live": {
-      "home": 0.85,
-      "line": "受平手/半球",
-      "away": 1
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 3.3,
-      "draw": 3.3,
-      "away": 2.15
-     },
-     "live": {
-      "home": 3.25,
-      "draw": 3.2,
-      "away": 2.3
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.87,
-      "over": 2,
-      "under": 0.97
-     },
-     "live": {
-      "line": 1.15,
-      "over": 2.5,
-      "under": 0.67
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 41.2,
-    "prob": {
-     "home": 29.2,
-     "draw": 29.6,
-     "away": 41.2
-    },
-    "clear": false,
-    "margin": 5.5,
-    "rqLine": "受平手/半球",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 1,
-    "downWater": 0.85,
-    "openHandicap": 0.25,
-    "openUpWater": 0.87,
-    "openDownWater": 0.97,
-    "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.25,
-     "initUpWater": 0.87,
-     "nowUpWater": 1,
-     "initLine": "受平手/半球",
-     "nowLine": "受平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "live",
-   "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
-  },
-  {
    "gid": "1358491",
    "fid": "1358491",
    "sid": "19471",
@@ -3261,9 +3043,9 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
-  "updated": "2026-10-18 04:28",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-18 04:58",
   "officialUpdate": "2026-10-17 22:17:55",
   "inSale": 34,
   "list": [
