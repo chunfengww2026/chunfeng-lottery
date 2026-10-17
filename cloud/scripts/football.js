@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 11:59 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 11:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-17 11:59",
+ "updated": "2026-10-17 11:58",
  "stat": {
   "upcoming": 0,
   "live": 8,
@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 89,
+    "minute": 90,
     "home": {
      "name": "温哥华FC",
      "score": 2,
@@ -83,18 +83,14 @@ const FOOTBALL_DATA = {
       "live": null
      },
      "overunder": {
-      "open": {
-       "line": "3.5",
-       "over": 2.43,
-       "under": 0.11
-      },
+      "open": null,
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.01,
-       "draw": 23,
-       "away": 10.5
+       "home": 1.02,
+       "draw": 26,
+       "away": 9.6
       },
       "live": null
      }
@@ -102,14 +98,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 87.7,
+     "confidence": 87.3,
      "prob": {
-      "home": 87.7,
-      "draw": 3.9,
-      "away": 8.4
+      "home": 87.3,
+      "draw": 3.4,
+      "away": 9.3
      },
      "clear": true,
-     "margin": 12.9
+     "margin": 12.3
     },
     "result": {
      "actual": "home",
@@ -126,7 +122,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 3,
@@ -151,8 +147,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4",
-       "over": 0.91,
-       "under": 0.85
+       "over": 0.78,
+       "under": 0.98
       },
       "live": null
      },
@@ -293,8 +289,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 1,
-       "line": "1.06",
-       "away": 0.76
+       "line": "1.02",
+       "away": 0.8
       },
       "live": null
      },
@@ -367,8 +363,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "1.5",
-       "over": 0.89,
-       "under": 0.97
+       "over": 0.92,
+       "under": 0.94
       },
       "live": null
      },
@@ -425,8 +421,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.94",
-       "away": 0.94
+       "line": "0.97",
+       "away": 0.91
       },
       "live": null
      },
