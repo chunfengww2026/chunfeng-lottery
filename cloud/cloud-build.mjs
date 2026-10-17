@@ -1210,6 +1210,18 @@ function main() {
         catch (e) { log('  ⚠️ 下一期还没出号或抓取失败（下一班 10 分钟后再抓）：' + e.message); }
       }
     } catch (e) { log('  ⚠️ 下一期抓取调度出错（不影响页面）：' + e.message); }
+    /* 【专家推荐 20 篇 · 每小时抓一次 · 用户 2026-10-18】
+       竞彩页「晒票」下面那块。三个源合并去重取最新 20 篇：
+         一起彩（专家总榜，覆盖全部 8 个彩种）✔ · 500 彩票 ✔ · 今日头条 ✗（JS 空壳，抓不到）
+       每小时只跑一次：只在每小时的 0~9 分那一班跑（10 分钟一班 → 一小时一跑）。
+       页面里【不出现任何来源站名/域名】（项目有「数据源留痕」断言）。 */
+    try {
+      if (slot.type === 'regular' && new Date().getUTCMinutes() < 10) {
+        log('\n【4.6】抓专家推荐文章（每小时一次，取最新 20 篇）…');
+        try { run('build-jc-articles.mjs', []); }
+        catch (e) { log('  ⚠️ 文章抓取失败（沿用上一次的 jc-articles.js）：' + e.message); }
+      }
+    } catch (e) { log('  ⚠️ 文章抓取调度出错（不影响页面）：' + e.message); }
 
     /* 检查抓取结果，坏了就还原 */
     const histAfter = checkHistory(ALL_GAMES);
@@ -1468,6 +1480,14 @@ function main() {
      ⚠️ 失败 / 一场都没取到 → 【不覆盖旧文件】，build-match.mjs 读不到就降成
         欧赔+盘口+凯利三个维度（不是错，是少一档），绝不让整班挂掉。 */
   if (plan.exportFootball) exportList.push(['fetch-bifa.mjs', '雷达寻胆 · 成交资金面']);
+  /* 【联赛积分榜】2026-10-18：详情页「综合模型」算埃罗概率要【真实积分差】，
+     此前只有 jc-data.js 里每场的 [名次]，拿"名次 × 2"当积分差是代理值。
+     这一步去 liansai.500.com 抓 15 个联赛的真实积分榜，写 jc-standings.js
+     （名次为键，零猜测；build-match.mjs 用 loadVar 读它算埃罗）。
+     ⚠️ 必须排在 build-match.mjs【之前】：详情页是【构建时】把这份数据内嵌进 HTML 的。
+     ⚠️ 抓不到就【不覆盖旧文件】（本机那份可能还是好的），这一班沿用上一份数据；
+        失败只记一行 ❌，不影响后面任何一步（和 fetch-bifa.mjs 同一档容错）。 */
+  if (plan.exportFootball) exportList.push(['fetch-standings.mjs', '联赛积分榜数据（500.com）']);
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
