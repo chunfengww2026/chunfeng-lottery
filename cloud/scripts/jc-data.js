@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 22:03 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 22:23 */
 const JC_DATA = {
- "updated": "2026-10-17 22:03",
+ "updated": "2026-10-17 22:23",
  "stat": {
   "total": 63,
-  "upcoming": 46,
-  "live": 9,
+  "upcoming": 42,
+  "live": 13,
   "finished": 8,
-  "withScore": 17,
+  "withScore": 21,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2637,7 +2637,7 @@ const JC_DATA = {
     "rank": 9
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "0 - 0 ",
@@ -2724,7 +2724,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -2849,7 +2849,7 @@ const JC_DATA = {
     "rank": 3
    },
    "score": {
-    "home": 0,
+    "home": 2,
     "away": 0
    },
    "statusText": "0 - 0 ",
@@ -2936,7 +2936,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 2,
     "away": 0
    }
   },
@@ -3266,7 +3266,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 1
+    "away": 2
    },
    "statusText": "- ",
    "odds": {
@@ -3353,7 +3353,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 1
+    "away": 2
    }
   },
   {
@@ -3480,7 +3480,7 @@ const JC_DATA = {
     "home": 0,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -3684,7 +3684,7 @@ const JC_DATA = {
     "home": 0,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -4104,7 +4104,10 @@ const JC_DATA = {
     "name": "利物浦",
     "rank": 9
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -4186,9 +4189,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1420480",
@@ -4310,7 +4316,10 @@ const JC_DATA = {
     "name": "伊普斯",
     "rank": 10
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -4392,9 +4401,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1428559",
@@ -4516,7 +4528,10 @@ const JC_DATA = {
     "name": "赫尔城",
     "rank": 8
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -4598,9 +4613,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1414262",
@@ -4722,7 +4740,10 @@ const JC_DATA = {
     "name": "埃尔切",
     "rank": 18
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -4804,9 +4825,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1428077",
