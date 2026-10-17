@@ -896,7 +896,10 @@ GROUPS.forEach((group) => {
    这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
    （下面有断言，不一致时生成日志里会直接报出来）。 */
 /* __TOC_OFF__ 用户 2026-10-18：「删除换成新的」——旧的 4 格推荐图目录不再生成，页面改为 #px9 方法目录（2 彩种 × 9 方法）。 */
-const TOC_ROWS = [];;
+const TOC_ROWS = [
+  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 · 五行',  s: '绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
+  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 · 五行',  s: '绕胆/九转/九宫', g: 'dlt',  i: 'wuxing' }]
+];;
 
 /* 【自检】目录里每一格的锚点 id 在这份 HTML 里必须真的存在。
    注意要用【已经加了 id 的 sectionsHtml】判断，不能用原始 tpl.images ——
@@ -13113,9 +13116,6 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-balls { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
 .px9-b { width: 24px; height: 24px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .px9-b.blue { background: #1f5fd6; }
-/* __TOC_HIDE__ 用户 2026-10-18：「删除换成新的」——旧推荐图目录的格子（含空壳）一律不显示，
-   页面改用 #px9 方法目录。 */
-.ro-imgtoc-wrap, .ro-imgtoc, .ro-toc-cell, #ro-toc-mob, .ro-toc-mob { display: none !important; }
 /* __NO_INSTALL__ 用户 2026-10-18 明确要求删掉「添加到手机桌面，更方便更稳定」这块；
    另一个窗口反复把它加回 HTML，所以这里用 CSS 兜底：不管 HTML 里有没有，一律不显示。 */
 .ro-install, #ro-install, .install-guide, #installGuide { display: none !important; }
