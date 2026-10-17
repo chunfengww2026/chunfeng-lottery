@@ -1711,20 +1711,38 @@ function recAreaStat(draws, key, from, to) {
   };
 }
 
-/* 单号分：① 热 ② 冷 ③ 和值 ④ 分区（权重见文件头） */
-function recItems(st, cfg, withSum) {
+/* 期号种子决定【这一期偏重哪几项】：四维权重各给 0.6~1.4 的倍率再归一化
+   → 同一期固定（种子只有期号），换一期 → 「这期偏爱热号 / 那期偏爱冷号回补」，
+   号码自然换一批；全程没有 Math.random，也不是「随便摇」。 */
+function recWeights(seedTag) {
+  const base = { hot: 0.30, cold: 0.26, sum: 0.18, zone: 0.26 };
+  const mul = (k) => 0.6 + recSeed01(seedTag + '|w|' + k) * 0.8;
+  const raw = {
+    hot: base.hot * mul('hot'), cold: base.cold * mul('cold'),
+    sum: base.sum * mul('sum'), zone: base.zone * mul('zone')
+  };
+  const tot = raw.hot + raw.cold + raw.sum + raw.zone;
+  return {
+    hot: raw.hot / tot, cold: raw.cold / tot,
+    sum: raw.sum / tot, zone: raw.zone / tot
+  };
+}
+
+/* 单号分：① 热 ② 冷 ③ 和值 ④ 分区（权重：默认定值，主要号区用期号倍数版） */
+function recItems(st, cfg, withSum, w) {
+  const W = w || (withSum
+    ? { hot: 0.30, cold: 0.26, sum: 0.18, zone: 0.26 }
+    : { hot: 0.45, cold: 0.45, sum: 0, zone: 0.10 });
   const out = [];
   for (let v = cfg.from; v <= cfg.to; v++) {
     const hot = st.maxFreq ? st.freq[v] / st.maxFreq : 0;
     const cold = st.theo ? Math.min(st.cur[v] / (st.theo * 2), 1) : 0;
     const sumFit = (withSum && st.perDraw && st.sumAvg)
-      ? 1 - Math.min(Math.abs(v - st.sumAvg / st.perDraw) / (st.total / 2), 1) : 0.5;
+      ? 1 - Math.min(Math.abs(v - st.sumAvg / st.perDraw) / (st.total / 2), 1) : 0;
     const exp = st.n ? (st.perDraw / st.zones) : 0;
     const act = st.n ? st.zc[st.zoneOf(v)] / st.n : 0;
     const zoneFit = exp ? Math.max(0, 1 - act / exp / 2) : 0.5;
-    const data = withSum
-      ? hot * 0.30 + cold * 0.26 + sumFit * 0.18 + zoneFit * 0.26
-      : hot * 0.45 + cold * 0.45 + zoneFit * 0.10;
+    const data = hot * W.hot + cold * W.cold + sumFit * W.sum + zoneFit * W.zone;
     out.push({ n: v, data });
   }
   return out;
@@ -1765,7 +1783,7 @@ function recPickMain(items, need, st, seedTag) {
     for (let i = 0; i < left.length; i++) {
       const it = left[i];
       if (it.taken) continue;
-      let s = it.data * 0.45 + recSeed01(seedTag + '|' + it.n + '|' + k) * 0.55;
+      let s = it.data * 0.40 + recSeed01(seedTag + '|' + it.n + '|' + k) * 0.60;
       const odd = it.n % 2 === 1;
       if (odd && oddN < oddQuota) s += 0.10;
       if (!odd && (k - oddN) < (need - oddQuota)) s += 0.10;
@@ -1937,7 +1955,8 @@ function buildRecNumbers() {
         span = st.n;
         if (!st.n) return;
         const need = Math.max(1, Number(cfg.pick || 1));
-        const items = recItems(st, cfg, ai === 0);
+        const w = (ai === 0) ? recWeights(issue + '|' + gid + '|' + cfg.key) : null;
+        const items = recItems(st, cfg, ai === 0, w);
         const nums = (ai === 0)
           ? recPickMain(items, need, st, issue + '|' + gid + '|' + cfg.key)
           : recPickSimple(items, need, issue + '|' + gid + '|' + cfg.key);
@@ -6612,6 +6631,30 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   font-size: 13px; font-weight: 700; background: var(--ro-danger); color: #fff; }
 .tv-ball.blue { background: #1f5fd6; }
 .tv-ball.digit { border-radius: 8px; background: #fff; color: var(--ro-fg); border: 1px solid var(--ro-line); }
+/* ============================================================
+   __REC__ 「🎯 本期推荐号码」卡片（8 个子页面的最底部都有）
+   米杏色底 + 描边；红球红底、蓝球蓝底、数字彩用方块；号码做大好认
+   ============================================================ */
+.tv-rec { background: linear-gradient(180deg, #fdf6ea 0%, #fffaf1 100%);
+  border: 1.5px solid #e2c9a0; border-radius: 12px; padding: 12px 12px 10px;
+  margin: 14px 0 6px; }
+.tv-rec-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;
+  font-size: 14px; font-weight: 700; color: #4a3a26; }
+.tv-rec-h span { font-weight: 400; font-size: 11px; color: #8a7a63; }
+.tv-rec-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.tv-rec-k { flex: 0 0 48px; font-size: 12px; font-weight: 700; color: #8a7a63;
+  line-height: 1.2; word-break: break-all; }
+.tv-rec .tv-balls { margin: 0; gap: 6px; }
+.tv-rec .tv-ball { width: 34px; height: 34px; line-height: 34px; font-size: 15px;
+  box-shadow: 0 2px 0 rgba(74, 58, 38, .12); }
+.tv-rec-basis { font-size: 11px; color: #a89a80; line-height: 1.6; margin-top: 10px; }
+.tv-rec-warn { font-size: 11.5px; font-weight: 700; color: #b4552f; margin-top: 6px; }
+@media (max-width: 360px) {
+  .tv-rec { padding: 10px 9px 8px; }
+  .tv-rec-k { flex: 0 0 40px; font-size: 11.5px; }
+  .tv-rec .tv-ball { width: 30px; height: 30px; line-height: 30px; font-size: 13.5px; }
+  .tv-rec .tv-balls { gap: 5px; }
+}
 @media (max-width: 360px) {
   .tools-box { margin: 0 8px 10px; padding: 10px; }
   .tool-grid { gap: 6px; }
@@ -9748,6 +9791,9 @@ ${CHAT_JS_SHARE}
 
   /* 构建期注入：8 个彩种的号码区间 / 位数（来自 games.js 的真配置） */
   var GAMES = ${TOOL_GAMES_JS};
+  /* 构建期算好的「本期推荐号码」（多源共振打分 · 种子 = 下一期期号）
+     —— 8 个子页面最底部都渲染它；切彩种时按 gid 换一份，跟着变。 */
+  var REC = ${REC_JS};
   var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
   var SPAN = 30;
   var st = { id: 'stat', game: 'ssq', area: '', ai: null, aiTimes: 0 };
@@ -10005,6 +10051,37 @@ ${CHAT_JS_SHARE}
     return n + (nums.length > 6 ? ' …' : '');
   }
 
+  /* ================= 🎯 本期推荐号码（8 个子页面最底部都有） =================
+     用户 2026-10-18：「我不管你用自己的模板ai一套计算方式 都要在下面按照我的
+     要求出号码」+「自己的算法 每期都变」。
+     · 号码在构建时按「多源共振打分」算好（REC），页面只负责显示
+     · 种子 = 下一期期号：同一期永远同一组（刷新 / 换设备都一样），
+       期号 +1 或换彩种 → 换一组
+     · 切彩种（顶部胶囊）→ render() 重画 → 这里的 gid 变了，号码跟着变 */
+  function pad2(n) { var s = String(n); return s.length < 2 ? '0' + s : s; }
+  function recBlock(gid, extra) {
+    var R = (REC && REC[gid]) ? REC[gid] : null;
+    if (!R || !R.blocks || !R.blocks.length) return '';
+    var h = '<div class="tv-rec">';
+    h += '<div class="tv-rec-h">🎯 本期推荐号码<span>' + esc(R.name) + ' · 第 ' + esc(R.issue) + ' 期</span></div>';
+    for (var i = 0; i < R.blocks.length; i++) {
+      var b = R.blocks[i];
+      h += '<div class="tv-rec-row"><span class="tv-rec-k">' + esc(b.label) + '</span><div class="tv-balls">';
+      for (var j = 0; j < b.nums.length; j++) {
+        var cls = (b.kind === 'digit') ? 'tv-ball digit' : ('tv-ball' + (b.color === 'blue' ? ' blue' : ''));
+        var txt = (b.kind === 'digit') ? String(b.nums[j]) : pad2(b.nums[j]);
+        h += '<div class="' + cls + '">' + esc(txt) + '</div>';
+      }
+      h += '</div></div>';
+    }
+    h += '<div class="tv-rec-basis">打分口径：' + esc(R.basis) +
+      '；统计窗口 近 ' + esc(R.span) + ' 期</div>';
+    if (extra) h += '<div class="tv-rec-basis">' + extra + '</div>';
+    h += '<div class="tv-rec-warn">⚠️ 仅供参考，不保证中奖</div>';
+    h += '</div>';
+    return h;
+  }
+
   /* ================= ① 数据统计 ================= */
   function pageStat() {
     var g = gameById(st.game), key = curArea(g);
@@ -10034,6 +10111,7 @@ ${CHAT_JS_SHARE}
     t += '</tbody></table>';
     h += card('最近 6 期明细', t);
     h += note('全部按近 ' + SPAN + ' 期内真实开出的号码现算；大小以「' + areaCfg(g, key).from + '~' + areaCfg(g, key).to + '」的中位划分。');
+    h += recBlock(g.id);
     return h;
   }
 
@@ -10055,6 +10133,7 @@ ${CHAT_JS_SHARE}
       row('近 30 期均值', fmt1(avgOf(sums))));
     h += '<div class="tv-acts"><div class="tv-btn" role="button" tabindex="0" data-tv-act="goto-trend">打开完整走势表</div></div>';
     h += note('本页下方本来就有「近 30 期走势 · 预选参考」那张完整表（8 彩种 × 30 期、带连线），这里不重复画一遍 —— 点上面的按钮会就地展开并跳过去。');
+    h += recBlock(g.id);
     return h;
   }
   function avgOf(a) { var t = 0; for (var i = 0; i < a.length; i++) t += a[i]; return a.length ? t / a.length : 0; }
@@ -10088,6 +10167,7 @@ ${CHAT_JS_SHARE}
     }
     h += card('每个号码：当前遗漏（数字=已经多少期没出）', '<div class="tv-cells">' + cells + '</div>');
     h += note('格子里的数字 = 这个号码【已经多少期没出】（0 = 最新一期就出了）；红底 = 已经超过理论值的 2 倍。全部按本页已有的近 ' + o.draws + ' 期现算，不是估的。');
+    h += recBlock(g.id);
     return h;
   }
 
@@ -10122,6 +10202,7 @@ ${CHAT_JS_SHARE}
       h += card('冷号（出现最少）<span>' + span2 + '</span>', bars(f.arr.slice(-6).reverse(), f.total, true));
     }
     h += note('热号 = 这段时间出现次数最多的号码，冷号 = 最少的。次数只描述已经发生的开奖，不代表下一期的概率 —— 每个号码每期都是独立随机的。');
+    h += recBlock(g.id);
     return h;
   }
   function bars(arr, tot, cold) {
@@ -10152,6 +10233,7 @@ ${CHAT_JS_SHARE}
       row('同尾（个位相同）期数', p.sameTail + ' / ' + p.used + ' 期') +
       row('最常见奇偶比', p.bestCnt >= 0 ? ('奇 ' + p.bestOdd + ' : 偶 ' + (numsOf(drawsOf(g.id)[0], key).length - p.bestOdd) + '（' + p.bestCnt + ' 期）') : '—'));
     h += note('这几项都是「已经开过的号码里数出来的」：连号 = 相邻两个号都出（如 12 13）；重号 = 和上一期重复的号码；同尾 = 个位数字相同。它们描述过去，不能用来预测下一期。');
+    h += recBlock(g.id);
     return h;
   }
 
@@ -10176,14 +10258,19 @@ ${CHAT_JS_SHARE}
     } else {
       h += card('能算的部分：和值均线', none('需要更多数据', '这个彩种本页的开奖期数不够算 10 期均线。'));
     }
+    /* 「暂不支持」的页面也照样出号码：这里只用和值 / 遗漏 / 冷热等
+       本页确实能算的指标 —— 不假装算了 K 线均线。 */
+    h += recBlock(g.id, '这一页没有 K 线价格序列，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
     return h;
   }
 
   /* ================= ⑦ 指数预测 ================= */
   function pageIndex() {
     var g = gameById(st.game);
-    return chipsGame() + card('指数预测 · 暂不支持',
+    var h = chipsGame() + card('指数预测 · 暂不支持',
       none('暂不支持', '指数预测要专业的指数模型和本页没有的行情数据；这里不提供，也不写一个假的涨跌数字糊弄人。'));
+    h += recBlock(g.id, '这一页没有行情数据，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
+    return h;
   }
 
   /* ================= ⑧ AI推荐（系统随机） ================= */
@@ -10313,6 +10400,9 @@ ${CHAT_JS_SHARE}
       '<div class="tv-btn ghost" role="button" tabindex="0" data-tv-act="goto-roll">去摇号面板自选</div>' +
       '</div>';
     h += note('这组号码是按「' + (st.ai.algo || '随机') + '」这套算法、用本页近 30 期开奖数据算出来的，每次随机从几套算法里取一套；不是预测，也不联网、不收费。彩票每期独立随机，任何号码组合的中奖概率都一样。');
+    /* 底部再给一组【固定号】：同期永远同一组（种子是期号），
+       和上面「换一组」的随机组合分开摆，不混在一起。 */
+    h += recBlock(gid, '上面那组可以点「换一组」随便换；下面这组是按期号定死的，同一期永远一样。');
     return h;
   }
 
