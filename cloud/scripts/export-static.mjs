@@ -13320,7 +13320,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var m = Math.floor(left / 60000), sec = Math.floor((left % 60000) / 1000);
     var txt = '刷新倒计时 ' + pad(m) + ':' + pad(sec);
     for (var i = 0; i < els.length; i++) els[i].textContent = txt;
-    if (left <= 1000) location.reload();
+    /* 到点不重载页面（会打断阅读）；倒计时自然回到下一小时 */
   }
   tick();
   setInterval(tick, 1000);
