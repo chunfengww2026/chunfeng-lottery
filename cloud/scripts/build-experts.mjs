@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    build-experts.mjs —— 抓取一起彩（yiqicai.com）专家数据
 
    产物：experts-data.js → const EXPERTS_DATA = {...}
@@ -910,6 +910,8 @@ function parseArgs(argv) {
        全量模式：每个分类 20 位（站点一页上限）、每个彩种 200 位、每人 30 期、
        输出 200 位稳定专家、保留所有分类。
        ⚠️ 全量一轮 2000+ 请求 / 30~60 分钟 —— 只放云端（凌晨 2 点全量班）跑。 */
+    /* 【抓到就停】用户 2026-10-18：已抓够的彩种直接跳过，等下一期开奖再抓 */
+    if (a === '--skip-done') { opts.skipDone = true; continue; }
     if (a === '--all') {
       opts.perCategoryLimit = DEFAULTS.allPerCategoryLimit;
       opts.perCategoryLimitSet = true;
@@ -960,7 +962,42 @@ async function main() {
     `${opts.catsPerGame} 个号码类分类 + ${opts.blueCats} 个蓝球类分类 / 每人≤${opts.maxPeriods} 期`);
 
   const report = { games: {}, errors: [] };
+  /* 【上一版数据】用来判断"某个彩种是不是已经抓完了"（用户 2026-10-18：
+     「一直抓取，直到某个彩种抓到为止就停了，等下一期开奖继续抓」） */
+  const PREV_DATA = (() => {
+    try {
+      const f = path.join(path.dirname(fileURLToPath(import.meta.url)), 'experts-data.js');
+      if (!fs.existsSync(f)) return {};
+      const m = fs.readFileSync(f, 'utf8').match(/const EXPERTS_DATA = ([\s\S]*?);\s*$/) ||
+        fs.readFileSync(f, 'utf8').match(/const EXPERTS_DATA = ([\s\S]*?);/);
+      return m ? JSON.parse(m[1]) : {};
+    } catch (e) { return {}; }
+  })();
+
   for (const game of opts.games) {
+    /* 【抓到就停 · 用户 2026-10-18】
+       每个彩种只要满足三条，就【跳过不抓】：
+         ① 源站当前期号 == 本地已存的期号（说明这一期已经抓过）
+         ② 专家 ≥ 20 位
+         ③ 分类 ≥ 10 个（25码/三胆/独胆/蓝球定三/杀号 都在里面）
+       哪天源站期号变了（= 下一期开奖/开卖）→ 条件①不成立 → 自动重新抓。
+       云端每 10 分钟跑一次这个脚本，所以：没抓够就一直抓，抓够了就安静等着。 */
+    if (opts.skipDone) {
+      try {
+        const probe = await httpGet(`${BASE}/zjxhfb/${game}.html`, { retries: 1 });
+        const srcIssue = (probe.text.match(/issueName\s*:\s*"(\d{5,7})"/) || [])[1] || '';
+        const prev = (PREV_DATA.games || {})[game] || {};
+        const prevIssue = String(prev.issue || (prev.consensus && prev.consensus.issue) || '');
+        const stableN = (prev.stable || []).length;
+        const catN = Object.keys(prev.categories || {}).length;
+        if (srcIssue && srcIssue === prevIssue && stableN >= 20 && catN >= 10) {
+          log(`  ⏭  ${game}：已是 ${srcIssue} 期 · ${stableN} 位专家 · ${catN} 个分类 → 抓够了，等下一期开奖再抓`);
+          report.games[game] = prev;
+          continue;
+        }
+        log(`  ▶  ${game}：需要抓（源站 ${srcIssue || '?'} 期 / 本地 ${prevIssue || '无'} 期 / 已 ${stableN} 位 / ${catN} 类）`);
+      } catch (e) { /* 探测失败就照常抓，不影响 */ }
+    }
     try {
       await runGame(game, { ...GAMES[game] }, opts, report);
     } catch (e) {
