@@ -935,6 +935,49 @@ export const CHAT_JS = `
     }
 
     /* ---------- 渲染 ---------- */
+    /* ---------- AI 通道（可选）----------
+       用户 2026-10-17：「我接，但用有效 key」。
+       · 接口实测：api.chatanywhere.tech 跨域 OK（ACAO: *、OPTIONS 200），只要 key 有效就能用
+       · 但它家公开的占位 key 已失效（实测 401 wrong api key）→ 必须换你自己申请的有效 key
+       · key 写在这（页面 JS 里）就等于公开，介意的话应该自建一个中转接口
+       · 拿不到回答（超时 / 限流 / key 失效 / 断网）→ 一律退回本地关键词回答 */
+    var AI = { url: 'https://api.chatanywhere.tech/v1/chat/completions', key: '', model: 'gpt-3.5-turbo' };
+    try { if (window.__CF_AI__) for (var ak in window.__CF_AI__) if (window.__CF_AI__[ak]) AI[ak] = window.__CF_AI__[ak]; } catch (e) {}
+    AI.on = !!(AI.url && AI.key);
+
+    function askAI(q) {
+      return new Promise(function (resolve, reject) {
+        var sys = '你是「春风」平台的助手。平台免费提供：八种彩票推荐图（双色球/大乐透/福彩3D/快乐8/排列3/排列5/七乐彩/七星彩）、';
+        sys += 'GPT摇号（随机/自选）、近30期走势预选参考、开机号、晒票、竞彩足球推单。';
+        sys += '要求：回答简短热情（不超过 120 字）；不编造平台没有的功能；不给购彩建议；不预测中奖；提到数字必须来自用户问的内容。';
+        var payload = { model: AI.model, messages: [{ role: 'system', content: sys }, { role: 'user', content: q }], stream: false };
+        var called = false;
+        var timer = setTimeout(function () {
+          if (!called) { called = true; reject(new Error('timeout')); }
+        }, 12000);
+        fetch(AI.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + AI.key },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        }).then(function (d) {
+          clearTimeout(timer);
+          if (called) return;
+          called = true;
+          var t = '';
+          try { t = String(d.choices[0].message.content || '').trim(); } catch (e) { t = ''; }
+          resolve(t);
+        }).catch(function (e) {
+          clearTimeout(timer);
+          if (called) return;
+          called = true;
+          reject(e);
+        });
+      });
+    }
+
     function push(who, text) {
       mem.push({ who: who, t: text });
       if (mem.length > 40) mem.shift();
@@ -948,8 +991,21 @@ export const CHAT_JS = `
       var q = squeeze(text);
       if (!q) return;
       push('me', q);
-      var a = answer(q);
-      if (a) push('bot', a.t);
+      /* 【AI 增强】用户 2026-10-17：「我接，但用有效 key」。
+         规则：配了 key → 先问 AI（一个"正在想…"气泡原地替换）；失败/超时 → 退回本地回答；
+               没配 key → 直接本地回答。
+         key 配在 window.__CF_AI__（构建时可改），留空就是纯本地，行为完全不变。 */
+      var localAns = answer(q);
+      var localText = localAns ? localAns.t : '这个问题我还在学~ 你可以问我：推荐号 / 战绩 / 走势图 / 怎么用';
+      if (!AI.on) { push('bot', localText); return; }
+      push('bot', '正在想…');
+      var box = body.lastChild;
+      askAI(q).then(function (txt) {
+        if (txt) { if (box) box.textContent = txt; mem[mem.length - 1] = { who: 'bot', t: txt }; }
+        else if (box) box.textContent = localText;
+      }).catch(function () {
+        if (box) box.textContent = localText;   /* 失败就退回本地，绝不留"正在想…" */
+      });
     }
     function open() {
       panel.classList.add('cf-on');
