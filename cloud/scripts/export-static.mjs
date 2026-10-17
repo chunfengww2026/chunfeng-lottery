@@ -5440,12 +5440,17 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   overflow-wrap: break-word;
   word-break: break-word;
 }
-/* 左边那张：纵向居中（上下留白一样多） */
+/* 左边那张：纵向居中（上下留白一样多）
+   ⚠️ display / padding 必须带 !important：上面「⑤ 开机号」那层（米杏覆盖块）
+      对 .ro-tool 写了 display:block !important、padding:14px 8px !important，
+      普通声明压不动（实测：不加就是一行横排，三行字全挤在一条线上）。
+      这里只覆盖到和右边卡一样的规格，别的一个值都没动。 */
 .action-card {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 12px 10px !important;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   transition: background .18s;
