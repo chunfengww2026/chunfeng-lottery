@@ -283,6 +283,78 @@ const GAMES = [];
 LIVE_GAMES.forEach((g) => { if (g && g.code && !seen.has(g.code)) { seen.add(g.code); GAMES.push(g); } });
 let histAdded = 0;
 HIST_GAMES.forEach((g) => { if (g && g.code && !seen.has(g.code)) { seen.add(g.code); GAMES.push(g); histAdded++; } });
+
+/* ============================================================
+   【积分榜对齐 · 构建时做，页面只读结果】
+   ------------------------------------------------------------
+   为什么放在这里（而不是页内脚本里现算）：
+     · 认队要跑相似度匹配（15 个联赛 × 20 队），没必要塞进页面再算一遍；
+     · 页面只要每场两个数（两队积分 + 场次），10 KB 的整张榜就不用内嵌；
+     · 名次要和积分【同源】—— 见下面那条硬事实。
+
+   ⚠️【实测的坑】竞彩列表里那个 [名次]（<span class="gray">[06]</span>）
+      不是联赛积分榜名次：德甲同一轮里 不来梅 和 莱红牛 都被标成 [7]，
+      拜仁 标 [3] 而榜上第 1；英超 埃弗顿 标 [5] 而榜上第 7。
+      拿它当"联赛名次"显示、或者拿它去积分榜里查积分，都会错。
+      所以：**认出的队一律用积分榜的名次覆盖**（详情页头部、爆冷口诀 ②③、
+      埃罗的三种口径全部同源），认不出的（小联赛 / 杯赛 / 归档）保持原样或退档。
+
+   认队的优先级：完全一致 → 包含 → 汉字子序列（曼城⊂曼彻斯特城、马竞⊂马德里竞技）；
+   还要求领先第二名 0.05 分，两支都像就判"认不准"→ 不覆盖、不取积分。
+   ============================================================ */
+const FUS_ALIAS = {
+  '曼城': '曼彻斯特城', '曼联': '曼彻斯特联', '热刺': '托特纳姆热刺',
+  '巴萨': '巴塞罗那', '皇马': '皇家马德里', '马竞': '马德里竞技',
+  '国米': '国际米兰', '拜仁': '拜仁慕尼黑', '多特': '多特蒙德',
+  '不来梅': '云达不莱梅', '莱红牛': '莱比锡红牛', '药厂': '勒沃库森',
+  '门兴': '门兴格拉德巴赫', '宫崎惊奇牛鸟': '宫崎棒牛鸟'
+};
+const standCn = (s) => String(s == null ? '' : s).replace(/[^\u4e00-\u9fa5]/g, '');
+/* 队名相似度：完全一致 1 → 包含 0.9 → 汉字子序列 0.55~0.90（越长的简称越可信） */
+function standNameScore(q, full) {
+  q = standCn(q);
+  const f = standCn(full);
+  if (!q || !f) return 0;
+  if (q === f) return 1;
+  if (q.length >= 2 && f.length > q.length && f.indexOf(q) >= 0) return 0.9;
+  let i = 0, j = 0;
+  while (i < q.length && j < f.length) { if (q.charAt(i) === f.charAt(j)) i++; j++; }
+  if (i === q.length && q.length >= 2) return 0.55 + 0.35 * (q.length / f.length);
+  return 0;
+}
+/* 在这一场的联赛积分榜里认这一支球队：认不准就返回 null（宁可退档也不认错） */
+function standTeam(g, side) {
+  if (!STAND_LEAGUES) return null;
+  const L = STAND_LEAGUES[String(g.sid == null ? '' : g.sid)];
+  if (!L || !Array.isArray(L.teams) || !L.teams.length) return null;
+  const raw = String((g[side] && g[side].name) || '');
+  if (!raw) return null;
+  const q = FUS_ALIAS[raw] || raw;
+  let best = null, bs = 0, second = 0;
+  L.teams.forEach((t) => {
+    const sc = standNameScore(q, t[8]);
+    if (sc > bs) { second = bs; bs = sc; best = t; } else if (sc > second) second = sc;
+  });
+  /* 0.66：子序列匹配里最松的「马竞 / 曼城」是 0.69，再松就会认错；
+     0.05：第一第二必须拉开，两支都像就说明认不准。 */
+  if (best && bs >= 0.66 && (bs - second) >= 0.05) return { t: best, sc: bs };
+  return null;
+}
+/* 把积分榜结果挂到每场比赛上：g.std = {hp,ap,hrank,arank,hpPlayed,apPlayed}
+   + 名次统一成积分榜名次。归档场次（src==='hist'）不动。 */
+let stdHits = 0;
+GAMES.forEach((g) => {
+  if (!g || g.src === 'hist') return;
+  const h = standTeam(g, 'home'), a = standTeam(g, 'away');
+  if (!h || !a) return;
+  g.std = {
+    hp: h.t[1], ap: a.t[1], hrank: h.t[0], arank: a.t[0],
+    hpPlayed: h.t[2], apPlayed: a.t[2]
+  };
+  g.home.rank = h.t[0];
+  g.away.rank = a.t[0];
+  stdHits++;
+});
 /* 未开赛的排前面（按时间正序），已完场的排后面（按时间倒序）——和在售列表的读法一致 */
 const tkey = (g) => String(g.time || '');
 /* 归档里的状态：有比分=已完场；没比分且时间在数据更新时间之后=未开赛；否则按已完场算 */
@@ -379,13 +451,9 @@ const DATA_JSON = JSON.stringify({
     count: Object.keys(BIFA_GAMES).length,
     games: BIFA_GAMES
   } : null,
-  /* 【联赛积分榜 · 真实积分】只内嵌 leagues（名次/积分/场次/胜平负/进球/失球/队名），
-     「综合模型」那一档的埃罗要用它算真实积分差。
-     ⚠️ 队名也内嵌（认队要用它），但页面【只显示积分】，不显示任何一个队名以外的东西。 */
-  stand: STAND_LEAGUES ? {
-    updated: STAND_UPDATED,
-    leagues: STAND_LEAGUES
-  } : null,
+  /* 【联赛积分榜 · 真实积分】构建时已按队名对齐好，写在每场的 std 里
+     （两队积分 + 场次 + 积分榜名次），页面不再重复内嵌整张榜。
+     ⚠️ 队名 / 名次都不进页面文案以外的任何地方，页面只看积分差。 */
   games: ORDERED
 }).replace(/</g, '\\u003c').replace(/\u2028|\u2029/g, '');
 
@@ -1957,57 +2025,17 @@ ${DEVICE_GATE_BODY}
      ⚠️ 一个都拿不到（归档场次没有排名、也没有本季积分）→ 返回 null，
         埃罗那一行如实写「该场无排名数据，埃罗不适用」，不拿欧赔接近度之类的东西顶。 */
   var FUS_BIG5 = { '英超': 1, '西甲': 1, '意甲': 1, '德甲': 1, '法甲': 1 };
-  /* 简称 → 积分榜上的全名（子序列匹配已经能认大半，这里只补"字不一样"的） */
-  var FUS_ALIAS = {
-    '曼城': '曼彻斯特城', '曼联': '曼彻斯特联', '热刺': '托特纳姆热刺',
-    '巴萨': '巴塞罗那', '皇马': '皇家马德里', '马竞': '马德里竞技',
-    '国米': '国际米兰', '拜仁': '拜仁慕尼黑', '多特': '多特蒙德',
-    '不来梅': '云达不莱梅', '莱红牛': '莱比锡红牛', '药厂': '勒沃库森',
-    '门兴': '门兴格拉德巴赫', '宫崎惊奇牛鸟': '宫崎棒牛鸟'
-  };
-  function fusCn(s) { return String(s == null ? '' : s).replace(/[^\u4e00-\u9fa5]/g, ''); }
-  /* 队名相似度：完全一致 1 → 包含 0.9 → 汉字子序列 0.55~0.90（越长的简称越可信） */
-  function fusNameScore(q, full) {
-    q = fusCn(q);
-    var f = fusCn(full);
-    if (!q || !f) return 0;
-    if (q === f) return 1;
-    if (q.length >= 2 && f.length > q.length && f.indexOf(q) >= 0) return 0.9;
-    var i = 0, j = 0;
-    while (i < q.length && j < f.length) { if (q.charAt(i) === f.charAt(j)) i++; j++; }
-    if (i === q.length && q.length >= 2) return 0.55 + 0.35 * (q.length / f.length);
-    return 0;
-  }
-  /* 在这一场的联赛积分榜里认这一支球队：认不准就返回 null（宁可退档也不认错） */
-  function fusStandTeam(g, side) {
-    var ST = (D.stand && D.stand.leagues) ? D.stand.leagues : null;
-    if (!ST) return null;
-    var L = ST[String(g.sid == null ? '' : g.sid)];
-    if (!L || !L.teams || !L.teams.length) return null;
-    var raw = String((g[side] && g[side].name) || '');
-    if (!raw) return null;
-    var q = FUS_ALIAS[raw] || raw;
-    var best = null, bs = 0, second = 0, k, t, sc;
-    for (k = 0; k < L.teams.length; k++) {
-      t = L.teams[k];
-      sc = fusNameScore(q, t[8]);
-      if (sc > bs) { second = bs; bs = sc; best = t; }
-      else if (sc > second) second = sc;
-    }
-    /* 0.66：子序列匹配里最松的「马竞 / 曼城」是 0.69，再松就会认错；
-       0.05：第一第二必须拉开，两支都像就说明认不准。 */
-    if (best && bs >= 0.66 && (bs - second) >= 0.05) return { t: best, sc: bs };
-    return null;
-  }
+  /* g.std 是构建时按【队名】对齐积分榜算出来的（见文件上半部分）：
+     认出来的那一场，两队名次也已经统一成积分榜名次，所以这里直接读，页面内不再认队。 */
   function fusPoints(g) {
     var coef = FUS_BIG5[String(g.league || '')] ? 2.5 : 1.5;
     var hr = num(g.home && g.home.rank), ar = num(g.away && g.away.rank);
-    var h = fusStandTeam(g, 'home'), a = fusStandTeam(g, 'away');
-    if (h && a) {
+    var st = g.std;
+    if (st && num(st.hp) !== null && num(st.ap) !== null) {
       return {
-        src: 'real', diff: clampNum(h.t[1] - a.t[1], -60, 60),
-        hp: h.t[1], ap: a.t[1], hrank: h.t[0], arank: a.t[0],
-        hpPlayed: h.t[2], apPlayed: a.t[2], coef: coef
+        src: 'real', diff: clampNum(num(st.hp) - num(st.ap), -60, 60),
+        hp: num(st.hp), ap: num(st.ap), hrank: num(st.hrank), arank: num(st.arank),
+        hpPlayed: num(st.hpPlayed), apPlayed: num(st.apPlayed), coef: coef
       };
     }
     if (hr === null || ar === null || hr <= 0 || ar <= 0) return null;
@@ -2875,7 +2903,7 @@ console.log('   资金分布：' + (BIFA_GAMES
 console.log('   联赛积分榜：' + (STAND_LEAGUES
   ? Object.keys(STAND_LEAGUES).length + ' 个联赛 · ' + Object.keys(STAND_LEAGUES)
       .reduce((n, k) => n + ((STAND_LEAGUES[k].teams || []).length), 0) + ' 支队（数据时间 ' + (STAND_UPDATED || '—') + '）'
-    + ' → 综合模型里的埃罗优先用真实积分，认不出队名 / 归档场次退回名次折算并标明'
+    + ' → 在售 ' + stdHits + ' 场按队名对齐到真实积分（名次也统一成积分榜名次）；认不出的场次退回名次折算并标明'
   : '⚠️ 没有 jc-standings.js → 埃罗全部退回「名次折算」（不会报错，但那一档不是真实积分）'));
 console.log('   爆冷预警 / 差异分析：每场都出（口诀阈值 1.40 / 3.50 / 4.00 原样保留，触发条件用本页真实欧赔 / 排名 / 亚盘水位；'
   + '归档场次没有排名 → 口诀 ②③ 如实写「无法判」）');
