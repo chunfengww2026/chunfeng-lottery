@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "名古屋鯨魚U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "神户勝利船U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "長崎成功丸U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "岡山綠雉U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "川崎前鋒U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "浦和紅鑽U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "波特兰伐木者B队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "聖路易斯城2隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -459,16 +459,16 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "惠灵顿奥林匹克",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "伊斯特恩沙伯奧克蘭",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -1010,7 +1010,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 08:30:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "博卡青年",
      "score": 2,
@@ -1076,7 +1076,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -1142,7 +1142,7 @@ const FOOTBALL_DATA = {
      "color": "5A95B3"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "瓜达卢普",
      "score": 0,
@@ -1208,7 +1208,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "聖特克拉國際",
      "score": 1,
