@@ -2944,14 +2944,27 @@ ${nav}
   font-weight: 700 !important; line-height: 18px !important; }
 .broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
 .broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
-/* 【一键桌面】用户 2026-10-17 给的那个按钮（改成 <a role="button"> 以守住"0 裸 button"）。
-   米杏浅色，和播报条同一行右端；只在能安装/能引导安装的浏览器里显示（脚本控制）。 */
-.install-btn { display: inline-flex; align-items: center; justify-content: center;
-  height: 24px; padding: 0 10px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
-  color: #1a8c5a !important; background: #e3f2ea !important; border: 1px solid #1a8c5a !important;
-  text-decoration: none !important; white-space: nowrap; cursor: pointer; flex: 0 0 auto;
+/* 【一键桌面 · 位置/外观按用户 2026-10-17 给的 CSS】
+   固定右上角（top 55px / right 15px）、实心绿 #1a8c5a + 白字、20px 胶囊、阴影、呼吸灯 2s。
+   ⚠️ 全部 !important：页面里有别的胶囊/按钮样式会抢（之前播报条的圆角就被抢过），
+      固定定位也必须压过容器。
+   ⚠️ 呼吸灯的关键帧改名 install-pulse（原名叫 pulse，页面里已有同名 keyframes 会打架）。
+   ⚠️ 系统开了「减少动态效果」→ 关掉呼吸灯（无障碍）。 */
+.install-btn { position: fixed !important; top: 55px !important; right: 15px !important; z-index: 9999 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  background: #1a8c5a !important; color: #fff !important; border: none !important;
+  border-radius: 20px !important; padding: 6px 12px !important; font-size: 12px !important;
+  font-weight: 700 !important; text-decoration: none !important; white-space: nowrap !important;
+  box-shadow: 0 2px 8px rgba(26, 140, 90, 0.4) !important; cursor: pointer !important;
+  animation: install-pulse 2s infinite !important;
   touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
-.install-btn:active { background: #d3ebdd !important; }
+.install-btn:active { transform: scale(0.97) !important; animation: none !important; }
+@keyframes install-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .install-btn { animation: none !important; } }
 .install-hint { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
   padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
