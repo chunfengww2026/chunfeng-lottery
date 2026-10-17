@@ -4297,9 +4297,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-16 18:51:35",
      "postId": "7697216599808049706",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a71de892198a47e7bfd5b7d746b1a138~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=pu23opMZ1wnOwduODhyT44w19Qk%3D",
@@ -4491,9 +4489,7 @@ const XYSP_DATA = {
      "author": "美丽的小青年",
      "when": "2026-10-16 17:30:24",
      "postId": "7697195371767808559",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b4a6ccc0dfc1437780a920430fbfb19f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2Bi8ji162qsBmuB%2Bj4Csj95Gxry8%3D",
@@ -4525,9 +4521,7 @@ const XYSP_DATA = {
      "author": "美丽的小青年",
      "when": "2026-10-16 17:30:24",
      "postId": "7697195371767808559",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/16b2de76b0d44667832316442485acae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=jwLERIzuLRzLrP7bU9rWI42PcCI%3D",
