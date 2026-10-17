@@ -55,23 +55,23 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-17T00:06:54.590Z",
+   "seen": "2026-10-17T00:06:02.201Z",
    "whenMs": 1792122654000,
-   "seenMs": 1792195614590,
+   "seenMs": 1792195562201,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792122962176,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-18T00:06:54.590Z",
+   "expireAt": "2026-10-18T00:06:02.201Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54",
    "postId": "7697108049638539804",
    "px": 132300,
    "imgPx": 132300,
-   "dedupeImgs": 3
+   "dedupeImgs": 4
   }
  ]
 };
