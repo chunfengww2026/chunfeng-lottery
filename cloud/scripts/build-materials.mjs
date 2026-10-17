@@ -82,7 +82,7 @@ function readExisting() {
 
 function main() {
   log('════════════════════════════════════════════');
-  log('  春风十里送大奖 · 资料导出');
+  log('  春风 · 资料导出');
   log('════════════════════════════════════════════\n');
 
   let list = tryReadLocalStorage();

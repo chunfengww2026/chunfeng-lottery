@@ -1620,7 +1620,7 @@ function renderArchivePanel(container, onChanged) {
       a.click();
       setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
       msg.style.color = '#7ee787';
-      msg.textContent = '已下载，放到 D:\\春风十里送大奖\\ 目录（覆盖原文件）';
+      msg.textContent = '已下载，放到 D:\\春风\\ 目录（覆盖原文件）';
     } catch (e) {
       msg.style.color = '#f0575c';
       msg.textContent = '导出失败：' + e.message;
@@ -1651,7 +1651,7 @@ function renderArchivePanel(container, onChanged) {
   help.innerHTML =
     '怎么用：<br>' +
     '1. 点「导出存档文件」→ 下载 <b>saved-tickets.js</b><br>' +
-    '2. 把它放到 <b>D:\\春风十里送大奖\\</b> 目录（覆盖原来的）<br>' +
+    '2. 把它放到 <b>D:\\春风\\</b> 目录（覆盖原来的）<br>' +
     '3. 以后每次打开程序，都会自动读取这个文件里的推荐内容';
   box.appendChild(help);
 
