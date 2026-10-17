@@ -860,7 +860,7 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
     const b = el('div', 'r-hm-bar');
     b.style.cssText =
       `position:absolute;left:0;right:0;bottom:0;height:${h}px;` +
-      `background:${hmColor(pct, maxPct, colorKind)};border-radius:2px 2px 0 0;`;
+      `background:linear-gradient(to top, ${hmColor(pct, maxPct, colorKind)} 0%, ${hmColor(pct, maxPct, colorKind)} 58%, ${hmColor(pct, maxPct, colorKind)}cc 84%, ${hmColor(pct, maxPct, colorKind)}55 100%);border-radius:2px 2px 0 0;`;
 
     col.appendChild(b);
     bars.appendChild(col);
