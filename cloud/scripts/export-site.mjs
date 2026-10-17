@@ -52,6 +52,23 @@ if (fs.existsSync(srcFootball)) {
       导航回到「彩票推荐 / 竞彩/足球」两栏。
       走势图内容现在内联在 index.html 的「近 30 期走势 · 预选参考」折叠块里。
    ============================================================ */
+/* ============================================================
+   【第一层防护 · 注入位置】
+   ------------------------------------------------------------
+   下面两个标签字面量【故意拆开拼】：源码里不出现完整的 head 开 / 收尾标签，
+   免得以后又有人在这个文件里写注释、写字符串时把同一个坑踩回来。
+   ============================================================ */
+const T_HEAD_OPEN = '<' + 'head>';
+const T_HEAD_CLOSE = '</' + 'head>';
+
+/* 唯一的 head 注入槽位（export-static.mjs / export-football.mjs 在 head 末尾输出）。
+   ⚠️ 为什么不再 out.replace(收尾标签, CSS + 收尾标签)：
+      String.replace 只替换【第一处】，而页面 HTML 注释里完全可能出现字面的
+      head 收尾标签（2026-10-17 就这么炸过：整段 NAV_CSS 被塞进注释内部 →
+      CSS 全废 → 分享页 Tab 变成蓝色下划线链接）。
+      槽位标记独一无二 → 页面上不可能有第二处，替换/插入永远落在正确位置。 */
+const HEAD_SLOT = '<!--__HEAD_SLOT__-->';
+
 const NAV_CSS = `
 <style>
 .site-nav {
@@ -101,18 +118,104 @@ function injectNav(html, active) {
      而这里插的样式在它【后面】、两条同优先级 —— 后面那条赢，
      于是导航又变回深色（分享包里 football.html 就是这么被压黑的）。
      分享页自己【没有】这条规则，需要这里补。 */
-  if (!/\.site-nav\s*\{/.test(html)) {
-    out = out.replace('</head>', NAV_CSS + '</head>');
+  const needCss = !/\.site-nav\s*\{/.test(html);
+
+  /* 【第一层】注入点：
+     ① 优先用唯一槽位标记 __HEAD_SLOT__（页面里只可能有一处）；
+     ② 页面没有标记 → 退到【最后一个】head 收尾标签之前
+        （lastIndexOf，不是 replace 的第一处）；
+     ③ 两样都没有 → 直接报错退出，不再"静默不注入"或注入错位置。 */
+  const slot = out.indexOf(HEAD_SLOT);
+  if (slot >= 0) {
+    out = out.slice(0, slot) + (needCss ? NAV_CSS : '') + out.slice(slot + HEAD_SLOT.length);
+  } else if (needCss) {
+    const i = out.lastIndexOf(T_HEAD_CLOSE);
+    if (i < 0) {
+      console.error(`❌ injectNav(${active})：页面里既没有槽位标记 ${HEAD_SLOT}，也没有 ${T_HEAD_CLOSE}，无处注入导航样式`);
+      process.exit(1);
+    }
+    out = out.slice(0, i) + NAV_CSS + out.slice(i);
   }
 
   // 导航条插到 <body> 后
   out = out.replace(/<body([^>]*)>/, `<body$1>${nav}`);
 
-  return out;
+  return { html: out, css: needCss ? NAV_CSS : '' };
 }
 
-lottery = injectNav(lottery, 'lottery');
-if (football) football = injectNav(football, 'football');
+/* ============================================================
+   【第二层防护 · 构建时硬断言】
+   ------------------------------------------------------------
+   事故（2026-10-17）：注入 NAV_CSS 用 String.replace(收尾标签, CSS + 收尾标签)
+   只替换【第一处】，而页面 HTML 注释里也字面写着一个收尾标签 →
+   整段 CSS 被插进注释内部 → CSS 全废 → 分享页 Tab 变蓝色下划线链接。
+   现在每份产物在【写文件之前】必须过这三关，任一不过 → exit 1：
+     ① head 开标签正好 1 个
+     ② head 收尾标签正好 1 个（≠1 直接打印出现次数 + 行号/偏移）
+     ③ 注入的样式落在 head 区间内，且【不在 HTML 注释里】
+        （判据：样式第一个字符往前找最近的 <!-- 和 -->，谁更近）
+   ⚠️ 这段必须留在写文件之前 —— 本机任务（export-only / daily-update）
+      和云端构建（cloud/scripts 同名脚本由 sync-cloud.mjs 同步）都会跑到。
+   ============================================================ */
+function tagPositions(s, tag) {
+  const out = [];
+  let i = 0;
+  while ((i = s.indexOf(tag, i)) !== -1) { out.push(i); i += tag.length; }
+  return out;
+}
+function lineNoOf(s, pos) {
+  let line = 1;
+  for (let i = 0; i < pos && i < s.length; i++) if (s.charCodeAt(i) === 10) line++;
+  return line;
+}
+function assertSingleHead(html, label, cssText) {
+  const bad = [];
+  const open = tagPositions(html, T_HEAD_OPEN);
+  const close = tagPositions(html, T_HEAD_CLOSE);
+  const where = (arr) => arr.map((p) => `第 ${lineNoOf(html, p)} 行（偏移 ${p}）`).join(' / ');
+
+  if (open.length !== 1) {
+    bad.push(`${T_HEAD_OPEN} 出现 ${open.length} 次（必须 1 次）${open.length ? ' → ' + where(open) : ''}`);
+  }
+  if (close.length !== 1) {
+    bad.push(`${T_HEAD_CLOSE} 出现 ${close.length} 次（必须 1 次）${close.length ? ' → ' + where(close) : ''}`);
+  }
+  if (cssText) {
+    const ci = html.indexOf(cssText);
+    if (ci < 0) {
+      bad.push('注入的样式在产物里找不到（注入没生效）');
+    } else {
+      const cOpen = html.lastIndexOf('<!--', ci);
+      const cClose = html.lastIndexOf('-->', ci);
+      if (cOpen > cClose) {
+        bad.push(`注入的样式落在 HTML 注释内部（最近的 <!-- 偏移 ${cOpen} / --> 偏移 ${cClose}）→ 整段 CSS 会失效`);
+      }
+      if (open.length === 1 && close.length === 1 && !(ci > open[0] && ci < close[0])) {
+        bad.push(`注入的样式不在 head 里（样式偏移 ${ci}，head 区间 ${open[0]}~${close[0]}）`);
+      }
+    }
+  }
+
+  if (bad.length) {
+    console.error(`\n❌ ${label}：head 结构自检失败（${bad.length} 项），产物【没有写出】`);
+    bad.forEach((b, i) => console.error(`   ${i + 1}) ${b}`));
+    console.error('   注入逻辑见本文件 injectNav()：只认槽位标记 ' + HEAD_SLOT + '，');
+    console.error('   没有标记才退到「最后一个 ' + T_HEAD_CLOSE + ' 之前」。');
+    console.error('   常见原因：页面里别处（尤其是 HTML 注释里）又写了字面的 head 开/收尾标签。\n');
+    process.exit(1);
+  }
+  console.log(`   ✅ ${label}：${T_HEAD_OPEN}=1 · ${T_HEAD_CLOSE}=1${cssText ? ' · 注入样式在 head 内且不在注释里' : ''}`);
+}
+
+const lot = injectNav(lottery, 'lottery');
+const fb = football ? injectNav(football, 'football') : null;
+
+/* 【第二层防护】写文件之前先过硬断言：不满足就 exit 1，一个字节都不写。 */
+assertSingleHead(lot.html, 'index.html', lot.css);
+if (fb) assertSingleHead(fb.html, 'football.html', fb.css);
+
+lottery = lot.html;
+if (fb) football = fb.html;
 
 /* ---------- 2b. （已删除）走势图独立页 ----------
    2026-10-17 用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」：
