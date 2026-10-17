@@ -395,6 +395,7 @@ async function ocrTickets(cfg, posts, expectIssue, opts) {
   const stats = {
     posts: posts.length, urls: 0, downloaded: 0, downloadFailed: 0, cacheHits: 0,
     recognized: 0, issueMatched: 0, tickets: [], ms: 0,
+    unconfirmed: 0,                                   /* 号码读出来了、但票面期号认不出的票数 */
     kinds: { '单式票': 0, '复式票': 0, '胆拖票': 0 },   /* 票种拆分（复式/胆拖号码多，要让人看得见） */
     bandUsed: 0                                        /* 有多少张是靠「条带兜底」才认出来的 */
   };
@@ -460,7 +461,18 @@ async function ocrTickets(cfg, posts, expectIssue, opts) {
           continue;
         }
         stats.recognized++;
-        if (r.issue && ocr.sameIssue && ocr.sameIssue(r.issue, expectIssue)) stats.issueMatched++;
+        /* 【期号必须确认】票面上认不出期号，或者期号不是当期 → 这张票不进统计。
+           为什么这么严：晒票板上一半的图是【上一期】的票（「可惜差点」「擦边」
+           这种帖子晒的是刚开奖那期的票），实测 12 张里 10 张是 26118 的。
+           如果「认不出期号」也算数，就会把 26118 的号码当成 26119 的购买占比
+           —— 那就是编数据。宁可今晚一张都没有，也不能贴错期号。 */
+        const confirmed = !!r.issue && !!ocr.sameIssue && ocr.sameIssue(r.issue, expectIssue);
+        if (!confirmed) {
+          stats.unconfirmed += r.tickets.length;
+          log(`      · 丢弃（期号无法确认，识别为「${r.issue || '空'}」，只认当期 ${expectIssue}）…${String(item.url).slice(-38)}`);
+          continue;
+        }
+        stats.issueMatched++;
         r.tickets.forEach((t) => {
           tickets.push({
             front: t.front, back: t.back, issue: r.issue,
@@ -484,7 +496,12 @@ async function ocrTickets(cfg, posts, expectIssue, opts) {
   stats.ms = Date.now() - t0;
 
   if (tickets.length < MIN_OCR_TICKETS) {
-    return { ok: false, frontCounts, backCounts, tickets, stats, err: `OCR 有效票只有 ${tickets.length} 张（需 ≥${MIN_OCR_TICKETS}）` };
+    return {
+      ok: false, frontCounts, backCounts, tickets, stats,
+      err: `期号确认的有效票只有 ${tickets.length} 张（需 ≥${MIN_OCR_TICKETS}）` +
+        (stats.unconfirmed ? `；另有 ${stats.unconfirmed} 张号码读出来了但票面期号认不出/不是当期，已丢弃` : '') +
+        (stats.recognized ? '' : '；本次没有任何图片通过号码识别')
+    };
   }
   return { ok: true, frontCounts, backCounts, tickets, stats };
 }
@@ -988,8 +1005,11 @@ async function buildGame(cfg, nowBj, opts) {
       log(`  ✅ 晒票文字样本够用 → 用它出图（${matched.length} 篇）`);
     } else {
       if (fetchErr) log(`  ⚠️ 抓取失败，走兜底口径`);
-      else if (ocrInfo) log(`  ⚠️ OCR 不足（${ocrInfo.tickets} 张有效票，需 ≥${MIN_OCR_TICKETS}），晒票文字也只有 ${numberPosts} 篇 → 走兜底口径`);
-      else log(`  ⚠️ 晒票样本不足（需 ≥${MIN_SAMPLE_POSTS} 篇 / 前区 ≥${MIN_FRONT_TOTAL} 次 / 后区 ≥${MIN_BACK_TOTAL} 次），走兜底口径`);
+      else if (ocrInfo) {
+        const n = Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets.length : Number(ocrInfo.tickets) || 0;
+        log(`  ⚠️ 晒票统计口径不足（期号确认的有效票 ${n} 张，需 ≥${MIN_OCR_TICKETS}；` +
+            `号码读出来但期号认不出的 ${ocrInfo.unconfirmed || 0} 张），晒票文字也只有 ${numberPosts} 篇 → 走兜底口径`);
+      } else log(`  ⚠️ 晒票样本不足（需 ≥${MIN_SAMPLE_POSTS} 篇 / 前区 ≥${MIN_FRONT_TOTAL} 次 / 后区 ≥${MIN_BACK_TOTAL} 次），走兜底口径`);
 
       const H = (opts && opts.history) || null;
       const fb = fallbackFromHistory(cfg, H);
@@ -1000,6 +1020,10 @@ async function buildGame(cfg, nowBj, opts) {
       source = 'history-fallback';
       sourceLabel = `近 ${fb.drawCount} 期开奖频率`;
       note = `晒票样本不足，改用近 ${fb.drawCount} 期开奖号码频率（${fb.lastIssue}~${fb.firstIssue}）`;
+      if (ocrInfo && matched.length) {
+        const n = Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets.length : 0;
+        note += `（当期晒票 ${matched.length} 篇 / 候选票面 ${ocrInfo.urls || 0} 张，能确认期号的只有 ${n} 张）`;
+      }
       sampleCount = fb.drawCount;
       fCounts = fb.frontCounts;
       bCounts = fb.backCounts;
@@ -1028,7 +1052,7 @@ async function buildGame(cfg, nowBj, opts) {
         posts: ocrInfo.posts, urls: ocrInfo.urls, downloaded: ocrInfo.downloaded,
         downloadFailed: ocrInfo.downloadFailed, cacheHits: ocrInfo.cacheHits,
         recognized: ocrInfo.recognized, tickets: Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets : [],
-        kinds: ocrInfo.kinds || null, bandUsed: ocrInfo.bandUsed || 0,
+        kinds: ocrInfo.kinds || null, bandUsed: ocrInfo.bandUsed || 0, unconfirmed: ocrInfo.unconfirmed || 0,
         pages: pageInfo.map((x) => x.page), pageStats: pageInfo,
         secs: Math.round(ocrInfo.ms / 100) / 10, err: ocrInfo.err
       }
