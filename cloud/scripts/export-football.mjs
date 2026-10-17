@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -3201,9 +3201,14 @@ ${nav}
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
   padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 </style>
-<!-- __DEVICE_GATE_CSS__ 设备门样式（device-gate.mjs）：放在 </head> 前，
-     电脑端第一帧就是隐藏态，不会先闪内容。 -->
+<!-- __DEVICE_GATE_CSS__ 设备门样式（device-gate.mjs）：放在 head 收尾标签之前，
+     电脑端第一帧就是隐藏态，不会先闪内容。
+     ⚠️ 这里【别写字面的 head 标签】（开标签 / 收尾标签都别写）：
+        页面里只要多出第二个，注入样式就会插错位置 —— 历史上就因此把整段
+        导航 CSS 塞进了注释里。export-site.mjs 写盘前的断言会直接拦下来。 -->
 <style>${DEVICE_GATE_CSS}${CHAT_CSS}</style>
+<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位（第一层防护）：export-site.mjs 只认这个标记，
+     并把导航样式插在这一行；本页有且只有这一处。别删。 -->
 </head>
 <body>
 ${DEVICE_GATE_BODY}
@@ -4883,7 +4888,58 @@ ${CHAT_JS}
    ============================================================ */
 const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '足球推荐.html');
-fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
+
+/* ============================================================
+   【第二层防护 · 构建时硬断言】写文件之前先过这一关
+   ------------------------------------------------------------
+   事故（2026-10-17）：注入样式用 String.replace(收尾标签, CSS + 收尾标签) 只替换
+   【第一处】；页面 HTML 注释里也字面写着一个收尾标签 → 整段 CSS 进了注释 → 全废。
+   现在本页产出【写盘之前】自检，任一不过 → exit 1（一个字节都不写）：
+     ① head 开标签正好 1 个
+     ② head 收尾标签正好 1 个（≠1 → 打印次数 + 行号/偏移）
+     ③ 唯一槽位标记 __HEAD_SLOT__ 正好 1 个，且落在 head 区间内
+   ⚠️ 标签字面量故意拆开拼，本文件里不出现完整的 head 开/收尾标签。
+   ============================================================ */
+const T_HEAD_OPEN = '<' + 'head>';
+const T_HEAD_CLOSE = '</' + 'head>';
+const HEAD_SLOT_TAG = '<!--__HEAD_SLOT__-->';
+function headTagPositions(s, tag) {
+  const out = [];
+  let i = 0;
+  while ((i = s.indexOf(tag, i)) !== -1) { out.push(i); i += tag.length; }
+  return out;
+}
+function headLineNo(s, pos) {
+  let line = 1;
+  for (let i = 0; i < pos && i < s.length; i++) if (s.charCodeAt(i) === 10) line++;
+  return line;
+}
+function assertHeadOnce(finalHtml, label) {
+  const bad = [];
+  const open = headTagPositions(finalHtml, T_HEAD_OPEN);
+  const close = headTagPositions(finalHtml, T_HEAD_CLOSE);
+  const slots = headTagPositions(finalHtml, HEAD_SLOT_TAG);
+  const where = (arr) => arr.map((p) => `第 ${headLineNo(finalHtml, p)} 行（偏移 ${p}）`).join(' / ');
+
+  if (open.length !== 1) bad.push(`${T_HEAD_OPEN} 出现 ${open.length} 次（必须 1 次）${open.length ? ' → ' + where(open) : ''}`);
+  if (close.length !== 1) bad.push(`${T_HEAD_CLOSE} 出现 ${close.length} 次（必须 1 次）${close.length ? ' → ' + where(close) : ''}`);
+  if (slots.length !== 1) bad.push(`${HEAD_SLOT_TAG} 出现 ${slots.length} 次（必须 1 次）${slots.length ? ' → ' + where(slots) : ''}`);
+  if (slots.length === 1 && open.length === 1 && close.length === 1
+      && !(slots[0] > open[0] && slots[0] < close[0])) {
+    bad.push(`注入槽位不在 head 里（槽位偏移 ${slots[0]}，head 区间 ${open[0]}~${close[0]}）`);
+  }
+  if (bad.length) {
+    console.error(`\n❌ ${label}：head 结构自检失败（${bad.length} 项），产物【没有写出】`);
+    bad.forEach((b, i) => console.error(`   ${i + 1}) ${b}`));
+    console.error('   常见原因：页面别处（尤其是 HTML 注释里）又写了字面的 head 开/收尾标签。\n');
+    process.exit(1);
+  }
+  console.log(`   ✅ head 自检：${T_HEAD_OPEN}=1 · ${T_HEAD_CLOSE}=1 · 槽位=1（在 head 内）`);
+}
+
+const finalHtml = perfify(safeHtml);
+assertHeadOnce(finalHtml, '足球推荐.html');
+fs.writeFileSync(OUT, finalHtml, 'utf8');
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
