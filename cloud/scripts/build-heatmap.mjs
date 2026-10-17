@@ -1028,6 +1028,8 @@ async function buildGame(cfg, nowBj, opts) {
         posts: ocrInfo.posts, urls: ocrInfo.urls, downloaded: ocrInfo.downloaded,
         downloadFailed: ocrInfo.downloadFailed, cacheHits: ocrInfo.cacheHits,
         recognized: ocrInfo.recognized, tickets: Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets : [],
+        kinds: ocrInfo.kinds || null, bandUsed: ocrInfo.bandUsed || 0,
+        pages: pageInfo.map((x) => x.page), pageStats: pageInfo,
         secs: Math.round(ocrInfo.ms / 100) / 10, err: ocrInfo.err
       }
       : null,
