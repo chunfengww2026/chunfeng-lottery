@@ -718,6 +718,12 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
      · 推荐串战绩 = REC_STAT（和「推荐串战绩」那条**同一个数**）
      · 完场战绩   = stat.hit / stat.miss / stat.rate（和「完场战绩」同一条）
      · 还有几组没打完 = REC_STAT.pending
+   ⚠️ 用户 2026-10-17 追加：「竞彩喇叭不要写近48小时.就写推荐串就好了」
+      → 喇叭里【不出现任何"N 小时"】字样，只写
+        「推荐串：红 X 黑 Y · 命中率 Z%」「完场战绩：红 A 黑 B · 命中率 C%」。
+        窗口小时数（REC_ARCH_HOURS / FIN_KEEP_HOURS）照旧参与计算，只是不写在喇叭上。
+   ⚠️ 用户 2026-10-17：「竞彩喇叭是推荐竞彩的，彩票移到彩票那边去」
+      → 喇叭里【不再有彩票的中奖播报】（详见下面 BC_JSON_ITEMS 那段说明）。
    横向滚动 = 轨道 .m-mq-track 上纯 CSS 的 translateX(0 → -50%)（见 CSS 里的
    jc-mq-roll）；轨道里放两份一模一样的内容，退一半正好接上 → 无缝左右循环。
    ⚠️ 一条统计都没有 → 显示「暂无命中率统计」，绝不编数字。
@@ -725,11 +731,11 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
 const MQ_ITEMS = (() => {
   const out = [];
   if (REC_STAT && REC_STAT.rate != null) {
-    out.push(`<span class="m-mq-item mq-gold">推荐串近 ${REC_ARCH_HOURS} 小时：` +
+    out.push(`<span class="m-mq-item mq-gold">推荐串：` +
       `<b>红 ${REC_STAT.red}</b> 黑 ${REC_STAT.black} · 命中率 <i>${REC_STAT.rate}%</i></span>`);
   }
   if (stat.settled) {
-    out.push(`<span class="m-mq-item">完场战绩近 ${FIN_KEEP_HOURS} 小时：` +
+    out.push(`<span class="m-mq-item">完场战绩：` +
       `<b>红 ${stat.hit}</b> 黑 ${stat.miss} · 命中率 <i>${stat.rate}%</i></span>`);
   }
   if (REC_STAT && REC_STAT.pending) {
@@ -763,20 +769,14 @@ const MQ_INNER = MQ_ITEMS_HTML || `<span class="m-mq-item">暂无最新播报</s
    ⚠️ JSON 放在 <script> 里必须把 < 转义，否则出现 </script> 会截断页面。 */
 const BC_JSON_ITEMS = (() => {
   const items = [];
-  /* ① 后台比对出来的真命中（build-broadcast.mjs 写的 broadcast.json）
-        —— 用户 2026-10-17：「播报要有中奖」+「要我们自己计算的号」。
-        脚本用 experts-data.js 的 games.<彩种>.pool（我们自己算的号池）去比开奖号，
-        严格包住才写一等奖/二等奖，近 7 天窗口；文件不存在/为空就跳过。 */
-  try {
-    const p = path.join(ROOT, 'broadcast.json');
-    if (fs.existsSync(p)) {
-      const arr = JSON.parse(fs.readFileSync(p, 'utf8'));
-      if (Array.isArray(arr)) {
-        for (const it of arr) if (it && it.text) items.push({ text: String(it.text).trim() });
-      }
-    }
-  } catch (e) { /* 读不到就当没有，绝不编 */ }
-  /* ② 后面接页面已有的战绩数字（红黑/命中率），保证播报不会空着 */
+  /* 【彩票不进竞彩页喇叭】用户 2026-10-17 两次确认：
+       「竞彩喇叭是推荐竞彩的，彩票移到彩票那边去」
+       「彩票喇叭里面内容写 推荐号命中xxx等奖就行了，不用写中了多少号」
+     —— 所以这里【不再】塞号池对开奖的中奖播报（原先第一条就是
+        「推荐号池命中二等奖（… 个基本号中 6 个）」：既不是竞彩、
+        又在写"中了几个号"）。彩票的中奖播报只在只读分享版的
+        「中奖播报」喇叭里播，格式是「推荐号命中X等奖 / 组选命中」。
+     竞彩页喇叭只播竞彩自己的战绩：推荐串红黑/命中率、完场战绩、还有几组没打完。 */
   for (const h of MQ_ITEMS) items.push({ text: h.replace(/<[^>]*>/g, '').trim() });
   return items;
 })();
