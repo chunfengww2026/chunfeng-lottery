@@ -35831,7 +35831,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 50,
     "home": {
      "name": "FC岐阜",
      "score": 1,
@@ -35897,7 +35897,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 51,
     "home": {
      "name": "鸟取SC",
      "score": 1,
@@ -35963,7 +35963,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "北九州向日葵",
      "score": 1,
@@ -36029,7 +36029,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 46,
+    "minute": 53,
     "home": {
      "name": "城南FC",
      "score": 0,
@@ -36095,7 +36095,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "大邱FC",
      "score": 1,
@@ -36161,7 +36161,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 45,
+    "minute": 52,
     "home": {
      "name": "南葛翼(女)",
      "score": 0,
@@ -36199,7 +36199,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "今治",
      "score": 1,
@@ -36265,7 +36265,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "仙台维加泰",
      "score": 0,
@@ -36331,7 +36331,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "枥木市FC",
      "score": 0,
@@ -36397,7 +36397,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "大分三神",
      "score": 2,
@@ -36463,7 +36463,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "鸟栖沙岩",
      "score": 1,
@@ -36529,10 +36529,10 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "札幌冈萨多",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 20
     },
@@ -36595,7 +36595,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "藤枝MYFC",
      "score": 0,
@@ -36661,7 +36661,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "广岛三箭",
      "score": 0,
@@ -36727,7 +36727,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "东京日视",
      "score": 0,
@@ -36793,7 +36793,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "千叶市原",
      "score": 0,
@@ -36859,7 +36859,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 3,
+    "minute": 9,
     "home": {
      "name": "布里斯班狮吼女足",
      "score": 0,
@@ -36868,7 +36868,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "中央海岸水手(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -36937,7 +36937,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 3,
+    "minute": 9,
     "home": {
      "name": "麦克阿瑟FC",
      "score": 0,
@@ -37015,7 +37015,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "大阪樱花",
      "score": 0,
