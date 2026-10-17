@@ -897,6 +897,52 @@ function renderAsianCard(m) {
    ⚠️ 页面上写明「由欧指反推 · 非官方数据」，并显示拟合偏差与平局偏差，
       不让人误以为这是博彩公司公布的泊松值。 */
 /* ============================================================
+   【胜平负 EV（期望值）】用户 2026-10-17：「新增 EV 值展示区」
+   ------------------------------------------------------------
+   公式（用户定的，标准 EV）：EV = 模型概率 × 赔率 − 1，按百分比显示。
+     例：主胜 50.2% × 1.86 − 1 = -6.6% → 负数是"期望亏损"，正数是"期望盈利"
+   数据来源：概率 = reco.prob（build-jc.mjs 从欧赔反推的那三个）
+             赔率 = 同一张卡片上「欧赔」那三个数（euV）
+   缺概率或缺赔率 → 显示 —，绝不编数。
+   ============================================================ */
+function evOf(pctVal, oddsVal) {
+  const p = parseFloat(pctVal);
+  const o = parseFloat(oddsVal);
+  if (!isFinite(p) || !isFinite(o) || o <= 0) return null;
+  return (p / 100) * o - 1;                     /* 小数：-0.0663 = -6.63% */
+}
+function renderEvRow(r, euV) {
+  if (!r || !euV) return '';
+  /* 【对齐用户 2026-10-17 给的参考实现】
+     类名用他那套：.ev-title / .ev-items / .ev-item.positive|negative
+     公式也用他的：EV = ((p/100) * odds - 1) * 100
+       > 0 → positive（红 + 带 + 号）
+       ≤ 0 → negative（灰）
+     缺概率或缺赔率 → 显示 —，不编数。
+     ⚠️ 和外层 .m-ev 的组合：.m-ev 只负责底色/边框（米杏浅色主题那块），
+        里面这三块用他的类名，方便他以后直接套自己的 CSS。 */
+  const calc = (p, o) => {
+    const pp = parseFloat(p), oo = parseFloat(o);
+    if (!isFinite(pp) || !isFinite(oo) || oo <= 0) return null;
+    return ((pp / 100) * oo - 1) * 100;
+  };
+  const fmt = (lab, p, o) => {
+    const v = calc(p, o);
+    if (v == null) return `<span class="ev-item negative">${lab} —</span>`;
+    const num = parseFloat(v.toFixed(1));
+    return `<span class="ev-item ${num > 0 ? 'positive' : 'negative'}">` +
+      `${lab} ${num > 0 ? '+' : ''}${v.toFixed(1)}%</span>`;
+  };
+  return `<div class="m-ev">` +
+    `<span class="ev-title">胜平负 EV</span>` +
+    `<div class="ev-items">` +
+    fmt('主', r.prob && r.prob.home, euV.home) +
+    fmt('平', r.prob && r.prob.draw, euV.draw) +
+    fmt('客', r.prob && r.prob.away, euV.away) +
+    `</div></div>`;
+}
+
+/* ============================================================
    【比分推荐 · 3 个】用户 2026-10-17 追加：竞彩卡片上给三个推荐比分
    ------------------------------------------------------------
    怎么算（和详情页那个「泊松指数」是同一条路，口径统一）：
@@ -1118,7 +1164,12 @@ function renderMatch(m) {
     (m.round ? `<span class="m-round">${esc(m.round)}</span>` : '') +
     st +
     `<span class="m-time">${esc(dateMD(m.time))} ${esc(timeHM(m.time))}</span>` +
+    /* 【折叠】用户 2026-10-17 给的卡片设计：点头部折叠/展开，右侧一个 ▾。
+       .m-top 现在是可点的（整卡不再是链接，见下方 return），
+       .m-body 包住下面所有内容，折叠时 display:none，▾ 转 90 度。 */
+    `<span class="m-fold" aria-hidden="true">▾</span>` +
     `</div>` +
+    `<div class="m-body">` +
     `<div class="m-teams">` +
     `<span class="m-team home">${hs}${esc(m.home.name)}${hc}</span>` +
     /* 【比分显示】用户 2026-10-17：「已完场要有比分显示」（进行中本来就有）。
@@ -1168,8 +1219,14 @@ function renderMatch(m) {
           opt(`客${esc(r.prob.away)}%`, onThree === 'away') +
           `</span>` +
           (ub ? `<span class="m-probrow"><span class="m-problab">不败</span>` +
+            /* 【三档】用户 2026-10-17 设计：主不败 / 平手交流 / 客不败，三个都带概率。
+               · 主不败 = P(主胜)+P(平)   · 客不败 = P(客胜)+P(平)
+               · 平手交流 = P(平)（用户确认「就是平局那个选项，带平局概率」） */
+            `<span class="m-tags">` +
             opt(`主不败${esc(ub.home)}%`, onUb === 'home') +
+            `<i class="m-tag orange">平手交流${esc(r.prob.draw)}%</i>` +
             opt(`客不败${esc(ub.away)}%`, onUb === 'away') +
+            `</span>` +
             `</span>` : '') +
           `</span>`
         : `<span class="m-probs">` +
@@ -1177,17 +1234,19 @@ function renderMatch(m) {
           opt(`平—%`, onThree === 'draw') +
           opt(`客—%`, onThree === 'away') +
           `</span>`) +
+      renderEvRow(r, euV) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderScorePick(m) +
     renderAsianCard(m) +
     renderPoissonCard(m) +
     renderMultiCard(m) +
-    (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
+    (m.code ? `<a class="m-godetail" href="比赛详情.html?c=${encodeURIComponent(m.code)}">看这场数据 ›</a>` : '') +
+    `</div>`;   /* ← .m-body 收尾（折叠时整块隐藏） */
 
-  return m.code
-    ? `<a class="m-cardlink" href="比赛详情.html?c=${encodeURIComponent(m.code)}" aria-label="${esc(m.code)} 比赛详情">`
-      + `<div class="${cls}">${body}</div></a>`
-    : `<div class="${cls}">${body}</div>`;
+  /* 【整卡不再是链接】用户 2026-10-17 给的卡片设计：点【头部】是折叠/展开，不是跳转。
+     所以卡片本身改成 <div>，详情入口只剩 .m-body 末尾那个「看这场数据 ›」（已是 <a>）。
+     这样「点头部折叠」和「看详情」两件事不会打架。 */
+  return `<div class="${cls}">${body}</div>`;
 }
 
 /* ============================================================
@@ -1780,6 +1839,27 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-probrow { display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
   justify-content: flex-end; }
 .m-problab { font-size: 10.5px; color: #6b7488; margin-right: 1px; white-space: nowrap; }
+/* 【不败三档标签】用户 2026-10-17 设计：主不败 / 平手交流 / 客不败（都带概率）
+   主不败=P(主胜)+P(平)、客不败=P(客胜)+P(平)、平手交流=P(平)（用户确认「就是平局那个选项」） */
+.m-tags { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+.m-tag.orange { font-style: normal; font-size: 11px; color: #e0a13c;
+  background: rgba(224,161,60,0.14); padding: 2px 7px; border-radius: 4px; font-weight: 700; }
+/* 【胜平负 EV】用户 2026-10-17：「新增 EV 值展示区」
+   公式：EV = 模型概率 × 赔率 − 1 → 百分比。正数绿（期望盈利）、负数红（期望亏损） */
+.m-ev { display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 7px; padding-top: 7px; border-top: 1px dashed #262d3a; }
+.m-evlab { font-size: 10.5px; color: #6b7488; white-space: nowrap; }
+.m-evitem { font-size: 11px; color: #98a1b2; background: #12151d; padding: 2px 7px;
+  border-radius: 4px; font-variant-numeric: tabular-nums; }
+.m-evitem.pos { color: #47e0a0; background: rgba(71,224,160,0.14); font-weight: 700; }
+.m-evitem.neg { color: #e0687a; background: rgba(224,104,122,0.12); }
+/* 【折叠】用户 2026-10-17：点头部折叠/展开，右侧 ▾ 跟着转
+   ⚠️ 实测被别处的 transform/display 规则压住过 → 这两条用 !important 钉住 */
+.m-card { cursor: pointer; }
+.m-fold { margin-left: auto; font-size: 11px; color: #6b7488; line-height: 1;
+  transition: transform .15s; }
+.m-card.folded .m-body { display: none !important; }
+.m-card.folded .m-fold { transform: rotate(-90deg) !important; }
 /* 【比分推荐 · 3 个】用户 2026-10-17 追加。
    一行放「比分推荐」标签 + 三个比分胶囊（大号比分 + 小号百分比）+ 一句说明。
    ⚠️ 375 / 320 都要不挤爆：胶囊 white-space:nowrap 但整行 flex-wrap，
@@ -2700,7 +2780,82 @@ const html = `<!DOCTYPE html>
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta name="twitter:image:alt" content="春风大奖 —— 彩票球图标与页面标题" />
 ${nav}
-<style>${CSS}</style>
+<style>${CSS}
+/* ============================================================
+   【比赛卡片 · 米杏浅色主题】用户 2026-10-17 直接给的 CSS 设计。
+   ------------------------------------------------------------
+   他那份用的是新类名（.match-card/.match-header/.odds-row/.recommend-bar/
+   .ev-bar/.score-row…），而页面现有的卡片是 .m-card/.m-top/.m-odds/.m-reco/.m-ev/.m-scorepick
+   —— 重命名会牵连十几处已有样式（历史/红黑/详情链接/欧赔分歧…），所以这里做【映射】：
+      .match-card → .m-card        .match-header → .m-top
+      .match-body → .m-body        .odds-row/.odds-item → .m-odds（三列同款底）
+      .recommend-bar → .m-reco     .right-tags .tag → .m-tag / .m-probrow .opt
+      .ev-bar/.ev-item → .m-ev/.m-evitem     .score-row/.score-tag → .m-scorepick/.m-sp-item
+   颜色/圆角/间距/字体全部照他给的值；EV>0 用红、EV<0 用灰（他明确：positive 红、negative 灰）。
+   放在 ${CSS} 之后 + 必要的 !important → 稳稳盖住旧的暗色残留。 */
+.m-card { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 12px !important; margin-bottom: 12px !important; overflow: hidden !important; }
+.m-card .m-top { padding: 12px 14px !important; position: relative; cursor: pointer; }
+.m-card .m-top:active { background: #f9efdd !important; }
+.m-card .m-league, .m-card .m-time, .m-card .m-round, .m-card .m-code,
+.m-card .m-st { color: #8a7a63 !important; }
+.m-card .m-team { color: #4a3a26 !important; font-weight: 700 !important; font-size: 15px !important; }
+.m-card .m-vs { color: #8a7a63 !important; }
+.m-card .m-fold { color: #8a7a63 !important; font-size: 12px !important; }
+.m-card .m-body { padding: 0 14px 14px !important; border-top: 1px solid #f0e2cc !important;
+  max-height: 2000px; overflow: hidden; transition: max-height .35s ease; background: transparent !important; }
+.m-card.folded .m-body { max-height: 0 !important; padding-bottom: 0 !important; display: block !important; }
+/* 赔率行：三块浅底小方块 */
+.m-card .m-odds { background: #f9efdd !important; border: 1px solid #f0e2cc !important;
+  border-radius: 6px !important; padding: 8px !important; margin: 8px 0 !important;
+  justify-content: center !important; gap: 10px !important; flex-wrap: wrap !important; }
+.m-card .m-ol { color: #8a7a63 !important; }
+.m-card .m-ov { color: #4a3a26 !important; background: transparent !important; }
+.m-card .m-ov.on { color: #1a8c5a !important; font-weight: 700 !important; }
+/* 推荐行 */
+.m-card .m-reco { background: #fff6dd !important; border: 0 !important; border-radius: 8px !important;
+  padding: 8px 12px !important; margin: 10px 0 !important; }
+.m-card .m-pick { color: #4a3a26 !important; font-size: 13px !important; }
+.m-card .m-pick b { color: #c0392b !important; font-size: 14px !important; }
+.m-card .m-conf { color: #8a7a63 !important; font-size: 11px !important; margin-left: 6px; }
+.m-card .m-problab { color: #8a7a63 !important; }
+.m-card .m-tag, .m-card .m-probrow .opt {
+  font-size: 11px !important; padding: 3px 8px !important; border-radius: 12px !important;
+  background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  color: #8a7a63 !important; font-style: normal !important; font-weight: 400 !important; }
+.m-card .m-probrow .opt.active { background: #1a8c5a !important; color: #fff !important;
+  border-color: #1a8c5a !important; font-weight: 700 !important; }
+.m-card .m-tag.orange { background: #f5b301 !important; color: #fff !important;
+  border-color: #f5b301 !important; font-weight: 700 !important; }
+/* EV 行：外层 .m-ev 只管底色/边框（米杏主题），里面按用户给的类名走 */
+.m-card .m-ev { background: #f4f8f5 !important; border: 1px solid #d0e5d8 !important;
+  border-radius: 8px !important; padding: 8px 12px !important; margin: 0 0 10px !important;
+  display: flex !important; justify-content: space-between !important; align-items: center !important; }
+/* 【用户 2026-10-17 参考实现的类名】.ev-title / .ev-items / .ev-item.positive|negative */
+.m-card .ev-title { color: #1a8c5a !important; font-weight: 700 !important; font-size: 12px !important; }
+.m-card .ev-items { display: flex !important; gap: 10px !important; flex-wrap: wrap !important; }
+.m-card .ev-item { font-weight: 700 !important; font-size: 12px !important; }
+.m-card .ev-item.positive { color: #c0392b !important; }   /* EV > 0 → 红 */
+.m-card .ev-item.negative { color: #8a7a63 !important; }   /* EV ≤ 0 → 灰 */
+/* 兼容我之前那套名字（.m-evlab / .m-evitem.pos|neg），旧页面缓存也不至于没样式 */
+.m-card .m-evlab { color: #1a8c5a !important; font-weight: 700 !important; font-size: 12px !important; }
+.m-card .m-evitem { background: transparent !important; color: #8a7a63 !important;
+  font-weight: 700 !important; padding: 0 !important; font-size: 12px !important; }
+.m-card .m-evitem.pos { color: #c0392b !important; }
+.m-card .m-evitem.neg { color: #8a7a63 !important; }
+/* 比分推荐 */
+.m-card .m-scorepick { border-top: 0 !important; }
+.m-card .m-sp-lab, .m-card .m-sp-note { color: #8a7a63 !important; }
+.m-card .m-sp-item { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 10px !important; color: #4a3a26 !important; }
+.m-card .m-sp-item.on { background: #e3f2ea !important; border-color: #1a8c5a !important;
+  color: #1a8c5a !important; font-weight: 700 !important; }
+/* 亚指换算 / 欧赔分歧 / 泊松 / 多选：跟着卡片换成浅底 */
+.m-card .m-ai, .m-card .m-mc, .m-card .m-poisson, .m-card .m-multi {
+  background: #f9efdd !important; border: 1px solid #f0e2cc !important; border-radius: 8px !important; }
+.m-card .m-ai-title, .m-card .m-mc-title, .m-card .m-sp-lab { color: #8a7a63 !important; }
+.m-card .m-godetail { color: #1a8c5a !important; }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -3761,6 +3916,45 @@ ${JC_XYSP_VIEW}
   window.__jcRecoApplied = function () { return last; };
 
   if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+
+/* ============================================================
+   【比赛卡片折叠】用户 2026-10-17 给的卡片设计：
+   「1. 卡片头部（点击折叠/展开）」—— 点 .m-top 就在 .m-card 上切 .folded，
+   由 CSS 隐藏 .m-body、并让 ▾ 转 -90°。
+   ⚠️ 用事件委托（页面里卡片是静态渲染的，不用逐个绑）；
+      点「看这场数据 ›」链接时不要顺手折叠（那个链接在 .m-body 里，
+      而且 .m-top 之外，所以天然不冲突 —— 这里只认 closest('.m-top')）。 */
+(function () {
+  if (typeof document === 'undefined' || !document.addEventListener) return;
+  /* 用户 2026-10-17 给的折叠类名是 .collapsed —— 这里就用它（.folded 保留成别名，
+     样式同时认两个，旧缓存页面也不会坏）。 */
+  function toggleCard(card) {
+    if (!card) return;
+    var now = card.classList.toggle('collapsed');
+    card.classList.toggle('folded', now);          /* 别名，样式也认 */
+    /* 【为什么还要设内联样式】页面里有多条 .m-card.folded .m-body 规则互相压
+       （display:block !important 会盖掉 display:none），实测类名加了却没真正收起。
+       所以折叠状态【由 JS 直接写内联 display】—— 内联优先级最高，CSS 怎么改都不会失灵；
+       同时保留 max-height 过渡（CSS 那边有 .collapsed/.folded 的 max-height:0 时仍会动画）。 */
+    var body = card.querySelector('.m-body');
+    if (body) body.style.display = now ? 'none' : '';
+    var top = card.querySelector('.m-top');
+    if (top) top.setAttribute('aria-expanded', now ? 'false' : 'true');
+  }
+  /* 兼容用户参考实现里的 toggleMatch(cardId) 全局函数 */
+  window.toggleMatch = function (id) { toggleCard(document.getElementById(id)); };
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var top = t && t.closest ? t.closest('.m-top') : null;
+    if (!top) return;
+    var card = top.closest('.m-card');
+    if (!card) return;
+    /* 头部里如果有真正的交互控件（链接/按钮/输入），让它自己处理 */
+    if (t.closest('a[href], button, input, select')) return;
+    toggleCard(card);
+  });
 })();
 </script>
 </body>
