@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-18 00:27",
+ "updated": "2026-10-18 00:29",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -1179,7 +1179,7 @@ const JC_RECO_DATA = {
    "verdict": ""
   },
   {
-   "at": "2026-10-18 00:25",
+   "at": "2026-10-18 00:28",
    "min": 55,
    "rows": [
     {
@@ -1309,76 +1309,6 @@ const JC_RECO_DATA = {
      "result": "lose"
     },
     {
-     "code": "周六019",
-     "time": "2026-10-17 22:00",
-     "league": "英超",
-     "home": "曼城",
-     "away": "伊普斯",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.2,
-     "conf": 78.8,
-     "score": "2:1",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六020",
-     "time": "2026-10-17 22:00",
-     "league": "英超",
-     "home": "富勒姆",
-     "away": "赫尔城",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.65,
-     "conf": 57.7,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六021",
-     "time": "2026-10-17 22:15",
-     "league": "西甲",
-     "home": "比利亚雷",
-     "away": "埃尔切",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.4,
-     "conf": 67.1,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六022",
-     "time": "2026-10-17 23:15",
-     "league": "法甲",
-     "home": "斯特拉斯",
-     "away": "巴黎圣曼",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.4,
-     "conf": 67.6,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六023",
-     "time": "2026-10-18 00:00",
-     "league": "意甲",
-     "home": "博洛尼亚",
-     "away": "国际米兰",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.62,
-     "conf": 58.8,
-     "score": "1:0",
-     "hit": false,
-     "result": "lose"
-    },
-    {
      "code": "周六025",
      "time": "2026-10-18 00:30",
      "league": "德甲",
@@ -1437,7 +1367,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 7,
+   "pending": 4,
    "verdict": ""
   }
  ]
