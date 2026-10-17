@@ -1260,9 +1260,26 @@ export const CHAT_VIDEO_CSS = `
 .cf-video { flex: 0 0 auto; position: relative; width: 100%; height: 180px;
   background: #000; overflow: hidden; cursor: pointer;
   -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+/* 【不裁画面】用户 2026-10-18「手机用户要看得清楚」→ 用 contain 完整显示，不 cover 裁边 */
 .cf-video video { display: block; width: 100%; height: 100%;
-  object-fit: cover; background: #000; }
+  object-fit: contain; background: #000; }
 .cf-video:focus-visible { outline: 2px solid #1a8c5a; outline-offset: -2px; }
+
+/* 【手机放大 · 按 16:9 自适应】原来固定 180px 在小屏上偏小 → 手机上按比例走，
+   宽度撑满、高度由 16:9 算出来（最高不超过 46vh，保证输入框还在）。 */
+@media (max-width: 520px) {
+  .cf-video { height: auto; aspect-ratio: 16 / 9; max-height: 46vh; }
+}
+/* 【一键全屏】右下角那个小方块：点它进系统全屏（iOS 走 webkitEnterFullscreen） */
+.cf-video-fs { position: absolute; right: 8px; bottom: 8px; z-index: 3;
+  width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 16px; line-height: 1; color: #fff;
+  background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.45);
+  cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cf-video-fs:active { background: rgba(0, 0, 0, 0.7); }
+/* 全屏时：铺满、黑底、保持比例完整显示 */
+.cf-video:fullscreen, .cf-video:-webkit-full-screen { width: 100vw; height: 100vh; max-height: none; aspect-ratio: auto; background: #000; }
+.cf-video:fullscreen video, .cf-video:-webkit-full-screen video { object-fit: contain; }
 
 /* 占位块：视频 404 / 解码失败时才 display:flex（JS 加 .cf-video-fail） */
 .cf-video-ph { position: absolute; inset: 0; display: none;
@@ -1295,6 +1312,7 @@ export const CHAT_VIDEO_HTML = `<!-- __CF_VIDEO__ 祝福视频（聊天框顶部
      ⚠️ 不用 alert、不写浏览器存储；视频挂了就占位 + TTS 语音祝福 -->
 <div class="cf-video" id="cfVideoBox" role="button" tabindex="0" aria-label="祝福视频，点一下播放或暂停">
   <video id="cfVideo" src="./blessing.mp4" loop playsinline preload="none"></video>
+  <div class="cf-video-fs" id="cfVideoFs" role="button" tabindex="0" aria-label="全屏观看">⛶</div>
   <div class="cf-video-ph" id="cfVideoPh">
     <div class="cf-video-play" aria-hidden="true">▶</div>
     <div class="cf-video-txt" id="cfVideoTxt">点击播放视频</div>
@@ -1337,6 +1355,34 @@ export const CHAT_VIDEO_JS = `
       }, 4000);
     }
     window.__cfVideoBoot = boot;   /* ← CHAT_JS 的 open() 调的就是这个 */
+
+    /* ---------- 1.5 【一键全屏】用户 2026-10-18：手机上要看得清楚、全屏
+       优先用系统全屏 API（安卓/桌面 Chrome 走 requestFullscreen，
+       iOS Safari 走 video.webkitEnterFullscreen）；都不支持就什么也不做，
+       只靠上面的 16:9 自适应放大（绝不报错）。 */
+    (function () {
+      var fsBtn = document.getElementById('cfVideoFs');
+      if (!fsBtn) return;
+      function goFullscreen(ev) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        if (ev && ev.stopPropagation) ev.stopPropagation();
+        boot();
+        try {
+          if (box.requestFullscreen) { box.requestFullscreen(); return; }
+          if (box.webkitRequestFullscreen) { box.webkitRequestFullscreen(); return; }
+          if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; }
+          if (video.requestFullscreen) { video.requestFullscreen(); return; }
+        } catch (e) { /* 不支持就算了，保持内嵌 16:9 */ }
+      }
+      fsBtn.addEventListener('click', goFullscreen);
+      fsBtn.addEventListener('keydown', function (ev) {
+        if (ev && (ev.key === 'Enter' || ev.key === ' ')) goFullscreen(ev);
+      });
+      /* 退出全屏后把播放状态保持住（有的内核会暂停） */
+      document.addEventListener('fullscreenchange', function () {
+        try { if (!document.fullscreenElement && !video.paused) video.play(); } catch (e) { }
+      });
+    })();
 
     function fallback() {
       if (failed) return;
