@@ -36569,7 +36569,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "拉巴斯竞技",
      "score": 2,
@@ -36635,7 +36635,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "奥克兰联女足",
      "score": 1,
@@ -36673,7 +36673,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "卡拉卡斯(女)",
      "score": 2,
@@ -36739,7 +36739,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "蒂华纳",
      "score": 0,
@@ -36805,7 +36805,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "亚特兰特",
      "score": 1,
@@ -36871,7 +36871,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "布罗德美度",
      "score": 0,
@@ -36949,7 +36949,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "萨瑟兰德",
      "score": 0,
@@ -37027,7 +37027,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "新泻天鹅女足",
      "score": 0,
@@ -37105,7 +37105,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "VONDS市原",
      "score": 0,
@@ -37183,7 +37183,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "橫川武藏野",
      "score": 1,
@@ -37261,7 +37261,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "本田",
      "score": 0,
@@ -37339,7 +37339,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "西悉尼流浪者女足",
      "score": 0,
@@ -37417,7 +37417,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "纽卡斯尔喷气机女足",
      "score": 0,
@@ -37495,7 +37495,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "奧克蘭FC",
      "score": 1,
@@ -37504,7 +37504,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "墨尔本城",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -37573,7 +37573,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "清水鼓动",
      "score": 1,
