@@ -35,6 +35,26 @@ import {
   CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop
 } from './device-gate.mjs';
 
+
+/* 【性能优化】用户 2026-10-17：「网页和桌面顺畅一点」。
+   ① 所有 <img> 补 loading="lazy" + decoding="async"（首屏不用等 226 张图）
+   ② 长页面加 content-visibility:auto（推荐图那 8～10 段先不渲染，滚到才渲染）
+      ⚠️ 只加在 .ro-game（推荐图分节）上 —— 走势图要 JS 量坐标，不能跳过渲染。 */
+function perfify(html) {
+  let s = String(html);
+  s = s.replace(/<img\b([^>]*)>/g, (all, attrs) => {
+    let a = attrs || '';
+    if (!/\bloading=/.test(a)) a += ' loading="lazy"';
+    if (!/\bdecoding=/.test(a)) a += ' decoding="async"';
+    return '<img' + a + '>';
+  });
+  if (!/content-visibility/.test(s)) {
+    s = s.replace(/<\/style>/,
+      '.ro-game{content-visibility:auto;contain-intrinsic-size:auto 900px;}\n</style>');
+  }
+  return s;
+}
+
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
 const ROOT = process.env.DSH_JC_ROOT
   ? path.resolve(process.env.DSH_JC_ROOT)
@@ -2922,10 +2942,13 @@ const html = `<!DOCTYPE html>
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风彩票 · 竞彩场次</title>
-<meta name="description" content="春风彩票 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<title>春风十万里 · 竞彩场次</title>
+<meta name="description" content="春风十万里 · 竞彩场次：免费提供竞彩足球推单、比分与战绩统计等服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
-${metaItemprop('春风彩票 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
+<!-- 微信 / QQ 兼容标签（用户 2026-10-18 给的文案；image 必须是绝对地址，用站点根的 share.png） -->
+<meta itemprop="name" content="春风十万里 - 竞彩足球推荐" />
+<meta itemprop="description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
+<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -2936,24 +2959,26 @@ ${PWA_HEAD}
 <meta name="apple-mobile-web-app-title" content="春风彩票" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
-<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
+<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
+     ⚠️ 用户 2026-10-18 统一品牌为「春风十万里」；图仍是站点根 share.png（绝对地址） -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风彩票" />
-<meta property="og:title" content="春风彩票 · 竞彩场次" />
-<meta property="og:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta property="og:site_name" content="春风十万里" />
+<meta property="og:title" content="春风十万里 - 竞彩足球推荐" />
+<meta property="og:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
+<!-- 微信 / QQ 兼容标签已挪到 <head> 靠前位置（和 title 在一起），这里不重复 -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风彩票 · 竞彩场次" />
-<meta name="twitter:description" content="体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta name="twitter:title" content="春风十万里 - 竞彩足球推荐" />
+<meta name="twitter:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 ${nav}
 <style>${CSS}
 /* ============================================================
@@ -4494,7 +4519,7 @@ ${CHAT_JS}
    ============================================================ */
 const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '足球推荐.html');
-fs.writeFileSync(OUT, safeHtml, 'utf8');
+fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
