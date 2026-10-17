@@ -742,12 +742,34 @@ const MQ_ITEMS_HTML = MQ_ITEMS.join('');
 const MQ_TEXT = MQ_ITEMS_HTML.replace(/<[^>]*>/g, '');
 const MQ_PX = [...MQ_TEXT].reduce((n, ch) => n + (/[\x00-\xff]/.test(ch) ? 6.4 : 11.5), 0);
 const MQ_DUR = Math.min(40, Math.max(12, Math.round(MQ_PX / 36)));
-const HIT_MQ_HTML = `<div class="m-mq" id="jcHitMq">` +
-  `<span class="m-mq-ico" aria-hidden="true">📢</span>` +
-  `<div class="m-mq-view">` +
-  `<div class="m-mq-track" style="animation-duration:${MQ_DUR}s">` +
-  `<div class="m-mq-group">${MQ_ITEMS_HTML}</div>` +
-  `<div class="m-mq-group" aria-hidden="true">${MQ_ITEMS_HTML}</div>` +
+/* 【结构对齐用户 2026-10-17 给的播报条】
+     <div class="broadcast-bar" id="broadcastBar">
+       <div class="horn-icon">📢</div>
+       <div class="broadcast-content"><div class="marquee" id="marqueeText">…</div></div>
+     </div>
+   两套类名同时挂着（broadcast-bar/horn-icon/broadcast-content/marquee + 原有的 m-mq*），
+   这样他给的 CSS 能直接选中，页面原有动画/暂停/减少动效逻辑也照旧生效。
+   ⚠️ 内容仍然是【页面上已经算好的数字】，不是「中奖播报」——
+      这个页面没有中奖数据，绝不编；没有数字可播时才显示「暂无最新播报」。 */
+const MQ_INNER = MQ_ITEMS_HTML || `<span class="m-mq-item">暂无最新播报</span>`;
+/* 【后台数据 → 页面内嵌 JSON】用户 2026-10-17 给的写法是
+     fetch('./data/broadcast.json') + document.getElementById('marqueeText').textContent = ...
+   但本项目的页面在 App 里是 file:// 打开的 —— file:// 下 fetch 同目录文件会被 CORS 拦死
+   （这条之前踩过，所以晒票/推荐串的实时刷新都是 <script src> 轮询，不是 fetch）。
+   等价做法（同样"后台生成、前端读取"）：构建时把这份数组写成页面里的
+     <script type="application/json" id="broadcastData">[{ "text": "…" }, …]</script>
+   页面端的 loadBroadcast() 读它 → 与 fetch json 的效果一致，但没有 CORS 问题、也没有额外请求。
+   ⚠️ 内容是页面上真实的统计（命中率/红黑），不是「中奖」——这个页面没有中奖数据，绝不编。
+   ⚠️ JSON 放在 <script> 里必须把 < 转义，否则出现 </script> 会截断页面。 */
+const BC_JSON = JSON.stringify(MQ_ITEMS.map((h) => ({ text: h.replace(/<[^>]*>/g, '').trim() })))
+  .replace(/</g, '\\u003c');
+const HIT_MQ_HTML = `<script type="application/json" id="broadcastData">${BC_JSON}</script>` +
+  `<div class="m-mq broadcast-bar" id="broadcastBar">` +
+  `<div class="m-mq-ico horn-icon" aria-hidden="true">📢</div>` +
+  `<div class="m-mq-view broadcast-content">` +
+  `<div class="m-mq-track marquee" id="marqueeText" style="animation-duration:${MQ_DUR}s">` +
+  `<div class="m-mq-group">${MQ_INNER}</div>` +
+  `<div class="m-mq-group" aria-hidden="true">${MQ_INNER}</div>` +
   `</div></div></div>`;
 
 /* ============================================================
@@ -1326,10 +1348,21 @@ function recoStatBarInner() {
       ? `还有 ${REC_STAT.pending} 组没打完`
       : (recTime ? `更新于 ${esc(recTime)}` : '已更新'))
     : '暂未开始统计';
-  return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
-    `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
-    `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
-    `<span class="n">（推荐串比对最终比分 · ${note}）</span>`;
+  /* 【类名对齐用户 2026-10-17 给的结构】他给的是：
+       <div class="record-bar" id="recStatsBar">
+         <span class="label">推荐串战绩</span>
+         <span class="red" id="recRedText">红 0</span>
+         <span class="black" id="recBlackText">黑 0</span>
+         <span class="rate" id="recRateText">命中率 —</span>
+         <span class="note">（推荐串比对最终比分）</span>
+       </div>
+     所以这里用 .red/.black/.rate/.note + 三个 id —— 他以后可以直接
+     document.getElementById('recRedText').textContent = '红 20' 这样更新。
+     ⚠️ 旧类名（.h/.m/.r/.n）保留成同款样式，老缓存页面不至于没样式。 */
+  return `<span class="red h" id="recRedText">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
+    `<span class="black m" id="recBlackText">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
+    `<span class="rate r" id="recRateText">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
+    `<span class="note n">（推荐串比对最终比分 · ${note}）</span>`;
 }
 
 /* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
@@ -1341,8 +1374,11 @@ function recoStatBarInner() {
    ⚠️ 没有统计结果时【整条不渲染】—— 不显示空标题、不拿 0 冒充"算过了"。 */
 function recoStatBarTop() {
   if (!REC_STAT) return '';
-  return `<div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">` +
-    `<span class="t">推荐串战绩</span>` +
+  /* 【对齐用户的 record-bar 结构】外层用 .record-bar + id="recStatsBar"，
+     同时保留旧 id="jcRecStat"（30 秒刷新脚本靠它找元素）——
+     两个 id 不能同时给一个元素，所以脚本里改成「先找 recStatsBar，再退回 jcRecStat」。 */
+  return `<div class="record record-bar" id="recStatsBar" data-reco-updated="${esc(RECO_STAMP)}">` +
+    `<span class="label t">推荐串战绩</span>` +
     recoStatBarInner() +
     `</div>`;
 }
@@ -2855,6 +2891,37 @@ ${nav}
   background: #f9efdd !important; border: 1px solid #f0e2cc !important; border-radius: 8px !important; }
 .m-card .m-ai-title, .m-card .m-mc-title, .m-card .m-sp-lab { color: #8a7a63 !important; }
 .m-card .m-godetail { color: #1a8c5a !important; }
+/* 【推荐串战绩条】用户 2026-10-17 给的结构：.record-bar / .label / .red / .black / .rate / .note
+   红用深红、黑用深棕、命中率用绿，其余说明文字用米杏副色 */
+.record-bar { display: flex !important; align-items: center !important; flex-wrap: wrap !important;
+  gap: 8px !important; background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 10px !important; padding: 9px 12px !important; margin: 0 0 12px !important;
+  font-size: 12px !important; }
+.record-bar .label { color: #8a7a63 !important; font-weight: 700 !important; }
+.record-bar .red { color: #c0392b !important; font-weight: 700 !important; }
+.record-bar .black { color: #4a3a26 !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record-bar .rate { color: #1a8c5a !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record-bar .note { color: #8a7a63 !important; margin-left: 8px !important; font-weight: 400 !important; }
+/* 【播报条 · 视觉按用户 2026-10-17 给的 CSS】浅黄底 #fff6dd + 边 #f0dfa8 + 6px 圆角
+   + 14px 喇叭 + 18px 高的滚动区 + 红字 12px 加粗。
+   ⚠️ 动画保留页面原来的那套（.m-mq-track 的 keyframes jc-mq-roll：两组内容 + translateX(-50%)
+      → 无缝循环、悬停暂停、prefers-reduced-motion 时可拖动）。
+      没有用他贴的 padding-left:100% + translateX(-100%) 单段写法 ——
+      那种滚完会在屏幕左侧留一整条空白再从头来，看起来像"卡一下"。 */
+.broadcast-bar { display: flex !important; align-items: center !important;
+  background: #fff6dd !important; border: 1px solid #f0dfa8 !important;
+  border-radius: 6px !important; padding: 6px 10px !important; margin-top: 8px !important;
+  overflow: hidden !important; height: auto !important; }
+.broadcast-bar .horn-icon { font-size: 14px !important; margin-right: 8px !important;
+  flex-shrink: 0 !important; line-height: 1 !important; }
+.broadcast-bar .broadcast-content { flex: 1 1 0 !important; min-width: 0 !important;
+  overflow: hidden !important; white-space: nowrap !important; position: relative !important;
+  height: 18px !important; line-height: 18px !important; }
+.broadcast-bar .marquee { color: #c0392b !important; font-size: 12px !important; font-weight: 700 !important; }
+.broadcast-bar .m-mq-item { color: #c0392b !important; font-size: 12px !important;
+  font-weight: 700 !important; line-height: 18px !important; }
+.broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
+.broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
 </style>
 </head>
 <body>
@@ -3879,7 +3946,7 @@ ${JC_XYSP_VIEW}
 (function () {
   var VIEW = 'jc-reco-view.js';
   var POLL_MS = 30000;
-  var bar = document.getElementById('jcRecStat');
+  var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
   if (!bar) return;
   var last = bar.getAttribute('data-reco-updated') || '';
 
@@ -3891,7 +3958,7 @@ ${JC_XYSP_VIEW}
     if (arch && typeof v.arch === 'string') arch.innerHTML = v.arch;
     /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
        轨道本身和动画不动，不会重新从左边滚） */
-    var mq = document.getElementById('jcHitMq');
+    var mq = document.getElementById('broadcastBar') || document.getElementById('jcHitMq');
     if (mq && typeof v.mq === 'string') {
       var gs = mq.querySelectorAll('.m-mq-group');
       for (var i = 0; i < gs.length; i++) gs[i].innerHTML = v.mq;
@@ -3916,6 +3983,47 @@ ${JC_XYSP_VIEW}
   window.__jcRecoApplied = function () { return last; };
 
   if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+
+/* ============================================================
+   【播报数据 · 前端读取】用户 2026-10-17 给的参考写法：
+     async function loadBroadcast() {
+       const res = await fetch('./data/broadcast.json?t=' + Date.now());
+       const data = await res.json();
+       document.getElementById('marqueeText').textContent = data.map(i => i.text).join('  ★  ');
+     }
+   这里改成读页面内嵌的 <script type="application/json" id="broadcastData">：
+     · 页面在 App 里是 file:// 打开，fetch 同目录文件会被 CORS 拦（所以不用 fetch）
+     · 数据仍是"后台生成"的 —— 构建时（云端 GitHub Actions 那次构建）写进页面
+     · 读不到 / 空数组 → 兜底文案「暂无近 7 天播报」（7 天是用户口径）
+   渲染方式保持轨道里【两组一样的内容】→ 无缝循环；每组用「 ★ 」分隔条目。
+   ============================================================ */
+(function () {
+  if (typeof document === 'undefined') return;
+  function loadBroadcast() {
+    var dataEl = document.getElementById('broadcastData');
+    var stage = document.getElementById('marqueeText');
+    if (!stage) return;
+    var items = [];
+    try {
+      var raw = dataEl ? JSON.parse(dataEl.textContent || '[]') : [];
+      items = (Array.isArray(raw) ? raw : [])
+        .map(function (x) { return String((x && x.text) || '').trim(); })
+        .filter(Boolean);
+    } catch (e) { items = []; }
+    var html;
+    if (!items.length) {
+      html = '<span class="m-mq-item">暂无近 7 天播报</span>';
+    } else {
+      var sep = '<span class="m-mq-item" aria-hidden="true">★</span>';
+      html = items.map(function (t) { return '<span class="m-mq-item">' + t + '</span>'; }).join(sep);
+    }
+    var groups = stage.querySelectorAll('.m-mq-group');
+    for (var i = 0; i < groups.length; i++) groups[i].innerHTML = html;
+  }
+  window.__jcLoadBroadcast = loadBroadcast;   /* 给验收脚本一个口子 */
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadBroadcast);
+  else loadBroadcast();
 })();
 
 /* ============================================================
