@@ -610,7 +610,9 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-miss a { display: inline-block; padding: 8px 16px; border: 1px solid var(--ro-ok); border-radius: 8px; font-weight: 700; }
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 设备门 + 一键桌面（device-gate.mjs）
-     放在 </head> 之前 → 电脑端第一帧就是隐藏态，不会先闪出内容。 -->
+     放在 head 收尾标签之前 → 电脑端第一帧就是隐藏态，不会先闪出内容。
+     ⚠️ 这里【别写字面的 head 标签】：页面里多出第二个，任何按「第一处」做的
+        注入都会插错位置；本文件写盘前的断言会直接拦下来。 -->
 <style>${DEVICE_GATE_CSS}${INSTALL_CSS}</style>
 </head>
 <body>
@@ -1882,6 +1884,46 @@ ${INSTALL_JS}
 </html>
 `;
 
+/* ============================================================
+   【第二层防护 · 构建时硬断言】写文件之前先过这一关
+   ------------------------------------------------------------
+   事故（2026-10-17）：注入样式用 String.replace(收尾标签, CSS + 收尾标签) 只替换
+   【第一处】；页面 HTML 注释里也字面写着一个收尾标签 → 整段 CSS 进了注释 → 全废。
+   本页在【写盘之前】自检，任一不过 → exit 1（一个字节都不写）：
+     ① head 开标签正好 1 个
+     ② head 收尾标签正好 1 个（≠1 → 打印次数 + 行号/偏移）
+   ⚠️ 标签字面量故意拆开拼，本文件里不出现完整的 head 开/收尾标签。
+   ============================================================ */
+const T_HEAD_OPEN = '<' + 'head>';
+const T_HEAD_CLOSE = '</' + 'head>';
+function headTagPositions(s, tag) {
+  const out = [];
+  let i = 0;
+  while ((i = s.indexOf(tag, i)) !== -1) { out.push(i); i += tag.length; }
+  return out;
+}
+function headLineNo(s, pos) {
+  let line = 1;
+  for (let i = 0; i < pos && i < s.length; i++) if (s.charCodeAt(i) === 10) line++;
+  return line;
+}
+function assertHeadOnce(finalHtml, label) {
+  const bad = [];
+  const open = headTagPositions(finalHtml, T_HEAD_OPEN);
+  const close = headTagPositions(finalHtml, T_HEAD_CLOSE);
+  const where = (arr) => arr.map((p) => `第 ${headLineNo(finalHtml, p)} 行（偏移 ${p}）`).join(' / ');
+  if (open.length !== 1) bad.push(`${T_HEAD_OPEN} 出现 ${open.length} 次（必须 1 次）${open.length ? ' → ' + where(open) : ''}`);
+  if (close.length !== 1) bad.push(`${T_HEAD_CLOSE} 出现 ${close.length} 次（必须 1 次）${close.length ? ' → ' + where(close) : ''}`);
+  if (bad.length) {
+    console.error(`\n❌ ${label}：head 结构自检失败（${bad.length} 项），产物【没有写出】`);
+    bad.forEach((b, i) => console.error(`   ${i + 1}) ${b}`));
+    console.error('   常见原因：页面别处（尤其是 HTML 注释里）又写了字面的 head 开/收尾标签。\n');
+    process.exit(1);
+  }
+  console.log(`   ✅ head 自检：${T_HEAD_OPEN}=1 · ${T_HEAD_CLOSE}=1`);
+}
+
+assertHeadOnce(html, '比赛详情.html');
 fs.writeFileSync(OUT_FILE, html, 'utf8');
 
 /* ============================================================
