@@ -13118,6 +13118,9 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 /* __TOC_HIDE__ 用户 2026-10-18：「删除换成新的」——旧推荐图目录的格子（含空壳）一律不显示，
    页面改用 #px9 方法目录。 */
 .ro-imgtoc-wrap, .ro-imgtoc, .ro-toc-cell, #ro-toc-mob, .ro-toc-mob { display: none !important; }
+/* __NO_INSTALL__ 用户 2026-10-18 明确要求删掉「添加到手机桌面，更方便更稳定」这块；
+   另一个窗口反复把它加回 HTML，所以这里用 CSS 兜底：不管 HTML 里有没有，一律不显示。 */
+.ro-install, #ro-install, .install-guide, #installGuide { display: none !important; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
