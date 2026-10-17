@@ -1526,7 +1526,7 @@ function buildAiPickHtml() {
   return `<details class="ro-aipick action-card-btn" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
     `<h2 class="ro-aipick-h2 title">GPT模型摇号</h2>` +
-    `<div class="ro-aipick-sub sub">系统随机生成 · 仅供娱乐参考</div>` +
+    `<div class="ro-aipick-sub sub">系统随机生成</div>` +
     `<span class="ro-aipick-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-aipick-body allow-save">` +
@@ -5008,9 +5008,12 @@ a.ro-xj-row.on { background: var(--ro-sunken); }
   .ro-xj-last { display: none; }
 }
 
-  /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示 */
+  /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示
+     ⚠️ 用户 2026-10-18：「顶部怎么不同呢 我要竞彩那页顶部模块」——
+     原因就是这个浮标 top:8px/left:8px 正好压在顶部 Tab（彩票推荐 / 竞彩-足球）上，
+     把切换按钮挡住点不到。现在挪到 Tab 条下面（top:52px） */
   .ro-hot {
-    position: fixed; top: 8px; left: 8px; z-index: 9990;
+    position: fixed; top: 52px; left: 8px; z-index: 9990;
     display: none; align-items: center; gap: 3px;
     padding: 3px 9px 3px 7px; border-radius: 12px;
     background: rgba(255,255,255,.86);
@@ -5606,15 +5609,19 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 }
 .grid-2-col-action > details.action-card-btn > summary::-webkit-details-marker { display: none; }
 .grid-2-col-action > details.action-card-btn > summary::marker { content: ''; }
-/* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text） */
-.grid-2-col-action .title {
+/* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text）
+   ⚠️ 必须带 #ro-action-2col：上面 ⑥⑦ 那层还有一条
+      `.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 13.5px !important }`，
+      它的类选择器有 3 个、比 `.grid-2-col-action .title` 的 2 个更"重"，
+      不加 id 的话字号会被压回去（实测：晒票/GPT 的标题比左边开机号卡小一档）。 */
+#ro-action-2col .title {
   margin: 0 !important;
   font-size: 15px !important;
   font-weight: 700 !important;
   line-height: 1.3 !important;
   color: var(--ro-fg) !important;
 }
-.grid-2-col-action .sub {
+#ro-action-2col .sub {
   margin: 2px 0 0 !important;
   max-width: none !important;
   white-space: normal !important;
@@ -5625,7 +5632,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   line-height: 1.4 !important;
   color: var(--ro-fg2) !important;
 }
-.grid-2-col-action .action-text {
+#ro-action-2col .action-text {
   margin: 8px 0 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -5657,9 +5664,9 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 /* 320 窄屏：字号 / 内边距各收一档，两列不挤爆、不横向溢出 */
 @media (max-width: 360px) {
   .grid-2-col-action { gap: 8px; }
-  .grid-2-col-action .title { font-size: 14px !important; }
-  .grid-2-col-action .sub { font-size: 10px !important; }
-  .grid-2-col-action .action-text { font-size: 10px !important; }
+  #ro-action-2col .title { font-size: 14px !important; }
+  #ro-action-2col .sub { font-size: 10px !important; }
+  #ro-action-2col .action-text { font-size: 10px !important; }
   .grid-2-col-action > details.action-card-btn > summary { padding: 12px 8px !important; margin: 0 -8px !important; }
   .grid-2-col-action > details.action-card-btn { padding: 0 8px !important; }
   .grid-2-col-action > details.action-card-btn[open] { padding-bottom: 10px !important; }
@@ -5671,10 +5678,10 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    ------------------------------------------------------------
    入口 = 4 列网格 8 张图标卡（不是裸 button：div role="button" tabindex="0"）；
    子页面 = position:fixed 全屏覆盖（z-index 高），自带「← 返回」。
-   页面里【没有 alert()】：所有提示都在页面内展开。
+   页面里【没有弹窗】：所有提示都在页面内展开。
    颜色全部走 --ro-* 变量（米杏主题），不引任何外部图表库。 */
 .tools-box { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px; margin: 0 12px 12px; }
-/* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，『点开看』不要了」
+/* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，右边那句提示不要了」
    → 居中单行；右边那句已经删掉（.tools-note 样式留着不碍事，页面上没有这个元素） */
 .tools-head { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; gap: 8px; }
 .tools-title { font-size: 14px; font-weight: 700; color: var(--ro-fg); }
