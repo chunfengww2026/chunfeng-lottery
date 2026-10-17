@@ -715,6 +715,12 @@ const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
 /* 【30 秒实时刷新用】往期比对列表的【内层】HTML —— 由 renderRec() 渲染时顺手存下来，
    给 jc-reco-view.js 复用（保证页面内和刷新后是【同一套渲染】，不写第二份渲染逻辑） */
 let REC_ARCH_INNER = '';
+/* 【30 秒实时刷新用】「推荐」在售那一块的两样东西（用户 2026-10-18 反馈这块从来没刷过）：
+     · REC_COUNT_TEXT = 入口行副标题「在售 · 信心 ≥58% · N 场」
+     · REC_ROWS_INNER = 每场比赛那一行（.m-recrow）的 HTML
+   刷新脚本只换这两样，summary / tips / note / <details> 的 open 状态一律不碰。 */
+let REC_COUNT_TEXT = '';
+let REC_ROWS_INNER = '';
 if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
   /* 用户 2026-10-17：「推荐串战绩只算信心 ≥58% 的场次，低于 58% 的不算」。
      ⚠️ 这里用字面量 58：REC_MIN 的 const 声明在文件更后面，直接引用会踩 TDZ 报错。 */
@@ -1423,6 +1429,13 @@ function recoStatBarInner() {
     `<span class="note n">（推荐串比对最终比分 · ${note}）</span>`;
 }
 
+/* 【整条战绩条 = 左标签 + 数字】刷新脚本要换的就是这一整串。
+   ⚠️ 以前脚本只换 recoStatBarInner()（不含「推荐单」标签）→ 第一轮刷新后
+      那三个字就没了（线上实测过）。现在两边都用本函数，页面初始渲染 ＝ 刷新后。 */
+function recoStatBarHtml() {
+  return `<span class="label t">推荐单</span>` + recoStatBarInner();
+}
+
 /* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
      「红 N 黑 M 命中率 X%（前后 24 小时 · 实时更新）」原来在「推荐串」折叠块【里面】，
      要挪到【外面】，紧跟在「完场战绩」下面做第二条同款战绩条，
@@ -1436,8 +1449,7 @@ function recoStatBarTop() {
      同时保留旧 id="jcRecStat"（30 秒刷新脚本靠它找元素）——
      两个 id 不能同时给一个元素，所以脚本里改成「先找 recStatsBar，再退回 jcRecStat」。 */
   return `<div class="record record-bar" id="recStatsBar" data-reco-updated="${esc(RECO_STAMP)}">` +
-    `<span class="label t">推荐单</span>` +
-    recoStatBarInner() +
+    recoStatBarHtml() +
     `</div>`;
 }
 
@@ -1450,11 +1462,13 @@ function renderRec() {
      ⚠️ 还是 <details>/<summary> 折叠；[open] 切换靠 .m-rec[open] 的 ::after。
      ⚠️ 这一行【只放入口】，不放战绩数字 —— 战绩数字在折叠块外面那条
         recoStatBarTop() 上（用户 2026-10-17 追加要求：放外面）。 */
+  /* 【30 秒刷新】副标题文案先存一份 —— 刷新时按这个字符串换「在售 · 信心 ≥58% · N 场」 */
+  REC_COUNT_TEXT = `在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场`;
   const head =
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
     `<span class="t m-rectitle">推荐</span>` +
-    `<span class="d m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
+    `<span class="d m-reccount">${REC_COUNT_TEXT}</span>` +
     `</span>` +
     `<span class="right m-rectip" aria-hidden="true"></span>` +
     `</summary>`;
@@ -1483,6 +1497,9 @@ function renderRec() {
         ? `还没有推荐数据`
         : `带推荐数据的 ${REC_ALL.length} 场，最高信心 ${REC_MAXCONF}% < ${REC_MIN}%`) +
       `）</div>`;
+  /* 【30 秒刷新】把「推荐」在售那一块的行 HTML 存下来给 jc-reco-view.js 用
+     （页面初始渲染 和 刷新后 是同一份，不会两处慢慢长歪） */
+  REC_ROWS_INNER = body;
 
   /* ---------- 【详情：往期推荐串的比对结果】 ----------
      用户要求：「推荐串详情 —— 前后24小时窗口 + 红黑结果 + 存档+比对机制」，
@@ -1532,13 +1549,19 @@ function renderRec() {
 
   /* 【提示文案】用户 2026-10-17 指定的那句（和设计稿一致） */
   const tips = '<div class="m-rectips">在售场次里挑信心 ≥ 58% 的比赛（统计归纳，不是预测）</div>';
+  /* 【刷新心跳】用户 2026-10-18：「显示最后更新时间，让用户看到在刷」。
+     这一行小字（.reco-sync）＝ 数据是什么时候更新的；30 秒刷新脚本每次拉到文件后
+     会把它改写成「数据更新 02:05 · 已同步 02:31:12」—— 秒数一直往前走，
+     用户一眼就能看出这块是活的（没变数据也不会白闪）。 */
+  const syncRow = `<div class="reco-sync" id="recoSync">` +
+    (RECO_STAMP ? `数据更新 ${esc(RECO_STAMP)}` : '数据已更新') + `</div>`;
   const detail = REC_ROWS_ARCHIVE.length
-    ? pastHead + `<div class="past-list" id="pastList">${pastItems}</div>`
+    ? pastHead + `<div class="past-list" id="pastList">${pastItems}</div>` + syncRow
     : (JC_RECO && Array.isArray(JC_RECO.batches) && JC_RECO.batches.length
       /* 【空态】窗口内一场结果都没有 → 明确说明，不留白、不填假的 */
       ? pastHead + `<div class="past-list" id="pastList">` +
         `<div class="past-empty">近 ${REC_ARCH_HOURS} 小时暂无已出结果的推荐` +
-        (REC_ARCH_PENDING ? `（还有 ${REC_ARCH_PENDING} 组没打完）` : '') + `</div></div>`
+        (REC_ARCH_PENDING ? `（还有 ${REC_ARCH_PENDING} 组没打完）` : '') + `</div></div>` + syncRow
       : '');
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
@@ -2468,6 +2491,21 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .past-match-row .status-black { color: #8a7a63; font-weight: 700; }
 /* 补充（用户没给、这两句是空态/提示用，沿用同色系） */
 .past-pending { font-size: 11px; color: #8a7a63; padding: 0 0 6px; }
+/* 【刷新心跳】推荐历史结果卡最下面那一行小字：数据更新 02:05 · 已同步 02:31:12
+   （用户 2026-10-18：「显示最后更新时间，让用户看到在刷」）
+   · 米杏色同系（#8a7a63 字 / #f0e2cc 虚线）、10.5px、右对齐 → 320px 也不会撑开
+   · 单独成行（border-top 分隔），不挤标题行那一条 flex */
+.reco-sync {
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: #8a7a63;
+  text-align: right;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #f0e2cc;
+  white-space: normal;
+  word-break: break-word;
+}
 .past-empty { font-size: 11.5px; color: #8a7a63; padding: 6px 0; }
 .past-list .loading-text { font-size: 11px; color: #8a7a63; }
 
