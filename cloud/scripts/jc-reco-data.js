@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-18 02:02",
+ "updated": "2026-10-18 02:05",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -1713,7 +1713,7 @@ const JC_RECO_DATA = {
    "verdict": ""
   },
   {
-   "at": "2026-10-18 02:02",
+   "at": "2026-10-18 01:58",
    "min": 58,
    "rows": [
     {
@@ -1825,48 +1825,6 @@ const JC_RECO_DATA = {
      "odds": 1.4,
      "conf": 67.6,
      "score": "1:3",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六023",
-     "time": "2026-10-18 00:00",
-     "league": "意甲",
-     "home": "博洛尼亚",
-     "away": "国际米兰",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.57,
-     "conf": 60.7,
-     "score": "1:0",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周六025",
-     "time": "2026-10-18 00:30",
-     "league": "德甲",
-     "home": "拜仁",
-     "away": "莱红牛",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.25,
-     "conf": 76.3,
-     "score": "2:0",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六026",
-     "time": "2026-10-18 00:30",
-     "league": "西甲",
-     "home": "贝蒂斯",
-     "away": "巴萨",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.44,
-     "conf": 65.6,
-     "score": "0:1",
      "hit": true,
      "result": "win"
     },
