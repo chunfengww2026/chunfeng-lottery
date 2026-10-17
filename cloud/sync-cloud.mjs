@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  sync-cloud.mjs —— 把本机的代码 + 数据全部同步到云端
 //
 //  为什么必须这样做：
@@ -285,6 +285,16 @@ const FROM_ROOT = [
         距开赛太远、或打完很久之后接口返回空数组。云端自己每次足球班次也会
         现场跑 fetch-bifa.mjs 重抓一遍；这里同步过去是【兜底】。 */
   'jc-bifa.js',
+  /* 【联赛积分榜 · 真实积分】jc-standings.js（fetch-standings.mjs 生成）。
+     每场球队的【本季积分】靠它算，详情页「综合模型」那一档的埃罗要用。
+     ⚠️ 必须同步：云端 比赛详情.html 是 cloud-build.mjs 现场跑 build-match.mjs 出的，
+         少了这个文件 → 埃罗退回「名次折算」（页面照旧能开，是静默降一档，
+         所以放进来兜底）。
+     ⚠️【不需要发布到线上】：详情页自包含，构建时已把名次/积分内嵌进 HTML →
+         sync-cloud / cloud-build 的 out/ / workflow 的 site/ 三处里【只需要这一处】。
+     ⚠️ 体积很小：15 个联赛 × 18~30 队，只有名次/积分/场次/胜平负/进球，约 11 KB。
+     云端那一班也会现场跑 fetch-standings.mjs 重抓一遍；这里同步过去是兜底。 */
+  'jc-standings.js',
   
   /* 【留痕断言模块】3 个生成脚本（export-static / export-football / build-trend）
      import 它做"不许出现数据来源字样"的硬校验。
@@ -384,6 +394,12 @@ const CODE_MODULES = [
      ⚠️ 云端能访问（实测 200）；拿不到就【不覆盖旧文件】、这一档降一档，不会让构建挂掉。
      它只读 jc-data.js / jc-history.js（决定要问哪几场），只写 jc-bifa.js。 */
   'fetch-bifa.mjs',
+  /* 【联赛积分榜 · 抓取脚本】2026-10-18 第 6 步加的。
+     ⚠️ 必须同步：云端每一班足球场次可以自己重抓一遍当前积分榜，
+         写 jc-standings.js，再由 build-match.mjs 内嵌进详情页 → 埃罗用真实积分。
+     它只读 jc-data.js（决定要抓哪几个联赛），只写 jc-standings.js。
+     ⚠️ 一个联赛都没抓到 → 它【不覆盖旧文件】、直接 exit 1，页面退回名次折算，不会挂。 */
+  'fetch-standings.mjs',
   /* 【走势图】2026-10-17 起它【不再是独立子页】——
      用户要求「留在近30期走势预选参考里面. 删除单独走势图独立页」：
      走势图改成 export-static.mjs import build-trend.mjs 拿一个 HTML 片段，
@@ -810,6 +826,11 @@ if (LIST_ONLY) {
   log('  ✅ 清单中包含雷达寻胆要内嵌的成交资金面 jc-bifa.js + 抓取脚本 fetch-bifa.mjs：' +
     ((files.some((f) => f.repo === 'cloud/scripts/jc-bifa.js') &&
       files.some((f) => f.repo === 'cloud/scripts/fetch-bifa.mjs')) ? '是' : '否 ❌'));
+  /* 【比赛详情页 · 真实积分】jc-standings.js（联赛积分榜）：
+     少了它云端出的详情页「综合模型」那一档的埃罗会退回「名次折算」（静默降级）。 */
+  log('  ✅ 清单中包含详情页埃罗要用的联赛积分榜 jc-standings.js + 抓取脚本 fetch-standings.mjs：' +
+    ((files.some((f) => f.repo === 'cloud/scripts/jc-standings.js') &&
+      files.some((f) => f.repo === 'cloud/scripts/fetch-standings.mjs')) ? '是' : '否 ❌'));
   log('  ✅ 清单中包含云端要跑的算法/抓取脚本：');
   ['algo.js', 'stats.js', 'templates.js', 'ticket-store.js', 'render.js', 'hit-check.js',
    'data-store.js', 'games.js', 'draw-data.js', 'draw-sources.mjs', 'latest-draws.js',
