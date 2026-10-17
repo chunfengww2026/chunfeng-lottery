@@ -1396,10 +1396,97 @@ export const CHAT_VIDEO_JS = `
       if (video.readyState >= 1) applyRatio();
     })();
 
-    /* ---------- 1.6 【一键全屏】用户 2026-10-18：手机上要看得清楚、全屏
-       优先用系统全屏 API（安卓/桌面 Chrome 走 requestFullscreen，
-       iOS Safari 走 video.webkitEnterFullscreen）；都不支持就什么也不做，
-       只靠上面的 16:9 自适应放大（绝不报错）。 */
+    /* ---------- 1.6 【点击全屏】用户 2026-10-18：点视频 = 全屏看完整竖屏
+       源视频是竖屏 720×1280，聊天框里只能露出中间一条（object-fit:cover）。
+       进入全屏的策略（越靠前越稳）：
+         C. iOS / iPadOS Safari → video.webkitEnterFullscreen()（系统播放器，自带退出按钮）
+         B. 安卓 Chrome / 桌面  → 容器 requestFullscreen()（全屏里 video 走 object-fit:contain）
+         A. 都不支持           → 不强制全屏，直接 play()（至少能看，绝不报错）
+       ⚠️ 全屏必须由用户手势触发：只能放在 click / keydown 里，不能加载后自动调 */
+    function fsEl() {
+      return document.fullscreenElement || document.webkitFullscreenElement ||
+        document.mozFullScreenElement || document.msFullscreenElement || null;
+    }
+    function isIos() {
+      try {
+        var ua = String(navigator.userAgent || '');
+        if (ua.indexOf('iPad') >= 0 || ua.indexOf('iPhone') >= 0 || ua.indexOf('iPod') >= 0) return true;
+        return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      } catch (e) { return false; }
+    }
+    function isFs() { return fsEl() === box; }
+
+    /* A 兜底：能播就播（进不去全屏 / 刚退出全屏时都用它，绝不报错） */
+    function softPlay() {
+      try {
+        if (video.paused) {
+          var p = video.play();
+          if (p && p.catch) p.catch(function () { });
+        }
+      } catch (e) { }
+    }
+
+    function enterFs() {
+      /* C 优先：iOS 原生视频全屏（最稳，自带控件和「完成」退出） */
+      if (isIos()) {
+        try {
+          if (typeof video.webkitEnterFullscreen === 'function') {
+            video.webkitEnterFullscreen();
+            return 'ios';
+          }
+        } catch (e) { }
+      }
+      /* B：容器全屏（安卓 Chrome / 桌面）：全屏里只留视频，CSS 用 contain 不裁 */
+      try {
+        if (box.requestFullscreen) {
+          var p = box.requestFullscreen();
+          if (p && p.catch) p.catch(function () { softPlay(); });
+          return 'box';
+        }
+        if (box.webkitRequestFullscreen) { box.webkitRequestFullscreen(); return 'box'; }
+        if (box.msRequestFullscreen) { box.msRequestFullscreen(); return 'box'; }
+      } catch (e) { }
+      /* 再试 video 自己 */
+      try {
+        if (video.requestFullscreen) {
+          var q = video.requestFullscreen();
+          if (q && q.catch) q.catch(function () { softPlay(); });
+          return 'video';
+        }
+        if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); return 'video'; }
+        if (typeof video.webkitEnterFullscreen === 'function') {
+          video.webkitEnterFullscreen();
+          return 'ios';
+        }
+      } catch (e) { }
+      return 'none';
+    }
+
+    function exitFs() {
+      try {
+        if (document.exitFullscreen) { document.exitFullscreen(); return; }
+        if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); return; }
+        if (document.msExitFullscreen) { document.msExitFullscreen(); return; }
+      } catch (e) { }
+    }
+
+    /* 全屏进 / 出都复位：退出后接着播（循环），提示条不再出现；
+       浏览器自带返回键 / Esc 退出也走这里 */
+    function onFsChange() {
+      try {
+        if (isFs()) { box.classList.add('cf-video-touched'); return; }
+        softPlay();
+      } catch (e) { }
+    }
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
+    /* iOS 原生视频全屏：进 / 出有自己的事件（退出后可能被暂停 → 接着播） */
+    video.addEventListener('webkitbeginfullscreen', function () {
+      try { box.classList.add('cf-video-touched'); } catch (e) { }
+    });
+    video.addEventListener('webkitendfullscreen', function () { softPlay(); });
+
+    /* 右下角那个 ⛶ 小方块：跟点视频同一个入口（保留，让人一眼知道这里有全屏） */
     (function () {
       var fsBtn = document.getElementById('cfVideoFs');
       if (!fsBtn) return;
@@ -1407,20 +1494,13 @@ export const CHAT_VIDEO_JS = `
         if (ev && ev.preventDefault) ev.preventDefault();
         if (ev && ev.stopPropagation) ev.stopPropagation();
         boot();
-        try {
-          if (box.requestFullscreen) { box.requestFullscreen(); return; }
-          if (box.webkitRequestFullscreen) { box.webkitRequestFullscreen(); return; }
-          if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; }
-          if (video.requestFullscreen) { video.requestFullscreen(); return; }
-        } catch (e) { /* 不支持就算了，保持内嵌 16:9 */ }
+        softPlay();
+        if (enterFs() === 'none') softPlay();
+        try { box.classList.add('cf-video-touched'); } catch (e) { }
       }
       fsBtn.addEventListener('click', goFullscreen);
       fsBtn.addEventListener('keydown', function (ev) {
         if (ev && (ev.key === 'Enter' || ev.key === ' ')) goFullscreen(ev);
-      });
-      /* 退出全屏后把播放状态保持住（有的内核会暂停） */
-      document.addEventListener('fullscreenchange', function () {
-        try { if (!document.fullscreenElement && !video.paused) video.play(); } catch (e) { }
       });
     })();
 
@@ -1463,23 +1543,24 @@ export const CHAT_VIDEO_JS = `
       }, 2500);
     }
 
-    /* ---------- 4. 点一下：能播就 播/暂停；挂了就 TTS + 气泡 ---------- */
+    /* ---------- 4. 点一下：进全屏 + 播起来 + TTS 语音祝福 + 2.5 秒黄气泡 ---------- */
     function playMyVideo() {
       boot();
+      /* 已经在全屏里 → 再点一下 = 退出全屏（返回键 / Esc 也走 fullscreenchange） */
+      if (isFs()) { exitFs(); return; }
       if (failed) {
+        /* 视频挂了：没有画面可放大 → 只留 TTS 祝福 + 黄气泡（原行为） */
         if (phTxt) phTxt.textContent = '🎉 祝大家中大奖！';
         speak();
-      } else {
-        try {
-          if (video.paused) {
-            var p = video.play();
-            if (p && p.catch) p.catch(function () { fallback(); });
-          } else {
-            video.pause();
-          }
-        } catch (e) { fallback(); if (phTxt) phTxt.textContent = '🎉 祝大家中大奖！'; speak(); }
+        bubble();
+        return;
       }
-      bubble();
+      softPlay();                       /* 先播起来：全屏切换的一瞬间不黑屏 */
+      var how = enterFs();              /* C 优先 → B → video 自身 → A 兜底 */
+      if (how === 'none') softPlay();   /* A 兜底：进不去全屏就原地播，绝不报错 */
+      speak();                          /* TTS 语音祝福（必须和点击在同一个手势里） */
+      bubble();                         /* 2.5 秒后一条黄色气泡 */
+      try { box.classList.add('cf-video-touched'); } catch (e) { }   /* 提示条只留一次 */
     }
     window.playMyVideo = playMyVideo;   /* 和用户给的设计同名，方便页面里直接调 */
 
