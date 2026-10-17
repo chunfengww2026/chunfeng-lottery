@@ -278,6 +278,14 @@ jobs:
           #      → 浏览器判定"不可安装" → beforeinstallprompt 永远不触发
           #      → 「📱 一键桌面」在安卓 Chrome 上点了只能出引导提示，弹不出原生安装框。
           cp -f cloud/out/service-worker.js site/service-worker.js || true
+          # 【祝福视频】用户 2026-10-18：分享页聊天框顶部的祝福视频（blessing.mp4，2.82 MB）。
+          #   来源是 cloud/scripts/blessing.mp4（由本机 sync-cloud.mjs 的 FROM_ROOT 同步上来），
+          #   【不是】cloud/out/ —— cloud-build.mjs 只搬 out/ 里那几个白名单文件，
+          #   这一个直接走 scripts → site/，所以 cloud-build.mjs 不用改。
+          #   ⚠️ 少了这一行 → 线上 404 → 聊天框里只剩「点击播放视频」占位块
+          #      （点一下仍有 TTS 语音 + 黄色气泡，但视频永远播不了）。
+          #   ⚠️ 必须放在 `mkdir -p site` 之后（本步第一行已经建好）。
+          cp -f cloud/scripts/blessing.mp4 site/blessing.mp4 || true
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
           # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
           # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
@@ -350,6 +358,12 @@ jobs:
             echo "✅ site/service-worker.js  $(du -h "site/service-worker.js" | cut -f1)（纯透传，不缓存）"
           else
             echo "⚠️ site/service-worker.js 缺失 -> 线上 PWA 不可安装（页面仍可访问）"
+          fi
+          # 【祝福视频自证】聊天框顶部那个 video 的 src 就是 ./blessing.mp4。
+          if [ -s site/blessing.mp4 ]; then
+            echo "✅ site/blessing.mp4  $(du -h site/blessing.mp4 | cut -f1)（聊天框顶部祝福视频，懒加载）"
+          else
+            echo "⚠️ site/blessing.mp4 缺失 -> 聊天框视频 404（页面会退回占位块 + TTS 语音，视频播不了）"
           fi
           echo "--- site 目录内容 ---"
           ls -lh site/
