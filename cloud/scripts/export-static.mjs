@@ -5971,9 +5971,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   .ro-install-faq dd { font-size: 11px; }
 }
 </style>
-<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位（第一层防护）：export-site.mjs 只认这个标记，
-     把导航样式插在这一行；页面里【有且只有这一处】，所以不存在"替换第一处"的坑。
-     ⚠️ 别删这一行，也别在页面里再写一处 head 开/收尾标签的字面量。 -->
+<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 ${DEVICE_GATE_BODY}
