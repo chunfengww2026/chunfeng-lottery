@@ -42,6 +42,26 @@ import {
 /* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
 import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
+
+/* 【性能优化】用户 2026-10-17：「网页和桌面顺畅一点」。
+   ① 所有 <img> 补 loading="lazy" + decoding="async"（首屏不用等 226 张图）
+   ② 长页面加 content-visibility:auto（推荐图那 8～10 段先不渲染，滚到才渲染）
+      ⚠️ 只加在 .ro-game（推荐图分节）上 —— 走势图要 JS 量坐标，不能跳过渲染。 */
+function perfify(html) {
+  let s = String(html);
+  s = s.replace(/<img\b([^>]*)>/g, (all, attrs) => {
+    let a = attrs || '';
+    if (!/\bloading=/.test(a)) a += ' loading="lazy"';
+    if (!/\bdecoding=/.test(a)) a += ' decoding="async"';
+    return '<img' + a + '>';
+  });
+  if (!/content-visibility/.test(s)) {
+    s = s.replace(/<\/style>/,
+      '.ro-game{content-visibility:auto;contain-intrinsic-size:auto 900px;}\n</style>');
+  }
+  return s;
+}
+
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
@@ -8210,7 +8230,7 @@ ${CHAT_JS}
    ============================================================ */
 const safeHtml = removeSourceWords(html);
 assertNoSourceTrace(safeHtml, '只读分享版.html');
-fs.writeFileSync(OUT, safeHtml, 'utf8');
+fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
 console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(1)} KB`);
