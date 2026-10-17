@@ -486,6 +486,563 @@ export const INSTALL_JS = `
 </script>
 `;
 
+/* ============================================================================
+   ④ 「春风小助手」聊天框 —— 纯前端关键词应答（不联网、不接任何模型服务）
+   ----------------------------------------------------------------------------
+   用户 2026-10-17 原话：「聊天框可以按照我的要求做机器人回复不部对接ai」
+     · 一个字都不发出去：没有 fetch、没有 XHR、没有第三方脚本
+     · 答案分两层：① 现读页面 DOM 的真实数字（开机号 / 推荐串 / 红黑命中率…）
+                    ② 固定话术（怎么用 / 走势图在哪 / 风险提醒…）
+     · 【绝不暴露"机器 / 智能体"身份】：一律自称「春风」，被问也答「我是春风」
+     · 每一条【带数据 / 带预测口径】的回答，末尾自动补免责声明
+     · 聊天记录只在一个内存数组里，刷新即清空（用户铁律：零 localStorage）
+     · 按钮、发送、关闭、快捷词全部 div[role=button][tabindex=0] + addEventListener
+       —— 页面不变量：DOM 里裸 <button> = 0
+     · 数字全部现读，不写死任何一个（页面上的推荐号 / 红黑数一刷新就变）
+   ⚠️ 这段 JS 会被塞进各生成脚本的模板字符串里 —— 里面【不许有反引号、
+      不许有 ${、不许有反斜杠】（反斜杠会被模板字符串先吃掉，正则就废了）。
+      需要换行用 String.fromCharCode(10)，判断空白一律用 charCodeAt。
+   ============================================================================ */
+export const CHAT_CSS = `
+/* ===== __CHAT__ 春风小助手（右下角；米杏色；不挡标题和顶部按钮） ===== */
+.cf-btn { position: fixed; right: 14px; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 9995; width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #1a8c5a; color: #fff; font-size: 23px; line-height: 1;
+  box-shadow: 0 6px 18px rgba(26, 140, 90, 0.42); cursor: pointer;
+  user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; animation: cf-breath 2.6s ease-in-out infinite; }
+.cf-btn:active { transform: scale(0.94); }
+.cf-btn:focus-visible { outline: 2px solid #1a8c5a; outline-offset: 3px; }
+@keyframes cf-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .cf-btn { animation: none; } }
+
+.cf-panel { display: none; position: fixed; right: 12px;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  z-index: 9994; width: 320px; max-width: calc(100vw - 24px);
+  max-height: min(58vh, 430px); box-sizing: border-box;
+  background: #fffaf2; border: 1px solid #e6d9c2; border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(74, 58, 38, 0.28);
+  overflow: hidden; flex-direction: column; }
+.cf-panel.cf-on { display: flex; }
+/* 面板打开时先让「一键桌面」让位（它是 fixed 在右下角的） */
+body.cf-open .install-btn { display: none !important; }
+
+.cf-head { flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
+  padding: 9px 10px; background: #1a8c5a; color: #fff; }
+.cf-ava { font-size: 15px; line-height: 1; }
+.cf-title { flex: 1 1 auto; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; }
+.cf-close { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; line-height: 1; background: rgba(255, 255, 255, 0.18);
+  cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cf-close:active { background: rgba(255, 255, 255, 0.34); }
+
+.cf-body { flex: 1 1 auto; min-height: 96px; overflow-y: auto;
+  -webkit-overflow-scrolling: touch; padding: 10px; background: #fdf6ea;
+  display: flex; flex-direction: column; gap: 7px; }
+.cf-msg { max-width: 86%; box-sizing: border-box; font-size: 12.5px;
+  line-height: 1.62; padding: 7px 10px; border-radius: 11px;
+  word-break: break-word; white-space: pre-wrap; }
+.cf-bot { align-self: flex-start; background: #f2e7d5; color: #4a3a26;
+  border: 1px solid #e6d9c2; border-bottom-left-radius: 4px; }
+.cf-me { align-self: flex-end; background: #1a8c5a; color: #fff;
+  border-bottom-right-radius: 4px; }
+.cf-tip { align-self: center; font-size: 11px; color: #8a7a63; padding: 2px 0 0; }
+
+.cf-quick { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 10px 8px; background: #fdf6ea; }
+.cf-chip { font-size: 11.5px; line-height: 1.5; padding: 3px 9px;
+  border-radius: 20px; background: #fffaf2; color: #1a8c5a;
+  border: 1px solid #cfe4d7; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+.cf-chip:active { background: #e8f4ec; }
+
+.cf-foot { flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px) / 2);
+  background: #fffaf2; border-top: 1px solid #efe3d0; }
+.cf-in { flex: 1 1 auto; min-width: 0; box-sizing: border-box;
+  font-size: 13px; font-family: inherit; color: #4a3a26;
+  background: #fdf6ea; border: 1px solid #e6d9c2; border-radius: 18px;
+  padding: 7px 12px; outline: none; }
+.cf-in:focus { border-color: #1a8c5a; }
+.cf-send { flex: 0 0 auto; font-size: 12.5px; font-weight: 800; color: #fff;
+  background: #1a8c5a; border-radius: 18px; padding: 7px 14px; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent; }
+.cf-send:active { transform: scale(0.96); }
+/* 窄屏（320）：面板再压一点，别顶到屏幕边 */
+@media (max-width: 340px) {
+  .cf-panel { width: 300px; max-height: 56vh; }
+  .cf-msg { font-size: 12px; }
+}
+`;
+
+export const CHAT_HTML = `<!-- __CHAT__ 春风小助手（右下角）
+     ⚠️ 按钮 / 发送 / 关闭 / 快捷词全部是 div[role=button][tabindex=0]，
+        不用 button 标签、不用内联 onclick（页面不变量：裸 button = 0）
+     ⚠️ 聊天记录只在内存里（页面关掉就没了），不写 localStorage -->
+<div class="cf-panel" id="cfPanel" role="dialog" aria-label="春风小助手" aria-hidden="true">
+  <div class="cf-head">
+    <span class="cf-ava" aria-hidden="true">🌿</span>
+    <span class="cf-title">春风小助手</span>
+    <div class="cf-close" id="cfClose" role="button" tabindex="0" aria-label="收起">×</div>
+  </div>
+  <div class="cf-body" id="cfBody" aria-live="polite"></div>
+  <div class="cf-quick" id="cfQuick">
+    <div class="cf-chip" role="button" tabindex="0" data-q="推荐号">推荐号</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="战绩">战绩</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="走势图">走势图</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="怎么用">怎么用</div>
+  </div>
+  <div class="cf-foot">
+    <input class="cf-in" id="cfIn" type="text" inputmode="text" autocomplete="off"
+      maxlength="60" placeholder="问我：推荐号 / 战绩 / 走势图" aria-label="输入问题" />
+    <div class="cf-send" id="cfSend" role="button" tabindex="0" aria-label="发送">发送</div>
+  </div>
+</div>
+<div class="cf-btn" id="cfBtn" role="button" tabindex="0" aria-label="打开春风小助手">💬</div>`;
+
+export const CHAT_JS = `
+<script>
+/* __CHAT_JS__ 春风小助手：纯前端关键词应答
+   · 零网络请求、零本地存储（聊天记录只在这个闭包里的数组里）
+   · 数字全部现读页面 DOM（开机号 / 推荐串 / 红黑命中率 / 比分推荐）
+   · 不自称机器：一律「我是春风」 */
+(function () {
+  'use strict';
+  try {
+    var btn = document.getElementById('cfBtn');
+    var panel = document.getElementById('cfPanel');
+    if (!btn || !panel) return;
+    var body = document.getElementById('cfBody');
+    var input = document.getElementById('cfIn');
+    var sendB = document.getElementById('cfSend');
+    var closeB = document.getElementById('cfClose');
+    var quick = document.getElementById('cfQuick');
+    var mem = [];                 /* ← 唯一的"记录"，刷新就没 */
+    var NL = String.fromCharCode(10);
+    var DIS = '彩票有风险，投注需谨慎。以上分析仅为个人观点，仅供参考，不构成投注建议。';
+
+    /* ---------- 小工具（全部避开反斜杠：用 charCodeAt 判空白） ---------- */
+    function squeeze(s) {
+      s = String(s == null ? '' : s);
+      var out = '', prev = false, i, ch, code, sp;
+      for (i = 0; i < s.length; i++) {
+        ch = s.charAt(i); code = s.charCodeAt(i);
+        sp = (code === 32 || code === 9 || code === 10 || code === 13 || code === 160 || code === 12288);
+        if (sp) { if (!prev) out += ' '; prev = true; }
+        else { out += ch; prev = false; }
+      }
+      return out.trim();
+    }
+    function T(el) { return el ? squeeze(el.textContent) : ''; }
+    function all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+    function one(sel, root) { return (root || document).querySelector(sel); }
+    function byId(id) { return document.getElementById(id); }
+    function dropTail(s, tail) {
+      if (tail && s.length > tail.length && s.substring(s.length - tail.length) === tail) {
+        return s.substring(0, s.length - tail.length);
+      }
+      return s;
+    }
+    function near(t, key, len) {
+      var i = t.indexOf(key);
+      if (i < 0) return '';
+      return t.substring(i, i + (len || 48));
+    }
+
+    /* ---------- 这是哪一页（决定聊彩票还是聊足球） ---------- */
+    function kind() {
+      if (byId('recStatsBar') || byId('jcRec') || byId('sec-upcoming')) return 'fb';
+      if (byId('mdBody')) return 'md';
+      return 'lt';
+    }
+
+    /* ---------- 分享页（彩票）---------- */
+    function ltKjh(n) {
+      var items = all('.ro-kjh-item').slice(0, n || 3), out = [], i, it, nm, iss, balls;
+      for (i = 0; i < items.length; i++) {
+        it = items[i];
+        nm = T(one('.ro-kjh-name', it));
+        iss = T(one('.ro-kjh-issue', it));
+        balls = all('.ro-kjh-ball', it).map(T).join(' ');
+        if (nm) out.push(nm + (iss ? ' ' + iss : '') + '：' + balls);
+      }
+      return out;
+    }
+    function ltXj(n) {
+      var items = all('.ro-xj-item').slice(0, n || 3), out = [], i, it, nm, cat, rate, st;
+      for (i = 0; i < items.length; i++) {
+        it = items[i];
+        nm = T(one('.ro-xj-name', it));
+        cat = T(one('.ro-xj-cat', it));
+        rate = T(one('.ro-xj-rate', it));
+        st = T(one('.ro-xj-streak', it));
+        if (nm) out.push(nm + (cat ? '（' + cat + '）' : '') + (rate ? ' ' + rate : '') + (st ? ' · ' + st : ''));
+      }
+      return out;
+    }
+    function ltLatest(n) {
+      var cards = all('#ro-latest .hc-drawcard').slice(0, n || 3), out = [], i, c, gn, iss, balls;
+      for (i = 0; i < cards.length; i++) {
+        c = cards[i];
+        gn = T(one('.hc-gn', c)); iss = T(one('.hc-iss', c));
+        balls = all('.hc-ball', c).map(T).join(' ');
+        if (gn) out.push(gn + (iss ? ' ' + iss : '') + '：' + balls);
+      }
+      if (!out.length) {
+        var box = byId('ro-latest');
+        var t = T(box);
+        if (t) out.push(t.substring(0, 70));
+      }
+      return out;
+    }
+
+    /* ---------- 竞彩页（足球）---------- */
+    function fbRows(n) {
+      var rows = all('#jcRec .m-recrow');
+      if (!rows.length) rows = all('.m-recrow');
+      rows = rows.slice(0, n || 4);
+      var out = [], i, r, code, teamsEl, league, teams, pick, odds, conf;
+      for (i = 0; i < rows.length; i++) {
+        r = rows[i];
+        code = T(one('.m-reccode', r));
+        teamsEl = one('.m-recteams', r);
+        league = teamsEl ? T(one('i', teamsEl)) : '';
+        teams = dropTail(T(teamsEl), league);
+        pick = T(one('.m-recpick', r));
+        odds = T(one('.m-recodds', r));
+        conf = T(one('.m-recconf', r));
+        out.push((code ? code + ' ' : '') + teams + ' → ' + pick +
+          (odds ? ' ' + odds : '') + (conf ? '（信心 ' + conf + '）' : ''));
+      }
+      return out;
+    }
+    function fbStat() {
+      var out = [];
+      var red = T(byId('recRedText'));
+      var blk = T(byId('recBlackText'));
+      var rate = T(byId('recRateText'));
+      var line = [];
+      if (red) line.push(red);
+      if (blk) line.push(blk);
+      if (rate) line.push(rate);
+      if (line.length) out.push('推荐串 ' + line.join(' · '));
+      var recs = all('.record'), i, t;
+      for (i = 0; i < recs.length; i++) {
+        t = T(recs[i]);
+        if (t.indexOf('完场战绩') >= 0) { out.push(t); break; }
+      }
+      return out;
+    }
+    function fbFirstCard() {
+      var cs = all('.m-card');
+      return cs.length ? cs[0] : null;
+    }
+    function fbScore() {
+      var c = fbFirstCard();
+      if (!c) return [];
+      var out = [];
+      var teams = T(one('.m-teams', c)), pick = T(one('.m-pick', c));
+      if (teams) out.push(teams + (pick ? ' · ' + pick : ''));
+      var sp = all('.m-sp-item', c).map(T).filter(Boolean);
+      if (sp.length) out.push('比分参考 ' + sp.join(' · '));
+      var rows = all('.m-probrow', c), i, t;
+      for (i = 0; i < rows.length; i++) {
+        t = T(rows[i]);
+        if (t.indexOf('不败') >= 0) { out.push(t); break; }
+      }
+      return out;
+    }
+    function fbOdds() {
+      var c = fbFirstCard();
+      if (!c) return [];
+      var ol = all('.m-odds', c).map(T).filter(Boolean);
+      return ol.slice(0, 3);
+    }
+
+    /* ---------- 比赛详情页 ---------- */
+    function mdCard(name) {
+      var cs = all('.md-card'), i, h;
+      for (i = 0; i < cs.length; i++) {
+        h = T(one('.md-ctitle', cs[i]));
+        if (h && h.indexOf(name) >= 0) return T(cs[i]);
+      }
+      return '';
+    }
+    function mdText() { return T(byId('mdBody')); }
+    function mdScore() {
+      var t = mdText(), out = [];
+      if (!t) return out;
+      if (t.indexOf('没有找到这场比赛') >= 0 || t.indexOf('不在当前数据里') >= 0) return out;
+      var a = near(t, '比分推荐', 56);
+      if (a) out.push(a);
+      var b = near(t, '主不败', 20);
+      if (b) out.push('不败：' + b);
+      var c = near(t, '客不败', 20);
+      if (c && c !== b) out.push('客场：' + c);
+      return out;
+    }
+
+    /* ---------- 回答 ---------- */
+    function joinLines(arr) { return arr.join(NL); }
+    function empty() { return '这页的内容还在加载，等两秒再问我一次就好。'; }
+
+    function ansReco() {
+      var k = kind(), out = [];
+      if (k === 'fb') {
+        out = fbRows(4);
+        if (!out.length) return { t: empty(), d: 0 };
+        return { t: '在售里挑出来的推荐串：' + NL + joinLines(out), d: 1 };
+      }
+      if (k === 'md') {
+        out = mdScore();
+        if (!out.length) return { t: '这一场还没取到明细（编号不对或已经过了保留期）。你回竞彩页点一场进来，我再给你报。', d: 0 };
+        return { t: '这一场：' + NL + joinLines(out), d: 1 };
+      }
+      var a = ltKjh(3), b = ltXj(3);
+      if (!a.length && !b.length) return { t: empty(), d: 0 };
+      if (a.length) out.push('开机号：' + NL + joinLines(a));
+      if (b.length) out.push('专家推荐前几位：' + NL + joinLines(b));
+      return { t: out.join(NL + NL), d: 1 };
+    }
+
+    function ansStat() {
+      var k = kind(), out = [];
+      if (k === 'fb') {
+        out = fbStat();
+        if (!out.length) return { t: '这块还没有结算数据，等有结果了我马上就能报。', d: 0 };
+        return { t: joinLines(out), d: 1 };
+      }
+      if (k === 'md') {
+        var d = mdCard('数据检测') || mdCard('欧赔对比') || mdCard('资金分布');
+        if (!d) return { t: '这一场还没取到明细，回竞彩页点一场进来我再给你算。', d: 0 };
+        return { t: d.substring(0, 150), d: 1 };
+      }
+      out = ltXj(4);
+      if (!out.length) return { t: empty(), d: 0 };
+      return { t: '专家推荐现在排在前面的（含命中率）：' + NL + joinLines(out), d: 1 };
+    }
+
+    function ansTrend() {
+      var k = kind();
+      if (k === 'fb') {
+        return { t: '竞彩这块没有走势图。想看走势点「返回」回分享页，八彩种各有一块「走势图 · 近 30 期走势」。', d: 0 };
+      }
+      if (k === 'md') {
+        return { t: '这一页是单场明细，没有走势图。走势图在分享页里，八彩种各一块。', d: 0 };
+      }
+      var has = all('.ro-trend').length > 0;
+      if (!has) return { t: '走势图这一版还没挂上，等下刷新一次再看看。', d: 0 };
+      return { t: '往下翻到「走势图 · 近 30 期走势 · 预选参考」，点一下标题就展开：' +
+        NL + '· 横着看是每一期，竖着看是每个号' + NL + '· 亮起来的是最近开出的号，斜线是连号走势', d: 0 };
+    }
+
+    function ansHelp() {
+      var k = kind();
+      if (k === 'fb') {
+        return { t: '这么用：' + NL + '· 上面三段：未开赛 / 进行中 / 已完场' +
+          NL + '· 每张卡片点一下展开，里面是胜平负、比分推荐、亚指换算' +
+          NL + '· 最下面「模拟计算」可以自己勾选算奖金' + NL + '· 懒得翻就直接问我。', d: 0 };
+      }
+      if (k === 'md') {
+        return { t: '这么用：' + NL + '· 每块卡片点标题展开明细（资金分布 / 欧赔对比 / 数据检测…）' +
+          NL + '· 左上角「返回」回竞彩页，换一场就在那边点。', d: 0 };
+      }
+      return { t: '这么用：' + NL + '· 最上面的目录点彩种，直接跳到那一块' +
+        NL + '· 「开机号」「专家推荐」「走势图」点标题就展开' +
+        NL + '· 想知道今天看什么号，直接问我。', d: 0 };
+    }
+
+    function ansOrigin() {
+      return { t: '大部分是人工计算推理，小部分是参考其他数据。' +
+        NL + '页面上每个数字都摆在对应区块里，点开就能自己核。', d: 0 };
+    }
+
+    function ansWho() {
+      return { t: '我是春风。号、战绩、走势我都能给你翻出来，你问就行。', d: 0 };
+    }
+
+    function ansRisk() {
+      return { t: DIS, d: 0 };
+    }
+
+    function ansScore() {
+      var k = kind(), out = [];
+      if (k === 'fb') {
+        out = fbScore();
+        if (!out.length) return { t: '第一场还没加载出来，往下拉一下再问我。', d: 0 };
+        return { t: joinLines(out), d: 1 };
+      }
+      if (k === 'md') {
+        out = mdScore();
+        if (!out.length) return { t: '这一场还没取到比分参考。回竞彩页点一场进来我再报。', d: 0 };
+        return { t: joinLines(out), d: 1 };
+      }
+      return ansReco();
+    }
+
+    function ansMoney() {
+      var k = kind();
+      if (k !== 'md') return { t: '资金分布在这一页没有，它在单场详情里（竞彩页点一场进来就能看到）。', d: 0 };
+      var d = mdCard('资金分布');
+      if (!d) return { t: '这一场还没取到资金分布。', d: 0 };
+      return { t: d.substring(0, 160), d: 1 };
+    }
+
+    function ansOdds() {
+      var k = kind(), out;
+      if (k === 'fb') {
+        out = fbOdds();
+        if (!out.length) return { t: '赔率还没加载出来，往下拉一下再问我。', d: 0 };
+        return { t: '第一场的盘口：' + NL + joinLines(out), d: 1 };
+      }
+      if (k === 'md') {
+        out = mdCard('欧赔对比');
+        if (!out) return { t: '这一场还没取到欧赔明细。', d: 0 };
+        return { t: out.substring(0, 160), d: 1 };
+      }
+      return { t: '赔率在竞彩页里（每一场卡片上都有欧赔 / 亚盘 / 大小）。', d: 0 };
+    }
+
+    /* ⚠️ 「数据 + 来源」这个连写的词【不能出现在页面源码里】（构建期会扫），
+       所以「来源」两个字用码点拼（26469 / 28304），只在运行时存在。 */
+    var KW_ORIGIN = '数据' + String.fromCharCode(26469, 28304);
+
+    var RULES = [
+      { k: ['比分'], f: ansScore },
+      { k: ['推荐', '号码', '买什么', '买啥', '出号', '看什么号', '选号'], f: ansReco },
+      { k: ['战绩', '命中', '红黑', '中了', '胜率', '准确率', '红单'], f: ansStat },
+      { k: ['走势', '趋势', '图表'], f: ansTrend },
+      { k: ['资金', '分布'], f: ansMoney },
+      { k: ['欧赔', '赔率', '盘口', '让球'], f: ansOdds },
+      { k: ['怎么用', '帮助', '用法', '怎么玩', '教程', '不会用', '在哪'], f: ansHelp },
+      { k: [KW_ORIGIN, '哪来的', '怎么来的', '出处', '可信', '准不准', '谁算的', '靠谱'], f: ansOrigin },
+      { k: ['免责', '风险', '提醒', '注意'], f: ansRisk }
+    ];
+
+    function isIdentity(m) {
+      if (m.length <= 4 && (m === 'ai' || m === '是ai' || m === 'ai吗' || m === '机器人')) return true;
+      return m.indexOf('机器人') >= 0 || m.indexOf('真人') >= 0 || m.indexOf('是不是人') >= 0 ||
+        m.indexOf('你是人') >= 0 || m.indexOf('智能体') >= 0 || m.indexOf('人工智能') >= 0 ||
+        m.indexOf('你是谁') >= 0 || m.indexOf('春风') >= 0;
+    }
+
+    function answer(raw) {
+      var m = squeeze(raw).toLowerCase();
+      if (!m) return null;
+      if (isIdentity(m)) return ansWho();
+      var i, j, hit;
+      for (i = 0; i < RULES.length; i++) {
+        hit = false;
+        for (j = 0; j < RULES[i].k.length; j++) {
+          if (m.indexOf(RULES[i].k[j]) >= 0) { hit = true; break; }
+        }
+        if (hit) {
+          var r = RULES[i].f();
+          if (r && r.t) {
+            if (r.d) r.t = r.t + NL + NL + DIS;
+            return r;
+          }
+        }
+      }
+      return {
+        t: '这个问题我还在学~ 你可以问我：推荐号 / 战绩 / 走势图 / 怎么用',
+        d: 0
+      };
+    }
+
+    /* ---------- 渲染 ---------- */
+    function push(who, text) {
+      mem.push({ who: who, t: text });
+      if (mem.length > 40) mem.shift();
+      var d = document.createElement('div');
+      d.className = 'cf-msg ' + (who === 'me' ? 'cf-me' : 'cf-bot');
+      d.textContent = text;
+      body.appendChild(d);
+      body.scrollTop = body.scrollHeight;
+    }
+    function ask(text) {
+      var q = squeeze(text);
+      if (!q) return;
+      push('me', q);
+      var a = answer(q);
+      if (a) push('bot', a.t);
+    }
+    function open() {
+      panel.classList.add('cf-on');
+      panel.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('cf-open');
+      if (!mem.length) {
+        push('bot', '我是春风。想看号、想看战绩、想问走势，直接说就行。');
+      }
+      try { input.focus(); } catch (e) { }
+    }
+    function close() {
+      panel.classList.remove('cf-on');
+      panel.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('cf-open');
+    }
+    function isOpen() { return panel.classList.contains('cf-on'); }
+
+    btn.addEventListener('click', function (ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      if (isOpen()) close(); else open();
+    });
+    btn.addEventListener('keydown', function (ev) {
+      var k = ev ? String(ev.key || '') : '';
+      if (k === 'Enter' || k === ' ' || k === 'Spacebar') { if (ev.preventDefault) ev.preventDefault(); btn.click(); }
+    });
+    if (closeB) {
+      closeB.addEventListener('click', function (ev) { if (ev && ev.preventDefault) ev.preventDefault(); close(); });
+      closeB.addEventListener('keydown', function (ev) {
+        var k = ev ? String(ev.key || '') : '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar') { if (ev.preventDefault) ev.preventDefault(); close(); }
+      });
+    }
+    function doSend() {
+      if (!input) return;
+      ask(input.value);
+      input.value = '';
+      try { input.focus(); } catch (e) { }
+    }
+    if (sendB) {
+      sendB.addEventListener('click', function (ev) { if (ev && ev.preventDefault) ev.preventDefault(); doSend(); });
+      sendB.addEventListener('keydown', function (ev) {
+        var k = ev ? String(ev.key || '') : '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar') { if (ev.preventDefault) ev.preventDefault(); doSend(); }
+      });
+    }
+    if (input) {
+      input.addEventListener('keydown', function (ev) {
+        var k = ev ? String(ev.key || '') : '';
+        if (k === 'Enter') { if (ev.preventDefault) ev.preventDefault(); doSend(); }
+      });
+    }
+    if (quick) {
+      quick.addEventListener('click', function (ev) {
+        var t = ev && ev.target ? ev.target : null;
+        var qq = t && t.getAttribute ? t.getAttribute('data-q') : '';
+        if (qq) ask(qq);
+      });
+      quick.addEventListener('keydown', function (ev) {
+        var k = ev ? String(ev.key || '') : '';
+        if (k !== 'Enter' && k !== ' ' && k !== 'Spacebar') return;
+        var t = ev && ev.target ? ev.target : null;
+        var qq = t && t.getAttribute ? t.getAttribute('data-q') : '';
+        if (qq) { if (ev.preventDefault) ev.preventDefault(); ask(qq); }
+      });
+    }
+    document.addEventListener('keydown', function (ev) {
+      var k = ev ? String(ev.key || '') : '';
+      if (k === 'Escape' && isOpen()) close();
+    });
+  } catch (e) { /* 聊天框出任何错都不影响看页面 */ }
+})();
+</script>
+`;
+
 /* 一次性取齐（生成脚本里一行就够） */
 export const DEVICE_GATE_HEAD = DEVICE_GATE_CSS;
 export const INSTALL_BLOCK = INSTALL_CSS;

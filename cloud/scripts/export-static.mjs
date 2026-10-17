@@ -20,7 +20,8 @@ import { createRequire } from 'node:module';
      · PWA：manifest.json + theme-color + 「📱 一键桌面」
    ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
 import {
-  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY, INSTALL_CSS, INSTALL_HTML, INSTALL_JS
+  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY, INSTALL_CSS, INSTALL_HTML, INSTALL_JS,
+  CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop
 } from './device-gate.mjs';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
 /* 【走势图 · 内联片段】用户 2026-10-17：
@@ -2717,6 +2718,7 @@ const html = `<!DOCTYPE html>
 <title>春风大奖</title>
 <meta name="description" content="春风大奖 · 八彩种推荐图与足球竞彩整理，每日更新，手机点开就能看。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
+${metaItemprop('春风大奖', '春风大奖 · 八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。')}
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -5160,7 +5162,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
      放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
-<style>${DEVICE_GATE_CSS}${INSTALL_CSS}</style>
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}</style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 ${DEVICE_GATE_BODY}
@@ -7828,6 +7830,8 @@ ${RO_RENDER_SCRIPT}
 </script>
 ${INSTALL_HTML}
 ${INSTALL_JS}
+${CHAT_HTML}
+${CHAT_JS}
 </body>
 </html>`;
 
