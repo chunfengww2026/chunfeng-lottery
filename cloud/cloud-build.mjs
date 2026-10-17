@@ -1467,6 +1467,18 @@ function finishOutput(freshRows) {
         } else {
           log('  ℹ️ 没有 jc-reco-view.js（本班没跑 export-football.mjs？）→ 线上刷新这轮不生效');
         }
+        /* 【往期推荐串 · 前端拉取】用户 2026-10-17 要求页面每 60 秒 fetch ./data/recommend.json，
+           所以这份 JSON 必须和 football.html 一起发到 out/data/（线上站点根 /data/）。
+           由 export-football.mjs 生成在 MOD/data/recommend.json。 */
+        const rj = path.join(MOD, 'data', 'recommend.json');
+        if (fs.existsSync(rj)) {
+          const dj = path.join(OUT, 'data');
+          fs.mkdirSync(dj, { recursive: true });
+          fs.copyFileSync(rj, path.join(dj, 'recommend.json'));
+          log(`  ✅ data/recommend.json ${(fs.statSync(rj).size / 1024).toFixed(1)} KB（往期推荐串 60 秒拉取用）`);
+        } else {
+          log('  ℹ️ 没有 data/recommend.json（本班没跑 export-football.mjs？）→ 前端拉取这轮不生效（页面保持烘好的那份）');
+        }
       }
       return;
     }
