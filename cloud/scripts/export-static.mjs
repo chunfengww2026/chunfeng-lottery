@@ -1418,11 +1418,18 @@ function buildXyspHtml() {
   /* 标题那一行 = <summary>（可点、可键盘操作）。
      右侧提示是空 <span>，文字由 CSS 按 [open] 切换 —— 不用 JS。
      默认【收起】：<details> 不带 open 属性。 */
-  return `<details class="ro-xysp" id="ro-xysp">` +
+  /* 【并排两列 · 2026-10-18】用户要求：晒票 + GPT模型摇号 做成并排两列，
+     和「开机号 + 热力图」那一行同一个观感。
+     → 这里只多挂两个类名：容器那层的 .action-card-btn（卡片外观由它给），
+       以及标题/副标题/展开提示的 .title / .sub / .action-text
+       （用户给的 CSS 就是按这三个类名选中的）。
+     ⚠️ 折叠机制一个字没改：还是 <details> + <summary>，
+        还是 CSS 伪元素按 [open] 在「展开 ▸ / 收起 ▾」之间换字。 */
+  return `<details class="ro-xysp action-card-btn" id="ro-xysp">` +
     `<summary class="ro-xysp-head">` +
-    `<h2 class="ro-xysp-h2">晒票</h2>` +
-    `<div class="ro-xysp-sub">各彩种实票图片 · 实时更新 · 点击查看</div>` +
-    `<span class="ro-xysp-arrow" aria-hidden="true"></span>` +
+    `<h2 class="ro-xysp-h2 title">晒票</h2>` +
+    `<div class="ro-xysp-sub sub">各彩种实票图片 · 实时更新</div>` +
+    `<span class="ro-xysp-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
     (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
     body +
@@ -1485,11 +1492,14 @@ function buildAiPickHtml() {
     ` data-ro-aipick-game="${escapeAttr(g.id)}">${escape(g.name)}</a>`
   ).join('');
 
-  return `<details class="ro-aipick" id="ro-aipick">` +
+  /* 【并排两列 · 2026-10-18】同上：只多挂 .action-card-btn / .title / .sub /
+     .action-text 四个类名，折叠与摇号逻辑一个字没改
+     （它仍然放在 #article 外面 —— 防截图锁定的时候，这一块要能点、能摇号）。 */
+  return `<details class="ro-aipick action-card-btn" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
-    `<h2 class="ro-aipick-h2">GPT模型摇号</h2>` +
-    `<div class="ro-aipick-sub">系统随机生成 · 仅供娱乐参考</div>` +
-    `<span class="ro-aipick-arrow" aria-hidden="true"></span>` +
+    `<h2 class="ro-aipick-h2 title">GPT模型摇号</h2>` +
+    `<div class="ro-aipick-sub sub">系统随机生成 · 仅供娱乐参考</div>` +
+    `<span class="ro-aipick-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-aipick-body allow-save">` +
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
@@ -5505,6 +5515,127 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   .grid-2-col .title + .sub { margin-top: 3px; }
   .grid-2-col > .ro-hm-card > summary > :last-child { font-size: 10.5px; }
 }
+
+/* ============================================================
+   ⑨【晒票 + GPT模型摇号 · 并排两列】（用户 2026-10-18 给的设计）
+   ------------------------------------------------------------
+   用户原话：「晒票和 GPT模型摇号 也做成并排两列，跟
+             开机号+热力图 那行同样式」，并直接给了
+             .grid-2-col-action / .action-card-btn 这套 CSS。
+   变量映射（用户给的 → 本站米杏主题）：
+     var(--border)   → var(--ro-line)   #e8d7bd
+     var(--text)     → var(--ro-fg)     #4a3a26
+     var(--text-sub) → var(--ro-fg2)    #8a7a63
+     var(--green)    → var(--ro-ok)     #1a8c5a
+     background:#fff → var(--ro-card)   #fdf6ea
+     #f9efdd（点按反馈）→ 原来就有的那个米杏反馈色，照用
+   为什么 padding 写在 <summary> 而不是 <details>：
+     这一行两格都是 <details>，正文（晒票的图墙 / 摇号面板）展开后
+     要塞回卡片里；所以卡片左右留白给 details、标题行用负 margin
+     铺满整宽 —— 收起时看上去就是用户给的那张「卡片按钮」。
+   ⚠️ 这段必须写在样式表【最后】：上面 ⑥⑦ 那层对
+      .ro-xysp > .ro-xysp-head 写了带 !important 的紧凑横排样式，
+      这里靠【更高的选择器权重 + !important】把它盖成竖排三行卡片。
+   ============================================================ */
+.grid-2-col-action {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: stretch;
+}
+.grid-2-col-action > details { min-width: 0; }
+.grid-2-col-action > details.action-card-btn {
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 10px 0 !important;
+  background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  transition: background .2s;
+}
+/* 展开：正文上下要留白；收起：卡片只有标题行那么高 */
+.grid-2-col-action > details.action-card-btn[open] { padding-bottom: 12px !important; }
+.grid-2-col-action > details.action-card-btn:active { background: #f9efdd !important; }
+/* 卡片脸 = <summary>：铺满整宽 · 竖排三行居中 */
+.grid-2-col-action > details.action-card-btn > summary {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  text-align: center !important;
+  margin: 0 -10px !important;
+  padding: 16px 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.grid-2-col-action > details.action-card-btn > summary::-webkit-details-marker { display: none; }
+.grid-2-col-action > details.action-card-btn > summary::marker { content: ''; }
+/* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text） */
+.grid-2-col-action .title {
+  margin: 0 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: var(--ro-fg) !important;
+}
+.grid-2-col-action .sub {
+  margin: 2px 0 0 !important;
+  max-width: none !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  color: var(--ro-fg2) !important;
+}
+.grid-2-col-action .action-text {
+  margin: 8px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  color: var(--ro-ok) !important;
+}
+/* 「展开 ▸ / 点击查看 ▸」的箭头：上面几层把它清成空串了，这里按用户设计补回来
+   （文字本身还是 ::before 按 [open] 换的 —— 机制没变） */
+.grid-2-col-action > details > summary .ro-xysp-arrow::after,
+.grid-2-col-action > details > summary .ro-aipick-arrow::after { content: ' ▸' !important; }
+.grid-2-col-action > details[open] > summary .ro-xysp-arrow::after,
+.grid-2-col-action > details[open] > summary .ro-aipick-arrow::after { content: ' ▾' !important; }
+/* 展开 → 这一格占满整行（脚本同步 .is-open，:has 兜底老内核没有也能用） */
+.grid-2-col-action.is-open,
+.grid-2-col-action:has(> details[open]) { grid-template-columns: minmax(0, 1fr); }
+/* 展开后的正文：贴住卡片左右 10px 留白，不许横向溢出去 */
+.grid-2-col-action > details > summary + * { margin-top: 12px; }
+.grid-2-col-action .ro-xysp-filter,
+.grid-2-col-action .ro-xysp-pics,
+.grid-2-col-action .ro-xysp-note,
+.grid-2-col-action .ro-aipick-body { min-width: 0; max-width: 100%; }
+/* 【防截图口径】晒票这一格挪到了 #article 外面（要和 GPT 并排），
+   所以这里补一条：锁定时图片墙照样糊掉、点不动 —— 和其它区块一致。
+   GPT 摇号面板不糊（用户要在这状态摇号）。 */
+html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-events: none; }
+/* 320 窄屏：字号 / 内边距各收一档，两列不挤爆、不横向溢出 */
+@media (max-width: 360px) {
+  .grid-2-col-action { gap: 8px; }
+  .grid-2-col-action .title { font-size: 14px !important; }
+  .grid-2-col-action .sub { font-size: 10px !important; }
+  .grid-2-col-action .action-text { font-size: 10px !important; }
+  .grid-2-col-action > details.action-card-btn > summary { padding: 12px 8px !important; margin: 0 -8px !important; }
+  .grid-2-col-action > details.action-card-btn { padding: 0 8px !important; }
+  .grid-2-col-action > details.action-card-btn[open] { padding-bottom: 10px !important; }
+}
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
      放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
@@ -5881,24 +6012,52 @@ ${DEVICE_GATE_BODY}
   })();
   </script>
 
-  <!-- ============================================================
-       【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处）。
-       （同处目录下方的还有「开机号」「热力图」那两个区块，由另一位
-        负责人加的，排在前面 —— 这里不去动它们的顺序。）
-       这一块现在会显示【晒票图片】（图床外链、不下载本体），
-       卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
-  ${xyspHtml}
-
   </div><!-- /#article · 到这里为止的内容会被防截图模糊 -->
 
   <!-- ============================================================
-       【ai选号】用户要求：装在【晒票栏下面】（「晒票栏下面装一个机选的」）。
-       所以顺序是：晒票栏 → ai选号 → 最新开奖。
-       可折叠（<details> 默认收起），面板里可以自己摇号（单式/复式）。
-       这一块【没有图片】→ 图位数量（data-image）不变。
-       ⚠️ 它【故意】放在 #article 外面：防截图 locked 时这一块仍然清晰、能点
-          （用户自己要用它摇号 / 选号 / 保存图片）。 -->
+       __ACTION_2COL__ 晒票 + GPT模型摇号：并排两列（用户 2026-10-18）
+       ------------------------------------------------------------
+       用户原话：「晒票和 GPT模型摇号 也做成并排两列，跟开机号+热力图
+                 那行同样式」，并给了 .grid-2-col-action / .action-card-btn
+       这套 CSS（变量已映射到米杏主题，见样式表最后那段 ⑨）。
+       · 两格都是【原来那两张卡，机制一个字没改】：
+           左 = <details class="ro-xysp action-card-btn"> 原生折叠
+           右 = <details class="ro-aipick action-card-btn"> 原生折叠
+         折叠仍然由 <details>/<summary> 管；「展开 ▸ / 收起 ▾」还是 CSS
+         伪元素按 [open] 换字 —— 没有 onclick、没有裸 button。
+       · 收起 = 两列各占一半；任一格展开 → 它占满整行（图 / 面板要宽），
+         和热力图那一行同一套 .is-open 同步（见页尾那段脚本）。
+       · ⚠️ 这一行【故意】放在 #article 之后：GPT摇号 在防截图锁定时必须
+         仍能点（用户要自己摇号）；晒票的图片区在锁定时由样式表补一条
+         模糊（html.locked .ro-xysp-pics），保护口径没有变松。
+       ============================================================ -->
+  <div class="grid-2-col-action" id="ro-action-2col">
+  ${xyspHtml}
   ${aiPickHtml}
+  </div>
+  <script>
+  /* __ACTION_2COL__ 展开哪一格，哪一格就占满整行（和热力图那行同一套做法）。
+     ⚠️ 只加 / 减一个 class，折叠本身完全由 <details> 管；
+        现代内核 CSS 的 :has() 也已经能自己搞定，这里是老内核的兜底。 */
+  (function () {
+    try {
+      var row = document.getElementById('ro-action-2col');
+      if (!row || !row.querySelectorAll) return;
+      var ds = row.querySelectorAll('details');
+      if (!ds.length) return;
+      function sync() {
+        var open = false;
+        for (var i = 0; i < ds.length; i++) if (ds[i].open) { open = true; break; }
+        if (open) row.classList.add('is-open');
+        else row.classList.remove('is-open');
+      }
+      for (var k = 0; k < ds.length; k++) {
+        ds[k].addEventListener('toggle', sync);
+      }
+      sync();
+    } catch (e) { /* 忽略：布局兜底挂了，折叠本身照样能用 */ }
+  })();
+  </script>
 
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
