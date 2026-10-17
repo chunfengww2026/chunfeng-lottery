@@ -95,7 +95,7 @@
        updated: 'YYYY-MM-DD HH:MM',
        note: '竞彩推荐串存档（程序生成，勿手改）',
        batches: [
-         { at, min, rows: [ { code,time,league,home,away,pick,label,odds,conf,
+         { at, min, rows: [ { code,time,league,home,away,pick,label,type,odds,conf,
                              score,hit,result } ],
            hit, miss, pending, verdict }     // verdict: 红 / 黑 / '' (待定)
        ]
@@ -125,12 +125,42 @@
         code: r.code || '', time: r.time || '', league: r.league || '',
         home: r.home || '', away: r.away || '',
         pick: r.pick || '', label: r.label || '',
+        /* 【推荐类型】必须一起存：离开在售列表后只剩这份存档，
+           type 丢了就只能按 three 判红黑 → 不败推荐（胜或平都算中）
+           会被错判成黑。缺失/未知一律按 'three'（和改造前行为一致）。 */
+        type: r.type === 'unbeaten' ? 'unbeaten' : 'three',
         odds: r.odds == null ? null : r.odds,
         conf: r.conf == null ? null : r.conf,
         score: '', hit: null, result: ''
       })),
       hit: null, miss: null, pending: list.length, verdict: ''
     };
+  }
+
+  /* ============================================================
+     【推荐结果判定】three（胜负平）/ unbeaten（不败）
+     ------------------------------------------------------------
+     判定规则【只写这一份】，别在别处再抄一套：
+       · three    ：只中那一个结果（主胜 / 平 / 客胜 之一）
+       · unbeaten ：主胜或平 / 客胜或平 都算中（双选）
+     ⚠️ 不败推荐如果还用 pick === actual 判，平局会被错判成「黑」。
+     规则和 export-football.mjs 的 recoHit() 一字不差（那边是页面渲染用，
+     本文件不引用页面脚本，所以两边保持同一套规则、改一边必须改另一边）。
+     rec = { pick, type }；type 不是 'unbeaten'（含老存档没有 type）→ 按 three 判，
+     所以对现有全是 three 的存档，结果和改造前完全一致。
+     ============================================================ */
+  /** 「不败」推荐的那一边（'home' | 'away' | ''）；平局推荐没有"不败"边 */
+  function unbeatenSide(rec) {
+    const pick = typeof rec === 'string' ? rec : (rec && rec.pick);
+    return pick === 'home' ? 'home' : (pick === 'away' ? 'away' : '');
+  }
+
+  /** 一条推荐是否命中：three 只中一个；unbeaten 胜或平都算中 */
+  function recoHit(rec, actual) {
+    if (!rec || !actual) return false;
+    const side = unbeatenSide(rec);
+    if (rec.type === 'unbeaten' && side) return actual === 'draw' || actual === side;
+    return rec.pick === actual;
   }
 
   /** 整串判红黑：全中=红；有一场不中=黑；有未打完=待定 */
@@ -228,7 +258,9 @@
           const h = +sp[0], a = +sp[1];
           if (isFinite(h) && isFinite(a)) {
             const actual = h > a ? 'home' : (h === a ? 'draw' : 'away');
-            r.hit = (r.pick === actual);
+            /* 判定走 recoHit（three 只中一个 / unbeaten 胜或平都算中），
+               不能写 pick === actual —— 不败推荐的平局会被错判成黑。 */
+            r.hit = recoHit(r, actual);
             r.result = r.hit ? 'win' : 'lose';
           }
         }
@@ -351,7 +383,7 @@
       '   ⚠️ 这是【数据】不是代码；计算逻辑在 jc-reco-archive.js 里。\n' +
       '   每期把「当时那一串推荐」原样存下来；比赛打完后由 jc-reco-build.mjs\n' +
       '   回填终场比分与红黑。窗口：比赛时间前后 ' + RECO_KEEP_HOURS + ' 小时。\n' +
-      '   rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result\n' +
+      '   rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result\n' +
       '   batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */\n' +
       'const JC_RECO_DATA = ' + JSON.stringify(body, null, 1) + ';\n';
   }
@@ -393,7 +425,7 @@
 
   return {
     RECO_KEEP_HOURS, bjNow, bjParse, bjStamp,
-    emptyArchive, rowKey, buildSnapshot, verdictOf,
+    emptyArchive, rowKey, buildSnapshot, verdictOf, unbeatenSide, recoHit,
     mergeArchive, enrichArchive, inWindow, summarize, matchStats,
     visibleBatches, renderDataJs, renderStatsJson
   };
