@@ -5790,9 +5790,142 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 /* __ENTRY2__ 已撤：那组「晒票 / 摇号」入口卡和页面上真正的那两张卡重复，
    已按要求把「晒票 + GPT模型摇号」做成区块级并排（.grid-2-col-action），
    入口就是卡片本身，不再单独放一组跳转卡。 */
-.install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
-.install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
-.install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+/* ============================================================
+   __INSTALL__ 「添加到手机桌面」安装教程（页面最底部 · 页尾之前）
+   ------------------------------------------------------------
+   用户 2026-10-18：「帮我把安装教程放到下面 图片可以变大.
+                     目的让用户清晰的知道怎么安装」
+   · 位置：#article-rest 里、.ro-foot（页尾）/ 免责声明 之前 = 正文最后一块
+   · 形式：CSS 两列卡片（照用户给的图 1）——安卓 / 微信 + 苹果 iPhone 各三步
+   · 配色：全部走米杏主题变量（--ro-bg / --ro-card / --ro-line / --ro-fg /
+           --ro-ok），不写死颜色，和页面其它卡片一套
+   · 纯展示：没有按钮标签、没有内联点击、没有 JS、不碰本地存储
+   · 375 两列 · 320 收成一列（见文件末尾 @media 344px）
+   ============================================================ */
+.ro-install {
+  background: var(--ro-card);
+  border: 1px solid var(--ro-line);
+  border-radius: 14px;
+  padding: 16px 14px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.ro-install-h {
+  display: block;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ro-fg);
+  letter-spacing: .5px;
+}
+.ro-install-lead {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ro-fg2);
+  margin: 6px 0 13px;
+}
+.ro-install-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+}
+.ro-install-card {
+  min-width: 0;
+  box-sizing: border-box;
+  background: var(--ro-bg);
+  border: 1px solid var(--ro-line);
+  border-radius: 12px;
+  padding: 11px 10px 12px;
+}
+.ro-install-plat {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ro-ok);
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--ro-line);
+  white-space: nowrap;
+}
+.ro-install-plat i { font-style: normal; margin-right: 3px; }
+.ro-install-steps { list-style: none; margin: 9px 0 0; padding: 0; }
+.ro-install-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ro-fg);
+  padding: 4px 0;
+}
+.ro-install-steps li b {
+  flex: 0 0 17px;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  border-radius: 50%;
+  background: var(--ro-ok);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 1px;
+}
+.ro-install-steps li span { flex: 1 1 auto; min-width: 0; }
+.ro-install-tip {
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px solid var(--ro-line-soft);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ro-fg3);
+}
+.ro-install-note {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ro-fg2);
+}
+/* 常见问题（用户给的图 2 底部那三条） */
+.ro-install-faq {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ro-line);
+}
+.ro-install-faq h3 {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ro-fg);
+  margin-bottom: 8px;
+}
+.ro-install-faq dl { margin: 0; }
+.ro-install-faq dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ro-fg);
+  line-height: 1.6;
+  margin-top: 7px;
+}
+.ro-install-faq dt:first-child { margin-top: 0; }
+.ro-install-faq dd {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ro-fg2);
+}
+/* 320 窄屏：两列会挤（每张卡只剩 ~109px 内宽），收成一列 */
+@media (max-width: 344px) {
+  .ro-install { padding: 14px 10px; }
+  .ro-install-h { font-size: 16px; }
+  .ro-install-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .ro-install-plat { font-size: 13.5px; }
+  .ro-install-steps li { font-size: 12px; }
+  .ro-install-faq dd { font-size: 11px; }
+}
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -6248,6 +6381,59 @@ ${trendHtml}
   ${sectionsHtml}
 
   ${hitSecHtml}
+
+  <!-- ============================================================
+       __INSTALL__ 「添加到手机桌面」安装教程 —— 页面最底部（页尾之前）
+       ------------------------------------------------------------
+       用户 2026-10-18：「帮我把安装教程放到下面 图片可以变大.
+                         目的让用户清晰的知道怎么安装」
+       · 位置：正文最后一块（#article-rest 里、.ro-foot / 免责声明 之前）
+       · 形式：CSS 两列卡片（照用户给的图 1），米杏色主题
+       · 安卓 / 微信 三步 · 苹果 iPhone 三步 · 底部备注 · 三条常见问题
+       · ⚠️ 纯展示：没有按钮标签、没有内联点击、不用 JS（页面铁律）
+       · ⚠️ 根目录没有安装教程大图，所以没有图片位：只用 CSS 版；
+            图位数量（data-image）因此保持不变。
+       ============================================================ -->
+  <section class="ro-install" id="ro-install" aria-labelledby="ro-install-h">
+    <h2 class="ro-install-h" id="ro-install-h">添加到手机桌面，更方便更稳定</h2>
+    <div class="ro-install-lead">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
+
+    <div class="ro-install-grid">
+      <div class="ro-install-card">
+        <div class="ro-install-plat"><i aria-hidden="true">📱</i>安卓 / 微信</div>
+        <ol class="ro-install-steps">
+          <li><b>1</b><span>点右上角「···」</span></li>
+          <li><b>2</b><span>选「添加到主屏幕」</span></li>
+          <li><b>3</b><span>点「添加」</span></li>
+        </ol>
+        <div class="ro-install-tip">浏览器里也叫「添加到桌面」。</div>
+      </div>
+
+      <div class="ro-install-card">
+        <div class="ro-install-plat"><i aria-hidden="true">🍎</i>苹果 iPhone</div>
+        <ol class="ro-install-steps">
+          <li><b>1</b><span>点底部「分享」图标</span></li>
+          <li><b>2</b><span>选「添加到主屏幕」</span></li>
+          <li><b>3</b><span>点「添加」</span></li>
+        </ol>
+        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点「在浏览器打开」。</div>
+      </div>
+    </div>
+
+    <div class="ro-install-note">备注：添加桌面更方便更稳定</div>
+
+    <div class="ro-install-faq">
+      <h3>常见问题</h3>
+      <dl>
+        <dt>1. 在微信里点不开 / 加不了？</dt>
+        <dd>请复制本页链接，粘贴到手机浏览器（Safari、Chrome 或手机自带浏览器）里打开，再按上面的步骤添加。</dd>
+        <dt>2. 苹果手机找不到「添加到主屏幕」？</dt>
+        <dd>必须用 Safari 打开本页；微信、QQ 这类内置浏览器没有这一项。</dd>
+        <dt>3. 安装后第一次点开没内容？</dt>
+        <dd>安装后首次点击请保持联网，等页面加载完就能正常查看。</dd>
+      </dl>
+    </div>
+  </section>
 
   <div class="ro-foot">
     本页面为只读分享版，仅供观看，无法修改。<br>
@@ -9335,26 +9521,12 @@ ${CHAT_JS}
   });
 })();
 </script>
-<!-- __GUIDE__ 安装指南（内联 SVG，不依赖图片文件，避免 404） -->
-<div class="install-guide">
-  <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="添加到手机桌面示意">
-    <rect width="640" height="300" rx="18" fill="#fff6e6" stroke="#e8d7bd"/>
-    <text x="320" y="44" text-anchor="middle" font-family="sans-serif" font-size="21" font-weight="700" fill="#4a3a26">添加到手机桌面，更方便更稳定</text>
-    <rect x="28" y="70" width="280" height="200" rx="14" fill="#ffffff" stroke="#e8d7bd"/>
-    <text x="168" y="102" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1a8c5a">安卓 / 微信</text>
-    <text x="168" y="136" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">1. 点右上角「···」</text>
-    <text x="168" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="168" y="196" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">3. 点「添加」</text>
-    <text x="168" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#8a7a63">（浏览器菜单里也叫「添加到桌面」）</text>
-    <rect x="332" y="70" width="280" height="200" rx="14" fill="#ffffff" stroke="#e8d7bd"/>
-    <text x="472" y="102" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1a8c5a">苹果 iPhone</text>
-    <text x="472" y="136" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">1. 点底部「分享」图标</text>
-    <text x="472" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="472" y="196" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">3. 点「添加」</text>
-    <text x="472" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#8a7a63">（Safari 才支持，微信里先「在浏览器打开」）</text>
-  </svg>
-  <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
-</div>
+<!-- __GUIDE__ 旧的「安装指南」内联 SVG 卡片【已撤】：用户要求「把安装教程放到下面，
+     图片可以变大、让用户清晰知道怎么安装」——那版是一整张 640×300 的 SVG 小图，
+     手机上是等比缩小的（21px 的标题缩到 ~12px），既看不清、又不在正文最后。
+     现在改成了正文最底部（#article-rest 里、页尾之前）的【CSS 两列卡片】，
+     见上面 __INSTALL__ 那段（#ro-install）：字号是真实 CSS 字号，375/320 都清晰。
+     ⚠️ 根目录没有安装教程大图，所以没有图片位 → 图位数量（data-image）不变。 -->
 <script>
 /* __ENTRY2__ 跳转脚本已撤（那组入口卡和区块本身重复，见上面样式表里的说明）。 */
 </script>

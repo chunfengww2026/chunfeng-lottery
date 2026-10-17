@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-18 02:28",
+ "updated": "2026-10-18 02:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1590,36 +1590,9 @@ const JC_HISTORY = {
    "home": "罗马",
    "away": "热那亚",
    "time": "2026-10-18 02:45",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球/球半",
-    "from": "live",
-    "handicap": -1.25,
-    "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": -1.5,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -1.5,
-     "nowHandicap": -1.25,
-     "initUpWater": 0.85,
-     "nowUpWater": 1.02,
-     "initLine": "球半",
-     "nowLine": "一球/球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 1.48,
     "draw": 4.5,
@@ -1633,11 +1606,11 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 64.2,
-   "result": "",
+   "type": "three",
+   "result": "lose",
    "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "matched": true,
+   "at": "2026-10-17 00:28"
   },
   {
    "code": "周六027",
@@ -1759,20 +1732,47 @@ const JC_HISTORY = {
    "time": "2026-10-18 00:00",
    "score": "1:0",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 0.72,
+    "downWater": 1.07,
+    "openHandicap": 0.75,
+    "openUpWater": 0.82,
+    "openDownWater": 1.02,
+    "totalWater": 1.79,
+    "theoryUpPercent": "59.78",
+    "theoryDownPercent": "40.22",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.75,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.82,
+     "nowUpWater": 0.72,
+     "initLine": "受半球/一球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 5.5,
-    "draw": 4,
-    "away": 1.62
+    "home": 5.75,
+    "draw": 4.2,
+    "away": 1.57
    },
    "prob": {
-    "home": 17.3,
-    "draw": 23.8,
-    "away": 58.8
+    "home": 16.6,
+    "draw": 22.7,
+    "away": 60.7
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 58.8,
+   "conf": 60.7,
    "type": "three",
    "result": "lose",
    "hit": false,

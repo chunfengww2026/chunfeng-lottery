@@ -256,9 +256,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.48,
      "conf": 64.2,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周日003",
@@ -291,7 +291,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 3,
+   "pending": 2,
    "verdict": ""
   },
   {
@@ -532,9 +532,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.48,
      "conf": 64.2,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周日003",
@@ -637,7 +637,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 8,
+   "pending": 7,
    "verdict": ""
   },
   {
@@ -794,9 +794,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周日003",
@@ -913,7 +913,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 9,
+   "pending": 8,
    "verdict": ""
   },
   {
@@ -1056,9 +1056,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周日003",
@@ -1175,7 +1175,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 9,
+   "pending": 8,
    "verdict": ""
   },
   {
@@ -1360,15 +1360,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 5,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 00:58",
@@ -1566,15 +1566,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.57,
      "conf": 60.8,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 6,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 01:21",
@@ -1702,15 +1702,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.55,
      "conf": 61.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 3,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 01:58",
@@ -1852,15 +1852,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 3,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 02:28",
