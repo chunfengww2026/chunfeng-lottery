@@ -224,8 +224,11 @@ export async function makeVariants(buf, opts) {
    条带有重叠，同一行号码会落进相邻两条 → 天然形成「多变体投票」。
    ============================================================ */
 const BAND_LONG = Number(process.env.OCR_BAND_LONG || 1400);
-const BAND_COUNT = Number(process.env.OCR_BAND_COUNT || 6);
-const BAND_RATIO = Number(process.env.OCR_BAND_RATIO || 0.30);
+/* 【参数是实测挑的】12 张真晒票上扫过 count ∈ {6,8,10} × ratio ∈ {0.16,0.22,0.28,0.34}：
+   最佳组合是 10 条 / 28% 高（行被约 3 条覆盖，够投票）；
+   6 条 16%（最早试的）只救得回 1 张，10 条 28% 能救回 3 张。 */
+const BAND_COUNT = Number(process.env.OCR_BAND_COUNT || 10);
+const BAND_RATIO = Number(process.env.OCR_BAND_RATIO || 0.28);
 
 /**
  * 一张原图 → 若干「横向条带」变体（每条都是放大后的 PNG）
@@ -775,36 +778,52 @@ export async function recognizeTicket(buf, gid, opt = {}) {
   /* ============================================================
      【条带兜底】整图一个号都没解析出来 → 再按横向条带跑一遍
      ------------------------------------------------------------
-     为什么只在「失败时」才跑：
-       · 整图能读出来的票，条带读出来的是同一张，纯浪费；
-       · 条带会放进更多噪声读法，只有在没有更好答案时才值得承担。
-     条带自带重叠 → 同一行号码会落进相邻两条，天然满足「≥2 票一致」。
+     为什么只在「失败时」才跑：整图能读出来的票，条带读出来的是同一张，纯浪费。
+     为什么条带【单独投票】而不是并进上面那批读法：
+       条带多（默认 10 条），噪声读法也多；混在一起会把 withTicket 抬高、
+       把真票的一致率压低，反而更容易被丢。所以条带自成一组，
+       仍然要求「组内 ≥2 条一致且一致率 ≥50%」才采用。
+     条带之间是重叠的（ratio 0.28 / 10 条），一行号码会落进约 3 条 → 天然有票。
      ============================================================ */
   let bandUsed = 0;
+  let bandPool = [];
+  let bandIssue = '';
   if (!vote(reads, expectIssue).accepted.length) {
     try {
       const bands = await makeBandVariants(buf);
-      bandUsed = bands.length;
-      for (const v of bands) {
+      const bandReads = [];
+      for (const b of bands) {
         tried++;
         try {
-          const r = await recognizeBuffer(v.png, opt.bandLayout || 'sparse');
-          reads.push({
-            variant: v.name, layout: opt.bandLayout || 'sparse', issue: parseIssue(r.text),
+          const r = await recognizeBuffer(b.png, opt.bandLayout || 'sparse');
+          bandReads.push({
+            variant: b.name, layout: opt.bandLayout || 'sparse', issue: parseIssue(r.text),
             tickets: parseTicketText(r.text, gid), confidence: r.confidence, text: r.text
           });
         } catch (e) { /* 单条失败不影响其它条 */ }
+      }
+      if (bandReads.length) {
+        const bv = vote(bandReads, expectIssue);
+        bandUsed = bands.length;
+        bandIssue = bv.issue || '';
+        if (bv.accepted.length) bandPool = bv.accepted;
       }
     } catch (e) { /* 条带兜底失败不影响主流程 */ }
   }
 
   const ms = Date.now() - t0;
-  if (!reads.length) {
+  if (!reads.length && !bandPool.length) {
     return { ok: false, issue: '', tickets: [], reason: 'OCR 无输出', tried, ms, votes: [] };
   }
 
   const v = vote(reads, expectIssue);
   let pool = v.accepted.length ? v.accepted : (allowWeak ? v.weak : []);
+  let issueOut = v.issue;
+  /* 条带救回来的票（只有主路径一个都没成功时才走到这里） */
+  if (!pool.length && bandPool.length) {
+    pool = bandPool;
+    if (bandIssue) issueOut = bandIssue;
+  }
 
   /* 只保留「和最强读法同一档」的读法，避免把 1 票的噪声也带进来 */
   if (pool.length > 1) {
@@ -837,9 +856,9 @@ export async function recognizeTicket(buf, gid, opt = {}) {
 
   /* 期号过滤：找得到期号、且与当期不是同一期 → 整张丢弃
      （用 sameIssue 归一化比较：票面印 2026119、项目期号 26119 也算同一期） */
-  if (expectIssue && v.issue && !sameIssue(v.issue, expectIssue)) {
+  if (expectIssue && issueOut && !sameIssue(issueOut, expectIssue)) {
     return {
-      ok: false, issue: v.issue, tickets: pool, reason: `期号不符（识别 ${v.issue} ≠ 当期 ${expectIssue}）`,
+      ok: false, issue: issueOut, tickets: pool, reason: `期号不符（识别 ${issueOut} ≠ 当期 ${expectIssue}）`,
       tried, ms, reads: v.reads, withTicket: v.withTicket, rejected: v.rejected, bandUsed,
       text: v.best ? v.best.text : ''
     };
@@ -847,7 +866,7 @@ export async function recognizeTicket(buf, gid, opt = {}) {
 
   if (!pool.length) {
     return {
-      ok: false, issue: v.issue, tickets: [],
+      ok: false, issue: issueOut, tickets: [],
       reason: v.weak.length ? '识别结果不稳定（都没有多變體一致，已丢弃）' : '没识别出合法号码行',
       tried, ms, reads: v.reads, withTicket: v.withTicket, bandUsed,
       weak: v.weak.map((t) => ticketKey(t)), rejected: v.rejected,
@@ -855,12 +874,14 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     };
   }
 
+  /* ok 的口径：主路径「多变体一致」通过 或 条带组内一致通过 —— 都算硬证据 */
+  const hardOk = v.accepted.length > 0 || bandPool.length > 0;
   return {
-    ok: !(v.accepted.length === 0),
-    weak: v.accepted.length === 0,
-    issue: v.issue,
+    ok: hardOk,
+    weak: !hardOk,
+    issue: issueOut,
     tickets: pool,
-    reason: v.accepted.length ? 'ok' : 'weak',
+    reason: hardOk ? 'ok' : 'weak',
     tried, ms, bandUsed,
     reads: v.reads, withTicket: v.withTicket,
     votes: pool.map((t) => ({ key: ticketKey(t), votes: t.votes, rate: t.rate, score: t.score })),
