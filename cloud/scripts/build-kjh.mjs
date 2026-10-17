@@ -326,20 +326,14 @@ if (rKjh.ok) {
 if (!kjhOk) log(`   ✗ 开机号抓取失败（${rKjh.err || '0 个彩种 / 结构变了'}）→ 保留上一次`);
 else log(`   ✓ 开机号 ${Object.keys(games).length} 个彩种`);
 
-/* 3. 抓选号直播 */
-await sleep(DELAY_MS);
-const rLive = await grab(LIVE_URL, UA_D, 'https://m.yiqicai.com/');
-let live = null;
-let liveOk = false;
-if (rLive.ok) {
-  try {
-    live = parseLive(rLive.html);
-    /* 有状态文字就认为解析成功（哪怕当前一条回放都没有） */
-    liveOk = !!live.statusText;
-  } catch (e) { log(`   ⚠️ 选号直播解析异常：${e.message}`); }
-}
-if (!liveOk) log(`   ✗ 选号直播抓取失败（${rLive.err || '结构变了'}）→ 保留上一次`);
-else log(`   ✓ 选号直播：${live.statusText} · 回放 ${live.items.length} 条`);
+/* 3. 【已停用】抓选号直播 —— 用户 2026-10-17：
+   「把选号直播改为热力图」→ 页面不再显示选号直播（换成热力图区块），
+   所以这一段抓取【不再执行】（省一个请求、少一个可能失败的源）。
+   ⚠️ 保留 LIVE_URL / parseLive / 下面的 live 变量：kjh-data.js 里旧字段照旧写空，
+      以后要恢复只把下面三行注释去掉、并把 liveOk 判定接回去即可。 */
+let live = null;                    /* 旧字段：现在恒为 null（页面不再用） */
+let liveOk = true;                  /* 不抓了 → 不算失败（否则整轮会被判失败） */
+void LIVE_URL;
 
 /* 4. 判定：两个源全失败才算整轮失败 */
 if (!kjhOk && !liveOk) {
