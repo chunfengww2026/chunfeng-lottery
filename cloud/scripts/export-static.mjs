@@ -8951,7 +8951,7 @@ ${CHAT_JS}
       '<polyline points="' + pts(a) + '" fill="none" stroke="#1a8c5a" stroke-width="1.8"/>' +
       '</svg>';
     var first = a[0], last = a[a.length - 1];
-    svg += '<div class="tv-spark-x"><span>最旧 ' + first + '</span><span>最新 ' + last + '</span></div>';
+    svg += '<div class="tv-spark-x"><span>最低 ' + Math.round(mn) + ' · 最高 ' + Math.round(mx) + '</span><span>最新 ' + last + '</span></div>';
     if (b) {
       svg += '<div class="tv-legend"><span><i style="background:#1a8c5a"></i>' + aLabel + '</span>' +
         '<span><i style="background:#c9973f"></i>' + bLabel + '</span></div>';
@@ -9124,7 +9124,7 @@ ${CHAT_JS}
       row('连号出现率', p.withConsec + ' / ' + p.used + ' 期 · ' + pctS(p.withConsec, p.used)) +
       row('连号总对数', p.consecPairs + ' 对') +
       row('重号 平均每期', fmt1(p.repeatAvg) + ' 个（和上一期相同）') +
-      row('同尾 期数占比', p.sameTail + ' / ' + p.used + ' 期') +
+      row('同尾（个位相同）期数', p.sameTail + ' / ' + p.used + ' 期') +
       row('最常见奇偶比', p.bestCnt >= 0 ? ('奇 ' + p.bestOdd + ' : 偶 ' + (numsOf(drawsOf(g.id)[0], key).length - p.bestOdd) + '（' + p.bestCnt + ' 期）') : '—'));
     h += note('这几项都是「已经开过的号码里数出来的」：连号 = 相邻两个号都出（如 12 13）；重号 = 和上一期重复的号码；同尾 = 个位数字相同。它们描述过去，不能用来预测下一期。');
     return h;
