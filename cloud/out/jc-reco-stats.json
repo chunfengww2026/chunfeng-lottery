@@ -3,12 +3,12 @@
  "black": 28,
  "rate": "68.9",
  "unfinished": 4,
- "updated": "2026-10-18 03:40",
+ "updated": "2026-10-18 03:44",
  "rateNum": 68.9,
  "decided": 90,
- "rows": 107,
+ "rows": 104,
  "batches": 10,
- "pendingMatches": 17,
+ "pendingMatches": 14,
  "source": "jc-reco-data.js",
- "note": "竞彩推荐串单场战绩（程序生成，勿手改）· 窗口：比赛时间前后 48 小时"
+ "note": "竞彩推荐串单场战绩（程序生成，勿手改）· 窗口：比赛时间前后 36 小时"
 }

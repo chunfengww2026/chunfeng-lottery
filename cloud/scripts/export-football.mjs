@@ -3049,7 +3049,8 @@ ${PWA_HEAD}
 <meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
-<!-- 微信 / QQ 兼容标签已挪到 <head> 靠前位置（和 title 在一起），这里不重复 -->
+<!-- 微信 / QQ 兼容标签已挪到 head 开标签靠前位置（和 title 在一起），这里不重复。
+     ⚠️ 这里别写字面的 head 标签：页面里出现第二个，注入就会插错位置。 -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风十万里 - 竞彩足球推荐" />
 <meta name="twitter:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
@@ -3207,8 +3208,7 @@ ${nav}
         页面里只要多出第二个，注入样式就会插错位置 —— 历史上就因此把整段
         导航 CSS 塞进了注释里。export-site.mjs 写盘前的断言会直接拦下来。 -->
 <style>${DEVICE_GATE_CSS}${CHAT_CSS}</style>
-<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位（第一层防护）：export-site.mjs 只认这个标记，
-     并把导航样式插在这一行；本页有且只有这一处。别删。 -->
+<!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
 <body>
 ${DEVICE_GATE_BODY}
