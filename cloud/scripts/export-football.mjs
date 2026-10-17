@@ -3335,10 +3335,8 @@ ${nav}
    ⚠️ device-gate.mjs 是别人正在改的文件 → 一个字没动，只在本页样式里隐藏。
    ⚠️ 没有删任何事件绑定：按钮只是 display:none，功能（installApp）照旧在胶囊上。
    ⚠️ 比赛详情页那颗「← 返回」浮按钮（.md-fab-back）不在这条里，保留。 */
-#installFab,
-.install-fab {
-  display: none !important;
-}
+/* 【已恢复显示】用户 2026-10-18：「手机版本彩票推荐页没这个」→ 原来圆形按钮用的是 📱 emoji
+   （在他手机上画成紫色骰子）才被这里隐藏；现在换成内联 SVG 手机图标，不再隐藏。 */
 
 /* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
 </style>
@@ -3395,9 +3393,10 @@ ${DEVICE_GATE_BODY}
   <!-- 【一键桌面】用户 2026-10-17：放在顶部（喇叭同一行的右端）。
        ⚠️ 还是 <a role="button">，不用 <button> 标签 —— 页面不变量（0 裸 button）。
        用户 2026-10-18：改成一进来就显示（不再等浏览器允许安装），
-       并在右下角加了一个圆形 📱（💬 保留 + 再加一个 📱）。 -->
-  <a id="installAppBtn" class="install-btn" role="button" tabindex="0">📱 一键桌面</a>
-  <a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面">📱</a>
+       并在右下角加了一个圆形按钮（💬 保留 + 再加一个手机图标）。
+       ⚠️ 图标用内联 SVG：用户手机上 📱 emoji 会画成「紫色骰子」，SVG 不依赖 emoji 字体。 -->
+  <a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="vertical-align:-3px;margin-right:5px"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg>一键桌面</a>
+  <a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg></a>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
