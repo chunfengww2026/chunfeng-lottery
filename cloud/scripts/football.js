@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 96,
+    "minute": 98,
     "home": {
      "name": "波特兰伐木者B队",
      "score": 2,
@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "温哥华FC",
      "score": 2,
@@ -122,7 +122,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 3,
@@ -234,7 +234,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "奥克兰联女足",
      "score": 1,
