@@ -47,6 +47,27 @@ import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
    ① 所有 <img> 补 loading="lazy" + decoding="async"（首屏不用等 226 张图）
    ② 长页面加 content-visibility:auto（推荐图那 8～10 段先不渲染，滚到才渲染）
       ⚠️ 只加在 .ro-game（推荐图分节）上 —— 走势图要 JS 量坐标，不能跳过渲染。 */
+
+/* __RE_SINA__ 下一期参考（媒体预测汇总）：读 sina-predict.json，没有文件就整块不显示 */
+function sinaNextHtml() {
+  try {
+    const p = path.join(SCRIPT_DIR, 'sina-predict.json');
+    if (!fs.existsSync(p)) return '';
+    const d = JSON.parse(fs.readFileSync(p, 'utf8'));
+    const rows = Array.isArray(d.rows) ? d.rows.filter((r) => r && (r.front || []).length >= 3) : [];
+    if (!rows.length) return '';
+    const items = rows.slice(0, 6).map((r) =>
+      '<div class="sx-row"><span class="sx-t">' + escape(String(r.title || '').replace(/^\d+期/, '').slice(0, 22)) + '</span>' +
+      '<span class="sx-f">前 ' + escape((r.front || []).join(' ')) + '</span>' +
+      '<span class="sx-b">后 ' + escape((r.back || []).join(' ')) + '</span></div>').join('');
+    return '<details class="sx-box" open><summary class="sx-head">' +
+      '<span class="sx-title">下一期参考</span>' +
+      '<span class="sx-cnt">' + escape(String(d.issueShort || '')) + ' 期 · ' + rows.length + ' 篇</span>' +
+      '<span class="sx-tip" aria-hidden="true"></span></summary>' +
+      '<div class="sx-note">媒体公开预测的汇总，仅供参考；彩票有风险，理性投注。</div>' +
+      '<div class="sx-list">' + items + '</div></details>';
+  } catch (e) { return ''; }
+}
 function perfify(html) {
   let s = String(html);
   s = s.replace(/<img\b([^>]*)>/g, (all, attrs) => {
@@ -6031,6 +6052,17 @@ ${DEVICE_GATE_BODY}
     <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
     <div class="tool-grid">
       <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+<!-- __RE_ENTRY2_HTML__ 两列入口：晒票 / GPT模型摇号 -->
+<div class="entry2">
+  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-xysp">
+    <div class="entry2-t">晒票</div><div class="entry2-s">各种实票图片</div><div class="entry2-a">展开 ▾</div>
+  </div>
+  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-aipick">
+    <div class="entry2-t">GPT模型摇号</div><div class="entry2-s">系统随机生成</div><div class="entry2-a">点击查看 ▸</div>
+  </div>
+</div>
+<!-- __RE_SINA_HTML__ 下一期参考（有数据才显示） -->
+${sinaNextHtml()}
       <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
       <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
       <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
@@ -9628,6 +9660,28 @@ ${CHAT_JS}
   #roPtr { transition: none; }
   #roPtr .ro-ptr-spin { animation-duration: 2s; }
 }
+/* __RE_SINA__ */
+.sx-box { margin: 10px 0 12px; background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px 12px; }
+.sx-head { display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; }
+.sx-head::-webkit-details-marker { display: none; }
+.sx-title { font-size: 13.5px; font-weight: 700; color: #4a3a26; }
+.sx-cnt { font-size: 11px; color: #8a7a63; }
+.sx-note { font-size: 11px; color: #a89a80; margin: 6px 0 8px; }
+.sx-row { display: flex; gap: 8px; align-items: baseline; font-size: 12px; padding: 5px 0; border-top: 1px solid #f4ead6; }
+.sx-t { color: #4a3a26; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sx-f { color: #c0392b; font-weight: 700; white-space: nowrap; }
+.sx-b { color: #1f5fd6; font-weight: 700; white-space: nowrap; }
+/* __RE_ENTRY2__ 两列入口卡 */
+.entry2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 12px; }
+.entry2-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; }
+.entry2-card:active { background: #f9efdd; transform: scale(0.98); }
+.entry2-t { font-size: 15px; font-weight: 700; color: #4a3a26; }
+.entry2-s { font-size: 11px; color: #8a7a63; margin-top: 4px; }
+.entry2-a { font-size: 12px; font-weight: 700; color: #1a8c5a; margin-top: 8px; }
+/* __RE_GUIDE__ 安装指南 */
+.install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
+.install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
+.install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -9779,6 +9833,34 @@ ${CHAT_JS}
 })();
 </script>
 
+<!-- __RE_GUIDE_HTML__ 安装指南（内联 SVG，不依赖图片文件） -->
+<div class="install-guide">
+  <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="添加到手机桌面示意">
+    <rect width="640" height="260" rx="16" fill="#fff6e6" stroke="#e8d7bd"/>
+    <text x="320" y="36" text-anchor="middle" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a3a26">添加到手机桌面，更方便更稳定</text>
+    <rect x="24" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
+    <text x="167" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">安卓 / 微信</text>
+    <text x="167" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点右上角「···」</text>
+    <text x="167" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
+    <text x="167" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
+    <text x="167" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">浏览器菜单里也叫「添加到桌面」</text>
+    <rect x="330" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
+    <text x="473" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">苹果 iPhone</text>
+    <text x="473" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点底部「分享」图标</text>
+    <text x="473" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
+    <text x="473" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
+    <text x="473" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">Safari 才支持；微信里先「在浏览器打开」</text>
+  </svg>
+  <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
+</div>
+<script>
+(function(){var c=document.querySelectorAll(".entry2-card");for(var i=0;i<c.length;i++){(function(el){
+  function go(){var id=el.getAttribute("data-jump");var t=document.getElementById(id);if(!t)return;
+    var d=t.closest("details");if(d)d.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});}
+  el.addEventListener("click",go);
+  el.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go();}});
+})(c[i]);}})();
+</script>
 </body>
 </html>`;
 
