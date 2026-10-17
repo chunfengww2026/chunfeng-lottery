@@ -3273,7 +3273,9 @@ const TREND_FS_JS = `
       if (document.documentElement) delCls(document.documentElement, 'tr-fs-lock');
     }
     paint();
-    if (fsEl()) redrawSoon();
+    /* 进和出都补画一次：进出时视口宽度变了（横屏 667 vs 竖屏 375），
+       420px 那条媒体查询会让「开出」那一列显隐，补画保证连线还压准格子 */
+    redrawSoon();
   }
   document.addEventListener('fullscreenchange', onFsChange);
   document.addEventListener('webkitfullscreenchange', onFsChange);
