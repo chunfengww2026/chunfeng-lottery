@@ -928,7 +928,17 @@ const tocHtml =
      整体剥掉，标记会跟着消失（规则本身不受影响）。
      HTML 注释不在被剥的范围里，所以标记留在成品页上，改高度前能搜到它。
      ⚠️ 这条注释里【不写任何文件名/站名】。 */
-  `<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->` +
+  `<!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
+<div class="px9" id="px9">
+  <div class="px9-head">推荐图 · 方法</div>
+  <div class="px9-games">
+    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
+    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
+  </div>
+  <div class="px9-methods" id="px9Methods"></div>
+  <div class="px9-out" id="px9Out"></div>
+  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->` +
   `<div class="ro-imgtoc-wrap">` +
   `<div class="ro-imgtoc-head">` +
   `<div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div>` +
@@ -7267,16 +7277,7 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-<!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
-<div class="px9" id="px9">
-  <div class="px9-head">推荐图 · 方法</div>
-  <div class="px9-games">
-    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
-    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
-  </div>
-  <div class="px9-methods" id="px9Methods"></div>
-  <div class="px9-out" id="px9Out"></div>
-  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+
 </div>
 
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
