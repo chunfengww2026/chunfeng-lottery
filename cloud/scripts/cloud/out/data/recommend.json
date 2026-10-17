@@ -1,33 +1,52 @@
 {
- "updated": "2026-10-18 00:57",
- "red": 26,
- "black": 17,
- "rate": "60.5%",
+ "updated": "2026-10-18 01:06",
+ "red": 43,
+ "black": 24,
+ "rate": "64.2%",
  "history": [
   {
    "dateStr": "2026-10-17 02:21",
    "finishTime": 1792174860000,
+   "verdict": "红",
    "matches": [
     {
      "matchNo": "周五003",
      "teams": "布鲁马波 vs 佐加顿斯",
      "pick": "客胜",
      "score": "0:2",
-     "result": "red"
+     "result": "red",
+     "confidence": 62.7,
+     "status": "finished",
+     "finishTime": 1792174860000,
+     "league": "瑞典超",
+     "odds": 1.5,
+     "time": "2026-10-17 01:00"
     },
     {
      "matchNo": "周五005",
      "teams": "登博思 vs 奥斯",
      "pick": "主胜",
      "score": "2:1",
-     "result": "red"
+     "result": "red",
+     "confidence": 60.3,
+     "status": "finished",
+     "finishTime": 1792174860000,
+     "league": "荷乙",
+     "odds": 1.56,
+     "time": "2026-10-17 02:00"
     },
     {
      "matchNo": "周五004",
      "teams": "海伦芬 vs SBV精英",
      "pick": "主胜",
      "score": "4:0",
-     "result": "red"
+     "result": "red",
+     "confidence": 59.2,
+     "status": "finished",
+     "finishTime": 1792174860000,
+     "league": "荷甲",
+     "odds": 1.6,
+     "time": "2026-10-17 02:00"
     }
    ]
   }
