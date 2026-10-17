@@ -410,6 +410,19 @@ jobs:
               printf '  %-20s ❌ 文件不存在\n' "$f"
             fi
           done
+          # 【足球晒票 · 票面照片】2026-10-18 加。
+          #   它的时间戳不是 "updated": 字段，而是 var FB_TICKETS_UPDATED = '...'
+          #   （抓取脚本要同时给浏览器和 node 的 vm 读，见 fetch-football-tickets.mjs）。
+          #   ⚠️ 云端这一步【预期是抓不到】的（源站 405），所以这里看到的时间
+          #      应该等于【本机最后一次同步过来】的时间 —— 如果一直不动，
+          #      说明本机那条 10 分钟任务停了，一眼就能看出来。
+          if [ -f "cloud/scripts/football-tickets.js" ]; then
+            FBT=$(grep -oE "var FB_TICKETS_UPDATED = '[^']*'" cloud/scripts/football-tickets.js | head -1 | sed "s/.*'\([^']*\)'/\1/")
+            FBC=$(grep -oE '"image_url"' cloud/scripts/football-tickets.js | wc -l)
+            printf '  %-20s 最后更新：%s （%s 张）\n' "football-tickets.js" "${FBT:-（读不到）}" "$FBC"
+          else
+            printf '  %-20s ❌ 文件不存在\n' "football-tickets.js"
+          fi
           echo "===== 推荐号码存档 ====="
           grep -oE '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' cloud/scripts/saved-tickets.js | head -1 || true
 
