@@ -31,7 +31,8 @@ import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
      本机 / ?admin=1 / 手机平板 → 放行；电脑浏览器 / 电脑微信 → 拦截。
    ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
 import {
-  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY
+  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY,
+  CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop
 } from './device-gate.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
@@ -2811,6 +2812,7 @@ const html = `<!DOCTYPE html>
 <title>春风大奖 · 竞彩场次</title>
 <meta name="description" content="春风大奖 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
+${metaItemprop('春风大奖 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -2976,7 +2978,7 @@ ${nav}
 </style>
 <!-- __DEVICE_GATE_CSS__ 设备门样式（device-gate.mjs）：放在 </head> 前，
      电脑端第一帧就是隐藏态，不会先闪内容。 -->
-<style>${DEVICE_GATE_CSS}</style>
+<style>${DEVICE_GATE_CSS}${CHAT_CSS}</style>
 </head>
 <body>
 ${DEVICE_GATE_BODY}
@@ -4229,6 +4231,8 @@ ${JC_XYSP_VIEW}
   });
 })();
 </script>
+${CHAT_HTML}
+${CHAT_JS}
 </body>
 </html>`;
 
