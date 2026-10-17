@@ -1912,21 +1912,21 @@ function buildHitMarquee() {
   const head = '<span class="ro-mq-ico" aria-hidden="true">\u{1F4E2}</span>';
 
   /* 用户 2026-10-17 追加：「通告昨天的」「不要积累一堆旧的，只留最近的」
-     → 中奖条目只留最近 3 条，后面永远跟一条「近 N 期命中率」。
-     命中率同样是算出来的：可播命中条数 ÷ 已比对期数（没有任何写死的数字）。 */
+     → 中奖条目只留最近 3 条，后面永远跟一条汇总。
+     用户 2026-10-18 追加：最后一条不要百分比，只播报【多少期中奖】。
+     → 「近 N 期推荐 · 中奖 M 期」；M = 0 → 「近 N 期推荐 · 暂无中奖」。
+     N = 已比对期数 compared，M = 可播命中条数 winCount —— 两个数字都是算出来的。 */
   const winCount = wins.length;
   const recent = wins.slice(0, 3);
-  const rate = compared ? Math.round((winCount / compared) * 1000) / 10 : 0;
-  const rateText = rate.toFixed(1) + '%';
 
-  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期。
+  /* 没有任何中奖时也不能空着 —— 如实说比对了几期、一期都没中。
      ⚠️ 这句要能在 320px 的框里一行放下（约 191px < 258px），多了会被省略号切掉。 */
   if (!recent.length) {
     const none = compared
-      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报'
+      ? '近 ' + compared + ' 期推荐 · 暂无中奖'
       : '暂无可比对的期次 · 暂无中奖播报';
     return {
-      count: 0, compared, rate: rateText,
+      count: 0, compared,
       html: '<div class="ro-mq ro-mq-static" aria-label="开奖中奖播报">' + head +
         '<div class="ro-mq-view"><span class="ro-mq-none">' + none + '</span></div></div>'
     };
@@ -1936,10 +1936,10 @@ function buildHitMarquee() {
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
     '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + w.claim + '</i></span>';
 
-  /* 最后一条固定是命中率：有新开奖时它是「最近一期」的汇总，
-     还没开奖的那些期也照样能看到上一期的成绩 —— 不会空着，也不只是「暂无」 */
+  /* 最后一条固定是汇总：近 N 期推荐里中奖了 M 期（N、M 都是算出来的，没有写死）。
+     有新开奖时它就是「最近一期」的成绩；还没开奖的那些期也照样能看到 —— 不会空着 */
   const rateItem =
-    '<span class="ro-mq-item mq-rate">近 <b>' + compared + '</b> 期推荐命中率 <i>' + rateText + '</i></span>';
+    '<span class="ro-mq-item mq-rate">近 <b>' + compared + '</b> 期推荐 · 中奖 <i>' + winCount + '</i> 期</span>';
 
   const itemsHtml = recent.map(one).join('') + rateItem;
 
@@ -1949,7 +1949,7 @@ function buildHitMarquee() {
   const dur = Math.max(18, Math.min(72, Math.round((mqEstWidth(itemsHtml) * 2) / 46)));
 
   return {
-    count: recent.length, compared, rate: rateText,
+    count: recent.length, compared,
     html: '<div class="ro-mq" aria-label="开奖中奖播报">' + head +
       '<div class="ro-mq-view"><div class="ro-mq-track" style="animation-duration:' + dur + 's">' +
       groupHtml + group2 +
@@ -5129,7 +5129,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-mq-item b { font-weight: 700; color: var(--ro-fg); }
 .ro-mq-item i { font-style: normal; font-weight: 700; color: var(--ro-warn); }
 .ro-mq-item.mq-top i { color: var(--ro-danger); }
-/* 命中率那一条用主色绿（和「中奖等级金」区分开：金=中了什么，绿=命中率） */
+/* 汇总那一条（近 N 期中奖 M 期）用主色绿：金 = 中了什么，绿 = 中了几期 */
 .ro-mq-item.mq-rate i { color: var(--ro-ok); }
 .ro-mq-none {
   display: block; font-size: 12px; line-height: 26px; color: var(--ro-fg2);
