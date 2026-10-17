@@ -8406,9 +8406,8 @@ ${CHAT_JS}
   <div class="tool-view-body" id="toolBody"></div>
 </div>
 <script>
-/* __TOOLS_JS__ 智能分析：能取真数据就取，取不到就写「暂未提供」（绝不编数字）
-   ⚠️ 这段里【只用单引号】，不写反斜杠转义 —— 它嵌在页面的模板字符串里，
-      之前用 \" 转义把整段脚本弄坏过两次。 */
+/* __TOOLS_JS__ 智能分析：全部读 DRAW_HISTORY 真实计算，没有的明说「暂未提供」
+   ⚠️ 只用单引号，不写反斜杠转义（嵌在模板字符串里，用 \" 会把脚本写坏）。 */
 (function () {
   var view = document.getElementById('toolView');
   var body = document.getElementById('toolBody');
@@ -8418,6 +8417,83 @@ ${CHAT_JS}
   function row(k, v) { return '<div class="tv-row"><span class="tv-k">' + k + '</span><span class="tv-v">' + v + '</span></div>'; }
   function card(h, inner) { return '<div class="tv-card"><div class="tv-h">' + h + '</div>' + inner + '</div>'; }
   function none(t) { return '<div class="tv-none">' + t + '</div>'; }
+  function ssqList() {
+    try {
+      var H = (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) ? DRAW_HISTORY.games.ssq : null;
+      if (!H || !H.length) return [];
+      return H.slice().reverse().map(function (d) {
+        var red = (d.areas && d.areas.red) || [];
+        var sum = 0;
+        for (var q = 0; q < red.length; q++) sum += red[q];
+        return { issue: d.issue, red: red, blue: (d.areas && d.areas.blue) || [], sum: sum };
+      });
+    } catch (e) { return []; }
+  }
+  function avg(a) { var t = 0; for (var i = 0; i < a.length; i++) t += a[i]; return a.length ? t / a.length : 0; }
+  function fmt(n) { return (Math.round(n * 10) / 10).toFixed(1); }
+
+  function maTool() {
+    var list = ssqList();
+    if (list.length < 12) return none('历史数据不足，算不出均线。');
+    var sums = list.map(function (x) { return x.sum; });
+    var rows = '', cross = '—';
+    var last5 = sums.slice(-5), prev5 = sums.slice(-6, -1);
+    var last10 = sums.slice(-10), prev10 = sums.slice(-11, -1);
+    var ma5 = avg(last5), ma10 = avg(last10);
+    if (ma5 > ma10 && avg(prev5) <= avg(prev10)) cross = '金叉（MA5 上穿 MA10）';
+    else if (ma5 < ma10 && avg(prev5) >= avg(prev10)) cross = '死叉（MA5 下穿 MA10）';
+    else cross = ma5 > ma10 ? 'MA5 在 MA10 上方' : 'MA5 在 MA10 下方';
+    for (var i = Math.max(0, list.length - 8); i < list.length; i++) {
+      rows += row('第 ' + list[i].issue + ' 期 和值 ' + list[i].sum, '');
+    }
+    return card('双色球和值均线（近 ' + list.length + ' 期真实数据）',
+      row('MA5（近5期和值均值）', fmt(ma5)) +
+      row('MA10（近10期和值均值）', fmt(ma10)) +
+      row('当前状态', cross)) +
+      card('最近 8 期和值', rows) +
+      '<div class="tv-note">均线是统计口径，不是预测：号码是随机的，均线只描述已经过去的平均值。</div>';
+  }
+
+  function indexTool() {
+    var list = ssqList();
+    if (!list.length) return none('没有历史数据。');
+    var THEORY = 102;
+    var last = list[list.length - 1];
+    var idx = (last.sum / THEORY) * 100;
+    var rows = '';
+    for (var i = Math.max(0, list.length - 6); i < list.length; i++) {
+      var v = (list[i].sum / THEORY) * 100;
+      rows += row('第 ' + list[i].issue + ' 期 和值 ' + list[i].sum, '指数 ' + fmt(v));
+    }
+    return card('和值指数（真实计算）',
+      row('本期（第 ' + last.issue + ' 期）', '和值 ' + last.sum + ' → 指数 ' + fmt(idx)) +
+      row('理论均值（6×(1+33)/2）', String(THEORY))) +
+      card('近 6 期指数', rows) +
+      '<div class="tv-note">指数 = 实际和值 ÷ 理论均值 × 100。大于 100 = 偏大，小于 100 = 偏小；它只描述已开奖的分布，不预测下一期。</div>';
+  }
+
+  function patternTool() {
+    var list = ssqList();
+    if (list.length < 2) return none('历史数据不足。');
+    var last = list[list.length - 1], prev = list[list.length - 2];
+    var same = [], near = [];
+    for (var a = 0; a < last.red.length; a++) {
+      var n = last.red[a];
+      for (var b = 0; b < prev.red.length; b++) {
+        if (prev.red[b] === n) same.push(n);
+        else if (Math.abs(prev.red[b] - n) === 1) near.push(n);
+      }
+    }
+    same = same.filter(function (v, k, arr) { return arr.indexOf(v) === k; });
+    near = near.filter(function (v, k, arr) { return arr.indexOf(v) === k && same.indexOf(v) < 0; });
+    return card('第 ' + last.issue + ' 期 vs 上期（第 ' + prev.issue + ' 期）',
+      row('本期号码', last.red.join(' ') + ' + ' + last.blue.join(' ')) +
+      row('上期号码', prev.red.join(' ') + ' + ' + prev.blue.join(' ')) +
+      row('重号（同上期重复）', same.length ? same.join(' ') : '无') +
+      row('斜连（差 1 的号）', near.length ? near.join(' ') : '无')) +
+      '<div class="tv-note">这就是走势图里的"重号/斜连"两种规律，按真实开奖算的；规律 ≠ 预测，下一期仍是随机的。</div>';
+  }
+
   function statTool() {
     var out = '';
     var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
@@ -8447,12 +8523,7 @@ ${CHAT_JS}
     return card('AI 推荐（机选）', row('去「GPT模型摇号」点随机或自选', '真实号码')) +
       '<div class="tv-note">也可以对右下角助手说「来一注双色球」。</div>';
   }
-  var NONE = {
-    hot: '实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。',
-    ma: '均线分析：暂未提供（这个指标还没做，不做假数据）。',
-    index: '指数预测：暂未提供（这个指标还没做，不做假数据）。',
-    pattern: '智能规律：暂未提供（这个指标还没做，不做假数据）。'
-  };
+  var NONE = { hot: '实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。' };
   var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
   function openTool(id) {
     titleEl.textContent = TITLES[id] || '详情';
@@ -8461,6 +8532,9 @@ ${CHAT_JS}
     else if (id === 'trend') html = trendTool();
     else if (id === 'omit') html = omitTool();
     else if (id === 'ai') html = aiTool();
+    else if (id === 'ma') html = maTool();
+    else if (id === 'index') html = indexTool();
+    else if (id === 'pattern') html = patternTool();
     else html = none(NONE[id] || '暂未提供');
     body.innerHTML = html;
     view.classList.add('on');
@@ -8479,7 +8553,8 @@ ${CHAT_JS}
     back.addEventListener('click', closeTool);
     back.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); closeTool(); } });
   }
-})();\n</script>
+})();
+</script>
 </body>
 </html>`;
 
