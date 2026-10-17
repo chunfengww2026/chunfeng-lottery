@@ -80,7 +80,7 @@
        · 页面（export-football.mjs 的 REC_ARCH_HOURS）必须和它一致，
          否则会出现「存档留了 36 小时、页面只显示 24 小时」或者反过来。
      ============================================================ */
-  const RECO_KEEP_HOURS = 48;
+  const RECO_KEEP_HOURS = 36;
 
   function inWindow(timeStr, now) {
     const t = bjParse(timeStr);
