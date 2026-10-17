@@ -6689,6 +6689,10 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tq-mini.zero b, .tq-mini.zero span { color: #b7a892; }
 .tq-tbl-wrap { max-height: 360px; overflow-y: auto; -webkit-overflow-scrolling: touch;
   border: 1px solid #f0dcc8; border-radius: 10px; background: #fffdf9; }
+.tq-tbl-wrap { scrollbar-width: thin; scrollbar-color: #e3d0b6 transparent; }
+.tq-tbl-wrap::-webkit-scrollbar { width: 6px; }
+.tq-tbl-wrap::-webkit-scrollbar-thumb { background: #e3d0b6; border-radius: 3px; }
+.tq-tbl-wrap::-webkit-scrollbar-track { background: transparent; }
 .tq-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
 .tq-tbl th, .tq-tbl td { padding: 5px 3px; text-align: center; border-bottom: 1px solid #f4e7d8; }
 .tq-tbl th { color: #8a7a63; font-weight: 700; background: #fdf3e6; position: sticky; top: 0; z-index: 1; }
@@ -7001,7 +7005,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 每张卡都是 <div role="button" tabindex="0">（页面不变量：没有按钮标签），
           点一下进全屏子页面，子页面自带「← 返回」。
        ⚠️ 8 个子页面的数据纪律：能算的从本页开奖数据现算；
-          算不出的写「暂不支持」；AI推荐 是系统随机并已标注 —— 绝不编数字。
+          算不出的如实写「样本不足」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
@@ -10207,7 +10211,7 @@ ${CHAT_JS_SHARE}
   function pageStat() {
     var g = gameById(st.game), key = curArea(g);
     var a = statOf(g.id, SPAN), b = statOf(g.id, 10);
-    if (!a.ok) return chipsGame() + none('暂不支持', '这个彩种本页没有开奖数据，算不出来。');
+    if (!a.ok) return chipsGame() + none('样本不足', '这个彩种本页还没有足够的开奖数据。');
     var h = chipsGame() + chipsArea(g);
     h += card('近 ' + a.n + ' 期 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
       row('奇偶比', '奇 ' + a.odd + ' : 偶 ' + a.even + '（' + pctS(a.odd, a.cnt) + ' / ' + pctS(a.even, a.cnt) + '）') +
@@ -12587,6 +12591,19 @@ ${CHAT_JS_SHARE}
 .install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
 .install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
 .install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+/* __RE_GUIDE_HTML__ 安装指南（用户指定样式） */
+.install-guide { margin: 16px 12px 24px; background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 14px 12px 10px; }
+.ig-title { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; }
+.ig-sub { text-align: center; font-size: 11.5px; color: #8a7a63; margin: 6px 0 12px; line-height: 1.6; }
+.ig-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ig-card { background: #fffdf8; border: 1px solid #ecdcc2; border-radius: 10px; padding: 10px 10px 8px; }
+.ig-head { text-align: center; font-size: 13.5px; font-weight: 700; color: #1a8c5a; padding-bottom: 6px; border-bottom: 1px dashed #e8d7bd; margin-bottom: 8px; }
+.ig-ico { margin-right: 4px; }
+.ig-step { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4a3a26; padding: 4px 0; line-height: 1.4; }
+.ig-step i { flex: 0 0 auto; width: 16px; height: 16px; border-radius: 50%; background: #1a8c5a; color: #fff; font-style: normal; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.ig-note { font-size: 10.5px; color: #a89a80; line-height: 1.5; margin-top: 6px; }
+.ig-foot { text-align: center; font-size: 11.5px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+@media (max-width: 340px) { .ig-cols { grid-template-columns: 1fr; } }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -12738,25 +12755,27 @@ ${CHAT_JS_SHARE}
 })();
 </script>
 
-<!-- __RE_GUIDE_HTML__ 安装指南（内联 SVG，不依赖图片文件） -->
+<!-- __RE_GUIDE_HTML__ 安装指南（用户 2026-10-18 指定样式：图标 + ① ② ③ 圆点） -->
 <div class="install-guide">
-  <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="添加到手机桌面示意">
-    <rect width="640" height="260" rx="16" fill="#fff6e6" stroke="#e8d7bd"/>
-    <text x="320" y="36" text-anchor="middle" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a3a26">添加到手机桌面，更方便更稳定</text>
-    <rect x="24" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
-    <text x="167" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">安卓 / 微信</text>
-    <text x="167" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点右上角「···」</text>
-    <text x="167" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="167" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
-    <text x="167" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">浏览器菜单里也叫「添加到桌面」</text>
-    <rect x="330" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
-    <text x="473" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">苹果 iPhone</text>
-    <text x="473" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点底部「分享」图标</text>
-    <text x="473" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="473" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
-    <text x="473" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">Safari 才支持；微信里先「在浏览器打开」</text>
-  </svg>
-  <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
+  <div class="ig-title">添加到手机桌面，更方便更稳定</div>
+  <div class="ig-sub">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
+  <div class="ig-cols">
+    <div class="ig-card">
+      <div class="ig-head"><span class="ig-ico">📱</span>安卓 / 微信</div>
+      <div class="ig-step"><i>1</i>点右上角「···」</div>
+      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
+      <div class="ig-step"><i>3</i>点「添加」</div>
+      <div class="ig-note">浏览器里也叫「添加到桌面」。</div>
+    </div>
+    <div class="ig-card">
+      <div class="ig-head"><span class="ig-ico">🍎</span>苹果 iPhone</div>
+      <div class="ig-step"><i>1</i>点底部「分享」图标</div>
+      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
+      <div class="ig-step"><i>3</i>点「添加」</div>
+      <div class="ig-note">只有 Safari 支持；在微信里请先在「浏览器打开」。</div>
+    </div>
+  </div>
+  <div class="ig-foot">备注：添加桌面更方便更稳定</div>
 </div>
 
 <script>
