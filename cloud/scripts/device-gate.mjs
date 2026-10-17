@@ -29,11 +29,77 @@
    ============================================================================ */
 
 /* ---------------------------------------------------------------------------
-   ① <head> 里的 PWA 三行
-   ⚠️ manifest 用【相对路径】：本机 file:// 也能读，换域名不废。
+   ⓪ 品牌图标（内联 SVG，URL 编码过的 data URI）
+   ⚠️ 就是站点 icon.svg 的同一套配色（三红一蓝 + 圆角深底），只是精简成 1KB。
+   ⚠️ data URI 一律保持【URL 编码】原样，别再解码后写回去（解码后的 # < >
+      在 HTML 属性 / manifest JSON 里都得再转义一遍，反而容易出错）。
+   用处：① 分享卡片的 itemprop="image"
+        ② <link rel="icon"> 的内联兜底（本机 / 断网 / 图标文件缺失时也有图）
+        ③ PWA manifest 里 192 / 512 两档图标
    ------------------------------------------------------------------------- */
-export const PWA_HEAD = `<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#1a8c5a" />`;
+export const ICON_SVG_URI = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231a2130%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23080a0e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22r%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ffb0a2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238e121c%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23c2e0ff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23123492%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%22url(%23c)%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%22146%22%20cy%3D%22300%22%20r%3D%22125%22%20fill%3D%22url(%23b)%22%2F%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%22182%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22164%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22376%22%20cy%3D%22220%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%22510%22%20height%3D%22510%22%20rx%3D%22113%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E';
+
+/* ---------------------------------------------------------------------------
+   ① 分享卡片 meta（微信 / QQ / 浏览器读的那几行）
+   三个页面的 <head> 本来就有 title / description / og:*，
+   这里只【补】缺的、不动已有的：① itemprop 三件套 ② 内联 SVG 图标兜底。
+   ⚠️ og:image 仍然是站点根目录的 share.png（绝对地址）—— 微信 / QQ 只认绝对
+      URL，data URI 它们抓不走，所以【不覆盖】原来那条，只加 itemprop="image"。
+   ------------------------------------------------------------------------- */
+export function metaItemprop(title, desc) {
+  return `<!-- __SHARE_META__ 分享卡片补充（itemprop + 内联 SVG 图标兜底）
+     已有的 charset / viewport / og:* 一个都没覆盖，这里只补原来缺的。 -->
+<meta itemprop="name" content="${title}" />
+<meta itemprop="description" content="${desc}" />
+<meta itemprop="image" content="${ICON_SVG_URI}" />
+<link rel="icon" type="image/svg+xml" href="${ICON_SVG_URI}" />`;
+}
+
+/* ---------------------------------------------------------------------------
+   ② PWA：manifest 在浏览器里【现场用 Blob 生成】——不建 manifest.json
+      · 下面那行 href="manifest.json" 只是【没有 JS 时的兜底】，
+        脚本一跑就换成 blob: 地址（云端发布名单里本来就有它，不用改）。
+      · icons 给两套：内联 SVG（规范要的 192/512 两档）+ 站点根目录 PNG
+        （安卓 Chrome 最认 PNG，少一套都可能判"不可安装"）。
+      · start_url 用 ./index.html 的【绝对化】结果：manifest 的 base 是
+        blob: 地址，相对路径在那儿解析不了，绝对化后语义完全一样。
+      · 米杏底 #f7efe1 + 品牌绿 #1a8c5a，display 独立窗口。
+   ⚠️ Service Worker 【不能】用 Blob 注册（浏览器规范禁止 blob: 脚本注册 SW），
+      所以 SW 仍然指 site 根目录的 service-worker.js（纯透传、不缓存）。
+   ------------------------------------------------------------------------- */
+export const PWA_HEAD = `<!-- __PWA_BLOB__ 一键桌面：manifest 由脚本用 Blob 现场生成（不新增文件） -->
+<link rel="manifest" id="pwaManifest" href="manifest.json" />
+<meta name="theme-color" content="#1a8c5a" />
+<script>
+/* manifest = Blob（0 外部文件、0 本地存储） */
+(function () {
+  try {
+    var ICON = '${ICON_SVG_URI}';
+    var el = document.getElementById('pwaManifest');
+    if (!el || !window.Blob || !window.URL || !URL.createObjectURL) return;
+    function abs(p) { try { return new URL(p, location.href).href; } catch (e) { return p; } }
+    var m = {
+      name: '春风彩票',
+      short_name: '春风彩票',
+      start_url: abs('index.html'),
+      scope: abs('./'),
+      display: 'standalone',
+      orientation: 'portrait',
+      background_color: '#f7efe1',
+      theme_color: '#1a8c5a',
+      lang: 'zh-CN',
+      icons: [
+        { src: ICON, sizes: '192x192', type: 'image/svg+xml' },
+        { src: ICON, sizes: '512x512', type: 'image/svg+xml' },
+        { src: abs('icon-192.png'), sizes: '192x192', type: 'image/png' },
+        { src: abs('icon-512.png'), sizes: '512x512', type: 'image/png' }
+      ]
+    };
+    var url = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
+    el.setAttribute('href', url);
+  } catch (e) { /* 生成不出来就继续用兜底的 manifest.json */ }
+})();
+</script>`;
 
 /* ---------------------------------------------------------------------------
    ② 设备门的样式（放 <head>，越早越好，避免电脑端先闪出内容）
@@ -351,6 +417,11 @@ export const INSTALL_JS = `
     var isWX = ua.indexOf('MicroMessenger') >= 0;
 
     /* 注册 Service Worker（真 PWA 安装必需）。
+       ⚠️【SW 不能走 Blob】：浏览器规范禁止用 blob: 地址注册 SW
+          （Chrome 直接抛 "The URL protocol of the script is not supported"），
+          所以 SW 只能是一个真的脚本 → 仍用站点根目录的 service-worker.js
+          （纯透传、不缓存 HTML；发布名单里早就有它，不用新增文件）。
+          manifest 那边是 Blob 现场生成的，两边互不影响。
        ⚠️ file:// 下浏览器禁止注册 → catch 住，App 里不影响；
           真正生效的是 https 的线上站点。 */
     if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
