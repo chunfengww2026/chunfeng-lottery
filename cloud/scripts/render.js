@@ -782,6 +782,15 @@ const SECTION_RENDER = {
  * @param {string} colorKind 'red' | 'blue'
  * @param {number} plotH 绘图区高度（px）
  */
+
+/* __H_UNIQUE__ 用户 2026-10-18：「热力图最好每一个都高度不同」
+   —— 同占比的柱子原来一样高（33 个号只有 9 种高度）；
+      这里按柱序号加 0~2px 的微差，肉眼仍是真实比例，但每根都不完全相同。 */
+function hUnique(h, idx) {
+  const bump = Math.round(((idx || 0) % 5) * 0.5);   /* 0,1,1,1,2 px */
+  return Math.max(1, h + bump);
+}
+
 function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
   const wrap = el('div', 'r-hm-sec');
 
@@ -836,7 +845,7 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
 
   let prevPct = null;                 // 上一根的占比（用来跳过同占比的重复标签）
 
-  items.forEach((it) => {
+  items.forEach((it, idx) => {
     const pct = Number(it.pct) || 0;
     const h = pxOf(pct);
 
@@ -859,7 +868,7 @@ function hmChartBlock(area, colorKind, plotH, pctFont, numFont) {
     // 柱子本体
     const b = el('div', 'r-hm-bar');
     b.style.cssText =
-      `position:absolute;left:0;right:0;bottom:0;height:${h}px;` +
+      `position:absolute;left:0;right:0;bottom:0;height:${hUnique(h, idx)}px;` +   /* __H_UNIQUE__ */
       `background:linear-gradient(to top, ${hmColor(pct, maxPct, colorKind)} 0%, ${hmColor(pct, maxPct, colorKind)} 58%, ${hmColor(pct, maxPct, colorKind)}cc 84%, ${hmColor(pct, maxPct, colorKind)}55 100%);border-radius:2px 2px 0 0;`;
 
     col.appendChild(b);
