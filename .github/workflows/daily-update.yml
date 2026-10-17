@@ -193,6 +193,28 @@ jobs:
             else echo "⚠️  缺 $f —— 热力图会降级成「近 30 期开奖频率」"; fi
           done
 
+      # 【足球晒票 · 票面照片】尽力而为的一步（2026-10-18 加）
+      #   实测：GitHub（美国 eastus）访问这个源返回 HTTP 405（阿里云 WAF），
+      #   所以云端这一班【抓不到】，真正能用的数据是本机抓好、随 sync 同步过来的
+      #   cloud/scripts/football-tickets.js。
+      #   ⚠️ 那为什么还留着这一步：
+      #       ① 抓取脚本自己会「抓不到就退 10、不覆盖旧文件」，
+      #          所以本机同步过来的那份【绝不会】被云端这一班冲掉；
+      #       ② 万一哪天 WAF 放开了，云端不用改代码就自动开始出票面。
+      #   ⚠️ 必须 continue-on-error + `|| true`：它失败是【预期内的】，不能把流程弄红。
+      - name: 足球晒票票面（尽力而为 · 云端预期 405）
+        continue-on-error: true
+        run: |
+          cd cloud
+          node scripts/fetch-football-tickets.mjs || {
+            code=$?
+            if [ "$code" = "10" ]; then
+              echo "（预期内）本轮没抓到 —— 沿用同步过来的 football-tickets.js"
+            else
+              echo "（预期内，云端抓不到这个源）退出码 $code —— 沿用同步过来的 football-tickets.js"
+            fi
+          }
+
       - name: 执行云端构建
         working-directory: cloud
         env:
