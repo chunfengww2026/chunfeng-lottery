@@ -388,7 +388,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "甘拿斯亚迪罗",
      "score": 3,
@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 09:00:00",
-    "minute": 95,
+    "minute": 0,
     "home": {
      "name": "拿加沙",
      "score": 0,
@@ -736,7 +736,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "温哥华FC",
      "score": 1,
@@ -868,7 +868,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 21,
+    "minute": 23,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 2,
