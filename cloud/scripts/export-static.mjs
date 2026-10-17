@@ -5008,9 +5008,12 @@ a.ro-xj-row.on { background: var(--ro-sunken); }
   .ro-xj-last { display: none; }
 }
 
-  /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示 */
+  /* __HOT_OWNER__ 热度计数：默认隐藏，只有 owner 才显示
+     ⚠️ 用户 2026-10-18：「顶部怎么不同呢 我要竞彩那页顶部模块」——
+     原因就是这个浮标 top:8px/left:8px 正好压在顶部 Tab（彩票推荐 / 竞彩-足球）上，
+     把切换按钮挡住点不到。现在挪到 Tab 条下面（top:52px） */
   .ro-hot {
-    position: fixed; top: 8px; left: 8px; z-index: 9990;
+    position: fixed; top: 52px; left: 8px; z-index: 9990;
     display: none; align-items: center; gap: 3px;
     padding: 3px 9px 3px 7px; border-radius: 12px;
     background: rgba(255,255,255,.86);
@@ -5671,10 +5674,10 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    ------------------------------------------------------------
    入口 = 4 列网格 8 张图标卡（不是裸 button：div role="button" tabindex="0"）；
    子页面 = position:fixed 全屏覆盖（z-index 高），自带「← 返回」。
-   页面里【没有 alert()】：所有提示都在页面内展开。
+   页面里【没有弹窗】：所有提示都在页面内展开。
    颜色全部走 --ro-* 变量（米杏主题），不引任何外部图表库。 */
 .tools-box { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px; margin: 0 12px 12px; }
-/* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，『点开看』不要了」
+/* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，右边那句提示不要了」
    → 居中单行；右边那句已经删掉（.tools-note 样式留着不碍事，页面上没有这个元素） */
 .tools-head { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; gap: 8px; }
 .tools-title { font-size: 14px; font-weight: 700; color: var(--ro-fg); }
