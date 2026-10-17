@@ -1047,20 +1047,6 @@ async function main() {
   const prevExpertsN = Number(PREV_DATA && PREV_DATA.stat && PREV_DATA.stat.experts) || 0;
   const shrunkGames = prevGamesN > 0 && out.stat.games < prevGamesN;
   const shrunkExperts = prevExpertsN > 0 && out.stat.experts < Math.ceil(prevExpertsN * 0.7);
-  if (!opts.allowShrink && (shrunkGames || shrunkExperts)) {
-    const rejFile = OUT_JS + '.rejected-' + stamp.replace(/[^\d]/g, '');
-    fs.writeFileSync(rejFile, header + `const EXPERTS_DATA = ${JSON.stringify(out, null, 1)};\n`, 'utf8');
-    log('\n⛔ 已拒绝覆盖 experts-data.js —— 这一轮抓到的数据【比上一版少】：');
-    log(`   上一版：${prevGamesN} 个彩种 / ${prevExpertsN} 位专家`);
-    log(`   这一轮：${out.stat.games} 个彩种 / ${out.stat.experts} 位专家` +
-      `（请求 ${out.stat.requests} · 错误 ${out.stat.errors}）`);
-    log('   常见原因：手工只指定了部分彩种（如 `node build-experts.mjs ssq`）、' +
-      '或源站限流导致某些彩种整块抓空。');
-    log(`   正式文件保持原样，本轮结果留在：${path.basename(rejFile)}`);
-    log('   确实要接受更小的数据集，请加 --allow-shrink 重跑。');
-    process.exitCode = 2;
-    return;
-  }
 
   const header = `/* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
@@ -1110,6 +1096,21 @@ async function main() {
 
 `;
   const js = header + `const EXPERTS_DATA = ${JSON.stringify(out, null, 1)};\n`;
+
+  if (!opts.allowShrink && (shrunkGames || shrunkExperts)) {
+    const rejFile = OUT_JS + '.rejected-' + stamp.replace(/[^\d]/g, '');
+    fs.writeFileSync(rejFile, js, 'utf8');
+    log('\n⛔ 已拒绝覆盖 experts-data.js —— 这一轮抓到的数据【比上一版少】：');
+    log(`   上一版：${prevGamesN} 个彩种 / ${prevExpertsN} 位专家`);
+    log(`   这一轮：${out.stat.games} 个彩种 / ${out.stat.experts} 位专家` +
+      `（请求 ${out.stat.requests} · 错误 ${out.stat.errors}）`);
+    log('   常见原因：手工只指定了部分彩种（如 `node build-experts.mjs ssq`）、' +
+      '或源站限流导致某些彩种整块抓空。');
+    log(`   正式文件保持原样，本轮结果留在：${path.basename(rejFile)}`);
+    log('   确实要接受更小的数据集，请加 --allow-shrink 重跑。');
+    process.exitCode = 2;
+    return;
+  }
 
   fs.writeFileSync(OUT_JS, js, 'utf8');
 
