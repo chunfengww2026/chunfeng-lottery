@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  export-static.mjs —— 生成只读分享版 HTML
 //
 //  产物：只读分享版.html —— 一个自包含文件（样式+内容全内嵌）
@@ -1197,7 +1197,8 @@ function issueNote(list, gid) {
   if (nextIss) {
     return '<span class="ro-xj-giss">最新已出号 ' + escape(iss) + ' 期 · 下一期 <b>' + escape(nextIss) + '</b> 期（源站已挂出）</span>';
   }
-  return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· 下一期待出号</span>';
+  /* 【抓不到下一期时的文案 · 用户 2026-10-18】原来说「下一期待出号」，用户要求改成「系统bug修复中」。 */
+  return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· <b>系统 bug 修复中</b>，下一期稍后自动补上</span>';
 }
 
     return '<div class="ro-xj-group">' +
