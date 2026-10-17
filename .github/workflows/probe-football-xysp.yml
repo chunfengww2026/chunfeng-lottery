@@ -1,0 +1,40 @@
+name: probe-football-xysp
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: 探测 3 个足球晒票源
+        run: |
+          set +e
+          hit () {
+            N="$1"; U="$2"; UA="$3"; REF="$4"
+            echo "===== $N ====="
+            code=$(curl -sS -o /tmp/o.html -w '%{http_code}' -A "$UA" -H "Accept-Language: zh-CN,zh;q=0.9" -e "$REF" --max-time 25 -L "$U")
+            echo "URL=$U"
+            echo "status=$code bytes=$(wc -c < /tmp/o.html)"
+            echo "title: $(grep -o '<title[^>]*>[^<]*' /tmp/o.html | head -1)"
+            echo "a_href_count=$(grep -o '<a [^>]*href' /tmp/o.html | wc -l)  img_count=$(grep -o '<img' /tmp/o.html | wc -l)"
+            echo "topic_links=$(grep -o '/topic/[0-9]*\.html' /tmp/o.html | sort -u | wc -l)"
+            echo "cpyc_imgs=$(grep -o 'img33633\.cpyc\.cn[^"]*' /tmp/o.html | sort -u | wc -l)"
+            echo "kw_命中=$(grep -o '晒票\|实单\|竞彩\|出票\|跟单' /tmp/o.html | wc -l)"
+            echo "--- head300 ---"
+            head -c 300 /tmp/o.html; echo
+            echo
+          }
+          UAM='Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
+          UAD='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
+          echo "runner ip:"; curl -sS --max-time 15 https://api.ipify.org; echo; echo
+          hit "33633-www" "https://www.33633.cn" "$UAD" "https://www.33633.cn/"
+          hit "33633-jc-www" "https://www.33633.cn/jc" "$UAD" "https://www.33633.cn/"
+          hit "33633-jingcai-m" "https://m.33633.cn/jingcai/" "$UAM" "https://m.33633.cn/"
+          hit "dongqiudi-m" "https://m.dongqiudi.com" "$UAM" "https://m.dongqiudi.com/"
+          hit "toutiao-search" "https://so.toutiao.com/search?keyword=%E7%AB%9E%E5%BD%A9%E8%B6%B3%E7%90%83%E6%99%92%E7%A5%A8&pd=synthesis&source=input" "$UAM" "https://so.toutiao.com/"
+          echo "===== 票图直链能不能下（不带 Referer）====="
+          IMG=$(grep -o 'https://img33633\.cpyc\.cn/[^"]*\.webp' /tmp/o.html | head -1)
+          echo "IMG=$IMG"
+          if [ -n "$IMG" ]; then curl -sS -o /tmp/i.bin -w 'img_status=%{http_code} type=%{content_type} size=%{size_download}\n' --max-time 20 "$IMG"; fi
+          echo "===== 牛票票老域名对照 ====="
+          curl -sS -o /dev/null -w 'niupiaopiao_www=%{http_code}\n' -A "$UAD" --max-time 20 -L https://www.niupiaopiao.com || true
