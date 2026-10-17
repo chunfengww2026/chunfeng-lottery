@@ -1596,11 +1596,11 @@ function renderRec() {
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
-  /* 【跟着推荐栏一起折叠】用户 2026-10-18：「跟着推荐栏去折叠」——
-     把「推荐历史结果」（#jcRecArch）放回 <details id="jcRec"> 里面，
-     这样点「推荐串」收起时它一起收起来（不再是外面一张常驻卡）。
-     id 不变 → 30 秒刷新脚本照样能换内容。 */
-  return `<details class="m-rec" id="jcRec" open>${head}${tips}${note}${body}` +
+  /* 【跟着推荐栏一起折叠】用户 2026-10-18：
+     ①「跟着推荐栏去折叠」→ 推荐历史结果（#jcRecArch）放回 details 里面；
+     ②「推荐单只抓取推荐里面的，不是抓取在售的」→ 推荐单数字条（recoStatBarTop）
+        也从顶层搬进来，只跟这一栏走（收起时一起收），口径不变（≥58% 的推荐场次）。 */
+  return `<details class="m-rec" id="jcRec" open>${head}${tips}${recoStatBarTop()}${note}${body}` +
     (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '') +
     `</details>`;
 }
@@ -3267,12 +3267,10 @@ ${DEVICE_GATE_BODY}
     <span class="n">（推荐比对最终比分）</span>
   </div>` : ''}
 
-  <!-- 【推荐串战绩条】就紧跟在「完场战绩」下面，和它同款、同级（都在顶层）。
-       用户 2026-10-17 追加要求：这一行原来在「推荐串」折叠块【里面】，
-       圈出来说「把他放外面」→ 现在不展开折叠块也能看见红黑数。
-       30 秒刷新脚本按 id="jcRecStat" 原地换内容，位置变了不用改脚本。 -->
-
-  ${recoStatBarTop()}
+  <!-- 【推荐单数字条】用户 2026-10-18：「推荐单只抓取推荐里面的，不是抓取在售的」
+       → 已从顶层搬进「推荐」折叠块内部（见 renderRec 里对 recoStatBarTop 的调用），
+         收起时跟着一起收；口径不变（仍只算信心 ≥58% 的推荐场次）。
+         30 秒刷新脚本按 id="recStatsBar"（兼容旧 id="jcRecStat"）原地换内容，位置变了不用改脚本。 -->
 
   ${renderRec()}
   </div>
