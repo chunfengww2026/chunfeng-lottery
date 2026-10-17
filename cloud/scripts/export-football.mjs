@@ -752,7 +752,19 @@ const MQ_DUR = Math.min(40, Math.max(12, Math.round(MQ_PX / 36)));
    ⚠️ 内容仍然是【页面上已经算好的数字】，不是「中奖播报」——
       这个页面没有中奖数据，绝不编；没有数字可播时才显示「暂无最新播报」。 */
 const MQ_INNER = MQ_ITEMS_HTML || `<span class="m-mq-item">暂无最新播报</span>`;
-const HIT_MQ_HTML = `<div class="m-mq broadcast-bar" id="broadcastBar">` +
+/* 【后台数据 → 页面内嵌 JSON】用户 2026-10-17 给的写法是
+     fetch('./data/broadcast.json') + document.getElementById('marqueeText').textContent = ...
+   但本项目的页面在 App 里是 file:// 打开的 —— file:// 下 fetch 同目录文件会被 CORS 拦死
+   （这条之前踩过，所以晒票/推荐串的实时刷新都是 <script src> 轮询，不是 fetch）。
+   等价做法（同样"后台生成、前端读取"）：构建时把这份数组写成页面里的
+     <script type="application/json" id="broadcastData">[{ "text": "…" }, …]</script>
+   页面端的 loadBroadcast() 读它 → 与 fetch json 的效果一致，但没有 CORS 问题、也没有额外请求。
+   ⚠️ 内容是页面上真实的统计（命中率/红黑），不是「中奖」——这个页面没有中奖数据，绝不编。
+   ⚠️ JSON 放在 <script> 里必须把 < 转义，否则出现 </script> 会截断页面。 */
+const BC_JSON = JSON.stringify(MQ_ITEMS.map((h) => ({ text: h.replace(/<[^>]*>/g, '').trim() })))
+  .replace(/</g, '\\u003c');
+const HIT_MQ_HTML = `<script type="application/json" id="broadcastData">${BC_JSON}</script>` +
+  `<div class="m-mq broadcast-bar" id="broadcastBar">` +
   `<div class="m-mq-ico horn-icon" aria-hidden="true">📢</div>` +
   `<div class="m-mq-view broadcast-content">` +
   `<div class="m-mq-track marquee" id="marqueeText" style="animation-duration:${MQ_DUR}s">` +
@@ -3971,6 +3983,47 @@ ${JC_XYSP_VIEW}
   window.__jcRecoApplied = function () { return last; };
 
   if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+
+/* ============================================================
+   【播报数据 · 前端读取】用户 2026-10-17 给的参考写法：
+     async function loadBroadcast() {
+       const res = await fetch('./data/broadcast.json?t=' + Date.now());
+       const data = await res.json();
+       document.getElementById('marqueeText').textContent = data.map(i => i.text).join('  ★  ');
+     }
+   这里改成读页面内嵌的 <script type="application/json" id="broadcastData">：
+     · 页面在 App 里是 file:// 打开，fetch 同目录文件会被 CORS 拦（所以不用 fetch）
+     · 数据仍是"后台生成"的 —— 构建时（云端 GitHub Actions 那次构建）写进页面
+     · 读不到 / 空数组 → 兜底文案「暂无近 7 天播报」（7 天是用户口径）
+   渲染方式保持轨道里【两组一样的内容】→ 无缝循环；每组用「 ★ 」分隔条目。
+   ============================================================ */
+(function () {
+  if (typeof document === 'undefined') return;
+  function loadBroadcast() {
+    var dataEl = document.getElementById('broadcastData');
+    var stage = document.getElementById('marqueeText');
+    if (!stage) return;
+    var items = [];
+    try {
+      var raw = dataEl ? JSON.parse(dataEl.textContent || '[]') : [];
+      items = (Array.isArray(raw) ? raw : [])
+        .map(function (x) { return String((x && x.text) || '').trim(); })
+        .filter(Boolean);
+    } catch (e) { items = []; }
+    var html;
+    if (!items.length) {
+      html = '<span class="m-mq-item">暂无近 7 天播报</span>';
+    } else {
+      var sep = '<span class="m-mq-item" aria-hidden="true">★</span>';
+      html = items.map(function (t) { return '<span class="m-mq-item">' + t + '</span>'; }).join(sep);
+    }
+    var groups = stage.querySelectorAll('.m-mq-group');
+    for (var i = 0; i < groups.length; i++) groups[i].innerHTML = html;
+  }
+  window.__jcLoadBroadcast = loadBroadcast;   /* 给验收脚本一个口子 */
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadBroadcast);
+  else loadBroadcast();
 })();
 
 /* ============================================================
