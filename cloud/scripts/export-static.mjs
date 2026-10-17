@@ -1428,7 +1428,7 @@ function buildXyspHtml() {
   return `<details class="ro-xysp action-card-btn" id="ro-xysp">` +
     `<summary class="ro-xysp-head">` +
     `<h2 class="ro-xysp-h2 title">晒票</h2>` +
-    `<div class="ro-xysp-sub sub">各彩种实票图片 · 实时更新</div>` +
+    `<div class="ro-xysp-sub sub">各种实票图片</div>` +
     `<span class="ro-xysp-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
     (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
@@ -5674,7 +5674,9 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    页面里【没有 alert()】：所有提示都在页面内展开。
    颜色全部走 --ro-* 变量（米杏主题），不引任何外部图表库。 */
 .tools-box { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px; margin: 0 12px 12px; }
-.tools-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; }
+/* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，『点开看』不要了」
+   → 居中单行；右边那句已经删掉（.tools-note 样式留着不碍事，页面上没有这个元素） */
+.tools-head { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; gap: 8px; }
 .tools-title { font-size: 14px; font-weight: 700; color: var(--ro-fg); }
 .tools-note { font-size: 11px; color: var(--ro-fg2); white-space: nowrap; }
 .tool-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -5724,6 +5726,10 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tv-chip.on:active { background: var(--ro-ok); }
 /* 简单表格（明细） */
 .tv-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; table-layout: fixed; }
+/* 列宽：期号窄一点、和值/跨度固定小列，把剩下的宽度全给「号码」列
+   （不这么分，双色球 6 个号会被省略号切掉 —— 实测 320 下只剩「5 21 22 2…」） */
+.tv-tbl th:nth-child(1) { width: 64px; }
+.tv-tbl th:nth-child(3), .tv-tbl th:nth-child(4) { width: 40px; }
 .tv-tbl th, .tv-tbl td { padding: 4px 2px; text-align: center; border-bottom: 1px solid #f4ead6;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tv-tbl th { color: var(--ro-fg2); font-weight: 600; }
@@ -5856,7 +5862,7 @@ ${DEVICE_GATE_BODY}
           算不出的写「暂不支持」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
-    <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
+    <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
     <div class="tool-grid">
       <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
       <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
@@ -8970,8 +8976,8 @@ ${CHAT_JS}
     return h + '</div>';
   }
   function numsCell(nums) {
-    var n = nums.slice(0, 8).join(' ');
-    return n + (nums.length > 8 ? ' 等 ' + nums.length + ' 个' : '');
+    var n = nums.slice(0, 6).join(' ');
+    return n + (nums.length > 6 ? ' …' : '');
   }
 
   /* ================= ① 数据统计 ================= */
@@ -9056,7 +9062,7 @@ ${CHAT_JS}
       cells += '<div class="tv-cell' + (bad ? ' bad' : '') + '"><b>' + it.n + '</b><i>' + it.cur + '</i></div>';
     }
     h += card('每个号码：当前遗漏（数字=已经多少期没出）', '<div class="tv-cells">' + cells + '</div>');
-    h += note('「当前遗漏 0」= 最新一期就出了；括号里没有历史最大值的就不列。全部按近 ' + o.draws + ' 期现算，不是估的。');
+    h += note('格子里的数字 = 这个号码【已经多少期没出】（0 = 最新一期就出了）；红底 = 已经超过理论值的 2 倍。全部按本页已有的近 ' + o.draws + ' 期现算，不是估的。');
     return h;
   }
 
@@ -9067,24 +9073,28 @@ ${CHAT_JS}
     var h = chipsGame() + chipsArea(g);
     var srcText;
     if (H) {
-      var items = H.items.slice().sort(function (a, b) { return (b.count - a.count) || (a.num - b.num); });
+      /* 实票统计的字段是 {num, pct, count}；这里统一成 {n, c}，和下面的
+         「按开奖期数现算」那一路共用同一个 bars()（避免出现 undefined） */
+      var items = H.items.map(function (x) { return { n: x.num, c: x.count }; })
+        .sort(function (a, b) { return (b.c - a.c) || (a.n - b.n); });
       var hot = items.slice(0, 6), cold = items.slice(-6).reverse();
       var tot = 0;
-      for (var i = 0; i < items.length; i++) tot += items[i].count;
-      srcText = '近 30 期开奖频率';
+      for (var i = 0; i < items.length; i++) tot += items[i].c;
+      srcText = '开奖频率统计';
       try {
         var sc = String((HM[g.id] || {}).source || '');
         if (sc === 'ocr-xysp') srcText = '晒票票面统计';
         else if (sc === 'xysp-text') srcText = '晒票文字统计';
       } catch (e2) { /* 忽略 */ }
-      h += card('热号（出现最多）· 近 30 期<span>' + esc(srcText) + '</span>', bars(hot, tot, false));
-      h += card('冷号（出现最少）', bars(cold, tot, true));
+      var span = '近 30 期 · ' + esc(srcText);
+      h += card('热号（出现最多）<span>' + span + '</span>', bars(hot, tot, false));
+      h += card('冷号（出现最少）<span>' + span + '</span>', bars(cold, tot, true));
     } else {
       var f = freqOf(g.id, SPAN);
       if (!f.total) return chipsGame() + none('需要更多数据', '这个彩种本页没有开奖数据。');
-      srcText = '近 30 期开奖频率';
-      h += card('热号（出现最多）· 近 30 期<span>' + esc(srcText) + '</span>', bars(f.arr.slice(0, 6), f.total, false));
-      h += card('冷号（出现最少）', bars(f.arr.slice(-6).reverse(), f.total, true));
+      var span2 = '近 30 期 · 开奖频率统计';
+      h += card('热号（出现最多）<span>' + span2 + '</span>', bars(f.arr.slice(0, 6), f.total, false));
+      h += card('冷号（出现最少）<span>' + span2 + '</span>', bars(f.arr.slice(-6).reverse(), f.total, true));
     }
     h += note('热号 = 这段时间出现次数最多的号码，冷号 = 最少的。次数只描述已经发生的开奖，不代表下一期的概率 —— 每个号码每期都是独立随机的。');
     return h;
@@ -9242,7 +9252,8 @@ ${CHAT_JS}
   /* 「打开完整走势表」= 关掉这一层，展开走势图折叠块并滚过去（不重复画一遍） */
   function gotoTrend() {
     closeTool();
-    var d = document.getElementById('ro-trend');
+    /* id 是 #ro-trend（走势图那个折叠块）；老版本没有 id 时退回按类名找 */
+    var d = document.getElementById('ro-trend') || document.querySelector('.ro-trend');
     if (!d) return;
     try { d.open = true; } catch (e4) { /* 忽略 */ }
     setTimeout(function () {
