@@ -1,4 +1,4 @@
-﻿/* ============================================================================
+/* ============================================================================
    device-gate.mjs —— 共用「设备门」+ PWA <head> + 「一键桌面」按钮
    ----------------------------------------------------------------------------
    谁在用（3 个生成脚本 import 这里，页面里不重复写一遍）：
@@ -1260,10 +1260,22 @@ export const CHAT_VIDEO_CSS = `
 .cf-video { flex: 0 0 auto; position: relative; width: 100%; height: 180px;
   background: #000; overflow: hidden; cursor: pointer;
   -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-/* 【不裁画面】用户 2026-10-18「手机用户要看得清楚」→ 用 contain 完整显示，不 cover 裁边 */
+/* 【聊天框里的小图】源视频是竖屏 720×1280，这里只是一块「入口」：cover 铺满不留黑边，
+   点一下才进全屏看完整画面（全屏里改成 contain，见下面的 :fullscreen 规则） */
 .cf-video video { display: block; width: 100%; height: 100%;
   object-fit: cover; background: #000; }
 .cf-video:focus-visible { outline: 2px solid #1a8c5a; outline-offset: -2px; }
+
+/* 【点击全屏】用户 2026-10-18：点视频 = 全屏看完整竖屏（不再只有中间一条） */
+.cf-video-tip { position: absolute; left: 8px; bottom: 8px; z-index: 3;
+  pointer-events: none; padding: 3px 8px; border-radius: 999px;
+  font-size: 11px; line-height: 1.35; letter-spacing: 0.3px; white-space: nowrap;
+  color: #fff; background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+/* 点过一次就不再提示；全屏里也不提示 */
+.cf-video.cf-video-touched .cf-video-tip { display: none; }
+.cf-video:fullscreen .cf-video-tip, .cf-video:-webkit-full-screen .cf-video-tip { display: none; }
 
 /* 【手机放大 · 按 16:9 自适应】原来固定 180px 在小屏上偏小 → 手机上按比例走，
    宽度撑满、高度由 16:9 算出来（最高不超过 46vh，保证输入框还在）。 */
@@ -1277,9 +1289,16 @@ export const CHAT_VIDEO_CSS = `
   background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.45);
   cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .cf-video-fs:active { background: rgba(0, 0, 0, 0.7); }
-/* 全屏时：铺满、黑底、保持比例完整显示 */
-.cf-video:fullscreen, .cf-video:-webkit-full-screen { width: 100vw; height: 100vh; max-height: none; aspect-ratio: auto; background: #000; }
-.cf-video:fullscreen video, .cf-video:-webkit-full-screen video { object-fit: contain; }
+/* 全屏时：铺满、黑底、【保持原始比例完整显示】（竖屏 720×1280 不再被裁成一条） */
+.cf-video:fullscreen, .cf-video:-webkit-full-screen { width: 100vw; height: 100vh;
+  max-width: none; max-height: none; aspect-ratio: auto; background: #000; }
+.cf-video:fullscreen video, .cf-video:-webkit-full-screen video { width: 100%; height: 100%;
+  object-fit: contain; object-position: center; }
+/* video 元素自己被全屏时（部分内核只允许 video 全屏）：同样按原比例完整显示 */
+.cf-video video:fullscreen, .cf-video video:-webkit-full-screen { width: 100vw; height: 100vh;
+  max-width: none; max-height: none; object-fit: contain; background: #000; }
+/* 全屏里右下角那个 ⛶ 就没意义了（再点屏幕就是退出），收起来 */
+.cf-video:fullscreen .cf-video-fs, .cf-video:-webkit-full-screen .cf-video-fs { display: none; }
 
 /* 占位块：视频 404 / 解码失败时才 display:flex（JS 加 .cf-video-fail） */
 .cf-video-ph { position: absolute; inset: 0; display: none;
@@ -1309,9 +1328,11 @@ export const CHAT_VIDEO_CSS = `
 export const CHAT_VIDEO_HTML = `<!-- __CF_VIDEO__ 祝福视频（聊天框顶部）
      ⚠️ 可点是 div[role=button][tabindex=0]（页面不变量：裸 <button> = 0）
      ⚠️ preload="none" + 没有 src 请求：只有聊天框第一次打开才 load()（2.82 MB 不进首屏）
+     ⚠️ 点一下 = 全屏看完整竖屏（iOS 走 webkitEnterFullscreen，安卓/桌面走 requestFullscreen）
      ⚠️ 不用 alert、不写浏览器存储；视频挂了就占位 + TTS 语音祝福 -->
-<div class="cf-video" id="cfVideoBox" role="button" tabindex="0" aria-label="祝福视频，点一下播放或暂停">
+<div class="cf-video" id="cfVideoBox" role="button" tabindex="0" aria-label="祝福视频，点一下全屏观看">
   <video id="cfVideo" src="./blessing.mp4" loop playsinline preload="none"></video>
+  <div class="cf-video-tip" id="cfVideoTip">点一下看全屏</div>
   <div class="cf-video-fs" id="cfVideoFs" role="button" tabindex="0" aria-label="全屏观看">⛶</div>
   <div class="cf-video-ph" id="cfVideoPh">
     <div class="cf-video-play" aria-hidden="true">▶</div>
@@ -1321,11 +1342,14 @@ export const CHAT_VIDEO_HTML = `<!-- __CF_VIDEO__ 祝福视频（聊天框顶部
 
 export const CHAT_VIDEO_JS = `
 <script>
-/* __CF_VIDEO_JS__ 祝福视频：懒加载 + TTS 语音祝福 + 黄色气泡
+/* __CF_VIDEO_JS__ 祝福视频：懒加载 + 点一下全屏 + TTS 语音祝福 + 黄色气泡
    · 懒加载：preload="none"，只有【聊天框第一次打开】才 video.load()
      （2.82 MB 不参与首屏；页面一开始一个字节都不拉）
-   · 视频 404 / 解码失败 → 黑底占位块（▶ 点击播放视频）
-     点一下 = 中文 TTS 祝福 + 2.5 秒后一条黄色气泡
+   · 点一下 = 进全屏看完整竖屏（源视频 720×1280）：iOS 走 video.webkitEnterFullscreen，
+     安卓/桌面走容器 requestFullscreen；都不支持 → 不强制全屏、直接 play（兜底）
+   · 全屏里再点一下 = 退出全屏（fullscreenchange 复位）
+   · 视频 404 / 解码失败 → 黑底占位块（▶ 点击播放视频）+ 中文 TTS 祝福
+   · 点的时候一起念 TTS 语音祝福；2.5 秒后一条黄色气泡（原行为保留）
    · 浏览器不支持 speechSynthesis → 静默跳过，绝不报错；念完立刻 stop（不一直念）
    · 气泡走聊天框自己的追加函数（window.__cfSay → CHAT_JS 里的 push），不另写一套
    ⚠️ 这段也在模板字符串里：只用单引号、不写反引号、不写 \${、不写反斜杠 */
