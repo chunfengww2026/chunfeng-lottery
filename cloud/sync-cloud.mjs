@@ -185,6 +185,8 @@ const FROM_ROOT = [
      近 7 天窗口。export-football.mjs 构建时读它，把「命中一等奖/二等奖」
      接进播报条。必须同步：否则云端构建时这个文件不存在，播报就退回只有战绩数字。 */
   'broadcast.json',
+  /* 新浪「下一期参考」（build-sina-predict.mjs 产出，抓不到就不存在） */
+  'sina-predict.json',
   /* 【PWA 安装（一键桌面）】用户 2026-10-17：页面上要能"添加到桌面"。
      这五个文件原来【不在白名单里】→ 线上 manifest/图标全 404 →
      浏览器判定"不可安装"，beforeinstallprompt 永远不触发（按钮点了没反应）。
