@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -178,6 +178,28 @@ const DIVERGENCE = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
          改一边必须改另一边（这里踩过坑）。 */
 const JC_KEEP_HOURS = 24;
 const JC_MAX = 1000;
+
+/* ------------------------------------------------------------
+   【晒票 · 第二路数据】足球晒票的票面实拍照片（football-tickets.js）
+   ------------------------------------------------------------
+   用户原话：「做足球晒票/晒单实时抓取」。
+   这一路是【票面照片】，和上面那路（搜索结果的分享图）互补：
+   上面那路实测经常只剩 1 条，这一路能把整块真正撑起来。
+
+   数据由 fetch-football-tickets.mjs 在【本机】抓、写 football-tickets.js，
+   跟着本机同步上云；云端抓不到（实测 405），所以云端只读文件、不抓。
+
+   读取方式照抄上面几个：文件不在 / 解析失败 → null，页面照常生成。
+   ⚠️ 窗口 FB_KEEP_HOURS = 72 小时，比头条那路的 24 小时宽 ——
+      竞彩实票集中在周末和晚上，用 24 小时窗口的话白天大半时间整块是空的。
+   ⚠️ 只认 https 外链（图床实测无防盗链、不下载本体、页面只存外链）。
+   ⚠️ 标题在抓取脚本里就中性化好了（不搬源站原标题，自己拼「期号 · 时间」），
+      这里【不再往标题里加任何别的东西】—— 页面铁律：不出现任何出处字样。
+   ------------------------------------------------------------ */
+const FB_KEEP_HOURS = 72;
+const FB_RAW = loadVar('football-tickets.js', 'FB_TICKETS');
+const FB_UPDATED = loadVar('football-tickets.js', 'FB_TICKETS_UPDATED');
+
 /* 原始文件内容（可能带过期/重复条目）—— 下面立刻过滤成 JC_XYSP */
 const XYSP_JC = loadVar('xysp-jc-data.js', 'XYSP_JC_DATA');
 const JC_XYSP = (function () {
@@ -195,11 +217,43 @@ const JC_XYSP = (function () {
     seen.add(img);
     items.push(it);
   }
+
+  /* ---- ② 足球晒票（票面照片）----
+     映射成上面那路同一套字段（img / thumb / title / game / when / at），
+     这样下面的【排序和渲染一行都不用改】。 */
+  const fbCutoff = now - FB_KEEP_HOURS * 3600 * 1000;
+  const fbRaw = Array.isArray(FB_RAW) ? FB_RAW : [];
+  for (const it of fbRaw) {
+    const img = String((it && it.image_url) || '');
+    /* 只认 https（http 会被浏览器当混合内容拦掉，和上面同一条规矩） */
+    if (!/^https:\/\//i.test(img) || seen.has(img)) continue;
+    const pub = Date.parse(String((it && it.published_at) || '')) || Date.parse(String((it && it.fetched_at) || ''));
+    if (!isFinite(pub) || pub < fbCutoff) continue;
+    seen.add(img);
+    items.push({
+      img,
+      thumb: img,          /* 这家图床不支持缩略参数（实测字节数不变）→ 原图当缩略图 */
+      title: String((it && it.title) || ''),
+      /* game 留空：标题里已经写了期号，再带一个「竞彩」标签就重复了；
+         渲染时用兜底值「竞彩」当粗体标签（见 buildJcXyspHtml）。 */
+      game: '',
+      when: String((it && it.published_at) || ''),
+      at: String((it && it.fetched_at) || ''),
+      url: String((it && it.url) || ''),
+      src: 'fb',
+    });
+  }
   /* 排序：发布时间新的在前（没有发布时间的用抓取时间） */
   items.sort((a, b) =>
     ((Date.parse(String(b.when || '')) || Date.parse(String(b.at))) -
      (Date.parse(String(a.when || '')) || Date.parse(String(a.at)))));
-  return { updated: (XYSP_JC && XYSP_JC.updated) || '', items: items.slice(0, JC_MAX) };
+  /* 两路数据合并后 items 可能超过 1000 条 —— 页面只放最新的 JC_MAX 条 */
+  /* updated 取【两路里较新的那个】：两边的格式都是 'YYYY-MM-DD HH:mm'，
+     字符串比大小就是时间比大小，不用解析。 */
+  const stampA = String((XYSP_JC && XYSP_JC.updated) || '');
+  const stampB = String(FB_UPDATED || '');
+  const updated = stampB > stampA ? stampB : stampA;
+  return { updated, items: items.slice(0, JC_MAX) };
 })();
 
 /* ---------- 工具 ---------- */
@@ -1792,9 +1846,13 @@ function buildJcXyspHtml() {
     const desc = kind ? (kind + (title ? ' · ' + title : '')) : title;
     cells.push(
       /* href = 原图地址（点开看大图）；thumb 只在 src 里。
-         referrerpolicy="no-referrer"：外链图不把来源带过去。 */
+         referrerpolicy="no-referrer"：外链图不把来源带过去。
+         onerror：票面图挂了 → 隐藏 <img>、给卡片加 .jxp-bad，
+           由 CSS 画一个米杏色占位块写「票面加载失败」（用户要求：加载失败显示占位）。
+           ⚠️ 只是加 class，不改布局、不弹窗、不写任何存储。 */
       `<a class="jxp-pic" href="${esc(img)}" data-jxp-i="${cells.length}">` +
-      `<img class="jxp-thumb" src="${esc(thumb)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
+      `<img class="jxp-thumb" src="${esc(thumb)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" ` +
+      `onerror="this.style.display='none';if(this.parentNode)this.parentNode.className+=' jxp-bad'">` +
       `<span class="jxp-cap">` +
       `<b>${esc(kind || '竞彩')}</b>` +
       (desc ? `<i>${esc(desc)}</i>` : '') +
@@ -1823,7 +1881,7 @@ function buildJcXyspHtml() {
   return `<details class="m-jxp allow-save" id="jcXysp">` +
     head +
     `<div class="jxp-body">` +
-    `<div class="jxp-sub">全网竞彩实票 · 图片仅供参考 · 点图可放大</div>` +
+    `<div class="jxp-sub">全网竞彩实票 · 共 ${data.length} 张 · 图片仅供参考 · 点图可放大</div>` +
     body +
     foot +
     `</div>` +
@@ -2224,6 +2282,16 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden; }
 .jxp-empty { margin-top: 11px; font-size: 12px; color: #6b7488; }
+/* ---- 票面图【加载失败】的占位（用户要求：加载失败显示占位）----
+   onerror 只做两件事：把 <img> 藏掉 + 给卡片加 .jxp-bad。
+   .jxp-bad 里的 ::before 就是那块米杏色占位 + 一行说明字。
+   ⚠️ 米杏色在后面的配色覆盖里还会再刷一次（保持一致）。 */
+.jxp-pic.jxp-bad { position: relative; min-height: 96px; }
+.jxp-pic.jxp-bad::before { content: '票面加载失败';
+  position: absolute; left: 0; right: 0; top: 0; bottom: 30px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11.5px; color: #a08e73; text-align: center; padding: 0 6px;
+  background: #f3e6d0; }
 .jxp-foot { margin-top: 10px; font-size: 10.5px; color: #6b7488; }
 /* ---- 看大图全屏层（点晒票的图打开；4 种关闭方式） ----
    z-index 100002：高于遮罩 #mask(99998) 和保存图片层 calc-shot(100001)，
