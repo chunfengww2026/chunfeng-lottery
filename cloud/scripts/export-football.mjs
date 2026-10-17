@@ -1837,12 +1837,13 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
   border-radius: 4px; font-variant-numeric: tabular-nums; }
 .m-evitem.pos { color: #47e0a0; background: rgba(71,224,160,0.14); font-weight: 700; }
 .m-evitem.neg { color: #e0687a; background: rgba(224,104,122,0.12); }
-/* 【折叠】用户 2026-10-17：点头部折叠/展开，右侧 ▾ 跟着转 */
+/* 【折叠】用户 2026-10-17：点头部折叠/展开，右侧 ▾ 跟着转
+   ⚠️ 实测被别处的 transform/display 规则压住过 → 这两条用 !important 钉住 */
 .m-card { cursor: pointer; }
 .m-fold { margin-left: auto; font-size: 11px; color: #6b7488; line-height: 1;
   transition: transform .15s; }
-.m-card.folded .m-body { display: none; }
-.m-card.folded .m-fold { transform: rotate(-90deg); }
+.m-card.folded .m-body { display: none !important; }
+.m-card.folded .m-fold { transform: rotate(-90deg) !important; }
 /* 【比分推荐 · 3 个】用户 2026-10-17 追加。
    一行放「比分推荐」标签 + 三个比分胶囊（大号比分 + 小号百分比）+ 一句说明。
    ⚠️ 375 / 320 都要不挤爆：胶囊 white-space:nowrap 但整行 flex-wrap，
