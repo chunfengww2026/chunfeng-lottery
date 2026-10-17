@@ -301,7 +301,7 @@ const FOOTBALL_DATA = {
       "away": 39.8
      },
      "clear": false,
-     "margin": 12
+     "margin": 12.2
     },
     "result": null
    },
@@ -3518,6 +3518,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 582731,
+    "kind": "upcoming",
+    "league": {
+     "name": "瑞典乙",
+     "color": "444466"
+    },
+    "time": "2026-10-17 22:00:00",
+    "minute": 0,
+    "home": {
+     "name": "斯德哥尔摩国际",
+     "score": null,
+     "red": null,
+     "rank": 1
+    },
+    "away": {
+     "name": "耶夫勒",
+     "score": null,
+     "red": null,
+     "rank": 11
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1.5,
+       "line": "0.81",
+       "away": 0.89
+      },
+      "live": {
+       "home": -0.75,
+       "line": "0.95",
+       "away": 0.75
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.84,
+       "under": 0.86
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.85,
+       "under": 0.85
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.24,
+       "draw": 7.1,
+       "away": 4.85
+      },
+      "live": {
+       "home": 1.67,
+       "draw": 6.4,
+       "away": 2.52
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 52,
+     "prob": {
+      "home": 52,
+      "draw": 13.6,
+      "away": 34.5
+     },
+     "clear": true,
+     "margin": 15.2
+    },
+    "result": null
+   },
+   {
     "gid": 582730,
     "kind": "upcoming",
     "league": {
@@ -6321,8 +6394,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": -0.25,
-       "line": "0.92",
-       "away": 0.96
+       "line": "0.9",
+       "away": 0.98
       }
      },
      "overunder": {
@@ -6344,8 +6417,8 @@ const FOOTBALL_DATA = {
        "away": 3.6
       },
       "live": {
-       "home": 2.33,
-       "draw": 4.2,
+       "home": 2.31,
+       "draw": 4.25,
        "away": 2.21
       }
      }
@@ -6355,12 +6428,12 @@ const FOOTBALL_DATA = {
      "label": "客胜",
      "confidence": 40.4,
      "prob": {
-      "home": 38.3,
-      "draw": 21.3,
+      "home": 38.6,
+      "draw": 21,
       "away": 40.4
      },
      "clear": false,
-     "margin": 12
+     "margin": 12.1
     },
     "result": null
    },
@@ -7338,8 +7411,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.5,
-       "line": "0.85",
-       "away": 1.03
+       "line": "0.87",
+       "away": 1.01
       },
       "live": {
        "home": 0.25,
@@ -7569,8 +7642,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.25",
-       "over": 0.84,
-       "under": 1.03
+       "over": 0.82,
+       "under": 1.05
       },
       "live": {
        "line": "1",
@@ -8591,8 +8664,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.25",
-       "over": 0.87,
-       "under": 0.83
+       "over": 0.79,
+       "under": 0.91
       },
       "live": {
        "line": "1",
@@ -23423,6 +23496,56 @@ const FOOTBALL_DATA = {
     }
    },
    {
+    "gid": 581425,
+    "kind": "live",
+    "league": {
+     "name": "中超",
+     "color": "6495ed"
+    },
+    "time": "2026-10-17 19:35:00",
+    "minute": 71,
+    "home": {
+     "name": "青岛海牛",
+     "score": 0,
+     "red": 1,
+     "rank": 16
+    },
+    "away": {
+     "name": "遼寧鐵人",
+     "score": 2,
+     "red": 0,
+     "rank": 14
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.5,
+       "line": "1.05",
+       "away": 0.81
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.73,
+       "under": 1.12
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 0,
+       "draw": 0,
+       "away": 0
+      },
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
     "gid": 581426,
     "kind": "live",
     "league": {
@@ -23793,7 +23916,7 @@ const FOOTBALL_DATA = {
       "away": 27.9
      },
      "clear": true,
-     "margin": 11.8
+     "margin": 12
     },
     "result": {
      "actual": "home",
