@@ -49,6 +49,23 @@
         由 build-odds-divergence.mjs 一起写出来（一趟抓取两个出口，源上只请求一遍），
         这一页同样在【构建时内嵌】。缺文件 / 这一场没有 → 显示「暂无」，不编。
 
+   【第 4 步 · 加两块：🔥 爆冷预警 + 📊 差异分析】（都用本页已有的真数据，零 mock）
+     ⑧ 🔥 爆冷预警：民间口诀算法。【阈值是口诀参数，触发条件全部是真实数据】——
+        ① 主胜赔率 &lt; 1.40
+        ② |主队排名 − 客队排名| ≤ 3 且 平赔 &lt; 3.50
+        ③ 主队排名 ≤ 5 且 客队排名 ≥ 15 且 客胜赔率 &gt; 4.00
+        三条按顺序取第一条命中的；都不中 → normal（绿框 + 「暂无明显爆冷迹象」）。
+        排名：在售场次每场都有（home.rank / away.rank 是数字）；归档场次没有排名 →
+        第 ②③ 条那两场【如实写「无法判」，不拿欧赔接近度之类的代理指标硬凑】。
+     ⑨ 📊 差异分析：给的是【数字】，不是模板文字 ——
+        · 欧赔隐含概率（1/赔率 归一，和「泊松指数」同一口径）
+        · 亚盘推算概率（上下盘水位各取倒数再归一，和「亚指」卡同一套水位）
+        · 两者差几个百分点 + 分档（&lt;3 基本一致 / 3~6 轻微 / ≥6 明显）
+        · 即时 vs 初盘 的涨跌（欧赔三项、亚盘让球线与上盘水位）
+        ⚠️ 欧赔「主胜」是赢球概率、亚盘是「赢盘」概率（含走盘退款、没有平局项），
+           两者口径不同 —— 卡片里如实写明"差只作横向参照"，不假装是同一件事。
+     两块底部都带「以上为民间口诀算法自动推演，仅供参考」。
+
    【⚠️ 硬性规则 · 页面上【不许】出现任何"数据是从哪儿来的"】
      用户要求：全页面不要有任何地方显示在哪里抓取的数据（含站名 / 域名 / 接口 / 文件名）。
      所以这一页里：
@@ -523,6 +540,68 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-money-amt span { white-space: nowrap; }
 .md-money-amt b { color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
 
+/* ⑨ 爆冷预警（民间口诀算法）—— 触发时整卡转红框，未触发（normal）转绿框。
+   · 颜色都在米杏底(#fdf6ea)上量过对比度：#a5281b ≈6.5:1 · #146c46 ≈5.6:1，都过 4.5:1。
+   · 判词块单独一层底色 + 一个状态签；320px 下判词自己换行，不挤右侧徽标。
+   · 判定表复用本页既有的 .md-tbl（条件那一列允许折行，绝不用省略号吃掉条件）。 */
+.md-card.md-cold-on { border-color: rgba(192,57,43,0.55); }
+.md-card.md-cold-on .md-ctitle { color: #a5281b; }
+.md-card.md-cold-off { border-color: rgba(26,140,90,0.42); }
+.md-card.md-cold-off .md-ctitle { color: #146c46; }
+.md-badge.warn { color: #a5281b; border-color: rgba(192,57,43,0.35); background: rgba(192,57,43,0.10); }
+.md-cold-box {
+  border: 1px solid rgba(192,57,43,0.45); background: rgba(192,57,43,0.08);
+  border-radius: 9px; padding: 10px 11px; margin-bottom: 9px;
+}
+.md-cold-off .md-cold-box { border-color: rgba(26,140,90,0.40); background: rgba(26,140,90,0.08); }
+.md-cold-tag {
+  display: inline-block; font-size: 10.5px; font-weight: 800; color: #fff;
+  background: #a5281b; border-radius: 5px; padding: 1px 6px; margin-right: 6px;
+}
+.md-cold-off .md-cold-tag { background: #1a8c5a; }
+.md-cold-msg { font-size: 13px; font-weight: 700; line-height: 1.6; color: #a5281b; }
+.md-cold-off .md-cold-msg { color: #146c46; }
+.md-cold-why { margin-top: 7px; font-size: 12px; line-height: 1.7; color: var(--ro-fg); }
+.md-cold-why b { font-family: Consolas, monospace; color: #a5281b; }
+.md-cold-off .md-cold-why b { color: #146c46; }
+.md-cold-note {
+  margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--ro-line);
+  font-size: 11.5px; line-height: 1.7; color: var(--ro-fg2);
+}
+.md-cold-note b { color: var(--ro-fg); }
+
+/* ⑩ 差异分析（欧赔隐含 vs 亚盘推算 + 即时/初盘变化）—— 蓝框。
+   · 顶部那块是【真实数字】：差几个百分点大字摆着，判定分档在同一行下面。
+   · 变化用 .md-diff-line 逐行摆，等宽字体 + nowrap 的只有数字，320px 不溢出。 */
+.md-card.md-diff { border-color: rgba(31,78,121,0.45); }
+.md-card.md-diff .md-ctitle { color: #1f4e79; }
+.md-badge.blue { color: #1f4e79; border-color: rgba(31,78,121,0.35); background: rgba(31,78,121,0.10); }
+.md-diff-quote {
+  border: 1px solid rgba(31,78,121,0.35); background: rgba(31,78,121,0.07);
+  border-radius: 9px; padding: 9px 11px; margin-bottom: 9px;
+}
+.md-diff-quote .lb { font-size: 11px; font-weight: 800; color: #1f4e79; margin-bottom: 3px; }
+.md-diff-quote .tx { font-size: 12.5px; line-height: 1.65; color: var(--ro-fg); }
+.md-diff-top {
+  display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  background: var(--ro-bg); border: 1px solid var(--ro-line); border-radius: 9px;
+  padding: 9px 11px; margin-bottom: 9px;
+}
+.md-diff-top .k { font-size: 12px; color: var(--ro-fg2); }
+.md-diff-top b { font-size: 19px; font-weight: 800; font-family: Consolas, monospace; color: #1f4e79; line-height: 1.15; }
+.md-diff-top .u { font-size: 11.5px; color: var(--ro-fg2); }
+.md-diff-top .jd { flex: 1 1 100%; font-size: 11.5px; line-height: 1.65; color: var(--ro-fg2); }
+.md-diff-top .jd em { font-style: normal; font-weight: 800; color: #1f4e79; }
+.md-diff-line { display: flex; gap: 7px; align-items: baseline; font-size: 12px;
+  padding: 4px 0; border-bottom: 1px dashed var(--ro-line); color: var(--ro-fg); }
+.md-diff-line:last-child { border-bottom: 0; }
+.md-diff-line .k { flex: 0 0 54px; color: var(--ro-fg2); }
+.md-diff-line .v { flex: 1 1 auto; min-width: 0; font-family: Consolas, monospace; word-break: break-word; }
+.md-diff-line .d { flex: 0 0 auto; font-weight: 800; font-family: Consolas, monospace; white-space: nowrap; }
+.md-diff-line .d.up { color: #146c46; }
+.md-diff-line .d.down { color: #a5281b; }
+.md-diff-sub { margin: 9px 0 2px; font-size: 12px; font-weight: 800; color: var(--ro-fg); }
+
 .md-foot { max-width: 560px; margin: 2px auto 0; padding: 0 12px; font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
 .md-foot b { color: var(--ro-fg); }
 .md-miss { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 16px; text-align: center; }
@@ -605,9 +684,12 @@ ${DEVICE_GATE_BODY}
 
   /* grp = 这一档归哪一档标签：'report' = 数据检测报告 · 'sports' = 体育抓取 ·
      'report sports' = 两档都显示（亚盘那两档只有一份数据，两档里都该看得到）。
-     点标签时按 data-grp 显示/隐藏，「全部」＝都显示。 */
-  function card(title, badgeHtml, bodyHtml, emptyText, grp) {
-    return '<section class="md-card" data-grp="' + esc(grp || 'report') + '"><div class="md-chead"><span class="md-ctitle">' + esc(title) + '</span>'
+     点标签时按 data-grp 显示/隐藏，「全部」＝都显示。
+     cls = 卡片自己的额外类名（爆冷预警的 md-cold-on/off、差异分析的 md-diff 用它上色）。
+     ⚠️ 只能【追加】类名，'md-card' 必须一直在 —— applySrc() 用 '#mdBody .md-card' 选卡片。 */
+  function card(title, badgeHtml, bodyHtml, emptyText, grp, cls) {
+    return '<section class="md-card' + (cls ? ' ' + cls : '') + '" data-grp="' + esc(grp || 'report') + '">'
+      + '<div class="md-chead"><span class="md-ctitle">' + esc(title) + '</span>'
       + (badgeHtml || '') + '</div>'
       + (bodyHtml || ('<div class="md-empty">' + esc(emptyText) + '</div>'))
       + '</section>';
@@ -1264,6 +1346,327 @@ ${DEVICE_GATE_BODY}
     return card('资金分布', '<span class="md-badge">临场累计</span>', body, null, 'report');
   }
 
+  /* ============================================================
+     ⑨ 🔥 爆冷预警（民间口诀算法）
+     ------------------------------------------------------------
+     口诀三条（阈值 1.40 / 3.50 / 4.00 是口诀参数，原样保留）：
+       ① 主胜赔率 < 1.40
+       ② |主队排名 − 客队排名| ≤ 3 且 平赔 < 3.50
+       ③ 主队排名 ≤ 5 且 客队排名 ≥ 15 且 客胜赔率 > 4.00
+     按顺序取【第一条】命中的（和用户给的 if / else if 一致）；都不中 → normal。
+
+     ⚠️ 触发条件全部是【本页已有的真实数据】，一个数都不写死：
+        · 欧赔：g.odds.europe 的【即时】（这一场没有即时才退回初盘）
+        · 排名：g.home.rank / g.away.rank（在售场次每场都有；归档场次没有）
+        · 亚盘：g.asianIndex 的让球线 / 上下盘水位（只作并列事实，不参与判定）
+     ⚠️ 归档场次没有排名 → 第 ②③ 条如实写「无法判」，
+        绝不用"欧赔接近度"之类的代理指标冒充排名（换了判据还叫同一个口诀，
+        等于拿两个不同的东西说同一句话）。
+     ============================================================ */
+  var COLD_NOTE = '以上为民间口诀算法自动推演，仅供参考';
+
+  /* 两队排名：两个都得是正整数才算「有排名」，缺一个就整对作废（不拿 0 顶） */
+  function coldRanks(g) {
+    var hr = num(g.home && g.home.rank), ar = num(g.away && g.away.rank);
+    if (hr === null || ar === null || hr <= 0 || ar <= 0) return null;
+    return { h: hr, a: ar, d: Math.abs(hr - ar) };
+  }
+
+  /* 欧赔：三项齐全才算数（缺一项就判不了 ②③ 的平赔 / 客赔那一半） */
+  function coldOdds(g) {
+    var eu = g.odds && g.odds.europe;
+    if (!eu) return null;
+    var lv = eu.live || eu.open;
+    if (!lv) return null;
+    var h = num(lv.home), d = num(lv.draw), a = num(lv.away);
+    if (h === null || d === null || a === null) return null;
+    return { h: h, d: d, a: a, live: !!eu.live };
+  }
+
+  /* 亚盘这一档：让球线 + 上下盘水位 + 由水位反推的赢盘百分比。
+     1/水位 各自归一到 100%，用的就是「亚指」卡里那同一份水位，不另取数。
+     hc.initLine / initUpWater 是初盘那一档；没有就用 odds.asian.open 的同侧水位。 */
+  function coldAsian(g) {
+    var ai = g.asianIndex || null;
+    var as = g.odds && g.odds.asian;
+    var lv = as ? (as.live || as.open) : null;
+    var hc = (ai && ai.handicapChange) || null;
+    var line = (ai && has(ai.line)) ? String(ai.line) : ((lv && has(lv.line)) ? String(lv.line) : null);
+    var openLine = (hc && has(hc.initLine)) ? String(hc.initLine)
+      : ((as && as.open && has(as.open.line)) ? String(as.open.line) : null);
+    var nowLine = (hc && has(hc.nowLine)) ? String(hc.nowLine) : line;
+    var side = (ai && (ai.upSide === 'home' || ai.upSide === 'away')) ? ai.upSide : null;
+    var uw = num(ai && ai.upWater), dw = num(ai && ai.downWater);
+    var openUp = num(hc && hc.initUpWater);
+    if (openUp === null && side && as && as.open) openUp = num(as.open[side]);
+    var upPct = null;
+    if (uw !== null && dw !== null && uw > 0 && dw > 0) {
+      var iu = 1 / uw, id = 1 / dw;
+      upPct = iu / (iu + id) * 100;
+    }
+    return {
+      line: line, openLine: openLine, nowLine: nowLine, side: side,
+      uw: uw, dw: dw, openUp: openUp, upPct: upPct,
+      downPct: upPct === null ? null : 100 - upPct,
+      chgType: (hc && has(hc.type)) ? String(hc.type) : null
+    };
+  }
+
+  /* 判词原文（用户给的那六句 + 两句默认句），一个字不改 */
+  var COLD_TEXT = {
+    r1: { rule: '大热必死',
+      msg: '【大热必死】主队赔率极低，但亚盘让步不足或水位偏高，谨防主队久攻不下出平局。',
+      diff: '欧赔与亚盘存在背离，机构有意造热主队，存在诱盘嫌疑。' },
+    r2: { rule: '强强对话',
+      msg: '【强强对话】双方实力接近，且平赔处于防范区间，平局概率大增。',
+      diff: '胜负赔率分流均衡，平局赔率低开，机构防范平局意图明显。' },
+    r3: { rule: '哀兵必胜',
+      msg: '【哀兵必胜】客队虽排名靠后，但保级战意强烈，主队状态不佳时容易翻车。',
+      diff: '主队让步过深，市场对客队战意估计不足，防平局或客胜。' },
+    normal: {
+      msg: '暂无明显爆冷迹象，正路打出概率较大。',
+      diff: '基本面与盘口走势一致，无明显诱导。' }
+  };
+
+  function sgn1(v) {
+    var n = num(v);
+    if (n === null) return '—';
+    if (Math.abs(n) < 0.05) n = 0;
+    return (n > 0 ? '+' : '') + n.toFixed(1);
+  }
+
+  function coldCalc(g) {
+    var o = coldOdds(g), rk = coldRanks(g), as = coldAsian(g);
+    var checks = [], i, first = -1;
+
+    /* ① 主胜赔率 < 1.40 */
+    if (o) {
+      checks.push({ key: 'r1', n: '① 主胜赔率 &lt; 1.40', v: o.h.toFixed(2),
+        j: (o.h < 1.40) ? 'hit' : 'miss' });
+    } else {
+      checks.push({ key: 'r1', n: '① 主胜赔率 &lt; 1.40', v: '欧赔不全', j: 'na' });
+    }
+    /* ② |主排 − 客排| ≤ 3 且 平赔 < 3.50 —— 没有排名就整条「无法判」，不找替身 */
+    if (o && rk) {
+      checks.push({ key: 'r2', n: '② 排名差 ≤ 3 且 平赔 &lt; 3.50',
+        v: '排名差 ' + rk.d + ' · 平赔 ' + o.d.toFixed(2),
+        j: (rk.d <= 3 && o.d < 3.50) ? 'hit' : 'miss' });
+    } else {
+      checks.push({ key: 'r2', n: '② 排名差 ≤ 3 且 平赔 &lt; 3.50',
+        v: rk ? ('平赔 ' + (o ? o.d.toFixed(2) : '—')) : '本场没有两队排名', j: 'na' });
+    }
+    /* ③ 主排 ≤ 5 且 客排 ≥ 15 且 客胜赔率 > 4.00 —— 同上 */
+    if (o && rk) {
+      checks.push({ key: 'r3', n: '③ 主排 ≤ 5 · 客排 ≥ 15 · 客胜赔率 &gt; 4.00',
+        v: '主 ' + rk.h + ' · 客 ' + rk.a + ' · 客赔 ' + o.a.toFixed(2),
+        j: (rk.h <= 5 && rk.a >= 15 && o.a > 4.00) ? 'hit' : 'miss' });
+    } else {
+      checks.push({ key: 'r3', n: '③ 主排 ≤ 5 · 客排 ≥ 15 · 客胜赔率 &gt; 4.00',
+        v: rk ? ('客赔 ' + (o ? o.a.toFixed(2) : '—')) : '本场没有两队排名', j: 'na' });
+    }
+    for (i = 0; i < checks.length; i++) { if (checks[i].j === 'hit') { first = i; break; } }
+
+    var type = 'normal', rule = null, msg = COLD_TEXT.normal.msg, diff = COLD_TEXT.normal.diff;
+    if (first === 0) { type = 'warning'; rule = COLD_TEXT.r1.rule; msg = COLD_TEXT.r1.msg; diff = COLD_TEXT.r1.diff; }
+    else if (first === 1) { type = 'warning'; rule = COLD_TEXT.r2.rule; msg = COLD_TEXT.r2.msg; diff = COLD_TEXT.r2.diff; }
+    else if (first === 2) { type = 'warning'; rule = COLD_TEXT.r3.rule; msg = COLD_TEXT.r3.msg; diff = COLD_TEXT.r3.diff; }
+
+    /* 触发依据：把命中那一条用【本场真实数值】说清楚（不是把判词再抄一遍） */
+    var why;
+    var lt = as.line ? esc0(as.line) : '—';
+    var uwTxt = as.uw === null ? '—' : as.uw.toFixed(2);
+    if (first === 0) {
+      var oh = num(g.odds.europe.open && g.odds.europe.open.home);
+      why = '本场主胜赔率 <b>' + o.h.toFixed(2) + '</b>，已低于口诀线 1.40'
+        + (oh === null ? '（本场没有初盘可比）' : '（初盘 ' + oh.toFixed(2) + '）') + '。'
+        + '同场的真实盘口一并摆出来：让球 <b>' + lt + '</b>、上盘水位 <b>' + uwTxt + '</b>。'
+        + '口诀第一条只按主胜赔率这一条判，让步与水位不作加权。';
+    } else if (first === 1) {
+      why = '本场两队排名 <b>' + rk.h + '</b> / <b>' + rk.a + '</b>，排名差 <b>' + rk.d + '</b>（≤ 3）；'
+        + '平赔 <b>' + o.d.toFixed(2) + '</b>（&lt; 3.50）。';
+      var pm = poissonModel(g.odds.europe.live || g.odds.europe.open);
+      if (pm) why += '平局隐含概率 <b>' + pm.p[1].toFixed(1) + '%</b>。';
+      if (rk.h > 8 && rk.a > 8) {
+        why += ' 口诀只看排名差、不看排名绝对值 —— 这两队其实都不在前列，判词是按口诀原样给出的。';
+      }
+    } else if (first === 2) {
+      why = '本场主队排名 <b>' + rk.h + '</b>（≤ 5）、客队排名 <b>' + rk.a + '</b>（≥ 15）、'
+        + '客胜赔率 <b>' + o.a.toFixed(2) + '</b>（&gt; 4.00）；让球 <b>' + (as.openLine ? esc0(as.openLine) : '—')
+        + '</b> → <b>' + lt + '</b>。';
+    } else if (!o) {
+      why = '本场没有三项齐全的欧赔，三条口诀都判不了 —— 上面那句是口诀的默认结论，不是算出来的。';
+    } else {
+      why = '主胜赔率 <b>' + o.h.toFixed(2) + '</b>（没低于 1.40）';
+      if (rk) {
+        why += '；排名差 <b>' + rk.d + '</b>、客胜赔率 <b>' + o.a.toFixed(2) + '</b> 这几条也没同时到线，'
+          + '所以三条口诀都不触发。';
+      } else {
+        why += '；本场没有两队排名，第 ②③ 条无法判，实际只判了第 ① 条。';
+      }
+    }
+    return { type: type, rule: rule, msg: msg, diff: diff, why: why, checks: checks,
+             o: o, rk: rk, as: as };
+  }
+
+  function renderCold(g) {
+    var c = coldCalc(g);
+    var on = c.type === 'warning';
+    var bd = on ? '<span class="md-badge warn">已触发</span>' : '<span class="md-badge">未触发</span>';
+    var head = '<div class="md-cold-box">'
+      + '<div class="md-cold-msg"><span class="md-cold-tag">'
+      + (on ? esc0(c.rule) : '正路') + '</span>' + esc0(c.msg) + '</div>'
+      + '<div class="md-cold-why">' + c.why + '</div>'
+      + '</div>';
+    var t = '<table class="md-tbl"><thead><tr>'
+      + '<th style="width:40%">口诀条件</th><th style="width:40%">本场数值</th><th style="width:20%">判定</th>'
+      + '</tr></thead><tbody>';
+    for (var i = 0; i < c.checks.length; i++) {
+      var k = c.checks[i];
+      var jd = k.j === 'hit' ? '<span class="down">触发</span>'
+        : (k.j === 'na' ? '<span class="dim">无法判</span>' : '<span class="dim">未触发</span>');
+      t += '<tr><td class="s wrap">' + k.n + '</td><td class="s wrap">' + k.v + '</td><td>' + jd + '</td></tr>';
+    }
+    t += '</tbody></table>';
+    var note = '<div class="md-cold-note">三条口诀按 <b>①→②→③</b> 的顺序取第一条命中的，'
+      + '都不中就是「暂无明显爆冷迹象」。判定表把三条<b>各自</b>算了一遍 —— '
+      + '所以看得见命中哪条、卡在哪条；「无法判」＝那一场缺这条要用的数，不猜。<br>'
+      + COLD_NOTE + '</div>';
+    return card('🔥 爆冷预警', bd, head + t + note, null, 'report sports', on ? 'md-cold-on' : 'md-cold-off');
+  }
+
+  /* ============================================================
+     ⑩ 📊 差异分析（给的是数字，不是模板文字）
+     ------------------------------------------------------------
+     三样东西，全部现算：
+       A 欧赔隐含概率    p = (1/主, 1/平, 1/客) 归一化到 100%
+                        （和「泊松指数」同一口径，不另立一套）
+       B 亚盘推算概率    上下盘水位各取 1/水位 再归一 → 上盘赢盘百分比；
+                        再按 asianIndex.upSide 落回主/客两队
+       C 差             A − B（单位：个百分点），并按 3 / 6 分档
+     另外给「即时 vs 初盘」的涨跌幅（欧赔三项）+ 让球线与上盘水位的变化。
+     ⚠️ A 的「主胜」是【赢球】概率、B 的主队侧是【赢盘】概率（含走盘退款、
+        也没有平局项）—— 两者口径不同，卡片里如实写「差只作横向参照」，
+        不假装是同一件事，也不写「机构一定在诱」这种结论。
+     ============================================================ */
+  function diffCalc(g) {
+    var eu = g.odds && g.odds.europe;
+    var lv = eu ? (eu.live || eu.open) : null;
+    var op = eu ? eu.open : null;
+    var m = lv ? poissonModel(lv) : null;
+    var as = coldAsian(g);
+    var rowHome = null, rowAway = null;
+    if (m && as.side && as.upPct !== null) {
+      var homePct = as.side === 'home' ? as.upPct : as.downPct;
+      var awayPct = 100 - homePct;
+      rowHome = { eu: m.p[0], as: homePct, d: m.p[0] - homePct };
+      rowAway = { eu: m.p[2], as: awayPct, d: m.p[2] - awayPct };
+    }
+    var chg = [], i;
+    if (lv && op) {
+      var ks = [['主胜', 'home'], ['平', 'draw'], ['客胜', 'away']];
+      for (i = 0; i < 3; i++) {
+        var a0 = num(op[ks[i][1]]), b0 = num(lv[ks[i][1]]);
+        if (a0 === null || b0 === null || !(a0 > 0)) continue;
+        chg.push({ k: ks[i][0], from: a0, to: b0, p: (b0 - a0) / a0 * 100 });
+      }
+    }
+    return { m: m, as: as, rowHome: rowHome, rowAway: rowAway, chg: chg,
+             hasOpen: !!(lv && op), hasLive: !!lv };
+  }
+
+  function diffJudge(v) {
+    var a = Math.abs(num(v) === null ? 0 : v);
+    if (a >= 6) return '明显背离';
+    if (a >= 3) return '轻微背离';
+    return '基本一致';
+  }
+
+  function renderDiff(g) {
+    var c = coldCalc(g);
+    var d = diffCalc(g);
+    var body = '<div class="md-diff-quote"><div class="lb">口诀判词</div>'
+      + '<div class="tx">' + esc0(c.diff) + '</div></div>';
+
+    if (d.rowHome) {
+      var dh = d.rowHome.d, da = d.rowAway.d;
+      body += '<div class="md-diff-top">'
+        + '<span class="k">主队侧差</span><b>' + sgn1(dh) + '</b><span class="u">个百分点</span>'
+        + '<span class="jd">欧赔主胜 <b>' + d.rowHome.eu.toFixed(1) + '%</b> − 亚盘主队侧 <b>'
+        + d.rowHome.as.toFixed(1) + '%</b> = <em>' + sgn1(dh) + ' 个百分点 → ' + diffJudge(dh)
+        + '</em>；客队侧差 ' + sgn1(da) + ' 个百分点 → ' + diffJudge(da) + '。</span>'
+        + '</div>';
+      body += '<table class="md-tbl"><thead><tr><th style="width:24%">方向</th>'
+        + '<th style="width:26%">欧赔隐含</th><th style="width:26%">亚盘推算</th><th style="width:24%">差</th>'
+        + '</tr></thead><tbody>'
+        + '<tr><td class="s">主胜</td><td class="n">' + d.rowHome.eu.toFixed(1) + '%</td>'
+        + '<td class="n">' + d.rowHome.as.toFixed(1) + '%</td>'
+        + '<td class="' + (dh > 0.05 ? 'up' : (dh < -0.05 ? 'down' : 'dim')) + '">' + sgn1(dh) + '</td></tr>'
+        + '<tr><td class="s">平</td><td class="n">' + d.m.p[1].toFixed(1) + '%</td>'
+        + '<td class="dim">不可比</td><td class="dim">—</td></tr>'
+        + '<tr><td class="s">客胜</td><td class="n">' + d.rowAway.eu.toFixed(1) + '%</td>'
+        + '<td class="n">' + d.rowAway.as.toFixed(1) + '%</td>'
+        + '<td class="' + (da > 0.05 ? 'up' : (da < -0.05 ? 'down' : 'dim')) + '">' + sgn1(da) + '</td></tr>'
+        + '</tbody></table>'
+        + '<div class="md-one">亚盘是上下盘二元市场，没有「平」这一项（走盘退款），'
+        + '所以平局那一行只能写「不可比」，不硬凑一个数。</div>';
+    } else {
+      body += '<div class="md-na">本场没有可用的亚盘水位，算不出「欧赔 vs 亚盘」的差。<br>'
+        + '<em>这一块不拿"即时 vs 初盘"的变化去顶替它 —— 那是另一件事，下面单独列。</em></div>';
+    }
+
+    body += '<div class="md-diff-sub">即时 vs 初盘</div>';
+    if (!d.hasLive) {
+      body += '<div class="md-one">本场连即时欧赔都没有，变化幅度无从谈起。</div>';
+    } else if (!d.hasOpen) {
+      body += '<div class="md-one">本场只存了即时一档（没有初盘），所以不给涨跌幅 —— 不拿别处的均值顶。</div>';
+    } else if (d.chg.length) {
+      for (var i = 0; i < d.chg.length; i++) {
+        var v = d.chg[i];
+        body += '<div class="md-diff-line"><span class="k">欧赔' + v.k + '</span>'
+          + '<span class="v">' + v.from.toFixed(2) + ' → ' + v.to.toFixed(2) + '</span>'
+          + '<span class="d ' + (v.p > 0.05 ? 'up' : (v.p < -0.05 ? 'down' : '')) + '">' + sgn1(v.p) + '%</span></div>';
+      }
+    }
+    /* 亚盘：让球线 + 上盘水位（这两样是初盘/即时都有的，归档场次也有） */
+    var as = d.as;
+    if (as && (as.openLine || as.line || as.openUp !== null || as.uw !== null)) {
+      var sideTxt = as.side === 'home' ? '主队' : (as.side === 'away' ? '客队' : '—');
+      var lineRow, lineD = '';
+      if (as.openLine && as.line) {
+        lineRow = '初 ' + String(as.openLine) + ' → 即 ' + String(as.line);
+        lineD = String(as.openLine) === String(as.line) ? '不变' : '变盘';
+      } else {
+        lineRow = as.line ? String(as.line) : '—';
+      }
+      body += '<div class="md-diff-line"><span class="k">让球</span>'
+        + '<span class="v">' + esc0(lineRow) + '</span>'
+        + '<span class="d">' + esc0(lineD) + '</span></div>';
+      var wRow = '—';
+      var wD = '', wDiff = null;
+      if (as.openUp !== null && as.uw !== null) {
+        wRow = as.openUp.toFixed(2) + ' → ' + as.uw.toFixed(2);
+        wDiff = as.uw - as.openUp;
+        wD = sgn1(wDiff);
+      } else if (as.uw !== null) {
+        wRow = as.uw.toFixed(2);
+      }
+      body += '<div class="md-diff-line"><span class="k">上盘水</span>'
+        + '<span class="v">' + esc0(sideTxt + ' · ' + wRow) + '</span>'
+        + '<span class="d ' + (wDiff === null ? '' : (wDiff > 0.0001 ? 'up' : (wDiff < -0.0001 ? 'down' : ''))) + '">'
+        + esc0(wD) + '</span></div>';
+    }
+
+    body += '<div class="md-diff-note">口径：<b>欧赔隐含</b> = (1/赔率) 归一化到三项合计 100%（和「泊松指数」同一套算法）；'
+      + '<b>亚盘推算</b> = 上下盘水位各取 1/水位 再归一（和「亚指」卡用的是同一份水位）。'
+      + '背离分档：差 &lt; 3 个百分点记「基本一致」，3~6 记「轻微背离」，≥ 6 记「明显背离」（本页口径，只用于给背离分档）。<br>'
+      + '⚠️ 两者不是同一件事：欧赔的「主胜」是<b>赢球</b>概率，亚盘的主队侧是<b>赢盘</b>概率'
+      + '（含走盘退款、也没有平局这一项）—— 所以这个差只作横向参照，不等于哪一边算错了。'
+      + '这一块只描述两个盘口之间的差，是统计描述，不是预测、不是推荐。<br>'
+      + COLD_NOTE + '</div>';
+
+    return card('📊 差异分析', '<span class="md-badge blue">两盘对照</span>', body, null, 'report sports', 'md-diff');
+  }
+
   /* ---- ③ 比赛头部 ---- */
   /* 归档场次用的是另一种数据形状，这里统一推出一个状态。
      口径：有比分 → 已完场；没比分且时间在数据更新时间之后 → 未开赛；否则按已完场。 */
@@ -1344,11 +1747,16 @@ ${DEVICE_GATE_BODY}
     }
   }
 
-  /* ---- 组装整页 ---- */
+  /* ---- 组装整页 ----
+     卡片顺序（11 张）：雷达寻胆 · 欧指 · 欧赔对比 · 大小 · 让球 · 亚指 ·
+       🔥 爆冷预警 · 📊 差异分析 · 泊松指数 · 资金分布 · 分歧指。
+     ⚠️ 新加的两块放在【欧指 / 让球 / 亚指 之后】——它们读的就是那几张卡的数字；
+        原来的 9 张卡一张没动、相对顺序也没变（只是中间插了两块）。 */
   function render(g) {
     var body = srcBar() + renderHead(g)
       + renderRadar(g)
       + renderEurope(g) + renderTitanEuro(g) + renderOU(g) + renderRQ(g) + renderAsian(g)
+      + renderCold(g) + renderDiff(g)
       + renderPoisson(g) + renderMoney(g) + renderDivergence(g);
     document.getElementById('mdBody').innerHTML = body;
     applySrc('all');
