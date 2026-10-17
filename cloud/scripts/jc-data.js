@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 22:34 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 22:54 */
 const JC_DATA = {
- "updated": "2026-10-17 22:34",
+ "updated": "2026-10-17 22:54",
  "stat": {
   "total": 63,
   "upcoming": 42,
@@ -3265,7 +3265,7 @@ const JC_DATA = {
     "rank": 15
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 2
    },
    "statusText": "0 - 2 ",
@@ -3352,7 +3352,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 2
    }
   },
@@ -4105,7 +4105,7 @@ const JC_DATA = {
     "rank": 9
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "- ",
@@ -4192,7 +4192,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -4317,10 +4317,10 @@ const JC_DATA = {
     "rank": 10
    },
    "score": {
-    "home": 1,
+    "home": 2,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "2 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -4404,7 +4404,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 2,
     "away": 1
    }
   },
@@ -4529,10 +4529,10 @@ const JC_DATA = {
     "rank": 8
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -4616,7 +4616,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
