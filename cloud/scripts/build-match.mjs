@@ -724,7 +724,7 @@ ${DEVICE_GATE_BODY}
 
 <div class="md-top">
   <a class="md-back" id="mdBack" role="button" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">← 返回</a>
-<a class="md-fab-back" id="mdFabBack" role="button" aria-label="返回" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">←</a>
+
   <span class="md-title">比赛详情</span>
   <span class="md-live" id="mdLive"></span>
 </div>
@@ -1985,6 +1985,7 @@ ${DEVICE_GATE_BODY}
 </script>
 ${INSTALL_HTML}
 ${INSTALL_JS}
+<a class="md-fab-back" id="mdFabBack" role="button" aria-label="返回" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">←</a>
 </body>
 </html>
 `;
