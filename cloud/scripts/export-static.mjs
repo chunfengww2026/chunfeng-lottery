@@ -2232,6 +2232,13 @@ const RO_RENDER_SCRIPT = `
            还没到窗口结束的 20:00 / 21:00）。
          ============================================================ */
       if (slot.getAttribute('data-image') === 'heatmap') {
+        /* 【用户 2026-10-17】热力图已搬到独立区块 #ro-heatmap 且改成每小时更新，
+           不再有「18:00 才显示 / 20:00·21:00 撤下」的窗口 ——
+           所以【这个区块里的图位永远渲染】，不走下面那套按时间隐藏的逻辑。
+           其它位置（老页面缓存下来的彩种区块热力图）仍按原逻辑清理。 */
+        var inHeatBlock = false;
+        try { inHeatBlock = !!(slot.closest && slot.closest('#ro-heatmap')); } catch (e) { inHeatBlock = false; }
+        if (!inHeatBlock) {
         var hg = slot.getAttribute('data-game');
         var show = false;
         try {
@@ -2253,6 +2260,7 @@ const RO_RENDER_SCRIPT = `
           hidden++;
           continue;
         }
+        }   /* ← if (!inHeatBlock) 收口 */
       }
 
       var dom = null;
@@ -2290,6 +2298,20 @@ const RO_RENDER_SCRIPT = `
   }
 
   window.__roRenderAll = renderAll;
+
+  /* 【热力图区块补画】用户 2026-10-17 把热力图搬进 #ro-heatmap（默认折叠，:target 才显示）。
+      canvas 在隐藏元素里画不出来（实测 rect=0x0、canvas 缺失），
+      所以点开入口（hash = #ro-heatmap）时、以及带 hash 直达时，各补画一次。 */
+  try {
+    window.addEventListener('hashchange', function () {
+      if (String(location.hash || '').indexOf('#ro-heatmap') === 0) {
+        try { renderAll(); } catch (e) { /* 忽略 */ }
+      }
+    });
+    if (String(location.hash || '').indexOf('#ro-heatmap') === 0) {
+      setTimeout(function () { try { renderAll(); } catch (e) { /* 忽略 */ } }, 60);
+    }
+  } catch (e) { /* 忽略 */ }
 
   /* 【调试】想验证「18:00 之后才有热力图」又不想等到 18:00：
      在网址后面加 ?hmnow=2026-10-15T18:30 —— 时间判断会按这个时刻算。
