@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 00:56
+   更新时间：2026-10-18 01:08
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-18 00:56",
+ "updated": "2026-10-18 01:08",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
