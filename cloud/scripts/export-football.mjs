@@ -761,7 +761,26 @@ const MQ_INNER = MQ_ITEMS_HTML || `<span class="m-mq-item">暂无最新播报</s
    页面端的 loadBroadcast() 读它 → 与 fetch json 的效果一致，但没有 CORS 问题、也没有额外请求。
    ⚠️ 内容是页面上真实的统计（命中率/红黑），不是「中奖」——这个页面没有中奖数据，绝不编。
    ⚠️ JSON 放在 <script> 里必须把 < 转义，否则出现 </script> 会截断页面。 */
-const BC_JSON = JSON.stringify(MQ_ITEMS.map((h) => ({ text: h.replace(/<[^>]*>/g, '').trim() })))
+const BC_JSON_ITEMS = (() => {
+  const items = [];
+  /* ① 后台比对出来的真命中（build-broadcast.mjs 写的 broadcast.json）
+        —— 用户 2026-10-17：「播报要有中奖」+「要我们自己计算的号」。
+        脚本用 experts-data.js 的 games.<彩种>.pool（我们自己算的号池）去比开奖号，
+        严格包住才写一等奖/二等奖，近 7 天窗口；文件不存在/为空就跳过。 */
+  try {
+    const p = path.join(ROOT, 'broadcast.json');
+    if (fs.existsSync(p)) {
+      const arr = JSON.parse(fs.readFileSync(p, 'utf8'));
+      if (Array.isArray(arr)) {
+        for (const it of arr) if (it && it.text) items.push({ text: String(it.text).trim() });
+      }
+    }
+  } catch (e) { /* 读不到就当没有，绝不编 */ }
+  /* ② 后面接页面已有的战绩数字（红黑/命中率），保证播报不会空着 */
+  for (const h of MQ_ITEMS) items.push({ text: h.replace(/<[^>]*>/g, '').trim() });
+  return items;
+})();
+const BC_JSON = JSON.stringify(BC_JSON_ITEMS)
   .replace(/</g, '\\u003c');
 const HIT_MQ_HTML = `<script type="application/json" id="broadcastData">${BC_JSON}</script>` +
   `<div class="m-mq broadcast-bar" id="broadcastBar">` +
