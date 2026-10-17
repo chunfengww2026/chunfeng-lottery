@@ -13336,7 +13336,13 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 
 <script>
-/* __PX9__ 9 套方法：全部用本页近 30 期真实开奖现算（不联网、不收费） */
+/* __PX9__ 9 套方法（按用户 2026-10-18 给的算法原样移植）
+   · 冷热：近 N 期频次分位（热 20% / 冷 20%）
+   · 遗漏：单号 current/max/avg + 欲出指数
+   · 余数路：0/1/2 路整路遗漏
+   · 斐波那契冷号：|current >= max * 0.236/0.382/0.5/0.618/0.786|
+   · 多源共振：6 个条件计分（>=3 分入选），完全透明
+   ⚠️ 全部用本页近 30 期真实开奖现算，不联网、不收费 */
 (function () {
   var METHODS = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度','多源共振法'];
   var st = { game: 'ssq', method: METHODS[0] };
@@ -13345,101 +13351,150 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   var elO = document.getElementById('px9Out');
   if (!elM || !elO) return;
 
+  var CFG = {
+    ssq: { name: '双色球', max: 33, blue: 16, pick: 6, primeMode: 'strict',
+           zones: [[1,11,'一区'],[12,22,'二区'],[23,33,'三区']] },
+    dlt: { name: '大乐透', max: 35, blue: 12, pick: 5, primeMode: 'dlt',
+           zones: [[1,5],[6,10],[11,15],[16,20],[21,25],[26,30],[31,35]] }
+  };
+  var FIB = [0.236, 0.382, 0.5, 0.618, 0.786];
+
   function hist(g) {
-    try {
-      if (typeof DRAW_HISTORY === 'undefined' || !DRAW_HISTORY.games) return [];
-      var a = DRAW_HISTORY.games[g] || [];
-      return a.slice(0, 30);
-    } catch (e) { return []; }
+    try { return (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])).slice(0, 30); }
+    catch (e) { return []; }
   }
   function numsOf(d, g) {
     var a = (d && d.areas) || {};
     return (g === 'dlt' ? (a.front || a.red) : (a.red || a.front)) || [];
   }
-  function meta(g) {
-    return g === 'dlt'
-      ? { name: '大乐透', max: 35, blue: 12, zones: [[1,12],[13,24],[25,35]] }
-      : { name: '双色球', max: 33, blue: 16, zones: [[1,11],[12,22],[23,33]] };
+  function isPrime(n, mode) {
+    if (mode === 'dlt') { if (n === 1) return true; }
+    if (n < 2) return false;
+    for (var i = 2; i * i <= n; i++) if (n % i === 0) return false;
+    return true;
   }
-  function freq(g) {
-    var M = meta(g), f = {}, i;
+  function freqOf(g, window) {
+    var M = CFG[g], f = {}, i;
     for (i = 1; i <= M.max; i++) f[i] = 0;
-    hist(g).forEach(function (d) { numsOf(d, g).forEach(function (n) { n = Number(n); if (f[n] != null) f[n]++; }); });
+    hist(g).slice(0, window).forEach(function (d) { numsOf(d, g).forEach(function (n) { n = Number(n); if (f[n] != null) f[n]++; }); });
     return f;
   }
-  function row(k, v) { return '<div class="px9-row"><span class="px9-k">' + k + '</span><span>' + v + '</span></div>'; }
-  function balls(arr, blue) { return '<div class="px9-balls">' + arr.map(function (n) { return '<span class="px9-b' + (blue ? ' blue' : '') + '">' + n + '</span>'; }).join('') + '</div>'; }
-  function topN(f, n, asc) {
-    return Object.keys(f).map(Number).sort(function (a, b) { return asc ? (f[a] - f[b]) || (a - b) : (f[b] - f[a]) || (a - b); }).slice(0, n);
+  /* 单号遗漏：current / max / avg / 欲出指数 */
+  function omissionOf(g, n) {
+    var ds = hist(g), gaps = [], cur = 0, last = -1;
+    for (var i = 0; i < ds.length; i++) {
+      if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) {
+        if (last >= 0) gaps.push(i - last - 1);
+        last = i; cur = 0;
+      } else cur++;
+    }
+    var mx = Math.max.apply(null, gaps.concat([cur]));
+    var avg = gaps.length ? gaps.reduce(function (a, b) { return a + b; }, 0) / gaps.length : cur;
+    return { cur: cur, max: mx, avg: +avg.toFixed(2), desire: avg > 0 ? +(cur / avg).toFixed(2) : 0 };
   }
-  function isPrime(n) { if (n < 2) return false; for (var i = 2; i * i <= n; i++) if (n % i === 0) return false; return true; }
+  /* 余数路遗漏（0/1/2 路） */
+  function roadOmission(g, road) {
+    var ds = hist(g), gaps = [], cur = 0, last = -1;
+    for (var i = 0; i < ds.length; i++) {
+      var hit = numsOf(ds[i], g).map(Number).some(function (n) { return n % 3 === road; });
+      if (hit) { if (last >= 0) gaps.push(i - last - 1); last = i; cur = 0; }
+      else cur++;
+    }
+    var avg = gaps.length ? gaps.reduce(function (a, b) { return a + b; }, 0) / gaps.length : cur;
+    return { cur: cur, avg: +avg.toFixed(2), max: Math.max.apply(null, gaps.concat([cur])) };
+  }
+  function hotCold(g) {
+    var f = freqOf(g, 30), arr = Object.keys(f).map(Number);
+    arr.sort(function (a, b) { return (f[b] - f[a]) || (a - b); });
+    var n = Math.max(1, Math.floor(arr.length * 0.2));
+    return { hot: arr.slice(0, n), warm: arr.slice(n, arr.length - n), cold: arr.slice(arr.length - n), freq: f };
+  }
+  function fibCold(g) {
+    var M = CFG[g], out = {};
+    for (var n = 1; n <= M.max; n++) {
+      var o = omissionOf(g, n);
+      var trig = o.max > 0 ? FIB.filter(function (r) { return o.cur >= o.max * r; }) : [];
+      out[n] = { flag: trig.length > 0, trig: trig };
+    }
+    return out;
+  }
+  function row(k, v) { return '<div class="px9-row"><span class="px9-k">' + k + '</span><span>' + v + '</span></div>'; }
+  function balls(a) { return '<div class="px9-balls">' + a.map(function (n) { return '<span class="px9-b">' + (n < 10 ? '0' + n : n) + '</span>'; }).join('') + '</div>'; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
 
   function calc(g, m) {
-    var M = meta(g), f = freq(g), ds = hist(g), out = [];
-    var arr = Object.keys(f).map(Number);
-    var sumArr = ds.map(function (d) { var a = numsOf(d, g); return a.reduce(function (x, y) { return x + Number(y); }, 0); });
-    var spanArr = ds.map(function (d) { var a = numsOf(d, g).map(Number); return a.length ? Math.max.apply(null, a) - Math.min.apply(null, a) : 0; });
+    var M = CFG[g], out = [], ds = hist(g);
+    var main = ds.map(function (d) { return numsOf(d, g).map(Number); });
+    var sums = main.map(function (a) { return a.reduce(function (x, y) { return x + y; }, 0); });
+    var spans = main.map(function (a) { return a.length ? Math.max.apply(null, a) - Math.min.apply(null, a) : 0; });
+    var hc = hotCold(g), f = hc.freq;
+    var all = []; for (var i = 1; i <= M.max; i++) all.push(i);
+
     if (m === '余数算法') {
-      var r3 = { 0: [], 1: [], 2: [] };
-      arr.forEach(function (n) { r3[n % 3].push(n); });
-      out.push(row('余 0 号', r3[0].join(' ') || '—'));
-      out.push(row('余 1 号', r3[1].join(' ') || '—'));
-      out.push(row('余 2 号', r3[2].join(' ') || '—'));
-      var best = [0,1,2].sort(function (a, b) { return r3[b].length - r3[a].length; })[0];
-      out.push(row('<b>号最多的余数</b>', '余 ' + best + '（共 ' + r3[best].length + ' 个）'));
-    } else if (m === '分区法') {
-      M.zones.forEach(function (z, i) {
-        var seg = arr.filter(function (n) { return n >= z[0] && n <= z[1]; });
+      for (var r = 0; r < 3; r++) {
+        var seg = all.filter(function (n) { return n % 3 === r; });
         var cnt = seg.reduce(function (s2, n) { return s2 + f[n]; }, 0);
-        out.push(row('第 ' + (i + 1) + ' 区 ' + z[0] + '-' + z[1], seg.length + ' 个号 · 出现 ' + cnt + ' 次'));
+        out.push(row('余 ' + r + ' 路（' + seg.length + ' 个号）', '近 30 期出现 ' + cnt + ' 次'));
+      }
+      var ro = [0,1,2].map(function (r2) { return roadOmission(g, r2); });
+      out.push(row('整路遗漏（当前）', ro.map(function (x, k) { return k + '路:' + x.cur + '期'; }).join(' · ')));
+      out.push(row('整路平均遗漏', ro.map(function (x, k) { return k + '路:' + x.avg.toFixed(1); }).join(' · ')));
+    } else if (m === '分区法') {
+      M.zones.forEach(function (z) {
+        var seg = all.filter(function (n) { return n >= z[0] && n <= z[1]; });
+        var cnt = seg.reduce(function (s2, n) { return s2 + f[n]; }, 0);
+        out.push(row(z[2] ? z[2] + ' ' + pad(z[0]) + '-' + pad(z[1]) : pad(z[0]) + '-' + pad(z[1]), seg.length + ' 个号 · 出现 ' + cnt + ' 次'));
       });
+      /* 断区统计 */
+      var broken = 0;
+      main.forEach(function (a) {
+        var hitZones = M.zones.filter(function (z) { return a.some(function (n) { return n >= z[0] && n <= z[1]; }); }).length;
+        if (hitZones < M.zones.length) broken++;
+      });
+      out.push(row('出现断区的期数', broken + ' / ' + main.length + ' 期'));
     } else if (m === '冷热号') {
-      out.push(row('热号前 5', topN(f, 5, false).join(' ')));
-      out.push(row('冷号前 5', topN(f, 5, true).join(' ')));
+      out.push(row('热号（前 20%）', hc.hot.slice(0, 8).map(pad).join(' ')));
+      out.push(row('冷号（后 20%）', hc.cold.slice(0, 8).map(pad).join(' ')));
     } else if (m === '遗漏值算法') {
-      var gap = {};
-      arr.forEach(function (n) {
-        var g2 = 30;
-        for (var i = 0; i < ds.length; i++) { if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) { g2 = i; break; } }
-        gap[n] = g2;
-      });
-      var big = Object.keys(gap).map(Number).sort(function (a, b) { return gap[b] - gap[a]; }).slice(0, 5);
-      out.push(row('遗漏最久', big.map(function (n) { return n + '(' + gap[n] + '期)'; }).join('  ')));
+      var top = all.map(function (n) { return { n: n, o: omissionOf(g, n) }; }).sort(function (a, b) { return b.o.cur - a.o.cur; }).slice(0, 6);
+      top.forEach(function (x) { out.push(row(pad(x.n) + ' 号', '当前 ' + x.o.cur + ' 期 · 最大 ' + x.o.max + ' · 均 ' + x.o.avg + ' · 欲出 ' + x.o.desire)); });
     } else if (m === '奇偶') {
-      var odd = arr.filter(function (n) { return n % 2 === 1; }).length;
-      out.push(row('奇数号', odd + ' 个'));
-      out.push(row('偶数号', (arr.length - odd) + ' 个'));
-      out.push(row('奇偶比', odd + ' : ' + (arr.length - odd)));
+      var odd = all.filter(function (n) { return n % 2 === 1; }).length;
+      out.push(row('奇数号', odd + ' 个')); out.push(row('偶数号', (all.length - odd) + ' 个'));
+      var oddCnt = main.map(function (a) { return a.filter(function (n) { return n % 2 === 1; }).length; });
+      var dist = {};
+      oddCnt.forEach(function (c) { dist[c] = (dist[c] || 0) + 1; });
+      out.push(row('近 30 期「奇数个数」分布', Object.keys(dist).sort().map(function (k) { return k + '个:' + dist[k] + '期'; }).join(' · ')));
     } else if (m === '质合') {
-      var pr = arr.filter(isPrime).length;
-      out.push(row('质数号', pr + ' 个'));
-      out.push(row('合数号', (arr.length - pr) + ' 个'));
+      var pr = all.filter(function (n) { return isPrime(n, M.primeMode); }).length;
+      out.push(row('质数号', pr + ' 个')); out.push(row('合数号', (all.length - pr) + ' 个'));
+      out.push(row('口径', M.primeMode === 'dlt' ? '1 计为质数（大乐透口径）' : '1 不计为质数（严格口径）'));
     } else if (m === '和值') {
-      var avg = sumArr.length ? sumArr.reduce(function (a, b) { return a + b; }, 0) / sumArr.length : 0;
-      out.push(row('近 ' + sumArr.length + ' 期和值均值', avg.toFixed(1)));
-      out.push(row('最大和值', Math.max.apply(null, sumArr)));
-      out.push(row('最小和值', Math.min.apply(null, sumArr)));
-      out.push(row('最近一期和值', sumArr[0]));
+      var avg = sums.length ? sums.reduce(function (a, b) { return a + b; }, 0) / sums.length : 0;
+      out.push(row('近 ' + sums.length + ' 期均值', avg.toFixed(1)));
+      out.push(row('最大 / 最小', Math.max.apply(null, sums) + ' / ' + Math.min.apply(null, sums)));
+      out.push(row('最近一期', sums[0]));
     } else if (m === '跨度') {
-      var avgS = spanArr.length ? spanArr.reduce(function (a, b) { return a + b; }, 0) / spanArr.length : 0;
-      out.push(row('近 ' + spanArr.length + ' 期跨度均值', avgS.toFixed(1)));
-      out.push(row('最大跨度', Math.max.apply(null, spanArr)));
-      out.push(row('最近一期跨度', spanArr[0]));
+      var avgS = spans.length ? spans.reduce(function (a, b) { return a + b; }, 0) / spans.length : 0;
+      out.push(row('近 ' + spans.length + ' 期均值', avgS.toFixed(1)));
+      out.push(row('最大 / 最小', Math.max.apply(null, spans) + ' / ' + Math.min.apply(null, spans)));
+      out.push(row('最近一期', spans[0]));
     } else if (m === '多源共振法') {
-      var hot = topN(f, 8, false), cold = topN(f, 8, true), gapBig = (function () {
-        var gap2 = {};
-        arr.forEach(function (n) { var g2 = 30; for (var i = 0; i < ds.length; i++) { if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) { g2 = i; break; } } gap2[n] = g2; });
-        return Object.keys(gap2).map(Number).sort(function (a, b) { return gap2[b] - gap2[a]; }).slice(0, 8);
-      })();
-      var zonePick = [];
-      M.zones.forEach(function (z) { var seg = arr.filter(function (n) { return n >= z[0] && n <= z[1]; }); seg.sort(function (a, b) { return f[b] - f[a]; }); if (seg[0]) zonePick.push(seg[0]); });
-      var all = {}, cnt = 0;
-      [hot, cold, gapBig, zonePick].forEach(function (list) { list.forEach(function (n) { all[n] = (all[n] || 0) + 1; }); });
-      var res = Object.keys(all).map(Number).filter(function (n) { return all[n] >= 2; }).sort(function (a, b) { return all[b] - all[a] || a - b; });
-      out.push(row('共振号（≥2 套方法都选）', res.join(' ') || '本轮无共振'));
-      out.push(row('共振数', res.length + ' 个'));
+      var fc = fibCold(g), ro2 = [0,1,2].map(function (r3) { return roadOmission(g, r3); });
+      var res = all.map(function (n) {
+        var o = omissionOf(g, n), rd = ro2[n % 3], sc = 0, why = [];
+        if (o.avg > 0 && o.cur >= o.avg) { sc++; why.push('单号遗漏≥均'); }
+        if (rd.avg > 0 && rd.cur >= rd.avg) { sc++; why.push(n % 3 + '路遗漏≥均'); }
+        if (hc.cold.indexOf(n) >= 0) { sc++; why.push('频次冷号'); }
+        if (hc.hot.indexOf(n) >= 0) { sc++; why.push('频次热号'); }
+        if (fc[n] && fc[n].flag) { sc++; why.push('斐波那契冷号'); }
+        if (o.desire >= 1) { sc++; why.push('欲出≥1'); }
+        return { n: n, sc: sc, why: why };
+      }).filter(function (x) { return x.sc >= 3; }).sort(function (a, b) { return b.sc - a.sc || a.n - b.n; });
+      out.push(row('入选（≥3 分）', res.length ? res.slice(0, 8).map(function (x) { return pad(x.n) + '(' + x.sc + ')'; }).join(' ') : '本轮无'));
+      res.slice(0, 4).forEach(function (x) { out.push(row(pad(x.n) + ' 号 ' + x.sc + ' 分', x.why.join(' · '))); });
     }
-    return { out: out, M: M, sumArr: sumArr };
+    return { out: out, M: M, n: ds.length };
   }
 
   function render() {
@@ -13447,15 +13502,13 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       return '<div class="px9-m' + (m === st.method ? ' on' : '') + '" role="button" tabindex="0" data-px9-m="' + m + '">' + m + '</div>';
     }).join('');
     var r = calc(st.game, st.method);
-    var M = r.M;
-    elO.innerHTML = '<div style="font-weight:700;color:#1a8c5a;margin-bottom:6px">' + M.name + ' · ' + st.method + '</div>' + r.out.join('') +
-      '<div style="font-size:10.5px;color:#a89a80;margin-top:6px">近 ' + hist(st.game).length + ' 期 · 红球区 1-' + M.max + '</div>';
-    /* 方法按钮事件 */
+    elO.innerHTML = '<div style="font-weight:700;color:#1a8c5a;margin-bottom:6px">' + r.M.name + ' · ' + st.method + '</div>' +
+      r.out.join('') +
+      '<div style="font-size:10.5px;color:#a89a80;margin-top:6px">近 ' + r.n + ' 期 · 主号区 1-' + r.M.max + ' · 全部现算</div>';
     [].slice.call(elM.querySelectorAll('.px9-m')).forEach(function (b) {
       b.onclick = function () { st.method = b.getAttribute('data-px9-m'); render(); };
     });
   }
-
   [].slice.call(elG).forEach(function (b) {
     b.onclick = function () {
       st.game = b.getAttribute('data-px9-game');
