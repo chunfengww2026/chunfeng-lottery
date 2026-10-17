@@ -194,6 +194,32 @@
     }
     const keys = snap.rows.map(rowKey).filter(Boolean).sort().join('~');
 
+    /* 【逐场去重 · 用户 2026-10-18 反馈「抓取的数据不对」的根因之一】
+       原来只有「整批场次集合完全一样」才合并；实际每 5 分钟抓一次，
+       场次增删（开盘/撤盘）会让集合不同 → 同一场比赛被反复存进多个批次
+       → 统计时重复累加（实测同一场出现 8 行，红黑数虚高）。
+       这里先按「编号+日期」把【已经存过的场】剔掉，只保留新出现的场次。 */
+    const dayKeyOf = (r) => {
+      if (!r) return '';
+      const code = r.code ? String(r.code).trim() : ((r.home || '') + '|' + (r.away || ''));
+      const d = String(r.time || '').slice(0, 10);
+      return code ? code + '@' + d : '';
+    };
+    const already = new Set();
+    out.batches.forEach((b) => (b.rows || []).forEach((r) => {
+      const k = dayKeyOf(r);
+      if (k) already.add(k);
+    }));
+    const fresh = snap.rows.filter((r) => {
+      const k = dayKeyOf(r);
+      return k && !already.has(k);
+    });
+    if (!fresh.length) {
+      out.updated = bjStamp(o.now);
+      return { archive: out, added: 0, updated: 0, reason: '这一批场次都已经存过（没有新的场次）' };
+    }
+    snap.rows = fresh;                    /* 只存新场次，重复的不再进库 */
+
     let same = null;
     out.batches.forEach((b) => {
       if (same) return;
@@ -231,6 +257,29 @@
     const o = opt || {};
     const list = Array.isArray(settled) ? settled : [];
     const out = (archive && Array.isArray(archive.batches)) ? archive : emptyArchive();
+
+    /* 【清理历史重复】用户 2026-10-18：老库里同一场比赛被存了多次（实测 8 行）。
+       这里按「编号+日期」只保留【最早那一批】里的那一行，其余重复行删掉 ——
+       只删重复、不动任何判定字段；删空的批次整批丢弃。 */
+    {
+      const seen = new Set();
+      const dayKeyOf = (r) => {
+        if (!r) return '';
+        const code = r.code ? String(r.code).trim() : ((r.home || '') + '|' + (r.away || ''));
+        const d = String(r.time || '').slice(0, 10);
+        return code ? code + '@' + d : '';
+      };
+      out.batches.forEach((b) => {
+        b.rows = (b.rows || []).filter((r) => {
+          const k = dayKeyOf(r);
+          if (!k) return true;             /* 没编号没队名 → 不能用去重规则，保留 */
+          if (seen.has(k)) return false;   /* 前面批次已经有这一场 → 删掉重复 */
+          seen.add(k);
+          return true;
+        });
+      });
+      out.batches = out.batches.filter((b) => (b.rows || []).length);
+    }
 
     const byCode = new Map(), byPair = new Map();
     list.forEach((g) => {
@@ -325,9 +374,13 @@
            低于58%的不算」—— 传 { min: 58 } 之后，历史里那些 <58% 的场次
            既不算红黑、也不算"没打完"，直接从口径里剔除。 */
         .filter((r) => (o.min == null ? true : (r.conf != null && r.conf >= o.min)));
-      rows += list.length;
+      /* rows 在下面按【去重后】的场次累加（一行一场），这里不再加 list.length */
       let pend = 0;
       list.forEach((r) => {
+        const k = keyOf(r);
+        if (seen.has(k)) return;                 /* 同一场算过 → 跳过（去重） */
+        seen.add(k);
+        rows++;
         if (r.hit === true) red++;
         else if (r.hit === false) black++;
         else { pendingMatches++; pend++; }
