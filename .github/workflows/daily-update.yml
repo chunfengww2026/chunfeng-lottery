@@ -261,7 +261,7 @@ jobs:
           #   所以这里必须补上（名单和 cloud-build.mjs 的 ICON_FILES、
           #   两个页面 <head> 里的引用三者要一致）。
           for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png \
-                   apple-touch-icon.png share.png manifest.webmanifest; do
+                   apple-touch-icon.png share.png manifest.webmanifest service-worker.js; do
             cp -f "cloud/out/$f" "site/$f" || true
           done
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
@@ -309,7 +309,7 @@ jobs:
           #   页面 <head> 里引用的 favicon / manifest / share.png 就会 404。
           echo "--- 分享图标自证 ---"
           MISSING=0
-          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.webmanifest; do
+          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.webmanifest service-worker.js; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
             else
