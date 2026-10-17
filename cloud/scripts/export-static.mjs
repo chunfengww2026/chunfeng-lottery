@@ -1542,8 +1542,8 @@ function buildToolsHtml() {
   return `<div class="ro-tools">` +
     `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
     `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 点击查看</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
-    `<a class="ro-tool ro-tool-live" href="#ro-live">` +
-    `<b>选号直播</b><em data-tip="1">直播与回放 · 点击查看</em></a>` +
+    `<a class="ro-tool ro-tool-heat" href="#ro-heatmap">` +
+    `<b>热力图</b><em data-tip="1">晒票统计 · 每小时更新</em></a>` +
     `</div>`;
 }
 
@@ -1585,48 +1585,45 @@ function buildKjhHtml() {
     `</section>`;
 }
 
-/* 选号直播区块：抓得到的是【回放列表】+【当前开播状态】，
-   真正的直播画面在站点自己的播放器里，所以额外给一个「打开直播页」外链。 */
-function buildLiveHtml() {
-  const L = (KJH && KJH.live) ? KJH.live : null;
-  const items = (L && Array.isArray(L.items)) ? L.items : [];
-  const updated = (KJH && KJH.updated) ? String(KJH.updated) : '';
-  const status = L ? String(L.statusText || (L.onAir ? '正在直播' : '当前暂无直播')) : '当前暂无直播';
-  const home = (L && L.home) ? String(L.home) : 'https://m.yiqicai.com/live';
-
-  const list = items.map((it) => {
-    const meta = [];
-    if (it.name) meta.push(`<span class="ro-live-name">${escape(it.name)}</span>`);
-    if (it.game) meta.push(`<span class="ro-live-game">${escape(it.game)}</span>`);
-    if (it.see) meta.push(`<span class="ro-live-see">${escape(it.see)}</span>`);
-    return `<li><a class="ro-live-link" href="${articleHref(it.url)}" ` +
-      `target="_blank" rel="noopener">` +
-      `<span class="ro-live-txt">${escape(it.text || it.name || '直播回放')}</span>` +
-      (meta.length ? `<span class="ro-live-meta">${meta.join('')}</span>` : '') +
-      `</a></li>`;
+/* 热力图区块（用户 2026-10-17：
+     「把选号直播改为热力图，热力图不在最新开奖里面折叠到这里面。
+      实时抓取晒票的热力图…提取占比更新，每一小时更新一次」
+   所以：
+     · 入口卡 选号直播 → 热力图（点一下在本页展开，不再跳外链）
+     · 热力图不再顶掉「最新开奖」（latest-draws.js 的 heatmapBlockGameId 已固定返回 null）
+     · 数据来源 = 一起彩晒票页的【票面照片 OCR】统计（build-heatmap.mjs），
+       云端每小时重跑一次 → 这里只负责把当前这份数据显示出来
+     · 没有当天数据时不留白：明确写一句「今天还没有热力图数据」 */
+function buildHeatmapHtml() {
+  const tms = (HEATMAP && HEATMAP.games) ? HEATMAP.games : {};
+  const ids = ['ssq', 'dlt'].filter((g) => {
+    const H = tms[g];
+    return !!(H && H.front && Array.isArray(H.front.items) && H.front.items.length);
+  });
+  const blocks = ids.map((g) => {
+    const H = tms[g] || {};
+    const name = (G[g] && G[g].name) ? G[g].name : g;
+    let inner = '';
+    try { inner = renderImageHtml(g, 'heatmap') || ''; } catch (e) { inner = ''; }
+    const stamp = String(H.updated || H.drawDate || '');
+    return `<div class="ro-hm-block">` +
+      `<div class="ro-hm-head"><b>${escape(name)} 实票统计</b>` +
+      `<span>${escape(stamp)}${stamp ? ' · 每小时更新' : ''}</span></div>` +
+      `<div class="ro-imagewrap" data-game="${g}" data-image="heatmap">${inner}</div>` +
+      `</div>`;
   }).join('');
-
-  return `<section class="ro-panel ro-live-panel" id="ro-live">` +
+  return `<section class="ro-panel ro-heatmap-panel" id="ro-heatmap">` +
     `<div class="ro-panel-head">` +
-    `<h2 class="ro-panel-title">选号直播</h2>` +
-    `<div class="ro-panel-sub">${escape(status)} · 每天 2:00 自动更新` +
-    /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
+    `<h2 class="ro-panel-title">热力图</h2>` +
+    `<div class="ro-panel-sub">晒票统计 · 云端每小时更新一次</div>` +
     `</div>` +
-    /* __COPY_LIVE__ 用户要求：改成点击复制链接
-       ⚠️ 不写 data-copy：它的值会被 getAttribute 解回字母（&#97; → a），
-          等于把完整来源域名复制到剪贴板，留痕断言会拦（实测拦过）。
-          复制逻辑兜底读 href（见下面 copyEls 那段：data-copy || href），
-          而 href 里的域名是 articleHref() 处理过的实体形式 ——
-          复制出来仍是可用链接，页面上不出现域名文字。功能不变。 */
-    `<a class="ro-live-more" href="${articleHref(home)}" data-ro-copylive="1" rel="noopener">` +
-    `点击复制链接进浏览器查看</a>` +
-    (list ? `<ul class="ro-live-list">${list}</ul>` : `<div class="ro-panel-none">暂无</div>`) +
+    (blocks || `<div class="ro-panel-none">今天还没有热力图数据（云端每小时更新一次，稍后再看）</div>`) +
     `</section>`;
 }
 
 const toolsHtml = buildToolsHtml();
 const kjhHtml = buildKjhHtml();
-const liveHtml = buildLiveHtml();
+const heatHtml = buildHeatmapHtml();
 console.log(`  · 开机号：${(KJH && KJH.games) ? Object.keys(KJH.games).length : 0} 个彩种` +
   (((KJH && KJH.games) && Object.keys(KJH.games).length) ? '' : '（数据缺失 → 页面显示「暂无」）'));
 console.log(`  · 选号直播：回放 ${(KJH && KJH.live && Array.isArray(KJH.live.items)) ? KJH.live.items.length : 0} 条` +
@@ -1684,7 +1681,7 @@ function dateCNRaw(id) {
           只播【一等奖】和【三等奖】，其它奖级与没中一律不播。
         快乐8 的奖级是「选N中M」，没有这个叫法，所以只认「选中十」这一档。
      ③ 通告里只留【最近 3 条】中奖（用户：通告昨天的、不要积累一堆旧的），
-        末尾永远跟一条【近 N 期推荐命中率】= 可播命中条数 ÷ 已比对期数。
+        末尾永远跟一条汇总【近 N 期推荐 · 中奖 M 期】：N = 已比对期数，M = 中奖期数。
         还没开奖的那些期就靠这一条兜住，不会空着、也不会只写「暂无」。
      ④ 全部是算出来的：没有任何一条写死的中奖记录；算不出来（缺推荐 / 缺开奖 /
         期号对不上）就是 0 条，宁可显示「暂无中奖播报」。每天跟着生成任务刷新。
@@ -3911,13 +3908,19 @@ html.locked .ro-aipick {
 /* 全站禁止选中 / 长按菜单（面板里的输入框例外，否则不好用） */
 body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 #ro-aipick input { -webkit-user-select: text; user-select: text; }
-/* 管理员徽章（owner 才显示，用 <a href> 之外的元素 —— 不是按钮标签） */
+/* 管理员徽章（owner 才显示，用 <a href> 之外的元素 —— 不是按钮标签）
+   ⚠️【2026-10-18 改：从 fixed 浮层改成 Tab 条下面的一行流内元素】
+      原来是 position:fixed + top:10/right:10 + z-index:99999，
+      实测正好压在 .top-tabs 的第二个 Tab「竞彩/足球」上（154×26 完全重叠），
+      而它又是 pointer-events:none —— 点得到、看不见 → 本机看到的【只剩一个 Tab】。
+      现在：不加 position、不加 z-index、不浮起来，就排在 Tab 条正下方、
+      靠右对齐（width:max-content + margin-left:auto），谁也压不住、谁也压不住它。
+      仍然只有 html.is-owner 才显示，别人的页面一个像素都不动。 */
 #owner-badge {
   display: none;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 99999;
+  width: max-content;
+  max-width: 100%;
+  margin: 2px 0 2px auto;
   padding: 6px 12px;
   border: 1px solid #2f5c3a;
   border-radius: 999px;
@@ -3925,6 +3928,7 @@ body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none
   color: #6ee7a0;
   font-size: 11.5px;
   font-weight: 700;
+  white-space: nowrap;
   pointer-events: none;
 }
 html.is-owner #owner-badge { display: block; }
@@ -4236,6 +4240,13 @@ html.is-owner #owner-badge { display: block; }
 .ro-kjh-none { font-size: 12px; color: #6b7488; }
 
 /* ---- 选号直播 ---- */
+/* ---- 【热力图】入口区块（用户 2026-10-17：选号直播 → 热力图，折叠到这里）---- */
+.ro-heatmap-panel .ro-hm-block { margin: 0 0 14px; }
+.ro-heatmap-panel .ro-hm-block:last-child { margin-bottom: 0; }
+.ro-hm-head { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 0 0 6px; font-size: 12px; color: #4a3a26; }
+.ro-hm-head b { font-size: 13px; }
+.ro-hm-head span { font-size: 11px; color: #8a7a63; }
 .ro-live-more {
   display: inline-block;
   padding: 5px 12px;
@@ -5184,13 +5195,30 @@ ${DEVICE_GATE_BODY}
        用户设计：flex 横排 · 底部 1px 边框 · 未选中灰、选中绿+2px 短线。
        ⚠️ 都是 <a>（页面不变量：没有按钮标签）。
        ⚠️ 「足球竞彩」跳的是足球页；当前页（彩票推荐）带 .on。
-       徽章 #owner-badge 是原有元素（owner 才显示），这里只把它挪进 Tab 条右侧。
+       徽章 #owner-badge 是原有元素（owner 才显示），放在 Tab 条正下方、靠右，
+       不再用 fixed 浮在右上角（那样会压住第二个 Tab）。
        ============================================================ -->
   <div class="top-tabs">
-    <a class="tab on" href="./">彩票推荐</a>
+    <a class="tab on" href="./" data-tab-home="1">彩票推荐</a>
     <a class="tab" href="足球推荐.html">竞彩/足球</a>
-    
   </div>
+  <!-- 管理员徽章：从原来的 fixed 浮层（top:10/right:10/z-index:99999）挪到这里 ——
+       Tab 条正下方的一行，靠右，流内定位。仍然只有 html.is-owner 才显示。 -->
+  <div id="owner-badge" aria-hidden="true">管理员模式 · 本机可截图</div>
+  <script>
+  /* __TOP_TABS_HOME__ Tab1「彩票推荐」的地址按协议切换（零存储 · 零外部依赖）：
+     · 线上（http / https）→ "./"     = 站点根 index.html，和原来完全一致
+     · 本机（file://）     → "只读分享版.html"
+       因为 file:// 下 "./" 会被浏览器当成【目录索引】，一点就离开本页，
+       还会把整个项目目录列出来。 */
+  (function () {
+    try {
+      if (String(location.protocol) !== 'file:') return;
+      var a = document.querySelector('.top-tabs .tab[data-tab-home]');
+      if (a) a.setAttribute('href', '只读分享版.html');
+    } catch (e) {}
+  })();
+  </script>
 
   <!-- ============================================================
        【防截图 · 保护容器 #article】
@@ -5226,7 +5254,7 @@ ${DEVICE_GATE_BODY}
 
   ${kjhHtml}
 
-  ${liveHtml}
+  ${heatHtml}
 
   <!-- 【开机号 / 选号直播】点入口后把区块滚到视口顶部。
        为什么要有这几行：区块平时是 display:none，靠 CSS :target 展开；
@@ -5445,7 +5473,7 @@ ${trendHtml}
   <div>内容已自动隐藏</div>
   <div class="tip">请回到页面继续阅读（4 秒后自动恢复）</div>
 </div>
-<div id="owner-badge" aria-hidden="true">管理员模式 · 本机可截图</div>
+<!-- 管理员徽章已经挪到页面顶部 Tab 条下面（见 __TOP_TABS__ 那段），这里不再重复放。 -->
 
 ${inlineScriptsHtml}
 <script>
