@@ -4648,6 +4648,229 @@ ${JC_XYSP_VIEW}
 </script>
 ${CHAT_HTML}
 ${CHAT_JS}
+<!-- ============================================================
+     __PTR__ 下拉刷新（用户 2026-10-18：「桌面图标进入后 往下拉页面是刷新功能」）
+     ------------------------------------------------------------
+     为什么要有这一段：从桌面图标进入 = 独立模式（没有地址栏、没有刷新按钮），
+     浏览器自带的下拉刷新【只在普通标签页里】出现 → 独立模式下必须自己实现。
+     ① 只在独立模式启用：display-mode 命中 standalone / fullscreen / minimal-ui，
+        或者 iOS 的 navigator.standalone === true。
+        普通标签页【完全不装监听】（浏览器自己就有，再拦一次会打架）。
+     ② 只有「页面在最顶（scrollTop === 0）」并且「手指往下拉」时才 preventDefault，
+        其余情况一个字节都不拦：正常滚动、横滑、双指缩放、子页面滚动全不受影响。
+     ③ 零 localStorage / 零 sessionStorage：刷新 = 整页重载，不存任何状态。
+     ④ 不用裸 button：指示器是 div，而且 pointer-events: none，永远不挡点击。
+     ⑤ service-worker 是纯透传（不缓存）→ reload 拿到的就是最新内容。
+     ============================================================ -->
+<style>
+/* 顶部下拉指示器：一颗小胶囊（米杏色），跟着手指有阻尼地往下走 */
+#roPtr {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 10px;
+  z-index: 2147483000;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  max-width: calc(100vw - 24px);
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ro-line, var(--border, #e8d7bd));
+  background: var(--ro-card, var(--card, #fdf6ea));
+  color: var(--ro-fg2, var(--text-sub, #8a7a63));
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(74, 58, 38, .16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-16px);
+  transition: opacity .18s ease, transform .18s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+#roPtr.on { display: flex; }
+#roPtr .ro-ptr-arrow {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--ro-ok, var(--green, #1a8c5a));
+  transition: transform .18s ease;
+}
+#roPtr.rdy .ro-ptr-arrow { transform: rotate(180deg); }
+#roPtr .ro-ptr-spin {
+  display: none;
+  box-sizing: border-box;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid rgba(138, 122, 99, .3);
+  border-top-color: var(--ro-ok, var(--green, #1a8c5a));
+  animation: roPtrSpin .7s linear infinite;
+}
+#roPtr.busy .ro-ptr-spin { display: block; }
+#roPtr.busy .ro-ptr-arrow { display: none; }
+#roPtr.busy { color: var(--ro-ok, var(--green, #1a8c5a)); }
+@keyframes roPtrSpin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  #roPtr { transition: none; }
+  #roPtr .ro-ptr-spin { animation-duration: 2s; }
+}
+</style>
+<div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
+<script>
+(function () {
+  if (typeof document === 'undefined' || typeof window === 'undefined') return;
+
+  /* ① 只有「从桌面图标进入」的独立模式才装：普通标签页浏览器自带下拉刷新 */
+  var stand = false;
+  try {
+    var q = window.matchMedia;
+    stand = !!(q && (q('(display-mode: standalone)').matches ||
+      q('(display-mode: fullscreen)').matches ||
+      q('(display-mode: minimal-ui)').matches)) || navigator.standalone === true;
+  } catch (e) { stand = false; }
+  if (!stand) return;
+
+  /* ② 触屏才装：桌面版独立窗口是鼠标，没有下拉刷新这回事 */
+  if (!('ontouchstart' in window) && !(navigator.maxTouchPoints > 0)) return;
+
+  var box = document.getElementById('roPtr');
+  if (!box) return;
+  var txt = box.querySelector('.ro-ptr-txt');
+  if (!txt) return;
+
+  var THRESHOLD = 70;     /* 松手触发线：阻尼后的下拉距离 ≥ 70px 才算拉够了 */
+  var MAXPULL = 120;      /* 最多能拉这么长，再拉就顶住 */
+  var DAMP = 0.55;        /* 阻尼：手指移 10px，指示器只走 5.5px */
+  var RELOAD_DELAY = 520; /* 「正在刷新…」至少留这么久，让人看得见再重载 */
+
+  var startY = 0, startX = 0, dist = 0, pulling = false, busy = false, moved = false;
+
+  function topNow() {
+    return window.pageYOffset || document.documentElement.scrollTop ||
+      (document.body && document.body.scrollTop) || 0;
+  }
+
+  /* 全屏层开着（看大图 / 子页面 / 保存图片…）→ 那层自己会滚，不在它上面做下拉刷新 */
+  function overlayOpen() {
+    var sel = ['.ro-mob-view', '.tool-view', '.jxp-view', '.calc-shot', '#mask'];
+    for (var i = 0; i < sel.length; i++) {
+      var n = document.querySelector(sel[i]);
+      if (!n) continue;
+      var cs = window.getComputedStyle ? window.getComputedStyle(n) : null;
+      if (cs && cs.display !== 'none' && cs.visibility !== 'hidden') return true;
+    }
+    return document.documentElement.style.overflow === 'hidden';
+  }
+
+  /* 指示器放在顶部条下面（竞彩页有 .site-nav），不要盖住 Tab */
+  function topOffset() {
+    var h = document.querySelector('.site-nav, .top-tabs');
+    if (h && h.getBoundingClientRect) {
+      try {
+        var r = h.getBoundingClientRect();
+        if (r.height > 0 && r.bottom > 0 && r.bottom < 160) return Math.round(r.bottom + 10);
+      } catch (e) { }
+    }
+    return 10;
+  }
+
+  function paint(p) {
+    box.style.opacity = String(Math.min(1, p * 1.8));
+    box.style.transform = 'translateX(-50%) translateY(' + (Math.round(p * 16) - 16) + 'px)';
+    if (p >= 1) {
+      box.classList.add('rdy');
+      if (txt.textContent !== '松开刷新') txt.textContent = '松开刷新';
+    } else {
+      box.classList.remove('rdy');
+      if (txt.textContent !== '下拉刷新') txt.textContent = '下拉刷新';
+    }
+  }
+
+  function rest() {
+    box.classList.remove('rdy');
+    box.style.transition = '';
+    box.style.opacity = '0';
+    box.style.transform = 'translateX(-50%) translateY(-16px)';
+  }
+
+  function refresh() {
+    busy = true;
+    box.classList.remove('rdy');
+    box.classList.add('busy');
+    box.style.transition = '';
+    box.style.opacity = '1';
+    box.style.transform = 'translateX(-50%) translateY(0)';
+    txt.textContent = '正在刷新…';
+    window.setTimeout(function () {
+      try { window.location.reload(); } catch (e) { }
+    }, RELOAD_DELAY);
+    /* 万一这个环境拦了 reload（极少数 WebView）→ 恢复状态，别把下拉刷新卡死 */
+    window.setTimeout(function () {
+      busy = false;
+      box.classList.remove('busy');
+      rest();
+    }, RELOAD_DELAY + 2600);
+  }
+
+  function onStart(ev) {
+    if (busy) return;
+    if (!ev.touches || ev.touches.length !== 1) { pulling = false; return; }
+    if (topNow() > 0) { pulling = false; return; }        /* 没在最顶 → 整个手势不碰 */
+    if (overlayOpen()) { pulling = false; return; }
+    startY = ev.touches[0].clientY;
+    startX = ev.touches[0].clientX;
+    dist = 0;
+    moved = false;
+    pulling = true;
+    box.style.top = topOffset() + 'px';
+  }
+
+  function onMove(ev) {
+    if (!pulling || busy) return;
+    if (!ev.touches || ev.touches.length !== 1) { pulling = false; rest(); return; }
+    var dy = ev.touches[0].clientY - startY;
+    var dx = ev.touches[0].clientX - startX;
+    if (!moved) {
+      if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;
+      if (Math.abs(dx) >= Math.abs(dy)) { pulling = false; return; }   /* 横滑 → 不抢 */
+      moved = true;
+    }
+    if (topNow() > 0) { pulling = false; if (dist > 0) rest(); return; }
+    if (dy <= 0) { if (dist > 0) { dist = 0; rest(); } return; }       /* 往上推 → 不拦 */
+    if (ev.cancelable && ev.preventDefault) ev.preventDefault();       /* 只在这一处拦 */
+    var raw = dy * DAMP;
+    dist = raw > MAXPULL ? MAXPULL : raw;
+    box.style.transition = 'none';
+    paint(dist / THRESHOLD > 1 ? 1 : dist / THRESHOLD);
+  }
+
+  function onEnd() {
+    if (!pulling) return;
+    pulling = false;
+    if (busy) return;
+    if (dist >= THRESHOLD) refresh();
+    else if (dist > 0) rest();
+    dist = 0;
+  }
+
+  /* 事件只挂在 document 上（4 个），页面里没有任何内联事件 */
+  document.addEventListener('touchstart', onStart, { passive: true });
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd, { passive: true });
+  document.addEventListener('touchcancel', onEnd, { passive: true });
+
+  box.classList.add('on');
+  box.style.opacity = '0';
+  box.style.transform = 'translateX(-50%) translateY(-16px)';
+})();
+</script>
+
 </body>
 </html>`;
 
