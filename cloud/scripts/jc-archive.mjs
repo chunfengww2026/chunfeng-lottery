@@ -16,6 +16,15 @@
 //    import { archiveJcHistory, mergeHistory, renderHistoryJs } from './jc-archive.mjs';
 // ============================================================
 
+/* 【推荐命中判定 · 共用一份】
+   three（只中那一个）/ unbeaten（胜或平都算中）的判定规则只写在
+   jc-reco-archive.js 里（unbeatenSide / recoHit），本文件直接复用 ——
+   ⚠️ 别在这里再写第二套 pick === actual，否则不败推荐会被错判成黑。
+   jc-reco-archive.js 是 CJS/UMD（require 与 <script> 双模式），
+   这里用 ESM 默认导入拿它的 module.exports。 */
+import RECO from './jc-reco-archive.js';
+const { recoHit } = RECO;
+
 /* ============================================================
    1. 队名归一化（容忍繁体 / 简称 / 中英混写）
    ------------------------------------------------------------
@@ -361,17 +370,6 @@ function toHistoryRecord(game, fbList, at) {
   /* 两边都没有比分 → 这场只能记成「无结果」；连推荐都没有就没什么可记的 */
   if (!sc && !pick) return null;
 
-  let result = '';
-  let hit = false;
-  if (sc && pick) {
-    const actual = sc.h > sc.a ? 'home' : (sc.h === sc.a ? 'draw' : 'away');
-    hit = pick === actual;
-    result = hit ? 'win' : 'lose';
-  } else if (sc && !pick) {
-    result = 'draw';  /* 没推荐，只有比分：借这个字段表示「仅记录结果」 */
-    hit = false;
-  }
-
   const eu = (game.odds && game.odds.europe) || (fb && fb.odds && fb.odds.europe) || null;
   const euV = eu ? (eu.live || eu.open) : null;
   const odds = euV ? { home: euV.home, draw: euV.draw, away: euV.away } : null;
@@ -386,6 +384,20 @@ function toHistoryRecord(game, fbList, at) {
      注意用的是【算完的 prob】（优先当时存的，其次从赔率反推），
      所以老数据没 type 也能现算出来，不会瞎填。 */
   const type = recoTypeOfRecord(reco, prob);
+
+  let result = '';
+  let hit = false;
+  if (sc && pick) {
+    const actual = sc.h > sc.a ? 'home' : (sc.h === sc.a ? 'draw' : 'away');
+    /* 【判定必须按 type 走】three 只中一个；unbeaten 主胜或平 / 客胜或平都算中。
+       规则复用 jc-reco-archive.js 的 recoHit()（和页面 export-football.mjs
+       的 recoHit 同一套口径，全场只此一份实现）。 */
+    hit = recoHit({ pick, type }, actual);
+    result = hit ? 'win' : 'lose';
+  } else if (sc && !pick) {
+    result = 'draw';  /* 没推荐，只有比分：借这个字段表示「仅记录结果」 */
+    hit = false;
+  }
 
   return {
     code: game.code || '',
