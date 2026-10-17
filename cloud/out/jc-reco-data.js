@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-17 18:29",
+ "updated": "2026-10-17 18:57",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -1676,8 +1676,8 @@ const JC_RECO_DATA = {
      "away": "博德闪耀",
      "pick": "away",
      "label": "客胜",
-     "odds": 1.2,
-     "conf": 76.4,
+     "odds": 1.22,
+     "conf": 74.4,
      "score": "",
      "hit": null,
      "result": ""
@@ -1704,8 +1704,8 @@ const JC_RECO_DATA = {
      "away": "赫尔辛基火花",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.45,
-     "conf": 62.6,
+     "odds": 1.4,
+     "conf": 65,
      "score": "",
      "hit": null,
      "result": ""
@@ -1746,8 +1746,8 @@ const JC_RECO_DATA = {
      "away": "伊普斯",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.22,
-     "conf": 77.8,
+     "odds": 1.2,
+     "conf": 78.8,
      "score": "",
      "hit": null,
      "result": ""
@@ -1774,8 +1774,8 @@ const JC_RECO_DATA = {
      "away": "埃尔切",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.45,
-     "conf": 65.3,
+     "odds": 1.4,
+     "conf": 67.1,
      "score": "",
      "hit": null,
      "result": ""
@@ -1830,8 +1830,8 @@ const JC_RECO_DATA = {
      "away": "巴萨",
      "pick": "away",
      "label": "客胜",
-     "odds": 1.42,
-     "conf": 66.9,
+     "odds": 1.38,
+     "conf": 68.5,
      "score": "",
      "hit": null,
      "result": ""
@@ -1858,8 +1858,8 @@ const JC_RECO_DATA = {
      "away": "热那亚",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.48,
-     "conf": 64.2,
+     "odds": 1.6,
+     "conf": 59.6,
      "score": "",
      "hit": null,
      "result": ""
