@@ -5658,7 +5658,22 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
      原来 bottom:0，绿线底下还露出 1px 米色（4x 截图实测：绿 49–51px、米色 51–52px），
      看起来像「双线」，也让人以为非激活那句也有下划线。
    · 悬停/键盘焦点用主题色，不让浏览器默认黑框出现。 */
+/* 【Tab 条贴边 · 底线贯穿全宽】用户 2026-10-18：「两个首页的 tab 上面封顶宽一点」
+   ------------------------------------------------------------
+   截图看就是【左右没贴边】：Tab 条被 .ro-wrap 的左右内边距夹住，
+   所以整条 Tab + 它那条 1px 底线都只到中间，两边各留一条米色空档
+   （实测 375px：条 4→371，只占 367；320px：4→316，只占 312）。
+   做法：用负外边距把外层 .ro-wrap 的左右内边距【抵消掉】——
+        · --ro-pad-x 就是 .ro-wrap 的左右内边距（12px；≤600px 时 4px，
+          和 .ro-wrap { padding: 8px 4px 40px } 同步），所以以后谁再改留白，
+          这里自动跟着走，不会再多/少一截（也就不会横向溢出）。
+        · 条本身撑到屏幕两边后，它自己的 border-bottom 自然贯穿整屏；
+          吸顶时两边也不会再透出下面滚动的内容（"封顶"那块看起来就宽了）。
+   ⚠️ 只加左右外边距：高度 43px（Tab）/ 44px（条）、两列 50%/50%、
+      激活态下划线 2px / bottom:-1px、吸顶阴影 全都不动。 */
 .top-tabs { display: flex; border-bottom: 1px solid var(--ro-line); margin-bottom: 2px;
+  margin-left: calc(-1 * var(--ro-pad-x, 12px));
+  margin-right: calc(-1 * var(--ro-pad-x, 12px));
   /* 【吸顶 · 用户 2026-10-18「还是跟着滑动吧」】往下翻的时候这排 tab 跟着走，
      始终留在屏幕顶部，随时能切「彩票推荐 / 竞彩·足球」。 */
   position: -webkit-sticky; position: sticky; top: 0; z-index: 60;
