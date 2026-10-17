@@ -758,6 +758,9 @@ const INTERACT_SRC = `
      就用"刚处理过触摸"这个标志把它吃掉），实测不加保险时
      手指点一下预选格会"选中又立刻取消"（touchend + 补发 click 各 toggle 一次）。 */
   var touchAt = 0;
+  /* 触摸起点 + 有没有真的拖动过（>8px 不当成"点击"：
+     手指落在彩种条上往下滑页面，不能被判成"切换彩种"） */
+  var touchX = 0, touchY = 0, touchMoved = false;
   function handlePreselTap(ev) {
     var el = ev && ev.target;
     while (el && el.getAttribute && el.getAttribute('data-tr-presel') == null) el = el.parentNode;
