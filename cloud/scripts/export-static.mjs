@@ -6716,6 +6716,8 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tq-rec-t { flex: 1 1 auto; font-size: 12px; font-weight: 700; color: #4a3a26;
   overflow-wrap: break-word; word-break: break-word; min-width: 0; }
 .tq-warn { font-size: 11px; color: #a89a80; margin-top: 6px; }
+/* __REC__ 统一号码卡的「打分口径」那一行（和 .tv-rec-basis 同一个口径） */
+.tq-rec-basis { font-size: 11px; color: #a89a80; line-height: 1.6; margin-top: 8px; }
 .tq-empty { font-size: 12.5px; color: #8a7a63; line-height: 1.7; padding: 10px 0; }
 .tq-empty b { display: block; color: #4a3a26; font-size: 13.5px; margin-bottom: 4px; }
 @media (max-width: 360px) {
@@ -6927,6 +6929,100 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   .ro-install-lead { margin: 6px 0 12px; }
 }
 
+
+/* ============================================================
+   __CARD_RAISE__ 统一卡片「凸出来」的立体感
+   ------------------------------------------------------------
+   用户要求：「所有的模块都像 GPT模型摇号 一样凸出来的视觉感」
+   改前：整页只有 GPT模型摇号 那一张卡有阴影（0 8px 24px rgba(0,0,0,.25)），
+         其它卡片全是「1px 边框 + 米杏底」的平面块。
+   改后：一套统一的卡片语言 —— 浅阴影 + 1px 细边框 + 圆角 + 略亮底色，
+         原来那张卡单独用的重阴影压到和全站同一档（不搞两套）。
+   ⚠️ 阴影只取【浅】这一档（用户原话：微微凸起，不是浮起来；深阴影会显脏）。
+   ⚠️ 三个页面（分享 / 竞彩 / 详情）用【同一段】CSS，选择器取三页的并集：
+      某个类在本页没有元素时，这条规则自然什么都不做。
+   ⚠️ 只加 box-shadow 和按下反馈：不动尺寸、不动结构、不动颜色语义。
+   ============================================================ */
+:root {
+  --ro-shadow: 0 1px 3px rgba(74, 58, 38, .10), 0 3px 8px rgba(74, 58, 38, .07);
+  --ro-shadow-flat: 0 0 0 rgba(74, 58, 38, 0);
+}
+
+/* ① 模块级卡片：全部套同一套「凸出来」 */
+.ro-toc-cell,
+.ro-toc-i,
+.tool-item,
+.tools-box,
+.grid-2-col > *,
+.grid-2-col-action > details,
+.ro-xysp,
+.ro-aipick,
+.ro-xysp-pic,
+.ro-art-group,
+.ro-status,
+.ro-mq,
+.ro-install,
+.ro-articles,
+.ro-disclaimer,
+.ro-panel,
+#article > details,
+#article-rest > details,
+.hc-drawcard,
+.tr-block,
+.stat > a,
+.entry-item,
+.record,
+.m-card,
+.past-recommend-section,
+.past-item,
+.m-calc,
+.m-jxp,
+.calc-row,
+.btn2,
+.md-head,
+.md-card,
+.md-miss {
+  box-shadow: var(--ro-shadow);
+}
+
+/* ② 按下 = 压平 + 下沉 1px（有按下去的手感，不是一块死卡片）
+   ⚠️ 只给【真的能点】的那几个：目录格子 / 工具卡 / 两列卡 / 统计卡 / entry 行 / 按钮 */
+.ro-toc-cell, .tool-item, .grid-2-col > a, .grid-2-col-action > details,
+.stat > a, .entry-item, .btn2 {
+  transition: box-shadow .15s ease, transform .12s ease;
+}
+.ro-toc-cell:active, .tool-item:active, .grid-2-col > a:active,
+.grid-2-col-action > details:active, .stat > a:active, .entry-item:active, .btn2:active {
+  box-shadow: var(--ro-shadow-flat);
+  transform: translateY(1px);
+}
+
+/* ③ GPT模型摇号 · 选中的号码格：深底白字
+   ------------------------------------------------------------
+   改前：.ro-aipick-pick 被浅色主题那条带 !important 的
+         「background:#fdf6ea; color:#4a3a26」压住了，
+         选中态的红/蓝渐变（不是 !important）根本盖不上去 ——
+         结果「选中」和「没选中」长得一模一样，用户原话：
+         「选到号码的时候深色一点 白色看不到」。
+   改后：红球选中 = 深红底白字（#c0392b / 白 ≈ 5.4:1）
+         蓝球选中 = 深蓝底白字（#1f5fd6 / 白 ≈ 5.7:1）
+         两者都过 WCAG AA 4.5:1；未选中保持原来的浅底深字，一个字节没改。
+   ⚠️ 号码格【不进入】① 那套凸出阴影（小格子加阴影会糊成一片），
+      所以选中态也就不需要为「阴影打架」做任何处理。 */
+.ro-aipick-pick.on {
+  background: #c0392b !important;
+  border-color: #a93226 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
+.ro-aipick-pick.blue.on {
+  background: #1f5fd6 !important;
+  border-color: #1a4fb0 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
 </style>
 <!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
@@ -9921,7 +10017,7 @@ ${CHAT_JS_SHARE}
   var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '杀号和选号', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
   var SPAN = 30;
   var st = { id: 'stat', game: 'ssq', area: '', ai: null, aiTimes: 0,
-    tqTab: '', tq: '', mqTab: 'kill', mq: '', ixTab: '', pqTab: '', pq: '', pickGame: false, _keep: 0 };
+    tqTab: '', tq: '', mqTab: 'kill', mq: '', ixTab: '', pqTab: '', pq: '', pickGame: true, _keep: 0 };
 
   var HIST = null;
   try { if (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) HIST = DRAW_HISTORY.games; } catch (e0) { HIST = null; }
@@ -10205,6 +10301,34 @@ ${CHAT_JS_SHARE}
     h += '<div class="tv-rec-warn">⚠️ 仅供参考，不保证中奖</div>';
     h += '</div>';
     return h;
+  }
+
+  /* 无头圆球（TQ 新模板的那几张底部卡也用它）：同一个彩种同一期 →
+     8 个子页面拿到的永远是同一组号（都读构建期算好的 REC） */
+  function recBallsHtml(nums, kind, color) {
+    var cls = (kind === 'digit') ? 'digit' : (color === 'blue' ? 'blue' : 'red');
+    var h = '<div class="tq-balls">';
+    for (var i = 0; i < nums.length; i++) {
+      var txt = (kind === 'digit') ? String(nums[i]) : pad2(nums[i]);
+      h += '<div class="tq-ball ' + cls + '">' + esc(txt) + '</div>';
+    }
+    return h + '</div>';
+  }
+  /* 统一号码卡：趋势分析 / 杀号和选号 / 指数预测 / 智能规律 这 4 张底部卡
+     统统改成读 REC —— 8 个页面同彩种同期号码完全一致，不再各算一套。 */
+  function tqRecUnified(gid, title) {
+    var R = (REC && REC[gid]) ? REC[gid] : null;
+    if (!R || !R.blocks || !R.blocks.length) return '';
+    var h = '<div class="tq-rec"><div class="tq-rec-h">' + (title || '🎯 本期推荐号码') +
+      '<span>第 ' + esc(R.issue) + ' 期</span></div>';
+    for (var i = 0; i < R.blocks.length; i++) {
+      var b = R.blocks[i];
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(b.label) + '</span>' +
+        recBallsHtml(b.nums, b.kind, b.color) + '</div>';
+    }
+    h += '<div class="tq-rec-basis">打分口径：' + esc(R.basis) + '；统计窗口 近 ' + esc(R.span) + ' 期</div>';
+    h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+    return h + '</div>';
   }
 
   /* ================= ① 数据统计 ================= */
@@ -10959,6 +11083,9 @@ ${CHAT_JS_SHARE}
     return out;
   }
   function tqRecCard(g, tab) {
+    /* 统一取号：读构建期算好的 REC（和另外 4 个页面同一份，号码逐字一致） */
+    var uni = tqRecUnified(g.id, '🎯 本期推荐号码');
+    if (uni) return uni;
     var issue = tqNextIssue(g.id);
     var picks = tqPicks(g, issue), h = '<div class="tq-rec">', i;
     h += '<div class="tq-rec-h">🎯 本期推荐号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
@@ -11405,6 +11532,10 @@ ${CHAT_JS_SHARE}
     return h;
   }
   function ptBottom(g, tabs) {
+    /* 统一取号：读构建期算好的 REC（原来这套「综合推号」的算法结果还在
+       「综合推号」那条规则里能看，底部这张卡只放统一号） */
+    var uni = tqRecUnified(g.id, '🎯 本期推荐号码');
+    if (uni) return uni;
     var issue = tqNextIssue(g.id);
     var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 综合推出的号<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
     if (g.type === 'digit') {
@@ -11990,46 +12121,31 @@ ${CHAT_JS_SHARE}
     return h;
   }
   function maBottom(g) {
-    var issue = tqNextIssue(g.id);
-    /* 和「本期方案」这条规则用同一个种子 → 底部这组号 = 规则里看到的那组号 */
-    var rnd = tqRng('ma-plan|' + g.id + '|' + String(issue || '0'));
+    /* 统一取号：选号读构建期算好的 REC（8 个页面同一组）；
+       「杀号」这一页自己的规则照旧保留 —— 它是这一页的卖点，不是号码。 */
+    var R = (REC && REC[g.id]) ? REC[g.id] : null;
+    var issue = R ? R.issue : tqNextIssue(g.id);
     var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 本期号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
     if (g.type === 'digit') {
-      var tabs = tqTabs(g), need = tabs.length, kr = '', pr = '', p, i;
+      var tabs = tqTabs(g), need = tabs.length, kr = '', p;
       for (p = 0; p < need; p++) {
         var fp = tqFreqOf(g.id, 'main', p), list = [], v;
         for (v = 0; v <= 9; v++) list.push({ n: v, f: (fp[v] ? fp[v].f : 0), gap: (fp[v] ? fp[v].gap : 99) });
         list.sort(function (a, b) { return (a.f - b.f) || (b.gap - a.gap) || (a.n - b.n); });
         kr += (p ? '　' : '') + tabs[p].label + ' 杀 ' + list[0].n + ' ' + list[1].n;
-        var pickOne = tqPickN(fp, 0, 9, 1, rnd);
-        pr += (p ? '　' : '') + tabs[p].label + ' ' + pickOne[0].n;
       }
-      var ctx0 = maRuleCtx(g), pool = maHotList(ctx0, 6), six = [], j;
-      for (j = 0; j < pool.length; j++) six.push(pool[j].n);
-      six.sort(function (a, b) { return a - b; });
       h += '<div class="tq-rec-row"><span class="tq-rec-k">杀号</span><span class="tq-rec-t">' + kr + '</span></div>';
-      h += '<div class="tq-rec-row"><span class="tq-rec-k">选号</span><span class="tq-rec-t">' + pr + '</span></div>';
-      h += '<div class="tq-rec-row"><span class="tq-rec-k">组选 6 码</span>' + tqBalls(six, 'digit') + '</div>';
-      h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
-      return h + '</div>';
+    } else {
+      var ctx = maRuleCtx(g), kill = maKillAll(ctx);
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">杀号</span>' + tqBalls(kill, 'kill') + '</div>';
     }
-    var ctx = maRuleCtx(g), kill = maKillAll(ctx);
-    var need2 = g.id === 'kl8' ? 10 : ctx.per;
-    var nums = maPlan(g, ctx, need2, rnd);
-    var tabs2 = tqTabs(g);
-    h += '<div class="tq-rec-row"><span class="tq-rec-k">杀号</span>' + tqBalls(kill, 'kill') + '</div>';
-    h += '<div class="tq-rec-row"><span class="tq-rec-k">选号</span><span class="tq-rec-k2">' + esc(tabs2[0].label) + '</span>' + tqBalls(nums, 'red') + '</div>';
-    if (g.areas.length > 1) {
-      var blueTab = tabs2[1], bctx = tqCtx(g, blueTab);
-      var bneed = g.id === 'kl8' ? 1 : bctx.per;
-      if (bneed > 4) bneed = 1;
-      var bmap = tqFreqAll(bctx), bpick = tqPickN(bmap, blueTab.from, blueTab.to, bneed, rnd), bn = [], k;
-      for (k = 0; k < bpick.length; k++) bn.push(bpick[k].n);
-      if (g.type === 'qxc') {
-        h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(blueTab.label) + '</span>' + tqBalls(bn, 'digit') + '</div>';
-      } else {
-        h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(blueTab.label) + '</span>' + tqBalls(bn, 'blue') + '</div>';
+    if (R && R.blocks) {
+      for (var i = 0; i < R.blocks.length; i++) {
+        var b = R.blocks[i];
+        h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(b.label) + '</span>' +
+          recBallsHtml(b.nums, b.kind, b.color) + '</div>';
       }
+      h += '<div class="tq-rec-basis">打分口径：' + esc(R.basis) + '；统计窗口 近 ' + esc(R.span) + ' 期</div>';
     }
     h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
     return h + '</div>';
@@ -12159,6 +12275,9 @@ ${CHAT_JS_SHARE}
     return out;
   }
   function ixBottom(g) {
+    /* 统一取号：读构建期算好的 REC（上面那张「指数排名表」不动，只换底部号码） */
+    var uni = tqRecUnified(g.id, '🎯 指数最高的号');
+    if (uni) return uni;
     var tabs = tqTabs(g), issue = tqNextIssue(g.id);
     var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 指数最高<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
     if (g.type === 'digit') {
@@ -12420,7 +12539,7 @@ ${CHAT_JS_SHARE}
       if (t.getAttribute) {
         var gid = t.getAttribute('data-tv-game');
         if (gid) { st.game = gid; st.area = ''; st.ai = null; st.tqTab = ''; st.pqTab = ''; st.ixTab = '';
-          st.tq = ''; st.mq = ''; st.pq = ''; st.pickGame = false; render(); return; }
+          st.tq = ''; st.mq = ''; st.pq = ''; st.pickGame = true; render(); return; }
         var aid = t.getAttribute('data-tv-area');
         if (aid) { st.area = aid; st.ai = null; render(); return; }
         var tqt = t.getAttribute('data-tq-tab');

@@ -608,18 +608,123 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-miss .t { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
 .md-miss .d { font-size: 13px; color: var(--ro-fg2); margin-bottom: 12px; }
 .md-miss a { display: inline-block; padding: 8px 16px; border: 1px solid var(--ro-ok); border-radius: 8px; font-weight: 700; }
+
+/* ============================================================
+   __CARD_RAISE__ 统一卡片「凸出来」的立体感
+   ------------------------------------------------------------
+   用户要求：「所有的模块都像 GPT模型摇号 一样凸出来的视觉感」
+   改前：整页只有 GPT模型摇号 那一张卡有阴影（0 8px 24px rgba(0,0,0,.25)），
+         其它卡片全是「1px 边框 + 米杏底」的平面块。
+   改后：一套统一的卡片语言 —— 浅阴影 + 1px 细边框 + 圆角 + 略亮底色，
+         原来那张卡单独用的重阴影压到和全站同一档（不搞两套）。
+   ⚠️ 阴影只取【浅】这一档（用户原话：微微凸起，不是浮起来；深阴影会显脏）。
+   ⚠️ 三个页面（分享 / 竞彩 / 详情）用【同一段】CSS，选择器取三页的并集：
+      某个类在本页没有元素时，这条规则自然什么都不做。
+   ⚠️ 只加 box-shadow 和按下反馈：不动尺寸、不动结构、不动颜色语义。
+   ============================================================ */
+:root {
+  --ro-shadow: 0 1px 3px rgba(74, 58, 38, .10), 0 3px 8px rgba(74, 58, 38, .07);
+  --ro-shadow-flat: 0 0 0 rgba(74, 58, 38, 0);
+}
+
+/* ① 模块级卡片：全部套同一套「凸出来」 */
+.ro-toc-cell,
+.ro-toc-i,
+.tool-item,
+.tools-box,
+.grid-2-col > *,
+.grid-2-col-action > details,
+.ro-xysp,
+.ro-aipick,
+.ro-xysp-pic,
+.ro-art-group,
+.ro-status,
+.ro-mq,
+.ro-install,
+.ro-articles,
+.ro-disclaimer,
+.ro-panel,
+#article > details,
+#article-rest > details,
+.hc-drawcard,
+.tr-block,
+.stat > a,
+.entry-item,
+.record,
+.m-card,
+.past-recommend-section,
+.past-item,
+.m-calc,
+.m-jxp,
+.calc-row,
+.btn2,
+.md-head,
+.md-card,
+.md-miss {
+  box-shadow: var(--ro-shadow);
+}
+
+/* ② 按下 = 压平 + 下沉 1px（有按下去的手感，不是一块死卡片）
+   ⚠️ 只给【真的能点】的那几个：目录格子 / 工具卡 / 两列卡 / 统计卡 / entry 行 / 按钮 */
+.ro-toc-cell, .tool-item, .grid-2-col > a, .grid-2-col-action > details,
+.stat > a, .entry-item, .btn2 {
+  transition: box-shadow .15s ease, transform .12s ease;
+}
+.ro-toc-cell:active, .tool-item:active, .grid-2-col > a:active,
+.grid-2-col-action > details:active, .stat > a:active, .entry-item:active, .btn2:active {
+  box-shadow: var(--ro-shadow-flat);
+  transform: translateY(1px);
+}
+
+/* ③ GPT模型摇号 · 选中的号码格：深底白字
+   ------------------------------------------------------------
+   改前：.ro-aipick-pick 被浅色主题那条带 !important 的
+         「background:#fdf6ea; color:#4a3a26」压住了，
+         选中态的红/蓝渐变（不是 !important）根本盖不上去 ——
+         结果「选中」和「没选中」长得一模一样，用户原话：
+         「选到号码的时候深色一点 白色看不到」。
+   改后：红球选中 = 深红底白字（#c0392b / 白 ≈ 5.4:1）
+         蓝球选中 = 深蓝底白字（#1f5fd6 / 白 ≈ 5.7:1）
+         两者都过 WCAG AA 4.5:1；未选中保持原来的浅底深字，一个字节没改。
+   ⚠️ 号码格【不进入】① 那套凸出阴影（小格子加阴影会糊成一片），
+      所以选中态也就不需要为「阴影打架」做任何处理。 */
+.ro-aipick-pick.on {
+  background: #c0392b !important;
+  border-color: #a93226 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
+.ro-aipick-pick.blue.on {
+  background: #1f5fd6 !important;
+  border-color: #1a4fb0 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 设备门 + 一键桌面（device-gate.mjs）
      放在 head 收尾标签之前 → 电脑端第一帧就是隐藏态，不会先闪出内容。
      ⚠️ 这里【别写字面的 head 标签】：页面里多出第二个，任何按「第一处」做的
         注入都会插错位置；本文件写盘前的断言会直接拦下来。 -->
-<style>${DEVICE_GATE_CSS}${INSTALL_CSS}</style>
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}/* __MD_FAB__ 右下角常驻返回（用户 2026-10-18：「手机版这个太高了点不了返回」）
+   顶部返回虽然是 sticky，但在左上角、字也小；这里再给一个拇指够得着的大圆钮。 */
+.md-fab-back { position: fixed; right: 14px; bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 99998; width: 52px; height: 52px; border-radius: 50%;
+  background: #1a8c5a; color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; line-height: 1; box-shadow: 0 4px 14px rgba(26,140,90,.45);
+  text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; user-select: none; }
+.md-fab-back:active { transform: scale(.94); }
+@media print { .md-fab-back { display: none; } }
+</style>
 </head>
 <body>
 ${DEVICE_GATE_BODY}
 
 <div class="md-top">
   <a class="md-back" id="mdBack" role="button" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">← 返回</a>
+
   <span class="md-title">比赛详情</span>
   <span class="md-live" id="mdLive"></span>
 </div>
@@ -1880,6 +1985,7 @@ ${DEVICE_GATE_BODY}
 </script>
 ${INSTALL_HTML}
 ${INSTALL_JS}
+<a class="md-fab-back" id="mdFabBack" role="button" aria-label="返回" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">←</a>
 </body>
 </html>
 `;
