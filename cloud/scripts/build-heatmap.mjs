@@ -83,10 +83,10 @@ const HISTORY_WINDOW = 30;
 const MIN_SAMPLE_POSTS = 5;     // 至少 5 篇晒票有可用号码
 const MIN_FRONT_TOTAL = 60;     // 前区号码出现总次数
 const MIN_BACK_TOTAL = 12;      // 后区号码出现总次数
-const MIN_OCR_TICKETS = 5;      // OCR 口径：至少 5 张有效票才敢出图
+const MIN_OCR_TICKETS = 3;      // OCR 口径：至少 5 张有效票才敢出图
 
 /* OCR 参数 */
-const OCR_MAX_IMAGES = 60;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
+const OCR_MAX_IMAGES = 80;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
 const OCR_CONCURRENCY = 4;      // 并发识别几张（本机 4 核够用；云端更高）
 const IMG_TIMEOUT_MS = 30000;   // 图片下载超时（用户要求 30s）
 const IMG_RETRY = 2;            // 图片下载失败重试 2 次
@@ -700,12 +700,16 @@ function areaLiteral(area) {
   return `{ label: '${area.label}', color: '${area.color}', total: ${area.total}, items: ${itemsLiteral(area.items)} }`;
 }
 
-function gameLiteral(g) {
+/* ⚠️ key 必须由调用方传进来：
+   从 heatmap-data.js 里「读回来」的条目【没有 id 字段】（产物里只存 name/issue/…），
+   早先这里写 g.id → 合并写回时 ssq 会被写成 `undefined: {…}`（实测踩过：
+   games 变成 {undefined, dlt}，双色球热力图直接消失）。 */
+function gameLiteral(g, key) {
   const ocrLit = g.ocr
     ? `{ posts: ${g.ocr.posts}, urls: ${g.ocr.urls}, downloaded: ${g.ocr.downloaded}, downloadFailed: ${g.ocr.downloadFailed}, cacheHits: ${g.ocr.cacheHits}, recognized: ${g.ocr.recognized}, tickets: ${Array.isArray(g.ocr.tickets) ? g.ocr.tickets.length : (Number.isFinite(g.ocr.tickets) ? g.ocr.tickets : 0)}, secs: ${g.ocr.secs}, err: '${String(g.ocr.err || '').replace(/'/g, "\\'")}' }`
     : 'null';
   return [
-    '    ' + g.id + ': {',
+    '    ' + String(key || g.id) + ': {',
     `      name: '${g.name}',`,
     `      issue: '${g.issue}',`,
     `      drawDate: '${g.drawDate}',`,
@@ -730,7 +734,10 @@ function readExistingGames() {
     const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
     vm.runInContext(fs.readFileSync(OUT, 'utf8') + '\nglobalThis.__H = HEATMAP_DATA;', c);
     const H = c.__H;
-    return (H && H.games) ? H.games : {};
+    const G = (H && H.games) ? H.games : {};
+    /* 补回 id（产物里不存 id）—— 合并写回时要靠它当 key */
+    Object.keys(G).forEach((k) => { if (G[k] && !G[k].id) G[k].id = k; });
+    return G;
   } catch (e) { return {}; }
 }
 
@@ -761,7 +768,7 @@ const HEATMAP_DATA = {
   updated: '${nowBj.stamp}',
   source: '${src}',
   games: {
-${Object.keys(games).map((k) => gameLiteral(games[k])).join(',\n')}${Object.keys(games).length ? '\n' : ''}  }
+${Object.keys(games).map((k) => gameLiteral(games[k], k)).join(',\n')}${Object.keys(games).length ? '\n' : ''}  }
 };
 ${meta && meta.extraNote ? '\n/* ' + meta.extraNote + ' */\n' : ''}
 ${HELPER_SRC.trim()}
