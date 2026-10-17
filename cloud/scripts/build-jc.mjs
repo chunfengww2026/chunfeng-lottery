@@ -44,7 +44,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import {
   archiveJcHistory, mergeHistory, trimHistory, renderHistoryJs,
-  findInFootball, toHistoryRecord
+  findInFootball, toHistoryRecord, codeKey, identityKeys
 } from './jc-archive.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（造夹具验证归档，见 --archive-test） */
@@ -604,7 +604,27 @@ function resolveStatus(g, s) {
      ⑤ 已有结果的记录，绝不被「没结果」的记录覆盖
      ⑥ 按时间倒序，最多保留 HIST_MAX 场
    ============================================================ */
-function archiveStep(oldJc, newJc, stamp) {
+function archiveStep(oldJc, newJc, stamp, excludeGames) {
+  /* 【规则二 · 配套】被「非官方开售」挡掉的场次【不许进归档】——
+     不挡的话，它会以「上次在售、这次不见了」的身份被当成「已完场」归档，
+     再从历史记录绕回页面（历史是不受官方过滤管的）→ 等于这次过滤白做。
+     所以先把它们从「上次在售」里剔掉，再去比对。
+     ⚠️ 只影响归档的比对输入，jc-history.js 里已经存在的记录一条都不删。 */
+  const excl = Array.isArray(excludeGames) ? excludeGames.filter(Boolean) : [];
+  let oldJcForArchive = oldJc;
+  if (excl.length && oldJc && Array.isArray(oldJc.games)) {
+    const exclCodes = new Set(excl.map((x) => codeKey(x.code)).filter(Boolean));
+    const exclIds = new Set();
+    excl.forEach((x) => identityKeys(x).forEach((k) => exclIds.add(k)));
+    oldJcForArchive = Object.assign({}, oldJc, {
+      games: oldJc.games.filter((g) => {
+        const ck = codeKey(g && g.code);
+        if (ck && exclCodes.has(ck)) return false;
+        return !identityKeys(g).some((k) => exclIds.has(k));
+      })
+    });
+  }
+
   /* 旧历史（可能还没有这个文件） */
   const oldHist = loadVar('jc-history.js', 'JC_HISTORY');
   const oldList = (oldHist && Array.isArray(oldHist.list)) ? oldHist.list : [];
@@ -615,9 +635,10 @@ function archiveStep(oldJc, newJc, stamp) {
     ? [...(FB.lists.upcoming || []), ...(FB.lists.live || []), ...(FB.lists.finished || [])]
     : [];
 
-  /* 这次新归档的（用来打印「本次新增 M 场」） */
+  /* 这次新归档的（用来打印「本次新增 M 场」）
+     ⚠️ 用 oldJcForArchive（已剔掉被官方过滤挡掉的场次），不是原始 oldJc */
   const fresh = archiveJcHistory({
-    oldJc, newJc, history: { list: [] }, fbList, now: stamp
+    oldJc: oldJcForArchive, newJc, history: { list: [] }, fbList, now: stamp
   });
 
   /* ---------- 补比分：老记录当时没配到 football.js 的，再试一次 ----------
@@ -1009,7 +1030,7 @@ async function main() {
 
   /* 【归档】必须在 jc-data.js 写完之后、用【旧数据 + 新数据】对比着算 */
   try {
-    archiveStep(oldJc, { games }, stamp);
+    archiveStep(oldJc, { games }, stamp, droppedNotOnSale);
   } catch (e) {
     log(`\n⚠️ 归档失败（不影响本次在售数据）：${e.message}`);
   }

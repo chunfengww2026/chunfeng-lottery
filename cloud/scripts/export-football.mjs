@@ -653,6 +653,36 @@ MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none
    ⚠️ 绝不把待定当黑、也绝不用 0 冒充"算过了"（统计不到就显示"暂未开始统计"）。 */
 let REC_STAT = null;
 let REC_ROWS_ARCHIVE = [];
+/* ============================================================
+   【推荐串 · 显示规则】用户 2026-10-17 追加（原话）：
+     「推荐串前后24小时自动比对不要还没比赛结果的.
+      只留下48小时内推荐过的结果（这里抓48小时的）」
+   ------------------------------------------------------------
+   ① 只显示【已经出结果】的批次 —— 还没打完的整批不显示，
+      页面上不会再出现一排「待」；「还有 N 组没打完」仍然在上面那条
+      战绩条里提示（那是用户之前要的，保留）。
+   ② 窗口 24 → 48 小时：按【推荐时间】(batch.at) 算，
+      只留「现在 - 48 小时 ~ 现在」之间推荐的。
+   ⚠️ 「有没有结果」用内核算出来的 verdict（红 / 黑）判断，
+      不在这里另写一套判据；待定（verdict 为空）= 还有比赛没打完 → 不显示。
+   ⚠️ 48 小时这个数必须和 jc-reco-archive.js 的 RECO_KEEP_HOURS 一致，
+      否则会出现「存档里留了 48 小时、页面只显示 24 小时」或者反过来。
+   ============================================================ */
+const REC_ARCH_HOURS = 48;
+/** 这批推荐是不是「近 48 小时内推的」（认不出时间 → 保留，宁可多显示） */
+function recArchInWindow(b) {
+  const t = Date.parse(String((b && b.at) || '').replace(/-/g, '/'));
+  if (!isFinite(t)) return true;
+  const span = REC_ARCH_HOURS * 3600 * 1000;
+  return t >= Date.now() - span && t <= Date.now() + 60000;
+}
+/** 这批是不是已经有结果（红 / 黑）—— 待定（还有比赛没打完）不算 */
+const recArchDecided = (b) => {
+  const v = b && b.verdict;
+  return v === '红' || v === '黑';
+};
+/* 窗口内、但还没打完的批次数（空态文案和构建日志用，不进详情列表） */
+let REC_ARCH_PENDING = 0;
 /* 【30 秒实时刷新用】存档的时间戳 = 判断"这份数据比页面里那份新"的依据 */
 const RECO_STAMP = (JC_RECO && JC_RECO.updated) || '';
 /* 【30 秒实时刷新用】往期比对列表的【内层】HTML —— 由 renderRec() 渲染时顺手存下来，
@@ -669,11 +699,56 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
     rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
     updated: JC_RECO.updated || ''
   };
+  /* 【规则①】只留已出结果的批次；【规则②】再按推荐时间 48 小时筛 */
+  const winBatches = JC_RECO.batches.filter(recArchInWindow);
+  REC_ARCH_PENDING = winBatches.filter((b) => !recArchDecided(b)).length;
   /* 详情：按存档时间倒序（最近的一期在最上面） */
-  REC_ROWS_ARCHIVE = JC_RECO.batches
+  REC_ROWS_ARCHIVE = winBatches
+    .filter(recArchDecided)
     .slice()
     .sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
 }
+
+/* ============================================================
+   __JC_HIT_MQ__ 顶部小喇叭 · 横向滚动播报命中率（用户 2026-10-17 追加）
+   ------------------------------------------------------------
+   用户原话：「同时这里也有一个小喇叭.横向滚动通告推荐串的命中率百分比」
+             「喇叭都要横向」
+   播的数字【全部来自上面已经算好的统计】，一个都不另算、更没有一个写死：
+     · 推荐串战绩 = REC_STAT（和「推荐串战绩」那条**同一个数**）
+     · 完场战绩   = stat.hit / stat.miss / stat.rate（和「完场战绩」同一条）
+     · 还有几组没打完 = REC_STAT.pending
+   横向滚动 = 轨道 .m-mq-track 上纯 CSS 的 translateX(0 → -50%)（见 CSS 里的
+   jc-mq-roll）；轨道里放两份一模一样的内容，退一半正好接上 → 无缝左右循环。
+   ⚠️ 一条统计都没有 → 显示「暂无命中率统计」，绝不编数字。
+   ============================================================ */
+const MQ_ITEMS = (() => {
+  const out = [];
+  if (REC_STAT && REC_STAT.rate != null) {
+    out.push(`<span class="m-mq-item mq-gold">推荐串近 ${REC_ARCH_HOURS} 小时：` +
+      `<b>红 ${REC_STAT.red}</b> 黑 ${REC_STAT.black} · 命中率 <i>${REC_STAT.rate}%</i></span>`);
+  }
+  if (stat.settled) {
+    out.push(`<span class="m-mq-item">完场战绩近 ${FIN_KEEP_HOURS} 小时：` +
+      `<b>红 ${stat.hit}</b> 黑 ${stat.miss} · 命中率 <i>${stat.rate}%</i></span>`);
+  }
+  if (REC_STAT && REC_STAT.pending) {
+    out.push(`<span class="m-mq-item">推荐串还有 <b>${REC_STAT.pending}</b> 组没打完 · 未出结果先不列出</span>`);
+  }
+  return out.length ? out : ['<span class="m-mq-item">暂无命中率统计</span>'];
+})();
+const MQ_ITEMS_HTML = MQ_ITEMS.join('');
+/* 滚动速度按文字长度估（中文字宽 ~11.5px、数字字母 ~6.4px），约 36px/秒；限 12~40 秒 */
+const MQ_TEXT = MQ_ITEMS_HTML.replace(/<[^>]*>/g, '');
+const MQ_PX = [...MQ_TEXT].reduce((n, ch) => n + (/[\x00-\xff]/.test(ch) ? 6.4 : 11.5), 0);
+const MQ_DUR = Math.min(40, Math.max(12, Math.round(MQ_PX / 36)));
+const HIT_MQ_HTML = `<div class="m-mq" id="jcHitMq">` +
+  `<span class="m-mq-ico" aria-hidden="true">📢</span>` +
+  `<div class="m-mq-view">` +
+  `<div class="m-mq-track" style="animation-duration:${MQ_DUR}s">` +
+  `<div class="m-mq-group">${MQ_ITEMS_HTML}</div>` +
+  `<div class="m-mq-group" aria-hidden="true">${MQ_ITEMS_HTML}</div>` +
+  `</div></div></div>`;
 
 /* ============================================================
    模拟计算器 · 数据准备（页面上的 SP 赔率）
@@ -1183,7 +1258,7 @@ function recoStatBarInner() {
   return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
     `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
     `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
-    `<span class="n">（前后 24 小时 · ${note}）</span>`;
+    `<span class="n">（近 ${REC_ARCH_HOURS} 小时 · ${note}）</span>`;
 }
 
 /* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
@@ -1245,21 +1320,28 @@ function renderRec() {
       `）</div>`;
 
   /* ---------- 【详情：往期推荐串的比对结果】 ----------
-     用户要求：「推荐串详情 —— 前后24小时窗口 + 红黑结果 + 存档+比对机制」。
-     数据来自 jc-reco-archive.js（jc-reco-build.mjs 每期存一次、打完回填）。
-     · 窗口：开赛时间前后 24 小时（和 build-jc.mjs 同一口径）
-     · 红 / 黑 / 待定：全中=红、有一场没中=黑、没打完=待定
-     · 每一场都列出终场比分；没打完的显示"未开赛/进行中"
-     ⚠️ 没有存档时这一整块【不渲染】（不显示空标题、不填假数据）。 */
+     用户要求：「推荐串详情 —— 前后24小时窗口 + 红黑结果 + 存档+比对机制」，
+     2026-10-17 追加：「不要还没比赛结果的 · 只留 48 小时内推荐过的」。
+     数据来自 jc-reco-data.js（jc-reco-build.mjs 每期存一次、打完回填）。
+     · 窗口：推荐时间在【近 48 小时】内（REC_ARCH_HOURS，见上面那段说明）
+     · 只列【已出结果】的批次（红 / 黑）；还有比赛没打完的整批不显示，
+       但「还有 N 组没打完」会显示在标题旁边（用户之前要的提示，保留）
+     · 每一场都列出终场比分；红/黑由内核按单场 hit 算出来，不在这里另判
+     · 近 48 小时一场结果都没有 → 显示一句说明（不留空白、不填假数字）
+     ⚠️ 没有存档时这一整块【不渲染】（不显示空标题）。 */
+  const archHead = `<div class="m-rechead2">往期推荐串（近 ${REC_ARCH_HOURS} 小时 · 自动比对）` +
+    (REC_STAT && REC_STAT.decided
+      ? `<span class="m-recsum">红 ${REC_STAT.red} · 黑 ${REC_STAT.black}` +
+        ` · 命中率 ${REC_STAT.rate}%</span>`
+      : `<span class="m-recsum">红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0}` +
+        ` · 暂无已结算</span>`) +
+    (REC_ARCH_PENDING
+      ? `<span class="m-recpending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</span>`
+      : '') +
+    `</div>`;
+
   const detail = REC_ROWS_ARCHIVE.length
-    ? `<div class="m-rechead2">往期推荐串（前后 24 小时 · 自动比对）` +
-      (REC_STAT && REC_STAT.decided
-        ? `<span class="m-recsum">红 ${REC_STAT.red} · 黑 ${REC_STAT.black}` +
-          ` · 命中率 ${REC_STAT.rate}%</span>`
-        : `<span class="m-recsum">红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0}` +
-          ` · 暂无已结算</span>`) +
-      `</div>` +
-      REC_ROWS_ARCHIVE.map((b) => {
+    ? archHead + REC_ROWS_ARCHIVE.map((b) => {
         const rows = Array.isArray(b.rows) ? b.rows : [];
         const cls = b.verdict === '红' ? 'hit' : (b.verdict === '黑' ? 'miss' : 'wait');
         const tag = b.verdict || '待定';
@@ -1281,7 +1363,12 @@ function renderRec() {
             `</div>`).join('') +
           `</div>`;
       }).join('')
-    : '';
+    : (JC_RECO && Array.isArray(JC_RECO.batches) && JC_RECO.batches.length
+      /* 【空态】48 小时内一场结果都没有 → 明确说明，不留白、不填假的 */
+      ? archHead +
+        `<div class="m-recempty">近 ${REC_ARCH_HOURS} 小时暂无已出结果的推荐` +
+        (REC_ARCH_PENDING ? `（还有 ${REC_ARCH_PENDING} 组没打完）` : '') + `</div>`
+      : '');
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
@@ -2486,6 +2573,62 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 /* 【去掉了 12 家明细】.m-mc-grid / .m-mc-r 的样式已删（卡片上不放 12 家明细了）。 */
 .m-mc-note { font-size: 10.5px; color: #a2937c; line-height: 1.7; }
 
+/* ============================================================
+   【推荐串 · 待定提示】往期列表标题右边那句「还有 N 组没打完」
+   —— 用户 2026-10-17：「不要还没比赛结果的，只留 48 小时内推荐过的」，
+      没打完的批次不列出来了，但这句提示保留（用户之前要过）。
+   ============================================================ */
+.m-recpending { width: 100%; font-size: 10.5px; font-weight: 400; color: #a2937c; }
+
+/* ============================================================
+   __JC_HIT_MQ__ 顶部小喇叭：横向滚动播报命中率（用户 2026-10-17 追加）
+   ------------------------------------------------------------
+   用户原话：「同时这里也有一个小喇叭.横向滚动通告推荐串的命中率百分比」
+   位置：标题行「竞彩 · 推胜负平」右边那块空位（和标题同一行，不撑高）。
+   播的数字【全部是页面上已经算好的】（推荐串战绩 / 完场战绩），
+   这里不另算一套、也没有任何写死的数字。
+   · 纯 CSS 动画（keyframes + transform），不用废弃的 <marquee> 标签、
+     不用 <button>、不引任何外部图片；喇叭图标是 emoji。
+   · 轨道里放两组一模一样的条目 → translateX(-50%) 正好退一组，无缝循环。
+   · 悬停 / 点按 / 键盘聚焦时暂停；系统开了「减少动态效果」就改成可横向拖动。
+   · 米杏色：底 var(--card) · 边框 var(--border) · 字 var(--text-sub)；
+     命中率用主色 var(--green)（醒目），「红」用金 var(--gold)。
+   · 高 24px，和 21px 的 h1 同一行不撑高；窄屏 h1 缩到 18px 给喇叭留位置。
+   ============================================================ */
+.m-titlerow { display: flex; align-items: center; gap: 10px; margin: 6px 0 4px; }
+.m-titlerow h1 { margin: 0 !important; flex: 0 0 auto; white-space: nowrap; }
+.m-mq { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 8px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--border); overflow: hidden; }
+.m-mq-ico { flex: 0 0 auto; font-size: 12px; line-height: 1; }
+.m-mq-view { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.m-mq-track { display: flex; width: max-content; will-change: transform;
+  animation-name: jc-mq-roll; animation-duration: 20s; animation-timing-function: linear;
+  animation-iteration-count: infinite; }
+.m-mq-group { display: flex; align-items: center; flex: 0 0 auto; }
+.m-mq-item { font-size: 11.5px; line-height: 24px; color: var(--text-sub);
+  white-space: nowrap; padding-right: 26px; }
+.m-mq-item b { font-weight: 700; color: var(--text); }
+.m-mq-item i { font-style: normal; font-weight: 700; color: var(--green); }
+.m-mq-item.mq-gold b { color: var(--gold); }
+.m-mq:hover .m-mq-track,
+.m-mq:active .m-mq-track,
+.m-mq:focus-within .m-mq-track { animation-play-state: paused; }
+@keyframes jc-mq-roll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-mq-track { animation: none; }
+  .m-mq-view { overflow-x: auto; }
+  .m-mq-view::-webkit-scrollbar { height: 0; }
+}
+/* 窄屏：标题缩一档，把位置让给喇叭（320px 实测标题 21px 时只剩 ~90px） */
+@media (max-width: 380px) {
+  .m-titlerow h1 { font-size: 18px !important; }
+  .m-titlerow { gap: 8px; }
+}
+
 `;
 
 
@@ -2547,7 +2690,12 @@ ${nav}
   <!-- #article = 受保护区域之一（防截图：locked 时整块模糊 + 不能点）
        另两块受保护的是三个分段里的 .guard 和底部免责声明 .guard -->
   <div id="article">
+  <!-- 【标题行】左边标题 + 右边小喇叭（横向滚动播报命中率，见 __JC_HIT_MQ__）
+       ⚠️ 小喇叭是纯 CSS 动画，里面没有 <button>、没有外部图片。 -->
+  <div class="m-titlerow">
   <h1>竞彩 · 推胜负平</h1>
+  ${HIT_MQ_HTML}
+  </div>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
@@ -3569,6 +3717,13 @@ ${JC_XYSP_VIEW}
     if (typeof v.stat === 'string') bar.innerHTML = v.stat;
     var arch = document.getElementById('jcRecArch');
     if (arch && typeof v.arch === 'string') arch.innerHTML = v.arch;
+    /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
+       轨道本身和动画不动，不会重新从左边滚） */
+    var mq = document.getElementById('jcHitMq');
+    if (mq && typeof v.mq === 'string') {
+      var gs = mq.querySelectorAll('.m-mq-group');
+      for (var i = 0; i < gs.length; i++) gs[i].innerHTML = v.mq;
+    }
     bar.setAttribute('data-reco-updated', v.updated);
     last = v.updated;
   }
@@ -3615,7 +3770,9 @@ const RECO_VIEW_OUT = path.join(ROOT, 'jc-reco-view.js');
 fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
   updated: RECO_STAMP,
   stat: recoStatBarInner(),
-  arch: REC_ARCH_INNER
+  arch: REC_ARCH_INNER,
+  /* 【顶部小喇叭】两组条目共用同一份内容（横向滚动的两份必须一样） */
+  mq: MQ_ITEMS_HTML
 }) + ';\n', 'utf8');
 
 console.log('✅ 已生成：' + OUT);
@@ -3623,16 +3780,32 @@ console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(
 console.log(`   三卡片：未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 已完场 ${stat.finished}`);
 console.log(`   已完场构成：本次在售完场 ${stat.finishedToday} 场 + 历史归档 ${stat.history} 场`);
 console.log(`   已完场分区卡片数：${MATCHES.filter((m) => m.kind === 'finished').length}`);
+/* 【规则一两行】24 小时窗口挡掉多少、窗口内还剩多少 —— 验收直接看这两行 */
+console.log(`   【规则一】已完场只留比赛结束后 ${FIN_KEEP_HOURS} 小时：` +
+  `窗口内 ${MATCHES.filter((m) => m.kind === 'finished').length} 场` +
+  ` · 超时移出 ${FIN_EXPIRED} 场`);
+console.log(`   【规则二】在售只留体彩竞彩对外开售的：` +
+  (JC.filter && JC.filter.officialGate === false
+    ? '本次没拿到官方开售名单 → 未过滤（兜底，照原列表出页面）'
+    : `官方过滤生效 · 非官方开售挡掉 ${(JC.filter && JC.filter.droppedNotOnSale) || 0} 场`));
 console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
   (OFFICIAL === null
     ? `本地竞彩数据兜底 upcoming+live=${IN_SALE}（没读到 jc-official.js）`
     : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
-console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积）`);
+console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积，显示时按 24 小时窗口筛）`);
 console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
   `（单关 ~ ${passLabel(CALC_MAX_N)}）· 赔率来源：${SP_SRC_LOG}`);
 console.log(`   推荐串（在售 · 信心 ≥${REC_MIN}%）：符合 ${REC_ROWS.length} 场` +
   (REC_ROWS.length ? ` → ${REC_ROWS.map((r) => `${r.code} ${r.label} ${r.conf}%`).join(' | ')}` : '（无）'));
+/* 【推荐串 · 往期】只列已出结果的（红/黑），未打完的整批不显示 */
+console.log(`   往期推荐串（近 ${REC_ARCH_HOURS} 小时 · 只列已出结果）：${REC_ROWS_ARCHIVE.length} 批` +
+  (REC_ROWS_ARCHIVE.length
+    ? ` → ${REC_ROWS_ARCHIVE.map((b) => `${b.at} ${b.verdict}`).join(' | ')}`
+    : ' → 未出结果的整批不显示') +
+  (REC_ARCH_PENDING ? ` · 还有 ${REC_ARCH_PENDING} 组没打完（不列）` : ''));
+/* 【顶部小喇叭】横向滚动的实际文案（数字全部是上面算出来的） */
+console.log(`   顶部小喇叭（横向滚动）：${MQ_TEXT} · 一轮 ${MQ_DUR}s`);
 console.log(`   其中信心 <${REC_MIN}% 被排除 ${REC_LOW.length} 场` +
   (REC_LOW.length ? ` → ${REC_LOW.map((r) => `${r.code} ${r.conf}%`).join(' | ')}` : '（无）') +
   ` · 在售里有推荐数据的共 ${REC_ALL.length} 场`);
