@@ -2950,13 +2950,15 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    ⚠️ 颜色全走变量（--border / --text-sub / --green），米杏色主题自动生效。
    ⚠️ 横向压缩：两个 Tab 各占一半、white-space:nowrap，320px 也不会把字挤换行。
    ============================================================ */
-.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
-.top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 10px 6px;
+.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 8px;
   font-size: 14px; font-weight: 600; color: var(--text-sub); text-decoration: none;
   position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
 .top-tabs .tab.on { color: var(--green); font-weight: 700; }
 .top-tabs .tab.on::after { content: ''; position: absolute; left: 20%; right: 20%;
-  bottom: 0; height: 2px; background: var(--green); border-radius: 2px; }
+  bottom: -1px; height: 2px; background: var(--green); border-radius: 2px; }
+.tab:focus-visible { outline: 2px solid var(--green); outline-offset: -3px; border-radius: 6px; }
+.tab:hover { color: var(--text); }
 
 
 `;
