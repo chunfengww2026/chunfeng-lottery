@@ -445,8 +445,8 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
   const opt = o || {};
   const PERIODS = opt.periods == null ? 30 : opt.periods;
   const TYPE_MAP = opt.typeMap || {
-    '3d': { title: '3D 手绘参考图（民间算法）', name: '福彩3D' },
-    'pl3': { title: '排列三 手绘参考图（民间算法）', name: '排列三' }
+    '3d': { title: '3D 手绘参考图', name: '福彩3D' },
+    'pl3': { title: '排列三 手绘参考图', name: '排列三' }
   };
   const LIUMA_MAP = opt.liuMaMap || {
     '3d': { goldDan: 5, silverDan: 2, tuoList: [0, 1, 3, 4] },
