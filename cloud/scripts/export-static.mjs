@@ -11416,7 +11416,7 @@ ${CHAT_JS_SHARE}
       }
       var pooled = ptCtx(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' }, PT_NEAR);
       var pooled30 = ptCtx(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' }, SPAN);
-      var po = ptMerged(g, pooled, pooled30), six = [], j;
+      var po = ptMerged(g, pooled, pooled, pooled30), six = [], j;
       for (j = 0; j < Math.min(6, po.length); j++) six.push(po[j].n);
       six.sort(function (a, b) { return a - b; });
       h += '<div class="tq-rec-row"><span class="tq-rec-k">定位号</span><span class="tq-rec-t">' + pos + '</span></div>';
@@ -12755,27 +12755,8 @@ ${CHAT_JS_SHARE}
 })();
 </script>
 
-<!-- __RE_GUIDE_HTML__ 安装指南（用户 2026-10-18 指定样式：图标 + ① ② ③ 圆点） -->
-<div class="install-guide">
-  <div class="ig-title">添加到手机桌面，更方便更稳定</div>
-  <div class="ig-sub">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
-  <div class="ig-cols">
-    <div class="ig-card">
-      <div class="ig-head"><span class="ig-ico">📱</span>安卓 / 微信</div>
-      <div class="ig-step"><i>1</i>点右上角「···」</div>
-      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
-      <div class="ig-step"><i>3</i>点「添加」</div>
-      <div class="ig-note">浏览器里也叫「添加到桌面」。</div>
-    </div>
-    <div class="ig-card">
-      <div class="ig-head"><span class="ig-ico">🍎</span>苹果 iPhone</div>
-      <div class="ig-step"><i>1</i>点底部「分享」图标</div>
-      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
-      <div class="ig-step"><i>3</i>点「添加」</div>
-      <div class="ig-note">只有 Safari 支持；在微信里请先在「浏览器打开」。</div>
-    </div>
-  </div>
-  <div class="ig-foot">备注：添加桌面更方便更稳定</div>
+<!-- 【已删除】安装指南模块（「添加到手机桌面，更方便更稳定」）—— 用户 2026-10-18 明确要求删掉，不要再加回来 -->
+
 </div>
 
 <script>
