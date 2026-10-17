@@ -12604,6 +12604,21 @@ ${CHAT_JS_SHARE}
 .ig-note { font-size: 10.5px; color: #a89a80; line-height: 1.5; margin-top: 6px; }
 .ig-foot { text-align: center; font-size: 11.5px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
 @media (max-width: 340px) { .ig-cols { grid-template-columns: 1fr; } }
+/* __ROW3__ 用户 2026-10-18：「放到一排」—— 专家推荐 / 走势图 / 手绘参考图 三个入口并成一行。
+   ⚠️ 只加布局，不动折叠逻辑：它们都是 <details>，并排后点开仍然在原位展开。 */
+.ro-xj, .ro-trend, .p3d-section {
+  display: inline-block !important;
+  width: calc((100% - 16px) / 3) !important;
+  vertical-align: top;
+  margin: 0 8px 8px 0 !important;
+  box-sizing: border-box;
+}
+.ro-xj { margin-right: 0 !important; }
+.ro-xj[open], .ro-trend[open], .p3d-section[open] { width: 100% !important; margin-right: 0 !important; }
+@media (max-width: 420px) {
+  .ro-xj, .ro-trend, .p3d-section { width: calc((100% - 10px) / 3) !important; margin: 0 5px 6px 0 !important; }
+  .ro-xj .ro-xj-title, .ro-trend .ro-trend-h2, .p3d-section .p3d-title { font-size: 12.5px !important; }
+}
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
