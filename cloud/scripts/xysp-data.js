@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-17 23:06
+   更新时间：2026-10-17 23:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-17 23:06",
+ "updated": "2026-10-17 23:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -753,48 +753,6 @@ const XYSP_DATA = {
      "nextAt": 1792242900000,
      "atMs": 1792205101851,
      "seenMs": 1792205101851,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-16/7c4620bb-397e-42ea-8b94-7cf84e77b5801792163426733.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-16/7c4620bb-397e-42ea-8b94-7cf84e77b5801792163426733.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]通杀一码打造最稳定的 福彩3d2026262最强的绝杀一码《1》开347准 福彩3d2026263最强的绝杀一码《1》开987准 福彩3d2026264最强的绝杀一码《2》开119准 福彩3d2026265最强的绝杀一码《2》开161",
-     "url": "",
-     "at": "2026-10-16T15:36:24.447Z",
-     "pubAt": "2026-10-16T15:10:00.000Z",
-     "pubMs": 1792163400000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792164984447,
-     "seenMs": 1792164984447,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-16/99487389-34e2-4a3e-8110-c20d636139521792163426686.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-16/99487389-34e2-4a3e-8110-c20d636139521792163426686.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]通杀一码打造最稳定的 福彩3d2026262最强的绝杀一码《1》开347准 福彩3d2026263最强的绝杀一码《1》开987准 福彩3d2026264最强的绝杀一码《2》开119准 福彩3d2026265最强的绝杀一码《2》开161",
-     "url": "",
-     "at": "2026-10-16T15:36:24.447Z",
-     "pubAt": "2026-10-16T15:10:00.000Z",
-     "pubMs": 1792163400000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792164984447,
-     "seenMs": 1792164984447,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-16/85a21a41-5827-4ac0-84fe-fe1c48c3a4c51792163426687.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-16/85a21a41-5827-4ac0-84fe-fe1c48c3a4c51792163426687.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]通杀一码打造最稳定的 福彩3d2026262最强的绝杀一码《1》开347准 福彩3d2026263最强的绝杀一码《1》开987准 福彩3d2026264最强的绝杀一码《2》开119准 福彩3d2026265最强的绝杀一码《2》开161",
-     "url": "",
-     "at": "2026-10-16T15:36:24.447Z",
-     "pubAt": "2026-10-16T15:10:00.000Z",
-     "pubMs": 1792163400000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792164984447,
-     "seenMs": 1792164984447,
      "whenMs": null
     }
    ]
@@ -2197,9 +2155,7 @@ const XYSP_DATA = {
      "author": "体彩福彩分享",
      "when": "2026-10-17 11:44:43",
      "postId": "7697477272739938854",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7aa5b137eacc448e84968ad175692adb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=11mS3vRFSZBjDMNVMq6Ceb9UReo%3D",
@@ -2230,9 +2186,7 @@ const XYSP_DATA = {
      "author": "体彩福彩分享",
      "when": "2026-10-17 11:44:43",
      "postId": "7697477272739938854",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/01bb91414e9244f4af87cd31797d279b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=h%2F1o3WQaQ0YuR54e1UdOxOZIVgM%3D",
@@ -2251,14 +2205,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-17T15:06:01.401Z",
      "whenMs": 1792208683000,
-     "seenMs": 1792212361395,
+     "seenMs": 1792249561401,
      "drawMs": 1792243800000,
      "nextMs": 1792330200000,
      "atMs": 1792212361395,
      "drawAt": "2026-10-17T13:30:00.000Z",
      "nextAt": 1792330200000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-20T04:46:01.395Z",
+     "expireAt": "2026-10-20T15:06:01.401Z",
      "rule": "next-draw",
      "author": "体彩福彩分享",
      "when": "2026-10-17 11:44:43",
@@ -2311,14 +2265,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-17T15:06:01.401Z",
      "whenMs": 1792206613000,
-     "seenMs": 1792212361395,
+     "seenMs": 1792249561401,
      "drawMs": 1792243800000,
      "nextMs": 1792330200000,
      "atMs": 1792207561332,
      "drawAt": "2026-10-17T13:30:00.000Z",
      "nextAt": 1792330200000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-20T04:46:01.395Z",
+     "expireAt": "2026-10-20T15:06:01.401Z",
      "rule": "next-draw",
      "author": "农村的崔",
      "when": "2026-10-17 11:10:13",
@@ -3193,9 +3147,7 @@ const XYSP_DATA = {
      "author": "美洋羊",
      "when": "2026-10-17 05:26:01",
      "postId": "7697379818844750386",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5227563e346545cc89481672f4eb1e3e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6g2QrDkJJY2NgahaWENMDkK9UWw%3D",
@@ -3226,9 +3178,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 02:33:03",
      "postId": "7697335517548904979",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a7c8064a077546bb9f7045a74384cca0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=F8bKLBeUG2Ait%2BqLhw%2B%2BaHtClo8%3D",
@@ -3259,9 +3209,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 02:33:03",
      "postId": "7697335517548904979",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a12a1cdb9cdf4ae3bb371d300e345238~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=p7DiwFESTJd0xEwfWKISckJtbNc%3D",
@@ -3280,14 +3228,14 @@ const XYSP_DATA = {
      "issue": "26273",
      "seen": "2026-10-17T15:06:01.401Z",
      "whenMs": 1792175583000,
-     "seenMs": 1792212361395,
+     "seenMs": 1792249561401,
      "drawMs": 1792242900000,
      "nextMs": 1792329300000,
      "atMs": 1792176361951,
      "drawAt": "2026-10-17T13:15:00.000Z",
      "nextAt": 1792329300000,
      "drawGid": "fc3d",
-     "expireAt": "2026-10-20T04:46:01.395Z",
+     "expireAt": "2026-10-20T15:06:01.401Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 02:33:03",
