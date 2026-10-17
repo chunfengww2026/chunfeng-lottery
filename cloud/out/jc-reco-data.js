@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-17 18:06",
+ "updated": "2026-10-17 18:25",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -102,9 +102,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.57,
      "conf": 58.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:1",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六009",
@@ -291,7 +291,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 14,
+   "pending": 13,
    "verdict": ""
   },
   {
@@ -336,9 +336,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.62,
      "conf": 55.5,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:1",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六008",
@@ -637,7 +637,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 22,
+   "pending": 21,
    "verdict": ""
   },
   {
@@ -1014,9 +1014,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.57,
      "conf": 57.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:1",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六010",
@@ -1301,7 +1301,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 21,
+   "pending": 20,
    "verdict": ""
   },
   {
@@ -1662,11 +1662,11 @@ const JC_RECO_DATA = {
      "away": "名古屋鲸",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.65,
-     "conf": 55.9,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "odds": 1.61,
+     "conf": 56.6,
+     "score": "0:1",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六010",
@@ -1760,8 +1760,8 @@ const JC_RECO_DATA = {
      "away": "赫尔城",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.62,
-     "conf": 59,
+     "odds": 1.65,
+     "conf": 57.7,
      "score": "",
      "hit": null,
      "result": ""
@@ -1965,7 +1965,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 22,
+   "pending": 21,
    "verdict": ""
   }
  ]
