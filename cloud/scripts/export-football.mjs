@@ -90,7 +90,7 @@ const FB = loadVar('football.js', 'FOOTBALL_DATA');
 const JC_OFFICIAL = loadVar('jc-official.js', 'JC_OFFICIAL');
 
 /* 【推荐串存档】jc-reco-data.js 由 jc-reco-build.mjs 生成：
-   每期把「当时那一串推荐（在售 × 信心 ≥55%）」原样存下来，
+   每期把「当时那一串推荐（在售 × 信心 ≥58%）」原样存下来，
    比赛打完后回填终场比分与红黑 → 页面上「推荐串 红 X 黑 Y 命中率 Z%」
    才有数可显示（以前这里是写死的 0 / 0%）。
    文件缺失时返回 null，页面退回「暂未开始统计」，绝不填 0 凑数。 */
@@ -352,7 +352,7 @@ function probFromOdds(odds) {
            胜负平方向不够清晰）→ 'unbeaten'：推更稳的那个"不败"
         ④ 其余 → 'three'
       ⚠️ 只影响【卡片显示 + 卡片自己的红黑判定】：reco.confidence、
-         jc-data.js、推荐串（在售 × 信心 ≥55%）的口径一个字都没动。
+         jc-data.js、推荐串（在售 × 信心 ≥58%）的口径一个字都没动。
 
    ③ 【开关】RECO_DERIVE_UNBEATEN
       默认 false = 【不改变上游的推荐】：一律用数据里的 type（没有就是 'three'），
@@ -1191,7 +1191,7 @@ function renderMatch(m) {
 }
 
 /* ============================================================
-   【推荐串】在售 + 信心 ≥55% 的紧凑列表
+   【推荐串】在售 + 信心 ≥58% 的紧凑列表
    ------------------------------------------------------------
    数据全部来自页面【已有】的字段，没有新算法、不编数：
      · 「在售」= 体彩官网公布的 Selling 场次 = jc-data.js 顶层 sp.list
@@ -1204,7 +1204,7 @@ function renderMatch(m) {
        和信心的来源是同一份赔率，不混用官方 SP，免得两个来源对不上。
      · 在售列表里没有它 / 没有 reco（数据缺失）→ 不显示，绝不填 0 凑数。
    ============================================================ */
-const REC_MIN = 55;                    /* 用户要求：信心 ≥55% 才进推荐 */
+const REC_MIN = 58;                    /* 用户要求：信心 ≥58% 才进推荐（原 55% → 2026 用户提到 58%） */
 
 const REC_BY_KEY = new Map();          /* 编号@日期 → 这场在 jc-data 里的推荐数据 */
 JC.games.forEach((g) => {
@@ -1223,7 +1223,7 @@ JC.games.forEach((g) => {
   });
 });
 
-/* 在售（官方 Selling）× 有信心数据；低于 55% 的一律不要 */
+/* 在售（官方 Selling）× 有信心数据；低于 REC_MIN 的一律不要 */
 const REC_ALL = (SP ? SP.list : [])
   .map((r) => REC_BY_KEY.get(`${r.code}@${dayOf(r.time)}`))
   .filter(Boolean);
@@ -1258,7 +1258,7 @@ function recoStatBarInner() {
   return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
     `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
     `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
-    `<span class="n">（近 ${REC_ARCH_HOURS} 小时 · ${note}）</span>`;
+    `<span class="n">（推荐串比对最终比分 · ${note}）</span>`;
 }
 
 /* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
@@ -1281,7 +1281,7 @@ function recoStatBarTop() {
    ============================================================ */
 function renderRec() {
   /* __FB_ENTRY_ROW__ 和三个分段同一套「横排 entry 行」：
-     左「推荐串」+ 副标题（在售 · 信心 ≥55% · N 场），右「点击查看」。
+     左「推荐串」+ 副标题（在售 · 信心 ≥58% · N 场），右「点击查看」。
      ⚠️ 还是 <details>/<summary> 折叠；[open] 切换靠 .m-rec[open] 的 ::after。
      ⚠️ 这一行【只放入口】，不放战绩数字 —— 战绩数字在折叠块外面那条
         recoStatBarTop() 上（用户 2026-10-17 追加要求：放外面）。 */
