@@ -1,10 +1,10 @@
 {
- "failStreak": 0,
+ "failStreak": 1,
  "pausedUntil": 1792234898125,
- "lastRun": "2026-10-17T09:01:39.669Z",
+ "lastRun": "2026-10-17T11:02:24.787Z",
  "runs": 0,
- "skips": 18,
+ "skips": 19,
  "ok": 1,
  "lastCount": 42,
- "lastReqAt": 1792227699668
+ "lastReqAt": 1792234944786
 }
