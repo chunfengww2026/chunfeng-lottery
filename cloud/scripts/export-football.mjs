@@ -1479,24 +1479,22 @@ function renderRec() {
     (REC_ARCH_PENDING ? `<div class="past-pending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</div>` : '');
   const pastItems = REC_ROWS_ARCHIVE.map((b) => {
     const rows = Array.isArray(b.rows) ? b.rows : [];
-    const cls = b.verdict === '红' ? 'hit' : (b.verdict === '黑' ? 'miss' : 'wait');
     const tag = b.verdict || '待定';
-    return `<div class="m-recbatch">` +
-      `<div class="m-recbhead">` +
-      `<span class="m-recbat">${esc(b.at || '')}</span>` +
-      `<span class="m-rb ${cls}">${esc(tag)}</span>` +
-      `<span class="m-recbnote">${rows.length} 场` +
-      (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
+    return `<div class="past-item">` +
+      `<div class="past-item-head">` +
+      `<span>${esc(b.at || '')} <span class="badge">${esc(tag)}</span></span>` +
+      `<span>${rows.length} 场` + (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
       `</div>` +
-      rows.map((r) =>
-        `<div class="m-recrow m-recrow-arch">` +
-        `<span class="m-reccode">${esc(r.code || '')}</span>` +
-        `<span class="m-recteams">${esc(r.home || '')} vs ${esc(r.away || '')}</span>` +
-        `<span class="m-recpick">${esc(r.label || '')}</span>` +
-        `<span class="m-recodds">${r.score ? esc(r.score) : '—'}</span>` +
-        `<span class="m-rb ${r.hit === true ? 'hit' : (r.hit === false ? 'miss' : 'wait')}">${
-          r.hit === true ? '红' : (r.hit === false ? '黑' : '待')}</span>` +
-        `</div>`).join('') +
+      rows.map((r) => {
+        const st = r.hit === true ? '红' : (r.hit === false ? '黑' : '待');
+        const stCls = r.hit === true ? 'status-red' : (r.hit === false ? 'status-black' : '');
+        return `<div class="past-match-row">` +
+          `<span class="teams">${esc(r.code || '')} ${esc(r.home || '')} vs ${esc(r.away || '')}` +
+          (r.label ? ` · ${esc(r.label)}` : '') + `</span>` +
+          `<span class="result">${r.score ? esc(r.score) : '—'}</span>` +
+          `<span class="${stCls}">${st}</span>` +
+          `</div>`;
+      }).join('') +
       `</div>`;
   }).join('');
 
@@ -2364,19 +2362,74 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 .m-recrow-arch:last-child { border-bottom: 0; }
 .m-rb.wait { background: #fdf6ea; color: #8a7a63; border: 1px solid #e8d7bd; }
 
-/* ---- 【往期推荐串】用户 2026-10-17 给的模块结构（替换掉旧的 .m-rechead2 那套标题）----
-   .past-recommend-section > .past-header(.title-left .label + .stats-right#pastStats)
-                             > .past-list#pastList
-   列表项沿用现有的 .m-recbatch/.m-recrow-arch（数据口径不变，只是标题换成新的） */
-.past-recommend-section { margin-top: var(--jc-gap); }
-.past-header { display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 2px 0 8px; border-bottom: 1px solid #efe2cc; }
-.past-header .title-left .label { font-size: 13.5px; font-weight: 700; color: #4a3a26; }
-.past-header .stats-right { font-size: 11.5px; font-weight: 700; color: #c0392b; }
-.past-list { margin-top: 8px; }
-.past-list .loading-text { font-size: 11px; color: #8a7a63; }
+/* ---- 【往期推荐串】用户 2026-10-17 给的模块结构与样式（按用户给的原样落地）----
+   .past-recommend-section > .past-header(.label + .stats-right#pastStats) > .past-list#pastList
+   每条：.past-item > .past-item-head(时间 + .badge 红/黑) + .past-match-row(.teams/.result/.status-*) */
+.past-recommend-section {
+  background: #fdf6ea;
+  border: 1px solid #e8d7bd;
+  border-radius: 10px;
+  margin: 0 12px 12px;
+  padding: 12px;
+}
+.past-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.past-header .label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #4a3a26;
+}
+.past-header .stats-right {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c0392b; /* 红色统计 */
+}
+.past-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* 单条往期卡片 */
+.past-item {
+  background: #fff;
+  border: 1px solid #e8d7bd;
+  border-radius: 8px;
+  padding: 10px;
+}
+.past-item-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #8a7a63;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed #f0e2cc;
+  padding-bottom: 6px;
+}
+.past-item-head .badge {
+  background: #e3f2ea;
+  color: #1a8c5a;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.past-match-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 6px 0;
+}
+.past-match-row .teams { color: #4a3a26; flex: 1; }
+.past-match-row .result { color: #8a7a63; margin-right: 10px; }
+.past-match-row .status-red { color: #c0392b; font-weight: 700; }
+.past-match-row .status-black { color: #8a7a63; font-weight: 700; }
+/* 补充（用户没给、这两句是空态/提示用，沿用同色系） */
 .past-pending { font-size: 11px; color: #8a7a63; padding: 0 0 6px; }
 .past-empty { font-size: 11.5px; color: #8a7a63; padding: 6px 0; }
+.past-list .loading-text { font-size: 11px; color: #8a7a63; }
 
 /* ============================================================
    __FB_ENTRY_BAR__ 竞彩页 · entry 行 + 底部操作条（用户设计稿）
