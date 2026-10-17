@@ -1786,19 +1786,25 @@ function dateCNRaw(id) {
    用户要求：在「已更新 / 所有资料均在下方 / 下一期更新倒计时」那张卡片的
    右边空位上做一条横向滚动的小喇叭通告，播报最近的开奖中奖情况。
 
-   播报规则（用户原话，逐条落地）：
-     ① 数字彩（福彩3D / 排列3 / 排列5）—— 每期开奖后，中了才播，播中奖类型：
+   播报规则（用户 2026-10-18 定稿，逐条落地）：
+     ①【所有彩种】都播 —— 双色球 / 大乐透 / 七星彩 / 七乐彩 / 快乐8 /
+        福彩3D / 排列3 / 排列5，中了就播（不再"只有数字彩"）。
+     ② 大盘彩（双色球 / 大乐透 / 七星彩 / 七乐彩 / 快乐8）：
+          只播【一等奖】和【二等奖】两个档，按官方奖级规则判。
+          文案必须写明【几等奖】+【主号中几个 / 副号中几个】：
+            · 双色球 第 2026119 期 · 推荐号命中二等奖（红球 6 个 + 蓝球 0 个）
+            · 大乐透 第 26119 期 · 推荐号命中一等奖（前区 5 个 + 后区 2 个）
+          其它奖级（三～九等奖）与没中一律不播。
+     ③ 数字彩（福彩3D / 排列3 / 排列5）—— 每期开奖后，中了才播，播中奖类型：
           · 直选（三位全中且顺序对）
           · 组选（组三 = 三位有两个相同 / 组六 = 三位互不相同）
           · 排列5 五位全中播「直选命中」；只中前三位则播「前三位直选命中」
         没中 → 不播（不占位置）
-     ② 大盘彩（双色球 / 大乐透 / 七星彩 / 七乐彩 / 快乐8）——
-          只播【一等奖】和【三等奖】，其它奖级与没中一律不播。
-        快乐8 的奖级是「选N中M」，没有这个叫法，所以只认「选中十」这一档。
-     ③ 通告里只留【最近 3 条】中奖（用户：通告昨天的、不要积累一堆旧的），
-        末尾永远跟一条汇总【近 N 期推荐 · 中奖 M 期】：N = 已比对期数，M = 中奖期数。
-        还没开奖的那些期就靠这一条兜住，不会空着、也不会只写「暂无」。
-     ④ 全部是算出来的：没有任何一条写死的中奖记录；算不出来（缺推荐 / 缺开奖 /
+     ④ 喇叭里【只有中奖播报】—— 用户 2026-10-18：不要「近 N 期推荐 · 中奖 M 期」
+        这种统计数字，一条都不要。
+     ⑤ 窗口：每个彩种最多比【最近 30 期】（存档里存了多少就比多少）；
+        滚动条最多留【最近 10 条】，同一彩种最多 3 条 —— 免得一个彩种把位置占满。
+     ⑥ 全部是算出来的：没有任何一条写死的中奖记录；算不出来（缺推荐 / 缺开奖 /
         期号对不上）就是 0 条，宁可显示「暂无中奖播报」。每天跟着生成任务刷新。
 
    比对口径（每期只用一份推荐号；期号必须对得上）：
@@ -1807,6 +1813,13 @@ function dateCNRaw(id) {
      · ssq        ：红球二十码池 + 蓝球候选栏；dlt：前区二十码池 + 后区候选栏
      · qlc        ：基本号二十二码池；kl8：选十那 10 码
      · qxc        ：六位定位栏 + 后区栏
+
+   官方奖级（大盘彩只认前两档，和 hit-check.js 的奖级表同口径）：
+     · ssq ：一等奖 = 红 6 + 蓝 1；二等奖 = 红 6 + 蓝 0
+     · dlt ：一等奖 = 前 5 + 后 2；二等奖 = 前 5 + 后 1
+     · qlc ：一等奖 = 基本号 7 个；二等奖 = 基本号 6 个 + 特别号中
+     · qxc ：一等奖 = 前六位全中 + 后区中；二等奖 = 前六位全中、后区未中
+     · kl8 ：一等奖 = 选十中十；二等奖 = 选十中九
 
    ⚠️ 没有这一期的推荐 / 没有这一期的开奖 / 期号对不上 → 直接跳过，
       不猜、不补、不挪用相邻期。全都对不上就出一句「暂无中奖播报」。
@@ -1919,42 +1932,46 @@ function mqJudge(gid, v, d) {
     return null;
   }
 
-  /* ---------- 双色球：6+1，只播一等奖 / 三等奖 ---------- */
+  /* 大盘彩文案：「推荐号命中X等奖（主号 N 个 + 副号 N 个）」——
+     用户 2026-10-18：几等奖要写清楚，中了几个号也要写清楚。 */
+  const bigClaim = (lvl, a, an, b, bn) =>
+    '推荐号命中' + lvl + '（' + an + ' ' + a + ' 个 + ' + bn + ' ' + b + ' 个）';
+
+  /* ---------- 双色球：6+1，只播一等奖（红6+蓝1）/ 二等奖（红6+蓝0） ---------- */
   if (gid === 'ssq') {
     const red = area('red'), blue = area('blue');
     const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
     if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
-    const r = hits(red, pool), b = hits(blue, bp) > 0;
-    if (r === 6 && b) return { claim: '推荐号中一等奖！', hot: 2 };
-    if (r === 5 && b) return { claim: '推荐号中三等奖', hot: 1 };
+    const r = hits(red, pool), b = hits(blue, bp) > 0 ? 1 : 0;
+    if (r === 6 && b === 1) return { claim: bigClaim('一等奖', r, '红球', b, '蓝球'), hot: 2 };
+    if (r === 6 && b === 0) return { claim: bigClaim('二等奖', r, '红球', b, '蓝球'), hot: 1 };
     return null;
   }
 
-  /* ---------- 大乐透：5+2，只播一等奖 / 三等奖（5+0 与 4+2 都是三等奖） ---------- */
+  /* ---------- 大乐透：5+2，只播一等奖（前5+后2）/ 二等奖（前5+后1） ---------- */
   if (gid === 'dlt') {
     const front = area('front'), back = area('back');
     const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
     if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
     const r = hits(front, pool), b = hits(back, bp);
-    if (r === 5 && b === 2) return { claim: '推荐号中一等奖！', hot: 2 };
-    if (r === 5 && b === 0) return { claim: '推荐号中三等奖', hot: 1 };
-    if (r === 4 && b === 2) return { claim: '推荐号中三等奖', hot: 1 };
+    if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
+    if (r === 5 && b === 1) return { claim: bigClaim('二等奖', r, '前区', b, '后区'), hot: 1 };
     return null;
   }
 
-  /* ---------- 七乐彩：7 个基本号 + 特别号，只播一等奖 / 三等奖 ---------- */
+  /* ---------- 七乐彩：7 个基本号 + 特别号，只播一等奖（7 个）/ 二等奖（6 + 特别号） ---------- */
   if (gid === 'qlc') {
     const main = area('main'), sp = area('special');
     const pool = mqNums(v.r22);
     if (main.length < 7 || !pool.length) return null;
     const m = hits(main, pool);
-    const hasSp = sp.length ? inPool(pool, sp[0]) : false;
-    if (m === 7) return { claim: '推荐号中一等奖！', hot: 2 };
-    if (m === 6 && !hasSp) return { claim: '推荐号中三等奖', hot: 1 };   /* 6+特别号 = 二等奖，不播 */
+    const s = (sp.length && inPool(pool, sp[0])) ? 1 : 0;
+    if (m === 7) return { claim: bigClaim('一等奖', m, '基本号', s, '特别号'), hot: 2 };
+    if (m === 6 && s === 1) return { claim: bigClaim('二等奖', m, '基本号', s, '特别号'), hot: 1 };
     return null;
   }
 
-  /* ---------- 七星彩：6 位 + 后区，只播一等奖 / 三等奖 ---------- */
+  /* ---------- 七星彩：6 位 + 后区，只播一等奖（6 位 + 后区）/ 二等奖（6 位、后区未中） ---------- */
   if (gid === 'qxc') {
     const front = area('front'), back = area('back');
     if (front.length < 6 || !back.length) return null;
@@ -1962,19 +1979,21 @@ function mqJudge(gid, v, d) {
     const bp = mqNums(v.pb);
     if (pools.some((p) => !p.length) || !bp.length) return null;
     const ok = pools.map((p, i) => inPool(p, front[i]));
-    const b = inPool(bp, back[0]);
-    if (ok.every(Boolean) && b) return { claim: '推荐号中一等奖！', hot: 2 };
-    if (ok.slice(0, 5).every(Boolean) && b) return { claim: '推荐号中三等奖', hot: 1 };
+    const m = ok.filter(Boolean).length;
+    const b = inPool(bp, back[0]) ? 1 : 0;
+    if (m === 6 && b === 1) return { claim: bigClaim('一等奖', m, '前六位', b, '后区'), hot: 2 };
+    if (m === 6 && b === 0) return { claim: bigClaim('二等奖', m, '前六位', b, '后区'), hot: 1 };
     return null;
   }
 
-  /* ---------- 快乐8：选十，只播「选中十」这一档 ---------- */
+  /* ---------- 快乐8：选十，播选十中十（一等奖）/ 选十中九（二等奖） ---------- */
   if (gid === 'kl8') {
     const main = area('main');
     const pool = mqNums(v.r10);
     if (main.length < 20 || pool.length !== 10) return null;
     const m = hits(pool, main);
-    if (m === 10) return { claim: '推荐号中一等奖！', hot: 2 };
+    if (m === 10) return { claim: '推荐号命中一等奖（选十 · 中 ' + m + ' 个）', hot: 2 };
+    if (m === 9) return { claim: '推荐号命中二等奖（选十 · 中 ' + m + ' 个）', hot: 1 };
     return null;
   }
 
@@ -1992,6 +2011,14 @@ function mqEstWidth(s) {
   return w;
 }
 
+/* 播报窗口（用户 2026-10-18：「是不是通告一周的」→ 想看更长的）
+   · 每个彩种最多比最近 MQ_MAX_PERIODS 期（存档里存了多少就比多少，不会硬凑）
+   · 滚动条最多留最近 MQ_MAX_ITEMS 条，同一彩种最多 MQ_MAX_PER_GAME 条
+     —— 不加单彩种上限的话，数字彩一多就把位置占满，大盘彩永远滚不出来 */
+const MQ_MAX_PERIODS = 30;
+const MQ_MAX_ITEMS = 10;
+const MQ_MAX_PER_GAME = 3;
+
 /* 生成通告条：{ html, count, compared } */
 function buildHitMarquee() {
   const saved = mqReadGlobal('SAVED_TICKETS');
@@ -2001,7 +2028,11 @@ function buildHitMarquee() {
   let compared = 0;
 
   MQ_ORDER.forEach((gid) => {
-    mqPeriods(gid, saved).forEach((p) => {
+    /* 新的在前 → 只比最近 MQ_MAX_PERIODS 期（存档里就几期时等于全比） */
+    const list = mqPeriods(gid, saved)
+      .sort((a, b) => Number(b.issue) - Number(a.issue))
+      .slice(0, MQ_MAX_PERIODS);
+    list.forEach((p) => {
       const d = idx[gid + '|' + String(p.issue)];
       if (!d) return;                                   /* 还没开奖 → 不参与比对 */
       const judged = mqJudge(gid, p.images.main, d);
@@ -2023,24 +2054,25 @@ function buildHitMarquee() {
 
   const head = '<span class="ro-mq-ico" aria-hidden="true">\u{1F4E2}</span>';
 
-  /* 用户 2026-10-17 追加：「通告昨天的」「不要积累一堆旧的，只留最近的」
-     → 中奖条目只留最近 3 条，后面永远跟一条汇总。
-     用户 2026-10-18 追加：最后一条不要百分比，只播报【多少期中奖】。
-     → 「近 N 期推荐 · 中奖 M 期」；M = 0 → 「近 N 期推荐 · 暂无中奖」。
-     N = 已比对期数 compared，M = 可播命中条数 winCount —— 两个数字都是算出来的。 */
-  const winCount = wins.length;
-  const recent = wins.slice(0, 3);
+  /* 用户 2026-10-18：喇叭里【只有中奖播报】—— 把「近 N 期推荐 · 中奖 M 期」
+     那条统计整条删掉，一条数字都不留。条数上限改由上面 3 个常量控制。 */
+  const perGame = {};
+  const recent = [];
+  for (const w of wins) {
+    if (recent.length >= MQ_MAX_ITEMS) break;
+    const n = perGame[w.gid] || 0;
+    if (n >= MQ_MAX_PER_GAME) continue;
+    perGame[w.gid] = n + 1;
+    recent.push(w);
+  }
 
-  /* 没有任何中奖时也不能空着 —— 如实说比对了几期、一期都没中。
-     ⚠️ 这句要能在 320px 的框里一行放下（约 191px < 258px），多了会被省略号切掉。 */
+  /* 一期都没中时也不能空着 —— 只如实写一句，不带任何统计数字。
+     ⚠️ 这句要能在 320px 的框里一行放下，多了会被省略号切掉。 */
   if (!recent.length) {
-    const none = compared
-      ? '近 ' + compared + ' 期推荐 · 暂无中奖'
-      : '暂无可比对的期次 · 暂无中奖播报';
     return {
       count: 0, compared,
       html: '<div class="ro-mq ro-mq-static" aria-label="开奖中奖播报">' + head +
-        '<div class="ro-mq-view"><span class="ro-mq-none">' + none + '</span></div></div>'
+        '<div class="ro-mq-view"><span class="ro-mq-none">暂无中奖播报</span></div></div>'
     };
   }
 
@@ -2048,12 +2080,7 @@ function buildHitMarquee() {
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
     '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + w.claim + '</i></span>';
 
-  /* 最后一条固定是汇总：近 N 期推荐里中奖了 M 期（N、M 都是算出来的，没有写死）。
-     有新开奖时它就是「最近一期」的成绩；还没开奖的那些期也照样能看到 —— 不会空着 */
-  const rateItem =
-    '<span class="ro-mq-item mq-rate">近 <b>' + compared + '</b> 期推荐 · 中奖 <i>' + winCount + '</i> 期</span>';
-
-  const itemsHtml = recent.map(one).join('') + rateItem;
+  const itemsHtml = recent.map(one).join('');
 
   /* 一组 = 同样的条目排两遍（保证比可视宽度长），轨道放两组 → translateX(-50%) 无缝循环 */
   const groupHtml = '<div class="ro-mq-group">' + itemsHtml + itemsHtml + '</div>';
@@ -5293,8 +5320,8 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-mq-item b { font-weight: 700; color: var(--ro-fg); }
 .ro-mq-item i { font-style: normal; font-weight: 700; color: var(--ro-warn); }
 .ro-mq-item.mq-top i { color: var(--ro-danger); }
-/* 汇总那一条（近 N 期中奖 M 期）用主色绿：金 = 中了什么，绿 = 中了几期 */
-.ro-mq-item.mq-rate i { color: var(--ro-ok); }
+/* 用户 2026-10-18：「喇叭里不要带上最近推荐中奖多少期」——
+   汇总那一条（.mq-rate）和它的配色规则一起删掉，喇叭里只有中奖播报。 */
 .ro-mq-none {
   display: block; font-size: 12px; line-height: 26px; color: var(--ro-fg2);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
