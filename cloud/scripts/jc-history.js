@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-18 01:28",
+ "updated": "2026-10-18 01:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1812,30 +1812,30 @@ const JC_HISTORY = {
    "home": "斯特拉斯",
    "away": "巴黎圣曼",
    "time": "2026-10-17 23:15",
-   "score": "",
+   "score": "1:3",
    "hc": null,
    "asianIndex": {
-    "line": "受一球/球半",
+    "line": "受球半",
     "from": "live",
-    "handicap": 1.25,
+    "handicap": 1.5,
     "upSide": "away",
-    "upWater": 0.82,
-    "downWater": 1.02,
+    "upWater": 1.1,
+    "downWater": 0.7,
     "openHandicap": 1.5,
     "openUpWater": 0.85,
     "openDownWater": 1,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
-    "canWater": true,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": false,
     "handicapChange": {
-     "type": "降盘降水",
+     "type": "盘口水位无明显变化",
      "initHandicap": 1.5,
-     "nowHandicap": 1.25,
+     "nowHandicap": 1.5,
      "initUpWater": 0.85,
-     "nowUpWater": 0.82,
+     "nowUpWater": 1.1,
      "initLine": "受球半",
-     "nowLine": "受一球/球半"
+     "nowLine": "受球半"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -1855,11 +1855,11 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 67.6,
-   "result": "",
-   "hit": false,
+   "type": "three",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "at": "2026-10-18 01:58"
   },
   {
    "code": "周六021",
@@ -2612,7 +2612,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-17 22:58"
   },
   {
@@ -2659,7 +2659,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-17 00:28"
   },
   {
