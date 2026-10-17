@@ -1098,7 +1098,14 @@ function buildExpertsHtml() {
     if (!g) return '';
     /* 用户 2026-10-17：每位彩种展示的专家从 10 位扩到 20 位
        （build-experts.mjs 的 stableTop 同步改成 20，否则这里取不到那么多）。 */
-    const list = Array.isArray(g.stable) ? g.stable.slice(0, 20) : [];
+    /* __NEXT_ISSUE_ONLY__ 用户 2026-10-18：「只显示下一期 不要拿上一期的数据来骗人」。
+   g.issue = 源站【当前在售】的那一期（issueName）；专家的 catLatest.issue 必须等于它，
+   否则这位专家给的还是上一期的号 → 直接不列（宁缺不编）。 */
+const NEXT_ISSUE = g.issue ? String(g.issue) : null;
+const LIST_ALL = Array.isArray(g.stable) ? g.stable : [];
+const list = NEXT_ISSUE
+  ? LIST_ALL.filter((e) => e && e.catLatest && String(e.catLatest.issue) === NEXT_ISSUE).slice(0, 20)
+  : [];
     if (!list.length) return '';
     totalShown += list.length;
     const rows = list.map((x, i) => {
