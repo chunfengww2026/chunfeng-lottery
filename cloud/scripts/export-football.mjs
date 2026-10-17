@@ -913,17 +913,33 @@ function evOf(pctVal, oddsVal) {
 }
 function renderEvRow(r, euV) {
   if (!r || !euV) return '';
-  const cells = [
-    ['主', r.prob && r.prob.home, euV.home],
-    ['平', r.prob && r.prob.draw, euV.draw],
-    ['客', r.prob && r.prob.away, euV.away]
-  ].map(([lab, p, o]) => {
-    const ev = evOf(p, o);
-    if (ev == null) return `<span class="m-evitem">${lab} —</span>`;
-    const s = ev >= 0 ? '+' : '';
-    return `<span class="m-evitem${ev >= 0 ? ' pos' : ' neg'}">${lab} ${s}${(ev * 100).toFixed(1)}%</span>`;
-  }).join('');
-  return `<div class="m-ev"><span class="m-evlab">胜平负 EV</span>${cells}</div>`;
+  /* 【对齐用户 2026-10-17 给的参考实现】
+     类名用他那套：.ev-title / .ev-items / .ev-item.positive|negative
+     公式也用他的：EV = ((p/100) * odds - 1) * 100
+       > 0 → positive（红 + 带 + 号）
+       ≤ 0 → negative（灰）
+     缺概率或缺赔率 → 显示 —，不编数。
+     ⚠️ 和外层 .m-ev 的组合：.m-ev 只负责底色/边框（米杏浅色主题那块），
+        里面这三块用他的类名，方便他以后直接套自己的 CSS。 */
+  const calc = (p, o) => {
+    const pp = parseFloat(p), oo = parseFloat(o);
+    if (!isFinite(pp) || !isFinite(oo) || oo <= 0) return null;
+    return ((pp / 100) * oo - 1) * 100;
+  };
+  const fmt = (lab, p, o) => {
+    const v = calc(p, o);
+    if (v == null) return `<span class="ev-item negative">${lab} —</span>`;
+    const num = parseFloat(v.toFixed(1));
+    return `<span class="ev-item ${num > 0 ? 'positive' : 'negative'}">` +
+      `${lab} ${num > 0 ? '+' : ''}${v.toFixed(1)}%</span>`;
+  };
+  return `<div class="m-ev">` +
+    `<span class="ev-title">胜平负 EV</span>` +
+    `<div class="ev-items">` +
+    fmt('主', r.prob && r.prob.home, euV.home) +
+    fmt('平', r.prob && r.prob.draw, euV.draw) +
+    fmt('客', r.prob && r.prob.away, euV.away) +
+    `</div></div>`;
 }
 
 /* ============================================================
@@ -2811,14 +2827,22 @@ ${nav}
   border-color: #1a8c5a !important; font-weight: 700 !important; }
 .m-card .m-tag.orange { background: #f5b301 !important; color: #fff !important;
   border-color: #f5b301 !important; font-weight: 700 !important; }
-/* EV 行 */
+/* EV 行：外层 .m-ev 只管底色/边框（米杏主题），里面按用户给的类名走 */
 .m-card .m-ev { background: #f4f8f5 !important; border: 1px solid #d0e5d8 !important;
-  border-radius: 8px !important; padding: 8px 12px !important; margin: 0 0 10px !important; }
+  border-radius: 8px !important; padding: 8px 12px !important; margin: 0 0 10px !important;
+  display: flex !important; justify-content: space-between !important; align-items: center !important; }
+/* 【用户 2026-10-17 参考实现的类名】.ev-title / .ev-items / .ev-item.positive|negative */
+.m-card .ev-title { color: #1a8c5a !important; font-weight: 700 !important; font-size: 12px !important; }
+.m-card .ev-items { display: flex !important; gap: 10px !important; flex-wrap: wrap !important; }
+.m-card .ev-item { font-weight: 700 !important; font-size: 12px !important; }
+.m-card .ev-item.positive { color: #c0392b !important; }   /* EV > 0 → 红 */
+.m-card .ev-item.negative { color: #8a7a63 !important; }   /* EV ≤ 0 → 灰 */
+/* 兼容我之前那套名字（.m-evlab / .m-evitem.pos|neg），旧页面缓存也不至于没样式 */
 .m-card .m-evlab { color: #1a8c5a !important; font-weight: 700 !important; font-size: 12px !important; }
 .m-card .m-evitem { background: transparent !important; color: #8a7a63 !important;
   font-weight: 700 !important; padding: 0 !important; font-size: 12px !important; }
-.m-card .m-evitem.pos { color: #c0392b !important; }   /* EV > 0 红 */
-.m-card .m-evitem.neg { color: #8a7a63 !important; }   /* EV < 0 灰 */
+.m-card .m-evitem.pos { color: #c0392b !important; }
+.m-card .m-evitem.neg { color: #8a7a63 !important; }
 /* 比分推荐 */
 .m-card .m-scorepick { border-top: 0 !important; }
 .m-card .m-sp-lab, .m-card .m-sp-note { color: #8a7a63 !important; }
