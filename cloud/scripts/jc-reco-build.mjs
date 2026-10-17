@@ -42,7 +42,7 @@ try {
 
 const OUT = path.join(ROOT, 'jc-reco-data.js');
 const DRY = process.argv.includes('--dry');
-const REC_MIN = 55;                     /* 和 export-football.mjs 的 REC_MIN 保持一致 */
+const REC_MIN = 58;                     /* 用户 2026-10-17：「推荐串战绩只算信心 ≥58% 的场次，低于 58% 的不算」*/
 
 const log = (...a) => console.log(...a);
 
