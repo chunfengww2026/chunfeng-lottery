@@ -1364,6 +1364,14 @@ JC.games.forEach((g) => {
     away: (g.away && g.away.name) || '',
     label: g.reco.label || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '',
     odds: (eu && pick && eu[pick] != null) ? eu[pick] : null,
+    /* 【排名 + 三项欧赔】用户 2026-10-18 要「爆冷预警 / 差异分析」：
+       排名和赔率我们本来就有（jc-data.js 的 home.rank / away.rank / odds.europe），
+       这里一并带进推荐串行，页面上标事实（不写"谨防平局"那种判断）。 */
+    rankH: (g.home && g.home.rank != null) ? g.home.rank : null,
+    rankA: (g.away && g.away.rank != null) ? g.away.rank : null,
+    euHome: (eu && eu.home != null) ? eu.home : null,
+    euDraw: (eu && eu.draw != null) ? eu.draw : null,
+    euAway: (eu && eu.away != null) ? eu.away : null,
     conf: g.reco.confidence
   });
 });
