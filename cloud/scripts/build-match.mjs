@@ -336,7 +336,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>比赛详情 · 彩虹多多</title>
+<title>比赛详情 · 春风</title>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 ${PWA_HEAD}
 <style>
@@ -540,7 +540,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-money-amt span { white-space: nowrap; }
 .md-money-amt b { color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
 
-/* ⑨ 爆冷预警（民间口诀算法）—— 触发时整卡转红框，未触发（normal）转绿框。
+/* ⑨ 爆冷预警（口诀算法推演）—— 触发时整卡转红框，未触发（normal）转绿框。
    · 颜色都在米杏底(#fdf6ea)上量过对比度：#a5281b ≈6.5:1 · #146c46 ≈5.6:1，都过 4.5:1。
    · 判词块单独一层底色 + 一个状态签；320px 下判词自己换行，不挤右侧徽标。
    · 判定表复用本页既有的 .md-tbl（条件那一列允许折行，绝不用省略号吃掉条件）。 */
@@ -1471,7 +1471,7 @@ ${DEVICE_GATE_BODY}
   }
 
   /* ============================================================
-     ⑨ 🔥 爆冷预警（民间口诀算法）
+     ⑨ 🔥 爆冷预警（口诀算法推演）
      ------------------------------------------------------------
      口诀三条（阈值 1.40 / 3.50 / 4.00 是口诀参数，原样保留）：
        ① 主胜赔率 < 1.40
@@ -1487,7 +1487,7 @@ ${DEVICE_GATE_BODY}
         绝不用"欧赔接近度"之类的代理指标冒充排名（换了判据还叫同一个口诀，
         等于拿两个不同的东西说同一句话）。
      ============================================================ */
-  var COLD_NOTE = '以上为民间口诀算法自动推演，仅供参考';
+  var COLD_NOTE = '以上为口诀算法自动推演，仅供参考';
 
   /* 两队排名：两个都得是正整数才算「有排名」，缺一个就整对作废（不拿 0 顶） */
   function coldRanks(g) {
@@ -2117,8 +2117,8 @@ if (!html.includes('md-cold-on') || !html.includes('md-cold-off')) {
 if (!html.includes('md-diff-line') || !html.includes('md-diff-top')) {
   problems.push('输出里找不到差异分析的数字行/大字样式（.md-diff-line / .md-diff-top 丢了）');
 }
-if (!html.includes('民间口诀算法自动推演，仅供参考')) {
-  problems.push('输出里找不到「以上为民间口诀算法自动推演，仅供参考」这句标注');
+if (!html.includes('口诀算法自动推演，仅供参考')) {
+  problems.push('输出里找不到「以上为口诀算法自动推演，仅供参考」这句标注');
 }
 if (!html.includes('暂无明显爆冷迹象')) problems.push('输出里找不到未触发时的判词「暂无明显爆冷迹象」');
 if (!html.includes('大热必死') || !html.includes('强强对话') || !html.includes('哀兵必胜')) {
