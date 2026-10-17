@@ -374,7 +374,22 @@ function parseConsensus(html) {
 
   const updated = (html.match(/数据更新为\s*([\d\-: ]+)/) || [])[1]?.trim() || null;
 
-  return { red, blue, sections: sections.map((s) => ({ title: s.title, n: s.items.length })), topExperts, updated };
+  /* 【期号 · 用户 2026-10-18「是不是抓不到下一期的了」】
+     源站页面的数据里带 issueName:"2026119" —— 这就是【当前正在卖的那一期】，
+     而下面那些 lotto-pick-ball 号码就是这一期的共识分布。
+     以前这里没取，页面只能写「下一期待出号」；现在把期号一起带出去，
+     页面可以明确标成「第 2026119 期」。取不到就保持 null（不改旧行为）。 */
+  let issue = null;
+  const im = html.match(/issueName\s*:\s*"(\d{5,7})"/);
+  if (!im) {
+    /* 有的页面可能是 HTML 里直接写「第 2026119 期」 */
+    const im2 = html.match(/第\s*(\d{5,7})\s*期/);
+    if (im2) issue = im2[1];
+  } else {
+    issue = im[1];
+  }
+
+  return { red, blue, sections: sections.map((s) => ({ title: s.title, n: s.items.length })), topExperts, updated, issue };
 }
 
 /* ============================================================
@@ -818,8 +833,12 @@ async function runGame(game, cfg, opts, report) {
     blue: consensus.blue.map((x) => ({ num: x.num, pct: x.pct })),
     sections: consensus.sections,
     topExperts: consensus.topExperts,
-    updated: consensus.updated
+    updated: consensus.updated,
+    /* 【期号】源站 issueName 原文（例如 "2026119"）；取不到就是 null */
+    issue: consensus.issue || null
   };
+  /* 游戏层也放一份，页面取用方便 */
+  if (consensus.issue) g.issue = consensus.issue;
   g.pool = built.pool;
   if (!g.pool.red.length) g.notes.push('号码池为空（数据不足）');
   if (cfg.blue && !g.pool.blue.length) g.notes.push('蓝球池为空（共识页可见蓝号与历史蓝号均不足）');
