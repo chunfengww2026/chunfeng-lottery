@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-17 20:34",
+ "updated": "2026-10-17 21:12",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -130,9 +130,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -291,7 +291,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 12,
+   "pending": 11,
    "verdict": ""
   },
   {
@@ -406,9 +406,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -637,7 +637,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 20,
+   "pending": 19,
    "verdict": ""
   },
   {
@@ -738,9 +738,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -969,7 +969,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 20,
+   "pending": 19,
    "verdict": ""
   },
   {
@@ -1070,9 +1070,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -1301,7 +1301,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 19,
+   "pending": 18,
    "verdict": ""
   },
   {
@@ -1388,9 +1388,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -1619,7 +1619,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 19,
+   "pending": 18,
    "verdict": ""
   },
   {
@@ -1704,8 +1704,8 @@ const JC_RECO_DATA = {
      "away": "赫尔辛基火花",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.4,
-     "conf": 65,
+     "odds": 1.36,
+     "conf": 66.8,
      "score": "",
      "hit": null,
      "result": ""
@@ -1720,9 +1720,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.7,
      "conf": 55.7,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周六017",
@@ -1816,8 +1816,8 @@ const JC_RECO_DATA = {
      "away": "莱红牛",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.22,
-     "conf": 77.8,
+     "odds": 1.2,
+     "conf": 79.4,
      "score": "",
      "hit": null,
      "result": ""
@@ -1830,8 +1830,8 @@ const JC_RECO_DATA = {
      "away": "巴萨",
      "pick": "away",
      "label": "客胜",
-     "odds": 1.38,
-     "conf": 68.5,
+     "odds": 1.36,
+     "conf": 69.6,
      "score": "",
      "hit": null,
      "result": ""
@@ -1956,8 +1956,8 @@ const JC_RECO_DATA = {
      "away": "吉维森特",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.56,
-     "conf": 59.1,
+     "odds": 1.57,
+     "conf": 59.5,
      "score": "",
      "hit": null,
      "result": ""
@@ -1965,7 +1965,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 20,
+   "pending": 19,
    "verdict": ""
   }
  ]
