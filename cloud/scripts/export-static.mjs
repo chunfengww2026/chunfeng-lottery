@@ -895,16 +895,8 @@ GROUPS.forEach((group) => {
 
    这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
    （下面有断言，不一致时生成日志里会直接报出来）。 */
-const TOC_ROWS = [
-  /* 【长名字拆两行】用户 2026-10-17：手机 335px 下「双色球 五行/绕胆/九转/九宫」会折 3 行
-     → 撑破 56px 的格子（第三行被裁掉，看着就是"高矮不齐 + 空档"）。
-     所以拆成【主标题 t】+【副标题 s】：一行放得下，格子自然整齐；没有 s 的就是单行格子。 */
-  [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 · 五行',  s: '绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
-  [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 · 五行',  s: '绕胆/九转/九宫', g: 'dlt',  i: 'wuxing' }],
-  [{ t: '3D',               g: 'fc3d', i: 'main' }, { t: '快乐8',            g: 'kl8',  i: 'main'   }],
-  [{ t: '排列三',           g: 'pl3',  i: 'main' }, { t: '排列五',           g: 'pl5',  i: 'main'   }],
-  [{ t: '七乐彩',           g: 'qlc',  i: 'main' }, { t: '七星彩',           g: 'qxc',  i: 'main'   }]
-];
+/* __TOC_OFF__ 用户 2026-10-18：「删除换成新的」——旧的 4 格推荐图目录不再生成，页面改为 #px9 方法目录（2 彩种 × 9 方法）。 */
+const TOC_ROWS = [];;
 
 /* 【自检】目录里每一格的锚点 id 在这份 HTML 里必须真的存在。
    注意要用【已经加了 id 的 sectionsHtml】判断，不能用原始 tpl.images ——
@@ -13148,6 +13140,9 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-balls { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
 .px9-b { width: 24px; height: 24px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .px9-b.blue { background: #1f5fd6; }
+/* __TOC_HIDE__ 用户 2026-10-18：「删除换成新的」——旧推荐图目录的格子（含空壳）一律不显示，
+   页面改用 #px9 方法目录。 */
+.ro-imgtoc-wrap, .ro-imgtoc, .ro-toc-cell, #ro-toc-mob, .ro-toc-mob { display: none !important; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
