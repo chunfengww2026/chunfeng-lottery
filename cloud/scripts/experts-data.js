@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-18 06:06
+   生成时间：2026-10-18 06:07
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-18 06:06",
+ "updated": "2026-10-18 06:07",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 15,
   "requests": 37,
   "errors": 0,
-  "seconds": 31.9
+  "seconds": 22.9
  },
  "games": {
   "ssq": {
@@ -6722,12 +6722,130 @@ const EXPERTS_DATA = {
     }
    ],
    "consensus": {
-    "red": [],
-    "blue": [],
-    "sections": [],
-    "topExperts": [],
-    "updated": null,
-    "issue": null
+    "red": [
+     {
+      "num": 22,
+      "pct": 88.7
+     },
+     {
+      "num": 23,
+      "pct": 87.3
+     },
+     {
+      "num": 13,
+      "pct": 81
+     },
+     {
+      "num": 11,
+      "pct": 80.3
+     },
+     {
+      "num": null,
+      "pct": 71.7
+     },
+     {
+      "num": null,
+      "pct": 71.3
+     },
+     {
+      "num": null,
+      "pct": 69.7
+     },
+     {
+      "num": null,
+      "pct": 69.3
+     },
+     {
+      "num": null,
+      "pct": 62.3
+     },
+     {
+      "num": null,
+      "pct": 61
+     }
+    ],
+    "blue": [
+     {
+      "num": 14,
+      "pct": 67
+     },
+     {
+      "num": 4,
+      "pct": 60.3
+     },
+     {
+      "num": null,
+      "pct": 50
+     },
+     {
+      "num": null,
+      "pct": 46.7
+     }
+    ],
+    "sections": [
+     {
+      "title": "红球分布",
+      "n": 10
+     },
+     {
+      "title": "蓝球分布",
+      "n": 4
+     }
+    ],
+    "topExperts": [
+     {
+      "name": "游戏人生",
+      "url": "/ex/ssqex/tjsy_5_340.html",
+      "hit10": 6
+     },
+     {
+      "name": "春暖花开",
+      "url": "/ex/ssqex/tjsy_5_329.html",
+      "hit10": 6
+     },
+     {
+      "name": "蛮天过海",
+      "url": "/ex/ssqex/tjsy_5_908.html",
+      "hit10": 6
+     },
+     {
+      "name": "丁咚",
+      "url": "/ex/ssqex/tjsy_5_1276.html",
+      "hit10": 6
+     },
+     {
+      "name": "工作顺利",
+      "url": "/ex/ssqex/tjsy_5_1682.html",
+      "hit10": 6
+     },
+     {
+      "name": "我中了",
+      "url": "/ex/ssqex/tjsy_5_447.html",
+      "hit10": 6
+     },
+     {
+      "name": "shite",
+      "url": "/ex/ssqex/tjsy_5_564.html",
+      "hit10": 6
+     },
+     {
+      "name": "阿凡达",
+      "url": "/ex/ssqex/tjsy_5_1011.html",
+      "hit10": 6
+     },
+     {
+      "name": "贵在有勇气",
+      "url": "/ex/ssqex/tjsy_5_311.html",
+      "hit10": 6
+     },
+     {
+      "name": "马利",
+      "url": "/ex/ssqex/tjsy_5_495.html",
+      "hit10": 6
+     }
+    ],
+    "updated": "2026-10-15 21:15",
+    "issue": "2026119"
    },
    "pool": {
     "red": [
@@ -6736,10 +6854,10 @@ const EXPERTS_DATA = {
      7,
      11,
      12,
+     13,
      14,
      18,
      19,
-     21,
      22,
      23,
      24,
@@ -6760,7 +6878,8 @@ const EXPERTS_DATA = {
      14
     ]
    },
-   "notes": []
+   "notes": [],
+   "issue": "2026119"
   }
  }
 };
