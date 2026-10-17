@@ -41,9 +41,7 @@ const XYSP_JC_DATA = {
    "author": "体坛银哥",
    "when": "2026-10-17 09:36:45",
    "postId": "7697442972413018679",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b525609806634c4d8e20e7a646f9fdcc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800835200&x-signature=0bqWT8yy%2FKX6RPFtE97oqegxL1I%3D",
@@ -74,9 +72,9 @@ const XYSP_JC_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0%2BOYvhglDZaw8ucJxUq8jxn%2FXb4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0%2BOYvhglDZaw8ucJxUq8jxn%2FXb4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=n3ISVQtLqv2Hwjti%2BvID7iH49R4%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=pHraEjfdaohScuJ9pWQFSSOWQIo%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=pHraEjfdaohScuJ9pWQFSSOWQIo%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=XchUvXCUxkUp%2Ff78%2BZvSrH7nYx8%3D",
    "title": "体彩足彩竞彩中奖票",
    "url": "https://toutiao.com/group/7697108049638539804/",
    "at": "2026-10-16T03:56:02.176Z",
@@ -87,14 +85,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-10-17T02:24:26.999Z",
    "whenMs": 1792122654000,
-   "seenMs": 1792203361308,
+   "seenMs": 1792203961313,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792122962176,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-18T02:16:01.308Z",
+   "expireAt": "2026-10-18T02:26:01.313Z",
    "rule": "cap",
    "author": "美洋羊",
    "when": "2026-10-16 11:50:54",
