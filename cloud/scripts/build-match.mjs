@@ -703,6 +703,21 @@ a { color: var(--ro-ok); text-decoration: none; }
   font-weight: 800 !important;
   box-shadow: none !important;
 }
+/* ④ 右下角那颗圆形「📱」浮按钮：去掉
+   ------------------------------------------------------------
+   用户截图圈的是右下角中间那颗圆按钮，原话「去掉这个」。
+   查清它是什么：它和一键桌面【胶囊】是同一个功能（都调 installApp）——
+   只是同一件事摆了两次；而且这颗 📱 在某些字体里渲染成「紫色方块 + 彩色格子」，
+   看着就像一颗骰子（用户说的「紫色骰子」就是它）。
+   处理：本地图里隐藏它，只留「📱 一键桌面」胶囊 + 💬 聊天两颗。
+   ⚠️ device-gate.mjs 是别人正在改的文件 → 一个字没动，只在本页样式里隐藏。
+   ⚠️ 没有删任何事件绑定：按钮只是 display:none，功能（installApp）照旧在胶囊上。
+   ⚠️ 比赛详情页那颗「← 返回」浮按钮（.md-fab-back）不在这条里，保留。 */
+#installFab,
+.install-fab {
+  display: none !important;
+}
+
 /* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 设备门 + 一键桌面（device-gate.mjs）
