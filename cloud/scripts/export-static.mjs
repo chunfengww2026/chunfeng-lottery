@@ -7252,6 +7252,13 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· 竖向 flex 居中 · 2026-10-18 还原 -->
+<div class="ro-imgtoc-wrap" id="ro-toc-restored"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc">
+  <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
+  <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+  <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
+  <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
