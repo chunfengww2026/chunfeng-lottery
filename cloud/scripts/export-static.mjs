@@ -21,8 +21,20 @@ import { createRequire } from 'node:module';
    ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
 import {
   PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY, INSTALL_CSS, INSTALL_HTML, INSTALL_JS,
-  CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop
+  CHAT_CSS, CHAT_HTML, CHAT_JS, metaItemprop,
+  CHAT_VIDEO_CSS, CHAT_VIDEO_HTML, CHAT_VIDEO_JS
 } from './device-gate.mjs';
+/* 【祝福视频】用户 2026-10-18：把「火山方舟.mp4」放进分享页聊天框顶部。
+   device-gate.mjs 里留了一个 <!-- __CF_VIDEO_SLOT__ --> 占位：
+     · 分享页（这里）→ 换成真正的视频区，并且给面板补 .cf-video-on（允许更高一点）
+     · 足球页 / 比赛详情页 → 不替换，占位保持注释 → 零变化、也不会去请求 blessing.mp4
+   ⚠️ 视频 2.82 MB 必须懒加载（preload="none" + 聊天框第一次打开才 load()），
+      所以 blessing.mp4 不在首屏请求里；但它【必须】同步进发布名单
+      （cloud/sync-cloud.mjs 的 FROM_ROOT + workflow 的 site/ 拷贝），漏了就线上 404。 */
+const CHAT_HTML_SHARE = CHAT_HTML
+  .replace('class="cf-panel"', 'class="cf-panel cf-video-on"')
+  .replace(/<!-- __CF_VIDEO_SLOT__[\s\S]*?-->/, CHAT_VIDEO_HTML);
+const CHAT_JS_SHARE = CHAT_JS + CHAT_VIDEO_JS;
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
 /* 【走势图 · 内联片段】用户 2026-10-17：
      「留在近30期走势预选参考里面. 删除单独走势图独立页」
@@ -2277,7 +2289,7 @@ if (status.allReady) {
     `<div class="ro-status ok ro-st-row">` +
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
-    `<div class="ro-st-time">所有资料均在下方</div>` +
+    `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
     `</div>` +
@@ -2293,7 +2305,7 @@ if (status.allReady) {
     `<div class="ro-status warn ro-st-row">` +
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
-    `<div class="ro-st-time">所有资料均在下方</div>` +
+    `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
     `<div class="ro-st-hint">请稍后再看，或联系发布者更新</div>` +
@@ -3508,6 +3520,8 @@ body {
   box-shadow: 0 0 0 4px rgba(240, 180, 41, 0.18);
 }
 
+/* 用户 2026-10-18：「所有资料均在下方」旁边提示「请滑到底」 */
+.ro-st-slide { font-style: normal; font-size: 11px; color: #1a8c5a; margin-left: 6px; opacity: .9; }
 .ro-st-time { font-size: 12px; color: #8b93a1; }
 .ro-st-reason { font-size: 12.5px; color: #d9c08a; margin-top: 4px; }
 .ro-st-hint { font-size: 11.5px; color: #6b7488; margin-top: 4px; }
@@ -6121,7 +6135,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
         而那个函数只认最先出现的一处。注释里出现该字面写法 → 导航 CSS 整段落进注释里、
         整段失效 → 分享包顶部两个 Tab 变成浏览器默认的蓝色下划线链接
         （2026-10-18 线上实测踩到，根因就在这里）。所以只写中文描述，不写那个标签。 -->
-<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}/* __TOOLS_GRID__ 智能分析：8 个入口 + 全屏子页面（用户 2026-10-18 要求）
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}${CHAT_VIDEO_CSS}/* __TOOLS_GRID__ 智能分析：8 个入口 + 全屏子页面（用户 2026-10-18 要求）
    ------------------------------------------------------------
    入口 = 4 列网格 8 张图标卡（不是裸 button：div role="button" tabindex="0"）；
    子页面 = position:fixed 全屏覆盖（z-index 高），自带「← 返回」。
@@ -6438,14 +6452,9 @@ ${DEVICE_GATE_BODY}
 
   ${statusHtml}
 
-  <!-- 【往下滑提示】用户 2026-10-18：「这里加一条下划线 · 提示：往下滑」
-       位置 = 状态卡之后、工具（智能分析）之前（用户截图那个红箭头处）。
-       形态 = 一条细线 + 中间「往下滑」小字（不占高度、不动任何功能）。 -->
-  <div class="ro-scrollhint" aria-hidden="true">
-    <span class="ro-sh-line"></span>
-    <span class="ro-sh-txt">往下滑 ↓</span>
-    <span class="ro-sh-line"></span>
-  </div>
+  <!-- 【往下滑提示】用户 2026-10-18 二次要求：「放到 所有资料均在下面的旁边，提示他们：请滑到底」
+       → 原来这条单独占一行（状态卡和工具格之间），现在删掉；
+         提示文字并进状态卡的「所有资料均在下方」那一行（见 .ro-st-time 的改法）。 -->
 
   <!-- ============================================================
        【智能分析工具栏】8 个入口（用户 2026-10-18 设计）
@@ -9346,8 +9355,8 @@ ${RO_RENDER_SCRIPT}
 </script>
 ${INSTALL_HTML}
 ${INSTALL_JS}
-${CHAT_HTML}
-${CHAT_JS}
+${CHAT_HTML_SHARE}
+${CHAT_JS_SHARE}
 <div class="tool-view" id="toolView" role="dialog" aria-label="智能分析">
   <div class="tool-view-head"><span class="tool-back" role="button" tabindex="0" id="toolBack">← 返回</span><span class="tool-view-title" id="toolTitle">详情</span></div>
   <div class="tool-view-body" id="toolBody"></div>
