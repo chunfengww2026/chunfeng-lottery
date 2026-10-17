@@ -5508,7 +5508,30 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
      放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
-<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}</style>
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}/* __TOOLS_GRID__ 智能分析：8 个工具按钮 + 详情层（用户 2026-10-18 要求） */
+.tools-box { background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 12px; margin: 10px 0 12px; }
+.tools-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.tools-title { font-size: 14px; font-weight: 700; color: #4a3a26; }
+.tools-note { font-size: 11px; color: #8a7a63; }
+.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.tool-item { background: #fffaf2; border: 1px solid #e8d7bd; border-radius: 10px; padding: 10px 2px; text-align: center; cursor: pointer; }
+.tool-item:active { background: #f9efdd; transform: scale(0.96); }
+.tool-item .icon { font-size: 20px; line-height: 1.2; }
+.tool-item .name { font-size: 11px; font-weight: 700; color: #4a3a26; margin-top: 4px; }
+.tool-view { position: fixed; inset: 0; background: #f7efe1; z-index: 100000; display: none; flex-direction: column; }
+.tool-view.on { display: flex; }
+.tool-view-head { display: flex; align-items: center; gap: 12px; padding: 14px; background: #fff; border-bottom: 1px solid #e8d7bd; }
+.tool-back { font-size: 14px; color: #1a8c5a; font-weight: 700; cursor: pointer; }
+.tool-view-title { font-size: 15px; font-weight: 700; color: #4a3a26; }
+.tool-view-body { flex: 1; overflow-y: auto; padding: 14px; }
+.tv-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+.tv-h { font-size: 13px; font-weight: 700; color: #4a3a26; margin-bottom: 8px; }
+.tv-row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 5px 0; border-bottom: 1px solid #f4ead6; }
+.tv-row:last-child { border-bottom: 0; }
+.tv-k { color: #8a7a63; } .tv-v { font-weight: 700; color: #4a3a26; }
+.tv-note { font-size: 11.5px; color: #a89a80; line-height: 1.6; margin-top: 6px; }
+.tv-none { font-size: 13px; color: #8a7a63; line-height: 1.7; }
+</style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
 ${DEVICE_GATE_BODY}
@@ -5565,6 +5588,20 @@ ${DEVICE_GATE_BODY}
           拆成两个纯 div 不影响任何排版（.ro-wrap 里没有 > 子选择器）。
        豁免区：.ro-aipick（GPT模型摇号面板）—— locked 时仍然清晰、可点。 -->
   <div id="article">
+<div class="card-box tools-box" id="toolsBox">
+  <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
+  <div class="tool-grid">
+    <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
+  </div>
+</div>
+
 
   <div class="ro-top">
     <h1>春风十里送大奖</h1>
@@ -8364,6 +8401,82 @@ ${INSTALL_HTML}
 ${INSTALL_JS}
 ${CHAT_HTML}
 ${CHAT_JS}
+<div class="tool-view" id="toolView" role="dialog" aria-label="智能分析">
+  <div class="tool-view-head"><span class="tool-back" role="button" tabindex="0" id="toolBack">← 返回</span><span class="tool-view-title" id="toolTitle">详情</span></div>
+  <div class="tool-view-body" id="toolBody"></div>
+</div>
+<script>
+/* __TOOLS_JS__ 智能分析：能取真数据就取，取不到就写「暂未提供」（绝不编数字） */
+(function () {
+  var view = document.getElementById("toolView");
+  var body = document.getElementById("toolBody");
+  var titleEl = document.getElementById("toolTitle");
+  if (!view || !body) return;
+  function txt(el) { return el ? (el.textContent || "").replace(/\s+/g, " ").trim() : ""; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c]; }); }
+  function row(k, v) { return "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(k) + "</span><span class=\"tv-v\">" + esc(v) + "</span></div>"; }
+  function card(h, inner) { return "<div class=\"tv-card\"><div class=\"tv-h\">" + esc(h) + "</div>" + inner + "</div>"; }
+  function statTool() {
+    var out = "";
+    var bar = document.getElementById("recStatsBar") || document.getElementById("jcRecStat");
+    var rec = bar ? txt(bar) : "";
+    if (rec) out += card("推荐串战绩（真实数据）", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(rec) + "</span></div>");
+    var kj = document.querySelectorAll(".ro-kjh-item");
+    if (kj.length) { var rows = ""; for (var i = 0; i < Math.min(4, kj.length); i++) rows += "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(txt(kj[i]).slice(0, 40)) + "</span></div>"; out += card("最新开奖 / 开机号（真实数据）", rows); }
+    var xj = document.querySelector(".ro-xj-group");
+    if (xj) out += card("专家推荐（真实数据）", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(txt(xj).slice(0, 120)) + "</span></div>");
+    return out || "<div class=\"tv-none\">这一页暂时没有可统计的数据。</div>";
+  }
+  function trendTool() {
+    var t = document.querySelector(".ro-trend");
+    if (!t) return "<div class=\"tv-none\">这一页没有内联走势图。</div>";
+    var info = "";
+    var rows = t.querySelectorAll("tr");
+    if (rows.length) info = "共 " + rows.length + " 行走势记录（近 30 期）";
+    return card("走势图已经内联在本页", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(info || "下方折叠块里") + "</span></div>") + "<div class=\"tv-note\">关掉这个面板，往下翻到「近 30 期走势 · 预选参考」就能看到真实表格。</div>";
+  }
+  function omitTool() {
+    var t = document.querySelector(".ro-trend");
+    if (!t) return "<div class=\"tv-none\">这一页没有走势数据，算不出遗漏。</div>";
+    var out = "";
+    var trs = t.querySelectorAll("tr");
+    if (trs.length) out = "走势表里有 " + trs.length + " 行（每行末尾就是出现次数 / 当前遗漏 / 最大遗漏）";
+    return card("遗漏数据就在走势表里", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(out) + "</span></div>") + "<div class=\"tv-note\">表尾三行分别是：出现次数、当前遗漏、最大遗漏 —— 真实计算，不是估的。</div>";
+  }
+  function aiTool() {
+    return card("AI 推荐（机选）", "<div class=\"tv-row\"><span class=\"tv-k\">去页面里的「GPT模型摇号」点「随机」或「自选」，就能生成一注真实号码。</span></div>") + "<div class=\"tv-note\">也可以用右下角的助手说「来一注双色球」。</div>";
+  }
+  var NONE = {
+    hot: "实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。",
+    ma: "均线分析：暂未提供（这个指标还没做，不做假数据）。",
+    index: "指数预测：暂未提供（这个指标还没做，不做假数据）。",
+    pattern: "智能规律：暂未提供（这个指标还没做，不做假数据）。"
+  };
+  var TITLES = { stat: "数据统计", trend: "趋势分析", hot: "实时热点", ma: "均线分析", index: "指数预测", omit: "遗漏宝", pattern: "智能规律", ai: "AI推荐" };
+  function openTool(id) {
+    titleEl.textContent = TITLES[id] || "详情";
+    var html = "";
+    if (id === "stat") html = statTool();
+    else if (id === "trend") html = trendTool();
+    else if (id === "omit") html = omitTool();
+    else if (id === "ai") html = aiTool();
+    else html = "<div class=\"tv-none\">" + esc(NONE[id] || "暂未提供") + "</div>";
+    body.innerHTML = html;
+    view.classList.add("on");
+    document.documentElement.style.overflow = "hidden";
+  }
+  function closeTool() { view.classList.remove("on"); document.documentElement.style.overflow = ""; }
+  var items = document.querySelectorAll(".tool-item");
+  for (var i = 0; i < items.length; i++) {
+    (function (el) {
+      el.addEventListener("click", function () { openTool(el.getAttribute("data-tool")); });
+      el.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); openTool(el.getAttribute("data-tool")); } });
+    })(items[i]);
+  }
+  var back = document.getElementById("toolBack");
+  if (back) { back.addEventListener("click", closeTool); back.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); closeTool(); } }); }
+})();
+</script>
 </body>
 </html>`;
 

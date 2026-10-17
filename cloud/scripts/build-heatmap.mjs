@@ -83,11 +83,20 @@ const HISTORY_WINDOW = 30;
 const MIN_SAMPLE_POSTS = 5;     // 至少 5 篇晒票有可用号码
 const MIN_FRONT_TOTAL = 60;     // 前区号码出现总次数
 const MIN_BACK_TOTAL = 12;      // 后区号码出现总次数
-const MIN_OCR_TICKETS = 3;      // OCR 口径：至少 5 张有效票才敢出图
+/* 【2026-10-18 下调 3 → 2】用户要求：宁可给「少量真晒票」，也不要退回开奖频率。
+   2 张票确实样本很薄，所以下面会强制在 note 里写明「仅 N 张票样本」——
+   数据是真的，但不许看起来很厚。 */
+const MIN_OCR_TICKETS = 2;
+/* 低于这个数就标「样本偏少」（页面 / 数据里都要带这句） */
+const MIN_OCR_TICKETS_GOOD = 5;
 
 /* OCR 参数 */
 const OCR_MAX_IMAGES = 80;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
 const OCR_CONCURRENCY = 4;      // 并发识别几张（本机 4 核够用；云端更高）
+/* 【多翻几页】一起彩晒票页是分页的（/xysp/dltxysp/2、/3 …），
+   只抓第 1 页永远只有 10 篇 / 约 12 张图。开奖日高峰期当期晒票会跨好几页，
+   所以往下翻，直到某一页【没有当期帖】就停（后面只会更老）。 */
+const OCR_MAX_PAGES = 3;
 const IMG_TIMEOUT_MS = 30000;   // 图片下载超时（用户要求 30s）
 const IMG_RETRY = 2;            // 图片下载失败重试 2 次
 
@@ -385,7 +394,9 @@ async function downloadImage(url, cacheDir) {
 async function ocrTickets(cfg, posts, expectIssue, opts) {
   const stats = {
     posts: posts.length, urls: 0, downloaded: 0, downloadFailed: 0, cacheHits: 0,
-    recognized: 0, issueMatched: 0, tickets: [], ms: 0
+    recognized: 0, issueMatched: 0, tickets: [], ms: 0,
+    kinds: { '单式票': 0, '复式票': 0, '胆拖票': 0 },   /* 票种拆分（复式/胆拖号码多，要让人看得见） */
+    bandUsed: 0                                        /* 有多少张是靠「条带兜底」才认出来的 */
   };
   const frontCounts = new Array(cfg.frontMax + 1).fill(0);
   const backCounts = new Array(cfg.backMax + 1).fill(0);
@@ -449,13 +460,16 @@ async function ocrTickets(cfg, posts, expectIssue, opts) {
           continue;
         }
         stats.recognized++;
-        if (r.issue && r.issue === expectIssue) stats.issueMatched++;
+        if (r.issue && ocr.sameIssue && ocr.sameIssue(r.issue, expectIssue)) stats.issueMatched++;
         r.tickets.forEach((t) => {
           tickets.push({
             front: t.front, back: t.back, issue: r.issue,
-            votes: t.votes, rate: t.rate, url: item.url, author: item.author
+            votes: t.votes, rate: t.rate, url: item.url, author: item.author,
+            kind: t.kind || '单式票'
           });
           stats.tickets++;
+          stats.kinds[t.kind || '单式票'] = (stats.kinds[t.kind || '单式票'] || 0) + 1;
+          if (r.bandUsed) stats.bandUsed++;
           t.front.forEach((n) => { if (n >= 1 && n <= cfg.frontMax) frontCounts[n]++; });
           t.back.forEach((n) => { if (n >= 1 && n <= cfg.backMax) backCounts[n]++; });
         });
@@ -490,6 +504,57 @@ function parsePostTime(t, nowBj) {
     hh: m[3] ? parseInt(m[3], 10) : 0,
     mi: m[4] ? parseInt(m[4], 10) : 0
   };
+}
+
+/* ============================================================
+   五之三、多页抓晒票（第 2 页起）
+   ------------------------------------------------------------
+   一起彩的晒票页是【分页】的：/xysp/dltxysp、/xysp/dltxysp/2、/3 …
+   以前只抓第 1 页 → 永远只有 10 篇、十几张图。
+   现在：从第 1 页往下翻，某一页【一个当期帖都没有】就停
+        （页面按时间倒序，后面只会更老，没必要再翻）。
+   ============================================================ */
+
+/** 这一篇晒票是不是「当期」的（页面上期号写法有 26119 / 2026119 两种） */
+function isCurrentIssue(p, site, issue) {
+  if (!p || !p.issue) return false;
+  if (p.issue === site) return true;
+  if (issue && p.issue === issue) return true;
+  const seq = issueSeq(issue);
+  if (seq && issueSeq(p.issue) === seq) return true;
+  return false;
+}
+
+/** 抓 n 页晒票，返回去重后的帖子 + 每页统计 */
+async function fetchPostsPaged(cfg, site, issue) {
+  const out = [];
+  const seen = new Set();
+  const pages = [];
+  for (let p = 1; p <= OCR_MAX_PAGES; p++) {
+    const url = p === 1 ? cfg.url : String(cfg.url).replace(/\/+$/, '') + '/' + p;
+    let html = null;
+    try {
+      html = await fetchHtml(url);
+    } catch (e) {
+      if (p === 1) throw e;
+      log(`  ⚠️ 第 ${p} 页抓取失败（不影响已抓到的）：${e.message}`);
+      break;
+    }
+    const list = parsePosts(html);
+    let fresh = 0;
+    list.forEach((x) => {
+      const k = (x.author || '') + '|' + (x.time || '') + '|' + String(x.text || '').slice(0, 40);
+      if (seen.has(k)) return;
+      seen.add(k);
+      out.push(x);
+      if (isCurrentIssue(x, site, issue)) fresh++;
+    });
+    pages.push({ page: p, posts: list.length, current: fresh });
+    log(`  · 第 ${p} 页：${list.length} 篇晒票（当期 ${fresh} 篇）`);
+    if (!fresh) break;                     /* 这页没有当期帖 → 后面更老，收工 */
+    if (p < OCR_MAX_PAGES) await sleep(politeDelay());
+  }
+  return { posts: out, pages };
 }
 
 /* ============================================================
@@ -807,26 +872,21 @@ async function buildGame(cfg, nowBj, opts) {
   log(`【${cfg.name}】第 ${issue} 期（页面写法 [${site}期]）· 开奖日 ${drawDate} ${WEEK_CN[new Date(drawDate + 'T00:00:00').getDay()] || ''}`);
 
   let posts = [];
+  let pageInfo = [];
   let fetchErr = null;
   try {
-    log(`  → 抓晒票页：${cfg.url}`);
-    const html = await fetchHtml(cfg.url);
-    log(`  ✅ 页面 ${(html.length / 1024).toFixed(1)} KB`);
-    posts = parsePosts(html);
-    log(`  · 页面上共 ${posts.length} 篇晒票`);
+    log(`  → 抓晒票页：${cfg.url}（最多翻 ${OCR_MAX_PAGES} 页）`);
+    const res = await fetchPostsPaged(cfg, site, issue);
+    posts = res.posts;
+    pageInfo = res.pages;
+    log(`  ✅ 共 ${posts.length} 篇晒票（翻了 ${pageInfo.length} 页）`);
   } catch (e) {
     fetchErr = e;
     log(`  ❌ 抓取失败（不中断）：${e.message}`);
   }
 
-  /* 按「期号 + 当天」过滤，只留当期 */
-  const matched = posts.filter((p) => {
-    if (!p.issue) return false;
-    if (p.issue === site) return true;
-    if (issue && p.issue === issue) return true;
-    if (seq && issueSeq(p.issue) === seq) return true;
-    return false;
-  });
+  /* 按「期号」过滤，只留当期 */
+  const matched = posts.filter((p) => isCurrentIssue(p, site, issue));
 
   if (posts.length && !matched.length) {
     log(`  ⚠️ ${posts.length} 篇晒票里没有一篇是第 ${issue} 期的（页面上最新的是 ${posts.map((p) => p.issue).filter(Boolean).slice(0, 3).join('/')}）`);
@@ -884,12 +944,29 @@ async function buildGame(cfg, nowBj, opts) {
       log(`  · OCR 统计：候选图 ${s.urls} 张 → 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 有效票 ${s.tickets} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
       if (ocrRes.ok) {
         source = 'ocr-xysp';
-        sourceLabel = '全网公开晒票照片识别';
-        note = `识别自一起彩幸运晒票页第 ${site} 期公开票面照片（有效票 ${s.tickets} 张）`;
         sampleCount = s.tickets;
         fCounts = ocrRes.frontCounts;
         bCounts = ocrRes.backCounts;
-        log(`  ✅ OCR 口径可用 → 用它出图（${s.tickets} 张有效票）`);
+        /* 【票种拆分】复式 / 胆拖 票一张能带 7～20 个号，必须让人知道
+           「占比」里有多少来自大票，否则会被误读成「很多人买这个号」。 */
+        const kindText = (() => {
+          const k = s.kinds || {};
+          const parts = [];
+          if (k['单式票']) parts.push(`单式 ${k['单式票']} 张`);
+          if (k['复式票']) parts.push(`复式 ${k['复式票']} 张`);
+          if (k['胆拖票']) parts.push(`胆拖 ${k['胆拖票']} 张`);
+          return parts.length ? '：' + parts.join(' / ') : '';
+        })();
+        /* 【样本量提示】票少的时候必须写在图头上，不许让人以为样本很厚 */
+        const thin = s.tickets < MIN_OCR_TICKETS_GOOD
+          ? `　仅 ${s.tickets} 张票样本 · 样本偏少，仅供参照`
+          : '';
+        const pagesText = pageInfo.length > 1 ? `（翻 ${pageInfo.length} 页）` : '';
+        sourceLabel = s.tickets < MIN_OCR_TICKETS_GOOD
+          ? `全网公开晒票照片识别（仅 ${s.tickets} 张票样本）`
+          : '全网公开晒票照片识别';
+        note = `识别自一起彩幸运晒票页第 ${site} 期公开票面照片${pagesText}（有效票 ${s.tickets} 张${kindText}）${thin}`;
+        log(`  ✅ OCR 口径可用 → 用它出图（${s.tickets} 张有效票${kindText}）${thin ? ' ⚠️' + thin.trim() : ''}`);
       } else {
         log(`  ⚠️ OCR 口径不可用：${ocrRes.err} → 回退`);
       }
@@ -951,6 +1028,8 @@ async function buildGame(cfg, nowBj, opts) {
         posts: ocrInfo.posts, urls: ocrInfo.urls, downloaded: ocrInfo.downloaded,
         downloadFailed: ocrInfo.downloadFailed, cacheHits: ocrInfo.cacheHits,
         recognized: ocrInfo.recognized, tickets: Array.isArray(ocrInfo.tickets) ? ocrInfo.tickets : [],
+        kinds: ocrInfo.kinds || null, bandUsed: ocrInfo.bandUsed || 0,
+        pages: pageInfo.map((x) => x.page), pageStats: pageInfo,
         secs: Math.round(ocrInfo.ms / 100) / 10, err: ocrInfo.err
       }
       : null,
