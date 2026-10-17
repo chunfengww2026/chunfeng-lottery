@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 16:01 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 16:27 */
 const JC_DATA = {
- "updated": "2026-10-17 16:01",
+ "updated": "2026-10-17 16:27",
  "stat": {
   "total": 63,
   "upcoming": 60,
@@ -659,7 +659,7 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 1,
+    "home": 0,
     "away": 1
    },
    "statusText": "- ",
@@ -746,7 +746,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 0,
     "away": 1
    }
   },
@@ -903,11 +903,11 @@ const JC_DATA = {
    "handicap": null,
    "home": {
     "name": "中央海岸",
-    "rank": 5
+    "rank": 6
    },
    "away": {
     "name": "纽喷气机",
-    "rank": 6
+    "rank": 7
    },
    "score": null,
    "statusText": "- ",
@@ -931,9 +931,9 @@ const JC_DATA = {
       "away": 1.8
      },
      "live": {
-      "home": 3.5,
-      "draw": 3.75,
-      "away": 1.95
+      "home": 3.7,
+      "draw": 3.8,
+      "away": 1.9
      }
     },
     "overunder": {
@@ -952,14 +952,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 48.1,
+    "confidence": 49.7,
     "prob": {
-     "home": 26.8,
-     "draw": 25,
-     "away": 48.1
+     "home": 25.5,
+     "draw": 24.8,
+     "away": 49.7
     },
     "clear": true,
-    "margin": 6.5,
+    "margin": 6,
     "rqLine": "受半球/一球",
     "type": "unbeaten"
    },
@@ -1152,7 +1152,7 @@ const JC_DATA = {
    },
    "away": {
     "name": "名古屋鲸",
-    "rank": 15
+    "rank": 14
    },
    "score": null,
    "statusText": "- ",
@@ -1176,9 +1176,9 @@ const JC_DATA = {
       "away": 4.75
      },
      "live": {
-      "home": 1.57,
-      "draw": 3.9,
-      "away": 4.75
+      "home": 1.67,
+      "draw": 3.8,
+      "away": 4.33
      }
     },
     "overunder": {
@@ -1197,14 +1197,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 57.7,
+    "confidence": 54.8,
     "prob": {
-     "home": 57.7,
-     "draw": 23.2,
-     "away": 19.1
+     "home": 54.8,
+     "draw": 24.1,
+     "away": 21.1
     },
     "clear": true,
-    "margin": 10.4,
+    "margin": 9.3,
     "rqLine": "一球",
     "type": "three"
    },
@@ -1421,9 +1421,9 @@ const JC_DATA = {
       "away": 2.55
      },
      "live": {
-      "home": 2.5,
-      "draw": 2.88,
-      "away": 2.9
+      "home": 2.63,
+      "draw": 2.8,
+      "away": 2.75
      }
     },
     "overunder": {
@@ -1442,14 +1442,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 36.6,
+    "confidence": 34.5,
     "prob": {
-     "home": 36.6,
-     "draw": 31.8,
-     "away": 31.6
+     "home": 34.5,
+     "draw": 32.4,
+     "away": 33
     },
     "clear": false,
-    "margin": 9.2,
+    "margin": 10.1,
     "rqLine": "平手",
     "type": "unbeaten"
    },
@@ -1666,9 +1666,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3.1,
+      "home": 2.88,
       "draw": 3.8,
-      "away": 2.15
+      "away": 2.25
      }
     },
     "overunder": {
@@ -1687,14 +1687,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 44.3,
+    "confidence": 42.1,
     "prob": {
-     "home": 30.7,
-     "draw": 25,
-     "away": 44.3
+     "home": 32.9,
+     "draw": 24.9,
+     "away": 42.1
     },
     "clear": false,
-    "margin": 5.1,
+    "margin": 5.5,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
@@ -2426,9 +2426,9 @@ const JC_DATA = {
       "away": 1.22
      },
      "live": {
-      "home": 11,
-      "draw": 6,
-      "away": 1.2
+      "home": 10,
+      "draw": 5.5,
+      "away": 1.22
      }
     },
     "overunder": {
@@ -2447,14 +2447,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 76.4,
+    "confidence": 74.4,
     "prob": {
-     "home": 8.3,
-     "draw": 15.3,
-     "away": 76.4
+     "home": 9.1,
+     "draw": 16.5,
+     "away": 74.4
     },
     "clear": true,
-    "margin": 9.1,
+    "margin": 10.1,
     "rqLine": "受两球",
     "type": "three"
    },
