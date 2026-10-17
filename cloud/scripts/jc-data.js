@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 16:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 17:22 */
 const JC_DATA = {
- "updated": "2026-10-17 16:58",
+ "updated": "2026-10-17 17:22",
  "stat": {
   "total": 63,
   "upcoming": 59,
@@ -659,7 +659,7 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 1,
+    "home": 2,
     "away": 1
    },
    "statusText": "0 - 1 ",
@@ -746,7 +746,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 2,
     "away": 1
    }
   },
@@ -910,7 +910,7 @@ const JC_DATA = {
     "rank": 7
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "- ",
@@ -997,7 +997,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -1427,9 +1427,9 @@ const JC_DATA = {
       "away": 2.55
      },
      "live": {
-      "home": 2.63,
-      "draw": 2.8,
-      "away": 2.75
+      "home": 2.38,
+      "draw": 3,
+      "away": 3
      }
     },
     "overunder": {
@@ -1448,14 +1448,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 34.5,
+    "confidence": 38.7,
     "prob": {
-     "home": 34.5,
-     "draw": 32.4,
-     "away": 33
+     "home": 38.7,
+     "draw": 30.7,
+     "away": 30.7
     },
     "clear": false,
-    "margin": 10.1,
+    "margin": 8.7,
     "rqLine": "平手",
     "type": "unbeaten"
    },
