@@ -210,8 +210,10 @@ export async function verifyBatch(imgs, opts = {}) {
     if (r.ok === true) passed++;
     else if (r.ok === false) { failed++; failedList.push({ img, why: r.why }); }
     else { unreadable++; unreadableList.push({ img, why: r.why }); }
-    /* 每张之间歇一下，别把本机 CPU 占满 */
-    if (!r.cached) await new Promise((x) => setTimeout(x, opts.gap === undefined ? 150 : opts.gap));
+    /* 每张之间歇一下，别把本机 CPU 占满。
+       【2026-10-18 提速】原来固定 150ms，但下一张的抓图已经预取了（见上面 prefetch），
+       这段纯粹是白等 → 降到 60ms（实测 OCR 是瓶颈，60ms 足够让出事件循环）。 */
+    if (!r.cached) await new Promise((x) => setTimeout(x, opts.gap === undefined ? 60 : opts.gap));
   }
   saveCache();
   return { checked, passed, failed, unreadable, cacheHit, ms, failedList, unreadableList };
