@@ -388,6 +388,16 @@ export const INSTALL_CSS = `
   -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   animation: install-pulse 2s infinite; }
 .install-btn:active { transform: scale(0.97); animation: none; }
+/* 【📱 圆形轻浮按钮】用户 2026-10-18：「💬 保留 + 再加一个 📱」
+   位置：聊天气泡（right:20 bottom:20）左边一档 → right:78 bottom:20，点它 = 一键桌面 */
+.install-fab { position: fixed; right: 78px; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 9998; width: 50px; height: 50px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #1a8c5a; color: #fff; font-size: 22px; line-height: 1; text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18); cursor: pointer;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.install-fab:active { transform: scale(0.95); }
+body.cf-open .install-fab { display: none !important; }
 @keyframes install-pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -406,8 +416,10 @@ export const INSTALL_CSS = `
 `;
 
 export const INSTALL_HTML = `<!-- __INSTALL_APP__ 一键桌面（a[role=button]，不用 button 标签）
-     默认隐藏：能弹原生安装框（beforeinstallprompt）、或 iOS/微信需要教用户装时才显示 -->
-<a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面" style="display:none">📱 一键桌面</a>`;
+     用户 2026-10-18：改成一进来就显示（原来要等浏览器允许安装才出现，很多机型永远不出现）。
+     另外加了一个圆形 📱 按钮（「💬 保留 + 再加一个 📱」），点它同一个动作。 -->
+<a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面">📱 一键桌面</a>
+<a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面">📱</a>`;
 
 export const INSTALL_JS = `
 <script>
@@ -496,6 +508,24 @@ export const INSTALL_JS = `
         btn.click();
       }
     });
+
+    /* 【圆形 📱 按钮】和文字按钮同一个动作（用户 2026-10-18：「💬 保留 + 再加一个 📱」） */
+    var fab = document.getElementById('installFab');
+    if (fab) {
+      fab.addEventListener('click', function (ev) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        btn.click();
+      });
+      fab.addEventListener('keydown', function (ev) {
+        var k = ev ? String(ev.key || '') : '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar') {
+          if (ev.preventDefault) ev.preventDefault();
+          btn.click();
+        }
+      });
+    }
+    /* 已有安装态（standalone）→ 连圆形按钮一起收起来 */
+    if (standalone) { try { if (fab) fab.style.display = 'none'; } catch (e) { } }
   } catch (e) { /* 安装入口出问题不影响看页面 */ }
 })();
 </script>
