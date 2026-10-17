@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 21:09",
+ "updated": "2026-10-17 21:35",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1098,6 +1098,62 @@ const JC_HISTORY = {
    "type": "three"
   },
   {
+   "code": "周六016",
+   "league": "德甲",
+   "home": "汉堡",
+   "away": "斯图加特",
+   "time": "2026-10-17 21:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 3.8,
+    "draw": 4.2,
+    "away": 1.8
+   },
+   "prob": {
+    "home": 24.9,
+    "draw": 22.5,
+    "away": 52.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 52.6,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-17 00:28"
+  },
+  {
+   "code": "周六017",
+   "league": "德甲",
+   "home": "柏林联合",
+   "away": "多特蒙德",
+   "time": "2026-10-17 21:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 5.5,
+    "draw": 4.33,
+    "away": 1.57
+   },
+   "prob": {
+    "home": 17.3,
+    "draw": 22,
+    "away": 60.7
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 60.7,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-17 00:28"
+  },
+  {
    "code": "周六013",
    "league": "德甲",
    "home": "埃沃斯堡",
@@ -1245,116 +1301,6 @@ const JC_HISTORY = {
    "matched": false,
    "at": "2026-10-17 00:28",
    "type": "unbeaten"
-  },
-  {
-   "code": "周六016",
-   "league": "德甲",
-   "home": "汉堡",
-   "away": "斯图加特",
-   "time": "2026-10-17 21:30",
-   "score": "",
-   "hc": null,
-   "asianIndex": {
-    "line": "受半球/一球",
-    "from": "live",
-    "handicap": 0.75,
-    "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": 0.75,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.75,
-     "nowHandicap": 0.75,
-     "initUpWater": 0.85,
-     "nowUpWater": 1.02,
-     "initLine": "受半球/一球",
-     "nowLine": "受半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.8,
-    "draw": 4.2,
-    "away": 1.8
-   },
-   "prob": {
-    "home": 24.9,
-    "draw": 22.5,
-    "away": 52.6
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 52.6,
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
-  },
-  {
-   "code": "周六017",
-   "league": "德甲",
-   "home": "柏林联合",
-   "away": "多特蒙德",
-   "time": "2026-10-17 21:30",
-   "score": "",
-   "hc": null,
-   "asianIndex": {
-    "line": "受一球",
-    "from": "live",
-    "handicap": 1,
-    "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.9,
-    "openHandicap": 1.25,
-    "openUpWater": 0.87,
-    "openDownWater": 0.97,
-    "totalWater": 1.85,
-    "theoryUpPercent": "48.65",
-    "theoryDownPercent": "51.35",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": 1.25,
-     "nowHandicap": 1,
-     "initUpWater": 0.87,
-     "nowUpWater": 0.95,
-     "initLine": "受一球/球半",
-     "nowLine": "受一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 5.5,
-    "draw": 4.33,
-    "away": 1.57
-   },
-   "prob": {
-    "home": 17.3,
-    "draw": 22,
-    "away": 60.7
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 60.7,
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
   },
   {
    "code": "周六011",
@@ -1657,7 +1603,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-17 00:28"
   },
   {
