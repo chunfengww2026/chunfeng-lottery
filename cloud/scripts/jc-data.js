@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 14:42 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 15:21 */
 const JC_DATA = {
- "updated": "2026-10-17 14:42",
+ "updated": "2026-10-17 15:21",
  "stat": {
   "total": 63,
   "upcoming": 61,
@@ -38,9 +38,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -125,7 +125,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -139,7 +139,7 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "町田泽维",
-    "rank": 3
+    "rank": 4
    },
    "away": {
     "name": "福冈黄蜂",
@@ -355,7 +355,7 @@ const JC_DATA = {
     "home": 2,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "2 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -680,9 +680,9 @@ const JC_DATA = {
       "away": 4.75
      },
      "live": {
-      "home": 1.45,
-      "draw": 4.2,
-      "away": 6
+      "home": 1.42,
+      "draw": 4.33,
+      "away": 6.25
      }
     },
     "overunder": {
@@ -701,14 +701,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 63,
+    "confidence": 64.3,
     "prob": {
-     "home": 63,
-     "draw": 21.8,
-     "away": 15.2
+     "home": 64.3,
+     "draw": 21.1,
+     "away": 14.6
     },
     "clear": true,
-    "margin": 9.4,
+    "margin": 9.5,
     "rqLine": "半球/一球",
     "type": "three"
    },
@@ -1142,7 +1142,7 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "柏太阳神",
-    "rank": 1
+    "rank": 3
    },
    "away": {
     "name": "名古屋鲸",
@@ -1170,9 +1170,9 @@ const JC_DATA = {
       "away": 4.75
      },
      "live": {
-      "home": 1.62,
-      "draw": 3.8,
-      "away": 4.33
+      "home": 1.61,
+      "draw": 3.9,
+      "away": 4.5
      }
     },
     "overunder": {
@@ -1191,14 +1191,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 55.5,
+    "confidence": 56.5,
     "prob": {
-     "home": 55.5,
-     "draw": 23.7,
-     "away": 20.8
+     "home": 56.5,
+     "draw": 23.3,
+     "away": 20.2
     },
     "clear": true,
-    "margin": 11.1,
+    "margin": 10,
     "rqLine": "一球",
     "type": "three"
    },
@@ -1387,11 +1387,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "宫崎惊奇牛鸟",
-    "rank": 10
+    "rank": 12
    },
    "away": {
     "name": "磐田喜悦",
-    "rank": 11
+    "rank": 14
    },
    "score": null,
    "statusText": "- ",
@@ -1660,9 +1660,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3,
+      "home": 3.1,
       "draw": 3.8,
-      "away": 2.2
+      "away": 2.15
      }
     },
     "overunder": {
@@ -1681,11 +1681,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 43.2,
+    "confidence": 44.3,
     "prob": {
-     "home": 31.7,
+     "home": 30.7,
      "draw": 25,
-     "away": 43.2
+     "away": 44.3
     },
     "clear": false,
     "margin": 5.1,
@@ -1969,9 +1969,9 @@ const JC_DATA = {
       "away": 3.6
      },
      "live": {
-      "home": 1.7,
-      "draw": 3.7,
-      "away": 4.75
+      "home": 1.75,
+      "draw": 3.6,
+      "away": 4.5
      }
     },
     "overunder": {
@@ -1990,14 +1990,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 55,
+    "confidence": 53.3,
     "prob": {
-     "home": 55,
-     "draw": 25.3,
-     "away": 19.7
+     "home": 53.3,
+     "draw": 25.9,
+     "away": 20.7
     },
     "clear": true,
-    "margin": 6.9,
+    "margin": 7.1,
     "rqLine": "一球",
     "type": "three"
    },
