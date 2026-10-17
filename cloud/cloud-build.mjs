@@ -1614,11 +1614,27 @@ function finishOutput(freshRows) {
   });
   if (iconMissing.length) {
     /* 不抛异常：图标缺失不该阻止当班页面发布（页面本身没问题），
-       但一定要在日志里吼一声，不然静默 404 很久都没人发现。 */
-    log(`  ⚠️ 图标缺失 ${iconMissing.length} 个（cloud/scripts/icons/ 里没有）：${iconMissing.join(', ')}`);
+       但一定要在日志里吼一声，不然静默 404 很久都没人发现。 */    log(`  ⚠️ 图标缺失 ${iconMissing.length} 个（cloud/scripts/icons/ 里没有）：${iconMissing.join(', ')}`);
     log('     → 本机跑一次 node make-icons.mjs 生成并同步即可');
   } else {
     log(`  ✅ 分享图标 ${iconCopied} 个已拷入 out/（favicon.ico / icon.svg / share.png / manifest.webmanifest …）`);
+  }
+
+  /* 【PWA · Service Worker】用户 2026-10-17：页面上要能「添加到桌面」。
+     浏览器判定"可安装"要求：manifest + 图标 + 一个带 fetch 处理器的 SW。
+     SW 必须放在【站点根】（和 index.html 同级），scope 才覆盖全站；
+     它不在 icons/ 目录里（ICON_SRC），所以单独拷一遍。
+     ⚠️ 这个 SW 是纯透传（fetch 一律走网络、不缓存），避免冻住 30 秒实时刷新。 */
+  try {
+    const swSrc = path.join(MOD, 'service-worker.js');
+    if (fs.existsSync(swSrc)) {
+      fs.copyFileSync(swSrc, path.join(OUT, 'service-worker.js'));
+      log('  ✅ service-worker.js 已拷入 out/（纯透传，不缓存）');
+    } else {
+      log('  ⚠️ cloud/scripts/ 缺 service-worker.js → 线上不会弹原生安装框（按钮仍给引导提示）');
+    }
+  } catch (e) {
+    log('  ⚠️ service-worker.js 拷贝失败：' + (e && e.message));
   }
 
   /* ============================================================
