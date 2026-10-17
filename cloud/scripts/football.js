@@ -3884,7 +3884,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "门多萨独立",
      "score": 2,
@@ -3950,7 +3950,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "普拉腾斯",
      "score": 0,
@@ -4016,7 +4016,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "明尼苏达联",
      "score": 2,
@@ -4082,7 +4082,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "博塔弗戈",
      "score": 1,
@@ -4148,7 +4148,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 0,
+    "minute": 50,
     "home": {
      "name": "卡卡瓦蒂克",
      "score": 0,
@@ -4214,7 +4214,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "普拉騰斯科爾特斯港",
      "score": 0,
@@ -4280,7 +4280,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "皮昂内罗斯坎昆",
      "score": 0,
@@ -4346,7 +4346,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "科隆竞技",
      "score": 0,
@@ -4450,7 +4450,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -4528,7 +4528,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "次尔沃斯",
      "score": 2,
@@ -4606,7 +4606,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "奥卡斯",
      "score": 1,
@@ -4684,7 +4684,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "米涅罗美洲",
      "score": 0,
