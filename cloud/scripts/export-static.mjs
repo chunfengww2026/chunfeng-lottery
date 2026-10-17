@@ -3593,6 +3593,13 @@ body.ro-mob-open { overflow: hidden; }
   letter-spacing: 2px;
 }
 .ro-art-sub { font-size: 11.5px; color: #6b7488; }
+/* 【335px 窄屏】用户 2026-10-18：小屏幕上「文章参考」标题和副标题挤在一起换行难看 →
+   窄屏改成上下两行（标题一行、副标题一行），标题缩一点字距，不横向溢出。 */
+@media (max-width: 360px) {
+  .ro-art-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .ro-art-title { font-size: 16px; letter-spacing: 1px; }
+  .ro-art-sub { font-size: 11px; }
+}
 
 /* ============================================================
    __CENTER_HEAD__ 三个区块标题【居中】+ 去掉副标题重叠
@@ -5678,7 +5685,12 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 }
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 两段共用样式（device-gate.mjs）
-     放在 </head> 之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。 -->
+     放在 head 收尾标签之前 → 电脑端第一帧就是"隐藏"状态，不会先闪出内容再被盖住。
+     ⚠️【这行注释里绝不能出现 head 收尾标签的字面写法】（左尖括号 + 斜杠 + head + 右尖括号）：
+        export-site.mjs 用 String.replace 找【第一个】head 收尾标签来注入 .site-nav 导航样式，
+        而那个函数只认最先出现的一处。注释里出现该字面写法 → 导航 CSS 整段落进注释里、
+        整段失效 → 分享包顶部两个 Tab 变成浏览器默认的蓝色下划线链接
+        （2026-10-18 线上实测踩到，根因就在这里）。所以只写中文描述，不写那个标签。 -->
 <style>${DEVICE_GATE_CSS}${INSTALL_CSS}${CHAT_CSS}/* __TOOLS_GRID__ 智能分析：8 个入口 + 全屏子页面（用户 2026-10-18 要求）
    ------------------------------------------------------------
    入口 = 4 列网格 8 张图标卡（不是裸 button：div role="button" tabindex="0"）；
