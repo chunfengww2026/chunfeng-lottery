@@ -4802,6 +4802,11 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
    现在按规格补上：6px 0 4px 和 14px（并显式写 color，和规格一致，不再只靠继承）。
    ⚠️ 只加/补这几条，不动其它布局；改完必须重跑不变量与截图。 */
 .ro-imgtoc-wrap { background: transparent !important; border: 0 !important; padding: 0 !important; }
+/* 【往下滑提示】用户 2026-10-18：状态卡下面一条细线 + 「往下滑」小字 */
+.ro-scrollhint { display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin: 0 12px 14px; }
+.ro-sh-line { flex: 0 0 46px; height: 1px; background: #e0cdb0; }
+.ro-sh-txt { font-size: 12px; letter-spacing: 1px; color: #8a7a63; white-space: nowrap; }
 .ro-imgtoc-head { padding: 0 12px 0; }
 .ro-imgtoc-title { text-align: center; font-size: 15px; font-weight: 700;
   color: var(--ro-fg); margin: 6px 0 4px; }
@@ -5989,6 +5994,15 @@ ${DEVICE_GATE_BODY}
   </div>
 
   ${statusHtml}
+
+  <!-- 【往下滑提示】用户 2026-10-18：「这里加一条下划线 · 提示：往下滑」
+       位置 = 状态卡之后、工具（智能分析）之前（用户截图那个红箭头处）。
+       形态 = 一条细线 + 中间「往下滑」小字（不占高度、不动任何功能）。 -->
+  <div class="ro-scrollhint" aria-hidden="true">
+    <span class="ro-sh-line"></span>
+    <span class="ro-sh-txt">往下滑 ↓</span>
+    <span class="ro-sh-line"></span>
+  </div>
 
   <!-- ============================================================
        【智能分析工具栏】8 个入口（用户 2026-10-18 设计）
