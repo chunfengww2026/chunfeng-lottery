@@ -2541,9 +2541,7 @@ const XYSP_DATA = {
      "author": "安然观云舒",
      "when": "2026-10-17 08:46:14",
      "postId": "7697431167120802333",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/20712dee1ac640f7a086add76172917a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=rfojE%2BZ1RmSbzQYXnhKGjGdc8Mo%3D",
@@ -6203,9 +6201,7 @@ const XYSP_DATA = {
      "author": "美洋羊",
      "when": "2026-10-16 11:50:54",
      "postId": "7697108049638539804",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     }
    ]
   }
