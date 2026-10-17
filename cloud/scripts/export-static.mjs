@@ -7242,9 +7242,6 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-
-</div>
-
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
