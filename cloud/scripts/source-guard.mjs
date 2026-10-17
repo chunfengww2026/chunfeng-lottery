@@ -38,7 +38,10 @@ const HARD_WORDS = (
   'exper' + 'ts-data.js jc-da' + 'ta.js jc-hist' + 'ory.js foot' + 'ball.js ' +
   'kjh-da' + 'ta.js saved-tick' + 'ets.js ga' + 'mes.js al' + 'go.js templ' + 'ates.js ' +
   'latest-dra' + 'ws.js hit-che' + 'ck.js data-sto' + 're.js expert-po' + 'ol.js ' +
-  'jc-diverg' + 'ence.js jc-tit' + 'an.js sport' + 'tery 245' + 'qq'
+  'jc-diverg' + 'ence.js jc-tit' + 'an.js jc-bi' + 'fa.js sport' + 'tery 245' + 'qq ' +
+  /* ⚠️ 2026-10-17 加：成交额那一档的站名 / 产品名同样算"来源痕迹"
+     （页面上的模块名用中性的「资金分布」，正文里连中文名也不许出现）。 */
+  '必' + '发 Bet' + 'fair'
 ).split(/\s+/).filter(Boolean);
 
 const SOFT_WORDS = '数据源 数据来源 数据来自 接口 接入 来自于 取自 来源 来自'
