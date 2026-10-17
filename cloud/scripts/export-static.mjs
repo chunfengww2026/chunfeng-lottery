@@ -7703,34 +7703,7 @@ ${p3dHtml}
        · ⚠️ 根目录没有安装教程大图，所以没有图片位：只用 CSS 版；
             图位数量（data-image）因此保持不变。
        ============================================================ -->
-  <section class="ro-install" id="ro-install" aria-labelledby="ro-install-h">
-    <h2 class="ro-install-h" id="ro-install-h">添加到手机桌面，更方便更稳定</h2>
-    <div class="ro-install-lead">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
-
-    <div class="ro-install-grid">
-      <div class="ro-install-card">
-        <div class="ro-install-plat"><i aria-hidden="true">📱</i>安卓 / 微信</div>
-        <ol class="ro-install-steps">
-          <li><b>1</b><span>点右上角「···」</span></li>
-          <li><b>2</b><span>选「添加到主屏幕」</span></li>
-          <li><b>3</b><span>点「添加」</span></li>
-        </ol>
-        <div class="ro-install-tip">浏览器里也叫<span class="nb">「添加到桌面」</span>。</div>
-      </div>
-
-      <div class="ro-install-card">
-        <div class="ro-install-plat"><i aria-hidden="true">🍎</i>苹果 iPhone</div>
-        <ol class="ro-install-steps">
-          <li><b>1</b><span>点底部「分享」图标</span></li>
-          <li><b>2</b><span>选「添加到主屏幕」</span></li>
-          <li><b>3</b><span>点「添加」</span></li>
-        </ol>
-        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点<span class="nb">「在浏览器打开」</span>。</div>
-      </div>
-    </div>
-
-    <div class="ro-install-note">备注：添加桌面更方便更稳定</div>
-  </section>
+  <!-- 【已删除】安装指南（用户 2026-10-18 明确要求，不要再加回来） -->
 
   <div class="ro-foot">
     本页面为只读分享版，仅供观看，无法修改。<br>
