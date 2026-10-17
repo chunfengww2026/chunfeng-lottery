@@ -512,6 +512,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-money-row .v { flex: 0 0 42px; text-align: right; white-space: nowrap;
   color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
 .md-money-amt { margin-top: 7px; font-size: 12px; color: var(--ro-fg2); line-height: 1.7; }
+.md-money-amt span { white-space: nowrap; }
 .md-money-amt b { color: var(--ro-fg); font-weight: 700; font-family: Consolas, monospace; }
 
 .md-foot { max-width: 560px; margin: 2px auto 0; padding: 0 12px; font-size: 11.5px; color: var(--ro-fg2); line-height: 1.7; }
@@ -1228,7 +1229,7 @@ a { color: var(--ro-ok); text-decoration: none; }
       return card('资金分布', '<span class="md-badge">临场累计</span>',
         '<div class="md-na">本场暂无成交量数据。<br>'
         + '<em>成交额只在【临场窗口】里累积 —— 距开赛还早、或者已经打完一阵子，这一档都会空着。'
-        + '比赛临近时才统计，到时再回来看。这里不写 0：0 和"没数据"不是一回事。</em></div>', null, 'report');
+        + '比赛临近时才统计，到时再回来看。这里不写 0：0 和「没数据」不是一回事。</em></div>', null, 'report');
     }
     var i, w, body = '<div class="md-money-top"><span class="k">总成交</span>'
       + '<b>' + fmWan(mv.total) + '</b>'
@@ -1241,7 +1242,8 @@ a { color: var(--ro-ok); text-decoration: none; }
         + '<span class="bar"><i class="' + MONEY_KEYS[i][0] + '" style="width:' + w + '%"></i></span>'
         + '<span class="v">' + w + '%</span></div>';
       var at = fmWan(mv.rows[i].a);
-      if (at) amt.push(MONEY_KEYS[i][1] + ' <b>' + at + '</b>');
+      /* 每一项包一层 nowrap：320px 下换行只发生在「项与项之间」，不会把「41.1 万」拆开 */
+      if (at) amt.push('<span>' + MONEY_KEYS[i][1] + ' <b>' + at + '</b></span>');
     }
     if (amt.length === 3) body += '<div class="md-money-amt">成交金额：' + amt.join(' · ') + '</div>';
     body += '<div class="md-one" style="margin-top:6px">'
@@ -1347,7 +1349,7 @@ a { color: var(--ro-ok); text-decoration: none; }
     var bar = document.getElementById('mdSrc');
     var TIP = {
       all: '',
-      report: '赔率、盘口、大小球和模型推算这几档',
+      report: '赔率、盘口、大小球、资金和模型推算这几档',
       sports: '各家博彩公司的初盘 / 即时赔率对比'
     };
     bar.addEventListener('click', function (ev) {
@@ -1493,6 +1495,12 @@ if (BIFA_GAMES) {
   if (html.indexOf('"money":{') < 0) problems.push('jc-bifa.js 读到了，但没内嵌进页面（D.money 丢了）');
   if (!html.includes('资金面：成交')) problems.push('输出里找不到雷达寻胆的「资金面：成交」明细行（成交资金那一维没接上）');
 }
+/* 【资金分布】独立一档：没数据也要在页面上（显示如实占位，绝不写 0）。
+   有数据时「总成交」必须能在页面里找到 —— 否则就是"内嵌成功但没画出来"的静默失效。 */
+if (!html.includes('资金分布')) problems.push('输出里找不到「资金分布」这一档');
+if (!html.includes('md-money-row')) problems.push('输出里找不到资金分布的占比横条样式 .md-money-row（CSS 丢了）');
+if (!html.includes('本场暂无成交量数据')) problems.push('输出里找不到资金分布的如实占位文案「本场暂无成交量数据」');
+if (BIFA_GAMES && !html.includes('总成交')) problems.push('输出里找不到资金分布的「总成交」（成交额没接上）');
 
 /* ============================================================
    【留痕断言 · 硬性条件】页面上不许出现任何"数据是从哪儿来的"
@@ -1528,7 +1536,10 @@ function visibleText(h) {
 }
 const HARD_WORDS = ['500.com', '500网', '球探', 'titan007', '7m', '雷速', 'leisu',
   'yiqicai', '一起彩', 'toutiao', '头条', 'bf_jc', 'JcResult',
-  'jc-data.js', 'jc-history.js', 'jc-divergence.js', 'jc-titan.js', 'history.js',
+  /* ⚠️ 2026-10-17 加：成交额那一档的数据是交易所的成交记录，站名 / 产品名一样算"来源痕迹"。
+     页面上的模块名因此用中性的「资金分布」，正文里一个「必发 / Betfair」都不许有。 */
+  '必发', 'Betfair',
+  'jc-data.js', 'jc-history.js', 'jc-divergence.js', 'jc-titan.js', 'jc-bifa.js', 'history.js',
   'http://', 'https://'];
 const hardHit = HARD_WORDS.filter((w) => html.toLowerCase().includes(w.toLowerCase()));
 if (hardHit.length) {
@@ -1559,5 +1570,9 @@ console.log('   欧赔对比：' + (TITAN_GAMES
   ? '主流 ' + ((TITAN && TITAN.main) ? TITAN.main.length : 0) + ' 家的明细 ' + Object.keys(TITAN_GAMES).length
     + ' 场（数据时间 ' + (TITAN.updated || '—') + '）'
   : '⚠️ 没有 jc-titan.js → 页面显示「暂无多家公司的赔率对比数据」（不会报错，但这一档是空的）'));
+console.log('   资金分布：' + (BIFA_GAMES
+  ? Object.keys(BIFA_GAMES).length + ' 场有成交额（其余场次显示「本场暂无成交量数据」，绝不写 0）'
+  : '⚠️ 没有 jc-bifa.js → 这一档全部显示「本场暂无成交量数据」（不会报错）'));
 console.log('   ✅ 留痕断言：页面里没有任何站名 / 域名 / 接口 / 数据文件名（可见文本也扫过了）');
+console.log('      ⚠️ 硬词黑名单已含「必发」「Betfair」—— 成交额那一档的站名 / 产品名同样不许出现');
 console.log('   入口：比赛详情.html?c=周五002');
