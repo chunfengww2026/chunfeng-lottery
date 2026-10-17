@@ -1727,7 +1727,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "奎托(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
