@@ -171,6 +171,25 @@ const TITAN_GAMES = (TITAN && TITAN.games && typeof TITAN.games === 'object') ? 
 const BIFA = loadVar('jc-bifa.js', 'JC_BIFA');
 const BIFA_GAMES = (BIFA && BIFA.games && typeof BIFA.games === 'object') ? BIFA.games : null;
 
+/* ============================================================
+   【联赛积分榜 · 真实积分】jc-standings.js（fetch-standings.mjs 生成）
+   ------------------------------------------------------------
+   「综合模型」那一档的埃罗概率要【积分差】。此前只有每场的 [名次]，
+   靠「名次差 × 2」折算 —— 那是代理，不是真积分。
+   这份文件给的是每个联赛的【真实积分榜】：名次 / 积分 / 场次 / 胜平负 / 进球。
+   ⚠️ 认队用【队名】，不用名次 —— 实测名次两边口径不一样（同一联赛里
+      两支队都是 [7]，名次根本不唯一），拿名次当主键必错。队名走
+      「完全一致 → 包含 → 汉字子序列」三级匹配（曼城 ⊂ 曼彻斯特城、
+      马竞 ⊂ 马德里竞技 这类简称都能认出来），再要求领先第二名 0.05 分，
+      认不准就退回「名次折算」并在页面上如实写明，绝不硬凑一个积分。
+   ⚠️ 文件不存在 / 这一场查不到两队积分 → 退回名次折算，绝不因为少一个
+      可选数据文件就让整页生成失败。
+   ⚠️ 页面上【不显示】任何一个队名以外的字段来源（硬性规则：不留来源痕迹）。
+   ============================================================ */
+const STAND = loadVar('jc-standings.js', 'JC_STANDINGS');
+const STAND_LEAGUES = (STAND && STAND.leagues && typeof STAND.leagues === 'object') ? STAND.leagues : null;
+const STAND_UPDATED = (STAND && STAND.updated) || '';
+
 if (!JC || !Array.isArray(JC.games)) {
   console.error('❌ build-match.mjs：读不到 jc-data.js 的 JC_DATA.games');
   process.exit(1);
@@ -1898,11 +1917,73 @@ ${DEVICE_GATE_BODY}
     };
   }
 
-  /* ② 埃罗：积分差由【名次差 × 2】折算（夹在 ±60，超过就没意义了） */
-  function fusRankDiff(g) {
+  /* ② 埃罗的积分差
+     ------------------------------------------------------------
+     【第一优先 · 真实积分】本季联赛积分榜里两队的积分差（jc-standings.js）。
+     【第二优先 · 名次折算】查不到真实积分时退回「名次差 × 联赛系数」：
+        五大联赛（英超/西甲/意甲/德甲/法甲）每名约 2.5 分，其他联赛约 1.5 分。
+        原来一律 × 2，五大联赛偏低、小联赛偏高 —— 这里按联赛分开。
+     两种都夹在 ±60：再大就是在比"冠军 vs 降级队"，埃罗那一项的线性式子早就没意义了。
+     ⚠️ 一个都拿不到（归档场次没有排名、也没有本季积分）→ 返回 null，
+        埃罗那一行如实写「该场无排名数据，埃罗不适用」，不拿欧赔接近度之类的东西顶。 */
+  var FUS_BIG5 = { '英超': 1, '西甲': 1, '意甲': 1, '德甲': 1, '法甲': 1 };
+  /* 简称 → 积分榜上的全名（子序列匹配已经能认大半，这里只补"字不一样"的） */
+  var FUS_ALIAS = {
+    '曼城': '曼彻斯特城', '曼联': '曼彻斯特联', '热刺': '托特纳姆热刺',
+    '巴萨': '巴塞罗那', '皇马': '皇家马德里', '马竞': '马德里竞技',
+    '国米': '国际米兰', '拜仁': '拜仁慕尼黑', '多特': '多特蒙德',
+    '不来梅': '云达不莱梅', '莱红牛': '莱比锡红牛', '药厂': '勒沃库森',
+    '门兴': '门兴格拉德巴赫', '宫崎惊奇牛鸟': '宫崎棒牛鸟'
+  };
+  function fusCn(s) { return String(s == null ? '' : s).replace(/[^\u4e00-\u9fa5]/g, ''); }
+  /* 队名相似度：完全一致 1 → 包含 0.9 → 汉字子序列 0.55~0.90（越长的简称越可信） */
+  function fusNameScore(q, full) {
+    q = fusCn(q);
+    var f = fusCn(full);
+    if (!q || !f) return 0;
+    if (q === f) return 1;
+    if (q.length >= 2 && f.length > q.length && f.indexOf(q) >= 0) return 0.9;
+    var i = 0, j = 0;
+    while (i < q.length && j < f.length) { if (q.charAt(i) === f.charAt(j)) i++; j++; }
+    if (i === q.length && q.length >= 2) return 0.55 + 0.35 * (q.length / f.length);
+    return 0;
+  }
+  /* 在这一场的联赛积分榜里认这一支球队：认不准就返回 null（宁可退档也不认错） */
+  function fusStandTeam(g, side) {
+    if (!STAND_LEAGUES) return null;
+    var L = STAND_LEAGUES[String(g.sid == null ? '' : g.sid)];
+    if (!L || !L.teams || !L.teams.length) return null;
+    var raw = String((g[side] && g[side].name) || '');
+    if (!raw) return null;
+    var q = FUS_ALIAS[raw] || raw;
+    var best = null, bs = 0, second = 0, k, t, sc;
+    for (k = 0; k < L.teams.length; k++) {
+      t = L.teams[k];
+      sc = fusNameScore(q, t[8]);
+      if (sc > bs) { second = bs; bs = sc; best = t; }
+      else if (sc > second) second = sc;
+    }
+    /* 0.66：子序列匹配里最松的「马竞 / 曼城」是 0.69，再松就会认错；
+       0.05：第一第二必须拉开，两支都像就说明认不准。 */
+    if (best && bs >= 0.66 && (bs - second) >= 0.05) return { t: best, sc: bs };
+    return null;
+  }
+  function fusPoints(g) {
+    var coef = FUS_BIG5[String(g.league || '')] ? 2.5 : 1.5;
     var hr = num(g.home && g.home.rank), ar = num(g.away && g.away.rank);
+    var h = fusStandTeam(g, 'home'), a = fusStandTeam(g, 'away');
+    if (h && a) {
+      return {
+        src: 'real', diff: clampNum(h.t[1] - a.t[1], -60, 60),
+        hp: h.t[1], ap: a.t[1], hrank: h.t[0], arank: a.t[0],
+        hpPlayed: h.t[2], apPlayed: a.t[2], coef: coef
+      };
+    }
     if (hr === null || ar === null || hr <= 0 || ar <= 0) return null;
-    return { hr: hr, ar: ar, diff: clampNum((ar - hr) * 2, -60, 60) };
+    return {
+      src: 'proxy', diff: clampNum((ar - hr) * coef, -60, 60),
+      hr: hr, ar: ar, coef: coef, hp: null, ap: null
+    };
   }
   function fusElo(diff) {
     var H = clampNum(0.448 + 0.0053 * diff, 0.05, 0.90);
@@ -2019,12 +2100,102 @@ ${DEVICE_GATE_BODY}
 
   function fusPct(x) { return (Math.round(x * 1000) / 10).toFixed(1) + '%'; }
 
+  /* ============================================================
+     ⑦ 亚盘水位修正 · market bias（b）
+     ------------------------------------------------------------
+     【要解决什么】亚盘给的是"水位"（上盘 0.85 / 下盘 1.05 这种），
+     水位里混了两样东西：① 盘口自己的抽水；② 市场上下两边的冷热。
+     原来只做 (1/水位) 归一 → 得到的上盘百分比只是"水位比"，抽水和冷热都没分开，
+     而且修正式里那个 b 一直是 0（→ 修正相消，等于没做）。
+
+     【b 的数学定义】（全部同一口径：都是"上盘赢盘概率"，不含走盘退款）
+       ① 水位推算上盘概率   q = (1/上盘水) ÷ ((1/上盘水) + (1/下盘水))
+           —— 和「亚指」卡、「差异分析」同一套水位换算，不另立一套。
+       ② 比分模型上盘赢盘概率 p（用上面那个 Dixon-Coles 矩阵算，λ 由欧赔拟合）：
+             每个比分 (i, j) 的主队净胜 = (i − j) + 让球线（让球线为负＝主队让球）
+             净胜 > 0.25 → 上盘全赢（权重 1）
+             净胜 = ±0.25 → 半赢/半输（0.75 / 0.25）
+             净胜 = 0     → 走盘退款（0.5，两边各半）
+             净胜 < −0.25 → 上盘全输（0）
+           p = Σ 比分概率 × 权重；上盘是客队时取 1 − p。
+           （这样每个比分的权重都满足 上盘 + 下盘 = 1，所以 p 本身就是归一概率，不用再除。）
+       ③ market bias  b = (q − p) ÷ p
+             b > 0：水位给上盘的价，比"欧赔的比分分布"更看好上盘（上盘偏热、水位被压低）
+             b < 0：反过来（上盘冷、水位偏高）
+      ④ 修正（用户给的式子，按上下盘对称落地）：
+             上盘 q' = q ÷ (1 + 0.5b)      下盘 (1−q)' = (1−q) ÷ (1 − 0.5b)
+             再归一。b = 0 时两边的 (1−c) 因子完全相同 → 相消，水位比一点不变；
+             b ≠ 0 才真的改变上/下盘的水位比 —— 这是这一档"有没有做"的判据。
+         c = 抽水率 = (1/上盘水 + 1/下盘水) ÷ 2 − 1（只用于展示：
+             它是两边共同的乘数，归一后自己就消掉了，所以抽水不改变水位比）。
+     ============================================================ */
+  function fusWater(g) {
+    var ai = g.asianIndex || {};
+    var uw = num(ai.upWater), dw = num(ai.downWater);
+    var side = (ai.upSide === 'home' || ai.upSide === 'away') ? ai.upSide : null;
+    var line = num(ai.handicap);
+    if (line === null) line = num(ai.handicapChange && ai.handicapChange.nowHandicap);
+    if (uw === null || dw === null || !(uw > 0) || !(dw > 0)) return null;
+    if (!side || line === null) return null;
+    return { uw: uw, dw: dw, side: side, line: line };
+  }
+  /* 一个比分下"主队赢盘"的权重（0.75/0.25 = 平半、半一那种半赢半输） */
+  function fusCoverW(net) {
+    if (net > 0.25 + 1e-6) return 1;
+    if (Math.abs(net - 0.25) <= 1e-6) return 0.75;
+    if (Math.abs(net) <= 1e-6) return 0.5;
+    if (Math.abs(net + 0.25) <= 1e-6) return 0.25;
+    return 0;
+  }
+  function fusCover(fit, line, side) {
+    if (!fit) return null;
+    var ph = fusPmf(fit.lh, FUS_MAXG), pa = fusPmf(fit.la, FUS_MAXG);
+    var wh = 0, s = 0, i, j, tau, p;
+    for (i = 0; i <= FUS_MAXG; i++) {
+      for (j = 0; j <= FUS_MAXG; j++) {
+        tau = 1;
+        if (i === 0 && j === 0) tau = 1 - fit.lh * fit.la * FUS_RHO;
+        else if (i === 0 && j === 1) tau = 1 + fit.lh * FUS_RHO;
+        else if (i === 1 && j === 0) tau = 1 + fit.la * FUS_RHO;
+        else if (i === 1 && j === 1) tau = 1 - FUS_RHO;
+        p = ph[i] * pa[j] * tau;
+        if (!(p > 0)) continue;
+        s += p;
+        wh += p * fusCoverW((i - j) + line);
+      }
+    }
+    if (!(s > 0)) return null;
+    var phome = wh / s;
+    return side === 'home' ? phome : 1 - phome;
+  }
+  function fusMarketBias(g, fit) {
+    var w = fusWater(g);
+    if (!w || !fit) return null;
+    var iu = 1 / w.uw, idw = 1 / w.dw;
+    var q = iu / (iu + idw);                    /* 水位推算：上盘概率 */
+    var p = fusCover(fit, w.line, w.side);      /* 比分模型：上盘赢盘概率 */
+    if (p === null || !(p > 0.02) || !(p < 0.98)) return null;
+    var b = (q - p) / p;
+    var bc = clampNum(b, -0.6, 0.6);            /* ±0.6 之外已不是"微调冷热"，是无意义 */
+    var aUp = q / (1 + 0.5 * bc);
+    var aDn = (1 - q) / (1 - 0.5 * bc);
+    var qAdj = aUp / (aUp + aDn);
+    var c = (iu + idw) / 2 - 1;                 /* 抽水率（只在页面展示，归一后自消） */
+    return {
+      uw: w.uw, dw: w.dw, side: w.side, line: w.line,
+      q: q, p: p, b: b, bc: bc, c: c, qAdj: qAdj,
+      ratio0: w.uw / w.dw,                      /* 水位比 = 上盘水 ÷ 下盘水 = (1−q)/q */
+      ratio1: (1 - qAdj) / qAdj,
+      pp: (qAdj - q) * 100                      /* 修正前后差几个百分点 */
+    };
+  }
+
   function fusCalc(g) {
     var eu = g.odds && g.odds.europe;
     var lv = eu ? (eu.live || eu.open) : null;
     var im = fusImplied(lv);
     if (!im) return null;
-    var rk = fusRankDiff(g);
+    var rk = fusPoints(g);
     var elo = rk ? fusElo(rk.diff) : null;
     var fit = fusFit(im.p);
     /* 融合用哪个模型：有排名 → 埃罗（和欧赔互相独立，才是真的两个视角）；
@@ -2048,6 +2219,7 @@ ${DEVICE_GATE_BODY}
       }
     }
     var hc = fusHandicap(g);
+    var mb = fusMarketBias(g, fit);
     var kel = [], full = [];
     for (i = 0; i < 3; i++) {
       var ff = fusKelly(fu[i], im.odds[i]);
@@ -2055,7 +2227,8 @@ ${DEVICE_GATE_BODY}
       kel.push(ff === null ? null : clampNum(ff * 0.5, 0, FUS_KELLY_CAP));
     }
     return { im: im, rk: rk, elo: elo, fit: fit, model: model, mname: mname, gap: gap,
-      fu: fu, hc: hc, kel: kel, full: full, live: !!eu.live };
+      fu: fu, hc: hc, mb: mb, kel: kel, full: full, live: !!eu.live,
+      hist: g.src === 'hist' };
   }
 
   function renderFusion(g) {
@@ -2103,13 +2276,27 @@ ${DEVICE_GATE_BODY}
       + '（＝1/主 + 1/平 + 1/客，>1 的那部分就是抽水）· 本档用'
       + (r.live ? '【即时】' : '【初盘】') + '赔率；融合概率最高的一项用主色。</div>';
 
-    /* 口径明细：名次差 / λ / 融合权重 */
+    /* 口径明细：积分差 / λ / 融合权重 */
+    var rkTxt;
+    if (!r.rk) {
+      rkTxt = r.hist
+        ? '该场无排名数据，埃罗不适用 —— 归档场次只留了那一场的报价快照，没有当季排名、也没有当季积分，'
+          + '所以这一行不编；融合改用下面的泊松矩阵（口径不同，卡片如实标出来）'
+        : '本场拿不到两队的本季积分、也没有名次 → 埃罗不适用，融合改用泊松矩阵';
+    } else if (r.rk.src === 'real') {
+      rkTxt = '两队本季积分 <b>' + r.rk.hp + '</b> / <b>' + r.rk.ap
+        + '</b>（各 <b>' + r.rk.hpPlayed + '</b> / <b>' + r.rk.apPlayed + '</b> 场）→ 积分差 <b>'
+        + (r.rk.diff > 0 ? '+' : '') + r.rk.diff
+        + '</b>，<b>用的是真实积分</b>，不是名次折算';
+    } else {
+      rkTxt = '两队名次 <b>' + r.rk.hr + '</b> / <b>' + r.rk.ar + '</b>，名次差 <b>'
+        + Math.abs(r.rk.ar - r.rk.hr) + '</b> → 积分差 <b>'
+        + (r.rk.diff > 0 ? '+' : '') + r.rk.diff + '</b>'
+        + '（本场两队的本季积分配不上 → <b>名次折算，不是真实积分</b>：每名约 '
+        + r.rk.coef + ' 分，五大联赛 2.5 / 其他联赛 1.5，夹在 ±60）';
+    }
     var note = '<div class="md-one" style="margin-top:6px;line-height:1.75">'
-      + '<b>埃罗</b>：' + (r.rk
-        ? '两队名次 <b>' + r.rk.hr + '</b> / <b>' + r.rk.ar + '</b>，名次差 <b>'
-          + Math.abs(r.rk.ar - r.rk.hr) + '</b> → 积分差按每名约 2 分折算成 <b>'
-          + (r.rk.diff > 0 ? '+' : '') + r.rk.diff + '</b>（本页没有真实埃罗积分，只能这样折算）'
-        : '本场没有两队排名 → 这一行不算，融合改用泊松矩阵')
+      + '<b>埃罗</b>：' + rkTxt
       + '。<br><b>泊松·Dixon-Coles</b>：' + (r.fit
         ? 'λ 主 <b>' + r.fit.lh.toFixed(2) + '</b> / λ 客 <b>' + r.fit.la.toFixed(2)
           + '</b>，ρ = −0.05，0~8 球共 81 个比分求和'
@@ -2123,6 +2310,45 @@ ${DEVICE_GATE_BODY}
           + '凯利仓位也就跟着变大，只作数理参考。'
         : '')
       + '</div>';
+
+    /* 亚盘水位修正（market bias）—— 这一块单独摆，b 的值、修正前后的上盘概率、
+       修正前后的水位比都在这里，看得见"到底改没改" */
+    var wb, mb = r.mb;
+    if (!mb) {
+      wb = '<div class="md-diff-sub">亚盘水位修正 · market bias</div>'
+        + '<div class="md-one">本场缺<b>' + (!r.fit ? '比分模型的 λ' : '亚盘水位 / 让球线 / 上盘方向')
+        + '</b>，b 算不出来 —— 水位比<b>不做修正</b>（不是修成了 0），也不拿欧赔接近度之类的顶。</div>';
+    } else {
+      var bTxt = (mb.b > 0 ? '+' : '') + mb.b.toFixed(3);
+      var dirTxt2 = mb.b > 0.0005 ? '上盘偏热（水位给上盘的价比比分模型高）'
+        : (mb.b < -0.0005 ? '上盘偏冷（水位给上盘的价比比分模型低）' : '两边一致（b≈0，水位比不动）');
+      var dpp = mb.pp;
+      wb = '<div class="md-diff-sub">亚盘水位修正 · market bias</div>'
+        + '<div class="md-diff-top">'
+        + '<span class="k">b</span><b>' + bTxt + '</b><span class="u">market bias</span>'
+        + '<span class="jd">上盘（' + (mb.side === 'home' ? '主队' : '客队') + '）· 让球线 <b>' + mb.line
+        + '</b> · 水位 <b>' + mb.uw.toFixed(2) + '</b> / <b>' + mb.dw.toFixed(2) + '</b>。'
+        + 'b =（水位推算上盘概率 <b>' + (mb.q * 100).toFixed(1) + '%</b> − 比分模型上盘赢盘概率 <b>'
+        + (mb.p * 100).toFixed(1) + '%</b>）÷ ' + (mb.p * 100).toFixed(1) + '% = <em>' + bTxt + '</em> → '
+        + dirTxt2 + '。</span></div>'
+        + '<table class="md-tbl"><thead><tr><th style="width:34%">口径</th>'
+        + '<th style="width:33%">修正前</th><th style="width:33%">修正后</th></tr></thead><tbody>'
+        + '<tr><td class="s">上盘概率</td><td class="n">' + (mb.q * 100).toFixed(1) + '%</td>'
+        + '<td class="' + (Math.abs(dpp) > 0.05 ? 'up' : 'n') + '">' + (mb.qAdj * 100).toFixed(1) + '%</td></tr>'
+        + '<tr><td class="s">上/下盘水位比</td><td class="n">' + mb.ratio0.toFixed(3) + '</td>'
+        + '<td class="' + (Math.abs(mb.ratio1 - mb.ratio0) > 0.002 ? 'up' : 'n') + '">' + mb.ratio1.toFixed(3) + '</td></tr>'
+        + '<tr><td class="s">修正幅度</td><td class="dim">—</td>'
+        + '<td class="' + (Math.abs(dpp) > 0.05 ? 'up' : 'dim') + '">' + (dpp > 0 ? '+' : '') + dpp.toFixed(1) + ' 个百分点</td></tr>'
+        + '</tbody></table>'
+        + '<div class="md-one" style="margin-top:5px;line-height:1.7">'
+        + '<b>b 的算法</b>：q =（1/上盘水）÷（1/上盘水 + 1/下盘水）＝ <b>' + (mb.q * 100).toFixed(2)
+        + '%</b>；p = 比分矩阵里"上盘赢盘"的加权概率（净胜 &gt; 0.25 记 1、= ±0.25 记 0.75/0.25、'
+        + '走盘记 0.5，逐比分求和，上盘 + 下盘恒等于 1）＝ <b>' + (mb.p * 100).toFixed(2) + '%</b>；'
+        + 'b = (q − p) ÷ p。修正：上盘 q ÷（1 + 0.5b）、下盘 (1−q) ÷（1 − 0.5b）再归一 —— '
+        + '<b>b = 0 时两式相同，归一后相消，水位比一点不动</b>；所以上面那个 b 只要不是 0，'
+        + '水位比就真的变了。抽水率 c =（1/上盘水 + 1/下盘水）÷ 2 − 1 ＝ <b>' + (mb.c * 100).toFixed(1)
+        + '%</b>，它是上下两边共同的乘数，归一后自消，因此抽水本身不改变水位比 —— 只有 b 会。</div>';
+    }
 
     /* 盘口信号 */
     var hc = r.hc, hb;
@@ -2175,15 +2401,17 @@ ${DEVICE_GATE_BODY}
     var foot = '<div class="md-cold-note">算法口径：'
       + '<b>欧赔隐含</b>＝(1/赔率) 归一化到三项合计 100%，返还率＝100 ÷（1/主+1/平+1/客）；'
       + '<b>埃罗</b>＝主 0.448 + 0.0053×积分差、客 0.245 − 0.0039×积分差、平＝1−主−客'
-      + '（三项夹在 5%~90%，平局不足 5% 时按比例扣回）；'
+      + '（三项夹在 5%~90%，平局不足 5% 时按比例扣回）；积分差优先用<b>本季真实积分</b>（两队积分相减，夹在 ±60），'
+      + '两队积分配不上时退回<b>名次折算</b>（每名约 2.5 分（五大联赛）/ 1.5 分（其他），同样夹在 ±60）并如实标明；'
       + '<b>泊松</b>＝e^(−λ)·λ^k ÷ k!，叠 ρ=−0.05 的 Dixon-Coles 低比分修正，λ 由欧赔三项隐含概率拟合（0.20~3.60 网格）；'
       + '<b>融合</b>＝0.6×欧赔 + 0.4×模型，再归一；'
+      + '<b>亚盘水位修正</b>＝b 取「水位推算上盘概率 ÷ 比分模型上盘赢盘概率 − 1」，上盘 ÷(1+0.5b)、下盘 ÷(1−0.5b) 后归一，b=0 时相消；'
       + '<b>盘口信号</b>＝平手 / 平半 / 半球 各 2 条 + 升盘降水 / 降盘升水 2 条，权重求和＝net bias（正＝偏上盘）；'
       + '<b>凯利</b>＝(b×p−(1−p))÷b，b＝赔率−1，取半凯利、单场上限 10%。'
       + '<br><b>以上为多模型融合，仅供参考，不保证中奖</b>。<br>'
       + '这一档是模型推演，不是推荐，也不是投注建议。</div>';
 
-    return card('综合模型', BD, top + t + note + hb + kt + foot, null, 'report', 'md-fusion');
+    return card('综合模型', BD, top + t + note + wb + hb + kt + foot, null, 'report', 'md-fusion');
   }
 
   /* ---- ③ 比赛头部 ---- */
