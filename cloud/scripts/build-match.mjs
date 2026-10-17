@@ -2017,7 +2017,7 @@ ${DEVICE_GATE_BODY}
 
   /* ② 埃罗的积分差
      ------------------------------------------------------------
-     【第一优先 · 真实积分】本季联赛积分榜里两队的积分差（jc-standings.js）。
+     【第一优先 · 真实积分】本季联赛积分榜里两队的积分差（构建时已算好，挂在 g.std 上）。
      【第二优先 · 名次折算】查不到真实积分时退回「名次差 × 联赛系数」：
         五大联赛（英超/西甲/意甲/德甲/法甲）每名约 2.5 分，其他联赛约 1.5 分。
         原来一律 × 2，五大联赛偏低、小联赛偏高 —— 这里按联赛分开。
@@ -2866,7 +2866,8 @@ const HARD_WORDS = ['500.com', '500网', '球探', 'titan007', '7m', '雷速', '
   /* ⚠️ 2026-10-17 加：成交额那一档的数据是交易所的成交记录，站名 / 产品名一样算"来源痕迹"。
      页面上的模块名因此用中性的「资金分布」，正文里一个「必发 / Betfair」都不许有。 */
   '必发', 'Betfair',
-  'jc-data.js', 'jc-history.js', 'jc-divergence.js', 'jc-titan.js', 'jc-bifa.js', 'history.js',
+  'jc-data.js', 'jc-history.js', 'jc-divergence.js', 'jc-titan.js', 'jc-bifa.js', 'jc-standings.js',
+  'liansai', 'history.js',
   'http://', 'https://'];
 const hardHit = HARD_WORDS.filter((w) => html.toLowerCase().includes(w.toLowerCase()));
 if (hardHit.length) {
