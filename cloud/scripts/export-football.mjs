@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -2923,9 +2923,12 @@ const html = `<!DOCTYPE html>
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
 <title>春风十万里 · 竞彩场次</title>
-<meta name="description" content="春风彩票 · 竞彩场次：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<meta name="description" content="春风十万里 · 竞彩场次：免费提供竞彩足球推单、比分与战绩统计等服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
-${metaItemprop('春风彩票 · 竞彩场次', '体彩竞彩场次整理：在售场次、比分与胜平负参考，每日更新。仅供娱乐参考，不构成购彩建议。')}
+<!-- 微信 / QQ 兼容标签（用户 2026-10-18 给的文案；image 必须是绝对地址，用站点根的 share.png） -->
+<meta itemprop="name" content="春风十万里 - 竞彩足球推荐" />
+<meta itemprop="description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
+<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -2950,10 +2953,7 @@ ${PWA_HEAD}
 <meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/football.html" />
 <meta property="og:locale" content="zh_CN" />
-<!-- 微信 / QQ 专用的兼容标签（作用同上） -->
-<meta itemprop="name" content="春风十万里 - 竞彩足球推荐" />
-<meta itemprop="description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
-<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
+<!-- 微信 / QQ 兼容标签已挪到 <head> 靠前位置（和 title 在一起），这里不重复 -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="春风十万里 - 竞彩足球推荐" />
 <meta name="twitter:description" content="免费提供竞彩足球推单、比分与战绩统计等服务。" />
