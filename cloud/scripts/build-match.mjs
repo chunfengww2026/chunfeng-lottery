@@ -1434,6 +1434,13 @@ ${DEVICE_GATE_BODY}
     if (Math.abs(n) < 0.05) n = 0;
     return (n > 0 ? '+' : '') + n.toFixed(1);
   }
+  /* 水位差要两位小数（0.90 → 0.95 是 +0.05，一位小数会被四舍五入成 +0.0） */
+  function sgn2(v) {
+    var n = num(v);
+    if (n === null) return '—';
+    if (Math.abs(n) < 0.005) n = 0;
+    return (n > 0 ? '+' : '') + n.toFixed(2);
+  }
 
   function coldCalc(g) {
     var o = coldOdds(g), rk = coldRanks(g), as = coldAsian(g);
@@ -1505,16 +1512,20 @@ ${DEVICE_GATE_BODY}
       }
     }
     return { type: type, rule: rule, msg: msg, diff: diff, why: why, checks: checks,
+             idx: first,
+             badge: first >= 0 ? ((['①', '②', '③'][first]) + ' ' + rule) : '',
              o: o, rk: rk, as: as };
   }
 
   function renderCold(g) {
     var c = coldCalc(g);
     var on = c.type === 'warning';
-    var bd = on ? '<span class="md-badge warn">已触发</span>' : '<span class="md-badge">未触发</span>';
+    var bd = on
+      ? '<span class="md-badge warn">' + esc0(c.badge) + '</span>'
+      : '<span class="md-badge">三条都没触发</span>';
     var head = '<div class="md-cold-box">'
       + '<div class="md-cold-msg"><span class="md-cold-tag">'
-      + (on ? esc0(c.rule) : '正路') + '</span>' + esc0(c.msg) + '</div>'
+      + (on ? '已触发' : '正路') + '</span>' + esc0(c.msg) + '</div>'
       + '<div class="md-cold-why">' + c.why + '</div>'
       + '</div>';
     var t = '<table class="md-tbl"><thead><tr>'
@@ -1584,16 +1595,21 @@ ${DEVICE_GATE_BODY}
   function renderDiff(g) {
     var c = coldCalc(g);
     var d = diffCalc(g);
-    var body = '<div class="md-diff-quote"><div class="lb">口诀判词</div>'
+    var body = '<div class="md-diff-quote"><div class="lb">口诀判词（固定句）</div>'
       + '<div class="tx">' + esc0(c.diff) + '</div></div>';
 
     if (d.rowHome) {
       var dh = d.rowHome.d, da = d.rowAway.d;
+      var pdraw = d.m ? d.m.p[1] : null;
       body += '<div class="md-diff-top">'
         + '<span class="k">主队侧差</span><b>' + sgn1(dh) + '</b><span class="u">个百分点</span>'
         + '<span class="jd">欧赔主胜 <b>' + d.rowHome.eu.toFixed(1) + '%</b> − 亚盘主队侧 <b>'
         + d.rowHome.as.toFixed(1) + '%</b> = <em>' + sgn1(dh) + ' 个百分点 → ' + diffJudge(dh)
-        + '</em>；客队侧差 ' + sgn1(da) + ' 个百分点 → ' + diffJudge(da) + '。</span>'
+        + '</em>。正数＝欧赔比亚盘更看好主队（欧赔热、亚盘没跟到位），负数＝亚盘比欧赔更看好主队 —— '
+        + '只报方向和大小，不推断谁在诱导。<br>'
+        + '客队侧差 <b>' + sgn1(da) + '</b> 是镜像，不用单独读：主队侧差 + 客队侧差 = <b>' + sgn1(-pdraw)
+        + '</b>，正好等于 −平局隐含 ' + pdraw.toFixed(1) + '%（恒等式，不是巧合）—— '
+        + '亚盘只有上/下两盘（合计 100%），欧赔三项里还有平局那一份。</span>'
         + '</div>';
       body += '<table class="md-tbl"><thead><tr><th style="width:24%">方向</th>'
         + '<th style="width:26%">欧赔隐含</th><th style="width:26%">亚盘推算</th><th style="width:24%">差</th>'
@@ -1646,7 +1662,7 @@ ${DEVICE_GATE_BODY}
       if (as.openUp !== null && as.uw !== null) {
         wRow = as.openUp.toFixed(2) + ' → ' + as.uw.toFixed(2);
         wDiff = as.uw - as.openUp;
-        wD = sgn1(wDiff);
+        wD = sgn2(wDiff);
       } else if (as.uw !== null) {
         wRow = as.uw.toFixed(2);
       }
@@ -1661,7 +1677,8 @@ ${DEVICE_GATE_BODY}
       + '背离分档：差 &lt; 3 个百分点记「基本一致」，3~6 记「轻微背离」，≥ 6 记「明显背离」（本页口径，只用于给背离分档）。<br>'
       + '⚠️ 两者不是同一件事：欧赔的「主胜」是<b>赢球</b>概率，亚盘的主队侧是<b>赢盘</b>概率'
       + '（含走盘退款、也没有平局这一项）—— 所以这个差只作横向参照，不等于哪一边算错了。'
-      + '这一块只描述两个盘口之间的差，是统计描述，不是预测、不是推荐。<br>'
+      + '这一块只描述两个盘口之间的差，是统计描述，不是预测、不是推荐。'
+      + '口诀判词是按命中那一条给的<b>固定句子</b>，本场的实测数字在上面 —— 两者对不上时以数字为准，不以判词为准。<br>'
       + COLD_NOTE + '</div>';
 
     return card('📊 差异分析', '<span class="md-badge blue">两盘对照</span>', body, null, 'report sports', 'md-diff');
@@ -1924,6 +1941,26 @@ if (!html.includes('md-money-row')) problems.push('输出里找不到资金分�
 if (!html.includes('本场暂无成交量数据')) problems.push('输出里找不到资金分布的如实占位文案「本场暂无成交量数据」');
 if (BIFA_GAMES && !html.includes('总成交')) problems.push('输出里找不到资金分布的「总成交」（成交额没接上）');
 
+/* 【🔥 爆冷预警 · 📊 差异分析】两块必须始终在页面上（每场都出：缺数据也给如实的「无法判」）。
+   口诀阈值 / 判词 / 底部标注 任何一个丢了都会变成"静默失效"（页面照旧能开，但那句话没了）
+   → 所以这里逐个断言，命中就 exit 1。 */
+if (!html.includes('爆冷预警')) problems.push('输出里找不到「爆冷预警」这一档');
+if (!html.includes('差异分析')) problems.push('输出里找不到「差异分析」这一档');
+if (!html.includes('md-cold-on') || !html.includes('md-cold-off')) {
+  problems.push('输出里找不到爆冷预警的触发/未触发框样式（.md-cold-on / .md-cold-off 丢了）');
+}
+if (!html.includes('md-diff-line') || !html.includes('md-diff-top')) {
+  problems.push('输出里找不到差异分析的数字行/大字样式（.md-diff-line / .md-diff-top 丢了）');
+}
+if (!html.includes('民间口诀算法自动推演，仅供参考')) {
+  problems.push('输出里找不到「以上为民间口诀算法自动推演，仅供参考」这句标注');
+}
+if (!html.includes('暂无明显爆冷迹象')) problems.push('输出里找不到未触发时的判词「暂无明显爆冷迹象」');
+if (!html.includes('大热必死') || !html.includes('强强对话') || !html.includes('哀兵必胜')) {
+  problems.push('输出里找不到三条口诀的判词名（大热必死 / 强强对话 / 哀兵必胜）');
+}
+if (!html.includes('亚盘推算')) problems.push('输出里找不到差异分析的「亚盘推算」（两个概率的差没画出来）');
+
 /* ============================================================
    【留痕断言 · 硬性条件】页面上不许出现任何"数据是从哪儿来的"
    ------------------------------------------------------------
@@ -1995,6 +2032,8 @@ console.log('   欧赔对比：' + (TITAN_GAMES
 console.log('   资金分布：' + (BIFA_GAMES
   ? Object.keys(BIFA_GAMES).length + ' 场有成交额（其余场次显示「本场暂无成交量数据」，绝不写 0）'
   : '⚠️ 没有 jc-bifa.js → 这一档全部显示「本场暂无成交量数据」（不会报错）'));
+console.log('   爆冷预警 / 差异分析：每场都出（口诀阈值 1.40 / 3.50 / 4.00 原样保留，触发条件用本页真实欧赔 / 排名 / 亚盘水位；'
+  + '归档场次没有排名 → 口诀 ②③ 如实写「无法判」）');
 console.log('   ✅ 留痕断言：页面里没有任何站名 / 域名 / 接口 / 数据文件名（可见文本也扫过了）');
 console.log('      ⚠️ 硬词黑名单已含「必发」「Betfair」—— 成交额那一档的站名 / 产品名同样不许出现');
 console.log('   入口：比赛详情.html?c=周五002');
