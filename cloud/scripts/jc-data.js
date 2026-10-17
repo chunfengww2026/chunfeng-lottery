@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 14:03 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 14:32 */
 const JC_DATA = {
- "updated": "2026-10-17 14:03",
+ "updated": "2026-10-17 14:32",
  "stat": {
   "total": 63,
-  "upcoming": 63,
-  "live": 0,
+  "upcoming": 61,
+  "live": 2,
   "finished": 0,
-  "withScore": 0,
+  "withScore": 2,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -36,7 +36,10 @@ const JC_DATA = {
     "name": "珀斯",
     "rank": 7
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -46,9 +49,9 @@ const JC_DATA = {
       "away": 0.9
      },
      "live": {
-      "home": 0.97,
+      "home": 0.95,
       "line": "半球",
-      "away": 0.82
+      "away": 0.85
      }
     },
     "europe": {
@@ -70,9 +73,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.85,
+      "line": 0.82,
       "over": 2.5,
-      "under": 0.95
+      "under": 0.97
      }
     }
    },
@@ -95,21 +98,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.5,
     "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.82,
+    "upWater": 0.95,
+    "downWater": 0.85,
     "openHandicap": -0.75,
     "openUpWater": 0.9,
     "openDownWater": 0.9,
-    "totalWater": 1.79,
-    "theoryUpPercent": "45.81",
-    "theoryDownPercent": "54.19",
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
     "canWater": false,
     "handicapChange": {
      "type": "升盘升水",
      "initHandicap": -0.75,
      "nowHandicap": -0.5,
      "initUpWater": 0.9,
-     "nowUpWater": 0.97,
+     "nowUpWater": 0.95,
      "initLine": "半球/一球",
      "nowLine": "半球"
     },
@@ -118,9 +121,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1419051",
@@ -345,7 +351,10 @@ const JC_DATA = {
     "name": "长崎航海",
     "rank": 14
    },
-   "score": null,
+   "score": {
+    "home": 2,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -379,9 +388,9 @@ const JC_DATA = {
       "under": 0.95
      },
      "live": {
-      "line": 0.9,
+      "line": 0.87,
       "over": 2.5,
-      "under": 0.9
+      "under": 0.92
      }
     }
    },
@@ -427,9 +436,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 2,
+    "away": 0
+   }
   },
   {
    "gid": "1373174",
@@ -885,11 +897,11 @@ const JC_DATA = {
    "handicap": null,
    "home": {
     "name": "中央海岸",
-    "rank": 4
+    "rank": 5
    },
    "away": {
     "name": "纽喷气机",
-    "rank": 5
+    "rank": 6
    },
    "score": null,
    "statusText": "- ",
@@ -1403,9 +1415,9 @@ const JC_DATA = {
       "away": 2.55
      },
      "live": {
-      "home": 2.63,
-      "draw": 2.8,
-      "away": 2.75
+      "home": 2.5,
+      "draw": 2.88,
+      "away": 2.9
      }
     },
     "overunder": {
@@ -1424,14 +1436,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 34.5,
+    "confidence": 36.6,
     "prob": {
-     "home": 34.5,
-     "draw": 32.4,
-     "away": 33
+     "home": 36.6,
+     "draw": 31.8,
+     "away": 31.6
     },
     "clear": false,
-    "margin": 10.1,
+    "margin": 9.2,
     "rqLine": "平手",
     "type": "unbeaten"
    },
@@ -1957,9 +1969,9 @@ const JC_DATA = {
       "away": 3.6
      },
      "live": {
-      "home": 1.65,
-      "draw": 3.8,
-      "away": 5
+      "home": 1.7,
+      "draw": 3.75,
+      "away": 4.75
      }
     },
     "overunder": {
@@ -1978,14 +1990,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 56.7,
+    "confidence": 55.2,
     "prob": {
-     "home": 56.7,
-     "draw": 24.6,
-     "away": 18.7
+     "home": 55.2,
+     "draw": 25,
+     "away": 19.8
     },
     "clear": true,
-    "margin": 6.9,
+    "margin": 6.5,
     "rqLine": "一球",
     "type": "three"
    },
