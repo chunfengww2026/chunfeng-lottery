@@ -59,12 +59,49 @@ const FB_JS = path.join(ROOT, 'football.js');
    asian-index.js 是代码，必须从脚本所在目录读（夹具目录里没有它）。 */
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 
-/* 【已完场只留前后 24 小时】用户要求：
-     「足球信息记录前后24小时内的，超过24小时内的比赛就不要了」
-   原来是「最多 200 场」，会越积越多、翻出好几天前的比赛。
-   现在改成：只保留开赛时间在 [现在-24h, 现在+24h] 内的记录。 */
-const HIST_KEEP_HOURS = 72;
-const HIST_MAX = 200;   /* 兜底上限：万一时间解析不出来，也不让它无限增长 */
+/* ============================================================
+   【已完场的时间规则】用户要求（2026-10-17）：
+     「比赛24小时后抓取 + 竞彩对外开售的」（原话）
+     ⇒ 页面上「已完场」只保留【比赛结束后 24 小时内】的场次。
+
+   三层分别怎么处理（本文件负责【抓取层】和【归档层】）：
+     · 显示层：export-football.mjs —— 超过 24 小时的已完场不出页面
+     · 抓取层：本文件 —— 超过 24 小时的不再抓/不再更新它的比分
+                        （见下面的 finishedExpired，主流程和补比分两处都拦）
+     · 归档层：jc-history.js 继续保留 72 小时 —— 推荐串 / 完场战绩要和
+               历史比对，归档清太干净就没得比了；页面那边按 24 小时筛，
+               所以用户看不到更老的场次。
+   ⚠️ 显示层的 24 小时常量在 export-football.mjs 的 FIN_KEEP_HOURS，
+      两边必须是同一个数，改一边要一起改。
+   ============================================================ */
+const HIST_KEEP_HOURS = 72;   /* 归档保留时长（比显示窗口长，理由见上） */
+const HIST_MAX = 200;         /* 兜底上限：万一时间解析不出来，也不让它无限增长 */
+
+/* 【规则一 · 已完场只留 24 小时】抓取层的判定
+   一场球从开赛到终场按 2 小时估（90 分钟 + 中场 + 补时），
+   所以「比赛结束」≈ 开赛时间 + 2 小时；离「结束」超过 24 小时
+   就不再拿新比分去更新它、也不再写进在售数据。 */
+const FIN_KEEP_HOURS = 24;
+const MATCH_LEN_HOURS = 2;
+
+/** 'YYYY-MM-DD HH:mm' → 毫秒（认不出来 → NaN） */
+function kickoffMs(t) {
+  const m = /(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(String(t || ''));
+  if (!m) return NaN;
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
+}
+/** 估算的终场时刻（开赛 + 2 小时）；认不出时间 → NaN */
+function matchEndMs(t) {
+  const k = kickoffMs(t);
+  return isNaN(k) ? NaN : k + MATCH_LEN_HOURS * 3600 * 1000;
+}
+/** 这场【比赛结束】是不是已经超过 24 小时（认不出时间 → false：宁多勿空） */
+function finishedExpired(t) {
+  const e = matchEndMs(t);
+  if (isNaN(e)) return false;
+  return Date.now() - e > FIN_KEEP_HOURS * 3600 * 1000;
+}
+
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
 
@@ -362,9 +399,25 @@ async function fetchOfficialSp() {
 
     const v = (j && j.value) || {};
     const list = [];
+    /* 【规则二 · 官方对外开售名单】
+       这个接口返回的整份 matchInfoList 就是「体彩竞彩官方对外开售」的比赛
+       —— 不管那一场有没有已公布的 SP，只要在名单里就是官方开售。
+       所以下面两样【有没有 SP 都要收】：
+         codes = 官方场次编号（周六001 这种，和在售列表同一个写法）
+         teams = 主客队名（编号对不上时兜底，比如两边缩写不一样）
+       jc-data.js 只写这份名单里的比赛（已完场的例外，见主流程）。 */
+    const codes = [];
+    const teams = [];
     for (const grp of (v.matchInfoList || [])) {
       for (const m of ((grp && grp.subMatchList) || [])) {
         if (!m) continue;
+
+        const numStr = String(m.matchNumStr || '').trim();
+        if (numStr) codes.push(numStr);
+        const tHome = String(m.homeTeamAbbName || m.homeTeamAllName || '');
+        const tAway = String(m.awayTeamAbbName || m.awayTeamAllName || '');
+        if (tHome && tAway) teams.push({ home: tHome, away: tAway });
+
         const H = m.had || {};
         const HH = m.hhad || {};
         const had = (spNum(H.h) || spNum(H.d) || spNum(H.a))
@@ -400,9 +453,9 @@ async function fetchOfficialSp() {
         });
       }
     }
-    if (!list.length) return { ok: false, error: '接口里没有带 SP 的比赛' };
+    if (!list.length) return { ok: false, error: '接口里没有带 SP 的比赛', codes, teams };
     return {
-      ok: true, list,
+      ok: true, list, codes, teams,
       officialUpdate: String(v.lastUpdateTime || ''),
       inSale: Number.isFinite(Number(v.totalCount)) ? Number(v.totalCount) : null
     };
@@ -501,6 +554,46 @@ function calcReco(odds) {
 }
 
 /* ============================================================
+   3-1. 状态判定：未开赛 / 进行中 / 已完场（+ 比分）
+   ------------------------------------------------------------
+   抽成函数而不是留在主循环里，是因为【规则一 / 规则二 的过滤必须在
+   抓赔率之前做决定】，而过滤要用到状态：
+     · 已完场的 → 按 24 小时窗口算（规则一）
+     · 没完场的 → 必须出现在官方开售名单里（规则二）
+   判定逻辑和原来逐字一致，只是搬了个位置：
+     ① 245qq 三种列表（未开赛/进行中/完场）说是什么就是什么
+     ② GS=20 → 完场；GS 又不是 1/0 → 进行中
+     ③ 两边都有比分 且 开赛 + 2.5 小时已过 → 完场
+        （修「比赛早打完了还显示进行中」，只往 finished 方向纠正）
+   ============================================================ */
+function resolveStatus(g, s) {
+  let status = 'upcoming';
+  let minute = 0;
+  let hs = g.score ? g.score.home : null;
+  let as_ = g.score ? g.score.away : null;
+
+  if (s) {
+    status = s.kind;
+    minute = s.minute || 0;
+    if (s.hasScore) { hs = s.home; as_ = s.away; }
+  } else if (g.score) {
+    status = 'live';
+  }
+
+  if (s && s.gs === 20) status = 'finished';
+  else if (s && s.gs && s.gs !== 1 && s.gs !== 0) status = 'live';
+
+  if (hs !== null && hs !== undefined && as_ !== null && as_ !== undefined && status !== 'finished') {
+    /* 开赛时间字段在不同数据源里名字不同，挨个试 */
+    const rawTime = g.time || g.matchTime || g.startTime || g.beginTime || g.kickoff || '';
+    const st = kickoffMs(rawTime);
+    if (!isNaN(st) && (Date.now() - st) > 2.5 * 3600 * 1000) status = 'finished';
+  }
+
+  return { status, minute, hs, away: as_ };
+}
+
+/* ============================================================
    3b. 归档：把「打完的比赛」存进 jc-history.js
    ------------------------------------------------------------
    规则：
@@ -537,6 +630,10 @@ function archiveStep(oldJc, newJc, stamp) {
   const retried = oldList.map((rec) => {
     if (rec.score && rec.result) return rec;         /* 已有比分/结果 → 不动 */
     if (!rec.time || !rec.home || !rec.away) return rec;
+    /* 【规则一 · 抓取层】比赛结束超过 24 小时的，不再回补 / 不再更新它的比分：
+       归档记录照留（推荐串要和历史比对），但比分冻结在第一次归档时那一份，
+       不再拿后来的数据去改写它。 */
+    if (finishedExpired(rec.time)) return rec;
 
     /* 做成一场比赛的形状，直接复用归档模块的匹配（同一套别名/青年队规则） */
     const game = {
@@ -702,6 +799,64 @@ async function main() {
     });
   }
 
+  /* ============================================================
+     【规则一 + 规则二】先过滤，再抓赔率
+     ------------------------------------------------------------
+     规则二（只留竞彩官方对外开售的）：
+       在售列表里【还没完场】的场次，必须出现在体彩官网的官方在售名单里
+       （名单就是上面那一次官方计算器请求拿到的，不额外发请求）。
+       不在名单里的 → 不抓、不写、不显示。
+     规则一（已完场只留 24 小时）：
+       比赛结束（开赛 + 2 小时估算）超过 24 小时的 → 不再抓它的赔率/比分，
+       也不再写进 jc-data.js。归档（jc-history.js）照留，见文件头说明。
+     ⚠️ 兜底①：官方名单拿不到（云端被拒 / HTTP 错 / 空名单）
+        → OFFICIAL_GATE=false → 完全不过滤，照 500 的列表出页面。
+     ⚠️ 兜底②：万一过滤完一场不剩 → 本次【放弃过滤】，按原列表出页面。
+        两条兜底都是为了「绝不写空数据 / 绝不让页面变空」。
+     ============================================================ */
+  const OFFICIAL_CODES = new Set((spTry.codes || []).filter(Boolean));
+  const OFFICIAL_TEAMS = new Set((spTry.teams || []).map((t) => teamKey(t.home, t.away)).filter(Boolean));
+  const OFFICIAL_GATE = OFFICIAL_CODES.size > 0;
+
+  /** 这场在不在官方开售名单里（编号优先，队名兜底；没名单 → 一律算通过） */
+  const isOfficialOnSale = (g) => {
+    if (!OFFICIAL_GATE) return true;
+    if (g.code && OFFICIAL_CODES.has(g.code)) return true;
+    return OFFICIAL_TEAMS.has(teamKey(g.home.name, g.away.name));
+  };
+
+  const statusByGid = new Map();
+  const droppedNotOnSale = [];
+  const droppedOldFinished = [];
+  let workList = [];
+  for (const g of list) {
+    const k = String(g.gid);
+    const st = resolveStatus(g, scores.get(k));
+    statusByGid.set(k, st);
+    /* 规则二：没完场的必须官方开售（已完场的走规则一，官方名单里已经没有它们了） */
+    if (st.status !== 'finished' && !isOfficialOnSale(g)) { droppedNotOnSale.push(g); continue; }
+    /* 规则一：比赛结束超过 24 小时的已完场 → 不再抓、不再更新、不再写 */
+    if (st.status === 'finished' && finishedExpired(g.time)) { droppedOldFinished.push(g); continue; }
+    workList.push(g);
+  }
+  if (!OFFICIAL_GATE) {
+    log('  ⚠️ 拿不到官方在售名单 → 本次【不做官方过滤】（兜底：照原列表出页面）');
+  }
+  if (!workList.length) {
+    log('  ⚠️ 过滤后一场不剩 → 本次【放弃过滤】，按原列表出页面（绝不写空数据）');
+    workList = list.slice();
+    droppedNotOnSale.length = 0;
+    droppedOldFinished.length = 0;
+  }
+  if (droppedNotOnSale.length) {
+    log(`  🚫 非官方开售 ${droppedNotOnSale.length} 场（不抓/不写/不显示）：` +
+      droppedNotOnSale.map((g) => `${g.code} ${g.home.name}vs${g.away.name}`).join(' · '));
+  }
+  if (droppedOldFinished.length) {
+    log(`  ⏱ 已完场超 ${FIN_KEEP_HOURS} 小时 ${droppedOldFinished.length} 场（不再更新比分、不写进在售）：` +
+      droppedOldFinished.map((g) => `${g.code} ${g.home.name}vs${g.away.name}`).join(' · '));
+  }
+
   log('\n【3/3】逐场抓赔率并合并比分');
   /* 亚指综合换算（算一次就够，整个循环共用） */
   const AI = loadAsianIndex();
@@ -711,7 +866,7 @@ async function main() {
   let withScore = 0;
   let withAsian = 0;
 
-  for (const g of list) {
+  for (const g of workList) {
     let odds = null;
     if (g.fid) {
       odds = await fetchOdds(g.fid);
@@ -727,45 +882,12 @@ async function main() {
     const asianIndex = AI ? AI.buildAsianIndex({ handicap: g.handicap, odds }) : null;
     if (asianIndex) withAsian++;
 
-    /* ---- 合并实时比分 ---- */
-    const s = scores.get(String(g.gid));
-    let status = 'upcoming';
-    let minute = 0;
-    let hs = g.score ? g.score.home : null;
-    let as_ = g.score ? g.score.away : null;
-
-    if (s) {
-      status = s.kind;
-      minute = s.minute || 0;
-      if (s.hasScore) { hs = s.home; as_ = s.away; }
-    } else if (g.score) {
-      status = 'live';
-    }
-
-    if (s && s.gs === 20) status = 'finished';
-    else if (s && s.gs && s.gs !== 1 && s.gs !== 0) status = 'live';
-
-    /* 【按时间兜底判断】—— 修「比赛早打完了还显示进行中」
-       实测问题：2026-10-14 18:00 开赛、比分 3-0 已定，
-                 到 10-15 00:35 页面仍标「进行中」。
-       原因：245qq 有时把已经结束的比赛继续留在 GetRunballList（进行中）里，
-             所以照抄它的 kind 就会一直是 live。
-       规则：只要【两边都有比分】且【开赛时间 + 2.5 小时已经过去】→ 判为完场。
-             正常比赛 90 分钟 + 中场 15 分 + 补时 ≈ 2 小时，留 2.5 小时余量；
-             这样不会把正在进行（含加时/点球）的比赛误判成完场。
-       注意：这条只往 'finished' 方向纠正，不会把完场改回进行中。 */
-    if (hs !== null && hs !== undefined && as_ !== null && as_ !== undefined && status !== 'finished') {
-      /* 开赛时间字段在不同数据源里名字不同，挨个试 */
-      const rawTime = g.time || g.matchTime || g.startTime || g.beginTime || g.kickoff || '';
-      let st = NaN;
-      if (rawTime) {
-        st = new Date(String(rawTime).replace(/-/g, '/')).getTime();
-        if (isNaN(st)) st = new Date(String(rawTime)).getTime();
-      }
-      if (!isNaN(st) && (Date.now() - st) > 2.5 * 3600 * 1000) {
-        status = 'finished';
-      }
-    }
+    /* ---- 状态与比分：用上面过滤时算好的那份（同一个 resolveStatus，不会两套口径） ---- */
+    const stt = statusByGid.get(String(g.gid)) || { status: 'upcoming', minute: 0, hs: null, away: null };
+    const status = stt.status;
+    const minute = stt.minute;
+    const hs = stt.hs;
+    const as_ = stt.away;
 
     if (hs !== null && hs !== undefined) withScore++;
 
@@ -816,7 +938,23 @@ async function main() {
     upcoming: games.filter((g) => g.status === 'upcoming').length,
     live: games.filter((g) => g.status === 'live').length,
     finished: games.filter((g) => g.status === 'finished').length,
-    withScore
+    withScore,
+    /* 【过滤留痕】这次两条规则各挡掉几场 —— 数据里存一份，排查时不用翻日志 */
+    droppedNotOnSale: droppedNotOnSale.length,
+    droppedOldFinished: droppedOldFinished.length
+  };
+
+  /* ---------- 本次用了哪两条筛选规则（写进 jc-data.js 顶层 filter） ----------
+     officialGate：官方开售名单这次到底有没有拿到（false = 兜底没过滤）
+     dropped*    ：两条规则各挡掉几场
+     finishedKeepHours：已完场保留多少小时（和 export-football.mjs 的同一个数） */
+  const filterBlock = {
+    officialGate: OFFICIAL_GATE,
+    officialCodes: OFFICIAL_CODES.size,
+    droppedNotOnSale: droppedNotOnSale.length,
+    droppedOldFinished: droppedOldFinished.length,
+    finishedKeepHours: FIN_KEEP_HOURS,
+    matchLenHours: MATCH_LEN_HOURS
   };
 
   /* ---------- 官方竞彩 SP 汇总块（写进 jc-data.js 顶层 sp） ----------
@@ -853,7 +991,7 @@ async function main() {
   }
 
   const js = `/* 自动生成，请勿手动编辑 · ${stamp} */\n` +
-    `const JC_DATA = ${JSON.stringify({ updated: stamp, stat, games, sp: spBlock }, null, 1)};\n`;
+    `const JC_DATA = ${JSON.stringify({ updated: stamp, stat, filter: filterBlock, games, sp: spBlock }, null, 1)};\n`;
 
   fs.writeFileSync(OUT, js, 'utf8');
 
@@ -861,6 +999,9 @@ async function main() {
   log(`   ${stat.total} 场在售 · ${okOdds} 场有赔率 · ${withScore} 场有比分 · ${withAsian} 场有亚盘`);
   log(`   SP（模拟计算器）：${spBlock.source} · ${spBlock.list.length} 场 · ${spBlock.from}`);
   log(`   未开赛 ${stat.upcoming} · 进行中 ${stat.live} · 完场 ${stat.finished}`);
+  log(`   筛选：官方开售名单 ${OFFICIAL_GATE ? `可用（${OFFICIAL_CODES.size} 个编号）` : '不可用 → 未过滤（兜底）'}` +
+      ` · 非官方开售挡掉 ${filterBlock.droppedNotOnSale} 场` +
+      ` · 已完场超 ${FIN_KEEP_HOURS} 小时挡掉 ${filterBlock.droppedOldFinished} 场`);
   log(`   亚指综合换算：${withAsian} 场算出 asianIndex` +
       `（其中 ${games.filter((g) => g.asianIndex && g.asianIndex.analysis).length} 场有资金占比 → 显示热度推演）`);
   log(`   【如实说明】上盘真实资金占比 fundUp 目前【没有数据源】，` +
