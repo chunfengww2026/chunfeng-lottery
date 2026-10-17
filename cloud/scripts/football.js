@@ -1010,7 +1010,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 08:30:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "博卡青年",
      "score": 2,
