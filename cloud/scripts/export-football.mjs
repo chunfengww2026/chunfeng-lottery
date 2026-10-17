@@ -27,6 +27,12 @@ import { fileURLToPath } from 'node:url';
 /* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs）
    ⚠️ 用相对路径 import：与 DSH_JC_ROOT（只改数据目录）无关，代码目录恒为本文件所在目录 */
 import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
+/* 【设备门 + PWA】共用模块（零 localStorage、零裸 button、文案不含任何出处）：
+     本机 / ?admin=1 / 手机平板 → 放行；电脑浏览器 / 电脑微信 → 拦截。
+   ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
+import {
+  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY
+} from './device-gate.mjs';
 
 /* 【自测用】DSH_JC_ROOT 可以把数据目录指到别处（用夹具验证页面，不碰真数据） */
 const ROOT = process.env.DSH_JC_ROOT
@@ -2809,8 +2815,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#0f1115" />
+${PWA_HEAD}
 <meta name="application-name" content="春风大奖" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="春风大奖" />
