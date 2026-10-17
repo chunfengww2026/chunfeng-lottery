@@ -3028,6 +3028,341 @@ const trendHtml = renderTrendFragment(
 console.log('\n  · 走势图（内联进「近 30 期走势 · 预选参考」折叠块，不是 iframe）：'
   + `8 彩种 × 近 ${TREND_PERIODS} 期 · ${(Buffer.byteLength(trendHtml, 'utf8') / 1024).toFixed(1)} KB`);
 
+/* ============================================================
+   【⛶ 走势图全屏】用户 2026-10-18：「给走势图加『⛶ 点击全屏』按钮」
+   ------------------------------------------------------------
+   只改本文件 —— build-trend.mjs 的 renderTrendFragment 一个字不动，
+   这里在【字符串层面】给内联片段补三样东西：
+     ① 根容器加 id="trendFullscreenContainer"（全屏对象 = 整个内联走势图）
+     ② 一段只属于这一块的样式（按钮 / 全屏容器 / 米杏色提示条）
+     ③ 一段 IIFE 脚本（挂按钮 + 全屏开关 + 横屏锁定 + fullscreenchange）
+   用户的三条铁律在这里落实：
+     · 不用裸 <button> → 按钮是 <div role="button" tabindex="0">，事件 addEventListener
+       （页面不变量：DOM 里的 button 标签 = 0）
+     · 不用 alert()（微信里不显示）→ 失败只 console + 页面内米杏色小条
+     · 横屏锁定很多浏览器不支持（iOS Safari 完全不支持）→ catch 掉，不打扰用户
+   ⚠️ 下面两段是模板字符串，页面里出现的就是它们的原样；
+      JS 里【故意不写反斜杠】——模板字符串会把 '\s' 吃成 's'，正则就废了，
+      所以类名增删全部用 split/join 手写，一个正则都不用。
+   ============================================================ */
+const TREND_FS_CSS = `
+/* ⛶ 走势图全屏（用户 2026-10-18）：
+   ① 按钮长在走势图工具栏那一行的右端（div role=button，裸 button 仍然 0）
+   ② 全屏容器 = 整个内联走势图 #trendFullscreenContainer
+   ③ 失败提示 = 页面内米杏色小条（微信里 alert 不显示） */
+.btn-fullscreen[data-tr-fsbtn] {
+  margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: #4a3a26;
+  background: #fdf6ea;
+  border: 1px solid #e8d7bd;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.btn-fullscreen[data-tr-fsbtn]:hover { border-color: #1a8c5a; color: #1a8c5a; }
+.btn-fullscreen[data-tr-fsbtn]:focus-visible { outline: 2px solid #1a8c5a; outline-offset: 2px; }
+
+/* 全屏容器：用户指定的那几条 —— 撑满屏幕、背景米杏色、可滚动 */
+#trendFullscreenContainer:fullscreen {
+  width: 100vw; height: 100vh; overflow: auto;
+  background: var(--ro-bg, #f7efe1);
+  padding: 10px; box-sizing: border-box;
+  border: 0; border-radius: 0; margin: 0;
+}
+/* 老 Safari 只认这个伪类（和上面那条分开写：合成一条会让整条失效） */
+#trendFullscreenContainer:-webkit-full-screen {
+  width: 100vw; height: 100vh; overflow: auto;
+  background: #f7efe1;
+  padding: 10px; box-sizing: border-box;
+  border: 0; border-radius: 0; margin: 0;
+}
+/* 页面内全屏兜底：iOS Safari / 微信里 requestFullscreen 压根不存在 */
+#trendFullscreenContainer.tr-fs-pseudo {
+  position: fixed; left: 0; top: 0; z-index: 2147482000;
+  width: 100vw; height: 100vh; overflow: auto;
+  background: #f7efe1;
+  padding: 10px; box-sizing: border-box;
+}
+html.tr-fs-lock, html.tr-fs-lock body { overflow: hidden !important; }
+
+/* 全屏里的排版：块撑满 → 表格自己占满剩下的高度，横竖都能滚，表头照旧吸顶 */
+#trendFullscreenContainer.tr-fs-on { display: flex; flex-direction: column; }
+#trendFullscreenContainer.tr-fs-on > #ro-trend-root { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+#trendFullscreenContainer.tr-fs-on .tr-tabs { flex: 0 0 auto; }
+#trendFullscreenContainer.tr-fs-on .tr-block:not([hidden]) { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; margin: 0; }
+#trendFullscreenContainer.tr-fs-on .tr-head,
+#trendFullscreenContainer.tr-fs-on .toolbar { flex: 0 0 auto; }
+#trendFullscreenContainer.tr-fs-on .tr-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
+/* 全屏里把不画图的东西让出去，屏幕全给表格 */
+#trendFullscreenContainer.tr-fs-on .ro-top,
+#trendFullscreenContainer.tr-fs-on .ro-status,
+#trendFullscreenContainer.tr-fs-on .ro-foot,
+#trendFullscreenContainer.tr-fs-on .tr-sub,
+#trendFullscreenContainer.tr-fs-on .tr-modehint,
+#trendFullscreenContainer.tr-fs-on .tr-note,
+#trendFullscreenContainer.tr-fs-on .tr-legend { display: none; }
+
+/* 米杏色提示条（只在失败/兜底时出现，2.6 秒自己收） */
+.tr-fs-tip {
+  position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+  z-index: 2147483000; box-sizing: border-box; max-width: calc(100vw - 32px);
+  padding: 9px 14px; border-radius: 12px;
+  font-size: 12.5px; font-weight: 600; line-height: 1.6; text-align: center;
+  color: #7a5c00; background: #fff6dd; border: 1px solid #ffe08a;
+  box-shadow: 0 6px 18px rgba(74, 58, 38, .18);
+  opacity: 0; transition: opacity .18s ease; pointer-events: none;
+}
+.tr-fs-tip.on { opacity: 1; }
+`;
+
+const TREND_FS_JS = `
+/* ⛶ 走势图全屏的脚本（内联片段后面的一段独立 IIFE）
+   · 按钮：<div class="btn-fullscreen" role="button" tabindex="0">（不是裸 button）
+   · 事件：addEventListener 挂在自己身上；触摸也自己处理
+     （走势图互动层在 touchend 里 preventDefault，会吃掉浏览器补发的 click，
+      只挂 click 的手机上会点不动 —— 这里 touchstart/touchend/click/keydown 都挂）
+   · 失败：console + 米杏色小条，绝不弹窗（微信里弹窗不显示）
+   · 横屏：screen.orientation.lock('landscape') 能锁就锁，锁不上 catch 掉、静默
+   · 零 localStorage、零内联 onclick */
+(function () {
+  if (typeof document === 'undefined' || !document.addEventListener) return;
+  var BOX_ID = 'trendFullscreenContainer';
+  var TOUCH_AT = 0;
+  var TIP_TIMER = 0;
+  var START_X = 0, START_Y = 0;
+
+  function box() { return document.getElementById(BOX_ID); }
+
+  /* 类名增删：不用正则（省得被模板字符串吃掉反斜杠） */
+  function hasCls(el, c) { return !!el && (' ' + (el.className || '') + ' ').indexOf(' ' + c + ' ') > -1; }
+  function addCls(el, c) { if (el && !hasCls(el, c)) el.className = (el.className ? el.className + ' ' : '') + c; }
+  function delCls(el, c) {
+    if (!el) return;
+    var parts = String(el.className || '').split(' ');
+    var out = [];
+    for (var i = 0; i < parts.length; i++) { if (parts[i] && parts[i] !== c) out.push(parts[i]); }
+    el.className = out.join(' ');
+  }
+
+  function fsEl() {
+    return document.fullscreenElement || document.webkitFullscreenElement ||
+      document.mozFullScreenElement || document.msFullscreenElement || null;
+  }
+
+  /* 米杏色小条：页面内提示（微信里不显示 alert，所以走这个） */
+  function tip(msg) {
+    var b = box(); if (!b) return;
+    var el = b.querySelector('.tr-fs-tip');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'tr-fs-tip';
+      el.setAttribute('role', 'status');
+      b.appendChild(el);
+    }
+    el.textContent = msg || '全屏没打开';
+    el.className = 'tr-fs-tip on';
+    if (TIP_TIMER) clearTimeout(TIP_TIMER);
+    TIP_TIMER = setTimeout(function () { el.className = 'tr-fs-tip'; }, 2600);
+  }
+
+  /* 横屏锁定：不支持的浏览器（iOS Safari 完全不支持）就当没这回事 */
+  function lockLandscape() {
+    try {
+      var so = window.screen && window.screen.orientation;
+      if (!so || typeof so.lock !== 'function') return;
+      var p = so.lock('landscape');
+      if (p && typeof p.then === 'function') p.then(null, function (e) { console.log('锁定横屏失败', e); });
+    } catch (e) { console.log('锁定横屏失败', e); }
+  }
+  function unlockOrientation() {
+    try {
+      var so = window.screen && window.screen.orientation;
+      if (so && typeof so.unlock === 'function') so.unlock();
+    } catch (e) { /* 解不了就算了 */ }
+  }
+
+  function paint() {
+    var b = box(); if (!b) return;
+    var on = !!fsEl() || hasCls(b, 'tr-fs-pseudo');
+    if (on) addCls(b, 'tr-fs-on'); else delCls(b, 'tr-fs-on');
+    var list = document.querySelectorAll('.btn-fullscreen');
+    for (var i = 0; i < list.length; i++) {
+      list[i].textContent = on ? '⛶ 退出全屏' : '⛶ 点击全屏';
+      list[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+  }
+
+  /* 横屏后表格可视宽度变了：补画一次走势连线，保证线还压准格子 */
+  function redrawSoon() {
+    try {
+      if (typeof window.__roTrendRedraw === 'function') window.setTimeout(window.__roTrendRedraw, 60);
+    } catch (e) {}
+  }
+
+  /* 页面内全屏（兜底）：真全屏不支持时也别让用户没得看 */
+  function pseudoFullscreen() {
+    var b = box(); if (!b) return;
+    addCls(b, 'tr-fs-pseudo');
+    if (document.documentElement) addCls(document.documentElement, 'tr-fs-lock');
+    paint();
+    tip('这个浏览器不支持全屏，已切成页面内全屏；请手动横屏查看');
+    redrawSoon();
+  }
+
+  function enter() {
+    var b = box(); if (!b) return;
+    if (b.requestFullscreen) {
+      var p = null;
+      try { p = b.requestFullscreen(); } catch (e) { console.log('无法进入全屏', e); pseudoFullscreen(); return; }
+      if (p && typeof p.then === 'function') {
+        p.then(function () { lockLandscape(); paint(); redrawSoon(); },
+               function (err) { console.log('无法进入全屏', err); pseudoFullscreen(); });
+      } else { lockLandscape(); paint(); redrawSoon(); }
+      return;
+    }
+    if (b.webkitRequestFullscreen) {
+      try { b.webkitRequestFullscreen(); } catch (e) { console.log('无法进入全屏', e); pseudoFullscreen(); return; }
+      lockLandscape(); paint(); redrawSoon();
+      return;
+    }
+    pseudoFullscreen();
+  }
+
+  function exit() {
+    var b = box();
+    unlockOrientation();
+    try {
+      if (fsEl()) {
+        var p = document.exitFullscreen ? document.exitFullscreen()
+          : (document.webkitExitFullscreen ? document.webkitExitFullscreen() : null);
+        if (p && typeof p.catch === 'function') p.catch(function (e) { console.log('退出全屏失败', e); });
+      }
+    } catch (e) { console.log('退出全屏失败', e); }
+    if (b) { delCls(b, 'tr-fs-pseudo'); delCls(b, 'tr-fs-on'); }
+    if (document.documentElement) delCls(document.documentElement, 'tr-fs-lock');
+    paint();
+  }
+
+  /* 用户给的开关（名字照抄）：没全屏就进，已全屏就退 */
+  window.toggleFullScreen = function () {
+    var b = box(); if (!b) return;
+    if (fsEl() || hasCls(b, 'tr-fs-pseudo')) exit(); else enter();
+  };
+
+  /* ESC / 手势退出全屏也要把样式和横屏锁收回（fullscreenchange 是唯一可靠时机） */
+  function onFsChange() {
+    var b = box();
+    if (!fsEl()) {
+      unlockOrientation();
+      if (b) { delCls(b, 'tr-fs-pseudo'); delCls(b, 'tr-fs-on'); }
+      if (document.documentElement) delCls(document.documentElement, 'tr-fs-lock');
+    }
+    paint();
+    if (fsEl()) redrawSoon();
+  }
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+  document.addEventListener('mozfullscreenchange', onFsChange);
+  document.addEventListener('MSFullscreenChange', onFsChange);
+
+  function bindBtn(btn) {
+    btn.addEventListener('touchstart', function (ev) {
+      var t = ev && ev.touches && ev.touches[0];
+      if (t) { START_X = t.clientX; START_Y = t.clientY; }
+    }, { passive: true });
+
+    /* 手指点：自己判位移（>8px 当滑动，不切全屏），自己 preventDefault 挡补发 click */
+    btn.addEventListener('touchend', function (ev) {
+      TOUCH_AT = Date.now ? Date.now() : 0;
+      var t = ev && ev.changedTouches && ev.changedTouches[0];
+      if (t && (Math.abs(t.clientX - START_X) > 8 || Math.abs(t.clientY - START_Y) > 8)) return;
+      if (ev && ev.cancelable && ev.preventDefault) ev.preventDefault();
+      window.toggleFullScreen();
+    });
+
+    btn.addEventListener('click', function (ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      if (TOUCH_AT && (Date.now ? Date.now() : 0) - TOUCH_AT < 800) return;
+      window.toggleFullScreen();
+    });
+
+    /* 键盘也能用（role=button + tabindex=0 的配套） */
+    btn.addEventListener('keydown', function (ev) {
+      var k = ev && ev.key;
+      if (k === 'Enter' || k === ' ' || k === 'Spacebar' ||
+          (ev && ev.keyCode === 13) || (ev && ev.keyCode === 32)) {
+        if (ev.preventDefault) ev.preventDefault();
+        window.toggleFullScreen();
+      }
+    });
+  }
+
+  function mount() {
+    var bars = document.querySelectorAll('[data-tr-toolbar]');
+    for (var i = 0; i < bars.length; i++) {
+      var bar = bars[i];
+      if (bar.querySelector('.btn-fullscreen')) continue;
+      var btn = document.createElement('div');
+      btn.className = 'btn-fullscreen';
+      btn.setAttribute('data-tr-fsbtn', '1');
+      btn.setAttribute('role', 'button');
+      btn.setAttribute('tabindex', '0');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('title', '全屏看走势图（再点一下退出，ESC 也能退）');
+      btn.textContent = '⛶ 点击全屏';
+      bindBtn(btn);
+      bar.appendChild(btn);
+    }
+    paint();
+  }
+
+  mount();
+})();
+`;
+
+function addTrendFullscreen(frag) {
+  let out = String(frag);
+  const anchor = '<div class="ro-trend-embed" data-tr-embed="1"';
+  if (out.indexOf(anchor) < 0) {
+    throw new Error('⛶ 全屏：走势图片段里找不到根容器，无法注入 id（build-trend.mjs 的输出变了？）');
+  }
+  out = out.replace(anchor, anchor + ' id="trendFullscreenContainer"');
+  out += '\n<style>\n' + TREND_FS_CSS + '\n</style>\n<script>\n' + TREND_FS_JS + '\n</script>\n';
+  const need = [
+    ['id="trendFullscreenContainer"', '全屏容器 id'],
+    ['btn-fullscreen', '按钮类名'],
+    ['window.toggleFullScreen = function', '开关函数'],
+    ['fullscreenchange', 'fullscreenchange 监听'],
+    ['data-tr-fsbtn', '按钮标记属性']
+  ];
+  for (const [k, label] of need) {
+    if (out.indexOf(k) < 0) throw new Error(`⛶ 全屏注入失败：缺 ${label}（${k}）`);
+  }
+  /* 铁律自检：不准往片段里塞裸 button / alert / 内联 onclick */
+  if (/<button/i.test(TREND_FS_CSS + TREND_FS_JS)) throw new Error('⛶ 全屏：注入内容里出现了裸 button 标签');
+  if (/\balert\s*\(/.test(TREND_FS_JS)) throw new Error('⛶ 全屏：注入内容里出现了 alert()');
+  if (/\bonclick\s*=/i.test(TREND_FS_CSS + TREND_FS_JS)) throw new Error('⛶ 全屏：注入内容里出现了内联 onclick');
+  return out;
+}
+const trendHtmlFull = addTrendFullscreen(trendHtml);
+console.log('  · 走势图全屏：每个彩种工具栏右端 1 颗「⛶ 点击全屏」· div role=button（裸 button 仍 0）'
+  + ` · 注入后 ${(Buffer.byteLength(trendHtmlFull, 'utf8') / 1024).toFixed(1)} KB`);
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6491,7 +6826,7 @@ ${sinaNextHtml()}
       <span class="ro-trend-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-trend-body">
-${trendHtml}
+${trendHtmlFull}
     </div>
   </details>
 
