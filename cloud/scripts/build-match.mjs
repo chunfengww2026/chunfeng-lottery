@@ -657,6 +657,7 @@ a { color: var(--ro-ok); text-decoration: none; }
 .m-calc,
 .m-jxp,
 .calc-row,
+.m-mq,
 .btn2,
 .md-head,
 .md-card,
@@ -702,6 +703,7 @@ a { color: var(--ro-ok); text-decoration: none; }
   font-weight: 800 !important;
   box-shadow: none !important;
 }
+/* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
 </style>
 <!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 设备门 + 一键桌面（device-gate.mjs）
      放在 head 收尾标签之前 → 电脑端第一帧就是隐藏态，不会先闪出内容。
