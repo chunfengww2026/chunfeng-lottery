@@ -2496,7 +2496,7 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    · 米杏色同系（#8a7a63 字 / #f0e2cc 虚线）、10.5px、右对齐 → 320px 也不会撑开
    · 单独成行（border-top 分隔），不挤标题行那一条 flex */
 .reco-sync {
-  font-size: 10.5px;
+  font-size: 11px;
   line-height: 1.6;
   color: #8a7a63;
   text-align: right;
@@ -4205,80 +4205,115 @@ ${JC_XYSP_VIEW}
 </script>
 <script>
 /* ============================================================
-   【推荐串红黑 · 每 30 秒重读一次】
+   【推荐 / 推荐历史结果 / 推荐单 · 每 30 秒拉一次线上最新数据】
    ------------------------------------------------------------
-   为什么能实时：5 分钟那一班跑完比分后会重建页面 + 重写下面的数据文件，
-   所以这里只要定期把新数据拿回来、原地换掉那两块就行。
-   ⚠️ 用 <script src> 而不是 fetch()：本机是 file:// 直接打开的，
-      fetch 会被 CORS 拦掉，而经典脚本加载在 file:// 下照样能读同目录文件。
+   用户 2026-10-18（截图）：这两块「没有实时更新吧」。
+   查完的结论（旧实现）：
+     · 「推荐」（在售 · 信心 >=58% · N 场 + 比赛列表）压根没人刷新 → 一直是构建时那份；
+     · 「推荐历史结果」只在另一段 60 秒的 fetch 里换过数字和列表，
+       「还有 N 组没打完」那行没人动，也看不出「到底在不在刷」。
+   现在合成【一个 30 秒的循环】刷三块（同一页、不重载）：
+     ① #recStatsBar  推荐单 红 / 黑 / 命中率
+     ② #jcRec        「推荐」在售场次（条数 + 每场比赛）
+     ③ #jcRecArch    「推荐历史结果」（红黑 · 命中率 · 还有几组没打完 · 往期列表 · 时间行）
+   ⚠️ 通道用 <script src="jc-reco-view.js?t=...">：
+      本机是 file:// 直接打开的，fetch 同目录文件会被 CORS 拦，经典脚本不受限；
+      线上是同一个文件（云端每班重建后发布到站点根）→ 本机 / 线上都能刷。
    ⚠️ 不用任何浏览器存储（localStorage / sessionStorage 一个都不用）——
-      上一份数据只放在这个闭包的变量里。
-   ⚠️ 拿不到 / 解析失败 / 时间戳没变 → 什么都不做，页面上还是构建时那份数据，
-      绝不显示空白、绝不填 0。
-   ⚠️ 只换 #jcRecStat / #jcRecArch 两块的 innerHTML，其它元素一律不碰
+      上一份数据只放在这个闭包的变量里，刷新页面全部回到默认。
+   ⚠️ 数据没变（updated 一样）就不动 DOM，只把那行「已同步 hh:mm:ss」重写一遍：
+      用户看得见在刷，又不会白闪。
+   ⚠️ 取不到 / 解析失败 → 什么都不做，页面保持构建时那份（绝不空白、绝不填 0）。
+   ⚠️ 只换这三块的内容，其它元素一律不碰
       （模拟计算、三个分段、晒票、免责声明都不受影响）。 */
 (function () {
   var VIEW = 'jc-reco-view.js';
   var POLL_MS = 30000;
+  /* 兜底：只有 jc-reco-view.js 完全取不到时，才去拉线上 /data/ 那份 JSON。
+     本机 file:// 会被 CORS 拦 → 静默跳过，页面不留空白。 */
+  var PAST_URL = 'data/recommend.json';
   var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
-  if (!bar) return;
-  var last = bar.getAttribute('data-reco-updated') || '';
+  var recBox = document.getElementById('jcRec');
+  var archBox = document.getElementById('jcRecArch');
+  var last = (bar && bar.getAttribute('data-reco-updated')) || '';
+  var pastBusy = false;
+  /* 首轮不把同一份内容重排一遍 */
+  if (archBox) archBox.__recoHtml = archBox.innerHTML;
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function hms() {
+    var d = new Date();
+    return pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+  }
+  /* 【看得见在刷】推荐历史结果底部那行小字（数据时间 + 本次同步的秒数） */
+  function syncLine(stamp) {
+    var el = document.getElementById('recoSync');
+    if (!el) return;
+    var t = String(stamp || '').split(' ').pop();
+    el.textContent = (t ? '数据更新 ' + t + ' · ' : '') + '已同步 ' + hms();
+  }
+
+  /* ②「推荐」在售：只换条数文案 + 每场的行；
+     summary / 提示 / <details> 的开合状态一律不动 */
+  function applyReco(v) {
+    if (!recBox || !v || !v.rec) return;
+    var cnt = recBox.querySelector('.m-reccount');
+    if (cnt && typeof v.rec.count === 'string' && cnt.textContent !== v.rec.count) {
+      cnt.textContent = v.rec.count;
+    }
+    if (typeof v.rec.html !== 'string' || recBox.__recoRows === v.rec.html) return;
+    var olds = recBox.querySelectorAll('.m-recrow, .m-recempty');
+    for (var i = 0; i < olds.length; i++) {
+      if (olds[i].parentNode) olds[i].parentNode.removeChild(olds[i]);
+    }
+    var tmp = document.createElement('div');
+    tmp.innerHTML = v.rec.html;
+    while (tmp.firstChild) recBox.appendChild(tmp.firstChild);
+    recBox.__recoRows = v.rec.html;
+  }
+
+  /* ③「推荐历史结果」：整块 innerHTML 换
+     （红黑 / 命中率 / 还有几组没打完 / 往期列表 / 时间行都在里面） */
+  function applyArch(html) {
+    if (!archBox || typeof html !== 'string' || !html) return;
+    if (archBox.__recoHtml === html) return;
+    archBox.innerHTML = html;
+    archBox.__recoHtml = html;
+  }
 
   function apply() {
     var v = window.JC_RECO_VIEW;
-    if (!v || !v.updated || v.updated === last) return;
-    if (typeof v.stat === 'string') bar.innerHTML = v.stat;
-    /* 【往期推荐串不再由这里换】用户 2026-10-17 改成前端拉 data/recommend.json（每 60 秒），
-       那套自己会渲染 #pastStats / #pastList —— 这里再换 #jcRecArch 会把它的结果冲掉，
-       所以这条#arch 替换【已移除】。顶部战绩条仍由这里换（stat）。 */
-    /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
-       轨道本身和动画不动，不会重新从左边滚） */
-    var mq = document.getElementById('broadcastBar') || document.getElementById('jcHitMq');
-    if (mq && typeof v.mq === 'string') {
-      var gs = mq.querySelectorAll('.m-mq-group');
-      for (var i = 0; i < gs.length; i++) gs[i].innerHTML = v.mq;
+    if (!v) return false;
+    if (v.updated && v.updated !== last) {
+      if (bar && typeof v.stat === 'string') {
+        /* 兼容过渡态：线上的数据文件还是旧版时，stat 里没有「推荐单」标签 → 补上，别让标签消失 */
+        bar.innerHTML = v.stat.indexOf('class="label') >= 0
+          ? v.stat
+          : '<span class="label t">推荐单</span>' + v.stat;
+      }
+      if (bar) bar.setAttribute('data-reco-updated', v.updated);
+      applyReco(v);
+      applyArch(v.arch);
+      /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
+         轨道本身和动画不动，不会重新从左边滚） */
+      var mq = document.getElementById('broadcastBar') || document.getElementById('jcHitMq');
+      if (mq && typeof v.mq === 'string') {
+        var gs = mq.querySelectorAll('.m-mq-group');
+        for (var i = 0; i < gs.length; i++) gs[i].innerHTML = v.mq;
+      }
+      last = v.updated;
     }
-    bar.setAttribute('data-reco-updated', v.updated);
-    last = v.updated;
+    syncLine(v.updated);
+    return true;
   }
 
-  function tick() {
-    var s = document.createElement('script');
-    s.src = VIEW + '?t=' + Date.now();
-    s.onload = function () {
-      try { apply(); } catch (e) { /* 数据格式不对就保持原样 */ }
-      if (s.parentNode) s.parentNode.removeChild(s);
-    };
-    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); };
-    document.body.appendChild(s);
-  }
-
-  /* 【验收钩子】和页面里 window.__jcXysp 同一套做法：给测试脚本一个立刻拉取的口子 */
-  window.__jcRecoRefresh = tick;
-  window.__jcRecoApplied = function () { return last; };
-
-  if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
-})();
-
-/* ============================================================
-   【往期推荐串 · 前端拉取】用户 2026-10-17 给的 fetchPastRecommend()：
-     每 60 秒拉 ./data/recommend.json（云端每 5 分钟的班重建它），
-     就地更新 #pastStats（红/黑/命中率）和 #pastList（按 finishTime 倒序）。
-   · 字段与用户给的一致：history[].dateStr / matches[].matchNo·teams·pick·score·result
-   · result: 'red' | 'black'（'pending' 按黑处理？不 —— 待定不出现在 history 里，这里只兜底不崩）
-   · ⚠️ 本机 file:// 打开时 fetch 被 CORS 拦 → 静默失败，页面保留构建时烘好的那份（不空白）
-   · ⚠️ #jcRecArch 的 innerHTML 现在只由这里（和首次烘好的 HTML）负责，
-       30 秒那套只换顶部战绩条，不再碰往期列表（避免两套互相冲掉）
-   ============================================================ */
-(function () {
-  var PAST_URL = 'data/recommend.json';
-  var MS = 60 * 1000;
+  /* ---------- 兜底渲染：只有主通道（jc-reco-view.js）取不到时才跑 ---------- */
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-  function render(data) {
+  function renderPast(data) {
     if (!data || typeof data !== 'object') return;
     var statsEl = document.getElementById('pastStats');
     if (statsEl) {
@@ -4286,18 +4321,24 @@ ${JC_XYSP_VIEW}
         ' · 黑 ' + (data.black == null ? 0 : data.black) +
         ' · 命中率 ' + (data.rate || '—');
     }
+    /* 「还有 N 组没打完」那行也一起换（那份 JSON 里带 unfinished） */
+    var pend = document.querySelector('#jcRecArch .past-pending');
+    if (pend && typeof data.unfinished === 'number') {
+      pend.textContent = data.unfinished > 0
+        ? '还有 ' + data.unfinished + ' 组没打完，未出结果前不列出'
+        : '';
+    }
     var listEl = document.getElementById('pastList');
-    if (!listEl) return;
+    if (!listEl) { syncLine(data.updated); return; }
     var hist = Array.isArray(data.history) ? data.history.slice() : [];
     if (!hist.length) {
       listEl.innerHTML = '<div class="past-empty">暂无往期推荐</div>';
+      syncLine(data.updated);
       return;
     }
-    /* 【两种结构都吃】用户 2026-10-17 给的生成器输出的是「扁平场次列表」，
-       而前端示例按「批次分组」渲染 —— 这里统一归一化：
-         ① 分组：[{dateStr, finishTime, verdict, matches:[...]}]
-         ② 扁平：[{matchNo, teams, pick, score, result, dateStr, finishTime}]
-         扁平的先按 dateStr 分组（没有 dateStr 就归到「往期」），再走同一套渲染。 */
+    /* 【两种结构都吃】分组：[{dateStr, finishTime, verdict, matches:[...]}]
+       扁平：[{matchNo, teams, pick, score, result, dateStr, finishTime}]
+       扁平的先按 dateStr 分组，再走同一套渲染。 */
     var groups = [];
     var isGrouped = !!(hist[0] && Array.isArray(hist[0].matches));
     if (isGrouped) {
@@ -4344,20 +4385,43 @@ ${JC_XYSP_VIEW}
         }).join('') +
         '</div>';
     }).join('');
+    syncLine(data.updated);
   }
-  function tick() {
-    if (typeof fetch !== 'function') return;
+  function fallbackPast() {
+    if (window.JC_RECO_VIEW || pastBusy || typeof fetch !== 'function') return;
+    pastBusy = true;
     fetch(PAST_URL + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r && r.ok ? r.json() : null; })
-      .then(function (d) { if (d) render(d); })
-      .catch(function () { /* file:// 或网络失败：保持页面里那份 */ });
+      .then(function (d) { if (d) renderPast(d); })
+      .catch(function () { /* file:// 或网络失败：保持页面里那份 */ })
+      .then(function () { pastBusy = false; });
   }
-  /* 验收钩子：测试脚本可以手动触发一次 */
-  window.__pastRecFetch = tick;
-  window.__pastRecRender = render;
-  try { tick(); if (typeof setInterval === 'function') setInterval(tick, MS); } catch (e) { /* 忽略 */ }
-})();
 
+  function tick() {
+    var s = document.createElement('script');
+    s.src = VIEW + '?t=' + Date.now();
+    s.onload = function () {
+      try { apply(); } catch (e) { /* 数据格式不对就保持原样 */ }
+      if (s.parentNode) s.parentNode.removeChild(s);
+    };
+    s.onerror = function () {
+      if (s.parentNode) s.parentNode.removeChild(s);
+      try { fallbackPast(); } catch (e) { /* 忽略 */ }
+    };
+    document.body.appendChild(s);
+  }
+
+  /* 【验收钩子】和页面里 window.__jcXysp 同一套做法：给测试脚本一个立刻拉取的口子 */
+  window.__jcRecoRefresh = tick;
+  window.__jcRecoApplied = function () { return last; };
+  window.__jcRecoSyncNow = syncLine;
+  window.__pastRecFetch = fallbackPast;
+  window.__pastRecRender = renderPast;
+
+  /* 打开就先刷一次（不用干等 30 秒），之后每 30 秒一次 */
+  try { tick(); } catch (e) { /* 忽略 */ }
+  if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
 /* ============================================================
    【播报数据 · 前端读取】用户 2026-10-17 给的参考写法：
      async function loadBroadcast() {
@@ -4568,8 +4632,12 @@ fs.writeFileSync(OUT, perfify(safeHtml), 'utf8');
 const RECO_VIEW_OUT = path.join(ROOT, 'jc-reco-view.js');
 fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
   updated: RECO_STAMP,
-  stat: recoStatBarInner(),
+  /* ①推荐单战绩条（⚠️ 含「推荐单」标签 —— 换 innerHTML 用整条，别丢标签） */
+  stat: recoStatBarHtml(),
+  /* ③推荐历史结果整块（红黑 / 命中率 / 还有几组没打完 / 往期列表 / 时间行） */
   arch: REC_ARCH_INNER,
+  /* ②推荐（在售）那一块：条数文案 + 每场的行 —— 用户 2026-10-18 反馈这块从来没刷过 */
+  rec: { count: REC_COUNT_TEXT, html: REC_ROWS_INNER },
   /* 【顶部小喇叭】两组条目共用同一份内容（横向滚动的两份必须一样） */
   mq: MQ_ITEMS_HTML
 }) + ';\n', 'utf8');
@@ -4595,6 +4663,8 @@ const RECOMMEND_JSON = {
   red: REC_STAT ? REC_STAT.red : 0,
   black: REC_STAT ? REC_STAT.black : 0,
   rate: (REC_STAT && REC_STAT.rate != null) ? String(REC_STAT.rate) + '%' : '—',
+  /* 还有几组没打完（页面兜底渲染拿它更新「还有 N 组没打完」那一行） */
+  unfinished: REC_ARCH_PENDING || 0,
   history: (REC_ROWS_ARCHIVE || []).map((b) => {
     const rows = Array.isArray(b.rows) ? b.rows : [];
     return {
