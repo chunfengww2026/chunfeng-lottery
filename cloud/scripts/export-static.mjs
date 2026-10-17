@@ -7258,6 +7258,12 @@ ${DEVICE_GATE_BODY}
   <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
   <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
   <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+  <a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t">3D</b></a>
+  <a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t">快乐8</b></a>
+  <a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t">排列三</b></a>
+  <a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t">排列五</b></a>
+  <a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
+  <a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
 </div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
