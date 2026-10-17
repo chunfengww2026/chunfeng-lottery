@@ -532,7 +532,6 @@ export function tryFullSplit(line, gid) {
    号码一律去重、查范围；前区 < 5 个或后区 < 2 个就判定「不是号码块」，直接放弃。
    ============================================================ */
 const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|篮\s*球|后\s*胆|后\s*拖|后\s*K)/;
-const META_WORD_RE = /(合计|倍数|金额|注数|奖金|开奖|票|元|期)/;
 
 /** 一行里所有「像号码」的数字（先剔掉日期 / 期号 / 金额 / 注数 / 倍数） */
 function numbersOf(line, spec) {
@@ -589,7 +588,20 @@ export function parseStructuredTicket(text, gid) {
       const l = lines[k];
       const nums = numbersOf(l, spec);
       if (!nums.length) break;                           /* 空行 / 纯文字行 → 号码块结束 */
-      if (nums.length === 1 && META_WORD_RE.test(l)) break;
+      /* 【只认「号码行」】票面上的「复式票 1倍 合计12元」这类元数据行里也有数字，
+         而且 OCR 常把「倍」认成「俘」、「元」认成「工」→ 光靠删词会漏。
+         所以这里按「这一行像不像号码行」来判断：
+           · 3 个以上号码                → 是号码行
+           · 2 个号码 + 整行没有汉字     → 是号码行的折行
+           · 2 个号码 + 有「前区/红球/胆/拖」 → 是号码行
+           · 其它                        → 号码块到此为止 */
+      const cjk = /[\u4e00-\u9fa5]/.test(l);
+      /* ⚠️ 关键词不能只写「胆 / 拖」——「胆拖票」这种【票种标签】里也有，
+         会把「1倍 合计12元」误当成号码行（实测多读出 1、12 两个假号）。 */
+      const dense = nums.length >= 3
+        || (nums.length >= 2 && !cjk)
+        || (nums.length >= 2 && /(前\s*[区KV]|红\s*球|红\s*号|前\s*胆|前\s*拖|区\s*[胆拖]|胆\s*码|拖\s*码)/.test(l));
+      if (!dense) break;
       front = nums.concat(front);
       if (front.length > 20) break;
     }
@@ -800,6 +812,27 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     const cut = Math.max(maxScore - 25, maxScore * 0.6);
     const strong = pool.filter((t) => t.score >= cut);
     if (strong.length) pool = strong;
+  }
+
+  /* 【别把同一张票算两次】复式/胆拖票的号码是一个「集合」，
+     不同变体常常只差一个号（多读/少读一行）——
+     两个读法都是「合法」的，会同时被采用，导致同一张票统计两次。
+     规则：得票高的先留；后面的如果号码集合是已留那张的子集/超集 → 丢弃。
+     （两张真正不同的小票不会是子集关系，所以单式多注票不受影响。） */
+  if (pool.length > 1) {
+    const sorted = pool.slice().sort((a, b) => (b.votes || 0) - (a.votes || 0));
+    const kept = [];
+    const sig = (t) => new Set([...t.front.map((n) => 'f' + n), ...t.back.map((n) => 'b' + n)]);
+    const isSubset = (x, y) => [...x].every((v) => y.has(v));
+    for (const t of sorted) {
+      const sx = sig(t);
+      const dup = kept.some((k) => {
+        const sy = sig(k);
+        return isSubset(sx, sy) || isSubset(sy, sx);
+      });
+      if (!dup) kept.push(t);
+    }
+    pool = kept;
   }
 
   /* 期号过滤：找得到期号、且与当期不是同一期 → 整张丢弃
