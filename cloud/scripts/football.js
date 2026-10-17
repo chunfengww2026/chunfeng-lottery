@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "名古屋鯨魚U21",
      "score": 0,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "長崎成功丸U21",
      "score": 3,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "川崎前鋒U21",
      "score": 0,
@@ -220,10 +220,10 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "波特兰伐木者B队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -286,7 +286,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 58,
+    "minute": 60,
     "home": {
      "name": "温哥华FC",
      "score": 1,
@@ -352,7 +352,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "惠灵顿奥林匹克",
      "score": 3,
@@ -456,7 +456,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "拉巴斯竞技",
      "score": 0,
@@ -534,7 +534,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "奥克兰联女足",
      "score": 1,
@@ -650,7 +650,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "亚特兰特",
      "score": 0,
@@ -728,7 +728,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "蒂华纳",
      "score": 0,
