@@ -1168,11 +1168,16 @@ function issueNote(list) {
   }).filter(Boolean).join('');
   if (!totalShown) return '';
 
+  /* 【三行卡片 · 2026-10-18】用户原话：「版面做一样」
+     —— 和右边「走势图」那张卡改成同一个结构：标题 / 副标题 / 绿色胶囊。
+        两张并排时自然等高，三行的位置也对齐（见样式表最后 __ROW3__ 那一段）。
+     ⚠️ 折叠机制一个字没改：还是 <details> + <summary>，胶囊上的字仍由 CSS 伪元素
+        按 [open] 切换（点击查看 ▸ / 点击收起 ▾），页面上没有裸 <button>。
+     ⚠️ 原来的 .ro-xj-count（160）不再单独占一格，数字并进副标题，信息没丢。 */
   return '<details class="ro-xj">' +
     '<summary class="ro-xj-header">' +
-    '<span class="ro-xj-icon" aria-hidden="true">👤</span>' +
-    '<span class="ro-xj-title">专家推荐</span>' +
-    '<span class="ro-xj-count">' + totalShown + '</span>' +
+    '<span class="ro-xj-title"><span class="ro-xj-icon" aria-hidden="true">👤</span>专家推荐</span>' +
+    '<span class="ro-xj-sub">按彩种分 · ' + totalShown + ' 位专家</span>' +
     '<span class="ro-xj-arrow" aria-hidden="true"></span>' +
     '</summary>' +
     /* 【文案】用户 2026-10-17 定稿：「数据来自于开发者自费」
@@ -6978,6 +6983,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .m-calc,
 .m-jxp,
 .calc-row,
+.m-mq,
 .btn2,
 .md-head,
 .md-card,
@@ -7023,6 +7029,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   font-weight: 800 !important;
   box-shadow: none !important;
 }
+/* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
 </style>
 <!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
@@ -7443,6 +7450,16 @@ ${sinaNextHtml()}
 
   ${latestSecHtml}
 
+  <!-- ============================================================
+       __ROW3__ 「专家推荐 + 走势图」并排两列（用户 2026-10-18）
+       ------------------------------------------------------------
+       用户原话：「专家推荐和走势图放到一起」「版面做一样」。
+       所以这两张卡包进 .grid-2-col（真网格，align-items:stretch）：
+         · 收起 → 各占一半、两张等高、三行（标题/副标题/胶囊）位置对齐；
+         · 点开任意一张 → 它跨满整行（grid-column:1/-1），另一张落到下一行。
+       原来那套 inline-block + 半屏宽度的 hack 已删（它做不到等高）。
+       ⚠️ 两张卡的折叠机制都没动：仍是 <details>/<summary> + CSS 伪元素换字。 -->
+  <div class="grid-2-col" id="ro-xj-row">
   ${expertsHtml}
 
   <!-- ============================================================
@@ -7476,8 +7493,38 @@ ${sinaNextHtml()}
 ${trendHtmlFull}
     </div>
   </details>
+  </div>
 
-  ${p3dHtml}
+  <!-- ============================================================
+       __REFPIC__ 「手绘参考图 + 参考图」并排两列（用户 2026-10-18）
+       ------------------------------------------------------------
+       用户原话：「我的双色球/大乐透（参考图）和手绘参考图放一排」
+       → 左 = 手绘参考图（3D/排三）· 右 = 参考图（双色球/大乐透），
+         装进 .grid-2-col，和另外三组同一套卡片外观 + 等高 + 三行对齐。
+       ⚠️ 右卡是【新建】的折叠卡（页面上原来没有这张）：点开 = 双色球 / 大乐透
+          四个图位的入口，用的就是页面已有的那 4 张推荐图（锚点 + 目录格子那套），
+          点一下照旧是「全屏看那张图」——没有新造图、没有新的看图机制。
+       ⚠️ 顶部那个 10 格的「推荐图目录」一个字没动。
+       ⚠️ 折叠仍是 <details>/<summary> + CSS 伪元素换字，没有裸 <button>。 -->
+  <div class="grid-2-col" id="ro-ref-row">
+${p3dHtml}
+  <details class="ro-ref-pic" id="ro-refpic">
+    <summary class="ro-ref-head">
+      <span class="ro-ref-h2">参考图</span>
+      <span class="ro-ref-sub">（双色球 / 大乐透）</span>
+      <span class="ro-ref-arrow" aria-hidden="true"></span>
+    </summary>
+    <div class="ro-ref-body">
+      <div class="ro-ref-toc">
+        <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
+        <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+        <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
+        <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+      </div>
+      <div class="ro-ref-note">点一下，全屏看那张图</div>
+    </div>
+  </details>
+  </div>
 
   ${articlesHtml}
 
@@ -12723,31 +12770,152 @@ ${CHAT_JS_SHARE}
 .ig-note { font-size: 10.5px; color: #a89a80; line-height: 1.5; margin-top: 6px; }
 .ig-foot { text-align: center; font-size: 11.5px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
 @media (max-width: 340px) { .ig-cols { grid-template-columns: 1fr; } }
-/* __ROW3__ 用户 2026-10-18：「专家推荐和走势图放到一起，手绘参考图单独一排」
-   → 前两个并排两列，手绘参考图整宽单独一行。只改布局，不动折叠。 */
-.ro-xj, .ro-trend {
-  display: inline-block !important;
-  width: calc((100% - 10px) / 2) !important;
-  vertical-align: top;
-  margin: 0 6px 8px 0 !important;
-  box-sizing: border-box;
-}
-.ro-trend { margin-right: 0 !important; }
-.ro-xj[open], .ro-trend[open] { width: 100% !important; margin-right: 0 !important; }
-.p3d-section {
+/* ============================================================
+   __ROW3__ 并排两列：专家推荐 + 走势图 / 手绘参考图 + 参考图（2026-10-18）
+   ------------------------------------------------------------
+   用户原话：「专家推荐和走势图放到一起」「版面做一样」
+             「我的双色球/大乐透（参考图）和手绘参考图放一排」
+   做法（和已有的「开机号+热力图」「晒票+GPT摇号」同一套）：
+     · 两张卡装进 .grid-2-col（2 列 / gap 10 / align-items:stretch）→ 天然等高；
+     · 两张卡都用【三行】结构：标题 / 副标题 / 绿色胶囊「点击查看 ▸」，
+       字号、行高、外边距、内边距逐项相同 → 两列的三行位置逐行对齐；
+     · 点开任意一张 → grid-column:1/-1 跨满整行（另一张自动落到下一行）；
+     · 320 沿用两列（和现有三组一致），只缩字号，不改成上下排列。
+   ⚠️ 上一版那套 inline-block + 半屏宽度的 hack 已删 —— 它做不到「两张一样高」。
+   ⚠️ 折叠机制一个字没动：仍 <details>/<summary> + CSS 伪元素按 [open] 换字，
+      页面上没有裸 <button>（页面铁律）。
+   ============================================================ */
+#ro-xj-row, #ro-ref-row { margin: 0 12px 12px; align-items: stretch; }
+#ro-xj-row > *, #ro-ref-row > * { margin: 0 !important; box-sizing: border-box; }
+#ro-xj-row > details[open], #ro-ref-row > details[open] { grid-column: 1 / -1; }
+/* 只剩一张时（例如专家数据为空）→ 占满整行，别缩在半边 */
+#ro-xj-row > :only-child, #ro-ref-row > :only-child { grid-column: 1 / -1; }
+
+/* ① 三行卡面：标题 / 副标题 / 胶囊（三张卡一套值，所以逐行对齐） */
+#ro-xj-row > .ro-xj > .ro-xj-header,
+#ro-ref-row > .p3d-section > .p3d-head,
+#ro-ref-row > .ro-ref-pic > .ro-ref-head {
   display: block !important;
-  width: auto !important;
-  margin: 0 0 10px 0 !important;
-  box-sizing: border-box;
+  position: static !important;
+  text-align: center !important;
+  padding: 2px 0 12px !important;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
-/* 半屏卡片：专家推荐的文字被挤断（186px 宽），缩字号并隐藏 160 / 展开 */
-.ro-xj .ro-xj-count, .ro-xj .ro-xj-arrow { display: none !important; }
-.ro-xj .ro-xj-title { font-size: 12.5px !important; }
-.ro-xj .ro-xj-icon { font-size: 14px !important; margin-right: 4px !important; }
-.ro-xj .ro-xj-header { padding: 10px 8px !important; gap: 4px !important; }
+#ro-xj-row > .ro-xj > .ro-xj-header::-webkit-details-marker,
+#ro-ref-row > .p3d-section > .p3d-head::-webkit-details-marker,
+#ro-ref-row > .ro-ref-pic > .ro-ref-head::-webkit-details-marker { display: none; }
+#ro-xj-row > .ro-xj > .ro-xj-header::marker,
+#ro-ref-row > .p3d-section > .p3d-head::marker,
+#ro-ref-row > .ro-ref-pic > .ro-ref-head::marker { content: ''; }
+#ro-xj-row .ro-xj-title,
+#ro-ref-row .p3d-head-t,
+#ro-ref-row .ro-ref-h2 {
+  display: block !important;
+  padding: 0 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: .5px;
+  color: var(--ro-fg) !important;
+  text-align: center !important;
+}
+#ro-xj-row .ro-xj-icon {
+  display: inline !important;
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 3px 0 0 !important;
+  font-size: 15px !important;
+}
+#ro-xj-row .ro-xj-sub,
+#ro-ref-row .p3d-head-sub,
+#ro-ref-row .ro-ref-sub {
+  display: block !important;
+  margin: 4px 0 0 !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  color: var(--ro-fg2) !important;
+}
+/* 绿色胶囊：和晒票 / GPT摇号的「点击查看 ▸」同一套外观与尺寸 */
+#ro-xj-row .ro-xj-arrow,
+#ro-ref-row .p3d-head-tip,
+#ro-ref-row .ro-ref-arrow {
+  display: inline-block !important;
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 8px auto 0 !important;
+  padding: 4px 10px !important;
+  border: 1px solid var(--ro-ok) !important;
+  border-radius: 14px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ro-ok) !important;
+  white-space: nowrap;
+}
+/* 胶囊上的字：专家推荐那一张原来写的是「展开 ▾」，改成和另外两张一致的三个字 */
+#ro-xj-row > .ro-xj > .ro-xj-header .ro-xj-arrow::after { content: '点击查看  ▸'; }
+#ro-xj-row > .ro-xj[open] > .ro-xj-header .ro-xj-arrow::after { content: '点击收起  ▾'; }
+#ro-ref-row > .ro-ref-pic > .ro-ref-head .ro-ref-arrow::before { content: '点击查看'; }
+#ro-ref-row > .ro-ref-pic > .ro-ref-head .ro-ref-arrow::after { content: ' ▸'; }
+#ro-ref-row > .ro-ref-pic[open] > .ro-ref-head .ro-ref-arrow::before { content: '点击收起'; }
+#ro-ref-row > .ro-ref-pic[open] > .ro-ref-head .ro-ref-arrow::after { content: ' ▾'; }
+
+/* ② 卡片外壳：内边距/圆角/底色三张卡一样（等高靠内容一样高 + stretch 兜底） */
+#ro-xj-row > .ro-xj,
+#ro-ref-row > .p3d-section,
+#ro-ref-row > .ro-ref-pic {
+  padding: 12px 12px 0 !important;
+  background: var(--ro-card);
+  border: 1px solid var(--ro-line);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 0;
+}
+#ro-xj-row > .ro-xj .ro-xj-note { margin-bottom: 10px; }
+#ro-ref-row > .p3d-section > .p3d-body { padding: 0 0 12px; }
+
+/* ③ 参考图（双色球/大乐透）展开后的 4 个图位入口 —— 用的是页面已有的推荐图 */
+.ro-ref-body { padding: 0 0 12px; }
+.ro-ref-toc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+/* 展开后这张卡跨满整行 → 图位入口排两列（收起在半屏时一列，挤不下就换行，不溢出） */
+#ro-ref-row > .ro-ref-pic[open] .ro-ref-toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ro-ref-toc .ro-toc-cell {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  height: auto !important;
+  padding: 7px 8px !important;
+  background: var(--ro-card) !important;
+  border: 1px solid var(--ro-line) !important;
+  border-radius: 9px !important;
+  color: var(--ro-fg) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.3;
+  text-align: center;
+}
+.ro-ref-toc .ro-toc-cell .ro-toc-t { font-size: 12.5px; font-weight: 700; color: var(--ro-fg); }
+.ro-ref-toc .ro-toc-cell .ro-toc-s { display: block; margin-top: 2px; font-size: 10.5px; color: var(--ro-fg2); }
+.ro-ref-note { margin-top: 8px; text-align: center; font-size: 11px; color: var(--ro-fg3); }
+/* 320 窄屏：两列保留，只缩字号 / 内边距（和另外三组一致，不改成上下排列） */
 @media (max-width: 360px) {
-  .ro-xj, .ro-trend { width: calc((100% - 8px) / 2) !important; margin: 0 4px 6px 0 !important; }
-  .ro-trend { margin-right: 0 !important; }
+  #ro-xj-row .ro-xj-title, #ro-ref-row .p3d-head-t, #ro-ref-row .ro-ref-h2 { font-size: 14px !important; }
+  #ro-xj-row .ro-xj-sub, #ro-ref-row .p3d-head-sub, #ro-ref-row .ro-ref-sub { font-size: 10.5px !important; }
+  #ro-xj-row .ro-xj-arrow, #ro-ref-row .p3d-head-tip, #ro-ref-row .ro-ref-arrow { font-size: 10.5px !important; padding: 3px 7px !important; }
+  #ro-xj-row > .ro-xj > .ro-xj-header,
+  #ro-ref-row > .p3d-section > .p3d-head,
+  #ro-ref-row > .ro-ref-pic > .ro-ref-head { padding: 1px 0 9px !important; }
+  #ro-xj-row > .ro-xj,
+  #ro-ref-row > .p3d-section,
+  #ro-ref-row > .ro-ref-pic { padding: 10px 8px 0 !important; }
+  .ro-ref-toc .ro-toc-cell { font-size: 11.5px !important; padding: 6px 4px !important; }
 }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
