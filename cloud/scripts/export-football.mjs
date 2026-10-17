@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -722,23 +722,11 @@ let REC_ARCH_INNER = '';
 let REC_COUNT_TEXT = '';
 let REC_ROWS_INNER = '';
 if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
-  /* 用户 2026-10-17：「推荐串战绩只算信心 ≥58% 的场次，低于 58% 的不算」。
-     ⚠️ 这里用字面量 58：REC_MIN 的 const 声明在文件更后面，直接引用会踩 TDZ 报错。 */
-  const MS = RECO_KERNEL.matchStats(JC_RECO, { min: 58 });
-  REC_STAT = {
-    batches: MS.batches, rows: MS.rows,
-    red: MS.red, black: MS.black,
-    pending: MS.unfinished,              /* 未打完的【组】数（备注文案用） */
-    pendingMatches: MS.pendingMatches,
-    decided: MS.decided,
-    rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
-    updated: JC_RECO.updated || ''
-  };
-  /* 【规则⓪】用户 2026-10-17：「48小时内推荐信心大于等于58%比赛结束就更新到里面 实时更新」
-     → 往期列表里的每一场也只留【信心 ≥58%】的：
-         先把每批的 rows 按 conf >= 58 过滤，整批一场不剩的直接丢掉，
-         再走原来的「36 小时窗口 / 只列已结算」两条规则。
-     ⚠️ 这样标题（REC_STAT，已带 min:58）和列表（REC_ROWS_ARCHIVE）口径就完全一致了。 */
+  /* 【先筛批，再统计】用户 2026-10-18：「我举得没有这么多场次黑」——
+     之前是【单场口径】（一场没中就 +1 黑），玩家看的是【整组】：一批 3 场全中才算 1 红，
+     有一场没中就是 1 黑。所以现在改用内核的 summarize()（verdictOf 判整组）出红黑。
+     筛选规则不变：每批 rows 只留信心 ≥58 的；整批一场不剩就丢掉；再按 48 小时窗口。
+     ⚠️ 58 用字面量：REC_MIN 的 const 声明在文件后面，直接引用会踩 TDZ。 */
   const REC_MIN_CONF = 58;
   const winBatches = JC_RECO.batches
     .map((b) => Object.assign({}, b, {
@@ -746,6 +734,17 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
     }))
     .filter((b) => b.rows.length)
     .filter(recArchInWindow);
+
+  const SUM = RECO_KERNEL.summarize({ batches: winBatches });
+  REC_STAT = {
+    batches: SUM.batches, rows: SUM.rows,
+    red: SUM.red, black: SUM.black,          /* ← 组口径：红/黑都按"整批"计 */
+    pending: SUM.pending,                    /* 未打完的【组】数 */
+    pendingMatches: 0,                       /* 组口径下不再单列场次 */
+    decided: SUM.decided,
+    rate: SUM.rate == null ? null : Number(SUM.rate).toFixed(1),
+    updated: JC_RECO.updated || ''
+  };
   REC_ARCH_PENDING = winBatches.filter((b) => !recArchDecided(b)).length;
   /* 详情：按存档时间倒序（最近的一期在最上面） */
   REC_ROWS_ARCHIVE = winBatches
