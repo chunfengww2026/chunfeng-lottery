@@ -1252,8 +1252,20 @@ const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.c
         所以这里【不再输出「推荐串」这三个字】（行标题里已经有了，否则重复两遍）。
    ⚠️ 数字口径一个字没动：没比对出来就是 0/—，绝不用 0 冒充"算过了"。 */
 function recoStatBarInner() {
+  /* ⚠️ 用户 2026-10-17 原话（照抄）：
+       if (data.unfinished > 0) recNote = 「还有 ${data.unfinished} 组没打完」
+       else                     recNote = 「更新于 ${data.updated}」
+     ① 没打完 → 只写「还有 N 组没打完」（⚠️ 不带任何窗口小时数，用户强调过）
+     ② 都打完 → 写「更新于 2026-10-17 23:10」（时间＝jc-reco-stats.json 的 updated，
+        REC_STAT.updated 就是它；再退回构建时间戳 RECO_STAMP）
+     ③ 一个字的时间都拿不到 → 只写「已更新」，不显示空括号、不填假时间
+     ⚠️ 30 秒刷新脚本（jc-reco-view.js）里那串 stat 也是【调用本函数】写出的，
+        所以页面初始渲染 和 刷新后 永远是同一套文案，不需要改刷新逻辑。 */
+  const recTime = REC_STAT ? (REC_STAT.updated || RECO_STAMP || '') : '';
   const note = REC_STAT
-    ? (REC_STAT.pending ? `还有 ${REC_STAT.pending} 组没打完` : '实时更新')
+    ? (REC_STAT.pending
+      ? `还有 ${REC_STAT.pending} 组没打完`
+      : (recTime ? `更新于 ${esc(recTime)}` : '已更新'))
     : '暂未开始统计';
   return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
     `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
