@@ -1526,7 +1526,7 @@ function buildAiPickHtml() {
   return `<details class="ro-aipick action-card-btn" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
     `<h2 class="ro-aipick-h2 title">GPT模型摇号</h2>` +
-    `<div class="ro-aipick-sub sub">系统随机生成 · 仅供娱乐参考</div>` +
+    `<div class="ro-aipick-sub sub">系统随机生成</div>` +
     `<span class="ro-aipick-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="ro-aipick-body allow-save">` +
@@ -5609,15 +5609,19 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 }
 .grid-2-col-action > details.action-card-btn > summary::-webkit-details-marker { display: none; }
 .grid-2-col-action > details.action-card-btn > summary::marker { content: ''; }
-/* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text） */
-.grid-2-col-action .title {
+/* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text）
+   ⚠️ 必须带 #ro-action-2col：上面 ⑥⑦ 那层还有一条
+      `.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 13.5px !important }`，
+      它的类选择器有 3 个、比 `.grid-2-col-action .title` 的 2 个更"重"，
+      不加 id 的话字号会被压回去（实测：晒票/GPT 的标题比左边开机号卡小一档）。 */
+#ro-action-2col .title {
   margin: 0 !important;
   font-size: 15px !important;
   font-weight: 700 !important;
   line-height: 1.3 !important;
   color: var(--ro-fg) !important;
 }
-.grid-2-col-action .sub {
+#ro-action-2col .sub {
   margin: 2px 0 0 !important;
   max-width: none !important;
   white-space: normal !important;
@@ -5628,7 +5632,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   line-height: 1.4 !important;
   color: var(--ro-fg2) !important;
 }
-.grid-2-col-action .action-text {
+#ro-action-2col .action-text {
   margin: 8px 0 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -5660,9 +5664,9 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 /* 320 窄屏：字号 / 内边距各收一档，两列不挤爆、不横向溢出 */
 @media (max-width: 360px) {
   .grid-2-col-action { gap: 8px; }
-  .grid-2-col-action .title { font-size: 14px !important; }
-  .grid-2-col-action .sub { font-size: 10px !important; }
-  .grid-2-col-action .action-text { font-size: 10px !important; }
+  #ro-action-2col .title { font-size: 14px !important; }
+  #ro-action-2col .sub { font-size: 10px !important; }
+  #ro-action-2col .action-text { font-size: 10px !important; }
   .grid-2-col-action > details.action-card-btn > summary { padding: 12px 8px !important; margin: 0 -8px !important; }
   .grid-2-col-action > details.action-card-btn { padding: 0 8px !important; }
   .grid-2-col-action > details.action-card-btn[open] { padding-bottom: 10px !important; }
