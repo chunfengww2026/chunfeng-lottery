@@ -7267,6 +7267,18 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+<!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
+<div class="px9" id="px9">
+  <div class="px9-head">推荐图 · 方法</div>
+  <div class="px9-games">
+    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
+    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
+  </div>
+  <div class="px9-methods" id="px9Methods"></div>
+  <div class="px9-out" id="px9Out"></div>
+  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+</div>
+
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
@@ -13138,6 +13150,24 @@ html.is-standalone #chatToggleBtn, html.is-standalone #chatToggle,
 html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalone .cf-fab {
   display: none !important;
 }
+/* __PX9__ 两级方法目录 */
+.px9 { margin: 10px 12px 14px; background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 12px; }
+.px9-head { text-align: center; font-size: 14px; font-weight: 800; color: #4a3a26; margin-bottom: 8px; }
+.px9-games { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.px9-g { text-align: center; padding: 10px 6px; border: 1px solid #e8d7bd; border-radius: 10px; background: #fff; font-size: 14px; font-weight: 700; color: #4a3a26; cursor: pointer; }
+.px9-g.on { background: #1a8c5a; border-color: #1a8c5a; color: #fff; }
+.px9-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+.px9-m { text-align: center; padding: 8px 2px; border: 1px solid #ecdcc2; border-radius: 8px; background: #fffaf2; font-size: 11.5px; color: #4a3a26; cursor: pointer; }
+.px9-m.on { border-color: #1a8c5a; color: #1a8c5a; font-weight: 700; background: #eaf7ef; }
+.px9-out { background: #fff; border: 1px solid #ecdcc2; border-radius: 10px; padding: 10px; font-size: 12px; color: #4a3a26; line-height: 1.8; min-height: 60px; }
+.px9-out b { color: #c0392b; }
+.px9-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #f4ead6; padding: 3px 0; }
+.px9-row:last-child { border-bottom: 0; }
+.px9-k { color: #8a7a63; }
+.px9-tip { text-align: center; font-size: 10.5px; color: #a89a80; margin-top: 8px; }
+.px9-balls { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+.px9-b { width: 24px; height: 24px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.px9-b.blue { background: #1f5fd6; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -13332,6 +13362,139 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
              (window.matchMedia && window.matchMedia('(display-mode: fullscreen)').matches);
     if (sa) document.documentElement.classList.add('is-standalone');
   } catch (e) {}
+})();
+</script>
+
+
+<script>
+/* __PX9__ 9 套方法：全部用本页近 30 期真实开奖现算（不联网、不收费） */
+(function () {
+  var METHODS = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度','多源共振法'];
+  var st = { game: 'ssq', method: METHODS[0] };
+  var elG = document.querySelectorAll('.px9-g');
+  var elM = document.getElementById('px9Methods');
+  var elO = document.getElementById('px9Out');
+  if (!elM || !elO) return;
+
+  function hist(g) {
+    try {
+      if (typeof DRAW_HISTORY === 'undefined' || !DRAW_HISTORY.games) return [];
+      var a = DRAW_HISTORY.games[g] || [];
+      return a.slice(0, 30);
+    } catch (e) { return []; }
+  }
+  function numsOf(d, g) {
+    var a = (d && d.areas) || {};
+    return (g === 'dlt' ? (a.front || a.red) : (a.red || a.front)) || [];
+  }
+  function meta(g) {
+    return g === 'dlt'
+      ? { name: '大乐透', max: 35, blue: 12, zones: [[1,12],[13,24],[25,35]] }
+      : { name: '双色球', max: 33, blue: 16, zones: [[1,11],[12,22],[23,33]] };
+  }
+  function freq(g) {
+    var M = meta(g), f = {}, i;
+    for (i = 1; i <= M.max; i++) f[i] = 0;
+    hist(g).forEach(function (d) { numsOf(d, g).forEach(function (n) { n = Number(n); if (f[n] != null) f[n]++; }); });
+    return f;
+  }
+  function row(k, v) { return '<div class="px9-row"><span class="px9-k">' + k + '</span><span>' + v + '</span></div>'; }
+  function balls(arr, blue) { return '<div class="px9-balls">' + arr.map(function (n) { return '<span class="px9-b' + (blue ? ' blue' : '') + '">' + n + '</span>'; }).join('') + '</div>'; }
+  function topN(f, n, asc) {
+    return Object.keys(f).map(Number).sort(function (a, b) { return asc ? (f[a] - f[b]) || (a - b) : (f[b] - f[a]) || (a - b); }).slice(0, n);
+  }
+  function isPrime(n) { if (n < 2) return false; for (var i = 2; i * i <= n; i++) if (n % i === 0) return false; return true; }
+
+  function calc(g, m) {
+    var M = meta(g), f = freq(g), ds = hist(g), out = [];
+    var arr = Object.keys(f).map(Number);
+    var sumArr = ds.map(function (d) { var a = numsOf(d, g); return a.reduce(function (x, y) { return x + Number(y); }, 0); });
+    var spanArr = ds.map(function (d) { var a = numsOf(d, g).map(Number); return a.length ? Math.max.apply(null, a) - Math.min.apply(null, a) : 0; });
+    if (m === '余数算法') {
+      var r3 = { 0: [], 1: [], 2: [] };
+      arr.forEach(function (n) { r3[n % 3].push(n); });
+      out.push(row('余 0 号', r3[0].join(' ') || '—'));
+      out.push(row('余 1 号', r3[1].join(' ') || '—'));
+      out.push(row('余 2 号', r3[2].join(' ') || '—'));
+      var best = [0,1,2].sort(function (a, b) { return r3[b].length - r3[a].length; })[0];
+      out.push(row('<b>号最多的余数</b>', '余 ' + best + '（共 ' + r3[best].length + ' 个）'));
+    } else if (m === '分区法') {
+      M.zones.forEach(function (z, i) {
+        var seg = arr.filter(function (n) { return n >= z[0] && n <= z[1]; });
+        var cnt = seg.reduce(function (s2, n) { return s2 + f[n]; }, 0);
+        out.push(row('第 ' + (i + 1) + ' 区 ' + z[0] + '-' + z[1], seg.length + ' 个号 · 出现 ' + cnt + ' 次'));
+      });
+    } else if (m === '冷热号') {
+      out.push(row('热号前 5', topN(f, 5, false).join(' ')));
+      out.push(row('冷号前 5', topN(f, 5, true).join(' ')));
+    } else if (m === '遗漏值算法') {
+      var gap = {};
+      arr.forEach(function (n) {
+        var g2 = 30;
+        for (var i = 0; i < ds.length; i++) { if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) { g2 = i; break; } }
+        gap[n] = g2;
+      });
+      var big = Object.keys(gap).map(Number).sort(function (a, b) { return gap[b] - gap[a]; }).slice(0, 5);
+      out.push(row('遗漏最久', big.map(function (n) { return n + '(' + gap[n] + '期)'; }).join('  ')));
+    } else if (m === '奇偶') {
+      var odd = arr.filter(function (n) { return n % 2 === 1; }).length;
+      out.push(row('奇数号', odd + ' 个'));
+      out.push(row('偶数号', (arr.length - odd) + ' 个'));
+      out.push(row('奇偶比', odd + ' : ' + (arr.length - odd)));
+    } else if (m === '质合') {
+      var pr = arr.filter(isPrime).length;
+      out.push(row('质数号', pr + ' 个'));
+      out.push(row('合数号', (arr.length - pr) + ' 个'));
+    } else if (m === '和值') {
+      var avg = sumArr.length ? sumArr.reduce(function (a, b) { return a + b; }, 0) / sumArr.length : 0;
+      out.push(row('近 ' + sumArr.length + ' 期和值均值', avg.toFixed(1)));
+      out.push(row('最大和值', Math.max.apply(null, sumArr)));
+      out.push(row('最小和值', Math.min.apply(null, sumArr)));
+      out.push(row('最近一期和值', sumArr[0]));
+    } else if (m === '跨度') {
+      var avgS = spanArr.length ? spanArr.reduce(function (a, b) { return a + b; }, 0) / spanArr.length : 0;
+      out.push(row('近 ' + spanArr.length + ' 期跨度均值', avgS.toFixed(1)));
+      out.push(row('最大跨度', Math.max.apply(null, spanArr)));
+      out.push(row('最近一期跨度', spanArr[0]));
+    } else if (m === '多源共振法') {
+      var hot = topN(f, 8, false), cold = topN(f, 8, true), gapBig = (function () {
+        var gap2 = {};
+        arr.forEach(function (n) { var g2 = 30; for (var i = 0; i < ds.length; i++) { if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) { g2 = i; break; } } gap2[n] = g2; });
+        return Object.keys(gap2).map(Number).sort(function (a, b) { return gap2[b] - gap2[a]; }).slice(0, 8);
+      })();
+      var zonePick = [];
+      M.zones.forEach(function (z) { var seg = arr.filter(function (n) { return n >= z[0] && n <= z[1]; }); seg.sort(function (a, b) { return f[b] - f[a]; }); if (seg[0]) zonePick.push(seg[0]); });
+      var all = {}, cnt = 0;
+      [hot, cold, gapBig, zonePick].forEach(function (list) { list.forEach(function (n) { all[n] = (all[n] || 0) + 1; }); });
+      var res = Object.keys(all).map(Number).filter(function (n) { return all[n] >= 2; }).sort(function (a, b) { return all[b] - all[a] || a - b; });
+      out.push(row('共振号（≥2 套方法都选）', res.join(' ') || '本轮无共振'));
+      out.push(row('共振数', res.length + ' 个'));
+    }
+    return { out: out, M: M, sumArr: sumArr };
+  }
+
+  function render() {
+    elM.innerHTML = METHODS.map(function (m) {
+      return '<div class="px9-m' + (m === st.method ? ' on' : '') + '" role="button" tabindex="0" data-px9-m="' + m + '">' + m + '</div>';
+    }).join('');
+    var r = calc(st.game, st.method);
+    var M = r.M;
+    elO.innerHTML = '<div style="font-weight:700;color:#1a8c5a;margin-bottom:6px">' + M.name + ' · ' + st.method + '</div>' + r.out.join('') +
+      '<div style="font-size:10.5px;color:#a89a80;margin-top:6px">近 ' + hist(st.game).length + ' 期 · 红球区 1-' + M.max + '</div>';
+    /* 方法按钮事件 */
+    [].slice.call(elM.querySelectorAll('.px9-m')).forEach(function (b) {
+      b.onclick = function () { st.method = b.getAttribute('data-px9-m'); render(); };
+    });
+  }
+
+  [].slice.call(elG).forEach(function (b) {
+    b.onclick = function () {
+      st.game = b.getAttribute('data-px9-game');
+      [].slice.call(elG).forEach(function (x) { x.classList.toggle('on', x === b); });
+      render();
+    };
+  });
+  render();
 })();
 </script>
 
