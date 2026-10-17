@@ -750,8 +750,8 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
   };
   REC_ARCH_PENDING = winBatches.filter((b) => !recArchDecided(b)).length;
   /* 详情：按存档时间倒序（最近的一期在最上面） */
+  /* 用户 2026-10-18：「没结算的也加进来」+「按日期分组」→ 这里不再过滤已结算 */
   REC_ROWS_ARCHIVE = winBatches
-    .filter(recArchDecided)
     .slice()
     .sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
 }
@@ -1557,27 +1557,39 @@ function renderRec() {
     `<div class="title-left"><span class="label">推荐历史结果</span></div>` +
     `<div class="stats-right" id="pastStats">${pastStats}</div>` +
     `</div>` +
-    (REC_ARCH_PENDING ? `<div class="past-pending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</div>` : '');
-  const pastItems = REC_ROWS_ARCHIVE.map((b) => {
-    const rows = Array.isArray(b.rows) ? b.rows : [];
-    const tag = b.verdict || '待定';
-    return `<div class="past-item">` +
-      `<div class="past-item-head">` +
-      `<span>${esc(b.at || '')} <span class="badge">${esc(tag)}</span></span>` +
-      `<span>${rows.length} 场` + (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
-      `</div>` +
-      rows.map((r) => {
-        const st = r.hit === true ? '红' : (r.hit === false ? '黑' : '待');
-        const stCls = r.hit === true ? 'status-red' : (r.hit === false ? 'status-black' : '');
-        return `<div class="past-match-row">` +
-          `<span class="teams">${esc(r.code || '')} ${esc(r.home || '')} vs ${esc(r.away || '')}` +
-          (r.label ? ` · ${esc(r.label)}` : '') + `</span>` +
-          `<span class="arch-conf">${r.conf != null ? esc(String(r.conf)) + '%' : '—'}</span>` +
-          `<span class="result">${r.score ? esc(r.score) : '—'}</span>` +
-          `<span class="${stCls}">${st}</span>` +
-          `</div>`;
-      }).join('') +
-      `</div>`;
+    (REC_ARCH_PENDING ? `<div class="past-pending">还有 ${REC_ARCH_PENDING} 组没打完（已列在下面，标「待」）</div>` : '');
+  /* 【按日期分组】用户 2026-10-18：「分时间写好」→ 每天一个小标题，下面列那天的批次。
+     未结算的批次也列（标「进行中」，每场显示 待；不再只说"没打完不列出"）。 */
+  const archGroups = [];
+  const archMap = {};
+  REC_ROWS_ARCHIVE.forEach((b) => {
+    const day = String((b && b.at) || '').slice(0, 10) || '未知日期';
+    if (!archMap[day]) { archMap[day] = []; archGroups.push(day); }
+    archMap[day].push(b);
+  });
+  const pastItems = archGroups.map((day) => {
+    const items = archMap[day].map((b) => {
+      const rows = Array.isArray(b.rows) ? b.rows : [];
+      const tag = b.verdict || '待定';
+      return `<div class="past-item">` +
+        `<div class="past-item-head">` +
+        `<span>${esc(b.at || '')} <span class="badge">${esc(tag)}</span></span>` +
+        `<span>${rows.length} 场` + (b.pending ? ` · ${b.pending} 场未打完` : ' · 已结算') + `</span>` +
+        `</div>` +
+        rows.map((r) => {
+          const st = r.hit === true ? '红' : (r.hit === false ? '黑' : '待');
+          const stCls = r.hit === true ? 'status-red' : (r.hit === false ? 'status-black' : '');
+          return `<div class="past-match-row">` +
+            `<span class="teams">${esc(r.code || '')} ${esc(r.home || '')} vs ${esc(r.away || '')}` +
+            (r.label ? ` · ${esc(r.label)}` : '') + `</span>` +
+            `<span class="arch-conf">${r.conf != null ? esc(String(r.conf)) + '%' : '—'}</span>` +
+            `<span class="result">${r.score ? esc(r.score) : '—'}</span>` +
+            `<span class="${stCls}">${st}</span>` +
+            `</div>`;
+        }).join('') +
+        `</div>`;
+    }).join('');
+    return `<div class="arch-day"><div class="arch-day-h">${esc(day)}</div>${items}</div>`;
   }).join('');
 
   /* 【提示文案】用户 2026-10-17 指定的那句（和设计稿一致） */
@@ -2286,6 +2298,8 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-rectips { font-size: 11px; color: #a89a80; padding: 2px 2px 8px; }
 /* 推荐串行里的主客排名（真实字段，不是估算） */
 .m-recrank { font-size: 11px; color: #8a7a63; }
+.arch-day { margin: 6px 0 10px; }
+.arch-day-h { font-size: 11.5px; font-weight: 700; color: #8a7a63; padding: 4px 2px; border-bottom: 1px dashed #e8d7bd; margin-bottom: 4px; }
 .arch-conf { font-size: 11px; color: #8a7a63; margin-right: 6px; font-variant-numeric: tabular-nums; }
 .m-recknow { font-size: 11px; color: #8a6a3a; background: #fff6e6; border: 1px solid #f0dfa8; border-radius: 8px; padding: 6px 8px; margin: -2px 0 8px; line-height: 1.5; }
 .m-recknow i { display: block; font-style: normal; color: #a89a80; font-size: 10.5px; margin-top: 2px; }
