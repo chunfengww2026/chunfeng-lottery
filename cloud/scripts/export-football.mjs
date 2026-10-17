@@ -695,7 +695,7 @@ let REC_ROWS_ARCHIVE = [];
    ⚠️ 36 小时这个数必须和 jc-reco-archive.js 的 RECO_KEEP_HOURS 一致，
       否则会出现「存档里留了 36 小时、页面只显示 24 小时」或者反过来。
    ============================================================ */
-const REC_ARCH_HOURS = 36;   /* 用户 2026-10-18：36 小时（内核 RECO_KEEP_HOURS 必须一致） */
+const REC_ARCH_HOURS = 48;   /* 用户 2026-10-18：36 小时（内核 RECO_KEEP_HOURS 必须一致） */
 /** 这批推荐是不是「近 36 小时内推的」（认不出时间 → 保留，宁可多显示） */
 function recArchInWindow(b) {
   const t = Date.parse(String((b && b.at) || '').replace(/-/g, '/'));
