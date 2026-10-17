@@ -186,13 +186,16 @@ const FROM_ROOT = [
      接进播报条。必须同步：否则云端构建时这个文件不存在，播报就退回只有战绩数字。 */
   'broadcast.json',
   /* 【PWA 安装（一键桌面）】用户 2026-10-17：页面上要能"添加到桌面"。
-     这四个文件原来【不在白名单里】→ 线上 manifest/图标全 404 →
+     这五个文件原来【不在白名单里】→ 线上 manifest/图标全 404 →
      浏览器判定"不可安装"，beforeinstallprompt 永远不触发（按钮点了没反应）。
      现在补齐：
-       · manifest.webmanifest  清单（start_url/display/icons）
+       · manifest.json          PWA 清单（用户指定的文件名/内容；icons 用相对路径）
+       · manifest.webmanifest   同一份清单的旧文件名（老缓存里还有引用它的页面，
+                                留着不删，避免线上 404）
        · icon-192.png / icon-512.png  清单里引用的两个图标（缺一个都不算可安装）
-       · service-worker.js    纯透传、不缓存的 SW —— 只满足"可安装"条件，
-                              绝不做 cache-first（否则 30 秒实时刷新会被冻住） */
+       · service-worker.js      纯透传、不缓存的 SW —— 只满足"可安装"条件，
+                                绝不做 cache-first（否则 30 秒实时刷新会被冻住） */
+  'manifest.json',
   'manifest.webmanifest',
   'icon-192.png',
   'icon-512.png',
@@ -273,6 +276,10 @@ const FROM_ROOT = [
         断言由 export-static.mjs 在写分享页【之前】对整页跑一次（同一个模块）。
      ⚠️【必须同步】：少了它云端构建会 ERR_MODULE_NOT_FOUND → 整班挂掉。 */
   'source-guard.mjs',
+  /* 【设备门 + PWA 共用模块】export-static / export-football / build-match
+     三个生成脚本都 import 它（只拦手机看的设备门 + manifest 链接 + 一键桌面）。
+     ⚠️【必须同步】：少了它云端构建 ERR_MODULE_NOT_FOUND → 整班挂掉。 */
+  'device-gate.mjs',
 ];
 
 /* 代码模块：与项目根目录保持一致 */
