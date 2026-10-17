@@ -71,6 +71,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 【设备门 + PWA】共用模块（零 localStorage、零裸 button、文案不含任何出处）：
+     本机 / ?admin=1 / 手机平板 → 放行；电脑浏览器 / 电脑微信 → 拦截。
+   ⚠️ 新模块必须同步进 cloud/sync-cloud.mjs 的 FROM_ROOT，否则云端构建找不到它。 */
+import {
+  PWA_HEAD, DEVICE_GATE_CSS, DEVICE_GATE_BODY, INSTALL_CSS, INSTALL_HTML, INSTALL_JS
+} from './device-gate.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_FILE = path.join(HERE, '比赛详情.html');
@@ -314,6 +320,8 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>比赛详情 · 彩虹多多</title>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+${PWA_HEAD}
 <style>
 :root {
   --ro-bg:#f7efe1; --ro-card:#fdf6ea; --ro-line:#e8d7bd;
@@ -522,8 +530,12 @@ a { color: var(--ro-ok); text-decoration: none; }
 .md-miss .d { font-size: 13px; color: var(--ro-fg2); margin-bottom: 12px; }
 .md-miss a { display: inline-block; padding: 8px 16px; border: 1px solid var(--ro-ok); border-radius: 8px; font-weight: 700; }
 </style>
+<!-- __DEVICE_GATE_CSS__ / __INSTALL_APP_CSS__ 设备门 + 一键桌面（device-gate.mjs）
+     放在 </head> 之前 → 电脑端第一帧就是隐藏态，不会先闪出内容。 -->
+<style>${DEVICE_GATE_CSS}${INSTALL_CSS}</style>
 </head>
 <body>
+${DEVICE_GATE_BODY}
 
 <div class="md-top">
   <a class="md-back" id="mdBack" role="button" href="足球推荐.html" onclick="if(history.length>1){history.back();return false}">← 返回</a>
@@ -1439,6 +1451,8 @@ a { color: var(--ro-ok); text-decoration: none; }
         条件永远为假 → history.back() 从来没生效过，才会落到死链上。 */
 })();
 </script>
+${INSTALL_HTML}
+${INSTALL_JS}
 </body>
 </html>
 `;
