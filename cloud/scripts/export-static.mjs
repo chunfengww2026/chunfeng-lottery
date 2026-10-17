@@ -1606,9 +1606,17 @@ function buildHeatmapHtml() {
     let inner = '';
     try { inner = renderImageHtml(g, 'heatmap') || ''; } catch (e) { inner = ''; }
     const stamp = String(H.updated || H.drawDate || '');
+    /* 【如实标口径】用户要的是「晒票占比」，但 OCR 样本不够时 build-heatmap 会回退成
+       「近 30 期开奖频率」—— 绝不能拿兜底冒充晒票统计，这里按 source 明写。 */
+    const SRC_LABEL = {
+      'ocr-xysp': '晒票票面 OCR 统计',
+      'xysp-text': '晒票文字统计',
+      'history-fallback': '近期开奖频率（晒票样本不足·兜底口径）'
+    };
+    const srcText = SRC_LABEL[String(H.source || '')] || '近期开奖频率（兜底口径）';
     return `<div class="ro-hm-block">` +
       `<div class="ro-hm-head"><b>${escape(name)} 实票统计</b>` +
-      `<span>${escape(stamp)}${stamp ? ' · 每小时更新' : ''}</span></div>` +
+      `<span>${escape(srcText)}${stamp ? ' · ' + escape(stamp) : ''}</span></div>` +
       `<div class="ro-imagewrap" data-game="${g}" data-image="heatmap">${inner}</div>` +
       `</div>`;
   }).join('');
