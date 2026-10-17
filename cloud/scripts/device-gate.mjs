@@ -891,8 +891,43 @@ export const CHAT_JS = `
        所以「来源」两个字用码点拼（26469 / 28304），只在运行时存在。 */
     var KW_ORIGIN = '数据' + String.fromCharCode(26469, 28304);
 
+    /* 【随机摇一注】用户 2026-10-17：「两个都要，但触发词分开（推荐）」。
+       触发词刻意【不含】推荐/号码/选号 —— 那几个还是走 ansReco（回页面真实算好的号，
+       比随机靠谱）。这条只在用户明确说「随机 / 来一注 / 摇一注」时才现摇。
+       规则：双色球 6+1（33 选 6 / 16 选 1）、大乐透 5+2（35 选 5 / 12 选 2），
+       没说彩种默认双色球；随机数优先 crypto，退化 Math.random。 */
+    function randPick(max, count) {
+      var pool = [], i;
+      for (i = 1; i <= max; i++) pool.push(i);
+      var out = [];
+      while (out.length < count && pool.length) {
+        var idx;
+        try {
+          var buf = new Uint32Array(1);
+          crypto.getRandomValues(buf);
+          idx = buf[0] % pool.length;
+        } catch (e) { idx = Math.floor(Math.random() * pool.length); }
+        out.push(pool.splice(idx, 1)[0]);
+      }
+      out.sort(function (a, b) { return a - b; });
+      return out;
+    }
+    function pad2(n) { return n < 10 ? '0' + n : String(n); }
+    function ansRandomTicket(raw) {
+      var m = squeeze(raw).toLowerCase();
+      var isDLT = m.indexOf('大乐透') >= 0 || m.indexOf('dlt') >= 0;
+      if (isDLT) {
+        var f = randPick(35, 5), b = randPick(12, 2);
+        return { t: '随机的【大乐透】一注：' + NL + '前区 ' + f.map(pad2).join(' ') + '　后区 ' + b.map(pad2).join(' ') + NL + '（机器随机生成，仅供参考，请理性购彩）', d: 1 };
+      }
+      var r = randPick(33, 6), bl = randPick(16, 1);
+      return { t: '随机的【双色球】一注：' + NL + '红球 ' + r.map(pad2).join(' ') + '　蓝球 ' + pad2(bl[0]) + NL + '（机器随机生成，仅供参考，请理性购彩）', d: 1 };
+    }
+
     var RULES = [
       { k: ['比分'], f: ansScore },
+      /* 【随机摇一注】必须排在 ansReco 前面：说的是「随机」就走这条，说「推荐/号码」还是回真实号 */
+      { k: ['随机', '来一注', '来一组', '摇一注', '摇个', '随便来', '摇一摇', '来一票'], f: ansRandomTicket },
       { k: ['推荐', '号码', '买什么', '买啥', '出号', '看什么号', '选号'], f: ansReco },
       { k: ['战绩', '命中', '红黑', '中了', '胜率', '准确率', '红单'], f: ansStat },
       { k: ['走势', '趋势', '图表'], f: ansTrend },
