@@ -56,10 +56,10 @@ import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 function buildAiCandidates() {
   try {
     const gctx = { console, window: {} }; vm.createContext(gctx);
-    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'games.js'), 'utf8') + '\n;__G__=GAMES;', gctx);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'games.js'), 'utf8') + '\n;__G__=GAMES;', gctx);
     const GAMESOBJ = gctx.__G__ || {};
     const hctx = { console, window: {} }; vm.createContext(hctx);
-    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'history.js'), 'utf8') + '\n;__H__=DRAW_HISTORY;', hctx);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'history.js'), 'utf8') + '\n;__H__=DRAW_HISTORY;', hctx);
     const HIST = (hctx.__H__ && hctx.__H__.games) || {};
     const out = {};
     Object.keys(GAMESOBJ).forEach(function (gid) {
