@@ -5035,6 +5035,37 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 }
 
 /* ============================================================
+   【手机端 8px 横向溢出 · 修】用户 2026-10-17
+   ------------------------------------------------------------
+   现象：375 / 320 手机上页面能左右拉一点点 ——
+         document.documentElement.scrollWidth 比 clientWidth 大 8px。
+   真浏览器量出来的元凶是【推荐图目录】那块 .ro-imgtoc-wrap，
+   不是走势图表格（走势图表格外面那层 .tr-scroll 已经 overflow-x: auto，
+   它自己溢出的部分被裁掉了，不参与文档宽度）。
+   为什么多出 8px：
+     · ≤1365px 那句 margin-left/-right: -12px 是为了抵消 .ro-wrap 的 12px 内边距
+       → 整块贴屏幕两边；
+     · 但 ≤600px 那句把 .ro-wrap 的内边距改成了 4px（padding: 8px 4px 40px）；
+     ⇒ 负外边距比内边距多抵消 8px：
+        块宽 = (375 - 8) + 12 + 12 = 391，left = 4 - 12 = -8，right = 383
+        ⇒ 左边跑出 -8（不产生滚动）、右边超出 8 ⇒ 文档多出 8px 横向滚动。
+   修法：让负外边距【跟着内边距走】—— 用一个变量存 .ro-wrap 的左右内边距，
+        两处都读它，以后谁再改内边距都不会再错位。
+   ⚠️ 只动这一处外边距：不改结构、不改 .tr-scroll（横向滚动照旧）、
+      不改任何颜色 / 字体 / 断点，不引入任何脚本。
+   ============================================================ */
+.ro-wrap { --ro-pad-x: 12px; }
+@media (max-width: 600px) {
+  .ro-wrap { --ro-pad-x: 4px; }   /* 和上面 .ro-wrap { padding: 8px 4px 40px } 保持一致 */
+}
+.ro-imgtoc-wrap {
+  margin-left: calc(-1 * var(--ro-pad-x, 12px)) !important;
+  margin-right: calc(-1 * var(--ro-pad-x, 12px)) !important;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* ============================================================
    __MQ_TICKER__ 顶部状态卡右侧：中奖播报滚动条
    ------------------------------------------------------------
    用户要求：在「已更新 / 所有资料均在下方 / 下一期更新倒计时」那张卡片的
