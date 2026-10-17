@@ -11,7 +11,7 @@
 //    node deploy-github.mjs <你的Token> [仓库名]
 //
 //  例：
-//    node deploy-github.mjs ghp_xxxxxxxx 春风十里送大奖
+//    node deploy-github.mjs ghp_xxxxxxxx 春风
 // ============================================================
 
 import fs from 'node:fs';
@@ -84,7 +84,7 @@ async function ensureRepo(user, name) {
 
   const create = await api('POST', '/user/repos', {
     name,
-    description: '春风十里送大奖 · 每日自动更新的推荐网页',
+    description: '春风 · 每日自动更新的推荐网页',
     private: false,
     auto_init: false,
     has_issues: false,
@@ -190,7 +190,7 @@ async function triggerWorkflow(user, repo) {
    ============================================================ */
 async function main() {
   log('════════════════════════════════════════════');
-  log('  春风十里送大奖 · 部署到 GitHub');
+  log('  春风 · 部署到 GitHub');
   log('════════════════════════════════════════════');
   log('');
 
