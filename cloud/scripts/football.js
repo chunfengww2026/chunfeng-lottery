@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 08:30:00",
-    "minute": 6,
+    "minute": 11,
     "home": {
      "name": "博卡青年",
      "score": 0,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "塔勒雷斯",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 28
     },
@@ -1337,7 +1337,7 @@ const FOOTBALL_DATA = {
      "color": "FF6633"
     },
     "time": "2026-10-17 06:45:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "提華納U21",
      "score": 0,
@@ -1415,7 +1415,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "魁北克",
      "score": 2,
@@ -1481,7 +1481,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "米拉索",
      "score": 1,
@@ -1547,7 +1547,7 @@ const FOOTBALL_DATA = {
      "color": "94240a"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "科隆蒙得維的亞",
      "score": 2,
@@ -1745,7 +1745,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "查普利若斯",
      "score": 0,
@@ -1823,7 +1823,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "蒙特維多國民隊(女)",
      "score": 0,
@@ -1901,7 +1901,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "高士路MG女足",
      "score": 1,
@@ -1910,7 +1910,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "奎托(女)",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -1979,7 +1979,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "皇家托马亚波",
      "score": 0,
@@ -2057,7 +2057,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "雷法拉竞技",
      "score": 1,
@@ -2135,7 +2135,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-17 08:00:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "美丽华流浪者",
      "score": 0,
