@@ -3927,16 +3927,27 @@ ${JC_XYSP_VIEW}
       而且 .m-top 之外，所以天然不冲突 —— 这里只认 closest('.m-top')）。 */
 (function () {
   if (typeof document === 'undefined' || !document.addEventListener) return;
+  /* 用户 2026-10-17 给的折叠类名是 .collapsed —— 这里就用它（.folded 保留成别名，
+     样式同时认两个，旧缓存页面也不会坏）。 */
+  function toggleCard(card) {
+    if (!card) return;
+    var now = card.classList.toggle('collapsed');
+    card.classList.toggle('folded', now);          /* 别名，样式也认 */
+    var top = card.querySelector('.m-top');
+    if (top) top.setAttribute('aria-expanded', now ? 'false' : 'true');
+  }
+  /* 兼容用户参考实现里的 toggleMatch(cardId) 全局函数 */
+  window.toggleMatch = function (id) { toggleCard(document.getElementById(id)); };
+
   document.addEventListener('click', function (e) {
     var t = e.target;
     var top = t && t.closest ? t.closest('.m-top') : null;
     if (!top) return;
     var card = top.closest('.m-card');
     if (!card) return;
-    /* 头部里如果有真正的交互控件（链接/按钮），让它自己处理 */
+    /* 头部里如果有真正的交互控件（链接/按钮/输入），让它自己处理 */
     if (t.closest('a[href], button, input, select')) return;
-    card.classList.toggle('folded');
-    top.setAttribute('aria-expanded', card.classList.contains('folded') ? 'false' : 'true');
+    toggleCard(card);
   });
 })();
 </script>
