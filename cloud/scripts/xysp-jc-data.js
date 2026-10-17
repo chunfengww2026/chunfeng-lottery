@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-17 11:46
+   更新时间：2026-10-17 11:52
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-17 11:46",
+ "updated": "2026-10-17 11:52",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96268e9a42f04b0ab71cb2119397fde8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=6Sd%2B5dOz9GdHCPgXAVWH9qA20Aw%3D",
@@ -69,34 +69,6 @@ const XYSP_JC_DATA = {
    "author": "体坛银哥",
    "when": "2026-10-16 14:09:22",
    "postId": "",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0%2BOYvhglDZaw8ucJxUq8jxn%2FXb4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=0%2BOYvhglDZaw8ucJxUq8jxn%2FXb4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=n3ISVQtLqv2Hwjti%2BvID7iH49R4%3D",
-   "title": "体彩足彩竞彩中奖票",
-   "url": "https://toutiao.com/group/7697108049638539804/",
-   "at": "2026-10-16T03:56:02.176Z",
-   "src": "tt",
-   "cat": "jc",
-   "game": "竞彩",
-   "games": [],
-   "issue": "",
-   "seen": "2026-10-17T03:36:01.352Z",
-   "whenMs": 1792122654000,
-   "seenMs": 1792208161352,
-   "drawMs": null,
-   "nextMs": null,
-   "atMs": 1792122962176,
-   "drawAt": "",
-   "nextAt": null,
-   "drawGid": "",
-   "expireAt": "2026-10-18T03:36:01.352Z",
-   "rule": "cap",
-   "author": "美洋羊",
-   "when": "2026-10-16 11:50:54",
-   "postId": "7697108049638539804",
    "px": 132300
   }
  ]
