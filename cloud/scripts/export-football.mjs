@@ -3933,6 +3933,12 @@ ${JC_XYSP_VIEW}
     if (!card) return;
     var now = card.classList.toggle('collapsed');
     card.classList.toggle('folded', now);          /* 别名，样式也认 */
+    /* 【为什么还要设内联样式】页面里有多条 .m-card.folded .m-body 规则互相压
+       （display:block !important 会盖掉 display:none），实测类名加了却没真正收起。
+       所以折叠状态【由 JS 直接写内联 display】—— 内联优先级最高，CSS 怎么改都不会失灵；
+       同时保留 max-height 过渡（CSS 那边有 .collapsed/.folded 的 max-height:0 时仍会动画）。 */
+    var body = card.querySelector('.m-body');
+    if (body) body.style.display = now ? 'none' : '';
     var top = card.querySelector('.m-top');
     if (top) top.setAttribute('aria-expanded', now ? 'false' : 'true');
   }
