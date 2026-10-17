@@ -5305,7 +5305,7 @@ ${DEVICE_GATE_BODY}
       /* 【必须放在最前面】下面两段都要用它；原来定义在最后，
          脚本一执行 OK 还是 undefined，一读 OK[...] 就抛 TypeError，
          整段脚本崩溃 → 点击监听根本没绑上 → 区块点不开。 */
-      var OK = { '#ro-kjh': 1, '#ro-live': 1 };
+      var OK = { '#ro-kjh': 1, '#ro-live': 1, '#ro-heatmap': 1 };   /* 2026-10-17 加 #ro-heatmap（选号直播换成热力图） */
 
       /* __COPY_LIVE__ 【点击复制链接】
          微信把 yiqicai.com 拉黑了，点外链跳不过去 → 改成复制到剪贴板，
@@ -5369,6 +5369,10 @@ ${DEVICE_GATE_BODY}
             return;
           }
           el.classList.add('ro-open');
+          /* 【热力图】折叠状态下 canvas 画不出来（实测 rect=0x0）→ 展开后立刻补画一次 */
+          if (href === '#ro-heatmap' && typeof window.__roRenderAll === 'function') {
+            setTimeout(function () { try { window.__roRenderAll(); } catch (e) { /* 忽略 */ } }, 30);
+          }
           /* 【提示文字随状态变】展开后把那句改成「点击收起」 */
           try {
             var tipEl = this.querySelector ? this.querySelector('em[data-tip]') : null;
@@ -5387,7 +5391,13 @@ ${DEVICE_GATE_BODY}
         var id = String(location.hash || '');
         if (!OK[id]) return;
         var el = document.getElementById(id.slice(1));
-        if (el) el.classList.add('ro-open');
+        if (el) {
+          el.classList.add('ro-open');
+          /* 【热力图】带 #ro-heatmap 直达时也要补画一次（折叠时画不出来） */
+          if (id === '#ro-heatmap' && typeof window.__roRenderAll === 'function') {
+            setTimeout(function () { try { window.__roRenderAll(); } catch (e) { /* 忽略 */ } }, 80);
+          }
+        }
       })();
 
       function go() {

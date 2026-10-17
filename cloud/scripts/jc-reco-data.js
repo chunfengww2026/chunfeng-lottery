@@ -1686,8 +1686,8 @@ const JC_RECO_DATA = {
      "away": "费耶诺德",
      "pick": "away",
      "label": "客胜",
-     "odds": 1.33,
-     "conf": 70.4,
+     "odds": 1.36,
+     "conf": 68.8,
      "score": "",
      "hit": null,
      "result": ""
@@ -1700,8 +1700,8 @@ const JC_RECO_DATA = {
      "away": "热那亚",
      "pick": "home",
      "label": "主胜",
-     "odds": 1.57,
-     "conf": 60.8,
+     "odds": 1.55,
+     "conf": 61.1,
      "score": "",
      "hit": null,
      "result": ""
