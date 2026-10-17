@@ -6367,15 +6367,14 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   letter-spacing: .3px;
   color: var(--ro-fg2);
 }
-/* 345~374px（360 这类窄一点的安卓）：两列保留，字号和绿圆序号缩一档，
-   保证「选「添加到主屏幕」」这种 9 个字正好一行，不在词中间折行 */
+/* 345~374px（360 这类窄一点的安卓）：两列保留，只把字号收一档，
+   绿圆序号仍是 22px —— 保证「选「添加到主屏幕」」这种 9 个字一行，不在词中间折行 */
 @media (min-width: 345px) and (max-width: 374px) {
   .ro-install { padding: 14px 9px 12px; }
   .ro-install-grid { gap: 8px; }
   .ro-install-card { padding: 9px 8px 10px; }
   .ro-install-plat { font-size: 13px; }
   .ro-install-steps li { gap: 6px; font-size: 11.5px; }
-  .ro-install-steps li b { flex: 0 0 20px; width: 20px; height: 20px; line-height: 20px; font-size: 12px; }
 }
 /* 320 窄屏：两列会挤（每张卡内宽只剩 ~100px），收成一列 */
 @media (max-width: 344px) {
