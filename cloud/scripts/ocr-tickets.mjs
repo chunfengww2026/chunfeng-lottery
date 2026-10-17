@@ -500,7 +500,9 @@ export function parseNumberLine(line, gid) {
         let score = 100 - waste * 5 - front.reduce((x, y) => x + y, 0) / 1000;
         if (s[sp] === '+') score += 8;
         if (gid === 'dlt' && !(Math.max(...front) < Math.min(...back))) score -= 12;
-        cands.push({ front, back, score });
+        /* strict：这一行是【照印出来的数量原样切出来的】，没丢 token、没合并 token。
+           这种读法可信度高得多（见 vote() 里的单票采用规则）。 */
+        cands.push({ front, back, score, strict: waste === 0 });
       }
     }
   }
@@ -508,7 +510,11 @@ export function parseNumberLine(line, gid) {
   if (!cands.length) return null;
   cands.sort((x, y) => y.score - x.score);
   const b = cands[0];
-  return { front: [...b.front].sort((x, y) => x - y), back: [...b.back].sort((x, y) => x - y) };
+  return {
+    front: [...b.front].sort((x, y) => x - y),
+    back: [...b.back].sort((x, y) => x - y),
+    strict: !!b.strict
+  };
 }
 
 /** 没有任何可用分隔符时的兜底：直接按 前区|后区 的顺序整体切 */
@@ -548,7 +554,7 @@ export function tryFullSplit(line, gid) {
      · 它上面的几行（连续的、以号码为主的行）= 前区
    号码一律去重、查范围；前区 < 5 个或后区 < 2 个就判定「不是号码块」，直接放弃。
    ============================================================ */
-const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|篮\s*球|后\s*胆|后\s*拖|后\s*K)/;
+const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|蓝\s*胆|蓝\s*拖|篮\s*球|后\s*胆|后\s*拖|后\s*K)/;
 
 /** 一行里所有「像号码」的数字（先剔掉日期 / 期号 / 金额 / 注数 / 倍数） */
 function numbersOf(line, spec) {
@@ -617,7 +623,7 @@ export function parseStructuredTicket(text, gid) {
          会把「1倍 合计12元」误当成号码行（实测多读出 1、12 两个假号）。 */
       const dense = nums.length >= 3
         || (nums.length >= 2 && !cjk)
-        || (nums.length >= 2 && /(前\s*[区KV]|红\s*球|红\s*号|前\s*胆|前\s*拖|区\s*[胆拖]|胆\s*码|拖\s*码)/.test(l));
+        || (nums.length >= 2 && /(前\s*[区KV]|红\s*球|红\s*号|红\s*[胆拖]|前\s*胆|前\s*拖|区\s*[胆拖]|胆\s*码|拖\s*码)/.test(l));
       if (!dense) break;
       front = nums.concat(front);
       if (front.length > 20) break;
@@ -702,16 +708,17 @@ function ticketKey(t) { return t.front.join(',') + '|' + t.back.join(','); }
  *   ② 只有 1 票，但这一票所在变体的期号与当期完全一致 → 采用（其它变体全瞎，就它读出来了）
  *   ③ 其余（大量互相矛盾的读法）→ 丢弃，并报「识别结果不稳定」
  */
-function vote(reads, expectIssue) {
+function vote(reads, expectIssue, hintIssue) {
   const votes = new Map();          // key → { t, n, issues:Set }
   let best = null;
   for (const r of reads) {
     for (const t of r.tickets) {
       const k = ticketKey(t);
-      if (!votes.has(k)) votes.set(k, { t, n: 0, issues: new Set(), variants: new Set() });
+      if (!votes.has(k)) votes.set(k, { t, n: 0, issues: new Set(), variants: new Set(), strict: false });
       const v = votes.get(k);
       v.n++;
       v.variants.add(r.variant + '/' + r.layout);
+      if (t.strict) v.strict = true;
       if (r.issue) v.issues.add(r.issue);
     }
     const sc = (r.tickets.length ? 100 + Math.min(r.tickets.length, 4) * 10 : 0)
@@ -720,11 +727,21 @@ function vote(reads, expectIssue) {
   }
   const list = [...votes.values()].sort((a, b) => b.n - a.n);
   const withTicket = reads.filter((r) => r.tickets.length).length || 1;
+  /* 【整张图】的期号（所有变体里出现最多的那个）——
+     有些变体只读出了号码行、没读出期号行，但同一张图的另一个变体读出了期号。
+     票面期号和号码行本来就印在同一张票上，所以「整图期号 = 当期」可以算旁证。
+     hintIssue：条带兜底时，条带是横切的，永远切不到期号行 ——
+     由主路径（整图）读到的期号传进来当旁证。 */
+  const imgIc = new Map();
+  reads.forEach((r) => { if (r.issue) imgIc.set(r.issue, (imgIc.get(r.issue) || 0) + 1); });
+  const imgIssue = (([...imgIc.entries()].sort((a, b) => b[1] - a[1])[0] || [])[0]) || hintIssue || '';
   const accepted = [];      // 强接受：多变体一致
   const weak = [];          // 弱接受：只有 1 票（生产默认丢弃）
   for (const v of list) {
     const rate = v.n / withTicket;
-    const issueOk = !!expectIssue && [...v.issues].some((i) => sameIssue(i, expectIssue));
+    const ownOk = !!expectIssue && [...v.issues].some((i) => sameIssue(i, expectIssue));
+    const imgOk = !!expectIssue && !!imgIssue && sameIssue(imgIssue, expectIssue);
+    const issueOk = ownOk || imgOk;
     /* 期号只能当【加分项】，不能单独把「只有 1 票」的读法抬成可靠 ——
        实测过：这么做会把 4 张真票读成 5～8 张，噪声全进来了。 */
     const rec = {
@@ -733,6 +750,13 @@ function vote(reads, expectIssue) {
     };
     if (v.n >= 2 && rate >= 0.5) accepted.push(rec);
     else if (issueOk && v.n >= 2) accepted.push(rec);
+    /* ③ 【单票也可信的情形】只被 1 个变体读出来，但满足两个硬条件：
+          · 票面期号 = 当期（时间证据）
+          · 号码是「照印出来的数量原样切出来的」（strict：没丢号、没并号）
+       实测：SSQ「8 15 16 17 30 32 - 6」这种复式票，14 个变体里常常只有 1 个
+       能整行读对，其余全被水印/倾斜搞坏。不放这一条，真票就白丢。
+       （之所以不敢只靠「期号相符」就放行，见上面注释：会把噪声读法也放进来。） */
+    else if (issueOk && v.n >= 1 && v.strict) accepted.push(rec);
     else weak.push(rec);
   }
   /* 期号也投票（取出现次数最多的） */
@@ -802,7 +826,8 @@ export async function recognizeTicket(buf, gid, opt = {}) {
   let bandUsed = 0;
   let bandPool = [];
   let bandIssue = '';
-  if (!vote(reads, expectIssue).accepted.length) {
+  const v = vote(reads, expectIssue);
+  if (!v.accepted.length) {
     try {
       const bands = await makeBandVariants(buf);
       const bandReads = [];
@@ -817,9 +842,10 @@ export async function recognizeTicket(buf, gid, opt = {}) {
         } catch (e) { /* 单条失败不影响其它条 */ }
       }
       if (bandReads.length) {
-        const bv = vote(bandReads, expectIssue);
+        /* hintIssue = 整图读到的期号：条带只负责号码行，期号靠整图那一路 */
+        const bv = vote(bandReads, expectIssue, v.issue);
         bandUsed = bands.length;
-        bandIssue = bv.issue || '';
+        bandIssue = bv.issue || v.issue || '';
         if (bv.accepted.length) bandPool = bv.accepted;
       }
     } catch (e) { /* 条带兜底失败不影响主流程 */ }
@@ -830,7 +856,6 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     return { ok: false, issue: '', tickets: [], reason: 'OCR 无输出', tried, ms, votes: [] };
   }
 
-  const v = vote(reads, expectIssue);
   let pool = v.accepted.length ? v.accepted : (allowWeak ? v.weak : []);
   let issueOut = v.issue;
   /* 条带救回来的票（只有主路径一个都没成功时才走到这里） */
