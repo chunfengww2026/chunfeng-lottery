@@ -1596,11 +1596,13 @@ function renderRec() {
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
-  /* 【三卡片化】用户 2026-10-17：推荐单 / 推荐（在售）/ 推荐历史结果 各成一张卡。
-   把「推荐历史结果」（#jcRecArch）移出 <details>，成为独立的第三张卡；
-   id 不变 → 30 秒刷新脚本照样能换内容。 */
-  return `<details class="m-rec" id="jcRec" open>${head}${tips}${note}${body}</details>` +
-    (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '');
+  /* 【跟着推荐栏一起折叠】用户 2026-10-18：「跟着推荐栏去折叠」——
+     把「推荐历史结果」（#jcRecArch）放回 <details id="jcRec"> 里面，
+     这样点「推荐串」收起时它一起收起来（不再是外面一张常驻卡）。
+     id 不变 → 30 秒刷新脚本照样能换内容。 */
+  return `<details class="m-rec" id="jcRec" open>${head}${tips}${note}${body}` +
+    (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '') +
+    `</details>`;
 }
 
 /* ============================================================
