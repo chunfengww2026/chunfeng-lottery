@@ -1326,10 +1326,21 @@ function recoStatBarInner() {
       ? `还有 ${REC_STAT.pending} 组没打完`
       : (recTime ? `更新于 ${esc(recTime)}` : '已更新'))
     : '暂未开始统计';
-  return `<span class="h">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
-    `<span class="m">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
-    `<span class="r">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
-    `<span class="n">（推荐串比对最终比分 · ${note}）</span>`;
+  /* 【类名对齐用户 2026-10-17 给的结构】他给的是：
+       <div class="record-bar" id="recStatsBar">
+         <span class="label">推荐串战绩</span>
+         <span class="red" id="recRedText">红 0</span>
+         <span class="black" id="recBlackText">黑 0</span>
+         <span class="rate" id="recRateText">命中率 —</span>
+         <span class="note">（推荐串比对最终比分）</span>
+       </div>
+     所以这里用 .red/.black/.rate/.note + 三个 id —— 他以后可以直接
+     document.getElementById('recRedText').textContent = '红 20' 这样更新。
+     ⚠️ 旧类名（.h/.m/.r/.n）保留成同款样式，老缓存页面不至于没样式。 */
+  return `<span class="red h" id="recRedText">红 ${REC_STAT ? REC_STAT.red : 0}</span>` +
+    `<span class="black m" id="recBlackText">黑 ${REC_STAT ? REC_STAT.black : 0}</span>` +
+    `<span class="rate r" id="recRateText">命中率 ${REC_STAT && REC_STAT.rate != null ? REC_STAT.rate + '%' : '—'}</span>` +
+    `<span class="note n">（推荐串比对最终比分 · ${note}）</span>`;
 }
 
 /* 【推荐串战绩条 · 顶层那一条】—— 用户 2026-10-17 追加要求：
@@ -1341,8 +1352,11 @@ function recoStatBarInner() {
    ⚠️ 没有统计结果时【整条不渲染】—— 不显示空标题、不拿 0 冒充"算过了"。 */
 function recoStatBarTop() {
   if (!REC_STAT) return '';
-  return `<div class="record" id="jcRecStat" data-reco-updated="${esc(RECO_STAMP)}">` +
-    `<span class="t">推荐串战绩</span>` +
+  /* 【对齐用户的 record-bar 结构】外层用 .record-bar + id="recStatsBar"，
+     同时保留旧 id="jcRecStat"（30 秒刷新脚本靠它找元素）——
+     两个 id 不能同时给一个元素，所以脚本里改成「先找 recStatsBar，再退回 jcRecStat」。 */
+  return `<div class="record record-bar" id="recStatsBar" data-reco-updated="${esc(RECO_STAMP)}">` +
+    `<span class="label t">推荐串战绩</span>` +
     recoStatBarInner() +
     `</div>`;
 }
@@ -2855,6 +2869,17 @@ ${nav}
   background: #f9efdd !important; border: 1px solid #f0e2cc !important; border-radius: 8px !important; }
 .m-card .m-ai-title, .m-card .m-mc-title, .m-card .m-sp-lab { color: #8a7a63 !important; }
 .m-card .m-godetail { color: #1a8c5a !important; }
+/* 【推荐串战绩条】用户 2026-10-17 给的结构：.record-bar / .label / .red / .black / .rate / .note
+   红用深红、黑用深棕、命中率用绿，其余说明文字用米杏副色 */
+.record-bar { display: flex !important; align-items: center !important; flex-wrap: wrap !important;
+  gap: 8px !important; background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
+  border-radius: 10px !important; padding: 9px 12px !important; margin: 0 0 12px !important;
+  font-size: 12px !important; }
+.record-bar .label { color: #8a7a63 !important; font-weight: 700 !important; }
+.record-bar .red { color: #c0392b !important; font-weight: 700 !important; }
+.record-bar .black { color: #4a3a26 !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record-bar .rate { color: #1a8c5a !important; font-weight: 700 !important; margin-left: 8px !important; }
+.record-bar .note { color: #8a7a63 !important; margin-left: 8px !important; font-weight: 400 !important; }
 </style>
 </head>
 <body>
@@ -3879,7 +3904,7 @@ ${JC_XYSP_VIEW}
 (function () {
   var VIEW = 'jc-reco-view.js';
   var POLL_MS = 30000;
-  var bar = document.getElementById('jcRecStat');
+  var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
   if (!bar) return;
   var last = bar.getAttribute('data-reco-updated') || '';
 
