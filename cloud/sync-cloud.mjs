@@ -257,6 +257,16 @@ const FROM_ROOT = [
          等于把本机刚抓到的竞彩实票冲掉。
          另外 build-xysp.mjs 也会把它合进 xysp-data.js 的 games.jc（备用）。 */
   'xysp-jc-data.js',
+  /* 【足球晒票 · 票面照片】竞彩实票的票面实拍图（fetch-football-tickets.mjs
+      每 30 分钟在本机抓一次，只留最新 60 条；图片全是外链、不下载本体）。
+      ⚠️【必须同步，而且这一路云端是【抓不到】的】：
+          实测云端（美国 IP）访问这个源是 HTTP 405（阿里云 WAF 拦截），
+          所以线上那份只能靠这里同步过去 —— 云端的 export-football.mjs
+          直接 loadVar('football-tickets.js') 读它渲染「晒票」区块。
+          少了它，云端这一班生成出来的竞彩页「晒票」区块就退回只剩头条那 1 条，
+          等于把本机刚抓到的 30 条票面冲掉。
+      注：它只被【构建时】读，线上站点目录里不需要这个文件。 */
+  'football-tickets.js',
   /* 【分歧指 · 数据】多公司欧赔离散度（build-odds-divergence.mjs 抓球探 titan007 生成）。
      ⚠️ 必须同步：云端的 比赛详情.html 是 cloud-build.mjs 现场跑 build-match.mjs 出的，
          build-match.mjs 读它把分歧指内嵌进页面。云端少了这个文件 →
