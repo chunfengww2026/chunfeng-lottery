@@ -6625,6 +6625,126 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tv-btn.ghost { background: transparent; color: var(--ro-ok); border: 1px solid var(--ro-ok); }
 .tv-btn:active { opacity: .85; }
 .tv-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+/* ============================================================
+   __TQ3__ 智能分析三个子页面的新模板（趋势分析 / 杀号和选号 / 指数预测）
+   ------------------------------------------------------------
+   用户给了截图，明确要这套样式：
+     · Tab 选中 = 橙色下划线
+     · 基础区按钮 = 浅粉底 #fdeee8 · 深红字 #c0392b
+     · 免费查看 = 浅黄小标签
+     · VIP 区 = 深棕横条 #6b4a2f + 👑
+   和页面米杏主题调和：外层卡片仍走 --ro-card / --ro-line，只有按钮和 VIP 条按截图。
+   全部可换行（320 / 375 不溢出），可点的都是 div role="button"（没有裸 button）。
+   ============================================================ */
+.tool-view-title { cursor: pointer; }
+.tq-caret { display: inline-block; font-size: 11px; color: #c0392b; margin-left: 3px; vertical-align: 1px; }
+.tq-games { margin: 0 0 10px; }
+.tq-tabs { display: flex; flex-wrap: wrap; gap: 2px 20px; border-bottom: 1px solid var(--ro-line); margin: 0 0 10px; }
+.tq-tab { padding: 7px 1px 8px; font-size: 14px; font-weight: 800; color: #8a7a63;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+.tq-tab.on { color: #f0872a; border-bottom-color: #f0872a; }
+.tq-tab:focus-visible { outline: 2px solid #f0872a; outline-offset: 1px; }
+.tq-sub { font-size: 11px; font-weight: 600; color: #a89a80; margin: -3px 0 10px; line-height: 1.6; }
+.tq-sec { margin: 0 0 14px; }
+.tq-sec-h { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 800;
+  color: #4a3a26; margin: 0 0 9px; }
+.tq-free { font-size: 10.5px; font-weight: 700; color: #a9761a; background: #fff4d6;
+  border: 1px solid #f0dfae; border-radius: 6px; padding: 1px 7px; line-height: 1.7; }
+.tq-vip-bar { display: flex; align-items: center; gap: 6px; background: #6b4a2f; color: #fff8ef;
+  border-radius: 9px; padding: 7px 11px; font-size: 12.5px; font-weight: 800; margin: 0 0 10px; }
+.tq-grp { margin: 0 0 11px; }
+.tq-grp-h { font-size: 12.5px; font-weight: 800; color: #2f2218; margin: 0 0 7px; }
+.tq-btns { display: flex; flex-wrap: wrap; gap: 7px; }
+.tq-btn { flex: 0 0 auto; padding: 6px 11px; border-radius: 9px; background: #fdeee8;
+  border: 1px solid #f6d5ca; color: #c0392b; font-size: 12.5px; font-weight: 700;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.tq-btn:active { background: #fbdcd2; }
+.tq-btn.on { background: #c0392b; border-color: #c0392b; color: #fff; }
+.tq-btn:focus-visible { outline: 2px solid #c0392b; outline-offset: 1px; }
+.tq-res { margin: 9px 0 2px; background: #fffaf3; border: 1px solid #f0dcc8;
+  border-left: 3px solid #c0392b; border-radius: 10px; padding: 10px 11px; }
+.tq-res-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  font-size: 12.5px; font-weight: 800; color: #6b4a2f; margin: 0 0 6px; }
+.tq-res-h em { font-style: normal; font-size: 10.5px; font-weight: 600; color: #b08a5e; }
+.tq-kv { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px;
+  color: #4a3a26; padding: 4px 0; border-bottom: 1px dashed #f1e3d2; line-height: 1.55; }
+.tq-kv:last-child { border-bottom: 0; }
+.tq-kv span { flex: 0 0 auto; color: #8a7a63; max-width: 46%; }
+.tq-kv b { font-weight: 700; text-align: right; color: #4a3a26; overflow-wrap: break-word; word-break: break-word; }
+.tq-balls { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 2px; }
+.tq-ball { width: 27px; height: 27px; line-height: 27px; border-radius: 50%; text-align: center;
+  font-size: 12.5px; font-weight: 800; font-style: normal; background: #c0392b; color: #fff;
+  display: inline-block; flex: 0 0 auto; }
+.tq-ball.blue { background: #2f6fd0; }
+.tq-ball.kill { background: #8a7a63; }
+.tq-ball.digit { border-radius: 8px; background: #fff; color: #c0392b; border: 1px solid #f6d5ca; }
+.tq-ball.sm { width: 24px; height: 24px; line-height: 24px; font-size: 11.5px; }
+.tq-ball.digit.sm { line-height: 22px; }
+.tq-chips { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; margin: 6px 0 2px; }
+.tq-mini { background: #fdeee8; border: 1px solid #f6d5ca; border-radius: 6px; text-align: center; padding: 2px 0; line-height: 1.3; }
+.tq-mini b { display: block; font-size: 11.5px; color: #c0392b; }
+.tq-mini span { display: block; font-size: 10px; color: #a9761a; }
+.tq-mini.zero { background: #f7f2ea; border-color: #eee2d2; }
+.tq-mini.zero b, .tq-mini.zero span { color: #b7a892; }
+.tq-tbl-wrap { max-height: 360px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid #f0dcc8; border-radius: 10px; background: #fffdf9; }
+.tq-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
+.tq-tbl th, .tq-tbl td { padding: 5px 3px; text-align: center; border-bottom: 1px solid #f4e7d8; }
+.tq-tbl th { color: #8a7a63; font-weight: 700; background: #fdf3e6; position: sticky; top: 0; z-index: 1; }
+.tq-tbl th:nth-child(1) { width: 40px; }
+.tq-tbl th:nth-child(2) { width: 64px; }
+.tq-tbl th:nth-child(3) { width: 66px; }
+.tq-tbl td { color: #4a3a26; font-weight: 600; }
+.tq-tbl td b { color: #c0392b; }
+.tq-tbl td.s { text-align: left; color: #8a7a63; font-weight: 600; font-size: 11px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tq-tbl tr.top td { background: #fdeee8; }
+.tq-tbl tr.top td.s { color: #a9761a; }
+.tq-rec { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px;
+  padding: 12px; margin: 2px 0 0; }
+.tq-rec-h { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; font-size: 13.5px;
+  font-weight: 800; color: #c0392b; margin: 0 0 8px; }
+.tq-rec-h span { font-size: 11px; font-weight: 600; color: #8a7a63; }
+.tq-rec-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin: 0 0 6px; }
+.tq-rec-k { flex: 0 0 auto; font-size: 11.5px; font-weight: 800; color: #6b4a2f; min-width: 46px; }
+.tq-rec-k2 { flex: 0 0 auto; font-size: 11px; font-weight: 700; color: #8a7a63; }
+.tq-rec-t { flex: 1 1 auto; font-size: 12px; font-weight: 700; color: #4a3a26;
+  overflow-wrap: break-word; word-break: break-word; min-width: 0; }
+.tq-warn { font-size: 11px; color: #a89a80; margin-top: 6px; }
+.tq-empty { font-size: 12.5px; color: #8a7a63; line-height: 1.7; padding: 10px 0; }
+.tq-empty b { display: block; color: #4a3a26; font-size: 13.5px; margin-bottom: 4px; }
+@media (max-width: 360px) {
+  .tq-btn { padding: 5px 9px; font-size: 12px; }
+  .tq-tabs { gap: 2px 14px; }
+  .tq-tab { font-size: 13px; }
+  .tq-ball { width: 25px; height: 25px; line-height: 25px; font-size: 12px; }
+  .tq-ball.sm { width: 22px; height: 22px; line-height: 22px; font-size: 11px; }
+  .tq-kv { font-size: 12px; }
+  .tq-chips { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .tq-tbl { font-size: 11.5px; }
+  .tq-tbl th:nth-child(1) { width: 34px; }
+  .tq-tbl th:nth-child(2) { width: 56px; }
+  .tq-tbl th:nth-child(3) { width: 60px; }
+}
+/* __TQ4__ 智能规律：画线推号区块（斜连 / 竖连 / 胆尾 / 遗漏周期） */
+.tq-blk { background: #fffaf3; border: 1px solid #f0dcc8; border-left: 3px solid #6b4a2f;
+  border-radius: 10px; padding: 10px 11px; margin: 0 0 10px; }
+.tq-blk-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  font-size: 12.5px; font-weight: 800; color: #6b4a2f; margin: 0 0 7px; }
+.tq-blk-h em { font-style: normal; font-size: 10.5px; font-weight: 600; color: #b08a5e; }
+.tq-mtbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11.5px; }
+.tq-mtbl th, .tq-mtbl td { padding: 4px 3px; text-align: center; border-bottom: 1px dashed #f1e3d2;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tq-mtbl th { color: #8a7a63; font-weight: 700; }
+.tq-mtbl td { color: #4a3a26; font-weight: 600; }
+.tq-mtbl td.l { text-align: left; white-space: normal; }
+.tq-mtbl td b { color: #c0392b; }
+.tq-nores { font-size: 11.5px; color: #a89a80; line-height: 1.65; }
+@media (max-width: 360px) {
+  .tq-mtbl { font-size: 11px; }
+  .tq-blk { padding: 9px 9px; }
+}
 /* 随机号球 */
 .tv-balls { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
 .tv-ball { width: 30px; height: 30px; line-height: 30px; border-radius: 50%; text-align: center;
@@ -6889,7 +7009,7 @@ ${DEVICE_GATE_BODY}
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
@@ -9794,9 +9914,10 @@ ${CHAT_JS_SHARE}
   /* 构建期算好的「本期推荐号码」（多源共振打分 · 种子 = 下一期期号）
      —— 8 个子页面最底部都渲染它；切彩种时按 gid 换一份，跟着变。 */
   var REC = ${REC_JS};
-  var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
+  var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '杀号和选号', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
   var SPAN = 30;
-  var st = { id: 'stat', game: 'ssq', area: '', ai: null, aiTimes: 0 };
+  var st = { id: 'stat', game: 'ssq', area: '', ai: null, aiTimes: 0,
+    tqTab: '', tq: '', mqTab: 'kill', mq: '', ixTab: '', pqTab: '', pq: '', pickGame: false, _keep: 0 };
 
   var HIST = null;
   try { if (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) HIST = DRAW_HISTORY.games; } catch (e0) { HIST = null; }
@@ -10115,28 +10236,761 @@ ${CHAT_JS_SHARE}
     return h;
   }
 
-  /* ================= ② 趋势分析 ================= */
-  function pageTrend() {
-    var g = gameById(st.game), key = curArea(g);
-    var sums = sumSeries(g.id, SPAN);
-    if (sums.length < 3) return chipsGame() + none('需要更多数据', '这个彩种本页的开奖期数不够画走势。');
-    var ma5 = maSeries(sums, 5);
-    var last = sums[sums.length - 1], prev = sums[sums.length - 2];
-    var d = last - prev;
-    var h = chipsGame() + chipsArea(g);
-    h += card('和值走势 · 近 ' + sums.length + ' 期',
-      spark(sums, ma5, '每期和值', '5 期均值'));
-    h += card('最近变化',
-      row('最新一期和值', String(last)) +
-      row('比上一期', (d > 0 ? '+' : '') + d) +
-      row('近 5 期均值', fmt1(ma5[ma5.length - 1])) +
-      row('近 30 期均值', fmt1(avgOf(sums))));
-    h += '<div class="tv-acts"><div class="tv-btn" role="button" tabindex="0" data-tv-act="goto-trend">打开完整走势表</div></div>';
-    h += note('本页下方本来就有「近 30 期走势 · 预选参考」那张完整表（8 彩种 × 30 期、带连线），这里不重复画一遍 —— 点上面的按钮会就地展开并跳过去。');
-    h += recBlock(g.id);
+  /* ================= ② 趋势分析（按用户截图完全改版） =================
+     ------------------------------------------------------------
+     模板（用户给的两张截图）：
+       ← 返回   <彩种>趋势分析 ⌄      ← ⌄ 在标题上，点了展开彩种选择
+       【红球】|【蓝球】两个 Tab（选中橙色下划线）
+       【基础趋势】[免费查看]  → 一排浅粉底 / 深红字的小圆角按钮
+       【VIP 趋势】深棕横条 + 👑 → 分组标题 + 每组一排小圆角按钮
+       点任意按钮 → 按钮下方立即展开一块分析结果（再点收起，不弹窗不跳页）
+       底部：🎯 本期推荐号码（种子 = 下一期期号 → 同期固定 / 换期全变）
+     数据：全部按本页已有的近 30 期现算 —— 每次开奖后重建页面，数字自动跟着变。
+     数字彩没有红蓝球 → Tab 换成 百位 / 十位 / 个位（排列5 五位、七星彩 前六位 / 最后一位）。
+     ⚠️ 这段在模板字符串里：只写单引号，不写反引号，不写代码里的反斜杠。
+     ============================================================ */
+
+  function tqPrime(v) {
+    if (v < 2) return false;
+    for (var i = 2; i * i <= v; i++) if (v % i === 0) return false;
+    return true;
+  }
+  function tqPct(a, b) { return b ? fmt1(a * 100 / b) + '%' : '0%'; }
+  function tqKV(k, v) {
+    return '<div class="tq-kv"><span>' + k + '</span><b>' + v + '</b></div>';
+  }
+  function tqLines(pairs) {
+    var h = '';
+    for (var i = 0; i < pairs.length; i++) h += tqKV(pairs[i][0], pairs[i][1]);
     return h;
   }
-  function avgOf(a) { var t = 0; for (var i = 0; i < a.length; i++) t += a[i]; return a.length ? t / a.length : 0; }
+  function tqBall(n, cls) {
+    return '<div class="tq-ball ' + (cls || '') + '">' + n + '</div>';
+  }
+  function tqBalls(nums, cls) {
+    var h = '<div class="tq-balls">';
+    for (var i = 0; i < nums.length; i++) h += tqBall(nums[i], cls);
+    return h + '</div>';
+  }
+  function tqDistHTML(dist) {
+    var h = '<div class="tq-chips">';
+    for (var i = 0; i <= 9; i++) {
+      var c = dist[i] || 0;
+      h += '<div class="tq-mini' + (c ? '' : ' zero') + '"><b>' + i + '</b><span>' + c + '</span></div>';
+    }
+    return h + '</div>';
+  }
+
+  /* ---------------- 取数：一个 Tab / 一个号码区 / 某一位 ---------------- */
+  function tqSeries(gid, key, pos, n) {
+    var list = drawsOf(gid).slice(0, n || SPAN), out = [];
+    for (var i = list.length - 1; i >= 0; i--) {
+      var ns = numsOf(list[i], key);
+      if (!ns.length) continue;
+      if (pos == null) out.push({ issue: String(list[i].issue || ''), nums: ns.slice() });
+      else if (ns.length > pos) out.push({ issue: String(list[i].issue || ''), nums: [ns[pos]] });
+    }
+    return out;
+  }
+  function tqPer(gid, key) {
+    var d = drawsOf(gid);
+    for (var i = 0; i < d.length; i++) {
+      var ns = numsOf(d[i], key);
+      if (ns.length) return ns.length;
+    }
+    return 1;
+  }
+  /* Tab 清单：数字彩按位、七星彩按前后、其余按号码区（红球 / 蓝球） */
+  function tqTabs(g) {
+    var out = [], i, POS5 = ['万位', '千位', '百位', '十位', '个位'];
+    var POS4 = ['千位', '百位', '十位', '个位'], POS3 = ['百位', '十位', '个位'];
+    if (g.type === 'digit') {
+      var need = tqPer(g.id, 'main');
+      var names = need >= 5 ? POS5 : (need === 4 ? POS4 : POS3);
+      for (i = 0; i < need; i++) {
+        out.push({ key: 'main', pos: i, label: names[i] || ('第 ' + (i + 1) + ' 位'),
+          from: 0, to: 9, sub: '定位走势' });
+      }
+      return out;
+    }
+    if (g.type === 'qxc') {
+      for (i = 0; i < g.areas.length; i++) {
+        var qa = g.areas[i];
+        out.push({ key: qa.key, pos: null, label: qa.label || ('区' + (i + 1)),
+          from: qa.from, to: qa.to, sub: '' });
+      }
+      return out;
+    }
+    for (i = 0; i < g.areas.length; i++) {
+      var a = g.areas[i];
+      var lab = i === 0 ? '红球' : (i === 1 ? '蓝球' : ('第 ' + (i + 1) + ' 区'));
+      out.push({ key: a.key, pos: null, label: lab, from: a.from, to: a.to, sub: a.label || '' });
+    }
+    return out;
+  }
+  function tqTabId(t) { return t.key + (t.pos == null ? '' : ('#' + t.pos)); }
+  function tqTabOf(tabs, id) {
+    for (var i = 0; i < tabs.length; i++) if (tqTabId(tabs[i]) === id) return tabs[i];
+    return null;
+  }
+  function tqCtx(g, tab) {
+    var rows = tqSeries(g.id, tab.key, tab.pos, SPAN), per = 0, i;
+    for (i = rows.length - 1; i >= 0; i--) { if (rows[i].nums.length) { per = rows[i].nums.length; break; } }
+    if (!per) per = 1;
+    return { g: g, tab: tab, rows: rows, n: rows.length, per: per,
+      from: tab.from, to: tab.to, isMulti: per >= 2 };
+  }
+  function tqFlat(ctx) {
+    var out = [], i, j;
+    for (i = 0; i < ctx.rows.length; i++) {
+      for (j = 0; j < ctx.rows[i].nums.length; j++) out.push(ctx.rows[i].nums[j]);
+    }
+    return out;
+  }
+  function tqSplit(ctx) { return ctx.from + Math.floor((ctx.to - ctx.from + 1) / 2) - 1; }
+  function tqSums(ctx) {
+    var out = [], i, j;
+    for (i = 0; i < ctx.rows.length; i++) {
+      var s = 0;
+      for (j = 0; j < ctx.rows[i].nums.length; j++) s += ctx.rows[i].nums[j];
+      out.push(s);
+    }
+    return out;
+  }
+  function tqTailDist(arr) {
+    var m = {}, i, t;
+    for (i = 0; i < arr.length; i++) { t = arr[i] % 10; m[t] = (m[t] || 0) + 1; }
+    return m;
+  }
+  function tqBands(ctx, parts) {
+    var span = ctx.to - ctx.from + 1, w = Math.ceil(span / parts), out = [], q, a, b;
+    for (q = 0; q < parts; q++) {
+      a = ctx.from + q * w; b = a + w - 1;
+      if (a > ctx.to) break;
+      if (b > ctx.to) b = ctx.to;
+      out.push({ a: a, b: b, c: 0 });
+    }
+    return out;
+  }
+  function tqBandCount(ctx, bands) {
+    var per = [], i, j, k, ns, cnt, hit;
+    for (i = 0; i < ctx.rows.length; i++) {
+      ns = ctx.rows[i].nums; cnt = [];
+      for (k = 0; k < bands.length; k++) cnt.push(0);
+      for (j = 0; j < ns.length; j++) {
+        for (k = 0; k < bands.length; k++) {
+          if (ns[j] >= bands[k].a && ns[j] <= bands[k].b) { cnt[k]++; bands[k].c++; break; }
+        }
+      }
+      per.push(cnt);
+    }
+    return per;
+  }
+  /* 每一期（或每几个号）的号码出现次数 + 距离最近一次出现隔了几期 */
+  function tqFreqAll(ctx) {
+    var map = {}, v, i, j, n;
+    for (v = ctx.from; v <= ctx.to; v++) map[v] = { f: 0, gap: ctx.n };
+    for (i = 0; i < ctx.rows.length; i++) {
+      var ns = ctx.rows[i].nums;
+      for (j = 0; j < ns.length; j++) {
+        n = ns[j];
+        if (!map[n]) map[n] = { f: 0, gap: ctx.n };
+        map[n].f++;
+        if (map[n].gap === ctx.n) map[n].gap = ctx.rows.length - 1 - i;
+      }
+    }
+    return map;
+  }
+  function tqTop(map, from, to, k) {
+    var list = [], v;
+    for (v = from; v <= to; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (x, y) { return (y.f - x.f) || (x.gap - y.gap) || (x.n - y.n); });
+    return list.slice(0, k);
+  }
+  function tqRuns(nums) {
+    var s = nums.slice().sort(function (a, b) { return a - b; }), out = [], i = 0, j;
+    while (i < s.length) {
+      j = i;
+      while (j + 1 < s.length && s[j + 1] - s[j] === 1) j++;
+      if (j > i) out.push(j - i + 1);
+      i = j + 1;
+    }
+    return out;
+  }
+
+  /* ---------------- 指标：算的都是近 30 期的真实号码 ---------------- */
+  function mOddEven(ctx) {
+    var all = tqFlat(ctx), odd = 0, even = 0, i, tOdd = 0, tEven = 0;
+    for (i = 0; i < all.length; i++) { if (all[i] % 2) odd++; else even++; }
+    var tot = odd + even;
+    for (i = ctx.from; i <= ctx.to; i++) { if (i % 2) tOdd++; else tEven++; }
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 奇数 : 偶数', odd + ' : ' + even],
+      ['占比', tqPct(odd, tot) + ' : ' + tqPct(even, tot)],
+      ['平均每期', '奇 ' + fmt1(odd / ctx.n) + ' 个 : 偶 ' + fmt1(even / ctx.n) + ' 个'],
+      ['本区奇偶号个数', tOdd + ' : ' + tEven + '（理论 ' + tqPct(tOdd, tOdd + tEven) + ' : ' + tqPct(tEven, tOdd + tEven) + '）'],
+      ['最近一期', ctx.n ? (ctx.rows[ctx.rows.length - 1].issue + ' 期　' + ctx.rows[ctx.rows.length - 1].nums.join(' ')) : '—']
+    ]);
+  }
+  function mBigSmall(ctx) {
+    var split = tqSplit(ctx), all = tqFlat(ctx), big = 0, small = 0, i;
+    for (i = 0; i < all.length; i++) { if (all[i] > split) big++; else small++; }
+    var tot = big + small, tBig = 0;
+    for (i = ctx.from; i <= ctx.to; i++) if (i > split) tBig++;
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 大 : 小', big + ' : ' + small],
+      ['占比', tqPct(big, tot) + ' : ' + tqPct(small, tot)],
+      ['分界（小 ≤ ' + split + '）', '大 ' + (split + 1) + ' ~ ' + ctx.to],
+      ['平均每期', '大 ' + fmt1(big / ctx.n) + ' 个 : 小 ' + fmt1(small / ctx.n) + ' 个'],
+      ['本区大小号个数', tBig + ' : ' + (ctx.to - ctx.from + 1 - tBig)]
+    ]);
+  }
+  function mPrime(ctx) {
+    var all = tqFlat(ctx), pr = 0, i;
+    for (i = 0; i < all.length; i++) if (tqPrime(all[i])) pr++;
+    var comp = all.length - pr;
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 质数 : 合数', pr + ' : ' + comp],
+      ['占比', tqPct(pr, all.length) + ' : ' + tqPct(comp, all.length)],
+      ['平均每期', '质 ' + fmt1(pr / ctx.n) + ' 个 : 合 ' + fmt1(comp / ctx.n) + ' 个'],
+      ['口径', '1 不是质数，按合数计']
+    ]);
+  }
+  function mRoad(ctx) {
+    var all = tqFlat(ctx), r = [0, 0, 0], i;
+    for (i = 0; i < all.length; i++) r[all[i] % 3]++;
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 0 路 : 1 路 : 2 路', r[0] + ' : ' + r[1] + ' : ' + r[2]],
+      ['占比', tqPct(r[0], all.length) + ' : ' + tqPct(r[1], all.length) + ' : ' + tqPct(r[2], all.length)],
+      ['平均每期', '0 路 ' + fmt1(r[0] / ctx.n) + ' · 1 路 ' + fmt1(r[1] / ctx.n) + ' · 2 路 ' + fmt1(r[2] / ctx.n)],
+      ['口径', '号码除以 3 的余数']
+    ]);
+  }
+  function mSpan(ctx) {
+    var i, j;
+    if (ctx.isMulti) {
+      var tot = 0, mx = 0, mn = 999, last = 0, lastIssue = '';
+      for (i = 0; i < ctx.rows.length; i++) {
+        var ns = ctx.rows[i].nums, hi = ns[0], lo = ns[0];
+        for (j = 1; j < ns.length; j++) { if (ns[j] > hi) hi = ns[j]; if (ns[j] < lo) lo = ns[j]; }
+        var sp = hi - lo;
+        tot += sp;
+        if (sp > mx) mx = sp;
+        if (sp < mn) mn = sp;
+        last = sp; lastIssue = ctx.rows[i].issue;
+      }
+      return tqLines([
+        ['近 ' + ctx.n + ' 期 平均跨度', fmt1(tot / ctx.n)],
+        ['最大跨度', mx + '（单期最大号 - 最小号）'],
+        ['最小跨度', mn],
+        ['最近一期', lastIssue + ' 期　跨度 ' + last]
+      ]);
+    }
+    var all = tqFlat(ctx), hi2 = all[0], lo2 = all[0], gaps = 0;
+    for (i = 1; i < all.length; i++) { if (all[i] > hi2) hi2 = all[i]; if (all[i] < lo2) lo2 = all[i]; }
+    for (i = 1; i < ctx.rows.length; i++) gaps += Math.abs(ctx.rows[i].nums[0] - ctx.rows[i - 1].nums[0]);
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 号码范围', lo2 + ' ~ ' + hi2],
+      ['跨度（最大号 - 最小号）', String(hi2 - lo2)],
+      ['平均相邻两期间距', fmt1(gaps / Math.max(1, ctx.rows.length - 1))],
+      ['最近一期', ctx.n ? (ctx.rows[ctx.rows.length - 1].issue + ' 期　开 ' + ctx.rows[ctx.rows.length - 1].nums[0]) : '—'],
+      ['口径', '每期只开 1 个号，所以看区间跨度 + 期间间距']
+    ]);
+  }
+  function mSumRange(ctx) {
+    var sums = tqSums(ctx), mx = sums[0], mn = sums[0], tot = 0, i;
+    for (i = 0; i < sums.length; i++) { tot += sums[i]; if (sums[i] > mx) mx = sums[i]; if (sums[i] < mn) mn = sums[i]; }
+    var avg = tot / (sums.length || 1);
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 平均和值', fmt1(avg)],
+      ['和值区间', mn + ' ~ ' + mx],
+      ['最近一期和值', ctx.n ? (String(sums[sums.length - 1]) + '（' + (sums[sums.length - 1] > avg ? '高于均值' : (sums[sums.length - 1] < avg ? '低于均值' : '等于均值')) + '）') : '—'],
+      ['均值上下 20%', fmt1(avg * 0.8) + ' ~ ' + fmt1(avg * 1.2)]
+    ]);
+  }
+  function mSumTail(ctx) {
+    var sums = tqSums(ctx), dist = tqTailDist(sums), list = [], i;
+    for (i = 0; i <= 9; i++) list.push([i, dist[i] || 0]);
+    list.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    var top = '', j;
+    for (j = 0; j < 3; j++) top += (j ? ' · ' : '') + '尾 ' + list[j][0] + '（' + list[j][1] + ' 次）';
+    return tqDistHTML(dist) + tqLines([
+      ['统计范围', '近 ' + ctx.n + ' 期的和值尾数，共 ' + sums.length + ' 个'],
+      ['出现最多', top],
+      ['出现最少', '尾 ' + list[9][0] + '（' + list[9][1] + ' 次）']
+    ]);
+  }
+  function mAC(ctx) {
+    var tot = 0, used = 0, mx = 0, mn = 99, i, j, k, d;
+    for (i = 0; i < ctx.rows.length; i++) {
+      var s = ctx.rows[i].nums.slice().sort(function (a, b) { return a - b; });
+      if (s.length < 2) continue;
+      var seen = {}, kinds = 0;
+      for (j = 0; j < s.length; j++) for (k = j + 1; k < s.length; k++) { d = s[k] - s[j]; seen[d] = 1; }
+      for (d in seen) if (seen.hasOwnProperty(d)) kinds++;
+      var ac = kinds - (s.length - 1);
+      if (ac < 0) ac = 0;
+      tot += ac; used++;
+      if (ac > mx) mx = ac;
+      if (ac < mn) mn = ac;
+    }
+    if (!used) return tqLines([['近 ' + ctx.n + ' 期', '每期只开 1 个号，差值集合为空，AC 值按 0 计']]);
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 平均 AC 值', fmt1(tot / used)],
+      ['最高 / 最低', mx + ' / ' + mn],
+      ['算法', '两两差值种类数 -（号码个数 - 1）'],
+      ['说明', 'AC 值越大，号码越分散']
+    ]);
+  }
+  function mBigOddEven(ctx) {
+    var split = tqSplit(ctx), cnt = [0, 0, 0, 0], i, v, idx;
+    for (i = 0; i < ctx.rows.length; i++) {
+      v = ctx.rows[i].nums[0];
+      if (v == null) continue;
+      idx = (v > split ? 2 : 0) + (v % 2 ? 1 : 0);
+      cnt[idx]++;
+    }
+    var tot = ctx.n || 1;
+    return tqLines([
+      ['大奇（' + (split + 1) + '~' + ctx.to + ' 奇）', cnt[2] + ' 期 · ' + tqPct(cnt[2], tot)],
+      ['大偶', cnt[3] + ' 期 · ' + tqPct(cnt[3], tot)],
+      ['小奇（' + ctx.from + '~' + split + ' 奇）', cnt[1] + ' 期 · ' + tqPct(cnt[1], tot)],
+      ['小偶', cnt[0] + ' 期 · ' + tqPct(cnt[0], tot)],
+      ['近 ' + ctx.n + ' 期 合计', (cnt[0] + cnt[1] + cnt[2] + cnt[3]) + ' 期']
+    ]);
+  }
+  function mSumSingle(ctx) {
+    var all = tqFlat(ctx), mx = all[0], mn = all[0], tot = 0, i;
+    for (i = 0; i < all.length; i++) { tot += all[i]; if (all[i] > mx) mx = all[i]; if (all[i] < mn) mn = all[i]; }
+    return tqLines([
+      ['近 ' + ctx.n + ' 期 平均和值', fmt1(tot / (all.length || 1))],
+      ['和值区间', mn + ' ~ ' + mx],
+      ['最近一期', ctx.n ? (String(all[all.length - 1]) + '（' + ctx.rows[ctx.rows.length - 1].issue + ' 期）') : '—'],
+      ['口径', '这个 Tab 每期只开 1 个号，和值就是号码本身']
+    ]);
+  }
+  function mQuad(ctx) {
+    var bands = tqBands(ctx, 4), per = tqBandCount(ctx, bands), tot = 0, i;
+    for (i = 0; i < bands.length; i++) tot += bands[i].c;
+    var h = '', name = ['一区', '二区', '三区', '四区'];
+    for (i = 0; i < bands.length; i++) {
+      h += tqKV(name[i] + '（' + bands[i].a + '~' + bands[i].b + '）', bands[i].c + ' 个 · ' + tqPct(bands[i].c, tot));
+    }
+    return h + tqLines([
+      ['四分区比', bands[0].c + ' : ' + (bands[1] ? bands[1].c : 0) + ' : ' + (bands[2] ? bands[2].c : 0) + ' : ' + (bands[3] ? bands[3].c : 0)],
+      ['最近一期分布', per.length ? per[per.length - 1].join(' : ') : '—']
+    ]);
+  }
+  function mThirdRatio(ctx) {
+    var bands = tqBands(ctx, 3), per = tqBandCount(ctx, bands), tot = 0, i;
+    for (i = 0; i < bands.length; i++) tot += bands[i].c;
+    var names = ['一区', '二区', '三区'], h = '';
+    for (i = 0; i < bands.length; i++) h += tqKV(names[i] + '（' + bands[i].a + '~' + bands[i].b + '）', bands[i].c + ' 个 · ' + tqPct(bands[i].c, tot));
+    return h + tqLines([
+      ['三区比', bands[0].c + ' : ' + bands[1].c + ' : ' + bands[2].c],
+      ['平均每期', fmt1(bands[0].c / ctx.n) + ' : ' + fmt1(bands[1].c / ctx.n) + ' : ' + fmt1(bands[2].c / ctx.n)],
+      ['最近一期分布', per.length ? per[per.length - 1].join(' : ') : '—']
+    ]);
+  }
+  function mBandCount(ctx, idx) {
+    var bands = tqBands(ctx, 3), per = tqBandCount(ctx, bands);
+    var names = ['一区', '二区', '三区'], sum = 0, mx = -1, mn = 999, dist = {}, i, c;
+    for (i = 0; i < per.length; i++) {
+      c = per[i][idx] || 0;
+      sum += c;
+      if (c > mx) mx = c;
+      if (c < mn) mn = c;
+      dist[c] = (dist[c] || 0) + 1;
+    }
+    var rank = [], v;
+    for (v in dist) if (dist.hasOwnProperty(v)) rank.push([Number(v), dist[v]]);
+    rank.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    var top = '', j;
+    for (j = 0; j < Math.min(3, rank.length); j++) top += (j ? ' · ' : '') + rank[j][0] + ' 个 ' + rank[j][1] + ' 期';
+    return tqLines([
+      [names[idx] + '（' + bands[idx].a + '~' + bands[idx].b + '）', '平均每期 ' + fmt1(sum / (per.length || 1)) + ' 个'],
+      ['单期区间', mn + ' ~ ' + mx + ' 个'],
+      ['出现最多', top || '—'],
+      ['最近一期', per.length ? (per[per.length - 1][idx] || 0) + ' 个' : '—']
+    ]);
+  }
+  function mDan(ctx, k) {
+    var map = tqFreqAll(ctx), top = tqTop(map, ctx.from, ctx.to, k), nums = [], i, s = '';
+    for (i = 0; i < top.length; i++) {
+      nums.push(top[i].n);
+      s += (i ? '　' : '') + top[i].n + '（近 30 期 ' + top[i].f + ' 次 · 已 ' + top[i].gap + ' 期没出）';
+    }
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, ctx.isMulti ? 'red' : 'blue') + tqLines([
+      [k + ' 个胆码', nums.join(' ')],
+      ['打分依据', '近 30 期出现次数（主）+ 最近遗漏（次）'],
+      ['每个号的明细', s]
+    ]);
+  }
+  function mTailValue(ctx) {
+    var all = tqFlat(ctx), dist = tqTailDist(all), list = [], i;
+    for (i = 0; i <= 9; i++) list.push([i, dist[i] || 0]);
+    list.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    var top = '', j;
+    for (j = 0; j < 3; j++) top += (j ? ' · ' : '') + '尾 ' + list[j][0] + '（' + list[j][1] + ' 次）';
+    return tqDistHTML(dist) + tqLines([
+      ['统计范围', '近 ' + ctx.n + ' 期共 ' + all.length + ' 个号码的个位'],
+      ['出现最多', top],
+      ['出现最少', '尾 ' + list[9][0] + '（' + list[9][1] + ' 次）']
+    ]);
+  }
+  function mTailSame(ctx) {
+    var days = 0, groups = 0, mx = 0, dist = {}, i, j, ns, tail, g;
+    for (i = 0; i < ctx.rows.length; i++) {
+      ns = ctx.rows[i].nums; tail = {}; g = 0;
+      for (j = 0; j < ns.length; j++) { var t = ns[j] % 10; tail[t] = (tail[t] || 0) + 1; }
+      for (var k in tail) if (tail.hasOwnProperty(k) && tail[k] > 1) g++;
+      if (g > 0) days++;
+      groups += g;
+      if (g > mx) mx = g;
+      dist[g] = (dist[g] || 0) + 1;
+    }
+    return tqLines([
+      ['出现同尾的期数', days + ' / ' + ctx.n + ' 期（' + tqPct(days, ctx.n) + '）'],
+      ['同尾组数合计', groups + ' 组'],
+      ['平均每期', fmt1(groups / ctx.n) + ' 组'],
+      ['单期最多', mx + ' 组（同一期里几组尾数相同，如 12 / 22）']
+    ]);
+  }
+  function mConsecType(ctx) {
+    var type = { '无连号': 0, '2 连': 0, '3 连': 0, '4 连以上': 0, '多组连号': 0 }, i, j, runs, m;
+    for (i = 0; i < ctx.rows.length; i++) {
+      runs = tqRuns(ctx.rows[i].nums);
+      if (!runs.length) { type['无连号']++; continue; }
+      if (runs.length >= 2) { type['多组连号']++; continue; }
+      m = runs[0];
+      if (m >= 4) type['4 连以上']++;
+      else if (m === 3) type['3 连']++;
+      else type['2 连']++;
+    }
+    var keys = ['无连号', '2 连', '3 连', '4 连以上', '多组连号'], h = '';
+    for (j = 0; j < keys.length; j++) h += tqKV(keys[j], type[keys[j]] + ' 期 · ' + tqPct(type[keys[j]], ctx.n));
+    return h + tqLines([['最近一期', ctx.n ? (ctx.rows[ctx.rows.length - 1].issue + ' 期　' + ctx.rows[ctx.rows.length - 1].nums.join(' ')) : '—']]);
+  }
+  function mConsecN(ctx, need) {
+    var days = 0, tot = 0, mx = 0, i, j, runs, c;
+    for (i = 0; i < ctx.rows.length; i++) {
+      runs = tqRuns(ctx.rows[i].nums); c = 0;
+      for (j = 0; j < runs.length; j++) if (runs[j] >= need) c++;
+      if (c) days++;
+      tot += c;
+      if (c > mx) mx = c;
+    }
+    return tqLines([
+      ['出现期数', days + ' / ' + ctx.n + ' 期（' + tqPct(days, ctx.n) + '）'],
+      ['平均每期', fmt1(tot / ctx.n) + ' 组'],
+      ['单期最多', mx + ' 组'],
+      ['口径', need + ' 个号连续（如 ' + (need === 2 ? '12 / 13' : '12 / 13 / 14') + '）']
+    ]);
+  }
+  function tqNGT(ctx) {
+    var near = 0, alone = 0, repeat = 0, used = 0, i, j, k;
+    var maxNear = 0, maxAlone = 0, maxRep = 0;
+    for (i = 1; i < ctx.rows.length; i++) {
+      var cur = ctx.rows[i].nums, prev = ctx.rows[i - 1].nums, nr = 0, ar = 0, rp = 0;
+      for (j = 0; j < cur.length; j++) {
+        var v = cur[j], isRep = false, isNear = false;
+        for (k = 0; k < prev.length; k++) {
+          if (prev[k] === v) { isRep = true; break; }
+          if (v - prev[k] === 1 || prev[k] - v === 1) isNear = true;
+        }
+        if (isRep) { repeat++; rp++; }
+        else if (isNear) { near++; nr++; }
+        else { alone++; ar++; }
+      }
+      if (nr > maxNear) maxNear = nr;
+      if (ar > maxAlone) maxAlone = ar;
+      if (rp > maxRep) maxRep = rp;
+      used++;
+    }
+    return { near: near, alone: alone, repeat: repeat, used: used,
+      maxNear: maxNear, maxAlone: maxAlone, maxRep: maxRep };
+  }
+  function mNGTRatio(ctx) {
+    var n = tqNGT(ctx);
+    if (!n.used) return tqLines([['近 ' + ctx.n + ' 期', '期数还不够做上一期对比，开出下一期后自动补上']]);
+    var tot = n.near + n.alone + n.repeat;
+    return tqLines([
+      ['邻 : 孤 : 传', n.near + ' : ' + n.alone + ' : ' + n.repeat],
+      ['占比', tqPct(n.near, tot) + ' : ' + tqPct(n.alone, tot) + ' : ' + tqPct(n.repeat, tot)],
+      ['平均每期', '邻 ' + fmt1(n.near / n.used) + ' · 孤 ' + fmt1(n.alone / n.used) + ' · 传 ' + fmt1(n.repeat / n.used)],
+      ['口径', '邻 = 与上期相差 1；孤 = 不邻不重；传 = 与上期相同']
+    ]);
+  }
+  function mNGTOne(ctx, kind) {
+    var n = tqNGT(ctx);
+    if (!n.used) return tqLines([['近 ' + ctx.n + ' 期', '期数还不够做上一期对比，开出下一期后自动补上']]);
+    var name = kind === 'near' ? '邻号' : (kind === 'alone' ? '孤号' : '重号（传）');
+    var total = kind === 'near' ? n.near : (kind === 'alone' ? n.alone : n.repeat);
+    var mx = kind === 'near' ? n.maxNear : (kind === 'alone' ? n.maxAlone : n.maxRep);
+    var kou = kind === 'near' ? '与上一期开出的某个号相差 1'
+      : (kind === 'alone' ? '既不是重号、也不是邻号' : '和上一期开出完全相同的号');
+    return tqLines([
+      [name + ' 合计', total + ' 个'],
+      ['平均每期', fmt1(total / n.used) + ' 个'],
+      ['单期最多', mx + ' 个'],
+      ['口径', kou]
+    ]);
+  }
+  function mTailBigSmall(ctx) {
+    var all = tqFlat(ctx), s = 0, b = 0, i, t;
+    for (i = 0; i < all.length; i++) { t = all[i] % 10; if (t >= 5) b++; else s++; }
+    return tqLines([
+      ['尾数大（5~9）: 小（0~4）', b + ' : ' + s],
+      ['占比', tqPct(b, all.length) + ' : ' + tqPct(s, all.length)],
+      ['平均每期', '大尾 ' + fmt1(b / ctx.n) + ' : 小尾 ' + fmt1(s / ctx.n)],
+      ['最近一期尾数', ctx.n ? (String(ctx.rows[ctx.rows.length - 1].nums[0] % 10)) : '—']
+    ]);
+  }
+  function mTailOddEven(ctx) {
+    var all = tqFlat(ctx), o = 0, e = 0, i, t;
+    for (i = 0; i < all.length; i++) { t = all[i] % 10; if (t % 2) o++; else e++; }
+    return tqLines([
+      ['尾数奇 : 偶', o + ' : ' + e],
+      ['占比', tqPct(o, all.length) + ' : ' + tqPct(e, all.length)],
+      ['平均每期', '奇尾 ' + fmt1(o / ctx.n) + ' : 偶尾 ' + fmt1(e / ctx.n)]
+    ]);
+  }
+  function mTailRoad(ctx) {
+    var all = tqFlat(ctx), r = [0, 0, 0], i, t;
+    for (i = 0; i < all.length; i++) { t = all[i] % 10; r[t % 3]++; }
+    return tqLines([
+      ['尾数 0 路 : 1 路 : 2 路', r[0] + ' : ' + r[1] + ' : ' + r[2]],
+      ['占比', tqPct(r[0], all.length) + ' : ' + tqPct(r[1], all.length) + ' : ' + tqPct(r[2], all.length)],
+      ['平均每期', '0 路 ' + fmt1(r[0] / ctx.n) + ' · 1 路 ' + fmt1(r[1] / ctx.n) + ' · 2 路 ' + fmt1(r[2] / ctx.n)]
+    ]);
+  }
+  function mAnyN(ctx, k) {
+    var map = tqFreqAll(ctx), top = tqTop(map, ctx.from, ctx.to, k);
+    var set = {}, nums = [], s = '', hit = 0, i;
+    for (i = 0; i < top.length; i++) { set[top[i].n] = 1; nums.push(top[i].n); s += (i ? ' · ' : '') + top[i].n + ' ' + top[i].f + ' 次'; }
+    for (i = 0; i < ctx.rows.length; i++) if (set[ctx.rows[i].nums[0]]) hit++;
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'blue') + tqLines([
+      ['这 ' + k + ' 码', s],
+      ['覆盖期数', hit + ' / ' + ctx.n + ' 期（' + tqPct(hit, ctx.n) + '）'],
+      ['说明', '这 ' + k + ' 个号码是近 30 期出现最多的，覆盖期数 = 其中至少一个开出的期数']
+    ]);
+  }
+  function tqMetricHTML(ctx, id) {
+    if (id === 'odd-even') return mOddEven(ctx);
+    if (id === 'big-small') return mBigSmall(ctx);
+    if (id === 'prime-comp') return mPrime(ctx);
+    if (id === 'road012') return mRoad(ctx);
+    if (id === 'span') return mSpan(ctx);
+    if (id === 'sum-range') return mSumRange(ctx);
+    if (id === 'sum-tail') return mSumTail(ctx);
+    if (id === 'ac') return mAC(ctx);
+    if (id === 'big-odd-even') return mBigOddEven(ctx);
+    if (id === 'sum-single') return mSumSingle(ctx);
+    if (id === 'quarter') return mQuad(ctx);
+    if (id === 'third-ratio') return mThirdRatio(ctx);
+    if (id === 'third-1') return mBandCount(ctx, 0);
+    if (id === 'third-2') return mBandCount(ctx, 1);
+    if (id === 'third-3') return mBandCount(ctx, 2);
+    if (id === 'dan1') return mDan(ctx, 1);
+    if (id === 'dan2') return mDan(ctx, 2);
+    if (id === 'dan3') return mDan(ctx, 3);
+    if (id === 'tail-value') return mTailValue(ctx);
+    if (id === 'tail-same') return mTailSame(ctx);
+    if (id === 'consec-type') return mConsecType(ctx);
+    if (id === 'consec-2') return mConsecN(ctx, 2);
+    if (id === 'consec-3') return mConsecN(ctx, 3);
+    if (id === 'ngt-ratio') return mNGTRatio(ctx);
+    if (id === 'ngt-near') return mNGTOne(ctx, 'near');
+    if (id === 'ngt-alone') return mNGTOne(ctx, 'alone');
+    if (id === 'ngt-repeat') return mNGTOne(ctx, 'repeat');
+    if (id === 'tail-big') return mTailBigSmall(ctx);
+    if (id === 'tail-odd') return mTailOddEven(ctx);
+    if (id === 'tail-road') return mTailRoad(ctx);
+    if (id === 'any3') return mAnyN(ctx, 3);
+    if (id === 'any4') return mAnyN(ctx, 4);
+    if (id === 'any5') return mAnyN(ctx, 5);
+    return tqLines([['近 ' + ctx.n + ' 期', '这一项需要更多开奖期数，开出下一期后自动补上']]);
+  }
+
+  /* ---------------- 按钮清单（红球 8 基础 + 16 VIP / 蓝球 6 基础 + 10 VIP） ---------------- */
+  var TQ_BASIC_MULTI = [['odd-even', '奇偶比'], ['big-small', '大小比'], ['prime-comp', '质合比'],
+    ['road012', '012路比'], ['span', '跨度'], ['sum-range', '和值区间'],
+    ['sum-tail', '和值尾数'], ['ac', 'AC值']];
+  var TQ_BASIC_SINGLE = [['odd-even', '奇偶'], ['big-small', '大小'], ['big-odd-even', '大小奇偶'],
+    ['road012', '012路'], ['sum-single', '和值'], ['quarter', '四分区']];
+  var TQ_VIP_MULTI = [
+    { name: '区间', items: [['third-ratio', '三区比'], ['third-1', '一区个数'], ['third-2', '二区个数'], ['third-3', '三区个数']] },
+    { name: '胆码', items: [['dan1', '1胆'], ['dan2', '2胆'], ['dan3', '3胆']] },
+    { name: '尾数', items: [['tail-value', '尾数值'], ['tail-same', '同尾组数']] },
+    { name: '连号', items: [['consec-type', '连号类型'], ['consec-2', '任意2连'], ['consec-3', '任意3连']] },
+    { name: '邻孤传', items: [['ngt-ratio', '邻孤传比'], ['ngt-near', '邻号个数'], ['ngt-alone', '孤号个数'], ['ngt-repeat', '重号个数']] }
+  ];
+  var TQ_VIP_SINGLE = [
+    { name: '跨度', items: [['span', '跨度']] },
+    { name: '和尾数', items: [['tail-big', '尾数大小'], ['tail-odd', '尾数奇偶'], ['tail-road', '尾数012路']] },
+    { name: '邻孤传', items: [['ngt-ratio', '邻孤传']] },
+    { name: '胆码', items: [['dan1', '1胆'], ['dan2', '2胆']] },
+    { name: '任意N码', items: [['any3', '任意3码'], ['any4', '任意4码'], ['any5', '任意5码']] }
+  ];
+
+  function tqHeadHTML(g, tabs) {
+    var h = '<div class="tq-tabs">';
+    for (var i = 0; i < tabs.length; i++) {
+      var t = tabs[i], id = tqTabId(t);
+      var on = (id === st.tqTab);
+      h += '<div class="tq-tab' + (on ? ' on' : '') + '" role="button" tabindex="0" data-tq-tab="' + esc(id) + '">' + esc(t.label) + '</div>';
+    }
+    h += '</div>';
+    var cur = tqTabOf(tabs, st.tqTab);
+    if (cur && cur.sub) h += '<div class="tq-sub">' + esc(g.name) + ' · ' + esc(cur.sub) + ' · 近 ' + SPAN + ' 期统计</div>';
+    return h;
+  }
+  function tqBtnRow(ctx, items) {
+    var h = '<div class="tq-btns">', i, id, label;
+    for (i = 0; i < items.length; i++) {
+      id = items[i][0]; label = items[i][1];
+      h += '<div class="tq-btn' + (st.tq === id ? ' on' : '') + '" role="button" tabindex="0" data-tq-metric="' + esc(id) + '">' + label + '</div>';
+    }
+    h += '</div>';
+    for (i = 0; i < items.length; i++) {
+      if (items[i][0] === st.tq) {
+        h += '<div class="tq-res"><div class="tq-res-h"><span>' + items[i][1] + ' · 近 ' + ctx.n + ' 期</span><em>再点一次收起</em></div>' + tqMetricHTML(ctx, items[i][0]) + '</div>';
+      }
+    }
+    return h;
+  }
+  /* 本期推荐号码：种子 = 下一期期号 → 同期固定、换期全变；号码按近 30 期真实频次打分 */
+  function tqHash(s) {
+    var h = 2166136261, i;
+    for (i = 0; i < s.length; i++) {
+      h = h ^ s.charCodeAt(i);
+      h = (h * 16777619) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function tqRng(seedStr) {
+    var s = tqHash(seedStr);
+    return function () {
+      s = (s + 1831565813) >>> 0;
+      var t = s;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t = t ^ (t + Math.imul(t ^ (t >>> 7), t | 61));
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function tqNextIssue(gid) {
+    try {
+      if (typeof nextIssueFor === 'function') {
+        var v = nextIssueFor(gid);
+        if (v) return String(v);
+      }
+    } catch (e) { /* 拿不到就退回期号 +1 */ }
+    var d = drawsOf(gid);
+    if (d && d.length) {
+      var num = parseInt(String(d[0].issue || ''), 10);
+      if (!isNaN(num)) return String(num + 1);
+    }
+    return '';
+  }
+  function tqFreqOf(gid, key, pos) {
+    var rows = tqSeries(gid, key, pos, SPAN), map = {}, i, j, n;
+    for (i = 0; i < rows.length; i++) {
+      var ns = rows[i].nums;
+      for (j = 0; j < ns.length; j++) {
+        n = ns[j];
+        if (!map[n]) map[n] = { f: 0, gap: rows.length };
+        map[n].f++;
+        if (map[n].gap === rows.length) map[n].gap = rows.length - 1 - i;
+      }
+    }
+    return map;
+  }
+  function tqPickN(map, from, to, need, rnd) {
+    var list = [], v, maxf = 1, i, it;
+    for (v = from; v <= to; v++) {
+      it = map[v] || { f: 0, gap: 99 };
+      list.push({ n: v, f: it.f, gap: it.gap });
+      if (it.f > maxf) maxf = it.f;
+    }
+    for (i = 0; i < list.length; i++) list[i].sc = list[i].f + rnd() * (maxf * 0.95 + 1);
+    list.sort(function (a, b) { return (b.sc - a.sc) || (a.n - b.n); });
+    var top = list.slice(0, need);
+    top.sort(function (a, b) { return a.n - b.n; });
+    return top;
+  }
+  function tqPicks(g, issue) {
+    var rnd = tqRng('tq|' + g.id + '|' + String(issue || '0') + '|' + st.tqTab);
+    var out = [], i, tabs = tqTabs(g);
+    if (g.type === 'digit') {
+      var need = tqPer(g.id, 'main');
+      for (i = 0; i < need; i++) {
+        var fp = tqFreqOf(g.id, 'main', i);
+        var one = tqPickN(fp, 0, 9, 1, rnd);
+        out.push({ label: tabs[i].label, nums: [one[0].n], cls: 'digit' });
+      }
+      return out;
+    }
+    for (i = 0; i < g.areas.length; i++) {
+      var cfg = g.areas[i], need2 = tqPer(g.id, cfg.key);
+      var lab = tabs[i] ? tabs[i].label : (cfg.label || ('区' + (i + 1)));
+      var rep = (g.type === 'qxc' && cfg.key === 'front');
+      if (rep) {
+        var nums = [], p;
+        for (p = 0; p < need2; p++) {
+          var fpp = tqFreqOf(g.id, cfg.key, p);
+          nums.push(tqPickN(fpp, cfg.from, cfg.to, 1, rnd)[0].n);
+        }
+        out.push({ label: lab, nums: nums, cls: 'digit' });
+      } else {
+        var pick = g.id === 'kl8' ? 10 : need2;
+        var fa = tqFreqOf(g.id, cfg.key, null);
+        var top = tqPickN(fa, cfg.from, cfg.to, pick, rnd), arr = [], q;
+        for (q = 0; q < top.length; q++) arr.push(top[q].n);
+        out.push({ label: lab, nums: arr, cls: i === 1 ? 'blue' : 'red' });
+      }
+    }
+    return out;
+  }
+  function tqRecCard(g, tab) {
+    var issue = tqNextIssue(g.id);
+    var picks = tqPicks(g, issue), h = '<div class="tq-rec">', i;
+    h += '<div class="tq-rec-h">🎯 本期推荐号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
+    for (i = 0; i < picks.length; i++) {
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(picks[i].label) + '</span>' + tqBalls(picks[i].nums, picks[i].cls) + '</div>';
+    }
+    h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+    return h + '</div>';
+  }
+
+  function pageTrend() {
+    var g = gameById(st.game);
+    var tabs = tqTabs(g);
+    if (!tabs.length) return none('没有可分析的区域', '这个彩种还没有配置号码区。');
+    if (!tqTabOf(tabs, st.tqTab)) st.tqTab = tqTabId(tabs[0]);
+    var tab = tqTabOf(tabs, st.tqTab);
+    var ctx = tqCtx(g, tab);
+    var h = '';
+    if (st.pickGame) h += '<div class="tq-games">' + chipsGame() + '</div>';
+    h += tqHeadHTML(g, tabs);
+    if (!ctx.n) {
+      h += '<div class="tq-empty"><b>近 ' + SPAN + ' 期样本不足</b>这个彩种本页还没有足够的开奖期数，开出几期后这里会自动补上。</div>';
+      return h + tqRecCard(g, tab);
+    }
+    var basic = ctx.isMulti ? TQ_BASIC_MULTI : TQ_BASIC_SINGLE;
+    var vip = ctx.isMulti ? TQ_VIP_MULTI : TQ_VIP_SINGLE;
+    h += '<div class="tq-sec"><div class="tq-sec-h">基础趋势<span class="tq-free">免费查看</span></div>' + tqBtnRow(ctx, basic) + '</div>';
+    var grp = '', i, j, items;
+    for (i = 0; i < vip.length; i++) {
+      items = vip[i].items;
+      grp += '<div class="tq-grp"><div class="tq-grp-h">' + vip[i].name + '</div>' + tqBtnRow(ctx, items) + '</div>';
+    }
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 趋势</div>' + grp + '</div>';
+    h += tqRecCard(g, tab);
+    h += note('以上数字全部按近 ' + SPAN + ' 期已开出的号码现算，每期开奖后自动更新；推荐号码用下一期期号做种子，同一期固定、换期就变。');
+    return h;
+  }
 
   /* ================= ③ 遗漏宝 ================= */
   function pageOmit() {
@@ -10220,56 +11074,1113 @@ ${CHAT_JS_SHARE}
     return h;
   }
 
-  /* ================= ⑤ 智能规律 ================= */
-  function pagePattern() {
-    var g = gameById(st.game), key = curArea(g);
-    var p = patternOf(g.id, SPAN);
-    if (!p.used) return chipsGame() + none('需要更多数据', '这个彩种本页没有开奖数据。');
-    var h = chipsGame() + chipsArea(g);
-    h += card('近 ' + p.used + ' 期 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
-      row('连号出现率', p.withConsec + ' / ' + p.used + ' 期 · ' + pctS(p.withConsec, p.used)) +
-      row('连号总对数', p.consecPairs + ' 对') +
-      row('重号 平均每期', fmt1(p.repeatAvg) + ' 个（和上一期相同）') +
-      row('同尾（个位相同）期数', p.sameTail + ' / ' + p.used + ' 期') +
-      row('最常见奇偶比', p.bestCnt >= 0 ? ('奇 ' + p.bestOdd + ' : 偶 ' + (numsOf(drawsOf(g.id)[0], key).length - p.bestOdd) + '（' + p.bestCnt + ' 期）') : '—'));
-    h += note('这几项都是「已经开过的号码里数出来的」：连号 = 相邻两个号都出（如 12 13）；重号 = 和上一期重复的号码；同尾 = 个位数字相同。它们描述过去，不能用来预测下一期。');
-    h += recBlock(g.id);
-    return h;
+  /* ================= ⑤ 智能规律（画线推号 · 近 10 期为主 / 近 30 期做对照） =================
+     ------------------------------------------------------------
+     用户原话：「看能不能找几套走势图 画线可能出现的号码或者什么胆尾 自己指定几套模板
+               要抓取近十期用自己模板去分析 后续免费的」
+     四套模板（每套都【推出具体号码】，不只是统计）：
+       A 斜连推号：三期连成 +1 / -1 的斜线（05→06→07）→ 延长到下一期（08）
+       B 竖连续出：某号连续 2~3 期都出 → 看下一期会不会续
+       C 胆尾：近 10 期各尾数出现几次 → 最热的 2~3 个尾数当胆尾 → 对应号码
+       D 遗漏周期：某号的出号间隔有没有规律 → 下一期是否「到期」
+     另外 VIP 规律里有：邻号追击 / 重号续出 / 分区回补 / 综合推号
+     ⚠️ 红球和蓝球指标分开：蓝球每期只 1 个号，没有「连号 / 同尾组数」这些指标，不显示。
+     ⚠️ 这段在模板字符串里：只写单引号，不写反引号，不写代码里的反斜杠。
+     ============================================================ */
+  var PT_NEAR = 10;
+  function ptCtx(g, tab, n) {
+    var rows = tqSeries(g.id, tab.key, tab.pos, n), per = 0, i;
+    for (i = rows.length - 1; i >= 0; i--) { if (rows[i].nums.length) { per = rows[i].nums.length; break; } }
+    if (!per) per = 1;
+    return { g: g, tab: tab, rows: rows, n: rows.length, per: per,
+      from: tab.from, to: tab.to, isMulti: per >= 2 };
   }
-
-  /* ================= ⑥ 均线分析 ================= */
-  function pageMa() {
-    var g = gameById(st.game), key = curArea(g);
-    var h = chipsGame() + chipsArea(g);
-    h += card('K 线均线 · 暂不支持',
-      none('暂不支持', '真正的均线（MA5 / MA10 / MA20）要画在 K 线上，需要开盘价 / 收盘价 / 最高价 / 最低价这套价格序列。本页只有开奖号码，没有 K 线，所以这一项不提供 —— 不编一条假曲线出来。'));
-    var sums = sumSeries(g.id, SPAN);
-    if (sums.length >= 10) {
-      var ma5 = maSeries(sums, 5), ma10 = maSeries(sums, 10);
-      var l5 = ma5[ma5.length - 1], l10 = ma10[ma10.length - 1];
-      var status = l5 > l10 ? '5 期均值在 10 期均值上方（偏热）' : '5 期均值在 10 期均值下方（偏冷）';
-      h += card('能算的部分：和值均线 · 近 ' + sums.length + ' 期',
-        spark(sums, ma5, '每期和值', '5 期均值') +
-        row('最新一期和值', String(sums[sums.length - 1])) +
-        row('5 期均值（MA5）', fmt1(l5)) +
-        row('10 期均值（MA10）', fmt1(l10)) +
-        row('当前状态', status));
-      h += note('这一块算的是「和值」的移动平均：把每期开出的号码加起来得到和值，再取最近 5 / 10 期的平均。它是统计描述，不是预测。');
-    } else {
-      h += card('能算的部分：和值均线', none('需要更多数据', '这个彩种本页的开奖期数不够算 10 期均线。'));
+  function ptIn(n, ctx) { return n >= ctx.from && n <= ctx.to; }
+  function ptSortNum(a) { a.sort(function (x, y) { return x - y; }); return a; }
+  function ptUniq(arr, ctx) {
+    var out = [], seen = {}, i;
+    for (i = 0; i < arr.length; i++) {
+      var v = arr[i];
+      if (!ptIn(v, ctx) || seen[v]) continue;
+      seen[v] = 1; out.push(v);
     }
-    /* 「暂不支持」的页面也照样出号码：这里只用和值 / 遗漏 / 冷热等
-       本页确实能算的指标 —— 不假装算了 K 线均线。 */
-    h += recBlock(g.id, '这一页没有 K 线价格序列，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
+    return ptSortNum(out);
+  }
+  function ptBlk(title, noteText, body) {
+    return '<div class="tq-blk"><div class="tq-blk-h"><span>' + title + '</span><em>' + noteText + '</em></div>' + body + '</div>';
+  }
+  function ptBallsLine(label, nums, cls) {
+    if (!nums.length) return '';
+    return '<div class="tq-rec-row"><span class="tq-rec-k">' + label + '</span>' + tqBalls(nums, cls) + '</div>';
+  }
+
+  /* ---------------- A · 斜连推号 ---------------- */
+  function ptSlant(g, ctx) {
+    var rows = ctx.rows, i, j, x, list = [], hist = 0;
+    for (i = 2; i < rows.length; i++) {
+      var a = rows[i - 2].nums, b = rows[i - 1].nums, c = rows[i].nums;
+      for (j = 0; j < a.length; j++) {
+        x = a[j];
+        if (b.indexOf(x + 1) >= 0 && c.indexOf(x + 2) >= 0) {
+          hist++;
+          list.push({ issue: rows[i].issue, chain: x + ' → ' + (x + 1) + ' → ' + (x + 2), pred: x + 3, dir: '+1' });
+        }
+        if (b.indexOf(x - 1) >= 0 && c.indexOf(x - 2) >= 0) {
+          hist++;
+          list.push({ issue: rows[i].issue, chain: x + ' → ' + (x - 1) + ' → ' + (x - 2), pred: x - 3, dir: '-1' });
+        }
+      }
+    }
+    /* 最新两期的斜连 → 直接推下一期 */
+    var preds = [], near = [];
+    if (rows.length >= 2) {
+      var p = rows[rows.length - 2].nums, q = rows[rows.length - 1].nums;
+      for (j = 0; j < p.length; j++) {
+        if (q.indexOf(p[j] + 1) >= 0) { preds.push(p[j] + 2); near.push(p[j] + ' → ' + (p[j] + 1) + ' → 推 ' + (p[j] + 2)); }
+        if (q.indexOf(p[j] - 1) >= 0) { preds.push(p[j] - 2); near.push(p[j] + ' → ' + (p[j] - 1) + ' → 推 ' + (p[j] - 2)); }
+      }
+    }
+    var outNums = ptUniq(preds, ctx);
+    var t = '<table class="tq-mtbl"><thead><tr><th>期号</th><th>斜连线</th><th>推出</th></tr></thead><tbody>', k;
+    var tail = list.slice(-4);
+    if (!tail.length) {
+      t += '<tr><td colspan="3" class="l">近 ' + ctx.n + ' 期没有三期连成一条的斜线（+1 / -1）</td></tr>';
+    } else {
+      for (k = 0; k < tail.length; k++) {
+        t += '<tr><td>' + esc(tail[k].issue) + '</td><td>' + tail[k].chain + '</td><td><b>' + (ptIn(tail[k].pred, ctx) ? tail[k].pred : '越界') + '</b></td></tr>';
+      }
+    }
+    t += '</tbody></table>';
+    var body = t;
+    if (near.length) body += '<div class="tq-kv"><span>最新两期连线</span><b>' + esc(near.slice(0, 3).join('；')) + '</b></div>';
+    body += '<div class="tq-kv"><span>近 ' + ctx.n + ' 期出现斜连</span><b>' + hist + ' 次</b></div>';
+    body += ptBallsLine('可能出现', outNums, ctx.isMulti ? 'red' : 'blue');
+    return ptBlk('A · 斜连推号', '近 ' + ctx.n + ' 期', body);
+  }
+
+  /* ---------------- B · 竖连续出 ---------------- */
+  function ptVertical(g, ctx31) {
+    var ctx = ctx31, rows = ctx.rows, n = rows.length, i, j;
+    var streak = [], last = n ? rows[n - 1].nums : [], prev = n > 1 ? rows[n - 2].nums : [];
+    for (j = 0; j < last.length; j++) {
+      var v = last[j];
+      if (prev.indexOf(v) >= 0) {
+        var c = 2;
+        if (n > 2 && rows[n - 3].nums.indexOf(v) >= 0) c = 3;
+        streak.push({ n: v, c: c });
+      }
+    }
+    /* 续连率：近 30 期里「连出 2 期」后还续到第 3 期的比例 */
+    var two = 0, three = 0;
+    for (i = 2; i < rows.length; i++) {
+      for (j = 0; j < rows[i - 1].nums.length; j++) {
+        var w = rows[i - 1].nums[j];
+        if (rows[i - 2].nums.indexOf(w) >= 0) {
+          two++;
+          if (rows[i].nums.indexOf(w) >= 0) three++;
+        }
+      }
+    }
+    var nums = [], s = '', k;
+    for (k = 0; k < streak.length; k++) { nums.push(streak[k].n); s += (s ? '　' : '') + streak[k].n + '（连出 ' + streak[k].c + ' 期）'; }
+    var body = '';
+    if (!streak.length) {
+      body += '<div class="tq-nores">最近一期没有连出的号（每期都是新号），这一期以 A / C / D 三套为主。</div>';
+    } else {
+      body += '<div class="tq-kv"><span>连出的号</span><b>' + s + '</b></div>';
+      body += '<div class="tq-kv"><span>续连判断</span><b>' + (three * 100 / (two || 1) > 40 ? '历史上续连率偏高，可以留 1 个' : '历史上续连率一般，最多留 1 个') + '</b></div>';
+    }
+    body += '<div class="tq-kv"><span>近 ' + rows.length + ' 期续连率</span><b>' + three + ' / ' + two + ' 次（' + (two ? fmt1(three * 100 / two) : '0.0') + '%）</b></div>';
+    body += ptBallsLine('续连候选', ptUniq(nums, ctx), ctx.isMulti ? 'red' : 'blue');
+    return ptBlk('B · 竖连续出', '同号连出', body);
+  }
+
+  /* ---------------- C · 胆尾 ---------------- */
+  function ptTail(g, ctx10, ctx30) {
+    var d10 = tqTailDist(tqFlat(ctx10)), d30 = tqTailDist(tqFlat(ctx30));
+    var all10 = tqFlat(ctx10).length, list = [], i;
+    for (i = 0; i <= 9; i++) list.push({ t: i, a: d10[i] || 0, b: d30[i] || 0 });
+    list.sort(function (x, y) { return (y.a - x.a) || (y.b - x.b) || (x.t - y.t); });
+    var hot = [list[0].t, list[1].t, list[2].t], nums = [], v;
+    for (v = ctx10.from; v <= ctx10.to; v++) if (hot.indexOf(v % 10) >= 0) nums.push(v);
+    var avg10 = all10 / 10, t = '<table class="tq-mtbl"><thead><tr><th>尾数</th><th>近 10 期</th><th>近 30 期</th><th>分档</th></tr></thead><tbody>', k;
+    for (k = 0; k < list.length; k++) {
+      var lv = list[k].a >= avg10 * 1.3 ? '热' : (list[k].a <= avg10 * 0.6 ? '冷' : '温');
+      t += '<tr><td>' + list[k].t + '</td><td>' + list[k].a + '</td><td>' + list[k].b + '</td><td><b>' + lv + '</b></td></tr>';
+    }
+    t += '</tbody></table>';
+    return ptBlk('C · 胆尾', '尾数 0~9', t +
+      '<div class="tq-kv"><span>本期胆尾</span><b>尾 ' + hot.join(' · 尾 ') + '</b></div>' +
+      ptBallsLine('胆尾对应号', ptUniq(nums, ctx10), ctx10.isMulti ? 'red' : 'blue'));
+  }
+
+  /* ---------------- D · 遗漏周期 ---------------- */
+  function ptCycle(g, ctx30) {
+    var rows = ctx30.rows, map = {}, v, i, j;
+    for (v = ctx30.from; v <= ctx30.to; v++) map[v] = [];
+    for (i = 0; i < rows.length; i++) {
+      for (j = 0; j < rows[i].nums.length; j++) {
+        var n = rows[i].nums[j];
+        if (!map[n]) map[n] = [];
+        if (map[n].length === 0 || map[n][map[n].length - 1] !== i) map[n].push(i);
+      }
+    }
+    var list = [], due = [];
+    for (v = ctx30.from; v <= ctx30.to; v++) {
+      var pos = map[v] || [];
+      if (pos.length < 2) continue;
+      var sum = 0, k;
+      for (k = 1; k < pos.length; k++) sum += pos[k] - pos[k - 1];
+      var avg = sum / (pos.length - 1);
+      var cur = rows.length - 1 - pos[pos.length - 1];
+      list.push({ n: v, avg: avg, cur: cur, times: pos.length, due: cur >= avg - 0.6 });
+      if (cur >= avg - 0.6) due.push(v);
+    }
+    list.sort(function (a, b) { return (b.cur - b.avg) - (a.cur - a.avg) || a.n - b.n; });
+    var t = '<table class="tq-mtbl"><thead><tr><th>号码</th><th>平均间隔</th><th>当前遗漏</th><th>到期</th></tr></thead><tbody>', q;
+    for (q = 0; q < Math.min(6, list.length); q++) {
+      t += '<tr><td><b>' + list[q].n + '</b></td><td>' + fmt1(list[q].avg) + ' 期</td><td>' + list[q].cur + ' 期</td><td>' + (list[q].due ? '到期' : '还差 ' + fmt1(list[q].avg - list[q].cur) + ' 期') + '</td></tr>';
+    }
+    t += '</tbody></table>';
+    var body = list.length ? t : '<div class="tq-nores">近 ' + rows.length + ' 期里还没有哪个号开出 2 次以上，算不出间隔，等开出几期后自动补上。</div>';
+    body += '<div class="tq-kv"><span>到期号（' + due.length + ' 个）</span><b>' + (due.length ? due.join(' ') : '暂时没有') + '</b></div>';
+    body += ptBallsLine('到期候选', ptUniq(due.slice(0, 8), ctx30), ctx30.isMulti ? 'red' : 'blue');
+    return ptBlk('D · 遗漏周期', '出号间隔', body);
+  }
+
+  /* ---------------- VIP 规律 ---------------- */
+  function ptNear(g, ctx) {
+    var last = ctx.n ? ctx.rows[ctx.rows.length - 1].nums : [], cand = [], map = tqFreqAll(ctx), i;
+    for (i = 0; i < last.length; i++) { cand.push(last[i] - 1); cand.push(last[i] + 1); }
+    var nums = ptUniq(cand, ctx), s = '', k;
+    nums.sort(function (a, b) { return (map[b] ? map[b].f : 0) - (map[a] ? map[a].f : 0); });
+    for (k = 0; k < Math.min(8, nums.length); k++) s += (k ? '　' : '') + nums[k] + '（' + (map[nums[k]] ? map[nums[k]].f : 0) + ' 次）';
+    nums = nums.slice(0, 8);
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, ctx.isMulti ? 'red' : 'blue') + tqLines([
+      ['上期号码', last.join(' ')],
+      ['邻号追击（' + nums.length + ' 个）', nums.join(' ')],
+      ['按热度排', s]
+    ]);
+  }
+  function ptRepeatPick(g, ctx) {
+    var last = ctx.n ? ctx.rows[ctx.rows.length - 1].nums : [], map = tqFreqAll(ctx), avg = (ctx.per * ctx.n) / (ctx.to - ctx.from + 1), nums = [], i, s = '';
+    for (i = 0; i < last.length; i++) if (map[last[i]] && map[last[i]].f >= avg) { nums.push(last[i]); s += (s ? '　' : '') + last[i] + '（' + map[last[i]].f + ' 次）'; }
+    nums.sort(function (a, b) { return a - b; });
+    if (!nums.length) return tqLines([['重号续出', '0 个'], ['说明', '上期号码里没有出现次数达到平均（' + fmt1(avg) + ' 次）的，本期不留重号。']]);
+    return tqBalls(nums, ctx.isMulti ? 'red' : 'blue') + tqLines([
+      ['重号续出（' + nums.length + ' 个）', nums.join(' ')],
+      ['依据', '上期开出、且近 30 期出现次数 ≥ 平均 ' + fmt1(avg) + ' 次'],
+      ['明细', s]
+    ]);
+  }
+  function ptZoneBack(g, ctx) {
+    var bands = tqBands(ctx, 3), per = tqBandCount(ctx, bands), rate = [], i;
+    for (i = 0; i < bands.length; i++) rate.push(bands[i].c / Math.max(1, ctx.n));
+    var idx = 0;
+    for (i = 1; i < rate.length; i++) if (rate[i] < rate[idx]) idx = i;
+    var map = tqFreqAll(ctx), list = [], v;
+    for (v = bands[idx].a; v <= bands[idx].b; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (b.f - a.f) || (a.gap - b.gap) || (a.n - b.n); });
+    var nums = [], k;
+    for (k = 0; k < Math.min(4, list.length); k++) nums.push(list[k].n);
+    nums.sort(function (a, b) { return a - b; });
+    var names = ['一区', '二区', '三区'], s = '';
+    for (i = 0; i < bands.length; i++) s += (i ? ' : ' : '') + fmt1(rate[i]);
+    return tqBalls(nums, ctx.isMulti ? 'red' : 'blue') + tqLines([
+      ['最冷的区', names[idx] + '（' + bands[idx].a + '~' + bands[idx].b + '）'],
+      ['三区平均每期', s],
+      ['回补号码', nums.join(' ')],
+      ['依据', '冷区里的热号，等这一区回补']
+    ]);
+  }
+  /* 综合推号：四套模板一起打分 */
+  function ptMerged(g, tab, ctx10, ctx30) {
+    var score = {}, i, v;
+    function add(nums, w) { for (var q = 0; q < nums.length; q++) score[nums[q]] = (score[nums[q]] || 0) + w; }
+    var rows = ctx10.rows, preds = [], j, x;
+    if (rows.length >= 2) {
+      var p = rows[rows.length - 2].nums, q2 = rows[rows.length - 1].nums;
+      for (j = 0; j < p.length; j++) {
+        if (q2.indexOf(p[j] + 1) >= 0) preds.push(p[j] + 2);
+        if (q2.indexOf(p[j] - 1) >= 0) preds.push(p[j] - 2);
+      }
+    }
+    add(ptUniq(preds, ctx10), 3);
+    var last = rows.length ? rows[rows.length - 1].nums : [], prev = rows.length > 1 ? rows[rows.length - 2].nums : [], vs = [];
+    for (j = 0; j < last.length; j++) if (prev.indexOf(last[j]) >= 0) vs.push(last[j]);
+    add(ptUniq(vs, ctx10), 2);
+    var d10 = tqTailDist(tqFlat(ctx10)), list = [];
+    for (i = 0; i <= 9; i++) list.push([i, d10[i] || 0]);
+    list.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    var hot = [list[0][0], list[1][0], list[2][0]], tn = [];
+    for (v = ctx10.from; v <= ctx10.to; v++) if (hot.indexOf(v % 10) >= 0) tn.push(v);
+    add(tn, 1.5);
+    var rows30 = ctx30.rows, map = {}, k;
+    for (i = 0; i < rows30.length; i++) {
+      for (j = 0; j < rows30[i].nums.length; j++) {
+        var n2 = rows30[i].nums[j];
+        if (!map[n2]) map[n2] = [];
+        if (map[n2].length === 0 || map[n2][map[n2].length - 1] !== i) map[n2].push(i);
+      }
+    }
+    var dn = [];
+    for (v = ctx30.from; v <= ctx30.to; v++) {
+      var pos = map[v] || [];
+      if (pos.length < 2) continue;
+      var sum = 0;
+      for (k = 1; k < pos.length; k++) sum += pos[k] - pos[k - 1];
+      var avg = sum / (pos.length - 1), cur = rows30.length - 1 - pos[pos.length - 1];
+      if (cur >= avg - 0.6) dn.push(v);
+    }
+    add(ptUniq(dn, ctx30), 2);
+    var rnd = tqRng('pt|' + g.id + '|' + tqNextIssue(g.id) + '|' + tqTabId(tab));
+    var freq = tqFreqAll(ctx30), out = [];
+    for (v = ctx10.from; v <= ctx10.to; v++) {
+      var base = score[v] || 0;
+      var fq = freq[v] ? freq[v].f : 0;
+      var sc = base * 2 + fq * 0.15 + rnd() * 0.9;
+      out.push({ n: v, sc: sc, base: base, f: fq });
+    }
+    out.sort(function (a, b) { return b.sc - a.sc || a.n - b.n; });
+    return out;
+  }
+  function ptMergedBlock(g, tab, ctx10, ctx30) {
+    var out = ptMerged(g, tab, ctx10, ctx30), need = g.id === 'kl8' ? 10 : ctx10.per;
+    var top = out.slice(0, need), nums = [], i, s = '';
+    for (i = 0; i < top.length; i++) { nums.push(top[i].n); s += (i ? '　' : '') + top[i].n + '（' + top[i].base + ' 分）'; }
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, ctx10.isMulti ? 'red' : 'blue') + tqLines([
+      ['综合推出的号', nums.join(' ')],
+      ['怎么来的', 'A 斜连 3 分 · B 竖连 2 分 · C 胆尾 1.5 分 · D 到期 2 分，再按期号微调'],
+      ['每个号的分', s]
+    ]);
+  }
+  function ptRuleHTML(g, tab, ctx10, ctx30, id) {
+    if (id === 'p-near') return ptNear(g, ctx30);
+    if (id === 'p-repeat') return ptRepeatPick(g, ctx30);
+    if (id === 'p-zone') return ptZoneBack(g, ctx30);
+    if (id === 'p-merge') return ptMergedBlock(g, tab, ctx10, ctx30);
+    return tqLines([['近 ' + ctx10.n + ' 期', '这一条等开出下一期后自动补上']]);
+  }
+  var PT_VIP = [
+    { name: '邻号 / 重号', items: [['p-near', '邻号追击'], ['p-repeat', '重号续出']] },
+    { name: '分区', items: [['p-zone', '分区回补']] },
+    { name: '汇总', items: [['p-merge', '综合推号']] }
+  ];
+  function ptVipRow(g, tab, ctx10, ctx30, items) {
+    var h = '<div class="tq-btns">', i, id, label;
+    for (i = 0; i < items.length; i++) {
+      id = items[i][0]; label = items[i][1];
+      h += '<div class="tq-btn' + (st.pq === id ? ' on' : '') + '" role="button" tabindex="0" data-pq-rule="' + esc(id) + '">' + label + '</div>';
+    }
+    h += '</div>';
+    for (i = 0; i < items.length; i++) {
+      if (items[i][0] === st.pq) {
+        h += '<div class="tq-res"><div class="tq-res-h"><span>' + items[i][1] + ' · 近 ' + ctx30.n + ' 期</span><em>再点一次收起</em></div>' + ptRuleHTML(g, tab, ctx10, ctx30, items[i][0]) + '</div>';
+      }
+    }
+    return h;
+  }
+  function ptBottom(g, tabs) {
+    var issue = tqNextIssue(g.id);
+    var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 综合推出的号<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
+    if (g.type === 'digit') {
+      var pos = '', p, i;
+      for (p = 0; p < tabs.length; p++) {
+        var c10 = ptCtx(g, tabs[p], PT_NEAR), c30 = ptCtx(g, tabs[p], SPAN);
+        var o = ptMerged(g, tabs[p], c10, c30);
+        if (o.length) pos += (p ? '　' : '') + tabs[p].label + ' ' + o[0].n;
+      }
+      var pooled = ptCtx(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' }, PT_NEAR);
+      var pooled30 = ptCtx(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' }, SPAN);
+      var po = ptMerged(g, pooled, pooled30), six = [], j;
+      for (j = 0; j < Math.min(6, po.length); j++) six.push(po[j].n);
+      six.sort(function (a, b) { return a - b; });
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">定位号</span><span class="tq-rec-t">' + pos + '</span></div>';
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">组选 6 码</span>' + tqBalls(six, 'digit') + '</div>';
+      h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+      return h + '</div>';
+    }
+    var redTab = tabs[0], r10 = ptCtx(g, redTab, PT_NEAR), r30 = ptCtx(g, redTab, SPAN);
+    var ro = ptMerged(g, redTab, r10, r30), rn = [], i2;
+    for (i2 = 0; i2 < Math.min(r10.per, ro.length); i2++) rn.push(ro[i2].n);
+    rn.sort(function (a, b) { return a - b; });
+    h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(redTab.label) + '</span>' + tqBalls(rn, 'red') + '</div>';
+    if (tabs.length > 1) {
+      var bt = tabs[1], b10 = ptCtx(g, bt, PT_NEAR), b30 = ptCtx(g, bt, SPAN);
+      var bo = ptMerged(g, bt, b10, b30), bn = [], j2;
+      for (j2 = 0; j2 < Math.min(b10.per, bo.length); j2++) bn.push(bo[j2].n);
+      bn.sort(function (a, b) { return a - b; });
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(bt.label) + '</span>' + tqBalls(bn, 'blue') + '</div>';
+    }
+    h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+    return h + '</div>';
+  }
+  function pagePattern() {
+    var g = gameById(st.game);
+    var tabs = tqTabs(g);
+    if (!tabs.length) return none('没有可分析的区域', '这个彩种还没有配置号码区。');
+    if (!tqTabOf(tabs, st.pqTab)) st.pqTab = tqTabId(tabs[0]);
+    var tab = tqTabOf(tabs, st.pqTab);
+    var ctx10 = ptCtx(g, tab, PT_NEAR), ctx30 = ptCtx(g, tab, SPAN);
+    var h = '';
+    if (st.pickGame) h += '<div class="tq-games">' + chipsGame() + '</div>';
+    h += '<div class="tq-tabs">';
+    for (var i = 0; i < tabs.length; i++) {
+      var id = tqTabId(tabs[i]);
+      h += '<div class="tq-tab' + (id === st.pqTab ? ' on' : '') + '" role="button" tabindex="0" data-pq-tab="' + esc(id) + '">' + esc(tabs[i].label) + '</div>';
+    }
+    h += '</div>';
+    h += '<div class="tq-sub">' + esc(g.name) + ' · ' + esc(tab.label) + ' · 主看近 ' + PT_NEAR + ' 期，近 ' + SPAN + ' 期做对照</div>';
+    if (!ctx10.n) {
+      h += '<div class="tq-empty"><b>近 ' + PT_NEAR + ' 期样本不足</b>这个彩种本页还没有足够的开奖期数，开出几期后这里会自动补上。</div>';
+      return h + ptBottom(g, tabs);
+    }
+    h += '<div class="tq-sec"><div class="tq-sec-h">基础规律<span class="tq-free">免费查看</span></div>';
+    h += ptSlant(g, ctx10);
+    h += ptVertical(g, ctx30);
+    h += ptTail(g, ctx10, ctx30);
+    h += ptCycle(g, ctx30);
+    if (ctx30.isMulti) h += ptConsecBlock(g, ctx30);
+    h += '</div>';
+    var grp = '';
+    for (var v = 0; v < PT_VIP.length; v++) {
+      grp += '<div class="tq-grp"><div class="tq-grp-h">' + PT_VIP[v].name + '</div>' + ptVipRow(g, tab, ctx10, ctx30, PT_VIP[v].items) + '</div>';
+    }
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规律</div>' + grp + '</div>';
+    h += ptBottom(g, tabs);
+    h += note('四套模板都只按近 ' + PT_NEAR + ' / ' + SPAN + ' 期已开出的号码现算，每期开奖后自动更新；综合号用下一期期号做种子，同一期固定、换期就变。');
+    return h;
+  }
+  /* 红球才有的连号规律（蓝球每期 1 个号，没有连号这个概念，所以蓝球不显示） */
+  function ptConsecBlock(g, ctx) {
+    var days = 0, tot = 0, mx = 0, i, j, runs, type = {}, s = '';
+    for (i = 0; i < ctx.rows.length; i++) {
+      runs = tqRuns(ctx.rows[i].nums);
+      if (runs.length) days++;
+      tot += runs.length;
+      if (runs.length > mx) mx = runs.length;
+      for (j = 0; j < runs.length; j++) type[runs[j]] = (type[runs[j]] || 0) + 1;
+    }
+    var hot = [], k;
+    for (k in type) if (type.hasOwnProperty(k)) hot.push([Number(k), type[k]]);
+    hot.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    for (i = 0; i < hot.length; i++) s += (i ? '　' : '') + hot[i][0] + ' 连（' + hot[i][1] + ' 组）';
+    return ptBlk('E · 连号规律', '红球专属', tqLines([
+      ['有连号的期数', days + ' / ' + ctx.n + ' 期（' + tqPct(days, ctx.n) + '）'],
+      ['连号总组数', tot + ' 组　单期最多 ' + mx + ' 组'],
+      ['连号长度分布', s || '还没有连号'],
+      ['说明', '蓝球每期只有 1 个号，没有连号 / 同尾组数这些指标 —— 所以这两项只在红球 Tab 出现']
+    ]));
+  }
+
+  /* ================= ⑥ 均线分析 → 杀号和选号 =================
+     ------------------------------------------------------------
+     用户原话：「均线分析这个模板 你改称为杀号和选号 这个你也自己学习一套模板计算
+               永远用几套规则 每一期计算」
+     结构（和趋势分析同一套模板）：
+       Tab：【杀号】|【选号】
+       【基础规则】[免费查看] → 浅粉底 / 深红字小圆角按钮（点开看这条规则的具体结果）
+       【VIP 规则】深棕横条 + 👑 → 分组按钮
+       底部：🎯 本期号码 → 杀号 + 选号（下一期期号做种子：同期固定、换期全变）
+     规则（几套一起打分，全部按近 30 期现算，没有一条是编的）：
+       杀号：冷号杀 / 尾数冷杀 / 连出杀 / 上期重号杀 / 过热杀 / 超长遗漏(回补) /
+             遗漏排行 / 理论遗漏 / 分区杀 / 和值偏离杀 / 连号段杀 / 汇总杀号
+       选号：热号 / 遗漏回补 / 奇偶平衡 / 和值合理 / 三区覆盖 / 尾数覆盖 /
+             连号适度 / 综合 12 码 / 6+1 方案 / 胆拖建议
+     ⚠️ 这段在模板字符串里：只写单引号，不写反引号，不写代码里的反斜杠。
+     ============================================================ */
+  function maRuleCtx(g) {
+    if (g.type === 'digit') {
+      return tqCtx(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' });
+    }
+    var tabs = tqTabs(g);
+    return tqCtx(g, tabs[0]);
+  }
+  function maTheory(ctx) { return (ctx.to - ctx.from + 1) / (ctx.per || 1); }
+  function maColdList(ctx, k) {
+    var map = tqFreqAll(ctx), list = [], v;
+    for (v = ctx.from; v <= ctx.to; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (a.f - b.f) || (b.gap - a.gap) || (a.n - b.n); });
+    return list.slice(0, k);
+  }
+  function maHotList(ctx, k) {
+    var map = tqFreqAll(ctx), list = [], v;
+    for (v = ctx.from; v <= ctx.to; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (b.f - a.f) || (a.gap - b.gap) || (a.n - b.n); });
+    return list.slice(0, k);
+  }
+  function maChain(ctx) {
+    var out = [], seen = {}, i, n = ctx.rows.length;
+    if (n < 3) return out;
+    var a = ctx.rows[n - 1].nums, b = ctx.rows[n - 2].nums, c = ctx.rows[n - 3].nums;
+    for (i = 0; i < a.length; i++) {
+      var v = a[i];
+      if (b.indexOf(v) >= 0 && c.indexOf(v) >= 0 && !seen[v]) { seen[v] = 1; out.push(v); }
+    }
+    out.sort(function (x, y) { return x - y; });
+    return out;
+  }
+  function maLastNums(ctx) { return ctx.rows.length ? ctx.rows[ctx.rows.length - 1].nums : []; }
+  function maKillAll(ctx) {
+    var set = {}, out = [], i, arr;
+    function add(a) {
+      for (var q = 0; q < a.length; q++) if (!set[a[q]] && a[q] >= ctx.from && a[q] <= ctx.to) { set[a[q]] = 1; out.push(a[q]); }
+    }
+    arr = maColdList(ctx, 3);
+    var c1 = [];
+    for (i = 0; i < arr.length; i++) c1.push(arr[i].n);
+    add(c1);
+    add(maChain(ctx));
+    var last = maLastNums(ctx), map = tqFreqAll(ctx), avg = (ctx.per * ctx.n) / (ctx.to - ctx.from + 1), c2 = [];
+    for (i = 0; i < last.length; i++) if (map[last[i]] && map[last[i]].f <= avg) c2.push(last[i]);
+    add(c2);
+    out.sort(function (a, b) { return a - b; });
+    if (out.length > 8) out = out.slice(0, 8);
+    return out;
+  }
+
+  /* ---------------- 杀号规则 ---------------- */
+  function maKillCold(ctx) {
+    var list = maColdList(ctx, 5), nums = [], s = '', i;
+    for (i = 0; i < list.length; i++) {
+      nums.push(list[i].n);
+      s += (i ? '　' : '') + list[i].n + '（' + list[i].f + ' 次 · 已 ' + list[i].gap + ' 期没出）';
+    }
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'red') + tqLines([
+      ['冷号杀（5 个）', nums.join(' ')],
+      ['依据', '近 30 期出现次数最少的 5 个号'],
+      ['每个号', s]
+    ]);
+  }
+  function maKillTailCold(ctx) {
+    var all = tqFlat(ctx), dist = tqTailDist(all), list = [], i, v, tails, nums = [];
+    for (i = 0; i <= 9; i++) list.push([i, dist[i] || 0]);
+    list.sort(function (a, b) { return a[1] - b[1] || a[0] - b[0]; });
+    tails = [list[0][0], list[1][0]];
+    for (v = ctx.from; v <= ctx.to; v++) if (tails.indexOf(v % 10) >= 0) nums.push(v);
+    if (nums.length > 8) nums = nums.slice(0, 8);
+    return tqBalls(nums, 'red') + tqLines([
+      ['杀冷尾', '尾 ' + tails[0] + '（' + list[0][1] + ' 次）· 尾 ' + tails[1] + '（' + list[1][1] + ' 次）'],
+      ['对应号码', nums.join(' ')],
+      ['依据', '近 30 期里出现次数最少的 2 个尾数']
+    ]);
+  }
+  function maKillChain(ctx) {
+    var nums = maChain(ctx), s = '';
+    if (!nums.length) {
+      var last = maLastNums(ctx);
+      s = '最近 3 期没有「连续 3 期都出现」的号 —— 这一条本期不杀号。上期开出：' + last.join(' ');
+      return tqLines([['连出杀', '0 个'], ['说明', s]]);
+    }
+    return tqBalls(nums, 'red') + tqLines([
+      ['连出杀（过热）', nums.join(' ')],
+      ['依据', '最近 3 期每期都开出（连出 3 期，按规则杀）']
+    ]);
+  }
+  function maKillRepeat(ctx) {
+    var last = maLastNums(ctx), map = tqFreqAll(ctx),
+      avg = (ctx.per * ctx.n) / (ctx.to - ctx.from + 1), nums = [], i, s = '';
+    for (i = 0; i < last.length; i++) {
+      if (map[last[i]] && map[last[i]].f <= avg) { nums.push(last[i]); s += (s ? '　' : '') + last[i] + '（' + map[last[i]].f + ' 次）'; }
+    }
+    if (!nums.length) return tqLines([['上期重号杀', '0 个'], ['说明', '上期开出的号里没有低于平均出现次数的，这一条本期不杀号。']]);
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'red') + tqLines([
+      ['上期重号杀', nums.join(' ')],
+      ['依据', '上期开出、但近 30 期出现次数低于平均（' + fmt1(avg) + ' 次）'],
+      ['明细', s]
+    ]);
+  }
+  function maKillHot(ctx) {
+    var map = tqFreqAll(ctx), avg = (ctx.per * ctx.n) / (ctx.to - ctx.from + 1), nums = [], v, s = '';
+    for (v = ctx.from; v <= ctx.to; v++) {
+      if (map[v].f >= avg * 1.6) { nums.push(v); s += (s ? '　' : '') + v + '（' + map[v].f + ' 次）'; }
+    }
+    if (nums.length > 6) { nums = nums.slice(0, 6); }
+    if (!nums.length) return tqLines([['过热杀', '0 个'], ['说明', '没有号超过平均次数的 1.6 倍（' + fmt1(avg * 1.6) + ' 次），本期不过热。']]);
+    return tqBalls(nums, 'red') + tqLines([
+      ['过热杀', nums.join(' ')],
+      ['门槛', '出现 ≥ ' + fmt1(avg * 1.6) + ' 次（平均 ' + fmt1(avg) + ' 次的 1.6 倍）'],
+      ['明细', s]
+    ]);
+  }
+  function maKillGapOver(ctx) {
+    var map = tqFreqAll(ctx), theo = maTheory(ctx), nums = [], v, s = '';
+    for (v = ctx.from; v <= ctx.to; v++) {
+      if (map[v].gap >= theo * 2) { nums.push(v); s += (s ? '　' : '') + v + '（已 ' + map[v].gap + ' 期）'; }
+    }
+    if (!nums.length) return tqLines([['超长遗漏', '0 个'], ['说明', '没有号超过 ' + fmt1(theo * 2) + ' 期没出（理论 ' + fmt1(theo) + ' 期的 2 倍）。']]);
+    return tqBalls(nums, 'blue') + tqLines([
+      ['超长遗漏（按规则不杀，标为回补）', nums.join(' ')],
+      ['理论遗漏', fmt1(theo) + ' 期　门槛 ' + fmt1(theo * 2) + ' 期'],
+      ['说明', '遗漏太长按「回补」处理，不算杀号'],
+      ['明细', s]
+    ]);
+  }
+  function maKillGapRank(ctx) {
+    var map = tqFreqAll(ctx), list = [], v, i, s = '';
+    for (v = ctx.from; v <= ctx.to; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (b.gap - a.gap) || (a.f - b.f) || (a.n - b.n); });
+    for (i = 0; i < Math.min(8, list.length); i++) s += (i ? '　' : '') + list[i].n + '（' + list[i].gap + ' 期）';
+    return tqLines([
+      ['遗漏最长的 8 个', s],
+      ['理论遗漏', fmt1(maTheory(ctx)) + ' 期'],
+      ['最近一期', ctx.n ? (ctx.rows[ctx.rows.length - 1].issue + ' 期 ' + ctx.rows[ctx.rows.length - 1].nums.join(' ')) : '—']
+    ]);
+  }
+  function maKillTheory(ctx) {
+    var map = tqFreqAll(ctx), theo = maTheory(ctx), over = 0, v, nums = [];
+    for (v = ctx.from; v <= ctx.to; v++) { if (map[v].gap >= theo) { over++; if (map[v].gap >= theo * 2) nums.push(v); } }
+    return tqLines([
+      ['理论平均遗漏', fmt1(theo) + ' 期（' + (ctx.to - ctx.from + 1) + ' 个号 / 每期 ' + ctx.per + ' 个）'],
+      ['当前超过理论遗漏的号', over + ' 个'],
+      ['其中超过 2 倍（回补区）', nums.length ? nums.join(' ') : '没有'],
+      ['口径', '遗漏 = 这个号已经多少期没出']
+    ]);
+  }
+  function maKillZone(ctx) {
+    var bands = tqBands(ctx, 3), per = tqBandCount(ctx, bands), map = tqFreqAll(ctx);
+    var c = [], i;
+    for (i = 0; i < bands.length; i++) c.push(bands[i].c / Math.max(1, ctx.n));
+    var idx = 0;
+    for (i = 1; i < c.length; i++) if (c[i] < c[idx]) idx = i;
+    var list = [], v;
+    for (v = bands[idx].a; v <= bands[idx].b; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (a.f - b.f) || (b.gap - a.gap) || (a.n - b.n); });
+    var nums = [], s = '', j;
+    for (j = 0; j < Math.min(2, list.length); j++) { nums.push(list[j].n); s += (j ? '　' : '') + list[j].n + '（' + list[j].f + ' 次）'; }
+    nums.sort(function (a, b) { return a - b; });
+    var names = ['一区', '二区', '三区'];
+    return tqBalls(nums, 'red') + tqLines([
+      ['最冷的区', names[idx] + '（' + bands[idx].a + '~' + bands[idx].b + '）平均每期 ' + fmt1(c[idx]) + ' 个'],
+      ['分区杀', nums.join(' ')],
+      ['明细', s]
+    ]);
+  }
+  function maKillSumDev(ctx) {
+    var sums = tqSums(ctx), avg = 0, i, last5 = 0, n5 = 0, split = tqSplit(ctx);
+    for (i = 0; i < sums.length; i++) avg += sums[i];
+    avg = avg / (sums.length || 1);
+    for (i = Math.max(0, sums.length - 5); i < sums.length; i++) { last5 += sums[i]; n5++; }
+    last5 = last5 / (n5 || 1);
+    var high = last5 > avg, map = tqFreqAll(ctx), nums = [], v;
+    var lo = high ? split + 1 : ctx.from, hi = high ? ctx.to : split;
+    var list = [];
+    for (v = lo; v <= hi; v++) list.push({ n: v, f: map[v].f, gap: map[v].gap });
+    list.sort(function (a, b) { return (a.f - b.f) || (b.gap - a.gap) || (a.n - b.n); });
+    for (i = 0; i < Math.min(2, list.length); i++) nums.push(list[i].n);
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'red') + tqLines([
+      ['近 5 期和值均值', fmt1(last5) + '（30 期均值 ' + fmt1(avg) + '）'],
+      ['判断', high ? '近 5 期偏高 → 杀大号区（' + (split + 1) + '~' + ctx.to + '）最冷 2 个' : '近 5 期偏低 → 杀小号区（' + ctx.from + '~' + split + '）最冷 2 个'],
+      ['和值偏离杀', nums.join(' ')]
+    ]);
+  }
+  function maKillConsecSeg(ctx) {
+    var n = ctx.rows.length, runs = [], i, nums = [];
+    if (n >= 3) {
+      var c = 0;
+      for (i = n - 3; i < n; i++) if (tqRuns(ctx.rows[i].nums).length) c++;
+      if (c < 3) {
+        return tqLines([['连号段杀', '0 个'], ['说明', '最近 3 期不是每期都有连号（有连号 ' + c + ' 期），这一条本期不杀号。']]);
+      }
+    }
+    var last = maLastNums(ctx), map = tqFreqAll(ctx);
+    runs = tqRuns(last);
+    if (!runs.length) return tqLines([['连号段杀', '0 个'], ['说明', '最近一期没有连号，这一条本期不杀号。']]);
+    var s = last.slice().sort(function (a, b) { return a - b; }), j = 0, k;
+    while (j < s.length) {
+      k = j;
+      while (k + 1 < s.length && s[k + 1] - s[k] === 1) k++;
+      if (k > j) {
+        for (var q = j; q <= k; q++) nums.push({ n: s[q], f: map[s[q]].f });
+      }
+      j = k + 1;
+    }
+    nums.sort(function (a, b) { return a.f - b.f || a.n - b.n; });
+    var out = [], seen = {};
+    for (i = 0; i < nums.length && out.length < 2; i++) if (!seen[nums[i].n]) { seen[nums[i].n] = 1; out.push(nums[i].n); }
+    out.sort(function (a, b) { return a - b; });
+    return tqBalls(out, 'red') + tqLines([
+      ['连号段杀', out.join(' ')],
+      ['依据', '最近 3 期每期都有连号（过热），杀上期连号段里最冷的号'],
+      ['上期连号', last.join(' ')]
+    ]);
+  }
+  function maKillSum(ctx) {
+    var out = maKillAll(ctx), s = out.join(' ');
+    return tqBalls(out, 'red') + tqLines([
+      ['汇总杀号（' + out.length + ' 个）', s || '0 个'],
+      ['合并来自', '冷号杀 + 连出杀 + 上期重号杀（去重后最多 8 个）'],
+      ['用在哪', '底部「杀号」一行就是这个汇总']
+    ]);
+  }
+
+  /* ---------------- 选号规则 ---------------- */
+  function maPickHot(ctx) {
+    var list = maHotList(ctx, 6), nums = [], s = '', i;
+    for (i = 0; i < list.length; i++) {
+      nums.push(list[i].n);
+      s += (i ? '　' : '') + list[i].n + '（' + list[i].f + ' 次 · 已 ' + list[i].gap + ' 期没出）';
+    }
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'red') + tqLines([
+      ['热号（6 个）', nums.join(' ')],
+      ['依据', '近 30 期出现次数最多'],
+      ['每个号', s]
+    ]);
+  }
+  function maPickBack(ctx) {
+    var map = tqFreqAll(ctx), theo = maTheory(ctx), nums = [], v, s = '';
+    for (v = ctx.from; v <= ctx.to; v++) {
+      if (map[v].gap >= theo * 1.5 && map[v].gap <= theo * 2.5 + 1) { nums.push(v); s += (s ? '　' : '') + v + '（已 ' + map[v].gap + ' 期）'; }
+    }
+    if (nums.length > 8) nums = nums.slice(0, 8);
+    if (!nums.length) return tqLines([['遗漏回补', '0 个'], ['说明', '没有号落在 ' + fmt1(theo * 1.5) + ' ~ ' + fmt1(theo * 2.5) + ' 期这个回补区间。']]);
+    return tqBalls(nums, 'blue') + tqLines([
+      ['遗漏回补', nums.join(' ')],
+      ['区间', fmt1(theo * 1.5) + ' ~ ' + fmt1(theo * 2.5) + ' 期（理论 ' + fmt1(theo) + ' 期）'],
+      ['明细', s]
+    ]);
+  }
+  function maPickOdd(ctx) {
+    var all = tqFlat(ctx), odd = 0, even = 0, i;
+    for (i = 0; i < all.length; i++) { if (all[i] % 2) odd++; else even++; }
+    var need = ctx.per, target = Math.round(need / 2);
+    var hOdd = ctx.rows.length ? (ctx.rows[ctx.rows.length - 1].nums.length) : need;
+    return tqLines([
+      ['近 30 期 奇 : 偶', odd + ' : ' + even + '（' + tqPct(odd, all.length) + ' : ' + tqPct(even, all.length) + '）'],
+      ['本期建议', '奇 ' + target + ' 个 : 偶 ' + (need - target) + ' 个（每期 ' + need + ' 个，取最接近的一半一半）'],
+      ['为什么', '历史上「一半一半」出现次数最多，全奇 / 全偶极少'],
+      ['最近一期奇偶', ctx.n ? ctx.rows[ctx.rows.length - 1].nums.join(' ') : '—']
+    ]);
+  }
+  function maPickSumFit(ctx) {
+    var sums = tqSums(ctx), avg = 0, i;
+    for (i = 0; i < sums.length; i++) avg += sums[i];
+    avg = avg / (sums.length || 1);
+    var lo = avg * 0.8, hi = avg * 1.2, inRange = 0;
+    for (i = 0; i < sums.length; i++) if (sums[i] >= lo && sums[i] <= hi) inRange++;
+    return tqLines([
+      ['近 30 期 和值均值', fmt1(avg)],
+      ['合理区间（±20%）', fmt1(lo) + ' ~ ' + fmt1(hi)],
+      ['落在这个区间的期数', inRange + ' / ' + ctx.n + ' 期（' + tqPct(inRange, ctx.n) + '）'],
+      ['本期目标', '组号时把和值落进 ' + Math.round(lo) + ' ~ ' + Math.round(hi) + ' 这一档']
+    ]);
+  }
+  function maPickZoneCover(ctx) {
+    var bands = tqBands(ctx, 3), per = tqBandCount(ctx, bands), i, c = [];
+    for (i = 0; i < bands.length; i++) c.push(bands[i].c / Math.max(1, ctx.n));
+    var need = ctx.per, perN = Math.max(1, Math.floor(need / bands.length));
+    var names = ['一区', '二区', '三区'], s = '';
+    for (i = 0; i < bands.length; i++) s += (i ? '　' : '') + names[i] + '（' + bands[i].a + '~' + bands[i].b + '）平均 ' + fmt1(c[i]) + ' 个';
+    return tqLines([
+      ['每期个数', need + ' 个 → 每区建议 ' + perN + ' 个，剩余 ' + (need - perN * bands.length) + ' 个给最热的区'],
+      ['三区均值', s],
+      ['最近一期分布', per.length ? per[per.length - 1].join(' : ') : '—']
+    ]);
+  }
+  function maPickTailCover(ctx) {
+    var all = tqFlat(ctx), dist = tqTailDist(all), list = [], i, s = '';
+    for (i = 0; i <= 9; i++) list.push([i, dist[i] || 0]);
+    list.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+    for (i = 0; i < 4; i++) s += (i ? '　' : '') + '尾 ' + list[i][0] + '（' + list[i][1] + ' 次）';
+    return tqDistHTML(dist) + tqLines([
+      ['最热的 4 个尾数', s],
+      ['建议', '本期组号至少覆盖其中 3 个尾数，避免全部同尾'],
+      ['同尾说明', '同一尾数最多留 2 个（如 12 / 22）']
+    ]);
+  }
+  function maPickConsecKeep(ctx) {
+    var days = 0, i, runs;
+    for (i = 0; i < ctx.rows.length; i++) { runs = tqRuns(ctx.rows[i].nums); if (runs.length) days++; }
+    var list = maHotList(ctx, 12), pair = null, j, k;
+    for (j = 0; j < list.length && !pair; j++) {
+      for (k = 0; k < list.length; k++) {
+        if (Math.abs(list[j].n - list[k].n) === 1) { pair = [Math.min(list[j].n, list[k].n), Math.max(list[j].n, list[k].n)]; break; }
+      }
+    }
+    var nums = pair || [];
+    return (nums.length ? tqBalls(nums, 'red') : '') + tqLines([
+      ['连号出现率', days + ' / ' + ctx.n + ' 期（' + tqPct(days, ctx.n) + '）'],
+      ['建议', '保留 1 组连号（最常见），不要超过 2 组'],
+      ['可选连号', nums.length ? (nums[0] + ' / ' + nums[1]) : '热号里没有相邻的两个']
+    ]);
+  }
+  function maPickPool(ctx) {
+    var map = tqFreqAll(ctx), theo = maTheory(ctx), list = [], v, i, s = '';
+    for (v = ctx.from; v <= ctx.to; v++) {
+      var it = map[v] || { f: 0, gap: 99 };
+      var mid = (it.gap >= theo * 0.8 && it.gap <= theo * 2.2) ? 1.4 : 0;
+      list.push({ n: v, f: it.f, gap: it.gap, sc: it.f + mid });
+    }
+    list.sort(function (a, b) { return b.sc - a.sc || a.n - b.n; });
+    var nums = [];
+    for (i = 0; i < Math.min(12, list.length); i++) { nums.push(list[i].n); s += (i ? '　' : '') + list[i].n + '（' + list[i].f + ' 次）'; }
+    nums.sort(function (a, b) { return a - b; });
+    return tqBalls(nums, 'red') + tqLines([
+      ['综合 12 码', nums.join(' ')],
+      ['打分', '出现次数 + 遗漏适中加分'],
+      ['明细', s]
+    ]);
+  }
+  function maPlan(g, ctx, need, rnd) {
+    var map = tqFreqAll(ctx), bands = tqBands(ctx, 3), list = [], v, i, j;
+    var theo = maTheory(ctx);
+    for (v = ctx.from; v <= ctx.to; v++) {
+      var it = map[v] || { f: 0, gap: 99 };
+      var mid = (it.gap >= theo * 0.8 && it.gap <= theo * 2.2) ? 1.4 : 0;
+      list.push({ n: v, f: it.f, gap: it.gap, sc: it.f + mid + rnd() * 1.2 });
+    }
+    list.sort(function (a, b) { return b.sc - a.sc || a.n - b.n; });
+    var plan = [], used = {}, perN = Math.max(1, Math.floor(need / bands.length)), bi;
+    for (bi = 0; bi < bands.length && plan.length < need; bi++) {
+      var got = 0;
+      for (j = 0; j < list.length && got < perN && plan.length < need; j++) {
+        var x = list[j];
+        if (used[x.n] || x.n < bands[bi].a || x.n > bands[bi].b) continue;
+        used[x.n] = 1; plan.push(x); got++;
+      }
+    }
+    for (j = 0; j < list.length && plan.length < need; j++) if (!used[list[j].n]) { used[list[j].n] = 1; plan.push(list[j]); }
+    var odd = 0, target = Math.round(need / 2), guard = 0, wr, add;
+    for (i = 0; i < plan.length; i++) if (plan[i].n % 2) odd++;
+    while (odd < target && guard++ < 40) {
+      add = null;
+      for (j = 0; j < list.length; j++) if (!used[list[j].n] && list[j].n % 2) { add = list[j]; break; }
+      wr = -1;
+      for (i = 0; i < plan.length; i++) if (plan[i].n % 2 === 0 && (wr < 0 || plan[i].sc < plan[wr].sc)) wr = i;
+      if (!add || wr < 0) break;
+      used[plan[wr].n] = 0; used[add.n] = 1; plan[wr] = add; odd++;
+    }
+    guard = 0;
+    while (odd > target && guard++ < 40) {
+      add = null;
+      for (j = 0; j < list.length; j++) if (!used[list[j].n] && list[j].n % 2 === 0) { add = list[j]; break; }
+      wr = -1;
+      for (i = 0; i < plan.length; i++) if (plan[i].n % 2 && (wr < 0 || plan[i].sc < plan[wr].sc)) wr = i;
+      if (!add || wr < 0) break;
+      used[plan[wr].n] = 0; used[add.n] = 1; plan[wr] = add; odd--;
+    }
+    var nums = [];
+    for (i = 0; i < plan.length; i++) nums.push(plan[i].n);
+    nums.sort(function (a, b) { return a - b; });
+    return nums;
+  }
+  function maPlanInfo(ctx, nums) {
+    var sum = 0, odd = 0, i, bands = tqBands(ctx, 3), cnt = [0, 0, 0], runs = tqRuns(nums);
+    for (i = 0; i < nums.length; i++) { sum += nums[i]; if (nums[i] % 2) odd++; }
+    for (i = 0; i < nums.length; i++) {
+      for (var b = 0; b < bands.length; b++) if (nums[i] >= bands[b].a && nums[i] <= bands[b].b) { cnt[b]++; break; }
+    }
+    var sums = tqSums(ctx), avg = 0;
+    for (i = 0; i < sums.length; i++) avg += sums[i];
+    avg = avg / (sums.length || 1);
+    return { sum: sum, odd: odd, even: nums.length - odd, cnt: cnt, runs: runs, avg: avg };
+  }
+  function maPickPlan(g, issue) {
+    var ctx = maRuleCtx(g), need = g.id === 'kl8' ? 10 : ctx.per;
+    var rnd = tqRng('ma-plan|' + g.id + '|' + String(issue || '0'));
+    var nums = maPlan(g, ctx, need, rnd), info = maPlanInfo(ctx, nums), i, s = '';
+    for (i = 0; i < info.cnt.length; i++) s += (i ? ' : ' : '') + info.cnt[i];
+    return tqBalls(nums, 'red') + tqLines([
+      ['方案号码（' + nums.length + ' 个）', nums.join(' ')],
+      ['奇偶', info.odd + ' : ' + info.even],
+      ['三区分布', s],
+      ['和值', info.sum + '（近 30 期均值 ' + fmt1(info.avg) + '）'],
+      ['连号', info.runs.length ? ('有 ' + info.runs.length + ' 组') : '没有（可接受）'],
+      ['怎么来的', '出现次数 + 遗漏适中 + 三区各取 + 奇偶对半，四项一起打分']
+    ]);
+  }
+  function maPickDanTuo(g, issue) {
+    var ctx = maRuleCtx(g), hot = maHotList(ctx, 3), list = [], v, map = tqFreqAll(ctx), i, s = '';
+    var nums = [], used = {};
+    for (i = 0; i < hot.length; i++) { nums.push(hot[i].n); used[hot[i].n] = 1; }
+    var pool = maHotList(ctx, 18), drag = [];
+    for (i = 0; i < pool.length && drag.length < 6; i++) if (!used[pool[i].n]) { drag.push(pool[i].n); used[pool[i].n] = 1; }
+    nums.sort(function (a, b) { return a - b; });
+    drag.sort(function (a, b) { return a - b; });
+    var s1 = nums.join(' '), s2 = drag.join(' ');
+    return tqLines([
+      ['3 个胆码', s1],
+      ['6 个拖码', s2],
+      ['怎么用', '胆码每注都要带上，拖码任选 2~3 个组合'],
+      ['依据', '胆码 = 近 30 期最热的前 3 个；拖码 = 热度紧随其后的 6 个']
+    ]);
+  }
+  function maRuleHTML(g, ctx, id) {
+    if (id === 'k-cold') return maKillCold(ctx);
+    if (id === 'k-tail') return maKillTailCold(ctx);
+    if (id === 'k-chain') return maKillChain(ctx);
+    if (id === 'k-repeat') return maKillRepeat(ctx);
+    if (id === 'k-hot') return maKillHot(ctx);
+    if (id === 'k-gap-over') return maKillGapOver(ctx);
+    if (id === 'k-gap-rank') return maKillGapRank(ctx);
+    if (id === 'k-theory') return maKillTheory(ctx);
+    if (id === 'k-zone') return maKillZone(ctx);
+    if (id === 'k-sum') return maKillSumDev(ctx);
+    if (id === 'k-seg') return maKillConsecSeg(ctx);
+    if (id === 'k-all') return maKillSum(ctx);
+    if (id === 's-hot') return maPickHot(ctx);
+    if (id === 's-back') return maPickBack(ctx);
+    if (id === 's-odd') return maPickOdd(ctx);
+    if (id === 's-sum') return maPickSumFit(ctx);
+    if (id === 's-zone') return maPickZoneCover(ctx);
+    if (id === 's-tail') return maPickTailCover(ctx);
+    if (id === 's-consec') return maPickConsecKeep(ctx);
+    if (id === 's-pool') return maPickPool(ctx);
+    if (id === 's-plan') return maPickPlan(g, tqNextIssue(g.id));
+    if (id === 's-dan') return maPickDanTuo(g, tqNextIssue(g.id));
+    return tqLines([['近 30 期', '这一条等开出下一期后自动补上']]);
+  }
+
+  var MA_KILL_BASIC = [['k-cold', '冷号杀'], ['k-tail', '尾数冷杀'], ['k-chain', '连出杀'], ['k-repeat', '上期重号杀']];
+  var MA_KILL_VIP = [
+    { name: '冷热', items: [['k-hot', '过热杀'], ['k-gap-rank', '遗漏排行']] },
+    { name: '遗漏', items: [['k-gap-over', '超长遗漏'], ['k-theory', '理论遗漏']] },
+    { name: '结构', items: [['k-zone', '分区杀'], ['k-sum', '和值偏离杀'], ['k-seg', '连号段杀']] },
+    { name: '汇总', items: [['k-all', '汇总杀号']] }
+  ];
+  var MA_PICK_BASIC = [['s-hot', '热号'], ['s-back', '遗漏回补'], ['s-odd', '奇偶平衡'], ['s-sum', '和值合理']];
+  var MA_PICK_VIP = [
+    { name: '分区', items: [['s-zone', '三区覆盖']] },
+    { name: '尾数', items: [['s-tail', '尾数覆盖']] },
+    { name: '连号', items: [['s-consec', '连号适度']] },
+    { name: '号码池', items: [['s-pool', '综合 12 码']] },
+    { name: '方案', items: [['s-plan', '本期方案'], ['s-dan', '胆拖建议']] }
+  ];
+
+  function maRuleRow(g, ctx, items) {
+    var h = '<div class="tq-btns">', i, id, label;
+    for (i = 0; i < items.length; i++) {
+      id = items[i][0]; label = items[i][1];
+      h += '<div class="tq-btn' + (st.mq === id ? ' on' : '') + '" role="button" tabindex="0" data-mq-rule="' + esc(id) + '">' + label + '</div>';
+    }
+    h += '</div>';
+    for (i = 0; i < items.length; i++) {
+      if (items[i][0] === st.mq) {
+        h += '<div class="tq-res"><div class="tq-res-h"><span>' + items[i][1] + ' · 近 ' + ctx.n + ' 期</span><em>再点一次收起</em></div>' + maRuleHTML(g, ctx, items[i][0]) + '</div>';
+      }
+    }
+    return h;
+  }
+  function maBottom(g) {
+    var issue = tqNextIssue(g.id);
+    var rnd = tqRng('ma-bottom|' + g.id + '|' + String(issue || '0'));
+    var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 本期号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
+    if (g.type === 'digit') {
+      var tabs = tqTabs(g), need = tabs.length, kr = '', pr = '', p, i;
+      for (p = 0; p < need; p++) {
+        var fp = tqFreqOf(g.id, 'main', p), list = [], v;
+        for (v = 0; v <= 9; v++) list.push({ n: v, f: (fp[v] ? fp[v].f : 0), gap: (fp[v] ? fp[v].gap : 99) });
+        list.sort(function (a, b) { return (a.f - b.f) || (b.gap - a.gap) || (a.n - b.n); });
+        kr += (p ? '　' : '') + tabs[p].label + ' 杀 ' + list[0].n + ' ' + list[1].n;
+        var pickOne = tqPickN(fp, 0, 9, 1, rnd);
+        pr += (p ? '　' : '') + tabs[p].label + ' ' + pickOne[0].n;
+      }
+      var ctx0 = maRuleCtx(g), pool = maHotList(ctx0, 6), six = [], j;
+      for (j = 0; j < pool.length; j++) six.push(pool[j].n);
+      six.sort(function (a, b) { return a - b; });
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">杀号</span><span class="tq-rec-t">' + kr + '</span></div>';
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">选号</span><span class="tq-rec-t">' + pr + '</span></div>';
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">组选 6 码</span>' + tqBalls(six, 'digit') + '</div>';
+      h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+      return h + '</div>';
+    }
+    var ctx = maRuleCtx(g), kill = maKillAll(ctx);
+    var need2 = g.id === 'kl8' ? 10 : ctx.per;
+    var nums = maPlan(g, ctx, need2, rnd);
+    var tabs2 = tqTabs(g);
+    h += '<div class="tq-rec-row"><span class="tq-rec-k">杀号</span>' + tqBalls(kill, 'kill') + '</div>';
+    h += '<div class="tq-rec-row"><span class="tq-rec-k">选号</span><span class="tq-rec-k2">' + esc(tabs2[0].label) + '</span>' + tqBalls(nums, 'red') + '</div>';
+    if (g.areas.length > 1) {
+      var blueTab = tabs2[1], bctx = tqCtx(g, blueTab);
+      var bneed = g.id === 'kl8' ? 1 : bctx.per;
+      if (bneed > 4) bneed = 1;
+      var bmap = tqFreqAll(bctx), bpick = tqPickN(bmap, blueTab.from, blueTab.to, bneed, rnd), bn = [], k;
+      for (k = 0; k < bpick.length; k++) bn.push(bpick[k].n);
+      if (g.type === 'qxc') {
+        h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(blueTab.label) + '</span>' + tqBalls(bn, 'digit') + '</div>';
+      } else {
+        h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(blueTab.label) + '</span>' + tqBalls(bn, 'blue') + '</div>';
+      }
+    }
+    h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+    return h + '</div>';
+  }
+  function pageMa() {
+    var g = gameById(st.game);
+    if (!st.mqTab || (st.mqTab !== 'kill' && st.mqTab !== 'pick')) st.mqTab = 'kill';
+    var ctx = maRuleCtx(g);
+    var h = '';
+    if (st.pickGame) h += '<div class="tq-games">' + chipsGame() + '</div>';
+    h += '<div class="tq-tabs">' +
+      '<div class="tq-tab' + (st.mqTab === 'kill' ? ' on' : '') + '" role="button" tabindex="0" data-mq-tab="kill">杀号</div>' +
+      '<div class="tq-tab' + (st.mqTab === 'pick' ? ' on' : '') + '" role="button" tabindex="0" data-mq-tab="pick">选号</div>' +
+      '</div>';
+    h += '<div class="tq-sub">' + esc(g.name) + ' · ' + (st.mqTab === 'kill' ? '按几套规则算出「这期不太可能出」的号' : '按几套规则算出「这期可以重点看」的号') + ' · 近 ' + SPAN + ' 期统计</div>';
+    if (!ctx.n) {
+      h += '<div class="tq-empty"><b>近 ' + SPAN + ' 期样本不足</b>这个彩种本页还没有足够的开奖期数，开出几期后这里会自动补上。</div>';
+      return h + maBottom(g);
+    }
+    var basic = st.mqTab === 'kill' ? MA_KILL_BASIC : MA_PICK_BASIC;
+    var vip = st.mqTab === 'kill' ? MA_KILL_VIP : MA_PICK_VIP;
+    if (st.mqTab === 'kill' && g.type === 'digit') {
+      basic = basic.slice(0);
+      basic.unshift(['k-cold', '定位冷杀']);
+    }
+    var secName = st.mqTab === 'kill' ? '基础规则' : '基础规则';
+    h += '<div class="tq-sec"><div class="tq-sec-h">' + secName + '<span class="tq-free">免费查看</span></div>' + maRuleRow(g, ctx, basic) + '</div>';
+    var grp = '', i;
+    for (i = 0; i < vip.length; i++) {
+      grp += '<div class="tq-grp"><div class="tq-grp-h">' + vip[i].name + '</div>' + maRuleRow(g, ctx, vip[i].items) + '</div>';
+    }
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规则</div>' + grp + '</div>';
+    h += maBottom(g);
+    h += note('杀号 / 选号都是按近 ' + SPAN + ' 期的真实号码用几套规则算出来的统计结果，每期开奖后重建页面自动更新；底部号码用下一期期号做种子，同一期固定、换期就变。');
     return h;
   }
 
-  /* ================= ⑦ 指数预测 ================= */
+  /* ================= ⑦ 指数预测（红球 / 蓝球 可能性 % 降序） =================
+     ------------------------------------------------------------
+     用户原话：「指数预测 就是你自己也是一套系统抓取过往的数据 然后自己有几套分析的方法
+               然后红球和篮球开出的可能性比例 按降序排列就好了 这个后期是开奖后就自己计算不要钱的」
+     做法（纯前端、0 请求、0 费用）：
+       四个维度加权打分 →
+         ① 近 30 期出现频次（热号高）
+         ② 遗漏补偿（遗漏落在理论值 1.6 倍附近加分）
+         ③ 近期趋势（近 10 期频率 ÷ 30 期频率，升温加分）
+         ④ 分区均衡（这一区整体偏冷 → 区内号码回补加分）
+       → 归一化成【可能性 %】（所有号加起来 = 100%），按降序排成表
+       → 期号做种子做微调：同一期固定、换期就变（不用 Math.random）
+     ⚠️ 这段在模板字符串里：只写单引号，不写反引号，不写代码里的反斜杠。
+     ============================================================ */
+  function ixScore(g, tab) {
+    var ctx = tqCtx(g, tab), map = tqFreqAll(ctx);
+    var count = ctx.to - ctx.from + 1, theo = count / (ctx.per || 1);
+    var n10 = Math.min(10, ctx.rows.length), recent = {}, i, j;
+    for (i = ctx.rows.length - n10; i < ctx.rows.length; i++) {
+      if (i < 0) continue;
+      for (j = 0; j < ctx.rows[i].nums.length; j++) {
+        var rn = ctx.rows[i].nums[j];
+        recent[rn] = (recent[rn] || 0) + 1;
+      }
+    }
+    var bands = tqBands(ctx, 3), perBands = tqBandCount(ctx, bands), rate = [], b;
+    for (b = 0; b < bands.length; b++) rate.push(bands[b].c / Math.max(1, ctx.n));
+    var avgRate = 0;
+    for (b = 0; b < rate.length; b++) avgRate += rate[b] / rate.length;
+    var maxF = 1, v;
+    for (v = ctx.from; v <= ctx.to; v++) if (map[v].f > maxF) maxF = map[v].f;
+    var rnd = tqRng('ix|' + g.id + '|' + tqNextIssue(g.id) + '|' + tqTabId(tab));
+    var rows = [], total = 0;
+    for (v = ctx.from; v <= ctx.to; v++) {
+      var it = map[v];
+      var fS = it.f / maxF;
+      var mS = 1 - Math.abs(it.gap - theo * 1.6) / (theo * 3);
+      if (mS < 0) mS = 0;
+      if (mS > 1) mS = 1;
+      var rateAll = n10 ? it.f / Math.max(1, ctx.n) : 0;
+      var rate10 = n10 ? (recent[v] || 0) / n10 : 0;
+      var tRaw = (rate10 + 0.02) / (rateAll + 0.02);
+      var tS = tRaw > 2 ? 1 : (tRaw / 2);
+      var bidx = 0;
+      for (b = 0; b < bands.length; b++) if (v >= bands[b].a && v <= bands[b].b) { bidx = b; break; }
+      var zRaw = avgRate / ((rate[b] || 0) + 0.1);
+      var zS = zRaw > 2 ? 1 : (zRaw / 2);
+      var sc = 0.45 * fS + 0.25 * mS + 0.20 * tS + 0.10 * zS;
+      total += sc;
+      rows.push({ n: v, f: it.f, gap: it.gap, fS: fS, tRaw: tRaw, sc: sc, why: '' });
+    }
+    var avgF = (ctx.per * ctx.n) / count;
+    for (i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var level = r.f >= avgF * 1.4 ? '热' : (r.f <= avgF * 0.6 ? '冷' : '温');
+      r.why = level + ' · 遗漏 ' + r.gap + ' 期 · ' + (r.tRaw > 1.15 ? '升温' : (r.tRaw < 0.85 ? '降温' : '平稳'));
+      r.pct = total ? r.sc * 100 / total : 0;
+    }
+    rows.sort(function (a, b2) { return (b2.pct - a.pct) || (a.n - b2.n); });
+    var sum = 0;
+    for (i = 0; i < rows.length; i++) sum += rows[i].pct;
+    return { ctx: ctx, rows: rows, sum: sum, theo: theo, n10: n10 };
+  }
+  function ixTable(g, tab) {
+    var r = ixScore(g, tab);
+    if (!r.ctx.n) {
+      return '<div class="tq-empty"><b>近 ' + SPAN + ' 期样本不足</b>这个彩种本页还没有足够的开奖期数，开出几期后这里会自动补上。</div>';
+    }
+    var cls = tab.key === 'back' || tab.pos != null ? 'blue' : 'red';
+    var h = '<div class="tq-tbl-wrap"><table class="tq-tbl"><thead><tr><th>排名</th><th>号码</th><th>可能性</th><th>依据</th></tr></thead><tbody>';
+    for (var i = 0; i < r.rows.length; i++) {
+      var x = r.rows[i];
+      h += '<tr' + (i < 6 ? ' class="top"' : '') + '>' +
+        '<td>' + (i + 1) + '</td>' +
+        '<td><span class="tq-ball ' + cls + ' sm">' + x.n + '</span></td>' +
+        '<td><b>' + fmt1(x.pct) + '%</b></td>' +
+        '<td class="s">' + x.why + '</td></tr>';
+    }
+    h += '</tbody></table></div>';
+    h += tqLines([
+      ['合计', fmt1(r.sum) + '%（' + r.rows.length + ' 个号的可能性加起来）'],
+      ['前 6 名占比', fmt1(r.rows[0].pct + r.rows[1].pct + r.rows[2].pct + r.rows[3].pct + r.rows[4].pct + r.rows[5].pct) + '%'],
+      ['口径', '出现频次 45% + 遗漏回补 25% + 近期趋势 20% + 分区均衡 10%，再归一化成 100%']
+    ]);
+    return h;
+  }
+  function ixTop(g, tab, k) {
+    var r = ixScore(g, tab), out = [], i;
+    for (i = 0; i < Math.min(k, r.rows.length); i++) out.push({ n: r.rows[i].n, pct: r.rows[i].pct });
+    return out;
+  }
+  function ixBottom(g) {
+    var tabs = tqTabs(g), issue = tqNextIssue(g.id);
+    var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 指数最高<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
+    if (g.type === 'digit') {
+      var p, top6 = ixTop(g, { key: 'main', pos: null, label: '全部位', from: 0, to: 9, sub: '' }, 6), nums = [], i;
+      for (i = 0; i < top6.length; i++) nums.push(top6[i].n);
+      nums.sort(function (a, b) { return a - b; });
+      var posRow = '';
+      for (p = 0; p < tabs.length; p++) {
+        var t1 = ixTop(g, tabs[p], 1);
+        if (t1.length) posRow += (p ? '　' : '') + tabs[p].label + ' ' + t1[0].n + '（' + fmt1(t1[0].pct) + '%）';
+      }
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">定位号</span><span class="tq-rec-t">' + posRow + '</span></div>';
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">组选 6 码</span>' + tqBalls(nums, 'digit') + '</div>';
+      h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+      return h + '</div>';
+    }
+    var red = ixTop(g, tabs[0], 6), rn = [], j;
+    for (j = 0; j < red.length; j++) rn.push(red[j].n);
+    h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(tabs[0].label) + ' 前 6</span>' + tqBalls(rn, 'red') + '</div>';
+    if (tabs.length > 1) {
+      var blue = ixTop(g, tabs[1], 1), bn = [];
+      for (j = 0; j < blue.length; j++) bn.push(blue[j].n);
+      h += '<div class="tq-rec-row"><span class="tq-rec-k">' + esc(tabs[1].label) + ' 前 1</span>' + tqBalls(bn, 'blue') + '</div>';
+    }
+    h += '<div class="tq-warn">⚠️ 仅供参考，不保证中奖</div>';
+    return h + '</div>';
+  }
   function pageIndex() {
     var g = gameById(st.game);
-    var h = chipsGame() + card('指数预测 · 暂不支持',
-      none('暂不支持', '指数预测要专业的指数模型和本页没有的行情数据；这里不提供，也不写一个假的涨跌数字糊弄人。'));
-    h += recBlock(g.id, '这一页没有行情数据，号码只按和值 / 遗漏 / 冷热 / 分区等可得指标参与打分估算。');
+    var tabs = tqTabs(g);
+    if (!tabs.length) return none('没有可分析的区域', '这个彩种还没有配置号码区。');
+    if (!tqTabOf(tabs, st.ixTab)) st.ixTab = tqTabId(tabs[0]);
+    var tab = tqTabOf(tabs, st.ixTab);
+    var h = '';
+    if (st.pickGame) h += '<div class="tq-games">' + chipsGame() + '</div>';
+    h += '<div class="tq-tabs">';
+    for (var i = 0; i < tabs.length; i++) {
+      var id = tqTabId(tabs[i]);
+      h += '<div class="tq-tab' + (id === st.ixTab ? ' on' : '') + '" role="button" tabindex="0" data-ix-tab="' + esc(id) + '">' + esc(tabs[i].label) + '</div>';
+    }
+    h += '</div>';
+    if (tab.sub) h += '<div class="tq-sub">' + esc(g.name) + ' · ' + esc(tab.sub) + ' · 近 ' + SPAN + ' 期统计</div>';
+    h += ixTable(g, tab);
+    h += ixBottom(g);
+    h += note('每一档都是「可能性指数」：把近 ' + SPAN + ' 期的频次、遗漏、近期趋势、分区冷热四项一起打分再归一化，所以加起来正好 100%。它是统计描述，不是中奖概率，每期开奖后自动重算。');
     return h;
   }
 
@@ -10418,9 +12329,24 @@ ${CHAT_JS_SHARE}
     if (id === 'ai') return pageAi();
     return none('出错了', '这个入口还没有内容。');
   }
+  /* 顶部标题：这三个子页面显示「<彩种名>xxx ⌄」，点标题展开彩种选择 */
+  var HEAD_SUFFIX = { trend: '趋势分析', ma: '杀号和选号', index: '指数预测', pattern: '智能规律' };
+  function syncHead() {
+    if (!titleEl) return;
+    var suf = HEAD_SUFFIX[st.id];
+    if (suf) {
+      var gg = gameById(st.game);
+      titleEl.innerHTML = esc(gg.name) + suf + '<span class="tq-caret">⌄</span>';
+    } else {
+      titleEl.textContent = TITLES[st.id] || '详情';
+    }
+  }
   function render() {
+    var __sc = st._keep ? body.scrollTop : 0;
+    st._keep = 0;
     body.innerHTML = pageOf(st.id);
-    try { body.scrollTop = 0; } catch (e3) { /* 忽略 */ }
+    syncHead();
+    try { body.scrollTop = __sc; } catch (e3) { /* 忽略 */ }
   }
 
   function openTool(id) {
@@ -10470,9 +12396,24 @@ ${CHAT_JS_SHARE}
     while (t && t !== body) {
       if (t.getAttribute) {
         var gid = t.getAttribute('data-tv-game');
-        if (gid) { st.game = gid; st.area = ''; st.ai = null; render(); return; }
+        if (gid) { st.game = gid; st.area = ''; st.ai = null; st.tqTab = ''; st.pqTab = ''; st.ixTab = '';
+          st.tq = ''; st.mq = ''; st.pq = ''; st.pickGame = false; render(); return; }
         var aid = t.getAttribute('data-tv-area');
         if (aid) { st.area = aid; st.ai = null; render(); return; }
+        var tqt = t.getAttribute('data-tq-tab');
+        if (tqt) { st.tqTab = tqt; st.tq = ''; render(); return; }
+        var tqm = t.getAttribute('data-tq-metric');
+        if (tqm) { st.tq = (st.tq === tqm ? '' : tqm); st._keep = 1; render(); return; }
+        var mqt = t.getAttribute('data-mq-tab');
+        if (mqt) { st.mqTab = mqt; st.mq = ''; render(); return; }
+        var mqr = t.getAttribute('data-mq-rule');
+        if (mqr) { st.mq = (st.mq === mqr ? '' : mqr); st._keep = 1; render(); return; }
+        var ixt = t.getAttribute('data-ix-tab');
+        if (ixt) { st.ixTab = ixt; render(); return; }
+        var pqt = t.getAttribute('data-pq-tab');
+        if (pqt) { st.pqTab = pqt; st.pq = ''; render(); return; }
+        var pqr = t.getAttribute('data-pq-rule');
+        if (pqr) { st.pq = (st.pq === pqr ? '' : pqr); st._keep = 1; render(); return; }
         var act = t.getAttribute('data-tv-act');
         if (act === 'reroll') {
           st.ai = { game: st.game, picks: pickFor(st.game) };
@@ -10490,7 +12431,10 @@ ${CHAT_JS_SHARE}
     if (ev.key !== 'Enter' && ev.key !== ' ' && ev.key !== 'Spacebar') return;
     var t = ev.target;
     if (!t || !t.getAttribute) return;
-    if (t.getAttribute('data-tv-game') || t.getAttribute('data-tv-area') || t.getAttribute('data-tv-act')) {
+    if (t.getAttribute('data-tv-game') || t.getAttribute('data-tv-area') || t.getAttribute('data-tv-act') ||
+      t.getAttribute('data-tq-tab') || t.getAttribute('data-tq-metric') || t.getAttribute('data-mq-tab') ||
+      t.getAttribute('data-mq-rule') || t.getAttribute('data-ix-tab') || t.getAttribute('data-pq-tab') ||
+      t.getAttribute('data-pq-rule')) {
       ev.preventDefault();
       onTap({ target: t });
     }
@@ -10507,6 +12451,14 @@ ${CHAT_JS_SHARE}
         if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); go(); }
       });
     })(items[k]);
+  }
+  if (titleEl) {
+    titleEl.addEventListener('click', function () {
+      if (!HEAD_SUFFIX[st.id]) return;
+      st.pickGame = !st.pickGame;
+      st._keep = 1;
+      render();
+    });
   }
   var back = document.getElementById('toolBack');
   if (back) {
