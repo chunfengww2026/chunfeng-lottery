@@ -531,6 +531,19 @@ body.cf-open .install-btn { display: none !important; }
   border-bottom-right-radius: 4px; }
 .cf-tip { align-self: center; font-size: 11px; color: #8a7a63; padding: 2px 0 0; }
 
+/* 【号码球卡片】用户 2026-10-17 给的 UI：红球红底、蓝球蓝底、下方小字免责。
+   ⚠️ 白底卡片 + 圆球，和助手气泡的米杏色区分开；只在「随机一注」时出现。 */
+.cf-card { background: #fff; border: 1px solid #e6d9c2; border-radius: 10px;
+  padding: 9px 10px; margin: 2px 0; }
+.cf-card-t { font-size: 11.5px; font-weight: 700; color: #8a7a63; margin-bottom: 7px; }
+.cf-balls { display: flex; flex-wrap: wrap; gap: 5px; }
+.cf-ball { width: 26px; height: 26px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; color: #fff; font-size: 12px;
+  font-weight: 700; font-variant-numeric: tabular-nums; }
+.cf-ball.red { background: #e23b3b; }
+.cf-ball.blue { background: #2f6fd0; }
+.cf-card-n { font-size: 10.5px; color: #a0aec0; margin-top: 7px; white-space: normal; }
+
 .cf-quick { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 6px;
   padding: 0 10px 8px; background: #fdf6ea; }
 .cf-chip { font-size: 11.5px; line-height: 1.5; padding: 3px 9px;
@@ -572,6 +585,8 @@ export const CHAT_HTML = `<!-- __CHAT__ 春风小助手（右下角）
   <div class="cf-body" id="cfBody" aria-live="polite"></div>
   <div class="cf-quick" id="cfQuick">
     <div class="cf-chip" role="button" tabindex="0" data-q="推荐号">推荐号</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="来一注双色球">🎲 随机双色球</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="来一注大乐透">🎲 随机大乐透</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="战绩">战绩</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="走势图">走势图</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="怎么用">怎么用</div>
@@ -916,12 +931,30 @@ export const CHAT_JS = `
     function ansRandomTicket(raw) {
       var m = squeeze(raw).toLowerCase();
       var isDLT = m.indexOf('大乐透') >= 0 || m.indexOf('dlt') >= 0;
+      /* 号码球卡片（用户 2026-10-17 给的 UI）：红球红底、蓝球蓝底，下面一行小字免责。
+         HTML 全是本地生成的数字，没有任何外部内容。 */
+      function balls(nums, cls) {
+        return nums.map(function (n) {
+          return '<span class="cf-ball ' + cls + '">' + pad2(n) + '</span>';
+        }).join('');
+      }
+      function card(title, html, plain) {
+        return {
+          t: plain,
+          html: '<div class="cf-card"><div class="cf-card-t">' + title + '</div>' +
+            '<div class="cf-balls">' + html + '</div>' +
+            '<div class="cf-card-n">机器随机生成，仅供参考，请理性购彩</div></div>',
+          d: 1
+        };
+      }
       if (isDLT) {
         var f = randPick(35, 5), b = randPick(12, 2);
-        return { t: '随机的【大乐透】一注：' + NL + '前区 ' + f.map(pad2).join(' ') + '　后区 ' + b.map(pad2).join(' ') + NL + '（机器随机生成，仅供参考，请理性购彩）', d: 1 };
+        return card('大乐透 · 随机一注', balls(f, 'red') + balls(b, 'blue'),
+          '随机的【大乐透】一注：' + NL + '前区 ' + f.map(pad2).join(' ') + '　后区 ' + b.map(pad2).join(' ') + NL + '（机器随机生成，仅供参考，请理性购彩）');
       }
       var r = randPick(33, 6), bl = randPick(16, 1);
-      return { t: '随机的【双色球】一注：' + NL + '红球 ' + r.map(pad2).join(' ') + '　蓝球 ' + pad2(bl[0]) + NL + '（机器随机生成，仅供参考，请理性购彩）', d: 1 };
+      return card('双色球 · 随机一注', balls(r, 'red') + balls(bl, 'blue'),
+        '随机的【双色球】一注：' + NL + '红球 ' + r.map(pad2).join(' ') + '　蓝球 ' + pad2(bl[0]) + NL + '（机器随机生成，仅供参考，请理性购彩）');
     }
 
     var RULES = [
@@ -1022,6 +1055,17 @@ export const CHAT_JS = `
       body.appendChild(d);
       body.scrollTop = body.scrollHeight;
     }
+    /* 【号码球卡片】用户 2026-10-17 给的 UI：红球红底、蓝球蓝底。
+       只有本地生成的号码会走这里（HTML 全是我们自己拼的，没有外部内容）。 */
+    function pushHtml(who, html) {
+      mem.push({ who: who, t: html.replace(/<[^>]*>/g, ' ') });
+      if (mem.length > 40) mem.shift();
+      var d = document.createElement('div');
+      d.className = 'cf-msg ' + (who === 'me' ? 'cf-me' : 'cf-bot');
+      d.innerHTML = html;
+      body.appendChild(d);
+      body.scrollTop = body.scrollHeight;
+    }
     function ask(text) {
       var q = squeeze(text);
       if (!q) return;
@@ -1032,14 +1076,15 @@ export const CHAT_JS = `
          key 配在 window.__CF_AI__（构建时可改），留空就是纯本地，行为完全不变。 */
       var localAns = answer(q);
       var localText = localAns ? localAns.t : '这个问题我还在学~ 你可以问我：推荐号 / 战绩 / 走势图 / 怎么用';
-      if (!AI.on) { push('bot', localText); return; }
+      var localHtml = localAns && localAns.html ? localAns.html : '';
+      if (!AI.on) { if (localHtml) pushHtml('bot', localHtml); else push('bot', localText); return; }
       push('bot', '正在想…');
       var box = body.lastChild;
       askAI(q).then(function (txt) {
         if (txt) { if (box) box.textContent = txt; mem[mem.length - 1] = { who: 'bot', t: txt }; }
-        else if (box) box.textContent = localText;
+        else if (box) { if (localHtml) box.innerHTML = localHtml; else box.textContent = localText; }
       }).catch(function () {
-        if (box) box.textContent = localText;   /* 失败就退回本地，绝不留"正在想…" */
+        if (box) { if (localHtml) box.innerHTML = localHtml; else box.textContent = localText; }  /* 失败就退回本地，绝不留"正在想…" */
       });
     }
     function open() {
