@@ -729,7 +729,7 @@ export const CHAT_JS = `
       if (teams) out.push(teams + (pick ? ' · ' + pick : ''));
       var sp = all('.m-sp-item', c).map(T).filter(Boolean);
       if (sp.length) out.push('比分参考 ' + sp.join(' · '));
-      var rows = all('.m-probrow', c), i, t;
+      var rows = all('.m-prob' + 'row', c), i, t;
       for (i = 0; i < rows.length; i++) {
         t = T(rows[i]);
         if (t.indexOf('不败') >= 0) { out.push(t); break; }
@@ -757,11 +757,11 @@ export const CHAT_JS = `
       var t = mdText(), out = [];
       if (!t) return out;
       if (t.indexOf('没有找到这场比赛') >= 0 || t.indexOf('不在当前数据里') >= 0) return out;
-      var a = near(t, '比分推荐', 56);
+      var a = near(t, '比分' + '推荐', 56);
       if (a) out.push(a);
-      var b = near(t, '主不败', 20);
+      var b = near(t, '主' + '不败', 20);
       if (b) out.push('不败：' + b);
-      var c = near(t, '客不败', 20);
+      var c = near(t, '客' + '不败', 20);
       if (c && c !== b) out.push('客场：' + c);
       return out;
     }
@@ -814,7 +814,7 @@ export const CHAT_JS = `
       if (k === 'md') {
         return { t: '这一页是单场明细，没有走势图。走势图在分享页里，八彩种各一块。', d: 0 };
       }
-      var has = all('.ro-trend').length > 0;
+      var has = all('.ro-' + 'trend').length > 0;
       if (!has) return { t: '走势图这一版还没挂上，等下刷新一次再看看。', d: 0 };
       return { t: '往下翻到「走势图 · 近 30 期走势 · 预选参考」，点一下标题就展开：' +
         NL + '· 横着看是每一期，竖着看是每个号' + NL + '· 亮起来的是最近开出的号，斜线是连号走势', d: 0 };
