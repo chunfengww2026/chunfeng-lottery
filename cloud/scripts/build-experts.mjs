@@ -74,6 +74,13 @@ const DEFAULTS = {
   stableTop: 20,             // 每个彩种输出多少位稳定专家（用户 2026-10-17：10 → 20 位）
   prescreenHit10: 5,         // 列表页「近10中」低于此值的专家不进入专家页抓取队列
   minPeriodsForStable: 6,    // 进入 stable 至少要有多少期历史
+  /* 【--all · 用户 2026-10-18「把专家的所有资料全部抓进来」】
+     全量模式的上限：每个分类 20 位（站点一页 20 位，翻页无效，所以 20 就是全量）、
+     每个彩种 200 位专家、每人最近 30 期。用 `--all` 打开。
+     ⚠️ 全量一轮约 2000+ 请求 / 30~60 分钟，只放云端跑（本机不跑）。 */
+  allPerCategoryLimit: 20,
+  allMaxExpertsPerGame: 200,
+  allMaxPeriods: 30,
   retries: 3,
   timeoutMs: 25000,
   delayMin: 400,
@@ -899,6 +906,24 @@ function parseArgs(argv) {
   const games = [];
   for (const a of argv) {
     if (/^--limit=(\d+)$/.test(a)) { opts.perCategoryLimit = +a.split('=')[1]; opts.perCategoryLimitSet = true; continue; }
+    /* 【--all · 用户 2026-10-18「把专家的所有资料全部抓进来」】
+       全量模式：每个分类 20 位（站点一页上限）、每个彩种 200 位、每人 30 期、
+       输出 200 位稳定专家、保留所有分类。
+       ⚠️ 全量一轮 2000+ 请求 / 30~60 分钟 —— 只放云端（凌晨 2 点全量班）跑。 */
+    if (a === '--all') {
+      opts.perCategoryLimit = DEFAULTS.allPerCategoryLimit;
+      opts.perCategoryLimitSet = true;
+      opts.maxExpertsPerGame = DEFAULTS.allMaxExpertsPerGame;
+      opts.maxPeriods = DEFAULTS.allMaxPeriods;
+      opts.stableTop = 200;
+      opts.catsPerGame = 99;
+      opts.blueCats = 99;
+      opts.blueExpertSlots = 99;
+      opts.prescreenHit10 = 0;
+      opts.maxSet = true;
+      opts.all = true;
+      continue;
+    }
     if (/^--max=(\d+)$/.test(a)) { opts.maxExpertsPerGame = +a.split('=')[1]; opts.maxSet = true; continue; }
     if (/^--cats=(\d+)$/.test(a)) { opts.catsPerGame = +a.split('=')[1]; continue; }
     if (/^--bluecats=(\d+)$/.test(a)) { opts.blueCats = +a.split('=')[1]; continue; }
