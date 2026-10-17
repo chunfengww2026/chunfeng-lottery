@@ -1,6 +1,6 @@
 /* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */
 const JC_DIVERGENCE = {
- "updated": "2026-10-17 08:28",
+ "updated": "2026-10-17 08:58",
  "source": "球探 titan007",
  "sourceUrl": "https://1x2d.titan007.com/",
  "metric": "即时欧赔变异系数 cv = 标准差 / 均值",
@@ -2639,7 +2639,7 @@ const JC_DIVERGENCE = {
    "match": "米拉索 vs 巴西国际",
    "league": "巴西甲",
    "time": "2026-10-17 07:00",
-   "at": "2026-10-17 08:28",
+   "at": "2026-10-17 08:58",
    "companies": 358,
    "records": 358,
    "live": {
@@ -2682,7 +2682,7 @@ const JC_DIVERGENCE = {
    "match": "弗鲁米嫩塞 vs 帕尔梅拉斯",
    "league": "解放者杯",
    "time": "2026-10-15 08:30",
-   "at": "2026-10-17 08:28",
+   "at": "2026-10-17 08:58",
    "companies": 363,
    "records": 363,
    "live": {
@@ -2725,7 +2725,7 @@ const JC_DIVERGENCE = {
    "match": "圣路易斯城 vs 温哥华白浪",
    "league": "美职业",
    "time": "2026-10-15 08:40",
-   "at": "2026-10-17 08:28",
+   "at": "2026-10-17 08:58",
    "companies": 348,
    "records": 348,
    "live": {
