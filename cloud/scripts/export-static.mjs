@@ -56,10 +56,10 @@ import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 function buildAiCandidates() {
   try {
     const gctx = { console, window: {} }; vm.createContext(gctx);
-    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'games.js'), 'utf8') + '\n;__G__=GAMES;', gctx);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'games.js'), 'utf8') + '\n;__G__=GAMES;', gctx);
     const GAMESOBJ = gctx.__G__ || {};
     const hctx = { console, window: {} }; vm.createContext(hctx);
-    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'history.js'), 'utf8') + '\n;__H__=DRAW_HISTORY;', hctx);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'history.js'), 'utf8') + '\n;__H__=DRAW_HISTORY;', hctx);
     const HIST = (hctx.__H__ && hctx.__H__.games) || {};
     const out = {};
     Object.keys(GAMESOBJ).forEach(function (gid) {
@@ -88,14 +88,17 @@ function buildAiCandidates() {
         };
         const cold = all.slice().sort(function (a, b) { return (freq[a] - freq[b]) || (lastSeen[b] - lastSeen[a]) || (a - b); });
         const hot = all.slice().sort(function (a, b) { return (freq[b] - freq[a]) || (a - b); });
-        const mid = (cfg.from + cfg.to) / 2;
-        const bal = all.slice().sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
-        const odd = [], even = [];
-        bal.forEach(function (v) { (v % 2 ? odd : even).push(v); });
+        /* 均衡分布：把号码区间等分成 pick 段，每段取一个（段内优先取出现次数最少的），
+           这样号码自然分散在全区间，不会像"取中位数"那样挤成一串连号（踩过）。 */
+        const span = cfg.to - cfg.from + 1;
         const mixed = [];
-        for (let m = 0; m < bal.length; m++) {
-          if (m % 2 === 0) { if (odd.length) mixed.push(odd.shift()); else if (even.length) mixed.push(even.shift()); }
-          else { if (even.length) mixed.push(even.shift()); else if (odd.length) mixed.push(odd.shift()); }
+        for (let bi = 0; bi < pick; bi++) {
+          const lo = cfg.from + Math.floor(bi * span / pick);
+          const hi = Math.min(cfg.to, cfg.from + Math.floor((bi + 1) * span / pick) - 1);
+          const seg = all.filter(function (v) { return v >= lo && v <= hi; });
+          if (!seg.length) continue;
+          seg.sort(function (a, b) { return (freq[a] - freq[b]) || (a - b); });
+          mixed.push(seg[0]);
         }
         areas.push({
           key: cfg.key, label: cfg.label || '', pick: pick,
