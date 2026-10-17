@@ -3734,7 +3734,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-18 04:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "騎兵",
      "score": 4,
@@ -3818,7 +3818,7 @@ const FOOTBALL_DATA = {
      "color": "997744"
     },
     "time": "2026-10-18 04:15:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "卡萨大学队",
      "score": 2,
@@ -3884,7 +3884,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "门多萨独立",
      "score": 2,
@@ -3950,7 +3950,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "普拉腾斯",
      "score": 0,
@@ -4016,7 +4016,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "明尼苏达联",
      "score": 1,
@@ -4214,7 +4214,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "普拉騰斯科爾特斯港",
      "score": 0,
@@ -4412,7 +4412,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-18 05:15:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "賓托",
      "score": 2,
@@ -4450,7 +4450,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -4528,7 +4528,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "次尔沃斯",
      "score": 2,
@@ -4606,7 +4606,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "奥卡斯",
      "score": 1,
@@ -4684,7 +4684,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "米涅罗美洲",
      "score": 0,
