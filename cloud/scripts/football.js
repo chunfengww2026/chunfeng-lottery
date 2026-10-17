@@ -3884,7 +3884,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "门多萨独立",
      "score": 2,
@@ -3950,7 +3950,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "普拉腾斯",
      "score": 0,
@@ -4016,10 +4016,10 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-18 04:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "明尼苏达联",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 13
     },
@@ -4082,7 +4082,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "博塔弗戈",
      "score": 1,
@@ -4214,7 +4214,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "普拉騰斯科爾特斯港",
      "score": 0,
@@ -4412,7 +4412,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-18 05:15:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "賓托",
      "score": 2,
@@ -4450,7 +4450,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -4528,7 +4528,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "次尔沃斯",
      "score": 2,
@@ -4606,7 +4606,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "奥卡斯",
      "score": 1,
@@ -4684,7 +4684,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "米涅罗美洲",
      "score": 0,
