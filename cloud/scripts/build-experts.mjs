@@ -806,10 +806,20 @@ async function runGame(game, cfg, opts, report) {
   if (opts.consensus) {
     /* 部分彩种（排列5/七星彩/七乐彩）没有选号分布页，实测 /zjxhfb/{game}.html 返回空响应，
        这里按候选路径依次尝试，全部失败就跳过（不算错误）。 */
-    const consPaths = [`/zjxhfb/${game}.html`, `/zjxhfb/${game}_1.html`];
+    /* 【手机版备用源 · 用户 2026-10-18】
+       m.yiqicai.com 的手机版网页和 App 是同一份数据（实测 200 / 29KB / 已含下一期期号）。
+       桌面版抓不到就自动改抓手机版，逻辑不变。
+       顺序：手机版 → 桌面版 → 桌面版_1，谁先拿到算谁。 */
+    const consPaths = [
+      `https://m.yiqicai.com/zjxhfb/${game}.html`,
+      `/zjxhfb/${game}.html`,
+      `/zjxhfb/${game}_1.html`
+    ];
     let got = null;
     for (const cp of consPaths) {
-      const r = await httpGet(`${BASE}${cp}`, { retries: 2 });
+      /* 手机版是绝对地址（以 http 开头），桌面版是相对路径 */
+      const url = cp.startsWith('http') ? cp : `${BASE}${cp}`;
+      const r = await httpGet(url, { retries: 2 });
       await sleep(randDelay());
       if (r.ok && r.text.length > 500) { got = r.text; break; }
     }
