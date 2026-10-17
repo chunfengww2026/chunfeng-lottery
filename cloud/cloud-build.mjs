@@ -1418,6 +1418,11 @@ function main() {
     || (plan.exportStatic === 'auto' && (doDraws || doHistory || doPrizes));
 
   const exportList = [];
+  /* 【新浪下一期参考】用户 2026-10-18：把「下一期参考」接进构建 ——
+     build-sina-predict.mjs 抓媒体对【下一期】的公开预测（文章正文是 JS 渲染，用 headless Chrome）。
+     ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读 sina-predict.json）。
+     ⚠️ 源头还没发下一期时，这个脚本会 exit 0 且不写文件 → 页面那块自然不显示，不会弄坏构建。 */
+  if (doExportStatic) exportList.push(['build-sina-predict.mjs', '新浪下一期参考（可选，抓不到就跳过）']);
   if (doExportStatic) exportList.push(['export-static.mjs', '彩票页']);
   /* 【播报 · 中奖命中】用户 2026-10-17 批准挂进定时构建：
      拿我们自己算的号池（experts-data.js 的 games.<彩种>.pool）比开奖号，
