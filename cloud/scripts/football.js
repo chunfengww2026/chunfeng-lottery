@@ -1264,7 +1264,7 @@ const FOOTBALL_DATA = {
      "color": "FF6633"
     },
     "time": "2026-10-17 06:45:00",
-    "minute": 47,
+    "minute": 49,
     "home": {
      "name": "提華納U21",
      "score": 0,
@@ -1330,7 +1330,7 @@ const FOOTBALL_DATA = {
      "color": "990077"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "魁北克",
      "score": 3,
@@ -1376,7 +1376,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-17 07:00:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "米拉索",
      "score": 2,
@@ -1426,7 +1426,7 @@ const FOOTBALL_DATA = {
      "color": "C02954"
     },
     "time": "2026-10-17 07:30:00",
-    "minute": 59,
+    "minute": 61,
     "home": {
      "name": "傑克遜維爾體育(女)",
      "score": 2,
@@ -1492,7 +1492,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-17 07:30:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "累西腓体育",
      "score": 0,
@@ -1954,7 +1954,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-17 08:30:00",
-    "minute": 29,
+    "minute": 31,
     "home": {
      "name": "博卡青年",
      "score": 1,
