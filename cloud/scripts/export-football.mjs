@@ -427,6 +427,8 @@ function historyToGame(rec) {
     league: rec.league || '',
     round: '',
     time: rec.time || '',
+    /* 这条是从 jc-history.js 归档来的（统计「已完场累积 N 场」时用来数） */
+    fromArchive: true,
     handicap: rec.hc != null ? rec.hc : null,
     /* 【亚指综合换算】归档时存下来的那份（老记录没有 → null → 不显示） */
     asianIndex: rec.asianIndex || null,
@@ -491,6 +493,37 @@ HIST_LIST.forEach((r) => {
 /* 已完场 = 本次在售里完场的 + 历史累积的 */
 const ALL_GAMES = [...JC.games, ...HIST_GAMES];
 
+/* ============================================================
+   【规则一 · 已完场只留 24 小时】用户要求（原话）：
+     「比赛24小时后抓取 + 竞彩对外开售的」
+   ------------------------------------------------------------
+   为什么要在【出页面】这一层再做一遍：数据侧（build-jc.mjs）管的是
+   「抓」和「归档」—— jc-history.js 故意保留 72 小时，因为推荐串 / 完场
+   战绩要和历史比对，归档清干净就没得比了。但屏幕上只该看到新鲜的，
+   所以「显示窗口」由这里决定，两边用同一个口径。
+
+   判定（和 build-jc.mjs 的 finishedExpired 完全一致）：
+     「比赛结束」≈ 开赛时间 + 2 小时（90 分钟 + 中场 + 补时）
+     离「结束」超过 24 小时 → 这场已完场不再显示
+   举例：14:00 开赛 → 16:00 算结束 → 次日 16:00 之后从「已完场」移出。
+
+   ⚠️ 认不出开赛时间 → 不删（宁可多显示一场，也绝不把页面搞空）
+   ⚠️ 只作用于「已完场」：未开赛 / 进行中 一场都不动
+   ⚠️ 和 build-jc.mjs 的 FIN_KEEP_HOURS / MATCH_LEN_HOURS 必须是同一个数
+   ============================================================ */
+const FIN_KEEP_HOURS = 24;
+const MATCH_LEN_HOURS = 2;
+function matchEndMs(t) {
+  const k = kickMs(t);
+  return isNaN(k) ? NaN : k + MATCH_LEN_HOURS * 3600 * 1000;
+}
+function finishedExpired(m) {
+  if (!m || m.kind !== 'finished') return false;
+  const e = matchEndMs(m.time);
+  if (isNaN(e)) return false;
+  return Date.now() - e > FIN_KEEP_HOURS * 3600 * 1000;
+}
+
 function prep(g) {
   const fb = findFb(g);
 
@@ -547,13 +580,19 @@ function prep(g) {
     odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result,
     asianIndex,
     /* 这场是从 jc-history 归档来的（不是本次在售）→ 卡片样式区分一下 */
-    fromHistory: !!(g.reco && g.reco.fromHistory)
+    fromHistory: !!(g.reco && g.reco.fromHistory),
+    /* 是不是归档来的（不管有没有 reco）—— 统计「已完场累积」时按它数 */
+    archive: !!g.fromArchive
   };
 }
 
 /* 【关键】这里必须用合并后的 ALL_GAMES（在售 + 历史），
-   否则「已完场」还是只有本次在售里完场的那几场，历史累积的不显示。 */
-const MATCHES = ALL_GAMES.map(prep);
+   否则「已完场」还是只有本次在售里完场的那几场，历史累积的不显示。
+   【规则一】再按「比赛结束后 24 小时」筛一遍（只筛已完场，见上面的说明）。 */
+const MATCHES_ALL = ALL_GAMES.map(prep);
+const MATCHES = MATCHES_ALL.filter((m) => !finishedExpired(m));
+/* 被 24 小时窗口挡掉的已完场（构建日志里报出来，便于核对） */
+const FIN_EXPIRED = MATCHES_ALL.length - MATCHES.length;
 
 /* 本次在售有多少场完场（和总数区分开，页面上会标） */
 const JC_FINISHED = JC.games.filter((g) => (g.status || '') === 'finished').length;
@@ -567,7 +606,8 @@ const stat = {
   finished: MATCHES.filter((m) => m.kind === 'finished').length,
   /* 其中这一次在售里完场的几场（其余是历史归档来的） */
   finishedToday: JC_FINISHED,
-  history: HIST_GAMES.length,
+  /* 已完场里【归档来的】还有几场（24 小时窗口内的；窗口外的已经不在这里了） */
+  history: MATCHES.filter((m) => m.archive).length,
   settled: 0, hit: 0, miss: 0
 };
 MATCHES.forEach((m) => {
@@ -2508,7 +2548,7 @@ ${nav}
        另两块受保护的是三个分段里的 .guard 和底部免责声明 .guard -->
   <div id="article">
   <h1>竞彩 · 推胜负平</h1>
-  <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场累积 ${stat.finished} 场 · <span class="cd" data-cd="1"></span></div>
+  <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
@@ -2562,8 +2602,8 @@ ${nav}
   <div class="guard">
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
-    · 本页只显示<b>体彩竞彩</b>比赛，其他联赛不显示。<br>
-    · 「已完场」是<b>累积</b>的：比赛开出结果后会从在售列表消失，程序会把它归档下来继续留在本页${stat.history ? `（当前累积 ${stat.history} 场）` : ''}。<br>
+    · 本页只显示<b>体彩竞彩对外开售</b>的场次，其他比赛不显示。<br>
+    · 「已完场」只保留<b>比赛结束后 24 小时内</b>的场次${stat.history ? `（当前 ${stat.history} 场）` : ''}，超过 24 小时自动移出本页；历史记录另外留档，只用于推荐串比对。<br>
     · 推荐由博彩公司赔率反推概率得出（市场共识换算），属统计归纳，<b>不是预测</b>。<br>
     · 「亚指综合换算」「盘口升降」是<b>亚盘水位与资金热度的推演</b>，<b>仅娱乐参考</b>，不是预测，也不代表任何结果倾向。<br>
     · 上盘<b>真实资金占比暂无公开数据</b>，所以不显示热度 / 爆冷推演；页面上的「水位隐含 · 理论均衡占比」是由亚盘水位换算出来的，<b>不是真实资金数据</b>。<br>
