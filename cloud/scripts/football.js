@@ -36012,7 +36012,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 73,
+    "minute": 90,
     "home": {
      "name": "布罗德美度",
      "score": 0,
@@ -36078,7 +36078,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 70,
+    "minute": 86,
     "home": {
      "name": "萨瑟兰德",
      "score": 0,
@@ -36144,7 +36144,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 75,
+    "minute": 91,
     "home": {
      "name": "新泻天鹅女足",
      "score": 0,
@@ -36210,7 +36210,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 77,
+    "minute": 93,
     "home": {
      "name": "VONDS市原",
      "score": 1,
@@ -36219,7 +36219,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "冲绳",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -36276,7 +36276,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 76,
+    "minute": 92,
     "home": {
      "name": "橫川武藏野",
      "score": 2,
@@ -36285,7 +36285,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "浦安SC",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 15
     },
@@ -36342,10 +36342,10 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 76,
+    "minute": 92,
     "home": {
      "name": "本田",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -36474,7 +36474,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 74,
+    "minute": 90,
     "home": {
      "name": "西悉尼流浪者女足",
      "score": 0,
@@ -36540,10 +36540,10 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 74,
+    "minute": 90,
     "home": {
      "name": "奧克蘭FC",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 3
     },
@@ -36606,7 +36606,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 12:00:00",
-    "minute": 75,
+    "minute": 91,
     "home": {
      "name": "清水鼓动",
      "score": 2,
@@ -36615,7 +36615,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "大阪钢巴",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 18
     },
@@ -36672,10 +36672,10 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 0,
     "home": {
      "name": "FC岐阜",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 7
     },
@@ -36750,7 +36750,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 31,
+    "minute": 46,
     "home": {
      "name": "北九州向日葵",
      "score": 1,
@@ -36828,7 +36828,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 31,
+    "minute": 0,
     "home": {
      "name": "鸟取SC",
      "score": 1,
@@ -36906,7 +36906,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 34,
+    "minute": 0,
     "home": {
      "name": "城南FC",
      "score": 0,
@@ -36915,7 +36915,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "水原城",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -36984,7 +36984,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 34,
+    "minute": 0,
     "home": {
      "name": "大邱FC",
      "score": 1,
@@ -37062,7 +37062,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 35,
+    "minute": 0,
     "home": {
      "name": "南葛翼(女)",
      "score": 0,
@@ -37116,7 +37116,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 31,
+    "minute": 46,
     "home": {
      "name": "仙台维加泰",
      "score": 0,
@@ -37194,7 +37194,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 31,
+    "minute": 46,
     "home": {
      "name": "枥木市FC",
      "score": 0,
@@ -37272,7 +37272,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "鸟栖沙岩",
      "score": 1,
@@ -37350,16 +37350,16 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "大分三神",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 7
     },
     "away": {
      "name": "新泻天鹅",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
@@ -37428,7 +37428,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "今治",
      "score": 1,
@@ -37437,7 +37437,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "万劳雷八户",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 19
     },
@@ -37506,7 +37506,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 0,
     "home": {
      "name": "札幌冈萨多",
      "score": 0,
@@ -37584,7 +37584,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 0,
     "home": {
      "name": "藤枝MYFC",
      "score": 0,
@@ -37662,7 +37662,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "东京日视",
      "score": 0,
@@ -37671,7 +37671,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "FC东京",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -37740,7 +37740,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "广岛三箭",
      "score": 0,
@@ -37818,7 +37818,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 13:00:00",
-    "minute": 32,
+    "minute": 46,
     "home": {
      "name": "千叶市原",
      "score": 0,
