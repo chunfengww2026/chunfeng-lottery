@@ -1660,16 +1660,312 @@ function dateCNRaw(id) {
   try { return String(nextDate(id) || '').slice(0, 10); } catch (e) { return ''; }
 }
 
+/* ============================================================
+   __MQ_TICKER__ 顶部状态卡右侧：中奖播报（横向滚动通告条）
+   ------------------------------------------------------------
+   用户要求：在「已更新 / 所有资料均在下方 / 下一期更新倒计时」那张卡片的
+   右边空位上做一条横向滚动的小喇叭通告，播报最近的开奖中奖情况。
+
+   播报规则（用户原话，逐条落地）：
+     ① 数字彩（福彩3D / 排列3 / 排列5）—— 每期开奖后，中了才播，播中奖类型：
+          · 直选（三位全中且顺序对）
+          · 组选（组三 = 三位有两个相同 / 组六 = 三位互不相同）
+          · 排列5 五位全中播「直选命中」；只中前三位则播「前三位直选命中」
+        没中 → 不播（不占位置）
+     ② 大盘彩（双色球 / 大乐透 / 七星彩 / 七乐彩 / 快乐8）——
+          只播【一等奖】和【三等奖】，其它奖级与没中一律不播。
+        快乐8 的奖级是「选N中M」，没有这个叫法，所以只认「选中十」这一档。
+     ③ 通告里只留【最近 3 条】中奖（用户：通告昨天的、不要积累一堆旧的），
+        末尾永远跟一条【近 N 期推荐命中率】= 可播命中条数 ÷ 已比对期数。
+        还没开奖的那些期就靠这一条兜住，不会空着、也不会只写「暂无」。
+     ④ 全部是算出来的：没有任何一条写死的中奖记录；算不出来（缺推荐 / 缺开奖 /
+        期号对不上）就是 0 条，宁可显示「暂无中奖播报」。每天跟着生成任务刷新。
+
+   比对口径（每期只用一份推荐号；期号必须对得上）：
+     · fc3d / pl3 ：直选池 = 百/十/个 三个定位栏；组选池 = 组选 6 码
+     · pl5        ：万/千/百/十/个 五个定位栏
+     · ssq        ：红球二十码池 + 蓝球候选栏；dlt：前区二十码池 + 后区候选栏
+     · qlc        ：基本号二十二码池；kl8：选十那 10 码
+     · qxc        ：六位定位栏 + 后区栏
+
+   ⚠️ 没有这一期的推荐 / 没有这一期的开奖 / 期号对不上 → 直接跳过，
+      不猜、不补、不挪用相邻期。全都对不上就出一句「暂无中奖播报」。
+   ============================================================ */
+
+/* 从共享上下文里取一份全局表（没有就返回 null，绝不让构建挂掉） */
+function mqReadGlobal(name) {
+  try {
+    return vm.runInContext('(typeof ' + name + ' !== "undefined") ? ' + name + ' : null', ctx);
+  } catch (e) { return null; }
+}
+
+/* "05 06 08" / "5,6,8" / "050608" 之外的写法统一成数字数组（只支持带分隔符与纯两位） */
+function mqNums(v) {
+  const s = String(v == null ? '' : v).trim();
+  if (!s) return [];
+  if (/\s/.test(s)) return s.split(/\s+/).map((x) => parseInt(x, 10)).filter((n) => Number.isFinite(n));
+  if (/[,，、/]/.test(s)) return s.split(/[,，、/]+/).map((x) => parseInt(x, 10)).filter((n) => Number.isFinite(n));
+  if (/^\d+$/.test(s)) {
+    if (s.length <= 2) return [parseInt(s, 10)];
+    if (s.length % 2 === 0) {
+      const out = [];
+      for (let i = 0; i < s.length; i += 2) out.push(parseInt(s.slice(i, i + 2), 10));
+      return out.filter((n) => Number.isFinite(n));
+    }
+  }
+  return [];
+}
+
+/* 开奖索引：彩种|期号 → 那期开奖（历史表 + 最新一期，同号以后者为准） */
+function mqDrawIndex() {
+  const map = {};
+  const hist = mqReadGlobal('DRAW_HISTORY');
+  const live = mqReadGlobal('DRAW_DATA');
+  const add = (gid, it) => {
+    if (it && it.areas && it.issue !== undefined && it.issue !== null && String(it.issue)) {
+      map[gid + '|' + String(it.issue)] = it;
+    }
+  };
+  const hg = (hist && hist.games) || {};
+  Object.keys(hg).forEach((gid) => { (hg[gid] || []).forEach((it) => add(gid, it)); });
+  const lg = (live && live.games) || {};
+  Object.keys(lg).forEach((gid) => add(gid, lg[gid]));
+  return map;
+}
+
+const MQ_NAME = {
+  ssq: '双色球', dlt: '大乐透', fc3d: '福彩3D', pl3: '排列3',
+  pl5: '排列5', qlc: '七乐彩', kl8: '快乐8', qxc: '七星彩'
+};
+const MQ_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'pl5', 'qlc', 'kl8', 'qxc'];
+
+/* 某个彩种存档里的各期推荐（按期号去重：同一期推了多份时留推送最晚的那份） */
+function mqPeriods(gid, saved) {
+  const bag = (saved && saved.tickets && saved.tickets[gid]) || null;
+  if (!bag) return [];
+  const byIssue = new Map();
+  Object.keys(bag).forEach((k) => {
+    if (k === 'history' || k === 'current') return;
+    const p = bag[k];
+    if (!p || !p.images || !p.images.main || !p.issue) return;
+    const key = String(p.issue);
+    const prev = byIssue.get(key);
+    const stamp = String(p.pushedAt || p.date || '');
+    if (!prev || stamp > String(prev.pushedAt || prev.date || '')) byIssue.set(key, p);
+  });
+  return Array.from(byIssue.values());
+}
+
+/**
+ * 单期判定：中了返回 { claim, hot }，没中 / 算不出来返回 null
+ *   claim = 播报里的那句话（不含彩种与期号）
+ *   hot   = 2 表示最高档（一等奖 / 直选），1 表示其它可播档
+ */
+function mqJudge(gid, v, d) {
+  if (!v || !d || !d.areas) return null;
+  const area = (k) => (d.areas[k] || []).map(Number);
+  const inPool = (pool, n) => pool.indexOf(Number(n)) >= 0;
+  const hits = (src, pool) => src.filter((n) => inPool(pool, n)).length;
+
+  /* ---------- 福彩3D / 排列3 ---------- */
+  if (gid === 'fc3d' || gid === 'pl3') {
+    const w = area('main');
+    if (w.length < 3) return null;
+    const bai = mqNums(v.bai), shi = mqNums(v.shi), ge = mqNums(v.ge), grp = mqNums(v.grp);
+    if (!bai.length || !shi.length || !ge.length || !grp.length) return null;
+    /* 直选：开奖三位分别落在 百/十/个 的定位池里（顺序对） */
+    if (inPool(bai, w[0]) && inPool(shi, w[1]) && inPool(ge, w[2])) {
+      return { claim: '推荐号直选命中！', hot: 2 };
+    }
+    /* 组选：开奖三位都在 6 码里（不分顺序）；组三 = 两位相同，组六 = 三位互不相同 */
+    if (w.slice(0, 3).every((n) => inPool(grp, n))) {
+      const uniq = new Set(w.slice(0, 3)).size;
+      if (uniq === 2) return { claim: '推荐号组选命中（组三）', hot: 1 };
+      if (uniq === 1) return { claim: '推荐号组选命中（豹子）', hot: 1 };
+      return { claim: '推荐号组选命中（组六）', hot: 1 };
+    }
+    return null;
+  }
+
+  /* ---------- 排列5 ---------- */
+  if (gid === 'pl5') {
+    const w = area('main');
+    if (w.length < 5) return null;
+    const pools = ['wan', 'qian', 'bai', 'shi', 'ge'].map((k) => mqNums(v[k]));
+    if (pools.some((p) => !p.length)) return null;
+    const ok = pools.map((p, i) => inPool(p, w[i]));
+    if (ok.every(Boolean)) return { claim: '推荐号直选命中！', hot: 2 };
+    if (ok[0] && ok[1] && ok[2]) return { claim: '推荐号前三位直选命中', hot: 1 };
+    return null;
+  }
+
+  /* ---------- 双色球：6+1，只播一等奖 / 三等奖 ---------- */
+  if (gid === 'ssq') {
+    const red = area('red'), blue = area('blue');
+    const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
+    if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
+    const r = hits(red, pool), b = hits(blue, bp) > 0;
+    if (r === 6 && b) return { claim: '推荐号中一等奖！', hot: 2 };
+    if (r === 5 && b) return { claim: '推荐号中三等奖', hot: 1 };
+    return null;
+  }
+
+  /* ---------- 大乐透：5+2，只播一等奖 / 三等奖（5+0 与 4+2 都是三等奖） ---------- */
+  if (gid === 'dlt') {
+    const front = area('front'), back = area('back');
+    const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
+    if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
+    const r = hits(front, pool), b = hits(back, bp);
+    if (r === 5 && b === 2) return { claim: '推荐号中一等奖！', hot: 2 };
+    if (r === 5 && b === 0) return { claim: '推荐号中三等奖', hot: 1 };
+    if (r === 4 && b === 2) return { claim: '推荐号中三等奖', hot: 1 };
+    return null;
+  }
+
+  /* ---------- 七乐彩：7 个基本号 + 特别号，只播一等奖 / 三等奖 ---------- */
+  if (gid === 'qlc') {
+    const main = area('main'), sp = area('special');
+    const pool = mqNums(v.r22);
+    if (main.length < 7 || !pool.length) return null;
+    const m = hits(main, pool);
+    const hasSp = sp.length ? inPool(pool, sp[0]) : false;
+    if (m === 7) return { claim: '推荐号中一等奖！', hot: 2 };
+    if (m === 6 && !hasSp) return { claim: '推荐号中三等奖', hot: 1 };   /* 6+特别号 = 二等奖，不播 */
+    return null;
+  }
+
+  /* ---------- 七星彩：6 位 + 后区，只播一等奖 / 三等奖 ---------- */
+  if (gid === 'qxc') {
+    const front = area('front'), back = area('back');
+    if (front.length < 6 || !back.length) return null;
+    const pools = [1, 2, 3, 4, 5, 6].map((i) => mqNums(v['p' + i]));
+    const bp = mqNums(v.pb);
+    if (pools.some((p) => !p.length) || !bp.length) return null;
+    const ok = pools.map((p, i) => inPool(p, front[i]));
+    const b = inPool(bp, back[0]);
+    if (ok.every(Boolean) && b) return { claim: '推荐号中一等奖！', hot: 2 };
+    if (ok.slice(0, 5).every(Boolean) && b) return { claim: '推荐号中三等奖', hot: 1 };
+    return null;
+  }
+
+  /* ---------- 快乐8：选十，只播「选中十」这一档 ---------- */
+  if (gid === 'kl8') {
+    const main = area('main');
+    const pool = mqNums(v.r10);
+    if (main.length < 20 || pool.length !== 10) return null;
+    const m = hits(pool, main);
+    if (m === 10) return { claim: '推荐号中一等奖！', hot: 2 };
+    return null;
+  }
+
+  return null;
+}
+
+/* 估算一段文字在 12px 下的宽度（用来定滚动速度；中文按 12.4px、数字字母按 6.8px） */
+function mqEstWidth(s) {
+  const t = String(s).replace(/<[^>]*>/g, '');
+  let w = 0;
+  for (let i = 0; i < t.length; i++) {
+    const c = t.charCodeAt(i);
+    w += (c >= 0x2e80 && c <= 0x9fff) || (c >= 0xff00 && c <= 0xffef) ? 12.4 : 6.8;
+  }
+  return w;
+}
+
+/* 生成通告条：{ html, count, compared } */
+function buildHitMarquee() {
+  const saved = mqReadGlobal('SAVED_TICKETS');
+  const idx = mqDrawIndex();
+
+  const wins = [];
+  let compared = 0;
+
+  MQ_ORDER.forEach((gid) => {
+    mqPeriods(gid, saved).forEach((p) => {
+      const d = idx[gid + '|' + String(p.issue)];
+      if (!d) return;                                   /* 还没开奖 → 不参与比对 */
+      const judged = mqJudge(gid, p.images.main, d);
+      compared++;
+      if (!judged) return;                              /* 没中 → 不占位置 */
+      wins.push({
+        gid, issue: String(p.issue),
+        date: String(d.date || p.date || ''),
+        claim: judged.claim, hot: judged.hot
+      });
+    });
+  });
+
+  /* 新的在前；同一天按期号大的在前 */
+  wins.sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    return Number(b.issue) - Number(a.issue);
+  });
+
+  const head = '<span class="ro-mq-ico" aria-hidden="true">\u{1F4E2}</span>';
+
+  /* 用户 2026-10-17 追加：「通告昨天的」「不要积累一堆旧的，只留最近的」
+     → 中奖条目只留最近 3 条，后面永远跟一条「近 N 期命中率」。
+     命中率同样是算出来的：可播命中条数 ÷ 已比对期数（没有任何写死的数字）。 */
+  const winCount = wins.length;
+  const recent = wins.slice(0, 3);
+  const rate = compared ? Math.round((winCount / compared) * 1000) / 10 : 0;
+  const rateText = rate.toFixed(1) + '%';
+
+  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期 */
+  if (!recent.length) {
+    const none = compared
+      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报 · 命中率 ' + rateText
+      : '暂无可比对的期次 · 暂无中奖播报';
+    return {
+      count: 0, compared, rate: rateText,
+      html: '<div class="ro-mq ro-mq-static" aria-label="开奖中奖播报">' + head +
+        '<div class="ro-mq-view"><span class="ro-mq-none">' + none + '</span></div></div>'
+    };
+  }
+
+  const one = (w) =>
+    '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
+    '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + w.claim + '</i></span>';
+
+  /* 最后一条固定是命中率：有新开奖时它是「最近一期」的汇总，
+     还没开奖的那些期也照样能看到上一期的成绩 —— 不会空着，也不只是「暂无」 */
+  const rateItem =
+    '<span class="ro-mq-item mq-rate">近 <b>' + compared + '</b> 期推荐命中率 <i>' + rateText + '</i></span>';
+
+  const itemsHtml = recent.map(one).join('') + rateItem;
+
+  /* 一组 = 同样的条目排两遍（保证比可视宽度长），轨道放两组 → translateX(-50%) 无缝循环 */
+  const groupHtml = '<div class="ro-mq-group">' + itemsHtml + itemsHtml + '</div>';
+  const group2 = '<div class="ro-mq-group" aria-hidden="true">' + itemsHtml + itemsHtml + '</div>';
+  const dur = Math.max(18, Math.min(72, Math.round((mqEstWidth(itemsHtml) * 2) / 46)));
+
+  return {
+    count: recent.length, compared, rate: rateText,
+    html: '<div class="ro-mq" aria-label="开奖中奖播报">' + head +
+      '<div class="ro-mq-view"><div class="ro-mq-track" style="animation-duration:' + dur + 's">' +
+      groupHtml + group2 +
+      '</div></div></div>'
+  };
+}
+
+const mqTicker = buildHitMarquee();
+console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + mqTicker.count + ' 条中奖' +
+  (mqTicker.count ? '' : '（只出「暂无中奖播报」那句）'));
+
 if (status.allReady) {
   /* __NO_ST_LIST__ 用户要求：状态条里那 8 行「双色球 第 xx 期 日期」不要了。
      连带把只为它服务的 rows 计算也删掉（省得白算一遍）。 */
 
   statusHtml =
-    `<div class="ro-status ok">` +
+    `<div class="ro-status ok ro-st-row">` +
+    `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
+    `</div>` +
+    /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
+    mqTicker.html +
     `</div>`;
 } else {
   const reason = status.missing.length
@@ -1677,12 +1973,16 @@ if (status.allReady) {
     : `数据已 ${status.hoursOld !== null ? Math.round(status.hoursOld) + ' 小时' : '很久'}未更新`;
 
   statusHtml =
-    `<div class="ro-status warn">` +
+    `<div class="ro-status warn ro-st-row">` +
+    `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
     `<div class="ro-st-time">所有资料均在下方</div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
     `<div class="ro-st-hint">请稍后再看，或联系发布者更新</div>` +
+    `</div>` +
+    /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
+    mqTicker.html +
     `</div>`;
 }
 
@@ -4731,6 +5031,93 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 
   table.ro-imgtoc { table-layout: fixed !important; width: 100% !important; }
   table.ro-imgtoc td { width: 50% !important; padding: 3px 5px !important; }
+}
+
+/* ============================================================
+   __MQ_TICKER__ 顶部状态卡右侧：中奖播报滚动条
+   ------------------------------------------------------------
+   用户要求：在「已更新 / 所有资料均在下方 / 下一期更新倒计时」那张卡片的
+   右边空位做一条横向滚动的小喇叭通告（播报最近的开奖中奖情况）。
+   · 纯 CSS 动画（keyframes + transform），不用废弃的 marquee 标签、
+     不用 button、不引任何外部图片；喇叭图标是 emoji。
+   · 米杏色：底 var(--ro-sunken) · 边框 var(--ro-line) · 字 var(--ro-fg2) ·
+     中奖等级用醒目金 var(--ro-warn)，最高档（一等奖 / 直选）用 var(--ro-danger)。
+   · 轨道里放两组一模一样的条目 → translateX(-50%) 正好退一组，无缝循环。
+   · 鼠标悬停 / 点按 / 键盘聚焦时暂停，方便看清一条。
+   · 窄屏（<=560px）改成上下两块：左边三段字本来就占满，右边只剩几十像素，
+     并排会挤成一条看不清；改成上下后宽度占满、高度只多 26px。
+   · 高度 26px，和左边三段字并排不会把卡片撑高。
+   ⚠️ 这段写在样式表最后：同优先级后者胜，不用堆 !important 就能盖住前面的规则。
+   ============================================================ */
+.ro-status.ro-st-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+.ro-status.ro-st-row > .ro-st-txt { flex: 0 1 auto; min-width: 0; }
+
+.ro-mq {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  box-sizing: border-box;
+  padding: 0 9px;
+  border-radius: 8px;
+  background: var(--ro-sunken);
+  border: 1px solid var(--ro-line);
+  overflow: hidden;
+}
+.ro-mq-ico { flex: 0 0 auto; font-size: 13px; line-height: 1; }
+.ro-mq-view { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.ro-mq-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation-name: ro-mq-roll;
+  animation-duration: 26s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.ro-mq-group { display: flex; align-items: center; flex: 0 0 auto; }
+.ro-mq-item {
+  font-size: 12px; line-height: 26px; color: var(--ro-fg2);
+  white-space: nowrap; padding-right: 28px;
+}
+.ro-mq-item b { font-weight: 700; color: var(--ro-fg); }
+.ro-mq-item i { font-style: normal; font-weight: 700; color: var(--ro-warn); }
+.ro-mq-item.mq-top i { color: var(--ro-danger); }
+/* 命中率那一条用主色绿（和「中奖等级金」区分开：金=中了什么，绿=命中率） */
+.ro-mq-item.mq-rate i { color: var(--ro-ok); }
+.ro-mq-none {
+  display: block; font-size: 12px; line-height: 26px; color: var(--ro-fg2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+@keyframes ro-mq-roll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ro-mq:hover .ro-mq-track,
+.ro-mq:active .ro-mq-track,
+.ro-mq:focus-within .ro-mq-track { animation-play-state: paused; }
+/* 系统开了「减少动态效果」→ 不滚了，改成可以横向拖动看 */
+@media (prefers-reduced-motion: reduce) {
+  .ro-mq-track { animation: none; }
+  .ro-mq-view { overflow-x: auto; }
+  .ro-mq-view::-webkit-scrollbar { height: 0; }
+}
+/* 窄屏：上下两块
+   ⚠️ 这里必须把 flex 改回 0 0 auto：竖排时 flex 的「主尺寸」是高度，
+      上面那条 flex: 1 1 0 会把高度压成 0（实测只剩 2px 边框）。 */
+@media (max-width: 560px) {
+  .ro-status.ro-st-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .ro-mq { flex: 0 0 auto; width: 100%; }
 }
 </style>
 </head>
