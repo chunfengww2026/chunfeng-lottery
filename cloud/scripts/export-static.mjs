@@ -5611,8 +5611,8 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .grid-2-col-action > details.action-card-btn > summary::marker { content: ''; }
 /* 三行字：标题 / 副标题 / 展开提示（用户给的 .title / .sub / .action-text）
    ⚠️ 必须带 #ro-action-2col：上面 ⑥⑦ 那层还有一条
-      `.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 13.5px !important }`，
-      它的类选择器有 3 个、比 `.grid-2-col-action .title` 的 2 个更"重"，
+      「.ro-aipick > .ro-aipick-head .ro-aipick-h2 { font-size: 13.5px !important }」，
+      它的类选择器有 3 个、比「.grid-2-col-action .title」的 2 个更"重"，
       不加 id 的话字号会被压回去（实测：晒票/GPT 的标题比左边开机号卡小一档）。 */
 #ro-action-2col .title {
   margin: 0 !important;
@@ -5665,7 +5665,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 @media (max-width: 360px) {
   .grid-2-col-action { gap: 8px; }
   #ro-action-2col .title { font-size: 14px !important; }
-  #ro-action-2col .sub { font-size: 10px !important; }
+  #ro-action-2col .sub { font-size: 10.5px !important; }
   #ro-action-2col .action-text { font-size: 10px !important; }
   .grid-2-col-action > details.action-card-btn > summary { padding: 12px 8px !important; margin: 0 -8px !important; }
   .grid-2-col-action > details.action-card-btn { padding: 0 8px !important; }

@@ -83,6 +83,11 @@ function currentRows(jc, official) {
       away: (g.away && g.away.name) || '',
       pick: pick || '',
       label: g.reco.label || { home: '主胜', draw: '平局', away: '客胜' }[pick] || '',
+      /* 【推荐类型】必须跟着快照存进存档：存档里没有 type，判红黑时就只能
+         按 three 判，不败（主胜或平 / 客胜或平）会被错判成黑。
+         jc-data 的 reco.type 是 build-jc.mjs 用同一套规则算的；
+         缺失（老数据 / 没赔率）一律按 'three'，和改造前行为一致。 */
+      type: (g.reco.type === 'unbeaten' || g.reco.type === 'three') ? g.reco.type : 'three',
       odds: (eu && pick && eu[pick] != null) ? eu[pick] : null,
       conf: g.reco.confidence
     });
@@ -125,6 +130,9 @@ log('═════════════════════════
 log(`  北京时间现在：${R.bjStamp(now)}`);
 log(`  数据：jc-data ${(jc.games || []).length} 场 · 官方在售 ${official && official.inSale != null ? official.inSale : '?'} 场` +
     ` · 已完场累积 ${settled.length} 场`);
+log(`  官方在售名单：${(official && Array.isArray(official.list) && official.list.length)
+  ? `${official.list.length} 场（「官方在售 ∩」过滤生效）`
+  : '缺失 → 退回 jc-data 全部场次（老行为）'}`);
 log(`  本期推荐串（在售 × 信心 ≥${REC_MIN}%）：${rows.length} 场`);
 rows.forEach((r) => log(`     ${r.code}  ${r.time}  ${r.home} vs ${r.away}  ${r.label}  ${r.conf}%  @${r.odds == null ? '—' : r.odds}`));
 
