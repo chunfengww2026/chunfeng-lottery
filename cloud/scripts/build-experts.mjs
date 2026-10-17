@@ -811,9 +811,9 @@ async function runGame(game, cfg, opts, report) {
        桌面版抓不到就自动改抓手机版，逻辑不变。
        顺序：手机版 → 桌面版 → 桌面版_1，谁先拿到算谁。 */
     const consPaths = [
-      `https://m.yiqicai.com/zjxhfb/${game}.html`,
       `/zjxhfb/${game}.html`,
-      `/zjxhfb/${game}_1.html`
+      `/zjxhfb/${game}_1.html`,
+      `https://m.yiqicai.com/zjxhfb/${game}.html`
     ];
     let got = null;
     for (const cp of consPaths) {
