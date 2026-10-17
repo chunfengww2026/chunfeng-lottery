@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 15:00:00",
-    "minute": 0,
+    "minute": 13,
     "home": {
      "name": "東京U21",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "清水心跳U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "3760EE"
     },
     "time": "2026-10-17 15:00:00",
-    "minute": 0,
+    "minute": 16,
     "home": {
      "name": "山西崇德榮海",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
     "away": {
      "name": "深圳二零二八",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-17 15:00:00",
-    "minute": 0,
+    "minute": 16,
     "home": {
      "name": "延边龙鼎",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "佛山南狮",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 15:00:00",
-    "minute": 0,
+    "minute": 13,
     "home": {
      "name": "水户蜀葵",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "浦和红钻",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -37025,7 +37025,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 42,
+    "minute": 59,
     "home": {
      "name": "布里斯班狮吼女足",
      "score": 1,
@@ -37034,7 +37034,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "中央海岸水手(女)",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
@@ -37103,7 +37103,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 42,
+    "minute": 58,
     "home": {
      "name": "麦克阿瑟FC",
      "score": 0,
@@ -37112,7 +37112,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "珀斯光荣",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
@@ -37181,7 +37181,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 38,
+    "minute": 54,
     "home": {
      "name": "鹿岛鹿角",
      "score": 2,
@@ -37243,16 +37243,16 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-17 14:00:00",
-    "minute": 39,
+    "minute": 51,
     "home": {
      "name": "大阪樱花",
-     "score": 0,
+     "score": 2,
      "red": 1,
      "rank": 12
     },
     "away": {
      "name": "川崎前锋",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 8
     },
