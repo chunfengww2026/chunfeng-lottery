@@ -3381,7 +3381,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "皮昂内罗斯坎昆",
      "score": 0,
@@ -3447,7 +3447,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "卡卡瓦蒂克",
      "score": 0,
@@ -3513,7 +3513,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-18 05:00:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "科隆竞技",
      "score": 2,
@@ -3551,7 +3551,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-18 05:15:00",
-    "minute": 79,
+    "minute": 81,
     "home": {
      "name": "賓托",
      "score": 2,
@@ -3617,7 +3617,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -3683,7 +3683,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "次尔沃斯",
      "score": 3,
@@ -3729,7 +3729,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 65,
+    "minute": 67,
     "home": {
      "name": "奥卡斯",
      "score": 1,
@@ -3795,7 +3795,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-18 05:30:00",
-    "minute": 70,
+    "minute": 71,
     "home": {
      "name": "米涅罗美洲",
      "score": 0,
@@ -4191,7 +4191,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-18 06:20:00",
-    "minute": 37,
+    "minute": 39,
     "home": {
      "name": "奥林匹亚",
      "score": 1,
@@ -4269,7 +4269,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-18 06:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "巴拉纳竞技",
      "score": 0,
@@ -4347,7 +4347,7 @@ const FOOTBALL_DATA = {
      "color": "325196"
     },
     "time": "2026-10-18 06:30:00",
-    "minute": 24,
+    "minute": 26,
     "home": {
      "name": "阿特纳斯体育",
      "score": 1,
@@ -4425,7 +4425,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-10-18 06:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "卡拉波波",
      "score": 0,
