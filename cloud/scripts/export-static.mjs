@@ -839,7 +839,7 @@ const tocHtml =
   `<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->` +
   `<div class="ro-imgtoc-wrap">` +
   `<div class="ro-imgtoc-head">` +
-  `<div class="ro-imgtoc-title">推荐图目录</div>` +
+  `<div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div>` +
   `<div class="ro-imgtoc-sub">点一下，全屏看那张图</div>` +
   `</div>` +
   /* 【改成两列网格】用户 2026-10-17：「宽一点居中」。
@@ -3218,7 +3218,9 @@ html { scroll-behavior: smooth; }
     margin-bottom: 24px;
   }
   .ro-imgtoc-head { text-align: center; margin-bottom: 10px; }
-  .ro-imgtoc-title { font-size: 15px; font-weight: 700; color: #e8eaed; letter-spacing: 1px; }
+  /* 用户 2026-10-18：「推荐目录旁边打上（）加内容：人工计算」 */
+.ro-imgtoc-note { font-style: normal; font-size: 11px; font-weight: 400; color: #a89a80; margin-left: 2px; white-space: nowrap; }
+.ro-imgtoc-title { font-size: 15px; font-weight: 700; color: #e8eaed; letter-spacing: 1px; }
   .ro-imgtoc-sub { font-size: 11.5px; color: #8b93a1; margin-top: 3px; }
 
   .ro-imgtoc { width: 100%; border-collapse: collapse; }
