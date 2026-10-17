@@ -263,7 +263,7 @@ jobs:
           #   ⚠️ manifest.json 是页面现在引用的清单文件（相对路径，用户指定）；
           #      manifest.webmanifest 是旧文件名，留着不删以免老页面/老缓存 404。
           for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png \
-                   apple-touch-icon.png share.png manifest.json manifest.webmanifest; do
+                   apple-touch-icon.png share.png manifest.json manifest.webmanifest manifest.json; do
             cp -f "cloud/out/$f" "site/$f" || true
           done
           # 【PWA · Service Worker】必须在站点【根目录】（和 index.html 同级），
@@ -317,7 +317,7 @@ jobs:
           #   页面 <head> 里引用的 favicon / manifest / share.png 就会 404。
           echo "--- 分享图标自证 ---"
           MISSING=0
-          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.json manifest.webmanifest; do
+          for f in favicon.ico icon.ico icon.svg icon-192.png icon-512.png apple-touch-icon.png share.png manifest.json manifest.webmanifest manifest.json; do
             if [ -s "site/$f" ]; then
               echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
             else
