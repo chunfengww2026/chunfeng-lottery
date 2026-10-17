@@ -2891,24 +2891,30 @@ ${PWA_HEAD}
 <meta name="apple-mobile-web-app-title" content="春风彩票" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
-<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些 -->
+<!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
+     ⚠️ 用户 2026-10-18 给了文案（og:title / og:description / itemprop），照此落地；
+        og:image 必须是【完整绝对地址】，指向站点根目录的 share.png（1200×630）。 -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风彩票" />
-<meta property="og:title" content="春风彩票" />
-<meta property="og:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta property="og:site_name" content="春风十万里" />
+<meta property="og:title" content="春风十万里 - 免费推荐与智能选号" />
+<meta property="og:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
+<!-- 微信 / QQ 专用的兼容标签（作用同上） -->
+<meta itemprop="name" content="春风十万里 - 免费推荐与智能选号" />
+<meta itemprop="description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
+<meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风彩票" />
-<meta name="twitter:description" content="八彩种推荐图与足球竞彩整理，每日更新。仅供娱乐参考，不构成购彩建议。" />
+<meta name="twitter:title" content="春风十万里 - 免费推荐与智能选号" />
+<meta name="twitter:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风彩票 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
 <style>
 ${css}
 ${hitSecCss}
