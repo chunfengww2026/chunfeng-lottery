@@ -2021,9 +2021,7 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:42:39",
      "postId": "7697538896460284455",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3cbf52224fa24748b913accb0ddbe18d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=xOAv9XFl%2FlaiRzFSH0ffw4XwGH8%3D",
@@ -2054,9 +2052,7 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:42:39",
      "postId": "7697538896460284455",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fa60d6aae218480fba23654ec37bafa4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=uRr4Oulg0pQo1lCSpPlhomI5oFM%3D",
