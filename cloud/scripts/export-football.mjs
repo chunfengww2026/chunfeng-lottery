@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -4096,8 +4096,9 @@ ${JC_XYSP_VIEW}
     var v = window.JC_RECO_VIEW;
     if (!v || !v.updated || v.updated === last) return;
     if (typeof v.stat === 'string') bar.innerHTML = v.stat;
-    var arch = document.getElementById('jcRecArch');
-    if (arch && typeof v.arch === 'string') arch.innerHTML = v.arch;
+    /* 【往期推荐串不再由这里换】用户 2026-10-17 改成前端拉 data/recommend.json（每 60 秒），
+       那套自己会渲染 #pastStats / #pastList —— 这里再换 #jcRecArch 会把它的结果冲掉，
+       所以这条#arch 替换【已移除】。顶部战绩条仍由这里换（stat）。 */
     /* 【顶部小喇叭】内容跟着一起换（只是两个 group 的 innerHTML，
        轨道本身和动画不动，不会重新从左边滚） */
     var mq = document.getElementById('broadcastBar') || document.getElementById('jcHitMq');
@@ -4125,6 +4126,72 @@ ${JC_XYSP_VIEW}
   window.__jcRecoApplied = function () { return last; };
 
   if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+
+/* ============================================================
+   【往期推荐串 · 前端拉取】用户 2026-10-17 给的 fetchPastRecommend()：
+     每 60 秒拉 ./data/recommend.json（云端每 5 分钟的班重建它），
+     就地更新 #pastStats（红/黑/命中率）和 #pastList（按 finishTime 倒序）。
+   · 字段与用户给的一致：history[].dateStr / matches[].matchNo·teams·pick·score·result
+   · result: 'red' | 'black'（'pending' 按黑处理？不 —— 待定不出现在 history 里，这里只兜底不崩）
+   · ⚠️ 本机 file:// 打开时 fetch 被 CORS 拦 → 静默失败，页面保留构建时烘好的那份（不空白）
+   · ⚠️ #jcRecArch 的 innerHTML 现在只由这里（和首次烘好的 HTML）负责，
+       30 秒那套只换顶部战绩条，不再碰往期列表（避免两套互相冲掉）
+   ============================================================ */
+(function () {
+  var PAST_URL = 'data/recommend.json';
+  var MS = 60 * 1000;
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function render(data) {
+    if (!data || typeof data !== 'object') return;
+    var statsEl = document.getElementById('pastStats');
+    if (statsEl) {
+      statsEl.textContent = '红 ' + (data.red == null ? 0 : data.red) +
+        ' · 黑 ' + (data.black == null ? 0 : data.black) +
+        ' · 命中率 ' + (data.rate || '—');
+    }
+    var listEl = document.getElementById('pastList');
+    if (!listEl) return;
+    var hist = Array.isArray(data.history) ? data.history.slice() : [];
+    if (!hist.length) {
+      listEl.innerHTML = '<div class="past-empty">暂无往期推荐</div>';
+      return;
+    }
+    hist.sort(function (a, b) { return (b.finishTime || 0) - (a.finishTime || 0); });
+    listEl.innerHTML = hist.map(function (g) {
+      var ms = Array.isArray(g.matches) ? g.matches : [];
+      return '<div class="past-item">' +
+        '<div class="past-item-head">' +
+        '<span>' + esc(g.dateStr) + ' <span class="badge">' + esc(g.verdict || '') + '</span></span>' +
+        '<span>' + ms.length + ' 场 · 已结算</span>' +
+        '</div>' +
+        ms.map(function (m) {
+          var cls = m.result === 'red' ? 'status-red' : (m.result === 'black' ? 'status-black' : '');
+          var txt = m.result === 'red' ? '红' : (m.result === 'black' ? '黑' : '待');
+          return '<div class="past-match-row">' +
+            '<span class="teams">' + esc(m.matchNo) + ' ' + esc(m.teams) + (m.pick ? ' · ' + esc(m.pick) : '') + '</span>' +
+            '<span class="result">' + esc(m.score || '—') + '</span>' +
+            '<span class="' + cls + '">' + txt + '</span>' +
+            '</div>';
+        }).join('') +
+        '</div>';
+    }).join('');
+  }
+  function tick() {
+    if (typeof fetch !== 'function') return;
+    fetch(PAST_URL + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r && r.ok ? r.json() : null; })
+      .then(function (d) { if (d) render(d); })
+      .catch(function () { /* file:// 或网络失败：保持页面里那份 */ });
+  }
+  /* 验收钩子：测试脚本可以手动触发一次 */
+  window.__pastRecFetch = tick;
+  window.__pastRecRender = render;
+  try { tick(); if (typeof setInterval === 'function') setInterval(tick, MS); } catch (e) { /* 忽略 */ }
 })();
 
 /* ============================================================
@@ -4342,6 +4409,49 @@ fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
   /* 【顶部小喇叭】两组条目共用同一份内容（横向滚动的两份必须一样） */
   mq: MQ_ITEMS_HTML
 }) + ';\n', 'utf8');
+
+/* ============================================================
+   【data/recommend.json】往期推荐串 · 前端拉取版（用户 2026-10-17 给的方案）
+   ------------------------------------------------------------
+   用户原话：给了一段 fetchPastRecommend()，每 60 秒拉 ./data/recommend.json。
+   所以这里按他给的字段结构生成这份 JSON：
+     { updated, red, black, rate, history: [ { dateStr, finishTime,
+         matches: [ { matchNo, teams, pick, score, result: 'red'|'black' } ] } ] }
+   · red/black/rate = 和顶部战绩条【同一个口径】（单场判定 REC_STAT），两处数字永远一致
+   · history = 已结算批次（窗口内），finishTime 用北京时间解析成毫秒，前端按它倒序
+   · 写两个地方：项目根 data/（本机/App）+ cloud/out/data/（线上站点根 /data/）
+   ⚠️ 本机 file:// 打开时 fetch 会被 CORS 拦 → 页面保留构建时烘好的那份，不空白、不报错
+   ============================================================ */
+function bjMs(s) {
+  const t = Date.parse(String(s || '').replace(/[-]/g, '/'));
+  return isFinite(t) ? t : 0;
+}
+const RECOMMEND_JSON = {
+  updated: RECO_STAMP || '',
+  red: REC_STAT ? REC_STAT.red : 0,
+  black: REC_STAT ? REC_STAT.black : 0,
+  rate: (REC_STAT && REC_STAT.rate != null) ? String(REC_STAT.rate) + '%' : '—',
+  history: (REC_ROWS_ARCHIVE || []).map((b) => ({
+    dateStr: b.at || '',
+    finishTime: bjMs(b.at),
+    matches: (Array.isArray(b.rows) ? b.rows : []).map((r) => ({
+      matchNo: r.code || '',
+      teams: `${r.home || ''} vs ${r.away || ''}`,
+      pick: r.label || '',
+      score: r.score || '—',
+      result: r.hit === true ? 'red' : (r.hit === false ? 'black' : 'pending')
+    }))
+  }))
+};
+for (const dir of [path.join(ROOT, 'data'), path.join(ROOT, 'cloud', 'out', 'data')]) {
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'recommend.json'), JSON.stringify(RECOMMEND_JSON, null, 1), 'utf8');
+  } catch (e) {
+    console.log(`  ⚠️ 写 recommend.json 失败（${dir}）：${e.message}`);
+  }
+}
+console.log(`   📄 data/recommend.json：${RECOMMEND_JSON.history.length} 批 · 红 ${RECOMMEND_JSON.red} 黑 ${RECOMMEND_JSON.black} · ${RECOMMEND_JSON.rate}`);
 
 console.log('✅ 已生成：' + OUT);
 console.log(`   大小：${(Buffer.byteLength(safeHtml, 'utf8') / 1024).toFixed(1)} KB`);
