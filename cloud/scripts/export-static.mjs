@@ -5837,26 +5837,37 @@ ${DEVICE_GATE_BODY}
           拆成两个纯 div 不影响任何排版（.ro-wrap 里没有 > 子选择器）。
        豁免区：.ro-aipick（GPT模型摇号面板）—— locked 时仍然清晰、可点。 -->
   <div id="article">
-<div class="card-box tools-box" id="toolsBox">
-  <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
-  <div class="tool-grid">
-    <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
-  </div>
-</div>
-
 
   <div class="ro-top">
     <h1>春风十里送大奖</h1>
   </div>
 
   ${statusHtml}
+
+  <!-- ============================================================
+       【智能分析工具栏】8 个入口（用户 2026-10-18 设计）
+       ------------------------------------------------------------
+       位置：主标题 + 状态卡之后、推荐图目录之前 —— 打开页面就能看到，
+             但不抢标题的位置（原来放在 h1 上面，读起来像"页面从工具栏开始"）。
+       形态：4 列网格 · 8 张图标卡，米杏卡片底。
+       ⚠️ 每张卡都是 <div role="button" tabindex="0">（页面不变量：没有按钮标签），
+          点一下进全屏子页面，子页面自带「← 返回」。
+       ⚠️ 8 个子页面的数据纪律：能算的从本页开奖数据现算；
+          算不出的写「暂不支持」；AI推荐 是系统随机并已标注 —— 绝不编数字。
+       ============================================================ -->
+  <div class="card-box tools-box" id="toolsBox">
+    <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
+    <div class="tool-grid">
+      <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
+      <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
+    </div>
+  </div>
 
   <!-- ============================================================
        【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
@@ -8683,153 +8694,627 @@ ${CHAT_JS}
   <div class="tool-view-body" id="toolBody"></div>
 </div>
 <script>
-/* __TOOLS_JS__ 智能分析：全部读 DRAW_HISTORY 真实计算，没有的明说「暂未提供」
-   ⚠️ 只用单引号，不写反斜杠转义（嵌在模板字符串里，用 \" 会把脚本写坏）。 */
+/* __TOOLS_JS__ 智能分析 · 8 个子页面
+   ------------------------------------------------------------
+   数据纪律（用户铁律）：【绝对不编数字】
+     · 能算的 → 页面脚本从本页已有的开奖数据（DRAW_HISTORY，8 彩种 × 近 60 期）
+                和实票统计（HEATMAP_DATA）里【现算】
+     · 算不出的 → 页面直接写「暂不支持 / 需要更多数据」，不写假数字
+     · AI推荐 → 就是【系统随机】，页面上明确标注「仅供娱乐参考」，不假装是 AI 算的
+   技术约束：
+     · 零外部依赖（折线用内联 SVG 画，不引图表库）
+     · 不碰浏览器存储（聊天/状态只放内存变量 st，刷新就没了）
+     · 没有弹窗（提示一律写在页面里，微信里也看得见）
+     · 没有按钮标签（可点的都是 div role="button" tabindex="0"）
+   写法约束：这段嵌在页面的模板字符串里 ——
+     ⚠️【只用单引号】【不写反斜杠转义】【不写反引号】，
+        否则会在生成时被吃掉（之前踩过两次）。 */
 (function () {
   var view = document.getElementById('toolView');
   var body = document.getElementById('toolBody');
   var titleEl = document.getElementById('toolTitle');
   if (!view || !body) return;
-  function tx(el) { return el ? String(el.textContent || '').replace(/\s+/g, ' ').trim() : ''; }
+
+  /* 构建期注入：8 个彩种的号码区间 / 位数（来自 games.js 的真配置） */
+  var GAMES = ${TOOL_GAMES_JS};
+  var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
+  var SPAN = 30;
+  var st = { id: 'stat', game: 'ssq', area: '', ai: null, aiTimes: 0 };
+
+  var HIST = null;
+  try { if (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) HIST = DRAW_HISTORY.games; } catch (e0) { HIST = null; }
+  var HM = null;
+  try { if (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games) HM = HEATMAP_DATA.games; } catch (e1) { HM = null; }
+
+  /* ---------------- 基础工具 ---------------- */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function fmt1(n) {
+    if (n == null || isNaN(n)) return '—';
+    return (Math.round(n * 10) / 10).toFixed(1);
+  }
+  function pctS(a, b) { return b ? fmt1(a * 100 / b) + '%' : '—'; }
   function row(k, v) { return '<div class="tv-row"><span class="tv-k">' + k + '</span><span class="tv-v">' + v + '</span></div>'; }
-  function card(h, inner) { return '<div class="tv-card"><div class="tv-h">' + h + '</div>' + inner + '</div>'; }
-  function none(t) { return '<div class="tv-none">' + t + '</div>'; }
-  function ssqList() {
-    try {
-      var H = (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) ? DRAW_HISTORY.games.ssq : null;
-      if (!H || !H.length) return [];
-      return H.slice().reverse().map(function (d) {
-        var red = (d.areas && d.areas.red) || [];
-        var sum = 0;
-        for (var q = 0; q < red.length; q++) sum += red[q];
-        return { issue: d.issue, red: red, blue: (d.areas && d.areas.blue) || [], sum: sum };
-      });
-    } catch (e) { return []; }
-  }
-  function avg(a) { var t = 0; for (var i = 0; i < a.length; i++) t += a[i]; return a.length ? t / a.length : 0; }
-  function fmt(n) { return (Math.round(n * 10) / 10).toFixed(1); }
+  function card(h, inner) { return '<div class="tv-card">' + (h ? '<div class="tv-h">' + h + '</div>' : '') + inner + '</div>'; }
+  function note(t) { return '<div class="tv-note">' + t + '</div>'; }
+  function none(h, t) { return '<div class="tv-none"><b>' + h + '</b>' + t + '</div>'; }
 
-  function maTool() {
-    var list = ssqList();
-    if (list.length < 12) return none('历史数据不足，算不出均线。');
-    var sums = list.map(function (x) { return x.sum; });
-    var rows = '', cross = '—';
-    var last5 = sums.slice(-5), prev5 = sums.slice(-6, -1);
-    var last10 = sums.slice(-10), prev10 = sums.slice(-11, -1);
-    var ma5 = avg(last5), ma10 = avg(last10);
-    if (ma5 > ma10 && avg(prev5) <= avg(prev10)) cross = '金叉（MA5 上穿 MA10）';
-    else if (ma5 < ma10 && avg(prev5) >= avg(prev10)) cross = '死叉（MA5 下穿 MA10）';
-    else cross = ma5 > ma10 ? 'MA5 在 MA10 上方' : 'MA5 在 MA10 下方';
-    for (var i = Math.max(0, list.length - 8); i < list.length; i++) {
-      rows += row('第 ' + list[i].issue + ' 期 和值 ' + list[i].sum, '');
+  function gameById(id) {
+    for (var i = 0; i < GAMES.length; i++) if (GAMES[i].id === id) return GAMES[i];
+    return GAMES[0];
+  }
+  function drawsOf(id) { var a = HIST ? HIST[id] : null; return (a && a.length) ? a : []; }
+  function numsOf(d, key) { var a = (d && d.areas) ? d.areas[key] : null; return (a && a.length) ? a : []; }
+  function areaCfg(g, key) {
+    for (var i = 0; i < g.areas.length; i++) if (g.areas[i].key === key) return g.areas[i];
+    return g.areas[0];
+  }
+  function curArea(g) {
+    var want = st.area;
+    for (var i = 0; i < g.areas.length; i++) if (g.areas[i].key === want) return want;
+    return g.areas[0] ? g.areas[0].key : 'main';
+  }
+  function areaLabel(g, key) {
+    var c = areaCfg(g, key);
+    return c.label || key;
+  }
+  function areaIdx(g) {
+    var k = curArea(g);
+    for (var i = 0; i < g.areas.length; i++) if (g.areas[i].key === k) return i;
+    return 0;
+  }
+  function splitAt(cfg) { return cfg.from + Math.floor((cfg.to - cfg.from + 1) / 2) - 1; }
+
+  /* ---------------- 统计：奇偶 / 大小 / 和值 / 跨度 / 012路 ---------------- */
+  function statOf(gid, n) {
+    var g = gameById(gid), key = curArea(g), cfg = areaCfg(g, key);
+    var list = drawsOf(gid).slice(0, n);
+    var o = { n: 0, cnt: 0, odd: 0, even: 0, big: 0, small: 0, sum: 0, sumMin: 0, sumMax: 0,
+      span: 0, r0: 0, r1: 0, r2: 0, rows: [], ok: false };
+    var split = splitAt(cfg);
+    for (var i = 0; i < list.length; i++) {
+      var nums = numsOf(list[i], key);
+      if (!nums.length) continue;
+      var s = 0, mx = -1e9, mn = 1e9;
+      for (var j = 0; j < nums.length; j++) {
+        var v = nums[j];
+        s += v; o.cnt++;
+        if (v % 2) o.odd++; else o.even++;
+        if (v > split) o.big++; else o.small++;
+        if (v % 3 === 0) o.r0++; else if (v % 3 === 1) o.r1++; else o.r2++;
+        if (v > mx) mx = v;
+        if (v < mn) mn = v;
+      }
+      o.n++; o.sum += s;
+      if (o.n === 1 || s < o.sumMin) o.sumMin = s;
+      if (o.n === 1 || s > o.sumMax) o.sumMax = s;
+      o.span += (mx - mn);
+      o.rows.push({ issue: String(list[i].issue || ''), nums: nums, sum: s, span: mx - mn });
+      o.ok = true;
     }
-    return card('双色球和值均线（近 ' + list.length + ' 期真实数据）',
-      row('MA5（近5期和值均值）', fmt(ma5)) +
-      row('MA10（近10期和值均值）', fmt(ma10)) +
-      row('当前状态', cross)) +
-      card('最近 8 期和值', rows) +
-      '<div class="tv-note">均线是统计口径，不是预测：号码是随机的，均线只描述已经过去的平均值。</div>';
+    o.split = split;
+    return o;
   }
 
-  function indexTool() {
-    var list = ssqList();
-    if (!list.length) return none('没有历史数据。');
-    var THEORY = 102;
-    var last = list[list.length - 1];
-    var idx = (last.sum / THEORY) * 100;
-    var rows = '';
-    for (var i = Math.max(0, list.length - 6); i < list.length; i++) {
-      var v = (list[i].sum / THEORY) * 100;
-      rows += row('第 ' + list[i].issue + ' 期 和值 ' + list[i].sum, '指数 ' + fmt(v));
+  /* ---------------- 遗漏：每个号码已经多少期没出 ---------------- */
+  function omitOf(gid) {
+    var g = gameById(gid), key = curArea(g), cfg = areaCfg(g, key);
+    var list = drawsOf(gid), res = [];
+    var total = cfg.to - cfg.from + 1, perDraw = 0;
+    for (var i = 0; i < list.length; i++) {
+      var nn = numsOf(list[i], key);
+      if (nn.length) { perDraw = nn.length; break; }
     }
-    return card('和值指数（真实计算）',
-      row('本期（第 ' + last.issue + ' 期）', '和值 ' + last.sum + ' → 指数 ' + fmt(idx)) +
-      row('理论均值（6×(1+33)/2）', String(THEORY))) +
-      card('近 6 期指数', rows) +
-      '<div class="tv-note">指数 = 实际和值 ÷ 理论均值 × 100。大于 100 = 偏大，小于 100 = 偏小；它只描述已开奖的分布，不预测下一期。</div>';
+    var theo = perDraw ? total / perDraw : 0;
+    for (var v = cfg.from; v <= cfg.to; v++) {
+      var cur = -1, gap = 0, mxGap = 0, seen = 0;
+      for (var k = 0; k < list.length; k++) {
+        var nums = numsOf(list[k], key);
+        if (nums.indexOf(v) >= 0) {
+          if (cur < 0) cur = k;
+          seen++; gap = 0;
+        } else {
+          gap++;
+          if (gap > mxGap) mxGap = gap;
+        }
+      }
+      if (cur < 0) cur = list.length;
+      res.push({ n: v, cur: cur, max: mxGap, seen: seen });
+    }
+    return { list: res, theo: theo, total: total, perDraw: perDraw, draws: list.length };
   }
 
-  function patternTool() {
-    var list = ssqList();
-    if (list.length < 2) return none('历史数据不足。');
-    var last = list[list.length - 1], prev = list[list.length - 2];
-    var same = [], near = [];
-    for (var a = 0; a < last.red.length; a++) {
-      var n = last.red[a];
-      for (var b = 0; b < prev.red.length; b++) {
-        if (prev.red[b] === n) same.push(n);
-        else if (Math.abs(prev.red[b] - n) === 1) near.push(n);
+  /* ---------------- 频次（热号 / 冷号） ---------------- */
+  function freqOf(gid, n) {
+    var g = gameById(gid), key = curArea(g), cfg = areaCfg(g, key);
+    var list = drawsOf(gid).slice(0, n), map = {}, total = 0;
+    for (var v = cfg.from; v <= cfg.to; v++) map[v] = 0;
+    for (var i = 0; i < list.length; i++) {
+      var nums = numsOf(list[i], key);
+      for (var j = 0; j < nums.length; j++) {
+        if (map[nums[j]] === undefined) map[nums[j]] = 0;
+        map[nums[j]]++; total++;
       }
     }
-    same = same.filter(function (v, k, arr) { return arr.indexOf(v) === k; });
-    near = near.filter(function (v, k, arr) { return arr.indexOf(v) === k && same.indexOf(v) < 0; });
-    return card('第 ' + last.issue + ' 期 vs 上期（第 ' + prev.issue + ' 期）',
-      row('本期号码', last.red.join(' ') + ' + ' + last.blue.join(' ')) +
-      row('上期号码', prev.red.join(' ') + ' + ' + prev.blue.join(' ')) +
-      row('重号（同上期重复）', same.length ? same.join(' ') : '无') +
-      row('斜连（差 1 的号）', near.length ? near.join(' ') : '无')) +
-      '<div class="tv-note">这就是走势图里的"重号/斜连"两种规律，按真实开奖算的；规律 ≠ 预测，下一期仍是随机的。</div>';
+    var arr = [];
+    for (var k in map) if (map.hasOwnProperty(k)) arr.push({ n: Number(k), c: map[k] });
+    arr.sort(function (a, b) { return (b.c - a.c) || (a.n - b.n); });
+    return { arr: arr, total: total, draws: list.length };
   }
 
-  function statTool() {
-    var out = '';
-    var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
-    if (bar && tx(bar)) out += card('推荐串战绩（真实数据）', row(tx(bar).slice(0, 60), ''));
-    var kj = document.querySelectorAll('.ro-kjh-item');
-    var rows = '';
-    for (var a = 0; a < Math.min(4, kj.length); a++) rows += row(tx(kj[a]).slice(0, 42), '');
-    if (rows) out += card('开机号 / 最新开奖（真实数据）', rows);
-    var xj = document.querySelector('.ro-xj-group');
-    if (xj) out += card('专家推荐（真实数据）', row(tx(xj).slice(0, 110), ''));
-    return out || none('这一页暂时没有可统计的数据。');
+  /* 实票统计里这个彩种对应的那块（前区 / 后区） */
+  function hmAreaOf(gid, ai) {
+    var H = HM ? HM[gid] : null;
+    if (!H) return null;
+    var a = ai === 0 ? H.front : (ai === 1 ? H.back : null);
+    if (!a || !a.items || !a.items.length) return null;
+    return a;
   }
-  function trendTool() {
-    var t = document.querySelector('.ro-trend');
-    if (!t) return none('这一页没有内联走势图。');
-    var n = t.querySelectorAll('tr').length;
-    return card('走势图已内联在本页', row('共 ' + n + ' 行（近 30 期真实数据）', '')) +
-      '<div class="tv-note">关掉面板往下翻到「近 30 期走势 · 预选参考」就能看到完整表格。</div>';
+
+  /* ---------------- 规律：连号 / 重号 / 同尾 / 奇偶分布 ---------------- */
+  function patternOf(gid, n) {
+    var g = gameById(gid), key = curArea(g);
+    var list = drawsOf(gid).slice(0, n);
+    var used = 0, withConsec = 0, consecPairs = 0, repeatSum = 0, repeatN = 0, sameTail = 0;
+    var oddDist = {};
+    for (var i = 0; i < list.length; i++) {
+      var nums = numsOf(list[i], key).slice().sort(function (a, b) { return a - b; });
+      if (!nums.length) continue;
+      used++;
+      var pairs = 0;
+      for (var j = 1; j < nums.length; j++) if (nums[j] - nums[j - 1] === 1) pairs++;
+      if (pairs > 0) withConsec++;
+      consecPairs += pairs;
+      var tail = {};
+      for (var t = 0; t < nums.length; t++) {
+        var d = nums[t] % 10;
+        tail[d] = (tail[d] || 0) + 1;
+      }
+      for (var q in tail) if (tail.hasOwnProperty(q) && tail[q] > 1) sameTail++;
+      if (i > 0) {
+        var pn = numsOf(list[i - 1], key), rep = 0;
+        for (var r = 0; r < nums.length; r++) if (pn.indexOf(nums[r]) >= 0) rep++;
+        repeatSum += rep; repeatN++;
+      }
+      var oddc = 0;
+      for (var w = 0; w < nums.length; w++) if (nums[w] % 2) oddc++;
+      oddDist[oddc] = (oddDist[oddc] || 0) + 1;
+    }
+    var bestOdd = 0, bestCnt = -1;
+    for (var ok in oddDist) {
+      if (oddDist.hasOwnProperty(ok) && oddDist[ok] > bestCnt) { bestCnt = oddDist[ok]; bestOdd = Number(ok); }
+    }
+    return { used: used, withConsec: withConsec, consecPairs: consecPairs,
+      repeatAvg: repeatN ? repeatSum / repeatN : 0,
+      sameTail: sameTail, bestOdd: bestOdd, bestCnt: bestCnt, oddDist: oddDist };
   }
-  function omitTool() {
-    var t = document.querySelector('.ro-trend');
-    if (!t) return none('这一页没有走势数据，算不出遗漏。');
-    return card('遗漏数据在走势表里', row('表尾三行：出现次数 / 当前遗漏 / 最大遗漏', '')) +
-      '<div class="tv-note">这三个数都是按历史开奖真实算的，不是估的。</div>';
+
+  /* ---------------- 和值序列 + 移动平均（均线用） ---------------- */
+  function sumSeries(gid, n) {
+    var g = gameById(gid), key = curArea(g);
+    var list = drawsOf(gid).slice(0, n), sums = [];
+    for (var i = list.length - 1; i >= 0; i--) {
+      var nums = numsOf(list[i], key);
+      if (!nums.length) continue;
+      var s = 0;
+      for (var j = 0; j < nums.length; j++) s += nums[j];
+      sums.push(s);
+    }
+    return sums;
   }
-  function aiTool() {
-    return card('AI 推荐（机选）', row('去「GPT模型摇号」点随机或自选', '真实号码')) +
-      '<div class="tv-note">也可以对右下角助手说「来一注双色球」。</div>';
+  function maSeries(sums, k) {
+    var out = [];
+    for (var i = 0; i < sums.length; i++) {
+      if (i < k - 1) { out.push(null); continue; }
+      var t = 0;
+      for (var q = i - k + 1; q <= i; q++) t += sums[q];
+      out.push(t / k);
+    }
+    return out;
   }
-  var NONE = { hot: '实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。' };
-  var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
+
+  /* ---------------- 内联 SVG 折线（不引图表库） ---------------- */
+  function spark(a, b, aLabel, bLabel) {
+    var all = [], i;
+    for (i = 0; i < a.length; i++) if (a[i] != null) all.push(a[i]);
+    if (b) for (i = 0; i < b.length; i++) if (b[i] != null) all.push(b[i]);
+    if (!all.length) return '';
+    var mn = all[0], mx = all[0];
+    for (i = 1; i < all.length; i++) {
+      if (all[i] < mn) mn = all[i];
+      if (all[i] > mx) mx = all[i];
+    }
+    if (mx === mn) mx = mn + 1;
+    var W = 320, H = 96, P = 8, n = a.length;
+    function pts(arr) {
+      var s = '', started = false;
+      for (var k = 0; k < arr.length; k++) {
+        if (arr[k] == null) continue;
+        var x = n > 1 ? (P + k * (W - 2 * P) / (n - 1)) : (W / 2);
+        var y = H - P - ((arr[k] - mn) / (mx - mn)) * (H - 2 * P);
+        s += (started ? ' ' : '') + (Math.round(x * 10) / 10) + ',' + (Math.round(y * 10) / 10);
+        started = true;
+      }
+      return s;
+    }
+    var svg = '<svg class="tv-spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">' +
+      (b ? '<polyline points="' + pts(b) + '" fill="none" stroke="#c9973f" stroke-width="1.6" stroke-dasharray="5 3"/>' : '') +
+      '<polyline points="' + pts(a) + '" fill="none" stroke="#1a8c5a" stroke-width="1.8"/>' +
+      '</svg>';
+    var first = a[0], last = a[a.length - 1];
+    svg += '<div class="tv-spark-x"><span>最旧 ' + first + '</span><span>最新 ' + last + '</span></div>';
+    if (b) {
+      svg += '<div class="tv-legend"><span><i style="background:#1a8c5a"></i>' + aLabel + '</span>' +
+        '<span><i style="background:#c9973f"></i>' + bLabel + '</span></div>';
+    }
+    return svg;
+  }
+
+  /* ---------------- 顶部：彩种 / 号码区 切换 ---------------- */
+  function chipsGame() {
+    var h = '<div class="tv-seg">';
+    for (var i = 0; i < GAMES.length; i++) {
+      h += '<div class="tv-chip' + (GAMES[i].id === st.game ? ' on' : '') + '" role="button" tabindex="0" data-tv-game="' + esc(GAMES[i].id) + '">' + esc(GAMES[i].name) + '</div>';
+    }
+    return h + '</div>';
+  }
+  function chipsArea(g) {
+    if (g.areas.length < 2) return '';
+    var h = '<div class="tv-seg">', k = curArea(g);
+    for (var i = 0; i < g.areas.length; i++) {
+      h += '<div class="tv-chip' + (g.areas[i].key === k ? ' on' : '') + '" role="button" tabindex="0" data-tv-area="' + esc(g.areas[i].key) + '">' + esc(g.areas[i].label || ('区' + (i + 1))) + '</div>';
+    }
+    return h + '</div>';
+  }
+  function numsCell(nums) {
+    var n = nums.slice(0, 8).join(' ');
+    return n + (nums.length > 8 ? ' 等 ' + nums.length + ' 个' : '');
+  }
+
+  /* ================= ① 数据统计 ================= */
+  function pageStat() {
+    var g = gameById(st.game), key = curArea(g);
+    var a = statOf(g.id, SPAN), b = statOf(g.id, 10);
+    if (!a.ok) return chipsGame() + none('暂不支持', '这个彩种本页没有开奖数据，算不出来。');
+    var h = chipsGame() + chipsArea(g);
+    h += card('近 ' + a.n + ' 期 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
+      row('奇偶比', '奇 ' + a.odd + ' : 偶 ' + a.even + '（' + pctS(a.odd, a.cnt) + ' / ' + pctS(a.even, a.cnt) + '）') +
+      row('大小比', '大 ' + a.big + ' : 小 ' + a.small + '（小 ≤ ' + a.split + '）') +
+      row('和值 均值', fmt1(a.sum / a.n)) +
+      row('和值 区间', a.sumMin + ' ~ ' + a.sumMax) +
+      row('跨度 均值', fmt1(a.span / a.n)) +
+      row('012 路', '0路 ' + a.r0 + ' · 1路 ' + a.r1 + ' · 2路 ' + a.r2));
+    if (b.ok) {
+      h += card('近 ' + b.n + ' 期 · 同一口径',
+        row('奇偶比', '奇 ' + b.odd + ' : 偶 ' + b.even) +
+        row('大小比', '大 ' + b.big + ' : 小 ' + b.small) +
+        row('和值 均值', fmt1(b.sum / b.n)) +
+        row('跨度 均值', fmt1(b.span / b.n)) +
+        row('012 路', '0路 ' + b.r0 + ' · 1路 ' + b.r1 + ' · 2路 ' + b.r2));
+    }
+    var t = '<table class="tv-tbl"><thead><tr><th>期号</th><th>号码</th><th>和值</th><th>跨度</th></tr></thead><tbody>';
+    for (var i = 0; i < Math.min(6, a.rows.length); i++) {
+      var r0 = a.rows[i];
+      t += '<tr><td>' + esc(r0.issue) + '</td><td class="l">' + esc(numsCell(r0.nums)) + '</td><td>' + r0.sum + '</td><td>' + r0.span + '</td></tr>';
+    }
+    t += '</tbody></table>';
+    h += card('最近 6 期明细', t);
+    h += note('全部按近 ' + SPAN + ' 期内真实开出的号码现算；大小以「' + areaCfg(g, key).from + '~' + areaCfg(g, key).to + '」的中位划分。');
+    return h;
+  }
+
+  /* ================= ② 趋势分析 ================= */
+  function pageTrend() {
+    var g = gameById(st.game), key = curArea(g);
+    var sums = sumSeries(g.id, SPAN);
+    if (sums.length < 3) return chipsGame() + none('需要更多数据', '这个彩种本页的开奖期数不够画走势。');
+    var ma5 = maSeries(sums, 5);
+    var last = sums[sums.length - 1], prev = sums[sums.length - 2];
+    var d = last - prev;
+    var h = chipsGame() + chipsArea(g);
+    h += card('和值走势 · 近 ' + sums.length + ' 期',
+      spark(sums, ma5, '每期和值', '5 期均值'));
+    h += card('最近变化',
+      row('最新一期和值', String(last)) +
+      row('比上一期', (d > 0 ? '+' : '') + d) +
+      row('近 5 期均值', fmt1(ma5[ma5.length - 1])) +
+      row('近 30 期均值', fmt1(avgOf(sums))));
+    h += '<div class="tv-acts"><div class="tv-btn" role="button" tabindex="0" data-tv-act="goto-trend">打开完整走势表</div></div>';
+    h += note('本页下方本来就有「近 30 期走势 · 预选参考」那张完整表（8 彩种 × 30 期、带连线），这里不重复画一遍 —— 点上面的按钮会就地展开并跳过去。');
+    return h;
+  }
+  function avgOf(a) { var t = 0; for (var i = 0; i < a.length; i++) t += a[i]; return a.length ? t / a.length : 0; }
+
+  /* ================= ③ 遗漏宝 ================= */
+  function pageOmit() {
+    var g = gameById(st.game), key = curArea(g);
+    var o = omitOf(g.id);
+    if (!o.draws) return chipsGame() + none('需要更多数据', '这个彩种本页没有开奖数据，算不出遗漏。');
+    var over = [], i;
+    for (i = 0; i < o.list.length; i++) if (o.theo && o.list[i].cur >= o.theo * 2) over.push(o.list[i]);
+    over.sort(function (a, b) { return b.cur - a.cur; });
+    var h = chipsGame() + chipsArea(g);
+    h += card('理论遗漏 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
+      row('号码总数 / 每期出几个', o.total + ' 个 / ' + (o.perDraw || '—') + ' 个') +
+      row('理论平均遗漏', o.theo ? fmt1(o.theo) + ' 期' : '—') +
+      row('标红门槛（2 倍理论）', o.theo ? fmt1(o.theo * 2) + ' 期' : '—') +
+      row('超过门槛的号码', over.length ? over.length + ' 个' : '没有'));
+    if (over.length) {
+      var list = '';
+      for (i = 0; i < Math.min(8, over.length); i++) {
+        list += row(String(over[i].n), '已 ' + over[i].cur + ' 期没出 · 历史最大 ' + over[i].max + ' 期');
+      }
+      h += card('超出理论的号码（红底）', list);
+    }
+    var cells = '';
+    for (i = 0; i < o.list.length; i++) {
+      var it = o.list[i];
+      var bad = o.theo && it.cur >= o.theo * 2;
+      cells += '<div class="tv-cell' + (bad ? ' bad' : '') + '"><b>' + it.n + '</b><i>' + it.cur + '</i></div>';
+    }
+    h += card('每个号码：当前遗漏（数字=已经多少期没出）', '<div class="tv-cells">' + cells + '</div>');
+    h += note('「当前遗漏 0」= 最新一期就出了；括号里没有历史最大值的就不列。全部按近 ' + o.draws + ' 期现算，不是估的。');
+    return h;
+  }
+
+  /* ================= ④ 实时热点 ================= */
+  function pageHot() {
+    var g = gameById(st.game), ai = areaIdx(g), key = curArea(g);
+    var H = hmAreaOf(g.id, ai);
+    var h = chipsGame() + chipsArea(g);
+    var srcText;
+    if (H) {
+      var items = H.items.slice().sort(function (a, b) { return (b.count - a.count) || (a.num - b.num); });
+      var hot = items.slice(0, 6), cold = items.slice(-6).reverse();
+      var tot = 0;
+      for (var i = 0; i < items.length; i++) tot += items[i].count;
+      srcText = '近 30 期开奖频率';
+      try {
+        var sc = String((HM[g.id] || {}).source || '');
+        if (sc === 'ocr-xysp') srcText = '晒票票面统计';
+        else if (sc === 'xysp-text') srcText = '晒票文字统计';
+      } catch (e2) { /* 忽略 */ }
+      h += card('热号（出现最多）· 近 30 期<span>' + esc(srcText) + '</span>', bars(hot, tot, false));
+      h += card('冷号（出现最少）', bars(cold, tot, true));
+    } else {
+      var f = freqOf(g.id, SPAN);
+      if (!f.total) return chipsGame() + none('需要更多数据', '这个彩种本页没有开奖数据。');
+      srcText = '近 30 期开奖频率';
+      h += card('热号（出现最多）· 近 30 期<span>' + esc(srcText) + '</span>', bars(f.arr.slice(0, 6), f.total, false));
+      h += card('冷号（出现最少）', bars(f.arr.slice(-6).reverse(), f.total, true));
+    }
+    h += note('热号 = 这段时间出现次数最多的号码，冷号 = 最少的。次数只描述已经发生的开奖，不代表下一期的概率 —— 每个号码每期都是独立随机的。');
+    return h;
+  }
+  function bars(arr, tot, cold) {
+    var max = 1, i;
+    for (i = 0; i < arr.length; i++) if (arr[i].c > max) max = arr[i].c;
+    var h = '';
+    for (i = 0; i < arr.length; i++) {
+      var it = arr[i];
+      var cnt = it.c != null ? it.c : (it.count || 0);
+      var w = Math.max(4, Math.round(cnt * 100 / max));
+      h += '<div class="tv-bar' + (cold ? ' cold' : '') + '"><b>' + it.n + '</b>' +
+        '<span><i style="width:' + w + '%"></i></span>' +
+        '<em>' + cnt + ' 次 ' + pctS(cnt, tot) + '</em></div>';
+    }
+    return h;
+  }
+
+  /* ================= ⑤ 智能规律 ================= */
+  function pagePattern() {
+    var g = gameById(st.game), key = curArea(g);
+    var p = patternOf(g.id, SPAN);
+    if (!p.used) return chipsGame() + none('需要更多数据', '这个彩种本页没有开奖数据。');
+    var h = chipsGame() + chipsArea(g);
+    h += card('近 ' + p.used + ' 期 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
+      row('连号出现率', p.withConsec + ' / ' + p.used + ' 期 · ' + pctS(p.withConsec, p.used)) +
+      row('连号总对数', p.consecPairs + ' 对') +
+      row('重号 平均每期', fmt1(p.repeatAvg) + ' 个（和上一期相同）') +
+      row('同尾 期数占比', p.sameTail + ' / ' + p.used + ' 期') +
+      row('最常见奇偶比', p.bestCnt >= 0 ? ('奇 ' + p.bestOdd + ' : 偶 ' + (numsOf(drawsOf(g.id)[0], key).length - p.bestOdd) + '（' + p.bestCnt + ' 期）') : '—'));
+    h += note('这几项都是「已经开过的号码里数出来的」：连号 = 相邻两个号都出（如 12 13）；重号 = 和上一期重复的号码；同尾 = 个位数字相同。它们描述过去，不能用来预测下一期。');
+    return h;
+  }
+
+  /* ================= ⑥ 均线分析 ================= */
+  function pageMa() {
+    var g = gameById(st.game), key = curArea(g);
+    var h = chipsGame() + chipsArea(g);
+    h += card('K 线均线 · 暂不支持',
+      none('暂不支持', '真正的均线（MA5 / MA10 / MA20）要画在 K 线上，需要开盘价 / 收盘价 / 最高价 / 最低价这套价格序列。本页只有开奖号码，没有 K 线，所以这一项不提供 —— 不编一条假曲线出来。'));
+    var sums = sumSeries(g.id, SPAN);
+    if (sums.length >= 10) {
+      var ma5 = maSeries(sums, 5), ma10 = maSeries(sums, 10);
+      var l5 = ma5[ma5.length - 1], l10 = ma10[ma10.length - 1];
+      var status = l5 > l10 ? '5 期均值在 10 期均值上方（偏热）' : '5 期均值在 10 期均值下方（偏冷）';
+      h += card('能算的部分：和值均线 · 近 ' + sums.length + ' 期',
+        spark(sums, ma5, '每期和值', '5 期均值') +
+        row('最新一期和值', String(sums[sums.length - 1])) +
+        row('5 期均值（MA5）', fmt1(l5)) +
+        row('10 期均值（MA10）', fmt1(l10)) +
+        row('当前状态', status));
+      h += note('这一块算的是「和值」的移动平均：把每期开出的号码加起来得到和值，再取最近 5 / 10 期的平均。它是统计描述，不是预测。');
+    } else {
+      h += card('能算的部分：和值均线', none('需要更多数据', '这个彩种本页的开奖期数不够算 10 期均线。'));
+    }
+    return h;
+  }
+
+  /* ================= ⑦ 指数预测 ================= */
+  function pageIndex() {
+    var g = gameById(st.game);
+    return chipsGame() + card('指数预测 · 暂不支持',
+      none('暂不支持', '指数预测要专业的指数模型和本页没有的行情数据；这里不提供，也不写一个假的涨跌数字糊弄人。'));
+  }
+
+  /* ================= ⑧ AI推荐（系统随机） ================= */
+  function randOf(from, to) { return from + Math.floor(Math.random() * (to - from + 1)); }
+  function pickFor(gid) {
+    var g = gameById(gid), out = [];
+    for (var a = 0; a < g.areas.length; a++) {
+      var cfg = g.areas[a];
+      var pick = cfg.pick;
+      if (!pick) {
+        var lastd = drawsOf(gid)[0];
+        var ln = lastd ? numsOf(lastd, cfg.key).length : 1;
+        pick = ln || 1;
+      }
+      var repeatable = (g.type === 'digit' || g.type === 'qxc');
+      var nums = [];
+      if (repeatable) {
+        for (var i = 0; i < pick; i++) nums.push(randOf(cfg.from, cfg.to));
+      } else {
+        var pool = [];
+        for (var v = cfg.from; v <= cfg.to; v++) pool.push(v);
+        for (var k = 0; k < pick && pool.length; k++) {
+          var idx = Math.floor(Math.random() * pool.length);
+          nums.push(pool[idx]);
+          pool.splice(idx, 1);
+        }
+        nums.sort(function (x, y) { return x - y; });
+      }
+      out.push({ key: cfg.key, label: cfg.label || '', color: (a === 1 ? 'blue' : ''), nums: nums, repeatable: repeatable });
+    }
+    return out;
+  }
+  function pageAi() {
+    var g = gameById(st.game);
+    var h = chipsGame();
+    if (!st.ai || st.ai.game !== g.id) { st.ai = { game: g.id, picks: pickFor(g.id) }; }
+    var picks = st.ai.picks, i, j;
+    var inner = '';
+    for (i = 0; i < picks.length; i++) {
+      var p = picks[i];
+      inner += '<div class="tv-h" style="font-size:12px;color:var(--ro-fg2);margin:6px 0 2px">' + esc(p.label) + '</div><div class="tv-balls">';
+      for (j = 0; j < p.nums.length; j++) {
+        inner += '<div class="tv-ball ' + (p.repeatable ? 'digit' : p.color) + '">' + p.nums[j] + '</div>';
+      }
+      inner += '</div>';
+    }
+    h += card('系统随机生成 · 仅供娱乐参考<span>第 ' + (st.aiTimes + 1) + ' 次</span>', inner);
+    h += '<div class="tv-acts">' +
+      '<div class="tv-btn" role="button" tabindex="0" data-tv-act="reroll">换一组</div>' +
+      '<div class="tv-btn ghost" role="button" tabindex="0" data-tv-act="goto-roll">去摇号面板自选</div>' +
+      '</div>';
+    h += note('这组号码就是浏览器里的随机数（Math.random）当场摇出来的，不是 AI 算的，也不是预测，只当娱乐。彩票每期独立随机，任何号码组合的中奖概率都一样。');
+    return h;
+  }
+
+  /* ---------------- 页面路由 ---------------- */
+  function pageOf(id) {
+    if (id === 'stat') return pageStat();
+    if (id === 'trend') return pageTrend();
+    if (id === 'hot') return pageHot();
+    if (id === 'ma') return pageMa();
+    if (id === 'index') return pageIndex();
+    if (id === 'omit') return pageOmit();
+    if (id === 'pattern') return pagePattern();
+    if (id === 'ai') return pageAi();
+    return none('出错了', '这个入口还没有内容。');
+  }
+  function render() {
+    body.innerHTML = pageOf(st.id);
+    try { body.scrollTop = 0; } catch (e3) { /* 忽略 */ }
+  }
+
   function openTool(id) {
+    st.id = id;
+    if (id === 'ai') {
+      st.ai = { game: st.game, picks: pickFor(st.game) };
+      st.aiTimes = 0;
+    }
     titleEl.textContent = TITLES[id] || '详情';
-    var html;
-    if (id === 'stat') html = statTool();
-    else if (id === 'trend') html = trendTool();
-    else if (id === 'omit') html = omitTool();
-    else if (id === 'ai') html = aiTool();
-    else if (id === 'ma') html = maTool();
-    else if (id === 'index') html = indexTool();
-    else if (id === 'pattern') html = patternTool();
-    else html = none(NONE[id] || '暂未提供');
-    body.innerHTML = html;
+    render();
     view.classList.add('on');
+    view.setAttribute('aria-hidden', 'false');
     document.documentElement.style.overflow = 'hidden';
   }
-  function closeTool() { view.classList.remove('on'); document.documentElement.style.overflow = ''; }
+  function closeTool() {
+    view.classList.remove('on');
+    view.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+  }
+
+  /* 「打开完整走势表」= 关掉这一层，展开走势图折叠块并滚过去（不重复画一遍） */
+  function gotoTrend() {
+    closeTool();
+    var d = document.getElementById('ro-trend');
+    if (!d) return;
+    try { d.open = true; } catch (e4) { /* 忽略 */ }
+    setTimeout(function () {
+      try { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      catch (e5) { try { d.scrollIntoView(true); } catch (e6) { /* 忽略 */ } }
+    }, 80);
+  }
+  function gotoRoll() {
+    closeTool();
+    var d = document.getElementById('ro-aipick');
+    if (!d) return;
+    try { d.open = true; } catch (e7) { /* 忽略 */ }
+    setTimeout(function () {
+      try { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      catch (e8) { try { d.scrollIntoView(true); } catch (e9) { /* 忽略 */ } }
+    }, 80);
+  }
+
+  /* ---------------- 事件（全用委托，没有内联 onclick） ---------------- */
+  function onTap(ev) {
+    var t = ev.target;
+    while (t && t !== body) {
+      if (t.getAttribute) {
+        var gid = t.getAttribute('data-tv-game');
+        if (gid) { st.game = gid; st.area = ''; st.ai = null; render(); return; }
+        var aid = t.getAttribute('data-tv-area');
+        if (aid) { st.area = aid; st.ai = null; render(); return; }
+        var act = t.getAttribute('data-tv-act');
+        if (act === 'reroll') {
+          st.ai = { game: st.game, picks: pickFor(st.game) };
+          st.aiTimes++;
+          render();
+          return;
+        }
+        if (act === 'goto-trend') { gotoTrend(); return; }
+        if (act === 'goto-roll') { gotoRoll(); return; }
+      }
+      t = t.parentNode;
+    }
+  }
+  function onKey(ev) {
+    if (ev.key !== 'Enter' && ev.key !== ' ' && ev.key !== 'Spacebar') return;
+    var t = ev.target;
+    if (!t || !t.getAttribute) return;
+    if (t.getAttribute('data-tv-game') || t.getAttribute('data-tv-area') || t.getAttribute('data-tv-act')) {
+      ev.preventDefault();
+      onTap({ target: t });
+    }
+  }
+  body.addEventListener('click', onTap);
+  body.addEventListener('keydown', onKey);
+
   var items = document.querySelectorAll('.tool-item');
   for (var k = 0; k < items.length; k++) {
     (function (el) {
-      el.addEventListener('click', function () { openTool(el.getAttribute('data-tool')); });
-      el.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openTool(el.getAttribute('data-tool')); } });
+      function go() { openTool(el.getAttribute('data-tool')); }
+      el.addEventListener('click', go);
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); go(); }
+      });
     })(items[k]);
   }
   var back = document.getElementById('toolBack');
   if (back) {
     back.addEventListener('click', closeTool);
-    back.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); closeTool(); } });
+    back.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') { ev.preventDefault(); closeTool(); }
+    });
   }
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && view.classList.contains('on')) closeTool();
+  });
 })();
 </script>
 <!-- __GUIDE__ 安装指南（内联 SVG，不依赖图片文件，避免 404） -->
