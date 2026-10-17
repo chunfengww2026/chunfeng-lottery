@@ -67,16 +67,50 @@ export function metaItemprop(title, desc) {
    ⚠️ Service Worker 【不能】用 Blob 注册（浏览器规范禁止 blob: 脚本注册 SW），
       所以 SW 仍然指 site 根目录的 service-worker.js（纯透传、不缓存）。
    ------------------------------------------------------------------------- */
-export const PWA_HEAD = `<!-- __PWA_HEAD__ 一键桌面：manifest 用【真实文件】manifest.json
-  ⚠️ 原来这里是「脚本用 Blob 现场生成 manifest」，看着很聪明，但浏览器【不认】：
-     · 可安装判定要求 manifest 是同源的 http(s) URL —— blob: 会被忽略
-     · 那份 Blob 里 192/512 图标是 SVG，Chrome 的安装判定只认 PNG
-  ⇒ 结果就是主分享页永远不弹原生安装框（只有引导提示）。
-  现在改成直接引用文件：manifest.json（和 manifest.webmanifest 同一份内容，两个都发布），
-  图标用 icon-192.png / icon-512.png（已随发布清单一起上线）。 -->
+export const PWA_HEAD = `<!-- __PWA_HEAD__ 一键桌面（manifest）
+   主路径 = 真实文件 manifest.json：Chrome 的可安装判定只认【同源 http(s) URL】
+            + PNG 图标（icon-192.png / icon-512.png），纯 blob: manifest 会被忽略，
+            真机上就变成「点了一键桌面不弹原生安装框」。
+   兜底   = __PWA_BLOB_FALLBACK__：同一份内容当场用 Blob 生成；
+            万一 manifest.json 拿不到（老部署 / 文件丢了 / 404），自动切到 blob 地址。
+   ⇒ 用户要的「Blob 现场生成、不新增文件」和「真机装得上」两件事同时成立。
+   ⚠️ Service Worker 不能走 Blob（浏览器禁止 blob: 注册 SW），仍用 service-worker.js。 -->
 <link rel="manifest" id="pwaManifest" href="manifest.json" />
 <meta name="theme-color" content="#1a8c5a" />
-<link rel="apple-touch-icon" href="icon-192.png" />`;
+<link rel="apple-touch-icon" href="icon-192.png" />
+<script>
+/* manifest 兜底：文件拿不到时，用 Blob 现场生成同一份清单（0 新增文件、0 本地存储） */
+(function () {
+  try {
+    var el = document.getElementById('pwaManifest');
+    if (!el || !window.Blob || !window.URL || !URL.createObjectURL) return;
+    if (!/^https?:/.test(location.protocol)) return;   /* file:// 本来也装不了 */
+    function abs(p) { try { return new URL(p, location.href).href; } catch (e) { return p; } }
+    function swap() {
+      var ICON = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231a2130%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23080a0e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22r%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ffb0a2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238e121c%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.45%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23c2e0ff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23123492%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22113%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%22url(%23c)%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%22146%22%20cy%3D%22300%22%20r%3D%22125%22%20fill%3D%22url(%23b)%22%2F%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%22182%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22164%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22376%22%20cy%3D%22220%22%20r%3D%2288%22%20fill%3D%22url(%23r)%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%22510%22%20height%3D%22510%22%20rx%3D%22113%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E';
+      var m = {
+        name: '春风彩票', short_name: '春风彩票',
+        start_url: abs('index.html'), scope: abs('./'),
+        display: 'standalone', orientation: 'portrait',
+        background_color: '#f7efe1', theme_color: '#1a8c5a', lang: 'zh-CN',
+        icons: [
+          { src: ICON, sizes: '192x192', type: 'image/svg+xml' },
+          { src: ICON, sizes: '512x512', type: 'image/svg+xml' },
+          { src: abs('icon-192.png'), sizes: '192x192', type: 'image/png' },
+          { src: abs('icon-512.png'), sizes: '512x512', type: 'image/png' }
+        ]
+      };
+      try {
+        var url = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
+        el.setAttribute('href', url);
+      } catch (e) { }
+    }
+    fetch(el.getAttribute('href'), { cache: 'no-store' })
+      .then(function (r) { if (!r || !r.ok) swap(); })
+      ['catch'](function () { swap(); });
+  } catch (e) { /* 兜底逻辑出问题不影响页面 */ }
+})();
+</script>`;
 
 /* ---------------------------------------------------------------------------
    ② 设备门的样式（放 <head>，越早越好，避免电脑端先闪出内容）
@@ -531,6 +565,19 @@ body.cf-open .install-btn { display: none !important; }
   border-bottom-right-radius: 4px; }
 .cf-tip { align-self: center; font-size: 11px; color: #8a7a63; padding: 2px 0 0; }
 
+/* 【号码球卡片】用户 2026-10-17 给的 UI：红球红底、蓝球蓝底、下方小字免责。
+   ⚠️ 白底卡片 + 圆球，和助手气泡的米杏色区分开；只在「随机一注」时出现。 */
+.cf-card { background: #fff; border: 1px solid #e6d9c2; border-radius: 10px;
+  padding: 9px 10px; margin: 2px 0; }
+.cf-card-t { font-size: 11.5px; font-weight: 700; color: #8a7a63; margin-bottom: 7px; }
+.cf-balls { display: flex; flex-wrap: wrap; gap: 5px; }
+.cf-ball { width: 26px; height: 26px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; color: #fff; font-size: 12px;
+  font-weight: 700; font-variant-numeric: tabular-nums; }
+.cf-ball.red { background: #e23b3b; }
+.cf-ball.blue { background: #2f6fd0; }
+.cf-card-n { font-size: 10.5px; color: #a0aec0; margin-top: 7px; white-space: normal; }
+
 .cf-quick { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 6px;
   padding: 0 10px 8px; background: #fdf6ea; }
 .cf-chip { font-size: 11.5px; line-height: 1.5; padding: 3px 9px;
@@ -572,6 +619,8 @@ export const CHAT_HTML = `<!-- __CHAT__ 春风小助手（右下角）
   <div class="cf-body" id="cfBody" aria-live="polite"></div>
   <div class="cf-quick" id="cfQuick">
     <div class="cf-chip" role="button" tabindex="0" data-q="推荐号">推荐号</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="来一注双色球">🎲 随机双色球</div>
+    <div class="cf-chip" role="button" tabindex="0" data-q="来一注大乐透">🎲 随机大乐透</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="战绩">战绩</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="走势图">走势图</div>
     <div class="cf-chip" role="button" tabindex="0" data-q="怎么用">怎么用</div>
@@ -891,8 +940,61 @@ export const CHAT_JS = `
        所以「来源」两个字用码点拼（26469 / 28304），只在运行时存在。 */
     var KW_ORIGIN = '数据' + String.fromCharCode(26469, 28304);
 
+    /* 【随机摇一注】用户 2026-10-17：「两个都要，但触发词分开（推荐）」。
+       触发词刻意【不含】推荐/号码/选号 —— 那几个还是走 ansReco（回页面真实算好的号，
+       比随机靠谱）。这条只在用户明确说「随机 / 来一注 / 摇一注」时才现摇。
+       规则：双色球 6+1（33 选 6 / 16 选 1）、大乐透 5+2（35 选 5 / 12 选 2），
+       没说彩种默认双色球；随机数优先 crypto，退化 Math.random。 */
+    function randPick(max, count) {
+      var pool = [], i;
+      for (i = 1; i <= max; i++) pool.push(i);
+      var out = [];
+      while (out.length < count && pool.length) {
+        var idx;
+        try {
+          var buf = new Uint32Array(1);
+          crypto.getRandomValues(buf);
+          idx = buf[0] % pool.length;
+        } catch (e) { idx = Math.floor(Math.random() * pool.length); }
+        out.push(pool.splice(idx, 1)[0]);
+      }
+      out.sort(function (a, b) { return a - b; });
+      return out;
+    }
+    function pad2(n) { return n < 10 ? '0' + n : String(n); }
+    function ansRandomTicket(raw) {
+      var m = squeeze(raw).toLowerCase();
+      var isDLT = m.indexOf('大乐透') >= 0 || m.indexOf('dlt') >= 0;
+      /* 号码球卡片（用户 2026-10-17 给的 UI）：红球红底、蓝球蓝底，下面一行小字免责。
+         HTML 全是本地生成的数字，没有任何外部内容。 */
+      function balls(nums, cls) {
+        return nums.map(function (n) {
+          return '<span class="cf-ball ' + cls + '">' + pad2(n) + '</span>';
+        }).join('');
+      }
+      function card(title, html, plain) {
+        return {
+          t: plain,
+          html: '<div class="cf-card"><div class="cf-card-t">' + title + '</div>' +
+            '<div class="cf-balls">' + html + '</div>' +
+            '<div class="cf-card-n">机器随机生成，仅供参考，请理性购彩</div></div>',
+          d: 1
+        };
+      }
+      if (isDLT) {
+        var f = randPick(35, 5), b = randPick(12, 2);
+        return card('大乐透 · 随机一注', balls(f, 'red') + balls(b, 'blue'),
+          '随机的【大乐透】一注：' + NL + '前区 ' + f.map(pad2).join(' ') + '　后区 ' + b.map(pad2).join(' ') + NL + '（机器随机生成，仅供参考，请理性购彩）');
+      }
+      var r = randPick(33, 6), bl = randPick(16, 1);
+      return card('双色球 · 随机一注', balls(r, 'red') + balls(bl, 'blue'),
+        '随机的【双色球】一注：' + NL + '红球 ' + r.map(pad2).join(' ') + '　蓝球 ' + pad2(bl[0]) + NL + '（机器随机生成，仅供参考，请理性购彩）');
+    }
+
     var RULES = [
       { k: ['比分'], f: ansScore },
+      /* 【随机摇一注】必须排在 ansReco 前面：说的是「随机」就走这条，说「推荐/号码」还是回真实号 */
+      { k: ['随机', '来一注', '来一组', '摇一注', '摇个', '随便来', '摇一摇', '来一票'], f: ansRandomTicket },
       { k: ['推荐', '号码', '买什么', '买啥', '出号', '看什么号', '选号'], f: ansReco },
       { k: ['战绩', '命中', '红黑', '中了', '胜率', '准确率', '红单'], f: ansStat },
       { k: ['走势', '趋势', '图表'], f: ansTrend },
@@ -987,6 +1089,17 @@ export const CHAT_JS = `
       body.appendChild(d);
       body.scrollTop = body.scrollHeight;
     }
+    /* 【号码球卡片】用户 2026-10-17 给的 UI：红球红底、蓝球蓝底。
+       只有本地生成的号码会走这里（HTML 全是我们自己拼的，没有外部内容）。 */
+    function pushHtml(who, html) {
+      mem.push({ who: who, t: html.replace(/<[^>]*>/g, ' ') });
+      if (mem.length > 40) mem.shift();
+      var d = document.createElement('div');
+      d.className = 'cf-msg ' + (who === 'me' ? 'cf-me' : 'cf-bot');
+      d.innerHTML = html;
+      body.appendChild(d);
+      body.scrollTop = body.scrollHeight;
+    }
     function ask(text) {
       var q = squeeze(text);
       if (!q) return;
@@ -997,14 +1110,15 @@ export const CHAT_JS = `
          key 配在 window.__CF_AI__（构建时可改），留空就是纯本地，行为完全不变。 */
       var localAns = answer(q);
       var localText = localAns ? localAns.t : '这个问题我还在学~ 你可以问我：推荐号 / 战绩 / 走势图 / 怎么用';
-      if (!AI.on) { push('bot', localText); return; }
+      var localHtml = localAns && localAns.html ? localAns.html : '';
+      if (!AI.on) { if (localHtml) pushHtml('bot', localHtml); else push('bot', localText); return; }
       push('bot', '正在想…');
       var box = body.lastChild;
       askAI(q).then(function (txt) {
         if (txt) { if (box) box.textContent = txt; mem[mem.length - 1] = { who: 'bot', t: txt }; }
-        else if (box) box.textContent = localText;
+        else if (box) { if (localHtml) box.innerHTML = localHtml; else box.textContent = localText; }
       }).catch(function () {
-        if (box) box.textContent = localText;   /* 失败就退回本地，绝不留"正在想…" */
+        if (box) { if (localHtml) box.innerHTML = localHtml; else box.textContent = localText; }  /* 失败就退回本地，绝不留"正在想…" */
       });
     }
     function open() {
