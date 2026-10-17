@@ -59,7 +59,7 @@ export const P3D_CSS = `
 /* 标题左右各留 56px：正好避开右端「点击查看/收起」（4 字 ×12px ≈ 48px），窄屏不重叠 */
 .p3d-head-t { flex: 1 1 auto; padding: 0 56px; text-align: center;
   font-size: 14px; font-weight: 600; color: var(--ro-fg); }
-/* 副标题「（民间算法）」：小字、常规字重，跟在主标题后面（用户 2026-10-18 改的名）*/
+/* 副标题「（3D/排三）」：小字、常规字重，跟在主标题后面（用户 2026-10-18：去掉「民间」字样）*/
 .p3d-head-sub { font-style: normal; font-size: 12px; font-weight: 400;
   color: var(--ro-fg2); margin-left: 4px; }
 .p3d-head-tip { position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
@@ -489,7 +489,7 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
        （「3D 手绘参考图」/「排列三 手绘参考图」）——它由脚本按彩种切换，
        验收脚本也在断言它，所以保留。 */
     `<summary class="p3d-head">` +
-      `<span class="p3d-head-t">手绘参考图<i class="p3d-head-sub">（民间算法）</i></span>` +
+      `<span class="p3d-head-t">手绘参考图<i class="p3d-head-sub">（3D/排三）</i></span>` +
       `<span class="p3d-head-tip" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="p3d-body">` +
