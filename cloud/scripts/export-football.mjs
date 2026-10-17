@@ -2944,6 +2944,17 @@ ${nav}
   font-weight: 700 !important; line-height: 18px !important; }
 .broadcast-bar .m-mq-item b, .broadcast-bar .m-mq-item i { color: #c0392b !important; }
 .broadcast-bar:hover .m-mq-track { animation-play-state: paused !important; }
+/* 【一键桌面】用户 2026-10-17 给的那个按钮（改成 <a role="button"> 以守住"0 裸 button"）。
+   米杏浅色，和播报条同一行右端；只在能安装/能引导安装的浏览器里显示（脚本控制）。 */
+.install-btn { display: inline-flex; align-items: center; justify-content: center;
+  height: 24px; padding: 0 10px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
+  color: #1a8c5a !important; background: #e3f2ea !important; border: 1px solid #1a8c5a !important;
+  text-decoration: none !important; white-space: nowrap; cursor: pointer; flex: 0 0 auto;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+.install-btn:active { background: #d3ebdd !important; }
+.install-hint { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
+  padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 </style>
 </head>
 <body>
@@ -2957,6 +2968,10 @@ ${nav}
   <h1>竞彩 · 推胜负平</h1>
   ${HIT_MQ_HTML}
   </div>
+  <!-- 【一键桌面】用户 2026-10-17：放在顶部（喇叭同一行的右端）。
+       ⚠️ 还是 <a role="button">，不用 <button> 标签 —— 页面不变量（0 裸 button）。
+       默认 display:none，由脚本按浏览器能力决定显示（见页尾 installApp 那段）。 -->
+  <a id="installAppBtn" class="install-btn" role="button" tabindex="0" style="display:none">📱 一键桌面</a>
   <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
@@ -4046,6 +4061,68 @@ ${JC_XYSP_VIEW}
   window.__jcLoadBroadcast = loadBroadcast;   /* 给验收脚本一个口子 */
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadBroadcast);
   else loadBroadcast();
+})();
+
+/* ============================================================
+   【一键桌面】用户 2026-10-17 给的按钮（<a role="button">，不用 button 标签）。
+   ------------------------------------------------------------
+   能力分三档，都不做成"死键"：
+     ① 浏览器支持 beforeinstallprompt（Chrome/Edge 安卓等）→ 直接弹原生安装
+     ② 微信内置浏览器 → 提示「右上角 ··· → 在浏览器打开」
+     ③ iOS Safari → 提示「分享 → 添加到主屏幕」
+   已经是桌面应用模式（display-mode: standalone / navigator.standalone）→ 不显示。
+   ⚠️ 真正的 PWA 安装需要 service worker；本项目没有 SW（也不建议加：
+      会和 30 秒实时刷新、CDN 缓存打架），所以这里做的是【入口 + 分平台引导】，
+      不承诺"一定弹系统安装框"。
+   ============================================================ */
+(function () {
+  if (typeof document === 'undefined') return;
+  var btn = document.getElementById('installAppBtn');
+  if (!btn) return;
+  var standalone = false;
+  try {
+    standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+      (navigator.standalone === true);
+  } catch (e) { standalone = false; }
+  if (standalone) { btn.style.display = 'none'; return; }
+
+  var deferred = null;
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  var isWX = /MicroMessenger/i.test(ua);
+
+  function hint(txt) {
+    var old = document.querySelector('.install-hint');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    var d = document.createElement('div');
+    d.className = 'install-hint';
+    d.textContent = txt;
+    document.body.appendChild(d);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 4600);
+  }
+  function show() { btn.style.display = 'inline-flex'; }
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    deferred = e;
+    show();
+  });
+  window.addEventListener('appinstalled', function () {
+    btn.style.display = 'none';
+    hint('已添加到桌面 ✓');
+  });
+
+  btn.addEventListener('click', function (ev) {
+    if (ev && ev.preventDefault) ev.preventDefault();
+    if (deferred && deferred.prompt) { deferred.prompt(); deferred = null; return; }
+    if (isWX) hint('微信里不能直接添加：点右上角 ··· → 在浏览器打开 → 再点「一键桌面」');
+    else if (isIOS) hint('Safari：点底部「分享」按钮 →「添加到主屏幕」');
+    else hint('在这个浏览器的菜单里选「安装应用」或「添加到主屏幕」');
+  });
+  btn.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter' || ev.key === ' ') { if (ev.preventDefault) ev.preventDefault(); btn.click(); }
+  });
+  show();   /* 入口始终给（能力不足时点击是引导，不是死键） */
 })();
 
 /* ============================================================
