@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  export-football.mjs —— 生成足球只读分享页（只显示竞猜场次）
 //
 //  产物：足球推荐.html —— 自包含单文件，发出去只能看
@@ -3004,7 +3004,14 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    ⚠️ 颜色全走变量（--border / --text-sub / --green），米杏色主题自动生效。
    ⚠️ 横向压缩：两个 Tab 各占一半、white-space:nowrap，320px 也不会把字挤换行。
    ============================================================ */
-.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.top-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 0;
+  position: -webkit-sticky; position: sticky; top: 0; z-index: 60;
+  background: var(--bg, #f7efe1); }
+.top-tabs.stuck { box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10); }
+.ro-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin: 0 0 2px; padding: 5px 10px 3px; font-size: 11px; line-height: 1.2;
+  color: #8a7a63; letter-spacing: 0.2px; }
+.ro-swipe-hint .ar { font-size: 12px; color: #1a8c5a; font-weight: 700; }
 .top-tabs .tab { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 8px;
   font-size: 14px; font-weight: 600; color: var(--text-sub); text-decoration: none;
   position: relative; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
@@ -3359,10 +3366,64 @@ ${DEVICE_GATE_BODY}
        ⚠️ 放在 #article 外面：locked 时不会被模糊，永远点得到。
        ⚠️ 当前页是竞彩，所以「竞彩/足球」带 .on。
        ============================================================ -->
+  <!-- 【左滑返回提示 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】 -->
+  <div class="ro-swipe-hint" id="roSwipeHint">
+    <span class="ar">←</span><span>左滑返回上一页</span>
+  </div>
   <div class="top-tabs">
     <a class="tab" href="./" data-tab-home="1">彩票推荐</a>
     <a class="tab on" href="足球推荐.html">竞彩/足球</a>
   </div>
+  <script>
+  /* __RO_SWIPE__ 吸顶 + 左滑返回（用户 2026-10-18）
+     ⚠️ 这段在模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
+  (function () {
+    'use strict';
+    try {
+      var tabs = document.querySelector('.top-tabs');
+      if (tabs) {
+        var onScroll = function () {
+          try {
+            var r = tabs.getBoundingClientRect();
+            if (r.top <= 0) tabs.classList.add('stuck'); else tabs.classList.remove('stuck');
+          } catch (e) { }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+      var sx = 0, sy = 0, st = 0, tracking = false;
+      function inScrollableX(el) {
+        var n = el;
+        while (n && n !== document.body && n !== document.documentElement) {
+          var cs = null;
+          try { cs = window.getComputedStyle(n); } catch (e) { cs = null; }
+          if (cs && (cs.overflowX === 'auto' || cs.overflowX === 'scroll') &&
+              n.scrollWidth > n.clientWidth + 4) return true;
+          n = n.parentNode;
+        }
+        return false;
+      }
+      document.addEventListener('touchstart', function (ev) {
+        if (!ev.touches || ev.touches.length !== 1) { tracking = false; return; }
+        if (inScrollableX(ev.target)) { tracking = false; return; }
+        var t = ev.touches[0];
+        sx = t.clientX; sy = t.clientY; st = Date.now(); tracking = true;
+      }, { passive: true });
+      document.addEventListener('touchend', function (ev) {
+        if (!tracking) return;
+        tracking = false;
+        var t = ev.changedTouches && ev.changedTouches[0];
+        if (!t) return;
+        var dx = t.clientX - sx, dy = t.clientY - sy, dt = Date.now() - st;
+        if (dt > 700) return;
+        if (Math.abs(dy) > 60) return;
+        if (dx > -60) return;
+        if (Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        if (window.history && window.history.length > 1) window.history.back();
+      }, { passive: true });
+    } catch (e) { }
+  })();
+  </script>
   <!-- 【owner 徽章】只有本机（file: 协议）或公网 IP = 主人 IP 时才显示。
        ⚠️ 2026-10-18 改：原来 position:fixed 在右上角，正好压住顶部 Tab / 喇叭；
           现在排在 Tab 条正下方、靠右，流内定位，不遮任何东西。 -->
