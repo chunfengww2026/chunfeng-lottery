@@ -1158,15 +1158,45 @@ function buildExpertsHtml() {
         '<div class="ro-xj-detail" id="ex-detail-' + escapeAttr(exKey) + '" hidden></div>' +
         '</div>';
     }).join('');
-/* 【期号状态】把这一组专家「最新已出号的期次」标出来 + 说明下一期待出号。
+/* 【构建期读专家数据】页面上那份 EXPERTS_DATA 是给浏览器用的；
+   生成页面时也要拿到 games[gid].issue（下一期期号），所以单独读一次并缓存。 */
+let __EXPERT_DATA_BUILD = null;
+function expertDataAtBuild() {
+  if (__EXPERT_DATA_BUILD !== null) return __EXPERT_DATA_BUILD;
+  __EXPERT_DATA_BUILD = {};
+  try {
+    const file = path.join(path.dirname(fileURLToPath(import.meta.url)), 'experts-data.js');
+    if (fs.existsSync(file)) {
+      const ctx = vm.createContext({});
+      vm.runInContext(fs.readFileSync(file, 'utf8') + '\n;globalThis.__X = EXPERTS_DATA;', ctx);
+      __EXPERT_DATA_BUILD = ctx.__X || {};
+    }
+  } catch (e) { __EXPERT_DATA_BUILD = {}; }
+  return __EXPERT_DATA_BUILD;
+}
+
+/* 【期号状态】把这一组专家「最新已出号的期次」标出来 + 说明下一期。
    取该组所有专家 catLatest.issue 的最大值（就是源站最新那期），一个都没有就不显示。 */
-function issueNote(list) {
+function issueNote(list, gid) {
   let iss = '';
   (list || []).forEach((e) => {
     const i = e && e.catLatest && e.catLatest.issue;
     if (i && (!iss || String(i) > String(iss))) iss = String(i);
   });
   if (!iss) return '';
+  /* 【期号 · 用户 2026-10-18「是不是抓不到下一期的了」】
+     源站选号分布页里带 issueName（例如 2026119），那就是【当前在卖/下一期】。
+     build-experts.mjs 现在会把它抓成 games[gid].issue：
+       · 有 issue → 明确标「下一期 2026119 期（源站已挂出）」
+       · 没有 issue → 退回原来那套「已开奖 + 下一期待出号」的说法（不改旧行为） */
+  let nextIss = '';
+  try {
+    const gd = expertDataAtBuild().games;
+    if (gd && gd[gid] && gd[gid].issue) nextIss = String(gd[gid].issue);
+  } catch (e) { nextIss = ''; }
+  if (nextIss) {
+    return '<span class="ro-xj-giss">最新已出号 ' + escape(iss) + ' 期 · 下一期 <b>' + escape(nextIss) + '</b> 期（源站已挂出）</span>';
+  }
   return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· 下一期待出号</span>';
 }
 
@@ -1177,7 +1207,7 @@ function issueNote(list) {
       /* 【期号状态】用户 2026-10-17：「抓取下一期开奖的号码」→ 选了「标注清楚 + 等源站出号」。
          专家推荐表里最新的一期就是源站已出的那期（通常 = 最近已开奖期），
          下一期要等专家出号（开奖当天下午后才发）—— 这里只标事实，不预告号码。 */
-      issueNote(list) + '</div>' +
+      issueNote(list, gid) + '</div>' +
       rows + '</div>';
   }).filter(Boolean).join('');
   if (!totalShown) return '';
