@@ -7562,6 +7562,22 @@ ${p3dHtml}
         <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
       </div>
       <div class="ro-ref-note">点一下，全屏看那张图</div>
+      <!-- ============================================================
+           __ALGO_TAG__ 「本页算法」清单（用户 2026-10-18）
+           ------------------------------------------------------------
+           用户原话：「余数算法、分区法、冷热号、遗漏值算法、奇偶、质合、
+                      和值、跨度、多源共振法 —— 每个后面都加内容（人工计算手法）」
+           · 只在这张「参考图」卡里列举一次（按钮文字 / 表格标题一个都不动）
+           · 9 项一个不少，每项后面都跟「（人工计算手法）」
+           · 小字 12px + 灰（--ro-fg2）+ 自动换行，375 / 320 折成几行，不横向溢出
+           · ⚠️ 不写任何数据出处（source-guard 会拦）；「人工计算手法」是用户要的
+           · 下面那行合规提示：这张卡里原本没有免责，补一句小的，不重复页尾
+           ============================================================ -->
+      <div class="ro-ref-algo">
+        <div class="ro-ref-algo-h">本页算法（人工计算手法）：</div>
+        <div class="ro-ref-algo-l">余数算法（人工计算手法）· 分区法（人工计算手法）· 冷热号（人工计算手法）· 遗漏值算法（人工计算手法）· 奇偶（人工计算手法）· 质合（人工计算手法）· 和值（人工计算手法）· 跨度（人工计算手法）· 多源共振法（人工计算手法）</div>
+        <div class="ro-ref-algo-w">⚠️ 仅用于历史数据统计娱乐，无法预测开奖！</div>
+      </div>
     </div>
   </details>
   </div>
@@ -12955,6 +12971,26 @@ ${CHAT_JS_SHARE}
 .ro-ref-toc .ro-toc-cell .ro-toc-t { font-size: 12.5px; font-weight: 700; color: var(--ro-fg); }
 .ro-ref-toc .ro-toc-cell .ro-toc-s { display: block; margin-top: 2px; font-size: 10.5px; color: var(--ro-fg2); }
 .ro-ref-note { margin-top: 8px; text-align: center; font-size: 11px; color: var(--ro-fg3); }
+/* ④ 「本页算法（人工计算手法）」清单（用户 2026-10-18）——
+   9 个算法名照着原词一个一个列，每项后面都跟「（人工计算手法）」。
+   小字 12px · 次要灰 --ro-fg2 · line-height 1.7 → 375 / 320 下自然折成几行，
+   不横向溢出（min-width:0 + overflow-wrap:anywhere 兜底）。 */
+.ro-ref-algo {
+  margin-top: 10px;
+  padding: 8px 9px;
+  min-width: 0;
+  background: var(--ro-sunken);
+  border: 1px dashed var(--ro-line);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ro-fg2);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.ro-ref-algo-h { font-weight: 700; color: var(--ro-fg); margin-bottom: 2px; }
+.ro-ref-algo-l { display: block; }
+.ro-ref-algo-w { margin-top: 4px; font-size: 11px; color: var(--ro-fg3); }
 /* 320 窄屏：两列保留，只缩字号 / 内边距（和另外三组一致，不改成上下排列） */
 @media (max-width: 360px) {
   #ro-xj-row .ro-xj-title, #ro-ref-row .p3d-head-t, #ro-ref-row .ro-ref-h2 { font-size: 14px !important; }
@@ -12967,6 +13003,9 @@ ${CHAT_JS_SHARE}
   #ro-ref-row > .p3d-section,
   #ro-ref-row > .ro-ref-pic { padding: 10px 8px 0 !important; }
   .ro-ref-toc .ro-toc-cell { font-size: 11.5px !important; padding: 6px 4px !important; }
+  /* 320 更窄：算法清单再收一档字号（内容多，别让卡片长得太高），仍可正常折行 */
+  .ro-ref-algo { font-size: 11px; line-height: 1.65; padding: 7px 8px; }
+  .ro-ref-algo-w { font-size: 10.5px; }
 }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
