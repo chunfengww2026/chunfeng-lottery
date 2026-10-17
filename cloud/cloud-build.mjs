@@ -1204,10 +1204,18 @@ function main() {
       const hh = nowBj.getUTCHours();
       const mm = nowBj.getUTCMinutes();
       const afterDraw = (hh === 21 && mm >= 20) || hh === 22 || hh === 23 || (hh >= 0 && hh < 2);
-      if (afterDraw && (slot.type === 'regular' || slot.type === 'live-only')) {
-        log('\n【4.5】开奖后抓下一期（双色球）…');
-        try { run('build-experts.mjs', ['ssq']); }
-        catch (e) { log('  ⚠️ 下一期还没出号或抓取失败（下一班 10 分钟后再抓）：' + e.message); }
+      /* 【一直抓到齐 · 用户 2026-10-18】
+         「程序改成一直抓取，直到某个彩种抓到为止就停了，等下一期开奖继续抓」
+         · 每一班（10 分钟）都跑：--all --skip-done
+         · --skip-done 会逐个彩种比对「源站期号 vs 本地期号 + 专家数 + 分类数」：
+             已抓够（同期 · ≥20 位 · ≥10 个分类）→ 跳过，什么都不做（很便宜）
+             没抓够 / 源站换期了 → 立刻抓
+         · 所以：没抓够就一直抓；抓够了就安静等；下一期开奖（源站期号变了）自动继续抓。
+         ⚠️ 全部在云端跑，免费、不占你电脑。 */
+      if (slot.type === 'regular' || slot.type === 'live-only') {
+        log('\n【4.5】专家数据：一直抓到齐（--all --skip-done）…');
+        try { run('build-experts.mjs', ['--all', '--skip-done']); }
+        catch (e) { log('  ⚠️ 专家抓取失败（沿用旧数据，下一班 10 分钟后再抓）：' + e.message); }
       }
     } catch (e) { log('  ⚠️ 下一期抓取调度出错（不影响页面）：' + e.message); }
     /* 【专家推荐 20 篇 · 每小时抓一次 · 用户 2026-10-18】
