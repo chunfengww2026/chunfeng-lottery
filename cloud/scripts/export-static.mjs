@@ -6689,6 +6689,10 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tq-mini.zero b, .tq-mini.zero span { color: #b7a892; }
 .tq-tbl-wrap { max-height: 360px; overflow-y: auto; -webkit-overflow-scrolling: touch;
   border: 1px solid #f0dcc8; border-radius: 10px; background: #fffdf9; }
+.tq-tbl-wrap { scrollbar-width: thin; scrollbar-color: #e3d0b6 transparent; }
+.tq-tbl-wrap::-webkit-scrollbar { width: 6px; }
+.tq-tbl-wrap::-webkit-scrollbar-thumb { background: #e3d0b6; border-radius: 3px; }
+.tq-tbl-wrap::-webkit-scrollbar-track { background: transparent; }
 .tq-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
 .tq-tbl th, .tq-tbl td { padding: 5px 3px; text-align: center; border-bottom: 1px solid #f4e7d8; }
 .tq-tbl th { color: #8a7a63; font-weight: 700; background: #fdf3e6; position: sticky; top: 0; z-index: 1; }
@@ -7001,7 +7005,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 每张卡都是 <div role="button" tabindex="0">（页面不变量：没有按钮标签），
           点一下进全屏子页面，子页面自带「← 返回」。
        ⚠️ 8 个子页面的数据纪律：能算的从本页开奖数据现算；
-          算不出的写「暂不支持」；AI推荐 是系统随机并已标注 —— 绝不编数字。
+          算不出的如实写「样本不足」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
@@ -10207,7 +10211,7 @@ ${CHAT_JS_SHARE}
   function pageStat() {
     var g = gameById(st.game), key = curArea(g);
     var a = statOf(g.id, SPAN), b = statOf(g.id, 10);
-    if (!a.ok) return chipsGame() + none('暂不支持', '这个彩种本页没有开奖数据，算不出来。');
+    if (!a.ok) return chipsGame() + none('样本不足', '这个彩种本页还没有足够的开奖数据。');
     var h = chipsGame() + chipsArea(g);
     h += card('近 ' + a.n + ' 期 · ' + esc(g.name) + ' ' + esc(areaLabel(g, key)),
       row('奇偶比', '奇 ' + a.odd + ' : 偶 ' + a.even + '（' + pctS(a.odd, a.cnt) + ' / ' + pctS(a.even, a.cnt) + '）') +
@@ -10921,7 +10925,8 @@ ${CHAT_JS_SHARE}
     return top;
   }
   function tqPicks(g, issue) {
-    var rnd = tqRng('tq|' + g.id + '|' + String(issue || '0') + '|' + st.tqTab);
+    /* 种子只用 彩种 + 下一期期号 → 换个 Tab 看同一组号，换期才变 */
+    var rnd = tqRng('tq|' + g.id + '|' + String(issue || '0'));
     var out = [], i, tabs = tqTabs(g);
     if (g.type === 'digit') {
       var need = tqPer(g.id, 'main');
@@ -11115,8 +11120,9 @@ ${CHAT_JS_SHARE}
   }
 
   /* ---------------- A · 斜连推号 ---------------- */
-  function ptSlant(g, ctx) {
-    var rows = ctx.rows, i, j, x, list = [], hist = 0;
+  function ptSlant(g, ctx, ctx30) {
+    /* 历史斜线用近 30 期数（样本够才看得出来），推下一期用最新两期 */
+    var rows = (ctx30 && ctx30.rows.length > ctx.rows.length) ? ctx30.rows : ctx.rows, i, j, x, list = [], hist = 0;
     for (i = 2; i < rows.length; i++) {
       var a = rows[i - 2].nums, b = rows[i - 1].nums, c = rows[i].nums;
       for (j = 0; j < a.length; j++) {
@@ -11140,11 +11146,26 @@ ${CHAT_JS_SHARE}
         if (q.indexOf(p[j] - 1) >= 0) { preds.push(p[j] - 2); near.push(p[j] + ' → ' + (p[j] - 1) + ' → 推 ' + (p[j] - 2)); }
       }
     }
-    var outNums = ptUniq(preds, ctx);
+    var outNums = ptUniq(preds, ctx), fallback = '';
+    if (!outNums.length) {
+      /* 没有斜线时不许留空：改用「均值回归」/「上期邻号」两套兜底，同样出具体号码 */
+      var n10 = Math.min(PT_NEAR, rows.length), sm = 0, q3;
+      if (!ctx.isMulti) {
+        for (q3 = rows.length - n10; q3 < rows.length; q3++) if (q3 >= 0) sm += rows[q3].nums[0];
+        var mean = sm / Math.max(1, n10), base = Math.round(mean);
+        outNums = ptUniq([base - 1, base, base + 1], ctx);
+        fallback = '近 ' + rows.length + ' 期没有连成一条的斜线 → 改用「均值回归」：近 ' + n10 + ' 期均值 ' + fmt1(mean) + '，推它上下 1 个号';
+      } else {
+        var lastN = rows.length ? rows[rows.length - 1].nums : [], back = [], q4;
+        for (q4 = 0; q4 < lastN.length; q4++) { back.push(lastN[q4] - 1); back.push(lastN[q4] + 1); }
+        outNums = ptUniq(back, ctx);
+        fallback = '近 ' + rows.length + ' 期没有连成一条的斜线 → 改用「上期邻号」：上期号码各 ±1';
+      }
+    }
     var t = '<table class="tq-mtbl"><thead><tr><th>期号</th><th>斜连线</th><th>推出</th></tr></thead><tbody>', k;
     var tail = list.slice(-4);
     if (!tail.length) {
-      t += '<tr><td colspan="3" class="l">近 ' + ctx.n + ' 期没有三期连成一条的斜线（+1 / -1）</td></tr>';
+      t += '<tr><td colspan="3" class="l">近 ' + rows.length + ' 期还没有三期斜线（+1 / -1），所以用了下面的兜底推号</td></tr>';
     } else {
       for (k = 0; k < tail.length; k++) {
         t += '<tr><td>' + esc(tail[k].issue) + '</td><td>' + tail[k].chain + '</td><td><b>' + (ptIn(tail[k].pred, ctx) ? tail[k].pred : '越界') + '</b></td></tr>';
@@ -11153,9 +11174,10 @@ ${CHAT_JS_SHARE}
     t += '</tbody></table>';
     var body = t;
     if (near.length) body += '<div class="tq-kv"><span>最新两期连线</span><b>' + esc(near.slice(0, 3).join('；')) + '</b></div>';
-    body += '<div class="tq-kv"><span>近 ' + ctx.n + ' 期出现斜连</span><b>' + hist + ' 次</b></div>';
+    body += '<div class="tq-kv"><span>近 ' + rows.length + ' 期斜线</span><b>' + hist + ' 次</b></div>';
+    if (fallback) body += '<div class="tq-kv"><span>兜底规则</span><b>' + fallback + '</b></div>';
     body += ptBallsLine('可能出现', outNums, ctx.isMulti ? 'red' : 'blue');
-    return ptBlk('A · 斜连推号', '近 ' + ctx.n + ' 期', body);
+    return ptBlk('A · 斜连推号', '近 ' + rows.length + ' 期', body);
   }
 
   /* ---------------- B · 竖连续出 ---------------- */
@@ -11190,7 +11212,7 @@ ${CHAT_JS_SHARE}
       body += '<div class="tq-kv"><span>连出的号</span><b>' + s + '</b></div>';
       body += '<div class="tq-kv"><span>续连判断</span><b>' + (three * 100 / (two || 1) > 40 ? '历史上续连率偏高，可以留 1 个' : '历史上续连率一般，最多留 1 个') + '</b></div>';
     }
-    body += '<div class="tq-kv"><span>近 ' + rows.length + ' 期续连率</span><b>' + three + ' / ' + two + ' 次（' + (two ? fmt1(three * 100 / two) : '0.0') + '%）</b></div>';
+    body += '<div class="tq-kv"><span>续连次数</span><b>连出 ' + two + ' 次 · 续到第 3 期 ' + three + ' 次' + (two ? '' : '（这一段没有连出过的号）') + '</b></div>';
     body += ptBallsLine('续连候选', ptUniq(nums, ctx), ctx.isMulti ? 'red' : 'blue');
     return ptBlk('B · 竖连续出', '同号连出', body);
   }
@@ -11438,7 +11460,7 @@ ${CHAT_JS_SHARE}
       return h + ptBottom(g, tabs);
     }
     h += '<div class="tq-sec"><div class="tq-sec-h">基础规律<span class="tq-free">免费查看</span></div>';
-    h += ptSlant(g, ctx10);
+    h += ptSlant(g, ctx10, ctx30);
     h += ptVertical(g, ctx30);
     h += ptTail(g, ctx10, ctx30);
     h += ptCycle(g, ctx30);
@@ -11969,7 +11991,8 @@ ${CHAT_JS_SHARE}
   }
   function maBottom(g) {
     var issue = tqNextIssue(g.id);
-    var rnd = tqRng('ma-bottom|' + g.id + '|' + String(issue || '0'));
+    /* 和「本期方案」这条规则用同一个种子 → 底部这组号 = 规则里看到的那组号 */
+    var rnd = tqRng('ma-plan|' + g.id + '|' + String(issue || '0'));
     var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 本期号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
     if (g.type === 'digit') {
       var tabs = tqTabs(g), need = tabs.length, kr = '', pr = '', p, i;
@@ -12568,6 +12591,19 @@ ${CHAT_JS_SHARE}
 .install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
 .install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
 .install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+/* __RE_GUIDE_HTML__ 安装指南（用户指定样式） */
+.install-guide { margin: 16px 12px 24px; background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; padding: 14px 12px 10px; }
+.ig-title { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; }
+.ig-sub { text-align: center; font-size: 11.5px; color: #8a7a63; margin: 6px 0 12px; line-height: 1.6; }
+.ig-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ig-card { background: #fffdf8; border: 1px solid #ecdcc2; border-radius: 10px; padding: 10px 10px 8px; }
+.ig-head { text-align: center; font-size: 13.5px; font-weight: 700; color: #1a8c5a; padding-bottom: 6px; border-bottom: 1px dashed #e8d7bd; margin-bottom: 8px; }
+.ig-ico { margin-right: 4px; }
+.ig-step { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4a3a26; padding: 4px 0; line-height: 1.4; }
+.ig-step i { flex: 0 0 auto; width: 16px; height: 16px; border-radius: 50%; background: #1a8c5a; color: #fff; font-style: normal; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.ig-note { font-size: 10.5px; color: #a89a80; line-height: 1.5; margin-top: 6px; }
+.ig-foot { text-align: center; font-size: 11.5px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+@media (max-width: 340px) { .ig-cols { grid-template-columns: 1fr; } }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -12719,25 +12755,27 @@ ${CHAT_JS_SHARE}
 })();
 </script>
 
-<!-- __RE_GUIDE_HTML__ 安装指南（内联 SVG，不依赖图片文件） -->
+<!-- __RE_GUIDE_HTML__ 安装指南（用户 2026-10-18 指定样式：图标 + ① ② ③ 圆点） -->
 <div class="install-guide">
-  <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="添加到手机桌面示意">
-    <rect width="640" height="260" rx="16" fill="#fff6e6" stroke="#e8d7bd"/>
-    <text x="320" y="36" text-anchor="middle" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a3a26">添加到手机桌面，更方便更稳定</text>
-    <rect x="24" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
-    <text x="167" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">安卓 / 微信</text>
-    <text x="167" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点右上角「···」</text>
-    <text x="167" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="167" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
-    <text x="167" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">浏览器菜单里也叫「添加到桌面」</text>
-    <rect x="330" y="58" width="286" height="176" rx="12" fill="#fff" stroke="#e8d7bd"/>
-    <text x="473" y="86" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1a8c5a">苹果 iPhone</text>
-    <text x="473" y="118" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">1. 点底部「分享」图标</text>
-    <text x="473" y="146" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">2. 选「添加到主屏幕」</text>
-    <text x="473" y="174" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a3a26">3. 点「添加」</text>
-    <text x="473" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a7a63">Safari 才支持；微信里先「在浏览器打开」</text>
-  </svg>
-  <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
+  <div class="ig-title">添加到手机桌面，更方便更稳定</div>
+  <div class="ig-sub">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
+  <div class="ig-cols">
+    <div class="ig-card">
+      <div class="ig-head"><span class="ig-ico">📱</span>安卓 / 微信</div>
+      <div class="ig-step"><i>1</i>点右上角「···」</div>
+      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
+      <div class="ig-step"><i>3</i>点「添加」</div>
+      <div class="ig-note">浏览器里也叫「添加到桌面」。</div>
+    </div>
+    <div class="ig-card">
+      <div class="ig-head"><span class="ig-ico">🍎</span>苹果 iPhone</div>
+      <div class="ig-step"><i>1</i>点底部「分享」图标</div>
+      <div class="ig-step"><i>2</i>选「添加到主屏幕」</div>
+      <div class="ig-step"><i>3</i>点「添加」</div>
+      <div class="ig-note">只有 Safari 支持；在微信里请先在「浏览器打开」。</div>
+    </div>
+  </div>
+  <div class="ig-foot">备注：添加桌面更方便更稳定</div>
 </div>
 
 <script>
