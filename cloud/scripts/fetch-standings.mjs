@@ -158,10 +158,30 @@ async function main() {
     await sleep(400);
   }
 
+  /* 上一份已有的数据（用来"这一轮没抓到的联赛沿用旧值"，绝不清空） */
+  let prev = null;
+  try {
+    const src = fs.readFileSync(OUT_FILE, 'utf8');
+    const i = src.indexOf('const JC_STANDINGS');
+    const a = src.indexOf('{', i), b = src.lastIndexOf('}');
+    if (i >= 0 && a >= 0 && b > a) prev = JSON.parse(src.slice(a, b + 1));
+  } catch (e) { prev = null; }
+
   if (!ok) {
-    /* 一个都没抓到：不覆盖已有的文件（本机那份可能还是好的），只报错退出 1 */
-    console.error('❌ fetch-standings.mjs：一个联赛都没抓到，jc-standings.js 保持原样');
-    process.exit(1);
+    /* 一个联赛都没抓到（云端美国 IP 被拦、或站点整体改了结构）：
+       ⚠️【不覆盖旧文件、也不 exit 1】——
+          旧的那一份通常还是好的，页面上照旧能用；这一步只是"本班没拿到新的"。
+          云端构建/本机链都是"失败只记一行"的容错，这里主动 exit 0 免得刷红字。 */
+    console.log('⚠️ fetch-standings.mjs：这一轮一个联赛都没抓到 → jc-standings.js 保持原样（沿用上一份）');
+    process.exit(0);
+  }
+
+  /* 部分联赛失败：把上一份里这些联赛的旧值接回去（宁可旧，也不要少一个联赛） */
+  let carried = 0;
+  if (prev && prev.leagues) {
+    Object.keys(prev.leagues).forEach((id) => {
+      if (!leagues[id]) { leagues[id] = prev.leagues[id]; carried++; }
+    });
   }
 
   const obj = {
@@ -174,10 +194,14 @@ async function main() {
     '/* 自动生成，请勿手动编辑 · ' + obj.updated + ' */\n'
     + 'const JC_STANDINGS = ' + body + ';\n', 'utf8');
   const kb = (fs.statSync(OUT_FILE).size / 1024).toFixed(1);
-  console.log(`✅ jc-standings.js 已生成  ${kb} KB · ${ok}/${list.length} 个联赛 · 数据时间 ${obj.updated}`);
+  console.log(`✅ jc-standings.js 已生成  ${kb} KB · ${ok}/${list.length} 个联赛本轮更新`
+    + (carried ? ' · ' + carried + ' 个联赛沿用上一份' : '')
+    + ' · 数据时间 ' + obj.updated);
 }
 
 main().catch((e) => {
-  console.error('❌ fetch-standings.mjs 出错：' + (e && e.message));
-  process.exit(1);
+  /* ⚠️ 整体抓取异常也【不覆盖旧文件、不 exit 1】：这一步是"有更好、没有也能跑"，
+     绝不让它把整班构建 / 整条本机链拖垮（旧数据照旧被 build-match 读走）。 */
+  console.log('⚠️ fetch-standings.mjs 出错：' + (e && e.message) + ' → jc-standings.js 保持原样');
+  process.exit(0);
 });
