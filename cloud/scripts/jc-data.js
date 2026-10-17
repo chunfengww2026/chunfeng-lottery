@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 16:30 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 16:58 */
 const JC_DATA = {
- "updated": "2026-10-17 16:30",
+ "updated": "2026-10-17 16:58",
  "stat": {
   "total": 63,
-  "upcoming": 60,
-  "live": 1,
+  "upcoming": 59,
+  "live": 2,
   "finished": 2,
-  "withScore": 3,
+  "withScore": 4,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -659,7 +659,7 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 1
    },
    "statusText": "0 - 1 ",
@@ -746,7 +746,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 1
    }
   },
@@ -909,7 +909,10 @@ const JC_DATA = {
     "name": "纽喷气机",
     "rank": 7
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -919,9 +922,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 0.85,
+      "home": 0.82,
       "line": "受半球/一球",
-      "away": 0.95
+      "away": 0.97
      }
     },
     "europe": {
@@ -931,9 +934,9 @@ const JC_DATA = {
       "away": 1.8
      },
      "live": {
-      "home": 3.7,
-      "draw": 3.8,
-      "away": 1.9
+      "home": 3.9,
+      "draw": 3.9,
+      "away": 1.8
      }
     },
     "overunder": {
@@ -952,37 +955,37 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 49.7,
+    "confidence": 52,
     "prob": {
-     "home": 25.5,
-     "draw": 24.8,
-     "away": 49.7
+     "home": 24,
+     "draw": 24,
+     "away": 52
     },
     "clear": true,
-    "margin": 6,
+    "margin": 6.8,
     "rqLine": "受半球/一球",
-    "type": "unbeaten"
+    "type": "three"
    },
    "asianIndex": {
     "line": "受半球/一球",
     "from": "live",
     "handicap": 0.75,
     "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.85,
+    "upWater": 0.97,
+    "downWater": 0.82,
     "openHandicap": 0.75,
     "openUpWater": 0.95,
     "openDownWater": 0.85,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "47.22",
-    "theoryDownPercent": "52.78",
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.75,
      "nowHandicap": 0.75,
      "initUpWater": 0.95,
-     "nowUpWater": 0.95,
+     "nowUpWater": 0.97,
      "initLine": "受半球/一球",
      "nowLine": "受半球/一球"
     },
@@ -991,9 +994,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1415987",
@@ -1666,8 +1672,8 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 2.88,
-      "draw": 3.8,
+      "home": 3,
+      "draw": 3.7,
       "away": 2.25
      }
     },
@@ -1687,14 +1693,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 42.1,
+    "confidence": 42.4,
     "prob": {
-     "home": 32.9,
-     "draw": 24.9,
-     "away": 42.1
+     "home": 31.8,
+     "draw": 25.8,
+     "away": 42.4
     },
     "clear": false,
-    "margin": 5.5,
+    "margin": 4.8,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
