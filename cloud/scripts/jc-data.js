@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 12:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 13:05 */
 const JC_DATA = {
- "updated": "2026-10-17 12:58",
+ "updated": "2026-10-17 13:05",
  "stat": {
   "total": 63,
   "upcoming": 63,
@@ -11,8 +11,8 @@ const JC_DATA = {
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": true,
-  "officialCodes": 63,
+  "officialGate": false,
+  "officialCodes": 0,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
@@ -367,9 +367,9 @@ const JC_DATA = {
       "away": 5.75
      },
      "live": {
-      "home": 1.48,
-      "draw": 4.1,
-      "away": 6
+      "home": 1.53,
+      "draw": 4,
+      "away": 5.5
      }
     },
     "overunder": {
@@ -388,14 +388,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 62.2,
+    "confidence": 60.2,
     "prob": {
-     "home": 62.2,
-     "draw": 22.5,
-     "away": 15.3
+     "home": 60.2,
+     "draw": 23,
+     "away": 16.8
     },
     "clear": true,
-    "margin": 8.6,
+    "margin": 8.5,
     "rqLine": "一球",
     "type": "three"
    },
@@ -1158,9 +1158,9 @@ const JC_DATA = {
       "away": 4.75
      },
      "live": {
-      "home": 1.51,
-      "draw": 4.1,
-      "away": 5.25
+      "home": 1.67,
+      "draw": 3.8,
+      "away": 4.33
      }
     },
     "overunder": {
@@ -1179,14 +1179,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 60.4,
+    "confidence": 54.8,
     "prob": {
-     "home": 60.4,
-     "draw": 22.2,
-     "away": 17.4
+     "home": 54.8,
+     "draw": 24.1,
+     "away": 21.1
     },
     "clear": true,
-    "margin": 9.7,
+    "margin": 9.3,
     "rqLine": "一球",
     "type": "three"
    },
@@ -6158,8 +6158,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-10-17 12:58",
   "officialUpdate": "2026-10-17 12:56:11",
   "inSale": 63,
