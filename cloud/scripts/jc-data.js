@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-18 01:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-18 02:28 */
 const JC_DATA = {
- "updated": "2026-10-18 01:58",
+ "updated": "2026-10-18 02:28",
  "stat": {
-  "total": 26,
-  "upcoming": 4,
+  "total": 25,
+  "upcoming": 3,
   "live": 0,
   "finished": 22,
   "withScore": 22,
-  "droppedNotOnSale": 4,
+  "droppedNotOnSale": 5,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 37,
-  "droppedNotOnSale": 4,
+  "officialCodes": 36,
+  "droppedNotOnSale": 5,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -2394,109 +2394,6 @@ const JC_DATA = {
    }
   },
   {
-   "gid": "1415984",
-   "fid": "1415984",
-   "sid": "19878",
-   "code": "周六027",
-   "league": "荷甲",
-   "round": "第9轮",
-   "time": "2026-10-18 02:00",
-   "handicap": null,
-   "home": {
-    "name": "特尔斯达",
-    "rank": 15
-   },
-   "away": {
-    "name": "费耶诺德",
-    "rank": 1
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.97,
-      "line": "受球半",
-      "away": 0.82
-     },
-     "live": {
-      "home": 0.95,
-      "line": "受球半",
-      "away": 0.85
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 7,
-      "draw": 5.5,
-      "away": 1.33
-     },
-     "live": {
-      "home": 7.5,
-      "draw": 5,
-      "away": 1.36
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.82,
-      "over": 3.5,
-      "under": 0.97
-     },
-     "live": {
-      "line": 0.97,
-      "over": 3.5,
-      "under": 0.82
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 68.8,
-    "prob": {
-     "home": 12.5,
-     "draw": 18.7,
-     "away": 68.8
-    },
-    "clear": true,
-    "margin": 6.9,
-    "rqLine": "受球半",
-    "type": "three"
-   },
-   "asianIndex": {
-    "line": "受球半",
-    "from": "live",
-    "handicap": 1.5,
-    "upSide": "away",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": 1.5,
-    "openUpWater": 0.82,
-    "openDownWater": 0.97,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 1.5,
-     "nowHandicap": 1.5,
-     "initUpWater": 0.82,
-     "nowUpWater": 0.85,
-     "initLine": "受球半",
-     "nowLine": "受球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
-  {
    "gid": "1414160",
    "fid": "1414160",
    "sid": "19826",
@@ -2535,9 +2432,9 @@ const JC_DATA = {
       "away": 10
      },
      "live": {
-      "home": 1.6,
-      "draw": 3.9,
-      "away": 6
+      "home": 1.67,
+      "draw": 3.8,
+      "away": 5.25
      }
     },
     "overunder": {
@@ -2556,14 +2453,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 59.6,
+    "confidence": 56.9,
     "prob": {
-     "home": 59.6,
-     "draw": 24.5,
-     "away": 15.9
+     "home": 56.9,
+     "draw": 25,
+     "away": 18.1
     },
     "clear": true,
-    "margin": 4.8,
+    "margin": 5.2,
     "rqLine": "一球",
     "type": "three"
    },
@@ -2638,9 +2535,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3.2,
-      "draw": 3.25,
-      "away": 2.3
+      "home": 3.1,
+      "draw": 3.2,
+      "away": 2.38
      }
     },
     "overunder": {
@@ -2659,11 +2556,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 41.2,
+    "confidence": 39.8,
     "prob": {
-     "home": 29.6,
-     "draw": 29.2,
-     "away": 41.2
+     "home": 30.6,
+     "draw": 29.6,
+     "away": 39.8
     },
     "clear": false,
     "margin": 5.5,
@@ -2809,41 +2706,10 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-18 01:58",
+  "updated": "2026-10-18 02:28",
   "officialUpdate": "2026-10-17 22:17:55",
-  "inSale": 37,
+  "inSale": 36,
   "list": [
-   {
-    "code": "周六027",
-    "matchNum": "6027",
-    "league": "荷甲",
-    "time": "2026-10-18 02:00:00",
-    "home": "特尔斯达",
-    "away": "费耶诺德",
-    "had": {
-     "h": 9,
-     "d": 5.85,
-     "a": 1.18,
-     "update": "2026-10-17 22:17:50"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 3.64,
-     "d": 4.42,
-     "a": 1.59,
-     "update": "2026-10-17 22:17:55"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周六028",
     "matchNum": "6028",
