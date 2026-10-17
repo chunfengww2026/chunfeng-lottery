@@ -1388,7 +1388,7 @@ function recoStatBarInner() {
     : '暂未开始统计';
   /* 【类名对齐用户 2026-10-17 给的结构】他给的是：
        <div class="record-bar" id="recStatsBar">
-         <span class="label">推荐串战绩</span>
+         <span class="label">推荐单</span>
          <span class="red" id="recRedText">红 0</span>
          <span class="black" id="recBlackText">黑 0</span>
          <span class="rate" id="recRateText">命中率 —</span>
@@ -1416,7 +1416,7 @@ function recoStatBarTop() {
      同时保留旧 id="jcRecStat"（30 秒刷新脚本靠它找元素）——
      两个 id 不能同时给一个元素，所以脚本里改成「先找 recStatsBar，再退回 jcRecStat」。 */
   return `<div class="record record-bar" id="recStatsBar" data-reco-updated="${esc(RECO_STAMP)}">` +
-    `<span class="label t">推荐串战绩</span>` +
+    `<span class="label t">推荐单</span>` +
     recoStatBarInner() +
     `</div>`;
 }
@@ -1433,7 +1433,7 @@ function renderRec() {
   const head =
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
-    `<span class="t m-rectitle">推荐串</span>` +
+    `<span class="t m-rectitle">推荐</span>` +
     `<span class="d m-reccount">在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场</span>` +
     `</span>` +
     `<span class="right m-rectip" aria-hidden="true"></span>` +
@@ -1485,7 +1485,7 @@ function renderRec() {
     : `红 ${REC_STAT ? REC_STAT.red : 0} · 黑 ${REC_STAT ? REC_STAT.black : 0} · 命中率 —`;
   const pastHead =
     `<div class="past-header">` +
-    `<div class="title-left"><span class="label">往期推荐串</span></div>` +
+    `<div class="title-left"><span class="label">推荐历史结果</span></div>` +
     `<div class="stats-right" id="pastStats">${pastStats}</div>` +
     `</div>` +
     (REC_ARCH_PENDING ? `<div class="past-pending">还有 ${REC_ARCH_PENDING} 组没打完，未出结果前不列出</div>` : '');
@@ -1521,9 +1521,11 @@ function renderRec() {
 
   /* 【30 秒刷新】把这份内层 HTML 存下来给 jc-reco-view.js 用 */
   REC_ARCH_INNER = detail;
-  return `<details class="m-rec" id="jcRec">${head}${note}${body}` +
-    (detail ? `<div class="past-recommend-section" id="jcRecArch">${detail}</div>` : '') +
-    `</details>`;
+  /* 【三卡片化】用户 2026-10-17：推荐单 / 推荐（在售）/ 推荐历史结果 各成一张卡。
+   把「推荐历史结果」（#jcRecArch）移出 <details>，成为独立的第三张卡；
+   id 不变 → 30 秒刷新脚本照样能换内容。 */
+  return `<details class="m-rec" id="jcRec">${head}${note}${body}</details>` +
+    (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '');
 }
 
 /* ============================================================
