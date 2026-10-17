@@ -6335,21 +6335,55 @@ ${RO_RENDER_SCRIPT}
 })();
 </script>
 
-<!-- __NEXT_CD__ 下一期更新倒计时（目标：每天 02:15，即 2 点全量任务一般跑完的时刻）
-     纯前端 JS，不请求接口、不调 AI → 免费。 -->
+<!-- __NEXT_CD__ 下一期更新倒计时
+     用户 2026-10-17：「这个倒计时就要根据最后一个彩种更新完来决定倒计时」+「不是推荐出号就更新吗」
+     规则（不再写死 02:15）：
+       ① 从页面上「开机号」区块里读每个彩种的【下一期开奖时间】（文本形如
+          「开奖时间 2026年10月18日 星期日 21:15」，数据来自 kjh-data.js）
+       ② 每个开奖时间 + BUILD_DELAY（20 分钟，云端构建到发布的实际耗时）
+       ③ 取【最早的一个未来时刻】作为倒计时目标 —— 也就是"下一个彩种更新完"的时刻
+       ④ 今天所有彩种都更完之后 → 退回明天 02:15（每日全量班）
+     纯前端计算，不请求接口、不调 AI → 免费。
+     ⚠️ 一个彩种的时间都解析不出来 → 也退回 02:15，绝不显示假时间。 -->
 <script>
 (function () {
   var els = [document.getElementById('__NEXT_CD__'), document.getElementById('__NEXT_CD2__')].filter(Boolean);
-  if (!els.length) return;   /* 【修正】原来写的是 if (!el)，但变量叫 els → 一直抛错，倒计时从来没画出来 */
+  if (!els.length) return;
+  var BUILD_DELAY_MS = 20 * 60 * 1000;   /* 开奖后到页面发布的大致耗时 */
   function pad(n) { return n < 10 ? '0' + n : String(n); }
-  function target() {
+
+  /* 从开机号区块读出所有「开奖时间 YYYY年M月D日 星期X HH:MM」 */
+  function drawTimes() {
+    var out = [];
+    var nodes = document.querySelectorAll('.ro-kjh-time');
+    for (var i = 0; i < nodes.length; i++) {
+      var m = /(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日[\s\S]*?(\d{1,2}):(\d{2})/.exec(nodes[i].textContent || '');
+      if (!m) continue;
+      var t = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0, 0);
+      if (!isNaN(t.getTime())) out.push(t.getTime() + BUILD_DELAY_MS);
+    }
+    return out;
+  }
+
+  function dailyFull() {
     var d = new Date();
     var t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 2, 15, 0, 0);
     if (t.getTime() <= d.getTime()) t = new Date(t.getTime() + 86400000);
-    return t;
+    return t.getTime();
   }
+
+  function target() {
+    var now = Date.now();
+    var list = drawTimes().filter(function (x) { return x > now; });
+    if (!list.length) return dailyFull();          /* 今天都更完了 → 明天 02:15 */
+    list.sort(function (a, b) { return a - b; });
+    var next = list[0];
+    var full = dailyFull();
+    return next < full ? next : full;              /* 别越过每日全量那个点 */
+  }
+
   function draw() {
-    var ms = target().getTime() - Date.now();
+    var ms = target() - Date.now();
     if (ms <= 0) { for (var q = 0; q < els.length; q++) els[q].textContent = '正在更新…'; return; }
     var s = Math.floor(ms / 1000);
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
