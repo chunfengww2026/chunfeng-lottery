@@ -1,14 +1,14 @@
 {
- "red": 48,
- "black": 18,
- "rate": "72.7",
+ "red": 62,
+ "black": 20,
+ "rate": "75.6",
  "unfinished": 8,
- "updated": "2026-10-18 02:28",
- "rateNum": 72.7,
- "decided": 66,
- "rows": 96,
- "batches": 9,
- "pendingMatches": 30,
+ "updated": "2026-10-18 02:36",
+ "rateNum": 75.6,
+ "decided": 82,
+ "rows": 104,
+ "batches": 10,
+ "pendingMatches": 22,
  "source": "jc-reco-data.js",
  "note": "竞彩推荐串单场战绩（程序生成，勿手改）· 窗口：比赛时间前后 48 小时"
 }
