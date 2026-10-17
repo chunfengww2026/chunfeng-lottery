@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "拉巴斯竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "提拉卡拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "奥克兰联女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "伊斯特恩沙伯奧克蘭(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "卡拉卡斯(女)",
-     "score": null,
+     "score": 0,
      "red": 0,
      "rank": 0
     },
     "away": {
      "name": "聖塔菲(女)",
-     "score": null,
+     "score": 0,
      "red": 0,
      "rank": 0
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "亚特兰特",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
     "away": {
      "name": "普马斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -313,16 +313,16 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "蒂华纳",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "普埃布拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -472,7 +472,7 @@ const FOOTBALL_DATA = {
      "color": "B5A152"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "名古屋鯨魚U21",
      "score": 0,
@@ -802,7 +802,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-17 10:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "惠灵顿奥林匹克",
      "score": 1,
@@ -868,7 +868,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 2,
