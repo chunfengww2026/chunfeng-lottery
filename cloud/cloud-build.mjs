@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  cloud-build.mjs —— 云端构建（GitHub Actions 里跑）
 //
 //  流程（按班次决定跑哪几步，见下面的 SLOT_PLAN）：
@@ -337,7 +337,6 @@ const FOOTBALL_BJ_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 const SLOT_TOLERANCE = {
   'full':         { from: -10, to: 90 },
   'heatmap-only': { from: -10, to: 90 },
-  'heatmap-hour': '只加热力图（每小时 :07）',
   'heatmap-off':  { from: -10, to: 25 },
   'draw-update':  { from: -10, to: 20 }
 };
@@ -377,7 +376,6 @@ const SLOT_PLAN = {
   /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
   'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, cleanup: false },
   'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true,  cleanup: false },
-  'heatmap-hour': '只加热力图（每小时 :07）',
   'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'skip', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
   'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
   'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true,  cleanup: false },
