@@ -1109,7 +1109,7 @@ const LIST_ALL = Array.isArray(g.stable) ? g.stable : [];
 const list = NEXT_ISSUE
   ? LIST_ALL.filter((e) => e && e.catLatest && String(e.catLatest.issue) === NEXT_ISSUE).slice(0, 20)
   : [];
-    if (!list.length) return '';
+    if (!list.length) return '<div class="ro-xj-group"><div class="ro-xj-ghead"><span class="ro-xj-gname">' + escape(EXPERT_SHORT[gid] || g.name || gid) + '</span></div><div class="ro-xj-row" style="color:#8a7a63;font-size:12px;padding:6px 2px">下一期暂无专家出号（源站还没发布）</div></div>';
     totalShown += list.length;
     const rows = list.map((x, i) => {
       const pct = Math.round((x.hitRate10 || 0) * 100);
@@ -1196,7 +1196,8 @@ function issueNote(list, gid) {
       issueNote(list, gid) + '</div>' +
       rows + '</div>';
   }).filter(Boolean).join('');
-  if (!totalShown) return '';
+  /* 群组为空也要显示（用户要求：不要整块消失） */
+  if (!groups) return '';
 
   /* 【三行卡片 · 2026-10-18】用户原话：「版面做一样」
      —— 和右边「走势图」那张卡改成同一个结构：标题 / 副标题 / 绿色胶囊。
