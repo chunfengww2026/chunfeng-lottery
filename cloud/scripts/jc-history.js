@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-17 21:35",
+ "updated": "2026-10-17 21:55",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1154,6 +1154,34 @@ const JC_HISTORY = {
    "at": "2026-10-17 00:28"
   },
   {
+   "code": "周六015",
+   "league": "德甲",
+   "home": "沙尔克04",
+   "away": "美因茨",
+   "time": "2026-10-17 21:30",
+   "score": "0:1",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 3.1,
+    "draw": 3.75,
+    "away": 2.25
+   },
+   "prob": {
+    "home": 31.2,
+    "draw": 25.8,
+    "away": 43
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 43,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-17 00:28"
+  },
+  {
    "code": "周六013",
    "league": "德甲",
    "home": "埃沃斯堡",
@@ -1254,53 +1282,6 @@ const JC_HISTORY = {
    "matched": false,
    "at": "2026-10-17 00:28",
    "type": "three"
-  },
-  {
-   "code": "周六015",
-   "league": "德甲",
-   "home": "沙尔克04",
-   "away": "美因茨",
-   "time": "2026-10-17 21:30",
-   "score": "",
-   "hc": null,
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.9,
-    "openHandicap": 0,
-    "openUpWater": 1,
-    "openDownWater": 0.85,
-    "totalWater": 1.85,
-    "theoryUpPercent": "48.65",
-    "theoryDownPercent": "51.35",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.1,
-    "draw": 3.75,
-    "away": 2.25
-   },
-   "prob": {
-    "home": 31.2,
-    "draw": 25.8,
-    "away": 43
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 43,
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "unbeaten"
   },
   {
    "code": "周六011",
