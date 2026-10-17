@@ -710,11 +710,27 @@ function runHeatmapStep(plan) {
     return;
   }
 
+  /* 【每小时热力图 · 轻班】用户 2026-10-17：
+       「热力图…每一小时更新一次」+ 再加节流「同一小时只抓一次」。
+     与 18:00 那班不同：不要求在开奖日、不清空数据、距上次成功不足 55 分钟就只重出页面。 */
+  if (plan.type === 'heatmap-hour') {
+    const lastMs = heatmapLastUpdatedMs();
+    const mins = lastMs ? (Date.now() - lastMs) / 60000 : Infinity;
+    if (mins < 55) {
+      log(`  ⏭ 距上次成功抓取 ${mins.toFixed(0)} 分钟（<55）→ 本班只重出页面，不重抓晒票`);
+      return;
+    }
+    log(`  → 每小时热力图班：抓晒票 → 出图（上次成功：${lastMs ? Math.round(mins) + ' 分钟前' : '无记录'}）`);
+    run(script, ['ssq,dlt'], 40);
+    return;
+  }
+
   /* 班次明确要求「出图」：18:00 只加热力图班 */
   if (mode === 'build') {
     if (!games.length) {
-      log('  → 今天不是开奖日：清空热力图数据（页面上不会出现这张图）');
-      run(script, ['--purge']);
+      /* 【2026-10-17 改】改成每小时更新后，非开奖日【不再清空】——
+         否则 18:00 那班会把每小时辛苦抓到的数据删掉。 */
+      log('  → 今天不是开奖日：保留现有热力图数据（每小时更新，不再清空）');
       return;
     }
     log(`  → 是开奖日（${games.join('、')}）：抓当日晒票 → 出图`);
@@ -724,14 +740,32 @@ function runHeatmapStep(plan) {
 
   /* auto：沿用原来的「按时间自动判断」 */
   if (!games.length) {
-    log('  → 今天不是开奖日：清空热力图数据（页面上不会出现这张图）');
-    run(script, ['--purge']);
+    /* 【2026-10-17 改】非开奖日不再清空（每小时更新后，数据要留着） */
+    log('  → 今天不是开奖日：保留现有热力图数据（每小时更新，不再清空）');
   } else if (b.hh >= 18) {
     log(`  → 是开奖日（${games.join('、')}）且已到 18:00：抓当日晒票 → 出图`);
     run(script, [games.join(',')], 40);
   } else {
-    log('  → 还没到北京时间 18:00：本班次【不生成】（18:00 那一班会生成并部署）');
+    log('  → 还没到北京时间 18:00：本班次【不生成】（每小时 :07 那班会生成并部署）');
   }
+}
+
+/* 【每小时热力图的节流基准】读 heatmap-data.js 里的 updated（北京时间文本）
+   → 返回毫秒时间戳；读不到/解析失败返回 0 */
+function heatmapLastUpdatedMs() {
+  for (const base of [MOD, OUT, ROOT]) {
+    const p = path.join(base, 'heatmap-data.js');
+    try {
+      if (!fs.existsSync(p)) continue;
+      const t = fs.readFileSync(p, 'utf8');
+      const m = t.match(/updated:\s*'([^']+)'/);
+      if (!m) continue;
+      /* 文件里是北京时间 'YYYY-MM-DD HH:MM' → 按 +08:00 解析成绝对时间 */
+      const ms = Date.parse(String(m[1]).replace(' ', 'T') + ':00+08:00');
+      if (isFinite(ms)) return ms;
+    } catch (e) { /* 换下一个位置 */ }
+  }
+  return 0;
 }
 
 /* ---------- 检查历史数据是否完整 ---------- */
