@@ -1131,6 +1131,12 @@ async function main() {
           (G.ocr.err ? ` / 降级原因：${G.ocr.err}` : ''));
       log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${nt}` +
           `（丢弃 ${Math.max(0, G.ocr.downloaded - G.ocr.recognized)} 张）`);
+      if (G.ocr.kinds) {
+        const k = G.ocr.kinds;
+        log(`  票种：单式 ${k['单式票'] || 0} / 复式 ${k['复式票'] || 0} / 胆拖 ${k['胆拖票'] || 0}` +
+            (G.ocr.bandUsed ? ` · 条带兜底救回 ${G.ocr.bandUsed} 张` : '') +
+            (Array.isArray(G.ocr.pages) ? ` · 翻页 ${G.ocr.pages.join('/')}` : ''));
+      }
     }
     log(`  ${G.front.label}（${G.front.items.length} 个号，共 ${G.front.total} 次）：`);
     log('    ' + G.front.items.map((it) => `${String(it.num).padStart(2, '0')}=${HELPER.heatmapPctText(it.pct)}`).join('  '));
