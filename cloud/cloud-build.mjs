@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  cloud-build.mjs —— 云端构建（GitHub Actions 里跑）
 //
 //  流程（按班次决定跑哪几步，见下面的 SLOT_PLAN）：
@@ -1295,7 +1295,16 @@ function main() {
       ['build-xysp-tt.mjs', [], '头条+竞彩晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
-      ['build-jc-count.mjs', ['--min-gap', '30'], '体彩在售场次']
+      ['build-jc-count.mjs', ['--min-gap', '30'], '体彩在售场次'],
+      /* 【足球晒票 · 票面照片】尽力而为（2026-10-18 加）。
+         实测云端访问这个源是 HTTP 405（阿里云 WAF），所以这里【预期就是抓不到】，
+         脚本会自己退 10 → runSoft 记成「保留上次」，
+         页面用的还是本机同步过来的 cloud/scripts/football-tickets.js。
+         ⚠️ 那为什么还要排在名单里：
+             ① 云端这条 cron 是 10 分钟一轮，和用户要的「实时」对得上；
+             ② 哪天 WAF 放开了，云端不用改代码就自动开始出票面；
+             ③ 它自己「抓不到绝不覆盖旧文件」，永远不会把同步过来的那份冲掉。 */
+      ['fetch-football-tickets.mjs', [], '足球晒票'],
     ].map(([file, args, label]) => {
       const r = runSoft(file, args);
       return `${label}=${r.ok ? (r.kept ? '保留上次' : '✅') : '❌ 跳过'}`;
