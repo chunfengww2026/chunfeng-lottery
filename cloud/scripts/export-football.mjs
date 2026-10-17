@@ -2792,7 +2792,7 @@ ${nav}
 /* 赔率行：三块浅底小方块 */
 .m-card .m-odds { background: #f9efdd !important; border: 1px solid #f0e2cc !important;
   border-radius: 6px !important; padding: 8px !important; margin: 8px 0 !important;
-  justify-content: center !important; gap: 10px !important; }
+  justify-content: center !important; gap: 10px !important; flex-wrap: wrap !important; }
 .m-card .m-ol { color: #8a7a63 !important; }
 .m-card .m-ov { color: #4a3a26 !important; background: transparent !important; }
 .m-card .m-ov.on { color: #1a8c5a !important; font-weight: 700 !important; }
