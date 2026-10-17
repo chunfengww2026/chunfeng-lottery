@@ -12621,6 +12621,11 @@ ${CHAT_JS_SHARE}
   margin: 0 0 10px 0 !important;
   box-sizing: border-box;
 }
+/* 半屏卡片：专家推荐的文字被挤断（186px 宽），缩字号并隐藏 160 / 展开 */
+.ro-xj .ro-xj-count, .ro-xj .ro-xj-arrow { display: none !important; }
+.ro-xj .ro-xj-title { font-size: 12.5px !important; }
+.ro-xj .ro-xj-icon { font-size: 14px !important; margin-right: 4px !important; }
+.ro-xj .ro-xj-header { padding: 10px 8px !important; gap: 4px !important; }
 @media (max-width: 360px) {
   .ro-xj, .ro-trend { width: calc((100% - 8px) / 2) !important; margin: 0 4px 6px 0 !important; }
   .ro-trend { margin-right: 0 !important; }
