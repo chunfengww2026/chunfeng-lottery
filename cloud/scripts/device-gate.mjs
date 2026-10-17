@@ -67,39 +67,16 @@ export function metaItemprop(title, desc) {
    ⚠️ Service Worker 【不能】用 Blob 注册（浏览器规范禁止 blob: 脚本注册 SW），
       所以 SW 仍然指 site 根目录的 service-worker.js（纯透传、不缓存）。
    ------------------------------------------------------------------------- */
-export const PWA_HEAD = `<!-- __PWA_BLOB__ 一键桌面：manifest 由脚本用 Blob 现场生成（不新增文件） -->
+export const PWA_HEAD = `<!-- __PWA_HEAD__ 一键桌面：manifest 用【真实文件】manifest.json
+  ⚠️ 原来这里是「脚本用 Blob 现场生成 manifest」，看着很聪明，但浏览器【不认】：
+     · 可安装判定要求 manifest 是同源的 http(s) URL —— blob: 会被忽略
+     · 那份 Blob 里 192/512 图标是 SVG，Chrome 的安装判定只认 PNG
+  ⇒ 结果就是主分享页永远不弹原生安装框（只有引导提示）。
+  现在改成直接引用文件：manifest.json（和 manifest.webmanifest 同一份内容，两个都发布），
+  图标用 icon-192.png / icon-512.png（已随发布清单一起上线）。 -->
 <link rel="manifest" id="pwaManifest" href="manifest.json" />
 <meta name="theme-color" content="#1a8c5a" />
-<script>
-/* manifest = Blob（0 外部文件、0 本地存储） */
-(function () {
-  try {
-    var ICON = '${ICON_SVG_URI}';
-    var el = document.getElementById('pwaManifest');
-    if (!el || !window.Blob || !window.URL || !URL.createObjectURL) return;
-    function abs(p) { try { return new URL(p, location.href).href; } catch (e) { return p; } }
-    var m = {
-      name: '春风彩票',
-      short_name: '春风彩票',
-      start_url: abs('index.html'),
-      scope: abs('./'),
-      display: 'standalone',
-      orientation: 'portrait',
-      background_color: '#f7efe1',
-      theme_color: '#1a8c5a',
-      lang: 'zh-CN',
-      icons: [
-        { src: ICON, sizes: '192x192', type: 'image/svg+xml' },
-        { src: ICON, sizes: '512x512', type: 'image/svg+xml' },
-        { src: abs('icon-192.png'), sizes: '192x192', type: 'image/png' },
-        { src: abs('icon-512.png'), sizes: '512x512', type: 'image/png' }
-      ]
-    };
-    var url = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
-    el.setAttribute('href', url);
-  } catch (e) { /* 生成不出来就继续用兜底的 manifest.json */ }
-})();
-</script>`;
+<link rel="apple-touch-icon" href="icon-192.png" />`;
 
 /* ---------------------------------------------------------------------------
    ② 设备门的样式（放 <head>，越早越好，避免电脑端先闪出内容）
@@ -383,7 +360,11 @@ export const INSTALL_CSS = `
   100% { transform: scale(1); }
 }
 @media (prefers-reduced-motion: reduce) { .install-btn { animation: none; } }
-.install-hint { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+/* 自己画的提示条（不用 alert：微信里 alert 可能不显示）
+   ⚠️ 位置在【按钮上面一档】：右下角 20px 是聊天框按钮、80px 是一键桌面，
+      提示条放到 142px，三条互不遮挡。 */
+.install-hint { position: fixed; left: 50%;
+  bottom: calc(142px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%); max-width: 86vw; box-sizing: border-box;
   background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.55;
   padding: 10px 14px; border-radius: 10px; z-index: 99999;
