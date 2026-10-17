@@ -8406,77 +8406,80 @@ ${CHAT_JS}
   <div class="tool-view-body" id="toolBody"></div>
 </div>
 <script>
-/* __TOOLS_JS__ 智能分析：能取真数据就取，取不到就写「暂未提供」（绝不编数字） */
+/* __TOOLS_JS__ 智能分析：能取真数据就取，取不到就写「暂未提供」（绝不编数字）
+   ⚠️ 这段里【只用单引号】，不写反斜杠转义 —— 它嵌在页面的模板字符串里，
+      之前用 \" 转义把整段脚本弄坏过两次。 */
 (function () {
-  var view = document.getElementById("toolView");
-  var body = document.getElementById("toolBody");
-  var titleEl = document.getElementById("toolTitle");
+  var view = document.getElementById('toolView');
+  var body = document.getElementById('toolBody');
+  var titleEl = document.getElementById('toolTitle');
   if (!view || !body) return;
-  function txt(el) { return el ? (el.textContent || "").replace(/\s+/g, " ").trim() : ""; }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-  function row(k, v) { return "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(k) + "</span><span class=\"tv-v\">" + esc(v) + "</span></div>"; }
-  function card(h, inner) { return "<div class=\"tv-card\"><div class=\"tv-h\">" + esc(h) + "</div>" + inner + "</div>"; }
+  function tx(el) { return el ? String(el.textContent || '').replace(/\s+/g, ' ').trim() : ''; }
+  function row(k, v) { return '<div class="tv-row"><span class="tv-k">' + k + '</span><span class="tv-v">' + v + '</span></div>'; }
+  function card(h, inner) { return '<div class="tv-card"><div class="tv-h">' + h + '</div>' + inner + '</div>'; }
+  function none(t) { return '<div class="tv-none">' + t + '</div>'; }
   function statTool() {
-    var out = "";
-    var bar = document.getElementById("recStatsBar") || document.getElementById("jcRecStat");
-    var rec = bar ? txt(bar) : "";
-    if (rec) out += card("推荐串战绩（真实数据）", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(rec) + "</span></div>");
-    var kj = document.querySelectorAll(".ro-kjh-item");
-    if (kj.length) { var rows = ""; for (var i = 0; i < Math.min(4, kj.length); i++) rows += "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(txt(kj[i]).slice(0, 40)) + "</span></div>"; out += card("最新开奖 / 开机号（真实数据）", rows); }
-    var xj = document.querySelector(".ro-xj-group");
-    if (xj) out += card("专家推荐（真实数据）", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(txt(xj).slice(0, 120)) + "</span></div>");
-    return out || "<div class=\"tv-none\">这一页暂时没有可统计的数据。</div>";
+    var out = '';
+    var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
+    if (bar && tx(bar)) out += card('推荐串战绩（真实数据）', row(tx(bar).slice(0, 60), ''));
+    var kj = document.querySelectorAll('.ro-kjh-item');
+    var rows = '';
+    for (var a = 0; a < Math.min(4, kj.length); a++) rows += row(tx(kj[a]).slice(0, 42), '');
+    if (rows) out += card('开机号 / 最新开奖（真实数据）', rows);
+    var xj = document.querySelector('.ro-xj-group');
+    if (xj) out += card('专家推荐（真实数据）', row(tx(xj).slice(0, 110), ''));
+    return out || none('这一页暂时没有可统计的数据。');
   }
   function trendTool() {
-    var t = document.querySelector(".ro-trend");
-    if (!t) return "<div class=\"tv-none\">这一页没有内联走势图。</div>";
-    var info = "";
-    var rows = t.querySelectorAll("tr");
-    if (rows.length) info = "共 " + rows.length + " 行走势记录（近 30 期）";
-    return card("走势图已经内联在本页", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(info || "下方折叠块里") + "</span></div>") + "<div class=\"tv-note\">关掉这个面板，往下翻到「近 30 期走势 · 预选参考」就能看到真实表格。</div>";
+    var t = document.querySelector('.ro-trend');
+    if (!t) return none('这一页没有内联走势图。');
+    var n = t.querySelectorAll('tr').length;
+    return card('走势图已内联在本页', row('共 ' + n + ' 行（近 30 期真实数据）', '')) +
+      '<div class="tv-note">关掉面板往下翻到「近 30 期走势 · 预选参考」就能看到完整表格。</div>';
   }
   function omitTool() {
-    var t = document.querySelector(".ro-trend");
-    if (!t) return "<div class=\"tv-none\">这一页没有走势数据，算不出遗漏。</div>";
-    var out = "";
-    var trs = t.querySelectorAll("tr");
-    if (trs.length) out = "走势表里有 " + trs.length + " 行（每行末尾就是出现次数 / 当前遗漏 / 最大遗漏）";
-    return card("遗漏数据就在走势表里", "<div class=\"tv-row\"><span class=\"tv-k\">" + esc(out) + "</span></div>") + "<div class=\"tv-note\">表尾三行分别是：出现次数、当前遗漏、最大遗漏 —— 真实计算，不是估的。</div>";
+    var t = document.querySelector('.ro-trend');
+    if (!t) return none('这一页没有走势数据，算不出遗漏。');
+    return card('遗漏数据在走势表里', row('表尾三行：出现次数 / 当前遗漏 / 最大遗漏', '')) +
+      '<div class="tv-note">这三个数都是按历史开奖真实算的，不是估的。</div>';
   }
   function aiTool() {
-    return card("AI 推荐（机选）", "<div class=\"tv-row\"><span class=\"tv-k\">去页面里的「GPT模型摇号」点「随机」或「自选」，就能生成一注真实号码。</span></div>") + "<div class=\"tv-note\">也可以用右下角的助手说「来一注双色球」。</div>";
+    return card('AI 推荐（机选）', row('去「GPT模型摇号」点随机或自选', '真实号码')) +
+      '<div class="tv-note">也可以对右下角助手说「来一注双色球」。</div>';
   }
   var NONE = {
-    hot: "实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。",
-    ma: "均线分析：暂未提供（这个指标还没做，不做假数据）。",
-    index: "指数预测：暂未提供（这个指标还没做，不做假数据）。",
-    pattern: "智能规律：暂未提供（这个指标还没做，不做假数据）。"
+    hot: '实时热点：暂未提供（热力图只在开奖日 18:00 之后显示）。',
+    ma: '均线分析：暂未提供（这个指标还没做，不做假数据）。',
+    index: '指数预测：暂未提供（这个指标还没做，不做假数据）。',
+    pattern: '智能规律：暂未提供（这个指标还没做，不做假数据）。'
   };
-  var TITLES = { stat: "数据统计", trend: "趋势分析", hot: "实时热点", ma: "均线分析", index: "指数预测", omit: "遗漏宝", pattern: "智能规律", ai: "AI推荐" };
+  var TITLES = { stat: '数据统计', trend: '趋势分析', hot: '实时热点', ma: '均线分析', index: '指数预测', omit: '遗漏宝', pattern: '智能规律', ai: 'AI推荐' };
   function openTool(id) {
-    titleEl.textContent = TITLES[id] || "详情";
-    var html = "";
-    if (id === "stat") html = statTool();
-    else if (id === "trend") html = trendTool();
-    else if (id === "omit") html = omitTool();
-    else if (id === "ai") html = aiTool();
-    else html = "<div class=\"tv-none\">" + esc(NONE[id] || "暂未提供") + "</div>";
+    titleEl.textContent = TITLES[id] || '详情';
+    var html;
+    if (id === 'stat') html = statTool();
+    else if (id === 'trend') html = trendTool();
+    else if (id === 'omit') html = omitTool();
+    else if (id === 'ai') html = aiTool();
+    else html = none(NONE[id] || '暂未提供');
     body.innerHTML = html;
-    view.classList.add("on");
-    document.documentElement.style.overflow = "hidden";
+    view.classList.add('on');
+    document.documentElement.style.overflow = 'hidden';
   }
-  function closeTool() { view.classList.remove("on"); document.documentElement.style.overflow = ""; }
-  var items = document.querySelectorAll(".tool-item");
-  for (var i = 0; i < items.length; i++) {
+  function closeTool() { view.classList.remove('on'); document.documentElement.style.overflow = ''; }
+  var items = document.querySelectorAll('.tool-item');
+  for (var k = 0; k < items.length; k++) {
     (function (el) {
-      el.addEventListener("click", function () { openTool(el.getAttribute("data-tool")); });
-      el.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); openTool(el.getAttribute("data-tool")); } });
-    })(items[i]);
+      el.addEventListener('click', function () { openTool(el.getAttribute('data-tool')); });
+      el.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openTool(el.getAttribute('data-tool')); } });
+    })(items[k]);
   }
-  var back = document.getElementById("toolBack");
-  if (back) { back.addEventListener("click", closeTool); back.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); closeTool(); } }); }
-})();
-</script>
+  var back = document.getElementById('toolBack');
+  if (back) {
+    back.addEventListener('click', closeTool);
+    back.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); closeTool(); } });
+  }
+})();\n</script>
 </body>
 </html>`;
 
