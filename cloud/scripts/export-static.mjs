@@ -5662,6 +5662,17 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .tv-k { color: #8a7a63; } .tv-v { font-weight: 700; color: #4a3a26; }
 .tv-note { font-size: 11.5px; color: #a89a80; line-height: 1.6; margin-top: 6px; }
 .tv-none { font-size: 13px; color: #8a7a63; line-height: 1.7; }
+/* __ENTRY2__ */
+.entry2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 12px; }
+.entry2-card { background: #fff; border: 1px solid #e8d7bd; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; }
+.entry2-card:active { background: #f9efdd; transform: scale(0.98); }
+.entry2-t { font-size: 15px; font-weight: 700; color: #4a3a26; }
+.entry2-s { font-size: 11px; color: #8a7a63; margin-top: 4px; }
+.entry2-a { font-size: 12px; font-weight: 700; color: #1a8c5a; margin-top: 8px; }
+.install-guide { margin: 16px 0 24px; background: #fff; border: 1px solid #e8d7bd; border-radius: 12px; padding: 10px; }
+.install-guide svg { width: 100%; height: auto; display: block; border-radius: 8px; }
+.install-guide-note { text-align: center; font-size: 12px; color: #8a7a63; font-weight: 700; margin-top: 10px; }
+.entry2-card.on { outline: 2px solid #1a8c5a; }
 </style>
 </head>
 <body data-built="${nowStamp}" class="ro-toc-pending">
@@ -5723,6 +5734,15 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span><span class="tools-note">点开看</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
+<!-- __ENTRY2__ 晒票 / 摇号 两列入口（用户 2026-10-18 要求） -->
+<div class="entry2">
+  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-xysp">
+    <div class="entry2-t">晒票</div><div class="entry2-s">各种实票图片</div><div class="entry2-a">展开 ▾</div>
+  </div>
+  <div class="entry2-card" role="button" tabindex="0" data-jump="ro-aipick">
+    <div class="entry2-t">GPT模型摇号</div><div class="entry2-s">系统随机生成</div><div class="entry2-a">点击查看 ▸</div>
+  </div>
+</div>
     <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
     <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">〽️</div><div class="name">均线分析</div></div>
@@ -8711,6 +8731,44 @@ ${CHAT_JS}
   if (back) {
     back.addEventListener('click', closeTool);
     back.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); closeTool(); } });
+  }
+})();
+</script>
+<!-- __GUIDE__ 安装指南（内联 SVG，不依赖图片文件，避免 404） -->
+<div class="install-guide">
+  <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="添加到手机桌面示意">
+    <rect width="640" height="300" rx="18" fill="#fff6e6" stroke="#e8d7bd"/>
+    <text x="320" y="44" text-anchor="middle" font-family="sans-serif" font-size="21" font-weight="700" fill="#4a3a26">添加到手机桌面，更方便更稳定</text>
+    <rect x="28" y="70" width="280" height="200" rx="14" fill="#ffffff" stroke="#e8d7bd"/>
+    <text x="168" y="102" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1a8c5a">安卓 / 微信</text>
+    <text x="168" y="136" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">1. 点右上角「···」</text>
+    <text x="168" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">2. 选「添加到主屏幕」</text>
+    <text x="168" y="196" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">3. 点「添加」</text>
+    <text x="168" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#8a7a63">（浏览器菜单里也叫「添加到桌面」）</text>
+    <rect x="332" y="70" width="280" height="200" rx="14" fill="#ffffff" stroke="#e8d7bd"/>
+    <text x="472" y="102" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1a8c5a">苹果 iPhone</text>
+    <text x="472" y="136" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">1. 点底部「分享」图标</text>
+    <text x="472" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">2. 选「添加到主屏幕」</text>
+    <text x="472" y="196" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a3a26">3. 点「添加」</text>
+    <text x="472" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#8a7a63">（Safari 才支持，微信里先「在浏览器打开」）</text>
+  </svg>
+  <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
+</div>
+<script>
+(function () {
+  var cards = document.querySelectorAll(".entry2-card");
+  for (var i = 0; i < cards.length; i++) {
+    (function (el) {
+      function go() {
+        var id = el.getAttribute("data-jump");
+        var t = document.getElementById(id);
+        if (!t) return;
+        var d = t.closest("details"); if (d) d.open = true;
+        t.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
+    })(cards[i]);
   }
 })();
 </script>
