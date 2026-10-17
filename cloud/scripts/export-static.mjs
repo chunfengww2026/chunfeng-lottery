@@ -3395,11 +3395,11 @@ const html = `<!DOCTYPE html>
        · 图标文件由 make-icons.mjs 分发到站点根目录，云端 cloud-build.mjs
          再拷进 out/，最后随 site/ 一起发布
      ============================================================ -->
-<title>春风十万里 - 综合数据平台</title>
-<meta name="description" content="春风十万里：免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
+<title>春风 - 综合数据平台</title>
+<meta name="description" content="春风：免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。仅供娱乐参考，不构成购彩建议；未成年人不得购买彩票。" />
 <meta name="format-detection" content="telephone=no" />
 <!-- 微信 / QQ 兼容标签（用户 2026-10-18 给的文案；image 必须是绝对地址，用站点根的 share.png） -->
-<meta itemprop="name" content="春风十万里 - 免费推荐与智能选号" />
+<meta itemprop="name" content="春风 - 免费推荐与智能选号" />
 <meta itemprop="description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
 <meta itemprop="image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -3409,22 +3409,22 @@ const html = `<!DOCTYPE html>
 ${PWA_HEAD}
 <meta name="application-name" content="春风彩票" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="春风十万里" />
+<meta name="apple-mobile-web-app-title" content="春风" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- 分享卡片：微信 / QQ / 微博 / Twitter / Facebook 都读这些
      ⚠️ 用户 2026-10-18 给了文案（og:title / og:description / itemprop），照此落地；
         og:image 必须是【完整绝对地址】，指向站点根目录的 share.png（1200×630）。 -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="春风十万里" />
-<meta property="og:title" content="春风十万里 - 免费推荐与智能选号" />
+<meta property="og:site_name" content="春风" />
+<meta property="og:title" content="春风 - 免费推荐与智能选号" />
 <meta property="og:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
 <meta property="og:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:secure_url" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
+<meta property="og:image:alt" content="春风 —— 彩票球图标与页面标题" />
 <meta property="og:url" content="https://chunfengww2026.github.io/chunfeng-lottery/" />
 <meta property="og:locale" content="zh_CN" />
 <!-- 微信 / QQ 专用的兼容标签 → 已挪到 head 开标签靠前的位置（和 title 在一起），
@@ -3432,10 +3432,10 @@ ${PWA_HEAD}
      ⚠️ 这里别写字面的 head 标签（开标签或收尾标签）：页面里只要出现第二个，
         export-site.mjs 的注入就会插错位置（历史上整段 CSS 被塞进注释里）。 -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="春风十万里 - 免费推荐与智能选号" />
+<meta name="twitter:title" content="春风 - 免费推荐与智能选号" />
 <meta name="twitter:description" content="免费提供双色球、大乐透推荐号、GPT摇号、走势图、足球推单等综合服务。" />
 <meta name="twitter:image" content="https://chunfengww2026.github.io/chunfeng-lottery/share.png" />
-<meta name="twitter:image:alt" content="春风十万里 —— 彩票球图标与页面标题" />
+<meta name="twitter:image:alt" content="春风 —— 彩票球图标与页面标题" />
 <style>
 ${css}
 ${hitSecCss}
@@ -5085,8 +5085,8 @@ body, .ro-wrap { background: var(--ro-bg); }
 /* ============================================================
    __TITLE_CENTER__ 页面主标题：去掉「推荐图」后缀 + 强制居中
    ------------------------------------------------------------
-   用户原话：「不要推荐图了 就春风十里送大奖 居中」。
-   可见文字只留「春风十里送大奖」；<title> 标签没动（那是分享卡片，
+   用户原话：「不要推荐图了 就春风 居中」。
+   可见文字只留「春风」；<title> 标签没动（那是分享卡片，
    另一个专人在管，现在是「春风彩票」，本来就没有「推荐图」）。
    ⚠️ 用 !important：这个页面的居中规则被后来的同优先级规则盖过好几次。
    ============================================================ */
@@ -5699,7 +5699,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 /* ⑧ 金色球（.lm-ball.lm-gold，洛书/球那套新加的元素）：白字压金底实测只有 2.29，
       改成深棕字（对金底 ≈5.1）—— 球还是金色，只是号码看得清。 */
 .lm-ball.lm-gold { color: var(--ro-fg) !important; }
-/* ⑨ 主标题「春风十里送大奖」：红字 + 白边 + 立体感
+/* ⑨ 主标题「春风」：红字 + 白边 + 立体感
       （用户 2026-10-17 连着三条要求：「改成红色字体」→「红字白边」→「有立体感」）
       做法：
         · 红字：#d92b2b（亮红，大字用，米杏底上 ≈4.3 —— 22px/800 属大字号，达标）
@@ -6446,7 +6446,7 @@ ${DEVICE_GATE_BODY}
   <div id="article">
 
   <div class="ro-top">
-    <h1>春风十里送大奖</h1>
+    <h1>春风</h1>
   </div>
 
   ${statusHtml}
@@ -8418,7 +8418,7 @@ ${RO_RENDER_SCRIPT}
       ctx.fillRect(0, 0, W, 128);
       ctx.fillStyle = '#e8eaed';
       ctx.font = 'bold 30px sans-serif';
-      ctx.fillText('GPT模型摇号 · 春风十里送大奖', pad, 56);
+      ctx.fillText('GPT模型摇号 · 春风', pad, 56);
       ctx.fillStyle = '#8fb8ff';
       ctx.font = '20px sans-serif';
       ctx.fillText(g.name + '　' + data.note, pad, 94);
