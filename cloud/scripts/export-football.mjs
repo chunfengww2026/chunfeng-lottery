@@ -2974,8 +2974,12 @@ ${nav}
   max-width: 86vw; background: #4a3a26; color: #fff; font-size: 12.5px; line-height: 1.5;
   padding: 10px 14px; border-radius: 10px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 </style>
+<!-- __DEVICE_GATE_CSS__ 设备门样式（device-gate.mjs）：放在 </head> 前，
+     电脑端第一帧就是隐藏态，不会先闪内容。 -->
+<style>${DEVICE_GATE_CSS}</style>
 </head>
 <body>
+${DEVICE_GATE_BODY}
 <div class="wrap">
   <!-- #article = 受保护区域之一（防截图：locked 时整块模糊 + 不能点）
        另两块受保护的是三个分段里的 .guard 和底部免责声明 .guard -->
@@ -4130,6 +4134,11 @@ ${JC_XYSP_VIEW}
     setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 4600);
   }
   function show() { btn.style.display = 'inline-flex'; }
+
+  /* 【iOS / 微信也要有入口】这两个环境【永远不会】触发 beforeinstallprompt，
+     只靠那个事件 = 按钮在 iPhone 上永远是隐藏的（等于白做）。
+     所以：非 standalone 的 iOS / 微信里直接显示，点了给分平台引导。 */
+  if (isIOS || isWX) show();
 
   window.addEventListener('beforeinstallprompt', function (e) {
     if (e && e.preventDefault) e.preventDefault();
