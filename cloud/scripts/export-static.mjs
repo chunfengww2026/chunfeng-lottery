@@ -13119,6 +13119,24 @@ ${CHAT_JS_SHARE}
   .ro-ref-algo { font-size: 11px; line-height: 1.65; padding: 7px 8px; }
   .ro-ref-algo-w { font-size: 10.5px; }
 }
+/* __STANDALONE_HIDE__ 用户 2026-10-18：
+   「一键桌面 / 圆形手机钮 / 聊天」这三个浮标——浏览器里要有，
+   从手机桌面图标点进去（PWA standalone）就没有。
+   用 display-mode 媒体查询：浏览器访问照常显示，独立窗口里全部隐藏。 */
+@media (display-mode: standalone) {
+  #installAppBtn, .install-btn,
+  #installFab, .install-fab,
+  #chatToggleBtn, #chatToggle, .chat-toggle, .cf-toggle, .cf-fab {
+    display: none !important;
+  }
+}
+/* 也兼容 iOS 旧 WebView 的 navigator.standalone（下面由 JS 补一个 class） */
+html.is-standalone #installAppBtn, html.is-standalone .install-btn,
+html.is-standalone #installFab, html.is-standalone .install-fab,
+html.is-standalone #chatToggleBtn, html.is-standalone #chatToggle,
+html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalone .cf-fab {
+  display: none !important;
+}
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -13300,6 +13318,19 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   }
   tick();
   setInterval(tick, 1000);
+})();
+</script>
+
+
+<script>
+/* __STANDALONE_HIDE__ iOS 的 navigator.standalone 兼容（部分旧 WebView 不认 display-mode） */
+(function () {
+  try {
+    var sa = (window.navigator && window.navigator.standalone) ||
+             (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+             (window.matchMedia && window.matchMedia('(display-mode: fullscreen)').matches);
+    if (sa) document.documentElement.classList.add('is-standalone');
+  } catch (e) {}
 })();
 </script>
 
