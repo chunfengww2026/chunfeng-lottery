@@ -913,7 +913,7 @@ const XYSP_TT_DATA = {
    "postId": "7697258479131558442",
    "px": 132300,
    "imgPx": 132300,
-   "dedupeImgs": 2
+   "dedupeImgs": 3
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae1fbe915d07409cab378003fa2a493c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=hwhZI2MoKUc33AViS5ZpnIIau2s%3D",
