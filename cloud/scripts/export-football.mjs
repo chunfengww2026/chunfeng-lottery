@@ -3937,8 +3937,16 @@ ${JC_XYSP_VIEW}
        （display:block !important 会盖掉 display:none），实测类名加了却没真正收起。
        所以折叠状态【由 JS 直接写内联 display】—— 内联优先级最高，CSS 怎么改都不会失灵；
        同时保留 max-height 过渡（CSS 那边有 .collapsed/.folded 的 max-height:0 时仍会动画）。 */
+    /* 【为什么用 inline !important】页面里有「.m-card.folded .m-body { display:block !important }」
+       这类规则，普通内联 display:none 会被【作者 !important】压过（CSS 规范：
+       作者 !important > 内联普通声明）。所以折叠状态用内联 !important 强制写死 ——
+       只有它压得住，别的窗口再怎么改 CSS 也不会让折叠失灵。
+       ⚠️ 这段代码在页面模板字符串里面：注释里【不能出现反引号】，否则会截断模板。 */
     var body = card.querySelector('.m-body');
-    if (body) body.style.display = now ? 'none' : '';
+    if (body) {
+      if (now) body.style.setProperty('display', 'none', 'important');
+      else body.style.removeProperty('display');
+    }
     var top = card.querySelector('.m-top');
     if (top) top.setAttribute('aria-expanded', now ? 'false' : 'true');
   }
