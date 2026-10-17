@@ -83,10 +83,10 @@ const HISTORY_WINDOW = 30;
 const MIN_SAMPLE_POSTS = 5;     // 至少 5 篇晒票有可用号码
 const MIN_FRONT_TOTAL = 60;     // 前区号码出现总次数
 const MIN_BACK_TOTAL = 12;      // 后区号码出现总次数
-const MIN_OCR_TICKETS = 5;      // OCR 口径：至少 5 张有效票才敢出图
+const MIN_OCR_TICKETS = 3;      // OCR 口径：至少 5 张有效票才敢出图
 
 /* OCR 参数 */
-const OCR_MAX_IMAGES = 60;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
+const OCR_MAX_IMAGES = 80;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
 const OCR_CONCURRENCY = 4;      // 并发识别几张（本机 4 核够用；云端更高）
 const IMG_TIMEOUT_MS = 30000;   // 图片下载超时（用户要求 30s）
 const IMG_RETRY = 2;            // 图片下载失败重试 2 次
@@ -700,12 +700,16 @@ function areaLiteral(area) {
   return `{ label: '${area.label}', color: '${area.color}', total: ${area.total}, items: ${itemsLiteral(area.items)} }`;
 }
 
-function gameLiteral(g) {
+/* ⚠️ key 必须由调用方传进来：
+   从 heatmap-data.js 里「读回来」的条目【没有 id 字段】（产物里只存 name/issue/…），
+   早先这里写 g.id → 合并写回时 ssq 会被写成 `undefined: {…}`（实测踩过：
+   games 变成 {undefined, dlt}，双色球热力图直接消失）。 */
+function gameLiteral(g, key) {
   const ocrLit = g.ocr
     ? `{ posts: ${g.ocr.posts}, urls: ${g.ocr.urls}, downloaded: ${g.ocr.downloaded}, downloadFailed: ${g.ocr.downloadFailed}, cacheHits: ${g.ocr.cacheHits}, recognized: ${g.ocr.recognized}, tickets: ${Array.isArray(g.ocr.tickets) ? g.ocr.tickets.length : (Number.isFinite(g.ocr.tickets) ? g.ocr.tickets : 0)}, secs: ${g.ocr.secs}, err: '${String(g.ocr.err || '').replace(/'/g, "\\'")}' }`
     : 'null';
   return [
-    '    ' + g.id + ': {',
+    '    ' + String(key || g.id) + ': {',
     `      name: '${g.name}',`,
     `      issue: '${g.issue}',`,
     `      drawDate: '${g.drawDate}',`,
@@ -720,6 +724,28 @@ function gameLiteral(g) {
     `      back: ${areaLiteral(g.back)}`,
     '    }'
   ].join('\n');
+}
+
+/* 【读现有数据】用于「合并写回」：本次没跑的彩种保留原条目。
+   读不到 / 解析失败就返回 {}（宁可只写本次的，也不报错中断） */
+function readExistingGames() {
+  try {
+    if (!fs.existsSync(OUT)) return {};
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(OUT, 'utf8') + '\nglobalThis.__H = HEATMAP_DATA;', c);
+    const H = c.__H;
+    const G = (H && H.games) ? H.games : {};
+    /* 补回 id（产物里不存 id）—— 合并写回时要靠它当 key；
+       顺便把不认识的 key（历史脏数据，例如被写成 `undefined:` 的）丢掉，
+       否则它会一层层被写回、永远留在文件里 */
+    const clean = {};
+    Object.keys(G).forEach((k) => {
+      if (!CFG[k] || !G[k]) return;
+      if (!G[k].id) G[k].id = k;
+      clean[k] = G[k];
+    });
+    return clean;
+  } catch (e) { return {}; }
 }
 
 function writeFile(games, meta) {
@@ -749,7 +775,7 @@ const HEATMAP_DATA = {
   updated: '${nowBj.stamp}',
   source: '${src}',
   games: {
-${Object.keys(games).map((k) => gameLiteral(games[k])).join(',\n')}${Object.keys(games).length ? '\n' : ''}  }
+${Object.keys(games).map((k) => gameLiteral(games[k], k)).join(',\n')}${Object.keys(games).length ? '\n' : ''}  }
 };
 ${meta && meta.extraNote ? '\n/* ' + meta.extraNote + ' */\n' : ''}
 ${HELPER_SRC.trim()}
@@ -974,10 +1000,11 @@ async function main() {
     const before = want.length;
     want = want.filter((g) => todayDraw.includes(g));
     if (before && !want.length) {
-      log(`  今天（${WEEK_CN[nowBj.dow]}）不是双色球/大乐透的开奖日 → 本期不出这张图`);
-      const src = writeFile({}, { extraNote: '今天不是开奖日，未生成任何彩种' });
-      log('  ✅ 已写出空的 heatmap-data.js（games: {}）');
-      log(`  输出：${OUT}`);
+      /* 【不再写空文件】用户 2026-10-17：热力图改每小时更新后，
+         一次「非开奖日」的调用会把别的彩种已抓到的数据一起抹掉（实测：
+         跑 dlt 把 ssq 也清空了）→ 现在【保留现有数据、什么都不写】。 */
+      log(`  今天（${WEEK_CN[nowBj.dow]}）不是所请求彩种的开奖日 → 保留现有数据，不写文件`);
+      log(`  输出（未改动）：${OUT}`);
       log('════════════════════════════════════════════');
       return;
     }
@@ -986,8 +1013,7 @@ async function main() {
   }
 
   if (!want.length) {
-    log('  没有要处理的彩种');
-    writeFile({}, null);
+    log('  没有要处理的彩种 → 保留现有数据，不写文件');
     return;
   }
 
@@ -1010,7 +1036,9 @@ async function main() {
     if (want.length > 1) await sleep(politeDelay());
   }
 
-  const src = writeFile(games, null);
+  /* 【合并写回】本次只更新跑到的彩种，其它彩种保留原数据 ——
+     否则一次单彩种调用（或某个彩种抓取失败）就会把别的好数据抹掉。 */
+  const src = writeFile(Object.assign({}, readExistingGames(), games), null);
 
   log('');
   log('────────────── 结果 ──────────────');
@@ -1018,10 +1046,11 @@ async function main() {
     const G = games[g];
     log(`${G.name} 第 ${G.issue} 期 · 开奖日 ${G.drawDate} · 来源 ${G.source}（${G.sourceLabel}）· 样本 ${G.sampleCount}`);
     if (G.ocr) {
+      const nt = Array.isArray(G.ocr.tickets) ? G.ocr.tickets.length : G.ocr.tickets;   /* tickets 是数组，别直接打印 */
       log(`  OCR：候选图 ${G.ocr.urls} / 下载 ${G.ocr.downloaded}（失败 ${G.ocr.downloadFailed}、缓存 ${G.ocr.cacheHits}）` +
-          ` / 期号匹配 ${G.ocr.recognized} / 最终有效票 ${G.ocr.tickets} / 用时 ${G.ocr.secs}s` +
+          ` / 期号匹配 ${G.ocr.recognized} / 最终有效票 ${nt} / 用时 ${G.ocr.secs}s` +
           (G.ocr.err ? ` / 降级原因：${G.ocr.err}` : ''));
-      log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${G.ocr.tickets}` +
+      log(`  期号过滤：总下载 ${G.ocr.downloaded} → 号码合法+多變體一致 ${G.ocr.recognized} → 最终采用 ${nt}` +
           `（丢弃 ${Math.max(0, G.ocr.downloaded - G.ocr.recognized)} 张）`);
     }
     log(`  ${G.front.label}（${G.front.items.length} 个号，共 ${G.front.total} 次）：`);

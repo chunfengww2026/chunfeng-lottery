@@ -721,7 +721,10 @@ function runHeatmapStep(plan) {
       return;
     }
     log(`  → 每小时热力图班：抓晒票 → 出图（上次成功：${lastMs ? Math.round(mins) + ' 分钟前' : '无记录'}）`);
-    run(script, ['ssq,dlt'], 40);
+    /* --force：忽略「开奖日才出图」的老规矩 —— 用户要的是每小时都更新，
+       而大乐透在非开奖日也有在售期次、晒票照样有。build-heatmap 会合并写回，
+       不会把另一个彩种刚抓到的数据抹掉。 */
+    run(script, ['ssq,dlt', '--force'], 40);
     return;
   }
 
