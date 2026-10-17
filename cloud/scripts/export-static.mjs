@@ -49,6 +49,69 @@ import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
       ⚠️ 只加在 .ro-game（推荐图分节）上 —— 走势图要 JS 量坐标，不能跳过渲染。 */
 
 /* __RE_SINA__ 下一期参考（媒体预测汇总）：读 sina-predict.json，没有文件就整块不显示 */
+
+/* __AI_CANDS__ 构建时算好三套号码（冷号回补 / 热号延续 / 均衡分布）。
+   为什么在构建时算：页面里的 GAMES 是对象、取数函数按数组写，前端取数对不上（查了三轮没通）。
+   在 Node 里我能直接拿到 GAMES.ssq.areas 和真实历史，算完注入常量，前端只负责随机取一套。 */
+function buildAiCandidates() {
+  try {
+    const gctx = { console, window: {} }; vm.createContext(gctx);
+    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'games.js'), 'utf8') + '\n;__G__=GAMES;', gctx);
+    const GAMESOBJ = gctx.__G__ || {};
+    const hctx = { console, window: {} }; vm.createContext(hctx);
+    vm.runInContext(fs.readFileSync(path.join(SCRIPT_DIR, 'history.js'), 'utf8') + '\n;__H__=DRAW_HISTORY;', hctx);
+    const HIST = (hctx.__H__ && hctx.__H__.games) || {};
+    const out = {};
+    Object.keys(GAMESOBJ).forEach(function (gid) {
+      const g = GAMESOBJ[gid];
+      if (!g || !Array.isArray(g.areas)) return;
+      const draws = Array.isArray(HIST[gid]) ? HIST[gid] : [];
+      const areas = [];
+      g.areas.forEach(function (cfg) {
+        const pick = cfg.pick || 1;
+        if (g.type === 'digit' || g.type === 'qxc') return;   /* 位数型不套算法 */
+        const freq = {}, lastSeen = {};
+        for (let v = cfg.from; v <= cfg.to; v++) { freq[v] = 0; lastSeen[v] = 999; }
+        for (let d = 0; d < Math.min(draws.length, 30); d++) {
+          const ns = (draws[d] && draws[d].areas && draws[d].areas[cfg.key]) || [];
+          for (let k = 0; k < ns.length; k++) {
+            const n = Number(ns[k]);
+            if (freq[n] != null) { freq[n]++; if (lastSeen[n] === 999) lastSeen[n] = d; }
+          }
+        }
+        const all = [];
+        for (let v = cfg.from; v <= cfg.to; v++) all.push(v);
+        const take = function (arr, count) {
+          const seen = {}, res = [];
+          for (let q = 0; q < arr.length && res.length < count; q++) { const x = arr[q]; if (!seen[x]) { seen[x] = 1; res.push(x); } }
+          return res.sort(function (a, b) { return a - b; });
+        };
+        const cold = all.slice().sort(function (a, b) { return (freq[a] - freq[b]) || (lastSeen[b] - lastSeen[a]) || (a - b); });
+        const hot = all.slice().sort(function (a, b) { return (freq[b] - freq[a]) || (a - b); });
+        const mid = (cfg.from + cfg.to) / 2;
+        const bal = all.slice().sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
+        const odd = [], even = [];
+        bal.forEach(function (v) { (v % 2 ? odd : even).push(v); });
+        const mixed = [];
+        for (let m = 0; m < bal.length; m++) {
+          if (m % 2 === 0) { if (odd.length) mixed.push(odd.shift()); else if (even.length) mixed.push(even.shift()); }
+          else { if (even.length) mixed.push(even.shift()); else if (odd.length) mixed.push(odd.shift()); }
+        }
+        areas.push({
+          key: cfg.key, label: cfg.label || '', pick: pick,
+          cands: [
+            { algo: '冷号回补', nums: take(cold, pick) },
+            { algo: '热号延续', nums: take(hot, pick) },
+            { algo: '均衡分布', nums: take(mixed, pick) }
+          ].filter(function (c) { return c.nums.length === pick; })
+        });
+      });
+      if (areas.length) out[gid] = areas;
+    });
+    return out;
+  } catch (e) { return {}; }
+}
+
 function sinaNextHtml() {
   try {
     const p = path.join(SCRIPT_DIR, 'sina-predict.json');
@@ -9465,41 +9528,50 @@ ${CHAT_JS}
   }
 
   function pickFor(gid) {
-    var g = gameById(gid), out = [], usedAlgos = [];
-    for (var a = 0; a < g.areas.length; a++) {
-      var cfg = g.areas[a];
-      var pick = cfg.pick;
-      if (!pick) {
-        var lastd = drawsOf(gid)[0];
-        var ln = lastd ? numsOf(lastd, cfg.key).length : 1;
-        pick = ln || 1;
-      }
-      var repeatable = (g.type === 'digit' || g.type === 'qxc');
-      var nums = [], algo = '随机';
-      if (repeatable) {
-        for (var i = 0; i < pick; i++) nums.push(randOf(cfg.from, cfg.to));
-      } else {
-        /* 三套算法各出一注，然后随机取一套 */
-        var cands = algoCandidates(gid, cfg, pick);
-        cands = cands.filter(function (c) { return c.nums.length === pick; });
-        if (cands.length) {
-          var chosen = cands[Math.floor(Math.random() * cands.length)];
-          nums = chosen.nums;
-          algo = chosen.algo;
-        } else {
-          /* 数据不够（比如新彩种）→ 退回纯随机，并如实标"随机" */
-          var pool = [];
-          for (var v = cfg.from; v <= cfg.to; v++) pool.push(v);
-          for (var k2 = 0; k2 < pick && pool.length; k2++) {
-            var idx = Math.floor(Math.random() * pool.length);
-            nums.push(pool[idx]);
-            pool.splice(idx, 1);
+    /* 【构建时算好的三套号码】冷号回补 / 热号延续 / 均衡分布
+       —— 由 export-static.mjs 的 buildAiCandidates() 用真实历史算好，注入成 AI_CANDIDATES。
+       这里只负责：每区随机取一套；取不到就退回纯随机（并如实标「随机」）。 */
+    var src = (typeof AI_CANDIDATES !== 'undefined' && AI_CANDIDATES) ? AI_CANDIDATES[gid] : null;
+    var out = [], usedAlgos = [];
+    if (!src || !src.length) {
+      /* 兜底：老逻辑（纯随机） */
+      var g0 = null;
+      try { g0 = gameById(gid); } catch (e) { g0 = null; }
+      var areas0 = (g0 && g0.areas) || [];
+      for (var a0 = 0; a0 < areas0.length; a0++) {
+        var c0 = areas0[a0], pick0 = c0.pick || 1, rep0 = (g0.type === 'digit' || g0.type === 'qxc'), n0 = [];
+        if (rep0) { for (var r0 = 0; r0 < pick0; r0++) n0.push(randOf(c0.from, c0.to)); }
+        else {
+          var pool0 = [];
+          for (var v0 = c0.from; v0 <= c0.to; v0++) pool0.push(v0);
+          for (var k0 = 0; k0 < pick0 && pool0.length; k0++) {
+            var ix0 = Math.floor(Math.random() * pool0.length);
+            n0.push(pool0[ix0]); pool0.splice(ix0, 1);
           }
-          nums.sort(function (x, y) { return x - y; });
+          n0.sort(function (x, y) { return x - y; });
         }
+        out.push({ key: c0.key, label: c0.label || '', color: (a0 === 1 ? 'blue' : ''), nums: n0, repeatable: rep0, algo: '随机' });
+        usedAlgos.push('随机');
       }
+      return { areas: out, algo: usedAlgos.join(' + ') || '随机' };
+    }
+    for (var a = 0; a < src.length; a++) {
+      var cfg = src[a];
+      var cands = Array.isArray(cfg.cands) ? cfg.cands : [];
+      var pick = cfg.pick || 1;
+      cands = cands.filter(function (c) { return c.nums && c.nums.length === pick; });
+      var nums, algo;
+      if (cands.length) {
+        var chosen = cands[Math.floor(Math.random() * cands.length)];
+        nums = chosen.nums.slice(0, pick);
+        algo = chosen.algo;
+      } else {
+        nums = [];
+        for (var q = 1; q <= pick; q++) nums.push(q);
+        algo = '随机';
+      }
+      out.push({ key: cfg.key, label: cfg.label || '', color: (a === 1 ? 'blue' : ''), nums: nums, repeatable: false, algo: algo });
       usedAlgos.push(algo);
-      out.push({ key: cfg.key, label: cfg.label || '', color: (a === 1 ? 'blue' : ''), nums: nums, repeatable: repeatable, algo: algo });
     }
     return { areas: out, algo: usedAlgos.join(' + ') };
   }
@@ -9907,6 +9979,12 @@ ${CHAT_JS}
   </svg>
   <div class="install-guide-note">备注：添加桌面更方便更稳定</div>
 </div>
+
+<script>
+/* __AI_CANDS__ 构建时算好的三套候选号码（冷号回补 / 热号延续 / 均衡分布） */
+var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
+</script>
+
 </body>
 </html>`;
 
