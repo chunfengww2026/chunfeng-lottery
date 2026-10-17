@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 05:56
+   更新时间：2026-10-18 06:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 05:56",
+ "updated": "2026-10-18 06:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1555,14 +1555,14 @@ const XYSP_DATA = {
      "issue": "26276",
      "seen": "2026-10-17T21:56:01.693Z",
      "whenMs": 1792270885000,
-     "seenMs": 1792273561656,
+     "seenMs": 1792274161693,
      "drawMs": 1792243800000,
      "nextMs": 1792330200000,
      "atMs": 1792271761669,
      "drawAt": "2026-10-17T13:30:00.000Z",
      "nextAt": 1792330200000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-20T21:46:01.656Z",
+     "expireAt": "2026-10-20T21:56:01.693Z",
      "rule": "next-draw",
      "author": "美洋羊",
      "when": "2026-10-18 05:01:25",
@@ -2416,9 +2416,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 12:18:55",
      "postId": "7697486497892532776",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e59d9196c8784badbbd005e80620f363~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=l%2BeuPYJ0QXElvy5rJNwA6C1wOtg%3D",
@@ -2448,9 +2446,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 12:18:55",
      "postId": "7697486497892532776",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/86485cbbbce6422194e82df1c8b8ae9a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=F4fCV8ku48eY2%2FJBAP6n8e2lkE4%3D",
@@ -3623,66 +3619,6 @@ const XYSP_DATA = {
      "author": "在幽径寻芳的墨客",
      "when": "2026-10-17 06:55:50",
      "postId": "1879248837335114",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/353949d9bd0a45889e06b3fd3953b805~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=db44c2s6BedCEbVg5fRDkFDeQgM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/353949d9bd0a45889e06b3fd3953b805~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=db44c2s6BedCEbVg5fRDkFDeQgM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/353949d9bd0a45889e06b3fd3953b805~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=RUYd7C7Sv5irAdXo4waOKrkRRRI%3D",
-     "title": "大乐透第26118期晒票观察：9张票没一张超过42元，小额玩家的仪式感也有讲究",
-     "url": "http://toutiao.com/item/7697388047192556032/",
-     "at": "2026-10-16T22:06:02.132Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-17T04:46:01.395Z",
-     "whenMs": 1792187813000,
-     "seenMs": 1792212361395,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792188362132,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-20T04:46:01.395Z",
-     "rule": "next-draw",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-17 05:56:53",
-     "postId": "7697388047192556032",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cf311c079aa6493b89207c8f48b66993~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=yMK%2FztywUYRKdD1icDJ6oB4rqmA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cf311c079aa6493b89207c8f48b66993~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=yMK%2FztywUYRKdD1icDJ6oB4rqmA%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/353949d9bd0a45889e06b3fd3953b805~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=RUYd7C7Sv5irAdXo4waOKrkRRRI%3D",
-     "title": "大乐透第26118期晒票观察：9张票没一张超过42元，小额玩家的仪式感也有讲究",
-     "url": "http://toutiao.com/item/7697388047192556032/",
-     "at": "2026-10-16T22:06:02.132Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-17T04:46:01.395Z",
-     "whenMs": 1792187813000,
-     "seenMs": 1792212361395,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792188362132,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-20T04:46:01.395Z",
-     "rule": "next-draw",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-17 05:56:53",
-     "postId": "7697388047192556032",
      "px": 132300
     }
    ]
