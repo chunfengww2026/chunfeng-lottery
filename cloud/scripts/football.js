@@ -122,7 +122,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-17 10:30:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 3,
@@ -168,7 +168,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "拉巴斯竞技",
      "score": 2,
@@ -234,7 +234,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "奥克兰联女足",
      "score": 1,
@@ -272,7 +272,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "卡拉卡斯(女)",
      "score": 2,
@@ -338,7 +338,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "蒂华纳",
      "score": 0,
@@ -404,7 +404,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-17 11:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "亚特兰特",
      "score": 1,
