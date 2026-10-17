@@ -1,12 +1,22 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 11:29 */
 const JC_DATA = {
- "updated": "2026-10-17 11:28",
+ "updated": "2026-10-17 11:29",
  "stat": {
   "total": 33,
   "upcoming": 33,
   "live": 0,
   "finished": 0,
-  "withScore": 0
+  "withScore": 0,
+  "droppedNotOnSale": 0,
+  "droppedOldFinished": 0
+ },
+ "filter": {
+  "officialGate": true,
+  "officialCodes": 63,
+  "droppedNotOnSale": 0,
+  "droppedOldFinished": 0,
+  "finishedKeepHours": 24,
+  "matchLenHours": 2
  },
  "games": [
   {
@@ -3388,7 +3398,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-17 11:28",
+  "updated": "2026-10-17 11:29",
   "officialUpdate": "2026-10-17 11:23:27",
   "inSale": 63,
   "list": [
