@@ -920,16 +920,7 @@ const tocHtml =
      整体剥掉，标记会跟着消失（规则本身不受影响）。
      HTML 注释不在被剥的范围里，所以标记留在成品页上，改高度前能搜到它。
      ⚠️ 这条注释里【不写任何文件名/站名】。 */
-  `<!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
-<div class="px9" id="px9">
-  <div class="px9-head">推荐图 · 方法</div>
-  <div class="px9-games">
-    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
-    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
-  </div>
-  <div class="px9-methods" id="px9Methods"></div>
-  <div class="px9-out" id="px9Out"></div>
-  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+  `
 <!-- 【已删除】旧的「推荐图目录」4 格（双色球推荐号 / 双色球·五行 / 大乐透推荐号 / 大乐透·五行）
      —— 用户 2026-10-18：「删除换成新的」→ 换成上面的 #px9 方法目录（2 彩种 × 9 方法）。 -->
 `;
@@ -7652,13 +7643,16 @@ ${p3dHtml}
       <span class="ro-ref-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-ref-body">
-      <div class="ro-ref-toc">
-        <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
-        <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-        <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
-        <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-      </div>
-      <div class="ro-ref-note">点一下，全屏看那张图</div>
+      <!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
+<div class="px9" id="px9">
+  <div class="px9-head">推荐图 · 方法</div>
+  <div class="px9-games">
+    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
+    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
+  </div>
+  <div class="px9-methods" id="px9Methods"></div>
+  <div class="px9-out" id="px9Out"></div>
+  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
       <!-- ============================================================
            __ALGO_TAG__ 「本页算法」清单（用户 2026-10-18）
            ------------------------------------------------------------
