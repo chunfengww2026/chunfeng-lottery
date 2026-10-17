@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //  cloud-build.mjs —— 云端构建（GitHub Actions 里跑）
 //
 //  流程（按班次决定跑哪几步，见下面的 SLOT_PLAN）：
@@ -337,6 +337,7 @@ const FOOTBALL_BJ_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 const SLOT_TOLERANCE = {
   'full':         { from: -10, to: 90 },
   'heatmap-only': { from: -10, to: 90 },
+  'heatmap-hour': '只加热力图（每小时 :07）',
   'heatmap-off':  { from: -10, to: 25 },
   'draw-update':  { from: -10, to: 20 }
 };
@@ -346,6 +347,7 @@ const SLOT_LABEL = {
   'regular': '常规更新（每 10 分钟 · 晒票 10 分钟一轮；文章/在售场次内部钉 30 分钟）',
   'live-only': '只更新比分（每 5 分钟 · 轻量）',
   'heatmap-only': '只加热力图（北京 18:00）',
+  'heatmap-hour': '只加热力图（每小时 :07）',
   'heatmap-off': '只去掉热力图（北京 21:00）',
   'draw-update': '更新开奖号码（北京 21:30 / 21:45）',
   'football-only': '只更新足球（老式足球定时班次）',
@@ -369,15 +371,20 @@ const SLOT_PLAN = {
   /* 【全量班】抓全部数据 + 缺才补摇 + 清空热力图
      ⚠️ roll 用 fill 而不是 force：同一分钟会有两条 cron 都落到这一班
         （每 30 分钟那条 + 专用 0 18 那条），force 会把已经发布出去的号码摇两遍。 */
-  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'purge', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
+  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
   /* 【常规班】每 30 分钟：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 */
   'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
   /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
   'live-only':     { dataFetch: false,        football: false, extras: false, liveScores: true,  roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: false,  exportFootball: false, cleanup: false },
   'heatmap-only':  { dataFetch: false,        football: true,  extras: true,  liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: true,  cleanup: false },
-  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'purge', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
+  'heatmap-hour': '只加热力图（每小时 :07）',
+  'heatmap-off':   { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'skip', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
   'draw-update':   { dataFetch: 'draws-only', football: false, extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
   'football-only': { dataFetch: 'auto',       football: true,  extras: false, liveScores: false, roll: 'skip', heatmap: 'skip',  publishTickets: false, exportStatic: 'auto', exportFootball: true,  cleanup: false },
+  /* 【每小时热力图 · 轻班】用户 2026-10-17「每一小时更新一次」：
+     只抓晒票 OCR + 出热力图 + 重出页面。不抓足球/文章/晒票列表（那些 10 分钟
+     的常规班已经在抓，这里再抓一遍只会把源站问爆）、不摇号。 */
+  'heatmap-hour':  { dataFetch: false,        football: false, extras: false, liveScores: false, roll: 'skip', heatmap: 'build', publishTickets: false, exportStatic: true,   exportFootball: false, cleanup: false },
   'auto':          { dataFetch: 'auto',       football: 'auto', extras: true, liveScores: false, roll: 'fill', heatmap: 'auto',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false }
 };
 
@@ -524,6 +531,20 @@ function resolveSlot() {
     return {
       type: 'regular',
       why: `cron「${cronStr}」（每 30 分钟）+ 北京 ${b.hhmm} → 常规班（重活交给专用定时 cron）`,
+      bj: b, cron: cronStr, hourOk, minuteOk
+    };
+  }
+
+  /* ---------- 【每小时热力图】用户 2026-10-17 要求「热力图每小时更新一次」 ----------
+     workflow 里那条 cron 是 '7 * * * *'（UTC :07 = 北京 :07）：
+       · 排在 :07 是为了【避开 :00 那批「每5分钟 / 每10分钟 / 每30分钟」的密集班】，
+         否则同一分钟五条 cron 一起触发，concurrency 会互相取消（实测风暴）。
+       · 这一班只做热力图（抓晒票 OCR + 出图 + 重出页面），不摇号、不抓开奖。
+     识别方式：分钟只有一个且等于 7（其他专用 cron 的分钟是 0 / 30 / 45）。 */
+  if (cron.minutes.length === 1 && cron.minutes[0] === 7) {
+    return {
+      type: 'heatmap-hour',
+      why: `cron「${cronStr}」（每小时 :07）+ 北京 ${b.hhmm} → 热力图轻班（每小时更新一次）`,
       bj: b, cron: cronStr, hourOk, minuteOk
     };
   }
