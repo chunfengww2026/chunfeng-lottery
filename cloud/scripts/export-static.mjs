@@ -54,6 +54,20 @@ import {
 /* 数据源留痕断言（3 个生成脚本共用一份，见 source-guard.mjs） */
 import { assertNoSourceTrace, removeSourceWords } from './source-guard.mjs';
 
+/* ============================================================
+   VIP_FREE_TAG 「（本网页免费）」尾巴（用户 2026-10-18）
+   ------------------------------------------------------------
+   用户原话：「VIP趋势后面加内容：（本网页免费）」
+             「vip规则后面加：（本网页免费）」
+   为什么要加：用户不想让人以为要付费 ——「免费查看」那个小标签原来只标在
+   「基础趋势」上，三条 VIP 横条（趋势 / 规律 / 规则）看着像要收费的。
+   做法：在这里【只定义一次】，三处横条都用 ${VIP_FREE_TAG} 拼进去 ——
+        以后再加子页面 / 再加 VIP 横条，只需要拼这个常量，不会再漏。
+   ⚠️ 这是构建期常量（拼进页面里的内联脚本），不是运行时的全局变量，
+      所以三处不管在哪个函数里都拿得到。
+   ============================================================ */
+const VIP_FREE_TAG = '<span class="tq-vip-free">（本网页免费）</span>';
+
 
 /* 【性能优化】用户 2026-10-17：「网页和桌面顺畅一点」。
    ① 所有 <img> 补 loading="lazy" + decoding="async"（首屏不用等 226 张图）
@@ -1172,7 +1186,7 @@ function issueNote(list) {
      —— 和右边「走势图」那张卡改成同一个结构：标题 / 副标题 / 绿色胶囊。
         两张并排时自然等高，三行的位置也对齐（见样式表最后 __ROW3__ 那一段）。
      ⚠️ 折叠机制一个字没改：还是 <details> + <summary>，胶囊上的字仍由 CSS 伪元素
-        按 [open] 切换（点击查看 ▸ / 点击收起 ▾），页面上没有裸 <button>。
+        按 [open] 切换（点击查看 ▸ / 点击收起 ▾），页面上没有 button 标签。
      ⚠️ 原来的 .ro-xj-count（160）不再单独占一格，数字并进副标题，信息没丢。 */
   return '<details class="ro-xj">' +
     '<summary class="ro-xj-header">' +
@@ -6658,6 +6672,17 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   border: 1px solid #f0dfae; border-radius: 6px; padding: 1px 7px; line-height: 1.7; }
 .tq-vip-bar { display: flex; align-items: center; gap: 6px; background: #6b4a2f; color: #fff8ef;
   border-radius: 9px; padding: 7px 11px; font-size: 12.5px; font-weight: 800; margin: 0 0 10px; }
+/* 【本网页免费】用户 2026-10-18：「VIP趋势后面加内容：（本网页免费）」
+   —— 「免费查看」那个小标签只标在「基础趋势」上，VIP 那三条横条也得写清楚不用付费。
+   做法：横条里再放一个 span，字号小一档、颜色比标题淡一点（仍是暖白，不清淡到看不见）。
+   ⚠️ 横条本身是深棕底 #6b4a2f，#fff8ef 在它上面的对比度约 11:1，
+      淡到 .78 透明度后仍有约 8:1，远高于 4.5:1。 */
+.tq-vip-free { font-size: 11.5px; font-weight: 600; color: rgba(255, 248, 239, .78);
+  letter-spacing: 0; white-space: nowrap; }
+@media (max-width: 360px) {
+  .tq-vip-bar { font-size: 12px; padding: 7px 9px; }
+  .tq-vip-free { font-size: 10.5px; }
+}
 .tq-grp { margin: 0 0 11px; }
 .tq-grp-h { font-size: 12.5px; font-weight: 800; color: #2f2218; margin: 0 0 7px; }
 .tq-btns { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -7029,6 +7054,21 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   font-weight: 800 !important;
   box-shadow: none !important;
 }
+/* ④ 右下角那颗圆形「📱」浮按钮：去掉
+   ------------------------------------------------------------
+   用户截图圈的是右下角中间那颗圆按钮，原话「去掉这个」。
+   查清它是什么：它和一键桌面【胶囊】是同一个功能（都调 installApp）——
+   只是同一件事摆了两次；而且这颗 📱 在某些字体里渲染成「紫色方块 + 彩色格子」，
+   看着就像一颗骰子（用户说的「紫色骰子」就是它）。
+   处理：本地图里隐藏它，只留「📱 一键桌面」胶囊 + 💬 聊天两颗。
+   ⚠️ device-gate.mjs 是别人正在改的文件 → 一个字没动，只在本页样式里隐藏。
+   ⚠️ 没有删任何事件绑定：按钮只是 display:none，功能（installApp）照旧在胶囊上。
+   ⚠️ 比赛详情页那颗「← 返回」浮按钮（.md-fab-back）不在这条里，保留。 */
+#installFab,
+.install-fab {
+  display: none !important;
+}
+
 /* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
 </style>
 <!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
@@ -7505,7 +7545,7 @@ ${trendHtmlFull}
           四个图位的入口，用的就是页面已有的那 4 张推荐图（锚点 + 目录格子那套），
           点一下照旧是「全屏看那张图」——没有新造图、没有新的看图机制。
        ⚠️ 顶部那个 10 格的「推荐图目录」一个字没动。
-       ⚠️ 折叠仍是 <details>/<summary> + CSS 伪元素换字，没有裸 <button>。 -->
+       ⚠️ 折叠仍是 <details>/<summary> + CSS 伪元素换字，没有 button 标签。 -->
   <div class="grid-2-col" id="ro-ref-row">
 ${p3dHtml}
   <details class="ro-ref-pic" id="ro-refpic">
@@ -11165,7 +11205,7 @@ ${CHAT_JS_SHARE}
       items = vip[i].items;
       grp += '<div class="tq-grp"><div class="tq-grp-h">' + vip[i].name + '</div>' + tqBtnRow(ctx, items) + '</div>';
     }
-    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 趋势</div>' + grp + '</div>';
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 趋势${VIP_FREE_TAG}</div>' + grp + '</div>';
     h += tqRecCard(g, tab);
     h += note('以上数字全部按近 ' + SPAN + ' 期已开出的号码现算，每期开奖后自动更新；推荐号码用下一期期号做种子，同一期固定、换期就变。');
     return h;
@@ -11648,7 +11688,7 @@ ${CHAT_JS_SHARE}
     for (var v = 0; v < PT_VIP.length; v++) {
       grp += '<div class="tq-grp"><div class="tq-grp-h">' + PT_VIP[v].name + '</div>' + ptVipRow(g, tab, ctx10, ctx30, PT_VIP[v].items) + '</div>';
     }
-    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规律</div>' + grp + '</div>';
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规律${VIP_FREE_TAG}</div>' + grp + '</div>';
     h += ptBottom(g, tabs);
     h += note('四套模板都只按近 ' + PT_NEAR + ' / ' + SPAN + ' 期已开出的号码现算，每期开奖后自动更新；综合号用下一期期号做种子，同一期固定、换期就变。');
     return h;
@@ -12224,7 +12264,7 @@ ${CHAT_JS_SHARE}
     for (i = 0; i < vip.length; i++) {
       grp += '<div class="tq-grp"><div class="tq-grp-h">' + vip[i].name + '</div>' + maRuleRow(g, ctx, vip[i].items) + '</div>';
     }
-    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规则</div>' + grp + '</div>';
+    h += '<div class="tq-sec"><div class="tq-vip-bar">👑 VIP 规则${VIP_FREE_TAG}</div>' + grp + '</div>';
     h += maBottom(g);
     h += note('杀号 / 选号都是按近 ' + SPAN + ' 期的真实号码用几套规则算出来的统计结果，每期开奖后重建页面自动更新；底部号码用下一期期号做种子，同一期固定、换期就变。');
     return h;
@@ -12783,11 +12823,15 @@ ${CHAT_JS_SHARE}
      · 320 沿用两列（和现有三组一致），只缩字号，不改成上下排列。
    ⚠️ 上一版那套 inline-block + 半屏宽度的 hack 已删 —— 它做不到「两张一样高」。
    ⚠️ 折叠机制一个字没动：仍 <details>/<summary> + CSS 伪元素按 [open] 换字，
-      页面上没有裸 <button>（页面铁律）。
+      页面上没有 button 标签（页面铁律）。
    ============================================================ */
 #ro-xj-row, #ro-ref-row { margin: 0 12px 12px; align-items: stretch; }
 #ro-xj-row > *, #ro-ref-row > * { margin: 0 !important; box-sizing: border-box; }
 #ro-xj-row > details[open], #ro-ref-row > details[open] { grid-column: 1 / -1; }
+/* 展开任意一张 → 整行改成一列（另一张也占满整行），
+   和「晒票 + GPT模型摇号」那一行完全同一套做法（那边是脚本加 .is-open）。
+   ⚠️ :has 只在现代内核上有；老内核退回上面那条 grid-column，也能看。 */
+#ro-xj-row:has(> details[open]), #ro-ref-row:has(> details[open]) { grid-template-columns: minmax(0, 1fr); }
 /* 只剩一张时（例如专家数据为空）→ 占满整行，别缩在半边 */
 #ro-xj-row > :only-child, #ro-ref-row > :only-child { grid-column: 1 / -1; }
 
@@ -12865,6 +12909,10 @@ ${CHAT_JS_SHARE}
 #ro-ref-row > .ro-ref-pic > .ro-ref-head .ro-ref-arrow::after { content: ' ▸'; }
 #ro-ref-row > .ro-ref-pic[open] > .ro-ref-head .ro-ref-arrow::before { content: '点击收起'; }
 #ro-ref-row > .ro-ref-pic[open] > .ro-ref-head .ro-ref-arrow::after { content: ' ▾'; }
+/* 「手绘参考图」那颗胶囊原来只有「点击查看」没有箭头（那张卡自己的 ::after 就写死了三个字），
+   这里补成和其它两张一样的「点击查看 ▸ / 点击收起 ▾」。 */
+#ro-ref-row > .p3d-section > .p3d-head .p3d-head-tip::after { content: '点击查看  ▸'; }
+#ro-ref-row > .p3d-section[open] > .p3d-head .p3d-head-tip::after { content: '点击收起  ▾'; }
 
 /* ② 卡片外壳：内边距/圆角/底色三张卡一样（等高靠内容一样高 + stretch 兜底） */
 #ro-xj-row > .ro-xj,
@@ -12885,8 +12933,11 @@ ${CHAT_JS_SHARE}
 .ro-ref-toc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
 /* 展开后这张卡跨满整行 → 图位入口排两列（收起在半屏时一列，挤不下就换行，不溢出） */
 #ro-ref-row > .ro-ref-pic[open] .ro-ref-toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ⚠️ 格子本身是 flex 行 → 主标题和「绕胆/九转/九宫」会并排挤成两行；
+   这里改成【竖排居中】：主标题一行、副标题一行（和顶部那个推荐图目录一致）。 */
 .ro-ref-toc .ro-toc-cell {
   display: flex !important;
+  flex-direction: column !important;
   align-items: center;
   justify-content: center;
   min-height: 34px;
