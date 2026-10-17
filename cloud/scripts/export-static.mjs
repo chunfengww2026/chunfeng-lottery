@@ -9912,9 +9912,17 @@ ${CHAT_JS_SHARE}
     return { areas: out, algo: usedAlgos.join(' + ') };
   }
   function pageAi() {
-    var g = gameById(st.game);
     var h = chipsGame();
-    if (!st.ai || st.ai.game !== g.id) { var _p = pickFor(g.id); st.ai = { game: g.id, picks: _p.areas, algo: _p.algo }; }
+    /* 【从 DOM 取当前彩种】用户 2026-10-18：AI 面板一直显示"随机"且没有号码球 ——
+       根因是 st.game / gameById 拿不到 id（GAMES 是对象、按数组取就是 undefined）。
+       这里改成直接读彩种 chip 上的 data-tv-game，拿不到就退回 AI_CANDIDATES 的第一个键。 */
+    var chip = document.querySelector('.tv-chip.on');
+    var gid = chip ? chip.getAttribute('data-tv-game') : null;
+    if (!gid || (typeof AI_CANDIDATES !== 'undefined' && AI_CANDIDATES && !AI_CANDIDATES[gid])) {
+      gid = (typeof AI_CANDIDATES !== 'undefined' && AI_CANDIDATES) ? Object.keys(AI_CANDIDATES)[0] : null;
+    }
+    if (!gid) { return h + note('这期还没有可用的号码数据。'); }
+    if (!st.ai || st.ai.game !== gid) { var _p = pickFor(gid); st.ai = { game: gid, picks: _p.areas, algo: _p.algo }; }
     var picks = st.ai.picks, i, j;
     var inner = '';
     for (i = 0; i < picks.length; i++) {
