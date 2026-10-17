@@ -1911,10 +1911,11 @@ function buildHitMarquee() {
   const rate = compared ? Math.round((winCount / compared) * 1000) / 10 : 0;
   const rateText = rate.toFixed(1) + '%';
 
-  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期 */
+  /* 只播命中率、没有任何中奖时也不能空着 —— 如实说比对了几期。
+     ⚠️ 这句要能在 320px 的框里一行放下（约 191px < 258px），多了会被省略号切掉。 */
   if (!recent.length) {
     const none = compared
-      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报 · 命中率 ' + rateText
+      ? '近 ' + compared + ' 期推荐已比对 · 暂无中奖播报'
       : '暂无可比对的期次 · 暂无中奖播报';
     return {
       count: 0, compared, rate: rateText,
