@@ -10921,7 +10921,8 @@ ${CHAT_JS_SHARE}
     return top;
   }
   function tqPicks(g, issue) {
-    var rnd = tqRng('tq|' + g.id + '|' + String(issue || '0') + '|' + st.tqTab);
+    /* 种子只用 彩种 + 下一期期号 → 换个 Tab 看同一组号，换期才变 */
+    var rnd = tqRng('tq|' + g.id + '|' + String(issue || '0'));
     var out = [], i, tabs = tqTabs(g);
     if (g.type === 'digit') {
       var need = tqPer(g.id, 'main');
@@ -11115,8 +11116,9 @@ ${CHAT_JS_SHARE}
   }
 
   /* ---------------- A · 斜连推号 ---------------- */
-  function ptSlant(g, ctx) {
-    var rows = ctx.rows, i, j, x, list = [], hist = 0;
+  function ptSlant(g, ctx, ctx30) {
+    /* 历史斜线用近 30 期数（样本够才看得出来），推下一期用最新两期 */
+    var rows = (ctx30 && ctx30.rows.length > ctx.rows.length) ? ctx30.rows : ctx.rows, i, j, x, list = [], hist = 0;
     for (i = 2; i < rows.length; i++) {
       var a = rows[i - 2].nums, b = rows[i - 1].nums, c = rows[i].nums;
       for (j = 0; j < a.length; j++) {
@@ -11140,11 +11142,26 @@ ${CHAT_JS_SHARE}
         if (q.indexOf(p[j] - 1) >= 0) { preds.push(p[j] - 2); near.push(p[j] + ' → ' + (p[j] - 1) + ' → 推 ' + (p[j] - 2)); }
       }
     }
-    var outNums = ptUniq(preds, ctx);
+    var outNums = ptUniq(preds, ctx), fallback = '';
+    if (!outNums.length) {
+      /* 没有斜线时不许留空：改用「均值回归」/「上期邻号」两套兜底，同样出具体号码 */
+      var n10 = Math.min(PT_NEAR, rows.length), sm = 0, q3;
+      if (!ctx.isMulti) {
+        for (q3 = rows.length - n10; q3 < rows.length; q3++) if (q3 >= 0) sm += rows[q3].nums[0];
+        var mean = sm / Math.max(1, n10), base = Math.round(mean);
+        outNums = ptUniq([base - 1, base, base + 1], ctx);
+        fallback = '近 ' + rows.length + ' 期没有连成一条的斜线 → 改用「均值回归」：近 ' + n10 + ' 期均值 ' + fmt1(mean) + '，推它上下 1 个号';
+      } else {
+        var lastN = rows.length ? rows[rows.length - 1].nums : [], back = [], q4;
+        for (q4 = 0; q4 < lastN.length; q4++) { back.push(lastN[q4] - 1); back.push(lastN[q4] + 1); }
+        outNums = ptUniq(back, ctx);
+        fallback = '近 ' + rows.length + ' 期没有连成一条的斜线 → 改用「上期邻号」：上期号码各 ±1';
+      }
+    }
     var t = '<table class="tq-mtbl"><thead><tr><th>期号</th><th>斜连线</th><th>推出</th></tr></thead><tbody>', k;
     var tail = list.slice(-4);
     if (!tail.length) {
-      t += '<tr><td colspan="3" class="l">近 ' + ctx.n + ' 期没有三期连成一条的斜线（+1 / -1）</td></tr>';
+      t += '<tr><td colspan="3" class="l">近 ' + rows.length + ' 期还没有三期斜线（+1 / -1），所以用了下面的兜底推号</td></tr>';
     } else {
       for (k = 0; k < tail.length; k++) {
         t += '<tr><td>' + esc(tail[k].issue) + '</td><td>' + tail[k].chain + '</td><td><b>' + (ptIn(tail[k].pred, ctx) ? tail[k].pred : '越界') + '</b></td></tr>';
@@ -11153,9 +11170,10 @@ ${CHAT_JS_SHARE}
     t += '</tbody></table>';
     var body = t;
     if (near.length) body += '<div class="tq-kv"><span>最新两期连线</span><b>' + esc(near.slice(0, 3).join('；')) + '</b></div>';
-    body += '<div class="tq-kv"><span>近 ' + ctx.n + ' 期出现斜连</span><b>' + hist + ' 次</b></div>';
+    body += '<div class="tq-kv"><span>近 ' + rows.length + ' 期斜线</span><b>' + hist + ' 次</b></div>';
+    if (fallback) body += '<div class="tq-kv"><span>兜底规则</span><b>' + fallback + '</b></div>';
     body += ptBallsLine('可能出现', outNums, ctx.isMulti ? 'red' : 'blue');
-    return ptBlk('A · 斜连推号', '近 ' + ctx.n + ' 期', body);
+    return ptBlk('A · 斜连推号', '近 ' + rows.length + ' 期', body);
   }
 
   /* ---------------- B · 竖连续出 ---------------- */
@@ -11190,7 +11208,7 @@ ${CHAT_JS_SHARE}
       body += '<div class="tq-kv"><span>连出的号</span><b>' + s + '</b></div>';
       body += '<div class="tq-kv"><span>续连判断</span><b>' + (three * 100 / (two || 1) > 40 ? '历史上续连率偏高，可以留 1 个' : '历史上续连率一般，最多留 1 个') + '</b></div>';
     }
-    body += '<div class="tq-kv"><span>近 ' + rows.length + ' 期续连率</span><b>' + three + ' / ' + two + ' 次（' + (two ? fmt1(three * 100 / two) : '0.0') + '%）</b></div>';
+    body += '<div class="tq-kv"><span>续连次数</span><b>连出 ' + two + ' 次 · 续到第 3 期 ' + three + ' 次' + (two ? '' : '（这一段没有连出过的号）') + '</b></div>';
     body += ptBallsLine('续连候选', ptUniq(nums, ctx), ctx.isMulti ? 'red' : 'blue');
     return ptBlk('B · 竖连续出', '同号连出', body);
   }
@@ -11438,7 +11456,7 @@ ${CHAT_JS_SHARE}
       return h + ptBottom(g, tabs);
     }
     h += '<div class="tq-sec"><div class="tq-sec-h">基础规律<span class="tq-free">免费查看</span></div>';
-    h += ptSlant(g, ctx10);
+    h += ptSlant(g, ctx10, ctx30);
     h += ptVertical(g, ctx30);
     h += ptTail(g, ctx10, ctx30);
     h += ptCycle(g, ctx30);
@@ -11969,7 +11987,8 @@ ${CHAT_JS_SHARE}
   }
   function maBottom(g) {
     var issue = tqNextIssue(g.id);
-    var rnd = tqRng('ma-bottom|' + g.id + '|' + String(issue || '0'));
+    /* 和「本期方案」这条规则用同一个种子 → 底部这组号 = 规则里看到的那组号 */
+    var rnd = tqRng('ma-plan|' + g.id + '|' + String(issue || '0'));
     var h = '<div class="tq-rec"><div class="tq-rec-h">🎯 本期号码<span>' + (issue ? ('第 ' + esc(issue) + ' 期') : '') + '</span></div>';
     if (g.type === 'digit') {
       var tabs = tqTabs(g), need = tabs.length, kr = '', pr = '', p, i;
