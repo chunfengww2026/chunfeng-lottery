@@ -1498,6 +1498,10 @@ function renderRec() {
       (r.league ? `<i>${esc(r.league)}</i>` : '') + `</span>` +
       `<span class="m-recpick">${esc(r.label)}</span>` +
       `<span class="m-recodds">${r.odds == null ? '—' : Number(r.odds).toFixed(2)}</span>` +
+      /* 【排名】用户 2026-10-18：主客排名是真实字段（jc-data 的 home.rank / away.rank），直接标出来 */
+      (r.rankH != null || r.rankA != null
+        ? `<span class="m-recrank">#${r.rankH == null ? '—' : r.rankH} : #${r.rankA == null ? '—' : r.rankA}</span>`
+        : '') +
       `<span class="m-recconf${r.conf >= 60 ? ' strong' : ''}">${r.conf}%</span>` +
       `</div>`).join('')
     : `<div class="m-recempty">暂无（在售场次里` +
@@ -2257,6 +2261,8 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-rec > summary.m-rechead::marker { content: ''; }
 /* 推荐卡片里的提示行（用户指定文案） */
 .m-rectips { font-size: 11px; color: #a89a80; padding: 2px 2px 8px; }
+/* 推荐串行里的主客排名（真实字段，不是估算） */
+.m-recrank { font-size: 11px; color: #8a7a63; }
 .m-rectitle { font-size: 14px; font-weight: 700; color: #e8eaed; }
 .m-reccount { font-size: 11px; color: #6b7488; background: #12151d;
   padding: 2px 8px; border-radius: 20px; }
