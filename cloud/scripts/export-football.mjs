@@ -4161,8 +4161,40 @@ ${JC_XYSP_VIEW}
       listEl.innerHTML = '<div class="past-empty">暂无往期推荐</div>';
       return;
     }
-    hist.sort(function (a, b) { return (b.finishTime || 0) - (a.finishTime || 0); });
-    listEl.innerHTML = hist.map(function (g) {
+    /* 【两种结构都吃】用户 2026-10-17 给的生成器输出的是「扁平场次列表」，
+       而前端示例按「批次分组」渲染 —— 这里统一归一化：
+         ① 分组：[{dateStr, finishTime, verdict, matches:[...]}]
+         ② 扁平：[{matchNo, teams, pick, score, result, dateStr, finishTime}]
+         扁平的先按 dateStr 分组（没有 dateStr 就归到「往期」），再走同一套渲染。 */
+    var groups = [];
+    var isGrouped = !!(hist[0] && Array.isArray(hist[0].matches));
+    if (isGrouped) {
+      groups = hist.map(function (g) {
+        return {
+          dateStr: g.dateStr, finishTime: g.finishTime || 0, verdict: g.verdict || '',
+          matches: Array.isArray(g.matches) ? g.matches : []
+        };
+      });
+    } else {
+      var byKey = {};
+      hist.forEach(function (m) {
+        var k = m.dateStr || '往期';
+        if (!byKey[k]) byKey[k] = { dateStr: k, finishTime: m.finishTime || 0, verdict: '', matches: [] };
+        byKey[k].matches.push(m);
+        if ((m.finishTime || 0) > byKey[k].finishTime) byKey[k].finishTime = m.finishTime || 0;
+      });
+      groups = Object.keys(byKey).map(function (k) {
+        var g = byKey[k];
+        if (!g.verdict) {
+          var r = 0, b = 0;
+          g.matches.forEach(function (m) { if (m.result === 'red') r++; else if (m.result === 'black') b++; });
+          g.verdict = r && !b ? '红' : (b && !r ? '黑' : '');
+        }
+        return g;
+      });
+    }
+    groups.sort(function (a, b) { return (b.finishTime || 0) - (a.finishTime || 0); });
+    listEl.innerHTML = groups.map(function (g) {
       var ms = Array.isArray(g.matches) ? g.matches : [];
       return '<div class="past-item">' +
         '<div class="past-item-head">' +
