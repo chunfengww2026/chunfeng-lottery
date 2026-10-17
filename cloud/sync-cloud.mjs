@@ -198,6 +198,12 @@ const FROM_ROOT = [
   'manifest.json',
   'manifest.webmanifest',
   'icon-192.png',
+  /* 构建实际是从 cloud/scripts/icons/ 拷图标（cloud-build.mjs 的 ICON_FILES）——
+     只加根目录那几个的话，新图标传上去了也用不上（踩过两次）。 */
+  'cloud/scripts/icons/icon-192.png',
+  'cloud/scripts/icons/icon-512.png',
+  'cloud/scripts/icons/apple-touch-icon.png',
+  'cloud/scripts/icons/share.png',
   'icon-512.png',
   'service-worker.js',
   /* 【祝福视频】用户 2026-10-18：分享页聊天框顶部的那个祝福视频（blessing.mp4，
