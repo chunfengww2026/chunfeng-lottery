@@ -7644,16 +7644,7 @@ ${p3dHtml}
     </summary>
     <div class="ro-ref-body">
 <!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
-<div class="px9" id="px9">
-  <div class="px9-head">推荐图 · 方法</div>
-  <div class="px9-games">
-    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
-    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
-  </div>
-  <div class="px9-methods" id="px9Methods"></div>
-  <div class="px9-out" id="px9Out"></div>
-  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
-</div>
+<!-- 【已按用户要求删除 · 2026-10-18】「推荐图 · 方法」整块删掉（双色球/大乐透 tab + 九宫格 + 结果区 + 提示）。 用户原话：「这一栏给我删了」。⚠️ 若又被还原，说明有别的窗口在改同一个文件。 -->
       <!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
       <!-- 【已按用户要求删除 · 2026-10-18】「推荐图 · 方法」这一栏整块删掉
            （双色球/大乐透 两个 tab + 余数算法/分区法/冷热号/遗漏值算法/奇偶/质合/和值/跨度/多源共振法 九宫格 + 计算结果区 + 底部提示）。
