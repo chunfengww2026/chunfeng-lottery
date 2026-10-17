@@ -695,7 +695,7 @@ let REC_ROWS_ARCHIVE = [];
    ⚠️ 36 小时这个数必须和 jc-reco-archive.js 的 RECO_KEEP_HOURS 一致，
       否则会出现「存档里留了 36 小时、页面只显示 24 小时」或者反过来。
    ============================================================ */
-const REC_ARCH_HOURS = 48;   /* 用户 2026-10-18：36 小时（内核 RECO_KEEP_HOURS 必须一致） */
+const REC_ARCH_HOURS = 36;   /* 用户 2026-10-18：36 小时（内核 RECO_KEEP_HOURS 必须一致） */
 /** 这批推荐是不是「近 36 小时内推的」（认不出时间 → 保留，宁可多显示） */
 function recArchInWindow(b) {
   const t = Date.parse(String((b && b.at) || '').replace(/-/g, '/'));
@@ -735,14 +735,17 @@ if (JC_RECO && Array.isArray(JC_RECO.batches) && RECO_KERNEL) {
     .filter((b) => b.rows.length)
     .filter(recArchInWindow);
 
-  const SUM = RECO_KERNEL.summarize({ batches: winBatches });
+  /* 用户原话（2026-10-18）：「你不是抓取 36 小时内信心 ≥58% 的完场单吗」
+     → 按【场次】算（一场一条），不是按整批。窗口 36 小时，门槛 ≥58%。
+     ⚠️ 58 用字面量：REC_MIN 的 const 声明在文件后面，直接引用会踩 TDZ。 */
+  const MS = RECO_KERNEL.matchStats({ batches: winBatches }, { min: 58 });
   REC_STAT = {
-    batches: SUM.batches, rows: SUM.rows,
-    red: SUM.red, black: SUM.black,          /* ← 组口径：红/黑都按"整批"计 */
-    pending: SUM.pending,                    /* 未打完的【组】数 */
-    pendingMatches: 0,                       /* 组口径下不再单列场次 */
-    decided: SUM.decided,
-    rate: SUM.rate == null ? null : Number(SUM.rate).toFixed(1),
+    batches: MS.batches, rows: MS.rows,
+    red: MS.red, black: MS.black,
+    pending: MS.unfinished,
+    pendingMatches: MS.pendingMatches,
+    decided: MS.decided,
+    rate: MS.rate == null ? null : Number(MS.rate).toFixed(1),
     updated: JC_RECO.updated || ''
   };
   REC_ARCH_PENDING = winBatches.filter((b) => !recArchDecided(b)).length;
