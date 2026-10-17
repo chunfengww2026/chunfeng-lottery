@@ -532,6 +532,9 @@ export function tryFullSplit(line, gid) {
   const back = seq.slice(spec.front);
   if (new Set(front).size !== front.length) return null;
   if (new Set(back).size !== back.length) return null;
+  /* 【必须查范围】以前只查了后区，前区可以出现 55 / 71 这种不存在的号
+     （例如把「20:55」读成号码），会让假票通过后续投票。 */
+  if (front.some((x) => x < 1 || x > spec.frontMax)) return null;
   if (back.some((x) => x < spec.backMin || x > spec.backMax)) return null;
   return { front: [...front].sort((a, b) => a - b), back: [...back].sort((a, b) => a - b) };
 }
