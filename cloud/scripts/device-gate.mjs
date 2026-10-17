@@ -1,4 +1,4 @@
-/* ============================================================================
+﻿/* ============================================================================
    device-gate.mjs —— 共用「设备门」+ PWA <head> + 「一键桌面」按钮
    ----------------------------------------------------------------------------
    谁在用（3 个生成脚本 import 这里，页面里不重复写一遍）：
@@ -1262,13 +1262,13 @@ export const CHAT_VIDEO_CSS = `
   -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 /* 【不裁画面】用户 2026-10-18「手机用户要看得清楚」→ 用 contain 完整显示，不 cover 裁边 */
 .cf-video video { display: block; width: 100%; height: 100%;
-  object-fit: contain; background: #000; }
+  object-fit: cover; background: #000; }
 .cf-video:focus-visible { outline: 2px solid #1a8c5a; outline-offset: -2px; }
 
 /* 【手机放大 · 按 16:9 自适应】原来固定 180px 在小屏上偏小 → 手机上按比例走，
    宽度撑满、高度由 16:9 算出来（最高不超过 46vh，保证输入框还在）。 */
 @media (max-width: 520px) {
-  .cf-video { height: auto; aspect-ratio: 16 / 9; max-height: 46vh; }
+  .cf-video { height: auto; aspect-ratio: 9 / 16; max-height: 33vh; }
 }
 /* 【一键全屏】右下角那个小方块：点它进系统全屏（iOS 走 webkitEnterFullscreen） */
 .cf-video-fs { position: absolute; right: 8px; bottom: 8px; z-index: 3;
@@ -1356,7 +1356,25 @@ export const CHAT_VIDEO_JS = `
     }
     window.__cfVideoBoot = boot;   /* ← CHAT_JS 的 open() 调的就是这个 */
 
-    /* ---------- 1.5 【一键全屏】用户 2026-10-18：手机上要看得清楚、全屏
+    /* ---------- 1.5 【按视频真实比例自适应】用户 2026-10-18：「手机版视频有点小，要清楚」
+       祝福视频是【竖屏】的（宽高比 ~9:16）：固定 16:9 会在左右留大片黑边、画面反而更小。
+       这里读到视频真实宽高后，把容器比例设成和视频一致 → 画面尽量大、且不裁边。
+       （读不到宽高时保持 CSS 的 16:9 兜底，绝不报错） */
+    (function () {
+      function applyRatio() {
+        try {
+          if (!video.videoWidth || !video.videoHeight) return;
+          box.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
+          box.style.height = 'auto';
+          box.style.maxHeight = '42vh';   /* 竖屏别把聊天区和输入框挤出面板（实测 62vh 会把聊天顶没） */
+        } catch (e) { }
+      }
+      video.addEventListener('loadedmetadata', applyRatio);
+      video.addEventListener('loadeddata', applyRatio);
+      if (video.readyState >= 1) applyRatio();
+    })();
+
+    /* ---------- 1.6 【一键全屏】用户 2026-10-18：手机上要看得清楚、全屏
        优先用系统全屏 API（安卓/桌面 Chrome 走 requestFullscreen，
        iOS Safari 走 video.webkitEnterFullscreen）；都不支持就什么也不做，
        只靠上面的 16:9 自适应放大（绝不报错）。 */
