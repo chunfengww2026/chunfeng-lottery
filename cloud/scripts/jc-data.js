@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 19:24 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 19:53 */
 const JC_DATA = {
- "updated": "2026-10-17 19:24",
+ "updated": "2026-10-17 19:53",
  "stat": {
   "total": 63,
-  "upcoming": 57,
-  "live": 2,
+  "upcoming": 55,
+  "live": 4,
   "finished": 4,
-  "withScore": 6,
+  "withScore": 8,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -1162,7 +1162,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 2
+    "away": 3
    },
    "statusText": "1 - 2 ",
    "odds": {
@@ -1249,7 +1249,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 2
+    "away": 3
    }
   },
   {
@@ -1662,7 +1662,10 @@ const JC_DATA = {
     "name": "切尔西",
     "rank": 6
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1736,9 +1739,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1362798",
@@ -1963,7 +1969,10 @@ const JC_DATA = {
     "name": "林肯城",
     "rank": 18
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 1
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -2045,9 +2054,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 1
+   }
   },
   {
    "gid": "1489060",
