@@ -3032,7 +3032,10 @@ ${nav}
       .recommend-bar → .m-reco     .right-tags .tag → .m-tag / .m-probrow .opt
       .ev-bar/.ev-item → .m-ev/.m-evitem     .score-row/.score-tag → .m-scorepick/.m-sp-item
    颜色/圆角/间距/字体全部照他给的值；EV>0 用红、EV<0 用灰（他明确：positive 红、negative 灰）。
-   放在 ${CSS} 之后 + 必要的 !important → 稳稳盖住旧的暗色残留。 */
+   放在上面那段 CSS 之后 + 必要的 !important → 稳稳盖住旧的暗色残留。
+   ⚠️ 这里【不能】写反引号包起来的插值标记：本行在 CSS 注释里，
+      一旦写进来，整段 CSS 会被再展开一遍（页面凭空多 ~39KB 重复样式、
+      选择器计数翻倍）。2026-10-18 修。 */
 .m-card { background: #fdf6ea !important; border: 1px solid #e8d7bd !important;
   border-radius: 12px !important; margin-bottom: 12px !important; overflow: hidden !important; }
 /* 圆角钉死 12px：另有一条更强选择器的 11px 规则抢过（差 1px，肉眼几乎看不出），
