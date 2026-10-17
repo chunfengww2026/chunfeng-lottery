@@ -213,6 +213,68 @@ export async function makeVariants(buf, opts) {
 }
 
 /* ============================================================
+   二之二、【条带兜底】把整张票横向切成几条，各自放大后再识别
+   ------------------------------------------------------------
+   手机实拍票的通病：票只占画面下面三分之一，上面是桌面/手/背景，
+   整图 OCR 的版面分析（PSM.AUTO）会把这些暗区当成主体，
+   号码那一行直接被丢掉。实测（12 张真晒票）里有 3 张就是这样：
+   整图只认出一行「2026年10月17日 开奖」，号码行完全没进文本。
+   → 所以「整图什么都没认出来」时，再按横向条带重跑一遍：
+     每条只放 30% 高度，放大到长边 BAND_LONG，专盯号码行。
+   条带有重叠，同一行号码会落进相邻两条 → 天然形成「多变体投票」。
+   ============================================================ */
+const BAND_LONG = Number(process.env.OCR_BAND_LONG || 1400);
+const BAND_COUNT = Number(process.env.OCR_BAND_COUNT || 6);
+const BAND_RATIO = Number(process.env.OCR_BAND_RATIO || 0.30);
+
+/**
+ * 一张原图 → 若干「横向条带」变体（每条都是放大后的 PNG）
+ * @param {Buffer} buf
+ * @param {{targetLong?:number, maxUpscale?:number, long?:number, count?:number, ratio?:number}} [opts]
+ * @returns {Promise<Array<{name:string, png:Buffer, w:number, h:number}>>}
+ */
+export async function makeBandVariants(buf, opts) {
+  const o = opts || {};
+  const targetLong = Number(o.targetLong || TARGET_LONG);
+  const maxUp = Number(o.maxUpscale === undefined ? MAX_UPSCALE : o.maxUpscale);
+  const long = Number(o.long || BAND_LONG);
+  const count = Math.max(1, Number(o.count || BAND_COUNT));
+  const ratio = Math.min(0.9, Math.max(0.15, Number(o.ratio || BAND_RATIO)));
+
+  const img = await decodeImage(buf);
+  let g = toGray(img);
+  let w = img.width, h = img.height;
+
+  let scale = targetLong / Math.max(w, h);
+  if (maxUp > 0 && scale > maxUp) scale = maxUp;
+  if (Math.abs(scale - 1) > 0.02) {
+    const nw = Math.max(8, Math.round(w * scale)), nh = Math.max(8, Math.round(h * scale));
+    g = resizeGray(g, w, h, nw, nh); w = nw; h = nh;
+  }
+  g = stretch(g);
+
+  const bh = Math.max(8, Math.round(h * ratio));
+  const span = Math.max(0, h - bh);
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    const y0 = count > 1 ? Math.round((span * i) / (count - 1)) : 0;
+    const band = new Uint8Array(w * bh);
+    for (let y = 0; y < bh; y++) {
+      const src = (y0 + y) * w;
+      band.set(g.subarray(src, src + w), y * w);
+    }
+    let bg = band, bw = w, bhh = bh;
+    const k = long / Math.max(bw, bhh);
+    if (k > 1.05) {
+      bw = Math.round(bw * k); bhh = Math.round(bhh * k);
+      bg = resizeGray(band, w, bh, bw, bhh);
+    }
+    out.push({ name: 'band' + i, png: await encodePng(bg, bw, bhh), w: bw, h: bhh, y: y0 });
+  }
+  return out;
+}
+
+/* ============================================================
    三、OCR 引擎（单例 worker）
    ============================================================ */
 let _worker = null;
@@ -286,6 +348,27 @@ export function parseIssue(text) {
     issue = all.find((x) => /^20\d{5}$/.test(x)) || all.find((x) => /^\d{7}$/.test(x)) || '';
   }
   return issue;
+}
+
+/** 期号归一化：'2026118' / '26118' / '第26118期' 都算【同一期】
+ *  规则：7 位且以 20 开头（年份 4 位）→ 去掉前 2 位，剩下「年 2 位 + 序号」；
+ *        5 位就是「年 2 位 + 序号」，原样返回；
+ *        别的一律原样返回（宁可判不同，也不要把错号当对的）。
+ *  ⚠️ 为什么要这一步：大乐透项目期号是 5 位（26119），
+ *     但票面 / 晒票截图里常常印的是 7 位（2026119）——
+ *     原来用严格全等比较，会把【当期真票】判成「期号不符」直接丢掉。 */
+export function issueKey(s) {
+  const t = String(s || '').replace(/\D/g, '');
+  if (t.length === 7 && t.slice(0, 2) === '20') return t.slice(2);
+  if (t.length === 5) return t;
+  return t;
+}
+
+/** 两个期号是不是同一期（归一化后比较） */
+export function sameIssue(a, b) {
+  if (!a || !b) return false;
+  const ka = issueKey(a), kb = issueKey(b);
+  return !!ka && ka === kb;
 }
 
 /** 一行 → 数字 token */
@@ -430,9 +513,121 @@ export function tryFullSplit(line, gid) {
   return { front: [...front].sort((a, b) => a - b), back: [...back].sort((a, b) => a - b) };
 }
 
+/* ============================================================
+   四之二、复式票 / 胆拖票（没有「+」分隔符的票面）
+   ------------------------------------------------------------
+   一起彩晒票里【复式票】和【胆拖票】占比很高（用户愿意晒大票），
+   但它们印的是分区的整块号码，不是「5 个 + 2 个」那一行：
+
+     复式票  前区 02 03 04 07 10 11 14 17 19 21 26 27 30 32
+                   17 19 21 26 27 30 32          ← 折行
+             后区 04 05 12
+     胆拖票  前区胆 12 20 22 26 / 前区拖 02 09 32
+             后区胆 06          / 后区拖 09 12
+
+   以前只认「+」那一行 → 这类票【一个号都提不出来】（实测 12 张里 2 张）。
+   现在按「区关键字」切块：
+     · 后区/蓝球 开头的那一行（含紧跟其后的 后区拖/后区胆 行）= 后区
+     · 它上面的几行（连续的、以号码为主的行）= 前区
+   号码一律去重、查范围；前区 < 5 个或后区 < 2 个就判定「不是号码块」，直接放弃。
+   ============================================================ */
+const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|篮\s*球|后\s*胆|后\s*拖|后\s*K)/;
+const META_WORD_RE = /(合计|倍数|金额|注数|奖金|开奖|票|元|期)/;
+
+/** 一行里所有「像号码」的数字（先剔掉日期 / 期号 / 金额 / 注数 / 倍数） */
+function numbersOf(line, spec) {
+  let s = normalizeText(line);
+  s = s.replace(/\d{4}\s*[/\-.年]\s*\d{1,2}\s*[/\-.月]\s*\d{1,2}\s*日?/g, ' ');
+  s = s.replace(/\d{1,2}\s*[/\-.]\s*\d{1,2}\s*日?/g, ' ');
+  s = s.replace(/\d{5,8}/g, ' ');          /* 期号 */
+  s = s.replace(/\d+\s*[.,]\s*\d+\s*元/g, ' ');
+  s = s.replace(/\d+\s*元/g, ' ');
+  s = s.replace(/\d+\s*注/g, ' ');
+  s = s.replace(/\d+\s*倍/g, ' ');
+  s = s.replace(/\d+\s*期/g, ' ');
+  s = s.replace(/[¥￥]/g, ' ');
+  const out = [];
+  const re = /\d{1,2}/g;
+  let m;
+  while ((m = re.exec(s))) {
+    const n = parseInt(m[0], 10);
+    if (Number.isInteger(n) && n >= 1 && n <= spec.frontMax) out.push(n);
+  }
+  return out;
+}
+
+/**
+ * 整页文本 → 复式 / 胆拖 的号码块
+ * @returns {Array<{front:number[],back:number[],kind:string}>}
+ */
+export function parseStructuredTicket(text, gid) {
+  const spec = GAME_SPEC[gid];
+  if (!spec) return [];
+  const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (lines.length < 2) return [];
+  const out = [];
+  const seen = new Set();
+
+  for (let bi = 0; bi < lines.length; bi++) {
+    const kw = BACK_LINE_RE.exec(lines[bi]);
+    if (!kw) continue;
+
+    /* ---------- 后区 ---------- */
+    let back = numbersOf(lines[bi].slice(kw.index + kw[0].length), spec)
+      .filter((n) => n >= spec.backMin && n <= spec.backMax);
+    for (let k = bi + 1; k <= bi + 2 && k < lines.length; k++) {
+      const kw2 = BACK_LINE_RE.exec(lines[k]);
+      if (!kw2) break;                                   /* 后区块断了就停 */
+      back = back.concat(numbersOf(lines[k].slice(kw2.index + kw2[0].length), spec)
+        .filter((n) => n >= spec.backMin && n <= spec.backMax));
+    }
+    if (!back.length) continue;
+
+    /* ---------- 前区：往上找连续的号码行 ---------- */
+    let front = [];
+    for (let k = bi - 1; k >= 0 && k >= bi - 4; k--) {
+      const l = lines[k];
+      const nums = numbersOf(l, spec);
+      if (!nums.length) break;                           /* 空行 / 纯文字行 → 号码块结束 */
+      if (nums.length === 1 && META_WORD_RE.test(l)) break;
+      front = nums.concat(front);
+      if (front.length > 20) break;
+    }
+
+    const fset = [...new Set(front)];
+    const bset = [...new Set(back)];
+    if (fset.length < spec.front) continue;              /* 前区不够 5 个 → 不是号码块 */
+    if (bset.length < spec.back) continue;
+    if (fset.length > 20 || bset.length > spec.backMax) continue;
+
+    const key = fset.join(',') + '|' + bset.join(',');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const hasDanTuo = /(胆|拖)/.test(text);
+    const kind = hasDanTuo ? '胆拖票' : (fset.length > spec.front || bset.length > spec.back ? '复式票' : '单式票');
+    out.push({
+      front: [...fset].sort((a, b) => a - b),
+      back: [...bset].sort((a, b) => a - b),
+      kind
+    });
+  }
+  return out;
+}
+
 /** 整页文本 → 所有合法注 */
 export function parseTicketText(text, gid) {
-  const lines = String(text || '').split(/\r?\n/);
+  const raw = String(text || '').split(/\r?\n/);
+  /* 【折行救命】票面一行太长时 OCR 会断成两行：
+       "01 08 19 27 34"
+       "+ 05 11"
+     这里把「下一行以 +/- 开头」的折行先接回去，否则两行都解析不出来。 */
+  const lines = [];
+  for (let i = 0; i < raw.length; i++) {
+    const cur = raw[i];
+    const nxt = i + 1 < raw.length ? raw[i + 1] : '';
+    if (/^\s*[+\-–—/／]\s*\d/.test(nxt) && /\d/.test(cur)) { lines.push(cur + ' ' + nxt); i++; continue; }
+    lines.push(cur);
+  }
   const found = [];
   const seen = new Set();
   lines.forEach((line, idx) => {
@@ -445,8 +640,17 @@ export function parseTicketText(text, gid) {
     const key = hit.front.join(',') + '|' + hit.back.join(',');
     if (seen.has(key)) return;                    // 同一注只算一次（多版面模式会重复）
     seen.add(key);
-    found.push({ ...hit, line: normalizeText(line).replace(/\s+/g, ' ').trim().slice(0, 120), lineNo: idx });
+    found.push({ ...hit, kind: '单式票', line: normalizeText(line).replace(/\s+/g, ' ').trim().slice(0, 120), lineNo: idx });
   });
+  /* 【复式 / 胆拖】没有「+」那一行的票：一行都没解析出来时，按区关键字切块再试 */
+  if (!found.length) {
+    for (const t of parseStructuredTicket(text, gid)) {
+      const key = ticketKey(t);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      found.push({ front: t.front, back: t.back, kind: t.kind, line: '', lineNo: -1 });
+    }
+  }
   return found;
 }
 
@@ -491,7 +695,7 @@ function vote(reads, expectIssue) {
   const weak = [];          // 弱接受：只有 1 票（生产默认丢弃）
   for (const v of list) {
     const rate = v.n / withTicket;
-    const issueOk = !!expectIssue && [...v.issues].some((i) => i === expectIssue);
+    const issueOk = !!expectIssue && [...v.issues].some((i) => sameIssue(i, expectIssue));
     /* 期号只能当【加分项】，不能单独把「只有 1 票」的读法抬成可靠 ——
        实测过：这么做会把 4 张真票读成 5～8 张，噪声全进来了。 */
     const rec = {
@@ -556,6 +760,32 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     }
   }
 
+  /* ============================================================
+     【条带兜底】整图一个号都没解析出来 → 再按横向条带跑一遍
+     ------------------------------------------------------------
+     为什么只在「失败时」才跑：
+       · 整图能读出来的票，条带读出来的是同一张，纯浪费；
+       · 条带会放进更多噪声读法，只有在没有更好答案时才值得承担。
+     条带自带重叠 → 同一行号码会落进相邻两条，天然满足「≥2 票一致」。
+     ============================================================ */
+  let bandUsed = 0;
+  if (!vote(reads, expectIssue).accepted.length) {
+    try {
+      const bands = await makeBandVariants(buf);
+      bandUsed = bands.length;
+      for (const v of bands) {
+        tried++;
+        try {
+          const r = await recognizeBuffer(v.png, opt.bandLayout || 'sparse');
+          reads.push({
+            variant: v.name, layout: opt.bandLayout || 'sparse', issue: parseIssue(r.text),
+            tickets: parseTicketText(r.text, gid), confidence: r.confidence, text: r.text
+          });
+        } catch (e) { /* 单条失败不影响其它条 */ }
+      }
+    } catch (e) { /* 条带兜底失败不影响主流程 */ }
+  }
+
   const ms = Date.now() - t0;
   if (!reads.length) {
     return { ok: false, issue: '', tickets: [], reason: 'OCR 无输出', tried, ms, votes: [] };
@@ -572,11 +802,12 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     if (strong.length) pool = strong;
   }
 
-  /* 期号过滤：找得到期号、且与当期不符 → 整张丢弃（严格全等，不做模糊匹配） */
-  if (expectIssue && v.issue && v.issue !== expectIssue) {
+  /* 期号过滤：找得到期号、且与当期不是同一期 → 整张丢弃
+     （用 sameIssue 归一化比较：票面印 2026119、项目期号 26119 也算同一期） */
+  if (expectIssue && v.issue && !sameIssue(v.issue, expectIssue)) {
     return {
       ok: false, issue: v.issue, tickets: pool, reason: `期号不符（识别 ${v.issue} ≠ 当期 ${expectIssue}）`,
-      tried, ms, reads: v.reads, withTicket: v.withTicket, rejected: v.rejected,
+      tried, ms, reads: v.reads, withTicket: v.withTicket, rejected: v.rejected, bandUsed,
       text: v.best ? v.best.text : ''
     };
   }
@@ -585,7 +816,7 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     return {
       ok: false, issue: v.issue, tickets: [],
       reason: v.weak.length ? '识别结果不稳定（都没有多變體一致，已丢弃）' : '没识别出合法号码行',
-      tried, ms, reads: v.reads, withTicket: v.withTicket,
+      tried, ms, reads: v.reads, withTicket: v.withTicket, bandUsed,
       weak: v.weak.map((t) => ticketKey(t)), rejected: v.rejected,
       text: v.best ? v.best.text : ''
     };
@@ -597,7 +828,7 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     issue: v.issue,
     tickets: pool,
     reason: v.accepted.length ? 'ok' : 'weak',
-    tried, ms,
+    tried, ms, bandUsed,
     reads: v.reads, withTicket: v.withTicket,
     votes: pool.map((t) => ({ key: ticketKey(t), votes: t.votes, rate: t.rate, score: t.score })),
     text: v.best ? v.best.text : ''

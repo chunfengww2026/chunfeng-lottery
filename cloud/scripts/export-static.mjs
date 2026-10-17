@@ -5440,12 +5440,17 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   overflow-wrap: break-word;
   word-break: break-word;
 }
-/* 左边那张：纵向居中（上下留白一样多） */
+/* 左边那张：纵向居中（上下留白一样多）
+   ⚠️ display / padding 必须带 !important：上面「⑤ 开机号」那层（米杏覆盖块）
+      对 .ro-tool 写了 display:block !important、padding:14px 8px !important，
+      普通声明压不动（实测：不加就是一行横排，三行字全挤在一条线上）。
+      这里只覆盖到和右边卡一样的规格，别的一个值都没动。 */
 .action-card {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 12px 10px !important;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   transition: background .18s;
@@ -5453,7 +5458,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .action-card:active { background: #f9efdd !important; }
 /* 卡片里的字：两张卡一套规格 → 左右一样大、一样高 */
 .grid-2-col .title { font-size: 15px; font-weight: 700; color: var(--ro-fg); line-height: 1.3; }
-.grid-2-col .sub { font-size: 11px; color: var(--ro-fg2); line-height: 1.4; }
+.grid-2-col .sub { font-size: 11px; color: var(--ro-fg2); line-height: 1.4; text-wrap: balance; }
 .grid-2-col .title + .sub { margin-top: 4px; }
 .grid-2-col .ro-go { margin-top: 2px; }
 /* 右边热力图卡：标题 / 「当前：…期」/「点击查看 ▾」三行居中 */
@@ -5466,8 +5471,10 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   cursor: pointer;
 }
 .grid-2-col > .ro-hm-card > summary > * { flex: 0 0 auto; width: 100%; }
-/* 收起状态下让 summary 撑满整张卡 → 三行和左卡一样纵向居中 */
-.grid-2-col > .ro-hm-card:not([open]) > summary { height: 100%; }
+/* 收起状态下让那三行和左边卡一样【纵向居中】
+   （卡片被 grid 拉伸到同高，内容不够高时多余的空白分上下 ——
+     老内核不认识 align-content 就退化成顶部对齐，不影响任何功能） */
+.grid-2-col > .ro-hm-card { align-content: center; }
 /* 最后一行「点击查看 ▾ / 点击收起 ▴」：和左卡同一档字号 + 主色绿 */
 .grid-2-col > .ro-hm-card > summary > :last-child {
   font-size: 11px;
