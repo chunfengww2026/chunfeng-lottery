@@ -180,6 +180,11 @@ const FROM_ROOT = [
          第一版把两者挤在同一个文件名上 → 云端 require 到的成了数据 →
          直接报 "R.bjStamp is not a function"，排查了好久。 */
   'jc-reco-data.js',
+  /* 【播报 · 中奖命中】build-broadcast.mjs 的产物：拿我们自己算的号池
+     （experts-data.js 的 games.<彩种>.pool）去比开奖号，严格的包住判定，
+     近 7 天窗口。export-football.mjs 构建时读它，把「命中一等奖/二等奖」
+     接进播报条。必须同步：否则云端构建时这个文件不存在，播报就退回只有战绩数字。 */
+  'broadcast.json',
   /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
       必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
       的那个 N；云端重新生成竞彩页时少了这个文件就会退回本机竞彩数据算的
