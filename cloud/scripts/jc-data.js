@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-17 23:15 */
+/* 自动生成，请勿手动编辑 · 2026-10-17 23:28 */
 const JC_DATA = {
- "updated": "2026-10-17 23:15",
+ "updated": "2026-10-17 23:28",
  "stat": {
-  "total": 52,
-  "upcoming": 42,
+  "total": 51,
+  "upcoming": 41,
   "live": 0,
   "finished": 10,
   "withScore": 10,
-  "droppedNotOnSale": 11,
+  "droppedNotOnSale": 12,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 42,
-  "droppedNotOnSale": 11,
+  "officialCodes": 41,
+  "droppedNotOnSale": 12,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -3264,7 +3264,7 @@ const JC_DATA = {
       "away": 0.9
      },
      "live": {
-      "home": 0.8,
+      "home": 0.75,
       "line": "受半球",
       "away": 1.05
      }
@@ -3314,13 +3314,13 @@ const JC_DATA = {
     "handicap": 0.5,
     "upSide": "away",
     "upWater": 1.05,
-    "downWater": 0.8,
+    "downWater": 0.75,
     "openHandicap": 0.5,
     "openUpWater": 0.9,
     "openDownWater": 0.95,
-    "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
@@ -3742,109 +3742,6 @@ const JC_DATA = {
      "nowUpWater": 0.85,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
-  {
-   "gid": "1415139",
-   "fid": "1415139",
-   "sid": "19835",
-   "code": "周六022",
-   "league": "法甲",
-   "round": "第7轮",
-   "time": "2026-10-17 23:15",
-   "handicap": null,
-   "home": {
-    "name": "斯特拉斯",
-    "rank": 12
-   },
-   "away": {
-    "name": "巴黎圣曼",
-    "rank": 6
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1,
-      "line": "受球半",
-      "away": 0.85
-     },
-     "live": {
-      "home": 0.82,
-      "line": "受球半",
-      "away": 1.02
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 7.5,
-      "draw": 5.25,
-      "away": 1.3
-     },
-     "live": {
-      "home": 6.25,
-      "draw": 5.5,
-      "away": 1.4
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.97,
-      "over": 3.5,
-      "under": 0.87
-     },
-     "live": {
-      "line": 0.87,
-      "over": 3.5,
-      "under": 0.97
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 67.6,
-    "prob": {
-     "home": 15.2,
-     "draw": 17.2,
-     "away": 67.6
-    },
-    "clear": true,
-    "margin": 5.6,
-    "rqLine": "受球半",
-    "type": "three"
-   },
-   "asianIndex": {
-    "line": "受球半",
-    "from": "live",
-    "handicap": 1.5,
-    "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": 1.5,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 1.5,
-     "nowHandicap": 1.5,
-     "initUpWater": 0.85,
-     "nowUpWater": 1.02,
-     "initLine": "受球半",
-     "nowLine": "受球半"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -5095,41 +4992,10 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-17 23:15",
+  "updated": "2026-10-17 23:28",
   "officialUpdate": "2026-10-17 22:17:55",
-  "inSale": 42,
+  "inSale": 41,
   "list": [
-   {
-    "code": "周六022",
-    "matchNum": "6022",
-    "league": "法甲",
-    "time": "2026-10-17 23:15:00",
-    "home": "斯特拉斯",
-    "away": "巴黎圣曼",
-    "had": {
-     "h": 6.75,
-     "d": 5.51,
-     "a": 1.25,
-     "update": "2026-10-17 17:13:07"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 3.15,
-     "d": 4.15,
-     "a": 1.75,
-     "update": "2026-10-17 17:13:17"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周六023",
     "matchNum": "6023",
