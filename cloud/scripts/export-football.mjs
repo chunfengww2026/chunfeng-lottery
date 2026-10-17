@@ -897,6 +897,36 @@ function renderAsianCard(m) {
    ⚠️ 页面上写明「由欧指反推 · 非官方数据」，并显示拟合偏差与平局偏差，
       不让人误以为这是博彩公司公布的泊松值。 */
 /* ============================================================
+   【胜平负 EV（期望值）】用户 2026-10-17：「新增 EV 值展示区」
+   ------------------------------------------------------------
+   公式（用户定的，标准 EV）：EV = 模型概率 × 赔率 − 1，按百分比显示。
+     例：主胜 50.2% × 1.86 − 1 = -6.6% → 负数是"期望亏损"，正数是"期望盈利"
+   数据来源：概率 = reco.prob（build-jc.mjs 从欧赔反推的那三个）
+             赔率 = 同一张卡片上「欧赔」那三个数（euV）
+   缺概率或缺赔率 → 显示 —，绝不编数。
+   ============================================================ */
+function evOf(pctVal, oddsVal) {
+  const p = parseFloat(pctVal);
+  const o = parseFloat(oddsVal);
+  if (!isFinite(p) || !isFinite(o) || o <= 0) return null;
+  return (p / 100) * o - 1;                     /* 小数：-0.0663 = -6.63% */
+}
+function renderEvRow(r, euV) {
+  if (!r || !euV) return '';
+  const cells = [
+    ['主', r.prob && r.prob.home, euV.home],
+    ['平', r.prob && r.prob.draw, euV.draw],
+    ['客', r.prob && r.prob.away, euV.away]
+  ].map(([lab, p, o]) => {
+    const ev = evOf(p, o);
+    if (ev == null) return `<span class="m-evitem">${lab} —</span>`;
+    const s = ev >= 0 ? '+' : '';
+    return `<span class="m-evitem${ev >= 0 ? ' pos' : ' neg'}">${lab} ${s}${(ev * 100).toFixed(1)}%</span>`;
+  }).join('');
+  return `<div class="m-ev"><span class="m-evlab">胜平负 EV</span>${cells}</div>`;
+}
+
+/* ============================================================
    【比分推荐 · 3 个】用户 2026-10-17 追加：竞彩卡片上给三个推荐比分
    ------------------------------------------------------------
    怎么算（和详情页那个「泊松指数」是同一条路，口径统一）：
@@ -1118,7 +1148,12 @@ function renderMatch(m) {
     (m.round ? `<span class="m-round">${esc(m.round)}</span>` : '') +
     st +
     `<span class="m-time">${esc(dateMD(m.time))} ${esc(timeHM(m.time))}</span>` +
+    /* 【折叠】用户 2026-10-17 给的卡片设计：点头部折叠/展开，右侧一个 ▾。
+       .m-top 现在是可点的（整卡不再是链接，见下方 return），
+       .m-body 包住下面所有内容，折叠时 display:none，▾ 转 90 度。 */
+    `<span class="m-fold" aria-hidden="true">▾</span>` +
     `</div>` +
+    `<div class="m-body">` +
     `<div class="m-teams">` +
     `<span class="m-team home">${hs}${esc(m.home.name)}${hc}</span>` +
     /* 【比分显示】用户 2026-10-17：「已完场要有比分显示」（进行中本来就有）。
@@ -1168,8 +1203,14 @@ function renderMatch(m) {
           opt(`客${esc(r.prob.away)}%`, onThree === 'away') +
           `</span>` +
           (ub ? `<span class="m-probrow"><span class="m-problab">不败</span>` +
+            /* 【三档】用户 2026-10-17 设计：主不败 / 平手交流 / 客不败，三个都带概率。
+               · 主不败 = P(主胜)+P(平)   · 客不败 = P(客胜)+P(平)
+               · 平手交流 = P(平)（用户确认「就是平局那个选项，带平局概率」） */
+            `<span class="m-tags">` +
             opt(`主不败${esc(ub.home)}%`, onUb === 'home') +
+            `<i class="m-tag orange">平手交流${esc(r.prob.draw)}%</i>` +
             opt(`客不败${esc(ub.away)}%`, onUb === 'away') +
+            `</span>` +
             `</span>` : '') +
           `</span>`
         : `<span class="m-probs">` +
@@ -1177,17 +1218,19 @@ function renderMatch(m) {
           opt(`平—%`, onThree === 'draw') +
           opt(`客—%`, onThree === 'away') +
           `</span>`) +
+      renderEvRow(r, euV) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderScorePick(m) +
     renderAsianCard(m) +
     renderPoissonCard(m) +
     renderMultiCard(m) +
-    (m.code ? `<span class="m-godetail">看这场数据 ›</span>` : '');
+    (m.code ? `<a class="m-godetail" href="比赛详情.html?c=${encodeURIComponent(m.code)}">看这场数据 ›</a>` : '') +
+    `</div>`;   /* ← .m-body 收尾（折叠时整块隐藏） */
 
-  return m.code
-    ? `<a class="m-cardlink" href="比赛详情.html?c=${encodeURIComponent(m.code)}" aria-label="${esc(m.code)} 比赛详情">`
-      + `<div class="${cls}">${body}</div></a>`
-    : `<div class="${cls}">${body}</div>`;
+  /* 【整卡不再是链接】用户 2026-10-17 给的卡片设计：点【头部】是折叠/展开，不是跳转。
+     所以卡片本身改成 <div>，详情入口只剩 .m-body 末尾那个「看这场数据 ›」（已是 <a>）。
+     这样「点头部折叠」和「看详情」两件事不会打架。 */
+  return `<div class="${cls}">${body}</div>`;
 }
 
 /* ============================================================
@@ -1780,6 +1823,26 @@ h1 { font-size: 21px; margin: 6px 0 4px; }
 .m-probrow { display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
   justify-content: flex-end; }
 .m-problab { font-size: 10.5px; color: #6b7488; margin-right: 1px; white-space: nowrap; }
+/* 【不败三档标签】用户 2026-10-17 设计：主不败 / 平手交流 / 客不败（都带概率）
+   主不败=P(主胜)+P(平)、客不败=P(客胜)+P(平)、平手交流=P(平)（用户确认「就是平局那个选项」） */
+.m-tags { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+.m-tag.orange { font-style: normal; font-size: 11px; color: #e0a13c;
+  background: rgba(224,161,60,0.14); padding: 2px 7px; border-radius: 4px; font-weight: 700; }
+/* 【胜平负 EV】用户 2026-10-17：「新增 EV 值展示区」
+   公式：EV = 模型概率 × 赔率 − 1 → 百分比。正数绿（期望盈利）、负数红（期望亏损） */
+.m-ev { display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 7px; padding-top: 7px; border-top: 1px dashed #262d3a; }
+.m-evlab { font-size: 10.5px; color: #6b7488; white-space: nowrap; }
+.m-evitem { font-size: 11px; color: #98a1b2; background: #12151d; padding: 2px 7px;
+  border-radius: 4px; font-variant-numeric: tabular-nums; }
+.m-evitem.pos { color: #47e0a0; background: rgba(71,224,160,0.14); font-weight: 700; }
+.m-evitem.neg { color: #e0687a; background: rgba(224,104,122,0.12); }
+/* 【折叠】用户 2026-10-17：点头部折叠/展开，右侧 ▾ 跟着转 */
+.m-card { cursor: pointer; }
+.m-fold { margin-left: auto; font-size: 11px; color: #6b7488; line-height: 1;
+  transition: transform .15s; }
+.m-card.folded .m-body { display: none; }
+.m-card.folded .m-fold { transform: rotate(-90deg); }
 /* 【比分推荐 · 3 个】用户 2026-10-17 追加。
    一行放「比分推荐」标签 + 三个比分胶囊（大号比分 + 小号百分比）+ 一句说明。
    ⚠️ 375 / 320 都要不挤爆：胶囊 white-space:nowrap 但整行 flex-wrap，
@@ -3761,6 +3824,28 @@ ${JC_XYSP_VIEW}
   window.__jcRecoApplied = function () { return last; };
 
   if (typeof setInterval === 'function') setInterval(tick, POLL_MS);
+})();
+
+/* ============================================================
+   【比赛卡片折叠】用户 2026-10-17 给的卡片设计：
+   「1. 卡片头部（点击折叠/展开）」—— 点 .m-top 就在 .m-card 上切 .folded，
+   由 CSS 隐藏 .m-body、并让 ▾ 转 -90°。
+   ⚠️ 用事件委托（页面里卡片是静态渲染的，不用逐个绑）；
+      点「看这场数据 ›」链接时不要顺手折叠（那个链接在 .m-body 里，
+      而且 .m-top 之外，所以天然不冲突 —— 这里只认 closest('.m-top')）。 */
+(function () {
+  if (typeof document === 'undefined' || !document.addEventListener) return;
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var top = t && t.closest ? t.closest('.m-top') : null;
+    if (!top) return;
+    var card = top.closest('.m-card');
+    if (!card) return;
+    /* 头部里如果有真正的交互控件（链接/按钮），让它自己处理 */
+    if (t.closest('a[href], button, input, select')) return;
+    card.classList.toggle('folded');
+    top.setAttribute('aria-expanded', card.classList.contains('folded') ? 'false' : 'true');
+  });
 })();
 </script>
 </body>
