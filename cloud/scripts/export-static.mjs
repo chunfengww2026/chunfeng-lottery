@@ -1531,11 +1531,12 @@ function buildAiPickHtml() {
 const aiPickHtml = buildAiPickHtml();
 
 /* ============================================================
-   【开机号 / 选号直播】两个工具栏入口 + 两个可展开区块
+   【开机号】工具栏入口 + 可展开区块（原「选号直播」那一格已撤掉，见 buildToolsHtml）
    ------------------------------------------------------------
    用户原话：「新增两个工具栏。一个是开机号（…/kjh）。
              一个是选号直播（…/live）。
              开机号点进去只是实时的开机号（每天2点抓取更新就好了）」
+   2026-10-18 用户改口：「就是这里替换成热力图」→ 选号直播那块整块换成热力图折叠卡。
    位置：用户截图红框 =「推荐图目录」(.ro-imgtoc-wrap) 之后、「最新开奖」之前。
 
    交互（选的是方案 A：锚点 + :target 展开，样式见 @supports 那一段）：
@@ -1553,13 +1554,16 @@ const aiPickHtml = buildAiPickHtml();
    ============================================================ */
 const KJH_ORDER = ['ssq', 'dlt', 'fc3d', 'kl8', 'pl3', 'pl5', 'qxc', 'qlc'];
 
-/* 两个入口按钮条：并排两个格子 */
+/* 工具栏：现在只剩「开机号」一个格子
+   ------------------------------------------------------------
+   用户 2026-10-18：「就是这里替换成热力图」——
+   原来并排的「选号直播」那块已经被【热力图折叠卡】顶掉（见下面的
+   buildHeatmapHtml），它的入口卡也一并撤掉：热力图自己就是那张能点的卡，
+   不需要再多一个「点一下跳过去」的入口。 */
 function buildToolsHtml() {
   return `<div class="ro-tools">` +
     `<a class="ro-tool ro-tool-kjh" href="#ro-kjh">` +
     `<b>开机号</b><em data-tip="1">各彩种实时开机号 · 点击查看</em></a>` +   /* __TOOL_TIP__ 用户要求加「可收起」 */
-    `<a class="ro-tool ro-tool-heat" href="#ro-heatmap">` +
-    `<b>热力图</b><em data-tip="1">晒票统计 · 每小时更新</em></a>` +
     `</div>`;
 }
 
@@ -1594,31 +1598,103 @@ function buildKjhHtml() {
   return `<section class="ro-panel ro-kjh-panel" id="ro-kjh">` +
     `<div class="ro-panel-head">` +
     `<h2 class="ro-panel-title">开机号</h2>` +
-    `<div class="ro-panel-sub">每天 2:00 自动更新` +
+    /* 【定时文案】2026-10-18 用户要求页面上不要「每天 2:00 自动更新」这类定时说法
+       → 副标题改成不带时刻的中性说明（数据仍然是原来的节奏，只是不再写在页面上）。 */
+    `<div class="ro-panel-sub">各彩种最新开机号` +
     /* __NO_UPDATED__ 用户要求删掉「更新于」 */ '' + `</div>` +
     `</div>` +
     (rows ? `<div class="ro-kjh-grid">${rows}</div>` : `<div class="ro-panel-none">暂无</div>`) +
     `</section>`;
 }
 
-/* 热力图区块（用户 2026-10-17：
-     「把选号直播改为热力图，热力图不在最新开奖里面折叠到这里面。
-      实时抓取晒票的热力图…提取占比更新，每一小时更新一次」
-   所以：
-     · 入口卡 选号直播 → 热力图（点一下在本页展开，不再跳外链）
-     · 热力图不再顶掉「最新开奖」（latest-draws.js 的 heatmapBlockGameId 已固定返回 null）
-     · 数据来源 = 一起彩晒票页的【票面照片 OCR】统计（build-heatmap.mjs），
-       云端每小时重跑一次 → 这里只负责把当前这份数据显示出来
-     · 没有当天数据时不留白：明确写一句「今天还没有热力图数据」 */
+/* ============================================================
+   【热力图要显示哪个彩种】= 下一期开奖最近的那一个
+   ------------------------------------------------------------
+   用户 2026-10-18 原话：
+     「热力图模板移到这里面 热力图点击可以收起展开 展开就是热力图
+       热力图根据下一期开大乐透还是双色球来实时更新 时时刻刻显示 去掉以前的定时」
+   口径（沿用页面里已经有的那张开奖日表，不另起一套）：
+     · 双色球 周二 / 周四 / 周日 21:15     → 开奖日 [0, 2, 4]
+     · 大乐透 周一 / 周三 / 周六 21:25     → 开奖日 [1, 3, 6]
+       （开奖日与 latest-draws.js 的 NEXTCD_TABLE 同一套；时刻按用户给的口径）
+     · 「下一期」= 这两个彩种里【最近的、还没到开奖时刻】的那一场
+     · 时间一律按北京时间（UTC+8）算，不看用户设备时区
+   实现：下面这段源码只写一次 —— 服务端 new Function 跑一遍拿结果，
+        生成出来的页面里塞的是【同一份源码】，两边算法不可能漂移。
+   ============================================================ */
+const HM_NEXT_SRC = `
+function hmNextGame(nowMs) {
+  var TZ = 8 * 3600000;
+  var TABLE = {
+    ssq: { days: [0, 2, 4], h: 21, m: 15 },
+    dlt: { days: [1, 3, 6], h: 21, m: 25 }
+  };
+  var t = (typeof nowMs === 'number' && isFinite(nowMs)) ? nowMs : (new Date()).getTime();
+  var best = '', bestAt = Infinity;
+  var keys = ['ssq', 'dlt'];
+  for (var i = 0; i < keys.length; i++) {
+    var gid = keys[i], r = TABLE[gid];
+    if (!r) continue;
+    var bj = new Date(t + TZ);
+    var day0 = Date.UTC(bj.getUTCFullYear(), bj.getUTCMonth(), bj.getUTCDate()) - TZ;
+    for (var d = 0; d < 8; d++) {
+      var at = day0 + d * 86400000 + r.h * 3600000 + r.m * 60000;
+      if (r.days.indexOf(new Date(at + TZ).getUTCDay()) < 0) continue;
+      if (at <= t) continue;
+      if (at < bestAt) { bestAt = at; best = gid; }
+      break;
+    }
+  }
+  return best || 'ssq';
+}
+`;
+const hmNextGame = new Function(HM_NEXT_SRC + '\nreturn hmNextGame;')();
+
+/** 页面上该显示哪个彩种（热力图只做双色球 / 大乐透） */
+function heatmapNextGameId(nowMs) {
+  try {
+    return (hmNextGame(nowMs) === 'dlt') ? 'dlt' : 'ssq';
+  } catch (e) { return 'ssq'; }
+}
+/** 彩种中文名（取不到就用兜底名） */
+function hmGameName(gid) {
+  if (G && G[gid] && G[gid].name) return G[gid].name;
+  return gid === 'dlt' ? '大乐透' : '双色球';
+}
+/** 这个彩种下一期的期号（热力图数据里有就用它，没有就现算） */
+function hmIssueText(gid) {
+  try {
+    const H = (HEATMAP && HEATMAP.games) ? HEATMAP.games[gid] : null;
+    if (H && H.issue) return String(H.issue);
+  } catch (e) { /* 忽略 */ }
+  try { return String(nextIssue(gid) || ''); } catch (e2) { return ''; }
+}
+
+/* 热力图折叠卡（用户 2026-10-18：
+     「就是这里替换成热力图」「热力图点击可以收起展开 展开就是热力图」
+     「热力图根据下一期开大乐透还是双色球来实时更新 时时刻刻显示 去掉以前的定时」）
+   ------------------------------------------------------------
+   这一块就是【原来「选号直播」那一块的位置】，现在整块换成热力图：
+     · 位置：推荐图目录 / 开机号下面 —— 和原来一样，只是内容换了
+     · 折叠：<details> + <summary>，和「走势图」同一套机制
+             （默认收起；点标题就地展开，再点收起；不用裸 button、不跳页、不弹窗）
+     · 显示哪个彩种：heatmapNextGameId() 按【当前时间】算「下一期最近的那个」——
+             服务端先算一次填进 HTML，页面脚本在打开/切回来时再算一次
+     · 热力图本身【一个字都没重写】：还是 renderImageHtml(g, 'heatmap')，
+             只是从「独立区块」搬进这张折叠卡里
+     · 页面上不写任何「每小时 / 每天几点」的说法，也不做轮询定时 */
 function buildHeatmapHtml() {
   const tms = (HEATMAP && HEATMAP.games) ? HEATMAP.games : {};
+  const nowId = heatmapNextGameId();
   const ids = ['ssq', 'dlt'].filter((g) => {
     const H = tms[g];
     return !!(H && H.front && Array.isArray(H.front.items) && H.front.items.length);
   });
+  const hasCur = ids.indexOf(nowId) >= 0;
+
   const blocks = ids.map((g) => {
     const H = tms[g] || {};
-    const name = (G[g] && G[g].name) ? G[g].name : g;
+    const name = hmGameName(g);
     let inner = '';
     try { inner = renderImageHtml(g, 'heatmap') || ''; } catch (e) { inner = ''; }
     const stamp = String(H.updated || H.drawDate || '');
@@ -1630,19 +1706,28 @@ function buildHeatmapHtml() {
       'history-fallback': '近期开奖频率（晒票样本不足·兜底口径）'
     };
     const srcText = SRC_LABEL[String(H.source || '')] || '近期开奖频率（兜底口径）';
-    return `<div class="ro-hm-block">` +
+    /* 两个彩种的图都预渲染在 DOM 里，只按「当前该看哪个」显隐 —— 展开即见，不用等 */
+    return `<div class="ro-hm-block" data-ro-hm-game="${g}"${g === nowId ? '' : ' hidden'}>` +
       `<div class="ro-hm-head"><b>${escape(name)} 实票统计</b>` +
       `<span>${escape(srcText)}${stamp ? ' · ' + escape(stamp) : ''}</span></div>` +
       `<div class="ro-imagewrap" data-game="${g}" data-image="heatmap">${inner}</div>` +
       `</div>`;
   }).join('');
-  return `<section class="ro-panel ro-heatmap-panel" id="ro-heatmap">` +
-    `<div class="ro-panel-head">` +
-    `<h2 class="ro-panel-title">热力图</h2>` +
-    `<div class="ro-panel-sub">晒票统计 · 云端每小时更新一次</div>` +
+
+  const curIssue = hmIssueText(nowId);
+  const subText = '当前：' + hmGameName(nowId) + (curIssue ? ' 第 ' + curIssue + ' 期' : '');
+
+  return `<details class="ro-heat" id="ro-heatmap">` +
+    `<summary class="ro-heat-head">` +
+    `<span class="ro-heat-title">热力图</span>` +
+    `<span class="ro-heat-sub" data-ro-hm-sub="1">${escape(subText)}</span>` +
+    `<span class="ro-heat-arrow" aria-hidden="true"></span>` +
+    `</summary>` +
+    `<div class="ro-heat-body">` +
+    `<div class="ro-hm-none" data-ro-hm-none="1"${hasCur ? ' hidden' : ''}>本期热力图正在整理，稍后再看</div>` +
+    blocks +
     `</div>` +
-    (blocks || `<div class="ro-panel-none">今天还没有热力图数据（云端每小时更新一次，稍后再看）</div>`) +
-    `</section>`;
+    `</details>`;
 }
 
 const toolsHtml = buildToolsHtml();
@@ -1650,8 +1735,14 @@ const kjhHtml = buildKjhHtml();
 const heatHtml = buildHeatmapHtml();
 console.log(`  · 开机号：${(KJH && KJH.games) ? Object.keys(KJH.games).length : 0} 个彩种` +
   (((KJH && KJH.games) && Object.keys(KJH.games).length) ? '' : '（数据缺失 → 页面显示「暂无」）'));
-console.log(`  · 选号直播：回放 ${(KJH && KJH.live && Array.isArray(KJH.live.items)) ? KJH.live.items.length : 0} 条` +
-  `（开播状态：${(KJH && KJH.live && KJH.live.statusText) ? KJH.live.statusText : '当前暂无直播'}）`);
+/* 【选号直播】那块已被【热力图折叠卡】整块顶掉（用户 2026-10-18），
+   所以这里不再打印直播回放条数；改成打印「热力图这一页会显示哪个彩种」。 */
+{
+  const hmNow = heatmapNextGameId();
+  console.log(`  · 热力图：显示 ${hmGameName(hmNow)}` +
+    (hmIssueText(hmNow) ? ` 第 ${hmIssueText(hmNow)} 期` : '') +
+    `（按当前时间算出来的「下一期最近的彩种」；折叠卡默认收起）`);
+}
 
 /* ============================================================
    【已移除】竞彩（体彩在售比赛）段落
@@ -2248,9 +2339,10 @@ const RO_RENDER_SCRIPT = `
            还没到窗口结束的 20:00 / 21:00）。
          ============================================================ */
       if (slot.getAttribute('data-image') === 'heatmap') {
-        /* 【用户 2026-10-17】热力图已搬到独立区块 #ro-heatmap 且改成每小时更新，
-           不再有「18:00 才显示 / 20:00·21:00 撤下」的窗口 ——
-           所以【这个区块里的图位永远渲染】，不走下面那套按时间隐藏的逻辑。
+        /* 【用户 2026-10-18】热力图现在在 #ro-heatmap 那张折叠卡里，
+           由「当前时间 → 下一期最近的彩种」决定显示哪一个（页面脚本自己换），
+           不再有「18:00 才显示 / 20:00·21:00 撤下」的时间窗 ——
+           所以【这张卡里的图位永远渲染】，不走下面那套按时间隐藏的逻辑。
            其它位置（老页面缓存下来的彩种区块热力图）仍按原逻辑清理。 */
         var inHeatBlock = false;
         try { inHeatBlock = !!(slot.closest && slot.closest('#ro-heatmap')); } catch (e) { inHeatBlock = false; }
@@ -3554,7 +3646,7 @@ body.ro-mob-open { overflow: hidden; }
    ------------------------------------------------------------
    用户原话：「区块标题改成缩小版卡片样式」，并选了方案 C：
      · 只改 .ro-xysp（晒票）和 .ro-aipick（GPT模型摇号）两个区块的 <summary>
-     · 其它区块（最新开奖 / 文章参考 / 开机号 / 选号直播 / 推荐图目录 / 竞彩页）
+     · 其它区块（最新开奖 / 文章参考 / 开机号 / 热力图 / 推荐图目录 / 竞彩页）
        【保持原来的纵向居中】，一个都不动
    样式：
      左：标题（15~16px 粗体）+ 副标题（11px 灰，单行省略号）
@@ -4189,7 +4281,7 @@ html.is-owner #owner-badge { display: block; }
 .ro-aipick-arrow { margin: 4px auto 0 !important; }
 
 /* ============================================================
-   【开机号 / 选号直播】工具栏入口 + 两个可展开区块
+   【开机号】工具栏入口 + 可展开区块（原来并排的第二格已换成热力图折叠卡）
    ------------------------------------------------------------
    平时隐藏（:target 命中才显示），不点就跟没有一样 ——
    「最新开奖」的位置一点都不动，也不占版面。
@@ -4225,7 +4317,6 @@ html.is-owner #owner-badge { display: block; }
 }
 .ro-tool:hover, .ro-tool:active { border-color: #3a465c; }
 .ro-tool-kjh b { color: #ffd479; }
-.ro-tool-live b { color: #8fb8ff; }
 
 .ro-panel {
   background: #161a21;
@@ -4285,47 +4376,52 @@ html.is-owner #owner-badge { display: block; }
 .ro-kjh-time { margin-top: 3px; font-size: 10.5px; color: #5f6878; }
 .ro-kjh-none { font-size: 12px; color: #6b7488; }
 
-/* ---- 选号直播 ---- */
-/* ---- 【热力图】入口区块（用户 2026-10-17：选号直播 → 热力图，折叠到这里）---- */
-.ro-heatmap-panel .ro-hm-block { margin: 0 0 14px; }
-.ro-heatmap-panel .ro-hm-block:last-child { margin-bottom: 0; }
+/* ---- 【热力图】折叠卡（<details>，和「走势图」同一套机制；默认收起）----
+   2026-10-18 用户：「就是这里替换成热力图」「点击可以收起展开 展开就是热力图」
+   ⚠️ 类名【不用 .ro-panel】—— .ro-panel 是「默认 display:none，JS 加 .ro-open 才显示」
+      的那套老机制；这里靠 <details> 自己的 [open] 状态，CSS 只负责长相。
+   ⚠️ 颜色全部走 --ro-* 变量：米杏色主题换色时这一块自动跟着变。 */
+.ro-heat {
+  background: var(--ro-card);
+  border: 1px solid var(--ro-line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 0 0 22px;
+}
+.ro-heat > .ro-heat-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  cursor: pointer;
+  list-style: none;
+}
+.ro-heat > .ro-heat-head::-webkit-details-marker { display: none; }
+.ro-heat > .ro-heat-head::marker { content: ''; }
+.ro-heat-title { font-size: 16px; font-weight: 700; color: var(--ro-fg); letter-spacing: 1px; }
+.ro-heat-sub { font-size: 11px; color: var(--ro-fg2); }
+.ro-heat-arrow {
+  flex: 0 0 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--ro-fg3);
+}
+.ro-heat-arrow::before { content: '点击查看'; }
+.ro-heat-arrow::after { content: ' ▾'; }
+.ro-heat[open] > .ro-heat-head .ro-heat-arrow::before { content: '点击收起'; }
+.ro-heat[open] > .ro-heat-head .ro-heat-arrow::after { content: ' ▴'; }
+.ro-heat-body { padding: 12px 0 2px; }
+.ro-heat .ro-hm-block { margin: 0 0 14px; }
+.ro-heat .ro-hm-block:last-child { margin-bottom: 0; }
+.ro-heat .ro-hm-block[hidden], .ro-heat .ro-hm-none[hidden] { display: none !important; }
+.ro-heat .ro-hm-none { font-size: 12px; color: var(--ro-fg3); padding: 2px 0 6px; }
 .ro-hm-head { display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 0 0 6px; font-size: 12px; color: #4a3a26; }
 .ro-hm-head b { font-size: 13px; }
 .ro-hm-head span { font-size: 11px; color: #8a7a63; }
-.ro-live-more {
-  display: inline-block;
-  padding: 5px 12px;
-  margin-bottom: 10px;
-  border: 1px solid #2f3a4c;
-  border-radius: 999px;
-  font-size: 12px;
-  color: #8fb8ff;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.ro-live-more:hover, .ro-live-more:active { border-color: #3a465c; color: #bcd4ff; }
-.ro-live-list { list-style: none; margin: 0; padding: 0; }
-.ro-live-list li { border-top: 1px solid #1e2430; }
-.ro-live-list li:first-child { border-top: none; }
-.ro-live-link {
-  display: block;
-  padding: 8px 0;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.ro-live-txt {
-  display: block;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: #c8cfda;
-  word-break: break-word;
-}
-.ro-live-link:hover .ro-live-txt, .ro-live-link:active .ro-live-txt { color: #bcd4ff; }
-.ro-live-meta { display: block; margin-top: 3px; }
-.ro-live-name { font-size: 10.5px; color: #6b7488; margin-right: 8px; }
-.ro-live-game { font-size: 10.5px; color: #7f8ba0; margin-right: 8px; }
-.ro-live-see { font-size: 10.5px; color: #5f6878; }
 
 /* 只有认识 :target 的浏览器才隐藏；不认识的（老内核）保持常显，功能不丢 */
 @supports selector(:target) {
@@ -4390,15 +4486,15 @@ body, .ro-wrap { background: var(--ro-bg); }
 .ro-status .ro-st-head { color: var(--ro-fg); }
 .ro-art-body p { color: var(--ro-fg); }
 .ro-xysp-sub, .ro-aipick-sub, .ro-art-sub, .ro-meta, .ro-imgtoc-sub, .ro-panel-sub,
-.ro-tool em, .ro-live-txt, .ro-kjh-nums, .ro-st-time, .ro-foot { color: var(--ro-fg2); }
+.ro-tool em, .ro-kjh-nums, .ro-st-time, .ro-foot { color: var(--ro-fg2); }
 .ro-xysp-note, .ro-aipick-note, .ro-aipick-selfnote, .ro-aipick-empty, .ro-aipick-more,
 .ro-aipick-idx, .ro-aipick-calc-sep, .ro-disclaimer p, .ro-status .ro-st-reason,
-.ro-status .ro-st-hint, .ro-live-meta, .ro-live-see, .ro-live-name, .ro-live-game,
+.ro-status .ro-st-hint,
 .ro-panel-none, .ro-kjh-issue, .ro-xysp-cap i, .ro-xysp-empty { color: var(--ro-fg3); }
 /* ---- 主色（绿）/ 强调色（蓝）：只留这两种彩色 ---- */
 .ro-status.ok .ro-st-head, .ro-aipick-pcount.full, .ro-aipick-calc-money { color: var(--ro-ok); }
 .ro-aipick-kl8tab.on, .ro-aipick-tab.on { background: linear-gradient(180deg, #4ce3a6, #2fbe86); }
-.ro-tool-live b, .ro-live-link:hover .ro-live-txt, .ro-aipick-arrow,
+.ro-aipick-arrow,
 .ro-aipick-sum, .ro-aipick-sumline, .ro-aipick-calc-num, .ro-aipick-plabel,
 .ro-art-link { color: var(--ro-link); }
 .ro-aipick-seg .on, .ro-aipick-btn.on, .ro-aipick-pick.blue.on {
@@ -4529,7 +4625,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
    __LAYOUT__ 推荐页布局（按用户给的设计）
    ------------------------------------------------------------
    页面顺序（模板里已经是这个，本轮没动结构）：
-     Tab → 主标题 → 提示条 → 推荐图目录 → 开机号/选号直播
+     Tab → 主标题 → 提示条 → 推荐图目录 → 开机号 → 热力图（折叠卡）
        → 晒票 → GPT模型摇号 → 开奖号码 → 文章参考
    这一整块【只加样式，不动功能】：倒计时 / 看图 / 折叠 / 展开 全部保留。
    ⚠️ 全部用变量色（--ro-*），米杏色主题自动生效。
@@ -4584,8 +4680,10 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   padding: 14px 8px !important; text-align: center !important; text-decoration: none !important;
   font-size: 14px !important; font-weight: 700 !important; color: var(--ro-danger) !important; }
 
-/* ⑤ 开机号 / 选号直播：2 列 */
-.ro-tools { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+/* ⑤ 开机号：工具栏里现在只剩它一格
+      （auto-fit 而不是写死 2 列 —— 只有一格时自动铺满，不半边留空；
+        以后再加格子回来也会自动变两列） */
+.ro-tools { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
   gap: 10px !important; padding: 0 12px 16px !important; }
 .ro-tool { display: block !important; background: var(--ro-card) !important;
   border: 1px solid var(--ro-line) !important; border-radius: 10px !important;
@@ -4985,7 +5083,6 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 /* ⑤ 悬停态：浅蓝/浅金一律换成可读的深色或主色 */
 .ro-xysp-tab:hover, .ro-xysp-tab:active, .ro-aipick-tab:hover, .ro-aipick-tab:active,
 .ro-aipick-kl8tab:hover, .ro-aipick-segbtn:hover, .ro-aipick-pick:hover, .ro-aipick-pick:active { color: var(--ro-fg) !important; }
-.ro-live-more:hover, .ro-live-more:active, .ro-live-link:hover .ro-live-txt, .ro-live-link:active .ro-live-txt { color: var(--ro-link) !important; }
 /* ⑥ 零散：手绘图表格里的金色字（白底 2.29）用项目已有的深金 #8a6a00；标题类统一主文字 */
 .metric-table td.shape-baozi { color: #8a6a00 !important; }
 .p3d-type-btn { color: var(--ro-fg2) !important; }
@@ -5294,21 +5391,134 @@ ${DEVICE_GATE_BODY}
   ${tocHtml}
 
   <!-- ============================================================
-       【开机号 / 选号直播】两个工具栏入口（用户截图红框处：推荐图目录下面）
-       + 它们点开后的两个区块（平时不显示，:target 命中才展开）。
-       两个入口都是 <a>，href 指向下面两个区块的 id。
-       纯文字区块，没有图片 → 图位数量（data-image）不变。 -->
+       【开机号】工具栏入口（用户截图红框处：推荐图目录下面）
+       + 它点开后的区块（平时不显示，:target / .ro-open 才展开）。
+       入口是 <a>，href 指向下面区块的 id。
+       纯文字区块，没有图片 → 图位数量（data-image）不变。
+       【热力图】不再有入口卡：它自己就是下面那张可折叠的卡（<details>）。 -->
   ${toolsHtml}
 
   ${kjhHtml}
 
   ${heatHtml}
 
-  <!-- 【开机号 / 选号直播】点入口后把区块滚到视口顶部。
+  <!-- ============================================================
+       【热力图 · 实时跟随下一期彩种】
+       ------------------------------------------------------------
+       用户 2026-10-18：
+         「热力图点击可以收起展开 展开就是热力图」
+         「热力图根据下一期开大乐透还是双色球来实时更新 时时刻刻显示 去掉以前的定时」
+       这一段只做两件事：
+         ① 折叠：<details> 自带，本段只负责「展开时补一次渲染 + 等比缩放」
+                （收起状态下容器宽 0，图片的等比缩放量不出来）
+         ② 实时：页面打开 / 切回来 / 重新显示时【按当前时间】重算
+                「下一期是哪个彩种」，只换显示、不轮询、不定时。
+                彩种判断用的是上面那份 hmNextGame（和服务端同一份源码）。
+       ⚠️ 没有 setInterval：定时器已按要求去掉；页面不动就不会反复计算。
+       ============================================================ -->
+  <script>
+  ${HM_NEXT_SRC}
+  (function () {
+    var box = null;
+    try { box = document.getElementById('ro-heatmap'); } catch (e0) { box = null; }
+    if (!box) return;
+
+    var NAME = { ssq: '双色球', dlt: '大乐透' };
+
+    /* 这个彩种下一期的期号：热力图数据里有就用它，没有就按开奖数据现算 */
+    function issueOf(gid) {
+      try {
+        var H = (typeof HEATMAP_DATA !== 'undefined' && HEATMAP_DATA && HEATMAP_DATA.games)
+          ? HEATMAP_DATA.games[gid] : null;
+        if (H && H.issue) return String(H.issue);
+      } catch (e1) { /* 忽略 */ }
+      try { if (typeof nextIssueFor === 'function') return String(nextIssueFor(gid) || ''); } catch (e2) { /* 忽略 */ }
+      return '';
+    }
+
+    /* 按当前时间选彩种 → 换显示 → 更新副标题 */
+    function sync() {
+      var gid = 'ssq';
+      try { gid = hmNextGame((new Date()).getTime()) || 'ssq'; } catch (e) { gid = 'ssq'; }
+
+      var blocks = box.querySelectorAll('[data-ro-hm-game]');
+      var hit = false;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].getAttribute('data-ro-hm-game') === gid) {
+          hit = true;
+          blocks[i].removeAttribute('hidden');
+        } else {
+          blocks[i].setAttribute('hidden', 'hidden');
+        }
+      }
+      var noneEl = box.querySelector('[data-ro-hm-none]');
+      if (noneEl) {
+        if (hit) noneEl.setAttribute('hidden', 'hidden');
+        else noneEl.removeAttribute('hidden');
+      }
+      var subEl = box.querySelector('[data-ro-hm-sub]');
+      if (subEl) {
+        var iss = issueOf(gid);
+        /* ⚠️ 期号可能暂时拿不到：这段脚本比页尾那批数据脚本先执行
+              （HEATMAP_DATA / nextIssueFor 还没定义），这时【不要】把服务端
+              已经写好的「当前：双色球 第 2026119 期」擦成半截，
+              等 DOMContentLoaded / load 再算一次（下面绑了）。 */
+        if (iss) subEl.textContent = '当前：' + (NAME[gid] || '') + ' 第 ' + iss + ' 期';
+      }
+      try {
+        if (document.body && document.body.setAttribute) {
+          document.body.setAttribute('data-heatmap-game', gid);
+        }
+      } catch (e3) { /* 忽略 */ }
+      try { if (typeof window.__roFit === 'function') window.__roFit(); } catch (e4) { /* 忽略 */ }
+      return gid;
+    }
+
+    /* 收起 / 展开 */
+    try {
+      box.addEventListener('toggle', function () {
+        if (!box.open) return;
+        /* 展开后补一次渲染（收起时图位在 display:none 里） */
+        try { if (typeof window.__roRenderAll === 'function') window.__roRenderAll(); } catch (e) { /* 忽略 */ }
+        sync();
+        setTimeout(function () {
+          try { if (typeof window.__roFit === 'function') window.__roFit(); } catch (e2) { /* 忽略 */ }
+        }, 60);
+      });
+    } catch (e5) { /* 忽略 */ }
+
+    sync();
+
+    /* 「实时」= 不轮询：打开 / 切回来 / 重新显示时各算一次 */
+    try { document.addEventListener('visibilitychange', function () { if (!document.hidden) sync(); }); } catch (e6) { /* 忽略 */ }
+    try { window.addEventListener('pageshow', function () { sync(); }); } catch (e7) { /* 忽略 */ }
+    try { window.addEventListener('focus', function () { sync(); }); } catch (e8) { /* 忽略 */ }
+    /* 上面那句 sync() 跑得比页尾的数据脚本早（那时候还拿不到期号），
+       所以在 DOMContentLoaded / load 各补算一次 —— 一次都不能少，否则副标题只写半个。 */
+    try { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { sync(); }); } catch (e6b) { /* 忽略 */ }
+    try { window.addEventListener('load', function () { sync(); }); } catch (e7b) { /* 忽略 */ }
+
+    /* 带 #ro-heatmap 直接打开时（老链接）→ 直接展开，别让用户点一下才发现空 */
+    try {
+      if (String(location.hash || '').indexOf('#ro-heatmap') === 0) box.open = true;
+    } catch (e9) { /* 忽略 */ }
+    /* 页内跳到 #ro-heatmap（同页改 hash 不会重载）→ 也要展开 */
+    try {
+      window.addEventListener('hashchange', function () {
+        if (String(location.hash || '').indexOf('#ro-heatmap') === 0) {
+          box.open = true;
+          sync();
+        }
+      });
+    } catch (e10) { /* 忽略 */ }
+  })();
+  </script>
+
+  <!-- 【开机号】点入口后把区块滚到视口顶部。
        为什么要有这几行：区块平时是 display:none，靠 CSS :target 展开；
        而浏览器「跳到锚点」这一步，在元素刚从 display:none 变显示的那一刻
        并不总是执行（实测无头 Chrome 时灵时不灵）—— 补一次 scrollIntoView 才稳。
-       显示本身仍然只靠 CSS：这段脚本挂了/被禁，两个区块照样能展开，功能不丢。 -->
+       显示本身仍然只靠 CSS：这段脚本挂了/被禁，区块照样能展开，功能不丢。 -->
   <script>
   (function () {
     try {
@@ -5323,7 +5533,9 @@ ${DEVICE_GATE_BODY}
       /* 【必须放在最前面】下面两段都要用它；原来定义在最后，
          脚本一执行 OK 还是 undefined，一读 OK[...] 就抛 TypeError，
          整段脚本崩溃 → 点击监听根本没绑上 → 区块点不开。 */
-      var OK = { '#ro-kjh': 1, '#ro-live': 1, '#ro-heatmap': 1 };   /* 2026-10-17 加 #ro-heatmap（选号直播换成热力图） */
+      /* 现在只有「开机号」还走这套 class 折叠；
+         热力图改成了 <details>（见上面对应的那段脚本），不在这张表里。 */
+      var OK = { '#ro-kjh': 1 };
 
       /* __COPY_LIVE__ 【点击复制链接】
          微信把 yiqicai.com 拉黑了，点外链跳不过去 → 改成复制到剪贴板，
@@ -5387,10 +5599,6 @@ ${DEVICE_GATE_BODY}
             return;
           }
           el.classList.add('ro-open');
-          /* 【热力图】折叠状态下 canvas 画不出来（实测 rect=0x0）→ 展开后立刻补画一次 */
-          if (href === '#ro-heatmap' && typeof window.__roRenderAll === 'function') {
-            setTimeout(function () { try { window.__roRenderAll(); } catch (e) { /* 忽略 */ } }, 30);
-          }
           /* 【提示文字随状态变】展开后把那句改成「点击收起」 */
           try {
             var tipEl = this.querySelector ? this.querySelector('em[data-tip]') : null;
@@ -5404,17 +5612,13 @@ ${DEVICE_GATE_BODY}
           catch (err) { try { el.scrollIntoView(true); } catch (e2) { /* 忽略 */ } }
         });
       }
-      /* 带 #ro-kjh / #ro-live 直接打开时，也要把 class 加上（跟 :target 对齐） */
+      /* 带 #ro-kjh 直接打开时，也要把 class 加上（跟 :target 对齐） */
       (function () {
         var id = String(location.hash || '');
         if (!OK[id]) return;
         var el = document.getElementById(id.slice(1));
         if (el) {
           el.classList.add('ro-open');
-          /* 【热力图】带 #ro-heatmap 直达时也要补画一次（折叠时画不出来） */
-          if (id === '#ro-heatmap' && typeof window.__roRenderAll === 'function') {
-            setTimeout(function () { try { window.__roRenderAll(); } catch (e) { /* 忽略 */ } }, 80);
-          }
         }
       })();
 
@@ -5434,7 +5638,7 @@ ${DEVICE_GATE_BODY}
 
   <!-- ============================================================
        【晒票栏】用户要求：加在【推荐图目录】区块下面（截图箭头处）。
-       （同处目录下方的还有「开机号 / 选号直播」那两个入口，由另一位
+       （同处目录下方的还有「开机号」「热力图」那两个区块，由另一位
         负责人加的，排在前面 —— 这里不去动它们的顺序。）
        这一块现在会显示【晒票图片】（图床外链、不下载本体），
        卡片用自己的类名、不带图位属性，所以图位数量不变。 -->
