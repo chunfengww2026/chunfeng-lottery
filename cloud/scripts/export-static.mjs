@@ -6256,18 +6256,22 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    ------------------------------------------------------------
    用户 2026-10-18：「帮我把安装教程放到下面 图片可以变大.
                      目的让用户清晰的知道怎么安装」
+   2026-10-18 二改：「框框（两列卡片）样式好看，保留；内容升级成带图标 /
+   副标题 / 绿圆序号的那一版」（原来卡里只有 1. 2. 3. 的纯文字列表）。
    · 位置：#article-rest 里、.ro-foot（页尾）/ 免责声明 之前 = 正文最后一块
-   · 形式：CSS 两列卡片（照用户给的图 1）——安卓 / 微信 + 苹果 iPhone 各三步
-   · 配色：全部走米杏主题变量（--ro-bg / --ro-card / --ro-line / --ro-fg /
-           --ro-ok），不写死颜色，和页面其它卡片一套
+   · 结构：大标题（18px 居中粗体）→ 副标题（12px 灰）→ 两列卡片 →
+           卡内 = 📱/🍎 + 平台名（绿 · 粗 · 居中）+ 1px 米杏虚线分隔 +
+           绿圆序号三步（22px 圆 · 白字）+ 卡下小注（11px 灰）→ 底部备注
+   · 配色：全部走米杏主题变量（--ro-card / --ro-bg / --ro-line / --ro-fg /
+           --ro-fg2 / --ro-fg3 / --ro-ok），不写死颜色，和页面其它卡片一套
    · 纯展示：没有按钮标签、没有内联点击、没有 JS、不碰本地存储
-   · 375 两列 · 320 收成一列（见文件末尾 @media 344px）
+   · 375 两列（每列 ~163px）· 320 收成一列（见下面 @media 344px）
    ============================================================ */
 .ro-install {
   background: var(--ro-card);
   border: 1px solid var(--ro-line);
   border-radius: 14px;
-  padding: 16px 14px;
+  padding: 16px 10px 14px;
   box-sizing: border-box;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -6275,118 +6279,114 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 .ro-install-h {
   display: block;
   text-align: center;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--ro-fg);
   letter-spacing: .5px;
+  margin: 0;
 }
 .ro-install-lead {
   text-align: center;
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--ro-fg2);
-  margin: 6px 0 13px;
+  margin: 7px 0 14px;
 }
 .ro-install-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 10px;
+  gap: 9px;
   align-items: stretch;
 }
 .ro-install-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   box-sizing: border-box;
   background: var(--ro-bg);
   border: 1px solid var(--ro-line);
   border-radius: 12px;
-  padding: 11px 10px 12px;
+  padding: 10px 9px 11px;
 }
 .ro-install-plat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   text-align: center;
   font-size: 14px;
   font-weight: 800;
+  line-height: 1.25;
   color: var(--ro-ok);
-  padding-bottom: 8px;
+  padding-bottom: 9px;
   border-bottom: 1px dashed var(--ro-line);
   white-space: nowrap;
 }
-.ro-install-plat i { font-style: normal; margin-right: 3px; }
-.ro-install-steps { list-style: none; margin: 9px 0 0; padding: 0; }
+.ro-install-plat i { font-style: normal; font-size: 15px; line-height: 1; }
+.ro-install-steps { list-style: none; margin: 10px 0 0; padding: 0; flex: 1 1 auto; }
 .ro-install-steps li {
   display: flex;
   align-items: flex-start;
   gap: 7px;
-  font-size: 12.5px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--ro-fg);
-  padding: 4px 0;
+  padding: 3.5px 0;
 }
 .ro-install-steps li b {
-  flex: 0 0 17px;
-  width: 17px;
-  height: 17px;
-  line-height: 17px;
+  flex: 0 0 22px;
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
   border-radius: 50%;
   background: var(--ro-ok);
   color: #fff;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   text-align: center;
-  margin-top: 1px;
+  margin-top: -2px;
 }
 .ro-install-steps li span { flex: 1 1 auto; min-width: 0; }
 .ro-install-tip {
-  margin-top: 8px;
-  padding-top: 7px;
+  margin-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid var(--ro-line-soft);
   font-size: 11px;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--ro-fg3);
 }
+/* 引号里的界面词（「添加到桌面」这种）整词不折行，避免在词中间断开 */
+.ro-install-tip .nb { white-space: nowrap; }
 .ro-install-note {
   text-align: center;
-  margin-top: 12px;
+  margin-top: 13px;
   font-size: 12px;
   font-weight: 700;
+  letter-spacing: .3px;
   color: var(--ro-fg2);
 }
-/* 常见问题（用户给的图 2 底部那三条） */
-.ro-install-faq {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--ro-line);
+/* 345~374px（360 这类窄一点的安卓）：两列保留，字号和绿圆序号缩一档，
+   保证「选「添加到主屏幕」」这种 9 个字正好一行，不在词中间折行 */
+@media (min-width: 345px) and (max-width: 374px) {
+  .ro-install { padding: 14px 9px 12px; }
+  .ro-install-grid { gap: 8px; }
+  .ro-install-card { padding: 9px 8px 10px; }
+  .ro-install-plat { font-size: 13px; }
+  .ro-install-steps li { gap: 6px; font-size: 11.5px; }
+  .ro-install-steps li b { flex: 0 0 20px; width: 20px; height: 20px; line-height: 20px; font-size: 12px; }
 }
-.ro-install-faq h3 {
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--ro-fg);
-  margin-bottom: 8px;
-}
-.ro-install-faq dl { margin: 0; }
-.ro-install-faq dt {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ro-fg);
-  line-height: 1.6;
-  margin-top: 7px;
-}
-.ro-install-faq dt:first-child { margin-top: 0; }
-.ro-install-faq dd {
-  margin: 2px 0 0;
-  font-size: 11.5px;
-  line-height: 1.65;
-  color: var(--ro-fg2);
-}
-/* 320 窄屏：两列会挤（每张卡只剩 ~109px 内宽），收成一列 */
+/* 320 窄屏：两列会挤（每张卡内宽只剩 ~100px），收成一列 */
 @media (max-width: 344px) {
-  .ro-install { padding: 14px 10px; }
-  .ro-install-h { font-size: 16px; }
-  .ro-install-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .ro-install-plat { font-size: 13.5px; }
-  .ro-install-steps li { font-size: 12px; }
-  .ro-install-faq dd { font-size: 11px; }
+  .ro-install { padding: 15px 11px 13px; }
+  .ro-install-h { font-size: 17px; }
+  .ro-install-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .ro-install-steps { margin-top: 9px; }
+  .ro-install-steps li { font-size: 13px; }
+  .ro-install-lead { margin: 6px 0 12px; }
 }
+
 </style>
 <!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
@@ -6856,9 +6856,11 @@ ${trendHtmlFull}
        ------------------------------------------------------------
        用户 2026-10-18：「帮我把安装教程放到下面 图片可以变大.
                          目的让用户清晰的知道怎么安装」
+       2026-10-18 二改：框框（两列卡片）保留，卡里的内容升级成
+       图标 + 平台名 + 虚线 + 绿圆序号三步 + 卡下小注（原来只有 1.2.3. 纯文字）。
        · 位置：正文最后一块（#article-rest 里、.ro-foot / 免责声明 之前）
-       · 形式：CSS 两列卡片（照用户给的图 1），米杏色主题
-       · 安卓 / 微信 三步 · 苹果 iPhone 三步 · 底部备注 · 三条常见问题
+       · 形式：CSS 两列卡片，米杏色主题
+       · 安卓 / 微信 三步 · 苹果 iPhone 三步 · 底部备注
        · ⚠️ 纯展示：没有按钮标签、没有内联点击、不用 JS（页面铁律）
        · ⚠️ 根目录没有安装教程大图，所以没有图片位：只用 CSS 版；
             图位数量（data-image）因此保持不变。
@@ -6875,7 +6877,7 @@ ${trendHtmlFull}
           <li><b>2</b><span>选「添加到主屏幕」</span></li>
           <li><b>3</b><span>点「添加」</span></li>
         </ol>
-        <div class="ro-install-tip">浏览器里也叫「添加到桌面」。</div>
+        <div class="ro-install-tip">浏览器里也叫<span class="nb">「添加到桌面」</span>。</div>
       </div>
 
       <div class="ro-install-card">
@@ -6885,23 +6887,11 @@ ${trendHtmlFull}
           <li><b>2</b><span>选「添加到主屏幕」</span></li>
           <li><b>3</b><span>点「添加」</span></li>
         </ol>
-        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点「在浏览器打开」。</div>
+        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点<span class="nb">「在浏览器打开」</span>。</div>
       </div>
     </div>
 
     <div class="ro-install-note">备注：添加桌面更方便更稳定</div>
-
-    <div class="ro-install-faq">
-      <h3>常见问题</h3>
-      <dl>
-        <dt>1. 在微信里点不开 / 加不了？</dt>
-        <dd>请复制本页链接，粘贴到手机浏览器（Safari、Chrome 或手机自带浏览器）里打开，再按上面的步骤添加。</dd>
-        <dt>2. 苹果手机找不到「添加到主屏幕」？</dt>
-        <dd>必须用 Safari 打开本页；微信、QQ 这类内置浏览器没有这一项。</dd>
-        <dt>3. 安装后第一次点开没内容？</dt>
-        <dd>安装后首次点击请保持联网，等页面加载完就能正常查看。</dd>
-      </dl>
-    </div>
   </section>
 
   <div class="ro-foot">
