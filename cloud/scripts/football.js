@@ -19068,7 +19068,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-10-18 18:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "普莱西亚",
      "score": 3,
@@ -19144,7 +19144,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 65,
+    "minute": 67,
     "home": {
      "name": "富東寧平",
      "score": 2,
@@ -19210,7 +19210,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "古泰斯鱼雷",
      "score": 0,
@@ -19314,7 +19314,7 @@ const FOOTBALL_DATA = {
      "color": "8833ee"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 67,
+    "minute": 68,
     "home": {
      "name": "曼谷联合队",
      "score": 0,
@@ -19380,7 +19380,7 @@ const FOOTBALL_DATA = {
      "color": "004466"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "依利買",
      "score": 2,
@@ -19426,7 +19426,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 71,
+    "minute": 73,
     "home": {
      "name": "哈维德夫",
      "score": 1,
@@ -19492,7 +19492,7 @@ const FOOTBALL_DATA = {
      "color": "554488"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "北歐聯",
      "score": 2,
@@ -19558,7 +19558,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 65,
+    "minute": 67,
     "home": {
      "name": "圣彼得堡泽尼特",
      "score": 2,
@@ -19624,7 +19624,7 @@ const FOOTBALL_DATA = {
      "color": "ff9999"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "斯洛瓦科",
      "score": 0,
@@ -19690,7 +19690,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-18 19:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "北京国安",
      "score": 0,
@@ -20330,7 +20330,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "万隆",
      "score": 0,
@@ -20408,7 +20408,7 @@ const FOOTBALL_DATA = {
      "color": "8833ee"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "帕塔尼",
      "score": 0,
@@ -20486,7 +20486,7 @@ const FOOTBALL_DATA = {
      "color": "6869EE"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "利恩比",
      "score": 1,
@@ -20564,7 +20564,7 @@ const FOOTBALL_DATA = {
      "color": "6869EE"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "桑德捷斯基",
      "score": 2,
@@ -20638,7 +20638,7 @@ const FOOTBALL_DATA = {
      "color": "6495ed"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "上海海港",
      "score": 0,
@@ -20716,7 +20716,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "韦斯特罗斯",
      "score": 1,
@@ -20794,7 +20794,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "斯瑞斯",
      "score": 0,
@@ -20872,7 +20872,7 @@ const FOOTBALL_DATA = {
      "color": "003db9"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "古比斯",
      "score": 1,
@@ -20950,7 +20950,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 24,
+    "minute": 26,
     "home": {
      "name": "休达",
      "score": 0,
@@ -21028,7 +21028,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-10-18 20:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "奥萨苏纳",
      "score": 1,
