@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-18 19:56
+   生成时间：2026-10-18 20:03
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-18 19:56",
+ "updated": "2026-10-18 20:03",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 160,
-  "requests": 379,
+  "requests": 381,
   "errors": 0,
-  "seconds": 342.1
+  "seconds": 397.9
  },
  "games": {
   "ssq": {
@@ -23108,6 +23108,7 @@ const EXPERTS_DATA = {
     "blue": []
    },
    "notes": [],
+   "issue": "2026277",
    "byCat": [
     {
      "cat": "七码组选",
@@ -39667,6 +39668,7 @@ const EXPERTS_DATA = {
    "notes": [
     "站点 c-win 与开奖号大量不一致（60.1%），号码池不使用命中号，稳定性排序改用站点战绩"
    ],
+   "issue": "2026277",
    "byCat": [
     {
      "cat": "个位定5",
@@ -43702,6 +43704,7 @@ const EXPERTS_DATA = {
    "notes": [
     "站点 c-win 与开奖号大量不一致（60.4%），号码池不使用命中号，稳定性排序改用站点战绩"
    ],
+   "issue": "2026119",
    "byCat": [
     {
      "cat": "前1定5",
@@ -52692,6 +52695,7 @@ const EXPERTS_DATA = {
     "blue": []
    },
    "notes": [],
+   "issue": "2026120",
    "byCat": [
     {
      "cat": "18码",
