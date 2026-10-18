@@ -230,6 +230,14 @@ const FROM_ROOT = [
      （点一下倒是能出 TTS 语音 + 黄色气泡，但视频永远播不了）。
      同步路径：本机根目录 → cloud/scripts/blessing.mp4 → (workflow) site/blessing.mp4。 */
   'blessing.mp4',
+  /* 【安装教程大图】用户 2026-10-18 21:50 确认要这张图：分享页「添加到手机桌面」区块顶部
+     那张 install-guide.jpg（800×1432 / 约 204 KB JPEG，源图是桌面上 1520×2720 / 3.5 MB
+     的那张「网页安装到手机桌面教程.jpeg」，已用 Pillow 压过）。
+     页面里写的是 <img class="ro-install-shot" src="./install-guide.jpg" loading="lazy">。
+     同步路径：本机根目录 → cloud/scripts/install-guide.jpg →（workflow）site/install-guide.jpg。
+     ⚠️ 不在 FROM_ROOT 里，云端构建就没有这个文件，workflow 也拷不进 site/ → 线上 404
+        → 区块里只剩两列卡片，图位空白（lazy 加载失败被收起）。 */
+  'install-guide.jpg',
   /* 【竞彩在售场次】体彩官网公布的真实在售场次（build-jc-count.mjs 抓的）。
       必须同步过去：export-football.mjs 读它的 inSale 当「体彩竞彩在售 N 场」
       的那个 N；云端重新生成竞彩页时少了这个文件就会退回本机竞彩数据算的
