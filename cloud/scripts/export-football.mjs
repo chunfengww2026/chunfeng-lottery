@@ -2575,13 +2575,27 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
    这里补成 6 列；窄屏只收紧间距和字号，不动结构、不隐藏任何信息。 */
 .m-recrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
   align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #1e2430; }
+/* __NOWRAP__ 用户 2026-10-18：「主胜后面的这些数据尽量一排 不要转行」
+   做法：行内每一个 span 都禁止换行；队名那格允许被压缩（ellipsis）腾地方；
+   窄屏只收紧间距/字号，绝不隐藏任何一项信息。 */
+.m-recrow > span { white-space: nowrap; }
+.m-recrow .m-recteams { min-width: 0; }
 @media (max-width: 420px) {
-  .m-recrow { gap: 5px; }
+  .m-recrow { gap: 4px; }
   .m-reccode { font-size: 10px; padding: 1px 4px; }
   .m-recteams { font-size: 12px; }
   .m-recpick, .m-recodds { font-size: 12px; }
   .m-recrank { font-size: 10px; }
   .m-recconf { font-size: 11.5px; }
+}
+@media (max-width: 360px) {
+  .m-recrow { gap: 3px; }
+  .m-reccode { font-size: 9.5px; padding: 1px 3px; }
+  .m-recteams { font-size: 11.5px; }
+  .m-recteams i { font-size: 9.5px; margin-left: 3px; }
+  .m-recpick, .m-recodds { font-size: 11.5px; }
+  .m-recrank { font-size: 9.5px; }
+  .m-recconf { font-size: 11px; }
 }
 .m-recrow:last-child { border-bottom: 0; }
 .m-reccode { font-size: 11px; font-weight: 700; color: #98a1b2; background: #12151d;
