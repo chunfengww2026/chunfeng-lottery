@@ -1128,10 +1128,6 @@ async function buildGame(cfg, nowBj, opts) {
   const poolCand = (opts && opts.ocr !== false && (opts.pool !== false))
     ? poolTicketUrls(cfg, site, issue) : { urls: [] };
   const poolN = (poolCand.urls || []).length;
-  if (poolCand.total) {
-    log(`  · 晒票池 xysp-data.js：${poolCand.total} 条 → 当期 ${poolN} 条` +
-      `（跳过上一期 ${poolCand.skippedOld} / title 没期号 ${poolCand.skippedNoIssue}）`);
-  }
   if (opts && opts.ocr !== false && (matched.length || poolN)) {
     log(`  → 票面照片 OCR（自抓当期 ${matched.length} 篇晒票 + 池子 ${poolN} 张，最多识别 ${(opts && opts.ocrLimit) || OCR_MAX_IMAGES} 张）`);
     let ocrRes = null;
