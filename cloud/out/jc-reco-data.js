@@ -232,13 +232,13 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
+     "score": "0:1",
+     "hit": true,
+     "result": "win"
     }
    ],
    "hit": 0,
-   "miss": 6,
+   "miss": 5,
    "pending": 0,
    "verdict": "黑"
   },
@@ -312,9 +312,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.67,
      "conf": 56.9,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:3",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周日023",
@@ -361,7 +361,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 3,
    "verdict": ""
   },
   {
@@ -476,15 +476,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.62,
      "conf": 58.5,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "3:2",
+     "hit": true,
+     "result": "win"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 1,
+   "miss": 0,
+   "pending": 0,
+   "verdict": "红"
   }
  ]
 };
