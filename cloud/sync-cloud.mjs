@@ -171,6 +171,16 @@ const FROM_ROOT = [
      jc-articles.js 是 build-jc-articles.mjs 的产出，页面构建时要读它（没有就整块不渲染）。
      jc-scores.js 是 500 完场比分表（回填红黑用），先一起同步上去。 */
   'jc-articles.js', 'jc-scores.js',
+  /* 【已完场赛果 · 终场比分】jc-results.js 是 build-football-results.mjs 的产出
+     （最近 48 小时完场，每场 date/time/league/home/away/ft 终场/ht 半场/fid）。
+     ⚠️ 必须同步，两个云端步骤直接读它：
+        ① build-football-results.mjs 自己（读旧数据兜底，抓不到时绝不写空）
+        ② export-football.mjs 用 loadVar('jc-results.js','JC_RESULTS') 取
+           「已完场」那一行的终场比分（比分优先级：football.js 实时 > jc-data > 这里）
+        没有它 → 云端竞彩页的已完场比分退回「—」，红黑也算不出来。
+     ⚠️【不发布到线上】：页面是构建时内嵌的，线上站点目录里没有也不需要这个文件
+        → sync-cloud / cloud-build 的 out/ / workflow 的 site/ 三处里只需要这一处。 */
+  'jc-results.js',
   /* 【竞彩已完场】累积归档。在售列表只含还能买的比赛，一开完就从
      jc-data.js 里消失 —— 已完场的累积记录全靠这个文件，不传上去
      云端重新生成竞彩页时「已完场」又会变回 0 场。 */
@@ -346,6 +356,15 @@ const CODE_MODULES = [
   'draw-sources.mjs',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
+  /* 【已完场赛果 · 抓取脚本】build-football-results.mjs（2026-10-18 加）
+     抓 live.500.com/wanchang.php 的完场比分 → 写 jc-results.js，
+     并按终场比分【纠正】jc-history.js 里「归档那刻球还没踢完」冻住的错比分。
+     ⚠️ 必须同步：cloud-build.mjs 的【3b】那一步就是 run('build-football-results.mjs')，
+         而且排在 jc-reco-build.mjs / export-football.mjs 【之前】——
+         少了这个脚本，云端 3b 那一步会走 existsSync 的跳过分支（不报错），
+         于是 jc-history 的错比分永远不被纠正 → 推荐串红黑继续算错。
+     依赖：jc-archive.mjs 的 sameTeam / dayOf（那个文件已在上面 CODE_MODULES 里）。 */
+  'build-football-results.mjs',
   /* 【专家推荐 20 篇 · 用户 2026-10-19「所有资料去远端/云端」】
      这个脚本原来没进名单 ✗ → 云端没有它 → 既跑不了文章抓取，
      也会让 cloud-build.mjs 里那句 run('build-jc-articles.mjs') 直接失败。
