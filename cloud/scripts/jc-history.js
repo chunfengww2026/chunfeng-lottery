@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-18 23:28",
+ "updated": "2026-10-18 23:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -553,36 +553,9 @@ const JC_HISTORY = {
    "home": "诺丁汉",
    "away": "阿森纳",
    "time": "2026-10-18 23:30",
-   "score": "",
+   "score": "0:0",
    "hc": null,
-   "asianIndex": {
-    "line": "受一球",
-    "from": "live",
-    "handicap": 1,
-    "upSide": "away",
-    "upWater": 1.05,
-    "downWater": 0.8,
-    "openHandicap": 1,
-    "openUpWater": 1,
-    "openDownWater": 0.85,
-    "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 1,
-     "nowHandicap": 1,
-     "initUpWater": 1,
-     "nowUpWater": 1.05,
-     "initLine": "受一球",
-     "nowLine": "受一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "asianIndex": null,
    "odds": {
     "home": 6,
     "draw": 3.9,
@@ -596,11 +569,11 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 59.6,
-   "result": "",
+   "type": "three",
+   "result": "lose",
    "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "three"
+   "matched": true,
+   "at": "2026-10-17 00:28"
   },
   {
    "code": "周日017",
@@ -775,21 +748,48 @@ const JC_HISTORY = {
    "away": "桑德兰",
    "time": "2026-10-18 21:00",
    "score": "1:0",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.72,
+    "downWater": 1.07,
+    "openHandicap": -0.75,
+    "openUpWater": 0.97,
+    "openDownWater": 0.87,
+    "totalWater": 1.79,
+    "theoryUpPercent": "59.78",
+    "theoryDownPercent": "40.22",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.75,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.72,
+     "initLine": "半球/一球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.1,
-    "draw": 3.4,
-    "away": 3.6
+    "home": 2.05,
+    "draw": 3.1,
+    "away": 4.2
    },
    "prob": {
-    "home": 45.4,
-    "draw": 28.1,
-    "away": 26.5
+    "home": 46.5,
+    "draw": 30.8,
+    "away": 22.7
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 45.4,
+   "conf": 46.5,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
@@ -804,21 +804,48 @@ const JC_HISTORY = {
    "time": "2026-10-18 21:00",
    "score": "1:0",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": 0.5,
+    "openUpWater": 0.97,
+    "openDownWater": 0.87,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 0.5,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.97,
+     "nowUpWater": 1.05,
+     "initLine": "受半球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 3.4,
-    "draw": 3.8,
-    "away": 2
+    "home": 4,
+    "draw": 4,
+    "away": 1.83
    },
    "prob": {
-    "home": 27.8,
-    "draw": 24.9,
-    "away": 47.3
+    "home": 23.9,
+    "draw": 23.9,
+    "away": 52.2
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 47.3,
-   "type": "unbeaten",
+   "conf": 52.2,
+   "type": "three",
    "result": "lose",
    "hit": false,
    "matched": true,
@@ -831,21 +858,40 @@ const JC_HISTORY = {
    "away": "曼联",
    "time": "2026-10-18 21:00",
    "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 1.1,
+    "downWater": 0.7,
+    "openHandicap": 0.25,
+    "openUpWater": 0.9,
+    "openDownWater": 0.95,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.35,
-    "draw": 3.6,
-    "away": 2.9
+    "home": 2.5,
+    "draw": 3.3,
+    "away": 2.88
    },
    "prob": {
-    "home": 40.6,
-    "draw": 26.5,
-    "away": 32.9
+    "home": 38.1,
+    "draw": 28.9,
+    "away": 33.1
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 40.6,
+   "conf": 38.1,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
@@ -860,20 +906,47 @@ const JC_HISTORY = {
    "time": "2026-10-18 21:00",
    "score": "0:0",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受半球",
+    "from": "live",
+    "handicap": 0.5,
+    "upSide": "away",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": 0.5,
+    "openUpWater": 0.95,
+    "openDownWater": 0.9,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.5,
+     "nowHandicap": 0.5,
+     "initUpWater": 0.95,
+     "nowUpWater": 1.15,
+     "initLine": "受半球",
+     "nowLine": "受半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 3.5,
+    "home": 3,
     "draw": 3.6,
-    "away": 2.05
+    "away": 2.25
    },
    "prob": {
-    "home": 27.2,
-    "draw": 26.4,
-    "away": 46.4
+    "home": 31.6,
+    "draw": 26.3,
+    "away": 42.1
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 46.4,
+   "conf": 42.1,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
