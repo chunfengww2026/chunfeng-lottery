@@ -1244,8 +1244,14 @@ function issueNote(list, gid, listIssue) {
     if (gd && gd[gid] && gd[gid].issue) nextIss = String(gd[gid].issue);
   } catch (e) { nextIss = ''; }
   if (nextIss) {
-    /* 【兜底那一期要写明白 · 2026-10-18】列的这 20 位是「上一期（最新已出号）」的方案，
-       不是下一期的 → 组头必须直说，不能让人以为这是下一期的单。 */
+    /* 【三种情形，各说各的实话 · 2026-10-18 20:1x】
+       ① 列出来的就是「当前在售」那一期 → 直说「当前在售 X 期（源站已出号 · 待开奖）」；
+       ② 列出来的是「最新已出号」的上一期（下一期源站还没出号）→ 必须写明是哪一期，
+          绝不能让人以为这是下一期的单；
+       ③ 其它（理论上不会走到）→ 沿用原来那句。 */
+    if (listIssue && String(listIssue) === String(nextIss)) {
+      return '<span class="ro-xj-giss">当前在售 <b>' + escape(nextIss) + '</b> 期（源站已出号 · 待开奖）</span>';
+    }
     if (listIssue && String(listIssue) !== String(nextIss)) {
       return '<span class="ro-xj-giss">下一期 <b>' + escape(nextIss) + '</b> 期源站还没出号 · 以下为 <b>' +
         escape(listIssue) + '</b> 期（最新已出号）方案，仅供参考</span>';
@@ -1253,6 +1259,10 @@ function issueNote(list, gid, listIssue) {
     return '<span class="ro-xj-giss">最新已出号 ' + escape(iss) + ' 期 · 下一期 <b>' + escape(nextIss) + '</b> 期（源站已挂出）</span>';
   }
   /* 【抓不到下一期时的文案 · 用户 2026-10-18】原来说「下一期待出号」，用户要求改成「系统bug修复中」。 */
+  /* 【一个组里没有任何期号】按用户要求写「系统 bug 修复中」（别删块） */
+  if (listIssue) {
+    return '<span class="ro-xj-giss">最新 <b>' + escape(listIssue) + '</b> 期（源站已出号）· 下一期期号源站暂未挂出</span>';
+  }
   return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· <b>系统 bug 修复中</b>，下一期稍后自动补上</span>';
 }
 
@@ -2409,10 +2419,28 @@ function buildHeatmapHtml() {
       'history-fallback': '近期开奖频率（晒票样本不足·兜底口径）'
     };
     const srcText = SRC_LABEL[String(H.source || '')] || '近期开奖频率（兜底口径）';
+    /* 【样本提示 · 2026-10-18 20:1x】用户要求：块不能删，但样本少要【如实标一行小字】。
+       · 票数 = 0 / 走兜底口径 →「暂无实票样本，改用近 30 期开奖频率」
+       · 0 < 票数 < 10          →「样本仅 N 张，仅供参考」
+       · 票数 ≥ 10              → 不加（正常显示，不打扰）
+       N 取 H.sampleCount（build-heatmap.mjs 写的「本期有效票张数」）。
+       ⚠️ 兜底口径时 sampleCount 是【期数】（30），不是票数 —— 不能拿它当张数写，
+          否则会出现「样本仅 30 张」这种假话；这种情况走第一档文案。
+       ⚠️ 只是加一行 <span>，不碰 .ro-hm-head 结构，也不删任何块。 */
+    const srcName = String(H.source || '');
+    const isTicketSrc = (srcName === 'ocr-xysp' || srcName === 'xysp-text');
+    const ticketN = Number(H.sampleCount) || 0;
+    const sampleTip = !isTicketSrc
+      ? '<span class="ro-hm-tip" data-ro-hm-tip="1">暂无实票样本，改用近 30 期开奖频率</span>'
+      : (ticketN > 0 && ticketN < 10
+        ? '<span class="ro-hm-tip" data-ro-hm-tip="1">样本仅 ' + ticketN +
+          (srcName === 'ocr-xysp' ? ' 张' : ' 条') + '，仅供参考</span>'
+        : '');
     /* 两个彩种的图都预渲染在 DOM 里，只按「当前该看哪个」显隐 —— 展开即见，不用等 */
     return `<div class="ro-hm-block" data-ro-hm-game="${g}"${g === nowId ? '' : ' hidden'}>` +
       `<div class="ro-hm-head"><b>${escape(name)} 实票统计</b>` +
-      `<span data-ro-hm-cd="1">刷新倒计时 59:59</span></div>` +
+      `<span data-ro-hm-cd="1">刷新倒计时 59:59</span>` +
+      sampleTip + `</div>` +
       `<div class="ro-imagewrap" data-game="${g}" data-image="heatmap">${inner}</div>` +
       `</div>`;
   }).join('');
