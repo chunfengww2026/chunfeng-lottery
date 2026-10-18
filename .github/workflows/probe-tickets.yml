@@ -7,78 +7,45 @@ on:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
-      - name: 第四轮（搜狗图片 / Wayback / 代理 / 图片抽样 base64）
+      - name: 第五轮（500晒票 / 牛票票API / 晒票吧 / 知乎API / 163搜索）
         run: |
-          cat > probe4.mjs <<'PROBEEOF'
+          cat > probe5.mjs <<'PROBEEOF'
           const UA_PC = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
-          const unesc = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
-          const strip = (s) => unesc(String(s || '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
-          let budget = 5;
-          async function peek(u, tag) {
-            if (budget <= 0) return;
-            try {
-              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(15000) });
-              const b = Buffer.from(await r.arrayBuffer());
-              console.log(`PEEK ${tag} ${r.status} ${b.length}B ${(r.headers.get('content-type') || '')} ${u.slice(0, 90)}`);
-              if (r.ok && b.length > 1500 && b.length < 120000) {
-                budget--;
-                console.log(`B64START ${tag}`);
-                console.log(b.toString('base64'));
-                console.log(`B64END ${tag}`);
-              }
-            } catch (e) { console.log(`PEEK ${tag} ERR ${(e.cause && e.cause.code) || e.name}`); }
-          }
-
-          /* (a) 搜狗图片 — 逐条看标题/图片 */
-          for (const q of ['竞彩晒票', '竞彩实单']) {
-            const u = 'https://pic.sogou.com/pics?query=' + encodeURIComponent(q) + '&mode=1&start=0&reqType=ajax&reqFrom=result&tn=0';
-            try {
-              const r = await fetch(u, { headers: { 'User-Agent': UA_PC, Referer: 'https://pic.sogou.com/' }, signal: AbortSignal.timeout(20000) });
-              const t = await r.text();
-              const parts = t.split('"pic_url"').slice(1);
-              const rows = [];
-              for (const p of parts) {
-                const pic = (/^:"([^"]+)"/.exec(p) || [])[1] || '';
-                const tt = /"title":"([^"]*)"/.exec(p);
-                const page = /"page_url":"([^"]*)"/.exec(p);
-                if (pic) rows.push({ pic, title: unesc(tt ? tt[1] : ''), page: page ? unesc(page[1]) : '' });
-              }
-              const rel = rows.filter((x) => /晒|实单|实票|竞彩/.test(x.title));
-              console.log(`\nSGIMG ${q} → ${r.status} ${Buffer.byteLength(t)}B 总=${rows.length} 相关=${rel.length}`);
-              rel.slice(0, 6).forEach((x, i) => console.log(`  [${i}] ${x.title.slice(0, 40)} | ${x.pic.slice(0, 85)}`));
-              for (const x of rel.slice(0, 3)) await peek(x.pic, 'sg-' + q + '-' + Math.random().toString(36).slice(2, 4));
-            } catch (e) { console.log(`\nSGIMG ${q} ERR ${(e.cause && e.cause.code) || e.name}`); }
-            await new Promise((r2) => setTimeout(r2, 1200));
-          }
-
-          /* (b) Wayback：33633 有没有近期快照 */
-          for (const tgt of ['m.33633.cn/jingcai/']) {
-            const u = 'https://web.archive.org/cdx/search/cdx?url=' + tgt + '&output=json&limit=-8&fl=timestamp,statuscode,length';
-            try {
-              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(25000) });
-              const t = await r.text();
-              console.log(`\nWAYBACK ${tgt} → ${r.status} ${Buffer.byteLength(t)}B`);
-              console.log('  ' + t.replace(/\s+/g, ' ').slice(0, 500));
-            } catch (e) { console.log(`\nWAYBACK ERR ${(e.cause && e.cause.code) || e.name}`); }
-          }
-
-          /* (c) 代理能不能取到 33633（WAF 是否只挡某些 IP） */
-          const PROXY = [
-            ['jina', 'https://r.jina.ai/https://m.33633.cn/jingcai/'],
-            ['codetabs', 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
-            ['corslol', 'https://api.cors.lol/?url=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
-            ['allorigins', 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
+          const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+          const KW = ['晒票', '晒单', '实票', '实单', '票面', 'img_wrap', 'topic/'];
+          const LIST = [
+            ['500-shaipiao-sub', 'https://shaipiao.500.com/', UA_PC],
+            ['500-shaidan', 'https://www.500.com/shaidan/', UA_PC],
+            ['500-forum', 'https://www.500.com/forum/', UA_PC],
+            ['500-http', 'http://www.500.com/', UA_PC],
+            ['npp-api', 'https://api.niupiaopiao.com/', UA_PC],
+            ['npp-www', 'https://www.niupiaopiao.com/', UA_PC],
+            ['jc258-naked', 'https://jc258.com/', UA_PC],
+            ['tieba-shaipiao', 'https://tieba.baidu.com/f?kw=%E6%99%92%E7%A5%A8', UA_PC],
+            ['zhihu-api', 'https://www.zhihu.com/api/v4/search_v3?t=general&q=' + encodeURIComponent('竞彩晒票') + '&correction=1&offset=0&limit=20', UA_PC],
+            ['163-search', 'https://www.163.com/search?keyword=' + encodeURIComponent('竞彩晒票'), UA_PC],
+            ['17500bbs-http', 'http://bbs.17500.cn/', UA_PC],
+            ['hupu-lottery2', 'https://bbs.hupu.com/topic-lottery', UA_PC],
+            ['weibo-pic', 'https://photo.weibo.com/', UA_PC],
+            ['ycxysp', 'https://m.yiqicai.com/xysp/', UA_M],
+            ['ycxysp-ssq', 'https://m.yiqicai.com/xysp/ssqxysp', UA_M],
           ];
-          for (const [n, u] of PROXY) {
+          for (const [name, url, ua] of LIST) {
+            let status = 'ERR', bytes = 0, txt = '', err = '';
             try {
-              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(25000) });
-              const t = await r.text();
-              console.log(`\nPROXY ${n} → ${r.status} ${Buffer.byteLength(t)}B 有item=${t.includes('img_wrap')} 有晒票=${t.includes('晒票')}`);
-              console.log('  ' + t.replace(/\s+/g, ' ').slice(0, 200));
-            } catch (e) { console.log(`\nPROXY ${n} ERR ${(e.cause && e.cause.code) || e.name}`); }
+              const r = await fetch(url, { headers: { 'User-Agent': ua, Accept: 'text/html,application/json,*/*', 'Accept-Language': 'zh-CN,zh;q=0.9' }, redirect: 'follow', signal: AbortSignal.timeout(18000) });
+              status = r.status;
+              const b = Buffer.from(await r.arrayBuffer());
+              bytes = b.length; txt = b.toString('utf8');
+            } catch (e) { err = (e.cause && e.cause.code) || e.name; }
+            const kws = KW.filter((k) => txt.includes(k));
+            const items = (txt.match(/<div class="item">/g) || []).length;
+            console.log(`P5 ${name.padEnd(18)} ${String(status).padEnd(4)} ${String(bytes).padStart(8)}B item=${String(items).padStart(3)} kw=${kws.join(',') || '-'} ${err ? 'ERR=' + err : ''}`);
+            if (status === 200 && kws.length) console.log('    head: ' + txt.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/\s+/g, ' ').slice(0, 200));
+            await new Promise((r2) => setTimeout(r2, 300));
           }
-          console.log('\nDONE4');
+          console.log('DONE5');
           PROBEEOF
-          node probe4.mjs
+          node probe5.mjs
