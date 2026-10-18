@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-18 13:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-18 14:06 */
 const JC_DATA = {
- "updated": "2026-10-18 13:58",
+ "updated": "2026-10-18 14:06",
  "stat": {
   "total": 33,
   "upcoming": 33,
@@ -264,9 +264,9 @@ const JC_DATA = {
       "away": 3.2
      },
      "live": {
-      "home": 2.15,
+      "home": 2.2,
       "draw": 3.1,
-      "away": 3.3
+      "away": 3.25
      }
     },
     "overunder": {
@@ -285,14 +285,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 42.6,
+    "confidence": 41.9,
     "prob": {
-     "home": 42.6,
-     "draw": 29.6,
-     "away": 27.8
+     "home": 41.9,
+     "draw": 29.7,
+     "away": 28.4
     },
     "clear": false,
-    "margin": 9.1,
+    "margin": 8.5,
     "rqLine": "平手/半球",
     "type": "unbeaten"
    },
@@ -2320,9 +2320,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.82,
+      "line": 0.92,
       "over": 2,
-      "under": 1.02
+      "under": 0.92
      }
     }
    },
@@ -2423,9 +2423,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.92,
+      "line": 0.95,
       "over": 3.5,
-      "under": 0.87
+      "under": 0.85
      }
     }
    },
@@ -3406,8 +3406,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-18 13:58",
-  "officialUpdate": "2026-10-18 13:29:56",
+  "updated": "2026-10-18 14:06",
+  "officialUpdate": "2026-10-18 13:58:25",
   "inSale": 33,
   "list": [
    {
@@ -3542,17 +3542,17 @@ const JC_DATA = {
     "home": "乌迪内斯",
     "away": "莱切",
     "had": {
-     "h": 1.61,
+     "h": 1.59,
      "d": 3.55,
-     "a": 4.42,
-     "update": "2026-10-18 12:19:27"
+     "a": 4.57,
+     "update": "2026-10-18 13:58:17"
     },
     "hhad": {
      "line": "-1",
      "h": 3.2,
-     "d": 3.13,
-     "a": 2.01,
-     "update": "2026-10-18 12:19:35"
+     "d": 3.07,
+     "a": 2.04,
+     "update": "2026-10-18 13:58:25"
     },
     "single": {
      "HAD": {
