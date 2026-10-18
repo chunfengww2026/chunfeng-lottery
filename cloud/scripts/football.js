@@ -30917,7 +30917,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 89,
+    "minute": 90,
     "home": {
      "name": "全北现代",
      "score": 3,
@@ -30926,7 +30926,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "济州联队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -30967,7 +30967,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 58,
+    "minute": 60,
     "home": {
      "name": "大田市民",
      "score": 0,
@@ -31033,7 +31033,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 65,
+    "minute": 66,
     "home": {
      "name": "和富SE",
      "score": 2,
@@ -31099,7 +31099,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "悉尼(女)",
      "score": 2,
