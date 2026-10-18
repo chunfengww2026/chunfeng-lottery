@@ -7077,6 +7077,23 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   color: var(--ro-fg2);
   margin: 7px 0 14px;
 }
+/* __INSTALL_SHOT__ 安装教程大图（用户 2026-10-20：「把安装教程大图放进安装教程区块」）
+   位置：标题 + 副标题下面、两列卡片上面（图里已经把安卓 / 苹果两步都画清楚了，
+        下面的卡片保留原样做文字速查）
+   规格：install-guide.jpg 800×1432 / ~204 KB（原图 1520×2720 / 3.5 MB）
+   ⚠️ loading="lazy"：不在首屏，别拖慢第一屏；
+   ⚠️ 图挂了要整块收起不显示破图标 → 见页面尾部 __INSTALL_SHOT_ERR__ 那段（事件委托，不写内联 onerror） */
+.ro-install-shot {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--ro-line);
+  box-shadow: 0 1px 3px rgba(74, 58, 38, .10), 0 3px 8px rgba(74, 58, 38, .07);
+  background: #fff;
+  box-sizing: border-box;
+}
 .ro-install-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -7911,14 +7928,68 @@ ${p3dHtml}
                          目的让用户清晰的知道怎么安装」
        2026-10-18 二改：框框（两列卡片）保留，卡里的内容升级成
        图标 + 平台名 + 虚线 + 绿圆序号三步 + 卡下小注（原来只有 1.2.3. 纯文字）。
+       【已恢复】用户 2026-10-18 21:50 确认要这张安装大图
+       （当晚曾要求删掉这个模块 → HTML 整块被换成一句注释，顶部还加过一条
+         __NO_INSTALL__ 的 display:none 锁；本次恢复先把那条锁删了）
+       本次改动（__INSTALL_RESTORED__）：
+         ① section 原样恢复（下面这段就是原版标记，两列卡片一字没改）
+         ② 标题/副标题下面新增 install-guide.jpg 大图（.ro-install-shot）
+         ③ __NO_INSTALL__ 锁已删除（见上面 CSS 里 __INSTALL_BACK__ / __INSTALL_RESTORED__ 那段）
        · 位置：正文最后一块（#article-rest 里、.ro-foot / 免责声明 之前）
-       · 形式：CSS 两列卡片，米杏色主题
+       · 形式：大图 + CSS 两列卡片，米杏色主题
        · 安卓 / 微信 三步 · 苹果 iPhone 三步 · 底部备注
-       · ⚠️ 纯展示：没有按钮标签、没有内联点击、不用 JS（页面铁律）
-       · ⚠️ 根目录没有安装教程大图，所以没有图片位：只用 CSS 版；
-            图位数量（data-image）因此保持不变。
+       · ⚠️ 纯展示：没有按钮标签、没有内联点击 / 内联事件（图片失败收起也走 addEventListener）
        ============================================================ -->
-  <!-- 【已删除】安装指南（用户 2026-10-18 明确要求，不要再加回来） -->
+  <section class="ro-install" id="ro-install" aria-labelledby="ro-install-h">
+    <h2 class="ro-install-h" id="ro-install-h">添加到手机桌面，更方便更稳定</h2>
+    <div class="ro-install-lead">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
+
+    <!-- 安装教程大图：800×1432 / 约 204 KB（原图 1520×2720 / 3.5 MB）
+         ⚠️ loading="lazy" 别拖慢首屏；width/height 先占位，避免图到了把卡片顶下去 -->
+    <img class="ro-install-shot" src="./install-guide.jpg"
+         alt="安装步骤：安卓手机和苹果 iPhone 如何把本页添加到手机桌面"
+         width="800" height="1432" loading="lazy" decoding="async">
+
+    <div class="ro-install-grid">
+      <div class="ro-install-card">
+        <div class="ro-install-plat"><i aria-hidden="true">📱</i>安卓 / 微信</div>
+        <ol class="ro-install-steps">
+          <li><b>1</b><span>点右上角「···」</span></li>
+          <li><b>2</b><span>选「添加到主屏幕」</span></li>
+          <li><b>3</b><span>点「添加」</span></li>
+        </ol>
+        <div class="ro-install-tip">浏览器里也叫<span class="nb">「添加到桌面」</span>。</div>
+      </div>
+
+      <div class="ro-install-card">
+        <div class="ro-install-plat"><i aria-hidden="true">🍎</i>苹果 iPhone</div>
+        <ol class="ro-install-steps">
+          <li><b>1</b><span>点底部「分享」图标</span></li>
+          <li><b>2</b><span>选「添加到主屏幕」</span></li>
+          <li><b>3</b><span>点「添加」</span></li>
+        </ol>
+        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点<span class="nb">「在浏览器打开」</span>。</div>
+      </div>
+    </div>
+
+    <div class="ro-install-note">备注：添加桌面更方便更稳定</div>
+  </section>
+
+  <script>
+  /* __INSTALL_SHOT_ERR__ 大图挂了就整块收起（别显示破图标）
+     · 不用内联 onerror，走 addEventListener —— 页面铁律是「零内联事件」
+     · 图片是 lazy 的：没滚到时 complete=true / naturalWidth=0 会误判，所以两种都判一次 */
+  (function () {
+    var shot = document.querySelector('.ro-install-shot');
+    if (!shot) return;
+    function hide() { shot.style.display = 'none'; }
+    shot.addEventListener('error', hide);
+    if (shot.complete && shot.naturalWidth === 0 && shot.getBoundingClientRect) {
+      /* 只有真的发起过请求（currentSrc 有值）才算失败 */
+      if (shot.currentSrc || shot.src) hide();
+    }
+  })();
+  </script>
 
   <div class="ro-foot">
     本页面为只读分享版，仅供观看，无法修改。<br>
@@ -13330,9 +13401,13 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-balls { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
 .px9-b { width: 24px; height: 24px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .px9-b.blue { background: #1f5fd6; }
-/* __NO_INSTALL__ 用户 2026-10-18 明确要求删掉「添加到手机桌面，更方便更稳定」这块；
-   另一个窗口反复把它加回 HTML，所以这里用 CSS 兜底：不管 HTML 里有没有，一律不显示。 */
-.ro-install, #ro-install, .install-guide, #installGuide { display: none !important; }
+/* __INSTALL_RESTORED__ 【已恢复】用户 2026-10-18 21:50 确认要这张安装大图
+   → 「添加到手机桌面」这一块重新上屏。
+   这里原来有一条 __NO_INSTALL__（2026-10-18 用户要求删掉该模块时加的
+   display:none!important 兜底：不管 HTML 里有没有，一律不显示）——
+   本次恢复时那条锁已经【删除】，所以 .ro-install 现在正常 display（不再被 !important 压住）。
+   以后要再藏这一块，别用 display:none 兜底，直接改 HTML，
+   免得又出现「HTML 里没有、CSS 里锁着」的两头不一致。 */
 /* __TOC_4ROWS__ 用户 2026-10-18：目录排成 4 排（3 列 × 4 排，10 格） */
 .ro-imgtoc { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
 .ro-imgtoc .ro-toc-cell { width: auto !important; min-height: 52px !important; height: auto !important; padding: 8px 4px !important; }
@@ -13512,7 +13587,9 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 })();
 </script>
 
-<!-- 【已删除】安装指南模块（「添加到手机桌面，更方便更稳定」）—— 用户 2026-10-18 明确要求删掉，不要再加回来 -->
+    <!-- __INSTALL_MOVED__ 安装教程区块（含 install-guide.jpg 大图）已经挪回 #article-rest 里，
+       就在 .ro-foot / 免责声明之前（见上面 __INSTALL__ / __INSTALL_RESTORED__ 那段）。
+       ⚠️ 别在这里再放一份：这里是 .ro-wrap 外面、body 直下，卡片样式会整个掉出去。 -->
 
 </div>
 
