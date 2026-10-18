@@ -7082,7 +7082,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
         下面的卡片保留原样做文字速查）
    规格：install-guide.jpg 800×1432 / ~204 KB（原图 1520×2720 / 3.5 MB）
    ⚠️ loading="lazy"：不在首屏，别拖慢第一屏；
-   ⚠️ 图挂了要整块收起不显示破图标 → 见页面尾部 __INSTALL_SHOT_ERR__ 那段（事件委托，不写内联 onerror） */
+   ⚠️ 图挂了要整块收起不显示破图标 → 见紧跟 section 的 __INSTALL_SHOT_ERR__ 那段（事件委托，不写内联 onerror） */
 .ro-install-shot {
   width: 100%;
   height: auto;
