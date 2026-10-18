@@ -8,15 +8,29 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 16:40
+   更新时间：2026-10-18 16:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 16:40",
+ "updated": "2026-10-18 16:45",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/8efce3a1-a3d5-43c2-88f9-80bb7c456b6e1792311714466.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/8efce3a1-a3d5-43c2-88f9-80bb7c456b6e1792311714466.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]晒票机选",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:22:00.000Z",
+     "pubMs": 1792311720000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/46a24885-fcc7-440f-a38c-bc055dcc84d61792310061793.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/46a24885-fcc7-440f-a38c-bc055dcc84d61792310061793.jpg?imageMogr2/thumbnail/360x",
@@ -560,6 +574,62 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/3bb1a4fa-0936-4b4e-8d25-0b4fba8db22d1792311880181.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/3bb1a4fa-0936-4b4e-8d25-0b4fba8db22d1792311880181.jpg?imageMogr2/thumbnail/360x",
+     "title": "[期]仅供参考",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:25:00.000Z",
+     "pubMs": 1792311900000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/82678a9c-b839-4b4d-b092-36d62fd732171792311305445.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/82678a9c-b839-4b4d-b092-36d62fd732171792311305445.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]重瞳已是无敌路，何须再借他人骨",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:16:00.000Z",
+     "pubMs": 1792311360000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/f09a76f4-3994-4e2d-b7f9-e4744720a5e01792311305436.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/f09a76f4-3994-4e2d-b7f9-e4744720a5e01792311305436.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]重瞳已是无敌路，何须再借他人骨",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:16:00.000Z",
+     "pubMs": 1792311360000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/4123b3fe-b896-45bd-a6fe-adc9aade489a1792311156350.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/4123b3fe-b896-45bd-a6fe-adc9aade489a1792311156350.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]和值19，单挑568，好运。",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:13:00.000Z",
+     "pubMs": 1792311180000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/2c5d8f7e-c4d2-40d0-b0f0-fed80546a65c1792308415879.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/2c5d8f7e-c4d2-40d0-b0f0-fed80546a65c1792308415879.jpg?imageMogr2/thumbnail/360x",
      "title": "[26277期]和值.15.20.21.22.23，胆.5",
@@ -929,6 +999,20 @@ const XYSP_DATA = {
    "name": "快乐8",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/24ab8f95-2885-4096-9cb9-b2bf6fb9d48d1792311239718.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/24ab8f95-2885-4096-9cb9-b2bf6fb9d48d1792311239718.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]玩选七，好运。",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:14:00.000Z",
+     "pubMs": 1792311240000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/8ceb4330-5eab-494e-ab9f-24f1931394c81792304024190.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/8ceb4330-5eab-494e-ab9f-24f1931394c81792304024190.jpg?imageMogr2/thumbnail/360x",
      "title": "[26277期]直接干",
@@ -1001,7 +1085,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-10-18/cd272108-3127-4b6c-a27b-6b63835bd2cc1792299896379.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/cd272108-3127-4b6c-a27b-6b63835bd2cc1792299896379.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]一区昨天回暖，昨天一区拿下07/11/15的选三，今天02孤码下方容易出01或者02重，06/07的下方有一码重的概率比较大，",
+     "title": "[期]一区昨天回暖，昨天一区拿下07/11/15的选三，今天02孤码下方容易出01或者02重，06/07的下方有一码重的概率比较大，",
      "url": "",
      "at": "2026-10-18T05:25:02.264Z",
      "pubAt": "2026-10-18T05:07:00.000Z",
@@ -1554,6 +1638,34 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/766d5c0e-6e23-427b-abc8-0fc18d0390ab1792311278602.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/766d5c0e-6e23-427b-abc8-0fc18d0390ab1792311278602.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]前三和19，后两位4*2，好运。",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:15:00.000Z",
+     "pubMs": 1792311300000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/28ae47e5-a520-4db8-aad0-200c268514761792311227683.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/28ae47e5-a520-4db8-aad0-200c268514761792311227683.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]不买就中系列 万位：0,1,2,9 千位：2,4,8,9 百位：3,4,8,9 十位：1,3,5,8 个位：0,5,7,8",
+     "url": "",
+     "at": "2026-10-18T08:45:06.578Z",
+     "pubAt": "2026-10-18T08:14:00.000Z",
+     "pubMs": 1792311240000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792313106578,
+     "seenMs": 1792313106578,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/90a16e59-c289-4e23-b269-65d775e878221792301310523.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/90a16e59-c289-4e23-b269-65d775e878221792301310523.jpg?imageMogr2/thumbnail/360x",
