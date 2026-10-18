@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 21:20
+   更新时间：2026-10-18 21:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 21:20",
+ "updated": "2026-10-18 21:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1732,6 +1732,62 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/aa158ccb-699f-4d76-ab27-2ed13e5734911792328784130.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/aa158ccb-699f-4d76-ab27-2ed13e5734911792328784130.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]真不知道咋说了",
+     "url": "",
+     "at": "2026-10-18T13:25:01.896Z",
+     "pubAt": "2026-10-18T13:06:00.000Z",
+     "pubMs": 1792328760000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792329901896,
+     "seenMs": 1792329901896,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/2fa987bd-fca9-4708-9640-a64014096cec1792328547460.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/2fa987bd-fca9-4708-9640-a64014096cec1792328547460.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]巴适",
+     "url": "",
+     "at": "2026-10-18T13:25:01.896Z",
+     "pubAt": "2026-10-18T13:03:00.000Z",
+     "pubMs": 1792328580000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792329901896,
+     "seenMs": 1792329901896,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/f737321a-9b85-4b73-b14f-2af2ba7ec89a1792328547412.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/f737321a-9b85-4b73-b14f-2af2ba7ec89a1792328547412.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]巴适",
+     "url": "",
+     "at": "2026-10-18T13:25:01.896Z",
+     "pubAt": "2026-10-18T13:03:00.000Z",
+     "pubMs": 1792328580000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792329901896,
+     "seenMs": 1792329901896,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/a3f16872-4b90-4e72-adbf-6818c6f7ed701792328442507.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/a3f16872-4b90-4e72-adbf-6818c6f7ed701792328442507.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]感觉还可以",
+     "url": "",
+     "at": "2026-10-18T13:25:01.896Z",
+     "pubAt": "2026-10-18T13:01:00.000Z",
+     "pubMs": 1792328460000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792329901896,
+     "seenMs": 1792329901896,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/ebebaf2c-650c-4a85-b4d4-6ff65c6075d11792326329220.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/ebebaf2c-650c-4a85-b4d4-6ff65c6075d11792326329220.jpg?imageMogr2/thumbnail/360x",
      "title": "[26277期]排列三",
@@ -2159,34 +2215,6 @@ const XYSP_DATA = {
      "at": "2026-10-17T15:00:02.082Z",
      "pubAt": "2026-10-17T13:44:00.000Z",
      "pubMs": 1792244640000,
-     "pubSrc": "page",
-     "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/fbaf0b2a-eb88-4a4f-8de8-c11e927cbac81792243299955.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/fbaf0b2a-eb88-4a4f-8de8-c11e927cbac81792243299955.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]欣赏",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T13:21:00.000Z",
-     "pubMs": 1792243260000,
-     "pubSrc": "page",
-     "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/ecbe85cc-fd51-492b-9660-235c2db6a33f1792243299879.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/ecbe85cc-fd51-492b-9660-235c2db6a33f1792243299879.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]欣赏",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T13:21:00.000Z",
-     "pubMs": 1792243260000,
      "pubSrc": "page",
      "nextAt": 1792326600000,
      "atMs": 1792249202082,
