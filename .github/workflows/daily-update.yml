@@ -1,4 +1,4 @@
-﻿name: 每日自动更新
+name: 每日自动更新
 
 # ============================================================
 #  定时更新推荐网页
@@ -399,9 +399,14 @@ jobs:
         if: always()
         run: |
           echo "===== 各数据文件自带的更新时间（北京时间）====="
+          # 【已完场赛果 · 终场比分】jc-results.js（2026-10-18 加）：
+          #   由 build-football-results.mjs 抓 live.500.com 完场页生成，
+          #   同时用来纠正 jc-history.js 里被「比赛进行中快照」冻住的错比分。
+          #   ⚠️ 这里的时间戳 = 本机最后一次同步过来的时间（云端 3b 那一步也会刷新它）；
+          #      如果一直不动，说明本机那条更新链停了，推荐串红黑不会再自我纠正。
           for f in draws.js history.js prize-data.js football.js jc-data.js \
                    articles-data.js xysp-data.js kjh-data.js experts-data.js jc-official.js \
-                   jc-divergence.js jc-titan.js jc-bifa.js jc-standings.js ; do
+                   jc-divergence.js jc-titan.js jc-bifa.js jc-standings.js jc-results.js ; do
             if [ -f "cloud/scripts/$f" ]; then
               S=$(grep -o '"updated"[[:space:]]*:[[:space:]]*"[^"]*"' "cloud/scripts/$f" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
               if [ -z "$S" ]; then S=$(grep -oE '(更新时间|生成时间)[：:][[:space:]]*[0-9-]+ [0-9:]+' "cloud/scripts/$f" | head -1); fi
