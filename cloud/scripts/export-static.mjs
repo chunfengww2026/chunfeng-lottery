@@ -2698,22 +2698,31 @@ function mqJudge(gid, v, d) {
   /* ---------- 双色球：6+1，只播一等奖（红6+蓝1）/ 二等奖（红6+蓝0） ---------- */
   if (gid === 'ssq') {
     const red = area('red'), blue = area('blue');
-    const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
+    /* __UNION_MQ__ 用户 2026-10-18：「所有号码全部放到一起」→
+       号池 = r20 ∪ r15 ∪ r10 ∪ r3 ∪ r1（各层并集），后区 = b_rec */
+    const pool = [...new Set([].concat(mqNums(v.r20), mqNums(v.r15), mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))].sort((a, b) => a - b);
+    const bp = mqNums(v.b_rec);
     if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
     const r = hits(red, pool), b = hits(blue, bp) > 0 ? 1 : 0;
     if (r === 6 && b === 1) return { claim: bigClaim('一等奖', r, '红球', b, '蓝球'), hot: 2 };
     if (r === 6 && b === 0) return { claim: bigClaim('二等奖', r, '红球', b, '蓝球'), hot: 1 };
+    /* 三等奖：6 红中 5 + 蓝球中 1 */
+    if (r === 5 && b === 1) return { claim: bigClaim('三等奖', r, '红球', b, '蓝球'), hot: 1 };
     return null;
   }
 
   /* ---------- 大乐透：5+2，只播一等奖（前5+后2）/ 二等奖（前5+后1） ---------- */
   if (gid === 'dlt') {
     const front = area('front'), back = area('back');
-    const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
+    /* __UNION_MQ__ 并集口径：f20 ∪ f15 ∪ f10 ∪ f3 ∪ f1 + 后区 b_rec */
+    const pool = [...new Set([].concat(mqNums(v.f20), mqNums(v.f15), mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))].sort((a, b) => a - b);
+    const bp = mqNums(v.b_rec);
     if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
     const r = hits(front, pool), b = hits(back, bp);
     if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
     if (r === 5 && b === 1) return { claim: bigClaim('二等奖', r, '前区', b, '后区'), hot: 1 };
+    /* 三等奖：前区全中 + 后区 0 个 */
+    if (r === 5 && b === 0) return { claim: bigClaim('三等奖', r, '前区', b, '后区'), hot: 1 };
     return null;
   }
 
@@ -13649,11 +13658,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
      ⚠️ 这段在模板字符串里：不用反引号、不写美元花括号、不写反斜杠
      ============================================================ */
   function omissionOf(main, n, total) {
+    /* 距上次出现的期数：从最新一期往回数，第一次遇到 n 就停 */
     for (var i = 0; i < main.length; i++) {
-      if (Math.max.apply(null, main[i]) >= n && main[i].indexOf(n) >= 0) return i;
       if (main[i].indexOf(n) >= 0) return i;
     }
-    return total;
+    return total;   /* 30 期内从没出过 → 算最大遗漏 */
   }
   function topBy(list, keyFn, k) {
     return list.slice().sort(function (a, b) { return keyFn(b) - keyFn(a); }).slice(0, k);
@@ -13694,7 +13703,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     } else if (m === '质合') {
       var pCnt = main.map(function (a) { return a.filter(isPrime).length; });
       var avgP = Math.round(pCnt.reduce(function (x, y) { return x + y; }, 0) / total);
-      avgP = Math.max(1, Math.min(5, avgP));
+      avgP = Math.max(2, Math.min(4, avgP));
       var ps = hot.filter(isPrime).slice(0, avgP);
       var cs = hot.filter(function (n) { return !isPrime(n); }).slice(0, 6 - avgP);
       red = ps.concat(cs);
@@ -13703,14 +13712,16 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       var midSum = sortedS[Math.floor(sortedS.length / 2)] || 100;
       var target = midSum / 6;
       red = all.slice().sort(function (a, b) {
-        var da = Math.abs(a - target) - (f[a] || 0) * 0.01;
-        var db = Math.abs(b - target) - (f[b] || 0) * 0.01;
+        var da = Math.abs(a - target) - (f[a] || 0) * 2.5;
+        var db = Math.abs(b - target) - (f[b] || 0) * 2.5;
         return da - db;
       }).slice(0, 6);
     } else if (m === '跨度') {
       var sortedSp = spans.slice().sort(function (a, b) { return a - b; });
       var midSp = sortedSp[Math.floor(sortedSp.length / 2)] || 20;
-      red = hot.filter(function (n) { return n <= midSp + 1; }).slice(0, 6);
+      var lo = Math.max(1, midSp - 5), hi = Math.min(M.max, midSp + 5);
+      red = hot.filter(function (n) { return n >= lo && n <= hi; }).slice(0, 6);
+      if (red.length < 6) { hot.forEach(function (n) { if (red.indexOf(n) < 0 && red.length < 6) red.push(n); }); }
     } else {
       /* 多源共振法：把前 8 个算法的号各当一票，按频次加权 */
       var votes = {};
@@ -13719,7 +13730,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
         rr.forEach(function (n) { votes[n] = (votes[n] || 0) + 1; });
       });
       red = Object.keys(votes).map(Number).sort(function (a, b) {
-        return (votes[b] - votes[a]) || ((f[b] || 0) - (f[a] || 0));
+        return ((votes[b] || 0) * 2 + (f[b] || 0)) - ((votes[a] || 0) * 2 + (f[a] || 0));
       }).slice(0, 6);
     }
 
