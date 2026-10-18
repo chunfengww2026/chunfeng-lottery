@@ -2308,11 +2308,29 @@ function hmIssueText(gid) {
      · 页面上不写任何「每小时 / 每天几点」的说法，也不做轮询定时 */
 function buildHeatmapHtml() {
   const tms = (HEATMAP && HEATMAP.games) ? HEATMAP.games : {};
+  /* 【样本太少就不画图 · 用户 2026-10-19「热力图有问题」】
+     实测：ssq 只有 2 张票、dlt 0 张 → 图上只有一根柱子、其余全是 0%，
+     看起来像坏了。这里设阈值：票数 < 10 的彩种直接不进热力图（不画图、不列号码）。
+     等云端每小时班抓到足够晒票，票数上来就自动恢复显示。 */
+  const MIN_TICKETS = 10;
+  const ticketCount = (g) => {
+    const H = tms[g] || {};
+    const ocr = H.ocr || {};
+    if (Array.isArray(ocr.tickets)) return ocr.tickets.length;
+    if (typeof ocr.tickets === 'number') return ocr.tickets;
+    if (typeof H.tickets === 'number') return H.tickets;
+    return 0;
+  };
   const nowId = heatmapNextGameId();
   const ids = ['ssq', 'dlt'].filter((g) => {
     const H = tms[g];
-    return !!(H && H.front && Array.isArray(H.front.items) && H.front.items.length);
+    if (!(H && H.front && Array.isArray(H.front.items) && H.front.items.length)) return false;
+    /* 样本不足 → 不出图 */
+    if (ticketCount(g) < MIN_TICKETS) return false;
+    return true;
   });
+  /* 两个彩种样本都不够 → 整张卡不渲染（避免出现空白/坏图） */
+  if (!ids.length) return '';
   const hasCur = ids.indexOf(nowId) >= 0;
 
   const blocks = ids.map((g) => {
