@@ -1318,6 +1318,16 @@ function escapeAttr(s) { return String(s == null ? '' : s).replace(/[^\w-]/g, ''
      ⚠️ 折叠机制一个字没改：还是 <details> + <summary>，胶囊上的字仍由 CSS 伪元素
         按 [open] 切换（点击查看 ▸ / 点击收起 ▾），页面上没有 button 标签。
      ⚠️ 原来的 .ro-xj-count（160）不再单独占一格，数字并进副标题，信息没丢。 */
+  /* __XJ_EMPTY__ 用户 2026-10-18：没抓到信息时【不能点开】，并提示「修复中！请谅解」；
+     有信息时才是可点开的折叠卡。 */
+  if (!totalShown) {
+    return '<div class="ro-xj ro-xj-empty" aria-disabled="true">' +
+      '<div class="ro-xj-header">' +
+      '<span class="ro-xj-title"><span class="ro-xj-icon" aria-hidden="true">👤</span>专家推荐</span>' +
+      '<span class="ro-xj-sub">修复中！请谅解</span>' +
+      '</span>' +
+      '</div>';
+  }
   return '<details class="ro-xj">' +
     '<summary class="ro-xj-header">' +
     '<span class="ro-xj-title"><span class="ro-xj-icon" aria-hidden="true">👤</span>专家推荐</span>' +
