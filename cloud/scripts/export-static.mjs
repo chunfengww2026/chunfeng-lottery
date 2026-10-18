@@ -2698,10 +2698,7 @@ function mqJudge(gid, v, d) {
   /* ---------- 双色球：6+1，只播一等奖（红6+蓝1）/ 二等奖（红6+蓝0） ---------- */
   if (gid === 'ssq') {
     const red = area('red'), blue = area('blue');
-    /* __UNION_MQ__ 用户 2026-10-18：「所有号码全部放到一起」→
-       号池 = r20 ∪ r15 ∪ r10 ∪ r3 ∪ r1（各层并集），后区 = b_rec */
-    const pool = [...new Set([].concat(mqNums(v.r20), mqNums(v.r15), mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))].sort((a, b) => a - b);
-    const bp = mqNums(v.b_rec);
+    const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
     if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
     const r = hits(red, pool), b = hits(blue, bp) > 0 ? 1 : 0;
     if (r === 6 && b === 1) return { claim: bigClaim('一等奖', r, '红球', b, '蓝球'), hot: 2 };
@@ -2714,9 +2711,7 @@ function mqJudge(gid, v, d) {
   /* ---------- 大乐透：5+2，只播一等奖（前5+后2）/ 二等奖（前5+后1） ---------- */
   if (gid === 'dlt') {
     const front = area('front'), back = area('back');
-    /* __UNION_MQ__ 并集口径：f20 ∪ f15 ∪ f10 ∪ f3 ∪ f1 + 后区 b_rec */
-    const pool = [...new Set([].concat(mqNums(v.f20), mqNums(v.f15), mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))].sort((a, b) => a - b);
-    const bp = mqNums(v.b_rec);
+    const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
     if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
     const r = hits(front, pool), b = hits(back, bp);
     if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
