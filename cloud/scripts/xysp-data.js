@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 13:56
+   更新时间：2026-10-18 14:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 13:56",
+ "updated": "2026-10-18 14:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1540,9 +1540,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 12:06:22",
      "postId": "7697854346418979362",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d00b768fd6854ad8b060ccf19a392b00~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=3wHQnGOxfVC56ikPpcKRMzLA6ew%3D",
@@ -1561,14 +1559,14 @@ const XYSP_DATA = {
      "issue": "26276",
      "seen": "2026-10-18T05:56:01.984Z",
      "whenMs": 1792296382000,
-     "seenMs": 1792302361760,
+     "seenMs": 1792302961984,
      "drawMs": 1792242900000,
      "nextMs": 1792329300000,
      "atMs": 1792301161760,
      "drawAt": "2026-10-17T13:15:00.000Z",
      "nextAt": 1792329300000,
      "drawGid": "fc3d",
-     "expireAt": "2026-10-21T05:46:01.760Z",
+     "expireAt": "2026-10-21T05:56:01.984Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 12:06:22",
@@ -1592,14 +1590,14 @@ const XYSP_DATA = {
      "issue": "26276",
      "seen": "2026-10-18T05:56:01.984Z",
      "whenMs": 1792296382000,
-     "seenMs": 1792302361760,
+     "seenMs": 1792302961984,
      "drawMs": 1792242900000,
      "nextMs": 1792329300000,
      "atMs": 1792301161760,
      "drawAt": "2026-10-17T13:15:00.000Z",
      "nextAt": 1792329300000,
      "drawGid": "fc3d",
-     "expireAt": "2026-10-21T05:46:01.760Z",
+     "expireAt": "2026-10-21T05:56:01.984Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 12:06:22",
@@ -1664,9 +1662,7 @@ const XYSP_DATA = {
      "author": "偏财专业户",
      "when": "2026-10-18 11:31:21",
      "postId": "7697845060573954621",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d7c1e7d64b504715bc9bcac534b73ae9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=yC8V3C6ATMYP0cbpqdtB2J1DQvs%3D",
@@ -2030,9 +2026,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
      "postId": "7697718814191911443",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5228a42821c841b99d468da57f68f84d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=0JDieobwXH8Dh2sDf3EqZ6rdNrA%3D",
@@ -2051,14 +2045,14 @@ const XYSP_DATA = {
      "issue": "26275",
      "seen": "2026-10-18T05:56:01.984Z",
      "whenMs": 1792264826000,
-     "seenMs": 1792302361760,
+     "seenMs": 1792302961984,
      "drawMs": 1792240200000,
      "nextMs": 1792326600000,
      "atMs": 1792265161587,
      "drawAt": "2026-10-17T12:30:00.000Z",
      "nextAt": 1792326600000,
      "drawGid": "pl3",
-     "expireAt": "2026-10-21T05:46:01.760Z",
+     "expireAt": "2026-10-21T05:56:01.984Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
@@ -2082,14 +2076,14 @@ const XYSP_DATA = {
      "issue": "26275",
      "seen": "2026-10-18T05:56:01.984Z",
      "whenMs": 1792264826000,
-     "seenMs": 1792302361760,
+     "seenMs": 1792302961984,
      "drawMs": 1792240200000,
      "nextMs": 1792326600000,
      "atMs": 1792265161587,
      "drawAt": "2026-10-17T12:30:00.000Z",
      "nextAt": 1792326600000,
      "drawGid": "pl3",
-     "expireAt": "2026-10-21T05:46:01.760Z",
+     "expireAt": "2026-10-21T05:56:01.984Z",
      "rule": "next-draw",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
