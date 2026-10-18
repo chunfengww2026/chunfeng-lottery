@@ -3854,7 +3854,7 @@ const trendHtmlFull = addTrendFullscreen(trendHtml);
 console.log('  · 走势图全屏：每个彩种工具栏右端 1 颗「⛶ 点击全屏」· div role=button（裸 button 仍 0）'
   + ` · 注入后 ${(Buffer.byteLength(trendHtmlFull, 'utf8') / 1024).toFixed(1)} KB`);
 
-const html = `<!DOCTYPE html><!--ct-test-2026-10-18-->
+const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
