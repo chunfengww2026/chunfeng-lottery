@@ -1798,7 +1798,7 @@ function renderRec() {
      ①「跟着推荐栏去折叠」→ 推荐历史结果（#jcRecArch）放回 details 里面；
      ②「推荐单只抓取推荐里面的，不是抓取在售的」→ 推荐单数字条（recoStatBarTop）
         也从顶层搬进来，只跟这一栏走（收起时一起收），口径不变（≥58% 的推荐场次）。 */
-  return `<details class="m-rec" id="jcRec" open>${head}${tips}${recoStatBarTop()}${note}${body}` +
+  return `<details class="m-rec" id="jcRec">${head}${tips}${recoStatBarTop()}${note}${body}` +
     (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '') +
     `</details>`;
 }
@@ -2073,7 +2073,7 @@ function buildJcArticlesHtml() {
     !LOTTO_RE.test(String(it.title || '')) && !LOTTO_URL_RE.test(String(it.url || '')));
   const useList = fbList;
   if (!useList.length) {
-    return '<details class="m-card3 jca" id="jcExpertArticles" open>' +
+    return '<details class="m-card3 jca" id="jcExpertArticles">' +
       '<summary class="jca-head">' +
       '<span class="jca-h-title">专家推荐</span>' +
       '<span class="jca-h-sub">足球专家分析 · 每小时更新</span>' +
@@ -2098,7 +2098,7 @@ function buildJcArticlesHtml() {
       '</div>';
   }).join('');
 
-  return '<details class="m-card3 jca" id="jcExpertArticles" open>' +
+  return '<details class="m-card3 jca" id="jcExpertArticles">' +
     '<summary class="jca-head">' +
     /* __NO_LOTTO_IN_FB__ 用户 2026-10-18：「足球页面的专家推荐放到双色球那边」
      足球页只留足球内容：含彩票彩种关键词的条目一律不进足球页。 */
