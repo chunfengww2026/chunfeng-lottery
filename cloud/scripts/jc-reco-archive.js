@@ -292,7 +292,12 @@
     let filled = 0, changed = 0;
     out.batches.forEach((b) => {
       (b.rows || []).forEach((r) => {
-        if (r.score) return;                        /* 补过就不覆盖 */
+        /* 【比分可以被纠正 · 用户 2026-10-19「明明是红了为什么黑」】
+           以前这里是 if (r.score) return; —— 一旦存了比分就永远不改，
+           结果中途快照 0:0 被永久锁死（周六028 罗马 vs 热那亚 实际主胜，页面一直判黑）。
+           现在：0:0 / 0-0 当成「中途快照」，允许用后来的终场比分覆盖并重算判定；
+           非 0:0 的比分仍然不覆盖（保护已经正确的历史记录）。 */
+        if (r.score && String(r.score) !== '0:0') return;
         const d = dayOf(r.time);
         let m = null;
         if (r.code && byCode.has(r.code + '@' + d)) m = byCode.get(r.code + '@' + d);
