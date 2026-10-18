@@ -789,7 +789,9 @@ async function runGame(game, cfg, opts, report) {
       if (!basePath) return null;
       let p = String(basePath);
       if (issueNo) {
-        const rep = p.replace(/\/(\d{5,7})\.html$/, '/' + issueNo + '.html');
+        /* URL 形如 /ex/ssqex/tjxq_5_168_2026118.html —— 期号在【结尾】，
+           前面是下划线（_168_2026118），所以只认「结尾那一段 5~7 位数字 + .html」。 */
+        const rep = p.replace(/(\d{5,7})\.html$/, String(issueNo) + '.html');
         if (rep === p) return null;      /* 链接里没有期号段 → 不乱拼，直接放弃 */
         p = rep;
       }
@@ -832,6 +834,9 @@ async function runGame(game, cfg, opts, report) {
       siteMaxStreak: e.siteMaxStreak,
       siteFit,
       catLatest,
+      /* 【内部字段】专家页页首那期的期号 —— 只用来给 games[g].issue 兜底，
+         输出到 g.stable 时会被白名单过滤掉（不会进 experts-data.js）。 */
+      pendingIssue,
       ...st,
       score: scoreExpert(st)
     };
@@ -959,6 +964,17 @@ async function runGame(game, cfg, opts, report) {
   };
   /* 游戏层也放一份，页面取用方便 */
   if (consensus.issue) g.issue = consensus.issue;
+  /* 【期号兜底 · 2026-10-18 20:0x】
+     选号分布页取不到 issueName 的彩种（实测 福彩3D / 排列5 / 七星彩 / 七乐彩 都是 null），
+     g.issue 就会缺 → 页面 NEXT_ISSUE = null → 这一组专家【全部被过滤成 0 条】。
+     专家页页首的「最新推荐 第X期」是同一件事的另一个来源，用它的最大值补上。 */
+  if (!g.issue && experts.length) {
+    const pend = experts.map((e) => e.pendingIssue).filter(Boolean).sort();
+    if (pend.length) {
+      g.issue = pend[pend.length - 1];
+      log(`  期号：源站 issueName 缺失 → 用专家页页首「最新推荐」补齐 = ${g.issue}`);
+    }
+  }
   g.pool = built.pool;
   if (!g.pool.red.length) g.notes.push('号码池为空（数据不足）');
   if (cfg.blue && !g.pool.blue.length) g.notes.push('蓝球池为空（共识页可见蓝号与历史蓝号均不足）');
