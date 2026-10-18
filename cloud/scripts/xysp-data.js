@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 21:50
+   更新时间：2026-10-18 21:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 21:50",
+ "updated": "2026-10-18 21:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -632,104 +632,6 @@ const XYSP_DATA = {
      "at": "2026-10-17T15:05:02.766Z",
      "pubAt": "2026-10-17T13:56:00.000Z",
      "pubMs": 1792245360000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/b2a2ed87-1126-4fdb-a4e5-b9a65c01d2141792245227878.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/b2a2ed87-1126-4fdb-a4e5-b9a65c01d2141792245227878.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]怎么样才能中",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:54:00.000Z",
-     "pubMs": 1792245240000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/76c8c70c-a7e0-4030-8ed1-07084c05f3901792245227842.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/76c8c70c-a7e0-4030-8ed1-07084c05f3901792245227842.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]怎么样才能中",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:54:00.000Z",
-     "pubMs": 1792245240000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/8ffa5a7d-de53-4780-96aa-df95de7f98361792245227897.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/8ffa5a7d-de53-4780-96aa-df95de7f98361792245227897.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]怎么样才能中",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:54:00.000Z",
-     "pubMs": 1792245240000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/267b09ef-8380-4bf6-8bd3-24be33261b5f1792245271137.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/267b09ef-8380-4bf6-8bd3-24be33261b5f1792245271137.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]空悲切",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:54:00.000Z",
-     "pubMs": 1792245240000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/ab107889-324b-486d-8bad-811679bca3371792245172761.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/ab107889-324b-486d-8bad-811679bca3371792245172761.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]可惜这么准的尾号",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:53:00.000Z",
-     "pubMs": 1792245180000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/6d95aad1-c6ac-44af-8e69-7faf7ae665c51792245096319.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/6d95aad1-c6ac-44af-8e69-7faf7ae665c51792245096319.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]次票能发吗",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:52:00.000Z",
-     "pubMs": 1792245120000,
-     "pubSrc": "page",
-     "nextAt": 1792413000000,
-     "atMs": 1792249502766,
-     "seenMs": 1792249502766,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/f4f4c73d-b678-4b8f-b23c-c96ea2638fef1792245141369.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/f4f4c73d-b678-4b8f-b23c-c96ea2638fef1792245141369.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26119期]4+1",
-     "url": "",
-     "at": "2026-10-17T15:05:02.766Z",
-     "pubAt": "2026-10-17T13:52:00.000Z",
-     "pubMs": 1792245120000,
      "pubSrc": "page",
      "nextAt": 1792413000000,
      "atMs": 1792249502766,
@@ -2500,34 +2402,6 @@ const XYSP_DATA = {
      "at": "2026-10-17T15:00:02.082Z",
      "pubAt": "2026-10-17T13:59:00.000Z",
      "pubMs": 1792245540000,
-     "pubSrc": "page",
-     "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/42f6bd38-b2b9-4b3a-84c3-ccfa5f83cbe01792245041326.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/42f6bd38-b2b9-4b3a-84c3-ccfa5f83cbe01792245041326.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]哭死去",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T13:51:00.000Z",
-     "pubMs": 1792245060000,
-     "pubSrc": "page",
-     "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/c688484c-03f4-4776-acb4-78d2c7184abc1792245041426.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/c688484c-03f4-4776-acb4-78d2c7184abc1792245041426.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]哭死去",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T13:51:00.000Z",
-     "pubMs": 1792245060000,
      "pubSrc": "page",
      "nextAt": 1792326600000,
      "atMs": 1792249202082,
