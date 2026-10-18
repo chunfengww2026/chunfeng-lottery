@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-18 17:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-18 18:00 */
 const JC_DATA = {
- "updated": "2026-10-18 17:58",
+ "updated": "2026-10-18 18:00",
  "stat": {
-  "total": 31,
+  "total": 33,
   "upcoming": 30,
   "live": 0,
-  "finished": 1,
-  "withScore": 1,
-  "droppedNotOnSale": 2,
+  "finished": 3,
+  "withScore": 3,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 30,
-  "droppedNotOnSale": 2,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -327,6 +327,115 @@ const JC_DATA = {
    "liveScore": null
   },
   {
+   "gid": "1373174",
+   "fid": "1373174",
+   "sid": "19554",
+   "code": "周日002",
+   "league": "K1联赛",
+   "round": "第32轮",
+   "time": "2026-10-18 15:30",
+   "handicap": "-1",
+   "home": {
+    "name": "江原FC",
+    "rank": 4
+   },
+   "away": {
+    "name": "仁川联",
+    "rank": 7
+   },
+   "score": {
+    "home": 1,
+    "away": 1
+   },
+   "statusText": "1 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.97,
+      "line": "平手/半球",
+      "away": 0.82
+     },
+     "live": {
+      "home": 0.97,
+      "line": "平手/半球",
+      "away": 0.82
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.25,
+      "draw": 3,
+      "away": 3.2
+     },
+     "live": {
+      "home": 2.3,
+      "draw": 3,
+      "away": 3.1
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.82,
+      "over": 2,
+      "under": 0.97
+     },
+     "live": {
+      "line": 0.87,
+      "over": 2,
+      "under": 0.92
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 39.9,
+    "prob": {
+     "home": 39.9,
+     "draw": 30.6,
+     "away": 29.6
+    },
+    "clear": false,
+    "margin": 9.1,
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.97,
+    "downWater": 0.82,
+    "openHandicap": -0.25,
+    "openUpWater": 0.97,
+    "openDownWater": 0.82,
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.97,
+     "initLine": "平手/半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 1,
+    "away": 1
+   }
+  },
+  {
    "gid": "1414247",
    "fid": "1414247",
    "sid": "19826",
@@ -428,6 +537,115 @@ const JC_DATA = {
    "status": "upcoming",
    "minute": 0,
    "liveScore": null
+  },
+  {
+   "gid": "1373173",
+   "fid": "1373173",
+   "sid": "19554",
+   "code": "周日003",
+   "league": "K1联赛",
+   "round": "第32轮",
+   "time": "2026-10-18 15:30",
+   "handicap": "-1",
+   "home": {
+    "name": "首尔FC",
+    "rank": 1
+   },
+   "away": {
+    "name": "金泉尚武",
+    "rank": 10
+   },
+   "score": {
+    "home": 2,
+    "away": 2
+   },
+   "statusText": "1 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.8,
+      "line": "半球/一球",
+      "away": 1
+     },
+     "live": {
+      "home": 0.87,
+      "line": "一球/球半",
+      "away": 0.92
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 1.61,
+      "draw": 3.75,
+      "away": 4.75
+     },
+     "live": {
+      "home": 1.4,
+      "draw": 4.33,
+      "away": 6.5
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.92,
+      "over": 2.5,
+      "under": 0.87
+     },
+     "live": {
+      "line": 0.82,
+      "over": 3,
+      "under": 0.97
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 65,
+    "prob": {
+     "home": 65,
+     "draw": 21,
+     "away": 14
+    },
+    "clear": true,
+    "margin": 9.9,
+    "rqLine": "一球/球半",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "一球/球半",
+    "from": "live",
+    "handicap": -1.25,
+    "upSide": "home",
+    "upWater": 0.87,
+    "downWater": 0.92,
+    "openHandicap": -0.75,
+    "openUpWater": 0.8,
+    "openDownWater": 1,
+    "totalWater": 1.79,
+    "theoryUpPercent": "51.40",
+    "theoryDownPercent": "48.60",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.75,
+     "nowHandicap": -1.25,
+     "initUpWater": 0.8,
+     "nowUpWater": 0.87,
+     "initLine": "半球/一球",
+     "nowLine": "一球/球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 2,
+    "away": 2
+   }
   },
   {
    "gid": "1415987",
@@ -3206,8 +3424,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-18 17:58",
-  "officialUpdate": "2026-10-18 17:56:47",
+  "updated": "2026-10-18 18:00",
+  "officialUpdate": "2026-10-18 17:56:50",
   "inSale": 30,
   "list": [
    {
@@ -3249,10 +3467,10 @@ const JC_DATA = {
     "home": "乌迪内斯",
     "away": "莱切",
     "had": {
-     "h": 1.59,
+     "h": 1.57,
      "d": 3.45,
-     "a": 4.75,
-     "update": "2026-10-18 15:27:15"
+     "a": 4.93,
+     "update": "2026-10-18 17:56:50"
     },
     "hhad": {
      "line": "-1",
