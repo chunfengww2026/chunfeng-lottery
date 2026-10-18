@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-19 00:00
+   更新时间：2026-10-19 00:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-19 00:00",
+ "updated": "2026-10-19 00:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1829,6 +1829,34 @@ const XYSP_DATA = {
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/72cf7558-af35-4239-84d3-1495982005f21792336248409.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/72cf7558-af35-4239-84d3-1495982005f21792336248409.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]每天都在被气笑的路上（昨天组买的019 .169）",
+     "url": "",
+     "at": "2026-10-18T16:05:02.954Z",
+     "pubAt": "2026-10-18T15:11:00.000Z",
+     "pubMs": 1792336260000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792339502954,
+     "seenMs": 1792339502954,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/3780ac06-98dd-4a2f-aabf-a46e3175d0101792336248410.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/3780ac06-98dd-4a2f-aabf-a46e3175d0101792336248410.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]每天都在被气笑的路上（昨天组买的019 .169）",
+     "url": "",
+     "at": "2026-10-18T16:05:02.954Z",
+     "pubAt": "2026-10-18T15:11:00.000Z",
+     "pubMs": 1792336260000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792339502954,
+     "seenMs": 1792339502954,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/3f789e40-f0c2-4da3-8bed-920acf4e8cae1792332794973.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/3f789e40-f0c2-4da3-8bed-920acf4e8cae1792332794973.jpg?imageMogr2/thumbnail/360x",
@@ -5313,96 +5341,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 03:20:26",
      "postId": "7697718814191911443",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b869614bee1c436b9b355cbfed025d20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2ByVCDAETp90RdE1weLNwn2KLDuk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b869614bee1c436b9b355cbfed025d20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2ByVCDAETp90RdE1weLNwn2KLDuk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b9deb9d987a84d7b8bd012829493e8d7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=cTnMfA0UIrbxdZ2RtH%2FpXsmfrHo%3D",
-     "title": "大乐透第26118期中出2注一等奖+96注二等奖！两张9504元票献爱心",
-     "url": "https://toutiao.com/group/7697650349586285092/",
-     "at": "2026-10-17T16:16:01.439Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-17T16:56:01.489Z",
-     "whenMs": 1792253097000,
-     "seenMs": 1792256161489,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792253761439,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-20T16:56:01.489Z",
-     "rule": "next-draw",
-     "author": "七色彩世界",
-     "when": "2026-10-18 00:04:57",
-     "postId": "7697650349586285092",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b9deb9d987a84d7b8bd012829493e8d7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=jvCL6nibq0urHhXrrkyzK0fKPPM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b9deb9d987a84d7b8bd012829493e8d7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=jvCL6nibq0urHhXrrkyzK0fKPPM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b9deb9d987a84d7b8bd012829493e8d7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=cTnMfA0UIrbxdZ2RtH%2FpXsmfrHo%3D",
-     "title": "大乐透第26118期中出2注一等奖+96注二等奖！两张9504元票献爱心",
-     "url": "https://toutiao.com/group/7697650349586285092/",
-     "at": "2026-10-17T16:16:01.439Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-17T16:56:01.489Z",
-     "whenMs": 1792253097000,
-     "seenMs": 1792256161489,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792253761439,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-20T16:56:01.489Z",
-     "rule": "next-draw",
-     "author": "七色彩世界",
-     "when": "2026-10-18 00:04:57",
-     "postId": "7697650349586285092",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7a9d3d394d741f5bea377df5f73d0f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2B91b%2F4z6ieqEaUN%2FQV7ZOdCmJKY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7a9d3d394d741f5bea377df5f73d0f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2B91b%2F4z6ieqEaUN%2FQV7ZOdCmJKY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b9deb9d987a84d7b8bd012829493e8d7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=cTnMfA0UIrbxdZ2RtH%2FpXsmfrHo%3D",
-     "title": "大乐透第26118期中出2注一等奖+96注二等奖！两张9504元票献爱心",
-     "url": "https://toutiao.com/group/7697650349586285092/",
-     "at": "2026-10-17T16:16:01.439Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-17T16:56:01.489Z",
-     "whenMs": 1792253097000,
-     "seenMs": 1792256161489,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792253761439,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-20T16:56:01.489Z",
-     "rule": "next-draw",
-     "author": "七色彩世界",
-     "when": "2026-10-18 00:04:57",
-     "postId": "7697650349586285092",
      "px": 132300
     }
    ]
