@@ -925,52 +925,7 @@ TOC_ROWS.forEach((row) => row.forEach((cell) => {
 console.log(`  · 手机目录：${TOC_ROWS.length} 行 × 2 列 = ${tocCheckedCount} 格，` +
   `锚点缺失 ${tocMissingCount} 个`);
 
-const tocHtml =
-  /* 【__TOC_EQH__ 留痕】这里额外补一条【HTML 注释】形式的标记，原因：
-     真正的等高规则写在下面的样式表里（56px 固定高 + grid-auto-rows），但那一段是
-     <style> 里的 CSS 注释 —— 构建最后那道「留痕断言」会把 <style>/<script> 里的注释
-     整体剥掉，标记会跟着消失（规则本身不受影响）。
-     HTML 注释不在被剥的范围里，所以标记留在成品页上，改高度前能搜到它。
-     ⚠️ 这条注释里【不写任何文件名/站名】。 */
-  `
-
-    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
-  </div>
-</div>
-
-<!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
-${sinaNextHtml()}
-
-<!-- ============================================================
-       【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
-       宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
-       格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
-       JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
-       不会出现「点了没反应」的死格子。 -->
-  ${tocHtml}
-
-  <!-- ============================================================
-       【开机号 + 热力图 · 并排两列】用户 2026-10-18：
-         「把开机号和热力图改成并排两列」
-       一行两个卡片：左 = 开机号入口（<a href="#ro-kjh">），右 = 热力图折叠卡。
-       点开热力图 → 它占满整行（图片要宽），见样式表最后那段「⑧ 并排两列」。
-       下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
-       因为它是一整张表，塞进半屏会挤。
-       ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
-  ${toolsHeatHtml}
-
-<!-- __TOC_EQH__ 推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中
-     —— 规则本体仍在样式表里（.ro-imgtoc / .ro-toc-cell）；这条 HTML 注释是【验收基线留痕】，
-        <style> 里的 CSS 注释会被构建末段的「留痕剥除」带走，放在 HTML 注释里才留得住。 -->
-<!-- 【已删除】旧的「推荐图目录」4 格（双色球推荐号 / 双色球·五行 / 大乐透推荐号 / 大乐透·五行）
-     —— 用户 2026-10-18：「删除换成新的」→ 换成上面的 #px9 方法目录（2 彩种 × 9 方法）。 -->
-`;
+const tocHtml = '';
 
 /* ============================================================
    【文章参考】区块（用户新增需求 + 2026-10-16 改版）
@@ -7294,20 +7249,52 @@ ${DEVICE_GATE_BODY}
   <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
-<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· 竖向 flex 居中 · 2026-10-18 还原 -->
-<div class="ro-imgtoc-wrap" id="ro-toc-restored"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc">
-  <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
-  <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-  <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
-  <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-  <a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t">3D</b></a>
-  <a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t">快乐8</b></a>
-  <a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t">排列三</b></a>
-  <a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t">排列五</b></a>
-  <a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
-  <a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
+
+    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
+  </div>
+</div>
+
+<!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
+${sinaNextHtml()}
+
+<!-- ============================================================
+       【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
+       宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
+       格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
+       JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
+       不会出现「点了没反应」的死格子。 -->
+
+  <!-- ============================================================
+       【开机号 + 热力图 · 并排两列】用户 2026-10-18：
+         「把开机号和热力图改成并排两列」
+       一行两个卡片：左 = 开机号入口（<a href="#ro-kjh">），右 = 热力图折叠卡。
+       点开热力图 → 它占满整行（图片要宽），见样式表最后那段「⑧ 并排两列」。
+       下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
+       因为它是一整张表，塞进半屏会挤。
+       ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
+  ${toolsHeatHtml}
+
+
+<!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
+<div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc">
+<a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
+<a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+<a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
+<a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+<a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t">3D</b></a>
+<a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t">快乐8</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t">排列三</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t">排列五</b></a>
+<a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
+<a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
 </div></div>
-  ${kjhHtml}
+${kjhHtml}
 
   <!-- ============================================================
        【热力图 · 实时跟随下一期彩种】
@@ -7677,6 +7664,17 @@ ${p3dHtml}
       <span class="ro-ref-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-ref-body">
+<!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
+<div class="px9" id="px9">
+  <div class="px9-head">推荐图 · 方法</div>
+  <div class="px9-games">
+    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
+    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
+  </div>
+  <div class="px9-methods" id="px9Methods"></div>
+  <div class="px9-out" id="px9Out"></div>
+  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+</div>
 <!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
 <!-- 【已按用户要求删除 · 2026-10-18】「推荐图 · 方法」整块删掉（双色球/大乐透 tab + 九宫格 + 结果区 + 提示）。 用户原话：「这一栏给我删了」。⚠️ 若又被还原，说明有别的窗口在改同一个文件。 -->
       <!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
