@@ -7417,7 +7417,7 @@ ${DEVICE_GATE_BODY}
   <div id="article">
 
   <div class="ro-top">
-<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;">欢迎您！</div></div>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;margin-right:96px;">欢迎您！</div></div>
     <h1>春风</h1>
   </div>
 
@@ -13816,6 +13816,30 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var blueMax = M.blu || 16;
     var blues = []; for (var b2 = 1; b2 <= blueMax; b2++) blues.push(b2);
     var blue = blues.slice().sort(function (a, b) { return (f[a + 100] || 0) - (f[b + 100] || 0); })[0] || blues[0];
+    /* ===== PICK9_DEDUPE · 强制去重（用户 2026-10-19 选 A）=====
+       问题：9 个算法各自独立取号 → 遗漏=冷热、多源=跨度 两组一模一样 ✗
+       做法：按固定顺序，本算法取号后，把【前面所有算法已出的红球/蓝球】排除，
+             不足 6 个就从 hot 候选里按频次往后补（保证还是 6 个）。
+       同一期结果固定（纯函数，不依赖时间），刷新多少次都一样。
+       ⚠️ 模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
+    try {
+      var ORDER9 = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度'];
+      var mi9 = ORDER9.indexOf(m);
+      if (mi9 > 0 && !arguments[6]) {
+        var used9 = {};
+        for (var q9 = 0; q9 < mi9; q9++) {
+          var pr9 = pick9(g, ORDER9[q9], main, f, sums, spans, true);
+          (pr9.red || []).forEach(function (n2) { used9[n2] = 1; });
+        }
+        var fresh9 = [];
+        red.forEach(function (n3) { if (!used9[n3]) fresh9.push(n3); });
+        for (var h9 = 0; h9 < hot.length && fresh9.length < 6; h9++) {
+          if (!used9[hot[h9]] && fresh9.indexOf(hot[h9]) < 0) fresh9.push(hot[h9]);
+        }
+        red = fresh9.slice(0, 6).sort(function (a2, b2) { return a2 - b2; });
+      }
+    } catch (e9) { }
+
     return { red: red, blue: blue };
   }
   function pickRow(p) {
