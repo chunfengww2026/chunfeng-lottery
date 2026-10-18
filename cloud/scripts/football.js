@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "昆士兰狮队",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "巴尔瑙尔戴拿模",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "深水埗",
      "score": 0,
@@ -176,7 +176,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阳光元朗",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "3760EE"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "長春喜都",
      "score": 1,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "町田泽维亚",
      "score": 0,
@@ -30967,7 +30967,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "大田市民",
      "score": 2,
@@ -31033,7 +31033,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "和富SE",
      "score": 2,
@@ -31099,7 +31099,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "悉尼(女)",
      "score": 2,
@@ -31108,7 +31108,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿德莱德联女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -31165,7 +31165,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 14:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 2,
