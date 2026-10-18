@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 14:20
+   更新时间：2026-10-18 14:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 14:20",
+ "updated": "2026-10-18 14:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -462,6 +462,48 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/cc0394eb-83a1-438c-9787-601de3cca0411792303920569.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/cc0394eb-83a1-438c-9787-601de3cca0411792303920569.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]再来 我不信邪一次都没有 一次都不给我",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T06:12:00.000Z",
+     "pubMs": 1792303920000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/01d9b6fc-6169-4539-babd-2ea99863bbcb1792303919392.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/01d9b6fc-6169-4539-babd-2ea99863bbcb1792303919392.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]再来 我不信邪一次都没有 一次都不给我",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T06:12:00.000Z",
+     "pubMs": 1792303920000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/80c115c1-2e5a-469d-8c46-2eb8e5403a751792303920934.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/80c115c1-2e5a-469d-8c46-2eb8e5403a751792303920934.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]再来 我不信邪一次都没有 一次都不给我",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T06:12:00.000Z",
+     "pubMs": 1792303920000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/e54dbeec-d2b8-415c-b09e-61984cb569651792303789146.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/e54dbeec-d2b8-415c-b09e-61984cb569651792303789146.jpg?imageMogr2/thumbnail/360x",
      "title": "[26277期]2026年10月18日 277期 百：23456 十：15789 个：02468 金：9 银：6 铜：3 跨度：12346 尾数：14678",
@@ -760,6 +802,76 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/8ceb4330-5eab-494e-ab9f-24f1931394c81792304024190.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/8ceb4330-5eab-494e-ab9f-24f1931394c81792304024190.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]直接干",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T06:15:00.000Z",
+     "pubMs": 1792304100000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/47b28396-2663-463a-b735-c1f14281c79e1792304024272.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/47b28396-2663-463a-b735-c1f14281c79e1792304024272.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]直接干",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T06:15:00.000Z",
+     "pubMs": 1792304100000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/3abcea2a-de3d-43f7-be56-697d87d060591792303029059.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/3abcea2a-de3d-43f7-be56-697d87d060591792303029059.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]新司机上路，请注意安全",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T05:57:00.000Z",
+     "pubMs": 1792303020000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/f030a3de-f368-4a5f-adbf-4fb61aac83bf1792303029043.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/f030a3de-f368-4a5f-adbf-4fb61aac83bf1792303029043.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]新司机上路，请注意安全",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T05:57:00.000Z",
+     "pubMs": 1792303020000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/aea11aef-3578-4d9a-b2ae-c777164f997b1792302749606.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/aea11aef-3578-4d9a-b2ae-c777164f997b1792302749606.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]好运连连",
+     "url": "",
+     "at": "2026-10-18T06:25:02.517Z",
+     "pubAt": "2026-10-18T05:52:00.000Z",
+     "pubMs": 1792302720000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792304702517,
+     "seenMs": 1792304702517,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/cd272108-3127-4b6c-a27b-6b63835bd2cc1792299896379.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/cd272108-3127-4b6c-a27b-6b63835bd2cc1792299896379.jpg?imageMogr2/thumbnail/360x",
