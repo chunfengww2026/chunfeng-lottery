@@ -1,7 +1,7 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-10-18 22:28:33 · 合并去重后 115 篇，取最新 20 篇 */
+   抓取时间：2026-10-18 23:29:02 · 合并去重后 115 篇，取最新 20 篇 */
 const JC_ARTICLES = {
- "updated": "2026-10-18 22:28:33",
+ "updated": "2026-10-18 23:29:02",
  "sources": [
   {
    "name": "一起彩",
@@ -73,8 +73,8 @@ const JC_ARTICLES = {
    "game": "6"
   },
   {
-   "title": "专家「快乐8专家 jimmy 2026277期 命中0码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_1734.html",
+   "title": "专家「快乐8专家 啦啦1 2026277期 命中9码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_1343.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
@@ -89,7 +89,7 @@ const JC_ARTICLES = {
    "game": "63"
   },
   {
-   "title": "专家「排列5专家 中奖找对象 2026277期 命中0码！」 · 免费推荐",
+   "title": "专家「排列5专家 中奖找对象 2026277期 命中3码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_1512.html",
    "source": "一起彩",
    "time": 0,
