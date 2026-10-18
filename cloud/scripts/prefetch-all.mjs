@@ -38,6 +38,9 @@ const PLAN = [
   ['build-odds-divergence.mjs', '分歧指 / 欧赔对比', 300],
   ['fetch-bifa.mjs', '成交资金面', 240],
   ['build-jc-count.mjs', '竞彩场次统计', 180],
+  /* 【推荐串存档 · 历史结果】用户 2026-10-18 追问：「足球历史结果你帮我刷新了吗」
+     → 之前漏了这一步；它把「在售×信心≥58%」的批次存下来、赛后回填红黑。 */
+  ['jc-reco-build.mjs', '推荐串存档 / 历史结果', 240],
   ['build-sina-predict.mjs', '下一期参考（拿不到会自动跳过）', 240],
   ['build-experts.mjs', '专家号池（最慢，放最后）', 600]
 ];
