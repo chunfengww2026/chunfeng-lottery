@@ -13816,29 +13816,37 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var blueMax = M.blu || 16;
     var blues = []; for (var b2 = 1; b2 <= blueMax; b2++) blues.push(b2);
     var blue = blues.slice().sort(function (a, b) { return (f[a + 100] || 0) - (f[b + 100] || 0); })[0] || blues[0];
-    /* ===== PICK9_DEDUPE · 强制去重（用户 2026-10-19 选 A）=====
-       问题：9 个算法各自独立取号 → 遗漏=冷热、多源=跨度 两组一模一样 ✗
-       做法：按固定顺序，本算法取号后，把【前面所有算法已出的红球/蓝球】排除，
-             不足 6 个就从 hot 候选里按频次往后补（保证还是 6 个）。
-       同一期结果固定（纯函数，不依赖时间），刷新多少次都一样。
+    /* ===== PICK9_DEDUPE2 · 强制去重（收尾版 · 用户 2026-10-19）=====
+       上一版的坑：只用「前面算法的号」排除，补位又只从 hot 前几个里挑 → 补出来还是同一批 ✗
+       这一版：
+         ① 递归算出前面所有算法的号，全部放进 used9
+         ② 本算法自己的号：没被用过的留着
+         ③ 不足 6 个 → 从【全量 1~max 按频次排序】的后备池里补（不会撞车）
+         ④ 蓝球同样排除
+       纯函数、无随机、同一期结果固定。
        ⚠️ 模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
     try {
-      var ORDER9 = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度'];
-      var mi9 = ORDER9.indexOf(m);
-      if (mi9 > 0 && !arguments[6]) {
-        var used9 = {};
-        for (var q9 = 0; q9 < mi9; q9++) {
-          var pr9 = pick9(g, ORDER9[q9], main, f, sums, spans, true);
-          (pr9.red || []).forEach(function (n2) { used9[n2] = 1; });
+      var ORDER9b = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度'];
+      var mi9b = ORDER9b.indexOf(m);
+      if (mi9b > 0 && arguments[6] !== true) {
+        var used9b = {};
+        for (var q9b = 0; q9b < mi9b; q9b++) {
+          var pr9b = pick9(g, ORDER9b[q9b], main, f, sums, spans, true);
+          (pr9b.red || []).forEach(function (n9b) { used9b[n9b] = 1; });
         }
-        var fresh9 = [];
-        red.forEach(function (n3) { if (!used9[n3]) fresh9.push(n3); });
-        for (var h9 = 0; h9 < hot.length && fresh9.length < 6; h9++) {
-          if (!used9[hot[h9]] && fresh9.indexOf(hot[h9]) < 0) fresh9.push(hot[h9]);
+        /* 后备池：1~max 全量，按频次从高到低 */
+        var pool9b = [];
+        for (var pn = 1; pn <= M.max; pn++) pool9b.push(pn);
+        pool9b.sort(function (a9b, b9b) { return (f[b9b] || 0) - (f[a9b] || 0); });
+        var keep9b = [];
+        red.forEach(function (n9c) { if (!used9b[n9c]) keep9b.push(n9c); });
+        for (var k9b = 0; k9b < pool9b.length && keep9b.length < 6; k9b++) {
+          var cand = pool9b[k9b];
+          if (!used9b[cand] && keep9b.indexOf(cand) < 0) keep9b.push(cand);
         }
-        red = fresh9.slice(0, 6).sort(function (a2, b2) { return a2 - b2; });
+        red = keep9b.slice(0, 6).sort(function (a9c, b9c) { return a9c - b9c; });
       }
-    } catch (e9) { }
+    } catch (e9b) { }
 
     return { red: red, blue: blue };
   }
