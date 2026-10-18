@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-18 23:10",
+ "updated": "2026-10-18 23:28",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -298,9 +298,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.55,
      "conf": 58.8,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "2:0",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周日022",
@@ -361,7 +361,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 5,
+   "pending": 4,
    "verdict": ""
   },
   {
@@ -451,6 +451,31 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.45,
      "conf": 65.4,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
+  },
+  {
+   "at": "2026-10-18 23:28",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周日020",
+     "time": "2026-10-19 00:00",
+     "league": "意甲",
+     "home": "AC米兰",
+     "away": "亚特兰大",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.62,
+     "conf": 58.5,
      "score": "",
      "hit": null,
      "result": ""
