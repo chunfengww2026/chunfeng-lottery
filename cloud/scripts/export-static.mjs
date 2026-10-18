@@ -7367,6 +7367,7 @@ ${sinaNextHtml()}
        因为它是一整张表，塞进半屏会挤。
        ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
 <!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
+<!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->
 <div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">
 <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
 <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
