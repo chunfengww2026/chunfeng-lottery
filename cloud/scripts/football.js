@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "昆士兰狮队",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "巴尔瑙尔戴拿模",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 0,
+    "minute": 15,
     "home": {
      "name": "深水埗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
     "away": {
      "name": "阳光元朗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "3760EE"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "長春喜都",
      "score": 1,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 6,
+    "minute": 11,
     "home": {
      "name": "町田泽维亚",
      "score": 0,
@@ -30967,10 +30967,10 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "大田市民",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -31033,7 +31033,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "和富SE",
      "score": 2,
@@ -31099,7 +31099,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "悉尼(女)",
      "score": 2,
@@ -31165,7 +31165,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 14:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 2,
