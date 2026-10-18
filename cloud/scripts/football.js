@@ -27959,7 +27959,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-18 12:30:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "廣島紅魔(女)",
      "score": 3,
@@ -28141,7 +28141,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "仙台维加泰女足",
      "score": 0,
@@ -28273,7 +28273,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "至尊足球會",
      "score": 0,
@@ -28521,7 +28521,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "寺扶达世田谷女足",
      "score": 2,
@@ -28587,7 +28587,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "横滨海鸥女足",
      "score": 3,
@@ -28703,7 +28703,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "首尔衣恋",
      "score": 2,
@@ -28769,7 +28769,7 @@ const FOOTBALL_DATA = {
      "color": "005555"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "SKA哈巴罗夫斯克",
      "score": 1,
@@ -28967,7 +28967,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "和富SE",
      "score": 0,
@@ -29045,7 +29045,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "悉尼(女)",
      "score": 1,
