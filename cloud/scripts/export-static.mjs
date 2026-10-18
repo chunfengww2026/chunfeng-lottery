@@ -905,6 +905,35 @@ GROUPS.forEach((group) => {
    这里的 game/image 必须和页尾 __PAIR_V2__ 的 PAIRS 一一对应
    （下面有断言，不一致时生成日志里会直接报出来）。 */
 /* __TOC_OFF__ 用户 2026-10-18：「删除换成新的」——旧的 4 格推荐图目录不再生成，页面改为 #px9 方法目录（2 彩种 × 9 方法）。 */
+/* __LOTTO_ART__ 用户 2026-10-18：「这份专家数据放到彩票专家推荐里面 还要能看到文章」
+   · 读 jc-articles.js（一起彩/500 抓到的专家文章），只留彩票彩种相关
+   · 标题去掉「免费推荐」；点标题新窗口打开原文（页面不显示任何站名/域名）
+   · 抓不到就是空数组 → 不渲染，不留空壳 */
+function expertArticlesHtml() {
+  try {
+    const f = path.join(ROOT, 'jc-articles.js');
+    if (!fs.existsSync(f)) return '';
+    const ctx = vm.createContext({});
+    vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A = JC_ARTICLES;', ctx);
+    const d = ctx.__A;
+    if (!d || !Array.isArray(d.list)) return '';
+    const KEEP = /双色球|大乐透|福彩3D|排列[三五]|快乐8|七乐彩|七星彩/;
+    const rows = d.list
+      .filter((it) => KEEP.test(String(it.title || '')) && String(it.url || '').startsWith('http'))
+      .slice(0, 20)
+      .map((it, i) => {
+        const t = String(it.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').replace(/\s{2,}/g, ' ').trim();
+        const name = t.replace(/^专家[「]?([^」·]+)[」]?.*$/, '$1') || t;
+        return '<a class="ro-xj-art" href="' + String(it.url).replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="ro-xj-art-i">' + (i + 1) + '</span>' +
+          '<span class="ro-xj-art-t">' + escape(t) + '</span>' +
+          '<span class="ro-xj-art-go">看原文 ›</span></a>';
+      }).join('');
+    if (!rows) return '';
+    return '<div class="ro-xj-arts"><div class="ro-xj-arts-h">专家文章（点标题看原文）</div>' + rows + '</div>';
+  } catch (e) { return ''; }
+}
+
 const TOC_ROWS = [
   [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 · 五行',  s: '绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
   [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 · 五行',  s: '绕胆/九转/九宫', g: 'dlt',  i: 'wuxing' }]
@@ -7268,6 +7297,9 @@ ${DEVICE_GATE_BODY}
   </div>
 </div>
 
+
+
+${expertArticlesHtml()}
 <!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
 ${sinaNextHtml()}
 
@@ -13181,6 +13213,14 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
   gap: 8px !important;
 }
 .ro-imgtoc > .ro-toc-cell { width: 100% !important; box-sizing: border-box !important; }
+/* __LOTTO_ART__ 专家文章列表 */
+.ro-xj-arts { margin: 8px 0 4px; }
+.ro-xj-arts-h { font-size: 12px; font-weight: 700; color: #8a7a63; margin: 6px 0; }
+.ro-xj-art { display: flex; gap: 6px; align-items: center; padding: 7px 2px; border-bottom: 1px dashed #f0e4cf; text-decoration: none; color: #4a3a26; }
+.ro-xj-art-i { flex: 0 0 18px; font-size: 11px; color: #b9a98c; }
+.ro-xj-art-t { flex: 1; font-size: 12.5px; line-height: 1.4; }
+.ro-xj-art-go { flex: 0 0 auto; font-size: 11.5px; color: #1a8c5a; font-weight: 700; }
+
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
