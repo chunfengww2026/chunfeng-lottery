@@ -8,15 +8,29 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 18:30
+   更新时间：2026-10-18 18:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 18:30",
+ "updated": "2026-10-18 18:35",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/3b5e70ce-7b55-465c-8e36-63182cf6d97e1792317883908.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/3b5e70ce-7b55-465c-8e36-63182cf6d97e1792317883908.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]坐等开奖！",
+     "url": "",
+     "at": "2026-10-18T10:35:01.818Z",
+     "pubAt": "2026-10-18T10:05:00.000Z",
+     "pubMs": 1792317900000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792319701818,
+     "seenMs": 1792319701818,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/55ddfe74-9bcd-4f2f-ae6b-dcbec94a150c1792313565753.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/55ddfe74-9bcd-4f2f-ae6b-dcbec94a150c1792313565753.jpg?imageMogr2/thumbnail/360x",
