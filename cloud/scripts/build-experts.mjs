@@ -383,6 +383,22 @@ function parseCatDetail(html, catLabel) {
   return null;
 }
 
+/* ---------- 专家页页首「最新推荐 第 X 期」=【正在卖/待开奖】的那一期 ----------
+   实测（2026-10-18 20:0x · www.yiqicai.com/ex/ssqex/tjsy_5_168.html）：
+     <div class="cm-box exp-lastest">
+       <div class="exp-lastest-tit"><h3>双色球最新推荐</h3> <span>第2026119期</span> …
+       <div class="exp-lastest-recommend">… <em class="red-ball">?</em>×6 <em class="blue-ball">?</em> …
+   号码在页面上是「?」（要「查看完整方案」才看得到），但【期号是明写的】。
+   而下面那张 liTable（parseExpertHistory 解析的）【只列已开奖的期】——
+   所以「下一期」的期号只能从这里拿。取不到返回 ''（调用方退回旧行为）。 */
+function parsePendingIssue(html) {
+  const s = String(html || '');
+  const m = s.match(/exp-lastest[\s\S]{0,800}?第\s*(\d{5,7})\s*期/);
+  if (m) return m[1];
+  const m2 = s.match(/最新推荐[\s\S]{0,300}?第\s*(\d{5,7})\s*期/);
+  return m2 ? m2[1] : '';
+}
+
 /* ---------- 选号分布页（共识百分比） ---------- */
 function parseConsensus(html) {
   const sections = [];
@@ -751,22 +767,58 @@ async function runGame(game, cfg, opts, report) {
     /* 【这一期免费公开的 N 胆】用户 2026-10-17：
        专家页每一期只有一栏（他的大池），按分类拆开的号在「查看」进去的详情页里；
        页面上要显示的就是【最新一期】那一页 —— 所以只多抓这一页（每位专家 +1 次请求）。
-       ⚠️ 抓不到 / 这一期他没公开这个分类 → catLatest = null，页面上那块不显示，绝不编数字。 */
+       ⚠️ 抓不到 / 这一期他没公开这个分类 → catLatest = null，页面上那块不显示，绝不编数字。
+
+       【2026-10-18 20:0x 修「专家推荐 0 条」· 补抓【下一期】】
+       原实现只抓「历史表最新一行 = 最新已开奖期」的详情页，于是数据永远比源站在售期
+       晚一期：源站 issueName 已切到 2026119，catLatest.issue 还是 2026118 →
+       index 页那条 `catLatest.issue === g.issue` 的过滤把 8 个彩种全滤成 0 条。
+       实测「下一期」的详情页是能公开抓到的（同一套 URL，只换期号）：
+         /ex/ssqex/tjxq_5_168_2026118.html（已开奖）
+         /ex/ssqex/tjxq_5_168_2026119.html（正在卖 → 200，分类行 + 号码都在）
+       所以顺序改成：
+         ① 页首那期（pendingIssue）≠ 历史最新期 → 先抓【下一期】，拿到就用它；
+         ② 拿不到（还没出号 / 没这个分类）→ 退回抓【历史最新期】，期号如实写；
+         ③ 两处都拿不到 → catLatest = null（页面那块不显示）。
+       ⚠️ 期号绝不乱拼：详情页链接里没有 7 位期号段就【不换期】（返回 null）。 */
     let catLatest = null;
     const latestRow = st.rows[0];
-    if (latestRow && latestRow.detailPath) {
-      /* 详情页链接是【根相对路径】（/ex/ssqex/tjxq_x_期号.html），
-         而 httpGet 只吃绝对 URL —— 用 BASE 拼（BASE 就是抓取用的站点根）。 */
-      let detailUrl = '';
-      try { detailUrl = new URL(latestRow.detailPath, BASE + '/').href; } catch (err) { detailUrl = ''; }
-      const dr = detailUrl ? await httpGet(detailUrl) : { ok: false, error: '详情页链接拼不出来' };
+    const pendingIssue = parsePendingIssue(r.text);
+    e.pendingIssue = pendingIssue;
+    const fetchCatNums = async (issueNo, basePath) => {
+      if (!basePath) return null;
+      let p = String(basePath);
+      if (issueNo) {
+        const rep = p.replace(/\/(\d{5,7})\.html$/, '/' + issueNo + '.html');
+        if (rep === p) return null;      /* 链接里没有期号段 → 不乱拼，直接放弃 */
+        p = rep;
+      }
+      let u = '';
+      try { u = new URL(p, BASE + '/').href; } catch (err) { return null; }
+      const rr = await httpGet(u);
       await sleep(randDelay());
-      if (dr.ok) {
-        const nums = parseCatDetail(dr.text, e.catLabel);
-        if (nums) catLatest = { issue: latestRow.issue, nums };
+      if (!rr.ok) {
+        log(`         ⚠️ 详情页抓取失败（${issueNo || '?'} 期）：${rr.error || rr.status}`);
+        return null;
+      }
+      return parseCatDetail(rr.text, e.catLabel);
+    };
+    if (latestRow) {
+      if (pendingIssue && latestRow.issue && String(pendingIssue) !== String(latestRow.issue)) {
+        const nextNums = await fetchCatNums(pendingIssue, latestRow.detailPath);
+        if (nextNums) {
+          catLatest = { issue: String(pendingIssue), nums: nextNums };
+          log(`         ✅ 下一期 ${pendingIssue} 期已出号 → 抓到 ${nextNums.length} 个号`);
+        } else {
+          log(`         ⚠️ 下一期 ${pendingIssue} 期还没出号/没这个分类 → 退回 ${latestRow.issue} 期`);
+        }
+      }
+      if (!catLatest && latestRow.detailPath) {
+        /* 详情页链接是【根相对路径】（/ex/ssqex/tjxq_x_期号.html），
+           而 httpGet 只吃绝对 URL —— 用 BASE 拼（BASE 就是抓取用的站点根）。 */
+        const nums = await fetchCatNums('', latestRow.detailPath);
+        if (nums) catLatest = { issue: String(latestRow.issue), nums };
         else log(`         ⚠️ 详情页里没有分类「${e.catLabel}」（这一期没公开？）→ 不显示`);
-      } else {
-        log(`         ⚠️ 详情页抓取失败：${dr.error || dr.status} → 不显示`);
       }
     }
 
