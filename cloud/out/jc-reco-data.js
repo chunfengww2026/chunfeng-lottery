@@ -340,9 +340,9 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.22,
      "conf": 77.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "4:1",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周一007",
