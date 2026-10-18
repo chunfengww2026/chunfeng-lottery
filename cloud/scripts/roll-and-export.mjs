@@ -10,6 +10,8 @@
 //  用法：node roll-and-export.mjs
 // ============================================================
 
+import { createRequire } from 'node:module'; /* __REQ2__ */
+const requireCJS = createRequire(import.meta.url);
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -129,7 +131,7 @@ function main() {
      改成【核心算法】算出来的那 20 码（交叉相加减→减法杀号→金银胆尾→大乐透绝杀尾→补足20码，
      基线自动取最新已开奖三期）。只换数值，字段结构/版式一个字不动。 */
   try {
-    const { corePoolFor } = require('./core-pool.js');
+    const { corePoolFor } = requireCJS('./core-pool.js');
     const pools = { ssq: corePoolFor('ssq'), dlt: corePoolFor('dlt') };
     let patched = 0;
     Object.keys(after).forEach((day) => {
