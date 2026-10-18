@@ -910,6 +910,11 @@ GROUPS.forEach((group) => {
    · 标题去掉「免费推荐」；点标题新窗口打开原文（页面不显示任何站名/域名）
    · 抓不到就是空数组 → 不渲染，不留空壳 */
 function expertArticlesHtml() {
+  /* 【整块删除 · 用户 2026-10-19「算了还是不要了」】
+     「专家文章（点标题看原文）」这块不再渲染。
+     抓取脚本（build-jc-articles.mjs）和 jc-articles.js 都留着，
+     以后想要回来，把这一行 return '' 删掉即可。 */
+  return '';
   try {
     const f = path.join(ROOT, 'jc-articles.js');
     if (!fs.existsSync(f)) return '';
