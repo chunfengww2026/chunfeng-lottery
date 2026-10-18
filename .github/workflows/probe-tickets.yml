@@ -1,8 +1,6 @@
 name: probe-tickets
 
 # ⚠️ 临时探测工作流（测完立刻删除，只留 daily-update.yml）
-#    用途：在 GitHub 的机器（美国 IP）上逐个实测「足球晒票」候选源，
-#    打印 状态码 / 字节数 / 关键词 / 图片 URL 数量，并试访问图片域名。
 on:
   workflow_dispatch:
 
@@ -11,108 +9,100 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: 探测候选源（美国 IP 实测）
+      - name: 第二轮探测（Telegram / B站 / 搜狗微信 + 图片 base64 抽样）
         run: |
-          cat > probe.mjs <<'PROBEEOF'
-          const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+          cat > probe2.mjs <<'PROBEEOF'
           const UA_PC = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
+          const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+          const unesc = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+          const strip = (s) => unesc(String(s || '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+          let b64budget = 3;
 
-          const LIST = [
-            ['ck100', 'https://www.ck100.com/', UA_PC],
-            ['ck100-jc', 'https://www.ck100.com/jingcai/', UA_PC],
-            ['caibaobei', 'https://www.caibaobei.com/', UA_PC],
-            ['okooo', 'https://www.okooo.com/', UA_PC],
-            ['okooo-jc', 'https://www.okooo.com/jingcai/', UA_PC],
-            ['jc258', 'https://www.jc258.com/', UA_PC],
-            ['zhcw', 'https://www.zhcw.com/', UA_PC],
-            ['500', 'https://www.500.com/', UA_PC],
-            ['500-jc', 'https://www.500.com/jingcai/', UA_PC],
-            ['caipiaokong', 'https://www.caipiaokong.com/', UA_PC],
-            ['cjcp', 'https://www.cjcp.com.cn/', UA_PC],
-            ['17500', 'https://www.17500.cn/', UA_PC],
-            ['17500bbs', 'https://bbs.17500.cn/', UA_PC],
-            ['ydniu', 'https://www.ydniu.com/', UA_PC],
-            ['sinalottery', 'https://lottery.sina.com.cn/', UA_PC],
-            ['163hongcai', 'https://hongcai.163.com/', UA_PC],
-            ['sporttery', 'https://www.sporttery.cn/', UA_PC],
-            ['tieba-jc', 'https://tieba.baidu.com/f?kw=%E7%AB%9E%E5%BD%A9&ie=utf-8', UA_PC],
-            ['tieba-sd', 'https://tieba.baidu.com/f?kw=%E6%99%92%E5%8D%95&ie=utf-8', UA_PC],
-            ['hupu', 'https://bbs.hupu.com/', UA_PC],
-            ['zhihu', 'https://www.zhihu.com/search?type=content&q=%E7%AB%9E%E5%BD%A9%E6%99%92%E5%8D%95', UA_PC],
-            ['xhs', 'https://www.xiaohongshu.com/search_result?keyword=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['douyin', 'https://www.douyin.com/search/%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['bilibili', 'https://search.bilibili.com/all?keyword=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['163sports', 'https://sports.163.com/', UA_PC],
-            ['sinasports', 'https://sports.sina.com.cn/', UA_PC],
-            ['sohusports', 'https://sports.sohu.com/', UA_PC],
-            ['sogouwx', 'https://weixin.sogou.com/weixin?type=2&query=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['bingimg', 'https://cn.bing.com/images/search?q=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8&form=HDRSC2&first=1', UA_PC],
-            ['baiduimg', 'https://image.baidu.com/search/index?tn=baiduimage&word=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['soimg', 'https://image.so.com/i?q=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['sogouimg', 'https://pic.sogou.com/pics?query=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
-            ['tg-jingcaituijian', 'https://t.me/s/jingcaituijian', UA_PC],
-            ['tg-zucai', 'https://t.me/s/zucai', UA_PC],
-            ['ctrl-33633', 'https://m.33633.cn/jingcai/', UA_M],
-            ['ctrl-img33633', 'https://img33633.cpyc.cn/', UA_M],
-            ['ctrl-weibo', 'https://m.weibo.cn/api/container/getIndex?containerid=100103type%3D1%26q%3D%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8&page_type=searchall', UA_M],
-          ];
-
-          const KW = ['晒票', '晒单', '实票', '实单', '票面', '竞彩', '中奖', 'murl', 'qpic.cn', 'sinaimg'];
-
-          function imgs(html) {
-            const set = new Set();
-            const re = /(?:src|data-src|data-original|data-original-src|data-lazy-src|data-img|srcset)\s*=\s*["']([^"'\s>]+\.(?:jpe?g|png|webp|gif)[^"'\s>]*)["']/gi;
-            let m;
-            while ((m = re.exec(html))) {
-              const u = m[1].trim();
-              if (!/^https?:\/\//i.test(u)) continue;
-              if (/\.(svg|ico)$/i.test(u)) continue;
-              set.add(u);
-            }
-            return [...set];
-          }
-
-          const rows = [];
-          for (const [name, url, ua] of LIST) {
-            const t0 = Date.now();
-            let status = 'ERR', bytes = 0, txt = '', err = '';
+          async function b64(u, tag) {
+            if (b64budget <= 0) return;
             try {
-              const r = await fetch(url, {
-                headers: {
-                  'User-Agent': ua,
-                  Accept: 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
-                  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-                },
-                redirect: 'follow',
-                signal: AbortSignal.timeout(20000),
-              });
-              status = r.status;
-              const buf = Buffer.from(await r.arrayBuffer());
-              bytes = buf.length;
-              txt = buf.toString('utf8');
-            } catch (e) {
-              err = (e.cause && e.cause.code) || e.name;
-            }
-            const kws = KW.filter((k) => txt.includes(k));
-            const im = imgs(txt);
-            const row = { name, url, status, bytes, ms: Date.now() - t0, kws, imgCount: im.length, imgs: im.slice(0, 6) };
-            rows.push(row);
-            console.log(`PROBE ${String(name).padEnd(20)} ${String(status).padEnd(4)} ${String(bytes).padStart(8)}B img=${String(im.length).padStart(4)} kw=${kws.join(',') || '-'} ${err ? 'ERR=' + err : ''}`);
-            await new Promise((r2) => setTimeout(r2, 300));
+              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(15000) });
+              const b = Buffer.from(await r.arrayBuffer());
+              console.log(`IMGMETA ${tag} ${r.status} ${b.length}B ${r.headers.get('content-type') || ''} ${u.slice(0, 90)}`);
+              if (r.ok && b.length > 2000 && b.length < 120000) {
+                b64budget--;
+                console.log(`B64START ${tag}`);
+                console.log(b.toString('base64'));
+                console.log(`B64END ${tag}`);
+              }
+            } catch (e) { console.log(`IMGMETA ${tag} ERR ${(e.cause && e.cause.code) || e.name}`); }
           }
 
-          console.log('\n---- 图片可达性（每个有图的源抽 3 张）----');
-          for (const row of rows) {
-            if (!row.imgs.length) continue;
-            for (const u of row.imgs.slice(0, 3)) {
-              try {
-                const rr = await fetch(u, { headers: { 'User-Agent': UA_PC, Referer: row.url }, signal: AbortSignal.timeout(12000) });
-                const b = Buffer.from(await rr.arrayBuffer());
-                console.log(`IMG ${row.name.padEnd(20)} ${rr.status} ${String(b.length).padStart(7)}B ${(rr.headers.get('content-type') || '').slice(0, 18)} ${u.slice(0, 100)}`);
-              } catch (e) {
-                console.log(`IMG ${row.name.padEnd(20)} ERR ${(e.cause && e.cause.code) || e.name} ${u.slice(0, 100)}`);
+          /* ---------- ① Telegram 公共频道 ---------- */
+          const CH = ['jingcaituijian', 'tiyuquan', 'meitituijian2025', 'tiyutuidan08', 'tytuidan1', 'zucaituijian'];
+          for (const ch of CH) {
+            try {
+              const r = await fetch('https://t.me/s/' + ch, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(20000) });
+              const h = await r.text();
+              const posts = h.split('<div class="tgme_widget_message_wrap').slice(1);
+              const rows = [];
+              for (const p of posts) {
+                const dt = (/<time datetime="([^"]+)"/.exec(p) || [])[1] || '';
+                const text = strip((/<div class="tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>/.exec(p) || [, ''])[1]).slice(0, 60);
+                const photos = [...p.matchAll(/background-image:url\('([^']+)'\)/g)].map((m) => m[1]);
+                if (!photos.length) continue;
+                rows.push({ dt, text, photo: photos[0] });
               }
-            }
+              console.log(`\nTG ${ch} → ${r.status} ${Buffer.byteLength(h)}B 有图帖=${rows.length} 晒票词=${h.includes('晒票')} 实单词=${h.includes('实单')}`);
+              rows.slice(0, 4).forEach((x, i) => console.log(`  [${i}] ${x.dt.slice(0, 16)} | ${x.text} | ${x.photo.slice(0, 80)}`));
+              if (rows.length) await b64(rows[0].photo, 'tg-' + ch);
+            } catch (e) { console.log(`\nTG ${ch} → ERR ${(e.cause && e.cause.code) || e.name}`); }
           }
+
+          /* ---------- ② B 站搜索 API ---------- */
+          try {
+            const u = 'https://api.bilibili.com/x/web-interface/wbi/search/type?search_type=video&keyword=' + encodeURIComponent('竞彩晒票') + '&page=1';
+            const r = await fetch(u, { headers: { 'User-Agent': UA_PC, Referer: 'https://search.bilibili.com/' }, signal: AbortSignal.timeout(20000) });
+            const t = await r.text();
+            console.log(`\nBILI api → ${r.status} ${Buffer.byteLength(t)}B`);
+            let j = null; try { j = JSON.parse(t); } catch {}
+            const list = (j && j.data && j.data.result) || [];
+            console.log('  条数', list.length, 'code', j && j.code);
+            list.slice(0, 4).forEach((x, i) => console.log(`  [${i}] ${strip(x.title).slice(0, 40)} | pub=${x.pubdate} | pic=${(x.pic || '').slice(0, 90)}`));
+            if (list[0] && list[0].pic) await b64(list[0].pic.startsWith('//') ? 'https:' + list[0].pic : list[0].pic, 'bili');
+          } catch (e) { console.log('BILI ERR', (e.cause && e.cause.code) || e.name); }
+
+          /* ---------- ③ 搜狗微信（多关键词汇总） ---------- */
+          const jar = new Map();
+          const absorb = (res) => { const sc = res.headers.getSetCookie ? res.headers.getSetCookie() : []; for (const c of sc) { const p = c.split(';')[0]; const i = p.indexOf('='); if (i > 0) jar.set(p.slice(0, i), p.slice(i + 1)); } };
+          const QS = ['竞彩晒票', '竞彩实单晒票', '竞彩足球实单', '竞彩实单'];
+          let all = [];
+          for (const q of QS) {
+            const fu = 'https://weixin.sogou.com/weixin?type=2&query=' + encodeURIComponent(q) + '&ie=utf8';
+            try {
+              const r = await fetch(fu, { headers: { 'User-Agent': UA_PC, 'Accept-Language': 'zh-CN,zh;q=0.9' }, signal: AbortSignal.timeout(25000) });
+              absorb(r);
+              const h = await r.text();
+              const parts = h.split(/<li id="sogou_vr_11002601_box_/).slice(1);
+              const rows = parts.map((raw) => {
+                const h3 = /<h3>([\s\S]*?)<\/h3>/.exec(raw);
+                const tm = (/timeConvert\('(\d+)'\)/.exec(raw) || [])[1] || '';
+                const thumbRaw = unesc((/<img[^>]*src="([^"]+)"/.exec(raw) || [])[1] || '');
+                let qpic = ''; try { const m = /url=([^&]+)/.exec(thumbRaw); if (m) qpic = decodeURIComponent(m[1]).replace(/&amp;/g, '&'); } catch {}
+                return {
+                  title: h3 ? strip(h3[1]).slice(0, 44) : '',
+                  dt: tm ? new Date(Number(tm) * 1000).toISOString().slice(0, 16) : '',
+                  qpic,
+                  thumb: thumbRaw.startsWith('//') ? 'https:' + thumbRaw : thumbRaw,
+                };
+              }).filter((x) => x.qpic);
+              console.log(`\nWX ${q} → ${r.status} ${Buffer.byteLength(h)}B 有图有效=${rows.length}`);
+              rows.slice(0, 3).forEach((x, i) => console.log(`  [${i}] ${x.dt} | ${x.title} | ${x.qpic.slice(0, 85)}`));
+              all = all.concat(rows);
+            } catch (e) { console.log(`\nWX ${q} ERR ${(e.cause && e.cause.code) || e.name}`); }
+            await new Promise((r2) => setTimeout(r2, 1200));
+          }
+          console.log('\nWX 合计', all.length, '条；去重后', new Set(all.map((x) => x.qpic)).size);
+          const uniq = [...new Map(all.map((x) => [x.qpic, x])).values()];
+          for (const x of uniq.slice(0, 3)) {
+            await b64(x.qpic, 'qpic');
+            await b64(x.thumb, 'sogoucdn');
+          }
+          console.log('\nDONE');
           PROBEEOF
-          node probe.mjs
+          node probe2.mjs
