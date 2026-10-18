@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 20:40
+   更新时间：2026-10-18 20:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 20:40",
+ "updated": "2026-10-18 20:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1110,6 +1110,34 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/386b61d1-7339-4c3d-8271-f49a2e2dd1f51792325225485.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/386b61d1-7339-4c3d-8271-f49a2e2dd1f51792325225485.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]接好运",
+     "url": "",
+     "at": "2026-10-18T12:45:02.020Z",
+     "pubAt": "2026-10-18T12:10:00.000Z",
+     "pubMs": 1792325400000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792327502020,
+     "seenMs": 1792327502020,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/293a2bfe-0def-4d29-87bb-6d7aee09f8901792325252943.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/293a2bfe-0def-4d29-87bb-6d7aee09f8901792325252943.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]接好运",
+     "url": "",
+     "at": "2026-10-18T12:45:02.020Z",
+     "pubAt": "2026-10-18T12:10:00.000Z",
+     "pubMs": 1792325400000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792327502020,
+     "seenMs": 1792327502020,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/8f8c4fed-d4e7-4ff3-bf92-1e769546a32d1792325240849.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/8f8c4fed-d4e7-4ff3-bf92-1e769546a32d1792325240849.jpg?imageMogr2/thumbnail/360x",
