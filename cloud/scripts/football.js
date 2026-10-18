@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "中西区",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "山东体彩女足",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "釜山偶像",
      "score": 0,
@@ -240,10 +240,10 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "FC首尔",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "FC江原",
      "score": 0,
@@ -322,7 +322,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "仁川联队",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 7
     },
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 15:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "浦项制铁",
      "score": 0,
@@ -30580,7 +30580,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 14:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 2,
@@ -30646,7 +30646,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "昆士兰狮队",
      "score": 1,
@@ -30958,7 +30958,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "町田泽维亚",
      "score": 1,
