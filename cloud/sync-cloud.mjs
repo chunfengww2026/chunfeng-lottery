@@ -342,6 +342,11 @@ const CODE_MODULES = [
   'draw-sources.mjs',
   'build-draws.mjs', 'build-history.mjs', 'build-football.mjs',
   'build-jc.mjs', 'build-experts.mjs', 'build-prizes.mjs', 'build-materials.mjs',
+  /* 【专家推荐 20 篇 · 用户 2026-10-19「所有资料去远端/云端」】
+     这个脚本原来没进名单 ✗ → 云端没有它 → 既跑不了文章抓取，
+     也会让 cloud-build.mjs 里那句 run('build-jc-articles.mjs') 直接失败。
+     产出 jc-articles.js 也一起同步，页面构建时才有数据可渲染。 */
+  'build-jc-articles.mjs', 'build-jc-scores.mjs',
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
