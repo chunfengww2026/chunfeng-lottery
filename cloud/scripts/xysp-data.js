@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 22:22
+   更新时间：2026-10-18 22:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 22:22",
+ "updated": "2026-10-18 22:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2280,20 +2280,6 @@ const XYSP_DATA = {
      "nextAt": 1792326600000,
      "atMs": 1792249597857,
      "seenMs": 1792249597857,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/e2cd4506-591d-4460-bfed-9b81224990c81792246503007.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/e2cd4506-591d-4460-bfed-9b81224990c81792246503007.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]最接近的一回",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T14:23:00.000Z",
-     "pubMs": 1792246980000,
-     "pubSrc": "page",
-     "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
      "whenMs": null
     }
    ]
@@ -5037,66 +5023,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-17 22:47:26",
      "postId": "7697648462426276403",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/dbcee832f64e4d799e20d43ee250e83e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=yqI8JvxFg9RMg2n5wUb0feTKdTM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/dbcee832f64e4d799e20d43ee250e83e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=yqI8JvxFg9RMg2n5wUb0feTKdTM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7ef69e8764d54fa4af50a129eb5e6fac~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=I8LQyKQghJHG7M2%2Bi9w1DGCGfUY%3D",
-     "title": "大乐透26118期晒票：后区02、07、09三足鼎立？复式大军狂排中段号",
-     "url": "http://toutiao.com/item/7697642280043151908/",
-     "at": "2026-10-18T12:26:02.113Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-18T13:46:02.200Z",
-     "whenMs": 1792247006000,
-     "seenMs": 1792331162200,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792326362113,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-21T13:46:02.200Z",
-     "rule": "next-draw",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-17 22:23:26",
-     "postId": "7697642280043151908",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2795eec9caac418989a72d96560fe4b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=gV1iENHzq90TpQ93MlOx%2BME%2BmUE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2795eec9caac418989a72d96560fe4b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=gV1iENHzq90TpQ93MlOx%2BME%2BmUE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7ef69e8764d54fa4af50a129eb5e6fac~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=I8LQyKQghJHG7M2%2Bi9w1DGCGfUY%3D",
-     "title": "大乐透26118期晒票：后区02、07、09三足鼎立？复式大军狂排中段号",
-     "url": "http://toutiao.com/item/7697642280043151908/",
-     "at": "2026-10-18T12:26:02.113Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-18T13:46:02.200Z",
-     "whenMs": 1792247006000,
-     "seenMs": 1792331162200,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792326362113,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-21T13:46:02.200Z",
-     "rule": "next-draw",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-17 22:23:26",
-     "postId": "7697642280043151908",
      "px": 132300
     }
    ]
