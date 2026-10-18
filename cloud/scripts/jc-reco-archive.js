@@ -398,17 +398,23 @@
         if (!fin) return;                              /* 找不到这场 → 保持原样 */
         const realScore = fin.score;
         const had = normScore(r.score) || String(r.score == null ? '' : r.score).trim();
-        if (had === realScore) return;                 /* 已经和终场一致（含真的 0:0）→ 不动 */
+        const scoreSame = (had === realScore);         /* 已经和终场一致（含真的 0:0）*/
+        const hadHit = (typeof r.hit === 'boolean');   /* 红黑已经算过了吗 */
+        /* 比分一样、红黑也已经算过 → 真的什么都不用做（真的 0:0 走的就是这条）*/
+        if (scoreSame && hadHit) return;
 
-        const isFix = !!had;                           /* 原来有比分 = 纠正，没有 = 补上 */
-        r.score = realScore;
-        if (fin.ht) {
-          /* 存档行目前【没有】半场字段（buildSnapshot 不存它），
-             以后若加上 r.ht / r.htScore，这里会跟终场一起刷新。 */
-          const hts = fin.ht.h + ':' + fin.ht.a;
-          if (r.ht != null && String(r.ht) !== hts) r.ht = hts;
-          if (r.htScore != null && String(r.htScore) !== hts) r.htScore = hts;
+        if (!scoreSame) {
+          r.score = realScore;
+          if (fin.ht) {
+            /* 存档行目前【没有】半场字段（buildSnapshot 不存它），
+               以后若加上 r.ht / r.htScore，这里会跟终场一起刷新。 */
+            const hts = fin.ht.h + ':' + fin.ht.a;
+            if (r.ht != null && String(r.ht) !== hts) r.ht = hts;
+            if (r.htScore != null && String(r.htScore) !== hts) r.htScore = hts;
+          }
         }
+        /* 红黑【永远用终场比分 + recoHit() 重算】——
+           不沿用 jc-history 里那个可能是旧口径算出来的 hit。 */
         if (r.pick) {
           const sp = realScore.split(':');
           const h = +sp[0], a = +sp[1];
@@ -419,12 +425,9 @@
             r.hit = recoHit(r, actual);
             r.result = r.hit ? 'win' : 'lose';
           }
-        } else if (!isFix) {
-          r.result = 'draw';
-          r.hit = false;
         }
         filled++; changed++;
-        if (isFix) refixed++;
+        if (!scoreSame && had) refixed++;              /* 原来有比分但错了 → 纠正了一处 */
       });
       const v = verdictOf(b.rows);
       if (b.verdict !== v.verdict || b.pending !== v.pending) changed++;
