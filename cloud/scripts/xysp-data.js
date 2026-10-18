@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 23:50
+   更新时间：2026-10-18 23:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 23:50",
+ "updated": "2026-10-18 23:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5389,126 +5389,6 @@ const XYSP_DATA = {
      "author": "七色彩世界",
      "when": "2026-10-18 00:04:57",
      "postId": "7697650349586285092",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7fca90e5a72462f8de0ede4b8dd47b1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2Bf3W11maxUitphcl27iz62oCOyA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c7fca90e5a72462f8de0ede4b8dd47b1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=%2Bf3W11maxUitphcl27iz62oCOyA%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=TvuasabwAlEANfmj44yIjGZ4FoA%3D",
-     "title": "#你买快乐8吗# 之前刷到有人每期蹲在站点对着走势图扒半天，把奇偶比例、冷热号翻来覆去复盘，我本来还以为真能摸出啥规律，直到看了275期开奖号，1-20小号区就蹦出个11，61-80大号区直接出了8个号，完全是两头爆冷的走势，根本摸不准下一",
-     "url": "sslocal://thread_detail?fid=1735866192844911&tid=1879312750839818",
-     "at": "2026-10-17T16:06:01.416Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-17T20:26:01.712Z",
-     "whenMs": 1792252303000,
-     "seenMs": 1792268761712,
-     "drawMs": 1792330200000,
-     "nextMs": 1792416600000,
-     "atMs": 1792253161416,
-     "drawAt": "2026-10-18T13:30:00.000Z",
-     "nextAt": 1792416600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-20T20:26:01.712Z",
-     "rule": "next-draw",
-     "author": "美女老公",
-     "when": "2026-10-17 23:51:43",
-     "postId": "1879312750839818",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a104f6b0826e487dafa9adb0dc6411db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=wxw8fdQ5r1f0uXYPLbck7W3yZrU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a104f6b0826e487dafa9adb0dc6411db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=wxw8fdQ5r1f0uXYPLbck7W3yZrU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=TvuasabwAlEANfmj44yIjGZ4FoA%3D",
-     "title": "#你买快乐8吗# 之前刷到有人每期蹲在站点对着走势图扒半天，把奇偶比例、冷热号翻来覆去复盘，我本来还以为真能摸出啥规律，直到看了275期开奖号，1-20小号区就蹦出个11，61-80大号区直接出了8个号，完全是两头爆冷的走势，根本摸不准下一",
-     "url": "sslocal://thread_detail?fid=1735866192844911&tid=1879312750839818",
-     "at": "2026-10-17T16:06:01.416Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-17T20:26:01.712Z",
-     "whenMs": 1792252303000,
-     "seenMs": 1792268761712,
-     "drawMs": 1792330200000,
-     "nextMs": 1792416600000,
-     "atMs": 1792253161416,
-     "drawAt": "2026-10-18T13:30:00.000Z",
-     "nextAt": 1792416600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-20T20:26:01.712Z",
-     "rule": "next-draw",
-     "author": "美女老公",
-     "when": "2026-10-17 23:51:43",
-     "postId": "1879312750839818",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=XsnXFL50J6p3Csvn2XCNRsbV51k%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=XsnXFL50J6p3Csvn2XCNRsbV51k%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=TvuasabwAlEANfmj44yIjGZ4FoA%3D",
-     "title": "#你买快乐8吗# 之前刷到有人每期蹲在站点对着走势图扒半天，把奇偶比例、冷热号翻来覆去复盘，我本来还以为真能摸出啥规律，直到看了275期开奖号，1-20小号区就蹦出个11，61-80大号区直接出了8个号，完全是两头爆冷的走势，根本摸不准下一",
-     "url": "sslocal://thread_detail?fid=1735866192844911&tid=1879312750839818",
-     "at": "2026-10-17T16:06:01.416Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-17T20:26:01.712Z",
-     "whenMs": 1792252303000,
-     "seenMs": 1792268761712,
-     "drawMs": 1792330200000,
-     "nextMs": 1792416600000,
-     "atMs": 1792253161416,
-     "drawAt": "2026-10-18T13:30:00.000Z",
-     "nextAt": 1792416600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-20T20:26:01.712Z",
-     "rule": "next-draw",
-     "author": "美女老公",
-     "when": "2026-10-17 23:51:43",
-     "postId": "1879312750839818",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/96ec3f99760144f88a53ac0aa8f88269~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=qKWxgfxxEp1bPlVvouzViZ%2BoqRY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/96ec3f99760144f88a53ac0aa8f88269~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=qKWxgfxxEp1bPlVvouzViZ%2BoqRY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f2ef8f9e6b944d39494ab7daea2b050~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1800921600&x-signature=TvuasabwAlEANfmj44yIjGZ4FoA%3D",
-     "title": "#你买快乐8吗# 之前刷到有人每期蹲在站点对着走势图扒半天，把奇偶比例、冷热号翻来覆去复盘，我本来还以为真能摸出啥规律，直到看了275期开奖号，1-20小号区就蹦出个11，61-80大号区直接出了8个号，完全是两头爆冷的走势，根本摸不准下一",
-     "url": "sslocal://thread_detail?fid=1735866192844911&tid=1879312750839818",
-     "at": "2026-10-17T16:06:01.416Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-17T20:26:01.712Z",
-     "whenMs": 1792252303000,
-     "seenMs": 1792268761712,
-     "drawMs": 1792330200000,
-     "nextMs": 1792416600000,
-     "atMs": 1792253161416,
-     "drawAt": "2026-10-18T13:30:00.000Z",
-     "nextAt": 1792416600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-20T20:26:01.712Z",
-     "rule": "next-draw",
-     "author": "美女老公",
-     "when": "2026-10-17 23:51:43",
-     "postId": "1879312750839818",
      "px": 132300
     }
    ]
