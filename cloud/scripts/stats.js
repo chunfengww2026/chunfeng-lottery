@@ -1266,7 +1266,23 @@ function autoFillWuxing(gameId, opts) {
   out.cir_source = cirLast.length ? cirLast.map(pad2).join(' ') : '—';
 
   /* 号码池：仍旧按原来的池子算出来（图一、绕胆图共用同一套），本图只报个数 */
-  const cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
+  /* __CORE_POOL__ 用户 2026-10-18：推荐号码池 = 核心算法的 20 码
+     （交叉相加减 → 减法杀号 → 金/银胆尾 → 大乐透跨彩种绝杀尾 → 补足 20 码，
+      基线自动取【最新已开奖三期】；模板版式一个字不动，只换号码来源）
+     ⚠️ 只对双色球/大乐透生效；算不出来 / 其它彩种 → 退回原来的 recommendNumbers，
+        保证页面永远有号，绝不空白。 */
+  let cirPool = null;
+  if ((gameId === 'ssq' || gameId === 'dlt') && typeof require === 'function') {
+    try {
+      const cp = require('./core-pool.js').corePoolFor(gameId);
+      if (cp && Array.isArray(cp.pool20) && cp.pool20.length) {
+        cirPool = cp.pool20.filter((n) => n >= from && n <= to);
+      }
+    } catch (e) { cirPool = null; }
+  }
+  if (!cirPool || !cirPool.length) {
+    cirPool = recommendNumbers(gameId, areaKey, Math.min(20, to - from + 1), from, to);
+  }
   out.cir_pool = cirPool.map(pad2).join(' ');
 
   /* ---- 九宫（洛书 + 每期自动偏移：上期开奖号 → offset → 本期盘面） ----
@@ -1325,6 +1341,22 @@ function actualPeriods(gameId) {
  * 「推荐号 / 蓝球推荐 / 组选 / 绕胆图」都落在号码池里。
  */
 function recommendNumbers(gameId, areaKey, n, from, to) {
+  /* __CORE_POOL2__ 用户 2026-10-18：所有「推荐号码」统一出自核心算法
+     （双色球/大乐透主区；交叉相加减→减法杀号→金银胆尾→大乐透绝杀尾→补足20码）
+     · 这里是 recommendNumbers 的唯一入口 → 配图号池、五行、九转、绕胆全部跟着变 ✓
+     · 算不出来 / 其它彩种 / 非主区 → 走原逻辑，绝不空白。 */
+  if ((gameId === 'ssq' || gameId === 'dlt') &&
+      (areaKey === 'main' || areaKey === 'red' || areaKey === 'front') &&
+      typeof require === 'function') {
+    try {
+      const cp = require('./core-pool.js').corePoolFor(gameId);
+      if (cp && Array.isArray(cp.pool20) && cp.pool20.length) {
+        const f = cp.pool20.filter((x) => x >= from && x <= to);
+        if (f.length >= Math.min(n, 4)) return f.slice(0, n).sort((a, b) => a - b);
+      }
+    } catch (e) { /* 掉回原逻辑 */ }
+  }
+
   const size = to - from + 1;
   const want = Math.max(1, Math.min(n, size));
 
