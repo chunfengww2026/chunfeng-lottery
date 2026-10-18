@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 15:30
+   更新时间：2026-10-18 15:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 15:30",
+ "updated": "2026-10-18 15:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3272,96 +3272,6 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-17 15:38:08",
      "postId": "7697537730217198119",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac7e0c8247594e68bdfcf0e05ce2541d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=c88rn1SxY8SsPpgkTVPn6rqUeTQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac7e0c8247594e68bdfcf0e05ce2541d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=c88rn1SxY8SsPpgkTVPn6rqUeTQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac7e0c8247594e68bdfcf0e05ce2541d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=e7nd2EN8SJ20stW3RkHoCiJ%2FFSg%3D",
-     "title": "3D+排三排五26276期晒票，多票集结！理性欣赏，好运随缘",
-     "url": "https://toutiao.com/group/7697536272339960381/",
-     "at": "2026-10-17T15:06:01.401Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "26276",
-     "seen": "2026-10-18T07:26:01.853Z",
-     "whenMs": 1792222346000,
-     "seenMs": 1792308361853,
-     "drawMs": 1792242900000,
-     "nextMs": 1792329300000,
-     "atMs": 1792249561401,
-     "drawAt": "2026-10-17T13:15:00.000Z",
-     "nextAt": 1792329300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-21T07:26:01.853Z",
-     "rule": "next-draw",
-     "author": "一荔独㣊",
-     "when": "2026-10-17 15:32:26",
-     "postId": "7697536272339960381",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7207b6b31ea6410da30e4089a54c4d39~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=G2wR7kr3eCTHLH%2FG6JMD%2Bq13kjE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7207b6b31ea6410da30e4089a54c4d39~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=G2wR7kr3eCTHLH%2FG6JMD%2Bq13kjE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac7e0c8247594e68bdfcf0e05ce2541d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=e7nd2EN8SJ20stW3RkHoCiJ%2FFSg%3D",
-     "title": "3D+排三排五26276期晒票，多票集结！理性欣赏，好运随缘",
-     "url": "https://toutiao.com/group/7697536272339960381/",
-     "at": "2026-10-17T15:06:01.401Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "26276",
-     "seen": "2026-10-18T07:26:01.853Z",
-     "whenMs": 1792222346000,
-     "seenMs": 1792308361853,
-     "drawMs": 1792242900000,
-     "nextMs": 1792329300000,
-     "atMs": 1792249561401,
-     "drawAt": "2026-10-17T13:15:00.000Z",
-     "nextAt": 1792329300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-21T07:26:01.853Z",
-     "rule": "next-draw",
-     "author": "一荔独㣊",
-     "when": "2026-10-17 15:32:26",
-     "postId": "7697536272339960381",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7d7f5ee57650432198105ce662d5a48c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=%2F53HJPIOPGBo%2BxSJNJIFlMa9ocY%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7d7f5ee57650432198105ce662d5a48c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=%2F53HJPIOPGBo%2BxSJNJIFlMa9ocY%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac7e0c8247594e68bdfcf0e05ce2541d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=e7nd2EN8SJ20stW3RkHoCiJ%2FFSg%3D",
-     "title": "3D+排三排五26276期晒票，多票集结！理性欣赏，好运随缘",
-     "url": "https://toutiao.com/group/7697536272339960381/",
-     "at": "2026-10-17T15:06:01.401Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "26276",
-     "seen": "2026-10-18T07:26:01.853Z",
-     "whenMs": 1792222346000,
-     "seenMs": 1792308361853,
-     "drawMs": 1792242900000,
-     "nextMs": 1792329300000,
-     "atMs": 1792249561401,
-     "drawAt": "2026-10-17T13:15:00.000Z",
-     "nextAt": 1792329300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-21T07:26:01.853Z",
-     "rule": "next-draw",
-     "author": "一荔独㣊",
-     "when": "2026-10-17 15:32:26",
-     "postId": "7697536272339960381",
      "px": 132300
     }
    ]
