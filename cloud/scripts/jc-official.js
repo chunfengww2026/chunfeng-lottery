@@ -5,7 +5,7 @@
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-10-18 13:14",
+ "updated": "2026-10-17 17:37",
  "inSale": 33,
  "officialUpdate": "2026-10-18 13:07:52",
  "list": [
