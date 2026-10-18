@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-18 06:53
+   生成时间：2026-10-18 13:21
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-18 06:53",
+ "updated": "2026-10-18 13:21",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 160,
-  "requests": 379,
+  "requests": 380,
   "errors": 0,
-  "seconds": 344.9
+  "seconds": 329
  },
  "games": {
   "ssq": {
