@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-18 20:00",
+ "updated": "2026-10-18 20:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1040,36 +1040,9 @@ const JC_HISTORY = {
    "home": "萨普斯堡",
    "away": "罗森博格",
    "time": "2026-10-18 20:30",
-   "score": "",
+   "score": "0:0",
    "hc": null,
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.9,
-    "openHandicap": 0,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0,
-     "nowHandicap": 0,
-     "initUpWater": 0.9,
-     "nowUpWater": 0.9,
-     "initLine": "平手",
-     "nowLine": "平手"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "asianIndex": null,
    "odds": {
     "home": 2.5,
     "draw": 3.7,
@@ -1084,9 +1057,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 37.4,
    "type": "unbeaten",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-10-18 00:28"
   },
   {
@@ -1205,36 +1178,9 @@ const JC_HISTORY = {
    "home": "奥萨苏纳",
    "away": "桑坦德",
    "time": "2026-10-18 20:00",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.85,
-    "openHandicap": -0.75,
-    "openUpWater": 0.87,
-    "openDownWater": 0.97,
-    "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
-    "canWater": false,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.87,
-     "nowUpWater": 1,
-     "initLine": "半球/一球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "1:0",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 2,
     "draw": 3.6,
@@ -1248,11 +1194,11 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 47.7,
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "unbeaten"
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-17 00:28"
   },
   {
    "code": "周日005",
@@ -1288,28 +1234,28 @@ const JC_HISTORY = {
    "home": "兹沃勒",
    "away": "前进之鹰",
    "time": "2026-10-18 18:15",
-   "score": "",
+   "score": "4:1",
    "hc": null,
    "asianIndex": {
     "line": "受半球",
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.92,
-    "downWater": 0.87,
+    "upWater": 0.85,
+    "downWater": 0.95,
     "openHandicap": 0.25,
     "openUpWater": 1,
     "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "48.60",
-    "theoryDownPercent": "51.40",
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
     "canWater": false,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": 0.25,
      "nowHandicap": 0.5,
      "initUpWater": 1,
-     "nowUpWater": 0.92,
+     "nowUpWater": 0.85,
      "initLine": "受平手/半球",
      "nowLine": "受半球"
     },
@@ -1319,23 +1265,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 3.4,
-    "draw": 3.9,
-    "away": 1.95
+    "home": 3.8,
+    "draw": 3.8,
+    "away": 1.85
    },
    "prob": {
-    "home": 27.7,
-    "draw": 24.1,
-    "away": 48.2
+    "home": 24.7,
+    "draw": 24.7,
+    "away": 50.7
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 48.2,
-   "result": "",
+   "conf": 50.7,
+   "type": "three",
+   "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-17 00:28",
-   "type": "unbeaten"
+   "at": "2026-10-18 20:58"
   },
   {
    "code": "周日003",
