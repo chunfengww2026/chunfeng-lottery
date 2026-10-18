@@ -167,6 +167,10 @@ const tAll = Date.now();
 const FROM_ROOT = [
   'saved-tickets.js', 'history.js', 'draws.js', 'football.js',
   'jc-data.js', 'prize-data.js', 'materials-data.js',
+  /* 【专家推荐数据】用户 2026-10-19「所有资料去远端」：
+     jc-articles.js 是 build-jc-articles.mjs 的产出，页面构建时要读它（没有就整块不渲染）。
+     jc-scores.js 是 500 完场比分表（回填红黑用），先一起同步上去。 */
+  'jc-articles.js', 'jc-scores.js',
   /* 【竞彩已完场】累积归档。在售列表只含还能买的比赛，一开完就从
      jc-data.js 里消失 —— 已完场的累积记录全靠这个文件，不传上去
      云端重新生成竞彩页时「已完场」又会变回 0 场。 */
