@@ -2,22 +2,22 @@
  "updated": "2026-10-19 06:40",
  "red": 0,
  "black": 0,
- "rate": "—",
- "unfinished": 2,
+ "rate": "100.0%",
+ "unfinished": 1,
  "history": [
   {
    "dateStr": "2026-10-18 23:28",
    "finishTime": 1792337280000,
-   "verdict": "",
+   "verdict": "红",
    "matches": [
     {
      "matchNo": "周日020",
      "teams": "AC米兰 vs 亚特兰大",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "3:2",
+     "result": "red",
      "confidence": 58.5,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792337280000,
      "league": "意甲",
      "odds": 1.62,
