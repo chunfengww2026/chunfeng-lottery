@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    jc-reco-archive.js —— 竞彩【推荐串】存档 · 计算内核（纯函数，可单测）
    ------------------------------------------------------------
    ⚠️【代码和数据必须分两个文件】这条是踩过坑才定下来的：
@@ -248,6 +248,20 @@
 
   const dayOf = (s) => String(s || '').slice(0, 10).replace(/\//g, '-');
 
+  /* 【踢完了没有】开赛 → 结束 ≈ +2 小时（90 分钟 + 中场 + 补时）。
+     和 build-jc.mjs / export-football.mjs / build-football-results.mjs
+     的 MATCH_LEN_HOURS 是同一个数，别单独改。 */
+  const MATCH_LEN_HOURS = 2;
+
+  /** 这一场是不是【已经踢完】了（开赛 + 2 小时 ≤ 现在）。
+   *  时间解析不出来 → 当成踢完了（不拦，宁可让它按老办法纠正）。 */
+  function isFinished(timeStr, now) {
+    const t = bjParse(timeStr);
+    if (!isFinite(t)) return true;
+    const base = bjParse(bjStamp(now)) || Date.now();
+    return base - t >= MATCH_LEN_HOURS * 3600 * 1000;
+  }
+
   /**
    * 用「已完场记录」回填终场比分与红黑，并丢掉窗口外的批次。
    * @param {object} archive
@@ -289,23 +303,130 @@
       if (g.home && g.away) byPair.set(g.home + '|' + g.away + '@' + d, g);
     });
 
-    let filled = 0, changed = 0;
+    /* ============================================================
+       【终场比分从哪儿来】—— 判定「这一行的比分对不对」的唯一依据
+       ------------------------------------------------------------
+       ① opt.results（可选）：调用方直接传 jc-results.js 的完场页
+          （list 数组，或整个 { updated, list } 都行）→ 用它的 ft 终场比分。
+       ② 没传就用 settled（jc-history）：它【已经被 build-football-results.mjs
+          用同一张完场页（jc-results.js）纠正过】——那个脚本排在
+          jc-reco-build.mjs 之前（cloud-build.mjs 的【3b】步），所以这里拿到的
+          score 就是终场比分，不是比赛进行中的快照。
+       ⚠️ 两条路都【找不到这一场】时就返回 null → 那一行原样保留，绝不猜、绝不改。
+       ============================================================ */
+    const resList = Array.isArray(o.results) ? o.results
+      : (o.results && Array.isArray(o.results.list) ? o.results.list : []);
+    const byRes = new Map();
+    const shiftDay = (d, n) => {
+      const t = bjParse(d + ' 00:00');
+      if (!isFinite(t)) return '';
+      const x = new Date(t + n * 86400000);
+      const p = (v) => (v < 10 ? '0' + v : String(v));
+      return x.getFullYear() + '-' + p(x.getMonth() + 1) + '-' + p(x.getDate());
+    };
+    resList.forEach((x) => {
+      if (!x || !x.ft || !x.home || !x.away) return;
+      const d = dayOf(x.date || x.time);
+      if (!d) return;
+      const k = x.home + '|' + x.away + '@' + d;
+      if (!byRes.has(k)) byRes.set(k, x);          /* 同一场多条 → 取第一条 */
+    });
+
+    /** '2-1' / '2:1' / {h,a} / '2:1(半 1:0)' → '2:1'；取不到就 '' */
+    function normScore(v) {
+      if (v == null) return '';
+      if (typeof v === 'object') {
+        const h = +v.h, a = +v.a;
+        return (isFinite(h) && isFinite(a)) ? h + ':' + a : '';
+      }
+      const m = /(\d{1,2})\s*[:\-比]\s*(\d{1,2})/.exec(String(v));
+      return m ? (+m[1]) + ':' + (+m[2]) : '';
+    }
+
+    /**
+     * 找这一行的【终场比分】。返回 { score:'2:1', ht:{h,a}|null } 或 null。
+     * 顺序：opt.results 的完场页 → settled（jc-history）；都找不到 → null。
+     */
+    function finalOf(r) {
+      const d = dayOf(r.time);
+      if (!d) return null;
+      /* ⓪ 【500 完场比分 · 用户 2026-10-19「足球比赛结果实时抓取 www.500.com」】
+         jc-scores.js（JC_SCORES = { "主|客": "2:0" }）优先用，因为它是按 <tr> 行解析出来的终场比分，
+         实测罗马 vs 热那亚 = 2:0（源站的 0:0 是半场）。
+         两个方向都认（500 的主客顺序可能和竞彩相反）。 */
+      try {
+        if (typeof JC_SCORES !== 'undefined' && JC_SCORES && JC_SCORES.map && r.home && r.away) {
+          const v = JC_SCORES.map[r.home + '|' + r.away] || JC_SCORES.map[r.away + '|' + r.home];
+          if (v && /^\d{1,2}:\d{1,2}$/.test(v)) return { score: v, ht: null };
+        }
+      } catch (e) { }
+      /* ① 完场页（jc-results.js）—— 只认「日期 ±1 天 且 主客队都对上」的 */
+      if (byRes.size && r.home && r.away) {
+        for (const dd of [0, -1, 1]) {
+          const key = r.home + '|' + r.away + '@' + (dd === 0 ? d : shiftDay(d, dd));
+          const hit = byRes.get(key);
+          if (!hit) continue;
+          const s = normScore(hit.ft);
+          if (s) return { score: s, ht: hit.ht || null };
+        }
+      }
+      /* ② jc-history（已被 jc-results 的终场纠正过） */
+      let m = null;
+      if (r.code && byCode.has(r.code + '@' + d)) m = byCode.get(r.code + '@' + d);
+      else if (r.home && r.away && byPair.has(r.home + '|' + r.away + '@' + d)) {
+        m = byPair.get(r.home + '|' + r.away + '@' + d);
+      }
+      if (!m) return null;
+      const s = normScore(m.score);
+      return s ? { score: s, ht: m.ht || null } : null;
+    }
+
+    let filled = 0, changed = 0, refixed = 0;
     out.batches.forEach((b) => {
       (b.rows || []).forEach((r) => {
-        if (r.score) return;                        /* 补过就不覆盖 */
-        const d = dayOf(r.time);
-        let m = null;
-        if (r.code && byCode.has(r.code + '@' + d)) m = byCode.get(r.code + '@' + d);
-        else if (r.home && r.away && byPair.has(r.home + '|' + r.away + '@' + d)) {
-          m = byPair.get(r.home + '|' + r.away + '@' + d);
+        /* ============================================================
+           【比分纠正 · 用户 2026-10-19「明明是红了为什么黑」】
+           ------------------------------------------------------------
+           原版：只有存的是 0:0 快照才允许被终场比分覆盖
+                 （if (r.score && String(r.score) !== '0:0') return;）。
+           问题：归档那一刻球还没踢完 → jc-data 里的【活比分】被冻成「终场」，
+                 而且错得不止 0:0（实测 9 场：4 场等于半场比分、5 场是进行中快照，
+                 例：拜仁存档 2:0、实际终场 6:1）→ 这些永远纠正不了。
+           现在：【只要和终场比分不一致就重算】——
+                 · score   改成终场比分
+                 · hit/result 用终场比分 + recoHit() 重新判（不败推荐不会被错判）
+                 · 半场比分（如果这一行带了 ht / htScore）一起刷新
+                 · 批次 verdict / hit / miss / pending 跟着重算
+           ⚠️【真的 0:0 不会被误判】判据是「和终场比分是否一致」，不是「是不是 0:0」：
+              终场 0:0 而存档 0:0 → 一致 → 直接跳过，一个字都不改。
+           ⚠️【找不到这场就不动】finalOf() 返回 null（完场页和历史里都没有）→ 原样保留。
+           ⚠️【球没踢完不算终场】开赛不到 2 小时 → 拿到的比分可能是进行中的快照，
+              一律不覆盖（这正是「冻错」的根因）；已经踢完的才纠正。
+           ============================================================ */
+        if (!isFinished(r.time, o.now)) return;
+        const fin = finalOf(r);
+        if (!fin) return;                              /* 找不到这场 → 保持原样 */
+        const realScore = fin.score;
+        const had = normScore(r.score) || String(r.score == null ? '' : r.score).trim();
+        const scoreSame = (had === realScore);         /* 已经和终场一致（含真的 0:0）*/
+        const hadHit = (typeof r.hit === 'boolean');   /* 红黑已经算过了吗 */
+        /* 比分一样、红黑也已经算过 → 真的什么都不用做（真的 0:0 走的就是这条）*/
+        if (scoreSame && hadHit) return;
+
+        if (!scoreSame) {
+          r.score = realScore;
+          if (fin.ht) {
+            /* 存档行目前【没有】半场字段（buildSnapshot 不存它），
+               以后若加上 r.ht / r.htScore，这里会跟终场一起刷新。 */
+            const hts = fin.ht.h + ':' + fin.ht.a;
+            if (r.ht != null && String(r.ht) !== hts) r.ht = hts;
+            if (r.htScore != null && String(r.htScore) !== hts) r.htScore = hts;
+          }
         }
-        if (!m || !m.score) return;
-        r.score = m.score;
-        if (typeof m.hit === 'boolean' && m.pick) {
-          r.hit = m.hit;
-          r.result = m.hit ? 'win' : 'lose';
-        } else if (r.pick) {
-          const sp = String(m.score).split(':');
+        /* 红黑【永远用终场比分 + recoHit() 重算】——
+           不沿用 jc-history 里那个可能是旧口径算出来的 hit。 */
+        if (r.pick) {
+          const sp = realScore.split(':');
           const h = +sp[0], a = +sp[1];
           if (isFinite(h) && isFinite(a)) {
             const actual = h > a ? 'home' : (h === a ? 'draw' : 'away');
@@ -316,6 +437,7 @@
           }
         }
         filled++; changed++;
+        if (!scoreSame && had) refixed++;              /* 原来有比分但错了 → 纠正了一处 */
       });
       const v = verdictOf(b.rows);
       if (b.verdict !== v.verdict || b.pending !== v.pending) changed++;
@@ -330,8 +452,11 @@
     });
     const dropped = before - out.batches.length;
 
+    /* filled  = 本次写入/纠正了几场（老字段名，jc-reco-build 的日志在用）
+       refixed = 其中【原来是错的、这次被纠正】的场次（新增，含 0:0 快照和非 0:0 快照）
+       changed = 有任何字段变化（含批次 verdict 变化 / 窗口丢弃）*/
     out.updated = bjStamp(o.now);
-    return { archive: out, filled, changed, dropped };
+    return { archive: out, filled, refixed, changed, dropped };
   }
 
   /**
