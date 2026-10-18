@@ -5504,6 +5504,19 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 })();
 </script>
 
+` +
+  (() => {
+    let raw = '';
+    try {
+      const f = path.join(ROOT, 'jc-scores.js');
+      if (fs.existsSync(f)) {
+        const src = fs.readFileSync(f, 'utf8');
+        const m = src.match(/const JC_SCORES = ([\s\S]*);\s*$/);
+        raw = m ? m[1] : 'null';
+      }
+    } catch (e) { raw = 'null'; }
+    return '<script>window.JC_SCORES = ' + raw + ';</script>';
+  })() + `
 </body>
 </html>`;
 
