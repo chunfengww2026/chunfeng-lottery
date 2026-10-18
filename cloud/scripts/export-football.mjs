@@ -115,6 +115,16 @@ if (!JC || !Array.isArray(JC.games) || !JC.games.length) {
 /* 已完场累积记录（可能还没有这个文件 —— 第一次跑 build-jc.mjs 之后才有） */
 const HIST = loadVar('jc-history.js', 'JC_HISTORY');
 
+/* 【已完场赛果】jc-results.js —— build-football-results.mjs 抓的【最近 48 小时完场】
+   ------------------------------------------------------------
+   用户 2026-10-18：「补已经踢完的比赛的赛果抓取」。
+   为什么要多这一份：上面 jc-history.js 的比分只靠足球数据流补（football.js），
+   流里没有那一场时，归档记录就是「已完场 + 比分 —」，红黑也判不出来。
+   这份是独立抓的一张完场比分表（终场 + 半场），这里只把它当【最后一个比分来源】：
+   实时流 → jc-data 自身的 score / liveScore → 都没有时，才来查它。
+   文件缺失 / 解析失败 → 返回 null，页面照旧（绝不编比分）。 */
+const RESULTS = loadVar('jc-results.js', 'JC_RESULTS');
+
 /* football.js 用来补充实时比分（可选） */
 const FB = loadVar('football.js', 'FOOTBALL_DATA');
 
@@ -392,6 +402,37 @@ function findFb(g) {
   return best;
 }
 
+/* ============================================================
+   【完场赛果查找】jc-results.js → 这一场的终场比分
+   ------------------------------------------------------------
+   只用在不该为空的地方：调用方【已经拿不到任何比分】时才查它。
+   匹配条件（三条同时满足，宁可查不到也不要查错）：
+     ① 主队、客队 都 sameTeam（别名 / 繁简 / 简称容忍）
+     ② 开赛日期相差 ≤ 1 天（两边日期口径常常差一天）
+     ③ 两边都写了联赛 → 联赛名必须一致（实测两边联赛名 26/26 完全一致，
+        加上这条以后「同一天两支名字相近的球队」几乎不可能误配）
+   候选不唯一（同一天同一对球队有两场）→ 比分一致才用，不一致返回 null。
+   ============================================================ */
+const RESULT_LIST = (RESULTS && Array.isArray(RESULTS.list)) ? RESULTS.list : [];
+function findResult(g) {
+  if (!RESULT_LIST.length) return null;
+  if (!g || !g.home || !g.away) return null;
+  const t0 = new Date(dayOf(g.time) + 'T00:00:00').getTime();
+  if (isNaN(t0)) return null;
+  const cands = [];
+  for (const r of RESULT_LIST) {
+    const t1 = new Date(String(r.date) + 'T00:00:00').getTime();
+    if (isNaN(t1) || Math.abs(t0 - t1) > 86400000) continue;
+    if (!sameTeam(g.home.name, r.home) || !sameTeam(g.away.name, r.away)) continue;
+    if (g.league && r.league && String(g.league) !== String(r.league)) continue;
+    cands.push(r);
+  }
+  if (!cands.length) return null;
+  const uniq = [...new Set(cands.map((c) => c.ft.h + ':' + c.ft.a))];
+  if (uniq.length > 1) return null;
+  return cands[0];
+}
+
 /* ---------- 整理每场的展示数据 ---------- */
 const kindCN = { upcoming: '未开赛', live: '进行中', finished: '已完场' };
 
@@ -625,7 +666,13 @@ function prep(g) {
     try { asianIndex = AI.buildAsianIndex(g); } catch (e) { asianIndex = null; }
   }
 
-  /* 比分优先级：football.js 实时比分 > jc-data 自己的比分 */
+  /* 比分优先级：football.js 实时比分 > jc-data 自己的比分 > jc-results 完场赛果
+     ⚠️ 第三条是【兜底】：前两条都拿不到、而且这场【已经踢完】（开赛超过 2 小时）
+        才去查完场赛果表。用户 2026-10-18 要求「已完场不能没有比分」，
+        这是最后一道保险（正常情况下 build-football-results.mjs 已经把比分
+        补进 jc-history.js 了，这里只是防止「刚归档、还没轮到补」那一小段空窗）。
+     为什么必须卡「已踢完」：未开赛的场次如果队名和某场历史比赛撞了，
+        不卡就会把上一场的比分贴到还没开踢的卡片上。 */
   let hs = null, as = null;
   if (fb && fb.home && fb.home.score !== null && fb.home.score !== undefined) {
     hs = fb.home.score; as = fb.away.score;
@@ -633,6 +680,13 @@ function prep(g) {
     hs = g.liveScore.home; as = g.liveScore.away;
   } else if (g.score && g.score.home !== null && g.score.home !== undefined) {
     hs = g.score.home; as = g.score.away;
+  }
+  if (hs === null || hs === undefined || as === null || as === undefined) {
+    const kick = kickMs(g.time);
+    if (!isNaN(kick) && Date.now() - kick > MATCH_LEN_HOURS * 3600 * 1000) {
+      const rr = findResult(g);
+      if (rr) { hs = rr.ft.h; as = rr.ft.a; }
+    }
   }
 
   const hasScore = hs !== null && hs !== undefined && as !== null && as !== undefined;
