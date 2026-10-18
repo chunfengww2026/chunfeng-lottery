@@ -445,6 +445,66 @@ function looksLikeTicketPhoto(u) {
   return /\/\d{4}-\d{2}-\d{2}\//.test(p);
 }
 
+/** 图片去重键：协议（http/https）和 query（?width=&height=）都不算
+ *
+ *  【为什么要归一化】晒票池 xysp-data.js 里存的是 https 链接，
+ *  本脚本自己抓的页面里是 http?...&width=。同一张票面图会被当成两张：
+ *  → 下载两次、OCR 两次、投票基数（withTicket）被抬高，白烧一倍时间。
+ *  实测（2026-10-18）：ssq 自抓 27 张 / 池子 23 张，去重后只有 32 张，
+ *  不归一化会当成 50 张。 */
+function imgKey(u) {
+  return String(u || '').replace(/^https?:\/\//i, '').split('?')[0].toLowerCase();
+}
+
+/* ============================================================
+   五之二之零、【复用晒票池】直接把 xysp-data.js 里的当期票面图拿来 OCR
+   ------------------------------------------------------------
+   用户 2026-10-19：「让 build-heatmap 直接吃晒票池里的图」。
+   为什么有用：本脚本自己只翻 3 页（30 篇），池子是翻 8 页攒的 24h 全量，
+   候选图自然更多（双色球 18 → 32、大乐透 12 → 21）。
+   ⚠️【池子里的图有没有期号？】有，但只在 title 里：
+        "title": "[26119期]复式机选"
+      本脚本自己抓的页面里那个 [NNNNN期] 前缀，就是同一个字段
+      —— 所以拿它做【候选预筛】（只留当期帖的图）是同一口径，不是新证据。
+   ⚠️【预筛 ≠ 期号确认】票面期号仍然靠 OCR 认（ocr-tickets.mjs 的 r.issue），
+      认不出 / 不是当期就照样丢。这条线一点没松。
+   ============================================================ */
+let _poolCache = null;
+function loadXyspPool() {
+  if (_poolCache) return _poolCache;
+  const p = path.join(ROOT, 'xysp-data.js');
+  if (!fs.existsSync(p)) { _poolCache = null; return null; }
+  try {
+    const c = vm.createContext({ console, Object, Array, String, Number, JSON, Date, Math });
+    vm.runInContext(fs.readFileSync(p, 'utf8') + '\nglobalThis.__X = (typeof XYSP_DATA !== "undefined") ? XYSP_DATA : null;', c);
+    _poolCache = c.__X || null;
+    return _poolCache;
+  } catch (e) {
+    log(`  ⚠️ 读 xysp-data.js 失败（不影响自抓）：${e.message}`);
+    _poolCache = null;
+    return null;
+  }
+}
+
+/** 晒票池里【当期】的票面图（title 带 [NNNNN期]，与自抓页面同口径） */
+function poolTicketUrls(cfg, site, issue) {
+  const X = loadXyspPool();
+  const g = X && X.games ? X.games[cfg.id] : null;
+  const items = (g && Array.isArray(g.items)) ? g.items : [];
+  const out = [];
+  let skippedOld = 0, skippedNoIssue = 0, skippedBadUrl = 0;
+  for (const it of items) {
+    const u = String((it && (it.img || it.thumb)) || '');
+    if (!looksLikeTicketPhoto(u)) { skippedBadUrl++; continue; }
+    const m = /[\[【]\s*(\d{3,8})\s*期\s*[\]】]/.exec(String((it && it.title) || ''));
+    if (!m) { skippedNoIssue++; continue; }
+    if (!isCurrentIssue({ issue: m[1] }, site, issue)) { skippedOld++; continue; }
+    out.push({ url: u, issue: m[1], author: String((it && (it.author || it.title)) || '晒票池').slice(0, 40), src: 'xysp' });
+  }
+  return { urls: out, total: items.length, skippedOld, skippedNoIssue, skippedBadUrl };
+}
+
+
 function md5(s) { return crypto.createHash('md5').update(String(s)).digest('hex'); }
 
 /** 下载一张图片（限流 + 30s 超时 + 重试 2 次），返回 { buf } 或 { buf:null, err } */
@@ -493,18 +553,39 @@ async function ocrTickets(cfg, posts, expectIssue, opts) {
   const backCounts = new Array(cfg.backMax + 1).fill(0);
   const tickets = [];
 
-  /* ① 收集候选票面照片 URL（同一张图只下一次） */
+  /* ① 收集候选票面照片 URL（同一张图只下一次）
+        · 本脚本自己抓的当期帖（可靠，页面 [NNNNN期] 前缀 = 当期）
+        · 晒票池 xysp-data.js 里的当期图（更多候选；去重键忽略协议/query） */
   const urls = [];
   const seen = new Set();
+  const pushUrl = (u, issue, author) => {
+    if (!looksLikeTicketPhoto(u)) return false;
+    const key = imgKey(u);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    urls.push({ url: u, issue, author });
+    return true;
+  };
   posts.forEach((p) => {
-    (p.images || []).forEach((u) => {
-      if (!looksLikeTicketPhoto(u)) return;
-      const key = u.split('?')[0];
-      if (seen.has(key)) return;
-      seen.add(key);
-      urls.push({ url: u, issue: p.issue, author: p.author });
-    });
+    (p.images || []).forEach((u) => { pushUrl(u, p.issue, p.author); });
   });
+  const crawlN = urls.length;
+  /* 晒票池补齐 */
+  if (opts && opts.pool !== false) {
+    const pool = opts.pool || poolTicketUrls(cfg, opts.site, opts.issue);
+    let poolN = 0;
+    (pool && pool.urls || []).forEach((x) => { if (pushUrl(x.url, x.issue, x.author)) poolN++; });
+    stats.poolTotal = (pool && pool.total) || 0;
+    stats.poolOld = (pool && pool.skippedOld) || 0;
+    stats.poolNoIssue = (pool && pool.skippedNoIssue) || 0;
+    stats.poolAdded = poolN;
+    if (pool && pool.total) {
+      log(`    · 晒票池 xysp-data.js：${pool.total} 条 → 当期 ${pool.urls.length} 条` +
+        `（跳过上一期 ${pool.skippedOld} / title 没期号 ${pool.skippedNoIssue}），` +
+        `其中 ${poolN} 张是自抓没有的新图`);
+    }
+  }
+  stats.crawlUrls = crawlN;
   const limit = (opts && opts.limit) || OCR_MAX_IMAGES;
   stats.urls = urls.length;
   const use = urls.slice(0, limit);
@@ -1039,14 +1120,28 @@ async function buildGame(cfg, nowBj, opts) {
      只对「当期」的帖子做（期号 = 页面 [NNNNN期] 或项目 nextIssueFor）；
      每张图都要通过：开奖期 = 当期、号码个数/范围/去重全合法、
      多个预处理变体识别结果一致。任何一条不满足就丢掉这张。
+
+     【候选图从哪来】① 本脚本自己抓的当期帖；② 晒票池 xysp-data.js 的当期图。
+     两路合并去重 —— 池子是翻 8 页攒的，比「只翻 3 页」多出不少图。
+     即使【一页都没抓到】（页面改版 / 被封），只要池子里有当期图，照样能出图。
      ============================================================ */
-  if (opts && opts.ocr !== false && matched.length) {
-    log(`  → 票面照片 OCR（当期 ${matched.length} 篇晒票，最多识别 ${(opts && opts.ocrLimit) || OCR_MAX_IMAGES} 张）`);
+  const poolCand = (opts && opts.ocr !== false && (opts.pool !== false))
+    ? poolTicketUrls(cfg, site, issue) : { urls: [] };
+  const poolN = (poolCand.urls || []).length;
+  if (poolCand.total) {
+    log(`  · 晒票池 xysp-data.js：${poolCand.total} 条 → 当期 ${poolN} 条` +
+      `（跳过上一期 ${poolCand.skippedOld} / title 没期号 ${poolCand.skippedNoIssue}）`);
+  }
+  if (opts && opts.ocr !== false && (matched.length || poolN)) {
+    log(`  → 票面照片 OCR（自抓当期 ${matched.length} 篇晒票 + 池子 ${poolN} 张，最多识别 ${(opts && opts.ocrLimit) || OCR_MAX_IMAGES} 张）`);
     let ocrRes = null;
     try {
       /* 注意：这里的期号要用【完整期号】(2026118)，不是页面写法 (26118) ——
          票面上印的是完整的「开奖期：2026118」。 */
-      ocrRes = await ocrTickets(cfg, matched, issue || site, { limit: (opts && opts.ocrLimit) || OCR_MAX_IMAGES });
+      ocrRes = await ocrTickets(cfg, matched, issue || site, {
+        limit: (opts && opts.ocrLimit) || OCR_MAX_IMAGES,
+        pool: poolCand, site, issue
+      });
     } catch (e) {
       log(`  ⚠️ OCR 过程异常（不中断）：${e.message}`);
       ocrRes = null;
@@ -1054,7 +1149,7 @@ async function buildGame(cfg, nowBj, opts) {
     if (ocrRes) {
       const s = ocrRes.stats;
       ocrInfo = { ...s, ok: ocrRes.ok, err: ocrRes.err || '', tickets: Array.isArray(ocrRes.tickets) ? ocrRes.tickets : [] };
-      log(`  · OCR 统计：候选图 ${s.urls} 张 → 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 期号确认的有效票 ${((s.tickets && s.tickets.length) || 0)} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
+      log(`  · OCR 统计：候选图 ${s.urls} 张（自抓 ${s.crawlUrls || 0} + 晒票池新增 ${s.poolAdded || 0}）→ 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 号码认出来 ${s.recognized} 张 → 期号确认的有效票 ${((s.tickets && s.tickets.length) || 0)} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
       if (ocrRes.ok) {
         source = 'ocr-xysp';
         sampleCount = s.tickets;
