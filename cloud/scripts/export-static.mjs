@@ -7932,45 +7932,28 @@ ${p3dHtml}
        （当晚曾要求删掉这个模块 → HTML 整块被换成一句注释，顶部还加过一条
          __NO_INSTALL__ 的 display:none 锁；本次恢复先把那条锁删了）
        本次改动（__INSTALL_RESTORED__）：
-         ① section 原样恢复（下面这段就是原版标记，两列卡片一字没改）
-         ② 标题/副标题下面新增 install-guide.jpg 大图（.ro-install-shot）
-         ③ __NO_INSTALL__ 锁已删除（见上面 CSS 里 __INSTALL_BACK__ / __INSTALL_RESTORED__ 那段）
+         ① section 恢复（原版标记）
+         ② 标题/副标题下面新增 install-guide.jpg 大图（.ro-install-shot，全宽）
+         ③ __NO_INSTALL__ 锁已删除（见上面 CSS 里 __INSTALL_RESTORED__ 那段）
+         ④ 【两列卡片已按用户要求删除】用户原话：「不要了 有图片就不要了」
+            → 删掉 .ro-install-grid 那两张卡（安卓/微信 · 苹果 iPhone，
+              含卡里的 ol 三步和卡下小注「浏览器里也叫…」「只有 Safari 支持…」）；
+              现在这一块只剩：标题 + 副标题 + 大图 + 底部备注。
+            → CSS 里 .ro-install-grid / -card / -plat / -steps / -tip 的规则【留着没删】，
+              以后要加回来直接写 HTML 即可（样式都在）。
        · 位置：正文最后一块（#article-rest 里、.ro-foot / 免责声明 之前）
-       · 形式：大图 + CSS 两列卡片，米杏色主题
-       · 安卓 / 微信 三步 · 苹果 iPhone 三步 · 底部备注
-       · ⚠️ 纯展示：没有按钮标签、没有内联点击 / 内联事件（图片失败收起也走 addEventListener）
+       · 形式：大图（100% 全宽·画面已把安卓 / 苹果的步骤画全）+ 米杏色卡片
+       · ⚠️ 纯展示：没有按钮标签、没有内联点击 / 内联事件（图片失败收起走 addEventListener）
        ============================================================ -->
   <section class="ro-install" id="ro-install" aria-labelledby="ro-install-h">
     <h2 class="ro-install-h" id="ro-install-h">添加到手机桌面，更方便更稳定</h2>
     <div class="ro-install-lead">加好之后，下次直接点手机桌面上的图标就能打开，不用再翻聊天记录找链接。</div>
 
     <!-- 安装教程大图：800×1432 / 约 204 KB（原图 1520×2720 / 3.5 MB）
-         ⚠️ loading="lazy" 别拖慢首屏；width/height 先占位，避免图到了把卡片顶下去 -->
+         ⚠️ loading="lazy" 别拖慢首屏；width/height 先占位，避免图加载完把下面的备注顶下去 -->
     <img class="ro-install-shot" src="./install-guide.jpg"
          alt="安装步骤：安卓手机和苹果 iPhone 如何把本页添加到手机桌面"
          width="800" height="1432" loading="lazy" decoding="async">
-
-    <div class="ro-install-grid">
-      <div class="ro-install-card">
-        <div class="ro-install-plat"><i aria-hidden="true">📱</i>安卓 / 微信</div>
-        <ol class="ro-install-steps">
-          <li><b>1</b><span>点右上角「···」</span></li>
-          <li><b>2</b><span>选「添加到主屏幕」</span></li>
-          <li><b>3</b><span>点「添加」</span></li>
-        </ol>
-        <div class="ro-install-tip">浏览器里也叫<span class="nb">「添加到桌面」</span>。</div>
-      </div>
-
-      <div class="ro-install-card">
-        <div class="ro-install-plat"><i aria-hidden="true">🍎</i>苹果 iPhone</div>
-        <ol class="ro-install-steps">
-          <li><b>1</b><span>点底部「分享」图标</span></li>
-          <li><b>2</b><span>选「添加到主屏幕」</span></li>
-          <li><b>3</b><span>点「添加」</span></li>
-        </ol>
-        <div class="ro-install-tip">只有 Safari 支持；在微信里请先点<span class="nb">「在浏览器打开」</span>。</div>
-      </div>
-    </div>
 
     <div class="ro-install-note">备注：添加桌面更方便更稳定</div>
   </section>
