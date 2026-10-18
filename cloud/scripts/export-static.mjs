@@ -7180,7 +7180,10 @@ ${DEVICE_GATE_BODY}
        · 别人的浏览器里这段是 display:none，完全看不到
        · 拿不到数字（不蒜子挂了/被墙）→ 整个隐藏，不显示 0 或 --
        ============================================================ -->
-  <div class="ro-hot" id="ro-hot" hidden>
+  <!-- 【🔥 人气 · 用户 2026-10-19 选「打开显示」】
+       用的是不蒜子的 site_uv（独立访客）：刷新不算，同一浏览器同一天只算一次。
+       ⚠️ 拿不到数字时下面的脚本会把它重新隐藏（不显示 0 或 --）。 -->
+  <div class="ro-hot" id="ro-hot">
     <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
   </div>
 
