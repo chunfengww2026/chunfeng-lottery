@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 14:10
+   更新时间：2026-10-18 14:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 14:10",
+ "updated": "2026-10-18 14:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -461,6 +461,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/e54dbeec-d2b8-415c-b09e-61984cb569651792303789146.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/e54dbeec-d2b8-415c-b09e-61984cb569651792303789146.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]2026年10月18日 277期 百：23456 十：15789 个：02468 金：9 银：6 铜：3 跨度：12346 尾数：14678",
+     "url": "",
+     "at": "2026-10-18T06:15:02.294Z",
+     "pubAt": "2026-10-18T06:09:00.000Z",
+     "pubMs": 1792303740000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792304102294,
+     "seenMs": 1792304102294,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/d02be218-720e-49ba-8148-7baa02cd7ec91792298457484.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/d02be218-720e-49ba-8148-7baa02cd7ec91792298457484.jpg?imageMogr2/thumbnail/360x",
@@ -1018,6 +1032,20 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/317af3c4-83df-4f43-83fe-3f9bc29aa0dd1792302353283.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/317af3c4-83df-4f43-83fe-3f9bc29aa0dd1792302353283.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]随机的",
+     "url": "",
+     "at": "2026-10-18T06:15:02.294Z",
+     "pubAt": "2026-10-18T05:46:00.000Z",
+     "pubMs": 1792302360000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792304102294,
+     "seenMs": 1792304102294,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/e5f28990-aacd-4bac-962f-ac2f3ab99fa51792299162692.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/e5f28990-aacd-4bac-962f-ac2f3ab99fa51792299162692.jpg?imageMogr2/thumbnail/360x",
      "title": "[26277期]自己亲自打的票，晚上看结果如何😁",
@@ -1558,7 +1586,22 @@ const XYSP_DATA = {
   },
   "qxc": {
    "name": "七星彩",
-   "items": []
+   "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/57ba8929-4684-48c6-a5fa-627c62385ebc1792302771016.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/57ba8929-4684-48c6-a5fa-627c62385ebc1792302771016.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]超级加倍",
+     "url": "",
+     "at": "2026-10-18T06:15:02.294Z",
+     "pubAt": "2026-10-18T05:52:00.000Z",
+     "pubMs": 1792302720000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792304102294,
+     "seenMs": 1792304102294,
+     "whenMs": null
+    }
+   ]
   },
   "qlc": {
    "name": "七乐彩",
