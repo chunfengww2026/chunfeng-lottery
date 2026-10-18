@@ -44,6 +44,56 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'heatmap-data.js');
 
 /* ============================================================
+   【本机 backoff 闸门】--min-interval=<分钟>   （2026-10-18 加）
+   ------------------------------------------------------------
+   为什么加：本机 update-football-smart.mjs 是【每 30 分钟】一轮，而这一步
+   在开奖日要下载晒票图片 + OCR 识别（几十张图，几分钟），一跑就吃掉半条链。
+   它自己已经有一道【开奖日闸门】（今天不是它的开奖日 → 什么都不写就返回），
+   但没有「跑过一次就歇几小时」的闸门 —— 这里补上。
+   规则：
+     · 距上次【成功】< N 分钟 → 立刻跳过：打印原因、【不动 heatmap-data.js】
+     · 不传 --min-interval → 闸门关闭，行为与以前【完全一致】（云端不传）
+     · --purge / --force-run → 不吃闸门（手工清空 / 手工强跑永远生效）
+   状态文件：./_backoff-build-heatmap.json
+   ============================================================ */
+const MIN_INTERVAL_MIN = (() => {
+  const m = process.argv.slice(2).find((a) => a.startsWith('--min-interval='));
+  if (!m) return 0;
+  const n = parseInt(m.slice('--min-interval='.length), 10);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+})();
+const FORCE_RUN = process.argv.slice(2).includes('--force-run');
+const GATE_FILE = path.join(ROOT, '_backoff-build-heatmap.json');
+function readGate() { try { return JSON.parse(fs.readFileSync(GATE_FILE, 'utf8')) || {}; } catch (e) { return {}; } }
+function gateShouldSkip() {
+  if (!MIN_INTERVAL_MIN || FORCE_RUN) return false;
+  const last = Number(readGate().lastSuccess) || 0;
+  if (!last) return false;
+  const gone = (Date.now() - last) / 60000;
+  if (gone >= MIN_INTERVAL_MIN) return false;
+  const ago = gone < 60 ? `${Math.round(gone)} 分钟前` : `${(gone / 60).toFixed(1)} 小时前`;
+  log(`  ⏭  跳过：距上次成功 ${ago}（闸门 ${MIN_INTERVAL_MIN} 分钟）→ 保留现有 heatmap-data.js 不动`);
+  try {
+    const st = readGate();
+    st.lastSkip = Date.now();
+    st.skips = (Number(st.skips) || 0) + 1;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+  return true;
+}
+function gateMarkSuccess() {
+  if (!MIN_INTERVAL_MIN) return;
+  try {
+    const st = readGate();
+    st.lastSuccess = Date.now();
+    st.lastSuccessText = new Date().toLocaleString('zh-CN', { hour12: false });
+    st.minIntervalMin = MIN_INTERVAL_MIN;
+    st.skips = Number(st.skips) || 0;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+}
+
+/* ============================================================
    一、彩种配置
    ============================================================ */
 const CFG = {
@@ -1090,6 +1140,9 @@ async function main() {
     return;
   }
 
+  /* 【backoff 闸门】--purge 不吃闸门；其余情况距上次成功不到 N 分钟就跳过 */
+  if (gateShouldSkip()) return;
+
   /* 要处理哪些彩种 */
   let want = ALL_GAMES.slice();
   if (args.length) {
@@ -1142,6 +1195,9 @@ async function main() {
   /* 【合并写回】本次只更新跑到的彩种，其它彩种保留原数据 ——
      否则一次单彩种调用（或某个彩种抓取失败）就会把别的好数据抹掉。 */
   const src = writeFile(Object.assign({}, readExistingGames(), games), null);
+  /* 【backoff 闸门】这一轮真的跑完了（含"某彩种抓空、沿用旧值"的合并写）
+     → 记下成功时间。OCR 很贵，宁可 6 小时后再试，也不每 30 分钟重跑一遍。 */
+  gateMarkSuccess();
 
   log('');
   log('────────────── 结果 ──────────────');
