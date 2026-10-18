@@ -28362,7 +28362,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-18 12:30:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "廣島紅魔(女)",
      "score": 3,
@@ -28412,7 +28412,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-18 12:55:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "冈山绿雉",
      "score": 0,
@@ -28421,7 +28421,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "神户胜利船",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 6
     },
@@ -28478,10 +28478,10 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "广岛三箭女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -28544,7 +28544,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "仙台维加泰女足",
      "score": 1,
@@ -28610,7 +28610,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "大阪樱花女足",
      "score": 2,
@@ -28676,7 +28676,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "至尊足球會",
      "score": 0,
@@ -28685,7 +28685,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "晋峰足球会",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 4
     },
@@ -28722,7 +28722,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "赞岐釜玉海",
      "score": 0,
@@ -28788,7 +28788,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "瑞拉滋賀",
      "score": 0,
@@ -28854,7 +28854,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "雷法山口",
      "score": 2,
@@ -28920,7 +28920,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "横滨海鸥女足",
      "score": 3,
@@ -28986,7 +28986,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "寺扶达世田谷女足",
      "score": 2,
@@ -29052,7 +29052,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "水原三星",
      "score": 3,
@@ -29102,10 +29102,10 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "首尔衣恋",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 3
     },
@@ -29168,7 +29168,7 @@ const FOOTBALL_DATA = {
      "color": "005555"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "SKA哈巴罗夫斯克",
      "score": 1,
@@ -29234,10 +29234,10 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "全北现代",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -29366,7 +29366,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "和富SE",
      "score": 1,
@@ -29444,7 +29444,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "悉尼(女)",
      "score": 1,
@@ -29522,7 +29522,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-18 14:00:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 1,
