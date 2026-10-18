@@ -2699,11 +2699,15 @@ function mqJudge(gid, v, d) {
   if (gid === 'ssq') {
     const red = area('red'), blue = area('blue');
     const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
+    /* __POOLALL__ 用户 2026-10-18：「所有号码全部放到一起」→ 命中数按各层并集算 */
+    const poolAll = [...new Set([].concat(pool, mqNums(v.r15), mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))];
     if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
-    const r = hits(red, pool), b = hits(blue, bp) > 0 ? 1 : 0;
+    const r = hits(red, poolAll), b = hits(blue, bp) > 0 ? 1 : 0;
     if (r === 6 && b === 1) return { claim: bigClaim('一等奖', r, '红球', b, '蓝球'), hot: 2 };
     if (r === 6 && b === 0) return { claim: bigClaim('二等奖', r, '红球', b, '蓝球'), hot: 1 };
     /* 三等奖：6 红中 5 + 蓝球中 1 */
+    if (r === 5 && b === 1) return { claim: bigClaim('三等奖', r, '红球', b, '蓝球'), hot: 1 };
+    /* __MQ3B__ 三等奖：6 红中 5 + 蓝球中 1 */
     if (r === 5 && b === 1) return { claim: bigClaim('三等奖', r, '红球', b, '蓝球'), hot: 1 };
     return null;
   }
@@ -2712,11 +2716,15 @@ function mqJudge(gid, v, d) {
   if (gid === 'dlt') {
     const front = area('front'), back = area('back');
     const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
+    /* __POOLALL__ 大乐透：f15/f10/f3/f1 一并参与命中计算 */
+    const poolAllF = [...new Set([].concat(pool, mqNums(v.f15), mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))];
     if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
-    const r = hits(front, pool), b = hits(back, bp);
+    const r = hits(front, poolAllF), b = hits(back, bp);
     if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
     if (r === 5 && b === 1) return { claim: bigClaim('二等奖', r, '前区', b, '后区'), hot: 1 };
     /* 三等奖：前区全中 + 后区 0 个 */
+    if (r === 5 && b === 0) return { claim: bigClaim('三等奖', r, '前区', b, '后区'), hot: 1 };
+    /* __MQ3B__ 三等奖：前区全中 + 后区 0 个 */
     if (r === 5 && b === 0) return { claim: bigClaim('三等奖', r, '前区', b, '后区'), hot: 1 };
     return null;
   }
