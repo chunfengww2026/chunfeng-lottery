@@ -5591,4 +5591,9 @@ console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字
   console.log(`      （有序性：jcCalc < jcXysp = ${iXysp > iCalc} · jcXysp < 免责声明 = ${iNote > iXysp}）`);
   console.log(`   晒票数据：${n} 张竞彩实票` +
     (n ? '' : ' · ⚠️ 没有 xysp-jc-data.js（显示「暂无」）')   /* __NO_UPDATED__ */);
+  /* 【新鲜度标注自测】两处小字分别读的哪个文件的哪个字段 + 算出来长什么样 */
+  console.log(`   新鲜度标注：票面 ${TICKETS_STAMP || '(无)'} → ` +
+    (TICKETS_STAMP_HTML ? `票面更新于 ${agoText(stampMs(TICKETS_STAMP))}` : '不显示') +
+    ` · 在售 ${INSALE_STAMP || '(无)'} → ` +
+    (INSALE_STAMP_HTML ? `数据更新于 ${agoText(stampMs(INSALE_STAMP))}` : '不显示'));
 }
