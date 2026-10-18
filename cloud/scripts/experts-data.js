@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-18 19:34
+   生成时间：2026-10-18 19:56
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-18 19:34",
+ "updated": "2026-10-18 19:56",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 160,
-  "requests": 380,
+  "requests": 379,
   "errors": 0,
-  "seconds": 380.2
+  "seconds": 342.1
  },
  "games": {
   "ssq": {
@@ -145,11 +145,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_168.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       9,
-       22,
-       31
+       4,
+       18,
+       25
       ]
      },
      "siteMetrics": [
@@ -573,11 +573,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_26.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       15,
-       16,
-       22
+       8,
+       20,
+       27
       ]
      },
      "siteMetrics": [
@@ -1004,11 +1004,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_2000.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       3,
-       19,
-       23
+       4,
+       6,
+       28
       ]
      },
      "siteMetrics": [
@@ -1430,11 +1430,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_1126.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       12,
-       23,
-       32
+       5,
+       26,
+       30
       ]
      },
      "siteMetrics": [
@@ -1859,12 +1859,12 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_323.html",
      "cat": "蓝球定五",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       3,
-       4,
+       1,
+       6,
+       8,
        14,
-       15,
        16
       ]
      },
@@ -2291,11 +2291,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_786.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       23,
-       25,
-       27
+       4,
+       9,
+       24
       ]
      },
      "siteMetrics": [
@@ -2718,11 +2718,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_306.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       12,
-       21,
-       22
+       24,
+       27,
+       28
       ]
      },
      "siteMetrics": [
@@ -3146,11 +3146,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_1392.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       14,
-       21,
-       29
+       15,
+       19,
+       25
       ]
      },
      "siteMetrics": [
@@ -3572,9 +3572,9 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_1679.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       5,
+       2,
        13,
        26
       ]
@@ -4002,11 +4002,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_750.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       22,
-       23,
-       33
+       10,
+       12,
+       23
       ]
      },
      "siteMetrics": [
@@ -4429,11 +4429,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_942.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       15,
+       6,
        17,
-       28
+       33
       ]
      },
      "siteMetrics": [
@@ -4857,11 +4857,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_819.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       21,
-       23,
-       28
+       13,
+       28,
+       31
       ]
      },
      "siteMetrics": [
@@ -5277,11 +5277,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_1568.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       5,
-       23,
-       24
+       2,
+       7,
+       14
       ]
      },
      "siteMetrics": [
@@ -5704,11 +5704,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_321.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       19,
-       30,
-       31
+       7,
+       17,
+       24
       ]
      },
      "siteMetrics": [
@@ -6129,11 +6129,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_28.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       21,
-       25,
-       29
+       12,
+       15,
+       32
       ]
      },
      "siteMetrics": [
@@ -6553,12 +6553,12 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_820.html",
      "cat": "蓝球定五",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        3,
-       4,
-       7,
-       10,
+       6,
+       12,
+       15,
        16
       ]
      },
@@ -6981,13 +6981,13 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_215.html",
      "cat": "蓝球定五",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
+       3,
        5,
-       9,
        10,
        12,
-       14
+       15
       ]
      },
      "siteMetrics": [
@@ -7412,11 +7412,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_458.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       11,
-       23,
-       25
+       13,
+       18,
+       26
       ]
      },
      "siteMetrics": [
@@ -7837,11 +7837,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_1056.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       10,
-       11,
-       17
+       17,
+       22,
+       27
       ]
      },
      "siteMetrics": [
@@ -8262,11 +8262,11 @@ const EXPERTS_DATA = {
      "url": "/ex/ssqex/tjsy_5_428.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       8,
-       22,
-       33
+       6,
+       29,
+       31
       ]
      },
      "siteMetrics": [
@@ -8848,171 +8848,171 @@ const EXPERTS_DATA = {
       {
        "name": "艾本子墨",
        "nums": [
-        21,
-        23,
-        28
+        13,
+        28,
+        31
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 38.72
       },
       {
        "name": "我定会中奖",
        "nums": [
-        9,
-        22,
-        31
+        4,
+        18,
+        25
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 80.5
       },
       {
        "name": "起名重名",
        "nums": [
-        10,
-        11,
-        17
+        17,
+        22,
+        27
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 5
       },
       {
        "name": "飞利浦",
        "nums": [
-        23,
-        25,
-        27
+        4,
+        9,
+        24
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 66.17
       },
       {
        "name": "巴西第一号",
        "nums": [
-        3,
-        19,
-        23
+        4,
+        6,
+        28
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 72
       },
       {
        "name": "梦幻美系",
        "nums": [
-        5,
+        2,
         13,
         26
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 48
       },
       {
        "name": "Hubei",
        "nums": [
-        21,
-        25,
-        29
+        12,
+        15,
+        32
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 32.25
       },
       {
        "name": "顺其自然",
        "nums": [
-        11,
-        23,
-        25
+        13,
+        18,
+        26
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 14.75
       },
       {
        "name": "安静的美少女",
        "nums": [
-        12,
-        23,
-        32
+        5,
+        26,
+        30
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 72
       },
       {
        "name": "春天里的秋天",
        "nums": [
-        19,
-        30,
-        31
+        7,
+        17,
+        24
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 32.5
       },
       {
        "name": "狂飙滴蜗牛",
        "nums": [
-        15,
+        6,
         17,
-        28
+        33
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 42.25
       },
       {
        "name": "彩金宝",
        "nums": [
-        22,
-        23,
-        33
+        10,
+        12,
+        23
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 47.5
       },
       {
        "name": "红发紫",
        "nums": [
-        12,
-        21,
-        22
+        24,
+        27,
+        28
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 58.5
       },
       {
        "name": "hj",
        "nums": [
-        8,
-        22,
-        33
+        6,
+        29,
+        31
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 0
       },
       {
        "name": "紫萸漫步",
        "nums": [
-        14,
-        21,
-        29
+        15,
+        19,
+        25
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 56
       },
       {
        "name": "生生",
        "nums": [
-        5,
-        23,
-        24
+        2,
+        7,
+        14
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 36
       },
       {
        "name": "不恋水的鱼",
        "nums": [
-        15,
-        16,
-        22
+        8,
+        20,
+        27
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 78
       }
      ]
@@ -9026,36 +9026,36 @@ const EXPERTS_DATA = {
        "name": "专注竞彩",
        "nums": [
         3,
-        4,
-        7,
-        10,
+        6,
+        12,
+        15,
         16
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 24.83
       },
       {
        "name": "信仰",
        "nums": [
+        3,
         5,
-        9,
         10,
         12,
-        14
+        15
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 17.25
       },
       {
        "name": "今年一定发",
        "nums": [
-        3,
-        4,
+        1,
+        6,
+        8,
         14,
-        15,
         16
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 71.17
       }
      ]
@@ -9066,9 +9066,9 @@ const EXPERTS_DATA = {
      "name": "艾本子墨",
      "cats": {
       "红球三胆": [
-       21,
-       23,
-       28
+       13,
+       28,
+       31
       ]
      }
     },
@@ -9076,9 +9076,9 @@ const EXPERTS_DATA = {
      "name": "我定会中奖",
      "cats": {
       "红球三胆": [
-       9,
-       22,
-       31
+       4,
+       18,
+       25
       ]
      }
     },
@@ -9086,9 +9086,9 @@ const EXPERTS_DATA = {
      "name": "起名重名",
      "cats": {
       "红球三胆": [
-       10,
-       11,
-       17
+       17,
+       22,
+       27
       ]
      }
     },
@@ -9096,9 +9096,9 @@ const EXPERTS_DATA = {
      "name": "飞利浦",
      "cats": {
       "红球三胆": [
-       23,
-       25,
-       27
+       4,
+       9,
+       24
       ]
      }
     },
@@ -9106,9 +9106,9 @@ const EXPERTS_DATA = {
      "name": "巴西第一号",
      "cats": {
       "红球三胆": [
-       3,
-       19,
-       23
+       4,
+       6,
+       28
       ]
      }
     },
@@ -9116,7 +9116,7 @@ const EXPERTS_DATA = {
      "name": "梦幻美系",
      "cats": {
       "红球三胆": [
-       5,
+       2,
        13,
        26
       ]
@@ -9126,9 +9126,9 @@ const EXPERTS_DATA = {
      "name": "Hubei",
      "cats": {
       "红球三胆": [
-       21,
-       25,
-       29
+       12,
+       15,
+       32
       ]
      }
     },
@@ -9136,9 +9136,9 @@ const EXPERTS_DATA = {
      "name": "顺其自然",
      "cats": {
       "红球三胆": [
-       11,
-       23,
-       25
+       13,
+       18,
+       26
       ]
      }
     },
@@ -9146,9 +9146,9 @@ const EXPERTS_DATA = {
      "name": "安静的美少女",
      "cats": {
       "红球三胆": [
-       12,
-       23,
-       32
+       5,
+       26,
+       30
       ]
      }
     },
@@ -9156,9 +9156,9 @@ const EXPERTS_DATA = {
      "name": "春天里的秋天",
      "cats": {
       "红球三胆": [
-       19,
-       30,
-       31
+       7,
+       17,
+       24
       ]
      }
     },
@@ -9166,9 +9166,9 @@ const EXPERTS_DATA = {
      "name": "狂飙滴蜗牛",
      "cats": {
       "红球三胆": [
-       15,
+       6,
        17,
-       28
+       33
       ]
      }
     },
@@ -9176,9 +9176,9 @@ const EXPERTS_DATA = {
      "name": "彩金宝",
      "cats": {
       "红球三胆": [
-       22,
-       23,
-       33
+       10,
+       12,
+       23
       ]
      }
     },
@@ -9186,9 +9186,9 @@ const EXPERTS_DATA = {
      "name": "红发紫",
      "cats": {
       "红球三胆": [
-       12,
-       21,
-       22
+       24,
+       27,
+       28
       ]
      }
     },
@@ -9196,9 +9196,9 @@ const EXPERTS_DATA = {
      "name": "hj",
      "cats": {
       "红球三胆": [
-       8,
-       22,
-       33
+       6,
+       29,
+       31
       ]
      }
     },
@@ -9206,9 +9206,9 @@ const EXPERTS_DATA = {
      "name": "紫萸漫步",
      "cats": {
       "红球三胆": [
-       14,
-       21,
-       29
+       15,
+       19,
+       25
       ]
      }
     },
@@ -9216,9 +9216,9 @@ const EXPERTS_DATA = {
      "name": "生生",
      "cats": {
       "红球三胆": [
-       5,
-       23,
-       24
+       2,
+       7,
+       14
       ]
      }
     },
@@ -9226,9 +9226,9 @@ const EXPERTS_DATA = {
      "name": "不恋水的鱼",
      "cats": {
       "红球三胆": [
-       15,
-       16,
-       22
+       8,
+       20,
+       27
       ]
      }
     },
@@ -9237,9 +9237,9 @@ const EXPERTS_DATA = {
      "cats": {
       "蓝球定五": [
        3,
-       4,
-       7,
-       10,
+       6,
+       12,
+       15,
        16
       ]
      }
@@ -9248,11 +9248,11 @@ const EXPERTS_DATA = {
      "name": "信仰",
      "cats": {
       "蓝球定五": [
+       3,
        5,
-       9,
        10,
        12,
-       14
+       15
       ]
      }
     },
@@ -9260,10 +9260,10 @@ const EXPERTS_DATA = {
      "name": "今年一定发",
      "cats": {
       "蓝球定五": [
-       3,
-       4,
+       1,
+       6,
+       8,
        14,
-       15,
        16
       ]
      }
@@ -9344,11 +9344,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_81.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       5,
-       21,
-       24
+       8,
+       17,
+       35
       ]
      },
      "siteMetrics": [
@@ -9767,11 +9767,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_762.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       6,
-       19
+       3,
+       15,
+       16
       ]
      },
      "siteMetrics": [
@@ -10187,10 +10187,10 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_816.html",
      "cat": "蓝球定二",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       6,
-       9
+       1,
+       10
       ]
      },
      "siteMetrics": [
@@ -10606,11 +10606,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_758.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       5,
-       10
+       21,
+       27,
+       28
       ]
      },
      "siteMetrics": [
@@ -11023,14 +11023,14 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1879.html",
      "cat": "蓝球定六",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       4,
+       2,
+       3,
        6,
        8,
        10,
-       11,
-       12
+       11
       ]
      },
      "siteMetrics": [
@@ -11443,10 +11443,10 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_403.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       25,
-       32,
+       30,
+       31,
        33
       ]
      },
@@ -11859,11 +11859,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_786.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       14,
-       18,
-       21
+       20,
+       22,
+       34
       ]
      },
      "siteMetrics": [
@@ -12277,11 +12277,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1887.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        3,
-       26,
-       32
+       4,
+       10
       ]
      },
      "siteMetrics": [
@@ -12694,11 +12694,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_772.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       15,
-       23,
-       26
+       2,
+       13,
+       21
       ]
      },
      "siteMetrics": [
@@ -13111,11 +13111,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1062.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       3,
-       4,
-       21
+       21,
+       24,
+       31
       ]
      },
      "siteMetrics": [
@@ -13528,11 +13528,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_77.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       1,
-       28,
-       32
+       14,
+       16,
+       21
       ]
      },
      "siteMetrics": [
@@ -13946,11 +13946,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_311.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       3,
-       27
+       12,
+       17,
+       31
       ]
      },
      "siteMetrics": [
@@ -14364,11 +14364,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1056.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       15,
-       28
+       7,
+       17,
+       23
       ]
      },
      "siteMetrics": [
@@ -14781,11 +14781,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_796.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       9,
-       18,
-       21
+       13,
+       22,
+       32
       ]
      },
      "siteMetrics": [
@@ -15194,11 +15194,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_251.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        2,
-       21,
-       32
+       9,
+       15
       ]
      },
      "siteMetrics": [
@@ -15609,11 +15609,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1379.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       5,
-       35
+       4,
+       17,
+       18
       ]
      },
      "siteMetrics": [
@@ -16021,28 +16021,28 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1407.html",
      "cat": "红球20码",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       3,
+       2,
        4,
-       5,
-       7,
+       8,
        9,
+       10,
+       11,
+       12,
+       13,
        14,
-       15,
        16,
        17,
-       18,
-       19,
-       20,
-       21,
        22,
        24,
        26,
+       27,
        28,
-       29,
        30,
-       31
+       32,
+       34,
+       35
       ]
      },
      "siteMetrics": [
@@ -16456,11 +16456,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1601.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
-       24,
-       35
+       1,
+       12,
+       23
       ]
      },
      "siteMetrics": [
@@ -16869,10 +16869,10 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1999.html",
      "cat": "蓝球定二",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       8,
-       12
+       3,
+       11
       ]
      },
      "siteMetrics": [
@@ -17278,11 +17278,11 @@ const EXPERTS_DATA = {
      "url": "/ex/dltex/tjsy_39_1996.html",
      "cat": "红球三胆",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       20,
-       32,
-       33
+       5,
+       21,
+       28
       ]
      },
      "siteMetrics": [
@@ -17855,28 +17855,28 @@ const EXPERTS_DATA = {
       {
        "name": "军歌嘹亮",
        "nums": [
-        3,
+        2,
         4,
-        5,
-        7,
+        8,
         9,
+        10,
+        11,
+        12,
+        13,
         14,
-        15,
         16,
         17,
-        18,
-        19,
-        20,
-        21,
         22,
         24,
         26,
+        27,
         28,
-        29,
         30,
-        31
+        32,
+        34,
+        35
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 20.33
       }
      ]
@@ -17889,161 +17889,161 @@ const EXPERTS_DATA = {
       {
        "name": "小吴老彩民",
        "nums": [
-        25,
-        32,
+        30,
+        31,
         33
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 62.25
       },
       {
        "name": "贵在有勇气",
        "nums": [
-        2,
-        3,
-        27
+        12,
+        17,
+        31
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 53
       },
       {
        "name": "阿杜少爷",
        "nums": [
-        2,
-        5,
-        10
+        21,
+        27,
+        28
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 74.5
       },
       {
        "name": "洗牙帝",
        "nums": [
-        5,
-        21,
-        24
+        8,
+        17,
+        35
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 84
       },
       {
        "name": "大奖123",
        "nums": [
-        1,
-        28,
-        32
+        14,
+        16,
+        21
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 56
       },
       {
        "name": "中大奖咯",
        "nums": [
         2,
-        21,
-        32
+        9,
+        15
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 30
       },
       {
        "name": "飞利浦",
        "nums": [
-        14,
-        18,
-        21
+        20,
+        22,
+        34
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 62.25
       },
       {
        "name": "起名重名",
        "nums": [
-        2,
-        15,
-        28
+        7,
+        17,
+        23
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 48.67
       },
       {
        "name": "汪",
        "nums": [
-        2,
-        5,
-        35
+        4,
+        17,
+        18
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 24
       },
       {
        "name": "左一",
        "nums": [
-        2,
-        6,
-        19
+        3,
+        15,
+        16
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 77
       },
       {
        "name": "victory",
        "nums": [
         3,
-        26,
-        32
+        4,
+        10
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 62.25
       },
       {
        "name": "芳华之约",
        "nums": [
-        20,
-        32,
-        33
+        5,
+        21,
+        28
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 2.33
       },
       {
        "name": "安琪明星",
        "nums": [
-        9,
-        18,
-        21
+        13,
+        22,
+        32
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 46.5
       },
       {
        "name": "刘晶磊",
        "nums": [
-        2,
-        24,
-        35
+        1,
+        12,
+        23
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 18.71
       },
       {
        "name": "猪欣二",
        "nums": [
-        15,
-        23,
-        26
+        2,
+        13,
+        21
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 62.25
       },
       {
        "name": "红一红",
        "nums": [
-        3,
-        4,
-        21
+        21,
+        24,
+        31
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 57.5
       }
      ]
@@ -18056,19 +18056,19 @@ const EXPERTS_DATA = {
       {
        "name": "焦叔必中",
        "nums": [
-        8,
-        12
+        3,
+        11
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 15.14
       },
       {
        "name": "孙茂琨",
        "nums": [
-        6,
-        9
+        1,
+        10
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 75.5
       }
      ]
@@ -18081,14 +18081,14 @@ const EXPERTS_DATA = {
       {
        "name": "阿咪果",
        "nums": [
-        4,
+        2,
+        3,
         6,
         8,
         10,
-        11,
-        12
+        11
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 64.75
       }
      ]
@@ -18099,8 +18099,8 @@ const EXPERTS_DATA = {
      "name": "小吴老彩民",
      "cats": {
       "红球三胆": [
-       25,
-       32,
+       30,
+       31,
        33
       ]
      }
@@ -18109,9 +18109,9 @@ const EXPERTS_DATA = {
      "name": "贵在有勇气",
      "cats": {
       "红球三胆": [
-       2,
-       3,
-       27
+       12,
+       17,
+       31
       ]
      }
     },
@@ -18119,9 +18119,9 @@ const EXPERTS_DATA = {
      "name": "阿杜少爷",
      "cats": {
       "红球三胆": [
-       2,
-       5,
-       10
+       21,
+       27,
+       28
       ]
      }
     },
@@ -18129,9 +18129,9 @@ const EXPERTS_DATA = {
      "name": "洗牙帝",
      "cats": {
       "红球三胆": [
-       5,
-       21,
-       24
+       8,
+       17,
+       35
       ]
      }
     },
@@ -18139,9 +18139,9 @@ const EXPERTS_DATA = {
      "name": "大奖123",
      "cats": {
       "红球三胆": [
-       1,
-       28,
-       32
+       14,
+       16,
+       21
       ]
      }
     },
@@ -18150,8 +18150,8 @@ const EXPERTS_DATA = {
      "cats": {
       "红球三胆": [
        2,
-       21,
-       32
+       9,
+       15
       ]
      }
     },
@@ -18159,9 +18159,9 @@ const EXPERTS_DATA = {
      "name": "飞利浦",
      "cats": {
       "红球三胆": [
-       14,
-       18,
-       21
+       20,
+       22,
+       34
       ]
      }
     },
@@ -18169,9 +18169,9 @@ const EXPERTS_DATA = {
      "name": "起名重名",
      "cats": {
       "红球三胆": [
-       2,
-       15,
-       28
+       7,
+       17,
+       23
       ]
      }
     },
@@ -18179,9 +18179,9 @@ const EXPERTS_DATA = {
      "name": "汪",
      "cats": {
       "红球三胆": [
-       2,
-       5,
-       35
+       4,
+       17,
+       18
       ]
      }
     },
@@ -18189,9 +18189,9 @@ const EXPERTS_DATA = {
      "name": "左一",
      "cats": {
       "红球三胆": [
-       2,
-       6,
-       19
+       3,
+       15,
+       16
       ]
      }
     },
@@ -18200,8 +18200,8 @@ const EXPERTS_DATA = {
      "cats": {
       "红球三胆": [
        3,
-       26,
-       32
+       4,
+       10
       ]
      }
     },
@@ -18209,9 +18209,9 @@ const EXPERTS_DATA = {
      "name": "芳华之约",
      "cats": {
       "红球三胆": [
-       20,
-       32,
-       33
+       5,
+       21,
+       28
       ]
      }
     },
@@ -18219,9 +18219,9 @@ const EXPERTS_DATA = {
      "name": "安琪明星",
      "cats": {
       "红球三胆": [
-       9,
-       18,
-       21
+       13,
+       22,
+       32
       ]
      }
     },
@@ -18229,9 +18229,9 @@ const EXPERTS_DATA = {
      "name": "刘晶磊",
      "cats": {
       "红球三胆": [
-       2,
-       24,
-       35
+       1,
+       12,
+       23
       ]
      }
     },
@@ -18239,9 +18239,9 @@ const EXPERTS_DATA = {
      "name": "猪欣二",
      "cats": {
       "红球三胆": [
-       15,
-       23,
-       26
+       2,
+       13,
+       21
       ]
      }
     },
@@ -18249,9 +18249,9 @@ const EXPERTS_DATA = {
      "name": "红一红",
      "cats": {
       "红球三胆": [
-       3,
-       4,
-       21
+       21,
+       24,
+       31
       ]
      }
     },
@@ -18259,26 +18259,26 @@ const EXPERTS_DATA = {
      "name": "军歌嘹亮",
      "cats": {
       "红球20码": [
-       3,
+       2,
        4,
-       5,
-       7,
+       8,
        9,
+       10,
+       11,
+       12,
+       13,
        14,
-       15,
        16,
        17,
-       18,
-       19,
-       20,
-       21,
        22,
        24,
        26,
+       27,
        28,
-       29,
        30,
-       31
+       32,
+       34,
+       35
       ]
      }
     },
@@ -18286,8 +18286,8 @@ const EXPERTS_DATA = {
      "name": "焦叔必中",
      "cats": {
       "蓝球定二": [
-       8,
-       12
+       3,
+       11
       ]
      }
     },
@@ -18295,12 +18295,12 @@ const EXPERTS_DATA = {
      "name": "阿咪果",
      "cats": {
       "蓝球定六": [
-       4,
+       2,
+       3,
        6,
        8,
        10,
-       11,
-       12
+       11
       ]
      }
     },
@@ -18308,8 +18308,8 @@ const EXPERTS_DATA = {
      "name": "孙茂琨",
      "cats": {
       "蓝球定二": [
-       6,
-       9
+       1,
+       10
       ]
      }
     }
@@ -18414,13 +18414,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1458.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       1,
+       4,
        6,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -18642,13 +18642,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1066.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       1,
+       2,
+       3,
+       4,
        5,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -18875,14 +18875,14 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1466.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
        2,
-       3,
-       5,
-       6,
+       4,
+       7,
+       8,
        9
       ]
      },
@@ -19107,14 +19107,14 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_264.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       1,
+       3,
        4,
        6,
        7,
-       8,
        9
       ]
      },
@@ -19341,13 +19341,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_116.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       0,
        1,
-       6,
-       7,
-       8,
-       9
+       2,
+       4,
+       5
       ]
      },
      "siteMetrics": [
@@ -19568,11 +19568,11 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1063.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       3,
        5,
+       6,
+       7,
        8,
        9
       ]
@@ -19795,13 +19795,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1371.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       1,
+       2,
        3,
-       6,
-       7
+       4,
+       5,
+       6
       ]
      },
      "siteMetrics": [
@@ -20020,13 +20020,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_961.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
-       5,
        6,
-       7
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -20248,12 +20248,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_922.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       0,
        1,
-       3,
-       6,
-       7,
+       2,
+       5,
        9
       ]
      },
@@ -20476,12 +20476,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1576.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        2,
-       4,
-       8,
+       3,
+       6,
+       7,
        9
       ]
      },
@@ -20702,12 +20702,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1491.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
+       1,
        3,
-       4,
-       8,
+       7,
        9
       ]
      },
@@ -20929,13 +20929,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1018.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
+       2,
        4,
        7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -21156,12 +21156,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1336.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
+       2,
        3,
        4,
-       6,
+       5,
        9
       ]
      },
@@ -21381,13 +21381,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_90.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
+       1,
+       2,
        4,
-       6,
-       7,
-       8
+       5,
+       9
       ]
      },
      "siteMetrics": [
@@ -21606,12 +21606,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1250.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
-       3,
-       7,
+       4,
+       6,
        9
       ]
      },
@@ -21832,12 +21832,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_844.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
-       4,
-       8,
+       2,
+       3,
+       7,
        9
       ]
      },
@@ -22056,13 +22056,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_278.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       1,
        3,
        6,
        7,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -22282,12 +22282,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_494.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
-       2,
-       3,
+       4,
+       6,
+       8,
        9
       ]
      },
@@ -22507,13 +22507,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_84.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
-       2,
-       6,
-       8
+       4,
+       5,
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -22731,13 +22731,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_168.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       2,
-       3,
-       8,
-       9
+       1,
+       4,
+       5,
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -23120,26 +23120,26 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
-        3,
-        5,
-        6,
+        4,
+        7,
+        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68
       },
       {
        "name": "我中＊＊＊＊",
        "nums": [
         0,
-        2,
+        1,
+        3,
         4,
         6,
         7,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 66.17
       }
      ]
@@ -23152,37 +23152,37 @@ const EXPERTS_DATA = {
       {
        "name": "道一",
        "nums": [
-        1,
+        2,
         3,
         4,
-        6,
+        5,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 26.5
       },
       {
        "name": "希诺",
        "nums": [
+        0,
         1,
-        3,
-        6,
-        7,
+        2,
+        5,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 36
       },
       {
        "name": "智者",
        "nums": [
         0,
-        1,
-        2,
-        3,
+        4,
+        6,
+        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 0
       },
       {
@@ -23190,95 +23190,95 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        3,
-        7,
+        4,
+        6,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 22.33
       },
       {
        "name": "钱王爷",
        "nums": [
-        0,
         1,
-        4,
-        8,
+        2,
+        3,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 10.75
       },
       {
        "name": "启程",
        "nums": [
+        1,
         3,
         6,
         7,
-        8,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 0.67
       },
       {
        "name": "AiKD35",
        "nums": [
+        0,
         1,
-        6,
-        7,
-        8,
-        9
+        2,
+        4,
+        5
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 59.75
       },
       {
        "name": "伯乐中五百万",
        "nums": [
-        0,
+        1,
+        2,
         4,
-        6,
-        7,
-        8
+        5,
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 26.5
       },
       {
        "name": "向钱一镖",
        "nums": [
-        0,
         2,
-        4,
-        8,
+        3,
+        6,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 35
       },
       {
        "name": "佳利GG",
        "nums": [
-        0,
-        3,
         5,
+        6,
+        7,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 52.5
       },
       {
        "name": "天才老炮",
        "nums": [
         0,
+        1,
         3,
-        4,
-        8,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 35
       },
       {
@@ -23286,83 +23286,83 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        5,
         6,
-        7
+        8,
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 39.75
       },
       {
        "name": "静心等待",
        "nums": [
         0,
-        2,
+        1,
+        4,
         6,
-        8,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.5
       },
       {
        "name": "红单三六九",
        "nums": [
-        0,
-        1,
+        2,
+        3,
+        4,
         5,
-        8,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.5
       },
       {
        "name": "老刘",
        "nums": [
         0,
-        1,
-        2,
-        6,
-        8
+        4,
+        5,
+        7,
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 0
       },
       {
        "name": "红包还来",
        "nums": [
-        0,
-        1,
+        2,
         3,
-        6,
-        7
+        4,
+        5,
+        6
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 46.5
       },
       {
        "name": "我定会中奖",
        "nums": [
-        0,
-        2,
-        3,
-        8,
-        9
+        1,
+        4,
+        5,
+        7,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 0
       },
       {
        "name": "爱恨相依",
        "nums": [
-        0,
         1,
+        2,
         4,
         7,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 32.5
       }
      ]
@@ -23373,10 +23373,10 @@ const EXPERTS_DATA = {
      "name": "道一",
      "cats": {
       "五码组选": [
-       1,
+       2,
        3,
        4,
-       6,
+       5,
        9
       ]
      }
@@ -23385,10 +23385,10 @@ const EXPERTS_DATA = {
      "name": "希诺",
      "cats": {
       "五码组选": [
+       0,
        1,
-       3,
-       6,
-       7,
+       2,
+       5,
        9
       ]
      }
@@ -23398,9 +23398,9 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
-       1,
-       2,
-       3,
+       4,
+       6,
+       8,
        9
       ]
      }
@@ -23411,8 +23411,8 @@ const EXPERTS_DATA = {
       "五码组选": [
        0,
        1,
-       3,
-       7,
+       4,
+       6,
        9
       ]
      }
@@ -23421,10 +23421,10 @@ const EXPERTS_DATA = {
      "name": "钱王爷",
      "cats": {
       "五码组选": [
-       0,
        1,
-       4,
-       8,
+       2,
+       3,
+       7,
        9
       ]
      }
@@ -23433,32 +23433,8 @@ const EXPERTS_DATA = {
      "name": "启程",
      "cats": {
       "五码组选": [
-       3,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "AiKD35",
-     "cats": {
-      "五码组选": [
        1,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "伯乐中五百万",
-     "cats": {
-      "五码组选": [
-       0,
-       4,
+       3,
        6,
        7,
        8
@@ -23466,13 +23442,37 @@ const EXPERTS_DATA = {
      }
     },
     {
-     "name": "向钱一镖",
+     "name": "AiKD35",
      "cats": {
       "五码组选": [
        0,
+       1,
        2,
        4,
-       8,
+       5
+      ]
+     }
+    },
+    {
+     "name": "伯乐中五百万",
+     "cats": {
+      "五码组选": [
+       1,
+       2,
+       4,
+       5,
+       9
+      ]
+     }
+    },
+    {
+     "name": "向钱一镖",
+     "cats": {
+      "五码组选": [
+       2,
+       3,
+       6,
+       7,
        9
       ]
      }
@@ -23481,9 +23481,9 @@ const EXPERTS_DATA = {
      "name": "佳利GG",
      "cats": {
       "五码组选": [
-       0,
-       3,
        5,
+       6,
+       7,
        8,
        9
       ]
@@ -23494,9 +23494,9 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
+       1,
        3,
-       4,
-       8,
+       7,
        9
       ]
      }
@@ -23507,9 +23507,9 @@ const EXPERTS_DATA = {
       "五码组选": [
        0,
        1,
-       5,
        6,
-       7
+       8,
+       9
       ]
      }
     },
@@ -23518,10 +23518,10 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
-       2,
+       1,
+       4,
        6,
-       8,
-       9
+       8
       ]
      }
     },
@@ -23529,11 +23529,11 @@ const EXPERTS_DATA = {
      "name": "红单三六九",
      "cats": {
       "五码组选": [
-       0,
-       1,
+       2,
+       3,
+       4,
        5,
-       8,
-       9
+       8
       ]
      }
     },
@@ -23542,10 +23542,10 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
-       1,
-       2,
-       6,
-       8
+       4,
+       5,
+       7,
+       9
       ]
      }
     },
@@ -23553,11 +23553,11 @@ const EXPERTS_DATA = {
      "name": "红包还来",
      "cats": {
       "五码组选": [
-       0,
-       1,
+       2,
        3,
-       6,
-       7
+       4,
+       5,
+       6
       ]
      }
     },
@@ -23565,11 +23565,11 @@ const EXPERTS_DATA = {
      "name": "我定会中奖",
      "cats": {
       "五码组选": [
-       0,
-       2,
-       3,
-       8,
-       9
+       1,
+       4,
+       5,
+       7,
+       8
       ]
      }
     },
@@ -23577,11 +23577,11 @@ const EXPERTS_DATA = {
      "name": "爱恨相依",
      "cats": {
       "五码组选": [
-       0,
        1,
+       2,
        4,
        7,
-       9
+       8
       ]
      }
     },
@@ -23592,9 +23592,9 @@ const EXPERTS_DATA = {
        0,
        1,
        2,
-       3,
-       5,
-       6,
+       4,
+       7,
+       8,
        9
       ]
      }
@@ -23604,11 +23604,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       2,
+       1,
+       3,
        4,
        6,
        7,
-       8,
        9
       ]
      }
@@ -23704,23 +23704,23 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1734.html",
      "cat": "15码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       6,
-       7,
-       15,
-       16,
-       22,
-       24,
+       3,
+       21,
+       23,
        25,
-       27,
-       35,
-       50,
-       65,
-       67,
-       73,
-       78
+       26,
+       29,
+       34,
+       36,
+       44,
+       47,
+       49,
+       58,
+       62,
+       64,
+       68
       ]
      },
      "siteMetrics": [
@@ -24055,17 +24055,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_548.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       11,
+       2,
+       19,
+       21,
        30,
-       37,
-       40,
-       42,
-       45,
-       55,
-       64,
-       79
+       33,
+       43,
+       47,
+       49,
+       60
       ]
      },
      "siteMetrics": [
@@ -24382,17 +24382,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1357.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       6,
-       7,
-       17,
-       27,
-       38,
-       49,
-       60,
-       70
+       11,
+       15,
+       20,
+       21,
+       43,
+       44,
+       46,
+       62,
+       65
       ]
      },
      "siteMetrics": [
@@ -24708,23 +24708,23 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_936.html",
      "cat": "15码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       11,
-       18,
-       23,
-       27,
+       3,
+       4,
+       7,
+       16,
+       25,
+       29,
        31,
-       33,
-       36,
-       37,
-       55,
-       56,
-       65,
+       32,
+       35,
+       51,
+       61,
        66,
-       67,
+       69,
        73,
-       77
+       74
       ]
      },
      "siteMetrics": [
@@ -25059,17 +25059,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_40.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       12,
-       22,
-       23,
-       51,
-       65,
-       66,
-       70,
-       74,
-       75
+       11,
+       18,
+       24,
+       31,
+       35,
+       40,
+       52,
+       61,
+       66
       ]
      },
      "siteMetrics": [
@@ -25392,16 +25392,16 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_465.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       19,
+       10,
+       11,
        22,
-       42,
-       51,
-       58,
-       62,
-       65,
-       76,
+       46,
+       54,
+       61,
+       75,
+       79,
        80
       ]
      },
@@ -25719,17 +25719,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1345.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       30,
+       3,
+       32,
+       36,
        37,
        47,
-       57,
-       62,
-       65,
-       71,
-       78
+       48,
+       50,
+       52,
+       69
       ]
      },
      "siteMetrics": [
@@ -26047,20 +26047,20 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_44.html",
      "cat": "12码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       10,
        12,
-       22,
-       30,
-       35,
+       13,
+       14,
+       33,
        37,
-       38,
+       40,
        42,
-       51,
-       58,
-       62,
-       74
+       65,
+       68,
+       74,
+       76,
+       78
       ]
      },
      "siteMetrics": [
@@ -26377,23 +26377,23 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1410.html",
      "cat": "15码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       5,
-       11,
-       18,
-       42,
-       61,
+       4,
+       10,
+       14,
+       22,
+       25,
+       29,
+       36,
+       50,
+       51,
+       56,
+       58,
        62,
-       63,
-       65,
-       66,
-       67,
-       70,
-       74,
-       75,
-       78
+       64,
+       69,
+       79
       ]
      },
      "siteMetrics": [
@@ -26715,17 +26715,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1566.html",
      "cat": "10码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       5,
-       15,
+       11,
+       12,
+       18,
        20,
-       33,
-       45,
-       55,
-       58,
-       65,
-       73,
+       22,
+       41,
+       52,
+       53,
+       68,
        78
       ]
      },
@@ -27045,23 +27045,23 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1495.html",
      "cat": "15码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       3,
        8,
-       11,
-       14,
-       15,
-       26,
-       30,
-       34,
-       35,
-       38,
+       19,
+       23,
+       28,
+       31,
+       33,
        45,
-       48,
-       51,
-       73
+       52,
+       53,
+       61,
+       66,
+       67,
+       71,
+       72,
+       78
       ]
      },
      "siteMetrics": [
@@ -27381,17 +27381,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1235.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       23,
-       26,
-       29,
-       34,
+       3,
+       8,
+       17,
+       20,
+       31,
+       39,
        47,
-       49,
-       57,
-       66,
-       67
+       58,
+       73
       ]
      },
      "siteMetrics": [
@@ -27715,17 +27715,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_441.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       4,
-       6,
-       21,
-       24,
-       35,
-       37,
-       42,
+       2,
+       30,
+       43,
+       47,
+       50,
+       54,
+       62,
        65,
-       67
+       80
       ]
      },
      "siteMetrics": [
@@ -28039,23 +28039,23 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1138.html",
      "cat": "15码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        8,
        10,
-       12,
-       21,
-       23,
-       37,
+       15,
+       24,
+       28,
+       29,
+       31,
+       36,
        40,
-       41,
-       47,
-       57,
+       49,
+       52,
        59,
-       67,
-       68,
-       70,
-       77
+       66,
+       72,
+       76
       ]
      },
      "siteMetrics": [
@@ -28375,17 +28375,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1291.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
-       9,
+       6,
+       7,
        15,
-       17,
-       20,
-       21,
-       40,
-       55,
-       65
+       33,
+       41,
+       42,
+       54,
+       70,
+       80
       ]
      },
      "siteMetrics": [
@@ -28703,18 +28703,18 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_401.html",
      "cat": "10码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
-       3,
-       9,
-       29,
-       31,
-       40,
+       4,
+       14,
+       20,
+       21,
+       39,
        42,
-       44,
-       55,
-       65
+       51,
+       57,
+       58,
+       61
       ]
      },
      "siteMetrics": [
@@ -29030,17 +29030,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1286.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       6,
-       21,
-       27,
-       30,
-       41,
-       48,
-       49,
-       62,
-       65
+       16,
+       25,
+       37,
+       39,
+       43,
+       53,
+       70,
+       75,
+       80
       ]
      },
      "siteMetrics": [
@@ -29353,17 +29353,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1352.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       2,
+       5,
        15,
-       33,
+       16,
+       31,
+       32,
        38,
-       49,
-       59,
-       63,
-       65,
-       74,
-       75
+       42,
+       49
       ]
      },
      "siteMetrics": [
@@ -29683,17 +29683,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_309.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       3,
-       4,
-       28,
-       33,
-       40,
-       49,
-       56,
-       76,
-       77
+       8,
+       10,
+       15,
+       23,
+       27,
+       44,
+       51,
+       69,
+       78
       ]
      },
      "siteMetrics": [
@@ -30010,17 +30010,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_681.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       8,
-       20,
-       21,
-       28,
-       47,
-       52,
-       64,
-       74,
-       77
+       12,
+       14,
+       18,
+       27,
+       38,
+       44,
+       58,
+       67,
+       74
       ]
      },
      "siteMetrics": [
@@ -30551,35 +30551,35 @@ const EXPERTS_DATA = {
       {
        "name": "酷酷",
        "nums": [
-        1,
-        3,
-        9,
-        29,
-        31,
-        40,
+        4,
+        14,
+        20,
+        21,
+        39,
         42,
-        44,
-        55,
-        65
+        51,
+        57,
+        58,
+        61
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 26.5
       },
       {
        "name": "单车5",
        "nums": [
-        5,
-        15,
+        11,
+        12,
+        18,
         20,
-        33,
-        45,
-        55,
-        58,
-        65,
-        73,
+        22,
+        41,
+        52,
+        53,
+        68,
         78
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 56
       }
      ]
@@ -30592,20 +30592,20 @@ const EXPERTS_DATA = {
       {
        "name": "杨金祥",
        "nums": [
-        10,
         12,
-        22,
-        30,
-        35,
+        13,
+        14,
+        33,
         37,
-        38,
+        40,
         42,
-        51,
-        58,
-        62,
-        74
+        65,
+        68,
+        74,
+        76,
+        78
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 62.25
       }
      ]
@@ -30618,89 +30618,89 @@ const EXPERTS_DATA = {
       {
        "name": "jimmy",
        "nums": [
-        2,
-        6,
-        7,
-        15,
-        16,
-        22,
-        24,
+        3,
+        21,
+        23,
         25,
-        27,
-        35,
-        50,
-        65,
-        67,
-        73,
-        78
+        26,
+        29,
+        34,
+        36,
+        44,
+        47,
+        49,
+        58,
+        62,
+        64,
+        68
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 80.5
       },
       {
        "name": "王兴刚",
        "nums": [
-        11,
-        18,
-        23,
-        27,
+        3,
+        4,
+        7,
+        16,
+        25,
+        29,
         31,
-        33,
-        36,
-        37,
-        55,
-        56,
-        65,
+        32,
+        35,
+        51,
+        61,
         66,
-        67,
+        69,
         73,
-        77
+        74
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 72
       },
       {
        "name": "精神之上",
        "nums": [
-        2,
-        5,
-        11,
-        18,
-        42,
-        61,
+        4,
+        10,
+        14,
+        22,
+        25,
+        29,
+        36,
+        50,
+        51,
+        56,
+        58,
         62,
-        63,
-        65,
-        66,
-        67,
-        70,
-        74,
-        75,
-        78
+        64,
+        69,
+        79
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 58.5
       },
       {
        "name": "那天朝下雨",
        "nums": [
-        2,
-        3,
         8,
-        11,
-        14,
-        15,
-        26,
-        30,
-        34,
-        35,
-        38,
+        19,
+        23,
+        28,
+        31,
+        33,
         45,
-        48,
-        51,
-        73
+        52,
+        53,
+        61,
+        66,
+        67,
+        71,
+        72,
+        78
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 50
       },
       {
@@ -30708,21 +30708,21 @@ const EXPERTS_DATA = {
        "nums": [
         8,
         10,
-        12,
-        21,
-        23,
-        37,
+        15,
+        24,
+        28,
+        29,
+        31,
+        36,
         40,
-        41,
-        47,
-        57,
+        49,
+        52,
         59,
-        67,
-        68,
-        70,
-        77
+        66,
+        72,
+        76
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 42.25
       }
      ]
@@ -30735,193 +30735,193 @@ const EXPERTS_DATA = {
       {
        "name": "小二二小",
        "nums": [
-        2,
-        6,
-        7,
-        17,
-        27,
-        38,
-        49,
-        60,
-        70
+        11,
+        15,
+        20,
+        21,
+        43,
+        44,
+        46,
+        62,
+        65
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 72
       },
       {
        "name": "钱多多",
        "nums": [
-        2,
-        9,
+        6,
+        7,
         15,
-        17,
-        20,
-        21,
-        40,
-        55,
-        65
+        33,
+        41,
+        42,
+        54,
+        70,
+        80
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 35
       },
       {
        "name": "阿伦",
        "nums": [
-        23,
-        26,
-        29,
-        34,
+        3,
+        8,
+        17,
+        20,
+        31,
+        39,
         47,
-        49,
-        57,
-        66,
-        67
+        58,
+        73
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 48
       },
       {
        "name": "liujunyan",
        "nums": [
-        12,
-        22,
-        23,
-        51,
-        65,
-        66,
-        70,
-        74,
-        75
+        11,
+        18,
+        24,
+        31,
+        35,
+        40,
+        52,
+        61,
+        66
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 70.5
       },
       {
        "name": "昨天是你的生日",
        "nums": [
-        3,
-        4,
-        28,
-        33,
-        40,
-        49,
-        56,
-        76,
-        77
+        8,
+        10,
+        15,
+        23,
+        27,
+        44,
+        51,
+        69,
+        78
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 9.75
       },
       {
        "name": "下一秒会幸福",
        "nums": [
-        8,
-        20,
-        21,
-        28,
-        47,
-        52,
-        64,
-        74,
-        77
+        12,
+        14,
+        18,
+        27,
+        38,
+        44,
+        58,
+        67,
+        74
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 5
       },
       {
        "name": "飞龙在天",
        "nums": [
+        2,
+        5,
         15,
-        33,
+        16,
+        31,
+        32,
         38,
-        49,
-        59,
-        63,
-        65,
-        74,
-        75
+        42,
+        49
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 20.33
       },
       {
        "name": "稳定盈利师",
        "nums": [
-        6,
-        21,
-        27,
-        30,
-        41,
-        48,
-        49,
-        62,
-        65
+        16,
+        25,
+        37,
+        39,
+        43,
+        53,
+        70,
+        75,
+        80
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 22.33
       },
       {
        "name": "飘叶1984",
        "nums": [
-        2,
-        30,
+        3,
+        32,
+        36,
         37,
         47,
-        57,
-        62,
-        65,
-        71,
-        78
+        48,
+        50,
+        52,
+        69
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 66
       },
       {
        "name": "天啊天",
        "nums": [
-        4,
-        6,
-        21,
-        24,
-        35,
-        37,
-        42,
+        2,
+        30,
+        43,
+        47,
+        50,
+        54,
+        62,
         65,
-        67
+        80
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 46.5
       },
       {
        "name": "萝卜苏",
        "nums": [
-        19,
+        10,
+        11,
         22,
-        42,
-        51,
-        58,
-        62,
-        65,
-        76,
+        46,
+        54,
+        61,
+        75,
+        79,
         80
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 66.17
       },
       {
        "name": "天上掉下来馅饼",
        "nums": [
-        11,
+        2,
+        19,
+        21,
         30,
-        37,
-        40,
-        42,
-        45,
-        55,
-        64,
-        79
+        33,
+        43,
+        47,
+        49,
+        60
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 78
       }
      ]
@@ -30932,15 +30932,15 @@ const EXPERTS_DATA = {
      "name": "小二二小",
      "cats": {
       "9码": [
-       2,
-       6,
-       7,
-       17,
-       27,
-       38,
-       49,
-       60,
-       70
+       11,
+       15,
+       20,
+       21,
+       43,
+       44,
+       46,
+       62,
+       65
       ]
      }
     },
@@ -30948,15 +30948,15 @@ const EXPERTS_DATA = {
      "name": "钱多多",
      "cats": {
       "9码": [
-       2,
-       9,
+       6,
+       7,
        15,
-       17,
-       20,
-       21,
-       40,
-       55,
-       65
+       33,
+       41,
+       42,
+       54,
+       70,
+       80
       ]
      }
     },
@@ -30964,21 +30964,21 @@ const EXPERTS_DATA = {
      "name": "jimmy",
      "cats": {
       "15码": [
-       2,
-       6,
-       7,
-       15,
-       16,
-       22,
-       24,
+       3,
+       21,
+       23,
        25,
-       27,
-       35,
-       50,
-       65,
-       67,
-       73,
-       78
+       26,
+       29,
+       34,
+       36,
+       44,
+       47,
+       49,
+       58,
+       62,
+       64,
+       68
       ]
      }
     },
@@ -30986,15 +30986,15 @@ const EXPERTS_DATA = {
      "name": "阿伦",
      "cats": {
       "9码": [
-       23,
-       26,
-       29,
-       34,
+       3,
+       8,
+       17,
+       20,
+       31,
+       39,
        47,
-       49,
-       57,
-       66,
-       67
+       58,
+       73
       ]
      }
     },
@@ -31002,15 +31002,15 @@ const EXPERTS_DATA = {
      "name": "liujunyan",
      "cats": {
       "9码": [
-       12,
-       22,
-       23,
-       51,
-       65,
-       66,
-       70,
-       74,
-       75
+       11,
+       18,
+       24,
+       31,
+       35,
+       40,
+       52,
+       61,
+       66
       ]
      }
     },
@@ -31018,15 +31018,15 @@ const EXPERTS_DATA = {
      "name": "昨天是你的生日",
      "cats": {
       "9码": [
-       3,
-       4,
-       28,
-       33,
-       40,
-       49,
-       56,
-       76,
-       77
+       8,
+       10,
+       15,
+       23,
+       27,
+       44,
+       51,
+       69,
+       78
       ]
      }
     },
@@ -31034,15 +31034,15 @@ const EXPERTS_DATA = {
      "name": "下一秒会幸福",
      "cats": {
       "9码": [
-       8,
-       20,
-       21,
-       28,
-       47,
-       52,
-       64,
-       74,
-       77
+       12,
+       14,
+       18,
+       27,
+       38,
+       44,
+       58,
+       67,
+       74
       ]
      }
     },
@@ -31050,15 +31050,15 @@ const EXPERTS_DATA = {
      "name": "飞龙在天",
      "cats": {
       "9码": [
+       2,
+       5,
        15,
-       33,
+       16,
+       31,
+       32,
        38,
-       49,
-       59,
-       63,
-       65,
-       74,
-       75
+       42,
+       49
       ]
      }
     },
@@ -31066,16 +31066,16 @@ const EXPERTS_DATA = {
      "name": "酷酷",
      "cats": {
       "10码": [
-       1,
-       3,
-       9,
-       29,
-       31,
-       40,
+       4,
+       14,
+       20,
+       21,
+       39,
        42,
-       44,
-       55,
-       65
+       51,
+       57,
+       58,
+       61
       ]
      }
     },
@@ -31083,15 +31083,15 @@ const EXPERTS_DATA = {
      "name": "单车5",
      "cats": {
       "10码": [
-       5,
-       15,
+       11,
+       12,
+       18,
        20,
-       33,
-       45,
-       55,
-       58,
-       65,
-       73,
+       22,
+       41,
+       52,
+       53,
+       68,
        78
       ]
      }
@@ -31100,15 +31100,15 @@ const EXPERTS_DATA = {
      "name": "稳定盈利师",
      "cats": {
       "9码": [
-       6,
-       21,
-       27,
-       30,
-       41,
-       48,
-       49,
-       62,
-       65
+       16,
+       25,
+       37,
+       39,
+       43,
+       53,
+       70,
+       75,
+       80
       ]
      }
     },
@@ -31116,15 +31116,15 @@ const EXPERTS_DATA = {
      "name": "飘叶1984",
      "cats": {
       "9码": [
-       2,
-       30,
+       3,
+       32,
+       36,
        37,
        47,
-       57,
-       62,
-       65,
-       71,
-       78
+       48,
+       50,
+       52,
+       69
       ]
      }
     },
@@ -31132,15 +31132,15 @@ const EXPERTS_DATA = {
      "name": "天啊天",
      "cats": {
       "9码": [
-       4,
-       6,
-       21,
-       24,
-       35,
-       37,
-       42,
+       2,
+       30,
+       43,
+       47,
+       50,
+       54,
+       62,
        65,
-       67
+       80
       ]
      }
     },
@@ -31148,14 +31148,14 @@ const EXPERTS_DATA = {
      "name": "萝卜苏",
      "cats": {
       "9码": [
-       19,
+       10,
+       11,
        22,
-       42,
-       51,
-       58,
-       62,
-       65,
-       76,
+       46,
+       54,
+       61,
+       75,
+       79,
        80
       ]
      }
@@ -31164,15 +31164,15 @@ const EXPERTS_DATA = {
      "name": "天上掉下来馅饼",
      "cats": {
       "9码": [
-       11,
+       2,
+       19,
+       21,
        30,
-       37,
-       40,
-       42,
-       45,
-       55,
-       64,
-       79
+       33,
+       43,
+       47,
+       49,
+       60
       ]
      }
     },
@@ -31180,21 +31180,21 @@ const EXPERTS_DATA = {
      "name": "王兴刚",
      "cats": {
       "15码": [
-       11,
-       18,
-       23,
-       27,
+       3,
+       4,
+       7,
+       16,
+       25,
+       29,
        31,
-       33,
-       36,
-       37,
-       55,
-       56,
-       65,
+       32,
+       35,
+       51,
+       61,
        66,
-       67,
+       69,
        73,
-       77
+       74
       ]
      }
     },
@@ -31202,21 +31202,21 @@ const EXPERTS_DATA = {
      "name": "精神之上",
      "cats": {
       "15码": [
-       2,
-       5,
-       11,
-       18,
-       42,
-       61,
+       4,
+       10,
+       14,
+       22,
+       25,
+       29,
+       36,
+       50,
+       51,
+       56,
+       58,
        62,
-       63,
-       65,
-       66,
-       67,
-       70,
-       74,
-       75,
-       78
+       64,
+       69,
+       79
       ]
      }
     },
@@ -31224,21 +31224,21 @@ const EXPERTS_DATA = {
      "name": "那天朝下雨",
      "cats": {
       "15码": [
-       2,
-       3,
        8,
-       11,
-       14,
-       15,
-       26,
-       30,
-       34,
-       35,
-       38,
+       19,
+       23,
+       28,
+       31,
+       33,
        45,
-       48,
-       51,
-       73
+       52,
+       53,
+       61,
+       66,
+       67,
+       71,
+       72,
+       78
       ]
      }
     },
@@ -31248,19 +31248,19 @@ const EXPERTS_DATA = {
       "15码": [
        8,
        10,
-       12,
-       21,
-       23,
-       37,
+       15,
+       24,
+       28,
+       29,
+       31,
+       36,
        40,
-       41,
-       47,
-       57,
+       49,
+       52,
        59,
-       67,
-       68,
-       70,
-       77
+       66,
+       72,
+       76
       ]
      }
     },
@@ -31268,18 +31268,18 @@ const EXPERTS_DATA = {
      "name": "杨金祥",
      "cats": {
       "12码": [
-       10,
        12,
-       22,
-       30,
-       35,
+       13,
+       14,
+       33,
        37,
-       38,
+       40,
        42,
-       51,
-       58,
-       62,
-       74
+       65,
+       68,
+       74,
+       76,
+       78
       ]
      }
     }
@@ -31384,13 +31384,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1503.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       1,
+       2,
+       3,
        4,
        5,
-       6,
+       7,
        8,
        9
       ]
@@ -31614,15 +31614,15 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_516.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
-       3,
+       2,
        4,
+       5,
        6,
        7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -31844,13 +31844,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1796.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
        2,
-       5,
-       6,
+       3,
+       4,
+       7,
        8,
        9
       ]
@@ -32072,14 +32072,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1407.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
+       2,
        3,
-       5,
+       4,
        6,
-       8,
        9
       ]
      },
@@ -32307,9 +32307,9 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_686.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
+       2,
        4,
        5,
        6,
@@ -32546,14 +32546,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_924.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
        3,
-       4,
        6,
        7,
+       8,
        9
       ]
      },
@@ -32774,15 +32774,15 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_772.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
-       3,
+       2,
        4,
        6,
        7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -33002,15 +33002,15 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1671.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
        2,
-       3,
+       4,
        6,
-       8,
-       9
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -33231,14 +33231,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1131.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       1,
        3,
+       4,
        5,
        6,
-       8,
        9
       ]
      },
@@ -33459,14 +33459,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1670.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
+       2,
        4,
        5,
        6,
-       7,
        9
       ]
      },
@@ -33685,15 +33685,15 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1568.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
        2,
-       3,
        4,
-       5,
-       6
+       6,
+       7,
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -33914,14 +33914,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_851.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
        3,
        4,
        5,
        6,
+       7,
        9
       ]
      },
@@ -34141,13 +34141,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1170.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       1,
+       3,
        4,
-       6,
-       7,
+       5,
        8,
        9
       ]
@@ -34380,13 +34380,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1805.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
+       1,
+       2,
        3,
-       4,
-       5,
        6,
+       7,
        8,
        9
       ]
@@ -34608,14 +34608,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1307.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
+       1,
        2,
+       3,
        4,
+       5,
        6,
-       7,
-       8,
        9
       ]
      },
@@ -34842,14 +34842,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1401.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       3,
        4,
        5,
        6,
-       8,
+       7,
        9
       ]
      },
@@ -35070,11 +35070,11 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1893.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       3,
-       4,
+       1,
+       2,
        5,
        6,
        8,
@@ -35299,14 +35299,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1236.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
+       1,
+       3,
        4,
        5,
-       6,
        7,
-       8,
        9
       ]
      },
@@ -35527,15 +35527,15 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1752.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        2,
        3,
        4,
        6,
-       8,
-       9
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -35755,14 +35755,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_756.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       1,
        2,
        3,
        5,
-       7,
+       6,
+       8,
        9
       ]
      },
@@ -36160,43 +36160,43 @@ const EXPERTS_DATA = {
       {
        "name": "蔡泽川",
        "nums": [
-        0,
-        1,
+        2,
+        3,
         4,
         5,
-        6,
+        7,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 60
       },
       {
        "name": "颜颜颜",
        "nums": [
         0,
-        1,
-        3,
+        2,
         4,
+        5,
         6,
         7,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 58.67
       },
       {
        "name": "北仑小情人",
        "nums": [
         0,
-        1,
         2,
-        5,
-        6,
+        3,
+        4,
+        7,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 57.33
       },
       {
@@ -36204,19 +36204,19 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
+        2,
         3,
-        5,
+        4,
         6,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 57.33
       },
       {
        "name": "Ting",
        "nums": [
-        1,
+        2,
         4,
         5,
         6,
@@ -36224,7 +36224,7 @@ const EXPERTS_DATA = {
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 57.33
       },
       {
@@ -36233,12 +36233,12 @@ const EXPERTS_DATA = {
         0,
         1,
         3,
-        4,
         6,
         7,
+        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 54
       },
       {
@@ -36246,13 +36246,13 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        3,
+        2,
         4,
         6,
         7,
-        9
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 54
       },
       {
@@ -36261,26 +36261,26 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
-        3,
+        4,
         6,
-        8,
-        9
+        7,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 52.67
       },
       {
        "name": "義薄雲天",
        "nums": [
         0,
-        2,
+        1,
         3,
+        4,
         5,
         6,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 52.67
       },
       {
@@ -36288,139 +36288,139 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
+        2,
         4,
         5,
         6,
-        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 52.67
       },
       {
        "name": "生生",
        "nums": [
-        0,
         1,
         2,
-        3,
         4,
-        5,
-        6
+        6,
+        7,
+        8,
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 52.67
       },
       {
        "name": "天空的蓝",
        "nums": [
         0,
-        1,
         3,
         4,
         5,
         6,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 51.33
       },
       {
        "name": "或者",
        "nums": [
         0,
-        2,
+        1,
+        3,
         4,
-        6,
-        7,
+        5,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 51.33
       },
       {
        "name": "天山雪",
        "nums": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026276",
-       "score": 51.33
-      },
-      {
-       "name": "神父",
-       "nums": [
-        0,
+        1,
         2,
-        4,
+        3,
         6,
         7,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
+       "score": 51.33
+      },
+      {
+       "name": "神父",
+       "nums": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "issue": "2026277",
        "score": 50
       },
       {
        "name": "竞彩之王",
        "nums": [
         0,
-        2,
+        3,
         4,
         5,
         6,
-        8,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 50
       },
       {
        "name": "青青",
        "nums": [
         0,
-        3,
-        4,
+        1,
+        2,
         5,
         6,
         8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 50
       },
       {
        "name": "Sysnnn",
        "nums": [
         0,
-        1,
         2,
         3,
         5,
-        7,
+        6,
+        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 42
       },
       {
        "name": "李积春",
        "nums": [
         0,
+        1,
+        3,
         4,
         5,
-        6,
         7,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 44
       },
       {
@@ -36431,10 +36431,10 @@ const EXPERTS_DATA = {
         3,
         4,
         6,
-        8,
-        9
+        7,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 44
       }
      ]
@@ -36445,11 +36445,11 @@ const EXPERTS_DATA = {
      "name": "蔡泽川",
      "cats": {
       "七码组选": [
-       0,
-       1,
+       2,
+       3,
        4,
        5,
-       6,
+       7,
        8,
        9
       ]
@@ -36460,12 +36460,12 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
-       3,
+       2,
        4,
+       5,
        6,
        7,
-       9
+       8
       ]
      }
     },
@@ -36474,10 +36474,10 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        2,
-       5,
-       6,
+       3,
+       4,
+       7,
        8,
        9
       ]
@@ -36489,10 +36489,10 @@ const EXPERTS_DATA = {
       "七码组选": [
        0,
        1,
+       2,
        3,
-       5,
+       4,
        6,
-       8,
        9
       ]
      }
@@ -36501,7 +36501,7 @@ const EXPERTS_DATA = {
      "name": "Ting",
      "cats": {
       "七码组选": [
-       1,
+       2,
        4,
        5,
        6,
@@ -36518,9 +36518,9 @@ const EXPERTS_DATA = {
        0,
        1,
        3,
-       4,
        6,
        7,
+       8,
        9
       ]
      }
@@ -36531,11 +36531,11 @@ const EXPERTS_DATA = {
       "七码组选": [
        0,
        1,
-       3,
+       2,
        4,
        6,
        7,
-       9
+       8
       ]
      }
     },
@@ -36546,10 +36546,10 @@ const EXPERTS_DATA = {
        0,
        1,
        2,
-       3,
+       4,
        6,
-       8,
-       9
+       7,
+       8
       ]
      }
     },
@@ -36558,11 +36558,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       2,
+       1,
        3,
+       4,
        5,
        6,
-       8,
        9
       ]
      }
@@ -36573,10 +36573,10 @@ const EXPERTS_DATA = {
       "七码组选": [
        0,
        1,
+       2,
        4,
        5,
        6,
-       7,
        9
       ]
      }
@@ -36585,13 +36585,13 @@ const EXPERTS_DATA = {
      "name": "生生",
      "cats": {
       "七码组选": [
-       0,
        1,
        2,
-       3,
        4,
-       5,
-       6
+       6,
+       7,
+       8,
+       9
       ]
      }
     },
@@ -36600,11 +36600,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        3,
        4,
        5,
        6,
+       7,
        9
       ]
      }
@@ -36614,10 +36614,10 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       2,
+       1,
+       3,
        4,
-       6,
-       7,
+       5,
        8,
        9
       ]
@@ -36627,11 +36627,11 @@ const EXPERTS_DATA = {
      "name": "天山雪",
      "cats": {
       "七码组选": [
-       0,
+       1,
+       2,
        3,
-       4,
-       5,
        6,
+       7,
        8,
        9
       ]
@@ -36641,12 +36641,12 @@ const EXPERTS_DATA = {
      "name": "神父",
      "cats": {
       "七码组选": [
-       0,
+       1,
        2,
+       3,
        4,
+       5,
        6,
-       7,
-       8,
        9
       ]
      }
@@ -36656,11 +36656,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       2,
+       3,
        4,
        5,
        6,
-       8,
+       7,
        9
       ]
      }
@@ -36670,8 +36670,8 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       3,
-       4,
+       1,
+       2,
        5,
        6,
        8,
@@ -36684,11 +36684,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        2,
        3,
        5,
-       7,
+       6,
+       8,
        9
       ]
      }
@@ -36698,11 +36698,11 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
+       1,
+       3,
        4,
        5,
-       6,
        7,
-       8,
        9
       ]
      }
@@ -36716,8 +36716,8 @@ const EXPERTS_DATA = {
        3,
        4,
        6,
-       8,
-       9
+       7,
+       8
       ]
      }
     }
@@ -36862,13 +36862,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1671.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
        2,
-       3,
-       6
+       4,
+       7
       ]
      },
      "siteMetrics": [
@@ -36994,13 +36994,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_820.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
        2,
        4,
-       5
+       6,
+       8
       ]
      },
      "siteMetrics": [
@@ -37132,10 +37132,10 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1944.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
-       4,
+       2,
+       5,
        6,
        7,
        8
@@ -37270,12 +37270,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1000.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
        2,
-       8,
+       4,
+       7,
        9
       ]
      },
@@ -37416,13 +37416,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1850.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
        2,
+       3,
        4,
        7,
-       8
+       9
       ]
      },
      "siteMetrics": [
@@ -37558,13 +37558,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_839.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
+       1,
        3,
-       4,
-       5,
-       7
+       6,
+       8
       ]
      },
      "siteMetrics": [
@@ -37698,13 +37698,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1027.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
+       2,
        3,
+       4,
        5,
-       8,
-       9
+       7
       ]
      },
      "siteMetrics": [
@@ -37832,13 +37832,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_703.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
        1,
-       5,
-       6,
-       8
+       2,
+       4,
+       6
       ]
      },
      "siteMetrics": [
@@ -37972,12 +37972,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_582.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        1,
        2,
-       7,
-       8,
+       5,
+       6,
        9
       ]
      },
@@ -38112,13 +38112,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_296.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       0,
        2,
        4,
        5,
-       6,
-       8
+       6
       ]
      },
      "siteMetrics": [
@@ -38246,12 +38246,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_505.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       1,
        2,
-       3,
+       4,
        5,
-       8,
        9
       ]
      },
@@ -38390,13 +38390,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_701.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
+       0,
        2,
-       3,
-       5,
-       8,
-       9
+       4,
+       6,
+       8
       ]
      },
      "siteMetrics": [
@@ -38530,12 +38530,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1638.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
-       2,
+       4,
+       5,
        6,
-       8,
        9
       ]
      },
@@ -38674,13 +38674,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_233.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
        1,
        2,
-       5,
-       6
+       3,
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -38814,13 +38814,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_706.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       2,
+       0,
+       1,
        3,
-       4,
-       7,
-       8
+       6,
+       9
       ]
      },
      "siteMetrics": [
@@ -38952,12 +38952,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1845.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        1,
        4,
+       5,
        7,
-       8,
        9
       ]
      },
@@ -39092,13 +39092,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1931.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
-       1,
-       2,
+       3,
+       4,
+       6,
        7,
-       8
+       9
       ]
      },
      "siteMetrics": [
@@ -39230,12 +39230,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_808.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
        0,
+       2,
        3,
        4,
-       5,
        7
       ]
      },
@@ -39368,13 +39368,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1935.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       0,
+       2,
+       3,
+       4,
        5,
-       6,
-       8,
-       9
+       7
       ]
      },
      "siteMetrics": [
@@ -39512,12 +39512,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1197.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026276",
+      "issue": "2026277",
       "nums": [
-       1,
-       2,
+       3,
+       4,
        5,
-       8,
+       6,
        9
       ]
      },
@@ -39676,25 +39676,25 @@ const EXPERTS_DATA = {
       {
        "name": "爱你没理由12",
        "nums": [
-        0,
         1,
         2,
-        8,
+        4,
+        7,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 73.33
       },
       {
        "name": "风云必胜",
        "nums": [
-        1,
         2,
+        3,
         4,
         7,
-        8
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 73.33
       },
       {
@@ -39702,11 +39702,11 @@ const EXPERTS_DATA = {
        "nums": [
         1,
         2,
-        7,
-        8,
+        5,
+        6,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 71.33
       },
       {
@@ -39714,23 +39714,23 @@ const EXPERTS_DATA = {
        "nums": [
         1,
         4,
+        5,
         7,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.67
       },
       {
        "name": "稳定红利",
        "nums": [
-        0,
-        1,
-        2,
+        3,
+        4,
+        6,
         7,
-        8
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.67
       }
      ]
@@ -39743,49 +39743,49 @@ const EXPERTS_DATA = {
       {
        "name": "彩票小达人",
        "nums": [
-        1,
+        2,
         3,
+        4,
         5,
-        8,
-        9
+        7
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 72.67
       },
       {
        "name": "红虎",
        "nums": [
         0,
+        2,
         3,
         4,
-        5,
         7
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.67
       },
       {
        "name": "糖糖爸",
        "nums": [
-        0,
+        2,
+        3,
+        4,
         5,
-        6,
-        8,
-        9
+        7
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.67
       },
       {
        "name": "太阳与月亮",
        "nums": [
-        1,
-        2,
+        3,
+        4,
         5,
-        8,
+        6,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 68.67
       }
      ]
@@ -39801,70 +39801,70 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
-        3,
-        6
+        4,
+        7
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 82.67
       },
       {
        "name": "专注竞彩",
        "nums": [
-        0,
         1,
         2,
         4,
-        5
+        6,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 80
       },
       {
        "name": "江上渝",
        "nums": [
         0,
+        1,
         3,
-        4,
-        5,
-        7
+        6,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 73.33
       },
       {
        "name": "丶尛雨媽",
        "nums": [
         0,
-        2,
+        4,
+        5,
         6,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 70
       },
       {
        "name": "就那里奎",
        "nums": [
-        0,
         1,
         2,
-        5,
-        6
+        3,
+        6,
+        7
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 70
       },
       {
        "name": "午夜后者",
        "nums": [
-        2,
+        0,
+        1,
         3,
-        4,
-        7,
-        8
+        6,
+        9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 70
       }
      ]
@@ -39877,13 +39877,13 @@ const EXPERTS_DATA = {
       {
        "name": "浪子",
        "nums": [
-        1,
-        4,
+        2,
+        5,
         6,
         7,
         8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 76
       },
       {
@@ -39891,47 +39891,47 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        5,
-        6,
-        8
+        2,
+        4,
+        6
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 72.67
       },
       {
        "name": "呆萌",
        "nums": [
+        0,
         2,
         4,
         5,
-        6,
-        8
+        6
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 71.33
       },
       {
        "name": "兔兔图",
        "nums": [
+        1,
         2,
-        3,
+        4,
         5,
-        8,
         9
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 71.33
       },
       {
        "name": "我爱竞彩",
        "nums": [
+        0,
         2,
-        3,
-        5,
-        8,
-        9
+        4,
+        6,
+        8
        ],
-       "issue": "2026276",
+       "issue": "2026277",
        "score": 70
       }
      ]
@@ -39945,8 +39945,8 @@ const EXPERTS_DATA = {
        0,
        1,
        2,
-       3,
-       6
+       4,
+       7
       ]
      }
     },
@@ -39954,11 +39954,11 @@ const EXPERTS_DATA = {
      "name": "专注竞彩",
      "cats": {
       "千位定5": [
-       0,
        1,
        2,
        4,
-       5
+       6,
+       8
       ]
      }
     },
@@ -39966,8 +39966,8 @@ const EXPERTS_DATA = {
      "name": "浪子",
      "cats": {
       "百位定5": [
-       1,
-       4,
+       2,
+       5,
        6,
        7,
        8
@@ -39978,10 +39978,10 @@ const EXPERTS_DATA = {
      "name": "爱你没理由12",
      "cats": {
       "个位定5": [
-       0,
        1,
        2,
-       8,
+       4,
+       7,
        9
       ]
      }
@@ -39990,11 +39990,11 @@ const EXPERTS_DATA = {
      "name": "风云必胜",
      "cats": {
       "个位定5": [
-       1,
        2,
+       3,
        4,
        7,
-       8
+       9
       ]
      }
     },
@@ -40003,10 +40003,10 @@ const EXPERTS_DATA = {
      "cats": {
       "千位定5": [
        0,
+       1,
        3,
-       4,
-       5,
-       7
+       6,
+       8
       ]
      }
     },
@@ -40014,11 +40014,11 @@ const EXPERTS_DATA = {
      "name": "彩票小达人",
      "cats": {
       "十位定5": [
-       1,
+       2,
        3,
+       4,
        5,
-       8,
-       9
+       7
       ]
      }
     },
@@ -40028,9 +40028,9 @@ const EXPERTS_DATA = {
       "百位定5": [
        0,
        1,
-       5,
-       6,
-       8
+       2,
+       4,
+       6
       ]
      }
     },
@@ -40040,8 +40040,8 @@ const EXPERTS_DATA = {
       "个位定5": [
        1,
        2,
-       7,
-       8,
+       5,
+       6,
        9
       ]
      }
@@ -40050,11 +40050,11 @@ const EXPERTS_DATA = {
      "name": "呆萌",
      "cats": {
       "百位定5": [
+       0,
        2,
        4,
        5,
-       6,
-       8
+       6
       ]
      }
     },
@@ -40062,10 +40062,10 @@ const EXPERTS_DATA = {
      "name": "兔兔图",
      "cats": {
       "百位定5": [
+       1,
        2,
-       3,
+       4,
        5,
-       8,
        9
       ]
      }
@@ -40074,11 +40074,11 @@ const EXPERTS_DATA = {
      "name": "我爱竞彩",
      "cats": {
       "百位定5": [
+       0,
        2,
-       3,
-       5,
-       8,
-       9
+       4,
+       6,
+       8
       ]
      }
     },
@@ -40087,9 +40087,9 @@ const EXPERTS_DATA = {
      "cats": {
       "千位定5": [
        0,
-       2,
+       4,
+       5,
        6,
-       8,
        9
       ]
      }
@@ -40098,11 +40098,11 @@ const EXPERTS_DATA = {
      "name": "就那里奎",
      "cats": {
       "千位定5": [
-       0,
        1,
        2,
-       5,
-       6
+       3,
+       6,
+       7
       ]
      }
     },
@@ -40110,11 +40110,11 @@ const EXPERTS_DATA = {
      "name": "午夜后者",
      "cats": {
       "千位定5": [
-       2,
+       0,
+       1,
        3,
-       4,
-       7,
-       8
+       6,
+       9
       ]
      }
     },
@@ -40124,8 +40124,8 @@ const EXPERTS_DATA = {
       "个位定5": [
        1,
        4,
+       5,
        7,
-       8,
        9
       ]
      }
@@ -40134,11 +40134,11 @@ const EXPERTS_DATA = {
      "name": "稳定红利",
      "cats": {
       "个位定5": [
-       0,
-       1,
-       2,
+       3,
+       4,
+       6,
        7,
-       8
+       9
       ]
      }
     },
@@ -40147,9 +40147,9 @@ const EXPERTS_DATA = {
      "cats": {
       "十位定5": [
        0,
+       2,
        3,
        4,
-       5,
        7
       ]
      }
@@ -40158,11 +40158,11 @@ const EXPERTS_DATA = {
      "name": "糖糖爸",
      "cats": {
       "十位定5": [
-       0,
+       2,
+       3,
+       4,
        5,
-       6,
-       8,
-       9
+       7
       ]
      }
     },
@@ -40170,10 +40170,10 @@ const EXPERTS_DATA = {
      "name": "太阳与月亮",
      "cats": {
       "十位定5": [
-       1,
-       2,
+       3,
+       4,
        5,
-       8,
+       6,
        9
       ]
      }
@@ -40264,16 +40264,16 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_433.html",
      "cat": "后区定8",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
-       3,
+       1,
+       2,
+       4,
        5,
-       6,
-       7,
        8,
        9,
-       13
+       10,
+       11
       ]
      },
      "siteMetrics": [
@@ -40436,13 +40436,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_282.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
-       1,
+       3,
        4,
        6,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -40609,16 +40609,16 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_818.html",
      "cat": "后区定8",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       4,
-       5,
+       1,
        6,
        7,
        8,
+       10,
        11,
-       13,
-       14
+       12,
+       13
       ]
      },
      "siteMetrics": [
@@ -40787,16 +40787,16 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_632.html",
      "cat": "后区定8",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
-       4,
+       1,
+       2,
+       3,
        5,
-       6,
-       7,
-       8,
+       10,
        11,
-       14
+       12,
+       13
       ]
      },
      "siteMetrics": [
@@ -40959,11 +40959,11 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1074.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
+       1,
+       3,
        4,
-       6,
        7,
        9
       ]
@@ -41129,12 +41129,12 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_633.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
+       1,
        4,
+       6,
        7,
-       8,
        9
       ]
      },
@@ -41296,13 +41296,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1864.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
+       2,
        5,
-       6,
        7,
-       8
+       9
       ]
      },
      "siteMetrics": [
@@ -41470,12 +41470,12 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_489.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       2,
+       1,
        3,
-       6,
-       7,
+       5,
+       8,
        9
       ]
      },
@@ -41648,13 +41648,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_862.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
-       1,
-       4,
-       7,
-       9
+       2,
+       3,
+       5,
+       8
       ]
      },
      "siteMetrics": [
@@ -41817,13 +41817,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1770.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
        1,
+       4,
        5,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -41990,13 +41990,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_803.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
+       0,
+       1,
+       4,
        5,
-       6,
-       7,
-       8,
-       9
+       6
       ]
      },
      "siteMetrics": [
@@ -42157,13 +42157,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_739.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
-       1,
-       4,
+       3,
        6,
-       8
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -42324,13 +42324,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1838.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
        1,
-       7,
-       8,
-       9
+       2,
+       6,
+       8
       ]
      },
      "siteMetrics": [
@@ -42495,13 +42495,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_169.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        0,
-       2,
-       4,
-       6,
-       7
+       1,
+       5,
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -42665,13 +42665,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_114.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
+       0,
        1,
        2,
        3,
-       4,
-       8
+       5
       ]
      },
      "siteMetrics": [
@@ -42832,13 +42832,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_467.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        1,
+       2,
+       3,
        4,
-       5,
-       6,
-       7
+       6
       ]
      },
      "siteMetrics": [
@@ -43000,13 +43000,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_997.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
        1,
-       7,
-       8,
-       9
+       2,
+       5,
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -43170,13 +43170,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_271.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
        1,
-       2,
+       3,
+       4,
        5,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -43343,12 +43343,12 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_222.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
-       0,
-       1,
-       6,
-       8,
+       2,
+       3,
+       4,
+       5,
        9
       ]
      },
@@ -43510,11 +43510,11 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1647.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026118",
+      "issue": "2026119",
       "nums": [
        1,
-       3,
-       5,
+       2,
+       4,
        6,
        8
       ]
@@ -43712,48 +43712,48 @@ const EXPERTS_DATA = {
        "name": "青峰云烟",
        "nums": [
         0,
-        1,
+        3,
         4,
         6,
-        9
+        8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 78.67
       },
       {
        "name": "就这么一次",
        "nums": [
-        2,
+        1,
         3,
-        6,
-        7,
+        5,
+        8,
         9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 70
       },
       {
        "name": "太空上的狼",
        "nums": [
         0,
-        2,
-        4,
-        6,
-        7
+        1,
+        5,
+        7,
+        9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       },
       {
        "name": "兮兮",
        "nums": [
+        0,
         1,
         2,
         3,
-        4,
-        8
+        5
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       }
      ]
@@ -43766,37 +43766,37 @@ const EXPERTS_DATA = {
       {
        "name": "飞花轻似梦",
        "nums": [
-        0,
+        1,
+        3,
         4,
-        6,
         7,
         9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 76
       },
       {
        "name": "阿力",
        "nums": [
         0,
-        1,
-        4,
-        7,
-        9
+        2,
+        3,
+        5,
+        8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 70
       },
       {
        "name": "人生就两字",
        "nums": [
         1,
+        2,
+        3,
         4,
-        5,
-        6,
-        7
+        6
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       }
      ]
@@ -43810,12 +43810,12 @@ const EXPERTS_DATA = {
        "name": "健健康康八",
        "nums": [
         0,
+        2,
         5,
-        6,
         7,
-        8
+        9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 74.67
       },
       {
@@ -43823,59 +43823,59 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
+        4,
         5,
-        8,
-        9
+        8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 70
       },
       {
        "name": "献爱心",
        "nums": [
+        0,
+        1,
+        4,
         5,
-        6,
-        7,
-        8,
-        9
+        6
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 70
       },
       {
        "name": "63299追踪一等奖",
        "nums": [
         0,
-        1,
-        4,
+        3,
         6,
-        8
+        7,
+        9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 70
       },
       {
        "name": "则把收到",
        "nums": [
-        0,
         1,
-        7,
-        8,
-        9
+        2,
+        5,
+        6,
+        7
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       },
       {
        "name": "安坦",
        "nums": [
-        0,
         1,
-        2,
+        3,
+        4,
         5,
-        9
+        8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       }
      ]
@@ -43888,13 +43888,13 @@ const EXPERTS_DATA = {
       {
        "name": "聚缘",
        "nums": [
-        2,
+        1,
         4,
+        6,
         7,
-        8,
         9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 74.67
       },
       {
@@ -43902,35 +43902,35 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        7,
-        8,
-        9
+        2,
+        6,
+        8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 68.67
       },
       {
        "name": "萱萱宝",
        "nums": [
-        0,
-        1,
-        6,
-        8,
+        2,
+        3,
+        4,
+        5,
         9
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 67.33
       },
       {
        "name": "乐山",
        "nums": [
         1,
-        3,
-        5,
+        2,
+        4,
         6,
         8
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 67.33
       }
      ]
@@ -43943,46 +43943,46 @@ const EXPERTS_DATA = {
       {
        "name": "vicky",
        "nums": [
-        0,
-        3,
+        1,
+        2,
+        4,
         5,
-        6,
-        7,
         8,
         9,
-        13
+        10,
+        11
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 80
       },
       {
        "name": "无爱的苦逼",
        "nums": [
-        4,
-        5,
+        1,
         6,
         7,
         8,
+        10,
         11,
-        13,
-        14
+        12,
+        13
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 78.67
       },
       {
        "name": "業獄殇",
        "nums": [
-        0,
-        4,
+        1,
+        2,
+        3,
         5,
-        6,
-        7,
-        8,
+        10,
         11,
-        14
+        12,
+        13
        ],
-       "issue": "2026118",
+       "issue": "2026119",
        "score": 78.67
       }
      ]
@@ -43994,10 +43994,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前1定5": [
        0,
-       1,
+       3,
        4,
        6,
-       9
+       8
       ]
      }
     },
@@ -44005,9 +44005,9 @@ const EXPERTS_DATA = {
      "name": "飞花轻似梦",
      "cats": {
       "前2定5": [
-       0,
+       1,
+       3,
        4,
-       6,
        7,
        9
       ]
@@ -44017,10 +44017,10 @@ const EXPERTS_DATA = {
      "name": "聚缘",
      "cats": {
       "前6定5": [
-       2,
+       1,
        4,
+       6,
        7,
-       8,
        9
       ]
      }
@@ -44030,10 +44030,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前3定5": [
        0,
+       2,
        5,
-       6,
        7,
-       8
+       9
       ]
      }
     },
@@ -44041,10 +44041,10 @@ const EXPERTS_DATA = {
      "name": "就这么一次",
      "cats": {
       "前1定5": [
-       2,
+       1,
        3,
-       6,
-       7,
+       5,
+       8,
        9
       ]
      }
@@ -44054,10 +44054,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前2定5": [
        0,
-       1,
-       4,
-       7,
-       9
+       2,
+       3,
+       5,
+       8
       ]
      }
     },
@@ -44067,9 +44067,9 @@ const EXPERTS_DATA = {
       "前3定5": [
        0,
        1,
+       4,
        5,
-       8,
-       9
+       8
       ]
      }
     },
@@ -44077,11 +44077,11 @@ const EXPERTS_DATA = {
      "name": "献爱心",
      "cats": {
       "前3定5": [
+       0,
+       1,
+       4,
        5,
-       6,
-       7,
-       8,
-       9
+       6
       ]
      }
     },
@@ -44090,10 +44090,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前3定5": [
        0,
-       1,
-       4,
+       3,
        6,
-       8
+       7,
+       9
       ]
      }
     },
@@ -44103,9 +44103,9 @@ const EXPERTS_DATA = {
       "前6定5": [
        0,
        1,
-       7,
-       8,
-       9
+       2,
+       6,
+       8
       ]
      }
     },
@@ -44114,10 +44114,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前1定5": [
        0,
-       2,
-       4,
-       6,
-       7
+       1,
+       5,
+       7,
+       9
       ]
      }
     },
@@ -44125,11 +44125,11 @@ const EXPERTS_DATA = {
      "name": "兮兮",
      "cats": {
       "前1定5": [
+       0,
        1,
        2,
        3,
-       4,
-       8
+       5
       ]
      }
     },
@@ -44138,10 +44138,10 @@ const EXPERTS_DATA = {
      "cats": {
       "前2定5": [
        1,
+       2,
+       3,
        4,
-       5,
-       6,
-       7
+       6
       ]
      }
     },
@@ -44149,11 +44149,11 @@ const EXPERTS_DATA = {
      "name": "则把收到",
      "cats": {
       "前3定5": [
-       0,
        1,
-       7,
-       8,
-       9
+       2,
+       5,
+       6,
+       7
       ]
      }
     },
@@ -44161,11 +44161,11 @@ const EXPERTS_DATA = {
      "name": "安坦",
      "cats": {
       "前3定5": [
-       0,
        1,
-       2,
+       3,
+       4,
        5,
-       9
+       8
       ]
      }
     },
@@ -44173,10 +44173,10 @@ const EXPERTS_DATA = {
      "name": "萱萱宝",
      "cats": {
       "前6定5": [
-       0,
-       1,
-       6,
-       8,
+       2,
+       3,
+       4,
+       5,
        9
       ]
      }
@@ -44186,8 +44186,8 @@ const EXPERTS_DATA = {
      "cats": {
       "前6定5": [
        1,
-       3,
-       5,
+       2,
+       4,
        6,
        8
       ]
@@ -44197,14 +44197,14 @@ const EXPERTS_DATA = {
      "name": "vicky",
      "cats": {
       "后区定8": [
-       0,
-       3,
+       1,
+       2,
+       4,
        5,
-       6,
-       7,
        8,
        9,
-       13
+       10,
+       11
       ]
      }
     },
@@ -44212,14 +44212,14 @@ const EXPERTS_DATA = {
      "name": "无爱的苦逼",
      "cats": {
       "后区定8": [
-       4,
-       5,
+       1,
        6,
        7,
        8,
+       10,
        11,
-       13,
-       14
+       12,
+       13
       ]
      }
     },
@@ -44227,14 +44227,14 @@ const EXPERTS_DATA = {
      "name": "業獄殇",
      "cats": {
       "后区定8": [
-       0,
-       4,
+       1,
+       2,
+       3,
        5,
-       6,
-       7,
-       8,
+       10,
        11,
-       14
+       12,
+       13
       ]
      }
     }
@@ -44294,23 +44294,23 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1118.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       2,
+       3,
        6,
-       10,
-       11,
        12,
        13,
        14,
        15,
        16,
+       17,
+       18,
        19,
        21,
-       22,
-       23,
        24,
+       25,
+       26,
        28,
        29,
        30
@@ -44717,24 +44717,24 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1537.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       3,
-       4,
-       5,
+       6,
        7,
        8,
-       10,
+       12,
        13,
        14,
        15,
        16,
        17,
        18,
-       23,
+       20,
+       21,
        24,
        25,
        26,
+       27,
        29,
        30
       ]
@@ -45140,23 +45140,23 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1975.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       2,
        4,
-       6,
-       7,
+       5,
+       8,
        9,
-       11,
        12,
-       14,
+       13,
+       15,
        16,
-       17,
-       18,
+       19,
        20,
        22,
-       23,
+       24,
+       25,
        26,
+       27,
        28,
        29,
        30
@@ -45560,11 +45560,11 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1145.html",
      "cat": "三胆",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       8,
-       19,
-       26
+       3,
+       25,
+       27
       ]
      },
      "siteMetrics": [
@@ -45964,26 +45964,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_383.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       2,
-       3,
-       5,
-       8,
        9,
        11,
        12,
+       13,
        14,
        15,
        16,
+       17,
        18,
        21,
        22,
-       24,
+       23,
        25,
        26,
-       30
+       27,
+       28,
+       29
       ]
      },
      "siteMetrics": [
@@ -46382,26 +46382,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_163.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        2,
-       3,
-       5,
+       4,
        6,
        7,
        10,
        11,
        12,
-       13,
        14,
        15,
        16,
-       20,
+       17,
+       18,
+       19,
+       21,
        22,
+       23,
        24,
-       25,
-       28,
-       30
+       28
       ]
      },
      "siteMetrics": [
@@ -46805,25 +46805,25 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_518.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       1,
        2,
        3,
-       4,
-       6,
+       5,
        7,
        8,
+       9,
        10,
        11,
        12,
        13,
-       15,
+       16,
        17,
-       20,
+       18,
+       19,
        22,
        24,
-       26,
+       27,
        28
       ]
      },
@@ -47229,26 +47229,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_313.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       1,
+       2,
        3,
+       4,
+       5,
        6,
-       8,
+       7,
        9,
        10,
-       14,
+       12,
        16,
        17,
        18,
        19,
-       20,
-       22,
        24,
        25,
-       28,
-       29,
-       30
+       26,
+       27,
+       28
       ]
      },
      "siteMetrics": [
@@ -47653,11 +47653,11 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1830.html",
      "cat": "三胆",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       10,
-       16
+       3,
+       4
       ]
      },
      "siteMetrics": [
@@ -48058,25 +48058,25 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_924.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       2,
-       3,
        5,
        6,
-       8,
+       7,
        9,
        10,
-       11,
        12,
        13,
+       15,
        16,
        17,
+       18,
        19,
-       20,
-       21,
-       26,
-       28,
+       22,
+       23,
+       24,
+       27,
+       29,
        30
       ]
      },
@@ -48475,11 +48475,11 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1239.html",
      "cat": "三胆",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       11,
-       27,
-       29
+       1,
+       9,
+       10
       ]
      },
      "siteMetrics": [
@@ -48880,26 +48880,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_50.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
        2,
-       3,
+       5,
+       6,
        8,
        10,
-       12,
-       14,
+       11,
        15,
        16,
-       17,
        18,
        19,
-       20,
        21,
        22,
        23,
-       28,
-       29
+       25,
+       27,
+       29,
+       30
       ]
      },
      "siteMetrics": [
@@ -49303,26 +49303,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_916.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       4,
-       5,
+       2,
+       3,
        6,
        7,
        8,
-       10,
-       11,
+       9,
        12,
        13,
        15,
        16,
+       17,
+       18,
        21,
-       23,
        24,
-       25,
-       28,
-       29
+       26,
+       27,
+       30
       ]
      },
      "siteMetrics": [
@@ -49727,26 +49727,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_12.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       2,
+       3,
+       4,
+       5,
        6,
+       7,
        8,
        9,
-       10,
+       11,
        12,
        14,
        15,
-       18,
-       19,
+       17,
+       20,
        21,
        24,
        25,
-       27,
-       28,
-       29,
-       30
+       28
       ]
      },
      "siteMetrics": [
@@ -50144,25 +50144,25 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_932.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
-       5,
-       7,
-       8,
+       3,
+       4,
+       6,
+       9,
+       10,
        12,
        13,
        14,
        15,
-       18,
+       16,
        19,
-       21,
+       20,
        23,
+       24,
        25,
        26,
-       27,
-       28,
-       29,
        30
       ]
      },
@@ -50562,26 +50562,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_969.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       1,
-       8,
+       2,
+       3,
+       4,
+       5,
+       6,
        9,
        10,
-       12,
-       13,
-       15,
-       16,
+       11,
        18,
        19,
+       20,
        21,
        22,
        23,
        24,
+       25,
        26,
-       27,
-       29,
-       30
+       27
       ]
      },
      "siteMetrics": [
@@ -50981,25 +50981,25 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_933.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
        1,
        2,
-       7,
-       9,
+       3,
+       4,
+       6,
+       8,
        10,
        11,
        12,
-       13,
-       14,
+       15,
        16,
-       17,
-       18,
+       19,
+       20,
        21,
-       22,
-       24,
-       27,
-       29,
+       25,
+       26,
+       28,
        30
       ]
      },
@@ -51403,26 +51403,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_887.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       2,
+       1,
        3,
        4,
-       5,
+       7,
        8,
        9,
+       10,
        12,
        13,
+       14,
+       15,
        16,
        17,
        18,
-       19,
        20,
-       21,
-       24,
-       25,
-       28,
-       30
+       22,
+       26,
+       28
       ]
      },
      "siteMetrics": [
@@ -51824,17 +51824,17 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1365.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       4,
+       2,
+       3,
        5,
-       10,
+       7,
+       9,
        12,
        14,
        15,
        17,
-       18,
-       20,
        21,
        22,
        23,
@@ -52244,24 +52244,24 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1884.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026119",
+      "issue": "2026120",
       "nums": [
-       3,
-       4,
+       2,
+       5,
+       6,
+       7,
        8,
        9,
        11,
        12,
-       15,
+       13,
+       14,
        17,
-       18,
-       19,
        20,
        21,
-       22,
-       24,
-       27,
-       28,
+       23,
+       25,
+       26,
        29,
        30
       ]
@@ -52702,125 +52702,125 @@ const EXPERTS_DATA = {
        "name": "白天做梦",
        "nums": [
         1,
-        5,
-        7,
-        8,
+        3,
+        4,
+        6,
+        9,
+        10,
         12,
         13,
         14,
         15,
-        18,
+        16,
         19,
-        21,
+        20,
         23,
+        24,
         25,
         26,
-        27,
-        28,
-        29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 4.83
       },
       {
        "name": "丶丶丶丶丶丶",
        "nums": [
         1,
-        2,
+        3,
+        4,
+        5,
         6,
+        7,
         8,
         9,
-        10,
+        11,
         12,
         14,
         15,
-        18,
-        19,
+        17,
+        20,
         21,
         24,
         25,
-        27,
-        28,
-        29,
-        30
+        28
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 17.64
       },
       {
        "name": "郭贱人",
        "nums": [
-        3,
-        4,
-        5,
+        6,
         7,
         8,
-        10,
+        12,
         13,
         14,
         15,
         16,
         17,
         18,
-        23,
+        20,
+        21,
         24,
         25,
         26,
+        27,
         29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 64.75
       },
       {
        "name": "程昆",
        "nums": [
         1,
-        4,
-        5,
+        2,
+        3,
         6,
         7,
         8,
-        10,
-        11,
+        9,
         12,
         13,
         15,
         16,
+        17,
+        18,
         21,
-        23,
         24,
-        25,
-        28,
-        29
+        26,
+        27,
+        30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 22.33
       },
       {
        "name": "buzhidao",
        "nums": [
-        1,
+        2,
         3,
+        4,
+        5,
         6,
-        8,
+        7,
         9,
         10,
-        14,
+        12,
         16,
         17,
         18,
         19,
-        20,
-        22,
         24,
         25,
-        28,
-        29,
-        30
+        26,
+        27,
+        28
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 39.75
       },
       {
@@ -52828,224 +52828,224 @@ const EXPERTS_DATA = {
        "nums": [
         1,
         2,
-        7,
-        9,
+        3,
+        4,
+        6,
+        8,
         10,
         11,
         12,
-        13,
-        14,
+        15,
         16,
-        17,
-        18,
+        19,
+        20,
         21,
-        22,
-        24,
-        27,
-        29,
+        25,
+        26,
+        28,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 2.33
       },
       {
        "name": "華陽玥",
        "nums": [
-        2,
         4,
-        6,
-        7,
-        9,
-        11,
-        12,
-        14,
-        16,
-        17,
-        18,
-        20,
-        22,
-        23,
-        26,
-        28,
-        29,
-        30
-       ],
-       "issue": "2026119",
-       "score": 57.5
-      },
-      {
-       "name": "苏海图",
-       "nums": [
-        3,
-        4,
+        5,
         8,
         9,
-        11,
         12,
+        13,
         15,
-        17,
-        18,
+        16,
         19,
         20,
-        21,
         22,
         24,
+        25,
+        26,
         27,
         28,
         29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
+       "score": 57.5
+      },
+      {
+       "name": "苏海图",
+       "nums": [
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        17,
+        20,
+        21,
+        23,
+        25,
+        26,
+        29,
+        30
+       ],
+       "issue": "2026120",
        "score": 0
       },
       {
        "name": "饮酒微醉",
        "nums": [
-        1,
         2,
         3,
-        4,
-        6,
+        5,
         7,
         8,
+        9,
         10,
         11,
-        12,
-        13,
-        15,
-        17,
-        20,
-        22,
-        24,
-        26,
-        28
-       ],
-       "issue": "2026119",
-       "score": 43.67
-      },
-      {
-       "name": "甜甜爸",
-       "nums": [
-        2,
-        3,
-        4,
-        5,
-        8,
-        9,
         12,
         13,
         16,
         17,
         18,
         19,
-        20,
-        21,
+        22,
         24,
-        25,
-        28,
-        30
+        27,
+        28
        ],
-       "issue": "2026119",
+       "issue": "2026120",
+       "score": 43.67
+      },
+      {
+       "name": "甜甜爸",
+       "nums": [
+        1,
+        3,
+        4,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        22,
+        26,
+        28
+       ],
+       "issue": "2026120",
        "score": 2.33
       },
       {
        "name": "MRL",
        "nums": [
-        2,
-        3,
         5,
         6,
-        8,
+        7,
         9,
         10,
-        11,
         12,
         13,
+        15,
         16,
         17,
+        18,
         19,
-        20,
-        21,
-        26,
-        28,
+        22,
+        23,
+        24,
+        27,
+        29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 32.5
       },
       {
        "name": "笑起来真好看",
        "nums": [
         2,
-        3,
-        5,
+        4,
         6,
         7,
         10,
         11,
         12,
-        13,
         14,
         15,
         16,
-        20,
-        22,
-        24,
-        25,
-        28,
-        30
-       ],
-       "issue": "2026119",
-       "score": 46.17
-      },
-      {
-       "name": "伤心",
-       "nums": [
-        1,
-        2,
-        3,
-        5,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        16,
-        18,
-        21,
-        22,
-        24,
-        25,
-        26,
-        30
-       ],
-       "issue": "2026119",
-       "score": 46.5
-      },
-      {
-       "name": "仰望天空",
-       "nums": [
-        1,
-        8,
-        9,
-        10,
-        12,
-        13,
-        15,
-        16,
+        17,
         18,
         19,
         21,
         22,
         23,
         24,
+        28
+       ],
+       "issue": "2026120",
+       "score": 46.17
+      },
+      {
+       "name": "伤心",
+       "nums": [
+        1,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        21,
+        22,
+        23,
+        25,
         26,
         27,
-        29,
-        30
+        28,
+        29
        ],
-       "issue": "2026119",
+       "issue": "2026120",
+       "score": 46.5
+      },
+      {
+       "name": "仰望天空",
+       "nums": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+       ],
+       "issue": "2026120",
        "score": 4.83
       },
       {
@@ -53053,63 +53053,63 @@ const EXPERTS_DATA = {
        "nums": [
         1,
         2,
-        3,
+        5,
+        6,
         8,
         10,
-        12,
-        14,
+        11,
         15,
         16,
-        17,
         18,
         19,
-        20,
         21,
         22,
         23,
-        28,
-        29
+        25,
+        27,
+        29,
+        30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 23.17
       },
       {
        "name": "貔貅招财来",
        "nums": [
         1,
-        2,
+        3,
         6,
-        10,
-        11,
         12,
         13,
         14,
         15,
         16,
+        17,
+        18,
         19,
         21,
-        22,
-        23,
         24,
+        25,
+        26,
         28,
         29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 72
       },
       {
        "name": "有言无悔快乐",
        "nums": [
-        4,
+        2,
+        3,
         5,
-        10,
+        7,
+        9,
         12,
         14,
         15,
         17,
-        18,
-        20,
         21,
         22,
         23,
@@ -53120,7 +53120,7 @@ const EXPERTS_DATA = {
         29,
         30
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 2.33
       }
      ]
@@ -53133,31 +53133,31 @@ const EXPERTS_DATA = {
       {
        "name": "中獎神器",
        "nums": [
-        11,
-        27,
-        29
+        1,
+        9,
+        10
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 27.5
       },
       {
        "name": "wwaann",
        "nums": [
-        8,
-        19,
-        26
+        3,
+        25,
+        27
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 52.5
       },
       {
        "name": "山泉",
        "nums": [
         1,
-        10,
-        16
+        3,
+        4
        ],
-       "issue": "2026119",
+       "issue": "2026120",
        "score": 36
       }
      ]
@@ -53169,22 +53169,22 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       5,
-       7,
-       8,
+       3,
+       4,
+       6,
+       9,
+       10,
        12,
        13,
        14,
        15,
-       18,
+       16,
        19,
-       21,
+       20,
        23,
+       24,
        25,
        26,
-       27,
-       28,
-       29,
        30
       ]
      }
@@ -53194,23 +53194,23 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       2,
+       3,
+       4,
+       5,
        6,
+       7,
        8,
        9,
-       10,
+       11,
        12,
        14,
        15,
-       18,
-       19,
+       17,
+       20,
        21,
        24,
        25,
-       27,
-       28,
-       29,
-       30
+       28
       ]
      }
     },
@@ -53218,22 +53218,22 @@ const EXPERTS_DATA = {
      "name": "郭贱人",
      "cats": {
       "18码": [
-       3,
-       4,
-       5,
+       6,
        7,
        8,
-       10,
+       12,
        13,
        14,
        15,
        16,
        17,
        18,
-       23,
+       20,
+       21,
        24,
        25,
        26,
+       27,
        29,
        30
       ]
@@ -53244,23 +53244,23 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       4,
-       5,
+       2,
+       3,
        6,
        7,
        8,
-       10,
-       11,
+       9,
        12,
        13,
        15,
        16,
+       17,
+       18,
        21,
-       23,
        24,
-       25,
-       28,
-       29
+       26,
+       27,
+       30
       ]
      }
     },
@@ -53268,24 +53268,24 @@ const EXPERTS_DATA = {
      "name": "buzhidao",
      "cats": {
       "18码": [
-       1,
+       2,
        3,
+       4,
+       5,
        6,
-       8,
+       7,
        9,
        10,
-       14,
+       12,
        16,
        17,
        18,
        19,
-       20,
-       22,
        24,
        25,
-       28,
-       29,
-       30
+       26,
+       27,
+       28
       ]
      }
     },
@@ -53295,21 +53295,21 @@ const EXPERTS_DATA = {
       "18码": [
        1,
        2,
-       7,
-       9,
+       3,
+       4,
+       6,
+       8,
        10,
        11,
        12,
-       13,
-       14,
+       15,
        16,
-       17,
-       18,
+       19,
+       20,
        21,
-       22,
-       24,
-       27,
-       29,
+       25,
+       26,
+       28,
        30
       ]
      }
@@ -53318,21 +53318,21 @@ const EXPERTS_DATA = {
      "name": "華陽玥",
      "cats": {
       "18码": [
-       2,
        4,
-       6,
-       7,
+       5,
+       8,
        9,
-       11,
        12,
-       14,
+       13,
+       15,
        16,
-       17,
-       18,
+       19,
        20,
        22,
-       23,
+       24,
+       25,
        26,
+       27,
        28,
        29,
        30
@@ -53343,22 +53343,22 @@ const EXPERTS_DATA = {
      "name": "苏海图",
      "cats": {
       "18码": [
-       3,
-       4,
+       2,
+       5,
+       6,
+       7,
        8,
        9,
        11,
        12,
-       15,
+       13,
+       14,
        17,
-       18,
-       19,
        20,
        21,
-       22,
-       24,
-       27,
-       28,
+       23,
+       25,
+       26,
        29,
        30
       ]
@@ -53368,23 +53368,23 @@ const EXPERTS_DATA = {
      "name": "饮酒微醉",
      "cats": {
       "18码": [
-       1,
        2,
        3,
-       4,
-       6,
+       5,
        7,
        8,
+       9,
        10,
        11,
        12,
        13,
-       15,
+       16,
        17,
-       20,
+       18,
+       19,
        22,
        24,
-       26,
+       27,
        28
       ]
      }
@@ -53393,24 +53393,24 @@ const EXPERTS_DATA = {
      "name": "甜甜爸",
      "cats": {
       "18码": [
-       2,
+       1,
        3,
        4,
-       5,
+       7,
        8,
        9,
+       10,
        12,
        13,
+       14,
+       15,
        16,
        17,
        18,
-       19,
        20,
-       21,
-       24,
-       25,
-       28,
-       30
+       22,
+       26,
+       28
       ]
      }
     },
@@ -53418,23 +53418,23 @@ const EXPERTS_DATA = {
      "name": "MRL",
      "cats": {
       "18码": [
-       2,
-       3,
        5,
        6,
-       8,
+       7,
        9,
        10,
-       11,
        12,
        13,
+       15,
        16,
        17,
+       18,
        19,
-       20,
-       21,
-       26,
-       28,
+       22,
+       23,
+       24,
+       27,
+       29,
        30
       ]
      }
@@ -53444,23 +53444,23 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        2,
-       3,
-       5,
+       4,
        6,
        7,
        10,
        11,
        12,
-       13,
        14,
        15,
        16,
-       20,
+       17,
+       18,
+       19,
+       21,
        22,
+       23,
        24,
-       25,
-       28,
-       30
+       28
       ]
      }
     },
@@ -53469,23 +53469,23 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       2,
-       3,
-       5,
-       8,
        9,
        11,
        12,
+       13,
        14,
        15,
        16,
+       17,
        18,
        21,
        22,
-       24,
+       23,
        25,
        26,
-       30
+       27,
+       28,
+       29
       ]
      }
     },
@@ -53493,24 +53493,24 @@ const EXPERTS_DATA = {
      "name": "仰望天空",
      "cats": {
       "18码": [
-       1,
-       8,
+       2,
+       3,
+       4,
+       5,
+       6,
        9,
        10,
-       12,
-       13,
-       15,
-       16,
+       11,
        18,
        19,
+       20,
        21,
        22,
        23,
        24,
+       25,
        26,
-       27,
-       29,
-       30
+       27
       ]
      }
     },
@@ -53520,22 +53520,22 @@ const EXPERTS_DATA = {
       "18码": [
        1,
        2,
-       3,
+       5,
+       6,
        8,
        10,
-       12,
-       14,
+       11,
        15,
        16,
-       17,
        18,
        19,
-       20,
        21,
        22,
        23,
-       28,
-       29
+       25,
+       27,
+       29,
+       30
       ]
      }
     },
@@ -53544,20 +53544,20 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       2,
+       3,
        6,
-       10,
-       11,
        12,
        13,
        14,
        15,
        16,
+       17,
+       18,
        19,
        21,
-       22,
-       23,
        24,
+       25,
+       26,
        28,
        29,
        30
@@ -53568,15 +53568,15 @@ const EXPERTS_DATA = {
      "name": "有言无悔快乐",
      "cats": {
       "18码": [
-       4,
+       2,
+       3,
        5,
-       10,
+       7,
+       9,
        12,
        14,
        15,
        17,
-       18,
-       20,
        21,
        22,
        23,
@@ -53593,9 +53593,9 @@ const EXPERTS_DATA = {
      "name": "中獎神器",
      "cats": {
       "三胆": [
-       11,
-       27,
-       29
+       1,
+       9,
+       10
       ]
      }
     },
@@ -53603,9 +53603,9 @@ const EXPERTS_DATA = {
      "name": "wwaann",
      "cats": {
       "三胆": [
-       8,
-       19,
-       26
+       3,
+       25,
+       27
       ]
      }
     },
@@ -53614,8 +53614,8 @@ const EXPERTS_DATA = {
      "cats": {
       "三胆": [
        1,
-       10,
-       16
+       3,
+       4
       ]
      }
     }
