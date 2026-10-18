@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-18 13:02 */
+/* 自动生成，请勿手动编辑 · 2026-10-18 13:12 */
 const JC_DATA = {
- "updated": "2026-10-18 13:02",
+ "updated": "2026-10-18 13:12",
  "stat": {
   "total": 33,
   "upcoming": 33,
@@ -450,9 +450,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 0.8,
-      "line": "一球",
-      "away": 1
+      "home": 1.07,
+      "line": "球半",
+      "away": 0.72
      }
     },
     "europe": {
@@ -491,31 +491,31 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 9.8,
-    "rqLine": "一球",
+    "rqLine": "球半",
     "type": "three"
    },
    "asianIndex": {
-    "line": "一球",
+    "line": "球半",
     "from": "live",
-    "handicap": -1,
+    "handicap": -1.5,
     "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1,
+    "upWater": 1.07,
+    "downWater": 0.72,
     "openHandicap": -0.75,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
-    "canWater": true,
+    "totalWater": 1.79,
+    "theoryUpPercent": "40.22",
+    "theoryDownPercent": "59.78",
+    "canWater": false,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘升水",
      "initHandicap": -0.75,
-     "nowHandicap": -1,
+     "nowHandicap": -1.5,
      "initUpWater": 0.8,
-     "nowUpWater": 0.8,
+     "nowUpWater": 1.07,
      "initLine": "半球/一球",
-     "nowLine": "一球"
+     "nowLine": "球半"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -886,9 +886,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 1.02,
+      "line": 1.05,
       "over": 2.5,
-      "under": 0.82
+      "under": 0.8
      }
     }
    },
@@ -3406,8 +3406,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-18 13:02",
-  "officialUpdate": "2026-10-18 13:00:48",
+  "updated": "2026-10-18 13:12",
+  "officialUpdate": "2026-10-18 13:07:52",
   "inSale": 33,
   "list": [
    {
@@ -3419,9 +3419,9 @@ const JC_DATA = {
     "away": "福冈黄蜂",
     "had": {
      "h": 1.6,
-     "d": 3.45,
-     "a": 4.65,
-     "update": "2026-10-18 12:52:40"
+     "d": 3.4,
+     "a": 4.75,
+     "update": "2026-10-18 13:07:52"
     },
     "hhad": {
      "line": "-1",
@@ -3480,17 +3480,17 @@ const JC_DATA = {
     "home": "首尔FC",
     "away": "金泉尚武",
     "had": {
-     "h": 1.26,
-     "d": 4.85,
-     "a": 7.7,
-     "update": "2026-10-18 12:49:23"
+     "h": 1.25,
+     "d": 4.9,
+     "a": 7.95,
+     "update": "2026-10-18 13:04:56"
     },
     "hhad": {
      "line": "-1",
-     "h": 1.91,
-     "d": 3.53,
-     "a": 3.1,
-     "update": "2026-10-18 12:49:28"
+     "h": 1.86,
+     "d": 3.55,
+     "a": 3.22,
+     "update": "2026-10-18 13:05:04"
     },
     "single": {
      "HAD": {
@@ -3511,17 +3511,17 @@ const JC_DATA = {
     "home": "兹沃勒",
     "away": "前进之鹰",
     "had": {
-     "h": 3.7,
+     "h": 3.8,
      "d": 3.95,
-     "a": 1.65,
-     "update": "2026-10-18 12:41:13"
+     "a": 1.63,
+     "update": "2026-10-18 13:06:18"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.93,
+     "h": 1.96,
      "d": 3.75,
-     "a": 2.9,
-     "update": "2026-10-18 12:41:09"
+     "a": 2.84,
+     "update": "2026-10-18 13:06:11"
     },
     "single": {
      "HAD": {
@@ -4100,17 +4100,17 @@ const JC_DATA = {
     "home": "里昂",
     "away": "尼斯",
     "had": {
-     "h": 1.6,
-     "d": 3.8,
-     "a": 4.14,
-     "update": "2026-10-18 10:24:32"
+     "h": 1.64,
+     "d": 3.75,
+     "a": 3.95,
+     "update": "2026-10-18 13:02:03"
     },
     "hhad": {
      "line": "-1",
-     "h": 2.85,
-     "d": 3.56,
-     "a": 2.01,
-     "update": "2026-10-18 12:45:39"
+     "h": 2.92,
+     "d": 3.65,
+     "a": 1.95,
+     "update": "2026-10-18 13:01:59"
     },
     "single": {
      "HAD": {
