@@ -308,6 +308,12 @@ jobs:
           #      （点一下仍有 TTS 语音 + 黄色气泡，但视频永远播不了）。
           #   ⚠️ 必须放在 `mkdir -p site` 之后（本步第一行已经建好）。
           cp -f cloud/scripts/blessing.mp4 site/blessing.mp4 || true
+          # 【安装教程大图】用户 2026-10-18 21:50 确认要这张图：分享页「添加到手机桌面」
+          #   区块顶部的 install-guide.jpg（800×1432 / 约 204 KB JPEG）。
+          #   和 blessing.mp4 一样走 scripts → site/（cloud-build.mjs 不用改），
+          #   来源是 cloud/scripts/install-guide.jpg（由本机 sync-cloud.mjs 的 FROM_ROOT 同步上来）。
+          #   ⚠️ 少了这一行 → 线上 install-guide.jpg 404 → 图被收起，区块里只剩两列卡片。
+          cp -f cloud/scripts/install-guide.jpg site/install-guide.jpg || true
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
           # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
           # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
@@ -386,6 +392,12 @@ jobs:
             echo "✅ site/blessing.mp4  $(du -h site/blessing.mp4 | cut -f1)（聊天框顶部祝福视频，懒加载）"
           else
             echo "⚠️ site/blessing.mp4 缺失 -> 聊天框视频 404（页面会退回占位块 + TTS 语音，视频播不了）"
+          fi
+          # 【安装教程大图自证】分享页安装区块顶部的 <img src="./install-guide.jpg">
+          if [ -s site/install-guide.jpg ]; then
+            echo "✅ site/install-guide.jpg  $(du -h site/install-guide.jpg | cut -f1)（安装教程大图，懒加载）"
+          else
+            echo "⚠️ site/install-guide.jpg 缺失 -> 线上 404，安装区块顶部图位空白（lazy 失败会收起）"
           fi
           echo "--- site 目录内容 ---"
           ls -lh site/
