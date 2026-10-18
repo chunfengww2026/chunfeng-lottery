@@ -350,6 +350,16 @@
     function finalOf(r) {
       const d = dayOf(r.time);
       if (!d) return null;
+      /* ⓪ 【500 完场比分 · 用户 2026-10-19「足球比赛结果实时抓取 www.500.com」】
+         jc-scores.js（JC_SCORES = { "主|客": "2:0" }）优先用，因为它是按 <tr> 行解析出来的终场比分，
+         实测罗马 vs 热那亚 = 2:0（源站的 0:0 是半场）。
+         两个方向都认（500 的主客顺序可能和竞彩相反）。 */
+      try {
+        if (typeof JC_SCORES !== 'undefined' && JC_SCORES && JC_SCORES.map && r.home && r.away) {
+          const v = JC_SCORES.map[r.home + '|' + r.away] || JC_SCORES.map[r.away + '|' + r.home];
+          if (v && /^\d{1,2}:\d{1,2}$/.test(v)) return { score: v, ht: null };
+        }
+      } catch (e) { }
       /* ① 完场页（jc-results.js）—— 只认「日期 ±1 天 且 主客队都对上」的 */
       if (byRes.size && r.home && r.away) {
         for (const dd of [0, -1, 1]) {
