@@ -1216,6 +1216,39 @@ function issueNote(list, gid) {
   return '<span class="ro-xj-giss">' + escape(iss) + ' 期（已开奖）· <b>系统 bug 修复中</b>，下一期稍后自动补上</span>';
 }
 
+/* 【5 类号表格 · 用户 2026-10-19：每个专家必须有 25码/3码/1码/后区3码/杀号3码】
+   数据来自 build-experts.mjs 新增的 games[gid].byCat（按分类分组，每组最多 20 位 + 号码）。
+   构建期读一次（expertDataAtBuild），没数据就整块不渲染，不留空壳。 */
+function fiveCatHtml(gid) {
+  try {
+    const gd = expertDataAtBuild().games;
+    const g = gd && gd[gid];
+    const byCat = (g && Array.isArray(g.byCat)) ? g.byCat : [];
+    if (!byCat.length) return '';
+    const LABEL = { c25: '25码', c3: '3码', c1: '1码', cback: '后区3码', ckill: '杀号3码' };
+    /* 只显示「5 类」相关的分类，按固定顺序排（25码 → 3码 → 1码 → 后区3码 → 杀号3码） */
+    const ORDER = ['c25', 'c3', 'c1', 'cback', 'ckill'];
+    const picked = [];
+    for (const key of ORDER) {
+      const hit = byCat.find((c) => c.five === key);
+      if (hit) picked.push(hit);
+    }
+    if (!picked.length) return '';
+    const body = picked.map((c) => {
+      const rows = (c.experts || []).slice(0, 20).map((e) =>
+        '<div class="ro-xj5-row"><span class="ro-xj5-n">' + escape(e.name || '') + '</span>' +
+        '<span class="ro-xj5-b">' + (e.nums || []).map((n) => '<i>' + String(n).padStart(2, '0') + '</i>').join('') + '</span></div>'
+      ).join('');
+      return '<div class="ro-xj5-cat"><div class="ro-xj5-h"><b>' + escape(LABEL[c.five] || c.cat) + '</b>' +
+        '<span>' + escape(c.cat) + ' · ' + (c.experts || []).length + ' 位</span></div>' + rows + '</div>';
+    }).join('');
+    return '<details class="ro-xj5" id="xj5-' + escapeAttr(gid) + '">' +
+      '<summary class="ro-xj5-sum">5 类号（25码 / 3码 / 1码 / 后区3码 / 杀号3码）· ' + picked.length + ' 类</summary>' +
+      '<div class="ro-xj5-body">' + body + '</div></details>';
+  } catch (e) { return ''; }
+}
+function escapeAttr(s) { return String(s == null ? '' : s).replace(/[^\w-]/g, ''); }
+
     return '<div class="ro-xj-group">' +
       '<div class="ro-xj-ghead"><span class="ro-xj-gname">' +
       escape(EXPERT_SHORT[gid] || g.name || gid) + '</span>' +
@@ -1224,7 +1257,7 @@ function issueNote(list, gid) {
          专家推荐表里最新的一期就是源站已出的那期（通常 = 最近已开奖期），
          下一期要等专家出号（开奖当天下午后才发）—— 这里只标事实，不预告号码。 */
       issueNote(list, gid) + '</div>' +
-      rows + '</div>';
+      rows + fiveCatHtml(gid) + '</div>';
   }).filter(Boolean).join('');
   /* 群组为空也要显示（用户要求：不要整块消失） */
   if (!groups) return '';
