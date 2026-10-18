@@ -7094,72 +7094,14 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   background: #fff;
   box-sizing: border-box;
 }
-.ro-install-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 9px;
-  align-items: stretch;
-}
-.ro-install-card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  box-sizing: border-box;
-  background: var(--ro-bg);
-  border: 1px solid var(--ro-line);
-  border-radius: 12px;
-  padding: 10px 9px 11px;
-}
-.ro-install-plat {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.25;
-  color: var(--ro-ok);
-  padding-bottom: 9px;
-  border-bottom: 1px dashed var(--ro-line);
-  white-space: nowrap;
-}
-.ro-install-plat i { font-style: normal; font-size: 15px; line-height: 1; }
-.ro-install-steps { list-style: none; margin: 10px 0 0; padding: 0; flex: 1 1 auto; }
-.ro-install-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--ro-fg);
-  padding: 3.5px 0;
-}
-.ro-install-steps li b {
-  flex: 0 0 22px;
-  box-sizing: border-box;
-  width: 22px;
-  height: 22px;
-  line-height: 22px;
-  border-radius: 50%;
-  background: var(--ro-ok);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-  margin-top: -2px;
-}
-.ro-install-steps li span { flex: 1 1 auto; min-width: 0; }
-.ro-install-tip {
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid var(--ro-line-soft);
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--ro-fg3);
-}
-/* 引号里的界面词（「添加到桌面」这种）整词不折行，避免在词中间断开 */
-.ro-install-tip .nb { white-space: nowrap; }
+/* 【已清理 · 2026-10-20】下面这些样式属于【已经删掉的两列卡片】
+   （安卓/微信 · 苹果 iPhone 那两张卡：卡片 / 平台名 / 绿圆序号三步 / 卡下小注
+     / 序号虚线 / 提示条 / 引号词不折行 / 两个 @media 里的对应收窄），
+   用户 2026-10-18「不要了 有图片就不要了」之后 HTML 里已经没有任何元素用到它们，
+   所以规则【全部删除】（原来注释写着"留着没删、以后好加回来"，
+   实际留下的只是死代码 —— 要加回来直接按需重写即可，原版在 git 历史里）。
+   ⚠️ 保留在用的：.ro-install（卡片外壳）/ -h（标题）/ -lead（副标题）
+      / -shot（安装大图）/ -note（底部备注）。 */
 .ro-install-note {
   text-align: center;
   margin-top: 13px;
@@ -7168,22 +7110,16 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
   letter-spacing: .3px;
   color: var(--ro-fg2);
 }
-/* 345~374px（360 这类窄一点的安卓）：两列保留，只把字号收一档，
-   绿圆序号仍是 22px —— 保证「选「添加到主屏幕」」这种 9 个字一行，不在词中间折行 */
+/* 345~374px（360 这类窄一点的安卓）：只收一档左右内边距
+   （两列卡片删掉后，这里已经没有字号 / 序号那些收窄了） */
 @media (min-width: 345px) and (max-width: 374px) {
   .ro-install { padding: 14px 9px 12px; }
-  .ro-install-grid { gap: 8px; }
-  .ro-install-card { padding: 9px 8px 10px; }
-  .ro-install-plat { font-size: 13px; }
-  .ro-install-steps li { gap: 6px; font-size: 11.5px; }
 }
-/* 320 窄屏：两列会挤（每张卡内宽只剩 ~100px），收成一列 */
+/* 320 窄屏：两列卡片已经删了（见上面 2026-10-20 的清理注释），
+   这里只剩「卡片内边距 / 标题字号 / 副标题间距」三条还在用。 */
 @media (max-width: 344px) {
   .ro-install { padding: 15px 11px 13px; }
   .ro-install-h { font-size: 17px; }
-  .ro-install-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  .ro-install-steps { margin-top: 9px; }
-  .ro-install-steps li { font-size: 13px; }
   .ro-install-lead { margin: 6px 0 12px; }
 }
 
@@ -7936,11 +7872,13 @@ ${p3dHtml}
          ② 标题/副标题下面新增 install-guide.jpg 大图（.ro-install-shot，全宽）
          ③ __NO_INSTALL__ 锁已删除（见上面 CSS 里 __INSTALL_RESTORED__ 那段）
          ④ 【两列卡片已按用户要求删除】用户原话：「不要了 有图片就不要了」
-            → 删掉 .ro-install-grid 那两张卡（安卓/微信 · 苹果 iPhone，
+            → 删掉那两张两列卡片（安卓/微信 · 苹果 iPhone，
               含卡里的 ol 三步和卡下小注「浏览器里也叫…」「只有 Safari 支持…」）；
               现在这一块只剩：标题 + 副标题 + 大图 + 底部备注。
-            → CSS 里 .ro-install-grid / -card / -plat / -steps / -tip 的规则【留着没删】，
-              以后要加回来直接写 HTML 即可（样式都在）。
+            → CSS 里对应的卡片样式规则【2026-10-20 已一并删除】（原先注释写着
+              "留着没删、以后好加回来"，实测就是 8 条死规则 + 两个 @media 里的
+              7 条收窄，页面里一个元素都不用了）。要加回卡片得连样式一起重写，
+              原版在 git 历史里（或本机 _bk_* 备份）。
        · 位置：正文最后一块（#article-rest 里、.ro-foot / 免责声明 之前）
        · 形式：大图（100% 全宽·画面已把安卓 / 苹果的步骤画全）+ 米杏色卡片
        · ⚠️ 纯展示：没有按钮标签、没有内联点击 / 内联事件（图片失败收起走 addEventListener）
