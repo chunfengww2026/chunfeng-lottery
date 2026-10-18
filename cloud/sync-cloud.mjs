@@ -345,6 +345,10 @@ const CODE_MODULES = [
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
+  /* 事先抓取总调度（cloud-build 全量班先跑它，把 18 项抓取一次性抓完） */
+  'prefetch-all.mjs',
+  /* 新浪「下一期参考」抓取脚本（之前只同步了 sina-predict.json，脚本漏了） */
+  'build-sina-predict.mjs',
   /* 【晒票栏】抓取脚本（本机每 30 分钟跑一次，跟着文章那一班）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-xysp.mjs',
