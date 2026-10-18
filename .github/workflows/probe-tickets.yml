@@ -1,0 +1,118 @@
+name: probe-tickets
+
+# ⚠️ 临时探测工作流（测完立刻删除，只留 daily-update.yml）
+#    用途：在 GitHub 的机器（美国 IP）上逐个实测「足球晒票」候选源，
+#    打印 状态码 / 字节数 / 关键词 / 图片 URL 数量，并试访问图片域名。
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 探测候选源（美国 IP 实测）
+        run: |
+          cat > probe.mjs <<'PROBEEOF'
+          const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+          const UA_PC = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
+
+          const LIST = [
+            ['ck100', 'https://www.ck100.com/', UA_PC],
+            ['ck100-jc', 'https://www.ck100.com/jingcai/', UA_PC],
+            ['caibaobei', 'https://www.caibaobei.com/', UA_PC],
+            ['okooo', 'https://www.okooo.com/', UA_PC],
+            ['okooo-jc', 'https://www.okooo.com/jingcai/', UA_PC],
+            ['jc258', 'https://www.jc258.com/', UA_PC],
+            ['zhcw', 'https://www.zhcw.com/', UA_PC],
+            ['500', 'https://www.500.com/', UA_PC],
+            ['500-jc', 'https://www.500.com/jingcai/', UA_PC],
+            ['caipiaokong', 'https://www.caipiaokong.com/', UA_PC],
+            ['cjcp', 'https://www.cjcp.com.cn/', UA_PC],
+            ['17500', 'https://www.17500.cn/', UA_PC],
+            ['17500bbs', 'https://bbs.17500.cn/', UA_PC],
+            ['ydniu', 'https://www.ydniu.com/', UA_PC],
+            ['sinalottery', 'https://lottery.sina.com.cn/', UA_PC],
+            ['163hongcai', 'https://hongcai.163.com/', UA_PC],
+            ['sporttery', 'https://www.sporttery.cn/', UA_PC],
+            ['tieba-jc', 'https://tieba.baidu.com/f?kw=%E7%AB%9E%E5%BD%A9&ie=utf-8', UA_PC],
+            ['tieba-sd', 'https://tieba.baidu.com/f?kw=%E6%99%92%E5%8D%95&ie=utf-8', UA_PC],
+            ['hupu', 'https://bbs.hupu.com/', UA_PC],
+            ['zhihu', 'https://www.zhihu.com/search?type=content&q=%E7%AB%9E%E5%BD%A9%E6%99%92%E5%8D%95', UA_PC],
+            ['xhs', 'https://www.xiaohongshu.com/search_result?keyword=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['douyin', 'https://www.douyin.com/search/%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['bilibili', 'https://search.bilibili.com/all?keyword=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['163sports', 'https://sports.163.com/', UA_PC],
+            ['sinasports', 'https://sports.sina.com.cn/', UA_PC],
+            ['sohusports', 'https://sports.sohu.com/', UA_PC],
+            ['sogouwx', 'https://weixin.sogou.com/weixin?type=2&query=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['bingimg', 'https://cn.bing.com/images/search?q=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8&form=HDRSC2&first=1', UA_PC],
+            ['baiduimg', 'https://image.baidu.com/search/index?tn=baiduimage&word=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['soimg', 'https://image.so.com/i?q=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['sogouimg', 'https://pic.sogou.com/pics?query=%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8', UA_PC],
+            ['tg-jingcaituijian', 'https://t.me/s/jingcaituijian', UA_PC],
+            ['tg-zucai', 'https://t.me/s/zucai', UA_PC],
+            ['ctrl-33633', 'https://m.33633.cn/jingcai/', UA_M],
+            ['ctrl-img33633', 'https://img33633.cpyc.cn/', UA_M],
+            ['ctrl-weibo', 'https://m.weibo.cn/api/container/getIndex?containerid=100103type%3D1%26q%3D%E7%AB%9E%E5%BD%A9%E6%99%92%E7%A5%A8&page_type=searchall', UA_M],
+          ];
+
+          const KW = ['晒票', '晒单', '实票', '实单', '票面', '竞彩', '中奖', 'murl', 'qpic.cn', 'sinaimg'];
+
+          function imgs(html) {
+            const set = new Set();
+            const re = /(?:src|data-src|data-original|data-original-src|data-lazy-src|data-img|srcset)\s*=\s*["']([^"'\s>]+\.(?:jpe?g|png|webp|gif)[^"'\s>]*)["']/gi;
+            let m;
+            while ((m = re.exec(html))) {
+              const u = m[1].trim();
+              if (!/^https?:\/\//i.test(u)) continue;
+              if (/\.(svg|ico)$/i.test(u)) continue;
+              set.add(u);
+            }
+            return [...set];
+          }
+
+          const rows = [];
+          for (const [name, url, ua] of LIST) {
+            const t0 = Date.now();
+            let status = 'ERR', bytes = 0, txt = '', err = '';
+            try {
+              const r = await fetch(url, {
+                headers: {
+                  'User-Agent': ua,
+                  Accept: 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
+                  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+                },
+                redirect: 'follow',
+                signal: AbortSignal.timeout(20000),
+              });
+              status = r.status;
+              const buf = Buffer.from(await r.arrayBuffer());
+              bytes = buf.length;
+              txt = buf.toString('utf8');
+            } catch (e) {
+              err = (e.cause && e.cause.code) || e.name;
+            }
+            const kws = KW.filter((k) => txt.includes(k));
+            const im = imgs(txt);
+            const row = { name, url, status, bytes, ms: Date.now() - t0, kws, imgCount: im.length, imgs: im.slice(0, 6) };
+            rows.push(row);
+            console.log(`PROBE ${String(name).padEnd(20)} ${String(status).padEnd(4)} ${String(bytes).padStart(8)}B img=${String(im.length).padStart(4)} kw=${kws.join(',') || '-'} ${err ? 'ERR=' + err : ''}`);
+            await new Promise((r2) => setTimeout(r2, 300));
+          }
+
+          console.log('\n---- 图片可达性（每个有图的源抽 3 张）----');
+          for (const row of rows) {
+            if (!row.imgs.length) continue;
+            for (const u of row.imgs.slice(0, 3)) {
+              try {
+                const rr = await fetch(u, { headers: { 'User-Agent': UA_PC, Referer: row.url }, signal: AbortSignal.timeout(12000) });
+                const b = Buffer.from(await rr.arrayBuffer());
+                console.log(`IMG ${row.name.padEnd(20)} ${rr.status} ${String(b.length).padStart(7)}B ${(rr.headers.get('content-type') || '').slice(0, 18)} ${u.slice(0, 100)}`);
+              } catch (e) {
+                console.log(`IMG ${row.name.padEnd(20)} ERR ${(e.cause && e.cause.code) || e.name} ${u.slice(0, 100)}`);
+              }
+            }
+          }
+          PROBEEOF
+          node probe.mjs
