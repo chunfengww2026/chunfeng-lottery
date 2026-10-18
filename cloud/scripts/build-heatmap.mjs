@@ -1145,7 +1145,7 @@ async function buildGame(cfg, nowBj, opts) {
     if (ocrRes) {
       const s = ocrRes.stats;
       ocrInfo = { ...s, ok: ocrRes.ok, err: ocrRes.err || '', tickets: Array.isArray(ocrRes.tickets) ? ocrRes.tickets : [] };
-      log(`  · OCR 统计：候选图 ${s.urls} 张（自抓 ${s.crawlUrls || 0} + 晒票池新增 ${s.poolAdded || 0}）→ 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 号码认出来 ${s.recognized} 张 → 期号确认的有效票 ${((s.tickets && s.tickets.length) || 0)} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
+      log(`  · OCR 统计：候选图 ${s.urls} 张（自抓 ${s.crawlUrls || 0} + 晒票池新增 ${s.poolAdded || 0}）→ 下载成功 ${s.downloaded}（失败 ${s.downloadFailed}，缓存命中 ${s.cacheHits}）→ 号码认出来 ${s.recognized} 张 → 期号确认的有效票 ${typeof s.tickets === 'number' ? s.tickets : ((s.tickets && s.tickets.length) || 0)} 张（耗时 ${(s.ms / 1000).toFixed(1)}s）`);
       if (ocrRes.ok) {
         source = 'ocr-xysp';
         sampleCount = s.tickets;
