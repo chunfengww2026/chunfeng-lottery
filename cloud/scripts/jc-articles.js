@@ -1,7 +1,7 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-10-18 14:28:34 · 合并去重后 117 篇，取最新 20 篇 */
+   抓取时间：2026-10-18 15:28:39 · 合并去重后 116 篇，取最新 20 篇 */
 const JC_ARTICLES = {
- "updated": "2026-10-18 14:28:34",
+ "updated": "2026-10-18 15:28:39",
  "sources": [
   {
    "name": "一起彩",
@@ -12,7 +12,7 @@ const JC_ARTICLES = {
   {
    "name": "500彩票",
    "ok": true,
-   "count": 10,
+   "count": 9,
    "note": "来自 https://www.500.com/"
   },
   {
@@ -22,7 +22,7 @@ const JC_ARTICLES = {
    "note": "页面是 JS 空壳（31KB），HTML 里没有文章"
   }
  ],
- "total": 117,
+ "total": 116,
  "list": [
   {
    "title": "专家「摩羯」 · 免费推荐",
