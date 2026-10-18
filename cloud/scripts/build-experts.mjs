@@ -941,6 +941,57 @@ async function runGame(game, cfg, opts, report) {
     }))
   }));
 
+  /* ============================================================
+     【5 类号 · 用户 2026-10-19「每个专家必须抓到：25码 3码 1码 后区3码 杀号3码」】
+     ------------------------------------------------------------
+     问题：g.stable 是按「人」去重的，每位只带【一个】分类（e.cat）。
+     所以页面没法把同一个人的 5 类号并排显示。
+     解决：这里额外输出 g.byCat —— 按【分类】分组，每组最多 20 位专家，
+           每位带他自己的号码（catLatest.nums）。
+     页面可以：
+       ① 按分类展示「这个分类的 20 位专家 + 号码」（5 行 × 20 人）
+       ② 或者按专家名合并同一人的多个分类（有哪类显示哪类）
+     只加数据、不改原有 stable 结构，老页面完全不受影响。
+     ============================================================ */
+  const FIVE_KW = [
+    { key: 'c25', re: /25码|前区25|红球25/ },
+    { key: 'c3', re: /三胆/ },
+    { key: 'c1', re: /独胆|一胆|定一|^1码$/ },
+    { key: 'cback', re: /蓝球定三|定三|后区3|后区三/ },
+    { key: 'ckill', re: /杀三|杀号三|红球杀三|杀3/ }
+  ];
+  try {
+    const all = (experts || []).filter((e) => e && e.cat && e.catLatest && Array.isArray(e.catLatest.nums) && e.catLatest.nums.length);
+    const byCat = {};
+    const byExpert = {};
+    for (const e of all) {
+      const nm = safeName(e.name);
+      const nums = e.catLatest.nums;
+      const issue = e.catLatest.issue || '';
+      /* ① 按分类分组（每个分类最多 20 位） */
+      if (!byCat[e.cat]) byCat[e.cat] = [];
+      if (byCat[e.cat].length < 20) byCat[e.cat].push({ name: nm, nums, issue, score: e.score });
+      /* ② 按专家合并（同一人的多个分类） */
+      if (!byExpert[nm]) byExpert[nm] = { name: nm, cats: {} };
+      byExpert[nm].cats[e.cat] = nums;
+    }
+    /* ③ 只保留「5 类」里出现过的分类名，并标上属于哪一类 */
+    const catsLite = Object.keys(byCat).map((c) => ({
+      cat: c,
+      five: (FIVE_KW.find((k) => k.re.test(c)) || {}).key || '',
+      count: byCat[c].length,
+      experts: byCat[c]
+    })).sort((a, b) => (a.cat < b.cat ? -1 : 1));
+    g.byCat = catsLite;
+    g.byExpert = Object.values(byExpert).slice(0, 60);
+    const fiveFound = FIVE_KW.filter((k) => catsLite.some((c) => c.five === k.key)).map((k) => k.key);
+    log(`  5 类号：分类 ${catsLite.length} 组 · 覆盖 ${fiveFound.join('/') || '无'} · 专家 ${Object.keys(byExpert).length} 位`);
+  } catch (e) {
+    g.byCat = [];
+    g.byExpert = [];
+    log('  ⚠️ 5 类号输出失败（不影响其它数据）：' + e.message);
+  }
+
   log(`  号码池：红/前区 ${g.pool.red.length} 个 [${g.pool.red.join(',')}]` +
     (cfg.blue ? `  蓝/后区 ${g.pool.blue.length} 个 [${g.pool.blue.join(',')}]` : ''));
   if (g.notes.length) log(`  备注：${g.notes.join('；')}`);
