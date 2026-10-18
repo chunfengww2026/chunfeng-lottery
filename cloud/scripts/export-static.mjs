@@ -1136,9 +1136,43 @@ function buildExpertsHtml() {
    否则这位专家给的还是上一期的号 → 直接不列（宁缺不编）。 */
 const NEXT_ISSUE = g.issue ? String(g.issue) : null;
 const LIST_ALL = Array.isArray(g.stable) ? g.stable : [];
-const list = NEXT_ISSUE
-  ? LIST_ALL.filter((e) => e && e.catLatest && String(e.catLatest.issue) === NEXT_ISSUE).slice(0, 20)
-  : [];
+const issOf = (e) => (e && e.catLatest && e.catLatest.issue) ? String(e.catLatest.issue) : '';
+/* 【修「专家推荐 0 条」· 2026-10-18 20:0x】
+   原来这里只有一条硬相等：catLatest.issue === g.issue → 一条不匹配就整组空。
+   实测两个期号根本不是同一个口径：
+     · g.issue            = 源站页面 issueName = 【正在卖的那一期】（ssq 2026119）
+     · stable[].catLatest = 专家历史表里【最新已出号的那一期】（ssq 2026118）
+   开奖后、专家还没出下一期单的这段时间，两边必然差 1 期 → 8 个彩种全被过滤成 0 条
+   （页面 data-ex-key 从 169 掉到 9，只剩内联脚本里那 9 处）。
+   现在改成【两段式】，绝不把上一期冒充下一期：
+     ① 先按硬相等取「下一期」（数据里真有下一期就只认它）；
+     ② 下一期一条都没有 → 退回「数据里最新的那一期」，并加上两道闸：
+        · 数据文件必须是 7 天以内的（不显示陈年旧数据）
+        · 落后下一期不超过 2 期
+        组头由 issueNote(list, gid, listIssue) 明写「源站还没出号 · 以下是 X 期方案」。 */
+let listIssue = '';
+let list = NEXT_ISSUE ? LIST_ALL.filter((e) => issOf(e) === NEXT_ISSUE) : [];
+if (list.length) listIssue = NEXT_ISSUE;
+if (!list.length) {
+  let newest = '';
+  LIST_ALL.forEach((e) => { const i = issOf(e); if (i && i > newest) newest = i; });
+  const stamp = String(E.updated || '');   /* 数据文件的生成时间（'2026-10-18 19:34'） */
+  const ageDays = (() => {
+    const m2 = stamp.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+    if (!m2) return null;
+    const t2 = new Date(+m2[1], +m2[2] - 1, +m2[3], +m2[4], +m2[5]).getTime();
+    return Number.isFinite(t2) ? (Date.now() - t2) / 86400000 : null;
+  })();
+  const ISSUE_GAP = (NEXT_ISSUE && newest && /^\d+$/.test(NEXT_ISSUE) && /^\d+$/.test(newest))
+    ? Number(NEXT_ISSUE) - Number(newest) : null;
+  const freshOK = (ageDays === null) || (ageDays <= 7);
+  const gapOK = (ISSUE_GAP === null) || (ISSUE_GAP >= 0 ? ISSUE_GAP <= 2 : true);
+  if (newest && freshOK && gapOK) {
+    list = LIST_ALL.filter((e) => issOf(e) === newest);
+    listIssue = newest;
+  }
+}
+list = list.slice(0, 20);
     if (!list.length) return '<div class="ro-xj-group"><div class="ro-xj-ghead"><span class="ro-xj-gname">' + escape(EXPERT_SHORT[gid] || g.name || gid) + '</span></div><div class="ro-xj-row" style="color:#8a7a63;font-size:12px;padding:6px 2px">下一期暂无专家出号（源站还没发布）</div></div>';
     totalShown += list.length;
     const rows = list.map((x, i) => {
@@ -1192,7 +1226,7 @@ function expertDataAtBuild() {
 
 /* 【期号状态】把这一组专家「最新已出号的期次」标出来 + 说明下一期。
    取该组所有专家 catLatest.issue 的最大值（就是源站最新那期），一个都没有就不显示。 */
-function issueNote(list, gid) {
+function issueNote(list, gid, listIssue) {
   let iss = '';
   (list || []).forEach((e) => {
     const i = e && e.catLatest && e.catLatest.issue;
@@ -1210,6 +1244,12 @@ function issueNote(list, gid) {
     if (gd && gd[gid] && gd[gid].issue) nextIss = String(gd[gid].issue);
   } catch (e) { nextIss = ''; }
   if (nextIss) {
+    /* 【兜底那一期要写明白 · 2026-10-18】列的这 20 位是「上一期（最新已出号）」的方案，
+       不是下一期的 → 组头必须直说，不能让人以为这是下一期的单。 */
+    if (listIssue && String(listIssue) !== String(nextIss)) {
+      return '<span class="ro-xj-giss">下一期 <b>' + escape(nextIss) + '</b> 期源站还没出号 · 以下为 <b>' +
+        escape(listIssue) + '</b> 期（最新已出号）方案，仅供参考</span>';
+    }
     return '<span class="ro-xj-giss">最新已出号 ' + escape(iss) + ' 期 · 下一期 <b>' + escape(nextIss) + '</b> 期（源站已挂出）</span>';
   }
   /* 【抓不到下一期时的文案 · 用户 2026-10-18】原来说「下一期待出号」，用户要求改成「系统bug修复中」。 */
@@ -1256,7 +1296,7 @@ function escapeAttr(s) { return String(s == null ? '' : s).replace(/[^\w-]/g, ''
       /* 【期号状态】用户 2026-10-17：「抓取下一期开奖的号码」→ 选了「标注清楚 + 等源站出号」。
          专家推荐表里最新的一期就是源站已出的那期（通常 = 最近已开奖期），
          下一期要等专家出号（开奖当天下午后才发）—— 这里只标事实，不预告号码。 */
-      issueNote(list, gid) + '</div>' +
+      issueNote(list, gid, listIssue) + '</div>' +
       rows + fiveCatHtml(gid) + '</div>';
   }).filter(Boolean).join('');
   /* 群组为空也要显示（用户要求：不要整块消失） */
