@@ -232,13 +232,13 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
+     "score": "0:1",
+     "hit": true,
+     "result": "win"
     }
    ],
    "hit": 0,
-   "miss": 6,
+   "miss": 5,
    "pending": 0,
    "verdict": "黑"
   },
