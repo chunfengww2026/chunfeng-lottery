@@ -125,7 +125,29 @@ function main() {
   const { stat, after, T, nextIssue, nextDate } = rollAll(existing);
   log(`  ✅ ${stat.games} 个彩种 / ${stat.images} 张图 / ${stat.fields} 个字段`);
 
-  /* 3. 写存档 */
+  /* __CORE_POOL3__ 用户 2026-10-18：摇号后，把双色球/大乐透的 20 码池
+     改成【核心算法】算出来的那 20 码（交叉相加减→减法杀号→金银胆尾→大乐透绝杀尾→补足20码，
+     基线自动取最新已开奖三期）。只换数值，字段结构/版式一个字不动。 */
+  try {
+    const { corePoolFor } = require('./core-pool.js');
+    const pools = { ssq: corePoolFor('ssq'), dlt: corePoolFor('dlt') };
+    let patched = 0;
+    Object.keys(after).forEach((day) => {
+      const v = after[day];
+      if (!v || typeof v !== 'object') return;
+      const issue = String(v.issue || '');
+      const gid = /^2026\d{3}$/.test(issue) ? 'ssq' : (/^2\d{4}$/.test(issue) ? 'dlt' : null);
+      if (!gid || !pools[gid] || !pools[gid].pool20) return;
+      const nums = pools[gid].pool20.map((n) => String(n).padStart(2, '0'));
+      if (v.r20) { v.r20 = nums.join(' '); patched++; }
+      if (v.cir_pool) v.cir_pool = nums.join(' ');
+    });
+    log(`  ✅ 核心算法接管推荐号池：${patched} 处 r20`);
+    log(`     双色球 ${(pools.ssq && pools.ssq.pool20 || []).length} 码 · 大乐透 ${(pools.dlt && pools.dlt.pool20 || []).length} 码`);
+  } catch (e) {
+    log('  ⚠️ 核心算法接管失败（保留原摇号结果）：' + String(e.message).slice(0, 100));
+  }
+
   log('\n【3/4】写入 saved-tickets.js');
   const now = new Date();
   const p = (n) => String(n).padStart(2, '0');
