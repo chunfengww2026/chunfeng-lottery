@@ -9,66 +9,76 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: 第三轮（33633 变体域名 / 代理 / 图片可达 / 其它站）
+      - name: 第四轮（搜狗图片 / Wayback / 代理 / 图片抽样 base64）
         run: |
-          cat > probe3.mjs <<'PROBEEOF'
+          cat > probe4.mjs <<'PROBEEOF'
           const UA_PC = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
-          const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
-          const KW = ['晒票', '实票', '晒单', '实单', '竞彩', 'img_wrap', 'topic/', 'item'];
-          const LIST = [
-            ['www-33633', 'https://www.33633.cn/', UA_PC],
-            ['www-33633-jc', 'https://www.33633.cn/jingcai/', UA_PC],
-            ['m-33633-home', 'https://m.33633.cn/', UA_M],
-            ['api-33633', 'https://api.33633.cn/', UA_M],
-            ['h5-33633', 'https://h5.33633.cn/', UA_M],
-            ['p-33633', 'https://p.33633.cn/', UA_M],
-            ['www-cpyc', 'https://www.cpyc.cn/', UA_PC],
-            ['m-cpyc', 'https://m.cpyc.cn/', UA_M],
-            ['cpyc-jc', 'https://www.cpyc.cn/jingcai/', UA_PC],
-            ['jina-33633', 'https://r.jina.ai/https://m.33633.cn/jingcai/', UA_PC],
-            ['allorigins-33633', 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://m.33633.cn/jingcai/'), UA_PC],
-            ['17500-exp', 'https://www.17500.cn/', UA_PC],
-            ['9188', 'https://www.9188.com/', UA_PC],
-            ['aibo', 'https://www.aibo.com/', UA_PC],
-            ['163-caipiao', 'https://caipiao.163.com/', UA_PC],
-            ['okooo-danchang', 'https://www.okooo.com/danchang/', UA_PC],
-            ['zhcw-retry', 'https://www.zhcw.com/', UA_PC],
-          ];
-
-          for (const [name, url, ua] of LIST) {
-            let status = 'ERR', bytes = 0, txt = '', err = '';
+          const unesc = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+          const strip = (s) => unesc(String(s || '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+          let budget = 5;
+          async function peek(u, tag) {
+            if (budget <= 0) return;
             try {
-              const r = await fetch(url, {
-                headers: { 'User-Agent': ua, Accept: 'text/html,application/json,*/*', 'Accept-Language': 'zh-CN,zh;q=0.9' },
-                redirect: 'follow',
-                signal: AbortSignal.timeout(20000),
-              });
-              status = r.status;
+              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(15000) });
               const b = Buffer.from(await r.arrayBuffer());
-              bytes = b.length;
-              txt = b.toString('utf8');
-            } catch (e) { err = (e.cause && e.cause.code) || e.name; }
-            const kws = KW.filter((k) => txt.includes(k));
-            console.log(`P3 ${name.padEnd(16)} ${String(status).padEnd(4)} ${String(bytes).padStart(8)}B kw=${kws.join(',') || '-'} ${err ? 'ERR=' + err : ''}`);
-            if (status === 200 && /晒票|img_wrap/.test(txt)) console.log('    head: ' + txt.replace(/\s+/g, ' ').slice(0, 220));
-            await new Promise((r2) => setTimeout(r2, 300));
+              console.log(`PEEK ${tag} ${r.status} ${b.length}B ${(r.headers.get('content-type') || '')} ${u.slice(0, 90)}`);
+              if (r.ok && b.length > 1500 && b.length < 120000) {
+                budget--;
+                console.log(`B64START ${tag}`);
+                console.log(b.toString('base64'));
+                console.log(`B64END ${tag}`);
+              }
+            } catch (e) { console.log(`PEEK ${tag} ERR ${(e.cause && e.cause.code) || e.name}`); }
           }
 
-          console.log('\n---- 33633 票面图可达性（云端）----');
-          const IMGS = [
-            'https://imgbcw.cpyc.cn/customfiles/files/web/2023-06-01/202306012210331664.jpg',
-            'https://img33633.cpyc.cn/CustomFiles/Files/Web/20261018/202610181155188482.webp',
-            'https://img33633.cpyc.cn/CustomFiles/Files/Web/20261018/202610181155295207.webp',
-          ];
-          for (const u of IMGS) {
-            for (const ref of ['', 'https://m.33633.cn/']) {
-              try {
-                const r = await fetch(u, { headers: { 'User-Agent': UA_M, ...(ref ? { Referer: ref } : {}) }, signal: AbortSignal.timeout(15000) });
-                const b = Buffer.from(await r.arrayBuffer());
-                console.log(`IMG3 ${r.status} ${String(b.length).padStart(7)}B ${(r.headers.get('content-type') || '').slice(0, 16)} ref=${ref ? 'yes' : 'no '} ${u.slice(0, 80)}`);
-              } catch (e) { console.log(`IMG3 ERR ${(e.cause && e.cause.code) || e.name} ref=${ref ? 'yes' : 'no '} ${u.slice(0, 80)}`); }
-            }
+          /* (a) 搜狗图片 — 逐条看标题/图片 */
+          for (const q of ['竞彩晒票', '竞彩实单']) {
+            const u = 'https://pic.sogou.com/pics?query=' + encodeURIComponent(q) + '&mode=1&start=0&reqType=ajax&reqFrom=result&tn=0';
+            try {
+              const r = await fetch(u, { headers: { 'User-Agent': UA_PC, Referer: 'https://pic.sogou.com/' }, signal: AbortSignal.timeout(20000) });
+              const t = await r.text();
+              const parts = t.split('"pic_url"').slice(1);
+              const rows = [];
+              for (const p of parts) {
+                const pic = (/^:"([^"]+)"/.exec(p) || [])[1] || '';
+                const tt = /"title":"([^"]*)"/.exec(p);
+                const page = /"page_url":"([^"]*)"/.exec(p);
+                if (pic) rows.push({ pic, title: unesc(tt ? tt[1] : ''), page: page ? unesc(page[1]) : '' });
+              }
+              const rel = rows.filter((x) => /晒|实单|实票|竞彩/.test(x.title));
+              console.log(`\nSGIMG ${q} → ${r.status} ${Buffer.byteLength(t)}B 总=${rows.length} 相关=${rel.length}`);
+              rel.slice(0, 6).forEach((x, i) => console.log(`  [${i}] ${x.title.slice(0, 40)} | ${x.pic.slice(0, 85)}`));
+              for (const x of rel.slice(0, 3)) await peek(x.pic, 'sg-' + q + '-' + Math.random().toString(36).slice(2, 4));
+            } catch (e) { console.log(`\nSGIMG ${q} ERR ${(e.cause && e.cause.code) || e.name}`); }
+            await new Promise((r2) => setTimeout(r2, 1200));
           }
-          console.log('DONE3');
+
+          /* (b) Wayback：33633 有没有近期快照 */
+          for (const tgt of ['m.33633.cn/jingcai/']) {
+            const u = 'https://web.archive.org/cdx/search/cdx?url=' + tgt + '&output=json&limit=-8&fl=timestamp,statuscode,length';
+            try {
+              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(25000) });
+              const t = await r.text();
+              console.log(`\nWAYBACK ${tgt} → ${r.status} ${Buffer.byteLength(t)}B`);
+              console.log('  ' + t.replace(/\s+/g, ' ').slice(0, 500));
+            } catch (e) { console.log(`\nWAYBACK ERR ${(e.cause && e.cause.code) || e.name}`); }
+          }
+
+          /* (c) 代理能不能取到 33633（WAF 是否只挡某些 IP） */
+          const PROXY = [
+            ['jina', 'https://r.jina.ai/https://m.33633.cn/jingcai/'],
+            ['codetabs', 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
+            ['corslol', 'https://api.cors.lol/?url=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
+            ['allorigins', 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://m.33633.cn/jingcai/')],
+          ];
+          for (const [n, u] of PROXY) {
+            try {
+              const r = await fetch(u, { headers: { 'User-Agent': UA_PC }, signal: AbortSignal.timeout(25000) });
+              const t = await r.text();
+              console.log(`\nPROXY ${n} → ${r.status} ${Buffer.byteLength(t)}B 有item=${t.includes('img_wrap')} 有晒票=${t.includes('晒票')}`);
+              console.log('  ' + t.replace(/\s+/g, ' ').slice(0, 200));
+            } catch (e) { console.log(`\nPROXY ${n} ERR ${(e.cause && e.cause.code) || e.name}`); }
+          }
+          console.log('\nDONE4');
           PROBEEOF
-          node probe3.mjs
+          node probe4.mjs
