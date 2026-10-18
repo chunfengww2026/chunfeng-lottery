@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 19:00
+   更新时间：2026-10-18 19:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 19:00",
+ "updated": "2026-10-18 19:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1026,6 +1026,48 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/6be55510-1bbc-46dd-92bb-0c6d993d7df51792320378850.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/6be55510-1bbc-46dd-92bb-0c6d993d7df51792320378850.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]回归快八",
+     "url": "",
+     "at": "2026-10-18T11:05:01.968Z",
+     "pubAt": "2026-10-18T10:46:00.000Z",
+     "pubMs": 1792320360000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792321501968,
+     "seenMs": 1792321501968,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/4150f153-68e3-428a-90da-fc1dac7454621792320233668.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/4150f153-68e3-428a-90da-fc1dac7454621792320233668.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]选三守号，，第二天",
+     "url": "",
+     "at": "2026-10-18T11:05:01.968Z",
+     "pubAt": "2026-10-18T10:44:00.000Z",
+     "pubMs": 1792320240000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792321501968,
+     "seenMs": 1792321501968,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/356ab3c9-8585-41c3-b522-1309db1f8a6f1792320233887.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/356ab3c9-8585-41c3-b522-1309db1f8a6f1792320233887.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]选三守号，，第二天",
+     "url": "",
+     "at": "2026-10-18T11:05:01.968Z",
+     "pubAt": "2026-10-18T10:44:00.000Z",
+     "pubMs": 1792320240000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792321501968,
+     "seenMs": 1792321501968,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/a8cf1c50-12bb-4ae9-858a-999a4e7cc8ab1792318455112.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/a8cf1c50-12bb-4ae9-858a-999a4e7cc8ab1792318455112.jpg?imageMogr2/thumbnail/360x",
