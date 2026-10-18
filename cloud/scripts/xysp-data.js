@@ -8,15 +8,43 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 17:00
+   更新时间：2026-10-18 17:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 17:00",
+ "updated": "2026-10-18 17:05",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/55ddfe74-9bcd-4f2f-ae6b-dcbec94a150c1792313565753.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/55ddfe74-9bcd-4f2f-ae6b-dcbec94a150c1792313565753.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]@太行老赫 @火红的财神",
+     "url": "",
+     "at": "2026-10-18T09:05:02.641Z",
+     "pubAt": "2026-10-18T08:52:00.000Z",
+     "pubMs": 1792313520000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792314302641,
+     "seenMs": 1792314302641,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/534f54b3-454c-41fa-8813-fcd69c6f87fd1792312806101.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/534f54b3-454c-41fa-8813-fcd69c6f87fd1792312806101.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]偶尔看一个",
+     "url": "",
+     "at": "2026-10-18T09:05:02.641Z",
+     "pubAt": "2026-10-18T08:40:00.000Z",
+     "pubMs": 1792312800000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792314302641,
+     "seenMs": 1792314302641,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/8efce3a1-a3d5-43c2-88f9-80bb7c456b6e1792311714466.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/8efce3a1-a3d5-43c2-88f9-80bb7c456b6e1792311714466.jpg?imageMogr2/thumbnail/360x",
@@ -959,34 +987,6 @@ const XYSP_DATA = {
      "at": "2026-10-17T15:00:02.082Z",
      "pubAt": "2026-10-17T09:24:00.000Z",
      "pubMs": 1792229040000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/ecf3b623-f1b4-4378-86a0-3962f5945a581792227769559.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/ecf3b623-f1b4-4378-86a0-3962f5945a581792227769559.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]2026年10月16日今天运气真不错，加油💪💪💪",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T09:03:00.000Z",
-     "pubMs": 1792227780000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/233dffa4-f052-4e7e-8847-bc38c4943b811792227769511.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/233dffa4-f052-4e7e-8847-bc38c4943b811792227769511.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]2026年10月16日今天运气真不错，加油💪💪💪",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T09:03:00.000Z",
-     "pubMs": 1792227780000,
      "pubSrc": "page",
      "nextAt": 1792242900000,
      "atMs": 1792249202082,
