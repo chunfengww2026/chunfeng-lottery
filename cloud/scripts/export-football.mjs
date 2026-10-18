@@ -726,6 +726,72 @@ const IN_SALE = OFFICIAL === null ? (stat.upcoming + stat.live) : OFFICIAL;
 const LATEST_UPDATED = [JC.updated, HIST && HIST.updated]
   .filter(Boolean).sort().pop() || JC.updated || '';
 
+/* ============================================================
+   __FRESH_STAMP__ 数据新鲜度小字（晒票区 / 「在售 N 场」）
+   ------------------------------------------------------------
+   为什么要有它：这两块数据是【随本机文件同步】进页面的，文件不再更新，
+   页面上的数字就一直停在最后一次同步的样子，用户关电脑之后【看不出来变旧】。
+   所以要页面自己说一句「多久以前」：票面更新于 3 小时前 / 数据更新于 12 分钟前。
+   ------------------------------------------------------------
+   时间戳【全部从文件内容里读】，不读文件 mtime（云上构建时 mtime 是构建机的，
+   和数据的真实时间无关）：
+     · ① 票面 = football-tickets.js 顶层的 FB_TICKETS_UPDATED（抓取脚本写的）
+     · ② 在售 = jc-official.js 顶层的 updated（抓不到不覆盖文件，所以它就是
+                「最后一次成功」的时刻）
+   两个字段的格式都是本机时区的 'YYYY-MM-DD HH:MM'。
+   解析不出来 → 整句【不渲染】（绝不写「更新于 NaN」或编一个时间出来）。
+   ------------------------------------------------------------
+   三档：<2 小时 灰 · 2~12 小时 淡橙 · >12 小时 红（只换颜色，不改字号字重）。
+   ============================================================ */
+const FRESH_WARN_H = 2;      /* 2 小时起提示 */
+const FRESH_STALE_H = 12;    /* 12 小时起明显提醒 */
+
+/** 任意时间串 → 毫秒；认不出返回 0 */
+function stampMs(v) {
+  const s = String(v == null ? '' : v).trim();
+  if (!s) return 0;
+  let t = Date.parse(s);                                    /* ISO（带 T / Z）走这里 */
+  if (!isFinite(t)) t = Date.parse(s.replace(/-/g, '/'));   /* 'YYYY-MM-DD HH:MM' 走这里（项目通用写法） */
+  return isFinite(t) ? t : 0;
+}
+
+/** 距今多久 →「12 分钟前」/「3 小时前」/「2 天前」；未来时间当「刚刚」 */
+function agoText(ms) {
+  const min = Math.floor(Math.max(0, Date.now() - ms) / 60000);
+  if (min < 1) return '刚刚';
+  if (min < 60) return min + ' 分钟前';
+  const hr = Math.floor(min / 60);
+  if (hr < 24) return hr + ' 小时前';
+  return Math.floor(hr / 24) + ' 天前';
+}
+
+/** 新鲜度档位：ok（<2h 灰）/ warn（2~12h 淡橙）/ stale（>12h 红） */
+function freshTier(ms) {
+  const hr = (Date.now() - ms) / 3600000;
+  if (hr < FRESH_WARN_H) return 'ok';
+  if (hr < FRESH_STALE_H) return 'warn';
+  return 'stale';
+}
+
+/** 渲染成一句小字（label = 「票面」/「数据」）；时间解析不出来 → 空串 */
+function freshStampHtml(label, raw) {
+  const ms = stampMs(raw);
+  if (!ms) return '';
+  return `<span class="fresh fresh-${freshTier(ms)}">${esc(label)}更新于 ${agoText(ms)}</span>`;
+}
+
+/* ① 晒票区的时间：football-tickets.js 有条目落进 72 小时窗口 → 用它；
+   一条都没落进来（整块只剩另一路）→ 用两路合并后的较新时间，
+   免得报一个跟画面上的票毫无关系的旧时间。 */
+const TICKETS_STAMP = JC_XYSP.items.some((it) => it && it.src === 'fb')
+  ? (FB_UPDATED || JC_XYSP.updated)
+  : (JC_XYSP.updated || FB_UPDATED);
+const TICKETS_STAMP_HTML = freshStampHtml('票面', TICKETS_STAMP);
+
+/* ② 「在售 N 场」的时间：jc-official.js 顶层的 updated（官方那份时间作兜底） */
+const INSALE_STAMP = (JC_OFFICIAL && (JC_OFFICIAL.updated || JC_OFFICIAL.officialUpdate)) || '';
+const INSALE_STAMP_HTML = freshStampHtml('数据', INSALE_STAMP);
+
 const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
 MATCHES.forEach((m) => { if (m.reco) recoDist[m.reco.pick]++; else recoDist.none++; });
 
@@ -1842,7 +1908,8 @@ function buildJcXyspHtml() {
   /* ⚠️ 用【过滤过的】JC_XYSP（已按 30 天窗口去掉过期、按 img 去重），
      不是原始文件内容 —— 页面不能盲信缓存文件（见上面那段说明）。 */
   const data = JC_XYSP.items;
-  const updated = String(JC_XYSP.updated || '');
+  /* 票面新鲜度小字（__FRESH_STAMP__，时间读自 football-tickets.js 的 FB_TICKETS_UPDATED） */
+  const stamp = TICKETS_STAMP_HTML;
 
   const cells = [];
   data.forEach((it) => {
@@ -1873,6 +1940,8 @@ function buildJcXyspHtml() {
     `<summary class="jxp-head">` +
     `<span class="jxp-title">晒票</span>` +
     `<span class="jxp-tag">竞彩实票</span>` +
+    /* 【票面新鲜度】紧跟在「竞彩实票」标签后面（11px 小字，收起状态下也看得见） */
+    stamp +
     `<span class="jxp-tip" aria-hidden="true"></span>` +
     `</summary>`;
 
@@ -3521,6 +3590,27 @@ ${nav}
    （在他手机上画成紫色骰子）才被这里隐藏；现在换成内联 SVG 手机图标，不再隐藏。 */
 
 /* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
+
+/* ============================================================
+   __FRESH_STAMP__ 数据新鲜度小字（写在样式表最后，压过上面所有旧规则）
+   ------------------------------------------------------------
+   出现位置只有两处：晒票标题行「晒票 竞彩实票 · 票面更新于 3 小时前」、
+   顶部副标题「体彩竞彩在售 N 场 · 数据更新于 3 小时前 · 已完场 …」。
+   规格：11px / 不加粗 / 不换行 / 不抢眼；三档只换颜色：
+     <2 小时   灰   #8a7a63（本页副文字色；若将来定义了 --ro-fg2 就跟着它走）
+     2~12 小时 淡橙 #9c7000（本页金色标签那档，不是新颜色）
+     >12 小时  红   #c0392b（本页既有的红，和「黑」那一档同一个红）
+   ⚠️ 不用图标、不弹窗、不写存储、不新增任何标签属性。
+   ============================================================ */
+.fresh { font-size: 11px; font-weight: 400; line-height: 1.6;
+  letter-spacing: 0; white-space: nowrap; vertical-align: baseline;
+  color: var(--ro-fg2, #8a7a63); }
+.fresh-warn  { color: #9c7000; }
+.fresh-stale { color: #c0392b; }
+/* 顶部副标题里那句：和 .sub 同一条行内流，前面由模板自己给「·」分隔 */
+.sub .fresh { color: var(--ro-fg2, #8a7a63); }
+.sub .fresh-warn  { color: #9c7000; }
+.sub .fresh-stale { color: #c0392b; }
 </style>
 <!-- __DEVICE_GATE_CSS__ 设备门样式（device-gate.mjs）：放在 head 收尾标签之前，
      电脑端第一帧就是隐藏态，不会先闪内容。
@@ -3633,7 +3723,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 图标用内联 SVG：用户手机上 📱 emoji 会画成「紫色骰子」，SVG 不依赖 emoji 字体。 -->
   <a id="installAppBtn" class="install-btn" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="vertical-align:-3px;margin-right:5px"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg>一键桌面</a>
   <a id="installFab" class="install-fab" role="button" tabindex="0" aria-label="添加到桌面"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="6.5" y="1.8" width="11" height="20.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="9.2" y="4.3" width="5.6" height="1.1" rx="0.55" fill="currentColor"/><circle cx="12" cy="19.1" r="1.15" fill="currentColor"/></svg></a>
-  <div class="sub">体彩竞彩在售 ${IN_SALE} 场 · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
+  <div class="sub">体彩竞彩在售 ${IN_SALE} 场${INSALE_STAMP_HTML ? ` · ${INSALE_STAMP_HTML}` : ''} · 已完场 ${stat.finished} 场（近 24 小时） · <span class="cd" data-cd="1"></span></div>
 
   <div class="stat">
     <a href="#sec-upcoming"><b>${stat.upcoming}</b><span>未开赛</span></a>
