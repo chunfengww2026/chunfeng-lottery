@@ -1508,13 +1508,15 @@ function main() {
      ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读 sina-predict.json）。
      ⚠️ 源头还没发下一期时，这个脚本会 exit 0 且不写文件 → 页面那块自然不显示，不会弄坏构建。 */
   if (doExportStatic) exportList.push(['build-sina-predict.mjs', '新浪下一期参考（可选，抓不到就跳过）']);
+  /* __MQ_EARLY__ 用户 2026-10-18：「喇叭要在抓取到开奖信息就公布」
+     → 播报比对必须在【生成彩票页之前】跑，否则页面里的喇叭用的是上一轮的旧数据。 */
+  exportList.push(['build-broadcast.mjs', '播报 · 中奖命中比对（先于出页面）']);
   if (doExportStatic) exportList.push(['export-static.mjs', '彩票页']);
   /* 【播报 · 中奖命中】用户 2026-10-17 批准挂进定时构建：
      拿我们自己算的号池（experts-data.js 的 games.<彩种>.pool）比开奖号，
      严格的包住判定 → 写 broadcast.json → 紧跟其后的 export-football.mjs 读它，
      把「命中一等奖/二等奖」接进播报条。
      ⚠️ 必须排在 export-football.mjs【之前】（页面构建时要读这个文件）。 */
-  if (plan.exportFootball) exportList.push(['build-broadcast.mjs', '播报 · 中奖命中比对']);
   if (plan.exportFootball) exportList.push(['export-football.mjs', '足球页']);
   /* 【走势图】用户 2026-10-17：「留在近30期走势预选参考里面. 删除单独走势图独立页」
      → 走势图【不再有独立页面】，也不再需要单独跑一步生成器：
