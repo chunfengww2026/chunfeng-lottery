@@ -3,41 +3,46 @@
         back/lay 主平客挂单量 · over/under 大小球 · top 前几笔大宗
    ⚠️ 只放数字，正文里一个字都不写（详情页整段内嵌，有硬断言）。 */
 const JC_BIFA = {
- "updated": "2026-10-18 13:14",
+ "updated": "2026-10-18 14:08",
  "metric": "已成交资金的三项分布、成交价与盘口挂单量",
  "games": {
   "周日001": {
-   "total": 73431,
+   "total": 86401,
    "amount": {
-    "home": 54543,
-    "draw": 8306,
-    "away": 10582
+    "home": 63848,
+    "draw": 11150,
+    "away": 11403
    },
    "ratio": {
     "home": 74,
-    "draw": 11,
-    "away": 14
+    "draw": 13,
+    "away": 13
    },
    "price": {
-    "home": 1.87,
-    "draw": 3.6,
+    "home": 1.84,
+    "draw": 3.65,
     "away": 5.3
    },
    "back": {
-    "home": 57,
-    "draw": 23,
-    "away": 1499
+    "home": 3906,
+    "draw": 1872,
+    "away": 1346
    },
    "lay": {
-    "home": 518,
-    "draw": 1785,
-    "away": 1236
+    "home": 1004,
+    "draw": 4962,
+    "away": 1902
    },
-   "over": 1489,
-   "overRatio": 33,
-   "under": 3070,
-   "underRatio": 67,
+   "over": 2763,
+   "overRatio": 21,
+   "under": 10138,
+   "underRatio": 79,
    "top": [
+    {
+     "a": 58119,
+     "p": 1.84,
+     "t": "2026-10-18 13:58:21"
+    },
     {
      "a": 51740,
      "p": 1.87,
@@ -57,46 +62,56 @@ const JC_BIFA = {
      "a": 48232,
      "p": 1.97,
      "t": "2026-10-18 11:36:54"
-    },
-    {
-     "a": 46926,
-     "p": 1.91,
-     "t": "2026-10-18 12:28:47"
     }
    ]
   },
   "周日002": {
-   "total": 3664,
+   "total": 4652,
    "amount": {
-    "home": 2669,
-    "draw": 789,
-    "away": 206
+    "home": 3362,
+    "draw": 1003,
+    "away": 287
    },
    "ratio": {
-    "home": 73,
+    "home": 72,
     "draw": 22,
     "away": 6
    },
    "price": {
-    "home": 2.32,
-    "draw": 3.2,
-    "away": 3.85
+    "home": 2.34,
+    "draw": 3.3,
+    "away": 3.75
    },
    "back": {
-    "home": 60,
-    "draw": 3,
-    "away": 992
+    "home": 2596,
+    "draw": 26,
+    "away": 1281
    },
    "lay": {
-    "home": 238,
-    "draw": 91,
-    "away": 10
+    "home": 0,
+    "draw": 26,
+    "away": 3
    },
-   "over": 0,
-   "overRatio": 0,
+   "over": 186,
+   "overRatio": 28,
    "under": 479,
-   "underRatio": 100,
+   "underRatio": 72,
    "top": [
+    {
+     "a": 3297,
+     "p": 2.34,
+     "t": "2026-10-18 14:03:23"
+    },
+    {
+     "a": 3187,
+     "p": 2.36,
+     "t": "2026-10-18 13:47:23"
+    },
+    {
+     "a": 635,
+     "p": 2.32,
+     "t": "2026-10-18 13:20:29"
+    },
     {
      "a": 415,
      "p": 3.2,
@@ -106,55 +121,40 @@ const JC_BIFA = {
      "a": 275,
      "p": 3.2,
      "t": "2026-10-18 13:06:29"
-    },
-    {
-     "a": 167,
-     "p": 3.15,
-     "t": "2026-10-18 08:27:04"
-    },
-    {
-     "a": 147,
-     "p": 3.15,
-     "t": "2026-10-18 07:58:57"
-    },
-    {
-     "a": 50,
-     "p": 3.2,
-     "t": "2026-10-18 06:35:20"
     }
    ]
   },
   "周日003": {
-   "total": 7232,
+   "total": 8824,
    "amount": {
-    "home": 4495,
-    "draw": 717,
-    "away": 2020
+    "home": 5846,
+    "draw": 785,
+    "away": 2193
    },
    "ratio": {
-    "home": 62,
-    "draw": 10,
-    "away": 28
+    "home": 66,
+    "draw": 9,
+    "away": 25
    },
    "price": {
-    "home": 1.44,
-    "draw": 5.5,
-    "away": 8.2
+    "home": 1.38,
+    "draw": 5.6,
+    "away": 9
    },
    "back": {
-    "home": 49,
-    "draw": 158,
-    "away": 288
+    "home": 5750,
+    "draw": 61,
+    "away": 442
    },
    "lay": {
-    "home": 649,
-    "draw": 105,
-    "away": 150
+    "home": 4319,
+    "draw": 94,
+    "away": 66
    },
-   "over": 340,
-   "overRatio": 80,
+   "over": 397,
+   "overRatio": 82,
    "under": 85,
-   "underRatio": 20,
+   "underRatio": 18,
    "top": [
     {
      "a": 1133,
@@ -172,43 +172,43 @@ const JC_BIFA = {
      "t": "2026-10-18 11:56:54"
     },
     {
+     "a": 291,
+     "p": 1.38,
+     "t": "2026-10-18 13:59:59"
+    },
+    {
      "a": 205,
      "p": 1.44,
      "t": "2026-10-18 13:02:59"
-    },
-    {
-     "a": 115,
-     "p": 1.58,
-     "t": "2026-10-18 07:20:30"
     }
    ]
   },
   "周日004": {
-   "total": 33286,
+   "total": 35757,
    "amount": {
-    "home": 4879,
-    "draw": 8944,
-    "away": 19463
+    "home": 6568,
+    "draw": 9210,
+    "away": 19979
    },
    "ratio": {
-    "home": 15,
-    "draw": 27,
-    "away": 58
+    "home": 18,
+    "draw": 26,
+    "away": 56
    },
    "price": {
-    "home": 3.85,
-    "draw": 4.2,
-    "away": 2.02
+    "home": 3.95,
+    "draw": 4.1,
+    "away": 2
    },
    "back": {
-    "home": 283,
-    "draw": 78,
-    "away": 5
+    "home": 443,
+    "draw": 2011,
+    "away": 295
    },
    "lay": {
-    "home": 22,
-    "draw": 1187,
-    "away": 363
+    "home": 16,
+    "draw": 648,
+    "away": 1995
    },
    "over": 215,
    "overRatio": 60,
@@ -243,37 +243,42 @@ const JC_BIFA = {
    ]
   },
   "周日005": {
-   "total": 447281,
+   "total": 495791,
    "amount": {
-    "home": 329135,
-    "draw": 69645,
-    "away": 48501
+    "home": 355599,
+    "draw": 85092,
+    "away": 55100
    },
    "ratio": {
-    "home": 74,
-    "draw": 16,
+    "home": 72,
+    "draw": 17,
     "away": 11
    },
    "price": {
-    "home": 1.9,
+    "home": 1.88,
     "draw": 3.75,
-    "away": 4.9
+    "away": 5
    },
    "back": {
-    "home": 10793,
-    "draw": 3182,
-    "away": 1173
+    "home": 3771,
+    "draw": 3967,
+    "away": 2318
    },
    "lay": {
-    "home": 2438,
-    "draw": 4724,
-    "away": 1510
+    "home": 5724,
+    "draw": 10582,
+    "away": 1700
    },
-   "over": 11156,
-   "overRatio": 54,
-   "under": 9625,
-   "underRatio": 46,
+   "over": 31094,
+   "overRatio": 57,
+   "under": 23398,
+   "underRatio": 43,
    "top": [
+    {
+     "a": 209038,
+     "p": 1.87,
+     "t": "2026-10-18 13:12:43"
+    },
     {
      "a": 189220,
      "p": 1.91,
@@ -293,20 +298,15 @@ const JC_BIFA = {
      "a": 45962,
      "p": 1.9,
      "t": "2026-10-18 03:55:53"
-    },
-    {
-     "a": 41522,
-     "p": 1.9,
-     "t": "2026-10-18 12:09:55"
     }
    ]
   },
   "周日006": {
-   "total": 375938,
+   "total": 379017,
    "amount": {
-    "home": 295733,
-    "draw": 32663,
-    "away": 47542
+    "home": 297999,
+    "draw": 33030,
+    "away": 47988
    },
    "ratio": {
     "home": 79,
@@ -315,20 +315,20 @@ const JC_BIFA = {
    },
    "price": {
     "home": 2.06,
-    "draw": 3.9,
+    "draw": 3.95,
     "away": 3.85
    },
    "back": {
-    "home": 5257,
-    "draw": 4508,
-    "away": 4581
+    "home": 5689,
+    "draw": 5002,
+    "away": 5447
    },
    "lay": {
-    "home": 3277,
-    "draw": 3325,
-    "away": 7985
+    "home": 6881,
+    "draw": 4246,
+    "away": 8293
    },
-   "over": 119448,
+   "over": 120054,
    "overRatio": 92,
    "under": 10244,
    "underRatio": 8,
@@ -361,11 +361,11 @@ const JC_BIFA = {
    ]
   },
   "周日008": {
-   "total": 3969,
+   "total": 4004,
    "amount": {
     "home": 2351,
     "draw": 565,
-    "away": 1053
+    "away": 1088
    },
    "ratio": {
     "home": 59,
@@ -378,14 +378,14 @@ const JC_BIFA = {
     "away": 6
    },
    "back": {
-    "home": 61,
-    "draw": 1231,
-    "away": 84
+    "home": 1168,
+    "draw": 573,
+    "away": 505
    },
    "lay": {
-    "home": 1026,
-    "draw": 296,
-    "away": 417
+    "home": 1532,
+    "draw": 1913,
+    "away": 178
    },
    "over": 4423,
    "overRatio": 92,
@@ -420,41 +420,51 @@ const JC_BIFA = {
    ]
   },
   "周日009": {
-   "total": 36344,
+   "total": 44365,
    "amount": {
-    "home": 27270,
-    "draw": 5963,
-    "away": 3111
+    "home": 29750,
+    "draw": 10620,
+    "away": 3995
    },
    "ratio": {
-    "home": 75,
-    "draw": 16,
+    "home": 67,
+    "draw": 24,
     "away": 9
    },
    "price": {
-    "home": 2.48,
+    "home": 2.44,
     "draw": 4.1,
-    "away": 2.86
+    "away": 2.82
    },
    "back": {
-    "home": 10,
-    "draw": 3047,
-    "away": 305
+    "home": 591,
+    "draw": 3943,
+    "away": 185
    },
    "lay": {
-    "home": 282,
-    "draw": 2372,
-    "away": 116
+    "home": 4540,
+    "draw": 2000,
+    "away": 2414
    },
    "over": 920,
-   "overRatio": 99,
-   "under": 10,
-   "underRatio": 1,
+   "overRatio": 70,
+   "under": 403,
+   "underRatio": 30,
    "top": [
     {
      "a": 23409,
      "p": 2.48,
      "t": "2026-10-18 10:26:19"
+    },
+    {
+     "a": 19573,
+     "p": 2.44,
+     "t": "2026-10-18 13:19:18"
+    },
+    {
+     "a": 18110,
+     "p": 2.42,
+     "t": "2026-10-18 13:14:29"
     },
     {
      "a": 10146,
@@ -465,49 +475,39 @@ const JC_BIFA = {
      "a": 7781,
      "p": 2.46,
      "t": "2026-10-18 03:06:10"
-    },
-    {
-     "a": 7581,
-     "p": 2.46,
-     "t": "2026-10-18 10:31:06"
-    },
-    {
-     "a": 6045,
-     "p": 2.46,
-     "t": "2026-10-18 10:21:32"
     }
    ]
   },
   "周日011": {
-   "total": 535652,
+   "total": 549332,
    "amount": {
-    "home": 349530,
-    "draw": 92403,
-    "away": 93719
+    "home": 361873,
+    "draw": 93259,
+    "away": 94200
    },
    "ratio": {
-    "home": 65,
+    "home": 66,
     "draw": 17,
     "away": 17
    },
    "price": {
     "home": 2.2,
     "draw": 3.55,
-    "away": 3.75
+    "away": 3.8
    },
    "back": {
-    "home": 15902,
-    "draw": 19078,
-    "away": 5594
+    "home": 18571,
+    "draw": 19046,
+    "away": 5964
    },
    "lay": {
-    "home": 8608,
-    "draw": 19047,
-    "away": 2625
+    "home": 4483,
+    "draw": 5993,
+    "away": 1894
    },
    "over": 21075,
    "overRatio": 47,
-   "under": 23763,
+   "under": 23893,
    "underRatio": 53,
    "top": [
     {
@@ -538,36 +538,36 @@ const JC_BIFA = {
    ]
   },
   "周日012": {
-   "total": 445832,
+   "total": 458083,
    "amount": {
-    "home": 115208,
-    "draw": 56376,
-    "away": 274248
+    "home": 118674,
+    "draw": 58477,
+    "away": 280932
    },
    "ratio": {
     "home": 26,
     "draw": 13,
-    "away": 62
+    "away": 61
    },
    "price": {
-    "home": 3.6,
+    "home": 3.65,
     "draw": 3.8,
     "away": 2.18
    },
    "back": {
-    "home": 2291,
-    "draw": 6728,
-    "away": 2169
+    "home": 6305,
+    "draw": 6809,
+    "away": 53004
    },
    "lay": {
-    "home": 1659,
-    "draw": 882,
-    "away": 5253
+    "home": 2325,
+    "draw": 2504,
+    "away": 7876
    },
-   "over": 3885,
-   "overRatio": 59,
-   "under": 2655,
-   "underRatio": 41,
+   "over": 3938,
+   "overRatio": 58,
+   "under": 2802,
+   "underRatio": 42,
    "top": [
     {
      "a": 85174,
@@ -597,36 +597,36 @@ const JC_BIFA = {
    ]
   },
   "周日013": {
-   "total": 121103,
+   "total": 131356,
    "amount": {
-    "home": 5276,
-    "draw": 7272,
-    "away": 108555
+    "home": 7131,
+    "draw": 12390,
+    "away": 111835
    },
    "ratio": {
-    "home": 4,
-    "draw": 6,
-    "away": 90
+    "home": 5,
+    "draw": 9,
+    "away": 85
    },
    "price": {
-    "home": 3.65,
+    "home": 3.75,
     "draw": 3.95,
-    "away": 2.1
+    "away": 2.08
    },
    "back": {
-    "home": 1856,
-    "draw": 1434,
-    "away": 3300
+    "home": 513,
+    "draw": 266,
+    "away": 2320
    },
    "lay": {
-    "home": 209,
-    "draw": 139,
-    "away": 7287
+    "home": 1024,
+    "draw": 1281,
+    "away": 1035
    },
    "over": 6684,
-   "overRatio": 54,
-   "under": 5712,
-   "underRatio": 46,
+   "overRatio": 53,
+   "under": 5893,
+   "underRatio": 47,
    "top": [
     {
      "a": 27149,
@@ -656,36 +656,36 @@ const JC_BIFA = {
    ]
   },
   "周日014": {
-   "total": 449272,
+   "total": 491170,
    "amount": {
-    "home": 358300,
-    "draw": 47778,
-    "away": 43194
+    "home": 398471,
+    "draw": 48526,
+    "away": 44173
    },
    "ratio": {
-    "home": 80,
-    "draw": 11,
-    "away": 10
+    "home": 81,
+    "draw": 10,
+    "away": 9
    },
    "price": {
-    "home": 1.68,
-    "draw": 4.8,
-    "away": 5.1
+    "home": 1.65,
+    "draw": 4.9,
+    "away": 5.2
    },
    "back": {
-    "home": 6,
-    "draw": 4411,
-    "away": 928
+    "home": 2538,
+    "draw": 2121,
+    "away": 1992
    },
    "lay": {
-    "home": 8557,
-    "draw": 492,
-    "away": 1815
+    "home": 21446,
+    "draw": 8998,
+    "away": 1077
    },
-   "over": 14259,
-   "overRatio": 78,
-   "under": 4098,
-   "underRatio": 22,
+   "over": 14434,
+   "overRatio": 77,
+   "under": 4194,
+   "underRatio": 23,
    "top": [
     {
      "a": 111329,
@@ -715,36 +715,36 @@ const JC_BIFA = {
    ]
   },
   "周日015": {
-   "total": 130072,
+   "total": 155403,
    "amount": {
-    "home": 70900,
-    "draw": 43438,
-    "away": 15734
+    "home": 82975,
+    "draw": 52865,
+    "away": 19563
    },
    "ratio": {
-    "home": 55,
-    "draw": 33,
-    "away": 12
+    "home": 53,
+    "draw": 34,
+    "away": 13
    },
    "price": {
-    "home": 2.32,
+    "home": 2.36,
     "draw": 3.35,
-    "away": 3.65
+    "away": 3.6
    },
    "back": {
-    "home": 1633,
-    "draw": 16433,
-    "away": 1270
+    "home": 1171,
+    "draw": 8394,
+    "away": 2419
    },
    "lay": {
-    "home": 1140,
-    "draw": 12369,
-    "away": 97
+    "home": 2154,
+    "draw": 13132,
+    "away": 610
    },
-   "over": 16974,
-   "overRatio": 32,
-   "under": 35895,
-   "underRatio": 68,
+   "over": 18678,
+   "overRatio": 26,
+   "under": 52504,
+   "underRatio": 74,
    "top": [
     {
      "a": 19497,
@@ -762,49 +762,54 @@ const JC_BIFA = {
      "t": "2026-10-17 22:20:13"
     },
     {
+     "a": 11149,
+     "p": 2.34,
+     "t": "2026-10-18 13:29:52"
+    },
+    {
      "a": 8922,
      "p": 2.32,
      "t": "2026-10-17 23:35:12"
-    },
-    {
-     "a": 7763,
-     "p": 2.3,
-     "t": "2026-10-18 00:37:31"
     }
    ]
   },
   "周日016": {
-   "total": 12349,
+   "total": 13983,
    "amount": {
-    "home": 4956,
+    "home": 5353,
     "draw": 2128,
-    "away": 5265
+    "away": 6502
    },
    "ratio": {
-    "home": 40,
-    "draw": 17,
-    "away": 43
+    "home": 38,
+    "draw": 15,
+    "away": 47
    },
    "price": {
     "home": 3.75,
     "draw": 4.5,
-    "away": 1.97
+    "away": 1.95
    },
    "back": {
-    "home": 167,
-    "draw": 780,
-    "away": 339
+    "home": 353,
+    "draw": 333,
+    "away": 6100
    },
    "lay": {
-    "home": 6,
-    "draw": 360,
-    "away": 306
+    "home": 1,
+    "draw": 259,
+    "away": 64
    },
    "over": 303,
    "overRatio": 78,
-   "under": 87,
+   "under": 88,
    "underRatio": 22,
    "top": [
+    {
+     "a": 3290,
+     "p": 1.95,
+     "t": "2026-10-18 13:38:37"
+    },
     {
      "a": 1776,
      "p": 2,
@@ -824,45 +829,40 @@ const JC_BIFA = {
      "a": 1020,
      "p": 1.97,
      "t": "2026-10-18 05:02:34"
-    },
-    {
-     "a": 972,
-     "p": 1.96,
-     "t": "2026-10-18 10:49:34"
     }
    ]
   },
   "周日017": {
-   "total": 127147,
+   "total": 135270,
    "amount": {
-    "home": 17951,
-    "draw": 19354,
-    "away": 89842
+    "home": 18252,
+    "draw": 20821,
+    "away": 96197
    },
    "ratio": {
-    "home": 14,
+    "home": 13,
     "draw": 15,
     "away": 71
    },
    "price": {
-    "home": 3.95,
-    "draw": 3.6,
+    "home": 3.9,
+    "draw": 3.5,
     "away": 2.16
    },
    "back": {
-    "home": 230,
-    "draw": 148,
-    "away": 672
+    "home": 1676,
+    "draw": 6084,
+    "away": 5228
    },
    "lay": {
-    "home": 3680,
-    "draw": 438,
-    "away": 24707
+    "home": 89,
+    "draw": 1495,
+    "away": 20681
    },
-   "over": 692,
-   "overRatio": 11,
-   "under": 5377,
-   "underRatio": 89,
+   "over": 1943,
+   "overRatio": 22,
+   "under": 6999,
+   "underRatio": 78,
    "top": [
     {
      "a": 63209,
@@ -885,43 +885,43 @@ const JC_BIFA = {
      "t": "2026-10-18 05:50:17"
     },
     {
-     "a": 13665,
-     "p": 3.95,
-     "t": "2026-10-18 08:57:29"
+     "a": 13989,
+     "p": 3.9,
+     "t": "2026-10-18 13:26:58"
     }
    ]
   },
   "周日018": {
-   "total": 1438512,
+   "total": 1470917,
    "amount": {
-    "home": 147913,
-    "draw": 102798,
-    "away": 1187801
+    "home": 151282,
+    "draw": 106389,
+    "away": 1213246
    },
    "ratio": {
     "home": 10,
     "draw": 7,
-    "away": 83
+    "away": 82
    },
    "price": {
-    "home": 7.2,
-    "draw": 4.1,
+    "home": 7.4,
+    "draw": 4.2,
     "away": 1.6
    },
    "back": {
-    "home": 8008,
-    "draw": 14770,
-    "away": 10173
+    "home": 8805,
+    "draw": 17101,
+    "away": 2643
    },
    "lay": {
-    "home": 4821,
-    "draw": 40231,
-    "away": 11544
+    "home": 628,
+    "draw": 38316,
+    "away": 28713
    },
-   "over": 19182,
-   "overRatio": 45,
-   "under": 23786,
-   "underRatio": 55,
+   "over": 20013,
+   "overRatio": 46,
+   "under": 23956,
+   "underRatio": 54,
    "top": [
     {
      "a": 528253,
@@ -951,31 +951,31 @@ const JC_BIFA = {
    ]
   },
   "周日019": {
-   "total": 110905,
+   "total": 116459,
    "amount": {
-    "home": 41437,
-    "draw": 17480,
-    "away": 51988
+    "home": 41920,
+    "draw": 17547,
+    "away": 56992
    },
    "ratio": {
-    "home": 37,
-    "draw": 16,
-    "away": 47
+    "home": 36,
+    "draw": 15,
+    "away": 49
    },
    "price": {
     "home": 3.25,
-    "draw": 4.3,
-    "away": 2.2
+    "draw": 4.2,
+    "away": 2.18
    },
    "back": {
-    "home": 1609,
-    "draw": 53,
-    "away": 132
+    "home": 1392,
+    "draw": 16002,
+    "away": 356
    },
    "lay": {
-    "home": 5248,
-    "draw": 10143,
-    "away": 526
+    "home": 176,
+    "draw": 10126,
+    "away": 266
    },
    "over": 1999,
    "overRatio": 66,
@@ -993,6 +993,11 @@ const JC_BIFA = {
      "t": "2026-10-18 11:32:32"
     },
     {
+     "a": 19186,
+     "p": 2.18,
+     "t": "2026-10-18 13:45:11"
+    },
+    {
      "a": 16119,
      "p": 2.22,
      "t": "2026-10-18 00:14:54"
@@ -1001,20 +1006,15 @@ const JC_BIFA = {
      "a": 9915,
      "p": 2.2,
      "t": "2026-10-18 07:25:26"
-    },
-    {
-     "a": 9645,
-     "p": 3.3,
-     "t": "2026-10-18 12:48:23"
     }
    ]
   },
   "周日020": {
-   "total": 451687,
+   "total": 455509,
    "amount": {
-    "home": 373274,
-    "draw": 53703,
-    "away": 24710
+    "home": 376694,
+    "draw": 53929,
+    "away": 24886
    },
    "ratio": {
     "home": 83,
@@ -1022,19 +1022,19 @@ const JC_BIFA = {
     "away": 5
    },
    "price": {
-    "home": 1.87,
+    "home": 1.88,
     "draw": 3.95,
-    "away": 4.6
+    "away": 4.7
    },
    "back": {
-    "home": 1337,
-    "draw": 3278,
-    "away": 965
+    "home": 2153,
+    "draw": 3243,
+    "away": 1578
    },
    "lay": {
-    "home": 3679,
-    "draw": 595,
-    "away": 2703
+    "home": 3932,
+    "draw": 2461,
+    "away": 3206
    },
    "over": 15982,
    "overRatio": 52,
@@ -1069,36 +1069,36 @@ const JC_BIFA = {
    ]
   },
   "周日021": {
-   "total": 169262,
+   "total": 172083,
    "amount": {
-    "home": 30008,
-    "draw": 23242,
-    "away": 116012
+    "home": 30015,
+    "draw": 23561,
+    "away": 118507
    },
    "ratio": {
-    "home": 18,
+    "home": 17,
     "draw": 14,
     "away": 69
    },
    "price": {
-    "home": 3.5,
-    "draw": 3.7,
+    "home": 3.55,
+    "draw": 3.75,
     "away": 2.24
    },
    "back": {
-    "home": 7,
-    "draw": 21,
-    "away": 792
+    "home": 388,
+    "draw": 451,
+    "away": 1235
    },
    "lay": {
-    "home": 1134,
-    "draw": 9879,
-    "away": 1112
+    "home": 2150,
+    "draw": 9981,
+    "away": 1246
    },
-   "over": 2813,
-   "overRatio": 43,
-   "under": 3760,
-   "underRatio": 57,
+   "over": 3045,
+   "overRatio": 44,
+   "under": 3923,
+   "underRatio": 56,
    "top": [
     {
      "a": 98380,
@@ -1128,15 +1128,15 @@ const JC_BIFA = {
    ]
   },
   "周日022": {
-   "total": 309419,
+   "total": 319253,
    "amount": {
-    "home": 158671,
-    "draw": 85318,
-    "away": 65430
+    "home": 167675,
+    "draw": 85548,
+    "away": 66030
    },
    "ratio": {
-    "home": 51,
-    "draw": 28,
+    "home": 53,
+    "draw": 27,
     "away": 21
    },
    "price": {
@@ -1145,18 +1145,18 @@ const JC_BIFA = {
     "away": 6
    },
    "back": {
-    "home": 1485,
-    "draw": 12238,
-    "away": 1061
+    "home": 4906,
+    "draw": 6910,
+    "away": 3334
    },
    "lay": {
-    "home": 11241,
-    "draw": 53,
-    "away": 2603
+    "home": 4857,
+    "draw": 20459,
+    "away": 3107
    },
    "over": 7383,
    "overRatio": 10,
-   "under": 68002,
+   "under": 68437,
    "underRatio": 90,
    "top": [
     {
@@ -1187,31 +1187,31 @@ const JC_BIFA = {
    ]
   },
   "周日023": {
-   "total": 624557,
+   "total": 660783,
    "amount": {
-    "home": 538867,
-    "draw": 39780,
-    "away": 45910
+    "home": 572679,
+    "draw": 39797,
+    "away": 48307
    },
    "ratio": {
-    "home": 86,
+    "home": 87,
     "draw": 6,
     "away": 7
    },
    "price": {
-    "home": 2,
-    "draw": 3.95,
-    "away": 3.95
+    "home": 1.99,
+    "draw": 4,
+    "away": 4
    },
    "back": {
-    "home": 3331,
-    "draw": 4802,
-    "away": 919
+    "home": 3024,
+    "draw": 7238,
+    "away": 4089
    },
    "lay": {
-    "home": 3278,
-    "draw": 2441,
-    "away": 1278
+    "home": 16719,
+    "draw": 1031,
+    "away": 8321
    },
    "over": 2552,
    "overRatio": 97,
@@ -1246,31 +1246,31 @@ const JC_BIFA = {
    ]
   },
   "周日025": {
-   "total": 48148,
+   "total": 51633,
    "amount": {
-    "home": 30721,
-    "draw": 4139,
-    "away": 13288
+    "home": 33132,
+    "draw": 4562,
+    "away": 13939
    },
    "ratio": {
     "home": 64,
     "draw": 9,
-    "away": 28
+    "away": 27
    },
    "price": {
-    "home": 2.48,
-    "draw": 3.55,
+    "home": 2.5,
+    "draw": 3.5,
     "away": 3.15
    },
    "back": {
-    "home": 1,
-    "draw": 341,
-    "away": 523
+    "home": 176,
+    "draw": 2387,
+    "away": 660
    },
    "lay": {
-    "home": 309,
-    "draw": 473,
-    "away": 314
+    "home": 634,
+    "draw": 986,
+    "away": 241
    },
    "over": 3750,
    "overRatio": 99,
@@ -1301,65 +1301,6 @@ const JC_BIFA = {
      "a": 4967,
      "p": 2.4,
      "t": "2026-10-18 00:11:55"
-    }
-   ]
-  },
-  "周六030": {
-   "total": 150701,
-   "amount": {
-    "home": 40027,
-    "draw": 30030,
-    "away": 80644
-   },
-   "ratio": {
-    "home": 27,
-    "draw": 20,
-    "away": 54
-   },
-   "price": {
-    "home": 2.7,
-    "draw": 3.9,
-    "away": 2.7
-   },
-   "back": {
-    "home": 1157,
-    "draw": 5717,
-    "away": 423
-   },
-   "lay": {
-    "home": 1016,
-    "draw": 1654,
-    "away": 764
-   },
-   "over": 2388,
-   "overRatio": 44,
-   "under": 3059,
-   "underRatio": 56,
-   "top": [
-    {
-     "a": 30365,
-     "p": 2.74,
-     "t": "2026-10-18 07:05:31"
-    },
-    {
-     "a": 28205,
-     "p": 2.72,
-     "t": "2026-10-18 07:03:38"
-    },
-    {
-     "a": 20339,
-     "p": 2.76,
-     "t": "2026-10-18 07:00:23"
-    },
-    {
-     "a": 19831,
-     "p": 2.7,
-     "t": "2026-10-18 07:29:22"
-    },
-    {
-     "a": 8976,
-     "p": 2.68,
-     "t": "2026-10-18 07:26:03"
     }
    ]
   }
