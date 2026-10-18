@@ -1,80 +1,98 @@
 /* ============================================================
-   build-jc-scores.mjs —— 用 500 完场页，按【我们自己的比赛】精确回填比分
-   用户 2026-10-19：「足球比赛结果实时抓取 www.500.com」
+   build-jc-scores.mjs —— 500 完场比分（按 <tr> 行解析，用户 2026-10-19）
    ------------------------------------------------------------
-   不做全站解析（实测会把日期/联赛当队名），改成：
-     对每一条历史记录，用「主队名 … 客队名」在页面里定位，
-     取两队之间出现的第一个「a - b」= 终场比分。
-   产出 jc-scores.js：{ updated, count, map: { "主|客": "2:0" } }
+   之前用「全页正则 + 邻近文字」会串到隔壁场（罗马读出 0:1 ✗）。
+   现在改成：按 <tr> 切行，一行 = 一场比赛，行内取「队名 / 比分 / 队名」。
+   验收标准：罗马 vs 热那亚 必须读出 2:0（半场 0:0 不算）。
+   产出 jc-scores.js：{ updated, count, map: { "主队|客队": "2:0" } }
    ============================================================ */
 import fs from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'jc-scores.js');
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
-/* ① 收集我们自己所有的比赛（从存档 / recommend.json） */
-function collectMatches() {
-  const out = [];
-  const files = ['data/recommend.json', 'jc-reco-data.js', 'jc-reco-archive.js'];
-  for (const f of files) {
+/* 我们的比赛（"A vs B"） */
+function collectPairs() {
+  const set = new Set();
+  for (const f of ['data/recommend.json', 'jc-reco-data.js', 'jc-reco-archive.js']) {
     if (!fs.existsSync(f)) continue;
     try {
-      if (f.endsWith('.json')) {
-        const j = JSON.parse(fs.readFileSync(f, 'utf8'));
-        for (const g of (j.history || [])) for (const m of (g.matches || [])) if (m.teams) out.push(String(m.teams));
-      } else {
-        const src = fs.readFileSync(f, 'utf8');
-        for (const m of src.matchAll(/"teams"\s*:\s*"([^"]+)"/g)) out.push(m[1]);
-        for (const m of src.matchAll(/teams:\s*'([^']+)'/g)) out.push(m[1]);
+      const src = fs.readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/["']?teams["']?\s*:\s*["']([^"']+)["']/g)) {
+        const p = m[1].split(/\s+vs\s+/i);
+        if (p.length === 2 && p[0].trim() && p[1].trim()) set.add(p[0].trim() + '|' + p[1].trim());
       }
-    } catch (e) { /* 跳过坏文件 */ }
-  }
-  /* 只保留 "A vs B" 形式，去重 */
-  const set = new Set();
-  for (const t of out) {
-    const m = String(t).split(/\s+vs\s+/i);
-    if (m.length === 2 && m[0].trim() && m[1].trim()) set.add(m[0].trim() + '|' + m[1].trim());
+    } catch (e) { }
   }
   return [...set];
 }
 
-const pairs = collectMatches();
-console.log(`  我们的比赛：${pairs.length} 组`);
-
+const pairs = collectPairs();
 const r = await fetch('https://live.500.com/wanchang.php', { headers: { 'User-Agent': UA, Referer: 'https://www.500.com/' } });
 const buf = Buffer.from(await r.arrayBuffer());
-let text = buf.toString('utf8');
-if (text.indexOf('\ufffd') >= 0) { try { text = new TextDecoder('gbk').decode(buf); } catch (e) { } }
-console.log(`  完场页 HTTP ${r.status} · ${Math.round(text.length / 1024)}KB`);
-/* 【关键】整页先去标签变成纯文本：500 的比分数值是分开在 <span> 里的，
-   带标签时 "2 - 0" 中间夹着标签，正则匹配不到，只会匹配到纯文本的半场 "0 - 0" —— 之前就是这么判错的。 */
-const plain = text.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+let html = buf.toString('utf8');
+if (html.indexOf('\ufffd') >= 0) { try { html = new TextDecoder('gbk').decode(buf); } catch (e) { } }
+console.log(`  完场页 HTTP ${r.status} · ${Math.round(html.length / 1024)}KB · 我们的比赛 ${pairs.length} 组`);
+
+/* 按 <tr> 切行：一行 = 一场 */
+const rows = html.split(/<tr[\s>]/i).slice(1);
+console.log(`  共 ${rows.length} 个 <tr> 行`);
 
 const map = {};
-let hit = 0, miss = 0;
-for (const p of pairs) {
-  const [home, away] = p.split('|');
-  let i = -1, done = false;
-  while (!done && (i = plain.indexOf(home, i + 1)) >= 0) {
-    const seg = plain.slice(Math.max(0, i - 300), i + 360);
-    if (seg.indexOf(away) < 0) continue;
-    const sc = [...seg.matchAll(/(\d)\s*-\s*(\d)/g)].map((m) => m[1] + ':' + m[2]);
-    if (!sc.length) continue;
-    map[home + '|' + away] = sc[0];   /* 第一个 = 终场（后面出现的 0-0 是半场） */
-    hit++; done = true;
-  }
-  if (!done) miss++;
+let rowsWithScore = 0;
+for (const tr of rows) {
+  if (tr.indexOf('完') < 0 && tr.indexOf('完场') < 0) continue;   /* 只要完场的行 */
+  /* 行内去标签 → 纯文本（500 的比分数值分散在 span 里，必须先去标签） */
+  const txt = tr.replace(/<script[\s\S]*?<\/script>/g, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!txt) continue;
+
+  /* 比分：行内第一个「a - b」（单位数，两边 ≤ 9）。日期像 10-18 是两位数，天然排除。 */
+  const sc = txt.match(/(?<!\d)(\d)\s*-\s*(\d)(?!\d)/);
+  if (!sc) continue;
+  rowsWithScore++;
+  const final = sc[1] + ':' + sc[2];
+
+  /* 队名：中文/字母、长度 2~12、不是纯数字、不在比分两侧的噪声里 */
+  const toks = txt.split(/[\s|]+/).filter((s) => /^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9·]{1,11}$/.test(s));
+  /* 去掉常见噪声词 */
+  const NOISE = /^(完|完场|析|亚|欧|情|红|黑|中|主|客|平|半|全场|第\d+轮|联赛)$/;
+  const names = toks.filter((s) => !NOISE.test(s));
+  if (names.length < 2) continue;
+  /* 行内通常顺序：… 联赛 轮次 时间 完 [排名] 主队 比分 客队 [排名] …
+     取「比分位置前面最后两个像队名的」和「后面第一个」 */
+  const scIdx = txt.indexOf(sc[0]);
+  const before = txt.slice(0, scIdx).split(/[\s|]+/).filter((s) => /^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9·]{1,11}$/.test(s) && !NOISE.test(s));
+  const after = txt.slice(scIdx + sc[0].length).split(/[\s|]+/).filter((s) => /^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9·]{1,11}$/.test(s) && !NOISE.test(s));
+  if (!before.length || !after.length) continue;
+  const home = before[before.length - 1];
+  const away = after[0];
+  if (home === away) continue;
+  map[home + '|' + away] = final;
 }
 
-const out = { updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'), count: hit, map };
-fs.writeFileSync(OUT, `/* jc-scores.js —— 完场比分表（build-jc-scores.mjs 生成，勿手改）
-   时间：${out.updated} · 命中 ${hit} 场 / 共 ${pairs.length} 组 */
-const JC_SCORES = ${JSON.stringify(out, null, 1)};
+/* 用我们的比赛去对（双向都试，主客顺序以 500 为准） */
+const out = {};
+let hit = 0;
+for (const p of pairs) {
+  const [a, b] = p.split('|');
+  if (map[a + '|' + b]) { out[a + '|' + b] = map[a + '|' + b]; hit++; }
+  else if (map[b + '|' + a]) { out[a + '|' + b] = map[b + '|' + a]; hit++; }
+}
+
+const data = { updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'), count: hit, map: out };
+fs.writeFileSync(OUT, `/* jc-scores.js —— 500 完场比分（build-jc-scores.mjs 生成，勿手改）
+   ${data.updated} · 命中 ${hit}/${pairs.length} 组 · 全站解析 ${rowsWithScore} 行有比分 */
+const JC_SCORES = ${JSON.stringify(data, null, 1)};
 `, 'utf8');
-console.log(`✅ 已写入 jc-scores.js：命中 ${hit} 场 · 未匹配 ${miss} 组`);
-const roma = Object.entries(map).filter(([k]) => /罗马/.test(k));
-console.log('   罗马相关：', roma.length ? roma.map(([k, v]) => k + '=' + v).join(' · ') : '(没匹配到)');
+
+console.log(`  全站 ${rowsWithScore} 行有比分 · 我们的比赛命中 ${hit}/${pairs.length} 组`);
+const roma = Object.entries(out).filter(([k]) => /罗马/.test(k));
+console.log('  ★ 罗马相关：', roma.length ? roma.map(([k, v]) => k + ' = ' + v).join(' · ') : '(没匹配到)');
+console.log('  样例：', Object.entries(out).slice(0, 6).map(([k, v]) => k + '=' + v).join(' · '));
