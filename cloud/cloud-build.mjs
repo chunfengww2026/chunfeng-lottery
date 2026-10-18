@@ -1186,6 +1186,22 @@ function main() {
       log('\n【3】抓足球比分 + 竞彩赔率');
       results.push(run('build-football.mjs', []));
       results.push(run('build-jc.mjs', []));
+      /* 【3b 已完场赛果 · 用户 2026-10-18「补已经踢完的比赛的赛果抓取」】
+         紧跟 build-jc.mjs 之后：这一步抓「最近 48 小时完场」的终场/半场比分，
+         写 jc-results.js，并把 jc-history.js 里【还空着 / 被中途快照冻住】的比分
+         用终场比分补齐、修正（红黑靠它才算得对）。
+         ⚠️ 必须在 jc-reco-build.mjs 与 export-football.mjs【之前】：
+            那两个一个算红黑、一个把红黑内联进页面，顺序反了就是上一轮的旧数。
+         ⚠️ 文件不存在就【跳过】而不是算失败：云端只跑同步上去的文件，
+            这个脚本没进同步名单时 run() 会返回 false → anyFailed → 整批数据回滚，
+            代价太大。所以先 existsSync 再跑。
+         ⚠️ 抓不到时它自己【保留上一次的 jc-results.js / jc-history.js 不动】，
+            并且默认 exit 0（不拖垮本链；要严格失败得自己加 --strict）。 */
+      if (fs.existsSync(path.join(MOD, 'build-football-results.mjs'))) {
+        results.push(run('build-football-results.mjs', []));
+      } else {
+        log('  ⏭ 没有 build-football-results.mjs（还没同步上来）→ 跳过已完场赛果这一步');
+      }
     } else {
       log('\n【3】抓足球 + 竞彩 —— 本班次跳过');
     }
