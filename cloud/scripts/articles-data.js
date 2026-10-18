@@ -2,12 +2,12 @@
    articles-data.js —— 「文章参考」数据（自动生成，请勿手动编辑）
 
    由 build-articles.mjs 生成。
-   更新时间：2026-10-18 21:58
+   更新时间：2026-10-18 22:38
    每条：title / url / author / date / body（正文段落数组，图片是 { i: 地址 }）
    ============================================================ */
 
 const ARTICLES_DATA = {
- "updated": "2026-10-18 21:58",
+ "updated": "2026-10-18 22:38",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -646,7 +646,7 @@ const ARTICLES_DATA = {
     {
      "title": "志龙聊球福彩3D26277期号码走势分析",
      "url": "https://m.yiqicai.com/fc3d/yc/yc_fafc855177229dc0bb5044168b54f361.html",
-     "author": "志龙聊球",
+     "author": "博宇爸爸",
      "date": "2026-10-18 07:00",
      "body": [
       "博宇爸爸大师福彩3D26275期命中3个号码。",
