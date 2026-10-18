@@ -8,15 +8,57 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 13:50
+   更新时间：2026-10-18 13:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 13:50",
+ "updated": "2026-10-18 13:55",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/1c68075b-d43b-45d4-9b7c-b2e2939148eb1792301625434.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/1c68075b-d43b-45d4-9b7c-b2e2939148eb1792301625434.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]今日大复式票欣赏，快八数据马上发",
+     "url": "",
+     "at": "2026-10-18T05:55:02.184Z",
+     "pubAt": "2026-10-18T05:34:00.000Z",
+     "pubMs": 1792301640000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792302902184,
+     "seenMs": 1792302902184,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/b4a5adff-010c-46bf-841d-bc4afb5b40d41792301625438.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/b4a5adff-010c-46bf-841d-bc4afb5b40d41792301625438.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]今日大复式票欣赏，快八数据马上发",
+     "url": "",
+     "at": "2026-10-18T05:55:02.184Z",
+     "pubAt": "2026-10-18T05:34:00.000Z",
+     "pubMs": 1792301640000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792302902184,
+     "seenMs": 1792302902184,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/ddb6926e-e590-462c-b943-7b27cfdc606b1792301625420.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/ddb6926e-e590-462c-b943-7b27cfdc606b1792301625420.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]今日大复式票欣赏，快八数据马上发",
+     "url": "",
+     "at": "2026-10-18T05:55:02.184Z",
+     "pubAt": "2026-10-18T05:34:00.000Z",
+     "pubMs": 1792301640000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792302902184,
+     "seenMs": 1792302902184,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/61da5aea-8daa-4d53-a4fa-84fcd2edf6611792299095370.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/61da5aea-8daa-4d53-a4fa-84fcd2edf6611792299095370.jpg?imageMogr2/thumbnail/360x",
@@ -106,6 +148,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/698ed926-d3bc-4876-93b6-121da4c997a21792301685700.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/698ed926-d3bc-4876-93b6-121da4c997a21792301685700.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]尾数全对，打复式就好了",
+     "url": "",
+     "at": "2026-10-18T05:55:02.184Z",
+     "pubAt": "2026-10-18T05:35:00.000Z",
+     "pubMs": 1792301700000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792302902184,
+     "seenMs": 1792302902184,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/4ff0c29a-af1c-4c52-89ef-a670bc2a09a71792291581571.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/4ff0c29a-af1c-4c52-89ef-a670bc2a09a71792291581571.jpg?imageMogr2/thumbnail/360x",
