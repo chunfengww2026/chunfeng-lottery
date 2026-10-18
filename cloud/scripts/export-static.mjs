@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    ⛔ 铁律（2026-10-18 · 用户明确要求 · 改这个文件的人/助手都适用）
    不要动模板：不删区块、不加区块、不挪位置、不隐藏区块、
    不改列数/顺序/间距/字号/配色/文案。
@@ -4069,8 +4069,15 @@ html { scroll-behavior: smooth; }
 .ro-imgtoc-title { font-size: 15px; font-weight: 700; color: #e8eaed; letter-spacing: 1px; }
   .ro-imgtoc-sub { font-size: 11.5px; color: #8b93a1; margin-top: 3px; }
 
-  .ro-imgtoc { width: 100%; border-collapse: collapse; }
-  .ro-imgtoc td { padding: 3px; width: 50%; }
+  /* ============================================================
+   ★★★ 用户锁定区 · 推荐图目录（10 格）· 2026-10-19 ★★★
+   用户原话：「排成三排 ... 以后不管怎么样都不要动我这里的」
+   最终确认的排法：一排 2 个（2+2+2+2+2）
+   ⚠️ 任何人/任何窗口改到这里之前先问用户，不要自作主张动它。
+   ⚠️ 下面的 width:50% 就是「一排 2 个」的实现，别改。
+   ============================================================ */
+.ro-imgtoc { width: 100%; border-collapse: collapse; }
+  .ro-imgtoc td { padding: 3px; width: 50% !important; }
 
   /* 浅色格子（浅红/白底 + 深色字），手机上对比度看得清 */
   .ro-toc-cell {
@@ -6191,7 +6198,8 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   font-size: 10.5px; margin-top: 1px; color: var(--ro-fg2); white-space: nowrap; }
 .ro-imgtoc .ro-toc-cell.two-line { font-size: 13.5px !important; }
 @media (max-width: 360px) {
-  .ro-imgtoc { grid-template-columns: 1fr !important; }
+  /* ★ 用户锁定 · 2026-10-19：窄屏也必须是「一排 2 个」（用户原话：2+2+2+2+2） */
+  .ro-imgtoc { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .ro-imgtoc .ro-toc-cell .ro-toc-t { font-size: 15px; }
   .ro-imgtoc .ro-toc-cell .ro-toc-s { font-size: 11.5px; }
 }
@@ -13159,6 +13167,20 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-imgtoc .ro-toc-t { font-size: 12px !important; line-height: 1.35 !important; white-space: normal !important; }
 .ro-imgtoc .ro-toc-s { font-size: 10px !important; }
 @media (max-width: 340px) { .ro-imgtoc { gap: 5px !important; } .ro-imgtoc .ro-toc-t { font-size: 11px !important; } }
+
+/* ★ USER-LOCKED-TOC 2026-10-19 */
+/* ============================================================
+   ★★★ 用户锁定 · 推荐图目录（10 格）· 2026-10-19 ★★★
+   用户原话：「2+2+2+2」「以后不管怎么样都不要动我这里的」
+   这条规则放在样式表【最后】，用 !important 压过前面所有 3 列 / 1 列 的媒体查询。
+   ⚠️ 以后谁要改这块，先问用户。别删这条，也别在它后面再加 .ro-imgtoc 的列数规则。
+   ============================================================ */
+.ro-imgtoc {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+.ro-imgtoc > .ro-toc-cell { width: 100% !important; box-sizing: border-box !important; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
