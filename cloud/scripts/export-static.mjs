@@ -2341,29 +2341,18 @@ function hmIssueText(gid) {
      · 页面上不写任何「每小时 / 每天几点」的说法，也不做轮询定时 */
 function buildHeatmapHtml() {
   const tms = (HEATMAP && HEATMAP.games) ? HEATMAP.games : {};
-  /* 【样本太少就不画图 · 用户 2026-10-19「热力图有问题」】
-     实测：ssq 只有 2 张票、dlt 0 张 → 图上只有一根柱子、其余全是 0%，
-     看起来像坏了。这里设阈值：票数 < 10 的彩种直接不进热力图（不画图、不列号码）。
-     等云端每小时班抓到足够晒票，票数上来就自动恢复显示。 */
-  const MIN_TICKETS = 10;
-  const ticketCount = (g) => {
-    const H = tms[g] || {};
-    const ocr = H.ocr || {};
-    if (Array.isArray(ocr.tickets)) return ocr.tickets.length;
-    if (typeof ocr.tickets === 'number') return ocr.tickets;
-    if (typeof H.tickets === 'number') return H.tickets;
-    return 0;
-  };
+  /* 【2026-10-18 19:5x 回滚 · 整卡不能因为「样本少」就消失】
+     上一手（19:43）在这里加了 MIN_TICKETS = 10 的阈值 + `if (!ids.length) return ''`，
+     而当时 ssq 只有 6 张票、dlt 0 张 → ids 变空 → 函数直接返回空串
+     → 页面里连 <details class="ro-heat"> 都没有，用户就问「我的热力图工具栏呢」。
+     这违反本文件开头的铁律第 5 行「没数据时在【原有结构内】写"暂无"，不允许整块消失」。
+     所以恢复成原样：只要有号码明细就出块 / 出图，样本少的时候靠已有的
+     .ro-hm-none「本期热力图正在整理，稍后再看」和口径标签如实说明，绝不整块抹掉。 */
   const nowId = heatmapNextGameId();
   const ids = ['ssq', 'dlt'].filter((g) => {
     const H = tms[g];
-    if (!(H && H.front && Array.isArray(H.front.items) && H.front.items.length)) return false;
-    /* 样本不足 → 不出图 */
-    if (ticketCount(g) < MIN_TICKETS) return false;
-    return true;
+    return !!(H && H.front && Array.isArray(H.front.items) && H.front.items.length);
   });
-  /* 两个彩种样本都不够 → 整张卡不渲染（避免出现空白/坏图） */
-  if (!ids.length) return '';
   const hasCur = ids.indexOf(nowId) >= 0;
 
   const blocks = ids.map((g) => {
