@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-18 13:50",
+ "updated": "2026-10-18 13:51",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -158,7 +158,7 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.22,
      "conf": 77.8,
-     "score": "2:1",
+     "score": "3:2",
      "hit": true,
      "result": "win"
     },
@@ -200,9 +200,9 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.62,
      "conf": 58.8,
-     "score": "1:0",
-     "hit": false,
-     "result": "lose"
+     "score": "1:3",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周六025",
@@ -214,7 +214,7 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.22,
      "conf": 77.8,
-     "score": "2:0",
+     "score": "6:1",
      "hit": true,
      "result": "win"
     },
@@ -228,7 +228,7 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.42,
      "conf": 66.9,
-     "score": "0:1",
+     "score": "2:5",
      "hit": true,
      "result": "win"
     },
@@ -242,7 +242,7 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.33,
      "conf": 70.5,
-     "score": "0:2",
+     "score": "3:4",
      "hit": true,
      "result": "win"
     },
