@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 13:35
+   更新时间：2026-10-18 13:36
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 13:35",
+ "updated": "2026-10-18 13:36",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1698,7 +1698,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26119",
-     "seen": "2026-10-18T05:26:01.760Z",
+     "seen": "2026-10-18T05:36:01.764Z",
      "whenMs": 1792282765000,
      "seenMs": 1792301161760,
      "drawMs": 1792070100000,
@@ -1928,6 +1928,39 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=gvBn79qElEUENW9HTEolXtjPvKY%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=gvBn79qElEUENW9HTEolXtjPvKY%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=1v7t%2FA%2BoJjOxiR7D9dHpKJ%2B1nXs%3D",
+     "title": "排列3、5第26275期晒票：心有星辰自带光芒，坚守本心不逐浮名",
+     "url": "http://toutiao.com/item/7697718814191911443/",
+     "at": "2026-10-17T19:26:01.587Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "排列3",
+     "games": [
+      "pl3",
+      "pl5"
+     ],
+     "issue": "26275",
+     "seen": "2026-10-18T05:36:01.764Z",
+     "whenMs": 1792264826000,
+     "seenMs": 1792301761764,
+     "drawMs": 1792240200000,
+     "nextMs": 1792326600000,
+     "atMs": 1792265161587,
+     "drawAt": "2026-10-17T12:30:00.000Z",
+     "nextAt": 1792326600000,
+     "drawGid": "pl3",
+     "expireAt": "2026-10-21T05:36:01.764Z",
+     "rule": "next-draw",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-10-18 03:20:26",
+     "postId": "7697718814191911443",
+     "px": 132300,
+     "imgPx": 132300,
+     "dedupeImgs": 2
+    },
+    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62200744d997458bac64cc60f2f165e0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=97xLqJY9O0JmT4klvfAohOtEQWI%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62200744d997458bac64cc60f2f165e0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=97xLqJY9O0JmT4klvfAohOtEQWI%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=1v7t%2FA%2BoJjOxiR7D9dHpKJ%2B1nXs%3D",
@@ -1942,38 +1975,7 @@ const XYSP_DATA = {
       "pl5"
      ],
      "issue": "26275",
-     "seen": "2026-10-18T05:26:01.760Z",
-     "whenMs": 1792264826000,
-     "seenMs": 1792301161760,
-     "drawMs": 1792240200000,
-     "nextMs": 1792326600000,
-     "atMs": 1792265161587,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792326600000,
-     "drawGid": "pl3",
-     "expireAt": "2026-10-21T05:26:01.760Z",
-     "rule": "next-draw",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-18 03:20:26",
-     "postId": "7697718814191911443",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=cbXaMdFbQWqR1Apq%2FscEf91onoo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=cbXaMdFbQWqR1Apq%2FscEf91onoo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b588463b53814841bd1baf0606ca062e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=1v7t%2FA%2BoJjOxiR7D9dHpKJ%2B1nXs%3D",
-     "title": "排列3、5第26275期晒票：心有星辰自带光芒，坚守本心不逐浮名",
-     "url": "http://toutiao.com/item/7697718814191911443/",
-     "at": "2026-10-17T19:26:01.587Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26275",
-     "seen": "2026-10-18T05:26:01.760Z",
+     "seen": "2026-10-18T05:36:01.764Z",
      "whenMs": 1792264826000,
      "seenMs": 1792301161760,
      "drawMs": 1792240200000,
@@ -2004,7 +2006,7 @@ const XYSP_DATA = {
       "pl5"
      ],
      "issue": "26275",
-     "seen": "2026-10-18T05:26:01.760Z",
+     "seen": "2026-10-18T05:36:01.764Z",
      "whenMs": 1792264826000,
      "seenMs": 1792301161760,
      "drawMs": 1792240200000,
