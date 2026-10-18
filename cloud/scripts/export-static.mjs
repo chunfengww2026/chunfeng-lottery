@@ -13436,6 +13436,19 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-xj-art-t { flex: 1; font-size: 12.5px; line-height: 1.4; }
 .ro-xj-art-go { flex: 0 0 auto; font-size: 11.5px; color: #1a8c5a; font-weight: 700; }
 
+
+/* __CIR_HIT_DARK__ 用户 2026-10-18：九转连环图要把【上一期开奖号码】标成深色
+   （数据层已用 H 标记 isHit，这里把命中点的颜色压深、加粗，一眼能看出来） */
+.r-cirpt.hit, .r-cirpoint.hit, .r-circenter.hit, .r-cirdot.hit {
+  color: #2b1d10 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.6) !important;
+}
+.r-cirpt.hit::after, .r-cirpoint.hit::after {
+  content: ''; position: absolute; inset: -2px; border-radius: 50%;
+  border: 1.5px solid rgba(43,29,16,.55) !important;
+}
+
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
