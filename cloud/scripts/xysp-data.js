@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 22:30
+   更新时间：2026-10-18 22:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 22:30",
+ "updated": "2026-10-18 22:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -588,6 +588,104 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/52e5d0c5-f7f6-4df0-acf2-8a71148673611792330954112.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/52e5d0c5-f7f6-4df0-acf2-8a71148673611792330954112.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]还可以，三天中两次，双胆还是很精准，快回到之前的感觉了",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:43:00.000Z",
+     "pubMs": 1792330980000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/d33146cb-0c36-4417-a153-c60b06f24aeb1792330678206.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/d33146cb-0c36-4417-a153-c60b06f24aeb1792330678206.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]277好像是回本，拿下两个组，相信自己的胆码肯定能稳稳拿下，明天继续胆8",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:39:00.000Z",
+     "pubMs": 1792330740000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/e9e14df8-251c-4cfa-b4d5-21b14eb6b7431792330678217.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/e9e14df8-251c-4cfa-b4d5-21b14eb6b7431792330678217.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]277好像是回本，拿下两个组，相信自己的胆码肯定能稳稳拿下，明天继续胆8",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:39:00.000Z",
+     "pubMs": 1792330740000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/db8f1857-0e77-42f0-9a56-d5a43b7bbb751792330678211.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/db8f1857-0e77-42f0-9a56-d5a43b7bbb751792330678211.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]277好像是回本，拿下两个组，相信自己的胆码肯定能稳稳拿下，明天继续胆8",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:39:00.000Z",
+     "pubMs": 1792330740000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/dd2db103-b4e1-4ea2-a2bc-cc0a5f78e8621792330497239.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/dd2db103-b4e1-4ea2-a2bc-cc0a5f78e8621792330497239.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]恭喜今天充电上车的朋友了，拿下。🥰🥰",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:35:00.000Z",
+     "pubMs": 1792330500000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/495f88a1-63b7-4527-a272-39a2eacf43b71792330497243.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/495f88a1-63b7-4527-a272-39a2eacf43b71792330497243.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]恭喜今天充电上车的朋友了，拿下。🥰🥰",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:35:00.000Z",
+     "pubMs": 1792330500000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/a5a9da15-aece-4d4f-9224-2a334d0a3f5e1792330497150.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/a5a9da15-aece-4d4f-9224-2a334d0a3f5e1792330497150.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]恭喜今天充电上车的朋友了，拿下。🥰🥰",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:35:00.000Z",
+     "pubMs": 1792330500000,
+     "pubSrc": "page",
+     "nextAt": 1792415700000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/786b2581-1543-4468-bf2e-6e535b5ed0731792327013693.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/786b2581-1543-4468-bf2e-6e535b5ed0731792327013693.jpg?imageMogr2/thumbnail/360x",
      "title": "[26278期]来啦来啦",
@@ -1026,6 +1124,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/edf9adcb-4e0a-4642-aa47-0eca67d972b11792330811313.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/edf9adcb-4e0a-4642-aa47-0eca67d972b11792330811313.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]好可惜啊，39，70都考虑了",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:40:00.000Z",
+     "pubMs": 1792330800000,
+     "pubSrc": "page",
+     "nextAt": 1792416600000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/97999dd4-0e24-4b48-b673-77ea1f2b6df81792328544870.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/97999dd4-0e24-4b48-b673-77ea1f2b6df81792328544870.jpg?imageMogr2/thumbnail/360x",
@@ -1508,6 +1620,76 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-18/0d096a95-ee30-458e-bbb1-8c3f1781d6761792330888669.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/0d096a95-ee30-458e-bbb1-8c3f1781d6761792330888669.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]首发三天中两次，明天再发一天，没人点赞我也不受累打出来了",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:42:00.000Z",
+     "pubMs": 1792330920000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/40d5172a-11d6-4908-a094-b0abeba1e13d1792330927698.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/40d5172a-11d6-4908-a094-b0abeba1e13d1792330927698.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]首发三天中两次，明天再发一天，没人点赞我也不受累打出来了",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:42:00.000Z",
+     "pubMs": 1792330920000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/352682fb-b1a9-42d0-85b5-c532ff39cd1c1792330588851.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/352682fb-b1a9-42d0-85b5-c532ff39cd1c1792330588851.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]收",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:36:00.000Z",
+     "pubMs": 1792330560000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/1265e68f-32fe-49bc-a53c-7fce2eca0a6c1792330588897.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/1265e68f-32fe-49bc-a53c-7fce2eca0a6c1792330588897.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]收",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:36:00.000Z",
+     "pubMs": 1792330560000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/68cc55ef-6b6f-4480-895b-44950cea83ba1792330588885.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/68cc55ef-6b6f-4480-895b-44950cea83ba1792330588885.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]收",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:36:00.000Z",
+     "pubMs": 1792330560000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-18/aa158ccb-699f-4d76-ab27-2ed13e5734911792328784130.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/aa158ccb-699f-4d76-ab27-2ed13e5734911792328784130.jpg?imageMogr2/thumbnail/360x",
      "title": "[26278期]真不知道咋说了",
@@ -1974,6 +2156,20 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/54ed4692-5f27-4ed7-be6f-24ccae5507cb1792331114543.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/54ed4692-5f27-4ed7-be6f-24ccae5507cb1792331114543.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26278期]思路对了，买复式就好了",
+     "url": "",
+     "at": "2026-10-18T14:35:02.270Z",
+     "pubAt": "2026-10-18T13:46:00.000Z",
+     "pubMs": 1792331160000,
+     "pubSrc": "page",
+     "nextAt": 1792413000000,
+     "atMs": 1792334102270,
+     "seenMs": 1792334102270,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/47944025-643f-488f-95a3-df5448bc54251792330411579.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/47944025-643f-488f-95a3-df5448bc54251792330411579.jpg?imageMogr2/thumbnail/360x",
