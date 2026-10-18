@@ -6245,7 +6245,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
     border-collapse: unset !important;
   }
   .ro-imgtoc .ro-toc-cell { width: 100% !important; box-sizing: border-box !important; }
-  /* 兼容：万一别处还有旧的 <table class="ro-imgtoc">（缓存/旧页面），也别再挤 */
+  /* 兼容：万一别处还有旧的 <table class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">（缓存/旧页面），也别再挤 */
 
   table.ro-imgtoc { table-layout: fixed !important; width: 100% !important; }
   table.ro-imgtoc td { width: 50% !important; padding: 3px 5px !important; }
@@ -7287,7 +7287,7 @@ ${sinaNextHtml()}
        因为它是一整张表，塞进半屏会挤。
        ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
 <!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
-<div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc">
+<div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">
 <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
 <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
 <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
