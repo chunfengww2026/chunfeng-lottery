@@ -8,15 +8,71 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 20:20
+   更新时间：2026-10-18 20:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 20:20",
+ "updated": "2026-10-18 20:25",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/c1d48ba5-7a4b-41f9-8dab-e0aee89bf1051792324272203.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/c1d48ba5-7a4b-41f9-8dab-e0aee89bf1051792324272203.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]梭哈 篮球11梭了五倍",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T11:51:00.000Z",
+     "pubMs": 1792324260000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/8535978e-78f6-4d6b-986a-facbf46448941792323536489.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/8535978e-78f6-4d6b-986a-facbf46448941792323536489.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]陈水龙双色球26119期先出版条件汇总缩水和完整版版结论 先出版 红球部分 ①杀4码：20、24、29、30 ②一个胆码：31 ③胆码组：21、22、23我选得22 蓝球部分 蓝球杀号：5 蓝球胆码组：10、12、13、14",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T11:41:00.000Z",
+     "pubMs": 1792323660000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/13dce250-8e28-4428-ac86-cd30714c25741792323535951.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/13dce250-8e28-4428-ac86-cd30714c25741792323535951.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]陈水龙双色球26119期先出版条件汇总缩水和完整版版结论 先出版 红球部分 ①杀4码：20、24、29、30 ②一个胆码：31 ③胆码组：21、22、23我选得22 蓝球部分 蓝球杀号：5 蓝球胆码组：10、12、13、14",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T11:41:00.000Z",
+     "pubMs": 1792323660000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/1c1c8193-7718-460d-8bc7-d11314ee9e6d1792323535953.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/1c1c8193-7718-460d-8bc7-d11314ee9e6d1792323535953.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26119期]陈水龙双色球26119期先出版条件汇总缩水和完整版版结论 先出版 红球部分 ①杀4码：20、24、29、30 ②一个胆码：31 ③胆码组：21、22、23我选得22 蓝球部分 蓝球杀号：5 蓝球胆码组：10、12、13、14",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T11:41:00.000Z",
+     "pubMs": 1792323660000,
+     "pubSrc": "page",
+     "nextAt": 1792329300000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/13f161aa-27e6-4ee2-8a40-dd7ce6473de01792323116923.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/13f161aa-27e6-4ee2-8a40-dd7ce6473de01792323116923.jpg?imageMogr2/thumbnail/360x",
@@ -1020,54 +1076,82 @@ const XYSP_DATA = {
      "atMs": 1792249202082,
      "seenMs": 1792249202082,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/a8ff443f-20f1-45ef-957c-5b5fc616487d1792239766090.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/a8ff443f-20f1-45ef-957c-5b5fc616487d1792239766090.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]加码608",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/5bc92ec9-4eee-4c80-8005-b1d453cabe281792239766157.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/5bc92ec9-4eee-4c80-8005-b1d453cabe281792239766157.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]加码608",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/dc511e50-8992-40b6-bf01-1a59b6748d241792239766145.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/dc511e50-8992-40b6-bf01-1a59b6748d241792239766145.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]加码608",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
     }
    ]
   },
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/8f8c4fed-d4e7-4ff3-bf92-1e769546a32d1792325240849.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/8f8c4fed-d4e7-4ff3-bf92-1e769546a32d1792325240849.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]今日选五，十",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T12:07:00.000Z",
+     "pubMs": 1792325220000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/43da1430-8c57-48e3-ab88-8799bfcded281792325239789.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/43da1430-8c57-48e3-ab88-8799bfcded281792325239789.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]今日选五，十",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T12:07:00.000Z",
+     "pubMs": 1792325220000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/f8e0ad53-383c-4460-bfca-8e65f22c63491792324901297.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/f8e0ad53-383c-4460-bfca-8e65f22c63491792324901297.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]继续跟",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T12:01:00.000Z",
+     "pubMs": 1792324860000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/10a05afe-dbed-412d-a051-4d9ac0bf8b9c1792324901305.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/10a05afe-dbed-412d-a051-4d9ac0bf8b9c1792324901305.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]继续跟",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T12:01:00.000Z",
+     "pubMs": 1792324860000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/f115d47f-3616-4dce-8820-6e1fa9a23bd21792324787505.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/f115d47f-3616-4dce-8820-6e1fa9a23bd21792324787505.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]选五复式供大家参考",
+     "url": "",
+     "at": "2026-10-18T12:25:01.983Z",
+     "pubAt": "2026-10-18T12:00:00.000Z",
+     "pubMs": 1792324800000,
+     "pubSrc": "page",
+     "nextAt": 1792330200000,
+     "atMs": 1792326301983,
+     "seenMs": 1792326301983,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/df009ec0-f8c4-43a4-80fe-78ca4d7410df1792323503352.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/df009ec0-f8c4-43a4-80fe-78ca4d7410df1792323503352.jpg?imageMogr2/thumbnail/360x",
@@ -1468,48 +1552,6 @@ const XYSP_DATA = {
      "at": "2026-10-17T15:00:02.082Z",
      "pubAt": "2026-10-17T12:38:00.000Z",
      "pubMs": 1792240680000,
-     "pubSrc": "page",
-     "nextAt": 1792243800000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/c6495767-615f-4175-b171-ab891d7709be1792239758323.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/c6495767-615f-4175-b171-ab891d7709be1792239758323.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]中",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
-     "pubSrc": "page",
-     "nextAt": 1792243800000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/298c9910-928a-4788-a4eb-6c8247e06c6d1792239758405.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/298c9910-928a-4788-a4eb-6c8247e06c6d1792239758405.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]中",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
-     "pubSrc": "page",
-     "nextAt": 1792243800000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/c3c98b91-bda2-464c-8f0b-0a5883d7bf2b1792239758402.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/c3c98b91-bda2-464c-8f0b-0a5883d7bf2b1792239758402.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]中",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:23:00.000Z",
-     "pubMs": 1792239780000,
      "pubSrc": "page",
      "nextAt": 1792243800000,
      "atMs": 1792249202082,
