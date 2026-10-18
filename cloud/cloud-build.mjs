@@ -457,7 +457,17 @@ function parseCron(expr) {
   if (!minutes.length || !hours.length) return null;
 
   const allHours = hours.length === 24;
-  const isStep = (n) => minutes.length === Math.ceil(60 / n) && minutes.every((v, i) => v === i * n);
+  /* 【错峰 5 分钟】2026-10-20：workflow 里加了一条「错峰」的 5 分钟 cron ——
+     分钟字段写成 2,7,12,…57（12 个值、步长 5，但整体从 :02 起，
+     为的是不在 :00 整点和其它 cron 撞 concurrency）。
+     它不是 星号/5，所以老写法 minutes[i]===i*5 认不出来 → 会掉到下面的
+     「定时班」判断里按北京小时误判成 football-only / auto，
+     等于每 5 分钟跑一次带页面的班（绝对不行）。
+     所以判据改成「个数 = 60/n 且步长恒为 n 且起点在 [0,n)」——
+     星号/5（起点 0）和错峰版（起点 2）都能认成 every5 → live-only。 */
+  const isStep = (n) => minutes.length === Math.ceil(60 / n)
+    && minutes[0] >= 0 && minutes[0] < n
+    && minutes.every((v, i) => v === minutes[0] + i * n);
   let kind = 'custom';
   if (allHours && isStep(5)) kind = 'every5';
   else if (allHours && isStep(10)) kind = 'every10';
@@ -1565,6 +1575,20 @@ function main() {
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
      ⚠️ 跟着 exportFootball 走：不出竞彩页的班次就没必要重出详情页。 */
   if (plan.exportFootball) exportList.push(['build-match.mjs', '比赛详情页']);
+  /* 【Netlify 备用包 · 分享包/】2026-10-20 用户批准「export-site 也上云」。
+     · export-site.mjs 全篇只用 path.dirname(fileURLToPath(import.meta.url)) 定位自己，
+       读写都走 path.join ——【没有写死任何 Windows 盘符 / 反斜杠路径】，
+       所以 Linux runner 上原样就能跑，产物落在 cloud/scripts/分享包/
+       （结构与本机 D:\彩虹多多\分享包\ 一致：index.html / football.html /
+         jc-reco-view.js / 使用说明.txt）。
+     · ⚠️ 位置必须排在【最后】：它读 export-static.mjs 出的 只读分享版.html
+       和 export-football.mjs 出的 足球推荐.html（后者读不到只会退化，不会报错）。
+     · ⚠️ 只在【全量班】（北京 02:00，一天 1 次）跑：包里是 2.4 MB 页面，
+       每 10 分钟写一遍纯属浪费；workflow 那边也【只在全量班】把它打成
+       Actions artifact（名字「分享包」）供下载，别的班次不上传。
+     · ⚠️ 产物【不进 git、不进 Pages】：一次 2.4 MB，提交回仓库会把仓库撑爆，
+       塞进 site/ 则每班多传一份。失败只记一行 ❌，不影响任何页面。 */
+  if (plan.type === 'full') exportList.push(['export-site.mjs', '分享包（Netlify 备用包）']);
   if (!exportList.length) log('  ⏭  本班次不需要重新生成页面');
 
   for (const [file, label] of exportList) {
