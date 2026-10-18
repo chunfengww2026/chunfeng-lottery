@@ -2001,7 +2001,9 @@ function buildJcXyspHtml() {
 
   const body = cells.length
     ? `<div class="jxp-grid">${cells.join('')}</div>`
-    : `<div class="jxp-empty">暂无竞彩晒票（每 30 分钟自动更新）</div>`;
+    /* 用户 2026-10-18：0 张时的兜底也不能承诺「每 30 分钟」（源挂了就变 0 张，那句会露出来）
+       → 和底部那句统一口径。 */
+    : `<div class="jxp-empty">暂无竞彩晒票（电脑开着时自动更新）</div>`;
 
   /* 区块自己的底部：实时更新 + 合规声明（用户要求） */
   const foot =
