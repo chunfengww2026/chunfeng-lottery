@@ -7278,9 +7278,6 @@ ${sinaNextHtml()}
        下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
        因为它是一整张表，塞进半屏会挤。
        ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
-  ${toolsHeatHtml}
-
-
 <!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
 <div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc">
 <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
@@ -7294,6 +7291,10 @@ ${sinaNextHtml()}
 <a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
 <a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
 </div></div>
+  ${toolsHeatHtml}
+
+
+
 ${kjhHtml}
 
   <!-- ============================================================
