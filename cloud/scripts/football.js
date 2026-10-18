@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "巴尔瑙尔戴拿模",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": null
     },
     "away": {
      "name": "苏维埃之翼B队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": null
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "3760EE"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "長春喜都",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "湖北青年星",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -459,16 +459,16 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-18 15:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "町田泽维亚",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "福冈黄蜂",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 17
     },
@@ -30917,7 +30917,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "全北现代",
      "score": 3,
@@ -30967,7 +30967,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-18 13:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "大田市民",
      "score": 0,
@@ -31033,7 +31033,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "和富SE",
      "score": 2,
@@ -31099,7 +31099,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-18 13:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "悉尼(女)",
      "score": 2,
