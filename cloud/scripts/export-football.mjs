@@ -2084,7 +2084,9 @@ function buildJcArticlesHtml() {
        所以这里只展示「标题 + 时间」，点不了外链（想看原文可以按标题自己去搜）。 */
     return '<div class="jca-row">' +
       '<span class="jca-idx">' + (i + 1) + '</span>' +
-      '<span class="jca-main"><span class="jca-title">' + esc(it.title) + '</span>' +
+      /* __STRIP_FREE__ 用户 2026-10-18：「抓取的专家文章要去掉免费推荐几个字」 */
+      '<span class="jca-main"><span class="jca-title">' +
+        esc(String(it.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').replace(/\s{2,}/g, ' ').trim()) + '</span>' +
       '<span class="jca-meta">' +
       (t ? '<span class="jca-time">' + esc(t) + '</span>' : '<span class="jca-time">刚刚</span>') +
       '</span></span>' +
