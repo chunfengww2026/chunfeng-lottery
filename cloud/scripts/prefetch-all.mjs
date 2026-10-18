@@ -20,8 +20,13 @@ const args = process.argv.slice(2);
 const fast = args.includes('--fast');
 const onlyArg = args.find((a) => a.startsWith('--only='));
 
-/* 顺序有讲究：先开奖号码/历史，再派生出价级、开机号、热力图、文章、专家、竞彩 */
+/* 顺序有讲究（2026-10-18 对齐 cloud-build.mjs 的 26 步重排）：
+   开奖号码 → 历史/奖级 → 开机号/热力图 → 文章/晒票 → 竞彩数据(build-jc)
+   → 足球赛程/赛果 → 竞彩实票/积分/比分 → 分歧指/资金面/场次
+   → 【推荐串存档】必须在 build-jc + build-football-results 之后，否则红黑用旧的
+   → 下一期参考 → 专家（最慢放最后） */
 const PLAN = [
+  ['build-draws.mjs', '开奖号码', 240],
   ['build-history.mjs', '开奖历史（历史页/走势/算法底座）', 300],
   ['build-prizes.mjs', '奖级奖金', 180],
   ['build-kjh.mjs', '开机号 / 选号直播', 180],
@@ -31,15 +36,18 @@ const PLAN = [
   ['build-xysp.mjs', '晒票数据（主）', 300],
   ['build-xysp-tt.mjs', '晒票数据（头条）', 300],
   ['build-baidu-share.mjs', '百度票图样本', 240],
+  ['build-jc.mjs', '竞彩数据 / 推荐(信心/赔率)', 300],
   ['build-football.mjs', '足球赛程/数据', 300],
+  ['build-football-results.mjs', '足球赛果（回填红黑用）', 240],
   ['fetch-football-tickets.mjs', '竞彩实票', 240],
   ['fetch-standings.mjs', '积分榜', 180],
   ['update-football-live.mjs', '比分实时', 240],
   ['build-odds-divergence.mjs', '分歧指 / 欧赔对比', 300],
   ['fetch-bifa.mjs', '成交资金面', 240],
   ['build-jc-count.mjs', '竞彩场次统计', 180],
-  /* 【推荐串存档 · 历史结果】用户 2026-10-18 追问：「足球历史结果你帮我刷新了吗」
-     → 之前漏了这一步；它把「在售×信心≥58%」的批次存下来、赛后回填红黑。 */
+  /* 【推荐串存档 · 历史结果】用户 2026-10-18：「这个问题你就要修复」
+     → 必须排在 build-jc.mjs（信心/赔率）和 build-football-results.mjs（赛果）之后，
+       否则归档出来的红黑是拿旧数据算的。 */
   ['jc-reco-build.mjs', '推荐串存档 / 历史结果', 240],
   ['build-sina-predict.mjs', '下一期参考（拿不到会自动跳过）', 240],
   ['build-experts.mjs', '专家号池（最慢，放最后）', 600]
