@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    build-experts.mjs —— 抓取一起彩（yiqicai.com）专家数据
 
    产物：experts-data.js → const EXPERTS_DATA = {...}
@@ -42,6 +42,57 @@ function safeName(n) {
 }
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT_JS = path.join(ROOT, 'experts-data.js');
+
+/* ============================================================
+   【本机 backoff 闸门】--min-interval=<分钟>   （2026-10-18 加）
+   ------------------------------------------------------------
+   为什么加：本机 update-football-smart.mjs 是【每 30 分钟】一轮，而这一步
+   全量跑一次要 5~6 分钟（几百个请求，还要打源站）。每 30 分钟真跑一次
+   → 整条链必超时，源站也扛不住。
+   规则：
+     · 距上次【成功】< N 分钟 → 立刻跳过：打印原因、exit 0、【一个数据文件都不动】
+     · 不传 --min-interval → 闸门关闭，行为与以前【完全一致】
+       （云端 cloud-build.mjs 不传这个参数，所以云端行为不受任何影响）
+     · --force-run → 忽略闸门，本次一定真跑（手工补数据用）
+   状态文件：./_backoff-build-experts.json
+   ⚠️ 只有【真正写成功】才记 lastSuccess；失败 / 被「防回退」拦住都不记 → 下一轮还会再试。
+   ============================================================ */
+const MIN_INTERVAL_MIN = (() => {
+  const m = process.argv.slice(2).find((a) => a.startsWith('--min-interval='));
+  if (!m) return 0;
+  const n = parseInt(m.slice('--min-interval='.length), 10);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+})();
+const FORCE_RUN = process.argv.slice(2).includes('--force-run');
+const GATE_FILE = path.join(ROOT, '_backoff-build-experts.json');
+function readGate() { try { return JSON.parse(fs.readFileSync(GATE_FILE, 'utf8')) || {}; } catch (e) { return {}; } }
+function gateShouldSkip() {
+  if (!MIN_INTERVAL_MIN || FORCE_RUN) return false;
+  const last = Number(readGate().lastSuccess) || 0;
+  if (!last) return false;
+  const gone = (Date.now() - last) / 60000;
+  if (gone >= MIN_INTERVAL_MIN) return false;
+  const ago = gone < 60 ? `${Math.round(gone)} 分钟前` : `${(gone / 60).toFixed(1)} 小时前`;
+  log(`  ⏭  跳过：距上次成功 ${ago}（闸门 ${MIN_INTERVAL_MIN} 分钟）→ 保留现有 experts-data.js 不动`);
+  try {
+    const st = readGate();
+    st.lastSkip = Date.now();
+    st.skips = (Number(st.skips) || 0) + 1;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+  return true;
+}
+function gateMarkSuccess() {
+  if (!MIN_INTERVAL_MIN) return;
+  try {
+    const st = readGate();
+    st.lastSuccess = Date.now();
+    st.lastSuccessText = new Date().toLocaleString('zh-CN', { hour12: false });
+    st.minIntervalMin = MIN_INTERVAL_MIN;
+    st.skips = Number(st.skips) || 0;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+}
 
 const BASE = 'https://www.yiqicai.com';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
@@ -948,6 +999,8 @@ function parseArgs(argv) {
 
 async function main() {
   const t0 = Date.now();
+  /* 【backoff 闸门】距上次成功不到 --min-interval 分钟 → 直接跳过（不抓、不写） */
+  if (gateShouldSkip()) return;
   const opts = parseArgs(process.argv.slice(2));
 
   const unknown = opts.games.filter((g) => !GAMES[g]);
@@ -1113,6 +1166,8 @@ async function main() {
   }
 
   fs.writeFileSync(OUT_JS, js, 'utf8');
+  /* 【backoff 闸门】确认写成功 → 记下这次成功时间（下一次要等 --min-interval 分钟才真跑） */
+  gateMarkSuccess();
 
   /* ---------- 汇总 ---------- */
   const secs = +((Date.now() - t0) / 1000).toFixed(1);
