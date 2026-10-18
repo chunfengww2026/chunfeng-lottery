@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 20:00
+   更新时间：2026-10-18 20:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 20:00",
+ "updated": "2026-10-18 20:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1034,20 +1034,6 @@ const XYSP_DATA = {
      "atMs": 1792249202082,
      "seenMs": 1792249202082,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/e1480c79-cd80-4739-b5fa-9238c76759c21792238402755.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/e1480c79-cd80-4739-b5fa-9238c76759c21792238402755.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]胆0，双胆09，防守05。14和值。",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:01:00.000Z",
-     "pubMs": 1792238460000,
-     "pubSrc": "page",
-     "nextAt": 1792242900000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
     }
    ]
   },
@@ -1501,40 +1487,40 @@ const XYSP_DATA = {
      "atMs": 1792249202082,
      "seenMs": 1792249202082,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/aa92b766-6c55-48a2-b3ef-18547e43b21e1792238576241.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/aa92b766-6c55-48a2-b3ef-18547e43b21e1792238576241.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]昨天竟然一个号也没，空军，再来一期",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:03:00.000Z",
-     "pubMs": 1792238580000,
-     "pubSrc": "page",
-     "nextAt": 1792243800000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/1680fc67-aa6b-4ec2-bcac-5ca0b8c54fec1792238531968.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/1680fc67-aa6b-4ec2-bcac-5ca0b8c54fec1792238531968.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]选五，七，好运。",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:02:00.000Z",
-     "pubMs": 1792238520000,
-     "pubSrc": "page",
-     "nextAt": 1792243800000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
     }
    ]
   },
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/fc0999b2-79d1-4222-8b0b-4798fe7198cf1792321271997.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/fc0999b2-79d1-4222-8b0b-4798fe7198cf1792321271997.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]票花",
+     "url": "",
+     "at": "2026-10-18T12:05:01.754Z",
+     "pubAt": "2026-10-18T11:02:00.000Z",
+     "pubMs": 1792321320000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325101754,
+     "seenMs": 1792325101754,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/2ba99e71-b3a2-436b-8208-a871f22a8b981792321316266.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/2ba99e71-b3a2-436b-8208-a871f22a8b981792321316266.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]票花",
+     "url": "",
+     "at": "2026-10-18T12:05:01.754Z",
+     "pubAt": "2026-10-18T11:02:00.000Z",
+     "pubMs": 1792321320000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325101754,
+     "seenMs": 1792325101754,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/a00e2d5b-5272-492d-9d1e-9ed125fa50a51792321129401.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/a00e2d5b-5272-492d-9d1e-9ed125fa50a51792321129401.jpg?imageMogr2/thumbnail/360x",
@@ -2250,20 +2236,6 @@ const XYSP_DATA = {
      "pubMs": 1792240800000,
      "pubSrc": "page",
      "nextAt": 1792326600000,
-     "atMs": 1792249202082,
-     "seenMs": 1792249202082,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-17/f895272b-fa62-4b1c-a7b0-5f0c63c219e61792238579783.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-17/f895272b-fa62-4b1c-a7b0-5f0c63c219e61792238579783.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26276期]前三和19，后两位4*6，好运。",
-     "url": "",
-     "at": "2026-10-17T15:00:02.082Z",
-     "pubAt": "2026-10-17T12:03:00.000Z",
-     "pubMs": 1792238580000,
-     "pubSrc": "page",
-     "nextAt": 1792240200000,
      "atMs": 1792249202082,
      "seenMs": 1792249202082,
      "whenMs": null
