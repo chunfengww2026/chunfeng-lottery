@@ -2007,7 +2007,10 @@ function buildJcXyspHtml() {
   const foot =
     `<div class="jxp-foot">` +
     `仅供娱乐，不构成购彩建议` +
-    ` · 每 30 分钟自动更新`   /* __NO_UPDATED__ 用户要求删掉「更新于」 */ +
+    /* 用户 2026-10-18：标题行已写「票面更新于 X」，底部再写「每 30 分钟自动更新」
+       会自相矛盾（22 小时前 vs 每 30 分钟）→ 改成不承诺具体频率的说法。
+       __NO_UPDATED__ 用户要求删掉「更新于」 */
+    ` · 电脑开着时自动更新` +
     `</div>`;
 
   return `<details class="m-jxp allow-save" id="jcXysp">` +
