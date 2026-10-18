@@ -80,14 +80,89 @@ export async function decodeImage(buf) {
   return { data: out.data, width: out.width, height: out.height };
 }
 
-/** RGBA → 灰度 Float（0-255） */
-function toGray(img) {
+/** RGBA → 灰度（0-255）。which='lum' 亮度 / 'r' 红通道 / 'g' 绿 / 'b' 蓝
+ *
+ *  【为什么要单通道】一起彩晒票图上有【彩虹多多】水印：粉红色重复小字铺满整张，
+ *  还压在号码行上。粉色的 RGB 大约 (230,170,185) —— 亮度上跟浅灰背景差不多，
+ *  亮度阈值切不掉；但【红通道】里它是 230（接近白），而黑色打印墨在三个通道都只有 30 左右。
+ *  → 只取红通道 = 免费把水印「漂白」，号码一点不损失（实测见 makeBinaryVariants 注释）。
+ */
+function toGrayCh(img, which) {
   const { data, width, height } = img;
   const g = new Uint8Array(width * height);
+  if (which === 'r') { for (let i = 0, p = 0; i < g.length; i++, p += 4) g[i] = data[p]; return g; }
+  if (which === 'g') { for (let i = 0, p = 0; i < g.length; i++, p += 4) g[i] = data[p + 1]; return g; }
+  if (which === 'b') { for (let i = 0, p = 0; i < g.length; i++, p += 4) g[i] = data[p + 2]; return g; }
   for (let i = 0, p = 0; i < g.length; i++, p += 4) {
     g[i] = (data[p] * 299 + data[p + 1] * 587 + data[p + 2] * 114) / 1000 | 0;
   }
   return g;
+}
+
+/** 兼容旧调用：亮度灰度 */
+function toGray(img) { return toGrayCh(img, 'lum'); }
+
+/** 局部自适应二值化（Bradley / Wellner）：像素 < 邻域均值 ×(1-t%) → 黑，否则白
+ *  用积分图，复杂度 O(w·h)，1800×2400 也就几十毫秒。
+ *  @param {Uint8Array} g 灰度
+ *  @param {number} t 百分比（默认 12 → 比邻域均值暗 12% 以上才算墨）
+ *  @param {number} win 邻域边长（像素）
+ */
+function adaptiveBin(g, w, h, t, win) {
+  const W = w + 1;
+  const I = new Uint32Array(W * (h + 1));
+  for (let y = 0; y < h; y++) {
+    let rowSum = 0;
+    const row = y * w, iRow = (y + 1) * W, pRow = y * W;
+    for (let x = 0; x < w; x++) {
+      rowSum += g[row + x];
+      I[iRow + x + 1] = I[pRow + x + 1] + rowSum;
+    }
+  }
+  const half = Math.max(2, Math.floor(win / 2));
+  const out = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) {
+    const y0 = y - half < 0 ? 0 : y - half;
+    const y1 = y + half >= h ? h - 1 : y + half;
+    const a0 = y0 * W, a1 = (y1 + 1) * W;
+    for (let x = 0; x < w; x++) {
+      const x0 = x - half < 0 ? 0 : x - half;
+      const x1 = x + half >= w ? w - 1 : x + half;
+      const area = (x1 - x0 + 1) * (y1 - y0 + 1);
+      const sum = I[a1 + x1 + 1] - I[a0 + x1 + 1] - I[a1 + x0] + I[a0 + x0];
+      out[y * w + x] = (g[y * w + x] * area * 100 < sum * (100 - t)) ? 0 : 255;
+    }
+  }
+  return out;
+}
+
+/** 大津法全局阈值 */
+function otsuThreshold(g) {
+  const hist = new Uint32Array(256);
+  for (let i = 0; i < g.length; i++) hist[g[i]]++;
+  const total = g.length;
+  let sum = 0;
+  for (let i = 0; i < 256; i++) sum += i * hist[i];
+  let sumB = 0, wB = 0, best = -1, th = 127;
+  for (let i = 0; i < 256; i++) {
+    wB += hist[i];
+    if (!wB) continue;
+    const wF = total - wB;
+    if (!wF) break;
+    sumB += i * hist[i];
+    const mB = sumB / wB, mF = (sum - sumB) / wF;
+    const v = wB * wF * (mB - mF) * (mB - mF);
+    if (v > best) { best = v; th = i; }
+  }
+  return th;
+}
+
+/** 全局二值：g <= th 的变黑，其余变白。bias<1 → 更严格（只留更黑的墨） */
+function globalBin(g, bias) {
+  const th = Math.max(1, Math.min(254, Math.round(otsuThreshold(g) * (bias || 1))));
+  const out = new Uint8Array(g.length);
+  for (let i = 0; i < g.length; i++) out[i] = g[i] <= th ? 0 : 255;
+  return out;
 }
 
 /** 灰度图双线性缩放 */
@@ -278,6 +353,105 @@ export async function makeBandVariants(buf, opts) {
 }
 
 /* ============================================================
+   二之三、【二值化档】放大 + 去水印 + 自适应二值（第二道 OCR）
+   ------------------------------------------------------------
+   为什么要有这一档（实测 2026-10-18，一起彩晒票真图）：
+     · 票面照片上铺满【彩虹多多】粉红水印小字，水印压在号码行上，
+       整图 OCR 常常把「01 03 04 05 09」读成「O1 O3 ...」或干脆吞掉整行；
+     · 手机截图长图（1080×2400 / 1744×3840）长边被 TARGET_LONG 缩到 1800，
+       票面小字随之缩到 10px 以下，tesseract 直接放弃。
+   这一档做三件事：
+     ① 【放大】长边拉到 BIN_LONG（小图最多放大 BIN_MAX_UPSCALE 倍）；
+     ② 【取红通道】粉色水印在红通道里接近白（≈230），黑墨只有 ≈30
+        —— 等于免费把水印漂白，号码一点不掉；
+     ③ 【二值化】局部自适应（Bradley，抗反光/阴影）或全局大津，
+        把灰背景压成纯白、墨压成纯黑，tesseract 的二值化自己也可能出错，
+        这里先替它做好。
+   ⚠️ 这一档【只在第一道（原图灰度）一个号都没认出来时才跑】，
+      顺序是「认出来就停」——成功的票不多花时间。
+   ============================================================ */
+const BIN_LONG = Number(process.env.OCR_BIN_LONG || 0);          /* >0 → 强制这个长边 */
+const BIN_MIN_LONG = Number(process.env.OCR_BIN_MIN_LONG || 1600);
+const BIN_MAX_LONG = Number(process.env.OCR_BIN_MAX_LONG || 2600);
+const BIN_MAX_UPSCALE = Number(process.env.OCR_BIN_MAX_UPSCALE || 3);
+const BIN_T = Number(process.env.OCR_BIN_T || 12);
+const BIN_WIN_RATIO = Number(process.env.OCR_BIN_WIN || 0.05);
+
+/** 默认配方（可用 OCR_BIN_RECIPES=名字,名字 覆盖，方便实测对比） */
+const BIN_RECIPES = [
+  { name: 'red', channel: 'r', mode: 'otsu', bias: 1 },      /* 红通道 + 大津二值：漂白粉红水印 */
+  { name: 'bin', channel: 'lum', mode: 'adaptive', t: BIN_T } /* 亮度 + 局部自适应二值：抗反光 */
+];
+
+/**
+ * 一张原图 → 若干「二值化」变体
+ * @param {Buffer} buf
+ * @param {{long?:number, maxUpscale?:number, recipes?:Array<object>, rot?:boolean}} [opts]
+ * @returns {Promise<Array<{name:string, png:Buffer, w:number, h:number}>>}
+ */
+export async function makeBinaryVariants(buf, opts) {
+  const o = opts || {};
+  const wantRot = o.rot === true;
+  const maxUp = Number(o.maxUpscale === undefined ? BIN_MAX_UPSCALE : o.maxUpscale);
+  let recipes = Array.isArray(o.recipes) && o.recipes.length ? o.recipes : BIN_RECIPES;
+  const pick = process.env.OCR_BIN_RECIPES;
+  if (pick) {
+    const names = String(pick).split(',').map((s) => s.trim()).filter(Boolean);
+    const filt = BIN_RECIPES.filter((r) => names.includes(r.name));
+    if (filt.length) recipes = filt;
+  }
+
+  const img = await decodeImage(buf);
+  const nativeLong = Math.max(img.width, img.height);
+  /* 【这一档不缩小】原图长边 ≥BIN_MIN_LONG 就保持原尺寸：
+     整图那道（makeVariants）会把长边一律收到 1800，
+     长截图（1744×3840）里票面的小字就是这样被缩没的。
+     太小的小图仍然放大，最多 BIN_MAX_UPSCALE 倍、长边不超过 BIN_MAX_LONG。 */
+  const targetLong = Number(o.long || BIN_LONG) > 0
+    ? Number(o.long || BIN_LONG)
+    : Math.min(BIN_MAX_LONG, Math.max(nativeLong, BIN_MIN_LONG));
+
+  const prepCache = new Map();
+  /** 每个通道只解码 / 缩放 / 拉伸一次 */
+  const prep = (ch) => {
+    if (prepCache.has(ch)) return prepCache.get(ch);
+    let g = toGrayCh(img, ch);
+    let w = img.width, h = img.height;
+    let scale = targetLong / nativeLong;
+    if (maxUp > 0 && scale > maxUp) scale = maxUp;
+    if (Math.abs(scale - 1) > 0.02) {
+      const nw = Math.max(8, Math.round(w * scale)), nh = Math.max(8, Math.round(h * scale));
+      g = resizeGray(g, w, h, nw, nh); w = nw; h = nh;
+    }
+    g = stretch(g);
+    const v = { g, w, h };
+    prepCache.set(ch, v);
+    return v;
+  };
+
+  const out = [];
+  for (const r of recipes) {
+    const p = prep(r.channel || 'lum');
+    let b;
+    if (r.mode === 'otsu') {
+      b = globalBin(p.g, r.bias);
+    } else {
+      const win = Math.max(8, Math.round(Math.max(p.w, p.h) * (r.win || BIN_WIN_RATIO)));
+      b = adaptiveBin(p.g, p.w, p.h, r.t === undefined ? BIN_T : r.t, win);
+    }
+    const rots = wantRot ? [0, 1] : [0];
+    for (const k of rots) {
+      const rr = rotate90(b, p.w, p.h, k);
+      out.push({
+        name: r.name + (k ? '90' : ''),
+        png: await encodePng(rr.g, rr.w, rr.h), w: rr.w, h: rr.h
+      });
+    }
+  }
+  return out;
+}
+
+/* ============================================================
    三、OCR 引擎（单例 worker）
    ============================================================ */
 let _worker = null;
@@ -362,6 +536,13 @@ export function parseIssue(text) {
  *     原来用严格全等比较，会把【当期真票】判成「期号不符」直接丢掉。 */
 export function issueKey(s) {
   const t = String(s || '').replace(/\D/g, '');
+  /* 【OCR 多认一个字】实测票面上「第2026119期」被认成「12026119」——
+     "第"被当成 1 并粘到数字前面，于是 8 位、后 7 位正好是规范的 20xxxxx。
+     → 丢掉最前面那个噪点字符。
+     这条规则【只会让真票被认出来】，不会把别的期号变成当期：
+     它要求后 7 位本身就以 20 开头（也就是本来就写着年份），
+     别的期的 5 位尾巴不可能因为这个变换变成当期期号。 */
+  if (t.length === 8 && t.slice(1, 3) === '20') return t.slice(3);
   if (t.length === 7 && t.slice(0, 2) === '20') return t.slice(2);
   if (t.length === 5) return t;
   return t;
@@ -557,7 +738,12 @@ export function tryFullSplit(line, gid) {
      · 它上面的几行（连续的、以号码为主的行）= 前区
    号码一律去重、查范围；前区 < 5 个或后区 < 2 个就判定「不是号码块」，直接放弃。
    ============================================================ */
-const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|蓝\s*胆|蓝\s*拖|篮\s*球|后\s*胆|后\s*拖|后\s*K)/;
+/* 【区名关键字】票面上「后区 / 蓝球」那张牌有十几种写法，漏一个就整张票认不出：
+     蓝球 / 蓝号 / 蓝胆 / 蓝拖 / 篮(球) / 后区 / 后胆 / 后拖 / 后K
+   + 【2026-10-19 补】蓝复（蓝复式）/ 后复 / 蓝选 / 后选 / 蓝码 / 后码
+     实测一张真票（第 26119 期）印的是「红复:…/蓝复:…」，只写「蓝球」的话
+     后区一个号都认不出来 → 整张票丢掉。 */
+const BACK_LINE_RE = /(后\s*区|蓝\s*球|蓝\s*号|蓝\s*胆|蓝\s*拖|蓝\s*复|蓝\s*选|蓝\s*码|篮\s*球|后\s*胆|后\s*拖|后\s*复|后\s*选|后\s*码|后\s*K)/;
 
 /** 一行里所有「像号码」的数字（先剔掉日期 / 期号 / 金额 / 注数 / 倍数） */
 function numbersOf(line, spec) {
@@ -626,7 +812,7 @@ export function parseStructuredTicket(text, gid) {
          会把「1倍 合计12元」误当成号码行（实测多读出 1、12 两个假号）。 */
       const dense = nums.length >= 3
         || (nums.length >= 2 && !cjk)
-        || (nums.length >= 2 && /(前\s*[区KV]|红\s*球|红\s*号|红\s*[胆拖]|前\s*胆|前\s*拖|区\s*[胆拖]|胆\s*码|拖\s*码)/.test(l));
+        || (nums.length >= 2 && /(前\s*[区KV]|红\s*球|红\s*号|红\s*[胆拖复选]|前\s*[胆拖复选]|区\s*[胆拖]|胆\s*码|拖\s*码)/.test(l));
       if (!dense) break;
       front = nums.concat(front);
       if (front.length > 20) break;
@@ -817,6 +1003,50 @@ export async function recognizeTicket(buf, gid, opt = {}) {
   }
 
   /* ============================================================
+     【二值化档】第一道（原图灰度）没认出来 / 没认出期号 → 再走放大+去水印+二值
+     ------------------------------------------------------------
+     顺序严格是「认出来就停」：
+       ① 原图灰度（上面那批 reads）能出「多变体一致」的号 → 直接跳过这一档；
+       ② 出不了号，或者号出来了但期号一个都没读到 → 跑这一档；
+       ③ 还不行才轮到下面的条带兜底。
+     投票方式和条带一样【自成一组】：二值化变体少（默认 2 个 × 2 版面），
+     并进主组会把 withTicket 抬高、把一致率压低。
+     ⚠️ 这一档【只能补，不能改】：主路径读到的期号永远优先；
+        只有主路径「完全没读到期号」时，才采纳二值档读到的期号。
+        这样「宁可少，不可错」这条线没动。
+     ============================================================ */
+  const v = vote(reads, expectIssue);
+  const issueOkNow = !expectIssue || (!!v.issue && sameIssue(v.issue, expectIssue));
+  let binUsed = 0;
+  let binPool = [];
+  let binIssue = '';
+  if (!v.accepted.length || !issueOkNow) {
+    try {
+      const bins = await makeBinaryVariants(buf);
+      const binLayouts = opt.binLayouts || ['auto', 'block'];
+      const binReads = [];
+      for (const b of bins) {
+        for (const layout of binLayouts) {
+          tried++;
+          try {
+            const r = await recognizeBuffer(b.png, layout);
+            binReads.push({
+              variant: b.name, layout, issue: parseIssue(r.text),
+              tickets: parseTicketText(r.text, gid), confidence: r.confidence, text: r.text
+            });
+          } catch (e) { /* 单个变体失败不影响其它变体 */ }
+        }
+      }
+      if (binReads.length) {
+        const bv = vote(binReads, expectIssue, v.issue);
+        binUsed = binReads.length;
+        binIssue = bv.issue || '';
+        if (bv.accepted.length) binPool = bv.accepted;
+      }
+    } catch (e) { /* 二值化档失败不影响主流程 */ }
+  }
+
+  /* ============================================================
      【条带兜底】整图一个号都没解析出来 → 再按横向条带跑一遍
      ------------------------------------------------------------
      为什么只在「失败时」才跑：整图能读出来的票，条带读出来的是同一张，纯浪费。
@@ -829,8 +1059,7 @@ export async function recognizeTicket(buf, gid, opt = {}) {
   let bandUsed = 0;
   let bandPool = [];
   let bandIssue = '';
-  const v = vote(reads, expectIssue);
-  if (!v.accepted.length) {
+  if (!v.accepted.length && !binPool.length) {
     try {
       const bands = await makeBandVariants(buf);
       const bandReads = [];
@@ -846,25 +1075,29 @@ export async function recognizeTicket(buf, gid, opt = {}) {
       }
       if (bandReads.length) {
         /* hintIssue = 整图读到的期号：条带只负责号码行，期号靠整图那一路 */
-        const bv = vote(bandReads, expectIssue, v.issue);
+        const bv = vote(bandReads, expectIssue, v.issue || binIssue);
         bandUsed = bands.length;
-        bandIssue = bv.issue || v.issue || '';
+        bandIssue = bv.issue || v.issue || binIssue || '';
         if (bv.accepted.length) bandPool = bv.accepted;
       }
     } catch (e) { /* 条带兜底失败不影响主流程 */ }
   }
 
   const ms = Date.now() - t0;
-  if (!reads.length && !bandPool.length) {
+  if (!reads.length && !bandPool.length && !binPool.length) {
     return { ok: false, issue: '', tickets: [], reason: 'OCR 无输出', tried, ms, votes: [] };
   }
 
   let pool = v.accepted.length ? v.accepted : (allowWeak ? v.weak : []);
   let issueOut = v.issue;
-  /* 条带救回来的票（只有主路径一个都没成功时才走到这里） */
+  /* 【二值档只补不改】主路径完全没读到期号时，才用二值档读到的期号 */
+  if (!issueOut && binIssue) issueOut = binIssue;
+  /* 号码只靠二值档才读出来的票（主路径一张都没成） */
+  if (!v.accepted.length && binPool.length) pool = binPool;
+  /* 条带救回来的票（只有主路径 + 二值档一个都没成功时才走到这里） */
   if (!pool.length && bandPool.length) {
     pool = bandPool;
-    if (bandIssue) issueOut = bandIssue;
+    if (!issueOut && bandIssue) issueOut = bandIssue;
   }
 
   /* 只保留「和最强读法同一档」的读法，避免把 1 票的噪声也带进来 */
@@ -901,7 +1134,7 @@ export async function recognizeTicket(buf, gid, opt = {}) {
   if (expectIssue && issueOut && !sameIssue(issueOut, expectIssue)) {
     return {
       ok: false, issue: issueOut, tickets: pool, reason: `期号不符（识别 ${issueOut} ≠ 当期 ${expectIssue}）`,
-      tried, ms, reads: v.reads, withTicket: v.withTicket, rejected: v.rejected, bandUsed,
+      tried, ms, reads: v.reads, withTicket: v.withTicket, rejected: v.rejected, bandUsed, binUsed,
       text: v.best ? v.best.text : ''
     };
   }
@@ -910,21 +1143,21 @@ export async function recognizeTicket(buf, gid, opt = {}) {
     return {
       ok: false, issue: issueOut, tickets: [],
       reason: v.weak.length ? '识别结果不稳定（都没有多變體一致，已丢弃）' : '没识别出合法号码行',
-      tried, ms, reads: v.reads, withTicket: v.withTicket, bandUsed,
+      tried, ms, reads: v.reads, withTicket: v.withTicket, bandUsed, binUsed,
       weak: v.weak.map((t) => ticketKey(t)), rejected: v.rejected,
       text: v.best ? v.best.text : ''
     };
   }
 
-  /* ok 的口径：主路径「多变体一致」通过 或 条带组内一致通过 —— 都算硬证据 */
-  const hardOk = v.accepted.length > 0 || bandPool.length > 0;
+  /* ok 的口径：主路径「多变体一致」通过 或 二值档组内一致 或 条带组内一致 —— 都算硬证据 */
+  const hardOk = v.accepted.length > 0 || binPool.length > 0 || bandPool.length > 0;
   return {
     ok: hardOk,
     weak: !hardOk,
     issue: issueOut,
     tickets: pool,
     reason: hardOk ? 'ok' : 'weak',
-    tried, ms, bandUsed,
+    tried, ms, bandUsed, binUsed,
     reads: v.reads, withTicket: v.withTicket,
     votes: pool.map((t) => ({ key: ticketKey(t), votes: t.votes, rate: t.rate, score: t.score })),
     text: v.best ? v.best.text : ''
