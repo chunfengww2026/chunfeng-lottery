@@ -2516,8 +2516,19 @@ html.locked .m-calc, html.locked .m-calc input, html.locked .m-calc select, html
 .m-rec[open] > summary.m-rechead .m-rectip::after { content: '点击收起'; }
 .m-rec:not([open]) > summary.m-rechead .m-rectip::after { content: '点击查看'; }
 .m-recnote { font-size: 10px; color: #6b7488; line-height: 1.6; margin: 0 0 4px; }
-.m-recrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+/* __RECROW_6COL__ 一行有 6 个元素（编号/队名/推荐/赔率/排名/信心），
+   原来只有 5 列 → 第 6 个「信心%」会掉到下一行、贴左边，看着像断开的。
+   这里补成 6 列；窄屏只收紧间距和字号，不动结构、不隐藏任何信息。 */
+.m-recrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
   align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #1e2430; }
+@media (max-width: 420px) {
+  .m-recrow { gap: 5px; }
+  .m-reccode { font-size: 10px; padding: 1px 4px; }
+  .m-recteams { font-size: 12px; }
+  .m-recpick, .m-recodds { font-size: 12px; }
+  .m-recrank { font-size: 10px; }
+  .m-recconf { font-size: 11.5px; }
+}
 .m-recrow:last-child { border-bottom: 0; }
 .m-reccode { font-size: 11px; font-weight: 700; color: #98a1b2; background: #12151d;
   padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
