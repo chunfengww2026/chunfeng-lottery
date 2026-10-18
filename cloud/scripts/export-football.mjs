@@ -2059,7 +2059,26 @@ function buildJcArticlesHtml() {
   const okSources = (data.sources || []).filter((s) => s.ok).map((s) => s.name);
   const badSources = (data.sources || []).filter((s) => !s.ok).map((s) => s.name);
 
-  const rows = data.list.slice(0, 20).map((it, i) => {
+  /* __NO_LOTTO_IN_FB__ 用户 2026-10-18：「足球页面的专家推荐放到双色球那边」
+     足球页只留足球内容：标题或链接里带彩票彩种/彩票玩法的，一律不进足球页。
+     ★ 全被过滤掉时不拿彩票条目凑数 → 走块内空态（结构不动）。 */
+  const LOTTO_RE = /双色球|大乐透|福彩\s*3D|排列[三五]|排列3|排列5|快乐\s*8|七乐彩|七星彩|红球|蓝球|胆码|杀号|杀蓝|定胆|组三|组六/;
+  const LOTTO_URL_RE = /ssqex|dltex|3dex|pl3ex|pl5ex|kl8ex|qlcex|qxcex|ssq|dlt/i;
+  const fbList = (data.list || []).filter((it) =>
+    !LOTTO_RE.test(String(it.title || '')) && !LOTTO_URL_RE.test(String(it.url || '')));
+  const useList = fbList;
+  if (!useList.length) {
+    return '<details class="m-card3 jca" id="jcExpertArticles" open>' +
+      '<summary class="jca-head">' +
+      '<span class="jca-h-title">专家推荐</span>' +
+      '<span class="jca-h-sub">足球专家分析 · 每小时更新</span>' +
+      '<span class="jca-h-go">点击收起</span>' +
+      '</summary>' +
+      '<div class="jca-row"><span class="jca-main"><span class="jca-title">本轮暂无足球专家免费分析（每小时自动抓取，抓到就出现在这里）</span></span></div>' +
+      '</details>';
+  }
+
+  const rows = useList.slice(0, 20).map((it, i) => {
     const t = fmtTime(it.time);
     /* ⚠️ 不做外链：项目有「数据源留痕」断言，页面里出现来源站域名会直接让构建失败。
        所以这里只展示「标题 + 时间」，点不了外链（想看原文可以按标题自己去搜）。 */
@@ -2074,13 +2093,16 @@ function buildJcArticlesHtml() {
 
   return '<details class="m-card3 jca" id="jcExpertArticles" open>' +
     '<summary class="jca-head">' +
-    '<span class="jca-h-title">专家推荐</span>' +
-    '<span class="jca-h-sub">' + data.list.length + ' 篇 · 每小时更新 · ' +
+    /* __NO_LOTTO_IN_FB__ 用户 2026-10-18：「足球页面的专家推荐放到双色球那边」
+     足球页只留足球内容：含彩票彩种关键词的条目一律不进足球页。 */
+  '<span class="jca-h-title">专家推荐</span>' +
+    '<span class="jca-h-sub">' + useList.length + ' 篇 · 每小时更新 · ' +
     '综合整理' + '</span>' +
     '<span class="jca-h-go">点击收起</span>' +
     '</summary>' +
     '<div class="jca-list">' + rows + '</div>' +
-    (badSources.length ? '<div class="jca-note">部分内容暂时抓不到（对方页面是 JS 渲染 / 有反爬），已自动跳过 ✔</div>' : '') +
+    /* __HIDE_SKIP_NOTE__ 用户 2026-10-18：「这些提示不要显示」→ 不再显示"暂时抓不到" */
+  '' +
     (data.updated ? '<div class="jca-upd">更新时间 ' + esc(data.updated) + '</div>' : '') +
     '</details>';
 }
