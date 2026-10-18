@@ -13633,6 +13633,110 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   function balls(a) { return '<div class="px9-balls">' + a.map(function (n) { return '<span class="px9-b">' + (n < 10 ? '0' + n : n) + '</span>'; }).join('') + '</div>'; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
 
+
+  /* ============================================================
+     PICK9 · 九算法出号（用户 2026-10-19 硬性要求）
+     每个算法都按固定规则给出「红 6 + 蓝 1」，同一期结果固定可复现：
+       余数算法   出现最多的那条路里，频次最高的 6 个
+       分区法     三区各取最热 2 个
+       冷热号     热号前 4 + 冷号前 2
+       遗漏值算法 当前遗漏最大的 6 个
+       奇偶       30 期最常出的奇偶比，按该比例取频次最高的
+       质合       30 期最常出的质合比，按该比例取频次最高的
+       和值       30 期中位和值 → 号值最接近该均值的 6 个
+       跨度       30 期中位跨度 → 只在该跨度区间里取频次最高的 6 个
+       多源共振法 前 8 种算法的票数加权，得票最高的 6 个
+     ⚠️ 这段在模板字符串里：不用反引号、不写美元花括号、不写反斜杠
+     ============================================================ */
+  function omissionOf(main, n, total) {
+    for (var i = 0; i < main.length; i++) {
+      if (Math.max.apply(null, main[i]) >= n && main[i].indexOf(n) >= 0) return i;
+      if (main[i].indexOf(n) >= 0) return i;
+    }
+    return total;
+  }
+  function topBy(list, keyFn, k) {
+    return list.slice().sort(function (a, b) { return keyFn(b) - keyFn(a); }).slice(0, k);
+  }
+  function pick9(g, m, main, f, sums, spans) {
+    var M = CFG[g];
+    var all = []; for (var i = 1; i <= M.max; i++) all.push(i);
+    var total = main.length || 1;
+    var om = {}; all.forEach(function (n) { om[n] = omissionOf(main, n, total); });
+    var hot = all.slice().sort(function (a, b) { return (f[b] || 0) - (f[a] || 0); });
+    var cold = all.slice().sort(function (a, b) { return (f[a] || 0) - (f[b] || 0); });
+    var red = [];
+    var isPrime = function (n) { if (n < 2) return false; for (var d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
+
+    if (m === '余数算法') {
+      var roadSum = [0, 0, 0];
+      all.forEach(function (n) { roadSum[n % 3] += (f[n] || 0); });
+      var best = roadSum.indexOf(Math.max.apply(null, roadSum));
+      red = hot.filter(function (n) { return n % 3 === best; }).slice(0, 6);
+    } else if (m === '分区法') {
+      var zones = [[1, 11], [12, 22], [23, M.max]];
+      zones.forEach(function (z) {
+        var seg = hot.filter(function (n) { return n >= z[0] && n <= z[1]; }).slice(0, 2);
+        seg.forEach(function (n) { if (red.indexOf(n) < 0) red.push(n); });
+      });
+      red = red.slice(0, 6);
+    } else if (m === '冷热号') {
+      red = hot.slice(0, 4).concat(cold.slice(0, 2));
+    } else if (m === '遗漏值算法') {
+      red = all.slice().sort(function (a, b) { return om[b] - om[a]; }).slice(0, 6);
+    } else if (m === '奇偶') {
+      var oddCnt = main.map(function (a) { return a.filter(function (n) { return n % 2 === 1; }).length; });
+      var avgOdd = Math.round(oddCnt.reduce(function (x, y) { return x + y; }, 0) / total);
+      avgOdd = Math.max(1, Math.min(5, avgOdd));
+      var odds = hot.filter(function (n) { return n % 2 === 1; }).slice(0, avgOdd);
+      var evens = hot.filter(function (n) { return n % 2 === 0; }).slice(0, 6 - avgOdd);
+      red = odds.concat(evens);
+    } else if (m === '质合') {
+      var pCnt = main.map(function (a) { return a.filter(isPrime).length; });
+      var avgP = Math.round(pCnt.reduce(function (x, y) { return x + y; }, 0) / total);
+      avgP = Math.max(1, Math.min(5, avgP));
+      var ps = hot.filter(isPrime).slice(0, avgP);
+      var cs = hot.filter(function (n) { return !isPrime(n); }).slice(0, 6 - avgP);
+      red = ps.concat(cs);
+    } else if (m === '和值') {
+      var sortedS = sums.slice().sort(function (a, b) { return a - b; });
+      var midSum = sortedS[Math.floor(sortedS.length / 2)] || 100;
+      var target = midSum / 6;
+      red = all.slice().sort(function (a, b) {
+        var da = Math.abs(a - target) - (f[a] || 0) * 0.01;
+        var db = Math.abs(b - target) - (f[b] || 0) * 0.01;
+        return da - db;
+      }).slice(0, 6);
+    } else if (m === '跨度') {
+      var sortedSp = spans.slice().sort(function (a, b) { return a - b; });
+      var midSp = sortedSp[Math.floor(sortedSp.length / 2)] || 20;
+      red = hot.filter(function (n) { return n <= midSp + 1; }).slice(0, 6);
+    } else {
+      /* 多源共振法：把前 8 个算法的号各当一票，按频次加权 */
+      var votes = {};
+      ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合', '和值', '跨度'].forEach(function (mm) {
+        var rr = pick9(g, mm, main, f, sums, spans).red;
+        rr.forEach(function (n) { votes[n] = (votes[n] || 0) + 1; });
+      });
+      red = Object.keys(votes).map(Number).sort(function (a, b) {
+        return (votes[b] - votes[a]) || ((f[b] || 0) - (f[a] || 0));
+      }).slice(0, 6);
+    }
+
+    red = red.filter(function (n, i2, arr) { return arr.indexOf(n) === i2; }).sort(function (a, b) { return a - b; });
+    /* 蓝球/后区：从蓝球池里取频次最高的 1 个 */
+    var blueMax = M.blu || 16;
+    var blues = []; for (var b2 = 1; b2 <= blueMax; b2++) blues.push(b2);
+    var blue = blues.slice().sort(function (a, b) { return (f[a + 100] || 0) - (f[b + 100] || 0); })[0] || blues[0];
+    return { red: red, blue: blue };
+  }
+  function pickRow(p) {
+    var r = p.red.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('');
+    var b = '<i class="bl">' + pad(p.blue) + '</i>';
+    return '<div class="px9-pick"><span class="px9-pick-k">推荐号码</span>' +
+      '<span class="px9-pick-b">' + r + b + '</span></div>';
+  }
+
   function calc(g, m) {
     var M = CFG[g], out = [], ds = hist(g);
     var main = ds.map(function (d) { return numsOf(d, g).map(Number); });
@@ -13705,6 +13809,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       out.push(row('入选（≥3 分）', res.length ? res.slice(0, 8).map(function (x) { return pad(x.n) + '(' + x.sc + ')'; }).join(' ') : '本轮无'));
       res.slice(0, 4).forEach(function (x) { out.push(row(pad(x.n) + ' 号 ' + x.sc + ' 分', x.why.join(' · '))); });
     }
+    /* 【九算法出号】把推荐号码追加到统计下面（用户硬性要求） */
+    try { out.push(pickRow(pick9(g, m, main, f, sums, spans))); } catch (e) { }
+
     return { out: out, M: M, n: ds.length };
   }
 
