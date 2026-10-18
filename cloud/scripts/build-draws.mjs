@@ -44,6 +44,57 @@ const CONFIG_PATH = path.join(ROOT, 'deepseek.config.json');
 const OUT_JS = path.join(ROOT, 'draws.js');
 const CACHE_DIR = path.join(ROOT, '_draw-cache');
 
+/* ============================================================
+   【本机 backoff 闸门】--min-interval=<分钟>   （2026-10-18 加）
+   ------------------------------------------------------------
+   为什么加：本机 update-football-smart.mjs 是【每 30 分钟】一轮。开奖号一天只
+   变一次（福彩 21:30 / 体彩 21:45），每 30 分钟把所有源站问一遍既没用又费请求。
+   （本机另有 update-draws-fast-2min.cmd 在开奖后 2 分钟级补抓，这里只是兜底。）
+   规则：
+     · 距上次【成功】< N 分钟 → 立刻跳过：打印原因、exit 0、【不动 draws.js】
+     · 不传 --min-interval → 闸门关闭，行为与以前【完全一致】（云端不传）
+     · --force-run → 忽略闸门，本次一定真跑
+   状态文件：./_backoff-build-draws.json
+   ⚠️ 只有【真的写了 draws.js】才记 lastSuccess（--dry-run 不记）。
+   ============================================================ */
+const MIN_INTERVAL_MIN = (() => {
+  const m = process.argv.slice(2).find((a) => a.startsWith('--min-interval='));
+  if (!m) return 0;
+  const n = parseInt(m.slice('--min-interval='.length), 10);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+})();
+const FORCE_RUN = process.argv.slice(2).includes('--force-run');
+const GATE_FILE = path.join(ROOT, '_backoff-build-draws.json');
+function readGate() { try { return JSON.parse(fs.readFileSync(GATE_FILE, 'utf8')) || {}; } catch (e) { return {}; } }
+function gateShouldSkip() {
+  if (!MIN_INTERVAL_MIN || FORCE_RUN) return false;
+  const last = Number(readGate().lastSuccess) || 0;
+  if (!last) return false;
+  const gone = (Date.now() - last) / 60000;
+  if (gone >= MIN_INTERVAL_MIN) return false;
+  const ago = gone < 60 ? `${Math.round(gone)} 分钟前` : `${(gone / 60).toFixed(1)} 小时前`;
+  console.log(`⏭  跳过：距上次成功 ${ago}（闸门 ${MIN_INTERVAL_MIN} 分钟）→ 保留现有 draws.js 不动`);
+  try {
+    const st = readGate();
+    st.lastSkip = Date.now();
+    st.skips = (Number(st.skips) || 0) + 1;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+  return true;
+}
+function gateMarkSuccess() {
+  if (!MIN_INTERVAL_MIN) return;
+  try {
+    const st = readGate();
+    st.lastSuccess = Date.now();
+    st.lastSuccessText = new Date().toLocaleString('zh-CN', { hour12: false });
+    st.minIntervalMin = MIN_INTERVAL_MIN;
+    st.skips = Number(st.skips) || 0;
+    fs.writeFileSync(GATE_FILE, JSON.stringify(st, null, 1), 'utf8');
+  } catch (e) { /* 忽略 */ }
+}
+
+
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36';
 
 const argv = process.argv.slice(2);
@@ -102,6 +153,9 @@ function parseOnly(list) {
 }
 
 const ONLY = parseOnly(argv);
+
+/* 【backoff 闸门】参数都解析完了 → 距上次成功不到 N 分钟就直接跳过（不抓、不写） */
+if (gateShouldSkip()) process.exit(0);
 
 /* ============================================================
    彩种规则
@@ -629,6 +683,8 @@ async function main() {
     const js = `/* 自动生成，请勿手动编辑 · ${now} */\n` +
       `const DRAW_DATA = ${JSON.stringify(out, null, 2)};\n`;
     fs.writeFileSync(OUT_JS, js, 'utf8');
+    /* 【backoff 闸门】真写了文件才算成功（--dry-run 不记） */
+    gateMarkSuccess();
     log(`✅ 已写入 ${OUT_JS}（${Object.keys(merged).length} 个彩种` +
       (carried.length ? `，其中 ${carried.length} 个沿用上一次：${carried.join(' / ')}` : '') + '）');
   }
