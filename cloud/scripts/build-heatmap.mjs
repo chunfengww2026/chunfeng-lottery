@@ -344,6 +344,46 @@ function stripTags(s) {
  *     <div class="lucky-pics"><img ...></div>
  *   </div>
  */
+
+/* ============================================================
+   【第二晒票源 · 今日头条搜索页 · 用户 2026-10-19】
+   「抓取一起彩晒图 今日头条的 百度贴吧 还有别人公布的人力图一起去结合」
+   实测：https://www.toutiao.com/search/?keyword=双色球晒票 → 200 / 544KB / 219 个图链 ✔
+        （头条【首页】是 JS 空壳 ✗，但【搜索页】是服务端渲染的 ✔）
+   提示：贴吧 403 ✗（要 cookie 池，暂不做）；别人的「人力图」只能当图看，提取数字不可靠 ✗。
+   输出格式和 parsePosts() 一致：{ author, time, msg, images, issue }
+   ⚠️ 图片只取头条自家的 CDN（pstatp / toutiaoimg），避免抓到头像/图标。
+   ============================================================ */
+async function fetchToutiaoPosts(cfg, issue) {
+  const KEY = { ssq: '双色球晒票', dlt: '大乐透晒票' };
+  const kw = KEY[cfg.id];
+  if (!kw) return [];
+  const url = 'https://www.toutiao.com/search/?keyword=' + encodeURIComponent(kw);
+  let html = null;
+  try { html = await fetchHtml(url); } catch (e) { log('  · 头条晒票：抓取失败（不影响一起彩）：' + e.message); return []; }
+  const imgs = [];
+  const tags = html.match(/<img[^>]+>/gi) || [];
+  for (const tag of tags) {
+    const m = /(?:data-src|data-original|src)\s*=\s*["']([^"']+)["']/i.exec(tag);
+    if (!m) continue;
+    const u = decodeEntities(m[1]);
+    if (!/^https?:\/\//.test(u)) continue;
+    if (!/(pstatp|toutiaoimg|byteimg|toutiao)\./.test(u)) continue;
+    if (imgs.indexOf(u) >= 0) continue;
+    imgs.push(u);
+    if (imgs.length >= 20) break;          /* 一次最多 20 张，避免把 OCR 压垮 */
+  }
+  if (!imgs.length) { log('  · 头条晒票：没找到可用的票面图'); return []; }
+  log('  · 头条晒票：拿到 ' + imgs.length + ' 张图（关键词「' + kw + '」）');
+  return [{
+    author: '今日头条',
+    time: '',
+    msg: '头条搜索「' + kw + '」',
+    images: imgs,
+    issue: ''
+  }];
+}
+
 function parsePosts(html) {
   const posts = [];
   const blocks = String(html).split(/<div[^>]*class="[^"]*lucky-tickets-x[^"]*"/i).slice(1);
@@ -621,6 +661,12 @@ async function fetchPostsPaged(cfg, site, issue) {
     if (!fresh) break;                     /* 这页没有当期帖 → 后面更老，收工 */
     if (p < OCR_MAX_PAGES) await sleep(politeDelay());
   }
+    /* 【第二源】把今日头条搜索页的晒票图并进来（同一套 OCR 处理） */
+  try {
+    const tt = await fetchToutiaoPosts(cfg, issue);
+    for (const p of tt) out.push(p);
+  } catch (e) { log('  · 头条晒票合并失败（不影响一起彩）：' + e.message); }
+
   return { posts: out, pages };
 }
 
