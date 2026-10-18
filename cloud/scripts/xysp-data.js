@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-18 20:10
+   更新时间：2026-10-18 20:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-18 20:10",
+ "updated": "2026-10-18 20:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1479,6 +1479,90 @@ const XYSP_DATA = {
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/adb0bca9-51ef-49e0-9892-047acf1a7bc11792325328690.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/adb0bca9-51ef-49e0-9892-047acf1a7bc11792325328690.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]排杀号补号参考就行",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T12:09:00.000Z",
+     "pubMs": 1792325340000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/544ff5c3-7086-4455-9a77-92cfc9267bc51792325332426.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/544ff5c3-7086-4455-9a77-92cfc9267bc51792325332426.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]排杀号补号参考就行",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T12:09:00.000Z",
+     "pubMs": 1792325340000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/586679cd-ee7d-47cd-b8ba-df117d0f22721792324591013.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/586679cd-ee7d-47cd-b8ba-df117d0f22721792324591013.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]碰碰运气",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T11:56:00.000Z",
+     "pubMs": 1792324560000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/c7ef2fc8-482b-4a8c-9a7b-2b8c1efad1911792324591015.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/c7ef2fc8-482b-4a8c-9a7b-2b8c1efad1911792324591015.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]碰碰运气",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T11:56:00.000Z",
+     "pubMs": 1792324560000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/1e87e852-51ae-4738-a5a9-be4cef73305a1792324591018.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/1e87e852-51ae-4738-a5a9-be4cef73305a1792324591018.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]碰碰运气",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T11:56:00.000Z",
+     "pubMs": 1792324560000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-18/5e804345-72b4-42d8-bd3e-3572fea812901792324395816.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-18/5e804345-72b4-42d8-bd3e-3572fea812901792324395816.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26277期]希望好运",
+     "url": "",
+     "at": "2026-10-18T12:15:01.956Z",
+     "pubAt": "2026-10-18T11:54:00.000Z",
+     "pubMs": 1792324440000,
+     "pubSrc": "page",
+     "nextAt": 1792326600000,
+     "atMs": 1792325701956,
+     "seenMs": 1792325701956,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-18/fc0999b2-79d1-4222-8b0b-4798fe7198cf1792321271997.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-18/fc0999b2-79d1-4222-8b0b-4798fe7198cf1792321271997.jpg?imageMogr2/thumbnail/360x",
