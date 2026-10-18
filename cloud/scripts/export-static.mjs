@@ -933,6 +933,38 @@ const tocHtml =
      HTML 注释不在被剥的范围里，所以标记留在成品页上，改高度前能搜到它。
      ⚠️ 这条注释里【不写任何文件名/站名】。 */
   `
+
+    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
+    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
+  </div>
+</div>
+
+<!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
+${sinaNextHtml()}
+
+<!-- ============================================================
+       【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
+       宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
+       格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
+       JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
+       不会出现「点了没反应」的死格子。 -->
+  ${tocHtml}
+
+  <!-- ============================================================
+       【开机号 + 热力图 · 并排两列】用户 2026-10-18：
+         「把开机号和热力图改成并排两列」
+       一行两个卡片：左 = 开机号入口（<a href="#ro-kjh">），右 = 热力图折叠卡。
+       点开热力图 → 它占满整行（图片要宽），见样式表最后那段「⑧ 并排两列」。
+       下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
+       因为它是一整张表，塞进半屏会挤。
+       ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
+  ${toolsHeatHtml}
+
 <!-- __TOC_EQH__ 推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中
      —— 规则本体仍在样式表里（.ro-imgtoc / .ro-toc-cell）；这条 HTML 注释是【验收基线留痕】，
         <style> 里的 CSS 注释会被构建末段的「留痕剥除」带走，放在 HTML 注释里才留得住。 -->
@@ -7275,37 +7307,6 @@ ${DEVICE_GATE_BODY}
   <a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
   <a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
 </div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="trend"><div class="icon">📈</div><div class="name">趋势分析</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="hot"><div class="icon">🔥</div><div class="name">实时热点</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ma"><div class="icon">🔪</div><div class="name">杀号和选号</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="index"><div class="icon">🎯</div><div class="name">指数预测</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="omit"><div class="icon">📉</div><div class="name">遗漏宝</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="pattern"><div class="icon">🧩</div><div class="name">智能规律</div></div>
-    <div class="tool-item" role="button" tabindex="0" data-tool="ai"><div class="icon">🤖</div><div class="name">AI推荐</div></div>
-  </div>
-</div>
-
-<!-- __SINA_NEXT_HTML__ 下一期参考（有数据才显示）-->
-${sinaNextHtml()}
-
-<!-- ============================================================
-       【手机目录表格 · 方案 D】只在窄屏（<=1365px）显示：
-       宽屏保持 5 组并排 .ro-imagepair（这里被 CSS 隐藏，一点不动它）。
-       格子是 <a>（页面不变量要求没有按钮标签），href 指向每张图前面的锚点。
-       JS 挂掉时（body 上还有 ro-toc-pending 标记）整块不显示，
-       不会出现「点了没反应」的死格子。 -->
-  ${tocHtml}
-
-  <!-- ============================================================
-       【开机号 + 热力图 · 并排两列】用户 2026-10-18：
-         「把开机号和热力图改成并排两列」
-       一行两个卡片：左 = 开机号入口（<a href="#ro-kjh">），右 = 热力图折叠卡。
-       点开热力图 → 它占满整行（图片要宽），见样式表最后那段「⑧ 并排两列」。
-       下面是开机号点开后的区块（平时不显示，.ro-open 才展开）—— 仍然整行，
-       因为它是一整张表，塞进半屏会挤。
-       ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
-  ${toolsHeatHtml}
-
   ${kjhHtml}
 
   <!-- ============================================================
@@ -13142,6 +13143,12 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 /* __NO_INSTALL__ 用户 2026-10-18 明确要求删掉「添加到手机桌面，更方便更稳定」这块；
    另一个窗口反复把它加回 HTML，所以这里用 CSS 兜底：不管 HTML 里有没有，一律不显示。 */
 .ro-install, #ro-install, .install-guide, #installGuide { display: none !important; }
+/* __TOC_4ROWS__ 用户 2026-10-18：目录排成 4 排（3 列 × 4 排，10 格） */
+.ro-imgtoc { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+.ro-imgtoc .ro-toc-cell { width: auto !important; min-height: 52px !important; height: auto !important; padding: 8px 4px !important; }
+.ro-imgtoc .ro-toc-t { font-size: 12px !important; line-height: 1.35 !important; white-space: normal !important; }
+.ro-imgtoc .ro-toc-s { font-size: 10px !important; }
+@media (max-width: 340px) { .ro-imgtoc { gap: 5px !important; } .ro-imgtoc .ro-toc-t { font-size: 11px !important; } }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
