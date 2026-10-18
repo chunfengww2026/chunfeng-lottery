@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-18 12:29",
- "red": 11,
- "black": 6,
- "rate": "64.7%",
- "unfinished": 2,
+ "updated": "2026-10-18 22:07",
+ "red": 10,
+ "black": 5,
+ "rate": "66.7%",
+ "unfinished": 3,
  "history": [
+  {
+   "dateStr": "2026-10-18 15:00",
+   "finishTime": 1792306800000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周一005",
+     "teams": "热刺 vs 考文垂",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.4,
+     "status": "pending",
+     "finishTime": 1792306800000,
+     "league": "英超",
+     "odds": 1.45,
+     "time": "2026-10-20 03:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-17 12:00",
    "finishTime": 1792209600000,
@@ -138,7 +158,7 @@
      "matchNo": "周六019",
      "teams": "曼城 vs 伊普斯",
      "pick": "主胜",
-     "score": "2:1",
+     "score": "3:2",
      "result": "red",
      "confidence": 77.8,
      "status": "finished",
@@ -177,8 +197,8 @@
      "matchNo": "周六023",
      "teams": "博洛尼亚 vs 国际米兰",
      "pick": "客胜",
-     "score": "1:0",
-     "result": "black",
+     "score": "1:3",
+     "result": "red",
      "confidence": 58.8,
      "status": "finished",
      "finishTime": 1792204200000,
@@ -190,7 +210,7 @@
      "matchNo": "周六025",
      "teams": "拜仁 vs 莱红牛",
      "pick": "主胜",
-     "score": "2:0",
+     "score": "6:1",
      "result": "red",
      "confidence": 77.8,
      "status": "finished",
@@ -203,7 +223,7 @@
      "matchNo": "周六026",
      "teams": "贝蒂斯 vs 巴萨",
      "pick": "客胜",
-     "score": "0:1",
+     "score": "2:5",
      "result": "red",
      "confidence": 66.9,
      "status": "finished",
@@ -216,7 +236,7 @@
      "matchNo": "周六027",
      "teams": "特尔斯达 vs 费耶诺德",
      "pick": "客胜",
-     "score": "0:2",
+     "score": "3:4",
      "result": "red",
      "confidence": 70.5,
      "status": "finished",
@@ -229,8 +249,8 @@
      "matchNo": "周六028",
      "teams": "罗马 vs 热那亚",
      "pick": "主胜",
-     "score": "0:0",
-     "result": "black",
+     "score": "2:0",
+     "result": "red",
      "confidence": 64.2,
      "status": "finished",
      "finishTime": 1792204200000,
@@ -242,10 +262,10 @@
      "matchNo": "周日003",
      "teams": "首尔FC vs 金泉尚武",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "2:2",
+     "result": "black",
      "confidence": 59.9,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792204200000,
      "league": "K1联赛",
      "odds": 1.53,
@@ -263,52 +283,6 @@
      "league": "英超",
      "odds": 1.6,
      "time": "2026-10-18 23:30"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-17 02:21",
-   "finishTime": 1792174860000,
-   "verdict": "红",
-   "matches": [
-    {
-     "matchNo": "周五003",
-     "teams": "布鲁马波 vs 佐加顿斯",
-     "pick": "客胜",
-     "score": "0:2",
-     "result": "red",
-     "confidence": 62.7,
-     "status": "finished",
-     "finishTime": 1792174860000,
-     "league": "瑞典超",
-     "odds": 1.5,
-     "time": "2026-10-17 01:00"
-    },
-    {
-     "matchNo": "周五005",
-     "teams": "登博思 vs 奥斯",
-     "pick": "主胜",
-     "score": "2:1",
-     "result": "red",
-     "confidence": 60.3,
-     "status": "finished",
-     "finishTime": 1792174860000,
-     "league": "荷乙",
-     "odds": 1.56,
-     "time": "2026-10-17 02:00"
-    },
-    {
-     "matchNo": "周五004",
-     "teams": "海伦芬 vs SBV精英",
-     "pick": "主胜",
-     "score": "4:0",
-     "result": "red",
-     "confidence": 59.2,
-     "status": "finished",
-     "finishTime": 1792174860000,
-     "league": "荷甲",
-     "odds": 1.6,
-     "time": "2026-10-17 02:00"
     }
    ]
   }
