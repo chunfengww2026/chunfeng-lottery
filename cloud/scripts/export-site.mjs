@@ -246,6 +246,45 @@ if (football) {
 
 /* （走势图独立页的写入也一并删掉了：包内不再有 走势图.html 这个文件） */
 
+/* ---------- 3b. 算法说明独立页（iframe 子页）----------
+   2026-10-20 用户报：iframe 里显示 GitHub Pages 的 404 页面
+   （分享页「推荐图 · 方法」那块最明显）。
+   根因：分享页 / 竞彩页里一共 13 个 <iframe> 指向这 3 个独立 HTML ——
+     px9-methods.html ×5 · minjian-methods.html ×6 · core-jiajian.html ×2
+   它们是【跑在 iframe 里的完整页面】，不是内联片段，
+   必须和 index.html 放在同一个目录（站点根目录），否则那 13 个 iframe 全 404。
+   ⚠️ 以前这里【只写 index.html / football.html / jc-reco-view.js，不拷这 3 个】
+      → 分享包里的 iframe 一样 404。
+   ⚠️ 云端那条链不靠本文件 —— cloud/.github 的 daily-update.yml
+      「把生成的网页放到站点目录」那一步另外 cp 了一份，两边都要有。
+   ⚠️ history.js 是【连带依赖】：这 3 个独立页里都有一行
+      <script src="history.js"></script>（靠它拿 DRAW_HISTORY）。
+      主页面 index.html 是把 DRAW_HISTORY 内联进去的，所以以前包里没有它也没事；
+      但 iframe 子页是外链的 —— 少了它，iframe 里会显示「数据缺失」。 */
+const IFRAME_PAGES = [
+  ['px9-methods.html', '九算法独立页'],
+  ['minjian-methods.html', '民间算法独立页'],
+  ['core-jiajian.html', '核心加减法独立页'],
+  ['history.js', '3 个 iframe 子页的数据源'],
+];
+let iframeMissing = 0;
+for (const [f, label] of IFRAME_PAGES) {
+  /* 来源优先本机根目录（用户给的原始文件放这儿），再退到 cloud/scripts/
+     （sync-cloud.mjs 会把根目录这 3 个同步到 cloud/scripts/，两边内容一致）。 */
+  const cands = [path.join(ROOT, f), path.join(ROOT, 'cloud', 'scripts', f)];
+  const from = cands.find((p) => fs.existsSync(p));
+  if (!from) {
+    console.error(`❌ 找不到 ${f}（${cands.join(' / ')} 都没有）→ 分享包里该 iframe 会 404`);
+    iframeMissing++;
+    continue;
+  }
+  fs.copyFileSync(from, path.join(SITE, f));
+  log(`✅ ${f} ${(fs.statSync(from).size / 1024).toFixed(1)} KB（${label}）`);
+}
+if (iframeMissing) {
+  log(`⚠️ 有 ${iframeMissing} 个 iframe 独立页没进分享包 —— 页面里对应区块会显示 404`);
+}
+
 /* ---------- 4. 说明文件 ---------- */
 const readme = `春风 · 分享站点
 ============================================================
