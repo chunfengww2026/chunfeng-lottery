@@ -145,6 +145,55 @@ function cirRadii(ringCount, outer) {
 }
 
 /* ============================================================
+   九转连环 · 「上一期开奖号」的后区部分（用户 2026-10-20）
+   ------------------------------------------------------------
+   用户原话：「九转图 编程每次开奖后自动抓取开奖号码 + 在下一期新的图
+   出来的时候，把上一期开奖号码颜色深一点渲染出来」。
+   · 圈上把 1~33（大乐透 1~35）全号铺满，所以「上一期开奖号」本来都在
+     圈上有位置 —— 深浅由 stats.js 铺好的 cir_points 的 H 位决定；
+   · 双色球的蓝球 / 大乐透的后区，号码也落在 1~33(35) 里，圈上同样有位，
+     但 cir_points 只标了主区（红球 / 前区）。要「一起加深」且和红球
+     区分开，就得知道哪几个号是后区 → 深蓝；红球 → 深红。
+   · 单一来源：和 stats.js 的 lastIssueNumsFor 取「上期开奖号」同一期，
+     即 DRAW_HISTORY.games[gid][0].areas（history.js，最新在前）。
+     取不到 → 返回 []，全部命中点仍按红球渲染，行为不变、绝不报错。
+   ============================================================ */
+function cirBackNums(gameId, vals) {
+  const out = [];
+  const push = (v) => {
+    const n = Number(v);
+    if (Number.isFinite(n) && n > 0 && out.indexOf(n) < 0) out.push(n);
+  };
+  try {
+    /* ① 数据层已经铺好就直接用（stats.js 以后加了 cir_back 这个键，这里自动生效） */
+    if (vals && vals.cir_back) {
+      String(vals.cir_back).split(/[\s,，、]+/).forEach(push);
+      if (out.length) return out;
+    }
+    /* ② 从最新一期开奖里读后区 */
+    let hist = [];
+    if (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY && DRAW_HISTORY.games) {
+      hist = DRAW_HISTORY.games[gameId] || [];
+    } else if (typeof getHistory === 'function') {
+      hist = getHistory(gameId) || [];
+    }
+    const areas = (hist && hist[0] && hist[0].areas) || {};
+    /* 后区按【区名】找：双色球 blue / 大乐透 back（不按彩种名写死） */
+    const backKey = ['blue', 'back', 'special'].find((k) => Array.isArray(areas[k]) && areas[k].length);
+    if (!backKey) return out;
+    /* 主区优先：同一个号既是主区又是后区（双色球红 01~16 和蓝 01~16 重叠）
+       → 只算主区（深红），不重复画成蓝 */
+    const mainKey = ['front', 'red', 'main'].find((k) => Array.isArray(areas[k]) && areas[k].length);
+    const main = mainKey ? areas[mainKey].map(Number) : [];
+    areas[backKey].forEach((v) => {
+      const n = Number(v);
+      if (Number.isFinite(n) && n > 0 && main.indexOf(n) < 0) push(n);
+    });
+  } catch (e) { /* 忽略：读不到就不加蓝标记，红球照样加深 */ }
+  return out;
+}
+
+/* ============================================================
    字谜区（只有 福彩3D / 排列3 的 main 图用）
    ------------------------------------------------------------
    数据来源：全局 ZIMI_DATA（zimi-data.js，build-zimi.mjs 抓的）。
@@ -487,6 +536,13 @@ const SECTION_RENDER = {
       c.appendChild(line);
     }
 
+    /* ---------- 上一期开奖号里的【后区】部分（双色球蓝球 / 大乐透后区） ----------
+       圈上 1~33(35) 全号铺满，后区的号也有位置。用户要求「开奖号颜色深一点」，
+       红球/前区 = 深红、后区 = 深蓝，所以先把后区那几个号单独拿出来。 */
+    const backNums = cirBackNums(gameId, vals);
+    const backSet = Object.create(null);
+    backNums.forEach((n) => { backSet[n] = true; });
+
     /* ---------- 中心：双色球 17 / 大乐透 18（固定值，来自配置） ----------
        cir_center_pos = 1 表示这一格也算一个号码位（两彩种都是 1：
        双色球 17、大乐透 18 都自己占一个号位），这时它参与命中高亮；
@@ -501,8 +557,12 @@ const SECTION_RENDER = {
       const src = String(vals.cir_source).split(/[\s,，、]+/).map((s) => parseInt(s, 10));
       if (Number.isFinite(centerNum) && src.indexOf(centerNum) >= 0) centerHit = true;
     }
-    const center = el('div', 'r-circenter' + (centerHit ? ' hit' : ' dim'));
-    center.setAttribute('data-hit', centerHit ? '1' : '0');
+    /* 中心那个号本身是蓝球/后区 → 画深蓝（老存档没有这个标记时按 0 处理） */
+    const centerBack = Number.isFinite(centerNum) && !!backSet[centerNum];
+    const centerOn = centerHit || centerBack;
+    const center = el('div', 'r-circenter' + (centerOn ? ' hit' : ' dim') + (centerBack ? ' bl' : ''));
+    center.setAttribute('data-hit', centerOn ? '1' : '0');
+    center.setAttribute('data-zone', centerBack ? 'back' : (centerOn ? 'main' : ''));
     center.setAttribute('data-center-pos', centerIsPos ? '1' : '0');
     center.textContent = Number.isFinite(centerNum) ? numText(centerNum) : '—';
     c.appendChild(center);
@@ -510,14 +570,19 @@ const SECTION_RENDER = {
     /* ---------- 圈 × 轴 = 全部交点 ----------
        顺序和 createJiuZhuan 完全一致：圈优先（rings.forEach → axisList.forEach），
        所以第 i 个点 = 第 floor(i / 轴数) 圈 × 第 i % 轴数 个轴。 */
-    let hitCount = 0;      // 环上的命中数
+    let hitCount = 0;      // 环上的命中数（主区）
     let numCount = 0;      // 环上有号码的点数
     let emptyCount = 0;    // 环上没号码的点数（正常情况下是 0）
+    let backHitCount = 0;  // 环上命中的【后区】号（画深蓝）
     CIR_RADII.forEach((r, ringIdx) => {
       for (let dirIdx = 0; dirIdx < geo.axes; dirIdx++) {
         const p = pts[ringIdx * geo.axes + dirIdx] || { num: null, isHit: false };
         const has = p.num !== null && p.num !== undefined && Number.isFinite(Number(p.num));
-        const dot = el('div', 'r-cirnum' + (has ? (p.isHit ? ' hit' : ' dim') : ' empty'));
+        /* 这个点是不是「上一期开奖号码」：主区（红球/前区）= 深红，
+           后区（蓝球/后区）= 深蓝；两个都不是才浅色。 */
+        const isBack = has && !!backSet[Number(p.num)];
+        const isOn = has && (p.isHit || isBack);
+        const dot = el('div', 'r-cirnum' + (has ? (isOn ? ' hit' : ' dim') + (isBack ? ' bl' : '') : ' empty'));
         /* 角度 = -90° + i × (360 / 轴数)：轴 1 朝正上方，顺时针排 */
         const rad = (-90 + dirIdx * (360 / geo.axes)) * Math.PI / 180;
         dot.style.top = (CIR_CENTER.y + Math.sin(rad) * r).toFixed(2) + '%';
@@ -528,9 +593,11 @@ const SECTION_RENDER = {
         dot.setAttribute('data-radius', String(ringIdx + 1));      // radius 是圈的序号
         if (has) {
           dot.textContent = numText(p.num);
-          dot.setAttribute('data-hit', p.isHit ? '1' : '0');
+          dot.setAttribute('data-hit', isOn ? '1' : '0');
+          dot.setAttribute('data-zone', isBack ? 'back' : (p.isHit ? 'main' : ''));
           numCount++;
           if (p.isHit) hitCount++;
+          if (isBack) backHitCount++;
         } else {
           /* 空位：点位照画，就是【不写数字】（全号铺满后这里正常不会出现） */
           dot.setAttribute('data-hit', '0');
@@ -559,15 +626,17 @@ const SECTION_RENDER = {
         'position:absolute;left:50%;top:68%;transform:translateX(-50%);'
         + 'display:flex;gap:6px;justify-content:center;z-index:3;pointer-events:none');
       sideNums.forEach((n) => {
-        const isHit = sideSrc.indexOf(n) >= 0;
-        const ball = el('span', 'r-cirsideball' + (isHit ? ' hit' : ' dim'));
+        const isBack = !!backSet[n];
+        const isHit = sideSrc.indexOf(n) >= 0 || isBack;
+        const ball = el('span', 'r-cirsideball' + (isHit ? ' hit' : ' dim') + (isBack ? ' bl' : ''));
         ball.setAttribute('style',
           'display:inline-block;min-width:18px;padding:1px 4px;border-radius:50%;'
           + 'font-size:11px;line-height:16px;text-align:center;'
-          + 'background:' + (isHit ? '#c62828' : '#eceff1') + ';'
+          + 'background:' + (isHit ? (isBack ? '#1f5fd6' : '#c0392b') : '#eceff1') + ';'
           + 'color:' + (isHit ? '#fff' : '#455a64') + ';font-weight:bold');
         ball.setAttribute('data-side', '1');
         ball.setAttribute('data-hit', isHit ? '1' : '0');
+        ball.setAttribute('data-zone', isBack ? 'back' : (isHit ? 'main' : ''));
         ball.textContent = numText(n);
         sideWrap.appendChild(ball);
         if (isHit) sideHitCount++;
@@ -577,15 +646,31 @@ const SECTION_RENDER = {
 
     box.appendChild(c);
 
-    /* 图例：两种深浅（命中 / 其余号码），口径就是 cir_points 的 H 位（含中心/小字球） */
+    /* 图例：两种深浅（命中 / 其余号码），口径就是 cir_points 的 H 位（含中心/小字球）
+       + 命中里再分一档：后区（蓝球 / 后区）单独一个蓝点，和深红区分开 */
+    const hitAll = hitCount + (centerHit ? 1 : 0) + sideHitCount;   // 主区（红球/前区）
+    const backAll = backHitCount + (centerBack ? 1 : 0);            // 后区（蓝球/后区）
+    /* 其余号码 = 环上没开的 + 小字球里没开的（后区那几个已经从「未开」里扣掉） */
+    const dimAll = (numCount + sideNums.length) - hitAll - backAll;
     const legend = [
-      { label: '上期开奖号（命中 ' + (hitCount + (centerHit ? 1 : 0) + sideHitCount) + '）', color: 'hit' },
-      { label: '其余号码（' + (numCount - hitCount + sideNums.length - sideHitCount) + '）', color: 'dim' }
+      { label: '上期开奖号（命中 ' + hitAll + '）', color: 'hit' },
+      { label: '其余号码（' + dimAll + '）', color: 'dim' }
     ];
+    if (backAll) {
+      legend.splice(1, 0, {
+        label: '上期' + (gameId === 'dlt' ? '后区' : '蓝球') + '（' + backAll + '）',
+        color: 'hit bl'
+      });
+    }
     const lg = el('div', 'r-legend');
     legend.forEach((l) => {
       const item = el('span', 'r-legenditem');
-      item.appendChild(el('span', 'r-dot ' + l.color));
+      const sw = el('span', 'r-dot ' + l.color);
+      /* 色点颜色内联写死：styles.css 里只有 .r-dot.dim，命中/后区这两档
+         不能靠外部样式表（导出图片时不带 CSS 也会缺色） */
+      const bg = (l.color.indexOf('bl') >= 0) ? '#1f5fd6' : (l.color.indexOf('hit') >= 0 ? '#c0392b' : '');
+      if (bg) sw.setAttribute('style', 'background:' + bg + ' !important');
+      item.appendChild(sw);
       item.appendChild(document.createTextNode(l.label));
       lg.appendChild(item);
     });
@@ -600,9 +685,12 @@ const SECTION_RENDER = {
       + (centerIsPos ? ' + 中心 1 格' : '')
       + sideText
       + ' = ' + covered + ' 个号码位';
-    const capText = '上期开奖号：' + (vals.cir_source || '—')
+    const backText = backNums.length
+      ? '　|　' + (gameId === 'dlt' ? '后区' : '蓝球') + '：' + backNums.map(numText).join(' ')
+      : '';
+    const capText = '上期开奖号：' + (vals.cir_source || '—') + backText
       + '　|　' + rangeText + '，本彩种全部号码 1~' + covered
-      + ' 一键铺满（浅色为未开出，深色为上期开出）';
+      + ' 一键铺满（浅色为未开出，深红/深蓝为上期开出）';
     box.appendChild(el('div', 'r-caption', capText));
 
     if (sec.note) box.appendChild(el('div', 'r-caption', sec.note));
