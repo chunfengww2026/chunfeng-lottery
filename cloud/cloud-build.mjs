@@ -1061,6 +1061,22 @@ function main() {
     }
     /* 页面已经由那个脚本按需重出（没有变化就不重出，省一次部署）——
        这里只负责把产物整理到 out/ 并加上新鲜度提示条 */
+  /* __DRAW_WATCH__ 用户 2026-10-18：开奖后必须立刻公布（一直抓，抓到为止）
+     5 分钟班先抓一次开奖号：期号变了 → 立刻重算播报 + 重出彩票页；没变则什么都不做。 */
+  try {
+    const drawsFp = path.join(MOD, 'draws.js');
+    const sig = () => (fs.existsSync(drawsFp) ? String(fs.statSync(drawsFp).mtimeMs) : '0');
+    const before = sig();
+    if (fs.existsSync(path.join(MOD, 'build-draws.mjs'))) {
+      try { run('build-draws.mjs', [], 12); } catch (e) { log('  ⚠️ 抓开奖号失败（下轮再试）：' + String(e.message).slice(0, 70)); }
+      if (sig() !== before) {
+        log('  🎯 开奖号有变化 → 立刻重算播报 + 重出彩票页');
+        try { run('build-broadcast.mjs', [], 20); } catch (e) { log('  ⚠️ 播报失败：' + String(e.message).slice(0, 60)); }
+        try { run('export-static.mjs', []); } catch (e) { log('  ⚠️ 页面失败：' + String(e.message).slice(0, 60)); }
+      } else { log('  ⏭ 开奖号没变化（继续等下一班）'); }
+    }
+  } catch (e) { log('  ⚠️ 开奖守护异常（不影响网站）：' + String(e.message).slice(0, 70)); }
+
     const freshRows = checkFreshness();
     reportFreshness(freshRows);
     finishOutput(freshRows);
