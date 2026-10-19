@@ -15040,10 +15040,18 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-status.warn .ro-st-dot { background: #f5b301; box-shadow: 0 0 0 4px rgba(245, 179, 1, 0.18); }
 /* __BACK6_STYLE__ 状态卡「后区推荐 6 码」这一行原来没有任何样式，号码挤成 020305060811；
    这里只补排版（标签 + 6 个蓝球 + 说明），6 个号码本身和取数逻辑一个字没动。 */
+/* 【🔵 后区推荐 6 码 · 2026-10-20】用户：「资料里面 篮球后区推荐记得带上
+   球的图标明显一点」→ 这一行就是大乐透后区推荐，跟着一起加强：
+   原来是一块平蓝的圆角药丸（#1f5fd6），现在改成「真球」——
+   正圆 + 径向渐变高光 + 亮蓝描边 + 白字加粗。尺寸 22px 一个字节没变（不会挤行）。 */
 .ro-back6 { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 2px; font-size: 11.5px; line-height: 1.5; }
 .ro-back6-k { color: #8a7a63; font-weight: 700; }
-.ro-back6 i { font-style: normal; min-width: 22px; height: 22px; padding: 0 2px; border-radius: 11px;
-  background: #1f5fd6; color: #fff; font-size: 10.5px; font-weight: 700;
+.ro-back6 i { font-style: normal; min-width: 22px; height: 22px; padding: 0 2px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 26%, #5b95ff 0%, #2a63e0 44%, #12379b 100%);
+  border: 1.5px solid #9cc4ff;
+  color: #fff; font-size: 10.5px; font-weight: 800;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .42);
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, .28), inset 0 2px 3px rgba(255, 255, 255, .30), 0 1px 3px rgba(0, 0, 0, .20);
   display: inline-flex; align-items: center; justify-content: center; }
 .ro-back6-s { color: #a89a80; font-size: 10.5px; }
 /* __INSTALL_RESTORED__ 【已恢复】用户 2026-10-18 21:50 确认要这张安装大图
