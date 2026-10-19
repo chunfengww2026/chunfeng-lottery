@@ -3262,6 +3262,7 @@ function buildHistoryHtml() {
   const rows = [];
   let calcIssues = 0;
   let lowDropped = 0;      /* __HIST_HIGH_ONLY__：中了但属于低等奖、被白名单滤掉的条数（只用于说明） */
+  const droppedRows = [];  /* 同上，仅 HIST_DUMP 时用来把被滤掉的逐条打出来 */
   const days = [];
 
   MQ_ORDER.forEach((gid) => {
@@ -3283,7 +3284,12 @@ function buildHistoryHtml() {
       const j = histJudgeRec(gid, blocks, d);
       if (!j) continue;                                 /* 没中 → 不进列表 */
       /* __HIST_HIGH_ONLY__ 中了但只是低等奖 → 不进列表（判定结果不动，只过滤） */
-      if (!histKeepTier(gid, j.lv)) { lowDropped++; continue; }
+      if (!histKeepTier(gid, j.lv)) {
+        lowDropped++;
+        droppedRows.push({ date: String(d.date).slice(0, 10), name: MQ_NAME[gid] || gid,
+          issue: String(d.issue), label: j.label, note: j.note });
+        continue;
+      }
       rows.push({
         gid: gid, name: MQ_NAME[gid] || gid, issue: String(d.issue),
         date: String(d.date).slice(0, 10), lv: j.lv, label: j.label,
@@ -3298,6 +3304,20 @@ function buildHistoryHtml() {
     if (a.issue !== b.issue) return Number(b.issue) - Number(a.issue);
     return MQ_ORDER.indexOf(a.gid) - MQ_ORDER.indexOf(b.gid);
   });
+
+  /* 自测用：HIST_DUMP=1 → 把留下来的（高等奖）逐条打出来；HIST_DUMP=2 → 连被滤掉的低等奖也打出来。
+     日常构建不设这个变量，一个字都不多打。 */
+  const HIST_DUMP = String(process.env.HIST_DUMP || '');
+  if (HIST_DUMP) {
+    console.log('      【保留 · 高等奖 ' + rows.length + ' 条】');
+    rows.forEach((r, i) => console.log('      ' + (i + 1) + '. ' + r.date + ' ' + r.name +
+      ' 第' + r.issue + '期 ' + r.label + ' · ' + r.note));
+    if (HIST_DUMP === '2' && droppedRows.length) {
+      console.log('      【滤掉 · 低等奖 ' + droppedRows.length + ' 条】');
+      droppedRows.forEach((r, i) => console.log('      x' + (i + 1) + '. ' + r.date + ' ' + r.name +
+        ' 第' + r.issue + '期 ' + r.label + ' · ' + r.note));
+    }
+  }
 
   const info = { compared: calcIssues, count: rows.length, lowDropped: lowDropped, from: '', to: '' };
   if (days.length) {
@@ -3358,7 +3378,8 @@ function buildHistoryHtml() {
 
 const histBuilt = buildHistoryHtml();
 const histHtml = histBuilt.html;
-console.log('  · 历史中奖卡：可回算 ' + histBuilt.info.compared + ' 期，中奖 ' + histBuilt.info.count + ' 条' +
+console.log('  · 历史开奖卡（只记高等奖）：可回算 ' + histBuilt.info.compared + ' 期，高等奖 ' +
+  histBuilt.info.count + ' 条' + (histBuilt.info.lowDropped ? `（已滤掉低等奖 ${histBuilt.info.lowDropped} 条）` : '') +
   (histBuilt.info.compared
     ? `（覆盖 ${histBuilt.info.from} ~ ${histBuilt.info.to}）`
     : '（前置开奖不足 30 期，暂无可回算的期次）'));
@@ -7256,6 +7277,40 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 }
 
 /* ============================================================
+   ⑩【🐸青蛙家园 + 历史开奖 · 并排两列】（用户 2026-10-20）
+   ------------------------------------------------------------
+   用户原话：「青蛙家园 + 历史中奖 并排放一排」；两个方案里选了 b：
+     历史开奖【保持默认展开】，🐸青蛙家园【不跟着拉伸】（align-items:start）。
+   · 左格 .frog 是另一个窗口写的青蛙家园面板：这里只把它外层的
+     margin（自带 12px 16px）归零 —— 不归零它会在格子里缩一圈、和右卡对不齐；
+     面板内部的字号 / 配色 / 间距 / 内容一个值都没动。
+   · 右格 .ro-hist 同样把外层 margin 归零，改由这一行统一给留白。
+   ⚠️ 页面通用规则「.grid-2-col:has(> details[open]) → 变一列」是给热力图 /
+      专家推荐那几行用的（展开就要占满整行）；这一行必须是两列
+      （历史开奖默认展开），所以用 ID 权重压住，并顺手写了 .is-open 那种兜底。
+   ⚠️ 横向留白用行上的 margin 给（桌面 12px、≤360px 时 8px），和上下卡片对齐。
+   ============================================================ */
+#ro-frog-hist-row,
+#ro-frog-hist-row.is-open,
+#ro-frog-hist-row:has(> details[open]) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;            /* ← 方案 b：左卡用自己的高度，不被右卡拉到一样高 */
+  margin-left: 12px;
+  margin-right: 12px;
+}
+#ro-frog-hist-row > .frog { margin: 0; }
+#ro-frog-hist-row > .ro-hist { margin: 0; }
+/* 【防截图口径不变】历史开奖虽然挪出了 #article-rest，锁定时照样模糊 + 点不动。
+   🐸青蛙家园是免费面板，保持原来的口径（锁定状态下照样能点，和「晒票 | GPT摇号」同一档）。 */
+html.locked #ro-frog-hist-row > .ro-hist {
+  filter: blur(30px) grayscale(1);
+  pointer-events: none;
+}
+@media (max-width: 360px) {
+  #ro-frog-hist-row { margin-left: 8px; margin-right: 8px; gap: 8px; }
+}
+
+/* ============================================================
    ⑨【晒票 + GPT模型摇号 · 并排两列】（用户 2026-10-18 给的设计）
    ------------------------------------------------------------
    用户原话：「晒票和 GPT模型摇号 也做成并排两列，跟
@@ -8335,8 +8390,6 @@ ${kjhHtml}
   ${xyspHtml}
   ${aiPickHtml}
   </div>
-<!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
-${frogPanelHtml()}
   <script>
   /* __ACTION_2COL__ 展开哪一格，哪一格就占满整行（和热力图那行同一套做法）。
      ⚠️ 只加 / 减一个 class，折叠本身完全由 <details> 管；
@@ -8361,33 +8414,57 @@ ${frogPanelHtml()}
   })();
   </script>
 
-  <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
+  <!-- ============================================================
+       __FROG_HIST_ROW__ 🐸青蛙家园 + 历史开奖：并排两列（用户 2026-10-20）
+       ------------------------------------------------------------
+       用户原话：「青蛙家园 + 历史中奖 并排放一排」（截图里两条各占整行）。
+       用户选方案 b：历史开奖【保持默认展开】，青蛙卡【不跟着拉伸】。
+       · 左格 = 🐸青蛙家园（另一个窗口加的那块面板：内部内容 / 样式
+         一个字都没动，这里只把它挪进这一行的左格）
+       · 右格 = 历史开奖（<details> 默认展开，保持不动）
+       ⚠️ 结构上唯一的改动：这一行放在 #article-rest【之前】。
+          青蛙原来就在 #article-rest 外面（锁定时还能点，和「晒票 | GPT模型摇号」
+          那一行同一口径，见上面 __ACTION_2COL__ 的说明）；要跟它并排，
+          历史开奖就得跟着出来。为了不让防截图口径变松，样式表 ⑩ 里补了
+          html.locked .ro-hist（锁定照样模糊 + 点不动），历史开奖的保护和以前一样。
+       ⚠️ 页面通用规则 .grid-2-col:has(> details[open]) 会把"展开"的那一行压成一列，
+          这一行【故意】用 ID 权重压回两列 —— 用户要的就是展开状态也并排。
+       ============================================================ -->
+  <div class="grid-2-col" id="ro-frog-hist-row">
+<!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
+${frogPanelHtml()}
 
   <!-- ============================================================
-       __RO_HIST__ 历史中奖（用户 2026-10-19 要求）
+       __RO_HIST__ 历史开奖（用户 2026-10-19 要求）
        ------------------------------------------------------------
        用户原话：「在GPT模型摇号下面增加一项;按钮 历史开奖：
                 点开以后就是近365天内所有中奖播报.不管什么奖项1等奖2等奖3等奖都记录」
-       第二轮澄清（用户）：「是我推荐中奖的哦」→ 内容是【推荐号命中记录】，
-       所以卡面写「历史中奖」，副标题写「近 365 天 · 推荐号命中记录」。
-       · 位置：紧接上面那一行「晒票 | GPT模型摇号」→ 这里占【整行】全宽
-         （两列网格再塞一格、右边空着会很难看，所以不做第四格并排）
+       第二轮澄清（用户）：「是我推荐中奖的哦」→ 内容是【推荐号命中记录】。
+       2026-10-20 用户又改两条：
+         ① 位置：跟 🐸青蛙家园【并排】，所以挪进上面那个 .grid-2-col（右格），
+            不再是自己占整行；
+         ② 只记高等奖：一/二/三等奖 + 组选直选（白名单见上面 __HIST_HIGH_ONLY__），
+            副标题跟着改成「近 365 天 · 一/二/三等奖 + 组选直选」。
        · 折叠：原生 <details> + <summary>，「点击查看 ▾ / 点击收起 ▴」
          由 CSS 伪元素按 [open] 换字 —— 零脚本、零裸 button、零存储。
+         默认 open（用户 2026-10-20 说过「找不到」，保持展开）。
        · 每条 = 日期 · 彩种 · 期号 · 几等奖 + 【推荐】一行 + 【开奖】一行，
-         命中号高亮；没中的期次一条都不列（只列中奖的）。
-       · 一条都没中时写「近 365 天暂无中奖记录」。
+         命中号高亮；没中 / 只是低等奖的期次一条都不列。
+       · 一条都没有时写「近 365 天暂无高等奖记录（只统计一/二/三等奖 + 组选/直选）」。
        ============================================================ -->
   <details class="ro-hist" id="ro-hist" open>
     <summary class="ro-hist-head">
       <span class="ro-hist-h2">历史开奖</span>
-      <span class="ro-hist-sub">近 365 天 · 推荐号命中记录</span>
+      <span class="ro-hist-sub">近 365 天 · 一/二/三等奖 + 组选直选</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
 ${histHtml}
     </div>
   </details>
+  </div><!-- /#ro-frog-hist-row · 两列并排结束 -->
+
+  <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
   ${latestSecHtml}
 
