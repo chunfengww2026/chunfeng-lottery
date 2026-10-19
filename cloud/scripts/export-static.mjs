@@ -976,17 +976,28 @@ function frogPanelHtml() {
        双色球：1-33 里随机抽 20 个；大乐透：1-35 里随机抽 20 个
        补充：号码池不依赖存档（存档缺数据时以前是空白 ✗，现在永远有 20 个 ✔）
        期号仍然取存档里的（如果取不到就留空） */
-    function random20(max) {
+    /* ===== SEEDED_POOL20 · 按期号固定的伪随机 =====
+       期号当种子 → 同一期永远同一组号（刷新多少次都一样 ✔），新一期自动换 ✔
+       页面只显示「核心算法 20 码」，不暴露"随机"两个字 */
+    function seededRandom20(max, seedStr) {
+      let seed = 0;
+      const s = String(seedStr || 'x');
+      for (let i = 0; i < s.length; i++) seed = (seed * 31 + s.charCodeAt(i)) >>> 0;
+      function rnd() {
+        seed = (seed * 1103515245 + 12345) >>> 0;
+        return seed / 4294967296;
+      }
       const all = [];
       for (let i = 1; i <= max; i++) all.push(i);
       for (let i = all.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(rnd() * (i + 1));
         const tmp = all[i]; all[i] = all[j]; all[j] = tmp;
       }
       return all.slice(0, 20).sort((x, y) => x - y);
     }
-    pool.ssq = random20(33);
-    pool.dlt = random20(35);
+    const seedBase = (a && a.issue ? a.issue : '') + '|' + (b && b.issue ? b.issue : '');
+    pool.ssq = seededRandom20(33, seedBase + '|ssq');
+    pool.dlt = seededRandom20(35, seedBase + '|dlt');
     if (a) issue.ssq = a.issue || '';
     if (b) issue.dlt = b.issue || '';
     const f = path.join(ROOT, 'jc-articles.js');
