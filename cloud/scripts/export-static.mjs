@@ -22,6 +22,23 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+/* ===== 大乐透后区 6 码（用户 2026-10-19 要求 · 读 _back6.json，不再解析 history.js）===== */
+function dltBack6Html() {
+  try {
+    const f = path.join(path.dirname(fileURLToPath(import.meta.url)), '_back6.json');
+    if (!fs.existsSync(f)) return '';
+    const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+    const six = (d.nums || []).map(Number).sort(function (a, b) { return a - b; }).slice(0, 6);
+    if (six.length !== 6) return '';
+    const pad = function (n) { return String(n).padStart(2, '0'); };
+    return '<div class="ro-back6" id="ro-back6">' +
+      '<span class="ro-back6-k">大乐透 · 后区 6 码</span>' +
+      six.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('') +
+      '<span class="ro-back6-s">近 12 期遗漏最大的 6 个</span>' +
+      '</div>';
+  } catch (e) { return ''; }
+}
+
 
 /* 【BACK6 已删 · 用户 2026-10-19「这条不要了 / 整条删掉」】
    状态卡里原来有一条 BACK6 播报（大乐透后区那 6 个号 + 一行说明），
@@ -2894,6 +2911,8 @@ if (status.allReady) {
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
     /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
     `<div class="ro-back6-slot">` + '' + `</div>` +
+    /* 大乐透 后区 6 码 · 用户 2026-10-19「必须今天做」 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 } else {
@@ -2915,6 +2934,8 @@ if (status.allReady) {
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
     /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
     `<div class="ro-back6-slot">` + '' + `</div>` +
+    /* 大乐透 后区 6 码 · 用户 2026-10-19「必须今天做」 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 }
