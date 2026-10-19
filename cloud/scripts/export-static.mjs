@@ -2283,7 +2283,7 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-line"><span class="ro-aipick-lbl">彩种</span>` +
     `<div class="ro-aipick-tabs">${tabs}</div></div>` +
     /* 【选号 chip：随机 / 自选】用户 2026-10-17：
-       ①「改成随机」→ 号码默认随机摇（点「开始摇号 / 重摇」）；
+       ①「改成随机」→ 号码默认随机摇（点「开始摇号 / 」）；
        ②「加一个：自选 这样他们可以自己选自己看好的」→ 旁边加一个「自选」：
           切到自选后不摇随机号，直接用下面格子里你点的号（点完自动算注数/金额）。
        两个 chip 都可点（<span role="button">，页面不变量：绝不用 button 标签）。 */
@@ -2323,7 +2323,7 @@ function buildAiPickHtml() {
     `<div class="ro-aipick-warn" hidden></div>` +
     `<div class="ro-aipick-acts">` +
     `<a class="ro-aipick-btn on" role="button" tabindex="0" data-ro-aipick-act="roll">开始摇号</a>` +
-    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reroll">重摇</a>` +
+    `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="reroll"></a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="clear">清空</a>` +
     `<a class="ro-aipick-btn ghost" role="button" tabindex="0" data-ro-aipick-act="save">保存图片</a>` +
     `</div>` +
@@ -3387,7 +3387,7 @@ console.log('  · 历史开奖卡（只记高等奖）：可回算 ' + histBuilt
 
 /* __ST_TZ__ 资料更新状态按【浏览器本地时间】分两档（用户 2026-10-19）：
    02:00 <= 当前 < 21:00 → 资料已更新（绿）
-   21:00 <= 当前 < 次日 02:00 → 资料未更新（黄），提示等凌晨 2 点重摇
+   21:00 <= 当前 < 次日 02:00 → 资料未更新（黄），提示等凌晨 2 点
    纯前端判断（打开页面算一次，之后每 60 秒算一次）：不请求后端、不写 localStorage、不加 button。
    ⚠️ 两种卡片都挂这段脚本：
       · data-st="ok"（构建时数据齐全）→ 按时间切「已更新 / 未更新」两档；
@@ -3421,7 +3421,7 @@ if (status.allReady) {
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span><span id="roStTitle">资料已更新</span></div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
-    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点重摇后更新</div>` +
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点后自动更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
@@ -3446,7 +3446,7 @@ if (status.allReady) {
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
     /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
-    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点重摇后更新</div>` +
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点后自动更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
@@ -6954,7 +6954,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .p3d-type-btn { color: var(--ro-fg2) !important; }
 .ro-gamehead h2, .ro-imgtoc-title, .ro-art-title, .ro-xysp-h2, .ro-aipick-h2, .ro-disclaimer h3 { color: var(--ro-fg) !important; }
 /* ⑦ 收尾补漏（同样以真浏览器实测为准）
-   · 「重摇 / 清空」这类按钮：原 #8b93a1（2.88）→ 主文字色
+   · 「 / 清空」这类按钮：原 #8b93a1（2.88）→ 主文字色
    · 手绘图里选中的彩种标签（浅绿底 #e3f2ea）：次要色只有 3.6 → 主文字色
    · 洛书九宫图的「外置 0 号」黑圆：按用户 ④（手绘图保持深色）【底色不动】，
      只把上面的蓝字（#1f5fd6 压深底只有 3.05）改成浅色，看得清。 */
@@ -10739,7 +10739,7 @@ ${RO_RENDER_SCRIPT}
           /* 【自选模式】用户 2026-10-17：「加一个：自选 这样他们可以自己选自己看好的」——
              自选时「开始摇号」不生成随机号，直接用你点的号（applyPicks 会在不够时提示还差几个） */
           else if (st.src === 'manual') { applyPicks(); }
-          else { doRoll(); }                                             /* 随机模式：开始摇号 / 重摇：整组重摇 */
+          else { doRoll(); }                                             /* 随机模式：开始摇号 / ：整组 */
         });
       })(acts[t3]);
     }
