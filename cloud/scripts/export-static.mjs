@@ -13871,6 +13871,12 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-info { font-size: 11.5px; color: #6b5a42; line-height: 1.7; margin: 4px 0 6px; }
 .px9-meta { font-size: 10.5px; color: #a89a80; margin-top: 6px; line-height: 1.6; }
 .px9-bsep { width: 6px; height: 1px; display: inline-block; }
+/* 320 窄屏：号码球缩一号 + 间距收紧 → 红 6 + 蓝 1 仍排在同一行，不折行 */
+@media (max-width: 340px) {
+  .px9-balls { gap: 3px; }
+  .px9-b { width: 22px; height: 22px; font-size: 10.5px; }
+  .px9-bsep { width: 4px; }
+}
 
 /* __ST_TZ__ 状态卡两档配色：02:00~21:00 绿（已更新）/ 21:00~次日02:00 黄（未更新） */
 .ro-st-sub { font-weight: 700; }
@@ -14305,9 +14311,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       info: '按 ÷3 余数分组，补最冷的一段：' + label.join(' / ') +
         '（近30期 ' + hit[0] + ' / ' + hit[1] + ' / ' + hit[2] + ' 次）',
       rows: [
-        ['余 0 路（' + size[0] + ' 个号）', '出现 ' + hit[0] + ' 次 · 应 ' + expect[0].toFixed(0) + ' 次'],
-        ['余 1 路（' + size[1] + ' 个号）', '出现 ' + hit[1] + ' 次 · 应 ' + expect[1].toFixed(0) + ' 次'],
-        ['余 2 路（' + size[2] + ' 个号）', '出现 ' + hit[2] + ' 次 · 应 ' + expect[2].toFixed(0) + ' 次']
+        ['余 0 路（' + size[0] + ' 码）', hit[0] + ' 次 · 应 ' + expect[0].toFixed(0)],
+        ['余 1 路（' + size[1] + ' 码）', hit[1] + ' 次 · 应 ' + expect[1].toFixed(0)],
+        ['余 2 路（' + size[2] + ' 码）', hit[2] + ' 次 · 应 ' + expect[2].toFixed(0)]
       ],
       group: function (n) { return (n % 3) + '路'; }
     };
