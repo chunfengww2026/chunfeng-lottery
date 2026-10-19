@@ -1019,6 +1019,8 @@ function frogPanelHtml() {
     '<div class="frog-sec"><div class="frog-h">功能中心（全部免费 · 现算）</div>'
     + '<div class="frog-tools" id="frogLab">'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="co">二码同出</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="co3">三码同出</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="co4">四码同出</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="kill">杀号</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="shrink">缩水套餐</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="rand">摇号机</div>'
@@ -14157,6 +14159,10 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-pick-b i.bl { background:#1f5fd6; }
 
 /* ===== 5 类号表格（用户 2026-10-19「每个号码也要隔开一下」）===== */
+.kg-versal { display:flex; gap:6px; margin:2px 0 8px; }
+.kg-v { flex:1 1 0; text-align:center; padding:6px 4px; border-radius:8px; background:#fffdf7;
+        border:1px solid #efe3cf; font-size:11.5px; cursor:pointer; }
+.kg-v.on { background:#e3f2ea; border-color:#1a8c5a; color:#1a8c5a; font-weight:700; }
 .ro-xj5 { margin: 8px 0 2px; border: 1px solid #efe3cf; border-radius: 10px; background: #fffdf7; }
 .ro-xj5-sum { padding: 9px 10px; font-size: 12px; font-weight: 700; color: #1a8c5a; cursor: pointer; list-style: none; }
 .ro-xj5-sum::-webkit-details-marker { display: none; }
@@ -14199,11 +14205,19 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 @media (max-width: 420px) { .px9-embed iframe { height: 1500px; } }
 
 /* __FROG_LAB_CSS__ 青蛙家园功能中心 */
-.frog-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px; }
+.frog-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
 .frog-btn { text-align: center; padding: 8px 2px; background: #fffaf2; border: 1px solid #ecdcc2; border-radius: 8px; font-size: 11.5px; color: #4a3a26; cursor: pointer; }
 .frog-btn:active { background: #ffe9c9; }
 .frog-out { background: #fff; border: 1px solid #ecdcc2; border-radius: 8px; padding: 8px; font-size: 12px; color: #4a3a26; line-height: 1.7; min-height: 44px; }
 .frog-row { display: flex; justify-content: space-between; border-bottom: 1px dotted #f0e4cf; padding: 2px 0; }
+/* 摇号机：彩种 / 号码个数 小药丸（三码同出·四码同出也复用 .frog-tip 那行提示） */
+.frog-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 3px 0 5px; }
+.frog-chip { padding: 3px 7px; border: 1px solid #ecdcc2; border-radius: 999px; background: #fffaf2; font-size: 11px; color: #4a3a26; cursor: pointer; line-height: 1.4; }
+.frog-chip:active { background: #ffe9c9; }
+.frog-chip.on { background: #1a8c5a; border-color: #1a8c5a; color: #fff; font-weight: 700; }
+.frog-ql { font-size: 11px; color: #8a7a63; margin-top: 4px; }
+.frog-qv { font-size: 12.5px; font-weight: 700; color: #4a3a26; margin: 4px 0 2px; line-height: 1.7; word-break: break-word; }
+.frog-qv i { font-style: normal; font-weight: 400; font-size: 11px; color: #8a7a63; }
 
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
@@ -15145,13 +15159,114 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8);
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出（近 ' + ds.length + ' 期）</div>' + top.map(function (k) { return row(k, cnt[k] + ' 次'); }).join('');
   }
+  /* 【三码同出 / 四码同出 · 用户 2026-10-20】和二码同出同一套算法，
+     只是把「每期取 2 个号做组合」扩成「取 k 个」：
+       · 每期只在该期开出的号里做组合（不遍历全号池）→ 大乐透 5 个号：
+         3 码 = 10 组/期、4 码 = 5 组/期（33/35 选 3、选 4 的全池遍历根本用不着）；
+       · hist() 默认从【最新一期】往旧排，所以某个组合【第一次】被撞到的那期
+         就是它的「最近一次」—— 只记一次，不额外排序。
+     结果格式跟二码同出一致（组合 + 次数），再加「最近哪期」和免责一行。 */
+  function combo(k, title) {
+    var ds = hist(gid), cnt = {}, last = {};
+    ds.forEach(function (d) {
+      var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
+      if (r.length < k) return;
+      var pick = [];
+      (function walk(s) {
+        if (pick.length === k) {
+          var key = pick.map(pad).join('+');
+          cnt[key] = (cnt[key] || 0) + 1;
+          if (last[key] === undefined) last[key] = String(d.issue || '');
+          return;
+        }
+        for (var t = s; t < r.length; t++) { pick.push(r[t]); walk(t + 1); pick.pop(); }
+      })(0);
+    });
+    var top = Object.keys(cnt).sort(function (a, b) { return (cnt[b] - cnt[a]) || (a < b ? -1 : 1); }).slice(0, 15);
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">' + title + '（近 ' + ds.length + ' 期）</div>'
+      + (top.length
+        ? top.map(function (k2) { return row(k2, cnt[k2] + ' 次 · 最近 ' + (last[k2] || '—')); }).join('')
+        : '<div class="frog-none">暂无数据</div>')
+      + '<div class="frog-tip">仅供参考，历史频率不代表未来（按已开奖期统计）</div>';
+  }
+  function co3() { combo(3, '三码同出'); }
+  function co4() { combo(4, '四码同出'); }
+  /* 【杀号三版 · 用户 2026-10-19「杀号做两个版本可以选」+「在加一个ai杀号」→ 我自己定：
+     A 现有（和值尾+1 / 最大-最小）
+     B 对应号 + 和值杀路（民间算法）
+     C 本地多因子（免费版"智能杀号"：遗漏 + 冷热 + 多公式加权打分）
+     ⚠️ 这段在页面模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
+  var killVer = 'A';
   function kill() {
     var d = hist(gid)[0]; if (!d) { out.innerHTML = '暂无数据'; return; }
+    var ds = hist(gid) || [];
     var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
     var sum = r.reduce(function (a, b) { return a + b; }, 0);
-    var k1 = (sum % 10) + 1, k2 = r[r.length - 1] - r[0];
-    var kills = [k1, k2].filter(function (n) { return n >= 1 && n <= 35; });
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号（基于最新一期 ' + (d.issue || '') + '）</div>' + row('上期号码', r.map(pad).join(' ')) + row('和值尾+1', pad(k1)) + row('最大-最小', k2) + row('建议杀号', kills.map(pad).join(' ') || '无');
+    var maxN = 35;
+    var tabs = '<div class="kg-versal">' +
+      ['A', 'B', 'C'].map(function (v) {
+        var nm = v === 'A' ? 'A 经典' : (v === 'B' ? 'B 民间' : 'C 智能');
+        return '<span class="kg-v' + (killVer === v ? ' on' : '') + '" data-kv="' + v + '">' + nm + '</span>';
+      }).join('') + '</div>';
+
+    var body = '';
+    if (killVer === 'A') {
+      var k1 = (sum % 10) + 1, k2 = r[r.length - 1] - r[0];
+      var kills = [k1, k2].filter(function (n) { return n >= 1 && n <= maxN; });
+      body = row('上期号码', r.map(pad).join(' ')) + row('和值尾+1', pad(k1)) +
+        row('最大-最小', k2) + row('建议杀号', kills.map(pad).join(' ') || '无') +
+        '<div class="frog-tip">规则：和值尾+1 与 跨度 各杀 1 个</div>';
+    } else if (killVer === 'B') {
+      /* 对应号：0→8 1→5 2→2 3→7 4→4 5→1 6→9 7→6 8→3 9→0 */
+      var MAP = { 0: 8, 1: 5, 2: 2, 3: 7, 4: 4, 5: 1, 6: 9, 7: 6, 8: 3, 9: 0 };
+      var dy = [];
+      r.forEach(function (n) { var m2 = MAP[n % 10]; if (dy.indexOf(m2) < 0) dy.push(m2); });
+      /* 和值杀路：和值×首位+1 除 3 余数 → 杀该余数路 */
+      var bai = r[0];
+      var road = (sum * bai + 1) % 3;
+      var roadKill = [];
+      for (var q = 1; q <= maxN; q++) if (q % 3 === road) roadKill.push(q);
+      body = row('上期号码', r.map(pad).join(' ')) +
+        row('对应号杀码', dy.map(pad).join(' ')) +
+        row('和值×首位+1 除3 余', road + ' 路（杀 ' + roadKill.length + ' 个）') +
+        row('该路号码', roadKill.slice(0, 12).map(pad).join(' ') + (roadKill.length > 12 ? ' …' : '')) +
+        '<div class="frog-tip">规则：对应号 + 整路杀（民间 3D 算法移植）</div>';
+    } else {
+      /* C 本地多因子：每个号算「该杀分」，分数最高的 4 个 */
+      var freq = {}, lastSeen = {};
+      ds.slice(0, 30).forEach(function (dd, i) {
+        redsOf(dd).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; if (lastSeen[n] === undefined) lastSeen[n] = i; });
+      });
+      var score = {}, why = {};
+      for (var n2 = 1; n2 <= maxN; n2++) {
+        var sc = 0, rs2 = [];
+        var gap = lastSeen[n2] === undefined ? 30 : lastSeen[n2];
+        /* ① 遗漏长 → 少杀（保号） */
+        if (gap >= 10) { sc -= 2; rs2.push('遗漏' + gap + '期'); } else if (gap <= 2) { sc += 2; rs2.push('刚出' + gap + '期'); }
+        /* ② 热号 → 少杀；冷号 → 多杀? 反着来：热号少杀 */
+        var f = freq[n2] || 0;
+        if (f >= 8) { sc -= 1; rs2.push('30期出' + f + '次'); } else if (f <= 1) { sc += 1; rs2.push('30期仅' + f + '次'); }
+        /* ③ 和值尾+1 命中：如果这个号等于 (sum%10)+1 → 加分 */
+        if (n2 === (sum % 10) + 1) { sc += 3; rs2.push('和值尾+1'); }
+        /* ④ 上期同号 → 加分（重号少） */
+        if (r.indexOf(n2) >= 0) { sc += 1; rs2.push('上期重号'); }
+        /* ⑤ 邻号（上期±1）→ 加分 */
+        var isNb = r.some(function (x) { return Math.abs(x - n2) === 1; });
+        if (isNb) { sc += 1; rs2.push('上期邻号'); }
+        score[n2] = sc; why[n2] = rs2;
+      }
+      var ranked = Object.keys(score).map(Number).sort(function (a, b) { return (score[b] - score[a]) || (a - b); }).slice(0, 4);
+      body = row('上期号码', r.map(pad).join(' ')) + row('和值 / 首号', sum + ' / ' + r[0]) +
+        ranked.map(function (n3) {
+          return row(pad(n3) + ' 号得分', String(score[n3]) + '（' + (why[n3].join(' · ') || '无加成') + '）');
+        }).join('') +
+        row('建议杀号', ranked.map(pad).join(' ')) +
+        '<div class="frog-tip">规则：6 个因子加权打分（遗漏/冷热/和值尾/重号/邻号）· 全本地计算，免费</div>';
+    }
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号（基于最新一期 ' + (d.issue || '') + '）</div>' + tabs + body;
+    [].slice.call(out.querySelectorAll('.kg-v')).forEach(function (b) {
+      b.onclick = function () { killVer = b.getAttribute('data-kv'); kill(); };
+    });
   }
   function shrink() {
     var ds = hist(gid), freq = {};
@@ -15159,12 +15274,57 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var hot = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 10).sort(function (a, b) { return a - b; });
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐（近30期热号）</div>' + row('18元 6+4', '红 ' + hot.slice(0, 6).map(pad).join(' ') + ' / 蓝 4 码') + row('28元 7+1', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 1 码') + row('38元 7+2', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 2 码');
   }
+  /* 【摇号机 · 可选号码数量 · 用户 2026-10-20】
+     · 大乐透：前区 5~10 个 / 后区 2~6 个（默认 5+2）
+     · 双色球：红球 6~10 个 / 蓝球 1~4 个（默认 6+1）
+     · 点个数 → 立刻按新个数重摇（个数变了，出的号个数就跟着变）；「摇一次」只重摇不改个数
+     · 仍然随机（Math.random），号池里抽过就删掉 → 同一注里绝不重复 */
+  var RQ = { g: 'dlt', a: 5, b: 2 };
+  var RCFG = {
+    dlt: { nm: '大乐透', aMax: 35, aMin: 5, aTop: 10, bMax: 12, bMin: 2, bTop: 6, aN: '前区', bN: '后区' },
+    ssq: { nm: '双色球', aMax: 33, aMin: 6, aTop: 10, bMax: 16, bMin: 1, bTop: 4, aN: '红球', bN: '蓝球' }
+  };
+  function pickN(max, n) {
+    var pool = [], res = [], i, t;
+    for (i = 1; i <= max; i++) pool.push(i);
+    for (i = 0; i < n && pool.length; i++) { t = Math.floor(Math.random() * pool.length); res.push(pool.splice(t, 1)[0]); }
+    return res.sort(function (a, b) { return a - b; });
+  }
+  function numChips(min, max, cur, key) {
+    var s = '', n;
+    for (n = min; n <= max; n++) s += '<div class="frog-chip' + (n === cur ? ' on' : '') + '" role="button" tabindex="0" data-rq-' + key + '="' + n + '">' + n + '</div>';
+    return s;
+  }
   function rand() {
-    var r = [], b = [];
-    while (r.length < 5) { var n = 1 + Math.floor(Math.random() * 35); if (r.indexOf(n) < 0) r.push(n); }
-    b.push(1 + Math.floor(Math.random() * 12)); b.push(1 + Math.floor(Math.random() * 12));
-    r.sort(function (a, b2) { return a - b2; });
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">摇号机（随机，仅娱乐）</div>' + row('前区', r.map(pad).join(' ')) + row('后区', b.sort(function (a, b2) { return a - b2; }).map(pad).join(' '));
+    var c = RCFG[RQ.g] || RCFG.dlt, a, b, i;
+    if (RQ.a < c.aMin) RQ.a = c.aMin; if (RQ.a > c.aTop) RQ.a = c.aTop;
+    if (RQ.b < c.bMin) RQ.b = c.bMin; if (RQ.b > c.bTop) RQ.b = c.bTop;
+    a = pickN(c.aMax, RQ.a); b = pickN(c.bMax, RQ.b);
+    out.innerHTML =
+      '<div style="font-weight:700;margin-bottom:4px">摇号机（随机 · 仅娱乐）</div>' +
+      '<div class="frog-chips">' +
+      ['dlt', 'ssq'].map(function (g) {
+        return '<div class="frog-chip' + (g === RQ.g ? ' on' : '') + '" role="button" tabindex="0" data-rq-g="' + g + '">' + RCFG[g].nm + '</div>';
+      }).join('') + '</div>' +
+      '<div class="frog-ql">' + c.aN + '个数</div><div class="frog-chips">' + numChips(c.aMin, c.aTop, RQ.a, 'a') + '</div>' +
+      '<div class="frog-ql">' + c.bN + '个数</div><div class="frog-chips">' + numChips(c.bMin, c.bTop, RQ.b, 'b') + '</div>' +
+      '<div class="frog-qv"><i>' + c.aN + '（' + RQ.a + ' 个）</i><br>' + a.map(pad).join(' ') + '</div>' +
+      '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + b.map(pad).join(' ') + '</div>' +
+      '<div class="frog-chips"><div class="frog-chip on" role="button" tabindex="0" data-rq-roll="1">摇一次</div></div>';
+    var gs = out.querySelectorAll('[data-rq-g]');
+    for (i = 0; i < gs.length; i++) gs[i].onclick = (function (el) {
+      return function () { RQ.g = el.getAttribute('data-rq-g'); RQ.a = RCFG[RQ.g].aMin; RQ.b = RCFG[RQ.g].bMin; rand(); };
+    })(gs[i]);
+    var as = out.querySelectorAll('[data-rq-a]');
+    for (i = 0; i < as.length; i++) as[i].onclick = (function (el) {
+      return function () { RQ.a = parseInt(el.getAttribute('data-rq-a'), 10); rand(); };
+    })(as[i]);
+    var bs = out.querySelectorAll('[data-rq-b]');
+    for (i = 0; i < bs.length; i++) bs[i].onclick = (function (el) {
+      return function () { RQ.b = parseInt(el.getAttribute('data-rq-b'), 10); rand(); };
+    })(bs[i]);
+    var rl = out.querySelector('[data-rq-roll]');
+    if (rl) rl.onclick = function () { rand(); };
   }
   function dan() {
     var ds = hist(gid), freq = {};
@@ -15183,7 +15343,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (i = 0; i < n; i++) { var prev = redsOf(ds[i + 1]).slice(0, 5), cur = redsOf(ds[i]); if (prev.some(function (x) { return cur.indexOf(x) >= 0; })) hit++; }
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">实验室（简单回测）</div>' + row('测试期数', n) + row('延续命中', hit + ' 期') + row('比例', n ? Math.round(hit / n * 100) + '%' : '—');
   }
-  var FNS = { co: co, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab };
+  var FNS = { co: co, co3: co3, co4: co4, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab };
   [].slice.call(wrap.querySelectorAll('.frog-btn')).forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) FNS[k](); }; });
 })();
 </script>
