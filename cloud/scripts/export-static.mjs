@@ -3262,18 +3262,24 @@ console.log('  · 历史中奖卡：可回算 ' + histBuilt.info.compared + ' �
 /* __ST_TZ__ 资料更新状态按【浏览器本地时间】分两档（用户 2026-10-19）：
    02:00 <= 当前 < 21:00 → 资料已更新（绿）
    21:00 <= 当前 < 次日 02:00 → 资料未更新（黄），提示等凌晨 2 点重摇
-   纯前端判断（打开页面算一次，之后每 60 秒算一次）：不请求后端、不写 localStorage、不加 button。 */
+   纯前端判断（打开页面算一次，之后每 60 秒算一次）：不请求后端、不写 localStorage、不加 button。
+   ⚠️ 两种卡片都挂这段脚本：
+      · data-st="ok"（构建时数据齐全）→ 按时间切「已更新 / 未更新」两档；
+      · data-st="warn"（构建时就缺数据）→ 标题和颜色不动，只在 21:00~02:00 显示第二行提示。 */
 const STATUS_TZ_JS = `<script>
 (function () {
   var card = document.getElementById('roStatusCard');
   if (!card) return;
   var title = document.getElementById('roStTitle');
   var sub = document.getElementById('roStSub');
+  var isOk = card.getAttribute('data-st') !== 'warn';
   function tick() {
     var h = new Date().getHours();
     var fresh = h >= 2 && h < 21;
-    card.className = 'ro-status ' + (fresh ? 'ok' : 'warn') + ' ro-st-row';
-    if (title) title.textContent = fresh ? '资料已更新' : '资料未更新';
+    if (isOk) {
+      card.className = 'ro-status ' + (fresh ? 'ok' : 'warn') + ' ro-st-row';
+      if (title) title.textContent = fresh ? '资料已更新' : '资料未更新';
+    }
     if (sub) sub.style.display = fresh ? 'none' : '';
   }
   tick();
@@ -3310,9 +3316,11 @@ if (status.allReady) {
     : `数据已 ${status.hoursOld !== null ? Math.round(status.hoursOld) + ' 小时' : '很久'}未更新`;
 
   statusHtml =
-    `<div class="ro-status warn ro-st-row">` +
+    `<div class="ro-status warn ro-st-row" id="roStatusCard" data-st="warn">` +
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
+    /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点重摇后更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
@@ -3326,7 +3334,8 @@ if (status.allReady) {
     /* 大乐透 后区 6 码 · 用户 2026-10-19「必须今天做」 */
     `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
-    `</div>`;
+    `</div>` +
+    STATUS_TZ_JS;
 }
 
 /* ---------- 生成最新开奖（顶部）与中奖栏（底部） ---------- */
@@ -13882,6 +13891,14 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-st-sub { font-weight: 700; }
 .ro-status.warn .ro-st-head, .ro-status.warn .ro-st-sub { color: #9c7000 !important; }
 .ro-status.warn .ro-st-dot { background: #f5b301; box-shadow: 0 0 0 4px rgba(245, 179, 1, 0.18); }
+/* __BACK6_STYLE__ 状态卡「后区推荐 6 码」这一行原来没有任何样式，号码挤成 020305060811；
+   这里只补排版（标签 + 6 个蓝球 + 说明），6 个号码本身和取数逻辑一个字没动。 */
+.ro-back6 { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 2px; font-size: 11.5px; line-height: 1.5; }
+.ro-back6-k { color: #8a7a63; font-weight: 700; }
+.ro-back6 i { font-style: normal; min-width: 22px; height: 22px; padding: 0 2px; border-radius: 11px;
+  background: #1f5fd6; color: #fff; font-size: 10.5px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center; }
+.ro-back6-s { color: #a89a80; font-size: 10.5px; }
 /* __INSTALL_RESTORED__ 【已恢复】用户 2026-10-18 21:50 确认要这张安装大图
    → 「添加到手机桌面」这一块重新上屏。
    这里原来有一条 __NO_INSTALL__（2026-10-18 用户要求删掉该模块时加的
@@ -14165,7 +14182,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 (function (root) {
   var METHODS = ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合', '和值', '跨度', '多源共振法'];
   var ORDER8 = METHODS.slice(0, 8);
-  var CAP = 3;   /* ①~⑧ 两两重合上限 */
+  var CAP = 2;   /* ①~⑧ 两两重合上限（用户要求 2~3 个以内，这里取更严的 2） */
   var CFG = {
     ssq: { name: '双色球', max: 33, pick: 6, blueMax: 16, bluePick: 1, area: '红球', blueArea: '蓝球' },
     dlt: { name: '大乐透', max: 35, pick: 5, blueMax: 12, bluePick: 2, area: '前区', blueArea: '后区' }
@@ -14295,8 +14312,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       return (defect[b] - defect[a]) || (hsh(S.seed, a, 1) - hsh(S.seed, b, 1));
     });
     var quotas = M.pick >= 6 ? [3, 2, 1] : [2, 2, 1];
-    var slots = [], lane = {}, label = [];
+    var slots = [], lane = {}, want = {};
     order.forEach(function (rr, k) {
+      want[rr] = quotas[k];
       var seg = [];
       for (var n = 1; n <= M.max; n++) if (n % 3 === rr) seg.push(n);
       seg.sort(function (a, b) {
@@ -14304,12 +14322,16 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       });
       lane[rr] = seg;
       for (var q = 0; q < quotas[k]; q++) slots.push(seg);
-      label.push(rr + '路 ' + quotas[k] + ' 个');
     });
     return {
       slots: slots, lane: lane,
-      info: '按 ÷3 余数分组，补最冷的一段：' + label.join(' / ') +
-        '（近30期 ' + hit[0] + ' / ' + hit[1] + ' / ' + hit[2] + ' 次）',
+      describe: function (red) {
+        var c = [0, 0, 0];
+        red.forEach(function (n) { c[n % 3]++; });
+        return '按 ÷3 余数分组，补最冷的一段：0路 ' + c[0] + ' 个 / 1路 ' + c[1] + ' 个 / 2路 ' + c[2] +
+          ' 个（近30期 ' + hit[0] + ' / ' + hit[1] + ' / ' + hit[2] + ' 次；本段配额 ' +
+          order.map(function (rr2) { return rr2 + '路 ' + want[rr2]; }).join(' / ') + '）';
+      },
       rows: [
         ['余 0 路（' + size[0] + ' 码）', hit[0] + ' 次 · 应 ' + expect[0].toFixed(0)],
         ['余 1 路（' + size[1] + ' 码）', hit[1] + ' 次 · 应 ' + expect[1].toFixed(0)],
@@ -14358,9 +14380,21 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var coldZ = order[0];
     return {
       slots: slots,
-      info: Z.length + ' 区固定配额 ' + quotas.join(':') +
-        '：最冷 ' + zoneName(S.g, coldZ) + ' ' + pad(Z[coldZ][0]) + '-' + pad(Z[coldZ][1]) +
-        ' 近30期 ' + zcnt[coldZ] + ' 个（应 ' + expect[coldZ].toFixed(0) + '）→ 冷区按遗漏补、其余区按热度取',
+      describe: function (red) {
+        var c = [];
+        for (var zz = 0; zz < Z.length; zz++) c[zz] = 0;
+        red.forEach(function (n2) {
+          for (var k2 = 0; k2 < Z.length; k2++) {
+            if (n2 >= Z[k2][0] && n2 <= Z[k2][1]) { c[k2]++; break; }
+          }
+        });
+        var now = [];
+        for (var z3 = 0; z3 < Z.length; z3++) now.push(zoneName(S.g, z3) + ' ' + c[z3]);
+        return Z.length + ' 区固定配额 ' + quotas.join(':') +
+          '：最冷 ' + zoneName(S.g, coldZ) + ' ' + pad(Z[coldZ][0]) + '-' + pad(Z[coldZ][1]) +
+          ' 近30期 ' + zcnt[coldZ] + ' 个（应 ' + expect[coldZ].toFixed(0) + '）→ 冷区按遗漏补、其余区按热度取（本轮 ' +
+          now.join(' / ') + '）';
+      },
       rows: order.map(function (zi4) {
         return [zoneName(S.g, zi4) + ' ' + pad(Z[zi4][0]) + '-' + pad(Z[zi4][1]), '出 ' + zcnt[zi4] + ' 个 · 应 ' + expect[zi4].toFixed(0) + ' 个'];
       }),
@@ -14400,9 +14434,18 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     }
     return {
       slots: slots,
-      info: '近30期频次分三档，热 3 + 温 ' + warmN + ' + 冷 1 混搭（纯热号太容易撞）→ 热档 ' +
-        hotList.slice(0, hotN).map(pad).join(' ') + ' · 温档 ' + warmList.slice(0, warmN).map(pad).join(' ') +
-        ' · 冷档 ' + coldList.slice(0, coldN).map(pad).join(' ') + '（30 期只出 ' + S.f[coldList[0]] + ' 次）',
+      describe: function (red) {
+        var g = { hot: [], warm: [], cold: [] };
+        red.forEach(function (n2) {
+          var b = bandOf(n2);
+          if (b === '热') g.hot.push(pad(n2));
+          else if (b === '温') g.warm.push(pad(n2));
+          else g.cold.push(pad(n2));
+        });
+        return '近30期频次分三档，热 3 + 温 ' + warmN + ' + 冷 1 混搭（纯热号太容易撞）→ 热档 ' +
+          (g.hot.join(' ') || '—') + ' · 温档 ' + (g.warm.join(' ') || '—') + ' · 冷档 ' +
+          (g.cold.join(' ') || '—') + '（冷档 30 期只出 ' + S.f[g.cold.length ? Number(g.cold[0]) : coldList[0]] + ' 次）';
+      },
       rows: [
         ['热档（频次前 ' + third + '）', hotBand.slice(0, 6).map(function (n2) { return pad(n2) + '(' + S.f[n2] + '次)'; }).join(' ')],
         ['冷档（频次垫底）', coldBand.slice().sort(function (a, b) { return S.f[a] - S.f[b] || a - b; }).slice(0, 6).map(function (n2) { return pad(n2) + '(' + S.f[n2] + '次)'; }).join(' ')],
@@ -14423,12 +14466,16 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (var i = 0; i < M.pick; i++) slots.push(rank);
     return {
       slots: slots,
-      info: '理论遗漏 ' + S.theoretical + ' 期 → 取当前遗漏最接近 2 倍（' + T + ' 期）的号，该回来了：' +
-        rank.slice(0, M.pick).map(function (n) { return pad(n) + '(' + S.om[n] + '期)'; }).join(' '),
-      rows: [
-        ['理论遗漏（' + M.max + '÷' + M.pick + '）', S.theoretical.toFixed(2) + ' 期'],
-        ['本轮取号遗漏', rank.slice(0, M.pick).map(function (n) { return S.om[n]; }).join(' / ') + ' 期']
-      ],
+      describe: function (red) {
+        return '理论遗漏 ' + S.theoretical + ' 期 → 取当前遗漏最接近 2 倍（' + T + ' 期）的号，该回来了：' +
+          red.map(function (n) { return pad(n) + '(' + S.om[n] + '期)'; }).join(' ');
+      },
+      rowsOf: function (red) {
+        return [
+          ['理论遗漏（' + M.max + '÷' + M.pick + '）', S.theoretical.toFixed(2) + ' 期'],
+          ['本轮取号遗漏', red.map(function (n) { return S.om[n]; }).join(' / ') + ' 期']
+        ];
+      },
       group: function () { return '遗漏'; }
     };
   }
@@ -14450,8 +14497,12 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (var j = 0; j < M.pick - k; j++) slots.push(evens);
     return {
       slots: slots,
-      info: '近30期最常见奇偶比 ' + k + ':' + (M.pick - k) + '（出现 ' + mode.c + ' 期）→ 奇数按热度取 ' +
-        k + ' 个 · 偶数按遗漏取 ' + (M.pick - k) + ' 个（两个维度交叉）',
+      describe: function (red) {
+        var odd = 0;
+        red.forEach(function (n) { if (n % 2 === 1) odd++; });
+        return '近30期最常见奇偶比 ' + k + ':' + (M.pick - k) + '（出现 ' + mode.c + ' 期）→ 奇数 ' + odd +
+          ' 个（按热度取）· 偶数 ' + (red.length - odd) + ' 个（按遗漏取），两个维度交叉';
+      },
       rows: [
         ['奇数 / 偶数', odds.length + ' 个 / ' + evens.length + ' 个'],
         ['近30期奇数个数分布', Object.keys(cnts.reduce(function (o, c) { o[c] = 1; return o; }, {}))
@@ -14478,8 +14529,12 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (var j = 0; j < M.pick - p; j++) slots.push(comps);
     return {
       slots: slots,
-      info: '质数(2,3,5,7,11,13,17,19,23,29,31) vs 合数：近30期最常见 ' + p + ':' + (M.pick - p) +
-        ' → 质数按遗漏取 ' + p + ' 个 · 合数按热度取 ' + (M.pick - p) + ' 个',
+      describe: function (red) {
+        var pc = 0;
+        red.forEach(function (n) { if (isPrime(n)) pc++; });
+        return '质数(2,3,5,7,11,13,17,19,23,29,31) vs 合数：近30期最常见 ' + p + ':' + (M.pick - p) +
+          ' → 质数 ' + pc + ' 个（按遗漏取）· 合数 ' + (red.length - pc) + ' 个（按热度取）';
+      },
       rows: [
         ['质数 / 合数', primes.length + ' 个 / ' + comps.length + ' 个'],
         ['近30期质数个数分布', Object.keys(cnts.reduce(function (o, c) { o[c] = 1; return o; }, {}))
@@ -14742,7 +14797,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合'].forEach(function (name) {
       var r = raw[name];
       list.push({
-        m: name, red: finals[name], blue: pickBlue(S, name), info: r.info, rows: r.rows,
+        m: name, red: finals[name], blue: pickBlue(S, name),
+        info: r.describe(finals[name]),
+        rows: r.rowsOf ? r.rowsOf(finals[name]) : r.rows,
         swapped: diffCount(firstPicks[name], finals[name])
       });
     });
