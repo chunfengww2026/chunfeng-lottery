@@ -8412,6 +8412,15 @@ ${p3dHtml}
     <div class="ro-ref-body">
 <!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
 <div class="px9" id="px9">
+  <!-- 【九算法 · 用户 2026-10-19「还是在原来的位置」】独立页用 iframe 嵌回来。
+       独立页不会被多窗口覆盖 ✗，这里只是"挂一个窗口" ✔。
+       iframe 高度给足，内部自适应；手机/电脑都能滑。 -->
+  <div class="px9-embed" id="px9-embed">
+    <div class="px9-embed-h">推荐图 · 方法（九算法 · 双色球 / 大乐透）</div>
+    <iframe src="px9-methods.html" title="推荐图 · 方法" loading="lazy"
+            style="width:100%;height:1400px;border:0;display:block;background:#f7efe1;border-radius:10px"></iframe>
+  </div>
+
   <div class="px9-head">推荐图 · 方法</div>
   <div class="px9-games">
     <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
@@ -14051,6 +14060,11 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-none { font-size: 12px; color: #a89a80; }
 .frog-tip { font-size: 11px; color: #a89a80; margin-top: 8px; }
 
+
+/* ===== 九算法嵌入块（用户 2026-10-19）===== */
+.px9-embed { margin: 10px 0 4px; }
+.px9-embed-h { font-size: 12.5px; font-weight: 700; color: #1a8c5a; margin: 0 0 6px 2px; }
+@media (max-width: 420px) { .px9-embed iframe { height: 1500px; } }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
