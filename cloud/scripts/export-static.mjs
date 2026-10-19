@@ -14941,16 +14941,68 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-xj-art-go { flex: 0 0 auto; font-size: 11.5px; color: #1a8c5a; font-weight: 700; }
 
 
-/* __CIR_HIT_DARK__ 用户 2026-10-18：九转连环图要把【上一期开奖号码】标成深色
-   （数据层已用 H 标记 isHit，这里把命中点的颜色压深、加粗，一眼能看出来） */
-.r-cirpt.hit, .r-cirpoint.hit, .r-circenter.hit, .r-cirdot.hit {
-  color: #2b1d10 !important;
+/* ══════════════════════════════════════════════════════════════════
+   __CIR_HIT_DARK__ 九转连环图 ·「上一期开奖号码」加深渲染
+   --------------------------------------------------------------
+   用户原话（2026-10-20）：「九转图 编程每次开奖后自动抓取开奖号码
+   + 在下一期新的图出来的时候，对上一起开奖号码颜色深一点渲染出来」。
+
+   数据层（不用改、每次构建自动重算）：
+     stats.js  createJiuZhuan(lastNums) 按【上一期开奖号】把圈上对应的点
+               标 isHit → 编成 cir_points 的 H 位；
+     render.js 解码成 .r-cirnum.hit / .r-circenter.hit / .r-cirsideball.hit，
+               并把后区（双色球蓝球 / 大乐透后区）补成 .bl。
+   所以「开奖后下一班自动变」是白送的：export-static 每跑一次就重读
+   最新一期开奖，图上的深色跟着换期 —— 不需要额外定时任务。
+   （21:30 之前新一期还没抓到 → 深色仍然是再上一期的，属正常，22:00/23:00
+     抓完重跑就变。）
+
+   这里只补【样子】。⚠️ 以前这段选择器名写错了：写的是 .r-cirpt / .r-cirpoint
+   / .r-cirdot，而 render.js 实际输出的是 .r-cirnum —— 除了中心那一格，
+   环上的命中点【一条样式都没命中】，开出的号和没开的一模一样浅灰
+   （实测改前：命中 6 个，底色/字色和未开完全相同，对比度 1:1）。
+   现在按真实类名重写：
+     · 开出的号 = 实心深红（后区深蓝）+ 白字粗体 + 细描边 + 一点光晕
+     · 没开的号 = 原样浅灰字 / 白底，一个字节都没动 → 其它号不会糊
+   对比度（WCAG 相对亮度实测）：白字 / #c0392b = 5.44:1，白字 / #1f5fd6 = 5.73:1，
+   命中底 vs 页面米杏底 ≈ 5:1 —— 全部 ≥ 4.5:1 ✔
+   尺寸不动（还是 17px 的圆）：号码点在内圈很密，加大会互相压住 → 只加深、不放大。
+   ══════════════════════════════════════════════════════════════════ */
+.r-cirnum.hit {
+  background: #c0392b !important;          /* 深红：红球 / 前区开出 */
+  color: #fff !important;
   font-weight: 800 !important;
-  text-shadow: 0 1px 0 rgba(255,255,255,.6) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .35) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85),
+              0 0 6px 1px rgba(192, 57, 43, .55) !important;
+  z-index: 5 !important;
 }
-.r-cirpt.hit::after, .r-cirpoint.hit::after {
-  content: ''; position: absolute; inset: -2px; border-radius: 50%;
-  border: 1.5px solid rgba(43,29,16,.55) !important;
+.r-cirnum.hit.bl {
+  background: #1f5fd6 !important;          /* 深蓝：蓝球 / 后区开出 */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85),
+              0 0 6px 1px rgba(31, 95, 214, .55) !important;
+}
+.r-circenter.hit {
+  background: #c0392b !important;
+  border-color: #7d241a !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85),
+              0 0 7px 2px rgba(192, 57, 43, .55) !important;
+}
+.r-circenter.hit.bl {
+  background: #1f5fd6 !important;
+  border-color: #16408f !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85),
+              0 0 7px 2px rgba(31, 95, 214, .55) !important;
+}
+/* 图例色点：和图上三档一一对应（命中深红 / 后区深蓝 / 其余浅灰） */
+.r-legenditem .r-dot.hit { background: #c0392b !important; }
+.r-legenditem .r-dot.hit.bl { background: #1f5fd6 !important; }
+/* 老选择器保留成兜底（万一别处还在用这几个类名，也不会没样式） */
+.r-cirpt.hit, .r-cirpoint.hit, .r-cirdot.hit {
+  color: #fff !important;
+  font-weight: 800 !important;
 }
 
 
