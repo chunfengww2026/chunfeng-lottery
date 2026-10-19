@@ -888,6 +888,18 @@ GROUPS.forEach((group) => {
         `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}" data-ro-mob="">` +
         dom +
         `</div>`;
+      /* 【核心加减法 · 用户 2026-10-20「这是资料里面的」】
+         放在「推荐号」图下方、九算法上方 —— 这才是用户真正的核心算法 ✔
+         20 码池 + 杀号池 + 金胆尾/银胆尾 + 大乐透跨彩种绝杀尾 */
+      if ((id === 'ssq' || id === 'dlt') && img.key === 'main') {
+        imgsHtml +=
+          '<div style="margin:10px 0 4px">' +
+          '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
+          (id === 'ssq' ? '双色球' : '大乐透') + ' · 核心算法（加减法 20 码）</div>' +
+          '<iframe src="core-jiajian.html?g=' + id + '" title="核心算法" loading="lazy" ' +
+          'style="width:100%;height:1250px;border:0;display:block;border-radius:10px;background:#f7efe1"></iframe>' +
+          '</div>';
+      }
       /* 【九算法植入「推荐号」图格 · 用户 2026-10-20「植入到这个里面」】
          在双色球/大乐透的「推荐号」图下面直接嵌该彩种的九算法（?g=彩种）
          → 点目录里的「双色球推荐号 / 大乐透推荐号」，看到图 + 算法 ✔ */
