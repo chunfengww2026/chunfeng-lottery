@@ -7300,6 +7300,15 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 }
 #ro-frog-hist-row > .frog { margin: 0; }
 #ro-frog-hist-row > .ro-hist { margin: 0; }
+/* 青蛙家园原来是「整行细条」（标题在左、绿字提示在右，同一行）。
+   塞进半屏格（375 下 167px / 320 下 140px）后一行放不下，会把「青蛙家园」
+   折成两行、和右边绿字交叉。这里只改【这一格里的排列方向】：标题一行、提示一行。
+   字号 / 颜色 / 字重 / 文案 / 内部结构一个值都没动。 */
+#ro-frog-hist-row > .frog > .frog-sum {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
 /* 【防截图口径不变】历史开奖虽然挪出了 #article-rest，锁定时照样模糊 + 点不动。
    🐸青蛙家园是免费面板，保持原来的口径（锁定状态下照样能点，和「晒票 | GPT摇号」同一档）。 */
 html.locked #ro-frog-hist-row > .ro-hist {
