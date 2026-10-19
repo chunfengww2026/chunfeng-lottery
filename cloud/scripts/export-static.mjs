@@ -214,6 +214,33 @@ const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
 const OUT = path.join(ROOT, '只读分享版.html');
 
 /* ============================================================
+   【🔥 人气数字 · 构建时写死】用户 2026-10-20：
+     「卜蒜子能不能永远都呈现 就算我电脑关机了」→ 选 A：
+     云端构建时（10 分钟一班）取一次数，写进页面（静态数字），
+     取不到就用上一次的数 → 永远有数，最多旧 10 分钟。
+   · 数字来自同目录的 busuanzi.json（由 fetch-busuanzi.mjs 抓）；
+     云端每班重抓一次，抓不到就【保留上一次的数】不覆盖。
+   · 这里读出来，【直接写进 HTML 里那个 span 的正文】——
+     页面不用等不蒜子的服务器就已经有数字，不会再出现「🔥 --」。
+   · 不蒜子的 <script> 依然保留：它要是取到新值，会把静态数字覆盖成最新的。
+   · 文件缺失 / 读坏 / 数字不合法 → 退回原来的 '--'（老行为）。
+     ⚠️ 绝不在这里编一个数字出来（用户铁律：绝不编数字）。
+   ⚠️ 这段不能往生成出来的 HTML 里写 "busuanzi" 这个词：
+      保护标记要求页面里 busuanzi 恰好 5 处（span id 1 + 脚本 src 3 + getElementById 1）。
+   ============================================================ */
+const BZ_UV = (function () {
+  try {
+    const f = path.join(ROOT, 'busuanzi.json');
+    if (!fs.existsSync(f)) return '--';
+    const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+    const n = Number(d && d.uv);
+    /* 只认非负整数：0 也算有效数（新站 UV 真的可能是 0），非法就退回 '--' */
+    if (!Number.isFinite(n) || n < 0) return '--';
+    return String(Math.floor(n));
+  } catch (e) { return '--'; }
+})();
+
+/* ============================================================
    最小 DOM（用于在 Node 里跑渲染器）
    ============================================================ */
 class El {
@@ -8672,9 +8699,20 @@ ${DEVICE_GATE_BODY}
        ============================================================ -->
   <!-- 【🔥 人气 · 用户 2026-10-19 选「打开显示」】
        用的是不蒜子的 site_uv（独立访客）：刷新不算，同一浏览器同一天只算一次。
-       ⚠️ 拿不到数字时下面的脚本会把它重新隐藏（不显示 0 或 --）。 -->
+       ⚠️ 拿不到数字时下面的脚本会把它重新隐藏（不显示 0 或 --）。
+
+       【2026-10-20 · 数字改为构建时写死】用户：「卜蒜子能不能永远都呈现
+         就算我电脑关机了」→ 选 A：构建时取一次数、写进页面。
+       · 下面那个 span 的正文现在是【构建时算出来的静态数字】，
+         不是 '--'，也不是空 —— 页面一打开就有数，不等任何网络请求。
+       · 页尾的不蒜子脚本【照样保留】：它取到更新的数会把这个数字覆盖掉。
+       · 所以：不蒜子取不到（被墙/挂了）→ 显示构建时那个数；
+               取得到 → 显示它给的最新数。两条路都有数，不会再有「--」。
+       · 数字来源与抓取时间见同目录那个 json 文件（云端每 10 分钟一班重抓）。
+       ⚠️ 只有主人（本机 / ?owner=1 / ?admin=1 / 固定公网 IP）看得到，
+          别人的页面里这块是 display:none（客户端隐藏，不是加密）。 -->
   <div class="ro-hot" id="ro-hot">
-    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">${BZ_UV}</span>
   </div>
 
   <!-- ============================================================
@@ -11615,7 +11653,11 @@ ${RO_RENDER_SCRIPT}
 <!-- __ANTISHOT_JS__ 防截图锁定（最终版）
      用户原话：「就是只能我这个本机可以截屏，别人不能」
      owner 判定（三条，先看协议再看 IP）：
-       ⓪ 网址带 ?owner=1 → 直接当主人（兜底开关，不查 IP）
+       ⓪ 网址带 ?owner=1（或 ?admin=1 / ?shouquan=1）→ 直接当主人（兜底开关，不查 IP）
+           · 电脑：本机 App / file:// / localhost 直接是主人（下面①）
+           · 手机：手机流量是另一个公网 IP，命中不了固定 IP →
+                   用带参数的链接打开，并把它收藏起来（以后每次打开都是主人）
+           · ?admin=1 与设备门 device-gate.mjs 用的是同一个参数名，手机上只记一个
        ① location.protocol === 'file:'（或 Electron / localhost）→ 本机 App 打开 → 主人
        ② 浏览器打开 → 查公网 IP，命中固定 IP 才算主人
             （3 个源并行抢答 + 8 个源兜底，每源 3 秒超时，全失败每 3 秒重试，最多 3 轮）
@@ -11747,14 +11789,25 @@ ${RO_RENDER_SCRIPT}
       return false;
     }
     /* 【强制主人】网址带 ?owner=1 → 直接算主人，不查 IP、不发任何请求（兜底开关）
-       ⚠️ 名字故意不起眼；别人不知道这个参数，照样看不到热度计数。 */
+       ⚠️ 名字故意不起眼；别人不知道这个参数，照样看不到热度计数。
+       【2026-10-20 扩到手机】用户：「只有我电脑和我手机能看到 你同步一下」
+         · ?admin=1 和 ?owner=1 完全等价 —— device-gate.mjs 的设备门本来就用
+           admin=1 这套参数名，手机上前后一致、只记一个参数名。
+         · ?shouquan=1 是设备门那边的老写法，一并认（免得以为按钮坏了）。
+         ⚠️ 仍然【不写 localStorage / sessionStorage / cookie】（用户铁律：
+            「所有都不能保存」）→ 手机上就是把带参数的链接收藏起来，
+            每次打开都带着参数，判定结果和收藏的链接一样。
+         ⚠️ 手机流量是另一个公网 IP，命中不了固定 IP，所以手机必须带参数。 */
     function forcedOwner() {
       try {
         var q = String(location.search || '');
         if (q.charAt(0) === '?') q = q.slice(1);
         var hh = String(location.hash || '');
         if (hh.charAt(0) === '#') hh = hh.slice(1);
-        return ('&' + q + '&' + hh + '&').indexOf('&owner=1&') >= 0;
+        var all = '&' + q + '&' + hh + '&';
+        return all.indexOf('&owner=1&') >= 0
+          || all.indexOf('&admin=1&') >= 0
+          || all.indexOf('&shouquan=1&') >= 0;
       } catch (e) { return false; }
     }
     /* ② 浏览器打开：查公网 IP —— 多源【并行】兜底（每源 3 秒超时）
