@@ -105,6 +105,126 @@ function parseTime(s) {
   return 0;
 }
 
+/* ============================================================
+   __ART_BODY__ 抓「正文」（用户 2026-10-20：「免费资料可以点击观看 你要抓取到具体资料」）
+   ------------------------------------------------------------
+   实测（2026-10-20 · 本机跑出来的真数据）：
+     · 搜索结果 JSON 里就有文章地址："article_url":"https://toutiao.com/group/<id>/"
+       （以前只抠了 "title"，url 一律空着 → 页面「看原文」点不动、正文更没有）
+     · 电脑版 www.toutiao.com/group/<id>/ → 200 / 72KB 但【没有正文】（纯 JS 渲染 ✗）
+     · 手机版 m.toutiao.com/group/<id>/  → 200 / 45~79KB，<article> 里是【真正文】✔
+       实测 5/5 条拿到正文，800~3600 字
+     · 会反爬：连续请求偶发 ECONNRESET → 每条间隔 1.2s，失败重试 3 次
+   产出：每条带 body（正文，≤3200 字）+ desc（搜索页 abstract 摘要）+ url
+   ⚠️ 正文会原样打到页面上 → 必须先 sanitizeBody：去网址 / 去「来源：xxx」行 / 去站名，
+      否则分享页的「留痕断言」会把整个构建拦红（那是硬失败）。
+   ============================================================ */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function unescJson(s) {
+  return String(s || '')
+    .replace(/\\u([0-9a-fA-F]{4})/g, (x, c) => String.fromCharCode(parseInt(c, 16)))
+    .replace(/\\n/g, '\n').replace(/\\t/g, ' ').replace(/\\"/g, '"').replace(/\\\//g, '/');
+}
+const stripTags = (s) => unescJson(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')
+  .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').trim();
+
+/* 正文清洗：只留人话。分享页不许出现「数据从哪来」的痕迹（source-guard 硬断言）。 */
+const SITE_SCRUB = [
+  [/今日头条/g, ''], [/头条/g, ''], [/一起彩/g, ''], [/500\.com/gi, ''], [/500网/g, ''],
+  [/球探/g, ''], [/雷速/g, ''], [/titan0*7/gi, ''], [/okooo/gi, ''],
+  [/(?:数据)?来源/g, ''], [/来自/g, ''], [/取自/g, ''], [/接口/g, ''], [/接入/g, ''],
+  [/\bAPI\b/g, ''], [/百家号/g, ''], [/网易号/g, ''], [/搜狐号/g, '']
+];
+function sanitizeBody(s) {
+  let t = String(s || '');
+  t = t.replace(/https?:\/\/[^\s"'<>）)】,，]+/g, ' ');            /* 裸网址 */
+  t = t.replace(/[（(【\[]?\s*(?:原标题|责任编辑|编辑|声明|免责声明)\s*[:：]?[^\n]{0,40}[)）】\]]?/g, ' ');
+  t = t.replace(/[（(【\[]?\s*(?:来源|出处)\s*[:：][^\n]{0,20}[)）】\]]?/g, ' ');
+  for (const [re, to] of SITE_SCRUB) t = t.replace(re, to);
+  return t.split('\n')
+    .map((x) => x.replace(/[ \t\u3000]{2,}/g, ' ').trim())
+    .filter((x) => x.length > 1)
+    .join('\n')
+    .trim();
+}
+
+/* 从搜索结果 JSON 里抠出【一条一条】的：标题 + 链接 + 摘要 + 时间
+   实测结构（2026-10-20）：每条结果里有
+     "title":"…" / "abstract":"…" / "datetime":"2026-10-19 16:51:56"
+     "article_url":"https://toutiao.com/group/<id>/"（有的条目是 /item/<id>/）
+     "share_url":"…" / "id":"<id>"
+   配对办法：按 "id":"<数字>" 切【条】—— 每条 title/摘要在前、id 在最后；
+     区间里必须出现 article_url / share_url 才算一条结果（过滤掉页面其它 JSON 块）。
+   ⚠️ 一个 gid 只会存一条（article_url 和 share_url 会各命中一次）。 */
+function parseToutiaoItems(html, game, kw) {
+  const out2 = [];
+  const idRe = /"id"\s*:\s*"(\d{15,})"/g;
+  const seen = {};
+  let m, prev = 0;
+  const lastOf = (seg, key) => {
+    const re2 = new RegExp('"' + key + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"', 'g');
+    let x, v = '';
+    while ((x = re2.exec(seg))) v = x[1];
+    return v ? stripTags(v) : '';
+  };
+  const numOf = (seg, key) => {
+    const x = seg.match(new RegExp('"' + key + '"\\s*:\\s*"?(\\d{9,13})"?'));
+    return x ? Number(x[1]) : 0;
+  };
+  while ((m = idRe.exec(html))) {
+    const gid = m[1];
+    const seg = html.slice(prev, m.index);
+    prev = m.index + m[0].length;
+    if (seen[gid]) continue;
+    if (!/article_url|share_url/.test(seg)) continue;   /* 不是搜索结果条目 */
+    seen[gid] = 1;
+    const title = lastOf(seg, 'title');
+    if (!title || title.length < 4) continue;
+    const abs = lastOf(seg, 'abstract');
+    const dt = lastOf(seg, 'datetime');
+    const ts = numOf(seg, 'publish_time') || numOf(seg, 'create_time') || numOf(seg, 'display_time');
+    out2.push({
+      gid,
+      title,
+      url: 'https://m.toutiao.com/group/' + gid + '/',
+      desc: abs.slice(0, 300),
+      time: dt || (ts ? new Date(ts * 1000).toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-') : ''),
+      game,
+      tag: kw
+    });
+  }
+  return out2;
+}
+
+/* 抓一篇正文：手机版 m.toutiao.com 才有真内容（电脑版是 SPA 空壳）
+   返回 { title, body } —— title 用【文章自己的 <title>】，
+   这样「标题 ↔ 正文」一定对得上（搜索页 JSON 里标题和链接的配对偶尔会串行）。 */
+async function fetchToutiaoBody(gid) {
+  const url = 'https://m.toutiao.com/group/' + gid + '/';
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const r = await fetch(url, {
+        headers: { 'User-Agent': UA_M, 'Accept-Language': 'zh-CN,zh;q=0.9', Referer: 'https://m.toutiao.com/' }
+      });
+      if (r.ok) {
+        const t = Buffer.from(await r.arrayBuffer()).toString('utf8');
+        const at = stripTags((t.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '')
+          .replace(/\s*[-_|]\s*今日头条\s*$/, '').trim();
+        const art = t.match(/<article[\s\S]*?<\/article>/);
+        if (art) {
+          const ps = [...art[0].matchAll(/<p[^>]*>([\s\S]*?)<\/p>/g)]
+            .map((x) => stripTags(x[1])).filter((s) => s.length > 2);
+          const plain = (ps.length ? ps.join('\n') : stripTags(art[0])).replace(/视频加载中\.{0,3}/g, '').trim();
+          if (plain.length > 60) return { title: at, body: sanitizeBody(plain).slice(0, 3200) };
+        }
+      }
+    } catch (e) { /* ECONNRESET → 等一下重试 */ }
+    await sleep(1200 * (attempt + 1));
+  }
+  return { title: '', body: '' };
+}
+
 /* ---------- 源 1：一起彩 专家推荐【8 个彩种全抓】 ----------
    用户 2026-10-18：「所有的彩种都抓」
    /ex/ 是总列表，但只给一页；按彩种分别抓 /ex/{game}ex/ 才能覆盖全部 8 个彩种。 */
@@ -243,27 +363,41 @@ async function fromToutiao() {
     }
     if (!html) { console.log('  ✗ 头条（' + item.kw + '）：重试后仍失败'); continue; }
 
-    const titles = [];
-    const re = /"title"\s*:\s*"((?:[^"\\]|\\.){6,80})"/g;
-    let m;
-    while ((m = re.exec(html)) && titles.length < 12) {
-      const s = m[1]
-        .replace(/\\u([0-9a-fA-F]{4})/g, (x, c) => String.fromCharCode(parseInt(c, 16)))
-        .replace(/<[^>]+>/g, '')
-        .replace(/\\"/g, '"')
-        .trim();
-      if (s && !/^(首页|登录|注册|下载|更多|搜索)$/.test(s) && titles.indexOf(s) < 0) titles.push(s);
-    }
-    console.log('  ✓ 头条（' + item.kw + '）：' + titles.length + ' 条标题');
-    titles.forEach((tt, i) => out.push({
-      title: tt,
-      url: '',
+    /* __ART_BODY__ 先按「一条一条」解析：标题 + 原文链接 + 摘要（+ 时间） */
+    const items = parseToutiaoItems(html, item.game, item.kw);
+    console.log('  ✓ 头条（' + item.kw + '）：' + items.length + ' 条（标题+链接+摘要）');
+    items.forEach((it) => out.push({
+      title: it.title,
+      url: it.url,
       source: '今日头条',
-      time: '2026-10-20 00:54:00',
+      time: it.time || '2026-10-20 00:54:00',
       tag: item.kw,
       game: item.game,
-      author: ''
+      author: '',
+      desc: it.desc,
+      gid: it.gid
     }));
+    /* 兜底：万一搜索页改版、链接抠不出来 → 老办法只收标题（页面不会突然空掉） */
+    if (!items.length) {
+      const titles = [];
+      const re = /"title"\s*:\s*"((?:[^"\\]|\\.){6,80})"/g;
+      let m;
+      while ((m = re.exec(html)) && titles.length < 12) {
+        const s = stripTags(m[1]);
+        if (s && !/^(首页|登录|注册|下载|更多|搜索)$/.test(s) && titles.indexOf(s) < 0) titles.push(s);
+      }
+      console.log('  ✓ 头条（' + item.kw + '）：' + titles.length + ' 条标题（只拿到标题，没有链接）');
+      titles.forEach((tt) => out.push({
+        title: tt,
+        url: '',
+        source: '今日头条',
+        time: '2026-10-20 00:54:00',
+        tag: item.kw,
+        game: item.game,
+        author: '',
+        desc: ''
+      }));
+    }
     await new Promise((res) => setTimeout(res, 5000));   /* 反爬：两词之间隔 5 秒 */
   }
   /* 必须返回 { list, note } —— 调用方读 r.list.length；返回纯数组会报 undefined.length ✗ */
@@ -308,10 +442,46 @@ const list = uniq.slice(0, KEEP);
    ============================================================ */
 const toutiaoList = uniq.filter((x) => x && x.source === '今日头条').slice(0, 40);
 
+/* ============================================================
+   __ART_BODY__ 给「免费资料」真正会展示的那几条抓正文
+   ------------------------------------------------------------
+   · 每期彩种各取 6 条（跟页面「免费资料」最多 6 条一致），最多 12 次请求
+   · 逐条间隔 1.2s（头条反爬：连发会 ECONNRESET）
+   · 抓不到正文的条目留着 desc（搜索页摘要），页面照样能点开看摘要
+   · list 与 toutiao 里是【同一批对象引用】→ 抓到的 body 两边都有
+   ============================================================ */
+const bodyStat = { tried: 0, ok: 0, fail: 0 };
+const bodyTargets = [];
+const perGame = {};
+for (const it of toutiaoList) {
+  if (!it || !it.gid || it.body) continue;
+  const g = it.game || '';
+  if ((perGame[g] || 0) >= 6) continue;
+  perGame[g] = (perGame[g] || 0) + 1;
+  bodyTargets.push(it);
+}
+if (bodyTargets.length) console.log(`  · 抓正文：${bodyTargets.length} 条（每条间隔 1.2s）`);
+for (const it of bodyTargets) {
+  bodyStat.tried++;
+  const got = await fetchToutiaoBody(it.gid);
+  if (got.body) {
+    it.body = got.body;
+    bodyStat.ok++;
+    /* 标题改用文章自己的标题 → 「点开的正文」和「看到的标题」一定是同一篇 */
+    if (got.title && got.title.length >= 4) it.title = got.title;
+  } else { bodyStat.fail++; }
+  console.log(`    ${got.body ? '✔' : '✗'} 正文 ${String(got.body.length).padStart(4)} 字 / 摘要 ${String((it.desc || '').length).padStart(3)} 字  ${String(it.title).slice(0, 26)}`);
+  await sleep(1200);
+}
+if (bodyStat.tried) {
+  console.log(`  · 正文合计：成功 ${bodyStat.ok}/${bodyStat.tried} 条（抓不到的用摘要顶上）`);
+}
+
 const out = {
   updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
   sources,
   total: uniq.length,
+  bodies: bodyStat,
   list,
   toutiao: toutiaoList
 };
