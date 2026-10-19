@@ -1151,6 +1151,12 @@ function frogPanelHtml() {
         if (issue.ssq) nextGames.push('ssq');
         if (issue.dlt) nextGames.push('dlt');
         const clean = (s) => String(s || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim();
+        /* __FROG_ART_BODY__ 头条正文里会残留 &#34; 这类【数字实体】（源站 HTML 里就是
+           &quot; 的另一种写法）。不还原就直接 escape → 页面上出现可见的 &amp;#34; 乱码。
+           实测 jc-articles.js 里有 8 处 → 先还原成真字符，再走 escape。 */
+        const decEnt = (s) => String(s || '')
+          .replace(/&#(\d+);/g, (x, d) => String.fromCharCode(+d))
+          .replace(/&#[xX]([0-9a-fA-F]+);/g, (x, h) => String.fromCharCode(parseInt(h, 16)));
         /* 去重键：把标点/空白全去掉再比 —— 头条同一篇经常只差一个全角冒号，
            按原样比会重复出两条（实测：第 1、2 条就是同一篇文章）。 */
         const keyOf = (s) => String(s || '').replace(/[\s·・\-—_，,。.、：:；;！!？?“”"'（）()【】\[\]]/g, '');
@@ -1178,7 +1184,7 @@ function frogPanelHtml() {
               /* __FROG_ART_BODY__ 正文 / 摘要（build-jc-articles.mjs 抓的 body、desc）
                  nl = 来自头条的条目 → 正文已就地展开，就【不再给「看原文」外链】
                       （页面本来就要求「看不出数据是从哪来的」）。 */
-              b: String((x && x.body) || ''), d: String((x && x.desc) || ''),
+              b: decEnt(x && x.body), d: decEnt(x && x.desc),
               nl: /toutiao/i.test(String((x && x.url) || '')) });
           });
           return out2;
@@ -1249,7 +1255,7 @@ function frogPanelHtml() {
          · 点【标题】就地展开正文（<details>，不套裸 button）；
          · 正文 body 由 build-jc-articles.mjs 从源站抓下来；抓不到就退回摘要 desc；
          · 两样都没有 → 照旧只显示标题（有链接才给「看原文」，空 href 不套 <a>）。
-         样式：13px / 行高 1.7 / 正常段落（.frog-ab），太长先给前 220 字 + 「展开全文」。 */
+         样式：13px / 行高 1.75 / 正常段落（.frog-ab），太长先给前 300 字 + 「展开全文」。 */
       const head = '<span class="frog-i">' + (i + 1) + '</span>' +
         '<span class="frog-at">' + escape(a.t) + '</span>';
       const raw = String(a.b || a.d || '').trim();
@@ -1264,7 +1270,7 @@ function frogPanelHtml() {
           ? '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
           : '<div class="frog-art">' + inner + '</div>';
       }
-      const CUT = 220;
+      const CUT = 300;
       const preTxt = raw.length > CUT ? raw.slice(0, CUT) + '…' : raw;
       const restTxt = raw.length > CUT ? raw.slice(CUT) : '';
       const paras = (s) => s.split('\n').map((x) => x.trim()).filter(Boolean)
@@ -15353,7 +15359,7 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-art2 > summary .frog-ag { flex: 0 0 auto; }
 .frog-art2 > summary .frog-ag::after { content: "▾"; margin-left: 2px; }
 .frog-art2[open] > summary .frog-ag::after { content: "▴"; }
-.frog-ab { font-size: 13px; line-height: 1.7; color: #4a3a26; text-align: left; background: #fffdf7;
+.frog-ab { font-size: 13px; line-height: 1.75; color: #4a3a26; text-align: left; background: #fffdf7;
   border: 1px solid #f0e4cf; border-radius: 8px; padding: 9px 10px; margin: 2px 0 6px;
   word-break: break-word; overflow-wrap: anywhere; }
 .frog-ab p { margin: 0 0 9px; }
