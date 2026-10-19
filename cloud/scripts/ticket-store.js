@@ -102,7 +102,32 @@ function ticketsToFileText(all) {
 /** 取某个彩种某天的数据 */
 function getTicket(gameId, date) {
   const all = loadTickets();
-  return (all[gameId] && all[gameId][date]) || null;
+  const bag = all[gameId];
+  if (!bag) return null;
+  if (bag[date]) return bag[date];
+
+  /* 【按期号兜底】—— 见 nextIssueDate() 的注释。
+     调用方（App / 分享页）问的是「现在这一期推的是什么号」，
+     而存档的 key 是【那一期的开奖日】。两者在「当天开奖之后 ~ 第二天零点」
+     这一段会差一天：原来这里取不到就返回 null，页面于是回落到自动算的号，
+     当天推出去的那套号码等于被丢掉（用户看到的就是「号码不是推的那套」）。
+     所以：只有当 date 就是「现在这一期」的日子时，才按 nextIssueFor() 的期号
+     再找一遍；查历史某一天的时候绝不走这条路（那会串期）。 */
+  try {
+    if (typeof nextDrawDate === 'function' && typeof nextIssueFor === 'function') {
+      if (String(date) === String(nextDrawDate(gameId))) {
+        const want = String(nextIssueFor(gameId) || '');
+        if (want) {
+          const keys = Object.keys(bag);
+          for (let i = 0; i < keys.length; i++) {
+            const rec = bag[keys[i]];
+            if (rec && String(rec.issue || '') === want) return rec;
+          }
+        }
+      }
+    }
+  } catch (e) { /* 兜底失败就按没取到处理 */ }
+  return null;
 }
 
 /** 取某个彩种最近一条数据 */
@@ -328,6 +353,64 @@ function deriveFromList(list, from, to) {
   return { oddEven, bigSmall, route012 };
 }
 
+/* ============================================================
+   【这一期是哪一期】—— 票面期号 和 票面日期 必须是【同一期】
+   ------------------------------------------------------------
+   以前 rollAllGames() 里取的是两个不同口径的值：
+
+     issue   = nextIssueFor(gameId)   → draw-data.js：本地最新开奖期 + 1
+     dateStr = nextDrawDate(gameId)   → draw-data.js：今天（今天开奖就算今天）
+
+   于是【当天开奖完成之后】再推送，两者就错开一期：
+
+     kl8 2026-10-19 23:54 推送
+       issue   = 2026279      ← 10-20 那期（对，还没开奖）
+       dateStr = 2026-10-19   ← 10-19 那期（错，21:30 已经开完了）
+
+   存进 saved-tickets.js 的 key 用 dateStr，中奖播报配对用 issue，结果：
+     ① 页面 getTicket(gameId, nextDrawDate()) 取不到 → 当期推的号被丢掉
+     ② 播报把这条当成「10-19 的票」去配 2026279 的开奖 → 配不上（静默跳过）
+
+   ⚠️ 注意 issue 本身是对的（就是「还没开奖的那一期」），错的是 date。
+      有人会以为该把 issue 改成 2026278 —— 那是把【开奖之后才摇的号】
+      说成「开奖前的预测」，reco-archive 里明令禁止（开奖后存的号不算发过的）。
+
+   现在统一成：期号先定（还没开奖的那一期），日期取【那一期的开奖日】。
+   两者都从同一个 getDraw() 推出来，永远不会再错开。
+   ============================================================ */
+
+/** 本地最新一期开奖的日期（YYYY-MM-DD）；没有开奖数据时返回空串 */
+function lastDrawDate(gameId) {
+  try {
+    const d = (typeof getDraw === 'function') ? getDraw(gameId) : null;
+    const s = String((d && d.date) || '');
+    return /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : '';
+  } catch (e) { return ''; }
+}
+
+/**
+ * 「现在这一期」的开奖日期 —— 和 nextIssueFor() 是同一期的两面：
+ *   nextIssueFor() 给期号，nextIssueDate() 给这一期的开奖日。
+ * 算法：从【本地最新一期开奖日】的第二天起，找下一个开奖日。
+ *       （nextDrawDate 的口径是「当天算当天」，所以要从明天起算，
+ *         否则当天开奖之后还会把已经开过的今天当成「这一期」。）
+ * 没有开奖数据时退回原来的 nextDrawDate()，行为不变。
+ * @param {string} gameId
+ * @returns {string} YYYY-MM-DD
+ */
+function nextIssueDate(gameId) {
+  if (typeof nextDrawDate !== 'function') return '';
+  const last = lastDrawDate(gameId);
+  if (!last) { try { return nextDrawDate(gameId); } catch (e) { return ''; } }
+
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(last);
+  if (!m) { try { return nextDrawDate(gameId); } catch (e) { return ''; } }
+  const from = new Date(+m[1], +m[2] - 1, +m[3]);
+  if (isNaN(from.getTime())) { try { return nextDrawDate(gameId); } catch (e) { return ''; } }
+  from.setDate(from.getDate() + 1);
+  try { return nextDrawDate(gameId, from); } catch (e) { return ''; }
+}
+
 /**
  * 一键摇号：给【所有彩种】的【所有模板图】都摇一套数据并保存
  *
@@ -362,11 +445,16 @@ function rollAllGames(opts) {
     stat.games++;
 
     // 该彩种这一期的期号与开奖日期
+    // ⚠️ 两个值必须来自【同一期】：issue = 还没开奖的那一期，
+    //    dateStr = 那一期的开奖日（= nextIssueDate，不是「今天」）。
+    //    原来是 nextDrawDate(gameId)（今天口径），当天开奖之后推送就会错开一期，
+    //    详细原因见上面 nextIssueDate() 的注释。
     let issue = '';
     let dateStr = '';
     try {
       if (typeof nextIssueFor === 'function') issue = nextIssueFor(gameId);
-      if (typeof nextDrawDate === 'function') dateStr = nextDrawDate(gameId);
+      if (typeof nextIssueDate === 'function') dateStr = nextIssueDate(gameId);
+      else if (typeof nextDrawDate === 'function') dateStr = nextDrawDate(gameId);
     } catch (e) { /* 忽略 */ }
 
     if (!dateStr) {
@@ -552,7 +640,17 @@ function rollAllGames(opts) {
 
     rec.issue = issue || rec.issue || '';
     rec.date = dateStr;
-    rec.pushedAt = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    /* 【pushedAt 必须是本地时间（北京时间）】
+       原来是 new Date().toISOString() —— 那是 UTC，比北京时间早 8 小时：
+         saved-tickets.js 头部 updated=「2026-10-19 23:54」（本地）
+         同一条记录的 pushedAt=「2026-10-19 15:54」（UTC）
+       同一份文件里两个时间差 8 小时，谁按 pushedAt 判断「这票是几点推的」
+       都会算错（2026-10-20 就有人据此误判「23:54 推的票是开奖前推的」）。
+       这里改成和 updated / reco-archive 的 savedAt 完全同一口径的本地时间。 */
+    const pushedNow = new Date();
+    const pushedPad = (n) => String(n).padStart(2, '0');
+    rec.pushedAt = `${pushedNow.getFullYear()}-${pushedPad(pushedNow.getMonth() + 1)}-${pushedPad(pushedNow.getDate())} ` +
+      `${pushedPad(pushedNow.getHours())}:${pushedPad(pushedNow.getMinutes())}`;
     setTicket(gameId, dateStr, rec);
     stat.rolled++;
   });
