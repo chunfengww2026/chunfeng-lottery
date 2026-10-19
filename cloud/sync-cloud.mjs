@@ -191,6 +191,19 @@ const FROM_ROOT = [
      ⚠️ 文件很小（每期只存 8 个彩种各一组号，约 2.5 KB/期），一年也就几百 KB；
         超过 365 天的记录由构建自己物理删除，不会无限变大。 */
   'reco-archive.json',
+  /* 【🔥 人气数字 · 构建时写死的那个数】busuanzi.json（2026-10-20 加）
+     用户：「卜蒜子能不能永远都呈现 就算我电脑关机了」→ 构建时把数字写进页面。
+     · 结构：{ uv, pv, updated, source, cookie }（uv = 不蒜子的站点独立访客）
+     · 谁写它：fetch-busuanzi.mjs（云端每班跑一次，抓不到就保留旧值不覆盖）
+     · 谁读它：export-static.mjs 构建时把 uv 直接写进页面里那个 span
+     ⚠️ 必须同步：本机这份是【最新的一份兜底】——
+        云端第一次跑、或者哪天 busuanzi 抓不到时，读的就是它。
+        不同步的话云端从零开始 → 第一班取不到数就只能显示「--」。
+     ⚠️ 里面的 cookie 字段是不蒜子的 busuanziId（不是密钥，不涉及任何账号）：
+        带它去请求，不蒜子才认「同一个访客」，不会把我们的构建请求
+        算成新访客（否则一天白涨 144 UV = 编数字）。
+     ⚠️ 文件很小（约 250 B），每班变了才提交，不会撑仓库。 */
+  'busuanzi.json',
   'jc-data.js', 'prize-data.js', 'materials-data.js',
   /* 【九算法独立页 · 用户 2026-10-19】凌晨 2 点全量班自动发布到线上 */
   'px9-methods.html',
@@ -458,6 +471,14 @@ const CODE_MODULES = [
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
   'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
+  /* 【🔥 人气数字 · 抓取脚本】fetch-busuanzi.mjs（2026-10-20 加）
+     用户：「卜蒜子能不能永远都呈现 就算我电脑关机了」
+     ⚠️ 必须同步：cloud-build.mjs 每班在【生成彩票页之前】跑它一次，
+        现场取不蒜子的 site_uv 写进 busuanzi.json，紧接着 export-static.mjs
+        把这个数【写死进页面】→ 不蒜子被墙/挂了页面也永远有数。
+     ⚠️ 它抓不到就【不覆盖旧文件】、退出码永远 0 → 绝不会拖垮整条构建链。
+     只读一个 API、只写 busuanzi.json，不碰任何其它文件。 */
+  'fetch-busuanzi.mjs',
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      · build-match.mjs  生成脚本（读 jc-data.js + jc-official.js → 写 比赛详情.html）
      ⚠️ 必须同步：cloud-build.mjs 的 exportList 里会跑它，
