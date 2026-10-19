@@ -39,3 +39,26 @@ cloud/scripts/icons/favicon-48.png
 #    传上去只会让仓库每轮都涨一个 60~200 KB 的文件
 #  · 代码（verify-ticket.mjs）会同步到云端；缓存不传
 _ticket-ocr-cache.json
+
+# ============================================================
+# 【密钥 · 红线】2026-10-19
+# ai-config.js 里有【明文 API Key】（方舟 ark-c72b… / DeepSeek sk-726c…）。
+# 实测核实它【没有】进过 git，也没有上云：
+#   · GitHub 仓库 main 上 ai-config.js / cloud/ai-config.js /
+#     cloud/scripts/ai-config.js 三个路径全是 404
+#   · cloud/sync-cloud.mjs 只把它列在「本机 App 专属，绝不上云」的自检名单里，
+#     不在任何上传清单（FROM_ROOT / CODE_MODULES / PAGE_ARTIFACTS）里
+# 这里再加一道：以后在这个目录建 git 仓库 / 提交时【永远】带上它不进去。
+# ⚠️ 绝不删掉这几行。真要换 Key 就改 ai-config.js 本身，或设环境变量
+#    ARK_API_KEY / DEEPSEEK_API_KEY（见 ai-config.js 末尾的说明）。
+# ============================================================
+ai-config.js
+**/ai-config.js
+# 同类的本机密钥/凭据文件（一个都不许进仓库）
+ai-keys*.js
+ai-keys*.json
+*.key
+*secret*.json
+# 本机 GitHub Token（sync-cloud 用它推送，绝对不能上云）
+cloud/cloud-token.txt
+
