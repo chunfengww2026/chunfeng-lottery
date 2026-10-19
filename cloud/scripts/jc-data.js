@@ -1,50 +1,24 @@
-/* 自动生成，请勿手动编辑 · 2026-10-20 00:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-20 00:58 */
 const JC_DATA = {
- "updated": "2026-10-20 00:28",
+ "updated": "2026-10-20 00:58",
  "stat": {
-  "total": 8,
-  "upcoming": 8,
+  "total": 7,
+  "upcoming": 7,
   "live": 0,
   "finished": 0,
   "withScore": 0,
-  "droppedNotOnSale": 0,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
-  "droppedNotOnSale": 0,
+  "officialGate": true,
+  "officialCodes": 16,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
  },
  "games": [
-  {
-   "gid": "1414162",
-   "fid": "1414162",
-   "sid": "19826",
-   "code": "周一001",
-   "league": "意甲",
-   "round": "第7轮",
-   "time": "2026-10-20 00:30",
-   "handicap": "-1",
-   "home": {
-    "name": "蒙扎",
-    "rank": 15
-   },
-   "away": {
-    "name": "卡利亚里",
-    "rank": 7
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": null,
-   "reco": null,
-   "asianIndex": null,
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
   {
    "gid": "1362794",
    "fid": "1362794",
@@ -84,9 +58,9 @@ const JC_DATA = {
       "away": 2.63
      },
      "live": {
-      "home": 3,
-      "draw": 3.3,
-      "away": 2.3
+      "home": 2.9,
+      "draw": 3.25,
+      "away": 2.38
      }
     },
     "overunder": {
@@ -105,14 +79,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 40.6,
+    "confidence": 39.2,
     "prob": {
-     "home": 31.1,
-     "draw": 28.3,
-     "away": 40.6
+     "home": 32.1,
+     "draw": 28.7,
+     "away": 39.2
     },
     "clear": false,
-    "margin": 7.1,
+    "margin": 7.3,
     "rqLine": "平手",
     "type": "unbeaten"
    },
@@ -187,9 +161,9 @@ const JC_DATA = {
       "away": 2.4
      },
      "live": {
-      "home": 3.25,
+      "home": 3.2,
       "draw": 3.1,
-      "away": 2.38
+      "away": 2.4
      }
     },
     "overunder": {
@@ -208,14 +182,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 40,
+    "confidence": 39.6,
     "prob": {
-     "home": 29.3,
+     "home": 29.7,
      "draw": 30.7,
-     "away": 40
+     "away": 39.6
     },
     "clear": false,
-    "margin": 5,
+    "margin": 5.2,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
@@ -290,9 +264,9 @@ const JC_DATA = {
       "away": 2.35
      },
      "live": {
-      "home": 3,
-      "draw": 3.5,
-      "away": 2
+      "home": 2.88,
+      "draw": 3.4,
+      "away": 2.1
      }
     },
     "overunder": {
@@ -311,14 +285,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 44.7,
+    "confidence": 42.6,
     "prob": {
-     "home": 29.8,
-     "draw": 25.5,
-     "away": 44.7
+     "home": 31.1,
+     "draw": 26.3,
+     "away": 42.6
     },
     "clear": false,
-    "margin": 11.9,
+    "margin": 11.8,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
@@ -385,7 +359,7 @@ const JC_DATA = {
       "away": 5.75
      },
      "live": {
-      "home": 1.53,
+      "home": 1.5,
       "draw": 4.5,
       "away": 5.75
      }
@@ -406,14 +380,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 62.3,
+    "confidence": 62.7,
     "prob": {
-     "home": 62.3,
-     "draw": 21.2,
-     "away": 16.6
+     "home": 62.7,
+     "draw": 20.9,
+     "away": 16.4
     },
     "clear": true,
-    "margin": 5,
+    "margin": 6.3,
     "rqLine": "一球",
     "type": "three"
    },
@@ -488,9 +462,9 @@ const JC_DATA = {
       "away": 3.25
      },
      "live": {
-      "home": 3,
+      "home": 2.9,
       "draw": 2.9,
-      "away": 2.6
+      "away": 2.7
      }
     },
     "overunder": {
@@ -500,23 +474,23 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 0.95,
+      "line": 1.1,
       "over": 2,
-      "under": 0.9
+      "under": 0.7
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 36.2,
+    "confidence": 34.9,
     "prob": {
-     "home": 31.4,
-     "draw": 32.4,
-     "away": 36.2
+     "home": 32.5,
+     "draw": 32.5,
+     "away": 34.9
     },
     "clear": false,
-    "margin": 6.3,
+    "margin": 6,
     "rqLine": "平手",
     "type": "unbeaten"
    },
@@ -591,9 +565,9 @@ const JC_DATA = {
       "away": 5
      },
      "live": {
-      "home": 1.65,
-      "draw": 3.7,
-      "away": 5.25
+      "home": 1.53,
+      "draw": 3.9,
+      "away": 6.25
      }
     },
     "overunder": {
@@ -612,14 +586,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 56.8,
+    "confidence": 61.1,
     "prob": {
-     "home": 56.8,
-     "draw": 25.3,
-     "away": 17.9
+     "home": 61.1,
+     "draw": 24,
+     "away": 15
     },
     "clear": true,
-    "margin": 6.7,
+    "margin": 7,
     "rqLine": "一球",
     "type": "three"
    },
@@ -760,43 +734,12 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
-  "updated": "2026-10-19 23:58",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-20 00:58",
   "officialUpdate": "2026-10-19 20:42:03",
-  "inSale": 17,
+  "inSale": 16,
   "list": [
-   {
-    "code": "周一001",
-    "matchNum": "1001",
-    "league": "意甲",
-    "time": "2026-10-20 00:30:00",
-    "home": "蒙扎",
-    "away": "卡利亚里",
-    "had": {
-     "h": 2.25,
-     "d": 3.1,
-     "a": 2.76,
-     "update": "2026-10-19 18:30:19"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 5.1,
-     "d": 3.95,
-     "a": 1.47,
-     "update": "2026-10-19 18:30:48"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 1
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周一002",
     "matchNum": "1002",
