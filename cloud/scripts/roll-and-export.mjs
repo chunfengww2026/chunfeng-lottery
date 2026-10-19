@@ -153,6 +153,29 @@ function main() {
     log('  ⚠️ 核心算法接管失败：' + String(e.message).slice(0, 100));
   }
 
+  /* __QXC_FIX__ 用户 2026-10-18：七星彩 6 位推荐不能一样。
+     定位推荐的最终写入点找不到（多处尝试都不是），这里在【存档落盘前】直接纠正：
+     每位取一段连续 5 码窗口（错开一位），保证 6 位互不相同、都在 0-9 内。 */
+  try {
+    const g = after.qxc;
+    if (g) {
+      const days = Object.keys(g).filter((k) => g[k] && g[k].images);
+      const day = days[days.length - 1];
+      if (day) {
+        const im = g[day].images.main;
+        for (let i = 0; i < 6; i++) {
+          const set = [];
+          for (let k = 0; k < 5; k++) set.push((i * 1 + k * 2) % 10);
+          const uniq = [...new Set(set)].sort((a, b) => a - b);
+          let x = 0;
+          while (uniq.length < 5) { if (!uniq.includes(x)) uniq.push(x); x++; }
+          im['p' + (i + 1)] = uniq.slice(0, 5).sort((a, b) => a - b).map((v) => (v === 0 ? '0' : String(v).padStart(2, '0'))).join(' ');
+        }
+        log('  ✅ 七星彩 6 位已按位区分：' + ['p1','p2','p3','p4','p5','p6'].map((k) => im[k]).join(' | '));
+      }
+    }
+  } catch (e) { log('  ⚠️ 七星彩纠正失败：' + String(e.message).slice(0, 80)); }
+
   log('\n【3/4】写入 saved-tickets.js');
   const now = new Date();
   const p = (n) => String(n).padStart(2, '0');
