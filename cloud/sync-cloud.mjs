@@ -678,7 +678,14 @@ log('');
 log('【3/3】上传到 GitHub');
 
 const SKIP_DIRS = new Set(['out', 'node_modules', '.git']);
-const SKIP_FILES = new Set(['cloud-token.txt']);
+/* 【密钥红线 · 2026-10-19 加】这两个文件里都是本机凭据，【永不上传】：
+     · cloud-token.txt  本机 GitHub Token
+     · ai-config.js     明文 API Key（方舟 ark-c72b… / DeepSeek sk-726c…）
+   它们本来也不可能被传上去（ai-config.js 在项目根目录，collect() 只遍历 cloud/；
+   根目录文件只有 REPO_ROOT_FILES 里那两个会传），这里再钉一遍是防止以后
+   有人把它挪进 cloud/ 或直接加进白名单 → 一传上去就永久留在 git 历史里。
+   另：.gitignore 里也排除了它们（双保险）。 */
+const SKIP_FILES = new Set(['cloud-token.txt', 'ai-config.js']);
 
 /* 【编辑器/脚本备份文件：一律不上传】
    ------------------------------------------------------------
