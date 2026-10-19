@@ -1094,6 +1094,8 @@ function main() {
       if (sig() !== before) {
         log('  🎯 开奖号有变化 → 立刻重算播报 + 重出彩票页');
         try { run('build-broadcast.mjs', [], 20); } catch (e) { log('  ⚠️ 播报失败：' + String(e.message).slice(0, 60)); }
+        /* 【🔥 人气数字】重出彩票页之前先取一次不蒜子的数（页面要把它写死） */
+        try { runSoft('fetch-busuanzi.mjs', []); } catch (e) { log('  ⚠️ 不蒜子取数失败（沿用上次的数）：' + String(e.message).slice(0, 60)); }
         try { run('export-static.mjs', []); } catch (e) { log('  ⚠️ 页面失败：' + String(e.message).slice(0, 60)); }
       } else { log('  ⏭ 开奖号没变化（继续等下一班）'); }
     }
@@ -1175,6 +1177,7 @@ function main() {
         : plan.heatmap === 'purge'
           ? '  ✅ 会跑  【8】热力图：清空热力图数据'
           : '  ✅ 会跑  【8】热力图：按时间自动判断（18:00 之后出图）');
+    steps.push('  ✅ 会跑  【9】取不蒜子热度数字（fetch-busuanzi.mjs）→ busuanzi.json（抓不到沿用上次）');
     mark(plan.exportStatic === true || (plan.exportStatic === 'auto' && (doDraws || doHistory || doPrizes)),
       '【9】生成彩票页（export-static.mjs）→ 只读分享版.html');
     mark(plan.exportFootball, '【10】生成足球页（export-football.mjs）→ 足球推荐.html');
@@ -1628,6 +1631,19 @@ function main() {
      · ⚠️ 产物【不进 git、不进 Pages】：一次 2.4 MB，提交回仓库会把仓库撑爆，
        塞进 site/ 则每班多传一份。失败只记一行 ❌，不影响任何页面。 */
   if (plan.type === 'full') exportList.push(['export-site.mjs', '分享包（Netlify 备用包）']);
+  /* 【🔥 人气数字 · 构建时写死】用户 2026-10-20：「卜蒜子能不能永远都呈现
+     就算我电脑关机了」→ 选 A：构建时取一次数、写进页面（静态数字）。
+     · fetch-busuanzi.mjs 现场请求一次不蒜子（busuanzi.ibruce.info/busuanzi），
+       把 site_uv 写进 cloud/scripts/busuanzi.json；
+     · 紧接着 export-static.mjs 构建时把这个数【直接写进页面】，不依赖浏览器
+       去连不蒜子 → 页面永远有数字，不会再出现「🔥 --」。
+     · ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读这个 json）。
+     · ⚠️ 它自己「抓不到就不覆盖旧文件 + 退出码永远 0」，
+       所以这里用 runSoft：失败只记一行，绝不会拖垮整条构建链。 */
+  {
+    const r = runSoft('fetch-busuanzi.mjs', []);
+    log(`  不蒜子热度：${r.ok ? '✅ 已取到最新数字 → busuanzi.json' : '⚠️ 跳过（沿用上一次的数）'}`);
+  }
   if (!exportList.length) log('  ⏭  本班次不需要重新生成页面');
 
   for (const [file, label] of exportList) {
