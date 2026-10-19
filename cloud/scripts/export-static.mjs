@@ -1006,7 +1006,8 @@ function frogPanelHtml() {
       vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A=JC_ARTICLES;', ctx);
       const d = ctx.__A;
       if (d && Array.isArray(d.list)) {
-        arts = d.list.filter((x) => String(x.url || '').startsWith('http'))
+        /* 无 url 的也显示（头条文章没有原文链接 ✗），只是不给「看原文」✦ */
+        arts = d.list.filter((x) => String(x.title || '').length > 3)
           .slice(0, 6)
           .map((x) => ({ t: String(x.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim(), u: x.url }));
       }
@@ -3202,6 +3203,10 @@ function recoArchiveCommit(recData) {
       if (Number.isFinite(savedMs) && savedMs < cutMs) { delete bag[issue]; prunedGames++; return; }
       const d = idx[gid + '|' + String(issue)];
       if (!d || !d.areas) { pending++; return; }               /* 开奖没抓到 → 挂起，下次再比 */
+      /* ⚠️【硬闸】存档起点（HIST_ARCHIVE_START）之前的期次一条都不列 ——
+         不管存档里是怎么来的（老数据 / 手工塞的），都漏不回页面。 */
+      const dDate = String(d.date || '').slice(0, 10);
+      if (!dDate || dDate < HIST_ARCHIVE_START) return;
       const t = histDayMs(d.date);
       if (!Number.isFinite(t) || t < cutMs) return;            /* 开奖已超 365 天 → 不再比 */
       compared++;
@@ -7554,9 +7559,34 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    字号 / 颜色 / 字重 / 文案 / 内部结构一个值都没动。 */
 #ro-frog-hist-row > .frog > .frog-sum {
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;           /* ← 用户 2026-10-20「青蛙家园字迹居中」：标题/绿字都居中 */
   gap: 3px;
+  text-align: center;
 }
+/* __FROG_CENTER__ 用户 2026-10-20：「青蛙家园字迹居中」
+   ------------------------------------------------------------
+   只改【这一个卡里的文字对齐】，不动整页对齐：
+     · 「🐸 青蛙家园」标题 + 「点开看免费资料 + 出号」绿字 → 居中（上面那条 .frog-sum 已管）
+     · 各区标题（.frog-h：核心算法 20 码 / 免费资料 / 功能中心）→ 居中
+     · 号码圆点行、药丸行 → 水平居中排（本来就会折行，居中更好看）
+     · 底部小字（.frog-tip）和「暂无」→ 居中
+   ⚠️【不居中】的：
+     · 功能中心的按钮（.frog-btn）→ 按钮本身排齐，只有按钮里的字居中（本来就是这样）
+     · 免费资料那几行（.frog-art：序号 / 标题 / 看原文）→ 保持左对齐，一行一行才好读
+     · 计算输出区里的数据行（.frog-row / .frog-co）→ 保持左对齐
+   ⚠️ 只动 text-align / justify-content，字号 / 颜色 / 间距 / 文案一个值都没改。 */
+.frog, .frog-body { text-align: center; }
+.frog-t, .frog-go { text-align: center; }
+.frog-h { text-align: center; }
+.frog-none, .frog-tip, .frog-ql { text-align: center; }
+.frog-balls { justify-content: center; }
+.frog-chips { justify-content: center; }
+/* 免费资料的第 4 条那种长标题：整行左对齐，不要跟着居中（居中会把序号挤歪） */
+.frog-art { text-align: left; }
+.frog-art .frog-at { text-align: left; }
+.frog-art .frog-ag { text-align: right; }
+/* 计算输出区的数据行保持左对齐 */
+.frog-row, .frog-co, .frog-co-h, .frog-out { text-align: left; }
 /* 【防截图口径不变】历史开奖虽然挪出了 #article-rest，锁定时照样模糊 + 点不动。
    🐸青蛙家园是免费面板，保持原来的口径（锁定状态下照样能点，和「晒票 | GPT摇号」同一档）。 */
 html.locked #ro-frog-hist-row > .ro-hist {
@@ -8705,8 +8735,8 @@ ${kjhHtml}
          默认 open（用户 2026-10-20 说过「找不到」，保持展开）。
        · 每条 = 日期 · 期号 · 几等奖（一行）+【推荐】/【开奖】两行小字对照，
          命中号高亮；没中 / 只是低等奖的期次【一个字都不写】，没中过奖的彩种【整组不出现】。
-       · 【不再按期号回算】用户：「为什么还有九月份的？我都没推荐过」——
-         现在只认 reco-archive.json 里真实发过的推荐号（见 __RECO_ARCHIVE__）。
+       · 【不再按期号回算· 2026-10-20】用户：「为什么还有九月份的？我都没推荐过」——
+         现在只认真实发过、且写下来过的推荐号（存档逻辑见构建脚本里的 __RECO_ARCHIVE__）。
        · 一条都没有时只写一行「近 365 天暂无中奖记录（自 2026-10-19 起记录 · 中奖才公布）」。
        ============================================================ -->
   <details class="ro-hist" id="ro-hist">
