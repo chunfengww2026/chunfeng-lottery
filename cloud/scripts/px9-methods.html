@@ -64,6 +64,11 @@
     dlt: { name:'大乐透', front:'front', back:'back', max:35, blueMax:12 }
   };
   var st = { g:'ssq', m:METHODS[0] };
+  /* 【被嵌进分享页时用 ?g=ssq / ?g=dlt 指定彩种 · 用户 2026-10-20「植入到推荐图目录里」】 */
+  try {
+    var qs = (location.search || '').match(/[?&]g=(ssq|dlt)/);
+    if (qs) st.g = qs[1];
+  } catch (e) { }
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
