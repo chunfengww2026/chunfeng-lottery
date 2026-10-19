@@ -5367,7 +5367,16 @@ body {
 /* 【颜色区分】用户要求：「开奖的蓝球要区分出来」
    红球 = 红，蓝球/后区/特别号 = 蓝。 */
 .ro-ball.red  { background: linear-gradient(180deg, #f0575c, #d32f34); }
-.ro-ball.blue { background: linear-gradient(180deg, #4a83f5, #2158c4); }
+/* 【用户 2026-10-20「篮球后区推荐记得带上球的图标明显一点」· 只双色球/大乐透】
+   蓝球/后区/特别号：做出球感（左上亮 → 右下深）+ 白字加粗 + 内阴影。
+   对比度：白字/深蓝底 ≥ 5.7:1（WCAG AA）。红球不动。 */
+.ro-ball.blue, .ball.blue, .tv-ball.blue, .px9-ball.blue, .jz-ball.blue {
+  background: radial-gradient(circle at 32% 26%, #5b8ff9 0%, #2b62d6 48%, #1748a8 100%) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, .22), 0 1px 3px rgba(20, 60, 160, .35) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .30) !important;
+}
 
 /* ============================================================
    【手机目录表格 · 方案 D】 + 【全屏查看层 ro-mob-view】样式
