@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-20 01:13",
+ "updated": "2026-10-20 03:26",
  "red": 1,
  "black": 0,
  "rate": "100.0%",
- "unfinished": 3,
+ "unfinished": 2,
  "history": [
   {
    "dateStr": "2026-10-19 23:30",
@@ -127,26 +127,6 @@
      "league": "意甲",
      "odds": 1.62,
      "time": "2026-10-19 00:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-18 15:00",
-   "finishTime": 1792306800000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周一005",
-     "teams": "热刺 vs 考文垂",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 65.4,
-     "status": "pending",
-     "finishTime": 1792306800000,
-     "league": "英超",
-     "odds": 1.45,
-     "time": "2026-10-20 03:00"
     }
    ]
   }
