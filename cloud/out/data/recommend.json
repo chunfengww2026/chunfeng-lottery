@@ -1,10 +1,95 @@
 {
- "updated": "2026-10-19 23:17",
+ "updated": "2026-10-20 01:13",
  "red": 1,
  "black": 0,
  "rate": "100.0%",
- "unfinished": 2,
+ "unfinished": 3,
  "history": [
+  {
+   "dateStr": "2026-10-19 23:30",
+   "finishTime": 1792423800000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二002",
+     "teams": "萨巴赫 vs 多特蒙德",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 73.6,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.29,
+     "time": "2026-10-21 00:45"
+    },
+    {
+     "matchNo": "周二008",
+     "teams": "曼城 vs 雅典AEK",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 86.4,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.1,
+     "time": "2026-10-21 03:00"
+    },
+    {
+     "matchNo": "周二005",
+     "teams": "罗马 vs 布拉迪斯",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 82.6,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.14,
+     "time": "2026-10-21 03:00"
+    },
+    {
+     "matchNo": "周二007",
+     "teams": "利物浦 vs 比利亚雷",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.2,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.5,
+     "time": "2026-10-21 03:00"
+    },
+    {
+     "matchNo": "周二010",
+     "teams": "波尔图 vs 埃因霍温",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.1,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.57,
+     "time": "2026-10-21 03:00"
+    },
+    {
+     "matchNo": "周二004",
+     "teams": "那不勒斯 vs 博德闪耀",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.5,
+     "status": "pending",
+     "finishTime": 1792423800000,
+     "league": "欧冠",
+     "odds": 1.62,
+     "time": "2026-10-21 03:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-19 10:46",
    "finishTime": 1792377960000,
