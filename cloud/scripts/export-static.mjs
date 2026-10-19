@@ -1035,6 +1035,8 @@ function expertArticlesHtml() {
    数据全部来自本地已抓好的文件（核心算法 20 码 / 免费文章），不联网、不收费。 */
 function frogPanelHtml() {
   let pool = { ssq: [], dlt: [] }, issue = { ssq: '', dlt: '' }, arts = [];
+  /* __FROG_SSQ_BLUE__ 双色球蓝球（1-16 取 6 个）：跟大乐透后区同一套展示 */
+  let ssqBack = [];
   try {
     const req = createRequire(import.meta.url);
     /* __CORE_POOL_SAFE__ 2026-10-20 事故：云端「核心算法 20 码 = 数据整理中」
@@ -1078,6 +1080,27 @@ function frogPanelHtml() {
       }
       return all.slice(0, 20).sort((x, y) => x - y);
     }
+    /* ===== __FROG_SSQ_BLUE__ 双色球蓝球 6 个（用户 2026-10-20） =====
+       「双色球 20 码要加蓝球 / 跟大乐透后区学，出 6 个」
+       ⚠️ 算法一个字没动：就是上面 seededRandom20 的【同一套】LCG + Fisher-Yates，
+          只是范围 1-16、取前 6 个。种子同样是【下一期】期号 → 换期自动换，
+          同一期永远同一组蓝球（刷新多少次都一样）。 */
+    function seededPickN(max, count, seedStr) {
+      let seed = 0;
+      const s = String(seedStr || 'x');
+      for (let i = 0; i < s.length; i++) seed = (seed * 31 + s.charCodeAt(i)) >>> 0;
+      function rnd() {
+        seed = (seed * 1103515245 + 12345) >>> 0;
+        return seed / 4294967296;
+      }
+      const all = [];
+      for (let i = 1; i <= max; i++) all.push(i);
+      for (let i = all.length - 1; i > 0; i--) {
+        const j = Math.floor(rnd() * (i + 1));
+        const tmp = all[i]; all[i] = all[j]; all[j] = tmp;
+      }
+      return all.slice(0, count).sort((x, y) => x - y);
+    }
     /* __FROG_NEXT_ISSUE__ 2026-10-20 用户：「号码池刷新 —— 后面就是每次开奖 23 点后刷新」
        ------------------------------------------------------------
        以前期号取的是 core-pool 的 a.issue / b.issue，那是【最新已开奖期】
@@ -1097,6 +1120,10 @@ function frogPanelHtml() {
     const seedBase = issue.ssq + '|' + issue.dlt;
     pool.ssq = seededRandom20(33, seedBase + '|ssq');
     pool.dlt = seededRandom20(35, seedBase + '|dlt');
+    /* 双色球蓝球 6 个（1-16），种子 = 同一期的 seedBase → 跟红球一起换期。
+       取不到就退回 core-pool.js 的 blue（同一套 seededPick，见那个文件的 __CORE_SSQ_BLUE__）。 */
+    try { ssqBack = seededPickN(16, 6, seedBase + '|ssqblue'); } catch (eBlue) { ssqBack = []; }
+    if ((!Array.isArray(ssqBack) || !ssqBack.length) && a && Array.isArray(a.blue)) ssqBack = a.blue.slice(0, 6);
     const f = path.join(ROOT, 'jc-articles.js');
     if (fs.existsSync(f)) {
       const actx = vm.createContext({});
@@ -1147,7 +1174,9 @@ function frogPanelHtml() {
             const k = keyOf(t);
             if (t.length <= 3 || !k || seenT[k]) return;
             seenT[k] = 1;
-            out2.push({ t: t, u: String((x && x.url) || ''), g: guessGame(t) || String((x && x.game) || '') });
+            out2.push({ t: t, u: String((x && x.url) || ''), g: guessGame(t) || String((x && x.game) || ''),
+              /* __FROG_ART_BODY__ 正文 / 摘要（build-jc-articles.mjs 抓的 body、desc） */
+              b: String((x && x.body) || ''), d: String((x && x.desc) || '') });
           });
           return out2;
         };
@@ -1208,18 +1237,40 @@ function frogPanelHtml() {
   return '<details class="frog" id="frogHome">' +
     '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
     '<div class="frog-body">' +
-    box('双色球 · 核心算法 20 码', pool.ssq, null, issue.ssq) +
+    box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
     '<div class="frog-sec"><div class="frog-h">免费资料</div>' +
     (arts.length ? arts.map((a, i) => {
-      /* __FROG_ARTS_NEXT__ 头条文章没有原文链接（url 为空）→ 那一行【不给「看原文」】，
-         也不套 <a>（空 href 点了会刷新页面）。有链接的照旧。 */
-      const inner = '<span class="frog-i">' + (i + 1) + '</span>' +
-        '<span class="frog-at">' + escape(a.t) + '</span>' +
-        (a.u ? '<span class="frog-ag">看原文 ›</span>' : '');
-      return a.u
-        ? '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
-        : '<div class="frog-art">' + inner + '</div>';
+      /* __FROG_ART_BODY__ 用户 2026-10-20：「免费资料可以点击观看 你要抓取到具体资料」
+         ------------------------------------------------------------
+         · 点【标题】就地展开正文（<details>，不套裸 button）；
+         · 正文 body 由 build-jc-articles.mjs 从源站抓下来；抓不到就退回摘要 desc；
+         · 两样都没有 → 照旧只显示标题（有链接才给「看原文」，空 href 不套 <a>）。
+         样式：13px / 行高 1.7 / 正常段落（.frog-ab），太长先给前 220 字 + 「展开全文」。 */
+      const head = '<span class="frog-i">' + (i + 1) + '</span>' +
+        '<span class="frog-at">' + escape(a.t) + '</span>';
+      const raw = String(a.b || a.d || '').trim();
+      const link = a.u
+        ? '<a class="frog-src" href="' + String(a.u).replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">看原文 ›</a>'
+        : '';
+      if (!raw) {
+        const inner = head + (a.u ? '<span class="frog-ag">看原文 ›</span>' : '');
+        return a.u
+          ? '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
+          : '<div class="frog-art">' + inner + '</div>';
+      }
+      const CUT = 220;
+      const preTxt = raw.length > CUT ? raw.slice(0, CUT) + '…' : raw;
+      const restTxt = raw.length > CUT ? raw.slice(CUT) : '';
+      const paras = (s) => s.split('\n').map((x) => x.trim()).filter(Boolean)
+        .map((x) => '<p>' + escape(x) + '</p>').join('');
+      return '<details class="frog-art2">' +
+        '<summary class="frog-art-sum">' + head + '<span class="frog-ag">看正文</span></summary>' +
+        '<div class="frog-ab">' + paras(preTxt) + '</div>' +
+        (restTxt ? '<details class="frog-more"><summary class="frog-more-s">展开全文（还有 ' + restTxt.length + ' 字）</summary>' +
+          '<div class="frog-ab">' + paras(restTxt) + '</div></details>' : '') +
+        link +
+        '</details>';
     }).join('') : '<div class="frog-none">暂无资料</div>') +
     '</div>' +
     '<div class="frog-sec"><div class="frog-h">功能中心（全部免费）</div>'
@@ -7644,6 +7695,57 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   transform-origin: center center; font-size: 14px; font-weight: 600;
   color: var(--ro-fg2); letter-spacing: 1px; }
 /* ============================================================
+   【顶部作者块 · 收紧 + 三条对齐】（用户 2026-10-20 第三次要求）
+   ------------------------------------------------------------
+   用户原话：「算法探讨到小晴推荐师下面字母的下面居中」「右上角那句问候不要了」
+            「上面空白在锁紧一点」「尽量把小晴推荐师 字母还有算法探讨靠近卡片栏」
+   ① 对齐：三条（小晴推荐师 / yy2528161812 / 算法探讨）装进一个竖列 .ro-author：
+      · 列宽 = max-content（= 最长那行 yy… 的宽度），三行都是 display:block，
+        于是三条的【盒子宽度相同】，再统一 text-align:center
+        → 旋转后三条的包围盒中心 x 完全一致（实测差 0.00px）
+      · 之前算法探讨在 .ro-top 里单独一行、按整行宽居中（中心 = 屏幕中心），
+        而作者两行贴左边 → 视觉上「偏右下」，这就是用户看到的问题
+   ② 收紧：行距 1.5 → 1.3；作者两行之间 5px → 3px；
+      算法探讨上边距 12 → 3、下边距 10 → 0（斜 15° 的包围盒自己去撑开，不会压字）
+   ③ 靠近状态卡：.ro-top 上 padding 12 → 10、下 margin 12 → 4；春风 h1 上下 2 / 0
+   ④ 颜色/字号沿用原内联样式（小晴推荐师 12px 粗 #5c5248，yy 12px #7d7266）
+   ⚠️ 只动这一个块的排版；三条仍然是 rotate(-15deg)（见上面 .ro-owner/.ro-user 规则） */
+.ro-author { display: block !important; width: max-content; max-width: 100%;
+  margin: 0 auto 0 16px !important; padding: 0 !important; text-align: center !important; }
+.ro-author .ro-owner { display: block; margin: 0 !important;
+  font-size: 12px; font-weight: 700; color: #5c5248; line-height: 1.3 !important; }
+.ro-author .ro-user { display: block; margin: 3px 0 0 !important;
+  font-size: 12px; color: #7d7266; line-height: 1.3 !important; }
+.ro-author .ro-algo-line { margin: 3px 0 0 !important; padding: 0 !important;
+  text-align: center !important; line-height: 1.3 !important; }
+/* 顶部三段收一收：Tab 条 → 作者块 / 作者块 → 春风 → 状态卡 */
+.ro-top { padding-top: 10px !important; padding-bottom: 0 !important; margin-bottom: 4px !important; }
+.ro-top h1 { margin-top: 4px !important; margin-bottom: 0 !important; }
+/* 管理员徽章（只有本机 owner 看得到，用户截图上那一行）：上下留白 2 → 0、
+   内边距 6 → 3，给「小晴推荐师」让出 ~10px（别人的页面本来就没有这一行） */
+#owner-badge { margin: 0 0 0 auto !important; padding: 3px 10px !important; }
+/* ============================================================
+   【Tab 条上方封严】（用户 2026-10-20：「下滑的时候 tab 上面尽量封严实一点
+   不要露出字出来」）
+   ------------------------------------------------------------
+   原因：Tab 条是 sticky top:0 的实色条，但它【上面】没有东西挡；一旦
+   浏览器把它顶到 0 以外（或安全区那一小条没被盖住），下面滚动的正文
+   就会从那条缝里透出来 → 看得到字在 Tab 上面滑动。
+   做法（方案 B 变体）：一块 fixed 的米杏封盖贴在视口顶上，
+     · 高 43px：正好垫在 Tab 条（44px）【后面】，不压 Tab 文字、不挡
+       .ro-stbar(34px, top:44) / .ro-status(top:44) 这两个吸顶块；
+     · 层级 54：高于正文（0~50），低于 Tab 条的 60 和 🔥 热度(9990)；
+     · 颜色 = var(--ro-bg) 米杏色，和页面底色完全一致（不是半透明）；
+     · pointer-events:none —— 不吃任何点击/滑动。
+   ⚠️ 故意【不给 Tab 条加 padding-top: env(...)】：那会让固定区变成
+      44+34 之外再加安全区高度，破坏之前锁定的「固定区 ≤ 80px」。
+      安全区那一小条由这块封盖 + Tab 条自己的实色底一起盖住。 */
+body::before {
+  content: ''; position: fixed; left: 0; right: 0; top: 0;
+  height: 43px; background: var(--ro-bg, #f7efe1);
+  z-index: 54; pointer-events: none;
+}
+/* ============================================================
    【文字对比度 · 最终修正】米杏底上"看不清"的字统一加深（用户 2026-10-17）
    ------------------------------------------------------------
    依据：真浏览器逐文本节点实测（_contrast_probe.mjs —— 比较"颜色"和它**真正的背景**，
@@ -8906,11 +9008,18 @@ ${DEVICE_GATE_BODY}
   <div id="article">
 
   <div class="ro-top">
-<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div class="ro-owner" style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div class="ro-user" style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;margin-right:96px;">欢迎您！</div></div>
-    <!-- __ALGO_LINE__ 用户 2026-10-20：「下面加内容：算法探讨，这一栏字迹斜着放」
-         纯文字（不可点、无按钮）；三条统一 rotate(-15deg) + 居中，样式见 .ro-algo-line
-         （.ro-owner / .ro-user = 上面那两行作者信息，也一起斜 15°） -->
-    <div class="ro-algo-line"><span>算法探讨</span></div>
+    <!-- __ALGO_LINE__ 顶部作者块：三条一个竖列（.ro-author）
+         用户 2026-10-20（二改）：
+           · 右上角那句问候整块删除（不要了）
+           ·「算法探讨到小晴推荐师下面字母的下面居中」→ 算法探讨挪进这个竖列，
+             和小晴推荐师 / yy2528161812 同一列，三条都 text-align:center
+           · 列宽 = 最长那行（yy…）的宽度，三条包围盒中心落在同一条竖线上
+         ⚠️ 纯文字、不可点、无按钮；三条仍统一 rotate(-15deg)（样式见下面的 CSS） -->
+    <div class="ro-author">
+      <div class="ro-owner">小晴推荐师</div>
+      <div class="ro-user">🔍yy2528161812</div>
+      <div class="ro-algo-line"><span>算法探讨</span></div>
+    </div>
     <h1>春风</h1>
   </div>
 
@@ -15224,6 +15333,25 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-at { flex: 1; font-size: 12.5px; }
 .frog-ag { font-size: 11.5px; color: #1a8c5a; font-weight: 700; }
 .frog-none { font-size: 12px; color: #a89a80; }
+/* __FROG_ART_BODY__ 免费资料 · 点标题就地看正文（用户 2026-10-20）
+   · <details>/<summary> 做展开 —— 页面上不出现裸 button（硬约束：裸 button 0）
+   · 正文 13px / 行高 1.7 / 正常段落；word-break 保证 375、320 不溢出 */
+.frog-art2 { border-bottom: 1px dotted #f0e4cf; }
+.frog-art2 > summary { display: flex; gap: 6px; align-items: center; padding: 7px 0; cursor: pointer; list-style: none; }
+.frog-art2 > summary::-webkit-details-marker { display: none; }
+.frog-art2 > summary .frog-at { font-size: 12.5px; line-height: 1.45; text-align: left; word-break: break-word; overflow-wrap: anywhere; }
+.frog-art2 > summary .frog-ag { flex: 0 0 auto; }
+.frog-art2 > summary .frog-ag::after { content: "▾"; margin-left: 2px; }
+.frog-art2[open] > summary .frog-ag::after { content: "▴"; }
+.frog-ab { font-size: 13px; line-height: 1.7; color: #4a3a26; text-align: left; background: #fffdf7;
+  border: 1px solid #f0e4cf; border-radius: 8px; padding: 9px 10px; margin: 2px 0 6px;
+  word-break: break-word; overflow-wrap: anywhere; }
+.frog-ab p { margin: 0 0 9px; }
+.frog-ab p:last-child { margin-bottom: 0; }
+.frog-more { margin: 0 0 6px; }
+.frog-more > summary { font-size: 11.5px; color: #1a8c5a; font-weight: 700; cursor: pointer; list-style: none; padding: 2px 0 5px; }
+.frog-more > summary::-webkit-details-marker { display: none; }
+.frog-src { display: inline-block; font-size: 11.5px; color: #1a8c5a; font-weight: 700; text-decoration: none; padding: 0 0 7px; }
 .frog-tip { font-size: 11px; color: #a89a80; margin-top: 8px; }
 
 
