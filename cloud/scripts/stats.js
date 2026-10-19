@@ -2870,6 +2870,16 @@ function coldCalcEmpty(calc, cur, hotSet) {
              尽量百位 十位 个位是组六的情况，只有一组是组三的情况。
              这个是硬性条件给到 app。
 
+   【2026-10-20 更新】用户要求「3D和排列三以及排列五定位都改成3位」——
+     每位候选号由 2 个改成 3 个。此时「每位 3 号 + 定位 ⊆ 6码」必然 组三 ≥ 9
+     （见下方数学：并集 ≤ 6 时 ab+ac+bc−abc ≥ 9−6 = 3），所以硬性条件收敛为：
+       ① 每位正好 3 个号，且全部取自「6码可组选」；
+       ② 豹子 = 0（三个位置不能有共同的号）；
+       ③ 组三压到该约束下的最小值 9 注：
+          百位取池内最想要的 3 个，十位取「池里剩下的」3 个（与百位互不相交、用满 6 码），
+          个位再从池内按自己的偏好取 3 个 ⇒ ab = 0 ⇒ 组三 = 3·(ac+bc) = 9。
+     原「每位 2 号 / 8 注全组六 / 组三 = 0」的口径已废弃，不要再改回去。
+
    适用：福彩3D(fc3d) / 排列3(pl3)，以及排列5(pl5)的【前三位】
         （排列5 前三位 = 排列3 的三位，口径见 positionRecommend）
 
@@ -2962,7 +2972,7 @@ function digitStraightPref(gameId, posIdx, from, to) {
 /* 【6 码池 =「6码可组选」那 6 个号】用户 2026-10-17：
    「排三3D 很冲突 下面定位绝对不允许和组六不同」——定位只能从这 6 个号里挑。 */
 const DIGIT_POOL_KEY = { fc3d: 'grp', pl3: 'grp' };
-const DIGIT_POOL_PER = 2;          /* 6 码拆三对 → 每个位置 2 个号（8 注直选，全组六） */
+const DIGIT_POOL_PER = 3;          /* 每位 3 个号（27 注直选，全部取自 6 码）；用户 2026-10-20 要求 */
 
 /** 从一个字段串里取出合法号码（去重、限定范围） */
 function digitsOfField(v, from, to) {
@@ -3022,9 +3032,9 @@ function digitPoolOf(gameId, out, ctx) {
 }
 
 /**
- * 把三个位置的候选号修成【与「6码可组选」完全一致】+【两两不重复】
- *   · 有 6 码池（fc3d / pl3 / pl5 前三位）：每位 2 号，正好把 6 码拆成 3 对
- *     → 8 注直选全是组六、豹子 0、组三 0，且定位里不会出现 6 码以外的号
+ * 把三个位置的候选号修成【与「6码可组选」完全一致】+【每位 3 号】
+ *   · 有 6 码池（fc3d / pl3 / pl5 前三位）：每位 3 号，全部取自那 6 码
+ *     → 27 注直选，豹子 0，组三压到最小值 9 注（百位 / 十位互不相交，个位从池内取）
  *   · 没有池（老数据 / 异常）：退回原来的「每位 3 号两两不重复」（27 注全组六）
  * @returns {boolean} 是否改动了 out
  */
@@ -3036,17 +3046,15 @@ function enforceDigitStraightGate(gameId, out, ctx) {
      这样两个彩种喂进同一个函数、得到的结果一定一样（不能各修各的）。 */
   const gateGame = (gameId === 'pl5') ? 'pl3' : gameId;
   const [from, to] = consRangeOf(gameId, 'main');
-  /* 【6 码池】有池 → 每位 2 号（方案 A）；没池 → 老口径每位 3 号 */
   const pool = digitPoolOf(gameId, out, ctx);
-  const per = (pool && pool.length >= keys.length * DIGIT_POOL_PER) ? DIGIT_POOL_PER : 3;
+  const per = DIGIT_POOL_PER;
 
   const sets = [];
   for (let i = 0; i < keys.length; i++) {
     const arr = digitsOfField(out[keys[i]], from, to);
-    /* 有 6 码池：至少 2 个号就够了（老数据是 3 个 → 这次要收编成 2 个）
-       没有池：必须正好 3 个号（老口径，不满足就不动它、不凭空造号） */
-    if (arr.length < (pool ? DIGIT_POOL_PER : 3)) return false;
-    if (!pool && arr.length !== 3) return false;
+    /* 没有池：必须正好 3 个号（老口径，不满足就不动它、不凭空造号）；
+       有池：旧的 2 号 / 3 号都收编成 3 号，一律按 6 码重排。 */
+    if (!pool && arr.length !== per) return false;
     sets.push(arr);
   }
 
@@ -3055,13 +3063,15 @@ function enforceDigitStraightGate(gameId, out, ctx) {
   const rankOf = (p, n) => { const i = pref[p].indexOf(n); return i < 0 ? 99 : i; };
 
   /* ============================================================
-     方案 A（用户 2026-10-17 选定）：定位必须全部取自「6码可组选」
+     方案 A（用户 2026-10-20 更新后）：定位每位 3 个号，全部取自「6码可组选」
      ------------------------------------------------------------
-     原话：「排三3D 很冲突 下面定位绝对不允许和组六不同」。
-     数学：各位 3 号 + 全落在 6 码内 ⇒ 组三 ≥ 9 注（不可能全组六，见文件头）；
-           改成【各位 2 号】⇒ 6 码正好拆成 3 对互不相交 ⇒ 8 注直选全组六、
-           豹子 0、组三 0，且三个位置一个不缺地正好用完那 6 个号。
-     ⇒ 有 6 码池时每位 2 号；没有池（老数据/异常）时退回原来的每位 3 号。
+     6 个号要铺 3 个位置 × 3 个号 = 9 个位置格 ⇒ 必然有交集，
+     所以「组三 = 0」在这条约束下做不到（数学，见文件头）。
+     取法（组三最小 = 9 注、豹子 = 0）：
+       · 百位：池内该位置最想要的 3 个（A）
+       · 十位：池里【A 剩下的】3 个（B）—— A∩B=∅，6 码正好用满
+       · 个位：全池按该位置偏好取 3 个（C）—— A∩B=∅ ⇒ 三个位置不会有共同号（无豹子）
+       ⇒ ab = 0，ac + bc = |C| = 3 ⇒ 组三 = 3 × 3 = 9 注，已是这条约束下的最小值。
      ============================================================ */
   if (pool) {
     /* 【排列五前三位】＝排三那三位「直接带入」：照抄排三这张卡的三个位置，
@@ -3074,52 +3084,48 @@ function enforceDigitStraightGate(gameId, out, ctx) {
         let c2 = false;
         keys.forEach((k, p) => {
           const a = digitsOfField(src[srcKeys[p]], from, to);
-          if (a.length !== DIGIT_POOL_PER) return;         /* 排三那边还没收编好 → 不动，等下一轮 */
+          if (a.length !== per) return;          /* 排三那边还没收编好 → 不动，等下一轮 */
           const before = String(out[k] == null ? '' : out[k]).trim();
           const v = consJoin(a);
           if (v !== before) { out[k] = v; c2 = true; }
         });
         if (c2) return true;
-        /* 已经和排三一致 → 继续走下面的「两两不重复」自检（通常直接 return false） */
       }
     }
-    const used = new Set();
-    let dup = false;
-    sets.forEach((a) => a.forEach((n) => { if (used.has(n)) dup = true; else used.add(n); }));
+
+    /* 达标判定：每位 3 个不重复的号 · 全部在 6 码内 · 没有豹子（三个位置没有共同号） */
+    const okEach = sets.every((a) => a.length === per && consUniq(a).length === per);
     const allInPool = sets.every((a) => a.every((n) => pool.indexOf(n) >= 0));
-    if (allInPool && !dup) return false;          /* 已达标：一个号都不换（幂等） */
+    const noBao = !sets[0].some((n) => sets[1].indexOf(n) >= 0 && sets[2].indexOf(n) >= 0);
+    if (okEach && allInPool && noBao) return false;      /* 已达标：一个号都不换（幂等） */
 
-    /* 贪心配对：把 6 码按「最想要它的位置」依次分配，每个位置最多 2 个 */
-    const bestRank = (n) => {
-      let m = 99;
-      keys.forEach((k, p) => { const r = rankOf(p, n); if (r < m) m = r; });
-      return m;
-    };
-    const order = pool.slice().sort((x, y) => (bestRank(x) - bestRank(y)) || (x - y));
-    const pair = keys.map(() => []);
-    order.forEach((n) => {
-      let best = -1;
-      keys.forEach((k, p) => {
-        if (pair[p].length >= DIGIT_POOL_PER) return;
-        if (best < 0 || rankOf(p, n) < rankOf(best, n)) best = p;
-      });
-      if (best >= 0) pair[best].push(n);
-    });
-    /* 保底：极端情况下某位置没分够，就按池顺序补（6 号 / 3 位 × 2 正常不会走到） */
-    keys.forEach((k, p) => {
-      for (let i = 0; i < pool.length && pair[p].length < DIGIT_POOL_PER; i++) {
-        const n = pool[i];
-        if (pair.some((q) => q.indexOf(n) >= 0)) continue;
-        pair[p].push(n);
+    const byPref = (p, list) => (list || pool).slice()
+      .sort((x, y) => (rankOf(p, x) - rankOf(p, y)) || (x - y));
+
+    const A = byPref(0).slice(0, per);
+    const restPool = pool.filter((n) => A.indexOf(n) < 0);
+    const B = byPref(1, restPool).slice(0, per);
+    /* 池子异常短时兜底：从全池补，宁可重叠也不留空 */
+    if (B.length < per) {
+      byPref(1).forEach((n) => { if (B.length < per && B.indexOf(n) < 0) B.push(n); });
+    }
+    const C = byPref(2).slice(0, per);
+    /* 个位恰好和百位（或十位）是同一组号时，换掉最不想要的那个，避免两行完全重复 */
+    const sameSet = (a, b) => a.length === b.length && a.every((n) => b.indexOf(n) >= 0);
+    if (sameSet(C, A) || sameSet(C, B)) {
+      const other = sameSet(C, A) ? B : A;
+      const swapIn = other.find((n) => C.indexOf(n) < 0);
+      if (swapIn !== undefined) {
+        C[C.length - 1] = swapIn;
+        C.sort((x, y) => (rankOf(2, x) - rankOf(2, y)) || (x - y));
       }
-    });
-    /* 每个位置内部按该位置的偏好排序（最想要的排前面，页面顺序更合理） */
-    pair.forEach((a, p) => a.sort((x, y) => rankOf(p, x) - rankOf(p, y)));
+    }
 
+    const fixed = [A, B, C];
     let changed = false;
     keys.forEach((k, p) => {
       const before = String(out[k] == null ? '' : out[k]).trim();
-      const v = consJoin(pair[p]);
+      const v = consJoin(fixed[p]);
       if (v !== before) { out[k] = v; changed = true; }
     });
     return changed;
@@ -3189,7 +3195,7 @@ function digitStraightTally(gameId, out, ctx) {
   const sets = [];
   for (let i = 0; i < keys.length; i++) {
     const arr = digitsOfField(out[keys[i]], from, to);
-    /* 每位个数必须一致且 ≥2：2 = 方案 A（6 码拆三对）、3 = 老口径 */
+    /* 每位个数必须一致且 ≥2：现在统一 3 个（2026-10-20 起，6 码里每位取 3 个） */
     if (arr.length < 2 || arr.length !== (sets.length ? sets[0].length : arr.length)) return null;
     sets.push(arr);
   }
@@ -3224,13 +3230,13 @@ function enforceConsistencyImage(gameId, imageKey, out, ctx) {
   });
   /* 【硬性条件的最终保证】一致性收尾在后半段仍可能改写号码字段，
      所以最后【再验一遍】：
-       · 出现豹子或组三（>1）→ 重跑直选闸；
+       · 出现豹子、或某位不是 3 个号 → 重跑直选闸；
        · 【6 码一致性】定位里出现「6码可组选」以外的号 → 也重跑
          （用户 2026-10-17：「下面定位绝对不允许和组六不同」）。
      enforceDigitStraightGate 是幂等的（已合规的输入一个号都不换）。 */
   try {
     const t = digitStraightTally(gameId, out, ctx);
-    if (t && (t.bao > 0 || t.zu3 > 1 || t.outside > 0)) enforceDigitStraightGate(gameId, out, ctx);
+    if (t && (t.bao > 0 || t.outside > 0 || t.per !== DIGIT_POOL_PER)) enforceDigitStraightGate(gameId, out, ctx);
   } catch (e) { /* 失败不影响出号 */ }
   return out;
 }
@@ -3540,7 +3546,8 @@ function autoFillForTemplate(gameId, imageKey) {
           const isBack = /后区/.test(r.label || '');
 
           // 后区：0-14；前区：0-9
-          const pFrom = isBack ? 0 : 0;
+          if (gameId === 'qxc') console.log('__QXC_LOG__', r.key, 'idx=' + idx, 'n=' + n);
+        const pFrom = isBack ? 0 : 0;
           const pTo = isBack ? 14 : 9;
 
           out[r.key] = (isKill
