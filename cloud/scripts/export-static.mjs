@@ -1039,24 +1039,62 @@ function frogPanelHtml() {
         if (issue.ssq) nextGames.push('ssq');
         if (issue.dlt) nextGames.push('dlt');
         const clean = (s) => String(s || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim();
+        /* 去重键：把标点/空白全去掉再比 —— 头条同一篇经常只差一个全角冒号，
+           按原样比会重复出两条（实测：第 1、2 条就是同一篇文章）。 */
+        const keyOf = (s) => String(s || '').replace(/[\s·・\-—_，,。.、：:；;！!？?“”"'（）()【】\[\]]/g, '');
+        /* 标题里写哪个彩种就以标题为准 —— 头条是按关键词搜的，常把
+           「快乐八26120期分析」这种混进大乐透的结果里（实测抓到过）。 */
+        const guessGame = (t) => {
+          if (/双色球/.test(t)) return 'ssq';
+          if (/大乐透/.test(t)) return 'dlt';
+          if (/快乐8|快乐八/.test(t)) return 'kl8';
+          if (/福彩3D/.test(t)) return 'fc3d';
+          if (/排列[3三五]/.test(t)) return 'pl';
+          if (/七星彩/.test(t)) return 'qxc';
+          if (/七乐彩/.test(t)) return 'qlc';
+          return '';
+        };
         const seenT = {};
-        const pick = (arr, n) => {
+        const norm = (arr) => {
           const out2 = [];
           (Array.isArray(arr) ? arr : []).forEach((x) => {
             const t = clean(x && x.title);
-            if (t.length <= 3 || seenT[t]) return;
-            seenT[t] = 1;
-            out2.push({ t: t, u: String((x && x.url) || ''), g: String((x && x.game) || '') });
+            const k = keyOf(t);
+            if (t.length <= 3 || !k || seenT[k]) return;
+            seenT[k] = 1;
+            out2.push({ t: t, u: String((x && x.url) || ''), g: guessGame(t) || String((x && x.game) || '') });
           });
-          return out2.slice(0, n);
+          return out2;
+        };
+        /* 两个彩种【轮流取】（用户：「同时要分好大乐透和双色球」）——
+           不然头条是按关键词顺序返回的，前 6 条会全是双色球。 */
+        const balance = (arr, n) => {
+          const groups = {};
+          (arr || []).forEach((x) => { const g = x.g || ''; (groups[g] = groups[g] || []).push(x); });
+          const order = nextGames.filter((g) => groups[g] && groups[g].length);
+          Object.keys(groups).forEach((g) => { if (order.indexOf(g) < 0) order.push(g); });
+          const out2 = [];
+          let guard = 0;
+          while (out2.length < n && guard++ < 300) {
+            let moved = false;
+            for (const g of order) {
+              if (!groups[g] || !groups[g].length) continue;
+              out2.push(groups[g].shift());
+              moved = true;
+              if (out2.length >= n) break;
+            }
+            if (!moved) break;
+          }
+          return out2;
         };
         const all = Array.isArray(d.list) ? d.list : [];
         const tt = Array.isArray(d.toutiao) ? d.toutiao : [];
-        const nextOnly = (arr) => (arr || []).filter((x) => nextGames.indexOf(String((x && x.game) || '')) >= 0);
-        arts = pick(nextOnly(tt), 6);
-        if (!arts.length) arts = pick(tt, 6);
-        if (!arts.length) arts = pick(nextOnly(all), 6);
-        if (!arts.length) arts = pick(all, 6);
+        /* ⚠️ 先 norm（按标题纠正彩种）再按彩种筛 —— 反过来会把标题写着快乐八的留下 */
+        const nextOf = (arr) => (arr || []).filter((x) => nextGames.indexOf(x.g) >= 0);
+        arts = balance(nextOf(norm(tt)), 6);              /* 头条 · 只留下一期彩种 */
+        if (!arts.length) arts = balance(norm(tt), 6);    /* 头条全量 */
+        if (!arts.length) arts = nextOf(norm(all)).slice(0, 6);
+        if (!arts.length) arts = norm(all).slice(0, 6);
       }
     }
   } catch (e) {}
