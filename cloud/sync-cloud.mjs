@@ -169,6 +169,17 @@ const tAll = Date.now();
 /* 数据 + 配置：云端抓不到，必须本机提供 */
 const FROM_ROOT = [
   'saved-tickets.js', 'history.js', 'draws.js', 'football.js',
+  /* 【🐸 青蛙家园 · 核心算法 20 码 · 2026-10-20 修线上事故】
+     export-static.mjs 的 frogPanelHtml() 用 createRequire(import.meta.url)
+     require('./core-pool.js') 拿号码池；core-pool.js 自己再
+     require('./core-algo.js') + 读同目录的 history.js。
+     ⚠️ 以前这两个文件【没在本名单里】→ cloud/scripts/ 里根本没有它们 →
+        require 抛 MODULE_NOT_FOUND → 号码池空、免费资料也空 →
+        线上青蛙家园显示「数据整理中，稍后自动出现」×2 +「暂无资料」
+        （本机有这两个文件所以正常，只有云端出问题；2026-10-20 实测复现）。
+     ⚠️ 少任何一个都不行：core-pool 依赖 core-algo，两个必须一起上云。
+     ⚠️ 它们只在【构建时】被 require，页面运行时不读 → 不用发布到站点目录。 */
+  'core-pool.js', 'core-algo.js',
   /* 【真实推荐号存档 · 2026-10-20】reco-archive.json 是 export-static.mjs 构建时
      自己写出来的存档（每期第一次构建把「本期推荐号码」原样存进去，之后不再改）。
      「中奖」卡只认这份存档 + 真实开奖号 —— 【不再按期号回算】，
