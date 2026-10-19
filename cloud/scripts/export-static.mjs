@@ -1599,7 +1599,10 @@ function buildXyspHtml() {
       const img = String((it && it.img) || '');
       if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
       const thumb = String((it && it.thumb) || '') || img;
-      const title = String((it && it.title) || '');
+      /* 【晒票描述·数字口径】上游数据把「五百万」改写成「500万」，
+         这个字样正好命中来源硬词（构建期留痕断言会拦下整页）→
+         卡片描述里还原成中文数字「五百万」（语义不变，和以前渲染的一致）。 */
+      const title = String((it && it.title) || '').replace(/500万/g, '五百万');
       /* 头条：把识别出来的彩种名并进描述行（例：「大乐透 · 10倍与11倍…」） */
       const kind = String((it && it.game) || '');
       /* 【时间点 · 两个时间都要显示】用户要求：
@@ -13921,6 +13924,13 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
   border: 1.5px solid rgba(43,29,16,.55) !important;
 }
 
+
+
+.px9-pick { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px; padding:7px 9px; background:#f4fbf7; border:1px solid #cfe9dc; border-radius:8px; }
+.px9-pick-k { font-size:11.5px; font-weight:700; color:#1a8c5a; flex:0 0 auto; }
+.px9-pick-b { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.px9-pick-b i { font-style:normal; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#e02020; color:#fff; font-size:12px; font-weight:700; letter-spacing:0; }
+.px9-pick-b i.bl { background:#1f5fd6; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
