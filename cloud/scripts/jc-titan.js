@@ -1,6 +1,6 @@
 /* 主流公司欧赔明细（球探 titan007）—— build-odds-divergence.mjs 生成，勿手改 */
 const JC_TITAN = {
- "updated": "2026-10-19 11:28",
+ "updated": "2026-10-19 11:58",
  "source": "球探 titan007",
  "sourceUrl": "https://1x2d.titan007.com/",
  "main": [
@@ -19250,7 +19250,7 @@ const JC_TITAN = {
    "match": "门兴格拉德巴赫 vs 霍芬海姆",
    "league": "德甲",
    "time": "2026-10-18 23:30",
-   "at": "2026-10-19 11:28",
+   "at": "2026-10-19 11:58",
    "companies": 353,
    "listed": 12,
    "eu": {
