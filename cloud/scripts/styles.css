@@ -2096,3 +2096,10 @@ table.rule td.money { color: var(--green); font-weight: 600; white-space: nowrap
 
 /* 【距离下期开奖倒计时】比日期小一点、金色 */
 .hc-nextcd { font-size: 11px; color: #e8c877; opacity: 0.9; margin-top: 3px; letter-spacing: 0.3px; }
+
+/* ===== 中奖栏默认收起（用户 2026-10-19）===== */
+.hit-fold { margin: 10px 0; border: 1px solid #efe3cf; border-radius: 10px; background: #fffdf7; }
+.hit-fold-sum { padding: 10px 12px; font-size: 13px; font-weight: 700; color: #1a8c5a; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+.hit-fold-sum::-webkit-details-marker { display: none; }
+.hit-fold-go { font-size: 11px; color: #8a7a63; font-weight: 400; }
+.hit-fold[open] .hit-fold-go { color: #1a8c5a; }
