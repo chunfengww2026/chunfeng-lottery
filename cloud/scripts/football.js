@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-19 11:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-19 12:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-19 11:58",
+ "updated": "2026-10-19 12:00",
  "stat": {
   "upcoming": 0,
   "live": 1,
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "马昆森",
      "score": 1,
@@ -39,24 +39,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.7",
-       "away": 1
+       "line": "0.9",
+       "away": 0.8
       },
       "live": null
      },
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.92,
-       "under": 0.78
+       "over": 1.05,
+       "under": 0.65
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.29,
-       "draw": 9,
-       "away": 1.66
+       "home": 2.57,
+       "draw": 9.6,
+       "away": 1.52
       },
       "live": null
      }
@@ -64,14 +64,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 52.4,
+     "confidence": 57.2,
      "prob": {
-      "home": 38,
-      "draw": 9.7,
-      "away": 52.4
+      "home": 33.8,
+      "draw": 9,
+      "away": 57.2
      },
      "clear": true,
-     "margin": 15
+     "margin": 15.1
     },
     "result": {
      "actual": "draw",
