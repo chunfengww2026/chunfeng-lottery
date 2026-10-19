@@ -963,6 +963,63 @@ function expertArticlesHtml() {
   } catch (e) { return ''; }
 }
 
+
+/* __FROG_PANEL__ 用户 2026-10-18：青蛙家园 = 免费资料 + 自动抓数据 + 核心算法出号
+   数据全部来自本地已抓好的文件（核心算法 20 码 / 免费文章），不联网、不收费。 */
+function frogPanelHtml() {
+  let pool = { ssq: [], dlt: [] }, issue = { ssq: '', dlt: '' }, arts = [];
+  try {
+    const req = createRequire(import.meta.url);
+    const cp = req('./core-pool.js');
+    const a = cp.corePoolFor('ssq'), b = cp.corePoolFor('dlt');
+    if (a) { pool.ssq = a.pool20 || []; issue.ssq = a.issue || ''; }
+    if (b) { pool.dlt = b.pool20 || []; issue.dlt = b.issue || ''; }
+    const f = path.join(ROOT, 'jc-articles.js');
+    if (fs.existsSync(f)) {
+      const ctx = vm.createContext({});
+      vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A=JC_ARTICLES;', ctx);
+      const d = ctx.__A;
+      if (d && Array.isArray(d.list)) {
+        arts = d.list.filter((x) => String(x.url || '').startsWith('http'))
+          .slice(0, 6)
+          .map((x) => ({ t: String(x.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim(), u: x.url }));
+      }
+    }
+  } catch (e) {}
+  const pad = (n) => String(n).padStart(2, '0');
+  const balls = (arr, cls) => arr.map((n) => '<span class="frog-b ' + (cls || '') + '">' + pad(n) + '</span>').join('');
+  const box = (name, arr, back, iss) =>
+    '<div class="frog-sec"><div class="frog-h">' + name + (iss ? ' · 第 ' + iss + ' 期' : '') + '</div>' +
+    (arr.length ? '<div class="frog-balls">' + balls(arr) + (back && back.length ? '<span class="frog-plus">+</span>' + balls(back, 'blue') : '') + '</div>' : '<div class="frog-none">数据抓取中，稍后自动出现</div>') +
+    '</div>';
+  let dltBack = [];
+  try {
+    const req2 = createRequire(import.meta.url);
+    const vm2 = req2('node:vm');
+    const f2 = path.join(ROOT, 'saved-tickets.js');
+    if (fs.existsSync(f2)) {
+      const c2 = vm2.createContext({});
+      vm2.runInContext(fs.readFileSync(f2, 'utf8') + '\n;globalThis.__S=SAVED_TICKETS;', c2);
+      const g = c2.__S.tickets && c2.__S.tickets.dlt;
+      if (g) {
+        const ks = Object.keys(g).filter((k) => g[k] && g[k].images).sort();
+        const im = g[ks[ks.length - 1]].images.main;
+        dltBack = String(im.b_rec || '').split(/\s+/).filter(Boolean).map(Number);
+      }
+    }
+  } catch (e) {}
+  return '<details class="frog" id="frogHome">' +
+    '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
+    '<div class="frog-body">' +
+    box('双色球 · 核心算法 20 码', pool.ssq, null, issue.ssq) +
+    box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
+    '<div class="frog-sec"><div class="frog-h">免费资料（点标题看原文）</div>' +
+    (arts.length ? arts.map((a, i) => '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer"><span class="frog-i">' + (i + 1) + '</span><span class="frog-at">' + escape(a.t) + '</span><span class="frog-ag">看原文 ›</span></a>').join('') : '<div class="frog-none">暂无资料</div>') +
+    '</div>' +
+    '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
+    '</div></details>';
+}
+
 const TOC_ROWS = [
   [{ t: '双色球推荐号',     g: 'ssq',  i: 'main' }, { t: '双色球 · 五行',  s: '绕胆/九转/九宫', g: 'ssq',  i: 'wuxing' }],
   [{ t: '大乐透推荐号',     g: 'dlt',  i: 'main' }, { t: '大乐透 · 五行',  s: '绕胆/九转/九宫', g: 'dlt',  i: 'wuxing' }]
@@ -8233,7 +8290,7 @@ ${kjhHtml}
   ${aiPickHtml}
   </div>
 <!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
-<div style="margin:12px 16px;text-align:center;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:14px 10px;font-size:15px;font-weight:700;color:#4a3a26;">🐸 青蛙家园</div>
+${frogPanelHtml()}
   <script>
   /* __ACTION_2COL__ 展开哪一格，哪一格就占满整行（和热力图那行同一套做法）。
      ⚠️ 只加 / 减一个 class，折叠本身完全由 <details> 管；
@@ -13973,6 +14030,27 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .ro-xj5-b i { font-style: normal; display: inline-flex; align-items: center; justify-content: center;
   width: 22px; height: 22px; border-radius: 50%; background: #fdeaea; color: #c0392b;
   border: 1px solid #f3cfcf; font-size: 11px; }
+
+/* __FROG_CSS__ 青蛙家园面板 */
+.frog { margin: 12px 16px; background: #fdf6ea; border: 1px solid #e8d7bd; border-radius: 12px; }
+.frog-sum { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px; cursor: pointer; list-style: none; }
+.frog-sum::-webkit-details-marker { display: none; }
+.frog-t { font-size: 15px; font-weight: 800; color: #4a3a26; }
+.frog-go { font-size: 12px; color: #1a8c5a; font-weight: 700; }
+.frog-body { padding: 0 14px 14px; }
+.frog-sec { border-top: 1px dashed #ecdcc2; padding: 10px 0 6px; }
+.frog-h { font-size: 12.5px; font-weight: 700; color: #8a7a63; margin-bottom: 6px; }
+.frog-balls { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.frog-b { width: 26px; height: 26px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.frog-b.blue { background: #1f5fd6; }
+.frog-plus { color: #8a7a63; font-weight: 700; }
+.frog-art { display: flex; gap: 6px; align-items: center; padding: 6px 0; border-bottom: 1px dotted #f0e4cf; text-decoration: none; color: #4a3a26; }
+.frog-i { flex: 0 0 16px; font-size: 11px; color: #b9a98c; }
+.frog-at { flex: 1; font-size: 12.5px; }
+.frog-ag { font-size: 11.5px; color: #1a8c5a; font-weight: 700; }
+.frog-none { font-size: 12px; color: #a89a80; }
+.frog-tip { font-size: 11px; color: #a89a80; margin-top: 8px; }
+
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
