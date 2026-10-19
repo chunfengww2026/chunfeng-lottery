@@ -1007,8 +1007,24 @@ function frogPanelHtml() {
   let pool = { ssq: [], dlt: [] }, issue = { ssq: '', dlt: '' }, arts = [];
   try {
     const req = createRequire(import.meta.url);
-    const cp = req('./core-pool.js');
-    const a = cp.corePoolFor('ssq'), b = cp.corePoolFor('dlt');
+    /* __CORE_POOL_SAFE__ 2026-10-20 事故：云端「核心算法 20 码 = 数据整理中」
+       ------------------------------------------------------------
+       原因：core-pool.js 会 require('./core-algo.js') 并读同目录 history.js，
+             云端 cloud/scripts/ 漏同步这两个文件 → 这里 require 直接抛异常。
+             而这两行原来在【整个 try 的最前面】，一抛异常，
+             后面的 20 码（seededRandom20）和「免费资料」全部被跳过 →
+             页面上就是「数据整理中，稍后自动出现」×2 +「暂无资料」
+             （本机有这两个文件 → 正常，所以只在线上出问题）。
+       现在：单独包一层。读不到就退到「只用期号当种子」——
+             20 码永远有，免费资料照旧渲染，绝不再整块空掉。 */
+    let a = null, b = null;
+    try {
+      const cp = req('./core-pool.js');
+      a = cp.corePoolFor('ssq');
+      b = cp.corePoolFor('dlt');
+    } catch (ePool) {
+      console.log('  ⚠️ 青蛙家园：core-pool.js 读不到（' + String(ePool && ePool.message || ePool).slice(0, 70) + '）→ 退回只用期号当种子');
+    }
     /* ===== RANDOM_POOL20 · 用户 2026-10-19「这20码不要用我的算法 你随机」=====
        双色球：1-33 里随机抽 20 个；大乐透：1-35 里随机抽 20 个
        补充：号码池不依赖存档（存档缺数据时以前是空白 ✗，现在永远有 20 个 ✔）
@@ -1032,11 +1048,25 @@ function frogPanelHtml() {
       }
       return all.slice(0, 20).sort((x, y) => x - y);
     }
-    const seedBase = (a && a.issue ? a.issue : '') + '|' + (b && b.issue ? b.issue : '');
+    /* __FROG_NEXT_ISSUE__ 2026-10-20 用户：「号码池刷新 —— 后面就是每次开奖 23 点后刷新」
+       ------------------------------------------------------------
+       以前期号取的是 core-pool 的 a.issue / b.issue，那是【最新已开奖期】
+       （draws.js 的 2026119 / 26119）→ 种子一直是上一期 → 开奖后 20 码不换号。
+       现在改成【下一期】：nextIssue()（= draw-data.js 的 nextIssueFor，
+       本机最新已开奖期 + 1，自动认 4 位/2 位年份格式）→ 2026120 / 26120。
+       core-pool 的期号只当兜底（nextIssue 取不到时用）。
+       ⚠️ 只换喂给 seededRandom20 的期号，算法本身（seededRandom20）一个字没动。 */
+    const nextOf = (gid, fallback) => {
+      try { const v = nextIssue(gid); if (v) return String(v); } catch (e) {}
+      return fallback || '';
+    };
+    issue.ssq = nextOf('ssq', a && a.issue ? String(a.issue) : '');
+    issue.dlt = nextOf('dlt', b && b.issue ? String(b.issue) : '');
+    /* 种子 = 【下一期】期号：draws.js 一换期，这组 20 码就跟着自动换。
+       （原来是上一期 → 开奖后号码纹丝不动，用户 2026-10-20 实测发现） */
+    const seedBase = issue.ssq + '|' + issue.dlt;
     pool.ssq = seededRandom20(33, seedBase + '|ssq');
     pool.dlt = seededRandom20(35, seedBase + '|dlt');
-    if (a) issue.ssq = a.issue || '';
-    if (b) issue.dlt = b.issue || '';
     const f = path.join(ROOT, 'jc-articles.js');
     if (fs.existsSync(f)) {
       const actx = vm.createContext({});
@@ -7414,7 +7444,8 @@ a.ro-xj-row.on { background: var(--ro-sunken); }
 details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padding-bottom: 10px; }
 
 /* ---------- ⑤ 页面上下空白收敛 ---------- */
-.ro-wrap { padding-top: 6px; padding-bottom: 18px; }
+/* 用户 2026-10-20「顶部稍微往上缩一点点」→ padding-top 6px → 0 */
+.ro-wrap { padding-top: 0; padding-bottom: 18px; }
 .ro-foot { padding-top: 18px; padding-bottom: 22px; }
 .ro-disclaimer { padding-top: 14px; padding-bottom: 14px; }
 
@@ -7498,14 +7529,24 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    澄清（弹窗问过）：位置 = 「小晴推荐师 / yy2528161812」那一块【下面】；
                      斜着放 = 【整行文字旋转】，不是斜体、不是阶梯排。
    · 只是装饰性小标题：纯文字、不可点、没有按钮、没有内容区（用户没说要点）
-   · rotate(-6deg) + transform-origin:left center → 右端抬起约 6px，
-     margin-top 留 10px 余量，所以不会压到上面的「欢迎您！」那一行
+   · 原 rotate(-6deg) + transform-origin:left center（右端抬起 6px）已被替换，
+     见下面第二段注释（2026-10-20 二次改：三条 15°）
    · 字号 14px / 颜色 var(--ro-fg2) / 字重 600 —— 看得见但不抢标题
    ============================================================ */
-.ro-algo-line { text-align: left !important; padding: 0 16px; margin: 10px 0 2px;
+/* 斜 15°：三条统一（用户 2026-10-20：三条都斜着15°）
+   .ro-owner = 小晴推荐师 / .ro-user = yy2528161812（见顶部作者块 HTML）
+   方向取 -15deg（右端抬高），和原来算法探讨的 -6deg 同向，只是角度加大；
+   三条同向 → 文字带互相平行，原 5px 行距视觉不变、不会互相压字。
+   transform-origin 统一 center center：绕自己中心转，上下左右溢出最小。 */
+.ro-owner, .ro-user {
+  transform: rotate(-15deg);
+  transform-origin: center center;
+}
+/* 算法探讨：整行水平居中（用户 2026-10-20：算法讨论居中在下面） */
+.ro-algo-line { text-align: center !important; padding: 0 16px; margin: 12px 0 4px;
   line-height: 1.5; }
-.ro-algo-line span { display: inline-block; transform: rotate(-6deg);
-  transform-origin: left center; font-size: 14px; font-weight: 600;
+.ro-algo-line span { display: inline-block; transform: rotate(-15deg);
+  transform-origin: center center; font-size: 14px; font-weight: 600;
   color: var(--ro-fg2); letter-spacing: 1px; }
 /* ============================================================
    【文字对比度 · 最终修正】米杏底上"看不清"的字统一加深（用户 2026-10-17）
@@ -8588,9 +8629,10 @@ ${DEVICE_GATE_BODY}
        徽章 #owner-badge 是原有元素（owner 才显示），放在 Tab 条正下方、靠右，
        不再用 fixed 浮在右上角（那样会压住第二个 Tab）。
        ============================================================ -->
-  <!-- 【左滑返回提示 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】
-       小字 + 箭头，告诉用户「往左一滑就返回」。 -->
-  <div class="ro-swipe-hint" id="roSwipeHint">
+  <!-- 【左滑返回提示 · 用户 2026-10-20「左划返回上一页去掉」→ 已隐藏】
+       左滑手势本身保留（history.back 仍可用），只是不再显示这行小字。
+       ⚠️ 保留 DOM（#roSwipeHint）不删，避免引用它的脚本报错。 -->
+  <div class="ro-swipe-hint" id="roSwipeHint" style="display:none">
     <span class="ar">←</span><span>左滑返回上一页</span>
   </div>
   <div class="top-tabs">
@@ -8681,9 +8723,10 @@ ${DEVICE_GATE_BODY}
   <div id="article">
 
   <div class="ro-top">
-<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;margin-right:96px;">欢迎您！</div></div>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div class="ro-owner" style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div class="ro-user" style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;margin-right:96px;">欢迎您！</div></div>
     <!-- __ALGO_LINE__ 用户 2026-10-20：「下面加内容：算法探讨，这一栏字迹斜着放」
-         纯文字（不可点、无按钮）；整行 rotate(-6deg)，样式见 .ro-algo-line -->
+         纯文字（不可点、无按钮）；三条统一 rotate(-15deg) + 居中，样式见 .ro-algo-line
+         （.ro-owner / .ro-user = 上面那两行作者信息，也一起斜 15°） -->
     <div class="ro-algo-line"><span>算法探讨</span></div>
     <h1>春风</h1>
   </div>
