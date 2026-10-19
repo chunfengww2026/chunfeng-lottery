@@ -107,7 +107,12 @@ const DRY_RUN = argv.includes('--dry-run');
      · 本机偶尔需要「页面规则解析也失败」时再手动开一次
    实测官方接口 + 一起彩 + 500XML + 17500 已经能覆盖全部 8 个彩种，
    正常情况根本用不到 AI。 */
-const AI_ALLOWED = argv.includes('--ai');
+/* 【成本双保险】用户 2026-10-20：后台不许自动花 token。
+   现在必须同时满足两条才会调 AI：
+     ① 命令行显式传 --ai
+     ② 环境变量 CDD_ALLOW_AI=1（只有本人手动设）
+   任何计划任务 / 云端构建都不满足 → 永远零 token。 */
+const AI_ALLOWED = argv.includes('--ai') && process.env.CDD_ALLOW_AI === '1';
 
 /* ============================================================
    【分班抓取】--only=…
