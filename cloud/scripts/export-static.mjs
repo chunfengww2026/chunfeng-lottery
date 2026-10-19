@@ -7100,7 +7100,7 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   margin-right: calc(-1 * var(--ro-pad-x, 12px));
   /* 【吸顶 · 用户 2026-10-18「还是跟着滑动吧」】往下翻的时候这排 tab 跟着走，
      始终留在屏幕顶部，随时能切「彩票推荐 / 竞彩·足球」。 */
-  position: -webkit-sticky; position: sticky; top: 0; z-index: 60;
+  position: -webkit-sticky; position: sticky; top: 0; z-index: 900; isolation: isolate;;
   background: var(--ro-bg, #f7efe1); }
 /* 吸顶那一层要和页面底色一致，否则内容会从缝里透出来 */
 .top-tabs.stuck { box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10); }
