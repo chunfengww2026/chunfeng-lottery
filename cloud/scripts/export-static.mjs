@@ -972,8 +972,23 @@ function frogPanelHtml() {
     const req = createRequire(import.meta.url);
     const cp = req('./core-pool.js');
     const a = cp.corePoolFor('ssq'), b = cp.corePoolFor('dlt');
-    if (a) { pool.ssq = a.pool20 || []; issue.ssq = a.issue || ''; }
-    if (b) { pool.dlt = b.pool20 || []; issue.dlt = b.issue || ''; }
+    /* ===== RANDOM_POOL20 · 用户 2026-10-19「这20码不要用我的算法 你随机」=====
+       双色球：1-33 里随机抽 20 个；大乐透：1-35 里随机抽 20 个
+       补充：号码池不依赖存档（存档缺数据时以前是空白 ✗，现在永远有 20 个 ✔）
+       期号仍然取存档里的（如果取不到就留空） */
+    function random20(max) {
+      const all = [];
+      for (let i = 1; i <= max; i++) all.push(i);
+      for (let i = all.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = all[i]; all[i] = all[j]; all[j] = tmp;
+      }
+      return all.slice(0, 20).sort((x, y) => x - y);
+    }
+    pool.ssq = random20(33);
+    pool.dlt = random20(35);
+    if (a) issue.ssq = a.issue || '';
+    if (b) issue.dlt = b.issue || '';
     const f = path.join(ROOT, 'jc-articles.js');
     if (fs.existsSync(f)) {
       const ctx = vm.createContext({});
@@ -7354,7 +7369,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 #ro-frog-hist-row.is-open,
 #ro-frog-hist-row:has(> details[open]) {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: start;            /* ← 方案 b：左卡用自己的高度，不被右卡拉到一样高 */
+  align-items: stretch;          /* ← 用户 2026-10-20：「大小一样」：这一行两张卡等高 */
   margin-left: 12px;
   margin-right: 12px;
 }
@@ -8521,10 +8536,10 @@ ${frogPanelHtml()}
          命中号高亮；没中 / 只是低等奖的期次一条都不列。
        · 一条都没有时写「近 365 天暂无高等奖记录（只统计一/二/三等奖 + 组选/直选）」。
        ============================================================ -->
-  <details class="ro-hist" id="ro-hist" open>
+  <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
       <span class="ro-hist-h2">中奖</span>
-      <span class="ro-hist-sub">近 365 天 · 一/二/三等奖 + 3D·排三·排五中奖</span>
+      <span class="ro-hist-sub">近 365 天 · 中奖期</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
@@ -14281,7 +14296,7 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-co { border-bottom: 1px dotted #f0e4cf; padding: 3px 0; }
 .frog-co-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 3px; }
 .frog-co-k { font-size: 12.5px; font-weight: 700; color: #4a3a26; letter-spacing: .2px; }
-.frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; }
+.frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; margin-left: auto; }
 .frog-co-t { font-size: 10.5px; color: #a89a80; margin-top: 1px; }
 @media (max-width: 340px) { .frog-co-k { font-size: 10.5px; letter-spacing: 0; } .frog-co-n { font-size: 10px; } }
 
