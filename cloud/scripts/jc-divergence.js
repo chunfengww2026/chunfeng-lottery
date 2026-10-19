@@ -1,6 +1,6 @@
 /* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */
 const JC_DIVERGENCE = {
- "updated": "2026-10-19 11:28",
+ "updated": "2026-10-19 11:58",
  "source": "球探 titan007",
  "sourceUrl": "https://1x2d.titan007.com/",
  "metric": "即时欧赔变异系数 cv = 标准差 / 均值",
@@ -3155,7 +3155,7 @@ const JC_DIVERGENCE = {
    "match": "门兴格拉德巴赫 vs 霍芬海姆",
    "league": "德甲",
    "time": "2026-10-18 23:30",
-   "at": "2026-10-19 11:28",
+   "at": "2026-10-19 11:58",
    "companies": 353,
    "records": 353,
    "live": {
