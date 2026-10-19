@@ -306,6 +306,7 @@ const ctx = vm.createContext({
      latest-draws.js 末尾的「距下期开奖倒计时」用了 setInterval / setTimeout，
      服务端预渲染时在 vm 里跑同一份文件 —— 少了这些就会
      「❌ 加载 latest-draws.js 失败：setInterval is not defined」，
+<div style="margin:12px 16px;text-align:center;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:14px 10px;font-size:15px;font-weight:700;color:#4a3a26;">🐸 青蛙家园</div>
      导致最新开奖区（含 8 个彩种的 data-nextcd 占位）内联不完整。
      这里给成 no-op 桩即可：预渲染只需要"能跑过去"，不需要真的定时。 */
   setInterval: () => 0, clearInterval: () => {},
