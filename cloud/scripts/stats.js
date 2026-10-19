@@ -3608,8 +3608,25 @@ function autoFillForTemplate(gameId, imageKey) {
             .filter((n) => !inPoolSet.has(n)));
 
         if (base && base.length) {
+          /* 【频率特征 · 号码池融合】用户 2026-10-20 问：「号码池有结合我的算法吗」。
+             原来：池子的成员和顺序全按「专家共识度」（专家池里越靠前越优）。
+             现在：成员【仍然只从专家号码池里取】（那条硬规则不变），
+                   但【池内顺序】换成融合分：
+                     融合分 = 0.55 × 热度分（全局频率 + 近 100 期冷热 + 遗漏回补）
+                            + 0.45 × 专家共识度（池里第 i 个 = 1 - i/(n-1)）
+                   因为 20/15/10/3/1 档是「按顺序从池里截」，
+                   顺序一变档位就跟着变 —— 热度高的号更容易进 15/10/3/1 码。 */
+          const feats = freqFeatures(gameId, areaKey, range[0], range[1]);
+          let maxHeat = 0;
+          base.forEach((n) => { const s = freqScore(feats, n); if (s > maxHeat) maxHeat = s; });
+          const denom = Math.max(1, base.length - 1);
+          const rankedPool = base.map((n, i) => ({
+            n: n,
+            s: 0.55 * (maxHeat > 0 ? freqScore(feats, n) / maxHeat : 0) + 0.45 * (1 - i / denom)
+          })).sort((a, b) => ((b.s - a.s) || (a.n - b.n))).map((x) => x.n);
+
           poolRows.forEach((r, i) => {
-            out[r.key] = base.slice(0, counts[i]).sort((a, b) => a - b).map(pad2).join(' ');
+            out[r.key] = rankedPool.slice(0, counts[i]).sort((a, b) => a - b).map(pad2).join(' ');
           });
         } else {
           const pool = autoNumberPool(gameId, areaKey, counts, {
