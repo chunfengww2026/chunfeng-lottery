@@ -14800,14 +14800,14 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       rows += '<div class="px9-row"><span class="px9-k">' + item.rows[i][0] + '</span><span>' + item.rows[i][1] + '</span></div>';
     }
     elO.innerHTML =
-      '<div class="px9-cur">' + d.name + ' · ' + item.m + '<em>第 ' + d.next + ' 期</em></div>' +
+      '<div class="px9-cur">' + d.name + ' · ' + item.m + '</div>' +
       ballsOf(item.red, item.blue) +
       '<div class="px9-info">' + item.info + '</div>' +
       rows +
       '<div class="px9-meta">期号种子 ' + d.next + ' · 近 ' + d.n + ' 期现算 · ' +
       M.area + ' 1-' + M.max + ' / ' + M.blueArea + ' 1-' + M.blueMax +
       (item.swapped > 0 ? ' · 同号避重顺延 ' + item.swapped + ' 个' : '') +
-      ' · 仅供统计参考，不是预测</div>';
+      '</div>';
     var ms = elM.querySelectorAll('.px9-m');
     for (i = 0; i < ms.length; i++) {
       ms[i].onclick = (function (b) {
