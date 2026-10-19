@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-19 10:26",
- "red": 0,
+ "updated": "2026-10-19 12:22",
+ "red": 1,
  "black": 0,
  "rate": "100.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-19 10:24",
-   "finishTime": 1792376640000,
+   "dateStr": "2026-10-19 10:46",
+   "finishTime": 1792377960000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 58.1,
      "status": "pending",
-     "finishTime": 1792376640000,
+     "finishTime": 1792377960000,
      "league": "巴甲",
      "odds": 1.65,
      "time": "2026-10-20 07:00"
