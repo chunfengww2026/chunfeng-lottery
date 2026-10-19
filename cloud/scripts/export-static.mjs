@@ -7373,6 +7373,22 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-top { padding-top: 12px !important; padding-bottom: 0 !important; }
 .ro-top h1 { margin-bottom: 0 !important; }
 /* ============================================================
+   __ALGO_LINE__ 顶部「算法探讨」（用户 2026-10-20）
+   ------------------------------------------------------------
+   用户原话：「下面加内容：算法探讨，这一栏字迹斜着放」
+   澄清（弹窗问过）：位置 = 「小晴推荐师 / yy2528161812」那一块【下面】；
+                     斜着放 = 【整行文字旋转】，不是斜体、不是阶梯排。
+   · 只是装饰性小标题：纯文字、不可点、没有按钮、没有内容区（用户没说要点）
+   · rotate(-6deg) + transform-origin:left center → 右端抬起约 6px，
+     margin-top 留 10px 余量，所以不会压到上面的「欢迎您！」那一行
+   · 字号 14px / 颜色 var(--ro-fg2) / 字重 600 —— 看得见但不抢标题
+   ============================================================ */
+.ro-algo-line { text-align: left !important; padding: 0 16px; margin: 10px 0 2px;
+  line-height: 1.5; }
+.ro-algo-line span { display: inline-block; transform: rotate(-6deg);
+  transform-origin: left center; font-size: 14px; font-weight: 600;
+  color: var(--ro-fg2); letter-spacing: 1px; }
+/* ============================================================
    【文字对比度 · 最终修正】米杏底上"看不清"的字统一加深（用户 2026-10-17）
    ------------------------------------------------------------
    依据：真浏览器逐文本节点实测（_contrast_probe.mjs —— 比较"颜色"和它**真正的背景**，
@@ -8547,6 +8563,9 @@ ${DEVICE_GATE_BODY}
 
   <div class="ro-top">
 <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px 0;"><div><div style="font-size:12px;font-weight:bold;color:#5c5248;">小晴推荐师</div><div style="font-size:12px;color:#7d7266;margin-top:5px;">🔍yy2528161812</div></div><div style="font-size:12px;color:#7d7266;padding-bottom:2px;margin-right:96px;">欢迎您！</div></div>
+    <!-- __ALGO_LINE__ 用户 2026-10-20：「下面加内容：算法探讨，这一栏字迹斜着放」
+         纯文字（不可点、无按钮）；整行 rotate(-6deg)，样式见 .ro-algo-line -->
+    <div class="ro-algo-line"><span>算法探讨</span></div>
     <h1>春风</h1>
   </div>
 
@@ -15805,8 +15824,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
      · 大乐透：前区 5~10 个 / 后区 2~6 个（默认 5+2）
      · 双色球：红球 6~10 个 / 蓝球 1~4 个（默认 6+1）
      · 点个数 → 立刻按新个数重摇（个数变了，出的号个数就跟着变）；「摇一次」只重摇不改个数
-     · 仍然随机（Math.random），号池里抽过就删掉 → 同一注里绝不重复 */
-  var RQ = { g: 'dlt', a: 5, b: 2 };
+     · 仍然随机（Math.random），号池里抽过就删掉 → 同一注里绝不重复
+     ⚠️ 2026-10-20：摇号机原来自己带一排「大乐透 / 双色球」药丸 →
+        已合并到功能中心顶部那一排（__FROG_GID__），这里只读 gid，不再出第二套。
+        个数上下限直接取 GID_CFG，不再另存一份配置。 */
+  var RQ = { a: 5, b: 2 };
   var RCFG = {
     dlt: { nm: '大乐透', aMax: 35, aMin: 5, aTop: 10, bMax: 12, bMin: 2, bTop: 6, aN: '前区', bN: '后区' },
     ssq: { nm: '双色球', aMax: 33, aMin: 6, aTop: 10, bMax: 16, bMin: 1, bTop: 4, aN: '红球', bN: '蓝球' }
@@ -15823,25 +15845,18 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     return s;
   }
   function rand() {
-    var c = RCFG[RQ.g] || RCFG.dlt, a, b, i;
+    var c = RCFG[gid] || RCFG.dlt, a, b, i;
+    RQ.a = RQ.a || c.aMin; RQ.b = RQ.b || c.bMin;
     if (RQ.a < c.aMin) RQ.a = c.aMin; if (RQ.a > c.aTop) RQ.a = c.aTop;
     if (RQ.b < c.bMin) RQ.b = c.bMin; if (RQ.b > c.bTop) RQ.b = c.bTop;
     a = pickN(c.aMax, RQ.a); b = pickN(c.bMax, RQ.b);
     out.innerHTML =
-      '<div style="font-weight:700;margin-bottom:4px">摇号机（随机 · 仅娱乐）</div>' +
-      '<div class="frog-chips">' +
-      ['dlt', 'ssq'].map(function (g) {
-        return '<div class="frog-chip' + (g === RQ.g ? ' on' : '') + '" role="button" tabindex="0" data-rq-g="' + g + '">' + RCFG[g].nm + '</div>';
-      }).join('') + '</div>' +
+      '<div style="font-weight:700;margin-bottom:4px">摇号机 · ' + gname() + '（随机 · 仅娱乐）</div>' +
       '<div class="frog-ql">' + c.aN + '个数</div><div class="frog-chips">' + numChips(c.aMin, c.aTop, RQ.a, 'a') + '</div>' +
       '<div class="frog-ql">' + c.bN + '个数</div><div class="frog-chips">' + numChips(c.bMin, c.bTop, RQ.b, 'b') + '</div>' +
       '<div class="frog-qv"><i>' + c.aN + '（' + RQ.a + ' 个）</i><br>' + a.map(pad).join(' ') + '</div>' +
       '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + b.map(pad).join(' ') + '</div>' +
       '<div class="frog-chips"><div class="frog-chip on" role="button" tabindex="0" data-rq-roll="1">摇一次</div></div>';
-    var gs = out.querySelectorAll('[data-rq-g]');
-    for (i = 0; i < gs.length; i++) gs[i].onclick = (function (el) {
-      return function () { RQ.g = el.getAttribute('data-rq-g'); RQ.a = RCFG[RQ.g].aMin; RQ.b = RCFG[RQ.g].bMin; rand(); };
-    })(gs[i]);
     var as = out.querySelectorAll('[data-rq-a]');
     for (i = 0; i < as.length; i++) as[i].onclick = (function (el) {
       return function () { RQ.a = parseInt(el.getAttribute('data-rq-a'), 10); rand(); };
@@ -15857,21 +15872,47 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var ds = hist(gid), freq = {};
     ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
     var top = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 3);
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">胆码中心（近30期高频）</div>' + row('推荐胆码', top.map(pad).join(' '));
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">胆码中心 · ' + gname() + ' · 近30期高频</div>' + row('推荐胆码', top.map(pad).join(' '));
   }
   function omit() {
-    var ds = hist(gid), arr = [], n, i;
-    for (n = 1; n <= 35; n++) { var gap = 0; for (i = 0; i < ds.length; i++) { if (redsOf(ds[i]).indexOf(n) >= 0) break; gap++; } arr.push({ n: n, gap: gap }); }
+    var ds = hist(gid), arr = [], n, i, top = redMax();
+    for (n = 1; n <= top; n++) { var gap = 0; for (i = 0; i < ds.length; i++) { if (redsOf(ds[i]).indexOf(n) >= 0) break; gap++; } arr.push({ n: n, gap: gap }); }
     arr.sort(function (a, b) { return b.gap - a.gap; });
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">遗漏走势（最久未出）</div>' + arr.slice(0, 8).map(function (o) { return row(pad(o.n) + ' 号', o.gap + ' 期未出'); }).join('');
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">遗漏走势 · ' + gname() + ' · 最久未出</div>' + arr.slice(0, 8).map(function (o) { return row(pad(o.n) + ' 号', o.gap + ' 期未出'); }).join('');
   }
   function lab() {
     var ds = hist(gid), hit = 0, n = Math.min(20, Math.max(0, ds.length - 1)), i;
-    for (i = 0; i < n; i++) { var prev = redsOf(ds[i + 1]).slice(0, 5), cur = redsOf(ds[i]); if (prev.some(function (x) { return cur.indexOf(x) >= 0; })) hit++; }
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">实验室（简单回测）</div>' + row('测试期数', n) + row('延续命中', hit + ' 期') + row('比例', n ? Math.round(hit / n * 100) + '%' : '—');
+    var cnt = gcfg().aCnt;
+    for (i = 0; i < n; i++) { var prev = redsOf(ds[i + 1]).slice(0, cnt), cur = redsOf(ds[i]); if (prev.some(function (x) { return cur.indexOf(x) >= 0; })) hit++; }
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">实验室 · ' + gname() + ' · 简单回测</div>' + row('测试期数', n) + row('延续命中', hit + ' 期') + row('比例', n ? Math.round(hit / n * 100) + '%' : '—');
   }
   var FNS = { co: co, co3: co3, co4: co4, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab };
-  [].slice.call(wrap.querySelectorAll('.frog-btn')).forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) FNS[k](); }; });
+  var lastFn = '';
+  /* __FROG_GID__ 彩种药丸（功能中心顶部，只这一套）：
+     切换后 → 记忆里上一次点的功能【按新彩种重算】；还没点过功能 → 结果区清空并写上当前彩种。 */
+  var gidWrap = document.getElementById('frogGid');
+  function markGid() {
+    if (!gidWrap) return;
+    [].slice.call(gidWrap.querySelectorAll('[data-gid]')).forEach(function (b) {
+      b.className = 'frog-chip' + (b.getAttribute('data-gid') === gid ? ' on' : '');
+    });
+  }
+  function setGid(g) {
+    if (g !== 'dlt' && g !== 'ssq') return;
+    gid = g;
+    RQ.a = RCFG[g].aMin; RQ.b = RCFG[g].bMin;
+    markGid();
+    if (lastFn && FNS[lastFn]) FNS[lastFn]();
+    else out.innerHTML = '点上面任意功能，结果显示在这里（当前彩种：' + gname() + '）';
+  }
+  if (gidWrap) {
+    [].slice.call(gidWrap.querySelectorAll('[data-gid]')).forEach(function (b) {
+      b.onclick = function () { setGid(b.getAttribute('data-gid')); };
+    });
+  }
+  [].slice.call(wrap.querySelectorAll('.frog-btn')).forEach(function (b) {
+    b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) { lastFn = k; FNS[k](); } };
+  });
 })();
 </script>
 
