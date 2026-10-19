@@ -8971,7 +8971,7 @@ ${DEVICE_GATE_BODY}
        __LATEST_ABOVE_TOOLS__ 【最新开奖】整块移到「工具（智能分析）」上面
        ------------------------------------------------------------
        用户 2026-10-20 原话：「把最新开奖放到 工具上面」
-       → #ro-latest（<section class="ro-game" id="ro-latest">）原来在
+       → #ro-latest（section.ro-game 里的最新开奖区块）原来在
          #article-rest 的第一个子节点，现在挪到 #article 里、工具格【之前】。
        ⚠️ 只挪位置：内容 / 样式 / id / 内嵌脚本一个字都没改。
        ⚠️ 仍在 #article 里面 → html.locked 时照样 blur(30px) + 点不动，
@@ -9403,7 +9403,7 @@ ${frogPanelHtml()}
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
   <!-- __LATEST_MOVED__ 【最新开奖】已按要求移到「工具（智能分析）」上面
-       （见上面 __LATEST_ABOVE_TOOLS__ 那段），这里不留，避免重复 id="ro-latest"。 -->
+       （见上面 __LATEST_ABOVE_TOOLS__ 那段），这里不留，避免同一个节点出现两次。 -->
 
   <!-- ============================================================
        __ROW3__ 「专家推荐 + 走势图」并排两列（用户 2026-10-18）
