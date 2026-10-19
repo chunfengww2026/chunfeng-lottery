@@ -1150,7 +1150,7 @@ function frogPanelHtml() {
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, null, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
-    '<div class="frog-sec"><div class="frog-h">免费资料（点标题看原文）</div>' +
+    '<div class="frog-sec"><div class="frog-h">免费资料</div>' +
     (arts.length ? arts.map((a, i) => {
       /* __FROG_ARTS_NEXT__ 头条文章没有原文链接（url 为空）→ 那一行【不给「看原文」】，
          也不套 <a>（空 href 点了会刷新页面）。有链接的照旧。 */
