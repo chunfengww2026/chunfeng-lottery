@@ -1014,14 +1014,49 @@ function frogPanelHtml() {
     if (b) issue.dlt = b.issue || '';
     const f = path.join(ROOT, 'jc-articles.js');
     if (fs.existsSync(f)) {
-      const ctx = vm.createContext({});
-      vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A=JC_ARTICLES;', ctx);
-      const d = ctx.__A;
-      if (d && Array.isArray(d.list)) {
-        /* 无 url 的也显示（头条文章没有原文链接 ✗），只是不给「看原文」✦ */
-        arts = d.list.filter((x) => String(x.title || '').length > 3)
-          .slice(0, 6)
-          .map((x) => ({ t: String(x.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim(), u: x.url }));
+      const actx = vm.createContext({});
+      vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__A=JC_ARTICLES;', actx);
+      const d = actx.__A;
+      if (d) {
+        /* ============================================================
+           __FROG_ARTS_NEXT__ 免费资料 = 头条资料 · 按【下一期彩种】筛
+           ------------------------------------------------------------
+           用户 2026-10-20 原话：「免费资料是不是抓取的我给的头条资料
+             根据下一期开什么奖抓什么 实时抓取」
+           原来这里读 d.list 的前 6 条 —— d.list 只存最新 20 篇，而「一起彩」有 107 篇、
+           排序稳定，20 条里一条头条都进不去 → 免费资料永远只剩一起彩的专家页。
+           现在：
+             ① 优先 jc-articles.js 的 toutiao[]（build-jc-articles.mjs 单列的头条全量，
+                每条带 game = ssq / dlt）；
+             ② 只留【下一期彩种】的（下一期 = core-pool 里 ssq / dlt 的期号，
+                两个都有就两个都要）；
+             ③ 一条都没有 → 退回头条全量 → 再退回 list（老行为），
+                「暂无资料」只在【真的一条都没有】时出现。
+           数据来源不变：本机 update-football-smart.mjs（≤1 小时一班）/
+             云端 cloud-build.mjs 每小时跑 build-jc-articles.mjs 重新抓一次头条。
+           ============================================================ */
+        const nextGames = [];
+        if (issue.ssq) nextGames.push('ssq');
+        if (issue.dlt) nextGames.push('dlt');
+        const clean = (s) => String(s || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim();
+        const seenT = {};
+        const pick = (arr, n) => {
+          const out2 = [];
+          (Array.isArray(arr) ? arr : []).forEach((x) => {
+            const t = clean(x && x.title);
+            if (t.length <= 3 || seenT[t]) return;
+            seenT[t] = 1;
+            out2.push({ t: t, u: String((x && x.url) || ''), g: String((x && x.game) || '') });
+          });
+          return out2.slice(0, n);
+        };
+        const all = Array.isArray(d.list) ? d.list : [];
+        const tt = Array.isArray(d.toutiao) ? d.toutiao : [];
+        const nextOnly = (arr) => (arr || []).filter((x) => nextGames.indexOf(String((x && x.game) || '')) >= 0);
+        arts = pick(nextOnly(tt), 6);
+        if (!arts.length) arts = pick(tt, 6);
+        if (!arts.length) arts = pick(nextOnly(all), 6);
+        if (!arts.length) arts = pick(all, 6);
       }
     }
   } catch (e) {}
@@ -1053,7 +1088,16 @@ function frogPanelHtml() {
     box('双色球 · 核心算法 20 码', pool.ssq, null, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
     '<div class="frog-sec"><div class="frog-h">免费资料（点标题看原文）</div>' +
-    (arts.length ? arts.map((a, i) => '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer"><span class="frog-i">' + (i + 1) + '</span><span class="frog-at">' + escape(a.t) + '</span><span class="frog-ag">看原文 ›</span></a>').join('') : '<div class="frog-none">暂无资料</div>') +
+    (arts.length ? arts.map((a, i) => {
+      /* __FROG_ARTS_NEXT__ 头条文章没有原文链接（url 为空）→ 那一行【不给「看原文」】，
+         也不套 <a>（空 href 点了会刷新页面）。有链接的照旧。 */
+      const inner = '<span class="frog-i">' + (i + 1) + '</span>' +
+        '<span class="frog-at">' + escape(a.t) + '</span>' +
+        (a.u ? '<span class="frog-ag">看原文 ›</span>' : '');
+      return a.u
+        ? '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
+        : '<div class="frog-art">' + inner + '</div>';
+    }).join('') : '<div class="frog-none">暂无资料</div>') +
     '</div>' +
     '<div class="frog-sec"><div class="frog-h">功能中心（全部免费）</div>'
     /* __FROG_GID__ 用户 2026-10-20：「同时要分好大乐透和双色球，因为用户不知道你
