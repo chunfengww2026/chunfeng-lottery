@@ -3261,6 +3261,7 @@ function buildHistoryHtml() {
   const nowMs = Date.now();
   const rows = [];
   let calcIssues = 0;
+  let lowDropped = 0;      /* __HIST_HIGH_ONLY__：中了但属于低等奖、被白名单滤掉的条数（只用于说明） */
   const days = [];
 
   MQ_ORDER.forEach((gid) => {
@@ -3281,6 +3282,8 @@ function buildHistoryHtml() {
       days.push(String(d.date).slice(0, 10));
       const j = histJudgeRec(gid, blocks, d);
       if (!j) continue;                                 /* 没中 → 不进列表 */
+      /* __HIST_HIGH_ONLY__ 中了但只是低等奖 → 不进列表（判定结果不动，只过滤） */
+      if (!histKeepTier(gid, j.lv)) { lowDropped++; continue; }
       rows.push({
         gid: gid, name: MQ_NAME[gid] || gid, issue: String(d.issue),
         date: String(d.date).slice(0, 10), lv: j.lv, label: j.label,
@@ -3296,7 +3299,7 @@ function buildHistoryHtml() {
     return MQ_ORDER.indexOf(a.gid) - MQ_ORDER.indexOf(b.gid);
   });
 
-  const info = { compared: calcIssues, count: rows.length, from: '', to: '' };
+  const info = { compared: calcIssues, count: rows.length, lowDropped: lowDropped, from: '', to: '' };
   if (days.length) {
     days.sort();
     info.from = days[0];
@@ -3305,13 +3308,17 @@ function buildHistoryHtml() {
 
   if (!rows.length) {
     return {
-      html: `<div class="ro-hist-empty">近 365 天暂无中奖记录</div>`,
+      html: `<div class="ro-hist-empty">近 365 天暂无高等奖记录（只统计一/二/三等奖 + 组选/直选）</div>`,
       info: info
     };
   }
 
   const two = (n) => (n < 10 ? '0' + n : String(n));
-  const tint = (lv) => (lv === 1 ? ' ro-hist-t1' : lv === 2 ? ' ro-hist-t2' : lv === 3 ? ' ro-hist-t3' : '');
+  /* __HIST_HIGH_ONLY__ 一等金 / 二等橙 / 三等蓝 只给乐透型；
+     数字彩（福彩3D / 排列3 / 排列5 的直选·组选）一律中性色（用户 2026-10-20 要求）。 */
+  const tint = (lv, gid) => (gid === 'fc3d' || gid === 'pl3' || gid === 'pl5')
+    ? ''
+    : (lv === 1 ? ' ro-hist-t1' : lv === 2 ? ' ro-hist-t2' : lv === 3 ? ' ro-hist-t3' : '');
   const partsHtml = (parts) => parts.map((p) =>
     `<span class="ro-hist-p${p.br ? ' is-br' : ''}">` +
     (p.label ? `<i>${escape(p.label)}</i>` : '') +
@@ -3327,7 +3334,7 @@ function buildHistoryHtml() {
     `<span class="ro-hist-date">${escape(r.date)}</span>` +
     `<span class="ro-hist-game">${escape(r.name)}</span>` +
     `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
-    `<span class="ro-hist-tier${tint(r.lv)}">${escape(r.label)}</span>` +
+    `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape(r.label)}</span>` +
     `</div>` +
     `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>` +
     `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>` +
@@ -3335,10 +3342,11 @@ function buildHistoryHtml() {
     `</div>`
   ).join('');
 
-  const meta = `覆盖 ${info.from} ~ ${info.to} · 可回算 ${info.compared} 期 · 中奖 ${rows.length} 条`;
+  const meta = `覆盖 ${info.from} ~ ${info.to} · 可回算 ${info.compared} 期 · 高等奖 ${rows.length} 条` +
+    (info.lowDropped ? `（另有低等奖 ${info.lowDropped} 条未列）` : '');
   const foot = rows.length > HIST_MAX_ROWS
     ? `共 ${rows.length} 条 · 只列最近 ${HIST_MAX_ROWS} 条`
-    : `只列中奖的期次；推荐号按当期期号回算，与开奖号并排对照`;
+    : `只列一/二/三等奖 + 组选直选；推荐号按当期期号回算，与开奖号并排对照`;
 
   return {
     html: `<div class="ro-hist-meta">${escape(meta)}</div>` +
