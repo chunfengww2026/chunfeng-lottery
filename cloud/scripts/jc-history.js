@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-19 12:00",
+ "updated": "2026-10-19 23:26",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -3621,61 +3621,6 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-16 01:01",
-   "type": "unbeaten"
-  },
-  {
-   "code": "周五001",
-   "league": "澳超",
-   "home": "悉尼FC",
-   "away": "西悉尼",
-   "time": "2026-10-16 17:00",
-   "score": "0:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": -0.75,
-    "openUpWater": 0.97,
-    "openDownWater": 0.82,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.25,
-     "initUpWater": 0.97,
-     "nowUpWater": 1.05,
-     "initLine": "半球/一球",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.4,
-    "draw": 3.7,
-    "away": 2.7
-   },
-   "prob": {
-    "home": 39.4,
-    "draw": 25.6,
-    "away": 35
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 39.4,
-   "result": "lose",
-   "hit": false,
-   "matched": false,
    "at": "2026-10-16 01:01",
    "type": "unbeaten"
   }
