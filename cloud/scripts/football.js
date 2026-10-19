@@ -4517,7 +4517,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 91,
+    "minute": 93,
     "home": {
      "name": "費薩里哈曼U21",
      "score": 2,
@@ -4555,7 +4555,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": " 阿爾茲拉費",
      "score": 1,
@@ -4593,7 +4593,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "费哈",
      "score": 2,
@@ -4659,7 +4659,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-19 23:20:00",
-    "minute": 74,
+    "minute": 76,
     "home": {
      "name": "德咸科",
      "score": 4,
@@ -4705,7 +4705,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-19 23:30:00",
-    "minute": 70,
+    "minute": 72,
     "home": {
      "name": "拖里格拉瓦U19",
      "score": 3,
@@ -4771,7 +4771,7 @@ const FOOTBALL_DATA = {
      "color": "cc6600"
     },
     "time": "2026-10-19 23:30:00",
-    "minute": 61,
+    "minute": 63,
     "home": {
      "name": "蘇哈爾",
      "score": 0,
@@ -4837,7 +4837,7 @@ const FOOTBALL_DATA = {
      "color": "990000"
     },
     "time": "2026-10-19 23:45:00",
-    "minute": 54,
+    "minute": 55,
     "home": {
      "name": "苏度瓦",
      "score": 0,
@@ -5985,7 +5985,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-10-20 00:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "罗迪纳明斯克",
      "score": 1,
@@ -6063,7 +6063,7 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-20 00:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "蒙扎",
      "score": 0,
@@ -6141,7 +6141,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-20 00:50:00",
-    "minute": 7,
+    "minute": 9,
     "home": {
      "name": "拉德",
      "score": 0,
@@ -6219,7 +6219,7 @@ const FOOTBALL_DATA = {
      "color": "882266"
     },
     "time": "2026-10-20 00:55:00",
-    "minute": 2,
+    "minute": 4,
     "home": {
      "name": "阿尔杰拉",
      "score": 0,
