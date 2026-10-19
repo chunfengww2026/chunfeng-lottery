@@ -391,6 +391,26 @@ jobs:
           #   来源是 cloud/scripts/install-guide.jpg（由本机 sync-cloud.mjs 的 FROM_ROOT 同步上来）。
           #   ⚠️ 少了这一行 → 线上 install-guide.jpg 404 → 图被收起，区块里只剩两列卡片。
           cp -f cloud/scripts/install-guide.jpg site/install-guide.jpg || true
+          # 【算法说明独立页 · iframe 子页】用户 2026-10-20 报：iframe 里出
+          #   GitHub Pages 的 404 页面（「推荐图 · 方法」那块最明显）。
+          #   根因：分享页 / 竞彩页里一共 13 个 <iframe> 指向这 3 个独立页 ——
+          #     px9-methods.html ×5 · minjian-methods.html ×6 · core-jiajian.html ×2
+          #   它们是【跑在 iframe 里的完整 html】，不是内联片段，必须单独发到站点根目录。
+          #   sync-cloud.mjs 的 PAGE_ARTIFACTS 名单里早有这 3 个（仓库 cloud/scripts/ 下有），
+          #   可【这一步以前没有 cp】→ 永远进不了 site/ → 线上 404。
+          #   和 blessing.mp4 / install-guide.jpg 一样走 scripts → site/
+          #   （cloud-build.mjs 不用改，它只搬 out/ 里那几个白名单文件）。
+          cp -f cloud/scripts/px9-methods.html     site/px9-methods.html     || true
+          cp -f cloud/scripts/minjian-methods.html site/minjian-methods.html || true
+          cp -f cloud/scripts/core-jiajian.html    site/core-jiajian.html    || true
+          # 【连带依赖】上面 3 个独立页里都有一行 <script src="history.js"></script>，
+          #   靠它拿到 DRAW_HISTORY（const 不挂 window，页面直接按名字取）。
+          #   主页面 index.html 是把 DRAW_HISTORY 内联进去的，所以以前站点根目录
+          #   没有 history.js 也没事；可这 3 个 iframe 子页是【外链】的 →
+          #   site/history.js 缺失的话，iframe 里虽然不再是 404 页面，
+          #   但会显示「数据缺失 · history.js 没有该彩种」。
+          #   来源 cloud/scripts/history.js（sync-cloud 的 FROM_ROOT 同步的）。
+          cp -f cloud/scripts/history.js site/history.js || true
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
           # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
           # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
@@ -475,6 +495,25 @@ jobs:
             echo "✅ site/install-guide.jpg  $(du -h site/install-guide.jpg | cut -f1)（安装教程大图，懒加载）"
           else
             echo "⚠️ site/install-guide.jpg 缺失 -> 线上 404，安装区块顶部图位空白（lazy 失败会收起）"
+          fi
+          # 【算法说明独立页自证】分享页 / 竞彩页里 13 个 <iframe> 的 src 就是这 3 个文件。
+          #   -s 检查文件存在且非空；缺任何一个 → 那个 iframe 里就会显示 404 页面。
+          echo "--- 算法说明独立页自证 ---"
+          SUB_OK=0
+          for f in px9-methods.html minjian-methods.html core-jiajian.html; do
+            if [ -s "site/$f" ]; then
+              echo "✅ site/$f  $(du -h "site/$f" | cut -f1)"
+              SUB_OK=$((SUB_OK+1))
+            else
+              echo "::warning::site/$f 缺失 -> 线上 iframe 里显示 404（推荐图·方法 / 九算法 / 民间算法 / 核心算法 区块空白）"
+            fi
+          done
+          echo "算法说明独立页进 site/ 的个数：$SUB_OK / 3"
+          # 连带依赖：3 个独立页都外链 history.js，缺了 iframe 里就是「数据缺失」。
+          if [ -s site/history.js ]; then
+            echo "✅ site/history.js  $(du -h site/history.js | cut -f1)（3 个 iframe 子页的数据源）"
+          else
+            echo "::warning::site/history.js 缺失 -> iframe 子页里显示「数据缺失 · history.js 没有该彩种」"
           fi
           echo "--- site 目录内容 ---"
           ls -lh site/
