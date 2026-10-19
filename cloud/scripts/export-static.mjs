@@ -871,6 +871,11 @@ GROUPS.forEach((group) => {
         `<div class="ro-imagewrap" data-game="${id}" data-image="${img.key}" data-ro-mob="">` +
         dom +
         `</div>`;
+      /* 【大乐透 后区 6 码 · 用户 2026-10-19「六个码后区推荐」】
+         放在大乐透推荐图正下方（图本身是抓来的，改不了图里的字，只能加在下面）。 */
+      if (id === 'dlt' && img.key === 'main') {
+        try { imgsHtml += dltBack6Html(); } catch (e) { }
+      }
       imgCount++;
     });
 
