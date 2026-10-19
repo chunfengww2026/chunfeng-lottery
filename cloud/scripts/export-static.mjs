@@ -7021,6 +7021,18 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 /* ③ 提示条：米黄底 + 暖边框 */
 .ro-status { margin: 0 12px 16px !important; border-radius: 10px !important;
   padding: 12px 14px !important; font-size: 13px !important; line-height: 1.8; }
+/* 【用户 2026-10-20「往下滑动的时候 Tab 条和状态卡不要动」】
+   固定到 Tab 条（44px）下方。滚动后由 JS 加 .ro-st-fixed 收成一行，避免遮挡内容。 */
+.ro-status { position: sticky; top: 44px; z-index: 50; }
+.ro-status.ro-st-fixed {
+  padding: 6px 14px !important;
+  display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;
+}
+.ro-status.ro-st-fixed .ro-st-sub,
+.ro-status.ro-st-fixed .ro-st-hint,
+.ro-status.ro-st-fixed .ro-st-reason { display: none !important; }
+.ro-status.ro-st-fixed .ro-st-head { font-size: 13px !important; font-weight: 700; white-space: nowrap; }
+.ro-status.ro-st-fixed .ro-st-time { font-size: 13px !important; font-weight: 700; white-space: nowrap; }
 .ro-status .ro-st-head { font-size: 13px !important; }
 .ro-status .ro-st-time { color: var(--ro-danger) !important; font-weight: 700; }
 
@@ -8651,11 +8663,20 @@ ${DEVICE_GATE_BODY}
     'use strict';
     try {
       var tabs = document.querySelector('.top-tabs');
+      /* 【用户 2026-10-20「往下滑动的时候 Tab 条和状态卡不要动 / 但不要遮挡内容」】
+         滚超过 80px → 状态卡收成一行（.ro-st-fixed）；滚回顶部恢复完整。 */
+      var stEl = document.querySelector('.ro-status');
       if (tabs) {
         var onScroll = function () {
           try {
             var r = tabs.getBoundingClientRect();
             if (r.top <= 0) tabs.classList.add('stuck'); else tabs.classList.remove('stuck');
+          } catch (e) { }
+          try {
+            if (stEl) {
+              var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+              if (y > 80) stEl.classList.add('ro-st-fixed'); else stEl.classList.remove('ro-st-fixed');
+            }
           } catch (e) { }
         };
         window.addEventListener('scroll', onScroll, { passive: true });
