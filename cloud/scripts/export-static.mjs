@@ -14823,7 +14823,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var bv = {};
     list.forEach(function (it) { it.blue.forEach(function (n) { bv[n] = (bv[n] || 0) + 1; }); });
     list.push({
-      m: '多源共振法', red: res.red, blue: pickBlue(S, '多源共振法', bv),
+      m: '多源共振法', red: res.red.slice().sort(function (a, b) { return a - b; }), blue: pickBlue(S, '多源共振法', bv),
       info: res.info, rows: res.rows, swapped: 0
     });
     return { game: g, name: M.name, issue: S.issue, next: S.next, seed: S.seed, n: S.main.length, list: list };
