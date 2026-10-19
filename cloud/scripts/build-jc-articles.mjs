@@ -233,7 +233,8 @@ async function fromToutiao() {
     }));
     await new Promise((res) => setTimeout(res, 5000));   /* 反爬：两词之间隔 5 秒 */
   }
-  return out;
+  /* 必须返回 { list, note } —— 调用方读 r.list.length；返回纯数组会报 undefined.length ✗ */
+  return { list: out, note: out.length ? (out.length + ' 条（双色球+大乐透）') : '没抓到' };
 }
 
 /* ---------- 主流程 ---------- */
