@@ -15434,6 +15434,24 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
   #frogOut .frog-bq { gap: 2px; }
 }
 
+
+/* TAB_OPAQUE · 用户 2026-10-21「手机下滑的时候 tab 能把下面的内容透出来」→ tab 条必须完全不透明 */
+.top-tabs,
+.top-tabs.stuck {
+  background: #f7efe1 !important;   /* 硬不透明（页面底色一致 ✔） */
+  background-color: #f7efe1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+/* 保险：先铺一层伪元素当底色，任何情况下都不会透 */
+.top-tabs::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: #f7efe1;
+  z-index: -1;
+}
+.top-tabs { position: sticky; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
