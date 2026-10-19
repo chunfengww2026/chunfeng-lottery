@@ -3006,6 +3006,28 @@ const HIST_DAY_MS = 24 * 3600 * 1000;
 const HIST_MIN_PRIOR = 30;
 const HIST_TIER_CN = ['', '一等奖', '二等奖', '三等奖', '四等奖', '五等奖',
   '六等奖', '七等奖', '八等奖', '九等奖'];
+/* __HIST_HIGH_ONLY__ 2026-10-20 用户要求：历史开奖【只记高等奖】
+   用户原话：「历史开奖只记录我推荐中的记录 / 只需要记录一等奖和二等奖三等奖
+             （双色球+大乐透+快乐8+七星彩+七乐彩）以及组六组三直选排五直选」
+   ⚠️ 只过滤低等奖，【中奖判定规则一个字没改】（histJudgeRec 照旧算 lv，该中的还是中）。
+   白名单：
+     · 乐透型 双色球 / 大乐透 / 快乐8 / 七乐彩 → 只留 一 / 二 / 三等奖（lv 1~3）
+               七星彩 → 它只有 1、2 等，天然落在 lv<=3 里
+     · 数字彩 福彩3D / 排列3 → 直选(lv1) / 组选三(lv2) / 组选六(lv3)
+               排列5        → 直选全中(lv1)
+   删掉：双色球四~六等、大乐透四~九等、快乐8四~六等、七乐彩四~七等。 */
+const HIST_KEEP_GIDS = ['ssq', 'dlt', 'kl8', 'qlc', 'qxc', 'fc3d', 'pl3', 'pl5'];
+const HIST_KEEP_LV_MAX = 3;                                   /* 乐透型：一 / 二 / 三等奖 */
+const HIST_DIGIT_KEEP = { fc3d: [1, 2, 3], pl3: [1, 2, 3], pl5: [1] };
+/** 这一期这一档奖，进不进「历史开奖」列表 */
+function histKeepTier(gid, lv) {
+  const n = Number(lv) || 0;
+  if (!n) return false;
+  if (HIST_KEEP_GIDS.indexOf(gid) < 0) return false;
+  const digit = HIST_DIGIT_KEEP[gid];
+  if (digit) return digit.indexOf(n) >= 0;    /* 数字彩：直选 / 组选三 / 组选六 / 排五直选 */
+  return n <= HIST_KEEP_LV_MAX;               /* 乐透型：一 / 二 / 三等奖 */
+}
 
 /** "2026-10-18" → 本地时间戳（手写解析，不吃 Date.parse 的时区差异） */
 function histDayMs(v) {
