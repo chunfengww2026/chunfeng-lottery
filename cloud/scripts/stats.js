@@ -1492,7 +1492,10 @@ function positionRecommend(gameId, posIdx, n, from, to, periods) {
      让 百位/十位/个位 不会每个位置都一模一样），不够再用频率补 */
   const poolArea = (to > 9) ? 'back' : 'main';
   const pool = expertPoolOf(gameId, poolArea).filter((x) => x >= from && x <= to);
-  if (pool.length) {
+  /* __QXC_POS__ 用户 2026-10-18：七星彩 6 位推荐不能一样。
+     原逻辑：从专家池旋转取 want 个 → 当【池大小 ≤ want】时旋转只改顺序不改集合，
+     6 个位就完全一样了。改成：池比要取的个数多才用池，否则走按位频率（各位置天然不同）。 */
+  if (pool.length > want) {
     const off = posIdx % pool.length;
     const rotated = pool.slice(off).concat(pool.slice(0, off));
     const out = rotated.slice(0, want);
