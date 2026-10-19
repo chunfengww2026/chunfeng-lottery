@@ -77,7 +77,10 @@ const UA_PC = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHT
 const UA_M = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
 
 async function get(url, { ua = UA_PC, gbk = false } = {}) {
-  const r = await fetch(url, { headers: { 'User-Agent': ua, Referer: url, 'Accept-Language': 'zh-CN,zh;q=0.9' } });
+  /* signal 超时：实测源站会突然不回包（连接一直挂着、10 分钟不动）→
+     整个构建卡死、这一小时的数据就不更新了。20s 拿不到就按失败处理，
+     每个源外面都有 try/catch，单源失败不影响其它源。 */
+  const r = await fetch(url, { headers: { 'User-Agent': ua, Referer: url, 'Accept-Language': 'zh-CN,zh;q=0.9' }, signal: AbortSignal.timeout(20000) });
   const buf = Buffer.from(await r.arrayBuffer());
   let text = buf.toString('utf8');
   if (gbk || text.indexOf('\ufffd') >= 0) {
@@ -127,6 +130,8 @@ function unescJson(s) {
     .replace(/\\n/g, '\n').replace(/\\t/g, ' ').replace(/\\"/g, '"').replace(/\\\//g, '/');
 }
 const stripTags = (s) => unescJson(s).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')
+  .replace(/&#(\d+);/g, (x, d) => String.fromCharCode(+d))
+  .replace(/&#[xX]([0-9a-fA-F]+);/g, (x, h) => String.fromCharCode(parseInt(h, 16)))
   .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').trim();
 
 /* 正文清洗：只留人话。分享页不许出现「数据从哪来」的痕迹（source-guard 硬断言）。 */
@@ -172,6 +177,18 @@ function parseToutiaoItems(html, game, kw) {
     const x = seg.match(new RegExp('"' + key + '"\\s*:\\s*"?(\\d{9,13})"?'));
     return x ? Number(x[1]) : 0;
   };
+  /* 标题要挑：一段区间里可能有好几个 "title"（还有 emphasized.title 和嵌套块的），
+     取【最后一个长度像标题的】（5~60 字）。
+     实测踩过：只取最后一个，会把 150 多字的摘要当成标题显示出来（页面上很丑）。 */
+  const titleOf = (seg) => {
+    const re2 = /"title"\s*:\s*"((?:[^"\\]|\\.)*)"/g;
+    let x, best = '';
+    while ((x = re2.exec(seg))) {
+      const v = stripTags(x[1]);
+      if (v.length >= 5 && v.length <= 60) best = v;
+    }
+    return best;
+  };
   while ((m = idRe.exec(html))) {
     const gid = m[1];
     const seg = html.slice(prev, m.index);
@@ -179,8 +196,8 @@ function parseToutiaoItems(html, game, kw) {
     if (seen[gid]) continue;
     if (!/article_url|share_url/.test(seg)) continue;   /* 不是搜索结果条目 */
     seen[gid] = 1;
-    const title = lastOf(seg, 'title');
-    if (!title || title.length < 4) continue;
+    const title = titleOf(seg);
+    if (!title) continue;
     const abs = lastOf(seg, 'abstract');
     const dt = lastOf(seg, 'datetime');
     const ts = numOf(seg, 'publish_time') || numOf(seg, 'create_time') || numOf(seg, 'display_time');
@@ -205,7 +222,8 @@ async function fetchToutiaoBody(gid) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       const r = await fetch(url, {
-        headers: { 'User-Agent': UA_M, 'Accept-Language': 'zh-CN,zh;q=0.9', Referer: 'https://m.toutiao.com/' }
+        headers: { 'User-Agent': UA_M, 'Accept-Language': 'zh-CN,zh;q=0.9', Referer: 'https://m.toutiao.com/' },
+        signal: AbortSignal.timeout(20000)
       });
       if (r.ok) {
         const t = Buffer.from(await r.arrayBuffer()).toString('utf8');
@@ -217,6 +235,12 @@ async function fetchToutiaoBody(gid) {
             .map((x) => stripTags(x[1])).filter((s) => s.length > 2);
           const plain = (ps.length ? ps.join('\n') : stripTags(art[0])).replace(/视频加载中\.{0,3}/g, '').trim();
           if (plain.length > 60) return { title: at, body: sanitizeBody(plain).slice(0, 3200) };
+        } else {
+          /* 微头条模板（/w/<id>）：页面里【没有 <article>】，整篇只在 <meta og:title> 里
+             （源站自己给的截断预览，实测 gid 1879490145592451）。
+             拿到的就是作者自己那段话 → 当【摘要】用；绝不编内容。 */
+          const og = stripTags((t.match(/<meta[^>]+property="og:title"[^>]*content="([\s\S]*?)"/) || [])[1] || '');
+          if (og.length > 120) return { title: at, body: '', desc: sanitizeBody(og).slice(0, 300) };
         }
       }
     } catch (e) { /* ECONNRESET → 等一下重试 */ }
@@ -355,7 +379,8 @@ async function fromToutiao() {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
             'Referer': 'https://so.toutiao.com/',
             'Accept-Language': 'zh-CN,zh;q=0.9'
-          }
+          },
+          signal: AbortSignal.timeout(20000)
         });
         if (r.ok) html = Buffer.from(await r.arrayBuffer()).toString('utf8');
       } catch (e) { /* ECONNRESET → 等一会儿重试 */ }
@@ -469,7 +494,11 @@ for (const it of bodyTargets) {
     bodyStat.ok++;
     /* 标题改用文章自己的标题 → 「点开的正文」和「看到的标题」一定是同一篇 */
     if (got.title && got.title.length >= 4) it.title = got.title;
-  } else { bodyStat.fail++; }
+  } else {
+    bodyStat.fail++;
+    /* 抓不到正文：至少把源站自己给的预览塞进 desc（微头条模板走这条） */
+    if (!String(it.desc || '').trim() && got.desc) it.desc = got.desc;
+  }
   console.log(`    ${got.body ? '✔' : '✗'} 正文 ${String(got.body.length).padStart(4)} 字 / 摘要 ${String((it.desc || '').length).padStart(3)} 字  ${String(it.title).slice(0, 26)}`);
   await sleep(1200);
 }
