@@ -1,6 +1,5 @@
 {
   "_说明": "春风 数据抓取配置",
-
   "_数据源说明": [
     "本程序优先使用【官方接口】，不需要任何 API Key：",
     "  福彩（双色球/福彩3D/快乐8/七乐彩）：中国福彩网 cwl.gov.cn",
@@ -8,12 +7,10 @@
     "官方接口拿不到的彩种（排列5/七星彩），会退回抓取 500.com 页面。",
     "500.com 的页面用「规则解析」提取号码；若规则解析失败，才会用 DeepSeek 解析。"
   ],
-
   "_DeepSeek说明": "apiKey 留空也能正常运行（官方接口不需要它）。只有当你希望用 AI 解析那些规则解析失败的页面时，才需要填。申请地址：https://platform.deepseek.com",
   "apiKey": "",
   "baseUrl": "https://api.deepseek.com",
   "model": "deepseek-chat",
-
   "_抓取说明": "备用数据源（500.com）的页面地址。官方接口失效时才会用到。",
   "fetch": {
     "enabled": true,
@@ -29,10 +26,10 @@
       "pl5": "https://kaijiang.500.com/plw.shtml"
     }
   },
-
   "_AI说明": "是否允许用 DeepSeek 解析抓到的页面（需要 apiKey 非空）。",
   "ai": {
-    "enabled": true,
+    "enabled": false,
     "maxHtmlChars": 30000
-  }
+  },
+  "_成本红线": "用户 2026-10-20 要求：后台不许自动花 token。ai.enabled 永久保持 false；只有本人手动设 CDD_ALLOW_AI=1 并显式加 --ai 才可能调 AI（见 build-draws.mjs）。"
 }
