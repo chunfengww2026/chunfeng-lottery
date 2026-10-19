@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-20 01:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-20 01:58 */
 const JC_DATA = {
- "updated": "2026-10-20 01:28",
+ "updated": "2026-10-20 01:58",
  "stat": {
   "total": 6,
   "upcoming": 6,
@@ -58,9 +58,9 @@ const JC_DATA = {
       "away": 2.4
      },
      "live": {
-      "home": 3.25,
+      "home": 3.3,
       "draw": 3,
-      "away": 2.4
+      "away": 2.38
      }
     },
     "overunder": {
@@ -79,14 +79,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 39.4,
+    "confidence": 39.8,
     "prob": {
-     "home": 29.1,
+     "home": 28.7,
      "draw": 31.5,
-     "away": 39.4
+     "away": 39.8
     },
     "clear": false,
-    "margin": 5.8,
+    "margin": 5.7,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
@@ -462,8 +462,8 @@ const JC_DATA = {
       "away": 5
      },
      "live": {
-      "home": 1.62,
-      "draw": 3.75,
+      "home": 1.61,
+      "draw": 3.6,
       "away": 5.5
      }
     },
@@ -483,14 +483,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 57.9,
+    "confidence": 57.5,
     "prob": {
-     "home": 57.9,
-     "draw": 25,
-     "away": 17.1
+     "home": 57.5,
+     "draw": 25.7,
+     "away": 16.8
     },
     "clear": true,
-    "margin": 6.6,
+    "margin": 8.1,
     "rqLine": "一球",
     "type": "three"
    },
@@ -633,7 +633,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-20 01:28",
+  "updated": "2026-10-20 01:58",
   "officialUpdate": "2026-10-19 20:42:03",
   "inSale": 15,
   "list": [
