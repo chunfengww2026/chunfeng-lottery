@@ -7542,8 +7542,9 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
   transform: rotate(-15deg);
   transform-origin: center center;
 }
-/* 算法探讨：整行水平居中（用户 2026-10-20：算法讨论居中在下面） */
-.ro-algo-line { text-align: center !important; padding: 0 16px; margin: 12px 0 4px;
+/* 算法探讨：整行水平居中（用户 2026-10-20：算法讨论居中在下面）
+   margin-bottom 4 → 10：斜 15° 后包围盒会往下探 ~7px，留 10px 才不贴到「春风」 */
+.ro-algo-line { text-align: center !important; padding: 0 16px; margin: 12px 0 10px;
   line-height: 1.5; }
 .ro-algo-line span { display: inline-block; transform: rotate(-15deg);
   transform-origin: center center; font-size: 14px; font-weight: 600;
