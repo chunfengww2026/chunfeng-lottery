@@ -14218,6 +14218,13 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-ql { font-size: 11px; color: #8a7a63; margin-top: 4px; }
 .frog-qv { font-size: 12.5px; font-weight: 700; color: #4a3a26; margin: 4px 0 2px; line-height: 1.7; word-break: break-word; }
 .frog-qv i { font-style: normal; font-weight: 400; font-size: 11px; color: #8a7a63; }
+/* 三码同出 / 四码同出 的每一条：组合 + 次数一行（跟二码同出同一套左右对齐），
+   「最近哪期」缩成下一行小灰字 —— 半屏卡（375 下只有 167px）里才不会挤成一团 */
+.frog-co { border-bottom: 1px dotted #f0e4cf; padding: 3px 0; }
+.frog-co-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+.frog-co-k { font-size: 12.5px; font-weight: 700; color: #4a3a26; letter-spacing: .2px; white-space: nowrap; }
+.frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; white-space: nowrap; }
+.frog-co-t { font-size: 10.5px; color: #a89a80; margin-top: 1px; }
 
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
@@ -15182,12 +15189,16 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
         for (var t = s; t < r.length; t++) { pick.push(r[t]); walk(t + 1); pick.pop(); }
       })(0);
     });
-    var top = Object.keys(cnt).sort(function (a, b) { return (cnt[b] - cnt[a]) || (a < b ? -1 : 1); }).slice(0, 15);
+    var top = Object.keys(cnt).sort(function (a, b) { return (cnt[b] - cnt[a]) || (a < b ? -1 : 1); }).slice(0, 10);
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">' + title + '（近 ' + ds.length + ' 期）</div>'
       + (top.length
-        ? top.map(function (k2) { return row(k2, cnt[k2] + ' 次 · 最近 ' + (last[k2] || '—')); }).join('')
+        ? top.map(function (k2) {
+          return '<div class="frog-co"><div class="frog-co-h"><span class="frog-co-k">' + k2 + '</span>' +
+            '<span class="frog-co-n">' + cnt[k2] + ' 次</span></div>' +
+            '<div class="frog-co-t">最近 ' + (last[k2] || '—') + ' 期</div></div>';
+        }).join('')
         : '<div class="frog-none">暂无数据</div>')
-      + '<div class="frog-tip">仅供参考，历史频率不代表未来（按已开奖期统计）</div>';
+      + '<div class="frog-tip">仅供参考，历史频率不代表未来</div>';
   }
   function co3() { combo(3, '三码同出'); }
   function co4() { combo(4, '四码同出'); }
