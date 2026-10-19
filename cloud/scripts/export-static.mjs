@@ -2920,7 +2920,13 @@ console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + 
    · 窗口：近 365 天；按开奖日期倒序（同一天期号大的在前）；最多 100 条。
    ⚠️ 卡片里不出现任何「数据从哪来」的字样（留痕断言会拦）。
    ============================================================ */
-const HIST_WINDOW_DAYS = 365;
+/* 窗口天数：默认近 365 天。
+   HIST_DAYS 只是【自测用】的环境变量（例如 HIST_DAYS=0 让窗口里一条都不剩，
+   用来验证「暂无中奖记录」的空状态长什么样）；日常构建不设它。 */
+const HIST_WINDOW_DAYS = (() => {
+  const n = parseInt(String(process.env.HIST_DAYS || ''), 10);
+  return Number.isFinite(n) && n >= 0 ? n : 365;
+})();
 const HIST_MAX_ROWS = 100;
 const HIST_DAY_MS = 24 * 3600 * 1000;
 /* 回算至少要「该期之前 30 期」真实开奖；不够就回算不出来 —— 不硬凑、不猜 */
@@ -3073,7 +3079,7 @@ function histJudgeRec(gid, blocks, d) {
       lv: LAB[n], label: HIST_TIER_CN[LAB[n]],
       note: '选十 · 中 ' + n + ' 个',
       rec: [{ label: '选十', nums: recNums, pad: true }],
-      draw: [{ label: '开奖', nums: main, pad: true, hit: main.map((x) => has(recNums, x)) }]
+      draw: [{ label: '', nums: main, pad: true, hit: main.map((x) => has(recNums, x)) }]
     };
   }
 
@@ -3089,9 +3095,10 @@ function histJudgeRec(gid, blocks, d) {
       lv = 1; label = '直选'; note = '三位定位全中（顺序对）';
     } else if (grp.length && w.slice(0, 3).every((x) => has(grp, x))) {
       const uniq = new Set(w.slice(0, 3)).size;
+      /* ⚠️ 豹子（三位相同）【不中组选】：官方规则里组选三 / 组选六 都不含豹子，
+         豹子只有直选才中 —— 所以这里不算中奖，直接不列（宁可少一条，不虚报）。 */
       if (uniq === 3) { lv = 3; label = '组选六'; note = '三位都在组选六码里（组六）'; }
       else if (uniq === 2) { lv = 2; label = '组选三'; note = '三位都在组选六码里（组三）'; }
-      else { lv = 9; label = '组选（豹子）'; note = '三位都在组选六码里（豹子）'; }
     }
     if (!lv) return null;
     const rec = [
@@ -3099,10 +3106,10 @@ function histJudgeRec(gid, blocks, d) {
       { label: nameOf(1, '十位'), nums: p1, pad: false },
       { label: nameOf(2, '个位'), nums: p2, pad: false }
     ];
-    if (grp.length) rec.push({ label: nameOf(3, '组选'), nums: grp, pad: false });
+    if (grp.length) rec.push({ label: nameOf(3, '组选'), nums: grp, pad: false, br: true });
     return {
       lv: lv, label: label, note: note, rec: rec,
-      draw: [{ label: '开奖', nums: w.slice(0, 3), pad: false,
+      draw: [{ label: '', nums: w.slice(0, 3), pad: false,
         hit: w.slice(0, 3).map((x, i) => has([p0, p1, p2][i] || [], x) || has(grp, x)) }]
     };
   }
@@ -3117,7 +3124,7 @@ function histJudgeRec(gid, blocks, d) {
     return {
       lv: 1, label: '直选全中', note: '五位定位全中（顺序对）',
       rec: pools.map((p, i) => ({ label: nameOf(i, '第' + (i + 1) + '位'), nums: p, pad: false })),
-      draw: [{ label: '开奖', nums: w.slice(0, 5), pad: false,
+      draw: [{ label: '', nums: w.slice(0, 5), pad: false,
         hit: w.slice(0, 5).map((x, i) => has(pools[i], x)) }]
     };
   }
@@ -3206,7 +3213,8 @@ function buildHistoryHtml() {
   const two = (n) => (n < 10 ? '0' + n : String(n));
   const tint = (lv) => (lv === 1 ? ' ro-hist-t1' : lv === 2 ? ' ro-hist-t2' : lv === 3 ? ' ro-hist-t3' : '');
   const partsHtml = (parts) => parts.map((p) =>
-    `<span class="ro-hist-p"><i>${escape(p.label)}</i>` +
+    `<span class="ro-hist-p${p.br ? ' is-br' : ''}">` +
+    (p.label ? `<i>${escape(p.label)}</i>` : '') +
     p.nums.map((n, k) =>
       `<b class="ro-hist-n${(p.hit && p.hit[k]) ? ' ro-hist-hit' : ''}">${escape(p.pad ? two(n) : String(n))}</b>`
     ).join('') + `</span>`
@@ -6431,15 +6439,32 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-hist-date { font-weight: 700; color: var(--ro-fg2); }
 .ro-hist-game { font-weight: 800; color: var(--ro-fg); }
 .ro-hist-issue { font-size: 11px; color: var(--ro-fg3); }
-/* 奖项徽章：一等金 · 二等亮 · 三等浅 · 其余灰（用户要的颜色区分） */
+/* 奖项徽章：一等奖金色 · 二等奖橙色 · 三等奖蓝色 · 其余灰色 */
 .ro-hist-tier { margin-left: auto; white-space: nowrap; font-size: 11px; font-weight: 800;
   border-radius: 10px; padding: 1px 8px; color: var(--ro-fg2);
   background: #f4ece0; border: 1px solid var(--ro-line); }
-.ro-hist-t1 { color: #7a5300; background: #fbeec6; border-color: #e7cf92; }
+.ro-hist-t1 { color: #7a5300; background: #fbeec6; border-color: #e0c377; }
 .ro-hist-t2 { color: #a33b17; background: #fdeadd; border-color: #efc6ab; }
-.ro-hist-t3 { color: #1a6b48; background: #e8f6ef; border-color: #b7e4cd; }
-.ro-hist-nums { margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--ro-fg);
-  word-break: break-word; }
+.ro-hist-t3 { color: #1b4f97; background: #e7f0fb; border-color: #b9d2ef; }
+/* 每条两行：推荐 / 开奖（号码一格一个，命中号高亮 —— 一眼看出中了哪几个）
+   用【行内流】而不是 flex：号码多了会像文字一样自然折行，
+   不会出现「标签单独占一行、号码整块掉到下一行」 */
+.ro-hist-line { display: block; margin-top: 4px; font-size: 12px; line-height: 1.9; }
+.ro-hist-tag { display: inline-block; vertical-align: 2px; margin-right: 6px;
+  font-size: 10px; font-weight: 800; line-height: 1.5;
+  color: var(--ro-fg2); background: #f4ece0; border: 1px solid var(--ro-line);
+  border-radius: 6px; padding: 0 5px; }
+.ro-hist-tag.is-draw { color: var(--ro-fg); background: #fbf3e4; }
+.ro-hist-p { display: inline; }
+/* 次要的一行（3D / 排三 的「6 码组选」）单独起一行，别挤在定位号后面 */
+.ro-hist-p.is-br { display: block; margin-top: 1px; }
+.ro-hist-p i { font-style: normal; font-size: 10.5px; color: var(--ro-fg3);
+  margin: 0 1px 0 4px; }
+.ro-hist-p:first-child i { margin-left: 0; }
+.ro-hist-n { display: inline-block; min-width: 17px; text-align: center; font-weight: 700;
+  font-size: 11.5px; color: var(--ro-fg); }
+.ro-hist-n.ro-hist-hit { color: #c0392b; font-weight: 900; background: #fdeaea;
+  border-radius: 4px; }
 .ro-hist-note { margin-top: 2px; font-size: 11px; line-height: 1.5; color: var(--ro-fg3);
   word-break: break-word; }
 .ro-hist-empty { text-align: center; font-size: 12px; line-height: 1.6;
@@ -6456,7 +6481,9 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   .ro-hist-top { font-size: 11px; gap: 4px; }
   .ro-hist-issue { font-size: 10px; }
   .ro-hist-tier { font-size: 10px; padding: 1px 6px; }
-  .ro-hist-nums { font-size: 11px; }
+  .ro-hist-line { font-size: 11px; line-height: 2; }
+  .ro-hist-n { font-size: 10.5px; min-width: 15px; }
+  .ro-hist-p i { font-size: 10px; }
   .ro-hist-note { font-size: 10px; }
   .ro-hist-meta, .ro-hist-foot { font-size: 10px; }
 }
@@ -8195,21 +8222,24 @@ ${kjhHtml}
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
 
   <!-- ============================================================
-       __RO_HIST__ 历史开奖（用户 2026-10-19 要求）
+       __RO_HIST__ 历史中奖（用户 2026-10-19 要求）
        ------------------------------------------------------------
        用户原话：「在GPT模型摇号下面增加一项;按钮 历史开奖：
                 点开以后就是近365天内所有中奖播报.不管什么奖项1等奖2等奖3等奖都记录」
+       第二轮澄清（用户）：「是我推荐中奖的哦」→ 内容是【推荐号命中记录】，
+       所以卡面写「历史中奖」，副标题写「近 365 天 · 推荐号命中记录」。
        · 位置：紧接上面那一行「晒票 | GPT模型摇号」→ 这里占【整行】全宽
          （两列网格再塞一格、右边空着会很难看，所以不做第四格并排）
        · 折叠：原生 <details> + <summary>，「点击查看 ▾ / 点击收起 ▴」
          由 CSS 伪元素按 [open] 换字 —— 零脚本、零裸 button、零存储。
-       · 内容：近 365 天所有中奖记录（一等 / 二等 / 三等……全部档位），
-         按开奖日期倒序；一条都没中时写「近 365 天暂无中奖记录」。
+       · 每条 = 日期 · 彩种 · 期号 · 几等奖 + 【推荐】一行 + 【开奖】一行，
+         命中号高亮；没中的期次一条都不列（只列中奖的）。
+       · 一条都没中时写「近 365 天暂无中奖记录」。
        ============================================================ -->
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
-      <span class="ro-hist-h2">历史开奖</span>
-      <span class="ro-hist-sub">近 365 天 · 所有奖项</span>
+      <span class="ro-hist-h2">历史中奖</span>
+      <span class="ro-hist-sub">近 365 天 · 推荐号命中记录</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
