@@ -1,7 +1,7 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-10-19 11:58:25 · 合并去重后 116 篇，取最新 20 篇 */
+   抓取时间：2026-10-19 23:32:23 · 合并去重后 116 篇，取最新 20 篇 */
 const JC_ARTICLES = {
- "updated": "2026-10-19 11:58:25",
+ "updated": "2026-10-19 23:32:23",
  "sources": [
   {
    "name": "一起彩",
@@ -57,40 +57,40 @@ const JC_ARTICLES = {
    "game": "5"
   },
   {
-   "title": "专家「超级大乐透专家 迋易遐 2026118期 命中3码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/dltex/tjsy_39_1907.html",
+   "title": "专家「超级大乐透专家 李恩壮 2026119期 命中5码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/dltex/tjsy_39_1706.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
    "game": "39"
   },
   {
-   "title": "专家「福彩3D专家 赌神下注 2026277期 命中3码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/fc3dex/tjsy_6_1351.html",
+   "title": "专家「福彩3D专家 王杨保 2026278期 命中0码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/fc3dex/tjsy_6_155.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
    "game": "6"
   },
   {
-   "title": "专家「快乐8专家 啦啦1 2026277期 命中9码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_1343.html",
+   "title": "专家「快乐8专家 青仔 2026278期 命中5码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_448.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
    "game": "8"
   },
   {
-   "title": "专家「排列3专家 蔡泽川 2026277期 命中3码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/pl3ex/tjsy_63_1503.html",
+   "title": "专家「排列3专家 猪欣二 2026278期 命中3码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/pl3ex/tjsy_63_772.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
    "game": "63"
   },
   {
-   "title": "专家「排列5专家 中奖找对象 2026277期 命中3码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_1512.html",
+   "title": "专家「排列5专家 红单到底 2026278期 命中3码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_1840.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
@@ -105,8 +105,8 @@ const JC_ARTICLES = {
    "game": "7"
   },
   {
-   "title": "专家「七乐彩专家 继续做梦 2026119期 命中6码！」 · 免费推荐",
-   "url": "https://www.yiqicai.com/ex/qlcex/tjsy_13_1031.html",
+   "title": "专家「七乐彩专家 孤掷一注 2026120期 命中6码！」 · 免费推荐",
+   "url": "https://www.yiqicai.com/ex/qlcex/tjsy_13_182.html",
    "source": "一起彩",
    "time": 0,
    "tag": "专家",
