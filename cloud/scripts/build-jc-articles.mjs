@@ -282,14 +282,28 @@ const uniq = all.filter((x) => {
 uniq.sort((a, b) => (b.time || 0) - (a.time || 0));
 const list = uniq.slice(0, KEEP);
 
+/* ============================================================
+   __TOUTIAO_LIST__ 用户 2026-10-20：「免费资料是不是抓取的我给的头条资料
+   根据下一期开什么奖抓什么 实时抓取」
+   ------------------------------------------------------------
+   问题：上面的 list 只留最新 20 篇，而「一起彩」有 107 篇、排序又稳定 → 20 篇里
+         一条头条都进不去，青蛙家园的「免费资料」永远只剩一起彩的专家页。
+   办法：单独存一份【头条全量】toutiao:[]，带 game（ssq / dlt）和关键词 tag，
+         让 export-static.mjs 的免费资料能【按下一期彩种】筛。
+   ⚠️ list 一个字都不动 —— export-football.mjs 那边还照旧读 list。
+   ============================================================ */
+const toutiaoList = uniq.filter((x) => x && x.source === '今日头条').slice(0, 40);
+
 const out = {
   updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
   sources,
   total: uniq.length,
-  list
+  list,
+  toutiao: toutiaoList
 };
 const js = `/* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：${out.updated} · 合并去重后 ${uniq.length} 篇，取最新 ${list.length} 篇 */
+   抓取时间：${out.updated} · 合并去重后 ${uniq.length} 篇，取最新 ${list.length} 篇
+   头条单列：${toutiaoList.length} 条（免费资料按「下一期彩种」从这里筛） */
 const JC_ARTICLES = ${JSON.stringify(out, null, 1)};
 `;
 fs.writeFileSync(OUT, js, 'utf8');
