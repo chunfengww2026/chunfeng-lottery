@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "马昆森",
      "score": 1,
@@ -31,7 +31,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "苏奇特佩基",
-     "score": 0,
+     "score": 1,
      "red": 1,
      "rank": 12
     },
