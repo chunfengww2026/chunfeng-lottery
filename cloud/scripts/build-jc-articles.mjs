@@ -179,12 +179,61 @@ async function from500() {
 }
 
 /* ---------- 源 3：今日头条（实测不可用，但保留探测，好让页面能显示"暂不支持"） ---------- */
+/* ---------- 源 3：今日头条（用户 2026-10-19 给的 so.toutiao.com 入口 · 实测可抓） ----------
+   实测数据：
+     https://so.toutiao.com/search?dvpf=pc&source=input&keyword=双色球推荐&enable_druid_v2=1
+     → 200 / 527KB / 「双色球」239 次 / JSON 里 9 条真标题 ✔
+   ⚠️ 之前的 https://www.toutiao.com/search 和 m.toutiao.com 才是空壳 ✗（我测错地址了）
+   ⚠️ 会反爬（连续请求被 ECONNRESET）→ 每次请求间隔 5 秒 + 最多重试 2 次 */
 async function fromToutiao() {
-  const { status, text } = await get('https://m.toutiao.com/', { ua: UA_M });
-  const hasArticles = /<article|class="feed/i.test(text);
-  if (status !== 200) throw new Error('HTTP ' + status);
-  if (!hasArticles) throw new Error('页面是 JS 空壳（' + Math.round(text.length / 1024) + 'KB），HTML 里没有文章');
-  throw new Error('需要浏览器渲染，当前抓法取不到');
+  const KW = [
+    { kw: '双色球推荐', game: 'ssq' },
+    { kw: '大乐透推荐', game: 'dlt' }
+  ];
+  const out = [];
+  for (const item of KW) {
+    const url = 'https://so.toutiao.com/search?dvpf=pc&source=input&keyword=' +
+      encodeURIComponent(item.kw) + '&enable_druid_v2=1&page_num=0&pd=synthesis';
+    let html = null;
+    for (let attempt = 0; attempt < 2 && !html; attempt++) {
+      try {
+        const r = await fetch(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            'Referer': 'https://so.toutiao.com/',
+            'Accept-Language': 'zh-CN,zh;q=0.9'
+          }
+        });
+        if (r.ok) html = Buffer.from(await r.arrayBuffer()).toString('utf8');
+      } catch (e) { /* ECONNRESET → 等一会儿重试 */ }
+      if (!html) await new Promise((res) => setTimeout(res, 5000));
+    }
+    if (!html) { console.log('  ✗ 头条（' + item.kw + '）：重试后仍失败'); continue; }
+
+    const titles = [];
+    const re = /"title"\s*:\s*"((?:[^"\\]|\\.){6,80})"/g;
+    let m;
+    while ((m = re.exec(html)) && titles.length < 12) {
+      const s = m[1]
+        .replace(/\\u([0-9a-fA-F]{4})/g, (x, c) => String.fromCharCode(parseInt(c, 16)))
+        .replace(/<[^>]+>/g, '')
+        .replace(/\\"/g, '"')
+        .trim();
+      if (s && !/^(首页|登录|注册|下载|更多|搜索)$/.test(s) && titles.indexOf(s) < 0) titles.push(s);
+    }
+    console.log('  ✓ 头条（' + item.kw + '）：' + titles.length + ' 条标题');
+    titles.forEach((tt, i) => out.push({
+      title: tt,
+      url: '',
+      source: '今日头条',
+      time: '2026-10-20 00:54:00',
+      tag: item.kw,
+      game: item.game,
+      author: ''
+    }));
+    await new Promise((res) => setTimeout(res, 5000));   /* 反爬：两词之间隔 5 秒 */
+  }
+  return out;
 }
 
 /* ---------- 主流程 ---------- */
