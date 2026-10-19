@@ -15367,7 +15367,7 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-art2 > summary .frog-ag { flex: 0 0 auto; }
 .frog-art2 > summary .frog-ag::after { content: "▾"; margin-left: 2px; }
 .frog-art2[open] > summary .frog-ag::after { content: "▴"; }
-.frog-ab { font-size: 13px; line-height: 1.75; color: #4a3a26; text-align: left; background: #fffdf7;
+.frog-ab { font-size: 13px; line-height: 1.7; color: #4a3a26; text-align: left; background: #fffdf7;
   border: 1px solid #f0e4cf; border-radius: 8px; padding: 9px 10px; margin: 2px 0 6px;
   word-break: break-word; overflow-wrap: anywhere; }
 .frog-ab p { margin: 0 0 9px; }
