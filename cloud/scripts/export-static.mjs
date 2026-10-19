@@ -13931,6 +13931,22 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-pick-b { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
 .px9-pick-b i { font-style:normal; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#e02020; color:#fff; font-size:12px; font-weight:700; letter-spacing:0; }
 .px9-pick-b i.bl { background:#1f5fd6; }
+
+/* ===== 5 类号表格（用户 2026-10-19「每个号码也要隔开一下」）===== */
+.ro-xj5 { margin: 8px 0 2px; border: 1px solid #efe3cf; border-radius: 10px; background: #fffdf7; }
+.ro-xj5-sum { padding: 9px 10px; font-size: 12px; font-weight: 700; color: #1a8c5a; cursor: pointer; list-style: none; }
+.ro-xj5-sum::-webkit-details-marker { display: none; }
+.ro-xj5-body { padding: 2px 10px 10px; }
+.ro-xj5-cat { margin-top: 8px; }
+.ro-xj5-h { display: flex; align-items: center; gap: 8px; padding: 4px 0 5px; border-bottom: 1px dashed #efe3cf; }
+.ro-xj5-h b { font-size: 12.5px; color: #c0392b; }
+.ro-xj5-h span { font-size: 10.5px; color: #8a7a63; }
+.ro-xj5-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px dashed #f5eee2; }
+.ro-xj5-n { flex: 0 0 76px; font-size: 11.5px; color: #4a3a26; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ro-xj5-b { flex: 1 1 auto; display: flex; flex-wrap: wrap; gap: 4px; }
+.ro-xj5-b i { font-style: normal; display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%; background: #fdeaea; color: #c0392b;
+  border: 1px solid #f3cfcf; font-size: 11px; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
