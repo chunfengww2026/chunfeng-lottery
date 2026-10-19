@@ -218,6 +218,16 @@ function poolCandidates(gameId, areaKey, want) {
   const size = to - from + 1;
   const n = Math.max(1, Math.min(want, size));
 
+  /* 【三源融合】号池统一走 stats.js 的 poolRankBlend（资料 ∪ 核心算法 20 码 ∪ 专家池 + 频率热度）。
+     这样「摇号写卡」（本文件）和「自动补算」（stats.js）两条路出的是同一份号码池，
+     不会再出现「20 码来自核心算法、15 码来自专家池」这种两张来源打架的情况。 */
+  if (typeof poolRankBlend === 'function') {
+    try {
+      const r = poolRankBlend(gameId, areaKey, from, to, n);
+      if (Array.isArray(r) && r.length) return r;
+    } catch (e) { /* 回落老逻辑 */ }
+  }
+
   /* ---- ① 资料优先层（data-store.js 的 materialRulesFor）：解析不出来就静默跳过 ---- */
   let matPick = [];
   let matKillSet = new Set();
