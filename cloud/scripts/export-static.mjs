@@ -25,8 +25,8 @@ import vm from 'node:vm';
 
 /* 【BACK6 已删 · 用户 2026-10-19「这条不要了 / 整条删掉」】
    状态卡里原来有一条 BACK6 播报（大乐透后区那 6 个号 + 一行说明），
-   由 dltBack6Html() 在构建期算出来插进去，现已整条移除，不换成别的：
-   函数 dltBack6Html() 删除、两处调用点（statusHtml 的 ok / warn 两个分支）删除。
+   由 '' 在构建期算出来插进去，现已整条移除，不换成别的：
+   函数 '' 删除、两处调用点（statusHtml 的 ok / warn 两个分支）删除。
    中奖播报（__MQ_TICKER__ / buildHitMarquee）不受影响，一条没动。 */
 
 import { fileURLToPath } from 'node:url';
@@ -2893,7 +2893,7 @@ if (status.allReady) {
     /* 【BACK6 已删 · 用户 2026-10-19「这条不要了」】这里原来还有一条
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
     /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
-    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
+    `<div class="ro-back6-slot">` + '' + `</div>` +
     mqTicker.html +
     `</div>`;
 } else {
@@ -2914,7 +2914,7 @@ if (status.allReady) {
     /* 【BACK6 已删 · 用户 2026-10-19「这条不要了」】这里原来还有一条
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
     /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
-    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
+    `<div class="ro-back6-slot">` + '' + `</div>` +
     mqTicker.html +
     `</div>`;
 }
