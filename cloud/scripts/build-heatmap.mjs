@@ -1171,6 +1171,28 @@ async function buildGame(cfg, nowBj, opts) {
           : '全网公开晒票照片识别';
         note = `识别自一起彩幸运晒票页第 ${site} 期公开票面照片${pagesText}（有效票 ${s.tickets} 张${kindText}）${thin}`;
         log(`  ✅ OCR 口径可用 → 用它出图（${s.tickets} 张有效票${kindText}）${thin ? ' ⚠️' + thin.trim() : ''}`);
+        /* ===== BLEND_HISTORY · 用户 2026-10-19「热力图做到尽量每个号都有数据」=====
+           票少（< MIN_OCR_TICKETS_GOOD）时，图会大片是 0% ✗。
+           做法：把这 30 期【开奖号码频率】按权重叠加上去 —— 每个号至少有一点数据 ✔。
+           口径必须写清楚：source 改成 ocr-xysp-blend，标签注明「晒票 N 张 + 开奖频率补齐」。 */
+        if (s.tickets < MIN_OCR_TICKETS_GOOD) {
+          try {
+            const H2 = (opts && opts.history) || null;
+            const fb2 = fallbackFromHistory(cfg, H2);
+            if (fb2 && fb2.frontCounts && fb2.backCounts) {
+              /* 权重：开奖频率总和调到和晒票同量级（晒票少 → 频率占大头，保证每个号都有值） */
+              const fSum = (fb2.frontCounts || []).reduce(function (a, b) { return a + (b || 0); }, 0) || 1;
+              const fScale = Math.max(1, Math.round((s.tickets || 1) * 3 / fSum * 100)) / 100;
+              const bSum = (fb2.backCounts || []).reduce(function (a, b) { return a + (b || 0); }, 0) || 1;
+              const bScale = Math.max(1, Math.round((s.tickets || 1) * 1 / bSum * 100)) / 100;
+              fCounts = fCounts.map(function (v, i2) { return (v || 0) + Math.round((fb2.frontCounts[i2] || 0) * fScale); });
+              bCounts = bCounts.map(function (v, i2) { return (v || 0) + Math.round((fb2.backCounts[i2] || 0) * bScale); });
+              sourceLabel = '晒票 ' + s.tickets + ' 张 + 近 ' + fb2.drawCount + ' 期开奖频率补齐';
+              note = (note || '') + '；因晒票样本仅 ' + s.tickets + ' 张，已叠加近 ' + fb2.drawCount + ' 期开奖号码频率，保证每个号都有数据';
+              log('  🔀 票少 → 已叠加近 ' + fb2.drawCount + ' 期开奖频率（每个号都有数据）');
+            }
+          } catch (e2) { log('  ⚠️ 叠加频率失败（不影响原统计）：' + e2.message); }
+        }
       } else {
         log(`  ⚠️ OCR 口径不可用：${ocrRes.err} → 回退`);
       }
