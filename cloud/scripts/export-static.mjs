@@ -2877,7 +2877,7 @@ if (status.allReady) {
   statusHtml =
     `<div class="ro-status ok ro-st-row">` +
     `<div class="ro-st-txt">` +
-    `<div class="ro-st-head"><span class="ro-st-dot"></span>已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
+    `<div class="ro-st-head"><span class="ro-st-dot"></span>资料已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
