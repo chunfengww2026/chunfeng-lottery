@@ -98,7 +98,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-19 09:10:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "卡利体育会",
      "score": 0,
@@ -164,7 +164,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "马昆森",
      "score": 1,
