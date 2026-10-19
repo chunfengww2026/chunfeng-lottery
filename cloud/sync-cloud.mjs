@@ -973,35 +973,108 @@ const tDispatch = Date.now();
 const dispatchUrl = `/repos/${OWNER}/${REPO}/actions/workflows/daily-update.yml/dispatches`;
 
 /* ============================================================
-   【错峰 + 去重】用户 2026-10-18：「给 sync-cloud 加错峰去重」
+   【dispatch 节流 · 2026-10-19 第 3 版】
+   用户实测：03:15~03:30 UTC 十几条 workflow_dispatch，日志脏、排队位被顶。
    ------------------------------------------------------------
-   问题（实测）：多窗口/定时任务同时同步 → 一分钟内触发好几次构建 →
-   云端排队互相【取消】（最近 100 次运行里 62 次 cancelled）→ 线上更新滞后 5~10 分钟。
-   现在两道闸：
-     ① 去重：30 秒内的重复派发【只算一次】（记在本机一个小状态文件里）
-     ② 错峰：云端已经有 pending / in_progress 的运行 → 这次【不派发】，
-        那班跑完会带上最新代码；下一次定时班（每 10 分钟）也会补上。
-   ⚠️ 状态文件只放本机（不进云端、不影响页面）：.sync-last-dispatch.json
+   根因链：一堆本机脚本（每 5 分钟比分 / 每 2 分钟开奖快更 / 每 30 分钟 /
+   21:30·21:45 / 02:00 / 开机补跑 / 代码修改器）【都调这个 sync-cloud】，
+   而这个文件每次成功同步都会 dispatch 一次 → manual 那一组的排队位
+   （daily-update-manual，GitHub 一个 group 只留 1 个 pending）永远被新触发顶掉。
+   ⚠️ 注意：workflow 是【故意不加 on: push】的（构建结束会把 cloud/ 产物提交回
+      仓库，加了 push 就无限循环）。所以「靠 push 天然触发」这条路走不通，
+      dispatch 不能删，只能【少发】。
+   ------------------------------------------------------------
+   三道闸（全部只作用于 dispatch，【文件照传、一个都不少】）：
+     ① 没实质变化不发：只变了同步标记 / tickets.json / _*.log 这类不用重建的文件 → 不发；
+     ② 最小间隔 10 分钟：距上次成功派发 < 10 分钟 → 跳过 dispatch（数据照样推上去）；
+     ③ 错峰（原有）：云端已有 pending/in_progress → 不发，那班跑完会带上最新代码。
+   --force-dispatch：绕过 ①②（代码修改器 / 用户手动同步要立刻看到效果）。
+                     不绕过 ③ —— 往排队位里硬塞只会把别人顶掉。
+   ------------------------------------------------------------
+   状态文件（只在本机，不进云端、不影响页面）：.sync-last-dispatch.json
+     lastDispatchAt     上次【成功】派发的时间戳（ms）
+     lastDispatchReason 哪个脚本触发的（--reason= / SYNC_DISPATCH_REASON / 父进程推断）
+     skippedCount       累计「因为节流没发」的次数
+     lastSkipAt/lastSkipReason  最近一次跳过的原因（排查用）
    ============================================================ */
 const DISPATCH_STATE = path.join(PARENT, '.sync-last-dispatch.json');   /* 项目根目录 */
-const DEDUPE_MS = 30 * 1000;
-let skipDispatch = '';
+const MIN_DISPATCH_MS = 10 * 60 * 1000;    /* 最小派发间隔 10 分钟 */
+
+/* 【① 没实质变化不发】
+   注意：sync-stamp.json 每次同步都会重写（时间戳变了）、tickets.json 是准实时数据
+   （分享页自己拉，不需要重建页面）、_*.log 只是云端脚本的运行状态。
+   这三类变了【不值得】让云端重跑 6~20 分钟的一班。 */
+const NO_REBUILD_RE = [
+  /^cloud\/scripts\/sync-stamp\.json$/,
+  /^cloud\/out\/tickets\.json$/,
+  /^cloud\/scripts\/_[^/]+\.log$/
+];
+const isNoRebuild = (repo) => NO_REBUILD_RE.some((re) => re.test(repo));
+const rebuildFiles = changedFiles.filter((f) => !isNoRebuild(f.repo));
+
+/* 读状态（坏了就当没有，绝不影响同步） */
+let prevState = {};
 try {
   if (fs.existsSync(DISPATCH_STATE)) {
     const st = JSON.parse(fs.readFileSync(DISPATCH_STATE, 'utf8') || '{}');
-    const last = Number(st.lastDispatchAt || 0);
-    if (last && Date.now() - last < DEDUPE_MS) {
-      skipDispatch = `距上次派发只有 ${Math.round((Date.now() - last) / 1000)} 秒（<30）→ 去重，不再派发`;
-    }
+    if (st && typeof st === 'object') prevState = st;
   }
 } catch (e) { /* 状态文件坏了就当没有 */ }
+const lastDispatchAt = Number(prevState.lastDispatchAt || 0);
+const prevSkipped = Number(prevState.skippedCount || 0);
 
+function writeDispatchState(patch) {
+  try {
+    fs.writeFileSync(DISPATCH_STATE, JSON.stringify({
+      ...prevState, ...patch, updatedAt: new Date().toISOString()
+    }, null, 2), 'utf8');
+  } catch (e) { /* 写不了就不记，不影响功能 */ }
+}
+
+/* 【触发源】谁调的我 —— 只为状态文件和日志可读，查不到就 'unknown' */
+function detectParentScript() {
+  if (process.platform !== 'win32') return 'unknown';
+  try {
+    const ps = '$id=' + process.ppid + ';$o=@();for($i=0;$i -lt 5 -and $id -ne 0;$i++){' +
+      '$p=Get-CimInstance Win32_Process -Filter ("ProcessId=" + $id) -ErrorAction SilentlyContinue;' +
+      'if($p -eq $null){break};$o+=("{0}#{1}" -f $p.ProcessId,$p.CommandLine);' +
+      '$id=$p.ParentProcessId};$o -join [char]10';
+    const out = execFileSync('powershell.exe',
+      ['-NoProfile', '-NonInteractive', '-Command', ps],
+      { encoding: 'utf8', timeout: 4000, windowsHide: true });
+    const names = (String(out).match(/[\\/][A-Za-z0-9_][A-Za-z0-9_.\-]*\.(?:mjs|js|cjs|cmd|bat|ps1)/g) || [])
+      .map((s) => s.split(/[\\/]/).pop())
+      .filter((n) => !/^sync-cloud\.(mjs|cmd)$/i.test(n));
+    return names[0] || 'unknown';
+  } catch (e) { return 'unknown'; }
+}
+function detectReason() {
+  const arg = (process.argv.find((a) => a.startsWith('--reason=')) || '').slice('--reason='.length).trim();
+  if (arg) return arg.slice(0, 80);
+  const env = (process.env.SYNC_DISPATCH_REASON || '').trim();
+  if (env) return env.slice(0, 80);
+  return detectParentScript();
+}
+
+const FORCE_DISPATCH = process.argv.includes('--force-dispatch');
+
+/* ② 10 分钟最小间隔 + ① 无实质变化 —— 先在本机判定，不发网络请求 */
+let skipDispatch = '';
+if (!FORCE_DISPATCH) {
+  if (!rebuildFiles.length) {
+    skipDispatch = `本次${changedFiles.length} 个文件有变化，但全是同步标记/号码文件/日志这类不用重建的` +
+      `（实质变化 0 个）→ 不派发`;
+  } else if (lastDispatchAt && Date.now() - lastDispatchAt < MIN_DISPATCH_MS) {
+    skipDispatch = `距上次派发只有 ${Math.round((Date.now() - lastDispatchAt) / 60000)} 分钟（<10 分钟）→ 节流，不派发`;
+  }
+}
+
+/* ③ 错峰：看云端队列（原有逻辑，force 也照旧遵守） */
 if (!skipDispatch) {
-  /* 错峰：看云端队列 */
   try {
     const runsRes = await gh('GET', `/repos/${OWNER}/${REPO}/actions/runs?per_page=5`);
     if (runsRes && runsRes.ok) {
-      const data = await runsRes.json();
+      const data = runsRes.json || await runsRes.json();
       const busy = (data.workflow_runs || []).filter((x) => x.status === 'pending' || x.status === 'in_progress');
       if (busy.length) {
         skipDispatch = `云端已有 ${busy.length} 个运行在排队/进行中（${busy.map((x) => x.status).join('、')}）→ 错峰，不再派发`;
@@ -1012,9 +1085,19 @@ if (!skipDispatch) {
 
 let trigger = null;
 if (skipDispatch) {
+  writeDispatchState({
+    skippedCount: prevSkipped + 1,
+    lastSkipAt: new Date().toISOString(),
+    lastSkipReason: skipDispatch,
+    lastSkipReasonBy: detectReason()
+  });
   log(`  ⏭  跳过派发：${skipDispatch}`);
-  log('     · 最新代码已经上传；云端正在跑的那班会带上它，下一次定时班（每 10 分钟）也会补上');
+  log(`     · 本次累计跳过 ${prevSkipped + 1} 次；文件【已经全部推上去】了，数据不受影响`);
+  log('     · 云端正在跑的那班会带上它；下一次定时班（每 10 分钟）也会补上');
+  log('     · 要立刻重建：加 --force-dispatch 再跑一次'
+    + '（runtime\\node.exe cloud\\sync-cloud.mjs --force-dispatch）');
 } else {
+  const reason = detectReason();
   trigger = await gh('POST', dispatchUrl, { ref: BRANCH, inputs: { quick: '1' } });
 
   /* 万一云端仓库里的 workflow 还没声明 quick 这个输入（会返回 422），
@@ -1023,9 +1106,17 @@ if (skipDispatch) {
     log('  ⚠️ 快速模式参数被拒（422），改用普通触发重试一次');
     trigger = await gh('POST', dispatchUrl, { ref: BRANCH });
   }
-  try {
-    fs.writeFileSync(DISPATCH_STATE, JSON.stringify({ lastDispatchAt: Date.now(), at: new Date().toISOString() }), 'utf8');
-  } catch (e) { /* 写不了就不去重，不影响功能 */ }
+  /* 只在【成功】时才记时间：失败下次还能立刻重试（以前失败也写，白等 30 秒） */
+  if (trigger.ok || trigger.status === 204) {
+    writeDispatchState({
+      lastDispatchAt: Date.now(),
+      at: new Date().toISOString(),
+      lastDispatchReason: reason,
+      lastDispatchForce: FORCE_DISPATCH || undefined,
+      skippedCount: prevSkipped
+    });
+    log(`  · 触发源：${reason}${FORCE_DISPATCH ? '（强制模式 --force-dispatch）' : ''}`);
+  }
 }
 
 if (!trigger) {
