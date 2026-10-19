@@ -15452,6 +15452,17 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
   z-index: -1;
 }
 .top-tabs { position: sticky; }
+
+/* SAFE_AREA_TABS · 用户 2026-10-21「刘海屏能够透露出下面的字」
+   ① 刘海/状态栏高度用 env(safe-area-inset-top) 顶开，tab 文字不会被刘海切
+   ② 底色强制不透明（已有 TAB_OPAQUE）+ 顶部安全区也铺满底色 */
+.top-tabs {
+  padding-top: env(safe-area-inset-top, 0px);
+  background: #f7efe1 !important;
+  background-color: #f7efe1 !important;
+}
+/* 刘海那条缝也铺底色，避免透出下面的字 */
+body { background-color: #f7efe1; }
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
