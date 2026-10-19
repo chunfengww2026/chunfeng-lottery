@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>推荐图 · 方法 · 春风</title>
+<style>
+  :root { --bg:#f7efe1; --card:#fffdf7; --line:#efe3cf; --fg:#4a3a26; --fg2:#8a7a63; --ok:#1a8c5a; --red:#c0392b; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
+  .wrap { max-width:820px; margin:0 auto; padding:14px 14px 40px; }
+  h1 { font-size:18px; text-align:center; color:var(--red); margin:6px 0 12px; letter-spacing:1px; }
+  .games { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:10px; }
+  .g { padding:11px 8px; text-align:center; border-radius:10px; background:var(--card); border:1px solid var(--line); font-weight:700; font-size:14px; cursor:pointer; }
+  .g.on { background:var(--ok); color:#fff; border-color:var(--ok); }
+  .ms { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-bottom:12px; }
+  .m { padding:9px 4px; text-align:center; border-radius:9px; background:var(--card); border:1px solid var(--line); font-size:12.5px; cursor:pointer; }
+  .m.on { background:#e3f2ea; border-color:var(--ok); color:var(--ok); font-weight:700; }
+  .out { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 12px 14px; }
+  .out h2 { font-size:14px; color:var(--ok); margin:0 0 8px; }
+  .row { display:flex; justify-content:space-between; gap:10px; padding:5px 0; border-bottom:1px dashed #f2e8d8; font-size:12.5px; }
+  .row .k { color:#5a4a36; }
+  .row .v { color:var(--fg2); white-space:nowrap; }
+  .pick { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:12px; padding:9px 10px;
+          background:#f4fbf7; border:1px solid #cfe9dc; border-radius:8px; }
+  .pick-k { font-size:12px; font-weight:700; color:var(--ok); }
+  .pick-b { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+  .pick-b i { font-style:normal; display:inline-flex; align-items:center; justify-content:center;
+              width:25px; height:25px; border-radius:50%; background:#e02020; color:#fff; font-size:12.5px; font-weight:700; }
+  .pick-b i.bl { background:#1f5fd6; }
+  .tip { margin-top:10px; font-size:10.5px; color:#a89a80; text-align:center; }
+  .note { font-size:10.5px; color:#a89a80; margin-top:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>推荐图 · 方法</h1>
+  <div class="games" id="games">
+    <div class="g on" data-g="ssq">双色球</div>
+    <div class="g" data-g="dlt">大乐透</div>
+  </div>
+  <div class="ms" id="ms"></div>
+  <div class="out">
+    <h2 id="outTitle">双色球 · 余数算法</h2>
+    <div id="outRows"></div>
+    <div id="outPick"></div>
+    <div class="note" id="outNote"></div>
+  </div>
+  <div class="tip">全部按近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
+</div>
+
+<script src="history.js"></script>
+<script>
+(function () {
+  'use strict';
+  var METHODS = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度','多源共振法'];
+  var CFG = {
+    ssq: { name:'双色球', front:'red', back:'blue', max:33, blueMax:16 },
+    dlt: { name:'大乐透', front:'front', back:'back', max:35, blueMax:12 }
+  };
+  var st = { g:'ssq', m:METHODS[0] };
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  /* 取近 30 期 */
+  function hist(g) {
+    try {
+      /* history.js 里是 `const DRAW_HISTORY = ...` —— const 不挂在 window 上，
+         必须直接按名字取（写成 window.DRAW_HISTORY 会一直是 undefined ✗） */
+      var D = (typeof DRAW_HISTORY !== 'undefined') ? DRAW_HISTORY : null;
+      if (!D || !D.games) return null;
+      var arr = D.games[g] || [];
+      return arr.slice(0, 30);
+    } catch (e) { return null; }
+  }
+  function numsOf(d, g) {
+    var c = CFG[g], a = (d && d.areas) || {};
+    var f = a[c.front] || a.red || a.front || [];
+    var b = a[c.back] || a.blue || a.back || [];
+    return { front: f.map(Number), back: b.map(Number) };
+  }
+  function counts(list, g) {
+    var c = CFG[g], fc = {}, bc = {};
+    for (var i = 1; i <= c.max; i++) fc[i] = 0;
+    for (var j = 1; j <= c.blueMax; j++) bc[j] = 0;
+    list.forEach(function (d) {
+      var n = numsOf(d, g);
+      n.front.forEach(function (x) { if (fc[x] !== undefined) fc[x]++; });
+      n.back.forEach(function (x) { if (bc[x] !== undefined) bc[x]++; });
+    });
+    return { fc: fc, bc: bc };
+  }
+  /* 遗漏：距上次出现过了几期（从最新往回数） */
+  function omission(list, g, num, zone) {
+    for (var i = 0; i < list.length; i++) {
+      var n = numsOf(list[i], g);
+      var z = zone === 'back' ? n.back : n.front;
+      if (z.indexOf(num) >= 0) return i;
+    }
+    return list.length;
+  }
+
+  /* ===== 9 个算法的统计 + 出号 ===== */
+  function calc(g, m) {
+    var c = CFG[g];
+    var list = hist(g);
+    if (!list || !list.length) return { rows:[['数据缺失','history.js 没有该彩种']], red:[], blue:0, note:'' };
+    var cn = counts(list, g), fc = cn.fc, bc = cn.bc;
+    var all = []; for (var i = 1; i <= c.max; i++) all.push(i);
+    var rows = [];
+    var sums = list.map(function (d) { var n = numsOf(d, g).front; return n.reduce(function (a, b) { return a + b; }, 0); });
+    var spans = list.map(function (d) { var n = numsOf(d, g).front; return n.length ? Math.max.apply(null, n) - Math.min.apply(null, n) : 0; });
+    var hot = all.slice().sort(function (a, b) { return (fc[b] || 0) - (fc[a] || 0); });
+    var cold = all.slice().sort(function (a, b) { return (fc[a] || 0) - (fc[b] || 0); });
+    var red = [];
+
+    if (m === '余数算法') {
+      var rs = [0, 0, 0];
+      all.forEach(function (n) { rs[n % 3] += (fc[n] || 0); });
+      for (var r = 0; r < 3; r++) {
+        var seg = all.filter(function (n) { return n % 3 === r; });
+        rows.push(['余 ' + r + ' 路（' + seg.length + ' 个号）', '近 30 期出现 ' + rs[r] + ' 次']);
+      }
+      var best = rs.indexOf(Math.max.apply(null, rs));
+      red = hot.filter(function (n) { return n % 3 === best; }).slice(0, 6);
+      rows.push(['整路遗漏（当前）', [0,1,2].map(function (k) { return k + '路:' + omission(list, g, all.filter(function(n){return n%3===k;})[0], 'front') + '期'; }).join(' · ')]);
+    } else if (m === '分区法') {
+      var zones = [[1, 11], [12, 22], [23, c.max]];
+      zones.forEach(function (z) {
+        var seg = hot.filter(function (n) { return n >= z[0] && n <= z[1]; }).slice(0, 2);
+        rows.push(['第 ' + (zones.indexOf(z) + 1) + ' 区（' + z[0] + '-' + z[1] + '）', '热号 ' + seg.map(pad).join(' ')]);
+        seg.forEach(function (n) { if (red.indexOf(n) < 0) red.push(n); });
+      });
+      red = red.slice(0, 6);
+    } else if (m === '冷热号') {
+      rows.push(['热号前 6', hot.slice(0, 6).map(pad).join(' ')]);
+      rows.push(['冷号前 6', cold.slice(0, 6).map(pad).join(' ')]);
+      red = hot.slice(0, 4).concat(cold.slice(0, 2));
+    } else if (m === '遗漏值算法') {
+      var om = all.map(function (n) { return { n: n, o: omission(list, g, n, 'front') }; })
+        .sort(function (a, b) { return b.o - a.o; });
+      om.slice(0, 8).forEach(function (x) { rows.push([pad(x.n) + ' 号遗漏', x.o + ' 期']); });
+      red = om.slice(0, 6).map(function (x) { return x.n; });
+    } else if (m === '奇偶') {
+      var odds = list.map(function (d) { return numsOf(d, g).front.filter(function (n) { return n % 2 === 1; }).length; });
+      var avgOdd = Math.round(odds.reduce(function (a, b) { return a + b; }, 0) / list.length);
+      avgOdd = Math.max(1, Math.min(5, avgOdd));
+      rows.push(['常见奇偶比', avgOdd + ' : ' + (6 - avgOdd)]);
+      red = hot.filter(function (n) { return n % 2 === 1; }).slice(0, avgOdd)
+        .concat(hot.filter(function (n) { return n % 2 === 0; }).slice(0, 6 - avgOdd));
+    } else if (m === '质合') {
+      var isP = function (n) { if (n < 2) return false; for (var d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
+      var pc = list.map(function (d) { return numsOf(d, g).front.filter(isP).length; });
+      var avgP = Math.round(pc.reduce(function (a, b) { return a + b; }, 0) / list.length);
+      avgP = Math.max(2, Math.min(4, avgP));
+      rows.push(['常见质合比', avgP + ' : ' + (6 - avgP)]);
+      red = hot.filter(isP).slice(0, avgP).concat(hot.filter(function (n) { return !isP(n); }).slice(0, 6 - avgP));
+    } else if (m === '和值') {
+      var ss = sums.slice().sort(function (a, b) { return a - b; });
+      var mid = ss[Math.floor(ss.length / 2)] || 100;
+      rows.push(['近 30 期和值区间', Math.min.apply(null, sums) + ' ~ ' + Math.max.apply(null, sums)]);
+      rows.push(['和值中位数', mid + '（均值 ' + (mid / 6).toFixed(1) + '/号）']);
+      var target = mid / 6;
+      red = all.slice().sort(function (a, b) {
+        var da = Math.abs(a - target) - (fc[a] || 0) * 2.5;
+        var db = Math.abs(b - target) - (fc[b] || 0) * 2.5;
+        return da - db;
+      }).slice(0, 6);
+    } else if (m === '跨度') {
+      var sp = spans.slice().sort(function (a, b) { return a - b; });
+      var midSp = sp[Math.floor(sp.length / 2)] || 20;
+      rows.push(['近 30 期跨度区间', Math.min.apply(null, spans) + ' ~ ' + Math.max.apply(null, spans)]);
+      rows.push(['跨度中位数', midSp]);
+      var lo = Math.max(1, midSp - 5), hi = Math.min(c.max, midSp + 5);
+      red = hot.filter(function (n) { return n >= lo && n <= hi; }).slice(0, 6);
+      if (red.length < 6) hot.forEach(function (n) { if (red.indexOf(n) < 0 && red.length < 6) red.push(n); });
+    } else {
+      /* 多源共振法：前 8 个算法投票 */
+      var votes = {};
+      ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度'].forEach(function (mm) {
+        calc(g, mm).red.forEach(function (n) { votes[n] = (votes[n] || 0) + 1; });
+      });
+      var ranked = Object.keys(votes).map(Number).sort(function (a, b) {
+        return ((votes[b] || 0) * 2 + (fc[b] || 0)) - ((votes[a] || 0) * 2 + (fc[a] || 0));
+      });
+      ranked.slice(0, 6).forEach(function (n) { rows.push([pad(n) + ' 号得票', votes[n] + ' 票 · 30 期出现 ' + (fc[n] || 0) + ' 次']); });
+      red = ranked.slice(0, 6);
+    }
+
+    /* 去重 + 排序 + 补足 6 个 */
+    red = red.filter(function (n, i2, arr) { return arr.indexOf(n) === i2; });
+    for (var h = 0; h < hot.length && red.length < 6; h++) if (red.indexOf(hot[h]) < 0) red.push(hot[h]);
+    red = red.slice(0, 6).sort(function (a, b) { return a - b; });
+
+    /* 蓝球/后区：频次最高的 1 个 */
+    var blues = []; for (var b2 = 1; b2 <= c.blueMax; b2++) blues.push(b2);
+    var blue = blues.slice().sort(function (a, b) { return (bc[b] || 0) - (bc[a] || 0); })[0];
+
+    return { rows: rows, red: red, blue: blue, note: '近 ' + list.length + ' 期 · 主号区 1-' + c.max + ' · 全部现算' };
+  }
+
+  function render() {
+    var c = CFG[st.g];
+    document.getElementById('outTitle').textContent = c.name + ' · ' + st.m;
+    var r = calc(st.g, st.m);
+    document.getElementById('outRows').innerHTML = r.rows.map(function (x) {
+      return '<div class="row"><span class="k">' + x[0] + '</span><span class="v">' + x[1] + '</span></div>';
+    }).join('');
+    var nums = r.red.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('') +
+      '<i class="bl">' + pad(r.blue) + '</i>';
+    document.getElementById('outPick').innerHTML =
+      '<div class="pick"><span class="pick-k">推荐号码</span><span class="pick-b">' + nums + '</span></div>';
+    document.getElementById('outNote').textContent = r.note || '';
+    /* 按钮状态 */
+    [].slice.call(document.querySelectorAll('#ms .m')).forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-m') === st.m);
+    });
+    [].slice.call(document.querySelectorAll('#games .g')).forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-g') === st.g);
+    });
+  }
+
+  document.getElementById('ms').innerHTML = METHODS.map(function (m) {
+    return '<div class="m" data-m="' + m + '">' + m + '</div>';
+  }).join('');
+  document.getElementById('ms').addEventListener('click', function (ev) {
+    var b = ev.target.closest('.m');
+    if (!b) return;
+    st.m = b.getAttribute('data-m');
+    render();
+  });
+  document.getElementById('games').addEventListener('click', function (ev) {
+    var b = ev.target.closest('.g');
+    if (!b) return;
+    st.g = b.getAttribute('data-g');
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
