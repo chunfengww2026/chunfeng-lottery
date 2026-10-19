@@ -287,14 +287,10 @@ function autoNumberPool(gameId, areaKey, rowCounts, opts) {
     candidate = pool.slice();
   }
 
-  // 按出现频率排序（热号优先），频率相同按号码大小
-  const freq = countFrequency(gameId, areaKey, periods);
-  candidate.sort((a, b) => {
-    const fa = freq.get(a) || 0;
-    const fb = freq.get(b) || 0;
-    if (fb !== fa) return fb - fa;
-    return a - b;
-  });
+  /* 【频率特征】号码池排序也走同一套分数（全局频率 + 近 100 期冷热 + 遗漏回补），
+     于是 20/15/10/3/1 码的档位 = 热度从高到低，和图上推荐号同源。 */
+  const feats = freqFeatures(gameId, areaKey, from, to);
+  candidate.sort((a, b) => ((freqScore(feats, b) - freqScore(feats, a)) || (a - b)));
 
   /* 【资料优先】资料里写明的号码排最前、资料杀号剔除（资料 > 专家池 > 原算法） */
   try {
@@ -1331,6 +1327,155 @@ function actualPeriods(gameId) {
   return Math.min(h.length || 0, HIST_PERIODS) || 1;
 }
 
+/* ============================================================
+   ★ 频率特征引擎（用户 2026-10-20：「把这个思路学习到大乐透和双色球
+     规则里面，后续结合这些思路出号」）
+   ------------------------------------------------------------
+   用户给的原始思路（Python）：
+     · 全局频率：全部历史里每个号各出现多少次
+     · 冷热号   ：只统计【最近 window 期】（默认 100）的出现次数
+   本引擎在此基础上再加一项同类特征（遗漏回补），然后合成一个 0~100 的热度分：
+     · rR = 近 window 期出现率 ÷ 期望出现率（>1 = 近期热，<1 = 近期冷）
+     · rG = 全局出现率   ÷ 期望出现率（长期热度）
+     · omit = 距上次出现的期数 ÷ 平均间隔（越大 = 越"该回补"）
+     score = 100 × ( 0.45·clamp(rR/2) + 0.30·clamp(rG/2) + 0.25·clamp(omit/1.6) )
+   ⚠️ 用「出现率 ÷ 期望」而不是裸次数：不同彩种球数不同、历史长短不同也能直接比。
+   分层：全部号按分数三等分 → 热 / 温 / 冷。
+   出号：n ≤ 8 时按冷热配比抽（6 个 = 热2 温2 冷2；5 个 = 热2 温2 冷1；
+         2 个 = 热1 冷1；1 个 = 热1），n 更大时按分数取前 n。
+   ⚠️ 只用历史数据、不用随机数 —— 同一份历史永远出同一批号（可复现、可验收）。
+   ============================================================ */
+const FREQ_WINDOW = 100;        /* 用户 Python 里的 window 默认值 */
+const FREQ_GLOBAL_CAP = 500;    /* 全局频率最多统计最近 500 期 */
+
+/** 某区在连续 periods 期内的出现次数统计 */
+function freqCounts(history, areaKey, periods) {
+  const map = new Map();
+  let span = 0, balls = 0;
+  for (let i = 0; i < history.length && i < periods; i++) {
+    const a = (history[i] && history[i].areas && history[i].areas[areaKey]) || [];
+    if (!a.length) continue;
+    span++;
+    balls += a.length;
+    a.forEach((n) => map.set(n, (map.get(n) || 0) + 1));
+  }
+  return { map, span, balls, perDraw: span ? balls / span : 0 };
+}
+
+const _freqCache = new Map();
+/** 计算某彩种某区的频率特征（按 彩种|区|范围|历史长度 缓存） */
+function freqFeatures(gameId, areaKey, from, to) {
+  const hist = (typeof getHistory === 'function' ? getHistory(gameId) : []) || [];
+  const key = [gameId, areaKey, from, to, hist.length].join('|');
+  const hit = _freqCache.get(key);
+  if (hit) return hit;
+
+  const size = Math.max(1, to - from + 1);
+  const g = freqCounts(hist, areaKey, FREQ_GLOBAL_CAP);
+  const r = freqCounts(hist, areaKey, FREQ_WINDOW);
+  const expG = g.span ? g.perDraw / size : 0;
+  const expR = r.span ? r.perDraw / size : 0;
+  const meanGap = expG ? 1 / expG : 1;
+
+  /* 遗漏：从最新一期（下标 0）往前数，第一次出现是第几期（本期开出 = 0） */
+  const omit = new Map();
+  for (let n = from; n <= to; n++) omit.set(n, Math.min(hist.length, 60));
+  hist.forEach((d, idx) => {
+    const a = (d && d.areas && d.areas[areaKey]) || [];
+    a.forEach((n) => { if (n >= from && n <= to && omit.get(n) > idx) omit.set(n, idx); });
+  });
+
+  const raw = new Map();
+  for (let n = from; n <= to; n++) {
+    const rateG = g.span ? (g.map.get(n) || 0) / g.span : 0;
+    const rateR = r.span ? (r.map.get(n) || 0) / r.span : 0;
+    const rG = expG ? rateG / expG : 1;
+    const rR = expR ? rateR / expR : 1;
+    const omitN = Math.min((omit.get(n) || 0) / meanGap, 1.6) / 1.6;
+    const sc = 100 * (0.45 * (Math.min(Math.max(rR, 0), 2) / 2)
+                    + 0.30 * (Math.min(Math.max(rG, 0), 2) / 2)
+                    + 0.25 * omitN);
+    raw.set(n, { score: sc, rR: rR, rG: rG, omit: omit.get(n) || 0 });
+  }
+
+  /* 分层：按分数排序，前 1/3 热、后 1/3 冷、中间温 */
+  const order = [];
+  for (let n = from; n <= to; n++) order.push(n);
+  order.sort((a, b) => ((raw.get(b).score - raw.get(a).score) || (a - b)));
+  const third = Math.max(1, Math.floor(order.length / 3));
+  const tier = new Map();
+  order.forEach((n, i) => {
+    tier.set(n, i < third ? 'hot' : (i >= order.length - third ? 'cold' : 'warm'));
+  });
+
+  const feats = {
+    gameId: gameId, areaKey: areaKey, from: from, to: to,
+    window: FREQ_WINDOW, span: g.span, recentSpan: r.span,
+    global: g.map, recent: r.map, omit: omit, detail: raw, tier: tier, order: order,
+    hot: order.filter((n) => tier.get(n) === 'hot'),
+    warm: order.filter((n) => tier.get(n) === 'warm'),
+    cold: order.filter((n) => tier.get(n) === 'cold')
+  };
+  _freqCache.set(key, feats);
+  return feats;
+}
+
+/** 某个号的热度分（没有特征时 0） */
+function freqScore(feats, n) {
+  const x = feats && feats.detail && feats.detail.get(n);
+  return x ? x.score : 0;
+}
+
+/** 按热度从高到低排（同分按号码小） */
+function freqRank(nums, feats) {
+  return nums.slice().sort((a, b) => ((freqScore(feats, b) - freqScore(feats, a)) || (a - b)));
+}
+
+/**
+ * 按频率特征出号：n ≤ 8 走「冷热配比」，n 更大走「热度前 n」
+ * @param {number[]} nums  候选号（号码池 / 全区）
+ * @param {object} feats   freqFeatures() 的结果
+ * @param {number} n       要几个
+ */
+function freqPick(nums, feats, n) {
+  const want = Math.min(n, nums.length);
+  if (!want) return [];
+  const ranked = freqRank(nums, feats);
+  if (want > 8) return ranked.slice(0, want);
+
+  const quotaFor = (k) => {
+    if (k <= 1) return { hot: 1, warm: 0, cold: 0 };
+    if (k === 2) return { hot: 1, warm: 0, cold: 1 };   /* 一个热 + 一个冷回补 */
+    if (k === 3) return { hot: 1, warm: 1, cold: 1 };
+    if (k === 4) return { hot: 2, warm: 1, cold: 1 };
+    if (k <= 8) return { hot: 2, warm: 2, cold: k - 4 };
+    return { hot: 2, warm: 2, cold: 4 };
+  };
+  const q = quotaFor(want);
+  const take = (tierName, cnt) => (feats.order || [])
+    .filter((x) => nums.indexOf(x) >= 0 && feats.tier.get(x) === tierName)
+    .slice(0, cnt);
+
+  const picked = [].concat(take('hot', q.hot), take('warm', q.warm), take('cold', q.cold));
+  /* 某一层在候选里不够 → 按热度补齐（永远给满 want 个，且不重复） */
+  if (picked.length < want) {
+    for (const n2 of ranked) {
+      if (picked.length >= want) break;
+      if (picked.indexOf(n2) < 0) picked.push(n2);
+    }
+  }
+  return picked.slice(0, want);
+}
+
+
+/** 直接取热度最高的 n 个号（升序返回，给「主推球」这类单号用） */
+function freqTop(gameId, areaKey, from, to, n) {
+  const feats = freqFeatures(gameId, areaKey, from, to);
+  const all = [];
+  for (let i = from; i <= to; i++) all.push(i);
+  return freqRank(all, feats).slice(0, Math.max(1, n || 1)).sort((a, b) => a - b);
+}
+
 /**
  * 「推荐」口径：与「热号」区分开
  * 热号 = 近 30 期总频次最高
@@ -1352,7 +1497,12 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
       const cp = require('./core-pool.js').corePoolFor(gameId);
       if (cp && Array.isArray(cp.pool20) && cp.pool20.length) {
         const f = cp.pool20.filter((x) => x >= from && x <= to);
-        if (f.length >= Math.min(n, 4)) return f.slice(0, n).sort((a, b) => a - b);
+        if (f.length >= Math.min(n, 4)) {
+          /* 【频率特征出号】20 码池里不再取「最小的 n 个」，
+             改成按热度分 + 冷热配比挑（n=6 时 = 热2 + 温2 + 冷2，
+             大乐透前区 n=5 时 = 热2 + 温2 + 冷1）。 */
+          return freqPick(f, freqFeatures(gameId, areaKey, from, to), n).sort((a, b) => a - b);
+        }
       }
     } catch (e) { /* 掉回原逻辑 */ }
   }
@@ -1382,21 +1532,14 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
     return out.sort((a, b) => a - b);
   }
 
-  const recent = new Map();  // 近 10 期
-  const all = new Map();     // 近 30 期
-
-  hist.slice(0, 10).forEach((d) => {
-    ((d.areas && d.areas[areaKey]) || []).forEach((x) => recent.set(x, (recent.get(x) || 0) + 1));
-  });
-  hist.slice(0, HIST_PERIODS).forEach((d) => {
-    ((d.areas && d.areas[areaKey]) || []).forEach((x) => all.set(x, (all.get(x) || 0) + 1));
-  });
+  /* 【频率特征】原来的评分是「近 10 期 ×3 + 近 30 期 ×1」，
+     现在统一换成频率特征分（全局频率 + 近 `FREQ_WINDOW` 期冷热 + 遗漏回补，见上面的引擎）。
+     号码池档位用的也是同一套分数 —— 图上的「推荐号」和「号码池」不会各算各的。 */
+  const feats = freqFeatures(gameId, areaKey, from, to);
 
   const list = [];
   for (let i = from; i <= to; i++) {
-    const r = recent.get(i) || 0;
-    const a = all.get(i) || 0;
-    list.push({ num: i, score: r * 3 + a });
+    list.push({ num: i, score: freqScore(feats, i) });
   }
 
   // 池内号码按共识度顺序排在前面，其余按评分排序
@@ -1432,7 +1575,18 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
     }
   } catch (e) { ordered = list; }
 
-  const picked = ordered.slice(0, want).map((x) => x.num);
+  /* 【频率特征】在「资料 > 专家池 > 全号」这条优先带里按冷热配比挑号：
+       带子 = 专家池（没有池就是全号），配比 = 热2 温2 冷2（按 want 自动缩）。
+     于是「蓝球推荐 / 大乐透后区 / 其它彩种」也是频率特征在起作用，
+     而不是简单取排序后的前 want 个。 */
+  const bandLen = pool.length
+    ? Math.min(ordered.length, Math.max(pool.length, want))
+    : ordered.length;
+  const band = ordered.slice(0, bandLen).map((x) => x.num);
+  const pickedFreq = freqPick(band, feats, want);
+  const picked = (pickedFreq.length >= want)
+    ? pickedFreq
+    : pickedFreq.concat(band.filter((x) => pickedFreq.indexOf(x) < 0)).slice(0, want);
 
   // 如果这个区在历史里从没出现过（比如七星彩后区），随机补足
   if (picked.length < want) {
@@ -3484,12 +3638,16 @@ function autoFillForTemplate(gameId, imageKey) {
       });
     }
 
-    /* ---- 主推球 ---- */
+    /* ---- 主推球 ----
+       【频率特征】原来是「近 30 期最热的那个」，现在用统一的频率特征分
+       （全局频率 + 近 100 期冷热 + 遗漏回补）：双色球蓝球主推、大乐透后区主推
+       都走这条，和「蓝球推荐」那 6 个是同一套分数选出来的。 */
     if (sec.bigBall && !out[sec.bigBall.key]) {
-      out[sec.bigBall.key] = hotLine(gameId, areaKey, 1, 30);
+      out[sec.bigBall.key] = freqTop(gameId, areaKey, range[0], range[1], 1).map(pad2).join(' ');
     }
     if (sec.bigBalls && !out[sec.bigBalls.key]) {
-      out[sec.bigBalls.key] = hotLine(gameId, areaKey, sec.bigBalls.count || 2, 30);
+      out[sec.bigBalls.key] = freqTop(gameId, areaKey, range[0], range[1], sec.bigBalls.count || 2)
+        .map(pad2).join(' ');
     }
 
     /* ---- 热号排行：每个分组按自己的标签判断区域 ---- */
