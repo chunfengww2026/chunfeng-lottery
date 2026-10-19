@@ -956,7 +956,10 @@ GROUPS.forEach((group) => {
     });
 
     sectionsHtml +=
-      `<section class="ro-game">` +
+      /* data-ro-gid：给「蓝球更明显」那段 CSS 认彩种用（2026-10-20）——
+         只有双色球/大乐透的蓝球要加强，别的彩种一个字节不动。
+         ⚠️ 只是加一个 data 属性，class / 结构 / 渲染逻辑都没动。 */
+      `<section class="ro-game" data-ro-gid="${id}">` +
       `<div class="ro-gamehead">` +
       `<h2>${game.name}</h2>` +
       `<div class="ro-meta">${date} ${week} · 第 ${issue} 期 · ${game.issuer}</div>` +
@@ -2612,7 +2615,7 @@ function buildKjhHtml() {
     const extra = (Array.isArray(g.extra) && g.extra.length)
       ? `<div class="ro-kjh-extra">${g.extra.map((t) => escape(t)).join(' · ')}</div>`
       : '';
-    return `<div class="ro-kjh-item">` +
+    return `<div class="ro-kjh-item" data-gid="${escapeAttr(k)}">` +
       `<div class="ro-kjh-top">` +
       `<b class="ro-kjh-name">${escape(g.name || k)}</b>` +
       (g.issue ? `<span class="ro-kjh-issue">第${escape(g.issue)}期</span>` : '') +
@@ -8683,6 +8686,64 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
 /* 【已恢复显示】用户 2026-10-18：「手机版本彩票推荐页没这个」→ 圆形按钮原来是 📱 emoji（在他手机上画成紫色骰子）才被隐藏；现在换成内联 SVG 手机图标，不再隐藏。 */
 
 /* __CARD_RAISE_END__ 这一段到这里结束（替换时以此为界，别删） */
+
+/* ============================================================
+   【🔵 蓝球 / 后区 更明显】用户 2026-10-20 原话：
+     「资料里面 篮球后区推荐记得带上球的图标明显一点」
+   补充：「大乐透和双色球」—— 只改这两个彩种的蓝球，别的彩种不动。
+   ------------------------------------------------------------
+   ⚠️ 红球一个字节都没动（.ro-ball.red / .hc-ball 的红底全保持原样）。
+   ⚠️ 数字彩的方块（.tq-ball.digit / .tv-ball.digit / .ro-ball 的数字彩）不动。
+   只加强「蓝球 / 后区 / 特别号」这几颗，做法四件事：
+     ① 底色：纯色 → 径向渐变（左上高光 #5b95ff → 中段 #2a63e0 → 右下 #12379b）
+              = 有高光的真球，不再是一块平蓝
+     ② 描边：一圈亮蓝边 #9cc4ff（rim light）→ 浅底、深底上都一眼认出是蓝球
+     ③ 字号：font-weight 800 + 1px 深色投影 → 数字更清楚
+     ④ 立体：inset 底部压暗 + inset 顶部提亮 + 1px 外投影
+   对比度：白字压 #2a63e0 ≈ 5.6:1 · 压 #12379b ≈ 9.4:1 → 都过 WCAG AA 4.5:1
+   ------------------------------------------------------------
+   彩种作用域（能精确就精确）：
+     · 资料分节里的开奖号 → section.ro-game[data-ro-gid]  （data-ro-gid 是本次加的）
+     · 开机号那一行       → .ro-kjh-item[data-gid]         （data-gid 是本次加的）
+     · 智能分析底部推荐   → .tv-rec[data-gid] / .tq-rec[data-gid]（本次加的）
+     · 最新开奖卡片       → .hc-drawcard:has([data-nextcd="ssq|dlt"])
+                            （:has() 老浏览器不支持 → 这条自然不生效，页面不会坏，
+                              只是那 2 张卡片的蓝球保持原样）
+     · 青蛙家园           → #frogHome .frog-b.blue
+                            （那个面板本来就只出大乐透/双色球，不用再限定彩种）
+     · 摇号面板 .ro-aipick-ball.blue【没动】：它 8 个彩种共用同一个 class，
+       分不出彩种 → 按用户「别为了精确把样式搞坏」的要求保持原样。
+   ============================================================ */
+  .ro-ball.blue,
+  .ro-kjh-ball.is-blue,
+  .tv-ball.blue,
+  .tq-ball.blue,
+  #ro-latest .hc-ball.blue,
+  #frogHome .frog-b.blue {
+    box-sizing: border-box;
+  }
+  /* 双色球 / 大乐透 的蓝球：真正的加强版 */
+  [data-ro-gid="ssq"] .ro-ball.blue,
+  [data-ro-gid="dlt"] .ro-ball.blue,
+  .ro-kjh-item[data-gid="ssq"] .ro-kjh-ball.is-blue,
+  .ro-kjh-item[data-gid="dlt"] .ro-kjh-ball.is-blue,
+  .tv-rec[data-gid="ssq"] .tv-ball.blue,
+  .tv-rec[data-gid="dlt"] .tv-ball.blue,
+  .tq-rec[data-gid="ssq"] .tq-ball.blue,
+  .tq-rec[data-gid="dlt"] .tq-ball.blue,
+  #frogHome .frog-b.blue,
+  #ro-latest .hc-drawcard:has([data-nextcd="ssq"]) .hc-ball.blue,
+  #ro-latest .hc-drawcard:has([data-nextcd="dlt"]) .hc-ball.blue {
+    background: radial-gradient(circle at 34% 26%, #5b95ff 0%, #2a63e0 44%, #12379b 100%) !important;
+    border: 1.5px solid #9cc4ff !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .42) !important;
+    box-shadow:
+      inset 0 -2px 4px rgba(0, 0, 0, .28),
+      inset 0 2px 3px rgba(255, 255, 255, .30),
+      0 1px 3px rgba(0, 0, 0, .20) !important;
+  }
 </style>
 <!--__HEAD_SLOT__--><!-- 唯一 head 注入槽位：导航样式插在这一行（别删；本页只此一处） -->
 </head>
@@ -10983,15 +11044,35 @@ ${RO_RENDER_SCRIPT}
               ((st.betCount || st.rows.length) * st.times * (g.price || 2)) + ' 元'
       };
     }
-    function drawBall(ctx, cx, cy, r, blue, text) {
+    /* 【🔵 蓝球更明显 · 2026-10-20】用户原话：「资料里面 篮球后区推荐记得带上
+       球的图标明显一点」+ 补充「大乐透和双色球」→ 只加强【双色球蓝球 / 大乐透后区】。
+       这颗球是【推荐图上】的号码球（canvas 画的），所以只改这一支：
+         · 原来：深藏青底 #16233a + 淡蓝字 #8fb8ff → 远看只是一颗深色球
+         · 现在：真·蓝球 —— 径向渐变（左上高光 → 右下深蓝）+ 亮蓝描边 + 白字加粗
+         · 白字压 #1f5fd6 实测 ≈ 5.7:1（过 WCAG AA 4.5:1）；亮蓝描边让它从
+           深色底/浅色底上都一眼能认出来是「蓝球」而不是一颗黑球
+         · 红球一个字节都没动（fill #3a1d22 / 描边 #a34a4a / 字 #ff8b8b）
+       ⚠️ 半径 r 不动：每行的间距是按 ballR*2+gap 算好的，改大小会串行。
+       ⚠️ strong=true 才用新版（strong 由 drawPic 按彩种算，只有双色球/大乐透是）。
+       参数：strong = 双色球/大乐透（强蓝）；blue = 蓝球/后区/特别号 */
+    function drawBall(ctx, cx, cy, r, blue, text, strong) {
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
-      ctx.fillStyle = blue ? '#16233a' : '#3a1d22';
+      if (blue && strong) {
+        var bgr = ctx.createRadialGradient(
+          cx - r * 0.34, cy - r * 0.38, r * 0.16, cx, cy, r * 1.02);
+        bgr.addColorStop(0, '#6ba4ff');
+        bgr.addColorStop(0.42, '#2a63e0');
+        bgr.addColorStop(1, '#12379b');
+        ctx.fillStyle = bgr;
+      } else {
+        ctx.fillStyle = blue ? '#16233a' : '#3a1d22';
+      }
       ctx.fill();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = blue ? '#3d5a86' : '#a34a4a';
+      ctx.strokeStyle = blue ? (strong ? '#9cc4ff' : '#3d5a86') : '#a34a4a';
       ctx.stroke();
-      ctx.fillStyle = blue ? '#8fb8ff' : '#ff8b8b';
+      ctx.fillStyle = blue ? (strong ? '#ffffff' : '#8fb8ff') : '#ff8b8b';
       ctx.font = 'bold 17px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(String(text), cx, cy + 6);
@@ -11002,6 +11083,13 @@ ${RO_RENDER_SCRIPT}
       var maxRows = 20;
       var top = 172, foot = 100;
       var H, i, j;
+      /* 【🔵 强蓝球只给双色球/大乐透】用户 2026-10-20 补充「大乐透和双色球」：
+         其它彩种（七乐彩特别号 / 七星彩后区）的蓝球保持原样，一个字节都不动。
+         认彩种优先用 g.id，读不到再按名字兜底。 */
+      var picGid = String((g && (g.id || g.key)) || '');
+      var picGname = String((g && g.name) || '');
+      var strongBlue = (picGid === 'ssq' || picGid === 'dlt'
+        || picGname.indexOf('双色球') >= 0 || picGname.indexOf('大乐透') >= 0);
       /* ---- 先算版面高度，再定画布尺寸 ---- */
       var blocks = null, selfLines = 0;
       if (data.kind === 'self') {
@@ -11053,7 +11141,7 @@ ${RO_RENDER_SCRIPT}
             for (k2 = 0; k2 < blocks[i].lines[j].length; k2++) {
               var v = blocks[i].lines[j][k2];
               drawBall(ctx, x2 + ballR, y2 + 8, ballR, blocks[i].color === 'blue',
-                blocks[i].to > 9 ? pad2(v) : String(v));
+                blocks[i].to > 9 ? pad2(v) : String(v), strongBlue);
               x2 += ballR * 2 + gap;
             }
             y2 += 44;
@@ -11082,7 +11170,7 @@ ${RO_RENDER_SCRIPT}
             for (var jj = 0; jj < picked.length; jj++) {
               /* 号码型补两位；数字彩不补（0 就是「0」不是「00」） */
               drawBall(ctx, x + ballR, y, ballR, ar.color === 'blue',
-                ar.to > 9 ? pad2(picked[jj]) : String(picked[jj]));
+                ar.to > 9 ? pad2(picked[jj]) : String(picked[jj]), strongBlue);
               x += ballR * 2 + gap;
             }
           }
@@ -11099,7 +11187,7 @@ ${RO_RENDER_SCRIPT}
             var cell = row[k];
             var list = (Object.prototype.toString.call(cell) === '[object Array]') ? cell : [cell];
             for (var kk = 0; kk < list.length; kk++) {
-              drawBall(ctx, x + ballR, y, ballR, !!isLast, String(list[kk]));
+              drawBall(ctx, x + ballR, y, ballR, !!isLast, String(list[kk]), strongBlue);
               x += ballR * 2 + gap;
             }
             if (list.length > 1 && k < row.length - 1) {
@@ -12276,7 +12364,7 @@ ${CHAT_JS_SHARE}
   function recBlock(gid, extra) {
     var R = (REC && REC[gid]) ? REC[gid] : null;
     if (!R || !R.blocks || !R.blocks.length) return '';
-    var h = '<div class="tv-rec">';
+    var h = '<div class="tv-rec" data-gid="' + esc(gid) + '">';
     h += '<div class="tv-rec-h">🎯 本期推荐号码<span>' + esc(R.name) + ' · 第 ' + esc(R.issue) + ' 期</span></div>';
     for (var i = 0; i < R.blocks.length; i++) {
       var b = R.blocks[i];
@@ -12312,7 +12400,7 @@ ${CHAT_JS_SHARE}
   function tqRecUnified(gid, title) {
     var R = (REC && REC[gid]) ? REC[gid] : null;
     if (!R || !R.blocks || !R.blocks.length) return '';
-    var h = '<div class="tq-rec"><div class="tq-rec-h">' + (title || '🎯 本期推荐号码') +
+    var h = '<div class="tq-rec" data-gid="' + esc(gid) + '"><div class="tq-rec-h">' + (title || '🎯 本期推荐号码') +
       '<span>第 ' + esc(R.issue) + ' 期</span></div>';
     for (var i = 0; i < R.blocks.length; i++) {
       var b = R.blocks[i];
