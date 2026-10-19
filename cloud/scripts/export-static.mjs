@@ -2895,39 +2895,40 @@ console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + 
   (mqTicker.count ? '' : '（只出「暂无中奖播报」那句）'));
 
 /* ============================================================
-   __RO_HIST__ 「历史开奖」折叠卡（用户 2026-10-19 要求）
+   __RO_HIST__ 「历史中奖」折叠卡（用户 2026-10-19 要求）
    ------------------------------------------------------------
    用户原话：「在GPT模型摇号下面增加一项;按钮 历史开奖：
              点开以后就是近365天内所有中奖播报.不管什么奖项1等奖2等奖3等奖都记录」
-   · 位置：紧跟「晒票 | GPT模型摇号」那一行，占【整行】全宽
-     （再往两列网格里塞一格、右边空着会很难看，所以这里不并排，
-      外观照「走势图 / 参考图」那一套：米杏底 + 圆角 + 三行居中的卡片脸）
-   · 判定口径：和页面顶部那条中奖播报【完全相同】——
-     每期只用【那一期】的推荐号存档 + 那一期开奖，期号必须对得上；
-     两边缺任何一边就不算这一期（不猜、不补、不挪用相邻期）。
-   · 奖级（按官方规则把档位全部记下来，不再只记前三档）：
-       双色球   一等奖 6+1 · 二等奖 6+0 · 三等奖 5+1 ·
-                四等奖 5+0 / 4+1 · 五等奖 4+0 / 3+1 · 六等奖 只中蓝球
-       大乐透   一等奖 5+2 · 二等奖 5+1 · 三等奖 5+0 · 四等奖 4+2 ·
-                五等奖 4+1 · 六等奖 3+2 · 七等奖 4+0 ·
-                八等奖 3+1 / 2+2 · 九等奖 3+0 / 2+1 / 1+2 / 0+2
-       七乐彩   一等奖 7 个基本号 · 二等奖 6 个 + 特别号 · 三等奖 6 个 ·
-                四等奖 5 个 + 特别号 · 五等奖 5 个 ·
-                六等奖 4 个 + 特别号 · 七等奖 4 个
+   第二轮澄清（用户）：「是我推荐中奖的哦」→
+     每一条 = 某期某彩种 ·【我们推荐的号】+【那一期开奖号】+【几等奖】，
+     没中的期次一条都不列（只列中奖的）。
+   · 位置：紧跟「晒票 | GPT模型摇号」那一行，占【整行】全宽。
+   · 那一期的推荐号从哪来（可复算，不是编的）：
+     页面「本期推荐号码」这套算法（多源共振打分 · 期号做种子）只有两样输入：
+       ① 期号   ② 该期【之前】的近 30 期真实开奖。
+     两样都是定值 —— 拿同一套算法、把「近 30 期」换成那一期之前的那 30 期，
+     算出来的就是【那一期该发的那组号】。同一期永远同一组号，可复算、可核对。
+   · 奖级（官方规则；只要沾上就记，不再只留前三档）：
+       双色球   一 6+1 · 二 6+0 · 三 5+1 · 四 5+0 / 4+1 · 五 4+0 / 3+1 · 六 只中蓝
+       大乐透   一 5+2 · 二 5+1 · 三 5+0 · 四 4+2 · 五 4+1 · 六 3+2 ·
+                七 4+0 · 八 3+1 / 2+2 · 九 3+0 / 2+1 / 1+2 / 0+2
+       七乐彩   一 7 个基本号 · 二 6+特别 · 三 6 · 四 5+特别 · 五 5 · 六 4+特别 · 七 4
        快乐8    选十 中 10 / 9 / 8 / 7 / 6 / 5 个
-       福彩3D / 排列3  直选（三位定位全中）· 组选三 · 组选六
-       排列5    五位直选全中 · 前三位直选
+       3D·排列3  直选（三位定位全中）· 组选三 · 组选六
+       排列5    五位直选全中
        七星彩   前六位 + 第7位 全中 · 前六位全中
-   · 窗口：近 365 天；按开奖日期倒序（同一天期号大的在前）；
-     最多列 100 条，超出的只在小字里写总数。
-   ⚠️ 卡片里的文案不出现任何「数据从哪来」的字样（留痕断言会拦）。
+   · 窗口：近 365 天；按开奖日期倒序（同一天期号大的在前）；最多 100 条。
+   ⚠️ 卡片里不出现任何「数据从哪来」的字样（留痕断言会拦）。
    ============================================================ */
 const HIST_WINDOW_DAYS = 365;
 const HIST_MAX_ROWS = 100;
 const HIST_DAY_MS = 24 * 3600 * 1000;
-const HIST_TIER_NAME = ['', '一等奖', '二等奖', '三等奖', '四等奖', '五等奖', '六等奖'];
+/* 回算至少要「该期之前 30 期」真实开奖；不够就回算不出来 —— 不硬凑、不猜 */
+const HIST_MIN_PRIOR = 30;
+const HIST_TIER_CN = ['', '一等奖', '二等奖', '三等奖', '四等奖', '五等奖',
+  '六等奖', '七等奖', '八等奖', '九等奖'];
 
-/** "2026-10-18" → 本地时间戳（手写解析，不依赖 Date.parse 的时区行为） */
+/** "2026-10-18" → 本地时间戳（手写解析，不吃 Date.parse 的时区差异） */
 function histDayMs(v) {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v == null ? '' : v));
   if (!m) return NaN;
@@ -2935,30 +2936,59 @@ function histDayMs(v) {
 }
 
 /**
- * 单期判定（全部奖级）：中了返回 { lv, label, hits, note }，没中 / 算不出来返回 null
- *   lv   = 1 最高（一等奖 / 直选），1~3 用彩色，其余灰
- *   hits = 那一期的开奖号码（命中号码就在里面）
- *   note = 命中明细（中几个号），写清楚，不夸大
- * ⚠️ 号池口径必须和上面的 mqJudge 一个字不差，否则同一期会出现两种说法。
+ * 回算【某一期】的推荐号：prior = 那一期【之前】的开奖（新的在前，
+ * 只取前 30 期）。号码型 / 位数型的算法分支和「本期推荐号码」完全相同 ——
+ * 直接复用同一批函数（recAreaStat / recWeights / recItems / recPickMain /
+ * recPickSimple / recDigits），所以口径不会漂移。
  */
-function histJudge(gid, v, d) {
-  if (!v || !d || !d.areas) return null;
-  const area = (k) => (d.areas[k] || []).map(Number);
-  const two = (n) => (n < 10 ? '0' + n : String(n));
-  const p2 = (a) => a.map(two).join(' ');
-  const p1 = (a) => a.map((n) => String(n)).join(' ');
-  const inP = (pool, n) => pool.indexOf(Number(n)) >= 0;
-  const cnt = (src, pool) => src.filter((n) => inP(pool, n)).length;
+function histRecBlocks(gid, issue, prior) {
+  const g = (G || {})[gid];
+  if (!g || !Array.isArray(prior) || !prior.length) return null;
+  if (g.type === 'digit' || g.type === 'qxc') {
+    const r = recDigits(gid, g, prior, issue);
+    return (r && r.blocks && r.blocks.length) ? r.blocks : null;
+  }
+  if (!Array.isArray(g.areas) || !g.areas.length) return null;
+  const blocks = [];
+  g.areas.forEach((cfg, ai) => {
+    const st = recAreaStat(prior, cfg.key, cfg.from, cfg.to);
+    if (!st.n) return;
+    const need = Math.max(1, Number(cfg.pick || 1));
+    const w = (ai === 0) ? recWeights(issue + '|' + gid + '|' + cfg.key) : null;
+    const items = recItems(st, cfg, ai === 0, w);
+    const nums = (ai === 0)
+      ? recPickMain(items, need, st, issue + '|' + gid + '|' + cfg.key)
+      : recPickSimple(items, need, issue + '|' + gid + '|' + cfg.key);
+    blocks.push({
+      label: cfg.label || ('区' + (ai + 1)),
+      kind: 'ball',
+      color: (cfg.color === 'blue' || ai === 1) ? 'blue' : 'red',
+      nums: nums
+    });
+  });
+  return blocks.length ? blocks : null;
+}
 
-  /* ---------- 双色球（1~6 等奖） ---------- */
+/**
+ * 判定：推荐号 vs 那一期开奖 → 中了返回
+ *   { lv, label, note, rec:[{label,nums,pad}], draw:[{label,nums,pad,hit:[bool]}] }
+ * 没中 / 算不出来 → null（不列）
+ * lv：1 = 最高档（一等奖 / 直选），1~3 上色，其余灰。
+ */
+function histJudgeRec(gid, blocks, d) {
+  if (!blocks || !blocks.length || !d || !d.areas) return null;
+  const area = (k) => (d.areas[k] || []).map(Number);
+  const has = (arr, n) => arr.indexOf(Number(n)) >= 0;
+  const numsOf = (i) => ((blocks[i] && Array.isArray(blocks[i].nums)) ? blocks[i].nums : []);
+  const nameOf = (i, fb) => ((blocks[i] && blocks[i].label) ? String(blocks[i].label) : fb);
+
+  /* ---------- 双色球（6+1，一~六等奖） ---------- */
   if (gid === 'ssq') {
+    const recRed = numsOf(0), recBlue = numsOf(1);
     const red = area('red'), blue = area('blue');
-    if (red.length < 6 || !blue.length) return null;
-    const bp = mqNums(v.b_rec);
-    const pool = [...new Set([].concat(mqNums(v.r20), mqNums(v.r15),
-      mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))];
-    if (!pool.length || !bp.length) return null;
-    const r = cnt(red, pool), b = cnt(blue, bp) > 0 ? 1 : 0;
+    if (recRed.length < 6 || !recBlue.length || red.length < 6 || !blue.length) return null;
+    const r = red.filter((n) => has(recRed, n)).length;
+    const b = blue.some((n) => has(recBlue, n)) ? 1 : 0;
     let lv = 0;
     if (r === 6 && b === 1) lv = 1;
     else if (r === 6) lv = 2;
@@ -2968,21 +2998,22 @@ function histJudge(gid, v, d) {
     else if (b === 1) lv = 6;
     if (!lv) return null;
     return {
-      lv: lv, label: HIST_TIER_NAME[lv],
-      hits: '红球 ' + p2(red) + ' + 蓝球 ' + p2(blue),
-      note: '红球中 ' + r + ' 个 · 蓝球中 ' + b + ' 个'
+      lv: lv, label: HIST_TIER_CN[lv],
+      note: '红球中 ' + r + ' 个 · 蓝球中 ' + b + ' 个',
+      rec: [{ label: nameOf(0, '红球'), nums: recRed, pad: true },
+            { label: nameOf(1, '蓝球'), nums: recBlue, pad: true }],
+      draw: [{ label: nameOf(0, '红球'), nums: red, pad: true, hit: red.map((n) => has(recRed, n)) },
+             { label: nameOf(1, '蓝球'), nums: blue, pad: true, hit: blue.map((n) => has(recBlue, n)) }]
     };
   }
 
-  /* ---------- 大乐透（1~9 等奖） ---------- */
+  /* ---------- 大乐透（5+2，一~九等奖） ---------- */
   if (gid === 'dlt') {
+    const recF = numsOf(0), recB = numsOf(1);
     const front = area('front'), back = area('back');
-    if (front.length < 5 || back.length < 2) return null;
-    const bp = mqNums(v.b_rec);
-    const pool = [...new Set([].concat(mqNums(v.f20), mqNums(v.f15),
-      mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))];
-    if (!pool.length || !bp.length) return null;
-    const f = cnt(front, pool), b = cnt(back, bp);
+    if (recF.length < 5 || !recB.length || front.length < 5 || back.length < 2) return null;
+    const f = front.filter((n) => has(recF, n)).length;
+    const b = back.filter((n) => has(recB, n)).length;
     let lv = 0;
     if (f === 5 && b === 2) lv = 1;
     else if (f === 5 && b === 1) lv = 2;
@@ -2995,20 +3026,22 @@ function histJudge(gid, v, d) {
     else if (f === 3 || (f === 2 && b === 1) || (f === 1 && b === 2) || (f === 0 && b === 2)) lv = 9;
     if (!lv) return null;
     return {
-      lv: lv, label: lv <= 6 ? HIST_TIER_NAME[lv] : (lv === 7 ? '七等奖' : lv === 8 ? '八等奖' : '九等奖'),
-      hits: '前区 ' + p2(front) + ' + 后区 ' + p2(back),
-      note: '前区中 ' + f + ' 个 · 后区中 ' + b + ' 个'
+      lv: lv, label: HIST_TIER_CN[lv],
+      note: '前区中 ' + f + ' 个 · 后区中 ' + b + ' 个',
+      rec: [{ label: nameOf(0, '前区'), nums: recF, pad: true },
+            { label: nameOf(1, '后区'), nums: recB, pad: true }],
+      draw: [{ label: nameOf(0, '前区'), nums: front, pad: true, hit: front.map((n) => has(recF, n)) },
+             { label: nameOf(1, '后区'), nums: back, pad: true, hit: back.map((n) => has(recB, n)) }]
     };
   }
 
-  /* ---------- 七乐彩（1~7 等奖，特别号只算二等 / 四等 / 六等那一档） ---------- */
+  /* ---------- 七乐彩（7 + 特别号，一~七等奖） ---------- */
   if (gid === 'qlc') {
+    const recMain = numsOf(0), recSp = numsOf(1);
     const main = area('main'), sp = area('special');
-    if (main.length < 7) return null;
-    const pool = mqNums(v.r22);
-    if (!pool.length) return null;
-    const m = cnt(main, pool);
-    const s = (sp.length && inP(pool, sp[0])) ? 1 : 0;
+    if (recMain.length < 7 || !recSp.length || main.length < 7) return null;
+    const m = main.filter((n) => has(recMain, n)).length;
+    const s = sp.some((n) => has(recSp, n)) ? 1 : 0;
     let lv = 0;
     if (m === 7) lv = 1;
     else if (m === 6 && s === 1) lv = 2;
@@ -3019,109 +3052,134 @@ function histJudge(gid, v, d) {
     else if (m === 4) lv = 7;
     if (!lv) return null;
     return {
-      lv: lv, label: lv <= 6 ? HIST_TIER_NAME[lv] : '七等奖',
-      hits: '基本号 ' + p2(main) + ' + 特别号 ' + p2(sp),
-      note: '基本号中 ' + m + ' 个 · 特别号中 ' + s + ' 个'
+      lv: lv, label: HIST_TIER_CN[lv],
+      note: '基本号中 ' + m + ' 个 · 特别号中 ' + s + ' 个',
+      rec: [{ label: nameOf(0, '基本号'), nums: recMain, pad: true },
+            { label: nameOf(1, '特别号'), nums: recSp, pad: true }],
+      draw: [{ label: nameOf(0, '基本号'), nums: main, pad: true, hit: main.map((n) => has(recMain, n)) },
+             { label: nameOf(1, '特别号'), nums: sp, pad: true, hit: sp.map((n) => has(recSp, n)) }]
     };
   }
 
-  /* ---------- 快乐8（选十：中 10/9/8/7/6/5 个，和上面喇叭同一套档位） ---------- */
+  /* ---------- 快乐8（选十：中 10/9/8/7/6/5 个） ---------- */
   if (gid === 'kl8') {
+    const recNums = numsOf(0);
     const main = area('main');
-    const pool = mqNums(v.r10);
-    if (main.length < 20 || pool.length !== 10) return null;
-    const hit = pool.filter((n) => inP(main, n));
-    const n = hit.length;
+    if (recNums.length !== 10 || main.length < 20) return null;
+    const n = main.filter((x) => has(recNums, x)).length;
     const LAB = { 10: 1, 9: 2, 8: 3, 7: 4, 6: 5, 5: 6 };
     if (!LAB[n]) return null;
     return {
-      lv: LAB[n], label: HIST_TIER_NAME[LAB[n]],
-      hits: '十个推荐号中开出 ' + p2(hit),
-      note: '选十 · 中 ' + n + ' 个'
+      lv: LAB[n], label: HIST_TIER_CN[LAB[n]],
+      note: '选十 · 中 ' + n + ' 个',
+      rec: [{ label: '选十', nums: recNums, pad: true }],
+      draw: [{ label: '开奖', nums: main, pad: true, hit: main.map((x) => has(recNums, x)) }]
     };
   }
 
-  /* ---------- 福彩3D / 排列3（直选 / 组选） ---------- */
+  /* ---------- 福彩3D / 排列3（直选 / 组选三 / 组选六） ---------- */
   if (gid === 'fc3d' || gid === 'pl3') {
     const w = area('main');
     if (w.length < 3) return null;
-    const bai = mqNums(v.bai), shi = mqNums(v.shi), ge = mqNums(v.ge), grp = mqNums(v.grp);
-    const hits = '开奖 ' + p1(w.slice(0, 3));
-    if (bai.length && shi.length && ge.length &&
-        inP(bai, w[0]) && inP(shi, w[1]) && inP(ge, w[2])) {
-      return { lv: 1, label: '直选', hits: hits, note: '三位定位全中（顺序对）' };
-    }
-    if (grp.length && w.slice(0, 3).every((n) => inP(grp, n))) {
+    const p0 = numsOf(0), p1 = numsOf(1), p2 = numsOf(2), grp = numsOf(3);
+    if (!p0.length || !p1.length || !p2.length) return null;
+    const dir = has(p0, w[0]) && has(p1, w[1]) && has(p2, w[2]);
+    let lv = 0, label = '', note = '';
+    if (dir) {
+      lv = 1; label = '直选'; note = '三位定位全中（顺序对）';
+    } else if (grp.length && w.slice(0, 3).every((x) => has(grp, x))) {
       const uniq = new Set(w.slice(0, 3)).size;
-      if (uniq === 3) return { lv: 3, label: '组选六', hits: hits, note: '三位都在六码里（组六）' };
-      if (uniq === 2) return { lv: 2, label: '组选三', hits: hits, note: '三位都在六码里（组三）' };
-      return { lv: 9, label: '组选（豹子）', hits: hits, note: '三位都在六码里（豹子）' };
+      if (uniq === 3) { lv = 3; label = '组选六'; note = '三位都在组选六码里（组六）'; }
+      else if (uniq === 2) { lv = 2; label = '组选三'; note = '三位都在组选六码里（组三）'; }
+      else { lv = 9; label = '组选（豹子）'; note = '三位都在组选六码里（豹子）'; }
     }
-    return null;
+    if (!lv) return null;
+    const rec = [
+      { label: nameOf(0, '百位'), nums: p0, pad: false },
+      { label: nameOf(1, '十位'), nums: p1, pad: false },
+      { label: nameOf(2, '个位'), nums: p2, pad: false }
+    ];
+    if (grp.length) rec.push({ label: nameOf(3, '组选'), nums: grp, pad: false });
+    return {
+      lv: lv, label: label, note: note, rec: rec,
+      draw: [{ label: '开奖', nums: w.slice(0, 3), pad: false,
+        hit: w.slice(0, 3).map((x, i) => has([p0, p1, p2][i] || [], x) || has(grp, x)) }]
+    };
   }
 
-  /* ---------- 排列5（只记直选：五位全中 / 前三位） ---------- */
+  /* ---------- 排列5（五位直选全中） ---------- */
   if (gid === 'pl5') {
     const w = area('main');
     if (w.length < 5) return null;
-    const pools = ['wan', 'qian', 'bai', 'shi', 'ge'].map((k) => mqNums(v[k]));
+    const pools = [0, 1, 2, 3, 4].map((i) => numsOf(i));
     if (pools.some((p) => !p.length)) return null;
-    const hits = '开奖 ' + p1(w.slice(0, 5));
-    if (pools.every((p, i) => inP(p, w[i]))) {
-      return { lv: 1, label: '直选全中', hits: hits, note: '五位定位全中（顺序对）' };
-    }
-    if (pools.slice(0, 3).every((p, i) => inP(p, w[i]))) {
-      return { lv: 9, label: '前三位直选', hits: hits, note: '前三位定位全中' };
-    }
-    return null;
+    if (!pools.every((p, i) => has(p, w[i]))) return null;
+    return {
+      lv: 1, label: '直选全中', note: '五位定位全中（顺序对）',
+      rec: pools.map((p, i) => ({ label: nameOf(i, '第' + (i + 1) + '位'), nums: p, pad: false })),
+      draw: [{ label: '开奖', nums: w.slice(0, 5), pad: false,
+        hit: w.slice(0, 5).map((x, i) => has(pools[i], x)) }]
+    };
   }
 
   /* ---------- 七星彩（六位 + 第7位） ---------- */
   if (gid === 'qxc') {
+    const pool = [0, 1, 2, 3, 4, 5].map((i) => numsOf(i));
+    const poolB = numsOf(6);
     const front = area('front'), back = area('back');
-    if (front.length < 6 || !back.length) return null;
-    const pools = [1, 2, 3, 4, 5, 6].map((i) => mqNums(v['p' + i]));
-    const bp = mqNums(v.pb);
-    if (pools.some((p) => !p.length) || !bp.length) return null;
-    const m = pools.filter((p, i) => inP(p, front[i])).length;
-    const b = inP(bp, back[0]) ? 1 : 0;
-    const hits = '前6位 ' + p1(front.slice(0, 6)) + ' + 第7位 ' + p1(back.slice(0, 1));
-    if (m === 6 && b === 1) {
-      return { lv: 1, label: '一等奖', hits: hits, note: '前六位 + 第7位 全中' };
-    }
-    if (m === 6 && b === 0) {
-      return { lv: 2, label: '二等奖', hits: hits, note: '前六位全中 · 第7位未中' };
-    }
-    return null;
+    if (pool.some((p) => !p.length) || !poolB.length || front.length < 6 || !back.length) return null;
+    const m = pool.filter((p, i) => has(p, front[i])).length;
+    const b = has(poolB, back[0]) ? 1 : 0;
+    if (!(m === 6 && b === 1) && !(m === 6 && b === 0)) return null;
+    const lv = (m === 6 && b === 1) ? 1 : 2;
+    const rec = pool.map((p, i) => ({ label: nameOf(i, '第' + (i + 1) + '位'), nums: p, pad: false }));
+    rec.push({ label: nameOf(6, '第7位'), nums: poolB, pad: false });
+    return {
+      lv: lv, label: HIST_TIER_CN[lv],
+      note: '前六位中 ' + m + ' 个 · 第7位中 ' + b + ' 个',
+      rec: rec,
+      draw: [{ label: '前六位', nums: front.slice(0, 6), pad: false,
+        hit: front.slice(0, 6).map((x, i) => has(pool[i] || [], x)) },
+        { label: '第7位', nums: back.slice(0, 1), pad: false,
+          hit: back.slice(0, 1).map((x) => has(poolB, x)) }]
+    };
   }
 
   return null;
 }
 
-/** 生成「历史开奖」卡展开后的内容（纯 HTML，无图片、无按钮、无脚本） */
+/** 生成「历史中奖」卡展开后的内容（纯 HTML：无图片、无按钮、无脚本） */
 function buildHistoryHtml() {
-  const saved = mqReadGlobal('SAVED_TICKETS');
-  const idx = mqDrawIndex();
+  const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
   const nowMs = Date.now();
-
   const rows = [];
+  let calcIssues = 0;
   const days = [];
+
   MQ_ORDER.forEach((gid) => {
-    mqPeriods(gid, saved).forEach((p) => {
-      const d = idx[gid + '|' + String(p.issue)];
-      if (!d || !d.date) return;                       /* 没有这一期开奖 → 不比对 */
+    const draws = Array.isArray(HIST[gid]) ? HIST[gid].slice() : [];
+    if (!draws.length) return;
+    /* draws 是新的在前：i 这一期的「之前 30 期」= draws[i+1 .. i+30] */
+    for (let i = 0; i < draws.length; i++) {
+      const d = draws[i];
+      if (!d || !d.areas || !d.date) continue;
       const t = histDayMs(d.date);
-      if (!Number.isFinite(t)) return;
-      if (nowMs - t > HIST_WINDOW_DAYS * HIST_DAY_MS || t > nowMs + HIST_DAY_MS) return;
-      const day = String(d.date).slice(0, 10);
-      days.push(day);
-      const j = histJudge(gid, p.images.main, d);
-      if (!j) return;                                  /* 没中 → 不进列表 */
+      if (!Number.isFinite(t)) continue;
+      if (nowMs - t > HIST_WINDOW_DAYS * HIST_DAY_MS || t > nowMs + HIST_DAY_MS) continue;
+      const prior = draws.slice(i + 1, i + 1 + HIST_MIN_PRIOR);
+      if (prior.length < HIST_MIN_PRIOR) continue;      /* 前置期数不够 → 回算不出来，不凑 */
+      const blocks = histRecBlocks(gid, String(d.issue), prior);
+      if (!blocks) continue;
+      calcIssues++;
+      days.push(String(d.date).slice(0, 10));
+      const j = histJudgeRec(gid, blocks, d);
+      if (!j) continue;                                 /* 没中 → 不进列表 */
       rows.push({
         gid: gid, name: MQ_NAME[gid] || gid, issue: String(d.issue),
-        date: day, lv: j.lv, label: j.label, hits: j.hits, note: j.note
+        date: String(d.date).slice(0, 10), lv: j.lv, label: j.label,
+        note: j.note, rec: j.rec, draw: j.draw
       });
-    });
+    }
   });
 
   /* 新的在前；同一天先按期号大的，再按彩种固定顺序 */
@@ -3131,7 +3189,7 @@ function buildHistoryHtml() {
     return MQ_ORDER.indexOf(a.gid) - MQ_ORDER.indexOf(b.gid);
   });
 
-  const info = { compared: days.length, count: rows.length, from: '', to: '' };
+  const info = { compared: calcIssues, count: rows.length, from: '', to: '' };
   if (days.length) {
     days.sort();
     info.from = days[0];
@@ -3145,7 +3203,15 @@ function buildHistoryHtml() {
     };
   }
 
+  const two = (n) => (n < 10 ? '0' + n : String(n));
   const tint = (lv) => (lv === 1 ? ' ro-hist-t1' : lv === 2 ? ' ro-hist-t2' : lv === 3 ? ' ro-hist-t3' : '');
+  const partsHtml = (parts) => parts.map((p) =>
+    `<span class="ro-hist-p"><i>${escape(p.label)}</i>` +
+    p.nums.map((n, k) =>
+      `<b class="ro-hist-n${(p.hit && p.hit[k]) ? ' ro-hist-hit' : ''}">${escape(p.pad ? two(n) : String(n))}</b>`
+    ).join('') + `</span>`
+  ).join('');
+
   const show = rows.slice(0, HIST_MAX_ROWS);
   const listHtml = show.map((r) =>
     `<div class="ro-hist-row">` +
@@ -3155,15 +3221,16 @@ function buildHistoryHtml() {
     `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
     `<span class="ro-hist-tier${tint(r.lv)}">${escape(r.label)}</span>` +
     `</div>` +
-    `<div class="ro-hist-nums">${escape(r.hits)}</div>` +
+    `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>` +
+    `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>` +
     `<div class="ro-hist-note">${escape(r.note)}</div>` +
     `</div>`
   ).join('');
 
-  const meta = `覆盖 ${info.from} ~ ${info.to} · 已比对 ${info.compared} 期 · 中奖 ${rows.length} 条`;
+  const meta = `覆盖 ${info.from} ~ ${info.to} · 可回算 ${info.compared} 期 · 中奖 ${rows.length} 条`;
   const foot = rows.length > HIST_MAX_ROWS
     ? `共 ${rows.length} 条 · 只列最近 ${HIST_MAX_ROWS} 条`
-    : `只统计已开奖、且那一期留有推荐号的记录`;
+    : `只列中奖的期次；推荐号按当期期号回算，与开奖号并排对照`;
 
   return {
     html: `<div class="ro-hist-meta">${escape(meta)}</div>` +
@@ -3175,10 +3242,11 @@ function buildHistoryHtml() {
 
 const histBuilt = buildHistoryHtml();
 const histHtml = histBuilt.html;
-console.log('  · 历史开奖卡：比对 ' + histBuilt.info.compared + ' 期，中奖 ' + histBuilt.info.count + ' 条' +
+console.log('  · 历史中奖卡：可回算 ' + histBuilt.info.compared + ' 期，中奖 ' + histBuilt.info.count + ' 条' +
   (histBuilt.info.compared
     ? `（覆盖 ${histBuilt.info.from} ~ ${histBuilt.info.to}）`
-    : '（暂无可比对的期次）'));
+    : '（前置开奖不足 30 期，暂无可回算的期次）'));
+
 
 if (status.allReady) {
   /* __NO_ST_LIST__ 用户要求：状态条里那 8 行「双色球 第 xx 期 日期」不要了。
