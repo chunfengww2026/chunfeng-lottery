@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-19 09:00:00",
-    "minute": 81,
+    "minute": 85,
     "home": {
      "name": "阿美利加會(女)",
      "score": 2,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-19 09:00:00",
-    "minute": 78,
+    "minute": 82,
     "home": {
      "name": "蒙特雷",
      "score": 2,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-19 09:10:00",
-    "minute": 67,
+    "minute": 71,
     "home": {
      "name": "卡利体育会",
      "score": 0,
@@ -192,7 +192,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 31,
+    "minute": 35,
     "home": {
      "name": "马昆森",
      "score": 1,
