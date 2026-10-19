@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-19 10:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-19 11:28 */
 const JC_DATA = {
- "updated": "2026-10-19 10:58",
+ "updated": "2026-10-19 11:28",
  "stat": {
   "total": 8,
   "upcoming": 8,
@@ -656,9 +656,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 0.8,
-      "line": "半球/一球",
-      "away": 1.05
+      "home": 1.02,
+      "line": "一球",
+      "away": 0.82
      }
     },
     "europe": {
@@ -680,9 +680,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 1,
+      "line": 1.05,
       "over": 2.5,
-      "under": 0.85
+      "under": 0.8
      }
     }
    },
@@ -697,31 +697,31 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 7,
-    "rqLine": "半球/一球",
+    "rqLine": "一球",
     "type": "three"
    },
    "asianIndex": {
-    "line": "半球/一球",
+    "line": "一球",
     "from": "live",
-    "handicap": -0.75,
+    "handicap": -1,
     "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1.05,
+    "upWater": 1.02,
+    "downWater": 0.82,
     "openHandicap": -0.75,
     "openUpWater": 0.85,
     "openDownWater": 1,
-    "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "44.57",
+    "theoryDownPercent": "55.43",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘升水",
      "initHandicap": -0.75,
-     "nowHandicap": -0.75,
+     "nowHandicap": -1,
      "initUpWater": 0.85,
-     "nowUpWater": 0.8,
+     "nowUpWater": 1.02,
      "initLine": "半球/一球",
-     "nowLine": "半球/一球"
+     "nowLine": "一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -839,8 +839,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-19 10:58",
-  "officialUpdate": "2026-10-19 10:42:56",
+  "updated": "2026-10-19 11:28",
+  "officialUpdate": "2026-10-19 11:16:02",
   "inSale": 8,
   "list": [
    {
@@ -851,21 +851,21 @@ const JC_DATA = {
     "home": "蒙扎",
     "away": "卡利亚里",
     "had": {
-     "h": 2.32,
+     "h": 2.4,
      "d": 3,
-     "a": 2.75,
-     "update": "2026-10-17 09:46:24"
+     "a": 2.65,
+     "update": "2026-10-19 11:03:14"
     },
     "hhad": {
      "line": "-1",
-     "h": 5.65,
-     "d": 3.8,
-     "a": 1.45,
-     "update": "2026-10-17 09:46:24"
+     "h": 5.8,
+     "d": 3.9,
+     "a": 1.43,
+     "update": "2026-10-19 11:03:19"
     },
     "single": {
      "HAD": {
-      "single": 0,
+      "single": 1,
       "betSingle": 1
      },
      "HHAD": {
@@ -913,17 +913,17 @@ const JC_DATA = {
     "home": "帕尔马",
     "away": "都灵",
     "had": {
-     "h": 3,
+     "h": 3.09,
      "d": 2.85,
-     "a": 2.25,
-     "update": "2026-10-17 09:46:24"
+     "a": 2.2,
+     "update": "2026-10-19 11:14:41"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.48,
-     "d": 3.65,
-     "a": 5.55,
-     "update": "2026-10-17 09:46:24"
+     "h": 1.52,
+     "d": 3.6,
+     "a": 5.15,
+     "update": "2026-10-19 11:14:56"
     },
     "single": {
      "HAD": {
@@ -944,17 +944,17 @@ const JC_DATA = {
     "home": "罗德兹",
     "away": "蒙彼利埃",
     "had": {
-     "h": 2.7,
+     "h": 2.75,
      "d": 3.3,
-     "a": 2.2,
-     "update": "2026-10-17 09:46:24"
+     "a": 2.16,
+     "update": "2026-10-19 11:15:56"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.51,
-     "d": 3.95,
-     "a": 4.7,
-     "update": "2026-10-17 09:46:24"
+     "h": 1.54,
+     "d": 3.88,
+     "a": 4.5,
+     "update": "2026-10-19 11:16:02"
     },
     "single": {
      "HAD": {
@@ -1006,17 +1006,17 @@ const JC_DATA = {
     "home": "赫塔费",
     "away": "巴列卡诺",
     "had": {
-     "h": 2.62,
-     "d": 2.73,
-     "a": 2.62,
-     "update": "2026-10-17 09:46:24"
+     "h": 2.76,
+     "d": 2.65,
+     "a": 2.57,
+     "update": "2026-10-19 11:11:29"
     },
     "hhad": {
      "line": "-1",
-     "h": 7,
-     "d": 4,
-     "a": 1.36,
-     "update": "2026-10-17 09:46:24"
+     "h": 7.3,
+     "d": 4.15,
+     "a": 1.33,
+     "update": "2026-10-19 11:11:38"
     },
     "single": {
      "HAD": {
@@ -1037,17 +1037,17 @@ const JC_DATA = {
     "home": "布拉加",
     "away": "吉维森特",
     "had": {
-     "h": 1.42,
-     "d": 3.8,
-     "a": 6.2,
-     "update": "2026-10-17 09:46:24"
+     "h": 1.4,
+     "d": 3.85,
+     "a": 6.5,
+     "update": "2026-10-19 11:13:13"
     },
     "hhad": {
      "line": "-1",
      "h": 2.5,
-     "d": 3.2,
-     "a": 2.4,
-     "update": "2026-10-17 09:46:24"
+     "d": 3.12,
+     "a": 2.45,
+     "update": "2026-10-19 11:13:21"
     },
     "single": {
      "HAD": {
@@ -1068,17 +1068,17 @@ const JC_DATA = {
     "home": "科林蒂安",
     "away": "维多利亚",
     "had": {
-     "h": 1.53,
-     "d": 3.57,
-     "a": 5.1,
-     "update": "2026-10-17 09:46:24"
+     "h": 1.5,
+     "d": 3.6,
+     "a": 5.4,
+     "update": "2026-10-19 11:15:08"
     },
     "hhad": {
      "line": "-1",
      "h": 2.8,
-     "d": 3.23,
-     "a": 2.16,
-     "update": "2026-10-17 09:46:24"
+     "d": 3.15,
+     "a": 2.2,
+     "update": "2026-10-19 11:15:15"
     },
     "single": {
      "HAD": {
