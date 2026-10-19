@@ -7365,7 +7365,8 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    颜色全部走 --ro-* 变量（米杏主题），不引任何外部图表库。 */
 .tools-box { background: var(--ro-card); border: 1px solid var(--ro-line); border-radius: 12px; padding: 12px; margin: 0 12px 12px; }
 /* 标题行：用户 2026-10-18「把『工具（智能分析）』字体居中，右边那句提示不要了」
-   → 居中单行；右边那句已经删掉（.tools-note 样式留着不碍事，页面上没有这个元素） */
+
+  <div class="tools-sub" style="text-align:center;font-size:12px;color:#8a7a63;margin-top:4px;">人工计算结合智能</div>   → 居中单行；右边那句已经删掉（.tools-note 样式留着不碍事，页面上没有这个元素） */
 .tools-head { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; gap: 8px; }
 .tools-title { font-size: 14px; font-weight: 700; color: var(--ro-fg); }
 .tools-note { font-size: 11px; color: var(--ro-fg2); white-space: nowrap; }
