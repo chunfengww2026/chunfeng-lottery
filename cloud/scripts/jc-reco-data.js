@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-19 00:15",
+ "updated": "2026-10-19 10:45",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -232,15 +232,15 @@ const JC_RECO_DATA = {
      "label": "客胜",
      "odds": 1.6,
      "conf": 59.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 6,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-17 12:00",
@@ -379,54 +379,6 @@ const JC_RECO_DATA = {
      "odds": 1.7,
      "conf": 55.6,
      "score": "2:1",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
-  },
-  {
-   "at": "2026-10-18 00:28",
-   "min": 55,
-   "rows": [
-    {
-     "code": "周六014",
-     "time": "2026-10-17 21:30",
-     "league": "德甲",
-     "home": "不来梅",
-     "away": "帕德博恩",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.65,
-     "conf": 57.7,
-     "score": "2:2",
-     "hit": false,
-     "result": "lose"
-    }
-   ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
-  },
-  {
-   "at": "2026-10-18 00:58",
-   "min": 55,
-   "rows": [
-    {
-     "code": "周六020",
-     "time": "2026-10-17 22:00",
-     "league": "英超",
-     "home": "富勒姆",
-     "away": "赫尔城",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.65,
-     "conf": 57.7,
-     "score": "1:0",
      "hit": true,
      "result": "win"
     }
