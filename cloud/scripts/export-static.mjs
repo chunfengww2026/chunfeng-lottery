@@ -1175,7 +1175,12 @@ function frogPanelHtml() {
         const seenT = {};
         const norm = (arr) => {
           const out2 = [];
-          (Array.isArray(arr) ? arr : []).forEach((x) => {
+          /* 同标题去重时【优先留有正文/摘要的那条】：头条搜索结果里同一篇常返回两条
+             （一条抓到 body、一条空），原来的「先到先得」可能留下空的那条 →
+             页面上就是一条点不开的标题。稳定排序，不影响其它顺序。 */
+          const src2 = (Array.isArray(arr) ? arr.slice() : []).sort((a, b) =>
+            (b && (b.body || b.desc) ? 1 : 0) - (a && (a.body || a.desc) ? 1 : 0));
+          src2.forEach((x) => {
             const t = clean(x && x.title);
             const k = keyOf(t);
             if (t.length <= 3 || !k || seenT[k]) return;
@@ -1254,13 +1259,16 @@ function frogPanelHtml() {
          ------------------------------------------------------------
          · 点【标题】就地展开正文（<details>，不套裸 button）；
          · 正文 body 由 build-jc-articles.mjs 从源站抓下来；抓不到就退回摘要 desc；
-         · 两样都没有 → 照旧只显示标题（有链接才给「看原文」，空 href 不套 <a>）。
+         · 两样都没有 → 照旧只显示标题（有链接才给「看原文」，空 href 不套 <a>）；
+           ⚠️ 头条条目若 body / desc 都没抓到（微头条模板页面里根本没有正文），
+              仍然给「看原文」外链 —— 否则那一行就变成【点不动的死标题】，
+              正是用户这次要修的那个毛病。
          样式：13px / 行高 1.75 / 正常段落（.frog-ab），太长先给前 300 字 + 「展开全文」。 */
       const head = '<span class="frog-i">' + (i + 1) + '</span>' +
         '<span class="frog-at">' + escape(a.t) + '</span>';
       const raw = String(a.b || a.d || '').trim();
       /* 头条条目（a.nl）不给外链：正文/摘要已经就地展开，页面上不能露出处 */
-      const live = a.u && !a.nl;
+      const live = a.u && (!a.nl || !raw);
       const link = live
         ? '<a class="frog-src" href="' + String(a.u).replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">看原文 ›</a>'
         : '';
