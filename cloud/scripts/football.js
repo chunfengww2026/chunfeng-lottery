@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-19 10:46 */
+/* 自动生成，请勿手动编辑 · 2026-10-19 10:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-19 10:46",
+ "updated": "2026-10-19 10:58",
  "stat": {
   "upcoming": 0,
   "live": 4,
-  "finished": 37,
-  "total": 41,
+  "finished": 38,
+  "total": 42,
   "settled": true,
   "hit": 13,
-  "miss": 24,
-  "rate": 35.1
+  "miss": 25,
+  "rate": 34.2
  },
  "lists": {
   "upcoming": [],
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-19 09:00:00",
-    "minute": 90,
+    "minute": 93,
     "home": {
      "name": "阿美利加會(女)",
      "score": 2,
@@ -32,140 +32,8 @@ const FOOTBALL_DATA = {
     "away": {
      "name": "帕丘卡女足",
      "score": 1,
-     "red": 0,
-     "rank": 13
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "1.11",
-       "away": 0.72
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3.5",
-       "over": 1.06,
-       "under": 0.74
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.04,
-       "draw": 26,
-       "away": 8
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 85.5,
-     "prob": {
-      "home": 85.5,
-      "draw": 3.4,
-      "away": 11.1
-     },
-     "clear": true,
-     "margin": 12.5
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 1"
-    }
-   },
-   {
-    "gid": 580916,
-    "kind": "live",
-    "league": {
-     "name": "墨西聯",
-     "color": "098000"
-    },
-    "time": "2026-10-19 09:00:00",
-    "minute": 87,
-    "home": {
-     "name": "蒙特雷",
-     "score": 2,
-     "red": 0,
-     "rank": 12
-    },
-    "away": {
-     "name": "帕丘卡",
-     "score": 1,
-     "red": 0,
-     "rank": 14
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.68",
-       "away": 1.25
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "3.5",
-       "over": 0.98,
-       "under": 0.88
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.15,
-       "draw": 23,
-       "away": 5.8
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 80.1,
-     "prob": {
-      "home": 80.1,
-      "draw": 4,
-      "away": 15.9
-     },
-     "clear": true,
-     "margin": 8.5
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 1"
-    }
-   },
-   {
-    "gid": 582293,
-    "kind": "live",
-    "league": {
-     "name": "哥倫甲",
-     "color": "993333"
-    },
-    "time": "2026-10-19 09:10:00",
-    "minute": 76,
-    "home": {
-     "name": "卡利体育会",
-     "score": 0,
-     "red": 0,
-     "rank": 3
-    },
-    "away": {
-     "name": "巴兰基利亚青年",
-     "score": 0,
      "red": 1,
-     "rank": 16
+     "rank": 13
     },
     "odds": {
      "asian": {
@@ -185,6 +53,110 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 580916,
+    "kind": "live",
+    "league": {
+     "name": "墨西聯",
+     "color": "098000"
+    },
+    "time": "2026-10-19 09:00:00",
+    "minute": 90,
+    "home": {
+     "name": "蒙特雷",
+     "score": 2,
+     "red": 0,
+     "rank": 12
+    },
+    "away": {
+     "name": "帕丘卡",
+     "score": 1,
+     "red": 0,
+     "rank": 14
+    },
+    "odds": {
+     "asian": {
+      "open": null,
+      "live": null
+     },
+     "overunder": {
+      "open": null,
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
+    "gid": 582293,
+    "kind": "live",
+    "league": {
+     "name": "哥倫甲",
+     "color": "993333"
+    },
+    "time": "2026-10-19 09:10:00",
+    "minute": 79,
+    "home": {
+     "name": "卡利体育会",
+     "score": 0,
+     "red": 0,
+     "rank": 3
+    },
+    "away": {
+     "name": "巴兰基利亚青年",
+     "score": 0,
+     "red": 1,
+     "rank": 16
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.83",
+       "away": 1.05
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "0.5",
+       "over": 1.05,
+       "under": 0.81
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 2.45,
+       "draw": 12.5,
+       "away": 1.69
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 54.8,
+     "prob": {
+      "home": 37.8,
+      "draw": 7.4,
+      "away": 54.8
+     },
+     "clear": true,
+     "margin": 8
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "0 - 0"
+    }
+   },
+   {
     "gid": 584107,
     "kind": "live",
     "league": {
@@ -192,7 +164,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 40,
+    "minute": 43,
     "home": {
      "name": "马昆森",
      "score": 1,
@@ -202,65 +174,25 @@ const FOOTBALL_DATA = {
     "away": {
      "name": "苏奇特佩基",
      "score": 0,
-     "red": 0,
+     "red": 1,
      "rank": 12
     },
     "odds": {
      "asian": {
-      "open": {
-       "home": -0.75,
-       "line": "0.92",
-       "away": 0.78
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.25",
-       "away": 0.5
-      }
+      "open": null,
+      "live": null
      },
      "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.78,
-       "under": 0.92
-      },
-      "live": {
-       "line": "1.5",
-       "over": 1.2,
-       "under": 0.53
-      }
+      "open": null,
+      "live": null
      },
      "europe": {
-      "open": {
-       "home": 1.11,
-       "draw": 12.5,
-       "away": 5.9
-      },
-      "live": {
-       "home": 1.03,
-       "draw": 23,
-       "away": 7.4
-      }
+      "open": null,
+      "live": null
      }
     },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 84.5,
-     "prob": {
-      "home": 84.5,
-      "draw": 3.8,
-      "away": 11.8
-     },
-     "clear": true,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
+    "reco": null,
+    "result": null
    }
   ],
   "finished": [
@@ -3073,6 +3005,79 @@ const FOOTBALL_DATA = {
      "hit": true,
      "score": "2 - 0"
     }
+   },
+   {
+    "gid": 584194,
+    "kind": "finished",
+    "league": {
+     "name": "危地乙",
+     "color": "889933"
+    },
+    "time": "2026-10-19 09:00:00",
+    "minute": 0,
+    "home": {
+     "name": "惠特卡斯FC",
+     "score": null,
+     "red": 0,
+     "rank": 0
+    },
+    "away": {
+     "name": "阿馬蒂特蘭",
+     "score": null,
+     "red": 0,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1.75,
+       "line": "0.52",
+       "away": 1.21
+      },
+      "live": {
+       "home": -0.75,
+       "line": "0.74",
+       "away": 0.96
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.76,
+       "under": 0.94
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.81,
+       "under": 0.89
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.14,
+       "draw": 10,
+       "away": 5.8
+      },
+      "live": {
+       "home": 1.5,
+       "draw": 8.3,
+       "away": 2.76
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 58,
+     "prob": {
+      "home": 58,
+      "draw": 10.5,
+      "away": 31.5
+     },
+     "clear": true,
+     "margin": 14.9
+    },
+    "result": null
    }
   ]
  }
