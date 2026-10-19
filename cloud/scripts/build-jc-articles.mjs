@@ -227,3 +227,25 @@ fs.writeFileSync(OUT, js, 'utf8');
 /* 【backoff 闸门】写成功 → 记下这次成功时间 */
 gateMarkSuccess();
 console.log(`\n✅ 已写入 jc-articles.js（${(Buffer.byteLength(js) / 1024).toFixed(1)} KB，${list.length} 篇）`);
+
+/* ============================================================
+   【顺便写 materials-data.js · 用户 2026-10-19「抓最近的 每一小时更新」】
+   云端每小时会跑本脚本 → 「免费资料（点标题看原文）」区块也跟着更新
+   字段和 data-store.js 的 addMaterial() 一致：id / text / time / url / games
+   ============================================================ */
+try {
+  const mlist = list.slice(0, 20).map((a, i) => ({
+    id: 'm' + (i + 1),
+    text: String(a.title || a.text || '').slice(0, 120),
+    time: String(a.time || out.updated || ''),
+    url: String(a.url || ''),
+    games: Array.isArray(a.games) ? a.games : [],
+    author: String(a.author || '').slice(0, 30)
+  })).filter((x) => x.text);
+  const mjs = '/* materials-data.js —— 资料存档（build-jc-articles.mjs 自动写入，勿手改） */\n' +
+    'const MATERIALS_DATA = ' + JSON.stringify({ updated: out.updated || '', list: mlist }, null, 1) + ';\n';
+  fs.writeFileSync(path.join(ROOT, 'materials-data.js'), mjs, 'utf8');
+  console.log('  ✅ materials-data.js 已同步写入 ' + mlist.length + ' 条（免费资料区块会自动更新）');
+} catch (e) {
+  console.log('  ⚠️ 写 materials-data.js 失败（不影响正文）：' + e.message);
+}
