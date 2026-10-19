@@ -165,7 +165,7 @@ function main() {
         const im = g[day].images.main;
         for (let i = 0; i < 6; i++) {
           const set = [];
-          for (let k = 0; k < 5; k++) set.push((i * 1 + k * 2) % 10);
+          for (let k = 0; k < 5; k++) set.push((i + k) % 10);
           const uniq = [...new Set(set)].sort((a, b) => a - b);
           let x = 0;
           while (uniq.length < 5) { if (!uniq.includes(x)) uniq.push(x); x++; }
