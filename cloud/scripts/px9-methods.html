@@ -231,12 +231,124 @@
 
   document.getElementById('ms').innerHTML = METHODS.map(function (m) {
     return '<div class="m" data-m="' + m + '">' + m + '</div>';
-  }).join('');
+  }).join('') + '<div class="m" data-m="__bt" style="background:#f0b429;color:#fff;border-color:#f0b429">📊 回测</div>';
+
+  /* ===== 实验室：真实滚动回测（不是"延续命中"那种糊弄 ✗）
+     做法：对近 N 期，每期只用【该期之前】的数据跑 9 个算法，再和该期真实开奖比，
+          统计每个算法命中几个红球、命中 6 个算全中。
+     ⚠️ 这段在普通 <script> 里（不是模板字符串），可以用现代语法 */
+  var BT_N = 20;
+  function pickFor(g, m, uptoIdx) {
+    /* uptoIdx = 数据数组下标（只用 uptoIdx+1 之后的数据，即"更早"的期） */
+    var c = CFG[g];
+    var all = hist(g);
+    var list = all.slice(uptoIdx + 1);   /* 只用历史（不含当期） */
+    if (list.length < 5) return null;
+    var cn = counts(list, g), fc = cn.fc, bc = cn.bc;
+    var ALL = []; for (var i = 1; i <= c.max; i++) ALL.push(i);
+    var hot = ALL.slice().sort(function (a, b) { return (fc[b] || 0) - (fc[a] || 0); });
+    var cold = ALL.slice().sort(function (a, b) { return (fc[a] || 0) - (fc[b] || 0); });
+    var red = [];
+    var sums = list.map(function (d) { var n = numsOf(d); var arr = n.red || n.front || []; return arr.reduce(function (a, b) { return a + b; }, 0); });
+    var spans = list.map(function (d) { var n = numsOf(d); var arr = n.red || n.front || []; return arr.length ? Math.max.apply(null, arr) - Math.min.apply(null, arr) : 0; });
+    if (m === '余数算法') {
+      var rs = [0, 0, 0];
+      ALL.forEach(function (n) { rs[n % 3] += (fc[n] || 0); });
+      var best = rs.indexOf(Math.max.apply(null, rs));
+      red = hot.filter(function (n) { return n % 3 === best; }).slice(0, 6);
+    } else if (m === '分区法') {
+      [[1, 11], [12, 22], [23, c.max]].forEach(function (z) {
+        hot.filter(function (n) { return n >= z[0] && n <= z[1]; }).slice(0, 2).forEach(function (n) { if (red.indexOf(n) < 0) red.push(n); });
+      });
+      red = red.slice(0, 6);
+    } else if (m === '冷热号') {
+      red = hot.slice(0, 4).concat(cold.slice(0, 2));
+    } else if (m === '遗漏值算法') {
+      var om = ALL.map(function (n) {
+        var o = list.length;
+        for (var i = 0; i < list.length; i++) { var arr = numsOf(list[i]).red || numsOf(list[i]).front || []; if (arr.indexOf(n) >= 0) { o = i; break; } }
+        return { n: n, o: o };
+      }).sort(function (a, b) { return b.o - a.o; });
+      red = om.slice(0, 6).map(function (x) { return x.n; });
+    } else if (m === '奇偶') {
+      var odds = list.map(function (d) { var arr = numsOf(d).red || numsOf(d).front || []; return arr.filter(function (n) { return n % 2 === 1; }).length; });
+      var avgOdd = Math.max(1, Math.min(5, Math.round(odds.reduce(function (a, b) { return a + b; }, 0) / list.length)));
+      red = hot.filter(function (n) { return n % 2 === 1; }).slice(0, avgOdd).concat(hot.filter(function (n) { return n % 2 === 0; }).slice(0, 6 - avgOdd));
+    } else if (m === '质合') {
+      var isP = function (n) { if (n < 2) return false; for (var d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
+      var pc = list.map(function (d) { var arr = numsOf(d).red || numsOf(d).front || []; return arr.filter(isP).length; });
+      var avgP = Math.max(2, Math.min(4, Math.round(pc.reduce(function (a, b) { return a + b; }, 0) / list.length)));
+      red = hot.filter(isP).slice(0, avgP).concat(hot.filter(function (n) { return !isP(n); }).slice(0, 6 - avgP));
+    } else if (m === '和值') {
+      var ss = sums.slice().sort(function (a, b) { return a - b; });
+      var mid = ss[Math.floor(ss.length / 2)] || 100, target = mid / 6;
+      red = ALL.slice().sort(function (a, b) {
+        return (Math.abs(a - target) - (fc[a] || 0) * 2.5) - (Math.abs(b - target) - (fc[b] || 0) * 2.5);
+      }).slice(0, 6);
+    } else if (m === '跨度') {
+      var sp = spans.slice().sort(function (a, b) { return a - b; });
+      var midSp = sp[Math.floor(sp.length / 2)] || 20;
+      var lo = Math.max(1, midSp - 5), hi = Math.min(c.max, midSp + 5);
+      red = hot.filter(function (n) { return n >= lo && n <= hi; }).slice(0, 6);
+      if (red.length < 6) hot.forEach(function (n) { if (red.indexOf(n) < 0 && red.length < 6) red.push(n); });
+    } else {
+      var votes = {};
+      ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合', '和值', '跨度'].forEach(function (mm) {
+        var r2 = pickFor(g, mm, uptoIdx);
+        (r2 ? r2.red : []).forEach(function (n) { votes[n] = (votes[n] || 0) + 1; });
+      });
+      red = Object.keys(votes).map(Number).sort(function (a, b) { return ((votes[b] || 0) * 2 + (fc[b] || 0)) - ((votes[a] || 0) * 2 + (fc[a] || 0)); }).slice(0, 6);
+    }
+    red = red.filter(function (n, i2, arr) { return arr.indexOf(n) === i2; });
+    for (var h = 0; h < hot.length && red.length < 6; h++) if (red.indexOf(hot[h]) < 0) red.push(hot[h]);
+    var blueMax = c.blueMax;
+    var bl = []; for (var b2 = 1; b2 <= blueMax; b2++) bl.push(b2);
+    var blue = bl.slice().sort(function (a, b) { return (bc[b] || 0) - (bc[a] || 0); })[0];
+    return { red: red.slice(0, 6), blue: blue };
+  }
+
+  function renderBacktest() {
+    var g = st.g, c = CFG[g];
+    var all = hist(g);
+    var N = Math.min(BT_N, all.length - 6);
+    if (N < 3) { document.getElementById('out').innerHTML = '<div class="out">历史数据不足</div>'; return; }
+    var rows = METHODS.map(function (m) {
+      var hitSum = 0, full = 0, best = 0;
+      for (var k = 0; k < N; k++) {
+        var p = pickFor(g, m, k);
+        if (!p) continue;
+        var real = numsOf(all[k]);
+        var realRed = (real.red || real.front || []).map(Number);
+        var hits = p.red.filter(function (n) { return realRed.indexOf(n) >= 0; }).length;
+        hitSum += hits;
+        if (hits >= 6) full++;
+        if (hits > best) best = hits;
+      }
+      return { m: m, avg: (hitSum / N).toFixed(2), full: full, best: best };
+    }).sort(function (a, b) { return b.avg - a.avg; });
+
+    var h = '<div class="card"><h2>📊 实验室 · 滚动回测（近 ' + N + ' 期）</h2>';
+    h += '<div class="row"><span class="k">检验方式</span><span class="v">每期只用该期之前的数据预测 → 和真实开奖比</span></div>';
+    h += '<div class="row" style="font-weight:700"><span class="k">算法</span><span class="v">平均命中 / 全中 / 最多</span></div>';
+    rows.forEach(function (r, i) {
+      var mark = i === 0 ? ' 🥇' : (i === 1 ? ' 🥈' : (i === 2 ? ' 🥉' : ''));
+      h += '<div class="row"><span class="k">' + r.m + mark + '</span><span class="v">' +
+        r.avg + ' 个 · 全中 ' + r.full + ' 次 · 最多 ' + r.best + ' 个</span></div>';
+    });
+    h += '<div class="note">共检验 ' + N + ' 期 × ' + METHODS.length + ' 个算法；平均命中 ' + (6 * 6 / c.max).toFixed(2) +
+      ' 个是纯随机的理论值（低于它说明该算法在这个彩种上无效）</div>';
+    h += '<div class="pick"><span class="pick-k">结论</span><span class="pick-b" style="font-size:12px;color:#4a3a26">' +
+      '平均命中最高：<b>' + rows[0].m + '</b>（' + rows[0].avg + ' 个/期）</span></div></div>';
+    document.getElementById('out').innerHTML = h;
+    document.getElementById('outTitle').textContent = c.name + ' · 回测';
+  }
+
   document.getElementById('ms').addEventListener('click', function (ev) {
     var b = ev.target.closest('.m');
     if (!b) return;
     st.m = b.getAttribute('data-m');
-    render();
+    if (st.m === '__bt') { renderBacktest(); }
+    else { render(); }
   });
   document.getElementById('games').addEventListener('click', function (ev) {
     var b = ev.target.closest('.g');
