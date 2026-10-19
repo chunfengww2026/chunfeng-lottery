@@ -186,10 +186,29 @@ async function from500() {
    ⚠️ 之前的 https://www.toutiao.com/search 和 m.toutiao.com 才是空壳 ✗（我测错地址了）
    ⚠️ 会反爬（连续请求被 ECONNRESET）→ 每次请求间隔 5 秒 + 最多重试 2 次 */
 async function fromToutiao() {
+  /* 【按开奖期号抓 · 用户 2026-10-19「根据开奖时间抓取对应的资料」】
+     从 history.js 读每个彩种的最新期号 → 关键词带上期号
+     （例如「双色球2026120期推荐」，比笼统的「双色球推荐」更贴当期）
+     云端每小时跑一次 → 开奖后下一班就能抓到当期内容 */
+  var issueMap = { ssq: '', dlt: '' };
+  try {
+    const hf = path.join(ROOT, 'history.js');
+    if (fs.existsSync(hf)) {
+      const hctx = vm.createContext({});
+      vm.runInContext(fs.readFileSync(hf, 'utf8') + '\n;globalThis.__H=DRAW_HISTORY;', hctx);
+      const gg = (hctx.__H && hctx.__H.games) || {};
+      if (gg.ssq && gg.ssq[0]) issueMap.ssq = String(gg.ssq[0].issue || '');
+      if (gg.dlt && gg.dlt[0]) issueMap.dlt = String(gg.dlt[0].issue || '');
+    }
+  } catch (e) { }
+
   const KW = [
+    { kw: '双色球' + (issueMap.ssq || '') + '期推荐', game: 'ssq' },
     { kw: '双色球推荐', game: 'ssq' },
+    { kw: '大乐透' + (issueMap.dlt || '') + '期推荐', game: 'dlt' },
     { kw: '大乐透推荐', game: 'dlt' }
   ];
+  console.log('  · 头条关键词（按期号）：' + KW.map(function (x) { return x.kw; }).join(' / '));
   const out = [];
   for (const item of KW) {
     const url = 'https://so.toutiao.com/search?dvpf=pc&source=input&keyword=' +
