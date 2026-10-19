@@ -912,6 +912,19 @@ GROUPS.forEach((group) => {
           `style="width:100%;height:1500px;border:0;display:block;border-radius:10px;background:#f7efe1"></iframe>` +
           `</div>`;
       }
+      /* 【民间算法植入其余 6 个资料格 · 用户 2026-10-20】
+         3D / 快乐8 / 排列三 / 排列五 / 七乐彩 / 七星彩 → 图下面嵌民间算法（?g=彩种）
+         用户给的 Python 那 10 种玩法都在 minjian-methods.html 里 */
+      const MINJIAN_GAMES = ['fc3d', 'kl8', 'pl3', 'pl5', 'qlc', 'qxc'];
+      if (MINJIAN_GAMES.indexOf(id) >= 0 && img.key === 'main') {
+        imgsHtml +=
+          '<div class="mj-inline" style="margin:10px 0 4px">' +
+          '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
+          (game.name || id) + ' · 民间算法</div>' +
+          '<iframe src="minjian-methods.html?g=' + id + '" title="民间算法" loading="lazy" ' +
+          'style="width:100%;height:1400px;border:0;display:block;border-radius:10px;background:#f7efe1"></iframe>' +
+          '</div>';
+      }
       imgCount++;
     });
 
