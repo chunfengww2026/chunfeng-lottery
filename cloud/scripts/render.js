@@ -181,14 +181,12 @@ function cirBackNums(gameId, vals) {
     /* 后区按【区名】找：双色球 blue / 大乐透 back（不按彩种名写死） */
     const backKey = ['blue', 'back', 'special'].find((k) => Array.isArray(areas[k]) && areas[k].length);
     if (!backKey) return out;
-    /* 主区优先：同一个号既是主区又是后区（双色球红 01~16 和蓝 01~16 重叠）
-       → 只算主区（深红），不重复画成蓝 */
-    const mainKey = ['front', 'red', 'main'].find((k) => Array.isArray(areas[k]) && areas[k].length);
-    const main = mainKey ? areas[mainKey].map(Number) : [];
-    areas[backKey].forEach((v) => {
-      const n = Number(v);
-      if (Number.isFinite(n) && n > 0 && main.indexOf(n) < 0) push(n);
-    });
+    /* 这里【全部】返回，不和主区去重：
+         图注要如实写出「蓝球：04」，哪怕 04 同时是红球（双色球红 01~16
+         和蓝 01~16 本来就重叠）。
+       去重（同一个号到底画深红还是深蓝）在下面 circle() 里做 ——
+       规则：主区优先（红球命中就画深红，见 isBack 的 !p.isHit 判断）。 */
+    areas[backKey].forEach(push);
   } catch (e) { /* 忽略：读不到就不加蓝标记，红球照样加深 */ }
   return out;
 }
@@ -557,8 +555,9 @@ const SECTION_RENDER = {
       const src = String(vals.cir_source).split(/[\s,，、]+/).map((s) => parseInt(s, 10));
       if (Number.isFinite(centerNum) && src.indexOf(centerNum) >= 0) centerHit = true;
     }
-    /* 中心那个号本身是蓝球/后区 → 画深蓝（老存档没有这个标记时按 0 处理） */
-    const centerBack = Number.isFinite(centerNum) && !!backSet[centerNum];
+    /* 中心那个号本身是蓝球/后区 → 画深蓝（老存档没有这个标记时按 0 处理）。
+       同样主区优先：中心已经是红球命中就不改蓝。 */
+    const centerBack = Number.isFinite(centerNum) && !centerHit && !!backSet[centerNum];
     const centerOn = centerHit || centerBack;
     const center = el('div', 'r-circenter' + (centerOn ? ' hit' : ' dim') + (centerBack ? ' bl' : ''));
     center.setAttribute('data-hit', centerOn ? '1' : '0');
@@ -579,8 +578,10 @@ const SECTION_RENDER = {
         const p = pts[ringIdx * geo.axes + dirIdx] || { num: null, isHit: false };
         const has = p.num !== null && p.num !== undefined && Number.isFinite(Number(p.num));
         /* 这个点是不是「上一期开奖号码」：主区（红球/前区）= 深红，
-           后区（蓝球/后区）= 深蓝；两个都不是才浅色。 */
-        const isBack = has && !!backSet[Number(p.num)];
+           后区（蓝球/后区）= 深蓝；两个都不是才浅色。
+           ⚠️ 同一个号既中红球又是蓝球时（双色球红 01~16 / 蓝 01~16 重叠）
+              → 主区优先，画深红（!p.isHit 这一条就是去重）。 */
+        const isBack = has && !p.isHit && !!backSet[Number(p.num)];
         const isOn = has && (p.isHit || isBack);
         const dot = el('div', 'r-cirnum' + (has ? (isOn ? ' hit' : ' dim') + (isBack ? ' bl' : '') : ' empty'));
         /* 角度 = -90° + i × (360 / 轴数)：轴 1 朝正上方，顺时针排 */
@@ -626,7 +627,8 @@ const SECTION_RENDER = {
         'position:absolute;left:50%;top:68%;transform:translateX(-50%);'
         + 'display:flex;gap:6px;justify-content:center;z-index:3;pointer-events:none');
       sideNums.forEach((n) => {
-        const isBack = !!backSet[n];
+        /* 主区优先：小字球已经在 cir_source（上期主区开奖号）里就不改蓝 */
+        const isBack = !!backSet[n] && sideSrc.indexOf(n) < 0;
         const isHit = sideSrc.indexOf(n) >= 0 || isBack;
         const ball = el('span', 'r-cirsideball' + (isHit ? ' hit' : ' dim') + (isBack ? ' bl' : ''));
         ball.setAttribute('style',
