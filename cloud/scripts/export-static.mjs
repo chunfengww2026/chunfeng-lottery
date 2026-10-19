@@ -2113,7 +2113,10 @@ function recDigits(gid, g, draws, issue) {
   }
   const gateN = posDefs.filter((p) => p.gate).length;
   let basis = '定位号：近 ' + span + ' 期每位冷热 + 遗漏';
-  if (gateN >= 3) basis += '（前三位三组数字两两不同 → 27 注单选全组六、0 豹子）';
+  /* 【2026-10-20】定位改成每位 3 个号之后，「27 注全组六」不再成立（数学上做不到）：
+     每位 3 号 + 全部取自 6 码 ⇒ 组三恒为 9 注、组六 18 注、豹子 0。
+     这里跟着改口径，否则页面自己前后矛盾。 */
+  if (gateN >= 3) basis += '（前三位每位 3 个号（取自 6 码）→ 27 注单选：组六 18 注 · 组三 9 注 · 0 豹子）';
   if (gid === 'fc3d' || gid === 'pl3') basis += '；6 码组选 6 个互不相同的数字 → 20 注全组六（组三 0 注、豹子 0 注）';
   return { blocks, basis, span };
 }
