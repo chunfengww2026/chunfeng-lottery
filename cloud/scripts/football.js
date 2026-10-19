@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-19 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-19 11:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-19 11:28",
+ "updated": "2026-10-19 11:58",
  "stat": {
   "upcoming": 0,
   "live": 1,
-  "finished": 28,
-  "total": 29,
+  "finished": 24,
+  "total": 25,
   "settled": true,
-  "hit": 12,
-  "miss": 16,
-  "rate": 42.9
+  "hit": 11,
+  "miss": 13,
+  "rate": 45.8
  },
  "lists": {
   "upcoming": [],
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-19 10:10:00",
-    "minute": 89,
+    "minute": 92,
     "home": {
      "name": "马昆森",
      "score": 1,
@@ -38,198 +38,40 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.75,
-       "line": "0.72",
-       "away": 0.98
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 0.78,
-       "under": 0.92
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 1.01,
-       "draw": 20,
-       "away": 8.7
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 85.7,
-     "prob": {
-      "home": 85.7,
-      "draw": 4.3,
-      "away": 10
-     },
-     "clear": true,
-     "margin": 15.5
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
-   }
-  ],
-  "finished": [
-   {
-    "gid": 581029,
-    "kind": "finished",
-    "league": {
-     "name": "巴西甲",
-     "color": "996600"
-    },
-    "time": "2026-10-19 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "巴海亞BA",
-     "score": 0,
-     "red": 0,
-     "rank": 6
-    },
-    "away": {
-     "name": "弗拉门戈",
-     "score": 3,
-     "red": 0,
-     "rank": 2
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.5,
-       "line": "0.97",
-       "away": 0.92
-      },
-      "live": {
-       "home": 0.25,
-       "line": "0.85",
-       "away": 1.03
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.86,
-       "under": 1.01
-      },
-      "live": {
-       "line": "1.25",
-       "over": 1.05,
-       "under": 0.82
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 3.4,
-       "draw": 1.92,
-       "away": 3.75
-      },
-      "live": {
-       "home": 3.8,
-       "draw": 2.44,
-       "away": 2.34
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 38.8,
-     "prob": {
-      "home": 23.9,
-      "draw": 37.2,
-      "away": 38.8
-     },
-     "clear": false,
-     "margin": 10
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": true,
-     "score": "0 - 3"
-    }
-   },
-   {
-    "gid": 581500,
-    "kind": "finished",
-    "league": {
-     "name": "厄瓜甲",
-     "color": "9e9400"
-    },
-    "time": "2026-10-19 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "巴塞罗那SC",
-     "score": 1,
-     "red": 0,
-     "rank": 6
-    },
-    "away": {
-     "name": "卡托利卡大学",
-     "score": 1,
-     "red": 0,
-     "rank": 2
-    },
-    "odds": {
-     "asian": {
-      "open": {
        "home": -0.25,
-       "line": "1.01",
-       "away": 0.87
+       "line": "0.7",
+       "away": 1
       },
-      "live": {
-       "home": 0,
-       "line": "0.73",
-       "away": 1.17
-      }
+      "live": null
      },
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.98,
-       "under": 0.88
+       "over": 0.92,
+       "under": 0.78
       },
-      "live": {
-       "line": "1",
-       "over": 0.91,
-       "under": 0.95
-      }
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 2.17,
-       "draw": 2.78,
-       "away": 3.35
+       "home": 2.29,
+       "draw": 9,
+       "away": 1.66
       },
-      "live": {
-       "home": 2.83,
-       "draw": 3.4,
-       "away": 2.11
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 42.3,
+     "confidence": 52.4,
      "prob": {
-      "home": 31.5,
-      "draw": 26.2,
-      "away": 42.3
+      "home": 38,
+      "draw": 9.7,
+      "away": 52.4
      },
-     "clear": false,
-     "margin": 12.1
+     "clear": true,
+     "margin": 15
     },
     "result": {
      "actual": "draw",
@@ -237,163 +79,9 @@ const FOOTBALL_DATA = {
      "hit": false,
      "score": "1 - 1"
     }
-   },
-   {
-    "gid": 582803,
-    "kind": "finished",
-    "league": {
-     "name": "阿乙",
-     "color": "3DE6E6"
-    },
-    "time": "2026-10-19 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "圣马丁图库曼",
-     "score": 3,
-     "red": 0,
-     "rank": 19
-    },
-    "away": {
-     "name": "米德兰",
-     "score": 2,
-     "red": 0,
-     "rank": 11
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.77",
-       "away": 1.05
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.21",
-       "away": 0.64
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "1.75",
-       "over": 0.82,
-       "under": 0.98
-      },
-      "live": {
-       "line": "0.75",
-       "over": 0.97,
-       "under": 0.83
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.06,
-       "draw": 3.65,
-       "away": 2.94
-      },
-      "live": {
-       "home": 2.83,
-       "draw": 4.55,
-       "away": 1.83
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 48.8,
-     "prob": {
-      "home": 31.6,
-      "draw": 19.6,
-      "away": 48.8
-     },
-     "clear": true,
-     "margin": 12
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": false,
-     "score": "3 - 2"
-    }
-   },
-   {
-    "gid": 581592,
-    "kind": "finished",
-    "league": {
-     "name": "乌拉甲",
-     "color": "557799"
-    },
-    "time": "2026-10-19 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "P.利物浦",
-     "score": 1,
-     "red": 0,
-     "rank": 2
-    },
-    "away": {
-     "name": "佩纳罗尔",
-     "score": 0,
-     "red": 1,
-     "rank": 3
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "1.01",
-       "away": 0.81
-      },
-      "live": {
-       "home": 0.25,
-       "line": "0.66",
-       "away": 1.19
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 0.88,
-       "under": 0.92
-      },
-      "live": {
-       "line": "1",
-       "over": 1.06,
-       "under": 0.74
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 3.1,
-       "draw": 2.06,
-       "away": 3.2
-      },
-      "live": {
-       "home": 3.85,
-       "draw": 2.7,
-       "away": 2.04
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 43.8,
-     "prob": {
-      "home": 23.2,
-      "draw": 33.1,
-      "away": 43.8
-     },
-     "clear": false,
-     "margin": 12
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": false,
-     "score": "1 - 0"
-    }
-   },
+   }
+  ],
+  "finished": [
    {
     "gid": 582894,
     "kind": "finished",
