@@ -3364,6 +3364,51 @@ function buildHistoryHtml() {
     `</div>`
   ).join('');
 
+  /* 【中奖宣布】用户 2026-10-20：「抓取我最近几天推荐中奖的号码宣布」——
+     把最近 7 天里中奖的期次单独排一块放在最上面：日期 · 彩种 期号 · 奖级 · 中奖号码。
+     号码仍然用 partsHtml()（和下面长列表同一套渲染，命中号一样高亮）。 */
+  const ANN_DAYS = 7;
+  const annRows = rows.filter((r) => {
+    const tt = histDayMs(r.date);
+    return Number.isFinite(tt) && (nowMs - tt) <= ANN_DAYS * HIST_DAY_MS;
+  });
+  /* 公告里的号只取【命中的那几个】（那才是"中奖的号码"）；
+     万一这条没有命中标记（老数据），就退回显示该行的全部号。 */
+  const annNumsHtml = (r) => {
+    const two2 = (n) => (n < 10 ? '0' + n : String(n));
+    const hitsOf = (parts) => {
+      const out = [];
+      (parts || []).forEach((p) => {
+        (p.nums || []).forEach((n, k) => { if (p.hit && p.hit[k]) out.push({ n: n, pad: p.pad }); });
+      });
+      return out;
+    };
+    /* 乐透型：推荐号里有 hit 标记 → 那就是"中的那几个"；
+       数字彩（3D/排三/排五）：推荐是池子（定位/组选），没有 hit 标记 →
+       直接写开奖号（组选/直选命中的就是它本身）。 */
+    let list = hitsOf(r.rec);
+    if (!list.length) list = hitsOf(r.draw);
+    if (!list.length) {
+      (r.rec || []).forEach((p) => (p.nums || []).forEach((n) => list.push({ n: n, pad: p.pad })));
+    }
+    return list.map((x) => '<b class="ro-hist-n">' +
+      escape(x.pad ? two2(x.n) : String(x.n)) + '</b>').join('');
+  };
+
+  const annHtml = annRows.length
+    ? '<div class="ro-hist-ann">' +
+        '<div class="ro-hist-ann-h">最近 ' + ANN_DAYS + ' 天中奖宣布 · ' + annRows.length + ' 注</div>' +
+        annRows.map((r) =>
+          '<div class="ro-hist-ann-row">' +
+            '<span class="ro-hist-ann-d">' + escape(String(r.date).slice(5)) + '</span>' +
+            '<span class="ro-hist-ann-g">' + escape(r.name) + '</span>' +
+            '<span class="ro-hist-ann-i">第' + escape(r.issue) + '期</span>' +
+            '<span class="ro-hist-ann-t">' + escape(r.label) + '</span>' +
+            '<span class="ro-hist-ann-n">' + annNumsHtml(r) + '</span>' +
+          '</div>').join('') +
+      '</div>'
+    : '';
+
   const meta = `覆盖 ${info.from} ~ ${info.to} · 可回算 ${info.compared} 期 · 高等奖 ${rows.length} 条` +
     (info.lowDropped ? `（另有低等奖 ${info.lowDropped} 条未列）` : '');
   const foot = rows.length > HIST_MAX_ROWS
@@ -3371,7 +3416,8 @@ function buildHistoryHtml() {
     : `只列一/二/三等奖 + 组选直选；推荐号按当期期号回算，与开奖号并排对照`;
 
   return {
-    html: `<div class="ro-hist-meta">${escape(meta)}</div>` +
+    html: annHtml +
+      `<div class="ro-hist-meta">${escape(meta)}</div>` +
       `<div class="ro-hist-list">${listHtml}</div>` +
       `<div class="ro-hist-foot">${escape(foot)}</div>`,
     info: info
@@ -6584,6 +6630,18 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-hist > .ro-hist-head::marker { content: ''; }
 .ro-hist-h2 { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg);
   letter-spacing: .5px; }
+/* __HIST_ANN__ 最近 7 天中奖宣布（用户 2026-10-20）——只用现有变量色 */
+.ro-hist-ann { margin: 0 0 10px; padding: 10px 10px 4px; border: 1px solid var(--ro-line);
+  border-radius: 8px; }
+.ro-hist-ann-h { font-size: 13px; font-weight: 800; color: var(--ro-ok); padding-bottom: 6px; }
+.ro-hist-ann-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  padding: 5px 0; border-top: 1px dashed var(--ro-line); font-size: 12px; color: var(--ro-fg2); }
+.ro-hist-ann-row:first-of-type { border-top: 0; }
+.ro-hist-ann-d { color: var(--ro-fg3); font-variant-numeric: tabular-nums; }
+.ro-hist-ann-g { font-weight: 800; color: var(--ro-fg); }
+.ro-hist-ann-i { color: var(--ro-fg3); }
+.ro-hist-ann-t { font-weight: 800; color: var(--ro-ok); }
+.ro-hist-ann-n { display: inline-flex; flex-wrap: wrap; gap: 3px; }
 .ro-hist-sub { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-fg2);
   font-weight: 600; }
 .ro-hist-arrow { display: inline-block; margin: 8px auto 0; font-size: 12px;
@@ -8465,8 +8523,8 @@ ${frogPanelHtml()}
        ============================================================ -->
   <details class="ro-hist" id="ro-hist" open>
     <summary class="ro-hist-head">
-      <span class="ro-hist-h2">历史开奖</span>
-      <span class="ro-hist-sub">近 365 天 · 一/二/三等奖 + 组选直选</span>
+      <span class="ro-hist-h2">中奖</span>
+      <span class="ro-hist-sub">近 365 天 · 一/二/三等奖 + 3D·排三·排五中奖</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
@@ -14221,10 +14279,11 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 /* 三码同出 / 四码同出 的每一条：组合 + 次数一行（跟二码同出同一套左右对齐），
    「最近哪期」缩成下一行小灰字 —— 半屏卡（375 下只有 167px）里才不会挤成一团 */
 .frog-co { border-bottom: 1px dotted #f0e4cf; padding: 3px 0; }
-.frog-co-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
-.frog-co-k { font-size: 12.5px; font-weight: 700; color: #4a3a26; letter-spacing: .2px; white-space: nowrap; }
-.frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; white-space: nowrap; }
+.frog-co-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 3px; }
+.frog-co-k { font-size: 12.5px; font-weight: 700; color: #4a3a26; letter-spacing: .2px; }
+.frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; }
 .frog-co-t { font-size: 10.5px; color: #a89a80; margin-top: 1px; }
+@media (max-width: 340px) { .frog-co-k { font-size: 10.5px; letter-spacing: 0; } .frog-co-n { font-size: 10px; } }
 
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
