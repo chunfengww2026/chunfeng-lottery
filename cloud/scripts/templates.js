@@ -263,7 +263,7 @@ const TEMPLATES = {
                 { key: 'b_jq',  label: '后区奇偶' },
                 { key: 'b_dx',  label: '后区大小' },
                 { key: 'b_012', label: '后区012路' },
-                { key: 'b_rec', label: '后区推荐' },
+                { key: 'b_rec', count: 6, label: '后区推荐' },
                 { key: 'b_sh',  label: '后区杀号' }
               ],
               bigBalls: { key: 'b_main', count: 2, color: 'blue' }
