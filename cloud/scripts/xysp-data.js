@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-20 01:50
+   更新时间：2026-10-20 01:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-20 01:50",
+ "updated": "2026-10-20 01:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -78,6 +78,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-20/115bcfd1-2e95-425b-a57f-a0742b2a3b761792431611015.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-20/115bcfd1-2e95-425b-a57f-a0742b2a3b761792431611015.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26120期]有些可惜",
+     "url": "",
+     "at": "2026-10-19T17:55:02.143Z",
+     "pubAt": "2026-10-19T17:40:00.000Z",
+     "pubMs": 1792431600000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792432502143,
+     "seenMs": 1792432502143,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-20/c4b7376d-b3ff-4be5-8fe9-5a16feb8655d1792430499696.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-20/c4b7376d-b3ff-4be5-8fe9-5a16feb8655d1792430499696.jpg?imageMogr2/thumbnail/360x",
