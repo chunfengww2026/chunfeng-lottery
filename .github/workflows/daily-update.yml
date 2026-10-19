@@ -152,25 +152,31 @@ permissions:
   pages: write
   id-token: write
 
-# 同一时间只跑一个【同类班次】
+# 每个 run 一个独立的 concurrency 组（= 等于没有 concurrency，但保留段落形式）
 # ============================================================
-# 【2026-10-19 修 · 核心】
-#   原来：group 固定写死 'daily-update'（+ cancel-in-progress: false）。
-#         → 全仓库只有一个排队位，任何新触发都会把【正在排队的那一班】取消
-#           （GitHub 规则：一个 group 只允许 1 个 pending run）。
-#         → 实测最近 13 次运行全是 cancelled、jobs = 0，线上数据因此不更新。
-#   现在：group 里带上【触发源指纹】——
-#         · 定时班：每个 cron 表达式各自一个组（daily-update-schedule-<cron>）
-#         · 手动触发（含本机 sync-cloud 的 workflow_dispatch）：daily-update-manual
-#         不同触发源之间【不会互相取消】，只有【同一个 cron 的重复班次】才会
-#         顶掉上一次还没开跑的（这正是我们想要的：同一类刷新重复跑没意义）。
-#   结果：02:00 全量 / 21:30·21:45 开奖 / 18:00·21:00 热力图 这些关键班次
-#         【绝不会】再被 每 10 分钟 / 每小时 / 手动触发 顶掉。
-#   仍然保留 cancel-in-progress: false —— 不许打断正在跑的班次
-#   （正在跑的那一班可能已经把号码摇好、正准备提交/部署）。
+# 【2026-10-20 修 · 死锁】
+#   现象（本机实测 UTC 16:32）：2 个 run 卡在 in_progress（#39279138046 已 56 分钟、
+#     #39283107518 的 deploy 卡住），5 个 run 排队 queued、1 个 pending，
+#     想取消还回 409 —— 网页一直不更新。
+#   ⚠️ 两件事叠在一起，别只怪一方：
+#     ① GitHub 平台自己在故障：githubstatus.com 2026-10-19T15:49Z 起
+#        「Degraded availability for GitHub Actions, GitHub Pages and Webhooks」
+#        （Actions / Pages 都是 degraded_performance）→ 卡住那两个 run
+#        【所有 job 的所有步骤都 success，run 却一直 in_progress】，是平台侧不回收。
+#     ② 上一版 concurrency.group 带【触发源指纹】（daily-update-<cron> / -manual）：
+#        同一个 cron 组的下一班必须等上一班跑完 → 上一班被平台卡住，
+#        整组就一起卡住，谁都不开跑（关键班次也一起等）。
+#        ⚠️ 所以「表达式里写 schedule 字符串」本身没坏（GitHub 按文档生效），
+#           要修的是「一个 run 卡住就拖死一整队」这个放大效应。
+#   现在：group 用 github.run_id —— 每个 run 一个独立的组，
+#         【永不互等、永不互取消】：不会因为别人的班次卡住就不开跑。
+#   代价：极端情况可能同时跑两班（浪费 runner 分钟，但不会坏数据：
+#         同一份数据构建结果一样、Pages 发布自己带锁、git push 那步本来就有 5 次重试）。
+#   好处：不会再出现「整队 waiting、网页一直不更新」。
+#   cancel-in-progress 仍为 false —— 它只决定「自己会不会被打断」，和「要不要等别人」无关。
 # ============================================================
 concurrency:
-  group: daily-update-${{ github.event.schedule || 'manual' }}
+  group: daily-update-${{ github.run_id }}
   cancel-in-progress: false
 
 jobs:
