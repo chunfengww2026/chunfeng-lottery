@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-19 12:15",
+ "updated": "2026-10-19 23:30",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -461,6 +461,106 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 1,
+   "verdict": ""
+  },
+  {
+   "at": "2026-10-19 23:30",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周二002",
+     "time": "2026-10-21 00:45",
+     "league": "欧冠",
+     "home": "萨巴赫",
+     "away": "多特蒙德",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.29,
+     "conf": 73.6,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周二008",
+     "time": "2026-10-21 03:00",
+     "league": "欧冠",
+     "home": "曼城",
+     "away": "雅典AEK",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.1,
+     "conf": 86.4,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周二005",
+     "time": "2026-10-21 03:00",
+     "league": "欧冠",
+     "home": "罗马",
+     "away": "布拉迪斯",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.14,
+     "conf": 82.6,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周二007",
+     "time": "2026-10-21 03:00",
+     "league": "欧冠",
+     "home": "利物浦",
+     "away": "比利亚雷",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.5,
+     "conf": 63.2,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周二010",
+     "time": "2026-10-21 03:00",
+     "league": "欧冠",
+     "home": "波尔图",
+     "away": "埃因霍温",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.57,
+     "conf": 60.1,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周二004",
+     "time": "2026-10-21 03:00",
+     "league": "欧冠",
+     "home": "那不勒斯",
+     "away": "博德闪耀",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.62,
+     "conf": 58.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 6,
    "verdict": ""
   }
  ]
