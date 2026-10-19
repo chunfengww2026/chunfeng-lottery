@@ -738,7 +738,22 @@ async function runGame(game, cfg, opts, report) {
   const blueCands = cands.filter((e) => e.blue);
   const redCands = cands.filter((e) => !e.blue);
   const blueKeep = blueCands.slice(0, opts.blueExpertSlots);
-  const redKeep = redCands.slice(0, Math.max(0, opts.maxExpertsPerGame - blueKeep.length));
+  /* ===== FIVE_CAT_QUOTA（用户 2026-10-19：5 类号必须每类 20 位）=====
+     原来：按分数取前 N → 分数高的前 2 个分类把名额全占满 ✗
+           → byCat 只有 2 组，25码/3码/1码/后区定三/杀号三 里缺 3 类 ✗
+     现在：每个分类最多 20 位，按分类轮着取 → 5 个目标分类都有 20 位 ✔
+     总人数仍受 maxExpertsPerGame 限制（--all 模式是 200，够用） */
+  const PER_CAT_QUOTA = 20;
+  const catCount = {};
+  const redKeep = [];
+  const cap = Math.max(0, opts.maxExpertsPerGame - blueKeep.length);
+  for (const e of redCands) {
+    if (redKeep.length >= cap) break;
+    const catOf = (e.siteMetrics && e.siteMetrics[0] && e.siteMetrics[0].cat) || e.cat || '_';
+    catCount[catOf] = (catCount[catOf] || 0) + 1;
+    if (catCount[catOf] <= PER_CAT_QUOTA) redKeep.push(e);
+  }
+  log('  分类配额：' + Object.keys(catCount).map((k) => k + '=' + Math.min(catCount[k], PER_CAT_QUOTA)).join(' '));
   const dropped = cands.length - redKeep.length - blueKeep.length;
   cands = [...redKeep, ...blueKeep];
   log(`  候选 ${g.listedCount} 位 → 预筛(近10中≥${opts.prescreenHit10}) ${passed.length} 位 → 抓取 ${cands.length} 位` +
