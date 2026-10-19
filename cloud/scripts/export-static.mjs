@@ -3229,6 +3229,11 @@ function histJudgeRec(gid, blocks, d) {
 }
 
 /** 生成「历史中奖」卡展开后的内容（纯 HTML：无图片、无按钮、无脚本） */
+/* __RO_HIST__ 【默认展开】用户 2026-10-20 反馈「我的历史中奖栏呢 / 位置找不到」。
+   headless 实测（375 视口）：收起时这张卡只有 103px 高，按 top 在页面 17 个
+   details 里排第 5（y=1373，紧跟 GPT模型摇号 y=1205 之后、最新开奖 y=1488 之前），
+   和上面几条细条长得一模一样 → 用户「看着像没有」。
+   处理：模板里给这个 <details> 加 open（展开后 20 条一屏可见）；插入位置一律不动。 */
 function buildHistoryHtml() {
   const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
   const nowMs = Date.now();
@@ -8342,9 +8347,9 @@ ${frogPanelHtml()}
          命中号高亮；没中的期次一条都不列（只列中奖的）。
        · 一条都没中时写「近 365 天暂无中奖记录」。
        ============================================================ -->
-  <details class="ro-hist" id="ro-hist">
+  <details class="ro-hist" id="ro-hist" open>
     <summary class="ro-hist-head">
-      <span class="ro-hist-h2">历史中奖</span>
+      <span class="ro-hist-h2">历史开奖</span>
       <span class="ro-hist-sub">近 365 天 · 推荐号命中记录</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
