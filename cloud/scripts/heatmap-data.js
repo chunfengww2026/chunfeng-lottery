@@ -1,10 +1,10 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-19 23:34
+   生成时间：2026-10-19 23:52
    生成脚本：build-heatmap.mjs
    本次彩种：ssq、dlt
-   数据来源：mixed
+   数据来源：history-fallback
 
    口径说明：
      · ocr-xysp          = 一起彩「幸运晒票」页当期【票面照片 OCR】识别出的号码占比
@@ -14,22 +14,22 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-19 23:34',
-  source: 'mixed',
+  updated: '2026-10-19 23:52',
+  source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
-      issue: '2026119',
-      drawDate: '2026-10-18',
-      madeAt: '2026-10-18 21:03',
-      source: 'ocr-xysp',
-      sourceLabel: '全网公开晒票照片识别',
-      sampleCount: 8,
-      numberPosts: 8,
-      note: '识别自一起彩幸运晒票页第 26119 期公开票面照片（翻 3 页）（有效票 8 张：单式 7 张 / 复式 1 张）',
-      ocr: { posts: 18, urls: 36, downloaded: 36, downloadFailed: 0, cacheHits: 26, recognized: 9, tickets: 8, secs: 449.1, err: '' },
-      front: { label: '红球', color: 'red', total: 49, items: [{ num: 10, pct: 10.2, count: 5 }, { num: 2, pct: 6.12, count: 3 }, { num: 22, pct: 6.12, count: 3 }, { num: 25, pct: 6.12, count: 3 }, { num: 30, pct: 6.12, count: 3 }, { num: 33, pct: 6.12, count: 3 }, { num: 3, pct: 4.08, count: 2 }, { num: 4, pct: 4.08, count: 2 }, { num: 5, pct: 4.08, count: 2 }, { num: 8, pct: 4.08, count: 2 }, { num: 14, pct: 4.08, count: 2 }, { num: 15, pct: 4.08, count: 2 }, { num: 16, pct: 4.08, count: 2 }, { num: 21, pct: 4.08, count: 2 }, { num: 23, pct: 4.08, count: 2 }, { num: 29, pct: 4.08, count: 2 }, { num: 32, pct: 4.08, count: 2 }, { num: 6, pct: 2.04, count: 1 }, { num: 7, pct: 2.04, count: 1 }, { num: 9, pct: 2.04, count: 1 }, { num: 17, pct: 2.04, count: 1 }, { num: 19, pct: 2.04, count: 1 }, { num: 20, pct: 2.04, count: 1 }, { num: 24, pct: 2.04, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 11, pct: 0, count: 0 }, { num: 12, pct: 0, count: 0 }, { num: 13, pct: 0, count: 0 }, { num: 18, pct: 0, count: 0 }, { num: 26, pct: 0, count: 0 }, { num: 27, pct: 0, count: 0 }, { num: 28, pct: 0, count: 0 }, { num: 31, pct: 0, count: 0 }] },
-      back: { label: '蓝球', color: 'blue', total: 9, items: [{ num: 1, pct: 33.33, count: 3 }, { num: 4, pct: 22.22, count: 2 }, { num: 7, pct: 11.11, count: 1 }, { num: 13, pct: 11.11, count: 1 }, { num: 15, pct: 11.11, count: 1 }, { num: 16, pct: 11.11, count: 1 }, { num: 2, pct: 0, count: 0 }, { num: 3, pct: 0, count: 0 }, { num: 5, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 8, pct: 0, count: 0 }, { num: 9, pct: 0, count: 0 }, { num: 10, pct: 0, count: 0 }, { num: 11, pct: 0, count: 0 }, { num: 12, pct: 0, count: 0 }, { num: 14, pct: 0, count: 0 }] }
+      issue: '2026120',
+      drawDate: '2026-10-20',
+      madeAt: '2026-10-19 23:48',
+      source: 'history-fallback',
+      sourceLabel: '近 30 期开奖频率',
+      sampleCount: 30,
+      numberPosts: 0,
+      note: '晒票样本不足，改用近 30 期开奖号码频率（2026090~2026119）（当期晒票 10 篇 / 候选票面 11 张，能确认期号的只有 1 张）',
+      ocr: { posts: 10, urls: 11, downloaded: 11, downloadFailed: 0, cacheHits: 0, recognized: 1, tickets: 1, secs: 253.3, err: '期号确认的有效票只有 1 张（需 ≥2）' },
+      front: { label: '红球', color: 'red', total: 180, items: [{ num: 4, pct: 6.11, count: 11 }, { num: 22, pct: 5.56, count: 10 }, { num: 24, pct: 5.56, count: 10 }, { num: 13, pct: 5, count: 9 }, { num: 14, pct: 5, count: 9 }, { num: 30, pct: 5, count: 9 }, { num: 11, pct: 3.89, count: 7 }, { num: 25, pct: 3.89, count: 7 }, { num: 31, pct: 3.89, count: 7 }, { num: 5, pct: 3.33, count: 6 }, { num: 6, pct: 3.33, count: 6 }, { num: 12, pct: 3.33, count: 6 }, { num: 16, pct: 3.33, count: 6 }, { num: 20, pct: 3.33, count: 6 }, { num: 26, pct: 3.33, count: 6 }, { num: 9, pct: 2.78, count: 5 }, { num: 15, pct: 2.78, count: 5 }, { num: 27, pct: 2.78, count: 5 }, { num: 33, pct: 2.78, count: 5 }, { num: 1, pct: 2.22, count: 4 }, { num: 2, pct: 2.22, count: 4 }, { num: 18, pct: 2.22, count: 4 }, { num: 23, pct: 2.22, count: 4 }, { num: 28, pct: 2.22, count: 4 }, { num: 29, pct: 2.22, count: 4 }, { num: 3, pct: 1.67, count: 3 }, { num: 8, pct: 1.67, count: 3 }, { num: 17, pct: 1.67, count: 3 }, { num: 19, pct: 1.67, count: 3 }, { num: 21, pct: 1.67, count: 3 }, { num: 7, pct: 1.11, count: 2 }, { num: 10, pct: 1.11, count: 2 }, { num: 32, pct: 1.11, count: 2 }] },
+      back: { label: '蓝球', color: 'blue', total: 30, items: [{ num: 4, pct: 16.67, count: 5 }, { num: 3, pct: 10, count: 3 }, { num: 11, pct: 10, count: 3 }, { num: 14, pct: 10, count: 3 }, { num: 2, pct: 6.67, count: 2 }, { num: 5, pct: 6.67, count: 2 }, { num: 9, pct: 6.67, count: 2 }, { num: 12, pct: 6.67, count: 2 }, { num: 16, pct: 6.67, count: 2 }, { num: 1, pct: 3.33, count: 1 }, { num: 6, pct: 3.33, count: 1 }, { num: 7, pct: 3.33, count: 1 }, { num: 8, pct: 3.33, count: 1 }, { num: 10, pct: 3.33, count: 1 }, { num: 15, pct: 3.33, count: 1 }, { num: 13, pct: 0, count: 0 }] }
     },
     dlt: {
       name: '大乐透',
