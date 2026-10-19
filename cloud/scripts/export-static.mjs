@@ -1043,7 +1043,14 @@ function frogPanelHtml() {
     '<div class="frog-sec"><div class="frog-h">免费资料（点标题看原文）</div>' +
     (arts.length ? arts.map((a, i) => '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer"><span class="frog-i">' + (i + 1) + '</span><span class="frog-at">' + escape(a.t) + '</span><span class="frog-ag">看原文 ›</span></a>').join('') : '<div class="frog-none">暂无资料</div>') +
     '</div>' +
-    '<div class="frog-sec"><div class="frog-h">功能中心（全部免费 · 现算）</div>'
+    '<div class="frog-sec"><div class="frog-h">功能中心（全部免费）</div>'
+    /* __FROG_GID__ 用户 2026-10-20：「同时要分好大乐透和双色球，因为用户不知道你
+       说的是哪一个彩种」→ 功能中心顶部加一排彩种药丸，下面 9 个功能全部跟着它走。
+       摇号机原来自己带一排彩种药丸，已合并到这一排（只留一套）。 */
+    + '<div class="frog-chips" id="frogGid">'
+    + '<div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div>'
+    + '<div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div>'
+    + '</div>'
     + '<div class="frog-tools" id="frogLab">'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="co">二码同出</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="co3">三码同出</div>'
@@ -15652,13 +15659,27 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || []).map(Number); }
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function row(k, v) { return '<div class="frog-row"><span>' + k + '</span><span><b>' + v + '</b></span></div>'; }
+  /* __FROG_GID__ 当前彩种（用户 2026-10-20：功能中心要能分清大乐透 / 双色球）
+     · 只有一个状态变量 gid，默认大乐透；
+     · 9 个功能全部读它（原来写死 dlt）；
+     · 结果区每一块标题都带彩种名，切了也知道现在算的是哪一个。 */
   var gid = 'dlt';
+  var GID_NM = { dlt: '大乐透', ssq: '双色球' };
+  var GID_CFG = {
+    dlt: { nm: '大乐透', max: 35, aN: '前区', bN: '后区', aCnt: 5, bCnt: 2 },
+    ssq: { nm: '双色球', max: 33, aN: '红球', bN: '蓝球', aCnt: 6, bCnt: 1 }
+  };
+  function gname() { return (GID_CFG[gid] || GID_CFG.dlt).nm; }
+  function gcfg() { return GID_CFG[gid] || GID_CFG.dlt; }
+  function redMax() { return gcfg().max; }
+  function aName() { return gcfg().aN; }
+  function bName() { return gcfg().bN; }
   function co() {
     var ds = hist(gid), cnt = {}, i, j;
     ds.forEach(function (d) { var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
       for (i = 0; i < r.length; i++) for (j = i + 1; j < r.length; j++) { var k = pad(r[i]) + '+' + pad(r[j]); cnt[k] = (cnt[k] || 0) + 1; } });
     var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8);
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出（近 ' + ds.length + ' 期）</div>' + top.map(function (k) { return row(k, cnt[k] + ' 次'); }).join('');
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出 · ' + gname() + ' · 近 ' + ds.length + ' 期</div>' + top.map(function (k) { return row(k, cnt[k] + ' 次'); }).join('');
   }
   /* 【三码同出 / 四码同出 · 用户 2026-10-20】和二码同出同一套算法，
      只是把「每期取 2 个号做组合」扩成「取 k 个」：
@@ -15684,7 +15705,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       })(0);
     });
     var top = Object.keys(cnt).sort(function (a, b) { return (cnt[b] - cnt[a]) || (a < b ? -1 : 1); }).slice(0, 10);
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">' + title + '（近 ' + ds.length + ' 期）</div>'
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">' + title + ' · ' + gname() + ' · 近 ' + ds.length + ' 期</div>'
       + (top.length
         ? top.map(function (k2) {
           return '<div class="frog-co"><div class="frog-co-h"><span class="frog-co-k">' + k2 + '</span>' +
@@ -15707,7 +15728,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var ds = hist(gid) || [];
     var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
     var sum = r.reduce(function (a, b) { return a + b; }, 0);
-    var maxN = 35;
+    var maxN = redMax();
     var tabs = '<div class="kg-versal">' +
       ['A', 'B', 'C'].map(function (v) {
         var nm = v === 'A' ? 'A 经典' : (v === 'B' ? 'B 民间' : 'C 智能');
@@ -15768,7 +15789,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
         row('建议杀号', ranked.map(pad).join(' ')) +
         '<div class="frog-tip">规则：6 个因子加权打分（遗漏/冷热/和值尾/重号/邻号）· 全本地计算，免费</div>';
     }
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号（基于最新一期 ' + (d.issue || '') + '）</div>' + tabs + body;
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号 · ' + gname() + ' · 基于最新一期 ' + (d.issue || '') + '</div>' + tabs + body;
     [].slice.call(out.querySelectorAll('.kg-v')).forEach(function (b) {
       b.onclick = function () { killVer = b.getAttribute('data-kv'); kill(); };
     });
@@ -15777,7 +15798,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var ds = hist(gid), freq = {};
     ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
     var hot = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 10).sort(function (a, b) { return a - b; });
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐（近30期热号）</div>' + row('18元 6+4', '红 ' + hot.slice(0, 6).map(pad).join(' ') + ' / 蓝 4 码') + row('28元 7+1', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 1 码') + row('38元 7+2', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 2 码');
+    var A = aName(), B = bName();
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐 · ' + gname() + ' · 近30期热号</div>' + row('18元 6+4', A + ' ' + hot.slice(0, 6).map(pad).join(' ') + ' / ' + B + ' 4 码') + row('28元 7+1', A + ' ' + hot.slice(0, 7).map(pad).join(' ') + ' / ' + B + ' 1 码') + row('38元 7+2', A + ' ' + hot.slice(0, 7).map(pad).join(' ') + ' / ' + B + ' 2 码');
   }
   /* 【摇号机 · 可选号码数量 · 用户 2026-10-20】
      · 大乐透：前区 5~10 个 / 后区 2~6 个（默认 5+2）
