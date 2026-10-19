@@ -14,6 +14,7 @@
    ============================================================ */
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -197,10 +198,23 @@ async function fromToutiao() {
       const hctx = vm.createContext({});
       vm.runInContext(fs.readFileSync(hf, 'utf8') + '\n;globalThis.__H=DRAW_HISTORY;', hctx);
       const gg = (hctx.__H && hctx.__H.games) || {};
-      if (gg.ssq && gg.ssq[0]) issueMap.ssq = String(gg.ssq[0].issue || '');
-      if (gg.dlt && gg.dlt[0]) issueMap.dlt = String(gg.dlt[0].issue || '');
+      /* 【下一期】= 最新【已开奖】期号 + 1（用户要的是「根据下一期开什么奖抓什么」）
+         ⚠️ 2026-10-20 修：这里原来少 import vm → 整个 try 抛 ReferenceError 被吞掉，
+            结果关键词一直是「双色球期推荐」（没有期号），等于没按下一期抓。
+         期号规则：双色球 2026119 → 2026120、大乐透 26119 → 26120，都是 +1。 */
+      const nextIssue = (arr) => {
+        const a = Array.isArray(arr) ? arr : [];
+        for (const it of a) {
+          const n = parseInt(String((it && it.issue) || ''), 10);
+          if (Number.isFinite(n) && n > 0) return String(n + 1);
+        }
+        return '';
+      };
+      issueMap.ssq = nextIssue(gg.ssq);
+      issueMap.dlt = nextIssue(gg.dlt);
+      console.log('  · 下一期期号：双色球 ' + (issueMap.ssq || '?') + ' · 大乐透 ' + (issueMap.dlt || '?'));
     }
-  } catch (e) { }
+  } catch (e) { console.log('  ⚠️ 读下一期期号失败（关键词退回不带期号）：' + e.message.slice(0, 60)); }
 
   const KW = [
     { kw: '双色球' + (issueMap.ssq || '') + '期推荐', game: 'ssq' },
