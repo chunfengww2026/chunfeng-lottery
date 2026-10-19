@@ -891,7 +891,7 @@ GROUPS.forEach((group) => {
       /* 【九算法植入「推荐号」图格 · 用户 2026-10-20「植入到这个里面」】
          在双色球/大乐透的「推荐号」图下面直接嵌该彩种的九算法（?g=彩种）
          → 点目录里的「双色球推荐号 / 大乐透推荐号」，看到图 + 算法 ✔ */
-      if ((id === 'ssq' || id === 'dlt') && img.key === 'main') {
+      if ((id === 'ssq' || id === 'dlt') && (img.key === 'main' || img.key === 'wuxing')) {
         imgsHtml +=
           `<div class="px9-inline" style="margin:10px 0 4px">` +
           `<div style="font-size:12.5px;font-weight:700;color:#1a8c5a;margin:0 0 6px 2px">` +
