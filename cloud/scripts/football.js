@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "993300"
     },
     "time": "2026-10-20 01:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "耶路撒冷贝塔",
      "score": 0,
@@ -3880,7 +3880,7 @@ const FOOTBALL_DATA = {
      "color": "776699"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "苏博蒂察斯",
      "score": 3,
@@ -3889,7 +3889,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "波拉斯",
-     "score": 2,
+     "score": 3,
      "red": 1,
      "rank": 2
     },
@@ -4144,7 +4144,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "貝里",
      "score": 1,
@@ -4210,7 +4210,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 92,
+    "minute": 97,
     "home": {
      "name": "布赛廷",
      "score": 3,
@@ -4302,7 +4302,7 @@ const FOOTBALL_DATA = {
      "color": "053464"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "奥莫尼亚",
      "score": 1,
@@ -4500,7 +4500,7 @@ const FOOTBALL_DATA = {
      "color": "996633"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "拉那那夏普尔",
      "score": 1,
@@ -4698,7 +4698,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-10-20 00:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "尼切萨",
      "score": 2,
@@ -4764,7 +4764,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-10-20 00:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "罗迪纳明斯克",
      "score": 1,
@@ -4830,10 +4830,10 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-20 00:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "蒙扎",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 18
     },
@@ -5364,7 +5364,7 @@ const FOOTBALL_DATA = {
      "color": "174e03"
     },
     "time": "2026-10-20 01:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "布尔萨体育",
      "score": 1,
@@ -5754,7 +5754,7 @@ const FOOTBALL_DATA = {
      "color": "554488"
     },
     "time": "2026-10-20 01:05:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "瓦尔贝里",
      "score": 0,
