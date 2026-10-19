@@ -8705,7 +8705,7 @@ html.locked .ro-xysp .ro-xysp-pics { filter: blur(24px) grayscale(1); pointer-ev
    彩种作用域（能精确就精确）：
      · 资料分节里的开奖号 → section.ro-game[data-ro-gid]  （data-ro-gid 是本次加的）
      · 开机号那一行       → .ro-kjh-item[data-gid]         （data-gid 是本次加的）
-     · 智能分析底部推荐   → .tv-rec[data-gid] / .tq-rec[data-gid]（本次加的）
+     · 工具页底部推荐号   → .tv-rec[data-gid] / .tq-rec[data-gid]（本次加的）
      · 最新开奖卡片       → .hc-drawcard:has([data-nextcd="ssq|dlt"])
                             （:has() 老浏览器不支持 → 这条自然不生效，页面不会坏，
                               只是那 2 张卡片的蓝球保持原样）
