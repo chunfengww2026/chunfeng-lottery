@@ -3460,84 +3460,39 @@ function histJudgeRec(gid, blocks, d) {
    和上面几条细条长得一模一样 → 用户「看着像没有」。
    处理：模板里给这个 <details> 加 open（展开后 20 条一屏可见）；插入位置一律不动。 */
 function buildHistoryHtml() {
-  const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
   const nowMs = Date.now();
-  const rows = [];
-  let calcIssues = 0;
-  let lowDropped = 0;      /* __HIST_HIGH_ONLY__：中了但属于低等奖、被白名单滤掉的条数（只用于说明） */
-  const droppedRows = [];  /* 同上，仅 HIST_DUMP 时用来把被滤掉的逐条打出来 */
-  const days = [];
+  /* __RECO_ARCHIVE__ 页面只认 recoArchiveCommit() 算出来的中奖记录：
+     · 没有「按期号倒推」这一步（回算已整段删除）；
+     · 没中的期次一条都不写（连空行都不留）；
+     · 没有中奖的彩种【整组不出现】（用户：「不要按彩种分组时显示空组」）。 */
+  const wins = (RECO.wins || []).slice();
 
-  MQ_ORDER.forEach((gid) => {
-    const draws = Array.isArray(HIST[gid]) ? HIST[gid].slice() : [];
-    if (!draws.length) return;
-    /* draws 是新的在前：i 这一期的「之前 30 期」= draws[i+1 .. i+30] */
-    for (let i = 0; i < draws.length; i++) {
-      const d = draws[i];
-      if (!d || !d.areas || !d.date) continue;
-      const t = histDayMs(d.date);
-      if (!Number.isFinite(t)) continue;
-      if (nowMs - t > HIST_WINDOW_DAYS * HIST_DAY_MS || t > nowMs + HIST_DAY_MS) continue;
-      const prior = draws.slice(i + 1, i + 1 + HIST_MIN_PRIOR);
-      if (prior.length < HIST_MIN_PRIOR) continue;      /* 前置期数不够 → 回算不出来，不凑 */
-      const blocks = histRecBlocks(gid, String(d.issue), prior);
-      if (!blocks) continue;
-      calcIssues++;
-      days.push(String(d.date).slice(0, 10));
-      const j = histJudgeRec(gid, blocks, d);
-      if (!j) continue;                                 /* 没中 → 不进列表 */
-      /* __HIST_HIGH_ONLY__ 中了但只是低等奖 → 不进列表（判定结果不动，只过滤） */
-      if (!histKeepTier(gid, j.lv)) {
-        lowDropped++;
-        droppedRows.push({ date: String(d.date).slice(0, 10), name: MQ_NAME[gid] || gid,
-          issue: String(d.issue), label: j.label, note: j.note });
-        continue;
-      }
-      rows.push({
-        gid: gid, name: MQ_NAME[gid] || gid, issue: String(d.issue),
-        date: String(d.date).slice(0, 10), lv: j.lv, label: j.label,
-        note: j.note, rec: j.rec, draw: j.draw
-      });
-    }
-  });
+  const info = {
+    count: wins.length,
+    compared: RECO.stats.compared,
+    lowDropped: RECO.stats.lowDropped,
+    archived: RECO.stats.totalIssues,
+    from: HIST_ARCHIVE_START,
+    to: wins.length ? wins[0].date : ''
+  };
 
-  /* 新的在前；同一天先按期号大的，再按彩种固定顺序 */
-  rows.sort((a, b) => {
-    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
-    if (a.issue !== b.issue) return Number(b.issue) - Number(a.issue);
-    return MQ_ORDER.indexOf(a.gid) - MQ_ORDER.indexOf(b.gid);
-  });
-
-  /* 自测用：HIST_DUMP=1 → 把留下来的（高等奖）逐条打出来；HIST_DUMP=2 → 连被滤掉的低等奖也打出来。
-     日常构建不设这个变量，一个字都不多打。 */
-  const HIST_DUMP = String(process.env.HIST_DUMP || '');
-  if (HIST_DUMP) {
-    console.log('      【保留 · 高等奖 ' + rows.length + ' 条】');
-    rows.forEach((r, i) => console.log('      ' + (i + 1) + '. ' + r.date + ' ' + r.name +
+  /* 自测用：HIST_DUMP=1 → 把中奖记录逐条打出来（日常构建不设，一个字都不多打） */
+  if (String(process.env.HIST_DUMP || '')) {
+    console.log('      【中奖记录 · ' + wins.length + ' 条】');
+    wins.forEach((r, i) => console.log('      ' + (i + 1) + '. ' + r.date + ' ' + r.name +
       ' 第' + r.issue + '期 ' + r.label + ' · ' + r.note));
-    if (HIST_DUMP === '2' && droppedRows.length) {
-      console.log('      【滤掉 · 低等奖 ' + droppedRows.length + ' 条】');
-      droppedRows.forEach((r, i) => console.log('      x' + (i + 1) + '. ' + r.date + ' ' + r.name +
-        ' 第' + r.issue + '期 ' + r.label + ' · ' + r.note));
-    }
   }
 
-  const info = { compared: calcIssues, count: rows.length, lowDropped: lowDropped, from: '', to: '' };
-  if (days.length) {
-    days.sort();
-    info.from = days[0];
-    info.to = days[days.length - 1];
-  }
-
-  if (!rows.length) {
+  /* 一条都没有 → 只写一行（用户：「不然用户以为坏了」）*/
+  if (!wins.length) {
     return {
-      html: `<div class="ro-hist-empty">近 365 天暂无高等奖记录（只统计一/二/三等奖 + 组选/直选）</div>`,
+      html: `<div class="ro-hist-empty">近 365 天暂无中奖记录（自 ${escape(HIST_ARCHIVE_START)} 起记录 · 中奖才公布）</div>`,
       info: info
     };
   }
 
   const two = (n) => (n < 10 ? '0' + n : String(n));
-  /* __HIST_HIGH_ONLY__ 一等金 / 二等橙 / 三等蓝 只给乐透型；
+  /* 一等金 / 二等橙 / 三等蓝 只给乐透型；
      数字彩（福彩3D / 排列3 / 排列5 的直选·组选）一律中性色（用户 2026-10-20 要求）。 */
   const tint = (lv, gid) => (gid === 'fc3d' || gid === 'pl3' || gid === 'pl5')
     ? ''
@@ -3550,33 +3505,14 @@ function buildHistoryHtml() {
     ).join('') + `</span>`
   ).join('');
 
-  const show = rows.slice(0, HIST_MAX_ROWS);
-  const listHtml = show.map((r) =>
-    `<div class="ro-hist-row">` +
-    `<div class="ro-hist-top">` +
-    `<span class="ro-hist-date">${escape(r.date)}</span>` +
-    `<span class="ro-hist-game">${escape(r.name)}</span>` +
-    `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
-    `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape(r.label)}</span>` +
-    `</div>` +
-    `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>` +
-    `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>` +
-    `<div class="ro-hist-note">${escape(r.note)}</div>` +
-    `</div>`
-  ).join('');
-
   /* 【中奖宣布】用户 2026-10-20：「抓取我最近几天推荐中奖的号码宣布」——
-     把最近 7 天里中奖的期次单独排一块放在最上面：日期 · 彩种 期号 · 奖级 · 中奖号码。
-     号码仍然用 partsHtml()（和下面长列表同一套渲染，命中号一样高亮）。 */
+     最近 7 天中奖的期次单独排一块放最上面；号码仍然用 partsHtml()，命中号高亮。 */
   const ANN_DAYS = 7;
-  const annRows = rows.filter((r) => {
+  const annRows = wins.filter((r) => {
     const tt = histDayMs(r.date);
     return Number.isFinite(tt) && (nowMs - tt) <= ANN_DAYS * HIST_DAY_MS;
   });
-  /* 公告里的号只取【命中的那几个】（那才是"中奖的号码"）；
-     万一这条没有命中标记（老数据），就退回显示该行的全部号。 */
   const annNumsHtml = (r) => {
-    const two2 = (n) => (n < 10 ? '0' + n : String(n));
     const hitsOf = (parts) => {
       const out = [];
       (parts || []).forEach((p) => {
@@ -3593,9 +3529,8 @@ function buildHistoryHtml() {
       (r.rec || []).forEach((p) => (p.nums || []).forEach((n) => list.push({ n: n, pad: p.pad })));
     }
     return list.map((x) => '<b class="ro-hist-n">' +
-      escape(x.pad ? two2(x.n) : String(x.n)) + '</b>').join('');
+      escape(x.pad ? two(x.n) : String(x.n)) + '</b>').join('');
   };
-
   const annHtml = annRows.length
     ? '<div class="ro-hist-ann">' +
         '<div class="ro-hist-ann-h">最近 ' + ANN_DAYS + ' 天中奖宣布 · ' + annRows.length + ' 注</div>' +
@@ -3610,16 +3545,60 @@ function buildHistoryHtml() {
       '</div>'
     : '';
 
-  const meta = `覆盖 ${info.from} ~ ${info.to} · 可回算 ${info.compared} 期 · 高等奖 ${rows.length} 条` +
-    (info.lowDropped ? `（另有低等奖 ${info.lowDropped} 条未列）` : '');
-  const foot = rows.length > HIST_MAX_ROWS
-    ? `共 ${rows.length} 条 · 只列最近 ${HIST_MAX_ROWS} 条`
-    : `只列一/二/三等奖 + 组选直选；推荐号按当期期号回算，与开奖号并排对照`;
+  /* ---------- 按彩种分组：只出【中过奖】的组，组内按时间倒序 ---------- */
+  const total = wins.length;
+  const groups = [];
+  HIST_GROUP_ORDER.forEach((gid) => {
+    const mine = wins.filter((w) => w.gid === gid);
+    if (!mine.length) return;                      /* 没中 → 整组不出现 */
+    mine.sort((a, b) => {
+      if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+      return Number(b.issue) - Number(a.issue);
+    });
+    groups.push({ gid: gid, name: mine[0].name, rows: mine });
+  });
+
+  /* 组与组之间：最近中过奖的彩种排前面（组内已经倒序；组头那一期就是它的最新一条） */
+  groups.sort((a, b) => {
+    const da = a.rows[0].date, db = b.rows[0].date;
+    if (da !== db) return da < db ? 1 : -1;
+    return HIST_GROUP_ORDER.indexOf(a.gid) - HIST_GROUP_ORDER.indexOf(b.gid);
+  });
+
+  let left = HIST_MAX_ROWS;
+  const groupHtml = groups.map((g) => {
+    const list = g.rows.slice(0, Math.max(0, left));
+    left -= list.length;
+    if (!list.length) return '';
+    /* 一条 = 日期 · 期号 · 奖项（一行）；下面两行小字是【推荐 vs 开奖】的对照证据 */
+    const rowsHtml = list.map((r) =>
+      `<div class="ro-hist-row">` +
+      `<div class="ro-hist-top">` +
+      `<span class="ro-hist-date">${escape(r.date)}</span>` +
+      `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
+      `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape(r.label)}</span>` +
+      `</div>` +
+      `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>` +
+      `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>` +
+      `<div class="ro-hist-note">${escape(r.note)}</div>` +
+      `</div>`
+    ).join('');
+    return `<div class="ro-hist-grp">` +
+      `<div class="ro-hist-grp-h">` +
+      `<span class="ro-hist-grp-g">${escape(g.name)}</span>` +
+      `<span class="ro-hist-grp-c">中 ${g.rows.length} 注</span>` +
+      `</div>` + rowsHtml + `</div>`;
+  }).join('');
+
+  const meta = `自 ${info.from} 起记录 · 中奖才公布 · 已比对 ${info.compared} 期 · 中奖 ${total} 注`;
+  const foot = total > HIST_MAX_ROWS
+    ? `共 ${total} 注 · 只列最近 ${HIST_MAX_ROWS} 注`
+    : `只记一/二/三等奖 + 组选直选；没中的期次不写，超过 365 天自动删除`;
 
   return {
     html: annHtml +
       `<div class="ro-hist-meta">${escape(meta)}</div>` +
-      `<div class="ro-hist-list">${listHtml}</div>` +
+      `<div class="ro-hist-list">${groupHtml}</div>` +
       `<div class="ro-hist-foot">${escape(foot)}</div>`,
     info: info
   };
@@ -3627,11 +3606,9 @@ function buildHistoryHtml() {
 
 const histBuilt = buildHistoryHtml();
 const histHtml = histBuilt.html;
-console.log('  · 历史开奖卡（只记高等奖）：可回算 ' + histBuilt.info.compared + ' 期，高等奖 ' +
-  histBuilt.info.count + ' 条' + (histBuilt.info.lowDropped ? `（已滤掉低等奖 ${histBuilt.info.lowDropped} 条）` : '') +
-  (histBuilt.info.compared
-    ? `（覆盖 ${histBuilt.info.from} ~ ${histBuilt.info.to}）`
-    : '（前置开奖不足 30 期，暂无可回算的期次）'));
+console.log('  · 历史开奖卡（只认真实存档）：已比对 ' + histBuilt.info.compared + ' 期，中奖 ' +
+  histBuilt.info.count + ' 条' + (histBuilt.info.lowDropped ? `（低等奖不列 ${histBuilt.info.lowDropped} 条）` : '') +
+  '（自 ' + histBuilt.info.from + ' 起记录' + (histBuilt.info.to ? '，最近一条 ' + histBuilt.info.to : '') + '）');
 
 
 /* __ST_TZ__ 资料更新状态按【浏览器本地时间】分两档（用户 2026-10-19）：
@@ -6855,6 +6832,14 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
 .ro-hist-body { padding: 0 0 12px; }
 .ro-hist-meta { font-size: 11px; line-height: 1.6; color: var(--ro-fg3);
   text-align: center; padding: 0 0 8px; word-break: break-word; }
+/* __RECO_ARCHIVE__ 按彩种分组（用户 2026-10-20：「排序分类好」/「不要空组」）：
+   只有中过奖的彩种才出这一块；组头 = 彩种名 + 中了几注。 */
+.ro-hist-grp { margin: 0 0 8px; }
+.ro-hist-grp-h { display: flex; align-items: center; gap: 8px;
+  padding: 4px 2px 6px; border-bottom: 1px solid var(--ro-line); }
+.ro-hist-grp-g { font-size: 12.5px; font-weight: 900; color: var(--ro-fg); }
+.ro-hist-grp-c { margin-left: auto; font-size: 11px; font-weight: 800;
+  color: var(--ro-ok); white-space: nowrap; }
 .ro-hist-row { border-top: 1px dashed var(--ro-line); padding: 7px 2px; }
 .ro-hist-row:first-child { border-top: 0; padding-top: 2px; }
 .ro-hist-top { display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
@@ -6901,6 +6886,8 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   .ro-hist-h2 { font-size: 14px; }
   .ro-hist-sub { font-size: 10.5px; }
   .ro-hist-arrow { font-size: 10.5px; padding: 3px 8px; }
+  .ro-hist-grp-g { font-size: 11.5px; }
+  .ro-hist-grp-c { font-size: 10px; }
   .ro-hist-top { font-size: 11px; gap: 4px; }
   .ro-hist-issue { font-size: 10px; }
   .ro-hist-tier { font-size: 10px; padding: 1px 6px; }
@@ -8712,18 +8699,20 @@ ${kjhHtml}
          ① 位置：跟 🐸青蛙家园【并排】，所以挪进上面那个 .grid-2-col（右格），
             不再是自己占整行；
          ② 只记高等奖：一/二/三等奖 + 组选直选（白名单见上面 __HIST_HIGH_ONLY__），
-            副标题跟着改成「近 365 天 · 一/二/三等奖 + 组选直选」。
+            副标题跟着改成「自 2026-10-19 起 · 中奖才公布」。
        · 折叠：原生 <details> + <summary>，「点击查看 ▾ / 点击收起 ▴」
          由 CSS 伪元素按 [open] 换字 —— 零脚本、零裸 button、零存储。
          默认 open（用户 2026-10-20 说过「找不到」，保持展开）。
-       · 每条 = 日期 · 彩种 · 期号 · 几等奖 + 【推荐】一行 + 【开奖】一行，
-         命中号高亮；没中 / 只是低等奖的期次一条都不列。
-       · 一条都没有时写「近 365 天暂无高等奖记录（只统计一/二/三等奖 + 组选/直选）」。
+       · 每条 = 日期 · 期号 · 几等奖（一行）+【推荐】/【开奖】两行小字对照，
+         命中号高亮；没中 / 只是低等奖的期次【一个字都不写】，没中过奖的彩种【整组不出现】。
+       · 【不再按期号回算】用户：「为什么还有九月份的？我都没推荐过」——
+         现在只认 reco-archive.json 里真实发过的推荐号（见 __RECO_ARCHIVE__）。
+       · 一条都没有时只写一行「近 365 天暂无中奖记录（自 2026-10-19 起记录 · 中奖才公布）」。
        ============================================================ -->
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
       <span class="ro-hist-h2">中奖</span>
-      <span class="ro-hist-sub">近 365 天 · 中奖期</span>
+      <span class="ro-hist-sub">自 2026-10-19 起 · 中奖才公布</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
