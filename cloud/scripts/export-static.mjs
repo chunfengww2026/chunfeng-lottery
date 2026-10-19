@@ -2892,6 +2892,8 @@ if (status.allReady) {
     /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
     /* 【BACK6 已删 · 用户 2026-10-19「这条不要了」】这里原来还有一条
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
+    /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 } else {
@@ -2911,6 +2913,8 @@ if (status.allReady) {
     /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
     /* 【BACK6 已删 · 用户 2026-10-19「这条不要了」】这里原来还有一条
        BACK6 播报（大乐透后区号码），已整条删除，没有换成别的。 */
+    /* 【大乐透 后区 6 码 · 用户 2026-10-19「把大乐透后区 6 码加回来」】 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 }
