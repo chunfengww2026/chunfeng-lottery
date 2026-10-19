@@ -370,7 +370,7 @@ const SLOT_PLAN = {
   /* 【全量班】抓全部数据 + 缺才补摇 + 清空热力图
      ⚠️ roll 用 fill 而不是 force：同一分钟会有两条 cron 都落到这一班
         （每 30 分钟那条 + 专用 0 18 那条），force 会把已经发布出去的号码摇两遍。 */
-  'full':          { dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
+  'full':          { /* __ROLL2__ */ dataFetch: true,         football: true,  extras: true,  liveScores: false, roll: 'force', heatmap: 'skip', publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: true  },
   /* 【常规班】每 30 分钟：比分 + 竞彩 + 晒票 + 文章 + 开机号 + 出页面 */
   'regular':       { dataFetch: 'auto-guard', football: true,  extras: true,  liveScores: false, roll: 'fill', heatmap: 'skip',  publishTickets: true,  exportStatic: true,   exportFootball: true,  cleanup: false },
   /* 【轻量班】每 5 分钟：只更新比分（1 个请求；没有进行中的比赛就立刻退出） */
