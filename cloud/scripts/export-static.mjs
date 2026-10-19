@@ -2288,7 +2288,11 @@ const TOOL_GAMES = TOOL_ORDER.filter((k) => G && G[k]).map((k) => {
 const TOOL_GAMES_JS = JSON.stringify(TOOL_GAMES);
 
 /* __REC__ 构建时算好的「本期推荐号码」（多源共振打分 · 种子 = 下一期期号） */
-const REC_JS = JSON.stringify(buildRecNumbers());
+/* __RECO_ARCHIVE__ 2026-10-20：把这一份【原样】留一个对象引用 ——
+   「历史开奖」卡要靠它把本期真实发出去的号写进 reco-archive.json，
+   和页面里显示的必须是同一个对象（REC_JS 就是它的 JSON），不许各算一遍。 */
+const REC_DATA = buildRecNumbers();
+const REC_JS = JSON.stringify(REC_DATA);
 
 console.log(`  · ai选号：${AIPICK_RULES.map((g) => g.name).join(' / ')}`);
 
@@ -3004,11 +3008,16 @@ console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + 
      每一条 = 某期某彩种 ·【我们推荐的号】+【那一期开奖号】+【几等奖】，
      没中的期次一条都不列（只列中奖的）。
    · 位置：紧跟「晒票 | GPT模型摇号」那一行，占【整行】全宽。
-   · 那一期的推荐号从哪来（可复算，不是编的）：
-     页面「本期推荐号码」这套算法（多源共振打分 · 期号做种子）只有两样输入：
-       ① 期号   ② 该期【之前】的近 30 期真实开奖。
-     两样都是定值 —— 拿同一套算法、把「近 30 期」换成那一期之前的那 30 期，
-     算出来的就是【那一期该发的那组号】。同一期永远同一组号，可复算、可核对。
+   · 那一期的推荐号从哪来（2026-10-20 用户否掉了「回算」）：
+     ⚠️ 用户原话：「为什么还有九月份的？我都没推荐过」——
+        九月那会儿这网页还不存在，按期号倒推出来的号【不是当时真发过的号】，
+        用户一条都不认。所以现在【彻底停用回算】：
+        只认 reco-archive.json 里【真实发过、写下来过】的推荐号。
+        · 每期构建时：这一期还没存档 → 把本期推荐号原样写进去；
+                      已有存档 → 一个字都不动（防止换期后号码变了）。
+        · 存档从 HIST_ARCHIVE_START 那天开始，在那之前的期次【一条都不列】。
+     __RECO_ARCHIVE__ 归档 + 比对 + 365 天剪枝全部在 recoArchiveCommit() 里，
+       判定规则仍然只走 histJudgeRec()（一个字没改）。
    · 奖级（官方规则；只要沾上就记，不再只留前三档）：
        双色球   一 6+1 · 二 6+0 · 三 5+1 · 四 5+0 / 4+1 · 五 4+0 / 3+1 · 六 只中蓝
        大乐透   一 5+2 · 二 5+1 · 三 5+0 · 四 4+2 · 五 4+1 · 六 3+2 ·
@@ -3021,17 +3030,17 @@ console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + 
    · 窗口：近 365 天；按开奖日期倒序（同一天期号大的在前）；最多 100 条。
    ⚠️ 卡片里不出现任何「数据从哪来」的字样（留痕断言会拦）。
    ============================================================ */
-/* 窗口天数：默认近 365 天。
-   HIST_DAYS 只是【自测用】的环境变量（例如 HIST_DAYS=0 让窗口里一条都不剩，
-   用来验证「暂无中奖记录」的空状态长什么样）；日常构建不设它。 */
+/* 窗口天数：默认近 365 天。HIST_DAYS 只是【自测用】的环境变量
+   （HIST_DAYS=0 → 窗口里一条都不剩，用来验证「暂无中奖记录」的空状态）；
+   日常构建不设它。超过这个天数的中奖记录会被【物理删除】。 */
 const HIST_WINDOW_DAYS = (() => {
   const n = parseInt(String(process.env.HIST_DAYS || ''), 10);
   return Number.isFinite(n) && n >= 0 ? n : 365;
 })();
 const HIST_MAX_ROWS = 100;
 const HIST_DAY_MS = 24 * 3600 * 1000;
-/* 回算至少要「该期之前 30 期」真实开奖；不够就回算不出来 —— 不硬凑、不猜 */
-const HIST_MIN_PRIOR = 30;
+/* ⚠️ 2026-10-20 起这里【没有回算】了：不再需要「该期之前 30 期」这个门槛，
+   HIST_MIN_PRIOR 和 histRecBlocks() 一起删掉（见下面 __RECO_ARCHIVE__）。 */
 const HIST_TIER_CN = ['', '一等奖', '二等奖', '三等奖', '四等奖', '五等奖',
   '六等奖', '七等奖', '八等奖', '九等奖'];
 /* __HIST_HIGH_ONLY__ 2026-10-20 用户要求：历史开奖【只记高等奖】
@@ -3065,38 +3074,204 @@ function histDayMs(v) {
 }
 
 /**
- * 回算【某一期】的推荐号：prior = 那一期【之前】的开奖（新的在前，
- * 只取前 30 期）。号码型 / 位数型的算法分支和「本期推荐号码」完全相同 ——
- * 直接复用同一批函数（recAreaStat / recWeights / recItems / recPickMain /
- * recPickSimple / recDigits），所以口径不会漂移。
+ * ⛔ 回算已经【整段删除】（2026-10-20 用户：「为什么还有九月份的？我都没推荐过」）。
+ *    原来这里有 histRecBlocks(gid, issue, prior)：拿那一期的期号 + 该期之前的 30 期
+ *    开奖，把「当时会推荐什么」倒推出来 —— 那 240 期（2026-08-06 ~ 2026-10-19）
+ *    全是这么算出来的，用户一条都不认。
+ *    现在推荐号只有一个来源：reco-archive.json（真实发过、写下来过的）。
+ *    ⚠️ 【别再把它加回来】。回算 = 造假，用户明确否掉。
  */
-function histRecBlocks(gid, issue, prior) {
-  const g = (G || {})[gid];
-  if (!g || !Array.isArray(prior) || !prior.length) return null;
-  if (g.type === 'digit' || g.type === 'qxc') {
-    const r = recDigits(gid, g, prior, issue);
-    return (r && r.blocks && r.blocks.length) ? r.blocks : null;
+
+/* ============================================================
+   __RECO_ARCHIVE__ 真实推荐号存档 + 开奖比对 + 365 天剪枝
+   ------------------------------------------------------------
+   用户 2026-10-20 的四条硬要求：
+     ③ 停用回算 → 只认真实存档过的推荐号（本文件 = reco-archive.json）
+     ② 开奖后实时比对 → 存档号 vs 真实开奖号，中高等奖才记
+     ④ 排序分类好 → 按彩种分组，组内按时间倒序
+     ① 没中的直接不写 → 一条中奖记录都不留空位；整块没中只写一行
+     ③ 365 天一循环 → 超过 365 天的中奖记录【物理删除】（文件里真的清掉）
+   ------------------------------------------------------------
+   存档结构（reco-archive.json）：
+     {
+       "version": 2,
+       "start":   "2026-10-19",              ← 从哪天开始记（页面照这个写）
+       "updated": "2026-10-20 02:10:00",
+       "games": { "ssq": { "2026120": {
+             "issue": "2026120", "name": "双色球",
+             "savedAt": "2026-10-20 02:10:00",
+             "blocks": [ { "label": "红球", "kind": "ball",
+                           "color": "red", "nums": [3,8,15,22,27,31] }, … ] } }, … },
+       "wins": [ { "date": "2026-10-22", "gid": "ssq", "name": "双色球",
+                   "issue": "2026120", "lv": 1, "label": "一等奖",
+                   "note": "红球中 6 个 · 蓝球中 1 个",
+                   "rec": [ … ], "draw": [ … ] } ]     ← 只有中奖的，没中的不写
+     }
+   ⚠️ 存档时机 = export-static 每次构建（每班都跑）：
+      · 这一期还没存档 → 把【页面正在显示的那一组号】原样写进去（REC_DATA，同一个对象）
+      · 已有存档 → 一个字都不动（防止换期后号码变了）
+      · 这一期已经开奖了才第一次建 → 【不补存】（开奖后存的号不算"发过的"）
+   ⚠️ 开奖号没抓到（21:30 失败、21:45 也没抓到）→ 那期【挂起】，不写中奖记录；
+      下次构建再比（archive 一直在，不会丢）。
+   ⚠️ 云端那一班只是照着本机同步上去的存档重算；权威存档在本机根目录。
+   ============================================================ */
+const HIST_ARCHIVE_START = '2026-10-19';         /* 页面照这句写「自 … 起记录」 */
+const HIST_ARCHIVE_FILE = path.join(ROOT, 'reco-archive.json');
+/* 分组的固定顺序（用户点名的顺序）：双色球 / 大乐透 / 快乐8 / 七星彩 /
+   七乐彩 / 福彩3D / 排列3 / 排列5。没有中奖的彩种【整组不出现】。 */
+const HIST_GROUP_ORDER = ['ssq', 'dlt', 'kl8', 'qxc', 'qlc', 'fc3d', 'pl3', 'pl5'];
+
+/** 本地时间 → "2026-10-20 02:10:00"（存档里所有时间戳都用它） */
+function histStamp(ms) {
+  const d = new Date(Number.isFinite(ms) ? ms : Date.now());
+  const p = (n) => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+    ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+
+/** 读存档（没有 / 读坏了都返回一份空壳，绝不让构建挂掉） */
+function histArchiveRead() {
+  const empty = { version: 2, start: HIST_ARCHIVE_START, updated: '', games: {}, wins: [] };
+  if (!fs.existsSync(HIST_ARCHIVE_FILE)) return empty;
+  try {
+    const raw = JSON.parse(fs.readFileSync(HIST_ARCHIVE_FILE, 'utf8'));
+    if (!raw || typeof raw !== 'object') return empty;
+    return {
+      version: 2,
+      start: String(raw.start || HIST_ARCHIVE_START),
+      updated: String(raw.updated || ''),
+      games: (raw.games && typeof raw.games === 'object') ? raw.games : {},
+      wins: Array.isArray(raw.wins) ? raw.wins : []
+    };
+  } catch (e) {
+    console.log('  ⚠️ reco-archive.json 读不了（' + e.message + '）→ 这一班当作空存档继续，'
+      + '不会覆盖坏文件以外的任何东西');
+    return empty;
   }
-  if (!Array.isArray(g.areas) || !g.areas.length) return null;
-  const blocks = [];
-  g.areas.forEach((cfg, ai) => {
-    const st = recAreaStat(prior, cfg.key, cfg.from, cfg.to);
-    if (!st.n) return;
-    const need = Math.max(1, Number(cfg.pick || 1));
-    const w = (ai === 0) ? recWeights(issue + '|' + gid + '|' + cfg.key) : null;
-    const items = recItems(st, cfg, ai === 0, w);
-    const nums = (ai === 0)
-      ? recPickMain(items, need, st, issue + '|' + gid + '|' + cfg.key)
-      : recPickSimple(items, need, issue + '|' + gid + '|' + cfg.key);
-    blocks.push({
-      label: cfg.label || ('区' + (ai + 1)),
-      kind: 'ball',
-      color: (cfg.color === 'blue' || ai === 1) ? 'blue' : 'red',
-      nums: nums
+}
+
+/**
+ * 存档 + 比对 + 剪枝 + 写回，一条龙。
+ * 返回 { arch, wins, stats }：wins 就是页面要渲染的中奖记录（已剪枝、已排序）。
+ */
+function recoArchiveCommit(recData) {
+  const arch = histArchiveRead();
+  const idx = mqDrawIndex();            /* 彩种|期号 → 那期真实开奖（DRAW_HISTORY + 最新一期） */
+  const nowMs = Date.now();
+  const stamp = histStamp(nowMs);
+  const cutMs = nowMs - HIST_WINDOW_DAYS * HIST_DAY_MS;
+
+  /* ---------- ① 存档：只存「还没开奖」的那一期；已有的一律不动 ---------- */
+  let saved = 0, kept = 0, skippedDrawn = 0;
+  if (REC_ISSUE_OVERRIDE) {
+    /* 自测（REC_ISSUE=…）算出来的号不是真发出去的 → 绝不写进存档 */
+    console.log('  · reco-archive：REC_ISSUE 自测模式，本班【不写存档】');
+  } else {
+    Object.keys(recData || {}).forEach((gid) => {
+      const r = recData[gid];
+      if (!r || !r.issue || !Array.isArray(r.blocks) || !r.blocks.length) return;
+      const issue = String(r.issue);
+      arch.games[gid] = (arch.games[gid] && typeof arch.games[gid] === 'object') ? arch.games[gid] : {};
+      if (arch.games[gid][issue]) { kept++; return; }          /* 已有 → 绝不动 */
+      if (idx[gid + '|' + issue]) { skippedDrawn++; return; }  /* 已开奖 → 不补存 */
+      arch.games[gid][issue] = {
+        issue: issue,
+        name: String(r.name || gid),
+        savedAt: stamp,
+        blocks: r.blocks.map((b) => ({
+          label: String(b.label || ''),
+          kind: String(b.kind || 'ball'),
+          color: String(b.color || ''),
+          nums: (Array.isArray(b.nums) ? b.nums : []).map(Number)
+        }))
+      };
+      saved++;
+    });
+  }
+
+  /* ---------- ② 比对：存档号 vs 真实开奖 → 中了才写一条 ---------- */
+  const wins = [];
+  let compared = 0, pending = 0, lowDropped = 0, prunedGames = 0;
+  Object.keys(arch.games).forEach((gid) => {
+    const bag = arch.games[gid] || {};
+    Object.keys(bag).forEach((issue) => {
+      const rec = bag[issue];
+      if (!rec || !Array.isArray(rec.blocks) || !rec.blocks.length) { delete bag[issue]; return; }
+      /* 365 天剪枝（推荐存档）：存进来超过 365 天的期次物理删掉，文件不会无限变大 */
+      const savedMs = histDayMs(String(rec.savedAt || '').slice(0, 10));
+      if (Number.isFinite(savedMs) && savedMs < cutMs) { delete bag[issue]; prunedGames++; return; }
+      const d = idx[gid + '|' + String(issue)];
+      if (!d || !d.areas) { pending++; return; }               /* 开奖没抓到 → 挂起，下次再比 */
+      const t = histDayMs(d.date);
+      if (!Number.isFinite(t) || t < cutMs) return;            /* 开奖已超 365 天 → 不再比 */
+      compared++;
+      const j = histJudgeRec(gid, rec.blocks, d);              /* ← 判定规则一个字没改 */
+      if (!j) return;                                          /* 没中 → 【什么都不写】 */
+      if (!histKeepTier(gid, j.lv)) { lowDropped++; return; }   /* 低等奖 → 也不写 */
+      wins.push({
+        date: String(d.date).slice(0, 10),
+        gid: gid,
+        name: MQ_NAME[gid] || gid,
+        issue: String(issue),
+        lv: j.lv,
+        label: j.label,
+        note: j.note,
+        rec: j.rec,
+        draw: j.draw
+      });
     });
   });
-  return blocks.length ? blocks : null;
+
+  /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
+  let prunedWins = 0;
+  const keptWins = wins.filter((w) => {
+    const t = histDayMs(w.date);
+    if (Number.isFinite(t) && t >= cutMs) return true;
+    prunedWins++;
+    return false;
+  });
+  /* 新的在前；同一天期号大的在前；再按彩种固定顺序 */
+  keptWins.sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    if (a.issue !== b.issue) return Number(b.issue) - Number(a.issue);
+    return HIST_GROUP_ORDER.indexOf(a.gid) - HIST_GROUP_ORDER.indexOf(b.gid);
+  });
+
+  /* ---------- ④ 写回（写失败也不影响页面生成） ---------- */
+  arch.version = 2;
+  arch.start = HIST_ARCHIVE_START;
+  arch.updated = stamp;
+  arch.wins = keptWins;
+  try {
+    const tmp = HIST_ARCHIVE_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify(arch), 'utf8');
+    fs.renameSync(tmp, HIST_ARCHIVE_FILE);
+  } catch (e) {
+    console.log('  ⚠️ reco-archive.json 写不进去：' + e.message + '（本班页面照常生成）');
+  }
+
+  let totalIssues = 0;
+  Object.keys(arch.games).forEach((g) => { totalIssues += Object.keys(arch.games[g] || {}).length; });
+
+  const stats = {
+    saved: saved, kept: kept, skippedDrawn: skippedDrawn,
+    compared: compared, pending: pending, lowDropped: lowDropped,
+    prunedGames: prunedGames, prunedWins: prunedWins,
+    totalIssues: totalIssues, wins: keptWins.length,
+    file: HIST_ARCHIVE_FILE
+  };
+  return { arch: arch, wins: keptWins, stats: stats };
 }
+
+const RECO = recoArchiveCommit(REC_DATA);
+console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stats.saved + ' 期 · 已有 ' +
+  RECO.stats.kept + ' 期不动' + (RECO.stats.skippedDrawn ? ' · 已开奖不补存 ' + RECO.stats.skippedDrawn + ' 期' : '') +
+  ' → 存档共 ' + RECO.stats.totalIssues + ' 期 · 比对 ' + RECO.stats.compared + ' 期（开奖未到挂起 ' +
+  RECO.stats.pending + ' 期）→ 中奖记录 ' + RECO.stats.wins + ' 条' +
+  (RECO.stats.lowDropped ? '（低等奖不列 ' + RECO.stats.lowDropped + ' 条）' : '') +
+  (RECO.stats.prunedGames || RECO.stats.prunedWins
+    ? '（365 天剪枝：推荐 ' + RECO.stats.prunedGames + ' 期 / 中奖 ' + RECO.stats.prunedWins + ' 条已物理删除）'
+    : ''));
 
 /**
  * 判定：推荐号 vs 那一期开奖 → 中了返回
