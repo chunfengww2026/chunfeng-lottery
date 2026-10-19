@@ -1468,6 +1468,81 @@ function freqPick(nums, feats, n) {
 }
 
 
+/* ============================================================
+   ★ 号码池 · 三源融合（用户 2026-10-20：「全部都留 一起结合算了出号」）
+   ------------------------------------------------------------
+   候选来源（三套全留）：
+     ① 资料号码（data-store.js 的 materialRulesFor）—— 最高优先，永远排最前
+     ② 核心算法 20 码（core-algo.js / core-pool.js，用户自己写的那一套：
+        交叉相加减 → 减法杀号 → 金胆尾/银胆尾 → 大乐透绝杀尾 → 补足 20 码）
+     ③ 专家号码池（expert-pool.js，按专家共识度 1 - i/(n-1) 给分）
+   排序分（②③ 之间比大小，① 不参与比）：
+     score = 0.50 × 热度分（全局频率 + 近 100 期冷热 + 遗漏回补，归一化到 0~1）
+           + 0.30 × 专家共识度
+           + 0.20 × 是否命中核心算法 20 码
+   20/15/10/3/1 档 = 按这个顺序往下截 ⇒ 天然满足「小档 ⊆ 大档」，
+   不会再出现「15 码里有 04 05 07，20 码里却没有」这种两张来源打架。
+   ⚠️ 浏览器里没有 require（拿不到 core-pool）时，②自动缺省 → 退化成「资料 + 专家池 + 热度」，
+      不会报错、也不会出空池。
+   ============================================================ */
+function poolRankBlend(gameId, areaKey, from, to, want) {
+  const n = Math.max(1, Math.min(want || 1, to - from + 1));
+  const seen = new Set();
+  const uni = [];
+  const push = (x) => {
+    if (Number.isInteger(x) && x >= from && x <= to && !seen.has(x)) { seen.add(x); uni.push(x); }
+  };
+
+  /* ① 资料号码（+ 资料杀号剔除） */
+  let mat = { pick: [], kill: new Set() };
+  try { mat = materialFirstOf(gameId, areaKey, from, to); } catch (e) { mat = { pick: [], kill: new Set() }; }
+  const matList = (mat.pick || []).filter((x) => !(mat.kill && mat.kill.has(x)));
+  matList.forEach(push);
+
+  /* ② 核心算法 20 码（用户写的那套） */
+  let core = [];
+  try {
+    if ((gameId === 'ssq' || gameId === 'dlt') && areaKey !== 'blue' && areaKey !== 'back'
+        && typeof require === 'function') {
+      const cp = require('./core-pool.js').corePoolFor(gameId);
+      if (cp && Array.isArray(cp.pool20)) {
+        core = cp.pool20.filter((x) => Number.isInteger(x) && x >= from && x <= to);
+      }
+    }
+  } catch (e) { core = []; }
+  core.forEach(push);
+
+  /* ③ 专家号码池（共识度顺序） */
+  let exp = [];
+  try { exp = (expertPoolOf(gameId, areaKey) || []).filter((x) => x >= from && x <= to); } catch (e) { exp = []; }
+  exp.forEach(push);
+
+  /* ④ 还是不够（比如资料/专家/核心都没有）→ 用全区补，保证能出满 */
+  for (let i = from; i <= to && uni.length < n; i++) {
+    if (mat.kill && mat.kill.has(i)) continue;
+    push(i);
+  }
+
+  const feats = freqFeatures(gameId, areaKey, from, to);
+  let maxHeat = 0;
+  uni.forEach((x) => { const s = freqScore(feats, x); if (s > maxHeat) maxHeat = s; });
+
+  const expIdx = new Map(exp.map((x, i) => [x, i]));
+  const expDen = Math.max(1, exp.length - 1);
+  const matSet = new Set(matList);
+  const coreSet = new Set(core);
+
+  const ranked = uni.map((x) => {
+    if (matSet.has(x)) return { n: x, s: 10 };            /* 资料号永远第一 */
+    const heat = maxHeat > 0 ? freqScore(feats, x) / maxHeat : 0;
+    const cons = expIdx.has(x) ? (1 - expIdx.get(x) / expDen) : 0;
+    const coreHit = coreSet.has(x) ? 1 : 0;
+    return { n: x, s: 0.50 * heat + 0.30 * cons + 0.20 * coreHit };
+  }).sort((a, b) => ((b.s - a.s) || (a.n - b.n))).map((o) => o.n);
+
+  return ranked.slice(0, n);
+}
+
 /** 直接取热度最高的 n 个号（升序返回，给「主推球」这类单号用） */
 function freqTop(gameId, areaKey, from, to, n) {
   const feats = freqFeatures(gameId, areaKey, from, to);
@@ -3601,48 +3676,17 @@ function autoFillForTemplate(gameId, imageKey) {
            有专家号码池 → 号码从池子里按共识度排序取，
              池子不够最大档时，用原来的评分算法把差额补足
            没有专家池   → 完全走原来的 autoNumberPool */
-        const inPoolSet = new Set(expertPoolOf(gameId, areaKey));
-        const base = expertBaseOf(gameId, areaKey, wantMax, range[0], range[1], (need) =>
-          recommendNumbers(gameId, areaKey,
-            Math.min(range[1] - range[0] + 1, need + inPoolSet.size + 5), range[0], range[1])
-            .filter((n) => !inPoolSet.has(n)));
-
-        if (base && base.length) {
-          /* 【频率特征 · 号码池融合】用户 2026-10-20 问：「号码池有结合我的算法吗」。
-             原来：池子的成员和顺序全按「专家共识度」（专家池里越靠前越优）。
-             现在：成员【仍然只从专家号码池里取】（那条硬规则不变），
-                   但【池内顺序】换成融合分：
-                     融合分 = 0.55 × 热度分（全局频率 + 近 100 期冷热 + 遗漏回补）
-                            + 0.45 × 专家共识度（池里第 i 个 = 1 - i/(n-1)）
-                   因为 20/15/10/3/1 档是「按顺序从池里截」，
-                   顺序一变档位就跟着变 —— 热度高的号更容易进 15/10/3/1 码。 */
-          const feats = freqFeatures(gameId, areaKey, range[0], range[1]);
-          let maxHeat = 0;
-          base.forEach((n) => { const s = freqScore(feats, n); if (s > maxHeat) maxHeat = s; });
-          const denom = Math.max(1, base.length - 1);
-          const rankedPool = base.map((n, i) => ({
-            n: n,
-            s: 0.55 * (maxHeat > 0 ? freqScore(feats, n) / maxHeat : 0) + 0.45 * (1 - i / denom)
-          })).sort((a, b) => ((b.s - a.s) || (a.n - b.n))).map((x) => x.n);
-
-          poolRows.forEach((r, i) => {
-            out[r.key] = rankedPool.slice(0, counts[i]).sort((a, b) => a - b).map(pad2).join(' ');
-          });
-        } else {
-          const pool = autoNumberPool(gameId, areaKey, counts, {
-            from: range[0], to: range[1], periods: HIST_PERIODS, mod: 4
-          });
-
-          poolRows.forEach((r, i) => {
-            if (pool[i] && pool[i].nums && pool[i].nums.length) {
-              out[r.key] = pool[i].nums.map(pad2).join(' ');
-            } else {
-              // 兜底：直接用推荐号补上
-              out[r.key] = recommendNumbers(gameId, areaKey, counts[i] || 1, range[0], range[1])
-                .map(pad2).join(' ');
-            }
-          });
-        }
+        /* 【号码池 · 三源融合】用户 2026-10-20：「全部都留 一起结合算了出号」。
+           候选 = 资料号码 ∪ 核心算法 20 码（你写的那套）∪ 专家号码池，去重后按融合分排：
+             资料号永远第一；其余 = 0.50 × 热度分 + 0.30 × 专家共识度 + 0.20 × 命中核心 20 码。
+           20/15/10/3/1 档按这个顺序往下截 ⇒ 小档必然 ⊆ 大档。 */
+        const rankedPool = poolRankBlend(gameId, areaKey, range[0], range[1], wantMax);
+        poolRows.forEach((r, i) => {
+          const take = rankedPool.slice(0, counts[i]).sort((a, b) => a - b);
+          out[r.key] = take.length
+            ? take.map(pad2).join(' ')
+            : recommendNumbers(gameId, areaKey, counts[i] || 1, range[0], range[1]).map(pad2).join(' ');
+        });
       }
 
       // 杀号：取最冷的 N 个
