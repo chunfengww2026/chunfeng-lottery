@@ -1,7 +1,7 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-10-20 00:47:47 · 合并去重后 116 篇，取最新 20 篇 */
+   抓取时间：2026-10-20 00:54:12 · 合并去重后 116 篇，取最新 20 篇 */
 const JC_ARTICLES = {
- "updated": "2026-10-20 00:47:47",
+ "updated": "2026-10-20 00:54:12",
  "sources": [
   {
    "name": "一起彩",
@@ -19,7 +19,7 @@ const JC_ARTICLES = {
    "name": "今日头条",
    "ok": false,
    "count": 0,
-   "note": "页面是 JS 空壳（31KB），HTML 里没有文章"
+   "note": "Cannot read properties of undefined (reading 'length')"
   }
  ],
  "total": 116,
