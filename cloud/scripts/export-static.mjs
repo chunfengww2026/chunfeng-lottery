@@ -3421,7 +3421,7 @@ if (status.allReady) {
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span><span id="roStTitle">资料已更新</span></div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
     /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
-    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点后自动更新</div>` +
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点计算后更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
@@ -3446,7 +3446,7 @@ if (status.allReady) {
     `<div class="ro-st-txt">` +
     `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
     /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
-    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点后自动更新</div>` +
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点计算后更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD__">2:15 更新</span></div>` +   /* 用户要求：未更新时只写「2:15 更新」，不写具体时间 */
     `<div class="ro-st-reason">${reason}</div>` +
