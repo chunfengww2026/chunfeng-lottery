@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-19 11:40
+   更新时间：2026-10-19 11:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-19 11:40",
+ "updated": "2026-10-19 11:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5195,36 +5195,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-18 12:06:22",
      "postId": "7697854346418979362",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e88345484338467a9f0b44c084bac208~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=PF7dCswNtstpCqGzoVvJ%2BW0bWmY%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e88345484338467a9f0b44c084bac208~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=PF7dCswNtstpCqGzoVvJ%2BW0bWmY%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e88345484338467a9f0b44c084bac208~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801008000&x-signature=h8zlJd9sYv6EyzN1P8s5TGcUMFw%3D",
-     "title": "#彩票“快乐8”怎么玩儿# 快乐8 277期节点分亨 快乐8的难度越来越高，出号都超出常识之外。上期重号7个，冷号2个，大冷号28 53 69都在边缘。今天共有01 04 05 13 25 26 28 34 36 53 69 74 79共1",
-     "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879357377997828",
-     "at": "2026-10-18T05:02:18.969Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-18T05:06:01.727Z",
-     "whenMs": 1792294862000,
-     "seenMs": 1792299961727,
-     "drawMs": 1792330200000,
-     "nextMs": 1792416600000,
-     "atMs": 1792299738969,
-     "drawAt": "2026-10-18T13:30:00.000Z",
-     "nextAt": 1792416600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-21T05:06:01.727Z",
-     "rule": "next-draw",
-     "author": "ゞ 半杯茶つ 🌴",
-     "when": "2026-10-18 11:41:02",
-     "postId": "1879357377997828",
      "px": 132300
     }
    ]
