@@ -2941,7 +2941,10 @@ function buildHitMarquee() {
       wins.push({
         gid, issue: String(p.issue),
         date: String(d.date || p.date || ''),
-        claim: judged.claim, hot: judged.hot
+        claim: judged.claim, hot: judged.hot,
+        /* __MARQUEE_WINS__ 把这一期的【号池】和【真实开奖】一起带上：
+           后面搬进「中奖」卡时要画「推荐 vs 开奖」两行，不能只有一句话。 */
+        v: p.images.main, d: d
       });
     });
   });
@@ -2970,7 +2973,7 @@ function buildHitMarquee() {
      ⚠️ 这句要能在 320px 的框里一行放下，多了会被省略号切掉。 */
   if (!recent.length) {
     return {
-      count: 0, compared,
+      count: 0, compared, wins: [],
       html: '<div class="ro-mq ro-mq-static" aria-label="开奖中奖播报">' + head +
         '<div class="ro-mq-view"><span class="ro-mq-none">暂无中奖播报</span></div></div>'
     };
@@ -2988,7 +2991,7 @@ function buildHitMarquee() {
   const dur = Math.max(18, Math.min(72, Math.round((mqEstWidth(itemsHtml) * 2) / 46)));
 
   return {
-    count: recent.length, compared,
+    count: recent.length, compared, wins: recent,
     html: '<div class="ro-mq" aria-label="开奖中奖播报">' + head +
       '<div class="ro-mq-view"><div class="ro-mq-track" style="animation-duration:' + dur + 's">' +
       groupHtml + group2 +
@@ -2996,9 +2999,169 @@ function buildHitMarquee() {
   };
 }
 
+/* ============================================================
+   __MARQUEE_WINS__ 把小喇叭里【已经播报过】的中奖，补进「中奖」卡
+   ------------------------------------------------------------
+   用户 2026-10-20 原话：「先抓取我的小喇叭中奖内容 → 也要写进「中奖」卡的记录里，
+                              一起公布」（点名了 10-19 快乐8 二等奖）
+   ------------------------------------------------------------
+   ⚠️【两种口径，别混】
+     · 小喇叭   =【号池口径】：算的是「20 码池有没有包住开奖号」
+     · 中奖卡   =【单式口径】：reco-archive.json 里真实存档的那一组号
+   用户选择「那就放，但每条标注来源」→ 所以搬过来的每一条，
+   奖项后面一律带【（号池）】三个字，一眼分得清单式还是号池。
+   ------------------------------------------------------------
+   ⚠️ 判定规则【一个字都不改】：lv / label 直接由 mqJudge() 已经算出来的
+      claim 里取（一等奖 / 二等奖 / 组选六 …），不重算、不猜、不补、
+      不把「号池包住」说成「单式中了」。
+   ⚠️ 号池一律取【全部号码层的并集】（r20∪r15∪r10∪r3∪r1 / f20…f1），
+      和小喇叭算命中时用的是同一份池子 —— 不然卡片里的高亮会和小喇叭对不上。
+   ============================================================ */
+const MQ_LV_WORDS = ['一等奖', '二等奖', '三等奖', '四等奖', '五等奖', '六等奖'];
+
+/** 从喇叭那句话里取奖项名 + 档位（1 最高） */
+function mqClaimTier(claim) {
+  const s = String(claim || '');
+  let label = '';
+  for (const w of MQ_LV_WORDS) { if (s.indexOf(w) >= 0) { label = w; break; } }
+  if (!label) {
+    if (/组选[^）]*组六/.test(s)) label = '组选六';
+    else if (/组选[^）]*组三/.test(s)) label = '组选三';
+    else if (/组选/.test(s)) label = '组选';
+    else if (/直选/.test(s)) label = '直选';
+    else label = '命中';
+  }
+  const i = MQ_LV_WORDS.indexOf(label);
+  const lv = i >= 0 ? i + 1
+    : label === '组选三' ? 2
+    : label === '组选六' || label === '组选' ? 3
+    : 1;
+  return { label: label, lv: lv };
+}
+
+/** 号池口径的「推荐 vs 开奖」两块（和卡片里单式那两行长得一样） */
+function mqWinParts(gid, v, d) {
+  const A = (d && d.areas) || {};
+  const area = (k) => (A[k] || []).map(Number);
+  const has = (arr, n) => Array.isArray(arr) && arr.indexOf(Number(n)) >= 0;
+  const un = (...ks) => {
+    const a = [];
+    ks.forEach((k) => mqNums(v && v[k]).forEach((n) => a.push(n)));
+    return [...new Set(a)].sort((x, y) => x - y);
+  };
+  const hitOf = (nums, pool) => nums.map((n) => pool.indexOf(Number(n)) >= 0);
+
+  if (gid === 'ssq') {
+    const pool = un('r20', 'r15', 'r10', 'r3', 'r1'), bp = mqNums(v && v.b_rec);
+    const red = area('red'), blue = area('blue');
+    return {
+      rec: [{ label: '号池', nums: pool, pad: true },
+            { label: '蓝球池', nums: bp, pad: true, br: true }],
+      draw: [{ label: '红球', nums: red, pad: true, hit: hitOf(red, pool) },
+             { label: '蓝球', nums: blue, pad: true, hit: hitOf(blue, bp), br: true }]
+    };
+  }
+  if (gid === 'dlt') {
+    const pool = un('f20', 'f15', 'f10', 'f3', 'f1'), bp = mqNums(v && v.b_rec);
+    const front = area('front'), back = area('back');
+    return {
+      rec: [{ label: '号池', nums: pool, pad: true },
+            { label: '后区池', nums: bp, pad: true, br: true }],
+      draw: [{ label: '前区', nums: front, pad: true, hit: hitOf(front, pool) },
+             { label: '后区', nums: back, pad: true, hit: hitOf(back, bp), br: true }]
+    };
+  }
+  if (gid === 'qlc') {
+    const pool = mqNums(v && v.r22);
+    const main = area('main'), sp = area('special');
+    return {
+      rec: [{ label: '号池', nums: pool, pad: true }],
+      draw: [{ label: '基本号', nums: main, pad: true, hit: hitOf(main, pool) },
+             { label: '特别号', nums: sp, pad: true, hit: hitOf(sp, pool), br: true }]
+    };
+  }
+  if (gid === 'kl8') {
+    const pool = mqNums(v && v.r10);
+    const main = area('main');
+    return {
+      rec: [{ label: '选十', nums: pool, pad: true }],
+      draw: [{ label: '', nums: main, pad: true, hit: hitOf(main, pool) }]
+    };
+  }
+  if (gid === 'fc3d' || gid === 'pl3') {
+    const bai = mqNums(v && v.bai), shi = mqNums(v && v.shi),
+      ge = mqNums(v && v.ge), grp = mqNums(v && v.grp);
+    const w = area('main');
+    const rec = [{ label: '百位', nums: bai, pad: false },
+                 { label: '十位', nums: shi, pad: false },
+                 { label: '个位', nums: ge, pad: false }];
+    if (grp.length) rec.push({ label: '组选', nums: grp, pad: false, br: true });
+    return {
+      rec: rec,
+      draw: [{ label: '', nums: w.slice(0, 3), pad: false,
+        hit: w.slice(0, 3).map((x, i) => (has([bai, shi, ge][i] || [], x) || has(grp, x))) }]
+    };
+  }
+  if (gid === 'pl5') {
+    const ks = ['wan', 'qian', 'bai', 'shi', 'ge'];
+    const LAB = ['万位', '千位', '百位', '十位', '个位'];
+    const pools = ks.map((k) => mqNums(v && v[k]));
+    const w = area('main');
+    return {
+      rec: pools.map((p, i) => ({ label: LAB[i], nums: p, pad: false })),
+      draw: [{ label: '', nums: w.slice(0, 5), pad: false,
+        hit: w.slice(0, 5).map((x, i) => has(pools[i] || [], x)) }]
+    };
+  }
+  if (gid === 'qxc') {
+    const front = area('front'), back = area('back');
+    const pools = [1, 2, 3, 4, 5, 6].map((i) => mqNums(v && v['p' + i]));
+    const bp = mqNums(v && v.pb);
+    const rec = pools.map((p, i) => ({ label: '第' + (i + 1) + '位', nums: p, pad: false }));
+    rec.push({ label: '第7位', nums: bp, pad: false });
+    return {
+      rec: rec,
+      draw: [{ label: '前六位', nums: front.slice(0, 6), pad: false,
+        hit: front.slice(0, 6).map((x, i) => has(pools[i] || [], x)) },
+        { label: '第7位', nums: back.slice(0, 1), pad: false,
+          hit: back.slice(0, 1).map((x) => has(bp, x)) }]
+    };
+  }
+  return { rec: [], draw: [] };
+}
+
+/** 把 buildHitMarquee() 的 wins 列表转成「中奖」卡的行 */
+function buildMarqueeWinRows(list) {
+  const rows = [];
+  (list || []).forEach((w) => {
+    if (!w || !w.gid || !w.issue) return;
+    const date = String(w.date || '').slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+    const tier = mqClaimTier(w.claim);
+    const parts = mqWinParts(w.gid, w.v, w.d);
+    if (!parts.rec.length || !parts.draw.length) return;   /* 画不出证据的，不上卡 */
+    rows.push({
+      date: date,
+      gid: w.gid,
+      name: MQ_NAME[w.gid] || w.gid,
+      issue: String(w.issue),
+      lv: tier.lv,
+      label: tier.label + '（号池）',
+      note: '小喇叭播报 · ' + String(w.claim || '') + '（号池口径）',
+      rec: parts.rec,
+      draw: parts.draw,
+      source: 'marquee'
+    });
+  });
+  return rows;
+}
+
 const mqTicker = buildHitMarquee();
+/* 这一班小喇叭正在播的中奖 → 转成卡片行（后面 recoArchiveCommit 会并进去） */
+const MQ_WIN_ROWS = buildMarqueeWinRows(mqTicker.wins);
 console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + mqTicker.count + ' 条中奖' +
-  (mqTicker.count ? '' : '（只出「暂无中奖播报」那句）'));
+  (mqTicker.count ? '' : '（只出「暂无中奖播报」那句）') +
+  ' → 其中 ' + MQ_WIN_ROWS.length + ' 条并入「中奖」卡（号池口径，标「（号池）」）');
 
 /* ============================================================
    __RO_HIST__ 「历史中奖」折叠卡（用户 2026-10-19 要求）
@@ -3227,6 +3390,36 @@ function recoArchiveCommit(recData) {
     });
   });
 
+  /* ---------- ②½ 小喇叭（号池口径）里已经播报过的中奖 → 并进「中奖」卡 ----------
+     用户 2026-10-20：「先抓取我的小喇叭中奖内容 → 也要写进「中奖」卡的记录里」
+     规则：
+       · 同一彩种同一期【只记一次】（单式优先：存档里已经算出来的那条留着，
+         喇叭那条就不重复写 —— 免得一张卡里同一期出现两遍）
+       · 起点（HIST_ARCHIVE_START）【不卡】喇叭记录：用户点名要的是「喇叭里已经
+         播报过的」，那些期次比存档起点早（10-15 ~ 10-18），一样要公布；
+         卡片的「自 … 起记录」会跟着放宽到最早那一条的日期。
+       · 365 天窗口【照旧】——超过一年的喇叭记录一样物理删。
+       · 上一班已经写进存档的喇叭记录【留着】：喇叭只滚最近几期，
+         不留就会「一换期，卡片里的旧中奖跟着消失」。 */
+  const prevMarquee = (Array.isArray(arch.wins) ? arch.wins : [])
+    .filter((w) => w && w.source === 'marquee');
+  const seenWin = new Set(wins.map((w) => String(w.gid) + '|' + String(w.issue)));
+  let mqAdded = 0, mqKept = 0;
+  const mergeMarquee = (list, fromFile) => {
+    (list || []).forEach((r) => {
+      if (!r || !r.gid || !r.issue) return;
+      const key = String(r.gid) + '|' + String(r.issue);
+      if (seenWin.has(key)) return;                    /* 同期只记一次 */
+      const t = histDayMs(r.date);
+      if (!Number.isFinite(t) || t < cutMs) return;     /* 超 365 天 → 不要 */
+      seenWin.add(key);
+      wins.push(r);
+      if (fromFile) mqKept++; else mqAdded++;
+    });
+  };
+  mergeMarquee(prevMarquee, true);   /* 存档里已有的（上一班写的） */
+  mergeMarquee(MQ_WIN_ROWS, false);  /* 这一班小喇叭正在播的 */
+
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
   let prunedWins = 0;
   const keptWins = wins.filter((w) => {
@@ -3262,6 +3455,7 @@ function recoArchiveCommit(recData) {
     saved: saved, kept: kept, skippedDrawn: skippedDrawn,
     compared: compared, pending: pending, lowDropped: lowDropped,
     prunedGames: prunedGames, prunedWins: prunedWins,
+    mqRows: mqAdded + mqKept, mqAdded: mqAdded, mqKept: mqKept,
     totalIssues: totalIssues, wins: keptWins.length,
     file: HIST_ARCHIVE_FILE
   };
@@ -3274,6 +3468,10 @@ console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stat
   ' → 存档共 ' + RECO.stats.totalIssues + ' 期 · 比对 ' + RECO.stats.compared + ' 期（开奖未到挂起 ' +
   RECO.stats.pending + ' 期）→ 中奖记录 ' + RECO.stats.wins + ' 条' +
   (RECO.stats.lowDropped ? '（低等奖不列 ' + RECO.stats.lowDropped + ' 条）' : '') +
+  (RECO.stats.mqRows
+    ? '（其中小喇叭号池口径 ' + RECO.stats.mqRows + ' 条：本班补 ' + RECO.stats.mqAdded +
+      ' 条 / 存档已有 ' + RECO.stats.mqKept + ' 条）'
+    : '') +
   (RECO.stats.prunedGames || RECO.stats.prunedWins
     ? '（365 天剪枝：推荐 ' + RECO.stats.prunedGames + ' 期 / 中奖 ' + RECO.stats.prunedWins + ' 条已物理删除）'
     : ''));
@@ -3472,12 +3670,24 @@ function buildHistoryHtml() {
      · 没有中奖的彩种【整组不出现】（用户：「不要按彩种分组时显示空组」）。 */
   const wins = (RECO.wins || []).slice();
 
+  /* __MARQUEE_WINS__ 起点跟着【实际列出来的最早一条】走：
+     小喇叭里 10-15 ~ 10-18 那几条已经播报过的中奖，用户点名要一起公布 ——
+     卡头如果还写「自 2026-10-19 起」，就和下面列着 10-15 的记录自相矛盾。
+     所以取 min(存档起点, 最早一条中奖日期)。一条都没有时仍然是存档起点。 */
+  let fromDate = HIST_ARCHIVE_START;
+  wins.forEach((w) => {
+    const d = String(w.date || '').slice(0, 10);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d < fromDate) fromDate = d;
+  });
+
   const info = {
     count: wins.length,
-    compared: RECO.stats.compared,
+    /* __MARQUEE_WINS__ 「已比对 N 期」= 存档比对 + 小喇叭比对：
+       卡片里的记录现在两个来源都算，只写存档那 0 期会和「中奖 5 注」自相矛盾。 */
+    compared: RECO.stats.compared + (mqTicker.compared || 0),
     lowDropped: RECO.stats.lowDropped,
     archived: RECO.stats.totalIssues,
-    from: HIST_ARCHIVE_START,
+    from: fromDate,
     to: wins.length ? wins[0].date : ''
   };
 
@@ -3611,6 +3821,10 @@ function buildHistoryHtml() {
 
 const histBuilt = buildHistoryHtml();
 const histHtml = histBuilt.html;
+/* __MARQUEE_WINS__ 卡片副标题「自 … 起」必须跟【实际列出来的最早一条】一致：
+   小喇叭里 10-15 ~ 10-18 那 5 条也要公布，标题却写「自 2026-10-19 起」会自相矛盾。
+   一条中奖都没有时，from 仍然是存档起点（页面文案与以前完全一致）。 */
+const HIST_FROM_TXT = String(histBuilt.info.from || HIST_ARCHIVE_START);
 console.log('  · 历史开奖卡（只认真实存档）：已比对 ' + histBuilt.info.compared + ' 期，中奖 ' +
   histBuilt.info.count + ' 条' + (histBuilt.info.lowDropped ? `（低等奖不列 ${histBuilt.info.lowDropped} 条）` : '') +
   '（自 ' + histBuilt.info.from + ' 起记录' + (histBuilt.info.to ? '，最近一条 ' + histBuilt.info.to : '') + '）');
@@ -8729,7 +8943,7 @@ ${kjhHtml}
          ① 位置：跟 🐸青蛙家园【并排】，所以挪进上面那个 .grid-2-col（右格），
             不再是自己占整行；
          ② 只记高等奖：一/二/三等奖 + 组选直选（白名单见上面 __HIST_HIGH_ONLY__），
-            副标题跟着改成「自 2026-10-19 起 · 中奖才公布」。
+            副标题跟着改成「自 …起 · 中奖才公布」（起点见 HIST_FROM_TXT，__MARQUEE_WINS__ 后取实际最早一条）。
        · 折叠：原生 <details> + <summary>，「点击查看 ▾ / 点击收起 ▴」
          由 CSS 伪元素按 [open] 换字 —— 零脚本、零裸 button、零存储。
          默认 open（用户 2026-10-20 说过「找不到」，保持展开）。
@@ -8742,7 +8956,7 @@ ${kjhHtml}
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
       <span class="ro-hist-h2">中奖</span>
-      <span class="ro-hist-sub">自 2026-10-19 起 · 中奖才公布</span>
+      <span class="ro-hist-sub">自 ${HIST_FROM_TXT} 起 · 中奖才公布</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
