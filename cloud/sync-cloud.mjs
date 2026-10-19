@@ -184,6 +184,7 @@ const FROM_ROOT = [
   /* 【九算法独立页 · 用户 2026-10-19】凌晨 2 点全量班自动发布到线上 */
   'px9-methods.html',
   'minjian-methods.html',
+  'core-jiajian.html',
   /* 【专家推荐数据】用户 2026-10-19「所有资料去远端」：
      jc-articles.js 是 build-jc-articles.mjs 的产出，页面构建时要读它（没有就整块不渲染）。
      jc-scores.js 是 500 完场比分表（回填红黑用），先一起同步上去。 */
