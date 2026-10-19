@@ -22,6 +22,37 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+
+/* ===== BACK6 · 大乐透后区 6 码（用户 2026-10-19「6码今天给我加进去」）=====
+   规则：近 12 期后区（01-12）里出现次数最少的 6 个 = 遗漏最大的 6 个
+         （次数相同按号码从小到大，保证可复现）
+   数据：history.js 的 DRAW_HISTORY.games.dlt[*].areas.back
+   ⚠️ 纯构建期计算，不联网、不随机；每期重建自动更新。 */
+function dltBack6Html() {
+  try {
+    const f = path.join(path.dirname(fileURLToPath(import.meta.url)), 'history.js');
+    if (!fs.existsSync(f)) return '';
+    const src = fs.readFileSync(f, 'utf8');
+    const m = src.match(/const DRAW_HISTORY = ([\s\S]*?);\s*$/);
+    if (!m) return '';
+    const H = JSON.parse(m[1]);
+    const arr = (H.games && H.games.dlt) || [];
+    if (!arr.length) return '';
+    const hits = {}; for (let b = 1; b <= 12; b++) hits[b] = 0;
+    arr.slice(0, 12).forEach(function (d) {
+      const bk = ((d && d.areas) || {}).back || [];
+      (Array.isArray(bk) ? bk : []).forEach(function (n) { const v = +n; if (v >= 1 && v <= 12) hits[v]++; });
+    });
+    const six = Object.keys(hits).map(Number).sort(function (a, b) { return (hits[a] - hits[b]) || (a - b); }).slice(0, 6).sort(function (a, b) { return a - b; });
+    const pad = function (n) { return String(n).padStart(2, '0'); };
+    return '<div class="ro-back6" id="ro-back6">' +
+      '<span class="ro-back6-k">大乐透 · 后区 6 码</span>' +
+      six.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('') +
+      '<span class="ro-back6-s">近 12 期遗漏最大的 6 个 · 每期自动重算</span>' +
+      '</div>';
+  } catch (e) { return ''; }
+}
+
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 /* 【设备门 + PWA】共用模块（不写 localStorage、不用裸 button、不含任何出处字样）：
@@ -2883,6 +2914,8 @@ if (status.allReady) {
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
     `</div>` +
     /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
+    /* 【大乐透 后区 6 码 · 用户 2026-10-19「6码今天给我加进去」】 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 } else {
@@ -2900,6 +2933,8 @@ if (status.allReady) {
     `<div class="ro-st-hint">请稍后再看，或联系发布者更新</div>` +
     `</div>` +
     /* __MQ_TICKER__ 卡片右侧的中奖播报（横向滚动 + 小喇叭） */
+    /* 【大乐透 后区 6 码 · 用户 2026-10-19「6码今天给我加进去」】 */
+    `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
     `</div>`;
 }
