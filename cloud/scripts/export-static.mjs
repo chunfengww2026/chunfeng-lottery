@@ -1175,8 +1175,11 @@ function frogPanelHtml() {
             if (t.length <= 3 || !k || seenT[k]) return;
             seenT[k] = 1;
             out2.push({ t: t, u: String((x && x.url) || ''), g: guessGame(t) || String((x && x.game) || ''),
-              /* __FROG_ART_BODY__ 正文 / 摘要（build-jc-articles.mjs 抓的 body、desc） */
-              b: String((x && x.body) || ''), d: String((x && x.desc) || '') });
+              /* __FROG_ART_BODY__ 正文 / 摘要（build-jc-articles.mjs 抓的 body、desc）
+                 nl = 来自头条的条目 → 正文已就地展开，就【不再给「看原文」外链】
+                      （页面本来就要求「看不出数据是从哪来的」）。 */
+              b: String((x && x.body) || ''), d: String((x && x.desc) || ''),
+              nl: /toutiao/i.test(String((x && x.url) || '')) });
           });
           return out2;
         };
@@ -1250,12 +1253,14 @@ function frogPanelHtml() {
       const head = '<span class="frog-i">' + (i + 1) + '</span>' +
         '<span class="frog-at">' + escape(a.t) + '</span>';
       const raw = String(a.b || a.d || '').trim();
-      const link = a.u
+      /* 头条条目（a.nl）不给外链：正文/摘要已经就地展开，页面上不能露出处 */
+      const live = a.u && !a.nl;
+      const link = live
         ? '<a class="frog-src" href="' + String(a.u).replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">看原文 ›</a>'
         : '';
       if (!raw) {
-        const inner = head + (a.u ? '<span class="frog-ag">看原文 ›</span>' : '');
-        return a.u
+        const inner = head + (live ? '<span class="frog-ag">看原文 ›</span>' : '');
+        return live
           ? '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
           : '<div class="frog-art">' + inner + '</div>';
       }
@@ -1265,7 +1270,7 @@ function frogPanelHtml() {
       const paras = (s) => s.split('\n').map((x) => x.trim()).filter(Boolean)
         .map((x) => '<p>' + escape(x) + '</p>').join('');
       return '<details class="frog-art2">' +
-        '<summary class="frog-art-sum">' + head + '<span class="frog-ag">看正文</span></summary>' +
+        '<summary class="frog-art-sum">' + head + '<span class="frog-ag">' + (a.b ? '看正文' : '看摘要') + '</span></summary>' +
         '<div class="frog-ab">' + paras(preTxt) + '</div>' +
         (restTxt ? '<details class="frog-more"><summary class="frog-more-s">展开全文（还有 ' + restTxt.length + ' 字）</summary>' +
           '<div class="frog-ab">' + paras(restTxt) + '</div></details>' : '') +
@@ -7340,6 +7345,11 @@ html.locked .ro-stbar { filter: blur(14px) grayscale(1); }
 .ro-hist-ann-i { color: var(--ro-fg3); }
 .ro-hist-ann-t { font-weight: 800; color: var(--ro-ok); }
 .ro-hist-ann-n { display: inline-flex; flex-wrap: wrap; gap: 3px; }
+/* __HIST_ANN_BOLD__ 用户 2026-10-20：「中奖宣布也要加粗」
+   —— 中奖宣布那几行的号码：900 + 比正文稍大一点；命中号仍然红色高亮，
+      只加粗、不额外上球圈（用户只说"加粗"）。 */
+.ro-hist-ann-n .ro-hist-n { font-weight: 900; font-size: 13px; color: var(--ro-fg); }
+.ro-hist-ann-n .ro-hist-n.ro-hist-hit { color: #c0392b; }
 .ro-hist-sub { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-fg2);
   font-weight: 600; }
 .ro-hist-arrow { display: inline-block; margin: 8px auto 0; font-size: 12px;
@@ -7389,8 +7399,8 @@ html.locked .ro-stbar { filter: blur(14px) grayscale(1); }
 .ro-hist-p i { font-style: normal; font-size: 10.5px; color: var(--ro-fg3);
   margin: 0 1px 0 4px; }
 .ro-hist-p:first-child i { margin-left: 0; }
-.ro-hist-n { display: inline-block; min-width: 17px; text-align: center; font-weight: 700;
-  font-size: 11.5px; color: var(--ro-fg); }
+.ro-hist-n { display: inline-block; min-width: 19px; text-align: center; font-weight: 900;
+  font-size: 12.5px; color: var(--ro-fg); letter-spacing: .2px; }
 .ro-hist-n.ro-hist-hit { color: #c0392b; font-weight: 900; background: #fdeaea;
   border-radius: 4px; }
 .ro-hist-note { margin-top: 2px; font-size: 11px; line-height: 1.5; color: var(--ro-fg3);
@@ -7709,7 +7719,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
       算法探讨上边距 12 → 3、下边距 10 → 0（斜 15° 的包围盒自己去撑开，不会压字）
    ③ 靠近状态卡：.ro-top 上 padding 12 → 10、下 margin 12 → 4；春风 h1 上下 2 / 0
    ④ 颜色/字号沿用原内联样式（小晴推荐师 12px 粗 #5c5248，yy 12px #7d7266）
-   ⚠️ 只动这一个块的排版；三条仍然是 rotate(-15deg)（见上面 .ro-owner/.ro-user 规则） */
+   ⚠️ 只动这一个块的排版；三条仍然是斜 15 度（见上面 .ro-owner/.ro-user 规则） */
 .ro-author { display: block !important; width: max-content; max-width: 100%;
   margin: 0 auto 0 16px !important; padding: 0 !important; text-align: center !important; }
 .ro-author .ro-owner { display: block; margin: 0 !important;
@@ -9102,7 +9112,7 @@ ${DEVICE_GATE_BODY}
           算不出的如实写「样本不足」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
-  <div class="tools-head"><span class="tools-title">工具（智能分析）</span></div>
+  <div class="tools-head"><span class="tools-title">工具<i class="tools-sub" style="display:block;margin-top:2px;font-size:11.5px;font-weight:600;font-style:normal;opacity:.82">（人工+智能分析）</i></span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
 
@@ -9139,7 +9149,7 @@ ${sinaNextHtml()}
        ⚠️ 改的只是外面这层容器，两张卡的内容 / 点击 / 折叠逻辑一个字没改。 -->
 <!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
 <!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->
-<div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">
+<div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note" style="display:block;margin-top:2px;font-style:normal">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">
 <a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
 <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
 <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
@@ -15382,6 +15392,33 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-co-n { font-size: 11.5px; font-weight: 700; color: #c0392b; margin-left: auto; }
 .frog-co-t { font-size: 10.5px; color: #a89a80; margin-top: 1px; }
 @media (max-width: 340px) { .frog-co-k { font-size: 10.5px; letter-spacing: 0; } .frog-co-n { font-size: 10px; } }
+/* ============================================================
+   __FROG_RES_BALL__ 功能中心【结果区】的号码 = 球 + 加粗（用户 2026-10-20：
+     「这里面号码也要加球加粗」）
+   ------------------------------------------------------------
+   · 球体本身【复用】现成的 .frog-b（红底白字）和 .frog-b.blue
+     （#frogHome .frog-b.blue 已经是「深蓝渐变 + 白字 800」加强版）——
+     这里只加【尺寸】和【加粗】，不新写一套配色/渐变。
+   · 功能中心是半屏：球收到 20px、字号 11px；球排不下自动折行（flex-wrap），
+     375 / 320 都不会横向溢出。
+   ============================================================ */
+#frogOut .frog-b {
+  width: 20px; height: 20px; min-width: 20px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0;
+}
+#frogOut .frog-b.blue { width: 20px; height: 20px; min-width: 20px; }
+#frogOut .frog-bq { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+#frogOut .frog-bq i { font-style: normal; font-weight: 800; font-size: 11px; color: #b9a98c; }
+#frogOut .frog-row { align-items: center; gap: 6px; }
+#frogOut .frog-row > span:first-child { flex: 0 1 auto; display: inline-flex; align-items: center; gap: 4px; }
+#frogOut .frog-row > span:last-child { flex: 0 1 auto; display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 4px; text-align: right; }
+#frogOut .frog-co-h { align-items: center; }
+#frogOut .frog-qv .frog-bq { margin-top: 2px; }
+@media (max-width: 340px) {
+  #frogOut .frog-b { width: 18px; height: 18px; min-width: 18px; font-size: 10.5px; }
+  #frogOut .frog-b.blue { width: 18px; height: 18px; min-width: 18px; }
+  #frogOut .frog-bq { gap: 2px; }
+}
 
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
@@ -16315,6 +16352,31 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || []).map(Number); }
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function row(k, v) { return '<div class="frog-row"><span>' + k + '</span><span><b>' + v + '</b></span></div>'; }
+  /* ============================================================
+     __FROG_RES_BALL__ 结果区号码 = 【球】+ 【加粗】（用户 2026-10-20：
+       「功能中心结果区里面 号码也要加球加粗」）
+     ------------------------------------------------------------
+     · 球【复用】页面现成的 .frog-b（红底白字）和 .frog-b.blue
+       （#frogHome .frog-b.blue 已经是「深蓝渐变 + 白字 800」那套加强版）；
+     · 不新写一套配色，只在 #frogOut 里把球收到 20px / 字号 11px（功能中心是半屏）；
+     · 球排不下会自动折行（.frog-bq 是 flex-wrap）→ 375 / 320 都不溢出。
+     ============================================================ */
+  function ball(n, blue) {
+    return '<span class="frog-b' + (blue ? ' blue' : '') + '">' + pad(Number(n)) + '</span>';
+  }
+  function bq(arr, sep, blue) {
+    var s = '', i;
+    for (i = 0; i < arr.length; i++) s += (i && sep ? '<i>' + sep + '</i>' : '') + ball(arr[i], blue);
+    return '<span class="frog-bq">' + s + '</span>';
+  }
+  /* 左边放球、右边放「N 次 / N 期未出」这类文字 */
+  function rowQ(arr, tail, sep, blue) {
+    return '<div class="frog-row"><span>' + bq(arr, sep, blue) + '</span><span><b>' + (tail || '') + '</b></span></div>';
+  }
+  /* 左边放文字标签、右边放球（杀号 / 缩水 这种「标签 + 一串号」的行） */
+  function rowL(k, arr, sep, blue) {
+    return '<div class="frog-row"><span>' + k + '</span><span>' + (arr && arr.length ? bq(arr, sep, blue) : '') + '</span></div>';
+  }
   /* __FROG_GID__ 当前彩种（用户 2026-10-20：功能中心要能分清大乐透 / 双色球）
      · 只有一个状态变量 gid，默认大乐透；
      · 9 个功能全部读它（原来写死 dlt）；
@@ -16335,7 +16397,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     ds.forEach(function (d) { var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
       for (i = 0; i < r.length; i++) for (j = i + 1; j < r.length; j++) { var k = pad(r[i]) + '+' + pad(r[j]); cnt[k] = (cnt[k] || 0) + 1; } });
     var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8);
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出 · ' + gname() + ' · 近 ' + ds.length + ' 期</div>' + top.map(function (k) { return row(k, cnt[k] + ' 次'); }).join('');
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出 · ' + gname() + ' · 近 ' + ds.length + ' 期</div>' + top.map(function (k) { return rowQ(String(k).split('+').map(Number), cnt[k] + ' 次', '+'); }).join('');
   }
   /* 【三码同出 / 四码同出 · 用户 2026-10-20】和二码同出同一套算法，
      只是把「每期取 2 个号做组合」扩成「取 k 个」：
@@ -16364,7 +16426,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">' + title + ' · ' + gname() + ' · 近 ' + ds.length + ' 期</div>'
       + (top.length
         ? top.map(function (k2) {
-          return '<div class="frog-co"><div class="frog-co-h"><span class="frog-co-k">' + k2 + '</span>' +
+          return '<div class="frog-co"><div class="frog-co-h"><span class="frog-co-k">' + bq(String(k2).split('+').map(Number), '+') + '</span>' +
             '<span class="frog-co-n">' + cnt[k2] + ' 次</span></div>' +
             '<div class="frog-co-t">最近 ' + (last[k2] || '—') + ' 期</div></div>';
         }).join('')
@@ -16395,8 +16457,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     if (killVer === 'A') {
       var k1 = (sum % 10) + 1, k2 = r[r.length - 1] - r[0];
       var kills = [k1, k2].filter(function (n) { return n >= 1 && n <= maxN; });
-      body = row('上期号码', r.map(pad).join(' ')) + row('和值尾+1', pad(k1)) +
-        row('最大-最小', k2) + row('建议杀号', kills.map(pad).join(' ') || '无') +
+      body = rowL('上期号码', r) + rowL('和值尾+1', [k1]) +
+        rowL('最大-最小', [k2]) + (kills.length ? rowL('建议杀号', kills) : row('建议杀号', '无')) +
         '<div class="frog-tip">规则：和值尾+1 与 跨度 各杀 1 个</div>';
     } else if (killVer === 'B') {
       /* 对应号：0→8 1→5 2→2 3→7 4→4 5→1 6→9 7→6 8→3 9→0 */
@@ -16408,11 +16470,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       var road = (sum * bai + 1) % 3;
       var roadKill = [];
       for (var q = 1; q <= maxN; q++) if (q % 3 === road) roadKill.push(q);
-      body = row('上期号码', r.map(pad).join(' ')) +
-        row('对应号杀码', dy.map(pad).join(' ')) +
+      body = rowL('上期号码', r) +
+        rowL('对应号杀码', dy) +
         row('和值×首位+1 除3 余', road + ' 路（杀 ' + roadKill.length + ' 个）') +
-        row('该路号码', roadKill.slice(0, 12).map(pad).join(' ') + (roadKill.length > 12 ? ' …' : '')) +
-        '<div class="frog-tip">规则：对应号 + 整路杀（民间 3D 算法移植）</div>';
+        rowL('该路号码', roadKill.slice(0, 12), '', false) +
+        '<div class="frog-tip">规则：对应号 + 整路杀（民间 3D 算法移植）' + (roadKill.length > 12 ? ' · 只列前 12 个' : '') + '</div>';
     } else {
       /* C 本地多因子：每个号算「该杀分」，分数最高的 4 个 */
       var freq = {}, lastSeen = {};
@@ -16438,11 +16500,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
         score[n2] = sc; why[n2] = rs2;
       }
       var ranked = Object.keys(score).map(Number).sort(function (a, b) { return (score[b] - score[a]) || (a - b); }).slice(0, 4);
-      body = row('上期号码', r.map(pad).join(' ')) + row('和值 / 首号', sum + ' / ' + r[0]) +
+      body = rowL('上期号码', r) + row('和值 / 首号', sum + ' / ' + r[0]) +
         ranked.map(function (n3) {
-          return row(pad(n3) + ' 号得分', String(score[n3]) + '（' + (why[n3].join(' · ') || '无加成') + '）');
+          return rowQ([n3], String(score[n3]) + '（' + (why[n3].join(' · ') || '无加成') + '）');
         }).join('') +
-        row('建议杀号', ranked.map(pad).join(' ')) +
+        rowL('建议杀号', ranked) +
         '<div class="frog-tip">规则：6 个因子加权打分（遗漏/冷热/和值尾/重号/邻号）· 全本地计算，免费</div>';
     }
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号 · ' + gname() + ' · 基于最新一期 ' + (d.issue || '') + '</div>' + tabs + body;
@@ -16455,7 +16517,10 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
     var hot = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 10).sort(function (a, b) { return a - b; });
     var A = aName(), B = bName();
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐 · ' + gname() + ' · 近30期热号</div>' + row('18元 6+4', A + ' ' + hot.slice(0, 6).map(pad).join(' ') + ' / ' + B + ' 4 码') + row('28元 7+1', A + ' ' + hot.slice(0, 7).map(pad).join(' ') + ' / ' + B + ' 1 码') + row('38元 7+2', A + ' ' + hot.slice(0, 7).map(pad).join(' ') + ' / ' + B + ' 2 码');
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐 · ' + gname() + ' · 近30期热号</div>' +
+      rowL('18元 6+4（' + B + ' 4 码）', hot.slice(0, 6)) +
+      rowL('28元 7+1（' + B + ' 1 码）', hot.slice(0, 7)) +
+      rowL('38元 7+2（' + B + ' 2 码）', hot.slice(0, 7));
   }
   /* 【摇号机 · 可选号码数量 · 用户 2026-10-20】
      · 大乐透：前区 5~10 个 / 后区 2~6 个（默认 5+2）
@@ -16491,8 +16556,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       '<div style="font-weight:700;margin-bottom:4px">摇号机 · ' + gname() + '（随机 · 仅娱乐）</div>' +
       '<div class="frog-ql">' + c.aN + '个数</div><div class="frog-chips">' + numChips(c.aMin, c.aTop, RQ.a, 'a') + '</div>' +
       '<div class="frog-ql">' + c.bN + '个数</div><div class="frog-chips">' + numChips(c.bMin, c.bTop, RQ.b, 'b') + '</div>' +
-      '<div class="frog-qv"><i>' + c.aN + '（' + RQ.a + ' 个）</i><br>' + a.map(pad).join(' ') + '</div>' +
-      '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + b.map(pad).join(' ') + '</div>' +
+      '<div class="frog-qv"><i>' + c.aN + '（' + RQ.a + ' 个）</i><br>' + bq(a) + '</div>' +
+      '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + bq(b, '', true) + '</div>' +
       '<div class="frog-chips"><div class="frog-chip on" role="button" tabindex="0" data-rq-roll="1">摇一次</div></div>';
     var as = out.querySelectorAll('[data-rq-a]');
     for (i = 0; i < as.length; i++) as[i].onclick = (function (el) {
@@ -16509,13 +16574,13 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var ds = hist(gid), freq = {};
     ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
     var top = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 3);
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">胆码中心 · ' + gname() + ' · 近30期高频</div>' + row('推荐胆码', top.map(pad).join(' '));
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">胆码中心 · ' + gname() + ' · 近30期高频</div>' + rowL('推荐胆码', top);
   }
   function omit() {
     var ds = hist(gid), arr = [], n, i, top = redMax();
     for (n = 1; n <= top; n++) { var gap = 0; for (i = 0; i < ds.length; i++) { if (redsOf(ds[i]).indexOf(n) >= 0) break; gap++; } arr.push({ n: n, gap: gap }); }
     arr.sort(function (a, b) { return b.gap - a.gap; });
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">遗漏走势 · ' + gname() + ' · 最久未出</div>' + arr.slice(0, 8).map(function (o) { return row(pad(o.n) + ' 号', o.gap + ' 期未出'); }).join('');
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">遗漏走势 · ' + gname() + ' · 最久未出</div>' + arr.slice(0, 8).map(function (o) { return rowQ([o.n], o.gap + ' 期未出'); }).join('');
   }
   function lab() {
     var ds = hist(gid), hit = 0, n = Math.min(20, Math.max(0, ds.length - 1)), i;
