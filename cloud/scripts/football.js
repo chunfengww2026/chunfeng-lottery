@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-19 23:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "拖里格拉瓦U19",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "cc6600"
     },
     "time": "2026-10-19 23:30:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "蘇哈爾",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "990000"
     },
     "time": "2026-10-19 23:45:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "苏度瓦",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
     "away": {
      "name": "考诺萨基列斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -6539,7 +6539,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "维薛拿U23",
      "score": 0,
@@ -6605,10 +6605,10 @@ const FOOTBALL_DATA = {
      "color": "667788"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "普甲比",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -6671,7 +6671,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B52"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "马斯卡拉",
      "score": 1,
@@ -6737,7 +6737,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B52"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "RC阿尔巴",
      "score": 1,
@@ -6803,7 +6803,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B52"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "巴特纳",
      "score": 1,
@@ -6869,7 +6869,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B52"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "阿紮茲加",
      "score": 1,
@@ -6935,7 +6935,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "高纳",
      "score": 0,
@@ -6944,7 +6944,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "索莫哈",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 13
     },
@@ -7001,10 +7001,10 @@ const FOOTBALL_DATA = {
      "color": "174e03"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "馬尼沙",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 14
     },
@@ -7067,7 +7067,7 @@ const FOOTBALL_DATA = {
      "color": "174e03"
     },
     "time": "2026-10-19 22:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "卡拉古拉克",
      "score": 1,
@@ -7133,7 +7133,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-19 22:15:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "德黑兰独立",
      "score": 1,
@@ -7199,10 +7199,10 @@ const FOOTBALL_DATA = {
      "color": "882266"
     },
     "time": "2026-10-19 22:40:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "阿尔科威特",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 1
     },
@@ -7323,7 +7323,7 @@ const FOOTBALL_DATA = {
      "color": "789ccc"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "卡勒威",
      "score": 1,
@@ -7401,7 +7401,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "哥里迪拉",
      "score": 0,
@@ -7479,7 +7479,7 @@ const FOOTBALL_DATA = {
      "color": "224488"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "扑雷索夫",
      "score": 0,
@@ -7557,7 +7557,7 @@ const FOOTBALL_DATA = {
      "color": "053464"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 41,
+    "minute": 0,
     "home": {
      "name": "帕福斯",
      "score": 0,
@@ -7635,7 +7635,7 @@ const FOOTBALL_DATA = {
      "color": "cc7711"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "FC鱼雷",
      "score": 0,
@@ -7713,7 +7713,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "多布鲁札赫",
      "score": 0,
@@ -7791,10 +7791,10 @@ const FOOTBALL_DATA = {
      "color": "005577"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "陶格夫匹尔斯进展",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -7869,10 +7869,10 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-19 23:00:00",
-    "minute": 43,
+    "minute": 46,
     "home": {
      "name": "古积大学",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -7907,7 +7907,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "費薩里哈曼U21",
      "score": 1,
@@ -7945,7 +7945,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": " 阿爾茲拉費",
      "score": 0,
@@ -7983,10 +7983,10 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-19 23:05:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "费哈",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 14
     },
@@ -8061,10 +8061,10 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-19 23:20:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "德咸科",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
