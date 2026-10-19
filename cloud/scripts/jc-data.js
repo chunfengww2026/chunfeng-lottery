@@ -1,127 +1,24 @@
-/* 自动生成，请勿手动编辑 · 2026-10-20 00:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-20 01:28 */
 const JC_DATA = {
- "updated": "2026-10-20 00:58",
+ "updated": "2026-10-20 01:28",
  "stat": {
-  "total": 7,
-  "upcoming": 7,
+  "total": 6,
+  "upcoming": 6,
   "live": 0,
   "finished": 0,
   "withScore": 0,
-  "droppedNotOnSale": 1,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 16,
-  "droppedNotOnSale": 1,
+  "officialCodes": 15,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
  },
  "games": [
-  {
-   "gid": "1362794",
-   "fid": "1362794",
-   "sid": "19501",
-   "code": "周一002",
-   "league": "瑞典超",
-   "round": "第24轮",
-   "time": "2026-10-20 01:00",
-   "handicap": null,
-   "home": {
-    "name": "代格福什",
-    "rank": 13
-   },
-   "away": {
-    "name": "卡尔马",
-    "rank": 14
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.85,
-      "line": "平手",
-      "away": 0.95
-     },
-     "live": {
-      "home": 1.05,
-      "line": "平手",
-      "away": 0.75
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.5,
-      "draw": 3.25,
-      "away": 2.63
-     },
-     "live": {
-      "home": 2.9,
-      "draw": 3.25,
-      "away": 2.38
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.8,
-      "over": 2,
-      "under": 1
-     },
-     "live": {
-      "line": 0.8,
-      "over": 2,
-      "under": 1
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 39.2,
-    "prob": {
-     "home": 32.1,
-     "draw": 28.7,
-     "away": 39.2
-    },
-    "clear": false,
-    "margin": 7.3,
-    "rqLine": "平手",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": 0,
-    "openUpWater": 0.85,
-    "openDownWater": 0.95,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0,
-     "nowHandicap": 0,
-     "initUpWater": 0.85,
-     "nowUpWater": 1.05,
-     "initLine": "平手",
-     "nowLine": "平手"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
   {
    "gid": "1414247",
    "fid": "1414247",
@@ -161,8 +58,8 @@ const JC_DATA = {
       "away": 2.4
      },
      "live": {
-      "home": 3.2,
-      "draw": 3.1,
+      "home": 3.25,
+      "draw": 3,
       "away": 2.4
      }
     },
@@ -182,14 +79,14 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 39.6,
+    "confidence": 39.4,
     "prob": {
-     "home": 29.7,
-     "draw": 30.7,
-     "away": 39.6
+     "home": 29.1,
+     "draw": 31.5,
+     "away": 39.4
     },
     "clear": false,
-    "margin": 5.2,
+    "margin": 5.8,
     "rqLine": "受平手/半球",
     "type": "unbeaten"
    },
@@ -359,9 +256,9 @@ const JC_DATA = {
       "away": 5.75
      },
      "live": {
-      "home": 1.5,
+      "home": 1.55,
       "draw": 4.5,
-      "away": 5.75
+      "away": 5.5
      }
     },
     "overunder": {
@@ -380,14 +277,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 62.7,
+    "confidence": 61.5,
     "prob": {
-     "home": 62.7,
-     "draw": 20.9,
-     "away": 16.4
+     "home": 61.5,
+     "draw": 21.2,
+     "away": 17.3
     },
     "clear": true,
-    "margin": 6.3,
+    "margin": 4.9,
     "rqLine": "一球",
     "type": "three"
    },
@@ -565,9 +462,9 @@ const JC_DATA = {
       "away": 5
      },
      "live": {
-      "home": 1.53,
-      "draw": 3.9,
-      "away": 6.25
+      "home": 1.62,
+      "draw": 3.75,
+      "away": 5.5
      }
     },
     "overunder": {
@@ -586,14 +483,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 61.1,
+    "confidence": 57.9,
     "prob": {
-     "home": 61.1,
-     "draw": 24,
-     "away": 15
+     "home": 57.9,
+     "draw": 25,
+     "away": 17.1
     },
     "clear": true,
-    "margin": 7,
+    "margin": 6.6,
     "rqLine": "一球",
     "type": "three"
    },
@@ -736,41 +633,10 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-20 00:58",
+  "updated": "2026-10-20 01:28",
   "officialUpdate": "2026-10-19 20:42:03",
-  "inSale": 16,
+  "inSale": 15,
   "list": [
-   {
-    "code": "周一002",
-    "matchNum": "1002",
-    "league": "瑞超",
-    "time": "2026-10-20 01:00:00",
-    "home": "代格福什",
-    "away": "卡尔马",
-    "had": {
-     "h": 2.8,
-     "d": 3.15,
-     "a": 2.2,
-     "update": "2026-10-19 16:09:31"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 1.5,
-     "d": 3.85,
-     "a": 4.95,
-     "update": "2026-10-17 09:46:24"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周一003",
     "matchNum": "1003",
