@@ -2895,6 +2895,292 @@ const mqTicker = buildHitMarquee();
 console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + mqTicker.count + ' 条中奖' +
   (mqTicker.count ? '' : '（只出「暂无中奖播报」那句）'));
 
+/* ============================================================
+   __RO_HIST__ 「历史开奖」折叠卡（用户 2026-10-19 要求）
+   ------------------------------------------------------------
+   用户原话：「在GPT模型摇号下面增加一项;按钮 历史开奖：
+             点开以后就是近365天内所有中奖播报.不管什么奖项1等奖2等奖3等奖都记录」
+   · 位置：紧跟「晒票 | GPT模型摇号」那一行，占【整行】全宽
+     （再往两列网格里塞一格、右边空着会很难看，所以这里不并排，
+      外观照「走势图 / 参考图」那一套：米杏底 + 圆角 + 三行居中的卡片脸）
+   · 判定口径：和页面顶部那条中奖播报【完全相同】——
+     每期只用【那一期】的推荐号存档 + 那一期开奖，期号必须对得上；
+     两边缺任何一边就不算这一期（不猜、不补、不挪用相邻期）。
+   · 奖级（按官方规则把档位全部记下来，不再只记前三档）：
+       双色球   一等奖 6+1 · 二等奖 6+0 · 三等奖 5+1 ·
+                四等奖 5+0 / 4+1 · 五等奖 4+0 / 3+1 · 六等奖 只中蓝球
+       大乐透   一等奖 5+2 · 二等奖 5+1 · 三等奖 5+0 · 四等奖 4+2 ·
+                五等奖 4+1 · 六等奖 3+2 · 七等奖 4+0 ·
+                八等奖 3+1 / 2+2 · 九等奖 3+0 / 2+1 / 1+2 / 0+2
+       七乐彩   一等奖 7 个基本号 · 二等奖 6 个 + 特别号 · 三等奖 6 个 ·
+                四等奖 5 个 + 特别号 · 五等奖 5 个 ·
+                六等奖 4 个 + 特别号 · 七等奖 4 个
+       快乐8    选十 中 10 / 9 / 8 / 7 / 6 / 5 个
+       福彩3D / 排列3  直选（三位定位全中）· 组选三 · 组选六
+       排列5    五位直选全中 · 前三位直选
+       七星彩   前六位 + 第7位 全中 · 前六位全中
+   · 窗口：近 365 天；按开奖日期倒序（同一天期号大的在前）；
+     最多列 100 条，超出的只在小字里写总数。
+   ⚠️ 卡片里的文案不出现任何「数据从哪来」的字样（留痕断言会拦）。
+   ============================================================ */
+const HIST_WINDOW_DAYS = 365;
+const HIST_MAX_ROWS = 100;
+const HIST_DAY_MS = 24 * 3600 * 1000;
+const HIST_TIER_NAME = ['', '一等奖', '二等奖', '三等奖', '四等奖', '五等奖', '六等奖'];
+
+/** "2026-10-18" → 本地时间戳（手写解析，不依赖 Date.parse 的时区行为） */
+function histDayMs(v) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v == null ? '' : v));
+  if (!m) return NaN;
+  return new Date(+m[1], +m[2] - 1, +m[3]).getTime();
+}
+
+/**
+ * 单期判定（全部奖级）：中了返回 { lv, label, hits, note }，没中 / 算不出来返回 null
+ *   lv   = 1 最高（一等奖 / 直选），1~3 用彩色，其余灰
+ *   hits = 那一期的开奖号码（命中号码就在里面）
+ *   note = 命中明细（中几个号），写清楚，不夸大
+ * ⚠️ 号池口径必须和上面的 mqJudge 一个字不差，否则同一期会出现两种说法。
+ */
+function histJudge(gid, v, d) {
+  if (!v || !d || !d.areas) return null;
+  const area = (k) => (d.areas[k] || []).map(Number);
+  const two = (n) => (n < 10 ? '0' + n : String(n));
+  const p2 = (a) => a.map(two).join(' ');
+  const p1 = (a) => a.map((n) => String(n)).join(' ');
+  const inP = (pool, n) => pool.indexOf(Number(n)) >= 0;
+  const cnt = (src, pool) => src.filter((n) => inP(pool, n)).length;
+
+  /* ---------- 双色球（1~6 等奖） ---------- */
+  if (gid === 'ssq') {
+    const red = area('red'), blue = area('blue');
+    if (red.length < 6 || !blue.length) return null;
+    const bp = mqNums(v.b_rec);
+    const pool = [...new Set([].concat(mqNums(v.r20), mqNums(v.r15),
+      mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))];
+    if (!pool.length || !bp.length) return null;
+    const r = cnt(red, pool), b = cnt(blue, bp) > 0 ? 1 : 0;
+    let lv = 0;
+    if (r === 6 && b === 1) lv = 1;
+    else if (r === 6) lv = 2;
+    else if (r === 5 && b === 1) lv = 3;
+    else if (r === 5 || (r === 4 && b === 1)) lv = 4;
+    else if (r === 4 || (r === 3 && b === 1)) lv = 5;
+    else if (b === 1) lv = 6;
+    if (!lv) return null;
+    return {
+      lv: lv, label: HIST_TIER_NAME[lv],
+      hits: '红球 ' + p2(red) + ' + 蓝球 ' + p2(blue),
+      note: '红球中 ' + r + ' 个 · 蓝球中 ' + b + ' 个'
+    };
+  }
+
+  /* ---------- 大乐透（1~9 等奖） ---------- */
+  if (gid === 'dlt') {
+    const front = area('front'), back = area('back');
+    if (front.length < 5 || back.length < 2) return null;
+    const bp = mqNums(v.b_rec);
+    const pool = [...new Set([].concat(mqNums(v.f20), mqNums(v.f15),
+      mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))];
+    if (!pool.length || !bp.length) return null;
+    const f = cnt(front, pool), b = cnt(back, bp);
+    let lv = 0;
+    if (f === 5 && b === 2) lv = 1;
+    else if (f === 5 && b === 1) lv = 2;
+    else if (f === 5) lv = 3;
+    else if (f === 4 && b === 2) lv = 4;
+    else if (f === 4 && b === 1) lv = 5;
+    else if (f === 3 && b === 2) lv = 6;
+    else if (f === 4) lv = 7;
+    else if ((f === 3 && b === 1) || (f === 2 && b === 2)) lv = 8;
+    else if (f === 3 || (f === 2 && b === 1) || (f === 1 && b === 2) || (f === 0 && b === 2)) lv = 9;
+    if (!lv) return null;
+    return {
+      lv: lv, label: lv <= 6 ? HIST_TIER_NAME[lv] : (lv === 7 ? '七等奖' : lv === 8 ? '八等奖' : '九等奖'),
+      hits: '前区 ' + p2(front) + ' + 后区 ' + p2(back),
+      note: '前区中 ' + f + ' 个 · 后区中 ' + b + ' 个'
+    };
+  }
+
+  /* ---------- 七乐彩（1~7 等奖，特别号只算二等 / 四等 / 六等那一档） ---------- */
+  if (gid === 'qlc') {
+    const main = area('main'), sp = area('special');
+    if (main.length < 7) return null;
+    const pool = mqNums(v.r22);
+    if (!pool.length) return null;
+    const m = cnt(main, pool);
+    const s = (sp.length && inP(pool, sp[0])) ? 1 : 0;
+    let lv = 0;
+    if (m === 7) lv = 1;
+    else if (m === 6 && s === 1) lv = 2;
+    else if (m === 6) lv = 3;
+    else if (m === 5 && s === 1) lv = 4;
+    else if (m === 5) lv = 5;
+    else if (m === 4 && s === 1) lv = 6;
+    else if (m === 4) lv = 7;
+    if (!lv) return null;
+    return {
+      lv: lv, label: lv <= 6 ? HIST_TIER_NAME[lv] : '七等奖',
+      hits: '基本号 ' + p2(main) + ' + 特别号 ' + p2(sp),
+      note: '基本号中 ' + m + ' 个 · 特别号中 ' + s + ' 个'
+    };
+  }
+
+  /* ---------- 快乐8（选十：中 10/9/8/7/6/5 个，和上面喇叭同一套档位） ---------- */
+  if (gid === 'kl8') {
+    const main = area('main');
+    const pool = mqNums(v.r10);
+    if (main.length < 20 || pool.length !== 10) return null;
+    const hit = pool.filter((n) => inP(main, n));
+    const n = hit.length;
+    const LAB = { 10: 1, 9: 2, 8: 3, 7: 4, 6: 5, 5: 6 };
+    if (!LAB[n]) return null;
+    return {
+      lv: LAB[n], label: HIST_TIER_NAME[LAB[n]],
+      hits: '十个推荐号中开出 ' + p2(hit),
+      note: '选十 · 中 ' + n + ' 个'
+    };
+  }
+
+  /* ---------- 福彩3D / 排列3（直选 / 组选） ---------- */
+  if (gid === 'fc3d' || gid === 'pl3') {
+    const w = area('main');
+    if (w.length < 3) return null;
+    const bai = mqNums(v.bai), shi = mqNums(v.shi), ge = mqNums(v.ge), grp = mqNums(v.grp);
+    const hits = '开奖 ' + p1(w.slice(0, 3));
+    if (bai.length && shi.length && ge.length &&
+        inP(bai, w[0]) && inP(shi, w[1]) && inP(ge, w[2])) {
+      return { lv: 1, label: '直选', hits: hits, note: '三位定位全中（顺序对）' };
+    }
+    if (grp.length && w.slice(0, 3).every((n) => inP(grp, n))) {
+      const uniq = new Set(w.slice(0, 3)).size;
+      if (uniq === 3) return { lv: 3, label: '组选六', hits: hits, note: '三位都在六码里（组六）' };
+      if (uniq === 2) return { lv: 2, label: '组选三', hits: hits, note: '三位都在六码里（组三）' };
+      return { lv: 9, label: '组选（豹子）', hits: hits, note: '三位都在六码里（豹子）' };
+    }
+    return null;
+  }
+
+  /* ---------- 排列5（只记直选：五位全中 / 前三位） ---------- */
+  if (gid === 'pl5') {
+    const w = area('main');
+    if (w.length < 5) return null;
+    const pools = ['wan', 'qian', 'bai', 'shi', 'ge'].map((k) => mqNums(v[k]));
+    if (pools.some((p) => !p.length)) return null;
+    const hits = '开奖 ' + p1(w.slice(0, 5));
+    if (pools.every((p, i) => inP(p, w[i]))) {
+      return { lv: 1, label: '直选全中', hits: hits, note: '五位定位全中（顺序对）' };
+    }
+    if (pools.slice(0, 3).every((p, i) => inP(p, w[i]))) {
+      return { lv: 9, label: '前三位直选', hits: hits, note: '前三位定位全中' };
+    }
+    return null;
+  }
+
+  /* ---------- 七星彩（六位 + 第7位） ---------- */
+  if (gid === 'qxc') {
+    const front = area('front'), back = area('back');
+    if (front.length < 6 || !back.length) return null;
+    const pools = [1, 2, 3, 4, 5, 6].map((i) => mqNums(v['p' + i]));
+    const bp = mqNums(v.pb);
+    if (pools.some((p) => !p.length) || !bp.length) return null;
+    const m = pools.filter((p, i) => inP(p, front[i])).length;
+    const b = inP(bp, back[0]) ? 1 : 0;
+    const hits = '前6位 ' + p1(front.slice(0, 6)) + ' + 第7位 ' + p1(back.slice(0, 1));
+    if (m === 6 && b === 1) {
+      return { lv: 1, label: '一等奖', hits: hits, note: '前六位 + 第7位 全中' };
+    }
+    if (m === 6 && b === 0) {
+      return { lv: 2, label: '二等奖', hits: hits, note: '前六位全中 · 第7位未中' };
+    }
+    return null;
+  }
+
+  return null;
+}
+
+/** 生成「历史开奖」卡展开后的内容（纯 HTML，无图片、无按钮、无脚本） */
+function buildHistoryHtml() {
+  const saved = mqReadGlobal('SAVED_TICKETS');
+  const idx = mqDrawIndex();
+  const nowMs = Date.now();
+
+  const rows = [];
+  const days = [];
+  MQ_ORDER.forEach((gid) => {
+    mqPeriods(gid, saved).forEach((p) => {
+      const d = idx[gid + '|' + String(p.issue)];
+      if (!d || !d.date) return;                       /* 没有这一期开奖 → 不比对 */
+      const t = histDayMs(d.date);
+      if (!Number.isFinite(t)) return;
+      if (nowMs - t > HIST_WINDOW_DAYS * HIST_DAY_MS || t > nowMs + HIST_DAY_MS) return;
+      const day = String(d.date).slice(0, 10);
+      days.push(day);
+      const j = histJudge(gid, p.images.main, d);
+      if (!j) return;                                  /* 没中 → 不进列表 */
+      rows.push({
+        gid: gid, name: MQ_NAME[gid] || gid, issue: String(d.issue),
+        date: day, lv: j.lv, label: j.label, hits: j.hits, note: j.note
+      });
+    });
+  });
+
+  /* 新的在前；同一天先按期号大的，再按彩种固定顺序 */
+  rows.sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    if (a.issue !== b.issue) return Number(b.issue) - Number(a.issue);
+    return MQ_ORDER.indexOf(a.gid) - MQ_ORDER.indexOf(b.gid);
+  });
+
+  const info = { compared: days.length, count: rows.length, from: '', to: '' };
+  if (days.length) {
+    days.sort();
+    info.from = days[0];
+    info.to = days[days.length - 1];
+  }
+
+  if (!rows.length) {
+    return {
+      html: `<div class="ro-hist-empty">近 365 天暂无中奖记录</div>`,
+      info: info
+    };
+  }
+
+  const tint = (lv) => (lv === 1 ? ' ro-hist-t1' : lv === 2 ? ' ro-hist-t2' : lv === 3 ? ' ro-hist-t3' : '');
+  const show = rows.slice(0, HIST_MAX_ROWS);
+  const listHtml = show.map((r) =>
+    `<div class="ro-hist-row">` +
+    `<div class="ro-hist-top">` +
+    `<span class="ro-hist-date">${escape(r.date)}</span>` +
+    `<span class="ro-hist-game">${escape(r.name)}</span>` +
+    `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
+    `<span class="ro-hist-tier${tint(r.lv)}">${escape(r.label)}</span>` +
+    `</div>` +
+    `<div class="ro-hist-nums">${escape(r.hits)}</div>` +
+    `<div class="ro-hist-note">${escape(r.note)}</div>` +
+    `</div>`
+  ).join('');
+
+  const meta = `覆盖 ${info.from} ~ ${info.to} · 已比对 ${info.compared} 期 · 中奖 ${rows.length} 条`;
+  const foot = rows.length > HIST_MAX_ROWS
+    ? `共 ${rows.length} 条 · 只列最近 ${HIST_MAX_ROWS} 条`
+    : `只统计已开奖、且那一期留有推荐号的记录`;
+
+  return {
+    html: `<div class="ro-hist-meta">${escape(meta)}</div>` +
+      `<div class="ro-hist-list">${listHtml}</div>` +
+      `<div class="ro-hist-foot">${escape(foot)}</div>`,
+    info: info
+  };
+}
+
+const histBuilt = buildHistoryHtml();
+const histHtml = histBuilt.html;
+console.log('  · 历史开奖卡：比对 ' + histBuilt.info.compared + ' 期，中奖 ' + histBuilt.info.count + ' 条' +
+  (histBuilt.info.compared
+    ? `（覆盖 ${histBuilt.info.from} ~ ${histBuilt.info.to}）`
+    : '（暂无可比对的期次）'));
+
 if (status.allReady) {
   /* __NO_ST_LIST__ 用户要求：状态条里那 8 行「双色球 第 xx 期 日期」不要了。
      连带把只为它服务的 rows 计算也删掉（省得白算一遍）。 */
@@ -6036,6 +6322,77 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
    2026-10-17 用户要求「删除单独走势图独立页」→ 内容改成内联，这两条一起删掉：
    走势图那一块的样式全部由 build-trend.mjs 的片段自带（选择器都带
    .ro-trend-embed 前缀，收在片段内部，不会漏到分享页其它地方）。 */
+
+/* ============================================================
+   __RO_HIST__ 「历史开奖」折叠卡（用户 2026-10-19 要求）
+   ------------------------------------------------------------
+   位置：紧跟「晒票 | GPT模型摇号」那一行，占整行全宽。
+   外观：和上面几张折叠卡同一套 —— 米杏底（--ro-card）+ 1px 细边框 + 圆角 10px，
+        卡片脸的阴影由上面 __CARD_RAISE__ 那段对 #article-rest 直接子元素的
+        统一规则给到位，这里【不重复写阴影】，免得又多一套口径。
+   标题三行：历史开奖 / 近 365 天 · 所有奖项 / 点击查看（点开变「点击收起」）。
+   下面每条一行：日期 · 彩种 · 期号 · 奖项，再下面两行是该期号码与命中明细。
+   ⚠️ 全部是文字：没有图片（图位数量不变）、没有脚本、没有输入框。
+   ⚠️ 只有变量色（--ro-card / --ro-line / --ro-fg / --ro-fg2 / --ro-fg3 / --ro-ok），
+      米杏主题和浅色主题都能跟着走。
+   ============================================================ */
+.ro-hist { background: var(--ro-card); border: 1px solid var(--ro-line);
+  border-radius: 10px; margin: 0 12px 12px; padding: 12px 12px 0; }
+.ro-hist > .ro-hist-head { display: block; text-align: center; cursor: pointer;
+  list-style: none; -webkit-tap-highlight-color: transparent; user-select: none;
+  padding: 2px 0 12px; }
+.ro-hist > .ro-hist-head::-webkit-details-marker { display: none; }
+.ro-hist > .ro-hist-head::marker { content: ''; }
+.ro-hist-h2 { display: block; font-size: 15px; font-weight: 800; color: var(--ro-fg);
+  letter-spacing: .5px; }
+.ro-hist-sub { display: block; margin-top: 4px; font-size: 12px; color: var(--ro-fg2);
+  font-weight: 600; }
+.ro-hist-arrow { display: inline-block; margin: 8px auto 0; font-size: 12px;
+  font-weight: 600; color: var(--ro-ok); border: 1px solid var(--ro-ok);
+  border-radius: 14px; padding: 4px 10px; white-space: nowrap; }
+.ro-hist-arrow::before { content: '点击查看'; }
+.ro-hist-arrow::after { content: ' ▾'; }
+.ro-hist[open] > .ro-hist-head .ro-hist-arrow::before { content: '点击收起'; }
+.ro-hist[open] > .ro-hist-head .ro-hist-arrow::after { content: ' ▴'; }
+.ro-hist-body { padding: 0 0 12px; }
+.ro-hist-meta { font-size: 11px; line-height: 1.6; color: var(--ro-fg3);
+  text-align: center; padding: 0 0 8px; word-break: break-word; }
+.ro-hist-row { border-top: 1px dashed var(--ro-line); padding: 7px 2px; }
+.ro-hist-row:first-child { border-top: 0; padding-top: 2px; }
+.ro-hist-top { display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  font-size: 12px; line-height: 1.5; }
+.ro-hist-date { font-weight: 700; color: var(--ro-fg2); }
+.ro-hist-game { font-weight: 800; color: var(--ro-fg); }
+.ro-hist-issue { font-size: 11px; color: var(--ro-fg3); }
+/* 奖项徽章：一等金 · 二等亮 · 三等浅 · 其余灰（用户要的颜色区分） */
+.ro-hist-tier { margin-left: auto; white-space: nowrap; font-size: 11px; font-weight: 800;
+  border-radius: 10px; padding: 1px 8px; color: var(--ro-fg2);
+  background: #f4ece0; border: 1px solid var(--ro-line); }
+.ro-hist-t1 { color: #7a5300; background: #fbeec6; border-color: #e7cf92; }
+.ro-hist-t2 { color: #a33b17; background: #fdeadd; border-color: #efc6ab; }
+.ro-hist-t3 { color: #1a6b48; background: #e8f6ef; border-color: #b7e4cd; }
+.ro-hist-nums { margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--ro-fg);
+  word-break: break-word; }
+.ro-hist-note { margin-top: 2px; font-size: 11px; line-height: 1.5; color: var(--ro-fg3);
+  word-break: break-word; }
+.ro-hist-empty { text-align: center; font-size: 12px; line-height: 1.6;
+  color: var(--ro-fg3); padding: 8px 0 14px; }
+.ro-hist-foot { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--ro-line);
+  font-size: 11px; line-height: 1.6; color: var(--ro-fg3); text-align: center;
+  word-break: break-word; }
+/* 320 窄屏：字号与留白各收一档，长号码自动折行，绝不横向溢出 */
+@media (max-width: 360px) {
+  .ro-hist { margin-left: 8px; margin-right: 8px; padding: 10px 8px 0; }
+  .ro-hist-h2 { font-size: 14px; }
+  .ro-hist-sub { font-size: 10.5px; }
+  .ro-hist-arrow { font-size: 10.5px; padding: 3px 8px; }
+  .ro-hist-top { font-size: 11px; gap: 4px; }
+  .ro-hist-issue { font-size: 10px; }
+  .ro-hist-tier { font-size: 10px; padding: 1px 6px; }
+  .ro-hist-nums { font-size: 11px; }
+  .ro-hist-note { font-size: 10px; }
+  .ro-hist-meta, .ro-hist-foot { font-size: 10px; }
+}
 ${P3D_SECTION_CSS}
 
 
@@ -7767,6 +8124,29 @@ ${kjhHtml}
   </script>
 
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
+
+  <!-- ============================================================
+       __RO_HIST__ 历史开奖（用户 2026-10-19 要求）
+       ------------------------------------------------------------
+       用户原话：「在GPT模型摇号下面增加一项;按钮 历史开奖：
+                点开以后就是近365天内所有中奖播报.不管什么奖项1等奖2等奖3等奖都记录」
+       · 位置：紧接上面那一行「晒票 | GPT模型摇号」→ 这里占【整行】全宽
+         （两列网格再塞一格、右边空着会很难看，所以不做第四格并排）
+       · 折叠：原生 <details> + <summary>，「点击查看 ▾ / 点击收起 ▴」
+         由 CSS 伪元素按 [open] 换字 —— 零脚本、零裸 button、零存储。
+       · 内容：近 365 天所有中奖记录（一等 / 二等 / 三等……全部档位），
+         按开奖日期倒序；一条都没中时写「近 365 天暂无中奖记录」。
+       ============================================================ -->
+  <details class="ro-hist" id="ro-hist">
+    <summary class="ro-hist-head">
+      <span class="ro-hist-h2">历史开奖</span>
+      <span class="ro-hist-sub">近 365 天 · 所有奖项</span>
+      <span class="ro-hist-arrow" aria-hidden="true"></span>
+    </summary>
+    <div class="ro-hist-body">
+${histHtml}
+    </div>
+  </details>
 
   ${latestSecHtml}
 
