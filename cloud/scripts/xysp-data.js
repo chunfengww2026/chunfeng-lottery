@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-19 11:30
+   更新时间：2026-10-19 11:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-19 11:30",
+ "updated": "2026-10-19 11:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1808,20 +1808,6 @@ const XYSP_DATA = {
      "nextAt": 1792330200000,
      "atMs": 1792301102264,
      "seenMs": 1792301102264,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-18/c145b379-ea08-4743-a14c-0d5869e1c11a1792294246478.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-18/c145b379-ea08-4743-a14c-0d5869e1c11a1792294246478.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26277期]又差一个，快来一起研究研究",
-     "url": "",
-     "at": "2026-10-18T05:02:19.898Z",
-     "pubAt": "2026-10-18T03:32:00.000Z",
-     "pubMs": 1792294320000,
-     "pubSrc": "page",
-     "nextAt": 1792330200000,
-     "atMs": 1792299739898,
-     "seenMs": 1792299739898,
      "whenMs": null
     }
    ]
@@ -5211,36 +5197,6 @@ const XYSP_DATA = {
      "author": "ゞ 半杯茶つ 🌴",
      "when": "2026-10-18 11:41:02",
      "postId": "1879357377997828",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0bb789300be04f7495538791d50bd546~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=a%2Fh6mLAkSaWJAIQB4lmIzhIidN0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0bb789300be04f7495538791d50bd546~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=a%2Fh6mLAkSaWJAIQB4lmIzhIidN0%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0bb789300be04f7495538791d50bd546~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=w74%2FTZ1EAQKBpekpv9UbnCFFBco%3D",
-     "title": "大乐透26118期山东菏泽彩民喜中一等奖1000万，实票曝光！",
-     "url": "https://toutiao.com/group/7697845060573954621/",
-     "at": "2026-10-18T05:11:42.681Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26118",
-     "seen": "2026-10-19T03:16:01.753Z",
-     "whenMs": 1792294281000,
-     "seenMs": 1792379761753,
-     "drawMs": 1792240200000,
-     "nextMs": 1792413000000,
-     "atMs": 1792300302681,
-     "drawAt": "2026-10-17T12:30:00.000Z",
-     "nextAt": 1792413000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-22T03:16:01.753Z",
-     "rule": "next-draw",
-     "author": "偏财专业户",
-     "when": "2026-10-18 11:31:21",
-     "postId": "7697845060573954621",
      "px": 132300
     }
    ]
