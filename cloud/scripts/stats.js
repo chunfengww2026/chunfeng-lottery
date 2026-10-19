@@ -1569,15 +1569,13 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
       (areaKey === 'main' || areaKey === 'red' || areaKey === 'front') &&
       typeof require === 'function') {
     try {
-      const cp = require('./core-pool.js').corePoolFor(gameId);
-      if (cp && Array.isArray(cp.pool20) && cp.pool20.length) {
-        const f = cp.pool20.filter((x) => x >= from && x <= to);
-        if (f.length >= Math.min(n, 4)) {
-          /* 【频率特征出号】20 码池里不再取「最小的 n 个」，
-             改成按热度分 + 冷热配比挑（n=6 时 = 热2 + 温2 + 冷2，
-             大乐透前区 n=5 时 = 热2 + 温2 + 冷1）。 */
-          return freqPick(f, freqFeatures(gameId, areaKey, from, to), n).sort((a, b) => a - b);
-        }
+      /* 【三源融合】用户 2026-10-20：「全部都留 一起结合算了出号」——
+         推荐号也从「融合后的 20 码」里挑（资料 ∪ 核心算法 20 码 ∪ 专家池，见 poolRankBlend），
+         这样推荐号一定落在图上那行 20 码里，不会再出现「推荐号不在号码池里」。
+         挑法仍是频率特征：n=6 → 热2 温2 冷2；大乐透 n=5 → 热2 温2 冷1。 */
+      const f = poolRankBlend(gameId, areaKey, from, to, 20);
+      if (f.length >= Math.min(n, 4)) {
+        return freqPick(f, freqFeatures(gameId, areaKey, from, to), n).sort((a, b) => a - b);
       }
     } catch (e) { /* 掉回原逻辑 */ }
   }
