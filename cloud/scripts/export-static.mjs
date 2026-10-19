@@ -7381,8 +7381,8 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 #ro-frog-hist-row:has(> details[open]) {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;          /* ← 用户 2026-10-20：「大小一样」：这一行两张卡等高 */
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: 0;                /* ← 用户 2026-10-20：「移到晒票下一栏」：左右留白和上一行对齐 */
+  margin-right: 0;
 }
 #ro-frog-hist-row > .frog { margin: 0; }
 #ro-frog-hist-row > .ro-hist { margin: 0; }
@@ -7402,7 +7402,7 @@ html.locked #ro-frog-hist-row > .ro-hist {
   pointer-events: none;
 }
 @media (max-width: 360px) {
-  #ro-frog-hist-row { margin-left: 8px; margin-right: 8px; gap: 8px; }
+  #ro-frog-hist-row { margin-left: 0; margin-right: 0; gap: 8px; }
 }
 
 /* ============================================================
@@ -8514,9 +8514,10 @@ ${kjhHtml}
        ------------------------------------------------------------
        用户原话：「青蛙家园 + 历史中奖 并排放一排」（截图里两条各占整行）。
        用户选方案 b：历史开奖【保持默认展开】，青蛙卡【不跟着拉伸】。
-       · 左格 = 🐸青蛙家园（另一个窗口加的那块面板：内部内容 / 样式
+       · 左格 = 中奖卡（用户 2026-10-20：「移到晒票下一栏」= 晒票正下方）
+       · 右格 = 🐸青蛙家园（另一个窗口加的那块面板：内部内容 / 样式
          一个字都没动，这里只把它挪进这一行的左格）
-       · 右格 = 历史开奖（<details> 默认展开，保持不动）
+       （历史卡改成收起态，位置在左格）
        ⚠️ 结构上唯一的改动：这一行放在 #article-rest【之前】。
           青蛙原来就在 #article-rest 外面（锁定时还能点，和「晒票 | GPT模型摇号」
           那一行同一口径，见上面 __ACTION_2COL__ 的说明）；要跟它并排，
@@ -8526,9 +8527,6 @@ ${kjhHtml}
           这一行【故意】用 ID 权重压回两列 —— 用户要的就是展开状态也并排。
        ============================================================ -->
   <div class="grid-2-col" id="ro-frog-hist-row">
-<!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
-${frogPanelHtml()}
-
   <!-- ============================================================
        __RO_HIST__ 历史开奖（用户 2026-10-19 要求）
        ------------------------------------------------------------
@@ -8557,6 +8555,9 @@ ${frogPanelHtml()}
 ${histHtml}
     </div>
   </details>
+<!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
+${frogPanelHtml()}
+
   </div><!-- /#ro-frog-hist-row · 两列并排结束 -->
 
   <div id="article-rest"><!-- 面板之后的内容：同样要防截图 -->
