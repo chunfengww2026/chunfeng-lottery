@@ -61,6 +61,11 @@
     kl8:  { name:'快乐8', kind:'pick',   pickN:20, max:80 }
   };
   var st = { g:'fc3d' };
+  /* 【被嵌进资料格时用 ?g=彩种 指定 · 用户 2026-10-20】 */
+  try {
+    var qm = (location.search || '').match(/[?&]g=(fc3d|pl3|qlc|qxc|kl8|pl5)/);
+    if (qm) st.g = qm[1];
+  } catch (e) { }
   function pad(n) { return String(n).padStart(2,'0'); }
   function pad3(n) { return String(n).padStart(3,'0'); }
   function hist(g) {
