@@ -1016,7 +1016,17 @@ function frogPanelHtml() {
     '<div class="frog-sec"><div class="frog-h">免费资料（点标题看原文）</div>' +
     (arts.length ? arts.map((a, i) => '<a class="frog-art" href="' + a.u.replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer"><span class="frog-i">' + (i + 1) + '</span><span class="frog-at">' + escape(a.t) + '</span><span class="frog-ag">看原文 ›</span></a>').join('') : '<div class="frog-none">暂无资料</div>') +
     '</div>' +
-    '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
+    '<div class="frog-sec"><div class="frog-h">功能中心（全部免费 · 现算）</div>'
+    + '<div class="frog-tools" id="frogLab">'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="co">二码同出</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="kill">杀号</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="shrink">缩水套餐</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="rand">摇号机</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="dan">胆码中心</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="omit">遗漏走势</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="lab">实验室</div>'
+    + '</div><div class="frog-out" id="frogOut">点上面任意功能，结果显示在这里</div></div>'
+    + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
     '</div></details>';
 }
 
@@ -14065,6 +14075,14 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-embed { margin: 10px 0 4px; }
 .px9-embed-h { font-size: 12.5px; font-weight: 700; color: #1a8c5a; margin: 0 0 6px 2px; }
 @media (max-width: 420px) { .px9-embed iframe { height: 1500px; } }
+
+/* __FROG_LAB_CSS__ 青蛙家园功能中心 */
+.frog-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px; }
+.frog-btn { text-align: center; padding: 8px 2px; background: #fffaf2; border: 1px solid #ecdcc2; border-radius: 8px; font-size: 11.5px; color: #4a3a26; cursor: pointer; }
+.frog-btn:active { background: #ffe9c9; }
+.frog-out { background: #fff; border: 1px solid #ecdcc2; border-radius: 8px; padding: 8px; font-size: 12px; color: #4a3a26; line-height: 1.7; min-height: 44px; }
+.frog-row { display: flex; justify-content: space-between; border-bottom: 1px dotted #f0e4cf; padding: 2px 0; }
+
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
@@ -14983,6 +15001,68 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     })(elG[gi]);
   }
   render();
+})();
+</script>
+
+
+<script>
+/* __FROG_LAB_JS__ 青蛙家园功能中心：全部用页面已有 DRAW_HISTORY 现算，不联网不收费 */
+(function () {
+  var out = document.getElementById('frogOut');
+  var wrap = document.getElementById('frogLab');
+  if (!out || !wrap) return;
+  function hist(g) { try { return ((DRAW_HISTORY.games || {})[g] || []).slice(0, 100); } catch (e) { return []; } }
+  function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || []).map(Number); }
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function row(k, v) { return '<div class="frog-row"><span>' + k + '</span><span><b>' + v + '</b></span></div>'; }
+  var gid = 'dlt';
+  function co() {
+    var ds = hist(gid), cnt = {}, i, j;
+    ds.forEach(function (d) { var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
+      for (i = 0; i < r.length; i++) for (j = i + 1; j < r.length; j++) { var k = pad(r[i]) + '+' + pad(r[j]); cnt[k] = (cnt[k] || 0) + 1; } });
+    var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8);
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">二码同出（近 ' + ds.length + ' 期）</div>' + top.map(function (k) { return row(k, cnt[k] + ' 次'); }).join('');
+  }
+  function kill() {
+    var d = hist(gid)[0]; if (!d) { out.innerHTML = '暂无数据'; return; }
+    var r = redsOf(d).slice().sort(function (a, b) { return a - b; });
+    var sum = r.reduce(function (a, b) { return a + b; }, 0);
+    var k1 = (sum % 10) + 1, k2 = r[r.length - 1] - r[0];
+    var kills = [k1, k2].filter(function (n) { return n >= 1 && n <= 35; });
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">杀号（基于最新一期 ' + (d.issue || '') + '）</div>' + row('上期号码', r.map(pad).join(' ')) + row('和值尾+1', pad(k1)) + row('最大-最小', k2) + row('建议杀号', kills.map(pad).join(' ') || '无');
+  }
+  function shrink() {
+    var ds = hist(gid), freq = {};
+    ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
+    var hot = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 10).sort(function (a, b) { return a - b; });
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐（近30期热号）</div>' + row('18元 6+4', '红 ' + hot.slice(0, 6).map(pad).join(' ') + ' / 蓝 4 码') + row('28元 7+1', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 1 码') + row('38元 7+2', '红 ' + hot.slice(0, 7).map(pad).join(' ') + ' / 蓝 2 码');
+  }
+  function rand() {
+    var r = [], b = [];
+    while (r.length < 5) { var n = 1 + Math.floor(Math.random() * 35); if (r.indexOf(n) < 0) r.push(n); }
+    b.push(1 + Math.floor(Math.random() * 12)); b.push(1 + Math.floor(Math.random() * 12));
+    r.sort(function (a, b2) { return a - b2; });
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">摇号机（随机，仅娱乐）</div>' + row('前区', r.map(pad).join(' ')) + row('后区', b.sort(function (a, b2) { return a - b2; }).map(pad).join(' '));
+  }
+  function dan() {
+    var ds = hist(gid), freq = {};
+    ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
+    var top = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 3);
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">胆码中心（近30期高频）</div>' + row('推荐胆码', top.map(pad).join(' '));
+  }
+  function omit() {
+    var ds = hist(gid), arr = [], n, i;
+    for (n = 1; n <= 35; n++) { var gap = 0; for (i = 0; i < ds.length; i++) { if (redsOf(ds[i]).indexOf(n) >= 0) break; gap++; } arr.push({ n: n, gap: gap }); }
+    arr.sort(function (a, b) { return b.gap - a.gap; });
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">遗漏走势（最久未出）</div>' + arr.slice(0, 8).map(function (o) { return row(pad(o.n) + ' 号', o.gap + ' 期未出'); }).join('');
+  }
+  function lab() {
+    var ds = hist(gid), hit = 0, n = Math.min(20, Math.max(0, ds.length - 1)), i;
+    for (i = 0; i < n; i++) { var prev = redsOf(ds[i + 1]).slice(0, 5), cur = redsOf(ds[i]); if (prev.some(function (x) { return cur.indexOf(x) >= 0; })) hit++; }
+    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">实验室（简单回测）</div>' + row('测试期数', n) + row('延续命中', hit + ' 期') + row('比例', n ? Math.round(hit / n * 100) + '%' : '—');
+  }
+  var FNS = { co: co, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab };
+  [].slice.call(wrap.querySelectorAll('.frog-btn')).forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) FNS[k](); }; });
 })();
 </script>
 
