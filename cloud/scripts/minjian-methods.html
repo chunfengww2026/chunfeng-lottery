@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>民间算法 · 春风</title>
+<style>
+  :root { --bg:#f7efe1; --card:#fffdf7; --line:#efe3cf; --fg:#4a3a26; --fg2:#8a7a63; --ok:#1a8c5a; --red:#c0392b; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
+  .wrap { max-width:820px; margin:0 auto; padding:14px 14px 40px; }
+  h1 { font-size:18px; text-align:center; color:var(--red); margin:6px 0 10px; }
+  .sub { text-align:center; font-size:11px; color:var(--fg2); margin-bottom:12px; }
+  .games { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:10px; }
+  .g { padding:10px 4px; text-align:center; border-radius:10px; background:var(--card);
+       border:1px solid var(--line); font-weight:700; font-size:13px; cursor:pointer; }
+  .g.on { background:var(--ok); color:#fff; border-color:var(--ok); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:10px; }
+  .card h2 { font-size:14px; color:var(--ok); margin:0 0 8px; display:flex; align-items:center; gap:6px; }
+  .row { display:flex; justify-content:space-between; gap:10px; padding:5px 0; border-bottom:1px dashed #f2e8d8; font-size:12.5px; }
+  .row:last-child { border-bottom:0; }
+  .row .k { color:#5a4a36; }
+  .row .v { color:var(--fg2); text-align:right; }
+  .balls { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .balls i { font-style:normal; display:inline-flex; align-items:center; justify-content:center;
+             width:28px; height:28px; border-radius:50%; color:#fff; font-weight:700; font-size:12.5px;
+             background:radial-gradient(circle at 35% 30%,#ff6a5a,#d81e0e 70%); border:1px solid #b01408;
+             box-shadow:inset 0 -2px 3px rgba(0,0,0,.18); }
+  .balls i.bl { background:radial-gradient(circle at 35% 30%,#5b93ff,#1244c4 70%); border-color:#0b2f92; }
+  .balls i.gr { background:radial-gradient(circle at 35% 30%,#6fd48a,#128a48 70%); border-color:#0a6b37; }
+  .pick { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px; padding:9px 10px;
+          background:#f4fbf7; border:1px solid #cfe9dc; border-radius:8px; }
+  .pick-k { font-size:12px; font-weight:700; color:var(--ok); }
+  .tag { display:inline-block; font-size:10px; padding:1px 6px; border-radius:8px; background:#fdeaea; color:#c0392b; }
+  .tip { font-size:10.5px; color:#a89a80; text-align:center; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>民间算法</h1>
+  <div class="sub">仅用于历史复盘与娱乐 · 不构成投注建议</div>
+  <div class="games" id="games">
+    <div class="g on" data-g="fc3d">福彩3D</div>
+    <div class="g" data-g="pl3">排列三</div>
+    <div class="g" data-g="qlc">七乐彩</div>
+    <div class="g" data-g="qxc">七星彩</div>
+    <div class="g" data-g="kl8">快乐8</div>
+  </div>
+  <div id="out"></div>
+  <div class="tip">全部按近 60 期开奖数据现算 · 每期开奖后自动变</div>
+</div>
+<script src="history.js"></script>
+<script>
+(function () {
+  'use strict';
+  var CFG = {
+    fc3d: { name:'福彩3D', kind:'digits', n:3, maxDigit:9 },
+    pl3:  { name:'排列三', kind:'digits', n:3, maxDigit:9 },
+    qlc:  { name:'七乐彩', kind:'pick',   pickN:7, max:30 },
+    qxc:  { name:'七星彩', kind:'digits', n:7, maxDigit:9 },
+    kl8:  { name:'快乐8', kind:'pick',   pickN:20, max:80 }
+  };
+  var st = { g:'fc3d' };
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function pad3(n) { return String(n).padStart(3,'0'); }
+  function hist(g) {
+    try {
+      var D = (typeof DRAW_HISTORY !== 'undefined') ? DRAW_HISTORY : null;
+      if (!D || !D.games) return [];
+      return (D.games[g] || []).slice(0, 60);
+    } catch (e) { return []; }
+  }
+  /* 每期号码（统一成数组） */
+  function numsOf(d) {
+    var a = (d && d.areas) || {};
+    var arr = a.red || a.front || a.nums || a.main || [];
+    if (!arr.length) {
+      /* 有些彩种放在其他键，扫一遍 */
+      for (var k in a) { if (Array.isArray(a[k]) && a[k].length > 1) { arr = a[k]; break; } }
+    }
+    return arr.map(Number);
+  }
+
+  /* ============ 民间算法（Python 版移植） ============ */
+  function group012(nums) { var g = {0:[],1:[],2:[]}; nums.forEach(function(n){ g[n%3].push(n); }); return g; }
+  function heZhi(a) { return a.reduce(function(x,y){return x+y;},0); }
+  function kuaDu(a) { return Math.max.apply(null,a) - Math.min.apply(null,a); }
+  function heTail(a) { return heZhi(a) % 10; }
+
+  /* 3D 和值杀路：和值×百位+1 除 3 余数 → 杀该余数路 */
+  function d3HeZhiShaLu(prev) {
+    var he = heZhi(prev), bai = prev[0];
+    var r = (he * bai + 1) % 3;
+    return { r: r, kill: [0,1,2,3,4,5,6,7,8,9].filter(function(d){ return d % 3 === r; }) };
+  }
+  /* 5 套口算定胆 */
+  function d3KouSuan(prev) {
+    var b = prev[0], s = prev[1], g = prev[2];
+    var out = {};
+    out['邻码求和'] = [ (b+s)%10, (s+g)%10, (b+g)%10 ];
+    var kd = kuaDu(prev), ht = heZhi(prev) % 10;
+    out['跨度+和尾'] = [ (kd+ht)%10 ];
+    out['差五配对'] = prev.map(function(n){ return (n+5)%10; });
+    var s4 = []; prev.forEach(function(n){ [ (n+9)%10, n, (n+1)%10 ].forEach(function(x){ if(s4.indexOf(x)<0) s4.push(x); }); });
+    out['重号+邻号'] = s4;
+    out['十位个位'] = [ (s+g)%10, Math.abs(s-g)%10 ];
+    return out;
+  }
+  /* 对应号杀码 */
+  function d3DuiYing(prev) {
+    var map = {0:8,1:5,2:2,3:7,4:4,5:1,6:9,7:6,8:3,9:0};
+    return prev.map(function(n){ return map[n]; });
+  }
+  /* 断组（5 套，用其中 2 套可算的） */
+  function d3DuanZu(prev) {
+    var all = [0,1,2,3,4,5,6,7,8,9];
+    var res = {};
+    res['固定334'] = [[0,1,2],[3,4,5],[6,7,8,9]];
+    var g1 = prev.filter(function(v,i,a){ return a.indexOf(v)===i; }).sort();
+    var rest = all.filter(function(d){ return g1.indexOf(d)<0; });
+    res['开奖号拆分'] = [g1, rest.slice(0,3), rest.slice(3)];
+    return res;
+  }
+  /* 七乐彩：连号边号定胆 */
+  function qlcBianHao(nums) {
+    var s = nums.slice().sort(function(a,b){return a-b;});
+    var dan = [];
+    for (var i=0;i<s.length-1;i++) { if (s[i+1]-s[i]===1) { if(s[i]-1>=1 && dan.indexOf(s[i]-1)<0) dan.push(s[i]-1); if(s[i+1]+1<=30 && dan.indexOf(s[i+1]+1)<0) dan.push(s[i+1]+1); } }
+    return dan.sort(function(a,b){return a-b;});
+  }
+  /* 七乐彩：温号拖码（近5-10期出现2-3次且最近2期未出） */
+  function qlcWenHao(list) {
+    var freq = {}, last = {};
+    list.forEach(function(d,i){ numsOf(d).forEach(function(n){ freq[n]=(freq[n]||0)+1; last[n]=i; }); });
+    var out = [];
+    for (var n=1;n<=30;n++){ var f=freq[n]||0, ls=(last[n]===undefined?-999:last[n]); if(f>=2&&f<=3&&(list.length-1-ls)>=2) out.push(n); }
+    return out;
+  }
+  /* 七星彩：分位杀号（上期该位 ±1） */
+  function qxcFenWei(prev) {
+    return prev.map(function(n){ var m = n; return [ (m+9)%10, m, (m+1)%10 ]; });
+  }
+  /* 七星彩：分位频率（近60期每位的数字分布） */
+  function qxcPinLv(list) {
+    var acc = []; for (var p=0;p<7;p++) acc.push({});
+    list.forEach(function(d){ var a = numsOf(d); for (var p=0;p<7&&p<a.length;p++){ acc[p][a[p]]=(acc[p][a[p]]||0)+1; } });
+    return acc;
+  }
+  /* 快乐8：尾数定胆（近30期尾数出现次数） */
+  function kl8WeiShu(list) {
+    var cnt = {};
+    list.slice(0,30).forEach(function(d){ numsOf(d).forEach(function(n){ var w=n%10; cnt[w]=(cnt[w]||0)+1; }); });
+    return cnt;
+  }
+  /* 快乐8：冷热（热=频次前20；冷=遗漏>8期） */
+  function kl8LengRe(list) {
+    var cnt = {}, last = {};
+    list.forEach(function(d,i){ numsOf(d).forEach(function(n){ cnt[n]=(cnt[n]||0)+1; last[n]=i; }); });
+    var hot = Object.keys(cnt).map(Number).sort(function(a,b){ return cnt[b]-cnt[a]; }).slice(0,20);
+    var cold = [];
+    for (var n=1;n<=80;n++){ var gap = list.length-1-(last[n]===undefined?-1:last[n]); if (gap>8) cold.push(n); }
+    return { hot: hot, cold: cold, cnt: cnt };
+  }
+  /* 快乐8：连号 */
+  function kl8LianHao(nums) {
+    var s = nums.slice().sort(function(a,b){return a-b;}); var p=[];
+    for (var i=0;i<s.length-1;i++) if (s[i+1]-s[i]===1) p.push([s[i],s[i+1]]);
+    return p;
+  }
+  /* 快乐8：和值回归 */
+  function kl8HeZhi(list, k) {
+    k = k || 0.5;
+    var recent = list.slice(0,10);
+    var ra = recent.length ? recent.reduce(function(a,d){ return a+heZhi(numsOf(d)); },0)/recent.length : 810;
+    return { recent: Math.round(ra), pred: Math.round(ra + k*(810-ra)) };
+  }
+
+  /* ============ 渲染 ============ */
+  function render() {
+    var g = st.g, c = CFG[g], list = hist(g), prev = list.length ? numsOf(list[0]) : [];
+    var h = '';
+    if (!list.length) { document.getElementById('out').innerHTML = '<div class="card">该彩种暂无历史数据</div>'; return; }
+
+    if (c.kind === 'digits' && (g === 'fc3d' || g === 'pl3')) {
+      var s = d3HeZhiShaLu(prev);
+      var ks = d3KouSuan(prev);
+      var dy = d3DuiYing(prev);
+      var dz = d3DuanZu(prev);
+      var danUnion = [];
+      Object.keys(ks).forEach(function(k){ ks[k].forEach(function(x){ if(danUnion.indexOf(x)<0) danUnion.push(x); }); });
+      h += '<div class="card"><h2>' + c.name + ' · 民间算法综合</h2>';
+      h += '<div class="row"><span class="k">上期开奖</span><span class="v">' + prev.map(function(x){return x;}).join(' ') + '</span></div>';
+      h += '<div class="row"><span class="k">和值 / 跨度 / 和尾</span><span class="v">' + heZhi(prev) + ' / ' + kuaDu(prev) + ' / ' + heTail(prev) + '</span></div>';
+      h += '<div class="row"><span class="k">和值杀路（' + s.r + '路）</span><span class="v">杀 ' + s.kill.join(' ') + '</span></div>';
+      h += '<div class="row"><span class="k">五套定胆并集</span><span class="v">' + danUnion.join(' ') + '</span></div>';
+      Object.keys(ks).forEach(function(k){ h += '<div class="row"><span class="k">· ' + k + '</span><span class="v">' + ks[k].join(' ') + '</span></div>'; });
+      h += '<div class="row"><span class="k">对应号杀码</span><span class="v">' + dy.join(' ') + '</span></div>';
+      Object.keys(dz).forEach(function(k){ h += '<div class="row"><span class="k">断组 · ' + k + '</span><span class="v">' + dz[k].map(function(x){return x.join('');}).join(' | ') + '</span></div>'; });
+      /* 综合出号：定胆并集里取 3 个（按出现顺序），排除杀路 */
+      var pick = danUnion.filter(function(d){ return s.kill.indexOf(d)<0; }).slice(0,3);
+      while (pick.length < 3) { for (var d0=0; d0<=9 && pick.length<3; d0++) if (pick.indexOf(d0)<0 && s.kill.indexOf(d0)<0) pick.push(d0); }
+      h += '<div class="pick"><span class="pick-k">综合出号</span><span class="balls">' +
+        pick.map(function(x){ return '<i>' + x + '</i>'; }).join('') + '</span></div>';
+      h += '</div>';
+    } else if (g === 'qlc') {
+      var bian = qlcBianHao(prev), wen = qlcWenHao(list);
+      var freq = {}, last = {};
+      list.forEach(function(d,i){ numsOf(d).forEach(function(n){ freq[n]=(freq[n]||0)+1; last[n]=i; }); });
+      var hot = Object.keys(freq).map(Number).sort(function(a,b){ return freq[b]-freq[a]; }).slice(0,10);
+      h += '<div class="card"><h2>七乐彩 · 民间算法综合</h2>';
+      h += '<div class="row"><span class="k">上期开奖</span><span class="v">' + prev.map(pad).join(' ') + '</span></div>';
+      h += '<div class="row"><span class="k">连号边号定胆</span><span class="v">' + (bian.length?bian.map(pad).join(' '):'上期无连号') + '</span></div>';
+      h += '<div class="row"><span class="k">温号拖码（2-3次且近2期未出）</span><span class="v">' + (wen.length?wen.map(pad).join(' '):'无') + '</span></div>';
+      h += '<div class="row"><span class="k">近60期热号前十</span><span class="v">' + hot.map(pad).join(' ') + '</span></div>';
+      var pickQ = []; bian.forEach(function(n){ if(pickQ.indexOf(n)<0) pickQ.push(n); });
+      wen.forEach(function(n){ if(pickQ.indexOf(n)<0) pickQ.push(n); });
+      hot.forEach(function(n){ if(pickQ.indexOf(n)<0) pickQ.push(n); });
+      pickQ = pickQ.sort(function(a,b){return a-b;}).slice(0,7);
+      h += '<div class="pick"><span class="pick-k">综合出号（7 个）</span><span class="balls">' +
+        pickQ.map(function(x){ return '<i class="bl">' + pad(x) + '</i>'; }).join('') + '</span></div></div>';
+    } else if (g === 'qxc') {
+      var fw = qxcFenWei(prev), pl = qxcPinLv(list);
+      h += '<div class="card"><h2>七星彩 · 民间算法综合</h2>';
+      h += '<div class="row"><span class="k">上期开奖</span><span class="v">' + prev.join(' ') + '</span></div>';
+      fw.forEach(function(kill, p) {
+        var freqP = pl[p] || {};
+        var best = Object.keys(freqP).map(Number).sort(function(a,b){ return (freqP[b]||0)-(freqP[a]||0); })[0];
+        h += '<div class="row"><span class="k">第 ' + (p+1) + ' 位</span><span class="v">杀 ' + kill.join('') + ' · 热号 ' + (best!==undefined?best:'-') + '</span></div>';
+      });
+      var pickX = []; fw.forEach(function(kill, p) {
+        var freqP = pl[p] || {};
+        var best = Object.keys(freqP).map(Number).sort(function(a,b){ return (freqP[b]||0)-(freqP[a]||0); })[0];
+        pickX.push(best === undefined ? 0 : best);
+      });
+      h += '<div class="pick"><span class="pick-k">综合出号</span><span class="balls">' +
+        pickX.map(function(x){ return '<i>' + x + '</i>'; }).join('') + '</span></div></div>';
+    } else if (g === 'kl8') {
+      var ws = kl8WeiShu(list), lr = kl8LengRe(list), lian = kl8LianHao(prev), hz = kl8HeZhi(list);
+      var topW = Object.keys(ws).map(Number).sort(function(a,b){ return ws[b]-ws[a]; }).slice(0,3);
+      h += '<div class="card"><h2>快乐8 · 民间算法综合</h2>';
+      h += '<div class="row"><span class="k">上期连号</span><span class="v">' + (lian.length?lian.map(function(p){return p.join('-');}).join(' / '):'无') + '</span></div>';
+      h += '<div class="row"><span class="k">尾数定胆（热尾前三）</span><span class="v">' + topW.map(function(w){ return w+'尾'; }).join(' ') + '</span></div>';
+      h += '<div class="row"><span class="k">热号前 20</span><span class="v">' + lr.hot.slice(0,20).map(pad).join(' ') + '</span></div>';
+      h += '<div class="row"><span class="k">冷号（遗漏>8期）</span><span class="v">' + lr.cold.length + ' 个' + (lr.cold.length?'：'+lr.cold.slice(0,12).map(pad).join(' '):'') + '</span></div>';
+      h += '<div class="row"><span class="k">和值回归</span><span class="v">近期 ' + hz.recent + ' → 预测 ' + hz.pred + '</span></div>';
+      var pickK = lr.hot.slice(0,12).concat(lr.cold.slice(0,8)).sort(function(a,b){return a-b;});
+      h += '<div class="pick"><span class="pick-k">综合出号（20 个）</span><span class="balls">' +
+        pickK.map(function(x){ return '<i class="gr">' + pad(x) + '</i>'; }).join('') + '</span></div></div>';
+    }
+    document.getElementById('out').innerHTML = h;
+    [].slice.call(document.querySelectorAll('#games .g')).forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-g') === st.g);
+    });
+  }
+
+  document.getElementById('games').addEventListener('click', function(ev){
+    var b = ev.target.closest('.g'); if (!b) return;
+    st.g = b.getAttribute('data-g'); render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
