@@ -2201,7 +2201,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-20 01:00:00",
-    "minute": 96,
+    "minute": 98,
     "home": {
      "name": "马萨雷",
      "score": 1,
@@ -2247,7 +2247,7 @@ const FOOTBALL_DATA = {
      "color": "993300"
     },
     "time": "2026-10-20 01:30:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "耶路撒冷贝塔",
      "score": 0,
@@ -2973,7 +2973,7 @@ const FOOTBALL_DATA = {
      "color": "055880"
     },
     "time": "2026-10-20 02:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "提拉哈卡默尔夏普尔",
      "score": 0,
@@ -3011,7 +3011,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-10-20 02:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "圣太摩",
      "score": 0,
@@ -3089,10 +3089,10 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-10-20 02:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "塞尔塔B队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 17
     },
@@ -3167,7 +3167,7 @@ const FOOTBALL_DATA = {
      "color": "C66300"
     },
     "time": "2026-10-20 02:45:00",
-    "minute": 8,
+    "minute": 10,
     "home": {
      "name": "艾维利",
      "score": 0,
@@ -3245,7 +3245,7 @@ const FOOTBALL_DATA = {
      "color": "009966"
     },
     "time": "2026-10-20 02:45:00",
-    "minute": 11,
+    "minute": 13,
     "home": {
      "name": "沃特福德联队",
      "score": 0,
@@ -3323,7 +3323,7 @@ const FOOTBALL_DATA = {
      "color": "A93F3F"
     },
     "time": "2026-10-20 02:45:00",
-    "minute": 9,
+    "minute": 11,
     "home": {
      "name": "罗德兹",
      "score": 0,
@@ -3401,7 +3401,7 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-20 02:45:00",
-    "minute": 12,
+    "minute": 14,
     "home": {
      "name": "帕尔马1913",
      "score": 0,
