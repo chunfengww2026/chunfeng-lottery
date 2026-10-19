@@ -6995,6 +6995,49 @@ html, body, .ro-wrap { background: #f7efe1 !important; color: #4a3a26; }
   background: var(--ro-bg, #f7efe1); }
 /* 吸顶那一层要和页面底色一致，否则内容会从缝里透出来 */
 .top-tabs.stuck { box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10); }
+
+/* ============================================================
+   __STBAR__ 状态卡 · 往下滚时在 Tab 条下面【吸顶成一条 34px 的紧凑条】
+   ------------------------------------------------------------
+   用户 2026-10-20：「往下滑动的时候 这一块和上面一块不要动」
+                +「位置不要大了遮挡下面的页面」+「但是也能很清楚」
+   · 上面一块 = .top-tabs —— 本来就已经 sticky top:0 / z-index:60（没动它）
+   · 这一块   = 状态卡。完整态实测 192px，一直钉在屏幕上要占 812 屏的 24%，
+     所以滚过去之后【收成一条 34px】：绿点 +「资料已更新」+ 倒计时。
+       固定区总高 = 44（Tab 条）+ 34（紧凑条）= 78px（用户要求 <=80）。
+   · 为什么不用 position:sticky 直接吸状态卡（试过，不行）：
+     状态卡在 #article 里，而 #article 实测只有 1026px 高（页面下半截在
+     #article-rest 里），卡片吸到 ~860px 就跟着滚走了；而且卡片从 192px 变矮
+     会让下面内容整体往上跳 158px。所以改成【独立一条 fixed】，状态卡本身
+     一个像素都不动（不 sticky、不改高），页面排版零位移。
+   · z-index 55：比正文高、比 Tab 条的 60 低，两块不打架。
+   · 背景是实色（#e8f6ef / #fff6dd），不是半透明 —— 滚动内容不会透出来糊字。
+   · 全屏子页面 .ro-mob-view(9999) / .tool-view(100000) 的 z-index 远高于 55，
+     不会被这条压住。
+   · 页面在顶部 / 状态卡还看得见时 display:none —— 绝不遮挡任何内容。
+   ============================================================ */
+.ro-stbar {
+  position: fixed; top: 44px; left: 0; right: 0; margin: 0 auto;
+  max-width: 820px; height: 34px; box-sizing: border-box;
+  z-index: 55; display: none; align-items: center; gap: 8px;
+  padding: 0 14px; background: #e8f6ef; border-bottom: 1px solid #b7e4cd;
+  font-size: 13px; font-weight: 700; line-height: 1; color: #1a8c5a;
+  box-shadow: 0 2px 8px rgba(74, 58, 38, 0.10);
+  overflow: hidden; white-space: nowrap;
+}
+.ro-stbar.on { display: flex; }
+.ro-stbar.warn { background: #fff6dd; border-bottom-color: #ffe08a; color: #7a5c00; }
+.ro-stbar .ro-stbar-dot { flex: 0 0 auto; width: 9px; height: 9px; border-radius: 50%;
+  background: #1a8c5a; box-shadow: 0 0 0 3px rgba(26, 140, 90, 0.14); }
+.ro-stbar.warn .ro-stbar-dot { background: #f5b301; box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.18); }
+.ro-stbar .ro-stbar-t { flex: 0 0 auto; color: inherit; }
+.ro-stbar .ro-stbar-cd { flex: 0 1 auto; min-width: 0; overflow: hidden;
+  text-overflow: ellipsis; color: #c0392b; font-weight: 700; }
+/* owner 本机左上角那个 🔥 热度浮标固定在 top:52 / left:8，会压住这条的左端；
+   只有 owner 看得到浮标 → 只给 owner 让出左边一点，普通分享页还是贴边 */
+html.is-owner .ro-stbar { padding-left: 52px; }
+/* 防截图锁定时跟着一起糊（和状态卡受同一个保护） */
+html.locked .ro-stbar { filter: blur(14px) grayscale(1); }
 /* 【小字提示 + 箭头 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】 */
 .ro-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px;
   margin: 0 0 2px; padding: 5px 10px 3px; font-size: 11px; line-height: 1.2;
@@ -8742,6 +8785,16 @@ ${DEVICE_GATE_BODY}
           所以要把【豁免区】（GPT模型摇号面板）放在 #article 之外。
           拆成两个纯 div 不影响任何排版（.ro-wrap 里没有 > 子选择器）。
        豁免区：.ro-aipick（GPT模型摇号面板）—— locked 时仍然清晰、可点。 -->
+
+  <!-- __STBAR__ 状态卡·往下滚之后的紧凑条（绿点 + 状态 + 倒计时，34px）
+       ⚠️ 单独一条 fixed，故意【不放进 #article】：放在里面会被 #article-rest
+          （同为 z-index:1、且在 DOM 后面）盖住，也没法在整页吸顶。
+       文字由下面那段脚本每秒从状态卡同步过来；默认 display:none，
+       状态卡还看得见的时候不出现 → 不遮挡任何内容。 -->
+  <div class="ro-stbar" id="roStatusBar" aria-hidden="true">
+    <span class="ro-stbar-dot"></span><b class="ro-stbar-t" id="roStatusBarTitle">资料已更新</b><span class="ro-stbar-cd" id="roStatusBarCd">下一期更新倒计时 --:--:--</span>
+  </div>
+
   <div id="article">
 
   <div class="ro-top">
@@ -8754,6 +8807,53 @@ ${DEVICE_GATE_BODY}
   </div>
 
   ${statusHtml}
+
+  <script>
+  /* __STBAR_JS__ 往下滚之后，把状态卡收成顶部一条（Tab 条下面 34px 高）
+     · 只在【状态卡整块滚出屏幕】之后才出现 → 页面顶部时不遮挡任何内容
+     · 文字每秒跟状态卡同步（倒计时、资料已更新/未更新、绿/黄）
+     · 滚回顶部 → 这条消失，状态卡变回完整
+     ⚠️ 这段在模板字符串里：不写反引号、不写美元花括号、不写反斜杠 */
+  (function () {
+    try {
+      var card = document.getElementById('roStatusCard');
+      var bar = document.getElementById('roStatusBar');
+      var tabs = document.querySelector('.top-tabs');
+      if (!card || !bar) return;
+      var tEl = document.getElementById('roStatusBarTitle');
+      var cEl = document.getElementById('roStatusBarCd');
+      var srcT = document.getElementById('roStTitle');
+      var srcC = document.getElementById('__NEXT_CD2__') || document.getElementById('__NEXT_CD__');
+      var isWarn = function () { return String(card.className).indexOf('warn') >= 0; };
+      var show = false;
+      function pinH() {
+        var h = 44;
+        if (tabs) { var b = tabs.getBoundingClientRect(); if (b.height > 0) h = Math.round(b.height); }
+        bar.style.top = h + 'px';
+        return h;
+      }
+      function sync() {
+        tEl.textContent = srcT ? srcT.textContent : (isWarn() ? '资料未更新' : '资料已更新');
+        if (cEl) cEl.textContent = srcC ? srcC.textContent : '';
+        if (isWarn()) bar.classList.add('warn'); else bar.classList.remove('warn');
+      }
+      function upd() {
+        var pin = pinH();
+        var r = card.getBoundingClientRect();
+        var on = r.bottom <= pin + 1;
+        if (on === show) return;
+        show = on;
+        if (on) { sync(); bar.classList.add('on'); } else { bar.classList.remove('on'); }
+      }
+      window.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd);
+      window.addEventListener('load', upd);
+      pinH(); sync();
+      upd();
+      setInterval(function () { if (show) sync(); }, 1000);
+    } catch (e) { }
+  })();
+  </script>
 
   <!-- 【往下滑提示】用户 2026-10-18 二次要求：「放到 所有资料均在下面的旁边，提示他们：请滑到底」
        → 原来这条单独占一行（状态卡和工具格之间），现在删掉；
