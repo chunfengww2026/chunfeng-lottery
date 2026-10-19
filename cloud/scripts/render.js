@@ -1013,6 +1013,13 @@ function renderTicketImage(gameId, imageKey, data) {
     head.appendChild(el('div', 'r-headbrand', tpl.footer.brand));
     head.appendChild(el('div', 'r-headshop', '— ' + tpl.footer.shop + ' —'));
     head.appendChild(el('div', 'r-headtitle', img.title));
+    /* 【用户 2026-10-20】「九转连环图 下面写：看方位走势 · 以后都带上」
+       → 只在 circle 图（九转连环）标题下加一行副标题，其它图不受影响。 */
+    if (img.type === 'circle' || /九转/.test(String(img.title || ''))) {
+      const _sub = el('div', 'r-headsub', '看方位走势');
+      _sub.style.cssText = 'margin-top:2px;font-size:11.5px;font-weight:600;letter-spacing:1px;opacity:.82;color:#8a7a63';
+      head.appendChild(_sub);
+    }
     const issueLine = el('div', 'r-headissue');
     issueLine.innerHTML = `第&nbsp;&nbsp;<b>${(data && data.issue) || '******'}</b>&nbsp;&nbsp;期`;
     head.appendChild(issueLine);
