@@ -32,7 +32,7 @@ function dltBack6Html() {
     if (six.length !== 6) return '';
     const pad = function (n) { return String(n).padStart(2, '0'); };
     return '<div class="ro-back6" id="ro-back6">' +
-      '<span class="ro-back6-k">大乐透 · 后区 6 码</span>' +
+      '<span class="ro-back6-k">后区推荐 6 码</span>' +
       six.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('') +
       '<span class="ro-back6-s">近 12 期遗漏最大的 6 个</span>' +
       '</div>';
@@ -3256,14 +3256,37 @@ console.log('  · 历史中奖卡：可回算 ' + histBuilt.info.compared + ' �
     : '（前置开奖不足 30 期，暂无可回算的期次）'));
 
 
+/* __ST_TZ__ 资料更新状态按【浏览器本地时间】分两档（用户 2026-10-19）：
+   02:00 <= 当前 < 21:00 → 资料已更新（绿）
+   21:00 <= 当前 < 次日 02:00 → 资料未更新（黄），提示等凌晨 2 点重摇
+   纯前端判断（打开页面算一次，之后每 60 秒算一次）：不请求后端、不写 localStorage、不加 button。 */
+const STATUS_TZ_JS = `<script>
+(function () {
+  var card = document.getElementById('roStatusCard');
+  if (!card) return;
+  var title = document.getElementById('roStTitle');
+  var sub = document.getElementById('roStSub');
+  function tick() {
+    var h = new Date().getHours();
+    var fresh = h >= 2 && h < 21;
+    card.className = 'ro-status ' + (fresh ? 'ok' : 'warn') + ' ro-st-row';
+    if (title) title.textContent = fresh ? '资料已更新' : '资料未更新';
+    if (sub) sub.style.display = fresh ? 'none' : '';
+  }
+  tick();
+  setInterval(tick, 60000);
+})();
+</script>`;
 if (status.allReady) {
   /* __NO_ST_LIST__ 用户要求：状态条里那 8 行「双色球 第 xx 期 日期」不要了。
      连带把只为它服务的 rows 计算也删掉（省得白算一遍）。 */
 
   statusHtml =
-    `<div class="ro-status ok ro-st-row">` +
+    `<div class="ro-status ok ro-st-row" id="roStatusCard">` +
     `<div class="ro-st-txt">` +
-    `<div class="ro-st-head"><span class="ro-st-dot"></span>资料已更新</div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
+    `<div class="ro-st-head"><span class="ro-st-dot"></span><span id="roStTitle">资料已更新</span></div>` +   /* 用户要求：更新后只写「已更新」，不写时间 */
+    /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
+    `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点重摇后更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
     `<div class="ro-st-time"><span id="__NEXT_CD2__">下一期更新倒计时 --:--:--</span></div>` +
     /* __NO_ST_LIST__ 期号列表已按用户要求移除 */
@@ -3276,7 +3299,8 @@ if (status.allReady) {
     /* 大乐透 后区 6 码 · 用户 2026-10-19「必须今天做」 */
     `<div class="ro-back6-slot">` + dltBack6Html() + `</div>` +
     mqTicker.html +
-    `</div>`;
+    `</div>` +
+    STATUS_TZ_JS;
 } else {
   const reason = status.missing.length
     ? `还缺这些彩种：${status.missing.join('、')}`
@@ -13838,6 +13862,17 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .px9-balls { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
 .px9-b { width: 24px; height: 24px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .px9-b.blue { background: #1f5fd6; }
+/* __PX9_RENDER__ 九算法输出区：推荐号码 + 一句方法说明 + 期号种子 */
+.px9-cur { font-weight: 800; color: #1a8c5a; font-size: 13px; margin-bottom: 4px; }
+.px9-cur em { float: right; font-style: normal; font-size: 10.5px; color: #a89a80; font-weight: 400; }
+.px9-info { font-size: 11.5px; color: #6b5a42; line-height: 1.7; margin: 4px 0 6px; }
+.px9-meta { font-size: 10.5px; color: #a89a80; margin-top: 6px; line-height: 1.6; }
+.px9-bsep { width: 6px; height: 1px; display: inline-block; }
+
+/* __ST_TZ__ 状态卡两档配色：02:00~21:00 绿（已更新）/ 21:00~次日02:00 黄（未更新） */
+.ro-st-sub { font-weight: 700; }
+.ro-status.warn .ro-st-head, .ro-status.warn .ro-st-sub { color: #9c7000 !important; }
+.ro-status.warn .ro-st-dot { background: #f5b301; box-shadow: 0 0 0 4px rgba(245, 179, 1, 0.18); }
 /* __INSTALL_RESTORED__ 【已恢复】用户 2026-10-18 21:50 确认要这张安装大图
    → 「添加到手机桌面」这一块重新上屏。
    这里原来有一条 __NO_INSTALL__（2026-10-18 用户要求删掉该模块时加的
@@ -14087,327 +14122,682 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 
 <script>
-/* __PX9__ 9 套方法（按用户 2026-10-18 给的算法原样移植）
-   · 冷热：近 N 期频次分位（热 20% / 冷 20%）
-   · 遗漏：单号 current/max/avg + 欲出指数
-   · 余数路：0/1/2 路整路遗漏
-   · 斐波那契冷号：|current >= max * 0.236/0.382/0.5/0.618/0.786|
-   · 多源共振：6 个条件计分（>=3 分入选），完全透明
-   ⚠️ 全部用本页近 30 期真实开奖现算，不联网、不收费 */
-(function () {
-  var METHODS = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度','多源共振法'];
-  var st = { game: 'ssq', method: METHODS[0] };
-  var elG = document.querySelectorAll('.px9-g');
-  var elM = document.getElementById('px9Methods');
-  var elO = document.getElementById('px9Out');
-  if (!elM || !elO) return;
-
+/* __PX9__ 9 套方法：各自独立的民间算法（期号种子 · 无随机数）
+   ------------------------------------------------------------
+   用户 2026-10-19：「这个推荐图根据网上一些民间算法去制作，每一个按钮里面尽量不同」
+   · ①~⑧ 规则本质不同，两两重合不超过 3 个号（按各方法自己的分组槽位取号，不破坏配比）
+   · ⑨ = 前 8 套加权投票（允许重合，它本来就是综合）
+   · 数据：本页 DRAW_HISTORY（history.js，近 30 期真实开奖）
+   · 种子：下一期期号（同一期固定、换期自动变）；全段不调用任何随机函数
+   ⚠️ 这段最终内嵌在模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
+(function (root) {
+  var METHODS = ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合', '和值', '跨度', '多源共振法'];
+  var ORDER8 = METHODS.slice(0, 8);
+  var CAP = 3;   /* ①~⑧ 两两重合上限 */
   var CFG = {
-    ssq: { name: '双色球', max: 33, blue: 16, pick: 6, primeMode: 'strict',
-           zones: [[1,11,'一区'],[12,22,'二区'],[23,33,'三区']] },
-    dlt: { name: '大乐透', max: 35, blue: 12, pick: 5, primeMode: 'dlt',
-           zones: [[1,5],[6,10],[11,15],[16,20],[21,25],[26,30],[31,35]] }
+    ssq: { name: '双色球', max: 33, pick: 6, blueMax: 16, bluePick: 1, area: '红球', blueArea: '蓝球' },
+    dlt: { name: '大乐透', max: 35, pick: 5, blueMax: 12, bluePick: 2, area: '前区', blueArea: '后区' }
   };
-  var FIB = [0.236, 0.382, 0.5, 0.618, 0.786];
-
-  function hist(g) {
-    try { return (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])).slice(0, 30); }
-    catch (e) { return []; }
-  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
   function numsOf(d, g) {
     var a = (d && d.areas) || {};
     return (g === 'dlt' ? (a.front || a.red) : (a.red || a.front)) || [];
   }
-  function isPrime(n, mode) {
-    if (mode === 'dlt') { if (n === 1) return true; }
+  function bluesOf(d, g) {
+    var a = (d && d.areas) || {};
+    return (g === 'dlt' ? (a.back || a.blue) : (a.blue || a.back)) || [];
+  }
+  function hist(g) {
+    try {
+      return (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])).slice(0, 30);
+    } catch (e) { return []; }
+  }
+  function issueOf(g) {
+    var ds = hist(g);
+    return String((ds[0] && ds[0].issue) || '');
+  }
+  function nextIssue(g) {
+    var s = issueOf(g), d = s.replace(/[^0-9]/g, '');
+    if (!d) return s;
+    var w = d.length, nx = String(Number(d) + 1);
+    while (nx.length < w) nx = '0' + nx;
+    return nx;
+  }
+  function seedOf(g) {
+    var d = issueOf(g).replace(/[^0-9]/g, '');
+    return d ? Number(d) + 1 : 1;
+  }
+  /* 期号哈希（纯函数：同号 + 同种子 → 永远同值；换期自动变） */
+  function hsh(a, b, c) {
+    var h = (a * 2654435761) >>> 0;
+    h = (h + b * 40503) >>> 0;
+    h = (h + c * 97) >>> 0;
+    h = (h ^ (h >>> 15)) >>> 0;
+    h = (h * 2246822519) >>> 0;
+    h = (h ^ (h >>> 13)) >>> 0;
+    return (h >>> 0) / 4294967296;
+  }
+  function isPrime(n) {
     if (n < 2) return false;
-    for (var i = 2; i * i <= n; i++) if (n % i === 0) return false;
+    for (var d = 2; d * d <= n; d++) if (n % d === 0) return false;
     return true;
   }
-  function freqOf(g, window) {
-    var M = CFG[g], f = {}, i;
-    for (i = 1; i <= M.max; i++) f[i] = 0;
-    hist(g).slice(0, window).forEach(function (d) { numsOf(d, g).forEach(function (n) { n = Number(n); if (f[n] != null) f[n]++; }); });
-    return f;
+  function allNums(M) { var a = []; for (var i = 1; i <= M.max; i++) a.push(i); return a; }
+  function sumOf(a) { var s = 0; for (var i = 0; i < a.length; i++) s += a[i]; return s; }
+  function overlapOf(a, b) {
+    var c = 0;
+    for (var i = 0; i < a.length; i++) if (b.indexOf(a[i]) >= 0) c++;
+    return c;
   }
-  /* 单号遗漏：current / max / avg / 欲出指数 */
-  function omissionOf(g, n) {
-    var ds = hist(g), gaps = [], cur = 0, last = -1;
-    for (var i = 0; i < ds.length; i++) {
-      if (numsOf(ds[i], g).map(Number).indexOf(n) >= 0) {
-        if (last >= 0) gaps.push(i - last - 1);
-        last = i; cur = 0;
-      } else cur++;
+  function diffCount(a, b) {
+    var c = 0;
+    for (var i = 0; i < a.length; i++) if (b.indexOf(a[i]) < 0) c++;
+    return c;
+  }
+  function modeOf(arr, pick) {
+    var cnt = {}, i, keys;
+    for (i = 0; i < arr.length; i++) cnt[arr[i]] = (cnt[arr[i]] || 0) + 1;
+    keys = Object.keys(cnt).map(Number);
+    keys.sort(function (a, b) {
+      return (cnt[b] - cnt[a]) || (Math.abs(a - pick / 2) - Math.abs(b - pick / 2)) || (a - b);
+    });
+    return { v: keys.length ? keys[0] : Math.round(pick / 2), c: keys.length ? cnt[keys[0]] : 0 };
+  }
+
+  /* ---------------- 公共底料：频次 / 当前遗漏 / 和值 / 跨度 ---------------- */
+  function build(g) {
+    var M = CFG[g], ds = hist(g), main = [], blue = [], i, n, x;
+    for (i = 0; i < ds.length; i++) {
+      main.push(numsOf(ds[i], g).map(Number));
+      blue.push(bluesOf(ds[i], g).map(Number));
     }
-    var mx = Math.max.apply(null, gaps.concat([cur]));
-    var avg = gaps.length ? gaps.reduce(function (a, b) { return a + b; }, 0) / gaps.length : cur;
-    return { cur: cur, max: mx, avg: +avg.toFixed(2), desire: avg > 0 ? +(cur / avg).toFixed(2) : 0 };
-  }
-  /* 余数路遗漏（0/1/2 路） */
-  function roadOmission(g, road) {
-    var ds = hist(g), gaps = [], cur = 0, last = -1;
-    for (var i = 0; i < ds.length; i++) {
-      var hit = numsOf(ds[i], g).map(Number).some(function (n) { return n % 3 === road; });
-      if (hit) { if (last >= 0) gaps.push(i - last - 1); last = i; cur = 0; }
-      else cur++;
+    var f = {}, bf = {}, om = {}, bom = {}, last = {}, blast = {};
+    for (n = 1; n <= M.max; n++) { f[n] = 0; om[n] = main.length; }
+    for (n = 1; n <= M.blueMax; n++) { bf[n] = 0; bom[n] = blue.length; }
+    for (i = 0; i < main.length; i++) {
+      for (x = 0; x < main[i].length; x++) {
+        n = main[i][x];
+        if (f[n] == null) continue;
+        f[n]++;
+        last[n] = i;
+      }
     }
-    var avg = gaps.length ? gaps.reduce(function (a, b) { return a + b; }, 0) / gaps.length : cur;
-    return { cur: cur, avg: +avg.toFixed(2), max: Math.max.apply(null, gaps.concat([cur])) };
-  }
-  function hotCold(g) {
-    var f = freqOf(g, 30), arr = Object.keys(f).map(Number);
-    arr.sort(function (a, b) { return (f[b] - f[a]) || (a - b); });
-    var n = Math.max(1, Math.floor(arr.length * 0.2));
-    return { hot: arr.slice(0, n), warm: arr.slice(n, arr.length - n), cold: arr.slice(arr.length - n), freq: f };
-  }
-  function fibCold(g) {
-    var M = CFG[g], out = {};
-    for (var n = 1; n <= M.max; n++) {
-      var o = omissionOf(g, n);
-      var trig = o.max > 0 ? FIB.filter(function (r) { return o.cur >= o.max * r; }) : [];
-      out[n] = { flag: trig.length > 0, trig: trig };
+    for (i = 0; i < blue.length; i++) {
+      for (x = 0; x < blue[i].length; x++) {
+        n = blue[i][x];
+        if (bf[n] == null) continue;
+        bf[n]++;
+        blast[n] = i;
+      }
     }
+    for (n = 1; n <= M.max; n++) if (last[n] != null) om[n] = last[n];
+    for (n = 1; n <= M.blueMax; n++) if (blast[n] != null) bom[n] = blast[n];
+    var sums = [], spans = [];
+    for (i = 0; i < main.length; i++) {
+      sums.push(sumOf(main[i]));
+      spans.push(main[i].length ? Math.max.apply(null, main[i]) - Math.min.apply(null, main[i]) : 0);
+    }
+    return {
+      g: g, M: M, ds: ds, main: main, blue: blue, f: f, bf: bf, om: om, bom: bom,
+      sums: sums, spans: spans,
+      avgSum: sums.length ? sumOf(sums) / sums.length : 0,
+      avgSpan: spans.length ? sumOf(spans) / spans.length : 0,
+      seed: seedOf(g), issue: issueOf(g), next: nextIssue(g),
+      theoretical: M.max / M.pick,
+      zones: g === 'ssq' ? [[1, 11], [12, 22], [23, 33]] : [[1, 7], [8, 14], [15, 21], [22, 28], [29, 35]]
+    };
+  }
+  function zoneName(g, i) {
+    var names = g === 'ssq' ? ['一区', '二区', '三区'] : ['一区', '二区', '三区', '四区', '五区'];
+    return names[i] || ('第' + (i + 1) + '区');
+  }
+
+  /* ================= ① 余数算法：÷3 余数分路 → 补出现最少的一路 → 段内按遗漏取 ================= */
+  function mRoad(S) {
+    var M = S.M, size = [0, 0, 0], hit = [0, 0, 0], i, r;
+    for (i = 1; i <= M.max; i++) { size[i % 3]++; hit[i % 3] += S.f[i]; }
+    var total = (S.main.length || 30) * M.pick;
+    var expect = [0, 0, 0], defect = [0, 0, 0];
+    for (r = 0; r < 3; r++) { expect[r] = total * size[r] / M.max; defect[r] = expect[r] - hit[r]; }
+    var order = [0, 1, 2].sort(function (a, b) {
+      return (defect[b] - defect[a]) || (hsh(S.seed, a, 1) - hsh(S.seed, b, 1));
+    });
+    var quotas = M.pick >= 6 ? [3, 2, 1] : [2, 2, 1];
+    var slots = [], lane = {}, label = [];
+    order.forEach(function (rr, k) {
+      var seg = [];
+      for (var n = 1; n <= M.max; n++) if (n % 3 === rr) seg.push(n);
+      seg.sort(function (a, b) {
+        return (S.om[b] - S.om[a]) || (S.f[a] - S.f[b]) || (hsh(S.seed, a, 40 + rr) - hsh(S.seed, b, 40 + rr));
+      });
+      lane[rr] = seg;
+      for (var q = 0; q < quotas[k]; q++) slots.push(seg);
+      label.push(rr + '路 ' + quotas[k] + ' 个');
+    });
+    return {
+      slots: slots, lane: lane,
+      info: '按 ÷3 余数分组，补最冷的一段：' + label.join(' / ') +
+        '（近30期 ' + hit[0] + ' / ' + hit[1] + ' / ' + hit[2] + ' 次）',
+      rows: [
+        ['余 0 路（' + size[0] + ' 个号）', '出现 ' + hit[0] + ' 次 · 应 ' + expect[0].toFixed(0) + ' 次'],
+        ['余 1 路（' + size[1] + ' 个号）', '出现 ' + hit[1] + ' 次 · 应 ' + expect[1].toFixed(0) + ' 次'],
+        ['余 2 路（' + size[2] + ' 个号）', '出现 ' + hit[2] + ' 次 · 应 ' + expect[2].toFixed(0) + ' 次']
+      ],
+      group: function (n) { return (n % 3) + '路'; }
+    };
+  }
+
+  /* ================= ② 分区法：红球 3 区 / 大乐透 5 区 → 补最冷的区 → 固定配额 ================= */
+  function mZone(S) {
+    var M = S.M, Z = S.zones, zi, zcnt = [], n, k;
+    for (zi = 0; zi < Z.length; zi++) zcnt[zi] = 0;
+    for (var i = 0; i < S.main.length; i++) {
+      for (var j = 0; j < S.main[i].length; j++) {
+        n = S.main[i][j];
+        for (k = 0; k < Z.length; k++) {
+          if (n >= Z[k][0] && n <= Z[k][1]) { zcnt[k]++; break; }
+        }
+      }
+    }
+    var total = (S.main.length || 30) * M.pick, expect = [], defect = [];
+    for (zi = 0; zi < Z.length; zi++) {
+      expect[zi] = total * (Z[zi][1] - Z[zi][0] + 1) / M.max;
+      defect[zi] = expect[zi] - zcnt[zi];
+    }
+    var order = [];
+    for (zi = 0; zi < Z.length; zi++) order.push(zi);
+    order.sort(function (a, b) { return (defect[b] - defect[a]) || (zcnt[a] - zcnt[b]) || (a - b); });
+    var quotas = M.pick >= 6 ? [2, 2, 2] : [1, 1, 1, 1, 1];
+    var slots = [];
+    order.forEach(function (zi2, rank2) {
+      var seg = [];
+      for (var x = Z[zi2][0]; x <= Z[zi2][1]; x++) seg.push(x);
+      if (rank2 === 0) {
+        seg.sort(function (a, b) {
+          return (S.om[b] - S.om[a]) || (S.f[a] - S.f[b]) || (hsh(S.seed, a, 50 + zi2) - hsh(S.seed, b, 50 + zi2));
+        });
+      } else {
+        seg.sort(function (a, b) {
+          return (S.f[b] - S.f[a]) || (S.om[b] - S.om[a]) || (hsh(S.seed, a, 60 + zi2) - hsh(S.seed, b, 60 + zi2));
+        });
+      }
+      for (var q = 0; q < quotas[rank2]; q++) slots.push(seg);
+    });
+    var coldZ = order[0];
+    return {
+      slots: slots,
+      info: Z.length + ' 区固定配额 ' + quotas.join(':') +
+        '：最冷 ' + zoneName(S.g, coldZ) + ' ' + pad(Z[coldZ][0]) + '-' + pad(Z[coldZ][1]) +
+        ' 近30期 ' + zcnt[coldZ] + ' 个（应 ' + expect[coldZ].toFixed(0) + '）→ 冷区按遗漏补、其余区按热度取',
+      rows: order.map(function (zi4) {
+        return [zoneName(S.g, zi4) + ' ' + pad(Z[zi4][0]) + '-' + pad(Z[zi4][1]), '出 ' + zcnt[zi4] + ' 个 · 应 ' + expect[zi4].toFixed(0) + ' 个'];
+      }),
+      group: function (n2) {
+        for (var zz = 0; zz < Z.length; zz++) if (n2 >= Z[zz][0] && n2 <= Z[zz][1]) return zoneName(S.g, zz);
+        return '';
+      }
+    };
+  }
+
+  /* ================= ③ 冷热号：频次分三档 → 热 3 + 温 2 + 冷 1 ================= */
+  function mHotCold(S) {
+    var M = S.M, all = allNums(M);
+    var byF = all.slice().sort(function (a, b) {
+      return (S.f[b] - S.f[a]) || (hsh(S.seed, a, 3) - hsh(S.seed, b, 3));
+    });
+    var third = Math.ceil(M.max / 3);
+    var hotBand = byF.slice(0, third);
+    var warmBand = byF.slice(third, third * 2);
+    var coldBand = byF.slice(third * 2);
+    var hotList = hotBand.slice();
+    var warmList = warmBand.slice().sort(function (a, b) {
+      return (S.om[b] - S.om[a]) || (S.f[b] - S.f[a]) || (hsh(S.seed, a, 4) - hsh(S.seed, b, 4));
+    });
+    var coldList = coldBand.slice().sort(function (a, b) {
+      return (S.f[a] - S.f[b]) || (hsh(S.seed, a, 5) - hsh(S.seed, b, 5));
+    });
+    var hotN = 3, coldN = 1, warmN = Math.max(1, M.pick - hotN - coldN);
+    var slots = [];
+    for (var i = 0; i < hotN; i++) slots.push(hotList);
+    for (var j = 0; j < warmN; j++) slots.push(warmList);
+    for (var k = 0; k < coldN; k++) slots.push(coldList);
+    function bandOf(n) {
+      if (hotBand.indexOf(n) >= 0) return '热';
+      if (warmBand.indexOf(n) >= 0) return '温';
+      return '冷';
+    }
+    return {
+      slots: slots,
+      info: '近30期频次分三档，热 3 + 温 ' + warmN + ' + 冷 1 混搭（纯热号太容易撞）→ 热档 ' +
+        hotList.slice(0, hotN).map(pad).join(' ') + ' · 温档 ' + warmList.slice(0, warmN).map(pad).join(' ') +
+        ' · 冷档 ' + coldList.slice(0, coldN).map(pad).join(' ') + '（30 期只出 ' + S.f[coldList[0]] + ' 次）',
+      rows: [
+        ['热档（频次前 ' + third + '）', hotBand.slice(0, 6).map(function (n2) { return pad(n2) + '(' + S.f[n2] + '次)'; }).join(' ')],
+        ['冷档（频次垫底）', coldBand.slice().sort(function (a, b) { return S.f[a] - S.f[b] || a - b; }).slice(0, 6).map(function (n2) { return pad(n2) + '(' + S.f[n2] + '次)'; }).join(' ')],
+        ['温档按遗漏排', warmList.slice(0, 6).map(function (n2) { return pad(n2) + '(遗' + S.om[n2] + ')'; }).join(' ')]
+      ],
+      group: bandOf
+    };
+  }
+
+  /* ================= ④ 遗漏值算法：当前遗漏 vs 理论遗漏（最接近 2 倍理论值） ================= */
+  function mOmit(S) {
+    var M = S.M, all = allNums(M), T = 2 * S.theoretical;
+    var rank = all.slice().sort(function (a, b) {
+      var da = Math.abs(S.om[a] - T), db = Math.abs(S.om[b] - T);
+      return (da - db) || (S.om[b] - S.om[a]) || (hsh(S.seed, a, 6) - hsh(S.seed, b, 6));
+    });
+    var slots = [];
+    for (var i = 0; i < M.pick; i++) slots.push(rank);
+    return {
+      slots: slots,
+      info: '理论遗漏 ' + S.theoretical + ' 期 → 取当前遗漏最接近 2 倍（' + T + ' 期）的号，该回来了：' +
+        rank.slice(0, M.pick).map(function (n) { return pad(n) + '(' + S.om[n] + '期)'; }).join(' '),
+      rows: [
+        ['理论遗漏（' + M.max + '÷' + M.pick + '）', S.theoretical.toFixed(2) + ' 期'],
+        ['本轮取号遗漏', rank.slice(0, M.pick).map(function (n) { return S.om[n]; }).join(' / ') + ' 期']
+      ],
+      group: function () { return '遗漏'; }
+    };
+  }
+
+  /* ================= ⑤ 奇偶：先定奇偶配比 → 奇数按热度、偶数按遗漏 ================= */
+  function mParity(S) {
+    var M = S.M, all = allNums(M);
+    var cnts = S.main.map(function (a) { return a.filter(function (n) { return n % 2 === 1; }).length; });
+    var mode = modeOf(cnts, M.pick);
+    var k = Math.max(1, Math.min(M.pick - 1, mode.v));
+    var odds = all.filter(function (n) { return n % 2 === 1; }).sort(function (a, b) {
+      return (S.f[b] - S.f[a]) || (hsh(S.seed, a, 7) - hsh(S.seed, b, 7));
+    });
+    var evens = all.filter(function (n) { return n % 2 === 0; }).sort(function (a, b) {
+      return (S.om[b] - S.om[a]) || (S.f[b] - S.f[a]) || (hsh(S.seed, a, 8) - hsh(S.seed, b, 8));
+    });
+    var slots = [];
+    for (var i = 0; i < k; i++) slots.push(odds);
+    for (var j = 0; j < M.pick - k; j++) slots.push(evens);
+    return {
+      slots: slots,
+      info: '近30期最常见奇偶比 ' + k + ':' + (M.pick - k) + '（出现 ' + mode.c + ' 期）→ 奇数按热度取 ' +
+        k + ' 个 · 偶数按遗漏取 ' + (M.pick - k) + ' 个（两个维度交叉）',
+      rows: [
+        ['奇数 / 偶数', odds.length + ' 个 / ' + evens.length + ' 个'],
+        ['近30期奇数个数分布', Object.keys(cnts.reduce(function (o, c) { o[c] = 1; return o; }, {}))
+          .sort().map(function (c) { return c + '个:' + cnts.filter(function (x) { return x === c; }).length + '期'; }).join(' · ')]
+      ],
+      group: function (n) { return n % 2 === 1 ? '奇' : '偶'; }
+    };
+  }
+
+  /* ================= ⑥ 质合：质数按遗漏、合数按热度 ================= */
+  function mPrime(S) {
+    var M = S.M, all = allNums(M);
+    var cnts = S.main.map(function (a) { return a.filter(isPrime).length; });
+    var mode = modeOf(cnts, M.pick);
+    var p = Math.max(1, Math.min(M.pick - 1, mode.v));
+    var primes = all.filter(isPrime).sort(function (a, b) {
+      return (S.om[b] - S.om[a]) || (S.f[b] - S.f[a]) || (hsh(S.seed, a, 9) - hsh(S.seed, b, 9));
+    });
+    var comps = all.filter(function (n) { return !isPrime(n); }).sort(function (a, b) {
+      return (S.f[b] - S.f[a]) || (hsh(S.seed, a, 10) - hsh(S.seed, b, 10));
+    });
+    var slots = [];
+    for (var i = 0; i < p; i++) slots.push(primes);
+    for (var j = 0; j < M.pick - p; j++) slots.push(comps);
+    return {
+      slots: slots,
+      info: '质数(2,3,5,7,11,13,17,19,23,29,31) vs 合数：近30期最常见 ' + p + ':' + (M.pick - p) +
+        ' → 质数按遗漏取 ' + p + ' 个 · 合数按热度取 ' + (M.pick - p) + ' 个',
+      rows: [
+        ['质数 / 合数', primes.length + ' 个 / ' + comps.length + ' 个'],
+        ['近30期质数个数分布', Object.keys(cnts.reduce(function (o, c) { o[c] = 1; return o; }, {}))
+          .sort().map(function (c) { return c + '个:' + cnts.filter(function (x) { return x === c; }).length + '期'; }).join(' · ')]
+      ],
+      group: function (n) { return isPrime(n) ? '质' : '合'; }
+    };
+  }
+
+  /* ================= ⑦ 和值：定目标和值 → 组合搜索（不是逐个挑） ================= */
+  function sumCombo(S, banned) {
+    var M = S.M, k = M.pick, maxS = k * M.max + 1, n, c, s;
+    var target = Math.round(S.avgSum);
+    var w = {}, w0 = {};
+    for (n = 1; n <= M.max; n++) {
+      w0[n] = S.f[n] + S.om[n] * 0.18 + hsh(S.seed, n, 11) * 0.8;
+      w[n] = w0[n];
+      if (banned && banned[n]) w[n] = -1e6;
+    }
+    var NEG = -1e9, LAY = (k + 1) * maxS, dp = [];
+    for (n = 0; n <= M.max; n++) {
+      for (c = 0; c <= k; c++) for (s = 0; s < maxS; s++) dp[n * LAY + c * maxS + s] = NEG;
+    }
+    dp[0] = 0;
+    for (n = 1; n <= M.max; n++) {
+      var base = n * LAY, prev = (n - 1) * LAY;
+      for (c = 0; c <= k; c++) for (s = 0; s < maxS; s++) dp[base + c * maxS + s] = dp[prev + c * maxS + s];
+      for (c = 1; c <= k; c++) {
+        for (s = n; s < maxS; s++) {
+          var pv = dp[prev + (c - 1) * maxS + (s - n)];
+          if (pv > NEG / 2 && pv + w[n] > dp[base + c * maxS + s]) dp[base + c * maxS + s] = pv + w[n];
+        }
+      }
+    }
+    var bestS = -1, bestD = 1e9;
+    for (s = 1; s < maxS; s++) {
+      var v = dp[M.max * LAY + k * maxS + s];
+      if (v <= NEG / 2) continue;
+      var d = Math.abs(s - target);
+      if (d < bestD || (d === bestD && (bestS < 0 || v > dp[M.max * LAY + k * maxS + bestS]))) { bestD = d; bestS = s; }
+    }
+    var red = [];
+    if (bestS >= 0) {
+      c = k; s = bestS;
+      for (n = M.max; n >= 1 && c > 0; n--) {
+        if (dp[n * LAY + c * maxS + s] !== dp[(n - 1) * LAY + c * maxS + s]) {
+          red.push(n); c--; s -= n;
+        }
+      }
+    }
+    red = red.filter(function (n2) { return n2 > 0; });
+    if (red.length < k) {
+      for (n = 1; n <= M.max && red.length < k; n++) if (red.indexOf(n) < 0) red.push(n);
+    }
+    return { red: red, sum: sumOf(red), target: target, w: w, w0: w0 };
+  }
+  function mSumInfo(S, res) {
+    return '目标和值 ' + res.target + '（近30期均值 ' + S.avgSum.toFixed(1) + '）· 实际 ' + res.sum +
+      ' · 在 1-' + S.M.max + ' 里做组合搜索（不是逐个挑）';
+  }
+
+  /* ================= ⑧ 跨度：定目标跨度 → 锁两端 → 中段取最近出过的号 ================= */
+  function spanPairs(S) {
+    var M = S.M, target = Math.round(S.avgSpan), out = [];
+    for (var l = 1; l + target <= M.max; l++) {
+      var h = l + target;
+      out.push({
+        lo: l, hi: h, target: target,
+        sc: (S.om[l] + S.om[h]) * 0.9 + (S.f[l] + S.f[h]) * 0.2 + hsh(S.seed, l, 12) * 1.5
+      });
+    }
+    out.sort(function (a, b) { return (b.sc - a.sc) || (a.lo - b.lo); });
     return out;
   }
-  function row(k, v) { return '<div class="px9-row"><span class="px9-k">' + k + '</span><span>' + v + '</span></div>'; }
-  function balls(a) { return '<div class="px9-balls">' + a.map(function (n) { return '<span class="px9-b">' + (n < 10 ? '0' + n : n) + '</span>'; }).join('') + '</div>'; }
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function spanMid(S, p) {
+    var inner = [];
+    for (var n = p.lo + 1; n < p.hi; n++) inner.push(n);
+    inner.sort(function (a, b) {
+      return (S.om[a] - S.om[b]) || (S.f[b] - S.f[a]) || (hsh(S.seed, a, 13) - hsh(S.seed, b, 13));
+    });
+    return inner;
+  }
+  function mSpanInfo(S, p) {
+    return '目标跨度 ' + p.target + '（近30期均值 ' + S.avgSpan.toFixed(1) + '）· 实际 ' + (p.hi - p.lo) +
+      '：最小 ' + pad(p.lo) + ' / 最大 ' + pad(p.hi) + ' · 中间 ' + Math.max(0, S.M.pick - 2) + ' 个取最近出过的号';
+  }
 
-
-  /* ============================================================
-     PICK9 · 九算法出号（用户 2026-10-19 硬性要求）
-     每个算法都按固定规则给出「红 6 + 蓝 1」，同一期结果固定可复现：
-       余数算法   出现最多的那条路里，频次最高的 6 个
-       分区法     三区各取最热 2 个
-       冷热号     热号前 4 + 冷号前 2
-       遗漏值算法 当前遗漏最大的 6 个
-       奇偶       30 期最常出的奇偶比，按该比例取频次最高的
-       质合       30 期最常出的质合比，按该比例取频次最高的
-       和值       30 期中位和值 → 号值最接近该均值的 6 个
-       跨度       30 期中位跨度 → 只在该跨度区间里取频次最高的 6 个
-       多源共振法 前 8 种算法的票数加权，得票最高的 6 个
-     ⚠️ 这段在模板字符串里：不用反引号、不写美元花括号、不写反斜杠
-     ============================================================ */
-  function omissionOf(main, n, total) {
-    /* 距上次出现的期数：从最新一期往回数，第一次遇到 n 就停 */
-    for (var i = 0; i < main.length; i++) {
-      if (main[i].indexOf(n) >= 0) return i;
+  /* ================= ⑨ 多源共振法：前 8 套加权投票（允许重合） ================= */
+  function mResonance(S, finals) {
+    var W = { '余数算法': 0.9, '分区法': 1.0, '冷热号': 1.1, '遗漏值算法': 1.0, '奇偶': 0.9, '质合': 0.9, '和值': 1.2, '跨度': 1.1 };
+    var vote = {}, i, m, n;
+    for (i = 0; i < ORDER8.length; i++) {
+      m = ORDER8[i];
+      var arr = finals[m] || [];
+      for (n = 0; n < arr.length; n++) vote[arr[n]] = (vote[arr[n]] || 0) + W[m];
     }
-    return total;   /* 30 期内从没出过 → 算最大遗漏 */
+    var rank = allNums(S.M).sort(function (a, b) {
+      return ((vote[b] || 0) - (vote[a] || 0)) || (S.f[b] - S.f[a]) || (hsh(S.seed, a, 14) - hsh(S.seed, b, 14));
+    });
+    return {
+      red: rank.slice(0, S.M.pick),
+      info: '前 8 套加权投票（和值 1.2 / 冷热 1.1 / 跨度 1.1 / 分区 1.0 / 遗漏 1.0 / 余数 0.9 / 奇偶 0.9 / 质合 0.9）→ 得票最高的 ' + S.M.pick + ' 个，允许和其他方法重合',
+      rows: [
+        ['共振号（票数）', rank.slice(0, 4).map(function (x) { return pad(x) + '(' + (vote[x] || 0).toFixed(1) + '票)'; }).join(' ')],
+        ['参与投票', '8 套（①~⑧）']
+      ]
+    };
   }
-  function topBy(list, keyFn, k) {
-    return list.slice().sort(function (a, b) { return keyFn(b) - keyFn(a); }).slice(0, k);
-  }
-  function pick9(g, m, main, f, sums, spans) {
-    var M = CFG[g];
-    var all = []; for (var i = 1; i <= M.max; i++) all.push(i);
-    var total = main.length || 1;
-    var om = {}; all.forEach(function (n) { om[n] = omissionOf(main, n, total); });
-    var hot = all.slice().sort(function (a, b) { return (f[b] || 0) - (f[a] || 0); });
-    var cold = all.slice().sort(function (a, b) { return (f[a] || 0) - (f[b] || 0); });
-    var red = [];
-    var isPrime = function (n) { if (n < 2) return false; for (var d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
 
+  /* ---------------- 蓝球 / 后区：每个方法一套口径（也是同一期固定） ---------------- */
+  function blueRank(S, m, seen) {
+    var M = S.M, n, list = [], i, seed = S.seed;
+    for (n = 1; n <= M.blueMax; n++) list.push(n);
+    var om = S.bom, f = S.bf;
     if (m === '余数算法') {
-      var roadSum = [0, 0, 0];
-      all.forEach(function (n) { roadSum[n % 3] += (f[n] || 0); });
-      var best = roadSum.indexOf(Math.max.apply(null, roadSum));
-      red = hot.filter(function (n) { return n % 3 === best; }).slice(0, 6);
-    } else if (m === '分区法') {
-      var zones = [[1, 11], [12, 22], [23, M.max]];
-      zones.forEach(function (z) {
-        var seg = hot.filter(function (n) { return n >= z[0] && n <= z[1]; }).slice(0, 2);
-        seg.forEach(function (n) { if (red.indexOf(n) < 0) red.push(n); });
+      var size = [0, 0, 0], hit = [0, 0, 0];
+      for (n = 1; n <= M.blueMax; n++) { size[n % 3]++; hit[n % 3] += f[n]; }
+      var rt = 0;
+      for (i = 1; i < 3; i++) if (hit[i] / size[i] < hit[rt] / size[rt]) rt = i;
+      list.sort(function (a, b) {
+        var pa = (a % 3) === rt ? 0 : 1, pb = (b % 3) === rt ? 0 : 1;
+        return (pa - pb) || (om[b] - om[a]) || (hsh(seed, a, 31) - hsh(seed, b, 31));
       });
-      red = red.slice(0, 6);
+    } else if (m === '分区法') {
+      var half = Math.ceil(M.blueMax / 2), cnt = [0, 0];
+      for (n = 1; n <= M.blueMax; n++) cnt[n <= half ? 0 : 1] += f[n];
+      var cold = cnt[0] <= cnt[1] ? 0 : 1;
+      list.sort(function (a, b) {
+        var pa = (a <= half ? 0 : 1) === cold ? 0 : 1, pb = (b <= half ? 0 : 1) === cold ? 0 : 1;
+        return (pa - pb) || (om[b] - om[a]) || (hsh(seed, a, 32) - hsh(seed, b, 32));
+      });
     } else if (m === '冷热号') {
-      red = hot.slice(0, 4).concat(cold.slice(0, 2));
+      list.sort(function (a, b) { return (f[b] - f[a]) || (hsh(seed, a, 33) - hsh(seed, b, 33)); });
     } else if (m === '遗漏值算法') {
-      red = all.slice().sort(function (a, b) { return om[b] - om[a]; }).slice(0, 6);
+      list.sort(function (a, b) { return (om[b] - om[a]) || (hsh(seed, a, 34) - hsh(seed, b, 34)); });
     } else if (m === '奇偶') {
-      var oddCnt = main.map(function (a) { return a.filter(function (n) { return n % 2 === 1; }).length; });
-      var avgOdd = Math.round(oddCnt.reduce(function (x, y) { return x + y; }, 0) / total);
-      avgOdd = Math.max(1, Math.min(5, avgOdd));
-      var odds = hot.filter(function (n) { return n % 2 === 1; }).slice(0, avgOdd);
-      var evens = hot.filter(function (n) { return n % 2 === 0; }).slice(0, 6 - avgOdd);
-      red = odds.concat(evens);
+      var oc = [0, 0];
+      for (n = 1; n <= M.blueMax; n++) oc[n % 2] += f[n];
+      var want = oc[1] >= oc[0] ? 1 : 0;
+      list.sort(function (a, b) {
+        var pa = (a % 2) === want ? 0 : 1, pb = (b % 2) === want ? 0 : 1;
+        return (pa - pb) || (om[b] - om[a]) || (hsh(seed, a, 35) - hsh(seed, b, 35));
+      });
     } else if (m === '质合') {
-      var pCnt = main.map(function (a) { return a.filter(isPrime).length; });
-      var avgP = Math.round(pCnt.reduce(function (x, y) { return x + y; }, 0) / total);
-      avgP = Math.max(2, Math.min(4, avgP));
-      var ps = hot.filter(isPrime).slice(0, avgP);
-      var cs = hot.filter(function (n) { return !isPrime(n); }).slice(0, 6 - avgP);
-      red = ps.concat(cs);
+      list.sort(function (a, b) {
+        var pa = isPrime(a) ? 0 : 1, pb = isPrime(b) ? 0 : 1;
+        return (pa - pb) ||
+          (isPrime(a) ? (om[b] - om[a]) : (f[b] - f[a])) ||
+          (hsh(seed, a, 36) - hsh(seed, b, 36));
+      });
     } else if (m === '和值') {
-      var sortedS = sums.slice().sort(function (a, b) { return a - b; });
-      var midSum = sortedS[Math.floor(sortedS.length / 2)] || 100;
-      var target = midSum / 6;
-      red = all.slice().sort(function (a, b) {
-        var da = Math.abs(a - target) - (f[a] || 0) * 2.5;
-        var db = Math.abs(b - target) - (f[b] || 0) * 2.5;
-        return da - db;
-      }).slice(0, 6);
+      var av = 0, tot = 0;
+      for (n = 1; n <= M.blueMax; n++) { av += n * f[n]; tot += f[n]; }
+      av = tot ? av / tot : M.blueMax / 2;
+      list.sort(function (a, b) {
+        return (Math.abs(a - av) - Math.abs(b - av)) || (om[b] - om[a]) || (hsh(seed, a, 37) - hsh(seed, b, 37));
+      });
     } else if (m === '跨度') {
-      var sortedSp = spans.slice().sort(function (a, b) { return a - b; });
-      var midSp = sortedSp[Math.floor(sortedSp.length / 2)] || 20;
-      var lo = Math.max(1, midSp - 5), hi = Math.min(M.max, midSp + 5);
-      red = hot.filter(function (n) { return n >= lo && n <= hi; }).slice(0, 6);
-      if (red.length < 6) { hot.forEach(function (n) { if (red.indexOf(n) < 0 && red.length < 6) red.push(n); }); }
+      var lastBlue = (S.blue[0] && S.blue[0][0]) || 1;
+      list.sort(function (a, b) {
+        return (Math.abs(b - lastBlue) - Math.abs(a - lastBlue)) || (om[b] - om[a]) || (hsh(seed, a, 38) - hsh(seed, b, 38));
+      });
     } else {
-      /* 多源共振法：把前 8 个算法的号各当一票，按频次加权 */
-      var votes = {};
-      ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合', '和值', '跨度'].forEach(function (mm) {
-        var rr = pick9(g, mm, main, f, sums, spans).red;
-        rr.forEach(function (n) { votes[n] = (votes[n] || 0) + 1; });
+      list.sort(function (a, b) {
+        return (((seen && seen[b]) || 0) - ((seen && seen[a]) || 0)) || (f[b] - f[a]) || (hsh(seed, a, 39) - hsh(seed, b, 39));
       });
-      red = Object.keys(votes).map(Number).sort(function (a, b) {
-        return ((votes[b] || 0) * 2 + (f[b] || 0)) - ((votes[a] || 0) * 2 + (f[a] || 0));
-      }).slice(0, 6);
     }
-
-    red = red.filter(function (n, i2, arr) { return arr.indexOf(n) === i2; }).sort(function (a, b) { return a - b; });
-    /* 蓝球/后区：从蓝球池里取频次最高的 1 个 */
-    var blueMax = M.blu || 16;
-    var blues = []; for (var b2 = 1; b2 <= blueMax; b2++) blues.push(b2);
-    var blue = blues.slice().sort(function (a, b) { return (f[a + 100] || 0) - (f[b + 100] || 0); })[0] || blues[0];
-    /* ===== PICK9_DEDUPE2 · 强制去重（收尾版 · 用户 2026-10-19）=====
-       上一版的坑：只用「前面算法的号」排除，补位又只从 hot 前几个里挑 → 补出来还是同一批 ✗
-       这一版：
-         ① 递归算出前面所有算法的号，全部放进 used9
-         ② 本算法自己的号：没被用过的留着
-         ③ 不足 6 个 → 从【全量 1~max 按频次排序】的后备池里补（不会撞车）
-         ④ 蓝球同样排除
-       纯函数、无随机、同一期结果固定。
-       ⚠️ 模板字符串里：不用反引号、不写美元花括号、不写反斜杠 */
-    try {
-      var ORDER9b = ['余数算法','分区法','冷热号','遗漏值算法','奇偶','质合','和值','跨度'];
-      var mi9b = ORDER9b.indexOf(m);
-      if (mi9b > 0 && arguments[6] !== true) {
-        var used9b = {};
-        for (var q9b = 0; q9b < mi9b; q9b++) {
-          var pr9b = pick9(g, ORDER9b[q9b], main, f, sums, spans, true);
-          (pr9b.red || []).forEach(function (n9b) { used9b[n9b] = 1; });
-        }
-        /* 后备池：1~max 全量，按频次从高到低 */
-        var pool9b = [];
-        for (var pn = 1; pn <= M.max; pn++) pool9b.push(pn);
-        pool9b.sort(function (a9b, b9b) { return (f[b9b] || 0) - (f[a9b] || 0); });
-        var keep9b = [];
-        red.forEach(function (n9c) { if (!used9b[n9c]) keep9b.push(n9c); });
-        for (var k9b = 0; k9b < pool9b.length && keep9b.length < 6; k9b++) {
-          var cand = pool9b[k9b];
-          if (!used9b[cand] && keep9b.indexOf(cand) < 0) keep9b.push(cand);
-        }
-        red = keep9b.slice(0, 6).sort(function (a9c, b9c) { return a9c - b9c; });
-      }
-    } catch (e9b) { }
-
-    return { red: red, blue: blue };
+    return list;
   }
-  function pickRow(p) {
-    var r = p.red.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('');
-    var b = '<i class="bl">' + pad(p.blue) + '</i>';
-    return '<div class="px9-pick"><span class="px9-pick-k">推荐号码</span>' +
-      '<span class="px9-pick-b">' + r + b + '</span></div>';
+  function pickBlue(S, m, seen) {
+    return blueRank(S, m, seen).slice(0, S.M.bluePick).sort(function (a, b) { return a - b; });
   }
 
-  function calc(g, m) {
-    var M = CFG[g], out = [], ds = hist(g);
-    var main = ds.map(function (d) { return numsOf(d, g).map(Number); });
-    var sums = main.map(function (a) { return a.reduce(function (x, y) { return x + y; }, 0); });
-    var spans = main.map(function (a) { return a.length ? Math.max.apply(null, a) - Math.min.apply(null, a) : 0; });
-    var hc = hotCold(g), f = hc.freq;
-    var all = []; for (var i = 1; i <= M.max; i++) all.push(i);
-
-    if (m === '余数算法') {
-      for (var r = 0; r < 3; r++) {
-        var seg = all.filter(function (n) { return n % 3 === r; });
-        var cnt = seg.reduce(function (s2, n) { return s2 + f[n]; }, 0);
-        out.push(row('余 ' + r + ' 路（' + seg.length + ' 个号）', '近 30 期出现 ' + cnt + ' 次'));
+  /* ---------------- 槽位取号：每槽按本方法自己的候选顺序，跳过会超上限的号 ---------------- */
+  function takeSlots(slots, earlier, M, cap) {
+    var chosen = [], s, i, q, z, n, ok, got;
+    for (s = 0; s < slots.length && chosen.length < M.pick; s++) {
+      got = -1;
+      for (i = 0; i < slots[s].length; i++) {
+        n = slots[s][i];
+        if (chosen.indexOf(n) >= 0) continue;
+        ok = true;
+        for (q = 0; q < earlier.length; q++) {
+          var c = 0;
+          for (z = 0; z < chosen.length; z++) if (earlier[q].indexOf(chosen[z]) >= 0) c++;
+          if (c + (earlier[q].indexOf(n) >= 0 ? 1 : 0) > cap) { ok = false; break; }
+        }
+        if (ok) { got = n; break; }
       }
-      var ro = [0,1,2].map(function (r2) { return roadOmission(g, r2); });
-      out.push(row('整路遗漏（当前）', ro.map(function (x, k) { return k + '路:' + x.cur + '期'; }).join(' · ')));
-      out.push(row('整路平均遗漏', ro.map(function (x, k) { return k + '路:' + x.avg.toFixed(1); }).join(' · ')));
-    } else if (m === '分区法') {
-      M.zones.forEach(function (z) {
-        var seg = all.filter(function (n) { return n >= z[0] && n <= z[1]; });
-        var cnt = seg.reduce(function (s2, n) { return s2 + f[n]; }, 0);
-        out.push(row(z[2] ? z[2] + ' ' + pad(z[0]) + '-' + pad(z[1]) : pad(z[0]) + '-' + pad(z[1]), seg.length + ' 个号 · 出现 ' + cnt + ' 次'));
-      });
-      /* 断区统计 */
-      var broken = 0;
-      main.forEach(function (a) {
-        var hitZones = M.zones.filter(function (z) { return a.some(function (n) { return n >= z[0] && n <= z[1]; }); }).length;
-        if (hitZones < M.zones.length) broken++;
-      });
-      out.push(row('出现断区的期数', broken + ' / ' + main.length + ' 期'));
-    } else if (m === '冷热号') {
-      out.push(row('热号（前 20%）', hc.hot.slice(0, 8).map(pad).join(' ')));
-      out.push(row('冷号（后 20%）', hc.cold.slice(0, 8).map(pad).join(' ')));
-    } else if (m === '遗漏值算法') {
-      var top = all.map(function (n) { return { n: n, o: omissionOf(g, n) }; }).sort(function (a, b) { return b.o.cur - a.o.cur; }).slice(0, 6);
-      top.forEach(function (x) { out.push(row(pad(x.n) + ' 号', '当前 ' + x.o.cur + ' 期 · 最大 ' + x.o.max + ' · 均 ' + x.o.avg + ' · 欲出 ' + x.o.desire)); });
-    } else if (m === '奇偶') {
-      var odd = all.filter(function (n) { return n % 2 === 1; }).length;
-      out.push(row('奇数号', odd + ' 个')); out.push(row('偶数号', (all.length - odd) + ' 个'));
-      var oddCnt = main.map(function (a) { return a.filter(function (n) { return n % 2 === 1; }).length; });
-      var dist = {};
-      oddCnt.forEach(function (c) { dist[c] = (dist[c] || 0) + 1; });
-      out.push(row('近 30 期「奇数个数」分布', Object.keys(dist).sort().map(function (k) { return k + '个:' + dist[k] + '期'; }).join(' · ')));
-    } else if (m === '质合') {
-      var pr = all.filter(function (n) { return isPrime(n, M.primeMode); }).length;
-      out.push(row('质数号', pr + ' 个')); out.push(row('合数号', (all.length - pr) + ' 个'));
-      out.push(row('口径', M.primeMode === 'dlt' ? '1 计为质数（大乐透口径）' : '1 不计为质数（严格口径）'));
-    } else if (m === '和值') {
-      var avg = sums.length ? sums.reduce(function (a, b) { return a + b; }, 0) / sums.length : 0;
-      out.push(row('近 ' + sums.length + ' 期均值', avg.toFixed(1)));
-      out.push(row('最大 / 最小', Math.max.apply(null, sums) + ' / ' + Math.min.apply(null, sums)));
-      out.push(row('最近一期', sums[0]));
-    } else if (m === '跨度') {
-      var avgS = spans.length ? spans.reduce(function (a, b) { return a + b; }, 0) / spans.length : 0;
-      out.push(row('近 ' + spans.length + ' 期均值', avgS.toFixed(1)));
-      out.push(row('最大 / 最小', Math.max.apply(null, spans) + ' / ' + Math.min.apply(null, spans)));
-      out.push(row('最近一期', spans[0]));
-    } else if (m === '多源共振法') {
-      var fc = fibCold(g), ro2 = [0,1,2].map(function (r3) { return roadOmission(g, r3); });
-      var res = all.map(function (n) {
-        var o = omissionOf(g, n), rd = ro2[n % 3], sc = 0, why = [];
-        if (o.avg > 0 && o.cur >= o.avg) { sc++; why.push('单号遗漏≥均'); }
-        if (rd.avg > 0 && rd.cur >= rd.avg) { sc++; why.push(n % 3 + '路遗漏≥均'); }
-        if (hc.cold.indexOf(n) >= 0) { sc++; why.push('频次冷号'); }
-        if (hc.hot.indexOf(n) >= 0) { sc++; why.push('频次热号'); }
-        if (fc[n] && fc[n].flag) { sc++; why.push('斐波那契冷号'); }
-        if (o.desire >= 1) { sc++; why.push('欲出≥1'); }
-        return { n: n, sc: sc, why: why };
-      }).filter(function (x) { return x.sc >= 3; }).sort(function (a, b) { return b.sc - a.sc || a.n - b.n; });
-      out.push(row('入选（≥3 分）', res.length ? res.slice(0, 8).map(function (x) { return pad(x.n) + '(' + x.sc + ')'; }).join(' ') : '本轮无'));
-      res.slice(0, 4).forEach(function (x) { out.push(row(pad(x.n) + ' 号 ' + x.sc + ' 分', x.why.join(' · '))); });
+      if (got < 0) {
+        for (i = 1; i <= M.max; i++) if (chosen.indexOf(i) < 0) { got = i; break; }
+      }
+      chosen.push(got);
     }
-    /* 【九算法出号】把推荐号码追加到统计下面（用户硬性要求） */
-    try { out.push(pickRow(pick9(g, m, main, f, sums, spans))); } catch (e) { }
-
-    return { out: out, M: M, n: ds.length };
+    return chosen;
+  }
+  function fits(red, earlier, cap) {
+    for (var q = 0; q < earlier.length; q++) if (overlapOf(red, earlier[q]) > cap) return false;
+    return true;
   }
 
+  /* ---------------- 总装 ---------------- */
+  function compute(g) {
+    var S = build(g), M = S.M, i, m;
+    var raw = {
+      '余数算法': mRoad(S), '分区法': mZone(S), '冷热号': mHotCold(S), '遗漏值算法': mOmit(S),
+      '奇偶': mParity(S), '质合': mPrime(S)
+    };
+    var firstPicks = {}, finals = {}, order = [];
+    function settle(name, slots, red0) {
+      var chosen = takeSlots(slots, order.map(function (k) { return finals[k]; }), M, CAP).sort(function (a, b) { return a - b; });
+      finals[name] = chosen;
+      order.push(name);
+      firstPicks[name] = red0;
+    }
+    /* ①~⑥：槽位取号 */
+    ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合'].forEach(function (name) {
+      var r = raw[name];
+      settle(name, r.slots, r.slots.map(function (lst) { return lst[0]; }));
+    });
+    /* ⑦ 和值：DP 组合；碰上限只禁掉「多出来的那几个」（按权重从低到高），再重搜 */
+    var sums = sumCombo(S, {});
+    var ban = {}, tries, q, z;
+    for (tries = 0; tries < 10; tries++) {
+      var violated = false;
+      for (q = 0; q < order.length; q++) {
+        var prev = finals[order[q]], ov = [];
+        for (z = 0; z < sums.red.length; z++) if (prev.indexOf(sums.red[z]) >= 0) ov.push(sums.red[z]);
+        if (ov.length > CAP) {
+          violated = true;
+          ov.sort(function (a, b) { return (sums.w0[a] - sums.w0[b]) || (a - b); });
+          for (z = 0; z < ov.length - CAP; z++) ban[ov[z]] = 1;
+        }
+      }
+      if (!violated) break;
+      sums = sumCombo(S, ban);
+    }
+    var sum0 = sumCombo(S, {}).red;
+    finals['和值'] = sums.red.slice().sort(function (a, b) { return a - b; });
+    order.push('和值');
+    firstPicks['和值'] = sum0.slice().sort(function (a, b) { return a - b; });
+
+    /* ⑧ 跨度：按分数顺序试 (最小,最大) 对，中段槽位取号，选第一个不超上限的 */
+    var pairs = spanPairs(S), picked = null, fallback = null, pi, midPick = Math.max(0, M.pick - 2);
+    for (pi = 0; pi < pairs.length; pi++) {
+      var P = pairs[pi], mid = spanMid(S, P), slots = [[P.lo], [P.hi]];
+      for (var mi = 0; mi < midPick; mi++) slots.push(mid);
+      var cand = takeSlots(slots, order.map(function (k) { return finals[k]; }), M, CAP)
+        .sort(function (a, b) { return a - b; });
+      var mid0 = [P.lo].concat(mid.slice(0, midPick), [P.hi]).sort(function (a, b) { return a - b; });
+      if (!fallback) fallback = { p: P, red: cand, red0: mid0 };
+      if (fits(cand, order.map(function (k) { return finals[k]; }), CAP)) { picked = { p: P, red: cand, red0: mid0 }; break; }
+    }
+    if (!picked) picked = fallback;
+    finals['跨度'] = picked.red;
+    order.push('跨度');
+    firstPicks['跨度'] = picked.red0;
+
+    var list = [];
+    ['余数算法', '分区法', '冷热号', '遗漏值算法', '奇偶', '质合'].forEach(function (name) {
+      var r = raw[name];
+      list.push({
+        m: name, red: finals[name], blue: pickBlue(S, name), info: r.info, rows: r.rows,
+        swapped: diffCount(firstPicks[name], finals[name])
+      });
+    });
+    list.push({
+      m: '和值', red: finals['和值'], blue: pickBlue(S, '和值'), info: mSumInfo(S, sums),
+      rows: [
+        ['近30期和值', '均值 ' + S.avgSum.toFixed(1) + ' · 最大 ' + Math.max.apply(null, S.sums) + ' · 最小 ' + Math.min.apply(null, S.sums)],
+        ['本轮和值', sums.sum + '（目标 ' + sums.target + '，偏差 ' + (sums.sum - sums.target) + '）']
+      ],
+      swapped: diffCount(firstPicks['和值'], finals['和值'])
+    });
+    list.push({
+      m: '跨度', red: finals['跨度'], blue: pickBlue(S, '跨度'), info: mSpanInfo(S, picked.p),
+      rows: [
+        ['近30期跨度', '均值 ' + S.avgSpan.toFixed(1) + ' · 最大 ' + Math.max.apply(null, S.spans) + ' · 最小 ' + Math.min.apply(null, S.spans)],
+        ['本轮跨度', pad(picked.p.lo) + '-' + pad(picked.p.hi) + '（' + (picked.p.hi - picked.p.lo) + '）']
+      ],
+      swapped: diffCount(firstPicks['跨度'], finals['跨度'])
+    });
+    var res = mResonance(S, finals);
+    var bv = {};
+    list.forEach(function (it) { it.blue.forEach(function (n) { bv[n] = (bv[n] || 0) + 1; }); });
+    list.push({
+      m: '多源共振法', red: res.red, blue: pickBlue(S, '多源共振法', bv),
+      info: res.info, rows: res.rows, swapped: 0
+    });
+    return { game: g, name: M.name, issue: S.issue, next: S.next, seed: S.seed, n: S.main.length, list: list };
+  }
+
+  root.PX9_ENGINE = { methods: METHODS, cfg: CFG, compute: compute, seedOf: seedOf, nextIssue: nextIssue };
+})(typeof window !== 'undefined' ? window : this);
+
+/* ---------------- 渲染 ---------------- */
+(function () {
+  var ENG = (typeof window !== 'undefined' && window.PX9_ENGINE) || null;
+  if (!ENG) return;
+  var st = { game: 'ssq', method: ENG.methods[0] };
+  var elM = document.getElementById('px9Methods');
+  var elO = document.getElementById('px9Out');
+  var elG = document.querySelectorAll('.px9-g');
+  if (!elM || !elO) return;
+  var cache = {};
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function data(g) { if (!cache[g]) cache[g] = ENG.compute(g); return cache[g]; }
+  function ballsOf(red, blue) {
+    var h = '<div class="px9-balls">';
+    for (var i = 0; i < red.length; i++) h += '<span class="px9-b">' + pad(red[i]) + '</span>';
+    h += '<span class="px9-bsep"></span>';
+    for (var j = 0; j < blue.length; j++) h += '<span class="px9-b blue">' + pad(blue[j]) + '</span>';
+    return h + '</div>';
+  }
   function render() {
-    elM.innerHTML = METHODS.map(function (m) {
+    var d = data(st.game), M = ENG.cfg[st.game], item = null, i;
+    elM.innerHTML = ENG.methods.map(function (m) {
       return '<div class="px9-m' + (m === st.method ? ' on' : '') + '" role="button" tabindex="0" data-px9-m="' + m + '">' + m + '</div>';
     }).join('');
-    var r = calc(st.game, st.method);
-    elO.innerHTML = '<div style="font-weight:700;color:#1a8c5a;margin-bottom:6px">' + r.M.name + ' · ' + st.method + '</div>' +
-      r.out.join('') +
-      '<div style="font-size:10.5px;color:#a89a80;margin-top:6px">近 ' + r.n + ' 期 · 主号区 1-' + r.M.max + ' · 全部现算</div>';
-    [].slice.call(elM.querySelectorAll('.px9-m')).forEach(function (b) {
-      b.onclick = function () { st.method = b.getAttribute('data-px9-m'); render(); };
-    });
+    for (i = 0; i < d.list.length; i++) if (d.list[i].m === st.method) item = d.list[i];
+    if (!item) return;
+    var rows = '';
+    for (i = 0; i < item.rows.length; i++) {
+      rows += '<div class="px9-row"><span class="px9-k">' + item.rows[i][0] + '</span><span>' + item.rows[i][1] + '</span></div>';
+    }
+    elO.innerHTML =
+      '<div class="px9-cur">' + d.name + ' · ' + item.m + '<em>第 ' + d.next + ' 期</em></div>' +
+      ballsOf(item.red, item.blue) +
+      '<div class="px9-info">' + item.info + '</div>' +
+      rows +
+      '<div class="px9-meta">期号种子 ' + d.next + ' · 近 ' + d.n + ' 期现算 · ' +
+      M.area + ' 1-' + M.max + ' / ' + M.blueArea + ' 1-' + M.blueMax +
+      (item.swapped > 0 ? ' · 同号避重顺延 ' + item.swapped + ' 个' : '') +
+      ' · 仅供统计参考，不是预测</div>';
+    var ms = elM.querySelectorAll('.px9-m');
+    for (i = 0; i < ms.length; i++) {
+      ms[i].onclick = (function (b) {
+        return function () { st.method = b.getAttribute('data-px9-m'); render(); };
+      })(ms[i]);
+    }
   }
-  [].slice.call(elG).forEach(function (b) {
-    b.onclick = function () {
-      st.game = b.getAttribute('data-px9-game');
-      [].slice.call(elG).forEach(function (x) { x.classList.toggle('on', x === b); });
-      render();
-    };
-  });
+  for (var gi = 0; gi < elG.length; gi++) {
+    elG[gi].onclick = (function (b) {
+      return function () {
+        st.game = b.getAttribute('data-px9-game');
+        for (var k2 = 0; k2 < elG.length; k2++) elG[k2].className = 'px9-g' + (elG[k2] === b ? ' on' : '');
+        render();
+      };
+    })(elG[gi]);
+  }
   render();
 })();
 </script>
