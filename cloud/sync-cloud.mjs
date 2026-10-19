@@ -18,6 +18,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+/* 【dispatch 节流】用来问一句「是哪个脚本调的我」（只为了让 .sync-last-dispatch.json
+   里的 lastDispatchReason 有意义；查不到也照样同步，见 detectReason()）。 */
+import { execFileSync } from 'node:child_process';
 import { writeCloudTickets } from '../export-cloud-tickets.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));   // D:\彩虹多多\cloud
