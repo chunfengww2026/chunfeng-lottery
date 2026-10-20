@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-20 10:55",
- "red": 1,
+ "updated": "2026-10-20 11:31",
+ "red": 0,
  "black": 1,
- "rate": "50.0%",
+ "rate": "0.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-20 10:55",
-   "finishTime": 1792464900000,
+   "dateStr": "2026-10-20 11:31",
+   "finishTime": 1792467060000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 59.7,
      "status": "pending",
-     "finishTime": 1792464900000,
+     "finishTime": 1792467060000,
      "league": "欧冠",
      "odds": 1.6,
      "time": "2026-10-21 00:45"
@@ -127,26 +127,6 @@
      "league": "巴甲",
      "odds": 1.65,
      "time": "2026-10-20 07:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-18 23:28",
-   "finishTime": 1792337280000,
-   "verdict": "红",
-   "matches": [
-    {
-     "matchNo": "周日020",
-     "teams": "AC米兰 vs 亚特兰大",
-     "pick": "主胜",
-     "score": "3:2",
-     "result": "red",
-     "confidence": 58.5,
-     "status": "finished",
-     "finishTime": 1792337280000,
-     "league": "意甲",
-     "odds": 1.62,
-     "time": "2026-10-19 00:00"
     }
    ]
   }
