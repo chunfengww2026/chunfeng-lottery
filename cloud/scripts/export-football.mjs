@@ -3388,7 +3388,20 @@ function communityHtml() {
 
 /* __COMMUNITY2__ 社区内容 = 我们自己的真实数据（推荐战绩 + 最近命中 + 最新晒票） */
 function communityHtml2() {
-  return '<div style="font-size:12px;color:#8a7a63;padding:4px 0;">社区内容整理中 · 稍后开放（免费）</div>';
+  /* __COMMUNITY_IMG__ 社区 = 我方抓到的竞彩实票图（带图片，24 小时内），点图看大图 */
+  try {
+    const list = (typeof JC_XYSP !== 'undefined' && Array.isArray(JC_XYSP)) ? JC_XYSP.slice(0, 6) : [];
+    if (!list.length) return '<div style="font-size:12px;color:#8a7a63;padding:4px 0;">24 小时内暂无新晒票（自动刷新中）</div>';
+    const cells = list.map((x) => {
+      const img = x.img || x.pic || x.thumb || x.url || '';
+      const t = String(x.title || x.desc || '竞彩实票').slice(0, 22);
+      return '<a href="' + String(img).replace(/"/g, '%22') + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">'
+        + '<div style="display:flex;flex-direction:column;gap:4px;">'
+        + (img ? '<img src="' + String(img).replace(/"/g, '%22') + '" alt="竞彩实票" loading="lazy" style="width:100%;height:88px;object-fit:cover;border-radius:8px;border:1px solid #ecdcc2;">' : '')
+        + '<span style="font-size:11px;color:#4a3a26;line-height:1.3;">' + escape(t) + '</span></div></a>';
+    }).join('');
+    return '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">' + cells + '</div>';
+  } catch (e) { return '<div style="font-size:12px;color:#8a7a63;">社区内容整理中</div>'; }
 }
 
 const html = `<!DOCTYPE html>
