@@ -6039,7 +6039,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "新芝加哥U20",
      "score": 0,
@@ -6105,10 +6105,10 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "布戴亚",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 2
     },
@@ -6171,7 +6171,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "伊蒂哈德巴林",
      "score": 0,
@@ -6180,7 +6180,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "沙贝波",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -6237,7 +6237,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "艾沙镇",
      "score": 1,
@@ -6303,7 +6303,7 @@ const FOOTBALL_DATA = {
      "color": "ee7799"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "卡洛华克",
      "score": 0,
@@ -6353,10 +6353,10 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-21 00:45:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "沙巴巴库\t",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
@@ -6431,7 +6431,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-21 00:45:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "费内巴切",
      "score": 2,
@@ -6509,7 +6509,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-21 00:50:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "阿科多",
      "score": 0,
@@ -6587,7 +6587,7 @@ const FOOTBALL_DATA = {
      "color": "554488"
     },
     "time": "2026-10-21 01:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "北雪平",
      "score": 0,
@@ -6596,7 +6596,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "厄勒布鲁",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 15
     },
