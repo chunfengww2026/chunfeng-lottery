@@ -1,7 +1,7 @@
 {
-  "updated": "2026-10-20T18:08:36.040Z",
+  "updated": "2026-10-20T19:24:43.088Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
-  "source": "local",
+  "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
@@ -90,14 +90,14 @@
     ],
     "fc3d": [
       {
-        "title": "279期玫瑰福彩3D预测奖号：跨度看好5",
-        "date": "2026-10-20",
-        "url": "https://sports.sina.com.cn/l/2026-10-20/doc-inivvsvv6622559.shtml"
-      },
-      {
         "title": "279期杨光福彩3D预测奖号：组六分析",
         "date": "2026-10-20",
         "url": "https://sports.sina.com.cn/l/2026-10-20/doc-inivvsvv6622561.shtml"
+      },
+      {
+        "title": "279期玫瑰福彩3D预测奖号：跨度看好5",
+        "date": "2026-10-20",
+        "url": "https://sports.sina.com.cn/l/2026-10-20/doc-inivvsvv6622559.shtml"
       },
       {
         "title": "279期王林福彩3D预测奖号：大小分析",
