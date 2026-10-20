@@ -210,7 +210,7 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.1,
      "conf": 86.4,
-     "score": "1:0",
+     "score": "5:1",
      "hit": true,
      "result": "win"
     },
@@ -225,7 +225,7 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.14,
      "conf": 82.6,
-     "score": "1:0",
+     "score": "4:0",
      "hit": true,
      "result": "win"
     },
@@ -240,9 +240,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.5,
      "conf": 63.2,
-     "score": "0:1",
-     "hit": false,
-     "result": "lose"
+     "score": "4:3",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周二010",
@@ -255,7 +255,7 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.57,
      "conf": 60.1,
-     "score": "0:0",
+     "score": "0:1",
      "hit": false,
      "result": "lose"
     },
@@ -270,13 +270,13 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.62,
      "conf": 58.5,
-     "score": "1:0",
+     "score": "4:3",
      "hit": true,
      "result": "win"
     }
    ],
    "hit": 0,
-   "miss": 2,
+   "miss": 1,
    "pending": 0,
    "verdict": "黑"
   },
