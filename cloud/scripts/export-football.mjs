@@ -4058,15 +4058,47 @@ ${DEVICE_GATE_BODY}
        ⚠️ 页面里不出现任何来源站名/域名（项目有「数据源留痕」断言，出现即构建失败）。 -->
   ${jcArticlesHtml}
 
-<!-- __COMMUNITY_DYN__ 社区：显示 24 小时内的最新讨论/晒票（数据每次构建自动刷新） -->
-<div class="m-card3" style="margin:12px 16px;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:12px;">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-<span style="font-size:15px;font-weight:800;color:#4a3a26;">社区</span>
-<span style="font-size:11px;color:#8a7a63;">24 小时内的最新 · 自动刷新</span>
-</div>
+<!-- __COMMUNITY_DYN__ 社区：显示 24 小时内的最新讨论/晒票（数据每次构建自动刷新）
+     __COMMUNITY_CARD__ 用户 2026-10-21：「社区按钮是可以收起/展开」
+       → 整块包进【原生 <details class="cx-card" open>】（和其它卡一样的折叠做法）：
+         · 标题行 = <summary>，点一下收起、再点展开；纯原生行为，不需要一行 JS
+         · 默认【展开】（open）= 和改版前的展示一模一样，只是多了「能收起」
+         · 里面「大家都在聊」是第二级 details（.cx-topic），两级嵌套各自点各自的：
+           点内层条目只开合内层，不会顺手把外层社区卡收起来
+         · 样式全部 .cx-card* 前缀，<style> 就放在这块里，不改页面别处的规则
+       ⚠️ 收起/展开状态不做记忆（刷新后回到默认展开），页面本来每半小时整点自动换数据，
+          用户回来后看到的仍是「展开」这个老样子。 -->
+<style>
+.cx-card{margin:12px 16px;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:12px;}
+.cx-card>summary.cx-card-sum{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+padding:0;margin:0;user-select:none;-webkit-tap-highlight-color:transparent;border-radius:8px;}
+.cx-card>summary.cx-card-sum::-webkit-details-marker{display:none;}
+.cx-card>summary.cx-card-sum::marker{content:'';}
+.cx-card>summary.cx-card-sum:active{background:#fbf3e6;}
+.cx-card-sum .cx-card-t{flex:0 0 auto;font-size:15px;font-weight:800;color:#4a3a26;}
+.cx-card-sum .cx-card-sub{flex:1 1 auto;min-width:0;font-size:11px;color:#8a7a63;line-height:1.5;}
+.cx-card-sum .cx-card-go{flex:0 0 auto;margin-left:auto;font-size:11px;color:#a8834a;white-space:nowrap;}
+.cx-card[open]>summary.cx-card-sum{padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed #e8d7bd;}
+.cx-card-sum .cx-card-go::after{content:'点击收起 ▴';}
+.cx-card:not([open])>summary.cx-card-sum .cx-card-go::after{content:'点击查看 ▾';}
+.cx-card:not([open])>summary.cx-card-sum{color:#4a3a26;}
+.cx-card-body{min-width:0;}
+.cx-card-body:empty{display:none;}
+@media (max-width:360px){
+  .cx-card-sum .cx-card-sub,.cx-card-sum .cx-card-go{font-size:10.5px;}
+}
+</style>
+<details class="m-card3 cx-card" id="cxCard" open>
+<summary class="cx-card-sum">
+<span class="cx-card-t">社区</span>
+<span class="cx-card-sub">24 小时内的最新 · 自动刷新</span>
+<span class="cx-card-go" aria-hidden="true"></span>
+</summary>
+<div class="cx-card-body">
 ${communityHtml2()}
 ${communityHotHtml}
 </div>
+</details>
   <div class="guard">
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
