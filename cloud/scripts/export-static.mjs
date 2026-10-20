@@ -1841,10 +1841,14 @@ function zxHotCold(freq, area, k) {
   return { hot: hot, cold: cold };
 }
 
-/* 按频次加权、无放回抽号（热号权重高，冷号也有机会） */
-function zxChoose(area, freq, k, rnd) {
+/* 按频次加权、无放回抽号（热号权重高，冷号也有机会）
+   skip = 可选的黑名单（{ 号码: 1 }）—— 数字彩的「精选一注」要避开杀号那几个数字 */
+function zxChoose(area, freq, k, rnd, skip) {
   const pool = [];
-  for (let n = area.from; n <= area.to; n++) pool.push({ n: n, w: 1 + (freq[n] || 0) * 2 });
+  for (let n = area.from; n <= area.to; n++) {
+    if (skip && skip[n]) continue;
+    pool.push({ n: n, w: 1 + (freq[n] || 0) * 2 });
+  }
   const out = [];
   for (let i = 0; i < k && pool.length; i++) {
     let total = 0;
@@ -1874,55 +1878,168 @@ function zxZones(nums, area) {
   return z.join(':');
 }
 
-/* ---------- 智能精选卡的 HTML ---------- */
-function buildZxPickHtml() {
-  const out = [];
+/* ---------- 智能精选卡的 HTML ----------
+   用户原话（逐字）：「智能精选也要 双色球大乐透排三3D」
+   → 一张卡里放【4 个彩种】：① 双色球 ② 大乐透 ③ 排列3 ④ 福彩3D
+   布局：彩种药丸切换（一次只看一个）
+     · 卡是半屏宽（375 下约 168px）：4 块竖排会把卡拉得很长，2×2 挤成蜂巢也不好读
+     · 药丸和「智讯」那一排【同一套外观与手法】（.ro-zn-chips / .ro-zn-chip / .ro-zn-pane）
+     · 属性名换成 data-zxp-*，两张卡各管各的，互不干扰
+   两个号型：
+     · 乐透型（双色球 / 大乐透）：胆码 3 / 杀号 3 / 精选 1 注（主区 + 副区）
+     · 数字彩（排列3 / 福彩3D）：胆码 4 个 0~9 / 杀号 3 个 0~9 / 精选 1 注 = 3 位号码（直选）
+       附加：和值 · 跨度 · 组选形态（组三 / 组六 / 豹子）
+   种子 = FNV-1a(gid|期号) → mulberry32：gid 进种子 → 每个彩种都不一样，
+   同一期永远同一注（无 Math.random），排3 和 3D 的号自然也不会撞。
+   ------------------------------------------------------------ */
+const ZX_PICK_ORDER = ['ssq', 'dlt', 'pl3', 'fc3d'];
+/* 数字彩（排列3 / 福彩3D）：3 位 0~9，没有红球/蓝球，只有百位 / 十位 / 个位 */
+const ZX_DIGIT_POS = ['百位', '十位', '个位'];
+
+/* 取 games.js 里的彩种配置：export-static 里叫 G，片段自检脚本里叫 GAMES */
+function zxGameCfg(gid) {
+  if (typeof G !== 'undefined' && G && G[gid]) return G[gid];
+  if (typeof GAMES !== 'undefined' && GAMES && GAMES[gid]) return GAMES[gid];
+  return null;
+}
+
+/* 数字彩在 games.js 里只有「位数」、没有 areas →
+   当成一个 0~9 的号码区（每期开 digits 个，开奖允许重复） */
+function zxDigitArea(g) {
+  return {
+    key: 'main', label: '各位',
+    from: Number(g.from || 0), to: Number(g.to || 9),
+    pick: Number(g.digits || 3)
+  };
+}
+
+/* 数字彩第 pos 位（0=百位 / 1=十位 / 2=个位）近 30 期每个数字出现几次 */
+function zxPosFreq(gid, pos) {
+  const freq = {};
   const games = (HIST && HIST.games) ? HIST.games : null;
-  for (const gid of ['ssq', 'dlt']) {
-    const g = { name: ZX_GNAMES[gid] || gid };
+  const arr = (games && Array.isArray(games[gid])) ? games[gid] : [];
+  for (const it of arr.slice(0, ZX_PERIODS)) {
+    const nums = (it && it.areas && Array.isArray(it.areas.main)) ? it.areas.main : [];
+    const v = Number(nums[pos]);
+    if (isFinite(v)) freq[v] = (freq[v] || 0) + 1;
+  }
+  return freq;
+}
+
+/* 3 位数字的组选形态：豹子（三位同） / 组三（两位同） / 组六（三位都不同） */
+function zxShape(nums) {
+  const a = nums[0], b = nums[1], c = nums[2];
+  if (a === b && b === c) return '豹子';
+  if (a === b || b === c || a === c) return '组三';
+  return '组六';
+}
+
+/* 一行「胆码 / 杀号 / 精选一注」的公共外壳 */
+function zxPickRow(kind, label, inner) {
+  return '<div class="ro-zn-row"><span class="ro-zn-k is-' + kind + '">' + label + '</span>' +
+    '<span class="ro-zn-sel">' + inner + '</span></div>';
+}
+
+function buildZxPickHtml() {
+  const games = (HIST && HIST.games) ? HIST.games : null;
+  const panes = [];
+  for (const gid of ZX_PICK_ORDER) {
+    const cfg = zxGameCfg(gid);
+    const name = (cfg && cfg.name) || ZX_GNAMES[gid] || gid;
     const arr = (games && Array.isArray(games[gid])) ? games[gid] : [];
-    if (!g || !Array.isArray(g.areas) || !g.areas.length || arr.length < 5) continue;
+    if (arr.length < 5) continue;
+    const digit = !!(cfg && cfg.type === 'digit');
+    const areas = digit ? [zxDigitArea(cfg)]
+      : ((cfg && Array.isArray(cfg.areas) && cfg.areas.length) ? cfg.areas : null);
+    if (!areas || !areas.length) continue;
 
     let issue = '';
     try { issue = String(nextIssue(gid) || ''); } catch (e) { issue = ''; }
     const seedSrc = issue || String((arr[0] && arr[0].issue) || gid);
+    /* ⚠️ gid 必须在种子里：4 个彩种各算各的，排3 和 3D 才不会撞号 */
     const rnd = zxRnd(zxSeed(gid + '|' + seedSrc));
 
-    const main = g.areas[0];
-    const hc = zxHotCold(zxFreq(gid, main.key), main, 3);
-    const chosen = {};
-    for (const area of g.areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
+    const head = '<div class="ro-zn-bh">' + escape(name) +
+      (issue ? ' <span class="ro-zn-bi">第 ' + escape(issue) + ' 期</span>' : '') + '</div>';
+    const out = [];
 
-    /* 胆码 / 杀号：号码从小到大排（好读），后面的「出现几次」跟着同一个顺序 */
-    const hot = hc.hot.slice().sort((a, b) => a.n - b.n);
-    const cold = hc.cold.slice().sort((a, b) => a.n - b.n);
-    const hotTxt = hot.map((x) => zxP2(x.n)).join(' ');
-    const coldTxt = cold.map((x) => zxP2(x.n)).join(' ');
-    const pickTxt = g.areas.map((area, i) => {
-      const t = chosen[area.key].map((n) => zxP2(n)).join(' ');
-      return i === 0 ? t : '<span class="ro-zn-blue">+ ' + t + '</span>';
-    }).join(' ');
-    const ballSum = chosen[main.key].reduce((a, b) => a + b, 0);
+    if (digit) {
+      /* ===== 数字彩：胆码 4 个 0~9 / 杀号 3 个 0~9 / 精选 1 注 = 3 位号码 ===== */
+      const area = areas[0];
+      const freq = zxFreq(gid, 'main');           /* 30 期 × 3 位 = 90 个样本 */
+      const hot = zxHotCold(freq, area, 4).hot.slice().sort((a, b) => a.n - b.n);
+      const cold = zxHotCold(freq, area, 3).cold.slice().sort((a, b) => a.n - b.n);
+      /* 精选一注：按【每一位】的频次加权抽号，并避开杀号那 3 个数字 */
+      const kill = {};
+      for (const x of cold) kill[x.n] = 1;
+      const digits = [];
+      for (let p = 0; p < 3; p++) {
+        const one = zxChoose({ from: 0, to: 9 }, zxPosFreq(gid, p), 1, rnd, kill);
+        digits.push(one.length ? one[0] : 0);
+      }
+      let dzSum = 0;
+      for (const d of digits) dzSum += d;
+      const dzSpan = Math.max(digits[0], digits[1], digits[2]) - Math.min(digits[0], digits[1], digits[2]);
 
-    out.push('<div class="ro-zn-blk">');
-    out.push('<div class="ro-zn-bh">' + escape(g.name) +
-      (issue ? ' <span class="ro-zn-bi">第 ' + escape(issue) + ' 期</span>' : '') + '</div>');
-    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-dan">胆码</span>' +
-      '<span class="ro-zn-sel">' + escape(hotTxt) + '</span></div>');
-    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-sha">杀号</span>' +
-      '<span class="ro-zn-sel">' + escape(coldTxt) + '</span></div>');
-    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-pick">精选一注</span>' +
-      '<span class="ro-zn-sel">' + pickTxt + '</span></div>');
-    out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
-      escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
-      escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
-    out.push('<div class="ro-zn-meta">和值 ' + ballSum + ' · 三区 ' +
-      escape(zxZones(chosen[main.key], main)) + '</div>');
-    out.push('</div>');
+      out.push('<div class="ro-zn-blk">');
+      out.push(head);
+      out.push(zxPickRow('dan', '胆码', escape(hot.map((x) => String(x.n)).join(' '))));
+      out.push(zxPickRow('sha', '杀号', escape(cold.map((x) => String(x.n)).join(' '))));
+      out.push(zxPickRow('pick', '精选一注', escape(digits.join(' '))));
+      out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
+        escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
+        escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
+      out.push('<div class="ro-zn-meta">和值 ' + dzSum + ' · 跨度 ' + dzSpan + ' · ' +
+        escape(zxShape(digits)) + '</div>');
+      out.push('</div>');
+    } else {
+      /* ===== 乐透型：胆码 3 / 杀号 3 / 精选 1 注（主区 + 副区）===== */
+      const main = areas[0];
+      const hc = zxHotCold(zxFreq(gid, main.key), main, 3);
+      const chosen = {};
+      for (const area of areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
+
+      /* 胆码 / 杀号：号码从小到大排（好读），后面的「出现几次」跟着同一个顺序 */
+      const hot = hc.hot.slice().sort((a, b) => a.n - b.n);
+      const cold = hc.cold.slice().sort((a, b) => a.n - b.n);
+      const pickTxt = areas.map((area, i) => {
+        const t = chosen[area.key].map((n) => zxP2(n)).join(' ');
+        return i === 0 ? t : '<span class="ro-zn-blue">+ ' + t + '</span>';
+      }).join(' ');
+      const ballSum = chosen[main.key].reduce((a, b) => a + b, 0);
+
+      out.push('<div class="ro-zn-blk">');
+      out.push(head);
+      out.push(zxPickRow('dan', '胆码', escape(hot.map((x) => zxP2(x.n)).join(' '))));
+      out.push(zxPickRow('sha', '杀号', escape(cold.map((x) => zxP2(x.n)).join(' '))));
+      out.push(zxPickRow('pick', '精选一注', pickTxt));
+      out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
+        escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
+        escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
+      out.push('<div class="ro-zn-meta">和值 ' + ballSum + ' · 三区 ' +
+        escape(zxZones(chosen[main.key], main)) + '</div>');
+      out.push('</div>');
+    }
+
+    panes.push({ gid: gid, name: name, html: out.join('') });
   }
-  if (!out.length) return '<div class="ro-zn-none">本页暂无足够开奖数据</div>';
-  out.push('<div class="ro-zn-foot">期号做种子 · 同一期永远是同一注 · 仅供统计娱乐，不是预测</div>');
-  return out.join('');
+
+  if (!panes.length) return '<div class="ro-zn-none">本页暂无足够开奖数据</div>';
+
+  const html = [];
+  /* 彩种药丸：4 个彩种一行一个，默认第一个（双色球） */
+  html.push('<div class="ro-zn-chips" id="ro-zx-pick-chips">');
+  panes.forEach((p, i) => {
+    html.push('<div class="ro-zn-chip' + (i === 0 ? ' on' : '') + '" role="button" tabindex="0"' +
+      ' data-zxp-game="' + p.gid + '">' + escape(p.name) + '</div>');
+  });
+  html.push('</div>');
+  panes.forEach((p, i) => {
+    html.push('<div class="ro-zn-pane' + (i === 0 ? ' is-on' : '') + '" data-zxp-pane="' + p.gid + '">' +
+      p.html + '</div>');
+  });
+  html.push('<div class="ro-zn-foot">期号做种子 · 同一期永远是同一注 · 仅供统计娱乐，不是预测</div>');
+  return html.join('');
 }
 
 const zxNewsHtml = buildZxNewsHtml();
