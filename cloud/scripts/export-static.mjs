@@ -1219,10 +1219,14 @@ function frogPanelHtml() {
         const tt = Array.isArray(d.toutiao) ? d.toutiao : [];
         /* ⚠️ 先 norm（按标题纠正彩种）再按彩种筛 —— 反过来会把标题写着快乐八的留下 */
         const nextOf = (arr) => (arr || []).filter((x) => nextGames.indexOf(x.g) >= 0);
-        arts = balance(nextOf(norm(tt)), 6);              /* 头条 · 只留下一期彩种 */
-        if (!arts.length) arts = balance(norm(tt), 6);    /* 头条全量 */
-        if (!arts.length) arts = nextOf(norm(all)).slice(0, 6);
-        if (!arts.length) arts = norm(all).slice(0, 6);
+        /* __ART_20__ 用户 2026-10-21：「文章资料抓二十条…免费资料那块要抓到 20 条」
+           → 原来这里写死 6（3 双色球 + 3 大乐透），现在是 20（10 + 10）。
+           数据侧：build-jc-articles.mjs 已经按「双色球 10 + 大乐透 10」抓满正文。 */
+        const ART_N = 20;
+        arts = balance(nextOf(norm(tt)), ART_N);              /* 头条 · 只留下一期彩种 */
+        if (!arts.length) arts = balance(norm(tt), ART_N);    /* 头条全量 */
+        if (!arts.length) arts = nextOf(norm(all)).slice(0, ART_N);
+        if (!arts.length) arts = norm(all).slice(0, ART_N);
       }
     }
   } catch (e) {}
@@ -1253,7 +1257,7 @@ function frogPanelHtml() {
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
-    '<div class="frog-sec"><div class="frog-h">免费资料</div>' +
+    '<div class="frog-sec"><div class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</div>' +
     (arts.length ? arts.map((a, i) => {
       /* __FROG_ART_BODY__ 用户 2026-10-20：「免费资料可以点击观看 你要抓取到具体资料」
          ------------------------------------------------------------
