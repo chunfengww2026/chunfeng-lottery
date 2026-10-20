@@ -905,6 +905,31 @@ REPO_ROOT_FILES.forEach((rel) => {
   log(`  📤 ${rel} 已加入上传列表`);
 });
 
+/* ===== IMG_PUSH · 把 imgs/ 下的图片推进上传列表（用户 2026-10-21 必须今天做完）===== */
+try {
+  const walkImg = (dir, out) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walkImg(p, out);
+      else if (/\.(jpg|jpeg|png|webp|gif)$/i.test(e.name)) out.push(p);
+    }
+  };
+  const imgRoot = path.join(PARENT, 'imgs');
+  if (fs.existsSync(imgRoot)) {
+    const imgs = [];
+    walkImg(imgRoot, imgs);
+    let added = 0;
+    for (const abs of imgs) {
+      const rel = path.relative(PARENT, abs).replace(/\\/g, '/');
+      if (files.some((f) => f.repo === rel)) continue;
+      files.push({ local: abs, repo: rel });
+      added++;
+    }
+    log('  🖼  图片 ' + added + ' 张已加入上传列表');
+  } else {
+    log('  ⚠️ imgs/ 目录不存在：' + imgRoot);
+  }
+} catch (e) { log('  ⚠️ 扫图片失败：' + e.message); }
 log(`  共 ${files.length} 个文件`);
 
 /* ---------- 比指纹，挑出真正变了的文件 ---------- */
