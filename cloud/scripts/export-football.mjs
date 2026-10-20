@@ -3891,6 +3891,11 @@ ${DEVICE_GATE_BODY}
        ⚠️ 页面里不出现任何来源站名/域名（项目有「数据源留痕」断言，出现即构建失败）。 -->
   ${jcArticlesHtml}
 
+<!-- __COMMUNITY__ 用户 2026-10-18：足球晒票下面加一项「社区」 -->
+<div class="m-card3" style="margin:12px 16px;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:14px;text-align:center;">
+<div style="font-size:15px;font-weight:800;color:#4a3a26;">社区</div>
+<div style="font-size:12px;color:#8a7a63;margin-top:6px;">球迷交流 · 晒单分享 · 免费参与</div>
+</div>
   <div class="guard">
   <div class="note">
     <div class="note-title" style="font-size:13.5px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">免责声明</div>
