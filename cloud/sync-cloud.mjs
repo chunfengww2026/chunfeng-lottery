@@ -659,7 +659,23 @@ const REPO_ROOT_FILES = ['.gitignore', '.github/workflows/daily-update.yml'];
 log('【1/3】刷新云端模块');
 let refreshed = 0;
 const missing = [];
-for (const f of [...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS]) {
+/* ===== IMG_WALK · 图片上云（用户 2026-10-21「今天做」）=====
+   递归扫 imgs/ 目录，把每个图片文件加进上传清单 ✔ */
+function walkImgs(dir, out) {
+  try {
+    for (const name of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, name.name);
+      if (name.isDirectory()) walkImgs(p, out);
+      else if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name.name)) {
+        out.push(path.relative(ROOT, p).replace(/\\/g, '/'));
+      }
+    }
+  } catch (e) { }
+}
+const IMG_FILES = [];
+walkImgs(path.join(ROOT, 'imgs'), IMG_FILES);
+if (IMG_FILES.length) console.log('  · 图片文件 ' + IMG_FILES.length + ' 张（imgs/ ✗）');
+for (const f of [...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS, ...IMG_FILES]) {
   const src = path.join(PARENT, f);
   if (!fs.existsSync(src)) { missing.push(f); continue; }
   try {
