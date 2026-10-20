@@ -2029,7 +2029,7 @@ function buildZxPickHtml() {
   if (!panes.length) return '<div class="ro-zn-none">本页暂无足够开奖数据</div>';
 
   const html = [];
-  /* 彩种药丸：4 个彩种一行一个，默认第一个（双色球） */
+  /* 彩种药丸：4 颗一行（375 / 320 实测都放得下，不会折行），默认第一个（双色球） */
   html.push('<div class="ro-zn-chips" id="ro-zx-pick-chips">');
   panes.forEach((p, i) => {
     html.push('<div class="ro-zn-chip' + (i === 0 ? ' on' : '') + '" role="button" tabindex="0"' +
