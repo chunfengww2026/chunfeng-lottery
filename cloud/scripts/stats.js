@@ -1700,8 +1700,13 @@ function qxcPosSeed01(key) {
  * 只在七星彩前六位（to ≤ 9）走这条，3D / 排3 / 排5 一位都不动。
  * @returns {number[][]} 6 个位的号码数组（已各自升序）
  */
-function qxcPosSets(gameId, want, from, to, per) {
-  const rows = getHistory(gameId).slice(0, per || HIST_PERIODS);
+function qxcPosSets(gameId, want, from, to, per, shift, salt) {
+  /* __PICK_GUARD__ shift = 0 → 本期（最新历史）；1 → 上一期（去掉最新一期）
+     salt = 0 → 不加盐（历史行为，逐字不动）；>0 → 重摇第 N 次（只换哈希 key，确定性） */
+  const _sh = Math.max(0, Number(shift) || 0);
+  const _per = Math.max(1, Number(per) || HIST_PERIODS);
+  const _sl = Math.max(0, Number(salt) || 0);
+  const rows = getHistory(gameId).slice(_sh, _sh + _per);
   const span = rows.length;
   const size = to - from + 1;
   const POS = 6;
@@ -1728,8 +1733,15 @@ function qxcPosSets(gameId, want, from, to, per) {
       const hot = freq.get(v) / maxF;
       const cold = theo ? Math.min(gap.get(v) / (theo * 2), 1) : 0.5;
       const bonus = poolSet.has(v) ? 1 : 0;
-      const jit = qxcPosSeed01('qxc|' + issueTag + '|p' + p + '|' + v);
-      list.push({ n: v, s: hot * 0.40 + cold * 0.30 + bonus * 0.14 + jit * 0.16 });
+      const jit = qxcPosSeed01('qxc|' + issueTag + '|p' + p + '|' + v + (_sl ? '|s' + _sl : ''));
+  /* __PICK_GUARD__ 重摇时把「期号种子抖动」的权重逐级加大：
+     原来恒为 0.16；实测 0.16 的抖动量往往小于相邻名次的分数差，
+     于是「换哈希 key」也换不动号（p4 五十次尝试都一模一样）。
+     salt > 0 → 0.16 → 0.26 / 0.36 / …（封顶 0.80）：名次真的会换，
+     但仍然是「该位热号 + 遗漏回补 + 专家池加分」主导，不是乱摇。
+     ⚠️ salt = 0（第一次尝试）时 jitW 恒等于 0.16 → 和改动前逐字相同，零回归。 */
+  const jitW = 0.16 + (_sl ? Math.min(0.64, _sl * 0.10) : 0);
+      list.push({ n: v, s: hot * 0.40 + cold * 0.30 + bonus * 0.14 + jit * jitW });
     }
     list.sort((a, b) => (b.s - a.s) || (a.n - b.n));
     ranked.push(list);
@@ -1741,8 +1753,7 @@ function qxcPosSets(gameId, want, from, to, per) {
      排名太挤、limit 太小填不满时，把 limit 放宽 1 个重来（最多放到 want）。 */
   const baseLimit = Math.max(0, want - 3);     /* 5 个号 → 最多重合 2 个 */
   const overlapOf = (a, b) => a.filter((x) => b.indexOf(x) >= 0).length;
-  for (let lim = baseLimit; lim <= want; lim++) {
-    const built = [];
+  for (let lim = baseLimit; lim <= want; lim++) {    const built = [];
     for (let p = 0; p < POS; p++) {
       const list = ranked[p];
       /* 该位候选的排序：原本的分数 - 前面已经用过的次数（用过的越多越往后排，
@@ -1783,8 +1794,12 @@ function qxcPosSets(gameId, want, from, to, per) {
  * @param {Array<number[]>} avoidSets 每位不能杀的号（by posIdx，= 本位定位推荐）
  * @returns {number[][]} 6 个位的杀号（已各自升序）
  */
-function qxcKillSets(gameId, want, from, to, per, avoidSets) {
-  const rows = getHistory(gameId).slice(0, per || HIST_PERIODS);
+function qxcKillSets(gameId, want, from, to, per, avoidSets, shift, salt) {
+  /* __PICK_GUARD__ 和 qxcPosSets 同一套：shift/salt 默认 0 = 历史行为逐字不变 */
+  const _sh = Math.max(0, Number(shift) || 0);
+  const _per = Math.max(1, Number(per) || HIST_PERIODS);
+  const _sl = Math.max(0, Number(salt) || 0);
+  const rows = getHistory(gameId).slice(_sh, _sh + _per);
   const span = rows.length;
   const POS = 6;
   const issueTag = String((rows[0] && rows[0].issue) || '') + '/' + span;
@@ -1809,7 +1824,7 @@ function qxcKillSets(gameId, want, from, to, per, avoidSets) {
       if (avoid.has(v)) continue;                            /* 不杀本位的定位推荐 */
       const cold = 1 - (freq.get(v) / maxF);                 /* 越冷越该杀 */
       const omit = span ? Math.min(gap.get(v) / span, 1) : 0;/* 遗漏越久越该杀 */
-      const jit = qxcPosSeed01('qxcK|' + issueTag + '|p' + p + '|' + v);
+      const jit = qxcPosSeed01('qxcK|' + issueTag + '|p' + p + '|' + v + (_sl ? '|s' + _sl : ''));
       list.push({ n: v, s: cold * 0.52 + omit * 0.26 + jit * 0.22 });
     }
     list.sort((a, b) => (b.s - a.s) || (a.n - b.n));
@@ -1831,7 +1846,7 @@ function qxcKillSets(gameId, want, from, to, per, avoidSets) {
         const order = ranked[p].map((it) => ({
           n: it.n,
           k: it.s - (used.get(it.n) || 0) * 0.45
-            + (tryIdx ? qxcPosSeed01('qxcKt|' + issueTag + '|p' + p + '|t' + tryIdx + '|' + it.n) * 0.34 : 0)
+            + (tryIdx ? qxcPosSeed01('qxcKt|' + issueTag + '|p' + p + '|t' + tryIdx + '|' + it.n + (_sl ? '|s' + _sl : '')) * 0.34 : 0)
         })).sort((a, b) => (b.k - a.k) || (a.n - b.n));
         const out = [];
         for (let i = 0; i < order.length && out.length < want; i++) {
@@ -1852,6 +1867,58 @@ function qxcKillSets(gameId, want, from, to, per, avoidSets) {
   }
   /* 兜底（理论上到不了）：每位取自己最该杀的 want 个（已排除本位推荐） */
   return ranked.map((list) => list.slice(0, want).map((x) => x.n).sort((x, y) => x - y));
+}
+
+/* ============================================================
+   __PICK_GUARD__ 七星彩定位 / 每位杀号：「每期至少改 2 个号」
+   ------------------------------------------------------------
+   用户 2026-10-21（第二轮）：「虽然有算法 但是推荐号码要保证每期不一样
+     怎么都要修改几个」+「七星彩定位 p1~p6 每位至少 2 个号不同」。
+   做法（全确定性，没有 Math.random）：
+     · 上一期 = 同一份历史【去掉最新一期】再算一遍（shift = 1, salt = 0）
+     · 本期   = shift = 0，salt = 0 / 1 / 2 …（salt 只换抖动项的哈希 key，
+                抖动是【加进分数】的（s = hot*0.40 + cold*0.30 + bonus*0.14 + jit*0.16），
+                所以换 key 真的会换号，不像「或链」那种只破并列）
+     · 每一位都要满足「和上一期同一位至少 2 个号不同」，否则换下一个 salt
+     · 最多 50 次；都不过就用 salt = 0（= 历史号码，绝不更差）
+   salt 只由「第几次尝试」决定 → 同一期每次构建 / 每台设备结果完全一样。
+   ⚠️ salt = 0 时哈希 key 一个字都没加 → 和改动前【逐字相同】，零回归。
+   ============================================================ */
+function qxcSamePosOk(cur, prev, minChanged) {
+  if (!Array.isArray(cur) || !Array.isArray(prev)) return true;
+  for (let i = 0; i < cur.length; i++) {
+    const a = cur[i] || [], b = prev[i] || [];
+    if (!a.length || !b.length) continue;
+    const ov = a.filter((x) => b.indexOf(x) >= 0).length;
+    if (ov > a.length - minChanged) return false;
+  }
+  return true;
+}
+function qxcPosSetsFresh(gameId, want, from, to, per) {
+  const range = (per == null) ? null : per;
+  let prev = null;
+  try { prev = qxcPosSets(gameId, want, from, to, range, 1, 0); } catch (e) { prev = null; }
+  let best = null;
+  for (let t = 0; t < 50; t++) {
+    const cur = qxcPosSets(gameId, want, from, to, range, 0, t);
+    if (!best) best = cur;
+    if (!prev) return cur;
+    if (qxcSamePosOk(cur, prev, 2)) return cur;
+  }
+  return best;
+}
+function qxcKillSetsFresh(gameId, want, from, to, per, avoidSets) {
+  const range = (per == null) ? null : per;
+  let prev = null;
+  try { prev = qxcKillSets(gameId, want, from, to, range, avoidSets, 1, 0); } catch (e) { prev = null; }
+  let best = null;
+  for (let t = 0; t < 50; t++) {
+    const cur = qxcKillSets(gameId, want, from, to, range, avoidSets, 0, t);
+    if (!best) best = cur;
+    if (!prev) return cur;
+    if (qxcSamePosOk(cur, prev, 1)) return cur;
+  }
+  return best;
 }
 
 /**
@@ -1884,7 +1951,7 @@ function positionRecommend(gameId, posIdx, n, from, to, periods) {
      每个位都有自己的冷热 + 遗漏 + 位号错位，6 位号面互不相同。
      3D / 排3 / 排5 一个字都不动。 */
   if ((gameId === 'qxc' || gameId === 'xqxc') && to <= 9 && hist.length) {
-    const six = qxcPosSets(gameId, want, from, to, per);
+    const six = qxcPosSetsFresh(gameId, want, from, to, per);
     const off = ((posIdx % six.length) + six.length) % six.length;
     const hit = six[off];
     if (hit && hit.length) return hit.slice();
@@ -3675,7 +3742,7 @@ function enforceQxcPosDistinct(gameId, out, roles) {
         if (sets[i].filter((n) => sets[i + 1].indexOf(n) >= 0).length > lim) bad = true;
       }
       if (bad) {
-        const six = qxcPosSets(gameId, want, 0, 9, HIST_PERIODS);
+        const six = qxcPosSetsFresh(gameId, want, 0, 9, HIST_PERIODS);
         recKeys.forEach((k, i) => {
           const v = six[roles[recKeys[i]].posIdx % six.length];
           if (v && v.length) out[k] = qjoin(v);
@@ -3706,7 +3773,7 @@ function enforceQxcPosDistinct(gameId, out, roles) {
       if (bad) {
         const avoid = [];
         for (let p = 0; p < 6; p++) avoid[p] = recByPos[p] || [];
-        const sixK = qxcKillSets(gameId, want, 0, 9, HIST_PERIODS, avoid);
+        const sixK = qxcKillSetsFresh(gameId, want, 0, 9, HIST_PERIODS, avoid);
         killKeys.forEach((k, i) => {
           const v = sixK[((roles[k].posIdx % sixK.length) + sixK.length) % sixK.length] || sixK[i % sixK.length];
           if (v && v.length) out[k] = qjoin(v);
