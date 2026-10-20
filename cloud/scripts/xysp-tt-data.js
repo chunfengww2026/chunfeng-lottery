@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-21 03:46
+   更新时间：2026-10-21 03:56
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-21 03:46",
+ "updated": "2026-10-21 03:56",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=eZ8snCap1myEjC8iwLb66W12%2B5w%3D",
@@ -40,9 +40,7 @@ const XYSP_TT_DATA = {
    "author": "添点快乐",
    "when": "2026-10-20 22:58:36",
    "postId": "1879581200729220",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gEReDp7C2nMkSMi%2FOIdBCM0ee18%3D",
@@ -72,9 +70,7 @@ const XYSP_TT_DATA = {
    "author": "添点快乐",
    "when": "2026-10-20 22:58:36",
    "postId": "1879581200729220",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2af93a5aed5e4a1d9e380220d5419a26~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=vVm3er8NymVw%2FRUoo%2F%2FpIyH4sq0%3D",
@@ -105,9 +101,7 @@ const XYSP_TT_DATA = {
    "author": "中山福彩便利店",
    "when": "2026-10-20 09:18:06",
    "postId": "1879529578319243",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8f40f7a375e04ac5a296806c46bddfab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=1hBvzCmdmmFZBPvsPr4aWuq8n0Y%3D",
@@ -138,9 +132,7 @@ const XYSP_TT_DATA = {
    "author": "中山福彩便利店",
    "when": "2026-10-20 09:18:06",
    "postId": "1879529578319243",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "px": 132300
   },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=2Hw%2B3aRoGB9vI2xaoArtMv3OlZs%3D",
@@ -159,14 +151,14 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-20T19:46:01.902Z",
    "whenMs": 1792459086000,
-   "seenMs": 1792524361900,
+   "seenMs": 1792525561902,
    "drawMs": 1792502100000,
    "nextMs": 1792674900000,
    "atMs": 1792515662907,
    "drawAt": "2026-10-20T13:15:00.000Z",
    "nextAt": 1792674900000,
    "drawGid": "ssq",
-   "expireAt": "2026-10-23T19:26:01.900Z",
+   "expireAt": "2026-10-23T19:46:01.902Z",
    "rule": "next-draw",
    "author": "中山福彩便利店",
    "when": "2026-10-20 09:18:06",
