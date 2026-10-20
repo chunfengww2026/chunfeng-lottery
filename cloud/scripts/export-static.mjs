@@ -1585,7 +1585,7 @@ const ZX_SCHED = (function () {
 
 /* 一期开奖 → 一行号码纯文字（区顺序 / 分隔符照 GAMES 里的 areas，不另起一套） */
 function zxNumText(gid, draw) {
-  const g = GAMES[gid] || {};
+  const g = { name: ZX_GNAMES[gid] || gid };
   const a = (draw && draw.areas) ? draw.areas : {};
   const parts = [];
   if (g.type === 'digit') {
@@ -1615,7 +1615,7 @@ function zxRecentRows(n) {
   const games = (HIST && HIST.games) ? HIST.games : null;
   if (!games) return rows;
   for (const gid of Object.keys(games)) {
-    const g = GAMES[gid];
+    const g = { name: ZX_GNAMES[gid] || gid };
     if (!g) continue;
     const arr = Array.isArray(games[gid]) ? games[gid] : [];
     const it = arr.length ? arr[0] : null;      /* history 每个彩种都是最新一期在最前 */
@@ -1634,11 +1634,14 @@ function zxRecentRows(n) {
 }
 
 /* 今天 / 明天开哪几个彩种（期号 + 开奖时刻）*/
+/* 【修复 2026-10-21】原实现引用未定义的 GAMES → ReferenceError: GAMES is not defined
+   （生成直接中断、页面不更新）。改用本文件内的彩种名映射。 */
+const ZX_GNAMES = { ssq: '双色球', dlt: '大乐透', kl8: '快乐8', qlc: '七乐彩', qxc: '七星彩', fc3d: '福彩3D', pl3: '排列3', pl5: '排列5' };
 function zxSchedRows() {
   const today = zxDay(0), tomorrow = zxDay(1);
   const out = [];
   for (const gid of Object.keys(ZX_SCHED)) {
-    const g = GAMES[gid];
+    const g = { name: ZX_GNAMES[gid] || gid };
     if (!g) continue;
     let d = '';
     try { d = String(nextDate(gid) || ''); } catch (e) { d = ''; }
@@ -1670,7 +1673,7 @@ function zxNewsItems(n) {
   if (!games) return [];
   const all = [];
   for (const gid of ART_ORDER) {
-    const g = games[gid];
+    const g = { name: ZX_GNAMES[gid] || gid };
     const items = (g && Array.isArray(g.items)) ? g.items : [];
     for (const it of items) {
       if (!it || !it.title) continue;
@@ -1876,7 +1879,7 @@ function buildZxPickHtml() {
   const out = [];
   const games = (HIST && HIST.games) ? HIST.games : null;
   for (const gid of ['ssq', 'dlt']) {
-    const g = GAMES[gid];
+    const g = { name: ZX_GNAMES[gid] || gid };
     const arr = (games && Array.isArray(games[gid])) ? games[gid] : [];
     if (!g || !Array.isArray(g.areas) || !g.areas.length || arr.length < 5) continue;
 
@@ -1930,7 +1933,7 @@ function zxNewsStat() {
   if (!games) return '0 条';
   const parts = [];
   for (const [gid, name] of ZX_TABS) {
-    const g = games[gid];
+    const g = { name: ZX_GNAMES[gid] || gid };
     const n = (g && Array.isArray(g.items)) ? Math.min(g.items.length, 5) : 0;
     if (n) parts.push(name + ' ' + n);
   }
