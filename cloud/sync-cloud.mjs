@@ -776,7 +776,7 @@ const SKIP_NAME_RE = /\.(bak|orig|tmp|swp)([.-].*)?$|~$/i;
 const SKIP_LOCAL_ONLY_RE = /^(?:_(?:realtest|verify)_.*\.mjs|cloud-pull\.js)$/;
 
 /* 白名单并集（自检用） */
-const WL_ALL = new Set([...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS]);
+const WL_ALL = new Set([...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS, ...IMG_FILES]);
 
 /* 【同步自检】云端会跑、却不在白名单里的脚本 = 本机改了也永远上不去云
    ------------------------------------------------------------
