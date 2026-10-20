@@ -3404,6 +3404,70 @@ function communityHtml2() {
   } catch (e) { return '<div style="font-size:12px;color:#8a7a63;">社区内容整理中</div>'; }
 }
 
+/* __COMMUNITY_HOT__ 社区热点 = 公开论坛的话题标题（只要「标题 + 时间」，不抓全文/图片）
+   ------------------------------------------------------------
+   用户 2026-10-21：「我要免费抓取到其他网址的聊天分享信息 → 公开论坛的话题标题
+   （虎扑足球区 / 贴吧 / 500 / 网易新浪）→ 抓什么：标题 + 时间 + 链接 → 当社区热点展示」
+   数据：community-topics.json（fetch-community-topics.mjs 每小时抓一次）
+     { updated: '…', topics: [ { t: 标题, d: 时间, u: 链接 }, … ] }
+   ⚠️ 块里【只显示标题 +「几小时前」】，不做外链、不写站名：
+      项目有「数据源留痕」断言（source-guard.mjs），页面上不能看出数据从哪来。
+      链接只留在 json 里，页面不渲染（和「专家推荐」那一块同一套处理）。
+   ⚠️ 读不到 / 解析失败 → 整块返回空字符串（页面照旧，绝不写「暂无」凑数）。 */
+function buildCommunityTopicsHtml() {
+  let data = null;
+  try {
+    const f = path.join(ROOT, 'community-topics.json');
+    if (fs.existsSync(f)) data = JSON.parse(fs.readFileSync(f, 'utf8'));
+  } catch (e) { data = null; }
+  if (!data || !Array.isArray(data.topics) || !data.topics.length) return '';
+
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  /* d 是构建时抓到的「YYYY-MM-DD HH:MM」→ 显示成「x 分钟前 / x 小时前 / 昨天 / MM-DD」 */
+  const now = Date.now();
+  const rel = (dStr) => {
+    const m = String(dStr || '').match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);
+    if (!m) return '';
+    const ts = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0).getTime();
+    const mins = Math.round((now - ts) / 60000);
+    if (!Number.isFinite(mins)) return '';
+    if (mins < 1) return '刚刚';
+    if (mins < 60) return mins + ' 分钟前';
+    if (mins < 24 * 60) return Math.floor(mins / 60) + ' 小时前';
+    if (mins < 48 * 60) return '昨天';
+    return m[2] + '-' + m[3];
+  };
+
+  /* 最多 10 条（题目：社区热点最多 10 条；json 里存到 20 条，多出来的给以后换版式留量） */
+  /* ⚠️ 兜底过滤：论坛标题偶尔带站名/「来源」类字样，可见文本里出现就会被
+     source-guard 的留痕断言拦下（整页构建失败）。抓取脚本已经筛过一遍，
+     这里再筛一遍 —— 万一 json 是手工改的，也不至于把构建搞红。 */
+  const BAD = /虎扑|贴吧|百度|新浪|网易|懂球帝|500|头条|一起彩|球探|雷速|titan007|okooo|sporttery|Betfair|必发|来源|取自|来自|数据源|接口|抓取|爬取|https?:\/\//i;
+  const list = data.topics.filter((it) => it && it.t && !BAD.test(String(it.t))).slice(0, 10);
+  if (!list.length) return '';
+
+  const rows = list.map((it, i) => {
+    const t = String(it && it.t || '').replace(/\s+/g, ' ').slice(0, 40);
+    if (!t) return '';
+    const when = rel(it.d);
+    return '<div style="display:flex;gap:6px;padding:5px 0;border-bottom:1px dotted #f0e4cf;font-size:12.5px;color:#4a3a26;line-height:1.45;">'
+      + '<span style="flex:0 0 15px;color:#b9a98c;">' + (i + 1) + '</span>'
+      + '<span style="flex:1 1 auto;min-width:0;">' + esc(t) + '</span>'
+      + '<span style="flex:0 0 auto;color:#a89a80;font-size:11px;">' + esc(when) + '</span>'
+      + '</div>';
+  }).join('');
+  if (!rows) return '';
+
+  return '<div style="margin-top:10px;padding-top:8px;border-top:1px dashed #e8d7bd;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">'
+    + '<span style="font-size:13px;font-weight:800;color:#4a3a26;">大家都在聊</span>'
+    + '<span style="font-size:10.5px;color:#a89a80;">社区热点 · 每小时更新</span>'
+    + '</div>' + rows + '</div>';
+}
+const communityHotHtml = buildCommunityTopicsHtml();
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -3938,6 +4002,7 @@ ${DEVICE_GATE_BODY}
 <span style="font-size:11px;color:#8a7a63;">24 小时内的最新 · 自动刷新</span>
 </div>
 ${communityHtml2()}
+${communityHotHtml}
 </div>
   <div class="guard">
   <div class="note">
