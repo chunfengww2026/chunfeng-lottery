@@ -840,16 +840,20 @@ function renderImageHtml(id, imgKey) {
 }
 
 /* ============================================================
-   【七星彩定位不能每位都一样】__QXC_POS2__
+   【七星彩定位 / 每位杀号不能每位都一样】__QXC_POS2__
    ------------------------------------------------------------
    用户（第二次）：「七星彩定位不要都一样不是改了的吗」。
    号码是「自动算（stats.js）+ 手动录入（saved-tickets.js）」合并出来的，
    手动那一层可能把六位写成同一串（ticket-store 的号码池分支共用一份基底）
-   或者写成「错开一位的窗口」（roll-and-export 的 __QXC_FIX__），
+   或者写成「错开一位的窗口」（roll-and-export 早先的 __QXC_FIX__），
    而手动层的优先级高于自动层 —— 所以只改 stats.js 的算法不够，
    合并完之后还得在这里再验一次。
    判定/纠正都在 stats.js 的 enforceQxcPosDistinct 里（幂等：
-   已经各不相同的号面一个号都不动，所以手动录入的正常号不会被覆盖）。
+   已经合规的号面一个号都不动，所以手动录入的正常号不会被覆盖）：
+     · 定位推荐 p1~p6：相邻两位最多重合 2 个号；
+     · 每位杀号 k1~k6：两两最多重合 1 个号，且不杀本位的定位推荐；
+     · 后区 pb / kb 不碰。
+   ⚠️ 这是「渲染时纠偏」，存档层即使有历史脏数据，出图也是干净的。
    ============================================================ */
 function fixQxcPositions(gid, imgKey, values) {
   try {
@@ -10316,6 +10320,37 @@ ${zxPickHtml}
     }
     chips.forEach(function (c) {
       var gid = c.getAttribute('data-zx-game');
+      c.addEventListener('click', function () { show(gid); });
+      c.addEventListener('keydown', function (e) {
+        var k = e.key || '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar' || e.keyCode === 13 || e.keyCode === 32) {
+          e.preventDefault();
+          show(gid);
+        }
+      });
+    });
+  })();
+
+  /* __ZX_PICK_CHIPS__ 智能精选卡里那排彩种药丸
+     （双色球 / 大乐透 / 排列3 / 福彩3D，默认双色球）
+     · 和上面智讯卡是【两套属性名】（data-zxp-*），两张卡互不干扰
+     · 纯 div + role="button"，只切 class，不重建 DOM —— 页面铁律：没有 button 标签 */
+  (function () {
+    var wrap = document.getElementById('ro-zx-pick-chips');
+    if (!wrap) return;
+    var chips = [].slice.call(wrap.querySelectorAll('[data-zxp-game]'));
+    var panes = [].slice.call(document.querySelectorAll('#ro-zx-pick [data-zxp-pane]'));
+    if (!chips.length || !panes.length) return;
+    function show(gid) {
+      chips.forEach(function (c) {
+        c.className = 'ro-zn-chip' + (c.getAttribute('data-zxp-game') === gid ? ' on' : '');
+      });
+      panes.forEach(function (p) {
+        p.className = 'ro-zn-pane' + (p.getAttribute('data-zxp-pane') === gid ? ' is-on' : '');
+      });
+    }
+    chips.forEach(function (c) {
+      var gid = c.getAttribute('data-zxp-game');
       c.addEventListener('click', function () { show(gid); });
       c.addEventListener('keydown', function (e) {
         var k = e.key || '';
