@@ -3368,7 +3368,17 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
 /* __COMMUNITY_DYN__ 社区内容：取 24 小时内的竞彩讨论/晒票条目（最多 8 条） */
 function communityHtml() {
   try {
-    const list = (typeof JC_XYSP !== 'undefined' && Array.isArray(JC_XYSP)) ? JC_XYSP : [];
+    /* __COMM_SRC2__ 社区数据来自 community-data.js（build-community.mjs 抓的公开社区流，24 小时窗口） */
+    let list = [];
+    try {
+      const cf = path.join(ROOT, 'community-data.js');
+      if (fs.existsSync(cf)) {
+        const cc = vm.createContext({});
+        vm.runInContext(fs.readFileSync(cf, 'utf8') + '\n;globalThis.__CD = COMMUNITY_DATA;', cc);
+        const cd = cc.__CD;
+        list = (cd && Array.isArray(cd.list)) ? cd.list.map((x) => ({ at: x.at, title: x.t, link: x.u })) : [];
+      }
+    } catch (e) { list = []; }
     const now = Date.now();
     const items = list.filter((x) => {
       const t = Number(x.at || x.time || 0);
