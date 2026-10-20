@@ -1582,7 +1582,24 @@ function buildArticlesHtml() {
       `</details>`;
   }).join('');
 
-  return `<section class="ro-articles" id="ro-articles">` +
+  /* 【资料大全 · 用户 2026-10-21「文章参考上面加一栏 资料大全 / 里面要分开 双色球 大乐透 3D 排列三 快乐8 类目」
+     五个彩种各一格，点开跳到对应彩种的「资料」位置（页内锚点 ✗ 不跳外站 ✔） */
+  const ZLDQ_ITEMS = [
+    ['双色球', 'ro-g-ssq-main'],
+    ['大乐透', 'ro-g-dlt-main'],
+    ['3D', 'ro-g-fc3d-main'],
+    ['排列三', 'ro-g-pl3-main'],
+    ['快乐8', 'ro-g-kl8-main']
+  ];
+  const zldqHtml = '<section class="ro-zldq" id="ro-zldq">' +
+    '<div class="ro-zldq-h">资料大全</div>' +
+    '<div class="ro-zldq-row">' +
+    ZLDQ_ITEMS.map(function (x) {
+      return '<a class="ro-zldq-c" href="#' + x[1] + '"><b>' + x[0] + '</b><span>点开看资料</span></a>';
+    }).join('') +
+    '</div></section>';
+
+  return zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -16589,6 +16606,19 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 }
 /* 刘海那条缝也铺底色，避免透出下面的字 */
 body { background-color: #f7efe1; }
+
+/* ZLDQ_CSS · 资料大全（用户 2026-10-21） */
+.ro-zldq { margin: 10px 0 4px; }
+.ro-zldq-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 4px 0 10px; }
+.ro-zldq-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
+.ro-zldq-c { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 12px 4px; border-radius: 10px; background: #fffdf7; border: 1px solid #e8d7bd;
+  text-decoration: none; color: #4a3a26; text-align: center; }
+.ro-zldq-c b { font-size: 13.5px; font-weight: 800; }
+.ro-zldq-c span { font-size: 10px; color: #8a7a63; margin-top: 3px; }
+@media (max-width: 420px) {
+  .ro-zldq-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 </style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
