@@ -1735,40 +1735,42 @@ function qxcPosSets(gameId, want, from, to, per) {
     ranked.push(list);
   }
 
-  const limit = Math.max(0, want - 3);        /* 5 个号 → 最多重合 2 个 */
-  const picks = [];
-  for (let p = 0; p < POS; p++) {
-    const list = ranked[p];
-    const out = list.slice(0, want).map((x) => x.n);
-    for (let q = 0; q < picks.length; q++) {
-      let guard = 0;
-      while (guard++ < 80) {
-        if (out.filter((x) => picks[q].indexOf(x) >= 0).length <= limit) break;
-        let worst = -1, worstS = Infinity;
-        for (let i = 0; i < list.length; i++) {
-          const it = list[i];
-          if (out.indexOf(it.n) < 0) continue;
-          if (picks[q].indexOf(it.n) < 0) continue;
-          if (it.s < worstS) { worstS = it.s; worst = it.n; }
-        }
-        /* 换进来的号：先躲在所有前面位都没用过的号，实在没有才允许撞前面的位 */
-        let best = -1, bestS = -Infinity, bestLoose = -1, bestLooseS = -Infinity;
-        for (let i = 0; i < list.length; i++) {
-          const it = list[i];
-          if (out.indexOf(it.n) >= 0) continue;
-          const usedBefore = picks.some((pk) => pk.indexOf(it.n) >= 0);
-          if (!usedBefore && it.s > bestS) { bestS = it.s; best = it.n; }
-          if (picks[q].indexOf(it.n) < 0 && it.s > bestLooseS) { bestLooseS = it.s; bestLoose = it.n; }
-        }
-        if (worst < 0) break;
-        const take = (best >= 0) ? best : bestLoose;
-        if (take < 0) break;
-        out[out.indexOf(worst)] = take;
+  /* 逐位挑号：每一位从自己的排名里出，但【和前面每一位最多重合 limit 个】。
+     一个号一个号地加，加之前先验一遍「跟已经定下来的每一位都不超」——
+     这样一次构造就保证任意两位都满足，不会出现「后面换号把前面撞回来」。
+     排名太挤、limit 太小填不满时，把 limit 放宽 1 个重来（最多放到 want）。 */
+  const baseLimit = Math.max(0, want - 3);     /* 5 个号 → 最多重合 2 个 */
+  const overlapOf = (a, b) => a.filter((x) => b.indexOf(x) >= 0).length;
+  for (let lim = baseLimit; lim <= want; lim++) {
+    const built = [];
+    for (let p = 0; p < POS; p++) {
+      const list = ranked[p];
+      /* 该位候选的排序：原本的分数 - 前面已经用过的次数（用过的越多越往后排，
+         不然 6 位全挤在专家池那几个号上，又会撞成「每位都一样」） */
+      const used = new Map();
+      for (let q = 0; q < built.length; q++) {
+        built[q].forEach((n) => used.set(n, (used.get(n) || 0) + 1));
       }
+      const order = list.map((it) => ({ n: it.n, k: it.s - (used.get(it.n) || 0) * 0.09 }))
+        .sort((a, b) => (b.k - a.k) || (a.n - b.n));
+      const out = [];
+      for (let i = 0; i < order.length && out.length < want; i++) {
+        const v = order[i].n;
+        let ok = true;
+        for (let q = 0; q < built.length; q++) {
+          const now = out.slice();
+          now.push(v);
+          if (overlapOf(now, built[q]) > lim) { ok = false; break; }
+        }
+        if (ok) out.push(v);
+      }
+      if (out.length < want) break;
+      built.push(out);
     }
-    picks.push(out.slice().sort((a, b) => a - b));
+    if (built.length === POS) return built.map((arr) => arr.slice().sort((x, y) => x - y));
   }
-  return picks;
+  /* 兜底（理论上到不了）：直接取每位自己的前 want 个 */
+  return ranked.map((list) => list.slice(0, want).map((x) => x.n).sort((x, y) => x - y));
 }
 
 /**
@@ -3549,6 +3551,47 @@ function digitStraightTally(gameId, out, ctx) {
   };
 }
 
+/**
+ * 七星彩：把「六位写成同一串号」的那一层也纠回来
+ * ------------------------------------------------------------
+ * 分享页 / App 的号码有两个来源：
+ *   ① 构建时自动算（autoFillForTemplate → positionRecommend）→ qxcPosSets 已经分开了
+ *   ② 存档 / 摇号里摇好的那串（saved-tickets.js 的 p1..p6）→ 那一层是
+ *      ticket-store.js 的「号码池共用同一份基底」分支写的，
+ *      6 行 p1..p6 全都取同一份 base.slice(0, 5)，于是又是一模一样的 5 个号。
+ * 这里在【一致性收尾的最前面】把这种情况纠正掉（摇号存档前会调到这里，
+ * 所以存档和分享页会一起变好）：
+ *   · 只有「前六位的号面几乎一样」才动手（相邻两位 5 个号里重合 ≥ 4 个）；
+ *   · 已经各不相同的（手动录入 / 新算法）一个字都不改 —— 幂等；
+ *   · 纠正完再往下走，后面的「每位杀号」会按新推荐重算，不会自相矛盾。
+ */
+function enforceQxcPosDistinct(gameId, out, roles) {
+  if (gameId !== 'qxc' && gameId !== 'xqxc') return;
+  if (!roles || !out) return;
+  const keys = Object.keys(roles).filter((k) => {
+    const r = roles[k];
+    return r && r.role === 'posrec' && r.area === 'front' && typeof r.posIdx === 'number';
+  });
+  if (keys.length < 4) return;                 /* 不是「前六位」那种布局，不动 */
+  keys.sort((a, b) => roles[a].posIdx - roles[b].posIdx);
+  const sets = keys.map((k) => consParse('posrec', out[k]));
+  if (sets.some((s) => !s.length)) return;
+  const want = sets[0].length;
+  const near = want - 1;                       /* 5 个号：重合 ≥ 4 个就算「看着一样」 */
+  let bad = false;
+  for (let i = 0; i < sets.length && !bad; i++) {
+    for (let j = i + 1; j < sets.length; j++) {
+      if (sets[i].filter((n) => sets[j].indexOf(n) >= 0).length >= near) { bad = true; break; }
+    }
+  }
+  if (!bad) return;
+  const six = qxcPosSets(gameId, want, 0, 9, HIST_PERIODS);
+  keys.forEach((k, i) => {
+    const v = six[i % six.length];
+    if (v && v.length) out[k] = v.map((x) => (Number(x) === 0 ? '0' : String(x).padStart(2, '0'))).join(' ');
+  });
+}
+
 /** 一整张图的一致性收尾：逐个号码区过一遍 */
 function enforceConsistencyImage(gameId, imageKey, out, ctx) {
   if (!out || typeof out !== 'object') return out;
@@ -3557,6 +3600,8 @@ function enforceConsistencyImage(gameId, imageKey, out, ctx) {
   try { enforceDigitStraightGate(gameId, out, ctx); } catch (e) { /* 失败不影响出号 */ }
   let roles;
   try { roles = fieldRolesOf(gameId, imageKey); } catch (e) { return out; }
+  /* 七星彩：六位又写成同一串了 → 先按位分开，再让后面的一致性检查基于新号码跑 */
+  try { enforceQxcPosDistinct(gameId, out, roles); } catch (e) { /* 失败不影响出号 */ }
   const areas = [];
   Object.keys(roles).forEach((k) => { if (areas.indexOf(roles[k].area) < 0) areas.push(roles[k].area); });
   areas.forEach((a) => {
