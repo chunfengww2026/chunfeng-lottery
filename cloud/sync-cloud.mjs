@@ -180,6 +180,13 @@ const FROM_ROOT = [
      ⚠️ 少任何一个都不行：core-pool 依赖 core-algo，两个必须一起上云。
      ⚠️ 它们只在【构建时】被 require，页面运行时不读 → 不用发布到站点目录。 */
   'core-pool.js', 'core-algo.js',
+  /* 【每期换号硬校验 · 2026-10-21】pick-guard.js
+     export-static.mjs 现在用 createRequire(import.meta.url) require 它
+     （青蛙 20 码 / 双色球蓝球 / 智能精选的「和上一期至少改几个号，不够就加盐重摇」）。
+     ⚠️ 必须同步：漏了它 → 云端 export-static.mjs 构建时直接抛 MODULE_NOT_FOUND
+        → 整页生成失败（和 2026-10-20 那次 core-pool 事故同一类）。
+     ⚠️ 只在【构建时】被 require，页面运行时不读 → 不用发布到站点目录。 */
+  'pick-guard.js',
   /* 【真实推荐号存档 · 2026-10-20】reco-archive.json 是 export-static.mjs 构建时
      自己写出来的存档（每期第一次构建把「本期推荐号码」原样存进去，之后不再改）。
      「中奖」卡只认这份存档 + 真实开奖号 —— 【不再按期号回算】，
