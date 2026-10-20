@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-21 03:05
+   更新时间：2026-10-21 03:06
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-21 03:05",
+ "updated": "2026-10-21 03:06",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1135,8 +1135,8 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=hmS8SmK5%2BVA3p%2BrVk5h8Gpwg2oM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=hmS8SmK5%2BVA3p%2BrVk5h8Gpwg2oM%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=eZ8snCap1myEjC8iwLb66W12%2B5w%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=eZ8snCap1myEjC8iwLb66W12%2B5w%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=vhB%2Bil9wil6gw2E2ooAtn9UYzPg%3D",
      "title": "#玩快乐8有啥小乐趣# 快乐8-279期 明天上午文章里分享280期选择号码。 个人观点，仅供参考！ 彩票有风险！购买需谨慎！",
      "url": "sslocal://thread_detail?fid=1878339109000224&tid=1879581200729220",
@@ -1148,25 +1148,27 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-20T18:06:01.795Z",
+     "seen": "2026-10-20T19:06:01.860Z",
      "whenMs": 1792508316000,
-     "seenMs": 1792519561795,
+     "seenMs": 1792523161860,
      "drawMs": 1792503000000,
      "nextMs": 1792589400000,
      "atMs": 1792515662907,
      "drawAt": "2026-10-20T13:30:00.000Z",
      "nextAt": 1792589400000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-23T18:06:01.795Z",
+     "expireAt": "2026-10-23T19:06:01.860Z",
      "rule": "next-draw",
      "author": "添点快乐",
      "when": "2026-10-20 22:58:36",
      "postId": "1879581200729220",
-     "px": 132300
+     "px": 132300,
+     "imgPx": 132300,
+     "dedupeImgs": 2
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=%2FlowreRC79By7hgqGpZSq%2B2nrf8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=%2FlowreRC79By7hgqGpZSq%2B2nrf8%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gEReDp7C2nMkSMi%2FOIdBCM0ee18%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gEReDp7C2nMkSMi%2FOIdBCM0ee18%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/91c659202fa24fa7b6baab0fc51dcb20~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=vhB%2Bil9wil6gw2E2ooAtn9UYzPg%3D",
      "title": "#玩快乐8有啥小乐趣# 快乐8-279期 明天上午文章里分享280期选择号码。 个人观点，仅供参考！ 彩票有风险！购买需谨慎！",
      "url": "sslocal://thread_detail?fid=1878339109000224&tid=1879581200729220",
@@ -1178,26 +1180,28 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-20T18:06:01.795Z",
+     "seen": "2026-10-20T19:06:01.860Z",
      "whenMs": 1792508316000,
-     "seenMs": 1792519561795,
+     "seenMs": 1792523161860,
      "drawMs": 1792503000000,
      "nextMs": 1792589400000,
      "atMs": 1792515662907,
      "drawAt": "2026-10-20T13:30:00.000Z",
      "nextAt": 1792589400000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-23T18:06:01.795Z",
+     "expireAt": "2026-10-23T19:06:01.860Z",
      "rule": "next-draw",
      "author": "添点快乐",
      "when": "2026-10-20 22:58:36",
      "postId": "1879581200729220",
-     "px": 132300
+     "px": 132300,
+     "imgPx": 132300,
+     "dedupeImgs": 2
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8f40f7a375e04ac5a296806c46bddfab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=lO46XlFAL6zxw0S1lOGTwZV5W5E%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8f40f7a375e04ac5a296806c46bddfab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=lO46XlFAL6zxw0S1lOGTwZV5W5E%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=Bqd0xPruGA%2BGe2Dbb4gEnqUZkfk%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=2Hw%2B3aRoGB9vI2xaoArtMv3OlZs%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=2Hw%2B3aRoGB9vI2xaoArtMv3OlZs%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=PdIktvJeywTQ10QKUAUkNCRH5V0%3D",
      "title": "中山福彩快乐8，赠票活动继续开展中！凡购买快乐8选五，选六，选十复式票，中奖后即送一张双色球6+16，价值32元的机选票！",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879529578319243",
      "at": "2026-10-20T17:01:02.907Z",
@@ -1209,26 +1213,28 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-20T18:46:01.845Z",
+     "seen": "2026-10-20T19:06:01.860Z",
      "whenMs": 1792459086000,
-     "seenMs": 1792521961845,
+     "seenMs": 1792523161860,
      "drawMs": 1792502100000,
      "nextMs": 1792674900000,
      "atMs": 1792515662907,
      "drawAt": "2026-10-20T13:15:00.000Z",
      "nextAt": 1792674900000,
      "drawGid": "ssq",
-     "expireAt": "2026-10-23T18:46:01.845Z",
+     "expireAt": "2026-10-23T19:06:01.860Z",
      "rule": "next-draw",
      "author": "中山福彩便利店",
      "when": "2026-10-20 09:18:06",
      "postId": "1879529578319243",
-     "px": 132300
+     "px": 132300,
+     "imgPx": 132300,
+     "dedupeImgs": 2
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gP4%2BhO6GA7E75c%2Bdlp6ZSqAO5lE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gP4%2BhO6GA7E75c%2Bdlp6ZSqAO5lE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=Bqd0xPruGA%2BGe2Dbb4gEnqUZkfk%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8f40f7a375e04ac5a296806c46bddfab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=lO46XlFAL6zxw0S1lOGTwZV5W5E%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8f40f7a375e04ac5a296806c46bddfab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=lO46XlFAL6zxw0S1lOGTwZV5W5E%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=PdIktvJeywTQ10QKUAUkNCRH5V0%3D",
      "title": "中山福彩快乐8，赠票活动继续开展中！凡购买快乐8选五，选六，选十复式票，中奖后即送一张双色球6+16，价值32元的机选票！",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879529578319243",
      "at": "2026-10-20T17:01:02.907Z",
@@ -1240,7 +1246,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-20T18:46:01.845Z",
+     "seen": "2026-10-20T19:06:01.860Z",
      "whenMs": 1792459086000,
      "seenMs": 1792521961845,
      "drawMs": 1792502100000,
@@ -1259,7 +1265,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2af93a5aed5e4a1d9e380220d5419a26~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=vVm3er8NymVw%2FRUoo%2F%2FpIyH4sq0%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2af93a5aed5e4a1d9e380220d5419a26~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=vVm3er8NymVw%2FRUoo%2F%2FpIyH4sq0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=Bqd0xPruGA%2BGe2Dbb4gEnqUZkfk%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=PdIktvJeywTQ10QKUAUkNCRH5V0%3D",
      "title": "中山福彩快乐8，赠票活动继续开展中！凡购买快乐8选五，选六，选十复式票，中奖后即送一张双色球6+16，价值32元的机选票！",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879529578319243",
      "at": "2026-10-20T17:01:02.907Z",
@@ -1271,7 +1277,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-20T18:46:01.845Z",
+     "seen": "2026-10-20T19:06:01.860Z",
      "whenMs": 1792459086000,
      "seenMs": 1792521961845,
      "drawMs": 1792502100000,
