@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-21 01:01 */
+/* 自动生成，请勿手动编辑 · 2026-10-21 02:00 */
 const JC_DATA = {
- "updated": "2026-10-21 01:01",
+ "updated": "2026-10-21 02:00",
  "stat": {
   "total": 8,
   "upcoming": 8,
@@ -59,7 +59,7 @@ const JC_DATA = {
      },
      "live": {
       "home": 1.55,
-      "draw": 4.2,
+      "draw": 4.1,
       "away": 5.5
      }
     },
@@ -79,14 +79,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 60.6,
+    "confidence": 60.2,
     "prob": {
-     "home": 60.6,
-     "draw": 22.4,
-     "away": 17.1
+     "home": 60.2,
+     "draw": 22.8,
+     "away": 17
     },
     "clear": true,
-    "margin": 6.5,
+    "margin": 7.1,
     "rqLine": "一球",
     "type": "three"
    },
@@ -470,9 +470,9 @@ const JC_DATA = {
       "away": 5.75
      },
      "live": {
-      "home": 1.5,
-      "draw": 4.5,
-      "away": 6
+      "home": 1.57,
+      "draw": 4.2,
+      "away": 5.5
      }
     },
     "overunder": {
@@ -491,14 +491,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 63.2,
+    "confidence": 60.3,
     "prob": {
-     "home": 63.2,
-     "draw": 21.1,
-     "away": 15.8
+     "home": 60.3,
+     "draw": 22.5,
+     "away": 17.2
     },
     "clear": true,
-    "margin": 5.6,
+    "margin": 5.7,
     "rqLine": "一球/球半",
     "type": "three"
    },
@@ -561,9 +561,9 @@ const JC_DATA = {
       "away": 0.72
      },
      "live": {
-      "home": 0.82,
+      "home": 1.02,
       "line": "两球半",
-      "away": 1.02
+      "away": 0.77
      }
     },
     "europe": {
@@ -573,7 +573,7 @@ const JC_DATA = {
       "away": 12
      },
      "live": {
-      "home": 1.14,
+      "home": 1.13,
       "draw": 9,
       "away": 15
      }
@@ -594,14 +594,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 83.1,
+    "confidence": 83.3,
     "prob": {
-     "home": 83.1,
+     "home": 83.3,
      "draw": 10.5,
      "away": 6.3
     },
     "clear": true,
-    "margin": 5.5,
+    "margin": 6.3,
     "rqLine": "两球半",
     "type": "three"
    },
@@ -610,21 +610,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -2.5,
     "upSide": "home",
-    "upWater": 0.82,
-    "downWater": 1.02,
+    "upWater": 1.02,
+    "downWater": 0.77,
     "openHandicap": -3,
     "openUpWater": 1.07,
     "openDownWater": 0.72,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
     "canWater": false,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": -3,
      "nowHandicap": -2.5,
      "initUpWater": 1.07,
-     "nowUpWater": 0.82,
+     "nowUpWater": 1.02,
      "initLine": "三球",
      "nowLine": "两球半"
     },
@@ -664,9 +664,9 @@ const JC_DATA = {
       "away": 1.05
      },
      "live": {
-      "home": 0.82,
+      "home": 0.85,
       "line": "受半球",
-      "away": 1.02
+      "away": 1
      }
     },
     "europe": {
@@ -688,9 +688,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.9,
+      "line": 0.95,
       "over": 3,
-      "under": 0.95
+      "under": 0.9
      }
     }
    },
@@ -713,21 +713,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.82,
+    "upWater": 1,
+    "downWater": 0.85,
     "openHandicap": 0.25,
     "openUpWater": 1.05,
     "openDownWater": 0.75,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
+    "totalWater": 1.85,
+    "theoryUpPercent": "45.95",
+    "theoryDownPercent": "54.05",
     "canWater": false,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": 0.25,
      "nowHandicap": 0.5,
      "initUpWater": 1.05,
-     "nowUpWater": 1.02,
+     "nowUpWater": 1,
      "initLine": "受平手/半球",
      "nowLine": "受半球"
     },
@@ -767,9 +767,9 @@ const JC_DATA = {
       "away": 0.87
      },
      "live": {
-      "home": 1.05,
-      "line": "一球/球半",
-      "away": 0.8
+      "home": 0.8,
+      "line": "一球",
+      "away": 1.05
      }
     },
     "europe": {
@@ -780,7 +780,7 @@ const JC_DATA = {
      },
      "live": {
       "home": 1.5,
-      "draw": 4.6,
+      "draw": 4.5,
       "away": 5.75
      }
     },
@@ -791,48 +791,48 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.87,
+      "line": 0.82,
       "over": 3,
-      "under": 0.97
+      "under": 1.02
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 63,
+    "confidence": 62.7,
     "prob": {
-     "home": 63,
-     "draw": 20.5,
+     "home": 62.7,
+     "draw": 20.9,
      "away": 16.4
     },
     "clear": true,
-    "margin": 5.8,
-    "rqLine": "一球/球半",
+    "margin": 6.3,
+    "rqLine": "一球",
     "type": "three"
    },
    "asianIndex": {
-    "line": "一球/球半",
+    "line": "一球",
     "from": "live",
-    "handicap": -1.25,
+    "handicap": -1,
     "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.8,
+    "upWater": 0.8,
+    "downWater": 1.05,
     "openHandicap": -0.75,
     "openUpWater": 0.97,
     "openDownWater": 0.87,
     "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
+    "theoryUpPercent": "56.76",
+    "theoryDownPercent": "43.24",
     "canWater": true,
     "handicapChange": {
-     "type": "降盘升水",
+     "type": "降盘降水",
      "initHandicap": -0.75,
-     "nowHandicap": -1.25,
+     "nowHandicap": -1,
      "initUpWater": 0.97,
-     "nowUpWater": 1.05,
+     "nowUpWater": 0.8,
      "initLine": "半球/一球",
-     "nowLine": "一球/球半"
+     "nowLine": "一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -847,7 +847,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-21 01:01",
+  "updated": "2026-10-21 02:00",
   "officialUpdate": "2026-10-20 21:52:43",
   "inSale": 21,
   "list": [
