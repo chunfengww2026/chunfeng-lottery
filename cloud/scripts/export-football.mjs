@@ -3404,16 +3404,30 @@ function communityHtml2() {
   } catch (e) { return '<div style="font-size:12px;color:#8a7a63;">社区内容整理中</div>'; }
 }
 
-/* __COMMUNITY_HOT__ 社区热点 = 公开论坛的话题标题（只要「标题 + 时间」，不抓全文/图片）
+/* __COMMUNITY_HOT__ 社区热点 = 公开论坛的帖子（标题 + 时间 +【点开就地看正文】）
    ------------------------------------------------------------
-   用户 2026-10-21：「我要免费抓取到其他网址的聊天分享信息 → 公开论坛的话题标题
-   （虎扑足球区 / 贴吧 / 500 / 网易新浪）→ 抓什么：标题 + 时间 + 链接 → 当社区热点展示」
+   用户 2026-10-21 第一次：「我要免费抓取到其他网址的聊天分享信息 → 公开论坛的话题标题」
+   用户 2026-10-21 第二次（本条要解决的）：
+     「足球社区点不开资料」→ 条目只有标题、点不动 → 要能点开看内容
+     「我要别人自己发的图」→ 帖子正文里别人发的截图（不是评论里的）
+   用户 2026-10-21 第三次：
+     「社区不抓中超国内的比赛消息」「主要抓接下来比赛竞彩的消息」
+     → 抓取脚本已换国际板块 + 国内黑名单 + 按 football.js 的「接下来比赛」队名打分排序。
    数据：community-topics.json（fetch-community-topics.mjs 每小时抓一次）
-     { updated: '…', topics: [ { t: 标题, d: 时间, u: 链接 }, … ] }
-   ⚠️ 块里【只显示标题 +「几小时前」】，不做外链、不写站名：
-      项目有「数据源留痕」断言（source-guard.mjs），页面上不能看出数据从哪来。
-      链接只留在 json 里，页面不渲染（和「专家推荐」那一块同一套处理）。
-   ⚠️ 读不到 / 解析失败 → 整块返回空字符串（页面照旧，绝不写「暂无」凑数）。 */
+     { updated: '…', topics: [ { t, d, u, body: 正文, nimg: 正文图片张数, imgs: [...] }, … ] }
+
+   ① 【点开就能看】每条 = 原生 <details class="cx-topic"> + <summary>（标题 + 时间）
+        · 默认收起，点一下就地展开正文（不跳转、不开新页、不出现外链）
+        · 没抓到正文的帖子 → 展开里写「该帖没有正文文字」，【不编内容】
+   ② 【图片】只写「[图] ×N」，【不放 <img>】：
+        实测（headless Chrome + 本地 http 站当"我们自己的站"）：
+          <img src> → HTTP 403；加 referrerpolicy="no-referrer" → 照样 403。
+        图片有防盗链，放上去就是一片破图 → 只报张数，图片地址只留在 json 里。
+   ③ 【不显示评论】用户明确：评论 = 0 条（抓取脚本也没抓回复）。
+   ④ 【不出现外链/站名/来源】：链接只在 json 里，页面不渲染；
+        页面有「数据源留痕」断言（source-guard.mjs），可见文本出现站名/来源字样就整页构建失败。
+        抓取脚本已经清过一遍，这里【再清一遍】（json 万一手工改过也不至于把构建搞红）。
+   ⑤ 读不到 / 解析失败 → 整块返回空字符串（页面照旧，绝不写「暂无」凑数）。 */
 function buildCommunityTopicsHtml() {
   let data = null;
   try {
@@ -3441,30 +3455,79 @@ function buildCommunityTopicsHtml() {
   };
 
   /* 最多 10 条（题目：社区热点最多 10 条；json 里存到 20 条，多出来的给以后换版式留量） */
-  /* ⚠️ 兜底过滤：论坛标题偶尔带站名/「来源」类字样，可见文本里出现就会被
+  /* 兜底过滤：论坛标题/正文偶尔带站名/「来源」类字样，可见文本里出现就会被
      source-guard 的留痕断言拦下（整页构建失败）。抓取脚本已经筛过一遍，
      这里再筛一遍 —— 万一 json 是手工改的，也不至于把构建搞红。 */
   const BAD = /虎扑|贴吧|百度|新浪|网易|懂球帝|500|头条|一起彩|球探|雷速|titan007|okooo|sporttery|Betfair|必发|来源|取自|来自|数据源|接口|抓取|爬取|https?:\/\//i;
   const list = data.topics.filter((it) => it && it.t && !BAD.test(String(it.t))).slice(0, 10);
   if (!list.length) return '';
 
+  /* 正文：逐行过滤 + 限长（抓取脚本存的是 ≤700 字；这里再兜一次 800） */
+  const bodyOf = (it) => {
+    const raw = String((it && it.body) || '').replace(/\r/g, '');
+    if (!raw) return '';
+    const lines = raw.split('\n').map((L) => String(L).replace(/\s+/g, ' ').trim()).filter((L) => L && !BAD.test(L));
+    let s = lines.join('\n');
+    if (s.length > 800) {
+      const head = s.slice(0, 800);
+      const cut = Math.max(head.lastIndexOf('。'), head.lastIndexOf('！'), head.lastIndexOf('？'), head.lastIndexOf('\n'));
+      s = (cut >= 300 ? head.slice(0, cut + 1) : head).trim() + '…';
+    }
+    return s;
+  };
+
   const rows = list.map((it, i) => {
     const t = String(it && it.t || '').replace(/\s+/g, ' ').slice(0, 40);
     if (!t) return '';
     const when = rel(it.d);
-    return '<div style="display:flex;gap:6px;padding:5px 0;border-bottom:1px dotted #f0e4cf;font-size:12.5px;color:#4a3a26;line-height:1.45;">'
-      + '<span style="flex:0 0 15px;color:#b9a98c;">' + (i + 1) + '</span>'
-      + '<span style="flex:1 1 auto;min-width:0;">' + esc(t) + '</span>'
-      + '<span style="flex:0 0 auto;color:#a89a80;font-size:11px;">' + esc(when) + '</span>'
-      + '</div>';
+    const body = bodyOf(it);
+    const nimg = Math.max(0, Math.min(9, Math.floor(Number(it && it.nimg) || 0)));
+    return '<details class="cx-topic">'
+      + '<summary class="cx-sum">'
+      + '<span class="cx-n">' + (i + 1) + '</span>'
+      + '<span class="cx-t">' + esc(t) + '</span>'
+      + '<span class="cx-d">' + esc(when) + '</span>'
+      + '<span class="cx-arrow" aria-hidden="true"></span>'
+      + '</summary>'
+      + '<div class="cx-body">'
+      + (body
+        ? '<div class="cx-p">' + esc(body).replace(/\n/g, '<br>') + '</div>'
+        : '<div class="cx-p cx-p-empty">该帖没有正文文字（原帖只发了标题）</div>')
+      + (nimg ? '<div class="cx-imgs">[图] ×' + nimg + '</div>' : '')
+      + '</div>'
+      + '</details>';
   }).join('');
   if (!rows) return '';
 
+  /* 样式全用 .cx-* 前缀（页面别处没有这几个类名，不会串样式）。
+     原生 details/summary：去掉默认三角，右侧自画一个 ▸/▾ 当「能点开」的提示。 */
+  const css = '<style>'
+    + '.cx-topic{border-bottom:1px dotted #f0e4cf;}'
+    + '.cx-topic>summary.cx-sum{list-style:none;cursor:pointer;display:flex;gap:6px;align-items:baseline;'
+    + 'padding:6px 2px;font-size:12.5px;color:#4a3a26;line-height:1.45;border-radius:6px;-webkit-tap-highlight-color:transparent;}'
+    + '.cx-topic>summary.cx-sum::-webkit-details-marker{display:none;}'
+    + '.cx-topic>summary.cx-sum::marker{content:\'\';}'
+    + '.cx-topic>summary.cx-sum:hover{background:#fbf3e6;}'
+    + '.cx-topic>summary.cx-sum .cx-n{flex:0 0 15px;color:#b9a98c;}'
+    + '.cx-topic>summary.cx-sum .cx-t{flex:1 1 auto;min-width:0;}'
+    + '.cx-topic>summary.cx-sum .cx-d{flex:0 0 auto;color:#a89a80;font-size:11px;}'
+    + '.cx-topic>summary.cx-sum .cx-arrow{flex:0 0 auto;color:#c9b79a;font-size:10px;line-height:1;width:9px;text-align:center;}'
+    + '.cx-topic>summary.cx-sum .cx-arrow::before{content:\'▸\';}'
+    + '.cx-topic[open]>summary.cx-sum .cx-arrow::before{content:\'▾\';}'
+    + '.cx-topic[open]>summary.cx-sum{color:#3c2f1e;font-weight:600;}'
+    + '.cx-body{padding:2px 2px 9px 21px;}'
+    + '.cx-body .cx-p{background:#fbf6ec;border:1px solid #efe2cc;border-radius:8px;padding:7px 9px;'
+    + 'font-size:12px;color:#5a4a35;line-height:1.62;word-break:break-word;}'
+    + '.cx-body .cx-p-empty{color:#a89a80;}'
+    + '.cx-body .cx-imgs{margin-top:6px;font-size:11px;color:#a89a80;}'
+    + '</style>';
+
+  const hasBody = list.some((x) => x && typeof x.body === 'string' && x.body);
   return '<div style="margin-top:10px;padding-top:8px;border-top:1px dashed #e8d7bd;">'
     + '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">'
     + '<span style="font-size:13px;font-weight:800;color:#4a3a26;">大家都在聊</span>'
-    + '<span style="font-size:10.5px;color:#a89a80;">社区热点 · 每小时更新</span>'
-    + '</div>' + rows + '</div>';
+    + '<span style="font-size:10.5px;color:#a89a80;">' + (hasBody ? '点标题看正文' : '社区热点 · 每小时更新') + '</span>'
+    + '</div>' + css + rows + '</div>';
 }
 const communityHotHtml = buildCommunityTopicsHtml();
 
