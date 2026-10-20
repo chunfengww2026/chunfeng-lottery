@@ -1582,7 +1582,7 @@ function buildArticlesHtml() {
       `</details>`;
   }).join('');
 
-  /* 【资料大全 · 用户 2026-10-21「文章参考上面加一栏 资料大全 / 里面要分开 双色球 大乐透 3D 排列三 快乐8 类目」
+  /* 【名家图库 · 用户 2026-10-21「文章参考上面加一栏 名家图库 / 里面要分开 双色球 大乐透 3D 排列三 快乐8 类目」
      五个彩种各一格，点开跳到对应彩种的「资料」位置（页内锚点 ✗ 不跳外站 ✔） */
   const ZLDQ_ITEMS = [
     ['双色球', 'ro-g-ssq-main'],
@@ -1592,7 +1592,7 @@ function buildArticlesHtml() {
     ['快乐8', 'ro-g-kl8-main']
     /* 「篮球」已删 · 用户 2026-10-21：那是"蓝球"（双色球/大乐透的蓝球 ✗）不是独立彩种 ✔ */
   ];
-  /* 【图片塞进资料大全格子 · 用户 2026-10-21 选 A】
+  /* 【图片塞进名家图库格子 · 用户 2026-10-21 选 A】
      每个格子点开 = 该彩种的名家图（读 mingjia-data.js ✗） */
   const mjByCat = {};
   try {
@@ -1608,7 +1608,7 @@ function buildArticlesHtml() {
   } catch (e) { }
 
   const zldqHtml = '<section class="ro-zldq" id="ro-zldq">' +
-    '<div class="ro-zldq-h">资料大全</div>' +
+    '<div class="ro-zldq-h">名家图库</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
       /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
@@ -16778,7 +16778,7 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 /* 刘海那条缝也铺底色，避免透出下面的字 */
 body { background-color: #f7efe1; }
 
-/* ZLDQ_CSS · 资料大全（用户 2026-10-21） */
+/* ZLDQ_CSS · 名家图库（用户 2026-10-21） */
 .ro-zldq { margin: 10px 0 4px; }
 .ro-zldq-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 4px 0 10px; }
 .ro-zldq-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
@@ -18003,7 +18003,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 
 <script>
-/* ZLQ_CLICK · 资料大全按钮：点一下 = 强制重新加载（绕缓存，拿云端最新）
+/* ZLQ_CLICK · 名家图库按钮：点一下 = 强制重新加载（绕缓存，拿云端最新）
    ⚠️ 静态页不能主动抓数据 ✗ —— 抓取在云端每 10 分钟跑一次 ✔ */
 try {
   document.addEventListener("click", function (e) {
