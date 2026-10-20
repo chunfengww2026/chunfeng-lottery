@@ -1470,6 +1470,62 @@ function artBodyHtml(body) {
   return segs.join('');
 }
 
+/* 【文章参考 · 加量】用户 2026-10-21：「文章参考增加20篇」
+   → 文章参考原来只读 articles-data.js（每个彩种 10 篇）。
+     这里把 jc-articles.js 的【头条全量】也读进来（那份每条都带正文字符串），
+     每个彩种补到 20 篇：先放原来那 10 篇，再按标题去重往后补。
+   ⚠️ 只给「文章参考」用，其它区块一行不动；数据不够就有多少给多少，绝不编标题。 */
+const ART_TARGET = 20;
+
+const JC_ART = (function () {
+  try {
+    const f = path.join(ROOT, 'jc-articles.js');
+    if (!fs.existsSync(f)) return null;
+    const c = vm.createContext({});
+    vm.runInContext(fs.readFileSync(f, 'utf8') + '\n;globalThis.__JC=JC_ARTICLES;', c);
+    return c.__JC || null;
+  } catch (e) { return null; }
+})();
+
+/* 标题归一化去重键（去掉标点空白；和青蛙免费资料那边 keyOf 同一套口径） */
+function artKeyOf(s) {
+  return String(s || '').replace(/[\s·・\-—_，,。.、：:；;！!？?“”"'（）()【】\[\]]/g, '');
+}
+
+/* 从头条那份里挑出该彩种、且没和现有重复的；字符串正文 → 段落数组（artBodyHtml 要数组） */
+function artExtraFor(gid, base) {
+  const tt = (JC_ART && Array.isArray(JC_ART.toutiao)) ? JC_ART.toutiao : [];
+  const have = (base || []).slice();
+  const seen = new Set(have.map((x) => artKeyOf(x && x.title)));
+  const out = [];
+  for (const a of tt) {
+    if (have.length + out.length >= ART_TARGET) break;
+    if (!a) continue;
+    /* 彩种以 game 字段为准；没有就按标题认（头条是按关键词搜的，偶尔会混） */
+    let g = String(a.game || '');
+    if (!g) {
+      const t0 = String(a.title || '');
+      if (t0.indexOf('双色球') >= 0) g = 'ssq';
+      else if (t0.indexOf('大乐透') >= 0) g = 'dlt';
+    }
+    if (g !== gid) continue;
+    const title = String(a.title || '').replace(/[·・\-—]*\s*免费推荐\s*/g, '').trim();
+    if (!title) continue;
+    const k = artKeyOf(title);
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    const raw = String(a.body || a.desc || '').trim();
+    const body = raw ? raw.split('\n').map((x) => x.trim()).filter(Boolean) : [];
+    out.push({
+      title: title,
+      date: String(a.time || '').slice(0, 10),
+      author: String(a.author || ''),
+      body: body,
+    });
+  }
+  return out;
+}
+
 function buildArticlesHtml() {
   const data = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
   const updated = (ARTICLES && ARTICLES.updated) ? String(ARTICLES.updated) : '';
@@ -1479,7 +1535,11 @@ function buildArticlesHtml() {
   let bodyCnt = 0;               /* 带正文的篇数，日志用 */
   const groupsHtml = ART_ORDER.map((k) => {
     const g = data ? data[k] : null;
-    const items = (g && Array.isArray(g.items)) ? g.items : [];
+    /* __ART_PLUS20__ 用户 2026-10-21：「文章参考增加20篇」
+       → 先放 articles-data.js 原来那 10 篇，再用头条那份补到每个彩种 20 篇。
+         只补 ssq / dlt（头条只有这两个彩种），别的彩种数据没变就还是 10 篇。 */
+    const baseItems = (g && Array.isArray(g.items)) ? g.items : [];
+    const items = baseItems.concat(artExtraFor(k, baseItems));
     total += items.length;
     const label = ART_SHORT_NAME[k] || (g && g.name) || k;
 
