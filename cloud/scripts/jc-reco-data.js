@@ -5,243 +5,9 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-20 03:05",
+ "updated": "2026-10-21 01:05",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
-  {
-   "at": "2026-10-17 10:30",
-   "min": 55,
-   "rows": [
-    {
-     "code": "周六002",
-     "time": "2026-10-17 14:00",
-     "league": "日职",
-     "home": "鹿岛鹿角",
-     "away": "长崎航海",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.49,
-     "conf": 60.8,
-     "score": "2:0",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六003",
-     "time": "2026-10-17 15:30",
-     "league": "K1联赛",
-     "home": "蔚山现代",
-     "away": "富川FC",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.6,
-     "conf": 56.9,
-     "score": "2:1",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六005",
-     "time": "2026-10-17 18:00",
-     "league": "日职",
-     "home": "柏太阳神",
-     "away": "名古屋鲸",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.57,
-     "conf": 58.6,
-     "score": "1:3",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周六009",
-     "time": "2026-10-17 20:00",
-     "league": "西甲",
-     "home": "西班牙人",
-     "away": "马竞",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.7,
-     "conf": 56.1,
-     "score": "0:1",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六011",
-     "time": "2026-10-17 21:00",
-     "league": "意甲",
-     "home": "威尼斯",
-     "away": "那不勒斯",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.7,
-     "conf": 55.7,
-     "score": "1:0",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周六017",
-     "time": "2026-10-17 21:30",
-     "league": "德甲",
-     "home": "柏林联合",
-     "away": "多特蒙德",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.6,
-     "conf": 59.3,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周六019",
-     "time": "2026-10-17 22:00",
-     "league": "英超",
-     "home": "曼城",
-     "away": "伊普斯",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.22,
-     "conf": 77.8,
-     "score": "3:2",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六021",
-     "time": "2026-10-17 22:15",
-     "league": "西甲",
-     "home": "比利亚雷",
-     "away": "埃尔切",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.45,
-     "conf": 65.3,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周六022",
-     "time": "2026-10-17 23:15",
-     "league": "法甲",
-     "home": "斯特拉斯",
-     "away": "巴黎圣曼",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.4,
-     "conf": 67.6,
-     "score": "1:3",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六023",
-     "time": "2026-10-18 00:00",
-     "league": "意甲",
-     "home": "博洛尼亚",
-     "away": "国际米兰",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.62,
-     "conf": 58.8,
-     "score": "1:3",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六025",
-     "time": "2026-10-18 00:30",
-     "league": "德甲",
-     "home": "拜仁",
-     "away": "莱红牛",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.22,
-     "conf": 77.8,
-     "score": "6:1",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六026",
-     "time": "2026-10-18 00:30",
-     "league": "西甲",
-     "home": "贝蒂斯",
-     "away": "巴萨",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.42,
-     "conf": 66.9,
-     "score": "2:5",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六027",
-     "time": "2026-10-18 02:00",
-     "league": "荷甲",
-     "home": "特尔斯达",
-     "away": "费耶诺德",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.33,
-     "conf": 70.5,
-     "score": "3:4",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周六028",
-     "time": "2026-10-18 02:45",
-     "league": "意甲",
-     "home": "罗马",
-     "away": "热那亚",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.48,
-     "conf": 64.2,
-     "score": "2:0",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周日003",
-     "time": "2026-10-18 15:30",
-     "league": "K1联赛",
-     "home": "首尔FC",
-     "away": "金泉尚武",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.53,
-     "conf": 59.9,
-     "score": "2:2",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周日018",
-     "time": "2026-10-18 23:30",
-     "league": "英超",
-     "home": "诺丁汉",
-     "away": "阿森纳",
-     "pick": "away",
-     "label": "客胜",
-     "odds": 1.6,
-     "conf": 59.6,
-     "score": "0:1",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 0,
-   "miss": 5,
-   "pending": 0,
-   "verdict": "黑"
-  },
   {
    "at": "2026-10-17 12:00",
    "min": 55,
@@ -354,39 +120,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.56,
      "conf": 59.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:2",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
-  },
-  {
-   "at": "2026-10-17 23:00",
-   "min": 55,
-   "rows": [
-    {
-     "code": "周日014",
-     "time": "2026-10-18 21:30",
-     "league": "德甲",
-     "home": "勒沃库森",
-     "away": "弗赖堡",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.7,
-     "conf": 55.6,
-     "score": "2:1",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
+   "hit": 0,
+   "miss": 3,
    "pending": 0,
-   "verdict": "红"
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 15:00",
@@ -414,31 +156,6 @@ const JC_RECO_DATA = {
    "verdict": ""
   },
   {
-   "at": "2026-10-18 23:28",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周日020",
-     "time": "2026-10-19 00:00",
-     "league": "意甲",
-     "home": "AC米兰",
-     "away": "亚特兰大",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.62,
-     "conf": 58.5,
-     "score": "3:2",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
-  },
-  {
    "at": "2026-10-19 10:46",
    "min": 58,
    "rows": [
@@ -453,15 +170,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.65,
      "conf": 58.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:1",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-19 23:30",
@@ -561,6 +278,31 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 6,
+   "verdict": ""
+  },
+  {
+   "at": "2026-10-21 01:05",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周二003",
+     "time": "2026-10-21 02:45",
+     "league": "英冠",
+     "home": "伍尔弗汉普顿",
+     "away": "朴次茅斯",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.55,
+     "conf": 60.6,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 1,
    "verdict": ""
   }
  ]
