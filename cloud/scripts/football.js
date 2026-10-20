@@ -5841,7 +5841,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-20 23:10:00",
-    "minute": 93,
+    "minute": 98,
     "home": {
      "name": "塔亚文",
      "score": 0,
@@ -5850,7 +5850,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "卡达西亚",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -5907,7 +5907,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-20 23:20:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "欧鲁巴赫",
      "score": 1,
@@ -5973,7 +5973,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-20 23:30:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "彼達迪華夏普納漢史曼U19",
      "score": 1,
@@ -6105,7 +6105,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "布戴亚",
      "score": 1,
@@ -6114,7 +6114,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴林SC",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 7
     },
@@ -6171,7 +6171,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "伊蒂哈德巴林",
      "score": 0,
@@ -6237,7 +6237,7 @@ const FOOTBALL_DATA = {
      "color": "BD0002"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "艾沙镇",
      "score": 1,
@@ -6303,7 +6303,7 @@ const FOOTBALL_DATA = {
      "color": "ee7799"
     },
     "time": "2026-10-21 00:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "卡洛华克",
      "score": 0,
@@ -6353,7 +6353,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-21 00:45:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "沙巴巴库\t",
      "score": 0,
@@ -6431,7 +6431,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-21 00:45:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "费内巴切",
      "score": 2,
@@ -6509,7 +6509,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-21 00:50:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "阿科多",
      "score": 0,
@@ -6587,7 +6587,7 @@ const FOOTBALL_DATA = {
      "color": "554488"
     },
     "time": "2026-10-21 01:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "北雪平",
      "score": 0,
