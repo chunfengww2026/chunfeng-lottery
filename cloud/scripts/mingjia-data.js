@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 04:04:15）
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 04:10:18） */
 const MINGJIA_DATA = {
- "updated": "2026-10-21 04:04:15",
+ "updated": "2026-10-21 04:10:18",
  "list": [
   {
    "name": "太湖字谜",
@@ -440,9 +440,9 @@ const MINGJIA_DATA = {
    "kw": "朱大姐 双色球 蓝球 分析表 2026121期 推荐",
    "imgs": [
     {
-     "file": "imgs/mingjia/朱大姐/1.jpg",
-     "size": 221734,
-     "src": "https://img.mianfeiwendang.com/pic/11370f5b8386a4f36514bdef/1-1096-jpg_6_0_______-733-0-0-733.jpg"
+     "file": "imgs/mingjia/朱大姐/1.png",
+     "size": 265539,
+     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
     }
    ]
   },
@@ -517,6 +517,342 @@ const MINGJIA_DATA = {
      "src": "https://www.weicainet.com/uploadfile/2025/0226/20250226050758997.png"
     }
    ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.webp",
+     "size": 134810,
+     "src": "https://pic2.800820.net/tumi/20251205/6b5f61375bc1404ea3138e6241edb605.webp"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "大乐透",
+   "kw": "迷公 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 345697,
+     "src": "https://f.yddtiyu.com/info/1773454523260fe475f54-6ff2-44bc-afa4-b7d258c3fcba.jpg"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "大乐透",
+   "kw": "桃子姐 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.jpg",
+     "size": 540149,
+     "src": "https://f.yddtiyu.com/info/1767496563944c8a181c9-c618-4b94-962f-862439647561.jpg"
+    }
+   ]
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "大乐透",
+   "kw": "迟丽颖 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迟丽颖/1.jpg",
+     "size": 345697,
+     "src": "https://f.yddtiyu.com/info/1773454523260fe475f54-6ff2-44bc-afa4-b7d258c3fcba.jpg"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "大乐透",
+   "kw": "九头鸟 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/九头鸟/1.jpg",
+     "size": 264264,
+     "src": "https://f.yddtiyu.com/info/17721827796902a3a5218-1827-4e09-a773-bf9a66762cb2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "金手指",
+   "cat": "大乐透",
+   "kw": "金手指 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/金手指/1.jpg",
+     "size": 264264,
+     "src": "https://f.yddtiyu.com/info/17721827796902a3a5218-1827-4e09-a773-bf9a66762cb2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.webp",
+     "size": 82454,
+     "src": "https://pic2.800820.net/tumi/20260425/fcb8e7bdaed341458a531dc69d8a755a.webp"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "3D",
+   "kw": "迷公 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 206116,
+     "src": "https://img95.699pic.com/photo/60013/6044.jpg_wh860.jpg"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "3D",
+   "kw": "桃子姐 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.jpg",
+     "size": 65814,
+     "src": "https://gd-hbimg.huaban.com/25f54ba2a2ce16162699591b267439dd7716c5a38508b-1eBpLM_fw658webp"
+    }
+   ]
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "3D",
+   "kw": "貂蝉杀 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/貂蝉杀/1.jpeg",
+     "size": 357402,
+     "src": "https://c-ssl.duitang.com/uploads/item/201710/27/20171027151427_Xxwh4.jpeg"
+    }
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/名家精/1.jpg",
+     "size": 106397,
+     "src": "https://gd-hbimg.huaban.com/11536d2ceb255ba6055035d63ad7094dab71a0024b64f-W9g8D5_fw658"
+    }
+   ]
+  },
+  {
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/白天鹅/1.jpg",
+     "size": 222839,
+     "src": "https://pic.nximg.cn/20130501/5560700_094915092000_2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/百合花/1.jpg",
+     "size": 288430,
+     "src": "https://pic.nximg.cn/file/20240622/35403389_121331847292_2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.png",
+     "size": 23595,
+     "src": "https://img.cpzj.com/szpl/tumi/thdw/2019019.png"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 56952,
+     "src": "https://www.caibow.cn/Upload/Picture/2018-11-17/5bef816bce8a5.jpg"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.jpg",
+     "size": 1158672,
+     "src": "https://f.yddtiyu.com/info/175898217615013abcb87-56ac-42f4-b2b1-0955d8857071.jpg"
+    }
+   ]
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迟丽颖/1.jpg",
+     "size": 595283,
+     "src": "https://f.yddtiyu.com/info/1766207745499da7fe918-bc80-4bf1-a0bb-9bb6e9a1820c.jpg"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "排列三",
+   "kw": "九头鸟 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/九头鸟/1.jpg",
+     "size": 59533,
+     "src": "https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4c510fd5fbf0647759252dd42a08f9?x-bce-process=image/format,f_auto"
+    }
+   ]
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/金手指/1.png",
+     "size": 276813,
+     "src": "https://img-blog.csdnimg.cn/3463a31a2e0c457aa11728ac6fd37f36.png"
+    }
+   ]
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/万里挑一/1.jpg",
+     "size": 30649,
+     "src": "https://pica.zhimg.com/v2-cd8c052be331652710fcb20721f91728_r.jpg?source=1940ef5c"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.webp",
+     "size": 134810,
+     "src": "https://pic2.800820.net/tumi/20251205/6b5f61375bc1404ea3138e6241edb605.webp"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 343235,
+     "src": "https://www.weicainet.com/uploadfile/2025/0211/20250211030006717.jpg"
+    }
+   ]
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排三字谜/1.jpg",
+     "size": 194898,
+     "src": "https://tukuapi.800820.net/CustomFiles/Image/2e85aa2e-b4d9-4639-90f5-3e7f3ad8b33c.jpg"
+    }
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/名家精/1.jpg",
+     "size": 804577,
+     "src": "https://pic.nximg.cn/file/20210504/31359280_084122547120_2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/金手指/1.jpg",
+     "size": 132766,
+     "src": "https://tukuapi.800820.net/CustomFiles/Image/116d7904-1aff-4e83-8e02-4f734ff0ac2e.jpg"
+    }
+   ]
+  },
+  {
+   "name": "万里挑一",
+   "cat": "快乐8",
+   "kw": "万里挑一 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/万里挑一/1.png",
+     "size": 1019198,
+     "src": "https://img2.voc.com.cn/2021/11/09/cd8145b4c0f877df701ad263ea71688dab9f86d21636433000.png"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.png",
+     "size": 27752,
+     "src": "http://n.sinaimg.cn/front20260411ac/355/w620h535/20260411/c4c6-1f6595ff0a4d043160641cbac57047c5.png"
+    }
+   ]
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迟丽颖/1.jpg",
+     "size": 526445,
+     "src": "https://f.jiangduoduo.com/info/17270207782656a8c2601-4631-400f-bc8d-cc534cacf6ae.jpg"
+    }
+   ]
   }
  ],
  "history": [
@@ -554,6 +890,11 @@ const MINGJIA_DATA = {
    "at": "2026-10-21 04:04:15",
    "names": 43,
    "imgs": 43
+  },
+  {
+   "at": "2026-10-21 04:10:18",
+   "names": 71,
+   "imgs": 71
   }
  ]
 };
