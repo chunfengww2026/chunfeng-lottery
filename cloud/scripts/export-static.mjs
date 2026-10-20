@@ -1602,7 +1602,34 @@ function buildArticlesHtml() {
     }).join('') +
     '</div></section>';
 
-  return zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  /* ===== MINGJIA_GALLERY · 名家图库（build-mingjia.mjs 抓的 50 张图 ✗）===== */
+  let mjHtml = '';
+  try {
+    const mjf = path.join(ROOT, 'mingjia-data.js');
+    if (fs.existsSync(mjf)) {
+      const mjsrc = fs.readFileSync(mjf, 'utf8');
+      const mj = JSON.parse((mjsrc.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/) || [])[1] || '{}');
+      const list = Array.isArray(mj.list) ? mj.list : [];
+      const cats = {};
+      list.forEach(function (x) { if (!x || !x.imgs || !x.imgs.length) return; (cats[x.cat] = cats[x.cat] || []).push(x); });
+      const catNames = Object.keys(cats);
+      if (catNames.length) {
+        mjHtml = '<section class="ro-mj" id="ro-mj">' +
+          '<div class="ro-mj-h">名家图库</div>' +
+          catNames.map(function (c) {
+            return '<details class="ro-mj-cat"><summary class="ro-mj-cat-h">' + c + '（' + cats[c].length + ' 位）</summary>' +
+              cats[c].map(function (p) {
+                return '<div class="ro-mj-p"><div class="ro-mj-n">' + p.name + '</div><div class="ro-mj-i">' +
+                  p.imgs.map(function (im) { return '<img loading="lazy" src="' + im.file + '" alt="' + p.name + '">'; }).join('') +
+                  '</div></div>';
+              }).join('') +
+              '</details>';
+          }).join('') +
+          '</section>';
+      }
+    }
+  } catch (e) { }
+  return zldqHtml + mjHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -16624,7 +16651,18 @@ body { background-color: #f7efe1; }
 }
 
 .ro-zldq-tip { text-align:center; font-size:10.5px; color:#a89a80; margin:2px 0 10px; }
-.ro-zldq-c { cursor:pointer; font-family:inherit; }</style>
+.ro-zldq-c { cursor:pointer; font-family:inherit; }
+/* MINGJIA_GALLERY 样式 */
+.ro-mj { margin: 10px 0 6px; }
+.ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
+.ro-mj-cat { border: 1px solid #e8d7bd; border-radius: 10px; background: #fffdf7; margin-bottom: 8px; }
+.ro-mj-cat-h { padding: 10px 12px; font-size: 13px; font-weight: 700; color: #1a8c5a; cursor: pointer; list-style: none; }
+.ro-mj-cat-h::-webkit-details-marker { display: none; }
+.ro-mj-p { padding: 6px 12px 10px; border-top: 1px dashed #f2e8d8; }
+.ro-mj-n { font-size: 12px; font-weight: 700; color: #4a3a26; margin-bottom: 6px; }
+.ro-mj-i { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ro-mj-i img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid #efe3cf; flex: 0 0 auto; }
+</style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
 (function () {
