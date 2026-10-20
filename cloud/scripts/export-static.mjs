@@ -1595,9 +1595,13 @@ function buildArticlesHtml() {
     '<div class="ro-zldq-h">资料大全</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
-      /* 【不要跳转 · 用户 2026-10-21「不要跳转 我要重新抓取资料」】
-         静态页没法自己抓 ✗ → 按钮 = 强制重新加载（绕缓存 ✗ 拿云端最新 ✔） */
-      return '<button type="button" class="ro-zldq-c" data-zl="' + x[1] + '">' +
+      /* 【按钮 = 重新加载 · 用户 2026-10-21 选 B】
+         onclick 内联（不依赖外部 script 定位 ✗）
+         效果：加时间戳重载 → 绕缓存拿云端最新 ✔ */
+      return '<button type="button" class="ro-zldq-c" data-zl="' + x[1] + '"' +
+        ' onclick="var u=location.href.split(String.fromCharCode(35))[0];' +
+        'location.href=u+(u.indexOf(String.fromCharCode(63))>=0?String.fromCharCode(38):String.fromCharCode(63))+' +
+        'String.fromCharCode(116,61)+Date.now();">' +
         '<b>' + x[0] + '</b><span>重新获取</span></button>';
     }).join('') +
     '</div></section>';
