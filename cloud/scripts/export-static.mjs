@@ -1297,7 +1297,25 @@ function frogPanelHtml() {
     '<div class="frog-sec"><details class="frog-mats">' +
     '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
     (arts.length ? '<span class="frog-ag">点开看正文</span>' : '') + '</summary>' +
-    (arts.length ? '<div class="frog-mats-body">' + arts.map((a, i) => {
+    (arts.length ? '<div class="frog-mats-body">' + (function () {
+      /* __FROG_ART_SPLIT__ 用户 2026-10-21：「青蛙家园的免费资料分双色球和大乐透
+         分来类目 实时抓取20篇文章」→ 分两类、各 10 条、药丸切换。
+         药丸/面板【复用智讯那套】.ro-zn-chips / .ro-zn-chip / .ro-zn-pane，
+         外观和智讯一模一样；只是属性名换成 data-art-*，两张卡互不干扰。 */
+      const artG = (a) => {
+        const g = String((a && a.g) || '');
+        if (g === 'ssq' || g === 'dlt') return g;
+        const t = String((a && a.t) || '');
+        if (t.indexOf('双色球') >= 0) return 'ssq';
+        if (t.indexOf('大乐透') >= 0) return 'dlt';
+        return '';
+      };
+      const buckets = { ssq: [], dlt: [] };
+      arts.forEach(function (a) {
+        const g = artG(a);
+        if (g && buckets[g].length < 10) buckets[g].push(a);
+      });
+      const artRow = (a, i) => {
       /* __FROG_ART_BODY__ 用户 2026-10-20：「免费资料可以点击观看 你要抓取到具体资料」
          ------------------------------------------------------------
          · 点【标题】就地展开正文（<details>，不套裸 button）；
@@ -1333,7 +1351,23 @@ function frogPanelHtml() {
           '<div class="frog-ab">' + paras(restTxt) + '</div></details>' : '') +
         link +
         '</details>';
-    }).join('') + '</div>' : '<div class="frog-none">暂无资料</div>') +
+      };
+      const present = ['ssq', 'dlt'].filter(function (g) { return buckets[g].length; });
+      if (!present.length) return '<div class="frog-none">暂无资料</div>';
+      const GNAME = { ssq: '双色球', dlt: '大乐透' };
+      const out = [];
+      out.push('<div class="ro-zn-chips" id="frogArtChips">');
+      present.forEach(function (g, i) {
+        out.push('<div class="ro-zn-chip' + (i === 0 ? ' on' : '') + '" role="button" tabindex="0"' +
+          ' data-art-g="' + g + '">' + GNAME[g] + ' ' + buckets[g].length + ' 条</div>');
+      });
+      out.push('</div>');
+      present.forEach(function (g, i) {
+        out.push('<div class="ro-zn-pane' + (i === 0 ? ' is-on' : '') + '" data-art-pane="' + g + '">' +
+          buckets[g].map(function (a, k) { return artRow(a, k); }).join('') + '</div>');
+      });
+      return out.join('');
+    })() + '</div>' : '<div class="frog-none">暂无资料</div>') +
     '</details></div>' +
     '<div class="frog-sec"><div class="frog-h">功能中心（全部免费）</div>'
     /* __FROG_GID__ 用户 2026-10-20：「同时要分好大乐透和双色球，因为用户不知道你
@@ -1751,7 +1785,7 @@ const ZX_NEWS = (function () {
     const BAD = ['500', '抓取', '来源', '新浪', '中彩'];
     const out = {};
     let total = 0;
-    for (const pair of GAMES8) {
+    for (const pair of ZX_TABS) {
       const gid = pair[0];
       const arr = Array.isArray(src[gid]) ? src[gid] : [];
       const keep = arr.filter(function (x) {
@@ -1759,7 +1793,7 @@ const ZX_NEWS = (function () {
         if (!t) return false;
         for (const w of BAD) if (t.indexOf(w) >= 0) return false;
         return true;
-      }).slice(0, 5).map(function (x) {
+      }).slice(0, 8).map(function (x) {
         return {
           title: x.title.trim(),
           date: String(x.date || '').trim(),
@@ -2163,7 +2197,7 @@ function zxNewsStat() {
   for (const [gid, name] of ZX_TABS) {
     /* 和 buildZxNewsHtml 同一口径：先 zx-news.json，没有再退回文章数据 */
     const fresh = (nx && Array.isArray(nx[gid])) ? nx[gid].length : 0;
-    if (fresh) { parts.push(name + ' ' + Math.min(fresh, 5)); continue; }
+    if (fresh) { parts.push(name + ' ' + Math.min(fresh, 8)); continue; }
     const g = games ? games[gid] : null;
     const n = (g && Array.isArray(g.items)) ? Math.min(g.items.length, 5) : 0;
     if (n) parts.push(name + ' ' + n);
@@ -10430,6 +10464,36 @@ ${zxPickHtml}
     }
     chips.forEach(function (c) {
       var gid = c.getAttribute('data-zx-game');
+      c.addEventListener('click', function () { show(gid); });
+      c.addEventListener('keydown', function (e) {
+        var k = e.key || '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar' || e.keyCode === 13 || e.keyCode === 32) {
+          e.preventDefault();
+          show(gid);
+        }
+      });
+    });
+  })();
+
+  /* __FROG_ART_SPLIT_JS__ 免费资料的两颗药丸（双色球 / 大乐透）
+     · 和智讯那套【同一手法】：只切 class，不重建 DOM，没有 button 标签
+     · 找不到元素就 return，不影响别的区块 */
+  (function () {
+    var wrap = document.getElementById('frogArtChips');
+    if (!wrap) return;
+    var chips = [].slice.call(wrap.querySelectorAll('[data-art-g]'));
+    var panes = [].slice.call(document.querySelectorAll('[data-art-pane]'));
+    if (!chips.length || !panes.length) return;
+    function show(gid) {
+      chips.forEach(function (c) {
+        c.className = 'ro-zn-chip' + (c.getAttribute('data-art-g') === gid ? ' on' : '');
+      });
+      panes.forEach(function (p) {
+        p.className = 'ro-zn-pane' + (p.getAttribute('data-art-pane') === gid ? ' is-on' : '');
+      });
+    }
+    chips.forEach(function (c) {
+      var gid = c.getAttribute('data-art-g');
       c.addEventListener('click', function () { show(gid); });
       c.addEventListener('keydown', function (e) {
         var k = e.key || '';
