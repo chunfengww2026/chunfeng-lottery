@@ -1334,6 +1334,11 @@ function main() {
         try { run('build-jc-articles.mjs', []); }
         catch (e) { log('  ⚠️ 文章抓取失败（沿用上一次的 jc-articles.js）：' + e.message); }
       }
+
+    /* 【500 完场比分 · 用户 2026-10-21「加」】
+       抓 live.500.com/wanchang.php（350KB / 238 场 / 191 个比分 ✔）
+       按 <tr> 行解析 → 写 jc-scores.js → 页面 window.JC_SCORES ✔ */
+    try { run('build-jc-scores.mjs', []); } catch (errS) { log('  ⚠️ 比分抓取失败（不影响页面）：' + errS.message); }
     } catch (e) { log('  ⚠️ 文章抓取调度出错（不影响页面）：' + e.message); }
 
     /* 检查抓取结果，坏了就还原 */
