@@ -295,6 +295,8 @@ const FROM_ROOT = [
      少了它云端生成出来的页面就没有「文章参考」这个区块的内容
      （会显示「本期暂无」，等于把本机刚更新的文章冲掉）。 */
   'articles-data.js',
+  /* 【名家图库 · 数据】本地抓好的图库数据，作为云端抓取失败时的兜底 */
+  'mingjia-data.js',
   /* 【开机号 / 选号直播】数据（build-kjh.mjs 每天 2 点本机抓一次）。
       必须同步过去：云端重新跑 export-static.mjs 生成分享页时会读它，
       少了它云端生成出来的页面里「开机号 / 选号直播」两个区块就是空的
@@ -420,6 +422,9 @@ const CODE_MODULES = [
      也会让 cloud-build.mjs 里那句 run('build-jc-articles.mjs') 直接失败。
      产出 jc-articles.js 也一起同步，页面构建时才有数据可渲染。 */
   'build-jc-articles.mjs', 'build-jc-scores.mjs',
+  /* 【名家图库】2026-10-21：build-mingjia.mjs 抓名家图（写 imgs/mingjia/ + mingjia-data.js）。
+     漏掉它 → 云端一直跑旧版（实测本地 10824B / 云端 7853B）。 */
+  'build-mingjia.mjs',
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
