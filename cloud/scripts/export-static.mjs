@@ -1776,8 +1776,8 @@ const ZX_NEWS = (function () {
    用户 2026-10-20：「这些都不要（开奖日程/最近开奖/资讯），
                     我只需要你抓取网址里面的号码特征走势分析」——
    整张卡只留一块：号码特征走势分析，数据全部来自已抓取的开奖历史，现算、不编。 */
-const ZX_FEATURE_GAMES = [['ssq', '双色球'], ['dlt', '大乐透'], ['qlc', '七乐彩'], ['kl8', '快乐8'],
-  ['fc3d', '福彩3D'], ['pl3', '排列3'], ['pl5', '排列5'], ['qxc', '七星彩']];
+const ZX_FEATURE_GAMES = [['ssq', '双色球'], ['dlt', '大乐透'],
+  ['fc3d', '福彩3D'], ['pl3', '排列3'], ['pl5', '排列5']];
 function zxFeatureRows() {
   const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
   const out = [];
