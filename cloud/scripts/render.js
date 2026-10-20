@@ -612,7 +612,15 @@ const SECTION_RENDER = {
        stats.js 的 cir_side = 逗号分隔的两位号（大乐透 '34,35'，双色球空串）。
        它们是【中心 + 32 个交点还装不下】的那几个号，画成中心下方一排小字球，
        字号比环上的号码点小、位置就在中心 18 旁边 —— 这样几何和双色球一样，
-       号码还一个不漏。老存档没有 cir_side → 这一排不画。 */
+       号码还一个不漏。老存档没有 cir_side → 这一排不画。
+
+       ⚠️ 2026-10-21 用户原话：「不是开的号 就不要深色 大乐透的」——
+          修的正是这一排：34/35 上一期【没开】时原来写成 #eceff1 灰底 +
+          #455a64 深字（一个小灰球），比环上「其余号码」（白底 + #d9d9d9
+          浅灰字）深得多，看着像开出号（数据层其实没标 hit，是【样子】
+          写深了）。现在未开出 = 和环上 dim 完全同一套口径：
+          白底 #fff + 浅灰字 #d9d9d9；只有真的开出来才上深红/深蓝。
+          主圈 1~33 的命中口径一个字没动（用户说那边是对的）。 */
     const sideNums = String(vals.cir_side || '')
       .split(',')
       .map((s) => parseInt(s, 10))
@@ -631,12 +639,15 @@ const SECTION_RENDER = {
         const isBack = !!backSet[n] && sideSrc.indexOf(n) < 0;
         const isHit = sideSrc.indexOf(n) >= 0 || isBack;
         const ball = el('span', 'r-cirsideball' + (isHit ? ' hit' : ' dim') + (isBack ? ' bl' : ''));
+        /* 未开出 = 和环上 .r-cirnum.dim 一模一样（白底 + 浅灰字），
+           不再用灰底深字 —— 否则没开的 34/35 看着像开出号。 */
         ball.setAttribute('style',
           'display:inline-block;min-width:18px;padding:1px 4px;border-radius:50%;'
           + 'font-size:11px;line-height:16px;text-align:center;'
-          + 'background:' + (isHit ? (isBack ? '#1f5fd6' : '#c0392b') : '#eceff1') + ';'
-          + 'color:' + (isHit ? '#fff' : '#455a64') + ';font-weight:bold');
+          + 'background:' + (isHit ? (isBack ? '#1f5fd6' : '#c0392b') : '#fff') + ';'
+          + 'color:' + (isHit ? '#fff' : '#d9d9d9') + ';font-weight:bold');
         ball.setAttribute('data-side', '1');
+        ball.setAttribute('data-extra', '1');
         ball.setAttribute('data-hit', isHit ? '1' : '0');
         ball.setAttribute('data-zone', isBack ? 'back' : (isHit ? 'main' : ''));
         ball.textContent = numText(n);
