@@ -459,6 +459,10 @@ vm.runInContext(`
      它同样是 const 声明，所以照上面的办法显式挂到 globalThis 再取。
      取不到时是 null → 该区块整块不渲染（不显示空壳、更不放假数据）。 */
   globalThis.__hist = (typeof DRAW_HISTORY !== 'undefined') ? DRAW_HISTORY : null;
+  /* __ZX_CARDS__ 【智讯】卡要写「今天 / 明天几点开奖」——开场时刻表直接用
+     latest-draws.js 里那张 NEXTCD_TABLE（页面倒计时用的同一张），
+     不另写第二套时间，改一处就够。取不到时是 null → 卡里退回内置兜底表。 */
+  globalThis.__nextcdTable = (typeof NEXTCD_TABLE !== 'undefined') ? NEXTCD_TABLE : null;
 `, ctx);
 
 const T = ctx.__T, G = ctx.__G, GROUPS = ctx.__GROUPS;
@@ -484,6 +488,8 @@ const XYSP = ctx.__xysp;
 const EXPERTS = ctx.__experts;
 /* 【开奖历史】（history.js）—— 3D/排列三 手绘参考图要用 */
 const HIST = ctx.__hist;
+/* 【开奖时刻表】（latest-draws.js 的 NEXTCD_TABLE）—— 智讯卡写「几点开奖」要用 */
+const NEXTCD = ctx.__nextcdTable;
 
 /**
  * 热力图该不该出这张图
@@ -1512,6 +1518,366 @@ console.log('  · 3D 手绘参考图：' + (p3dHtml
   : '无数据 → 整块不渲染'));
 
 const articlesHtml = buildArticlesHtml();
+
+/* ============================================================
+   __ZX_CARDS__ 【智讯】+【智能精选】两张卡（用户新增需求）
+   ------------------------------------------------------------
+   用户原话：截图圈了【手绘参考图 / 参考图】那一排下面那两个空位 →
+            「帮我增加两个项目栏  智讯  和  智能精选」
+   位置：紧跟在【手绘参考图 + 参考图】那一排下面（见模板里的 __ZN_ROW__）。
+
+   ① 智讯 = 今天 / 明天开奖日程（彩种 · 期号 · 开奖时刻）
+            + 最近开奖（几个彩种各取最新一期，带号码）
+            + 最新资讯标题
+     内容全部来自页面【已有的数据文件】，一个字都不编：
+       · 最近开奖 / 号码   ← 开奖历史 DRAW_HISTORY（history.js）
+       · 期号 / 开奖日     ← nextIssue / nextDate（draw-data.js）
+       · 开奖时刻          ← latest-draws.js 的 NEXTCD_TABLE（页面倒计时同一张表）
+       · 资讯标题          ← 文章数据 ARTICLES_DATA（articles-data.js）
+     取不到的项整块不渲染（不显示空壳、更不放假数据）。
+
+   ② 智能精选 = 近 30 期频次算出的【胆码 3 / 杀号 3 / 精选 1 注】
+       · 只读开奖历史，原来的 20 码算法一行都没动
+       · 随机数用【期号做种子】的确定性序列（FNV-1a 哈希 + mulberry32），
+         不用 Math.random → 同一期生成多少次都是同一注
+       · 号码范围 / 每注抽几个号，全部从 GAMES 里取，一个都不写死
+       · 抽号按频次加权（热号更容易进注），但冷号也有机会 —— 不是纯随机
+
+   ⚠️ 两张卡都是【纯文字】：没有图片（图位数量不变）、没有 button 标签、
+      没有内联事件（展开 = 原生 <details> + CSS 伪元素按 [open] 换字）。
+   ============================================================ */
+function zxP2(n) { return n < 10 ? '0' + n : String(n); }
+
+/* 今天 / 明天（本机日期字符串 YYYY-MM-DD）
+   —— 和 draw-data.js 里 nextDrawDate 同一个口径（那边也是本机日期） */
+function zxDay(off) {
+  const t = new Date();
+  t.setDate(t.getDate() + (Number(off) || 0));
+  return t.getFullYear() + '-' + zxP2(t.getMonth() + 1) + '-' + zxP2(t.getDate());
+}
+
+/* 开奖时刻表：优先用 latest-draws.js 那张（NEXTCD_TABLE），
+   取不到才用下面这份兜底 —— 兜底值和那张表逐项相同，两处要一起改。 */
+const ZX_SCHED = (function () {
+  const out = {};
+  const put = (gid, h, m, days) => { out[gid] = { t: zxP2(h) + ':' + zxP2(m), days: days }; };
+  let src = null;
+  try { src = (NEXTCD && typeof NEXTCD === 'object') ? NEXTCD : null; } catch (e) { src = null; }
+  if (src) {
+    for (const gid of Object.keys(src)) {
+      const r = src[gid] || {};
+      if (!Array.isArray(r.hm) || !Array.isArray(r.days)) continue;
+      put(gid, Number(r.hm[0]) || 0, Number(r.hm[1]) || 0, r.days);
+    }
+  }
+  if (!Object.keys(out).length) {
+    console.log('  ⚠️ 智讯：NEXTCD_TABLE 取不到 → 开奖时刻改用内置兜底表（数值相同）');
+    const FB = {
+      ssq: [21, 15, [0, 2, 4]], dlt: [20, 30, [1, 3, 6]],
+      fc3d: [21, 15, [0, 1, 2, 3, 4, 5, 6]], pl3: [20, 30, [0, 1, 2, 3, 4, 5, 6]],
+      pl5: [20, 30, [0, 1, 2, 3, 4, 5, 6]], qxc: [20, 30, [0, 2, 5]],
+      qlc: [21, 15, [1, 3, 5]], kl8: [21, 30, [0, 1, 2, 3, 4, 5, 6]]
+    };
+    for (const gid of Object.keys(FB)) put(gid, FB[gid][0], FB[gid][1], FB[gid][2]);
+  }
+  return out;
+})();
+
+/* 一期开奖 → 一行号码纯文字（区顺序 / 分隔符照 GAMES 里的 areas，不另起一套） */
+function zxNumText(gid, draw) {
+  const g = GAMES[gid] || {};
+  const a = (draw && draw.areas) ? draw.areas : {};
+  const parts = [];
+  if (g.type === 'digit') {
+    (a.main || []).forEach((n) => parts.push(String(n)));
+    return parts.join(' ');
+  }
+  if (g.type === 'qxc') {
+    return (a.front || []).map(String).join(' ') + ' + ' +
+           (a.back || []).map(String).join(' ');
+  }
+  if (g.playModes) {          /* 快乐8 一期 20 个号：只写前 10 个，后面用省略号 */
+    const m = a.main || [];
+    return m.slice(0, 10).map((n) => zxP2(n)).join(' ') + (m.length > 10 ? ' …' : '');
+  }
+  (g.areas || []).forEach((area, i) => {
+    if (i > 0) parts.push(area.key === 'special' ? '★' : '+');
+    (a[area.key] || []).forEach((n) => parts.push(zxP2(n)));
+  });
+  return parts.join(' ');
+}
+
+/* 最近开奖：跨彩种按日期倒序，同一个彩种只取最新一期（别 5 条全一样） */
+function zxRecentRows(n) {
+  const rows = [];
+  const games = (HIST && HIST.games) ? HIST.games : null;
+  if (!games) return rows;
+  for (const gid of Object.keys(games)) {
+    const g = GAMES[gid];
+    if (!g) continue;
+    const arr = Array.isArray(games[gid]) ? games[gid] : [];
+    for (const it of arr) {
+      if (!it || !it.issue || !it.areas) continue;
+      rows.push({ date: String(it.date || ''), issue: String(it.issue),
+                  name: g.name || gid, nums: zxNumText(gid, it) });
+    }
+  }
+  rows.sort((x, y) => {
+    if (x.date !== y.date) return x.date < y.date ? 1 : -1;
+    return x.issue < y.issue ? 1 : x.issue > y.issue ? -1 : 0;
+  });
+  const seen = new Set();
+  const out = [];
+  for (const r of rows) {
+    if (seen.has(r.name)) continue;
+    seen.add(r.name);
+    out.push(r);
+    if (out.length >= (n || 5)) break;
+  }
+  return out;
+}
+
+/* 今天 / 明天开哪几个彩种（期号 + 开奖时刻）*/
+function zxSchedRows() {
+  const today = zxDay(0), tomorrow = zxDay(1);
+  const out = [];
+  for (const gid of Object.keys(ZX_SCHED)) {
+    const g = GAMES[gid];
+    if (!g) continue;
+    let d = '';
+    try { d = String(nextDate(gid) || ''); } catch (e) { d = ''; }
+    if (d !== today && d !== tomorrow) continue;
+    let issue = '';
+    try { issue = String(nextIssue(gid) || ''); } catch (e) { issue = ''; }
+    out.push({ tag: d === today ? '今天' : '明天', name: g.name || gid,
+               issue: issue, time: ZX_SCHED[gid].t });
+  }
+  out.sort((x, y) => {
+    if (x.tag !== y.tag) return x.tag === '今天' ? -1 : 1;
+    return x.time < y.time ? -1 : x.time > y.time ? 1 : 0;
+  });
+  return out;
+}
+
+/* 标题清洗：去掉任何网址 / 域名痕迹（页面上不出现"从哪来的"字眼） */
+function zxCleanText(s) {
+  return String(s == null ? '' : s)
+    .replace(/https?:\/\/\S+/gi, ' ')
+    .replace(/[A-Za-z0-9-]+\.(?:com|cn|net|org|cc|tv|me|io|info)\b/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/* 最新资讯标题：文章数据里最新的几条（按日期倒序，去重） */
+function zxNewsItems(n) {
+  const games = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+  if (!games) return [];
+  const all = [];
+  for (const gid of ART_ORDER) {
+    const g = games[gid];
+    const items = (g && Array.isArray(g.items)) ? g.items : [];
+    for (const it of items) {
+      if (!it || !it.title) continue;
+      const t = zxCleanText(it.title);
+      if (!t || t.length < 6) continue;
+      all.push({ t: t, d: String(it.date || '') });
+    }
+  }
+  all.sort((a, b) => {
+    if (!!b.d !== !!a.d) return b.d ? 1 : -1;
+    if (!a.d) return 0;
+    return a.d < b.d ? 1 : a.d > b.d ? -1 : 0;
+  });
+  const seen = new Set();
+  const out = [];
+  for (const x of all) {
+    const key = x.t.slice(0, 12);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(x.t);
+    if (out.length >= (n || 3)) break;
+  }
+  return out;
+}
+
+/* ---------- 智讯卡的 HTML ---------- */
+function buildZxNewsHtml() {
+  const sched = zxSchedRows();
+  const recent = zxRecentRows(5);
+  const news = zxNewsItems(3);
+  if (!sched.length && !recent.length && !news.length) {
+    return '<div class="ro-zn-none">本期暂无内容</div>';
+  }
+  const out = [];
+  if (sched.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">开奖日程</div>');
+    for (const r of sched) {
+      out.push('<div class="ro-zn-row">' +
+        '<span class="ro-zn-tag">' + escape(r.tag) + '</span>' +
+        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span>' +
+        '<span class="ro-zn-t">' + escape(r.time) + '</span></div>');
+    }
+    out.push('</div>');
+  }
+  if (recent.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最近开奖</div>');
+    for (const r of recent) {
+      out.push('<div class="ro-zn-row">' +
+        '<span class="ro-zn-d">' + escape(r.date.slice(5)) + '</span>' +
+        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>' +
+        '<div class="ro-zn-n">' + escape(r.nums) + '</div>');
+    }
+    out.push('</div>');
+  }
+  if (news.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最新资讯</div>');
+    for (const t of news) out.push('<div class="ro-zn-nt">' + escape(t) + '</div>');
+    out.push('</div>');
+  }
+  out.push('<div class="ro-zn-foot">按本页已开奖记录与文章整理 · 仅供娱乐参考</div>');
+  return out.join('');
+}
+
+/* ---------- 智能精选：频次 + 期号做种子的确定性选号 ---------- */
+const ZX_PERIODS = 30;
+
+/* FNV-1a 32 位哈希：同一个期号永远得到同一个种子 */
+function zxSeed(str) {
+  let h = 2166136261;
+  const s = String(str || '');
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h >>> 0;
+}
+
+/* mulberry32：确定性伪随机（同一个种子 → 同一串数），页面里不用 Math.random */
+function zxRnd(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* 某个区近 30 期每个号出现几次 */
+function zxFreq(gid, key) {
+  const freq = {};
+  const games = (HIST && HIST.games) ? HIST.games : null;
+  const arr = (games && Array.isArray(games[gid])) ? games[gid] : [];
+  for (const it of arr.slice(0, ZX_PERIODS)) {
+    const nums = (it && it.areas && Array.isArray(it.areas[key])) ? it.areas[key] : [];
+    for (const v of nums) {
+      const k = Number(v);
+      if (isFinite(k)) freq[k] = (freq[k] || 0) + 1;
+    }
+  }
+  return freq;
+}
+
+/* 胆码（最热的 3 个）/ 杀号（最冷的 3 个）—— 只排主区（红球 / 前区） */
+function zxHotCold(freq, area, k) {
+  const all = [];
+  for (let n = area.from; n <= area.to; n++) all.push({ n: n, c: freq[n] || 0 });
+  const hot = all.slice().sort((a, b) => (b.c - a.c) || (a.n - b.n)).slice(0, k);
+  const cold = all.slice().sort((a, b) => (a.c - b.c) || (a.n - b.n)).slice(0, k);
+  return { hot: hot, cold: cold };
+}
+
+/* 按频次加权、无放回抽号（热号权重高，冷号也有机会） */
+function zxChoose(area, freq, k, rnd) {
+  const pool = [];
+  for (let n = area.from; n <= area.to; n++) pool.push({ n: n, w: 1 + (freq[n] || 0) * 2 });
+  const out = [];
+  for (let i = 0; i < k && pool.length; i++) {
+    let total = 0;
+    for (const p of pool) total += p.w;
+    let r = rnd() * total;
+    let idx = pool.length - 1;
+    for (let j = 0; j < pool.length; j++) {
+      r -= pool[j].w;
+      if (r <= 0) { idx = j; break; }
+    }
+    out.push(pool[idx].n);
+    pool.splice(idx, 1);
+  }
+  return out.sort((a, b) => a - b);
+}
+
+/* 三区比（把区间三等分，只用来展示，不参与选号） */
+function zxZones(nums, area) {
+  const size = Math.ceil((area.to - area.from + 1) / 3);
+  const z = [0, 0, 0];
+  for (const n of nums) {
+    let i = Math.floor((n - area.from) / size);
+    if (i < 0) i = 0;
+    if (i > 2) i = 2;
+    z[i]++;
+  }
+  return z.join(':');
+}
+
+/* ---------- 智能精选卡的 HTML ---------- */
+function buildZxPickHtml() {
+  const out = [];
+  const games = (HIST && HIST.games) ? HIST.games : null;
+  for (const gid of ['ssq', 'dlt']) {
+    const g = GAMES[gid];
+    const arr = (games && Array.isArray(games[gid])) ? games[gid] : [];
+    if (!g || !Array.isArray(g.areas) || !g.areas.length || arr.length < 5) continue;
+
+    let issue = '';
+    try { issue = String(nextIssue(gid) || ''); } catch (e) { issue = ''; }
+    const seedSrc = issue || String((arr[0] && arr[0].issue) || gid);
+    const rnd = zxRnd(zxSeed(gid + '|' + seedSrc));
+
+    const main = g.areas[0];
+    const hc = zxHotCold(zxFreq(gid, main.key), main, 3);
+    const chosen = {};
+    for (const area of g.areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
+
+    const hotTxt = hc.hot.map((x) => zxP2(x.n)).join(' ');
+    const coldTxt = hc.cold.map((x) => zxP2(x.n)).join(' ');
+    const pickTxt = g.areas.map((area, i) => {
+      const t = chosen[area.key].map((n) => zxP2(n)).join(' ');
+      return i === 0 ? t : '<span class="ro-zn-blue">+ ' + t + '</span>';
+    }).join(' ');
+    const ballSum = chosen[main.key].reduce((a, b) => a + b, 0);
+
+    out.push('<div class="ro-zn-blk">');
+    out.push('<div class="ro-zn-bh">' + escape(g.name) +
+      (issue ? ' <span class="ro-zn-bi">第 ' + escape(issue) + ' 期</span>' : '') + '</div>');
+    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-dan">胆码</span>' +
+      '<span class="ro-zn-sel">' + escape(hotTxt) + '</span></div>');
+    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-sha">杀号</span>' +
+      '<span class="ro-zn-sel">' + escape(coldTxt) + '</span></div>');
+    out.push('<div class="ro-zn-row"><span class="ro-zn-k is-pick">精选一注</span>' +
+      '<span class="ro-zn-sel">' + pickTxt + '</span></div>');
+    out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
+      escape(hc.hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
+      escape(hc.cold.map((x) => x.c).join(' / ')) + ' 次</div>');
+    out.push('<div class="ro-zn-meta">和值 ' + ballSum + ' · 三区 ' +
+      escape(zxZones(chosen[main.key], main)) + '</div>');
+    out.push('</div>');
+  }
+  if (!out.length) return '<div class="ro-zn-none">本页暂无足够开奖数据</div>';
+  out.push('<div class="ro-zn-foot">期号做种子 · 同一期永远是同一注 · 仅供统计娱乐，不是预测</div>');
+  return out.join('');
+}
+
+const zxNewsHtml = buildZxNewsHtml();
+const zxPickHtml = buildZxPickHtml();
+console.log('  · 智讯：' + (zxNewsHtml ? (Buffer.byteLength(zxNewsHtml, 'utf8') / 1024).toFixed(1) + ' KB'
+  + '（日程 ' + zxSchedRows().length + ' 条 · 最近开奖 ' + zxRecentRows(5).length + ' 条 · 资讯 ' + zxNewsItems(3).length + ' 条）'
+  : '无数据 → 空壳提示'));
+console.log('  · 智能精选：' + (zxPickHtml ? (Buffer.byteLength(zxPickHtml, 'utf8') / 1024).toFixed(1) + ' KB'
+  : '无数据 → 空壳提示'));
 
 /* ============================================================
    【专家推荐】区块（用户新增指令）
@@ -9706,6 +10072,47 @@ ${p3dHtml}
   </details>
   </div>
 
+  <!-- ============================================================
+       __ZN_ROW__ 【智讯 + 智能精选】并排两列（用户新增需求）
+       ------------------------------------------------------------
+       用户原话：截图圈了【手绘参考图 / 参考图】那一排下面那两个空位 →
+                「帮我增加两个项目栏  智讯  和  智能精选」
+       → 所以这一行就放在 #ro-ref-row 下面、文章参考上面。
+       · 左 = 智讯     ：今天 / 明天开奖日程（彩种 · 期号 · 开奖时刻）
+                        + 最近开奖（几个彩种各取最新一期，带号码）
+                        + 最新资讯标题（都来自页面已有的数据，取不到就整块不出）
+       · 右 = 智能精选 ：近 30 期频次算出的 胆码 3 / 杀号 3 / 精选 1 注
+                        （期号做种子 → 同一期永远同一注；20 码算法一行没动）
+       · 装进 .grid-2-col：375 下正好两列一行（新加两张刚好凑一行）；
+         320 保留两列、只缩字号，长号码自动折行，不横向溢出。
+        ⚠️ 折叠机制和「中奖 / 走势图 / 参考图」完全同一套：
+           <details> + <summary>，「点击查看 ▸ / 点击收起 ▾」由 CSS 伪元素按
+           [open] 换字 —— 零脚本、零裸 button、零内联事件。
+        ⚠️ 纯文字：没有任何图片 → 页面图位数量不变。
+       ============================================================ -->
+  <div class="grid-2-col" id="ro-zn-row">
+  <details class="ro-zn" id="ro-zx-news">
+    <summary class="ro-zn-head">
+      <span class="ro-zn-h2">智讯</span>
+      <span class="ro-zn-sub">开奖日程 · 最近开奖 · 资讯</span>
+      <span class="ro-zn-arrow" aria-hidden="true"></span>
+    </summary>
+    <div class="ro-zn-body">
+${zxNewsHtml}
+    </div>
+  </details>
+  <details class="ro-zn" id="ro-zx-pick">
+    <summary class="ro-zn-head">
+      <span class="ro-zn-h2">智能精选</span>
+      <span class="ro-zn-sub">胆码 · 杀号 · 精选一注</span>
+      <span class="ro-zn-arrow" aria-hidden="true"></span>
+    </summary>
+    <div class="ro-zn-body">
+${zxPickHtml}
+    </div>
+  </details>
+  </div>
+
   ${articlesHtml}
 
   <div class="ro-divider"><span>彩票推荐图</span></div>
@@ -15184,6 +15591,107 @@ ${CHAT_JS_SHARE}
   /* 320 更窄：算法清单再收一档字号（内容多，别让卡片长得太高），仍可正常折行 */
   .ro-ref-algo { font-size: 11px; line-height: 1.65; padding: 7px 8px; }
   .ro-ref-algo-w { font-size: 10.5px; }
+}
+
+/* ============================================================
+   __ZN_ROW__ 【智讯 + 智能精选】两张卡（用户新增需求）
+   ------------------------------------------------------------
+   位置：紧跟在【手绘参考图 / 参考图】那一排下面（用户圈的空位）。
+   外观：和上面各组折叠卡同一套 —— 米杏底（--ro-card）+ 1px 细描边
+        （--ro-line）+ 圆角 10px；卡面三行 = 标题 / 副标题 / 绿色胶囊，
+        胶囊的字由 CSS 伪元素按 [open] 换（点击查看 ▸ / 点击收起 ▾），
+        零脚本、零 button 标签、零内联事件。
+   布局：装进 .grid-2-col → 375 下正好两列一行（新加两张刚好凑一行）；
+        320 保留两列，只缩字号与内边距，长号码自动折行、不横向溢出。
+   ⚠️ 卡片阴影沿用「#article-rest / .grid-2-col > *」那条统一规则，这里不另写。
+   ⚠️ 只用变量色（--ro-card / --ro-line / --ro-fg / --ro-fg2 / --ro-fg3 / --ro-ok），
+      米杏主题与浅色主题都跟着走。
+   ============================================================ */
+#ro-zn-row { margin: 0 12px 12px; align-items: stretch; }
+#ro-zn-row > * { margin: 0 !important; box-sizing: border-box; }
+#ro-zn-row > details[open] { grid-column: 1 / -1; }
+.ro-zn {
+  background: var(--ro-card);
+  border: 1px solid var(--ro-line);
+  border-radius: 10px;
+  padding: 12px 12px 0;
+  overflow: hidden;
+  min-width: 0;
+}
+.ro-zn > .ro-zn-head {
+  display: block; text-align: center; cursor: pointer; list-style: none;
+  padding: 2px 0 12px; -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none;
+}
+.ro-zn > .ro-zn-head::-webkit-details-marker { display: none; }
+.ro-zn > .ro-zn-head::marker { content: ''; }
+.ro-zn-h2 { display: block; font-size: 15px; font-weight: 800; letter-spacing: .5px; color: var(--ro-fg); }
+.ro-zn-sub { display: block; margin-top: 4px; font-size: 12px; font-weight: 600; color: var(--ro-fg2); }
+.ro-zn-arrow {
+  display: inline-block; margin: 8px auto 0; padding: 4px 10px;
+  font-size: 12px; font-weight: 600; color: var(--ro-ok);
+  border: 1px solid var(--ro-ok); border-radius: 14px; white-space: nowrap;
+}
+.ro-zn-arrow::before { content: '点击查看'; }
+.ro-zn-arrow::after { content: ' ▸'; }
+.ro-zn[open] > .ro-zn-head .ro-zn-arrow::before { content: '点击收起'; }
+.ro-zn[open] > .ro-zn-head .ro-zn-arrow::after { content: ' ▾'; }
+.ro-zn-body {
+  padding: 0 0 12px; min-width: 0;
+  word-break: break-word; overflow-wrap: anywhere;
+}
+.ro-zn-blk { border-top: 1px dashed var(--ro-line); padding: 8px 0; }
+.ro-zn-blk:first-child { border-top: 0; padding-top: 0; }
+.ro-zn-bh { font-size: 12.5px; font-weight: 800; color: var(--ro-fg); padding-bottom: 4px; }
+.ro-zn-bi { font-size: 10.5px; font-weight: 600; color: var(--ro-fg3); }
+.ro-zn-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px;
+  font-size: 12px; line-height: 1.7; color: var(--ro-fg2);
+}
+.ro-zn-tag {
+  flex: 0 0 auto; font-size: 10px; font-weight: 800; color: var(--ro-fg2);
+  background: #f4ece0; border: 1px solid var(--ro-line); border-radius: 6px; padding: 0 5px;
+}
+.ro-zn-g { font-weight: 800; color: var(--ro-fg); }
+.ro-zn-d { font-weight: 700; color: var(--ro-fg3); font-variant-numeric: tabular-nums; }
+.ro-zn-i { font-size: 10.5px; color: var(--ro-fg3); }
+.ro-zn-t { margin-left: auto; font-weight: 800; color: var(--ro-ok); font-variant-numeric: tabular-nums; }
+.ro-zn-n {
+  display: block; margin: 1px 0 4px; font-size: 12.5px; font-weight: 800;
+  letter-spacing: .3px; color: var(--ro-fg);
+}
+.ro-zn-nt { display: block; font-size: 11.5px; line-height: 1.6; color: var(--ro-fg2); padding: 2px 0; }
+.ro-zn-nt::before { content: '· '; color: var(--ro-ok); font-weight: 800; }
+.ro-zn-k {
+  flex: 0 0 auto; min-width: 4.6em; font-size: 10.5px; font-weight: 800;
+  text-align: center; border-radius: 6px; padding: 1px 6px;
+  color: var(--ro-fg2); background: #f4ece0; border: 1px solid var(--ro-line);
+}
+.ro-zn-k.is-dan { color: #1a7f4b; background: #e8f6ee; border-color: #b6ddc6; }
+.ro-zn-k.is-sha { color: #a33b17; background: #fdeadd; border-color: #efc6ab; }
+.ro-zn-k.is-pick { color: #1b4f97; background: #e7f0fb; border-color: #b9d2ef; }
+.ro-zn-sel { font-size: 12.5px; font-weight: 900; color: var(--ro-fg); letter-spacing: .3px; }
+.ro-zn-sel .ro-zn-blue { color: #1b4f97; font-weight: 900; }
+.ro-zn-meta { display: block; margin-top: 2px; font-size: 10.5px; color: var(--ro-fg3); }
+.ro-zn-none { text-align: center; font-size: 12px; line-height: 1.6; color: var(--ro-fg3); padding: 6px 0 12px; }
+.ro-zn-foot {
+  margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--ro-line);
+  font-size: 10.5px; line-height: 1.6; color: var(--ro-fg3); text-align: center;
+}
+/* 320 窄屏：两列保留，只收字号 / 留白（和另外几组一致，不改成上下排列） */
+@media (max-width: 360px) {
+  #ro-zn-row { margin-left: 8px; margin-right: 8px; gap: 8px; }
+  .ro-zn { padding: 10px 8px 0; }
+  .ro-zn-h2 { font-size: 14px; }
+  .ro-zn-sub { font-size: 10.5px; }
+  .ro-zn-arrow { font-size: 10.5px; padding: 3px 7px; }
+  .ro-zn-bh { font-size: 11.5px; }
+  .ro-zn-row { font-size: 11px; gap: 3px 5px; line-height: 1.75; }
+  .ro-zn-n { font-size: 11.5px; }
+  .ro-zn-nt { font-size: 10.5px; }
+  .ro-zn-k { font-size: 10px; min-width: 4em; padding: 1px 4px; }
+  .ro-zn-sel { font-size: 11.5px; }
+  .ro-zn-meta, .ro-zn-foot, .ro-zn-bi { font-size: 10px; }
 }
 /* __STANDALONE_HIDE__ 用户 2026-10-18：
    「一键桌面 / 圆形手机钮 / 聊天」这三个浮标——浏览器里要有，
