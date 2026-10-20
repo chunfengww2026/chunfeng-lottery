@@ -1339,6 +1339,11 @@ function main() {
        抓 live.500.com/wanchang.php（350KB / 238 场 / 191 个比分 ✔）
        按 <tr> 行解析 → 写 jc-scores.js → 页面 window.JC_SCORES ✔ */
     try { run('build-jc-scores.mjs', []); } catch (errS) { log('  ⚠️ 比分抓取失败（不影响页面）：' + errS.message); }
+    /* 【名家图库 · 用户 2026-10-21「这一栏设置了实时抓取吧？」
+       源：Bing 图片搜索（⚡ 纯 fetch ✗ 不需要浏览器 ✔ 云端能跑 ✔）
+       每班抓一次：10 个名家 × 5 张 → 覆盖 imgs/mingjia/ ✔
+       history 保留最近 24 条 ✔（见 mingjia-data.js 的 history ✗） */
+    try { run('build-mingjia.mjs', []); } catch (e) { log('  ⚠️ 名家图库抓取失败：' + e.message); }
     } catch (e) { log('  ⚠️ 文章抓取调度出错（不影响页面）：' + e.message); }
 
     /* 检查抓取结果，坏了就还原 */
