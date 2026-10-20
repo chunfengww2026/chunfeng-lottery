@@ -1589,8 +1589,8 @@ function buildArticlesHtml() {
     ['大乐透', 'ro-g-dlt-main'],
     ['3D', 'ro-g-fc3d-main'],
     ['排列三', 'ro-g-pl3-main'],
-    ['快乐8', 'ro-g-kl8-main'],
-    ['篮球', 'ro-lanqiu']
+    ['快乐8', 'ro-g-kl8-main']
+    /* 「篮球」已删 · 用户 2026-10-21：那是"蓝球"（双色球/大乐透的蓝球 ✗）不是独立彩种 ✔ */
   ];
   /* 【图片塞进资料大全格子 · 用户 2026-10-21 选 A】
      每个格子点开 = 该彩种的名家图（读 mingjia-data.js ✗） */
