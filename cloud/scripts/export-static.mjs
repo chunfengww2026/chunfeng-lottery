@@ -1841,13 +1841,57 @@ function zxFeatureRows() {
       : (gid === 'kl8' ? 41 : 17);
     const big = last.filter((n) => n >= bigLine).length;
 
+    /* 【综合本期看好】乐透型：热号 3 个 + 蓝球/后区热 2 个；
+       数字彩：每一位近 30 期最热的那个数字（定位）。 */
+    let look = '';
+    if (gid === 'fc3d' || gid === 'pl3' || gid === 'pl5') {
+      const posLabels = (gid === 'pl5') ? ['万', '千', '百', '十', '个'] : ['百', '十', '个'];
+      const per = [];
+      for (let p = 0; p < posLabels.length; p++) {
+        const pf = new Map();
+        recent.forEach((d) => {
+          const v = numsOf(d)[p];
+          if (Number.isInteger(v)) pf.set(v, (pf.get(v) || 0) + 1);
+        });
+        const top = Array.from(pf.entries()).sort((a, b) => (b[1] - a[1]) || (a[0] - b[0]))[0];
+        if (top) per.push(posLabels[p] + String(top[0]));
+      }
+      look = '定位 ' + per.join(' ');
+    } else {
+      const backKey = (gid === 'ssq') ? 'blue' : (gid === 'dlt') ? 'back' : null;
+      let backTxt = '';
+      if (backKey) {
+        const bf = new Map();
+        recent.forEach((d) => (((d.areas || {})[backKey]) || []).forEach((n) => bf.set(n, (bf.get(n) || 0) + 1)));
+        const bt = Array.from(bf.entries()).sort((a, b) => (b[1] - a[1]) || (a[0] - b[0])).slice(0, 2);
+        if (bt.length) backTxt = ' ＋ ' + bt.map((x) => zxP2(x[0])).join(' ');
+      }
+      look = '看好 ' + hot + backTxt;
+    }
+
+    /* 【走势分析】近 5 期和值走向 + 跨度区间 */
+    const last5 = draws.slice(0, 5).map((d) => numsOf(d)).filter((a) => a.length);
+    const sums5 = last5.map((a) => a.reduce((x, y) => x + y, 0));
+    const spans5 = last5.map((a) => Math.max.apply(null, a) - Math.min.apply(null, a));
+    const sumTxt = sums5.length ? sums5.slice().reverse().join(' → ') : '—';
+    const spanLo = spans5.length ? Math.min.apply(null, spans5) : 0;
+    const spanHi = spans5.length ? Math.max.apply(null, spans5) : 0;
+    let dir = '震荡';
+    if (sums5.length >= 3) {
+      if (sums5[0] > sums5[2] + 5) dir = '走高';
+      else if (sums5[0] < sums5[2] - 5) dir = '走低';
+    }
+    const trend = '近5期和值 ' + sumTxt + '（' + dir + '）· 跨度 ' + spanLo + '~' + spanHi;
+
     out.push({
       name: name,
       issue: String(draws[0].issue || ''),
       line: '热号 ' + hot + ' · 冷号 ' + cold +
         ' · 上期和值 ' + sum + ' · 跨度 ' + span +
         ' · 奇偶 ' + odd + ':' + (last.length - odd) +
-        ' · 大小 ' + big + ':' + (last.length - big)
+        ' · 大小 ' + big + ':' + (last.length - big),
+      look: look,
+      trend: trend
     });
   }
   return out;
@@ -1913,6 +1957,8 @@ function buildZxNewsHtml() {
         '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
         '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>');
       out.push('<div class="ro-zn-n">' + escape(r.line) + '</div>');
+      if (r.look) out.push('<div class="ro-zn-n"><b>综合本期看好 </b>' + escape(r.look) + '</div>');
+      if (r.trend) out.push('<div class="ro-zn-n"><b>走势分析 </b>' + escape(r.trend) + '</div>');
     }
     out.push('</div>');
   }
