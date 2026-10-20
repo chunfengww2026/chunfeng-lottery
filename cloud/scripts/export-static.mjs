@@ -1748,7 +1748,7 @@ const ZX_NEWS = (function () {
     const d = JSON.parse(fs.readFileSync(f, 'utf8'));
     const src = (d && d.games && typeof d.games === 'object') ? d.games : null;
     if (!src) return null;
-    const BAD = ['500', '抓取', '来源'];
+    const BAD = ['500', '抓取', '来源', '新浪', '中彩'];
     const out = {};
     let total = 0;
     for (const pair of GAMES8) {
@@ -1773,9 +1773,9 @@ const ZX_NEWS = (function () {
 })();
 
 /* ---------- 智讯卡的 HTML ----------
-   用户 2026-10-20：「这些都不要（开奖日程/最近开奖/资讯），
-                    我只需要你抓取网址里面的号码特征走势分析」——
-   整张卡只留一块：号码特征走势分析，数据全部来自已抓取的开奖历史，现算、不编。 */
+   ⚠️ 曾有一版注释写「用户说 开奖日程/最近开奖/资讯 这些都不要」——那是理解错了，已作废。
+   用户 2026-10-20 的原话是：「分排列 3D 大乐透 双色球 分开类目 然后实时抓取」
+   → 这张卡 = 开奖日程 + 最近开奖 + 号码特征走势分析 + 最新资讯（4 个彩种分开切） */
 const ZX_FEATURE_GAMES = [['ssq', '双色球'], ['dlt', '大乐透'],
   ['fc3d', '福彩3D'], ['pl3', '排列3'], ['pl5', '排列5']];
 function zxFeatureRows() {
@@ -1819,19 +1819,88 @@ function zxFeatureRows() {
   return out;
 }
 
+/* ---------- 智讯卡的 HTML ----------
+   用户 2026-10-20：「分排列 3D 大乐透 双色球 分开类目 然后实时抓取」
+   → 这张卡 = 开奖日程 + 最近开奖 + 号码特征走势分析 + 最新资讯（4 个彩种分开切）
+   ⚠️ 四块【并存】，一块都不删：走势分析是后来加的，资讯是用户要的实时内容。 */
 function buildZxNewsHtml() {
-  const rows = zxFeatureRows();
-  if (!rows.length) return '<div class="ro-zn-none">本期暂无内容</div>';
+  const sched = zxSchedRows();
+  const recent = zxRecentRows(5);
+  const feature = zxFeatureRows();
+  const artGames = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+
+  /* 最新资讯：每个彩种最多 8 条
+     ① 先看 zx-news.json（有就用它：标题 + 日期）
+     ② 该彩种没有 → 才退回 articles-data.js（原来的兜底逻辑，一行没改） */
+  const panes = [];
+  ZX_TABS.forEach((pair) => {
+    const gid = pair[0], name = pair[1];
+    const nx = (ZX_NEWS && ZX_NEWS.games && ZX_NEWS.games[gid]) ? ZX_NEWS.games[gid] : null;
+    const g = artGames ? artGames[gid] : null;
+    const items = (nx && nx.length) ? nx.slice(0, 8)
+      : ((g && Array.isArray(g.items)) ? g.items.slice(0, 8) : []);
+    const rows = items.map(zxArticleItem).filter(Boolean).join('');
+    if (rows) panes.push({ gid: gid, name: name, html: rows });
+  });
+
   const out = [];
-  out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">号码特征走势分析</div>');
-  for (const r of rows) {
-    out.push('<div class="ro-zn-row">' +
-      '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
-      '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>');
-    out.push('<div class="ro-zn-n">' + escape(r.line) + '</div>');
+
+  /* ① 开奖日程 */
+  if (sched.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">开奖日程</div>');
+    for (const r of sched) {
+      out.push('<div class="ro-zn-row">' +
+        '<span class="ro-zn-tag">' + escape(r.tag) + '</span>' +
+        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span>' +
+        '<span class="ro-zn-t">' + escape(r.time) + '</span></div>');
+    }
+    out.push('</div>');
   }
-  out.push('</div>');
-  out.push('<div class="ro-zn-foot">按本页已抓取的开奖数据现算 · 仅供娱乐参考</div>');
+
+  /* ② 最近开奖 */
+  if (recent.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最近开奖</div>');
+    for (const r of recent) {
+      out.push('<div class="ro-zn-row">' +
+        '<span class="ro-zn-d">' + escape(String(r.date || '').slice(5)) + '</span>' +
+        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>' +
+        '<div class="ro-zn-n">' + escape(r.nums) + '</div>');
+    }
+    out.push('</div>');
+  }
+
+  /* ③ 号码特征走势分析 */
+  if (feature.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">号码特征走势分析</div>');
+    for (const r of feature) {
+      out.push('<div class="ro-zn-row">' +
+        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>');
+      out.push('<div class="ro-zn-n">' + escape(r.line) + '</div>');
+    }
+    out.push('</div>');
+  }
+
+  /* ④ 最新资讯：4 颗药丸，点哪个切哪个（和智能精选同一套 class，属性名是 data-zx-*） */
+  if (panes.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最新资讯</div>');
+    out.push('<div class="ro-zn-chips" id="ro-zn-chips">');
+    panes.forEach((p, i) => {
+      out.push('<div class="ro-zn-chip' + (i === 0 ? ' on' : '') + '" role="button" tabindex="0"' +
+        ' data-zx-game="' + p.gid + '">' + escape(p.name) + '</div>');
+    });
+    out.push('</div>');
+    panes.forEach((p, i) => {
+      out.push('<div class="ro-zn-pane' + (i === 0 ? ' is-on' : '') + '" data-zx-pane="' + p.gid + '">' +
+        p.html + '</div>');
+    });
+    out.push('</div>');
+  }
+
+  if (!out.length) return '<div class="ro-zn-none">本期暂无内容</div>';
+  out.push('<div class="ro-zn-foot">每期自动更新 · 仅供娱乐参考</div>');
   return out.join('');
 }
 
