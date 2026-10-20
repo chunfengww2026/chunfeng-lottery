@@ -673,7 +673,7 @@ function walkImgs(dir, out) {
   } catch (e) { }
 }
 const IMG_FILES = [];
-walkImgs(path.join(ROOT, 'imgs'), IMG_FILES);
+walkImgs(path.join(ROOT, '..', 'imgs'), IMG_FILES);   /* ROOT 是 cloud/ ✗ 图在上一级 ✔ */
 if (IMG_FILES.length) console.log('  · 图片文件 ' + IMG_FILES.length + ' 张（imgs/ ✗）');
 for (const f of [...FROM_ROOT, ...CODE_MODULES, ...PAGE_ARTIFACTS, ...IMG_FILES]) {
   const src = path.join(PARENT, f);
