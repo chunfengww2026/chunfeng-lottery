@@ -1710,7 +1710,7 @@ function zxArticleItem(it) {
     .filter((s) => typeof s === 'string' && s.trim())
     .map((s) => zxCleanText(s))
     .filter(Boolean)
-    .slice(0, 6);
+    .slice(0, 3);
   const brief = paras.length ? (paras[0].length > 40 ? paras[0].slice(0, 40) + '…' : paras[0]) : '';
   const dateHtml = date ? '<span class="ro-zn-at-d">' + escape(date) + '</span>' : '';
   if (!paras.length) {
@@ -1921,8 +1921,20 @@ function buildZxPickHtml() {
 
 const zxNewsHtml = buildZxNewsHtml();
 const zxPickHtml = buildZxPickHtml();
+/* 智讯卡里每个彩种药丸各几条（日志用；数据不够的彩种不出药丸） */
+function zxNewsStat() {
+  const games = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+  if (!games) return '0 条';
+  const parts = [];
+  for (const [gid, name] of ZX_TABS) {
+    const g = games[gid];
+    const n = (g && Array.isArray(g.items)) ? Math.min(g.items.length, 5) : 0;
+    if (n) parts.push(name + ' ' + n);
+  }
+  return parts.length ? parts.join(' · ') : '0 条';
+}
 console.log('  · 智讯：' + (zxNewsHtml ? (Buffer.byteLength(zxNewsHtml, 'utf8') / 1024).toFixed(1) + ' KB'
-  + '（日程 ' + zxSchedRows().length + ' 条 · 最近开奖 ' + zxRecentRows(5).length + ' 条 · 资讯 ' + zxNewsItems(3).length + ' 条）'
+  + '（日程 ' + zxSchedRows().length + ' 条 · 最近开奖 ' + zxRecentRows(5).length + ' 条 · 资讯 ' + zxNewsStat() + '）'
   : '无数据 → 空壳提示'));
 console.log('  · 智能精选：' + (zxPickHtml ? (Buffer.byteLength(zxPickHtml, 'utf8') / 1024).toFixed(1) + ' KB'
   : '无数据 → 空壳提示'));
@@ -10161,6 +10173,38 @@ ${zxPickHtml}
   </details>
   </div>
 
+  <script>
+  /* __ZN_CHIPS__ 智讯卡里那排彩种药丸（默认双色球）
+     · 纯 div + role="button"，只切 class，不重建 DOM —— 页面铁律：没有 button 标签
+     · 找不到元素就 return，不影响别的区块（分享页里标签少了也不会报错） */
+  (function () {
+    var wrap = document.getElementById('ro-zn-chips');
+    if (!wrap) return;
+    var chips = [].slice.call(wrap.querySelectorAll('[data-zx-game]'));
+    var panes = [].slice.call(document.querySelectorAll('#ro-zn-row [data-zx-pane]'));
+    if (!chips.length || !panes.length) return;
+    function show(gid) {
+      chips.forEach(function (c) {
+        c.className = 'ro-zn-chip' + (c.getAttribute('data-zx-game') === gid ? ' on' : '');
+      });
+      panes.forEach(function (p) {
+        p.className = 'ro-zn-pane' + (p.getAttribute('data-zx-pane') === gid ? ' is-on' : '');
+      });
+    }
+    chips.forEach(function (c) {
+      var gid = c.getAttribute('data-zx-game');
+      c.addEventListener('click', function () { show(gid); });
+      c.addEventListener('keydown', function (e) {
+        var k = e.key || '';
+        if (k === 'Enter' || k === ' ' || k === 'Spacebar' || e.keyCode === 13 || e.keyCode === 32) {
+          e.preventDefault();
+          show(gid);
+        }
+      });
+    });
+  })();
+  </script>
+
   ${articlesHtml}
 
   <div class="ro-divider"><span>彩票推荐图</span></div>
@@ -15765,6 +15809,10 @@ ${CHAT_JS_SHARE}
   .ro-zn-k { font-size: 10px; min-width: 4em; padding: 1px 4px; }
   .ro-zn-sel { font-size: 11.5px; }
   .ro-zn-meta, .ro-zn-foot, .ro-zn-bi { font-size: 10px; }
+  .ro-zn-chip { font-size: 10.5px; padding: 3px 7px; }
+  .ro-zn-at-t { font-size: 11px; }
+  .ro-zn-at-b, .ro-zn-at-d { font-size: 10px; }
+  .ro-zn-at-body p { font-size: 11px; line-height: 1.7; }
 }
 /* __STANDALONE_HIDE__ 用户 2026-10-18：
    「一键桌面 / 圆形手机钮 / 聊天」这三个浮标——浏览器里要有，
