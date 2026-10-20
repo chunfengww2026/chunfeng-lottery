@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-20 15:28",
+ "updated": "2026-10-20 16:11",
  "red": 0,
  "black": 1,
  "rate": "0.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-20 15:28",
-   "finishTime": 1792481280000,
+   "dateStr": "2026-10-20 16:11",
+   "finishTime": 1792483860000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 61,
      "status": "pending",
-     "finishTime": 1792481280000,
+     "finishTime": 1792483860000,
      "league": "欧冠",
      "odds": 1.55,
      "time": "2026-10-21 00:45"
