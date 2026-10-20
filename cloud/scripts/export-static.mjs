@@ -1257,8 +1257,10 @@ function frogPanelHtml() {
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
-    '<div class="frog-sec"><div class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</div>' +
-    (arts.length ? arts.map((a, i) => {
+    '<div class="frog-sec"><details class="frog-mats">' +
+    '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
+    (arts.length ? '<span class="frog-ag">点开看正文</span>' : '') + '</summary>' +
+    (arts.length ? '<div class="frog-mats-body">' + arts.map((a, i) => {
       /* __FROG_ART_BODY__ 用户 2026-10-20：「免费资料可以点击观看 你要抓取到具体资料」
          ------------------------------------------------------------
          · 点【标题】就地展开正文（<details>，不套裸 button）；
@@ -1294,8 +1296,8 @@ function frogPanelHtml() {
           '<div class="frog-ab">' + paras(restTxt) + '</div></details>' : '') +
         link +
         '</details>';
-    }).join('') : '<div class="frog-none">暂无资料</div>') +
-    '</div>' +
+    }).join('') + '</div>' : '<div class="frog-none">暂无资料</div>') +
+    '</details></div>' +
     '<div class="frog-sec"><div class="frog-h">功能中心（全部免费）</div>'
     /* __FROG_GID__ 用户 2026-10-20：「同时要分好大乐透和双色球，因为用户不知道你
        说的是哪一个彩种」→ 功能中心顶部加一排彩种药丸，下面 9 个功能全部跟着它走。
@@ -15381,6 +15383,22 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 .frog-more > summary::-webkit-details-marker { display: none; }
 .frog-src { display: inline-block; font-size: 11.5px; color: #1a8c5a; font-weight: 700; text-decoration: none; padding: 0 0 7px; }
 .frog-tip { font-size: 11px; color: #a89a80; margin-top: 8px; }
+/* __ART_20__ 免费资料 20 条（用户 2026-10-21「文章资料抓二十条，最好都带正文」）
+   ------------------------------------------------------------
+   青蛙家园是「🐸青蛙家园 + 历史开奖」半屏两列里的一格（375 下约 167px / 320 下约 140px），
+   20 条正文列表直接铺开要把这一格拉高 3000px+（实测 3347px）→ 整块收进一个折叠 <details>
+   （用户原话允许：「如果太长，可以折叠免费资料整块」）。
+   · 用 <details>/<summary>：裸 button 仍然是 0（页面铁律）
+   · 默认收起：一行「免费资料 · 共 20 条 ＋ 点开看正文 ›」，点开就是 20 条
+   · 字号 / 配色沿用米杏色系，标题居中（跟其它 .frog-h 一致） */
+.frog-mats > summary { display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer; list-style: none; padding: 1px 0 2px; }
+.frog-mats > summary::-webkit-details-marker { display: none; }
+.frog-mats > summary .frog-h { margin-bottom: 0; }
+.frog-mats > summary .frog-ag { flex: 0 0 auto; }
+.frog-mats > summary .frog-ag::after { content: "▾"; margin-left: 2px; }
+.frog-mats[open] > summary .frog-ag::after { content: "▴"; }
+.frog-mats-body { padding-top: 2px; }
 
 
 /* ===== 九算法嵌入块（用户 2026-10-19）===== */
