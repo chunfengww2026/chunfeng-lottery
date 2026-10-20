@@ -30,9 +30,17 @@ const TIMEOUT = 25000;
      json    = 直接返回 JSON 的接口
      html    = 普通门户页，只统计"像比赛行"的信号
    ------------------------------------------------------------ */
+/* 北京日期（YYYY-MM-DD），{BJ0}=北京今天 {BJ1}=北京明天 —— 500 的期次参数用它 */
+function bjDate(offsetDays = 0, base = Date.now()) {
+  const d = new Date(base + 8 * 3600 * 1000 + offsetDays * 86400000);
+  return d.toISOString().slice(0, 10);
+}
+
 const SOURCES = [
   /* ---- A. 500.com 比分家族（同域名已被云端验证可用：wanchang.php 在用） ---- */
   { name: '500 竞彩当天', url: 'https://live.500.com/', kind: '500', note: '竞彩在售+进行中+当天完场' },
+  { name: '500 竞彩期次(北京今天)', url: 'https://live.500.com/jczq.php?e={BJ0}', kind: '500', note: '按日期取竞彩期（含竞彩编号）' },
+  { name: '500 竞彩期次(北京明天)', url: 'https://live.500.com/jczq.php?e={BJ1}', kind: '500', note: '明天那期 = 未开赛名单（可替代体彩官方在售）' },
   { name: '500 完整版', url: 'https://live.500.com/2h1.php', kind: '500', note: '全部赛事（三态都在这页）' },
   { name: '500 单场比分', url: 'https://live.500.com/zqdc.php', kind: '500', note: '单场/滚球' },
   { name: '500 足彩', url: 'https://live.500.com/zucai.php', kind: '500', note: '足彩 14 场' },
@@ -98,7 +106,11 @@ function parse500(text, kind) {
     }
     const t = /\b(\d{2}-\d{2})\s+(\d{2}:\d{2})\b/.exec(body);
     const teams = [...body.matchAll(/liansai\.500\.com\/team\/\d+\/?"[^>]*>([^<]{1,24})</g)].map((x) => x[1].trim());
-    out.rows.push({ fid, state, time: t ? t[1] + ' ' + t[2] : '', home: teams[0] || '', away: teams[1] || '' });
+    const code = /name="check_id\[\]"[^>]*\/>\s*([^<\s]{2,12})/.exec(body);
+    out.rows.push({
+      fid, state, time: t ? t[1] + ' ' + t[2] : '', code: code ? code[1].trim() : '',
+      home: teams[0] || '', away: teams[1] || '',
+    });
     if (kind === '500' && out.rows.length > 600) break;
   }
   return out;
@@ -126,16 +138,17 @@ function genericSignals(text) {
 
 async function probe(src) {
   const t0 = Date.now();
-  const res = { name: src.name, url: src.url, note: src.note, ok: false, status: 0, bytes: 0, charset: '', ms: 0, err: '' };
+  const url = src.url.replace(/\{BJ0\}/g, bjDate(0)).replace(/\{BJ1\}/g, bjDate(1));
+  const res = { name: src.name, url, note: src.note, ok: false, status: 0, bytes: 0, charset: '', ms: 0, err: '' };
   try {
-    const r = await fetch(src.url, {
+    const r = await fetch(url, {
       redirect: 'follow',
       signal: AbortSignal.timeout(TIMEOUT),
       headers: {
         'User-Agent': UA,
         'Accept': 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        Referer: src.url.startsWith('https://live.500.com') ? 'https://www.500.com/' : src.url,
+        Referer: url.startsWith('https://live.500.com') ? 'https://www.500.com/' : url,
       },
     });
     res.status = r.status;
@@ -168,6 +181,7 @@ async function probe(src) {
       res.live = p.rows.filter((x) => x.state === 'live').length;
       res.fin = p.rows.filter((x) => x.state === 'fin').length;
       res.other = p.rows.filter((x) => x.state === 'other').length;
+      res.codes = p.rows.filter((x) => x.code).length;
       res.sample = p.rows.slice(0, 2);
     } else {
       res.sig = genericSignals(text);
@@ -214,7 +228,7 @@ const results = [];
 for (const s of targets) {
   const r = await probe(s);
   results.push(r);
-  const extra = r.rows ? ` 行=${r.rows}` : '';
+  const extra = r.rows ? ` 行=${r.rows}${r.codes ? ` 竞彩编号=${r.codes}` : ''}` : '';
   const tri = r.rows && (r.up !== undefined)
     ? ` 未开=${r.up} 进行=${r.live} 完场=${r.fin}${r.other ? ' 其他=' + r.other : ''}`
     : '';
@@ -222,7 +236,7 @@ for (const s of targets) {
   console.log(`   ${r.status || '-'} ${r.bytes}B ${r.charset} ${r.ms}ms${extra}${tri}`);
   if (r.sig) console.log(`   时间标记=${r.sig.times} vs=${r.sig.vs} 关键词=${JSON.stringify(r.sig.kw)}`);
   if (r.json) console.log(`   JSON=${JSON.stringify(r.json)}`);
-  if (r.sample) for (const x of r.sample) console.log(`   样例 fid=${x.fid} ${x.state} ${x.time} ${x.home} vs ${x.away}`);
+  if (r.sample) for (const x of r.sample) console.log(`   样例 fid=${x.fid} ${x.state} ${x.time} ${x.code || ''} ${x.home} vs ${x.away}`);
   console.log('   → ' + verdict(r));
 }
 
@@ -238,7 +252,7 @@ console.log('============================================================');
 if (jsonArg) {
   const payload = { at: new Date().toISOString(), results: results.map((r) => ({
     name: r.name, url: r.url, note: r.note, status: r.status, bytes: r.bytes, ms: r.ms,
-    ok: r.ok, err: r.err, rows: r.rows, up: r.up, live: r.live, fin: r.fin, other: r.other,
+    ok: r.ok, err: r.err, rows: r.rows, up: r.up, live: r.live, fin: r.fin, other: r.other, codes: r.codes,
     charset: r.charset, verdict: verdict(r), sig: r.sig, json: r.json, sample: r.sample,
   })) };
   fs.writeFileSync(jsonArg, JSON.stringify(payload, null, 1), 'utf8');
