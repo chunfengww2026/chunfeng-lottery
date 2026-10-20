@@ -1774,6 +1774,87 @@ function qxcPosSets(gameId, want, from, to, per) {
 }
 
 /**
+ * 七星彩「每位杀号」—— 每位按【该位最冷 + 遗漏最久】排，越冷越先杀
+ * ------------------------------------------------------------
+ * 与 qxcPosSets 一一对应（同一个「期号 + 位号」种子，确定性，
+ * 不用 Math.random：同一期刷新/换设备都一样，换期跟着变）：
+ *   · 6 位互不相同（3 个号 → 相邻最多重合 1 个）；
+ *   · 绝不包含【本位定位推荐】里的号（杀号不能把本位的推荐杀掉）。
+ * @param {Array<number[]>} avoidSets 每位不能杀的号（by posIdx，= 本位定位推荐）
+ * @returns {number[][]} 6 个位的杀号（已各自升序）
+ */
+function qxcKillSets(gameId, want, from, to, per, avoidSets) {
+  const rows = getHistory(gameId).slice(0, per || HIST_PERIODS);
+  const span = rows.length;
+  const POS = 6;
+  const issueTag = String((rows[0] && rows[0].issue) || '') + '/' + span;
+
+  const ranked = [];
+  for (let p = 0; p < POS; p++) {
+    const freq = new Map(), gap = new Map();
+    for (let v = from; v <= to; v++) { freq.set(v, 0); gap.set(v, span); }
+    let maxF = 1;
+    rows.forEach((d, i) => {
+      const arr = (d.areas && (d.areas.main || d.areas.front)) || [];
+      const v = arr[p];
+      if (Number.isInteger(v) && freq.has(v)) {
+        freq.set(v, freq.get(v) + 1);
+        if (gap.get(v) === span) gap.set(v, i);
+        if (freq.get(v) > maxF) maxF = freq.get(v);
+      }
+    });
+    const avoid = new Set((avoidSets && avoidSets[p]) || []);
+    const list = [];
+    for (let v = from; v <= to; v++) {
+      if (avoid.has(v)) continue;                            /* 不杀本位的定位推荐 */
+      const cold = 1 - (freq.get(v) / maxF);                 /* 越冷越该杀 */
+      const omit = span ? Math.min(gap.get(v) / span, 1) : 0;/* 遗漏越久越该杀 */
+      const jit = qxcPosSeed01('qxcK|' + issueTag + '|p' + p + '|' + v);
+      list.push({ n: v, s: cold * 0.52 + omit * 0.26 + jit * 0.22 });
+    }
+    list.sort((a, b) => (b.s - a.s) || (a.n - b.n));
+    ranked.push(list);
+  }
+
+  /* 逐位挑号：每一位最多和前面每一位重合 lim 个（3 个号 → 1 个） */
+  const lim0 = want <= 3 ? 1 : Math.max(0, want - 3);
+  const ov = (a, b) => a.filter((x) => b.indexOf(x) >= 0).length;
+  for (let lim = lim0; lim <= want; lim++) {
+    /* 同一个 lim 先试几种确定性错位（种子 = 期号 + 位号 + 试次，不是 Math.random）。
+       宽松度一样的情况下，多试几次能把「硬贪心卡住」的位救回来，
+       免得还没必要就先放宽重合上限。 */
+    for (let tryIdx = 0; tryIdx < 6; tryIdx++) {
+      const built = [];
+      for (let p = 0; p < POS; p++) {
+        const used = new Map();
+        built.forEach((s) => s.forEach((n) => used.set(n, (used.get(n) || 0) + 1)));
+        const order = ranked[p].map((it) => ({
+          n: it.n,
+          k: it.s - (used.get(it.n) || 0) * 0.45
+            + (tryIdx ? qxcPosSeed01('qxcKt|' + issueTag + '|p' + p + '|t' + tryIdx + '|' + it.n) * 0.34 : 0)
+        })).sort((a, b) => (b.k - a.k) || (a.n - b.n));
+        const out = [];
+        for (let i = 0; i < order.length && out.length < want; i++) {
+          const v = order[i].n;
+          let ok = true;
+          for (let q = 0; q < built.length; q++) {
+            const now = out.slice();
+            now.push(v);
+            if (ov(now, built[q]) > lim) { ok = false; break; }
+          }
+          if (ok) out.push(v);
+        }
+        if (out.length < want) break;
+        built.push(out);
+      }
+      if (built.length === POS) return built.map((arr) => arr.slice().sort((x, y) => x - y));
+    }
+  }
+  /* 兜底（理论上到不了）：每位取自己最该杀的 want 个（已排除本位推荐） */
+  return ranked.map((list) => list.slice(0, want).map((x) => x.n).sort((x, y) => x - y));
+}
+
+/**
  * 按「第 posIdx 位」统计各数字出现频率，给出该位置推荐的 N 个数字
  * 用途：排列3/排列5/七星彩 的定位推荐，让每个位置不一样
  *
@@ -3552,44 +3633,87 @@ function digitStraightTally(gameId, out, ctx) {
 }
 
 /**
- * 七星彩：把「六位写成同一串号」的那一层也纠回来
+ * 七星彩：把「六位写成同一串号」的那一层也纠回来（定位推荐 + 每位杀号）
  * ------------------------------------------------------------
- * 分享页 / App 的号码有两个来源：
+ * 分享页 / App / 推荐图的号码有两个来源：
  *   ① 构建时自动算（autoFillForTemplate → positionRecommend）→ qxcPosSets 已经分开了
- *   ② 存档 / 摇号里摇好的那串（saved-tickets.js 的 p1..p6）→ 那一层是
+ *   ② 存档 / 摇号里摇好的那串（saved-tickets.js 的 p1..p6 / k1..k6）→ 那一层是
  *      ticket-store.js 的「号码池共用同一份基底」分支写的，
  *      6 行 p1..p6 全都取同一份 base.slice(0, 5)，于是又是一模一样的 5 个号。
- * 这里在【一致性收尾的最前面】把这种情况纠正掉（摇号存档前会调到这里，
- * 所以存档和分享页会一起变好）：
- *   · 只有「前六位的号面几乎一样」才动手（相邻两位 5 个号里重合 ≥ 4 个）；
- *   · 已经各不相同的（手动录入 / 新算法）一个字都不改 —— 幂等；
- *   · 纠正完再往下走，后面的「每位杀号」会按新推荐重算，不会自相矛盾。
+ * 这里在【一致性收尾的最前面】把这种情况纠正掉（摇号存档前、分享页渲染前都会调到这里）：
+ *   · 定位推荐：6 位里任意两位重合 > 2 个号就重排（要求「相邻最多重合 2」）；
+ *   · 每位杀号：6 位里任意两位重合 > 1 个号、或杀到本位的定位推荐，就重排；
+ *   · 已经合规的（手动录入 / 新算法）一个字节都不改 —— 幂等；
+ *   · 后区（area === 'back'）不在处理范围，永远不碰；
+ *   · 全部用「期号 + 位号」种子（qxcPosSets / qxcKillSets），
+ *     同一期怎么刷都一样、换期跟着变，不用 Math.random。
+ * 3D / 排3 / 排5 在这里直接 return，一行都不影响。
  */
 function enforceQxcPosDistinct(gameId, out, roles) {
   if (gameId !== 'qxc' && gameId !== 'xqxc') return;
   if (!roles || !out) return;
-  const keys = Object.keys(roles).filter((k) => {
+
+  /* 号码串格式与图上一致：0 显示成 0，其它两位（和原来这行完全同口径） */
+  const qs = (n) => (Number(n) === 0 ? '0' : String(Number(n)).padStart(2, '0'));
+  const qjoin = (arr) => arr.slice().sort((a, b) => a - b).map(qs).join(' ');
+
+  const keysOf = (role) => Object.keys(roles).filter((k) => {
     const r = roles[k];
-    return r && r.role === 'posrec' && r.area === 'front' && typeof r.posIdx === 'number';
-  });
-  if (keys.length < 4) return;                 /* 不是「前六位」那种布局，不动 */
-  keys.sort((a, b) => roles[a].posIdx - roles[b].posIdx);
-  const sets = keys.map((k) => consParse('posrec', out[k]));
-  if (sets.some((s) => !s.length)) return;
-  const want = sets[0].length;
-  const near = want - 1;                       /* 5 个号：重合 ≥ 4 个就算「看着一样」 */
-  let bad = false;
-  for (let i = 0; i < sets.length && !bad; i++) {
-    for (let j = i + 1; j < sets.length; j++) {
-      if (sets[i].filter((n) => sets[j].indexOf(n) >= 0).length >= near) { bad = true; break; }
+    return r && r.role === role && r.area === 'front' && typeof r.posIdx === 'number';
+  }).sort((a, b) => roles[a].posIdx - roles[b].posIdx);
+
+  /* ---- ① 定位推荐：6 位互不相同（5 个号 → 任意两位最多重合 2 个）---- */
+  const recKeys = keysOf('posrec');
+  if (recKeys.length >= 4) {
+    const sets = recKeys.map((k) => consParse('posrec', out[k]));
+    if (!sets.some((s) => !s.length)) {
+      const want = sets[0].length;
+      const lim = Math.max(0, want - 3);       /* 5 个号 → 相邻两位最多重合 2 个 */
+      let bad = false;
+      /* 只看【相邻两位】（用户口径：「p1~p6 各不相同，相邻最多重合 2 个」） */
+      for (let i = 0; i + 1 < sets.length && !bad; i++) {
+        if (sets[i].filter((n) => sets[i + 1].indexOf(n) >= 0).length > lim) bad = true;
+      }
+      if (bad) {
+        const six = qxcPosSets(gameId, want, 0, 9, HIST_PERIODS);
+        recKeys.forEach((k, i) => {
+          const v = six[roles[recKeys[i]].posIdx % six.length];
+          if (v && v.length) out[k] = qjoin(v);
+        });
+      }
     }
   }
-  if (!bad) return;
-  const six = qxcPosSets(gameId, want, 0, 9, HIST_PERIODS);
-  keys.forEach((k, i) => {
-    const v = six[i % six.length];
-    if (v && v.length) out[k] = v.map((x) => (Number(x) === 0 ? '0' : String(x).padStart(2, '0'))).join(' ');
-  });
+
+  /* 本位定位推荐（按 posIdx）—— 杀号要用它避让 */
+  const recByPos = {};
+  recKeys.forEach((k) => { recByPos[roles[k].posIdx] = consParse('posrec', out[k]); });
+
+  /* ---- ② 每位杀号：6 位互不相同（3 个号 → 最多重合 1 个），且不杀本位推荐 ---- */
+  const killKeys = keysOf('poskill');
+  if (killKeys.length >= 4) {
+    const sets = killKeys.map((k) => consParse('poskill', out[k]));
+    if (!sets.some((s) => !s.length)) {
+      const want = sets[0].length;
+      const lim = want <= 3 ? 1 : Math.max(0, want - 3);
+      let bad = false;
+      for (let i = 0; i < sets.length && !bad; i++) {
+        const own = recByPos[roles[killKeys[i]].posIdx] || [];
+        if (own.length && sets[i].some((n) => own.indexOf(n) >= 0)) bad = true;
+        for (let j = i + 1; j < sets.length && !bad; j++) {
+          if (sets[i].filter((n) => sets[j].indexOf(n) >= 0).length > lim) { bad = true; break; }
+        }
+      }
+      if (bad) {
+        const avoid = [];
+        for (let p = 0; p < 6; p++) avoid[p] = recByPos[p] || [];
+        const sixK = qxcKillSets(gameId, want, 0, 9, HIST_PERIODS, avoid);
+        killKeys.forEach((k, i) => {
+          const v = sixK[((roles[k].posIdx % sixK.length) + sixK.length) % sixK.length] || sixK[i % sixK.length];
+          if (v && v.length) out[k] = qjoin(v);
+        });
+      }
+    }
+  }
 }
 
 /** 一整张图的一致性收尾：逐个号码区过一遍 */
