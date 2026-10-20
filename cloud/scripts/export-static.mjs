@@ -491,6 +491,50 @@ const HIST = ctx.__hist;
 /* 【开奖时刻表】（latest-draws.js 的 NEXTCD_TABLE）—— 智讯卡写「几点开奖」要用 */
 const NEXTCD = ctx.__nextcdTable;
 
+/* ============================================================
+   __PICK_GUARD__ 「每一期号码必须和上一期不一样」硬校验 + 加盐重摇
+   ------------------------------------------------------------
+   用户原话（两轮，逐字）：
+     ①「每一期保证和上一期不一样」「所以这一期重新摇」
+     ②「虽然有算法 但是推荐号码要保证每期不一样 怎么都要修改几个」
+   实现全在 pick-guard.js（阈值表 + 加盐重摇 + 失败日志），这里只写两件小事：
+     ① 上期期号怎么算（下面 prevIssueOf）
+     ② 每个生成器怎么把「盐」接进自己的种子（gen(salt)）
+   ⚠️ 盐 = 固定字符串 '|v2' / '|v3' …（由第几次尝试决定），不是 Math.random、
+      不是时间戳 → 同一期每次构建得到同一组号，完全可复现。
+   ⚠️ 上一期取不到（首次构建 / 历史只有一期）→ prevIssueOf 返回 ''，
+      prevGen 返回 null → 校验自动跳过，不报错。
+   ============================================================ */
+const pickGuard = require(path.join(ROOT, 'pick-guard.js'));
+
+/* 期号 ±1（保持原格式；跨年按 400 期封顶，和 draw-data.js 的 nextIssue 同一口径） */
+function issueShift(issue, delta) {
+  const s = String(issue || '').trim();
+  if (!/^\d{5,8}$/.test(s)) return '';
+  const yLen = s.length >= 7 ? 4 : 2;
+  const y = parseInt(s.slice(0, yLen), 10);
+  const seqRaw = s.slice(yLen);
+  let seq = parseInt(seqRaw, 10) + (Number(delta) || 0);
+  let ny = y;
+  while (seq > 400) { seq -= 400; ny += 1; }
+  while (seq < 1) { seq += 400; ny -= 1; }
+  const ys = yLen === 4 ? String(ny).padStart(4, '0') : String(((ny % 100) + 100) % 100).padStart(2, '0');
+  return ys + String(seq).padStart(seqRaw.length, '0');
+}
+function issueMinus1(issue) { return issueShift(issue, -1); }
+/* 上期期号：优先用「上一期已开奖 +1」（同一口径，跳期也不会错），
+   拿不到就按本期期号 -1。取不到返回 ''（= 跳过校验）。 */
+function prevIssueOf(gid, cur) {
+  try {
+    const arr = (HIST && HIST.games && Array.isArray(HIST.games[gid])) ? HIST.games[gid] : [];
+    if (arr.length >= 2 && arr[1] && arr[1].issue) {
+      const v = issueShift(String(arr[1].issue), 1);
+      if (v) return v;
+    }
+  } catch (e) { /* 忽略 */ }
+  return issueMinus1(cur);
+}
+
 /**
  * 热力图该不该出这张图
  * 口径：heatmap-data.js 里的 shouldShowHeatmap（开奖日 + 当天数据 + 已过 18:00）
@@ -1155,11 +1199,36 @@ function frogPanelHtml() {
     /* 种子 = 【下一期】期号：draws.js 一换期，这组 20 码就跟着自动换。
        （原来是上一期 → 开奖后号码纹丝不动，用户 2026-10-20 实测发现） */
     const seedBase = issue.ssq + '|' + issue.dlt;
-    pool.ssq = seededRandom20(33, seedBase + '|ssq');
-    pool.dlt = seededRandom20(35, seedBase + '|dlt');
+    /* __PICK_GUARD__ 本期种子 vs 上期种子：上期 = 上一期期号跑同一套生成器
+       （= 用户上一期在页面上看到的那组号）。拿不到上期期号 → prev 传 null → 跳过校验。 */
+    const prevSsq = prevIssueOf('ssq', issue.ssq);
+    const prevDlt = prevIssueOf('dlt', issue.dlt);
+    const seedPrev = (prevSsq || prevDlt) ? (prevSsq + '|' + prevDlt) : '';
+    const canPrev = !!(prevSsq && prevDlt);
+    /* 20 码：和上期重合 ≤ 15（至少 5 个不同），不合格就加盐重摇（最多 50 次） */
+    pool.ssq = pickGuard.statPush(pickGuard.rerollPick({
+      gid: 'frog|ssq', label: '青蛙·双色球 20 码', issue: issue.ssq,
+      gen: (salt) => seededRandom20(33, seedBase + '|ssq' + salt),
+      prevGen: () => (canPrev ? seededRandom20(33, seedPrev + '|ssq') : null),
+      minChanged: pickGuard.MIN_CHANGED.pool20
+    })).value;
+    pool.dlt = pickGuard.statPush(pickGuard.rerollPick({
+      gid: 'frog|dlt', label: '青蛙·大乐透 20 码', issue: issue.dlt,
+      gen: (salt) => seededRandom20(35, seedBase + '|dlt' + salt),
+      prevGen: () => (canPrev ? seededRandom20(35, seedPrev + '|dlt') : null),
+      minChanged: pickGuard.MIN_CHANGED.pool20
+    })).value;
     /* 双色球蓝球 6 个（1-16），种子 = 同一期的 seedBase → 跟红球一起换期。
-       取不到就退回 core-pool.js 的 blue（同一套 seededPick，见那个文件的 __CORE_SSQ_BLUE__）。 */
-    try { ssqBack = seededPickN(16, 6, seedBase + '|ssqblue'); } catch (eBlue) { ssqBack = []; }
+       取不到就退回 core-pool.js 的 blue（同一套 seededPick，见那个文件的 __CORE_SSQ_BLUE__）。
+       __PICK_GUARD__ 蓝球和上期至少 3 个不同，不够就加盐重摇。 */
+    try {
+      ssqBack = pickGuard.statPush(pickGuard.rerollPick({
+        gid: 'frog|ssqblue', label: '青蛙·双色球蓝球', issue: issue.ssq,
+        gen: (salt) => seededPickN(16, 6, seedBase + '|ssqblue' + salt),
+        prevGen: () => (canPrev ? seededPickN(16, 6, seedPrev + '|ssqblue') : null),
+        minChanged: pickGuard.MIN_CHANGED.blue6
+      })).value || [];
+    } catch (eBlue) { ssqBack = []; }
     if ((!Array.isArray(ssqBack) || !ssqBack.length) && a && Array.isArray(a.blue)) ssqBack = a.blue.slice(0, 6);
     const f = path.join(ROOT, 'jc-articles.js');
     if (fs.existsSync(f)) {
@@ -2324,7 +2393,18 @@ function zxZones(nums, area) {
        附加：和值 · 跨度 · 组选形态（组三 / 组六 / 豹子）
    种子 = FNV-1a(gid|期号) → mulberry32：gid 进种子 → 每个彩种都不一样，
    同一期永远同一注（无 Math.random），排3 和 3D 的号自然也不会撞。
-   ------------------------------------------------------------ */
+
+   __PICK_GUARD__ 用户 2026-10-21（第二轮）：「虽然有算法 但是推荐号码要保证
+   每期不一样 怎么都要修改几个」——原来的胆码 / 杀号是【纯频次排序】，
+   相邻两期的 30 期窗口只差一期 → 实测 2026121 vs 2026120 胆码 3/3、
+   杀号 3/3 完全相同，一期都没换过。现在改成：
+     · 胆码 / 杀号 → pickGuard.bandedHotCold()：先按次数排名取「候选带」，
+       带内按次数加权抽号，抽号用【期号种子】驱动 → 每期在带内换一批
+     · 三项（胆码 / 杀号 / 精选一注）各自过 pick-guard 的阈值校验：
+         乐透型 胆码≥2 个不同 / 杀号≥1 / 精选≥3
+         数字彩 胆码≥2 个不同 / 杀号≥1 / 精选≥2（只有 3 位）
+       不合格 → 种子加固定盐 '|v2' / '|v3' … 重摇，最多 50 次（可复现）
+   --------------------------------------------------------- */
 const ZX_PICK_ORDER = ['ssq', 'dlt', 'pl3', 'fc3d'];
 
 /* 取 games.js 里的彩种配置：export-static 里叫 G，片段自检脚本里叫 GAMES */
