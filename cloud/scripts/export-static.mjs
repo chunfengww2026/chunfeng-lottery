@@ -1595,7 +1595,10 @@ function buildArticlesHtml() {
     '<div class="ro-zldq-h">资料大全</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
-      return '<a class="ro-zldq-c" href="#' + x[1] + '"><b>' + x[0] + '</b><span>点开看资料</span></a>';
+      /* 【不要跳转 · 用户 2026-10-21「不要跳转 我要重新抓取资料」】
+         静态页没法自己抓 ✗ → 按钮 = 强制重新加载（绕缓存 ✗ 拿云端最新 ✔） */
+      return '<button type="button" class="ro-zldq-c" data-zl="' + x[1] + '">' +
+        '<b>' + x[0] + '</b><span>重新获取</span></button>';
     }).join('') +
     '</div></section>';
 
@@ -16619,7 +16622,9 @@ body { background-color: #f7efe1; }
 @media (max-width: 420px) {
   .ro-zldq-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-</style>
+
+.ro-zldq-tip { text-align:center; font-size:10.5px; color:#a89a80; margin:2px 0 10px; }
+.ro-zldq-c { cursor:pointer; font-family:inherit; }</style>
 <div id="roPtr" aria-hidden="true"><div class="ro-ptr-spin"></div><div class="ro-ptr-arrow">↓</div><div class="ro-ptr-txt">下拉刷新</div></div>
 <script>
 (function () {
@@ -17817,6 +17822,21 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 })();
 </script>
 
+
+<script>
+/* ZLQ_CLICK · 资料大全按钮：点一下 = 强制重新加载（绕缓存，拿云端最新）
+   ⚠️ 静态页不能主动抓数据 ✗ —— 抓取在云端每 10 分钟跑一次 ✔ */
+try {
+  document.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest(".ro-zldq-c") : null;
+    if (!b) return;
+    e.preventDefault();
+    var base = location.href.split("#")[0];
+    var sep = base.indexOf("?") >= 0 ? "&" : "?";
+    location.href = base + sep + "t=" + Date.now();
+  });
+} catch (err) { }
+</script>
 </body>
 </html>`;
 
