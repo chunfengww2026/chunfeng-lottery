@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-20 09:10",
+ "updated": "2026-10-20 09:33",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -354,39 +354,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.56,
      "conf": 59.1,
-     "score": "1:2",
-     "hit": false,
-     "result": "lose"
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 0,
-   "miss": 3,
-   "pending": 0,
-   "verdict": "黑"
-  },
-  {
-   "at": "2026-10-17 23:00",
-   "min": 55,
-   "rows": [
-    {
-     "code": "周日014",
-     "time": "2026-10-18 21:30",
-     "league": "德甲",
-     "home": "勒沃库森",
-     "away": "弗赖堡",
-     "pick": "home",
-     "label": "主胜",
-     "odds": 1.7,
-     "conf": 55.6,
-     "score": "2:1",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   },
   {
    "at": "2026-10-18 15:00",
@@ -403,15 +379,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.45,
      "conf": 65.4,
-     "score": "3:1",
-     "hit": true,
-     "result": "win"
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   },
   {
    "at": "2026-10-18 23:28",
