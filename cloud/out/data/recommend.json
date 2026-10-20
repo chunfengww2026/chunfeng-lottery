@@ -1,27 +1,27 @@
 {
- "updated": "2026-10-21 00:48",
+ "updated": "2026-10-21 03:14",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 00:48",
-   "finishTime": 1792514880000,
+   "dateStr": "2026-10-21 01:05",
+   "finishTime": 1792515900000,
    "verdict": "",
    "matches": [
     {
-     "matchNo": "周二001",
-     "teams": "费内巴切 vs 斯拉维亚",
+     "matchNo": "周二003",
+     "teams": "伍尔弗汉普顿 vs 朴次茅斯",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 66.6,
+     "confidence": 60.6,
      "status": "pending",
-     "finishTime": 1792514880000,
-     "league": "欧冠",
-     "odds": 1.42,
-     "time": "2026-10-21 00:45"
+     "finishTime": 1792515900000,
+     "league": "英冠",
+     "odds": 1.55,
+     "time": "2026-10-21 02:45"
     }
    ]
   },
