@@ -229,7 +229,7 @@ for (const item of NAMES) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ *
      history: hist
    };
 const js = '/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · ' +
-  new Date().toLocaleString('zh-CN', { hour12: false }) + '）\n' +
+  new Date().toLocaleString('zh-CN', { hour12: false }) + '） */\n' +
   'const MINGJIA_DATA = ' + JSON.stringify(payload, null, 1) + ';\n';
 try { fs.writeFileSync(DATA, js, 'utf8'); } catch (eW) { console.log('  写数据失败：' + eW.message); }
 
