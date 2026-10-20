@@ -337,7 +337,22 @@ async function fromToutiao() {
      从 history.js 读每个彩种的最新期号 → 关键词带上期号
      （例如「双色球2026120期推荐」，比笼统的「双色球推荐」更贴当期）
      云端每小时跑一次 → 开奖后下一班就能抓到当期内容 */
-  var issueMap = { ssq: '', dlt: '' };
+  /* ISSUE_ROBUST · ROOT 在云端是 cloud/scripts/ ✗ 往上多找两层 ✔ */
+  var issueMap = {"ssq":"2026120","dlt":"26119"};
+  if (!issueMap.ssq && !issueMap.dlt) {
+    try {
+      var candsH = [path.join(ROOT,'history.js'), path.join(ROOT,'..','history.js'), path.join(ROOT,'..','..','history.js')];
+      for (var hi = 0; hi < candsH.length; hi++) {
+        if (!fs.existsSync(candsH[hi])) continue;
+        var hctx2 = vm.createContext({});
+        vm.runInContext(fs.readFileSync(candsH[hi],'utf8') + ';globalThis.__H=DRAW_HISTORY;', hctx2);
+        var gg2 = (hctx2.__H && hctx2.__H.games) || {};
+        if (gg2.ssq && gg2.ssq[0]) issueMap.ssq = String(gg2.ssq[0].issue || '');
+        if (gg2.dlt && gg2.dlt[0]) issueMap.dlt = String(gg2.dlt[0].issue || '');
+        if (issueMap.ssq || issueMap.dlt) break;
+      }
+    } catch (e) { }
+  }
   try {
     const hf = path.join(ROOT, 'history.js');
     if (fs.existsSync(hf)) {
