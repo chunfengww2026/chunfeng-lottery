@@ -93,11 +93,17 @@ function rollAll(existing) {
     }
   } catch (e) { log('   ⚠️ 资料载入失败：' + e.message); }
 
-  vm.runInContext('globalThis.__roll = rollAllGames; globalThis.__load = loadTickets; globalThis.__nextIssue = nextIssueFor; globalThis.__nextDate = nextDrawDate; globalThis.__T = TEMPLATES;', ctx);
+  vm.runInContext('globalThis.__roll = rollAllGames; globalThis.__load = loadTickets; globalThis.__nextIssue = nextIssueFor; globalThis.__nextDate = nextDrawDate; globalThis.__T = TEMPLATES;'
+    + ' globalThis.__qxcFix = (typeof enforceQxcPosDistinct === "function") ? enforceQxcPosDistinct : null;'
+    + ' globalThis.__rolesOf = (typeof fieldRolesOf === "function") ? fieldRolesOf : null;', ctx);
 
   const stat = ctx.__roll();
   const after = ctx.__load();
-  return { stat, after, T: ctx.__T, nextIssue: ctx.__nextIssue, nextDate: ctx.__nextDate };
+  return {
+    stat, after, T: ctx.__T, nextIssue: ctx.__nextIssue, nextDate: ctx.__nextDate,
+    /* __QXC_POS2__ 七星彩纠偏函数（stats.js 里那一个，写盘前调一次） */
+    qxcFix: ctx.__qxcFix, rolesOf: ctx.__rolesOf
+  };
 }
 
 /* ---------- 主流程 ---------- */
@@ -124,7 +130,7 @@ function main() {
 
   /* 2. 摇号 */
   log('\n【2/4】给所有彩种重摇推荐号码');
-  const { stat, after, T, nextIssue, nextDate } = rollAll(existing);
+  const { stat, after, T, nextIssue, nextDate, qxcFix, rolesOf } = rollAll(existing);
   log(`  ✅ ${stat.games} 个彩种 / ${stat.images} 张图 / ${stat.fields} 个字段`);
 
   /* __CORE_POOL3__ 核心算法接管双色球/大乐透 20 码池（只换数值） */
@@ -153,28 +159,35 @@ function main() {
     log('  ⚠️ 核心算法接管失败：' + String(e.message).slice(0, 100));
   }
 
-  /* __QXC_FIX__ 用户 2026-10-18：七星彩 6 位推荐不能一样。
-     定位推荐的最终写入点找不到（多处尝试都不是），这里在【存档落盘前】直接纠正：
-     每位取一段连续 5 码窗口（错开一位），保证 6 位互不相同、都在 0-9 内。 */
+  /* __QXC_POS2__ 用户 2026-10-18 / 2026-10-21：七星彩 6 位推荐（以及每位杀号）不能一样。
+     上一版这里是自己拼「错开一位的 5 码窗口」（p1=0 01 02 03 04 / p2=01 02 03 04 05），
+     相邻两位 5 个号里重合 4 个 —— 肉眼还是一样，用户不认。
+     现在改成：直接调 stats.js 的 enforceQxcPosDistinct（定位推荐 + 每位杀号一起纠，
+     相邻最多重合 2 个 / 杀号最多重合 1 个、且不杀本位推荐），
+     在【存档落盘前】对 qxc 的每一天每一张图都过一遍（幂等：合规的号一个字节都不改）。
+     这样写进 saved-tickets.js 和 tickets.json 的就是干净的号，
+     分享页 / 推荐图 / App 任何一条链路读到的都不会再是同一串。 */
   try {
-    const g = after.qxc;
-    if (g) {
-      const days = Object.keys(g).filter((k) => g[k] && g[k].images);
-      const day = days[days.length - 1];
-      if (day) {
-        const im = g[day].images.main;
-        for (let i = 0; i < 6; i++) {
-          const set = [];
-          for (let k = 0; k < 5; k++) set.push((i + k) % 10);
-          const uniq = [...new Set(set)].sort((a, b) => a - b);
-          let x = 0;
-          while (uniq.length < 5) { if (!uniq.includes(x)) uniq.push(x); x++; }
-          im['p' + (i + 1)] = uniq.slice(0, 5).sort((a, b) => a - b).map((v) => (v === 0 ? '0' : String(v).padStart(2, '0'))).join(' ');
-        }
-        log('  ✅ 七星彩 6 位已按位区分：' + ['p1','p2','p3','p4','p5','p6'].map((k) => im[k]).join(' | '));
+    if (typeof qxcFix === 'function' && typeof rolesOf === 'function' && after.qxc) {
+      let patched = 0;
+      const days = Object.keys(after.qxc).filter((d) => after.qxc[d] && after.qxc[d].images);
+      days.forEach((d) => {
+        const imgs = after.qxc[d].images;
+        Object.keys(imgs).forEach((ik) => {
+          const vals = imgs[ik];
+          if (!vals || typeof vals !== 'object') return;
+          try { qxcFix('qxc', vals, rolesOf('qxc', ik)); patched++; } catch (e) { /* 单张图失败不影响其它 */ }
+        });
+      });
+      const last = days[days.length - 1];
+      const lm = last && after.qxc[last].images && after.qxc[last].images.main;
+      log(`  ✅ 七星彩纠偏：${patched} 张图`);
+      if (lm) {
+        log('     定位 ' + ['p1', 'p2', 'p3', 'p4', 'p5', 'p6'].map((k) => lm[k]).join(' | '));
+        log('     杀号 ' + ['k1', 'k2', 'k3', 'k4', 'k5', 'k6'].map((k) => lm[k]).join(' | '));
       }
     }
-  } catch (e) { log('  ⚠️ 七星彩纠正失败：' + String(e.message).slice(0, 80)); }
+  } catch (e) { log('  ⚠️ 七星彩纠偏失败：' + String(e.message).slice(0, 80)); }
 
   log('\n【3/4】写入 saved-tickets.js');
   const now = new Date();
