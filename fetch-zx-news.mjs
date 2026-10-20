@@ -110,6 +110,10 @@ function classify(title) {
 /* need: http = 普通 fetch（云端也能跑）；browser = 必须真浏览器（仅本机试） */
 const SOURCES = [
   { id: 'sina', name: '新浪彩票', url: 'https://sports.sina.com.cn/lottery/', need: 'http' },
+  /* 同一个站点的另一个入口：主入口抽风时这条还能顶一下（实测同样是 200 / 300KB+） */
+  { id: 'sina2', name: '新浪彩票', url: 'https://sports.sina.com.cn/lottery/index.shtml', need: 'http' },
+  /* 下面两个【本机能过、GitHub 美国 IP 过不去】（实测 cloud 那次 TypeError），
+     留着当本机备份：云端失败不影响结果，脚本会记一条 ERR 继续用新浪。 */
   { id: 'zhcw-news', name: '彩票资讯', url: 'https://www.zhcw.com/xinwen/', need: 'http' },
   { id: 'zhcw-home', name: '彩票资讯', url: 'https://www.zhcw.com/', need: 'http' },
   { id: 'zx-500', name: '资讯频道', url: 'https://zx.500.com/jczq/', need: 'browser' },
