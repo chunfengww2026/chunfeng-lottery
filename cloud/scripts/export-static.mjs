@@ -1852,7 +1852,8 @@ function zxArticleItem(it) {
   if (!it) return '';
   const title = zxCleanText(it.title);
   if (!title) return '';
-  const date = String(it.date || '').trim().slice(5);
+  const date = zxDateText(it.date);
+  const tag = String(it.tag || '').trim();
   const body = Array.isArray(it.body) ? it.body : [];
   const paras = body
     .filter((s) => typeof s === 'string' && s.trim())
@@ -1860,17 +1861,109 @@ function zxArticleItem(it) {
     .filter(Boolean)
     .slice(0, 3);
   const brief = paras.length ? (paras[0].length > 40 ? paras[0].slice(0, 40) + '…' : paras[0]) : '';
+  const tagHtml = tag ? '<span class="ro-zn-at-n">' + escape(tag) + '</span>' : '';
   const dateHtml = date ? '<span class="ro-zn-at-d">' + escape(date) + '</span>' : '';
   if (!paras.length) {
-    return '<div class="ro-zn-at-row"><span class="ro-zn-at-t">' + escape(title) + '</span>' +
+    return '<div class="ro-zn-at-row"><span class="ro-zn-at-t">' + escape(title) + tagHtml + '</span>' +
       dateHtml + '</div>';
   }
   return '<details class="ro-zn-art"><summary class="ro-zn-at">' +
-    '<span class="ro-zn-at-t">' + escape(title) + '</span>' + dateHtml +
+    '<span class="ro-zn-at-t">' + escape(title) + tagHtml + '</span>' + dateHtml +
     (brief ? '<span class="ro-zn-at-b">' + escape(brief) + '</span>' : '') +
     '</summary><div class="ro-zn-at-body">' +
     paras.map((p) => '<p>' + escape(p) + '</p>').join('') +
     '</div></details>';
+}
+
+/* ---------- 资讯「只要最新一期」的筛选（用户 2026-10-21 原话：
+   「资讯也要抓取最新一期的信息」） ----------
+   以前的毛病：zx-news.json 是按彩种分的，抓到啥显示啥 → 可能是几篇文章混着几天，
+   用户要的是"当期"那几条。这里在【渲染端】筛一遍（抓取端也按同一套排序，见
+   fetch-zx-news.mjs 的 ISSUE_REF）：
+     ① 期号匹配：算出这个彩种的【当期期号】（= 下一期，draw-data.js 的 nextIssue）
+        和【刚开完这期】（history 最新一期的 issue）——
+        标题里带当期期号 → 第一档；带刚开完那期 → 第二档；标题里写"本期/当期"→ 第三档；
+        其余 → 最后。标题里的「121期」「第121期」「2026121」都认。
+     ② 日期倒序：同一档内从新到旧。
+     ③ 只留最近几天：默认 3 天；3 天内凑不够 4 条就放宽到 8 天，再不够就全留
+        （数据少时宁可留着也不补假条目）。
+     ④ 一条"当期"都没有（现实里很常见）→ 仍按日期倒序，最新那条打「最新」标。
+        只标位置，不改标题、不编期号。 */
+const ZX_RECENT_DAYS = 3;
+const ZX_RELAX_DAYS = 8;
+const ZX_MIN_ROWS = 4;
+
+/* 日期距今几天（按构建那一刻算；日期坏了就当很旧，自然排在后面） */
+function zxDaysAgo(dateStr) {
+  const t = Date.parse(String(dateStr || '').trim() + 'T00:00:00');
+  if (!isFinite(t)) return 1e9;
+  return (Date.now() - t) / 86400000;
+}
+
+/* 资讯日期怎么显示：今天 / 昨天 / 10-20（跨天了就直接给月-日，不写"几天前"） */
+function zxDateText(dateStr) {
+  const s = String(dateStr || '').trim();
+  if (!s) return '';
+  const d = zxDaysAgo(s);
+  if (d < 0) return s.slice(5);
+  if (d < 1) return '今天';
+  if (d < 2) return '昨天';
+  return s.slice(5);
+}
+
+/* 标题里有没有这个期号：
+   · 完整期号直接出现（2026121 / 26121）→ 有
+   · 只写序号的（「121期」「第 121 期」）→ 按序号比，前面不能粘着别的数字
+     （否则「2121期」会被误判成 121 期） */
+function zxIssueHit(title, issue) {
+  const s = String(title || '');
+  const is = String(issue || '').trim();
+  if (!s || !/^\d{5,8}$/.test(is)) return false;
+  if (s.indexOf(is) >= 0) return true;
+  const seq = String(parseInt(is.slice(is.length >= 7 ? 4 : 2), 10));
+  if (!seq || seq === 'NaN') return false;
+  try { return new RegExp('(^|[^0-9])' + seq + '\\s*期').test(s); } catch (e) { return false; }
+}
+
+/* 某个彩种的「当期（下一期）/ 刚开完这期」期号；取不到就是空串（不编） */
+function zxIssueRef(gid) {
+  let next = '', last = '';
+  try { next = String(nextIssue(gid) || ''); } catch (e) { next = ''; }
+  try {
+    const arr = (HIST && HIST.games && Array.isArray(HIST.games[gid])) ? HIST.games[gid] : [];
+    last = arr.length ? String(arr[0].issue || '') : '';
+  } catch (e) { last = ''; }
+  return { next: next, last: last };
+}
+
+/* 把一堆资讯筛成"最新一期"那几条（返回条目数组，第一条带 tag：本期 / 最新） */
+function zxNewsLatest(items, gid, n) {
+  const ref = zxIssueRef(gid);
+  const list = (Array.isArray(items) ? items : []).filter((it) => it && it.title);
+  const scored = list.map((it, i) => {
+    let tier = 3;
+    const t = String(it.title || '');
+    if (ref.next && zxIssueHit(t, ref.next)) tier = 0;
+    else if (ref.last && ref.last !== ref.next && zxIssueHit(t, ref.last)) tier = 1;
+    else if (/当期|本期|最新一期/.test(t)) tier = 2;
+    return { it: it, tier: tier, days: zxDaysAgo(it.date), i: i };
+  });
+  scored.sort((a, b) => (a.tier - b.tier) || (a.days - b.days) || (a.i - b.i));
+
+  /* 期号对得上的（当期 / 刚开完那期）不设日期上限，其余按最近几天截 */
+  let rows = [];
+  for (const days of [ZX_RECENT_DAYS, ZX_RELAX_DAYS, Infinity]) {
+    rows = scored.filter((x) => (x.tier <= 1) || (x.days <= days));
+    if (rows.length >= ZX_MIN_ROWS) break;
+  }
+  rows = rows.slice(0, n || 8);
+
+  const out = rows.map((x) => ({
+    title: x.it.title, date: x.it.date, url: x.it.url, body: x.it.body, tier: x.tier,
+  }));
+  /* 第一条永远有个标：期号对得上当期 → 「本期」；没有当期 → 「最新」（只标位置） */
+  if (out.length) out[0].tag = (out[0].tier === 0) ? '本期' : '最新';
+  return out;
 }
 
 /* 智讯卡里那排「按彩种切」的药丸（和青蛙家园功能中心的 .frog-chip 同一套外观/手法：
@@ -2015,14 +2108,15 @@ function buildZxNewsHtml() {
   const artGames = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
 
   /* 最新资讯：每个彩种最多 8 条
-     ① 先看 zx-news.json（有就用它：标题 + 日期）
+     ① 先看 zx-news.json（有就用它：标题 + 日期）→ 再按「最新一期」筛
+        （期号匹配优先 → 日期倒序 → 只留最近几天，见 zxNewsLatest）
      ② 该彩种没有 → 才退回 articles-data.js（原来的兜底逻辑，一行没改） */
   const panes = [];
   ZX_TABS.forEach((pair) => {
     const gid = pair[0], name = pair[1];
     const nx = (ZX_NEWS && ZX_NEWS.games && ZX_NEWS.games[gid]) ? ZX_NEWS.games[gid] : null;
     const g = artGames ? artGames[gid] : null;
-    const items = (nx && nx.length) ? nx.slice(0, 8)
+    const items = (nx && nx.length) ? zxNewsLatest(nx, gid, 8)
       : ((g && Array.isArray(g.items)) ? g.items.slice(0, 8) : []);
     const rows = items.map(zxArticleItem).filter(Boolean).join('');
     if (rows) panes.push({ gid: gid, name: name, html: rows });
