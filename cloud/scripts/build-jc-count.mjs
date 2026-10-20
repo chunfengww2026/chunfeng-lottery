@@ -299,6 +299,7 @@ if (gapIdx >= 0) {
    ⚠️ 以前这里是直接 exit 10 整轮跳过。云端体彩官网天天 567，
       一进退避就等于兜底也跟着停了，jc-official.js 永远停在旧的一天
       → 「官方在售 ∩」把新场次全挡在外面。所以改成只拦那一次请求。 */
+log('—— 本轮开始（体彩官网在售场次）——');
 const paused = !!(st.pausedUntil && now < st.pausedUntil);
 if (paused) {
   const left = Math.ceil((st.pausedUntil - now) / 60000);
@@ -347,7 +348,6 @@ async function fetchSporttery() {
 }
 
 /* ---------- 2. 先试体彩官网（原逻辑不变：成功就用它的） ---------- */
-log('—— 本轮开始（体彩官网在售场次）——');
 let res = null;
 let src = 'sporttery';
 if (paused) {
