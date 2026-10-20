@@ -1622,9 +1622,9 @@ function buildArticlesHtml() {
               '</div></div>';
           }).join('')
         : '<div class="ro-zldq-empty">暂无图</div>';
+      /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
       return '<details class="ro-zldq-c">' +
-        '<summary class="ro-zldq-s"><b>' + x[0] + '</b><span>' +
-        (people.length ? people.length + ' 位 · 点开展开' : '最新资料') + '</span></summary>' +
+        '<summary class="ro-zldq-s"><b>' + x[0] + '</b></summary>' +
         '<div class="ro-zldq-body">' + imgsHtml + '</div></details>';
     }).join('') +
     '</div></section>';
