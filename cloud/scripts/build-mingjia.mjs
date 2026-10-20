@@ -54,13 +54,63 @@ async function bingImages(kw) {
   return [];
 }
 
+
+/* 读图片尺寸（PNG/GIF/JPEG/WebP ✗ 只解析文件头 ✔ 不装任何库 ✗） */
+function imgSize(buf) {
+  try {
+    /* PNG: 8字节签名 + IHDR */
+    if (buf.length > 24 && buf[0] === 0x89 && buf[1] === 0x50) {
+      return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+    }
+    /* GIF: GIF87a/GIF89a */
+    if (buf.length > 10 && buf.toString('ascii', 0, 3) === 'GIF') {
+      return { w: buf.readUInt16LE(6), h: buf.readUInt16LE(8) };
+    }
+    /* WebP: RIFF....WEBP */
+    if (buf.length > 30 && buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') {
+      const fmt = buf.toString('ascii', 12, 16);
+      if (fmt === 'VP8X') return { w: 1 + buf.readUIntLE(24, 3), h: 1 + buf.readUIntLE(27, 3) };
+      if (fmt === 'VP8 ') return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+      if (fmt === 'VP8L') {
+        const b0 = buf[21], b1 = buf[22], b2 = buf[23], b3 = buf[24];
+        return { w: 1 + (((b1 & 0x3f) << 8) | b0), h: 1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6)) };
+      }
+    }
+    /* JPEG: 扫 SOF 段 */
+    if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {
+      let i = 2;
+      while (i < buf.length - 9) {
+        if (buf[i] !== 0xff) { i++; continue; }
+        const m = buf[i + 1];
+        if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) {
+          return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+        }
+        const len = buf.readUInt16BE(i + 2);
+        if (!len || len < 2) break;
+        i += 2 + len;
+      }
+    }
+  } catch (e) { }
+  return null;
+}
+
 async function download(url, file) {
   try {
     const r = await fetch(url, { headers: { 'User-Agent': UA, Referer: 'https://www.bing.com/' }, redirect: 'follow' });
     if (!r.ok) return 0;
     const buf = Buffer.from(await r.arrayBuffer());
     /* SIZE_FILTER · 用户 2026-10-21 选 A：二维码/图标太小 ✗ 跳过 */
-    if (buf.length < 20000) return 0;               /* 太小 = 图标/占位 ✗ */
+    if (buf.length < 20000) return 0;
+    /* DIM_FILTER · 图片过滤器（用户 2026-10-21）：读 PNG/JPG/GIF/WebP 尺寸 ✗
+       ✗ 正方形小图（二维码/图标 ✗）
+       ✗ 极端比例（<0.4 或 >3 ✗）
+       ✓ 走势图/分析图（细长或大面积 ✗） */
+    const dim = imgSize(buf);
+    if (dim) {
+      const r = dim.w / dim.h;
+      if (r > 0.9 && r < 1.1 && Math.max(dim.w, dim.h) < 500) return 0;
+      if (r < 0.4 || r > 3.2) return 0;
+    }               /* 太小 = 图标/占位 ✗ */
     if (buf.length > 3 * 1024 * 1024) return 0;    /* 太大 = 视频/巨图 ✗ */
     fs.writeFileSync(file, buf);
     return buf.length;
