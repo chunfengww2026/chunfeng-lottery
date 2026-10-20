@@ -1668,7 +1668,7 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return zldqHtml + mjHtml + `<section class="ro-articles" id="ro-articles">` +
+  return zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
