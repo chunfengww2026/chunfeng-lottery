@@ -522,16 +522,17 @@ const toutiaoList = uniq.filter((x) => x && x.source === '今日头条').slice(0
      加上硬上限，宁可这次少几条，也不能把整轮构建拖住。
    · list 与 toutiao 里是【同一批对象引用】→ 抓到的 body 两边都有
    ============================================================ */
-const BODY_PER_GAME = 10;          /* 每个彩种凑够 10 条正文 = 页面 20 条 */
-const BODY_MAX_TRIES = 40;         /* 最多试 40 条（成功率约 9 成，20 条正文够） */
+const BODY_PER_GAME = 12;          /* 每个彩种抓 12 条正文 → 留 2 条余量（去重/改回彩种会吃掉几条） */
+const BODY_WANT = 20;              /* 页面「免费资料」显示 20 条（双色球 10 + 大乐透 10） */
+const BODY_MAX_TRIES = 40;         /* 最多试 40 条（成功率约 9 成，24 条正文够） */
 const BODY_DEADLINE_MS = 110000;   /* 正文抓取总预算 110s */
-const bodyStat = { tried: 0, ok: 0, fail: 0, want: BODY_PER_GAME * 2 };
+const bodyStat = { tried: 0, ok: 0, fail: 0, want: BODY_WANT };
 const bodyOk = { ssq: 0, dlt: 0 };
 const triedSet = new Set();
 const bodyTargets = [];
 let bodyStart = Date.now();
 let bodyStop = '';
-while (bodyStat.ok < bodyStat.want && bodyStat.tried < BODY_MAX_TRIES) {
+while (bodyStat.ok < BODY_PER_GAME * 2 && bodyStat.tried < BODY_MAX_TRIES) {
   if (Date.now() - bodyStart > BODY_DEADLINE_MS) { bodyStop = '时间预算用完'; break; }
   /* 轮流挑下一个：当前哪个彩种【正文最少】就先抓它（自带均衡 + 有上限） */
   let pick = null;
