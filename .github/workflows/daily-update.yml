@@ -383,6 +383,10 @@ jobs:
           cp -f cloud/out/tickets.json  site/tickets.json  || true
           # 【图片上云 · 用户 2026-10-21】imgs/ 整个目录复制进 site/ ✔
           cp -r imgs site/imgs 2>/dev/null || true
+          # 【名家图库 · 云端自己抓的图】2026-10-21：build-mingjia.mjs 在云端把图写进
+          #   cloud/scripts/imgs/mingjia/（cwd=cloud/scripts），上面那行只拷仓库根的 imgs/，
+          #   不补这一行 → 云端抓的图永远进不了 site/ → 线上名家图库全是 404。
+          cp -r cloud/scripts/imgs site/imgs 2>/dev/null || true
           # 【分享卡片 / 图标 / PWA】
           #   这一步以前只拷上面三个文件 —— cloud-build.mjs 明明已经把图标
           #   拷进 out/ 了，可不在这里 cp 就【永远进不了 site/】，
