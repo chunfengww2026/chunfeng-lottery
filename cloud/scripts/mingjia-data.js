@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 03:40:33）
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 03:45:54）
 const MINGJIA_DATA = {
- "updated": "2026-10-21 03:40:33",
+ "updated": "2026-10-21 03:45:54",
  "list": [
   {
    "name": "太湖字谜",
@@ -13,24 +13,24 @@ const MINGJIA_DATA = {
      "src": "https://pic2.800820.net/tumi/20260116/9cea10edb15c42eb93096700effd8eec.webp"
     },
     {
-     "file": "imgs/mingjia/太湖字谜/2.webp",
+     "file": "imgs/mingjia/太湖字谜/2.jpeg",
+     "size": 45771,
+     "src": "https://epaper.jinghua.cn/uploads/2026/0223/1771834020229334.jpeg"
+    },
+    {
+     "file": "imgs/mingjia/太湖字谜/3.webp",
      "size": 82454,
      "src": "https://pic2.800820.net/tumi/20260425/fcb8e7bdaed341458a531dc69d8a755a.webp"
     },
     {
-     "file": "imgs/mingjia/太湖字谜/3.jpg",
+     "file": "imgs/mingjia/太湖字谜/4.jpg",
      "size": 693523,
      "src": "http://p1.k.sohu.com/hp/a_auto,c_fit,w_1080,h_1504/smccloud/2023/07/02/339559530345c983fc76c148e6cc5136.jpg"
     },
     {
-     "file": "imgs/mingjia/太湖字谜/4.jpg",
+     "file": "imgs/mingjia/太湖字谜/5.jpg",
      "size": 177515,
      "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    },
-    {
-     "file": "imgs/mingjia/太湖字谜/5.webp",
-     "size": 86500,
-     "src": "https://pic1.800820.net/tumi/20260302/4ec2aa3243eb4f8ba0162c708fb95c50.webp"
     }
    ]
   },
@@ -105,18 +105,18 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/迟丽颖/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
+     "size": 552664,
+     "src": "https://f.yddtiyu.com/info/17682069011456d593c08-9f65-42c1-a8e1-b6a4feb3edc6.jpg"
     },
     {
-     "file": "imgs/mingjia/迟丽颖/2.png",
-     "size": 265539,
-     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
+     "file": "imgs/mingjia/迟丽颖/2.jpg",
+     "size": 651847,
+     "src": "https://f.yddtiyu.com/info/1770181588030d27be259-5575-46e2-a2ab-f917628592be.jpg"
     },
     {
      "file": "imgs/mingjia/迟丽颖/3.jpg",
-     "size": 435840,
-     "src": "https://f.yddtiyu.com/info/1772025443500d96d137a-6f7b-48f5-a42b-1c81b620883f.jpg"
+     "size": 533790,
+     "src": "https://f.yddtiyu.com/info/1761317842065b3d56862-d5ad-4b2a-9edb-bb3305b55416.jpg"
     },
     {
      "file": "imgs/mingjia/迟丽颖/4.jpg",
@@ -125,8 +125,8 @@ const MINGJIA_DATA = {
     },
     {
      "file": "imgs/mingjia/迟丽颖/5.jpg",
-     "size": 188368,
-     "src": "https://f.yddtiyu.com/info/1773036986175378b13c2-d74d-4c93-ad0d-3f53cf7fa0d0.jpg"
+     "size": 833439,
+     "src": "https://f.jiangduoduo.com/info/17372538648510cc69f3b-67a8-4fd5-8722-864cb1178535.jpg"
     }
    ]
   },
@@ -169,28 +169,28 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/幸丹丹/1.jpg",
+     "size": 264264,
+     "src": "https://f.yddtiyu.com/info/17721827796902a3a5218-1827-4e09-a773-bf9a66762cb2.jpg"
+    },
+    {
+     "file": "imgs/mingjia/幸丹丹/2.jpg",
      "size": 821302,
      "src": "https://f.yddtiyu.com/info/176912963447180a2fae1-a383-429a-8be9-275787b430f1.jpg"
     },
     {
-     "file": "imgs/mingjia/幸丹丹/2.jpg",
+     "file": "imgs/mingjia/幸丹丹/3.jpg",
      "size": 436656,
      "src": "https://f.yddtiyu.com/info/1772713892875800e9581-6e5e-486d-b9d9-614c12860562.jpg"
     },
     {
-     "file": "imgs/mingjia/幸丹丹/3.jpg",
-     "size": 537944,
-     "src": "https://f.yddtiyu.com/info/1774255945686a0d9c222-c782-4f23-b308-12eef24dbb99.jpg"
-    },
-    {
      "file": "imgs/mingjia/幸丹丹/4.jpg",
-     "size": 896359,
-     "src": "https://f.yddtiyu.com/info/17756167931507f142c88-1a94-456d-a23c-03f60c7fe3b2.jpg"
+     "size": 154296,
+     "src": "http://n.sinaimg.cn/sports/transform/205/w650h1155/20250217/072a-5be4a079aa3c820be93e5570c0354f07.jpg"
     },
     {
      "file": "imgs/mingjia/幸丹丹/5.jpg",
-     "size": 778202,
-     "src": "https://f.yddtiyu.com/info/177815784033588961936-3d9c-4413-806a-646403861763.jpg"
+     "size": 429867,
+     "src": "https://f.yddtiyu.com/info/17727138648676f30bc03-0728-4806-bb36-87b64280d7f7.jpg"
     }
    ]
   },
@@ -200,29 +200,29 @@ const MINGJIA_DATA = {
    "kw": "排三 3D 字谜 图 推荐",
    "imgs": [
     {
-     "file": "imgs/mingjia/排三字谜/1.png",
-     "size": 122953,
-     "src": "https://res.917500.cn/Public/Upload/art/202401/1704638760524098.png"
-    },
-    {
-     "file": "imgs/mingjia/排三字谜/2.png",
-     "size": 105138,
-     "src": "https://www.weicainet.com/uploadfile/2025/0226/20250226050758997.png"
-    },
-    {
-     "file": "imgs/mingjia/排三字谜/3.jpg",
-     "size": 41104,
-     "src": "http://pic.9663.com/upload/2024-10/2024101110502319094.jpg"
-    },
-    {
-     "file": "imgs/mingjia/排三字谜/4.jpg",
+     "file": "imgs/mingjia/排三字谜/1.jpg",
      "size": 108584,
      "src": "https://f.jiangduoduo.com/info/1733393330396de5d50ab-936c-4154-9351-a23a5770cc79.jpg"
     },
     {
+     "file": "imgs/mingjia/排三字谜/2.png",
+     "size": 122953,
+     "src": "https://res.917500.cn/Public/Upload/art/202401/1704638760524098.png"
+    },
+    {
+     "file": "imgs/mingjia/排三字谜/3.jpg",
+     "size": 508411,
+     "src": "https://tukuapi.800820.net/CustomFiles/Image/23e9bc29-ef15-45b7-842a-782eda7a26ca.jpg"
+    },
+    {
+     "file": "imgs/mingjia/排三字谜/4.png",
+     "size": 105138,
+     "src": "https://www.weicainet.com/uploadfile/2025/0226/20250226050758997.png"
+    },
+    {
      "file": "imgs/mingjia/排三字谜/5.jpg",
-     "size": 133667,
-     "src": "http://p1.qhimgs4.com/t01e0799b8cb61a5996.jpg"
+     "size": 175310,
+     "src": "https://so1.360tres.com/t01954634cef3cd0152.jpg"
     }
    ]
   },
@@ -243,18 +243,18 @@ const MINGJIA_DATA = {
     },
     {
      "file": "imgs/mingjia/名家精/3.jpg",
-     "size": 144072,
-     "src": "https://img.alicdn.com/i1/697211982/O1CN01RENCRe1QVnkqx9gXh_!!697211982.jpg"
-    },
-    {
-     "file": "imgs/mingjia/名家精/4.jpg",
      "size": 436207,
      "src": "https://f.yddtiyu.com/info/176271230462451fa3611-55d3-4aff-8c14-2f4f19c7583a.jpg"
     },
     {
-     "file": "imgs/mingjia/名家精/5.jpg",
+     "file": "imgs/mingjia/名家精/4.jpg",
      "size": 52901,
      "src": "https://p1.ssl.qhimg.com/t0161eeb973caf78fba.jpg"
+    },
+    {
+     "file": "imgs/mingjia/名家精/5.jpg",
+     "size": 97494,
+     "src": "https://bkimg.cdn.bcebos.com/pic/c995d143ad4bd11373f0ac3afcf6b30f4bfbfbedaf38?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70"
     }
    ]
   },
@@ -306,19 +306,19 @@ const MINGJIA_DATA = {
      "src": "https://so1.360tres.com/t018aea12c250172460.png"
     },
     {
-     "file": "imgs/mingjia/蓝球杀码/3.png",
-     "size": 9113,
-     "src": "https://so1.360tres.com/t01115e2beeb698d1ed.png"
-    },
-    {
-     "file": "imgs/mingjia/蓝球杀码/4.jpg",
+     "file": "imgs/mingjia/蓝球杀码/3.jpg",
      "size": 56243,
      "src": "https://img.518158.cn/20260127/17695370850694589457.jpg"
     },
     {
-     "file": "imgs/mingjia/蓝球杀码/5.png",
+     "file": "imgs/mingjia/蓝球杀码/4.png",
      "size": 45674,
      "src": "https://so1.360tres.com/t01d4c8eb3ce0bbd74d.png"
+    },
+    {
+     "file": "imgs/mingjia/蓝球杀码/5.webp",
+     "size": 77658,
+     "src": "https://pic1.800820.net/tumi/20260225/3a720e1b212a409c979ce8de6e434a1d.webp"
     }
    ]
   }
@@ -341,6 +341,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-21 03:40:33",
+   "names": 10,
+   "imgs": 50
+  },
+  {
+   "at": "2026-10-21 03:45:54",
    "names": 10,
    "imgs": 50
   }
