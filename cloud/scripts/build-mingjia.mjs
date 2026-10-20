@@ -23,6 +23,15 @@ const NAMES = [
 ];
 
 const PER_NAME = 5;
+/* ISSUE_KW · 关键词带上最新期号（用户 2026-10-21「都要抓最新一期」） */
+const ISSUE = {"ssq":"2026120","dlt":"26119"};
+const IS = ISSUE.ssq ? (' ' + ISSUE.ssq + '期') : '';
+const ID = ISSUE.dlt ? (' ' + ISSUE.dlt + '期') : '';
+/* 把每个搜索词补上期号（ssq/dlt 类 ✗ 其它不加 ✔） */
+NAMES.forEach(function (n) {
+  if (n.cat === '双色球' && IS) n.kw = n.kw + IS;
+  else if (n.cat === '大乐透' && ID) n.kw = n.kw + ID;
+});
 
 function safeName(s) { return String(s).replace(/[\\/:*?"<>|]/g, '_'); }
 
