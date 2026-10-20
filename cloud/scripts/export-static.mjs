@@ -1736,62 +1736,102 @@ function zxArticleItem(it) {
    div + role="button" + tabindex，没有 button 标签） */
 const ZX_TABS = [['ssq', '双色球'], ['dlt', '大乐透'], ['fc3d', '福彩3D'], ['pl3', '排列3']];
 
-/* ---------- 智讯卡的 HTML ---------- */
-function buildZxNewsHtml() {
-  const sched = zxSchedRows();
-  const recent = zxRecentRows(5);
-  const artGames = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+/* ---------- zx-news.json（fetch-zx-news.mjs 抓来的资讯） ----------
+   「智讯」卡的资讯行【优先】用它；没有这个文件、或者读坏了 →
+   一行都不改地退回原来那套 ARTICLES_DATA（articles-data.js）兜底，
+   所以删掉/缺这个文件时构建照跑，行为和以前完全一样。
+   页面禁用词（500 / 抓取 / 来源）在这里再挡一道，正文里一个字都不留。 */
+const ZX_NEWS = (function () {
+  try {
+    const f = path.join(ROOT, 'zx-news.json');
+    if (!fs.existsSync(f)) return null;
+    const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+    const src = (d && d.games && typeof d.games === 'object') ? d.games : null;
+    if (!src) return null;
+    const BAD = ['500', '抓取', '来源'];
+    const out = {};
+    let total = 0;
+    for (const pair of GAMES8) {
+      const gid = pair[0];
+      const arr = Array.isArray(src[gid]) ? src[gid] : [];
+      const keep = arr.filter(function (x) {
+        const t = (x && typeof x.title === 'string') ? x.title.trim() : '';
+        if (!t) return false;
+        for (const w of BAD) if (t.indexOf(w) >= 0) return false;
+        return true;
+      }).slice(0, 5).map(function (x) {
+        return {
+          title: x.title.trim(),
+          date: String(x.date || '').trim(),
+          url: String(x.url || ''),
+        };
+      });
+      if (keep.length) { out[gid] = keep; total += keep.length; }
+    }
+    return total ? { games: out, total: total } : null;
+  } catch (e) { return null; }
+})();
 
-  /* 每个彩种取最新 5 条（articles-data.js 里每个彩种的 items 已经是最新在前） */
-  const panes = ZX_TABS.map(([gid, name], idx) => {
-    const g = artGames ? artGames[gid] : null;
-    const items = (g && Array.isArray(g.items)) ? g.items.slice(0, 5) : [];
-    const rows = items.map(zxArticleItem).filter(Boolean).join('');
-    if (!rows) return '';
-    return '<div class="ro-zn-pane' + (idx === 0 ? ' is-on' : '') + '" data-zx-pane="' + gid + '">' +
-      rows + '</div>';
-  }).filter(Boolean);
-
-  if (!sched.length && !recent.length && !panes.length) {
-    return '<div class="ro-zn-none">本期暂无内容</div>';
-  }
+/* ---------- 智讯卡的 HTML ----------
+   用户 2026-10-20：「这些都不要（开奖日程/最近开奖/资讯），
+                    我只需要你抓取网址里面的号码特征走势分析」——
+   整张卡只留一块：号码特征走势分析，数据全部来自已抓取的开奖历史，现算、不编。 */
+const ZX_FEATURE_GAMES = [['ssq', '双色球'], ['dlt', '大乐透'], ['qlc', '七乐彩'], ['kl8', '快乐8'],
+  ['fc3d', '福彩3D'], ['pl3', '排列3'], ['pl5', '排列5'], ['qxc', '七星彩']];
+function zxFeatureRows() {
+  const HIST = (mqReadGlobal('DRAW_HISTORY') || {}).games || {};
   const out = [];
-  if (sched.length) {
-    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">开奖日程</div>');
-    for (const r of sched) {
-      out.push('<div class="ro-zn-row">' +
-        '<span class="ro-zn-tag">' + escape(r.tag) + '</span>' +
-        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
-        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span>' +
-        '<span class="ro-zn-t">' + escape(r.time) + '</span></div>');
-    }
-    out.push('</div>');
-  }
-  if (recent.length) {
-    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最近开奖</div>');
-    for (const r of recent) {
-      out.push('<div class="ro-zn-row">' +
-        '<span class="ro-zn-d">' + escape(r.date.slice(5)) + '</span>' +
-        '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
-        '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>' +
-        '<div class="ro-zn-n">' + escape(r.nums) + '</div>');
-    }
-    out.push('</div>');
-  }
-  if (panes.length) {
-    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最新一期资讯</div>');
-    out.push('<div class="ro-zn-chips" id="ro-zn-chips">');
-    ZX_TABS.forEach(([gid, name], idx) => {
-      const on = panes.some((p) => p.indexOf('data-zx-pane="' + gid + '"') >= 0);
-      if (!on) return;
-      out.push('<div class="ro-zn-chip' + (idx === 0 ? ' on' : '') +
-        '" role="button" tabindex="0" data-zx-game="' + gid + '">' + escape(name) + '</div>');
+  for (const pair of ZX_FEATURE_GAMES) {
+    const gid = pair[0], name = pair[1];
+    const draws = Array.isArray(HIST[gid]) ? HIST[gid] : [];
+    if (!draws.length) continue;
+    const g = (typeof G !== 'undefined' && G[gid]) ? G[gid] : {};
+    const areaKey = (g.type === 'qxc') ? 'front'
+      : (g.type === 'digit') ? 'main'
+      : (gid === 'ssq') ? 'red' : (gid === 'dlt') ? 'front' : 'main';
+    const numsOf = (d) => (((d && d.areas) || {})[areaKey] || []).map(Number).filter((n) => Number.isFinite(n));
+
+    const recent = draws.slice(0, 30);
+    const freq = new Map();
+    recent.forEach((d) => numsOf(d).forEach((n) => freq.set(n, (freq.get(n) || 0) + 1)));
+    const rank = Array.from(freq.entries()).sort((a, b) => (b[1] - a[1]) || (a[0] - b[0]));
+    const hot = rank.slice(0, 3).map((x) => zxP2(x[0])).join(' ');
+    const cold = rank.slice(-3).reverse().map((x) => zxP2(x[0])).join(' ');
+
+    const last = numsOf(draws[0]);
+    if (!last.length) continue;
+    const sum = last.reduce((a, b) => a + b, 0);
+    const span = Math.max.apply(null, last) - Math.min.apply(null, last);
+    const odd = last.filter((n) => (n % 2) === 1).length;
+    const bigLine = (gid === 'fc3d' || gid === 'pl3' || gid === 'pl5' || gid === 'qxc') ? 5
+      : (gid === 'kl8' ? 41 : 17);
+    const big = last.filter((n) => n >= bigLine).length;
+
+    out.push({
+      name: name,
+      issue: String(draws[0].issue || ''),
+      line: '热号 ' + hot + ' · 冷号 ' + cold +
+        ' · 上期和值 ' + sum + ' · 跨度 ' + span +
+        ' · 奇偶 ' + odd + ':' + (last.length - odd) +
+        ' · 大小 ' + big + ':' + (last.length - big)
     });
-    out.push('</div>');
-    out.push(panes.join(''));
-    out.push('</div>');
   }
-  out.push('<div class="ro-zn-foot">按本页已开奖记录与文章整理 · 仅供娱乐参考</div>');
+  return out;
+}
+
+function buildZxNewsHtml() {
+  const rows = zxFeatureRows();
+  if (!rows.length) return '<div class="ro-zn-none">本期暂无内容</div>';
+  const out = [];
+  out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">号码特征走势分析</div>');
+  for (const r of rows) {
+    out.push('<div class="ro-zn-row">' +
+      '<span class="ro-zn-g">' + escape(r.name) + '</span>' +
+      '<span class="ro-zn-i">第 ' + escape(r.issue) + ' 期</span></div>');
+    out.push('<div class="ro-zn-n">' + escape(r.line) + '</div>');
+  }
+  out.push('</div>');
+  out.push('<div class="ro-zn-foot">按本页已抓取的开奖数据现算 · 仅供娱乐参考</div>');
   return out.join('');
 }
 
@@ -2048,11 +2088,14 @@ const zxNewsHtml = buildZxNewsHtml();
 const zxPickHtml = buildZxPickHtml();
 /* 智讯卡里每个彩种药丸各几条（日志用；数据不够的彩种不出药丸） */
 function zxNewsStat() {
+  const nx = (ZX_NEWS && ZX_NEWS.games) ? ZX_NEWS.games : null;
   const games = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
-  if (!games) return '0 条';
   const parts = [];
   for (const [gid, name] of ZX_TABS) {
-    const g = { name: ZX_GNAMES[gid] || gid };
+    /* 和 buildZxNewsHtml 同一口径：先 zx-news.json，没有再退回文章数据 */
+    const fresh = (nx && Array.isArray(nx[gid])) ? nx[gid].length : 0;
+    if (fresh) { parts.push(name + ' ' + Math.min(fresh, 5)); continue; }
+    const g = games ? games[gid] : null;
     const n = (g && Array.isArray(g.items)) ? Math.min(g.items.length, 5) : 0;
     if (n) parts.push(name + ' ' + n);
   }
