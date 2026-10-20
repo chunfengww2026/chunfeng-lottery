@@ -1069,6 +1069,8 @@ function renderTicketImage(gameId, imageKey, data) {
     /* 第 4 个参数传 gameId —— 热力图要按彩种去读全局 HEATMAP_DATA，
        九转连环按彩种取的是 stats.js 铺好的 cir_points（渲染器只画不算） */
     if (fn) block.appendChild(fn(sec, vals, build, gameId));
+    /* 用户 2026-10-21：九转连环图下面补一行标题 —— 环绕趋势走向分析（和其它区块的说明行同一套 .r-note） */
+    if (sec.type === 'circle') block.appendChild(el('div', 'r-note', '环绕趋势走向分析'));
 
     parent.appendChild(block);
   };
