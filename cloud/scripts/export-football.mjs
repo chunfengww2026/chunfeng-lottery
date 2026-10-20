@@ -3364,6 +3364,27 @@ body, .m-sec, .m-calc, .m-jxp, .m-rec, .wrap, .page { color: #4a3a26; }
    ⚠️ 这段说明【必须写在模板外面】——
       写在下面那个 const html 的反引号里面，会被当成正文渲染到页面上（用户 2026-10-17 截图报过，
       同一位置原来写的就是一段 JS 块注释，结果被当成正文印到了页面上）。 */
+
+/* __COMMUNITY_DYN__ 社区内容：取 24 小时内的竞彩讨论/晒票条目（最多 8 条） */
+function communityHtml() {
+  try {
+    const list = (typeof JC_XYSP !== 'undefined' && Array.isArray(JC_XYSP)) ? JC_XYSP : [];
+    const now = Date.now();
+    const items = list.filter((x) => {
+      const t = Number(x.at || x.time || 0);
+      if (t > 1e12) return now - t <= 24 * 3600 * 1000;
+      if (t > 1e9) return now - t * 1000 <= 24 * 3600 * 1000;
+      return true;
+    }).slice(0, 8);
+    if (!items.length) return '<div style="font-size:12px;color:#a89a80;">24 小时内暂无新讨论（自动刷新中）</div>';
+    return items.map((x, i) => {
+      const t = String(x.title || x.desc || '竞彩讨论').replace(/\s+/g, ' ').slice(0, 46);
+      return '<div style="display:flex;gap:6px;padding:5px 0;border-bottom:1px dotted #f0e4cf;font-size:12px;color:#4a3a26;">'
+        + '<span style="flex:0 0 16px;color:#b9a98c;">' + (i + 1) + '</span><span>' + escape(t) + '</span></div>';
+    }).join('');
+  } catch (e) { return ''; }
+}
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -3891,10 +3912,13 @@ ${DEVICE_GATE_BODY}
        ⚠️ 页面里不出现任何来源站名/域名（项目有「数据源留痕」断言，出现即构建失败）。 -->
   ${jcArticlesHtml}
 
-<!-- __COMMUNITY__ 用户 2026-10-18：足球晒票下面加一项「社区」 -->
-<div class="m-card3" style="margin:12px 16px;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:14px;text-align:center;">
-<div style="font-size:15px;font-weight:800;color:#4a3a26;">社区</div>
-<div style="font-size:12px;color:#8a7a63;margin-top:6px;">球迷交流 · 晒单分享 · 免费参与</div>
+<!-- __COMMUNITY_DYN__ 社区：显示 24 小时内的最新讨论/晒票（数据每次构建自动刷新） -->
+<div class="m-card3" style="margin:12px 16px;background:#fdf6ea;border:1px solid #e8d7bd;border-radius:12px;padding:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+<span style="font-size:15px;font-weight:800;color:#4a3a26;">社区</span>
+<span style="font-size:11px;color:#8a7a63;">24 小时内的最新 · 自动刷新</span>
+</div>
+${communityHtml()}
 </div>
   <div class="guard">
   <div class="note">
