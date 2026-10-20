@@ -219,11 +219,13 @@ function parseToutiaoItems(html, game, kw) {
    这样「标题 ↔ 正文」一定对得上（搜索页 JSON 里标题和链接的配对偶尔会串行）。 */
 async function fetchToutiaoBody(gid) {
   const url = 'https://m.toutiao.com/group/' + gid + '/';
-  for (let attempt = 0; attempt < 3; attempt++) {
+  /* __ART_20__ 单篇最多试 2 次、每次 9s（原来 3 次 × 20s：一条卡死的条目能拖 60s，
+     20 条下来整轮构建会被拖爆）。实测正常 0.5s 就回包。 */
+  for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const r = await fetch(url, {
         headers: { 'User-Agent': UA_M, 'Accept-Language': 'zh-CN,zh;q=0.9', Referer: 'https://m.toutiao.com/' },
-        signal: AbortSignal.timeout(20000)
+        signal: AbortSignal.timeout(9000)
       });
       if (r.ok) {
         const t = Buffer.from(await r.arrayBuffer()).toString('utf8');
@@ -368,65 +370,105 @@ async function fromToutiao() {
   ];
   console.log('  · 头条关键词（按期号）：' + KW.map(function (x) { return x.kw; }).join(' / '));
   const out = [];
+  /* ============================================================
+     __ART_20__ 翻页（用户 2026-10-21：「文章资料抓二十条，最好都带正文」）
+     ------------------------------------------------------------
+     实测（2026-10-21 本机）：一页搜索只解析出 4~8 条（标题+链接+摘要），
+     20 条正文需要【约 35~40 条候选】（正文成功率约 9 成，抓不到的用摘要顶上）。
+     所以每个关键词翻 2 页（page_num=0 / 1）→ 4 词 × 2 页 = 8 次搜索，
+     去重后长期稳定 35~44 条候选 ✔（page_num=2 也有货，但耗时多 15s，先不用）。
+     · 搜索页之间隔 1.5s（反爬：实测 1.5s 连发 12 次没被限流；5s 太慢）
+     ============================================================ */
+  const PAGES = [0, 1];
+  const seenGid = {};
+  /* 标题里明写彩种的以标题为准（feed 常把「福彩3D」塞进大乐透关键词结果里） */
+  const titleGame = (t) => {
+    if (/双色球/.test(t)) return 'ssq';
+    if (/大乐透/.test(t)) return 'dlt';
+    if (/快乐8|快乐八/.test(t)) return 'kl8';
+    if (/福彩3D|3D第|3d第/.test(t)) return 'fc3d';
+    if (/排列[3三五]/.test(t)) return 'pl';
+    if (/七星彩/.test(t)) return 'qxc';
+    if (/七乐彩/.test(t)) return 'qlc';
+    return '';
+  };
+  /* 只收「双色球 / 大乐透」的（免费资料按下一期彩种 3+3 → 10+10 轮流取）；
+     带 #话题# 边、太短的标题是搜索页的杂项，直接扔掉（页面显示出来很难看） */
+  const cleanTitle = (t) => String(t || '').replace(/^#+/, '').replace(/#+$/, '').replace(/\s+/g, ' ').trim();
   for (const item of KW) {
-    const url = 'https://so.toutiao.com/search?dvpf=pc&source=input&keyword=' +
-      encodeURIComponent(item.kw) + '&enable_druid_v2=1&page_num=0&pd=synthesis';
-    let html = null;
-    for (let attempt = 0; attempt < 2 && !html; attempt++) {
-      try {
-        const r = await fetch(url, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-            'Referer': 'https://so.toutiao.com/',
-            'Accept-Language': 'zh-CN,zh;q=0.9'
-          },
-          signal: AbortSignal.timeout(20000)
-        });
-        if (r.ok) html = Buffer.from(await r.arrayBuffer()).toString('utf8');
-      } catch (e) { /* ECONNRESET → 等一会儿重试 */ }
-      if (!html) await new Promise((res) => setTimeout(res, 5000));
-    }
-    if (!html) { console.log('  ✗ 头条（' + item.kw + '）：重试后仍失败'); continue; }
-
-    /* __ART_BODY__ 先按「一条一条」解析：标题 + 原文链接 + 摘要（+ 时间） */
-    const items = parseToutiaoItems(html, item.game, item.kw);
-    console.log('  ✓ 头条（' + item.kw + '）：' + items.length + ' 条（标题+链接+摘要）');
-    items.forEach((it) => out.push({
-      title: it.title,
-      url: it.url,
-      source: '今日头条',
-      time: it.time || '2026-10-20 00:54:00',
-      tag: item.kw,
-      game: item.game,
-      author: '',
-      desc: it.desc,
-      gid: it.gid
-    }));
-    /* 兜底：万一搜索页改版、链接抠不出来 → 老办法只收标题（页面不会突然空掉） */
-    if (!items.length) {
-      const titles = [];
-      const re = /"title"\s*:\s*"((?:[^"\\]|\\.){6,80})"/g;
-      let m;
-      while ((m = re.exec(html)) && titles.length < 12) {
-        const s = stripTags(m[1]);
-        if (s && !/^(首页|登录|注册|下载|更多|搜索)$/.test(s) && titles.indexOf(s) < 0) titles.push(s);
+    for (const page of PAGES) {
+      const url = 'https://so.toutiao.com/search?dvpf=pc&source=input&keyword=' +
+        encodeURIComponent(item.kw) + '&enable_druid_v2=1&page_num=' + page + '&pd=synthesis';
+      let html = null;
+      for (let attempt = 0; attempt < 2 && !html; attempt++) {
+        try {
+          const r = await fetch(url, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+              'Referer': 'https://so.toutiao.com/',
+              'Accept-Language': 'zh-CN,zh;q=0.9'
+            },
+            signal: AbortSignal.timeout(20000)
+          });
+          if (r.ok) html = Buffer.from(await r.arrayBuffer()).toString('utf8');
+        } catch (e) { /* ECONNRESET → 等一会儿重试 */ }
+        if (!html) await sleep(3000);
       }
-      console.log('  ✓ 头条（' + item.kw + '）：' + titles.length + ' 条标题（只拿到标题，没有链接）');
-      titles.forEach((tt) => out.push({
-        title: tt,
-        url: '',
-        source: '今日头条',
-        time: '2026-10-20 00:54:00',
-        tag: item.kw,
-        game: item.game,
-        author: '',
-        desc: ''
-      }));
+      if (!html) { console.log('  ✗ 头条（' + item.kw + ' p' + page + '）：重试后仍失败'); continue; }
+
+      /* __ART_BODY__ 先按「一条一条」解析：标题 + 原文链接 + 摘要（+ 时间） */
+      const items = parseToutiaoItems(html, item.game, item.kw);
+      let kept = 0;
+      for (const it of items) {
+        if (seenGid[it.gid]) continue;
+        seenGid[it.gid] = 1;
+        const t = cleanTitle(it.title);
+        if (t.length < 8 || t.length > 70) continue;
+        if (!/双色球|大乐透/.test(t)) continue;          /* 只留下一期两个彩种 */
+        const g = titleGame(t) || item.game;
+        if (g !== 'ssq' && g !== 'dlt') continue;
+        out.push({
+          title: t,
+          url: it.url,
+          source: '今日头条',
+          time: it.time || '',
+          tag: item.kw,
+          game: g,
+          author: '',
+          desc: it.desc,
+          gid: it.gid
+        });
+        kept++;
+      }
+      console.log('  ✓ 头条（' + item.kw + ' p' + page + '）：解析 ' + items.length + ' 条 → 采用 ' + kept + ' 条');
+      /* 兜底：万一搜索页改版、链接抠不出来 → 老办法只收标题（页面不会突然空掉） */
+      if (!items.length && page === 0) {
+        const titles = [];
+        const re = /"title"\s*:\s*"((?:[^"\\]|\\.){6,80})"/g;
+        let m;
+        while ((m = re.exec(html)) && titles.length < 12) {
+          const s = stripTags(m[1]);
+          if (s && !/^(首页|登录|注册|下载|更多|搜索)$/.test(s) && titles.indexOf(s) < 0) titles.push(s);
+        }
+        console.log('  ✓ 头条（' + item.kw + '）：' + titles.length + ' 条标题（只拿到标题，没有链接）');
+        titles.forEach((tt) => out.push({
+          title: tt,
+          url: '',
+          source: '今日头条',
+          time: '',
+          tag: item.kw,
+          game: item.game,
+          author: '',
+          desc: ''
+        }));
+      }
+      await sleep(1500);   /* 反爬：两次搜索之间隔 1.5s */
     }
-    await new Promise((res) => setTimeout(res, 5000));   /* 反爬：两词之间隔 5 秒 */
   }
   /* 必须返回 { list, note } —— 调用方读 r.list.length；返回纯数组会报 undefined.length ✗ */
-  return { list: out, note: out.length ? (out.length + ' 条（双色球+大乐透）') : '没抓到' };
+  const ng = { ssq: 0, dlt: 0 };
+  out.forEach((x) => { if (ng[x.game] !== undefined) ng[x.game]++; });
+  return { list: out, note: out.length ? (out.length + ' 条候选（双色球 ' + ng.ssq + ' / 大乐透 ' + ng.dlt + '）') : '没抓到' };
 }
 
 /* ---------- 主流程 ---------- */
@@ -465,46 +507,89 @@ const list = uniq.slice(0, KEEP);
          让 export-static.mjs 的免费资料能【按下一期彩种】筛。
    ⚠️ list 一个字都不动 —— export-football.mjs 那边还照旧读 list。
    ============================================================ */
-const toutiaoList = uniq.filter((x) => x && x.source === '今日头条').slice(0, 40);
+const toutiaoList = uniq.filter((x) => x && x.source === '今日头条').slice(0, 60);
 
 /* ============================================================
    __ART_BODY__ 给「免费资料」真正会展示的那几条抓正文
    ------------------------------------------------------------
-   · 每期彩种各取 6 条（跟页面「免费资料」最多 6 条一致），最多 12 次请求
-   · 逐条间隔 1.2s（头条反爬：连发会 ECONNRESET）
+   用户 2026-10-21：「文章资料抓二十条，最好都带正文」
+   ------------------------------------------------------------
+   · 目标：双色球 10 条 + 大乐透 10 条 = 20 条【带正文】
+   · 两个彩种【轮流】抓（不然前 10 次全花在双色球上）
    · 抓不到正文的条目留着 desc（搜索页摘要），页面照样能点开看摘要
+   · 逐条间隔 0.7s（头条反爬：连发会 ECONNRESET；实测 0.7s 稳定）
+   · 最多试 40 条 / 总耗时上限 110s：源站有单条卡死（20s 不回包）的情况，
+     加上硬上限，宁可这次少几条，也不能把整轮构建拖住。
    · list 与 toutiao 里是【同一批对象引用】→ 抓到的 body 两边都有
    ============================================================ */
-const bodyStat = { tried: 0, ok: 0, fail: 0 };
+const BODY_PER_GAME = 10;          /* 每个彩种凑够 10 条正文 = 页面 20 条 */
+const BODY_MAX_TRIES = 40;         /* 最多试 40 条（成功率约 9 成，20 条正文够） */
+const BODY_DEADLINE_MS = 110000;   /* 正文抓取总预算 110s */
+const bodyStat = { tried: 0, ok: 0, fail: 0, want: BODY_PER_GAME * 2 };
+const bodyOk = { ssq: 0, dlt: 0 };
+const triedSet = new Set();
 const bodyTargets = [];
-const perGame = {};
-for (const it of toutiaoList) {
-  if (!it || !it.gid || it.body) continue;
-  const g = it.game || '';
-  if ((perGame[g] || 0) >= 6) continue;
-  perGame[g] = (perGame[g] || 0) + 1;
-  bodyTargets.push(it);
-}
-if (bodyTargets.length) console.log(`  · 抓正文：${bodyTargets.length} 条（每条间隔 1.2s）`);
-for (const it of bodyTargets) {
+let bodyStart = Date.now();
+let bodyStop = '';
+while (bodyStat.ok < bodyStat.want && bodyStat.tried < BODY_MAX_TRIES) {
+  if (Date.now() - bodyStart > BODY_DEADLINE_MS) { bodyStop = '时间预算用完'; break; }
+  /* 轮流挑下一个：当前哪个彩种【正文最少】就先抓它（自带均衡 + 有上限） */
+  let pick = null;
+  let pickG = '';
+  for (const g of ['ssq', 'dlt']) {
+    if (bodyOk[g] >= BODY_PER_GAME) continue;
+    if (pick && bodyOk[g] >= bodyOk[pickG]) continue;
+    for (const it of toutiaoList) {
+      if (!it || !it.gid || it.body || it.game !== g || triedSet.has(it.gid)) continue;
+      pick = it; pickG = g; break;
+    }
+  }
+  if (!pick) {
+    /* 某个彩种候选耗尽 → 退一步：抓剩下任意双色球/大乐透的（页面按彩种轮流取，多抓不亏） */
+    for (const it of toutiaoList) {
+      if (!it || !it.gid || it.body || triedSet.has(it.gid)) continue;
+      if (it.game !== 'ssq' && it.game !== 'dlt') continue;
+      pick = it; pickG = it.game; break;
+    }
+  }
+  if (!pick) { bodyStop = '候选用完'; break; }
+  triedSet.add(pick.gid);
   bodyStat.tried++;
-  const got = await fetchToutiaoBody(it.gid);
+  const got = await fetchToutiaoBody(pick.gid);
   if (got.body) {
-    it.body = got.body;
+    pick.body = got.body;
     bodyStat.ok++;
+    if (bodyOk[pickG] !== undefined) bodyOk[pickG]++;
     /* 标题改用文章自己的标题 → 「点开的正文」和「看到的标题」一定是同一篇 */
-    if (got.title && got.title.length >= 4) it.title = got.title;
+    if (got.title && got.title.length >= 4) pick.title = got.title;
   } else {
     bodyStat.fail++;
     /* 抓不到正文：至少把源站自己给的预览塞进 desc（微头条模板走这条） */
-    if (!String(it.desc || '').trim() && got.desc) it.desc = got.desc;
+    if (!String(pick.desc || '').trim() && got.desc) pick.desc = got.desc;
+    if (!String(pick.desc || '').trim() && !pick.body) {
+      /* 正文和摘要都没有 → 这条【不往页面塞】（用户：都没有 → 不给，
+         页面就少一行，不能出现点不动的死标题） */
+      pick.drop = true;
+    }
   }
-  console.log(`    ${got.body ? '✔' : '✗'} 正文 ${String(got.body.length).padStart(4)} 字 / 摘要 ${String((it.desc || '').length).padStart(3)} 字  ${String(it.title).slice(0, 26)}`);
-  await sleep(1200);
+  bodyTargets.push(pick);
+  console.log(`    ${got.body ? '✔' : '✗'} [${pickG} ${bodyOk[pickG] || 0}/${BODY_PER_GAME}] 正文 ${String(got.body.length).padStart(4)} 字 / 摘要 ${String((pick.desc || '').length).padStart(3)} 字  ${String(pick.title).slice(0, 26)}`);
+  await sleep(700);
 }
-if (bodyStat.tried) {
-  console.log(`  · 正文合计：成功 ${bodyStat.ok}/${bodyStat.tried} 条（抓不到的用摘要顶上）`);
-}
+/* 抓完把【有正文的】排到 toutiao 最前面：export-static 的免费资料按数组顺序取，
+   排在后面的会先被 desc-only 的条目挤掉 */
+toutiaoList.sort((a, b) => ((b.body ? 1 : 0) - (a.body ? 1 : 0)) ||
+  ((b.desc ? 1 : 0) - (a.desc ? 1 : 0)));
+for (const it of toutiaoList) if (it && it.drop) it.drop = true;
+console.log(`  · 正文合计：成功 ${bodyStat.ok}/${bodyStat.tried} 条（双色球 ${bodyOk.ssq} · 大乐透 ${bodyOk.dlt}）` + (bodyStop ? ' · 提前结束：' + bodyStop : ''));
+
+/* __ART_20__ 只有【有正文或摘要】的才写进 toutiao：用户要求「都没有 → 不给」，
+   页面上绝不能出现点不动的死标题（原来那些微头条模板条目就是这个问题） */
+const ttFinal = toutiaoList.filter((x) => x && (String(x.body || '').trim() || String(x.desc || '').trim()));
+bodyStat.ok = ttFinal.filter((x) => x && x.body).length;
+bodyStat.withDesc = ttFinal.filter((x) => x && !x.body && x.desc).length;
+bodyStat.games = bodyOk;
+bodyStat.sec = Math.round((Date.now() - bodyStart) / 1000);
 
 const out = {
   updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
@@ -512,11 +597,11 @@ const out = {
   total: uniq.length,
   bodies: bodyStat,
   list,
-  toutiao: toutiaoList
+  toutiao: ttFinal
 };
 const js = `/* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
    抓取时间：${out.updated} · 合并去重后 ${uniq.length} 篇，取最新 ${list.length} 篇
-   头条单列：${toutiaoList.length} 条（免费资料按「下一期彩种」从这里筛） */
+   头条单列：${ttFinal.length} 条（其中带正文 ${bodyStat.ok} 条 · 免费资料按「下一期彩种」从中筛 20 条） */
 const JC_ARTICLES = ${JSON.stringify(out, null, 1)};
 `;
 fs.writeFileSync(OUT, js, 'utf8');
