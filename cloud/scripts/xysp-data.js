@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-21 01:06
+   更新时间：2026-10-21 01:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-21 01:06",
+ "updated": "2026-10-21 01:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1204,9 +1204,7 @@ const XYSP_DATA = {
      "author": "添点快乐",
      "when": "2026-10-20 22:58:36",
      "postId": "1879581200729220",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aecf65059da14da58f29f9e156ac1af5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gEReDp7C2nMkSMi%2FOIdBCM0ee18%3D",
@@ -1236,9 +1234,7 @@ const XYSP_DATA = {
      "author": "添点快乐",
      "when": "2026-10-20 22:58:36",
      "postId": "1879581200729220",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d6188c78deb48cab08ab3437a62133d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=gP4%2BhO6GA7E75c%2Bdlp6ZSqAO5lE%3D",
@@ -1269,9 +1265,7 @@ const XYSP_DATA = {
      "author": "中山福彩便利店",
      "when": "2026-10-20 09:18:06",
      "postId": "1879529578319243",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2af93a5aed5e4a1d9e380220d5419a26~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801180800&x-signature=FEcqTEWELxWV1GY4CtCqp8339GI%3D",
@@ -1290,14 +1284,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-20T17:06:01.734Z",
      "whenMs": 1792459086000,
-     "seenMs": 1792515662907,
+     "seenMs": 1792515961734,
      "drawMs": 1792502100000,
      "nextMs": 1792674900000,
      "atMs": 1792515662907,
      "drawAt": "2026-10-20T13:15:00.000Z",
      "nextAt": 1792674900000,
      "drawGid": "ssq",
-     "expireAt": "2026-10-23T17:01:02.907Z",
+     "expireAt": "2026-10-23T17:06:01.734Z",
      "rule": "next-draw",
      "author": "中山福彩便利店",
      "when": "2026-10-20 09:18:06",
@@ -1321,14 +1315,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-20T17:06:01.734Z",
      "whenMs": 1792459086000,
-     "seenMs": 1792515662907,
+     "seenMs": 1792515961734,
      "drawMs": 1792502100000,
      "nextMs": 1792674900000,
      "atMs": 1792515662907,
      "drawAt": "2026-10-20T13:15:00.000Z",
      "nextAt": 1792674900000,
      "drawGid": "ssq",
-     "expireAt": "2026-10-23T17:01:02.907Z",
+     "expireAt": "2026-10-23T17:06:01.734Z",
      "rule": "next-draw",
      "author": "中山福彩便利店",
      "when": "2026-10-20 09:18:06",
