@@ -1674,6 +1674,103 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
   return picked.sort((a, b) => a - b);
 }
 
+/* 期号种子 → 0~1（纯函数：同一个 key 永远同一个数，不用 Math.random） */
+function qxcPosSeed01(key) {
+  let h = 2166136261;
+  const s = String(key);
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return ((h >>> 0) % 1000003) / 1000003;
+}
+
+/**
+ * 七星彩「前六位」逐位定位号 —— 6 位的号面必须互不相同
+ * ------------------------------------------------------------
+ * 用户（第二次反馈）：「七星彩定位不要都一样不是改了的吗」。
+ * 上一次的 __QXC_POS__ 只堵住了「专家池比要取的个数少」这一种情况；
+ * 实际上专家池只有 7 个号（0 1 2 5 7 8 9）、每位要 5 个 →
+ * 按位号「旋转池子」取出来的只是【错开一位的窗口】：
+ *   前1位 0 1 2 5 7 / 前2位 1 2 5 7 8 / 前3位 2 5 7 8 9 …
+ * 5 个号里 4 个相同，肉眼看上去还是「每一位都一样」。
+ * 池子 7 个号装不下「6 位 × 5 个互不相同的号」这个数学要求，所以这里改成：
+ *   ① 每位各自按【该位的热号 + 遗漏回补】打分（0~9 全号参与，
+ *      专家池里的号码只加分、不再锁死取值范围）；
+ *   ② 再按【最新期号 + 位号】做确定性错位（不是 Math.random：
+ *      同一期刷新/换设备都一样，开完奖历史变了号码才跟着变）；
+ *   ③ 最后强制「和前面每一位最多重合 2 个号」（5 个号里至少 3 个不同）。
+ * 只在七星彩前六位（to ≤ 9）走这条，3D / 排3 / 排5 一位都不动。
+ * @returns {number[][]} 6 个位的号码数组（已各自升序）
+ */
+function qxcPosSets(gameId, want, from, to, per) {
+  const rows = getHistory(gameId).slice(0, per || HIST_PERIODS);
+  const span = rows.length;
+  const size = to - from + 1;
+  const POS = 6;
+  const poolSet = new Set(expertPoolOf(gameId, 'front').filter((x) => x >= from && x <= to));
+  const issueTag = String((rows[0] && rows[0].issue) || '') + '/' + span;
+
+  const ranked = [];
+  for (let p = 0; p < POS; p++) {
+    const freq = new Map(), gap = new Map();
+    for (let v = from; v <= to; v++) { freq.set(v, 0); gap.set(v, span); }
+    let maxF = 1;
+    rows.forEach((d, i) => {
+      const arr = (d.areas && (d.areas.main || d.areas.front)) || [];
+      const v = arr[p];
+      if (Number.isInteger(v) && freq.has(v)) {
+        freq.set(v, freq.get(v) + 1);
+        if (gap.get(v) === span) gap.set(v, i);
+        if (freq.get(v) > maxF) maxF = freq.get(v);
+      }
+    });
+    const theo = span ? span / size : 0;      /* 该位每个数字的理论间隔 */
+    const list = [];
+    for (let v = from; v <= to; v++) {
+      const hot = freq.get(v) / maxF;
+      const cold = theo ? Math.min(gap.get(v) / (theo * 2), 1) : 0.5;
+      const bonus = poolSet.has(v) ? 1 : 0;
+      const jit = qxcPosSeed01('qxc|' + issueTag + '|p' + p + '|' + v);
+      list.push({ n: v, s: hot * 0.40 + cold * 0.30 + bonus * 0.14 + jit * 0.16 });
+    }
+    list.sort((a, b) => (b.s - a.s) || (a.n - b.n));
+    ranked.push(list);
+  }
+
+  const limit = Math.max(0, want - 3);        /* 5 个号 → 最多重合 2 个 */
+  const picks = [];
+  for (let p = 0; p < POS; p++) {
+    const list = ranked[p];
+    const out = list.slice(0, want).map((x) => x.n);
+    for (let q = 0; q < picks.length; q++) {
+      let guard = 0;
+      while (guard++ < 80) {
+        if (out.filter((x) => picks[q].indexOf(x) >= 0).length <= limit) break;
+        let worst = -1, worstS = Infinity;
+        for (let i = 0; i < list.length; i++) {
+          const it = list[i];
+          if (out.indexOf(it.n) < 0) continue;
+          if (picks[q].indexOf(it.n) < 0) continue;
+          if (it.s < worstS) { worstS = it.s; worst = it.n; }
+        }
+        /* 换进来的号：先躲在所有前面位都没用过的号，实在没有才允许撞前面的位 */
+        let best = -1, bestS = -Infinity, bestLoose = -1, bestLooseS = -Infinity;
+        for (let i = 0; i < list.length; i++) {
+          const it = list[i];
+          if (out.indexOf(it.n) >= 0) continue;
+          const usedBefore = picks.some((pk) => pk.indexOf(it.n) >= 0);
+          if (!usedBefore && it.s > bestS) { bestS = it.s; best = it.n; }
+          if (picks[q].indexOf(it.n) < 0 && it.s > bestLooseS) { bestLooseS = it.s; bestLoose = it.n; }
+        }
+        if (worst < 0) break;
+        const take = (best >= 0) ? best : bestLoose;
+        if (take < 0) break;
+        out[out.indexOf(worst)] = take;
+      }
+    }
+    picks.push(out.slice().sort((a, b) => a - b));
+  }
+  return picks;
+}
+
 /**
  * 按「第 posIdx 位」统计各数字出现频率，给出该位置推荐的 N 个数字
  * 用途：排列3/排列5/七星彩 的定位推荐，让每个位置不一样
@@ -1699,6 +1796,16 @@ function positionRecommend(gameId, posIdx, n, from, to, periods) {
   const want = Math.max(1, Math.min(n, size));
   const hist = getHistory(gameId);
   const per = periods || HIST_PERIODS;
+
+  /* 【七星彩前六位】走逐位独立算法（见 qxcPosSets 的注释）：
+     每个位都有自己的冷热 + 遗漏 + 位号错位，6 位号面互不相同。
+     3D / 排3 / 排5 一个字都不动。 */
+  if ((gameId === 'qxc' || gameId === 'xqxc') && to <= 9 && hist.length) {
+    const six = qxcPosSets(gameId, want, from, to, per);
+    const off = ((posIdx % six.length) + six.length) % six.length;
+    const hit = six[off];
+    if (hit && hit.length) return hit.slice();
+  }
 
   const freq = new Map();
   for (let x = from; x <= to; x++) freq.set(x, 0);
