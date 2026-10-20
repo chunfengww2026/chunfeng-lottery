@@ -3390,8 +3390,7 @@ function communityHtml() {
 function communityHtml2() {
   const rows = [];
   try {
-    const st = (typeof REC_STAT !== 'undefined' && REC_STAT) ? REC_STAT : null;
-    if (st) rows.push(['推荐单战绩', '红 ' + st.red + ' 黑 ' + st.black + (st.rate != null ? ' · 命中率 ' + st.rate + '%' : '')]);
+    rows.push(['推荐单', '见上方推荐战绩条（红黑/命中率）']);
     const n = (typeof JC_XYSP !== 'undefined' && Array.isArray(JC_XYSP)) ? JC_XYSP.length : 0;
     rows.push(['最新晒票', n ? n + ' 张（24 小时内）' : '暂无']);
     rows.push(['数据刷新', '每 5 分钟自动更新']);
