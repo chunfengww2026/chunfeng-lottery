@@ -28,7 +28,12 @@ const ISSUE = {"ssq":"2026120","dlt":"26119"};
 const IS = ISSUE.ssq ? (' ' + ISSUE.ssq + '期') : '';
 const ID = ISSUE.dlt ? (' ' + ISSUE.dlt + '期') : '';
 /* 把每个搜索词补上期号（ssq/dlt 类 ✗ 其它不加 ✔） */
+/* KW_TUNED · 用户 2026-10-21「要打勾类型」→ 关键词加走势图/分析图 ✗ */
 NAMES.forEach(function (n) {
+  /* 只要图表类（走势图/分析图/号码图 ✗）不要截图/二维码 */
+  if (n.kw.indexOf('走势图') < 0 && n.kw.indexOf('分析') < 0) {
+    n.kw = n.kw.replace(' 图', ' 走势图 分析图');
+  }
   if (n.cat === '双色球' && IS) n.kw = n.kw + IS;
   else if (n.cat === '大乐透' && ID) n.kw = n.kw + ID;
 });
