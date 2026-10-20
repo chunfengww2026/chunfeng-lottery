@@ -1696,12 +1696,56 @@ function zxNewsItems(n) {
   return out;
 }
 
+/* 一期资讯 = 标题 + 日期 + 一行摘要；带正文的能原地展开（原生 <details>，
+   和「文章参考」那种点标题就地展开同一套，不用脚本、不用 button 标签）。
+   ⚠️ 正文只取前 6 段纯文字，图片那种 { i: 地址 } 元素一律跳过
+      → 这张卡【不新增任何图片】，页面图位数量不变。 */
+function zxArticleItem(it) {
+  if (!it) return '';
+  const title = zxCleanText(it.title);
+  if (!title) return '';
+  const date = String(it.date || '').trim().slice(5);
+  const body = Array.isArray(it.body) ? it.body : [];
+  const paras = body
+    .filter((s) => typeof s === 'string' && s.trim())
+    .map((s) => zxCleanText(s))
+    .filter(Boolean)
+    .slice(0, 6);
+  const brief = paras.length ? (paras[0].length > 40 ? paras[0].slice(0, 40) + '…' : paras[0]) : '';
+  const dateHtml = date ? '<span class="ro-zn-at-d">' + escape(date) + '</span>' : '';
+  if (!paras.length) {
+    return '<div class="ro-zn-at-row"><span class="ro-zn-at-t">' + escape(title) + '</span>' +
+      dateHtml + '</div>';
+  }
+  return '<details class="ro-zn-art"><summary class="ro-zn-at">' +
+    '<span class="ro-zn-at-t">' + escape(title) + '</span>' + dateHtml +
+    (brief ? '<span class="ro-zn-at-b">' + escape(brief) + '</span>' : '') +
+    '</summary><div class="ro-zn-at-body">' +
+    paras.map((p) => '<p>' + escape(p) + '</p>').join('') +
+    '</div></details>';
+}
+
+/* 智讯卡里那排「按彩种切」的药丸（和青蛙家园功能中心的 .frog-chip 同一套外观/手法：
+   div + role="button" + tabindex，没有 button 标签） */
+const ZX_TABS = [['ssq', '双色球'], ['dlt', '大乐透'], ['fc3d', '福彩3D'], ['pl3', '排列3']];
+
 /* ---------- 智讯卡的 HTML ---------- */
 function buildZxNewsHtml() {
   const sched = zxSchedRows();
   const recent = zxRecentRows(5);
-  const news = zxNewsItems(3);
-  if (!sched.length && !recent.length && !news.length) {
+  const artGames = (ARTICLES && ARTICLES.games) ? ARTICLES.games : null;
+
+  /* 每个彩种取最新 5 条（articles-data.js 里每个彩种的 items 已经是最新在前） */
+  const panes = ZX_TABS.map(([gid, name], idx) => {
+    const g = artGames ? artGames[gid] : null;
+    const items = (g && Array.isArray(g.items)) ? g.items.slice(0, 5) : [];
+    const rows = items.map(zxArticleItem).filter(Boolean).join('');
+    if (!rows) return '';
+    return '<div class="ro-zn-pane' + (idx === 0 ? ' is-on' : '') + '" data-zx-pane="' + gid + '">' +
+      rows + '</div>';
+  }).filter(Boolean);
+
+  if (!sched.length && !recent.length && !panes.length) {
     return '<div class="ro-zn-none">本期暂无内容</div>';
   }
   const out = [];
@@ -1727,9 +1771,17 @@ function buildZxNewsHtml() {
     }
     out.push('</div>');
   }
-  if (news.length) {
-    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最新资讯</div>');
-    for (const t of news) out.push('<div class="ro-zn-nt">' + escape(t) + '</div>');
+  if (panes.length) {
+    out.push('<div class="ro-zn-blk"><div class="ro-zn-bh">最新一期资讯</div>');
+    out.push('<div class="ro-zn-chips" id="ro-zn-chips">');
+    ZX_TABS.forEach(([gid, name], idx) => {
+      const on = panes.some((p) => p.indexOf('data-zx-pane="' + gid + '"') >= 0);
+      if (!on) return;
+      out.push('<div class="ro-zn-chip' + (idx === 0 ? ' on' : '') +
+        '" role="button" tabindex="0" data-zx-game="' + gid + '">' + escape(name) + '</div>');
+    });
+    out.push('</div>');
+    out.push(panes.join(''));
     out.push('</div>');
   }
   out.push('<div class="ro-zn-foot">按本页已开奖记录与文章整理 · 仅供娱乐参考</div>');
@@ -15656,8 +15708,33 @@ ${CHAT_JS_SHARE}
   display: block; margin: 1px 0 4px; font-size: 12.5px; font-weight: 800;
   letter-spacing: .3px; color: var(--ro-fg);
 }
-.ro-zn-nt { display: block; font-size: 11.5px; line-height: 1.6; color: var(--ro-fg2); padding: 2px 0; }
-.ro-zn-nt::before { content: '· '; color: var(--ro-ok); font-weight: 800; }
+/* ② 智讯卡：按彩种切的药丸（和青蛙家园功能中心 .frog-chip 同一套外观与手法） */
+.ro-zn-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 2px 0 8px; }
+.ro-zn-chip {
+  flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--ro-line);
+  border-radius: 999px; background: #fffaf2; font-size: 11.5px; line-height: 1.4;
+  color: var(--ro-fg2); cursor: pointer;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+}
+.ro-zn-chip.on { background: var(--ro-ok); border-color: var(--ro-ok); color: #fff; font-weight: 700; }
+.ro-zn-pane { display: none; }
+.ro-zn-pane.is-on { display: block; }
+/* ③ 资讯条目：标题 + 日期 + 一行摘要；有正文的点标题原地展开 */
+.ro-zn-at-row, .ro-zn-art { border-top: 1px dashed var(--ro-line); }
+.ro-zn-at-row:first-child, .ro-zn-art:first-child { border-top: 0; }
+.ro-zn-at-row { display: block; padding: 6px 0; }
+.ro-zn-art > .ro-zn-at {
+  display: block; padding: 6px 0; cursor: pointer; list-style: none;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+}
+.ro-zn-art > .ro-zn-at::-webkit-details-marker { display: none; }
+.ro-zn-art > .ro-zn-at::marker { content: ''; }
+.ro-zn-at-t { display: block; font-size: 12px; font-weight: 700; line-height: 1.5; color: var(--ro-fg); }
+.ro-zn-at-d { display: inline-block; margin-top: 1px; font-size: 10px; color: var(--ro-fg3); }
+.ro-zn-at-b { display: block; margin-top: 1px; font-size: 10.5px; line-height: 1.55; color: var(--ro-fg2); }
+.ro-zn-art[open] > .ro-zn-at .ro-zn-at-b { display: none; }
+.ro-zn-at-body { padding: 0 0 8px; }
+.ro-zn-at-body p { margin: 0 0 5px; font-size: 11.5px; line-height: 1.75; color: var(--ro-fg2); }
 .ro-zn-k {
   flex: 0 0 auto; min-width: 4.6em; font-size: 10.5px; font-weight: 800;
   text-align: center; border-radius: 6px; padding: 1px 6px;
