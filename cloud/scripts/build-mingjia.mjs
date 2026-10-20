@@ -58,6 +58,35 @@ const NAMES = [
   { name: '3D字谜', cat: '3D', kw: '福彩3D 字谜 图' }
 ];
 
+/* ===== 分类补齐 · 用户 2026-10-21 =====
+   「图片对应放到这里面就行 / 篮球看是什么彩种就放到对应的彩种里面」
+   → 每个类目补到至少 MJ_MIN 个；蓝球类摆到它所属的彩种（双色球蓝球 / 大乐透后区）。 */
+const MJ_MIN = 8;
+const MJ_FILL = [
+  ['大乐透', ['太湖字谜', '迷公', '桃子姐', '迟丽颖', '九头鸟', '金手指', '万里挑一', '青岛大磊',
+    '蓝球杀码', '蓝号迷', '篮球杀码']],
+  ['3D', ['太湖字谜', '迷公', '桃子姐', '貂蝉杀', '名家精', '白天鹅', '百合花', '金手指']],
+  ['排列三', ['排三字谜', '太湖字谜', '迷公', '桃子姐', '迟丽颖', '九头鸟', '金手指', '万里挑一']],
+  ['快乐8', ['太湖字谜', '迷公', '排三字谜', '名家精', '金手指', '万里挑一', '桃子姐', '迟丽颖']],
+  ['双色球', ['蓝球杀码', '蓝号迷', '篮球杀码']]
+];
+(function fillCats() {
+  const cnt = {};
+  NAMES.forEach((x) => { cnt[x.cat] = (cnt[x.cat] || 0) + 1; });
+  for (const pair of MJ_FILL) {
+    const cat = pair[0], pool = pair[1];
+    for (const nm of pool) {
+      if ((cnt[cat] || 0) >= MJ_MIN) break;
+      if (NAMES.some((x) => x.name === nm && x.cat === cat)) continue;
+      NAMES.push({ name: nm, cat: cat, kw: nm + ' ' + cat + ' 图' });
+      cnt[cat] = (cnt[cat] || 0) + 1;
+    }
+  }
+  const dist = {};
+  NAMES.forEach((x) => { dist[x.cat] = (dist[x.cat] || 0) + 1; });
+  console.log('  分类补齐后：' + Object.keys(dist).map((k) => k + ' ' + dist[k]).join(' · ') + '（共 ' + NAMES.length + ' 个名家）');
+})();
+
 /* MANY_NAMES · 用户 2026-10-21：每人 1 张，多抓几位 ✗ */
 const PER_NAME = 1;
 /* NEXT_ISSUE_KW · 用户 2026-10-21「一定要看好别人推荐有没有下一期的期数」
