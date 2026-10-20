@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-20 18:46",
+ "updated": "2026-10-20 19:22",
  "red": 0,
- "black": 0,
- "rate": "—",
+ "black": 1,
+ "rate": "0.0%",
  "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-10-20 19:22",
+   "finishTime": 1792495320000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二001",
+     "teams": "费内巴切 vs 斯拉维亚",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.2,
+     "status": "pending",
+     "finishTime": 1792495320000,
+     "league": "欧冠",
+     "odds": 1.57,
+     "time": "2026-10-21 00:45"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-19 23:30",
    "finishTime": 1792423800000,
@@ -93,16 +113,16 @@
   {
    "dateStr": "2026-10-19 10:46",
    "finishTime": 1792377960000,
-   "verdict": "",
+   "verdict": "黑",
    "matches": [
     {
      "matchNo": "周一008",
      "teams": "科林蒂安 vs 维多利亚",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "1:1",
+     "result": "black",
      "confidence": 58.1,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792377960000,
      "league": "巴甲",
      "odds": 1.65,
