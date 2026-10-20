@@ -1897,8 +1897,6 @@ function zxZones(nums, area) {
    同一期永远同一注（无 Math.random），排3 和 3D 的号自然也不会撞。
    ------------------------------------------------------------ */
 const ZX_PICK_ORDER = ['ssq', 'dlt', 'pl3', 'fc3d'];
-/* 数字彩（排列3 / 福彩3D）：3 位 0~9，没有红球/蓝球，只有百位 / 十位 / 个位 */
-const ZX_DIGIT_POS = ['百位', '十位', '个位'];
 
 /* 取 games.js 里的彩种配置：export-static 里叫 G，片段自检脚本里叫 GAMES */
 function zxGameCfg(gid) {
