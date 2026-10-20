@@ -428,6 +428,9 @@ vm.runInContext(`
   globalThis.__nextDate = nextDrawDate;
   globalThis.__nextWeek = nextDrawWeekday;
   globalThis.__getTicket = getTicket;
+  /* 七星彩定位纠偏（stats.js）—— 分享页生成时手动/自动合并之后再验一次 */
+  globalThis.__qxcFix = (typeof enforceQxcPosDistinct === 'function') ? enforceQxcPosDistinct : null;
+  globalThis.__rolesOf = (typeof fieldRolesOf === 'function') ? fieldRolesOf : null;
   globalThis.__shouldShowHeatmap = (typeof shouldShowHeatmap === 'function') ? shouldShowHeatmap : null;
   globalThis.__heatmapData = (typeof HEATMAP_DATA !== 'undefined') ? HEATMAP_DATA : null;
   /* 【热力图顶掉「最新开奖」】的三个共享函数（全部来自 latest-draws.js）——
@@ -463,6 +466,8 @@ const render = ctx.__render, resolve = ctx.__resolve;
 const getDraw = ctx.__getDraw, nextIssue = ctx.__nextIssue;
 const nextDate = ctx.__nextDate, nextWeek = ctx.__nextWeek;
 const getTicket = ctx.__getTicket;
+/* 七星彩定位纠偏（stats.js 里的两个函数，见 fixQxcPositions） */
+const qxcFixFn = ctx.__qxcFix, rolesOfFn = ctx.__rolesOf;
 const shouldShowHeatmap = ctx.__shouldShowHeatmap;
 const HEATMAP = ctx.__heatmapData;
 const latestBlockMode = ctx.__latestBlockMode;
@@ -818,6 +823,7 @@ function renderImageHtml(id, imgKey) {
     const issue = nextIssue(id) || '';
     const manual = manualValuesFor(id, date, imgKey);
     const resolved = resolve(id, imgKey, manual);
+    fixQxcPositions(id, imgKey, resolved && resolved.values);
     const data = { issue, date, images: {} };
     data.images[imgKey] = resolved.values;
     return toHtml(render(id, imgKey, data));
@@ -825,6 +831,27 @@ function renderImageHtml(id, imgKey) {
     console.log(`  ⚠️ 渲染 ${id}/${imgKey} 失败：${e.message}`);
     return '';
   }
+}
+
+/* ============================================================
+   【七星彩定位不能每位都一样】__QXC_POS2__
+   ------------------------------------------------------------
+   用户（第二次）：「七星彩定位不要都一样不是改了的吗」。
+   号码是「自动算（stats.js）+ 手动录入（saved-tickets.js）」合并出来的，
+   手动那一层可能把六位写成同一串（ticket-store 的号码池分支共用一份基底）
+   或者写成「错开一位的窗口」（roll-and-export 的 __QXC_FIX__），
+   而手动层的优先级高于自动层 —— 所以只改 stats.js 的算法不够，
+   合并完之后还得在这里再验一次。
+   判定/纠正都在 stats.js 的 enforceQxcPosDistinct 里（幂等：
+   已经各不相同的号面一个号都不动，所以手动录入的正常号不会被覆盖）。
+   ============================================================ */
+function fixQxcPositions(gid, imgKey, values) {
+  try {
+    if (gid !== 'qxc' || !values) return values;
+    if (typeof qxcFixFn !== 'function' || typeof rolesOfFn !== 'function') return values;
+    qxcFixFn(gid, values, rolesOfFn(gid, imgKey));
+  } catch (e) { /* 失败不影响出图 */ }
+  return values;
 }
 
 let sectionsHtml = '';
@@ -4372,6 +4399,16 @@ const RO_RENDER_SCRIPT = `
     var resolved = (typeof resolveTemplateValues === 'function')
       ? resolveTemplateValues(gid, key, manual)
       : { values: manual || {} };
+
+    /* __QXC_POS2__ 七星彩：合并完再验一次六位定位不能一样
+       （手动/存档那一层可能是同一串号或错开一位的窗口；
+        enforceQxcPosDistinct 是幂等的，正常号不会被改） */
+    try {
+      if (gid === 'qxc' && resolved && resolved.values
+        && typeof enforceQxcPosDistinct === 'function' && typeof fieldRolesOf === 'function') {
+        enforceQxcPosDistinct(gid, resolved.values, fieldRolesOf(gid, key));
+      }
+    } catch (e) { /* 失败不影响出图 */ }
 
     var data = { issue: issue, date: nextDate, images: {} };
     data.images[key] = resolved.values;
@@ -15391,10 +15428,10 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
    · 用 <details>/<summary>：裸 button 仍然是 0（页面铁律）
    · 默认收起：一行「免费资料 · 共 20 条 ＋ 点开看正文 ›」，点开就是 20 条
    · 字号 / 配色沿用米杏色系，标题居中（跟其它 .frog-h 一致） */
-.frog-mats > summary { display: flex; align-items: center; justify-content: center; gap: 8px;
-  cursor: pointer; list-style: none; padding: 1px 0 2px; }
+.frog-mats > summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  column-gap: 6px; row-gap: 1px; cursor: pointer; list-style: none; padding: 1px 0 2px; }
 .frog-mats > summary::-webkit-details-marker { display: none; }
-.frog-mats > summary .frog-h { margin-bottom: 0; }
+.frog-mats > summary .frog-h { margin-bottom: 0; white-space: nowrap; }
 .frog-mats > summary .frog-ag { flex: 0 0 auto; }
 .frog-mats > summary .frog-ag::after { content: "▾"; margin-left: 2px; }
 .frog-mats[open] > summary .frog-ag::after { content: "▴"; }
