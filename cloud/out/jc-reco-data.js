@@ -120,15 +120,15 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "odds": 1.56,
      "conf": 59.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:2",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 3,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-18 15:00",
@@ -170,15 +170,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.65,
      "conf": 58.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:1",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-19 23:30",
