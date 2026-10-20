@@ -59,7 +59,8 @@ async function download(url, file) {
     const r = await fetch(url, { headers: { 'User-Agent': UA, Referer: 'https://www.bing.com/' }, redirect: 'follow' });
     if (!r.ok) return 0;
     const buf = Buffer.from(await r.arrayBuffer());
-    if (buf.length < 3000) return 0;               /* 太小 = 图标/占位 ✗ */
+    /* SIZE_FILTER · 用户 2026-10-21 选 A：二维码/图标太小 ✗ 跳过 */
+    if (buf.length < 20000) return 0;               /* 太小 = 图标/占位 ✗ */
     if (buf.length > 3 * 1024 * 1024) return 0;    /* 太大 = 视频/巨图 ✗ */
     fs.writeFileSync(file, buf);
     return buf.length;
