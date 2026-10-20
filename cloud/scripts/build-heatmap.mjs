@@ -141,12 +141,12 @@ const MIN_OCR_TICKETS = 2;
 const MIN_OCR_TICKETS_GOOD = 5;
 
 /* OCR 参数 */
-const OCR_MAX_IMAGES = 80;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
-const OCR_CONCURRENCY = 4;      // 并发识别几张（本机 4 核够用；云端更高）
+const OCR_MAX_IMAGES = 200;      // 一次最多识别多少张票（一起彩一页 10 篇，够用）
+const OCR_CONCURRENCY = 6;      // 并发识别几张（本机 4 核够用；云端更高）
 /* 【多翻几页】一起彩晒票页是分页的（/xysp/dltxysp/2、/3 …），
    只抓第 1 页永远只有 10 篇 / 约 12 张图。开奖日高峰期当期晒票会跨好几页，
    所以往下翻，直到某一页【没有当期帖】就停（后面只会更老）。 */
-const OCR_MAX_PAGES = 3;
+const OCR_MAX_PAGES = 8;
 const IMG_TIMEOUT_MS = 30000;   // 图片下载超时（用户要求 30s）
 const IMG_RETRY = 2;            // 图片下载失败重试 2 次
 
