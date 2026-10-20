@@ -1,0 +1,71 @@
+# ============================================================
+#  zx-fetch.yml —— 资讯抓取（独立文件，和主构建 daily-update.yml 完全隔离）
+#
+#  ⚠️ 本文件是【新增】的独立工作流：
+#     · 不改、不引用、不影响 .github/workflows/daily-update.yml
+#     · 这里跑挂了，站点照常构建；这里跑成功，只多一个 zx-news.json
+#
+#  干什么：
+#     每小时第 17 分（错开主流程）跑 fetch-zx-news.mjs --cloud，
+#     纯 HTTP 抓资讯 → 写 zx-news.json → 有变化才提交。
+#     关掉电脑、关掉 DSH 也照跑（GitHub 的机器在云端）。
+#
+#  抓不到怎么办：
+#     · fetch-zx-news.mjs 自己会重试 20 轮 / 10 分钟
+#     · 仍然失败 → 脚本不写文件 → 不会覆盖上一次的好数据
+#     · --cloud 只用纯 HTTP，不需要浏览器（云端没 Chrome 也不影响）
+#
+#  手动跑：仓库 Actions 页 → 资讯抓取 → Run workflow
+# ============================================================
+name: 资讯抓取
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+# 提交 zx-news.json 需要写权限
+permissions:
+  contents: write
+
+# 同一时间只跑一个，避免两次抓取抢着 push
+concurrency:
+  group: zx-fetch
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 拉代码
+        uses: actions/checkout@v4
+
+      - name: 装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 抓资讯
+        continue-on-error: true
+        run: node fetch-zx-news.mjs --cloud 2>&1 | tail -60
+
+      - name: 提交数据
+        continue-on-error: true
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@local"
+          git add zx-news.json || true
+          if git diff --staged --quiet; then
+            echo "zx-news.json 没有变化，跳过提交"
+          else
+            git commit -m "资讯: $(date -u +%H:%M)"
+            git push || (git pull --rebase --autostash && git push) || true
+          fi
+
+      - name: 看一眼结果
+        if: always()
+        continue-on-error: true
+        run: |
+          echo "----- zx-news.json -----"
+          node -e "try{const d=require('./zx-news.json');console.log('条数:',d.count,'更新时间:',d.updated);for(const g of Object.keys(d.games)){console.log(g,d.games[g].length,'条 |',d.games[g][0].date,d.games[g][0].title);}}catch(e){console.log('没有 zx-news.json（本轮没抓到，保留上次）');}"
