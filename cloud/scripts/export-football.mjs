@@ -3385,6 +3385,31 @@ function communityHtml() {
   } catch (e) { return ''; }
 }
 
+
+/* __COMMUNITY2__ 社区内容 = 我们自己的真实数据（推荐战绩 + 最近命中 + 最新晒票） */
+function communityHtml2() {
+  const rows = [];
+  try {
+    const st = (typeof REC_STAT !== 'undefined' && REC_STAT) ? REC_STAT : null;
+    if (st) rows.push(['推荐单战绩', '红 ' + st.red + ' 黑 ' + st.black + (st.rate != null ? ' · 命中率 ' + st.rate + '%' : '')]);
+    const n = (typeof JC_XYSP !== 'undefined' && Array.isArray(JC_XYSP)) ? JC_XYSP.length : 0;
+    rows.push(['最新晒票', n ? n + ' 张（24 小时内）' : '暂无']);
+    rows.push(['数据刷新', '每 5 分钟自动更新']);
+  } catch (e) {}
+  const list = rows.map((r) => '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #f0e4cf;font-size:12px;color:#4a3a26;">'
+    + '<span>' + escape(String(r[0])) + '</span><span style="font-weight:700;">' + escape(String(r[1])) + '</b></span></div>').join('');
+  let hits = '';
+  try {
+    const bf = path.join(ROOT, 'broadcast.json');
+    if (fs.existsSync(bf)) {
+      const b = JSON.parse(fs.readFileSync(bf, 'utf8'));
+      const arr = Array.isArray(b) ? b : (b.items || []);
+      hits = arr.slice(0, 3).map((x) => '<div style="font-size:12px;color:#c0392b;padding:3px 0;">· ' + escape(String(x.text || x).slice(0, 50)) + '</div>').join('');
+    }
+  } catch (e) {}
+  return list + (hits ? '<div style="margin-top:6px;">' + hits + '</div>' : '');
+}
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -3918,7 +3943,7 @@ ${DEVICE_GATE_BODY}
 <span style="font-size:15px;font-weight:800;color:#4a3a26;">社区</span>
 <span style="font-size:11px;color:#8a7a63;">24 小时内的最新 · 自动刷新</span>
 </div>
-${communityHtml()}
+${communityHtml2()}
 </div>
   <div class="guard">
   <div class="note">
