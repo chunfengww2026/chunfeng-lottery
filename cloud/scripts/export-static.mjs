@@ -16353,6 +16353,13 @@ ${CHAT_JS_SHARE}
 .ro-zn-art > .ro-zn-at::-webkit-details-marker { display: none; }
 .ro-zn-art > .ro-zn-at::marker { content: ''; }
 .ro-zn-at-t { display: block; font-size: 12px; font-weight: 700; line-height: 1.5; color: var(--ro-fg); }
+/* 资讯角标：本期（期号对得上当期）/ 最新（没有当期时的最新一条，只标位置） */
+.ro-zn-at-n {
+  display: inline-block; margin-left: 4px; padding: 0 4px;
+  font-size: 9px; font-weight: 800; line-height: 1.6;
+  border-radius: 4px; vertical-align: 1px; white-space: nowrap;
+  color: #1a7f4b; background: #e8f6ee; border: 1px solid #b6ddc6;
+}
 .ro-zn-at-d { display: inline-block; margin-top: 1px; font-size: 10px; color: var(--ro-fg3); }
 .ro-zn-at-b { display: block; margin-top: 1px; font-size: 10.5px; line-height: 1.55; color: var(--ro-fg2); }
 .ro-zn-art[open] > .ro-zn-at .ro-zn-at-b { display: none; }
@@ -16390,6 +16397,7 @@ ${CHAT_JS_SHARE}
   .ro-zn-meta, .ro-zn-foot, .ro-zn-bi { font-size: 10px; }
   .ro-zn-chip { font-size: 10.5px; padding: 3px 7px; }
   .ro-zn-at-t { font-size: 11px; }
+  .ro-zn-at-n { font-size: 8.5px; margin-left: 3px; padding: 0 3px; }
   .ro-zn-at-b, .ro-zn-at-d { font-size: 10px; }
   .ro-zn-at-body p { font-size: 11px; line-height: 1.7; }
 }
