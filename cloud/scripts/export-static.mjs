@@ -1628,7 +1628,18 @@ function buildArticlesHtml() {
         '<summary class="ro-zldq-s"><b>' + x[0] + '</b></summary>' +
         '<div class="ro-zldq-body">' + imgsHtml + '</div></details>';
     }).join('') +
-    '</div></section>';
+    '</div>' +
+    /* 【图片放大 · 用户 2026-10-21「图片要能放大看」】
+       点任意图 → 全屏显示，点空白/× 关闭 ✔ */
+    '<div id="imgLB" style="position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;z-index:99999;align-items:center;justify-content:center;padding:8px">' +
+    '<img id="imgLBi" alt="" style="max-width:96vw;max-height:92vh;object-fit:contain;border-radius:6px">' +
+    '<div id="imgLBc" style="position:absolute;top:10px;right:16px;color:#fff;font-size:30px;line-height:1;cursor:pointer">×</div>' +
+    '</div>' +
+    '<script>(function(){var lb=document.getElementById("imgLB"),im=document.getElementById("imgLBi");if(!lb||!im)return;' +
+    'document.addEventListener("click",function(e){var t=e.target;' +
+    'if(t&&t.tagName==="IMG"&&(t.closest(".ro-zldq-i")||t.closest(".ro-mj-i"))){e.preventDefault();im.src=t.src;lb.style.display="flex";return;}' +
+    'if(t===lb||t.id==="imgLBc"||t.id==="imgLBi"){lb.style.display="none";im.src="";}},false);})();</script>' +
+    '</section>';
 
   /* ===== MINGJIA_GALLERY · 名家图库（build-mingjia.mjs 抓的 50 张图 ✗）===== */
   let mjHtml = '';
