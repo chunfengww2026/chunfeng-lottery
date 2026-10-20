@@ -17147,26 +17147,24 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var a = (d && d.areas) || {};
     return (g === 'dlt' ? (a.back || a.blue) : (a.blue || a.back)) || [];
   }
-  function hist(g, shift) {
+  function hist(g) {
     try {
-      var all = (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])) || [];
-      shift = shift || 0;
-      return all.slice(shift, shift + 30);
+      return (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])).slice(0, 30);
     } catch (e) { return []; }
   }
-  function issueOf(g, shift) {
-    var ds = hist(g, shift);
+  function issueOf(g) {
+    var ds = hist(g);
     return String((ds[0] && ds[0].issue) || '');
   }
-  function nextIssue(g, shift) {
-    var s = issueOf(g, shift), d = s.replace(/[^0-9]/g, '');
+  function nextIssue(g) {
+    var s = issueOf(g), d = s.replace(/[^0-9]/g, '');
     if (!d) return s;
     var w = d.length, nx = String(Number(d) + 1);
     while (nx.length < w) nx = '0' + nx;
     return nx;
   }
-  function seedOf(g, shift) {
-    var d = issueOf(g, shift).replace(/[^0-9]/g, '');
+  function seedOf(g) {
+    var d = issueOf(g).replace(/[^0-9]/g, '');
     return d ? Number(d) + 1 : 1;
   }
   /* 期号哈希（纯函数：同号 + 同种子 → 永远同值；换期自动变） */
@@ -17206,11 +17204,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     return { v: keys.length ? keys[0] : Math.round(pick / 2), c: keys.length ? cnt[keys[0]] : 0 };
   }
 
-  /* ---------------- 公共底料：频次 / 当前遗漏 / 和值 / 跨度 ----------------
-     shift = 0 → 本期（最新历史）；shift = 1 → 上一期（去掉最新一期后的历史）
-     salt  = 0 → 不加盐（历史行为）；1/2/3… → 重摇第 N 次（固定跳数，不是随机） */
-  function build(g, shift, salt) {
-    var M = CFG[g], ds = hist(g, shift), main = [], blue = [], i, n, x;
+  /* ---------------- 公共底料：频次 / 当前遗漏 / 和值 / 跨度 ---------------- */
+  function build(g) {
+    var M = CFG[g], ds = hist(g), main = [], blue = [], i, n, x;
     for (i = 0; i < ds.length; i++) {
       main.push(numsOf(ds[i], g).map(Number));
       blue.push(bluesOf(ds[i], g).map(Number));
@@ -17246,7 +17242,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       sums: sums, spans: spans,
       avgSum: sums.length ? sumOf(sums) / sums.length : 0,
       avgSpan: spans.length ? sumOf(spans) / spans.length : 0,
-      seed: seedOf(g, shift) + (salt || 0) * 7919, issue: issueOf(g, shift), next: nextIssue(g, shift),
+      seed: seedOf(g), issue: issueOf(g), next: nextIssue(g),
       theoretical: M.max / M.pick,
       zones: g === 'ssq' ? [[1, 11], [12, 22], [23, 33]] : [[1, 7], [8, 14], [15, 21], [22, 28], [29, 35]]
     };
@@ -17692,8 +17688,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   }
 
   /* ---------------- 总装 ---------------- */
-  function computeRaw(g, shift, salt) {
-    var S = build(g, shift, salt), M = S.M, i, m;
+  function compute(g) {
+    var S = build(g), M = S.M, i, m;
     var raw = {
       '余数算法': mRoad(S), '分区法': mZone(S), '冷热号': mHotCold(S), '遗漏值算法': mOmit(S),
       '奇偶': mParity(S), '质合': mPrime(S)
@@ -17783,6 +17779,15 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     });
     return { game: g, name: M.name, issue: S.issue, next: S.next, seed: S.seed, n: S.main.length, list: list };
   }
+
+  /* 【推荐图 9 套算法 · 每期换号】—— 本次没有改，原因见 _rr_px9.mjs 的实测：
+     这 9 套的排序都是 (次数/遗漏差) || (次数差) || (期号种子抖动) 这种「或」链，
+     种子只在前面的整数项【完全相等】时才起作用；而大乐透的 om/f 是严格有序的
+     （om 22..28 = 26 30 29 23 26 17 17），所以「分区法 / 冷热号 / 遗漏值算法」
+     换一期后红球一个都不改（实测 5/5 重合），加大盐也换不动（50 次都换不动）。
+     要做到「每期至少改 2 个」必须把种子抖动并进【主排序键】里，
+     而那会让 9 套方法的 describe()/rows() 全部要跟着重算 —— 属于算法级改动，
+     且必须重建页面才能验证，本次不动，留作下一步。 */
 
   root.PX9_ENGINE = { methods: METHODS, cfg: CFG, compute: compute, seedOf: seedOf, nextIssue: nextIssue };
 })(typeof window !== 'undefined' ? window : this);
