@@ -295,15 +295,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.55,
      "conf": 60.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:1",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   }
  ]
 };
