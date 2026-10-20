@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-21 01:20
+   更新时间：2026-10-21 01:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-21 01:20",
+ "updated": "2026-10-21 01:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -272,34 +272,6 @@ const XYSP_DATA = {
      "nextAt": 1792585800000,
      "atMs": 1792432502143,
      "seenMs": 1792432502143,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-20/c4b7376d-b3ff-4be5-8fe9-5a16feb8655d1792430499696.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-20/c4b7376d-b3ff-4be5-8fe9-5a16feb8655d1792430499696.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26120期]缘分有点勉强……",
-     "url": "",
-     "at": "2026-10-19T17:45:02.220Z",
-     "pubAt": "2026-10-19T17:22:00.000Z",
-     "pubMs": 1792430520000,
-     "pubSrc": "page",
-     "nextAt": 1792585800000,
-     "atMs": 1792431902220,
-     "seenMs": 1792431902220,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-20/52d85f88-5539-4cf3-a765-0ad599095c301792430499695.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-20/52d85f88-5539-4cf3-a765-0ad599095c301792430499695.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26120期]缘分有点勉强……",
-     "url": "",
-     "at": "2026-10-19T17:45:02.220Z",
-     "pubAt": "2026-10-19T17:22:00.000Z",
-     "pubMs": 1792430520000,
-     "pubSrc": "page",
-     "nextAt": 1792585800000,
-     "atMs": 1792431902220,
-     "seenMs": 1792431902220,
      "whenMs": null
     }
    ]
@@ -1327,36 +1299,6 @@ const XYSP_DATA = {
      "author": "中山福彩便利店",
      "when": "2026-10-20 09:18:06",
      "postId": "1879529578319243",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f026a90f36d74b8ba765239139013b2b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=iUchygotqRode8xAj1LpETBsTZ0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f026a90f36d74b8ba765239139013b2b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=iUchygotqRode8xAj1LpETBsTZ0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a2c84b48c29a497485451c148aff71d7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801094400&x-signature=2gMqhnL6kG8sYUbHtg2%2BtKwbos8%3D",
-     "title": "来分享一张快乐8 278期的胆拖实票！ 胆码08、21、31、47、60，两倍300元。 手写笔记记录选号，娱乐为主，不盲目上头。 彩票没有百分百预测，理性购彩，静待好运降临！ 重要提醒：快乐8开奖号码完全随机，不存在可以精准预测的号码，所",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1879499580413962",
-     "at": "2026-10-19T17:26:01.641Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-19T19:06:01.726Z",
-     "whenMs": 1792430477000,
-     "seenMs": 1792436761726,
-     "drawMs": 1792503000000,
-     "nextMs": 1792589400000,
-     "atMs": 1792430761641,
-     "drawAt": "2026-10-20T13:30:00.000Z",
-     "nextAt": 1792589400000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-22T19:06:01.726Z",
-     "rule": "next-draw",
-     "author": "暮色中感受夜宁静",
-     "when": "2026-10-20 01:21:17",
-     "postId": "1879499580413962",
      "px": 132300
     }
    ]
