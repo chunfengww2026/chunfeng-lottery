@@ -1529,7 +1529,7 @@ const articlesHtml = buildArticlesHtml();
    ① 智讯 = 今天 / 明天开奖日程（彩种 · 期号 · 开奖时刻）
             + 最近开奖（几个彩种各取最新一期，带号码）
             + 最新资讯标题
-     内容全部来自页面【已有的数据文件】，一个字都不编：
+     内容全部用页面【已有的数据文件】现算，一个字都不编：
        · 最近开奖 / 号码   ← 开奖历史 DRAW_HISTORY（history.js）
        · 期号 / 开奖日     ← nextIssue / nextDate（draw-data.js）
        · 开奖时刻          ← latest-draws.js 的 NEXTCD_TABLE（页面倒计时同一张表）
@@ -1890,8 +1890,11 @@ function buildZxPickHtml() {
     const chosen = {};
     for (const area of g.areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
 
-    const hotTxt = hc.hot.map((x) => zxP2(x.n)).join(' ');
-    const coldTxt = hc.cold.map((x) => zxP2(x.n)).join(' ');
+    /* 胆码 / 杀号：号码从小到大排（好读），后面的「出现几次」跟着同一个顺序 */
+    const hot = hc.hot.slice().sort((a, b) => a.n - b.n);
+    const cold = hc.cold.slice().sort((a, b) => a.n - b.n);
+    const hotTxt = hot.map((x) => zxP2(x.n)).join(' ');
+    const coldTxt = cold.map((x) => zxP2(x.n)).join(' ');
     const pickTxt = g.areas.map((area, i) => {
       const t = chosen[area.key].map((n) => zxP2(n)).join(' ');
       return i === 0 ? t : '<span class="ro-zn-blue">+ ' + t + '</span>';
@@ -1908,8 +1911,8 @@ function buildZxPickHtml() {
     out.push('<div class="ro-zn-row"><span class="ro-zn-k is-pick">精选一注</span>' +
       '<span class="ro-zn-sel">' + pickTxt + '</span></div>');
     out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
-      escape(hc.hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
-      escape(hc.cold.map((x) => x.c).join(' / ')) + ' 次</div>');
+      escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
+      escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
     out.push('<div class="ro-zn-meta">和值 ' + ballSum + ' · 三区 ' +
       escape(zxZones(chosen[main.key], main)) + '</div>');
     out.push('</div>');
@@ -10154,7 +10157,7 @@ ${p3dHtml}
   <details class="ro-zn" id="ro-zx-news">
     <summary class="ro-zn-head">
       <span class="ro-zn-h2">智讯</span>
-      <span class="ro-zn-sub">开奖日程 · 最近开奖 · 资讯</span>
+      <span class="ro-zn-sub">开奖 · 结果 · 资讯</span>
       <span class="ro-zn-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-zn-body">
