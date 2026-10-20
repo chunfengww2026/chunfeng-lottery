@@ -2451,6 +2451,58 @@ function zxPickRow(kind, label, inner) {
     '<span class="ro-zn-sel">' + inner + '</span></div>';
 }
 
+/* ============================================================
+   __PICK_GUARD__ 智能精选「一期」的数据（纯函数：期号 + 盐 → 号码）
+   ------------------------------------------------------------
+   输入：gid / issue / salt（' '=不加盐，'|v2' '|v3' … = 重摇第 N 次）
+   输出：{ dan:[], sha:[], pick:[], hot, cold, ...展示用字段 }
+     dan / sha / pick 这三个数组就是 pick-guard 校验的对象。
+   同一 (gid, issue, salt) → 永远同一组号（没有任何 Math.random）。
+   ============================================================ */
+function zxPickData(gid, issue, salt, areas, digit) {
+  const arr = (HIST && HIST.games && Array.isArray(HIST.games[gid])) ? HIST.games[gid] : [];
+  const seedSrc = issue || String((arr[0] && arr[0].issue) || gid);
+  const rnd = zxRnd(zxSeed(gid + '|' + seedSrc + (salt || '')));
+  if (digit) {
+    /* ===== 数字彩：胆码 4 个 0~9 / 杀号 3 个 0~9 / 精选 1 注 = 3 位号码 ===== */
+    const area = areas[0];
+    const freq = zxFreq(gid, 'main');           /* 30 期 × 3 位 = 90 个样本 */
+    const hc = pickGuard.bandedHotCold(freq, area, 4, rnd, 2, 3);
+    const hot = hc.hot, cold = hc.cold;
+    /* 精选一注：按【每一位】的频次加权抽号，并避开杀号那 3 个数字 */
+    const kill = {};
+    for (const x of cold) kill[x.n] = 1;
+    const digits = [];
+    for (let p = 0; p < 3; p++) {
+      const one = zxChoose({ from: 0, to: 9 }, zxPosFreq(gid, p), 1, rnd, kill);
+      digits.push(one.length ? one[0] : 0);
+    }
+    const sum = digits.reduce((a, b) => a + b, 0);
+    const span = Math.max(digits[0], digits[1], digits[2]) - Math.min(digits[0], digits[1], digits[2]);
+    return {
+      digit: true, hot: hot, cold: cold,
+      dan: hot.map((x) => x.n), sha: cold.map((x) => x.n), pick: digits.slice(),
+      digits: digits, sum: sum, span: span, shape: zxShape(digits), zones: ''
+    };
+  }
+  /* ===== 乐透型：胆码 3 / 杀号 3 / 精选 1 注（主区 + 副区）===== */
+  const main = areas[0];
+  const hc = pickGuard.bandedHotCold(zxFreq(gid, main.key), main, 3, rnd);
+  const chosen = {};
+  for (const area of areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
+  /* 胆码 / 杀号：号码从小到大排（好读），后面的「出现几次」跟着同一个顺序 */
+  const hot = hc.hot.slice().sort((a, b) => a.n - b.n);
+  const cold = hc.cold.slice().sort((a, b) => a.n - b.n);
+  const pick = [];
+  areas.forEach((area) => { (chosen[area.key] || []).forEach((n) => pick.push(n)); });
+  return {
+    digit: false, hot: hot, cold: cold, chosen: chosen,
+    dan: hot.map((x) => x.n), sha: cold.map((x) => x.n), pick: pick,
+    sum: chosen[main.key].reduce((a, b) => a + b, 0),
+    zones: zxZones(chosen[main.key], main)
+  };
+}
+
 function buildZxPickHtml() {
   const games = (HIST && HIST.games) ? HIST.games : null;
   const panes = [];
@@ -2466,32 +2518,27 @@ function buildZxPickHtml() {
 
     let issue = '';
     try { issue = String(nextIssue(gid) || ''); } catch (e) { issue = ''; }
-    const seedSrc = issue || String((arr[0] && arr[0].issue) || gid);
-    /* ⚠️ gid 必须在种子里：4 个彩种各算各的，排3 和 3D 才不会撞号 */
-    const rnd = zxRnd(zxSeed(gid + '|' + seedSrc));
+    /* __PICK_GUARD__ 上期期号 + 阈值：学用户原话「怎么都要修改几个」
+       乐透型 胆码≥2 不同 / 杀号≥1 / 精选一注≥3；数字彩（只有 3 位）精选≥2。
+       不合格就加固定盐重摇（'|v2' '|v3' …），最多 50 次，全程可复现。 */
+    const prevIss = prevIssueOf(gid, issue);
+    const thr = digit ? { dan: 2, sha: 1, pick: 2 } : { dan: 2, sha: 1, pick: 3 };
+    const guarded = pickGuard.statPush(pickGuard.rerollObject({
+      gid: 'zx|' + gid, label: '智能精选·' + name, issue: issue,
+      gen: (salt) => zxPickData(gid, issue, salt, areas, digit),
+      prevGen: () => (prevIss ? zxPickData(gid, prevIss, '', areas, digit) : null),
+      check: (cur, prev) => pickGuard.pickMeets(cur, prev, thr)
+    }));
+    const d = guarded.value;
+    if (!d) continue;
+    const hot = d.hot, cold = d.cold;
 
     const head = '<div class="ro-zn-bh">' + escape(name) +
       (issue ? ' <span class="ro-zn-bi">第 ' + escape(issue) + ' 期</span>' : '') + '</div>';
     const out = [];
 
     if (digit) {
-      /* ===== 数字彩：胆码 4 个 0~9 / 杀号 3 个 0~9 / 精选 1 注 = 3 位号码 ===== */
-      const area = areas[0];
-      const freq = zxFreq(gid, 'main');           /* 30 期 × 3 位 = 90 个样本 */
-      const hot = zxHotCold(freq, area, 4).hot.slice().sort((a, b) => a.n - b.n);
-      const cold = zxHotCold(freq, area, 3).cold.slice().sort((a, b) => a.n - b.n);
-      /* 精选一注：按【每一位】的频次加权抽号，并避开杀号那 3 个数字 */
-      const kill = {};
-      for (const x of cold) kill[x.n] = 1;
-      const digits = [];
-      for (let p = 0; p < 3; p++) {
-        const one = zxChoose({ from: 0, to: 9 }, zxPosFreq(gid, p), 1, rnd, kill);
-        digits.push(one.length ? one[0] : 0);
-      }
-      let dzSum = 0;
-      for (const d of digits) dzSum += d;
-      const dzSpan = Math.max(digits[0], digits[1], digits[2]) - Math.min(digits[0], digits[1], digits[2]);
-
+      const digits = d.digits;
       out.push('<div class="ro-zn-blk">');
       out.push(head);
       out.push(zxPickRow('dan', '胆码', escape(hot.map((x) => String(x.n)).join(' '))));
@@ -2500,25 +2547,16 @@ function buildZxPickHtml() {
       out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
         escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
         escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
-      out.push('<div class="ro-zn-meta">和值 ' + dzSum + ' · 跨度 ' + dzSpan + ' · ' +
-        escape(zxShape(digits)) + '</div>');
+      out.push('<div class="ro-zn-meta">和值 ' + d.sum + ' · 跨度 ' + d.span + ' · ' +
+        escape(d.shape) + '</div>');
       out.push('</div>');
     } else {
-      /* ===== 乐透型：胆码 3 / 杀号 3 / 精选 1 注（主区 + 副区）===== */
+      const chosen = d.chosen;
       const main = areas[0];
-      const hc = zxHotCold(zxFreq(gid, main.key), main, 3);
-      const chosen = {};
-      for (const area of areas) chosen[area.key] = zxChoose(area, zxFreq(gid, area.key), area.pick, rnd);
-
-      /* 胆码 / 杀号：号码从小到大排（好读），后面的「出现几次」跟着同一个顺序 */
-      const hot = hc.hot.slice().sort((a, b) => a.n - b.n);
-      const cold = hc.cold.slice().sort((a, b) => a.n - b.n);
       const pickTxt = areas.map((area, i) => {
         const t = chosen[area.key].map((n) => zxP2(n)).join(' ');
         return i === 0 ? t : '<span class="ro-zn-blue">+ ' + t + '</span>';
       }).join(' ');
-      const ballSum = chosen[main.key].reduce((a, b) => a + b, 0);
-
       out.push('<div class="ro-zn-blk">');
       out.push(head);
       out.push(zxPickRow('dan', '胆码', escape(hot.map((x) => zxP2(x.n)).join(' '))));
@@ -2527,8 +2565,8 @@ function buildZxPickHtml() {
       out.push('<div class="ro-zn-meta">近 ' + ZX_PERIODS + ' 期 · 胆码出 ' +
         escape(hot.map((x) => x.c).join(' / ')) + ' 次 · 杀号出 ' +
         escape(cold.map((x) => x.c).join(' / ')) + ' 次</div>');
-      out.push('<div class="ro-zn-meta">和值 ' + ballSum + ' · 三区 ' +
-        escape(zxZones(chosen[main.key], main)) + '</div>');
+      out.push('<div class="ro-zn-meta">和值 ' + d.sum + ' · 三区 ' +
+        escape(d.zones) + '</div>');
       out.push('</div>');
     }
 
@@ -17109,24 +17147,26 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     var a = (d && d.areas) || {};
     return (g === 'dlt' ? (a.back || a.blue) : (a.blue || a.back)) || [];
   }
-  function hist(g) {
+  function hist(g, shift) {
     try {
-      return (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])).slice(0, 30);
+      var all = (typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games && (DRAW_HISTORY.games[g] || [])) || [];
+      shift = shift || 0;
+      return all.slice(shift, shift + 30);
     } catch (e) { return []; }
   }
-  function issueOf(g) {
-    var ds = hist(g);
+  function issueOf(g, shift) {
+    var ds = hist(g, shift);
     return String((ds[0] && ds[0].issue) || '');
   }
-  function nextIssue(g) {
-    var s = issueOf(g), d = s.replace(/[^0-9]/g, '');
+  function nextIssue(g, shift) {
+    var s = issueOf(g, shift), d = s.replace(/[^0-9]/g, '');
     if (!d) return s;
     var w = d.length, nx = String(Number(d) + 1);
     while (nx.length < w) nx = '0' + nx;
     return nx;
   }
-  function seedOf(g) {
-    var d = issueOf(g).replace(/[^0-9]/g, '');
+  function seedOf(g, shift) {
+    var d = issueOf(g, shift).replace(/[^0-9]/g, '');
     return d ? Number(d) + 1 : 1;
   }
   /* 期号哈希（纯函数：同号 + 同种子 → 永远同值；换期自动变） */
@@ -17166,9 +17206,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     return { v: keys.length ? keys[0] : Math.round(pick / 2), c: keys.length ? cnt[keys[0]] : 0 };
   }
 
-  /* ---------------- 公共底料：频次 / 当前遗漏 / 和值 / 跨度 ---------------- */
-  function build(g) {
-    var M = CFG[g], ds = hist(g), main = [], blue = [], i, n, x;
+  /* ---------------- 公共底料：频次 / 当前遗漏 / 和值 / 跨度 ----------------
+     shift = 0 → 本期（最新历史）；shift = 1 → 上一期（去掉最新一期后的历史）
+     salt  = 0 → 不加盐（历史行为）；1/2/3… → 重摇第 N 次（固定跳数，不是随机） */
+  function build(g, shift, salt) {
+    var M = CFG[g], ds = hist(g, shift), main = [], blue = [], i, n, x;
     for (i = 0; i < ds.length; i++) {
       main.push(numsOf(ds[i], g).map(Number));
       blue.push(bluesOf(ds[i], g).map(Number));
@@ -17204,7 +17246,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
       sums: sums, spans: spans,
       avgSum: sums.length ? sumOf(sums) / sums.length : 0,
       avgSpan: spans.length ? sumOf(spans) / spans.length : 0,
-      seed: seedOf(g), issue: issueOf(g), next: nextIssue(g),
+      seed: seedOf(g, shift) + (salt || 0) * 7919, issue: issueOf(g, shift), next: nextIssue(g, shift),
       theoretical: M.max / M.pick,
       zones: g === 'ssq' ? [[1, 11], [12, 22], [23, 33]] : [[1, 7], [8, 14], [15, 21], [22, 28], [29, 35]]
     };
@@ -17650,8 +17692,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   }
 
   /* ---------------- 总装 ---------------- */
-  function compute(g) {
-    var S = build(g), M = S.M, i, m;
+  function computeRaw(g, shift, salt) {
+    var S = build(g, shift, salt), M = S.M, i, m;
     var raw = {
       '余数算法': mRoad(S), '分区法': mZone(S), '冷热号': mHotCold(S), '遗漏值算法': mOmit(S),
       '奇偶': mParity(S), '质合': mPrime(S)
