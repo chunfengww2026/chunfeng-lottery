@@ -1595,14 +1595,10 @@ function buildArticlesHtml() {
     '<div class="ro-zldq-h">资料大全</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
-      /* 【按钮 = 重新加载 · 用户 2026-10-21 选 B】
-         onclick 内联（不依赖外部 script 定位 ✗）
-         效果：加时间戳重载 → 绕缓存拿云端最新 ✔ */
-      return '<button type="button" class="ro-zldq-c" data-zl="' + x[1] + '"' +
-        ' onclick="var u=location.href.split(String.fromCharCode(35))[0];' +
-        'location.href=u+(u.indexOf(String.fromCharCode(63))>=0?String.fromCharCode(38):String.fromCharCode(63))+' +
-        'String.fromCharCode(116,61)+Date.now();">' +
-        '<b>' + x[0] + '</b><span>重新获取</span></button>';
+      /* 【不做跳转 · 用户 2026-10-21「不做跳转」】
+         纯展示卡片：不 href、不 reload、不弹窗 ✔ */
+      return '<div class="ro-zldq-c" data-zl="' + x[1] + '">' +
+        '<b>' + x[0] + '</b><span>最新资料</span></div>';
     }).join('') +
     '</div></section>';
 
