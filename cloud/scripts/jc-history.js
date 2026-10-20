@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-21 02:28",
+ "updated": "2026-10-21 02:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2154,61 +2154,6 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": false,
-   "at": "2026-10-17 00:28"
-  },
-  {
-   "code": "周六028",
-   "league": "意甲",
-   "home": "罗马",
-   "away": "热那亚",
-   "time": "2026-10-18 02:45",
-   "score": "2:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 0.75,
-    "downWater": 1.05,
-    "openHandicap": -1.5,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "58.33",
-    "theoryDownPercent": "41.67",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -1.5,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.85,
-     "nowUpWater": 0.75,
-     "initLine": "球半",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.62,
-    "draw": 3.8,
-    "away": 5.75
-   },
-   "prob": {
-    "home": 58.5,
-    "draw": 25,
-    "away": 16.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 58.5,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": true,
    "at": "2026-10-17 00:28"
   }
  ]
