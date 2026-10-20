@@ -1591,14 +1591,41 @@ function buildArticlesHtml() {
     ['排列三', 'ro-g-pl3-main'],
     ['快乐8', 'ro-g-kl8-main']
   ];
+  /* 【图片塞进资料大全格子 · 用户 2026-10-21 选 A】
+     每个格子点开 = 该彩种的名家图（读 mingjia-data.js ✗） */
+  const mjByCat = {};
+  try {
+    const mjf2 = path.join(ROOT, 'mingjia-data.js');
+    if (fs.existsSync(mjf2)) {
+      const mjsrc2 = fs.readFileSync(mjf2, 'utf8');
+      const mj2 = JSON.parse((mjsrc2.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/) || [])[1] || '{}');
+      (mj2.list || []).forEach(function (x) {
+        if (!x || !x.imgs || !x.imgs.length) return;
+        (mjByCat[x.cat] = mjByCat[x.cat] || []).push(x);
+      });
+    }
+  } catch (e) { }
+
   const zldqHtml = '<section class="ro-zldq" id="ro-zldq">' +
     '<div class="ro-zldq-h">资料大全</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
-      /* 【不做跳转 · 用户 2026-10-21「不做跳转」】
-         纯展示卡片：不 href、不 reload、不弹窗 ✔ */
-      return '<div class="ro-zldq-c" data-zl="' + x[1] + '">' +
-        '<b>' + x[0] + '</b><span>最新资料</span></div>';
+      /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
+      const people = mjByCat[x[0]] || [];
+      const imgsHtml = people.length
+        ? people.map(function (p) {
+            return '<div class="ro-zldq-p"><div class="ro-zldq-n">' + p.name + '</div>' +
+              '<div class="ro-zldq-i">' +
+              p.imgs.map(function (im) {
+                return '<img loading="lazy" src="' + im.file + '" alt="' + p.name + '">';
+              }).join('') +
+              '</div></div>';
+          }).join('')
+        : '<div class="ro-zldq-empty">暂无图</div>';
+      return '<details class="ro-zldq-c">' +
+        '<summary class="ro-zldq-s"><b>' + x[0] + '</b><span>' +
+        (people.length ? people.length + ' 位 · 点开展开' : '最新资料') + '</span></summary>' +
+        '<div class="ro-zldq-body">' + imgsHtml + '</div></details>';
     }).join('') +
     '</div></section>';
 
