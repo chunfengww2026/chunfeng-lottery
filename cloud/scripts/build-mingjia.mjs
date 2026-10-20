@@ -89,6 +89,24 @@ const MJ_FILL = [
 
 /* MANY_NAMES · 用户 2026-10-21：每人 1 张，多抓几位 ✗ */
 const PER_NAME = 1;
+
+/* ===== 实时轮转（用户 2026-10-21「编程实时抓取」）=====
+   --rotate=N：这一轮只抓 N 个名家（按 30 分钟时间片轮转），其余保留上一份数据；
+   不带参数 = 抓全部（首次/手动重抓用）。 */
+const ROTATE = process.argv.indexOf('--rotate') >= 0 || process.argv.some((a) => /^--rotate=/.test(a));
+const ROTATE_N = (function () {
+  const m = process.argv.filter((a) => /^--rotate=/.test(a)).pop();
+  const n = m ? parseInt(m.split('=')[1], 10) : 15;
+  return (Number.isFinite(n) && n > 0) ? n : 15;
+})();
+function rotateTodo(all) {
+  if (!ROTATE || !all.length) return all;
+  const slot = Math.floor(Date.now() / (30 * 60 * 1000));   /* 每 30 分钟一个时间片 */
+  const start = (slot * ROTATE_N) % all.length;
+  const out = [];
+  for (let i = 0; i < Math.min(ROTATE_N, all.length); i++) out.push(all[(start + i) % all.length]);
+  return out;
+}
 /* NEXT_ISSUE_KW · 用户 2026-10-21「一定要看好别人推荐有没有下一期的期数」
    → 关键词必须带【下一期】期号（别人推荐的是下一期 ✗） */
 const NEXT_ISSUE = {"ssq":"2026121","dlt":"26120"};
@@ -186,7 +204,7 @@ async function download(url, file) {
 fs.mkdirSync(OUT_DIR, { recursive: true });
 const result = [];
 
-for (const item of NAMES) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ */
+for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ */
   try {
   const dir = path.join(OUT_DIR, safeName(item.name));
   fs.mkdirSync(dir, { recursive: true });
@@ -216,6 +234,24 @@ for (const item of NAMES) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ *
        if (m2) { const oj = JSON.parse(m2[1]); if (Array.isArray(oj.history)) hist = oj.history; }
      }
    } catch (e) { }
+   /* ===== MERGE_PREV · 轮转模式：没抓到的名家沿用上一份 ===== */
+   if (ROTATE) {
+     try {
+       if (fs.existsSync(DATA)) {
+         const oldSrc = fs.readFileSync(DATA, 'utf8');
+         const mo = oldSrc.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/);
+         if (mo) {
+           const ol = JSON.parse(mo[1]);
+           const got = new Set(result.map((x) => x.name + '|' + x.cat));
+           (ol.list || []).forEach((p) => {
+             if (!p || !p.imgs || !p.imgs.length) return;
+             if (got.has(p.name + '|' + p.cat)) return;
+             result.push(p);
+           });
+         }
+       }
+     } catch (e) { console.log('  ⚠️ 合并上一份失败：' + String(e.message).slice(0, 40)); }
+   }
    const totalImgs = result.reduce(function (a, x) { return a + x.imgs.length; }, 0);
    hist.push({
      at: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
