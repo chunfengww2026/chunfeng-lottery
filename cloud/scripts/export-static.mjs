@@ -1596,9 +1596,9 @@ function zxNumText(gid, draw) {
     return (a.front || []).map(String).join(' ') + ' + ' +
            (a.back || []).map(String).join(' ');
   }
-  if (g.playModes) {          /* 快乐8 一期 20 个号：只写前 10 个，后面用省略号 */
+  if (g.playModes) {          /* 快乐8 一期 20 个号：只写前 6 个，后面用省略号 */
     const m = a.main || [];
-    return m.slice(0, 10).map((n) => zxP2(n)).join(' ') + (m.length > 10 ? ' …' : '');
+    return m.slice(0, 6).map((n) => zxP2(n)).join(' ') + (m.length > 6 ? ' …' : '');
   }
   (g.areas || []).forEach((area, i) => {
     if (i > 0) parts.push(area.key === 'special' ? '★' : '+');
@@ -1607,8 +1607,10 @@ function zxNumText(gid, draw) {
   return parts.join(' ');
 }
 
-/* 最近开奖：跨彩种按日期倒序，同一个彩种只取最新一期（别 5 条全一样） */
+/* 最近开奖：每个彩种只取最新一期（别 5 条全一样），
+   双色球 / 大乐透永远排前面（页面主推这两个），其余按日期倒序 */
 function zxRecentRows(n) {
+  const ZX_MAIN = ['ssq', 'dlt'];
   const rows = [];
   const games = (HIST && HIST.games) ? HIST.games : null;
   if (!games) return rows;
@@ -1616,25 +1618,19 @@ function zxRecentRows(n) {
     const g = GAMES[gid];
     if (!g) continue;
     const arr = Array.isArray(games[gid]) ? games[gid] : [];
-    for (const it of arr) {
-      if (!it || !it.issue || !it.areas) continue;
-      rows.push({ date: String(it.date || ''), issue: String(it.issue),
-                  name: g.name || gid, nums: zxNumText(gid, it) });
-    }
+    const it = arr.length ? arr[0] : null;      /* history 每个彩种都是最新一期在最前 */
+    if (!it || !it.issue || !it.areas) continue;
+    rows.push({ gid: gid, date: String(it.date || ''), issue: String(it.issue),
+                name: g.name || gid, nums: zxNumText(gid, it) });
   }
   rows.sort((x, y) => {
+    const px = ZX_MAIN.indexOf(x.gid), py = ZX_MAIN.indexOf(y.gid);
+    const rx = px < 0 ? 99 : px, ry = py < 0 ? 99 : py;
+    if (rx !== ry) return rx - ry;
     if (x.date !== y.date) return x.date < y.date ? 1 : -1;
     return x.issue < y.issue ? 1 : x.issue > y.issue ? -1 : 0;
   });
-  const seen = new Set();
-  const out = [];
-  for (const r of rows) {
-    if (seen.has(r.name)) continue;
-    seen.add(r.name);
-    out.push(r);
-    if (out.length >= (n || 5)) break;
-  }
-  return out;
+  return rows.slice(0, n || 5);
 }
 
 /* 今天 / 明天开哪几个彩种（期号 + 开奖时刻）*/
