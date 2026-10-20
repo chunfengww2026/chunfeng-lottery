@@ -23,19 +23,16 @@ const NAMES = [
 ];
 
 const PER_NAME = 5;
-/* ISSUE_KW · 关键词带上最新期号（用户 2026-10-21「都要抓最新一期」） */
-const ISSUE = {"ssq":"2026120","dlt":"26119"};
-const IS = ISSUE.ssq ? (' ' + ISSUE.ssq + '期') : '';
-const ID = ISSUE.dlt ? (' ' + ISSUE.dlt + '期') : '';
-/* 把每个搜索词补上期号（ssq/dlt 类 ✗ 其它不加 ✔） */
-/* KW_TUNED · 用户 2026-10-21「要打勾类型」→ 关键词加走势图/分析图 ✗ */
+/* NEXT_ISSUE_KW · 用户 2026-10-21「一定要看好别人推荐有没有下一期的期数」
+   → 关键词必须带【下一期】期号（别人推荐的是下一期 ✗） */
+const NEXT_ISSUE = {"ssq":"2026121","dlt":"26120"};
 NAMES.forEach(function (n) {
-  /* 只要图表类（走势图/分析图/号码图 ✗）不要截图/二维码 */
-  if (n.kw.indexOf('走势图') < 0 && n.kw.indexOf('分析') < 0) {
-    n.kw = n.kw.replace(' 图', ' 走势图 分析图');
-  }
-  if (n.cat === '双色球' && IS) n.kw = n.kw + IS;
-  else if (n.cat === '大乐透' && ID) n.kw = n.kw + ID;
+  var iss = '';
+  if (n.cat === '双色球') iss = NEXT_ISSUE.ssq;
+  else if (n.cat === '大乐透') iss = NEXT_ISSUE.dlt;
+  if (iss) n.kw = n.kw + ' ' + iss + '期';
+  /* 再加"推荐/预测"✗ 保证抓到的是下一期的分析 ✗ */
+  if (n.kw.indexOf('推荐') < 0 && n.kw.indexOf('预测') < 0) n.kw = n.kw + ' 推荐';
 });
 
 function safeName(s) { return String(s).replace(/[\\/:*?"<>|]/g, '_'); }
