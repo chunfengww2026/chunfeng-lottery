@@ -10,19 +10,56 @@ const DATA = path.join(process.cwd(), 'mingjia-data.js');
 
 /* 第一版先抓 10 个（分类 + 搜索词 ✗ 加限定词提高相关性 ✔） */
 const NAMES = [
+  /* ── 双色球（用户列的名家 ✗）── */
   { name: '太湖字谜', cat: '双色球', kw: '太湖字谜 双色球 图' },
   { name: '迷公', cat: '双色球', kw: '迷公 双色球 推荐图' },
   { name: '桃子姐', cat: '双色球', kw: '桃子姐 双色球 图' },
   { name: '迟丽颖', cat: '双色球', kw: '迟丽颖 双色球 图' },
+  { name: '万里挑一', cat: '双色球', kw: '万里挑一 双色球 图' },
+  { name: '青岛大磊', cat: '双色球', kw: '青岛大磊 双色球 图' },
+  { name: '明哥看彩', cat: '双色球', kw: '明哥看彩 双色球 图' },
+  { name: '岳阳飞飞', cat: '双色球', kw: '岳阳飞飞 双色球 图' },
+  { name: '金手指', cat: '双色球', kw: '金手指 双色球 图' },
+  { name: '九头鸟', cat: '双色球', kw: '九头鸟 双色球 图' },
+  { name: '武汉华哥', cat: '双色球', kw: '武汉华哥 双色球 图' },
+  { name: '貂蝉杀', cat: '双色球', kw: '貂蝉杀 双色球 图' },
+  { name: '名家精', cat: '双色球', kw: '名家精 双色球 图' },
+  { name: '鸭梨红', cat: '双色球', kw: '鸭梨红 双色球 图' },
+  { name: '黄大仙', cat: '双色球', kw: '黄大仙 双色球 图' },
+  { name: '东北人杀', cat: '双色球', kw: '东北人杀 双色球 图' },
+  { name: '峨眉道姑', cat: '双色球', kw: '峨眉道姑 双色球 图' },
+  { name: '蓝号迷', cat: '双色球', kw: '蓝号迷 双色球 蓝球 图' },
+  { name: '林黛玉', cat: '双色球', kw: '林黛玉 双色球 图' },
+  { name: '贾宝玉', cat: '双色球', kw: '贾宝玉 双色球 图' },
+  { name: '司马迁', cat: '双色球', kw: '司马迁 双色球 图' },
+  { name: '枣庄红人', cat: '双色球', kw: '枣庄红人 双色球 图' },
+  { name: '一品红', cat: '双色球', kw: '一品红 双色球 图' },
+  { name: '万万没想到', cat: '双色球', kw: '万万没想到 双色球 图' },
+  { name: '夏天', cat: '双色球', kw: '夏天 双色球 图' },
+  { name: '大招财运', cat: '双色球', kw: '大招财运 双色球 图' },
+  { name: '奉旨发财', cat: '双色球', kw: '奉旨发财 双色球 图' },
+  { name: '白天鹅', cat: '双色球', kw: '白天鹅 双色球 图' },
+  { name: '百合花', cat: '双色球', kw: '百合花 双色球 图' },
+  { name: '百步穿杨', cat: '双色球', kw: '百步穿杨 双色球 图' },
+  { name: '蒲公英', cat: '双色球', kw: '蒲公英 双色球 图' },
+  { name: '远方的狼', cat: '双色球', kw: '远方的狼 双色球 图' },
+  { name: '那些年', cat: '双色球', kw: '那些年 双色球 图' },
+  { name: '金枪鱼', cat: '双色球', kw: '金枪鱼 双色球 图' },
+  { name: '青云万里', cat: '双色球', kw: '青云万里 双色球 图' },
+  { name: '鲤鱼得财', cat: '双色球', kw: '鲤鱼得财 双色球 图' },
+  { name: '朱大姐', cat: '双色球', kw: '朱大姐 双色球 蓝球 分析表' },
+  { name: '南山大师', cat: '双色球', kw: '南山大师 双色球 图' },
+  { name: '牛魔王', cat: '双色球', kw: '牛魔王 双色球 图' },
+  /* ── 大乐透 ── */
   { name: '闪享', cat: '大乐透', kw: '闪享 大乐透 图' },
   { name: '幸丹丹', cat: '大乐透', kw: '幸丹丹 大乐透 图' },
+  /* ── 其它彩种 ── */
   { name: '排三字谜', cat: '排列三', kw: '排三 3D 字谜 图' },
-  { name: '名家精', cat: '3D', kw: '福彩3D 名家 精推 图' },
-  { name: '朱大姐', cat: '双色球', kw: '朱大姐 双色球 蓝球 分析表' },
-  { name: '蓝球杀码', cat: '双色球', kw: '双色球 蓝球 杀码 公式' },
+  { name: '3D字谜', cat: '3D', kw: '福彩3D 字谜 图' }
 ];
 
-const PER_NAME = 5;
+/* MANY_NAMES · 用户 2026-10-21：每人 1 张，多抓几位 ✗ */
+const PER_NAME = 1;
 /* NEXT_ISSUE_KW · 用户 2026-10-21「一定要看好别人推荐有没有下一期的期数」
    → 关键词必须带【下一期】期号（别人推荐的是下一期 ✗） */
 const NEXT_ISSUE = {"ssq":"2026121","dlt":"26120"};
@@ -120,7 +157,8 @@ async function download(url, file) {
 fs.mkdirSync(OUT_DIR, { recursive: true });
 const result = [];
 
-for (const item of NAMES) {
+for (const item of NAMES) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ */
+  try {
   const dir = path.join(OUT_DIR, safeName(item.name));
   fs.mkdirSync(dir, { recursive: true });
   const urls = await bingImages(item.kw);
@@ -136,6 +174,7 @@ for (const item of NAMES) {
   console.log('  ' + item.name.padEnd(8) + ' [' + item.cat + '] 抓到 ' + saved.length + '/' + PER_NAME + ' 张' + (urls.length ? '' : ' （搜索无结果 ✗）'));
   result.push({ name: item.name, cat: item.cat, kw: item.kw, imgs: saved });
   await new Promise((r2) => setTimeout(r2, 2500));
+  } catch (eName) { console.log("  ⚠️ " + item.name + " 失败：" + String(eName.message).slice(0, 50)); }
 }
 
 /* ===== HISTORY_24H · 24 小时抓取记录（用户 2026-10-21 选 A）=====
@@ -163,7 +202,7 @@ for (const item of NAMES) {
 const js = '/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · ' +
   new Date().toLocaleString('zh-CN', { hour12: false }) + '）\n' +
   'const MINGJIA_DATA = ' + JSON.stringify(payload, null, 1) + ';\n';
-fs.writeFileSync(DATA, js, 'utf8');
+try { fs.writeFileSync(DATA, js, 'utf8'); } catch (eW) { console.log('  写数据失败：' + eW.message); }
 
 const total = result.reduce((a, x) => a + x.imgs.length, 0);
 console.log('\n  ✅ mingjia-data.js 已写入 · ' + result.length + ' 个名家 · ' + total + ' 张图 · ' + Math.round(js.length / 1024) + 'KB');
