@@ -1,7 +1,187 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 04:10:18） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 04:16:05） */
 const MINGJIA_DATA = {
- "updated": "2026-10-21 04:10:18",
+ "updated": "2026-10-21 04:16:05",
  "list": [
+  {
+   "name": "蒲公英",
+   "cat": "双色球",
+   "kw": "蒲公英 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/蒲公英/1.jpg",
+     "size": 420943,
+     "src": "https://pic.nximg.cn/file/20230526/34573890_143743796101_2.jpg"
+    }
+   ]
+  },
+  {
+   "name": "远方的狼",
+   "cat": "双色球",
+   "kw": "远方的狼 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/远方的狼/1.jpg",
+     "size": 177515,
+     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "那些年",
+   "cat": "双色球",
+   "kw": "那些年 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/那些年/1.jpg",
+     "size": 524541,
+     "src": "https://f.yddtiyu.com/info/177303700057506ee853a-b6ad-46bd-8a99-96ac4203d9fb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "金枪鱼",
+   "cat": "双色球",
+   "kw": "金枪鱼 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/金枪鱼/1.png",
+     "size": 265539,
+     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
+    }
+   ]
+  },
+  {
+   "name": "青云万里",
+   "cat": "双色球",
+   "kw": "青云万里 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/青云万里/1.png",
+     "size": 265539,
+     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
+    }
+   ]
+  },
+  {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/鲤鱼得财/1.jpg",
+     "size": 557093,
+     "src": "https://f.yddtiyu.com/info/177848432027413fc9dd3-1ccc-4379-92d0-93d99160dcdb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 蓝球 分析表 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/朱大姐/1.jpg",
+     "size": 221734,
+     "src": "https://img.mianfeiwendang.com/pic/11370f5b8386a4f36514bdef/1-1096-jpg_6_0_______-733-0-0-733.jpg"
+    }
+   ]
+  },
+  {
+   "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/南山大师/1.jpg",
+     "size": 557093,
+     "src": "https://f.yddtiyu.com/info/177848432027413fc9dd3-1ccc-4379-92d0-93d99160dcdb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/牛魔王/1.png",
+     "size": 178508,
+     "src": "https://f.yddtiyu.com/info/17511166162676e3600c7-c1e8-4296-8b74-2a1111c3e17b.png"
+    }
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/闪享/1.jpg",
+     "size": 821302,
+     "src": "https://f.yddtiyu.com/info/176912963447180a2fae1-a383-429a-8be9-275787b430f1.jpg"
+    }
+   ]
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/幸丹丹/1.jpg",
+     "size": 821302,
+     "src": "https://f.yddtiyu.com/info/176912963447180a2fae1-a383-429a-8be9-275787b430f1.jpg"
+    }
+   ]
+  },
+  {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三 3D 字谜 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排三字谜/1.jpg",
+     "size": 108584,
+     "src": "https://f.jiangduoduo.com/info/1733393330396de5d50ab-936c-4154-9351-a23a5770cc79.jpg"
+    }
+   ]
+  },
+  {
+   "name": "3D字谜",
+   "cat": "3D",
+   "kw": "福彩3D 字谜 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D字谜/1.png",
+     "size": 105138,
+     "src": "https://www.weicainet.com/uploadfile/2025/0226/20250226050758997.png"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.png",
+     "size": 115666,
+     "src": "https://img.cpzj.com/sd/2020/202007020923393274371.png"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "大乐透",
+   "kw": "迷公 大乐透 图 26120期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 821302,
+     "src": "https://f.yddtiyu.com/info/176912963447180a2fae1-a383-429a-8be9-275787b430f1.jpg"
+    }
+   ]
+  },
   {
    "name": "太湖字谜",
    "cat": "双色球",
@@ -363,186 +543,6 @@ const MINGJIA_DATA = {
    ]
   },
   {
-   "name": "蒲公英",
-   "cat": "双色球",
-   "kw": "蒲公英 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/蒲公英/1.jpg",
-     "size": 420943,
-     "src": "https://pic.nximg.cn/file/20230526/34573890_143743796101_2.jpg"
-    }
-   ]
-  },
-  {
-   "name": "远方的狼",
-   "cat": "双色球",
-   "kw": "远方的狼 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/远方的狼/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "那些年",
-   "cat": "双色球",
-   "kw": "那些年 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/那些年/1.jpg",
-     "size": 524541,
-     "src": "https://f.yddtiyu.com/info/177303700057506ee853a-b6ad-46bd-8a99-96ac4203d9fb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "金枪鱼",
-   "cat": "双色球",
-   "kw": "金枪鱼 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/金枪鱼/1.png",
-     "size": 265539,
-     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
-    }
-   ]
-  },
-  {
-   "name": "青云万里",
-   "cat": "双色球",
-   "kw": "青云万里 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/青云万里/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "鲤鱼得财",
-   "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/鲤鱼得财/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "朱大姐",
-   "cat": "双色球",
-   "kw": "朱大姐 双色球 蓝球 分析表 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/朱大姐/1.png",
-     "size": 265539,
-     "src": "https://f.jiangduoduo.com/info/1729234170354b6c94c66-1e4d-4f56-a57b-4f46d3514f88.png"
-    }
-   ]
-  },
-  {
-   "name": "南山大师",
-   "cat": "双色球",
-   "kw": "南山大师 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/南山大师/1.webp",
-     "size": 28872,
-     "src": "https://pic1.800820.net/tumi/20260123/ad782a8ae6d7439b9a7c070475f780d3.webp"
-    }
-   ]
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/牛魔王/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 图 26120期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/闪享/1.jpg",
-     "size": 264264,
-     "src": "https://f.yddtiyu.com/info/17721827796902a3a5218-1827-4e09-a773-bf9a66762cb2.jpg"
-    }
-   ]
-  },
-  {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 图 26120期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/幸丹丹/1.jpg",
-     "size": 264264,
-     "src": "https://f.yddtiyu.com/info/17721827796902a3a5218-1827-4e09-a773-bf9a66762cb2.jpg"
-    }
-   ]
-  },
-  {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三 3D 字谜 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排三字谜/1.jpg",
-     "size": 108584,
-     "src": "https://f.jiangduoduo.com/info/1733393330396de5d50ab-936c-4154-9351-a23a5770cc79.jpg"
-    }
-   ]
-  },
-  {
-   "name": "3D字谜",
-   "cat": "3D",
-   "kw": "福彩3D 字谜 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D字谜/1.png",
-     "size": 105138,
-     "src": "https://www.weicainet.com/uploadfile/2025/0226/20250226050758997.png"
-    }
-   ]
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "大乐透",
-   "kw": "太湖字谜 大乐透 图 26120期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/太湖字谜/1.webp",
-     "size": 134810,
-     "src": "https://pic2.800820.net/tumi/20251205/6b5f61375bc1404ea3138e6241edb605.webp"
-    }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "大乐透",
-   "kw": "迷公 大乐透 图 26120期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/迷公/1.jpg",
-     "size": 345697,
-     "src": "https://f.yddtiyu.com/info/1773454523260fe475f54-6ff2-44bc-afa4-b7d258c3fcba.jpg"
-    }
-   ]
-  },
-  {
    "name": "桃子姐",
    "cat": "大乐透",
    "kw": "桃子姐 大乐透 图 26120期 推荐",
@@ -893,6 +893,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-21 04:10:18",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-21 04:16:05",
    "names": 71,
    "imgs": 71
   }
