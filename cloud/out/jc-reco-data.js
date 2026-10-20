@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-21 03:14",
+ "updated": "2026-10-21 05:02",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -195,9 +195,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.29,
      "conf": 73.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:2",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周二008",
@@ -210,9 +210,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.1,
      "conf": 86.4,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:0",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周二005",
@@ -225,9 +225,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.14,
      "conf": 82.6,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:0",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周二007",
@@ -240,9 +240,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.5,
      "conf": 63.2,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:1",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周二010",
@@ -255,9 +255,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.57,
      "conf": 60.1,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "0:0",
+     "hit": false,
+     "result": "lose"
     },
     {
      "code": "周二004",
@@ -270,15 +270,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.62,
      "conf": 58.5,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "1:0",
+     "hit": true,
+     "result": "win"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 6,
-   "verdict": ""
+   "hit": 0,
+   "miss": 2,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-21 01:05",
