@@ -381,6 +381,8 @@ jobs:
           # 【准实时数据源】分享页会去拉这个文件；
           # 只要它是新的，页面拿到后立刻就地重渲染成新号码
           cp -f cloud/out/tickets.json  site/tickets.json  || true
+          # 【图片上云 · 用户 2026-10-21】imgs/ 整个目录复制进 site/ ✔
+          cp -r imgs site/imgs 2>/dev/null || true
           # 【分享卡片 / 图标 / PWA】
           #   这一步以前只拷上面三个文件 —— cloud-build.mjs 明明已经把图标
           #   拷进 out/ 了，可不在这里 cp 就【永远进不了 site/】，
