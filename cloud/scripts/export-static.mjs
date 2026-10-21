@@ -20,6 +20,7 @@
 // ============================================================
 
 import fs from 'node:fs';
+import { cachedVerdict } from './verify-ticket.mjs';
 import path from 'node:path';
 import vm from 'node:vm';
 /* ===== 大乐透后区 6 码（用户 2026-10-19 要求 · 读 _back6.json，不再解析 history.js）===== */
@@ -3083,6 +3084,8 @@ function buildXyspHtml() {
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
     items.forEach((it) => {
       const img = String((it && it.img) || '');
+      const ticketVerdict = cachedVerdict(img);
+      if (!ticketVerdict || ticketVerdict.ok !== true) return;
       if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
       const thumb = String((it && it.thumb) || '') || img;
       /* 【晒票描述·数字口径】上游数据把「五百万」改写成「500万」，
