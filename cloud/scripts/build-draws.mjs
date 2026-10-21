@@ -112,7 +112,7 @@ const DRY_RUN = argv.includes('--dry-run');
      ① 命令行显式传 --ai
      ② 环境变量 CDD_ALLOW_AI=1（只有本人手动设）
    任何计划任务 / 云端构建都不满足 → 永远零 token。 */
-const AI_ALLOWED = argv.includes('--ai') && process.env.CDD_ALLOW_AI === '1';
+const AI_ALLOWED = false; // Paid AI disabled regardless of flags or environment.
 
 /* ============================================================
    【分班抓取】--only=…
@@ -380,85 +380,7 @@ const validate = validateAreas;
 /* ============================================================
    DeepSeek 解析
    ============================================================ */
-async function aiParse(cfg, gameId, snippet, fallbackIssue) {
-  const rule = RULES[gameId];
-  const areaDesc = rule.areas
-    .map((a) => `"${a.key}": ${a.need} 个数字（范围 ${a.from}-${a.to}${a.allowRepeat ? '，可重复' : '，不重复'}）`)
-    .join('，');
-
-  const sys = '你是一个严谨的数据提取工具。你只能从用户提供的网页文本中提取真实存在的信息，绝对不允许猜测或编造。如果文本里没有开奖号码，就返回 found=false。只输出 JSON，不要任何解释。';
-
-  const user = `从下面这段彩票网页文本里，提取最新一期的开奖号码。
-
-彩种：${rule.name}
-需要提取的字段：${areaDesc}
-另外还要提取：issue（期号，纯数字字符串）、date（开奖日期 YYYY-MM-DD，没有就留空）
-
-严格按这个 JSON 格式输出：
-{"found": true/false, "issue": "期号", "date": "日期", "areas": {"区key": [数字...]}}
-
-注意：
-- 只提取网页里真实出现的号码，找不到就 found=false
-- 数字必须是整数，不要带前导零
-- 不要输出任何 JSON 以外的内容
-
-网页文本：
----
-${snippet}
----`;
-
-  const body = {
-    model: cfg.model || 'deepseek-chat',
-    messages: [
-      { role: 'system', content: sys },
-      { role: 'user', content: user }
-    ],
-    temperature: 0,
-    response_format: { type: 'json_object' },
-    stream: false
-  };
-
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 60000);
-  try {
-    const res = await fetch(`${cfg.baseUrl.replace(/\/$/, '')}/chat/completions`, {
-      method: 'POST',
-      signal: ctrl.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cfg.apiKey}`
-      },
-      body: JSON.stringify(body)
-    });
-    clearTimeout(timer);
-
-    if (!res.ok) {
-      const errText = await res.text();
-      let hint = '';
-      if (res.status === 401) hint = '（API Key 无效，请检查 deepseek.config.json 里的 apiKey）';
-      if (res.status === 402) hint = '（账户余额不足）';
-      if (res.status === 429) hint = '（请求过于频繁）';
-      return { ok: false, error: `HTTP ${res.status} ${hint} ${errText.slice(0, 200)}` };
-    }
-
-    const json = await res.json();
-    const content = json.choices?.[0]?.message?.content || '';
-    let parsed;
-    try {
-      parsed = JSON.parse(content);
-    } catch (e) {
-      const m = /\{[\s\S]*\}/.exec(content);
-      if (m) { try { parsed = JSON.parse(m[0]); } catch { /* 仍失败 */ } }
-    }
-    if (!parsed) return { ok: false, error: 'AI 返回的不是合法 JSON' };
-    if (parsed.found === false) return { ok: false, error: 'AI 在页面里没找到开奖号码' };
-
-    return { ok: true, data: { issue: parsed.issue || fallbackIssue, date: parsed.date || '', areas: parsed.areas } };
-  } catch (e) {
-    clearTimeout(timer);
-    return { ok: false, error: e.cause?.code || e.message };
-  }
-}
+async function aiParse() { throw new Error('收费 AI 已移除'); }
 
 /* ============================================================
    主流程
@@ -687,9 +609,10 @@ async function main() {
   } else {
     const js = `/* 自动生成，请勿手动编辑 · ${now} */\n` +
       `const DRAW_DATA = ${JSON.stringify(out, null, 2)};\n`;
-    fs.writeFileSync(OUT_JS, js, 'utf8');
+    fs.writeFileSync(OUT_JS + '.tmp', js, 'utf8');
+    fs.renameSync(OUT_JS + '.tmp', OUT_JS);
     /* 【backoff 闸门】真写了文件才算成功（--dry-run 不记） */
-    gateMarkSuccess();
+    if (report.some((r) => r.status.startsWith('成功'))) gateMarkSuccess();
     log(`✅ 已写入 ${OUT_JS}（${Object.keys(merged).length} 个彩种` +
       (carried.length ? `，其中 ${carried.length} 个沿用上一次：${carried.join(' / ')}` : '') + '）');
   }
@@ -716,7 +639,7 @@ async function main() {
     log('\n  ⚠️ 一个彩种都没抓到：所有数据源都不可用。');
     log('     已尽量保留旧值；请检查网络，或调整 DRAW_SOURCE_ORDER 换源。');
   }
-  if (keptCount) process.exitCode = 0;   // 保留旧值不算失败，云端不该因此回滚
+  if (keptCount || okCount === 0) process.exitCode = 10;   // 保留旧值不算失败，云端不该因此回滚
 }
 
 main().catch((e) => {
