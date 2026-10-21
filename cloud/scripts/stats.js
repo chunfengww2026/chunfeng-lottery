@@ -3826,7 +3826,7 @@ function autoFillForTemplate(gameId, imageKey) {
      （没有历史数据时 recommendNumbers 会走随机兜底，
        算两次就会得到两个不同的结果，所以必须只算一次。） */
   const backArea = (gameId === 'dlt') ? 'back' : 'blue';
-  const backN = gameId === 'dlt' ? 2 : 6;
+  const backN = 6;
   const backRec = (gameId === 'ssq' || gameId === 'dlt')
     ? backRecNumbers(gameId, backArea, backN)
     : [];
@@ -4200,4 +4200,16 @@ function autoFillForTemplate(gameId, imageKey) {
   try { enforceConsistencyImage(gameId, imageKey, out); } catch (e) { /* 失败不影响出图 */ }
 
   return out;
+}
+
+/* DLT_BACK_SIX: the recommendation pool always contains six distinct 01..12. */
+function ensureDltBackSix(values, fallback) {
+  if (!values) return values;
+  function nums(text) { return String(text || '').trim().split(/[ ,，、]+/).filter(Boolean).map(Number).filter(function(n){ return Number.isInteger(n) && n >= 1 && n <= 12; }); }
+  const current = [...new Set(nums(values.b_rec))];
+  let ranked = [];
+  try { ranked = typeof backRecNumbers === 'function' ? backRecNumbers('dlt', 'back', 6) : []; } catch (e) {}
+  const pool = [...new Set(current.concat(nums(fallback && fallback.b_rec), ranked, [1,2,3,4,5,6,7,8,9,10,11,12]))];
+  values.b_rec = pool.slice(0,6).sort(function(a,b){ return a-b; }).map(function(n){ return String(n).padStart(2,'0'); }).join(' ');
+  return values;
 }
