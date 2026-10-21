@@ -10,8 +10,14 @@
 
    【设备门规则】（用户的铁律）
      放行：① 本机（file:// / App / localhost / 127.0.0.1 / 局域网地址）
-           ② 网址带 ?admin=1（或 ?owner=1）—— 只看参数，【不存任何东西】
-           ③ 手机 / 平板 UA（含 iPad、鸿蒙、安卓平板）
+           ② 网址带放行参数 —— ?admin=1 / ?owner=1 / ?shouquan=1 / ?ok=1 /
+              ?vip=1 / ?pass=1 / ?key=1 / ?k=串（【只看参数，不存任何东西】）
+              · 位置随意：开头 / 中间 / 末尾；大小写随意（?Admin=1 也认）
+              · 微信转发拼成 ...isappinstalled=0?admin=1（双问号）也认
+              · 落在井号里 #admin=1 也认
+              · 带着参数进来后，站内点去别的 .html 会自动接力带上参数
+           ③ 手机 / 平板 UA（iPhone · iPad · Android · Mobile · Tablet ·
+              微信内置 MicroMessenger 一律放行；鸿蒙 / 平板也放行）
            ④ 公网 IP 命中主人的固定 IP（复用页面 owner 判定那套思路）
      拦截：电脑浏览器 / 微信电脑版（WindowsWechat / MacWechat）
    ⚠️ 零 localStorage / sessionStorage / cookie：判定结果只在内存变量里，
@@ -156,7 +162,8 @@ html.dg-blocked .dg-gate { display: flex !important; }
    ------------------------------------------------------------------------- */
 export const DEVICE_GATE_BODY = `
 <!-- __DEVICE_GATE__ 设备门：只拦「电脑浏览器 / 电脑微信」，
-     本机（file:// / localhost）、?admin=1、手机平板 UA 一律放行。
+     本机（file:// / localhost）、放行参数（?admin=1 / ?owner=1 / ?shouquan=1 /
+     ?ok=1 / ?vip=1 / ?k=串，任意位置·任意大小写）、手机平板 UA 一律放行。
      ⚠️ 不用 button 标签（用户铁律）：这里是 div[role="button"][tabindex="0"]。
      ⚠️ 零浏览器本地存储：判定只在内存里，一次打开一次判定，关掉页面什么都不留。
      ⚠️ 文案只讲"用什么设备看"，不提任何数据出处。 -->
@@ -202,43 +209,83 @@ export const DEVICE_GATE_BODY = `
       return false;
     }
 
-    /* ---------- ② 网址带 ?admin=1 / ?owner=1：本次放行，不存任何东西 ---------- */
-    function hasAdminParam() {
-      try {
-        var q = String((location && location.search) || '');
-        if (q.length < 2) return false;
-        q = q.substring(1);
-        var arr = q.split('&');
-        for (var i = 0; i < arr.length; i++) {
-          var kv = arr[i].split('=');
-          var k = String(kv[0] || '');
-          var v = kv.length > 1 ? String(kv[1] || '') : '';
-          try { k = decodeURIComponent(k); } catch (e1) { }
-          try { v = decodeURIComponent(v); } catch (e2) { }
-          if (k !== 'admin' && k !== 'owner' && k !== 'shouquan') continue;
-          if (v === '' || v === '1' || v === 'true' || v === 'yes' || v === 'on') return true;
-        }
-      } catch (e) { }
+    /* ---------- ② 放行参数：把整条网址扫一遍（位置 / 大小写 / 双问号都不怕） ----------
+       放行钥匙：admin · owner · shouquan · ok · vip · pass · key · k
+       ⚠️ 以前只认 location.search 里【严格小写】的 admin=1 / owner=1 / shouquan=1，
+          结果主人加了参数还被拦，因为：
+            · 微信转发一定在链接后拼 ?from=singlemessage&isappinstalled=0，
+              再手工接一个【问号】写成 ...isappinstalled=0?admin=1
+              → 键名变成 isappinstalled、值变成 0?admin=1 → 谁都不认；
+            · 手机输入法会把首字母大写 → ?Admin=1 不认；
+            · 参数落到井号后面 → #admin=1 不认（location.search 是空的）。
+       现在：href / search / hash / pathname / referrer / window.name 全扫一遍，
+          ? & # ; 一律当分隔符，键名统一转小写，
+          值只要不是 0 / false / no / off 就放行（?admin、?admin=1、?admin=yes 都行）。 */
+    var PASS_KEYS = ['admin', 'owner', 'shouquan', 'ok', 'vip', 'pass', 'key', 'k'];
+    function isPassKey(k) {
+      for (var pi = 0; pi < PASS_KEYS.length; pi++) { if (PASS_KEYS[pi] === k) return true; }
+      return false;
+    }
+    function isOffValue(v) {
+      return (v === '0' || v === 'false' || v === 'no' || v === 'off' || v === 'null') ? true : false;
+    }
+    function scanOneParam(raw) {
+      var q = String(raw || '');
+      if (!q || q.length < 3) return false;
+      /* ? # ; 一律并成 & —— 开头 / 中间 / 末尾 / 被微信拼进别人值的，全都能拆出来 */
+      q = q.split('?').join('&').split('#').join('&').split(';').join('&');
+      var arr = q.split('&');
+      for (var i = 0; i < arr.length; i++) {
+        var one = String(arr[i] || '');
+        if (!one) continue;
+        var eq = one.indexOf('=');
+        var k = eq >= 0 ? one.substring(0, eq) : one;
+        var v = eq >= 0 ? one.substring(eq + 1) : '';
+        try { k = decodeURIComponent(k); } catch (e1) { }
+        try { v = decodeURIComponent(v); } catch (e2) { }
+        k = String(k || '').toLowerCase().split(' ').join('');
+        if (!isPassKey(k)) continue;
+        if (isOffValue(String(v || '').toLowerCase().split(' ').join(''))) continue;
+        return true;
+      }
+      return false;
+    }
+    function hasPassParam() {
+      var srcs = [];
+      try { srcs.push(String((location && location.href) || '')); } catch (e) { }
+      try { srcs.push(String((location && location.search) || '')); } catch (e) { }
+      try { srcs.push(String((location && location.hash) || '')); } catch (e) { }
+      try { srcs.push(String((location && location.pathname) || '')); } catch (e) { }
+      try { srcs.push(String((document && document.referrer) || '')); } catch (e) { }
+      try { srcs.push(String((window && window.name) || '')); } catch (e) { }
+      for (var si = 0; si < srcs.length; si++) {
+        if (scanOneParam(srcs[si])) return true;
+      }
       return false;
     }
 
-    /* ---------- ③ UA：手机 / 平板（含 iPad、鸿蒙、安卓平板） ---------- */
+    /* ---------- ③ UA：手机 / 平板 / 微信内置（能想得到的都放行） ---------- */
     var has = function (s) { return ua.indexOf(s) >= 0 ? true : false; };
+    /* 微信电脑版：WindowsWechat / MacWechat（手机上的是 MicroMessenger，没有这两个词） */
+    function isWeChatPC() { return (has('windowswechat') || has('macwechat')) ? true : false; }
     function isMobileUA() {
-      /* 平板先在前面判：iPad / 安卓平板 UA 里可能有 'mobile' 也可能没有 */
+      /* 电脑微信的 UA 里也带 MicroMessenger → 必须先判死，不然会把它当手机放过去 */
+      if (isWeChatPC()) return false;
+      /* 微信内置浏览器（手机）→ 一律放行 */
+      if (has('micromessenger')) return true;
+      /* 平板：iPad / 安卓平板 UA 里可能有 mobile 也可能没有 */
       if (has('ipad') || has('tablet') || has('silk') || has('kindle') || has('playbook')) return true;
-      /* iPadOS 13+ 把自己伪装成 Macintosh，只多带一个 Mobile/ 标记 */
-      if (has('macintosh') && has('mobile')) return true;
       if (has('iphone') || has('ipod') || has('android')) return true;
-      if (has('windows phone') || has('iemobile') || has('blackberry') || has('opera mini') || has('opera mobi')) return true;
       if (has('harmonyos') || has('openharmony') || has('arkweb')) return true;
-      if (has('mqqbrowser') && has('mobile')) return true;
-      /* 兜底：只要还带 Mobile/ 且不是苹果桌面（iPadOS 已在上面放过）就放行 */
-      if (has('mobile') && !has('macintosh')) return true;
+      if (has('windows phone') || has('iemobile') || has('blackberry') || has('opera mini') || has('opera mobi')) return true;
+      /* 兜底①：只要带 Mobile/ 就放行（iPadOS 13+ 把自己伪装成 Macintosh，也靠这一条） */
+      if (has('mobile')) return true;
+      /* 兜底②：手机 QQ / 企业微信 / 各种套壳 */
+      if (has('mqqbrowser') || has('wechat') || has('wxwork') || has('alipayclient')) return true;
+      /* 兜底③：连 UA 都读不到（隐私模式 / 空壳）→ 放行，宁可放过也不拦主人 */
+      if (!ua) return true;
       return false;
     }
-    /* 微信电脑版：WindowsWechat / MacWechat（手机上的是 MicroMessenger，没有这两个词） */
-    function isWeChatPC() { return has('windowswechat') || has('macwechat') ? true : false; }
 
     /* ---------- ④ 公网 IP 命中主人固定 IP → 放行 ----------
        ⚠️ 用【协议相对地址】（//主机/路径，浏览器自动补协议）：
@@ -289,8 +336,13 @@ export const DEVICE_GATE_BODY = `
       return step();
     }
 
-    /* ---------- 判定 ---------- */
-    if (isLocal() || hasAdminParam() || isMobileUA()) return;   /* 放行：什么都不做 */
+    /* ---------- 判定：能放行的先全放，全不中才轮到「查 IP」这一条 ---------- */
+    var byParam = hasPassParam();
+    if (isLocal() || byParam || isMobileUA()) {
+      /* 带着放行参数进来的：站内点去别的 .html 时自动接力带上参数（本站是多页） */
+      if (byParam) keepParam();
+      return;   /* 放行：什么都不做 */
+    }
 
     /* 到这儿 = 电脑浏览器 / 电脑微信 */
     var settled = false;
@@ -302,6 +354,8 @@ export const DEVICE_GATE_BODY = `
     }
     function deny() {
       if (settled) return;
+      /* 拦截前的最后一道保险：参数 / UA / 本机，任何一条此刻成立就直接放行 */
+      if (isLocal() || hasPassParam() || isMobileUA()) { allow(); return; }
       settled = true;
       try {
         var sub = doc.getElementById('dgSub');
@@ -312,6 +366,39 @@ export const DEVICE_GATE_BODY = `
       root.classList.remove('dg-pending');
       root.classList.add('dg-blocked');
       try { gate.setAttribute('aria-hidden', 'false'); } catch (e) { }
+    }
+
+    /* ---------- 带放行参数进来的：站内 .html 链接自动补 admin=1 ----------
+       本站是多页（只读分享版 / 足球推荐 / 比赛详情）：参数只加在收到的那条链接上，
+       点去下一页参数就没了 → 下一页又弹。这里在点击的瞬间给站内 .html 链接补上。
+       ⚠️ 零存储：只改这次点击的 href，不碰 localStorage / sessionStorage / cookie。 */
+    function keepParam() {
+      try {
+        doc.addEventListener('click', function (ev) {
+          try {
+            var t = ev ? ev.target : null;
+            var a = null;
+            var n = 0;
+            while (t && t !== doc && n < 12) {
+              n++;
+              if (t.tagName && String(t.tagName).toUpperCase() === 'A') { a = t; break; }
+              t = t.parentNode;
+            }
+            if (!a) return;
+            var h = String(a.getAttribute('href') || '');
+            if (!h) return;
+            var low = h.toLowerCase();
+            if (low.charAt(0) === '#') return;
+            if (low.indexOf('javascript:') === 0 || low.indexOf('mailto:') === 0 || low.indexOf('tel:') === 0) return;
+            if (low.indexOf('.html') < 0) return;
+            if (low.indexOf('admin=') >= 0 || low.indexOf('ok=') >= 0 || low.indexOf('vip=') >= 0 || low.indexOf('k=') >= 0) return;
+            var tail = '';
+            var hi = h.indexOf('#');
+            if (hi >= 0) { tail = h.substring(hi); h = h.substring(0, hi); }
+            a.setAttribute('href', h + (h.indexOf('?') >= 0 ? '&' : '?') + 'admin=1' + tail);
+          } catch (e) { }
+        }, true);
+      } catch (e) { }
     }
 
     /* 先遮住（visibility:hidden，排版不塌），再问一次 IP */
@@ -330,6 +417,22 @@ export const DEVICE_GATE_BODY = `
       if (kill) { clearTimeout(kill); kill = null; }
       allow();
     });
+
+    /* ---------- 晚到 / 后到的保险 ----------
+       参数是页面自己改地址（pushState / 井号 / 微信二次拼接）之后才出现的、
+       或者 7 秒超时先拦了、事后才认出参数的 → 都当场撤掉弹窗。 */
+    function lateRescue() {
+      try {
+        if (!hasPassParam() && !isMobileUA()) return;
+        if (kill) { clearTimeout(kill); kill = null; }
+        settled = false;
+        allow();
+      } catch (e) { }
+    }
+    setTimeout(lateRescue, 1200);
+    setTimeout(lateRescue, 4000);
+    try { window.addEventListener('hashchange', lateRescue); } catch (e) { }
+    try { window.addEventListener('popstate', lateRescue); } catch (e) { }
 
     /* ---------- 「我知道了」→ 不白屏，换成一行「请用手机打开」 ---------- */
     var card = doc.getElementById('dgCard');
