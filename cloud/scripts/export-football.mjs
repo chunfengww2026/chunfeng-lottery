@@ -3526,7 +3526,7 @@ function buildCommunityTopicsHtml() {
   return '<div style="margin-top:10px;padding-top:8px;border-top:1px dashed #e8d7bd;">'
     + '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">'
     + '<span style="font-size:13px;font-weight:800;color:#4a3a26;">大家都在聊</span>'
-    + '<span style="font-size:10.5px;color:#a89a80;">' + (hasBody ? '点标题看正文' : '社区热点 · 每小时更新') + '</span>'
+    + '<span style="font-size:10.5px;color:#a89a80;">' + (hasBody ? '点标题看正文' : '社区热点 · 自动更新') + '</span>'
     + '</div>' + css + rows + '</div>';
 }
 const communityHotHtml = buildCommunityTopicsHtml();
@@ -4094,7 +4094,7 @@ padding:0;margin:0;user-select:none;-webkit-tap-highlight-color:transparent;bord
 <span class="cx-card-sub">24 小时内的最新 · 自动刷新</span>
 <span class="cx-card-go" aria-hidden="true"></span>
 </summary>
-<div class="cx-card-body">
+<div class="cx-card-body" id="communityLiveBody">
 ${communityHtml2()}
 ${communityHotHtml}
 </div>
@@ -5725,6 +5725,26 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
     } catch (e) { raw = 'null'; }
     return '<script>window.JC_SCORES = ' + raw + ';</script>';
   })() + `
+<script>
+(function(){
+  if(location.protocol==='file:') return;
+  var busy=false;
+  function update(){
+    if(busy||document.hidden) return; busy=true;
+    var url=new URL(location.href);url.searchParams.set('t',String(Date.now()));
+    fetch(url.href,{cache:'no-store'}).then(function(r){return r.ok?r.text():'';}).then(function(text){
+      var next=new DOMParser().parseFromString(text,'text/html').getElementById('communityLiveBody');
+      var current=document.getElementById('communityLiveBody');
+      if(!next||!current||next.innerHTML===current.innerHTML)return;
+      var open={};current.querySelectorAll('details[open]').forEach(function(d){var t=d.querySelector('.cx-t');if(t)open[t.textContent]=true;});
+      next.querySelectorAll('script').forEach(function(s){s.remove();});current.innerHTML=next.innerHTML;
+      current.querySelectorAll('details').forEach(function(d){var t=d.querySelector('.cx-t');if(t&&open[t.textContent])d.open=true;});
+    }).catch(function(){}).then(function(){busy=false;});
+  }
+  window.__communityRefresh=update;setInterval(update,90000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)update();});
+})();
+</script>
 </body>
 </html>`;
 
