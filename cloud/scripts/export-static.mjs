@@ -1678,8 +1678,8 @@ function buildArticlesHtml() {
     }
   } catch (e) { }
 
-  const zldqHtml = '<section class="ro-zldq" id="ro-zldq">' +
-    '<div class="ro-zldq-h">名家图库</div>' +
+  const zldqHtml = '<details class="ro-zldq" id="ro-zldq" open>' +
+    '<summary class="ro-zldq-h">名家图库</summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
@@ -1711,7 +1711,7 @@ function buildArticlesHtml() {
     'document.addEventListener("click",function(e){var t=e.target;' +
     'if(t&&t.tagName==="IMG"&&(t.closest(".ro-zldq-i")||t.closest(".ro-mj-i"))){e.preventDefault();im.src=t.src;lb.style.display="flex";return;}' +
     'if(t===lb||t.id==="imgLBc"||t.id==="imgLBi"){lb.style.display="none";im.src="";}},false);})();</script>' +
-    '</section>';
+    '</details>';
 
   /* ===== MINGJIA_GALLERY · 名家图库（build-mingjia.mjs 抓的 50 张图 ✗）===== */
   let mjHtml = '';
