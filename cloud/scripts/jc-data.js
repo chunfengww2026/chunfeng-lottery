@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 00:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 00:58 */
 const JC_DATA = {
- "updated": "2026-10-22 00:28",
+ "updated": "2026-10-22 00:58",
  "stat": {
-  "total": 13,
-  "upcoming": 10,
+  "total": 11,
+  "upcoming": 8,
   "live": 0,
   "finished": 3,
   "withScore": 3,
-  "droppedNotOnSale": 0,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 21,
-  "droppedNotOnSale": 0,
+  "officialCodes": 19,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -339,212 +339,6 @@ const JC_DATA = {
    }
   },
   {
-   "gid": "1479932",
-   "fid": "1479932",
-   "sid": "19943",
-   "code": "周三004",
-   "league": "欧冠",
-   "round": "第3轮",
-   "time": "2026-10-22 00:45",
-   "handicap": "-1",
-   "home": {
-    "name": "科莫",
-    "rank": 17
-   },
-   "away": {
-    "name": "曼联",
-    "rank": 18
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1.02,
-      "line": "平手/半球",
-      "away": 0.82
-     },
-     "live": {
-      "home": 0.95,
-      "line": "平手/半球",
-      "away": 0.9
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.3,
-      "draw": 3.4,
-      "away": 3
-     },
-     "live": {
-      "home": 2.4,
-      "draw": 3.6,
-      "away": 2.75
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 1,
-      "over": 2.5,
-      "under": 0.85
-     },
-     "live": {
-      "line": 0.82,
-      "over": 3,
-      "under": 1.02
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 39.4,
-    "prob": {
-     "home": 39.4,
-     "draw": 26.3,
-     "away": 34.4
-    },
-    "clear": false,
-    "margin": 5.8,
-    "rqLine": "平手/半球",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 0.95,
-    "downWater": 0.9,
-    "openHandicap": -0.25,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "48.65",
-    "theoryDownPercent": "51.35",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.25,
-     "initUpWater": 1.02,
-     "nowUpWater": 0.95,
-     "initLine": "平手/半球",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
-  {
-   "gid": "1480004",
-   "fid": "1480004",
-   "sid": "19943",
-   "code": "周三005",
-   "league": "欧冠",
-   "round": "第3轮",
-   "time": "2026-10-22 00:45",
-   "handicap": "-1",
-   "home": {
-    "name": "里尔",
-    "rank": 33
-   },
-   "away": {
-    "name": "加拉塔萨",
-    "rank": 35
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.85,
-      "line": "平手/半球",
-      "away": 1
-     },
-     "live": {
-      "home": 0.9,
-      "line": "平手/半球",
-      "away": 0.95
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.15,
-      "draw": 3.4,
-      "away": 3.3
-     },
-     "live": {
-      "home": 2.45,
-      "draw": 3.5,
-      "away": 2.75
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.85,
-      "over": 2.5,
-      "under": 1
-     },
-     "live": {
-      "line": 0.85,
-      "over": 2.5,
-      "under": 1
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 38.6,
-    "prob": {
-     "home": 38.6,
-     "draw": 27,
-     "away": 34.4
-    },
-    "clear": false,
-    "margin": 5.8,
-    "rqLine": "平手/半球",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.95,
-    "openHandicap": -0.25,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.85,
-    "theoryUpPercent": "51.35",
-    "theoryDownPercent": "48.65",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.25,
-     "initUpWater": 0.85,
-     "nowUpWater": 0.9,
-     "initLine": "平手/半球",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
-  {
    "gid": "1428036",
    "fid": "1428036",
    "sid": "19947",
@@ -595,9 +389,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1.05,
-      "over": 2.5,
-      "under": 0.8
+      "line": 0.8,
+      "over": 2,
+      "under": 1.05
      }
     }
    },
@@ -688,7 +482,7 @@ const JC_DATA = {
      "live": {
       "home": 1.22,
       "draw": 7,
-      "away": 10
+      "away": 11
      }
     },
     "overunder": {
@@ -707,14 +501,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 77.1,
+    "confidence": 77.8,
     "prob": {
-     "home": 77.1,
-     "draw": 13.4,
-     "away": 9.4
+     "home": 77.8,
+     "draw": 13.6,
+     "away": 8.6
     },
     "clear": true,
-    "margin": 6.3,
+    "margin": 5.3,
     "rqLine": "两球",
     "type": "three"
    },
@@ -777,9 +571,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 0.97,
+      "home": 0.95,
       "line": "两球",
-      "away": 0.87
+      "away": 0.9
      }
     },
     "europe": {
@@ -801,9 +595,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.77,
-      "over": 3.5,
-      "under": 1.02
+      "line": 1.02,
+      "over": 4,
+      "under": 0.82
      }
     }
    },
@@ -826,21 +620,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -2,
     "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.87,
+    "upWater": 0.95,
+    "downWater": 0.9,
     "openHandicap": -1.75,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "47.28",
-    "theoryDownPercent": "52.72",
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
     "canWater": true,
     "handicapChange": {
      "type": "降盘升水",
      "initHandicap": -1.75,
      "nowHandicap": -2,
      "initUpWater": 0.82,
-     "nowUpWater": 0.97,
+     "nowUpWater": 0.95,
      "initLine": "球半/两球",
      "nowLine": "两球"
     },
@@ -983,9 +777,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 1.15,
-      "line": "半球",
-      "away": 0.67
+      "home": 0.92,
+      "line": "平手/半球",
+      "away": 0.92
      }
     },
     "europe": {
@@ -996,7 +790,7 @@ const JC_DATA = {
      },
      "live": {
       "home": 2.2,
-      "draw": 3.7,
+      "draw": 3.6,
       "away": 3
      }
     },
@@ -1007,48 +801,48 @@ const JC_DATA = {
       "under": 0.7
      },
      "live": {
-      "line": 0.82,
+      "line": 0.85,
       "over": 3,
-      "under": 1.02
+      "under": 1
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 43,
+    "confidence": 42.7,
     "prob": {
-     "home": 43,
-     "draw": 25.5,
-     "away": 31.5
+     "home": 42.7,
+     "draw": 26.1,
+     "away": 31.3
     },
     "clear": false,
-    "margin": 5.8,
-    "rqLine": "半球",
+    "margin": 6.6,
+    "rqLine": "平手/半球",
     "type": "unbeaten"
    },
    "asianIndex": {
-    "line": "半球",
+    "line": "平手/半球",
     "from": "live",
-    "handicap": -0.5,
+    "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
+    "upWater": 0.92,
+    "downWater": 0.92,
     "openHandicap": -0.25,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": false,
+    "totalWater": 1.84,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
+    "canWater": true,
     "handicapChange": {
-     "type": "降盘升水",
+     "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
-     "nowHandicap": -0.5,
+     "nowHandicap": -0.25,
      "initUpWater": 1.02,
-     "nowUpWater": 1.15,
+     "nowUpWater": 0.92,
      "initLine": "平手/半球",
-     "nowLine": "半球"
+     "nowLine": "平手/半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -1098,9 +892,9 @@ const JC_DATA = {
       "away": 11
      },
      "live": {
-      "home": 1.33,
+      "home": 1.36,
       "draw": 5.25,
-      "away": 8.5
+      "away": 8
      }
     },
     "overunder": {
@@ -1119,14 +913,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 70.9,
+    "confidence": 70,
     "prob": {
-     "home": 70.9,
-     "draw": 18,
-     "away": 11.1
+     "home": 70,
+     "draw": 18.1,
+     "away": 11.9
     },
     "clear": true,
-    "margin": 6,
+    "margin": 5.1,
     "rqLine": "球半",
     "type": "three"
    },
@@ -1372,72 +1166,10 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-22 00:28",
+  "updated": "2026-10-22 00:58",
   "officialUpdate": "2026-10-21 21:49:50",
-  "inSale": 21,
+  "inSale": 19,
   "list": [
-   {
-    "code": "周三004",
-    "matchNum": "3004",
-    "league": "欧冠",
-    "time": "2026-10-22 00:45:00",
-    "home": "科莫",
-    "away": "曼联",
-    "had": {
-     "h": 2.28,
-     "d": 3.6,
-     "a": 2.42,
-     "update": "2026-10-21 21:49:45"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 4.65,
-     "d": 4.36,
-     "a": 1.46,
-     "update": "2026-10-21 21:49:50"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
-   {
-    "code": "周三005",
-    "matchNum": "3005",
-    "league": "欧冠",
-    "time": "2026-10-22 00:45:00",
-    "home": "里尔",
-    "away": "加拉塔萨",
-    "had": {
-     "h": 1.81,
-     "d": 3.65,
-     "a": 3.3,
-     "update": "2026-10-21 14:22:51"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 3.57,
-     "d": 3.6,
-     "a": 1.75,
-     "update": "2026-10-21 20:32:43"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周三006",
     "matchNum": "3006",
