@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 04:09:17
+   更新时间：2026-10-22 04:34:49
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 04:09:17",
+ "updated": "2026-10-22 04:34:49",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
@@ -282,6 +282,7 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
   "/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
   "/tos-cn-i-6w9my0ksvp/fc43bc8ed8ca49a2a049a33cf5833b0a~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
-  "/tos-cn-i-6w9my0ksvp/a98bfbee54a8403f90a6660f73d0f491~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535
+  "/tos-cn-i-6w9my0ksvp/a98bfbee54a8403f90a6660f73d0f491~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-6w9my0ksvp/b959c10622634cd1b6439cce71c5579d~tplv-26tn0yjwph-cspd-v1.jpg": 1792614889701
  }
 };
