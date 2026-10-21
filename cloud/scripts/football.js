@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "58A86B"
     },
     "time": "2026-10-22 02:30:00",
-    "minute": 13,
+    "minute": 23,
     "home": {
      "name": "凯尔特人女足",
      "score": 1,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "58A86B"
     },
     "time": "2026-10-22 02:35:00",
-    "minute": 7,
+    "minute": 17,
     "home": {
      "name": "格拉斯哥城女足",
      "score": 0,
@@ -313,16 +313,16 @@ const FOOTBALL_DATA = {
      "color": "C66300"
     },
     "time": "2026-10-22 02:45:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "维特利弗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "伯吉斯山",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -386,16 +386,16 @@ const FOOTBALL_DATA = {
      "color": "D07D02"
     },
     "time": "2026-10-22 02:45:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "阿芙羅",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "阿斯顿联",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
@@ -3781,7 +3781,7 @@ const FOOTBALL_DATA = {
      "color": "FF6633"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 80,
+    "minute": 90,
     "home": {
      "name": "桑托斯拉古納U21",
      "score": 1,
@@ -3847,7 +3847,7 @@ const FOOTBALL_DATA = {
      "color": "1BA599"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 83,
+    "minute": 93,
     "home": {
      "name": "克羅茲林根",
      "score": 2,
@@ -3885,7 +3885,7 @@ const FOOTBALL_DATA = {
      "color": "44592A"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 79,
+    "minute": 89,
     "home": {
      "name": "卡尔斯多夫",
      "score": 1,
@@ -4159,7 +4159,7 @@ const FOOTBALL_DATA = {
      "color": "3692FF"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 82,
+    "minute": 92,
     "home": {
      "name": "巴勒鲁普女足",
      "score": 1,
@@ -4197,7 +4197,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 82,
+    "minute": 92,
     "home": {
      "name": "切拉米卡克里奥帕特拉",
      "score": 1,
@@ -4263,7 +4263,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 78,
+    "minute": 88,
     "home": {
      "name": "阿尔艾利开罗",
      "score": 2,
@@ -4272,7 +4272,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿尔卡纳",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 13
     },
@@ -4461,7 +4461,7 @@ const FOOTBALL_DATA = {
      "color": "1BA599"
     },
     "time": "2026-10-22 01:30:00",
-    "minute": 58,
+    "minute": 68,
     "home": {
      "name": "贝林佐纳",
      "score": 1,
@@ -4527,7 +4527,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "威拉诺瓦",
      "score": 1,
@@ -4565,7 +4565,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 40,
+    "minute": 0,
     "home": {
      "name": "海斯特",
      "score": 2,
@@ -4603,7 +4603,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "蒙斯",
      "score": 0,
@@ -4681,7 +4681,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "拉努斯后备队",
      "score": 2,
@@ -4821,7 +4821,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "拉普拉塔体操后备队",
      "score": 0,
@@ -4899,7 +4899,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "費羅卡利爾(後備)",
      "score": 0,
@@ -4977,7 +4977,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "貝爾格拉諾(後備)",
      "score": 0,
@@ -5055,7 +5055,7 @@ const FOOTBALL_DATA = {
      "color": "f44d4d"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "诺维奇U21",
      "score": 0,
@@ -5133,10 +5133,10 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "修咸頓(女)",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 7
     },
@@ -5211,7 +5211,7 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "西汉姆女足",
      "score": 1,
@@ -5220,7 +5220,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "伦敦城雌狮女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -5289,7 +5289,7 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "利物浦女足",
      "score": 0,
@@ -5367,7 +5367,7 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "愛華頓女足",
      "score": 0,
@@ -5445,7 +5445,7 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "达勒姆女足",
      "score": 0,
@@ -5523,7 +5523,7 @@ const FOOTBALL_DATA = {
      "color": "880023"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "伯恩利女足",
      "score": 0,
@@ -5601,7 +5601,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-10-22 02:00:00",
-    "minute": 41,
+    "minute": 0,
     "home": {
      "name": "莱万特",
      "score": 2,
