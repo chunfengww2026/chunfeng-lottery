@@ -6,16 +6,16 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 00:56
+   更新时间：2026-10-22 01:06
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 00:56",
+ "updated": "2026-10-22 01:06",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=CM0GzYF1Cr4TfJPem0t62BJRYUA%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QKN7NdM1zEyB3WqRW4RmabBcVD0%3D",
    "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
    "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
    "at": "2026-10-21T16:00:38.833Z",
@@ -26,26 +26,28 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792553476000,
-   "seenMs": 1792601161735,
+   "seenMs": 1792602361747,
    "drawMs": 1792589400000,
    "nextMs": 1792675800000,
    "atMs": 1792598438833,
    "drawAt": "2026-10-21T13:30:00.000Z",
    "nextAt": 1792675800000,
    "drawGid": "kl8",
-   "expireAt": "2026-10-24T16:46:01.735Z",
+   "expireAt": "2026-10-24T17:06:01.747Z",
    "rule": "next-draw",
    "author": "勇敢的风铃lI",
    "when": "2026-10-21 11:31:16",
    "postId": "1879628554079236",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=26R9YqesvjBo3P3aqgdNPxn4QAA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=gse5r8cjQxAaFl8DLdIqox35DOw%3D",
    "title": "#彩票“快乐8”怎么玩儿# #彩票“快乐8”怎么玩儿# 快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。 玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。 简单捋一下： 选",
    "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
    "at": "2026-10-21T16:00:38.833Z",
@@ -56,7 +58,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792542737000,
    "seenMs": 1792601161735,
    "drawMs": 1792589400000,
@@ -73,6 +75,38 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=4OkLhe111ivSY0KnvcQUGVVb3rI%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=4OkLhe111ivSY0KnvcQUGVVb3rI%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=SCltXHxN8bu9yTrfg5zfTRQYevE%3D",
+   "title": "之前蹲过10月15日快乐8第2026274期的开奖公告，当天卖了1.13亿，派奖8178万，9个人拿了25万、27人拿了5万，结果大家最盯着的选十中十500万头奖，一注都没开出来。 好多人问易中奖吗，其实得先搞清楚你要的“中奖”是啥。想天天",
+   "url": "http://toutiao.com/preview_article/?pgc_id=1879616526782474",
+   "at": "2026-10-21T16:00:38.833Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "2026274",
+   "seen": "2026-10-21T17:06:01.747Z",
+   "whenMs": 1792542006000,
+   "seenMs": 1792602361747,
+   "drawMs": 1792589400000,
+   "nextMs": 1792675800000,
+   "atMs": 1792598438833,
+   "drawAt": "2026-10-21T13:30:00.000Z",
+   "nextAt": 1792675800000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-24T17:06:01.747Z",
+   "rule": "next-draw",
+   "author": "美女老公",
+   "when": "2026-10-21 08:20:06",
+   "postId": "1879616526782474",
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
+  },
+  {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c08c420fc28944e6a9c49eaf2925994d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=iBHO%2BKcdTL4rwD64Pna%2FATSLbXA%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c08c420fc28944e6a9c49eaf2925994d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=iBHO%2BKcdTL4rwD64Pna%2FATSLbXA%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=SCltXHxN8bu9yTrfg5zfTRQYevE%3D",
@@ -86,7 +120,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "2026274",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792542006000,
    "seenMs": 1792601161735,
    "drawMs": 1792589400000,
@@ -116,37 +150,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "2026274",
-   "seen": "2026-10-21T16:46:01.735Z",
-   "whenMs": 1792542006000,
-   "seenMs": 1792601161735,
-   "drawMs": 1792589400000,
-   "nextMs": 1792675800000,
-   "atMs": 1792598438833,
-   "drawAt": "2026-10-21T13:30:00.000Z",
-   "nextAt": 1792675800000,
-   "drawGid": "kl8",
-   "expireAt": "2026-10-24T16:46:01.735Z",
-   "rule": "next-draw",
-   "author": "美女老公",
-   "when": "2026-10-21 08:20:06",
-   "postId": "1879616526782474",
-   "px": 132300
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=6dYlQsslhx49ug12WSgTR8NwhbQ%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=6dYlQsslhx49ug12WSgTR8NwhbQ%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=SCltXHxN8bu9yTrfg5zfTRQYevE%3D",
-   "title": "之前蹲过10月15日快乐8第2026274期的开奖公告，当天卖了1.13亿，派奖8178万，9个人拿了25万、27人拿了5万，结果大家最盯着的选十中十500万头奖，一注都没开出来。 好多人问易中奖吗，其实得先搞清楚你要的“中奖”是啥。想天天",
-   "url": "http://toutiao.com/preview_article/?pgc_id=1879616526782474",
-   "at": "2026-10-21T16:00:38.833Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "快乐8",
-   "games": [
-    "kl8"
-   ],
-   "issue": "2026274",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792542006000,
    "seenMs": 1792601161735,
    "drawMs": 1792589400000,
@@ -176,7 +180,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "2026274",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792542006000,
    "seenMs": 1792601161735,
    "drawMs": 1792589400000,
@@ -206,7 +210,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T16:46:01.735Z",
+   "seen": "2026-10-21T17:06:01.747Z",
    "whenMs": 1792536177000,
    "seenMs": 1792601161735,
    "drawMs": 1792589400000,
