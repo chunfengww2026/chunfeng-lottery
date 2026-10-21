@@ -1420,7 +1420,7 @@ function renderMatch(m) {
   else if (m.kind === 'finished') st = '<span class="m-st fin">完场</span>';
 
   /* 历史归档场次：卡片加 .hist（虚线左边框 + 略淡），一眼看出不是本次在售 */
-  const cls = 'm-card'
+  const cls = 'm-card collapsed folded'
     + (m.result && m.result.settled ? (m.result.hit ? ' win' : ' lose') : '')
     + (m.fromHistory ? ' hist' : '');
 
@@ -1429,7 +1429,7 @@ function renderMatch(m) {
      目标页由 build-match.mjs 生成，发布名单见 sync-cloud.mjs / cloud-build.mjs /
      .github/workflows/daily-update.yml 三处。 */
   const body =
-    `<div class="m-top">` +
+    `<div class="m-top" role="button" aria-expanded="false">` +
     (m.code ? `<span class="m-code">${esc(m.code)}</span>` : '') +
     `<span class="m-league">${esc(m.league || '')}</span>` +
     (m.round ? `<span class="m-round">${esc(m.round)}</span>` : '') +
@@ -1438,9 +1438,9 @@ function renderMatch(m) {
     /* 【折叠】用户 2026-10-17 给的卡片设计：点头部折叠/展开，右侧一个 ▾。
        .m-top 现在是可点的（整卡不再是链接，见下方 return），
        .m-body 包住下面所有内容，折叠时 display:none，▾ 转 90 度。 */
-    `<span class="m-fold" aria-hidden="true">▾</span>` +
+    `<span class="m-fold" aria-hidden="true" style="transform:none!important">▸</span>` +
     `</div>` +
-    `<div class="m-body">` +
+    `<div class="m-body" style="display:none!important">` +
     `<div class="m-teams">` +
     `<span class="m-team home">${hs}${esc(m.home.name)}${hc}</span>` +
     /* 【比分显示】用户 2026-10-17：「已完场要有比分显示」（进行中本来就有）。
