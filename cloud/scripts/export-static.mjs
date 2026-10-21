@@ -1680,6 +1680,7 @@ function buildArticlesHtml() {
 
   const zldqHtml = '<section class="ro-zldq" id="ro-zldq">' +
     '<div class="ro-zldq-h">名家图库</div>' +
+    '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
       /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
