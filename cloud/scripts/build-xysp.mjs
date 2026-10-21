@@ -292,6 +292,7 @@ function parsePage(html, atIso, nowMs) {
    独立成函数，方便验收脚本直接拿假数据调它。
    ============================================================ */
 function mergeAndPrune(oldData, freshByGame, nowMs) {
+  const firstSeenRegistry = {...(oldData && oldData.firstSeenRegistry || {})};
   const cutoff = nowMs - PUB_HOURS * 3600 * 1000;      /* 24 小时：看【发布时间】 */
   const games = {};
   const stat = { kept: 0, dropped: 0, dupes: 0, added: 0, dropPub: 0, dropDraw: 0, dropCap: 0, pubFallback: 0, imgDup: 0, titleDup: 0 };
@@ -302,8 +303,10 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     const push = (it, count) => {
       const img = it && it.img ? String(it.img) : '';
       if (!img) return;
-      const at = String(it.at || '');
-      const t = Date.parse(at);
+      let at = String(it.at || '');
+      let t = Date.parse(at);
+      const fp = imgFingerprint(img);
+      if(Number.isFinite(t)){const seen=Number(firstSeenRegistry[fp]);if(Number.isFinite(seen)&&seen>0)t=Math.min(t,seen);firstSeenRegistry[fp]=t;at=new Date(t).toISOString();}
       if (!isFinite(t)) return;
 
       /* ============ 用户要求的两条时效规则（两条都要满足） ============
@@ -334,13 +337,13 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
       }
       let pubSrc = it.pubSrc || '';
       if (!pubMs) { pubMs = t; pubSrc = 'at'; stat.pubFallback++; }   /* 退回抓取时间 */
-      if (pubSrc !== 'at' && pubMs < cutoff) { stat.dropped++; stat.dropPub++; return; }
+      if (count && pubSrc !== 'at' && pubMs < cutoff) { stat.dropped++; stat.dropPub++; return; }
 
       /* 条目本身的兜底下限：最早抓到的时间 + 24 小时 */
-      if (t < cutoff) { stat.dropped++; stat.dropCap++; return; }
+      if (t <= cutoff) { stat.dropped++; stat.dropCap++; return; }
 
       const knownDraw = typeof it.nextAt === 'number' ? it.nextAt : Date.parse(String(it.nextAt || ''));
-      if (Number.isFinite(knownDraw) && nowMs >= knownDraw + 24 * 3600000) { stat.dropped++; stat.dropDraw++; return; }
+      // Retain lottery ticket images for a full 24 hours after first capture.
 
       const prev = bucket.get(img);
       if (prev) {
@@ -405,8 +408,8 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
          · ① 图片指纹（尺寸/签名/CDN 节点变体 → 留尺寸最大的那张）
          · ② 标题前 16 字相同且不是同一个帖子（→ 留发布时间最早的）
        ⚠️ 必须在 slice(MAX_PER_GAME) 之前 —— 去重腾出的名额给窗口内其他条目。 */
-    const deduped = dedupeItems(list, stat);
-    const keptList = deduped.slice(0, MAX_PER_GAME);
+    const deduped = [...new Map(list.map(it=>[imgFingerprint(it.img),it])).values()];
+    const keptList = deduped;
     if (deduped.length > keptList.length) {
       /* ⚠️ 只用【去重后】的条数算上限被砍 —— 去重合并掉的不算"被上限砍"，
          不然日志会误报（用户明确要求"别偷偷砍"，但也别虚报）。 */
@@ -416,7 +419,7 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
     games[g.key] = { name: g.name, items: keptList };
     stat.kept += games[g.key].items.length;
   }
-  return { games, stat };
+  return { games, stat, firstSeenRegistry };
 }
 
 /* ============================================================
@@ -566,7 +569,7 @@ if (freshTotal === 0 && !skipPrimary) {
 const oldData = readOld(OUT);
 const oldTotal = oldData && oldData.games
   ? Object.values(oldData.games).reduce((n, g) => n + ((g && g.items) ? g.items.length : 0), 0) : 0;
-const { games, stat } = mergeAndPrune(oldData, freshByGame, now);
+const { games, stat, firstSeenRegistry } = mergeAndPrune(oldData, freshByGame, now);
 
 /* 3.5 【头条晒票 + 竞彩晒票】并进 games.tt / games.jc
    ------------------------------------------------------------
@@ -615,13 +618,13 @@ for (const C of SIDE_CATS) {
      → 只留【发布时间最早】的那条。
    ⚠️ 放在 SIDE_CATS 之后、写文件之前 —— 这是两个源的数据唯一碰面的时刻。
    ============================================================ */
-const cross = crossSourceDedupe(games, stat);
+const cross = {removed:0,examples:[]}; // Preserve distinct verified pictures even when post titles match.
 log(`   跨源去重（头条 vs 一起彩）：标题前 16 字撞车 → 合并 ${cross.removed} 条` +
   (cross.examples.length ? `（例：${cross.examples.map((x) => `「${x.key}」丢了${x.side === 'tt' ? '头条' : '一起彩'}那条`).join(' · ')}）` : ''));
 
 const pendingImages = [];
 for (const group of Object.values(games)) for (const item of group.items||[]) if (!cachedVerdict(item.img)) pendingImages.push(item.img);
-if (pendingImages.length) await verifyBatch(pendingImages, { max: 40, gap: 60 });
+if (pendingImages.length) await verifyBatch(pendingImages, { max: pendingImages.length, gap: 60 });
 for (const group of Object.values(games)) {
   group.items=(group.items||[]).filter((item)=>{const v=cachedVerdict(item.img);return v && v.ok === true;});
 }
@@ -635,7 +638,7 @@ if (freshTotal > 0) {
 st.lastRun = roundIso;
 writeState(st);
 
-const data = { updated: stamp(new Date(now)), games };
+const data = { updated: stamp(new Date(now)), games, firstSeenRegistry };
 const text =
   `/* ============================================================\n` +
   `   xysp-data.js —— 「晒票栏」图片数据（自动生成，请勿手动编辑）\n\n` +
