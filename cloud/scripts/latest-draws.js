@@ -209,7 +209,7 @@
     var b = blue.filter(function (n) { return back.indexOf(Number(n)) >= 0; }).length;
     var key = f + '+' + b;
     var allowed = gid === 'ssq' ? ['6+0','6+1','5+1'] : ['4+2','5+1','5+2'];
-    return allowed.indexOf(key) >= 0 ? '中' + key : '';
+    return allowed.indexOf(key) >= 0 ? '中' + key + '（号池）' : '';
   }
 
   function latestDrawsHtml(latest, games) {
