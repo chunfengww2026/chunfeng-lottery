@@ -1678,6 +1678,20 @@ function buildArticlesHtml() {
     }
   } catch (e) { }
 
+  /* Public current-issue material, independently collected without AI calls. */
+  try {
+    const feed=JSON.parse(fs.readFileSync(path.join(ROOT,'mingjia-toutiao.json'),'utf8'));
+    (feed.entries||[]).forEach(function(item){
+      if(Date.parse(item.expiresAt)<=Date.now() || !Number.isFinite(Date.parse(item.expiresAt)))return;
+      const people=mjByCat[item.cat]=mjByCat[item.cat]||[];
+      let person=people.find(function(p){return p.name===item.author;});
+      if(!person){person={name:item.author,cat:item.cat,imgs:[]};people.push(person);}
+      person.articles=person.articles||[];
+      person.articles.push(item);
+      (item.images||[]).forEach(function(src){if(!/^https:\/\//.test(src))return;if(!person.imgs.some(function(im){return im.src===src;}))person.imgs.push({file:src,src:src,issue:item.issue,verified:true});});
+    });
+  } catch(e) {}
+
   const zldqHtml = '<details class="ro-zldq" id="ro-zldq" open>' +
     '<summary class="ro-zldq-h">名家图库</summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
@@ -1692,7 +1706,7 @@ function buildArticlesHtml() {
               (p.imgs.length ? p.imgs.map(function (im) {
                 return '<figure><img loading="lazy" src="' + escape(im.file).replace(/"/g, '&quot;') + '" alt="' + escape(p.name) + '"><figcaption>' + (im.issue ? '第 ' + escape(im.issue) + ' 期 · 待核实' : '期号待核实') + '</figcaption></figure>';
               }).join('') : '<div class="ro-zldq-empty">暂无</div>') +
-              '</div></details>';
+              '</div>' + (p.articles||[]).map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b><p>'+escape(a.excerpt||'暂无文字摘录')+'</p><a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('') + '</details>';
           }).join('')
         : '<div class="ro-zldq-empty">暂无图</div>';
       /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
