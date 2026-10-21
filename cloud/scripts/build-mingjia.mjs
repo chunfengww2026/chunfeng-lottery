@@ -9,6 +9,9 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(ROOT, 'imgs', 'mingjia');
 const DATA = path.join(ROOT, 'mingjia-data.js');
+const removedGallerySources = new Set();
+try { const m=fs.readFileSync(DATA,'utf8').match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/);if(m)(JSON.parse(m[1]).removedSources||[]).forEach(x=>removedGallerySources.add(x)); } catch(e) {}
+
 
 /* 第一版先抓 10 个（分类 + 搜索词 ✗ 加限定词提高相关性 ✔） */
 const NAMES = [
@@ -223,7 +226,7 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
   try {
   const dir = path.join(OUT_DIR, safeName(item.cat), safeName(item.name));
   fs.mkdirSync(dir, { recursive: true });
-  const urls = await bingImages(item);
+  const urls = (await bingImages(item)).filter(candidate => !removedGallerySources.has(candidate.url));
   const saved = [];
   for (const candidate of urls.slice(0, 4)) {
     const u = candidate.url;
@@ -293,7 +296,8 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
      updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
      list: result,
      history: hist,
-     bootstrapExpiresAt: previous.bootstrapExpiresAt || null
+     bootstrapExpiresAt: previous.bootstrapExpiresAt || null,
+     removedSources: [...removedGallerySources]
    };
 const js = '/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · ' +
   new Date().toLocaleString('zh-CN', { hour12: false }) + '） */\n' +
