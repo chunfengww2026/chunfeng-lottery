@@ -103,7 +103,7 @@ const ROTATE_N = (function () {
 })();
 function rotateTodo(all) {
   if (!ROTATE || !all.length) return all;
-  const slot = Math.floor(Date.now() / (30 * 60 * 1000));   /* 每 30 分钟一个时间片 */
+  const slot = Math.floor(Date.now() / (10 * 60 * 1000));   /* 每 30 分钟一个时间片 */
   const start = (slot * ROTATE_N) % all.length;
   const out = [];
   for (let i = 0; i < Math.min(ROTATE_N, all.length); i++) out.push(all[(start + i) % all.length]);
@@ -270,6 +270,17 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
        }
      } catch (e) { console.log('  ⚠️ 合并上一份失败：' + String(e.message).slice(0, 40)); }
    }
+   const cutoff = Date.now() - 24 * 3600000;
+   let previous = {};
+   try { const m=fs.readFileSync(DATA,'utf8').match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/); if(m)previous=JSON.parse(m[1]); } catch(e){}
+   const seen = new Map();
+   (previous.list||[]).forEach(function(p){(p.imgs||[]).forEach(function(im){seen.set(im.src||im.file,im.fetchedAt||p.fetchedAt||previous.updated||'');});});
+   result.forEach(function(p){p.imgs=(p.imgs||[]).filter(function(im){
+     const raw=seen.get(im.src||im.file)||im.fetchedAt||previous.updated;
+     let stamp=Date.parse(raw);if(!Number.isFinite(stamp))stamp=Date.parse(String(raw||'').replace(' ','T')+'+08:00');
+     if(!Number.isFinite(stamp))return false;
+     im.fetchedAt=new Date(stamp).toISOString();return stamp>=cutoff;
+   });});
    const totalImgs = result.reduce(function (a, x) { return a + x.imgs.length; }, 0);
    hist.push({
      at: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
