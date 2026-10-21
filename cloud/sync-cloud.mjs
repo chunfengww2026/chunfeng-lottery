@@ -466,6 +466,7 @@ const CODE_MODULES = [
       那个是本机运行态数据（几百 KB、每轮都变），已在 .gitignore 里排除；
       云端没有缓存就重新 OCR 一遍，只是慢一点，不影响正确性。 */
   'verify-ticket.mjs',
+  '_ticket-ocr-cache.json',
   /* 【文章参考】抓取脚本（本机每小时 :16 跑一次，跟着文章那一班）。
       ⚠️ 必须同步：云端 daily-update.mjs 的【3.7】那一步会跑
       build-articles.mjs 重新抓文章（放在生成网页之前）。
