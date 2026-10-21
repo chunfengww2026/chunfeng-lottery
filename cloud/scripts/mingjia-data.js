@@ -1,6 +1,24 @@
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 02:18:37） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 01:47:12",
+ "updated": "2026-10-22 02:18:37",
  "list": [
+  {
+   "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/南山大师/1.webp",
+     "size": 28900,
+     "src": "https://pic1.800820.net/tumi/20260513/0c0f259e8c204bcb966fa9df5782081d.webp",
+     "page": "https://www.800820.cn/p/11041920.html",
+     "title": "双色球26年054期南山大师杀两红图谜_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-21T18:17:31.018Z"
+    }
+   ]
+  },
   {
    "name": "太湖字谜",
    "cat": "排列三",
@@ -19,7 +37,8 @@ const MINGJIA_DATA = {
      "expiresAt": "2026-10-23T17:50:18.411Z",
      "bootstrap": true
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "金手指",
@@ -576,23 +595,6 @@ const MINGJIA_DATA = {
      "file": "imgs/mingjia/朱大姐/1.jpg",
      "size": 221734,
      "src": "https://img.mianfeiwendang.com/pic/11370f5b8386a4f36514bdef/1-1096-jpg_6_0_______-733-0-0-733.jpg",
-     "fetchedAt": "2026-10-21T17:50:18.411Z",
-     "originalFetchedAt": "2026-10-21T16:49:30.000Z",
-     "expiresAt": "2026-10-23T17:50:18.411Z",
-     "bootstrap": true
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "南山大师",
-   "cat": "双色球",
-   "kw": "南山大师 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/南山大师/1.jpg",
-     "size": 557093,
-     "src": "https://f.yddtiyu.com/info/177848432027413fc9dd3-1ccc-4379-92d0-93d99160dcdb.jpg",
      "fetchedAt": "2026-10-21T17:50:18.411Z",
      "originalFetchedAt": "2026-10-21T16:49:30.000Z",
      "expiresAt": "2026-10-23T17:50:18.411Z",
@@ -1321,6 +1323,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 01:47:12",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 02:18:37",
    "names": 71,
    "imgs": 71
   }
