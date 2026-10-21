@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-21 17:49
+   生成时间：2026-10-21 18:38
    生成脚本：build-heatmap.mjs
    本次彩种：ssq、dlt
    数据来源：mixed
@@ -14,7 +14,7 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-21 17:49',
+  updated: '2026-10-21 18:38',
   source: 'mixed',
   games: {
     ssq: {
@@ -35,15 +35,15 @@ const HEATMAP_DATA = {
       name: '大乐透',
       issue: '26120',
       drawDate: '2026-10-21',
-      madeAt: '2026-10-21 17:35',
+      madeAt: '2026-10-21 18:31',
       source: 'ocr-xysp',
       sourceLabel: '全网公开晒票照片识别',
-      sampleCount: 13,
-      numberPosts: 13,
-      note: '识别自一起彩幸运晒票页第 26120 期公开票面照片（翻 3 页）（有效票 13 张：单式 10 张 / 复式 3 张）',
-      ocr: { posts: 14, urls: 27, downloaded: 27, downloadFailed: 0, cacheHits: 0, recognized: 6, tickets: 13, secs: 524.9, err: '' },
-      front: { label: '前区', color: 'red', total: 87, items: [{ num: 5, pct: 5.75, count: 5 }, { num: 34, pct: 5.75, count: 5 }, { num: 1, pct: 4.6, count: 4 }, { num: 7, pct: 4.6, count: 4 }, { num: 8, pct: 4.6, count: 4 }, { num: 10, pct: 4.6, count: 4 }, { num: 24, pct: 4.6, count: 4 }, { num: 27, pct: 4.6, count: 4 }, { num: 28, pct: 4.6, count: 4 }, { num: 33, pct: 4.6, count: 4 }, { num: 11, pct: 3.45, count: 3 }, { num: 12, pct: 3.45, count: 3 }, { num: 13, pct: 3.45, count: 3 }, { num: 16, pct: 3.45, count: 3 }, { num: 23, pct: 3.45, count: 3 }, { num: 32, pct: 3.45, count: 3 }, { num: 3, pct: 2.3, count: 2 }, { num: 4, pct: 2.3, count: 2 }, { num: 14, pct: 2.3, count: 2 }, { num: 15, pct: 2.3, count: 2 }, { num: 17, pct: 2.3, count: 2 }, { num: 22, pct: 2.3, count: 2 }, { num: 25, pct: 2.3, count: 2 }, { num: 29, pct: 2.3, count: 2 }, { num: 31, pct: 2.3, count: 2 }, { num: 35, pct: 2.3, count: 2 }, { num: 2, pct: 1.15, count: 1 }, { num: 6, pct: 1.15, count: 1 }, { num: 18, pct: 1.15, count: 1 }, { num: 20, pct: 1.15, count: 1 }, { num: 21, pct: 1.15, count: 1 }, { num: 26, pct: 1.15, count: 1 }, { num: 30, pct: 1.15, count: 1 }, { num: 9, pct: 0, count: 0 }, { num: 19, pct: 0, count: 0 }] },
-      back: { label: '后区', color: 'blue', total: 31, items: [{ num: 11, pct: 16.13, count: 5 }, { num: 5, pct: 12.9, count: 4 }, { num: 1, pct: 9.68, count: 3 }, { num: 3, pct: 9.68, count: 3 }, { num: 4, pct: 9.68, count: 3 }, { num: 9, pct: 9.68, count: 3 }, { num: 10, pct: 9.68, count: 3 }, { num: 12, pct: 9.68, count: 3 }, { num: 8, pct: 6.45, count: 2 }, { num: 2, pct: 3.23, count: 1 }, { num: 6, pct: 3.23, count: 1 }, { num: 7, pct: 0, count: 0 }] }
+      sampleCount: 11,
+      numberPosts: 11,
+      note: '识别自一起彩幸运晒票页第 26120 期公开票面照片（翻 3 页）（有效票 11 张：单式 9 张 / 复式 2 张）',
+      ocr: { posts: 14, urls: 26, downloaded: 26, downloadFailed: 0, cacheHits: 0, recognized: 6, tickets: 11, secs: 416.7, err: '' },
+      front: { label: '前区', color: 'red', total: 71, items: [{ num: 5, pct: 5.63, count: 4 }, { num: 8, pct: 5.63, count: 4 }, { num: 33, pct: 5.63, count: 4 }, { num: 34, pct: 5.63, count: 4 }, { num: 1, pct: 4.23, count: 3 }, { num: 4, pct: 4.23, count: 3 }, { num: 7, pct: 4.23, count: 3 }, { num: 13, pct: 4.23, count: 3 }, { num: 24, pct: 4.23, count: 3 }, { num: 28, pct: 4.23, count: 3 }, { num: 3, pct: 2.82, count: 2 }, { num: 10, pct: 2.82, count: 2 }, { num: 11, pct: 2.82, count: 2 }, { num: 12, pct: 2.82, count: 2 }, { num: 15, pct: 2.82, count: 2 }, { num: 16, pct: 2.82, count: 2 }, { num: 22, pct: 2.82, count: 2 }, { num: 23, pct: 2.82, count: 2 }, { num: 25, pct: 2.82, count: 2 }, { num: 27, pct: 2.82, count: 2 }, { num: 29, pct: 2.82, count: 2 }, { num: 31, pct: 2.82, count: 2 }, { num: 32, pct: 2.82, count: 2 }, { num: 35, pct: 2.82, count: 2 }, { num: 2, pct: 1.41, count: 1 }, { num: 6, pct: 1.41, count: 1 }, { num: 14, pct: 1.41, count: 1 }, { num: 17, pct: 1.41, count: 1 }, { num: 18, pct: 1.41, count: 1 }, { num: 20, pct: 1.41, count: 1 }, { num: 21, pct: 1.41, count: 1 }, { num: 26, pct: 1.41, count: 1 }, { num: 30, pct: 1.41, count: 1 }, { num: 9, pct: 0, count: 0 }, { num: 19, pct: 0, count: 0 }] },
+      back: { label: '后区', color: 'blue', total: 25, items: [{ num: 11, pct: 16, count: 4 }, { num: 1, pct: 12, count: 3 }, { num: 4, pct: 12, count: 3 }, { num: 5, pct: 12, count: 3 }, { num: 10, pct: 12, count: 3 }, { num: 12, pct: 12, count: 3 }, { num: 3, pct: 8, count: 2 }, { num: 9, pct: 8, count: 2 }, { num: 2, pct: 4, count: 1 }, { num: 8, pct: 4, count: 1 }, { num: 6, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }] }
     }
   }
 };
