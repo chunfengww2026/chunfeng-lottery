@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 10:27",
+ "updated": "2026-10-21 11:00",
  "red": 5,
  "black": 1,
  "rate": "83.3%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 10:27",
-   "finishTime": 1792549620000,
+   "dateStr": "2026-10-21 11:00",
+   "finishTime": 1792551600000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 80.9,
      "status": "pending",
-     "finishTime": 1792549620000,
+     "finishTime": 1792551600000,
      "league": "欧冠",
      "odds": 1.18,
      "time": "2026-10-22 03:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 77.6,
      "status": "pending",
-     "finishTime": 1792549620000,
+     "finishTime": 1792551600000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 77,
      "status": "pending",
-     "finishTime": 1792549620000,
+     "finishTime": 1792551600000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 61.3,
      "status": "pending",
-     "finishTime": 1792549620000,
+     "finishTime": 1792551600000,
      "league": "欧冠",
      "odds": 1.53,
      "time": "2026-10-22 03:00"
