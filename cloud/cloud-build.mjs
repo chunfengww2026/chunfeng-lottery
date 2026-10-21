@@ -1418,6 +1418,7 @@ function main() {
       ['build-articles.mjs', ['--min-gap', '30'], '文章参考'],
       ['fetch-community-topics.mjs', ['--cloud', '--once', '--discussion-only'], '公开足球讨论帖'],
       ['fetch-mingjia-toutiao.mjs', [], '当期字谜资料'],
+      ['fetch-mingjia-web.mjs', [], '公开网站下一期图谜'],
       ['build-xysp-tt.mjs', [], '头条+竞彩晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
