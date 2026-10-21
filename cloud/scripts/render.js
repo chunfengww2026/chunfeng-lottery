@@ -251,7 +251,12 @@ const SECTION_RENDER = {
          「七星彩前区 0~9 池=全区 → 杀号无从杀起」）→ 画成空白，
          不留破折号、也不要「无」这种字。
          用户硬要求：页面上不能出现破折号占位符。 */
-      if (v === undefined || v === null) {
+      if (f.key === 'b_rec' && f.count) {
+        const balls = el('div', 'r-ballwrap');
+        balls.setAttribute('data-back-recommendation', 'true');
+        numBalls(parseTicketNums(v), f.count, 'blue', 'sm').forEach((b) => balls.appendChild(b));
+        item.appendChild(balls);
+      } else if (v === undefined || v === null) {
         item.appendChild(el('div', 'r-value empty', '—'));
       } else {
         item.appendChild(el('div', 'r-value' + (v ? '' : ' empty'), String(v)));
