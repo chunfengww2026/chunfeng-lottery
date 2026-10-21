@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 04:52 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 05:22 */
 const JC_DATA = {
- "updated": "2026-10-22 04:52",
+ "updated": "2026-10-22 05:22",
  "stat": {
   "total": 13,
   "upcoming": 1,
@@ -1119,7 +1119,7 @@ const JC_DATA = {
     "rank": 33
    },
    "score": {
-    "home": 1,
+    "home": 2,
     "away": 3
    },
    "statusText": "1 - 1 ",
@@ -1206,7 +1206,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 2,
     "away": 3
    }
   },
@@ -1358,9 +1358,9 @@ const JC_DATA = {
       "away": 3.2
      },
      "live": {
-      "home": 1.65,
-      "draw": 3.6,
-      "away": 5.75
+      "home": 1.7,
+      "draw": 3.5,
+      "away": 5.5
      }
     },
     "overunder": {
@@ -1370,23 +1370,23 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.8,
+      "line": 1.1,
       "over": 2,
-      "under": 1.05
+      "under": 0.77
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 57.3,
+    "confidence": 55.7,
     "prob": {
-     "home": 57.3,
-     "draw": 26.3,
-     "away": 16.4
+     "home": 55.7,
+     "draw": 27.1,
+     "away": 17.2
     },
     "clear": true,
-    "margin": 5.8,
+    "margin": 5.6,
     "rqLine": "半球/一球",
     "type": "three"
    },
