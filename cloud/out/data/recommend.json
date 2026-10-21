@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 17:07",
+ "updated": "2026-10-21 17:44",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 17:07",
-   "finishTime": 1792573620000,
+   "dateStr": "2026-10-21 17:44",
+   "finishTime": 1792575840000,
    "verdict": "",
    "matches": [
     {
@@ -18,20 +18,7 @@
      "result": "pending",
      "confidence": 77.8,
      "status": "pending",
-     "finishTime": 1792573620000,
-     "league": "欧冠",
-     "odds": 1.22,
-     "time": "2026-10-22 03:00"
-    },
-    {
-     "matchNo": "周三008",
-     "teams": "维拉 vs 维京",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 77.6,
-     "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -44,22 +31,22 @@
      "result": "pending",
      "confidence": 77.6,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
     },
     {
-     "matchNo": "周三009",
-     "teams": "贝蒂斯 vs 费耶诺德",
+     "matchNo": "周三008",
+     "teams": "维拉 vs 维京",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 58.3,
+     "confidence": 75.6,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧冠",
-     "odds": 1.62,
+     "odds": 1.25,
      "time": "2026-10-22 03:00"
     },
     {
@@ -70,7 +57,7 @@
      "result": "pending",
      "confidence": 78.7,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧罗巴",
      "odds": 1.2,
      "time": "2026-10-23 00:45"
@@ -83,7 +70,7 @@
      "result": "pending",
      "confidence": 61.4,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧罗巴",
      "odds": 1.55,
      "time": "2026-10-23 00:45"
@@ -96,7 +83,7 @@
      "result": "pending",
      "confidence": 61.8,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "欧罗巴",
      "odds": 1.53,
      "time": "2026-10-23 03:00"
@@ -109,7 +96,7 @@
      "result": "pending",
      "confidence": 68.9,
      "status": "pending",
-     "finishTime": 1792573620000,
+     "finishTime": 1792575840000,
      "league": "解放者杯",
      "odds": 1.38,
      "time": "2026-10-23 08:30"
