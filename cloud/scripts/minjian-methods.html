@@ -184,7 +184,7 @@
   function render() {
     var g = st.g, c = CFG[g], list = hist(g), prev = list.length ? numsOf(list[0]) : [];
     var h = '';
-    if (!list.length) { document.getElementById('out').innerHTML = '<div class="card">该彩种暂无历史数据</div>'; return; }
+    if (!c || !list.length) { document.getElementById('out').innerHTML = '<div class="card">该彩种暂无历史数据</div>'; return; }
 
     if (c.kind === 'digits' && (g === 'fc3d' || g === 'pl3')) {
       var s = d3HeZhiShaLu(prev);
