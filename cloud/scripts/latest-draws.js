@@ -146,13 +146,34 @@
    * @returns {string} 没有数据时返回空串（调用方自行决定要不要清空区块）
    */
   // Pool hits are statistics over the archived twenty-number pool, not tickets.
+  function latestOtherPoolJudge(gid, v, areas) {
+    if (!v || !areas) return null;
+    function nums(x, max) { var a=Array.isArray(x)?x.map(Number):String(x||'').trim().split(/[ ,，、]+/).filter(Boolean).map(Number);if(a.some(function(n){return !Number.isInteger(n)||n<0||n>max;}))return [];return a.filter(function(n,i){return a.indexOf(n)===i;}); }
+    function hit(a,p){return a.filter(function(n){return p.indexOf(Number(n))>=0;}).length;}
+    function result(label,level){return {claim:label+'（号码池命中）',hot:level===1?2:1};}
+    var w=areas.main||[],pool,m;
+    if(gid==='kl8') {pool=nums(v.r30,80);if(pool.length!==30||pool.indexOf(0)>=0||w.length!==20||nums(w,80).length!==20||w.indexOf(0)>=0)return null;m=hit(w,pool);return m>=10?result('一等奖',1):m===9?result('二等奖',2):m===8?result('三等奖',3):null;}
+    if(gid==='qlc') {pool=nums(v.r22,30);var sp=areas.special||[];if(pool.length!==22||pool.indexOf(0)>=0||w.length!==7||sp.length!==1)return null;m=hit(w,pool);return m===7?result('一等奖',1):m===6?result(hit(sp,pool)?'二等奖':'三等奖',2):null;}
+    if(gid==='fc3d'||gid==='pl3') {
+      if(w.length!==3||w.some(function(n){return !Number.isInteger(Number(n))||n<0||n>9;}))return null;
+      var pos=[nums(v.bai,9),nums(v.shi,9),nums(v.ge,9)];
+      if(pos.every(function(p,i){return p.length&&p.indexOf(Number(w[i]))>=0;}))return result('直选',1);
+      pool=nums(v.grp,9);if(pool.length!==6||!w.every(function(n){return pool.indexOf(Number(n))>=0;}))return null;
+      var distinct=nums(w,9).length;return distinct===2?result('组选三',2):distinct===3?result('组选六',3):null;
+    }
+    if(gid==='pl5') {if(w.length!==5)return null;var keys=['wan','qian','bai','shi','ge'];return keys.every(function(k,i){return nums(v[k],9).indexOf(Number(w[i]))>=0;})?result('直选',1):null;}
+    if(gid==='qxc') {var front=areas.front||[],back=areas.back||[];if(front.length!==6||back.length!==1)return null;m=front.filter(function(n,i){return nums(v['p'+(i+1)],9).indexOf(Number(n))>=0;}).length;var b=nums(v.pb,14).indexOf(Number(back[0]))>=0;return m===6?result(b?'一等奖':'二等奖',b?1:2):m===5&&b?result('三等奖',3):null;}
+    return null;
+  }
+
   function latestPoolHit(draw, saved) {
     var gid = draw && draw.gameId;
-    if (gid !== 'ssq' && gid !== 'dlt') return '';
+    if (LATEST_GAME_ORDER.indexOf(gid)<0) return '';
     if (!saved) { try { saved = typeof SAVED_TICKETS !== 'undefined' ? SAVED_TICKETS : null; } catch (e) {} }
     var group = saved && saved.tickets && saved.tickets[gid];
     if (!group || !draw.date || !draw.issue) return '';
-    var close = Date.parse(draw.date + (gid === 'ssq' ? 'T21:15:00+08:00' : 'T20:30:00+08:00'));
+    var times={ssq:'21:15',dlt:'20:30',kl8:'21:30',qlc:'21:15',qxc:'20:30',fc3d:'21:15',pl3:'20:30',pl5:'20:30'};
+    var close = Date.parse(draw.date+'T'+times[gid]+':00+08:00');
     if (!isFinite(close) || close > Date.now()) return '';
     var candidates = [];
     Object.keys(group).forEach(function (key) {
@@ -170,6 +191,10 @@
     // Use the earliest published snapshot; never combine multiple recommendations.
     var item = candidates[0], main = item && item.images && item.images.main;
     if (!main) return '';
+    if (gid!=='ssq'&&gid!=='dlt') {
+      var area=gid==='qxc'?{front:draw.red,back:draw.blue}:{main:draw.red,special:draw.special};
+      var judged=latestOtherPoolJudge(gid,main,area);return judged?judged.claim.replace('（号码池命中）','（号池）'):'';
+    }
     function numbers(text, max) {
       var vals = String(text || '').trim().split(/[ ,，、]+/).filter(Boolean).map(Number);
       if (!vals.length || vals.some(function (n) { return !Number.isInteger(n) || n < 1 || n > max; })) return [];
@@ -205,7 +230,7 @@
         '<div class="hc-dt">' +
         '<span class="hc-gn">' + d.gameName + '</span>' +
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
-        (poolHit ? '<span class="hc-pool-hit" title="20码号码池命中统计" style="color:#c0392b;font-weight:700;white-space:nowrap">' + poolHit + '</span>' : '') +
+        (poolHit ? '<span class="hc-pool-hit" title="号码池命中统计" style="color:#c0392b;font-weight:700;white-space:nowrap">' + poolHit + '</span>' : '') +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
         /* __LATEST_NEXTCD__ 距离下期开奖倒计时（前端算，免费） */
@@ -439,6 +464,7 @@
   root.latestDrawsFromRaw = latestDrawsFromRaw;
   root.latestDrawsHtml = latestDrawsHtml;
   root.latestPoolHit = latestPoolHit;
+  root.latestOtherPoolJudge = latestOtherPoolJudge;
   root.latestDrawsNewer = latestDrawsNewer;
   root.applyRemoteDraws = applyRemoteDraws;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
