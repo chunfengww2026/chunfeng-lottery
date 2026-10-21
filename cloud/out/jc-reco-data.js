@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-21 14:23",
+ "updated": "2026-10-21 15:01",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -129,31 +129,6 @@ const JC_RECO_DATA = {
    "miss": 3,
    "pending": 0,
    "verdict": "黑"
-  },
-  {
-   "at": "2026-10-18 15:00",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周一005",
-     "time": "2026-10-20 03:00",
-     "league": "英超",
-     "home": "热刺",
-     "away": "考文垂",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.45,
-     "conf": 65.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
   },
   {
    "at": "2026-10-19 10:46",
@@ -306,7 +281,7 @@ const JC_RECO_DATA = {
    "verdict": ""
   },
   {
-   "at": "2026-10-21 14:23",
+   "at": "2026-10-21 15:01",
    "min": 58,
    "rows": [
     {
@@ -318,8 +293,23 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.2,
-     "conf": 79.1,
+     "odds": 1.18,
+     "conf": 80.2,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三007",
+     "time": "2026-10-22 03:00",
+     "league": "欧冠",
+     "home": "皇马",
+     "away": "莱红牛",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.22,
+     "conf": 77.8,
      "score": "",
      "hit": null,
      "result": ""
@@ -340,21 +330,6 @@ const JC_RECO_DATA = {
      "result": ""
     },
     {
-     "code": "周三007",
-     "time": "2026-10-22 03:00",
-     "league": "欧冠",
-     "home": "皇马",
-     "away": "莱红牛",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.22,
-     "conf": 77,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
      "code": "周三009",
      "time": "2026-10-22 03:00",
      "league": "欧冠",
@@ -363,8 +338,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.57,
-     "conf": 60.1,
+     "odds": 1.62,
+     "conf": 58.3,
      "score": "",
      "hit": null,
      "result": ""
