@@ -547,8 +547,9 @@ jobs:
           ls -lh site/
           echo "--- tickets.json 里的时间 ---"
           node -e "const j=require('./site/tickets.json');console.log('updated='+j.updated,'publishedAt='+j.publishedAt,'source='+j.source)" || true
-          if [ ! -f site/index.html ]; then
+          if [ ! -s site/index.html ]; then
             echo "::error::site/index.html 不存在 —— 本次没有任何页面可以发布"
+            exit 1
           fi
 
       - name: 数据新鲜度汇报（每一班都打）
