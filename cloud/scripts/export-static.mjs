@@ -16003,6 +16003,27 @@ ${CHAT_JS_SHARE}
     return h;
   }
 
+  function currentIssueAdvice(id) {
+    var g=gameById(st.game), key=curArea(g), a=statOf(g.id,30), f=freqOf(g.id,30), o=omitOf(g.id);
+    if(!a.ok || a.n<10 || !f.total) return note('本期建议参考：有效历史样本不足，暂无建议。');
+    var R=REC && REC[g.id], issue=R && R.issue;
+    if(!issue) return note('本期建议参考：下一期期号尚未确认，暂无建议。');
+    var fmt=function(n){return areaCfg(g,key).from===0?String(n):pad2(n);};
+    var hot=f.arr.filter(function(x){return x.c>0;}).slice(0,6).map(function(x){return fmt(x.n);}).join(' ');
+    var gaps=o.list.slice().sort(function(x,y){return y.cur-x.cur || x.n-y.n;}).slice(0,3).map(function(x){return fmt(x.n)+'（遗漏'+x.cur+'期）';}).join('、');
+    var sums=a.rows.map(function(x){return x.sum;}).sort(function(x,y){return x-y;});
+    var lo=sums[Math.floor((sums.length-1)*0.25)],hi=sums[Math.ceil((sums.length-1)*0.75)];
+    var odd=Math.round(a.odd/a.n), per=Math.round(a.cnt/a.n), big=Math.round(a.big/a.n);
+    var words={stat:'组合结构参考：奇偶 '+odd+':'+(per-odd)+'，大小 '+big+':'+(per-big)+'；和值参考 '+lo+'~'+hi+'（历史中间50%区间）。',
+      trend:'组合和值可参考 '+lo+'~'+hi+'，跨度参考近30期均值 '+fmt1(a.span/a.n)+'；不要把历史变化当作必然走势。',
+      hot:'历史高频号码可关注 '+hot+'；仅作为本期组合参考，不表示更容易开出。',
+      ma:'选号候选可参考历史高频 '+hot+'；不建议仅因冷号或遗漏就排除任何号码。',
+      index:'本期候选参考 '+hot+'；历史频次是筛选依据，不是下一期中奖概率。',
+      omit:'本期遗漏观察名单：'+gaps+'。可与其他分析交叉参考，遗漏长不代表即将开出。',
+      pattern:'本期组合可参考奇偶 '+odd+':'+(per-odd)+'、大小 '+big+':'+(per-big)+'，避免只押一种结构。',
+      ai:'上方号码作为本期候选；可对照历史高频 '+hot+' 和和值区间 '+lo+'~'+hi+'，按预算筛选，不追投。'};
+    return card('第 '+esc(issue)+' 期 · 建议参考',row(esc(areaLabel(g,key)),esc(words[id]||''))+note('依据近 '+a.n+' 期有效开奖数据。各期开奖独立，以上不保证命中。'));
+  }
   /* ---------------- 页面路由 ---------------- */
   function pageOf(id) {
     if (id === 'stat') return pageStat();
@@ -16030,7 +16051,7 @@ ${CHAT_JS_SHARE}
   function render() {
     var __sc = st._keep ? body.scrollTop : 0;
     st._keep = 0;
-    body.innerHTML = pageOf(st.id);
+    body.innerHTML = pageOf(st.id) + currentIssueAdvice(st.id);
     syncHead();
     try { body.scrollTop = __sc; } catch (e3) { /* 忽略 */ }
   }
