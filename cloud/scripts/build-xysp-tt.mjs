@@ -596,12 +596,8 @@ function drawTimes(gid, nowMs) {
  * @returns {string} 期号（如 '26273'）；认不出返回 ''
  */
 export function issueOfTitle(title) {
-  const t = String(title || '');
-  let m = /第\s*(\d{5})\s*期/.exec(t);
-  if (m) return m[1];
-  m = /(\d{5})\s*期/.exec(t);
-  if (m) return m[1];
-  return '';
+  const m = /(?:^|[^0-9])(?:第\s*)?([0-9]{7}|[0-9]{5})\s*期/.exec(String(title || ''));
+  return m ? m[1] : '';
 }
 
 /**
