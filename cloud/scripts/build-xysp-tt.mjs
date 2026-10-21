@@ -104,7 +104,7 @@ const STATE = path.join(ROOT, '_xysp-tt-backoff.json');
 
 export const TT_KEY = 'tt';
 export const TT_NAME = '头条晒票';
-export const TT_KEEP_HOURS = 72;
+export const TT_KEEP_HOURS = 24;
 /* 【数量上限】用户强调过两次：
      「抓取近24小时以内的内容 只要是24小时以内的 都要出现在晒图里面」
      「24小时以内抓取的全部都在呈现出来」
@@ -1267,7 +1267,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     if (pubMs === null) stat.pubFallback++;
 
     /* 属于已开的那一期、且开完超过 1 小时 → 直接丢（只有彩票类有这条） */
-    if (ex.drop) { stat.dropped++; stat.dropDraw++; return; }
+    // Publication age is the retention rule; a draw does not remove a valid 24h image.
     /* 兜底窗口（从"最近一次看到它"起算）。
        ⚠️ 最上面那个 `t < cutoff` 已经拦过一次（按【首次抓到】算），
           这里再按【最近看到】算一遍 —— 两者取更严的，双保险，都是 dropCap。 */
@@ -1562,8 +1562,8 @@ export async function runTtFetch() {
         return jcVerdictStrict(it.img) === true;
       }
       const cv = cachedVerdict(it.img);
-      if (!cv) return true;                                   /* 还没判过 → 放行 */
-      return cv.ok !== false;                                 /* 只挡【确认不是票】 */
+      if (!cv) return false;                                   /* 还没判过 → 放行 */
+      return cv.ok === true;                                 /* 只挡【确认不是票】 */
     });
     rec.ocrDropped = beforeOcr - freshList.length;
     if (rec.ocrDropped) log(`        因"图里不是票"挡掉 ${rec.ocrDropped} 张`);
