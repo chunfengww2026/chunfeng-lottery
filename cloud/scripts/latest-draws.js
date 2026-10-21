@@ -145,6 +145,48 @@
    * @param {object} games  GAMES（当前不用，保留给以后的彩种名兜底）
    * @returns {string} 没有数据时返回空串（调用方自行决定要不要清空区块）
    */
+  // Pool hits are statistics over the archived twenty-number pool, not tickets.
+  function latestPoolHit(draw, saved) {
+    var gid = draw && draw.gameId;
+    if (gid !== 'ssq' && gid !== 'dlt') return '';
+    if (!saved) { try { saved = typeof SAVED_TICKETS !== 'undefined' ? SAVED_TICKETS : null; } catch (e) {} }
+    var group = saved && saved.tickets && saved.tickets[gid];
+    if (!group || !draw.date || !draw.issue) return '';
+    var close = Date.parse(draw.date + (gid === 'ssq' ? 'T21:15:00+08:00' : 'T20:30:00+08:00'));
+    if (!isFinite(close) || close > Date.now()) return '';
+    var candidates = [];
+    Object.keys(group).forEach(function (key) {
+      if (key === 'history') { if (Array.isArray(group[key])) candidates = candidates.concat(group[key]); }
+      else if (group[key] && typeof group[key] === 'object') candidates.push(group[key]);
+    });
+    function stamp(s) {
+      s = String(s || '').trim();
+      if (!s) return NaN;
+      return Date.parse(/[zZ]$|[+-][0-9][0-9]:[0-9][0-9]$/.test(s) ? s : s.replace(' ', 'T') + '+08:00');
+    }
+    candidates = candidates.filter(function (c) {
+      return String(c.issue) === String(draw.issue) && isFinite(stamp(c.pushedAt)) && stamp(c.pushedAt) < close;
+    }).sort(function (a,b) { return stamp(a.pushedAt) - stamp(b.pushedAt); });
+    // Use the earliest published snapshot; never combine multiple recommendations.
+    var item = candidates[0], main = item && item.images && item.images.main;
+    if (!main) return '';
+    function numbers(text, max) {
+      var vals = String(text || '').trim().split(/[ ,，、]+/).filter(Boolean).map(Number);
+      if (!vals.length || vals.some(function (n) { return !Number.isInteger(n) || n < 1 || n > max; })) return [];
+      return vals.filter(function (n,i) { return vals.indexOf(n) === i; });
+    }
+    var front = numbers(main[gid === 'ssq' ? 'r20' : 'f20'], gid === 'ssq' ? 33 : 35);
+    var back = numbers(main.b_rec, gid === 'ssq' ? 16 : 12);
+    if (front.length !== 20 || !back.length) return '';
+    var red = draw.red || [], blue = draw.blue || [];
+    if (red.length !== (gid === 'ssq' ? 6 : 5) || blue.length !== (gid === 'ssq' ? 1 : 2)) return '';
+    var f = red.filter(function (n) { return front.indexOf(Number(n)) >= 0; }).length;
+    var b = blue.filter(function (n) { return back.indexOf(Number(n)) >= 0; }).length;
+    var key = f + '+' + b;
+    var allowed = gid === 'ssq' ? ['6+0','6+1','5+1'] : ['4+2','5+1','5+2'];
+    return allowed.indexOf(key) >= 0 ? '中' + key : '';
+  }
+
   function latestDrawsHtml(latest, games) {
     var list = (latest || []).filter(function (d) {
       return d && d.issue && Array.isArray(d.red) && d.red.length;
@@ -158,10 +200,12 @@
       var blue = (d.blue || []).length
         ? '<span class="hc-plus">+</span>' + hcBallsHtml(d.blue, 'blue', d.gameId)
         : '';
+      var poolHit = latestPoolHit(d);
       return '<div class="hc-drawcard">' +
         '<div class="hc-dt">' +
         '<span class="hc-gn">' + d.gameName + '</span>' +
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
+        (poolHit ? '<span class="hc-pool-hit" title="20码号码池命中统计" style="color:#c0392b;font-weight:700;white-space:nowrap">' + poolHit + '</span>' : '') +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
         /* __LATEST_NEXTCD__ 距离下期开奖倒计时（前端算，免费） */
@@ -394,6 +438,7 @@
   root.hcDrawOf = hcDrawOf;
   root.latestDrawsFromRaw = latestDrawsFromRaw;
   root.latestDrawsHtml = latestDrawsHtml;
+  root.latestPoolHit = latestPoolHit;
   root.latestDrawsNewer = latestDrawsNewer;
   root.applyRemoteDraws = applyRemoteDraws;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
