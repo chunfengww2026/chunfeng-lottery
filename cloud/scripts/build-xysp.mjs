@@ -339,6 +339,9 @@ function mergeAndPrune(oldData, freshByGame, nowMs) {
       /* 条目本身的兜底下限：最早抓到的时间 + 24 小时 */
       if (t < cutoff) { stat.dropped++; stat.dropCap++; return; }
 
+      const knownDraw = typeof it.nextAt === 'number' ? it.nextAt : Date.parse(String(it.nextAt || ''));
+      if (Number.isFinite(knownDraw) && nowMs >= knownDraw + 24 * 3600000) { stat.dropped++; stat.dropDraw++; return; }
+
       const prev = bucket.get(img);
       if (prev) {
         /* 同一个 img 只留一条：at 保留【最早】那次，其余字段用最新的 */
