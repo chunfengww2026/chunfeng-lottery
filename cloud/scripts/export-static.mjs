@@ -3208,8 +3208,8 @@ function buildXyspHtml() {
 
   const body = cards.length
     ? `<div class="ro-xysp-pics allow-save" data-ro-xysp-grid>${sortedCards.join('')}</div>` +
-      `<div class="ro-xysp-empty" hidden>该分类 72 小时内暂无晒票</div>`
-    : `<div class="ro-xysp-empty">暂无（每 30 分钟自动更新）</div>`;
+      `<div class="ro-xysp-empty" hidden>该分类 24 小时内暂无晒票</div>`
+    : `<div class="ro-xysp-empty">暂无（云端定时抓取，稍后自动更新）</div>`;
 
   /* 标题那一行 = <summary>（可点、可键盘操作）。
      右侧提示是空 <span>，文字由 CSS 按 [open] 切换 —— 不用 JS。
@@ -3230,7 +3230,7 @@ function buildXyspHtml() {
     (cards.length ? `<div class="ro-xysp-filter">${tabs}</div>` : '') +
     body +
     (updated
-      ? `<div class="ro-xysp-note">每 30 分钟自动更新 · 只保留 72 小时</div>`  /* __NO_UPDATED__ 用户要求删掉「更新于」 */
+      ? `<div class="ro-xysp-note">云端定时抓取 · 首次抓到后保留 24 小时</div>`  /* __NO_UPDATED__ 用户要求删掉「更新于」 */
       : '') +
     `</details>`;
 }
