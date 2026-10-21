@@ -709,6 +709,9 @@ jobs:
 
   deploy:
     needs: build
+    concurrency:
+      group: chunfeng-github-pages-deploy
+      cancel-in-progress: false
     # 【关键】always() —— 只要 build 这一步跑过（哪怕它有部分失败、
     # 被 continue-on-error 吞掉），deploy 都必须执行，把当前 site/ 发出去。
     if: always()
@@ -721,6 +724,10 @@ jobs:
         id: deploy1
         continue-on-error: true
         uses: actions/deploy-pages@v4
+
+      - name: 等待已有发布释放
+        if: steps.deploy1.outcome != 'success'
+        run: sleep 30
 
       - name: 发布到 GitHub Pages（重试一次）
         id: deployment
