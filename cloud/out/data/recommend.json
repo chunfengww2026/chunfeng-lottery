@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 19:29",
+ "updated": "2026-10-21 20:02",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 19:29",
-   "finishTime": 1792582140000,
+   "dateStr": "2026-10-21 20:02",
+   "finishTime": 1792584120000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 77.8,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 75.6,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧冠",
      "odds": 1.25,
      "time": "2026-10-22 03:00"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 73.9,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧冠",
      "odds": 1.29,
      "time": "2026-10-22 03:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 78.7,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧罗巴",
      "odds": 1.2,
      "time": "2026-10-23 00:45"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 61.4,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧罗巴",
      "odds": 1.55,
      "time": "2026-10-23 00:45"
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 63.2,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "欧罗巴",
      "odds": 1.5,
      "time": "2026-10-23 03:00"
@@ -96,7 +96,7 @@
      "result": "pending",
      "confidence": 68.9,
      "status": "pending",
-     "finishTime": 1792582140000,
+     "finishTime": 1792584120000,
      "league": "解放者杯",
      "odds": 1.38,
      "time": "2026-10-23 08:30"
