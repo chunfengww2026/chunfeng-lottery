@@ -270,6 +270,7 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
        }
      } catch (e) { console.log('  ⚠️ 合并上一份失败：' + String(e.message).slice(0, 40)); }
    }
+   NAMES.forEach(function(person){if(!result.some(function(p){return p.name===person.name&&p.cat===person.cat;}))result.push({...person,imgs:[]});});
    const cutoff = Date.now() - 24 * 3600000;
    let previous = {};
    try { const m=fs.readFileSync(DATA,'utf8').match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/); if(m)previous=JSON.parse(m[1]); } catch(e){}
@@ -291,7 +292,8 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
    const payload = {
      updated: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
      list: result,
-     history: hist
+     history: hist,
+     bootstrapExpiresAt: previous.bootstrapExpiresAt || null
    };
 const js = '/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · ' +
   new Date().toLocaleString('zh-CN', { hour12: false }) + '） */\n' +
