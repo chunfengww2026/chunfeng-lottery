@@ -435,6 +435,8 @@ const CODE_MODULES = [
   'build-mingjia.mjs',
   'fetch-mingjia-toutiao.mjs',
   'mingjia-toutiao.json',
+  'fetch-mingjia-web.mjs',
+  'mingjia-web.json',
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
