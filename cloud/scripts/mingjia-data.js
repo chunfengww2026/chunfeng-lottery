@@ -1,7 +1,187 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/21 04:16:05） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 00:02:44） */
 const MINGJIA_DATA = {
- "updated": "2026-10-21 04:16:05",
+ "updated": "2026-10-22 00:02:44",
  "list": [
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/万里挑一/1.png",
+     "size": 572590,
+     "src": "https://k.sinaimg.cn/n/front20240908ac/503/w781h522/20240908/0faf-c831a2797a9a271efc7fe2b20ad5127f.png/w700d1q75cms.jpg?by=cms_fixed_width"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.jpg",
+     "size": 57649,
+     "src": "http://m.1fen.com/pic/20250726/07261545045.jpg"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 247023,
+     "src": "https://img.518158.cn/20251011/17601798589470227560.jpg"
+    }
+   ]
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排三字谜/1.webp",
+     "size": 243632,
+     "src": "https://pic1.800820.net/tumi/20260322/ae4a3cc9eba54c1c8500c804775bfaec.webp"
+    }
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/名家精/1.jpg",
+     "size": 247023,
+     "src": "https://img.518158.cn/20251011/17601798589470227560.jpg"
+    }
+   ]
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/金手指/1.jpg",
+     "size": 132766,
+     "src": "https://tukuapi.800820.net/CustomFiles/Image/116d7904-1aff-4e83-8e02-4f734ff0ac2e.jpg"
+    }
+   ]
+  },
+  {
+   "name": "万里挑一",
+   "cat": "快乐8",
+   "kw": "万里挑一 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/万里挑一/1.png",
+     "size": 1019198,
+     "src": "https://img2.voc.com.cn/2021/11/09/cd8145b4c0f877df701ad263ea71688dab9f86d21636433000.png"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.png",
+     "size": 352756,
+     "src": "https://f.yddtiyu.com/info/1758937550837b8fd3a3b-3bd3-425a-be52-396e673133a8.png"
+    }
+   ]
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 图 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迟丽颖/1.jpg",
+     "size": 552234,
+     "src": "https://f.yddtiyu.com/info/175895052725847177991-3e80-4b52-a960-2fcba27aca41.jpg"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "双色球",
+   "kw": "太湖字谜 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/太湖字谜/1.webp",
+     "size": 140420,
+     "src": "https://pic2.800820.net/tumi/20251213/af4ca57020f34a6b9759692529fbeb6b.webp"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "双色球",
+   "kw": "迷公 双色球 推荐图 2026121期",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迷公/1.jpg",
+     "size": 244238,
+     "src": "https://picx.zhimg.com/v2-d3cfad5b264d3e4c78f1edc60b0fb90f_1440w.jpg"
+    }
+   ]
+  },
+  {
+   "name": "桃子姐",
+   "cat": "双色球",
+   "kw": "桃子姐 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/桃子姐/1.jpg",
+     "size": 175093,
+     "src": "https://picx.zhimg.com/v2-346d8bbe2a037e33ff91e2ec42756878_r.jpg?source=1def8aca"
+    }
+   ]
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "双色球",
+   "kw": "迟丽颖 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/迟丽颖/1.jpg",
+     "size": 552664,
+     "src": "https://f.yddtiyu.com/info/17682069011456d593c08-9f65-42c1-a8e1-b6a4feb3edc6.jpg"
+    }
+   ]
+  },
+  {
+   "name": "万里挑一",
+   "cat": "双色球",
+   "kw": "万里挑一 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/万里挑一/1.jpg",
+     "size": 552664,
+     "src": "https://f.yddtiyu.com/info/17682069011456d593c08-9f65-42c1-a8e1-b6a4feb3edc6.jpg"
+    }
+   ]
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 图 2026121期 推荐",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/青岛大磊/1.jpg",
+     "size": 175093,
+     "src": "https://picx.zhimg.com/v2-346d8bbe2a037e33ff91e2ec42756878_r.jpg?source=1def8aca"
+    }
+   ]
+  },
   {
    "name": "蒲公英",
    "cat": "双色球",
@@ -179,78 +359,6 @@ const MINGJIA_DATA = {
      "file": "imgs/mingjia/迷公/1.jpg",
      "size": 821302,
      "src": "https://f.yddtiyu.com/info/176912963447180a2fae1-a383-429a-8be9-275787b430f1.jpg"
-    }
-   ]
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "双色球",
-   "kw": "太湖字谜 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/太湖字谜/1.webp",
-     "size": 118754,
-     "src": "https://pic2.800820.net/tumi/20260116/9cea10edb15c42eb93096700effd8eec.webp"
-    }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "双色球",
-   "kw": "迷公 双色球 推荐图 2026121期",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/迷公/1.webp",
-     "size": 47068,
-     "src": "https://pic2.800820.net/tumi/20260125/0c0b7d95f2fc47ed83e925b0c9741a20.webp"
-    }
-   ]
-  },
-  {
-   "name": "桃子姐",
-   "cat": "双色球",
-   "kw": "桃子姐 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/桃子姐/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "双色球",
-   "kw": "迟丽颖 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/迟丽颖/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/万里挑一/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ]
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/青岛大磊/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
     }
    ]
   },
@@ -745,114 +853,6 @@ const MINGJIA_DATA = {
      "src": "https://img-blog.csdnimg.cn/3463a31a2e0c457aa11728ac6fd37f36.png"
     }
    ]
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/万里挑一/1.jpg",
-     "size": 30649,
-     "src": "https://pica.zhimg.com/v2-cd8c052be331652710fcb20721f91728_r.jpg?source=1940ef5c"
-    }
-   ]
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "快乐8",
-   "kw": "太湖字谜 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/太湖字谜/1.webp",
-     "size": 134810,
-     "src": "https://pic2.800820.net/tumi/20251205/6b5f61375bc1404ea3138e6241edb605.webp"
-    }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/迷公/1.jpg",
-     "size": 343235,
-     "src": "https://www.weicainet.com/uploadfile/2025/0211/20250211030006717.jpg"
-    }
-   ]
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排三字谜/1.jpg",
-     "size": 194898,
-     "src": "https://tukuapi.800820.net/CustomFiles/Image/2e85aa2e-b4d9-4639-90f5-3e7f3ad8b33c.jpg"
-    }
-   ]
-  },
-  {
-   "name": "名家精",
-   "cat": "快乐8",
-   "kw": "名家精 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/名家精/1.jpg",
-     "size": 804577,
-     "src": "https://pic.nximg.cn/file/20210504/31359280_084122547120_2.jpg"
-    }
-   ]
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/金手指/1.jpg",
-     "size": 132766,
-     "src": "https://tukuapi.800820.net/CustomFiles/Image/116d7904-1aff-4e83-8e02-4f734ff0ac2e.jpg"
-    }
-   ]
-  },
-  {
-   "name": "万里挑一",
-   "cat": "快乐8",
-   "kw": "万里挑一 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/万里挑一/1.png",
-     "size": 1019198,
-     "src": "https://img2.voc.com.cn/2021/11/09/cd8145b4c0f877df701ad263ea71688dab9f86d21636433000.png"
-    }
-   ]
-  },
-  {
-   "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/桃子姐/1.png",
-     "size": 27752,
-     "src": "http://n.sinaimg.cn/front20260411ac/355/w620h535/20260411/c4c6-1f6595ff0a4d043160641cbac57047c5.png"
-    }
-   ]
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 图 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/迟丽颖/1.jpg",
-     "size": 526445,
-     "src": "https://f.jiangduoduo.com/info/17270207782656a8c2601-4631-400f-bc8d-cc534cacf6ae.jpg"
-    }
-   ]
   }
  ],
  "history": [
@@ -898,6 +898,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-21 04:16:05",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 00:02:44",
    "names": 71,
    "imgs": 71
   }
