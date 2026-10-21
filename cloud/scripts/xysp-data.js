@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 03:33
+   更新时间：2026-10-22 04:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 03:33",
+ "updated": "2026-10-22 04:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -473,20 +473,6 @@ const XYSP_DATA = {
      "nextAt": 1792588500000,
      "atMs": 1792603203494,
      "seenMs": 1792603203494,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-21/8edf5f06-38d8-4dba-8bad-c8a748fdc5471792524428482.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-21/8edf5f06-38d8-4dba-8bad-c8a748fdc5471792524428482.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26280期]漂亮",
-     "url": "",
-     "at": "2026-10-20T19:46:27.860Z",
-     "pubAt": "2026-10-20T19:27:00.000Z",
-     "pubMs": 1792524420000,
-     "pubSrc": "page",
-     "nextAt": 1792588500000,
-     "atMs": 1792525587860,
-     "seenMs": 1792525587860,
      "whenMs": null
     }
    ]
@@ -1148,9 +1134,9 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QKN7NdM1zEyB3WqRW4RmabBcVD0%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=CM0GzYF1Cr4TfJPem0t62BJRYUA%3D",
      "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
      "at": "2026-10-21T16:00:38.833Z",
@@ -1161,14 +1147,14 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T17:06:01.747Z",
+     "seen": "2026-10-21T20:09:17.535Z",
      "whenMs": 1792553476000,
-     "seenMs": 1792602361747,
-     "drawMs": 1792675800000,
-     "nextMs": 1792675800000,
+     "seenMs": 1792613357535,
+     "drawMs": 1792589400000,
+     "nextMs": 1792589400000,
      "atMs": 1792598438833,
-     "drawAt": "2026-10-22T13:30:00.000Z",
-     "nextAt": 1792675800000,
+     "drawAt": "2026-10-21T13:30:00.000Z",
+     "nextAt": 1792589400000,
      "drawGid": "kl8",
      "expireAt": "2026-10-22T16:00:38.833Z",
      "rule": "first-capture-24h",
@@ -1178,10 +1164,10 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=gse5r8cjQxAaFl8DLdIqox35DOw%3D",
-     "title": "#彩票“快乐8”怎么玩儿# #彩票“快乐8”怎么玩儿# 快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。 玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。 简单捋一下： 选",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=26R9YqesvjBo3P3aqgdNPxn4QAA%3D",
+     "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
      "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
      "at": "2026-10-21T16:00:38.833Z",
      "src": "tt",
@@ -1191,14 +1177,14 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T17:06:01.747Z",
+     "seen": "2026-10-21T20:09:17.535Z",
      "whenMs": 1792542737000,
-     "seenMs": 1792602361747,
-     "drawMs": 1792675800000,
-     "nextMs": 1792675800000,
+     "seenMs": 1792613357535,
+     "drawMs": 1792589400000,
+     "nextMs": 1792589400000,
      "atMs": 1792598438833,
-     "drawAt": "2026-10-22T13:30:00.000Z",
-     "nextAt": 1792675800000,
+     "drawAt": "2026-10-21T13:30:00.000Z",
+     "nextAt": 1792589400000,
      "drawGid": "kl8",
      "expireAt": "2026-10-22T16:00:38.833Z",
      "rule": "first-capture-24h",

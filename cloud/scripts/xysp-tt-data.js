@@ -6,16 +6,16 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 03:32:44
+   更新时间：2026-10-22 04:09:17
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 03:32:44",
+ "updated": "2026-10-22 04:09:17",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QKN7NdM1zEyB3WqRW4RmabBcVD0%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=TJWSYUhfFdt1db0888He0iKo9bk%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=CM0GzYF1Cr4TfJPem0t62BJRYUA%3D",
    "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
    "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
    "at": "2026-10-21T16:00:38.833Z",
@@ -26,14 +26,14 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T17:06:01.747Z",
+   "seen": "2026-10-21T20:09:17.535Z",
    "whenMs": 1792553476000,
-   "seenMs": 1792602361747,
-   "drawMs": 1792675800000,
-   "nextMs": 1792675800000,
+   "seenMs": 1792613357535,
+   "drawMs": 1792589400000,
+   "nextMs": 1792589400000,
    "atMs": 1792598438833,
-   "drawAt": "2026-10-22T13:30:00.000Z",
-   "nextAt": 1792675800000,
+   "drawAt": "2026-10-21T13:30:00.000Z",
+   "nextAt": 1792589400000,
    "drawGid": "kl8",
    "expireAt": "2026-10-22T16:00:38.833Z",
    "rule": "first-capture-24h",
@@ -43,10 +43,10 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=gse5r8cjQxAaFl8DLdIqox35DOw%3D",
-   "title": "#彩票“快乐8”怎么玩儿# #彩票“快乐8”怎么玩儿# 快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。 玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。 简单捋一下： 选",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=26R9YqesvjBo3P3aqgdNPxn4QAA%3D",
+   "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
    "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
    "at": "2026-10-21T16:00:38.833Z",
    "src": "tt",
@@ -56,14 +56,14 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T17:06:01.747Z",
+   "seen": "2026-10-21T20:09:17.535Z",
    "whenMs": 1792542737000,
-   "seenMs": 1792602361747,
-   "drawMs": 1792675800000,
-   "nextMs": 1792675800000,
+   "seenMs": 1792613357535,
+   "drawMs": 1792589400000,
+   "nextMs": 1792589400000,
    "atMs": 1792598438833,
-   "drawAt": "2026-10-22T13:30:00.000Z",
-   "nextAt": 1792675800000,
+   "drawAt": "2026-10-21T13:30:00.000Z",
+   "nextAt": 1792589400000,
    "drawGid": "kl8",
    "expireAt": "2026-10-22T16:00:38.833Z",
    "rule": "first-capture-24h",
@@ -262,6 +262,26 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/cbbeb1773b0446acb3a5f33e8617f270~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
   "/tos-cn-i-ezhpy3drpa/4bc1c757e2104f289dc48d275be01672~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
   "/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
-  "/tos-cn-i-6w9my0ksvp/05f86fa46686460fbaba90295341649b~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834
+  "/tos-cn-i-6w9my0ksvp/05f86fa46686460fbaba90295341649b~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
+  "/tos-cn-i-6w9my0ksvp/b357320785a84ce68e768900c0b9c076~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-tjoges91tu/a661fd91c170401f84dc5c6939adfbc7~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/0eda8e8ad0074dd89e4c353812c7a5d3~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/bb22c9a42c624e899428166d499744cc~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/5fb85e424f9c42bb968277f207bfde65~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/7e4f69c1b2e9437f9a5ae6eda8192192~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/51df914e26d941e089a2877743471f81~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/254429d2b2b041c69a38363768f07ec9~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/939209426b9a409096402bc2cc4eb2c1~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/c884d938a7f44e2884db3e52d2dbf0d2~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/62e816883ed34f0dba33abf23b2c3863~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/de9f2ace4ed84861b4ff8c6274da1288~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/591dbcee664e4bbbb7181753dc6cbf3d~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-6w9my0ksvp/5ce015fa6f4742399d6823feb038f4f0~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-6w9my0ksvp/bb34d48612e448639db6edc78e0467e5~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/e4e70ba5c1bf40399acd21e21ba5c0f9~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/144ae04a77a0416b8dffef71080465f3~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-ezhpy3drpa/810308a8a2554392a8175c6c14af6b25~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-6w9my0ksvp/fc43bc8ed8ca49a2a049a33cf5833b0a~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535,
+  "/tos-cn-i-6w9my0ksvp/a98bfbee54a8403f90a6660f73d0f491~tplv-26tn0yjwph-cspd-v1.jpg": 1792613357535
  }
 };
