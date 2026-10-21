@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 22:52",
+ "updated": "2026-10-21 23:29",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
+ "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 22:52",
-   "finishTime": 1792594320000,
+   "dateStr": "2026-10-21 23:29",
+   "finishTime": 1792596540000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 77.8,
      "status": "pending",
-     "finishTime": 1792594320000,
+     "finishTime": 1792596540000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 75.6,
      "status": "pending",
-     "finishTime": 1792594320000,
+     "finishTime": 1792596540000,
      "league": "欧冠",
      "odds": 1.25,
      "time": "2026-10-22 03:00"
@@ -44,10 +44,62 @@
      "result": "pending",
      "confidence": 73.9,
      "status": "pending",
-     "finishTime": 1792594320000,
+     "finishTime": 1792596540000,
      "league": "欧冠",
      "odds": 1.29,
      "time": "2026-10-22 03:00"
+    },
+    {
+     "matchNo": "周四005",
+     "teams": "克里特 vs 勒沃库森",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 78.7,
+     "status": "pending",
+     "finishTime": 1792596540000,
+     "league": "欧罗巴",
+     "odds": 1.2,
+     "time": "2026-10-23 00:45"
+    },
+    {
+     "matchNo": "周四004",
+     "teams": "尤文图斯 vs 雷恩",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.4,
+     "status": "pending",
+     "finishTime": 1792596540000,
+     "league": "欧罗巴",
+     "odds": 1.55,
+     "time": "2026-10-23 00:45"
+    },
+    {
+     "matchNo": "周四010",
+     "teams": "利勒斯特 vs 皇家社会",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.2,
+     "status": "pending",
+     "finishTime": 1792596540000,
+     "league": "欧罗巴",
+     "odds": 1.5,
+     "time": "2026-10-23 03:00"
+    },
+    {
+     "matchNo": "周四013",
+     "teams": "弗拉门戈 vs 拉普大学",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.9,
+     "status": "pending",
+     "finishTime": 1792596540000,
+     "league": "解放者杯",
+     "odds": 1.38,
+     "time": "2026-10-23 08:30"
     }
    ]
   },
