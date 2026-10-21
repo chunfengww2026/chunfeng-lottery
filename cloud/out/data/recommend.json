@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 17:44",
+ "updated": "2026-10-21 18:20",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 17:44",
-   "finishTime": 1792575840000,
+   "dateStr": "2026-10-21 18:20",
+   "finishTime": 1792578000000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 77.8,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 77.6,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 75.6,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧冠",
      "odds": 1.25,
      "time": "2026-10-22 03:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 78.7,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧罗巴",
      "odds": 1.2,
      "time": "2026-10-23 00:45"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 61.4,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧罗巴",
      "odds": 1.55,
      "time": "2026-10-23 00:45"
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 61.8,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "欧罗巴",
      "odds": 1.53,
      "time": "2026-10-23 03:00"
@@ -96,7 +96,7 @@
      "result": "pending",
      "confidence": 68.9,
      "status": "pending",
-     "finishTime": 1792575840000,
+     "finishTime": 1792578000000,
      "league": "解放者杯",
      "odds": 1.38,
      "time": "2026-10-23 08:30"
