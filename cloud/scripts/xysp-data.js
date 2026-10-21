@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 01:16
+   更新时间：2026-10-22 01:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 01:16",
+ "updated": "2026-10-22 01:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -420,6 +420,34 @@ const XYSP_DATA = {
      "whenMs": null
     },
     {
+     "img": "https://img02.17chdd.com/2026-10-21/fddd8b3c-99a7-4050-b54b-3842bebb98b91792565404636.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/fddd8b3c-99a7-4050-b54b-3842bebb98b91792565404636.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]和值.10.14，胆.2",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T06:50:00.000Z",
+     "pubMs": 1792565400000,
+     "pubSrc": "page",
+     "nextAt": 1792588500000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/a5a05473-4e3e-4234-8409-8b70a623afda1792565404595.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/a5a05473-4e3e-4234-8409-8b70a623afda1792565404595.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]和值.10.14，胆.2",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T06:50:00.000Z",
+     "pubMs": 1792565400000,
+     "pubSrc": "page",
+     "nextAt": 1792588500000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-21/8edf5f06-38d8-4dba-8bad-c8a748fdc5471792524428482.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/8edf5f06-38d8-4dba-8bad-c8a748fdc5471792524428482.jpg?imageMogr2/thumbnail/360x",
      "title": "[26280期]漂亮",
@@ -780,6 +808,48 @@ const XYSP_DATA = {
      "whenMs": null
     },
     {
+     "img": "https://img02.17chdd.com/2026-10-21/4598c0cd-b081-4dfb-a456-514c34a4a72d1792583528556.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/4598c0cd-b081-4dfb-a456-514c34a4a72d1792583528556.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]参考",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T11:53:00.000Z",
+     "pubMs": 1792583580000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/e1c50749-5c14-4afa-9868-fddfae6c6db31792583528568.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/e1c50749-5c14-4afa-9868-fddfae6c6db31792583528568.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]参考",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T11:53:00.000Z",
+     "pubMs": 1792583580000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/716ffcb5-6af8-4c36-8954-593b89d182311792583528567.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/716ffcb5-6af8-4c36-8954-593b89d182311792583528567.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]参考",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T11:53:00.000Z",
+     "pubMs": 1792583580000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-21/6de8568a-3520-4382-b9f0-49e6e1f07e4f1792580189399.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/6de8568a-3520-4382-b9f0-49e6e1f07e4f1792580189399.jpg?imageMogr2/thumbnail/360x",
      "title": "[26280期]灵感来了，再来一注",
@@ -819,6 +889,90 @@ const XYSP_DATA = {
      "nextAt": 1792585800000,
      "atMs": 1792602961838,
      "seenMs": 1792602961838,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/4ee1264a-60f9-4ab6-ba5f-4fb3048b0de81792576982456.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/4ee1264a-60f9-4ab6-ba5f-4fb3048b0de81792576982456.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]直55注：005 025 075 085 092 094 095 097 098 405 425 475 485 492 494 495 498 705 725 775 792 795 797 798 805 825 885",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T10:03:00.000Z",
+     "pubMs": 1792576980000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/da29d5a6-ef5e-4ec8-a018-ecc75eb1ef211792576982489.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/da29d5a6-ef5e-4ec8-a018-ecc75eb1ef211792576982489.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]直55注：005 025 075 085 092 094 095 097 098 405 425 475 485 492 494 495 498 705 725 775 792 795 797 798 805 825 885",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T10:03:00.000Z",
+     "pubMs": 1792576980000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/5f7b9dec-924a-4476-b179-99bab6916b711792576982466.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/5f7b9dec-924a-4476-b179-99bab6916b711792576982466.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]直55注：005 025 075 085 092 094 095 097 098 405 425 475 485 492 494 495 498 705 725 775 792 795 797 798 805 825 885",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T10:03:00.000Z",
+     "pubMs": 1792576980000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/d576655d-c8f2-46d4-9df8-00fe1b439bdb1792574305715.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/d576655d-c8f2-46d4-9df8-00fe1b439bdb1792574305715.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]这号有点感觉",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T09:18:00.000Z",
+     "pubMs": 1792574280000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/08c8a25f-b61c-4295-8a06-67cb5f75167f1792574305658.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/08c8a25f-b61c-4295-8a06-67cb5f75167f1792574305658.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]这号有点感觉",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T09:18:00.000Z",
+     "pubMs": 1792574280000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/25e491c2-c00a-4fbb-9138-82f853540db71792574305773.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/25e491c2-c00a-4fbb-9138-82f853540db71792574305773.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]这号有点感觉",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T09:18:00.000Z",
+     "pubMs": 1792574280000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
      "whenMs": null
     }
    ]
@@ -936,6 +1090,20 @@ const XYSP_DATA = {
      "nextAt": 1792585800000,
      "atMs": 1792602961838,
      "seenMs": 1792602961838,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/2df511d9-1a0b-43bf-8df7-b74f0a55803d1792562241313.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/2df511d9-1a0b-43bf-8df7-b74f0a55803d1792562241313.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26280期]希望给我中",
+     "url": "",
+     "at": "2026-10-21T17:20:03.494Z",
+     "pubAt": "2026-10-21T05:58:00.000Z",
+     "pubMs": 1792562280000,
+     "pubSrc": "page",
+     "nextAt": 1792585800000,
+     "atMs": 1792603203494,
+     "seenMs": 1792603203494,
      "whenMs": null
     }
    ]
