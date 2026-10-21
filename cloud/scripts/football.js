@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "1BA599"
     },
     "time": "2026-10-22 01:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "贝林佐纳",
      "score": 0,
@@ -4751,7 +4751,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "特內里費C隊",
      "score": 2,
@@ -4817,7 +4817,7 @@ const FOOTBALL_DATA = {
      "color": "3777Fe"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "奥尔堡U19",
      "score": 3,
@@ -4867,7 +4867,7 @@ const FOOTBALL_DATA = {
      "color": "FC7555"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "咸仑斯巴坦",
      "score": 1,
@@ -4933,7 +4933,7 @@ const FOOTBALL_DATA = {
      "color": "FC7555"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "比尔泽布瓜",
      "score": 2,
@@ -4999,7 +4999,7 @@ const FOOTBALL_DATA = {
      "color": "3792aa"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "特拉纳",
      "score": 4,
@@ -5045,7 +5045,7 @@ const FOOTBALL_DATA = {
      "color": "990040"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "泰拉塞尔",
      "score": 1,
@@ -5111,7 +5111,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:30:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "拉斯彭马斯C队",
      "score": 1,
@@ -5177,7 +5177,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:30:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "潘迪普利多",
      "score": 1,
@@ -5477,7 +5477,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "赫雷斯",
      "score": 0,
@@ -5515,7 +5515,7 @@ const FOOTBALL_DATA = {
      "color": "FF6633"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "桑托斯拉古納U21",
      "score": 0,
@@ -5593,7 +5593,7 @@ const FOOTBALL_DATA = {
      "color": "1BA599"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 37,
+    "minute": 42,
     "home": {
      "name": "克羅茲林根",
      "score": 0,
@@ -5631,7 +5631,7 @@ const FOOTBALL_DATA = {
      "color": "44592A"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "卡尔斯多夫",
      "score": 0,
@@ -5709,7 +5709,7 @@ const FOOTBALL_DATA = {
      "color": "FC8900"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "克拉科夫女足",
      "score": 0,
@@ -5787,7 +5787,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "特拉维夫叶胡达U19",
      "score": 0,
@@ -5865,7 +5865,7 @@ const FOOTBALL_DATA = {
      "color": "3692FF"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "科尔丁女足",
      "score": 0,
@@ -5903,7 +5903,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "切拉米卡克里奥帕特拉",
      "score": 1,
@@ -5981,10 +5981,10 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "阿尔艾利开罗",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 2
     },
@@ -6059,7 +6059,7 @@ const FOOTBALL_DATA = {
      "color": "666699"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "松达尔",
      "score": 0,
@@ -6137,7 +6137,7 @@ const FOOTBALL_DATA = {
      "color": "3777FF"
     },
     "time": "2026-10-22 01:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "云洛斯",
      "score": 0,
