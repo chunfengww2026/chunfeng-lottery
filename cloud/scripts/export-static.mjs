@@ -4182,6 +4182,7 @@ function mqPeriods(gid, saved) {
  */
 function mqJudge(gid, v, d) {
   if (!v || !d || !d.areas) return null;
+  if (gid !== 'ssq' && gid !== 'dlt' && typeof ctx.latestOtherPoolJudge === 'function') return ctx.latestOtherPoolJudge(gid, v, d.areas);
   const area = (k) => (d.areas[k] || []).map(Number);
   const inPool = (pool, n) => pool.indexOf(Number(n)) >= 0;
   const hits = (src, pool) => src.filter((n) => inPool(pool, n)).length;
@@ -4429,8 +4430,8 @@ function mqClaimTier(claim) {
   let label = '';
   for (const w of MQ_LV_WORDS) { if (s.indexOf(w) >= 0) { label = w; break; } }
   if (!label) {
-    if (/组选[^）]*组六/.test(s)) label = '组选六';
-    else if (/组选[^）]*组三/.test(s)) label = '组选三';
+    if (/(?:组选六|组六)/.test(s)) label = '组选六';
+    else if (/(?:组选三|组三)/.test(s)) label = '组选三';
     else if (/组选/.test(s)) label = '组选';
     else if (/直选/.test(s)) label = '直选';
     else label = '命中';
