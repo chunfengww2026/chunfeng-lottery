@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T18:13:40.782Z",
+ "updated": "2026-10-21T18:50:34.332Z",
  "entries": [
   {
    "id": "https://m.cz89.com/read_10914065.htm",
@@ -106,17 +106,20 @@
  "sources": [
   {
    "url": "https://www.cz89.com/p3/item_7.htm",
-   "status": 200,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
    "url": "https://m.cz89.com/read_10914065.htm",
-   "status": 200,
-   "count": 1
+   "status": 0,
+   "error": "fetch failed",
+   "count": 0
   },
   {
    "url": "https://www.800820.net/ssq/list_46.html",
-   "status": 200,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
@@ -126,12 +129,38 @@
   },
   {
    "url": "https://taihu.17500.cn/home/",
-   "status": 429,
+   "status": 0,
+   "error": "The operation was aborted due to timeout",
    "count": 0
   },
   {
    "url": "https://www.17500.cn/arts/detail-4925224.html",
    "status": 429,
+   "count": 0
+  },
+  {
+   "url": "https://tieba.baidu.com/f?kw=%E5%8F%8C%E8%89%B2%E7%90%83",
+   "status": 403,
+   "count": 0
+  },
+  {
+   "url": "https://tieba.baidu.com/f?kw=%E5%A4%A7%E4%B9%90%E9%80%8F",
+   "status": 403,
+   "count": 0
+  },
+  {
+   "url": "https://tieba.baidu.com/f?kw=%E5%BF%AB%E4%B9%908",
+   "status": 403,
+   "count": 0
+  },
+  {
+   "url": "https://tieba.baidu.com/f?kw=%E7%A6%8F%E5%BD%A93D",
+   "status": 403,
+   "count": 0
+  },
+  {
+   "url": "https://tieba.baidu.com/f?kw=%E6%8E%92%E5%88%97%E4%B8%89",
+   "status": 403,
    "count": 0
   }
  ]
