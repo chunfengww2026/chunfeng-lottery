@@ -37,9 +37,10 @@ export async function run(){
   const fresh=[],sources=[];
   for(const [gid,g]of Object.entries(GAMES)){
     const latest=String(c.draws?.games?.[gid]?.issue||'');if(!/^\d{5,7}$/.test(latest))continue;
-    const expected=String(Number(latest)+1),kw=g.name+expected+'期 字谜 资料图';
+    const expected=String(Number(latest)+1);for(const suffix of ['字谜','资料图 分析 推荐']){const kw=g.name+expected+'期 '+suffix;
     try{const u='https://so.toutiao.com/search?dvpf=pc&source=input&keyword='+encodeURIComponent(kw)+'&enable_druid_v2=1&page_num=0&pd=synthesis';const r=await fetch(u,{headers:{'User-Agent':'Mozilla/5.0','Accept-Language':'zh-CN,zh;q=0.9'},signal:AbortSignal.timeout(15000)});const html=await r.text();const items=r.ok?parseCards(html,gid,expected):[];fresh.push(...items);sources.push({gid,issue:expected,status:r.status,count:items.length,available:r.ok&&/data-druid-card-data-id/i.test(html)});console.log(g.name+' '+expected+'：'+items.length+' 条，HTTP '+r.status);}catch(e){sources.push({gid,issue:expected,available:false,error:String(e.message).slice(0,100)});console.log(g.name+'：暂不可用');}
     await new Promise(r=>setTimeout(r,1200));
+  }
   }
   const merged=mergeEntries(old,fresh);const data={updated:new Date().toISOString(),...merged,sources};fs.writeFileSync(FILE+'.tmp',JSON.stringify(data,null,1));fs.renameSync(FILE+'.tmp',FILE);console.log('已保存 '+data.entries.length+' 条当期资料（图片与短文摘录，保留48小时）');return data;
 }
