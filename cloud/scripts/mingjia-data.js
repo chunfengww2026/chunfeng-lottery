@@ -1,7 +1,109 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 00:22:52） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 00:49:30） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 00:22:52",
+ "updated": "2026-10-22 00:49:30",
  "list": [
+  {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
+     "size": 84934,
+     "src": "https://pic1.800820.net/tumi/20260106/3c882ad0152b4bd48ec7a42fd3e33f60.webp",
+     "page": "https://www.800820.net/tuku/tkpic_376751.html",
+     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:46:52.259Z"
+    }
+   ]
+  },
+  {
+   "name": "东北人杀",
+   "cat": "双色球",
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/东北人杀/1.webp",
+     "size": 48904,
+     "src": "https://pic2.800820.net/tumi/20260211/3e931d48852d444bacdecad2e99c63f2.webp",
+     "page": "https://www.800820.net/p/10796476.html",
+     "title": "双色球26019期东北人杀蓝图迷_天齐网",
+     "issue": "26019",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:48:26.476Z"
+    }
+   ]
+  },
+  {
+   "name": "峨眉道姑",
+   "cat": "双色球",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/峨眉道姑/1.webp",
+     "size": 37384,
+     "src": "https://pic2.800820.net/tumi/20260310/7ef4551e20f94f1cb93d7bb225f3b5bf.webp",
+     "page": "https://m.800820.net/p/10849581.html",
+     "title": "双色球2026027期峨眉道姑杀蓝图迷_手机天齐网",
+     "issue": "2026027",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:48:56.133Z"
+    }
+   ]
+  },
+  {
+   "name": "林黛玉",
+   "cat": "双色球",
+   "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
+     "size": 48864,
+     "src": "https://pic2.800820.net/tumi/20260201/15dc6b42c12340c083c3d30f19af815b.webp",
+     "page": "https://www.800820.net/p/10767048.html",
+     "title": "林黛玉26年015期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:49:11.166Z"
+    }
+   ]
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/贾宝玉/1.webp",
+     "size": 56884,
+     "src": "https://pic2.800820.net/tumi/20260226/18eeac0f210d4b74923dbabae10cb91f.webp",
+     "page": "https://www.800820.net/p/10813199.html",
+     "title": "贾宝玉26年022期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:49:19.817Z"
+    }
+   ]
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.webp",
+     "size": 41248,
+     "src": "https://pic1.800820.net/tumi/20260313/358a16c90d3d49c1a7a58bd6b8c78942.webp",
+     "page": "https://www.800820.cn/p/10856431.html",
+     "title": "司马迁26年028期双色球杀蓝球图谜_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:49:27.234Z"
+    }
+   ]
+  },
   {
    "name": "太湖字谜",
    "cat": "排列三",
@@ -17,7 +119,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T16:22:42.941Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "万里挑一",
@@ -475,19 +578,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/貂蝉杀/1.webp",
-     "size": 84934,
-     "src": "https://pic1.800820.net/tumi/20260106/3c882ad0152b4bd48ec7a42fd3e33f60.webp"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "名家精",
    "cat": "双色球",
    "kw": "名家精 双色球 图 2026121期 推荐",
@@ -527,32 +617,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "东北人杀",
-   "cat": "双色球",
-   "kw": "东北人杀 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/东北人杀/1.jpg",
-     "size": 177515,
-     "src": "https://f.yddtiyu.com/info/1760933432813fe86ff31-b604-406e-9674-0edfe5bbfabb.jpg"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/峨眉道姑/1.webp",
-     "size": 47068,
-     "src": "https://pic2.800820.net/tumi/20260125/0c0b7d95f2fc47ed83e925b0c9741a20.webp"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "蓝号迷",
    "cat": "双色球",
    "kw": "蓝号迷 双色球 蓝球 图 2026121期 推荐",
@@ -561,45 +625,6 @@ const MINGJIA_DATA = {
      "file": "imgs/mingjia/蓝号迷/1.webp",
      "size": 49282,
      "src": "https://pic2.800820.net/tumi/20260224/456078a20ffb459f9e1da3d2be5ba026.webp"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/林黛玉/1.webp",
-     "size": 44596,
-     "src": "https://pic1.800820.net/tumi/20251225/bfdc1359f0f8464396ada2229bb5e55a.webp"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/贾宝玉/1.webp",
-     "size": 51558,
-     "src": "https://pic1.800820.net/tumi/20251213/bef164bc738644c7b237a67b4b2b87e7.webp"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 图 2026121期 推荐",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/司马迁/1.webp",
-     "size": 45828,
-     "src": "https://pic2.800820.net/tumi/20251225/58ba0b33cb5143ed8820ae838f426f26.webp"
     }
    ],
    "stale": true
@@ -983,6 +1008,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 00:22:52",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 00:49:30",
    "names": 71,
    "imgs": 71
   }
