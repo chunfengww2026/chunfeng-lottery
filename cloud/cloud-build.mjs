@@ -1020,6 +1020,11 @@ function main() {
      ============================================================ */
   const slot = resolveSlot();
   const plan = planForSlot(slot.type, slot.bj);
+  if (QUICK) Object.assign(plan, {
+    dataFetch: false, football: false, extras: false, liveScores: false,
+    roll: 'skip', heatmap: 'skip', publishTickets: true,
+    exportStatic: true, exportFootball: true, cleanup: false
+  });
 
   log(`\n【班次】${plan.type} —— ${plan.label}`);
   log(`  判断依据：${slot.why}`);
@@ -1041,7 +1046,7 @@ function main() {
      · 想临时关掉：环境变量 PREFETCH_ALL=0。
      · 抓取失败不阻断构建：用 runSoft，失败只记日志。
      ============================================================ */
-  if (plan.type === 'full' && process.env.PREFETCH_ALL !== '0') {
+  if (!QUICK && plan.type === 'full' && process.env.PREFETCH_ALL !== '0') {
     log('\n【事先抓取】prefetch-all.mjs --fast —— 先把全部数据抓下来，页面只读现成数据');
     const tPre = Date.now();
     runSoft('prefetch-all.mjs', ['--fast']);
@@ -1573,7 +1578,7 @@ function main() {
      build-sina-predict.mjs 抓媒体对【下一期】的公开预测（文章正文是 JS 渲染，用 headless Chrome）。
      ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读 sina-predict.json）。
      ⚠️ 源头还没发下一期时，这个脚本会 exit 0 且不写文件 → 页面那块自然不显示，不会弄坏构建。 */
-  if (doExportStatic) exportList.push(['build-sina-predict.mjs', '新浪下一期参考（可选，抓不到就跳过）']);
+  if (!QUICK && doExportStatic) exportList.push(['build-sina-predict.mjs', '新浪下一期参考（可选，抓不到就跳过）']);
   /* __MQ_EARLY__ 用户 2026-10-18：「喇叭要在抓取到开奖信息就公布」
      → 播报比对必须在【生成彩票页之前】跑，否则页面里的喇叭用的是上一轮的旧数据。 */
   exportList.push(['build-broadcast.mjs', '播报 · 中奖命中比对（先于出页面）']);
@@ -1607,7 +1612,7 @@ function main() {
         足球班次 30 分钟一班，不会把它连着抓两遍。
      ⚠️ 失败不影响后面：build-match.mjs 读不到文件就照旧显示「暂无」，
         绝不用单源硬造低/中/高，也绝不拿别场的数字顶（那是编数据）。 */
-  if (plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指 + 欧赔对比数据（球探 titan007 多公司欧赔）']);
+  if (!QUICK && plan.exportFootball) exportList.push(['build-odds-divergence.mjs', '分歧指 + 欧赔对比数据（球探 titan007 多公司欧赔）']);
   /* 【雷达寻胆 · 成交资金面】用户 2026-10-17 第 4 步：详情页要一个"自己算出来的胆"。
      这个脚本取【当天比分行】(比赛ID + 主客队名)，按队名 + 别名把我们的场次对上号，
      再问那场有没有成交资金数据（三项成交量/占比/成交价 + 挂单量 + 大小球），写 jc-bifa.js。
@@ -1617,7 +1622,7 @@ function main() {
      ⚠️ 它只读 jc-data.js / jc-history.js（决定要问哪几场），只写 jc-bifa.js。
      ⚠️ 失败 / 一场都没取到 → 【不覆盖旧文件】，build-match.mjs 读不到就降成
         欧赔+盘口+凯利三个维度（不是错，是少一档），绝不让整班挂掉。 */
-  if (plan.exportFootball) exportList.push(['fetch-bifa.mjs', '雷达寻胆 · 成交资金面']);
+  if (!QUICK && plan.exportFootball) exportList.push(['fetch-bifa.mjs', '雷达寻胆 · 成交资金面']);
   /* 【联赛积分榜】2026-10-18：详情页「综合模型」算埃罗概率要【真实积分差】，
      此前只有 jc-data.js 里每场的 [名次]，拿"名次 × 2"当积分差是代理值。
      这一步去 liansai.500.com 抓 15 个联赛的真实积分榜，写 jc-standings.js
@@ -1625,7 +1630,7 @@ function main() {
      ⚠️ 必须排在 build-match.mjs【之前】：详情页是【构建时】把这份数据内嵌进 HTML 的。
      ⚠️ 抓不到就【不覆盖旧文件】（本机那份可能还是好的），这一班沿用上一份数据；
         失败只记一行 ❌，不影响后面任何一步（和 fetch-bifa.mjs 同一档容错）。 */
-  if (plan.exportFootball) exportList.push(['fetch-standings.mjs', '联赛积分榜数据（500.com）']);
+  if (!QUICK && plan.exportFootball) exportList.push(['fetch-standings.mjs', '联赛积分榜数据（500.com）']);
   /* 【比赛详情页】用户 2026-10-17 第 1 步：竞彩页每张比赛卡片点进去看这场的数据。
      必须排在 export-football.mjs 之后（同一个班次，数据口径一致）：
      它读 jc-data.js + jc-official.js，把 games 数组内嵌进 比赛详情.html。
@@ -1654,7 +1659,7 @@ function main() {
      · ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读这个 json）。
      · ⚠️ 它自己「抓不到就不覆盖旧文件 + 退出码永远 0」，
        所以这里用 runSoft：失败只记一行，绝不会拖垮整条构建链。 */
-  {
+  if (!QUICK) {
     const r = runSoft('fetch-busuanzi.mjs', []);
     log(`  不蒜子热度：${r.ok ? '✅ 已取到最新数字 → busuanzi.json' : '⚠️ 跳过（沿用上一次的数）'}`);
   }
