@@ -6,12 +6,13 @@ import {mergeEntries} from './fetch-mingjia-toutiao.mjs';
 const ROOT=path.dirname(fileURLToPath(import.meta.url)),FILE=path.join(ROOT,'mingjia-web.json');
 const seeds=[['https://www.cz89.com/p3/item_7.htm','pl3'],['https://m.cz89.com/read_10914065.htm','fc3d'],['https://www.800820.net/ssq/list_46.html','ssq'],['https://www.55128.cn/zt/3dzmtmhz','fc3d'],['https://taihu.17500.cn/home/','fc3d'],['https://www.17500.cn/arts/detail-4925224.html','fc3d']];
 const cats={ssq:'双色球',dlt:'大乐透',kl8:'快乐8',fc3d:'3D',pl3:'排列三'};
+for(const [gid,name] of Object.entries({ssq:'双色球',dlt:'大乐透',kl8:'快乐8',fc3d:'福彩3D',pl3:'排列三'}))seeds.push(['https://tieba.baidu.com/f?kw='+encodeURIComponent(name),gid]);
 export const plain=s=>String(s||'').replace(/<script\b[\s\S]*?<\/script>/gi,'').replace(/<style\b[\s\S]*?<\/style>/gi,'').replace(/<(?:br\b[^>]*|\/p|\/div)>/gi,'\n').replace(/<[^>]*>/g,'').replace(/&nbsp;|&#160;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim();
 export function issueOf(s,gid){const full=/(?:^|\D)(20\d{2})\s*年?\s*(\d{3})\s*期/.exec(s);const short=/(?:^|\D)(\d{2})年\s*(\d{3})\s*期/.exec(s);const compact=/(?:^|\D)(\d{5,7})\s*期/.exec(s);let n=full?full[1]+full[2]:short?'20'+short[1]+short[2]:compact?.[1]||'';if(n.length===5&&['ssq','fc3d','kl8'].includes(gid))n='20'+n;if(n.length===7&&['pl3','dlt'].includes(gid))n=n.slice(2);return n;}
 export function parseArticle(html,url,gid,expected,now=Date.now()){
  const title=plain((html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)||html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1]||'');
  if(issueOf(title,gid)!==String(expected))return null;
- const match=html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)||html.match(/<div\b[^>]*(?:id|class)\s*=\s*["'][^"']*(?:article-content|news-content|articleContent|content-body|detail-content|art-content|article_text)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+ const match=html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)||html.match(/<div\b[^>]*(?:id|class)\s*=\s*["'][^"']*(?:article-content|news-content|articleContent|content-body|detail-content|art-content|article_text|d_post_content)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
  if(!match)return null;const body=match[1];
  const tm=plain(html).match(/(?:发布(?:时间)?|时间|日期)?\s*[：:]?\s*(20\d{2}[-/]\d{1,2}[-/]\d{1,2})\s+(\d{1,2}:\d{2}(?::\d{2})?)/);
  const published=tm?Date.parse(tm[1].replaceAll('/','-')+'T'+tm[2]+(tm[2].length===5?':00':'')+'+08:00'):NaN;
