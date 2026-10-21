@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 00:20
+   更新时间：2026-10-22 00:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 00:20",
+ "updated": "2026-10-22 00:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -223,6 +223,48 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/d341bab9-4f75-47d5-9df3-97cb0a3741a31792598270597.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/d341bab9-4f75-47d5-9df3-97cb0a3741a31792598270597.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]哈哈 给自己整笑了，福彩买到体彩，体彩买到福彩，服了",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:58:00.000Z",
+     "pubMs": 1792598280000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/e193cb0b-27bb-4e62-9a3e-b109fb0287391792598270451.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/e193cb0b-27bb-4e62-9a3e-b109fb0287391792598270451.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]哈哈 给自己整笑了，福彩买到体彩，体彩买到福彩，服了",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:58:00.000Z",
+     "pubMs": 1792598280000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/44f5166e-a911-4ca7-b49f-228eae3f249a1792598270417.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/44f5166e-a911-4ca7-b49f-228eae3f249a1792598270417.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]哈哈 给自己整笑了，福彩买到体彩，体彩买到福彩，服了",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:58:00.000Z",
+     "pubMs": 1792598280000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-21/aa918b39-30ee-46bb-84c5-03e9b7c29d5e1792595219191.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/aa918b39-30ee-46bb-84c5-03e9b7c29d5e1792595219191.jpg?imageMogr2/thumbnail/360x",
@@ -738,6 +780,34 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-21/0e9a409a-2b14-4869-a8e4-a9faaa13b3cf1792597877357.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/0e9a409a-2b14-4869-a8e4-a9faaa13b3cf1792597877357.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]明天晚上8.50出一注号码，精选一注。百分之90几率能中。",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:52:00.000Z",
+     "pubMs": 1792597920000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/3340c91d-1b5e-47b5-8831-9405a0e3980a1792597877414.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/3340c91d-1b5e-47b5-8831-9405a0e3980a1792597877414.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]明天晚上8.50出一注号码，精选一注。百分之90几率能中。",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:52:00.000Z",
+     "pubMs": 1792597920000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-21/d9184fa2-62c9-44b9-9aeb-34063cbfefa31792591667860.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/d9184fa2-62c9-44b9-9aeb-34063cbfefa31792591667860.jpg?imageMogr2/thumbnail/360x",
      "title": "[26281期]自己买的差一位赠票给中了。。",
@@ -966,6 +1036,20 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/a602186a-2e04-4608-9ef1-c9b6b7ead7b31792598166474.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/a602186a-2e04-4608-9ef1-c9b6b7ead7b31792598166474.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]连续三期都是这样气不气，不该得到的还是不该得。",
+     "url": "",
+     "at": "2026-10-21T16:25:04.465Z",
+     "pubAt": "2026-10-21T15:56:00.000Z",
+     "pubMs": 1792598160000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792599904465,
+     "seenMs": 1792599904465,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-21/c083a944-3666-4932-ae3c-5304605b0efd1792593259234.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/c083a944-3666-4932-ae3c-5304605b0efd1792593259234.jpg?imageMogr2/thumbnail/360x",
