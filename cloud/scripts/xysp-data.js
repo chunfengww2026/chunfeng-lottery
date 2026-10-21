@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 05:42
+   更新时间：2026-10-22 06:21
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 05:42",
+ "updated": "2026-10-22 06:21",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1147,9 +1147,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T21:42:15.781Z",
+     "seen": "2026-10-21T22:20:48.842Z",
      "whenMs": 1792553476000,
-     "seenMs": 1792613357535,
+     "seenMs": 1792618935781,
      "drawMs": 1792589400000,
      "nextMs": 1792589400000,
      "atMs": 1792598438833,
@@ -1164,8 +1164,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=qCh9tzW%2BGqqKDpjFwzdB%2BzuB0Rg%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=26R9YqesvjBo3P3aqgdNPxn4QAA%3D",
      "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
      "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
@@ -1177,9 +1177,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T21:42:15.781Z",
+     "seen": "2026-10-21T22:20:48.842Z",
      "whenMs": 1792542737000,
-     "seenMs": 1792618935781,
+     "seenMs": 1792621248842,
      "drawMs": 1792589400000,
      "nextMs": 1792589400000,
      "atMs": 1792598438833,

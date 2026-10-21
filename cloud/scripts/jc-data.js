@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 05:22 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 05:59 */
 const JC_DATA = {
- "updated": "2026-10-22 05:22",
+ "updated": "2026-10-22 05:59",
  "stat": {
   "total": 13,
   "upcoming": 1,
-  "live": 6,
-  "finished": 6,
+  "live": 0,
+  "finished": 12,
   "withScore": 12,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -767,7 +767,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 4,
@@ -876,7 +876,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -985,7 +985,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -1094,7 +1094,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -1203,7 +1203,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -1312,7 +1312,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -1358,9 +1358,9 @@ const JC_DATA = {
       "away": 3.2
      },
      "live": {
-      "home": 1.7,
-      "draw": 3.5,
-      "away": 5.5
+      "home": 1.65,
+      "draw": 3.6,
+      "away": 5.75
      }
     },
     "overunder": {
@@ -1370,23 +1370,23 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 1.1,
+      "line": 0.8,
       "over": 2,
-      "under": 0.77
+      "under": 1.05
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 55.7,
+    "confidence": 57.3,
     "prob": {
-     "home": 55.7,
-     "draw": 27.1,
-     "away": 17.2
+     "home": 57.3,
+     "draw": 26.3,
+     "away": 16.4
     },
     "clear": true,
-    "margin": 5.6,
+    "margin": 5.8,
     "rqLine": "半球/一球",
     "type": "three"
    },
