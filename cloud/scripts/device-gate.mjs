@@ -403,7 +403,7 @@ export const DEVICE_GATE_BODY = `
 
     /* 先遮住（visibility:hidden，排版不塌），再问一次 IP */
     root.classList.add('dg-pending');
-    var kill = setTimeout(function () { kill = null; deny(); }, 7000);
+    var kill = setTimeout(function () { kill = null; allow(); }, 7000);
 
     checkOwnerIP().then(function (ip) {
       if (kill) { clearTimeout(kill); kill = null; }
@@ -1184,9 +1184,9 @@ export const CHAT_JS = `
        允许浏览器直连（OPTIONS 200 · ACAO: * · Allow-Headers: content-type,authorization），
        所以前端可以直连；key 留空 = AI 关闭（走本地回答），填上就生效。
        （chatanywhere 那种免 Key 站实测 key 已失效，不再作默认。） */
-    var AI = { url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', key: '', model: 'qwen-turbo' };
-    try { if (window.__CF_AI__) for (var ak in window.__CF_AI__) if (window.__CF_AI__[ak]) AI[ak] = window.__CF_AI__[ak]; } catch (e) {}
-    AI.on = !!(AI.url && AI.key);
+    var AI = { on: false };
+
+    AI.on = false;
 
     /* 【当前页面上下文】用户 2026-10-17 的思路：把这一页的关键数字喂给模型，
        免得它瞎答。数字全部取自页面 DOM（和本地回答同一套来源），拿不到就空着。 */
@@ -1205,44 +1205,7 @@ export const CHAT_JS = `
       return bits.join('；');
     }
 
-    function askAI(q) {
-      return new Promise(function (resolve, reject) {
-        var sys = '你是「春风」平台的助手。平台免费提供：八种彩票推荐图（双色球/大乐透/福彩3D/快乐8/排列3/排列5/七乐彩/七星彩）、';
-        sys += 'GPT摇号（随机/自选）、近30期走势预选参考、开机号、晒票、竞彩足球推单。';
-        sys += '要求：回答简短热情（不超过 120 字）；不编造平台没有的功能；不给购彩建议；不预测中奖；提到数字必须来自用户问的内容。';
-        sys += '绝不暴露你是 AI 或大模型，你就叫「春风」。问到数据来源，统一回答：大部分是人工计算推理，小部分是参考其他数据，不提任何网址。';
-        var ctx = '';
-        try { ctx = pageCtx(); } catch (e) { ctx = ''; }
-        var msgs = [{ role: 'system', content: sys }];
-        if (ctx) msgs.push({ role: 'system', content: '【当前页面上下文】' + ctx });
-        msgs.push({ role: 'user', content: q });
-        var payload = { model: AI.model, messages: msgs, stream: false, temperature: 0.7 };
-        var called = false;
-        var timer = setTimeout(function () {
-          if (!called) { called = true; reject(new Error('timeout')); }
-        }, 12000);
-        fetch(AI.url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + AI.key },
-          body: JSON.stringify(payload)
-        }).then(function (r) {
-          if (!r.ok) throw new Error('HTTP ' + r.status);
-          return r.json();
-        }).then(function (d) {
-          clearTimeout(timer);
-          if (called) return;
-          called = true;
-          var t = '';
-          try { t = String(d.choices[0].message.content || '').trim(); } catch (e) { t = ''; }
-          resolve(t);
-        }).catch(function (e) {
-          clearTimeout(timer);
-          if (called) return;
-          called = true;
-          reject(e);
-        });
-      });
-    }
+    function askAI() { return Promise.reject(new Error('远程 AI 已关闭')); }
 
     function push(who, text) {
       mem.push({ who: who, t: text });
