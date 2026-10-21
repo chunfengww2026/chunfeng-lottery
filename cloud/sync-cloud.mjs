@@ -942,6 +942,14 @@ try {
     log('  ⚠️ imgs/ 目录不存在：' + imgRoot);
   }
 } catch (e) { log('  ⚠️ 扫图片失败：' + e.message); }
+const onlyArg = process.argv.find((arg) => arg.startsWith('--only='));
+if (onlyArg) {
+  const requested = new Set(onlyArg.slice('--only='.length).split(',').filter(Boolean));
+  const selected = files.filter((file) => requested.has(file.repo));
+  const missing = [...requested].filter((name) => !selected.some((file) => file.repo === name));
+  if (missing.length) throw new Error('指定发布文件未找到：' + missing.join(', '));
+  files.splice(0, files.length, ...selected);
+}
 log(`  共 ${files.length} 个文件`);
 
 /* ---------- 比指纹，挑出真正变了的文件 ---------- */
@@ -1170,7 +1178,7 @@ if (!FORCE_DISPATCH) {
 }
 
 /* ③ 错峰：看云端队列（原有逻辑，force 也照旧遵守） */
-if (!skipDispatch) {
+if (!skipDispatch && !FORCE_DISPATCH) {
   try {
     const runsRes = await gh('GET', `/repos/${OWNER}/${REPO}/actions/runs?per_page=5`);
     if (runsRes && runsRes.ok) {
