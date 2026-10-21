@@ -880,7 +880,7 @@ function assertOne(src, needle, label) {
 }
 
 export function injectMarkers(src) {
-  let s = src;
+  let s = String(src).replace(/\r\n/g, '\n');
   /* 工具栏：插在彩种块的 .tr-head 前面。
      ⚠️ 这个锚点在 trend-render.js 里【就在一段字符串拼接的中间】
         （L.push('<div class="tr-head">');），所以插进去的东西必须是
