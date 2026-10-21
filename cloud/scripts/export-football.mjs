@@ -690,7 +690,9 @@ function prep(g) {
   }
 
   const hasScore = hs !== null && hs !== undefined && as !== null && as !== undefined;
-  let kind = g.status || 'upcoming';
+  const fbStamp=Date.parse(String(FB && FB.updated || '').replace(' ','T')+'+08:00');
+  const fbFresh=Number.isFinite(fbStamp) && Date.now()-fbStamp>=-300000 && Date.now()-fbStamp<=1800000;
+  let kind = (fb && fbFresh && ['upcoming','live','finished'].includes(fb.kind)) ? fb.kind : (g.status || 'upcoming');
 
   /* 【已完场要有比分显示】用户 2026-10-17 追加。
      实测发现：归档（jc-history）里有些场次【还没开赛就被归档成了 finished】——
@@ -720,7 +722,7 @@ function prep(g) {
     gid: g.gid, code: g.code, league: g.league, round: g.round,
     time: g.time, handicap: g.handicap,
     home: g.home, away: g.away,
-    minute: (fb && fb.minute) || g.minute || 0,
+    minute: (fb && fb.minute !== undefined && fb.minute !== null) ? fb.minute : (g.minute || 0),
     odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result,
     asianIndex,
     /* 这场是从 jc-history 归档来的（不是本次在售）→ 卡片样式区分一下 */
@@ -1517,7 +1519,7 @@ function renderMatch(m) {
   /* 【整卡不再是链接】用户 2026-10-17 给的卡片设计：点【头部】是折叠/展开，不是跳转。
      所以卡片本身改成 <div>，详情入口只剩 .m-body 末尾那个「看这场数据 ›」（已是 <a>）。
      这样「点头部折叠」和「看详情」两件事不会打架。 */
-  return `<div class="${cls}">${body}</div>`;
+  return `<div class="${cls}" data-match-id="${esc(String(m.gid || m.code)+'|'+String(m.time || ''))}">${body}</div>`;
 }
 
 /* ============================================================
@@ -5742,6 +5744,28 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
     }).catch(function(){}).then(function(){busy=false;});
   }
   window.__communityRefresh=update;setInterval(update,90000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)update();});
+})();
+</script>
+
+<script>
+(function(){
+  if(location.protocol==='file:')return;
+  var busy=false;
+  function update(){
+    if(busy||document.hidden)return Promise.resolve(false);busy=true;
+    var url=new URL(location.href);url.searchParams.set('t',String(Date.now()));
+    return fetch(url.href,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.text();}).then(function(text){
+      var doc=new DOMParser().parseFromString(text,'text/html'),ids=['sec-upcoming','sec-live','sec-finished'];
+      if(!ids.every(function(id){return doc.getElementById(id)&&document.getElementById(id);}))return false;
+      var expanded={};document.querySelectorAll('.m-card[data-match-id]:not(.collapsed)').forEach(function(c){expanded[c.getAttribute('data-match-id')]=true;});
+      ids.forEach(function(id){var current=document.getElementById(id),next=doc.getElementById(id);next.querySelectorAll('script').forEach(function(e){e.remove();});if(current.innerHTML!==next.innerHTML)current.innerHTML=next.innerHTML;});
+      document.querySelectorAll('.m-card[data-match-id]').forEach(function(c){if(!expanded[c.getAttribute('data-match-id')])return;c.classList.remove('collapsed','folded');var body=c.querySelector('.m-body');if(body)body.style.removeProperty('display');var top=c.querySelector('.m-top');if(top)top.setAttribute('aria-expanded','true');var arrow=c.querySelector('.m-fold');if(arrow)arrow.textContent='▾';});
+      ['upcoming','live','finished'].forEach(function(kind){var sel='.stat a[href="#sec-'+kind+'"] b',next=doc.querySelector(sel),current=document.querySelector(sel);if(next&&current)current.textContent=next.textContent;});
+      return true;
+    }).catch(function(){return false;}).finally(function(){busy=false;});
+  }
+  window.__refreshFootballMatches=update;setInterval(update,30000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)update();});
 })();
 </script>
