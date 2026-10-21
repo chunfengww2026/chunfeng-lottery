@@ -4612,7 +4612,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "特內里費C隊",
      "score": 2,
@@ -4650,7 +4650,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "拉斯彭马斯C队",
      "score": 2,
@@ -4700,7 +4700,7 @@ const FOOTBALL_DATA = {
      "color": "b00900"
     },
     "time": "2026-10-22 00:30:00",
-    "minute": 60,
+    "minute": 62,
     "home": {
      "name": "潘迪普利多",
      "score": 4,
@@ -4738,7 +4738,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-22 00:45:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "里尔",
      "score": 2,
@@ -4804,7 +4804,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-10-22 00:45:00",
-    "minute": 53,
+    "minute": 55,
     "home": {
      "name": "科莫",
      "score": 2,
@@ -4870,7 +4870,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-22 00:50:00",
-    "minute": 47,
+    "minute": 49,
     "home": {
      "name": "吉达",
      "score": 0,
@@ -5616,7 +5616,7 @@ const FOOTBALL_DATA = {
      "color": "1BA599"
     },
     "time": "2026-10-22 01:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "贝林佐纳",
      "score": 0,
