@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 00:02:44） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 00:19:13） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 00:02:44",
+ "updated": "2026-10-22 00:19:13",
  "list": [
   {
    "name": "万里挑一",
@@ -57,8 +57,8 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/名家精/1.jpg",
-     "size": 247023,
-     "src": "https://img.518158.cn/20251011/17601798589470227560.jpg"
+     "size": 314675,
+     "src": "https://img.alicdn.com/imgextra/i3/2611491831/O1CN01NXJ4YS1POeDWVaDPg_!!2611491831.jpg"
     }
    ]
   },
@@ -92,9 +92,9 @@ const MINGJIA_DATA = {
    "kw": "桃子姐 快乐8 图 推荐",
    "imgs": [
     {
-     "file": "imgs/mingjia/桃子姐/1.png",
-     "size": 352756,
-     "src": "https://f.yddtiyu.com/info/1758937550837b8fd3a3b-3bd3-425a-be52-396e673133a8.png"
+     "file": "imgs/mingjia/桃子姐/1.jpg",
+     "size": 110942,
+     "src": "https://gd-hbimg.huaban.com/298677791226d7954c497fc3fbed5cc9ce81d71239a52-rCS8Uy_fw658webp"
     }
    ]
   },
@@ -903,6 +903,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 00:02:44",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 00:19:13",
    "names": 71,
    "imgs": 71
   }
