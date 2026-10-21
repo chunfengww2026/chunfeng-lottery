@@ -497,12 +497,13 @@ const st = readState();
 const now = Date.now();
 
 /* 1. 退避期？ */
-if (st.pausedUntil && now < st.pausedUntil) {
+const skipPrimary = !!(st.pausedUntil && now < st.pausedUntil);
+if (skipPrimary) {
   const left = Math.ceil((st.pausedUntil - now) / 60000);
   log(`⏸  退避中（连续全失败 ${st.failStreak} 次），还剩 ${left} 分钟，本轮跳过`);
   st.skips = (st.skips || 0) + 1;
   writeState(st);
-  process.exit(10);
+  // Keep merging independent cached sources even when this source is paused.
 }
 
 log('—— 本轮开始 ——');
@@ -513,7 +514,7 @@ const freshByGame = {};
 let httpOk = 0;
 let firstErr = '';
 
-for (let i = 0; i < GAMES.length; i++) {
+for (let i = 0; !skipPrimary && i < GAMES.length; i++) {
   const g = GAMES[i];
   if (i > 0) await sleep(GAP_MS);            // 请求间隔 >= 1.2s
   try {
@@ -542,7 +543,7 @@ const freshTotal = Object.values(freshByGame).reduce((n, a) => n + a.length, 0);
 log(`   抓取结束：8 个页面成功 ${httpOk} 个 · 新解析到 ${freshTotal} 条图片`);
 
 /* 2. 一条都没抓到 → 当失败处理（不覆盖旧文件） */
-if (freshTotal === 0) {
+if (freshTotal === 0 && !skipPrimary) {
   st.failStreak = (st.failStreak || 0) + 1;
   log(`⚠️  本轮零条（${firstErr || '全部页面都没解析到晒票'}）· 连续全失败 ${st.failStreak} 次`);
   log('    保留上一次的 xysp-data.js（页面显示上一轮 / 暂无）');
@@ -554,7 +555,7 @@ if (freshTotal === 0) {
   st.skips = (st.skips || 0) + 1;
   st.lastRun = roundIso;
   writeState(st);
-  process.exit(10);
+  // Continue to merge independent cached ticket sources.
 }
 
 /* 3. 合并旧数据 + 72 小时过期 + 去重 + 上限 */
@@ -615,9 +616,11 @@ log(`   跨源去重（头条 vs 一起彩）：标题前 16 字撞车 → 合�
   (cross.examples.length ? `（例：${cross.examples.map((x) => `「${x.key}」丢了${x.side === 'tt' ? '头条' : '一起彩'}那条`).join(' · ')}）` : ''));
 
 /* 4. 成功 → 写文件 */
-st.failStreak = 0;
-st.pausedUntil = 0;
-st.ok = (st.ok || 0) + 1;
+if (freshTotal > 0) {
+  st.failStreak = 0;
+  st.pausedUntil = 0;
+  st.ok = (st.ok || 0) + 1;
+}
 st.lastRun = roundIso;
 writeState(st);
 
@@ -635,7 +638,8 @@ const text =
   `   更新时间：${data.updated}\n` +
   `   ============================================================ */\n\n` +
   `const XYSP_DATA = ${JSON.stringify(data, null, 1)};\n`;
-fs.writeFileSync(OUT, text, 'utf8');
+fs.writeFileSync(OUT + '.tmp', text, 'utf8');
+fs.renameSync(OUT + '.tmp', OUT);
 
 log(`✅ 已写入 xysp-data.js（${(Buffer.byteLength(text, 'utf8') / 1024).toFixed(1)} KB）`);
 log(`   旧数据 ${oldTotal} 条 → 合并后 ${stat.kept} 条` +
@@ -661,4 +665,4 @@ GAMES.concat([{ key: TT_KEY, name: TT_NAME }, { key: JC_KEY, name: JC_NAME }]).f
 });
 log(`   合计 ${stat.kept + games[TT_KEY].items.length + games[JC_KEY].items.length} 条 · 更新时间 ${data.updated}`);
 log('—— 本轮结束（有新数据）——');
-process.exit(0);
+process.exit(freshTotal > 0 ? 0 : 10);
