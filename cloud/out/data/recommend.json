@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-21 13:48",
+ "updated": "2026-10-21 14:23",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-21 13:48",
-   "finishTime": 1792561680000,
+   "dateStr": "2026-10-21 14:23",
+   "finishTime": 1792563780000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 79.1,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧冠",
      "odds": 1.2,
      "time": "2026-10-22 03:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 77.6,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 77,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧冠",
      "odds": 1.22,
      "time": "2026-10-22 03:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 60.1,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧冠",
      "odds": 1.57,
      "time": "2026-10-22 03:00"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 78.7,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧罗巴",
      "odds": 1.2,
      "time": "2026-10-23 00:45"
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 60.7,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧罗巴",
      "odds": 1.57,
      "time": "2026-10-23 00:45"
@@ -96,7 +96,7 @@
      "result": "pending",
      "confidence": 63.2,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "欧罗巴",
      "odds": 1.5,
      "time": "2026-10-23 03:00"
@@ -109,7 +109,7 @@
      "result": "pending",
      "confidence": 68.9,
      "status": "pending",
-     "finishTime": 1792561680000,
+     "finishTime": 1792563780000,
      "league": "解放者杯",
      "odds": 1.38,
      "time": "2026-10-23 08:30"
