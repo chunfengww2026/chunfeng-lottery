@@ -4197,7 +4197,7 @@ function mqJudge(gid, v, d) {
     if (w.slice(0, 3).every((n) => inPool(grp, n))) {
       const uniq = new Set(w.slice(0, 3)).size;
       if (uniq === 2) return { claim: '推荐号组选命中（组三）', hot: 1 };
-      if (uniq === 1) return { claim: '推荐号组选命中（豹子）', hot: 1 };
+      if (uniq === 1) return null;
       return { claim: '推荐号组选命中（组六）', hot: 1 };
     }
     return null;
@@ -4211,7 +4211,7 @@ function mqJudge(gid, v, d) {
     if (pools.some((p) => !p.length)) return null;
     const ok = pools.map((p, i) => inPool(p, w[i]));
     if (ok.every(Boolean)) return { claim: '推荐号直选命中！', hot: 2 };
-    if (ok[0] && ok[1] && ok[2]) return { claim: '推荐号前三位直选命中', hot: 1 };
+
     return null;
   }
 
@@ -4225,7 +4225,7 @@ function mqJudge(gid, v, d) {
     const red = area('red'), blue = area('blue');
     const pool = mqNums(v.r20), bp = mqNums(v.b_rec);
     /* __POOLALL__ 用户 2026-10-18：「所有号码全部放到一起」→ 命中数按各层并集算 */
-    const poolAll = [...new Set([].concat(pool, mqNums(v.r15), mqNums(v.r10), mqNums(v.r3), mqNums(v.r1)))];
+    const poolAll = [...new Set(pool)];
     if (red.length < 6 || !blue.length || !pool.length || !bp.length) return null;
     const r = hits(red, poolAll), b = hits(blue, bp) > 0 ? 1 : 0;
     if (r === 6 && b === 1) return { claim: bigClaim('一等奖', r, '红球', b, '蓝球'), hot: 2 };
@@ -4242,7 +4242,7 @@ function mqJudge(gid, v, d) {
     const front = area('front'), back = area('back');
     const pool = mqNums(v.f20), bp = mqNums(v.b_rec);
     /* __POOLALL__ 大乐透：f15/f10/f3/f1 一并参与命中计算 */
-    const poolAllF = [...new Set([].concat(pool, mqNums(v.f15), mqNums(v.f10), mqNums(v.f3), mqNums(v.f1)))];
+    const poolAllF = [...new Set(pool)];
     if (front.length < 5 || !back.length || !pool.length || !bp.length) return null;
     const r = hits(front, poolAllF), b = hits(back, bp);
     if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
@@ -4263,6 +4263,7 @@ function mqJudge(gid, v, d) {
     const s = (sp.length && inPool(pool, sp[0])) ? 1 : 0;
     if (m === 7) return { claim: bigClaim('一等奖', m, '基本号', s, '特别号'), hot: 2 };
     if (m === 6 && s === 1) return { claim: bigClaim('二等奖', m, '基本号', s, '特别号'), hot: 1 };
+    if (m === 6 && s === 0) return { claim: '三等奖（号码池命中）', hot: 1 };
     return null;
   }
 
@@ -4278,17 +4279,19 @@ function mqJudge(gid, v, d) {
     const b = inPool(bp, back[0]) ? 1 : 0;
     if (m === 6 && b === 1) return { claim: bigClaim('一等奖', m, '前六位', b, '后区'), hot: 2 };
     if (m === 6 && b === 0) return { claim: bigClaim('二等奖', m, '前六位', b, '后区'), hot: 1 };
+    if (m === 5 && b === 1) return { claim: '三等奖（号码池命中）', hot: 1 };
     return null;
   }
 
   /* ---------- 快乐8：选十，播选十中十（一等奖）/ 选十中九（二等奖） ---------- */
   if (gid === 'kl8') {
     const main = area('main');
-    const pool = [...new Set(mqNums(v.r10))];
-    if (main.length !== 20 || new Set(main).size !== 20 || pool.length !== 10 || pool.some((n) => n < 1 || n > 80)) return null;
+    const pool = [...new Set(mqNums(v.r30))];
+    if (main.length !== 20 || new Set(main).size !== 20 || pool.length !== 30 || pool.some((n) => n < 1 || n > 80)) return null;
     const m = hits(pool, main);
-    if (m === 10) return { claim: '推荐号命中一等奖（选十 · 中 ' + m + ' 个）', hot: 2 };
-    if (m === 9) return { claim: '推荐号命中二等奖（选十 · 中 ' + m + ' 个）', hot: 1 };
+    if (m >= 10) return { claim: '一等奖（号码池命中）', hot: 2 };
+    if (m === 9) return { claim: '二等奖（号码池命中）', hot: 1 };
+    if (m === 8) return { claim: '三等奖（号码池命中）', hot: 1 };
     return null;
   }
 
@@ -4332,7 +4335,10 @@ function buildHitMarquee() {
       if (!d) return;                                   /* 还没开奖 → 不参与比对 */
       const judged = mqJudge(gid, p.images.main, d);
       compared++;
-      if (!judged) return;                              /* 没中 → 不占位置 */
+      if (!judged) return;
+      const tier = mqClaimTier(judged.claim);
+      if (tier.lv > 3) return;
+      judged.claim = tier.label + '（号码池命中）';
       wins.push({
         gid, issue: String(p.issue),
         date: String(d.date || p.date || ''),
@@ -4447,7 +4453,7 @@ function mqWinParts(gid, v, d) {
   const hitOf = (nums, pool) => nums.map((n) => pool.indexOf(Number(n)) >= 0);
 
   if (gid === 'ssq') {
-    const pool = un('r20', 'r15', 'r10', 'r3', 'r1'), bp = mqNums(v && v.b_rec);
+    const pool = un('r20'), bp = mqNums(v && v.b_rec);
     const red = area('red'), blue = area('blue');
     return {
       rec: [{ label: '号池', nums: pool, pad: true },
@@ -4457,7 +4463,7 @@ function mqWinParts(gid, v, d) {
     };
   }
   if (gid === 'dlt') {
-    const pool = un('f20', 'f15', 'f10', 'f3', 'f1'), bp = mqNums(v && v.b_rec);
+    const pool = un('f20'), bp = mqNums(v && v.b_rec);
     const front = area('front'), back = area('back');
     return {
       rec: [{ label: '号池', nums: pool, pad: true },
@@ -4476,10 +4482,10 @@ function mqWinParts(gid, v, d) {
     };
   }
   if (gid === 'kl8') {
-    const pool = mqNums(v && v.r10);
+    const pool = mqNums(v && v.r30);
     const main = area('main');
     return {
-      rec: [{ label: '选十', nums: pool, pad: true }],
+      rec: [{ label: '号码池', nums: pool, pad: true }],
       draw: [{ label: '', nums: main, pad: true, hit: hitOf(main, pool) }]
     };
   }
@@ -4541,7 +4547,7 @@ function buildMarqueeWinRows(list) {
       name: MQ_NAME[w.gid] || w.gid,
       issue: String(w.issue),
       lv: tier.lv,
-      label: tier.label + '（号池）',
+      label: tier.label + '（号码池命中）',
       note: '小喇叭播报 · ' + String(w.claim || '') + '（号池口径）',
       rec: parts.rec,
       draw: parts.draw,
@@ -5123,6 +5129,7 @@ function buildHistoryHtml() {
     return Number.isFinite(tt) && (nowMs - tt) <= ANN_DAYS * HIST_DAY_MS;
   });
   const annNumsHtml = (r) => {
+    if (r.source === 'marquee') return ''; 
     const hitsOf = (parts) => {
       const out = [];
       (parts || []).forEach((p) => {
@@ -5188,8 +5195,8 @@ function buildHistoryHtml() {
       `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
       `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape(r.label)}</span>` +
       `</div>` +
-      `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>` +
-      `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>` +
+      (r.source === 'marquee' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
+      (r.source === 'marquee' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
       `<div class="ro-hist-note">${escape(r.note)}</div>` +
       `</div>`
     ).join('');
@@ -18040,15 +18047,15 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     });
   }
   function shrink() {
-    var ds = hist(gid), freq = {};
-    ds.slice(0, 30).forEach(function (d) { redsOf(d).forEach(function (n) { freq[n] = (freq[n] || 0) + 1; }); });
-    var hot = Object.keys(freq).map(Number).sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, 10).sort(function (a, b) { return a - b; });
-    var A = aName(), B = bName();
-    out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">缩水套餐 · ' + gname() + ' · 近30期热号</div>' +
-      rowL('18元 6+4（' + B + ' 4 码）', hot.slice(0, 6)) +
-      rowL('28元 7+1（' + B + ' 1 码）', hot.slice(0, 7)) +
-      rowL('38元 7+2（' + B + ' 2 码）', hot.slice(0, 7));
+    var ds = hist(gid).slice(0,30), freq = {}, bf = {};
+    ds.forEach(function(d){ redsOf(d).forEach(function(n){freq[n]=(freq[n]||0)+1;}); var area=d.areas||{}; (area.blue||area.back||[]).forEach(function(n){bf[n]=(bf[n]||0)+1;}); });
+    var hot=Object.keys(freq).map(Number).sort(function(a,b){return freq[b]-freq[a]||a-b;}).slice(0,10);
+    var blue=Object.keys(bf).map(Number).sort(function(a,b){return bf[b]-bf[a]||a-b;});
+    var B=bName();
+    function pack(label,n,m){return '<div class="frog-row"><span>'+label+'</span><span>'+bq(hot.slice(0,n).sort(function(a,b){return a-b;}))+' <i>+</i> '+bq(blue.slice(0,m).sort(function(a,b){return a-b;}),'',true)+'</span></div>';}
+    out.innerHTML='<div style="font-weight:700;margin-bottom:4px">缩水套餐 · '+gname()+' · 近30期热号</div>'+pack('18元 6+4（'+B+' 4 码）',6,4)+pack('28元 7+1（'+B+' 1 码）',7,1)+pack('38元 7+2（'+B+' 2 码）',7,2);
   }
+
   /* 【摇号机 · 可选号码数量 · 用户 2026-10-20】
      · 大乐透：前区 5~10 个 / 后区 2~6 个（默认 5+2）
      · 双色球：红球 6~10 个 / 蓝球 1~4 个（默认 6+1）
