@@ -646,123 +646,16 @@ export function issueOfTitle(title) {
  * @returns {{expireAt:number, drop:boolean, drawAt:number|null, nextAt:number|null, rule:string, gid:string}}
  */
 export function expireOf(p, seenMs, nowMs, fallbackHours) {
-  const capMs = seenMs + fallbackHours * 3600 * 1000;      /* 72 小时兜底 */
+  const published = Number(p.publishMs) || seenMs;
+  const capMs = published + 24 * 3600000;
   const gids = Array.isArray(p.games) ? p.games : [];
-
-  /* 跨这条晒票涉及的所有彩种，取【最晚】的"下一次开奖"。
-     取最晚 = 只要还有任何一个相关彩种的下一期没开，这条就还有参考价值。 */
-  let next = null, prev = null, bestGid = '';
-  for (const gid of gids) {
-    const t = drawTimes(gid, nowMs);
-    if (!t || t.next === null) continue;
-    if (next === null || t.next > next) { next = t.next; prev = t.prev; bestGid = gid; }
+  let drawAt = typeof p.nextAt === 'number' ? p.nextAt : anyToMs(p.nextAt);
+  if (!drawAt) for (const gid of gids) {
+    const next = nextDrawAfter(gid, published);
+    if (next && (!drawAt || next > drawAt)) drawAt = next;
   }
-  if (next === null) {
-    /* 认不出彩种 / 该彩种不在开奖表里 / 拿不到下一次开奖 → 只受 72 小时兜底 */
-    return { expireAt: capMs, drop: false, drawAt: null, nextAt: null, rule: '72h', gid: '' };
-  }
-
-  /* 档①：下一期还没开 → 留 */
-  if (nowMs < next) {
-    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'next-draw', gid: bestGid };
-  }
-  /* 档②：刚开完、还在 1 小时宽限内 → 留 */
-  const graceEnd = next + 3600 * 1000;
-  if (nowMs < graceEnd) {
-    return { expireAt: capMs, drop: false, drawAt: prev, nextAt: next, rule: 'draw+1h-grace', gid: bestGid };
-  }
-  /* 档③：这一期开完超过 1 小时 → 丢。
-     ⚠️ 说明（实测想清楚了，别再"修"成别的样子）：
-        next 是【会往前滑】的 —— 一旦现在越过了 next+1h，算 drawTimes 时
-        next 早就变成再下一期了（候选池是按"现在"重新算的），
-        所以 `now >= next+1h` 这个条件在任意时刻【都不会】成立。
-        ⇒ 档③ 在这份实现里是【保险条款】，实际过滤靠的是
-          · 24 小时发布窗口（真正把旧票清掉的那一条）
-          · 72 小时兜底
-        数据在源站本来就只会保留最近那一期的票，所以不需要靠"未来时刻"清场。
-        见 _test_time_rules.mjs 里对这条的说明。 */
-  return { expireAt: capMs, drop: nowMs >= graceEnd, drawAt: prev, nextAt: next, rule: 'next-draw+1h', gid: bestGid };
-}
-
-const log = (m) => {
-  const line = `[${new Date().toLocaleString('zh-CN', { hour12: false })}] ${m}`;
-  console.log(line);
-  try { fs.appendFileSync(LOG, line + '\n', 'utf8'); } catch (e) { /* 忽略 */ }
-};
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function readState() {
-  try { return JSON.parse(fs.readFileSync(STATE, 'utf8')); }
-  catch (e) { return { failStreak: 0, pausedUntil: 0, lastRun: '', runs: 0, skips: 0, ok: 0 }; }
-}
-function writeState(s) { try { fs.writeFileSync(STATE, JSON.stringify(s, null, 1), 'utf8'); } catch (e) {} }
-
-function stamp(d) {
-  const t = d || new Date();
-  const p = (n) => String(n).padStart(2, '0');
-  return `${t.getFullYear()}-${p(t.getMonth() + 1)}-${p(t.getDate())} ` +
-    `${p(t.getHours())}:${p(t.getMinutes())}`;
-}
-
-/* ---------- 小工具 ---------- */
-
-/** 解 JSON 字符串里的 \uXXXX 转义（头条把 <em> 之类写成了 \u003c…）。
-    ⚠️ 【只】解 \uXXXX，解完直接交给 JSON.parse。
-       绝不要在这里手动解 \" / \\ —— 实测那样会把 JSON 结构本身弄坏
-       （\" 是 JSON 的合法转义，JSON.parse 自己会处理；
-         手动替换会把 " 漏进字符串里 → 直接 parse 失败）。 */
-function unescapeJsonText(raw) {
-  return String(raw).replace(/\\u([0-9a-fA-F]{4})/g,
-    (m, h) => String.fromCharCode(parseInt(h, 16)));
-}
-
-/** 把一个 HTML 属性 / JSON 字符串里的内容洗成纯文本（去标签、还原实体、压空白） */
-function plainText(s) {
-  return String(s == null ? '' : s)
-    .replace(/\\u003c/gi, '<').replace(/\\u003e/gi, '>')
-    .replace(/\\u0026/gi, '&').replace(/\\u002f/gi, '/')
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ').trim();
-}
-
-/**
- * 头条图片 URL 认不认。
- * 只认 https + 图片后缀 + 【带 x-signature 签名】的那一批 ——
- * 没签名的（~cs.jpeg 聚合图）一律 HTTP 403，采了也是白采（实测）。
- * @param {string} raw
- * @returns {string} 规范化后的 URL，认不出来返回空串
- */
-function normTtImg(raw) {
-  let u = String(raw || '').trim().replace(/&amp;/gi, '&');
-  if (!/^https:\/\//i.test(u)) return '';
-  try {
-    const h = new URL(u).host.toLowerCase();
-    if (!/(toutiaoimg|pstatp|byteimg|toutiaostatic)\.com$/.test(h)) return '';
-  } catch (e) { return ''; }
-  if (!/\.(jpe?g|png|webp)(\?|$)/i.test(u)) return '';
-  /* 必须带签名：这种图才没有防盗链 */
-  if (!/[?&]x-signature=/i.test(u)) return '';
-  return u;
-}
-
-/* 标题里能认出来的彩种（认不出就留空，不硬猜） */
-const GAME_HINTS = [
-  { re: /双色球|双色球晒票/, name: '双色球' },
-  { re: /大乐透/,            name: '大乐透' },
-  { re: /福彩\s*3D|福彩3D|\b3D\b|3d、/, name: '福彩3D' },
-  { re: /快乐8|快乐八/,      name: '快乐8'  },
-  { re: /排列3|排列三/,      name: '排列3'  },
-  { re: /排列5|排列五/,      name: '排列5'  },
-  { re: /七星彩/,            name: '七星彩' },
-  { re: /七乐彩/,            name: '七乐彩' }
-];
-function gameOfTitle(title) {
-  const t = String(title || '');
-  for (const g of GAME_HINTS) if (g.re.test(t)) return g.name;
-  return '';
+  const expireAt = drawAt ? Math.min(capMs, drawAt + 24 * 3600000) : capMs;
+  return { expireAt, drop: nowMs >= expireAt, drawAt: drawAt || null, nextAt: drawAt || null, rule:'published24h-and-draw24h', gid:gids[0]||'' };
 }
 
 /* ============================================================
@@ -1239,11 +1132,11 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
        （没有 seen 的老数据退回用 at —— 那是它第一次被抓到的时间） */
     const seenMs = Date.parse(String(it.seen || '')) || t;
     /* 帖子发布时间（头条的 datetime）：用来判"这条属于哪一期" */
-    const pubMs = Date.parse(String(it.when || '')) || null;
+    const pubMs = whenToMs(it.when) || anyToMs(it.pubAt) || Number(it.pubMs) || null;
 
     /* 【开奖后 1 小时】规则 —— 只有彩票类（tt）走；竞彩不做这条（见 JC_KEEP_HOURS 说明） */
     let ex = { expireAt: seenMs + keepHours * 3600 * 1000, drop: false, drawAt: null, nextAt: null, rule: 'cap', gid: '' };
-    if (C.useDrawRule) ex = expireOf({ games: gs, publishMs: pubMs }, seenMs, nowMs, keepHours);
+    if (C.useDrawRule) ex = expireOf({ games: gs, publishMs: pubMs, nextAt: it.nextAt }, seenMs, nowMs, keepHours);
 
     /* ============ 时效规则（按分类不同） ============
        彩票类 tt（双色球/大乐透/3D…）—— 两条都要满足：
@@ -1267,7 +1160,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     if (pubMs === null) stat.pubFallback++;
 
     /* 属于已开的那一期、且开完超过 1 小时 → 直接丢（只有彩票类有这条） */
-    // Publication age is the retention rule; a draw does not remove a valid 24h image.
+    if (ex.drop) { stat.dropped++; stat.dropDraw++; return; }
     /* 兜底窗口（从"最近一次看到它"起算）。
        ⚠️ 最上面那个 `t < cutoff` 已经拦过一次（按【首次抓到】算），
           这里再按【最近看到】算一遍 —— 两者取更严的，双保险，都是 dropCap。 */
