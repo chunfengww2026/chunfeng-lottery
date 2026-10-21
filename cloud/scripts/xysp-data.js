@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 00:01
+   更新时间：2026-10-22 00:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 00:01",
+ "updated": "2026-10-22 00:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -63,7 +63,162 @@ const XYSP_DATA = {
   },
   "dlt": {
    "name": "大乐透",
-   "items": []
+   "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/a62cba88-cedd-47ad-8490-98c5745ce01c1792595348701.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/a62cba88-cedd-47ad-8490-98c5745ce01c1792595348701.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]叹息",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T15:09:00.000Z",
+     "pubMs": 1792595340000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/e22e08a0-6734-4c2b-b493-b4cf9d3db08b1792592360145.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/e22e08a0-6734-4c2b-b493-b4cf9d3db08b1792592360145.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]666",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T14:19:00.000Z",
+     "pubMs": 1792592340000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/c3d098d8-a5e4-4bc1-a5d8-da6c450928bc1792592176369.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/c3d098d8-a5e4-4bc1-a5d8-da6c450928bc1792592176369.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]一步登天啊",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T14:16:00.000Z",
+     "pubMs": 1792592160000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/a7ca6023-1916-4eae-8ff0-3f324c819bd41792591151851.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/a7ca6023-1916-4eae-8ff0-3f324c819bd41792591151851.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]看到3/5 买了26 第四个数怎么就没联想到15，那会短路，这就是命，第四个数15，前三个数至少能中一两个",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T14:02:00.000Z",
+     "pubMs": 1792591320000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/3b6c03e4-1cd9-4008-9170-8716d6d937b21792591320608.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/3b6c03e4-1cd9-4008-9170-8716d6d937b21792591320608.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]睡觉！！！",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T14:02:00.000Z",
+     "pubMs": 1792591320000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/86a5744c-4b4c-471a-b818-1e649611de571792590902718.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/86a5744c-4b4c-471a-b818-1e649611de571792590902718.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]少了点",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:57:00.000Z",
+     "pubMs": 1792591020000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/ce862fef-4288-484f-a742-30948ed5d3811792590352073.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/ce862fef-4288-484f-a742-30948ed5d3811792590352073.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]差点意思",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:46:00.000Z",
+     "pubMs": 1792590360000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/82aaf884-f5cd-467d-8e68-e1790876c2881792590019013.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/82aaf884-f5cd-467d-8e68-e1790876c2881792590019013.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]好家伙这边擦的",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:40:00.000Z",
+     "pubMs": 1792590000000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/bd3c7a58-3467-4db6-bb3f-5c711e6c7c511792588722315.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/bd3c7a58-3467-4db6-bb3f-5c711e6c7c511792588722315.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]单选",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:18:00.000Z",
+     "pubMs": 1792588680000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/d74a139b-0838-4867-b7f6-5a5387b8cad21792587663940.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/d74a139b-0838-4867-b7f6-5a5387b8cad21792587663940.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]成败在此一举",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:01:00.000Z",
+     "pubMs": 1792587660000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-21/f243fb20-07cb-40c1-8b8d-2a05bcae40891792587663967.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-21/f243fb20-07cb-40c1-8b8d-2a05bcae40891792587663967.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]成败在此一举",
+     "url": "",
+     "at": "2026-10-21T16:05:04.158Z",
+     "pubAt": "2026-10-21T13:01:00.000Z",
+     "pubMs": 1792587660000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792598704158,
+     "seenMs": 1792598704158,
+     "whenMs": null
+    }
+   ]
   },
   "fc3d": {
    "name": "福彩3D",
