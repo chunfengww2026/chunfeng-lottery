@@ -1680,7 +1680,7 @@ function buildArticlesHtml() {
 
   /* Public current-issue material, independently collected without AI calls. */
   try {
-    const feed=JSON.parse(fs.readFileSync(path.join(ROOT,'mingjia-toutiao.json'),'utf8'));
+    const feed={entries:[]}; for(const sourceFile of ['mingjia-toutiao.json','mingjia-web.json']){try{const data=JSON.parse(fs.readFileSync(path.join(ROOT,sourceFile),'utf8'));feed.entries.push(...(data.entries||[]));}catch(e){}}
     (feed.entries||[]).forEach(function(item){
       if(Date.parse(item.expiresAt)<=Date.now() || !Number.isFinite(Date.parse(item.expiresAt)))return;
       const people=mjByCat[item.cat]=mjByCat[item.cat]||[];
