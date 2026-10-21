@@ -1352,7 +1352,7 @@ function main() {
        每小时只跑一次：只在每小时的 0~9 分那一班跑（10 分钟一班 → 一小时一跑）。
        页面里【不出现任何来源站名/域名】（项目有「数据源留痕」断言）。 */
     try {
-      if (slot.type === 'regular' && new Date().getUTCMinutes() < 10) {
+      if (slot.type === 'regular') {
         log('\n【4.6】抓专家推荐文章（每小时一次，取最新 20 篇）…');
         try { run('build-jc-articles.mjs', []); }
         catch (e) { log('  ⚠️ 文章抓取失败（沿用上一次的 jc-articles.js）：' + e.message); }
@@ -1416,6 +1416,7 @@ function main() {
        （注意：这段注释里不能直接写 cron 表达式，星号斜杠会提前结束块注释。） */
     const extraRows = [
       ['build-articles.mjs', ['--min-gap', '30'], '文章参考'],
+      ['fetch-community-topics.mjs', ['--cloud', '--once', '--discussion-only'], '公开足球讨论帖'],
       ['build-xysp-tt.mjs', [], '头条+竞彩晒票'],
       ['build-xysp.mjs', [], '晒票栏'],
       ['build-kjh.mjs', [], '开机号+直播'],
