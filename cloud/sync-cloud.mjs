@@ -168,6 +168,7 @@ const tAll = Date.now();
 
 /* 数据 + 配置：云端抓不到，必须本机提供 */
 const FROM_ROOT = [
+  'fetch-community-topics.mjs', 'community-topics.json',
   'saved-tickets.js', 'history.js', 'draws.js', 'football.js',
   /* 【🐸 青蛙家园 · 核心算法 20 码 · 2026-10-20 修线上事故】
      export-static.mjs 的 frogPanelHtml() 用 createRequire(import.meta.url)
