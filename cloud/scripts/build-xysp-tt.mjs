@@ -935,6 +935,12 @@ export function dedupeItems(list, stat) {
    @param {string} atIso   抓取时间
    @param {object} [cat]   分类（决定 src / gameOf / 每帖最多几张）；不传就按 tt 算
    ============================================================ */
+function readState() {try{return JSON.parse(fs.readFileSync(STATE,'utf8'));}catch(e){return {failStreak:0,pausedUntil:0};}}
+function writeState(value) {fs.writeFileSync(STATE,JSON.stringify(value),'utf8');}
+function stamp(date) {return (date||new Date()).toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false});}
+function sleep(ms) {return new Promise(resolve=>setTimeout(resolve,ms));}
+function log(message) {const line='['+stamp(new Date())+'] '+message;console.log(line);try{fs.appendFileSync(LOG,line+'\n','utf8');}catch(e){}}
+function gameOfTitle(title) {const names={ssq:'双色球',dlt:'大乐透',kl8:'快乐8',fc3d:'福彩3D',pl3:'排列3',pl5:'排列5',qxc:'七星彩',qlc:'七乐彩'};return gamesOfTitle(title).map(key=>names[key]).filter(Boolean).join('、');}
 function plainText(value) {
   return String(value||'').replace(/<[^>]*>/g,'').replace(/&nbsp;|&#160;/g,' ').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
 }
