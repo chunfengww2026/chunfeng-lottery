@@ -89,6 +89,7 @@
    ============================================================ */
 
 import fs from 'node:fs';
+import { verifyBatch, cachedVerdict, closeTicketOcr } from './verify-ticket.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 /* 【头条晒票】只要它里面的合并/读取函数 —— import 是【没有副作用】的
@@ -615,6 +616,13 @@ const cross = crossSourceDedupe(games, stat);
 log(`   跨源去重（头条 vs 一起彩）：标题前 16 字撞车 → 合并 ${cross.removed} 条` +
   (cross.examples.length ? `（例：${cross.examples.map((x) => `「${x.key}」丢了${x.side === 'tt' ? '头条' : '一起彩'}那条`).join(' · ')}）` : ''));
 
+const pendingImages = [];
+for (const group of Object.values(games)) for (const item of group.items||[]) if (!cachedVerdict(item.img)) pendingImages.push(item.img);
+if (pendingImages.length) await verifyBatch(pendingImages, { max: 40, gap: 60 });
+for (const group of Object.values(games)) {
+  group.items=(group.items||[]).filter((item)=>{const v=cachedVerdict(item.img);return v && v.ok === true;});
+}
+await closeTicketOcr();
 /* 4. 成功 → 写文件 */
 if (freshTotal > 0) {
   st.failStreak = 0;
