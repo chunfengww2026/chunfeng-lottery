@@ -935,6 +935,17 @@ export function dedupeItems(list, stat) {
    @param {string} atIso   抓取时间
    @param {object} [cat]   分类（决定 src / gameOf / 每帖最多几张）；不传就按 tt 算
    ============================================================ */
+function plainText(value) {
+  return String(value||'').replace(/<[^>]*>/g,'').replace(/&nbsp;|&#160;/g,' ').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+}
+function normTtImg(value) {
+  let s=String(value||'').replace(/&amp;/g,'&');if(s.startsWith('//'))s='https:'+s;
+  try{const u=new URL(s);if(!/^https?:$/.test(u.protocol))return '';u.protocol='https:';return u.href;}catch(e){return '';}
+}
+function unescapeJsonText(value) {
+  const s=String(value||'').trim().replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
+  try{const parsed=JSON.parse(s);return typeof parsed==='string'?parsed:s;}catch(e){return s;}
+}
 export function parseTtPage(html, atIso, cat) {
   const C = cat || catByKey(TT_KEY);
   const gameOf = C.gameOf || ((t) => gameOfTitle(t));
@@ -984,7 +995,7 @@ export function parseTtPage(html, atIso, cat) {
     }
     /* 一条帖子最多出 6 张（一个帖子往往就是一组实票，多出几张更像"晒票栏"；
        上限 TT_MAX 兜底，不会无限长） */
-    const use = [...new Set(urls)].slice(0, 6);
+    const use = C.key===TT_KEY ? [...new Set(urls)] : [...new Set(urls)].slice(0, 6);
     if (!use.length && big) use.push(big);
     if (!use.length) continue;          /* 一张图都拿不到 → 这条没用 */
 
@@ -1045,6 +1056,7 @@ export function parseTtPage(html, atIso, cat) {
    @returns {{items: Array, stat: {kept:number,dropped:number,dupes:number,added:number}}}
    ============================================================ */
 export function mergeTt(oldData, fresh, nowMs, cat) {
+  const firstSeenRegistry = {...(oldData && oldData.firstSeenRegistry || {})};
   const C = cat || catByKey(TT_KEY);
   const keepHours = C.keepHours || TT_KEEP_HOURS;
   const max = C.max || TT_MAX;
@@ -1055,8 +1067,9 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
   const push = (it, isFresh) => {
     const img = it && it.img ? String(it.img) : '';
     if (!img) return;
-    const at = String(it.at || '');
-    const t = Date.parse(at);
+    let at = String(it.at || '');
+    let t = Date.parse(at);
+    if(C.key===TT_KEY && Number.isFinite(t)){const fp=imgFingerprint(img),seen=Number(firstSeenRegistry[fp]);if(Number.isFinite(seen)&&seen>0)t=Math.min(t,seen);firstSeenRegistry[fp]=t;at=new Date(t).toISOString();}
     if (!isFinite(t)) return;
     if (t < cutoff) { stat.dropped++; stat.dropCap++; return; }   /* 超过保留窗口 → 丢 */
 
@@ -1137,6 +1150,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
     /* 【开奖后 1 小时】规则 —— 只有彩票类（tt）走；竞彩不做这条（见 JC_KEEP_HOURS 说明） */
     let ex = { expireAt: seenMs + keepHours * 3600 * 1000, drop: false, drawAt: null, nextAt: null, rule: 'cap', gid: '' };
     if (C.useDrawRule) ex = expireOf({ games: gs, publishMs: pubMs, nextAt: it.nextAt }, seenMs, nowMs, keepHours);
+    if(C.key===TT_KEY)ex={...ex,expireAt:t+86400000,drop:nowMs>=t+86400000,rule:'first-capture-24h'};
 
     /* ============ 时效规则（按分类不同） ============
        彩票类 tt（双色球/大乐透/3D…）—— 两条都要满足：
@@ -1156,7 +1170,7 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
        ================================================================ */
     const pubHours = C.pubHours || 24;
     const pubCutoff = nowMs - pubHours * 3600 * 1000;
-    if (pubMs !== null && pubMs < pubCutoff) { stat.dropped++; stat.dropPub++; return; }
+    if ((C.key!==TT_KEY || isFresh) && pubMs !== null && pubMs < pubCutoff) { stat.dropped++; stat.dropPub++; return; }
     if (pubMs === null) stat.pubFallback++;
 
     /* 属于已开的那一期、且开完超过 1 小时 → 直接丢（只有彩票类有这条） */
@@ -1258,11 +1272,11 @@ export function mergeTt(oldData, fresh, nowMs, cat) {
      ⚠️ 必须在 slice(max) 之前做：去重腾出来的名额留给窗口内其他条目，
         绝不能"重复占了名额"把 24 小时内的内容挤掉（用户红线）。
      ============================================================ */
-  const deduped = dedupeItems(sorted, stat);
-  const items = deduped.slice(0, max);
+  const deduped = C.key===TT_KEY ? [...new Map(sorted.map(it=>[imgFingerprint(it.img),it])).values()] : dedupeItems(sorted, stat);
+  const items = C.key===TT_KEY ? deduped : deduped.slice(0, max);
   stat.kept = items.length;
   stat.keepHours = keepHours;
-  return { items, stat };
+  return { items, stat, firstSeenRegistry };
 }
 
 /** 读旧的缓存文件（文件是我们自己写的纯 JSON，直接 JSON.parse）
@@ -1434,7 +1448,7 @@ export async function runTtFetch() {
     if (C.key === JC_KEY) ((oldData && oldData.items) || []).forEach((it) => addPend(it && it.img));
     if (toCheckImgs.length) {
       log(`     🔍 票图校验：本轮新图 ${freshList.length} 张，需要 OCR ${toCheckImgs.length} 张…`);
-      const v = await verifyBatch(toCheckImgs, { max: 400, gap: 120 });
+      const v = await verifyBatch(toCheckImgs, { max: toCheckImgs.length, gap: 120 });
       log(`        校验完成：确认是票 ${v.passed} · 确认不是票 ${v.failed} · 读不出字${C.key === JC_KEY ? '' : '(保留)'} ${v.unreadable} · 命中缓存 ${v.cacheHit} · OCR 耗时 ${(v.ms / 1000).toFixed(1)}s`);
       for (const f of v.failedList.slice(0, 6)) log(`          ✗ 确认不是票（${f.why}）：${f.img.slice(50, 104)}`);
       rec.ocrChecked = v.checked; rec.ocrFailed = v.failed; rec.ocrUnreadable = v.unreadable;
@@ -1470,9 +1484,9 @@ export async function runTtFetch() {
     }
 
     /* 合并旧数据 + 过期 + 去重 + 上限（oldData 已在上面读好，这里复用） */
-    const { items, stat } = mergeTt(oldData, freshList, now, C);
+    const { items, stat, firstSeenRegistry } = mergeTt(oldData, freshList, now, C);
 
-    const data = { updated: stamp(new Date(now)), items };
+    const data = { updated: stamp(new Date(now)), items, firstSeenRegistry };
     const text = ttFileText(data, C);
     fs.writeFileSync(file, text, 'utf8');
 
