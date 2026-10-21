@@ -343,7 +343,7 @@ function beijingNow() {
    【不能】拿 cron 字符串做精确比较（一条 cron 可以是一串小时，
    同一个表达式在不同小时触发时班次完全不同 —— 这也是它原来会失效的原因）。
    ============================================================ */
-const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:30': 'draw-update', '21:45': 'draw-update', '22:00': 'draw-update', '23:00': 'draw-update' };
+const SLOT_AT = { '02:00': 'full', '18:00': 'heatmap-only', '21:00': 'heatmap-off', '21:30': 'draw-update', '21:40': 'draw-update', '21:50': 'draw-update', '21:45': 'draw-update', '22:00': 'draw-update', '23:00': 'draw-update' };
 /* 足球的 12 个班次：每 2 小时整点（北京时间）—— 只给「老式定时 cron」兜底用，
    现在足球由「每 30 分钟常规班」负责，不再依赖这张表。 */
 const FOOTBALL_BJ_HOURS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
@@ -576,6 +576,11 @@ function resolveSlot() {
     };
   }
 
+  // A delayed runner still belongs to the schedule that triggered it.
+  if (cron.hours.length === 1 && cron.minutes.length === 1) {
+    const scheduled = String((cron.hours[0] + 8) % 24).padStart(2, '0') + ':' + String(cron.minutes[0]).padStart(2, '0');
+    if (SLOT_AT[scheduled]) return { type: SLOT_AT[scheduled], why: '按触发 cron 识别 ' + scheduled + ' 班次（不受排队延迟影响）', bj: b, cron: cronStr, hourOk, minuteOk };
+  }
   const bjMin = b.hh * 60 + b.mm;
   let best = null;
   Object.keys(SLOT_AT).forEach((at) => {
@@ -1125,10 +1130,13 @@ function main() {
        开奖数据就会一直旧着。所以这里加一道保险：
        开奖数据已经超过 20 小时没更新 → 本班顺手补抓一次。 */
     const dRow = checkFreshness().filter((r) => r.file === 'draws.js')[0];
-    doDraws = !!(dRow && dRow.stale && dRow.ageH !== null && dRow.ageH > 20);
+    // During the draw window every regular ten-minute run must query sources.
+    // File freshness alone cannot prove that today's draw has been retrieved.
+    const drawWindow = beijingNow().hh >= 21;
+    doDraws = drawWindow || !dRow || dRow.ageH === null || dRow.ageH > 20;
     doHistory = false; doPrizes = false;
     log(`  🛡  开奖数据兜底检查：draws.js ${dRow && dRow.ageH !== null ? dRow.ageH.toFixed(1) + ' 小时前更新' : '读不到时间戳'}`
-      + ` → ${doDraws ? '已过期，本班顺手补抓一次' : '还新鲜，本班不抓'}`);
+      + ` → ${doDraws ? '开奖窗口或数据过期，本班补抓一次' : '窗口外且数据新鲜，本班不抓'}`);
   }
   else if (plan.dataFetch === 'auto') { doDraws = decision.fetch; doHistory = decision.fetch; doPrizes = decision.fetch; }
   else { doDraws = false; doHistory = false; doPrizes = false; }
@@ -1209,6 +1217,16 @@ function main() {
     log(`  已备份 ${Object.keys(backup).length} 个数据文件`);
 
     const results = [];
+    function protectedRun(file, args, files) {
+      const before = new Map(files.map((f) => [f, fs.existsSync(path.join(MOD, f)) ? fs.readFileSync(path.join(MOD, f)) : null]));
+      const ok = run(file, args);
+      if (!ok) for (const [f, data] of before) {
+        const target = path.join(MOD, f);
+        if (data !== null) fs.writeFileSync(target, data);
+        else if (fs.existsSync(target)) fs.unlinkSync(target);
+      }
+      return ok;
+    }
 
     if (doDraws) {
       log('\n【1】抓开奖号码');
@@ -1229,15 +1247,15 @@ function main() {
 
     if (doHistory) {
       log('\n【2】抓历史开奖（60 期）');
-      results.push(run('build-history.mjs', ['60']));
+      results.push(protectedRun('build-history.mjs', ['60'], ['history.js']));
     } else {
       log('\n【2】抓历史开奖 —— 本班次跳过');
     }
 
     if (doFootball) {
       log('\n【3】抓足球比分 + 竞彩赔率');
-      results.push(run('build-football.mjs', []));
-      results.push(run('build-jc.mjs', []));
+      results.push(protectedRun('build-football.mjs', [], ['football.js']));
+      results.push(protectedRun('build-jc.mjs', [], ['jc-data.js', 'jc-history.js']));
       /* 【3b 已完场赛果 · 用户 2026-10-18「补已经踢完的比赛的赛果抓取」】
          紧跟 build-jc.mjs 之后：这一步抓「最近 48 小时完场」的终场/半场比分，
          写 jc-results.js，并把 jc-history.js 里【还空着 / 被中途快照冻住】的比分
@@ -1260,7 +1278,7 @@ function main() {
 
     if (doPrizes) {
       log('\n【4】抓奖级');
-      results.push(run('build-prizes.mjs', []));
+      results.push(protectedRun('build-prizes.mjs', [], ['prize-data.js']));
     /* 【专家数据】出号的组合逻辑靠它（抓一起彩的三胆/杀号/共识百分比）。
        以前云端没这一步 → experts-data.js 一直是旧的 → "按用户的方法出号"不生效。
        云端从美国访问 yiqicai.com 实测可达；抓不到也不影响（沿用旧的 experts-data.js）。 */
@@ -1343,34 +1361,20 @@ function main() {
        源：Bing 图片搜索（⚡ 纯 fetch ✗ 不需要浏览器 ✔ 云端能跑 ✔）
        每班抓一次：10 个名家 × 5 张 → 覆盖 imgs/mingjia/ ✔
        history 保留最近 24 条 ✔（见 mingjia-data.js 的 history ✗） */
-    try { run('build-mingjia.mjs', []); } catch (e) { log('  ⚠️ 名家图库抓取失败：' + e.message); }
+    try { run('build-mingjia.mjs', ['--rotate=15']); } catch (e) { log('  ⚠️ 名家图库抓取失败：' + e.message); }
     } catch (e) { log('  ⚠️ 文章抓取调度出错（不影响页面）：' + e.message); }
 
     /* 检查抓取结果，坏了就还原 */
     const histAfter = checkHistory(ALL_GAMES);
     const anyFailed = results.some((r) => !r);
 
-    if (!histAfter.ok || anyFailed) {
-      log('');
-      log('  ⚠️ 抓取不顺利，正在还原成同步过来的数据：');
-      if (anyFailed) log('     原因：有抓取脚本执行失败');
-      if (!histAfter.ok) log(`     原因：历史数据不完整（${histAfter.detail}）`);
-
-      let restored = 0;
-      DATA_FILES.forEach((f) => {
-        if (backup[f]) {
-          fs.writeFileSync(path.join(MOD, f), backup[f]);
-          restored++;
-        }
-      });
-      log(`     已还原 ${restored} 个数据文件，页面会继续用上次同步的好数据`);
-
-      /* 再确认一次 */
-      const final = checkHistory(ALL_GAMES);
-      log(`     还原后历史数据：${final.detail}`);
-    } else {
-      log(`\n  ✅ 历史数据完整：${histAfter.detail}`);
+    if (!histAfter.ok && backup['history.js']) {
+      fs.writeFileSync(path.join(MOD, 'history.js'), backup['history.js']);
+      log('  ⚠️ 历史数据校验失败，仅还原 history.js，保留其他成功抓取的数据');
     }
+    if (anyFailed) log('  ⚠️ 部分抓取未成功，已保留有效结果，下一轮继续补抓');
+    else log('  ✅ 本轮抓取完成');
+
   } else {
     log('\n【1-4】本班次不需要抓取');
     log(`  ✅ 历史数据：${histBefore.detail}`);
