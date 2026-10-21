@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 01:17:24） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 01:39:09） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 01:17:24",
+ "updated": "2026-10-22 01:39:09",
  "list": [
   {
    "name": "金手指",
@@ -17,7 +17,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T17:15:56.280Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "貂蝉杀",
@@ -34,7 +35,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T16:46:52.259Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "黄大仙",
@@ -51,7 +53,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T17:16:33.744Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "东北人杀",
@@ -68,7 +71,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T17:16:40.006Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "峨眉道姑",
@@ -85,7 +89,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T17:16:46.594Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "林黛玉",
@@ -102,7 +107,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T16:49:11.166Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "贾宝玉",
@@ -119,7 +125,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T16:49:19.817Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "司马迁",
@@ -136,7 +143,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T16:49:27.234Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "枣庄红人",
@@ -153,7 +161,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-21T17:17:21.063Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "太湖字谜",
@@ -1091,6 +1100,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 01:17:24",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 01:39:09",
    "names": 71,
    "imgs": 71
   }
