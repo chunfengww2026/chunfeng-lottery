@@ -62,8 +62,8 @@ const STATE = path.join(ROOT, '_football-tickets-state.json');
      · 30 分钟链：update-football-smart.mjs 用 execFileSync 收走，写进 _football-smart.log
    两边都写会变成一份日志两遍（踩过）。 */
 
-const MAX_ITEMS = 60;      /* 页面只放最新 60 条（滚动窗口，防止无限增长） */
-const KEEP_DAYS = 7;       /* 超过 7 天的票不再留着 */
+const MAX_ITEMS = 300;      /* 页面只放最新 60 条（滚动窗口，防止无限增长） */
+const KEEP_DAYS = 1;       /* 超过 7 天的票不再留着 */
 const SEEN_MAX = 3000;     /* seen 集合上限，防止状态文件膨胀 */
 const MAX_FAIL = 6;        /* 连续 6 轮全失败 → 停 2 小时（照 update-football-smart.mjs 那套） */
 
