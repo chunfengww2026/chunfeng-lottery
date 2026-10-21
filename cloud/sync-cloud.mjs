@@ -433,6 +433,8 @@ const CODE_MODULES = [
   /* 【名家图库】2026-10-21：build-mingjia.mjs 抓名家图（写 imgs/mingjia/ + mingjia-data.js）。
      漏掉它 → 云端一直跑旧版（实测本地 10824B / 云端 7853B）。 */
   'build-mingjia.mjs',
+  'fetch-mingjia-toutiao.mjs',
+  'mingjia-toutiao.json',
   /* 【开机号 / 选号直播】抓取脚本（每天 2 点本机跑，跟着 daily-update.mjs）。
       云端【每 30 分钟那一班】也会跑它（一起彩云端实测 200）。 */
   'build-kjh.mjs',
