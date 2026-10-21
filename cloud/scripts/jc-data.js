@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 04:13 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 04:52 */
 const JC_DATA = {
- "updated": "2026-10-22 04:13",
+ "updated": "2026-10-22 04:52",
  "stat": {
   "total": 13,
   "upcoming": 1,
-  "live": 7,
-  "finished": 5,
+  "live": 6,
+  "finished": 6,
   "withScore": 12,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -658,7 +658,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -683,8 +683,8 @@ const JC_DATA = {
     "rank": 23
    },
    "score": {
-    "home": 1,
-    "away": 0
+    "home": 4,
+    "away": 1
    },
    "statusText": "1 - 0 ",
    "odds": {
@@ -770,8 +770,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 0
+    "home": 4,
+    "away": 1
    }
   },
   {
@@ -792,8 +792,8 @@ const JC_DATA = {
     "rank": 30
    },
    "score": {
-    "home": 2,
-    "away": 0
+    "home": 3,
+    "away": 1
    },
    "statusText": "2 - 0 ",
    "odds": {
@@ -879,8 +879,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
-    "away": 0
+    "home": 3,
+    "away": 1
    }
   },
   {
@@ -901,7 +901,7 @@ const JC_DATA = {
     "rank": 25
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
    "statusText": "0 - 0 ",
@@ -988,7 +988,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -1010,8 +1010,8 @@ const JC_DATA = {
     "rank": 9
    },
    "score": {
-    "home": 1,
-    "away": 1
+    "home": 2,
+    "away": 2
    },
    "statusText": "1 - 1 ",
    "odds": {
@@ -1097,8 +1097,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 1
+    "home": 2,
+    "away": 2
    }
   },
   {
@@ -1120,7 +1120,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 1
+    "away": 3
    },
    "statusText": "1 - 1 ",
    "odds": {
@@ -1207,7 +1207,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 1
+    "away": 3
    }
   },
   {
@@ -1228,7 +1228,7 @@ const JC_DATA = {
     "rank": 21
    },
    "score": {
-    "home": 1,
+    "home": 3,
     "away": 0
    },
    "statusText": "1 - 0 ",
@@ -1315,7 +1315,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 3,
     "away": 0
    }
   },

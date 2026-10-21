@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-22 04:13",
+ "updated": "2026-10-22 04:52",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -601,6 +601,61 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-10-22 00:28"
+  },
+  {
+   "code": "周三006",
+   "league": "西甲",
+   "home": "莱万特",
+   "away": "毕尔巴鄂",
+   "time": "2026-10-22 02:00",
+   "score": "3:1",
+   "hc": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.95,
+    "downWater": 0.9,
+    "openHandicap": 0.25,
+    "openUpWater": 0.97,
+    "openDownWater": 0.87,
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.95,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.3,
+    "draw": 3.2,
+    "away": 2.25
+   },
+   "prob": {
+    "home": 28.6,
+    "draw": 29.5,
+    "away": 41.9
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 41.9,
+   "type": "unbeaten",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-22 04:52"
   },
   {
    "code": "周三004",
