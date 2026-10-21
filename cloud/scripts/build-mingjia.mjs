@@ -3,10 +3,12 @@
    用户 2026-10-21「把我刚刚要抓取的全部抓取丢到里面去」「开始」 */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-const OUT_DIR = path.join(process.cwd(), 'imgs', 'mingjia');
-const DATA = path.join(process.cwd(), 'mingjia-data.js');
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const OUT_DIR = path.join(ROOT, 'imgs', 'mingjia');
+const DATA = path.join(ROOT, 'mingjia-data.js');
 
 /* 第一版先抓 10 个（分类 + 搜索词 ✗ 加限定词提高相关性 ✔） */
 const NAMES = [
@@ -109,31 +111,43 @@ function rotateTodo(all) {
 }
 /* NEXT_ISSUE_KW · 用户 2026-10-21「一定要看好别人推荐有没有下一期的期数」
    → 关键词必须带【下一期】期号（别人推荐的是下一期 ✗） */
-const NEXT_ISSUE = {"ssq":"2026121","dlt":"26120"};
-NAMES.forEach(function (n) {
-  var iss = '';
-  if (n.cat === '双色球') iss = NEXT_ISSUE.ssq;
-  else if (n.cat === '大乐透') iss = NEXT_ISSUE.dlt;
-  if (iss) n.kw = n.kw + ' ' + iss + '期';
-  /* 再加"推荐/预测"✗ 保证抓到的是下一期的分析 ✗ */
-  if (n.kw.indexOf('推荐') < 0 && n.kw.indexOf('预测') < 0) n.kw = n.kw + ' 推荐';
-});
+// Do not pin searches to an old issue. A result is not current merely because
+// a search keyword contained an issue; store the issue found in result metadata.
+NAMES.forEach((n) => { n.kw = n.name + ' ' + n.cat + ' 字谜 参考图'; });
 
 function safeName(s) { return String(s).replace(/[\\/:*?"<>|]/g, '_'); }
 
-async function bingImages(kw) {
+function decode(s) {
+  return String(s || '').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+function classifyCandidate(meta, item) {
+  const title = String(meta.t || meta.title || '');
+  if (!title.includes(item.name)) return null;
+  const terms = { '双色球': /双色球/, '大乐透': /大乐透/, '3D': /福彩.?3[dD]|3[dD]字谜|太湖字谜/, '排列三': /排列[三3]|排三/, '快乐8': /快乐[八8]/ };
+  if (!terms[item.cat] || !terms[item.cat].test(title)) return null;
+  const url = meta.murl;
+  if (!/^https?:[/][/]/.test(url || '')) return null;
+  const issue = /(?:第)?([0-9]{5,7})期/.exec(title);
+  return { url, title, page: meta.purl || '', issue: issue ? issue[1] : '', verified: false };
+}
+async function bingImages(item) {
+  const kw = item.kw;
   const u = 'https://www.bing.com/images/search?q=' + encodeURIComponent(kw) + '&form=HDRSC2&first=1';
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < 2; attempt++) {
     try {
-      const r = await fetch(u, { headers: { 'User-Agent': UA, 'Accept-Language': 'zh-CN,zh;q=0.9' } });
+      const r = await fetch(u, { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': UA, 'Accept-Language': 'zh-CN,zh;q=0.9' } });
       if (!r.ok) continue;
       const t = Buffer.from(await r.arrayBuffer()).toString('utf8');
-      const a = [...t.matchAll(/murl&quot;:&quot;(https?:[^&]+?)&quot;/g)].map((m) => m[1]);
-      const b = [...t.matchAll(/"murl":"(https?:[^"]+?)"/g)].map((m) => m[1]);
-      const all = [...new Set(a.concat(b))];
-      if (all.length) return all;
+      const found = [];
+      for (const match of t.matchAll(/\bm=(?:"([^"<>]+)"|'([^'<>]+)')/g)) {
+        try {
+          const candidate = classifyCandidate(JSON.parse(decode(match[1] || match[2])), item);
+          if (candidate && !found.some((x) => x.url === candidate.url)) found.push(candidate);
+        } catch (e) {}
+      }
+      if (found.length) return found;
     } catch (e) { }
-    await new Promise((r2) => setTimeout(r2, 3000));
+    await new Promise((r2) => setTimeout(r2, 1000));
   }
   return [];
 }
@@ -180,7 +194,7 @@ function imgSize(buf) {
 
 async function download(url, file) {
   try {
-    const r = await fetch(url, { headers: { 'User-Agent': UA, Referer: 'https://www.bing.com/' }, redirect: 'follow' });
+    const r = await fetch(url, { signal: AbortSignal.timeout(15000), headers: { 'User-Agent': UA, Referer: 'https://www.bing.com/' }, redirect: 'follow' });
     if (!r.ok) return 0;
     const buf = Buffer.from(await r.arrayBuffer());
     /* SIZE_FILTER · 用户 2026-10-21 选 A：二维码/图标太小 ✗ 跳过 */
@@ -190,6 +204,7 @@ async function download(url, file) {
        ✗ 极端比例（<0.4 或 >3 ✗）
        ✓ 走势图/分析图（细长或大面积 ✗） */
     const dim = imgSize(buf);
+    if (!dim) return 0;
     if (dim) {
       const r = dim.w / dim.h;
       if (r > 0.9 && r < 1.1 && Math.max(dim.w, dim.h) < 500) return 0;
@@ -206,16 +221,17 @@ const result = [];
 
 for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响整批 ✔ */
   try {
-  const dir = path.join(OUT_DIR, safeName(item.name));
+  const dir = path.join(OUT_DIR, safeName(item.cat), safeName(item.name));
   fs.mkdirSync(dir, { recursive: true });
-  const urls = await bingImages(item.kw);
+  const urls = await bingImages(item);
   const saved = [];
-  for (const u of urls) {
+  for (const candidate of urls.slice(0, 4)) {
+    const u = candidate.url;
     if (saved.length >= PER_NAME) break;
     const ext = (u.match(/\.(jpg|jpeg|png|webp)/i) || [])[1] || 'jpg';
     const file = path.join(dir, saved.length + 1 + '.' + ext.toLowerCase());
     const size = await download(u, file);
-    if (size) saved.push({ file: path.relative(process.cwd(), file).replace(/\\/g, '/'), size, src: u });
+    if (size) saved.push({ file: path.relative(ROOT, file).replace(/\\/g, '/'), size, src: u, page: candidate.page, title: candidate.title, issue: candidate.issue, verified: candidate.verified, fetchedAt: new Date().toISOString() });
     await new Promise((r2) => setTimeout(r2, 500));
   }
   console.log('  ' + item.name.padEnd(8) + ' [' + item.cat + '] 抓到 ' + saved.length + '/' + PER_NAME + ' 张' + (urls.length ? '' : ' （搜索无结果 ✗）'));
@@ -235,18 +251,20 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
      }
    } catch (e) { }
    /* ===== MERGE_PREV · 轮转模式：没抓到的名家沿用上一份 ===== */
-   if (ROTATE) {
+   {
      try {
        if (fs.existsSync(DATA)) {
          const oldSrc = fs.readFileSync(DATA, 'utf8');
          const mo = oldSrc.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/);
          if (mo) {
            const ol = JSON.parse(mo[1]);
-           const got = new Set(result.map((x) => x.name + '|' + x.cat));
+           const got = new Set(result.filter((x) => x.imgs.length).map((x) => x.name + '|' + x.cat));
            (ol.list || []).forEach((p) => {
              if (!p || !p.imgs || !p.imgs.length) return;
              if (got.has(p.name + '|' + p.cat)) return;
-             result.push(p);
+             const empty = result.findIndex((x) => x.name === p.name && x.cat === p.cat);
+             if (empty >= 0) result.splice(empty, 1);
+             result.push({ ...p, stale: true });
            });
          }
        }
@@ -267,7 +285,7 @@ for (const item of rotateTodo(NAMES)) {   /* SAFE_LOOP ✗ 单个失败不影响
 const js = '/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · ' +
   new Date().toLocaleString('zh-CN', { hour12: false }) + '） */\n' +
   'const MINGJIA_DATA = ' + JSON.stringify(payload, null, 1) + ';\n';
-try { fs.writeFileSync(DATA, js, 'utf8'); } catch (eW) { console.log('  写数据失败：' + eW.message); }
+try { fs.writeFileSync(DATA + '.tmp', js, 'utf8'); fs.renameSync(DATA + '.tmp', DATA); } catch (eW) { console.log('  写数据失败：' + eW.message); process.exitCode = 1; }
 
 const total = result.reduce((a, x) => a + x.imgs.length, 0);
 console.log('\n  ✅ mingjia-data.js 已写入 · ' + result.length + ' 个名家 · ' + total + ' 张图 · ' + Math.round(js.length / 1024) + 'KB');
