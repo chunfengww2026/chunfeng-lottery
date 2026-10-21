@@ -1672,7 +1672,7 @@ function buildArticlesHtml() {
       const mj2 = JSON.parse((mjsrc2.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/) || [])[1] || '{}');
       (mj2.list || []).forEach(function (x) {
         if (!x || !x.name) return;
-        x.imgs=(x.imgs||[]).filter(function(im){const until=im.expiresAt?Date.parse(im.expiresAt):Date.parse(im.fetchedAt||'')+86400000;return Number.isFinite(until)&&Date.now()<until;});
+        x.imgs=(x.imgs||[]).filter(function(im){const until=im.expiresAt?Date.parse(im.expiresAt):Date.parse(im.fetchedAt||'')+172800000;return Number.isFinite(until)&&Date.now()<until;});
         (mjByCat[x.cat] = mjByCat[x.cat] || []).push(x);
       });
     }
@@ -18207,7 +18207,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 try {
   document.addEventListener("click", function (e) {
     var b = e.target && e.target.closest ? e.target.closest(".ro-zldq-c") : null;
-    if (!b) return;
+    if (!b || b.tagName === "DETAILS") return;
     e.preventDefault();
     var base = location.href.split("#")[0];
     var sep = base.indexOf("?") >= 0 ? "&" : "?";
