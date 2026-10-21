@@ -1,7 +1,24 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 01:39:09） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 01:47:12） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 01:39:09",
+ "updated": "2026-10-22 01:47:12",
  "list": [
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
+     "size": 57064,
+     "src": "https://www.17500.cn/Public/Upload/art/202404/1712990555667306.jpg",
+     "page": "https://www.17500.cn/arts/detail-1388494.html",
+     "title": "排列3第2024095期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2024095",
+     "verified": false,
+     "fetchedAt": "2026-10-21T16:22:42.941Z"
+    }
+   ]
+  },
   {
    "name": "金手指",
    "cat": "双色球",
@@ -160,24 +177,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-21T17:17:21.063Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 57064,
-     "src": "https://www.17500.cn/Public/Upload/art/202404/1712990555667306.jpg",
-     "page": "https://www.17500.cn/arts/detail-1388494.html",
-     "title": "排列3第2024095期太湖钓叟三字诀_太湖字谜|乐彩网",
-     "issue": "2024095",
-     "verified": false,
-     "fetchedAt": "2026-10-21T16:22:42.941Z"
     }
    ],
    "stale": true
@@ -1105,6 +1104,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 01:39:09",
+   "names": 71,
+   "imgs": 71
+  },
+  {
+   "at": "2026-10-22 01:47:12",
    "names": 71,
    "imgs": 71
   }
