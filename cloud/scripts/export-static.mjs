@@ -1684,10 +1684,10 @@ function buildArticlesHtml() {
       const people = mjByCat[x[0]] || [];
       const imgsHtml = people.length
         ? people.map(function (p) {
-            return '<div class="ro-zldq-p"><div class="ro-zldq-n">' + p.name + '</div>' +
+            return '<div class="ro-zldq-p"><div class="ro-zldq-n">' + escape(p.name) + (p.stale ? ' · 上次抓取' : '') + '</div>' +
               '<div class="ro-zldq-i">' +
               p.imgs.map(function (im) {
-                return '<img loading="lazy" src="' + im.file + '" alt="' + p.name + '">';
+                return '<figure><img loading="lazy" src="' + escape(im.file).replace(/"/g, '&quot;') + '" alt="' + escape(p.name) + '"><figcaption>' + (im.issue ? '第 ' + escape(im.issue) + ' 期 · 待核实' : '期号待核实') + '</figcaption></figure>';
               }).join('') +
               '</div></div>';
           }).join('')
@@ -4152,19 +4152,24 @@ const MQ_ORDER = ['ssq', 'dlt', 'fc3d', 'pl3', 'pl5', 'qlc', 'kl8', 'qxc'];
 
 /* 某个彩种存档里的各期推荐（按期号去重：同一期推了多份时留推送最晚的那份） */
 function mqPeriods(gid, saved) {
-  const bag = (saved && saved.tickets && saved.tickets[gid]) || null;
+  const bag = saved && saved.tickets && saved.tickets[gid];
   if (!bag) return [];
   const byIssue = new Map();
-  Object.keys(bag).forEach((k) => {
-    if (k === 'history' || k === 'current') return;
-    const p = bag[k];
-    if (!p || !p.images || !p.images.main || !p.issue) return;
-    const key = String(p.issue);
-    const prev = byIssue.get(key);
-    const stamp = String(p.pushedAt || p.date || '');
-    if (!prev || stamp > String(prev.pushedAt || prev.date || '')) byIssue.set(key, p);
+  const add = (p) => {
+    if (!p || !p.images || !p.images.main || !p.issue || !p.pushedAt || !p.date) return;
+    const hm = { ssq:'21:15', dlt:'20:30', kl8:'21:30', fc3d:'21:15', pl3:'20:30', pl5:'20:30', qlc:'21:15', qxc:'20:30' }[gid];
+    const text = String(p.pushedAt);
+    const at = Date.parse(/[zZ]$|[+-][0-9]{2}:[0-9]{2}$/.test(text) ? text : text.replace(' ', 'T') + '+08:00');
+    const close = Date.parse(p.date + 'T' + hm + ':00+08:00');
+    if (!Number.isFinite(at) || !Number.isFinite(close) || at >= close) return;
+    const key = String(p.issue), prev = byIssue.get(key);
+    if (!prev || at < prev.at) byIssue.set(key, { at, value: p });
+  };
+  Object.keys(bag).forEach((key) => {
+    if (key === 'history') { if (Array.isArray(bag[key])) bag[key].forEach(add); }
+    else add(bag[key]);
   });
-  return Array.from(byIssue.values());
+  return Array.from(byIssue.values()).map((p) => p.value);
 }
 
 /**
@@ -4279,8 +4284,8 @@ function mqJudge(gid, v, d) {
   /* ---------- 快乐8：选十，播选十中十（一等奖）/ 选十中九（二等奖） ---------- */
   if (gid === 'kl8') {
     const main = area('main');
-    const pool = mqNums(v.r10);
-    if (main.length < 20 || pool.length !== 10) return null;
+    const pool = [...new Set(mqNums(v.r10))];
+    if (main.length !== 20 || new Set(main).size !== 20 || pool.length !== 10 || pool.some((n) => n < 1 || n > 80)) return null;
     const m = hits(pool, main);
     if (m === 10) return { claim: '推荐号命中一等奖（选十 · 中 ' + m + ' 个）', hot: 2 };
     if (m === 9) return { claim: '推荐号命中二等奖（选十 · 中 ' + m + ' 个）', hot: 1 };
@@ -5944,6 +5949,7 @@ const RO_RENDER_SCRIPT = `
         /* 两件事各自独立：号码变了就重画 10 张图，开奖变了就重画顶部区块 */
         var t = applyRemoteTickets(j);
         var d = applyRemoteDrawsToPage(j);
+        if (window.__roSelfHealDecide) window.__roSelfHealDecide(j);
         return t || (d && d.applied.length > 0);
       })
       .catch(function () { return false; });   /* 打不开服务器（离线/被墙）就继续用内联快照 */
@@ -8686,7 +8692,7 @@ a.ro-xj-row.on { background: var(--ro-sunken); }
     font-size: 12.5px; font-weight: 700; line-height: 1.5;
     color: #c0392b; user-select: none;
   }
-  html.is-owner .ro-hot:not([hidden]) { display: inline-flex; }
+  .ro-hot:not([hidden]) { display: inline-flex; }
   .ro-hot-i { font-size: 13px; }
   .ro-hot-n { letter-spacing: .4px; }
   @media print { .ro-hot { display: none !important; } }
@@ -10052,7 +10058,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 只有主人（本机 / ?owner=1 / ?admin=1 / 固定公网 IP）看得到，
           别人的页面里这块是 display:none（客户端隐藏，不是加密）。 -->
   <div class="ro-hot" id="ro-hot">
-    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">${BZ_UV}</span>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
   </div>
 
   <!-- ============================================================
@@ -11062,7 +11068,8 @@ ${inlineScriptsHtml}
     if (!shown) return;
 
     /* 防止无限刷新：同一分钟内只自愈一次 */
-    var last = Number(sessionStorage.getItem('cdd.selfheal') || 0);
+    var last = 0;
+    try { last = Number(sessionStorage.getItem('cdd.selfheal') || 0); } catch (e) {}
     if (last && Date.now() - last < 60000) return;
 
     /* 把 ISO(UTC) 和「YYYY-MM-DD HH:MM」统一成【北京时间的可比较字符串】。
@@ -11086,8 +11093,14 @@ ${inlineScriptsHtml}
     window.__toBeijingKey = toBeijingKey;   /* 方便自测 / 排查 */
 
     function selfHealReload() {
-      sessionStorage.setItem('cdd.selfheal', String(Date.now()));
-      location.replace(location.pathname + '?t=' + Date.now());
+      try {
+        var previous = Number(sessionStorage.getItem('cdd.selfheal') || 0);
+        if (previous && Date.now() - previous < 60000) return;
+        sessionStorage.setItem('cdd.selfheal', String(Date.now()));
+      } catch (e) { /* restricted storage must not disable updates */ }
+      var next = new URL(location.href);
+      next.searchParams.set('t', String(Date.now()));
+      location.replace(next.href);
     }
 
     function decide(j) {
@@ -11097,17 +11110,20 @@ ${inlineScriptsHtml}
       if (!remoteKey || !mineKey) return;
       if (remoteKey <= mineKey) return;          /* 页面不比云端旧，什么都不做 */
 
-      /* 页尾的准实时逻辑已经就地换成新号码、图也是正常实时渲染的
-         → 页面上已经是新号码了，不用刷新整页 */
-      var applied = false;
-      var renderMode = '';
-      try { applied = !!window.__roLiveApplied; } catch (e2) { /* 忽略 */ }
-      try { renderMode = document.body.getAttribute('data-render') || ''; } catch (e3) { /* 忽略 */ }
-      if (applied && renderMode !== 'fallback') return;
-
-      /* 数据是新的，但页面没能就地显示出来（渲染兜底 / 脚本没跑）
-         → 整页刷新兜底 */
-      selfHealReload();
+      /* tickets only updates numbers. Verify the actual HTML build before
+         refreshing articles/images, since tickets may be published independently. */
+      if (window.__roPageCheckPending) return;
+      window.__roPageCheckPending = true;
+      var pageURL = new URL(location.href);
+      pageURL.searchParams.set('t', String(Date.now()));
+      fetch(pageURL.href, { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.text() : ''; })
+        .then(function (html) {
+          var match = /<body\\b[^>]*\\bdata-built=["']([^"']+)["']/i.exec(html);
+          if (match && toBeijingKey(match[1]) > mineKey) selfHealReload();
+        })
+        .catch(function () { /* keep the existing page on network failure */ })
+        .then(function () { window.__roPageCheckPending = false; });
     }
     window.__roSelfHealDecide = decide;   /* 方便自测 / 排查 */
 
@@ -13489,7 +13505,8 @@ ${RO_RENDER_SCRIPT}
       } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
                                         （30s 是为了覆盖 IP 判定最多 3 轮重试 ≈18s） */
         clearInterval(t);
-        box.hidden = true;
+        box.hidden = false;
+        num.textContent = '统计暂不可用';
       }
     }, 500);
   } catch (e) { /* 这段挂了不影响页面 */ }
