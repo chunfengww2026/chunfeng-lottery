@@ -1325,15 +1325,15 @@ function frogPanelHtml() {
         const all = Array.isArray(d.list) ? d.list : [];
         const tt = Array.isArray(d.toutiao) ? d.toutiao : [];
         /* ⚠️ 先 norm（按标题纠正彩种）再按彩种筛 —— 反过来会把标题写着快乐八的留下 */
-        const nextOf = (arr) => (arr || []).filter((x) => nextGames.indexOf(x.g) >= 0);
+        const nextOf = (arr) => (arr || []).filter((x) => { if(nextGames.indexOf(x.g)<0)return false; const m=/(?:第)?([0-9]{5,7})期/.exec(x.t); const target=String(issue[x.g]||''); return !!m && !!target && (m[1]===target || (m[1].length===5 && target.length===7 && m[1]===target.slice(2))); });
         /* __ART_20__ 用户 2026-10-21：「文章资料抓二十条…免费资料那块要抓到 20 条」
            → 原来这里写死 6（3 双色球 + 3 大乐透），现在是 20（10 + 10）。
            数据侧：build-jc-articles.mjs 已经按「双色球 10 + 大乐透 10」抓满正文。 */
         const ART_N = 20;
         arts = balance(nextOf(norm(tt)), ART_N);              /* 头条 · 只留下一期彩种 */
-        if (!arts.length) arts = balance(norm(tt), ART_N);    /* 头条全量 */
+        if (!arts.length) arts = balance(nextOf(norm(tt)), ART_N);    /* 头条全量 */
         if (!arts.length) arts = nextOf(norm(all)).slice(0, ART_N);
-        if (!arts.length) arts = norm(all).slice(0, ART_N);
+        if (!arts.length) arts = nextOf(norm(all)).slice(0, ART_N);
       }
     }
   } catch (e) {}
@@ -3084,6 +3084,10 @@ function buildXyspHtml() {
     const items = (data && data[g.key] && Array.isArray(data[g.key].items)) ? data[g.key].items : [];
     items.forEach((it) => {
       const img = String((it && it.img) || '');
+      const ticketPublished = sortMsOf(it);
+      const ticketFirstSeen = whenMsOf(it.at || it.seen);
+      const ticketExpires = Math.min(ticketPublished > 0 ? ticketPublished + 86400000 : Infinity, ticketFirstSeen > 0 ? ticketFirstSeen + 86400000 : Infinity);
+      if (!Number.isFinite(ticketExpires) || nowMs >= ticketExpires) return;
       const ticketVerdict = cachedVerdict(img);
       if (!ticketVerdict || ticketVerdict.ok !== true) return;
       if (!/^https:\/\//i.test(img)) return;      /* 只认 https（见上面那条说明） */
@@ -3150,7 +3154,7 @@ function buildXyspHtml() {
            · 服务端已经排好了，这个属性是给【验收脚本】验顺序用的，
              也是全屏看图时"第 N / M 张"的依据。
            · 0 = 没有可用时间戳（排序时被放到最后），属性里保留 0 便于核查。 */
-        ` data-ro-xysp-sort="${sortMs > 0 ? sortMs : 0}">` +
+        ` data-ro-xysp-expire="${ticketExpires}" data-ro-xysp-sort="${sortMs > 0 ? sortMs : 0}">` +
         `<img class="ro-xysp-thumb" src="${escapeAttr(thumb)}" alt=""` +
         ` loading="lazy" decoding="async" referrerpolicy="no-referrer">` +
         `<span class="ro-xysp-cap"><b>${escape(badge)}</b>` +
@@ -4384,9 +4388,16 @@ function buildHitMarquee() {
     };
   }
 
+  const tickerClaim = (w) => {
+    const tier=mqClaimTier(w.claim).label;
+    if(['fc3d','pl3','pl5'].includes(w.gid))return tier.replace(/命中/g,'中');
+    const parts=mqWinParts(w.gid,w.v,w.d);
+    const counts=parts.draw.map((x)=>(x.hit||[]).filter(Boolean).length);
+    return tier+' · 中'+counts.join('+')+(counts.length===1?'个号':'');
+  };
   const one = (w) =>
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
-    '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + w.claim + '</i></span>';
+    '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
 
   const itemsHtml = recent.map(one).join('');
 
@@ -11871,6 +11882,16 @@ ${RO_RENDER_SCRIPT}
     var tabs = root.querySelectorAll('.ro-xysp-tab');
     var pics = root.querySelectorAll('.ro-xysp-pic');
     var empty = root.querySelector('.ro-xysp-empty');
+    function pruneExpiredTickets() {
+      root.querySelectorAll('[data-ro-xysp-expire]').forEach(function(el){
+        if(Number(el.getAttribute('data-ro-xysp-expire'))<=Date.now())el.remove();
+      });
+      pics=root.querySelectorAll('.ro-xysp-pic');
+      var active=root.querySelector('.ro-xysp-tab.on');
+      pick(active ? active.getAttribute('data-ro-xysp-game') : 'all');
+    }
+    setInterval(pruneExpiredTickets,30000);
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)pruneExpiredTickets();});
 
     /* 只显示某一分类的卡片（game = 'all' 时全显示）。
        分类 = 8 个彩种 key + 'tt'（头条晒票）。
