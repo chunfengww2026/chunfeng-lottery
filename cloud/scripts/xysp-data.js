@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 00:46
+   更新时间：2026-10-22 00:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 00:46",
+ "updated": "2026-10-22 00:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1245,9 +1245,7 @@ const XYSP_DATA = {
      "author": "勇敢的风铃lI",
      "when": "2026-10-21 11:31:16",
      "postId": "1879628554079236",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
@@ -1265,14 +1263,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-21T16:46:01.735Z",
      "whenMs": 1792542737000,
-     "seenMs": 1792598438833,
+     "seenMs": 1792601161735,
      "drawMs": 1792589400000,
      "nextMs": 1792675800000,
      "atMs": 1792598438833,
      "drawAt": "2026-10-21T13:30:00.000Z",
      "nextAt": 1792675800000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-24T16:00:38.833Z",
+     "expireAt": "2026-10-24T16:46:01.735Z",
      "rule": "next-draw",
      "author": "豆包陪我守号追梦",
      "when": "2026-10-21 08:32:17",
@@ -1307,9 +1305,7 @@ const XYSP_DATA = {
      "author": "美女老公",
      "when": "2026-10-21 08:20:06",
      "postId": "1879616526782474",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/63548b82ff1541e39c264125ba8976a7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=3NMhytrg88HUQLLmWYR8Vmy%2F7VY%3D",
@@ -1339,9 +1335,7 @@ const XYSP_DATA = {
      "author": "美女老公",
      "when": "2026-10-21 08:20:06",
      "postId": "1879616526782474",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=6dYlQsslhx49ug12WSgTR8NwhbQ%3D",
@@ -1359,14 +1353,14 @@ const XYSP_DATA = {
      "issue": "2026274",
      "seen": "2026-10-21T16:46:01.735Z",
      "whenMs": 1792542006000,
-     "seenMs": 1792598438833,
+     "seenMs": 1792601161735,
      "drawMs": 1792589400000,
      "nextMs": 1792675800000,
      "atMs": 1792598438833,
      "drawAt": "2026-10-21T13:30:00.000Z",
      "nextAt": 1792675800000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-24T16:00:38.833Z",
+     "expireAt": "2026-10-24T16:46:01.735Z",
      "rule": "next-draw",
      "author": "美女老公",
      "when": "2026-10-21 08:20:06",
@@ -1389,14 +1383,14 @@ const XYSP_DATA = {
      "issue": "2026274",
      "seen": "2026-10-21T16:46:01.735Z",
      "whenMs": 1792542006000,
-     "seenMs": 1792598438833,
+     "seenMs": 1792601161735,
      "drawMs": 1792589400000,
      "nextMs": 1792675800000,
      "atMs": 1792598438833,
      "drawAt": "2026-10-21T13:30:00.000Z",
      "nextAt": 1792675800000,
      "drawGid": "kl8",
-     "expireAt": "2026-10-24T16:00:38.833Z",
+     "expireAt": "2026-10-24T16:46:01.735Z",
      "rule": "next-draw",
      "author": "美女老公",
      "when": "2026-10-21 08:20:06",
@@ -1431,9 +1425,7 @@ const XYSP_DATA = {
      "author": "瑜伽士",
      "when": "2026-10-21 06:42:57",
      "postId": "1879610414546058",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     }
    ]
   },
