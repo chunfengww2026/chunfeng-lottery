@@ -811,6 +811,7 @@ function resolveTemplateValues(gameId, imageKey, manualValues) {
   const overrides = parseOverridesFromText(gameId, text);
 
   const values = mergeFieldValues(auto, overrides, manualValues);
+  if (gameId === 'dlt' && imageKey === 'main' && typeof ensureDltBackSix === 'function') ensureDltBackSix(values, auto);
 
   // 记录来源，方便界面上标注
   const sources = {};
