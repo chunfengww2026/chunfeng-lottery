@@ -1671,7 +1671,8 @@ function buildArticlesHtml() {
       const mjsrc2 = fs.readFileSync(mjf2, 'utf8');
       const mj2 = JSON.parse((mjsrc2.match(/const MINGJIA_DATA = ([\s\S]*?);\s*$/) || [])[1] || '{}');
       (mj2.list || []).forEach(function (x) {
-        if (!x || !x.imgs || !x.imgs.length) return;
+        if (!x || !x.name) return;
+        x.imgs=(x.imgs||[]).filter(function(im){const until=im.expiresAt?Date.parse(im.expiresAt):Date.parse(im.fetchedAt||'')+86400000;return Number.isFinite(until)&&Date.now()<until;});
         (mjByCat[x.cat] = mjByCat[x.cat] || []).push(x);
       });
     }
@@ -1685,12 +1686,12 @@ function buildArticlesHtml() {
       const people = mjByCat[x[0]] || [];
       const imgsHtml = people.length
         ? people.map(function (p) {
-            return '<div class="ro-zldq-p"><div class="ro-zldq-n">' + escape(p.name) + (p.stale ? ' · 上次抓取' : '') + '</div>' +
+            return '<details class="ro-zldq-p"><summary class="ro-zldq-n">' + escape(p.name) + (p.stale ? ' · 上次抓取' : '') + '</summary>' +
               '<div class="ro-zldq-i">' +
-              p.imgs.map(function (im) {
+              (p.imgs.length ? p.imgs.map(function (im) {
                 return '<figure><img loading="lazy" src="' + escape(im.file).replace(/"/g, '&quot;') + '" alt="' + escape(p.name) + '"><figcaption>' + (im.issue ? '第 ' + escape(im.issue) + ' 期 · 待核实' : '期号待核实') + '</figcaption></figure>';
-              }).join('') +
-              '</div></div>';
+              }).join('') : '<div class="ro-zldq-empty">暂无</div>') +
+              '</div></details>';
           }).join('')
         : '<div class="ro-zldq-empty">暂无图</div>';
       /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
