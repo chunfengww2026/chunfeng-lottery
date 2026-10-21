@@ -3102,7 +3102,7 @@ function buildXyspHtml() {
       const img = String((it && it.img) || '');
       const ticketPublished = sortMsOf(it);
       const ticketFirstSeen = whenMsOf(it.at || it.seen);
-      const ticketExpires = Math.min(ticketPublished > 0 ? ticketPublished + 86400000 : Infinity, ticketFirstSeen > 0 ? ticketFirstSeen + 86400000 : Infinity);
+      const ticketExpires = ticketFirstSeen > 0 ? ticketFirstSeen + 86400000 : (ticketPublished > 0 ? ticketPublished + 86400000 : Infinity);
       if (!Number.isFinite(ticketExpires) || nowMs >= ticketExpires) return;
       const ticketVerdict = cachedVerdict(img);
       if (!ticketVerdict || ticketVerdict.ok !== true) return;
