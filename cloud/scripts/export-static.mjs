@@ -4255,6 +4255,7 @@ function mqJudge(gid, v, d) {
     const r = hits(front, poolAllF), b = hits(back, bp);
     if (r === 5 && b === 2) return { claim: bigClaim('一等奖', r, '前区', b, '后区'), hot: 2 };
     if (r === 5 && b === 1) return { claim: bigClaim('二等奖', r, '前区', b, '后区'), hot: 1 };
+    if (r === 4 && b === 2) return { claim: bigClaim('三等奖', r, '前区', b, '后区'), hot: 1 };
     /* 三等奖：前区全中 + 后区 0 个 */
     if (r === 5 && b === 0) return { claim: bigClaim('三等奖', r, '前区', b, '后区'), hot: 1 };
     /* __MQ3B__ 三等奖：前区全中 + 后区 0 个 */
@@ -5215,11 +5216,11 @@ function buildHistoryHtml() {
       `<div class="ro-hist-note">${escape(r.note)}</div>` +
       `</div>`
     ).join('');
-    return `<div class="ro-hist-grp">` +
-      `<div class="ro-hist-grp-h">` +
+    return `<details class="ro-hist-grp">` +
+      `<summary class="ro-hist-grp-h">` +
       `<span class="ro-hist-grp-g">${escape(g.name)}</span>` +
       `<span class="ro-hist-grp-c">中 ${g.rows.length} 注</span>` +
-      `</div>` + rowsHtml + `</div>`;
+      `</summary>` + rowsHtml + `</details>`;
   }).join('');
 
   const meta = `自 ${info.from} 起记录 · 中奖才公布 · 已比对 ${info.compared} 期 · 中奖 ${total} 注`;
