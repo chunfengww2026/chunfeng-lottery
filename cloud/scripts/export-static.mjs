@@ -17094,6 +17094,13 @@ body { background-color: #f7efe1; }
 .frog-monster-hp { text-align:center; font-size:12px; margin:6px 0; }
 @keyframes frogshake { 25% {transform:translateX(8px);} 75% {transform:translateX(-8px);} }
 #monsterHome > .frog-sum { display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px; }
+.arena-field { display:block; width:100%; height:auto; border-radius:10px; border:1px solid #c3d2ba; outline-offset:3px; touch-action:none; }
+.arena-status { font-weight:700; font-size:12px; padding:8px 0; }
+.arena-controls { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-around; gap:8px; margin:10px 0; }
+.arena-controls button { border:1px solid #d5c3a8; border-radius:8px; background:#fff8e8; color:#493722; min-width:42px; min-height:40px; font-weight:700; cursor:pointer; }
+.arena-pad { text-align:center; } .arena-pad>div { display:flex; gap:4px; }
+.arena-controls .arena-attack { padding:12px; background:#1a8c5a; color:white; }
+#monsterPickCount { padding:8px; margin:8px 0; max-width:100%; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18036,6 +18043,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 
 <script>
+${fs.readFileSync(path.join(ROOT, 'monster-game.js'), 'utf8')}
+</script>
+<script>
 /* __FROG_LAB_JS__ 青蛙家园功能中心：全部用页面已有 DRAW_HISTORY 现算，不联网不收费 */
 function initFrogLab(outId, wrapId, gidId, monsterMode) {
   var out = document.getElementById(outId);
@@ -18286,6 +18296,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
   }
 
   /* Local entertainment mode: site algorithm, no external AI or account. */
+  var monsterCount=4;
   function monster() {
     var key='chunfeng-monster-v1', records=[];
     try { records=JSON.parse(localStorage.getItem(key)||'[]'); if(!Array.isArray(records))records=[]; }catch(e){}
@@ -18306,15 +18317,24 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     settled.forEach(function(r){total+=r.kills.length;correct+=(r.correct||[]).length;});
     var exp=correct*10;
     out.innerHTML='<div style="font-weight:700">奥特曼杀号（小怪兽严父） · '+gname()+'</div>'+
-      '<div class="frog-monster-stage"><span>🦸</span><span class="frog-monster-beam">⚡</span><span class="frog-monster-enemy">👾</span></div>'+
-      '<div class="frog-monster-hp" role="status" aria-live="polite">怪兽血量：3 / 3</div><div class="frog-chip" role="button" tabindex="0" id="frogMonsterAttack">发射光线 · 攻击怪兽</div>'+ 
-      row('等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
+      '<div class="monster-arena"></div>'+
+      row('复盘等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
       row('已复盘 / 杀对率',settled.length+' 期 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
       '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
       (current?rowL('本期已留档',current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
       settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期 · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+rowL('留档杀号',r.kills)+rowL('杀对（未开出）',r.correct)+rowL('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
       '<div class="frog-tip">本站免费统计算法；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
+    var arenaHost=out.querySelector('.monster-arena');
+    if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
+    var maxPick=function(){return Math.min(12,4+2*((window.MonsterArena?window.MonsterArena.level():1)-1));};
+    var fireBox=out.querySelector('#frogMonsterFire');
+    if(fireBox){
+      var select=document.createElement('select');select.id='monsterPickCount';select.setAttribute('aria-label','本期杀号数量');
+      [4,6,8,10,12].forEach(function(n){var opt=document.createElement('option');opt.value=n;opt.textContent=n+' 个杀号';opt.disabled=n>maxPick();select.appendChild(opt);});
+      monsterCount=Math.min(monsterCount,maxPick());select.value=monsterCount;select.onchange=function(){monsterCount=Number(select.value);};fireBox.parentNode.insertBefore(select,fireBox);
+      if(arenaHost)arenaHost.addEventListener('arena-level',function(){[].slice.call(select.options).forEach(function(o){o.disabled=Number(o.value)>maxPick();});});
+    }
     var attack=out.querySelector('#frogMonsterAttack'),hp=3,busy=false;
     if(attack){
       attack.onclick=function(){
@@ -18336,6 +18356,10 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       var rowEl=rows.find(function(el){return el.textContent.indexOf('建议杀号')===0;});
       var nums=rowEl?[].slice.call(rowEl.querySelectorAll('.frog-b')).map(function(el){return Number(el.textContent);}):[];
       if(!nums.length){monster();return;}
+      var frequency={};ds.slice(0,30).forEach(function(d){redsOf(d).forEach(function(n){frequency[n]=(frequency[n]||0)+1;});});
+      var rest=[];for(var v=1;v<=redMax();v++)if(nums.indexOf(v)<0)rest.push(v);
+      rest.sort(function(a,b){return (frequency[a]||0)-(frequency[b]||0)||a-b;});
+      nums=nums.concat(rest).slice(0,Math.min(monsterCount,maxPick()));
       records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,settled:false});save();monster();
       var stage=out.querySelector('.frog-monster-stage');if(stage)stage.classList.add('fired');
     };
