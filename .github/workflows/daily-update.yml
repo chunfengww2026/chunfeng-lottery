@@ -714,7 +714,7 @@ jobs:
       cancel-in-progress: false
     # 【关键】always() —— 只要 build 这一步跑过（哪怕它有部分失败、
     # 被 continue-on-error 吞掉），deploy 都必须执行，把当前 site/ 发出去。
-    if: always()
+    if: ${{ always() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -737,7 +737,7 @@ jobs:
 
       # 【不能静默失败】两次都失败就明确报错，让这一次班次的失败在 Actions 里看得见。
       - name: 确认发布结果
-        if: always()
+        if: ${{ always() && needs.build.result == 'success' }}
         run: |
           echo "第 1 次：${{ steps.deploy1.outcome }}"
           echo "重试　：${{ steps.deployment.outcome }}"
@@ -746,3 +746,4 @@ jobs:
             exit 1
           fi
           echo "✅ 已发布到网页"
+
