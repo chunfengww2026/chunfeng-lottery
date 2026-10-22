@@ -5154,7 +5154,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 22:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "卡米奧勒羅斯(後備)",
      "score": 0,
@@ -5220,7 +5220,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 22:00:00",
-    "minute": 85,
+    "minute": 89,
     "home": {
      "name": "皇家皮拉爾(後備)",
      "score": 0,
@@ -5286,10 +5286,10 @@ const FOOTBALL_DATA = {
      "color": "FF2F73"
     },
     "time": "2026-10-22 22:15:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "盧布爾雅那(女)",
-     "score": 7,
+     "score": 8,
      "red": 0,
      "rank": 0
     },
@@ -5332,7 +5332,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-22 22:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "阿拉木图凯拉特",
      "score": 0,
@@ -5398,7 +5398,7 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-22 22:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "艾沙哈尼亚",
      "score": 0,
@@ -5464,7 +5464,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-22 22:45:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "阿尔菲斯",
      "score": 1,
@@ -5526,7 +5526,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "雅莫科",
      "score": 1,
