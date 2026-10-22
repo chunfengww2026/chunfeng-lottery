@@ -266,56 +266,11 @@ const JC_RECO_DATA = {
      "score": "",
      "hit": null,
      "result": ""
-    },
-    {
-     "code": "周五004",
-     "time": "2026-10-24 02:00",
-     "league": "荷甲",
-     "home": "前进之鹰",
-     "away": "特尔斯达",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.6,
-     "conf": 59.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五006",
-     "time": "2026-10-24 02:30",
-     "league": "德甲",
-     "home": "斯图加特",
-     "away": "门兴",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 68.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五010",
-     "time": "2026-10-24 03:00",
-     "league": "英冠",
-     "home": "博尔顿",
-     "away": "米堡",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.55,
-     "conf": 60.6,
-     "score": "",
-     "hit": null,
-     "result": ""
     }
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 1,
    "verdict": ""
   }
  ]
