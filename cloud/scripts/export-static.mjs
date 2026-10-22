@@ -3878,7 +3878,7 @@ function buildKjhHtml() {
 
   return `<section class="ro-panel ro-kjh-panel" id="ro-kjh">` +
     `<div class="ro-panel-head">` +
-    `<h2 class="ro-panel-title"><span class="entry-icon" aria-hidden="true">📻</span> 开机号</h2>` +
+    `<h2 class="ro-panel-title"><svg viewBox="0 0 28 28" width="23" height="23" aria-hidden="true" style="vertical-align:middle"><circle cx="14" cy="11" r="9" fill="#e4f5ff" stroke="#367aa0" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="#d65345"/><circle cx="18" cy="10" r="3" fill="#3773bf"/><circle cx="14" cy="16" r="3" fill="#ebb738"/><path d="M7 21h14l2 5H5z" fill="#358b6b"/><path d="M14 3v6m-6 8 6-6 6 6" fill="none" stroke="#8aa6b8" stroke-width="1"/></svg> 开机号</h2>` +
     /* 【定时文案】2026-10-18 用户要求页面上不要「每天 2:00 自动更新」这类定时说法
        → 副标题改成不带时刻的中性说明（数据仍然是原来的节奏，只是不再写在页面上）。 */
     `<div class="ro-panel-sub">各彩种最新开机号` +
@@ -4030,7 +4030,7 @@ function buildHeatmapHtml() {
      + <details> / <summary> / 折叠 / 「点击查看 · 点击收起」一个字都没改。 */
   return `<details class="ro-heat ro-hm-card" id="ro-heatmap">` +
     `<summary class="ro-heat-head">` +
-    `<span class="ro-heat-title title">热力图</span>` +
+    `<span class="ro-heat-title title"><svg viewBox="0 0 28 28" width="23" height="23" aria-hidden="true" style="vertical-align:middle"><path d="M3 3v22h22" fill="none" stroke="#8b7862" stroke-width="1.5"/><path d="M4 22 8 17 12 19 16 8 20 12 25 4 25 24 4 24z" fill="#ffe0b3"/><path d="m4 22 4-5 4 2 4-11 4 4 5-8" fill="none" stroke="#df573b" stroke-width="2.5" stroke-linejoin="round"/></svg> 热力图</span>` +
     `<span class="ro-heat-sub sub" data-ro-hm-sub="1">${escape(subText)}</span>` +
     `<span class="ro-heat-arrow" aria-hidden="true"></span>` +
     `</summary>` +
@@ -10379,12 +10379,12 @@ ${sinaNextHtml()}
 <a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">☯️</span> 双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
 <a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🔵</span> 大乐透推荐号</b></a>
 <a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">☯️</span> 大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-<a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🎯</span> 3D</b></a>
-<a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🍀</span> 快乐8</b></a>
-<a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🔢</span> 排列三</b></a>
-<a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🖐️</span> 排列五</b></a>
-<a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🌈</span> 七乐彩</b></a>
-<a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">⭐</span> 七星彩</b></a>
+<a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#c94436;color:white;font-size:10px;font-weight:800;vertical-align:middle">3D</span> 3D</b></a>
+<a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#228a65;color:white;font-size:10px;font-weight:800;vertical-align:middle">8</span> 快乐8</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#3878b6;color:white;font-size:10px;font-weight:800;vertical-align:middle">P3</span> 排列三</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#a26931;color:white;font-size:10px;font-weight:800;vertical-align:middle">P5</span> 排列五</b></a>
+<a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#7959ab;color:white;font-size:10px;font-weight:800;vertical-align:middle">7L</span> 七乐彩</b></a>
+<a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#b88c20;color:white;font-size:10px;font-weight:800;vertical-align:middle">7X</span> 七星彩</b></a>
 </div></div>
   ${toolsHeatHtml}
 
