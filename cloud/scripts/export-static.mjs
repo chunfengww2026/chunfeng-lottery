@@ -1778,7 +1778,7 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div><div class="frog-chip" role="button" tabindex="0" data-gid="fc3d">福彩3D</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl3">排列三</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl5">排列五</div><div class="frog-chip" role="button" tabindex="0" data-gid="qlc">七乐彩</div><div class="frog-chip" role="button" tabindex="0" data-gid="qxc">七星彩</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -18089,7 +18089,12 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
   var GID_CFG = {
     dlt: { nm: '大乐透', max: 35, aN: '前区', bN: '后区', aCnt: 5, bCnt: 2 },
     ssq: { nm: '双色球', max: 33, aN: '红球', bN: '蓝球', aCnt: 6, bCnt: 1 },
-    kl8: { nm: '快乐8', max: 80, aN: '号码', bN: '', aCnt: 20, bCnt: 0 }
+    kl8: { nm: '快乐8', max: 80, aN: '号码', bN: '', aCnt: 20, bCnt: 0 },
+    fc3d: { nm:'福彩3D', min:0, max:9, digits:3, aCnt:3 },
+    pl3: { nm:'排列三', min:0, max:9, digits:3, aCnt:3 },
+    pl5: { nm:'排列五', min:0, max:9, digits:5, aCnt:5 },
+    qlc: { nm:'七乐彩', min:1, max:30, aCnt:7 },
+    qxc: { nm:'七星彩', min:0, max:9, digits:7, aCnt:6 }
   };
   function gname() { return (GID_CFG[gid] || GID_CFG.dlt).nm; }
   function gcfg() { return GID_CFG[gid] || GID_CFG.dlt; }
@@ -18296,9 +18301,14 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
   }
 
   /* Local entertainment mode: site algorithm, no external AI or account. */
-  var monsterCount=4;
+  var monsterCount=4,monsterPosition=0;
   function monster() {
     var key='chunfeng-monster-v1', records=[];
+    var digital=!!gcfg().digits;
+    var positionNames=gcfg().digits===3?['百位','十位','个位']:gcfg().digits===5?['万位','千位','百位','十位','个位']:['第1位','第2位','第3位','第4位','第5位','第6位','末位'];
+    function numbersAt(d,pos){var area=d.areas||{};if(!digital)return redsOf(d);return gid==='qxc'?(pos===6?(area.back||[]).map(Number):[(area.front||[])[pos]].filter(function(n){return n!==undefined;}).map(Number)):[(area.main||[])[pos]].filter(function(n){return n!==undefined;}).map(Number);}
+    function positionMax(){return gid==='qxc'&&monsterPosition===6?14:redMax();}
+    function monsterRow(label,nums){if(!digital)return rowL(label,nums);return '<div class="frog-row"><span>'+label+'</span><span class="frog-bq">'+nums.map(function(n){return '<span class="frog-b">'+Number(n)+'</span>';}).join('')+'</span></div>';}
     try { records=JSON.parse(localStorage.getItem(key)||'[]'); if(!Array.isArray(records))records=[]; }catch(e){}
     var ds=hist(gid),latest=ds[0];
     if(!latest){out.innerHTML='奥特曼杀号（小怪兽严父） · '+gname()+'：暂无真实开奖数据';return;}
@@ -18307,27 +18317,29 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       if(rec.gid!==gid||rec.settled||!Array.isArray(rec.kills))return;
       var later=ds.filter(function(d){return Number(d.issue)>Number(rec.baseIssue);}).sort(function(a,b){return Number(a.issue)-Number(b.issue);});
       if(!later.length)return;
-      rec.drawIssue=String(later[0].issue);rec.drawn=redsOf(later[0]);
+      rec.drawIssue=String(later[0].issue);rec.drawn=numbersAt(later[0],Number(rec.position)||0);
       rec.correct=rec.kills.filter(function(n){return rec.drawn.indexOf(n)<0;});rec.settled=true;
     });
     function save(){try{localStorage.setItem(key,JSON.stringify(records.slice(-300)));}catch(e){writable=false;}}
     save();
-    var current=records.find(function(r){return r.gid===gid&&String(r.baseIssue)===String(latest.issue);});
+    var current=records.find(function(r){return r.gid===gid&&String(r.baseIssue)===String(latest.issue)&&(!digital||(Number(r.position)||0)===monsterPosition);});
     var settled=records.filter(function(r){return r.gid===gid&&r.settled;}),total=0,correct=0;
     settled.forEach(function(r){total+=r.kills.length;correct+=(r.correct||[]).length;});
     var exp=correct*10;
     out.innerHTML='<div style="font-weight:700">奥特曼杀号（小怪兽严父） · '+gname()+'</div>'+
+      (digital?'<label>杀号位置 <select id="monsterPosition">'+positionNames.map(function(n,i){return '<option value="'+i+'"'+(i===monsterPosition?' selected':'')+'>'+n+'</option>';}).join('')+'</select></label>':'')+
       '<div class="monster-arena"></div>'+
       row('复盘等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
-      row('已复盘 / 杀对率',settled.length+' 期 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
+      row('已复盘 / 杀对率',settled.length+' 条 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
       '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
-      (current?rowL('本期已留档',current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
+      (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
-      settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期 · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+rowL('留档杀号',r.kills)+rowL('杀对（未开出）',r.correct)+rowL('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
+      settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期'+(digital?' · '+positionNames[Number(r.position)||0]:'')+' · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+monsterRow('留档杀号',r.kills)+monsterRow('杀对（未开出）',r.correct)+monsterRow('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
       '<div class="frog-tip">本站免费统计算法；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
     var arenaHost=out.querySelector('.monster-arena');
     if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
-    var maxPick=function(){return Math.min(12,4+2*((window.MonsterArena?window.MonsterArena.level():1)-1));};
+    var maxPick=function(){return Math.min(digital?positionMax()-1:12,12,4+2*((window.MonsterArena?window.MonsterArena.level():1)-1));};
+    var positionSelect=out.querySelector('#monsterPosition');if(positionSelect)positionSelect.onchange=function(){monsterPosition=Number(positionSelect.value);monster();};
     var fireBox=out.querySelector('#frogMonsterFire');
     if(fireBox){
       var select=document.createElement('select');select.id='monsterPickCount';select.setAttribute('aria-label','本期杀号数量');
@@ -18351,16 +18363,19 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     var fire=out.querySelector('#frogMonsterFire');
     if(fire)fire.onclick=function(){
       if(!writable)return;
-      killVer='C';kill();
-      var rows=[].slice.call(out.querySelectorAll('.frog-row'));
-      var rowEl=rows.find(function(el){return el.textContent.indexOf('建议杀号')===0;});
-      var nums=rowEl?[].slice.call(rowEl.querySelectorAll('.frog-b')).map(function(el){return Number(el.textContent);}):[];
-      if(!nums.length){monster();return;}
-      var frequency={};ds.slice(0,30).forEach(function(d){redsOf(d).forEach(function(n){frequency[n]=(frequency[n]||0)+1;});});
-      var rest=[];for(var v=1;v<=redMax();v++)if(nums.indexOf(v)<0)rest.push(v);
+      var nums=[];
+      if(!digital){
+        killVer='C';kill();
+        var rows=[].slice.call(out.querySelectorAll('.frog-row'));
+        var rowEl=rows.find(function(el){return el.textContent.indexOf('建议杀号')===0;});
+        nums=rowEl?[].slice.call(rowEl.querySelectorAll('.frog-b')).map(function(el){return Number(el.textContent);}):[];
+      }
+      var frequency={};ds.slice(0,30).forEach(function(d){numbersAt(d,monsterPosition).forEach(function(n){frequency[n]=(frequency[n]||0)+1;});});
+      var rest=[];for(var v=digital?0:1;v<=(digital?positionMax():redMax());v++)if(nums.indexOf(v)<0)rest.push(v);
       rest.sort(function(a,b){return (frequency[a]||0)-(frequency[b]||0)||a-b;});
       nums=nums.concat(rest).slice(0,Math.min(monsterCount,maxPick()));
-      records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,settled:false});save();monster();
+      if(!nums.length){monster();return;}
+      records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,position:digital?monsterPosition:null,settled:false});save();monster();
       var stage=out.querySelector('.frog-monster-stage');if(stage)stage.classList.add('fired');
     };
   }
@@ -18377,9 +18392,9 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     });
   }
   function setGid(g) {
-    if (g !== 'dlt' && g !== 'ssq' && g !== 'kl8') return;
+    if (!GID_CFG[g]) return;
     gid = g;
-    RQ.a = RCFG[g].aMin; RQ.b = RCFG[g].bMin;
+    if(RCFG[g]){RQ.a = RCFG[g].aMin; RQ.b = RCFG[g].bMin;} monsterPosition=0;
     markGid();
     if (lastFn && FNS[lastFn]) FNS[lastFn]();
     else out.innerHTML = '点上面任意功能，结果显示在这里（当前彩种：' + gname() + '）';
