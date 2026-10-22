@@ -44,7 +44,7 @@
           if(keys[' ']||keys.j||held.fire)fire();
           if(spawn<=0&&enemies.length<14){spawn=Math.max(.35,1.1-wave*.035);spawnEnemy();}
           enemies.forEach(function(e){var d=Math.hypot(hero.x-e.x,hero.y-e.y)||1,ex=e.x+(hero.x-e.x)/d*e.speed*dt,ey=e.y+(hero.y-e.y)/d*e.speed*dt;if(!blocked(ex,e.y))e.x=ex;if(!blocked(e.x,ey))e.y=ey;if(d<29&&hero.hit<=0){hero.hp--;hero.hit=1.2;if(hero.hp<=0)dead=2;}});
-          shots.forEach(function(s){s.x+=s.dx*dt;s.y+=s.dy*dt;s.life-=dt;enemies.forEach(function(e){if(s.life>0&&e.hp>0&&Math.hypot(s.x-e.x,s.y-e.y)<23){e.hp--;s.life=0;spark.push({x:e.x,y:e.y,life:1});if(e.hp<=0){p.xp+=10;p.kills++;score++;waveKills++;persist();if(waveKills>=4+Math.min(wave,8)){wave++;waveKills=0;}}}});});
+          shots.forEach(function(s){s.x+=s.dx*dt;s.y+=s.dy*dt;s.life-=dt;enemies.forEach(function(e){if(s.life>0&&e.hp>0&&Math.hypot(s.x-e.x,s.y-e.y)<23){e.hp--;s.life=0;spark.push({x:e.x,y:e.y,life:1});if(e.hp<=0){var previousLevel=level(p);p.xp+=10;p.kills++;score++;waveKills++;persist();if(level(p)!==previousLevel)host.dispatchEvent(new CustomEvent('arena-level'));if(waveKills>=4+Math.min(wave,8)){wave++;waveKills=0;}}}});});
           shots=shots.filter(function(s){return s.life>0;});enemies=enemies.filter(function(e){return e.hp>0;});
         }
         spark.forEach(function(s){s.life-=dt*2;});spark=spark.filter(function(s){return s.life>0;});
