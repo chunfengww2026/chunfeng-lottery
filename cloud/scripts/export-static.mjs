@@ -17109,6 +17109,10 @@ body { background-color: #f7efe1; }
 .status-video-box video { width:100%; max-height:78vh; display:block; }
 .status-video-close { position:absolute; right:10px; top:2px; font-size:28px; color:white; cursor:pointer; }
 .status-video-message { color:white; text-align:center; font-size:12px; }
+.arena-life { display:flex; flex-wrap:wrap; gap:5px; margin:6px 0; }
+.arena-life button { border:1px solid #decda9; background:#fff8e8; border-radius:7px; padding:7px 9px; cursor:pointer; color:#4a3a26; }
+.arena-needs { flex-basis:100%; font-size:11px; line-height:1.7; padding:5px 0; }
+.status-video-open::before { content:"👉"; position:absolute; left:-30px; top:15px; font-size:24px; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18309,7 +18313,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
   }
 
   /* Local entertainment mode: site algorithm, no external AI or account. */
-  var monsterCount=4,monsterPosition=0;
+  var monsterCount=5,monsterPosition=0;
   function monster() {
     var key='chunfeng-monster-v1', records=[];
     var visitorSeed='';
@@ -18351,13 +18355,16 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       '<div class="frog-tip">按访客独立生成的娱乐杀号；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
     var arenaHost=out.querySelector('.monster-arena');
     if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
-    var maxPick=function(){return Math.min(digital?positionMax()-1:12,12,4+2*((window.MonsterArena?window.MonsterArena.level():1)-1));};
+    var maxPick=function(){return Math.min(digital?positionMax()-1:16,16);};
     var positionSelect=out.querySelector('#monsterPosition');if(positionSelect)positionSelect.onchange=function(){monsterPosition=Number(positionSelect.value);monster();};
     var fireBox=out.querySelector('#frogMonsterFire');
     if(fireBox){
       var select=document.createElement('select');select.id='monsterPickCount';select.setAttribute('aria-label','本期杀号数量');
-      [4,6,8,10,12].forEach(function(n){var opt=document.createElement('option');opt.value=n;opt.textContent=n+' 个杀号';opt.disabled=n>maxPick();select.appendChild(opt);});
-      monsterCount=Math.min(monsterCount,maxPick());select.value=monsterCount;select.onchange=function(){monsterCount=Number(select.value);};fireBox.parentNode.insertBefore(select,fireBox);
+      [5,8,10,12,16].forEach(function(n){var opt=document.createElement('option');opt.value=n;opt.textContent=n+' 个杀号';opt.disabled=n>maxPick();select.appendChild(opt);});
+      monsterCount=Math.min(monsterCount,maxPick());select.value=monsterCount;select.onchange=function(){monsterCount=Number(select.value);updatePrice();};fireBox.parentNode.insertBefore(select,fireBox);
+      var walletNote=document.createElement('div');walletNote.className='frog-tip';fireBox.parentNode.insertBefore(walletNote,fireBox);
+      function updatePrice(){var coins=window.MonsterArena.progress().coins,cost=monsterCount*10;fireBox.textContent='兑换'+monsterCount+'个杀号 · '+cost+'游戏金币';walletNote.textContent='当前 '+coins+' 金币；打怪或做生意获取，不充值、不兑换现金。同一期每个位置仅兑换一次。'+(digital?'本位置可选数量受号码范围限制。':'');fireBox.setAttribute('aria-disabled',coins<cost?'true':'false');}
+      updatePrice();if(arenaHost)arenaHost.addEventListener('arena-wallet',updatePrice);
       if(arenaHost)arenaHost.addEventListener('arena-level',function(){[].slice.call(select.options).forEach(function(o){o.disabled=Number(o.value)>maxPick();});});
     }
     var attack=out.querySelector('#frogMonsterAttack'),hp=3,busy=false;
@@ -18382,7 +18389,9 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       rest.sort(function(a,b){return ((frequency[a]||0)*.15+visitorScore(a)*10)-((frequency[b]||0)*.15+visitorScore(b)*10)||a-b;});
       nums=nums.concat(rest).slice(0,Math.min(monsterCount,maxPick()));
       if(!nums.length){monster();return;}
-      records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,position:digital?monsterPosition:null,settled:false});save();monster();
+      if(!window.MonsterArena||window.MonsterArena.progress().coins<nums.length*10){if(walletNote)walletNote.textContent='金币不足，请先打怪或做生意。';return;}
+      records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,position:digital?monsterPosition:null,settled:false});save();
+      if(!writable||!window.MonsterArena.spendCoins(nums.length*10)){records.pop();save();if(walletNote)walletNote.textContent='兑换未完成，未生成留档。';return;}monster();
       var stage=out.querySelector('.frog-monster-stage');if(stage)stage.classList.add('fired');
     };
   }
