@@ -3148,7 +3148,7 @@ const FOOTBALL_DATA = {
      "color": "FC7555"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 0,
+    "minute": 56,
     "home": {
      "name": "比尔基卡拉",
      "score": 1,
@@ -3283,7 +3283,7 @@ const FOOTBALL_DATA = {
     "minute": 48,
     "home": {
      "name": "朴高利卡",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -3349,7 +3349,7 @@ const FOOTBALL_DATA = {
     "minute": 49,
     "home": {
      "name": "塔林弗罗拉B队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -3412,7 +3412,7 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 0,
+    "minute": 53,
     "home": {
      "name": "沙巴柏阿爾艾利杜拜",
      "score": 2,
@@ -3478,7 +3478,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 0,
+    "minute": 59,
     "home": {
      "name": "席特拉",
      "score": 1,
@@ -3487,7 +3487,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿尔里法",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -3544,7 +3544,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 0,
+    "minute": 58,
     "home": {
      "name": "拿杰玛",
      "score": 0,

@@ -998,7 +998,7 @@ GROUPS.forEach((group) => {
       /* 【核心加减法 · 用户 2026-10-20「这是资料里面的」】
          放在「推荐号」图下方、九算法上方 —— 这才是用户真正的核心算法 ✔
          20 码池 + 杀号池 + 金胆尾/银胆尾 + 大乐透跨彩种绝杀尾 */
-      if ((id === 'ssq' || id === 'dlt') && img.key === 'main') {
+      if (false && (id === 'ssq' || id === 'dlt') && img.key === 'main') {
         imgsHtml +=
           '<div style="margin:10px 0 4px">' +
           '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
@@ -1010,7 +1010,7 @@ GROUPS.forEach((group) => {
       /* 【九算法植入「推荐号」图格 · 用户 2026-10-20「植入到这个里面」】
          在双色球/大乐透的「推荐号」图下面直接嵌该彩种的九算法（?g=彩种）
          → 点目录里的「双色球推荐号 / 大乐透推荐号」，看到图 + 算法 ✔ */
-      if ((id === 'ssq' || id === 'dlt') && (img.key === 'main' || img.key === 'wuxing')) {
+      if (false && (id === 'ssq' || id === 'dlt') && (img.key === 'main' || img.key === 'wuxing')) {
         imgsHtml +=
           `<div class="px9-inline" style="margin:10px 0 4px">` +
           `<div style="font-size:12.5px;font-weight:700;color:#1a8c5a;margin:0 0 6px 2px">` +
@@ -1023,7 +1023,7 @@ GROUPS.forEach((group) => {
          3D / 快乐8 / 排列三 / 排列五 / 七乐彩 / 七星彩 → 图下面嵌民间算法（?g=彩种）
          用户给的 Python 那 10 种玩法都在 minjian-methods.html 里 */
       const MINJIAN_GAMES = ['fc3d', 'kl8', 'pl3', 'pl5', 'qlc', 'qxc'];
-      if (MINJIAN_GAMES.indexOf(id) >= 0 && img.key === 'main') {
+      if (false && MINJIAN_GAMES.indexOf(id) >= 0 && img.key === 'main') {
         imgsHtml +=
           '<div class="mj-inline" style="margin:10px 0 4px">' +
           '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
@@ -1362,8 +1362,8 @@ function frogPanelHtml() {
   return '<details class="frog" id="frogHome">' +
     '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-sub">（蝌蚪严父）</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
     '<div class="frog-body">' +
-    box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
-    box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
+    box('双色球 · 20码参考', pool.ssq, ssqBack, issue.ssq) +
+    box('大乐透 · 20码参考', pool.dlt, dltBack, issue.dlt) +
     box('快乐8 · 20码参考', pool.kl8 || [], [], issue.kl8) +
     '<div class="frog-sec"><details class="frog-mats">' +
     '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
@@ -1460,7 +1460,7 @@ function frogPanelHtml() {
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="omit">遗漏走势</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="lab">实验室</div>'
     + '</div><div class="frog-out" id="frogOut">点上面任意功能，结果显示在这里</div></div>'
-    + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
+    + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码仅供统计参考</div>' +
     '</div></details>';
 }
 
@@ -1792,7 +1792,7 @@ function buildArticlesHtml() {
    页面运行时不需要分析器）。数据用 history.js 真开奖近 30 期。
    六码用用户给的 LIUMA_RECOMMEND_MAP（按彩种分开）。 */
 const P3D = require(path.join(ROOT, 'p3d-analyzer.js'));
-const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
+let p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
   periods: 30,
   typeMap: {
     /* 【用户 2026-10-18】「去掉民间字迹」→ 卡面标题不再写「（民间算法）」
@@ -1805,6 +1805,29 @@ const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
     'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6] }
   }
 });
+
+/* Handwritten-style statistical sheets generated from genuine draw history. */
+const handdrawSheets=[];
+for(const [gid,name] of [['fc3d','福彩3D'],['pl3','排列三']]){
+  const rows=((HIST&&HIST.games||{})[gid]||[]).slice(0,30),counts=Array(10).fill(0);
+  rows.forEach(function(r){((r.areas||{}).main||[]).forEach(function(n){if(Number(n)>=0&&Number(n)<=9)counts[Number(n)]++;});});
+  if(!rows.length)continue;
+  for(const kind of ['近30期数字频次','近5期开奖笔记']){
+    let shapes='<rect width="640" height="760" fill="#fffaf0"/><path d="M48 0V760" stroke="#e5b7a6"/>';
+    for(let y=80;y<760;y+=38)shapes+='<path d="M18 '+y+' Q320 '+(y-2)+' 622 '+y+'" stroke="#d8dfda" fill="none"/>';
+    shapes+='<g font-family="KaiTi,STKaiti,serif" fill="#343f54"><text x="70" y="55" font-size="27">'+name+' · '+kind+'</text><text x="70" y="98" font-size="20">第 '+nextIssue(gid)+' 期参考 · 本站生成</text>';
+    if(kind==='近30期数字频次'){
+      const max=Math.max(1,...counts);
+      counts.forEach(function(n,i){const y=145+i*45;shapes+='<text x="75" y="'+y+'" font-size="23">'+i+'</text><path d="M115 '+(y-7)+' Q'+(120+n/max*170)+' '+(y-14)+' '+(120+n/max*350)+' '+(y-6)+'" fill="none" stroke="'+(i%2?'#356c92':'#af4b40')+'" stroke-width="9" stroke-linecap="round"/><text x="510" y="'+y+'" font-size="20">'+n+' 次</text>';});
+      shapes+='<text x="70" y="660" font-size="19">统计样本：'+rows.length+' 期 · 共 '+counts.reduce(function(a,b){return a+b;},0)+' 个数字</text>';
+    }else rows.slice(0,5).forEach(function(r,i){const y=170+i*88;shapes+='<text x="72" y="'+y+'" font-size="20">第 '+r.issue+' 期</text><text x="95" y="'+(y+37)+'" font-size="32" fill="#ac4539">'+((r.areas||{}).main||[]).join('     ')+'</text>';});
+    shapes+='<text x="70" y="708" font-size="17">手绘风格统计示意 · 历史频次不代表下期概率</text></g>';
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" width="640" height="760" viewBox="0 0 640 760">'+shapes+'</svg>';
+    handdrawSheets.push('<figure><img class="handdraw-sheet" loading="lazy" src="data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)+'" alt="'+name+' '+kind+'手绘风格参考图"><figcaption>'+name+' · '+kind+' · 点击放大</figcaption></figure>');
+  }
+}
+if(p3dHtml)p3dHtml=p3dHtml.replace('<div class="p3d-body">','<div class="p3d-body"><details class="handdraw-gallery"><summary>✍️ 本站手绘风格参考图（3D / 排列三）</summary><div style="display:flex;gap:8px;overflow-x:auto">'+handdrawSheets.join('')+'</div></details>');
+
 console.log('  · 3D 手绘参考图：' + (p3dHtml
   ? '已生成（' + (Buffer.byteLength(p3dHtml, 'utf8') / 1024).toFixed(1) + ' KB）'
   : '无数据 → 整块不渲染'));
@@ -8903,9 +8926,9 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-top { padding-top: 12px !important; padding-bottom: 0 !important; }
 .ro-top h1 { margin-bottom: 0 !important; }
 /* ============================================================
-   __ALGO_LINE__ 顶部「算法探讨」（用户 2026-10-20）
+   __ALGO_LINE__ 顶部「交流探讨」（用户 2026-10-20）
    ------------------------------------------------------------
-   用户原话：「下面加内容：算法探讨，这一栏字迹斜着放」
+   用户原话：「下面加内容：交流探讨，这一栏字迹斜着放」
    澄清（弹窗问过）：位置 = 「小晴推荐师 / yy2528161812」那一块【下面】；
                      斜着放 = 【整行文字旋转】，不是斜体、不是阶梯排。
    · 只是装饰性小标题：纯文字、不可点、没有按钮、没有内容区（用户没说要点）
@@ -8915,14 +8938,14 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
    ============================================================ */
 /* 斜 15°：三条统一（用户 2026-10-20：三条都斜着15°）
    .ro-owner = 小晴推荐师 / .ro-user = yy2528161812（见顶部作者块 HTML）
-   方向取 -15deg（右端抬高），和原来算法探讨的 -6deg 同向，只是角度加大；
+   方向取 -15deg（右端抬高），和原来交流探讨的 -6deg 同向，只是角度加大；
    三条同向 → 文字带互相平行，原 5px 行距视觉不变、不会互相压字。
    transform-origin 统一 center center：绕自己中心转，上下左右溢出最小。 */
 .ro-owner, .ro-user {
   transform: rotate(-15deg);
   transform-origin: center center;
 }
-/* 算法探讨：整行水平居中（用户 2026-10-20：算法讨论居中在下面）
+/* 交流探讨：整行水平居中（用户 2026-10-20：算法讨论居中在下面）
    margin-bottom 4 → 10：斜 15° 后包围盒会往下探 ~7px，留 10px 才不贴到「春风」 */
 .ro-algo-line { text-align: center !important; padding: 0 16px; margin: 12px 0 10px;
   line-height: 1.5; }
@@ -8932,16 +8955,16 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 /* ============================================================
    【顶部作者块 · 收紧 + 三条对齐】（用户 2026-10-20 第三次要求）
    ------------------------------------------------------------
-   用户原话：「算法探讨到小晴推荐师下面字母的下面居中」「右上角那句问候不要了」
-            「上面空白在锁紧一点」「尽量把小晴推荐师 字母还有算法探讨靠近卡片栏」
-   ① 对齐：三条（小晴推荐师 / yy2528161812 / 算法探讨）装进一个竖列 .ro-author：
+   用户原话：「交流探讨到小晴推荐师下面字母的下面居中」「右上角那句问候不要了」
+            「上面空白在锁紧一点」「尽量把小晴推荐师 字母还有交流探讨靠近卡片栏」
+   ① 对齐：三条（小晴推荐师 / yy2528161812 / 交流探讨）装进一个竖列 .ro-author：
       · 列宽 = max-content（= 最长那行 yy… 的宽度），三行都是 display:block，
         于是三条的【盒子宽度相同】，再统一 text-align:center
         → 旋转后三条的包围盒中心 x 完全一致（实测差 0.00px）
-      · 之前算法探讨在 .ro-top 里单独一行、按整行宽居中（中心 = 屏幕中心），
+      · 之前交流探讨在 .ro-top 里单独一行、按整行宽居中（中心 = 屏幕中心），
         而作者两行贴左边 → 视觉上「偏右下」，这就是用户看到的问题
    ② 收紧：行距 1.5 → 1.3；作者两行之间 5px → 3px；
-      算法探讨上边距 12 → 3、下边距 10 → 0（斜 15° 的包围盒自己去撑开，不会压字）
+      交流探讨上边距 12 → 3、下边距 10 → 0（斜 15° 的包围盒自己去撑开，不会压字）
    ③ 靠近状态卡：.ro-top 上 padding 12 → 10、下 margin 12 → 4；春风 h1 上下 2 / 0
    ④ 颜色/字号沿用原内联样式（小晴推荐师 12px 粗 #5c5248，yy 12px #7d7266）
    ⚠️ 只动这一个块的排版；三条仍然是斜 15 度（见上面 .ro-owner/.ro-user 规则） */
@@ -10246,14 +10269,14 @@ ${DEVICE_GATE_BODY}
     <!-- __ALGO_LINE__ 顶部作者块：三条一个竖列（.ro-author）
          用户 2026-10-20（二改）：
            · 右上角那句问候整块删除（不要了）
-           ·「算法探讨到小晴推荐师下面字母的下面居中」→ 算法探讨挪进这个竖列，
+           ·「交流探讨到小晴推荐师下面字母的下面居中」→ 交流探讨挪进这个竖列，
              和小晴推荐师 / yy2528161812 同一列，三条都 text-align:center
            · 列宽 = 最长那行（yy…）的宽度，三条包围盒中心落在同一条竖线上
          ⚠️ 纯文字、不可点、无按钮；三条仍统一 rotate(-15deg)（样式见下面的 CSS） -->
     <div class="ro-author">
       <div class="ro-owner">小晴推荐师</div>
       <div class="ro-user">🔍yy2528161812</div>
-      <div class="ro-algo-line"><span>算法探讨</span></div>
+      <div class="ro-algo-line"><span>交流探讨</span></div>
     </div>
     <h1>春风</h1>
   </div>
@@ -10732,7 +10755,7 @@ ${kjhHtml}
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
       <span class="ro-hist-h2"><span class="entry-icon" aria-hidden="true">🏆</span> 中奖</span>
-      <span class="ro-hist-sub">自 ${HIST_FROM_TXT} 起 · 中奖才公布</span>
+      <span class="ro-hist-sub">（2026.10.15此网址诞生）</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
@@ -10815,25 +10838,7 @@ ${p3dHtml}
     </summary>
     <div class="ro-ref-body">
 <!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
-<div class="px9" id="px9">
-  <!-- 【九算法 · 用户 2026-10-19「还是在原来的位置」】独立页用 iframe 嵌回来。
-       独立页不会被多窗口覆盖 ✗，这里只是"挂一个窗口" ✔。
-       iframe 高度给足，内部自适应；手机/电脑都能滑。 -->
-  <div class="px9-embed" id="px9-embed">
-    <div class="px9-embed-h">推荐图 · 方法（九算法 · 双色球 / 大乐透）</div>
-    <iframe src="px9-methods.html" title="推荐图 · 方法" loading="lazy"
-            style="width:100%;height:1400px;border:0;display:block;background:#f7efe1;border-radius:10px"></iframe>
-  </div>
 
-  <div class="px9-head">推荐图 · 方法</div>
-  <div class="px9-games">
-    <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
-    <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
-  </div>
-  <div class="px9-methods" id="px9Methods"></div>
-  <div class="px9-out" id="px9Out"></div>
-  <div class="px9-tip">全部按本页近 30 期开奖真实计算 · 仅供统计参考，不是预测</div>
-</div>
 <!-- __PX9__ 两级方法目录（2 彩种 × 9 方法） -->
   <!-- 【参考图 · 用户 2026-10-19「我的参考图也没了」】
        之前误删了整个 px9 容器 → 4 张参考图是 JS 画进 #px9Out 的，容器没了图就没了。
@@ -10865,11 +10870,7 @@ ${p3dHtml}
            · ⚠️ 不写任何数据出处（source-guard 会拦）；「人工计算手法」是用户要的
            · 下面那行合规提示：这张卡里原本没有免责，补一句小的，不重复页尾
            ============================================================ -->
-      <div class="ro-ref-algo">
-        <div class="ro-ref-algo-h">本页算法（人工计算手法）：</div>
-        <div class="ro-ref-algo-l">余数算法（人工计算手法）· 分区法（人工计算手法）· 冷热号（人工计算手法）· 遗漏值算法（人工计算手法）· 奇偶（人工计算手法）· 质合（人工计算手法）· 和值（人工计算手法）· 跨度（人工计算手法）· 多源共振法（人工计算手法）</div>
-        <div class="ro-ref-algo-w">⚠️ 仅用于历史数据统计娱乐，无法预测开奖！</div>
-      </div>
+      <div class="ro-ref-algo-w">⚠️ 仅用于历史数据统计娱乐，无法预测开奖！</div>
     </div>
   </details>
   </div>
@@ -17113,6 +17114,9 @@ body { background-color: #f7efe1; }
 .arena-life button { border:1px solid #decda9; background:#fff8e8; border-radius:7px; padding:7px 9px; cursor:pointer; color:#4a3a26; }
 .arena-needs { flex-basis:100%; font-size:11px; line-height:1.7; padding:5px 0; }
 .status-video-open::before { content:"👉"; position:absolute; left:-30px; top:15px; font-size:24px; }
+.handdraw-gallery figure { margin:8px 0; flex:0 0 100%; min-width:0; }
+.handdraw-sheet { width:100%; height:auto; cursor:zoom-in; }
+.handdraw-gallery figcaption { font-size:11px; text-align:center; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18349,13 +18353,13 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       row('复盘等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
       row('已复盘 / 杀对率',settled.length+' 条 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
       '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
-      (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
+      (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div><div class="frog-chip" role="button" aria-disabled="true">本期已生成 · 下期开奖后可再生成</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
       settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期'+(digital?' · '+positionNames[Number(r.position)||0]:'')+' · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+monsterRow('留档杀号',r.kills)+monsterRow('杀对（未开出）',r.correct)+monsterRow('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
       '<div class="frog-tip">按访客独立生成的娱乐杀号；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
     var arenaHost=out.querySelector('.monster-arena');
     if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
-    var maxPick=function(){return Math.min(digital?positionMax()-1:16,16);};
+    var maxPick=function(){return Math.min(digital?positionMax()-1:16,[5,8,10,12,16][Math.min(4,(window.MonsterArena?window.MonsterArena.level():1)-1)]);};
     var positionSelect=out.querySelector('#monsterPosition');if(positionSelect)positionSelect.onchange=function(){monsterPosition=Number(positionSelect.value);monster();};
     var fireBox=out.querySelector('#frogMonsterFire');
     if(fireBox){
@@ -18363,7 +18367,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       [5,8,10,12,16].forEach(function(n){var opt=document.createElement('option');opt.value=n;opt.textContent=n+' 个杀号';opt.disabled=n>maxPick();select.appendChild(opt);});
       monsterCount=Math.min(monsterCount,maxPick());select.value=monsterCount;select.onchange=function(){monsterCount=Number(select.value);updatePrice();};fireBox.parentNode.insertBefore(select,fireBox);
       var walletNote=document.createElement('div');walletNote.className='frog-tip';fireBox.parentNode.insertBefore(walletNote,fireBox);
-      function updatePrice(){var coins=window.MonsterArena.progress().coins,cost=monsterCount*10;fireBox.textContent='兑换'+monsterCount+'个杀号 · '+cost+'游戏金币';walletNote.textContent='当前 '+coins+' 金币；打怪或做生意获取，不充值、不兑换现金。同一期每个位置仅兑换一次。'+(digital?'本位置可选数量受号码范围限制。':'');fireBox.setAttribute('aria-disabled',coins<cost?'true':'false');}
+      function updatePrice(){var coins=window.MonsterArena.progress().coins,cost=monsterCount*10;fireBox.textContent='生成杀号 · '+monsterCount+'个 / '+cost+'游戏金币';walletNote.textContent='Lv.'+window.MonsterArena.level()+' · 当前 '+coins+' 金币；打怪或做生意获取，不充值、不兑换现金。同一期每个位置仅兑换一次。'+(digital?'本位置可选数量受号码范围限制。':'');fireBox.setAttribute('aria-disabled',coins<cost?'true':'false');}
       updatePrice();if(arenaHost)arenaHost.addEventListener('arena-wallet',updatePrice);
       if(arenaHost)arenaHost.addEventListener('arena-level',function(){[].slice.call(select.options).forEach(function(o){o.disabled=Number(o.value)>maxPick();});});
     }
@@ -18444,7 +18448,7 @@ try {
   });
 } catch (err) { }
 </script>
-</body>
+<script>document.addEventListener("click",function(e){if(!e.target.matches(".handdraw-sheet"))return;var overlay=document.createElement("div");overlay.style.cssText="position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:10px";var im=document.createElement("img");im.src=e.target.src;im.alt=e.target.alt;im.style.cssText="max-width:96vw;max-height:96vh;object-fit:contain";overlay.appendChild(im);overlay.setAttribute("role","dialog");overlay.setAttribute("aria-label","手绘参考图，点击关闭");document.body.appendChild(overlay);function close(){overlay.remove();document.removeEventListener("keydown",esc);}function esc(e){if(e.key==="Escape")close();}overlay.onclick=close;document.addEventListener("keydown",esc);});</script></body>
 </html>`;
 
 /* ============================================================
@@ -18525,7 +18529,7 @@ function assertHeadOnce(finalHtml, label, cssText) {
 
 const finalHtml = perfify(safeHtml);
 assertHeadOnce(finalHtml, '只读分享版.html', '.ro-game{content-visibility:auto');
-fs.writeFileSync(OUT, finalHtml, 'utf8');
+fs.writeFileSync(OUT, finalHtml.replace(/<!--[\s\S]*?-->/g, ''), 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
 console.log(`   大小：${(Buffer.byteLength(finalHtml, 'utf8') / 1024).toFixed(1)} KB`);
@@ -18536,6 +18540,9 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
+
+
 
 
 
