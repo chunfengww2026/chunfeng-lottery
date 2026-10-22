@@ -1446,6 +1446,7 @@ function frogPanelHtml() {
     + '<div class="frog-chips" id="frogGid">'
     + '<div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div>'
     + '<div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div>'
+    + '<div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div>'
     + '</div>'
     + '<div class="frog-tools" id="frogLab">'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="co">二码同出</div>'
@@ -17965,7 +17966,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   var wrap = document.getElementById('frogLab');
   if (!out || !wrap) return;
   function hist(g) { try { return ((DRAW_HISTORY.games || {})[g] || []).slice(0, 100); } catch (e) { return []; } }
-  function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || []).map(Number); }
+  function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || a.main || []).map(Number); }
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   function row(k, v) { return '<div class="frog-row"><span>' + k + '</span><span><b>' + v + '</b></span></div>'; }
   /* ============================================================
@@ -17998,10 +17999,11 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
      · 9 个功能全部读它（原来写死 dlt）；
      · 结果区每一块标题都带彩种名，切了也知道现在算的是哪一个。 */
   var gid = 'dlt';
-  var GID_NM = { dlt: '大乐透', ssq: '双色球' };
+  var GID_NM = { dlt: '大乐透', ssq: '双色球', kl8: '快乐8' };
   var GID_CFG = {
     dlt: { nm: '大乐透', max: 35, aN: '前区', bN: '后区', aCnt: 5, bCnt: 2 },
-    ssq: { nm: '双色球', max: 33, aN: '红球', bN: '蓝球', aCnt: 6, bCnt: 1 }
+    ssq: { nm: '双色球', max: 33, aN: '红球', bN: '蓝球', aCnt: 6, bCnt: 1 },
+    kl8: { nm: '快乐8', max: 80, aN: '号码', bN: '', aCnt: 20, bCnt: 0 }
   };
   function gname() { return (GID_CFG[gid] || GID_CFG.dlt).nm; }
   function gcfg() { return GID_CFG[gid] || GID_CFG.dlt; }
@@ -18133,6 +18135,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     ds.forEach(function(d){ redsOf(d).forEach(function(n){freq[n]=(freq[n]||0)+1;}); var area=d.areas||{}; (area.blue||area.back||[]).forEach(function(n){bf[n]=(bf[n]||0)+1;}); });
     var hot=Object.keys(freq).map(Number).sort(function(a,b){return freq[b]-freq[a]||a-b;}).slice(0,10);
     var blue=Object.keys(bf).map(Number).sort(function(a,b){return bf[b]-bf[a]||a-b;});
+    if(gid==='kl8'){out.innerHTML='<div style="font-weight:700;margin-bottom:4px">缩水套餐 · 快乐8 · 近30期热号参考</div>'+[6,8,10].map(function(n){return rowL('选'+n+'参考',hot.slice(0,n).sort(function(a,b){return a-b;}));}).join('')+'<div class="frog-tip">仅展示热号组合，不代表缩水保奖。</div>';return;}
     var B=bName();
     function pack(label,n,m){return '<div class="frog-row"><span>'+label+'</span><span>'+bq(hot.slice(0,n).sort(function(a,b){return a-b;}))+' <i>+</i> '+bq(blue.slice(0,m).sort(function(a,b){return a-b;}),'',true)+'</span></div>';}
     out.innerHTML='<div style="font-weight:700;margin-bottom:4px">缩水套餐 · '+gname()+' · 近30期热号</div>'+pack('18元 6+4（'+B+' 4 码）',6,4)+pack('28元 7+1（'+B+' 1 码）',7,1)+pack('38元 7+2（'+B+' 2 码）',7,2);
@@ -18149,7 +18152,8 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   var RQ = { a: 5, b: 2 };
   var RCFG = {
     dlt: { nm: '大乐透', aMax: 35, aMin: 5, aTop: 10, bMax: 12, bMin: 2, bTop: 6, aN: '前区', bN: '后区' },
-    ssq: { nm: '双色球', aMax: 33, aMin: 6, aTop: 10, bMax: 16, bMin: 1, bTop: 4, aN: '红球', bN: '蓝球' }
+    ssq: { nm: '双色球', aMax: 33, aMin: 6, aTop: 10, bMax: 16, bMin: 1, bTop: 4, aN: '红球', bN: '蓝球' },
+    kl8: { nm: '快乐8', aMax: 80, aMin: 1, aTop: 10, bMax: 0, bMin: 0, bTop: 0, aN: '号码', bN: '' }
   };
   function pickN(max, n) {
     var pool = [], res = [], i, t;
@@ -18171,9 +18175,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     out.innerHTML =
       '<div style="font-weight:700;margin-bottom:4px">摇号机 · ' + gname() + '（随机 · 仅娱乐）</div>' +
       '<div class="frog-ql">' + c.aN + '个数</div><div class="frog-chips">' + numChips(c.aMin, c.aTop, RQ.a, 'a') + '</div>' +
-      '<div class="frog-ql">' + c.bN + '个数</div><div class="frog-chips">' + numChips(c.bMin, c.bTop, RQ.b, 'b') + '</div>' +
+      (c.bMax ? '<div class="frog-ql">' + c.bN + '个数</div><div class="frog-chips">' + numChips(c.bMin, c.bTop, RQ.b, 'b') + '</div>' : '') +
       '<div class="frog-qv"><i>' + c.aN + '（' + RQ.a + ' 个）</i><br>' + bq(a) + '</div>' +
-      '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + bq(b, '', true) + '</div>' +
+      (c.bMax ? '<div class="frog-qv"><i>' + c.bN + '（' + RQ.b + ' 个）</i><br>' + bq(b, '', true) + '</div>' : '') +
       '<div class="frog-chips"><div class="frog-chip on" role="button" tabindex="0" data-rq-roll="1">摇一次</div></div>';
     var as = out.querySelectorAll('[data-rq-a]');
     for (i = 0; i < as.length; i++) as[i].onclick = (function (el) {
@@ -18216,7 +18220,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     });
   }
   function setGid(g) {
-    if (g !== 'dlt' && g !== 'ssq') return;
+    if (g !== 'dlt' && g !== 'ssq' && g !== 'kl8') return;
     gid = g;
     RQ.a = RCFG[g].aMin; RQ.b = RCFG[g].bMin;
     markGid();
