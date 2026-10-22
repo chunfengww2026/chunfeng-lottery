@@ -35,7 +35,7 @@ function dltBack6Html() {
     return '<div class="ro-back6" id="ro-back6">' +
       '<span class="ro-back6-k">后区推荐 6 码</span>' +
       six.map(function (n) { return '<i>' + pad(n) + '</i>'; }).join('') +
-      '<span class="ro-back6-s">近 12 期遗漏最大的 6 个</span>' +
+      '<span class="ro-back6-s">仅供统计参考</span>' +
       '</div>';
   } catch (e) { return ''; }
 }
@@ -14271,7 +14271,6 @@ ${CHAT_JS_SHARE}
     return tqLines([
       ['近 ' + ctx.n + ' 期 平均 AC 值', fmt1(tot / used)],
       ['最高 / 最低', mx + ' / ' + mn],
-      ['算法', '两两差值种类数 -（号码个数 - 1）'],
       ['说明', 'AC 值越大，号码越分散']
     ]);
   }
@@ -18028,15 +18027,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (i = 0; i < item.rows.length; i++) {
       rows += '<div class="px9-row"><span class="px9-k">' + item.rows[i][0] + '</span><span>' + item.rows[i][1] + '</span></div>';
     }
-    elO.innerHTML =
-      '<div class="px9-cur">' + d.name + ' · ' + item.m + '</div>' +
-      ballsOf(item.red, item.blue) +
-      '<div class="px9-info">' + item.info + '</div>' +
-      rows +
-      '<div class="px9-meta">期号种子 ' + d.next + ' · 近 ' + d.n + ' 期现算 · ' +
-      M.area + ' 1-' + M.max + ' / ' + M.blueArea + ' 1-' + M.blueMax +
-      (item.swapped > 0 ? ' · 同号避重顺延 ' + item.swapped + ' 个' : '') +
-      '</div>';
+    elO.innerHTML = '<div class="px9-cur">' + d.name + ' · 参考号码</div>' + ballsOf(item.red, item.blue) + '<div class="px9-meta">第 ' + d.next + ' 期 · 仅供统计参考</div>';
     var ms = elM.querySelectorAll('.px9-m');
     for (i = 0; i < ms.length; i++) {
       ms[i].onclick = (function (b) {
