@@ -1718,9 +1718,18 @@ function buildArticlesHtml() {
       });
       const imgsHtml = issues.size ? Array.from(issues.entries()).sort(function(a,b){return b[0].localeCompare(a[0],undefined,{numeric:true});}).map(function(entry){
         const issue=entry[0],g=entry[1];
-        return '<details class="ro-zldq-issue"><summary>'+ (issue==='待核实'?'期号待核实':'第 '+escape(issue)+' 期') +' · '+g.images.length+' 张</summary>'+
-          '<div class="ro-zldq-i">'+g.images.map(function(im,index){return '<figure><img loading="lazy" src="'+escape(im.file||im.src).replace(/"/g,'&quot;')+'" alt="第 '+escape(issue)+' 期资料图 '+(index+1)+'"><figcaption>'+(index+1)+' / '+g.images.length+'</figcaption></figure>';}).join('')+'</div>'+
-          g.articles.map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b><p>'+escape(a.excerpt||'暂无文字摘录')+'</p><a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('')+'</details>';
+        const slides=[],seenImages=new Set();
+        g.articles.forEach(function(a){
+          const blocks=Array.isArray(a.blocks)&&a.blocks.length?a.blocks:(a.images||[]).map(function(src){return {type:'image',src:src};}).concat(a.excerpt?[{type:'text',text:a.excerpt}]:[]);
+          blocks.forEach(function(b){
+            if(b.type==='image'&&/^https:\/\//.test(b.src||'')){if(!seenImages.has(b.src)){seenImages.add(b.src);slides.push(b);}}
+            else if(b.type==='text'&&String(b.text||'').trim())slides.push({type:'text',text:b.text});
+          });
+        });
+        g.images.forEach(function(im){const src=im.file||im.src;if(!seenImages.has(src)){seenImages.add(src);slides.push({type:'image',src:src});}});
+        return '<details class="ro-zldq-issue"><summary>第 '+escape(issue)+' 期 · '+g.images.length+' 张图 · '+slides.filter(function(b){return b.type==='text';}).length+' 段文字</summary>'+
+          '<div class="ro-zldq-i">'+slides.map(function(b,index){return '<figure>'+(b.type==='image'?'<img loading="lazy" src="'+escape(b.src).replace(/"/g,'&quot;')+'" alt="第 '+escape(issue)+' 期资料图">':'<div class="ro-zldq-riddle">'+escape(b.text)+'</div>')+'<figcaption>'+(index+1)+' / '+slides.length+'</figcaption></figure>';}).join('')+'</div>'+
+          g.articles.map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b> <a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('')+'</details>';
       }).join('') : '<div class="ro-zldq-empty">第 '+escape(targetIssue)+' 期暂无资料</div>';
       /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
       return '<details class="ro-zldq-c">' +
@@ -17077,6 +17086,7 @@ body { background-color: #f7efe1; }
 .frog-monster-beam { opacity:.3; }
 .frog-monster-stage.fired .frog-monster-beam { animation:frogbeam .8s ease-out; }
 @keyframes frogbeam { from {opacity:1;transform:scale(.5) translateX(-20px);} to {opacity:0;transform:scale(2) translateX(20px);} }
+.ro-zldq-riddle { white-space:pre-wrap; overflow-wrap:anywhere; box-sizing:border-box; padding:16px; text-align:left; height:65vh; overflow-y:auto; line-height:1.8; background:#fffdf7; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
