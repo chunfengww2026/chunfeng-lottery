@@ -161,8 +161,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.48,
-     "conf": 63.9,
+     "odds": 1.4,
+     "conf": 67.6,
      "score": "",
      "hit": null,
      "result": ""
