@@ -6,16 +6,16 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 07:54:30
+   更新时间：2026-10-22 08:20:21
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 07:54:30",
+ "updated": "2026-10-22 08:20:21",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QKN7NdM1zEyB3WqRW4RmabBcVD0%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=jtiHP0p8R4OmjZZ5BkdovypJw7s%3D",
    "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
    "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
    "at": "2026-10-21T16:00:38.833Z",
@@ -26,9 +26,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T23:23:22.425Z",
+   "seen": "2026-10-22T00:20:21.649Z",
    "whenMs": 1792553476000,
-   "seenMs": 1792625002425,
+   "seenMs": 1792628421649,
    "drawMs": 1792589400000,
    "nextMs": 1792589400000,
    "atMs": 1792598438833,
@@ -43,9 +43,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=gse5r8cjQxAaFl8DLdIqox35DOw%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=PL4muBy7SabP%2FbLgVRQs085Cfng%3D",
    "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
    "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
    "at": "2026-10-21T16:00:38.833Z",
@@ -56,9 +56,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-21T23:23:22.425Z",
+   "seen": "2026-10-22T00:20:21.649Z",
    "whenMs": 1792542737000,
-   "seenMs": 1792625002425,
+   "seenMs": 1792628421649,
    "drawMs": 1792589400000,
    "nextMs": 1792589400000,
    "atMs": 1792598438833,

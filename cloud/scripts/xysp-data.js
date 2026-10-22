@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 07:54
+   更新时间：2026-10-22 08:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 07:54",
+ "updated": "2026-10-22 08:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1134,9 +1134,9 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QKN7NdM1zEyB3WqRW4RmabBcVD0%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=jtiHP0p8R4OmjZZ5BkdovypJw7s%3D",
      "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
      "at": "2026-10-21T16:00:38.833Z",
@@ -1147,9 +1147,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T23:23:22.425Z",
+     "seen": "2026-10-22T00:20:21.649Z",
      "whenMs": 1792553476000,
-     "seenMs": 1792625002425,
+     "seenMs": 1792628421649,
      "drawMs": 1792589400000,
      "nextMs": 1792589400000,
      "atMs": 1792598438833,
@@ -1164,9 +1164,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=QrUfHOLpNL4vG1cygEmN1aDIDCM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=gse5r8cjQxAaFl8DLdIqox35DOw%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=PL4muBy7SabP%2FbLgVRQs085Cfng%3D",
      "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
      "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
      "at": "2026-10-21T16:00:38.833Z",
@@ -1177,9 +1177,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-21T23:23:22.425Z",
+     "seen": "2026-10-22T00:20:21.649Z",
      "whenMs": 1792542737000,
-     "seenMs": 1792625002425,
+     "seenMs": 1792628421649,
      "drawMs": 1792589400000,
      "nextMs": 1792589400000,
      "atMs": 1792598438833,
@@ -1191,66 +1191,6 @@ const XYSP_DATA = {
      "author": "豆包陪我守号追梦",
      "when": "2026-10-21 08:32:17",
      "postId": "1879617293204480",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c08c420fc28944e6a9c49eaf2925994d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=iBHO%2BKcdTL4rwD64Pna%2FATSLbXA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c08c420fc28944e6a9c49eaf2925994d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=iBHO%2BKcdTL4rwD64Pna%2FATSLbXA%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=l3AOIjC5fMA8r7z2FuIo2DrO95c%3D",
-     "title": "之前蹲过10月15日快乐8第2026274期的开奖公告，当天卖了1.13亿，派奖8178万，9个人拿了25万、27人拿了5万，结果大家最盯着的选十中十500万头奖，一注都没开出来。\n好多人问易中奖吗，其实得先搞清楚你要的“中奖”是啥。想天天",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1879616526782474",
-     "at": "2026-10-21T16:00:38.833Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026274",
-     "seen": "2026-10-21T23:23:22.425Z",
-     "whenMs": 1792542006000,
-     "seenMs": 1792625002425,
-     "drawMs": 1792589400000,
-     "nextMs": 1792589400000,
-     "atMs": 1792598438833,
-     "drawAt": "2026-10-21T13:30:00.000Z",
-     "nextAt": 1792589400000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-22T16:00:38.833Z",
-     "rule": "first-capture-24h",
-     "author": "美女老公",
-     "when": "2026-10-21 08:20:06",
-     "postId": "1879616526782474",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/63548b82ff1541e39c264125ba8976a7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=3NMhytrg88HUQLLmWYR8Vmy%2F7VY%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/63548b82ff1541e39c264125ba8976a7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=3NMhytrg88HUQLLmWYR8Vmy%2F7VY%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5fa150614aca43589fe8b40d8d65c701~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=l3AOIjC5fMA8r7z2FuIo2DrO95c%3D",
-     "title": "之前蹲过10月15日快乐8第2026274期的开奖公告，当天卖了1.13亿，派奖8178万，9个人拿了25万、27人拿了5万，结果大家最盯着的选十中十500万头奖，一注都没开出来。\n好多人问易中奖吗，其实得先搞清楚你要的“中奖”是啥。想天天",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1879616526782474",
-     "at": "2026-10-21T16:00:38.833Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026274",
-     "seen": "2026-10-21T23:23:22.425Z",
-     "whenMs": 1792542006000,
-     "seenMs": 1792625002425,
-     "drawMs": 1792589400000,
-     "nextMs": 1792589400000,
-     "atMs": 1792598438833,
-     "drawAt": "2026-10-21T13:30:00.000Z",
-     "nextAt": 1792589400000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-22T16:00:38.833Z",
-     "rule": "first-capture-24h",
-     "author": "美女老公",
-     "when": "2026-10-21 08:20:06",
-     "postId": "1879616526782474",
      "px": 132300
     }
    ]
