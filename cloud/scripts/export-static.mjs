@@ -17093,7 +17093,7 @@ body { background-color: #f7efe1; }
 .frog-monster-stage.defeated .frog-monster-enemy { opacity:.25; transform:rotate(30deg); }
 .frog-monster-hp { text-align:center; font-size:12px; margin:6px 0; }
 @keyframes frogshake { 25% {transform:translateX(8px);} 75% {transform:translateX(-8px);} }
-#monsterHome > .frog-sum { display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px; }
+#monsterHome > .frog-sum, #ro-zldq > .frog-sum { display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px; }
 .arena-field { display:block; width:100%; height:auto; border-radius:10px; border:1px solid #c3d2ba; outline-offset:3px; touch-action:none; }
 .arena-status { font-weight:700; font-size:12px; padding:8px 0; }
 .arena-controls { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-around; gap:8px; margin:10px 0; }
@@ -18505,6 +18505,7 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
 
 
 
