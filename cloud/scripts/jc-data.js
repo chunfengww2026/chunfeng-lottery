@@ -661,6 +661,7 @@ const JC_DATA = {
       "pick": "away",
       "label": "让负"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
@@ -801,6 +802,7 @@ const JC_DATA = {
       "pick": "home",
       "label": "让胜"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
@@ -933,6 +935,7 @@ const JC_DATA = {
       "pick": "away",
       "label": "让负"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
@@ -1073,6 +1076,7 @@ const JC_DATA = {
       "pick": "away",
       "label": "让负"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
@@ -1353,6 +1357,7 @@ const JC_DATA = {
       "pick": "away",
       "label": "让负"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
@@ -1493,6 +1498,7 @@ const JC_DATA = {
       "pick": "away",
       "label": "让负"
      },
+     "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
