@@ -10842,13 +10842,11 @@ ${p3dHtml}
   <!-- 【九算法 · 用户 2026-10-19「还是在原来的位置」】独立页用 iframe 嵌回来。
        独立页不会被多窗口覆盖 ✗，这里只是"挂一个窗口" ✔。
        iframe 高度给足，内部自适应；手机/电脑都能滑。 -->
-  <div class="px9-embed" id="px9-embed">
-    <div class="px9-embed-h">推荐图 · 方法（九算法 · 双色球 / 大乐透）</div>
-    <iframe src="px9-methods.html" title="推荐图 · 方法" loading="lazy"
-            style="width:100%;height:1400px;border:0;display:block;background:#f7efe1;border-radius:10px"></iframe>
+
+
   </div>
 
-  <div class="px9-head">推荐图 · 方法</div>
+  
   <div class="px9-games">
     <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
     <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
@@ -10888,11 +10886,7 @@ ${p3dHtml}
            · ⚠️ 不写任何数据出处（source-guard 会拦）；「人工计算手法」是用户要的
            · 下面那行合规提示：这张卡里原本没有免责，补一句小的，不重复页尾
            ============================================================ -->
-      <div class="ro-ref-algo">
-        <div class="ro-ref-algo-h">本页算法（人工计算手法）：</div>
-        <div class="ro-ref-algo-l">余数算法（人工计算手法）· 分区法（人工计算手法）· 冷热号（人工计算手法）· 遗漏值算法（人工计算手法）· 奇偶（人工计算手法）· 质合（人工计算手法）· 和值（人工计算手法）· 跨度（人工计算手法）· 多源共振法（人工计算手法）</div>
-        <div class="ro-ref-algo-w">⚠️ 仅用于历史数据统计娱乐，无法预测开奖！</div>
-      </div>
+      <div class="ro-ref-algo-w">⚠️ 仅用于历史数据统计娱乐，无法预测开奖！</div>
     </div>
   </details>
   </div>
@@ -18551,7 +18545,7 @@ function assertHeadOnce(finalHtml, label, cssText) {
 
 const finalHtml = perfify(safeHtml);
 assertHeadOnce(finalHtml, '只读分享版.html', '.ro-game{content-visibility:auto');
-fs.writeFileSync(OUT, finalHtml, 'utf8');
+fs.writeFileSync(OUT, finalHtml.replace(/<!--[\s\S]*?-->/g, ''), 'utf8');
 
 console.log(`✅ 已生成：${OUT}`);
 console.log(`   大小：${(Buffer.byteLength(finalHtml, 'utf8') / 1024).toFixed(1)} KB`);
