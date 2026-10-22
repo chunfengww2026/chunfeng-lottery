@@ -195,6 +195,41 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "双色球",
+   "kw": "金手指 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/金手指/1.jpg",
+     "size": 62854,
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnluSy9EdEZtNGNCei9keDhZQ1A5RlN0WS9wWmxCcjBUVmV0YkViWUg5dDQw.jpg",
+     "page": "https://www.16788.cn/tj_f77fa2646863.html",
+     "title": "天吉网金手指2025115期双色球图谜 - 双色球图谜 - 天吉网",
+     "issue": "2025115",
+     "verified": false,
+     "fetchedAt": "2026-10-22T05:42:17.494Z"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "黄大仙",
    "cat": "双色球",
    "kw": "黄大仙 双色球 字谜 参考图",
@@ -321,19 +356,73 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "金手指",
-   "cat": "双色球",
-   "kw": "金手指 双色球 字谜 参考图",
+   "name": "3D字谜",
+   "cat": "3D",
+   "kw": "3D字谜 3D 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/金手指/1.jpg",
-     "size": 62854,
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnluSy9EdEZtNGNCei9keDhZQ1A5RlN0WS9wWmxCcjBUVmV0YkViWUg5dDQw.jpg",
-     "page": "https://www.16788.cn/tj_f77fa2646863.html",
-     "title": "天吉网金手指2025115期双色球图谜 - 双色球图谜 - 天吉网",
-     "issue": "2025115",
+     "file": "imgs/mingjia/3D/3D字谜/1.png",
+     "size": 182966,
+     "src": "https://www.3xyun.cn/zb_users/cache/ly_autoimg/o/OTM0Mjc.png",
+     "page": "https://3xyun.cn/93427.html",
+     "title": "今日福彩3D字谜与图谜总汇，全面解析最新谜题参考 - 三茶云",
+     "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-22T05:42:17.494Z"
+     "fetchedAt": "2026-10-22T10:54:48.718Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "大乐透",
+   "kw": "迟丽颖 大乐透 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/大乐透/迟丽颖/1.jpg",
+     "size": 48640,
+     "src": "http://n.sinaimg.cn/sports/crawl/14/w480h334/20180415/3qn8-fzcyxmu9125618.jpg",
+     "page": "https://sports.sina.com.cn/l/2018-04-15/doc-ifzcyxmu9127672.shtml",
+     "title": "迟丽颖大乐透第18043期预测：前区胆码05 09_彩票_新浪竞技风暴_新浪网",
+     "issue": "18043",
+     "verified": false,
+     "fetchedAt": "2026-10-22T03:58:41.415Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 107873,
+     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
+     "page": "https://zhuanlan.zhihu.com/p/492396269",
+     "title": "第2022083期3D太湖字谜解读 - 知乎",
+     "issue": "2022083",
+     "verified": false,
+     "fetchedAt": "2026-10-22T03:58:55.933Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.png",
+     "size": 180963,
+     "src": "https://www.17500.cn/Public/Upload/art/202307/1688909218760314.png",
+     "page": "https://www.17500.cn/arts/detail-1296755.html",
+     "title": "排列3第2023181期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2023181",
+     "verified": false,
+     "fetchedAt": "2026-10-22T03:59:32.352Z"
     }
    ],
    "stale": true
@@ -607,6 +696,30 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "排三字谜 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
@@ -716,12 +829,7 @@ const MINGJIA_DATA = {
    "imgs": 15
   },
   {
-   "at": "2026-10-22 22:06:58",
-   "names": 71,
-   "imgs": 15
-  },
-  {
-   "at": "2026-10-22 22:21:08",
+   "at": "2026-10-22 22:23:03",
    "names": 71,
    "imgs": 15
   },
