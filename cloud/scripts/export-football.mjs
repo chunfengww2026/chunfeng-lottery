@@ -59,7 +59,7 @@ function perfify(html) {
   });
   if (!/content-visibility/.test(s)) {
     s = s.replace(/<\/style>/,
-      '.ro-game{content-visibility:auto;contain-intrinsic-size:auto 900px;}\n</style>');
+      '.ro-game{content-visibility:auto;contain-intrinsic-size:auto 900px;}\n.m-rule-analysis{margin:8px 0;border:1px solid #e5d6bd;border-radius:8px;padding:9px;background:#fff9eb}.m-rule-analysis summary{cursor:pointer;font-weight:700}.m-rule-body{line-height:1.8;font-size:12px}.m-rule-body small{color:#8a7a63}</style>');
   }
   return s;
 }
@@ -170,6 +170,8 @@ const POISSON = loadVar('jc-poisson.js', 'JC_POISSON');
    ⚠️ 拿不到就整块不显示，绝不用单源硬造（和泊松块同一套原则）。 */
 const TITAN = loadVar('jc-titan.js', 'JC_TITAN');
 const DIVERGENCE = loadVar('jc-divergence.js', 'JC_DIVERGENCE');
+const MARKET_RULES = loadVar('jc-market-rules.js','JC_MARKET_RULES');
+const MARKET_BIFA = loadVar('jc-bifa.js','JC_BIFA');
 
 /* ============================================================
    【晒票】竞彩实票图片数据（xysp-jc-data.js）
@@ -718,12 +720,20 @@ function prep(g) {
     result = { actual, actualLabel, hit, score: `${hs} - ${as}`, settled: kind === 'finished' };
   }
 
+  const officialLine=(JC_OFFICIAL&&JC_OFFICIAL.list||[]).find(function(x){return x.code===g.code&&String(x.time).slice(0,16)===String(g.time).slice(0,16);});
+  const officialHandicap=officialLine&&officialLine.handicap!==undefined?officialLine.handicap:null;
+  let marketAnalysis=null,effectiveReco=g.reco;
+  if(kind==='upcoming'&&!hasScore&&kickMs(g.time)>Date.now()&&MARKET_RULES){
+    let poisson=null;try{poisson=POISSON&&POISSON.compute(g);}catch(e){}
+    marketAnalysis=MARKET_RULES.analyze(Object.assign({},g,{handicap:officialHandicap}),{titan:TITAN,divergence:DIVERGENCE,bifa:MARKET_BIFA,poisson:poisson});
+    if(marketAnalysis){effectiveReco=Object.assign({},g.reco,{pick:marketAnalysis.pick,label:marketAnalysis.label,prob:marketAnalysis.prob,confidence:marketAnalysis.confidence,type:'three'});}
+  }
   return {
     gid: g.gid, code: g.code, league: g.league, round: g.round,
     time: g.time, handicap: g.handicap,
     home: g.home, away: g.away,
     minute: (fb && fb.minute !== undefined && fb.minute !== null) ? fb.minute : (g.minute || 0),
-    odds: g.odds, reco: g.reco, kind, hasScore, hs, as, result,
+    odds: g.odds, reco: effectiveReco, marketAnalysis, officialHandicap, kind, hasScore, hs, as, result,
     asianIndex,
     /* 这场是从 jc-history 归档来的（不是本次在售）→ 卡片样式区分一下 */
     fromHistory: !!(g.reco && g.reco.fromHistory),
@@ -1384,6 +1394,18 @@ function renderMultiCard(m) {
   return `<div class="m-mc">${head}${dv}${rng}${note}</div>`;
 }
 
+function renderMarketRules(m){
+ const a=m.marketAnalysis;if(!a)return '';
+ const h=a.handicap;
+ return '<details class="m-rule-analysis"><summary>综合研判 · 胜平负 / 让球胜平负</summary><div class="m-rule-body">'+
+ '<p><b>胜平负参考：'+esc(a.label)+'</b></p>'+
+ (h?'<p><b>官方让球 '+(h.line>0?'+':'')+h.line+'：'+esc(h.label)+'</b> · '+['home','draw','away'].map(function(k,i){return ['让胜','让平','让负'][i]+' '+(h.prob[k]*100).toFixed(1)+'%';}).join(' / ')+'</p>':'<p>让球建议：官方让球数或比分模型不足，暂不推荐</p>')+
+ '<p>'+a.signals.map(esc).join('<br>')+'</p>'+
+ (a.risk.length?'<p>风险提示：'+a.risk.map(esc).join('；')+'</p>':'')+
+ (a.missing.length?'<p>数据不足：'+a.missing.map(esc).join('；')+'</p>':'')+
+ '<small>'+esc(a.note)+'</small></div></details>';
+}
+
 function renderMatch(m) {
   const eu = m.odds && m.odds.europe;
   const euV = eu && (eu.live || eu.open);
@@ -1507,7 +1529,7 @@ function renderMatch(m) {
           opt(`平—%`, onThree === 'draw') +
           opt(`客—%`, onThree === 'away') +
           `</span>`) +
-      renderEvRow(r, euV) +
+      renderEvRow(r, euV) + renderMarketRules(m) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderScorePick(m) +
     renderAsianCard(m) +
