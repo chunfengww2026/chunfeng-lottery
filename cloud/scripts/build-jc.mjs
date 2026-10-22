@@ -887,13 +887,23 @@ async function main() {
   let withScore = 0;
   let withAsian = 0;
 
+  const marketRules=loadVar('jc-market-rules.js','JC_MARKET_RULES'),marketPoisson=loadVar('jc-poisson.js','JC_POISSON');
+  const marketSources={titan:loadVar('jc-titan.js','JC_TITAN'),divergence:loadVar('jc-divergence.js','JC_DIVERGENCE'),bifa:loadVar('jc-bifa.js','JC_BIFA')};
+  const officialLines=loadVar('jc-official.js','JC_OFFICIAL');
   for (const g of workList) {
     let odds = null;
     if (g.fid) {
       odds = await fetchOdds(g.fid);
       await new Promise((r) => setTimeout(r, 200));
     }
-    const reco = calcReco(odds);
+    let reco = calcReco(odds);
+    if(reco&&marketRules&&Date.parse(String(g.time).replace(' ','T')+'+08:00')>Date.now()){
+      const official=(officialLines&&officialLines.list||[]).find(function(x){return x.code===g.code&&String(x.time).slice(0,16)===String(g.time).slice(0,16);});
+      const input=Object.assign({},g,{odds:odds,handicap:official&&official.handicap!==undefined?official.handicap:null});
+      const model=marketPoisson&&marketPoisson.compute(input);
+      const analysis=marketRules.analyze(input,Object.assign({},marketSources,{poisson:model}));
+      if(analysis)reco=Object.assign({},reco,{pick:analysis.pick,label:analysis.label,prob:analysis.prob,confidence:analysis.confidence,type:'three',marketAnalysis:analysis});
+    }
     if (reco) okOdds++;
 
     /* ---- 亚指综合换算 ----
