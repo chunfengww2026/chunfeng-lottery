@@ -723,7 +723,7 @@ function prep(g) {
   const officialLine=(JC_OFFICIAL&&JC_OFFICIAL.list||[]).find(function(x){return x.code===g.code&&String(x.time).slice(0,16)===String(g.time).slice(0,16);});
   const officialHandicap=officialLine&&officialLine.handicap!==undefined?officialLine.handicap:null;
   let marketAnalysis=null,effectiveReco=g.reco;
-  if(kind==='upcoming'&&!hasScore&&kickMs(g.time)>Date.now()&&MARKET_RULES){
+  if(kind==='upcoming'&&!hasScore&&!g.fromArchive&&!(g.reco&&g.reco.fromHistory)&&kickMs(g.time)>Date.now()&&MARKET_RULES){
     let poisson=null;try{poisson=POISSON&&POISSON.compute(g);}catch(e){}
     marketAnalysis=MARKET_RULES.analyze(Object.assign({},g,{handicap:officialHandicap}),{titan:TITAN,divergence:DIVERGENCE,bifa:MARKET_BIFA,poisson:poisson});
     if(marketAnalysis){effectiveReco=Object.assign({},g.reco,{pick:marketAnalysis.pick,label:marketAnalysis.label,prob:marketAnalysis.prob,confidence:marketAnalysis.confidence,type:'three'});}
@@ -5997,3 +5997,4 @@ console.log(`   （试算器只用官方 SP 原值；抓不到时不显示数字
     ` · 在售 ${INSALE_STAMP || '(无)'} → ` +
     (INSALE_STAMP_HTML ? `数据更新于 ${agoText(stampMs(INSALE_STAMP))}` : '不显示'));
 }
+
