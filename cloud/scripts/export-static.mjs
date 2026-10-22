@@ -1697,7 +1697,7 @@ function buildArticlesHtml() {
   } catch(e) {}
 
   const zldqHtml = '<details class="ro-zldq frog" id="ro-zldq">' +
-    '<summary class="frog-sum"><span class="frog-t">图库+字谜</span><span class="frog-go">点击展开 / 收起</span></summary>' +
+    '<summary class="frog-sum"><span class="frog-t"><span class="entry-icon" aria-hidden="true">🧩</span> 图库+字谜</span><span class="frog-go">点击展开 / 收起</span></summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
@@ -1776,9 +1776,9 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div><div class="frog-chip" role="button" tabindex="0" data-gid="fc3d">福彩3D</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl3">排列三</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl5">排列五</div><div class="frog-chip" role="button" tabindex="0" data-gid="qlc">七乐彩</div><div class="frog-chip" role="button" tabindex="0" data-gid="qxc">七星彩</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t"><span class="entry-icon" aria-hidden="true">🦸</span> 奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div><div class="frog-chip" role="button" tabindex="0" data-gid="fc3d">福彩3D</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl3">排列三</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl5">排列五</div><div class="frog-chip" role="button" tabindex="0" data-gid="qlc">七乐彩</div><div class="frog-chip" role="button" tabindex="0" data-gid="qxc">七星彩</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
-    `<h2 class="ro-art-title">文章参考</h2>` +
+    `<h2 class="ro-art-title"><span class="entry-icon" aria-hidden="true">📚</span> 文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
     ` · <span id="__ART_CD__">更新倒计时 --:--</span>` +   /* __ART_CD__ 用户要求：改成更新倒计时 */
     `</div>` +
@@ -3245,7 +3245,7 @@ function buildXyspHtml() {
         还是 CSS 伪元素按 [open] 在「展开 ▸ / 收起 ▾」之间换字。 */
   return `<details class="ro-xysp action-card-btn" id="ro-xysp">` +
     `<summary class="ro-xysp-head">` +
-    `<h2 class="ro-xysp-h2 title">晒票</h2>` +
+    `<h2 class="ro-xysp-h2 title"><span class="entry-icon" aria-hidden="true">🎟️</span> 晒票</h2>` +
     `<div class="ro-xysp-sub sub">各种实票图片</div>` +
     `<span class="ro-xysp-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
@@ -3743,7 +3743,7 @@ function buildAiPickHtml() {
      （它仍然放在 #article 外面 —— 防截图锁定的时候，这一块要能点、能摇号）。 */
   return `<details class="ro-aipick action-card-btn" id="ro-aipick">` +
     `<summary class="ro-aipick-head">` +
-    `<h2 class="ro-aipick-h2 title">GPT模型摇号</h2>` +
+    `<h2 class="ro-aipick-h2 title"><span class="entry-icon" aria-hidden="true">🎲</span> GPT模型摇号</h2>` +
     `<div class="ro-aipick-sub sub">系统随机生成</div>` +
     `<span class="ro-aipick-arrow action-text" aria-hidden="true"></span>` +
     `</summary>` +
@@ -3878,7 +3878,7 @@ function buildKjhHtml() {
 
   return `<section class="ro-panel ro-kjh-panel" id="ro-kjh">` +
     `<div class="ro-panel-head">` +
-    `<h2 class="ro-panel-title">开机号</h2>` +
+    `<h2 class="ro-panel-title"><span class="entry-icon" aria-hidden="true">📻</span> 开机号</h2>` +
     /* 【定时文案】2026-10-18 用户要求页面上不要「每天 2:00 自动更新」这类定时说法
        → 副标题改成不带时刻的中性说明（数据仍然是原来的节奏，只是不再写在页面上）。 */
     `<div class="ro-panel-sub">各彩种最新开机号` +
@@ -10337,7 +10337,7 @@ ${DEVICE_GATE_BODY}
           算不出的如实写「样本不足」；AI推荐 是系统随机并已标注 —— 绝不编数字。
        ============================================================ -->
   <div class="card-box tools-box" id="toolsBox">
-  <div class="tools-head"><span class="tools-title">工具<i class="tools-sub" style="display:block;margin-top:2px;font-size:11.5px;font-weight:600;font-style:normal;opacity:.82">（人工+智能分析）</i></span></div>
+  <div class="tools-head"><span class="tools-title"><span class="entry-icon" aria-hidden="true">🛠️</span> 工具<i class="tools-sub" style="display:block;margin-top:2px;font-size:11.5px;font-weight:600;font-style:normal;opacity:.82">（人工+智能分析）</i></span></div>
   <div class="tool-grid">
     <div class="tool-item" role="button" tabindex="0" data-tool="stat"><div class="icon">📊</div><div class="name">数据统计</div></div>
 
@@ -10375,16 +10375,16 @@ ${sinaNextHtml()}
 <!-- __TOC_STATIC__ 推荐图目录（10 格 · 放在开机号+热力图上面 · 3 列 4 排） -->
 <!-- __TOC_EQH__ 手机推荐图目录：卡片固定等高（56px）· grid-auto-rows:56px · 竖向 flex 居中 -->
 <div class="ro-imgtoc-wrap"><div class="ro-imgtoc-head"><div class="ro-imgtoc-title">推荐图目录<i class="ro-imgtoc-note" style="display:block;margin-top:2px;font-style:normal">（人工计算）</i></div><div class="ro-imgtoc-sub">点一下，全屏看那张图</div></div><div class="ro-imgtoc" data-user-locked="1" style="display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important">
-<a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t">双色球推荐号</b></a>
-<a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t">双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-<a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t">大乐透推荐号</b></a>
-<a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t">大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
-<a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t">3D</b></a>
-<a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t">快乐8</b></a>
-<a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t">排列三</b></a>
-<a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t">排列五</b></a>
-<a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t">七乐彩</b></a>
-<a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t">七星彩</b></a>
+<a class="ro-toc-cell" href="#ro-g-ssq-main" data-ro-toc-game="ssq" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🔴</span> 双色球推荐号</b></a>
+<a class="ro-toc-cell two-line" href="#ro-g-ssq-wuxing" data-ro-toc-game="ssq" data-ro-toc-image="wuxing"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">☯️</span> 双色球 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+<a class="ro-toc-cell" href="#ro-g-dlt-main" data-ro-toc-game="dlt" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🔵</span> 大乐透推荐号</b></a>
+<a class="ro-toc-cell two-line" href="#ro-g-dlt-wuxing" data-ro-toc-game="dlt" data-ro-toc-image="wuxing"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">☯️</span> 大乐透 · 五行</b><i class="ro-toc-s">绕胆/九转/九宫</i></a>
+<a class="ro-toc-cell" href="#ro-g-fc3d-main" data-ro-toc-game="fc3d" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🎯</span> 3D</b></a>
+<a class="ro-toc-cell" href="#ro-g-kl8-main" data-ro-toc-game="kl8" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🍀</span> 快乐8</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl3-main" data-ro-toc-game="pl3" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🔢</span> 排列三</b></a>
+<a class="ro-toc-cell" href="#ro-g-pl5-main" data-ro-toc-game="pl5" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🖐️</span> 排列五</b></a>
+<a class="ro-toc-cell" href="#ro-g-qlc-main" data-ro-toc-game="qlc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">🌈</span> 七乐彩</b></a>
+<a class="ro-toc-cell" href="#ro-g-qxc-main" data-ro-toc-game="qxc" data-ro-toc-image="main"><b class="ro-toc-t"><span class="entry-icon" aria-hidden="true">⭐</span> 七星彩</b></a>
 </div></div>
   ${toolsHeatHtml}
 
@@ -10731,7 +10731,7 @@ ${kjhHtml}
        ============================================================ -->
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
-      <span class="ro-hist-h2">中奖</span>
+      <span class="ro-hist-h2"><span class="entry-icon" aria-hidden="true">🏆</span> 中奖</span>
       <span class="ro-hist-sub">自 ${HIST_FROM_TXT} 起 · 中奖才公布</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
@@ -10784,7 +10784,7 @@ ${frogPanelHtml()}
        ============================================================ -->
   <details class="ro-trend" id="ro-trend">
     <summary class="ro-trend-head">
-      <span class="ro-trend-h2">走势图</span>
+      <span class="ro-trend-h2"><span class="entry-icon" aria-hidden="true">📈</span> 走势图</span>
       <span class="ro-trend-sub">近 30 期走势 · 预选参考</span>
       <span class="ro-trend-arrow" aria-hidden="true"></span>
     </summary>
@@ -10809,7 +10809,7 @@ ${trendHtmlFull}
 ${p3dHtml}
   <details class="ro-ref-pic" id="ro-refpic">
     <summary class="ro-ref-head">
-      <span class="ro-ref-h2">参考图</span>
+      <span class="ro-ref-h2"><span class="entry-icon" aria-hidden="true">🖼️</span> 参考图</span>
       <span class="ro-ref-sub">（双色球 / 大乐透）</span>
       <span class="ro-ref-arrow" aria-hidden="true"></span>
     </summary>
@@ -10905,7 +10905,7 @@ ${zxNewsHtml}
   </details>
   <details class="ro-zn" id="ro-zx-pick">
     <summary class="ro-zn-head">
-      <span class="ro-zn-h2">智能精选</span>
+      <span class="ro-zn-h2"><span class="entry-icon" aria-hidden="true">✨</span> 智能精选</span>
       <span class="ro-zn-sub">胆码 · 杀号 · 精选一注</span>
       <span class="ro-zn-arrow" aria-hidden="true"></span>
     </summary>
