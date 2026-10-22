@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T05:45:08.658Z",
+ "updated": "2026-10-22T06:19:05.754Z",
  "entries": [
   {
    "id": "https://m.cz89.com/read_10914065.htm",
@@ -106,8 +106,7 @@
  "sources": [
   {
    "url": "https://www.cz89.com/p3/item_7.htm",
-   "status": 0,
-   "error": "fetch failed",
+   "status": 200,
    "count": 0
   },
   {

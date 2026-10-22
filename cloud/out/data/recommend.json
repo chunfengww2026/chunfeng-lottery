@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-22 13:46",
+ "updated": "2026-10-22 14:20",
  "red": 3,
  "black": 1,
  "rate": "75.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-22 13:46",
-   "finishTime": 1792647960000,
+   "dateStr": "2026-10-22 14:20",
+   "finishTime": 1792650000000,
    "verdict": "",
    "matches": [
     {
@@ -18,10 +18,49 @@
      "result": "pending",
      "confidence": 60.2,
      "status": "pending",
-     "finishTime": 1792647960000,
+     "finishTime": 1792650000000,
      "league": "欧罗巴",
      "odds": 1.57,
      "time": "2026-10-23 00:45"
+    },
+    {
+     "matchNo": "周五004",
+     "teams": "前进之鹰 vs 特尔斯达",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 59.3,
+     "status": "pending",
+     "finishTime": 1792650000000,
+     "league": "荷甲",
+     "odds": 1.6,
+     "time": "2026-10-24 02:00"
+    },
+    {
+     "matchNo": "周五006",
+     "teams": "斯图加特 vs 门兴",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.5,
+     "status": "pending",
+     "finishTime": 1792650000000,
+     "league": "德甲",
+     "odds": 1.38,
+     "time": "2026-10-24 02:30"
+    },
+    {
+     "matchNo": "周五010",
+     "teams": "博尔顿 vs 米堡",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.6,
+     "status": "pending",
+     "finishTime": 1792650000000,
+     "league": "英冠",
+     "odds": 1.55,
+     "time": "2026-10-24 03:00"
     }
    ]
   },
