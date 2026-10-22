@@ -18312,6 +18312,11 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
   var monsterCount=4,monsterPosition=0;
   function monster() {
     var key='chunfeng-monster-v1', records=[];
+    var visitorSeed='';
+    try{visitorSeed=localStorage.getItem('chunfeng-monster-visitor')||'';}catch(e){}
+    if(!visitorSeed){var entropy=new Uint32Array(4);crypto.getRandomValues(entropy);visitorSeed=[].slice.call(entropy).map(function(n){return n.toString(16);}).join('-');try{localStorage.setItem('chunfeng-monster-visitor',visitorSeed);}catch(e){}}
+    function visitorScore(number){var hash=2166136261,str=visitorSeed+'|'+gid+'|'+String(latest.issue)+'|'+monsterPosition+'|'+number;for(var k=0;k<str.length;k++){hash^=str.charCodeAt(k);hash=Math.imul(hash,16777619);}hash^=hash>>>16;hash=Math.imul(hash,2246822507);hash^=hash>>>13;hash=Math.imul(hash,3266489909);hash^=hash>>>16;return (hash>>>0)/4294967296;}
+
     var digital=!!gcfg().digits;
     var positionNames=gcfg().digits===3?['百位','十位','个位']:gcfg().digits===5?['万位','千位','百位','十位','个位']:['第1位','第2位','第3位','第4位','第5位','第6位','末位'];
     function numbersAt(d,pos){var area=d.areas||{};if(!digital)return redsOf(d);return gid==='qxc'?(pos===6?(area.back||[]).map(Number):[(area.front||[])[pos]].filter(function(n){return n!==undefined;}).map(Number)):[(area.main||[])[pos]].filter(function(n){return n!==undefined;}).map(Number);}
@@ -18343,7 +18348,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
       settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期'+(digital?' · '+positionNames[Number(r.position)||0]:'')+' · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+monsterRow('留档杀号',r.kills)+monsterRow('杀对（未开出）',r.correct)+monsterRow('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
-      '<div class="frog-tip">本站免费统计算法；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
+      '<div class="frog-tip">按访客独立生成的娱乐杀号；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
     var arenaHost=out.querySelector('.monster-arena');
     if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
     var maxPick=function(){return Math.min(digital?positionMax()-1:12,12,4+2*((window.MonsterArena?window.MonsterArena.level():1)-1));};
@@ -18372,15 +18377,9 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     if(fire)fire.onclick=function(){
       if(!writable)return;
       var nums=[];
-      if(!digital){
-        killVer='C';kill();
-        var rows=[].slice.call(out.querySelectorAll('.frog-row'));
-        var rowEl=rows.find(function(el){return el.textContent.indexOf('建议杀号')===0;});
-        nums=rowEl?[].slice.call(rowEl.querySelectorAll('.frog-b')).map(function(el){return Number(el.textContent);}):[];
-      }
       var frequency={};ds.slice(0,30).forEach(function(d){numbersAt(d,monsterPosition).forEach(function(n){frequency[n]=(frequency[n]||0)+1;});});
       var rest=[];for(var v=digital?0:1;v<=(digital?positionMax():redMax());v++)if(nums.indexOf(v)<0)rest.push(v);
-      rest.sort(function(a,b){return (frequency[a]||0)-(frequency[b]||0)||a-b;});
+      rest.sort(function(a,b){return ((frequency[a]||0)*.15+visitorScore(a)*10)-((frequency[b]||0)*.15+visitorScore(b)*10)||a-b;});
       nums=nums.concat(rest).slice(0,Math.min(monsterCount,maxPick()));
       if(!nums.length){monster();return;}
       records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,position:digital?monsterPosition:null,settled:false});save();monster();
