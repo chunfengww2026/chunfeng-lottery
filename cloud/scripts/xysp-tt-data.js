@@ -6,15 +6,15 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 09:00:49
+   更新时间：2026-10-22 09:41:23
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 09:00:49",
+ "updated": "2026-10-22 09:41:23",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=Rbu2xdzDfTmb7Cf71d28wolHCLU%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=Rbu2xdzDfTmb7Cf71d28wolHCLU%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=QkP1x9fyPKfQRa3J28ncinwipPk%3D",
    "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
    "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
@@ -26,9 +26,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-22T01:00:49.265Z",
+   "seen": "2026-10-22T01:41:23.176Z",
    "whenMs": 1792553476000,
-   "seenMs": 1792630849265,
+   "seenMs": 1792633283176,
    "drawMs": 1792589400000,
    "nextMs": 1792589400000,
    "atMs": 1792598438833,
