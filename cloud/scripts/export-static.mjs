@@ -5986,6 +5986,20 @@ const RO_RENDER_SCRIPT = `
 
       /* 1) 合并进内存数据（只更新有的彩种；比页面旧的自动跳过） */
       res = applyRemoteDraws(j.draws) || res;
+      // Reconcile validated latest draws with the history used by the game.
+      var changedGames=[];
+      if(typeof DRAW_HISTORY!=='undefined'&&DRAW_HISTORY&&typeof DRAW_DATA!=='undefined'&&DRAW_DATA){
+        DRAW_HISTORY.games=DRAW_HISTORY.games||{};
+        Object.keys(j.draws).forEach(function(g){
+          var d=(DRAW_DATA.games||{})[g],list=DRAW_HISTORY.games[g]||[];
+          if(!d||!d.issue||!d.areas||!list.length)return;
+          if(Number(d.issue)<=Number(list[0].issue))return;
+          DRAW_HISTORY.games[g]=[JSON.parse(JSON.stringify(d))].concat(list.filter(function(x){return String(x.issue)!==String(d.issue);})).slice(0,100);
+          changedGames.push(g);
+        });
+      }
+      if(changedGames.length)window.dispatchEvent(new CustomEvent('monster-draw-update',{detail:{games:changedGames}}));
+
       if (!res.applied.length) return res;                 /* 没有更新 → 区块原样保留 */
 
       /* 2) 按【当前该有的形态】重画区块（形态判断 + HTML 都来自共享函数）
@@ -18378,6 +18392,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     var fire=out.querySelector('#frogMonsterFire');
     if(fire)fire.onclick=function(){
       if(!writable)return;
+      if(String((hist(gid)[0]||{}).issue)!==String(latest.issue)){monster();return;}
       var nums=[];
       var frequency={};ds.slice(0,30).forEach(function(d){numbersAt(d,monsterPosition).forEach(function(n){frequency[n]=(frequency[n]||0)+1;});});
       var rest=[];for(var v=digital?0:1;v<=(digital?positionMax():redMax());v++)if(nums.indexOf(v)<0)rest.push(v);
@@ -18419,6 +18434,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) { lastFn = k; FNS[k](); } };
   });
   if(monsterMode){lastFn='monster';var panel=document.getElementById('monsterHome');if(panel)panel.addEventListener('toggle',function(){if(panel.open)monster();});}
+  if(monsterMode)window.addEventListener('monster-draw-update',function(e){if(e.detail&&e.detail.games.indexOf(gid)>=0){var panel=document.getElementById('monsterHome');if(panel&&panel.open)monster();}});
 }
 initFrogLab('frogOut','frogLab','frogGid',false);
 initFrogLab('monsterOut','monsterLab','monsterGid',true);
