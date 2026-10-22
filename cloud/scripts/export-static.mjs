@@ -1692,23 +1692,29 @@ function buildArticlesHtml() {
     });
   } catch(e) {}
 
-  const zldqHtml = '<details class="ro-zldq" id="ro-zldq" open>' +
+  const zldqHtml = '<details class="ro-zldq" id="ro-zldq">' +
     '<summary class="ro-zldq-h">名家图库</summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
       /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
       const people = mjByCat[x[0]] || [];
-      const imgsHtml = people.length
-        ? people.map(function (p) {
-            return '<details class="ro-zldq-p"><summary class="ro-zldq-n">' + escape(p.name) + (p.stale ? ' · 上次抓取' : '') + '</summary>' +
-              '<div class="ro-zldq-i">' +
-              (p.imgs.length ? p.imgs.map(function (im) {
-                return '<figure><img loading="lazy" src="' + escape(im.file).replace(/"/g, '&quot;') + '" alt="' + escape(p.name) + '"><figcaption>' + (im.issue ? '第 ' + escape(im.issue) + ' 期 · 待核实' : '期号待核实') + '</figcaption></figure>';
-              }).join('') : '<div class="ro-zldq-empty">暂无</div>') +
-              '</div>' + (p.articles||[]).map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b><p>'+escape(a.excerpt||'暂无文字摘录')+'</p><a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('') + '</details>';
-          }).join('')
-        : '<div class="ro-zldq-empty">暂无图</div>';
+      const issues = new Map();
+      function issueGroup(issue) {
+        const key=String(issue||'待核实');
+        if(!issues.has(key))issues.set(key,{images:[],articles:[]});
+        return issues.get(key);
+      }
+      people.forEach(function(p){
+        (p.imgs||[]).forEach(function(im){const g=issueGroup(im.issue);if(!g.images.some(function(v){return (v.src||v.file)===(im.src||im.file);}))g.images.push(im);});
+        (p.articles||[]).forEach(function(a){const g=issueGroup(a.issue);if(!g.articles.some(function(v){return v.url===a.url;}))g.articles.push(a);});
+      });
+      const imgsHtml = issues.size ? Array.from(issues.entries()).sort(function(a,b){return b[0].localeCompare(a[0],undefined,{numeric:true});}).map(function(entry){
+        const issue=entry[0],g=entry[1];
+        return '<details class="ro-zldq-issue"><summary>'+ (issue==='待核实'?'期号待核实':'第 '+escape(issue)+' 期') +' · '+g.images.length+' 张</summary>'+
+          '<div class="ro-zldq-i">'+g.images.map(function(im,index){return '<figure><img loading="lazy" src="'+escape(im.file||im.src).replace(/"/g,'&quot;')+'" alt="第 '+escape(issue)+' 期资料图 '+(index+1)+'"><figcaption>'+(index+1)+' / '+g.images.length+'</figcaption></figure>';}).join('')+'</div>'+
+          g.articles.map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b><p>'+escape(a.excerpt||'暂无文字摘录')+'</p><a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('')+'</details>';
+      }).join('') : '<div class="ro-zldq-empty">暂无图</div>';
       /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
       return '<details class="ro-zldq-c">' +
         '<summary class="ro-zldq-s"><b>' + x[0] + '</b></summary>' +
@@ -16998,6 +17004,19 @@ body { background-color: #f7efe1; }
 
 .ro-zldq-tip { text-align:center; font-size:10.5px; color:#a89a80; margin:2px 0 10px; }
 .ro-zldq-c { cursor:pointer; font-family:inherit; }
+
+/* Gallery: one horizontal image strip per issue. */
+.ro-zldq-row { display:flex; flex-wrap:wrap; align-items:flex-start; }
+.ro-zldq-c { display:block; box-sizing:border-box; flex:1 1 85px; min-width:0; }
+.ro-zldq-c[open] { flex:1 0 100%; width:100%; }
+.ro-zldq-body { min-width:0; text-align:left; padding:8px; }
+.ro-zldq-issue { min-width:0; margin:8px 0; }
+.ro-zldq-issue>summary { cursor:pointer; padding:8px 0; }
+.ro-zldq-i { display:flex; overflow-x:auto; gap:10px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+.ro-zldq-i figure { flex:0 0 100%; min-width:0; margin:0; text-align:center; scroll-snap-align:start; }
+.ro-zldq-i img { width:100%; height:65vh; object-fit:contain; cursor:zoom-in; }
+.ro-zldq-i figcaption { padding:6px; font-size:12px; color:#8a7a63; }
+
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
