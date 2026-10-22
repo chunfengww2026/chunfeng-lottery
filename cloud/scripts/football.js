@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "666600"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "塞内加尔U20",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "FC7555"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "比尔基卡拉",
      "score": 1,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "佛罗里亚纳",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 3
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "菲羅卡日米德蘭(後備)",
      "score": 0,
@@ -205,10 +205,10 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "朴高利卡",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 4
     },
@@ -278,10 +278,10 @@ const FOOTBALL_DATA = {
      "color": "789ccc"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "塔林弗罗拉B队",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 4
     },
@@ -351,7 +351,7 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "沙巴柏阿爾艾利杜拜",
      "score": 0,
@@ -424,7 +424,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "拿杰玛",
      "score": 0,
@@ -497,7 +497,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-23 00:00:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "席特拉",
      "score": 1,
@@ -5157,7 +5157,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-22 22:30:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "阿拉木图凯拉特",
      "score": 1,
@@ -5203,7 +5203,7 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-22 22:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "艾沙哈尼亚",
      "score": 0,
@@ -5253,7 +5253,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-22 22:45:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "阿尔菲斯",
      "score": 1,
@@ -5319,7 +5319,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "阿尔萨瑞",
      "score": 0,
@@ -5385,7 +5385,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "雅莫科",
      "score": 1,
@@ -5451,7 +5451,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "特里斯頓(後備)",
      "score": 2,
@@ -5517,7 +5517,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "阿格柔佩庫日奧(後備)",
      "score": 0,
@@ -5583,7 +5583,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "西班牙女足U17",
      "score": 2,
@@ -5629,7 +5629,7 @@ const FOOTBALL_DATA = {
      "color": "8855ee"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "侯赛恩",
      "score": 0,
@@ -5695,7 +5695,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "薩達拉帕特",
      "score": 0,
@@ -5761,7 +5761,7 @@ const FOOTBALL_DATA = {
      "color": "137ccC"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "洛瓦涅米",
      "score": 0,
