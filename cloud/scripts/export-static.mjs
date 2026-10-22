@@ -3866,7 +3866,7 @@ function buildToolsHtml() {
      里面三行 = 标题 / 副标题 / 「点击查看」（和右边热力图卡对齐）。
      ⚠️ 仍然是 <a>（页面不变量：没有按钮标签），点击逻辑一个字没改。 */
   return `<a class="ro-tool ro-tool-kjh action-card" href="#ro-kjh">` +
-    `<span class="title">开机号</span>` +
+    `<span class="title"><svg viewBox="0 0 28 28" width="23" height="23" aria-hidden="true" style="vertical-align:middle"><circle cx="14" cy="11" r="9" fill="#e4f5ff" stroke="#367aa0" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="#d65345"/><circle cx="18" cy="10" r="3" fill="#3773bf"/><circle cx="14" cy="16" r="3" fill="#ebb738"/><path d="M7 21h14l2 5H5z" fill="#358b6b"/><path d="M14 3v6m-6 8 6-6 6 6" fill="none" stroke="#8aa6b8" stroke-width="1"/></svg> 开机号</span>` +
     `<span class="sub">各彩种实时开机号</span>` +
     `<span class="sub ro-go" data-tip="1">点击查看</span></a>`;   /* __TOOL_TIP__ 展开后 JS 改成「点击收起」 */
 }
@@ -3901,7 +3901,7 @@ function buildKjhHtml() {
 
   return `<section class="ro-panel ro-kjh-panel" id="ro-kjh">` +
     `<div class="ro-panel-head">` +
-    `<h2 class="ro-panel-title"><svg viewBox="0 0 28 28" width="23" height="23" aria-hidden="true" style="vertical-align:middle"><circle cx="14" cy="11" r="9" fill="#e4f5ff" stroke="#367aa0" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="#d65345"/><circle cx="18" cy="10" r="3" fill="#3773bf"/><circle cx="14" cy="16" r="3" fill="#ebb738"/><path d="M7 21h14l2 5H5z" fill="#358b6b"/><path d="M14 3v6m-6 8 6-6 6 6" fill="none" stroke="#8aa6b8" stroke-width="1"/></svg> 开机号</h2>` +
+    `<h2 class="ro-panel-title">开机号</h2>` +
     /* 【定时文案】2026-10-18 用户要求页面上不要「每天 2:00 自动更新」这类定时说法
        → 副标题改成不带时刻的中性说明（数据仍然是原来的节奏，只是不再写在页面上）。 */
     `<div class="ro-panel-sub">各彩种最新开机号` +
