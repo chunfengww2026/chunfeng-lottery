@@ -27,7 +27,7 @@ export function parseCards(html,gid,expected,now=Date.now()){
 }
 export function mergeEntries(old,fresh,now=Date.now()){
   const seen={...(old.seen||{})},byId=new Map();
-  for(const e of [...(old.entries||[]),...fresh]){const k=e.gid+'|'+e.id;const first=seen[k]||e.firstSeen||new Date(now).toISOString();seen[k]=first;const expires=Math.min(Date.parse(first)+172800000,Date.parse(e.publishedAt)+172800000);if(!Number.isFinite(expires)||expires<=now)continue;byId.set(k,{...e,firstSeen:first,expiresAt:new Date(expires).toISOString()});}
+  for(const e of [...(old.entries||[]),...fresh]){const k=e.gid+'|'+e.id;const first=seen[k]||e.firstSeen||new Date(now).toISOString();seen[k]=first;const expires=Math.min(Date.parse(first)+172800000,(Number.isFinite(Date.parse(e.publishedAt))?Date.parse(e.publishedAt)+172800000:Infinity));if(!Number.isFinite(expires)||expires<=now)continue;byId.set(k,{...e,firstSeen:first,expiresAt:new Date(expires).toISOString()});}
   for(const [k,t]of Object.entries(seen))if(now-Date.parse(t)>30*86400000)delete seen[k];
   return {entries:[...byId.values()].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)),seen};
 }
