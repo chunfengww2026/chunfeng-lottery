@@ -341,7 +341,9 @@ async function fetchSporttery() {
       const code = String(m.matchNumStr || '').trim();
       const time = [String(m.matchDate || ''), String(m.matchTime || '')].filter(Boolean).join(' ').trim();
       if (!code || !time) return;
-      list.push({ code, time });
+      const hhad=m.hhad||{};const rawLine=hhad.goalLine;const handicap=rawLine!==undefined&&rawLine!==''&&Number.isInteger(Number(rawLine))?Number(rawLine):null;
+      const handicapOdds=handicap!==null&&[hhad.h,hhad.d,hhad.a].every(function(x){return Number(x)>1;})?{home:Number(hhad.h),draw:Number(hhad.d),away:Number(hhad.a)}:null;
+      list.push({ code, time, handicap, handicapOdds });
     });
   });
   return { inSale: n, officialUpdate: String(v.lastUpdateTime || ''), list };
