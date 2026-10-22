@@ -1663,7 +1663,9 @@ function buildArticlesHtml() {
     ['大乐透', 'ro-g-dlt-main'],
     ['3D', 'ro-g-fc3d-main'],
     ['排列三', 'ro-g-pl3-main'],
-    ['快乐8', 'ro-g-kl8-main']
+    ['快乐8', 'ro-g-kl8-main'],
+    ['七乐彩', 'ro-g-qlc-main'],
+    ['七星彩', 'ro-g-qxc-main']
     /* 「篮球」已删 · 用户 2026-10-21：那是"蓝球"（双色球/大乐透的蓝球 ✗）不是独立彩种 ✔ */
   ];
   /* 【图片塞进名家图库格子 · 用户 2026-10-21 选 A】
@@ -1702,7 +1704,7 @@ function buildArticlesHtml() {
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
       /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
-      const galleryGids={'双色球':'ssq','大乐透':'dlt','3D':'fc3d','排列三':'pl3','快乐8':'kl8'};
+      const galleryGids={'双色球':'ssq','大乐透':'dlt','3D':'fc3d','排列三':'pl3','快乐8':'kl8','七乐彩':'qlc','七星彩':'qxc'};
       const targetIssue=String(nextIssue(galleryGids[x[0]])||'');
       const matchesIssue=function(v){const n=String(v||'').replace(/[^0-9]/g,'');return !!targetIssue && (n===targetIssue || (n.length===5 && targetIssue.length===7 && n===targetIssue.slice(2)));};
       const people = (mjByCat[x[0]] || []).map(function(p){return Object.assign({},p,{imgs:(p.imgs||[]).filter(function(im){return matchesIssue(im.issue);}),articles:(p.articles||[]).filter(function(a){return matchesIssue(a.issue);})});});
