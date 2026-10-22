@@ -1792,7 +1792,7 @@ function buildArticlesHtml() {
    页面运行时不需要分析器）。数据用 history.js 真开奖近 30 期。
    六码用用户给的 LIUMA_RECOMMEND_MAP（按彩种分开）。 */
 const P3D = require(path.join(ROOT, 'p3d-analyzer.js'));
-const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
+let p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
   periods: 30,
   typeMap: {
     /* 【用户 2026-10-18】「去掉民间字迹」→ 卡面标题不再写「（民间算法）」
@@ -1805,6 +1805,29 @@ const p3dHtml = P3D_SECTION_MOD.buildP3DSectionHtml(HIST, P3D, {
     'pl3': { goldDan: 4, silverDan: 7, tuoList: [1, 2, 5, 6] }
   }
 });
+
+/* Handwritten-style statistical sheets generated from genuine draw history. */
+const handdrawSheets=[];
+for(const [gid,name] of [['fc3d','福彩3D'],['pl3','排列三']]){
+  const rows=((HIST&&HIST.games||{})[gid]||[]).slice(0,30),counts=Array(10).fill(0);
+  rows.forEach(function(r){((r.areas||{}).main||[]).forEach(function(n){if(Number(n)>=0&&Number(n)<=9)counts[Number(n)]++;});});
+  if(!rows.length)continue;
+  for(const kind of ['近30期数字频次','近5期开奖笔记']){
+    let shapes='<rect width="640" height="760" fill="#fffaf0"/><path d="M48 0V760" stroke="#e5b7a6"/>';
+    for(let y=80;y<760;y+=38)shapes+='<path d="M18 '+y+' Q320 '+(y-2)+' 622 '+y+'" stroke="#d8dfda" fill="none"/>';
+    shapes+='<g font-family="KaiTi,STKaiti,serif" fill="#343f54"><text x="70" y="55" font-size="27">'+name+' · '+kind+'</text><text x="70" y="98" font-size="20">第 '+nextIssue(gid)+' 期参考 · 本站生成</text>';
+    if(kind==='近30期数字频次'){
+      const max=Math.max(1,...counts);
+      counts.forEach(function(n,i){const y=145+i*45;shapes+='<text x="75" y="'+y+'" font-size="23">'+i+'</text><path d="M115 '+(y-7)+' Q'+(120+n/max*170)+' '+(y-14)+' '+(120+n/max*350)+' '+(y-6)+'" fill="none" stroke="'+(i%2?'#356c92':'#af4b40')+'" stroke-width="9" stroke-linecap="round"/><text x="510" y="'+y+'" font-size="20">'+n+' 次</text>';});
+      shapes+='<text x="70" y="660" font-size="19">统计样本：'+rows.length+' 期 · 共 '+counts.reduce(function(a,b){return a+b;},0)+' 个数字</text>';
+    }else rows.slice(0,5).forEach(function(r,i){const y=170+i*88;shapes+='<text x="72" y="'+y+'" font-size="20">第 '+r.issue+' 期</text><text x="95" y="'+(y+37)+'" font-size="32" fill="#ac4539">'+((r.areas||{}).main||[]).join('     ')+'</text>';});
+    shapes+='<text x="70" y="708" font-size="17">手绘风格统计示意 · 历史频次不代表下期概率</text></g>';
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" width="640" height="760" viewBox="0 0 640 760">'+shapes+'</svg>';
+    handdrawSheets.push('<figure><img class="handdraw-sheet" loading="lazy" src="data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)+'" alt="'+name+' '+kind+'手绘风格参考图"><figcaption>'+name+' · '+kind+' · 点击放大</figcaption></figure>');
+  }
+}
+if(p3dHtml)p3dHtml=p3dHtml.replace('<div class="p3d-body">','<div class="p3d-body"><details class="handdraw-gallery"><summary>✍️ 本站手绘风格参考图（3D / 排列三）</summary><div style="display:flex;gap:8px;overflow-x:auto">'+handdrawSheets.join('')+'</div></details>');
+
 console.log('  · 3D 手绘参考图：' + (p3dHtml
   ? '已生成（' + (Buffer.byteLength(p3dHtml, 'utf8') / 1024).toFixed(1) + ' KB）'
   : '无数据 → 整块不渲染'));
@@ -12118,7 +12141,7 @@ ${RO_RENDER_SCRIPT}
         在 document 上挂一次委托，服务本页的 .ro-xj-row[data-ex-key]。
      ⚠️ 不能用裸 <button>（页面不变量：button 标签 = 0），
         行本身是 <a role="button" tabindex="0">（见 buildExpertsHtml）。
-     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）。 -->
+     ⚠️ 必须放在本模板的 <script>document.addEventListener("click",function(e){if(!e.target.matches(".handdraw-sheet"))return;var overlay=document.createElement("div");overlay.style.cssText="position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:10px";var im=document.createElement("img");im.src=e.target.src;im.alt=e.target.alt;im.style.cssText="max-width:96vw;max-height:96vh;object-fit:contain";overlay.appendChild(im);overlay.setAttribute("role","dialog");overlay.setAttribute("aria-label","手绘参考图，点击关闭");document.body.appendChild(overlay);function close(){overlay.remove();document.removeEventListener("keydown",esc);}function esc(e){if(e.key==="Escape")close();}overlay.onclick=close;document.addEventListener("keydown",esc);});</script></body> 之前（模板字符串内部）。 -->
 <script>
 (function () {
   try {
@@ -17113,6 +17136,9 @@ body { background-color: #f7efe1; }
 .arena-life button { border:1px solid #decda9; background:#fff8e8; border-radius:7px; padding:7px 9px; cursor:pointer; color:#4a3a26; }
 .arena-needs { flex-basis:100%; font-size:11px; line-height:1.7; padding:5px 0; }
 .status-video-open::before { content:"👉"; position:absolute; left:-30px; top:15px; font-size:24px; }
+.handdraw-gallery figure { margin:8px 0; flex:0 0 100%; min-width:0; }
+.handdraw-sheet { width:100%; height:auto; cursor:zoom-in; }
+.handdraw-gallery figcaption { font-size:11px; text-align:center; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
