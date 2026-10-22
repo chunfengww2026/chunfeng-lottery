@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-23 04:35",
+ "updated": "2026-10-23 05:09",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -718,7 +718,7 @@ const JC_HISTORY = {
    "home": "伯恩茅斯",
    "away": "AC米兰",
    "time": "2026-10-23 03:00",
-   "score": "1:0",
+   "score": "3:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -746,7 +746,7 @@ const JC_HISTORY = {
    "home": "凯尔特人",
    "away": "塞尔塔",
    "time": "2026-10-23 03:00",
-   "score": "0:0",
+   "score": "1:2",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -774,7 +774,7 @@ const JC_HISTORY = {
    "home": "贝西克塔",
    "away": "水晶宫",
    "time": "2026-10-23 03:00",
-   "score": "0:0",
+   "score": "2:2",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -802,7 +802,7 @@ const JC_HISTORY = {
    "home": "霍芬海姆",
    "away": "里昂",
    "time": "2026-10-23 03:00",
-   "score": "0:0",
+   "score": "3:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -830,7 +830,7 @@ const JC_HISTORY = {
    "home": "利勒斯特",
    "away": "皇家社会",
    "time": "2026-10-23 03:00",
-   "score": "0:0",
+   "score": "0:6",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -847,8 +847,8 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 63.2,
    "type": "three",
-   "result": "lose",
-   "hit": false,
+   "result": "win",
+   "hit": true,
    "matched": true,
    "at": "2026-10-22 00:28"
   },
