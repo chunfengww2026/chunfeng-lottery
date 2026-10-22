@@ -1362,7 +1362,7 @@ function frogPanelHtml() {
     }
   } catch (e) {}
   return '<details class="frog" id="frogHome">' +
-    '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
+    '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-sub">（蝌蚪严父）</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
@@ -1696,8 +1696,8 @@ function buildArticlesHtml() {
     });
   } catch(e) {}
 
-  const zldqHtml = '<details class="ro-zldq" id="ro-zldq">' +
-    '<summary class="ro-zldq-h">名家图库</summary>' +
+  const zldqHtml = '<details class="ro-zldq frog" id="ro-zldq">' +
+    '<summary class="frog-sum"><span class="frog-t">名家图库</span><span class="frog-go">点击展开 / 收起</span></summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
@@ -1776,7 +1776,7 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼打怪兽</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -17091,6 +17091,7 @@ body { background-color: #f7efe1; }
 .frog-monster-stage.defeated .frog-monster-enemy { opacity:.25; transform:rotate(30deg); }
 .frog-monster-hp { text-align:center; font-size:12px; margin:6px 0; }
 @keyframes frogshake { 25% {transform:translateX(8px);} 75% {transform:translateX(-8px);} }
+#monsterHome > .frog-sum { display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18287,7 +18288,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     var key='chunfeng-monster-v1', records=[];
     try { records=JSON.parse(localStorage.getItem(key)||'[]'); if(!Array.isArray(records))records=[]; }catch(e){}
     var ds=hist(gid),latest=ds[0];
-    if(!latest){out.innerHTML='奥特曼打怪兽 · '+gname()+'：暂无真实开奖数据';return;}
+    if(!latest){out.innerHTML='奥特曼杀号（小怪兽严父） · '+gname()+'：暂无真实开奖数据';return;}
     var writable=true;
     records.forEach(function(rec){
       if(rec.gid!==gid||rec.settled||!Array.isArray(rec.kills))return;
@@ -18302,7 +18303,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     var settled=records.filter(function(r){return r.gid===gid&&r.settled;}),total=0,correct=0;
     settled.forEach(function(r){total+=r.kills.length;correct+=(r.correct||[]).length;});
     var exp=correct*10;
-    out.innerHTML='<div style="font-weight:700">奥特曼打怪兽 · '+gname()+'</div>'+
+    out.innerHTML='<div style="font-weight:700">奥特曼杀号（小怪兽严父） · '+gname()+'</div>'+
       '<div class="frog-monster-stage"><span>🦸</span><span class="frog-monster-beam">⚡</span><span class="frog-monster-enemy">👾</span></div>'+
       '<div class="frog-monster-hp" role="status" aria-live="polite">怪兽血量：3 / 3</div><div class="frog-chip" role="button" tabindex="0" id="frogMonsterAttack">发射光线 · 攻击怪兽</div>'+ 
       row('等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
@@ -18478,4 +18479,6 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
+
 
