@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-22 09:42",
+ "updated": "2026-10-22 10:22",
  "red": 3,
  "black": 1,
  "rate": "75.0%",
- "unfinished": 2,
+ "unfinished": 3,
  "history": [
+  {
+   "dateStr": "2026-10-22 10:22",
+   "finishTime": 1792635720000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周四003",
+     "teams": "萨迪纳摩 vs 奈梅亨",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.5,
+     "status": "pending",
+     "finishTime": 1792635720000,
+     "league": "欧罗巴",
+     "odds": 1.62,
+     "time": "2026-10-23 00:45"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-22 00:28",
    "finishTime": 1792600080000,

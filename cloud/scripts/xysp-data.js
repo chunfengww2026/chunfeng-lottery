@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 09:41
+   更新时间：2026-10-22 10:22
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 09:41",
+ "updated": "2026-10-22 10:22",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -106,6 +106,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/dc906e97-f6a4-4bbd-a91f-81ccefeca97f1792634839016.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/dc906e97-f6a4-4bbd-a91f-81ccefeca97f1792634839016.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]区间算√不",
+     "url": "",
+     "at": "2026-10-22T02:22:19.438Z",
+     "pubAt": "2026-10-22T02:07:00.000Z",
+     "pubMs": 1792634820000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792635739438,
+     "seenMs": 1792635739438,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-21/a62cba88-cedd-47ad-8490-98c5745ce01c1792595348701.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/a62cba88-cedd-47ad-8490-98c5745ce01c1792595348701.jpg?imageMogr2/thumbnail/360x",
@@ -892,6 +906,20 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-22/360fafef-5928-4be7-9cee-b881465a67bb1792633630675.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/360fafef-5928-4be7-9cee-b881465a67bb1792633630675.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]468，中了兄弟们！哈哈哈哈哈哈",
+     "url": "",
+     "at": "2026-10-22T02:22:19.438Z",
+     "pubAt": "2026-10-22T01:47:00.000Z",
+     "pubMs": 1792633620000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792635739438,
+     "seenMs": 1792635739438,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-21/0e9a409a-2b14-4869-a8e4-a9faaa13b3cf1792597877357.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/0e9a409a-2b14-4869-a8e4-a9faaa13b3cf1792597877357.jpg?imageMogr2/thumbnail/360x",
      "title": "[26281期]明天晚上8.50出一注号码，精选一注。百分之90几率能中。",
@@ -1190,6 +1218,34 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/fffa1033-d531-4e59-991a-74703ca0f87d1792634022410.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/fffa1033-d531-4e59-991a-74703ca0f87d1792634022410.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]我是该哭还是该笑",
+     "url": "",
+     "at": "2026-10-22T02:22:19.438Z",
+     "pubAt": "2026-10-22T01:54:00.000Z",
+     "pubMs": 1792634040000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792635739438,
+     "seenMs": 1792635739438,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/556c429a-c670-48bc-9bf5-7ec89a3b6ffd1792634022409.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/556c429a-c670-48bc-9bf5-7ec89a3b6ffd1792634022409.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]我是该哭还是该笑",
+     "url": "",
+     "at": "2026-10-22T02:22:19.438Z",
+     "pubAt": "2026-10-22T01:54:00.000Z",
+     "pubMs": 1792634040000,
+     "pubSrc": "page",
+     "nextAt": 1792672200000,
+     "atMs": 1792635739438,
+     "seenMs": 1792635739438,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-21/a602186a-2e04-4608-9ef1-c9b6b7ead7b31792598166474.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/a602186a-2e04-4608-9ef1-c9b6b7ead7b31792598166474.jpg?imageMogr2/thumbnail/360x",
@@ -1566,6 +1622,10 @@ const XYSP_DATA = {
   "/2026-10-21/230206e8-1c92-4341-a2d7-3fdf131fd8e11792559119404.jpg": 1792633316598,
   "/2026-10-21/93edab56-3e92-4072-b092-fe003f07a3861792559119407.jpg": 1792633316598,
   "/2026-10-22/459392ea-6ce4-46e1-8508-ac7ca716feb91792630985329.jpg": 1792633316598,
-  "/2026-10-21/6f98ba96-8b84-4c8d-a5c6-344c8d162bc81792587189866.jpg": 1792633316598
+  "/2026-10-21/6f98ba96-8b84-4c8d-a5c6-344c8d162bc81792587189866.jpg": 1792633316598,
+  "/2026-10-22/dc906e97-f6a4-4bbd-a91f-81ccefeca97f1792634839016.jpg": 1792635739438,
+  "/2026-10-22/360fafef-5928-4be7-9cee-b881465a67bb1792633630675.jpg": 1792635739438,
+  "/2026-10-22/fffa1033-d531-4e59-991a-74703ca0f87d1792634022410.jpg": 1792635739438,
+  "/2026-10-22/556c429a-c670-48bc-9bf5-7ec89a3b6ffd1792634022409.jpg": 1792635739438
  }
 };
