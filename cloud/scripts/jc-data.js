@@ -1504,9 +1504,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 1.02,
+      "line": 1,
       "over": 3,
-      "under": 0.82
+      "under": 0.85
      }
     }
    },
@@ -2123,14 +2123,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 43.7,
+    "confidence": 46.9,
     "prob": {
      "home": 43.7,
      "draw": 25,
      "away": 31.3
     },
-    "clear": false,
-    "margin": 6.5,
+    "clear": true,
+    "margin": 6.6,
     "rqLine": "平手/半球",
     "type": "unbeaten"
    },
