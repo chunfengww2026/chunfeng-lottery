@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 21:38:24） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/22 22:23:03） */
 const MINGJIA_DATA = {
- "updated": "2026-10-22 21:38:24",
+ "updated": "2026-10-22 22:23:03",
  "list": [
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "快乐8",
-   "kw": "太湖字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "名家精",
    "cat": "快乐8",
@@ -90,6 +66,41 @@ const MINGJIA_DATA = {
    "name": "青岛大磊",
    "cat": "双色球",
    "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "双色球",
+   "kw": "金手指 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/金手指/1.jpg",
+     "size": 62854,
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnluSy9EdEZtNGNCei9keDhZQ1A5RlN0WS9wWmxCcjBUVmV0YkViWUg5dDQw.jpg",
+     "page": "https://www.16788.cn/tj_f77fa2646863.html",
+     "title": "天吉网金手指2025115期双色球图谜 - 双色球图谜 - 天吉网",
+     "issue": "2025115",
+     "verified": false,
+     "fetchedAt": "2026-10-22T05:42:17.494Z"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -309,24 +320,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "金手指",
-   "cat": "双色球",
-   "kw": "金手指 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/金手指/1.jpg",
-     "size": 62854,
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnluSy9EdEZtNGNCei9keDhZQ1A5RlN0WS9wWmxCcjBUVmV0YkViWUg5dDQw.jpg",
-     "page": "https://www.16788.cn/tj_f77fa2646863.html",
-     "title": "天吉网金手指2025115期双色球图谜 - 双色球图谜 - 天吉网",
-     "issue": "2025115",
-     "verified": false,
-     "fetchedAt": "2026-10-22T05:42:17.494Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "太湖字谜",
    "cat": "排列三",
    "kw": "太湖字谜 排列三 字谜 参考图",
@@ -361,24 +354,6 @@ const MINGJIA_DATA = {
     }
    ],
    "stale": true
-  },
-  {
-   "name": "明哥看彩",
-   "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "双色球",
-   "kw": "九头鸟 双色球 字谜 参考图",
-   "imgs": []
   },
   {
    "name": "武汉华哥",
@@ -607,14 +582,33 @@ const MINGJIA_DATA = {
    "cat": "排列三",
    "kw": "金手指 排列三 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-22 07:20:54",
-   "names": 71,
-   "imgs": 11
-  },
   {
    "at": "2026-10-22 07:52:03",
    "names": 71,
@@ -727,6 +721,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-22 21:38:24",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-10-22 22:23:03",
    "names": 71,
    "imgs": 15
   }
