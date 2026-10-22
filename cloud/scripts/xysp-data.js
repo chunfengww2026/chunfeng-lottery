@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 01:25
+   更新时间：2026-10-23 01:26
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 01:25",
+ "updated": "2026-10-23 01:26",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1064,8 +1064,8 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=3WfvZZOKEkItYpzX%2FZkfBs%2FX5Js%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=3WfvZZOKEkItYpzX%2FZkfBs%2FX5Js%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=9gNo%2FoQzeXy%2FhE3ceNL99hfSCM4%3D",
      "title": "#福彩快乐8开奖结果# #福彩快乐8为什么没人买# 快乐8第2026281期开奖结果出炉！本期开出号码：01、05、08、11、13、19、22、26、34、52、53、55、56、58、63、66、69、71、72、75。\n本期销量突破1",
      "url": "sslocal://thread_detail?fid=1879588611530843&tid=1879765854507146",
@@ -1077,9 +1077,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "2026281",
-     "seen": "2026-10-22T16:26:01.776Z",
+     "seen": "2026-10-22T17:26:01.877Z",
      "whenMs": 1792684416000,
-     "seenMs": 1792686361776,
+     "seenMs": 1792689961877,
      "drawMs": 1792762200000,
      "nextMs": 1792762200000,
      "atMs": 1792685161756,
