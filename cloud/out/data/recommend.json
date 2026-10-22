@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-22 11:30",
+ "updated": "2026-10-22 12:03",
  "red": 3,
  "black": 1,
  "rate": "75.0%",
  "unfinished": 3,
  "history": [
   {
-   "dateStr": "2026-10-22 11:30",
-   "finishTime": 1792639800000,
+   "dateStr": "2026-10-22 12:03",
+   "finishTime": 1792641780000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 58.5,
      "status": "pending",
-     "finishTime": 1792639800000,
+     "finishTime": 1792641780000,
      "league": "欧罗巴",
      "odds": 1.62,
      "time": "2026-10-23 00:45"
