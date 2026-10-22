@@ -1,6 +1,6 @@
 (function(){
   var card=document.getElementById('roStatusCard');if(!card)return;
-  var opener=document.createElement('div');opener.className='status-video-open';opener.setAttribute('role','button');opener.tabIndex=0;opener.setAttribute('aria-label','查看祝福视频');opener.innerHTML='<span aria-hidden="true">▶</span><small>点击看视频</small>';card.appendChild(opener);
+  var opener=document.createElement('div');opener.className='status-video-open';opener.setAttribute('role','button');opener.tabIndex=0;opener.setAttribute('aria-label','点击查看好运');opener.innerHTML='<span aria-hidden="true">▶</span><small>点击查看好运</small>';card.appendChild(opener);
   var modal=document.createElement('div');modal.className='status-video-modal';modal.hidden=true;modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-label','祝福视频');
   modal.innerHTML='<div class="status-video-box"><div class="status-video-close" role="button" tabindex="0" aria-label="关闭视频">×</div><video controls playsinline preload="none" loop></video><div class="status-video-message" role="status"></div></div>';
   document.body.appendChild(modal);var video=modal.querySelector('video'),close=modal.querySelector('.status-video-close'),message=modal.querySelector('.status-video-message'),oldOverflow='';
