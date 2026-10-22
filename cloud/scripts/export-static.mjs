@@ -1198,7 +1198,7 @@ function frogPanelHtml() {
     issue.ssq = nextOf('ssq', a && a.issue ? String(a.issue) : '');
     issue.dlt = nextOf('dlt', b && b.issue ? String(b.issue) : '');
     issue.kl8 = nextOf('kl8', '');
-    pool.kl8 = issue.kl8 ? seededPickN(80,30,issue.kl8+'|frog-kl8') : [];
+    pool.kl8 = issue.kl8 ? seededPickN(80,20,issue.kl8+'|frog-kl8') : [];
     /* 种子 = 【下一期】期号：draws.js 一换期，这组 20 码就跟着自动换。
        （原来是上一期 → 开奖后号码纹丝不动，用户 2026-10-20 实测发现） */
     const seedBase = issue.ssq + '|' + issue.dlt;
@@ -1366,7 +1366,7 @@ function frogPanelHtml() {
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
-    box('快乐8 · 30码参考', pool.kl8 || [], [], issue.kl8) +
+    box('快乐8 · 20码参考', pool.kl8 || [], [], issue.kl8) +
     '<div class="frog-sec"><details class="frog-mats">' +
     '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
     (arts.length ? '<span class="frog-ag">点开看正文</span>' : '') + '</summary>' +
@@ -17087,6 +17087,10 @@ body { background-color: #f7efe1; }
 .frog-monster-stage.fired .frog-monster-beam { animation:frogbeam .8s ease-out; }
 @keyframes frogbeam { from {opacity:1;transform:scale(.5) translateX(-20px);} to {opacity:0;transform:scale(2) translateX(20px);} }
 .ro-zldq-riddle { white-space:pre-wrap; overflow-wrap:anywhere; box-sizing:border-box; padding:16px; text-align:left; height:65vh; overflow-y:auto; line-height:1.8; background:#fffdf7; }
+.frog-monster-stage.fired .frog-monster-enemy { animation:frogshake .4s ease-in-out; }
+.frog-monster-stage.defeated .frog-monster-enemy { opacity:.25; transform:rotate(30deg); }
+.frog-monster-hp { text-align:center; font-size:12px; margin:6px 0; }
+@keyframes frogshake { 25% {transform:translateX(8px);} 75% {transform:translateX(-8px);} }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18299,7 +18303,8 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
     settled.forEach(function(r){total+=r.kills.length;correct+=(r.correct||[]).length;});
     var exp=correct*10;
     out.innerHTML='<div style="font-weight:700">奥特曼打怪兽 · '+gname()+'</div>'+
-      '<div class="frog-monster-stage"><span>🦸</span><span class="frog-monster-beam">⚡</span><span>👾</span></div>'+
+      '<div class="frog-monster-stage"><span>🦸</span><span class="frog-monster-beam">⚡</span><span class="frog-monster-enemy">👾</span></div>'+
+      '<div class="frog-monster-hp" role="status" aria-live="polite">怪兽血量：3 / 3</div><div class="frog-chip" role="button" tabindex="0" id="frogMonsterAttack">发射光线 · 攻击怪兽</div>'+ 
       row('等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
       row('已复盘 / 杀对率',settled.length+' 期 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
       '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
@@ -18307,6 +18312,19 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
       settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期 · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+rowL('留档杀号',r.kills)+rowL('杀对（未开出）',r.correct)+rowL('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
       '<div class="frog-tip">本站免费统计算法；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
+    var attack=out.querySelector('#frogMonsterAttack'),hp=3,busy=false;
+    if(attack){
+      attack.onclick=function(){
+        if(busy)return;
+        var stage=out.querySelector('.frog-monster-stage'),label=out.querySelector('.frog-monster-hp');
+        if(hp===0){hp=3;stage.classList.remove('defeated');label.textContent='怪兽血量：3 / 3';attack.textContent='发射光线 · 攻击怪兽';return;}
+        busy=true;stage.classList.remove('fired');void stage.offsetWidth;stage.classList.add('fired');hp--;
+        label.textContent=hp?'击中！怪兽血量：'+hp+' / 3':'怪兽已击败！可以再玩一次';
+        if(!hp){stage.classList.add('defeated');attack.textContent='再玩一次';}
+        setTimeout(function(){busy=false;},450);
+      };
+      attack.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();attack.click();}};
+    }
     var fire=out.querySelector('#frogMonsterFire');
     if(fire)fire.onclick=function(){
       if(!writable)return;
@@ -18460,3 +18478,4 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
