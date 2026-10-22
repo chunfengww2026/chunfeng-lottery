@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 00:26:01
+   更新时间：2026-10-23 00:36:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-23 00:26:01",
+ "updated": "2026-10-23 00:36:01",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=3WfvZZOKEkItYpzX%2FZkfBs%2FX5Js%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "2026281",
    "seen": "2026-10-22T16:26:01.776Z",
    "whenMs": 1792684416000,
-   "seenMs": 1792685161756,
+   "seenMs": 1792686361776,
    "drawMs": 1792762200000,
    "nextMs": 1792762200000,
    "atMs": 1792685161756,
