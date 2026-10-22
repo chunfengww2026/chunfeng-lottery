@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-22 22:34",
+ "updated": "2026-10-22 22:37",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -149,7 +149,7 @@ const JC_RECO_DATA = {
    "verdict": "红"
   },
   {
-   "at": "2026-10-22 22:34",
+   "at": "2026-10-22 22:37",
    "min": 58,
    "rows": [
     {
@@ -166,101 +166,11 @@ const JC_RECO_DATA = {
      "score": "",
      "hit": null,
      "result": ""
-    },
-    {
-     "code": "周五004",
-     "time": "2026-10-24 02:00",
-     "league": "荷甲",
-     "home": "前进之鹰",
-     "away": "特尔斯达",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.6,
-     "conf": 59.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五006",
-     "time": "2026-10-24 02:30",
-     "league": "德甲",
-     "home": "斯图加特",
-     "away": "门兴",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 68.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五010",
-     "time": "2026-10-24 03:00",
-     "league": "英冠",
-     "home": "博尔顿",
-     "away": "米堡",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.53,
-     "conf": 61.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五004",
-     "time": "2026-10-24 02:00",
-     "league": "荷甲",
-     "home": "前进之鹰",
-     "away": "特尔斯达",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.6,
-     "conf": 59.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五006",
-     "time": "2026-10-24 02:30",
-     "league": "德甲",
-     "home": "斯图加特",
-     "away": "门兴",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 68.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五010",
-     "time": "2026-10-24 03:00",
-     "league": "英冠",
-     "home": "博尔顿",
-     "away": "米堡",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.55,
-     "conf": 60.5,
-     "score": "",
-     "hit": null,
-     "result": ""
     }
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 1,
    "verdict": ""
   }
  ]
