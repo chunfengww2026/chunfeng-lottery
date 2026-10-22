@@ -1,28 +1,15 @@
 {
- "updated": "2026-10-22 16:31",
+ "updated": "2026-10-22 17:10",
  "red": 3,
  "black": 1,
  "rate": "75.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-22 16:31",
-   "finishTime": 1792657860000,
+   "dateStr": "2026-10-22 17:10",
+   "finishTime": 1792660200000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周四003",
-     "teams": "萨迪纳摩 vs 奈梅亨",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61,
-     "status": "pending",
-     "finishTime": 1792657860000,
-     "league": "欧罗巴",
-     "odds": 1.55,
-     "time": "2026-10-23 00:45"
-    },
     {
      "matchNo": "周五004",
      "teams": "前进之鹰 vs 特尔斯达",
@@ -31,7 +18,7 @@
      "result": "pending",
      "confidence": 59.3,
      "status": "pending",
-     "finishTime": 1792657860000,
+     "finishTime": 1792660200000,
      "league": "荷甲",
      "odds": 1.6,
      "time": "2026-10-24 02:00"
@@ -44,7 +31,7 @@
      "result": "pending",
      "confidence": 68.5,
      "status": "pending",
-     "finishTime": 1792657860000,
+     "finishTime": 1792660200000,
      "league": "德甲",
      "odds": 1.38,
      "time": "2026-10-24 02:30"
@@ -57,7 +44,7 @@
      "result": "pending",
      "confidence": 61.3,
      "status": "pending",
-     "finishTime": 1792657860000,
+     "finishTime": 1792660200000,
      "league": "英冠",
      "odds": 1.53,
      "time": "2026-10-24 03:00"
