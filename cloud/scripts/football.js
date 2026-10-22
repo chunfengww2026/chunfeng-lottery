@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "亚布洛内茨",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "赫塔菲",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "特拉布宗体育",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "贝尔格莱德红星",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "洛斯查蘭特",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "萨布塔罗提比利锡",
      "score": 0,
@@ -459,10 +459,10 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "考诺萨基列斯",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "伊斯卡尔德斯",
      "score": 0,
@@ -605,7 +605,7 @@ const FOOTBALL_DATA = {
      "color": "D078D8"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "帕福斯",
      "score": 0,
@@ -678,10 +678,10 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "阿爾葛拉法",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 10
     },
@@ -751,7 +751,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "波兹南莱赫",
      "score": 0,
@@ -824,7 +824,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "OFI克雷迪",
      "score": 0,
@@ -897,10 +897,10 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "格拉兹风暴",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 4
     },
@@ -970,7 +970,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "萨格勒布迪那摩",
      "score": 0,
@@ -1043,7 +1043,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "聖吉羅斯",
      "score": 0,
@@ -1116,7 +1116,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "费伦茨瓦罗斯",
      "score": 0,
@@ -1189,7 +1189,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "尤文图斯",
      "score": 1,
@@ -1262,7 +1262,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-23 00:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "阿拉特阿美尼亚",
      "score": 0,
@@ -4478,7 +4478,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-22 23:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "雅莫科",
      "score": 2,
