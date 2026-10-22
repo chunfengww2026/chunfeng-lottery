@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 391 场 · 时间 2026-10-23 06:49
+   窗口 48 小时 · 390 场 · 时间 2026-10-23 07:14
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-23 06:49",
+ "updated": "2026-10-23 07:14",
  "hours": 48,
- "count": 391,
+ "count": 390,
  "list": [
   {
    "date": "2026-10-23",
@@ -6245,22 +6245,6 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "1436705"
-  },
-  {
-   "date": "2026-10-21",
-   "time": "2026-10-21 07:00",
-   "league": "玻利杯",
-   "home": "彼得罗独立",
-   "away": "欧若拉",
-   "ft": {
-    "h": 4,
-    "a": 0
-   },
-   "ht": {
-    "h": 1,
-    "a": 0
-   },
-   "fid": "1500866"
   }
  ]
 };

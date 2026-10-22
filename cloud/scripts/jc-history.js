@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-23 06:48",
+ "updated": "2026-10-23 07:14",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2195,61 +2195,6 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-10-20 00:28"
-  },
-  {
-   "code": "周一008",
-   "league": "巴甲",
-   "home": "科林蒂安",
-   "away": "维多利亚",
-   "time": "2026-10-20 07:00",
-   "score": "1:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1.05,
-    "openHandicap": -0.75,
-    "openUpWater": 0.95,
-    "openDownWater": 0.9,
-    "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.95,
-     "nowUpWater": 0.8,
-     "initLine": "半球/一球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.53,
-    "draw": 3.75,
-    "away": 7.5
-   },
-   "prob": {
-    "home": 62,
-    "draw": 25.3,
-    "away": 12.7
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 62,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-10-21 01:01"
   }
  ]
 };
