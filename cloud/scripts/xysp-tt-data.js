@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 02:56:01
+   更新时间：2026-10-22 23:23:28
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 02:56:01",
+ "updated": "2026-10-22 23:23:28",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801267200&x-signature=fbZW00E8zGbwEZNHUlXL%2Fgox9S4%3D",
@@ -262,6 +262,18 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/cbbeb1773b0446acb3a5f33e8617f270~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
   "/tos-cn-i-ezhpy3drpa/4bc1c757e2104f289dc48d275be01672~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
   "/tos-cn-i-6w9my0ksvp/a6ca3e0aa3b14e0a9c2da2bfc5264fca~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
-  "/tos-cn-i-6w9my0ksvp/05f86fa46686460fbaba90295341649b~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834
+  "/tos-cn-i-6w9my0ksvp/05f86fa46686460fbaba90295341649b~tplv-26tn0yjwph-cspd-v1.jpg": 1792608961834,
+  "/tos-cn-i-6w9my0ksvp/c64d8d2ef53c40acbc3eb5e082e663ac~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/7cece15efdad4df68548746fc135bbd4~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/eb64458485c84ac3bffa3be9ebd6b58e~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/c1366ba201c04e22a9b0ed769e483eb0~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/4c1398e7775741f292d20e68596547a5~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/c9682f4183d84c0faeb0b6f45d17428b~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-ezhpy3drpa/0eda8e8ad0074dd89e4c353812c7a5d3~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-ezhpy3drpa/bb22c9a42c624e899428166d499744cc~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/fc43bc8ed8ca49a2a049a33cf5833b0a~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-6w9my0ksvp/a98bfbee54a8403f90a6660f73d0f491~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-ezhpy3drpa/a000b3ba09494505b05e81cd679b22f9~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795,
+  "/tos-cn-i-ezhpy3drpa/f0c85f00f54b46a5877daeec36e0de18~tplv-26tn0yjwph-cspd-v1.jpg": 1792682608795
  }
 };
