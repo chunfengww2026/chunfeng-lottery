@@ -489,7 +489,7 @@ export function buildP3DSectionHtml(HIST, P3D, o) {
        （「3D 手绘参考图」/「排列三 手绘参考图」）——它由脚本按彩种切换，
        验收脚本也在断言它，所以保留。 */
     `<summary class="p3d-head">` +
-      `<span class="p3d-head-t">手绘参考图<i class="p3d-head-sub">（3D/排三）</i></span>` +
+      `<span class="p3d-head-t">✍️ 手绘参考图<i class="p3d-head-sub">（3D/排三）</i></span>` +
       `<span class="p3d-head-tip" aria-hidden="true"></span>` +
     `</summary>` +
     `<div class="p3d-body">` +
