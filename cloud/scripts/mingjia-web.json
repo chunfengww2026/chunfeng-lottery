@@ -1,6 +1,54 @@
 {
- "updated": "2026-10-22T14:32:39.706Z",
+ "updated": "2026-10-22T15:01:57.554Z",
  "entries": [
+  {
+   "id": "https://m.cz89.com/read_10917453.htm",
+   "gid": "fc3d",
+   "cat": "3D",
+   "author": "字谜资料",
+   "title": "正老北京2026282期3d图谜_手机牛彩网",
+   "issue": "2026282",
+   "url": "https://m.cz89.com/read_10917453.htm",
+   "excerpt": "3D胆码图：\n3D胆码图\n3D杀码图",
+   "images": [
+    "https://pic.cz89.com/upload/20261022/6e831d0abe25440c975ba5f15ff35ab9.png"
+   ],
+   "publishedAt": "2026-10-22T14:50:00.000Z",
+   "firstSeen": "2026-10-22T15:01:57.554Z",
+   "expiresAt": "2026-10-24T14:50:00.000Z"
+  },
+  {
+   "id": "https://m.cz89.com/read_10917454.htm",
+   "gid": "fc3d",
+   "cat": "3D",
+   "author": "字谜资料",
+   "title": "老子独胆2026282期3d图迷_手机牛彩网",
+   "issue": "2026282",
+   "url": "https://m.cz89.com/read_10917454.htm",
+   "excerpt": "3D胆码图：\n3D胆码图\n3D杀码图",
+   "images": [
+    "https://pic.cz89.com/upload/20261022/09865d21530c472bb67a1c6dcea22e73.png"
+   ],
+   "publishedAt": "2026-10-22T14:50:00.000Z",
+   "firstSeen": "2026-10-22T15:01:57.554Z",
+   "expiresAt": "2026-10-24T14:50:00.000Z"
+  },
+  {
+   "id": "https://m.cz89.com/read_10917456.htm",
+   "gid": "fc3d",
+   "cat": "3D",
+   "author": "字谜资料",
+   "title": "虎王2026282期3d图谜_手机牛彩网",
+   "issue": "2026282",
+   "url": "https://m.cz89.com/read_10917456.htm",
+   "excerpt": "3D胆码图：\n3D胆码图\n3D杀码图",
+   "images": [
+    "https://pic.cz89.com/upload/20261022/1f0c05f42a934daf9b79c1d4d90a4874.png"
+   ],
+   "publishedAt": "2026-10-22T14:50:00.000Z",
+   "firstSeen": "2026-10-22T15:01:57.554Z",
+   "expiresAt": "2026-10-24T14:50:00.000Z"
+  },
   {
    "id": "https://m.cz89.com/read_10916633.htm",
    "gid": "fc3d",
@@ -231,12 +279,16 @@
   "fc3d|https://m.cz89.com/read_10914065.htm": "2026-10-21T18:13:40.782Z",
   "fc3d|https://m.cz89.com/read_10916633.htm": "2026-10-22T14:25:37.311Z",
   "fc3d|https://m.cz89.com/read_10916591.htm": "2026-10-22T14:25:37.311Z",
-  "fc3d|https://m.cz89.com/read_10916595.htm": "2026-10-22T14:25:37.311Z"
+  "fc3d|https://m.cz89.com/read_10916595.htm": "2026-10-22T14:25:37.311Z",
+  "fc3d|https://m.cz89.com/read_10917453.htm": "2026-10-22T15:01:57.554Z",
+  "fc3d|https://m.cz89.com/read_10917454.htm": "2026-10-22T15:01:57.554Z",
+  "fc3d|https://m.cz89.com/read_10917456.htm": "2026-10-22T15:01:57.554Z"
  },
  "sources": [
   {
    "url": "https://www.cz89.com/p3/item_7.htm",
-   "status": 200,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
@@ -268,7 +320,7 @@
   },
   {
    "url": "https://tieba.baidu.com/f?kw=%E5%8F%8C%E8%89%B2%E7%90%83",
-   "status": 200,
+   "status": 403,
    "count": 0
   },
   {

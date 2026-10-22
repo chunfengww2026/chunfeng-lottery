@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 392 场 · 时间 2026-10-22 22:05
+   窗口 48 小时 · 391 场 · 时间 2026-10-22 22:41
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-22 22:05",
+ "updated": "2026-10-22 22:41",
  "hours": 48,
- "count": 392,
+ "count": 391,
  "list": [
   {
    "date": "2026-10-22",
@@ -6261,22 +6261,6 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "1498379"
-  },
-  {
-   "date": "2026-10-20",
-   "time": "2026-10-20 22:30",
-   "league": "罗乙1",
-   "home": "塔古穆里斯",
-   "away": "琴迪阿",
-   "ft": {
-    "h": 2,
-    "a": 4
-   },
-   "ht": {
-    "h": 2,
-    "a": 3
-   },
-   "fid": "1458419"
   }
  ]
 };
