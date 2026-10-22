@@ -1197,6 +1197,8 @@ function frogPanelHtml() {
     };
     issue.ssq = nextOf('ssq', a && a.issue ? String(a.issue) : '');
     issue.dlt = nextOf('dlt', b && b.issue ? String(b.issue) : '');
+    issue.kl8 = nextOf('kl8', '');
+    pool.kl8 = issue.kl8 ? seededPickN(80,30,issue.kl8+'|frog-kl8') : [];
     /* 种子 = 【下一期】期号：draws.js 一换期，这组 20 码就跟着自动换。
        （原来是上一期 → 开奖后号码纹丝不动，用户 2026-10-20 实测发现） */
     const seedBase = issue.ssq + '|' + issue.dlt;
@@ -1364,6 +1366,7 @@ function frogPanelHtml() {
     '<div class="frog-body">' +
     box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
     box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
+    box('快乐8 · 30码参考', pool.kl8 || [], [], issue.kl8) +
     '<div class="frog-sec"><details class="frog-mats">' +
     '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
     (arts.length ? '<span class="frog-ag">点开看正文</span>' : '') + '</summary>' +
@@ -1458,7 +1461,6 @@ function frogPanelHtml() {
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="dan">胆码中心</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="omit">遗漏走势</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="lab">实验室</div>'
-    + '<div class="frog-btn" role="button" tabindex="0" data-frog="monster">奥特曼打怪兽</div>'
     + '</div><div class="frog-out" id="frogOut">点上面任意功能，结果显示在这里</div></div>'
     + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
     '</div></details>';
@@ -1700,7 +1702,10 @@ function buildArticlesHtml() {
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
       /* 每个彩种格子：点开 = 该彩种的名家图（不跳转 ✗ 原地展开 ✔） */
-      const people = mjByCat[x[0]] || [];
+      const galleryGids={'双色球':'ssq','大乐透':'dlt','3D':'fc3d','排列三':'pl3','快乐8':'kl8'};
+      const targetIssue=String(nextIssue(galleryGids[x[0]])||'');
+      const matchesIssue=function(v){const n=String(v||'').replace(/[^0-9]/g,'');return !!targetIssue && (n===targetIssue || (n.length===5 && targetIssue.length===7 && n===targetIssue.slice(2)));};
+      const people = (mjByCat[x[0]] || []).map(function(p){return Object.assign({},p,{imgs:(p.imgs||[]).filter(function(im){return matchesIssue(im.issue);}),articles:(p.articles||[]).filter(function(a){return matchesIssue(a.issue);})});});
       const issues = new Map();
       function issueGroup(issue) {
         const key=String(issue||'待核实');
@@ -1716,7 +1721,7 @@ function buildArticlesHtml() {
         return '<details class="ro-zldq-issue"><summary>'+ (issue==='待核实'?'期号待核实':'第 '+escape(issue)+' 期') +' · '+g.images.length+' 张</summary>'+
           '<div class="ro-zldq-i">'+g.images.map(function(im,index){return '<figure><img loading="lazy" src="'+escape(im.file||im.src).replace(/"/g,'&quot;')+'" alt="第 '+escape(issue)+' 期资料图 '+(index+1)+'"><figcaption>'+(index+1)+' / '+g.images.length+'</figcaption></figure>';}).join('')+'</div>'+
           g.articles.map(function(a){return '<div class="ro-zldq-text"><b>'+escape(a.title)+'</b><p>'+escape(a.excerpt||'暂无文字摘录')+'</p><a href="'+escape(a.url).replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">查看原文</a></div>';}).join('')+'</details>';
-      }).join('') : '<div class="ro-zldq-empty">暂无图</div>';
+      }).join('') : '<div class="ro-zldq-empty">第 '+escape(targetIssue)+' 期暂无资料</div>';
       /* 【去掉「最新资料」几个字 · 用户 2026-10-21】只留彩种名 ✗ */
       return '<details class="ro-zldq-c">' +
         '<summary class="ro-zldq-s"><b>' + x[0] + '</b></summary>' +
@@ -1762,7 +1767,7 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t">奥特曼打怪兽</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title">文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -16991,6 +16996,55 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 /* 刘海那条缝也铺底色，避免透出下面的字 */
 body { background-color: #f7efe1; }
 
+#monsterOut .frog-b {
+  width: 20px; height: 20px; min-width: 20px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0;
+}
+#monsterOut .frog-b.blue { width: 20px; height: 20px; min-width: 20px; }
+#monsterOut .frog-bq { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+#monsterOut .frog-bq i { font-style: normal; font-weight: 800; font-size: 11px; color: #b9a98c; }
+#monsterOut .frog-row { align-items: center; gap: 6px; }
+#monsterOut .frog-row > span:first-child { flex: 0 1 auto; display: inline-flex; align-items: center; gap: 4px; }
+#monsterOut .frog-row > span:last-child { flex: 0 1 auto; display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 4px; text-align: right; }
+#monsterOut .frog-co-h { align-items: center; }
+#monsterOut .frog-qv .frog-bq { margin-top: 2px; }
+@media (max-width: 340px) {
+  #monsterOut .frog-b { width: 18px; height: 18px; min-width: 18px; font-size: 10.5px; }
+  #monsterOut .frog-b.blue { width: 18px; height: 18px; min-width: 18px; }
+  #monsterOut .frog-bq { gap: 2px; }
+}
+
+
+/* TAB_OPAQUE · 用户 2026-10-21「手机下滑的时候 tab 能把下面的内容透出来」→ tab 条必须完全不透明 */
+.top-tabs,
+.top-tabs.stuck {
+  background: #f7efe1 !important;   /* 硬不透明（页面底色一致 ✔） */
+  background-color: #f7efe1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+/* 保险：先铺一层伪元素当底色，任何情况下都不会透 */
+.top-tabs::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: #f7efe1;
+  z-index: -1;
+}
+.top-tabs { position: sticky; }
+
+/* SAFE_AREA_TABS · 用户 2026-10-21「刘海屏能够透露出下面的字」
+   ① 刘海/状态栏高度用 env(safe-area-inset-top) 顶开，tab 文字不会被刘海切
+   ② 底色强制不透明（已有 TAB_OPAQUE）+ 顶部安全区也铺满底色 */
+.top-tabs {
+  padding-top: env(safe-area-inset-top, 0px);
+  background: #f7efe1 !important;
+  background-color: #f7efe1 !important;
+}
+/* 刘海那条缝也铺底色，避免透出下面的字 */
+body { background-color: #f7efe1; }
+
+
 /* ZLDQ_CSS · 名家图库（用户 2026-10-21） */
 .ro-zldq { margin: 10px 0 4px; }
 .ro-zldq-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 4px 0 10px; }
@@ -17966,9 +18020,9 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 <script>
 /* __FROG_LAB_JS__ 青蛙家园功能中心：全部用页面已有 DRAW_HISTORY 现算，不联网不收费 */
-(function () {
-  var out = document.getElementById('frogOut');
-  var wrap = document.getElementById('frogLab');
+function initFrogLab(outId, wrapId, gidId, monsterMode) {
+  var out = document.getElementById(outId);
+  var wrap = document.getElementById(wrapId);
   if (!out || !wrap) return;
   function hist(g) { try { return ((DRAW_HISTORY.games || {})[g] || []).slice(0, 100); } catch (e) { return []; } }
   function redsOf(d) { var a = (d && d.areas) || {}; return (a.red || a.front || a.main || []).map(Number); }
@@ -18260,7 +18314,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   var lastFn = '';
   /* __FROG_GID__ 彩种药丸（功能中心顶部，只这一套）：
      切换后 → 记忆里上一次点的功能【按新彩种重算】；还没点过功能 → 结果区清空并写上当前彩种。 */
-  var gidWrap = document.getElementById('frogGid');
+  var gidWrap = document.getElementById(gidId);
   function markGid() {
     if (!gidWrap) return;
     [].slice.call(gidWrap.querySelectorAll('[data-gid]')).forEach(function (b) {
@@ -18283,7 +18337,10 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
   [].slice.call(wrap.querySelectorAll('.frog-btn')).forEach(function (b) {
     b.onclick = function () { var k = b.getAttribute('data-frog'); if (FNS[k]) { lastFn = k; FNS[k](); } };
   });
-})();
+  if(monsterMode){lastFn='monster';var panel=document.getElementById('monsterHome');if(panel)panel.addEventListener('toggle',function(){if(panel.open)monster();});}
+}
+initFrogLab('frogOut','frogLab','frogGid',false);
+initFrogLab('monsterOut','monsterLab','monsterGid',true);
 </script>
 
 
