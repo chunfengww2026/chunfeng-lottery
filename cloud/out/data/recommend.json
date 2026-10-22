@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-23 02:27",
+ "updated": "2026-10-23 03:03",
  "red": 3,
- "black": 0,
- "rate": "100.0%",
+ "black": 1,
+ "rate": "75.0%",
  "unfinished": 2,
  "history": [
   {
@@ -145,10 +145,10 @@
      "matchNo": "周四004",
      "teams": "尤文图斯 vs 雷恩",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "1:2",
+     "result": "black",
      "confidence": 61.4,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792598700000,
      "league": "欧罗巴",
      "odds": 1.55,
