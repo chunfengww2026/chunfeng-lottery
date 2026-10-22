@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 08:20
+   更新时间：2026-10-22 09:01
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-22 08:20",
+ "updated": "2026-10-22 09:01",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -223,6 +223,48 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/2729f480-71d2-418e-a667-afd77a7602ee1792630635986.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/2729f480-71d2-418e-a667-afd77a7602ee1792630635986.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]财富密码。",
+     "url": "",
+     "at": "2026-10-22T01:01:24.455Z",
+     "pubAt": "2026-10-22T00:57:00.000Z",
+     "pubMs": 1792630620000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792630884455,
+     "seenMs": 1792630884455,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/47d1fe8c-fc0b-4fe5-87fb-110d0b70f9bb1792630632859.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/47d1fe8c-fc0b-4fe5-87fb-110d0b70f9bb1792630632859.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]财富密码。",
+     "url": "",
+     "at": "2026-10-22T01:01:24.455Z",
+     "pubAt": "2026-10-22T00:57:00.000Z",
+     "pubMs": 1792630620000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792630884455,
+     "seenMs": 1792630884455,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-22/585a4405-a3a6-4d27-ab8b-8ba1b73ee4691792630639826.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-22/585a4405-a3a6-4d27-ab8b-8ba1b73ee4691792630639826.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26281期]财富密码。",
+     "url": "",
+     "at": "2026-10-22T01:01:24.455Z",
+     "pubAt": "2026-10-22T00:57:00.000Z",
+     "pubMs": 1792630620000,
+     "pubSrc": "page",
+     "nextAt": 1792674900000,
+     "atMs": 1792630884455,
+     "seenMs": 1792630884455,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-21/e193cb0b-27bb-4e62-9a3e-b109fb0287391792598270451.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-21/e193cb0b-27bb-4e62-9a3e-b109fb0287391792598270451.jpg?imageMogr2/thumbnail/360x",
@@ -1134,9 +1176,9 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AIKKfVJmKbgXUHp5po9v2sx%2Fno4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=jtiHP0p8R4OmjZZ5BkdovypJw7s%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=Rbu2xdzDfTmb7Cf71d28wolHCLU%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=Rbu2xdzDfTmb7Cf71d28wolHCLU%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b22348a32f7d4f9688519abed4902cc4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=QkP1x9fyPKfQRa3J28ncinwipPk%3D",
      "title": "快乐八选七胆托4码，一张票8元，连续守，也有中出时。见回夲票。",
      "url": "http://toutiao.com/preview_article/?pgc_id=1879628554079236",
      "at": "2026-10-21T16:00:38.833Z",
@@ -1147,9 +1189,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-22T00:20:21.649Z",
+     "seen": "2026-10-22T01:00:49.265Z",
      "whenMs": 1792553476000,
-     "seenMs": 1792628421649,
+     "seenMs": 1792630849265,
      "drawMs": 1792589400000,
      "nextMs": 1792589400000,
      "atMs": 1792598438833,
@@ -1161,36 +1203,6 @@ const XYSP_DATA = {
      "author": "勇敢的风铃lI",
      "when": "2026-10-21 11:31:16",
      "postId": "1879628554079236",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=w6lpPFQOQi5yfnbPECgIk51eH3s%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/35584a4689df46fabed81ecb63627641~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=PL4muBy7SabP%2FbLgVRQs085Cfng%3D",
-     "title": "#彩票“快乐8”怎么玩儿#\n #彩票“快乐8”怎么玩儿#\n快乐8是福彩基诺彩票，每天开奖，号码01–80，每期开出20个号，一注2元。\n玩法分选一到选十，大家最爱玩选十：选10个号，就算一个号都没中也有奖，全中最高500万。\n简单捋一下：\n",
-     "url": "sslocal://thread_detail?fid=1713678925241384&tid=1879617293204480",
-     "at": "2026-10-21T16:00:38.833Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-22T00:20:21.649Z",
-     "whenMs": 1792542737000,
-     "seenMs": 1792628421649,
-     "drawMs": 1792589400000,
-     "nextMs": 1792589400000,
-     "atMs": 1792598438833,
-     "drawAt": "2026-10-21T13:30:00.000Z",
-     "nextAt": 1792589400000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-22T16:00:38.833Z",
-     "rule": "first-capture-24h",
-     "author": "豆包陪我守号追梦",
-     "when": "2026-10-21 08:32:17",
-     "postId": "1879617293204480",
      "px": 132300
     }
    ]
@@ -1386,6 +1398,9 @@ const XYSP_DATA = {
   "/2026-09-25/aa6e66eb-b1ac-4ee5-9ee0-d644c03231d51790351825170.jpg": 1792618968623,
   "/2026-09-25/c331532b-b2cb-4caa-b431-8cf92675c0861790326623984.jpg": 1792618968623,
   "/2026-09-22/5343bec1-7e6c-4f93-8ab3-5574ca576a041790056996795.jpg": 1792618968623,
-  "/2026-09-20/b446ecd1-2ea6-4c38-9e90-881a9b9836d11789914393292.jpg": 1792618968623
+  "/2026-09-20/b446ecd1-2ea6-4c38-9e90-881a9b9836d11789914393292.jpg": 1792618968623,
+  "/2026-10-22/2729f480-71d2-418e-a667-afd77a7602ee1792630635986.jpg": 1792630884455,
+  "/2026-10-22/47d1fe8c-fc0b-4fe5-87fb-110d0b70f9bb1792630632859.jpg": 1792630884455,
+  "/2026-10-22/585a4405-a3a6-4d27-ab8b-8ba1b73ee4691792630639826.jpg": 1792630884455
  }
 };

@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 08:00 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 08:40 */
 const JC_DATA = {
- "updated": "2026-10-22 08:00",
+ "updated": "2026-10-22 08:40",
  "stat": {
   "total": 13,
-  "upcoming": 1,
-  "live": 0,
+  "upcoming": 0,
+  "live": 1,
   "finished": 12,
-  "withScore": 12,
+  "withScore": 13,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -1336,7 +1336,10 @@ const JC_DATA = {
     "name": "弗鲁米嫩",
     "rank": null
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1346,9 +1349,9 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.9,
+      "home": 0.92,
       "line": "半球/一球",
-      "away": 0.95
+      "away": 0.87
      }
     },
     "europe": {
@@ -1358,9 +1361,9 @@ const JC_DATA = {
       "away": 3.2
      },
      "live": {
-      "home": 1.65,
-      "draw": 3.6,
-      "away": 5.75
+      "home": 1.7,
+      "draw": 3.5,
+      "away": 5.5
      }
     },
     "overunder": {
@@ -1370,7 +1373,7 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 1.1,
+      "line": 1.02,
       "over": 2,
       "under": 0.77
      }
@@ -1379,14 +1382,14 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 57.3,
+    "confidence": 55.7,
     "prob": {
-     "home": 57.3,
-     "draw": 26.3,
-     "away": 16.4
+     "home": 55.7,
+     "draw": 27.1,
+     "away": 17.2
     },
     "clear": true,
-    "margin": 5.8,
+    "margin": 5.6,
     "rqLine": "半球/一球",
     "type": "three"
    },
@@ -1395,21 +1398,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.75,
     "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.95,
+    "upWater": 0.92,
+    "downWater": 0.87,
     "openHandicap": -0.25,
     "openUpWater": 0.87,
     "openDownWater": 0.97,
-    "totalWater": 1.85,
-    "theoryUpPercent": "51.35",
-    "theoryDownPercent": "48.65",
+    "totalWater": 1.79,
+    "theoryUpPercent": "48.60",
+    "theoryDownPercent": "51.40",
     "canWater": true,
     "handicapChange": {
      "type": "降盘升水",
      "initHandicap": -0.25,
      "nowHandicap": -0.75,
      "initUpWater": 0.87,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.92,
      "initLine": "平手/半球",
      "nowLine": "半球/一球"
     },
@@ -1418,9 +1421,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
