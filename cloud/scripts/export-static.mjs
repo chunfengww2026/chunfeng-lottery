@@ -10895,7 +10895,7 @@ ${p3dHtml}
   <div class="grid-2-col" id="ro-zn-row">
   <details class="ro-zn" id="ro-zx-news">
     <summary class="ro-zn-head">
-      <span class="ro-zn-h2">智讯</span>
+      <span class="ro-zn-h2"><span class="entry-icon" aria-hidden="true">📰</span> 资讯</span>
       <span class="ro-zn-sub">开奖 · 结果 · 资讯</span>
       <span class="ro-zn-arrow" aria-hidden="true"></span>
     </summary>
@@ -18536,6 +18536,7 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
 
 
 
