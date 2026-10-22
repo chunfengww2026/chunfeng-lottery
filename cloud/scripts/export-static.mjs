@@ -10755,7 +10755,7 @@ ${kjhHtml}
   <details class="ro-hist" id="ro-hist">
     <summary class="ro-hist-head">
       <span class="ro-hist-h2"><span class="entry-icon" aria-hidden="true">🏆</span> 中奖</span>
-      <span class="ro-hist-sub">自 ${HIST_FROM_TXT} 起 · 中奖才公布</span>
+      <span class="ro-hist-sub">（2026.10.15此网址诞生）</span>
       <span class="ro-hist-arrow" aria-hidden="true"></span>
     </summary>
     <div class="ro-hist-body">
@@ -12141,7 +12141,7 @@ ${RO_RENDER_SCRIPT}
         在 document 上挂一次委托，服务本页的 .ro-xj-row[data-ex-key]。
      ⚠️ 不能用裸 <button>（页面不变量：button 标签 = 0），
         行本身是 <a role="button" tabindex="0">（见 buildExpertsHtml）。
-     ⚠️ 必须放在本模板的 <script>document.addEventListener("click",function(e){if(!e.target.matches(".handdraw-sheet"))return;var overlay=document.createElement("div");overlay.style.cssText="position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:10px";var im=document.createElement("img");im.src=e.target.src;im.alt=e.target.alt;im.style.cssText="max-width:96vw;max-height:96vh;object-fit:contain";overlay.appendChild(im);overlay.setAttribute("role","dialog");overlay.setAttribute("aria-label","手绘参考图，点击关闭");document.body.appendChild(overlay);function close(){overlay.remove();document.removeEventListener("keydown",esc);}function esc(e){if(e.key==="Escape")close();}overlay.onclick=close;document.addEventListener("keydown",esc);});</script></body> 之前（模板字符串内部）。 -->
+     ⚠️ 必须放在本模板的 </body> 之前（模板字符串内部）。 -->
 <script>
 (function () {
   try {
@@ -18375,13 +18375,13 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       row('复盘等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
       row('已复盘 / 杀对率',settled.length+' 条 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
       '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
-      (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
+      (current?monsterRow('本期已留档'+(digital?' · '+positionNames[monsterPosition]:''),current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div><div class="frog-chip" role="button" aria-disabled="true">本期已生成 · 下期开奖后可再生成</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
       (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
       settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期'+(digital?' · '+positionNames[Number(r.position)||0]:'')+' · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+monsterRow('留档杀号',r.kills)+monsterRow('杀对（未开出）',r.correct)+monsterRow('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
       '<div class="frog-tip">按访客独立生成的娱乐杀号；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
     var arenaHost=out.querySelector('.monster-arena');
     if(arenaHost&&window.MonsterArena){arenaHost.arenaState=window.MonsterArena.mount(arenaHost);}
-    var maxPick=function(){return Math.min(digital?positionMax()-1:16,16);};
+    var maxPick=function(){return Math.min(digital?positionMax()-1:16,[5,8,10,12,16][Math.min(4,(window.MonsterArena?window.MonsterArena.level():1)-1)]);};
     var positionSelect=out.querySelector('#monsterPosition');if(positionSelect)positionSelect.onchange=function(){monsterPosition=Number(positionSelect.value);monster();};
     var fireBox=out.querySelector('#frogMonsterFire');
     if(fireBox){
@@ -18389,7 +18389,7 @@ function initFrogLab(outId, wrapId, gidId, monsterMode) {
       [5,8,10,12,16].forEach(function(n){var opt=document.createElement('option');opt.value=n;opt.textContent=n+' 个杀号';opt.disabled=n>maxPick();select.appendChild(opt);});
       monsterCount=Math.min(monsterCount,maxPick());select.value=monsterCount;select.onchange=function(){monsterCount=Number(select.value);updatePrice();};fireBox.parentNode.insertBefore(select,fireBox);
       var walletNote=document.createElement('div');walletNote.className='frog-tip';fireBox.parentNode.insertBefore(walletNote,fireBox);
-      function updatePrice(){var coins=window.MonsterArena.progress().coins,cost=monsterCount*10;fireBox.textContent='兑换'+monsterCount+'个杀号 · '+cost+'游戏金币';walletNote.textContent='当前 '+coins+' 金币；打怪或做生意获取，不充值、不兑换现金。同一期每个位置仅兑换一次。'+(digital?'本位置可选数量受号码范围限制。':'');fireBox.setAttribute('aria-disabled',coins<cost?'true':'false');}
+      function updatePrice(){var coins=window.MonsterArena.progress().coins,cost=monsterCount*10;fireBox.textContent='生成杀号 · '+monsterCount+'个 / '+cost+'游戏金币';walletNote.textContent='Lv.'+window.MonsterArena.level()+' · 当前 '+coins+' 金币；打怪或做生意获取，不充值、不兑换现金。同一期每个位置仅兑换一次。'+(digital?'本位置可选数量受号码范围限制。':'');fireBox.setAttribute('aria-disabled',coins<cost?'true':'false');}
       updatePrice();if(arenaHost)arenaHost.addEventListener('arena-wallet',updatePrice);
       if(arenaHost)arenaHost.addEventListener('arena-level',function(){[].slice.call(select.options).forEach(function(o){o.disabled=Number(o.value)>maxPick();});});
     }
@@ -18470,7 +18470,7 @@ try {
   });
 } catch (err) { }
 </script>
-</body>
+<script>document.addEventListener("click",function(e){if(!e.target.matches(".handdraw-sheet"))return;var overlay=document.createElement("div");overlay.style.cssText="position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:10px";var im=document.createElement("img");im.src=e.target.src;im.alt=e.target.alt;im.style.cssText="max-width:96vw;max-height:96vh;object-fit:contain";overlay.appendChild(im);overlay.setAttribute("role","dialog");overlay.setAttribute("aria-label","手绘参考图，点击关闭");document.body.appendChild(overlay);function close(){overlay.remove();document.removeEventListener("keydown",esc);}function esc(e){if(e.key==="Escape")close();}overlay.onclick=close;document.addEventListener("keydown",esc);});</script></body>
 </html>`;
 
 /* ============================================================
@@ -18562,6 +18562,9 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
+
+
 
 
 
