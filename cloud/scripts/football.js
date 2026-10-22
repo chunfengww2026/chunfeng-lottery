@@ -82,7 +82,7 @@ const FOOTBALL_DATA = {
       "away": 36.2
      },
      "clear": false,
-     "margin": 11.8
+     "margin": 11.9
     },
     "result": null
    },
@@ -957,7 +957,7 @@ const FOOTBALL_DATA = {
       "draw": 50.5,
       "away": 33.3
      },
-     "clear": true,
+     "clear": false,
      "margin": 10
     },
     "result": null
@@ -1291,8 +1291,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.97,
-       "under": 0.9
+       "over": 0.96,
+       "under": 0.91
       },
       "live": {
        "line": "1",
@@ -2620,7 +2620,7 @@ const FOOTBALL_DATA = {
     "result": {
      "actual": "draw",
      "actualLabel": "平局",
-     "hit": false,
+     "hit": true,
      "score": "0 - 0"
     }
    },
@@ -2971,7 +2971,7 @@ const FOOTBALL_DATA = {
       "away": 19.2
      },
      "clear": true,
-     "margin": 9.8
+     "margin": 10.8
     },
     "result": {
      "actual": "home",
@@ -3196,8 +3196,8 @@ const FOOTBALL_DATA = {
     "gid": 582696,
     "kind": "live",
     "league": {
-     "name": "欧罗巴",
-     "color": "cc9900"
+     "name": "阿後備",
+     "color": "5ca39a"
     },
     "time": "2026-10-23 00:45:00",
     "minute": 88,
@@ -3259,25 +3259,25 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 582699,
+    "gid": 586378,
     "kind": "live",
     "league": {
-     "name": "欧罗巴",
-     "color": "cc9900"
+     "name": "阿後備",
+     "color": "5ca39a"
     },
     "time": "2026-10-23 00:45:00",
     "minute": 88,
     "home": {
-     "name": "阿拉特阿美尼亚",
+     "name": "戈多伊克鲁兹后备队",
      "score": 0,
      "red": 0,
-     "rank": 2
+     "rank": 0
     },
     "away": {
      "name": "阿尔克马尔",
      "score": 4,
      "red": 0,
-     "rank": 2
+     "rank": 0
     },
     "odds": {
      "asian": {
@@ -3517,7 +3517,9 @@ const FOOTBALL_DATA = {
      "hit": false,
      "score": "0 - 0"
     }
-   },
+   }
+  ],
+  "finished": [
    {
     "gid": 586377,
     "kind": "live",
@@ -4479,84 +4481,6 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 586248,
-    "kind": "finished",
-    "league": {
-     "name": "阿联杯",
-     "color": "1ba578"
-    },
-    "time": "2026-10-22 21:00:00",
-    "minute": 0,
-    "home": {
-     "name": "阿尔贾兹拉",
-     "score": 1,
-     "red": 0,
-     "rank": 1
-    },
-    "away": {
-     "name": "阿积曼",
-     "score": 0,
-     "red": 0,
-     "rank": 7
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -1.5,
-       "line": "0.98",
-       "away": 0.84
-      },
-      "live": {
-       "home": -0.5,
-       "line": "0.74",
-       "away": 1.08
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.89,
-       "under": 0.91
-      },
-      "live": {
-       "line": "1.25",
-       "over": 0.97,
-       "under": 0.83
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.3,
-       "draw": 7.2,
-       "away": 4.75
-      },
-      "live": {
-       "home": 1.74,
-       "draw": 6.9,
-       "away": 2.5
-      }
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 51.3,
-     "prob": {
-      "home": 51.3,
-      "draw": 12.9,
-      "away": 35.7
-     },
-     "clear": true,
-     "margin": 12
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
-   },
-   {
     "gid": 586247,
     "kind": "finished",
     "league": {
@@ -4632,6 +4556,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "平局",
      "hit": false,
      "score": "1 - 1"
+    }
+   },
+   {
+    "gid": 586248,
+    "kind": "finished",
+    "league": {
+     "name": "阿联杯",
+     "color": "1ba578"
+    },
+    "time": "2026-10-22 21:00:00",
+    "minute": 0,
+    "home": {
+     "name": "阿尔贾兹拉",
+     "score": 1,
+     "red": 0,
+     "rank": 1
+    },
+    "away": {
+     "name": "阿积曼",
+     "score": 0,
+     "red": 0,
+     "rank": 7
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1.5,
+       "line": "0.98",
+       "away": 0.84
+      },
+      "live": {
+       "home": -0.5,
+       "line": "0.74",
+       "away": 1.08
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.89,
+       "under": 0.91
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.97,
+       "under": 0.83
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.3,
+       "draw": 7.2,
+       "away": 4.75
+      },
+      "live": {
+       "home": 1.74,
+       "draw": 6.9,
+       "away": 2.5
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 51.3,
+     "prob": {
+      "home": 51.3,
+      "draw": 12.9,
+      "away": 35.7
+     },
+     "clear": true,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
     }
    },
    {
@@ -5469,84 +5471,6 @@ const FOOTBALL_DATA = {
     }
    },
    {
-    "gid": 586528,
-    "kind": "finished",
-    "league": {
-     "name": "约旦甲",
-     "color": "8844ff"
-    },
-    "time": "2026-10-22 23:00:00",
-    "minute": 0,
-    "home": {
-     "name": "阿尔萨瑞",
-     "score": 1,
-     "red": 0,
-     "rank": 10
-    },
-    "away": {
-     "name": "傑拉什",
-     "score": 1,
-     "red": 0,
-     "rank": 1
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.5,
-       "line": "0.76",
-       "away": 1
-      },
-      "live": {
-       "home": 0.25,
-       "line": "0.71",
-       "away": 1.05
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 1.06,
-       "under": 0.7
-      },
-      "live": {
-       "line": "1",
-       "over": 0.81,
-       "under": 0.95
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 3.05,
-       "draw": 2,
-       "away": 3.4
-      },
-      "live": {
-       "home": 3.8,
-       "draw": 2.53,
-       "away": 2.16
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 41.3,
-     "prob": {
-      "home": 23.5,
-      "draw": 35.2,
-      "away": 41.3
-     },
-     "clear": false,
-     "margin": 12.1
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
-    }
-   },
-   {
     "gid": 586459,
     "kind": "finished",
     "league": {
@@ -5622,6 +5546,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "主胜",
      "hit": false,
      "score": "2 - 0"
+    }
+   },
+   {
+    "gid": 586528,
+    "kind": "finished",
+    "league": {
+     "name": "约旦甲",
+     "color": "8844ff"
+    },
+    "time": "2026-10-22 23:00:00",
+    "minute": 0,
+    "home": {
+     "name": "阿尔萨瑞",
+     "score": 1,
+     "red": 0,
+     "rank": 10
+    },
+    "away": {
+     "name": "傑拉什",
+     "score": 1,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.5,
+       "line": "0.76",
+       "away": 1
+      },
+      "live": {
+       "home": 0.25,
+       "line": "0.71",
+       "away": 1.05
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 1.06,
+       "under": 0.7
+      },
+      "live": {
+       "line": "1",
+       "over": 0.81,
+       "under": 0.95
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 3.05,
+       "draw": 2,
+       "away": 3.4
+      },
+      "live": {
+       "home": 3.8,
+       "draw": 2.53,
+       "away": 2.16
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 41.3,
+     "prob": {
+      "home": 23.5,
+      "draw": 35.2,
+      "away": 41.3
+     },
+     "clear": false,
+     "margin": 12.1
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    },
    {
