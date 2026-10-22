@@ -1,11 +1,25 @@
 {
- "updated": "2026-10-21T18:10:15.126Z",
+ "updated": "2026-10-22T18:25:01.660Z",
  "entries": [],
  "seen": {},
  "sources": [
   {
    "gid": "ssq",
-   "issue": "2026121",
+   "issue": "2026122",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "ssq",
+   "issue": "2026122",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "dlt",
+   "issue": "26121",
    "status": 200,
    "count": 0,
    "available": true
@@ -19,21 +33,42 @@
   },
   {
    "gid": "kl8",
-   "issue": "2026281",
+   "issue": "2026282",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "kl8",
+   "issue": "2026282",
    "status": 200,
    "count": 0,
    "available": true
   },
   {
    "gid": "fc3d",
-   "issue": "2026281",
+   "issue": "2026282",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "fc3d",
+   "issue": "2026282",
    "status": 200,
    "count": 0,
    "available": true
   },
   {
    "gid": "pl3",
-   "issue": "26281",
+   "issue": "26282",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "pl3",
+   "issue": "26282",
    "status": 200,
    "count": 0,
    "available": true
