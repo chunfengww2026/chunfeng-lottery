@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-23 00:28",
+ "updated": "2026-10-23 00:29",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -58,7 +58,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五009",
@@ -105,7 +105,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五010",
@@ -160,7 +160,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五011",
@@ -215,7 +215,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五007",
@@ -270,7 +270,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五008",
@@ -325,7 +325,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五006",
@@ -380,7 +380,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五004",
@@ -435,7 +435,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五005",
@@ -490,7 +490,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五003",
@@ -545,7 +545,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五002",
@@ -600,7 +600,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周五001",
@@ -655,7 +655,7 @@ const JC_HISTORY = {
    "result": "",
    "hit": false,
    "matched": false,
-   "at": "2026-10-23 00:28"
+   "at": "2026-10-23 00:29"
   },
   {
    "code": "周四013",
