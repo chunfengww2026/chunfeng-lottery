@@ -1,6 +1,23 @@
 {
- "updated": "2026-10-22T07:47:03.703Z",
+ "updated": "2026-10-22T08:30:33.388Z",
  "entries": [
+  {
+   "id": "1879737802488908",
+   "gid": "ssq",
+   "cat": "双色球",
+   "author": "追光者",
+   "title": "双色球2026121期蓝球预测 断更好久，终于回归了，希望我的回归能给朋友们带来好运，祝大家早日上岸，中大奖 双色球2026121期蓝号，我看好奇数。 三码围蓝:01 03 05 两码围蓝:01 03",
+   "issue": "2026121",
+   "url": "http://toutiao.com/preview_article/?pgc_id=1879737802488908",
+   "excerpt": "",
+   "images": [
+    "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/925ef92fb1064196a967e47fbe451f65~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=oWNcgs7kwmWjBzyOGgVApaxG7hI%3D",
+    "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/925ef92fb1064196a967e47fbe451f65~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=uKt6zqBIvnCghEbay7Jqw5dtuE0%3D"
+   ],
+   "publishedAt": "2026-10-22T08:27:44.000Z",
+   "firstSeen": "2026-10-22T08:30:33.388Z",
+   "expiresAt": "2026-10-24T08:27:44.000Z"
+  },
   {
    "id": "1879719478042826",
    "gid": "ssq",
@@ -52,7 +69,8 @@
  "seen": {
   "ssq|1879692394799115": "2026-10-21T20:34:40.038Z",
   "ssq|1879714620405764": "2026-10-22T02:21:24.649Z",
-  "ssq|1879719478042826": "2026-10-22T04:01:58.751Z"
+  "ssq|1879719478042826": "2026-10-22T04:01:58.751Z",
+  "ssq|1879737802488908": "2026-10-22T08:30:33.388Z"
  },
  "sources": [
   {
@@ -66,7 +84,7 @@
    "gid": "ssq",
    "issue": "2026121",
    "status": 200,
-   "count": 1,
+   "count": 2,
    "available": true
   },
   {
