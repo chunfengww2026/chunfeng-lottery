@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T11:32:20.280Z",
+ "updated": "2026-10-22T12:11:45.017Z",
  "entries": [
   {
    "id": "https://m.cz89.com/read_10914065.htm",
@@ -133,7 +133,8 @@
   },
   {
    "url": "https://www.17500.cn/arts/detail-4925224.html",
-   "status": 429,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
