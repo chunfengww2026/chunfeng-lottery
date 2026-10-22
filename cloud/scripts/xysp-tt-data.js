@@ -6,15 +6,15 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-22 20:11:45
+   更新时间：2026-10-22 20:49:06
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-22 20:11:45",
+ "updated": "2026-10-22 20:49:06",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AL7rYfT1DNqpzVqIP0MPqvQmV28%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=AL7rYfT1DNqpzVqIP0MPqvQmV28%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=RTTvKNif6Ouk3tm8hHEySsF%2F0QE%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=RTTvKNif6Ouk3tm8hHEySsF%2F0QE%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=jN7cW%2BLccyANCRQ2t79fcYmw01g%3D",
    "title": "99倍3D票再现江湖\n\n再来一波3D、排列三、排列五晒票\n#排列5直播# #排列3晒票# #排列3豹子号# #排列3实票# #福彩# #福彩3D# #排列三# #排列五# \n\n声明：彩票开奖无任何可预测走势，本期晒票不构成任何购彩参考建议，",
    "url": "sslocal://thread_detail?fid=1861849273717801&tid=1879739457435779",
@@ -28,9 +28,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
-   "seenMs": 1792664855183,
+   "seenMs": 1792673346497,
    "drawMs": 1792674900000,
    "nextMs": 1792674900000,
    "atMs": 1792660146283,
@@ -60,7 +60,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -92,7 +92,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -124,7 +124,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -156,7 +156,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -188,7 +188,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -205,8 +205,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5a4d059b2cb745d5a0a6d2b4b53db5a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=nehkluSvRIddYYfdUty%2ForUahqc%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5a4d059b2cb745d5a0a6d2b4b53db5a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=nehkluSvRIddYYfdUty%2ForUahqc%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5a4d059b2cb745d5a0a6d2b4b53db5a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=J3s6XsnDBfAvhmjD13R9dyoc1ZU%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5a4d059b2cb745d5a0a6d2b4b53db5a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=J3s6XsnDBfAvhmjD13R9dyoc1ZU%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bd57cb4d24a46afbb73b32db27bb39f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=jN7cW%2BLccyANCRQ2t79fcYmw01g%3D",
    "title": "99倍3D票再现江湖\n\n再来一波3D、排列三、排列五晒票\n#排列5直播# #排列3晒票# #排列3豹子号# #排列3实票# #福彩# #福彩3D# #排列三# #排列五# \n\n声明：彩票开奖无任何可预测走势，本期晒票不构成任何购彩参考建议，",
    "url": "sslocal://thread_detail?fid=1861849273717801&tid=1879739457435779",
@@ -220,9 +220,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
-   "seenMs": 1792664855183,
+   "seenMs": 1792673346497,
    "drawMs": 1792674900000,
    "nextMs": 1792674900000,
    "atMs": 1792660146283,
@@ -252,7 +252,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-10-22T10:27:35.183Z",
+   "seen": "2026-10-22T12:49:06.497Z",
    "whenMs": 1792659242000,
    "seenMs": 1792664855183,
    "drawMs": 1792674900000,
@@ -560,6 +560,9 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/2301e41f4fde4c078844405e9ba09892~tplv-26tn0yjwph-cspd-v1.jpg": 1792660146283,
   "/tos-cn-i-6w9my0ksvp/c1366ba201c04e22a9b0ed769e483eb0~tplv-26tn0yjwph-cspd-v1.jpg": 1792671105056,
   "/tos-cn-i-6w9my0ksvp/4c1398e7775741f292d20e68596547a5~tplv-26tn0yjwph-cspd-v1.jpg": 1792671105056,
-  "/tos-cn-i-6w9my0ksvp/c9682f4183d84c0faeb0b6f45d17428b~tplv-26tn0yjwph-cspd-v1.jpg": 1792671105056
+  "/tos-cn-i-6w9my0ksvp/c9682f4183d84c0faeb0b6f45d17428b~tplv-26tn0yjwph-cspd-v1.jpg": 1792671105056,
+  "/tos-cn-i-6w9my0ksvp/c64d8d2ef53c40acbc3eb5e082e663ac~tplv-26tn0yjwph-cspd-v1.jpg": 1792673346497,
+  "/tos-cn-i-6w9my0ksvp/7cece15efdad4df68548746fc135bbd4~tplv-26tn0yjwph-cspd-v1.jpg": 1792673346497,
+  "/tos-cn-i-6w9my0ksvp/eb64458485c84ac3bffa3be9ebd6b58e~tplv-26tn0yjwph-cspd-v1.jpg": 1792673346497
  }
 };

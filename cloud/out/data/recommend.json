@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-22 20:13",
+ "updated": "2026-10-22 20:50",
  "red": 3,
  "black": 1,
  "rate": "75.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-22 20:13",
-   "finishTime": 1792671180000,
+   "dateStr": "2026-10-22 20:50",
+   "finishTime": 1792673400000,
    "verdict": "",
    "matches": [
     {
@@ -16,11 +16,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 63.9,
+     "confidence": 67.6,
      "status": "pending",
-     "finishTime": 1792671180000,
+     "finishTime": 1792673400000,
      "league": "欧罗巴",
-     "odds": 1.48,
+     "odds": 1.4,
      "time": "2026-10-23 00:45"
     },
     {
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 59.3,
      "status": "pending",
-     "finishTime": 1792671180000,
+     "finishTime": 1792673400000,
      "league": "荷甲",
      "odds": 1.6,
      "time": "2026-10-24 02:00"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 68.5,
      "status": "pending",
-     "finishTime": 1792671180000,
+     "finishTime": 1792673400000,
      "league": "德甲",
      "odds": 1.38,
      "time": "2026-10-24 02:30"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 61.3,
      "status": "pending",
-     "finishTime": 1792671180000,
+     "finishTime": 1792673400000,
      "league": "英冠",
      "odds": 1.53,
      "time": "2026-10-24 03:00"
