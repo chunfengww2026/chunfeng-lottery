@@ -65,10 +65,8 @@ import {
    ⚠️ 视频 2.82 MB 必须懒加载（preload="none" + 聊天框第一次打开才 load()），
       所以 blessing.mp4 不在首屏请求里；但它【必须】同步进发布名单
       （cloud/sync-cloud.mjs 的 FROM_ROOT + workflow 的 site/ 拷贝），漏了就线上 404。 */
-const CHAT_HTML_SHARE = CHAT_HTML
-  .replace('class="cf-panel"', 'class="cf-panel cf-video-on"')
-  .replace(/<!-- __CF_VIDEO_SLOT__[\s\S]*?-->/, CHAT_VIDEO_HTML);
-const CHAT_JS_SHARE = CHAT_JS + CHAT_VIDEO_JS;
+const CHAT_HTML_SHARE = CHAT_HTML.replace(/<!-- __CF_VIDEO_SLOT__[\s\S]*?-->/, '');
+const CHAT_JS_SHARE = CHAT_JS + '<script>' + fs.readFileSync(path.join(ROOT,'status-video.js'),'utf8') + '</script>';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
 /* 【走势图 · 内联片段】用户 2026-10-17：
      「留在近30期走势预选参考里面. 删除单独走势图独立页」
@@ -17101,6 +17099,16 @@ body { background-color: #f7efe1; }
 .arena-pad { text-align:center; } .arena-pad>div { display:flex; gap:4px; }
 .arena-controls .arena-attack { padding:12px; background:#1a8c5a; color:white; }
 #monsterPickCount { padding:8px; margin:8px 0; max-width:100%; }
+.status-video-open { position:absolute; right:14px; top:14px; width:70px; height:62px; border:1px solid #dfc175; border-radius:10px; background:linear-gradient(135deg,#ffeaa9,#efd78f); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; color:#89601b; }
+.status-video-open>span { font-size:24px; } .status-video-open>small { font-size:10px; }
+#roStatusCard .ro-st-txt { padding-right:85px; box-sizing:border-box; }
+#roStatusCard.ro-st-fixed .status-video-open { display:none; }
+.status-video-modal { position:fixed; inset:0; z-index:100001; background:rgba(0,0,0,.82); display:flex; align-items:center; justify-content:center; padding:14px; }
+.status-video-modal[hidden] { display:none; }
+.status-video-box { position:relative; width:min(92vw,430px); background:#111; border-radius:12px; padding:34px 8px 8px; }
+.status-video-box video { width:100%; max-height:78vh; display:block; }
+.status-video-close { position:absolute; right:10px; top:2px; font-size:28px; color:white; cursor:pointer; }
+.status-video-message { color:white; text-align:center; font-size:12px; }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
