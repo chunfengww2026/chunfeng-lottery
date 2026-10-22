@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-22 23:56 */
+/* 自动生成，请勿手动编辑 · 2026-10-22 23:58 */
 const JC_DATA = {
- "updated": "2026-10-22 23:56",
+ "updated": "2026-10-22 23:58",
  "stat": {
   "total": 25,
   "upcoming": 25,
@@ -11,8 +11,8 @@ const JC_DATA = {
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
+  "officialGate": true,
+  "officialCodes": 25,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
@@ -38,86 +38,9 @@ const JC_DATA = {
    },
    "score": null,
    "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1.02,
-      "line": "受平手/半球",
-      "away": 0.82
-     },
-     "live": {
-      "home": 1.02,
-      "line": "受半球",
-      "away": 0.77
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 3.2,
-      "draw": 3.5,
-      "away": 2.05
-     },
-     "live": {
-      "home": 4.1,
-      "draw": 3.8,
-      "away": 1.83
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.87,
-      "over": 2.5,
-      "under": 0.97
-     },
-     "live": {
-      "line": 0.97,
-      "over": 3,
-      "under": 0.87
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 51.9,
-    "prob": {
-     "home": 23.2,
-     "draw": 25,
-     "away": 51.9
-    },
-    "clear": true,
-    "margin": 5.4,
-    "rqLine": "受半球",
-    "type": "three"
-   },
-   "asianIndex": {
-    "line": "受半球",
-    "from": "live",
-    "handicap": 0.5,
-    "upSide": "away",
-    "upWater": 0.77,
-    "downWater": 1.02,
-    "openHandicap": 0.25,
-    "openUpWater": 0.82,
-    "openDownWater": 1.02,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
-    "canWater": false,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.5,
-     "initUpWater": 0.82,
-     "nowUpWater": 0.77,
-     "initLine": "受平手/半球",
-     "nowLine": "受半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "odds": null,
+   "reco": null,
+   "asianIndex": null,
    "status": "upcoming",
    "minute": 0,
    "liveScore": null
@@ -2580,9 +2503,9 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
-  "updated": "2026-10-22 23:23",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-22 23:58",
   "officialUpdate": "2026-10-22 21:40:00",
   "inSale": 25,
   "list": [
