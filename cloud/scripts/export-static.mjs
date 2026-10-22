@@ -1699,7 +1699,7 @@ function buildArticlesHtml() {
   } catch(e) {}
 
   const zldqHtml = '<details class="ro-zldq frog" id="ro-zldq">' +
-    '<summary class="frog-sum"><span class="frog-t">名家图库</span><span class="frog-go">点击展开 / 收起</span></summary>' +
+    '<summary class="frog-sum"><span class="frog-t">图库+字谜</span><span class="frog-go">点击展开 / 收起</span></summary>' +
     '<div class="ro-zldq-tip">点开图看具体内容</div>' +
     '<div class="ro-zldq-row">' +
     ZLDQ_ITEMS.map(function (x) {
@@ -18481,6 +18481,7 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
 
 
 
