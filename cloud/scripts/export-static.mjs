@@ -66,7 +66,7 @@ import {
       所以 blessing.mp4 不在首屏请求里；但它【必须】同步进发布名单
       （cloud/sync-cloud.mjs 的 FROM_ROOT + workflow 的 site/ 拷贝），漏了就线上 404。 */
 const CHAT_HTML_SHARE = CHAT_HTML.replace(/<!-- __CF_VIDEO_SLOT__[\s\S]*?-->/, '');
-const CHAT_JS_SHARE = CHAT_JS + '<script>' + fs.readFileSync(path.join(ROOT,'status-video.js'),'utf8') + '</script>';
+const CHAT_JS_SHARE = CHAT_JS + '<script>' + fs.readFileSync(new URL('./status-video.js',import.meta.url),'utf8') + '</script>';
 import * as P3D_SECTION_MOD from './p3d-section.mjs';
 /* 【走势图 · 内联片段】用户 2026-10-17：
      「留在近30期走势预选参考里面. 删除单独走势图独立页」
@@ -18528,6 +18528,7 @@ console.log('\n这个文件可以直接发微信/QQ，对方点开就能看（�
 console.log('页面里的推荐图由浏览器实时渲染，和本地 App 走同一条渲染路径。');
 
 // __BUMP__ 2026-10-19T16:06:39.838Z
+
 
 
 
