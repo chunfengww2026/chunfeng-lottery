@@ -998,7 +998,7 @@ GROUPS.forEach((group) => {
       /* 【核心加减法 · 用户 2026-10-20「这是资料里面的」】
          放在「推荐号」图下方、九算法上方 —— 这才是用户真正的核心算法 ✔
          20 码池 + 杀号池 + 金胆尾/银胆尾 + 大乐透跨彩种绝杀尾 */
-      if ((id === 'ssq' || id === 'dlt') && img.key === 'main') {
+      if (false && (id === 'ssq' || id === 'dlt') && img.key === 'main') {
         imgsHtml +=
           '<div style="margin:10px 0 4px">' +
           '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
@@ -1010,7 +1010,7 @@ GROUPS.forEach((group) => {
       /* 【九算法植入「推荐号」图格 · 用户 2026-10-20「植入到这个里面」】
          在双色球/大乐透的「推荐号」图下面直接嵌该彩种的九算法（?g=彩种）
          → 点目录里的「双色球推荐号 / 大乐透推荐号」，看到图 + 算法 ✔ */
-      if ((id === 'ssq' || id === 'dlt') && (img.key === 'main' || img.key === 'wuxing')) {
+      if (false && (id === 'ssq' || id === 'dlt') && (img.key === 'main' || img.key === 'wuxing')) {
         imgsHtml +=
           `<div class="px9-inline" style="margin:10px 0 4px">` +
           `<div style="font-size:12.5px;font-weight:700;color:#1a8c5a;margin:0 0 6px 2px">` +
@@ -1023,7 +1023,7 @@ GROUPS.forEach((group) => {
          3D / 快乐8 / 排列三 / 排列五 / 七乐彩 / 七星彩 → 图下面嵌民间算法（?g=彩种）
          用户给的 Python 那 10 种玩法都在 minjian-methods.html 里 */
       const MINJIAN_GAMES = ['fc3d', 'kl8', 'pl3', 'pl5', 'qlc', 'qxc'];
-      if (MINJIAN_GAMES.indexOf(id) >= 0 && img.key === 'main') {
+      if (false && MINJIAN_GAMES.indexOf(id) >= 0 && img.key === 'main') {
         imgsHtml +=
           '<div class="mj-inline" style="margin:10px 0 4px">' +
           '<div style="font-size:12.5px;font-weight:700;color:#c0392b;margin:0 0 6px 2px">' +
@@ -1362,8 +1362,8 @@ function frogPanelHtml() {
   return '<details class="frog" id="frogHome">' +
     '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-sub">（蝌蚪严父）</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
     '<div class="frog-body">' +
-    box('双色球 · 核心算法 20 码', pool.ssq, ssqBack, issue.ssq) +
-    box('大乐透 · 核心算法 20 码', pool.dlt, dltBack, issue.dlt) +
+    box('双色球 · 20码参考', pool.ssq, ssqBack, issue.ssq) +
+    box('大乐透 · 20码参考', pool.dlt, dltBack, issue.dlt) +
     box('快乐8 · 20码参考', pool.kl8 || [], [], issue.kl8) +
     '<div class="frog-sec"><details class="frog-mats">' +
     '<summary class="frog-mats-sum"><span class="frog-h">免费资料' + (arts.length ? ' · 共 ' + arts.length + ' 条' : '') + '</span>' +
@@ -1460,7 +1460,7 @@ function frogPanelHtml() {
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="omit">遗漏走势</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="lab">实验室</div>'
     + '</div><div class="frog-out" id="frogOut">点上面任意功能，结果显示在这里</div></div>'
-    + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
+    + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码仅供统计参考</div>' +
     '</div></details>';
 }
 
@@ -8926,7 +8926,7 @@ details.ro-xysp > summary, details.ro-aipick > summary { padding-top: 10px; padd
 .ro-top { padding-top: 12px !important; padding-bottom: 0 !important; }
 .ro-top h1 { margin-bottom: 0 !important; }
 /* ============================================================
-   __ALGO_LINE__ 顶部「算法探讨」（用户 2026-10-20）
+   __ALGO_LINE__ 顶部「交流探讨」（用户 2026-10-20）
    ------------------------------------------------------------
    用户原话：「下面加内容：算法探讨，这一栏字迹斜着放」
    澄清（弹窗问过）：位置 = 「小晴推荐师 / yy2528161812」那一块【下面】；
