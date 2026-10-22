@@ -1458,6 +1458,7 @@ function frogPanelHtml() {
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="dan">胆码中心</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="omit">遗漏走势</div>'
     + '<div class="frog-btn" role="button" tabindex="0" data-frog="lab">实验室</div>'
+    + '<div class="frog-btn" role="button" tabindex="0" data-frog="monster">奥特曼打怪兽</div>'
     + '</div><div class="frog-out" id="frogOut">点上面任意功能，结果显示在这里</div></div>'
     + '<div class="frog-tip">全部免费 · 数据每次构建自动抓取 · 号码由核心算法算出，仅供统计参考</div>' +
     '</div></details>';
@@ -17018,6 +17019,10 @@ body { background-color: #f7efe1; }
 .ro-zldq-i img { width:100%; height:65vh; object-fit:contain; cursor:zoom-in; }
 .ro-zldq-i figcaption { padding:6px; font-size:12px; color:#8a7a63; }
 
+.frog-monster-stage { display:flex; justify-content:space-around; align-items:center; min-height:90px; font-size:36px; overflow:hidden; }
+.frog-monster-beam { opacity:.3; }
+.frog-monster-stage.fired .frog-monster-beam { animation:frogbeam .8s ease-out; }
+@keyframes frogbeam { from {opacity:1;transform:scale(.5) translateX(-20px);} to {opacity:0;transform:scale(2) translateX(20px);} }
 /* MINGJIA_GALLERY 样式 */
 .ro-mj { margin: 10px 0 6px; }
 .ro-mj-h { text-align: center; font-size: 15px; font-weight: 800; color: #4a3a26; margin: 8px 0 10px; }
@@ -18208,7 +18213,50 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (i = 0; i < n; i++) { var prev = redsOf(ds[i + 1]).slice(0, cnt), cur = redsOf(ds[i]); if (prev.some(function (x) { return cur.indexOf(x) >= 0; })) hit++; }
     out.innerHTML = '<div style="font-weight:700;margin-bottom:4px">实验室 · ' + gname() + ' · 简单回测</div>' + row('测试期数', n) + row('延续命中', hit + ' 期') + row('比例', n ? Math.round(hit / n * 100) + '%' : '—');
   }
-  var FNS = { co: co, co3: co3, co4: co4, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab };
+
+  /* Local entertainment mode: site algorithm, no external AI or account. */
+  function monster() {
+    var key='chunfeng-monster-v1', records=[];
+    try { records=JSON.parse(localStorage.getItem(key)||'[]'); if(!Array.isArray(records))records=[]; }catch(e){}
+    var ds=hist(gid),latest=ds[0];
+    if(!latest){out.innerHTML='奥特曼打怪兽 · '+gname()+'：暂无真实开奖数据';return;}
+    var writable=true;
+    records.forEach(function(rec){
+      if(rec.gid!==gid||rec.settled||!Array.isArray(rec.kills))return;
+      var later=ds.filter(function(d){return Number(d.issue)>Number(rec.baseIssue);}).sort(function(a,b){return Number(a.issue)-Number(b.issue);});
+      if(!later.length)return;
+      rec.drawIssue=String(later[0].issue);rec.drawn=redsOf(later[0]);
+      rec.correct=rec.kills.filter(function(n){return rec.drawn.indexOf(n)<0;});rec.settled=true;
+    });
+    function save(){try{localStorage.setItem(key,JSON.stringify(records.slice(-300)));}catch(e){writable=false;}}
+    save();
+    var current=records.find(function(r){return r.gid===gid&&String(r.baseIssue)===String(latest.issue);});
+    var settled=records.filter(function(r){return r.gid===gid&&r.settled;}),total=0,correct=0;
+    settled.forEach(function(r){total+=r.kills.length;correct+=(r.correct||[]).length;});
+    var exp=correct*10;
+    out.innerHTML='<div style="font-weight:700">奥特曼打怪兽 · '+gname()+'</div>'+
+      '<div class="frog-monster-stage"><span>🦸</span><span class="frog-monster-beam">⚡</span><span>👾</span></div>'+
+      row('等级 / 经验','Lv.'+(1+Math.floor(exp/80))+' / '+exp)+
+      row('已复盘 / 杀对率',settled.length+' 期 / '+(total?Math.round(correct/total*100)+'%':'暂无'))+
+      '<div class="frog-tip">最新开奖第 '+String(latest.issue)+' 期；选择它之后下一期的杀号。同一期只生成一次。</div>'+
+      (current?rowL('本期已留档',current.kills)+'<div class="frog-tip">等待下一期开奖后核对</div>':'<div class="frog-chip" role="button" tabindex="0" id="frogMonsterFire">发射光线 · 生成本期杀号</div>')+
+      (writable?'':'<div class="frog-tip">浏览器禁止保存，暂不能留档，请勿重复操作。</div>')+
+      settled.slice(-8).reverse().map(function(r){return '<details><summary>第 '+r.drawIssue+' 期 · 杀对 '+r.correct.length+'/'+r.kills.length+'</summary>'+rowL('留档杀号',r.kills)+rowL('杀对（未开出）',r.correct)+rowL('杀错（已开出）',r.kills.filter(function(n){return r.drawn.indexOf(n)>=0;}))+'</details>';}).join('')+
+      '<div class="frog-tip">本站免费统计算法；仅保存在此浏览器，清理缓存会丢失。重新打开后依据已有开奖数据复盘。娱乐参考，不保证准确。</div>';
+    var fire=out.querySelector('#frogMonsterFire');
+    if(fire)fire.onclick=function(){
+      if(!writable)return;
+      killVer='C';kill();
+      var rows=[].slice.call(out.querySelectorAll('.frog-row'));
+      var rowEl=rows.find(function(el){return el.textContent.indexOf('建议杀号')===0;});
+      var nums=rowEl?[].slice.call(rowEl.querySelectorAll('.frog-b')).map(function(el){return Number(el.textContent);}):[];
+      if(!nums.length){monster();return;}
+      records.push({gid:gid,baseIssue:String(latest.issue),createdAt:new Date().toISOString(),kills:nums,settled:false});save();monster();
+      var stage=out.querySelector('.frog-monster-stage');if(stage)stage.classList.add('fired');
+    };
+  }
+
+  var FNS = { co: co, co3: co3, co4: co4, kill: kill, shrink: shrink, rand: rand, dan: dan, omit: omit, lab: lab, monster: monster };
   var lastFn = '';
   /* __FROG_GID__ 彩种药丸（功能中心顶部，只这一套）：
      切换后 → 记忆里上一次点的功能【按新彩种重算】；还没点过功能 → 结果区清空并写上当前彩种。 */
