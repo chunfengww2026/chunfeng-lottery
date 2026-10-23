@@ -338,8 +338,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4",
-       "over": 0.93,
-       "under": 0.83
+       "over": 0.9,
+       "under": 0.8
       },
       "live": {
        "line": "1.75",
@@ -4200,8 +4200,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": -0.25,
-       "line": "1",
-       "away": 0.76
+       "line": "0.94",
+       "away": 0.82
       }
      },
      "overunder": {
@@ -14196,8 +14196,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "0.87",
-       "away": 1.02
+       "line": "0.86",
+       "away": 1.03
       },
       "live": {
        "home": 0,
@@ -17036,12 +17036,12 @@ const FOOTBALL_DATA = {
       "away": 45.5
      },
      "clear": true,
-     "margin": 15.2
+     "margin": 15.1
     },
     "result": {
      "actual": "draw",
      "actualLabel": "平局",
-     "hit": false,
+     "hit": true,
      "score": "1 - 1"
     }
    },

@@ -323,6 +323,29 @@
    "expiresAt": "2026-10-25T00:29:44.034Z"
   },
   {
+   "id": "https://m.16788.cn/tj_ace8d2784920.html",
+   "gid": "fc3d",
+   "cat": "3D",
+   "author": "字谜资料",
+   "title": "福彩3D第2026282期财神送胆图谜 - 福彩3d图谜 - 手机天吉网",
+   "issue": "2026282",
+   "url": "https://m.16788.cn/tj_ace8d2784920.html",
+   "excerpt": "",
+   "blocks": [
+    {
+     "type": "image",
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnlrdktiU3VWQWJxZUZIdFZpa1Nud2p6dG45SFdEL05xTHV0YkViWUg5dDQw.jpg"
+    }
+   ],
+   "images": [
+    "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnlrdktiU3VWQWJxZUZIdFZpa1Nud2p6dG45SFdEL05xTHV0YkViWUg5dDQw.jpg"
+   ],
+   "publishedAt": "2026-10-23T10:24:12.000Z",
+   "publicationTimeUnknown": false,
+   "firstSeen": "2026-10-22T16:23:24.098Z",
+   "expiresAt": "2026-10-24T16:23:24.098Z"
+  },
+  {
    "id": "https://m.16788.cn/tj_fee262784909.html",
    "gid": "fc3d",
    "cat": "3D",
@@ -17944,7 +17967,8 @@
  "sources": [
   {
    "url": "https://www.cz89.com/p3/item_7.htm",
-   "status": 200,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {

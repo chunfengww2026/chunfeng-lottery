@@ -700,7 +700,7 @@ const JC_DATA = {
       "away": 3.3
      },
      "live": {
-      "home": 2.05,
+      "home": 2,
       "draw": 3.8,
       "away": 3.3
      }
@@ -721,11 +721,11 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 46.3,
+    "confidence": 46.5,
     "prob": {
-     "home": 46.3,
-     "draw": 25.4,
-     "away": 28.3
+     "home": 46.5,
+     "draw": 25.3,
+     "away": 28.2
     },
     "clear": true,
     "margin": 5.4,
@@ -735,11 +735,11 @@ const JC_DATA = {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 46.3,
-      "draw": 25.4,
-      "away": 28.3
+      "home": 46.5,
+      "draw": 25.3,
+      "away": 28.2
      },
-     "confidence": 46.3,
+     "confidence": 46.5,
      "signals": [
       "初盘→即时：主胜+0.0pp / 平局-0.7pp / 客胜+0.7pp",
       "亚盘未变盘；水位只作辅助核对"
@@ -752,9 +752,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -5.1,
-      "draw": -3.3,
-      "away": -6.7
+      "home": -7,
+      "draw": -3.7,
+      "away": -7
      },
      "handicap": {
       "line": -1,
@@ -1894,9 +1894,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 1.02,
+      "home": 1,
       "line": "球半/两球",
-      "away": 0.82
+      "away": 0.8
      }
     },
     "europe": {
@@ -1980,21 +1980,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1.75,
     "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.82,
+    "upWater": 1,
+    "downWater": 0.8,
     "openHandicap": -1.5,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
+    "totalWater": 1.8,
+    "theoryUpPercent": "44.44",
+    "theoryDownPercent": "55.56",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘降水",
      "initHandicap": -1.5,
      "nowHandicap": -1.75,
      "initUpWater": 1.02,
-     "nowUpWater": 1.02,
+     "nowUpWater": 1,
      "initLine": "球半",
      "nowLine": "球半/两球"
     },
