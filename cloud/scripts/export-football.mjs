@@ -1537,7 +1537,7 @@ function renderMatch(m) {
           opt(`平—%`, onThree === 'draw') +
           opt(`客—%`, onThree === 'away') +
           `</span>`) +
-      renderEvRow(r, euV) + renderMarketRules(m) +
+      renderEvRow(r, euV) + renderSixOutcomes(m) + renderMarketRules(m) +
       `</div>` : '<div class="m-reco"><span class="m-noodds">暂无赔率</span></div>') +
     renderScorePick(m) +
     renderAsianCard(m) +
