@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 22:23:13） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 22:31:05） */
 const MINGJIA_DATA = {
- "updated": "2026-10-23 22:23:13",
+ "updated": "2026-10-23 22:31:05",
  "list": [
   {
    "name": "大招财运",
@@ -98,13 +98,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113426,
-     "src": "https://pic.cz89.com/upload/20230210/f4d92d403f1541e7833dd12b3cd6d221.jpg",
-     "page": "https://www.cz89.com/read_7472161.htm",
-     "title": "牛魔王杀两码红球015期双色球图谜_牛彩网",
+     "size": 113487,
+     "src": "https://pic.cz89.com/upload/20221214/cfbff33f709b44a1abfc7fc855856015.jpg",
+     "page": "https://www.cz89.com/read_7355500.htm",
+     "title": "牛魔王杀两码红球144期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T09:43:12.538Z"
+     "fetchedAt": "2026-10-23T14:30:57.052Z"
     }
    ]
   },
@@ -657,11 +657,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-23 08:25:38",
-   "names": 71,
-   "imgs": 14
-  },
-  {
    "at": "2026-10-23 09:08:52",
    "names": 71,
    "imgs": 10
@@ -773,6 +768,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-23 22:23:13",
+   "names": 71,
+   "imgs": 19
+  },
+  {
+   "at": "2026-10-23 22:31:05",
    "names": 71,
    "imgs": 19
   }
