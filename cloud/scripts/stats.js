@@ -1,3 +1,19 @@
+function userCorePool(gameId) {
+  if(typeof USER_METHOD_RESULTS!=='undefined'&&USER_METHOD_RESULTS[gameId])return USER_METHOD_RESULTS[gameId];
+  if(typeof require==='function')return require('./core-pool.js').corePoolFor(gameId);
+  return null;
+}
+function enforceBackNoOverlap(gameId,values,fallback) {
+  if(!values||!['ssq','dlt'].includes(gameId))return values;
+  const max=gameId==='ssq'?16:12;
+  const nums=s=>String(s||'').split(/[^0-9]+/).filter(Boolean).map(Number).filter(n=>n>=1&&n<=max);
+  const rec=[...new Set(nums(values.b_rec||fallback&&fallback.b_rec))];
+  if(!rec.length)return values;
+  const old=nums(values.b_sh),want=old.length||3;
+  const allowed=[...new Set(old.concat(nums(fallback&&fallback.b_sh),Array.from({length:max},(_,i)=>i+1)))].filter(n=>!rec.includes(n));
+  values.b_sh=allowed.slice(0,want).sort((a,b)=>a-b).map(pad2).join(' ');
+  return values;
+}
 /* ============================================================
    stats.js —— 历史统计 + 系统自动计算
 
@@ -1268,9 +1284,9 @@ function autoFillWuxing(gameId, opts) {
      ⚠️ 只对双色球/大乐透生效；算不出来 / 其它彩种 → 退回原来的 recommendNumbers，
         保证页面永远有号，绝不空白。 */
   let cirPool = null;
-  if ((gameId === 'ssq' || gameId === 'dlt') && typeof require === 'function') {
+  if ((gameId === 'ssq' || gameId === 'dlt') && (typeof USER_METHOD_RESULTS !== 'undefined' || typeof require === 'function')) {
     try {
-      const cp = require('./core-pool.js').corePoolFor(gameId);
+      const cp = userCorePool(gameId);
       if (cp && Array.isArray(cp.pool20) && cp.pool20.length) {
         cirPool = cp.pool20.filter((n) => n >= from && n <= to);
       }
@@ -1503,14 +1519,15 @@ function poolRankBlend(gameId, areaKey, from, to, want) {
   let core = [];
   try {
     if ((gameId === 'ssq' || gameId === 'dlt') && areaKey !== 'blue' && areaKey !== 'back'
-        && typeof require === 'function') {
-      const cp = require('./core-pool.js').corePoolFor(gameId);
+        && (typeof USER_METHOD_RESULTS !== 'undefined' || typeof require === 'function')) {
+      const cp = userCorePool(gameId);
       if (cp && Array.isArray(cp.pool20)) {
         core = cp.pool20.filter((x) => Number.isInteger(x) && x >= from && x <= to);
       }
     }
   } catch (e) { core = []; }
   core.forEach(push);
+  if(core.length)return [...new Set(matList.concat(core))].slice(0,n).concat(Array.from({length:to-from+1},(_,i)=>i+from).filter(x=>!matList.includes(x)&&!core.includes(x))).slice(0,n);
 
   /* ③ 专家号码池（共识度顺序） */
   let exp = [];
@@ -1518,7 +1535,7 @@ function poolRankBlend(gameId, areaKey, from, to, want) {
   exp.forEach(push);
 
   /* ④ 还是不够（比如资料/专家/核心都没有）→ 用全区补，保证能出满 */
-  for (let i = from; i <= to && uni.length < n; i++) {
+  for (let i = from; i <= to; i++) {
     if (mat.kill && mat.kill.has(i)) continue;
     push(i);
   }
@@ -1567,7 +1584,7 @@ function recommendNumbers(gameId, areaKey, n, from, to) {
      · 算不出来 / 其它彩种 / 非主区 → 走原逻辑，绝不空白。 */
   if ((gameId === 'ssq' || gameId === 'dlt') &&
       (areaKey === 'main' || areaKey === 'red' || areaKey === 'front') &&
-      typeof require === 'function') {
+      (typeof USER_METHOD_RESULTS !== 'undefined' || typeof require === 'function')) {
     try {
       /* 【三源融合】用户 2026-10-20：「全部都留 一起结合算了出号」——
          推荐号也从「融合后的 20 码」里挑（资料 ∪ 核心算法 20 码 ∪ 专家池，见 poolRankBlend），
@@ -4198,6 +4215,7 @@ function autoFillForTemplate(gameId, imageKey) {
 
   /* ---- 【一致性收尾】消除字段自相矛盾（池子优先，唯一实现在上面） ---- */
   try { enforceConsistencyImage(gameId, imageKey, out); } catch (e) { /* 失败不影响出图 */ }
+  enforceBackNoOverlap(gameId,out);
 
   return out;
 }
