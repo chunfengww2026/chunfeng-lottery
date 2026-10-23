@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-24 03:43",
- "red": 0,
+ "updated": "2026-10-24 04:44",
+ "red": 1,
  "black": 0,
- "rate": "—",
+ "rate": "100.0%",
  "unfinished": 3,
  "history": [
   {
@@ -184,10 +184,10 @@
      "matchNo": "周五004",
      "teams": "前进之鹰 vs 特尔斯达",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "3:2",
+     "result": "red",
      "confidence": 59.3,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792683000000,
      "league": "荷甲",
      "odds": 1.6,
