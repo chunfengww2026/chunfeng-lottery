@@ -209,6 +209,10 @@ function perfify(html) {
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
+if(fs.existsSync(path.join(ROOT,'ALGORITHM_FULL.mjs'))&&fs.existsSync(path.join(ROOT,'build-supplement-results.mjs'))){
+  const supplementBuilder=await import('./build-supplement-results.mjs');
+  await supplementBuilder.buildSupplementResults(ROOT);
+}
 const USER_METHOD_SNAPSHOT=require('./user-method-results.cjs').buildUserMethodResults(ROOT);
 const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
 const OUT = path.join(ROOT, '只读分享版.html');
