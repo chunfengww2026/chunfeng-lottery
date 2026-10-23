@@ -133,35 +133,47 @@ const MINGJIA_DATA = {
   {
    "name": "南山大师",
    "cat": "双色球",
-   "kw": "南山大师 双色球 字谜 参考图",
+   "kw": "名家精 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鸭梨红",
+   "cat": "双色球",
+   "kw": "鸭梨红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "黄大仙",
+   "cat": "双色球",
+   "kw": "黄大仙 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 60014,
-     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
-     "page": "https://www.cz89.com/read_7588481.htm",
-     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
+     "file": "imgs/mingjia/双色球/黄大仙/1.png",
+     "size": 80019,
+     "src": "https://pic.cz89.com/upload/20260512/f9e9727f8e244fcf8ad236c4e10a4a97.png",
+     "page": "https://m.cz89.com/read_10363839.htm",
+     "title": "黄大仙杀蓝球054期双色球图谜 10中10_手机牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T15:16:46.973Z"
+     "fetchedAt": "2026-10-23T18:52:23.939Z"
     }
    ],
    "stale": true
   },
   {
-   "name": "牛魔王",
+   "name": "东北人杀",
    "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
+   "kw": "东北人杀 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113487,
-     "src": "https://pic.cz89.com/upload/20221214/cfbff33f709b44a1abfc7fc855856015.jpg",
-     "page": "https://www.cz89.com/read_7355500.htm",
-     "title": "牛魔王杀两码红球144期双色球图谜_牛彩网",
+     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
+     "size": 104137,
+     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
+     "page": "https://www.cz89.com/read_9355375.htm",
+     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T15:16:54.474Z"
+     "fetchedAt": "2026-10-22T15:24:18.299Z"
     }
    ],
    "stale": true
@@ -693,7 +705,7 @@ const MINGJIA_DATA = {
    "imgs": 13
   },
   {
-   "at": "2026-10-24 02:21:48",
+   "at": "2026-10-24 02:52:45",
    "names": 71,
    "imgs": 13
   },
