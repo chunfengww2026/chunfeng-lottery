@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 15:48:20） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 16:32:24） */
 const MINGJIA_DATA = {
- "updated": "2026-10-23 15:48:20",
+ "updated": "2026-10-23 16:32:24",
  "list": [
-  {
-   "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "快乐8",
-   "kw": "名家精 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "万里挑一",
    "cat": "快乐8",
@@ -93,6 +69,35 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "武汉华哥",
+   "cat": "双色球",
+   "kw": "武汉华哥 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
+     "size": 86008,
+     "src": "https://pic2.800820.net/tumi/20260210/2da0f68b995949879e8c9217bca654d1.webp",
+     "page": "https://www.800820.net/tuku/tkpic_385952.html",
+     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-23T08:32:21.845Z"
+    }
+   ]
+  },
+  {
    "name": "金手指",
    "cat": "双色球",
    "kw": "金手指 双色球 字谜 参考图",
@@ -106,24 +111,6 @@ const MINGJIA_DATA = {
      "issue": "2025115",
      "verified": false,
      "fetchedAt": "2026-10-23T07:03:57.300Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 84982,
-     "src": "https://pic1.800820.net/tumi/20260201/13c852555b6a4b8295f22763817e54fc.webp",
-     "page": "https://www.800820.net/tuku/tkpic_383576.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T07:04:16.367Z"
     }
    ],
    "stale": true
@@ -381,18 +368,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "九头鸟",
-   "cat": "双色球",
-   "kw": "九头鸟 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "武汉华哥",
-   "cat": "双色球",
-   "kw": "武汉华哥 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "鸭梨红",
    "cat": "双色球",
    "kw": "鸭梨红 双色球 字谜 参考图",
@@ -619,14 +594,33 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "太湖字谜 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-23 01:18:33",
-   "names": 71,
-   "imgs": 9
-  },
   {
    "at": "2026-10-23 02:49:06",
    "names": 71,
@@ -739,6 +733,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-23 15:48:20",
+   "names": 71,
+   "imgs": 16
+  },
+  {
+   "at": "2026-10-23 16:32:24",
    "names": 71,
    "imgs": 16
   }
