@@ -4,7 +4,7 @@
 const JC_RESULTS = {
  "updated": "2026-10-23 08:08",
  "hours": 48,
- "count": 390,
+ "count": 389,
  "list": [
   {
    "date": "2026-10-23",

@@ -377,6 +377,9 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/09a74801ead246b6b1951ebe2cf4cda2~tplv-26tn0yjwph-cspd-v1.jpg": 1792710599467,
   "/tos-cn-i-6w9my0ksvp/8a23c1cbf80e493fb421539743dc441b~tplv-26tn0yjwph-cspd-v1.jpg": 1792710599467,
   "/tos-cn-i-6w9my0ksvp/ad0e2bd5a91244519aad008bf5a0e329~tplv-26tn0yjwph-cspd-v1.jpg": 1792710599467,
-  "/tos-cn-i-6w9my0ksvp/947d82a4585a40a2b85705d10e6eff9e~tplv-26tn0yjwph-cspd-v1.jpg": 1792712070086
+  "/tos-cn-i-6w9my0ksvp/947d82a4585a40a2b85705d10e6eff9e~tplv-26tn0yjwph-cspd-v1.jpg": 1792712070086,
+  "/tos-cn-i-ezhpy3drpa/a1f28d8532b04f3a8e28466245878037~tplv-26tn0yjwph-cspd-v1.jpg": 1792714065470,
+  "/tos-cn-i-ezhpy3drpa/e2e9bf3ed58f4868a6cb0e93f6e345d0~tplv-26tn0yjwph-cspd-v1.jpg": 1792714065470,
+  "/tos-cn-i-ezhpy3drpa/427e420a212044589d911e384859e2b5~tplv-26tn0yjwph-cspd-v1.jpg": 1792714065470
  }
 };
