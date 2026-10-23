@@ -6,12 +6,72 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 01:36:01
+   更新时间：2026-10-23 23:03:58
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-23 01:36:01",
+ "updated": "2026-10-23 23:03:58",
  "items": [
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=zg2IdXj%2FLTFCxYT6eBMUU7K3N24%3D",
+   "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
+   "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
+   "at": "2026-10-23T15:03:58.168Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-23T15:03:58.168Z",
+   "whenMs": 1792728369000,
+   "seenMs": 1792767838168,
+   "drawMs": 1792762200000,
+   "nextMs": 1792762200000,
+   "atMs": 1792767838168,
+   "drawAt": "2026-10-23T13:30:00.000Z",
+   "nextAt": 1792762200000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-24T15:03:58.168Z",
+   "rule": "first-capture-24h",
+   "author": "深藏blue",
+   "when": "2026-10-23 12:06:09",
+   "postId": "1879811942906892",
+   "px": 132300
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=zg2IdXj%2FLTFCxYT6eBMUU7K3N24%3D",
+   "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
+   "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
+   "at": "2026-10-23T15:03:58.168Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-23T15:03:58.168Z",
+   "whenMs": 1792728369000,
+   "seenMs": 1792767838168,
+   "drawMs": 1792762200000,
+   "nextMs": 1792762200000,
+   "atMs": 1792767838168,
+   "drawAt": "2026-10-23T13:30:00.000Z",
+   "nextAt": 1792762200000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-24T15:03:58.168Z",
+   "rule": "first-capture-24h",
+   "author": "深藏blue",
+   "when": "2026-10-23 12:06:09",
+   "postId": "1879811942906892",
+   "px": 132300
+  },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
@@ -99,6 +159,23 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/b959c10622634cd1b6439cce71c5579d~tplv-26tn0yjwph-cspd-v1.jpg": 1792683361739,
   "/tos-cn-i-ezhpy3drpa/74292e94c0be4106b3766cf32af8e98e~tplv-26tn0yjwph-cspd-v1.jpg": 1792685161756,
   "/tos-cn-i-ezhpy3drpa/c2fe2ea90e4446d4b434a682cabaa352~tplv-26tn0yjwph-cspd-v1.jpg": 1792685161756,
-  "/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1.jpg": 1792685161756
+  "/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1.jpg": 1792685161756,
+  "/tos-cn-i-6w9my0ksvp/4628e849e41c41e3bc020cac37def700~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/9aa987c4a75444469f4645b6bb1aa9ea~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/948c09068f544f9da3792d9174ab0fb4~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/e2942cae1af647738b8094ea4859ab42~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/4b0371c7674f413d856c9384f71243fc~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/7a32b02505964606ac0d171639875cd6~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/960901c7148e48038c51a274bb047300~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/89f6efa1685a4d03a40fa9af774f7772~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/57dc5d4c90314274b6283c7b5d666522~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-6w9my0ksvp/aff82f4c7072402783770474a593bed9~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/725e554ead764711a35cd1151633bb29~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/9f802d3cb50648dda0766fbff74564ab~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/09a74801ead246b6b1951ebe2cf4cda2~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/1b0a1328b33b4ac9b9c49053db5dedfd~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/0daf1ae8e2c94e20b694bea2af61c575~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168,
+  "/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1.jpg": 1792767838168
  }
 };
