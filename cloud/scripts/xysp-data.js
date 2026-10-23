@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 14:31
+   更新时间：2026-10-23 15:09
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 14:31",
+ "updated": "2026-10-23 15:09",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -349,6 +349,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/5484d8d2-6aff-4b01-a159-f70c2b564d5c1792737847272.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/5484d8d2-6aff-4b01-a159-f70c2b564d5c1792737847272.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]🐴",
+     "url": "",
+     "at": "2026-10-23T07:09:59.816Z",
+     "pubAt": "2026-10-23T06:44:00.000Z",
+     "pubMs": 1792737840000,
+     "pubSrc": "page",
+     "nextAt": 1792761300000,
+     "atMs": 1792739399816,
+     "seenMs": 1792739399816,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/5ae3aee5-6375-4523-a7c0-f110828ee1b11792726503522.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/5ae3aee5-6375-4523-a7c0-f110828ee1b11792726503522.jpg?imageMogr2/thumbnail/360x",
@@ -995,6 +1009,20 @@ const XYSP_DATA = {
    "name": "排列5",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-23/6738ae2b-acc6-43f5-aa4d-c6b79641d12d1792736728909.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/6738ae2b-acc6-43f5-aa4d-c6b79641d12d1792736728909.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]今晚要不要加注",
+     "url": "",
+     "at": "2026-10-23T07:09:59.816Z",
+     "pubAt": "2026-10-23T06:25:00.000Z",
+     "pubMs": 1792736700000,
+     "pubSrc": "page",
+     "nextAt": 1792758600000,
+     "atMs": 1792739399816,
+     "seenMs": 1792739399816,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-23/960cc7ed-8e88-4bd5-adf4-b0919a8387eb1792732862707.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/960cc7ed-8e88-4bd5-adf4-b0919a8387eb1792732862707.jpg?imageMogr2/thumbnail/360x",
      "title": "[26282期]今天排列五怎么样",
@@ -1274,8 +1302,38 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/68ed50f75fe745c58d36dc9922f8ed3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=icTt134CsM8tOjLm%2BgZvpwlOouE%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/68ed50f75fe745c58d36dc9922f8ed3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=icTt134CsM8tOjLm%2BgZvpwlOouE%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/68ed50f75fe745c58d36dc9922f8ed3f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=o0CAklr6JM256E9y0gpNIRJogrc%3D",
+     "title": "别轻信那些所谓的“分解结论”“内部预测”，快乐八每一期的开奖结果都是完全随机的，根本不存在任何可供拆解的规律。\n我身边之前有位朋友蹲守了大半年的走势分析，照着所谓的“热号冷号”投注，最多只中过20块的小奖，前前后后搭进去近三千块，反倒随手机",
+     "url": "http://toutiao.com/preview_article/?pgc_id=1879822998855691",
+     "at": "2026-10-23T07:09:10.566Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "快乐8",
+     "games": [
+      "kl8"
+     ],
+     "issue": "",
+     "seen": "2026-10-23T07:09:10.566Z",
+     "whenMs": 1792738913000,
+     "seenMs": 1792739350566,
+     "drawMs": 1792762200000,
+     "nextMs": 1792762200000,
+     "atMs": 1792739350566,
+     "drawAt": "2026-10-23T13:30:00.000Z",
+     "nextAt": 1792762200000,
+     "drawGid": "kl8",
+     "expireAt": "2026-10-24T07:09:10.566Z",
+     "rule": "first-capture-24h",
+     "author": "真诚青山iD7",
+     "when": "2026-10-23 15:01:53",
+     "postId": "1879822998855691",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/83f8e8ebaf734004b5fd05a8a66206a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=PQxt0ZxeaL0rCxLzyfgL8nYkspc%3D",
      "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
      "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
@@ -1287,9 +1345,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T05:22:35.355Z",
+     "seen": "2026-10-23T07:09:10.566Z",
      "whenMs": 1792728369000,
-     "seenMs": 1792732955355,
+     "seenMs": 1792739350566,
      "drawMs": 1792762200000,
      "nextMs": 1792762200000,
      "atMs": 1792732955355,
@@ -1915,6 +1973,18 @@ const XYSP_DATA = {
   "/2026-10-23/960cc7ed-8e88-4bd5-adf4-b0919a8387eb1792732862707.jpg": 1792734664197,
   "/2026-10-23/f140c924-1f53-4181-8f83-d0ac4cfff5801792732862711.jpg": 1792734664197,
   "/2026-10-23/b5d54a79-9136-4ff1-9b7d-f20023e779571792734593603.jpg": 1792737073552,
-  "/2026-10-23/4bee5ca5-c5af-4d14-9ae7-ef7c7d8d03531792733743279.jpg": 1792737073552
+  "/2026-10-23/4bee5ca5-c5af-4d14-9ae7-ef7c7d8d03531792733743279.jpg": 1792737073552,
+  "/2026-10-21/15eb6e06-2609-4dd9-b501-369911ba081c1792587601271.jpg": 1792739399816,
+  "/2026-10-21/a00af6ad-387a-491a-87d0-c69da12ad5401792587543899.jpg": 1792739399816,
+  "/2026-10-21/48f539ac-bd02-41f5-bb69-48676ef8108b1792587377200.jpg": 1792739399816,
+  "/2026-10-21/0e46bc35-2b7f-44c2-9256-599ce09ea5071792580132368.jpg": 1792739399816,
+  "/2026-10-21/1e977c21-0f72-47f5-a561-89618a215a581792577616934.jpg": 1792739399816,
+  "/2026-10-21/1e9cdf08-7956-4f39-b437-8fe3d997e3fc1792564669204.jpg": 1792739399816,
+  "/2026-10-21/a4e5427c-9f67-4a77-928d-867db5bfe16a1792561668029.jpg": 1792739399816,
+  "/2026-10-19/92ecc5bf-c1f4-4bd2-9744-66020e6356351792424248647.jpg": 1792739399816,
+  "/2026-10-19/ad57036a-2f85-4d78-b55f-74dc75afaf6c1792418235889.jpg": 1792739399816,
+  "/2026-10-23/5484d8d2-6aff-4b01-a159-f70c2b564d5c1792737847272.jpg": 1792739399816,
+  "/2026-10-23/d85b61db-ee92-4cd9-9805-6db8e2b4a9661792736838633.jpg": 1792739399816,
+  "/2026-10-23/6738ae2b-acc6-43f5-aa4d-c6b79641d12d1792736728909.jpg": 1792739399816
  }
 };
