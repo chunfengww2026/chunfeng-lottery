@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 23:36
+   更新时间：2026-10-23 23:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 23:36",
+ "updated": "2026-10-23 23:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -285,6 +285,20 @@ const XYSP_DATA = {
    "name": "快乐8",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-23/a80ce15f-8e7a-42e8-9bb3-f87840c599551792768787511.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/a80ce15f-8e7a-42e8-9bb3-f87840c599551792768787511.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]大家别关注我了，我不是专业的，我发出来只是玩玩，要是不中就害了你们了。",
+     "url": "",
+     "at": "2026-10-23T15:40:05.540Z",
+     "pubAt": "2026-10-23T15:19:00.000Z",
+     "pubMs": 1792768740000,
+     "pubSrc": "page",
+     "nextAt": 1792848600000,
+     "atMs": 1792770005540,
+     "seenMs": 1792770005540,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-23/ecc82bda-db2f-49a5-ac06-cc44cf0c32301792760395707.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/ecc82bda-db2f-49a5-ac06-cc44cf0c32301792760395707.jpg?imageMogr2/thumbnail/360x",
      "title": "[26282期]每天都会做一点贡献",
@@ -465,146 +479,6 @@ const XYSP_DATA = {
      "atMs": 1792767884210,
      "seenMs": 1792767884210,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/515c6e19-1678-43da-9efc-9c92f37b1a181792678559352.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/515c6e19-1678-43da-9efc-9c92f37b1a181792678559352.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]今天的有没有朋友们",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T14:16:00.000Z",
-     "pubMs": 1792678560000,
-     "pubSrc": "page",
-     "nextAt": 1792762200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/5ee1dba5-aca3-4ae4-a7f5-dbfa330355591792676932802.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/5ee1dba5-aca3-4ae4-a7f5-dbfa330355591792676932802.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]又亏98😭",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T13:49:00.000Z",
-     "pubMs": 1792676940000,
-     "pubSrc": "page",
-     "nextAt": 1792762200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/8c1c6aa7-abb3-47ea-8570-5fd8a873e8901792674236893.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/8c1c6aa7-abb3-47ea-8570-5fd8a873e8901792674236893.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]飞机。",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T13:04:00.000Z",
-     "pubMs": 1792674240000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/59f03b58-cd39-4d6f-8f50-b1ef4723c7711792673540178.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/59f03b58-cd39-4d6f-8f50-b1ef4723c7711792673540178.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]参考",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T12:52:00.000Z",
-     "pubMs": 1792673520000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/6fa1b271-b5b6-4719-9af7-265735669a751792671598809.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/6fa1b271-b5b6-4719-9af7-265735669a751792671598809.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]接好运",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T12:21:00.000Z",
-     "pubMs": 1792671660000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/bfda165d-8c7a-46df-b769-e5142537d96e1792671665719.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/bfda165d-8c7a-46df-b769-e5142537d96e1792671665719.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]接好运",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T12:21:00.000Z",
-     "pubMs": 1792671660000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/ba5c6a7c-b7e1-4ea7-91ff-9f91131b8c031792669701513.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/ba5c6a7c-b7e1-4ea7-91ff-9f91131b8c031792669701513.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]选三，，守号第二天",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T11:48:00.000Z",
-     "pubMs": 1792669680000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/af729309-3ac2-4c36-ac7d-646fed7514e01792652154494.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/af729309-3ac2-4c36-ac7d-646fed7514e01792652154494.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]玩选5*7，好运。",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T06:56:00.000Z",
-     "pubMs": 1792652160000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/e93fb911-d31a-48a7-a1b3-f2af6af7262e1792647550355.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/e93fb911-d31a-48a7-a1b3-f2af6af7262e1792647550355.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]10月20号深圳唯一的一注中九",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T05:40:00.000Z",
-     "pubMs": 1792647600000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/34085692-f4ef-44cf-83ac-6231585f6d761792638975115.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/34085692-f4ef-44cf-83ac-6231585f6d761792638975115.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]今天继续选十！",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T03:16:00.000Z",
-     "pubMs": 1792638960000,
-     "pubSrc": "page",
-     "nextAt": 1792675800000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
     }
    ]
   },
@@ -736,40 +610,26 @@ const XYSP_DATA = {
      "atMs": 1792683904585,
      "seenMs": 1792683904585,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/8b19666f-ac94-4ffe-aedf-f8e968eb20a61792681861425.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/8b19666f-ac94-4ffe-aedf-f8e968eb20a61792681861425.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]还不错总算蒙对一次",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:11:00.000Z",
-     "pubMs": 1792681860000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/3f2e1757-866f-4759-b1a5-cb47203a10dc1792681872451.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/3f2e1757-866f-4759-b1a5-cb47203a10dc1792681872451.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]98381",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:11:00.000Z",
-     "pubMs": 1792681860000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
     }
    ]
   },
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/0badd59b-7a39-415c-95dd-d9cb62a789101792768846099.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/0badd59b-7a39-415c-95dd-d9cb62a789101792768846099.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]无语了",
+     "url": "",
+     "at": "2026-10-23T15:40:05.540Z",
+     "pubAt": "2026-10-23T15:21:00.000Z",
+     "pubMs": 1792768860000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792770005540,
+     "seenMs": 1792770005540,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/2b9d59f3-dd57-4467-83c0-de6cdbc518541792765925029.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/2b9d59f3-dd57-4467-83c0-de6cdbc518541792765925029.jpg?imageMogr2/thumbnail/360x",
@@ -992,202 +852,6 @@ const XYSP_DATA = {
      "nextAt": 1792758600000,
      "atMs": 1792688403488,
      "seenMs": 1792688403488,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/832b05d4-41b1-4728-9358-5b3ced6d6c471792682057150.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/832b05d4-41b1-4728-9358-5b3ced6d6c471792682057150.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]这个号码海天买中了呀",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:14:00.000Z",
-     "pubMs": 1792682040000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/ee1e6fef-5159-450e-ba5a-df3e711a132a1792682057287.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/ee1e6fef-5159-450e-ba5a-df3e711a132a1792682057287.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]这个号码海天买中了呀",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:14:00.000Z",
-     "pubMs": 1792682040000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/882f08dd-38b2-4fd7-9d7e-a90fefa2021b1792682057150.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/882f08dd-38b2-4fd7-9d7e-a90fefa2021b1792682057150.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]这个号码海天买中了呀",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:14:00.000Z",
-     "pubMs": 1792682040000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/4ceb6da6-17f6-49bc-bb0f-def791d843181792681625604.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/4ceb6da6-17f6-49bc-bb0f-def791d843181792681625604.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]分享",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T15:07:00.000Z",
-     "pubMs": 1792681620000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/b595aace-de7c-48ac-a020-4fdff29da6fd1792678269746.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/b595aace-de7c-48ac-a020-4fdff29da6fd1792678269746.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]不会玩排列五，只知道这么打，这要是打两同不就中了吗？",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T14:11:00.000Z",
-     "pubMs": 1792678260000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/1fd59d64-9172-4615-b336-cee54536e8341792677075013.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/1fd59d64-9172-4615-b336-cee54536e8341792677075013.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]又是2D凉凉的一天！好难！",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T13:51:00.000Z",
-     "pubMs": 1792677060000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/c4ec845b-4be6-4c00-8d9c-d0abc2f6e9311792677074951.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/c4ec845b-4be6-4c00-8d9c-d0abc2f6e9311792677074951.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]又是2D凉凉的一天！好难！",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T13:51:00.000Z",
-     "pubMs": 1792677060000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/79856254-4cd1-44d2-a748-dcb8d32dec7a1792674748320.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/79856254-4cd1-44d2-a748-dcb8d32dec7a1792674748320.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26282期]打自己的车牌号 咧一下",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T13:13:00.000Z",
-     "pubMs": 1792674780000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/e8dbe5f4-774f-45f2-9673-4de95ddaea591792673303568.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/e8dbe5f4-774f-45f2-9673-4de95ddaea591792673303568.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]继续搞起！",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T12:49:00.000Z",
-     "pubMs": 1792673340000,
-     "pubSrc": "page",
-     "nextAt": 1792758600000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/cdcecaba-efda-4045-aa1e-782d08b404ba1792654879339.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/cdcecaba-efda-4045-aa1e-782d08b404ba1792654879339.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]随便玩",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T07:41:00.000Z",
-     "pubMs": 1792654860000,
-     "pubSrc": "page",
-     "nextAt": 1792672200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/06f75346-d73e-4f43-adca-1dedc31584961792654879409.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/06f75346-d73e-4f43-adca-1dedc31584961792654879409.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]随便玩",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T07:41:00.000Z",
-     "pubMs": 1792654860000,
-     "pubSrc": "page",
-     "nextAt": 1792672200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/98990c47-7e50-4662-857f-13f08ab2842a1792652202966.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/98990c47-7e50-4662-857f-13f08ab2842a1792652202966.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]前三和10*12，后两位6*7，好运。",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T06:57:00.000Z",
-     "pubMs": 1792652220000,
-     "pubSrc": "page",
-     "nextAt": 1792672200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/fffa1033-d531-4e59-991a-74703ca0f87d1792634022410.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/fffa1033-d531-4e59-991a-74703ca0f87d1792634022410.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]我是该哭还是该笑",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T01:54:00.000Z",
-     "pubMs": 1792634040000,
-     "pubSrc": "page",
-     "nextAt": 1792672200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-22/556c429a-c670-48bc-9bf5-7ec89a3b6ffd1792634022409.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-22/556c429a-c670-48bc-9bf5-7ec89a3b6ffd1792634022409.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26281期]我是该哭还是该笑",
-     "url": "",
-     "at": "2026-10-22T15:36:35.458Z",
-     "pubAt": "2026-10-22T01:54:00.000Z",
-     "pubMs": 1792634040000,
-     "pubSrc": "page",
-     "nextAt": 1792672200000,
-     "atMs": 1792683395458,
-     "seenMs": 1792683395458,
      "whenMs": null
     }
    ]
@@ -1629,6 +1293,8 @@ const XYSP_DATA = {
   "/2026-10-23/22f45324-a8fa-4ba9-8c65-329fd04ab8e61792730653563.jpg": 1792767884210,
   "/2026-10-23/8c94fb62-c0ff-419d-9dd0-be6fc284aebb1792752211116.jpg": 1792767884210,
   "/2026-10-23/ff2f28a6-610f-44de-a32c-19b5de7c9bef1792741501737.jpg": 1792767884210,
-  "/2026-10-23/b62bf672-2ec1-4cba-9586-fb41c79b5e7f1792767453784.jpg": 1792769189032
+  "/2026-10-23/b62bf672-2ec1-4cba-9586-fb41c79b5e7f1792767453784.jpg": 1792769189032,
+  "/2026-10-23/a80ce15f-8e7a-42e8-9bb3-f87840c599551792768787511.jpg": 1792770005540,
+  "/2026-10-23/0badd59b-7a39-415c-95dd-d9cb62a789101792768846099.jpg": 1792770005540
  }
 };
