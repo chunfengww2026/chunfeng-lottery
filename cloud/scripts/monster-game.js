@@ -12,7 +12,7 @@
     var facilities=[{kind:'eat',x:45,y:95,label:'饭店',color:'#e8ac64'},{kind:'sleep',x:625,y:95,label:'卧室',color:'#8bbbd5'},{kind:'toilet',x:45,y:335,label:'厕所',color:'#97cbb3'},{kind:'trade',x:625,y:335,label:'商店',color:'#e1bb7c'}];
     [].slice.call(life.querySelectorAll('[data-life]')).forEach(function(btn){btn.onclick=function(){var kind=btn.dataset.life;paused=false;host.querySelector('.arena-pause').textContent='暂停';keys={};held={};activity='';if(kind==='fight'){target=null;notice='返回战斗，注意躲避红色弹丸';return;}if(kind==='eat'&&p.coins<8){notice='吃饭需要8金币，可先到商店做生意';return;}target=Object.assign({},facilities.find(function(f){return f.kind===kind;}));target.path=route(target);notice='正在前往'+target.label;};});
     var rocks=[{x:100,y:105,w:75,h:40},{x:490,y:90,w:75,h:40},{x:270,y:300,w:100,h:30}];
-    function persist(){try{localStorage.setItem(KEY,JSON.stringify(p));host.dispatchEvent(new CustomEvent('arena-wallet'));}catch(e){}}
+    function persist(){try{localStorage.setItem(KEY,JSON.stringify(p));host.dispatchEvent(new CustomEvent('arena-wallet'));window.dispatchEvent(new CustomEvent('game-wallet-change'));}catch(e){}}
     function reconcileWallet(){var latest=progress();p.coins=latest.coins;}
     host.addEventListener('arena-spent',reconcileWallet);
     function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
@@ -69,5 +69,5 @@
     active=destroy;frame=requestAnimationFrame(tick);
     return {destroy:destroy,snapshot:function(){return {x:hero.x,y:hero.y,wave:wave,enemies:enemies.length,boss:enemies.some(function(e){return e.boss;}),shots:shots.length,xp:p.xp,coins:p.coins,activity:activity,target:target&&target.kind,hunger:p.hunger,energy:p.energy,hygiene:p.hygiene,paused:paused};}};
   }
-  window.MonsterArena={mount:mount,progress:progress,level:function(){return level(progress());},spendCoins:function(n){var p=progress();if(!Number.isInteger(n)||n<0||p.coins<n)return false;p.coins-=n;try{localStorage.setItem(KEY,JSON.stringify(p));document.querySelectorAll('.monster-arena').forEach(function(el){el.dispatchEvent(new CustomEvent('arena-spent'));});return true;}catch(e){return false;}}};
+  window.MonsterArena={mount:mount,progress:progress,level:function(){return level(progress());},addCoins:function(n){if(!Number.isInteger(n)||n<=0||n>1000)return false;var p=progress();p.coins+=n;try{localStorage.setItem(KEY,JSON.stringify(p));document.querySelectorAll('.monster-arena').forEach(function(el){el.dispatchEvent(new CustomEvent('arena-spent'));});window.dispatchEvent(new CustomEvent('game-wallet-change'));return true;}catch(e){return false;}},spendCoins:function(n){var p=progress();if(!Number.isInteger(n)||n<0||p.coins<n)return false;p.coins-=n;try{localStorage.setItem(KEY,JSON.stringify(p));document.querySelectorAll('.monster-arena').forEach(function(el){el.dispatchEvent(new CustomEvent('arena-spent'));});window.dispatchEvent(new CustomEvent('game-wallet-change'));return true;}catch(e){return false;}}};
 })();
