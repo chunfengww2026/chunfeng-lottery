@@ -4,7 +4,7 @@
    规则（照用户给的代码）：
      交叉相加减 → 减法杀号 → 金胆尾/银胆尾 → 大乐透跨彩种绝杀尾 → 剔杀 → 不足补到 20 码
 */
-function coreAlgo(history, maxNum, isDLT, ssqHistory) {
+function coreAlgo(history, maxNum, isDLT, ssqHistory, supplement) {
   const unit = (n) => Math.abs(n) % 10;
   const ok = (n) => (n >= 1 && n <= maxNum ? n : null);
   if (!Array.isArray(history) || history.length < 3) return null;
@@ -69,7 +69,8 @@ function coreAlgo(history, maxNum, isDLT, ssqHistory) {
        ② 不够再补「不在绝杀尾」的
        ③ 还不够就直接补（保证一定 20 码） */
     const bannedTail = (n) => isDLT && dltKills.some((t) => unit(n) === t);
-    const all = Array.from({ length: maxNum }, (_, i) => i + 1);
+    const extra=Array.isArray(supplement)?supplement.filter(n=>Number.isInteger(n)&&n>=1&&n<=maxNum):[];
+    const all = [...new Set(extra.concat(Array.from({ length: maxNum }, (_, i) => i + 1)))];
     const take = (pred) => {
       for (const n of all) {
         if (rec.length >= 20) return;
