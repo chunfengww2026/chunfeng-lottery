@@ -209,6 +209,7 @@ function perfify(html) {
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
+const USER_METHOD_SNAPSHOT={ssq:require('./core-pool.js').corePoolFor('ssq'),dlt:require('./core-pool.js').corePoolFor('dlt')};
 const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
 const OUT = path.join(ROOT, '只读分享版.html');
 
@@ -319,6 +320,7 @@ const ctx = vm.createContext({
   console, Math, Map, Set, Array, Object, String, Number, JSON, Date,
   parseInt, parseFloat, isNaN, Uint32Array, RegExp, Error, Infinity,
   document: doc,
+  USER_METHOD_RESULTS: USER_METHOD_SNAPSHOT,
   window: { addEventListener: () => {}, crypto: globalThis.crypto },
   navigator: { clipboard: { writeText: () => Promise.resolve() } },
   localStorage: {
@@ -5498,7 +5500,7 @@ function readForInline(file) {
 
 const inlineSizes = [];
 const inlineMissing = [];
-let inlineScriptsHtml = '';
+let inlineScriptsHtml = '<script>var USER_METHOD_RESULTS='+JSON.stringify(USER_METHOD_SNAPSHOT)+';</script>'; 
 for (const f of INLINE_JS) {
   const code = readForInline(f);
   if (!code) {
@@ -10859,11 +10861,11 @@ ${p3dHtml}
        现在把容器补回来，但把「双色球/大乐透」两个方法 tab 和九宫格按钮全部 display:none 隐藏，
        只保留输出区 —— 图回来、方法栏还是看不到。 -->
   <div class="px9" id="px9" style="display:block">
-    <div class="px9-games" style="display:none">
+    <div class="px9-games">
       <div class="px9-g on" role="button" tabindex="0" data-px9-game="ssq">双色球</div>
       <div class="px9-g" role="button" tabindex="0" data-px9-game="dlt">大乐透</div>
     </div>
-    <div class="px9-methods" id="px9Methods" style="display:none"></div>
+    <div class="px9-methods" id="px9Methods"></div>
     <div class="px9-out" id="px9Out"></div>
   </div><!-- 【已按用户要求删除 · 2026-10-18】「推荐图 · 方法」整块删掉（双色球/大乐透 tab + 九宫格 + 结果区 + 提示）。 用户原话：「这一栏给我删了」。⚠️ 若又被还原，说明有别的窗口在改同一个文件。 -->
       <!-- __PX9__ 两级目录：2 个彩种 → 9 个方法（用户 2026-10-18 指定） -->
@@ -18041,7 +18043,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (i = 0; i < item.rows.length; i++) {
       rows += '<div class="px9-row"><span class="px9-k">' + item.rows[i][0] + '</span><span>' + item.rows[i][1] + '</span></div>';
     }
-    elO.innerHTML = '<div class="px9-cur">' + d.name + ' · 参考号码</div>' + ballsOf(item.red, item.blue) + '<div class="px9-meta">第 ' + d.next + ' 期 · 仅供统计参考</div>';
+    elO.innerHTML = '<div class="px9-cur">' + d.name + ' · '+item.m+'参考号码</div>' + ballsOf(item.red, item.blue) + '<div class="px9-meta">第 ' + d.next + ' 期 · 仅供统计参考</div>';
     var ms = elM.querySelectorAll('.px9-m');
     for (i = 0; i < ms.length; i++) {
       ms[i].onclick = (function (b) {
