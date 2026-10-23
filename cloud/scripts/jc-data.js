@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-23 08:51 */
+/* 自动生成，请勿手动编辑 · 2026-10-23 09:32 */
 const JC_DATA = {
- "updated": "2026-10-23 08:51",
+ "updated": "2026-10-23 09:32",
  "stat": {
   "total": 13,
   "upcoming": 0,
@@ -1324,7 +1324,7 @@ const JC_DATA = {
     "home": 0,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
