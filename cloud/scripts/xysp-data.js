@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 02:24
+   更新时间：2026-10-24 03:03
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-24 02:24",
+ "updated": "2026-10-24 03:03",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1064,9 +1064,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T18:24:07.762Z",
+     "seen": "2026-10-23T19:02:35.997Z",
      "whenMs": 1792728369000,
-     "seenMs": 1792776316436,
+     "seenMs": 1792779847762,
      "drawMs": 1792762200000,
      "nextMs": 1792762200000,
      "atMs": 1792767838168,
@@ -1081,8 +1081,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=KD2GTqKiNnb689NwIF6C1X9qYQ8%3D",
      "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
      "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
@@ -1094,9 +1094,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T18:24:07.762Z",
+     "seen": "2026-10-23T19:02:35.997Z",
      "whenMs": 1792728369000,
-     "seenMs": 1792779847762,
+     "seenMs": 1792782155997,
      "drawMs": 1792762200000,
      "nextMs": 1792762200000,
      "atMs": 1792767838168,
@@ -1455,6 +1455,7 @@ const XYSP_DATA = {
   "/2026-10-24/93463bb3-6a59-4dad-a6ff-3d65ce426f091792773732077.jpg": 1792776352771,
   "/2026-10-24/7f3831c8-d78a-4659-b8be-00ef384abc041792774076427.jpg": 1792776352771,
   "/2026-10-24/ea40e20c-6601-4b58-97d6-bba0a706060d1792774076493.jpg": 1792776352771,
-  "/2026-10-24/f00bff0b-882f-407b-a58a-1f471d909b691792775813656.jpg": 1792778259589
+  "/2026-10-24/f00bff0b-882f-407b-a58a-1f471d909b691792775813656.jpg": 1792778259589,
+  "/2026-10-24/e6b32ebf-7433-4b4c-af6a-0c666165fa7c1792779920355.jpg": 1792782191978
  }
 };
