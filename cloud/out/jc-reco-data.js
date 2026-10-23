@@ -377,6 +377,31 @@ const JC_RECO_DATA = {
    "miss": 0,
    "pending": 0,
    "verdict": "红"
+  },
+  {
+   "at": "2026-10-24 06:40",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周五011",
+     "time": "2026-10-24 03:00",
+     "league": "西甲",
+     "home": "阿拉维斯",
+     "away": "马拉加",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.62,
+     "conf": 58.4,
+     "score": "1:1",
+     "hit": false,
+     "result": "lose"
+    }
+   ],
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   }
  ]
 };
