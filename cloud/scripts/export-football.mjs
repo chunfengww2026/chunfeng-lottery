@@ -1394,6 +1394,14 @@ function renderMultiCard(m) {
   return `<div class="m-mc">${head}${dv}${rng}${note}</div>`;
 }
 
+function renderSixOutcomes(m){
+ const a=m.marketAnalysis||{},regular=a.prob||(m.reco&&m.reco.prob),h=a.handicap;
+ const options=['home','draw','away'];
+ function group(labels,prob,pick,scale){return options.map(function(k,i){const value=prob&&Number.isFinite(Number(prob[k]))?(Number(prob[k])*scale).toFixed(1)+'%':'暂无';return '<div class="m-six-option'+(pick===k?' chosen':'')+'" style="border:1px solid '+(pick===k?'#19895d':'#e7d6b9')+';border-radius:8px;padding:7px;text-align:center;background:'+(pick===k?'#e9f6ec':'#fffaf1')+'"><b>'+labels[i]+'</b><div>'+value+'</div>'+(pick===k?'<small>推荐方向</small>':'')+'</div>';}).join('');}
+ const pick=regular?options.slice().sort((x,y)=>regular[y]-regular[x])[0]:null;
+ return '<div class="m-six" style="margin:9px 0;padding:10px;border:1px solid #e7d6b9;border-radius:9px"><b>六项参考推荐</b><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:7px">'+group(['胜','平','负'],regular,pick,1)+group(['让胜','让平','让负'],h&&h.prob,h&&h.pick,100)+'</div><small>'+(h?'官方竞彩让球 '+(h.line>0?'+':'')+h.line:'官方竞彩让球数或比分模型不足，让球三项暂不推荐')+' · 两种玩法分别判断，参考概率不保证赛果。</small></div>';
+}
+
 function renderMarketRules(m){
  const a=m.marketAnalysis;if(!a)return '';
  const h=a.handicap;
