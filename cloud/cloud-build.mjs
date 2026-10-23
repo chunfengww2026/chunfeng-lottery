@@ -171,7 +171,7 @@ function makeSandbox(store) {
     console, Math, Map, Set, Array, Object, String, Number, JSON, Date,
     parseInt, parseFloat, isNaN, Uint32Array, RegExp, Error, Infinity,
     document: dom,
-    USER_METHOD_RESULTS: (()=>{const req=createRequire(path.join(MOD,'core-pool.js'));const cp=req('./core-pool.js');return {ssq:cp.corePoolFor('ssq'),dlt:cp.corePoolFor('dlt')};})(),
+    USER_METHOD_RESULTS: (()=>{const req=createRequire(path.join(MOD,'core-pool.js'));return req('./user-method-results.cjs').buildUserMethodResults(MOD);})(),
     window: { addEventListener: () => {}, crypto: globalThis.crypto },
     navigator: { clipboard: { writeText: () => Promise.resolve() } },
     localStorage: {
