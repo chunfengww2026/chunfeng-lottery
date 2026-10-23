@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-10-22 23:35
+   生成时间：2026-10-23 23:39
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-10-22 23:35",
+ "updated": "2026-10-23 23:39",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 160,
-  "requests": 379,
+  "requests": 380,
   "errors": 0,
-  "seconds": 717.8
+  "seconds": 670.6
  },
  "games": {
   "ssq": {
@@ -1861,9 +1861,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026122",
       "nums": [
-       7,
-       9,
-       28
+       14,
+       19,
+       26
       ]
      },
      "siteMetrics": [
@@ -3571,10 +3571,10 @@ const EXPERTS_DATA = {
       "issue": "2026122",
       "nums": [
        3,
-       9,
+       4,
        10,
-       13,
-       15
+       12,
+       14
       ]
      },
      "siteMetrics": [
@@ -4001,9 +4001,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026122",
       "nums": [
-       14,
-       24,
-       33
+       19,
+       21,
+       29
       ]
      },
      "siteMetrics": [
@@ -5699,8 +5699,8 @@ const EXPERTS_DATA = {
       "issue": "2026122",
       "nums": [
        2,
-       11,
-       19
+       4,
+       21
       ]
      },
      "siteMetrics": [
@@ -8689,9 +8689,76 @@ const EXPERTS_DATA = {
     }
    ],
    "consensus": {
-    "red": [],
-    "blue": [],
-    "sections": [],
+    "red": [
+     {
+      "num": 13,
+      "pct": 93
+     },
+     {
+      "num": 7,
+      "pct": 87.3
+     },
+     {
+      "num": 24,
+      "pct": 85
+     },
+     {
+      "num": 23,
+      "pct": 80.3
+     },
+     {
+      "num": null,
+      "pct": 80
+     },
+     {
+      "num": null,
+      "pct": 76.7
+     },
+     {
+      "num": null,
+      "pct": 75.7
+     },
+     {
+      "num": null,
+      "pct": 73.3
+     },
+     {
+      "num": null,
+      "pct": 72.7
+     },
+     {
+      "num": null,
+      "pct": 69.3
+     }
+    ],
+    "blue": [
+     {
+      "num": 2,
+      "pct": 77.7
+     },
+     {
+      "num": 4,
+      "pct": 63
+     },
+     {
+      "num": null,
+      "pct": 44.3
+     },
+     {
+      "num": null,
+      "pct": 43.7
+     }
+    ],
+    "sections": [
+     {
+      "title": "红球分布",
+      "n": 10
+     },
+     {
+      "title": "蓝球分布",
+      "n": 4
+     }
+    ],
     "topExperts": [
      {
       "name": "天蓝星",
@@ -8744,7 +8811,7 @@ const EXPERTS_DATA = {
       "hit10": 6
      }
     ],
-    "updated": null,
+    "updated": "2026-10-22 21:15",
     "issue": "2026122"
    },
    "pool": {
@@ -8790,8 +8857,8 @@ const EXPERTS_DATA = {
        "name": "安静的美少女",
        "nums": [
         2,
-        11,
-        19
+        4,
+        21
        ],
        "issue": "2026122",
        "score": 42.25
@@ -8809,9 +8876,9 @@ const EXPERTS_DATA = {
       {
        "name": "迈巴赫",
        "nums": [
-        7,
-        9,
-        28
+        14,
+        19,
+        26
        ],
        "issue": "2026122",
        "score": 63.67
@@ -8889,9 +8956,9 @@ const EXPERTS_DATA = {
       {
        "name": "一路顺风",
        "nums": [
-        14,
-        24,
-        33
+        19,
+        21,
+        29
        ],
        "issue": "2026122",
        "score": 52.5
@@ -8967,10 +9034,10 @@ const EXPERTS_DATA = {
        "name": "中二少年",
        "nums": [
         3,
-        9,
+        4,
         10,
-        13,
-        15
+        12,
+        14
        ],
        "issue": "2026122",
        "score": 56
@@ -9008,8 +9075,8 @@ const EXPERTS_DATA = {
      "cats": {
       "红球三胆": [
        2,
-       11,
-       19
+       4,
+       21
       ]
      }
     },
@@ -9027,9 +9094,9 @@ const EXPERTS_DATA = {
      "name": "迈巴赫",
      "cats": {
       "红球三胆": [
-       7,
-       9,
-       28
+       14,
+       19,
+       26
       ]
      }
     },
@@ -9107,9 +9174,9 @@ const EXPERTS_DATA = {
      "name": "一路顺风",
      "cats": {
       "红球三胆": [
-       14,
-       24,
-       33
+       19,
+       21,
+       29
       ]
      }
     },
@@ -9178,10 +9245,10 @@ const EXPERTS_DATA = {
      "cats": {
       "蓝球定五": [
        3,
-       9,
+       4,
        10,
-       13,
-       15
+       12,
+       14
       ]
      }
     },
@@ -18545,29 +18612,29 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1429.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
-       1,
        2,
        3,
        4,
-       8,
-       9
+       5,
+       7,
+       8
       ]
      },
      "siteMetrics": [
       {
        "cat": "七码组选",
-       "hit10": 7,
+       "hit10": 8,
        "maxStreak": 8
       }
      ],
-     "siteHit10": 7,
+     "siteHit10": 8,
      "rawHit10": 9,
      "siteFit": {
-      "threshold": 3,
-      "count": 7,
+      "threshold": 1,
+      "count": 9,
       "maxStreak": 5,
       "exact": false
      },
@@ -18575,13 +18642,31 @@ const EXPERTS_DATA = {
      "threshold": 3,
      "hitRate10": 0.7,
      "maxStreak": 5,
-     "curStreak": 1,
-     "recoverRate": 1,
+     "curStreak": 0,
+     "recoverRate": 0.6667,
      "blackCount": 3,
-     "lastHit": true,
-     "score": 77,
+     "lastHit": false,
+     "score": 48.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -18747,24 +18832,233 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 3,
        "hit": true
+      }
+     ]
+    },
+    {
+     "name": "建麒流月",
+     "url": "/ex/fc3dex/tjsy_6_122.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       3,
+       5,
+       6,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 7
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 3,
+     "curStreak": 0,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": false,
+     "score": 43.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
        "picks": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        7,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
         1,
         2,
         3,
         5,
         6,
+        8
+       ],
+       "hits": [
+        2,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        4,
+        6,
         7,
+        8,
         9
        ],
        "hits": [
-        1,
-        5
+        0,
+        2,
+        9
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       }
      ]
     },
@@ -18773,14 +19067,14 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_842.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
+       0,
        1,
        3,
        4,
        5,
-       7,
-       8,
+       6,
        9
       ]
      },
@@ -18805,21 +19099,39 @@ const EXPERTS_DATA = {
      "rawHit10": 9,
      "siteFit": {
       "threshold": 3,
-      "count": 7,
+      "count": 6,
       "maxStreak": 3,
       "exact": false
      },
      "picksN": 7,
      "threshold": 3,
-     "hitRate10": 0.7,
+     "hitRate10": 0.6,
      "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 1,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 72,
+     "curStreak": 0,
+     "recoverRate": 0.75,
+     "blackCount": 4,
+     "lastHit": false,
+     "score": 42.25,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -18984,25 +19296,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        7
-       ],
-       "hits": [
-        0,
-        1,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
       }
      ]
     },
@@ -19011,10 +19304,10 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1687.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
-       5,
+       0,
+       2,
        6,
        7,
        8
@@ -19030,1407 +19323,83 @@ const EXPERTS_DATA = {
      "siteHit10": 8,
      "rawHit10": 9,
      "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 7,
      "threshold": 3,
      "hitRate10": 0.5,
      "maxStreak": 3,
-     "curStreak": 1,
-     "recoverRate": 0.6,
-     "blackCount": 5,
-     "lastHit": true,
-     "score": 55,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        4
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        7,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "183cm",
-     "url": "/ex/fc3dex/tjsy_6_1745.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       3,
-       4,
-       5,
-       6,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.4,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.6667,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 48.17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        4,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        1,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "伯乐中五百万",
-     "url": "/ex/fc3dex/tjsy_6_90.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       5,
-       6,
-       7,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 8
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.4,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 44,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        7,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        0,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        1,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "赌神下注",
-     "url": "/ex/fc3dex/tjsy_6_1351.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       2,
-       3,
-       5,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 8
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 6,
-     "curStreak": 1,
-     "recoverRate": 0.3333,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 42.83,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        4
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        0,
-        1,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "今年一定发",
-     "url": "/ex/fc3dex/tjsy_6_323.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       3,
-       4,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 9,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.4286,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 38.72,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "预知梦",
-     "url": "/ex/fc3dex/tjsy_6_1834.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       2,
-       4,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 11
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.4286,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 38.72,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        3,
-        4
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        2,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        1,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        0,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "攀攀",
-     "url": "/ex/fc3dex/tjsy_6_331.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       3,
-       4,
-       5,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 11
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 2,
-      "count": 8,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.5,
-     "maxStreak": 2,
      "curStreak": 0,
      "recoverRate": 0.6,
      "blackCount": 5,
      "lastHit": false,
-     "score": 32.5,
+     "score": 35,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
         0,
-        1,
         2,
-        3,
-        4,
-        5,
-        9
-       ],
-       "hits": [
-        1,
-        3
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2,
-        3,
         4,
         5,
         6,
         7,
+        8
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        7,
+        8,
         9
        ],
        "hits": [
         3,
-        4,
-        5
+        4
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026279",
        "picks": [
         0,
         1,
-        3,
-        4,
+        5,
+        6,
         7,
         8,
         9
@@ -20446,13 +19415,13 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        2,
+        1,
         3,
         4,
         5,
         6,
         7,
-        9
+        8
        ],
        "hits": [],
        "hitCount": 0,
@@ -20462,29 +19431,30 @@ const EXPERTS_DATA = {
        "issue": "2026277",
        "picks": [
         0,
-        1,
-        2,
+        3,
         4,
         5,
+        6,
         8,
         9
        ],
        "hits": [
         5,
+        6,
         8
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026276",
        "picks": [
         0,
-        1,
-        3,
+        2,
         4,
-        5,
         6,
+        7,
+        8,
         9
        ],
        "hits": [
@@ -20498,44 +19468,45 @@ const EXPERTS_DATA = {
       {
        "issue": "2026275",
        "picks": [
-        0,
         1,
         2,
-        3,
         4,
         5,
-        6
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
         7,
-        8
+        8,
+        9
        ],
        "hits": [
         2,
-        3,
+        7,
         8
        ],
        "hitCount": 3,
        "hit": true
       },
       {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
        "issue": "2026273",
        "picks": [
+        0,
         1,
-        2,
         4,
         5,
         6,
@@ -20543,30 +19514,11 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
-        2,
+        0,
         9
        ],
        "hitCount": 2,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        1,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
       }
      ]
     },
@@ -20575,12 +19527,12 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_640.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
-       2,
-       4,
-       8,
+       3,
+       5,
+       6,
+       7,
        9
       ]
      },
@@ -20589,6 +19541,229 @@ const EXPERTS_DATA = {
        "cat": "五码组选",
        "hit10": 8,
        "maxStreak": 8
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.5,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.4,
+     "blackCount": 5,
+     "lastHit": false,
+     "score": 27.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        2,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "寂寞零度168",
+     "url": "/ex/fc3dex/tjsy_6_802.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       3,
+       6,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 9
       }
      ],
      "siteHit10": 8,
@@ -20602,251 +19777,46 @@ const EXPERTS_DATA = {
      "picksN": 7,
      "threshold": 3,
      "hitRate10": 0.5,
-     "maxStreak": 2,
+     "maxStreak": 5,
      "curStreak": 0,
-     "recoverRate": 0.6,
+     "recoverRate": 0,
      "blackCount": 5,
      "lastHit": false,
-     "score": 32.5,
+     "score": 5,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
         0,
-        1,
         2,
+        3,
         4,
         6,
         8,
         9
        ],
        "hits": [
-        1,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
         0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        4,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        1,
-        7,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        6
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        2,
         3
        ],
        "hitCount": 2,
        "hit": false
       },
       {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "三哥三到",
-     "url": "/ex/fc3dex/tjsy_6_1792.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       3,
-       5,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.5,
-     "maxStreak": 3,
-     "curStreak": 0,
-     "recoverRate": 0.4,
-     "blackCount": 5,
-     "lastHit": false,
-     "score": 30,
-     "periods": 10,
-     "recent": [
-      {
        "issue": "2026281",
        "picks": [
-        2,
+        0,
+        1,
         3,
-        4,
         5,
         6,
-        8,
+        7,
         9
        ],
        "hits": [
-        3,
-        8
+        1,
+        3
        ],
        "hitCount": 2,
        "hit": false
@@ -20854,21 +19824,20 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
-        2,
-        3,
+        0,
+        1,
         4,
         5,
         6,
-        7,
+        8,
         9
        ],
        "hits": [
-        3,
         4,
         5
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026279",
@@ -20878,26 +19847,24 @@ const EXPERTS_DATA = {
         2,
         3,
         5,
-        7,
-        9
+        6,
+        8
        ],
        "hits": [
-        1,
-        7,
-        9
+        1
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026278",
        "picks": [
         0,
-        2,
+        1,
         3,
+        4,
         5,
         6,
-        8,
         9
        ],
        "hits": [],
@@ -20907,20 +19874,21 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        0,
-        2,
-        3,
+        1,
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
        ],
        "hits": [
         5,
-        6
+        6,
+        8
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026276",
@@ -20929,23 +19897,24 @@ const EXPERTS_DATA = {
         1,
         2,
         4,
-        5,
         6,
-        8
+        8,
+        9
        ],
        "hits": [
         0,
-        6
+        6,
+        9
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026275",
        "picks": [
-        0,
+        1,
         2,
-        4,
+        3,
         5,
         7,
         8,
@@ -20966,9 +19935,9 @@ const EXPERTS_DATA = {
         2,
         3,
         5,
+        6,
         7,
-        8,
-        9
+        8
        ],
        "hits": [
         2,
@@ -20982,10 +19951,10 @@ const EXPERTS_DATA = {
        "issue": "2026273",
        "picks": [
         0,
-        1,
         2,
+        3,
         4,
-        7,
+        6,
         8,
         9
        ],
@@ -20996,24 +19965,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 3,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        0,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
       }
      ]
     },
@@ -21022,13 +19973,13 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1994.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
        1,
-       2,
        3,
-       5
+       4,
+       7
       ]
      },
      "siteMetrics": [
@@ -21043,1114 +19994,7 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 2,
       "count": 8,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.4,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 24.83,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        4,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        7,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        7,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        1
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "饮酒微醉",
-     "url": "/ex/fc3dex/tjsy_6_518.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       4,
-       5,
-       6,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 17.64,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        4,
-        5
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        2,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        2,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "小茂",
-     "url": "/ex/fc3dex/tjsy_6_487.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       3,
-       4,
-       5,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 8
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
-     "curStreak": 1,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 17.64,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        7,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        5,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "沐雪",
-     "url": "/ex/fc3dex/tjsy_6_1746.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       3,
-       4,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 9,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.25,
-     "blackCount": 8,
-     "lastHit": true,
-     "score": 10.75,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        1,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        5,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        7,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        2,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "义士",
-     "url": "/ex/fc3dex/tjsy_6_1119.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       3,
-       4,
-       6,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 13
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 2,
-      "count": 8,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.25,
-     "blackCount": 8,
-     "lastHit": true,
-     "score": 10.75,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        4
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        1,
-        7,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "信念",
-     "url": "/ex/fc3dex/tjsy_6_360.html",
-     "cat": "五码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       3,
-       4,
-       5,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "五码组选",
-       "hit10": 9,
-       "maxStreak": 7
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 1,
-      "count": 9,
-      "maxStreak": 6,
+      "maxStreak": 4,
       "exact": false
      },
      "picksN": 7,
@@ -22165,7 +20009,336 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
        "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        7,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        2
+       ],
+       "hitCount": 2,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "章鱼竞彩",
+     "url": "/ex/fc3dex/tjsy_6_793.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       3,
+       5,
+       6
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 14
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 2.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        1,
+        7
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        5,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
        "picks": [
         0,
         1,
@@ -22176,8 +20349,142 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
         1,
+        2,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "楚天奖神",
+     "url": "/ex/fc3dex/tjsy_6_36.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       3,
+       4,
+       5,
+       6,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 12
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 2.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
         3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        8
        ],
        "hitCount": 2,
        "hit": false
@@ -22187,15 +20494,15 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        2,
-        3,
         4,
+        5,
         6,
+        8,
         9
        ],
        "hits": [
-        3,
-        4
+        4,
+        5
        ],
        "hitCount": 2,
        "hit": false
@@ -22203,28 +20510,29 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
+        0,
+        1,
         2,
-        3,
         4,
         5,
         7,
-        8,
         9
        ],
        "hits": [
+        1,
         7,
         9
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026278",
        "picks": [
-        2,
+        0,
+        3,
         4,
         5,
-        6,
         7,
         8,
         9
@@ -22237,7 +20545,7 @@ const EXPERTS_DATA = {
        "issue": "2026277",
        "picks": [
         0,
-        3,
+        4,
         5,
         6,
         7,
@@ -22256,11 +20564,11 @@ const EXPERTS_DATA = {
        "issue": "2026276",
        "picks": [
         0,
-        1,
         2,
-        3,
         4,
+        5,
         6,
+        8,
         9
        ],
        "hits": [
@@ -22274,32 +20582,31 @@ const EXPERTS_DATA = {
       {
        "issue": "2026275",
        "picks": [
-        0,
         1,
         2,
-        3,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
         3,
         4,
         5,
         6,
-        7,
         8
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
        ],
        "hits": [
         3,
@@ -22314,8 +20621,8 @@ const EXPERTS_DATA = {
         0,
         2,
         3,
-        5,
         6,
+        7,
         8,
         9
        ],
@@ -22326,24 +20633,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 3,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        1
-       ],
-       "hitCount": 2,
-       "hit": false
       }
      ]
     },
@@ -22352,27 +20641,27 @@ const EXPERTS_DATA = {
      "url": "/ex/fc3dex/tjsy_6_1168.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       3,
-       4,
+       0,
+       2,
        5,
-       8,
+       6,
        9
       ]
      },
      "siteMetrics": [
       {
        "cat": "五码组选",
-       "hit10": 8,
+       "hit10": 9,
        "maxStreak": 11
       }
      ],
-     "siteHit10": 8,
+     "siteHit10": 9,
      "rawHit10": 9,
      "siteFit": {
-      "threshold": 2,
-      "count": 8,
+      "threshold": 1,
+      "count": 9,
       "maxStreak": 5,
       "exact": false
      },
@@ -22388,6 +20677,23 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
        "issue": "2026281",
        "picks": [
         0,
@@ -22546,59 +20852,42 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
       }
      ]
     },
     {
-     "name": "情一动心就痛",
-     "url": "/ex/fc3dex/tjsy_6_1541.html",
+     "name": "今年一定发",
+     "url": "/ex/fc3dex/tjsy_6_323.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
-       3,
-       4,
-       8,
+       1,
+       2,
+       6,
+       7,
        9
       ]
      },
      "siteMetrics": [
       {
        "cat": "五码组选",
-       "hit10": 8,
-       "maxStreak": 11
+       "hit10": 9,
+       "maxStreak": 9
       }
      ],
-     "siteHit10": 8,
+     "siteHit10": 9,
      "rawHit10": 9,
      "siteFit": {
       "threshold": 1,
       "count": 9,
-      "maxStreak": 6,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 7,
      "threshold": 3,
      "hitRate10": 0.3,
-     "maxStreak": 2,
+     "maxStreak": 1,
      "curStreak": 0,
      "recoverRate": 0.2857,
      "blackCount": 7,
@@ -22607,13 +20896,156 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
        "issue": "2026281",
        "picks": [
         0,
+        1,
+        2,
+        3,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        3,
+        5
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2,
         3,
         4,
         5,
-        7,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
         8,
         9
        ],
@@ -22625,15 +21057,112 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026280",
+       "issue": "2026273",
        "picks": [
         0,
+        1,
+        2,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "monkey",
+     "url": "/ex/fc3dex/tjsy_6_80.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       3,
+       4,
+       5,
+       6,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 13
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.2,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.125,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
         3,
-        4,
         5,
         6,
         7,
         9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+       ],
+       "hits": [
+        1,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
        ],
        "hits": [
         3,
@@ -22646,8 +21175,8 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
+        0,
         1,
-        4,
         5,
         6,
         7,
@@ -22665,11 +21194,11 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
+        0,
         2,
+        3,
         4,
         5,
-        6,
-        7,
         8,
         9
        ],
@@ -22680,16 +21209,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        0,
         1,
         2,
-        6,
-        7,
+        3,
+        4,
+        5,
         8,
         9
        ],
        "hits": [
-        6,
+        5,
         8
        ],
        "hitCount": 2,
@@ -22698,16 +21227,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026276",
        "picks": [
-        0,
-        2,
+        1,
+        3,
         4,
         5,
-        7,
+        6,
         8,
         9
        ],
        "hits": [
-        0,
+        6,
         9
        ],
        "hitCount": 2,
@@ -22717,12 +21246,12 @@ const EXPERTS_DATA = {
        "issue": "2026275",
        "picks": [
         0,
+        1,
         3,
+        4,
         5,
-        6,
         7,
-        8,
-        9
+        8
        ],
        "hits": [
         7,
@@ -22734,10 +21263,10 @@ const EXPERTS_DATA = {
       {
        "issue": "2026274",
        "picks": [
+        0,
         1,
         2,
-        4,
-        5,
+        6,
         7,
         8,
         9
@@ -22753,35 +21282,16 @@ const EXPERTS_DATA = {
        "issue": "2026273",
        "picks": [
         0,
-        2,
-        4,
-        5,
+        1,
+        3,
         6,
+        7,
         8,
         9
        ],
        "hits": [
         0,
-        2,
         9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        5
        ],
        "hitCount": 2,
        "hit": false
@@ -22789,24 +21299,24 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "张陈维",
-     "url": "/ex/fc3dex/tjsy_6_96.html",
+     "name": "少爷",
+     "url": "/ex/fc3dex/tjsy_6_841.html",
      "cat": "五码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
-       3,
-       5,
-       7,
-       8
+       0,
+       4,
+       6,
+       8,
+       9
       ]
      },
      "siteMetrics": [
       {
        "cat": "五码组选",
        "hit10": 8,
-       "maxStreak": 9
+       "maxStreak": 13
       }
      ],
      "siteHit10": 8,
@@ -22814,30 +21324,47 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 1,
       "count": 9,
-      "maxStreak": 6,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 7,
      "threshold": 3,
-     "hitRate10": 0.2,
+     "hitRate10": 0.3,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.125,
-     "blackCount": 8,
+     "recoverRate": 0.1429,
+     "blackCount": 7,
      "lastHit": false,
      "score": 0,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
         0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
         1,
         2,
         3,
         4,
         5,
-        7
+        7,
+        9
        ],
        "hits": [
         1,
@@ -22855,7 +21382,7 @@ const EXPERTS_DATA = {
         5,
         6,
         7,
-        8
+        9
        ],
        "hits": [
         3,
@@ -22868,11 +21395,232 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        2,
+        7
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
         0,
         1,
         2,
         3,
         4,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "义士",
+     "url": "/ex/fc3dex/tjsy_6_1119.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       6
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 13
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.2,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.25,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        4
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
         7,
         9
        ],
@@ -22889,9 +21637,9 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        2,
         3,
-        5,
+        4,
+        6,
         7,
         8
        ],
@@ -22902,17 +21650,17 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        0,
+        1,
         2,
         3,
         4,
         5,
-        6,
+        8,
         9
        ],
        "hits": [
         5,
-        6
+        8
        ],
        "hitCount": 2,
        "hit": false
@@ -22920,16 +21668,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026276",
        "picks": [
+        0,
         1,
-        3,
         4,
         5,
-        6,
         7,
+        8,
         9
        ],
        "hits": [
-        6,
+        0,
         9
        ],
        "hitCount": 2,
@@ -22942,6 +21690,446 @@ const EXPERTS_DATA = {
         1,
         3,
         4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "一生所写",
+     "url": "/ex/fc3dex/tjsy_6_1630.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       5,
+       6,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 12
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.2,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.125,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        2
+       ],
+       "hitCount": 2,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "情一动心就痛",
+     "url": "/ex/fc3dex/tjsy_6_1541.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.1429,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        7,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        2,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        3,
+        5,
+        6,
         7,
         8,
         9
@@ -22956,16 +22144,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026274",
        "picks": [
-        0,
         1,
-        3,
+        2,
+        4,
         5,
-        6,
+        7,
         8,
         9
        ],
        "hits": [
-        3,
+        2,
         8
        ],
        "hitCount": 2,
@@ -22975,24 +22163,635 @@ const EXPERTS_DATA = {
        "issue": "2026273",
        "picks": [
         0,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "预知梦",
+     "url": "/ex/fc3dex/tjsy_6_1834.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       5,
+       6,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.3,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
         1,
         2,
+        3,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        3,
+        4
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        7
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        0,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "如梦",
+     "url": "/ex/fc3dex/tjsy_6_605.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       3,
+       6,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 2,
+      "count": 8,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.1429,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        5
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "风玲珑",
+     "url": "/ex/fc3dex/tjsy_6_1939.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 10
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
         4,
         5,
         6,
         8
        ],
        "hits": [
+        1,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        3,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
         0,
-        2
+        1,
+        2,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        9
        ],
        "hitCount": 2,
        "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026278",
        "picks": [
         1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        0,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2,
         3,
         4,
         5,
@@ -23001,8 +22800,263 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
         1,
-        5
+        2,
+        3,
+        4,
+        5,
+        6
+       ],
+       "hits": [
+        2,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "希望在明天303",
+     "url": "/ex/fc3dex/tjsy_6_1216.html",
+     "cat": "五码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       4,
+       7,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "五码组选",
+       "hit10": 8,
+       "maxStreak": 8
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.2,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.25,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 0,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        4
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        5,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        6,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        7,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        3,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        2
        ],
        "hitCount": 2,
        "hit": false
@@ -23026,11 +23080,6 @@ const EXPERTS_DATA = {
       "hit10": 6
      },
      {
-      "name": "陆晓岑",
-      "url": "/ex/fc3dex/tjsy_6_218.html",
-      "hit10": 6
-     },
-     {
       "name": "虹要固执",
       "url": "/ex/fc3dex/tjsy_6_1662.html",
       "hit10": 6
@@ -23041,28 +23090,33 @@ const EXPERTS_DATA = {
       "hit10": 6
      },
      {
-      "name": "归海",
-      "url": "/ex/fc3dex/tjsy_6_1635.html",
-      "hit10": 6
-     },
-     {
-      "name": "llppp2015",
-      "url": "/ex/fc3dex/tjsy_6_291.html",
-      "hit10": 6
-     },
-     {
-      "name": "幸运星",
-      "url": "/ex/fc3dex/tjsy_6_1929.html",
-      "hit10": 6
-     },
-     {
-      "name": "阿郑q",
-      "url": "/ex/fc3dex/tjsy_6_371.html",
+      "name": "背上小书包",
+      "url": "/ex/fc3dex/tjsy_6_1936.html",
       "hit10": 6
      },
      {
       "name": "xxxxy2188",
       "url": "/ex/fc3dex/tjsy_6_781.html",
+      "hit10": 6
+     },
+     {
+      "name": "愿望成真",
+      "url": "/ex/fc3dex/tjsy_6_1414.html",
+      "hit10": 6
+     },
+     {
+      "name": "自费自信",
+      "url": "/ex/fc3dex/tjsy_6_926.html",
+      "hit10": 6
+     },
+     {
+      "name": "叭叭",
+      "url": "/ex/fc3dex/tjsy_6_1964.html",
+      "hit10": 6
+     },
+     {
+      "name": "好运连连JUN",
+      "url": "/ex/fc3dex/tjsy_6_1296.html",
       "hit10": 6
      }
     ],
@@ -23075,14 +23129,14 @@ const EXPERTS_DATA = {
      1,
      2,
      3,
-     5,
+     6,
      8,
      9
     ],
     "blue": []
    },
    "notes": [],
-   "issue": "2026282",
+   "issue": "2026283",
    "byCat": [
     {
      "cat": "七码组选",
@@ -23090,46 +23144,46 @@ const EXPERTS_DATA = {
      "count": 3,
      "experts": [
       {
-       "name": "妈妈爱霞朵君翔",
-       "nums": [
-        1,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 72
-      },
-      {
-       "name": "赌神下注",
-       "nums": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 42.83
-      },
-      {
        "name": "一炮就红",
        "nums": [
         0,
-        1,
         2,
         3,
         4,
+        5,
+        7,
+        8
+       ],
+       "issue": "2026283",
+       "score": 48.67
+      },
+      {
+       "name": "妈妈爱霞朵君翔",
+       "nums": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "issue": "2026283",
+       "score": 42.25
+      },
+      {
+       "name": "建麒流月",
+       "nums": [
+        0,
+        2,
+        3,
+        5,
+        6,
         8,
         9
        ],
-       "issue": "2026282",
-       "score": 77
+       "issue": "2026283",
+       "score": 43.67
       }
      ]
     },
@@ -23139,245 +23193,269 @@ const EXPERTS_DATA = {
      "count": 17,
      "experts": [
       {
-       "name": "今年一定发",
+       "name": "郭标",
        "nums": [
         0,
-        3,
-        4,
+        2,
+        5,
         6,
         9
        ],
-       "issue": "2026282",
-       "score": 38.72
+       "issue": "2026283",
+       "score": 0
       },
       {
-       "name": "沐雪",
+       "name": "今年一定发",
        "nums": [
         1,
-        3,
-        4,
+        2,
         6,
+        7,
         9
        ],
-       "issue": "2026282",
-       "score": 10.75
+       "issue": "2026283",
+       "score": 0
       },
       {
-       "name": "信念",
+       "name": "章鱼竞彩",
+       "nums": [
+        0,
+        1,
+        3,
+        5,
+        6
+       ],
+       "issue": "2026283",
+       "score": 2.33
+      },
+      {
+       "name": "monkey",
        "nums": [
         3,
         4,
         5,
         6,
+        8
+       ],
+       "issue": "2026283",
+       "score": 0
+      },
+      {
+       "name": "少爷",
+       "nums": [
+        0,
+        4,
+        6,
+        8,
         9
        ],
-       "issue": "2026282",
-       "score": 4.83
+       "issue": "2026283",
+       "score": 0
       },
       {
        "name": "义士",
        "nums": [
         0,
+        1,
+        2,
+        3,
+        6
+       ],
+       "issue": "2026283",
+       "score": 0
+      },
+      {
+       "name": "楚天奖神",
+       "nums": [
         3,
         4,
+        5,
         6,
-        8
-       ],
-       "issue": "2026282",
-       "score": 10.75
-      },
-      {
-       "name": "攀攀",
-       "nums": [
-        3,
-        4,
-        5,
-        8,
         9
        ],
-       "issue": "2026282",
-       "score": 32.5
+       "issue": "2026283",
+       "score": 2.33
       },
       {
-       "name": "郭标",
+       "name": "一生所写",
        "nums": [
-        3,
-        4,
+        0,
+        2,
         5,
-        8,
+        6,
         9
        ],
-       "issue": "2026282",
+       "issue": "2026283",
        "score": 0
       },
       {
        "name": "情一动心就痛",
        "nums": [
         0,
+        1,
+        2,
         3,
-        4,
-        8,
         9
        ],
-       "issue": "2026282",
+       "issue": "2026283",
        "score": 0
       },
       {
        "name": "预知梦",
        "nums": [
+        0,
         1,
-        2,
-        4,
-        8,
+        5,
+        6,
         9
        ],
-       "issue": "2026282",
-       "score": 38.72
+       "issue": "2026283",
+       "score": 0
+      },
+      {
+       "name": "如梦",
+       "nums": [
+        0,
+        1,
+        3,
+        6,
+        9
+       ],
+       "issue": "2026283",
+       "score": 0
       },
       {
        "name": "tylb600",
        "nums": [
-        1,
-        5,
+        0,
+        2,
         6,
         7,
         8
        ],
-       "issue": "2026282",
-       "score": 55
+       "issue": "2026283",
+       "score": 35
       },
       {
-       "name": "张陈维",
+       "name": "风玲珑",
        "nums": [
+        0,
         1,
+        2,
         3,
-        5,
-        7,
-        8
+        4
        ],
-       "issue": "2026282",
+       "issue": "2026283",
        "score": 0
-      },
-      {
-       "name": "饮酒微醉",
-       "nums": [
-        2,
-        4,
-        5,
-        6,
-        7
-       ],
-       "issue": "2026282",
-       "score": 17.64
-      },
-      {
-       "name": "183cm",
-       "nums": [
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "issue": "2026282",
-       "score": 48.17
-      },
-      {
-       "name": "三哥三到",
-       "nums": [
-        2,
-        3,
-        5,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 30
       },
       {
        "name": "威风少年郎",
        "nums": [
         0,
         1,
-        2,
-        3,
-        5
-       ],
-       "issue": "2026282",
-       "score": 24.83
-      },
-      {
-       "name": "伯乐中五百万",
-       "nums": [
-        1,
-        5,
-        6,
-        7,
-        8
-       ],
-       "issue": "2026282",
-       "score": 44
-      },
-      {
-       "name": "小茂",
-       "nums": [
-        1,
         3,
         4,
-        5,
         7
        ],
-       "issue": "2026282",
-       "score": 17.64
+       "issue": "2026283",
+       "score": 4.83
+      },
+      {
+       "name": "寂寞零度168",
+       "nums": [
+        0,
+        2,
+        3,
+        6,
+        8
+       ],
+       "issue": "2026283",
+       "score": 5
       },
       {
        "name": "Tuble",
        "nums": [
-        0,
-        2,
-        4,
-        8,
+        3,
+        5,
+        6,
+        7,
         9
        ],
-       "issue": "2026282",
-       "score": 32.5
+       "issue": "2026283",
+       "score": 27.5
+      },
+      {
+       "name": "希望在明天303",
+       "nums": [
+        0,
+        1,
+        4,
+        7,
+        9
+       ],
+       "issue": "2026283",
+       "score": 0
       }
      ]
     }
    ],
    "byExpert": [
     {
-     "name": "今年一定发",
+     "name": "郭标",
      "cats": {
       "五码组选": [
        0,
-       3,
-       4,
+       2,
+       5,
        6,
        9
       ]
      }
     },
     {
-     "name": "沐雪",
+     "name": "今年一定发",
      "cats": {
       "五码组选": [
        1,
-       3,
-       4,
+       2,
        6,
+       7,
        9
       ]
      }
     },
     {
-     "name": "信念",
+     "name": "章鱼竞彩",
+     "cats": {
+      "五码组选": [
+       0,
+       1,
+       3,
+       5,
+       6
+      ]
+     }
+    },
+    {
+     "name": "monkey",
      "cats": {
       "五码组选": [
        3,
        4,
        5,
        6,
+       8
+      ]
+     }
+    },
+    {
+     "name": "少爷",
+     "cats": {
+      "五码组选": [
+       0,
+       4,
+       6,
+       8,
        9
       ]
      }
@@ -23387,33 +23465,33 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
+       1,
+       2,
        3,
-       4,
-       6,
-       8
+       6
       ]
      }
     },
     {
-     "name": "攀攀",
+     "name": "楚天奖神",
      "cats": {
       "五码组选": [
        3,
        4,
        5,
-       8,
+       6,
        9
       ]
      }
     },
     {
-     "name": "郭标",
+     "name": "一生所写",
      "cats": {
       "五码组选": [
-       3,
-       4,
+       0,
+       2,
        5,
-       8,
+       6,
        9
       ]
      }
@@ -23423,9 +23501,9 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
+       1,
+       2,
        3,
-       4,
-       8,
        9
       ]
      }
@@ -23434,10 +23512,22 @@ const EXPERTS_DATA = {
      "name": "预知梦",
      "cats": {
       "五码组选": [
+       0,
        1,
-       2,
-       4,
-       8,
+       5,
+       6,
+       9
+      ]
+     }
+    },
+    {
+     "name": "如梦",
+     "cats": {
+      "五码组选": [
+       0,
+       1,
+       3,
+       6,
        9
       ]
      }
@@ -23446,8 +23536,8 @@ const EXPERTS_DATA = {
      "name": "tylb600",
      "cats": {
       "五码组选": [
-       1,
-       5,
+       0,
+       2,
        6,
        7,
        8
@@ -23455,50 +23545,14 @@ const EXPERTS_DATA = {
      }
     },
     {
-     "name": "张陈维",
+     "name": "风玲珑",
      "cats": {
       "五码组选": [
+       0,
        1,
-       3,
-       5,
-       7,
-       8
-      ]
-     }
-    },
-    {
-     "name": "饮酒微醉",
-     "cats": {
-      "五码组选": [
-       2,
-       4,
-       5,
-       6,
-       7
-      ]
-     }
-    },
-    {
-     "name": "183cm",
-     "cats": {
-      "五码组选": [
-       3,
-       4,
-       5,
-       6,
-       8
-      ]
-     }
-    },
-    {
-     "name": "三哥三到",
-     "cats": {
-      "五码组选": [
        2,
        3,
-       5,
-       8,
-       9
+       4
       ]
      }
     },
@@ -23508,73 +23562,21 @@ const EXPERTS_DATA = {
       "五码组选": [
        0,
        1,
-       2,
-       3,
-       5
-      ]
-     }
-    },
-    {
-     "name": "伯乐中五百万",
-     "cats": {
-      "五码组选": [
-       1,
-       5,
-       6,
-       7,
-       8
-      ]
-     }
-    },
-    {
-     "name": "小茂",
-     "cats": {
-      "五码组选": [
-       1,
        3,
        4,
-       5,
        7
       ]
      }
     },
     {
-     "name": "Tuble",
+     "name": "寂寞零度168",
      "cats": {
       "五码组选": [
        0,
        2,
-       4,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "妈妈爱霞朵君翔",
-     "cats": {
-      "七码组选": [
-       1,
        3,
-       4,
-       5,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "赌神下注",
-     "cats": {
-      "七码组选": [
-       1,
-       2,
-       3,
-       5,
-       7,
-       8,
-       9
+       6,
+       8
       ]
      }
     },
@@ -23583,10 +23585,62 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        2,
        3,
        4,
+       5,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "Tuble",
+     "cats": {
+      "五码组选": [
+       3,
+       5,
+       6,
+       7,
+       9
+      ]
+     }
+    },
+    {
+     "name": "希望在明天303",
+     "cats": {
+      "五码组选": [
+       0,
+       1,
+       4,
+       7,
+       9
+      ]
+     }
+    },
+    {
+     "name": "妈妈爱霞朵君翔",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       6,
+       9
+      ]
+     }
+    },
+    {
+     "name": "建麒流月",
+     "cats": {
+      "七码组选": [
+       0,
+       2,
+       3,
+       5,
+       6,
        8,
        9
       ]
@@ -23674,26 +23728,26 @@ const EXPERTS_DATA = {
     }
    },
    "expertCount": 20,
-   "listedCount": 64,
+   "listedCount": 61,
    "scoreSource": "history",
    "hitDataReliable": true,
    "stable": [
     {
-     "name": "奚大大真帅",
-     "url": "/ex/klbex/tjsy_8_708.html",
+     "name": "颦蹙",
+     "url": "/ex/klbex/tjsy_8_1898.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       30,
-       34,
-       39,
-       56,
-       61,
-       68,
-       69,
-       72,
-       75
+       11,
+       13,
+       14,
+       16,
+       21,
+       24,
+       25,
+       36,
+       80
       ]
      },
      "siteMetrics": [
@@ -23714,97 +23768,472 @@ const EXPERTS_DATA = {
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.9,
-     "maxStreak": 8,
-     "curStreak": 1,
+     "maxStreak": 9,
+     "curStreak": 9,
      "recoverRate": 1,
      "blackCount": 1,
      "lastHit": true,
-     "score": 91.5,
+     "score": 94,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
+        2,
+        11,
+        13,
+        14,
         16,
-        26,
-        30,
-        34,
-        39,
-        40,
-        55,
-        56,
-        61,
-        68,
-        69,
-        70,
-        72,
-        73,
-        75
+        21,
+        24,
+        25,
+        36,
+        52,
+        59,
+        60,
+        64,
+        75,
+        80
        ],
        "hits": [
-        26,
-        34,
-        55,
-        56,
-        69,
-        72,
-        75
+        2,
+        13,
+        14,
+        24,
+        36,
+        59,
+        80
        ],
        "hitCount": 7,
        "hit": true
       },
       {
+       "issue": "2026281",
+       "picks": [
+        2,
+        4,
+        5,
+        9,
+        26,
+        36,
+        40,
+        50,
+        51,
+        52,
+        56,
+        60,
+        63,
+        72,
+        80
+       ],
+       "hits": [
+        5,
+        26,
+        52,
+        56,
+        63,
+        72
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
        "issue": "2026280",
        "picks": [
-        3,
         13,
-        18,
-        21,
-        22,
-        28,
-        33,
-        41,
-        48,
-        51,
-        55,
+        17,
+        24,
+        26,
+        34,
+        40,
+        46,
+        49,
+        50,
+        56,
         60,
-        71,
-        74,
+        62,
+        63,
+        75,
+        80
+       ],
+       "hits": [
+        17,
+        26,
+        34,
+        75,
+        80
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        9,
+        10,
+        13,
+        17,
+        20,
+        26,
+        31,
+        32,
+        38,
+        40,
+        42,
+        53,
+        58,
+        63,
+        73
+       ],
+       "hits": [
+        9,
+        38,
+        40,
+        58
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        16,
+        17,
+        18,
+        20,
+        23,
+        25,
+        33,
+        39,
+        47,
+        49,
+        50,
+        58,
+        60,
+        65,
+        73
+       ],
+       "hits": [
+        17,
+        33,
+        39,
+        47,
+        49,
+        60
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        5,
+        16,
+        19,
+        27,
+        28,
+        29,
+        34,
+        37,
+        40,
+        48,
+        54,
+        55,
+        59,
+        80
+       ],
+       "hits": [
+        1,
+        16,
+        37,
+        48,
+        55
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        4,
+        6,
+        12,
+        13,
+        14,
+        18,
+        22,
+        23,
+        24,
+        25,
+        39,
+        42,
+        43,
+        58,
+        80
+       ],
+       "hits": [
+        6,
+        18,
+        22,
+        42
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        1,
+        10,
+        22,
+        36,
+        38,
+        39,
+        40,
+        51,
+        52,
+        54,
+        55,
+        63,
+        66,
+        72,
         76
        ],
        "hits": [
-        71,
-        74
+        38,
+        39,
+        51,
+        55,
+        63,
+        72
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        11,
+        14,
+        18,
+        19,
+        25,
+        26,
+        44,
+        48,
+        52,
+        54,
+        59,
+        69,
+        77,
+        78
+       ],
+       "hits": [
+        44,
+        48,
+        54,
+        78
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        5,
+        25,
+        26,
+        29,
+        32,
+        39,
+        40,
+        43,
+        45,
+        52,
+        54,
+        57,
+        64,
+        72,
+        77
+       ],
+       "hits": [
+        52,
+        54
        ],
        "hitCount": 2,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "幸运之神买彩票",
+     "url": "/ex/klbex/tjsy_8_1105.html",
+     "cat": "12码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       2,
+       5,
+       9,
+       14,
+       20,
+       37,
+       39,
+       40,
+       42,
+       44,
+       59,
+       61
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "12码",
+       "hit10": 2,
+       "maxStreak": 2
+      },
+      {
+       "cat": "9码",
+       "hit10": 3,
+       "maxStreak": 2
+      }
+     ],
+     "siteHit10": 2,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 7,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.9,
+     "maxStreak": 7,
+     "curStreak": 7,
+     "recoverRate": 1,
+     "blackCount": 1,
+     "lastHit": true,
+     "score": 89,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2,
+        5,
+        9,
+        14,
+        20,
+        37,
+        39,
+        40,
+        42,
+        44,
+        53,
+        58,
+        59,
+        61,
+        76
+       ],
+       "hits": [
+        2,
+        9,
+        14,
+        40,
+        44,
+        59,
+        61
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        6,
+        22,
+        24,
+        26,
+        27,
+        37,
+        38,
+        46,
+        48,
+        49,
+        56,
+        58,
+        63,
+        71,
+        77
+       ],
+       "hits": [
+        22,
+        26,
+        56,
+        58,
+        63,
+        71
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        6,
+        12,
+        21,
+        25,
+        26,
+        37,
+        42,
+        56,
+        61,
+        62,
+        64,
+        68,
+        70,
+        75,
+        77
+       ],
+       "hits": [
+        12,
+        26,
+        70,
+        75
+       ],
+       "hitCount": 4,
+       "hit": true
       },
       {
        "issue": "2026279",
        "picks": [
         1,
-        7,
+        3,
+        5,
         8,
-        11,
-        12,
-        15,
-        16,
-        24,
-        26,
-        31,
-        44,
-        48,
-        53,
-        70,
-        74
+        9,
+        13,
+        19,
+        27,
+        28,
+        35,
+        36,
+        55,
+        56,
+        65,
+        75
        ],
        "hits": [
         1,
         8,
-        11,
-        15,
-        44,
-        70
+        9,
+        19,
+        27,
+        36
        ],
        "hitCount": 6,
        "hit": true
@@ -23812,55 +24241,56 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        15,
-        19,
-        23,
-        24,
+        1,
+        8,
+        9,
+        14,
+        28,
         30,
-        35,
-        38,
+        31,
+        32,
+        34,
         40,
-        47,
-        54,
-        57,
-        60,
-        63,
-        74,
-        75
+        41,
+        51,
+        62,
+        64,
+        76
        ],
        "hits": [
-        15,
-        24,
-        47,
-        60
+        1,
+        8,
+        31,
+        41,
+        76
        ],
-       "hitCount": 4,
+       "hitCount": 5,
        "hit": true
       },
       {
        "issue": "2026277",
        "picks": [
         3,
-        5,
-        6,
-        28,
-        30,
-        33,
-        37,
-        46,
-        48,
-        57,
-        65,
-        70,
-        76,
-        77,
-        78
+        12,
+        15,
+        16,
+        17,
+        18,
+        24,
+        26,
+        34,
+        36,
+        41,
+        53,
+        60,
+        68,
+        72
        ],
        "hits": [
-        30,
-        37,
-        48,
-        70
+        16,
+        17,
+        53,
+        60
        ],
        "hitCount": 4,
        "hit": true
@@ -23869,55 +24299,392 @@ const EXPERTS_DATA = {
        "issue": "2026276",
        "picks": [
         2,
-        4,
-        6,
-        7,
-        9,
-        17,
-        18,
-        19,
-        26,
-        28,
+        15,
+        20,
+        22,
         30,
-        39,
-        45,
-        52,
-        61
+        36,
+        46,
+        49,
+        51,
+        54,
+        55,
+        56,
+        62,
+        67,
+        68
        ],
        "hits": [
         2,
-        6,
-        7,
-        18,
+        15,
+        22,
         30,
-        45
+        51,
+        62,
+        67
        ],
-       "hitCount": 6,
+       "hitCount": 7,
        "hit": true
       },
       {
        "issue": "2026275",
        "picks": [
-        5,
+        2,
         7,
-        9,
-        16,
-        34,
+        10,
+        18,
+        20,
+        23,
+        25,
+        26,
         38,
-        47,
-        49,
-        50,
-        55,
-        58,
-        65,
-        68,
-        73,
-        80
+        44,
+        60,
+        66,
+        67,
+        69,
+        77
        ],
        "hits": [
         38,
-        55,
+        60,
+        67
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        5,
+        13,
+        17,
+        18,
+        25,
+        30,
+        36,
+        42,
+        45,
+        47,
+        62,
+        69,
+        75,
+        78,
+        80
+       ],
+       "hits": [
+        17,
+        45,
+        47,
+        78
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        2,
+        4,
+        8,
+        10,
+        15,
+        16,
+        23,
+        29,
+        35,
+        54,
+        61,
+        63,
+        64,
         65,
+        79
+       ],
+       "hits": [
+        10,
+        23,
+        35,
+        54,
+        61,
+        63,
+        65
+       ],
+       "hitCount": 7,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "马到成功",
+     "url": "/ex/klbex/tjsy_8_308.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       8,
+       27,
+       32,
+       35,
+       43,
+       56,
+       73,
+       77
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 3,
+       "maxStreak": 2
+      }
+     ],
+     "siteHit10": 3,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 6,
+      "count": 3,
+      "maxStreak": 2,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.9,
+     "maxStreak": 6,
+     "curStreak": 6,
+     "recoverRate": 1,
+     "blackCount": 1,
+     "lastHit": true,
+     "score": 86.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        8,
+        20,
+        26,
+        27,
+        30,
+        32,
+        35,
+        36,
+        43,
+        49,
+        56,
+        58,
+        73,
+        77
+       ],
+       "hits": [
+        8,
+        32,
+        35,
+        36,
+        43,
+        73
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        9,
+        11,
+        14,
+        19,
+        24,
+        29,
+        32,
+        39,
+        51,
+        52,
+        62,
+        67,
+        75,
+        76,
+        77
+       ],
+       "hits": [
+        11,
+        19,
+        52,
+        75
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        5,
+        20,
+        22,
+        24,
+        31,
+        34,
+        37,
+        48,
+        57,
+        58,
+        59,
+        60,
+        70,
+        72,
+        80
+       ],
+       "hits": [
+        5,
+        34,
+        70,
+        72,
+        80
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        11,
+        13,
+        15,
+        17,
+        23,
+        25,
+        27,
+        36,
+        37,
+        42,
+        45,
+        47,
+        59,
+        61,
+        71
+       ],
+       "hits": [
+        11,
+        15,
+        23,
+        27,
+        36,
+        59,
+        61
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1,
+        3,
+        4,
+        11,
+        15,
+        22,
+        25,
+        29,
+        36,
+        47,
+        50,
+        63,
+        70,
+        72,
+        76
+       ],
+       "hits": [
+        1,
+        15,
+        22,
+        29,
+        47,
+        72,
+        76
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        16,
+        19,
+        21,
+        27,
+        29,
+        31,
+        43,
+        48,
+        50,
+        60,
+        64,
+        67,
+        73,
+        78,
+        79
+       ],
+       "hits": [
+        16,
+        48,
+        60,
+        67
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        17,
+        20,
+        23,
+        26,
+        42,
+        50,
+        52,
+        58,
+        60,
+        62,
+        65,
+        68,
+        72,
+        75
+       ],
+       "hits": [
+        42,
+        62,
+        65
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        10,
+        13,
+        15,
+        19,
+        21,
+        22,
+        24,
+        37,
+        49,
+        56,
+        67,
+        68,
+        70,
+        73,
+        75
+       ],
+       "hits": [
+        37,
+        56,
+        67,
         68,
         73
        ],
@@ -23927,121 +24694,91 @@ const EXPERTS_DATA = {
       {
        "issue": "2026274",
        "picks": [
-        1,
-        4,
-        8,
-        15,
-        19,
-        22,
+        2,
+        3,
+        10,
+        27,
         32,
-        34,
-        45,
+        37,
+        40,
+        47,
         50,
-        56,
-        60,
-        61,
-        63,
-        73
+        53,
+        55,
+        67,
+        70,
+        78,
+        79
        ],
        "hits": [
-        8,
-        15,
-        45,
-        56,
-        63
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4,
-        14,
-        20,
-        21,
-        22,
-        28,
-        30,
-        34,
-        51,
-        58,
-        63,
-        64,
-        72,
-        73,
-        74
-       ],
-       "hits": [
-        14,
-        51,
-        58,
-        63
+        27,
+        47,
+        70,
+        78
        ],
        "hitCount": 4,
        "hit": true
       },
       {
-       "issue": "2026272",
+       "issue": "2026273",
        "picks": [
-        2,
-        6,
-        9,
+        1,
         10,
-        26,
-        42,
-        43,
-        51,
-        58,
-        59,
+        17,
+        22,
+        23,
+        24,
+        38,
+        45,
+        46,
+        48,
+        53,
         62,
-        64,
-        70,
-        77,
-        80
+        67,
+        75,
+        78
        ],
        "hits": [
-        43,
-        51,
-        62,
-        64,
-        77,
-        80
+        10,
+        23,
+        24,
+        38
        ],
-       "hitCount": 6,
+       "hitCount": 4,
        "hit": true
       }
      ]
     },
     {
-     "name": "nidom",
-     "url": "/ex/klbex/tjsy_8_637.html",
-     "cat": "9码",
+     "name": "迅猛之烙印",
+     "url": "/ex/klbex/tjsy_8_729.html",
+     "cat": "10码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
-       2,
-       9,
-       11,
-       24,
-       56,
-       58,
-       69,
-       74
+       5,
+       15,
+       16,
+       17,
+       19,
+       30,
+       31,
+       61,
+       79,
+       80
       ]
      },
      "siteMetrics": [
       {
-       "cat": "9码",
+       "cat": "10码",
        "hit10": 2,
-       "maxStreak": 2
+       "maxStreak": 1
       }
      ],
      "siteHit10": 2,
      "rawHit10": 10,
      "siteFit": {
-      "threshold": 7,
+      "threshold": 8,
       "count": 1,
       "maxStreak": 1,
       "exact": false
@@ -24049,41 +24786,69 @@ const EXPERTS_DATA = {
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.8,
-     "maxStreak": 4,
-     "curStreak": 4,
+     "maxStreak": 5,
+     "curStreak": 5,
      "recoverRate": 1,
      "blackCount": 2,
      "lastHit": true,
-     "score": 78,
+     "score": 80.5,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
-        1,
-        2,
-        9,
-        11,
-        12,
-        24,
+        5,
+        10,
+        15,
+        16,
+        17,
+        19,
+        30,
         31,
-        49,
-        56,
-        58,
-        63,
-        65,
-        69,
-        74,
-        75
+        32,
+        43,
+        47,
+        55,
+        61,
+        79,
+        80
        ],
        "hits": [
-        1,
-        11,
+        32,
+        43,
+        61,
+        80
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        7,
+        13,
+        15,
+        16,
+        19,
+        25,
+        47,
+        50,
+        52,
         56,
-        58,
+        61,
         63,
-        69,
-        75
+        66,
+        72,
+        77
+       ],
+       "hits": [
+        13,
+        19,
+        52,
+        56,
+        63,
+        66,
+        72
        ],
        "hitCount": 7,
        "hit": true
@@ -24091,59 +24856,405 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
-        4,
-        5,
         8,
-        17,
-        21,
-        26,
-        27,
-        35,
-        37,
-        41,
+        12,
+        15,
+        19,
+        25,
+        48,
+        50,
         52,
+        53,
+        61,
         67,
         68,
-        74,
-        76
+        70,
+        71,
+        72
        ],
        "hits": [
-        4,
-        5,
-        17,
-        26,
-        27,
-        74
+        12,
+        53,
+        70,
+        71,
+        72
        ],
-       "hitCount": 6,
+       "hitCount": 5,
        "hit": true
       },
       {
        "issue": "2026279",
        "picks": [
         1,
-        14,
-        17,
-        33,
+        3,
+        11,
+        25,
+        29,
         34,
-        35,
-        37,
-        38,
-        40,
-        43,
-        44,
-        50,
+        36,
+        41,
+        49,
+        53,
         60,
-        61,
-        62
+        68,
+        69,
+        79,
+        80
        ],
        "hits": [
         1,
+        11,
+        36,
+        79
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        8,
+        15,
+        24,
+        36,
+        37,
         38,
+        42,
+        48,
+        49,
+        52,
+        59,
+        60,
+        65,
+        67,
+        76
+       ],
+       "hits": [
+        8,
+        15,
+        24,
+        48,
+        49,
+        60,
+        76
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        3,
+        5,
+        9,
+        15,
+        20,
+        31,
+        34,
+        46,
+        56,
+        58,
+        69,
+        72,
+        75,
+        79
+       ],
+       "hits": [
+        1,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        12,
+        15,
+        17,
+        22,
+        27,
+        29,
+        33,
+        36,
         40,
         43,
+        45,
+        49,
+        51,
+        65,
+        73
+       ],
+       "hits": [
+        15,
+        22,
+        27,
+        45,
+        51,
+        65,
+        73
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        6,
+        17,
+        18,
+        29,
+        37,
+        38,
+        39,
+        46,
+        48,
+        50,
+        56,
+        57,
+        64,
+        65,
+        78
+       ],
+       "hits": [
+        37,
+        38,
+        39,
+        48,
+        56,
+        64,
+        65,
+        78
+       ],
+       "hitCount": 8,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        4,
+        9,
+        10,
+        19,
+        20,
+        27,
+        34,
+        39,
+        43,
+        52,
+        63,
+        64,
+        68,
+        78
+       ],
+       "hits": [
+        9,
+        27,
+        43,
+        63,
+        64,
+        78
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        4,
+        7,
+        18,
+        21,
+        24,
+        31,
+        32,
+        34,
+        40,
+        45,
+        48,
+        74,
+        77,
+        78,
+        79
+       ],
+       "hits": [
+        24,
+        31
+       ],
+       "hitCount": 2,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "郭贱人",
+     "url": "/ex/klbex/tjsy_8_1537.html",
+     "cat": "12码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       8,
+       9,
+       20,
+       31,
+       35,
+       36,
+       43,
+       60,
+       67,
+       71,
+       73,
+       78
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "12码",
+       "hit10": 2,
+       "maxStreak": 1
+      }
+     ],
+     "siteHit10": 2,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 7,
+      "count": 2,
+      "maxStreak": 1,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.7,
+     "maxStreak": 5,
+     "curStreak": 5,
+     "recoverRate": 1,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 77,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        8,
+        9,
+        20,
+        31,
+        35,
+        36,
+        43,
+        48,
+        58,
+        60,
+        67,
+        71,
+        73,
+        76,
+        78
+       ],
+       "hits": [
+        8,
+        9,
+        35,
+        36,
+        43,
+        73,
+        78
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2,
+        8,
+        21,
+        22,
+        25,
+        27,
+        41,
+        47,
+        52,
+        58,
+        60,
+        66,
+        69,
+        73,
+        78
+       ],
+       "hits": [
+        8,
+        22,
+        52,
+        58,
+        66,
+        69
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        5,
+        9,
+        19,
+        22,
+        23,
+        27,
+        29,
+        31,
+        43,
+        58,
+        66,
+        69,
+        70,
+        74,
+        80
+       ],
+       "hits": [
+        5,
+        9,
+        27,
+        43,
+        66,
+        69,
+        70,
+        74,
+        80
+       ],
+       "hitCount": 9,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        8,
+        16,
+        23,
+        27,
         44,
-        61
+        51,
+        56,
+        58,
+        60,
+        64,
+        66,
+        69,
+        71,
+        78
+       ],
+       "hits": [
+        1,
+        8,
+        23,
+        27,
+        44,
+        58
        ],
        "hitCount": 6,
        "hit": true
@@ -24151,26 +25262,26 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        4,
         5,
-        6,
-        19,
-        29,
-        41,
+        13,
+        31,
+        33,
+        39,
+        40,
         45,
+        46,
         47,
         48,
-        51,
-        55,
-        58,
+        63,
+        64,
         66,
         69,
-        75
+        77
        ],
        "hits": [
-        6,
-        29,
-        41,
+        31,
+        33,
+        39,
         47,
         48
        ],
@@ -24180,501 +25291,136 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        7,
-        12,
-        13,
-        14,
-        22,
-        27,
+        8,
+        20,
+        25,
         28,
-        40,
-        43,
+        29,
+        31,
+        33,
+        41,
         45,
         46,
-        59,
-        63,
-        66,
-        69
+        52,
+        53,
+        62,
+        65,
+        80
        ],
        "hits": [
-        66
+        25,
+        53
        ],
-       "hitCount": 1,
+       "hitCount": 2,
        "hit": false
       },
       {
        "issue": "2026276",
        "picks": [
-        2,
         3,
-        9,
-        14,
-        16,
-        30,
-        33,
-        37,
-        38,
-        51,
-        58,
-        61,
-        63,
-        67,
-        72
-       ],
-       "hits": [
-        2,
-        30,
-        37,
-        38,
-        51,
-        67
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
         13,
-        16,
-        19,
-        24,
-        25,
-        26,
-        38,
+        20,
+        27,
+        32,
         40,
-        50,
-        51,
-        62,
-        68,
-        69,
-        74,
-        78
-       ],
-       "hits": [
-        38,
-        51,
-        68,
-        78
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        5,
-        24,
-        29,
-        33,
-        37,
-        46,
-        48,
+        44,
+        45,
+        57,
+        59,
         60,
-        61,
-        66,
-        67,
+        62,
+        65,
         77,
-        78,
-        80
-       ],
-       "hits": [
-        29,
-        46,
-        48,
         78
        ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4,
-        17,
-        22,
-        31,
-        32,
-        38,
-        47,
-        48,
-        54,
-        56,
-        64,
-        66,
-        69,
-        75,
-        80
-       ],
        "hits": [
-        31,
-        38,
-        54
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        15,
         27,
-        30,
-        37,
+        32,
         45,
-        46,
-        51,
-        57,
-        58,
-        59,
-        65,
-        69,
-        72,
-        77,
-        80
-       ],
-       "hits": [
-        51,
-        57,
-        72,
-        77,
-        80
+        62,
+        65
        ],
        "hitCount": 5,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "微尚暖暖男",
-     "url": "/ex/klbex/tjsy_8_651.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       3,
-       8,
-       29,
-       30,
-       44,
-       56,
-       66,
-       72,
-       75
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 2,
-       "maxStreak": 2
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 7,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.7,
-     "maxStreak": 5,
-     "curStreak": 1,
-     "recoverRate": 1,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 77,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        3,
-        4,
-        8,
-        23,
-        27,
-        29,
-        30,
-        44,
-        53,
-        55,
-        56,
-        66,
-        68,
-        72,
-        75
-       ],
-       "hits": [
-        8,
-        53,
-        55,
-        56,
-        66,
-        72,
-        75
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        8,
-        10,
-        15,
-        23,
-        27,
-        32,
-        42,
-        44,
-        45,
-        50,
-        53,
-        58,
-        73,
-        74,
-        78
-       ],
-       "hits": [
-        27,
-        53,
-        74
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        10,
-        11,
-        19,
-        30,
-        38,
-        44,
-        49,
-        52,
-        54,
-        57,
-        59,
-        64,
-        65,
-        67,
-        68
-       ],
-       "hits": [
-        11,
-        19,
-        30,
-        38,
-        44,
-        52,
-        59
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        5,
-        14,
-        27,
-        29,
-        32,
-        44,
-        47,
-        52,
-        56,
-        59,
-        62,
-        66,
-        73,
-        76,
-        79
-       ],
-       "hits": [
-        29,
-        47,
-        76
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        6,
-        7,
-        11,
-        13,
-        17,
-        19,
-        20,
-        25,
-        27,
-        35,
-        42,
-        47,
-        51,
-        52,
-        53
-       ],
-       "hits": [
-        11,
-        17,
-        25,
-        53
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        5,
-        8,
-        24,
-        30,
-        31,
-        39,
-        42,
-        61,
-        63,
-        65,
-        67,
-        69,
-        73,
-        78
-       ],
-       "hits": [
-        2,
-        30,
-        42,
-        65,
-        67,
-        73
-       ],
-       "hitCount": 6,
        "hit": true
       },
       {
        "issue": "2026275",
-       "picks": [
-        9,
-        10,
-        11,
-        12,
-        16,
-        21,
-        26,
-        29,
-        36,
-        41,
-        48,
-        53,
-        56,
-        68,
-        71
-       ],
-       "hits": [
-        11,
-        48,
-        56,
-        68
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        12,
-        20,
-        23,
-        25,
-        28,
-        36,
-        44,
-        45,
-        48,
-        52,
-        56,
-        59,
-        74,
-        78,
-        79
-       ],
-       "hits": [
-        44,
-        45,
-        48,
-        56,
-        78
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4,
-        10,
-        16,
-        24,
-        29,
-        35,
-        38,
-        41,
-        46,
-        47,
-        57,
-        61,
-        69,
-        72,
-        80
-       ],
-       "hits": [
-        10,
-        24,
-        35,
-        38,
-        61
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
        "picks": [
         1,
-        3,
+        4,
         5,
+        11,
         15,
-        23,
-        26,
+        21,
+        22,
+        25,
+        28,
         33,
-        35,
+        34,
         36,
-        41,
-        42,
-        43,
-        56,
-        68,
+        53,
+        62,
         74
        ],
        "hits": [
-        41,
-        43,
-        68
+        11,
+        33
        ],
-       "hitCount": 3,
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        25,
+        26,
+        31,
+        39,
+        43,
+        48,
+        53,
+        54,
+        57,
+        69,
+        76,
+        77,
+        78,
+        79
+       ],
+       "hits": [
+        43,
+        48,
+        54,
+        78
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        7,
+        8,
+        17,
+        24,
+        26,
+        37,
+        38,
+        39,
+        41,
+        57,
+        66,
+        67,
+        69,
+        70,
+        75
+       ],
+       "hits": [
+        24,
+        38
+       ],
+       "hitCount": 2,
        "hit": false
       }
      ]
@@ -24684,17 +25430,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_383.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       16,
-       26,
-       35,
-       39,
-       42,
-       55,
+       12,
+       18,
+       20,
+       21,
+       23,
+       31,
+       44,
        63,
-       66,
-       71
+       73
       ]
      },
      "siteMetrics": [
@@ -24715,14 +25461,42 @@ const EXPERTS_DATA = {
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 3,
+     "maxStreak": 4,
+     "curStreak": 4,
      "recoverRate": 1,
      "blackCount": 3,
      "lastHit": true,
-     "score": 72,
+     "score": 74.5,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        12,
+        18,
+        20,
+        21,
+        23,
+        27,
+        28,
+        31,
+        39,
+        44,
+        54,
+        63,
+        68,
+        73,
+        74
+       ],
+       "hits": [
+        23,
+        44,
+        68,
+        73
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -24982,34 +25756,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 4,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        14,
-        22,
-        25,
-        27,
-        36,
-        39,
-        41,
-        45,
-        47,
-        49,
-        63,
-        75,
-        78,
-        79
-       ],
-       "hits": [
-        14,
-        39,
-        41,
-        47
-       ],
-       "hitCount": 4,
-       "hit": true
       }
      ]
     },
@@ -25018,17 +25764,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1628.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       11,
-       20,
-       24,
-       28,
-       45,
-       56,
-       69,
-       73,
-       75
+       3,
+       9,
+       17,
+       18,
+       59,
+       65,
+       66,
+       72,
+       80
       ]
      },
      "siteMetrics": [
@@ -25049,14 +25795,42 @@ const EXPERTS_DATA = {
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 3,
+     "maxStreak": 4,
+     "curStreak": 4,
      "recoverRate": 1,
      "blackCount": 3,
      "lastHit": true,
-     "score": 72,
+     "score": 74.5,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        3,
+        9,
+        12,
+        14,
+        16,
+        17,
+        18,
+        48,
+        58,
+        59,
+        65,
+        66,
+        72,
+        74,
+        80
+       ],
+       "hits": [
+        9,
+        14,
+        59,
+        80
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -25313,35 +26087,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 6,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        4,
-        5,
-        8,
-        12,
-        14,
-        17,
-        19,
-        22,
-        25,
-        36,
-        50,
-        63,
-        66,
-        67,
-        77
-       ],
-       "hits": [
-        14,
-        19,
-        66,
-        67,
-        77
-       ],
-       "hitCount": 5,
-       "hit": true
       }
      ]
     },
@@ -25350,17 +26095,17 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_1113.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
-       13,
-       19,
-       28,
-       30,
-       33,
-       37,
-       69,
-       72
+       2,
+       6,
+       21,
+       26,
+       38,
+       46,
+       52,
+       73,
+       78
       ]
      },
      "siteMetrics": [
@@ -25381,14 +26126,43 @@ const EXPERTS_DATA = {
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.7,
-     "maxStreak": 5,
-     "curStreak": 5,
+     "maxStreak": 6,
+     "curStreak": 6,
      "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": true,
-     "score": 68.67,
+     "score": 71.17,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2,
+        6,
+        11,
+        21,
+        26,
+        38,
+        44,
+        46,
+        48,
+        52,
+        59,
+        63,
+        72,
+        73,
+        78
+       ],
+       "hits": [
+        2,
+        44,
+        59,
+        73,
+        78
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -25640,496 +26414,166 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        11,
-        14,
-        15,
-        23,
-        26,
-        29,
-        34,
-        40,
-        45,
-        51,
-        56,
-        61,
-        62,
-        74
-       ],
-       "hits": [
-        11,
-        14,
-        40,
-        51,
-        62
-       ],
-       "hitCount": 5,
-       "hit": true
       }
      ]
     },
     {
-     "name": "爱钱宝",
-     "url": "/ex/klbex/tjsy_8_362.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       4,
-       12,
-       19,
-       22,
-       28,
-       43,
-       55,
-       56,
-       66
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 2,
-       "maxStreak": 2
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 9,
-     "siteFit": {
-      "threshold": 7,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.6,
-     "maxStreak": 3,
-     "curStreak": 1,
-     "recoverRate": 1,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 68.5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        4,
-        6,
-        12,
-        19,
-        22,
-        28,
-        32,
-        43,
-        54,
-        55,
-        56,
-        58,
-        60,
-        66,
-        76
-       ],
-       "hits": [
-        19,
-        22,
-        55,
-        56,
-        58,
-        66
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        4,
-        8,
-        11,
-        13,
-        14,
-        15,
-        42,
-        44,
-        52,
-        53,
-        54,
-        61,
-        63,
-        76,
-        80
-       ],
-       "hits": [
-        4,
-        53,
-        80
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        19,
-        20,
-        21,
-        22,
-        26,
-        30,
-        33,
-        35,
-        36,
-        38,
-        45,
-        60,
-        64,
-        70,
-        72
-       ],
-       "hits": [
-        19,
-        30,
-        36,
-        38,
-        70
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        8,
-        10,
-        15,
-        17,
-        22,
-        27,
-        30,
-        34,
-        36,
-        52,
-        65,
-        66,
-        72,
-        74
-       ],
-       "hits": [
-        1,
-        8,
-        15,
-        17,
-        22,
-        72
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        4,
-        7,
-        16,
-        25,
-        29,
-        32,
-        39,
-        40,
-        48,
-        49,
-        50,
-        53,
-        61,
-        69,
-        79
-       ],
-       "hits": [
-        16,
-        25,
-        32,
-        39,
-        48,
-        49,
-        53
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        5,
-        7,
-        10,
-        15,
-        16,
-        19,
-        21,
-        33,
-        41,
-        44,
-        50,
-        55,
-        66,
-        76,
-        79
-       ],
-       "hits": [
-        7,
-        15,
-        66
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        9,
-        11,
-        23,
-        24,
-        31,
-        33,
-        37,
-        39,
-        43,
-        63,
-        65,
-        68,
-        70,
-        73,
-        79
-       ],
-       "hits": [
-        11,
-        31,
-        33,
-        37,
-        39,
-        63,
-        65,
-        68,
-        73
-       ],
-       "hitCount": 9,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        10,
-        19,
-        25,
-        31,
-        34,
-        41,
-        55,
-        57,
-        60,
-        62,
-        65,
-        67,
-        76,
-        77
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        3,
-        14,
-        19,
-        25,
-        29,
-        30,
-        33,
-        49,
-        50,
-        56,
-        58,
-        59,
-        65,
-        70,
-        78
-       ],
-       "hits": [
-        14,
-        49,
-        58,
-        65
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        5,
-        9,
-        13,
-        20,
-        21,
-        25,
-        32,
-        38,
-        49,
-        50,
-        52,
-        54,
-        68,
-        79
-       ],
-       "hits": [
-        20,
-        68
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "迅猛之烙印",
-     "url": "/ex/klbex/tjsy_8_729.html",
+     "name": "毛遂自荐",
+     "url": "/ex/klbex/tjsy_8_1772.html",
      "cat": "10码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
+       8,
+       9,
        13,
-       15,
-       19,
-       25,
-       50,
+       14,
+       20,
+       24,
        52,
-       56,
-       63,
-       72,
-       77
+       57,
+       67,
+       80
       ]
      },
      "siteMetrics": [
       {
        "cat": "10码",
        "hit10": 2,
-       "maxStreak": 1
+       "maxStreak": 2
       }
      ],
      "siteHit10": 2,
      "rawHit10": 10,
      "siteFit": {
-      "threshold": 8,
-      "count": 1,
+      "threshold": 6,
+      "count": 3,
       "maxStreak": 1,
       "exact": false
      },
      "picksN": 15,
      "threshold": 4,
      "hitRate10": 0.7,
-     "maxStreak": 4,
-     "curStreak": 4,
+     "maxStreak": 6,
+     "curStreak": 6,
      "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": true,
-     "score": 66.17,
+     "score": 71.17,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
-        7,
+        8,
+        9,
+        11,
         13,
-        15,
-        16,
-        19,
-        25,
-        47,
+        14,
+        20,
+        24,
         50,
         52,
-        56,
-        61,
-        63,
-        66,
-        72,
-        77
+        53,
+        57,
+        67,
+        74,
+        75,
+        80
        ],
        "hits": [
+        8,
+        9,
         13,
-        19,
-        52,
-        56,
-        63,
-        66,
-        72
+        14,
+        24,
+        80
        ],
-       "hitCount": 7,
+       "hitCount": 6,
        "hit": true
       },
       {
-       "issue": "2026280",
+       "issue": "2026281",
        "picks": [
         8,
         12,
-        15,
-        19,
-        25,
-        48,
-        50,
+        14,
+        18,
+        28,
+        34,
+        37,
+        47,
         52,
-        53,
+        56,
         61,
-        67,
-        68,
-        70,
-        71,
-        72
+        62,
+        63,
+        64,
+        73
        ],
        "hits": [
-        12,
-        53,
-        70,
-        71,
-        72
+        8,
+        34,
+        52,
+        56,
+        63
        ],
        "hitCount": 5,
        "hit": true
       },
       {
+       "issue": "2026280",
+       "picks": [
+        11,
+        15,
+        38,
+        39,
+        43,
+        46,
+        48,
+        51,
+        63,
+        69,
+        70,
+        71,
+        72,
+        75,
+        78
+       ],
+       "hits": [
+        43,
+        69,
+        70,
+        71,
+        72,
+        75
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
        "issue": "2026279",
        "picks": [
-        1,
-        3,
-        11,
-        25,
-        29,
-        34,
-        36,
+        6,
+        12,
+        26,
+        27,
         41,
         49,
-        53,
-        60,
+        52,
+        61,
+        63,
+        66,
         68,
-        69,
+        71,
+        76,
         79,
         80
        ],
        "hits": [
-        1,
-        11,
-        36,
+        27,
+        52,
+        61,
         79
        ],
        "hitCount": 4,
@@ -26138,202 +26582,169 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        8,
-        15,
-        24,
-        36,
-        37,
-        38,
-        42,
-        48,
-        49,
-        52,
-        59,
-        60,
-        65,
-        67,
-        76
-       ],
-       "hits": [
-        8,
-        15,
-        24,
-        48,
-        49,
-        60,
-        76
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        3,
-        5,
-        9,
-        15,
+        17,
         20,
+        28,
         31,
-        34,
-        46,
-        56,
-        58,
-        69,
-        72,
-        75,
-        79
-       ],
-       "hits": [
-        1,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        12,
-        15,
-        17,
-        22,
-        27,
-        29,
         33,
-        36,
-        40,
-        43,
-        45,
-        49,
-        51,
-        65,
-        73
-       ],
-       "hits": [
-        15,
-        22,
-        27,
-        45,
-        51,
-        65,
-        73
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        6,
-        17,
-        18,
-        29,
-        37,
-        38,
-        39,
+        34,
+        35,
+        41,
         46,
         48,
-        50,
-        56,
         57,
-        64,
-        65,
-        78
+        60,
+        62,
+        72,
+        76
        ],
        "hits": [
-        37,
-        38,
-        39,
+        17,
+        31,
+        33,
+        41,
         48,
-        56,
-        64,
-        65,
-        78
+        60,
+        72,
+        76
        ],
        "hitCount": 8,
        "hit": true
       },
       {
-       "issue": "2026274",
+       "issue": "2026277",
        "picks": [
-        3,
-        4,
-        9,
+        6,
         10,
-        19,
-        20,
-        27,
-        34,
+        22,
+        25,
+        26,
         39,
-        43,
-        52,
-        63,
-        64,
+        41,
+        55,
+        57,
+        61,
+        66,
         68,
+        69,
+        70,
         78
        ],
        "hits": [
-        9,
-        27,
+        25,
+        39,
+        55,
+        66,
+        70
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        8,
+        10,
+        30,
+        37,
+        38,
+        40,
         43,
-        63,
-        64,
+        44,
+        47,
+        49,
+        50,
+        53,
+        57,
+        76,
         78
        ],
-       "hitCount": 6,
+       "hits": [
+        30,
+        37,
+        38
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        9,
+        12,
+        15,
+        23,
+        29,
+        32,
+        33,
+        35,
+        42,
+        58,
+        62,
+        69,
+        70,
+        71,
+        72
+       ],
+       "hits": [
+        32,
+        33,
+        72
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        12,
+        25,
+        27,
+        28,
+        40,
+        45,
+        46,
+        48,
+        49,
+        50,
+        53,
+        61,
+        67,
+        71,
+        77
+       ],
+       "hits": [
+        27,
+        45,
+        46,
+        48
+       ],
+       "hitCount": 4,
        "hit": true
       },
       {
        "issue": "2026273",
        "picks": [
-        4,
-        7,
-        18,
-        21,
-        24,
-        31,
-        32,
+        3,
+        10,
+        13,
         34,
         40,
-        45,
+        43,
+        44,
         48,
-        74,
-        77,
-        78,
-        79
-       ],
-       "hits": [
-        24,
-        31
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        6,
-        16,
-        28,
-        35,
-        39,
-        41,
-        48,
+        53,
         54,
-        55,
         58,
-        61,
-        67,
-        70,
-        74,
-        78
+        62,
+        68,
+        73,
+        75
        ],
        "hits": [
-        39,
-        41,
-        67
+        10,
+        54,
+        58
        ],
        "hitCount": 3,
        "hit": false
@@ -26341,282 +26752,302 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "杜蕾",
-     "url": "/ex/klbex/tjsy_8_539.html",
-     "cat": "12码",
+     "name": "平安快乐过一生",
+     "url": "/ex/klbex/tjsy_8_535.html",
+     "cat": "10码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        4,
-       6,
-       15,
+       7,
+       17,
        18,
-       29,
+       30,
        49,
-       55,
-       66,
-       69,
-       72,
-       73,
-       78
+       54,
+       57,
+       68,
+       76
       ]
      },
      "siteMetrics": [
       {
-       "cat": "12码",
-       "hit10": 2,
-       "maxStreak": 1
-      },
-      {
        "cat": "10码",
        "hit10": 2,
-       "maxStreak": 1
+       "maxStreak": 2
       }
      ],
      "siteHit10": 2,
      "rawHit10": 10,
      "siteFit": {
-      "threshold": 7,
+      "threshold": 6,
       "count": 2,
-      "maxStreak": 1,
+      "maxStreak": 2,
       "exact": true
      },
      "picksN": 15,
      "threshold": 4,
-     "hitRate10": 0.6,
-     "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.75,
-     "blackCount": 4,
+     "hitRate10": 0.7,
+     "maxStreak": 6,
+     "curStreak": 6,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
      "lastHit": true,
-     "score": 59.75,
+     "score": 71.17,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
+        3,
         4,
-        6,
-        15,
+        7,
+        8,
+        13,
+        17,
         18,
-        22,
-        29,
+        24,
+        30,
         49,
-        55,
-        58,
-        64,
-        66,
-        69,
-        72,
-        73,
-        78
+        54,
+        57,
+        63,
+        68,
+        76
        ],
        "hits": [
-        22,
-        55,
-        58,
-        66,
-        69,
-        72
+        8,
+        13,
+        24,
+        68
        ],
-       "hitCount": 6,
+       "hitCount": 4,
        "hit": true
       },
       {
-       "issue": "2026280",
+       "issue": "2026281",
        "picks": [
-        4,
+        2,
         5,
-        21,
-        27,
-        28,
-        30,
-        35,
-        41,
-        43,
-        51,
-        54,
-        71,
-        72,
+        7,
+        11,
+        13,
+        15,
+        26,
+        34,
+        39,
+        52,
+        61,
+        63,
+        73,
         75,
-        79
+        78
        ],
        "hits": [
-        4,
         5,
-        27,
-        30,
-        43,
-        71,
-        72,
+        11,
+        13,
+        26,
+        34,
+        52,
+        63,
         75
        ],
        "hitCount": 8,
        "hit": true
       },
       {
-       "issue": "2026279",
+       "issue": "2026280",
        "picks": [
-        14,
-        16,
-        22,
-        27,
-        37,
+        2,
+        4,
+        7,
+        9,
+        11,
+        17,
+        26,
+        34,
+        47,
         48,
-        54,
-        56,
-        61,
+        50,
+        58,
         62,
-        63,
-        64,
-        73,
-        79,
-        80
+        66,
+        67
        ],
        "hits": [
-        27,
-        61,
+        4,
+        7,
+        9,
+        17,
+        26,
+        34,
+        66
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        9,
+        28,
+        29,
+        34,
+        36,
+        43,
+        47,
+        54,
+        59,
+        63,
+        65,
+        66,
+        73,
+        75,
         79
        ],
-       "hitCount": 3,
-       "hit": false
+       "hits": [
+        9,
+        36,
+        43,
+        59,
+        79
+       ],
+       "hitCount": 5,
+       "hit": true
       },
       {
        "issue": "2026278",
        "picks": [
-        1,
-        3,
-        5,
-        7,
-        11,
-        23,
-        28,
-        35,
-        36,
-        45,
-        50,
-        51,
-        54,
-        56,
-        67
+        6,
+        19,
+        25,
+        26,
+        29,
+        30,
+        31,
+        47,
+        53,
+        57,
+        59,
+        70,
+        72,
+        73,
+        75
        ],
        "hits": [
-        1
+        6,
+        29,
+        31,
+        47,
+        72
        ],
-       "hitCount": 1,
-       "hit": false
+       "hitCount": 5,
+       "hit": true
       },
       {
        "issue": "2026277",
        "picks": [
-        3,
+        5,
+        6,
         9,
-        10,
-        28,
+        19,
+        23,
+        27,
         37,
+        38,
         40,
-        47,
-        48,
-        55,
-        56,
-        57,
-        62,
-        63,
-        67,
-        75
+        45,
+        46,
+        61,
+        65,
+        74,
+        79
        ],
        "hits": [
         9,
+        23,
         37,
-        48,
-        55,
-        67
+        74
        ],
-       "hitCount": 5,
+       "hitCount": 4,
        "hit": true
       },
       {
        "issue": "2026276",
        "picks": [
         5,
-        12,
+        19,
+        20,
         24,
         26,
-        32,
-        33,
-        35,
-        36,
+        40,
+        44,
+        46,
+        47,
         49,
-        56,
-        58,
-        65,
-        73,
-        77,
+        55,
+        60,
+        66,
+        75,
         78
        ],
        "hits": [
-        32,
-        65,
-        73
+        66
        ],
-       "hitCount": 3,
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026275",
        "picks": [
-        4,
-        8,
-        13,
-        25,
-        31,
+        6,
+        7,
+        10,
+        11,
+        16,
+        30,
         36,
-        47,
-        51,
-        52,
+        42,
+        45,
+        54,
+        57,
+        58,
         59,
-        60,
-        64,
-        65,
-        73,
-        78
+        71,
+        73
        ],
        "hits": [
-        31,
-        51,
-        60,
-        64,
-        65,
-        73,
-        78
+        11,
+        73
        ],
-       "hitCount": 7,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026274",
        "picks": [
-        3,
-        11,
-        23,
-        25,
-        31,
-        33,
-        38,
-        39,
-        40,
-        43,
+        1,
+        14,
+        17,
+        18,
+        22,
+        26,
+        32,
+        46,
         50,
-        60,
+        53,
+        56,
         63,
-        65,
-        70
+        69,
+        71,
+        79
        ],
        "hits": [
-        38,
-        43,
-        63,
-        70
+        17,
+        46,
+        56,
+        63
        ],
        "hitCount": 4,
        "hit": true
@@ -26626,73 +27057,44 @@ const EXPERTS_DATA = {
        "picks": [
         1,
         3,
-        31,
-        32,
-        36,
-        38,
-        39,
-        42,
-        45,
-        46,
-        59,
-        67,
-        69,
-        73,
-        77
-       ],
-       "hits": [
-        31,
-        38
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        3,
+        4,
+        5,
+        16,
         19,
         26,
-        28,
         31,
-        33,
-        38,
-        43,
-        44,
-        59,
-        61,
-        68,
-        76,
-        79
+        39,
+        47,
+        53,
+        57,
+        62,
+        73,
+        75
        ],
        "hits": [
-        19,
-        43,
-        68,
-        76
+        31
        ],
-       "hitCount": 4,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       }
      ]
     },
     {
-     "name": "钱多多",
-     "url": "/ex/klbex/tjsy_8_1291.html",
+     "name": "我要破零",
+     "url": "/ex/klbex/tjsy_8_1608.html",
      "cat": "9码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       8,
-       10,
-       16,
-       31,
-       43,
-       52,
-       64,
-       77,
-       79
+       2,
+       6,
+       9,
+       22,
+       33,
+       44,
+       50,
+       59,
+       68
       ]
      },
      "siteMetrics": [
@@ -26705,6 +27107,674 @@ const EXPERTS_DATA = {
      "siteHit10": 3,
      "rawHit10": 10,
      "siteFit": {
+      "threshold": 6,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.5,
+     "maxStreak": 3,
+     "curStreak": 1,
+     "recoverRate": 0.6,
+     "blackCount": 5,
+     "lastHit": true,
+     "score": 55,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2,
+        3,
+        6,
+        9,
+        20,
+        22,
+        33,
+        41,
+        44,
+        50,
+        59,
+        65,
+        68,
+        70,
+        75
+       ],
+       "hits": [
+        2,
+        9,
+        41,
+        44,
+        59,
+        68
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        6,
+        13,
+        21,
+        22,
+        29,
+        30,
+        33,
+        44,
+        45,
+        48,
+        52,
+        57,
+        64,
+        68,
+        80
+       ],
+       "hits": [
+        13,
+        22,
+        52
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        6,
+        7,
+        13,
+        14,
+        20,
+        25,
+        27,
+        31,
+        44,
+        55,
+        57,
+        62,
+        67,
+        73,
+        77
+       ],
+       "hits": [
+        7,
+        27
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        5,
+        11,
+        12,
+        13,
+        16,
+        17,
+        19,
+        29,
+        30,
+        36,
+        62,
+        73,
+        77,
+        79
+       ],
+       "hits": [
+        1,
+        11,
+        19,
+        30,
+        36,
+        79
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        9,
+        15,
+        16,
+        19,
+        33,
+        35,
+        39,
+        41,
+        46,
+        50,
+        59,
+        60,
+        62,
+        70,
+        75
+       ],
+       "hits": [
+        15,
+        33,
+        39,
+        41,
+        60
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        2,
+        10,
+        16,
+        17,
+        21,
+        23,
+        28,
+        41,
+        55,
+        61,
+        66,
+        74,
+        77,
+        79,
+        80
+       ],
+       "hits": [
+        16,
+        17,
+        23,
+        55,
+        66,
+        74
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        2,
+        4,
+        8,
+        12,
+        17,
+        26,
+        29,
+        35,
+        36,
+        38,
+        39,
+        48,
+        52,
+        60,
+        80
+       ],
+       "hits": [
+        2,
+        38
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        5,
+        10,
+        19,
+        30,
+        33,
+        34,
+        37,
+        42,
+        50,
+        51,
+        57,
+        72,
+        75,
+        77,
+        78
+       ],
+       "hits": [
+        33,
+        37,
+        51,
+        72,
+        78
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        2,
+        7,
+        8,
+        11,
+        12,
+        14,
+        21,
+        23,
+        29,
+        49,
+        59,
+        66,
+        68,
+        78,
+        79
+       ],
+       "hits": [
+        8,
+        29,
+        78
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        6,
+        13,
+        14,
+        18,
+        20,
+        21,
+        23,
+        26,
+        30,
+        33,
+        38,
+        43,
+        46,
+        70,
+        78
+       ],
+       "hits": [
+        14,
+        23,
+        38
+       ],
+       "hitCount": 3,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "大王",
+     "url": "/ex/klbex/tjsy_8_1991.html",
+     "cat": "12码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       3,
+       6,
+       9,
+       11,
+       22,
+       25,
+       29,
+       34,
+       48,
+       67,
+       69,
+       70
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "12码",
+       "hit10": 2,
+       "maxStreak": null
+      }
+     ],
+     "siteHit10": 2,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 7,
+      "count": 2,
+      "maxStreak": 2,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.8,
+     "maxStreak": 7,
+     "curStreak": 0,
+     "recoverRate": 0.5,
+     "blackCount": 2,
+     "lastHit": false,
+     "score": 53,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        3,
+        6,
+        9,
+        11,
+        22,
+        23,
+        25,
+        29,
+        34,
+        48,
+        54,
+        61,
+        67,
+        69,
+        70
+       ],
+       "hits": [
+        9,
+        23,
+        61
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2,
+        5,
+        6,
+        15,
+        18,
+        21,
+        26,
+        30,
+        50,
+        53,
+        64,
+        66,
+        67,
+        76,
+        77
+       ],
+       "hits": [
+        5,
+        26,
+        53,
+        66
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        9,
+        15,
+        20,
+        28,
+        29,
+        45,
+        48,
+        54,
+        58,
+        61,
+        64,
+        65,
+        74,
+        75,
+        79
+       ],
+       "hits": [
+        9,
+        74,
+        75
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        8,
+        9,
+        21,
+        30,
+        32,
+        33,
+        34,
+        43,
+        48,
+        52,
+        58,
+        74,
+        75,
+        77,
+        78
+       ],
+       "hits": [
+        8,
+        9,
+        30,
+        43,
+        52,
+        58
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        3,
+        6,
+        9,
+        10,
+        15,
+        17,
+        18,
+        26,
+        29,
+        31,
+        39,
+        43,
+        60,
+        71,
+        77
+       ],
+       "hits": [
+        6,
+        15,
+        17,
+        29,
+        31,
+        39,
+        60,
+        71
+       ],
+       "hitCount": 8,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        13,
+        16,
+        17,
+        18,
+        20,
+        22,
+        29,
+        30,
+        39,
+        49,
+        54,
+        61,
+        66,
+        72,
+        74
+       ],
+       "hits": [
+        16,
+        17,
+        30,
+        39,
+        49,
+        66,
+        74
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        6,
+        7,
+        9,
+        10,
+        15,
+        20,
+        24,
+        26,
+        32,
+        37,
+        46,
+        47,
+        60,
+        67,
+        69
+       ],
+       "hits": [
+        6,
+        7,
+        15,
+        32,
+        37,
+        67
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2,
+        7,
+        10,
+        11,
+        15,
+        20,
+        22,
+        38,
+        48,
+        50,
+        55,
+        67,
+        68,
+        77,
+        80
+       ],
+       "hits": [
+        11,
+        38,
+        48,
+        55,
+        67,
+        68
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        6,
+        7,
+        10,
+        17,
+        21,
+        27,
+        32,
+        39,
+        42,
+        46,
+        56,
+        71,
+        77,
+        78
+       ],
+       "hits": [
+        17,
+        27,
+        46,
+        56,
+        78
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        8,
+        12,
+        14,
+        15,
+        21,
+        26,
+        36,
+        38,
+        42,
+        48,
+        49,
+        57,
+        66,
+        73,
+        74
+       ],
+       "hits": [
+        12,
+        14,
+        38,
+        49
+       ],
+       "hitCount": 4,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "风雪心情",
+     "url": "/ex/klbex/tjsy_8_240.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       9,
+       13,
+       15,
+       41,
+       50,
+       61,
+       66,
+       77,
+       78
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 2,
+       "maxStreak": 2
+      }
+     ],
+     "siteHit10": 2,
+     "rawHit10": 10,
+     "siteFit": {
       "threshold": 5,
       "count": 3,
       "maxStreak": 1,
@@ -26712,15 +27782,1013 @@ const EXPERTS_DATA = {
      },
      "picksN": 15,
      "threshold": 4,
-     "hitRate10": 0.6,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.5,
-     "blackCount": 4,
+     "hitRate10": 0.5,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.6,
+     "blackCount": 5,
      "lastHit": true,
-     "score": 56,
+     "score": 52.5,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9,
+        10,
+        11,
+        13,
+        15,
+        29,
+        41,
+        50,
+        61,
+        62,
+        64,
+        65,
+        66,
+        77,
+        78
+       ],
+       "hits": [
+        9,
+        13,
+        41,
+        61,
+        78
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        5,
+        12,
+        14,
+        16,
+        20,
+        26,
+        28,
+        31,
+        38,
+        60,
+        65,
+        68,
+        72,
+        77,
+        79
+       ],
+       "hits": [
+        5,
+        26,
+        72
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        2,
+        10,
+        17,
+        28,
+        29,
+        37,
+        47,
+        62,
+        67,
+        69,
+        70,
+        72,
+        74,
+        77,
+        78
+       ],
+       "hits": [
+        17,
+        69,
+        70,
+        72,
+        74
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        5,
+        11,
+        15,
+        17,
+        22,
+        24,
+        26,
+        29,
+        34,
+        38,
+        40,
+        46,
+        65,
+        67,
+        75
+       ],
+       "hits": [
+        11,
+        15,
+        38,
+        40
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        4,
+        6,
+        13,
+        14,
+        20,
+        34,
+        38,
+        42,
+        51,
+        59,
+        61,
+        72,
+        74,
+        77,
+        78
+       ],
+       "hits": [
+        6,
+        72
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        8,
+        21,
+        22,
+        23,
+        27,
+        31,
+        36,
+        41,
+        46,
+        48,
+        58,
+        69,
+        74,
+        79,
+        80
+       ],
+       "hits": [
+        23,
+        48,
+        74
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        9,
+        23,
+        24,
+        31,
+        34,
+        42,
+        63,
+        65,
+        68,
+        72,
+        73,
+        74,
+        76,
+        79
+       ],
+       "hits": [
+        42,
+        65,
+        73
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        6,
+        11,
+        12,
+        17,
+        23,
+        29,
+        33,
+        36,
+        40,
+        45,
+        56,
+        58,
+        60,
+        68,
+        75
+       ],
+       "hits": [
+        11,
+        33,
+        56,
+        60,
+        68
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        2,
+        4,
+        5,
+        8,
+        10,
+        12,
+        14,
+        17,
+        18,
+        19,
+        28,
+        31,
+        47,
+        69,
+        79
+       ],
+       "hits": [
+        8,
+        17,
+        47
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        17,
+        20,
+        26,
+        32,
+        34,
+        38,
+        54,
+        56,
+        60,
+        61,
+        64,
+        73,
+        74,
+        76,
+        78
+       ],
+       "hits": [
+        38,
+        54,
+        61,
+        76
+       ],
+       "hitCount": 4,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "梦里水乡",
+     "url": "/ex/klbex/tjsy_8_1940.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       18,
+       28,
+       30,
+       40,
+       47,
+       58,
+       59,
+       61,
+       80
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 3,
+       "maxStreak": null
+      }
+     ],
+     "siteHit10": 3,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 5,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.4,
+     "maxStreak": 1,
+     "curStreak": 1,
+     "recoverRate": 0.6667,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 48.17,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        6,
+        11,
+        18,
+        28,
+        30,
+        40,
+        47,
+        52,
+        56,
+        58,
+        59,
+        61,
+        75,
+        80
+       ],
+       "hits": [
+        40,
+        59,
+        61,
+        80
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        3,
+        4,
+        5,
+        7,
+        8,
+        10,
+        14,
+        21,
+        30,
+        37,
+        43,
+        45,
+        58,
+        59,
+        80
+       ],
+       "hits": [
+        5,
+        8,
+        58
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        17,
+        20,
+        25,
+        33,
+        36,
+        44,
+        50,
+        51,
+        52,
+        61,
+        70,
+        72,
+        77,
+        78,
+        79
+       ],
+       "hits": [
+        17,
+        70,
+        72
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        6,
+        9,
+        19,
+        23,
+        29,
+        30,
+        33,
+        42,
+        44,
+        45,
+        67,
+        69,
+        71,
+        75,
+        79
+       ],
+       "hits": [
+        9,
+        19,
+        23,
+        30,
+        44,
+        79
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        10,
+        15,
+        16,
+        20,
+        32,
+        36,
+        37,
+        38,
+        52,
+        55,
+        60,
+        68,
+        74,
+        78,
+        79
+       ],
+       "hits": [
+        15,
+        60
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        6,
+        8,
+        12,
+        21,
+        24,
+        28,
+        33,
+        35,
+        38,
+        39,
+        40,
+        42,
+        52,
+        56,
+        78
+       ],
+       "hits": [
+        39
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        2,
+        7,
+        11,
+        14,
+        22,
+        31,
+        42,
+        43,
+        46,
+        60,
+        61,
+        67,
+        75,
+        77,
+        80
+       ],
+       "hits": [
+        2,
+        7,
+        11,
+        22,
+        42,
+        67
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        6,
+        8,
+        10,
+        16,
+        19,
+        20,
+        24,
+        27,
+        37,
+        38,
+        47,
+        56,
+        57,
+        59,
+        77
+       ],
+       "hits": [
+        37,
+        38,
+        56
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        2,
+        4,
+        17,
+        18,
+        26,
+        27,
+        31,
+        46,
+        47,
+        50,
+        54,
+        63,
+        67,
+        70,
+        76
+       ],
+       "hits": [
+        17,
+        27,
+        46,
+        47,
+        54,
+        63,
+        70
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        1,
+        4,
+        6,
+        16,
+        19,
+        38,
+        41,
+        46,
+        51,
+        53,
+        54,
+        57,
+        59,
+        64,
+        68
+       ],
+       "hits": [
+        38,
+        51,
+        54
+       ],
+       "hitCount": 3,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "好运来吧2016",
+     "url": "/ex/klbex/tjsy_8_620.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       9,
+       15,
+       23,
+       24,
+       26,
+       47,
+       48,
+       59,
+       61
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 2,
+       "maxStreak": 2
+      }
+     ],
+     "siteHit10": 2,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 6,
+      "count": 2,
+      "maxStreak": 2,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 2,
+     "recoverRate": 0.5,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 46.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        9,
+        15,
+        23,
+        24,
+        26,
+        35,
+        40,
+        42,
+        47,
+        48,
+        49,
+        59,
+        60,
+        61
+       ],
+       "hits": [
+        9,
+        23,
+        24,
+        35,
+        40,
+        59,
+        61
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        5,
+        8,
+        10,
+        19,
+        20,
+        21,
+        39,
+        42,
+        49,
+        52,
+        62,
+        63,
+        64,
+        69,
+        70
+       ],
+       "hits": [
+        5,
+        8,
+        19,
+        52,
+        63,
+        69
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        16,
+        23,
+        28,
+        31,
+        32,
+        35,
+        39,
+        41,
+        43,
+        59,
+        62,
+        67,
+        70,
+        71
+       ],
+       "hits": [
+        43,
+        70,
+        71
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        3,
+        10,
+        12,
+        18,
+        20,
+        24,
+        27,
+        40,
+        47,
+        52,
+        55,
+        59,
+        66,
+        69,
+        73
+       ],
+       "hits": [
+        27,
+        40,
+        52,
+        59
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        9,
+        11,
+        28,
+        29,
+        32,
+        38,
+        46,
+        47,
+        51,
+        54,
+        55,
+        59,
+        62,
+        66,
+        71
+       ],
+       "hits": [
+        29,
+        47,
+        71
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        6,
+        7,
+        14,
+        19,
+        21,
+        22,
+        27,
+        33,
+        41,
+        45,
+        50,
+        57,
+        58,
+        70,
+        75
+       ],
+       "hits": [
+        70
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        14,
+        16,
+        21,
+        24,
+        32,
+        37,
+        50,
+        51,
+        53,
+        60,
+        65,
+        66,
+        70,
+        79
+       ],
+       "hits": [
+        32,
+        37,
+        51,
+        65,
+        66
+       ],
+       "hitCount": 5,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2,
+        15,
+        20,
+        22,
+        23,
+        37,
+        41,
+        53,
+        59,
+        61,
+        62,
+        63,
+        66,
+        73,
+        75
+       ],
+       "hits": [
+        37,
+        63,
+        73
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        7,
+        10,
+        14,
+        25,
+        35,
+        40,
+        48,
+        49,
+        53,
+        65,
+        70,
+        73,
+        77,
+        80
+       ],
+       "hits": [
+        35,
+        48,
+        70
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        8,
+        15,
+        18,
+        20,
+        27,
+        30,
+        32,
+        35,
+        46,
+        56,
+        60,
+        65,
+        70,
+        72,
+        80
+       ],
+       "hits": [
+        27,
+        35,
+        65
+       ],
+       "hitCount": 3,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "钱多多",
+     "url": "/ex/klbex/tjsy_8_1291.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       4,
+       7,
+       19,
+       36,
+       49,
+       55,
+       59,
+       62,
+       67
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 3,
+       "maxStreak": null
+      }
+     ],
+     "siteHit10": 3,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 5,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": true
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.5,
+     "maxStreak": 3,
+     "curStreak": 0,
+     "recoverRate": 0.4,
+     "blackCount": 5,
+     "lastHit": false,
+     "score": 30,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        4,
+        5,
+        7,
+        19,
+        26,
+        27,
+        36,
+        42,
+        48,
+        49,
+        55,
+        59,
+        62,
+        67,
+        80
+       ],
+       "hits": [
+        36,
+        59,
+        80
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -26976,725 +29044,31 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 7,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        3,
-        5,
-        30,
-        31,
-        34,
-        47,
-        49,
-        55,
-        56,
-        57,
-        61,
-        62,
-        63,
-        74,
-        76
-       ],
-       "hits": [
-        47,
-        57,
-        62,
-        76
-       ],
-       "hitCount": 4,
-       "hit": true
       }
      ]
     },
     {
-     "name": "红叶",
-     "url": "/ex/klbex/tjsy_8_928.html",
-     "cat": "9码",
+     "name": "铭汇字牌",
+     "url": "/ex/klbex/tjsy_8_716.html",
+     "cat": "10码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       7,
-       8,
-       11,
-       17,
-       31,
-       34,
-       53,
-       56,
-       60
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 2,
-       "maxStreak": 3
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 5,
-      "count": 3,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.6,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.5,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 56,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        7,
-        8,
-        11,
-        17,
-        19,
-        24,
-        27,
-        31,
-        34,
-        53,
-        56,
-        58,
-        60,
-        76,
-        78
-       ],
-       "hits": [
-        8,
-        11,
-        19,
-        34,
-        53,
-        56,
-        58
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        12,
-        16,
-        21,
-        24,
-        27,
-        30,
-        35,
-        38,
-        40,
-        46,
-        64,
-        66,
-        67,
-        69,
-        74
-       ],
-       "hits": [
-        12,
-        27,
-        30,
-        66,
-        69,
-        74
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        4,
-        8,
-        21,
-        24,
-        32,
-        37,
-        45,
-        46,
-        52,
-        54,
-        55,
-        63,
-        70,
-        75
-       ],
-       "hits": [
-        1,
-        8,
-        52,
-        70
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        3,
-        4,
-        11,
-        15,
-        25,
-        26,
-        36,
-        43,
-        48,
-        55,
-        57,
-        63,
-        66,
-        67,
-        75
-       ],
-       "hits": [
-        15,
-        48
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        13,
-        18,
-        24,
-        27,
-        29,
-        30,
-        32,
-        33,
-        39,
-        46,
-        51,
-        57,
-        65,
-        70,
-        72
-       ],
-       "hits": [
-        30,
-        32,
-        39,
-        70
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        3,
-        8,
-        17,
-        20,
-        25,
-        29,
-        32,
-        35,
-        42,
-        51,
-        58,
-        61,
-        66,
-        68,
-        72
-       ],
-       "hits": [
-        32,
-        42,
-        51,
-        66
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        5,
-        7,
-        29,
-        37,
-        45,
-        46,
-        49,
-        60,
-        61,
-        63,
-        65,
-        72,
-        78,
-        79,
-        80
-       ],
-       "hits": [
-        37,
-        60,
-        63,
-        65,
-        72,
-        78
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        12,
-        14,
-        16,
-        20,
-        22,
-        28,
-        31,
-        38,
-        40,
-        65,
-        69,
-        71,
-        75,
-        76,
-        79
-       ],
-       "hits": [
-        38
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        5,
-        6,
-        11,
-        17,
-        23,
-        30,
-        31,
-        42,
-        45,
-        51,
-        57,
-        60,
-        67,
-        75
-       ],
-       "hits": [
-        23,
-        31,
-        51
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        12,
-        13,
-        16,
-        19,
-        31,
-        34,
-        38,
-        44,
-        50,
-        53,
-        54,
-        57,
-        59,
-        61
-       ],
-       "hits": [
-        19,
-        57
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "王兴刚",
-     "url": "/ex/klbex/tjsy_8_936.html",
-     "cat": "15码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       13,
-       18,
-       23,
-       27,
-       32,
-       33,
-       39,
-       40,
-       48,
-       51,
+       12,
+       19,
+       29,
+       37,
+       45,
+       49,
+       61,
+       64,
        70,
-       73,
-       77,
-       78
+       79
       ]
      },
      "siteMetrics": [
       {
-       "cat": "15码",
-       "hit10": 2,
-       "maxStreak": null
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 7,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": true
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.8,
-     "maxStreak": 7,
-     "curStreak": 0,
-     "recoverRate": 0.5,
-     "blackCount": 2,
-     "lastHit": false,
-     "score": 53,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        2,
-        13,
-        18,
-        23,
-        27,
-        32,
-        33,
-        39,
-        40,
-        48,
-        51,
-        70,
-        73,
-        77,
-        78
-       ],
-       "hits": [
-        13
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        17,
-        23,
-        31,
-        44,
-        53,
-        55,
-        61,
-        71,
-        76
-       ],
-       "hits": [
-        5,
-        17,
-        53,
-        71
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        15,
-        24,
-        28,
-        29,
-        30,
-        37,
-        40,
-        43,
-        45,
-        49,
-        53,
-        59,
-        70,
-        74,
-        78
-       ],
-       "hits": [
-        15,
-        30,
-        40,
-        43,
-        59,
-        70
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        4,
-        9,
-        12,
-        17,
-        19,
-        24,
-        27,
-        42,
-        47,
-        48,
-        54,
-        55,
-        69,
-        71,
-        76
-       ],
-       "hits": [
-        17,
-        24,
-        47,
-        48,
-        71,
-        76
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        3,
-        4,
-        7,
-        16,
-        25,
-        29,
-        31,
-        32,
-        35,
-        51,
-        61,
-        66,
-        69,
-        73,
-        74
-       ],
-       "hits": [
-        16,
-        25,
-        32,
-        66,
-        74
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        11,
-        18,
-        23,
-        27,
-        31,
-        33,
-        36,
-        37,
-        55,
-        56,
-        65,
-        66,
-        67,
-        73,
-        77
-       ],
-       "hits": [
-        11,
-        18,
-        27,
-        37,
-        65,
-        66,
-        67,
-        73
-       ],
-       "hitCount": 8,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        5,
-        6,
-        16,
-        18,
-        19,
-        21,
-        32,
-        39,
-        43,
-        49,
-        51,
-        63,
-        66,
-        67,
-        75
-       ],
-       "hits": [
-        32,
-        39,
-        51,
-        63,
-        67
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        5,
-        18,
-        22,
-        30,
-        38,
-        40,
-        41,
-        48,
-        50,
-        55,
-        56,
-        64,
-        75,
-        79,
-        80
-       ],
-       "hits": [
-        38,
-        48,
-        56,
-        64
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        5,
-        7,
-        10,
-        20,
-        28,
-        32,
-        33,
-        38,
-        40,
-        43,
-        57,
-        63,
-        64,
-        68,
-        70
-       ],
-       "hits": [
-        10,
-        38,
-        63
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        9,
-        20,
-        26,
-        31,
-        37,
-        39,
-        43,
-        54,
-        59,
-        62,
-        64,
-        67,
-        70,
-        77,
-        80
-       ],
-       "hits": [
-        20,
-        39,
-        43,
-        62,
-        64,
-        67,
-        77,
-        80
-       ],
-       "hitCount": 8,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "喊吧",
-     "url": "/ex/klbex/tjsy_8_262.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       13,
-       18,
-       34,
-       40,
-       55,
-       57,
-       58,
-       62,
-       72
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
+       "cat": "10码",
        "hit10": 2,
        "maxStreak": 2
       }
@@ -27702,137 +29076,486 @@ const EXPERTS_DATA = {
      "siteHit10": 2,
      "rawHit10": 10,
      "siteFit": {
-      "threshold": 6,
-      "count": 1,
+      "threshold": 5,
+      "count": 2,
       "maxStreak": 1,
       "exact": false
      },
      "picksN": 15,
      "threshold": 4,
-     "hitRate10": 0.5,
-     "maxStreak": 4,
-     "curStreak": 4,
-     "recoverRate": 0.4,
-     "blackCount": 5,
-     "lastHit": true,
-     "score": 52.5,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.5,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 26.5,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        12,
+        19,
+        29,
+        37,
+        38,
+        40,
+        45,
+        49,
+        56,
+        61,
+        64,
+        70,
+        74,
+        79,
+        80
+       ],
+       "hits": [
+        40,
+        61,
+        80
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
         4,
+        6,
+        8,
+        11,
+        12,
         13,
         18,
-        28,
-        34,
-        36,
-        40,
-        54,
-        55,
-        57,
-        58,
-        62,
-        72,
-        77,
-        80
+        21,
+        26,
+        31,
+        46,
+        47,
+        52,
+        63,
+        66
        ],
        "hits": [
+        8,
+        11,
         13,
-        34,
-        55,
-        58,
-        72
+        26,
+        52,
+        63,
+        66
        ],
-       "hitCount": 5,
+       "hitCount": 7,
        "hit": true
       },
       {
        "issue": "2026280",
        "picks": [
-        5,
+        1,
+        3,
+        11,
+        15,
         18,
-        26,
-        27,
-        29,
-        36,
-        57,
-        62,
-        63,
-        66,
-        69,
+        32,
+        37,
+        40,
+        53,
+        55,
+        60,
+        64,
         72,
         74,
-        76,
-        80
+        77
        ],
        "hits": [
-        5,
-        26,
-        27,
-        66,
-        69,
+        53,
         72,
-        74,
-        80
+        74
        ],
-       "hitCount": 8,
-       "hit": true
+       "hitCount": 3,
+       "hit": false
       },
       {
        "issue": "2026279",
        "picks": [
         6,
-        8,
-        11,
-        19,
-        20,
+        17,
+        28,
+        36,
+        39,
+        49,
+        50,
+        53,
+        55,
+        59,
+        66,
+        72,
+        74,
+        76,
+        79
+       ],
+       "hits": [
+        36,
+        59,
+        79
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        13,
         22,
         25,
+        27,
+        30,
+        34,
+        41,
         43,
-        44,
-        53,
-        54,
+        47,
         57,
+        59,
+        60,
+        62,
         66,
+        80
+       ],
+       "hits": [
+        22,
+        41,
+        47,
+        60
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        12,
+        13,
+        16,
+        31,
+        33,
+        43,
+        49,
+        58,
+        63,
+        67,
+        68,
+        70,
+        76,
         78,
         80
        ],
        "hits": [
+        16,
+        49,
+        67,
+        70
+       ],
+       "hitCount": 4,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        2,
+        3,
         8,
-        11,
-        19,
+        23,
+        24,
+        28,
+        31,
+        40,
+        41,
+        42,
+        48,
+        49,
+        61,
+        66,
+        70
+       ],
+       "hits": [
+        2,
+        42,
+        66
+       ],
+       "hitCount": 3,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        4,
+        5,
+        8,
+        15,
+        17,
+        18,
+        26,
+        39,
+        42,
         43,
-        44
+        45,
+        49,
+        59,
+        67,
+        79
+       ],
+       "hits": [
+        39,
+        67
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        4,
+        8,
+        25,
+        33,
+        40,
+        43,
+        44,
+        52,
+        56,
+        62,
+        64,
+        72,
+        75,
+        77,
+        78
+       ],
+       "hits": [
+        8,
+        43,
+        44,
+        56,
+        64,
+        78
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        4,
+        10,
+        11,
+        18,
+        19,
+        32,
+        33,
+        37,
+        42,
+        44,
+        49,
+        54,
+        56,
+        68,
+        71
+       ],
+       "hits": [
+        10,
+        49,
+        54
+       ],
+       "hitCount": 3,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "苏文宙",
+     "url": "/ex/klbex/tjsy_8_692.html",
+     "cat": "9码",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       12,
+       20,
+       23,
+       34,
+       35,
+       40,
+       52,
+       71,
+       78
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "9码",
+       "hit10": 3,
+       "maxStreak": null
+      }
+     ],
+     "siteHit10": 3,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 4,
+      "count": 4,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 15,
+     "threshold": 4,
+     "hitRate10": 0.4,
+     "maxStreak": 3,
+     "curStreak": 1,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 24.83,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        12,
+        20,
+        21,
+        23,
+        28,
+        30,
+        31,
+        34,
+        35,
+        40,
+        52,
+        66,
+        71,
+        73,
+        78
+       ],
+       "hits": [
+        23,
+        35,
+        40,
+        73,
+        78
        ],
        "hitCount": 5,
        "hit": true
       },
       {
-       "issue": "2026278",
+       "issue": "2026281",
        "picks": [
-        6,
-        16,
-        21,
+        10,
+        12,
+        14,
+        18,
         22,
-        28,
-        34,
-        48,
-        58,
-        59,
+        31,
+        36,
+        37,
+        38,
+        41,
+        44,
+        45,
+        61,
+        68,
+        74
+       ],
+       "hits": [
+        22
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        15,
+        30,
+        36,
+        39,
+        41,
+        53,
+        56,
+        57,
+        60,
         66,
-        67,
         70,
-        72,
-        74,
+        71,
+        73,
+        75,
         80
        ],
        "hits": [
-        6,
+        30,
+        53,
+        66,
+        70,
+        71,
+        75,
+        80
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        14,
+        19,
+        27,
+        28,
+        30,
+        32,
+        38,
+        47,
+        54,
+        64,
+        66,
+        70,
+        72,
+        77,
+        79
+       ],
+       "hits": [
+        19,
+        27,
+        30,
+        38,
+        70,
+        79
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        4,
+        5,
+        10,
+        16,
+        17,
         21,
-        22,
+        31,
+        34,
+        35,
+        46,
         48,
-        72
+        69,
+        71,
+        75,
+        79
+       ],
+       "hits": [
+        17,
+        21,
+        31,
+        48,
+        71
        ],
        "hitCount": 5,
        "hit": true
@@ -27840,26 +29563,26 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        1,
-        4,
-        7,
+        3,
         11,
-        14,
-        15,
-        19,
-        31,
+        13,
+        27,
         32,
-        47,
-        58,
+        33,
+        38,
+        40,
+        42,
+        54,
+        60,
         61,
-        64,
-        68,
-        75
+        62,
+        71,
+        77
        ],
        "hits": [
-        1,
         11,
-        32
+        32,
+        60
        ],
        "hitCount": 3,
        "hit": false
@@ -27867,134 +29590,106 @@ const EXPERTS_DATA = {
       {
        "issue": "2026276",
        "picks": [
-        2,
-        12,
-        17,
-        20,
-        23,
-        29,
-        33,
+        5,
+        8,
+        19,
+        21,
+        27,
+        32,
+        35,
         36,
-        46,
-        49,
-        51,
-        57,
-        71,
-        72,
-        79
+        39,
+        40,
+        52,
+        55,
+        56,
+        65,
+        70
        ],
        "hits": [
-        2,
-        51
+        27,
+        32,
+        65
        ],
-       "hitCount": 2,
+       "hitCount": 3,
        "hit": false
       },
       {
        "issue": "2026275",
        "picks": [
         2,
-        4,
-        5,
-        11,
-        13,
-        24,
-        26,
-        41,
-        51,
-        52,
-        57,
-        60,
-        71,
-        73,
-        78
-       ],
-       "hits": [
-        11,
-        51,
-        60,
-        73,
-        78
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        8,
-        10,
-        19,
+        16,
+        20,
         21,
         25,
+        26,
+        29,
         31,
-        37,
-        38,
         42,
-        43,
-        55,
-        57,
-        61,
+        58,
+        63,
         68,
-        71
+        69,
+        74,
+        79
        ],
        "hits": [
-        8,
-        38,
-        43
+        31,
+        63,
+        68
        ],
        "hitCount": 3,
        "hit": false
       },
       {
-       "issue": "2026273",
+       "issue": "2026274",
        "picks": [
-        1,
-        2,
         4,
-        5,
+        10,
         12,
-        16,
-        22,
+        13,
+        20,
         25,
-        30,
-        39,
-        51,
-        64,
-        66,
-        72,
-        77
+        26,
+        31,
+        32,
+        33,
+        41,
+        47,
+        55,
+        56,
+        68
        ],
        "hits": [
-        12,
-        51
+        47,
+        56
        ],
        "hitCount": 2,
        "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026273",
        "picks": [
-        6,
-        7,
-        11,
-        12,
-        16,
-        17,
-        22,
+        13,
+        14,
+        19,
         23,
-        34,
-        48,
-        52,
+        28,
+        29,
+        33,
+        43,
+        47,
         55,
         57,
         59,
-        67
+        68,
+        70,
+        80
        ],
        "hits": [
-        11,
-        57,
-        67
+        14,
+        23,
+        55
        ],
        "hitCount": 3,
        "hit": false
@@ -28006,20 +29701,20 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_884.html",
      "cat": "12码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       7,
-       8,
-       30,
-       39,
-       41,
-       43,
-       49,
+       16,
+       18,
+       19,
+       21,
+       26,
+       28,
+       44,
+       48,
        52,
-       64,
-       67,
-       74,
-       77
+       54,
+       59,
+       75
       ]
      },
      "siteMetrics": [
@@ -28039,15 +29734,41 @@ const EXPERTS_DATA = {
      },
      "picksN": 15,
      "threshold": 4,
-     "hitRate10": 0.8,
-     "maxStreak": 5,
+     "hitRate10": 0.7,
+     "maxStreak": 4,
      "curStreak": 0,
-     "recoverRate": 0.5,
-     "blackCount": 2,
+     "recoverRate": 0.3333,
+     "blackCount": 3,
      "lastHit": false,
-     "score": 48,
+     "score": 17.83,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        16,
+        18,
+        19,
+        21,
+        22,
+        26,
+        28,
+        44,
+        48,
+        52,
+        54,
+        59,
+        72,
+        75,
+        79
+       ],
+       "hits": [
+        44,
+        59
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -28304,1360 +30025,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 7,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        4,
-        7,
-        21,
-        33,
-        36,
-        44,
-        47,
-        52,
-        55,
-        56,
-        60,
-        63,
-        66,
-        77,
-        80
-       ],
-       "hits": [
-        47,
-        66,
-        77,
-        80
-       ],
-       "hitCount": 4,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "铭汇字牌",
-     "url": "/ex/klbex/tjsy_8_716.html",
-     "cat": "10码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       6,
-       8,
-       11,
-       13,
-       21,
-       46,
-       47,
-       52,
-       63,
-       66
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "10码",
-       "hit10": 2,
-       "maxStreak": 2
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 5,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 1,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 46.5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        4,
-        6,
-        8,
-        11,
-        12,
-        13,
-        18,
-        21,
-        26,
-        31,
-        46,
-        47,
-        52,
-        63,
-        66
-       ],
-       "hits": [
-        8,
-        11,
-        13,
-        26,
-        52,
-        63,
-        66
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        3,
-        11,
-        15,
-        18,
-        32,
-        37,
-        40,
-        53,
-        55,
-        60,
-        64,
-        72,
-        74,
-        77
-       ],
-       "hits": [
-        53,
-        72,
-        74
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        6,
-        17,
-        28,
-        36,
-        39,
-        49,
-        50,
-        53,
-        55,
-        59,
-        66,
-        72,
-        74,
-        76,
-        79
-       ],
-       "hits": [
-        36,
-        59,
-        79
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        13,
-        22,
-        25,
-        27,
-        30,
-        34,
-        41,
-        43,
-        47,
-        57,
-        59,
-        60,
-        62,
-        66,
-        80
-       ],
-       "hits": [
-        22,
-        41,
-        47,
-        60
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        12,
-        13,
-        16,
-        31,
-        33,
-        43,
-        49,
-        58,
-        63,
-        67,
-        68,
-        70,
-        76,
-        78,
-        80
-       ],
-       "hits": [
-        16,
-        49,
-        67,
-        70
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        3,
-        8,
-        23,
-        24,
-        28,
-        31,
-        40,
-        41,
-        42,
-        48,
-        49,
-        61,
-        66,
-        70
-       ],
-       "hits": [
-        2,
-        42,
-        66
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        4,
-        5,
-        8,
-        15,
-        17,
-        18,
-        26,
-        39,
-        42,
-        43,
-        45,
-        49,
-        59,
-        67,
-        79
-       ],
-       "hits": [
-        39,
-        67
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        4,
-        8,
-        25,
-        33,
-        40,
-        43,
-        44,
-        52,
-        56,
-        62,
-        64,
-        72,
-        75,
-        77,
-        78
-       ],
-       "hits": [
-        8,
-        43,
-        44,
-        56,
-        64,
-        78
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4,
-        10,
-        11,
-        18,
-        19,
-        32,
-        33,
-        37,
-        42,
-        44,
-        49,
-        54,
-        56,
-        68,
-        71
-       ],
-       "hits": [
-        10,
-        49,
-        54
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        6,
-        7,
-        14,
-        16,
-        17,
-        18,
-        25,
-        26,
-        34,
-        36,
-        41,
-        42,
-        45,
-        59,
-        78
-       ],
-       "hits": [
-        14,
-        41
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "梦里水乡",
-     "url": "/ex/klbex/tjsy_8_1940.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       5,
-       7,
-       8,
-       10,
-       21,
-       37,
-       43,
-       59,
-       80
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 3,
-       "maxStreak": null
-      }
-     ],
-     "siteHit10": 3,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 6,
-      "count": 3,
-      "maxStreak": 1,
-      "exact": true
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.4,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": false,
-     "score": 24,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        3,
-        4,
-        5,
-        7,
-        8,
-        10,
-        14,
-        21,
-        30,
-        37,
-        43,
-        45,
-        58,
-        59,
-        80
-       ],
-       "hits": [
-        5,
-        8,
-        58
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        17,
-        20,
-        25,
-        33,
-        36,
-        44,
-        50,
-        51,
-        52,
-        61,
-        70,
-        72,
-        77,
-        78,
-        79
-       ],
-       "hits": [
-        17,
-        70,
-        72
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        6,
-        9,
-        19,
-        23,
-        29,
-        30,
-        33,
-        42,
-        44,
-        45,
-        67,
-        69,
-        71,
-        75,
-        79
-       ],
-       "hits": [
-        9,
-        19,
-        23,
-        30,
-        44,
-        79
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        10,
-        15,
-        16,
-        20,
-        32,
-        36,
-        37,
-        38,
-        52,
-        55,
-        60,
-        68,
-        74,
-        78,
-        79
-       ],
-       "hits": [
-        15,
-        60
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        6,
-        8,
-        12,
-        21,
-        24,
-        28,
-        33,
-        35,
-        38,
-        39,
-        40,
-        42,
-        52,
-        56,
-        78
-       ],
-       "hits": [
-        39
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        7,
-        11,
-        14,
-        22,
-        31,
-        42,
-        43,
-        46,
-        60,
-        61,
-        67,
-        75,
-        77,
-        80
-       ],
-       "hits": [
-        2,
-        7,
-        11,
-        22,
-        42,
-        67
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        6,
-        8,
-        10,
-        16,
-        19,
-        20,
-        24,
-        27,
-        37,
-        38,
-        47,
-        56,
-        57,
-        59,
-        77
-       ],
-       "hits": [
-        37,
-        38,
-        56
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        4,
-        17,
-        18,
-        26,
-        27,
-        31,
-        46,
-        47,
-        50,
-        54,
-        63,
-        67,
-        70,
-        76
-       ],
-       "hits": [
-        17,
-        27,
-        46,
-        47,
-        54,
-        63,
-        70
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        4,
-        6,
-        16,
-        19,
-        38,
-        41,
-        46,
-        51,
-        53,
-        54,
-        57,
-        59,
-        64,
-        68
-       ],
-       "hits": [
-        38,
-        51,
-        54
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        6,
-        9,
-        12,
-        18,
-        19,
-        29,
-        31,
-        32,
-        39,
-        41,
-        50,
-        53,
-        57,
-        78,
-        80
-       ],
-       "hits": [
-        19,
-        39,
-        41,
-        57,
-        80
-       ],
-       "hitCount": 5,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "liujunyan",
-     "url": "/ex/klbex/tjsy_8_40.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       13,
-       18,
-       21,
-       30,
-       40,
-       47,
-       63,
-       75,
-       79
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 3,
-       "maxStreak": null
-      }
-     ],
-     "siteHit10": 3,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 6,
-      "count": 3,
-      "maxStreak": 2,
-      "exact": true
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.7,
-     "maxStreak": 6,
-     "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 3,
-     "lastHit": false,
-     "score": 22.83,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        7,
-        9,
-        13,
-        18,
-        21,
-        30,
-        37,
-        40,
-        47,
-        49,
-        63,
-        68,
-        75,
-        77,
-        79
-       ],
-       "hits": [
-        13,
-        63,
-        75
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        4,
-        14,
-        16,
-        22,
-        26,
-        30,
-        33,
-        39,
-        45,
-        46,
-        47,
-        56,
-        58,
-        80
-       ],
-       "hits": [
-        4,
-        26,
-        30,
-        80
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        11,
-        13,
-        22,
-        29,
-        39,
-        44,
-        45,
-        46,
-        48,
-        53,
-        55,
-        57,
-        74,
-        77,
-        79
-       ],
-       "hits": [
-        11,
-        44,
-        79
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        3,
-        5,
-        16,
-        17,
-        21,
-        25,
-        28,
-        30,
-        37,
-        43,
-        59,
-        67,
-        72,
-        74,
-        75
-       ],
-       "hits": [
-        17,
-        21,
-        72
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        11,
-        14,
-        16,
-        18,
-        24,
-        31,
-        35,
-        40,
-        45,
-        51,
-        52,
-        61,
-        64,
-        66
-       ],
-       "hits": [
-        1,
-        11,
-        16,
-        66
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        5,
-        6,
-        12,
-        21,
-        22,
-        23,
-        42,
-        51,
-        64,
-        65,
-        66,
-        70,
-        74,
-        75
-       ],
-       "hits": [
-        2,
-        6,
-        22,
-        42,
-        51,
-        65,
-        66
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1,
-        7,
-        9,
-        11,
-        16,
-        22,
-        31,
-        38,
-        43,
-        47,
-        52,
-        63,
-        65,
-        66,
-        71
-       ],
-       "hits": [
-        11,
-        31,
-        38,
-        63,
-        65
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        4,
-        7,
-        12,
-        15,
-        17,
-        25,
-        27,
-        37,
-        38,
-        45,
-        47,
-        50,
-        53,
-        72,
-        80
-       ],
-       "hits": [
-        15,
-        17,
-        27,
-        38,
-        45,
-        47
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4,
-        7,
-        12,
-        14,
-        35,
-        37,
-        52,
-        55,
-        58,
-        72,
-        73,
-        74,
-        76,
-        77,
-        80
-       ],
-       "hits": [
-        12,
-        14,
-        35,
-        52,
-        55,
-        58,
-        76
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        3,
-        5,
-        25,
-        29,
-        30,
-        39,
-        40,
-        41,
-        44,
-        46,
-        58,
-        59,
-        66,
-        75,
-        76
-       ],
-       "hits": [
-        39,
-        40,
-        41,
-        66,
-        76
-       ],
-       "hitCount": 5,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "啦啦1",
-     "url": "/ex/klbex/tjsy_8_1343.html",
-     "cat": "15码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       4,
-       6,
-       9,
-       11,
-       15,
-       20,
-       27,
-       34,
-       36,
-       39,
-       42,
-       47,
-       68,
-       75
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "15码",
-       "hit10": 2,
-       "maxStreak": null
-      },
-      {
-       "cat": "12码",
-       "hit10": 2,
-       "maxStreak": null
-      },
-      {
-       "cat": "10码",
-       "hit10": 2,
-       "maxStreak": null
-      }
-     ],
-     "siteHit10": 2,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 7,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": true
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.5,
-     "maxStreak": 3,
-     "curStreak": 0,
-     "recoverRate": 0.2,
-     "blackCount": 5,
-     "lastHit": false,
-     "score": 5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        2,
-        4,
-        6,
-        9,
-        11,
-        15,
-        20,
-        27,
-        34,
-        36,
-        39,
-        42,
-        47,
-        68,
-        75
-       ],
-       "hits": [
-        11,
-        34,
-        75
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        11,
-        13,
-        18,
-        25,
-        28,
-        33,
-        42,
-        49,
-        50,
-        55,
-        58,
-        70,
-        73,
-        77
-       ],
-       "hits": [
-        70
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        3,
-        18,
-        26,
-        29,
-        31,
-        33,
-        36,
-        41,
-        42,
-        45,
-        47,
-        49,
-        50,
-        54,
-        70
-       ],
-       "hits": [
-        36,
-        70
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        7,
-        13,
-        19,
-        28,
-        30,
-        31,
-        40,
-        42,
-        54,
-        63,
-        65,
-        67,
-        68,
-        70,
-        77
-       ],
-       "hits": [
-        31
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        6,
-        8,
-        9,
-        17,
-        18,
-        21,
-        32,
-        39,
-        48,
-        49,
-        52,
-        53,
-        64,
-        66
-       ],
-       "hits": [
-        1,
-        9,
-        17,
-        32,
-        39,
-        48,
-        49,
-        53,
-        66
-       ],
-       "hitCount": 9,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        1,
-        7,
-        11,
-        25,
-        27,
-        32,
-        35,
-        36,
-        38,
-        43,
-        50,
-        56,
-        58,
-        68,
-        69
-       ],
-       "hits": [
-        7,
-        11,
-        27,
-        32,
-        38
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        6,
-        7,
-        11,
-        13,
-        22,
-        24,
-        28,
-        33,
-        35,
-        44,
-        45,
-        54,
-        55,
-        60,
-        61
-       ],
-       "hits": [
-        11,
-        33,
-        55,
-        60
-       ],
-       "hitCount": 4,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        8,
-        17,
-        21,
-        22,
-        33,
-        38,
-        40,
-        42,
-        50,
-        51,
-        53,
-        57,
-        67,
-        75
-       ],
-       "hits": [
-        8,
-        17,
-        38
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        7,
-        9,
-        10,
-        11,
-        12,
-        15,
-        21,
-        22,
-        26,
-        27,
-        30,
-        31,
-        34,
-        52,
-        64
-       ],
-       "hits": [
-        9,
-        10,
-        12,
-        27,
-        31,
-        52
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        28,
-        29,
-        31,
-        40,
-        41,
-        46,
-        51,
-        58,
-        62,
-        64,
-        66,
-        72,
-        73,
-        77
-       ],
-       "hits": [
-        40,
-        41,
-        51,
-        62,
-        64,
-        66,
-        72,
-        77
-       ],
-       "hitCount": 8,
-       "hit": true
       }
      ]
     },
@@ -29666,18 +30033,18 @@ const EXPERTS_DATA = {
      "url": "/ex/klbex/tjsy_8_401.html",
      "cat": "10码",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       10,
-       15,
-       26,
-       37,
-       39,
-       46,
-       52,
-       57,
-       61,
-       80
+       12,
+       13,
+       21,
+       29,
+       31,
+       34,
+       58,
+       60,
+       66,
+       72
       ]
      },
      "siteMetrics": [
@@ -29695,22 +30062,48 @@ const EXPERTS_DATA = {
      "siteHit10": 3,
      "rawHit10": 10,
      "siteFit": {
-      "threshold": 5,
+      "threshold": 4,
       "count": 3,
       "maxStreak": 2,
       "exact": true
      },
      "picksN": 15,
      "threshold": 4,
-     "hitRate10": 0.4,
+     "hitRate10": 0.3,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
      "lastHit": false,
-     "score": 2.33,
+     "score": 0,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2,
+        6,
+        12,
+        13,
+        21,
+        29,
+        31,
+        34,
+        42,
+        53,
+        58,
+        60,
+        66,
+        71,
+        72
+       ],
+       "hits": [
+        2,
+        13
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -29963,357 +30356,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 3,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        6,
-        9,
-        12,
-        16,
-        31,
-        39,
-        42,
-        43,
-        53,
-        57,
-        65,
-        73,
-        74,
-        76
-       ],
-       "hits": [
-        39,
-        43,
-        57,
-        76
-       ],
-       "hitCount": 4,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "苏文宙",
-     "url": "/ex/klbex/tjsy_8_692.html",
-     "cat": "9码",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       10,
-       14,
-       18,
-       22,
-       37,
-       41,
-       44,
-       61,
-       68
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "9码",
-       "hit10": 3,
-       "maxStreak": 3
-      }
-     ],
-     "siteHit10": 3,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 5,
-      "count": 3,
-      "maxStreak": 3,
-      "exact": true
-     },
-     "picksN": 15,
-     "threshold": 4,
-     "hitRate10": 0.4,
-     "maxStreak": 3,
-     "curStreak": 0,
-     "recoverRate": 0.1667,
-     "blackCount": 6,
-     "lastHit": false,
-     "score": 0.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        10,
-        12,
-        14,
-        18,
-        22,
-        31,
-        36,
-        37,
-        38,
-        41,
-        44,
-        45,
-        61,
-        68,
-        74
-       ],
-       "hits": [
-        22
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        15,
-        30,
-        36,
-        39,
-        41,
-        53,
-        56,
-        57,
-        60,
-        66,
-        70,
-        71,
-        73,
-        75,
-        80
-       ],
-       "hits": [
-        30,
-        53,
-        66,
-        70,
-        71,
-        75,
-        80
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        14,
-        19,
-        27,
-        28,
-        30,
-        32,
-        38,
-        47,
-        54,
-        64,
-        66,
-        70,
-        72,
-        77,
-        79
-       ],
-       "hits": [
-        19,
-        27,
-        30,
-        38,
-        70,
-        79
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        4,
-        5,
-        10,
-        16,
-        17,
-        21,
-        31,
-        34,
-        35,
-        46,
-        48,
-        69,
-        71,
-        75,
-        79
-       ],
-       "hits": [
-        17,
-        21,
-        31,
-        48,
-        71
-       ],
-       "hitCount": 5,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        3,
-        11,
-        13,
-        27,
-        32,
-        33,
-        38,
-        40,
-        42,
-        54,
-        60,
-        61,
-        62,
-        71,
-        77
-       ],
-       "hits": [
-        11,
-        32,
-        60
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        5,
-        8,
-        19,
-        21,
-        27,
-        32,
-        35,
-        36,
-        39,
-        40,
-        52,
-        55,
-        56,
-        65,
-        70
-       ],
-       "hits": [
-        27,
-        32,
-        65
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        2,
-        16,
-        20,
-        21,
-        25,
-        26,
-        29,
-        31,
-        42,
-        58,
-        63,
-        68,
-        69,
-        74,
-        79
-       ],
-       "hits": [
-        31,
-        63,
-        68
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        4,
-        10,
-        12,
-        13,
-        20,
-        25,
-        26,
-        31,
-        32,
-        33,
-        41,
-        47,
-        55,
-        56,
-        68
-       ],
-       "hits": [
-        47,
-        56
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        13,
-        14,
-        19,
-        23,
-        28,
-        29,
-        33,
-        43,
-        47,
-        55,
-        57,
-        59,
-        68,
-        70,
-        80
-       ],
-       "hits": [
-        14,
-        23,
-        55
-       ],
-       "hitCount": 3,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        3,
-        19,
-        20,
-        25,
-        32,
-        35,
-        36,
-        38,
-        43,
-        46,
-        48,
-        62,
-        63,
-        70,
-        79
-       ],
-       "hits": [
-        19,
-        20,
-        43,
-        62
-       ],
-       "hitCount": 4,
-       "hit": true
       }
      ]
     }
@@ -30324,453 +30366,442 @@ const EXPERTS_DATA = {
     "sections": [],
     "topExperts": [
      {
-      "name": "王兴刚",
-      "url": "/ex/klbex/tjsy_8_936.html",
+      "name": "谁是你大爷",
+      "url": "/ex/klbex/tjsy_8_33.html",
       "hit10": 6
      },
      {
-      "name": "啦啦1",
-      "url": "/ex/klbex/tjsy_8_1343.html",
+      "name": "刘平00810",
+      "url": "/ex/klbex/tjsy_8_72.html",
       "hit10": 6
      },
      {
-      "name": "想大奖",
-      "url": "/ex/klbex/tjsy_8_694.html",
+      "name": "曀炼止間",
+      "url": "/ex/klbex/tjsy_8_350.html",
       "hit10": 6
      },
      {
-      "name": "红单好简单",
-      "url": "/ex/klbex/tjsy_8_1055.html",
+      "name": "甲骨文",
+      "url": "/ex/klbex/tjsy_8_442.html",
       "hit10": 6
      },
      {
-      "name": "luoye",
-      "url": "/ex/klbex/tjsy_8_27.html",
+      "name": "眼泪是魔鬼",
+      "url": "/ex/klbex/tjsy_8_468.html",
       "hit10": 6
      },
      {
-      "name": "huangfeng001",
-      "url": "/ex/klbex/tjsy_8_46.html",
+      "name": "小恒",
+      "url": "/ex/klbex/tjsy_8_503.html",
       "hit10": 6
      },
      {
-      "name": "随便",
-      "url": "/ex/klbex/tjsy_8_304.html",
+      "name": "红尘之恋",
+      "url": "/ex/klbex/tjsy_8_582.html",
       "hit10": 6
      },
      {
-      "name": "平安快乐过一生",
-      "url": "/ex/klbex/tjsy_8_535.html",
+      "name": "吴大仙",
+      "url": "/ex/klbex/tjsy_8_687.html",
       "hit10": 6
      },
      {
-      "name": "一口一个胖子",
-      "url": "/ex/klbex/tjsy_8_1172.html",
+      "name": "止戈",
+      "url": "/ex/klbex/tjsy_8_893.html",
       "hit10": 6
      },
      {
-      "name": "竞彩大师傅",
-      "url": "/ex/klbex/tjsy_8_1496.html",
+      "name": "无为有为",
+      "url": "/ex/klbex/tjsy_8_914.html",
       "hit10": 6
      }
     ],
     "updated": null,
-    "issue": "2026282"
+    "issue": "2026283"
    },
    "pool": {
     "red": [
      8,
+     9,
      11,
      15,
      17,
-     19,
+     23,
      27,
      30,
      31,
-     32,
      38,
      39,
-     43,
      48,
-     51,
+     52,
      56,
+     61,
      63,
-     65,
      66,
      70,
-     72
+     72,
+     78
     ],
     "blue": []
    },
    "notes": [],
-   "issue": "2026282",
+   "issue": "2026283",
    "byCat": [
     {
      "cat": "10码",
      "five": "",
-     "count": 3,
+     "count": 5,
      "experts": [
       {
        "name": "酷酷",
        "nums": [
-        10,
-        15,
-        26,
-        37,
-        39,
-        46,
+        12,
+        13,
+        21,
+        29,
+        31,
+        34,
+        58,
+        60,
+        66,
+        72
+       ],
+       "issue": "2026283",
+       "score": 0
+      },
+      {
+       "name": "毛遂自荐",
+       "nums": [
+        8,
+        9,
+        13,
+        14,
+        20,
+        24,
         52,
         57,
-        61,
+        67,
         80
        ],
-       "issue": "2026282",
-       "score": 2.33
+       "issue": "2026283",
+       "score": 71.17
+      },
+      {
+       "name": "平安快乐过一生",
+       "nums": [
+        4,
+        7,
+        17,
+        18,
+        30,
+        49,
+        54,
+        57,
+        68,
+        76
+       ],
+       "issue": "2026283",
+       "score": 71.17
       },
       {
        "name": "铭汇字牌",
        "nums": [
-        6,
-        8,
-        11,
-        13,
-        21,
-        46,
-        47,
-        52,
-        63,
-        66
+        12,
+        19,
+        29,
+        37,
+        45,
+        49,
+        61,
+        64,
+        70,
+        79
        ],
-       "issue": "2026282",
-       "score": 46.5
+       "issue": "2026283",
+       "score": 26.5
       },
       {
        "name": "迅猛之烙印",
        "nums": [
-        13,
+        5,
         15,
+        16,
+        17,
         19,
-        25,
-        50,
-        52,
-        56,
-        63,
-        72,
-        77
+        30,
+        31,
+        61,
+        79,
+        80
        ],
-       "issue": "2026282",
-       "score": 66.17
+       "issue": "2026283",
+       "score": 80.5
       }
      ]
     },
     {
      "cat": "12码",
      "five": "",
-     "count": 2,
+     "count": 4,
      "experts": [
       {
-       "name": "杜蕾",
+       "name": "幸运之神买彩票",
        "nums": [
-        4,
-        6,
-        15,
-        18,
-        29,
-        49,
-        55,
-        66,
-        69,
-        72,
+        2,
+        5,
+        9,
+        14,
+        20,
+        37,
+        39,
+        40,
+        42,
+        44,
+        59,
+        61
+       ],
+       "issue": "2026283",
+       "score": 89
+      },
+      {
+       "name": "郭贱人",
+       "nums": [
+        8,
+        9,
+        20,
+        31,
+        35,
+        36,
+        43,
+        60,
+        67,
+        71,
         73,
         78
        ],
-       "issue": "2026282",
-       "score": 59.75
+       "issue": "2026283",
+       "score": 77
       },
       {
        "name": "中大奖啊",
        "nums": [
-        7,
-        8,
-        30,
-        39,
-        41,
-        43,
-        49,
-        52,
-        64,
-        67,
-        74,
-        77
-       ],
-       "issue": "2026282",
-       "score": 48
-      }
-     ]
-    },
-    {
-     "cat": "15码",
-     "five": "",
-     "count": 2,
-     "experts": [
-      {
-       "name": "王兴刚",
-       "nums": [
-        2,
-        13,
+        16,
         18,
-        23,
-        27,
-        32,
-        33,
-        39,
-        40,
+        19,
+        21,
+        26,
+        28,
+        44,
         48,
-        51,
-        70,
-        73,
-        77,
-        78
+        52,
+        54,
+        59,
+        75
        ],
-       "issue": "2026282",
-       "score": 53
+       "issue": "2026283",
+       "score": 17.83
       },
       {
-       "name": "啦啦1",
+       "name": "大王",
        "nums": [
-        2,
-        4,
+        3,
         6,
         9,
         11,
-        15,
-        20,
-        27,
+        22,
+        25,
+        29,
         34,
-        36,
-        39,
-        42,
-        47,
-        68,
-        75
+        48,
+        67,
+        69,
+        70
        ],
-       "issue": "2026282",
-       "score": 5
+       "issue": "2026283",
+       "score": 53
       }
      ]
     },
     {
      "cat": "9码",
      "five": "",
-     "count": 13,
+     "count": 11,
      "experts": [
       {
        "name": "碧水琳",
        "nums": [
-        1,
-        13,
-        19,
-        28,
-        30,
-        33,
-        37,
-        69,
-        72
+        2,
+        6,
+        21,
+        26,
+        38,
+        46,
+        52,
+        73,
+        78
        ],
-       "issue": "2026282",
-       "score": 68.67
+       "issue": "2026283",
+       "score": 71.17
       },
       {
-       "name": "苏文宙",
+       "name": "马到成功",
        "nums": [
-        10,
-        14,
-        18,
+        1,
+        8,
+        27,
+        32,
+        35,
+        43,
+        56,
+        73,
+        77
+       ],
+       "issue": "2026283",
+       "score": 86.5
+      },
+      {
+       "name": "我要破零",
+       "nums": [
+        2,
+        6,
+        9,
         22,
-        37,
-        41,
+        33,
         44,
-        61,
+        50,
+        59,
         68
        ],
-       "issue": "2026282",
-       "score": 0.67
+       "issue": "2026283",
+       "score": 55
       },
       {
        "name": "伤心",
        "nums": [
-        16,
-        26,
-        35,
-        39,
-        42,
-        55,
+        12,
+        18,
+        20,
+        21,
+        23,
+        31,
+        44,
         63,
-        66,
-        71
+        73
        ],
-       "issue": "2026282",
-       "score": 72
+       "issue": "2026283",
+       "score": 74.5
+      },
+      {
+       "name": "苏文宙",
+       "nums": [
+        12,
+        20,
+        23,
+        34,
+        35,
+        40,
+        52,
+        71,
+        78
+       ],
+       "issue": "2026283",
+       "score": 24.83
       },
       {
        "name": "钱多多",
        "nums": [
-        8,
-        10,
-        16,
-        31,
-        43,
-        52,
-        64,
-        77,
-        79
+        4,
+        7,
+        19,
+        36,
+        49,
+        55,
+        59,
+        62,
+        67
        ],
-       "issue": "2026282",
-       "score": 56
-      },
-      {
-       "name": "liujunyan",
-       "nums": [
-        13,
-        18,
-        21,
-        30,
-        40,
-        47,
-        63,
-        75,
-        79
-       ],
-       "issue": "2026282",
-       "score": 22.83
+       "issue": "2026283",
+       "score": 30
       },
       {
        "name": "上官",
        "nums": [
-        11,
-        20,
-        24,
-        28,
-        45,
-        56,
-        69,
-        73,
-        75
+        3,
+        9,
+        17,
+        18,
+        59,
+        65,
+        66,
+        72,
+        80
        ],
-       "issue": "2026282",
-       "score": 72
+       "issue": "2026283",
+       "score": 74.5
       },
       {
        "name": "梦里水乡",
        "nums": [
-        5,
-        7,
-        8,
-        10,
-        21,
-        37,
-        43,
+        18,
+        28,
+        30,
+        40,
+        47,
+        58,
         59,
+        61,
         80
        ],
-       "issue": "2026282",
-       "score": 24
+       "issue": "2026283",
+       "score": 48.17
       },
       {
-       "name": "红叶",
+       "name": "好运来吧2016",
        "nums": [
-        7,
-        8,
-        11,
-        17,
-        31,
-        34,
-        53,
-        56,
-        60
-       ],
-       "issue": "2026282",
-       "score": 56
-      },
-      {
-       "name": "喊吧",
-       "nums": [
-        13,
-        18,
-        34,
-        40,
-        55,
-        57,
-        58,
-        62,
-        72
-       ],
-       "issue": "2026282",
-       "score": 52.5
-      },
-      {
-       "name": "爱钱宝",
-       "nums": [
-        4,
-        12,
-        19,
-        22,
-        28,
-        43,
-        55,
-        56,
-        66
-       ],
-       "issue": "2026282",
-       "score": 68.5
-      },
-      {
-       "name": "nidom",
-       "nums": [
-        1,
-        2,
         9,
-        11,
+        15,
+        23,
         24,
-        56,
-        58,
-        69,
-        74
+        26,
+        47,
+        48,
+        59,
+        61
        ],
-       "issue": "2026282",
-       "score": 78
+       "issue": "2026283",
+       "score": 46.5
       },
       {
-       "name": "微尚暖暖男",
+       "name": "颦蹙",
        "nums": [
-        3,
-        8,
-        29,
-        30,
-        44,
-        56,
-        66,
-        72,
-        75
+        11,
+        13,
+        14,
+        16,
+        21,
+        24,
+        25,
+        36,
+        80
        ],
-       "issue": "2026282",
-       "score": 77
+       "issue": "2026283",
+       "score": 94
       },
       {
-       "name": "奚大大真帅",
+       "name": "风雪心情",
        "nums": [
-        30,
-        34,
-        39,
-        56,
+        9,
+        13,
+        15,
+        41,
+        50,
         61,
-        68,
-        69,
-        72,
-        75
+        66,
+        77,
+        78
        ],
-       "issue": "2026282",
-       "score": 91.5
+       "issue": "2026283",
+       "score": 52.5
       }
      ]
     }
@@ -30780,30 +30811,46 @@ const EXPERTS_DATA = {
      "name": "碧水琳",
      "cats": {
       "9码": [
-       1,
-       13,
-       19,
-       28,
-       30,
-       33,
-       37,
-       69,
-       72
+       2,
+       6,
+       21,
+       26,
+       38,
+       46,
+       52,
+       73,
+       78
       ]
      }
     },
     {
-     "name": "苏文宙",
+     "name": "马到成功",
      "cats": {
       "9码": [
-       10,
-       14,
-       18,
+       1,
+       8,
+       27,
+       32,
+       35,
+       43,
+       56,
+       73,
+       77
+      ]
+     }
+    },
+    {
+     "name": "我要破零",
+     "cats": {
+      "9码": [
+       2,
+       6,
+       9,
        22,
-       37,
-       41,
+       33,
        44,
-       61,
+       50,
+       59,
        68
       ]
      }
@@ -30812,31 +30859,15 @@ const EXPERTS_DATA = {
      "name": "伤心",
      "cats": {
       "9码": [
-       16,
-       26,
-       35,
-       39,
-       42,
-       55,
-       63,
-       66,
-       71
-      ]
-     }
-    },
-    {
-     "name": "钱多多",
-     "cats": {
-      "9码": [
-       8,
-       10,
-       16,
+       12,
+       18,
+       20,
+       21,
+       23,
        31,
-       43,
-       52,
-       64,
-       77,
-       79
+       44,
+       63,
+       73
       ]
      }
     },
@@ -30844,32 +30875,48 @@ const EXPERTS_DATA = {
      "name": "酷酷",
      "cats": {
       "10码": [
-       10,
-       15,
-       26,
-       37,
-       39,
-       46,
-       52,
-       57,
-       61,
-       80
+       12,
+       13,
+       21,
+       29,
+       31,
+       34,
+       58,
+       60,
+       66,
+       72
       ]
      }
     },
     {
-     "name": "liujunyan",
+     "name": "苏文宙",
      "cats": {
       "9码": [
-       13,
-       18,
-       21,
-       30,
+       12,
+       20,
+       23,
+       34,
+       35,
        40,
-       47,
-       63,
-       75,
-       79
+       52,
+       71,
+       78
+      ]
+     }
+    },
+    {
+     "name": "钱多多",
+     "cats": {
+      "9码": [
+       4,
+       7,
+       19,
+       36,
+       49,
+       55,
+       59,
+       62,
+       67
       ]
      }
     },
@@ -30877,15 +30924,15 @@ const EXPERTS_DATA = {
      "name": "上官",
      "cats": {
       "9码": [
-       11,
-       20,
-       24,
-       28,
-       45,
-       56,
-       69,
-       73,
-       75
+       3,
+       9,
+       17,
+       18,
+       59,
+       65,
+       66,
+       72,
+       80
       ]
      }
     },
@@ -30893,31 +30940,68 @@ const EXPERTS_DATA = {
      "name": "梦里水乡",
      "cats": {
       "9码": [
-       5,
-       7,
-       8,
-       10,
-       21,
-       37,
-       43,
+       18,
+       28,
+       30,
+       40,
+       47,
+       58,
        59,
+       61,
        80
       ]
      }
     },
     {
-     "name": "红叶",
+     "name": "幸运之神买彩票",
      "cats": {
-      "9码": [
-       7,
+      "12码": [
+       2,
+       5,
+       9,
+       14,
+       20,
+       37,
+       39,
+       40,
+       42,
+       44,
+       59,
+       61
+      ]
+     }
+    },
+    {
+     "name": "毛遂自荐",
+     "cats": {
+      "10码": [
        8,
-       11,
+       9,
+       13,
+       14,
+       20,
+       24,
+       52,
+       57,
+       67,
+       80
+      ]
+     }
+    },
+    {
+     "name": "平安快乐过一生",
+     "cats": {
+      "10码": [
+       4,
+       7,
        17,
-       31,
-       34,
-       53,
-       56,
-       60
+       18,
+       30,
+       49,
+       54,
+       57,
+       68,
+       76
       ]
      }
     },
@@ -30925,113 +31009,81 @@ const EXPERTS_DATA = {
      "name": "铭汇字牌",
      "cats": {
       "10码": [
-       6,
-       8,
-       11,
-       13,
-       21,
-       46,
-       47,
-       52,
-       63,
-       66
-      ]
-     }
-    },
-    {
-     "name": "喊吧",
-     "cats": {
-      "9码": [
-       13,
-       18,
-       34,
-       40,
-       55,
-       57,
-       58,
-       62,
-       72
-      ]
-     }
-    },
-    {
-     "name": "爱钱宝",
-     "cats": {
-      "9码": [
-       4,
        12,
        19,
-       22,
-       28,
-       43,
-       55,
-       56,
-       66
-      ]
-     }
-    },
-    {
-     "name": "nidom",
-     "cats": {
-      "9码": [
-       1,
-       2,
-       9,
-       11,
-       24,
-       56,
-       58,
-       69,
-       74
-      ]
-     }
-    },
-    {
-     "name": "微尚暖暖男",
-     "cats": {
-      "9码": [
-       3,
-       8,
        29,
-       30,
-       44,
-       56,
-       66,
-       72,
-       75
+       37,
+       45,
+       49,
+       61,
+       64,
+       70,
+       79
       ]
      }
     },
     {
-     "name": "奚大大真帅",
+     "name": "好运来吧2016",
      "cats": {
       "9码": [
-       30,
-       34,
-       39,
-       56,
-       61,
-       68,
-       69,
-       72,
-       75
+       9,
+       15,
+       23,
+       24,
+       26,
+       47,
+       48,
+       59,
+       61
       ]
      }
     },
     {
-     "name": "杜蕾",
+     "name": "颦蹙",
+     "cats": {
+      "9码": [
+       11,
+       13,
+       14,
+       16,
+       21,
+       24,
+       25,
+       36,
+       80
+      ]
+     }
+    },
+    {
+     "name": "风雪心情",
+     "cats": {
+      "9码": [
+       9,
+       13,
+       15,
+       41,
+       50,
+       61,
+       66,
+       77,
+       78
+      ]
+     }
+    },
+    {
+     "name": "郭贱人",
      "cats": {
       "12码": [
-       4,
-       6,
-       15,
-       18,
-       29,
-       49,
-       55,
-       66,
-       69,
-       72,
+       8,
+       9,
+       20,
+       31,
+       35,
+       36,
+       43,
+       60,
+       67,
+       71,
        73,
        78
       ]
@@ -31041,60 +31093,16 @@ const EXPERTS_DATA = {
      "name": "迅猛之烙印",
      "cats": {
       "10码": [
-       13,
+       5,
        15,
+       16,
+       17,
        19,
-       25,
-       50,
-       52,
-       56,
-       63,
-       72,
-       77
-      ]
-     }
-    },
-    {
-     "name": "王兴刚",
-     "cats": {
-      "15码": [
-       2,
-       13,
-       18,
-       23,
-       27,
-       32,
-       33,
-       39,
-       40,
-       48,
-       51,
-       70,
-       73,
-       77,
-       78
-      ]
-     }
-    },
-    {
-     "name": "啦啦1",
-     "cats": {
-      "15码": [
-       2,
-       4,
-       6,
-       9,
-       11,
-       15,
-       20,
-       27,
-       34,
-       36,
-       39,
-       42,
-       47,
-       68,
-       75
+       30,
+       31,
+       61,
+       79,
+       80
       ]
      }
     },
@@ -31102,18 +31110,37 @@ const EXPERTS_DATA = {
      "name": "中大奖啊",
      "cats": {
       "12码": [
-       7,
-       8,
-       30,
-       39,
-       41,
-       43,
-       49,
+       16,
+       18,
+       19,
+       21,
+       26,
+       28,
+       44,
+       48,
        52,
-       64,
+       54,
+       59,
+       75
+      ]
+     }
+    },
+    {
+     "name": "大王",
+     "cats": {
+      "12码": [
+       3,
+       6,
+       9,
+       11,
+       22,
+       25,
+       29,
+       34,
+       48,
        67,
-       74,
-       77
+       69,
+       70
       ]
      }
     }
@@ -31209,22 +31236,22 @@ const EXPERTS_DATA = {
     }
    },
    "expertCount": 20,
-   "listedCount": 63,
+   "listedCount": 58,
    "scoreSource": "history",
    "hitDataReliable": true,
    "stable": [
     {
-     "name": "蔡泽川",
-     "url": "/ex/pl3ex/tjsy_63_1503.html",
+     "name": "能让我赚吗",
+     "url": "/ex/pl3ex/tjsy_63_1283.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
-       1,
        2,
-       3,
        4,
+       6,
+       7,
        8,
        9
       ]
@@ -31233,7 +31260,12 @@ const EXPERTS_DATA = {
       {
        "cat": "七码组选",
        "hit10": 8,
-       "maxStreak": 9
+       "maxStreak": 7
+      },
+      {
+       "cat": "六码组选",
+       "hit10": 5,
+       "maxStreak": 5
       }
      ],
      "siteHit10": 8,
@@ -31248,7 +31280,7 @@ const EXPERTS_DATA = {
      "threshold": 3,
      "hitRate10": 0.8,
      "maxStreak": 6,
-     "curStreak": 1,
+     "curStreak": 6,
      "recoverRate": 1,
      "blackCount": 2,
      "lastHit": true,
@@ -31256,236 +31288,24 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
         0,
-        1,
         2,
-        3,
         4,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
+        6,
         7,
         8,
         9
        ],
        "hits": [
         4,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
+        6,
         7
        ],
        "hitCount": 3,
        "hit": true
       },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        2,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "能让我赚吗",
-     "url": "/ex/pl3ex/tjsy_63_1283.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       3,
-       4,
-       5,
-       6,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 8,
-       "maxStreak": 7
-      }
-     ],
-     "siteHit10": 8,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 8,
-      "maxStreak": 5,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.8,
-     "maxStreak": 5,
-     "curStreak": 5,
-     "recoverRate": 1,
-     "blackCount": 2,
-     "lastHit": true,
-     "score": 80.5,
-     "periods": 10,
-     "recent": [
       {
        "issue": "2026281",
        "picks": [
@@ -31654,22 +31474,239 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "一笑了之",
+     "url": "/ex/pl3ex/tjsy_63_1160.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 8,
+       "maxStreak": 6
       },
       {
-       "issue": "2026272",
+       "cat": "六码组选",
+       "hit10": 5,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 8,
+      "maxStreak": 6,
+      "exact": true
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.8,
+     "maxStreak": 6,
+     "curStreak": 1,
+     "recoverRate": 1,
+     "blackCount": 2,
+     "lastHit": true,
+     "score": 83,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
        "picks": [
         0,
         1,
         2,
         4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        3,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
         7,
         8,
         9
        ],
        "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
         0,
+        1,
+        2,
+        3,
+        7,
         8,
         9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        0,
+        3,
+        7
        ],
        "hitCount": 3,
        "hit": true
@@ -31677,18 +31714,254 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "草月花舍",
-     "url": "/ex/pl3ex/tjsy_63_1671.html",
+     "name": "蔡泽川",
+     "url": "/ex/pl3ex/tjsy_63_1503.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
+       0,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 8,
+       "maxStreak": 9
+      },
+      {
+       "cat": "定位5*5*5",
+       "hit10": 4,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 8,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 8,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.8,
+     "maxStreak": 5,
+     "curStreak": 2,
+     "recoverRate": 1,
+     "blackCount": 2,
+     "lastHit": true,
+     "score": 80.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "苏牧",
+     "url": "/ex/pl3ex/tjsy_63_1854.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
        2,
        3,
        4,
        6,
        7,
-       8,
        9
       ]
      },
@@ -31696,7 +31969,7 @@ const EXPERTS_DATA = {
       {
        "cat": "七码组选",
        "hit10": 8,
-       "maxStreak": 8
+       "maxStreak": 6
       }
      ],
      "siteHit10": 8,
@@ -31719,12 +31992,31 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
+        0,
         2,
         3,
         4,
         6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
         7,
         8,
         9
@@ -31740,10 +32032,244 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
         0,
         1,
         3,
         4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "龙行天下152",
+     "url": "/ex/pl3ex/tjsy_63_3.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       3,
+       4,
+       6,
+       7,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 7
+      },
+      {
+       "cat": "定位5*5*5",
+       "hit10": 4,
+       "maxStreak": null
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 4,
+     "curStreak": 1,
+     "recoverRate": 1,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 74.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
         6,
         7,
         8
@@ -31761,10 +32287,245 @@ const EXPERTS_DATA = {
        "picks": [
         1,
         2,
-        3,
         4,
         6,
         7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "速度跟不上",
+     "url": "/ex/pl3ex/tjsy_63_1615.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 7
+      },
+      {
+       "cat": "定位5*5*5",
+       "hit10": 4,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 4,
+     "curStreak": 1,
+     "recoverRate": 1,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 74.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        9
+       ],
+       "hits": [
+        3,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
         9
        ],
        "hits": [
@@ -31780,11 +32541,186 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        2,
         3,
-        6,
+        4,
+        5,
         8,
         9
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "清清羽",
+     "url": "/ex/pl3ex/tjsy_63_805.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 8
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 6,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 6,
+     "curStreak": 1,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 71.17,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        8
        ],
        "hits": [
         3,
@@ -31794,11 +32730,67 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026277",
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
        "picks": [
         0,
         1,
         2,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        3,
         4,
         6,
         7,
@@ -31838,9 +32830,9 @@ const EXPERTS_DATA = {
         1,
         2,
         3,
-        4,
+        5,
         6,
-        7
+        8
        ],
        "hits": [
         0,
@@ -31856,72 +32848,53 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
+        3,
         4,
-        5,
         6,
         7
        ],
        "hits": [
         1,
+        3,
         6
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026273",
        "picks": [
         0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
         1,
+        2,
+        3,
         4,
-        6,
-        7,
         8,
         9
        ],
        "hits": [
         0,
-        8,
-        9
+        3
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       }
      ]
     },
     {
-     "name": "思彤远睿",
-     "url": "/ex/pl3ex/tjsy_63_1702.html",
+     "name": "爱恨相依",
+     "url": "/ex/pl3ex/tjsy_63_1018.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
+       2,
        3,
        4,
        5,
        6,
-       8,
-       9
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -31936,24 +32909,43 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 3,
       "count": 7,
-      "maxStreak": 3,
-      "exact": false
+      "maxStreak": 6,
+      "exact": true
      },
      "picksN": 7,
      "threshold": 3,
      "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 2,
-     "recoverRate": 1,
+     "maxStreak": 6,
+     "curStreak": 6,
+     "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": true,
-     "score": 72,
+     "score": 71.17,
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
        "issue": "2026281",
        "picks": [
-        0,
+        1,
         3,
         4,
         5,
@@ -31972,11 +32964,11 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
-        1,
-        3,
+        0,
         4,
         5,
         6,
+        7,
         8,
         9
        ],
@@ -31992,28 +32984,29 @@ const EXPERTS_DATA = {
        "issue": "2026279",
        "picks": [
         0,
-        2,
-        3,
+        1,
         4,
+        5,
         7,
         8,
         9
        ],
        "hits": [
+        1,
         4,
         7
        ],
-       "hitCount": 2,
-       "hit": false
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026278",
        "picks": [
-        0,
-        1,
+        2,
         3,
         5,
         6,
+        7,
         8,
         9
        ],
@@ -32030,46 +33023,46 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        3,
+        2,
         4,
-        5,
-        7,
-        9
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        4,
-        6,
         7,
         8,
         9
        ],
        "hits": [
-        0,
-        6,
-        9
+        2,
+        7,
+        8
        ],
        "hitCount": 3,
        "hit": true
       },
       {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
        "issue": "2026275",
        "picks": [
         0,
-        1,
         2,
+        3,
         5,
         6,
-        7,
+        8,
         9
        ],
        "hits": [
@@ -32083,31 +33076,30 @@ const EXPERTS_DATA = {
       {
        "issue": "2026274",
        "picks": [
-        1,
+        0,
         2,
         3,
         4,
+        5,
         6,
-        7,
-        8
+        9
        ],
        "hits": [
-        1,
         3,
         6
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026273",
        "picks": [
         0,
         1,
+        2,
         3,
         4,
         5,
-        6,
         8
        ],
        "hits": [
@@ -32116,39 +33108,20 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
       }
      ]
     },
     {
-     "name": "苏牧",
-     "url": "/ex/pl3ex/tjsy_63_1854.html",
+     "name": "中中中",
+     "url": "/ex/pl3ex/tjsy_63_328.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
+       0,
        1,
-       3,
+       2,
        4,
-       5,
        7,
        8,
        9
@@ -32158,7 +33131,12 @@ const EXPERTS_DATA = {
       {
        "cat": "七码组选",
        "hit10": 7,
-       "maxStreak": 6
+       "maxStreak": 7
+      },
+      {
+       "cat": "五码组选",
+       "hit10": 3,
+       "maxStreak": 4
       }
      ],
      "siteHit10": 7,
@@ -32166,47 +33144,65 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 3,
       "count": 7,
-      "maxStreak": 3,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 7,
      "threshold": 3,
      "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 2,
-     "recoverRate": 1,
+     "maxStreak": 5,
+     "curStreak": 1,
+     "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": true,
-     "score": 72,
+     "score": 68.67,
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
        "issue": "2026281",
        "picks": [
+        0,
         1,
-        3,
-        4,
+        2,
         5,
         7,
         8,
         9
        ],
        "hits": [
-        3,
         8,
         9
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026280",
        "picks": [
+        1,
         2,
-        3,
         4,
-        5,
         6,
+        7,
         8,
         9
        ],
@@ -32221,8 +33217,360 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
         0,
         2,
+        3,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "妈妈爱霞朵君翔",
+     "url": "/ex/pl3ex/tjsy_63_842.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       7,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 7
+      },
+      {
+       "cat": "六码组选",
+       "hit10": 6,
+       "maxStreak": 4
+      },
+      {
+       "cat": "五码组选",
+       "hit10": 5,
+       "maxStreak": 3
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 5,
+     "curStreak": 1,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 68.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        8,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        9
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
         3,
         5,
         6,
@@ -32230,10 +33578,130 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
+        0,
+        3,
         7
        ],
-       "hitCount": 1,
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "起哥",
+     "url": "/ex/pl3ex/tjsy_63_1700.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 7
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 4,
+     "curStreak": 1,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 66.17,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+       ],
+       "hits": [
+        3,
+        8
+       ],
+       "hitCount": 2,
        "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026278",
@@ -32241,9 +33709,9 @@ const EXPERTS_DATA = {
         0,
         1,
         3,
-        4,
         5,
         6,
+        7,
         8
        ],
        "hits": [
@@ -32257,9 +33725,9 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
+        0,
         2,
         3,
-        4,
         6,
         7,
         8,
@@ -32276,7 +33744,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026276",
        "picks": [
-        1,
+        0,
         2,
         4,
         5,
@@ -32285,36 +33753,236 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
+        0,
         6,
         9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        6
        ],
        "hitCount": 2,
        "hit": false
       },
       {
-       "issue": "2026275",
+       "issue": "2026274",
        "picks": [
         0,
+        1,
         2,
+        3,
         4,
         6,
-        7,
-        8,
-        9
+        8
        ],
        "hits": [
-        0,
-        2,
+        1,
+        3,
         6
        ],
        "hitCount": 3,
        "hit": true
       },
       {
-       "issue": "2026274",
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "一直在等待",
+     "url": "/ex/pl3ex/tjsy_63_319.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       3,
+       4,
+       6,
+       7,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 6
+      },
+      {
+       "cat": "定位5*5*5",
+       "hit10": 4,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 66.17,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
        "picks": [
         1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
         2,
+        3,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        5,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
         3,
         6,
         7,
@@ -32322,12 +33990,46 @@ const EXPERTS_DATA = {
         9
        ],
        "hits": [
-        1,
-        3,
-        6
+        0,
+        6,
+        9
        ],
        "hitCount": 3,
        "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026273",
@@ -32347,24 +34049,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 3,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        8,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
       }
      ]
     },
@@ -32373,14 +34057,14 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1178.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
-       3,
+       1,
+       2,
        4,
        5,
+       6,
        7,
-       8,
        9
       ]
      },
@@ -32403,13 +34087,32 @@ const EXPERTS_DATA = {
      "threshold": 3,
      "hitRate10": 0.7,
      "maxStreak": 4,
-     "curStreak": 2,
+     "curStreak": 3,
      "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": true,
      "score": 66.17,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -32575,25 +34278,945 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 2,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "干大事的人",
+     "url": "/ex/pl3ex/tjsy_63_417.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 6,
+       "maxStreak": 7
+      }
+     ],
+     "siteHit10": 6,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 6,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.75,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 64.75,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
        "picks": [
         0,
         1,
         2,
         4,
         6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        7,
         8,
         9
        ],
        "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
         0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        5,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        3,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "猪欣二",
+     "url": "/ex/pl3ex/tjsy_63_772.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       4,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 9
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 3,
+     "curStreak": 2,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 63.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
         8,
         9
        ],
        "hitCount": 3,
        "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        2,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        2
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "爱你宝贝",
+     "url": "/ex/pl3ex/tjsy_63_409.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 6
+      },
+      {
+       "cat": "五码组选",
+       "hit10": 3,
+       "maxStreak": 3
+      },
+      {
+       "cat": "定位5*5*5",
+       "hit10": 4,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 7,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.7,
+     "maxStreak": 3,
+     "curStreak": 2,
+     "recoverRate": 0.6667,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 63.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        1,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        4,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        1,
+        4
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        5,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "引力圈银",
+     "url": "/ex/pl3ex/tjsy_63_1669.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 6,
+       "maxStreak": 6
+      },
+      {
+       "cat": "六码组选",
+       "hit10": 6,
+       "maxStreak": 5
+      },
+      {
+       "cat": "五码组选",
+       "hit10": 6,
+       "maxStreak": 5
+      }
+     ],
+     "siteHit10": 6,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 6,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.5,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 58.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        6,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        0,
+        3
+       ],
+       "hitCount": 2,
+       "hit": false
       }
      ]
     },
@@ -32602,12 +35225,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl3ex/tjsy_63_1889.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
+       1,
+       2,
        3,
-       4,
-       5,
+       6,
        7,
        8,
        9
@@ -32632,1424 +35255,60 @@ const EXPERTS_DATA = {
      "threshold": 3,
      "hitRate10": 0.7,
      "maxStreak": 4,
-     "curStreak": 4,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 66.17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "始作俑者",
-     "url": "/ex/pl3ex/tjsy_63_783.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       2,
-       3,
-       5,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 6,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 6,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 6,
-      "maxStreak": 4,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.6,
-     "maxStreak": 4,
-     "curStreak": 4,
-     "recoverRate": 0.75,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 64.75,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        7,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        8,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "猪欣二",
-     "url": "/ex/pl3ex/tjsy_63_772.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       3,
-       5,
-       6,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 9
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 1,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 63.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        2,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        8
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "一直在等待",
-     "url": "/ex/pl3ex/tjsy_63_319.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       2,
-       3,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 6
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 63.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        5,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "责任担当",
-     "url": "/ex/pl3ex/tjsy_63_572.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       2,
-       3,
-       6,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 6,
-       "maxStreak": 7
-      },
-      {
-       "cat": "定位5*5*5",
-       "hit10": 4,
-       "maxStreak": 4
-      }
-     ],
-     "siteHit10": 6,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 6,
-      "maxStreak": 5,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.6,
-     "maxStreak": 5,
-     "curStreak": 5,
-     "recoverRate": 0.5,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 61,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        3,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        8,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "爱恨相依",
-     "url": "/ex/pl3ex/tjsy_63_1018.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       3,
-       4,
-       5,
-       6,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 6,
-       "maxStreak": 6
-      }
-     ],
-     "siteHit10": 6,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 6,
-      "maxStreak": 5,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.6,
-     "maxStreak": 5,
-     "curStreak": 5,
-     "recoverRate": 0.5,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 61,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        3,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        8
-       ],
-       "hits": [
-        0,
-        3
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        0,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "一笑了之",
-     "url": "/ex/pl3ex/tjsy_63_1160.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       3,
-       4,
-       5,
-       7,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 6
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 6,
-      "exact": true
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 6,
      "curStreak": 0,
      "recoverRate": 0.6667,
      "blackCount": 3,
      "lastHit": false,
-     "score": 51.17,
+     "score": 46.17,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
-        0,
         1,
+        2,
         3,
-        4,
-        5,
+        6,
         7,
+        8,
         9
        ],
        "hits": [
-        3,
-        9
+        6,
+        7
        ],
        "hitCount": 2,
        "hit": false
       },
       {
-       "issue": "2026280",
+       "issue": "2026281",
        "picks": [
         0,
-        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1,
         3,
         4,
         6,
         7,
-        8
+        8,
+        9
        ],
        "hits": [
         4,
@@ -34064,11 +35323,11 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        2,
+        3,
         4,
-        6,
         7,
-        8
+        8,
+        9
        ],
        "hits": [
         1,
@@ -34081,10 +35340,10 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        1,
         2,
         3,
         5,
+        6,
         7,
         8,
         9
@@ -34100,21 +35359,19 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        0,
         1,
         2,
         3,
-        7,
-        8,
+        4,
+        5,
+        6,
         9
        ],
        "hits": [
-        2,
-        7,
-        8
+        2
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026276",
@@ -34122,9 +35379,9 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
-        3,
-        4,
         6,
+        7,
+        8,
         9
        ],
        "hits": [
@@ -34139,11 +35396,11 @@ const EXPERTS_DATA = {
        "issue": "2026275",
        "picks": [
         0,
+        1,
         2,
-        3,
         4,
+        5,
         6,
-        7,
         8
        ],
        "hits": [
@@ -34158,52 +35415,35 @@ const EXPERTS_DATA = {
        "issue": "2026274",
        "picks": [
         0,
+        1,
+        3,
         4,
         5,
         6,
-        7,
-        8,
         9
        ],
        "hits": [
+        1,
+        3,
         6
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        0,
-        3,
-        7
        ],
        "hitCount": 3,
        "hit": true
       },
       {
-       "issue": "2026272",
+       "issue": "2026273",
        "picks": [
+        1,
         2,
         3,
         4,
         6,
         7,
-        8,
-        9
+        8
        ],
        "hits": [
-        8,
-        9
+        3,
+        7
        ],
        "hitCount": 2,
        "hit": false
@@ -34211,18 +35451,18 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "静心等待",
-     "url": "/ex/pl3ex/tjsy_63_1458.html",
+     "name": "草月花舍",
+     "url": "/ex/pl3ex/tjsy_63_1671.html",
      "cat": "七码组选",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
        1,
-       3,
-       4,
+       2,
+       5,
        6,
        7,
+       8,
        9
       ]
      },
@@ -34231,483 +35471,6 @@ const EXPERTS_DATA = {
        "cat": "七码组选",
        "hit10": 7,
        "maxStreak": 8
-      },
-      {
-       "cat": "定位5*5*5",
-       "hit10": 5,
-       "maxStreak": 4
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 4,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 4,
-     "curStreak": 0,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": false,
-     "score": 46.17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        3,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        0,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "Ting",
-     "url": "/ex/pl3ex/tjsy_63_686.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       2,
-       3,
-       4,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 7
-      },
-      {
-       "cat": "六码组选",
-       "hit10": 5,
-       "maxStreak": 4
-      },
-      {
-       "cat": "五码组选",
-       "hit10": 5,
-       "maxStreak": 4
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 4,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 4,
-     "curStreak": 0,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": false,
-     "score": 46.17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        9
-       ],
-       "hits": [
-        3,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        6,
-        9
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "天山雪",
-     "url": "/ex/pl3ex/tjsy_63_1805.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       2,
-       4,
-       5,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 7
       }
      ],
      "siteHit10": 7,
@@ -34730,32 +35493,52 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
-        0,
         1,
         2,
-        4,
         5,
         6,
+        7,
+        8,
         9
        ],
        "hits": [
+        6,
+        7
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
         9
        ],
-       "hitCount": 1,
-       "hit": false
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
       },
       {
        "issue": "2026280",
        "picks": [
         0,
-        2,
+        1,
+        3,
         4,
-        5,
         6,
-        8,
-        9
+        7,
+        8
        ],
        "hits": [
         4,
@@ -34772,7 +35555,7 @@ const EXPERTS_DATA = {
         2,
         3,
         4,
-        5,
+        6,
         7,
         9
        ],
@@ -34787,11 +35570,248 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        2,
+        7,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        0,
+        6,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+       ],
+       "hits": [
+        0,
+        2,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        1,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        0,
+        3,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "嘿嘿",
+     "url": "/ex/pl3ex/tjsy_63_140.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 6,
+       "maxStreak": 7
+      },
+      {
+       "cat": "六码组选",
+       "hit10": 4,
+       "maxStreak": 4
+      }
+     ],
+     "siteHit10": 6,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 3,
+      "count": 6,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.25,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 32.25,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        8,
+        9
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        4,
+        6,
+        8
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
         1,
         3,
         4,
         5,
         6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        4,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        5,
         7,
         9
        ],
@@ -34808,47 +35828,44 @@ const EXPERTS_DATA = {
         1,
         2,
         3,
+        5,
         6,
         7,
-        8,
         9
        ],
        "hits": [
         2,
-        7,
-        8
+        7
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 2,
+       "hit": false
       },
       {
        "issue": "2026276",
        "picks": [
-        0,
-        3,
+        1,
+        2,
         4,
         5,
-        6,
+        7,
         8,
         9
        ],
        "hits": [
-        0,
-        6,
         9
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026275",
        "picks": [
         0,
         1,
+        3,
         4,
-        5,
         6,
-        7,
+        8,
         9
        ],
        "hits": [
@@ -34865,940 +35882,8 @@ const EXPERTS_DATA = {
         1,
         2,
         3,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        1,
-        3,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "PaddyPower",
-     "url": "/ex/pl3ex/tjsy_63_853.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       3,
-       4,
-       6,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": 6
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 5,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 5,
-     "curStreak": 5,
-     "recoverRate": 0.3333,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 40.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        2,
-        3,
         4,
         6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        3
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        3,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "佛囚",
-     "url": "/ex/pl3ex/tjsy_63_1520.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       3,
-       5,
-       6,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 6,
-       "maxStreak": 7
-      },
-      {
-       "cat": "定位5*5*5",
-       "hit10": 4,
-       "maxStreak": 3
-      }
-     ],
-     "siteHit10": 6,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 6,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.6,
-     "maxStreak": 6,
-     "curStreak": 6,
-     "recoverRate": 0.25,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 37.25,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        0,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        6,
-        9
-       ],
-       "hits": [
-        0,
-        3
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "克鲁斯",
-     "url": "/ex/pl3ex/tjsy_63_1963.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       3,
-       5,
-       6,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 6,
-       "maxStreak": 6
-      }
-     ],
-     "siteHit10": 6,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 6,
-      "maxStreak": 6,
-      "exact": true
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.6,
-     "maxStreak": 6,
-     "curStreak": 6,
-     "recoverRate": 0.25,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 37.25,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        3,
-        8,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        4,
-        6,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        4,
-        7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        7
-       ],
-       "hits": [
-        1,
-        6
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "hits": [
-        0,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "唐笑",
-     "url": "/ex/pl3ex/tjsy_63_1978.html",
-     "cat": "七码组选",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       3,
-       4,
-       5,
-       7,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "七码组选",
-       "hit10": 7,
-       "maxStreak": null
-      },
-      {
-       "cat": "六码组选",
-       "hit10": 5,
-       "maxStreak": null
-      }
-     ],
-     "siteHit10": 7,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 3,
-      "count": 7,
-      "maxStreak": 7,
-      "exact": true
-     },
-     "picksN": 7,
-     "threshold": 3,
-     "hitRate10": 0.7,
-     "maxStreak": 7,
-     "curStreak": 0,
-     "recoverRate": 0,
-     "blackCount": 3,
-     "lastHit": false,
-     "score": 17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        7,
-        9
-       ],
-       "hits": [
-        3,
-        9
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        6,
-        8
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        1,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        1,
-        7
-       ],
-       "hitCount": 2,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8
-       ],
-       "hits": [
-        3,
-        5,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        2,
-        7,
-        8
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        0,
-        2,
-        3,
-        5,
-        6,
-        7,
-        9
-       ],
-       "hits": [
-        0,
-        6,
-        9
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        2,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
         9
        ],
        "hits": [
@@ -35814,35 +35899,16 @@ const EXPERTS_DATA = {
        "picks": [
         0,
         1,
-        2,
         3,
         5,
+        6,
         7,
-        8
+        9
        ],
        "hits": [
         0,
         3,
         7
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        0,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "hits": [
-        0,
-        8,
-        9
        ],
        "hitCount": 3,
        "hit": true
@@ -35856,23 +35922,8 @@ const EXPERTS_DATA = {
     "sections": [],
     "topExperts": [
      {
-      "name": "始作俑者",
-      "url": "/ex/pl3ex/tjsy_63_783.html",
-      "hit10": 6
-     },
-     {
       "name": "资深爱足球",
       "url": "/ex/pl3ex/tjsy_63_927.html",
-      "hit10": 6
-     },
-     {
-      "name": "飞奔",
-      "url": "/ex/pl3ex/tjsy_63_1868.html",
-      "hit10": 6
-     },
-     {
-      "name": "攀攀",
-      "url": "/ex/pl3ex/tjsy_63_331.html",
       "hit10": 6
      },
      {
@@ -35881,33 +35932,48 @@ const EXPERTS_DATA = {
       "hit10": 6
      },
      {
-      "name": "哥是传说",
-      "url": "/ex/pl3ex/tjsy_63_830.html",
+      "name": "穿山甲",
+      "url": "/ex/pl3ex/tjsy_63_1482.html",
       "hit10": 6
      },
      {
-      "name": "花无树",
-      "url": "/ex/pl3ex/tjsy_63_1733.html",
+      "name": "刘建东",
+      "url": "/ex/pl3ex/tjsy_63_127.html",
       "hit10": 6
      },
      {
-      "name": "中奖兴村",
-      "url": "/ex/pl3ex/tjsy_63_1808.html",
+      "name": "娱乐没有圈",
+      "url": "/ex/pl3ex/tjsy_63_245.html",
       "hit10": 6
      },
      {
-      "name": "猪欣二",
-      "url": "/ex/pl3ex/tjsy_63_772.html",
+      "name": "始作俑者",
+      "url": "/ex/pl3ex/tjsy_63_783.html",
       "hit10": 6
      },
      {
-      "name": "爱球说",
-      "url": "/ex/pl3ex/tjsy_63_1614.html",
+      "name": "缘来有你不",
+      "url": "/ex/pl3ex/tjsy_63_146.html",
+      "hit10": 6
+     },
+     {
+      "name": "在水一方",
+      "url": "/ex/pl3ex/tjsy_63_1265.html",
+      "hit10": 6
+     },
+     {
+      "name": "Lixn1314",
+      "url": "/ex/pl3ex/tjsy_63_593.html",
+      "hit10": 6
+     },
+     {
+      "name": "妈妈爱霞朵君翔",
+      "url": "/ex/pl3ex/tjsy_63_842.html",
       "hit10": 6
      }
     ],
     "updated": null,
-    "issue": "2026282"
+    "issue": "2026283"
    },
    "pool": {
     "red": [
@@ -35922,7 +35988,7 @@ const EXPERTS_DATA = {
     "blue": []
    },
    "notes": [],
-   "issue": "2026282",
+   "issue": "2026283",
    "byCat": [
     {
      "cat": "七码组选",
@@ -35933,281 +35999,281 @@ const EXPERTS_DATA = {
        "name": "蔡泽川",
        "nums": [
         0,
-        1,
         2,
         3,
         4,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 83
-      },
-      {
-       "name": "草月花舍",
-       "nums": [
-        2,
-        3,
-        4,
+        5,
         6,
-        7,
-        8,
-        9
+        7
        ],
-       "issue": "2026282",
-       "score": 75.5
+       "issue": "2026283",
+       "score": 80.5
       },
       {
        "name": "能让我赚吗",
        "nums": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 80.5
-      },
-      {
-       "name": "猪欣二",
-       "nums": [
         0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 63.67
-      },
-      {
-       "name": "静心等待",
-       "nums": [
-        0,
-        1,
-        3,
-        4,
-        6,
-        7,
-        9
-       ],
-       "issue": "2026282",
-       "score": 46.17
-      },
-      {
-       "name": "Ting",
-       "nums": [
-        0,
-        1,
         2,
-        3,
-        4,
-        6,
-        9
-       ],
-       "issue": "2026282",
-       "score": 46.17
-      },
-      {
-       "name": "天山雪",
-       "nums": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        9
-       ],
-       "issue": "2026282",
-       "score": 43.67
-      },
-      {
-       "name": "PaddyPower",
-       "nums": [
-        2,
-        3,
         4,
         6,
         7,
         8,
         9
        ],
-       "issue": "2026282",
-       "score": 40.33
-      },
-      {
-       "name": "一直在等待",
-       "nums": [
-        0,
-        1,
-        2,
-        3,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 63.67
-      },
-      {
-       "name": "好大年纪",
-       "nums": [
-        0,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 66.17
-      },
-      {
-       "name": "思彤远睿",
-       "nums": [
-        0,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 72
+       "issue": "2026283",
+       "score": 83
       },
       {
        "name": "苏牧",
        "nums": [
-        1,
+        0,
+        2,
         3,
         4,
-        5,
+        6,
         7,
-        8,
         9
        ],
-       "issue": "2026282",
-       "score": 72
+       "issue": "2026283",
+       "score": 75.5
       },
       {
        "name": "一笑了之",
        "nums": [
         0,
         1,
-        3,
+        2,
         4,
         5,
-        7,
-        9
+        6,
+        7
        ],
-       "issue": "2026282",
-       "score": 51.17
+       "issue": "2026283",
+       "score": 83
       },
       {
-       "name": "潘昌林",
+       "name": "猪欣二",
        "nums": [
         0,
-        3,
+        1,
         4,
-        5,
+        6,
         7,
         8,
         9
        ],
-       "issue": "2026282",
+       "issue": "2026283",
+       "score": 63.67
+      },
+      {
+       "name": "清清羽",
+       "nums": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+       ],
+       "issue": "2026283",
+       "score": 71.17
+      },
+      {
+       "name": "草月花舍",
+       "nums": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "issue": "2026283",
+       "score": 43.67
+      },
+      {
+       "name": "龙行天下152",
+       "nums": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "issue": "2026283",
+       "score": 74.5
+      },
+      {
+       "name": "中中中",
+       "nums": [
+        0,
+        1,
+        2,
+        4,
+        7,
+        8,
+        9
+       ],
+       "issue": "2026283",
+       "score": 68.67
+      },
+      {
+       "name": "妈妈爱霞朵君翔",
+       "nums": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+       ],
+       "issue": "2026283",
+       "score": 68.67
+      },
+      {
+       "name": "速度跟不上",
+       "nums": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+       ],
+       "issue": "2026283",
+       "score": 74.5
+      },
+      {
+       "name": "起哥",
+       "nums": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "issue": "2026283",
        "score": 66.17
-      },
-      {
-       "name": "唐笑",
-       "nums": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        7,
-        9
-       ],
-       "issue": "2026282",
-       "score": 17
-      },
-      {
-       "name": "始作俑者",
-       "nums": [
-        0,
-        1,
-        2,
-        3,
-        5,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 64.75
-      },
-      {
-       "name": "佛囚",
-       "nums": [
-        0,
-        1,
-        3,
-        5,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 37.25
-      },
-      {
-       "name": "责任担当",
-       "nums": [
-        0,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 61
-      },
-      {
-       "name": "克鲁斯",
-       "nums": [
-        1,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 37.25
       },
       {
        "name": "爱恨相依",
        "nums": [
-        1,
+        2,
         3,
         4,
         5,
         6,
+        7,
+        8
+       ],
+       "issue": "2026283",
+       "score": 71.17
+      },
+      {
+       "name": "一直在等待",
+       "nums": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+       ],
+       "issue": "2026283",
+       "score": 66.17
+      },
+      {
+       "name": "好大年纪",
+       "nums": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9
+       ],
+       "issue": "2026283",
+       "score": 66.17
+      },
+      {
+       "name": "爱你宝贝",
+       "nums": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        9
+       ],
+       "issue": "2026283",
+       "score": 63.67
+      },
+      {
+       "name": "潘昌林",
+       "nums": [
+        1,
+        2,
+        3,
+        6,
+        7,
         8,
         9
        ],
-       "issue": "2026282",
-       "score": 61
+       "issue": "2026283",
+       "score": 46.17
+      },
+      {
+       "name": "嘿嘿",
+       "nums": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        8,
+        9
+       ],
+       "issue": "2026283",
+       "score": 32.25
+      },
+      {
+       "name": "干大事的人",
+       "nums": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+       ],
+       "issue": "2026283",
+       "score": 64.75
+      },
+      {
+       "name": "引力圈银",
+       "nums": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+       ],
+       "issue": "2026283",
+       "score": 58.5
       }
      ]
     }
@@ -36218,26 +36284,12 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        2,
        3,
        4,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "草月花舍",
-     "cats": {
-      "七码组选": [
-       2,
-       3,
-       4,
+       5,
        6,
-       7,
-       8,
-       9
+       7
       ]
      }
     },
@@ -36245,123 +36297,11 @@ const EXPERTS_DATA = {
      "name": "能让我赚吗",
      "cats": {
       "七码组选": [
+       0,
        2,
-       3,
-       4,
-       5,
-       6,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "猪欣二",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       3,
-       5,
-       6,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "静心等待",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       3,
        4,
        6,
        7,
-       9
-      ]
-     }
-    },
-    {
-     "name": "Ting",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       2,
-       3,
-       4,
-       6,
-       9
-      ]
-     }
-    },
-    {
-     "name": "天山雪",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       2,
-       4,
-       5,
-       6,
-       9
-      ]
-     }
-    },
-    {
-     "name": "PaddyPower",
-     "cats": {
-      "七码组选": [
-       2,
-       3,
-       4,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "一直在等待",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       2,
-       3,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "好大年纪",
-     "cats": {
-      "七码组选": [
-       0,
-       3,
-       4,
-       5,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "思彤远睿",
-     "cats": {
-      "七码组选": [
-       0,
-       3,
-       4,
-       5,
-       6,
        8,
        9
       ]
@@ -36371,12 +36311,12 @@ const EXPERTS_DATA = {
      "name": "苏牧",
      "cats": {
       "七码组选": [
-       1,
+       0,
+       2,
        3,
        4,
-       5,
+       6,
        7,
-       8,
        9
       ]
      }
@@ -36387,10 +36327,178 @@ const EXPERTS_DATA = {
       "七码组选": [
        0,
        1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "猪欣二",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       4,
+       6,
+       7,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "清清羽",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "草月花舍",
+     "cats": {
+      "七码组选": [
+       1,
+       2,
+       5,
+       6,
+       7,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "龙行天下152",
+     "cats": {
+      "七码组选": [
+       1,
+       2,
        3,
+       4,
+       6,
+       7,
+       9
+      ]
+     }
+    },
+    {
+     "name": "中中中",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
+       4,
+       7,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "妈妈爱霞朵君翔",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
        4,
        5,
        7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "速度跟不上",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "起哥",
+     "cats": {
+      "七码组选": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "爱恨相依",
+     "cats": {
+      "七码组选": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "一直在等待",
+     "cats": {
+      "七码组选": [
+       0,
+       2,
+       3,
+       4,
+       6,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "好大年纪",
+     "cats": {
+      "七码组选": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7,
+       9
+      ]
+     }
+    },
+    {
+     "name": "爱你宝贝",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
        9
       ]
      }
@@ -36399,10 +36507,10 @@ const EXPERTS_DATA = {
      "name": "潘昌林",
      "cats": {
       "七码组选": [
-       0,
+       1,
+       2,
        3,
-       4,
-       5,
+       6,
        7,
        8,
        9
@@ -36410,7 +36518,7 @@ const EXPERTS_DATA = {
      }
     },
     {
-     "name": "唐笑",
+     "name": "嘿嘿",
      "cats": {
       "七码组选": [
        0,
@@ -36418,78 +36526,36 @@ const EXPERTS_DATA = {
        3,
        4,
        5,
-       7,
+       8,
        9
       ]
      }
     },
     {
-     "name": "始作俑者",
+     "name": "干大事的人",
      "cats": {
       "七码组选": [
        0,
        1,
        2,
        3,
+       4,
        5,
-       8,
-       9
+       6
       ]
      }
     },
     {
-     "name": "佛囚",
-     "cats": {
-      "七码组选": [
-       0,
-       1,
-       3,
-       5,
-       6,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "责任担当",
+     "name": "引力圈银",
      "cats": {
       "七码组选": [
        0,
        2,
-       3,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "克鲁斯",
-     "cats": {
-      "七码组选": [
-       1,
-       3,
-       5,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "爱恨相依",
-     "cats": {
-      "七码组选": [
-       1,
-       3,
        4,
        5,
        6,
-       8,
-       9
+       7,
+       8
       ]
      }
     }
@@ -36625,7 +36691,7 @@ const EXPERTS_DATA = {
     }
    },
    "expertCount": 20,
-   "listedCount": 76,
+   "listedCount": 77,
    "scoreSource": "site",
    "hitDataReliable": false,
    "stable": [
@@ -36634,23 +36700,23 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1671.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        2,
-       4,
+       5,
        6,
-       7,
-       8
+       8,
+       9
       ]
      },
      "siteMetrics": [
       {
        "cat": "千位定5",
-       "hit10": 10,
+       "hit10": 9,
        "maxStreak": 22
       }
      ],
-     "siteHit10": 10,
+     "siteHit10": 9,
      "rawHit10": 1,
      "siteFit": {
       "threshold": 1,
@@ -36666,9 +36732,18 @@ const EXPERTS_DATA = {
      "recoverRate": 0.1111,
      "blackCount": 9,
      "lastHit": false,
-     "score": 89.33,
+     "score": 83.33,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -36751,11 +36826,138 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "从心开始",
+     "url": "/ex/pl5ex/tjsy_64_720.html",
+     "cat": "十位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       2,
+       3,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "十位定5",
+       "hit10": 9,
+       "maxStreak": 17
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 2,
+     "siteFit": {
+      "threshold": 1,
+      "count": 2,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.2,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.25,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 76.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
+       "picks": [
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        1
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
        "picks": [
         4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        8
        ],
        "hits": [],
        "hitCount": 0,
@@ -36768,13 +36970,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_127.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        1,
+       2,
        3,
-       6,
-       7,
-       8
+       4,
+       7
       ]
      },
      "siteMetrics": [
@@ -36796,13 +36998,22 @@ const EXPERTS_DATA = {
      "threshold": 1,
      "hitRate10": 0.4,
      "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.5,
+     "curStreak": 0,
+     "recoverRate": 0.3333,
      "blackCount": 6,
-     "lastHit": true,
+     "lastHit": false,
      "score": 75.33,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -36891,29 +37102,158 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": true
+      }
+     ]
+    },
+    {
+     "name": "忧伤的小乌龟",
+     "url": "/ex/pl5ex/tjsy_64_1997.html",
+     "cat": "个位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       4,
+       5,
+       7,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "个位定5",
+       "hit10": 10,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 3,
+     "siteFit": {
+      "threshold": 1,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.3,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 74.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
+       "picks": [
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        7
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
        "picks": [
         0
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        0
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": true
       }
      ]
     },
     {
-     "name": "平常心刘",
-     "url": "/ex/pl5ex/tjsy_64_1624.html",
+     "name": "台上忆吹箫",
+     "url": "/ex/pl5ex/tjsy_64_425.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
-       4,
+       2,
        6,
-       8,
+       7,
        9
       ]
      },
@@ -36925,434 +37265,33 @@ const EXPERTS_DATA = {
       }
      ],
      "siteHit10": 10,
-     "rawHit10": 2,
+     "rawHit10": 3,
      "siteFit": {
       "threshold": 1,
-      "count": 2,
-      "maxStreak": 2,
+      "count": 3,
+      "maxStreak": 1,
       "exact": false
      },
      "picksN": 1,
      "threshold": 1,
-     "hitRate10": 0.2,
-     "maxStreak": 2,
+     "hitRate10": 0.3,
+     "maxStreak": 1,
      "curStreak": 0,
-     "recoverRate": 0.125,
-     "blackCount": 8,
+     "recoverRate": 0.4286,
+     "blackCount": 7,
      "lastHit": false,
      "score": 74.67,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
-        1
+        5
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
       },
-      {
-       "issue": "2026280",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        3
-       ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        3
-       ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "Gilgamesh",
-     "url": "/ex/pl5ex/tjsy_64_531.html",
-     "cat": "个位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       1,
-       4,
-       5,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "个位定5",
-       "hit10": 10,
-       "maxStreak": 10
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 2,
-     "siteFit": {
-      "threshold": 1,
-      "count": 2,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.25,
-     "blackCount": 8,
-     "lastHit": false,
-     "score": 73.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        0
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        6
-       ],
-       "hits": [
-        6
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        0
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "忧伤的小乌龟",
-     "url": "/ex/pl5ex/tjsy_64_1997.html",
-     "cat": "个位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       2,
-       6,
-       7,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "个位定5",
-       "hit10": 10,
-       "maxStreak": 10
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 3,
-     "siteFit": {
-      "threshold": 1,
-      "count": 3,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.4286,
-     "blackCount": 7,
-     "lastHit": false,
-     "score": 73.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        7
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        2
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "台上忆吹箫",
-     "url": "/ex/pl5ex/tjsy_64_425.html",
-     "cat": "十位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       4,
-       5,
-       6,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "十位定5",
-       "hit10": 10,
-       "maxStreak": 10
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 3,
-     "siteFit": {
-      "threshold": 1,
-      "count": 3,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.4286,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 73.33,
-     "periods": 10,
-     "recent": [
       {
        "issue": "2026281",
        "picks": [
@@ -37435,15 +37374,6 @@ const EXPERTS_DATA = {
        "issue": "2026273",
        "picks": [
         7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        1
        ],
        "hits": [],
        "hitCount": 0,
@@ -37456,20 +37386,20 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_319.html",
      "cat": "千位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
+       0,
        2,
        3,
-       7,
-       8
+       6,
+       7
       ]
      },
      "siteMetrics": [
       {
        "cat": "千位定5",
        "hit10": 10,
-       "maxStreak": 10
+       "maxStreak": 11
       }
      ],
      "siteHit10": 10,
@@ -37484,13 +37414,22 @@ const EXPERTS_DATA = {
      "threshold": 1,
      "hitRate10": 0.5,
      "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.6,
+     "curStreak": 0,
+     "recoverRate": 0.4,
      "blackCount": 5,
-     "lastHit": true,
-     "score": 73.33,
+     "lastHit": false,
+     "score": 74.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -37581,11 +37520,282 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": true
+      }
+     ]
+    },
+    {
+     "name": "背上小书包",
+     "url": "/ex/pl5ex/tjsy_64_1936.html",
+     "cat": "千位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       0,
+       1,
+       2,
+       4,
+       5
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "千位定5",
+       "hit10": 10,
+       "maxStreak": 10
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 4,
+     "siteFit": {
+      "threshold": 1,
+      "count": 4,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.4,
+     "maxStreak": 3,
+     "curStreak": 0,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 73.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        8
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        5
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        6
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "中奖领头羊",
+     "url": "/ex/pl5ex/tjsy_64_871.html",
+     "cat": "个位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       3,
+       5,
+       6
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "个位定5",
+       "hit10": 9,
+       "maxStreak": 14
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 4,
+     "siteFit": {
+      "threshold": 1,
+      "count": 4,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.4,
+     "maxStreak": 4,
+     "curStreak": 0,
+     "recoverRate": 0.1667,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 72.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
        "picks": [
         0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        6
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        9
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        1
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        8
        ],
        "hits": [],
        "hitCount": 0,
@@ -37598,12 +37808,12 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1027.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
-       1,
+       2,
        3,
-       5,
+       4,
+       7,
        8
       ]
      },
@@ -37634,6 +37844,15 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026281",
        "picks": [
         5
@@ -37715,15 +37934,6 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
       }
      ]
     },
@@ -37732,13 +37942,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1799.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
-       2,
+       3,
        5,
        6,
-       7
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -37760,13 +37970,22 @@ const EXPERTS_DATA = {
      "threshold": 1,
      "hitRate10": 0.3,
      "maxStreak": 2,
-     "curStreak": 2,
+     "curStreak": 0,
      "recoverRate": 0.2857,
      "blackCount": 7,
-     "lastHit": true,
+     "lastHit": false,
      "score": 71.33,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -37853,35 +38072,26 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
       }
      ]
     },
     {
-     "name": "董爽",
-     "url": "/ex/pl5ex/tjsy_64_966.html",
-     "cat": "个位定5",
+     "name": "负责到底",
+     "url": "/ex/pl5ex/tjsy_64_1998.html",
+     "cat": "十位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
        1,
-       4,
+       2,
+       3,
        7,
        8
       ]
      },
      "siteMetrics": [
       {
-       "cat": "个位定5",
+       "cat": "十位定5",
        "hit10": 9,
        "maxStreak": 12
       }
@@ -37898,23 +38108,30 @@ const EXPERTS_DATA = {
      "threshold": 1,
      "hitRate10": 0.4,
      "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.3333,
+     "curStreak": 0,
+     "recoverRate": 0.5,
      "blackCount": 6,
-     "lastHit": true,
+     "lastHit": false,
      "score": 70,
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026281",
        "picks": [
-        3
+        1
        ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
        "issue": "2026280",
@@ -37930,7 +38147,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
-        9
+        3
        ],
        "hits": [],
        "hitCount": 0,
@@ -37939,43 +38156,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        0
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        2
+        8
        ],
        "hits": [
-        2
+        8
        ],
        "hitCount": 1,
        "hit": true
       },
       {
-       "issue": "2026274",
+       "issue": "2026277",
        "picks": [
         4
        ],
@@ -37984,7 +38174,158 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
+       "issue": "2026276",
+       "picks": [
+        9
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        0
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026273",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "安坦",
+     "url": "/ex/pl5ex/tjsy_64_271.html",
+     "cat": "百位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       5,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "百位定5",
+       "hit10": 9,
+       "maxStreak": 12
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 4,
+     "siteFit": {
+      "threshold": 1,
+      "count": 4,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.4,
+     "maxStreak": 1,
+     "curStreak": 1,
+     "recoverRate": 0.5,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 70,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        4
+       ],
+       "hits": [
+        4
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        4
+       ],
+       "hits": [
+        4
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        6
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        5
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
        "picks": [
         5
        ],
@@ -37993,133 +38334,9 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026272",
-       "picks": [
-        2
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "负责到底",
-     "url": "/ex/pl5ex/tjsy_64_1998.html",
-     "cat": "十位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       3,
-       5,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "十位定5",
-       "hit10": 9,
-       "maxStreak": 12
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 5,
-     "siteFit": {
-      "threshold": 1,
-      "count": 5,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.5,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.6,
-     "blackCount": 5,
-     "lastHit": false,
-     "score": 70,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        1
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        8
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
        "issue": "2026274",
        "picks": [
-        8
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -38128,19 +38345,10 @@ const EXPERTS_DATA = {
       {
        "issue": "2026273",
        "picks": [
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        2
+        6
        ],
        "hits": [
-        2
+        6
        ],
        "hitCount": 1,
        "hit": true
@@ -38152,13 +38360,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1524.html",
      "cat": "百位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        2,
-       3,
        4,
+       5,
        7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -38166,32 +38374,38 @@ const EXPERTS_DATA = {
        "cat": "百位定5",
        "hit10": 9,
        "maxStreak": 12
-      },
-      {
-       "cat": "千位定5",
-       "hit10": 9,
-       "maxStreak": 22
       }
      ],
      "siteHit10": 9,
-     "rawHit10": 3,
+     "rawHit10": 4,
      "siteFit": {
       "threshold": 1,
-      "count": 3,
+      "count": 4,
       "maxStreak": 2,
       "exact": false
      },
      "picksN": 1,
      "threshold": 1,
-     "hitRate10": 0.3,
+     "hitRate10": 0.4,
      "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": false,
+     "curStreak": 1,
+     "recoverRate": 0.5,
+     "blackCount": 6,
+     "lastHit": true,
      "score": 70,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -38278,76 +38492,74 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "乐乐",
+     "url": "/ex/pl5ex/tjsy_64_336.html",
+     "cat": "个位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       4,
+       5,
+       6
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "个位定5",
+       "hit10": 9,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 2,
+     "siteFit": {
+      "threshold": 1,
+      "count": 2,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.2,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.25,
+     "blackCount": 8,
+     "lastHit": false,
+     "score": 68.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
        "picks": [
         5
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
-      }
-     ]
-    },
-    {
-     "name": "财玉双星",
-     "url": "/ex/pl5ex/tjsy_64_1588.html",
-     "cat": "千位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       0,
-       2,
-       4,
-       6,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "千位定5",
-       "hit10": 9,
-       "maxStreak": 12
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 4,
-     "siteFit": {
-      "threshold": 1,
-      "count": 4,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 70,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": true
       },
       {
        "issue": "2026280",
        "picks": [
-        8
+        4
        ],
        "hits": [
-        8
+        4
        ],
        "hitCount": 1,
        "hit": true
@@ -38355,7 +38567,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026279",
        "picks": [
-        6
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -38363,55 +38575,6 @@ const EXPERTS_DATA = {
       },
       {
        "issue": "2026278",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        7
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        5
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        3
-       ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
        "picks": [
         4
        ],
@@ -38420,108 +38583,26 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026272",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "红单到底",
-     "url": "/ex/pl5ex/tjsy_64_1840.html",
-     "cat": "千位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       2,
-       3,
-       4,
-       7,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "千位定5",
-       "hit10": 9,
-       "maxStreak": 12
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 3,
-     "siteFit": {
-      "threshold": 1,
-      "count": 3,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": false,
-     "score": 70,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        8
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
        "issue": "2026277",
        "picks": [
-        7
+        1
        ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
        "issue": "2026276",
        "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
         0
        ],
        "hits": [
@@ -38531,18 +38612,9 @@ const EXPERTS_DATA = {
        "hit": true
       },
       {
-       "issue": "2026275",
-       "picks": [
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
        "issue": "2026274",
        "picks": [
-        7
+        4
        ],
        "hits": [],
        "hitCount": 0,
@@ -38550,15 +38622,6 @@ const EXPERTS_DATA = {
       },
       {
        "issue": "2026273",
-       "picks": [
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
        "picks": [
         7
        ],
@@ -38573,13 +38636,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_200.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       1,
        2,
-       3,
        4,
-       8
+       6,
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -38590,24 +38653,33 @@ const EXPERTS_DATA = {
       }
      ],
      "siteHit10": 9,
-     "rawHit10": 4,
+     "rawHit10": 3,
      "siteFit": {
       "threshold": 1,
-      "count": 4,
+      "count": 3,
       "maxStreak": 2,
       "exact": false
      },
      "picksN": 1,
      "threshold": 1,
-     "hitRate10": 0.4,
+     "hitRate10": 0.3,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
      "lastHit": false,
      "score": 68.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -38694,17 +38766,6 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": true
       }
      ]
     },
@@ -38713,13 +38774,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_505.html",
      "cat": "个位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
-       1,
        2,
-       3,
-       4
+       7,
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -38730,24 +38791,33 @@ const EXPERTS_DATA = {
       }
      ],
      "siteHit10": 9,
-     "rawHit10": 6,
+     "rawHit10": 5,
      "siteFit": {
       "threshold": 1,
-      "count": 6,
+      "count": 5,
       "maxStreak": 3,
       "exact": false
      },
      "picksN": 1,
      "threshold": 1,
-     "hitRate10": 0.6,
+     "hitRate10": 0.5,
      "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.25,
-     "blackCount": 4,
-     "lastHit": true,
+     "curStreak": 0,
+     "recoverRate": 0.2,
+     "blackCount": 5,
+     "lastHit": false,
      "score": 68.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -38838,37 +38908,26 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": true
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        8
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": true
       }
      ]
     },
     {
-     "name": "太阳与月亮",
-     "url": "/ex/pl5ex/tjsy_64_1197.html",
-     "cat": "十位定5",
+     "name": "青青豆苗",
+     "url": "/ex/pl5ex/tjsy_64_1845.html",
+     "cat": "个位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
-       0,
        1,
-       2,
+       3,
+       5,
        7,
-       8
+       9
       ]
      },
      "siteMetrics": [
       {
-       "cat": "十位定5",
+       "cat": "个位定5",
        "hit10": 9,
        "maxStreak": 11
       }
@@ -38885,155 +38944,26 @@ const EXPERTS_DATA = {
      "threshold": 1,
      "hitRate10": 0.3,
      "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.4286,
-     "blackCount": 7,
-     "lastHit": true,
-     "score": 68.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026281",
-       "picks": [
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026280",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026279",
-       "picks": [
-        8
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026278",
-       "picks": [
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026277",
-       "picks": [
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026276",
-       "picks": [
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026274",
-       "picks": [
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026273",
-       "picks": [
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "小魔童",
-     "url": "/ex/pl5ex/tjsy_64_1578.html",
-     "cat": "十位定5",
-     "catLatest": {
-      "issue": "2026282",
-      "nums": [
-       1,
-       6,
-       7,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "十位定5",
-       "hit10": 9,
-       "maxStreak": 11
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 2,
-     "siteFit": {
-      "threshold": 1,
-      "count": 2,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 1,
-     "threshold": 1,
-     "hitRate10": 0.2,
-     "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.125,
-     "blackCount": 8,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
      "lastHit": false,
      "score": 68.67,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026281",
+       "issue": "2026282",
        "picks": [
         0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026281",
+       "picks": [
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -39042,16 +38972,18 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
-        3
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": true
       },
       {
        "issue": "2026279",
        "picks": [
-        6
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -39060,7 +38992,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026278",
        "picks": [
-        1
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -39069,38 +39001,36 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        7
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026276",
-       "picks": [
         0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": true
-      },
-      {
-       "issue": "2026275",
-       "picks": [
-        9
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
       },
       {
+       "issue": "2026276",
+       "picks": [
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
        "issue": "2026274",
        "picks": [
-        8
+        0
        ],
        "hits": [],
        "hitCount": 0,
@@ -39109,20 +39039,13 @@ const EXPERTS_DATA = {
       {
        "issue": "2026273",
        "picks": [
-        8
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        7
+       "hits": [
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
+       "hitCount": 1,
+       "hit": true
       }
      ]
     },
@@ -39131,13 +39054,13 @@ const EXPERTS_DATA = {
      "url": "/ex/pl5ex/tjsy_64_1170.html",
      "cat": "十位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
        0,
+       4,
        5,
-       7,
-       8,
-       9
+       6,
+       8
       ]
      },
      "siteMetrics": [
@@ -39167,6 +39090,15 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026282",
+       "picks": [
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026281",
        "picks": [
         6
@@ -39246,35 +39178,26 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026272",
-       "picks": [
-        5
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
       }
      ]
     },
     {
-     "name": "victory",
-     "url": "/ex/pl5ex/tjsy_64_1887.html",
-     "cat": "百位定5",
+     "name": "平常心刘",
+     "url": "/ex/pl5ex/tjsy_64_1624.html",
+     "cat": "十位定5",
      "catLatest": {
-      "issue": "2026282",
+      "issue": "2026283",
       "nums": [
+       0,
        2,
        3,
        6,
-       7,
-       8
+       7
       ]
      },
      "siteMetrics": [
       {
-       "cat": "百位定5",
+       "cat": "十位定5",
        "hit10": 9,
        "maxStreak": 11
       }
@@ -39292,12 +39215,21 @@ const EXPERTS_DATA = {
      "hitRate10": 0.2,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.125,
+     "recoverRate": 0,
      "blackCount": 8,
      "lastHit": false,
      "score": 68.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026282",
+       "picks": [
+        1
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
       {
        "issue": "2026281",
        "picks": [
@@ -39310,29 +39242,25 @@ const EXPERTS_DATA = {
       {
        "issue": "2026280",
        "picks": [
-        4
+        7
        ],
-       "hits": [
-        4
-       ],
-       "hitCount": 1,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
        "issue": "2026279",
        "picks": [
-        8
+        0
        ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
        "issue": "2026278",
        "picks": [
-        9
+        7
        ],
        "hits": [],
        "hitCount": 0,
@@ -39341,7 +39269,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026277",
        "picks": [
-        4
+        3
        ],
        "hits": [],
        "hitCount": 0,
@@ -39350,7 +39278,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026276",
        "picks": [
-        1
+        2
        ],
        "hits": [],
        "hitCount": 0,
@@ -39359,7 +39287,7 @@ const EXPERTS_DATA = {
       {
        "issue": "2026275",
        "picks": [
-        1
+        8
        ],
        "hits": [],
        "hitCount": 0,
@@ -39368,14 +39296,69 @@ const EXPERTS_DATA = {
       {
        "issue": "2026274",
        "picks": [
-        4
+        3
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": true
       },
       {
        "issue": "2026273",
+       "picks": [
+        3
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "wwaann",
+     "url": "/ex/pl5ex/tjsy_64_1145.html",
+     "cat": "千位定5",
+     "catLatest": {
+      "issue": "2026283",
+      "nums": [
+       1,
+       2,
+       4,
+       5,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "千位定5",
+       "hit10": 9,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 3,
+     "siteFit": {
+      "threshold": 1,
+      "count": 3,
+      "maxStreak": 1,
+      "exact": false
+     },
+     "picksN": 1,
+     "threshold": 1,
+     "hitRate10": 0.3,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.4286,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 68.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026282",
        "picks": [
         2
        ],
@@ -39384,9 +39367,87 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026272",
+       "issue": "2026281",
        "picks": [
-        1
+        8
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026280",
+       "picks": [
+        7
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026279",
+       "picks": [
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026278",
+       "picks": [
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026277",
+       "picks": [
+        6
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026276",
+       "picks": [
+        9
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026275",
+       "picks": [
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026274",
+       "picks": [
+        9
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": true
+      },
+      {
+       "issue": "2026273",
+       "picks": [
+        4
        ],
        "hits": [],
        "hitCount": 0,
@@ -39406,95 +39467,107 @@ const EXPERTS_DATA = {
    "pool": {
     "red": [
      0,
-     1,
-     3,
+     2,
+     4,
+     5,
      6,
      7,
-     8,
-     9
+     8
     ],
     "blue": []
    },
    "notes": [
-    "站点 c-win 与开奖号大量不一致（66.9%），号码池不使用命中号，稳定性排序改用站点战绩"
+    "站点 c-win 与开奖号大量不一致（67.2%），号码池不使用命中号，稳定性排序改用站点战绩"
    ],
-   "issue": "2026282",
+   "issue": "2026283",
    "byCat": [
     {
      "cat": "个位定5",
      "five": "",
-     "count": 6,
+     "count": 7,
      "experts": [
-      {
-       "name": "Gilgamesh",
-       "nums": [
-        0,
-        1,
-        4,
-        5,
-        8
-       ],
-       "issue": "2026282",
-       "score": 73.33
-      },
       {
        "name": "忧伤的小乌龟",
        "nums": [
         1,
-        2,
-        6,
+        4,
+        5,
         7,
         9
        ],
-       "issue": "2026282",
-       "score": 73.33
+       "issue": "2026283",
+       "score": 74.67
       },
       {
-       "name": "癲鬼良",
-       "nums": [
-        1,
-        2,
-        5,
-        6,
-        7
-       ],
-       "issue": "2026282",
-       "score": 71.33
-      },
-      {
-       "name": "董爽",
-       "nums": [
-        0,
-        1,
-        4,
-        7,
-        8
-       ],
-       "issue": "2026282",
-       "score": 70
-      },
-      {
-       "name": "景腾学长",
+       "name": "中奖领头羊",
        "nums": [
         1,
         2,
         3,
-        4,
-        8
+        5,
+        6
        ],
-       "issue": "2026282",
+       "issue": "2026283",
+       "score": 72.67
+      },
+      {
+       "name": "癲鬼良",
+       "nums": [
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "issue": "2026283",
+       "score": 71.33
+      },
+      {
+       "name": "乐乐",
+       "nums": [
+        1,
+        2,
+        4,
+        5,
+        6
+       ],
+       "issue": "2026283",
+       "score": 68.67
+      },
+      {
+       "name": "景腾学长",
+       "nums": [
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "issue": "2026283",
        "score": 68.67
       },
       {
        "name": "兔兔图",
        "nums": [
         0,
-        1,
         2,
-        3,
-        4
+        7,
+        8,
+        9
        ],
-       "issue": "2026282",
+       "issue": "2026283",
+       "score": 68.67
+      },
+      {
+       "name": "青青豆苗",
+       "nums": [
+        1,
+        3,
+        5,
+        7,
+        9
+       ],
+       "issue": "2026283",
        "score": 68.67
       }
      ]
@@ -39502,90 +39575,78 @@ const EXPERTS_DATA = {
     {
      "cat": "十位定5",
      "five": "",
-     "count": 7,
+     "count": 6,
      "experts": [
-      {
-       "name": "平常心刘",
-       "nums": [
-        0,
-        4,
-        6,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 74.67
-      },
       {
        "name": "台上忆吹箫",
        "nums": [
         0,
-        4,
-        5,
+        2,
         6,
-        8
+        7,
+        9
        ],
-       "issue": "2026282",
-       "score": 73.33
+       "issue": "2026283",
+       "score": 74.67
+      },
+      {
+       "name": "从心开始",
+       "nums": [
+        0,
+        2,
+        3,
+        6,
+        7
+       ],
+       "issue": "2026283",
+       "score": 76.67
       },
       {
        "name": "彩票小达人",
        "nums": [
-        0,
-        1,
+        2,
         3,
-        5,
+        4,
+        7,
         8
        ],
-       "issue": "2026282",
+       "issue": "2026283",
        "score": 72.67
       },
       {
        "name": "负责到底",
        "nums": [
-        3,
-        5,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 70
-      },
-      {
-       "name": "太阳与月亮",
-       "nums": [
-        0,
         1,
         2,
+        3,
         7,
         8
        ],
-       "issue": "2026282",
-       "score": 68.67
-      },
-      {
-       "name": "小魔童",
-       "nums": [
-        1,
-        6,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026282",
-       "score": 68.67
+       "issue": "2026283",
+       "score": 70
       },
       {
        "name": "或者",
        "nums": [
         0,
+        4,
         5,
-        7,
-        8,
-        9
+        6,
+        8
        ],
-       "issue": "2026282",
+       "issue": "2026283",
+       "score": 68.67
+      },
+      {
+       "name": "平常心刘",
+       "nums": [
+        0,
+        2,
+        3,
+        6,
+        7
+       ],
+       "issue": "2026283",
        "score": 68.67
       }
      ]
@@ -39596,52 +39657,52 @@ const EXPERTS_DATA = {
      "count": 4,
      "experts": [
       {
-       "name": "草月花舍",
-       "nums": [
-        2,
-        4,
-        6,
-        7,
-        8
-       ],
-       "issue": "2026282",
-       "score": 89.33
-      },
-      {
        "name": "一直在等待",
-       "nums": [
-        1,
-        2,
-        3,
-        7,
-        8
-       ],
-       "issue": "2026282",
-       "score": 73.33
-      },
-      {
-       "name": "财玉双星",
        "nums": [
         0,
         2,
-        4,
+        3,
         6,
         7
        ],
-       "issue": "2026282",
-       "score": 70
+       "issue": "2026283",
+       "score": 74.67
       },
       {
-       "name": "红单到底",
+       "name": "背上小书包",
+       "nums": [
+        0,
+        1,
+        2,
+        4,
+        5
+       ],
+       "issue": "2026283",
+       "score": 73.33
+      },
+      {
+       "name": "草月花舍",
        "nums": [
         2,
-        3,
-        4,
-        7,
+        5,
+        6,
+        8,
         9
        ],
-       "issue": "2026282",
-       "score": 70
+       "issue": "2026283",
+       "score": 83.33
+      },
+      {
+       "name": "wwaann",
+       "nums": [
+        1,
+        2,
+        4,
+        5,
+        8
+       ],
+       "issue": "2026283",
+       "score": 68.67
       }
      ]
     },
@@ -39654,85 +39715,49 @@ const EXPERTS_DATA = {
        "name": "刘建东",
        "nums": [
         1,
+        2,
         3,
-        6,
-        7,
-        8
+        4,
+        7
        ],
-       "issue": "2026282",
+       "issue": "2026283",
        "score": 75.33
+      },
+      {
+       "name": "安坦",
+       "nums": [
+        1,
+        2,
+        5,
+        6,
+        7
+       ],
+       "issue": "2026283",
+       "score": 70
       },
       {
        "name": "快乐篮球",
        "nums": [
         2,
-        3,
         4,
-        7,
-        9
-       ],
-       "issue": "2026282",
-       "score": 70
-      },
-      {
-       "name": "victory",
-       "nums": [
-        2,
-        3,
-        6,
+        5,
         7,
         8
        ],
-       "issue": "2026282",
-       "score": 68.67
+       "issue": "2026283",
+       "score": 70
       }
      ]
     }
    ],
    "byExpert": [
     {
-     "name": "草月花舍",
-     "cats": {
-      "千位定5": [
-       2,
-       4,
-       6,
-       7,
-       8
-      ]
-     }
-    },
-    {
-     "name": "平常心刘",
-     "cats": {
-      "十位定5": [
-       0,
-       4,
-       6,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "Gilgamesh",
-     "cats": {
-      "个位定5": [
-       0,
-       1,
-       4,
-       5,
-       8
-      ]
-     }
-    },
-    {
      "name": "忧伤的小乌龟",
      "cats": {
       "个位定5": [
        1,
-       2,
-       6,
+       4,
+       5,
        7,
        9
       ]
@@ -39743,10 +39768,10 @@ const EXPERTS_DATA = {
      "cats": {
       "十位定5": [
        0,
-       4,
-       5,
+       2,
        6,
-       8
+       7,
+       9
       ]
      }
     },
@@ -39754,11 +39779,47 @@ const EXPERTS_DATA = {
      "name": "一直在等待",
      "cats": {
       "千位定5": [
-       1,
+       0,
        2,
        3,
-       7,
-       8
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "背上小书包",
+     "cats": {
+      "千位定5": [
+       0,
+       1,
+       2,
+       4,
+       5
+      ]
+     }
+    },
+    {
+     "name": "草月花舍",
+     "cats": {
+      "千位定5": [
+       2,
+       5,
+       6,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "从心开始",
+     "cats": {
+      "十位定5": [
+       0,
+       2,
+       3,
+       6,
+       7
       ]
      }
     },
@@ -39767,10 +39828,22 @@ const EXPERTS_DATA = {
      "cats": {
       "百位定5": [
        1,
+       2,
        3,
-       6,
-       7,
-       8
+       4,
+       7
+      ]
+     }
+    },
+    {
+     "name": "中奖领头羊",
+     "cats": {
+      "个位定5": [
+       1,
+       2,
+       3,
+       5,
+       6
       ]
      }
     },
@@ -39778,10 +39851,10 @@ const EXPERTS_DATA = {
      "name": "彩票小达人",
      "cats": {
       "十位定5": [
-       0,
-       1,
+       2,
        3,
-       5,
+       4,
+       7,
        8
       ]
      }
@@ -39790,23 +39863,11 @@ const EXPERTS_DATA = {
      "name": "癲鬼良",
      "cats": {
       "个位定5": [
-       1,
-       2,
+       3,
        5,
        6,
-       7
-      ]
-     }
-    },
-    {
-     "name": "董爽",
-     "cats": {
-      "个位定5": [
-       0,
-       1,
-       4,
        7,
-       8
+       9
       ]
      }
     },
@@ -39814,11 +39875,23 @@ const EXPERTS_DATA = {
      "name": "负责到底",
      "cats": {
       "十位定5": [
+       1,
+       2,
        3,
-       5,
        7,
-       8,
-       9
+       8
+      ]
+     }
+    },
+    {
+     "name": "安坦",
+     "cats": {
+      "百位定5": [
+       1,
+       2,
+       5,
+       6,
+       7
       ]
      }
     },
@@ -39827,34 +39900,22 @@ const EXPERTS_DATA = {
      "cats": {
       "百位定5": [
        2,
-       3,
        4,
+       5,
        7,
-       9
+       8
       ]
      }
     },
     {
-     "name": "财玉双星",
+     "name": "乐乐",
      "cats": {
-      "千位定5": [
-       0,
+      "个位定5": [
+       1,
        2,
        4,
-       6,
-       7
-      ]
-     }
-    },
-    {
-     "name": "红单到底",
-     "cats": {
-      "千位定5": [
-       2,
-       3,
-       4,
-       7,
-       9
+       5,
+       6
       ]
      }
     },
@@ -39862,11 +39923,11 @@ const EXPERTS_DATA = {
      "name": "景腾学长",
      "cats": {
       "个位定5": [
-       1,
        2,
-       3,
        4,
-       8
+       6,
+       8,
+       9
       ]
      }
     },
@@ -39875,33 +39936,21 @@ const EXPERTS_DATA = {
      "cats": {
       "个位定5": [
        0,
-       1,
        2,
-       3,
-       4
-      ]
-     }
-    },
-    {
-     "name": "太阳与月亮",
-     "cats": {
-      "十位定5": [
-       0,
-       1,
-       2,
-       7,
-       8
-      ]
-     }
-    },
-    {
-     "name": "小魔童",
-     "cats": {
-      "十位定5": [
-       1,
-       6,
        7,
        8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "青青豆苗",
+     "cats": {
+      "个位定5": [
+       1,
+       3,
+       5,
+       7,
        9
       ]
      }
@@ -39911,21 +39960,33 @@ const EXPERTS_DATA = {
      "cats": {
       "十位定5": [
        0,
+       4,
        5,
-       7,
-       8,
-       9
+       6,
+       8
       ]
      }
     },
     {
-     "name": "victory",
+     "name": "平常心刘",
      "cats": {
-      "百位定5": [
+      "十位定5": [
+       0,
        2,
        3,
        6,
-       7,
+       7
+      ]
+     }
+    },
+    {
+     "name": "wwaann",
+     "cats": {
+      "千位定5": [
+       1,
+       2,
+       4,
+       5,
        8
       ]
      }
@@ -40007,7 +40068,7 @@ const EXPERTS_DATA = {
     }
    },
    "expertCount": 20,
-   "listedCount": 97,
+   "listedCount": 98,
    "scoreSource": "site",
    "hitDataReliable": false,
    "stable": [
@@ -40016,15 +40077,192 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_818.html",
      "cat": "后区定8",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
+       0,
        1,
-       4,
-       8,
+       3,
+       6,
+       7,
        9,
        10,
+       12
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "后区定8",
+       "hit10": 10,
+       "maxStreak": 17
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 7,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 82.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        5,
+        7,
+        3
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        5,
+        8,
+        2
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        9,
+        8,
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        2,
+        4,
+        9
+       ],
+       "hits": [
+        2,
+        4
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        2,
+        5,
+        0
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        3,
+        0,
+        8
+       ],
+       "hits": [
+        0
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        7,
+        9
+       ],
+       "hits": [
+        7,
+        9
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        3,
+        5
+       ],
+       "hits": [
+        3,
+        5
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        6,
+        2,
+        1
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        6,
+        1,
+        9
+       ],
+       "hits": [
+        6,
+        1
+       ],
+       "hitCount": 2,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "鲁班七号",
+     "url": "/ex/xqxcex/tjsy_7_223.html",
+     "cat": "后区定8",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       2,
+       3,
+       5,
+       8,
+       9,
        11,
-       13,
+       12,
        14
       ]
      },
@@ -40036,201 +40274,37 @@ const EXPERTS_DATA = {
       }
      ],
      "siteHit10": 10,
-     "rawHit10": 9,
+     "rawHit10": 7,
      "siteFit": {
       "threshold": 1,
-      "count": 9,
-      "maxStreak": 8,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": false,
-     "score": 81.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        5,
-        8,
-        2
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        9,
-        8,
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        2,
-        4,
-        9
-       ],
-       "hits": [
-        2,
-        4
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        2,
-        5,
-        0
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
-        0,
-        8
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        7,
-        9
-       ],
-       "hits": [
-        7,
-        9
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        3,
-        5
-       ],
-       "hits": [
-        3,
-        5
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        6,
-        2,
-        1
-       ],
-       "hits": [
-        6
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        6,
-        1,
-        9
-       ],
-       "hits": [
-        6,
-        1
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        4,
-        8,
-        2
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "鲁班七号",
-     "url": "/ex/xqxcex/tjsy_7_223.html",
-     "cat": "后区定8",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       0,
-       3,
-       4,
-       9,
-       10,
-       11,
-       13,
-       14
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "后区定8",
-       "hit10": 10,
-       "maxStreak": 15
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 6,
-     "siteFit": {
-      "threshold": 1,
-      "count": 6,
-      "maxStreak": 4,
+      "count": 7,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
      "hitRate10": 0.2,
      "maxStreak": 1,
-     "curStreak": 1,
+     "curStreak": 0,
      "recoverRate": 0.25,
      "blackCount": 8,
-     "lastHit": true,
-     "score": 80,
+     "lastHit": false,
+     "score": 81.33,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        5,
+        8,
+        3
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
       {
        "issue": "2026120",
        "picks": [
@@ -40343,191 +40417,6 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        7,
-        3,
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "業獄殇",
-     "url": "/ex/xqxcex/tjsy_7_632.html",
-     "cat": "后区定8",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       1,
-       3,
-       5,
-       6,
-       8,
-       9,
-       10,
-       13
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "后区定8",
-       "hit10": 10,
-       "maxStreak": 14
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 8,
-     "siteFit": {
-      "threshold": 1,
-      "count": 8,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": false,
-     "score": 78.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        8,
-        1,
-        2
-       ],
-       "hits": [
-        1
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        7,
-        3,
-        4
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        4,
-        6,
-        1
-       ],
-       "hits": [
-        4,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        0,
-        4,
-        1
-       ],
-       "hits": [
-        1
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        4,
-        7,
-        0
-       ],
-       "hits": [
-        7,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        9,
-        4
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        9,
-        1,
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        8,
-        5
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        7,
-        9,
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        9,
-        0,
-        3
-       ],
-       "hits": [
-        9,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
       }
      ]
     },
@@ -40536,7 +40425,7 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1864.html",
      "cat": "前3定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        0,
        5,
@@ -40549,15 +40438,15 @@ const EXPERTS_DATA = {
       {
        "cat": "前3定5",
        "hit10": 10,
-       "maxStreak": 13
+       "maxStreak": 14
       }
      ],
      "siteHit10": 10,
-     "rawHit10": 9,
+     "rawHit10": 10,
      "siteFit": {
       "threshold": 1,
-      "count": 9,
-      "maxStreak": 9,
+      "count": 10,
+      "maxStreak": 10,
       "exact": false
      },
      "picksN": 3,
@@ -40568,9 +40457,22 @@ const EXPERTS_DATA = {
      "recoverRate": 0.4,
      "blackCount": 5,
      "lastHit": false,
-     "score": 77.33,
+     "score": 78.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        0,
+        3,
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
       {
        "issue": "2026120",
        "picks": [
@@ -40692,47 +40594,210 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": false
-      },
+      }
+     ]
+    },
+    {
+     "name": "心怡必中",
+     "url": "/ex/xqxcex/tjsy_7_394.html",
+     "cat": "后区定8",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       6,
+       7,
+       8,
+       14
+      ]
+     },
+     "siteMetrics": [
       {
-       "issue": "2026111",
+       "cat": "后区定8",
+       "hit10": 10,
+       "maxStreak": 12
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 8,
+     "siteFit": {
+      "threshold": 1,
+      "count": 8,
+      "maxStreak": 7,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 76,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
        "picks": [
-        2,
-        3,
-        7
+        8,
+        0,
+        9
        ],
        "hits": [],
        "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        4,
+        9,
+        6
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        8,
+        6,
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        5,
+        1,
+        6
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        0,
+        1,
+        5
+       ],
+       "hits": [
+        1,
+        5
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        8,
+        2,
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        3,
+        1,
+        4
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        0,
+        8,
+        3
+       ],
+       "hits": [
+        8,
+        3
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        6,
+        2,
+        0
+       ],
+       "hits": [
+        6,
+        0
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        7,
+        6,
+        0
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
        "hit": false
       }
      ]
     },
     {
-     "name": "人生就两字",
-     "url": "/ex/xqxcex/tjsy_7_467.html",
-     "cat": "前2定5",
+     "name": "中奖兴村",
+     "url": "/ex/xqxcex/tjsy_7_1808.html",
+     "cat": "前6定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        0,
-       4,
+       1,
+       2,
        7,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
       {
-       "cat": "前2定5",
+       "cat": "前6定5",
        "hit10": 10,
        "maxStreak": 11
       }
      ],
      "siteHit10": 10,
-     "rawHit10": 5,
+     "rawHit10": 6,
      "siteFit": {
       "threshold": 1,
-      "count": 5,
-      "maxStreak": 2,
+      "count": 6,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 3,
@@ -40747,26 +40812,39 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
-        6,
-        8,
-        2
+        9,
+        4,
+        1
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
       },
       {
-       "issue": "2026119",
+       "issue": "2026120",
        "picks": [
-        8,
         1,
+        3,
         7
        ],
        "hits": [
-        1,
-        7
+        1
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        0,
+        3,
+        2
+       ],
+       "hits": [
+        0,
+        2
        ],
        "hitCount": 2,
        "hit": true
@@ -40774,12 +40852,12 @@ const EXPERTS_DATA = {
       {
        "issue": "2026118",
        "picks": [
-        8,
-        0,
-        1
+        5,
+        6,
+        0
        ],
        "hits": [
-        8
+        6
        ],
        "hitCount": 1,
        "hit": false
@@ -40788,7 +40866,198 @@ const EXPERTS_DATA = {
        "issue": "2026117",
        "picks": [
         7,
+        1,
+        9
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        5,
+        9,
+        7
+       ],
+       "hits": [
+        5,
+        7
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        5,
         2,
+        6
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        7,
+        6,
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        6,
+        7,
+        8
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        7,
+        3,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "红石开花",
+     "url": "/ex/xqxcex/tjsy_7_1782.html",
+     "cat": "前6定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       1,
+       2,
+       4,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前6定5",
+       "hit10": 10,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 6,
+     "siteFit": {
+      "threshold": 1,
+      "count": 6,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.1,
+     "maxStreak": 1,
+     "curStreak": 1,
+     "recoverRate": 0.1111,
+     "blackCount": 9,
+     "lastHit": true,
+     "score": 74.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        7,
+        6,
+        2
+       ],
+       "hits": [
+        6,
+        2
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        5,
+        2,
+        0
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        9,
+        3
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        5,
+        0,
+        9
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        3,
+        2,
+        6
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        6,
+        2,
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        8,
+        6,
         4
        ],
        "hits": [],
@@ -40796,11 +41065,104 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026116",
+       "issue": "2026114",
        "picks": [
-        4,
+        7,
+        6,
+        4
+       ],
+       "hits": [
+        4
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        9,
+        7,
+        2
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        2,
+        3,
+        0
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "zzz",
+     "url": "/ex/xqxcex/tjsy_7_209.html",
+     "cat": "前1定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       4,
+       6,
+       7,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前1定5",
+       "hit10": 10,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.75,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 74.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        2,
         1,
         5
+       ],
+       "hits": [
+        2,
+        5
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        5,
+        4
        ],
        "hits": [
         1,
@@ -40810,62 +41172,109 @@ const EXPERTS_DATA = {
        "hit": true
       },
       {
-       "issue": "2026115",
+       "issue": "2026119",
        "picks": [
-        1,
+        2,
+        8,
+        0
+       ],
+       "hits": [
+        2,
+        0
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        8,
+        9,
+        6
+       ],
+       "hits": [
+        8,
+        6
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
         5,
+        6,
         2
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        0,
+        2,
+        1
+       ],
+       "hits": [
+        0,
+        1
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        9,
+        8,
+        5
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026114",
        "picks": [
-        1,
-        2,
-        9
+        8,
+        0,
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026113",
        "picks": [
-        0,
-        6,
-        4
+        1,
+        8,
+        6
        ],
        "hits": [
-        0,
-        6,
-        4
+        8,
+        6
        ],
-       "hitCount": 3,
+       "hitCount": 2,
        "hit": true
       },
       {
        "issue": "2026112",
        "picks": [
-        9,
-        8,
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        3,
         7,
-        0
+        0,
+        1
        ],
        "hits": [
-        0
+        1
        ],
        "hitCount": 1,
        "hit": false
@@ -40873,24 +41282,24 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "中奖兴村",
-     "url": "/ex/xqxcex/tjsy_7_1808.html",
-     "cat": "前6定5",
+     "name": "信有",
+     "url": "/ex/xqxcex/tjsy_7_667.html",
+     "cat": "前2定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        0,
-       1,
-       2,
-       7,
+       4,
+       5,
+       6,
        8
       ]
      },
      "siteMetrics": [
       {
-       "cat": "前6定5",
+       "cat": "前2定5",
        "hit10": 10,
-       "maxStreak": 10
+       "maxStreak": 11
       }
      ],
      "siteHit10": 10,
@@ -40904,47 +41313,55 @@ const EXPERTS_DATA = {
      "picksN": 3,
      "threshold": 2,
      "hitRate10": 0.4,
-     "maxStreak": 1,
+     "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.5,
+     "recoverRate": 0.1667,
      "blackCount": 6,
      "lastHit": false,
-     "score": 73.33,
+     "score": 74.67,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
-        1,
         3,
-        7
+        5,
+        0
        ],
        "hits": [
-        1
+        5
        ],
        "hitCount": 1,
        "hit": false
       },
       {
+       "issue": "2026120",
+       "picks": [
+        4,
+        8,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026119",
        "picks": [
-        0,
-        3,
-        2
+        5,
+        4,
+        9
        ],
-       "hits": [
-        0,
-        2
-       ],
-       "hitCount": 2,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       },
       {
        "issue": "2026118",
        "picks": [
         5,
         6,
-        0
+        1
        ],
        "hits": [
         6
@@ -40956,8 +41373,348 @@ const EXPERTS_DATA = {
        "issue": "2026117",
        "picks": [
         7,
-        1,
+        8,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        3,
+        7,
+        5
+       ],
+       "hits": [
+        7,
+        5
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        3,
+        5,
         9
+       ],
+       "hits": [
+        3,
+        9
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        4,
+        7
+       ],
+       "hits": [
+        4
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        5,
+        8,
+        0
+       ],
+       "hits": [
+        8,
+        0
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        0,
+        2,
+        6
+       ],
+       "hits": [
+        2,
+        6
+       ],
+       "hitCount": 2,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "狼图腾",
+     "url": "/ex/xqxcex/tjsy_7_1565.html",
+     "cat": "前6定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       1,
+       2,
+       3,
+       6,
+       7
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前6定5",
+       "hit10": 10,
+       "maxStreak": 10
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 6,
+     "siteFit": {
+      "threshold": 1,
+      "count": 6,
+      "maxStreak": 3,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.1,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.1111,
+     "blackCount": 9,
+     "lastHit": false,
+     "score": 73.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        0,
+        5,
+        7
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        2,
+        3,
+        6
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        8,
+        9,
+        4
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        7,
+        2,
+        3
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        9,
+        5,
+        0
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        2,
+        6,
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        2,
+        5,
+        7
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        8,
+        2,
+        9
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        0,
+        1,
+        4
+       ],
+       "hits": [
+        0,
+        4
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        9,
+        7,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "奥地给",
+     "url": "/ex/xqxcex/tjsy_7_566.html",
+     "cat": "前1定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       0,
+       1,
+       2,
+       7,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前1定5",
+       "hit10": 10,
+       "maxStreak": 10
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 8,
+     "siteFit": {
+      "threshold": 1,
+      "count": 8,
+      "maxStreak": 4,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.5,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 73.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        5,
+        2,
+        0
+       ],
+       "hits": [
+        5,
+        2
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        6,
+        0,
+        3
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        2,
+        6,
+        7
+       ],
+       "hits": [
+        2,
+        7
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        9,
+        6,
+        8
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        4,
+        8
        ],
        "hits": [
         1
@@ -40968,23 +41725,22 @@ const EXPERTS_DATA = {
       {
        "issue": "2026116",
        "picks": [
-        5,
-        9,
-        7
+        4,
+        1,
+        6
        ],
        "hits": [
-        5,
-        7
+        1
        ],
-       "hitCount": 2,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026115",
        "picks": [
-        5,
         2,
-        6
+        5,
+        8
        ],
        "hits": [],
        "hitCount": 0,
@@ -40993,24 +41749,26 @@ const EXPERTS_DATA = {
       {
        "issue": "2026114",
        "picks": [
-        7,
+        2,
         6,
-        2
+        8
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026113",
        "picks": [
-        6,
-        7,
-        8
+        3,
+        0,
+        4
        ],
        "hits": [
-        6,
-        8
+        0,
+        4
        ],
        "hitCount": 2,
        "hit": true
@@ -41018,41 +41776,28 @@ const EXPERTS_DATA = {
       {
        "issue": "2026112",
        "picks": [
-        7,
-        3,
+        8,
+        2,
         0
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        9,
-        1
-       ],
        "hits": [
-        8,
-        9,
-        1
+        2
        ],
-       "hitCount": 3,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       }
      ]
     },
     {
-     "name": "zzz",
-     "url": "/ex/xqxcex/tjsy_7_209.html",
+     "name": "浪子",
+     "url": "/ex/xqxcex/tjsy_7_1944.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
+       2,
        3,
-       6,
-       7,
+       4,
        8,
        9
       ]
@@ -41074,379 +41819,48 @@ const EXPERTS_DATA = {
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.6,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.75,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 73.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        5,
-        4
-       ],
-       "hits": [
-        1,
-        5
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        2,
-        8,
-        0
-       ],
-       "hits": [
-        2,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        8,
-        9,
-        6
-       ],
-       "hits": [
-        8,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        5,
-        6,
-        2
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        0,
-        2,
-        1
-       ],
-       "hits": [
-        0,
-        1
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        9,
-        8,
-        5
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        8,
-        0,
-        6
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        8,
-        6
-       ],
-       "hits": [
-        8,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        7,
-        0,
-        1
-       ],
-       "hits": [
-        1
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        9,
-        0
-       ],
-       "hits": [
-        8,
-        9,
-        0
-       ],
-       "hitCount": 3,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "华风立语",
-     "url": "/ex/xqxcex/tjsy_7_1509.html",
-     "cat": "前1定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       3,
-       4,
-       5,
-       6,
-       8
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前1定5",
-       "hit10": 10,
-       "maxStreak": 10
-      },
-      {
-       "cat": "后区定8",
-       "hit10": 9,
-       "maxStreak": 10
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 8,
-     "siteFit": {
-      "threshold": 1,
-      "count": 8,
-      "maxStreak": 6,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.6,
-     "maxStreak": 4,
-     "curStreak": 1,
-     "recoverRate": 0.5,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 73.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        9,
-        6
-       ],
-       "hits": [
-        1,
-        9
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        3,
-        9,
-        7
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        3,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        6,
-        4,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        0,
-        6
-       ],
-       "hits": [
-        1,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        8,
-        7,
-        1
-       ],
-       "hits": [
-        7
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        5,
-        8
-       ],
-       "hits": [
-        5,
-        8
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        9,
-        6,
-        4
-       ],
-       "hits": [
-        6,
-        4
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        6,
-        9,
-        1
-       ],
-       "hits": [
-        6,
-        1
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        1,
-        8,
-        5
-       ],
-       "hits": [
-        1,
-        8
-       ],
-       "hitCount": 2,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "凡事靠自己",
-     "url": "/ex/xqxcex/tjsy_7_1965.html",
-     "cat": "前1定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       0,
-       2,
-       4,
-       6,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前1定5",
-       "hit10": 10,
-       "maxStreak": 10
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 7,
-     "siteFit": {
-      "threshold": 1,
-      "count": 7,
-      "maxStreak": 3,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.125,
-     "blackCount": 8,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
      "lastHit": false,
      "score": 73.33,
      "periods": 10,
      "recent": [
       {
+       "issue": "2026121",
+       "picks": [
+        0,
+        7,
+        5
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
        "issue": "2026120",
        "picks": [
-        3,
+        9,
         1,
-        0
+        3
+       ],
+       "hits": [
+        9,
+        1
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        3,
+        9,
+        1
        ],
        "hits": [
         1
@@ -41455,47 +41869,37 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026119",
-       "picks": [
-        7,
-        9,
-        0
-       ],
-       "hits": [
-        7,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
        "issue": "2026118",
        "picks": [
         7,
-        5,
-        9
+        4,
+        5
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        4
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026117",
        "picks": [
-        9,
-        4,
-        8
+        0,
+        1,
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026116",
        "picks": [
-        5,
-        2,
-        9
+        9,
+        6,
+        5
        ],
        "hits": [
         5
@@ -41506,12 +41910,12 @@ const EXPERTS_DATA = {
       {
        "issue": "2026115",
        "picks": [
+        7,
         8,
-        3,
-        5
+        1
        ],
        "hits": [
-        3
+        7
        ],
        "hitCount": 1,
        "hit": false
@@ -41519,68 +41923,58 @@ const EXPERTS_DATA = {
       {
        "issue": "2026114",
        "picks": [
-        2,
-        4,
-        7
+        8,
+        7,
+        5
        ],
        "hits": [
-        4
+        8,
+        5
        ],
-       "hitCount": 1,
-       "hit": false
+       "hitCount": 2,
+       "hit": true
       },
       {
        "issue": "2026113",
        "picks": [
-        2,
-        1,
-        3
+        3,
+        0,
+        6
        ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
+       "hits": [
+        0,
+        6
+       ],
+       "hitCount": 2,
+       "hit": true
       },
       {
        "issue": "2026112",
        "picks": [
-        1,
+        7,
         9,
-        3
+        2
        ],
        "hits": [
-        1
+        2
        ],
        "hitCount": 1,
        "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        2,
-        8,
-        0
-       ],
-       "hits": [
-        8,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
       }
      ]
     },
     {
-     "name": "信有",
-     "url": "/ex/xqxcex/tjsy_7_667.html",
+     "name": "蒲公英",
+     "url": "/ex/xqxcex/tjsy_7_119.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        0,
-       1,
-       3,
        4,
-       5
+       6,
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -41591,55 +41985,70 @@ const EXPERTS_DATA = {
       }
      ],
      "siteHit10": 10,
-     "rawHit10": 7,
+     "rawHit10": 8,
      "siteFit": {
       "threshold": 1,
-      "count": 7,
-      "maxStreak": 6,
+      "count": 8,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.5,
-     "maxStreak": 3,
+     "hitRate10": 0.1,
+     "maxStreak": 1,
      "curStreak": 0,
-     "recoverRate": 0.2,
-     "blackCount": 5,
+     "recoverRate": 0.1111,
+     "blackCount": 9,
      "lastHit": false,
      "score": 73.33,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
-        4,
-        8,
-        0
+        1,
+        9,
+        3
        ],
        "hits": [],
        "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        9,
+        2,
+        8
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026119",
        "picks": [
-        5,
-        4,
-        9
+        9,
+        2,
+        4
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
        "hit": false
       },
       {
        "issue": "2026118",
        "picks": [
-        5,
-        6,
-        1
+        3,
+        1,
+        4
        ],
        "hits": [
-        6
+        4
        ],
        "hitCount": 1,
        "hit": false
@@ -41647,48 +42056,220 @@ const EXPERTS_DATA = {
       {
        "issue": "2026117",
        "picks": [
-        7,
-        8,
-        0
+        5,
+        2,
+        8
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        9,
+        2,
+        5
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        4,
+        1,
+        8
        ],
        "hits": [],
        "hitCount": 0,
        "hit": false
       },
       {
-       "issue": "2026116",
+       "issue": "2026114",
+       "picks": [
+        8,
+        1,
+        0
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        2,
+        6,
+        8
+       ],
+       "hits": [
+        6,
+        8
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
        "picks": [
         3,
+        2,
+        4
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "飞侠",
+     "url": "/ex/xqxcex/tjsy_7_124.html",
+     "cat": "前2定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       0,
+       5,
+       7,
+       8,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前2定5",
+       "hit10": 10,
+       "maxStreak": 10
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 9,
+     "siteFit": {
+      "threshold": 1,
+      "count": 9,
+      "maxStreak": 9,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.1,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.1111,
+     "blackCount": 9,
+     "lastHit": false,
+     "score": 73.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        9,
+        5,
+        0
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        7,
+        5,
+        2
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        0,
         7,
         5
        ],
        "hits": [
-        7,
-        5
+        0,
+        7
        ],
        "hitCount": 2,
        "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        8,
+        1,
+        3
+       ],
+       "hits": [
+        8
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        8,
+        6,
+        5
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        2,
+        1,
+        4
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026115",
        "picks": [
-        3,
-        5,
-        9
+        2,
+        7,
+        5
        ],
        "hits": [
-        3,
-        9
+        7
        ],
-       "hitCount": 2,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026114",
        "picks": [
+        9,
         1,
-        4,
-        7
+        4
        ],
        "hits": [
         4
@@ -41700,43 +42281,25 @@ const EXPERTS_DATA = {
        "issue": "2026113",
        "picks": [
         5,
-        8,
-        0
+        2,
+        6
        ],
        "hits": [
-        8,
-        0
+        6
        ],
-       "hitCount": 2,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026112",
        "picks": [
-        0,
-        2,
-        6
-       ],
-       "hits": [
-        2,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
+        9,
         3,
-        9,
-        1
+        7
        ],
-       "hits": [
-        9,
-        1
-       ],
-       "hitCount": 2,
-       "hit": true
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
       }
      ]
     },
@@ -41745,13 +42308,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_282.html",
      "cat": "前1定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        1,
        2,
-       4,
-       7,
-       9
+       3,
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -41766,20 +42329,33 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 1,
       "count": 9,
-      "maxStreak": 8,
+      "maxStreak": 9,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.4,
+     "hitRate10": 0.3,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
      "lastHit": false,
      "score": 72.67,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        3,
+        6,
+        8
+       ],
+       "hits": [
+        6
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
       {
        "issue": "2026120",
        "picks": [
@@ -41897,242 +42473,72 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        2,
-        9,
-        0
-       ],
-       "hits": [
-        9,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
       }
      ]
     },
     {
-     "name": "奖品多多",
-     "url": "/ex/xqxcex/tjsy_7_1757.html",
-     "cat": "前2定5",
+     "name": "妈她吻我",
+     "url": "/ex/xqxcex/tjsy_7_1059.html",
+     "cat": "前6定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        0,
-       4,
-       6,
-       8,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前2定5",
-       "hit10": 9,
-       "maxStreak": 14
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 8,
-     "siteFit": {
-      "threshold": 1,
-      "count": 8,
-      "maxStreak": 4,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.25,
-     "blackCount": 8,
-     "lastHit": false,
-     "score": 72.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        0,
-        2,
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        9,
-        5,
-        3
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        4,
-        3,
-        8
-       ],
-       "hits": [
-        4,
-        8
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        2,
-        6,
-        3
-       ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        5,
-        6,
-        3
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        6,
-        9
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        5,
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        6,
-        2,
-        7
-       ],
-       "hits": [
-        6,
-        2
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        3,
-        6
-       ],
-       "hits": [
-        8
-       ],
-       "hitCount": 1,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "就这么一次",
-     "url": "/ex/xqxcex/tjsy_7_489.html",
-     "cat": "前1定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       0,
+       1,
        2,
-       4,
-       5,
-       6
+       6,
+       8
       ]
      },
      "siteMetrics": [
       {
-       "cat": "前1定5",
+       "cat": "前6定5",
        "hit10": 9,
        "maxStreak": 12
       }
      ],
      "siteHit10": 9,
-     "rawHit10": 10,
+     "rawHit10": 9,
      "siteFit": {
       "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
+      "count": 9,
+      "maxStreak": 6,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
      "hitRate10": 0.5,
-     "maxStreak": 3,
-     "curStreak": 0,
-     "recoverRate": 0.4,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.6,
      "blackCount": 5,
-     "lastHit": false,
+     "lastHit": true,
      "score": 70,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
-        0,
-        7,
+        2,
+        5,
         1
        ],
        "hits": [
-        1
+        2,
+        5
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        9,
+        6,
+        3
+       ],
+       "hits": [
+        9
        ],
        "hitCount": 1,
        "hit": false
@@ -42140,52 +42546,36 @@ const EXPERTS_DATA = {
       {
        "issue": "2026119",
        "picks": [
-        7,
         0,
-        2
+        1,
+        3
        ],
        "hits": [
-        7,
         0,
-        2
+        1
        ],
-       "hitCount": 3,
+       "hitCount": 2,
        "hit": true
       },
       {
        "issue": "2026118",
        "picks": [
+        1,
         4,
-        5,
-        8
+        9
        ],
        "hits": [
-        4,
-        8
+        4
        ],
-       "hitCount": 2,
-       "hit": true
+       "hitCount": 1,
+       "hit": false
       },
       {
        "issue": "2026117",
        "picks": [
         5,
-        3,
-        0
-       ],
-       "hits": [
-        5,
-        3
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
         9,
-        5
+        6
        ],
        "hits": [
         5
@@ -42194,68 +42584,67 @@ const EXPERTS_DATA = {
        "hit": false
       },
       {
-       "issue": "2026115",
+       "issue": "2026116",
        "picks": [
-        2,
-        7,
-        5
+        4,
+        1,
+        0
        ],
        "hits": [
-        7
+        1,
+        0
        ],
-       "hitCount": 1,
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        8,
+        5,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
        "hit": false
       },
       {
        "issue": "2026114",
        "picks": [
         6,
-        5,
-        8
+        7,
+        5
        ],
        "hits": [
-        5,
-        8
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        8,
+        1,
+        4
+       ],
+       "hits": [
+        8,
+        4
        ],
        "hitCount": 2,
        "hit": true
       },
       {
-       "issue": "2026113",
-       "picks": [
-        9,
-        1,
-        4
-       ],
-       "hits": [
-        4
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
        "issue": "2026112",
        "picks": [
         1,
-        0,
-        3
+        4,
+        2
        ],
        "hits": [
-        1
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        3,
-        9
-       ],
-       "hits": [
-        8,
-        9
+        1,
+        2
        ],
        "hitCount": 2,
        "hit": true
@@ -42267,13 +42656,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_862.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
        1,
-       2,
-       5,
+       3,
        6,
-       7
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -42288,20 +42677,33 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 1,
       "count": 8,
-      "maxStreak": 4,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.4,
+     "hitRate10": 0.3,
      "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
-     "lastHit": true,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
      "score": 70,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        7,
+        5,
+        9
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
       {
        "issue": "2026120",
        "picks": [
@@ -42417,20 +42819,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        2,
-        9
-       ],
-       "hits": [
-        8,
-        9
-       ],
-       "hitCount": 2,
-       "hit": true
       }
      ]
     },
@@ -42439,12 +42827,12 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_684.html",
      "cat": "前2定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
+       1,
        2,
-       3,
+       4,
        5,
-       6,
        8
       ]
      },
@@ -42453,11 +42841,6 @@ const EXPERTS_DATA = {
        "cat": "前2定5",
        "hit10": 9,
        "maxStreak": 12
-      },
-      {
-       "cat": "后区定8",
-       "hit10": 9,
-       "maxStreak": 9
       }
      ],
      "siteHit10": 9,
@@ -42465,20 +42848,33 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 1,
       "count": 8,
-      "maxStreak": 4,
+      "maxStreak": 5,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.3,
+     "hitRate10": 0.2,
      "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.1429,
-     "blackCount": 7,
+     "recoverRate": 0.125,
+     "blackCount": 8,
      "lastHit": false,
      "score": 70,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        4,
+        8,
+        2
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
       {
        "issue": "2026120",
        "picks": [
@@ -42593,350 +42989,67 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        2,
-        1,
-        0
-       ],
-       "hits": [
-        1,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
       }
      ]
     },
     {
-     "name": "献爱心",
-     "url": "/ex/xqxcex/tjsy_7_803.html",
-     "cat": "前3定5",
+     "name": "驻足不流连",
+     "url": "/ex/xqxcex/tjsy_7_1730.html",
+     "cat": "前6定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
+       2,
        3,
-       4,
-       7,
+       5,
        8,
        9
       ]
      },
      "siteMetrics": [
       {
-       "cat": "前3定5",
+       "cat": "前6定5",
        "hit10": 9,
-       "maxStreak": 12
+       "maxStreak": 11
       }
      ],
      "siteHit10": 9,
-     "rawHit10": 4,
+     "rawHit10": 9,
      "siteFit": {
       "threshold": 1,
-      "count": 4,
-      "maxStreak": 1,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.2,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0.25,
-     "blackCount": 8,
-     "lastHit": false,
-     "score": 70,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        0,
-        4,
-        6
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        4,
-        5,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        8,
-        6,
-        1
-       ],
-       "hits": [
-        8,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        4,
-        7,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
-        9,
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        6,
-        1,
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        7,
-        0,
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        6,
-        1,
-        0
-       ],
-       "hits": [
-        6,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        5,
-        3,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        5,
-        9,
-        7
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "换名求改运",
-     "url": "/ex/xqxcex/tjsy_7_1770.html",
-     "cat": "前3定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       0,
-       1,
-       4,
-       6,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前3定5",
-       "hit10": 9,
-       "maxStreak": 12
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 8,
-     "siteFit": {
-      "threshold": 1,
-      "count": 8,
+      "count": 9,
       "maxStreak": 6,
       "exact": false
      },
      "picksN": 3,
      "threshold": 2,
-     "hitRate10": 0.5,
-     "maxStreak": 4,
+     "hitRate10": 0.2,
+     "maxStreak": 2,
      "curStreak": 0,
-     "recoverRate": 0.4,
-     "blackCount": 5,
+     "recoverRate": 0,
+     "blackCount": 8,
      "lastHit": false,
-     "score": 70,
+     "score": 68.67,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
-        6,
-        7,
-        5
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        9,
-        4,
-        0
-       ],
-       "hits": [
-        0
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        6,
-        9,
+        2,
+        8,
         4
        ],
        "hits": [
-        6,
-        4
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        3,
-        5,
-        1
-       ],
-       "hits": [
-        3,
-        5,
-        1
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        6,
-        1,
-        0
-       ],
-       "hits": [
-        1,
-        0
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        9,
-        2,
-        7
-       ],
-       "hits": [
-        9,
-        7
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        6,
-        7
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        3,
-        9,
         2
        ],
-       "hits": [],
-       "hitCount": 0,
+       "hitCount": 1,
        "hit": false
       },
       {
-       "issue": "2026112",
+       "issue": "2026120",
        "picks": [
-        2,
-        1,
-        6
-       ],
-       "hits": [
-        2,
-        1,
-        6
-       ],
-       "hitCount": 3,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
+        0,
         9,
-        7,
         6
        ],
        "hits": [
@@ -42944,21 +43057,126 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 1,
        "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        2,
+        8,
+        3
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        9,
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        0,
+        4
+       ],
+       "hits": [
+        1
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        8,
+        7,
+        6
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        9,
+        0,
+        8
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        5,
+        7,
+        2
+       ],
+       "hits": [
+        5
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        8,
+        6,
+        0
+       ],
+       "hits": [
+        8,
+        6,
+        0
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        9,
+        6,
+        1
+       ],
+       "hits": [
+        6,
+        1
+       ],
+       "hitCount": 2,
+       "hit": true
       }
      ]
     },
     {
-     "name": "红石开花",
-     "url": "/ex/xqxcex/tjsy_7_1782.html",
+     "name": "聚缘",
+     "url": "/ex/xqxcex/tjsy_7_633.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026121",
+      "issue": "2026122",
       "nums": [
-       1,
+       0,
        2,
-       4,
-       8,
-       9
+       3,
+       5,
+       7
       ]
      },
      "siteMetrics": [
@@ -42973,347 +43191,6 @@ const EXPERTS_DATA = {
      "siteFit": {
       "threshold": 1,
       "count": 6,
-      "maxStreak": 2,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.1,
-     "maxStreak": 1,
-     "curStreak": 0,
-     "recoverRate": 0,
-     "blackCount": 9,
-     "lastHit": false,
-     "score": 68.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        5,
-        2,
-        0
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        9,
-        3
-       ],
-       "hits": [
-        1
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        5,
-        0,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        3,
-        2,
-        6
-       ],
-       "hits": [
-        3
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        6,
-        2,
-        8
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        8,
-        6,
-        4
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        7,
-        6,
-        4
-       ],
-       "hits": [
-        4
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        9,
-        7,
-        2
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        0
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        7,
-        9,
-        8
-       ],
-       "hits": [
-        9,
-        8
-       ],
-       "hitCount": 2,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "女巫大人",
-     "url": "/ex/xqxcex/tjsy_7_1838.html",
-     "cat": "前6定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       1,
-       3,
-       4,
-       5,
-       7
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前6定5",
-       "hit10": 9,
-       "maxStreak": 11
-      },
-      {
-       "cat": "前2定5",
-       "hit10": 9,
-       "maxStreak": 8
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 8,
-     "siteFit": {
-      "threshold": 1,
-      "count": 8,
-      "maxStreak": 4,
-      "exact": false
-     },
-     "picksN": 3,
-     "threshold": 2,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.1429,
-     "blackCount": 7,
-     "lastHit": false,
-     "score": 68.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026120",
-       "picks": [
-        0,
-        9,
-        8
-       ],
-       "hits": [
-        9
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        9,
-        2,
-        4
-       ],
-       "hits": [
-        2
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        7,
-        9
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        2,
-        4,
-        5
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        5,
-        8,
-        6
-       ],
-       "hits": [
-        5
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        8,
-        2,
-        5
-       ],
-       "hits": [],
-       "hitCount": 0,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        8,
-        5,
-        6
-       ],
-       "hits": [
-        8,
-        5
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        6,
-        5
-       ],
-       "hits": [
-        6
-       ],
-       "hitCount": 1,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        6,
-        9
-       ],
-       "hits": [
-        1,
-        6
-       ],
-       "hitCount": 2,
-       "hit": true
-      },
-      {
-       "issue": "2026111",
-       "picks": [
-        8,
-        9,
-        3
-       ],
-       "hits": [
-        8,
-        9
-       ],
-       "hitCount": 2,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "聚缘",
-     "url": "/ex/xqxcex/tjsy_7_633.html",
-     "cat": "前6定5",
-     "catLatest": {
-      "issue": "2026121",
-      "nums": [
-       0,
-       2,
-       5,
-       6,
-       9
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "前6定5",
-       "hit10": 9,
-       "maxStreak": 11
-      }
-     ],
-     "siteHit10": 9,
-     "rawHit10": 7,
-     "siteFit": {
-      "threshold": 1,
-      "count": 7,
       "maxStreak": 3,
       "exact": false
      },
@@ -43329,6 +43206,17 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026121",
+       "picks": [
+        3,
+        4,
+        8
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
        "issue": "2026120",
        "picks": [
         3,
@@ -43439,18 +43327,176 @@ const EXPERTS_DATA = {
        "hits": [],
        "hitCount": 0,
        "hit": false
+      }
+     ]
+    },
+    {
+     "name": "足彩老狼",
+     "url": "/ex/xqxcex/tjsy_7_945.html",
+     "cat": "前2定5",
+     "catLatest": {
+      "issue": "2026122",
+      "nums": [
+       1,
+       3,
+       4,
+       6,
+       9
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "前2定5",
+       "hit10": 9,
+       "maxStreak": 11
+      }
+     ],
+     "siteHit10": 9,
+     "rawHit10": 8,
+     "siteFit": {
+      "threshold": 1,
+      "count": 8,
+      "maxStreak": 5,
+      "exact": false
+     },
+     "picksN": 3,
+     "threshold": 2,
+     "hitRate10": 0.3,
+     "maxStreak": 2,
+     "curStreak": 0,
+     "recoverRate": 0.2857,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 68.67,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        4
+       ],
+       "hits": [
+        2
+       ],
+       "hitCount": 1,
+       "hit": false
       },
       {
-       "issue": "2026111",
+       "issue": "2026120",
+       "picks": [
+        9,
+        6,
+        7
+       ],
+       "hits": [
+        9
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        2,
+        6,
+        0
+       ],
+       "hits": [
+        2,
+        0
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        9,
+        1,
+        0
+       ],
+       "hits": [],
+       "hitCount": 0,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        9,
+        3,
+        2
+       ],
+       "hits": [
+        3
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
        "picks": [
         0,
-        3,
-        7
+        6,
+        9
        ],
        "hits": [
         0
        ],
        "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        7,
+        0,
+        4
+       ],
+       "hits": [
+        7
+       ],
+       "hitCount": 1,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        5,
+        3,
+        9
+       ],
+       "hits": [
+        5,
+        3
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        0,
+        9,
+        8
+       ],
+       "hits": [
+        0,
+        8
+       ],
+       "hitCount": 2,
+       "hit": true
+      },
+      {
+       "issue": "2026112",
+       "picks": [
+        7,
+        3,
+        5
+       ],
+       "hits": [],
+       "hitCount": 0,
        "hit": false
       }
      ]
@@ -43470,61 +43516,61 @@ const EXPERTS_DATA = {
      1,
      2,
      5,
+     6,
      7,
-     8,
-     9
+     8
     ],
     "blue": [
      0,
-     1,
      3,
+     4,
      11
     ]
    },
    "notes": [
-    "站点 c-win 与开奖号大量不一致（58.4%），号码池不使用命中号，稳定性排序改用站点战绩"
+    "站点 c-win 与开奖号大量不一致（60.5%），号码池不使用命中号，稳定性排序改用站点战绩"
    ],
-   "issue": "2026121",
+   "issue": "2026122",
    "byCat": [
     {
      "cat": "前1定5",
      "five": "",
-     "count": 5,
+     "count": 4,
      "experts": [
       {
        "name": "zzz",
        "nums": [
-        3,
+        4,
         6,
         7,
         8,
         9
        ],
-       "issue": "2026121",
-       "score": 73.33
+       "issue": "2026122",
+       "score": 74.67
       },
       {
-       "name": "华风立语",
-       "nums": [
-        3,
-        4,
-        5,
-        6,
-        8
-       ],
-       "issue": "2026121",
-       "score": 73.33
-      },
-      {
-       "name": "凡事靠自己",
+       "name": "奥地给",
        "nums": [
         0,
+        1,
         2,
-        4,
-        6,
-        7
+        7,
+        8
        ],
-       "issue": "2026121",
+       "issue": "2026122",
+       "score": 73.33
+      },
+      {
+       "name": "浪子",
+       "nums": [
+        2,
+        3,
+        4,
+        8,
+        9
+       ],
+       "issue": "2026122",
        "score": 73.33
       },
       {
@@ -43532,98 +43578,98 @@ const EXPERTS_DATA = {
        "nums": [
         1,
         2,
-        4,
-        7,
-        9
+        3,
+        6,
+        7
        ],
-       "issue": "2026121",
+       "issue": "2026122",
        "score": 72.67
-      },
-      {
-       "name": "就这么一次",
-       "nums": [
-        0,
-        2,
-        4,
-        5,
-        6
-       ],
-       "issue": "2026121",
-       "score": 70
       }
      ]
     },
     {
      "cat": "前2定5",
      "five": "",
-     "count": 5,
+     "count": 6,
      "experts": [
-      {
-       "name": "人生就两字",
-       "nums": [
-        0,
-        4,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026121",
-       "score": 74.67
-      },
       {
        "name": "信有",
        "nums": [
         0,
-        1,
-        3,
         4,
-        5
+        5,
+        6,
+        8
        ],
-       "issue": "2026121",
-       "score": 73.33
+       "issue": "2026122",
+       "score": 74.67
       },
       {
-       "name": "奖品多多",
+       "name": "蒲公英",
        "nums": [
         0,
         4,
         6,
+        7,
+        8
+       ],
+       "issue": "2026122",
+       "score": 73.33
+      },
+      {
+       "name": "飞侠",
+       "nums": [
+        0,
+        5,
+        7,
         8,
         9
        ],
-       "issue": "2026121",
-       "score": 72.67
+       "issue": "2026122",
+       "score": 73.33
       },
       {
        "name": "阿力",
        "nums": [
         1,
-        2,
-        5,
+        3,
         6,
-        7
+        8,
+        9
        ],
-       "issue": "2026121",
+       "issue": "2026122",
        "score": 70
       },
       {
        "name": "财宝来",
        "nums": [
+        1,
         2,
-        3,
+        4,
         5,
-        6,
         8
        ],
-       "issue": "2026121",
+       "issue": "2026122",
        "score": 70
+      },
+      {
+       "name": "足彩老狼",
+       "nums": [
+        1,
+        3,
+        4,
+        6,
+        9
+       ],
+       "issue": "2026122",
+       "score": 68.67
       }
      ]
     },
     {
      "cat": "前3定5",
      "five": "",
-     "count": 3,
+     "count": 1,
      "experts": [
       {
        "name": "健健康康八",
@@ -43634,39 +43680,15 @@ const EXPERTS_DATA = {
         7,
         8
        ],
-       "issue": "2026121",
-       "score": 77.33
-      },
-      {
-       "name": "献爱心",
-       "nums": [
-        3,
-        4,
-        7,
-        8,
-        9
-       ],
-       "issue": "2026121",
-       "score": 70
-      },
-      {
-       "name": "换名求改运",
-       "nums": [
-        0,
-        1,
-        4,
-        6,
-        7
-       ],
-       "issue": "2026121",
-       "score": 70
+       "issue": "2026122",
+       "score": 78.67
       }
      ]
     },
     {
      "cat": "前6定5",
      "five": "",
-     "count": 4,
+     "count": 6,
      "experts": [
       {
        "name": "中奖兴村",
@@ -43677,8 +43699,8 @@ const EXPERTS_DATA = {
         7,
         8
        ],
-       "issue": "2026121",
-       "score": 73.33
+       "issue": "2026122",
+       "score": 74.67
       },
       {
        "name": "红石开花",
@@ -43689,19 +43711,43 @@ const EXPERTS_DATA = {
         8,
         9
        ],
-       "issue": "2026121",
-       "score": 68.67
+       "issue": "2026122",
+       "score": 74.67
       },
       {
-       "name": "女巫大人",
+       "name": "狼图腾",
        "nums": [
         1,
+        2,
         3,
-        4,
-        5,
+        6,
         7
        ],
-       "issue": "2026121",
+       "issue": "2026122",
+       "score": 73.33
+      },
+      {
+       "name": "妈她吻我",
+       "nums": [
+        0,
+        1,
+        2,
+        6,
+        8
+       ],
+       "issue": "2026122",
+       "score": 70
+      },
+      {
+       "name": "驻足不流连",
+       "nums": [
+        2,
+        3,
+        5,
+        8,
+        9
+       ],
+       "issue": "2026122",
        "score": 68.67
       },
       {
@@ -43709,11 +43755,11 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         2,
+        3,
         5,
-        6,
-        9
+        7
        ],
-       "issue": "2026121",
+       "issue": "2026122",
        "score": 68.67
       }
      ]
@@ -43726,47 +43772,47 @@ const EXPERTS_DATA = {
       {
        "name": "无爱的苦逼",
        "nums": [
+        0,
         1,
-        4,
-        8,
+        3,
+        6,
+        7,
         9,
         10,
-        11,
-        13,
-        14
+        12
        ],
-       "issue": "2026121",
-       "score": 81.33
+       "issue": "2026122",
+       "score": 82.67
       },
       {
        "name": "鲁班七号",
        "nums": [
-        0,
-        3,
-        4,
-        9,
-        10,
-        11,
-        13,
-        14
-       ],
-       "issue": "2026121",
-       "score": 80
-      },
-      {
-       "name": "業獄殇",
-       "nums": [
-        1,
+        2,
         3,
         5,
-        6,
         8,
         9,
-        10,
-        13
+        11,
+        12,
+        14
        ],
-       "issue": "2026121",
-       "score": 78.67
+       "issue": "2026122",
+       "score": 81.33
+      },
+      {
+       "name": "心怡必中",
+       "nums": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        14
+       ],
+       "issue": "2026122",
+       "score": 76
       }
      ]
     }
@@ -43785,18 +43831,6 @@ const EXPERTS_DATA = {
      }
     },
     {
-     "name": "人生就两字",
-     "cats": {
-      "前2定5": [
-       0,
-       4,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
      "name": "中奖兴村",
      "cats": {
       "前6定5": [
@@ -43805,138 +43839,6 @@ const EXPERTS_DATA = {
        2,
        7,
        8
-      ]
-     }
-    },
-    {
-     "name": "zzz",
-     "cats": {
-      "前1定5": [
-       3,
-       6,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "华风立语",
-     "cats": {
-      "前1定5": [
-       3,
-       4,
-       5,
-       6,
-       8
-      ]
-     }
-    },
-    {
-     "name": "凡事靠自己",
-     "cats": {
-      "前1定5": [
-       0,
-       2,
-       4,
-       6,
-       7
-      ]
-     }
-    },
-    {
-     "name": "信有",
-     "cats": {
-      "前2定5": [
-       0,
-       1,
-       3,
-       4,
-       5
-      ]
-     }
-    },
-    {
-     "name": "青峰云烟",
-     "cats": {
-      "前1定5": [
-       1,
-       2,
-       4,
-       7,
-       9
-      ]
-     }
-    },
-    {
-     "name": "奖品多多",
-     "cats": {
-      "前2定5": [
-       0,
-       4,
-       6,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "就这么一次",
-     "cats": {
-      "前1定5": [
-       0,
-       2,
-       4,
-       5,
-       6
-      ]
-     }
-    },
-    {
-     "name": "阿力",
-     "cats": {
-      "前2定5": [
-       1,
-       2,
-       5,
-       6,
-       7
-      ]
-     }
-    },
-    {
-     "name": "财宝来",
-     "cats": {
-      "前2定5": [
-       2,
-       3,
-       5,
-       6,
-       8
-      ]
-     }
-    },
-    {
-     "name": "献爱心",
-     "cats": {
-      "前3定5": [
-       3,
-       4,
-       7,
-       8,
-       9
-      ]
-     }
-    },
-    {
-     "name": "换名求改运",
-     "cats": {
-      "前3定5": [
-       0,
-       1,
-       4,
-       6,
-       7
       ]
      }
     },
@@ -43953,14 +43855,146 @@ const EXPERTS_DATA = {
      }
     },
     {
-     "name": "女巫大人",
+     "name": "zzz",
+     "cats": {
+      "前1定5": [
+       4,
+       6,
+       7,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "信有",
+     "cats": {
+      "前2定5": [
+       0,
+       4,
+       5,
+       6,
+       8
+      ]
+     }
+    },
+    {
+     "name": "狼图腾",
      "cats": {
       "前6定5": [
        1,
+       2,
+       3,
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "name": "奥地给",
+     "cats": {
+      "前1定5": [
+       0,
+       1,
+       2,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "浪子",
+     "cats": {
+      "前1定5": [
+       2,
        3,
        4,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "蒲公英",
+     "cats": {
+      "前2定5": [
+       0,
+       4,
+       6,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "name": "飞侠",
+     "cats": {
+      "前2定5": [
+       0,
        5,
+       7,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "青峰云烟",
+     "cats": {
+      "前1定5": [
+       1,
+       2,
+       3,
+       6,
        7
+      ]
+     }
+    },
+    {
+     "name": "妈她吻我",
+     "cats": {
+      "前6定5": [
+       0,
+       1,
+       2,
+       6,
+       8
+      ]
+     }
+    },
+    {
+     "name": "阿力",
+     "cats": {
+      "前2定5": [
+       1,
+       3,
+       6,
+       8,
+       9
+      ]
+     }
+    },
+    {
+     "name": "财宝来",
+     "cats": {
+      "前2定5": [
+       1,
+       2,
+       4,
+       5,
+       8
+      ]
+     }
+    },
+    {
+     "name": "驻足不流连",
+     "cats": {
+      "前6定5": [
+       2,
+       3,
+       5,
+       8,
+       9
       ]
      }
     },
@@ -43970,7 +44004,19 @@ const EXPERTS_DATA = {
       "前6定5": [
        0,
        2,
+       3,
        5,
+       7
+      ]
+     }
+    },
+    {
+     "name": "足彩老狼",
+     "cats": {
+      "前2定5": [
+       1,
+       3,
+       4,
        6,
        9
       ]
@@ -43980,14 +44026,14 @@ const EXPERTS_DATA = {
      "name": "无爱的苦逼",
      "cats": {
       "后区定8": [
+       0,
        1,
-       4,
-       8,
+       3,
+       6,
+       7,
        9,
        10,
-       11,
-       13,
-       14
+       12
       ]
      }
     },
@@ -43995,29 +44041,29 @@ const EXPERTS_DATA = {
      "name": "鲁班七号",
      "cats": {
       "后区定8": [
-       0,
+       2,
        3,
-       4,
+       5,
+       8,
        9,
-       10,
        11,
-       13,
+       12,
        14
       ]
      }
     },
     {
-     "name": "業獄殇",
+     "name": "心怡必中",
      "cats": {
       "后区定8": [
+       0,
        1,
+       2,
        3,
-       5,
        6,
+       7,
        8,
-       9,
-       10,
-       13
+       14
       ]
      }
     }
@@ -44068,2976 +44114,35 @@ const EXPERTS_DATA = {
     }
    },
    "expertCount": 20,
-   "listedCount": 76,
+   "listedCount": 77,
    "scoreSource": "history",
    "hitDataReliable": true,
    "stable": [
     {
-     "name": "范贤昭",
-     "url": "/ex/qlcex/tjsy_13_879.html",
+     "name": "笑起来真好看",
+     "url": "/ex/qlcex/tjsy_13_163.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       1,
-       3,
-       4,
-       5,
-       6,
-       10,
-       11,
-       12,
-       17,
-       18,
-       19,
-       21,
-       22,
-       23,
-       25,
-       26,
-       27,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 23
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.7,
-     "maxStreak": 5,
-     "curStreak": 1,
-     "recoverRate": 0.6667,
-     "blackCount": 3,
-     "lastHit": true,
-     "score": 68.67,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        15,
-        16,
-        17,
-        19,
-        20,
-        22,
-        23,
-        25,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        5,
-        10,
-        12,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        22,
-        23,
-        24,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        5,
-        7,
-        14,
-        18,
-        20
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        3,
-        5,
-        7,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        8,
-        14,
-        15,
-        28,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29
-       ],
-       "hits": [
-        6,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        3,
-        5,
-        6,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        17,
-        25,
-        27
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        14,
-        16,
-        17,
-        18,
-        19,
-        22,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        24,
-        28,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        19,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        17,
-        18,
-        20,
-        21,
-        24,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        6,
-        10,
-        11,
-        12,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        4,
-        7,
-        9,
-        13,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "小小",
-     "url": "/ex/qlcex/tjsy_13_330.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
        1,
        2,
-       3,
-       6,
-       7,
-       8,
-       10,
-       13,
-       15,
-       17,
-       18,
-       19,
-       23,
-       26,
-       27,
-       28,
-       29,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 20
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.6,
-     "maxStreak": 2,
-     "curStreak": 1,
-     "recoverRate": 0.75,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 59.75,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        2,
-        5,
-        7,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29
-       ],
-       "hits": [
-        5,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        10,
-        12,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        5,
-        7,
-        18,
-        20,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        9,
-        10,
-        11,
-        14,
-        15,
-        17,
-        18,
-        19,
-        22,
-        23,
-        24,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        14,
-        15,
-        28,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        19,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        22,
-        23,
-        26,
-        27,
-        28
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        17,
-        27
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        14,
-        18,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        25
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        28
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        13,
-        24,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        14,
-        16,
-        18,
-        19,
-        21,
-        22,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        22,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        3,
-        4,
-        5,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29
-       ],
-       "hits": [
-        10,
-        12,
-        23,
-        29
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        5,
-        7,
-        8,
-        9,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        23,
-        24,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        7,
-        9,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "伤心",
-     "url": "/ex/qlcex/tjsy_13_383.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       5,
-       6,
-       7,
-       9,
-       10,
-       12,
-       13,
-       15,
-       16,
-       17,
-       20,
-       21,
-       22,
-       23,
-       26,
-       27,
-       29,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 18
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.6,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.5,
-     "blackCount": 4,
-     "lastHit": true,
-     "score": 56,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        20,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        10,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        5,
-        7,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        5,
-        7,
-        14,
-        18,
-        21
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        8,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        15,
-        16,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        7,
-        9,
-        10,
-        12,
-        13,
-        14,
-        16,
-        17,
-        18,
-        19,
-        20,
-        23,
-        24,
-        25,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        14,
-        17,
-        19,
-        23
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        13,
-        14,
-        16,
-        17,
-        18,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        14,
-        17,
-        25
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        18,
-        19,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        25,
-        28
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        10,
-        11,
-        12,
-        14,
-        16,
-        17,
-        18,
-        19,
-        22,
-        23,
-        24,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        24,
-        28,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        25,
-        27
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        22,
-        25
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        19,
-        21,
-        24,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        11,
-        12,
-        29,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        16,
-        17,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29
-       ],
-       "hits": [
-        2,
-        4,
-        7,
-        9,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 7,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "久美",
-     "url": "/ex/qlcex/tjsy_13_1358.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       2,
-       4,
-       8,
-       9,
-       10,
-       11,
-       14,
-       15,
-       17,
-       18,
-       19,
-       21,
-       23,
-       24,
-       25,
-       27,
-       29,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 19
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.5,
-     "maxStreak": 2,
-     "curStreak": 1,
-     "recoverRate": 0.6,
-     "blackCount": 5,
-     "lastHit": true,
-     "score": 52.5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        5,
-        6,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        5,
-        10,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        5,
-        14,
-        18,
-        20,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        18,
-        19,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        28
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        22,
-        23,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        8,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        8,
-        10,
-        11,
-        13,
-        14,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        14,
-        17,
-        27
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        13,
-        14,
-        16,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        8,
-        11,
-        12,
-        13,
-        14,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        13,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        16,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28
-       ],
-       "hits": [
-        9,
-        19,
-        21,
-        22,
-        25
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        10,
-        11,
-        12,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        20,
-        21,
-        22,
-        23,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        4,
-        7,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "宝贝青彤",
-     "url": "/ex/qlcex/tjsy_13_1435.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       3,
-       4,
-       8,
-       10,
-       13,
-       14,
-       15,
-       16,
-       17,
-       19,
-       20,
-       22,
-       23,
-       24,
-       25,
-       26,
-       27,
-       28
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 19
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.5,
-     "maxStreak": 4,
-     "curStreak": 4,
-     "recoverRate": 0.4,
-     "blackCount": 5,
-     "lastHit": true,
-     "score": 52.5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        17,
-        18,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        30
-       ],
-       "hits": [
-        5,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        21,
-        22,
-        24,
-        25,
-        26,
-        28,
-        30
-       ],
-       "hits": [
-        1,
-        5,
-        7,
-        14,
-        18,
-        21
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        15,
-        28,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        8,
-        9,
-        12,
-        13,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        22,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        14,
-        16,
-        17,
-        19,
-        21,
-        22,
-        23,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        17
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        25,
-        26,
-        27
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        17,
-        25
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        7,
-        9,
-        10,
-        11,
-        12,
-        13,
-        15,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        4,
-        5,
-        13,
-        24,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        17,
-        20,
-        21,
-        23,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        9,
-        14,
-        21,
-        29
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        22,
-        23,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        11,
-        12,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        9,
-        10,
-        11,
-        12,
-        13,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        27,
-        29
-       ],
-       "hits": [
-        2,
-        7,
-        9,
-        13,
-        23
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "丶丶丶丶丶丶",
-     "url": "/ex/qlcex/tjsy_13_12.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       1,
        3,
        4,
        5,
        6,
        7,
+       8,
        9,
-       11,
-       12,
        15,
-       16,
-       18,
-       20,
-       21,
-       22,
-       25,
-       28,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 31
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.5,
-     "maxStreak": 3,
-     "curStreak": 3,
-     "recoverRate": 0.4,
-     "blackCount": 5,
-     "lastHit": true,
-     "score": 50,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        10,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        23,
-        24,
-        25,
-        28
-       ],
-       "hits": [
-        1,
-        5,
-        7,
-        14,
-        20,
-        21
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        18,
-        19,
-        21,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        15,
-        28,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        10,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        10,
-        11,
-        13,
-        15,
-        16,
-        18,
-        19,
-        21,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        25,
-        27
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        17,
-        25
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        8,
-        9,
-        12,
-        13,
-        15,
-        16,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        13,
-        24,
-        28,
-        30
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        9,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        18,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        14,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        14,
-        15,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27
-       ],
-       "hits": [
-        6,
-        10,
-        11,
-        23
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        10,
-        11,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        4,
-        7,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "随愿",
-     "url": "/ex/qlcex/tjsy_13_1500.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       2,
-       3,
-       4,
-       6,
-       7,
-       9,
-       12,
-       16,
        17,
-       22,
+       18,
        23,
        24,
-       25,
        26,
        27,
        28,
-       29,
        30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 19
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.4,
-     "maxStreak": 1,
-     "curStreak": 1,
-     "recoverRate": 0.6667,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 48.17,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        4,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        10,
-        12,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        16,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        5,
-        7,
-        14,
-        18,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        8,
-        9,
-        10,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        15,
-        16,
-        28,
-        29
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        16,
-        17,
-        18,
-        21,
-        22,
-        23,
-        24,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        17,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        18,
-        19,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        8,
-        12,
-        14,
-        25,
-        27
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        19,
-        21,
-        22,
-        24,
-        25,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        23,
-        25,
-        26,
-        27,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        13,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        16,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        14,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        5,
-        6,
-        7,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29
-       ],
-       "hits": [
-        6,
-        11,
-        12,
-        23,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        21,
-        23,
-        24,
-        25,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        4,
-        9,
-        13,
-        23
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "甜甜爸",
-     "url": "/ex/qlcex/tjsy_13_887.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       2,
-       3,
-       4,
-       6,
-       8,
-       9,
-       10,
-       13,
-       14,
-       15,
-       16,
-       17,
-       18,
-       22,
-       24,
-       25,
-       27,
-       29
       ]
      },
      "siteMetrics": [
@@ -47057,435 +44162,53 @@ const EXPERTS_DATA = {
      },
      "picksN": 22,
      "threshold": 6,
-     "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 2,
-     "recoverRate": 0.5,
-     "blackCount": 6,
-     "lastHit": true,
-     "score": 46.5,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        5,
-        10,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        22,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        5,
-        7,
-        14,
-        18,
-        20
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        23,
-        24,
-        25,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        8,
-        14,
-        16,
-        28
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        15,
-        16,
-        19,
-        21,
-        23,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        8,
-        12,
-        14,
-        27
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        15,
-        17,
-        18,
-        19,
-        20,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        13,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9,
-        11,
-        12,
-        14,
-        15,
-        16,
-        17,
-        19,
-        20,
-        21,
-        23,
-        24,
-        25,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        24,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        13,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        22,
-        23,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        10,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        20,
-        21,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        2,
-        7,
-        9,
-        13,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "笑起来真好看",
-     "url": "/ex/qlcex/tjsy_13_163.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       1,
-       2,
-       4,
-       6,
-       7,
-       8,
-       9,
-       11,
-       12,
-       15,
-       16,
-       19,
-       20,
-       23,
-       24,
-       28,
-       29,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 21
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.6,
+     "hitRate10": 0.7,
      "maxStreak": 4,
-     "curStreak": 0,
-     "recoverRate": 0.75,
-     "blackCount": 4,
-     "lastHit": false,
-     "score": 44.75,
+     "curStreak": 1,
+     "recoverRate": 1,
+     "blackCount": 3,
+     "lastHit": true,
+     "score": 74.5,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        23,
+        24,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
       {
        "issue": "2026121",
        "picks": [
@@ -47817,26 +44540,832 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 6,
        "hit": true
+      }
+     ]
+    },
+    {
+     "name": "成林",
+     "url": "/ex/qlcex/tjsy_13_1777.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       1,
+       2,
+       4,
+       6,
+       7,
+       9,
+       10,
+       11,
+       12,
+       13,
+       15,
+       16,
+       19,
+       20,
+       21,
+       26,
+       27,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 14
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.6,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 1,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 66,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        27,
+        29
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
       },
       {
-       "issue": "2026112",
+       "issue": "2026121",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29
+       ],
+       "hits": [
+        5,
+        10,
+        12,
+        23
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
        "picks": [
         1,
         2,
         3,
         4,
         5,
+        6,
+        8,
+        10,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        14,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        3,
+        7,
         8,
         9,
+        10,
+        11,
+        13,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        2,
+        8,
+        15,
+        16,
+        29
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        21,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        23,
+        26
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        11,
         12,
         13,
         14,
         15,
         16,
         17,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        12,
+        14,
+        17,
+        25
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        23,
+        25,
+        26,
+        27,
+        29
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        13,
+        17,
+        25
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        18,
+        20,
+        21,
+        22,
+        24,
+        26,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        13,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        16,
+        17,
         18,
         19,
+        20,
+        21,
         22,
+        24,
+        26,
+        27,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        22
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        17,
+        19,
+        20,
+        21,
+        23,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        10,
+        12,
+        23,
+        29,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "流转",
+     "url": "/ex/qlcex/tjsy_13_597.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       1,
+       2,
+       3,
+       7,
+       8,
+       10,
+       12,
+       13,
+       14,
+       17,
+       19,
+       21,
+       23,
+       24,
+       25,
+       26,
+       27,
+       29
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 21
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 1,
+     "recoverRate": 0.75,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 64.75,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        26,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        18,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        10,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        1,
+        7,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        14,
+        15,
+        16,
+        28,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        3,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        14,
+        17,
+        19,
+        23,
+        26
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        5,
+        7,
+        8,
+        10,
+        11,
+        12,
+        15,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        12,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        13,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        28,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        16,
+        17,
+        18,
+        19,
+        21,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        25,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        2,
+        4,
+        5,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        22,
+        23,
         24,
         25,
         27,
@@ -47845,10 +45374,850 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
+        10,
+        11,
+        23,
+        29,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "飘叶1984",
+     "url": "/ex/qlcex/tjsy_13_1345.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       3,
+       4,
+       5,
+       6,
+       8,
+       9,
+       12,
+       13,
+       14,
+       15,
+       16,
+       18,
+       19,
+       20,
+       23,
+       26,
+       27,
+       28
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 22
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.6,
+     "maxStreak": 3,
+     "curStreak": 1,
+     "recoverRate": 0.75,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 62.25,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        2,
+        3,
+        5,
+        8,
+        9,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        5,
+        10,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
         2,
         4,
+        6,
+        7,
+        8,
         9,
-        13
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        7,
+        14,
+        20
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        23,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        2,
+        8,
+        14,
+        16,
+        28,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        23,
+        26
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        12,
+        14,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        16,
+        18,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        7,
+        25,
+        28
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19,
+        20,
+        22,
+        23,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        13,
+        28,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        14,
+        19,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        11,
+        12,
+        29,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "丶丶丶丶丶丶",
+     "url": "/ex/qlcex/tjsy_13_12.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       1,
+       6,
+       7,
+       8,
+       9,
+       12,
+       13,
+       14,
+       15,
+       16,
+       18,
+       22,
+       23,
+       24,
+       25,
+       26,
+       29,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 32
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.6,
+     "maxStreak": 4,
+     "curStreak": 4,
+     "recoverRate": 0.5,
+     "blackCount": 4,
+     "lastHit": true,
+     "score": 58.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        28,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        10,
+        12,
+        14,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        23,
+        24,
+        25,
+        28
+       ],
+       "hits": [
+        1,
+        5,
+        7,
+        14,
+        20,
+        21
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        18,
+        19,
+        21,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        2,
+        8,
+        14,
+        15,
+        28,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        26
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        15,
+        16,
+        18,
+        19,
+        21,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        25,
+        27
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        7,
+        13,
+        17,
+        25
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        13,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        18,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        15,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+       ],
+       "hits": [
+        6,
+        10,
+        11,
+        23
        ],
        "hitCount": 4,
        "hit": false
@@ -47856,27 +46225,2130 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "郭贱人",
-     "url": "/ex/qlcex/tjsy_13_1537.html",
+     "name": "小飞",
+     "url": "/ex/qlcex/tjsy_13_241.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
-       2,
-       3,
-       5,
-       9,
+       1,
+       4,
+       6,
        10,
        11,
+       13,
        14,
-       15,
        16,
        17,
        18,
        20,
        21,
+       22,
        24,
        25,
+       28,
+       29,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 20
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.5,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.8,
+     "blackCount": 5,
+     "lastHit": true,
+     "score": 57.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        22,
+        23,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        9,
+        10,
+        11,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        5,
+        10,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        13,
+        14,
+        15,
+        17,
+        18,
+        20,
+        22,
+        23,
+        24,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        7,
+        14,
+        18,
+        20
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        3,
+        4,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        8,
+        14,
+        15,
+        16,
+        28
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        23,
+        26
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29
+       ],
+       "hits": [
+        1,
+        8,
+        12,
+        14,
+        17,
+        27
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        21,
+        22,
+        23,
+        26,
+        27,
+        30
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        13
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        17,
+        18,
+        19,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        13,
+        28,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        5,
+        6,
+        8,
+        9,
+        10,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        10,
+        11,
+        29,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "仰望天空",
+     "url": "/ex/qlcex/tjsy_13_969.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       1,
+       2,
+       3,
+       6,
+       9,
+       10,
+       12,
+       13,
+       14,
+       15,
+       16,
+       19,
+       20,
+       22,
+       24,
+       26,
+       29,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 20
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.5,
+     "maxStreak": 3,
+     "curStreak": 1,
+     "recoverRate": 0.6,
+     "blackCount": 5,
+     "lastHit": true,
+     "score": 55,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        21,
+        22,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        5,
+        6,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        15,
+        16,
+        18,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        5,
+        10,
+        12,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+       ],
+       "hits": [
+        5,
+        7,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        4,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        15,
+        16,
+        29
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        19,
+        23,
+        26
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        8,
+        9,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        12,
+        14,
+        16,
+        17,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        10,
+        23,
+        29,
+        30
+       ],
+       "hitCount": 4,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "小宝523",
+     "url": "/ex/qlcex/tjsy_13_484.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       2,
+       4,
+       5,
+       7,
+       8,
+       10,
+       12,
+       13,
+       14,
+       15,
+       16,
+       18,
+       19,
+       22,
+       23,
+       24,
+       26,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 19
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.5,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.6,
+     "blackCount": 5,
+     "lastHit": true,
+     "score": 52.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        18,
+        20,
+        21,
+        23,
+        24,
+        25,
+        27,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        28
+       ],
+       "hits": [
+        10,
+        12,
+        14,
+        22
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        7,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        23,
+        25,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        2,
+        8,
+        14,
+        15,
+        16,
+        28,
+        29
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9,
+        12,
+        14,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        14,
+        17,
+        23,
+        26
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        14,
+        15,
+        17,
+        19,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        12,
+        14,
+        17,
+        27
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        18,
+        19,
+        21,
+        23,
+        24,
+        25,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        25
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        11,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        24,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        10,
+        11,
+        12,
+        23,
+        29,
+        30
+       ],
+       "hitCount": 7,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "博克斯",
+     "url": "/ex/qlcex/tjsy_13_1626.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       2,
+       3,
+       4,
+       5,
+       9,
+       10,
+       11,
+       13,
+       14,
+       15,
+       17,
+       19,
+       20,
+       21,
+       22,
+       23,
+       26,
+       27
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 22
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.5,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.4,
+     "blackCount": 5,
+     "lastHit": true,
+     "score": 47.5,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        15,
+        16,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        10,
+        14,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        15,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        1,
+        5,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        11,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        29,
+        30
+       ],
+       "hits": [
+        2,
+        14,
+        15,
+        16,
+        29
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        26
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        3,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        12,
+        14,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        7,
+        13,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        2,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29
+       ],
+       "hits": [
+        5,
+        13,
+        24,
+        28
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        8,
+        9,
+        11,
+        12,
+        14,
+        16,
+        17,
+        18,
+        19,
+        21,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        25,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        10,
+        11,
+        12,
+        29,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "范贤昭",
+     "url": "/ex/qlcex/tjsy_13_879.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       2,
+       3,
+       6,
+       8,
+       10,
+       11,
+       14,
+       16,
+       18,
+       19,
+       20,
+       21,
+       23,
+       25,
+       26,
+       28,
+       29,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 23
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.6,
+     "maxStreak": 5,
+     "curStreak": 0,
+     "recoverRate": 0.5,
+     "blackCount": 4,
+     "lastHit": false,
+     "score": 41,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        14,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        11
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        15,
+        16,
+        17,
+        19,
+        20,
+        22,
+        23,
+        25,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        5,
+        10,
+        12,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        5,
+        7,
+        14,
+        18,
+        20
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        3,
+        5,
+        7,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        8,
+        14,
+        15,
+        28,
+        29
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29
+       ],
+       "hits": [
+        6,
+        14,
+        17,
+        19,
+        23,
+        26
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        3,
+        5,
+        6,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        12,
+        14,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        14,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        19,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        24,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        6,
+        10,
+        11,
+        12,
+        29
+       ],
+       "hitCount": 5,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "佛即道",
+     "url": "/ex/qlcex/tjsy_13_1474.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       1,
+       3,
+       5,
+       7,
+       8,
+       10,
+       11,
+       13,
+       14,
+       15,
+       16,
+       19,
+       21,
+       25,
+       26,
        28,
        29,
        30
@@ -47909,72 +48381,109 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026121",
+       "issue": "2026122",
        "picks": [
         1,
         2,
-        3,
         4,
+        5,
         6,
         7,
-        9,
+        8,
         10,
-        12,
-        13,
-        14,
         15,
+        16,
+        17,
         18,
         19,
         20,
-        22,
+        21,
         23,
         24,
         25,
         26,
-        29,
+        27,
+        28,
         30
        ],
        "hits": [
-        10,
-        12,
-        14,
-        22,
-        23
+        4,
+        5,
+        6,
+        7,
+        24
        ],
        "hitCount": 5,
        "hit": false
       },
       {
-       "issue": "2026120",
+       "issue": "2026121",
        "picks": [
+        1,
         2,
-        3,
         4,
         6,
         7,
-        8,
+        10,
+        11,
         12,
         13,
         14,
         15,
         16,
         17,
-        18,
+        19,
         20,
         21,
+        22,
+        23,
         24,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        10,
+        12,
+        14,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
         25,
-        26,
         27,
         28,
         29,
         30
        ],
        "hits": [
+        1,
+        5,
         7,
-        14,
         18,
-        20,
         21
        ],
        "hitCount": 5,
@@ -47983,12 +48492,13 @@ const EXPERTS_DATA = {
       {
        "issue": "2026119",
        "picks": [
+        1,
+        2,
         3,
         4,
-        5,
-        7,
-        8,
+        6,
         10,
+        11,
         13,
         14,
         15,
@@ -47996,18 +48506,17 @@ const EXPERTS_DATA = {
         17,
         18,
         19,
-        20,
-        21,
+        22,
         23,
         24,
         25,
-        26,
+        27,
         28,
         29,
         30
        ],
        "hits": [
-        8,
+        2,
         14,
         15,
         16,
@@ -48020,11 +48529,11 @@ const EXPERTS_DATA = {
       {
        "issue": "2026118",
        "picks": [
-        1,
         3,
-        4,
         5,
+        6,
         7,
+        8,
         9,
         10,
         12,
@@ -48035,55 +48544,56 @@ const EXPERTS_DATA = {
         17,
         18,
         19,
+        20,
         21,
-        23,
-        25,
+        22,
+        24,
         26,
         28,
-        29,
-        30
+        29
        ],
        "hits": [
+        6,
+        8,
         14,
         17,
         19,
-        23,
         26
        ],
-       "hitCount": 5,
-       "hit": false
+       "hitCount": 6,
+       "hit": true
       },
       {
        "issue": "2026117",
        "picks": [
         1,
+        2,
         3,
         4,
         5,
         6,
+        7,
         8,
         9,
         11,
         12,
-        14,
         15,
         16,
+        17,
         18,
         20,
+        21,
         22,
-        23,
         25,
-        26,
         27,
         28,
-        29,
-        30
+        29
        ],
        "hits": [
         1,
         8,
         12,
-        14,
+        17,
         25,
         27
        ],
@@ -48095,221 +48605,180 @@ const EXPERTS_DATA = {
        "picks": [
         1,
         2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        13,
+        17,
+        28
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
         3,
         5,
         6,
         7,
+        8,
+        9,
+        11,
+        12,
+        14,
+        16,
+        17,
+        19,
+        20,
+        21,
+        23,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        20,
+        23,
+        24,
+        25,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
+        25,
+        29
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        2,
+        6,
+        7,
+        8,
         9,
         10,
         11,
         12,
         14,
         15,
-        16,
-        17,
-        19,
-        20,
-        21,
-        22,
-        24,
-        26,
-        27,
-        28
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        17,
-        28
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        24,
-        28,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        3,
-        4,
-        7,
-        8,
-        9,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        3,
-        4,
-        6,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
         18,
         19,
         20,
         21,
         22,
         23,
-        25,
-        26,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        11,
-        12,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        16,
-        17,
-        19,
-        20,
-        21,
-        23,
         24,
-        26,
+        25,
         27,
         28,
         30
        ],
        "hits": [
-        2,
-        4,
-        7,
-        9,
-        13,
+        6,
+        10,
+        11,
+        12,
         23,
-        26
+        30
        ],
-       "hitCount": 7,
+       "hitCount": 6,
        "hit": true
       }
      ]
     },
     {
-     "name": "流转",
-     "url": "/ex/qlcex/tjsy_13_597.html",
+     "name": "考虑考虑",
+     "url": "/ex/qlcex/tjsy_13_446.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
        1,
        2,
        3,
        4,
        6,
-       7,
+       8,
        9,
        10,
-       13,
+       11,
+       12,
        14,
-       15,
-       16,
+       17,
        18,
-       19,
+       20,
        24,
-       26,
-       29,
-       30
+       25,
+       28,
+       29
       ]
      },
      "siteMetrics": [
       {
        "cat": "18码",
        "hit10": 10,
-       "maxStreak": 21
+       "maxStreak": 15
       }
      ],
      "siteHit10": 10,
@@ -48323,48 +48792,87 @@ const EXPERTS_DATA = {
      "picksN": 22,
      "threshold": 6,
      "hitRate10": 0.5,
-     "maxStreak": 4,
+     "maxStreak": 3,
      "curStreak": 0,
-     "recoverRate": 0.4,
+     "recoverRate": 0.6,
      "blackCount": 5,
      "lastHit": false,
-     "score": 32.5,
+     "score": 35,
      "periods": 10,
      "recent": [
       {
-       "issue": "2026121",
+       "issue": "2026122",
        "picks": [
+        1,
         2,
         3,
-        4,
+        5,
+        7,
         8,
         9,
         10,
         11,
-        13,
-        15,
         16,
         17,
         18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        3,
+        5,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        14,
+        16,
+        17,
+        19,
         20,
         22,
         23,
         24,
-        25,
-        26,
-        27,
         28,
         29,
         30
        ],
        "hits": [
+        5,
         10,
+        12,
+        14,
         17,
         22,
         23
        ],
-       "hitCount": 4,
-       "hit": false
+       "hitCount": 7,
+       "hit": true
       },
       {
        "issue": "2026120",
@@ -48372,66 +48880,68 @@ const EXPERTS_DATA = {
         1,
         2,
         3,
+        4,
+        5,
         6,
         7,
         8,
-        9,
         10,
         12,
         13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        26,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        7,
+        14,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
         16,
         17,
         18,
         19,
         20,
         21,
-        22,
         23,
-        24,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        1,
-        7,
-        18,
-        20,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
+        26,
         28,
         29,
         30
        ],
        "hits": [
+        2,
         8,
         14,
-        15,
         16,
         28,
         29
@@ -48442,53 +48952,16 @@ const EXPERTS_DATA = {
       {
        "issue": "2026118",
        "picks": [
-        1,
-        2,
         3,
+        4,
+        6,
         7,
         8,
         9,
         10,
         11,
-        13,
-        14,
         15,
-        17,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        8,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        5,
-        7,
-        8,
-        10,
-        11,
-        12,
-        15,
-        17,
+        16,
         18,
         20,
         21,
@@ -48503,9 +48976,44 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
-        1,
+        6,
         8,
+        23,
+        26
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        10,
+        11,
         12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        1,
+        12,
+        14,
         17,
         25,
         27
@@ -48516,22 +49024,22 @@ const EXPERTS_DATA = {
       {
        "issue": "2026116",
        "picks": [
-        1,
         2,
         4,
-        5,
         6,
-        7,
+        8,
         10,
         11,
         12,
         13,
         14,
+        15,
         16,
         17,
+        19,
         21,
-        22,
         23,
+        24,
         25,
         26,
         27,
@@ -48540,49 +49048,47 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
-        1,
         6,
-        7,
         13,
         17,
         25,
         28
        ],
-       "hitCount": 7,
-       "hit": true
+       "hitCount": 5,
+       "hit": false
       },
       {
        "issue": "2026115",
        "picks": [
         1,
+        2,
         3,
         4,
         5,
         6,
+        7,
         8,
-        10,
+        11,
+        13,
         14,
         15,
         16,
-        17,
+        18,
         19,
-        20,
         21,
         22,
         23,
         25,
         26,
         27,
-        28,
-        29,
-        30
+        28
        ],
        "hits": [
         1,
         4,
         5,
-        28,
-        30
+        13,
+        28
        ],
        "hitCount": 5,
        "hit": false
@@ -48591,33 +49097,33 @@ const EXPERTS_DATA = {
        "issue": "2026114",
        "picks": [
         1,
-        3,
+        2,
         4,
         5,
-        6,
-        7,
         8,
         9,
         10,
-        11,
+        12,
         14,
+        15,
         16,
         17,
         18,
-        19,
+        20,
         21,
+        22,
+        23,
+        24,
         25,
         26,
-        27,
-        28,
         29,
         30
        ],
        "hits": [
         9,
         14,
-        19,
         21,
+        22,
         25,
         29
        ],
@@ -48627,71 +49133,35 @@ const EXPERTS_DATA = {
       {
        "issue": "2026113",
        "picks": [
-        2,
-        4,
-        5,
-        7,
-        8,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        19,
-        20,
-        22,
-        23,
-        24,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        10,
-        11,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
         1,
         2,
         3,
+        4,
         5,
         6,
-        7,
         9,
         10,
-        12,
+        11,
         14,
-        15,
         16,
         17,
         18,
         20,
+        21,
         22,
-        23,
         24,
+        25,
         26,
         27,
-        28,
+        29,
         30
        ],
        "hits": [
-        2,
-        7,
-        9,
-        23,
-        26
+        6,
+        10,
+        11,
+        29,
+        30
        ],
        "hitCount": 5,
        "hit": false
@@ -48699,22 +49169,37 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "山泉",
-     "url": "/ex/qlcex/tjsy_13_1830.html",
-     "cat": "三胆",
+     "name": "郭贱人",
+     "url": "/ex/qlcex/tjsy_13_1537.html",
+     "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
        1,
-       19,
-       23
+       2,
+       3,
+       4,
+       6,
+       7,
+       9,
+       10,
+       14,
+       17,
+       18,
+       20,
+       22,
+       23,
+       25,
+       26,
+       28,
+       29
       ]
      },
      "siteMetrics": [
       {
-       "cat": "三胆",
+       "cat": "18码",
        "hit10": 10,
-       "maxStreak": 13
+       "maxStreak": 25
       }
      ],
      "siteHit10": 10,
@@ -48737,15 +49222,122 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026121",
+       "issue": "2026122",
        "picks": [
         2,
         3,
+        5,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        5,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        29,
+        30
+       ],
+       "hits": [
+        10,
+        12,
+        14,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        2,
+        3,
+        4,
         6,
         7,
         8,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        7,
+        14,
+        18,
+        20,
+        21
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        3,
+        4,
+        5,
+        7,
+        8,
         10,
-        11,
         13,
         14,
         15,
@@ -48758,38 +49350,41 @@ const EXPERTS_DATA = {
         23,
         24,
         25,
-        27,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        14,
+        15,
+        16,
         28,
         29
        ],
-       "hits": [
-        10,
-        14,
-        17,
-        23
-       ],
-       "hitCount": 4,
-       "hit": false
+       "hitCount": 6,
+       "hit": true
       },
       {
-       "issue": "2026120",
+       "issue": "2026118",
        "picks": [
         1,
-        2,
         3,
         4,
         5,
-        6,
         7,
-        8,
         9,
-        11,
+        10,
         12,
         13,
+        14,
         15,
+        16,
+        17,
         18,
         19,
-        22,
+        21,
         23,
         25,
         26,
@@ -48798,156 +49393,86 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
-        1,
-        5,
-        7,
-        18
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        10,
-        11,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28
-       ],
-       "hits": [
-        14,
-        15,
-        16,
-        28
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        4,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        23,
-        24,
-        25,
-        26,
-        28,
-        30
-       ],
-       "hits": [
-        8,
         14,
         17,
         19,
         23,
         26
        ],
-       "hitCount": 6,
-       "hit": true
+       "hitCount": 5,
+       "hit": false
       },
       {
        "issue": "2026117",
        "picks": [
         1,
-        2,
         3,
         4,
-        7,
+        5,
+        6,
         8,
         9,
         11,
         12,
-        13,
         14,
+        15,
         16,
-        17,
         18,
         20,
-        21,
+        22,
         23,
-        24,
         25,
+        26,
         27,
         28,
-        29
+        29,
+        30
        ],
        "hits": [
         1,
         8,
         12,
         14,
-        17,
         25,
         27
        ],
-       "hitCount": 7,
+       "hitCount": 6,
        "hit": true
       },
       {
        "issue": "2026116",
        "picks": [
+        1,
         2,
         3,
-        4,
+        5,
         6,
         7,
-        8,
         9,
         10,
         11,
         12,
         14,
+        15,
         16,
-        18,
+        17,
         19,
+        20,
         21,
-        23,
+        22,
         24,
-        25,
         26,
         27,
-        29,
-        30
+        28
        ],
        "hits": [
+        1,
         6,
         7,
-        25
+        17,
+        28
        ],
-       "hitCount": 3,
+       "hitCount": 5,
        "hit": false
       },
       {
@@ -48957,21 +49482,21 @@ const EXPERTS_DATA = {
         2,
         3,
         4,
+        5,
         6,
+        7,
         8,
         9,
-        10,
         11,
         12,
-        13,
-        14,
-        15,
         18,
+        19,
         21,
         22,
         23,
         24,
-        27,
+        25,
+        26,
         28,
         29,
         30
@@ -48979,7 +49504,7 @@ const EXPERTS_DATA = {
        "hits": [
         1,
         4,
-        13,
+        5,
         24,
         28,
         30
@@ -48990,19 +49515,149 @@ const EXPERTS_DATA = {
       {
        "issue": "2026114",
        "picks": [
-        1,
-        5,
+        2,
+        3,
+        4,
+        7,
         8,
         9,
-        10,
         11,
-        12,
+        13,
+        14,
         15,
         16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29
+       ],
+       "hits": [
+        9,
+        14,
+        19,
+        21,
+        22,
+        25,
+        29
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        1,
+        3,
+        4,
+        6,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
         18,
         19,
         20,
         21,
+        22,
+        23,
+        25,
+        26,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        11,
+        12,
+        23,
+        29,
+        30
+       ],
+       "hitCount": 6,
+       "hit": true
+      }
+     ]
+    },
+    {
+     "name": "随愿",
+     "url": "/ex/qlcex/tjsy_13_1500.html",
+     "cat": "18码",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       2,
+       3,
+       4,
+       6,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       15,
+       16,
+       17,
+       20,
+       21,
+       23,
+       25,
+       30
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "18码",
+       "hit10": 10,
+       "maxStreak": 19
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.4,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.6667,
+     "blackCount": 6,
+     "lastHit": false,
+     "score": 28.17,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        12,
+        15,
+        16,
+        17,
+        19,
+        20,
         22,
         23,
         24,
@@ -49014,8 +49669,300 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
+        3,
+        4,
+        6,
+        7,
+        24
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        4,
+        7,
+        8,
         9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
         19,
+        20,
+        21,
+        22,
+        23,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        10,
+        12,
+        14,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        5,
+        7,
+        14,
+        18,
+        21
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        3,
+        6,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        2,
+        8,
+        14,
+        15,
+        16,
+        28,
+        29
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        17,
+        23,
+        26
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        18,
+        19,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        12,
+        14,
+        25,
+        27
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        21,
+        22,
+        24,
+        25,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        7,
+        13,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        23,
+        25,
+        26,
+        27,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        13,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        16,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        9,
+        14,
         21,
         22,
         25,
@@ -49028,72 +49975,34 @@ const EXPERTS_DATA = {
        "issue": "2026113",
        "picks": [
         1,
-        2,
-        3,
-        4,
+        5,
         6,
-        8,
+        7,
         9,
-        10,
         11,
         12,
+        13,
         14,
         15,
         16,
         17,
-        18,
-        19,
-        22,
-        23,
-        24,
-        26,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        10,
-        11,
-        12,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        10,
-        11,
-        13,
-        14,
-        15,
-        17,
-        18,
         19,
         20,
         21,
+        22,
         23,
+        24,
         25,
         26,
-        27,
         28,
-        29,
-        30
+        29
        ],
        "hits": [
-        2,
-        7,
-        13,
+        6,
+        11,
+        12,
         23,
-        26
+        29
        ],
        "hitCount": 5,
        "hit": false
@@ -49101,37 +50010,37 @@ const EXPERTS_DATA = {
      ]
     },
     {
-     "name": "小飞",
-     "url": "/ex/qlcex/tjsy_13_241.html",
+     "name": "甜甜爸",
+     "url": "/ex/qlcex/tjsy_13_887.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
        1,
-       2,
+       3,
        4,
-       5,
-       6,
        7,
+       8,
+       9,
        10,
        11,
-       13,
        14,
        16,
+       17,
        18,
-       19,
+       21,
        22,
        23,
-       28,
-       29,
-       30
+       24,
+       26,
+       27
       ]
      },
      "siteMetrics": [
       {
        "cat": "18码",
        "hit10": 10,
-       "maxStreak": 20
+       "maxStreak": 23
       }
      ],
      "siteHit10": 10,
@@ -49154,63 +50063,100 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
-       "issue": "2026121",
+       "issue": "2026122",
        "picks": [
-        1,
         2,
+        3,
         4,
         5,
-        7,
+        6,
+        8,
         9,
         10,
-        11,
+        13,
+        14,
         15,
         16,
         17,
         18,
         20,
-        21,
         22,
-        23,
+        24,
         25,
         26,
         27,
-        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        24
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
         29,
         30
        ],
        "hits": [
         5,
         10,
+        14,
         17,
         22,
         23
        ],
-       "hitCount": 5,
-       "hit": false
+       "hitCount": 6,
+       "hit": true
       },
       {
        "issue": "2026120",
        "picks": [
         1,
-        2,
         3,
         4,
         5,
-        6,
         7,
+        8,
         9,
         10,
+        11,
+        12,
         13,
         14,
         15,
+        16,
         17,
         18,
         20,
         22,
-        23,
-        24,
-        27,
+        26,
         28,
         29,
         30
@@ -49229,33 +50175,33 @@ const EXPERTS_DATA = {
       {
        "issue": "2026119",
        "picks": [
-        1,
+        2,
         3,
         4,
+        5,
         7,
         8,
         9,
         10,
-        11,
         12,
+        13,
         14,
-        15,
         16,
         17,
         18,
+        19,
         20,
+        21,
         23,
         24,
         25,
-        26,
-        27,
         28,
         30
        ],
        "hits": [
+        2,
         8,
         14,
-        15,
         16,
         28
        ],
@@ -49265,83 +50211,10 @@ const EXPERTS_DATA = {
       {
        "issue": "2026118",
        "picks": [
+        1,
         3,
         4,
         5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        22,
-        23,
-        24,
-        26,
-        27,
-        29
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        17,
-        27
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        4,
         6,
         7,
         8,
@@ -49350,29 +50223,64 @@ const EXPERTS_DATA = {
         11,
         12,
         13,
+        15,
+        16,
+        19,
+        21,
+        23,
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        19,
+        23,
+        26
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        8,
+        9,
+        11,
+        12,
         14,
         15,
         16,
         18,
         19,
+        20,
         21,
         22,
         23,
         26,
         27,
+        28,
+        29,
         30
        ],
        "hits": [
-        1,
-        6,
-        7,
-        13
+        8,
+        12,
+        14,
+        27
        ],
        "hitCount": 4,
        "hit": false
       },
       {
-       "issue": "2026115",
+       "issue": "2026116",
        "picks": [
         1,
         2,
@@ -49381,27 +50289,65 @@ const EXPERTS_DATA = {
         6,
         7,
         8,
+        9,
         10,
         11,
-        12,
         13,
+        15,
         17,
         18,
         19,
+        20,
         22,
         23,
+        24,
         25,
         26,
+        28
+       ],
+       "hits": [
+        1,
+        6,
+        7,
+        13,
+        17,
+        25,
+        28
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
         27,
-        28,
         29,
         30
        ],
        "hits": [
         1,
+        4,
         5,
-        13,
-        28,
+        24,
         30
        ],
        "hitCount": 5,
@@ -49410,18 +50356,20 @@ const EXPERTS_DATA = {
       {
        "issue": "2026114",
        "picks": [
-        1,
+        2,
+        3,
         5,
         6,
+        7,
         8,
         9,
         10,
+        11,
+        12,
         13,
         14,
-        15,
         16,
         19,
-        20,
         21,
         22,
         23,
@@ -49429,9 +50377,7 @@ const EXPERTS_DATA = {
         25,
         26,
         27,
-        28,
-        29,
-        30
+        29
        ],
        "hits": [
         9,
@@ -49448,23 +50394,23 @@ const EXPERTS_DATA = {
       {
        "issue": "2026113",
        "picks": [
-        5,
+        1,
+        2,
+        4,
         6,
         7,
         8,
         9,
         10,
-        11,
         13,
-        14,
         15,
         16,
         17,
         18,
         19,
         20,
-        21,
-        24,
+        22,
+        23,
         25,
         27,
         28,
@@ -49474,46 +50420,11 @@ const EXPERTS_DATA = {
        "hits": [
         6,
         10,
-        11,
+        23,
         29,
         30
        ],
        "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        13,
-        14,
-        15,
-        17,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        4,
-        7,
-        13,
-        26
-       ],
-       "hitCount": 4,
        "hit": false
       }
      ]
@@ -49523,25 +50434,25 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_736.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
+       2,
+       3,
        4,
        5,
        6,
+       9,
        10,
-       11,
-       12,
        14,
        15,
        16,
        17,
        18,
+       19,
        20,
-       21,
        22,
        25,
        26,
-       27,
        29
       ]
      },
@@ -49563,14 +50474,51 @@ const EXPERTS_DATA = {
      "picksN": 22,
      "threshold": 6,
      "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 2,
+     "maxStreak": 3,
+     "curStreak": 3,
      "recoverRate": 0.3333,
      "blackCount": 6,
      "lastHit": true,
-     "score": 22.33,
+     "score": 24.83,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        11,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
       {
        "issue": "2026121",
        "picks": [
@@ -49896,17 +50844,59 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 5,
        "hit": false
-      },
+      }
+     ]
+    },
+    {
+     "name": "好运会常在",
+     "url": "/ex/qlcex/tjsy_13_831.html",
+     "cat": "三胆",
+     "catLatest": {
+      "issue": "2026123",
+      "nums": [
+       10,
+       11,
+       27
+      ]
+     },
+     "siteMetrics": [
       {
-       "issue": "2026112",
+       "cat": "三胆",
+       "hit10": 10,
+       "maxStreak": 13
+      }
+     ],
+     "siteHit10": 10,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 22,
+     "threshold": 6,
+     "hitRate10": 0.4,
+     "maxStreak": 2,
+     "curStreak": 1,
+     "recoverRate": 0.3333,
+     "blackCount": 6,
+     "lastHit": true,
+     "score": 22.33,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026122",
        "picks": [
-        3,
+        2,
         4,
         5,
         6,
         7,
+        8,
         9,
         11,
+        12,
         13,
         14,
         15,
@@ -49914,7 +50904,296 @@ const EXPERTS_DATA = {
         18,
         19,
         20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        30
+       ],
+       "hits": [
+        4,
+        5,
+        6,
+        7,
+        11,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026121",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        15,
+        16,
+        17,
+        19,
+        20,
         21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        29
+       ],
+       "hits": [
+        5,
+        12,
+        17,
+        22,
+        23
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026120",
+       "picks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        7,
+        14,
+        20,
+        21
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026119",
+       "picks": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        28,
+        30
+       ],
+       "hits": [
+        2,
+        14,
+        15,
+        16,
+        28
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026118",
+       "picks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        8,
+        14,
+        17,
+        19,
+        23,
+        26
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        27,
+        29,
+        30
+       ],
+       "hits": [
+        8,
+        12,
+        14,
+        17,
+        25,
+        27
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
+      {
+       "issue": "2026116",
+       "picks": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+       ],
+       "hits": [
+        1,
+        7,
+        13,
+        25,
+        28
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026115",
+       "picks": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        27,
+        30
+       ],
+       "hits": [
+        1,
+        5,
+        13,
+        24,
+        30
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18,
+        19,
+        20,
         23,
         24,
         25,
@@ -49924,12 +51203,48 @@ const EXPERTS_DATA = {
         30
        ],
        "hits": [
-        4,
-        7,
         9,
+        14,
+        19,
+        25,
+        29
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
+       "issue": "2026113",
+       "picks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
         13,
+        14,
+        15,
+        18,
+        20,
+        21,
+        22,
         23,
-        26
+        25,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        10,
+        12,
+        23,
+        29,
+        30
        ],
        "hitCount": 6,
        "hit": true
@@ -49941,26 +51256,26 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_171.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
        1,
        2,
-       3,
        4,
-       5,
+       6,
+       8,
+       9,
        10,
-       12,
-       13,
+       11,
+       14,
        15,
-       17,
+       16,
        18,
        19,
-       21,
        22,
        23,
-       24,
        25,
-       27
+       27,
+       30
       ]
      },
      "siteMetrics": [
@@ -49981,14 +51296,51 @@ const EXPERTS_DATA = {
      "picksN": 22,
      "threshold": 6,
      "hitRate10": 0.3,
-     "maxStreak": 1,
-     "curStreak": 1,
+     "maxStreak": 2,
+     "curStreak": 2,
      "recoverRate": 0.2857,
      "blackCount": 7,
      "lastHit": true,
-     "score": 15.14,
+     "score": 17.64,
      "periods": 10,
      "recent": [
+      {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        11,
+        24
+       ],
+       "hitCount": 6,
+       "hit": true
+      },
       {
        "issue": "2026121",
        "picks": [
@@ -50312,1304 +51664,6 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 4,
        "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        15,
-        17,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        4,
-        9,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      }
-     ]
-    },
-    {
-     "name": "仰望天空",
-     "url": "/ex/qlcex/tjsy_13_969.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       2,
-       3,
-       5,
-       7,
-       8,
-       9,
-       11,
-       12,
-       13,
-       14,
-       16,
-       17,
-       18,
-       24,
-       25,
-       26,
-       28,
-       29
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 19
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.4,
-     "maxStreak": 3,
-     "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
-     "lastHit": false,
-     "score": 4.83,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        15,
-        16,
-        18,
-        22,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        5,
-        10,
-        12,
-        22,
-        23
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        12,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27
-       ],
-       "hits": [
-        5,
-        7,
-        18,
-        20,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        4,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        8,
-        15,
-        16,
-        29
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        8,
-        9,
-        13,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        17,
-        25,
-        27
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        14,
-        16,
-        17,
-        18,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        12,
-        14,
-        16,
-        17,
-        20,
-        21,
-        22,
-        23,
-        24,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        1,
-        4,
-        5,
-        24,
-        28,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        8,
-        9,
-        10,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        10,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28,
-        30
-       ],
-       "hits": [
-        4,
-        7,
-        9,
-        13,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "博克斯",
-     "url": "/ex/qlcex/tjsy_13_1626.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       1,
-       2,
-       3,
-       4,
-       6,
-       7,
-       8,
-       10,
-       13,
-       15,
-       19,
-       21,
-       22,
-       23,
-       24,
-       25,
-       28,
-       29
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 22
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.4,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.3333,
-     "blackCount": 6,
-     "lastHit": false,
-     "score": 2.33,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        2,
-        3,
-        4,
-        6,
-        7,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        10,
-        14,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        8,
-        9,
-        10,
-        12,
-        15,
-        17,
-        18,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29
-       ],
-       "hits": [
-        1,
-        5,
-        18,
-        20,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        11,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        14,
-        15,
-        16,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        17,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        3,
-        6,
-        7,
-        8,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        20,
-        21,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        17,
-        25,
-        27
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        7,
-        13,
-        17,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        2,
-        5,
-        6,
-        7,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29
-       ],
-       "hits": [
-        5,
-        13,
-        24,
-        28
-       ],
-       "hitCount": 4,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        8,
-        9,
-        11,
-        12,
-        14,
-        16,
-        17,
-        18,
-        19,
-        21,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        9,
-        14,
-        19,
-        21,
-        25,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        3,
-        4,
-        6,
-        7,
-        10,
-        11,
-        12,
-        13,
-        14,
-        16,
-        17,
-        20,
-        21,
-        22,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        10,
-        11,
-        12,
-        29,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        23,
-        24,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        7,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
-      }
-     ]
-    },
-    {
-     "name": "程昆",
-     "url": "/ex/qlcex/tjsy_13_916.html",
-     "cat": "18码",
-     "catLatest": {
-      "issue": "2026122",
-      "nums": [
-       1,
-       2,
-       5,
-       6,
-       8,
-       9,
-       10,
-       12,
-       16,
-       17,
-       18,
-       21,
-       23,
-       24,
-       26,
-       28,
-       29,
-       30
-      ]
-     },
-     "siteMetrics": [
-      {
-       "cat": "18码",
-       "hit10": 10,
-       "maxStreak": 23
-      },
-      {
-       "cat": "三胆",
-       "hit10": 9,
-       "maxStreak": 11
-      }
-     ],
-     "siteHit10": 10,
-     "rawHit10": 10,
-     "siteFit": {
-      "threshold": 1,
-      "count": 10,
-      "maxStreak": 10,
-      "exact": false
-     },
-     "picksN": 22,
-     "threshold": 6,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
-     "curStreak": 0,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
-     "lastHit": false,
-     "score": 0,
-     "periods": 10,
-     "recent": [
-      {
-       "issue": "2026121",
-       "picks": [
-        2,
-        3,
-        4,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        16,
-        17,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        10,
-        12,
-        17,
-        22,
-        23
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026120",
-       "picks": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        9,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        21,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        7,
-        14,
-        18,
-        21
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026119",
-       "picks": [
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        15,
-        16,
-        19,
-        21,
-        23,
-        24,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        8,
-        15,
-        16,
-        28,
-        29
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        7,
-        8,
-        9,
-        10,
-        11,
-        13,
-        14,
-        16,
-        17,
-        18,
-        19,
-        20,
-        23,
-        24,
-        25,
-        26,
-        27,
-        30
-       ],
-       "hits": [
-        8,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        16,
-        18,
-        20,
-        21,
-        22,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        8,
-        12,
-        14,
-        27
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026116",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        28,
-        29
-       ],
-       "hits": [
-        1,
-        6,
-        7,
-        13,
-        25,
-        28
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026115",
-       "picks": [
-        1,
-        2,
-        3,
-        5,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        21,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        1,
-        5,
-        13,
-        24,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        20,
-        21,
-        22,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        14,
-        21,
-        22,
-        25,
-        29
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026113",
-       "picks": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        20,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        10,
-        12,
-        29,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        2,
-        3,
-        5,
-        6,
-        7,
-        12,
-        13,
-        14,
-        15,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        2,
-        7,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
       }
      ]
     },
@@ -51618,33 +51672,33 @@ const EXPERTS_DATA = {
      "url": "/ex/qlcex/tjsy_13_1365.html",
      "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
-       1,
+       2,
        4,
        5,
-       6,
-       7,
+       9,
        10,
+       12,
        15,
        16,
        17,
        18,
        19,
-       20,
        21,
        23,
        24,
        26,
        27,
-       28
+       28,
+       30
       ]
      },
      "siteMetrics": [
       {
        "cat": "18码",
        "hit10": 10,
-       "maxStreak": 18
+       "maxStreak": 19
       }
      ],
      "siteHit10": 10,
@@ -51667,6 +51721,42 @@ const EXPERTS_DATA = {
      "periods": 10,
      "recent": [
       {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        26,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        4,
+        5,
+        6,
+        7,
+        24
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
        "issue": "2026121",
        "picks": [
         1,
@@ -51991,62 +52081,41 @@ const EXPERTS_DATA = {
        ],
        "hitCount": 5,
        "hit": false
-      },
-      {
-       "issue": "2026112",
-       "picks": [
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        19,
-        20,
-        23,
-        24,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        7,
-        9,
-        13,
-        23,
-        26
-       ],
-       "hitCount": 5,
-       "hit": false
       }
      ]
     },
     {
-     "name": "好运会常在",
-     "url": "/ex/qlcex/tjsy_13_831.html",
-     "cat": "三胆",
+     "name": "黑人强",
+     "url": "/ex/qlcex/tjsy_13_654.html",
+     "cat": "18码",
      "catLatest": {
-      "issue": "2026122",
+      "issue": "2026123",
       "nums": [
+       1,
+       3,
+       4,
+       5,
        6,
+       7,
+       8,
+       12,
+       14,
+       15,
+       16,
+       17,
+       22,
+       23,
+       24,
+       25,
        26,
-       27
+       30
       ]
      },
      "siteMetrics": [
       {
-       "cat": "三胆",
+       "cat": "18码",
        "hit10": 10,
-       "maxStreak": 12
+       "maxStreak": 19
       }
      ],
      "siteHit10": 10,
@@ -52059,97 +52128,133 @@ const EXPERTS_DATA = {
      },
      "picksN": 22,
      "threshold": 6,
-     "hitRate10": 0.3,
-     "maxStreak": 2,
+     "hitRate10": 0.2,
+     "maxStreak": 1,
      "curStreak": 0,
-     "recoverRate": 0.2857,
-     "blackCount": 7,
+     "recoverRate": 0.25,
+     "blackCount": 8,
      "lastHit": false,
      "score": 0,
      "periods": 10,
      "recent": [
       {
+       "issue": "2026122",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        22,
+        23,
+        26,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        3,
+        4,
+        5,
+        6,
+        11
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
        "issue": "2026121",
        "picks": [
         1,
-        3,
-        4,
+        2,
         5,
         6,
         7,
         8,
         9,
         11,
-        12,
-        15,
+        13,
+        14,
         16,
         17,
+        18,
         19,
         20,
         21,
-        22,
         23,
         24,
         25,
-        27,
-        29
+        28,
+        29,
+        30
        ],
        "hits": [
         5,
-        12,
+        14,
         17,
-        22,
         23
        ],
-       "hitCount": 5,
+       "hitCount": 4,
        "hit": false
       },
       {
        "issue": "2026120",
        "picks": [
-        2,
         3,
         4,
+        5,
         6,
-        7,
+        8,
         9,
         10,
-        11,
         12,
-        13,
         14,
+        15,
         16,
         17,
+        18,
+        19,
         20,
         21,
-        22,
         23,
+        24,
         25,
-        26,
         27,
-        28,
+        29,
         30
        ],
        "hits": [
-        7,
+        5,
         14,
+        18,
         20,
         21
        ],
-       "hitCount": 4,
+       "hitCount": 5,
        "hit": false
       },
       {
        "issue": "2026119",
        "picks": [
         1,
-        2,
         3,
+        4,
         5,
         6,
         7,
+        8,
         9,
-        10,
         11,
         12,
         14,
@@ -52157,131 +52262,128 @@ const EXPERTS_DATA = {
         16,
         17,
         18,
-        19,
         20,
         21,
         22,
-        26,
+        27,
         28,
-        30
-       ],
-       "hits": [
-        2,
-        14,
-        15,
-        16,
-        28
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026118",
-       "picks": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        11,
-        12,
-        13,
-        14,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        27,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        8,
-        14,
-        17,
-        19,
-        23,
-        26
-       ],
-       "hitCount": 7,
-       "hit": true
-      },
-      {
-       "issue": "2026117",
-       "picks": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        8,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        20,
-        21,
-        22,
-        24,
-        25,
-        27,
         29,
         30
        ],
        "hits": [
         8,
-        12,
         14,
-        17,
-        25,
-        27
+        15,
+        16,
+        28,
+        29
        ],
        "hitCount": 6,
        "hit": true
       },
       {
+       "issue": "2026118",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18,
+        19,
+        20,
+        22,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30
+       ],
+       "hits": [
+        6,
+        14,
+        19,
+        26
+       ],
+       "hitCount": 4,
+       "hit": false
+      },
+      {
+       "issue": "2026117",
+       "picks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        8,
+        14,
+        25,
+        27
+       ],
+       "hitCount": 5,
+       "hit": false
+      },
+      {
        "issue": "2026116",
        "picks": [
         1,
+        2,
         3,
         4,
         5,
         7,
         8,
         9,
+        10,
         12,
         13,
-        14,
         15,
         16,
+        17,
         18,
-        20,
+        19,
         21,
+        22,
         23,
-        24,
         25,
-        26,
         27,
-        28,
         29
        ],
        "hits": [
         1,
         7,
         13,
-        25,
-        28
+        17,
+        25
        ],
        "hitCount": 5,
        "hit": false
@@ -52290,142 +52392,106 @@ const EXPERTS_DATA = {
        "issue": "2026115",
        "picks": [
         1,
-        2,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        24,
-        27,
-        30
-       ],
-       "hits": [
-        1,
-        5,
-        13,
-        24,
-        30
-       ],
-       "hitCount": 5,
-       "hit": false
-      },
-      {
-       "issue": "2026114",
-       "picks": [
-        2,
         4,
         5,
         6,
         7,
-        9,
+        8,
         10,
         11,
         12,
         13,
         14,
-        15,
+        16,
+        17,
         18,
-        19,
-        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        30
+       ],
+       "hits": [
+        1,
+        4,
+        5,
+        13,
+        24,
+        28,
+        30
+       ],
+       "hitCount": 7,
+       "hit": true
+      },
+      {
+       "issue": "2026114",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        16,
+        17,
+        21,
         23,
         24,
         25,
         26,
+        27,
         28,
         29,
         30
        ],
        "hits": [
         9,
-        14,
-        19,
+        21,
         25,
         29
        ],
-       "hitCount": 5,
+       "hitCount": 4,
        "hit": false
       },
       {
        "issue": "2026113",
        "picks": [
-        2,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        12,
-        13,
-        14,
-        15,
-        18,
-        20,
-        21,
-        22,
-        23,
-        25,
-        26,
-        28,
-        29,
-        30
-       ],
-       "hits": [
-        6,
-        10,
-        12,
-        23,
-        29,
-        30
-       ],
-       "hitCount": 6,
-       "hit": true
-      },
-      {
-       "issue": "2026112",
-       "picks": [
         1,
         2,
+        3,
+        4,
         5,
-        6,
-        7,
-        8,
+        9,
         10,
         11,
-        12,
         13,
-        15,
         16,
         17,
+        18,
         19,
         20,
         21,
-        23,
+        22,
         24,
-        25,
+        26,
+        27,
         28,
         29,
         30
        ],
        "hits": [
-        2,
-        7,
-        13,
-        23
+        10,
+        11,
+        29,
+        30
        ],
        "hitCount": 4,
        "hit": false
@@ -52444,13 +52510,13 @@ const EXPERTS_DATA = {
    "pool": {
     "red": [
      1,
-     2,
+     4,
      5,
      6,
      7,
      8,
-     9,
      10,
+     11,
      12,
      13,
      14,
@@ -52458,8 +52524,8 @@ const EXPERTS_DATA = {
      21,
      22,
      23,
+     24,
      25,
-     26,
      28,
      29,
      30
@@ -52467,237 +52533,262 @@ const EXPERTS_DATA = {
     "blue": []
    },
    "notes": [],
-   "issue": "2026122",
+   "issue": "2026123",
    "byCat": [
     {
      "cat": "18码",
      "five": "",
-     "count": 18,
+     "count": 19,
      "experts": [
       {
        "name": "丶丶丶丶丶丶",
        "nums": [
         1,
-        3,
-        4,
-        5,
         6,
         7,
+        8,
         9,
-        11,
         12,
+        13,
+        14,
         15,
         16,
         18,
-        20,
-        21,
         22,
+        23,
+        24,
         25,
-        28,
+        26,
+        29,
         30
        ],
-       "issue": "2026122",
-       "score": 50
+       "issue": "2026123",
+       "score": 58.5
       },
       {
        "name": "郭贱人",
        "nums": [
+        1,
         2,
         3,
-        5,
+        4,
+        6,
+        7,
         9,
         10,
-        11,
         14,
-        15,
-        16,
         17,
         18,
         20,
-        21,
-        24,
+        22,
+        23,
         25,
+        26,
+        28,
+        29
+       ],
+       "issue": "2026123",
+       "score": 30
+      },
+      {
+       "name": "佛即道",
+       "nums": [
+        1,
+        3,
+        5,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        19,
+        21,
+        25,
+        26,
         28,
         29,
         30
        ],
-       "issue": "2026122",
+       "issue": "2026123",
        "score": 38.5
       },
       {
        "name": "张晓明",
        "nums": [
+        2,
+        3,
         4,
         5,
         6,
+        9,
         10,
-        11,
-        12,
         14,
         15,
         16,
         17,
         18,
+        19,
         20,
-        21,
         22,
         25,
         26,
-        27,
         29
        ],
-       "issue": "2026122",
-       "score": 22.33
+       "issue": "2026123",
+       "score": 24.83
       },
       {
-       "name": "程昆",
+       "name": "甜甜爸",
        "nums": [
         1,
-        2,
-        5,
-        6,
+        3,
+        4,
+        7,
         8,
         9,
         10,
-        12,
+        11,
+        14,
         16,
         17,
         18,
         21,
+        22,
         23,
         24,
+        26,
+        27
+       ],
+       "issue": "2026123",
+       "score": 26.5
+      },
+      {
+       "name": "范贤昭",
+       "nums": [
+        2,
+        3,
+        6,
+        8,
+        10,
+        11,
+        14,
+        16,
+        18,
+        19,
+        20,
+        21,
+        23,
+        25,
         26,
         28,
         29,
         30
        ],
-       "issue": "2026122",
-       "score": 0
-      },
-      {
-       "name": "范贤昭",
-       "nums": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        10,
-        11,
-        12,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        25,
-        26,
-        27,
-        30
-       ],
-       "issue": "2026122",
-       "score": 68.67
+       "issue": "2026123",
+       "score": 41
       },
       {
        "name": "赤龙在天521",
        "nums": [
         1,
         2,
-        3,
-        4,
-        5,
-        10,
-        12,
-        13,
-        15,
-        17,
-        18,
-        19,
-        21,
-        22,
-        23,
-        24,
-        25,
-        27
-       ],
-       "issue": "2026122",
-       "score": 15.14
-      },
-      {
-       "name": "甜甜爸",
-       "nums": [
-        2,
-        3,
         4,
         6,
         8,
         9,
         10,
-        13,
+        11,
         14,
         15,
         16,
-        17,
         18,
-        22,
-        24,
-        25,
-        27,
-        29
-       ],
-       "issue": "2026122",
-       "score": 46.5
-      },
-      {
-       "name": "博克斯",
-       "nums": [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        8,
-        10,
-        13,
-        15,
         19,
-        21,
         22,
         23,
-        24,
         25,
-        28,
-        29
+        27,
+        30
        ],
-       "issue": "2026122",
-       "score": 2.33
+       "issue": "2026123",
+       "score": 17.64
       },
       {
        "name": "笑起来真好看",
        "nums": [
         1,
         2,
+        3,
         4,
+        5,
         6,
         7,
         8,
         9,
+        15,
+        17,
+        18,
+        23,
+        24,
+        26,
+        27,
+        28,
+        30
+       ],
+       "issue": "2026123",
+       "score": 74.5
+      },
+      {
+       "name": "博克斯",
+       "nums": [
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
         11,
+        13,
+        14,
+        15,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        26,
+        27
+       ],
+       "issue": "2026123",
+       "score": 47.5
+      },
+      {
+       "name": "飘叶1984",
+       "nums": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
         12,
+        13,
+        14,
         15,
         16,
+        18,
         19,
         20,
         23,
-        24,
-        28,
-        29,
-        30
+        26,
+        27,
+        28
        ],
-       "issue": "2026122",
-       "score": 44.75
+       "issue": "2026123",
+       "score": 62.25
       },
       {
        "name": "流转",
@@ -52705,149 +52796,99 @@ const EXPERTS_DATA = {
         1,
         2,
         3,
-        4,
-        6,
         7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        17,
+        19,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29
+       ],
+       "issue": "2026123",
+       "score": 64.75
+      },
+      {
+       "name": "仰望天空",
+       "nums": [
+        1,
+        2,
+        3,
+        6,
         9,
         10,
+        12,
         13,
         14,
         15,
         16,
-        18,
         19,
+        20,
+        22,
         24,
         26,
         29,
         30
        ],
-       "issue": "2026122",
-       "score": 32.5
+       "issue": "2026123",
+       "score": 55
       },
       {
        "name": "小飞",
        "nums": [
         1,
-        2,
         4,
-        5,
         6,
-        7,
         10,
         11,
         13,
         14,
         16,
+        17,
         18,
-        19,
+        20,
+        21,
         22,
-        23,
-        28,
-        29,
-        30
-       ],
-       "issue": "2026122",
-       "score": 26.5
-      },
-      {
-       "name": "小小",
-       "nums": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        10,
-        13,
-        15,
-        17,
-        18,
-        19,
-        23,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "issue": "2026122",
-       "score": 59.75
-      },
-      {
-       "name": "仰望天空",
-       "nums": [
-        2,
-        3,
-        5,
-        7,
-        8,
-        9,
-        11,
-        12,
-        13,
-        14,
-        16,
-        17,
-        18,
         24,
         25,
-        26,
         28,
-        29
+        29,
+        30
        ],
-       "issue": "2026122",
-       "score": 4.83
+       "issue": "2026123",
+       "score": 57.5
       },
       {
-       "name": "久美",
+       "name": "有言无悔快乐",
        "nums": [
         2,
         4,
-        8,
+        5,
         9,
         10,
-        11,
-        14,
+        12,
         15,
+        16,
         17,
         18,
         19,
         21,
         23,
         24,
-        25,
-        27,
-        29,
-        30
-       ],
-       "issue": "2026122",
-       "score": 52.5
-      },
-      {
-       "name": "宝贝青彤",
-       "nums": [
-        3,
-        4,
-        8,
-        10,
-        13,
-        14,
-        15,
-        16,
-        17,
-        19,
-        20,
-        22,
-        23,
-        24,
-        25,
         26,
         27,
-        28
+        28,
+        30
        ],
-       "issue": "2026122",
-       "score": 52.5
+       "issue": "2026123",
+       "score": 0
       },
       {
        "name": "随愿",
@@ -52856,32 +52897,10 @@ const EXPERTS_DATA = {
         3,
         4,
         6,
-        7,
-        9,
-        12,
-        16,
-        17,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-       ],
-       "issue": "2026122",
-       "score": 48.17
-      },
-      {
-       "name": "伤心",
-       "nums": [
-        5,
-        6,
-        7,
+        8,
         9,
         10,
+        11,
         12,
         13,
         15,
@@ -52889,67 +52908,129 @@ const EXPERTS_DATA = {
         17,
         20,
         21,
-        22,
         23,
-        26,
-        27,
-        29,
+        25,
         30
        ],
-       "issue": "2026122",
-       "score": 56
+       "issue": "2026123",
+       "score": 28.17
       },
       {
-       "name": "有言无悔快乐",
+       "name": "小宝523",
+       "nums": [
+        2,
+        4,
+        5,
+        7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        22,
+        23,
+        24,
+        26,
+        30
+       ],
+       "issue": "2026123",
+       "score": 52.5
+      },
+      {
+       "name": "黑人强",
        "nums": [
         1,
+        3,
         4,
         5,
         6,
         7,
-        10,
+        8,
+        12,
+        14,
         15,
         16,
         17,
+        22,
+        23,
+        24,
+        25,
+        26,
+        30
+       ],
+       "issue": "2026123",
+       "score": 0
+      },
+      {
+       "name": "考虑考虑",
+       "nums": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        17,
         18,
+        20,
+        24,
+        25,
+        28,
+        29
+       ],
+       "issue": "2026123",
+       "score": 35
+      },
+      {
+       "name": "成林",
+       "nums": [
+        1,
+        2,
+        4,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
         19,
         20,
         21,
-        23,
-        24,
         26,
         27,
-        28
+        30
        ],
-       "issue": "2026122",
-       "score": 0
+       "issue": "2026123",
+       "score": 66
       }
      ]
     },
     {
      "cat": "三胆",
      "five": "c3",
-     "count": 2,
+     "count": 1,
      "experts": [
-      {
-       "name": "山泉",
-       "nums": [
-        1,
-        19,
-        23
-       ],
-       "issue": "2026122",
-       "score": 30
-      },
       {
        "name": "好运会常在",
        "nums": [
-        6,
-        26,
+        10,
+        11,
         27
        ],
-       "issue": "2026122",
-       "score": 0
+       "issue": "2026123",
+       "score": 22.33
       }
      ]
     }
@@ -52960,22 +53041,22 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       3,
-       4,
-       5,
        6,
        7,
+       8,
        9,
-       11,
        12,
+       13,
+       14,
        15,
        16,
        18,
-       20,
-       21,
        22,
+       23,
+       24,
        25,
-       28,
+       26,
+       29,
        30
       ]
      }
@@ -52984,21 +53065,46 @@ const EXPERTS_DATA = {
      "name": "郭贱人",
      "cats": {
       "18码": [
+       1,
        2,
        3,
-       5,
+       4,
+       6,
+       7,
        9,
        10,
-       11,
        14,
-       15,
-       16,
        17,
        18,
        20,
-       21,
-       24,
+       22,
+       23,
        25,
+       26,
+       28,
+       29
+      ]
+     }
+    },
+    {
+     "name": "佛即道",
+     "cats": {
+      "18码": [
+       1,
+       3,
+       5,
+       7,
+       8,
+       10,
+       11,
+       13,
+       14,
+       15,
+       16,
+       19,
+       21,
+       25,
+       26,
        28,
        29,
        30
@@ -53009,49 +53115,49 @@ const EXPERTS_DATA = {
      "name": "张晓明",
      "cats": {
       "18码": [
+       2,
+       3,
        4,
        5,
        6,
+       9,
        10,
-       11,
-       12,
        14,
        15,
        16,
        17,
        18,
+       19,
        20,
-       21,
        22,
        25,
        26,
-       27,
        29
       ]
      }
     },
     {
-     "name": "程昆",
+     "name": "甜甜爸",
      "cats": {
       "18码": [
        1,
-       2,
-       5,
-       6,
+       3,
+       4,
+       7,
        8,
        9,
        10,
-       12,
+       11,
+       14,
        16,
        17,
        18,
        21,
+       22,
        23,
        24,
        26,
-       28,
-       29,
-       30
+       27
       ]
      }
     },
@@ -53059,23 +53165,23 @@ const EXPERTS_DATA = {
      "name": "范贤昭",
      "cats": {
       "18码": [
-       1,
+       2,
        3,
-       4,
-       5,
        6,
+       8,
        10,
        11,
-       12,
-       17,
+       14,
+       16,
        18,
        19,
+       20,
        21,
-       22,
        23,
        25,
        26,
-       27,
+       28,
+       29,
        30
       ]
      }
@@ -53086,72 +53192,22 @@ const EXPERTS_DATA = {
       "18码": [
        1,
        2,
-       3,
-       4,
-       5,
-       10,
-       12,
-       13,
-       15,
-       17,
-       18,
-       19,
-       21,
-       22,
-       23,
-       24,
-       25,
-       27
-      ]
-     }
-    },
-    {
-     "name": "甜甜爸",
-     "cats": {
-      "18码": [
-       2,
-       3,
        4,
        6,
        8,
        9,
        10,
-       13,
+       11,
        14,
        15,
        16,
-       17,
        18,
-       22,
-       24,
-       25,
-       27,
-       29
-      ]
-     }
-    },
-    {
-     "name": "博克斯",
-     "cats": {
-      "18码": [
-       1,
-       2,
-       3,
-       4,
-       6,
-       7,
-       8,
-       10,
-       13,
-       15,
        19,
-       21,
        22,
        23,
-       24,
        25,
-       28,
-       29
+       27,
+       30
       ]
      }
     },
@@ -53161,22 +53217,72 @@ const EXPERTS_DATA = {
       "18码": [
        1,
        2,
+       3,
        4,
+       5,
        6,
        7,
        8,
        9,
+       15,
+       17,
+       18,
+       23,
+       24,
+       26,
+       27,
+       28,
+       30
+      ]
+     }
+    },
+    {
+     "name": "博克斯",
+     "cats": {
+      "18码": [
+       2,
+       3,
+       4,
+       5,
+       9,
+       10,
        11,
+       13,
+       14,
+       15,
+       17,
+       19,
+       20,
+       21,
+       22,
+       23,
+       26,
+       27
+      ]
+     }
+    },
+    {
+     "name": "飘叶1984",
+     "cats": {
+      "18码": [
+       3,
+       4,
+       5,
+       6,
+       8,
+       9,
        12,
+       13,
+       14,
        15,
        16,
+       18,
        19,
        20,
        23,
-       24,
-       28,
-       29,
-       30
+       26,
+       27,
+       28
       ]
      }
     },
@@ -53187,17 +53293,42 @@ const EXPERTS_DATA = {
        1,
        2,
        3,
-       4,
-       6,
        7,
+       8,
+       10,
+       12,
+       13,
+       14,
+       17,
+       19,
+       21,
+       23,
+       24,
+       25,
+       26,
+       27,
+       29
+      ]
+     }
+    },
+    {
+     "name": "仰望天空",
+     "cats": {
+      "18码": [
+       1,
+       2,
+       3,
+       6,
        9,
        10,
+       12,
        13,
        14,
        15,
        16,
-       18,
        19,
+       20,
+       22,
        24,
        26,
        29,
@@ -53210,123 +53341,48 @@ const EXPERTS_DATA = {
      "cats": {
       "18码": [
        1,
-       2,
        4,
-       5,
        6,
-       7,
        10,
        11,
        13,
        14,
        16,
+       17,
        18,
-       19,
+       20,
+       21,
        22,
-       23,
-       28,
-       29,
-       30
-      ]
-     }
-    },
-    {
-     "name": "小小",
-     "cats": {
-      "18码": [
-       1,
-       2,
-       3,
-       6,
-       7,
-       8,
-       10,
-       13,
-       15,
-       17,
-       18,
-       19,
-       23,
-       26,
-       27,
-       28,
-       29,
-       30
-      ]
-     }
-    },
-    {
-     "name": "仰望天空",
-     "cats": {
-      "18码": [
-       2,
-       3,
-       5,
-       7,
-       8,
-       9,
-       11,
-       12,
-       13,
-       14,
-       16,
-       17,
-       18,
        24,
        25,
-       26,
        28,
-       29
+       29,
+       30
       ]
      }
     },
     {
-     "name": "久美",
+     "name": "有言无悔快乐",
      "cats": {
       "18码": [
        2,
        4,
-       8,
+       5,
        9,
        10,
-       11,
-       14,
+       12,
        15,
+       16,
        17,
        18,
        19,
        21,
        23,
        24,
-       25,
-       27,
-       29,
-       30
-      ]
-     }
-    },
-    {
-     "name": "宝贝青彤",
-     "cats": {
-      "18码": [
-       3,
-       4,
-       8,
-       10,
-       13,
-       14,
-       15,
-       16,
-       17,
-       19,
-       20,
-       22,
-       23,
-       24,
-       25,
        26,
        27,
-       28
+       28,
+       30
       ]
      }
     },
@@ -53338,32 +53394,10 @@ const EXPERTS_DATA = {
        3,
        4,
        6,
-       7,
-       9,
-       12,
-       16,
-       17,
-       22,
-       23,
-       24,
-       25,
-       26,
-       27,
-       28,
-       29,
-       30
-      ]
-     }
-    },
-    {
-     "name": "伤心",
-     "cats": {
-      "18码": [
-       5,
-       6,
-       7,
+       8,
        9,
        10,
+       11,
        12,
        13,
        15,
@@ -53371,47 +53405,109 @@ const EXPERTS_DATA = {
        17,
        20,
        21,
-       22,
        23,
-       26,
-       27,
-       29,
+       25,
        30
       ]
      }
     },
     {
-     "name": "有言无悔快乐",
+     "name": "小宝523",
      "cats": {
       "18码": [
-       1,
+       2,
        4,
        5,
-       6,
        7,
+       8,
        10,
+       12,
+       13,
+       14,
        15,
        16,
-       17,
        18,
        19,
-       20,
-       21,
+       22,
        23,
        24,
        26,
-       27,
-       28
+       30
       ]
      }
     },
     {
-     "name": "山泉",
+     "name": "黑人强",
      "cats": {
-      "三胆": [
+      "18码": [
        1,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       12,
+       14,
+       15,
+       16,
+       17,
+       22,
+       23,
+       24,
+       25,
+       26,
+       30
+      ]
+     }
+    },
+    {
+     "name": "考虑考虑",
+     "cats": {
+      "18码": [
+       1,
+       2,
+       3,
+       4,
+       6,
+       8,
+       9,
+       10,
+       11,
+       12,
+       14,
+       17,
+       18,
+       20,
+       24,
+       25,
+       28,
+       29
+      ]
+     }
+    },
+    {
+     "name": "成林",
+     "cats": {
+      "18码": [
+       1,
+       2,
+       4,
+       6,
+       7,
+       9,
+       10,
+       11,
+       12,
+       13,
+       15,
+       16,
        19,
-       23
+       20,
+       21,
+       26,
+       27,
+       30
       ]
      }
     },
@@ -53419,8 +53515,8 @@ const EXPERTS_DATA = {
      "name": "好运会常在",
      "cats": {
       "三胆": [
-       6,
-       26,
+       10,
+       11,
        27
       ]
      }
