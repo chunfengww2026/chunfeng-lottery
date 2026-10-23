@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-24 03:21 */
+/* 自动生成，请勿手动编辑 · 2026-10-24 03:55 */
 const JC_DATA = {
- "updated": "2026-10-24 03:21",
+ "updated": "2026-10-24 03:55",
  "stat": {
   "total": 12,
-  "upcoming": 1,
+  "upcoming": 0,
   "live": 9,
-  "finished": 2,
-  "withScore": 11,
+  "finished": 3,
+  "withScore": 12,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -339,7 +339,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
@@ -364,8 +364,8 @@ const JC_DATA = {
     "rank": 16
    },
    "score": {
-    "home": 2,
-    "away": 1
+    "home": 3,
+    "away": 2
    },
    "statusText": "2 - 0 ",
    "odds": {
@@ -451,8 +451,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
-    "away": 1
+    "home": 3,
+    "away": 2
    }
   },
   {
@@ -575,9 +575,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 1
+    "away": 2
    },
-   "statusText": "- ",
+   "statusText": "1 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -662,7 +662,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 1
+    "away": 2
    }
   },
   {
@@ -683,10 +683,10 @@ const JC_DATA = {
     "rank": 14
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -770,7 +770,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -795,7 +795,7 @@ const JC_DATA = {
     "home": 1,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -901,10 +901,10 @@ const JC_DATA = {
     "rank": 19
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "1 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -980,7 +980,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 1
    }
   },
@@ -1002,10 +1002,10 @@ const JC_DATA = {
     "rank": 3
    },
    "score": {
-    "home": 0,
-    "away": 1
+    "home": 1,
+    "away": 3
    },
-   "statusText": "- ",
+   "statusText": "1 - 3 ",
    "odds": {
     "asian": {
      "open": {
@@ -1089,8 +1089,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 1
+    "home": 1,
+    "away": 3
    }
   },
   {
@@ -1112,9 +1112,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -1199,7 +1199,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -1219,7 +1219,10 @@ const JC_DATA = {
     "name": "马里迪莫",
     "rank": 11
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1241,9 +1244,9 @@ const JC_DATA = {
       "away": 5
      },
      "live": {
-      "home": 1.57,
-      "draw": 3.9,
-      "away": 5.5
+      "home": 1.6,
+      "draw": 3.8,
+      "away": 5.25
      }
     },
     "overunder": {
@@ -1253,62 +1256,25 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.9,
+      "line": 0.75,
       "over": 2.5,
-      "under": 0.95
+      "under": 1.05
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 56.6,
+    "confidence": 57.9,
     "prob": {
-     "home": 56.6,
-     "draw": 25.3,
-     "away": 18.1
+     "home": 57.9,
+     "draw": 24.4,
+     "away": 17.7
     },
     "clear": true,
-    "margin": 7.5,
+    "margin": 7.9,
     "rqLine": "半球/一球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 56.6,
-      "draw": 25.3,
-      "away": 18.1
-     },
-     "confidence": 56.6,
-     "signals": [
-      "初盘→即时：主胜+4.1pp / 平局-2.2pp / 客胜-1.9pp",
-      "亚盘未变盘；水位只作辅助核对"
-     ],
-     "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -11.1,
-      "draw": -1.4,
-      "away": -0.4
-     },
-     "handicap": {
-      "line": -1,
-      "prob": {
-       "home": 0.3447611543800778,
-       "draw": 0.25109729693406185,
-       "away": 0.4041415486858607
-      },
-      "pick": "away",
-      "label": "让负"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "type": "three"
    },
    "asianIndex": {
     "line": "半球/一球",
@@ -1338,9 +1304,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
