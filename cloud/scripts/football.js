@@ -1451,8 +1451,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.5,
-       "line": "0.94",
-       "away": 0.95
+       "line": "0.95",
+       "away": 0.94
       },
       "live": {
        "home": -0.25,
