@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 12:46
+   更新时间：2026-10-23 13:23
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 12:46",
+ "updated": "2026-10-23 13:23",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -981,6 +981,20 @@ const XYSP_DATA = {
    "name": "排列5",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-23/4e6463a6-e150-4318-b664-feef87fdec221792730638238.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/4e6463a6-e150-4318-b664-feef87fdec221792730638238.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]知道很难种，我就是喜欢买",
+     "url": "",
+     "at": "2026-10-23T05:23:22.656Z",
+     "pubAt": "2026-10-23T04:44:00.000Z",
+     "pubMs": 1792730640000,
+     "pubSrc": "page",
+     "nextAt": 1792758600000,
+     "atMs": 1792733002656,
+     "seenMs": 1792733002656,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-23/f1a5b7bc-b337-40cb-94b6-66b2966f498c1792722829440.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/f1a5b7bc-b337-40cb-94b6-66b2966f498c1792722829440.jpg?imageMogr2/thumbnail/360x",
      "title": "[26282期]后两位选66或77",
@@ -1217,6 +1231,36 @@ const XYSP_DATA = {
   "tt": {
    "name": "头条晒票",
    "items": [
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/83f8e8ebaf734004b5fd05a8a66206a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=PQxt0ZxeaL0rCxLzyfgL8nYkspc%3D",
+     "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
+     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
+     "at": "2026-10-23T05:22:35.355Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "快乐8",
+     "games": [
+      "kl8"
+     ],
+     "issue": "",
+     "seen": "2026-10-23T05:22:35.355Z",
+     "whenMs": 1792728369000,
+     "seenMs": 1792732955355,
+     "drawMs": 1792762200000,
+     "nextMs": 1792762200000,
+     "atMs": 1792732955355,
+     "drawAt": "2026-10-23T13:30:00.000Z",
+     "nextAt": 1792762200000,
+     "drawGid": "kl8",
+     "expireAt": "2026-10-24T05:22:35.355Z",
+     "rule": "first-capture-24h",
+     "author": "深藏blue",
+     "when": "2026-10-23 12:06:09",
+     "postId": "1879811942906892",
+     "px": 132300
+    },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/85b937bad42c4f56ac09fc8d8bfc2bd9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801353600&x-signature=19VNB6Oyj1LLDeBCda8mU%2BiilTc%3D",
@@ -1823,6 +1867,8 @@ const XYSP_DATA = {
   "/2026-10-23/a81228db-f562-425b-807d-3f38ccbb1fb11792728656370.jpg": 1792730781150,
   "/2026-10-23/4688f931-b14e-407c-a01c-7df5d5a533081792728678546.jpg": 1792730781150,
   "/2026-10-23/bf32c133-9157-42db-af0b-532cbbeab7511792728678541.jpg": 1792730781150,
-  "/2026-10-23/1fb081c5-4fc0-44ed-a2b6-8f17fe9bcc7a1792728678541.jpg": 1792730781150
+  "/2026-10-23/1fb081c5-4fc0-44ed-a2b6-8f17fe9bcc7a1792728678541.jpg": 1792730781150,
+  "/2026-10-23/4e6463a6-e150-4318-b664-feef87fdec221792730638238.jpg": 1792733002656,
+  "/2026-10-23/22f45324-a8fa-4ba9-8c65-329fd04ab8e61792730653563.jpg": 1792733002656
  }
 };
