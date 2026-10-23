@@ -39,12 +39,6 @@ function seededPick(max, count, seedStr) {
   return all.slice(0, count).sort((x, y) => x - y);
 }
 
-function supplementFor(gid,history) {
-  try {const data=JSON.parse(fs.readFileSync(path.join(__dirname,'supplement-numbers.json'),'utf8'));const r=data.results&&data.results[gid],basis=String(history[0]&&history[0].issue||'');
-    if(!r||r.basisIssue!==basis||Number(r.targetIssue)!==Number(basis)+1||!Array.isArray(r.rank))return [];
-    return r.rank;
-  }catch(e){return [];}
-}
 function corePoolFor(gameId) {
   try {
     if (!cache) {
@@ -53,8 +47,8 @@ function corePoolFor(gameId) {
       const ssq = (H.games.ssq || []).map((d) => ({ ...d, red: (d.areas || {}).red || [] }));
       const dlt = (H.games.dlt || []).map((d) => ({ ...d, red: (d.areas || {}).front || [] }));
       cache = {
-        ssq: coreAlgo(ssq, 33, false, null, supplementFor('ssq',ssq)),
-        dlt: coreAlgo(dlt, 35, true, ssq, supplementFor('dlt',dlt))
+        ssq: coreAlgo(ssq, 33, false, null),
+        dlt: coreAlgo(dlt, 35, true, ssq)
       };
       if (cache.ssq) cache.ssq.issue = ssq[0] && ssq[0].issue;
       if (cache.dlt) cache.dlt.issue = dlt[0] && dlt[0].issue;
