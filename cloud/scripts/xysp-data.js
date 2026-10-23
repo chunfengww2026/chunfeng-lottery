@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 00:15
+   更新时间：2026-10-24 00:43
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-24 00:15",
+ "updated": "2026-10-24 00:43",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1009,8 +1009,8 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=aV2zoDMwgNVnX%2B8m6boSRb9J3Pk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=aV2zoDMwgNVnX%2B8m6boSRb9J3Pk%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=KD2GTqKiNnb689NwIF6C1X9qYQ8%3D",
      "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
      "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
@@ -1022,9 +1022,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T16:06:01.788Z",
+     "seen": "2026-10-23T16:43:10.266Z",
      "whenMs": 1792728369000,
-     "seenMs": 1792771561788,
+     "seenMs": 1792773790266,
      "drawMs": 1792762200000,
      "nextMs": 1792762200000,
      "atMs": 1792767838168,
@@ -1052,7 +1052,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T16:06:01.788Z",
+     "seen": "2026-10-23T16:43:10.266Z",
      "whenMs": 1792728369000,
      "seenMs": 1792771561788,
      "drawMs": 1792762200000,
