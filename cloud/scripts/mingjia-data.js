@@ -1,7 +1,25 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 22:41:09） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/23 01:18:33） */
 const MINGJIA_DATA = {
- "updated": "2026-10-23 22:41:09",
+ "updated": "2026-10-23 01:18:33",
  "list": [
+  {
+   "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
   {
    "name": "幸丹丹",
    "cat": "大乐透",
@@ -21,13 +39,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 34799,
-     "src": "https://img.3d178.cn/remote/2026-03-08/2026030820451803902233.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/217751.shtml",
-     "title": "今日3d太湖字谜总汇_2026058期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2026058",
+     "size": 243075,
+     "src": "https://3dzimijinrizimizonghui.com.cn/1.png",
+     "page": "https://3dzimijinrizimizonghui.com.cn/",
+     "title": "3D字谜今日字谜总汇 - 每日更新最新3D字谜、太湖字谜、解谜技巧",
+     "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T14:40:02.401Z"
+     "fetchedAt": "2026-10-22T17:17:27.950Z"
     }
    ]
   },
@@ -50,6 +68,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "迟丽颖",
+   "cat": "大乐透",
+   "kw": "迟丽颖 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "九头鸟",
    "cat": "大乐透",
    "kw": "九头鸟 大乐透 字谜 参考图",
@@ -67,14 +91,14 @@ const MINGJIA_DATA = {
    "kw": "太湖字谜 3D 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/3D/太湖字谜/1.png",
-     "size": 36145,
-     "src": "https://img.3d178.cn/zimi/thds/2025/2025104.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/203728.shtml",
-     "title": "今日3d太湖字谜总汇_2025104期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2025104",
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 107873,
+     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
+     "page": "https://zhuanlan.zhihu.com/p/492396269",
+     "title": "第2022083期3D太湖字谜解读 - 知乎",
+     "issue": "2022083",
      "verified": false,
-     "fetchedAt": "2026-10-23T11:26:56.975Z"
+     "fetchedAt": "2026-10-22T17:18:18.277Z"
     }
    ]
   },
@@ -91,55 +115,19 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "貂蝉杀",
-   "cat": "3D",
-   "kw": "貂蝉杀 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "3D",
-   "kw": "名家精 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "3D",
-   "kw": "白天鹅 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "双色球",
-   "kw": "金手指 双色球 字谜 参考图",
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/金手指/1.jpg",
-     "size": 62854,
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnluSy9EdEZtNGNCei9keDhZQ1A5RlN0WS9wWmxCcjBUVmV0YkViWUg5dDQw.jpg",
-     "page": "https://www.16788.cn/tj_f77fa2646863.html",
-     "title": "天吉网金手指2025115期双色球图谜 - 双色球图谜 - 天吉网",
-     "issue": "2025115",
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
+     "size": 38079,
+     "src": "https://www.17500.cn/Public/Upload/art/202403/1710141022668953.jpg",
+     "page": "https://www.17500.cn/arts/detail-1377492.html",
+     "title": "排列3第2024062期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2024062",
      "verified": false,
-     "fetchedAt": "2026-10-23T07:03:57.300Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/快乐8/金手指/1.webp",
-     "size": 138992,
-     "src": "https://pic1.800820.net/tumi/20260328/031f808431fd42efa02f74284875f2ac.webp",
-     "page": "https://www.800820.net/tuku/tkpic_395513.html",
-     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T12:29:11.452Z"
+     "fetchedAt": "2026-10-22T15:47:22.943Z"
     }
    ],
    "stale": true
@@ -151,13 +139,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
-     "size": 49989,
-     "src": "https://pic.cz89.com/upload/20250504/2aa38777553d4a218638b9c681fd9c03.jpg",
-     "page": "https://www.cz89.com/read_9324139.htm",
-     "title": "黄大仙杀蓝球050期双色球图谜 _牛彩网",
+     "size": 47569,
+     "src": "https://pic.cz89.com/upload/20221117/647202eecf0347b69be129ac898c40b5.jpg",
+     "page": "https://www.cz89.com/read_7291233.htm",
+     "title": "黄大仙杀蓝球133期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T07:04:31.493Z"
+     "fetchedAt": "2026-10-22T15:24:05.904Z"
     }
    ],
    "stale": true
@@ -175,7 +163,7 @@ const MINGJIA_DATA = {
      "title": "东北人杀蓝球056期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T06:24:51.932Z"
+     "fetchedAt": "2026-10-22T15:24:18.299Z"
     }
    ],
    "stale": true
@@ -193,7 +181,7 @@ const MINGJIA_DATA = {
      "title": "峨眉道姑杀蓝号013期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T02:26:55.969Z"
+     "fetchedAt": "2026-10-22T15:24:27.132Z"
     }
    ],
    "stale": true
@@ -204,14 +192,14 @@ const MINGJIA_DATA = {
    "kw": "林黛玉 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
-     "size": 49424,
-     "src": "https://pic2.800820.net/tumi/20260306/0111e4332fad4be9b7877c5405fe222e.webp",
-     "page": "https://www.800820.net/p/10835203.html",
-     "title": "林黛玉26年025期双色球杀蓝号图迷_天齐网",
+     "file": "imgs/mingjia/双色球/林黛玉/1.png",
+     "size": 121366,
+     "src": "https://pic.cz89.com/upload/20231203/efafe47471764ca1965038ccbd9f31be.png",
+     "page": "https://www.cz89.com/read_8171661.htm",
+     "title": "林黛玉杀蓝号140期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T07:04:50.702Z"
+     "fetchedAt": "2026-10-22T15:24:48.673Z"
     }
    ],
    "stale": true
@@ -229,7 +217,7 @@ const MINGJIA_DATA = {
      "title": "双色球054期 贾宝玉杀蓝号图谜 10中10_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T12:00:22.760Z"
+     "fetchedAt": "2026-10-22T15:25:11.850Z"
     }
    ],
    "stale": true
@@ -240,176 +228,14 @@ const MINGJIA_DATA = {
    "kw": "司马迁 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/司马迁/1.webp",
-     "size": 51216,
-     "src": "https://pic1.800820.net/tumi/20260121/af92e6ac1c3a4aa1b63e85ee24eace1d.webp",
-     "page": "https://www.800820.net/p/10732793.html",
-     "title": "司马迁26年010期双色球杀蓝球图谜_天齐网",
+     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
+     "size": 112524,
+     "src": "https://pic.cz89.com/upload/20221225/aadd2a295ef943ccb8e008d3e5e10579.jpg",
+     "page": "https://www.cz89.com/read_7383908.htm",
+     "title": "司马迁杀两码蓝球149期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-23T12:00:29.811Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/枣庄红人/1.png",
-     "size": 163559,
-     "src": "https://pic.cz89.com/upload/20260120/21d0e1e98ac3449e9664d3ece704b62b.png",
-     "page": "https://www.cz89.com/read_10012745.htm",
-     "title": "双色球010期 枣庄红人杀蓝球图迷 9中6_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T10:21:53.938Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "南山大师",
-   "cat": "双色球",
-   "kw": "南山大师 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 60014,
-     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
-     "page": "https://www.cz89.com/read_7588481.htm",
-     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-22T21:55:55.470Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113426,
-     "src": "https://pic.cz89.com/upload/20230210/f4d92d403f1541e7833dd12b3cd6d221.jpg",
-     "page": "https://www.cz89.com/read_7472161.htm",
-     "title": "牛魔王杀两码红球015期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T09:43:12.538Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "金手指",
-   "cat": "排列三",
-   "kw": "金手指 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/金手指/1.jpg",
-     "size": 54460,
-     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
-     "page": "https://www.jb51.net/softs/250983.html",
-     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T09:10:25.973Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 86008,
-     "src": "https://pic2.800820.net/tumi/20260210/2da0f68b995949879e8c9217bca654d1.webp",
-     "page": "https://www.800820.net/tuku/tkpic_385952.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T08:32:21.845Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 70811,
-     "src": "https://pica.zhimg.com/v2-6965d5c786f58c7c291d66f5b122d1b4_1440w.jpg",
-     "page": "https://zhuanlan.zhihu.com/p/518191298",
-     "title": "体彩排列三第2022132期太湖字谜解析 - 知乎",
-     "issue": "2022132",
-     "verified": false,
-     "fetchedAt": "2026-10-23T05:17:27.118Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/万里挑一/1.png",
-     "size": 195859,
-     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170939ode5umeennro12a3.png",
-     "page": "https://99.weicainet.com/t-1244150.html",
-     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by ...",
-     "issue": "26096",
-     "verified": false,
-     "fetchedAt": "2026-10-23T05:17:58.753Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "大乐透",
-   "kw": "迟丽颖 大乐透 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/大乐透/迟丽颖/1.jpg",
-     "size": 48640,
-     "src": "http://n.sinaimg.cn/sports/crawl/14/w480h334/20180415/3qn8-fzcyxmu9125618.jpg",
-     "page": "https://sports.sina.com.cn/l/2018-04-15/doc-ifzcyxmu9127672.shtml",
-     "title": "迟丽颖大乐透第18043期预测：前区胆码05 09_彩票_新浪竞技风暴_新浪网",
-     "issue": "18043",
-     "verified": false,
-     "fetchedAt": "2026-10-22T18:57:26.000Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "名家精",
-   "cat": "双色球",
-   "kw": "名家精 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/名家精/1.jpg",
-     "size": 52747,
-     "src": "https://www.77888.cn/uploads/20230404/99b12ab26c865dbbbbd66d6166808542.jpg",
-     "page": "https://www.77888.cn/newsinfo/detail-241",
-     "title": "2023年037期 双色球名家精选号码推荐汇总-助赢软件官网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-22T20:51:33.776Z"
+     "fetchedAt": "2026-10-22T15:25:22.013Z"
     }
    ],
    "stale": true
@@ -463,6 +289,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "金手指",
+   "cat": "双色球",
+   "kw": "金手指 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "九头鸟",
    "cat": "双色球",
    "kw": "九头鸟 双色球 字谜 参考图",
@@ -475,6 +307,18 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "双色球",
+   "kw": "名家精 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "鸭梨红",
    "cat": "双色球",
    "kw": "鸭梨红 双色球 字谜 参考图",
@@ -484,6 +328,12 @@ const MINGJIA_DATA = {
    "name": "蓝号迷",
    "cat": "双色球",
    "kw": "蓝号迷 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -577,9 +427,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "name": "貂蝉杀",
+   "cat": "3D",
+   "kw": "貂蝉杀 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 字谜 参考图",
    "imgs": []
   },
   {
@@ -613,6 +475,18 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "太湖字谜",
    "cat": "快乐8",
    "kw": "太湖字谜 快乐8 字谜 参考图",
@@ -637,6 +511,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "万里挑一",
    "cat": "快乐8",
    "kw": "万里挑一 快乐8 字谜 参考图",
@@ -657,124 +537,114 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-23 08:25:38",
-   "names": 71,
-   "imgs": 14
+   "at": "2026-10-21 02:48:04",
+   "names": 10,
+   "imgs": 50
   },
   {
-   "at": "2026-10-23 09:08:52",
-   "names": 71,
-   "imgs": 10
+   "at": "2026-10-21 03:26:06",
+   "names": 10,
+   "imgs": 50
   },
   {
-   "at": "2026-10-23 09:50:27",
-   "names": 71,
-   "imgs": 10
+   "at": "2026-10-21 03:38:02",
+   "names": 10,
+   "imgs": 50
   },
   {
-   "at": "2026-10-23 10:27:35",
-   "names": 71,
-   "imgs": 14
+   "at": "2026-10-21 03:40:33",
+   "names": 10,
+   "imgs": 50
   },
   {
-   "at": "2026-10-23 11:00:04",
-   "names": 71,
-   "imgs": 14
+   "at": "2026-10-21 03:45:54",
+   "names": 10,
+   "imgs": 50
   },
   {
-   "at": "2026-10-23 11:33:54",
-   "names": 71,
-   "imgs": 14
+   "at": "2026-10-21 03:56:57",
+   "names": 43,
+   "imgs": 43
   },
   {
-   "at": "2026-10-23 12:13:14",
-   "names": 71,
-   "imgs": 14
+   "at": "2026-10-21 04:04:15",
+   "names": 43,
+   "imgs": 43
   },
   {
-   "at": "2026-10-23 12:43:04",
+   "at": "2026-10-21 04:10:18",
    "names": 71,
-   "imgs": 14
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 13:18:22",
+   "at": "2026-10-21 04:16:05",
    "names": 71,
-   "imgs": 15
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 13:48:18",
+   "at": "2026-10-22 00:02:44",
    "names": 71,
-   "imgs": 15
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 14:26:00",
+   "at": "2026-10-22 00:22:52",
    "names": 71,
-   "imgs": 15
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 15:04:53",
+   "at": "2026-10-22 00:49:30",
    "names": 71,
-   "imgs": 16
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 15:48:20",
+   "at": "2026-10-22 01:17:24",
    "names": 71,
-   "imgs": 16
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 16:32:24",
+   "at": "2026-10-22 01:39:09",
    "names": 71,
-   "imgs": 16
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 17:11:19",
+   "at": "2026-10-22 01:47:12",
    "names": 71,
-   "imgs": 17
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 17:43:52",
+   "at": "2026-10-22 02:18:37",
    "names": 71,
-   "imgs": 17
+   "imgs": 71
   },
   {
-   "at": "2026-10-23 18:23:02",
+   "at": "2026-10-22 02:48:00",
    "names": 71,
-   "imgs": 18
+   "imgs": 0
   },
   {
-   "at": "2026-10-23 18:53:43",
+   "at": "2026-10-22 23:26:26",
    "names": 71,
-   "imgs": 18
+   "imgs": 6
   },
   {
-   "at": "2026-10-23 19:27:21",
+   "at": "2026-10-22 23:47:40",
    "names": 71,
-   "imgs": 18
+   "imgs": 8
   },
   {
-   "at": "2026-10-23 20:01:08",
+   "at": "2026-10-23 00:18:41",
    "names": 71,
-   "imgs": 18
+   "imgs": 8
   },
   {
-   "at": "2026-10-23 20:29:40",
+   "at": "2026-10-23 00:47:13",
    "names": 71,
-   "imgs": 19
+   "imgs": 8
   },
   {
-   "at": "2026-10-23 21:20:22",
+   "at": "2026-10-23 01:18:33",
    "names": 71,
-   "imgs": 19
-  },
-  {
-   "at": "2026-10-23 22:09:22",
-   "names": 71,
-   "imgs": 19
-  },
-  {
-   "at": "2026-10-23 22:41:09",
-   "names": 71,
-   "imgs": 19
+   "imgs": 9
   }
  ],
  "bootstrapExpiresAt": null,
