@@ -8,15 +8,29 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 10:31
+   更新时间：2026-10-23 11:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 10:31",
+ "updated": "2026-10-23 11:05",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/34a79314-2632-4a99-bd0c-d60bf1bce8f91792722622273.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/34a79314-2632-4a99-bd0c-d60bf1bce8f91792722622273.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26122期]机选中4＋1 🤭",
+     "url": "",
+     "at": "2026-10-23T03:05:07.842Z",
+     "pubAt": "2026-10-23T02:32:00.000Z",
+     "pubMs": 1792722720000,
+     "pubSrc": "page",
+     "nextAt": 1792934100000,
+     "atMs": 1792724707842,
+     "seenMs": 1792724707842,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/fa2536d9-fcf1-43fb-8ddd-7cec45fc909a1792714299555.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/fa2536d9-fcf1-43fb-8ddd-7cec45fc909a1792714299555.jpg?imageMogr2/thumbnail/360x",
@@ -246,6 +260,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/7159ac0b-6eec-4035-9a30-fd6c2588565e1792722717462.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/7159ac0b-6eec-4035-9a30-fd6c2588565e1792722717462.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]本期可以防7，12，15，18，27，蓝我选5，8",
+     "url": "",
+     "at": "2026-10-23T03:05:07.842Z",
+     "pubAt": "2026-10-23T02:32:00.000Z",
+     "pubMs": 1792722720000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792724707842,
+     "seenMs": 1792724707842,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-22/d1eda864-140d-4037-97b1-9d3832df6ca01792673270635.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-22/d1eda864-140d-4037-97b1-9d3832df6ca01792673270635.jpg?imageMogr2/thumbnail/360x",
@@ -494,6 +522,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/6fd11b41-87de-4f42-ab6f-8ef1c9f2342a1792722084345.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/6fd11b41-87de-4f42-ab6f-8ef1c9f2342a1792722084345.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]选七",
+     "url": "",
+     "at": "2026-10-23T03:05:07.842Z",
+     "pubAt": "2026-10-23T02:21:00.000Z",
+     "pubMs": 1792722060000,
+     "pubSrc": "page",
+     "nextAt": 1792762200000,
+     "atMs": 1792724707842,
+     "seenMs": 1792724707842,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-22/515c6e19-1678-43da-9efc-9c92f37b1a181792678559352.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-22/515c6e19-1678-43da-9efc-9c92f37b1a181792678559352.jpg?imageMogr2/thumbnail/360x",
@@ -854,6 +896,20 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/f1a5b7bc-b337-40cb-94b6-66b2966f498c1792722829440.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/f1a5b7bc-b337-40cb-94b6-66b2966f498c1792722829440.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]后两位选66或77",
+     "url": "",
+     "at": "2026-10-23T03:05:07.842Z",
+     "pubAt": "2026-10-23T02:34:00.000Z",
+     "pubMs": 1792722840000,
+     "pubSrc": "page",
+     "nextAt": 1792758600000,
+     "atMs": 1792724707842,
+     "seenMs": 1792724707842,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/9d08a157-1bb1-4200-bb8c-10acf6a60ebb1792686617656.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/9d08a157-1bb1-4200-bb8c-10acf6a60ebb1792686617656.jpg?imageMogr2/thumbnail/360x",
@@ -1672,6 +1728,11 @@ const XYSP_DATA = {
   "/2026-10-19/8d5eb102-9c16-4dea-9b35-dc49f96f8db41792410862355.jpg": 1792695111345,
   "/2026-10-23/fa2536d9-fcf1-43fb-8ddd-7cec45fc909a1792714299555.jpg": 1792717996006,
   "/2026-10-23/1964346b-a797-4bd1-9683-579fe963eb8b1792714144594.jpg": 1792717996006,
-  "/2026-10-23/31923051-1deb-4bb0-bc7b-9cc2bc33feb61792715464249.jpg": 1792717996006
+  "/2026-10-23/31923051-1deb-4bb0-bc7b-9cc2bc33feb61792715464249.jpg": 1792717996006,
+  "/2026-10-23/34a79314-2632-4a99-bd0c-d60bf1bce8f91792722622273.jpg": 1792724707842,
+  "/2026-10-23/7159ac0b-6eec-4035-9a30-fd6c2588565e1792722717462.jpg": 1792724707842,
+  "/2026-10-23/6fd11b41-87de-4f42-ab6f-8ef1c9f2342a1792722084345.jpg": 1792724707842,
+  "/2026-10-23/8b3a1136-cf24-43ef-b90f-c40651300fd91792722780880.jpg": 1792724707842,
+  "/2026-10-23/f1a5b7bc-b337-40cb-94b6-66b2966f498c1792722829440.jpg": 1792724707842
  }
 };
