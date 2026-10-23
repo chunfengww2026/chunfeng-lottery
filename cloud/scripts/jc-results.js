@@ -1,8 +1,8 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 383 场 · 时间 2026-10-23 16:54
+   窗口 48 小时 · 383 场 · 时间 2026-10-23 17:26
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-23 16:54",
+ "updated": "2026-10-23 17:26",
  "hours": 48,
  "count": 383,
  "list": [

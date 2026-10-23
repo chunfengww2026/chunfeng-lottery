@@ -8,15 +8,29 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-23 17:16
+   更新时间：2026-10-23 17:48
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-23 17:16",
+ "updated": "2026-10-23 17:48",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/d51d061b-f6a5-4a8a-928b-a9ca33a5ed601792746027084.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/d51d061b-f6a5-4a8a-928b-a9ca33a5ed601792746027084.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26122期]机选，",
+     "url": "",
+     "at": "2026-10-23T09:48:56.044Z",
+     "pubAt": "2026-10-23T09:01:00.000Z",
+     "pubMs": 1792746060000,
+     "pubSrc": "page",
+     "nextAt": 1792934100000,
+     "atMs": 1792748936044,
+     "seenMs": 1792748936044,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/34a79314-2632-4a99-bd0c-d60bf1bce8f91792722622273.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/34a79314-2632-4a99-bd0c-d60bf1bce8f91792722622273.jpg?imageMogr2/thumbnail/360x",
@@ -363,6 +377,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-23/fd344eb2-f0e3-4763-a641-a68fded050621792748088011.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-23/fd344eb2-f0e3-4763-a641-a68fded050621792748088011.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26282期]选号天尊今日推荐胆码，参考 胆码5（组六）和（组三） 拖01689",
+     "url": "",
+     "at": "2026-10-23T09:48:56.044Z",
+     "pubAt": "2026-10-23T09:36:00.000Z",
+     "pubMs": 1792748160000,
+     "pubSrc": "page",
+     "nextAt": 1792761300000,
+     "atMs": 1792748936044,
+     "seenMs": 1792748936044,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-23/bed4b362-35e7-48aa-8185-2a9963d2752e1792744392733.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-23/bed4b362-35e7-48aa-8185-2a9963d2752e1792744392733.jpg?imageMogr2/thumbnail/360x",
@@ -1503,7 +1531,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/83f8e8ebaf734004b5fd05a8a66206a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=PQxt0ZxeaL0rCxLzyfgL8nYkspc%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/83f8e8ebaf734004b5fd05a8a66206a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=oUU57AJs6%2Ff6DMPwfvX%2FkUgNJlE%3D",
      "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
      "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
      "at": "2026-10-23T05:22:35.355Z",
@@ -1514,7 +1542,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-10-23T07:09:10.566Z",
+     "seen": "2026-10-23T09:48:20.125Z",
      "whenMs": 1792728369000,
      "seenMs": 1792739350566,
      "drawMs": 1792762200000,
@@ -1917,6 +1945,8 @@ const XYSP_DATA = {
   "/2026-10-23/ae467a4e-5ea0-4ef3-86d3-bb9a599a05831792743185117.jpg": 1792746960053,
   "/2026-10-23/ade9c4c5-179d-43a7-8534-564b2117e3e81792742007321.jpg": 1792746960053,
   "/2026-10-23/f56b11de-b6e9-497c-826f-0c9cfb5ac9781792746456961.jpg": 1792746960053,
-  "/2026-10-23/8c4d64f9-9c70-4e90-b05a-525cdb9e60d71792746129447.jpg": 1792746960053
+  "/2026-10-23/8c4d64f9-9c70-4e90-b05a-525cdb9e60d71792746129447.jpg": 1792746960053,
+  "/2026-10-23/d51d061b-f6a5-4a8a-928b-a9ca33a5ed601792746027084.jpg": 1792748936044,
+  "/2026-10-23/fd344eb2-f0e3-4763-a641-a68fded050621792748088011.jpg": 1792748936044
  }
 };
