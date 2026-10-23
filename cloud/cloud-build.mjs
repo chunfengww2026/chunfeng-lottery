@@ -27,6 +27,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 /* 【最新开奖】从 draws.js 取各彩种最新一期开奖，写进 out/tickets.json 的 draws 字段。
    分享页拿到它就能就地重画顶部「最新开奖」区块（和 export-cloud-tickets.mjs 同一份实现）。 */
 import { drawsFromDrawData } from './scripts/export-draws.mjs';
@@ -170,6 +171,7 @@ function makeSandbox(store) {
     console, Math, Map, Set, Array, Object, String, Number, JSON, Date,
     parseInt, parseFloat, isNaN, Uint32Array, RegExp, Error, Infinity,
     document: dom,
+    USER_METHOD_RESULTS: (()=>{const req=createRequire(path.join(MOD,'core-pool.js'));const cp=req('./core-pool.js');return {ssq:cp.corePoolFor('ssq'),dlt:cp.corePoolFor('dlt')};})(),
     window: { addEventListener: () => {}, crypto: globalThis.crypto },
     navigator: { clipboard: { writeText: () => Promise.resolve() } },
     localStorage: {
