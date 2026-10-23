@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-23 23:37",
+ "updated": "2026-10-23 23:59",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 2,
+ "unfinished": 3,
  "history": [
+  {
+   "dateStr": "2026-10-23 23:58",
+   "finishTime": 1792771080000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周五012",
+     "teams": "吉马良斯 vs 马里迪莫",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.6,
+     "status": "pending",
+     "finishTime": 1792771080000,
+     "league": "葡超",
+     "odds": 1.46,
+     "time": "2026-10-24 03:45"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-23 23:30",
    "finishTime": 1792769400000,
