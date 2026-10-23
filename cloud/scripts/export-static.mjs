@@ -1778,7 +1778,7 @@ function buildArticlesHtml() {
       }
     }
   } catch (e) { }
-  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t"><span class="entry-icon" aria-hidden="true">🦸</span> 奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div><div class="frog-chip" role="button" tabindex="0" data-gid="fc3d">福彩3D</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl3">排列三</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl5">排列五</div><div class="frog-chip" role="button" tabindex="0" data-gid="qlc">七乐彩</div><div class="frog-chip" role="button" tabindex="0" data-gid="qxc">七星彩</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
+  return '<details id="monsterHome" class="frog"><summary class="frog-sum"><span class="frog-t"><span class="entry-icon" aria-hidden="true">🦸</span> 奥特曼杀号（小怪兽严父）</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body" id="monsterLab"><div class="frog-chips" id="monsterGid"><div class="frog-chip on" role="button" tabindex="0" data-gid="dlt">大乐透</div><div class="frog-chip" role="button" tabindex="0" data-gid="ssq">双色球</div><div class="frog-chip" role="button" tabindex="0" data-gid="kl8">快乐8</div><div class="frog-chip" role="button" tabindex="0" data-gid="fc3d">福彩3D</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl3">排列三</div><div class="frog-chip" role="button" tabindex="0" data-gid="pl5">排列五</div><div class="frog-chip" role="button" tabindex="0" data-gid="qlc">七乐彩</div><div class="frog-chip" role="button" tabindex="0" data-gid="qxc">七星彩</div></div><div class="frog-out" id="monsterOut"></div></div></details>' + '<details id="boardingHome" class="frog"><summary class="frog-sum" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px"><span class="frog-t">🚌 谁先上岸</span><span class="frog-go">点击展开 / 收起</span></summary><div class="frog-body"><div id="boardingGame"></div></div></details>' + zldqHtml + `<section class="ro-articles" id="ro-articles">` +
     `<div class="ro-art-head">` +
     `<h2 class="ro-art-title"><span class="entry-icon" aria-hidden="true">📚</span> 文章参考</h2>` +
     `<div class="ro-art-sub">每 30 分钟自动更新` +
@@ -18067,6 +18067,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
 
 <script>
 ${fs.readFileSync(path.join(ROOT, 'monster-game.js'), 'utf8')}
+${fs.readFileSync(path.join(ROOT, 'boarding-game.js'), 'utf8')}
 </script>
 <script>
 /* __FROG_LAB_JS__ 青蛙家园功能中心：全部用页面已有 DRAW_HISTORY 现算，不联网不收费 */
