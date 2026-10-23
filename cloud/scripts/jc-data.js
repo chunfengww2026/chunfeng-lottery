@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-24 04:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-24 05:28 */
 const JC_DATA = {
- "updated": "2026-10-24 04:58",
+ "updated": "2026-10-24 05:28",
  "stat": {
   "total": 12,
   "upcoming": 0,
-  "live": 7,
-  "finished": 5,
+  "live": 4,
+  "finished": 8,
   "withScore": 12,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -658,7 +658,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -767,7 +767,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 3,
@@ -876,7 +876,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -1220,7 +1220,7 @@ const JC_DATA = {
     "rank": 11
    },
    "score": {
-    "home": 1,
+    "home": 3,
     "away": 0
    },
    "statusText": "1 - 0 ",
@@ -1307,7 +1307,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 3,
     "away": 0
    }
   }
