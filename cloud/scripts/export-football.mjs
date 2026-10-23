@@ -1685,19 +1685,7 @@ function recoStatBarTop() {
 /* 【值得注意 · 口诀口径但只讲事实】用户 2026-10-18：要「爆冷预警 / 差异分析」。
    只用真实字段（主客排名 + 主/平/客三项欧赔）做判定，陈述事实，不下"谨防平局"这类断言；
    页面上同时给免责声明。返回空串表示没有可说的（不硬凑）。 */
-function recNoteHtml(r) {
-  if (!r) return "";
-  const bits = [];
-  const rh = r.rankH, ra = r.rankA, eh = r.euHome, ed = r.euDraw, ea = r.euAway;
-  if (eh != null && eh < 1.40) bits.push("主胜 " + Number(eh).toFixed(2) + " 属低赔（热门方）");
-  if (rh != null && ra != null && Math.abs(rh - ra) <= 3 && ed != null && ed < 3.50)
-    bits.push("排名接近（#" + rh + " vs #" + ra + "），平赔 " + Number(ed).toFixed(2) + " 偏低");
-  if (rh != null && ra != null && rh <= 5 && ra >= 15 && ea != null && ea > 4.00)
-    bits.push("主队排名靠前（#" + rh + "）、客队靠后（#" + ra + "），客胜 " + Number(ea).toFixed(2) + " 高赔");
-  if (!bits.length) return "";
-  return '<div class="m-recknow">🔥 值得注意：' + bits.join("；") +
-    '<i>（按排名与赔率统计的事实，不是预测；彩票有风险，理性投注）</i></div>';
-}
+function recNoteHtml(r) { return ""; }
 
 function renderRec() {
   /* __FB_ENTRY_ROW__ 和三个分段同一套「横排 entry 行」：
