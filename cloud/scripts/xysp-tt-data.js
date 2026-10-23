@@ -6,16 +6,16 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 04:42:49
+   更新时间：2026-10-24 05:21:29
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 04:42:49",
+ "updated": "2026-10-24 05:21:29",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=orkU8JYXr68eGU1JxxxP6%2BTqsdA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=KD2GTqKiNnb689NwIF6C1X9qYQ8%3D",
+   "img": "https://p6-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=WHc2Z9HECY0q%2B%2BSu9h6xChtxoe4%3D",
+   "thumb": "https://p6-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=WHc2Z9HECY0q%2B%2BSu9h6xChtxoe4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=zg2IdXj%2FLTFCxYT6eBMUU7K3N24%3D",
    "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
    "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
    "at": "2026-10-23T15:03:58.168Z",
@@ -26,9 +26,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-23T20:42:49.708Z",
+   "seen": "2026-10-23T21:21:29.324Z",
    "whenMs": 1792728369000,
-   "seenMs": 1792784572895,
+   "seenMs": 1792790489324,
    "drawMs": 1792762200000,
    "nextMs": 1792762200000,
    "atMs": 1792767838168,
@@ -43,9 +43,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=kZibKSrc6wPIzFgiK1TsNAUE9o4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=KD2GTqKiNnb689NwIF6C1X9qYQ8%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=YhrlleAponHSggPdvBc3pc0RTJg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801440000&x-signature=zg2IdXj%2FLTFCxYT6eBMUU7K3N24%3D",
    "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
    "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
    "at": "2026-10-23T15:03:58.168Z",
@@ -56,9 +56,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-23T20:42:49.708Z",
+   "seen": "2026-10-23T21:21:29.324Z",
    "whenMs": 1792728369000,
-   "seenMs": 1792784572895,
+   "seenMs": 1792790489324,
    "drawMs": 1792762200000,
    "nextMs": 1792762200000,
    "atMs": 1792767838168,
@@ -172,6 +172,14 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/4468cbcbb08e47fa80c51df054f1e496~tplv-26tn0yjwph-cspd-v1.jpg": 1792788169708,
   "/tos-cn-i-6w9my0ksvp/f61d05074c674dcf8cda13f2a14b7290~tplv-26tn0yjwph-cspd-v1.jpg": 1792788169708,
   "/tos-cn-i-6w9my0ksvp/e9e5acf6d2484c15a31282eb7c77375e~tplv-26tn0yjwph-cspd-v1.jpg": 1792788169708,
-  "/tos-cn-i-6w9my0ksvp/21a7d98682cf409a8aeedafa151840e6~tplv-26tn0yjwph-cspd-v1.jpg": 1792788169708
+  "/tos-cn-i-6w9my0ksvp/21a7d98682cf409a8aeedafa151840e6~tplv-26tn0yjwph-cspd-v1.jpg": 1792788169708,
+  "/tos-cn-i-6w9my0ksvp/139f09273e6a45ebb6fffb3d1ff16b76~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/9633018916644db3a9fad52af5abc40b~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/4d41f5b702864d8f9ea5c6099db19735~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/c3166846a23e48d5bcd792d5c926db18~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/1f40fa85beae4da7a39aa4fbf3d85bc2~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/098b117ab86b482d90ff03c3116ccaeb~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/8fcd7ed44e434b2fb353d14cc15e162d~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324,
+  "/tos-cn-i-6w9my0ksvp/eb8e22ee08b1425d839809f00d73f97b~tplv-26tn0yjwph-cspd-v1.jpg": 1792790489324
  }
 };
