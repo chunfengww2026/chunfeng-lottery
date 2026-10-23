@@ -180,7 +180,7 @@ const FROM_ROOT = [
         （本机有这两个文件所以正常，只有云端出问题；2026-10-20 实测复现）。
      ⚠️ 少任何一个都不行：core-pool 依赖 core-algo，两个必须一起上云。
      ⚠️ 它们只在【构建时】被 require，页面运行时不读 → 不用发布到站点目录。 */
-  'core-pool.js', 'core-algo.js',
+  'core-pool.js', 'core-algo.js', 'user-method-results.cjs',
   /* 【每期换号硬校验 · 2026-10-21】pick-guard.js
      export-static.mjs 现在用 createRequire(import.meta.url) require 它
      （青蛙 20 码 / 双色球蓝球 / 智能精选的「和上一期至少改几个号，不够就加盐重摇」）。
