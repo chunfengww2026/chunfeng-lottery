@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-23 09:32",
+ "updated": "2026-10-23 10:10",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -663,30 +663,30 @@ const JC_HISTORY = {
    "home": "弗拉门戈",
    "away": "拉普大学",
    "time": "2026-10-23 08:30",
-   "score": "",
+   "score": "0:0",
    "hc": "-1",
    "asianIndex": {
-    "line": "一球/球半",
+    "line": "一球",
     "from": "live",
-    "handicap": -1.25,
+    "handicap": -1,
     "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.95,
+    "upWater": 0.87,
+    "downWater": 0.92,
     "openHandicap": -1.25,
     "openUpWater": 0.85,
     "openDownWater": 1,
-    "totalWater": 1.85,
-    "theoryUpPercent": "51.35",
-    "theoryDownPercent": "48.65",
+    "totalWater": 1.79,
+    "theoryUpPercent": "51.40",
+    "theoryDownPercent": "48.60",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "升盘升水",
      "initHandicap": -1.25,
-     "nowHandicap": -1.25,
+     "nowHandicap": -1,
      "initUpWater": 0.85,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.87,
      "initLine": "一球/球半",
-     "nowLine": "一球/球半"
+     "nowLine": "一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -694,23 +694,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.38,
-    "draw": 4.5,
-    "away": 9.5
+    "home": 1.5,
+    "draw": 4.1,
+    "away": 6.5
    },
    "prob": {
-    "home": 68.9,
-    "draw": 21.1,
-    "away": 10
+    "home": 62.6,
+    "draw": 22.9,
+    "away": 14.5
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 68.9,
+   "conf": 62.6,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-22 00:28"
+   "at": "2026-10-23 10:10"
   },
   {
    "code": "周四011",
