@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 384 场 · 时间 2026-10-23 16:15
+   窗口 48 小时 · 383 场 · 时间 2026-10-23 16:54
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-23 16:15",
+ "updated": "2026-10-23 16:54",
  "hours": 48,
- "count": 384,
+ "count": 383,
  "list": [
   {
    "date": "2026-10-23",
@@ -6133,22 +6133,6 @@ const JC_RESULTS = {
     "a": 2
    },
    "fid": "1493418"
-  },
-  {
-   "date": "2026-10-21",
-   "time": "2026-10-21 16:30",
-   "league": "印尼超",
-   "home": "巴厘联",
-   "away": "加鲁达亚克萨",
-   "ft": {
-    "h": 5,
-    "a": 0
-   },
-   "ht": {
-    "h": 1,
-    "a": 0
-   },
-   "fid": "1470202"
   }
  ]
 };
