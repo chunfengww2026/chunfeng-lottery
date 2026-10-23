@@ -209,7 +209,7 @@ function perfify(html) {
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
-const USER_METHOD_SNAPSHOT={ssq:require('./core-pool.js').corePoolFor('ssq'),dlt:require('./core-pool.js').corePoolFor('dlt')};
+const USER_METHOD_SNAPSHOT=require('./user-method-results.cjs').buildUserMethodResults(ROOT);
 const P3D_SECTION_CSS = P3D_SECTION_MOD.P3D_CSS;
 const OUT = path.join(ROOT, '只读分享版.html');
 
