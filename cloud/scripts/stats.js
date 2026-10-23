@@ -1502,6 +1502,10 @@ function freqPick(nums, feats, n) {
       不会报错、也不会出空池。
    ============================================================ */
 function poolRankBlend(gameId, areaKey, from, to, want) {
+  if(typeof USER_METHOD_RESULTS!=='undefined'&&USER_METHOD_RESULTS[gameId]&&!['blue','back'].includes(areaKey)){
+    const result=USER_METHOD_RESULTS[gameId],rank=result.rank||result.pool20;
+    if(Array.isArray(rank)&&rank.length)return rank.filter(x=>x>=from&&x<=to).slice(0,Math.max(1,want||1));
+  }
   const n = Math.max(1, Math.min(want || 1, to - from + 1));
   const seen = new Set();
   const uni = [];
@@ -3825,6 +3829,7 @@ function enforceConsistencyImage(gameId, imageKey, out, ctx) {
     const t = digitStraightTally(gameId, out, ctx);
     if (t && (t.bao > 0 || t.outside > 0 || t.per !== DIGIT_POOL_PER)) enforceDigitStraightGate(gameId, out, ctx);
   } catch (e) { /* 失败不影响出号 */ }
+  enforceBackNoOverlap(gameId,out);
   return out;
 }
 
