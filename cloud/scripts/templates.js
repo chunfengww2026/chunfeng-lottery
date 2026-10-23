@@ -398,7 +398,7 @@ const TEMPLATES = {
               { key: 'r22', label: '22码', count: 22, color: 'red'  },
               { key: 'r18', label: '18码', count: 18, color: 'red'  },
               { key: 'r12', label: '12码', count: 12, color: 'red'  },
-              { key: 'r6',  label: '6码',  count: 6,  color: 'red'  },
+              { key: 'r6',  label: '8码',  count: 8,  color: 'red'  },
               { key: 'r3',  label: '3码',  count: 3,  color: 'gold' },
               { key: 'r1',  label: '1码',  count: 1,  color: 'gold' }
             ]
