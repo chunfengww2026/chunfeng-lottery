@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-24 18:21",
+ "updated": "2026-10-24 19:19",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1771,30 +1771,30 @@ const JC_HISTORY = {
    "home": "墨胜利",
    "away": "墨尔本城",
    "time": "2026-10-24 16:40",
-   "score": "",
+   "score": "1:1",
    "hc": "-1",
    "asianIndex": {
-    "line": "平手",
+    "line": "平手/半球",
     "from": "live",
-    "handicap": 0,
+    "handicap": -0.25,
     "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 0.95,
+    "upWater": 0.95,
+    "downWater": 0.85,
     "openHandicap": -0.25,
     "openUpWater": 1,
     "openDownWater": 0.8,
     "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
     "canWater": true,
     "handicapChange": {
-     "type": "升盘降水",
+     "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
-     "nowHandicap": 0,
+     "nowHandicap": -0.25,
      "initUpWater": 1,
-     "nowUpWater": 0.85,
+     "nowUpWater": 0.95,
      "initLine": "平手/半球",
-     "nowLine": "平手"
+     "nowLine": "平手/半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -1802,23 +1802,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.5,
-    "draw": 3.6,
-    "away": 2.63
+    "home": 2.2,
+    "draw": 3.8,
+    "away": 2.9
    },
    "prob": {
-    "home": 38.9,
-    "draw": 26.4,
-    "away": 34.7
+    "home": 42.8,
+    "draw": 24.8,
+    "away": 32.5
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 38.9,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "conf": 42.8,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-10-24 00:21"
+   "at": "2026-10-24 19:19"
   },
   {
    "code": "周六003",
@@ -2037,7 +2037,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-24 00:21"
   },
   {

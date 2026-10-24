@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 18:44:05
+   更新时间：2026-10-24 19:41:35
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 18:44:05",
+ "updated": "2026-10-24 19:41:35",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=LAiaG3h7WN6KjKm8oOETrbF73Oc%3D",
@@ -116,9 +116,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T10:44:05.340Z",
+   "seen": "2026-10-24T11:41:35.211Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792835278930,
+   "seenMs": 1792838645340,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -146,9 +146,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T10:44:05.340Z",
+   "seen": "2026-10-24T11:41:35.211Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792837322484,
+   "seenMs": 1792838645340,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -176,9 +176,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T10:44:05.340Z",
+   "seen": "2026-10-24T11:41:35.211Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792835278930,
+   "seenMs": 1792838645340,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -190,6 +190,66 @@ const XYSP_TT_DATA = {
    "author": "七色彩世界",
    "when": "2026-10-24 07:15:52",
    "postId": "1879884276927552",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3807911ec4f3423caecf45488b5af24b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=zwNM7u73HrdI%2F22JgLU6%2FMMagHY%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3807911ec4f3423caecf45488b5af24b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=zwNM7u73HrdI%2F22JgLU6%2FMMagHY%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3807911ec4f3423caecf45488b5af24b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=Xk5kYy8wu87vF2%2FhxTodj58a9Ws%3D",
+   "title": "双色球121期晒票：420元复式单挑蓝03？168元胆拖直接“包圆”！",
+   "url": "http://toutiao.com/item/7699850932011401747/",
+   "at": "2026-10-24T11:41:35.211Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "",
+   "seen": "2026-10-24T11:41:35.211Z",
+   "whenMs": 1792761248000,
+   "seenMs": 1792842095211,
+   "drawMs": 1792934100000,
+   "nextMs": 1792934100000,
+   "atMs": 1792842095211,
+   "drawAt": "2026-10-25T13:15:00.000Z",
+   "nextAt": 1792934100000,
+   "drawGid": "ssq",
+   "expireAt": "2026-10-25T11:41:35.211Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-23 21:14:08",
+   "postId": "7699850932011401747",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2ac5fdb351bf4d479f0a200df0dcb507~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IqHOdw0LC98Y4aWmuwr6oVTbemE%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2ac5fdb351bf4d479f0a200df0dcb507~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IqHOdw0LC98Y4aWmuwr6oVTbemE%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3807911ec4f3423caecf45488b5af24b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=Xk5kYy8wu87vF2%2FhxTodj58a9Ws%3D",
+   "title": "双色球121期晒票：420元复式单挑蓝03？168元胆拖直接“包圆”！",
+   "url": "http://toutiao.com/item/7699850932011401747/",
+   "at": "2026-10-24T11:41:35.211Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "",
+   "seen": "2026-10-24T11:41:35.211Z",
+   "whenMs": 1792761248000,
+   "seenMs": 1792842095211,
+   "drawMs": 1792934100000,
+   "nextMs": 1792934100000,
+   "atMs": 1792842095211,
+   "drawAt": "2026-10-25T13:15:00.000Z",
+   "nextAt": 1792934100000,
+   "drawGid": "ssq",
+   "expireAt": "2026-10-25T11:41:35.211Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-23 21:14:08",
+   "postId": "7699850932011401747",
    "px": 132300
   },
   {
@@ -521,6 +581,13 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/35ba459164064e4d8dc4aae6a794cf37~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
   "/tos-cn-i-6w9my0ksvp/0d58b5ca91a4457494e03ae42cd5623b~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
   "/tos-cn-i-6w9my0ksvp/bb7eef690a9f4ba3b9d476866e09d2df~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
-  "/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1.jpg": 1792838645340
+  "/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1.jpg": 1792838645340,
+  "/tos-cn-i-6w9my0ksvp/3807911ec4f3423caecf45488b5af24b~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-6w9my0ksvp/2ac5fdb351bf4d479f0a200df0dcb507~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-6w9my0ksvp/30d60666c5ca4b7d863bbc624a5a7dee~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-6w9my0ksvp/8e5545dcdbe04905bdfad4b3c5af44cc~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-6w9my0ksvp/116ac9e987484e7ab7e53d4bfaa7ca5e~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-ezhpy3drpa/70e4ce6efa6445e1a0cf6585c0414313~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211,
+  "/tos-cn-i-ezhpy3drpa/7dde3cd3de9348509651ae3bac5cbd71~tplv-26tn0yjwph-cspd-v1.jpg": 1792842095211
  }
 };
