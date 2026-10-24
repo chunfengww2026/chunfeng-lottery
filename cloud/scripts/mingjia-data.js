@@ -160,17 +160,143 @@ const MINGJIA_DATA = {
    "kw": "黄大仙 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/黄大仙/1.png",
-     "size": 80019,
-     "src": "https://pic.cz89.com/upload/20260512/f9e9727f8e244fcf8ad236c4e10a4a97.png",
-     "page": "https://m.cz89.com/read_10363839.htm",
-     "title": "黄大仙杀蓝球054期双色球图谜 10中10_手机牛彩网",
+     "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
+     "size": 82512,
+     "src": "https://pic.cz89.com/upload/20250318/a46b71e0d70b43aeaea125c5addb71a6.jpg",
+     "page": "https://www.cz89.com/read_9218823.htm",
+     "title": "黄大仙杀蓝球030期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-24T17:49:45.017Z"
+     "fetchedAt": "2026-10-24T20:11:30.158Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "东北人杀",
+   "cat": "双色球",
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
+     "size": 104137,
+     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
+     "page": "https://www.cz89.com/read_9355375.htm",
+     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T20:11:34.025Z"
+    }
+   ]
+  },
+  {
+   "name": "峨眉道姑",
+   "cat": "双色球",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/峨眉道姑/1.jpg",
+     "size": 106778,
+     "src": "https://pic.cz89.com/upload/20240128/52dae7071c4540e7859d803574187214.jpg",
+     "page": "https://www.cz89.com/read_8301375.htm",
+     "title": "峨眉道姑杀蓝号013期双色球图谜 _牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T11:36:22.929Z"
+    }
+   ]
+  },
+  {
+   "name": "蓝号迷",
+   "cat": "双色球",
+   "kw": "蓝号迷 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "林黛玉",
+   "cat": "双色球",
+   "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
+     "size": 49646,
+     "src": "https://pic2.800820.net/tumi/20260410/1117c278dbb647a585110bf681fe34e1.webp",
+     "page": "https://www.800820.net/p/10942112.html",
+     "title": "林黛玉26年040期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T20:11:49.748Z"
+    }
+   ]
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/贾宝玉/1.jpg",
+     "size": 121023,
+     "src": "https://pic.cz89.com/upload/20250821/6544e0112a304cccbdc813e5012f2ab8.jpg",
+     "page": "https://www.cz89.com/read_9569406.htm",
+     "title": "贾宝玉杀蓝号097期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T20:11:54.208Z"
+    }
+   ]
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
+     "size": 112524,
+     "src": "https://pic.cz89.com/upload/20221225/aadd2a295ef943ccb8e008d3e5e10579.jpg",
+     "page": "https://www.cz89.com/read_7383908.htm",
+     "title": "司马迁杀两码蓝球149期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T20:11:58.395Z"
+    }
+   ]
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "一品红",
+   "cat": "双色球",
+   "kw": "一品红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "南山大师",
@@ -191,55 +317,19 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "东北人杀",
+   "name": "牛魔王",
    "cat": "双色球",
-   "kw": "东北人杀 双色球 字谜 参考图",
+   "kw": "牛魔王 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/东北人杀/1.webp",
-     "size": 48904,
-     "src": "https://pic2.800820.net/tumi/20260211/3e931d48852d444bacdecad2e99c63f2.webp",
-     "page": "https://www.800820.net/p/10796476.html",
-     "title": "双色球26019期东北人杀蓝图迷_天齐网",
-     "issue": "26019",
-     "verified": false,
-     "fetchedAt": "2026-10-24T13:54:33.482Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/峨眉道姑/1.jpg",
-     "size": 106778,
-     "src": "https://pic.cz89.com/upload/20240128/52dae7071c4540e7859d803574187214.jpg",
-     "page": "https://www.cz89.com/read_8301375.htm",
-     "title": "峨眉道姑杀蓝号013期双色球图谜 _牛彩网",
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 113426,
+     "src": "https://pic.cz89.com/upload/20230210/f4d92d403f1541e7833dd12b3cd6d221.jpg",
+     "page": "https://www.cz89.com/read_7472161.htm",
+     "title": "牛魔王杀两码红球015期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-24T11:36:22.929Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/林黛玉/1.png",
-     "size": 121366,
-     "src": "https://pic.cz89.com/upload/20231203/efafe47471764ca1965038ccbd9f31be.png",
-     "page": "https://www.cz89.com/read_8171661.htm",
-     "title": "林黛玉杀蓝号140期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-24T13:54:47.853Z"
+     "fetchedAt": "2026-10-24T14:51:38.461Z"
     }
    ],
    "stale": true
@@ -344,72 +434,6 @@ const MINGJIA_DATA = {
    "name": "貂蝉杀",
    "cat": "双色球",
    "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "双色球",
-   "kw": "名家精 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "鸭梨红",
-   "cat": "双色球",
-   "kw": "鸭梨红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "一品红",
-   "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
    "imgs": []
   },
   {
