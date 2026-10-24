@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 04:36
+   更新时间：2026-10-25 05:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 04:36",
+ "updated": "2026-10-25 05:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2128,6 +2128,36 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=f6sKzg%2FOFihsZtimv6%2BmOmwmx2U%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=f6sKzg%2FOFihsZtimv6%2BmOmwmx2U%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=OKaJVdsR4MIoPk%2BEiHJM9zRfcBY%3D",
+     "title": "玩快乐8不用80个号乱挑！盯紧两个区间，和随便乱选差别很大",
+     "url": "https://toutiao.com/group/7700203967514509860/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "快乐8",
+     "games": [
+      "kl8"
+     ],
+     "issue": "",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792850700000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792935000000,
+     "nextMs": 1792935000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-25T13:30:00.000Z",
+     "nextAt": 1792935000000,
+     "drawGid": "kl8",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "小李爱分享",
+     "when": "2026-10-24 22:05:00",
+     "postId": "7700203967514509860",
+     "px": 132300
+    },
+    {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IV4E5a7FA7GVDeqSx3tPXD%2FUdNw%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IV4E5a7FA7GVDeqSx3tPXD%2FUdNw%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=RLKxIKZ4L1kbpMoR%2FXj7HxqCp6U%3D",
@@ -2275,6 +2305,158 @@ const XYSP_DATA = {
      "author": "真诚青山iD7",
      "when": "2026-10-24 15:10:19",
      "postId": "1879914125846660",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=f1Q1wOBNZz%2Fgj3tBYipl86WjYP4%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=f1Q1wOBNZz%2Fgj3tBYipl86WjYP4%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=AyN7OvR18cVgx0%2Fl7GgPXgnUDOg%3D",
+     "title": "排列3、5第26281期晒票：世事流转无常，守一份从容，静待人间惊喜",
+     "url": "http://toutiao.com/item/7700112246685073947/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "排列3、排列5",
+     "games": [
+      "pl3",
+      "pl5"
+     ],
+     "issue": "26281",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792822090000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "pl3",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-10-24 14:08:10",
+     "postId": "7700112246685073947",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a703b0c1bf664184ab64343026291aa0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=0rYMQRwjhfUcD39gF4QWA0lRlhk%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a703b0c1bf664184ab64343026291aa0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=0rYMQRwjhfUcD39gF4QWA0lRlhk%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=AyN7OvR18cVgx0%2Fl7GgPXgnUDOg%3D",
+     "title": "排列3、5第26281期晒票：世事流转无常，守一份从容，静待人间惊喜",
+     "url": "http://toutiao.com/item/7700112246685073947/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "排列3、排列5",
+     "games": [
+      "pl3",
+      "pl5"
+     ],
+     "issue": "26281",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792822090000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "pl3",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-10-24 14:08:10",
+     "postId": "7700112246685073947",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3eee1fc872794fe8afe427f64c822cb6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=WJRrTq00aV%2FnNIse29O1LFqNDfA%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3eee1fc872794fe8afe427f64c822cb6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=WJRrTq00aV%2FnNIse29O1LFqNDfA%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3eee1fc872794fe8afe427f64c822cb6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=hn6B%2FGz%2FT40WdZnOPX6lMtGNt7Y%3D",
+     "title": "1.5万领衔，多张大复式集中亮相！大乐透26121期晒票，请理性欣赏",
+     "url": "https://toutiao.com/group/7700100896839041587/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "26121",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792819594000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "dlt",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "每日彩",
+     "when": "2026-10-24 13:26:34",
+     "postId": "7700100896839041587",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d5344208bb514c17aa5bbed24158cbad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=F94L7w8xwzeezBPx6bQ1%2FFtzWBY%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d5344208bb514c17aa5bbed24158cbad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=F94L7w8xwzeezBPx6bQ1%2FFtzWBY%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3eee1fc872794fe8afe427f64c822cb6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=hn6B%2FGz%2FT40WdZnOPX6lMtGNt7Y%3D",
+     "title": "1.5万领衔，多张大复式集中亮相！大乐透26121期晒票，请理性欣赏",
+     "url": "https://toutiao.com/group/7700100896839041587/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "26121",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792819594000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "dlt",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "每日彩",
+     "when": "2026-10-24 13:26:34",
+     "postId": "7700100896839041587",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d159985205e0480d95646e1d53a1aaea~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=H635IIFXDZyciZg9HLAi8u37kVI%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d159985205e0480d95646e1d53a1aaea~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=H635IIFXDZyciZg9HLAi8u37kVI%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3eee1fc872794fe8afe427f64c822cb6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=hn6B%2FGz%2FT40WdZnOPX6lMtGNt7Y%3D",
+     "title": "1.5万领衔，多张大复式集中亮相！大乐透26121期晒票，请理性欣赏",
+     "url": "https://toutiao.com/group/7700100896839041587/",
+     "at": "2026-10-24T21:29:20.745Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "26121",
+     "seen": "2026-10-24T21:29:20.745Z",
+     "whenMs": 1792819594000,
+     "seenMs": 1792877360745,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792877360745,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "dlt",
+     "expireAt": "2026-10-25T21:29:20.745Z",
+     "rule": "first-capture-24h",
+     "author": "每日彩",
+     "when": "2026-10-24 13:26:34",
+     "postId": "7700100896839041587",
      "px": 132300
     },
     {
@@ -2428,8 +2610,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
      "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
      "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
@@ -2441,9 +2623,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T19:22:25.068Z",
+     "seen": "2026-10-24T21:29:20.745Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792869745068,
+     "seenMs": 1792877360745,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
@@ -2471,7 +2653,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T19:22:25.068Z",
+     "seen": "2026-10-24T21:29:20.745Z",
      "whenMs": 1792797352000,
      "seenMs": 1792869745068,
      "drawMs": 1792848600000,
@@ -2488,8 +2670,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=OAnPfq4ye8JRt%2BNWW21xy89GweA%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=OAnPfq4ye8JRt%2BNWW21xy89GweA%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
      "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
      "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
@@ -2501,9 +2683,9 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T19:22:25.068Z",
+     "seen": "2026-10-24T21:29:20.745Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792869745068,
+     "seenMs": 1792877360745,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
