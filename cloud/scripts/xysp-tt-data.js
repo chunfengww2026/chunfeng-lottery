@@ -6,12 +6,42 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 17:47:58
+   更新时间：2026-10-24 18:44:05
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 17:47:58",
+ "updated": "2026-10-24 18:44:05",
  "items": [
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=LAiaG3h7WN6KjKm8oOETrbF73Oc%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=LAiaG3h7WN6KjKm8oOETrbF73Oc%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=ErFR%2BxZezNCKjB1YTXCXnw6trAc%3D",
+   "title": "283期快乐8选四复式票",
+   "url": "http://toutiao.com/preview_article/?pgc_id=1879925613799436",
+   "at": "2026-10-24T10:44:05.340Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-24T10:44:05.340Z",
+   "whenMs": 1792836774000,
+   "seenMs": 1792838645340,
+   "drawMs": 1792848600000,
+   "nextMs": 1792848600000,
+   "atMs": 1792838645340,
+   "drawAt": "2026-10-24T13:30:00.000Z",
+   "nextAt": 1792848600000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-25T10:44:05.340Z",
+   "rule": "first-capture-24h",
+   "author": "彩迷",
+   "when": "2026-10-24 18:12:54",
+   "postId": "1879925613799436",
+   "px": 132300
+  },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0e924108d91d4eb497bcb5b9654c10b9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=uRuEENaU21lyxCyjBOa59uzzL%2FU%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0e924108d91d4eb497bcb5b9654c10b9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=uRuEENaU21lyxCyjBOa59uzzL%2FU%3D",
@@ -86,7 +116,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T09:47:58.930Z",
+   "seen": "2026-10-24T10:44:05.340Z",
    "whenMs": 1792797352000,
    "seenMs": 1792835278930,
    "drawMs": 1792848600000,
@@ -116,7 +146,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T09:47:58.930Z",
+   "seen": "2026-10-24T10:44:05.340Z",
    "whenMs": 1792797352000,
    "seenMs": 1792835278930,
    "drawMs": 1792848600000,
@@ -146,9 +176,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T09:47:58.930Z",
+   "seen": "2026-10-24T10:44:05.340Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792831722910,
+   "seenMs": 1792835278930,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -490,6 +520,7 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/ee56d7f4379e4cd286e2a556ba5c99ef~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
   "/tos-cn-i-6w9my0ksvp/35ba459164064e4d8dc4aae6a794cf37~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
   "/tos-cn-i-6w9my0ksvp/0d58b5ca91a4457494e03ae42cd5623b~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
-  "/tos-cn-i-6w9my0ksvp/bb7eef690a9f4ba3b9d476866e09d2df~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930
+  "/tos-cn-i-6w9my0ksvp/bb7eef690a9f4ba3b9d476866e09d2df~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-ezhpy3drpa/7462cca94a044db0ab4f4920739f5731~tplv-26tn0yjwph-cspd-v1.jpg": 1792838645340
  }
 };
