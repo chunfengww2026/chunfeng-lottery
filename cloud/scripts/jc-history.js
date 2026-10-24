@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-24 22:33",
+ "updated": "2026-10-24 23:02",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -996,6 +996,34 @@ const JC_HISTORY = {
    "at": "2026-10-24 00:21"
   },
   {
+   "code": "周六021",
+   "league": "葡超",
+   "home": "阿马多拉",
+   "away": "卡萨皮亚",
+   "time": "2026-10-24 22:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 1.75,
+    "draw": 3.5,
+    "away": 4.75
+   },
+   "prob": {
+    "home": 52.1,
+    "draw": 27,
+    "away": 20.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 52.1,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-24 00:21"
+  },
+  {
    "code": "周六020",
    "league": "荷甲",
    "home": "乌德勒支",
@@ -1044,61 +1072,6 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 57.7,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-24 00:21"
-  },
-  {
-   "code": "周六021",
-   "league": "葡超",
-   "home": "阿马多拉",
-   "away": "卡萨皮亚",
-   "time": "2026-10-24 22:30",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1.05,
-    "openHandicap": -0.5,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.5,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.85,
-     "nowUpWater": 0.8,
-     "initLine": "半球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.75,
-    "draw": 3.5,
-    "away": 4.75
-   },
-   "prob": {
-    "home": 52.1,
-    "draw": 27,
-    "away": 20.9
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 52.1,
    "type": "three",
    "result": "",
    "hit": false,
