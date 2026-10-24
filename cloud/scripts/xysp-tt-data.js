@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 11:28:53
+   更新时间：2026-10-24 11:56:33
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 11:28:53",
+ "updated": "2026-10-24 11:56:33",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T03:28:53.479Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792808863795,
+   "seenMs": 1792812533479,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -148,7 +148,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-24T03:28:53.479Z",
    "whenMs": 1792728369000,
-   "seenMs": 1792808863795,
+   "seenMs": 1792812533479,
    "drawMs": 1792762200000,
    "nextMs": 1792762200000,
    "atMs": 1792767838168,
@@ -345,6 +345,10 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/f65e9d92b93f4ea29c75da318f9d9309~tplv-26tn0yjwph-cspd-v1.jpg": 1792801182105,
   "/tos-cn-i-6w9my0ksvp/e3e970587c644bf99dc7e0a31224f5d6~tplv-26tn0yjwph-cspd-v1.jpg": 1792801182105,
   "/tos-cn-i-6w9my0ksvp/321b16d25ed347d0881d9a8175050f3f~tplv-26tn0yjwph-cspd-v1.jpg": 1792810526520,
-  "/tos-cn-i-6w9my0ksvp/14119785e96e4a5fb7e834e342d217e5~tplv-26tn0yjwph-cspd-v1.jpg": 1792810526520
+  "/tos-cn-i-6w9my0ksvp/14119785e96e4a5fb7e834e342d217e5~tplv-26tn0yjwph-cspd-v1.jpg": 1792810526520,
+  "/tos-cn-i-6w9my0ksvp/15041c3544494fdfb61a6d6f64a5ed07~tplv-26tn0yjwph-cspd-v1.jpg": 1792814193423,
+  "/tos-cn-i-6w9my0ksvp/e6ec17489d0648cfb83d310cb6383b7b~tplv-26tn0yjwph-cspd-v1.jpg": 1792814193423,
+  "/tos-cn-i-6w9my0ksvp/37ca063f4aa845489208e32ee18ae5b3~tplv-26tn0yjwph-cspd-v1.jpg": 1792814193423,
+  "/tos-cn-i-6w9my0ksvp/06017667a7c845c6bdb4daf88e5184b9~tplv-26tn0yjwph-cspd-v1.jpg": 1792814193423
  }
 };
