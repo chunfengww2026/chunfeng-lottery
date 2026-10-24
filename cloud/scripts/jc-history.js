@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-24 22:02",
+ "updated": "2026-10-24 22:33",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1111,36 +1111,9 @@ const JC_HISTORY = {
    "home": "桑坦德",
    "away": "西班牙人",
    "time": "2026-10-24 22:15",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.8,
-    "openHandicap": 0,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": 0,
-     "nowHandicap": -0.25,
-     "initUpWater": 1.02,
-     "nowUpWater": 1.05,
-     "initLine": "平手",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 2.35,
     "draw": 3.6,
@@ -1154,10 +1127,10 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 37.9,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-10-24 00:21"
   },
   {
@@ -1213,90 +1186,6 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
-   "at": "2026-10-24 00:21"
-  },
-  {
-   "code": "周六013",
-   "league": "德甲",
-   "home": "帕德博恩",
-   "away": "汉堡",
-   "time": "2026-10-24 21:30",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 2.15,
-    "draw": 3.8,
-    "away": 3.1
-   },
-   "prob": {
-    "home": 42.3,
-    "draw": 24.8,
-    "away": 32.9
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 42.3,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": true,
-   "at": "2026-10-24 00:21"
-  },
-  {
-   "code": "周六014",
-   "league": "德甲",
-   "home": "科隆",
-   "away": "沙尔克04",
-   "time": "2026-10-24 21:30",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 2.05,
-    "draw": 3.75,
-    "away": 3.3
-   },
-   "prob": {
-    "home": 44,
-    "draw": 25.8,
-    "away": 30.2
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 44,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": true,
-   "at": "2026-10-24 00:21"
-  },
-  {
-   "code": "周六015",
-   "league": "德甲",
-   "home": "奥格斯堡",
-   "away": "柏林联合",
-   "time": "2026-10-24 21:30",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 1.83,
-    "draw": 3.9,
-    "away": 4.1
-   },
-   "prob": {
-    "home": 53.5,
-    "draw": 23.7,
-    "away": 22.9
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 53.5,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
    "matched": true,
    "at": "2026-10-24 00:21"
   },
@@ -1556,7 +1445,7 @@ const JC_HISTORY = {
    "home": "巴列卡诺",
    "away": "埃尔切",
    "time": "2026-10-24 20:00",
-   "score": "",
+   "score": "0:3",
    "hc": "-1",
    "asianIndex": {
     "line": "半球/一球",
@@ -1564,13 +1453,13 @@ const JC_HISTORY = {
     "handicap": -0.75,
     "upSide": "home",
     "upWater": 1.02,
-    "downWater": 0.82,
+    "downWater": 0.77,
     "openHandicap": -0.75,
     "openUpWater": 0.95,
     "openDownWater": 0.9,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
@@ -1587,23 +1476,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.75,
-    "draw": 3.8,
+    "home": 1.73,
+    "draw": 4,
     "away": 4.5
    },
    "prob": {
-    "home": 54,
-    "draw": 24.9,
-    "away": 21.1
+    "home": 55,
+    "draw": 23.8,
+    "away": 21.2
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 54,
+   "conf": 55,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-24 00:21"
+   "at": "2026-10-24 22:33"
   },
   {
    "code": "周六007",

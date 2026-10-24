@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-24 22:27",
+ "updated": "2026-10-24 22:56",
  "red": 1,
  "black": 0,
  "rate": "100.0%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-24 22:27",
-   "finishTime": 1792852020000,
+   "dateStr": "2026-10-24 22:56",
+   "finishTime": 1792853760000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 82.9,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "挪超",
      "odds": 1.13,
      "time": "2026-10-24 22:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 63.2,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "挪超",
      "odds": 1.53,
      "time": "2026-10-25 21:30"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 71,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "德甲",
      "odds": 1.36,
      "time": "2026-10-26 00:30"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 65.5,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "意甲",
      "odds": 1.48,
      "time": "2026-10-26 01:00"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 61,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "美职联",
      "odds": 1.57,
      "time": "2026-10-26 09:00"
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 66.8,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "葡超",
      "odds": 1.38,
      "time": "2026-10-27 02:45"
@@ -96,7 +96,7 @@
      "result": "pending",
      "confidence": 68.3,
      "status": "pending",
-     "finishTime": 1792852020000,
+     "finishTime": 1792853760000,
      "league": "巴甲",
      "odds": 1.33,
      "time": "2026-10-27 07:00"
