@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/24 22:19:47） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/24 22:21:08） */
 const MINGJIA_DATA = {
- "updated": "2026-10-24 22:19:47",
+ "updated": "2026-10-24 22:21:08",
  "list": [
   {
    "name": "幸丹丹",
@@ -21,13 +21,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 362476,
-     "src": "https://pic.cz89.com/upload/20260625/3acda3974e1a454c85e627660c2d6636.png",
-     "page": "https://www.cz89.com/read_10514467.htm",
-     "title": "牛彩版3D字谜彩报图26年166期打印版_牛彩网",
+     "size": 182832,
+     "src": "https://www.3xyun.cn/zb_users/cache/ly_autoimg/o/OTM0Mjc.png",
+     "page": "https://3xyun.cn/93427.html",
+     "title": "今日福彩3D字谜与图谜总汇，全面解析最新谜题参考 - 三茶云",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-24T14:18:44.532Z"
+     "fetchedAt": "2026-10-24T14:20:06.473Z"
     }
    ]
   },
@@ -91,7 +91,7 @@ const MINGJIA_DATA = {
      "title": "第2022083期3D太湖字谜解读 - 知乎",
      "issue": "2022083",
      "verified": false,
-     "fetchedAt": "2026-10-24T14:19:18.967Z"
+     "fetchedAt": "2026-10-24T14:20:39.757Z"
     }
    ]
   },
@@ -127,6 +127,42 @@ const MINGJIA_DATA = {
   },
   {
    "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T13:23:58.432Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 93725,
+     "src": "https://pic.cz89.com/upload/20250304/7ee069d9d88141a4ac145778e3d44777.jpg",
+     "page": "https://www.cz89.com/read_9188272.htm",
+     "title": "牛魔王杀两码红球024期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T13:24:02.811Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "黄大仙",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
@@ -229,42 +265,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-24T11:36:45.086Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.png",
-     "size": 119492,
-     "src": "https://pic.cz89.com/upload/20251214/569a605c6df54ec182602ec1a1746dc6.png",
-     "page": "https://www.cz89.com/read_9885437.htm",
-     "title": "贾宝玉杀蓝号145期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-24T13:57:08.613Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "黄大仙",
-   "cat": "双色球",
-   "kw": "黄大仙 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
-     "size": 82512,
-     "src": "https://pic.cz89.com/upload/20250318/a46b71e0d70b43aeaea125c5addb71a6.jpg",
-     "page": "https://www.cz89.com/read_9218823.htm",
-     "title": "黄大仙杀蓝球030期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-24T11:36:14.757Z"
     }
    ],
    "stale": true
@@ -608,6 +608,11 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
+   "at": "2026-10-24 07:21:45",
+   "names": 71,
+   "imgs": 11
+  },
+  {
    "at": "2026-10-24 07:50:54",
    "names": 71,
    "imgs": 12
@@ -724,6 +729,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-24 22:19:47",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-10-24 22:21:08",
    "names": 71,
    "imgs": 15
   }
