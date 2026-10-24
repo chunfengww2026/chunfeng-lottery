@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 527 场 · 时间 2026-10-24 11:36
+   窗口 48 小时 · 528 场 · 时间 2026-10-24 12:09
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-24 11:36",
+ "updated": "2026-10-24 12:09",
  "hours": 48,
- "count": 527,
+ "count": 528,
  "list": [
   {
    "date": "2026-10-24",
@@ -149,6 +149,22 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "1503660"
+  },
+  {
+   "date": "2026-10-24",
+   "time": "2026-10-24 08:30",
+   "league": "阿鲁巴联",
+   "home": "SV河床",
+   "away": "SV艾思特拉",
+   "ft": {
+    "h": 1,
+    "a": 1
+   },
+   "ht": {
+    "h": 0,
+    "a": 0
+   },
+   "fid": "1503534"
   },
   {
    "date": "2026-10-24",

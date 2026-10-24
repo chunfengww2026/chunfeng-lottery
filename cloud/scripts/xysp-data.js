@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 11:57
+   更新时间：2026-10-24 12:32
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-24 11:57",
+ "updated": "2026-10-24 12:32",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -78,6 +78,48 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/ff82ba1a-202e-4933-be17-c7f9db79f6f41792813586499.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/ff82ba1a-202e-4933-be17-c7f9db79f6f41792813586499.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]结合近期大乐透号码，优选出来，高倍拿头奖",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T03:47:00.000Z",
+     "pubMs": 1792813620000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/0a11f010-a42a-4f6f-b925-4625dabf78711792813586562.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/0a11f010-a42a-4f6f-b925-4625dabf78711792813586562.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]结合近期大乐透号码，优选出来，高倍拿头奖",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T03:47:00.000Z",
+     "pubMs": 1792813620000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/cc60fb40-5a7a-4ea2-a09b-7def78da2d741792813586513.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/cc60fb40-5a7a-4ea2-a09b-7def78da2d741792813586513.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]结合近期大乐透号码，优选出来，高倍拿头奖",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T03:47:00.000Z",
+     "pubMs": 1792813620000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-24/26ab8f49-2e2e-4f19-b017-529c79eb992f1792812746860.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-24/26ab8f49-2e2e-4f19-b017-529c79eb992f1792812746860.jpg?imageMogr2/thumbnail/360x",
@@ -223,6 +265,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/f6f4b79f-2402-4421-9669-7aa9cdeeb9eb1792814509790.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/f6f4b79f-2402-4421-9669-7aa9cdeeb9eb1792814509790.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]每期都是10注定",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T04:02:00.000Z",
+     "pubMs": 1792814520000,
+     "pubSrc": "page",
+     "nextAt": 1792847700000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-24/f2ab07f9-95fd-491e-a40c-ce1652be22e01792800995171.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-24/f2ab07f9-95fd-491e-a40c-ce1652be22e01792800995171.jpg?imageMogr2/thumbnail/360x",
@@ -452,6 +508,34 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/16c56321-e01c-489a-9e02-4ff28aceb1e51792815558301.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/16c56321-e01c-489a-9e02-4ff28aceb1e51792815558301.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]神仙选号",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T04:19:00.000Z",
+     "pubMs": 1792815540000,
+     "pubSrc": "page",
+     "nextAt": 1792848600000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/b01a56dc-1e1e-4b13-a28d-b04a2837080a1792813436961.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/b01a56dc-1e1e-4b13-a28d-b04a2837080a1792813436961.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]复六",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T03:44:00.000Z",
+     "pubMs": 1792813440000,
+     "pubSrc": "page",
+     "nextAt": 1792848600000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-24/38efa6fe-5af4-40da-8faf-747e3f2d53e31792805584410.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-24/38efa6fe-5af4-40da-8faf-747e3f2d53e31792805584410.jpg?imageMogr2/thumbnail/360x",
@@ -723,6 +807,20 @@ const XYSP_DATA = {
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/224e0d85-7222-4189-96cc-e79518d577611792814549959.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/224e0d85-7222-4189-96cc-e79518d577611792814549959.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26283期]每期都是10注定直选",
+     "url": "",
+     "at": "2026-10-24T04:32:29.446Z",
+     "pubAt": "2026-10-24T04:02:00.000Z",
+     "pubMs": 1792814520000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792816349446,
+     "seenMs": 1792816349446,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-24/2528eea0-3ad1-40b5-9f89-49c7a5b14c041792812368732.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-24/2528eea0-3ad1-40b5-9f89-49c7a5b14c041792812368732.jpg?imageMogr2/thumbnail/360x",
@@ -1279,66 +1377,6 @@ const XYSP_DATA = {
      "when": "2026-10-24 07:15:52",
      "postId": "1879884276927552",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=EwpgjzqT3k3v95%2BAD3aI3WUhjOU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=EwpgjzqT3k3v95%2BAD3aI3WUhjOU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=h1%2Frdjf1HnU%2FQqUowFthXkbFj9k%3D",
-     "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
-     "at": "2026-10-23T15:03:58.168Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-24T03:28:53.479Z",
-     "whenMs": 1792728369000,
-     "seenMs": 1792812533479,
-     "drawMs": 1792762200000,
-     "nextMs": 1792762200000,
-     "atMs": 1792767838168,
-     "drawAt": "2026-10-23T13:30:00.000Z",
-     "nextAt": 1792762200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-24T15:03:58.168Z",
-     "rule": "first-capture-24h",
-     "author": "深藏blue",
-     "when": "2026-10-23 12:06:09",
-     "postId": "1879811942906892",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=%2B4Iqz3aT6XLgdCl%2B87y%2BwG9PsY8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bdb412240c6646829ae80fd76138b9fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=%2B4Iqz3aT6XLgdCl%2B87y%2BwG9PsY8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6f88779aee1c4c5ba47cb9bcfb28fcb3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=h1%2Frdjf1HnU%2FQqUowFthXkbFj9k%3D",
-     "title": "彩票到底自选中奖率高？还是机选中奖率高？来！这个老哥给你答案！上期快乐8全国唯一一注一等奖，出自广西南宁，而这一注一等奖，是机选一注复式选十！只花了22元！说实话，虽然中了508万很幸运！但离5500万，其实也就是一个号的事情！老哥也是痛快",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1879811942906892",
-     "at": "2026-10-23T15:03:58.168Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-24T03:28:53.479Z",
-     "whenMs": 1792728369000,
-     "seenMs": 1792812533479,
-     "drawMs": 1792762200000,
-     "nextMs": 1792762200000,
-     "atMs": 1792767838168,
-     "drawAt": "2026-10-23T13:30:00.000Z",
-     "nextAt": 1792762200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-24T15:03:58.168Z",
-     "rule": "first-capture-24h",
-     "author": "深藏blue",
-     "when": "2026-10-23 12:06:09",
-     "postId": "1879811942906892",
-     "px": 132300
     }
    ]
   },
@@ -1762,6 +1800,13 @@ const XYSP_DATA = {
   "/2026-10-24/8c4fe866-9854-4f8b-b149-33618a97caaf1792808894758.jpg": 1792810559150,
   "/2026-10-24/e3c8c13f-d83b-44cb-9a24-8e673c143cbd1792810786368.jpg": 1792812571369,
   "/2026-10-24/26ab8f49-2e2e-4f19-b017-529c79eb992f1792812746860.jpg": 1792814222539,
-  "/2026-10-24/2528eea0-3ad1-40b5-9f89-49c7a5b14c041792812368732.jpg": 1792814222539
+  "/2026-10-24/2528eea0-3ad1-40b5-9f89-49c7a5b14c041792812368732.jpg": 1792814222539,
+  "/2026-10-24/ff82ba1a-202e-4933-be17-c7f9db79f6f41792813586499.jpg": 1792816349446,
+  "/2026-10-24/0a11f010-a42a-4f6f-b925-4625dabf78711792813586562.jpg": 1792816349446,
+  "/2026-10-24/cc60fb40-5a7a-4ea2-a09b-7def78da2d741792813586513.jpg": 1792816349446,
+  "/2026-10-24/f6f4b79f-2402-4421-9669-7aa9cdeeb9eb1792814509790.jpg": 1792816349446,
+  "/2026-10-24/16c56321-e01c-489a-9e02-4ff28aceb1e51792815558301.jpg": 1792816349446,
+  "/2026-10-24/b01a56dc-1e1e-4b13-a28d-b04a2837080a1792813436961.jpg": 1792816349446,
+  "/2026-10-24/224e0d85-7222-4189-96cc-e79518d577611792814549959.jpg": 1792816349446
  }
 };
