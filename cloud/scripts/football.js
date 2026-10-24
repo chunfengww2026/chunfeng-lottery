@@ -342,8 +342,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 1,
-       "under": 0.86
+       "over": 0.98,
+       "under": 0.88
       },
       "live": {
        "line": "1",
@@ -405,6 +405,79 @@ const FOOTBALL_DATA = {
        "home": -1.5,
        "line": "1.04",
        "away": 0.85
+      },
+      "live": {
+       "home": -0.5,
+       "line": "0.84",
+       "away": 1.04
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.85,
+       "under": 1.01
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.92,
+       "under": 0.94
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.33,
+       "draw": 7.7,
+       "away": 5
+      },
+      "live": {
+       "home": 1.84,
+       "draw": 6.2,
+       "away": 2.53
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 49.4,
+     "prob": {
+      "home": 49.4,
+      "draw": 14.7,
+      "away": 35.9
+     },
+     "clear": true,
+     "margin": 10
+    },
+    "result": null
+   },
+   {
+    "gid": 586386,
+    "kind": "upcoming",
+    "league": {
+     "name": "巴西乙",
+     "color": "B5B500"
+    },
+    "time": "2026-10-25 05:30:00",
+    "minute": 0,
+    "home": {
+     "name": "CRB AL",
+     "score": null,
+     "red": null,
+     "rank": 8
+    },
+    "away": {
+     "name": "隆德里纳",
+     "score": null,
+     "red": null,
+     "rank": 18
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1.5,
+       "line": "1.03",
+       "away": 0.86
       },
       "live": {
        "home": -0.5,
@@ -780,8 +853,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2",
-       "over": 0.87,
-       "under": 0.83
+       "over": 0.95,
+       "under": 0.75
       },
       "live": {
        "line": "0.75",
