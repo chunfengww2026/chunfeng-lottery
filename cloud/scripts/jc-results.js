@@ -7277,7 +7277,7 @@ const JC_RESULTS = {
    "home": "布若亚",
    "away": "考登比亚",
    "ft": {
-    "h": 1,
+    "h": 3,
     "a": 1
    },
    "ht": {
@@ -7437,7 +7437,7 @@ const JC_RESULTS = {
    "home": "特伦FC",
    "away": "加里东勇士",
    "ft": {
-    "h": 3,
+    "h": 4,
     "a": 3
    },
    "ht": {

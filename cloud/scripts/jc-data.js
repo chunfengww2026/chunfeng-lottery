@@ -3138,9 +3138,9 @@ const JC_DATA = {
     "type": "three"
    },
    "asianIndex": {
-    "line": "受一球/球半",
+    "line": "受一球",
     "from": "live",
-    "handicap": 1.25,
+    "handicap": 1,
     "upSide": "away",
     "upWater": 1.07,
     "downWater": 0.72,
@@ -3152,13 +3152,13 @@ const JC_DATA = {
     "theoryDownPercent": "59.78",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘降水",
      "initHandicap": 1.25,
-     "nowHandicap": 1.25,
+     "nowHandicap": 1,
      "initUpWater": 1.02,
      "nowUpWater": 1.07,
      "initLine": "受一球/球半",
-     "nowLine": "受一球/球半"
+     "nowLine": "受一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,

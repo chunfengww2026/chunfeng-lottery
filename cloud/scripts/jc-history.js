@@ -1987,7 +1987,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-25 03:00"
+   "at": "2026-10-25 03:30"
   },
   {
    "code": "周六024",

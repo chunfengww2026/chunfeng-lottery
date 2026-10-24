@@ -82,7 +82,7 @@ const FOOTBALL_DATA = {
       "away": 47.2
      },
      "clear": true,
-     "margin": 12
+     "margin": 11.9
     },
     "result": null
    },
@@ -276,6 +276,79 @@ const FOOTBALL_DATA = {
        "line": "1.25",
        "over": 0.86,
        "under": 0.84
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.55,
+       "draw": 4.05,
+       "away": 3.9
+      },
+      "live": {
+       "home": 2.05,
+       "draw": 4.5,
+       "away": 2.43
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 43.5,
+     "prob": {
+      "home": 43.5,
+      "draw": 19.8,
+      "away": 36.7
+     },
+     "clear": false,
+     "margin": 12.2
+    },
+    "result": null
+   },
+   {
+    "gid": 587948,
+    "kind": "upcoming",
+    "league": {
+     "name": "玻利甲",
+     "color": "999810"
+    },
+    "time": "2026-10-25 04:00:00",
+    "minute": 0,
+    "home": {
+     "name": "GV聖喬希奧魯羅",
+     "score": null,
+     "red": null,
+     "rank": 16
+    },
+    "away": {
+     "name": "布鲁明",
+     "score": null,
+     "red": null,
+     "rank": 8
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.74",
+       "away": 0.96
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.67",
+       "away": 1.03
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.65,
+       "under": 1.05
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.89,
+       "under": 0.81
       }
      },
      "europe": {
