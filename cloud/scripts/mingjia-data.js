@@ -180,42 +180,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "太湖字谜",
-   "cat": "3D",
-   "kw": "太湖字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/太湖字谜/1.png",
-     "size": 36145,
-     "src": "https://img.3d178.cn/zimi/thds/2025/2025104.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/203728.shtml",
-     "title": "今日3d太湖字谜总汇_2025104期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2025104",
-     "verified": false,
-     "fetchedAt": "2026-10-24T17:21:28.919Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 70811,
-     "src": "https://pica.zhimg.com/v2-6965d5c786f58c7c291d66f5b122d1b4_1440w.jpg",
-     "page": "https://zhuanlan.zhihu.com/p/518191298",
-     "title": "体彩排列三第2022132期太湖字谜解析 - 知乎",
-     "issue": "2022132",
-     "verified": false,
-     "fetchedAt": "2026-10-24T06:25:50.573Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "南山大师",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
@@ -471,78 +435,6 @@ const MINGJIA_DATA = {
    "name": "迷公",
    "cat": "大乐透",
    "kw": "迷公 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "大乐透",
-   "kw": "桃子姐 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "大乐透",
-   "kw": "九头鸟 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "大乐透",
-   "kw": "金手指 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "3D",
-   "kw": "迷公 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "3D",
-   "kw": "桃子姐 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "3D",
-   "kw": "貂蝉杀 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "3D",
-   "kw": "名家精 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "3D",
-   "kw": "白天鹅 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "百合花",
-   "cat": "3D",
-   "kw": "百合花 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "排列三",
-   "kw": "迷公 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "排列三",
-   "kw": "桃子姐 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "排列三",
-   "kw": "迟丽颖 排列三 字谜 参考图",
    "imgs": []
   },
   {

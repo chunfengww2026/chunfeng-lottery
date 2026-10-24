@@ -2787,9 +2787,9 @@ const JC_DATA = {
       "under": 1
      },
      "live": {
-      "line": 0.92,
+      "line": 0.9,
       "over": 2.5,
-      "under": 0.92
+      "under": 0.95
      }
     }
    },

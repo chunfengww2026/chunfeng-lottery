@@ -257,8 +257,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.89",
-       "away": 1
+       "line": "0.86",
+       "away": 1.03
       },
       "live": {
        "home": -0.25,
@@ -1281,6 +1281,79 @@ const FOOTBALL_DATA = {
        "home": -2.75,
        "line": "0.8",
        "away": 0.9
+      },
+      "live": {
+       "home": -1.25,
+       "line": "0.9",
+       "away": 0.8
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.75",
+       "over": 0.94,
+       "under": 0.76
+      },
+      "live": {
+       "line": "1.5",
+       "over": 0.83,
+       "under": 0.87
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.02,
+       "draw": 16,
+       "away": 8.9
+      },
+      "live": {
+       "home": 1.27,
+       "draw": 12,
+       "away": 3.6
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 68.6,
+     "prob": {
+      "home": 68.6,
+      "draw": 7.3,
+      "away": 24.2
+     },
+     "clear": true,
+     "margin": 14.9
+    },
+    "result": null
+   },
+   {
+    "gid": 587950,
+    "kind": "upcoming",
+    "league": {
+     "name": "非冠杯",
+     "color": "990066"
+    },
+    "time": "2026-10-25 03:00:00",
+    "minute": 0,
+    "home": {
+     "name": "贝尔卡尼",
+     "score": null,
+     "red": null,
+     "rank": 12
+    },
+    "away": {
+     "name": "明星運動學院",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -2.75,
+       "line": "0.83",
+       "away": 0.87
       },
       "live": {
        "home": -1.25,
@@ -6836,8 +6909,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 0.9,
-       "under": 0.97
+       "over": 0.87,
+       "under": 1
       }
      },
      "europe": {
