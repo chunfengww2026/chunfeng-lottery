@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-25 05:07",
+ "updated": "2026-10-25 05:35",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -262,6 +262,31 @@ const JC_RECO_DATA = {
    "miss": 0,
    "pending": 0,
    "verdict": "红"
+  },
+  {
+   "at": "2026-10-25 05:35",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周六006",
+     "time": "2026-10-24 19:30",
+     "league": "英超",
+     "home": "维拉",
+     "away": "曼城",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.62,
+     "conf": 58.1,
+     "score": "2:1",
+     "hit": false,
+     "result": "lose"
+    }
+   ],
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   }
  ]
 };
