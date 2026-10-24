@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 03:30 */
+/* 自动生成，请勿手动编辑 · 2026-10-25 04:14 */
 const JC_DATA = {
- "updated": "2026-10-25 03:30",
+ "updated": "2026-10-25 04:14",
  "stat": {
   "total": 30,
-  "upcoming": 2,
-  "live": 3,
+  "upcoming": 1,
+  "live": 4,
   "finished": 25,
-  "withScore": 28,
+  "withScore": 29,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2754,10 +2754,10 @@ const JC_DATA = {
     "rank": 19
    },
    "score": {
-    "home": 0,
+    "home": 2,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -2841,7 +2841,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 2,
     "away": 0
    }
   },
@@ -2863,10 +2863,10 @@ const JC_DATA = {
     "rank": 3
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -2950,8 +2950,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    }
   },
   {
@@ -2972,10 +2972,10 @@ const JC_DATA = {
     "rank": 10
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -3043,7 +3043,7 @@ const JC_DATA = {
     "theoryDownPercent": "61.11",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘升水",
      "initHandicap": -1.5,
      "nowHandicap": -2,
      "initUpWater": 0.95,
@@ -3059,7 +3059,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   },
@@ -3080,7 +3080,10 @@ const JC_DATA = {
     "name": "波尔图",
     "rank": 1
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -3090,9 +3093,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 1.05,
-      "line": "受一球",
-      "away": 0.75
+      "home": 0.72,
+      "line": "受一球/球半",
+      "away": 1.07
      }
     },
     "europe": {
@@ -3114,9 +3117,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.7,
-      "over": 2,
-      "under": 1.1
+      "line": 1.15,
+      "over": 2.5,
+      "under": 0.67
      }
     }
    },
@@ -3131,40 +3134,43 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 8.1,
-    "rqLine": "受一球",
+    "rqLine": "受一球/球半",
     "type": "three"
    },
    "asianIndex": {
-    "line": "受一球",
+    "line": "受一球/球半",
     "from": "live",
-    "handicap": 1,
+    "handicap": 1.25,
     "upSide": "away",
-    "upWater": 0.75,
-    "downWater": 1.05,
+    "upWater": 1.07,
+    "downWater": 0.72,
     "openHandicap": 1.25,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.8,
-    "theoryUpPercent": "58.33",
-    "theoryDownPercent": "41.67",
+    "totalWater": 1.79,
+    "theoryUpPercent": "40.22",
+    "theoryDownPercent": "59.78",
     "canWater": true,
     "handicapChange": {
-     "type": "降盘降水",
+     "type": "盘口水位无明显变化",
      "initHandicap": 1.25,
-     "nowHandicap": 1,
+     "nowHandicap": 1.25,
      "initUpWater": 1.02,
-     "nowUpWater": 0.75,
+     "nowUpWater": 1.07,
      "initLine": "受一球/球半",
-     "nowLine": "受一球"
+     "nowLine": "受一球/球半"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1362565",

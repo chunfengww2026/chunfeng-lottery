@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 03:52
+   更新时间：2026-10-25 04:36
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 03:52",
+ "updated": "2026-10-25 04:36",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2372,7 +2372,7 @@ const XYSP_DATA = {
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/115303f055a745e5936e4f0c43ccaf7d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=yqdBx9cXoSlbs5LXyVHwcOTXw8s%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/115303f055a745e5936e4f0c43ccaf7d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=a4SfRkr1NyS2Je7g%2FAnirMtqRQ4%3D",
      "title": "大乐透26121期晒票！不少票盯上上期重号，熟面孔能不能续上？",
-     "url": "https://toutiao.com/group/7700010117987467812/",
+     "url": "http://toutiao.com/item/7700059594051027482/",
      "at": "2026-10-24T16:26:18.768Z",
      "src": "tt",
      "cat": "tt",
@@ -2382,36 +2382,6 @@ const XYSP_DATA = {
      ],
      "issue": "26121",
      "seen": "2026-10-24T19:22:25.068Z",
-     "whenMs": 1792798430000,
-     "seenMs": 1792869745068,
-     "drawMs": 1792845000000,
-     "nextMs": 1792845000000,
-     "atMs": 1792859178768,
-     "drawAt": "2026-10-24T12:30:00.000Z",
-     "nextAt": 1792845000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-25T16:26:18.768Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-24 07:33:50",
-     "postId": "7700010117987467812",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e6c505792371441c8ee80617bb495a23~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=aZxg13GW3vlZU4ss58Y1Oajg2mo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e6c505792371441c8ee80617bb495a23~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=aZxg13GW3vlZU4ss58Y1Oajg2mo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/115303f055a745e5936e4f0c43ccaf7d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=a4SfRkr1NyS2Je7g%2FAnirMtqRQ4%3D",
-     "title": "大乐透26121期晒票！不少票盯上上期重号，熟面孔能不能续上？",
-     "url": "https://toutiao.com/group/7700010117987467812/",
-     "at": "2026-10-24T16:26:18.768Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26121",
-     "seen": "2026-10-24T18:49:30.920Z",
      "whenMs": 1792798430000,
      "seenMs": 1792869745068,
      "drawMs": 1792845000000,
@@ -2473,7 +2443,7 @@ const XYSP_DATA = {
      "issue": "26281",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
@@ -2503,7 +2473,7 @@ const XYSP_DATA = {
      "issue": "26281",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
@@ -2533,7 +2503,7 @@ const XYSP_DATA = {
      "issue": "26281",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
@@ -2563,7 +2533,7 @@ const XYSP_DATA = {
      "issue": "26120",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797334000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792859178768,
@@ -2593,7 +2563,7 @@ const XYSP_DATA = {
      "issue": "26120",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797334000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792859178768,
@@ -2623,7 +2593,7 @@ const XYSP_DATA = {
      "issue": "26120",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797334000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792859178768,
@@ -2638,9 +2608,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=%2FQZTirI7fG1PtwWcjfbgG01g8D8%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=%2Fd33sCqWK17JhuEFL0ansfPcIqE%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=%2Fd33sCqWK17JhuEFL0ansfPcIqE%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=AcIArEOySOe8MTYTLPLHvuFrxKg%3D",
      "title": "20元斩获1004万！江苏大乐透大奖实票曝光，选号像“技术流”吗？",
      "url": "http://toutiao.com/item/7699985017052594738/",
      "at": "2026-10-24T19:52:11.357Z",
@@ -2651,9 +2621,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-24T19:52:11.357Z",
+     "seen": "2026-10-24T20:35:53.214Z",
      "whenMs": 1792792467000,
-     "seenMs": 1792871531357,
+     "seenMs": 1792874153214,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792871531357,
@@ -3271,6 +3241,7 @@ const XYSP_DATA = {
   "/2026-10-20/62b064f4-88ef-454f-b8ac-220110c603af1792503914193.jpg": 1792862814801,
   "/2026-10-20/f1004d96-bdb8-4ba6-a180-c4f102680cdc1792503325643.jpg": 1792862814801,
   "/2026-10-25/a69730a0-d445-4747-a465-7b74fd2ee9e61792866982838.jpg": 1792867814984,
-  "/2026-10-25/2c0fd802-a2c9-4936-b41c-4566a9de3f1d1792866982779.jpg": 1792867814984
+  "/2026-10-25/2c0fd802-a2c9-4936-b41c-4566a9de3f1d1792866982779.jpg": 1792867814984,
+  "/2026-10-21/5a252bf4-6a76-4394-9203-193b54a00dac1792586047745.jpg": 1792874180858
  }
 };
