@@ -3372,9 +3372,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 0.97,
+      "home": 0.95,
       "line": "半球/一球",
-      "away": 0.87
+      "away": 0.9
      }
     },
     "europe": {
@@ -3384,9 +3384,9 @@ const JC_DATA = {
       "away": 4.1
      },
      "live": {
-      "home": 1.75,
-      "draw": 3.9,
-      "away": 4.33
+      "home": 1.73,
+      "draw": 4,
+      "away": 4.5
      }
     },
     "overunder": {
@@ -3405,27 +3405,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 53.8,
+    "confidence": 54.1,
     "prob": {
-     "home": 53.8,
-     "draw": 23.7,
-     "away": 22.5
+     "home": 54.1,
+     "draw": 23.6,
+     "away": 22.3
     },
     "clear": true,
-    "margin": 5.9,
+    "margin": 5,
     "rqLine": "半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 53.8,
-      "draw": 23.7,
-      "away": 22.5
+      "home": 54.1,
+      "draw": 23.6,
+      "away": 22.3
      },
-     "confidence": 53.8,
+     "confidence": 54.1,
      "signals": [
-      "初盘→即时：主胜+0.3pp / 平局+0.8pp / 客胜-1.1pp",
+      "初盘→即时：主胜+1.4pp / 平局+0.3pp / 客胜-1.7pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -3436,9 +3436,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -5.9,
-      "draw": -7.5,
-      "away": -2.5
+      "home": -6.4,
+      "draw": -5.7,
+      "away": 0.3
      },
      "handicap": {
       "line": -1,
@@ -3458,21 +3458,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.75,
     "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.87,
+    "upWater": 0.95,
+    "downWater": 0.9,
     "openHandicap": -0.75,
     "openUpWater": 1,
     "openDownWater": 0.85,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "47.28",
-    "theoryDownPercent": "52.72",
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.75,
      "nowHandicap": -0.75,
      "initUpWater": 1,
-     "nowUpWater": 0.97,
+     "nowUpWater": 0.95,
      "initLine": "半球/一球",
      "nowLine": "半球/一球"
     },

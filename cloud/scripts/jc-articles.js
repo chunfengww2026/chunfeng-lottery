@@ -29,7 +29,7 @@ const JC_ARTICLES = {
   "ok": 22,
   "fail": 3,
   "want": 20,
-  "withDesc": 2,
+  "withDesc": 5,
   "games": {
    "ssq": 10,
    "dlt": 12
@@ -455,8 +455,8 @@ const JC_ARTICLES = {
    "title": "林必立大乐透第26120期推荐：前区首尾01、34，后区精选一码08",
    "url": "https://m.toutiao.com/group/7699019813951947290/",
    "source": "今日头条",
-   "time": "2026-10-21 15:29:05",
-   "tag": "大乐透推荐",
+   "time": "2026-10-22 22:00:00",
+   "tag": "大乐透26121期推荐",
    "game": "dlt",
    "author": "",
    "desc": "",
