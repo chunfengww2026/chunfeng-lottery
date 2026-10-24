@@ -1,42 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/24 08:17:27） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/24 09:02:35） */
 const MINGJIA_DATA = {
- "updated": "2026-10-24 08:17:27",
+ "updated": "2026-10-24 09:02:35",
  "list": [
-  {
-   "name": "桃子姐",
-   "cat": "排列三",
-   "kw": "桃子姐 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "排列三",
-   "kw": "迟丽颖 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "排列三",
-   "kw": "九头鸟 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "排列三",
-   "kw": "金手指 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/金手指/1.jpg",
-     "size": 54460,
-     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
-     "page": "https://www.jb51.net/softs/250983.html",
-     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-23T17:52:14.968Z"
-    }
-   ]
-  },
   {
    "name": "万里挑一",
    "cat": "排列三",
@@ -102,6 +67,48 @@ const MINGJIA_DATA = {
    "cat": "双色球",
    "kw": "迷公 双色球 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "双色球",
+   "kw": "桃子姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "双色球",
+   "kw": "迟丽颖 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "双色球",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/金手指/1.jpg",
+     "size": 54460,
+     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
+     "page": "https://www.jb51.net/softs/250983.html",
+     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-23T17:52:14.968Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "黄大仙",
@@ -300,30 +307,6 @@ const MINGJIA_DATA = {
     }
    ],
    "stale": true
-  },
-  {
-   "name": "桃子姐",
-   "cat": "双色球",
-   "kw": "桃子姐 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "双色球",
-   "kw": "迟丽颖 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
   },
   {
    "name": "明哥看彩",
@@ -570,14 +553,27 @@ const MINGJIA_DATA = {
    "cat": "排列三",
    "kw": "迷公 排列三 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "九头鸟",
+   "cat": "排列三",
+   "kw": "九头鸟 排列三 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-22 02:18:37",
-   "names": 71,
-   "imgs": 71
-  },
   {
    "at": "2026-10-22 02:48:00",
    "names": 71,
@@ -690,6 +686,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-24 08:17:27",
+   "names": 71,
+   "imgs": 12
+  },
+  {
+   "at": "2026-10-24 09:02:35",
    "names": 71,
    "imgs": 12
   }
