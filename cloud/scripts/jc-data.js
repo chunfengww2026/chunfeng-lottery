@@ -4437,7 +4437,7 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.8,
+      "home": 0.75,
       "line": "一球",
       "away": 1.05
      }
@@ -4523,21 +4523,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1,
     "upSide": "home",
-    "upWater": 0.8,
+    "upWater": 0.75,
     "downWater": 1.05,
     "openHandicap": -1.25,
     "openUpWater": 0.87,
     "openDownWater": 0.97,
-    "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
     "canWater": true,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": -1.25,
      "nowHandicap": -1,
      "initUpWater": 0.87,
-     "nowUpWater": 0.8,
+     "nowUpWater": 0.75,
      "initLine": "一球/球半",
      "nowLine": "一球"
     },
