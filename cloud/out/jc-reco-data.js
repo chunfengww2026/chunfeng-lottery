@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-24 21:46",
+ "updated": "2026-10-24 22:02",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -264,29 +264,119 @@ const JC_RECO_DATA = {
    "verdict": "红"
   },
   {
-   "at": "2026-10-24 21:46",
+   "at": "2026-10-24 22:02",
    "min": 58,
    "rows": [
     {
-     "code": "周六006",
-     "time": "2026-10-24 19:30",
-     "league": "英超",
-     "home": "维拉",
-     "away": "曼城",
+     "code": "周六018",
+     "time": "2026-10-24 22:00",
+     "league": "挪超",
+     "home": "博德闪耀",
+     "away": "瓦勒伦加",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.14,
+     "conf": 81.7,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日011",
+     "time": "2026-10-25 21:30",
+     "league": "挪超",
+     "home": "维京",
+     "away": "特罗姆瑟",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.53,
+     "conf": 63.2,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日022",
+     "time": "2026-10-26 00:30",
+     "league": "德甲",
+     "home": "弗赖堡",
+     "away": "拜仁",
      "pick": "away",
      "label": "客胜",
      "type": "three",
-     "odds": 1.62,
-     "conf": 58.1,
-     "score": "1:0",
-     "hit": false,
-     "result": "lose"
+     "odds": 1.36,
+     "conf": 71,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日023",
+     "time": "2026-10-26 01:00",
+     "league": "意甲",
+     "home": "莱切",
+     "away": "尤文图斯",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.48,
+     "conf": 65.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日029",
+     "time": "2026-10-26 09:00",
+     "league": "美职联",
+     "home": "洛杉矶FC",
+     "away": "洛城银河",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.57,
+     "conf": 61,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周一001",
+     "time": "2026-10-27 02:45",
+     "league": "葡超",
+     "home": "圣克拉拉",
+     "away": "本菲卡",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.38,
+     "conf": 66.8,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周一004",
+     "time": "2026-10-27 07:00",
+     "league": "巴甲",
+     "home": "弗拉门戈",
+     "away": "米竞技",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.33,
+     "conf": 68.3,
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
+   "hit": null,
+   "miss": null,
+   "pending": 7,
+   "verdict": ""
   }
  ]
 };
