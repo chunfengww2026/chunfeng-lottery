@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-24 15:24",
+ "updated": "2026-10-24 15:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1877,61 +1877,33 @@ const JC_HISTORY = {
    "at": "2026-10-24 00:21"
   },
   {
-   "code": "周六001",
-   "league": "K1联赛",
-   "home": "首尔FC",
-   "away": "江原FC",
-   "time": "2026-10-24 13:00",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 1.72,
-    "draw": 3.5,
-    "away": 4.33
-   },
-   "prob": {
-    "home": 51.6,
-    "draw": 26.9,
-    "away": 21.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 51.6,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-10-24 00:21"
-  },
-  {
    "code": "周六002",
    "league": "K1联赛",
    "home": "仁川联",
    "away": "济州SK",
    "time": "2026-10-24 13:00",
-   "score": "",
+   "score": "3:1",
    "hc": "-1",
    "asianIndex": {
     "line": "平手/半球",
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.82,
+    "upWater": 1,
+    "downWater": 0.8,
     "openHandicap": -0.25,
     "openUpWater": 0.97,
     "openDownWater": 0.82,
-    "totalWater": 1.79,
-    "theoryUpPercent": "45.81",
-    "theoryDownPercent": "54.19",
+    "totalWater": 1.8,
+    "theoryUpPercent": "44.44",
+    "theoryDownPercent": "55.56",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.97,
-     "nowUpWater": 0.97,
+     "nowUpWater": 1,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -1941,22 +1913,77 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.25,
+    "home": 2.2,
     "draw": 3.1,
-    "away": 3.1
+    "away": 3.2
    },
    "prob": {
-    "home": 40.5,
+    "home": 41.7,
     "draw": 29.6,
-    "away": 29.8
+    "away": 28.7
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 40.5,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "conf": 41.7,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
+   "at": "2026-10-24 15:58"
+  },
+  {
+   "code": "周六001",
+   "league": "K1联赛",
+   "home": "首尔FC",
+   "away": "江原FC",
+   "time": "2026-10-24 13:00",
+   "score": "0:0",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": -0.75,
+    "openUpWater": 0.97,
+    "openDownWater": 0.82,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": false,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.75,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.85,
+     "initLine": "半球/一球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.8,
+    "draw": 3.4,
+    "away": 4.1
+   },
+   "prob": {
+    "home": 50.8,
+    "draw": 26.9,
+    "away": 22.3
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 50.8,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
    "at": "2026-10-24 00:21"
   },
   {
