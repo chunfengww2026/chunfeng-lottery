@@ -257,8 +257,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.89",
-       "away": 1
+       "line": "0.86",
+       "away": 1.03
       },
       "live": {
        "home": -0.25,
@@ -342,13 +342,13 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.75",
-       "over": 0.91,
-       "under": 0.95
+       "over": 0.9,
+       "under": 0.96
       },
       "live": {
        "line": "1.5",
-       "over": 0.86,
-       "under": 1
+       "over": 0.85,
+       "under": 1.01
       }
      },
      "europe": {
@@ -773,8 +773,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": 0,
-       "line": "1.08",
-       "away": 0.8
+       "line": "1.12",
+       "away": 0.77
       }
      },
      "overunder": {
@@ -796,23 +796,23 @@ const FOOTBALL_DATA = {
        "away": 3.25
       },
       "live": {
-       "home": 3.3,
-       "draw": 2.86,
-       "away": 2.25
+       "home": 3.4,
+       "draw": 2.82,
+       "away": 2.22
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 40.5,
+     "confidence": 41,
      "prob": {
-      "home": 27.6,
-      "draw": 31.9,
-      "away": 40.5
+      "home": 26.8,
+      "draw": 32.3,
+      "away": 41
      },
      "clear": false,
-     "margin": 9.7
+     "margin": 9.9
     },
     "result": null
    },
@@ -3728,22 +3728,22 @@ const FOOTBALL_DATA = {
     "gid": 587883,
     "kind": "upcoming",
     "league": {
-     "name": "墨西乙",
-     "color": "004480"
+     "name": "智利乙",
+     "color": "56c54e"
     },
-    "time": "2026-10-25 05:00:00",
+    "time": "2026-10-25 04:30:00",
     "minute": 0,
     "home": {
-     "name": "皮昂内罗斯坎昆",
+     "name": "蒙特港",
      "score": null,
      "red": null,
-     "rank": 3
+     "rank": 12
     },
     "away": {
-     "name": "薩卡特佩克1948",
+     "name": "圣菲利浦",
      "score": null,
      "red": null,
-     "rank": 8
+     "rank": 15
     },
     "odds": {
      "asian": {
@@ -3793,7 +3793,226 @@ const FOOTBALL_DATA = {
       "away": 42.6
      },
      "clear": false,
-     "margin": 11.8
+     "margin": 12
+    },
+    "result": null
+   },
+   {
+    "gid": 586733,
+    "kind": "upcoming",
+    "league": {
+     "name": "智利乙",
+     "color": "56c54e"
+    },
+    "time": "2026-10-25 04:30:00",
+    "minute": 0,
+    "home": {
+     "name": "流浪者",
+     "score": null,
+     "red": null,
+     "rank": 16
+    },
+    "away": {
+     "name": "科布雷洛",
+     "score": null,
+     "red": null,
+     "rank": 2
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.78",
+       "away": 0.98
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.09",
+       "away": 0.67
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.68,
+       "under": 1.08
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.06,
+       "under": 0.7
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2,
+       "draw": 2.95,
+       "away": 3.55
+      },
+      "live": {
+       "home": 2.56,
+       "draw": 3.5,
+       "away": 2.24
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 39.8,
+     "prob": {
+      "home": 34.8,
+      "draw": 25.4,
+      "away": 39.8
+     },
+     "clear": false,
+     "margin": 12.3
+    },
+    "result": null
+   },
+   {
+    "gid": 586736,
+    "kind": "upcoming",
+    "league": {
+     "name": "智利乙",
+     "color": "56c54e"
+    },
+    "time": "2026-10-25 04:30:00",
+    "minute": 0,
+    "home": {
+     "name": "坎尔托塔",
+     "score": null,
+     "red": null,
+     "rank": 1
+    },
+    "away": {
+     "name": "雷科莱塔体育",
+     "score": null,
+     "red": null,
+     "rank": 6
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.7",
+       "away": 1.06
+      },
+      "live": {
+       "home": -0.5,
+       "line": "1.04",
+       "away": 0.72
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.96,
+       "under": 0.8
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.97,
+       "under": 0.79
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.53,
+       "draw": 4.5,
+       "away": 4.05
+      },
+      "live": {
+       "home": 2.04,
+       "draw": 4.75,
+       "away": 2.39
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 43.8,
+     "prob": {
+      "home": 43.8,
+      "draw": 18.8,
+      "away": 37.4
+     },
+     "clear": false,
+     "margin": 11.9
+    },
+    "result": null
+   },
+   {
+    "gid": 586734,
+    "kind": "upcoming",
+    "league": {
+     "name": "智利乙",
+     "color": "56c54e"
+    },
+    "time": "2026-10-25 04:30:00",
+    "minute": 0,
+    "home": {
+     "name": "西班牙联合",
+     "score": null,
+     "red": null,
+     "rank": 9
+    },
+    "away": {
+     "name": "圣地亚哥漫游者",
+     "score": null,
+     "red": null,
+     "rank": 3
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.85",
+       "away": 0.91
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.11",
+       "away": 0.66
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.95,
+       "under": 0.81
+      },
+      "live": {
+       "line": "1",
+       "over": 0.71,
+       "under": 1.05
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.06,
+       "draw": 2.88,
+       "away": 3.5
+      },
+      "live": {
+       "home": 2.59,
+       "draw": 3.55,
+       "away": 2.21
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 40.4,
+     "prob": {
+      "home": 34.5,
+      "draw": 25.1,
+      "away": 40.4
+     },
+     "clear": false,
+     "margin": 12
     },
     "result": null
    },
@@ -4086,6 +4305,79 @@ const FOOTBALL_DATA = {
      },
      "clear": false,
      "margin": 15
+    },
+    "result": null
+   },
+   {
+    "gid": 587883,
+    "kind": "upcoming",
+    "league": {
+     "name": "墨西乙",
+     "color": "004480"
+    },
+    "time": "2026-10-25 05:00:00",
+    "minute": 0,
+    "home": {
+     "name": "皮昂内罗斯坎昆",
+     "score": null,
+     "red": null,
+     "rank": 3
+    },
+    "away": {
+     "name": "薩卡特佩克1948",
+     "score": null,
+     "red": null,
+     "rank": 8
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.25,
+       "line": "0.78",
+       "away": 0.92
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.09",
+       "away": 0.61
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.93,
+       "under": 0.77
+      },
+      "live": {
+       "line": "1",
+       "over": 0.89,
+       "under": 0.81
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.02,
+       "draw": 3.05,
+       "away": 3.35
+      },
+      "live": {
+       "home": 2.69,
+       "draw": 3.7,
+       "away": 2.1
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 42.6,
+     "prob": {
+      "home": 33.2,
+      "draw": 24.2,
+      "away": 42.6
+     },
+     "clear": false,
+     "margin": 11.8
     },
     "result": null
    },
@@ -4861,15 +5153,15 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 0.96,
-       "under": 0.74
+       "over": 0.85,
+       "under": 0.85
       }
      },
      "europe": {
       "open": {
-       "home": 1.37,
-       "draw": 5.4,
-       "away": 4.2
+       "home": 1.34,
+       "draw": 5.7,
+       "away": 4.35
       },
       "live": {
        "home": 1.87,
@@ -6832,8 +7124,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 0.9,
-       "under": 0.97
+       "over": 0.87,
+       "under": 1
       }
      },
      "europe": {

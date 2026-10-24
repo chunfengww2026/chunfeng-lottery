@@ -1967,7 +1967,7 @@ const JC_HISTORY = {
    "home": "多特蒙德",
    "away": "法兰克福",
    "time": "2026-10-25 00:30",
-   "score": "0:0",
+   "score": "1:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -1984,8 +1984,8 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 66.2,
    "type": "three",
-   "result": "lose",
-   "hit": false,
+   "result": "win",
+   "hit": true,
    "matched": true,
    "at": "2026-10-24 00:21"
   },
@@ -2080,20 +2080,47 @@ const JC_HISTORY = {
    "time": "2026-10-25 00:00",
    "score": "3:3",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 0.9,
+    "downWater": 0.95,
+    "openHandicap": 0,
+    "openUpWater": 1.02,
+    "openDownWater": 0.82,
+    "totalWater": 1.85,
+    "theoryUpPercent": "51.35",
+    "theoryDownPercent": "48.65",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0,
+     "nowHandicap": 0,
+     "initUpWater": 1.02,
+     "nowUpWater": 0.9,
+     "initLine": "平手",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.88,
-    "draw": 3.1,
-    "away": 2.6
+    "home": 2.6,
+    "draw": 3.4,
+    "away": 2.7
    },
    "prob": {
-    "home": 33.2,
-    "draw": 29,
-    "away": 37.8
+    "home": 36.7,
+    "draw": 28,
+    "away": 35.3
    },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 37.8,
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 36.7,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
