@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 13:33
+   更新时间：2026-10-24 14:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-24 13:33",
+ "updated": "2026-10-24 14:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -78,6 +78,62 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/50ca6aef-d510-422a-a50b-e3a6607b3e221792820069208.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/50ca6aef-d510-422a-a50b-e3a6607b3e221792820069208.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]一等奖票",
+     "url": "",
+     "at": "2026-10-24T06:00:53.940Z",
+     "pubAt": "2026-10-24T05:37:00.000Z",
+     "pubMs": 1792820220000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792821653940,
+     "seenMs": 1792821653940,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/fa13661e-edec-4967-9c00-e352aa14dbb51792819024562.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/fa13661e-edec-4967-9c00-e352aa14dbb51792819024562.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]还有三张",
+     "url": "",
+     "at": "2026-10-24T06:00:53.940Z",
+     "pubAt": "2026-10-24T05:17:00.000Z",
+     "pubMs": 1792819020000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792821653940,
+     "seenMs": 1792821653940,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/c46e5a17-253a-4a24-ba4f-d4bf4aba3a3c1792819024539.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/c46e5a17-253a-4a24-ba4f-d4bf4aba3a3c1792819024539.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]还有三张",
+     "url": "",
+     "at": "2026-10-24T06:00:53.940Z",
+     "pubAt": "2026-10-24T05:17:00.000Z",
+     "pubMs": 1792819020000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792821653940,
+     "seenMs": 1792821653940,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-24/f1727492-0840-41e5-bde1-e63c2036e39e1792819024537.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-24/f1727492-0840-41e5-bde1-e63c2036e39e1792819024537.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26121期]还有三张",
+     "url": "",
+     "at": "2026-10-24T06:00:53.940Z",
+     "pubAt": "2026-10-24T05:17:00.000Z",
+     "pubMs": 1792819020000,
+     "pubSrc": "page",
+     "nextAt": 1792845000000,
+     "atMs": 1792821653940,
+     "seenMs": 1792821653940,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-24/ee8c3d23-a4ac-484b-8754-13f1b21bb50c1792818787400.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-24/ee8c3d23-a4ac-484b-8754-13f1b21bb50c1792818787400.jpg?imageMogr2/thumbnail/360x",
@@ -1358,7 +1414,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T03:28:53.479Z",
+     "seen": "2026-10-24T06:00:08.869Z",
      "whenMs": 1792797352000,
      "seenMs": 1792812533479,
      "drawMs": 1792848600000,
@@ -1388,7 +1444,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T03:28:53.479Z",
+     "seen": "2026-10-24T06:00:08.869Z",
      "whenMs": 1792797352000,
      "seenMs": 1792812533479,
      "drawMs": 1792848600000,
@@ -1418,7 +1474,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "26281",
-     "seen": "2026-10-24T03:28:53.479Z",
+     "seen": "2026-10-24T06:00:08.869Z",
      "whenMs": 1792797352000,
      "seenMs": 1792812533479,
      "drawMs": 1792848600000,
@@ -1432,6 +1488,66 @@ const XYSP_DATA = {
      "author": "七色彩世界",
      "when": "2026-10-24 07:15:52",
      "postId": "1879884276927552",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/48cbcb190be044b18bec455496b0ca0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=uTfXHvK4E0GlciEzO0GYfuJVzuI%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/48cbcb190be044b18bec455496b0ca0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=uTfXHvK4E0GlciEzO0GYfuJVzuI%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e585360548b04379a4232fd3e3ea022b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=Eq%2FpYC4U5UCG0MPe%2F%2Fv2gaUd3N0%3D",
+     "title": "3D今晚实票盘点：直组双防、群发对子，这届彩友的战术太绝了！",
+     "url": "https://toutiao.com/group/7699773500743041570/",
+     "at": "2026-10-24T06:00:08.869Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "福彩3D",
+     "games": [
+      "fc3d"
+     ],
+     "issue": "",
+     "seen": "2026-10-24T06:00:08.869Z",
+     "whenMs": 1792743246000,
+     "seenMs": 1792821608869,
+     "drawMs": 1792761300000,
+     "nextMs": 1792761300000,
+     "atMs": 1792821608869,
+     "drawAt": "2026-10-23T13:15:00.000Z",
+     "nextAt": 1792761300000,
+     "drawGid": "fc3d",
+     "expireAt": "2026-10-25T06:00:08.869Z",
+     "rule": "first-capture-24h",
+     "author": "一荔独㣊",
+     "when": "2026-10-23 16:14:06",
+     "postId": "7699773500743041570",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b898e8a5efe8403ea0a48b1aaaa4a5d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YdTIUqBmsBWwqfu91fTID55biQU%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b898e8a5efe8403ea0a48b1aaaa4a5d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YdTIUqBmsBWwqfu91fTID55biQU%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e585360548b04379a4232fd3e3ea022b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=Eq%2FpYC4U5UCG0MPe%2F%2Fv2gaUd3N0%3D",
+     "title": "3D今晚实票盘点：直组双防、群发对子，这届彩友的战术太绝了！",
+     "url": "https://toutiao.com/group/7699773500743041570/",
+     "at": "2026-10-24T06:00:08.869Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "福彩3D",
+     "games": [
+      "fc3d"
+     ],
+     "issue": "",
+     "seen": "2026-10-24T06:00:08.869Z",
+     "whenMs": 1792743246000,
+     "seenMs": 1792821608869,
+     "drawMs": 1792761300000,
+     "nextMs": 1792761300000,
+     "atMs": 1792821608869,
+     "drawAt": "2026-10-23T13:15:00.000Z",
+     "nextAt": 1792761300000,
+     "drawGid": "fc3d",
+     "expireAt": "2026-10-25T06:00:08.869Z",
+     "rule": "first-capture-24h",
+     "author": "一荔独㣊",
+     "when": "2026-10-23 16:14:06",
+     "postId": "7699773500743041570",
      "px": 132300
     }
    ]
@@ -1867,6 +1983,10 @@ const XYSP_DATA = {
   "/2026-10-24/ee8c3d23-a4ac-484b-8754-13f1b21bb50c1792818787400.jpg": 1792820001020,
   "/2026-10-24/27bdc025-46b3-437d-9eb9-13dd6283b03e1792818787392.jpg": 1792820001020,
   "/2026-10-24/e066038f-39fa-4c3b-83ea-747668ef80b71792818787401.jpg": 1792820001020,
-  "/2026-10-24/9fa44640-67be-4da5-8ce5-992011ebd8031792817583863.jpg": 1792820001020
+  "/2026-10-24/9fa44640-67be-4da5-8ce5-992011ebd8031792817583863.jpg": 1792820001020,
+  "/2026-10-24/50ca6aef-d510-422a-a50b-e3a6607b3e221792820069208.jpg": 1792821653940,
+  "/2026-10-24/fa13661e-edec-4967-9c00-e352aa14dbb51792819024562.jpg": 1792821653940,
+  "/2026-10-24/c46e5a17-253a-4a24-ba4f-d4bf4aba3a3c1792819024539.jpg": 1792821653940,
+  "/2026-10-24/f1727492-0840-41e5-bde1-e63c2036e39e1792819024537.jpg": 1792821653940
  }
 };
