@@ -3043,7 +3043,7 @@ const JC_DATA = {
     "theoryDownPercent": "61.11",
     "canWater": true,
     "handicapChange": {
-     "type": "降盘升水",
+     "type": "盘口水位无明显变化",
      "initHandicap": -1.5,
      "nowHandicap": -2,
      "initUpWater": 0.95,

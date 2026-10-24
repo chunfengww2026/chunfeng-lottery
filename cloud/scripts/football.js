@@ -8886,16 +8886,40 @@ const FOOTBALL_DATA = {
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "2.25",
+       "over": 0.83,
+       "under": 0.97
+      },
       "live": null
      },
      "europe": {
-      "open": null,
+      "open": {
+       "home": 3.3,
+       "draw": 2.2,
+       "away": 2.76
+      },
       "live": null
      }
     },
-    "reco": null,
-    "result": null
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 40.6,
+     "prob": {
+      "home": 27.1,
+      "draw": 40.6,
+      "away": 32.4
+     },
+     "clear": false,
+     "margin": 12
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 1"
+    }
    },
    {
     "gid": 585508,
@@ -9044,7 +9068,7 @@ const FOOTBALL_DATA = {
       "away": 18.5
      },
      "clear": true,
-     "margin": 10.2
+     "margin": 10
     },
     "result": {
      "actual": "away",
