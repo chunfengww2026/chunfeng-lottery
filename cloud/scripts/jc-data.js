@@ -8032,7 +8032,7 @@ const JC_DATA = {
  ],
  "sp": {
   "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
   "updated": "2026-10-23 23:58",
   "officialUpdate": "2026-10-23 21:52:26",
   "inSale": 48,
