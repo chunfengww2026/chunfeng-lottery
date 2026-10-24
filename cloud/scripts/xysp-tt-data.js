@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 16:48:42
+   更新时间：2026-10-24 17:47:58
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 16:48:42",
+ "updated": "2026-10-24 17:47:58",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0e924108d91d4eb497bcb5b9654c10b9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=uRuEENaU21lyxCyjBOa59uzzL%2FU%3D",
@@ -73,9 +73,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -86,9 +86,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T08:48:42.910Z",
+   "seen": "2026-10-24T09:47:58.930Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792827993150,
+   "seenMs": 1792835278930,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -103,9 +103,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=2eIAsRfm%2BMM3Ygy6GgdajbLeMFA%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=2eIAsRfm%2BMM3Ygy6GgdajbLeMFA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=CMIG3c9fJEYGZPzm1erHG63%2FczM%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=CMIG3c9fJEYGZPzm1erHG63%2FczM%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -116,9 +116,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T08:48:42.910Z",
+   "seen": "2026-10-24T09:47:58.930Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792827993150,
+   "seenMs": 1792835278930,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -135,7 +135,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -146,9 +146,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T08:48:42.910Z",
+   "seen": "2026-10-24T09:47:58.930Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792830038597,
+   "seenMs": 1792831722910,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -475,6 +475,21 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/62ef6fc9aa564728aefdaaf6d5674fcd~tplv-26tn0yjwph-cspd-v1.jpg": 1792827993150,
   "/tos-cn-i-6w9my0ksvp/df4ee32f40624fafb9cb141c51f30f86~tplv-26tn0yjwph-cspd-v1.jpg": 1792827993150,
   "/tos-cn-i-ezhpy3drpa/1cf6379ab1514d9cbbe4af03ca0dce2b~tplv-26tn0yjwph-cspd-v1.jpg": 1792827993150,
-  "/tos-cn-i-ezhpy3drpa/0e924108d91d4eb497bcb5b9654c10b9~tplv-26tn0yjwph-cspd-v1.jpg": 1792831722910
+  "/tos-cn-i-ezhpy3drpa/0e924108d91d4eb497bcb5b9654c10b9~tplv-26tn0yjwph-cspd-v1.jpg": 1792831722910,
+  "/tos-cn-i-ezhpy3drpa/a0734d21512e41f0991e0bde5e54621f~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-ezhpy3drpa/a8794216595747979615d0167c581775~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/0331780634034406bc3ac67e8aa75f10~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/9b949a7cdacf415589086aafacd0d105~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/e3077ed10a0049a5b38da1e13af570c7~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/b3f12983a5064c9781ff05c1950bcb14~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/58d0cb662fa74802b571cf39797dff85~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/2ce4c5b264c7402cbaff4246c1ebdb1e~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-ezhpy3drpa/047c7af0b5384c8887fb28decc8f6906~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-ezhpy3drpa/d7a2c62668aa4a728fe95434f4fcec01~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/80028f07a6524fb9935eff0d4eff499f~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/ee56d7f4379e4cd286e2a556ba5c99ef~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/35ba459164064e4d8dc4aae6a794cf37~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/0d58b5ca91a4457494e03ae42cd5623b~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930,
+  "/tos-cn-i-6w9my0ksvp/bb7eef690a9f4ba3b9d476866e09d2df~tplv-26tn0yjwph-cspd-v1.jpg": 1792835278930
  }
 };
