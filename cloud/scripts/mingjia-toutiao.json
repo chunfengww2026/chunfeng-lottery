@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T21:55:46.400Z",
+ "updated": "2026-10-24T22:21:52.361Z",
  "entries": [
   {
    "id": "1879968973210755",
@@ -288,7 +288,7 @@
    "gid": "ssq",
    "issue": "2026122",
    "status": 200,
-   "count": 3,
+   "count": 2,
    "available": true
   },
   {
@@ -330,7 +330,7 @@
    "gid": "fc3d",
    "issue": "2026284",
    "status": 200,
-   "count": 1,
+   "count": 0,
    "available": true
   },
   {
