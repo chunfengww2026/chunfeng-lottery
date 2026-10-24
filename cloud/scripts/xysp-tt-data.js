@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 21:29:04
+   更新时间：2026-10-24 22:25:42
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 21:29:04",
+ "updated": "2026-10-24 22:25:42",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IV4E5a7FA7GVDeqSx3tPXD%2FUdNw%3D",
@@ -70,6 +70,36 @@ const XYSP_TT_DATA = {
    "author": "彩迷",
    "when": "2026-10-24 18:12:54",
    "postId": "1879925613799436",
+   "px": 132300
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9799b69f88e04916be8e41b0c1b87453~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=ykLYhiRKM3YPLU4htimsgXyERs4%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9799b69f88e04916be8e41b0c1b87453~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=ykLYhiRKM3YPLU4htimsgXyERs4%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9799b69f88e04916be8e41b0c1b87453~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=nTXOj%2Fy5W86wdQJTjR%2FxQm7pvyM%3D",
+   "title": "快乐8第282期头奖隐身！1.15亿销量落空？中九8000元成最大赢家",
+   "url": "https://toutiao.com/group/7700162232243569190/",
+   "at": "2026-10-24T14:25:42.716Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-24T14:25:42.716Z",
+   "whenMs": 1792834056000,
+   "seenMs": 1792851942716,
+   "drawMs": 1792848600000,
+   "nextMs": 1792848600000,
+   "atMs": 1792851942716,
+   "drawAt": "2026-10-24T13:30:00.000Z",
+   "nextAt": 1792848600000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-25T14:25:42.716Z",
+   "rule": "first-capture-24h",
+   "author": "「IT前线」",
+   "when": "2026-10-24 17:27:36",
+   "postId": "7700162232243569190",
    "px": 132300
   },
   {
@@ -148,7 +178,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-24T13:29:04.467Z",
    "whenMs": 1792819104000,
-   "seenMs": 1792845741537,
+   "seenMs": 1792848544467,
    "drawMs": 1792847700000,
    "nextMs": 1792847700000,
    "atMs": 1792844025905,
@@ -193,9 +223,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=g5eeCCIJLiSa4nEm8eqOhPm7bkU%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -206,9 +236,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792851942716,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -225,7 +255,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=2eIAsRfm%2BMM3Ygy6GgdajbLeMFA%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ad73dd448a04407e86e729767a9ca4ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=2eIAsRfm%2BMM3Ygy6GgdajbLeMFA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -236,9 +266,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792845741537,
+   "seenMs": 1792848544467,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -253,9 +283,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=OAnPfq4ye8JRt%2BNWW21xy89GweA%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=OAnPfq4ye8JRt%2BNWW21xy89GweA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=q1LZoJK401r7LVX%2FatoOI7dSSms%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40cb6010ab854c01bc4f380238d8113e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=1o6Ag1paIoRd60fcqSb9lhdaE1c%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=YRHsqIINOX61TukOXHQhroxpp64%3D",
    "title": "这运气也太好了吧！广西彩民22元喜中福彩508万大奖，中奖号码居然是机选的！\n在10月22日福彩快乐8第26281期开奖中，选十中十开出1注头奖，花落广西南宁市。这位幸运彩民凭借一张22元投入的11码复式票成功拿下508万元奖金。\n昨天上午",
    "url": "sslocal://thread_detail?fid=1700956033797132&tid=1879884276927552",
    "at": "2026-10-23T23:23:57.393Z",
@@ -266,9 +296,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "26281",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792851942716,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -296,7 +326,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792770754000,
    "seenMs": 1792848544467,
    "drawMs": 1792845000000,
@@ -326,7 +356,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792770754000,
    "seenMs": 1792848544467,
    "drawMs": 1792845000000,
@@ -343,8 +373,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=UBJuXdW1c24izHKqrDxXVSAN%2FPU%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=UBJuXdW1c24izHKqrDxXVSAN%2FPU%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=aDNjufyPGWkzi%2BsYRGzZtPJEFPM%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=aDNjufyPGWkzi%2BsYRGzZtPJEFPM%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ebebd703d77440de989375ef2c073faf~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=WApwQoeq58Or8Yvex2F0IsiOVfo%3D",
    "title": "80元狂砸胆拖对刚12元小复式！大乐透121期晒票，谁的算盘打得响？",
    "url": "http://toutiao.com/item/7699891760549331499/",
@@ -356,9 +386,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-24T13:29:04.467Z",
+   "seen": "2026-10-24T14:25:42.716Z",
    "whenMs": 1792770754000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792851942716,
    "drawMs": 1792845000000,
    "nextMs": 1792845000000,
    "atMs": 1792848544467,
@@ -782,6 +812,10 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/af38b4b01fef4bc08636338b2d322a4f~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
   "/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
   "/tos-cn-i-6w9my0ksvp/03dffc0f03494fcbbd8dde50c413dfc5~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
-  "/tos-cn-i-6w9my0ksvp/f4f4fac31cc34a4396615de81150982f~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467
+  "/tos-cn-i-6w9my0ksvp/f4f4fac31cc34a4396615de81150982f~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
+  "/tos-cn-i-6w9my0ksvp/98036a05fd3f469a80e5ca7000e7a501~tplv-26tn0yjwph-cspd-v1.jpg": 1792851942716,
+  "/tos-cn-i-6w9my0ksvp/68e2b4f7c98e413e9a7fc1ba23881d31~tplv-26tn0yjwph-cspd-v1.jpg": 1792851942716,
+  "/tos-cn-i-6w9my0ksvp/28d1659ec3c148fba67ace218d03760e~tplv-26tn0yjwph-cspd-v1.jpg": 1792851942716,
+  "/tos-cn-i-6w9my0ksvp/9799b69f88e04916be8e41b0c1b87453~tplv-26tn0yjwph-cspd-v1.jpg": 1792851942716
  }
 };
