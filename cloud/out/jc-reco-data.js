@@ -262,6 +262,31 @@ const JC_RECO_DATA = {
    "miss": 0,
    "pending": 0,
    "verdict": "红"
+  },
+  {
+   "at": "2026-10-25 01:35",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周六006",
+     "time": "2026-10-24 19:30",
+     "league": "英超",
+     "home": "维拉",
+     "away": "曼城",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.62,
+     "conf": 58.1,
+     "score": "2:1",
+     "hit": false,
+     "result": "lose"
+    }
+   ],
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   }
  ]
 };
