@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 14:00:08
+   更新时间：2026-10-24 14:30:27
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 14:00:08",
+ "updated": "2026-10-24 14:30:27",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/af076e0c0a9e4676a4c4cbef009f922e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=FsIubh4mg0o8vyuojTmpk61Xyu4%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T06:00:08.869Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792812533479,
+   "seenMs": 1792821608869,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -58,7 +58,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T06:00:08.869Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792812533479,
+   "seenMs": 1792821608869,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -88,7 +88,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T06:00:08.869Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792812533479,
+   "seenMs": 1792821608869,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
