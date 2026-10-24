@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 528 场 · 时间 2026-10-24 14:08
+   窗口 48 小时 · 529 场 · 时间 2026-10-24 14:44
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-24 14:08",
+ "updated": "2026-10-24 14:44",
  "hours": 48,
- "count": 528,
+ "count": 529,
  "list": [
   {
    "date": "2026-10-24",
@@ -149,6 +149,22 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "1503660"
+  },
+  {
+   "date": "2026-10-24",
+   "time": "2026-10-24 09:00",
+   "league": "墨TDP联",
+   "home": "修尔俱乐部",
+   "away": "埃尔格鲁略体育",
+   "ft": {
+    "h": 0,
+    "a": 0
+   },
+   "ht": {
+    "h": 0,
+    "a": 0
+   },
+   "fid": "1503737"
   },
   {
    "date": "2026-10-24",
