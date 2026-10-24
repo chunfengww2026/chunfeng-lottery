@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-25 00:34",
+ "updated": "2026-10-25 01:04",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2101,34 +2101,6 @@ const JC_HISTORY = {
    "at": "2026-10-24 00:21"
   },
   {
-   "code": "周六021",
-   "league": "葡超",
-   "home": "阿马多拉",
-   "away": "卡萨皮亚",
-   "time": "2026-10-24 22:30",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 1.75,
-    "draw": 3.5,
-    "away": 4.75
-   },
-   "prob": {
-    "home": 52.1,
-    "draw": 27,
-    "away": 20.9
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 52.1,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-10-24 00:21"
-  },
-  {
    "code": "周六020",
    "league": "荷甲",
    "home": "乌德勒支",
@@ -2141,21 +2113,21 @@ const JC_HISTORY = {
     "from": "live",
     "handicap": -1,
     "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.77,
+    "upWater": 0.97,
+    "downWater": 0.82,
     "openHandicap": -1,
     "openUpWater": 0.82,
     "openDownWater": 0.97,
     "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -1,
      "nowHandicap": -1,
      "initUpWater": 0.82,
-     "nowUpWater": 1.02,
+     "nowUpWater": 0.97,
      "initLine": "一球",
      "nowLine": "一球"
     },
@@ -2165,22 +2137,77 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.62,
-    "draw": 4.2,
+    "home": 1.65,
+    "draw": 4,
     "away": 5
    },
    "prob": {
-    "home": 57.7,
-    "draw": 22.4,
-    "away": 19.9
+    "home": 57.4,
+    "draw": 23.7,
+    "away": 18.9
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 57.7,
+   "conf": 57.4,
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
+   "at": "2026-10-24 00:21"
+  },
+  {
+   "code": "周六021",
+   "league": "葡超",
+   "home": "阿马多拉",
+   "away": "卡萨皮亚",
+   "time": "2026-10-24 22:30",
+   "score": "0:0",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球/一球",
+    "from": "live",
+    "handicap": -0.75,
+    "upSide": "home",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": -0.5,
+    "openUpWater": 0.85,
+    "openDownWater": 1,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.75,
+     "initUpWater": 0.85,
+     "nowUpWater": 1.05,
+     "initLine": "半球",
+     "nowLine": "半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.8,
+    "draw": 3.5,
+    "away": 4.5
+   },
+   "prob": {
+    "home": 52.2,
+    "draw": 26.9,
+    "away": 20.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 52.2,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": false,
    "at": "2026-10-24 00:21"
   },
   {
@@ -2190,21 +2217,48 @@ const JC_HISTORY = {
    "away": "西班牙人",
    "time": "2026-10-24 22:15",
    "score": "2:1",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.97,
+    "downWater": 0.87,
+    "openHandicap": 0,
+    "openUpWater": 1.02,
+    "openDownWater": 0.82,
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "47.28",
+    "theoryDownPercent": "52.72",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": 0,
+     "nowHandicap": -0.25,
+     "initUpWater": 1.02,
+     "nowUpWater": 0.97,
+     "initLine": "平手",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.35,
-    "draw": 3.6,
-    "away": 2.88
+    "home": 2.25,
+    "draw": 3.7,
+    "away": 3
    },
    "prob": {
-    "home": 37.9,
-    "draw": 26.4,
-    "away": 35.7
+    "home": 42.4,
+    "draw": 25.8,
+    "away": 31.8
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 37.9,
+   "conf": 42.4,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
