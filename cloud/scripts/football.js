@@ -476,8 +476,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.75,
-       "line": "0.94",
-       "away": 0.95
+       "line": "0.99",
+       "away": 0.9
       },
       "live": {
        "home": 0.25,
@@ -499,8 +499,8 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 4.5,
-       "draw": 1.71,
+       "home": 4.6,
+       "draw": 1.7,
        "away": 3.65
       },
       "live": {
@@ -1083,9 +1083,9 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 1.3,
-       "draw": 6,
-       "away": 4.65
+       "home": 1.28,
+       "draw": 6.4,
+       "away": 4.75
       },
       "live": {
        "home": 1.8,
@@ -1729,8 +1729,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.84,
-       "under": 1.02
+       "over": 0.86,
+       "under": 1
       },
       "live": {
        "line": "1.25",
@@ -1980,7 +1980,7 @@ const FOOTBALL_DATA = {
       "away": 38.5
      },
      "clear": false,
-     "margin": 9.9
+     "margin": 10.2
     },
     "result": null
    },
@@ -2313,8 +2313,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.85,
-       "under": 0.95
+       "over": 0.9,
+       "under": 0.9
       },
       "live": {
        "line": "1.25",
@@ -3249,9 +3249,9 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0.5,
-       "line": "0.82",
-       "away": 1.06
+       "home": 0.25,
+       "line": "1.05",
+       "away": 0.83
       },
       "live": {
        "home": 0.25,
@@ -3274,7 +3274,7 @@ const FOOTBALL_DATA = {
      "europe": {
       "open": {
        "home": 3.4,
-       "draw": 2.06,
+       "draw": 2.07,
        "away": 3.3
       },
       "live": {
@@ -8915,7 +8915,7 @@ const FOOTBALL_DATA = {
       "away": 35.7
      },
      "clear": false,
-     "margin": 12.1
+     "margin": 12
     },
     "result": null
    },
@@ -9321,13 +9321,13 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.95,
-       "under": 0.81
+       "over": 0.96,
+       "under": 0.8
       },
       "live": {
        "line": "1",
-       "over": 0.91,
-       "under": 0.85
+       "over": 0.93,
+       "under": 0.83
       }
      },
      "europe": {
@@ -9613,8 +9613,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.99,
-       "under": 0.81
+       "over": 1.04,
+       "under": 0.76
       },
       "live": {
        "line": "1",
@@ -11543,7 +11543,7 @@ const FOOTBALL_DATA = {
       "away": 41.6
      },
      "clear": false,
-     "margin": 15.1
+     "margin": 14.8
     },
     "result": null
    },
@@ -12638,7 +12638,7 @@ const FOOTBALL_DATA = {
       "away": 43.1
      },
      "clear": false,
-     "margin": 14.9
+     "margin": 15.1
     },
     "result": null
    },
@@ -16500,7 +16500,7 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 46.9,
+     "confidence": 48.5,
      "prob": {
       "home": 46.9,
       "draw": 15.7,
@@ -26440,79 +26440,6 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 586610,
-    "kind": "upcoming",
-    "league": {
-     "name": "波蘭乙",
-     "color": "FC9000"
-    },
-    "time": "2026-10-25 02:00:00",
-    "minute": 0,
-    "home": {
-     "name": "斯塔沃拉",
-     "score": null,
-     "red": null,
-     "rank": 13
-    },
-    "away": {
-     "name": "桑德克亚",
-     "score": null,
-     "red": null,
-     "rank": 5
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.83",
-       "away": 1.01
-      },
-      "live": {
-       "home": 0,
-       "line": "1.06",
-       "away": 0.78
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.82,
-       "under": 1
-      },
-      "live": {
-       "line": "1.25",
-       "over": 1.06,
-       "under": 0.76
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.68,
-       "draw": 2.2,
-       "away": 3.65
-      },
-      "live": {
-       "home": 3.2,
-       "draw": 2.74,
-       "away": 2.27
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 39.4,
-     "prob": {
-      "home": 28,
-      "draw": 32.6,
-      "away": 39.4
-     },
-     "clear": false,
-     "margin": 11.8
-    },
-    "result": null
-   },
-   {
     "gid": 585514,
     "kind": "upcoming",
     "league": {
@@ -26695,8 +26622,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3",
-       "over": 0.97,
-       "under": 0.89
+       "over": 0.98,
+       "under": 0.88
       },
       "live": {
        "line": "1.25",
@@ -30418,8 +30345,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.91,
-       "under": 0.95
+       "over": 0.92,
+       "under": 0.94
       },
       "live": {
        "line": "1",
@@ -36743,13 +36670,13 @@ const FOOTBALL_DATA = {
       "away": 44.5
      },
      "clear": false,
-     "margin": 12.2
+     "margin": 11.8
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 0"
+     "score": "0 - 1"
     }
    },
    {
@@ -36920,7 +36847,7 @@ const FOOTBALL_DATA = {
     "home": {
      "name": "科英布拉大学",
      "score": 0,
-     "red": 0,
+     "red": 1,
      "rank": 6
     },
     "away": {
