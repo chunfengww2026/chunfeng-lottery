@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-24 21:59:37
+   更新时间：2026-10-24 22:11:37
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-24 21:59:37",
+ "updated": "2026-10-24 22:11:37",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IV4E5a7FA7GVDeqSx3tPXD%2FUdNw%3D",
@@ -148,7 +148,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-24T13:29:04.467Z",
    "whenMs": 1792819104000,
-   "seenMs": 1792845741537,
+   "seenMs": 1792848544467,
    "drawMs": 1792847700000,
    "nextMs": 1792847700000,
    "atMs": 1792844025905,
@@ -208,7 +208,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T14:01:16.799Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792850476799,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -238,7 +238,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T14:01:16.799Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792845741537,
+   "seenMs": 1792850476799,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -298,7 +298,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-24T14:01:16.799Z",
    "whenMs": 1792770754000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792850476799,
    "drawMs": 1792845000000,
    "nextMs": 1792845000000,
    "atMs": 1792848544467,
@@ -328,7 +328,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-24T14:01:16.799Z",
    "whenMs": 1792770754000,
-   "seenMs": 1792848544467,
+   "seenMs": 1792850476799,
    "drawMs": 1792845000000,
    "nextMs": 1792845000000,
    "atMs": 1792848544467,
@@ -778,6 +778,9 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1.jpg": 1792845741537,
   "/tos-cn-i-6w9my0ksvp/f6aee67117b64a24950cb4f8c932ba14~tplv-26tn0yjwph-cspd-v1.jpg": 1792845741537,
   "/tos-cn-i-6w9my0ksvp/61c6dcb5dd474dc5a8a60696a011d7a2~tplv-26tn0yjwph-cspd-v1.jpg": 1792845741537,
-  "/tos-cn-i-ezhpy3drpa/89bd0f15d8d247d4b79d6d2f8ca64cc6~tplv-26tn0yjwph-cspd-v1.jpg": 1792850377264
+  "/tos-cn-i-ezhpy3drpa/89bd0f15d8d247d4b79d6d2f8ca64cc6~tplv-26tn0yjwph-cspd-v1.jpg": 1792850377264,
+  "/tos-cn-i-ezhpy3drpa/ebebd703d77440de989375ef2c073faf~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
+  "/tos-cn-i-ezhpy3drpa/af38b4b01fef4bc08636338b2d322a4f~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467,
+  "/tos-cn-i-ezhpy3drpa/a0f11ea7581c426093771506882a7628~tplv-26tn0yjwph-cspd-v1.jpg": 1792848544467
  }
 };
