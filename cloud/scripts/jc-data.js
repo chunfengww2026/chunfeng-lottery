@@ -4838,9 +4838,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 1,
+      "home": 0.97,
       "line": "平手/半球",
-      "away": 0.85
+      "away": 0.87
      }
     },
     "europe": {
@@ -4924,21 +4924,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.85,
+    "upWater": 0.97,
+    "downWater": 0.87,
     "openHandicap": 0,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "47.28",
+    "theoryDownPercent": "52.72",
     "canWater": true,
     "handicapChange": {
      "type": "降盘降水",
      "initHandicap": 0,
      "nowHandicap": -0.25,
      "initUpWater": 1.02,
-     "nowUpWater": 1,
+     "nowUpWater": 0.97,
      "initLine": "平手",
      "nowLine": "平手/半球"
     },
@@ -6732,9 +6732,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.82,
+      "home": 0.8,
       "line": "一球",
-      "away": 1.02
+      "away": 1.05
      }
     },
     "europe": {
@@ -6756,9 +6756,9 @@ const JC_DATA = {
       "under": 1
      },
      "live": {
-      "line": 0.92,
+      "line": 0.9,
       "over": 2.5,
-      "under": 0.92
+      "under": 0.95
      }
     }
    },
@@ -6803,9 +6803,9 @@ const JC_DATA = {
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.39573981245826767,
-       "draw": 0.2546403008880273,
-       "away": 0.34961988665370586
+       "home": 0.3962722791198952,
+       "draw": 0.2536745481844704,
+       "away": 0.3500531726956344
       },
       "pick": "home",
       "label": "让胜"
@@ -6818,21 +6818,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1,
     "upSide": "home",
-    "upWater": 0.82,
-    "downWater": 1.02,
+    "upWater": 0.8,
+    "downWater": 1.05,
     "openHandicap": -1,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
+    "totalWater": 1.85,
+    "theoryUpPercent": "56.76",
+    "theoryDownPercent": "43.24",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -1,
      "nowHandicap": -1,
      "initUpWater": 1.02,
-     "nowUpWater": 0.82,
+     "nowUpWater": 0.8,
      "initLine": "一球",
      "nowLine": "一球"
     },

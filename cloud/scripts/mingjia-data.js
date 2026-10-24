@@ -164,17 +164,35 @@ const MINGJIA_DATA = {
   {
    "name": "黄大仙",
    "cat": "双色球",
-   "kw": "黄大仙 双色球 字谜 参考图",
+   "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
-     "size": 82512,
-     "src": "https://pic.cz89.com/upload/20250318/a46b71e0d70b43aeaea125c5addb71a6.jpg",
-     "page": "https://www.cz89.com/read_9218823.htm",
-     "title": "黄大仙杀蓝球030期双色球图谜 _牛彩网",
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-24T11:36:14.757Z"
+     "fetchedAt": "2026-10-24T13:23:58.432Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 93725,
+     "src": "https://pic.cz89.com/upload/20250304/7ee069d9d88141a4ac145778e3d44777.jpg",
+     "page": "https://www.cz89.com/read_9188272.htm",
+     "title": "牛魔王杀两码红球024期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-24T13:24:02.811Z"
     }
    ],
    "stale": true
@@ -185,14 +203,14 @@ const MINGJIA_DATA = {
    "kw": "东北人杀 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
-     "size": 104137,
-     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
-     "page": "https://www.cz89.com/read_9355375.htm",
-     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
-     "issue": "",
+     "file": "imgs/mingjia/双色球/东北人杀/1.webp",
+     "size": 48904,
+     "src": "https://pic2.800820.net/tumi/20260211/3e931d48852d444bacdecad2e99c63f2.webp",
+     "page": "https://www.800820.net/p/10796476.html",
+     "title": "双色球26019期东北人杀蓝图迷_天齐网",
+     "issue": "26019",
      "verified": false,
-     "fetchedAt": "2026-10-23T22:52:09.578Z"
+     "fetchedAt": "2026-10-24T13:54:33.482Z"
     }
    ],
    "stale": true
@@ -221,32 +239,14 @@ const MINGJIA_DATA = {
    "kw": "林黛玉 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
-     "size": 49424,
-     "src": "https://pic2.800820.net/tumi/20260306/0111e4332fad4be9b7877c5405fe222e.webp",
-     "page": "https://www.800820.net/p/10835203.html",
-     "title": "林黛玉26年025期双色球杀蓝号图迷_天齐网",
+     "file": "imgs/mingjia/双色球/林黛玉/1.png",
+     "size": 121366,
+     "src": "https://pic.cz89.com/upload/20231203/efafe47471764ca1965038ccbd9f31be.png",
+     "page": "https://www.cz89.com/read_8171661.htm",
+     "title": "林黛玉杀蓝号140期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-24T11:36:34.493Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.png",
-     "size": 119197,
-     "src": "https://pic.cz89.com/upload/20260101/8a399b4dcf0848ea9521bce79d63bb53.png",
-     "page": "https://www.cz89.com/read_9947547.htm",
-     "title": "双色球002期 贾宝玉杀蓝号图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-24T11:36:41.315Z"
+     "fetchedAt": "2026-10-24T13:54:47.853Z"
     }
    ],
    "stale": true
@@ -718,7 +718,17 @@ const MINGJIA_DATA = {
    "imgs": 14
   },
   {
-   "at": "2026-10-24 21:25:07",
+   "at": "2026-10-24 21:55:18",
+   "names": 71,
+   "imgs": 14
+  },
+  {
+   "at": "2026-10-24 22:10:02",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-10-24 22:19:47",
    "names": 71,
    "imgs": 15
   },

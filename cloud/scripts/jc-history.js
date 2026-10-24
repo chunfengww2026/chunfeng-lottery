@@ -1301,6 +1301,90 @@ const JC_HISTORY = {
    "at": "2026-10-24 00:21"
   },
   {
+   "code": "周六013",
+   "league": "德甲",
+   "home": "帕德博恩",
+   "away": "汉堡",
+   "time": "2026-10-24 21:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 2.15,
+    "draw": 3.8,
+    "away": 3.1
+   },
+   "prob": {
+    "home": 42.3,
+    "draw": 24.8,
+    "away": 32.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 42.3,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-24 00:21"
+  },
+  {
+   "code": "周六014",
+   "league": "德甲",
+   "home": "科隆",
+   "away": "沙尔克04",
+   "time": "2026-10-24 21:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 2.05,
+    "draw": 3.75,
+    "away": 3.3
+   },
+   "prob": {
+    "home": 44,
+    "draw": 25.8,
+    "away": 30.2
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 44,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-24 00:21"
+  },
+  {
+   "code": "周六015",
+   "league": "德甲",
+   "home": "奥格斯堡",
+   "away": "柏林联合",
+   "time": "2026-10-24 21:30",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 1.83,
+    "draw": 3.9,
+    "away": 4.1
+   },
+   "prob": {
+    "home": 53.5,
+    "draw": 23.7,
+    "away": 22.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 53.5,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-24 00:21"
+  },
+  {
    "code": "周六011",
    "league": "德甲",
    "home": "莱红牛",
