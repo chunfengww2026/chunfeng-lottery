@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 03:23
+   更新时间：2026-10-25 04:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 03:23",
+ "updated": "2026-10-25 04:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2473,7 +2473,7 @@ const XYSP_DATA = {
      "issue": "26281",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797352000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792797837393,
@@ -2563,7 +2563,7 @@ const XYSP_DATA = {
      "issue": "26120",
      "seen": "2026-10-24T19:22:25.068Z",
      "whenMs": 1792797334000,
-     "seenMs": 1792867770920,
+     "seenMs": 1792869745068,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792859178768,
@@ -2605,6 +2605,36 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-24 07:15:34",
      "postId": "7700005920029278771",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=AcIArEOySOe8MTYTLPLHvuFrxKg%3D",
+     "title": "20元斩获1004万！江苏大乐透大奖实票曝光，选号像“技术流”吗？",
+     "url": "http://toutiao.com/item/7699985017052594738/",
+     "at": "2026-10-24T20:16:30.618Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "",
+     "seen": "2026-10-24T20:16:30.618Z",
+     "whenMs": 1792792467000,
+     "seenMs": 1792872990618,
+     "drawMs": 1792845000000,
+     "nextMs": 1792845000000,
+     "atMs": 1792872990618,
+     "drawAt": "2026-10-24T12:30:00.000Z",
+     "nextAt": 1792845000000,
+     "drawGid": "dlt",
+     "expireAt": "2026-10-25T20:16:30.618Z",
+     "rule": "first-capture-24h",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-10-24 05:54:27",
+     "postId": "7699985017052594738",
      "px": 132300
     }
    ]

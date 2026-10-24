@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 03:22:25
+   更新时间：2026-10-25 04:16:30
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-25 03:22:25",
+ "updated": "2026-10-25 04:16:30",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/02bb013426474888b71d8442141e4471~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=IV4E5a7FA7GVDeqSx3tPXD%2FUdNw%3D",
@@ -358,7 +358,7 @@ const XYSP_TT_DATA = {
    "issue": "26281",
    "seen": "2026-10-24T19:22:25.068Z",
    "whenMs": 1792797352000,
-   "seenMs": 1792867770920,
+   "seenMs": 1792869745068,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792797837393,
@@ -448,7 +448,7 @@ const XYSP_TT_DATA = {
    "issue": "26120",
    "seen": "2026-10-24T19:22:25.068Z",
    "whenMs": 1792797334000,
-   "seenMs": 1792867770920,
+   "seenMs": 1792869745068,
    "drawMs": 1792845000000,
    "nextMs": 1792845000000,
    "atMs": 1792859178768,
@@ -490,6 +490,36 @@ const XYSP_TT_DATA = {
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-24 07:15:34",
    "postId": "7700005920029278771",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=iLcZgTXUqkdOE75WAhviAilnMR0%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801526400&x-signature=AcIArEOySOe8MTYTLPLHvuFrxKg%3D",
+   "title": "20元斩获1004万！江苏大乐透大奖实票曝光，选号像“技术流”吗？",
+   "url": "http://toutiao.com/item/7699985017052594738/",
+   "at": "2026-10-24T20:16:30.618Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "",
+   "seen": "2026-10-24T20:16:30.618Z",
+   "whenMs": 1792792467000,
+   "seenMs": 1792872990618,
+   "drawMs": 1792845000000,
+   "nextMs": 1792845000000,
+   "atMs": 1792872990618,
+   "drawAt": "2026-10-24T12:30:00.000Z",
+   "nextAt": 1792845000000,
+   "drawGid": "dlt",
+   "expireAt": "2026-10-25T20:16:30.618Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-24 05:54:27",
+   "postId": "7699985017052594738",
    "px": 132300
   },
   {
@@ -953,6 +983,7 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/a554512376d34bf38701479cedae39bd~tplv-26tn0yjwph-cspd-v1.jpg": 1792862767829,
   "/tos-cn-i-6w9my0ksvp/79d918a3983546bba326a2c9b38c7d35~tplv-26tn0yjwph-cspd-v1.jpg": 1792862767829,
   "/tos-cn-i-6w9my0ksvp/21c4cf444ea848c09f514de51850d224~tplv-26tn0yjwph-cspd-v1.jpg": 1792864322142,
-  "/tos-cn-i-ezhpy3drpa/7b566e353ff64c2ebe3767ad9ceb6d5c~tplv-26tn0yjwph-cspd-v1.jpg": 1792866339505
+  "/tos-cn-i-ezhpy3drpa/7b566e353ff64c2ebe3767ad9ceb6d5c~tplv-26tn0yjwph-cspd-v1.jpg": 1792866339505,
+  "/tos-cn-i-6w9my0ksvp/9dd649342c1a4515b84a75d0a7c39162~tplv-26tn0yjwph-cspd-v1.jpg": 1792872990618
  }
 };
