@@ -792,6 +792,27 @@
    "expiresAt": "2026-10-26T09:40:00.000Z"
   },
   {
+   "id": "https://m.cz89.com/read_10922339.htm",
+   "gid": "pl3",
+   "cat": "排列三",
+   "author": "字谜资料",
+   "title": "2026283期晚秋P3试机号后推荐定胆_手机牛彩网",
+   "issue": "26283",
+   "url": "https://m.cz89.com/read_10922339.htm",
+   "excerpt": "标签：晚秋字谜 \n\n280期晚秋P3试机号后推荐定胆：炉烧九转药新成 开864\n281期晚秋P3试机号后推荐定胆：归寻园柳未生芽 开983\n282期晚秋P3试机号后推荐定胆：天山千里锁诸关 开647\n283期晚秋P3试机号后推荐定胆：万里投",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "标签：晚秋字谜 \n\n280期晚秋P3试机号后推荐定胆：炉烧九转药新成 开864\n281期晚秋P3试机号后推荐定胆：归寻园柳未生芽 开983\n282期晚秋P3试机号后推荐定胆：天山千里锁诸关 开647\n283期晚秋P3试机号后推荐定胆：万里投荒失意多 开\n\n\n发布时间：2026-10-24 17:40"
+    }
+   ],
+   "images": [],
+   "publishedAt": "2026-10-24T09:40:00.000Z",
+   "publicationTimeUnknown": false,
+   "firstSeen": "2026-10-24T10:22:02.432Z",
+   "expiresAt": "2026-10-26T09:40:00.000Z"
+  },
+  {
    "id": "https://m.cz89.com/read_10922278.htm",
    "gid": "fc3d",
    "cat": "3D",
@@ -24485,27 +24506,32 @@
   },
   {
    "url": "https://expert.78500.cn/",
-   "status": 403,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
    "url": "https://expert.78500.cn/",
-   "status": 403,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
    "url": "https://expert.78500.cn/",
-   "status": 403,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
    "url": "https://expert.78500.cn/",
-   "status": 403,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
    "url": "https://expert.78500.cn/",
-   "status": 403,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
@@ -24520,7 +24546,7 @@
   },
   {
    "url": "https://tieba.baidu.com/f?kw=%E5%A4%A7%E4%B9%90%E9%80%8F",
-   "status": 403,
+   "status": 200,
    "count": 0
   },
   {
