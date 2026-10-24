@@ -1766,6 +1766,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 584509,
+    "kind": "upcoming",
+    "league": {
+     "name": "美職業",
+     "color": "660033"
+    },
+    "time": "2026-10-25 09:30:00",
+    "minute": 0,
+    "home": {
+     "name": "皇家盐湖城",
+     "score": null,
+     "red": null,
+     "rank": 10
+    },
+    "away": {
+     "name": "圣路易斯市",
+     "score": null,
+     "red": null,
+     "rank": 2
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.5,
+       "line": "0.99",
+       "away": 0.9
+      },
+      "live": {
+       "home": -0.25,
+       "line": "1.09",
+       "away": 0.79
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.84,
+       "under": 1.03
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.88,
+       "under": 0.99
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2,
+       "draw": 3.2,
+       "away": 3.7
+      },
+      "live": {
+       "home": 2.51,
+       "draw": 3.55,
+       "away": 2.38
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 38.2,
+     "prob": {
+      "home": 36.2,
+      "draw": 25.6,
+      "away": 38.2
+     },
+     "clear": false,
+     "margin": 10
+    },
+    "result": null
+   },
+   {
     "gid": 584508,
     "kind": "upcoming",
     "league": {
@@ -2158,11 +2231,7 @@ const FOOTBALL_DATA = {
        "line": "1.02",
        "away": 0.87
       },
-      "live": {
-       "home": 0,
-       "line": "",
-       "away": null
-      }
+      "live": null
      },
      "overunder": {
       "open": {
@@ -2997,7 +3066,7 @@ const FOOTBALL_DATA = {
     "result": {
      "actual": "draw",
      "actualLabel": "平局",
-     "hit": false,
+     "hit": true,
      "score": "1 - 1"
     }
    },
@@ -3319,7 +3388,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-25 06:30:00",
-    "minute": 0,
+    "minute": 29,
     "home": {
      "name": "马约",
      "score": 0,
