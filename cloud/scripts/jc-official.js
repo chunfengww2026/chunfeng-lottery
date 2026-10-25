@@ -1,24 +1,14 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 12:36
+/* 自动生成，请勿手动编辑 · 2026-10-25 13:09
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-10-25 12:36",
- "inSale": 32,
- "officialUpdate": "2026-10-25 12:33:40",
+ "updated": "2026-10-25 13:09",
+ "inSale": 31,
+ "officialUpdate": "2026-10-25 12:50:15",
  "list": [
- {
-  "code": "周日002",
-  "time": "2026-10-25 13:00:00",
-  "handicap": 1,
-  "handicapOdds": {
-   "home": 1.78,
-   "draw": 3.4,
-   "away": 3.65
-  }
- },
  {
   "code": "周日003",
   "time": "2026-10-25 15:00:00",
@@ -34,9 +24,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 15:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.75,
-   "draw": 3.6,
-   "away": 1.71
+   "home": 3.6,
+   "draw": 3.5,
+   "away": 1.77
   }
  },
  {
@@ -64,9 +54,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 21:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.73,
-   "draw": 3,
-   "away": 2.33
+   "home": 2.71,
+   "draw": 2.95,
+   "away": 2.37
   }
  },
  {
@@ -84,9 +74,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 21:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.25,
-   "draw": 3.55,
-   "away": 1.85
+   "home": 3.2,
+   "draw": 3.45,
+   "away": 1.9
   }
  },
  {
@@ -144,9 +134,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 4.2,
-   "draw": 3.6,
-   "away": 1.63
+   "home": 4.1,
+   "draw": 3.55,
+   "away": 1.66
   }
  },
  {
@@ -174,9 +164,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:30:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.58,
-   "draw": 4.2,
-   "away": 3.87
+   "home": 1.61,
+   "draw": 4.13,
+   "away": 3.75
   }
  },
  {
@@ -184,8 +174,8 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 23:15:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.65,
-   "draw": 3.7,
+   "home": 1.66,
+   "draw": 3.65,
    "away": 3.95
   }
  },
