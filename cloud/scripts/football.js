@@ -19660,10 +19660,10 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-25 10:30:00",
-    "minute": 92,
+    "minute": 97,
     "home": {
      "name": "聖地牙哥",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 12
     },
@@ -19726,7 +19726,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-25 10:30:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "波特兰木材",
      "score": 2,
@@ -19792,7 +19792,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-25 11:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "普马斯",
      "score": 1,
@@ -19858,7 +19858,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "臥龍崗狼隊",
      "score": 0,
@@ -19936,7 +19936,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "悉尼奥林匹克",
      "score": 0,
@@ -20014,7 +20014,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "大宫松鼠女足",
      "score": 0,
@@ -20092,7 +20092,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "橫川武藏野",
      "score": 0,
@@ -20170,7 +20170,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "熊本深红",
      "score": 0,
@@ -20248,7 +20248,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "鸟取SC",
      "score": 0,
@@ -20326,7 +20326,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "靜岡SSU漂亮(女)",
      "score": 0,
@@ -20404,7 +20404,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "汤乡贝勒女足",
      "score": 0,
@@ -20482,7 +20482,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "宮崎天照(女)",
      "score": 0,
@@ -20560,7 +20560,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "伊贺库诺兹女足",
      "score": 1,
@@ -20638,7 +20638,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "哈瑞玛艾比安女足",
      "score": 0,
@@ -20716,7 +20716,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "FC爱媛女足",
      "score": 0,
@@ -20794,7 +20794,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "吉備國際大學查米(女)",
      "score": 1,
@@ -20872,7 +20872,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "FC高槻女足",
      "score": 2,
@@ -20910,7 +20910,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "威蒂恩三重(女)",
      "score": 0,
@@ -20988,7 +20988,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "山梨藤櫻(女)",
      "score": 0,
@@ -21066,7 +21066,7 @@ const FOOTBALL_DATA = {
      "color": "009933"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "邦尼斯岡瑪白星(女)",
      "score": 0,
@@ -21144,7 +21144,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "悉尼FC",
      "score": 0,
