@@ -4938,6 +4938,15 @@ function recoArchiveCommit(recData) {
     label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],
     draw: ['front','back'].map((key,i)=>({label:i?'后区':'前区',nums:((idx['dlt|26121']||{}).areas||{})[key]||[],pad:true,br:!!i,hit:((((idx['dlt|26121']||{}).areas||{})[key])||[]).map(n=>i?Number(n)===1:true)})),
     note:'站主确认报喜；后区命中01，08未中。'});
+  [{gid:'qlc',issue:'2026122',label:'二等奖',keys:['main','special'],names:['基本号','特别号']},
+   {gid:'pl3',issue:'26282',label:'中奖',keys:['main'],names:['开奖号码']}].forEach(report=>{
+    const actual=idx[report.gid+'|'+report.issue];
+    wins.push({gid:report.gid,issue:report.issue,date:'2026-10-23',name:MQ_NAME[report.gid]||report.gid,lv:0,
+      label:report.label+'（站主报喜）',source:'owner-report',rec:[],
+      draw:report.keys.map((key,i)=>({label:report.names[i],nums:((actual||{}).areas||{})[key]||[],pad:report.gid==='qlc',br:!!i})),
+      note:'站主报喜；站主反馈系统bug，历史资料暂无法恢复。'});
+  });
+
 
 
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
