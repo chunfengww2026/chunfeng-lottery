@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3a794e"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "馬魯莫英勇者(後備)",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "f03623"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "香港流浪",
      "score": 1,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "上海農商銀行(女)",
      "score": 0,
@@ -23922,7 +23922,7 @@ const FOOTBALL_DATA = {
      "color": "112050"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "黑爾堡大學(女)",
      "score": 0,
@@ -23988,7 +23988,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "FC爱媛",
      "score": 1,
@@ -23997,7 +23997,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "福岛联",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 18
     },
@@ -24054,10 +24054,10 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "北京雨虹修繕(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -24120,7 +24120,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "川崎前锋",
      "score": 2,
@@ -24186,10 +24186,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "FC东京",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
@@ -24330,7 +24330,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "凯景",
      "score": 1,
