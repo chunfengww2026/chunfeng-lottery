@@ -1,13 +1,13 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 13:49
+/* 自动生成，请勿手动编辑 · 2026-10-25 14:29
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-10-25 13:49",
+ "updated": "2026-10-25 14:29",
  "inSale": 31,
- "officialUpdate": "2026-10-25 13:43:19",
+ "officialUpdate": "2026-10-25 14:27:28",
  "list": [
  {
   "code": "周日003",
@@ -24,9 +24,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 15:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.43,
+   "home": 3.5,
    "draw": 3.4,
-   "away": 1.84
+   "away": 1.82
   }
  },
  {
@@ -94,9 +94,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 21:30:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.04,
-   "draw": 3.74,
-   "away": 2.69
+   "home": 2,
+   "draw": 3.75,
+   "away": 2.76
   }
  },
  {
@@ -104,9 +104,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:00:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 2.1,
-   "draw": 3.38,
-   "away": 2.8
+   "home": 2.15,
+   "draw": 3.33,
+   "away": 2.75
   }
  },
  {
@@ -254,9 +254,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-26 04:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.35,
-   "draw": 4.18,
-   "away": 2.15
+   "home": 2.37,
+   "draw": 4.2,
+   "away": 2.13
   }
  },
  {
