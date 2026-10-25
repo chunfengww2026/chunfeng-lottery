@@ -1115,6 +1115,7 @@ function expertArticlesHtml() {
 
 /* __FROG_PANEL__ 用户 2026-10-18：青蛙家园 = 免费资料 + 自动抓数据 + 核心算法出号
    数据全部来自本地已抓好的文件（核心算法 20 码 / 免费文章），不联网、不收费。 */
+let FROG_CURRENT_DATA = {};
 function frogPanelHtml() {
   let pool = { ssq: [], dlt: [] }, issue = { ssq: '', dlt: '' }, arts = [];
   /* __FROG_SSQ_BLUE__ 双色球蓝球（1-16 取 6 个）：跟大乐透后区同一套展示 */
@@ -1361,6 +1362,7 @@ function frogPanelHtml() {
       }
     }
   } catch (e) {}
+  FROG_CURRENT_DATA = Object.fromEntries(['ssq','dlt','kl8'].map(gid=>[gid,{issue:String(issue[gid]||''),blocks:[{label:'参考号码',nums:pool[gid]||[],kind:'ball'},...(gid==='ssq'?[{label:'蓝球',nums:ssqBack,kind:'ball'}]:gid==='dlt'?[{label:'后区',nums:dltBack,kind:'ball'}]:[])]}]));
   return '<details class="frog" id="frogHome">' +
     '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-sub">（蝌蚪严父）</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
     '<div class="frog-body">' +
@@ -4798,6 +4800,33 @@ function histArchiveRead() {
  * 存档 + 比对 + 剪枝 + 写回，一条龙。
  * 返回 { arch, wins, stats }：wins 就是页面要渲染的中奖记录（已剪枝、已排序）。
  */
+function frogArchiveCommit(arch, current, idx, stamp, cutMs) {
+  const records = arch.frogGames || (arch.frogGames = {});
+  Object.entries(current || {}).forEach(([gid, r]) => {
+    if (!r.issue || !r.blocks[0].nums.length || idx[gid+'|'+r.issue]) return;
+    const bag = records[gid] || (records[gid] = {});
+    if (!bag[r.issue]) bag[r.issue] = {...r, savedAt: stamp};
+  });
+  const wins = [];
+  Object.entries(records).forEach(([gid, bag]) => Object.entries(bag).forEach(([issue, r]) => {
+    if (histDayMs(r.savedAt) < cutMs) { delete bag[issue]; return; }
+    const d = idx[gid+'|'+issue];
+    if (!d || !d.areas || histDayMs(d.date) < cutMs || String(d.date).slice(0,10)<HIST_ARCHIVE_START) return;
+    let j;
+    if (gid === 'kl8') {
+      const nums=r.blocks[0].nums, main=(d.areas.main||[]).map(Number), hit=main.map(n=>nums.includes(n)), count=hit.filter(Boolean).length;
+      if(count<8)return;
+      j={lv:3,label:'参考命中 '+count+' 个',note:'20个参考号码与开奖对照，不代表单注奖金',rec:[{label:'参考号码',nums,pad:true}],draw:[{label:'开奖',nums:main,pad:true,hit}]};
+    } else {
+      j=histJudgeRec(gid,r.blocks,d);
+      if(!j || !histKeepTier(gid,j.lv))return;
+      j={...j,label:j.label+'参考命中',note:j.note+' · 多号码参考对照，不代表已购票中奖'};
+    }
+    wins.push({...j,gid,issue,date:String(d.date).slice(0,10),name:MQ_NAME[gid]||gid,source:'frog'});
+  }));
+  return wins;
+}
+
 function recoArchiveCommit(recData) {
   const arch = histArchiveRead();
   const idx = mqDrawIndex();            /* 彩种|期号 → 那期真实开奖（DRAW_HISTORY + 最新一期） */
@@ -4900,6 +4929,8 @@ function recoArchiveCommit(recData) {
   mergeMarquee(prevMarquee, true);   /* 存档里已有的（上一班写的） */
   mergeMarquee(MQ_WIN_ROWS, false);  /* 这一班小喇叭正在播的 */
 
+  wins.push(...frogArchiveCommit(arch, FROG_CURRENT_DATA, idx, stamp, cutMs));
+
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
   let prunedWins = 0;
   const keptWins = wins.filter((w) => {
@@ -4942,6 +4973,7 @@ function recoArchiveCommit(recData) {
   return { arch: arch, wins: keptWins, stats: stats };
 }
 
+const FROG_PANEL_HTML = frogPanelHtml();
 const RECO = recoArchiveCommit(REC_DATA);
 console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stats.saved + ' 期 · 已有 ' +
   RECO.stats.kept + ' 期不动' + (RECO.stats.skippedDrawn ? ' · 已开奖不补存 ' + RECO.stats.skippedDrawn + ' 期' : '') +
@@ -5235,7 +5267,7 @@ function buildHistoryHtml() {
             '<span class="ro-hist-ann-d">' + escape(String(r.date).slice(5)) + '</span>' +
             '<span class="ro-hist-ann-g">' + escape(r.name) + '</span>' +
             '<span class="ro-hist-ann-i">第' + escape(r.issue) + '期</span>' +
-            '<span class="ro-hist-ann-t">' + escape(r.label) + '</span>' +
+            '<span class="ro-hist-ann-t">' + escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label) + '</span>' +
             '<span class="ro-hist-ann-n">' + annNumsHtml(r) + '</span>' +
           '</div>').join('') +
       '</div>'
@@ -5272,7 +5304,7 @@ function buildHistoryHtml() {
       `<div class="ro-hist-top">` +
       `<span class="ro-hist-date">${escape(r.date)}</span>` +
       `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
-      `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape(r.label)}</span>` +
+      `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label)}</span>` +
       `</div>` +
       (r.source === 'marquee' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
       (r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
@@ -10779,7 +10811,7 @@ ${histHtml}
     </div>
   </details>
 <!-- __FROG2__ 用户 2026-10-18：晒票那一排下面加按钮 🐸青蛙家园（展示，不跳转） -->
-${frogPanelHtml()}
+${FROG_PANEL_HTML}
 
   </div><!-- /#ro-frog-hist-row · 两列并排结束 -->
 
@@ -18538,7 +18570,7 @@ function assertHeadOnce(finalHtml, label, cssText) {
 }
 
 // SHARE_UNLOCK_V1: visitor session share prompt; UI access only.
-const shareUnlockScript = "(function(){\n 'use strict';\n var key='chunfeng-share-unlock-v1', unlocked=false;\n try{unlocked=sessionStorage.getItem(key)==='1';}catch(e){}\n var style=document.createElement('style');style.textContent='.share-locked>:not(.share-unlock):not(summary):not(.ro-gamehead){display:none!important}.share-unlock{padding:18px;text-align:center;background:#fcf6e9;border:1px solid #e8d8bc;border-radius:12px;margin:12px 0}.share-unlock button{background:#19895d;color:white;border:0;border-radius:20px;padding:10px 24px;font:inherit}.share-unlock p{color:#89795f;font-size:12px}';document.head.appendChild(style);\n function unlock(){unlocked=true;try{sessionStorage.setItem(key,'1');}catch(e){}document.querySelectorAll('.share-locked').forEach(function(n){n.classList.remove('share-locked');});document.querySelectorAll('.share-unlock').forEach(function(n){n.remove();});}\n async function share(button,status){\n  var url='https://chunfengww2026.github.io/chunfeng-lottery/index.html';button.disabled=true;\n  try{\n   if(navigator.share){await navigator.share({title:'春风 · 彩票参考资料',text:'一起来查看春风参考资料',url:url});unlock();return;}\n   if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);status.textContent='链接已复制，请发送给朋友。';}\n   else{var input=document.createElement('input');input.value=url;input.readOnly=true;input.style.width='95%';status.replaceChildren(input);input.select();}\n   button.textContent='已分享，查看资料';button.onclick=unlock;\n  }catch(e){status.textContent=e.name==='AbortError'?'已取消分享，可再次点击。':'暂时无法分享，请重试或复制网站链接。';}\n  finally{button.disabled=false;}\n }\n function mount(){if(unlocked)return;document.querySelectorAll('.ro-game[data-ro-gid],#ro-zldq').forEach(function(n){if(n.classList.contains('share-locked'))return;n.classList.add('share-locked');var box=document.createElement('div');box.className='share-unlock';var title=document.createElement('div');title.textContent='分享后查看资料';var p=document.createElement('p');p.textContent='分享或复制链接后解锁本次访问。网页无法核实实际发送情况。';var b=document.createElement('button');b.type='button';b.textContent='分享后查看';var status=document.createElement('p');status.setAttribute('role','status');b.onclick=function(){share(b,status);};box.append(title,p,b,status);n.appendChild(box);});}\n mount();new MutationObserver(mount).observe(document.body,{childList:true,subtree:true});\n})();\n";
+const shareUnlockScript = "(function(){\n 'use strict';\n var key='chunfeng-share-unlock-v1', unlocked=false;\n try{unlocked=sessionStorage.getItem(key)==='1';}catch(e){}\n var style=document.createElement('style');style.textContent='.share-locked>:not(.share-unlock):not(summary):not(.ro-gamehead){display:none!important}.share-unlock{padding:18px;text-align:center;background:#fcf6e9;border:1px solid #e8d8bc;border-radius:12px;margin:12px 0}.share-unlock button{background:#19895d;color:white;border:0;border-radius:20px;padding:10px 24px;font:inherit}.share-unlock p{color:#89795f;font-size:12px}';document.head.appendChild(style);\n function unlock(){unlocked=true;try{sessionStorage.setItem(key,'1');}catch(e){}document.querySelectorAll('.share-locked').forEach(function(n){n.classList.remove('share-locked');});document.querySelectorAll('.share-unlock').forEach(function(n){n.remove();});}\n async function share(button,status){\n  var url='https://chunfengww2026.github.io/chunfeng-lottery/index.html';button.disabled=true;\n  try{\n   if(navigator.share){await navigator.share({title:'春风 · 彩票参考资料',text:'一起来查看春风参考资料',url:url});unlock();return;}\n   if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);status.textContent='链接已复制，请发送给朋友。';}\n   else{var input=document.createElement('input');input.value=url;input.readOnly=true;input.style.width='95%';status.replaceChildren(input);input.select();}\n   button.textContent='已分享，查看资料';button.onclick=unlock;\n  }catch(e){status.textContent=e.name==='AbortError'?'已取消分享，可再次点击。':'暂时无法分享，请重试或复制网站链接。';}\n  finally{button.disabled=false;}\n }\n function mount(){if(unlocked)return;document.querySelectorAll('.ro-game[data-ro-gid],#ro-zldq,#frogHome,#ro-articles').forEach(function(n){if(n.classList.contains('share-locked'))return;n.classList.add('share-locked');var box=document.createElement('div');box.className='share-unlock';var title=document.createElement('div');title.textContent='分享后查看资料';var p=document.createElement('p');p.textContent='分享或复制链接后解锁本次访问。网页无法核实实际发送情况。';var b=document.createElement('button');b.type='button';b.textContent='分享后查看';var status=document.createElement('p');status.setAttribute('role','status');b.onclick=function(){share(b,status);};box.append(title,p,b,status);n.appendChild(box);});}\n mount();new MutationObserver(mount).observe(document.body,{childList:true,subtree:true});\n})();\n";
 const finalHtml = perfify(safeHtml.slice(0, safeHtml.lastIndexOf("</body>")) + "<script>" + shareUnlockScript + "</script>" + safeHtml.slice(safeHtml.lastIndexOf("</body>")));
 assertHeadOnce(finalHtml, '只读分享版.html', '.ro-game{content-visibility:auto');
 fs.writeFileSync(OUT, finalHtml.replace(/<!--[\s\S]*?-->/g, ''), 'utf8');
