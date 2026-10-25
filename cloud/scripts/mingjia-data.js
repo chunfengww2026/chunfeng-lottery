@@ -1,25 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/26 03:32:32） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/26 04:22:07） */
 const MINGJIA_DATA = {
- "updated": "2026-10-26 03:32:32",
+ "updated": "2026-10-26 04:22:07",
  "list": [
-  {
-   "name": "名家精",
-   "cat": "3D",
-   "kw": "名家精 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "3D",
-   "kw": "白天鹅 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "百合花",
-   "cat": "3D",
-   "kw": "百合花 3D 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "迷公",
    "cat": "排列三",
@@ -48,7 +30,18 @@ const MINGJIA_DATA = {
    "name": "金手指",
    "cat": "排列三",
    "kw": "金手指 排列三 字谜 参考图",
-   "imgs": []
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/金手指/1.jpg",
+     "size": 54460,
+     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
+     "page": "https://www.jb51.net/softs/250983.html",
+     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-25T20:21:13.683Z"
+    }
+   ]
   },
   {
    "name": "万里挑一",
@@ -84,6 +77,30 @@ const MINGJIA_DATA = {
    "name": "金手指",
    "cat": "快乐8",
    "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "快乐8",
+   "kw": "万里挑一 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "双色球",
+   "kw": "太湖字谜 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -319,12 +336,6 @@ const MINGJIA_DATA = {
     }
    ],
    "stale": true
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "双色球",
-   "kw": "太湖字谜 双色球 字谜 参考图",
-   "imgs": []
   },
   {
    "name": "迷公",
@@ -567,30 +578,25 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "万里挑一",
-   "cat": "快乐8",
-   "kw": "万里挑一 快乐8 字谜 参考图",
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 字谜 参考图",
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 字谜 参考图",
    "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-25 15:17:49",
-   "names": 71,
-   "imgs": 12
-  },
   {
    "at": "2026-10-25 15:47:24",
    "names": 71,
@@ -705,6 +711,11 @@ const MINGJIA_DATA = {
    "at": "2026-10-26 03:32:32",
    "names": 71,
    "imgs": 13
+  },
+  {
+   "at": "2026-10-26 04:22:07",
+   "names": 71,
+   "imgs": 14
   }
  ],
  "bootstrapExpiresAt": null,
