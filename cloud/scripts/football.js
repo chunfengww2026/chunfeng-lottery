@@ -2680,6 +2680,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 585638,
+    "kind": "upcoming",
+    "league": {
+     "name": "阿甲",
+     "color": "3792dd"
+    },
+    "time": "2026-10-26 08:30:00",
+    "minute": 0,
+    "home": {
+     "name": "巴拉卡斯中央队",
+     "score": null,
+     "red": null,
+     "rank": 14
+    },
+    "away": {
+     "name": "里奥夸托学生队",
+     "score": null,
+     "red": null,
+     "rank": 29
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.97",
+       "away": 0.92
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.91",
+       "away": 0.97
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "1.75",
+       "over": 0.8,
+       "under": 1.07
+      },
+      "live": {
+       "line": "0.75",
+       "over": 0.96,
+       "under": 0.91
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.72,
+       "draw": 5.2,
+       "away": 3.25
+      },
+      "live": {
+       "home": 2.42,
+       "draw": 6.1,
+       "away": 1.9
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 47.7,
+     "prob": {
+      "home": 37.4,
+      "draw": 14.9,
+      "away": 47.7
+     },
+     "clear": true,
+     "margin": 10.3
+    },
+    "result": null
+   },
+   {
     "gid": 585637,
     "kind": "upcoming",
     "league": {
