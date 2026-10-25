@@ -1664,7 +1664,7 @@ function main() {
      · ⚠️ 必须排在 export-static.mjs【之前】（页面构建时要读这个 json）。
      · ⚠️ 它自己「抓不到就不覆盖旧文件 + 退出码永远 0」，
        所以这里用 runSoft：失败只记一行，绝不会拖垮整条构建链。 */
-  if (!QUICK) {
+  if (!QUICK && !fs.existsSync(path.join(MOD, 'visitor-counter.js'))) {
     const r = runSoft('fetch-busuanzi.mjs', []);
     log(`  不蒜子热度：${r.ok ? '✅ 已取到最新数字 → busuanzi.json' : '⚠️ 跳过（沿用上一次的数）'}`);
   }
