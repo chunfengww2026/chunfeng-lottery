@@ -1,22 +1,22 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 13:09
+/* 自动生成，请勿手动编辑 · 2026-10-25 13:49
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-10-25 13:09",
+ "updated": "2026-10-25 13:49",
  "inSale": 31,
- "officialUpdate": "2026-10-25 12:50:15",
+ "officialUpdate": "2026-10-25 13:43:19",
  "list": [
  {
   "code": "周日003",
   "time": "2026-10-25 15:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 1.77,
+   "home": 1.8,
    "draw": 3.5,
-   "away": 3.6
+   "away": 3.47
   }
  },
  {
@@ -24,9 +24,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 15:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.6,
-   "draw": 3.5,
-   "away": 1.77
+   "home": 3.43,
+   "draw": 3.4,
+   "away": 1.84
   }
  },
  {
@@ -74,9 +74,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 21:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.2,
-   "draw": 3.45,
-   "away": 1.9
+   "home": 3.1,
+   "draw": 3.4,
+   "away": 1.95
   }
  },
  {
@@ -164,9 +164,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:30:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.61,
-   "draw": 4.13,
-   "away": 3.75
+   "home": 1.66,
+   "draw": 4.05,
+   "away": 3.57
   }
  },
  {
@@ -204,9 +204,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-26 00:30:00",
   "handicap": 2,
   "handicapOdds": {
-   "home": 1.85,
+   "home": 1.81,
    "draw": 4.4,
-   "away": 2.77
+   "away": 2.86
   }
  },
  {
@@ -215,8 +215,8 @@ const JC_OFFICIAL = {
   "handicap": 1,
   "handicapOdds": {
    "home": 2.75,
-   "draw": 3.4,
-   "away": 2.12
+   "draw": 3.3,
+   "away": 2.16
   }
  },
  {
@@ -224,9 +224,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-26 01:30:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.39,
-   "draw": 3.5,
-   "away": 2.35
+   "home": 2.27,
+   "draw": 3.47,
+   "away": 2.5
   }
  },
  {
@@ -234,9 +234,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-26 03:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 3.68,
-   "draw": 4.1,
-   "away": 1.63
+   "home": 3.65,
+   "draw": 4.02,
+   "away": 1.65
   }
  },
  {
@@ -254,9 +254,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-26 04:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.26,
-   "draw": 4.2,
-   "away": 2.23
+   "home": 2.35,
+   "draw": 4.18,
+   "away": 2.15
   }
  },
  {
