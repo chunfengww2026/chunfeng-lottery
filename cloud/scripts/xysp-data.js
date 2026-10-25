@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 22:00
+   更新时间：2026-10-25 22:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 22:00",
+ "updated": "2026-10-25 22:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3717,66 +3717,6 @@ const XYSP_DATA = {
      "author": "七色彩世界",
      "when": "2026-10-25 07:43:25",
      "postId": "1879976606525580",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=i5k7EEuD2ZoVIqlJ4VX3zIisty0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=i5k7EEuD2ZoVIqlJ4VX3zIisty0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=fUWhyPysADWC%2B2LpcbRABijZPDo%3D",
-     "title": "玩快乐8不用80个号乱挑！盯紧两个区间，和随便乱选差别很大",
-     "url": "https://toutiao.com/group/7700203967514509860/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-25T13:46:01.264Z",
-     "whenMs": 1792850700000,
-     "seenMs": 1792935961264,
-     "drawMs": 1792935000000,
-     "nextMs": 1792935000000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-25T13:30:00.000Z",
-     "nextAt": 1792935000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "小李爱分享",
-     "when": "2026-10-24 22:05:00",
-     "postId": "7700203967514509860",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/58613a13224148e2b6b6cf32ae089ec3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=xirjBtb0A4NxVDyBo6qDjnJhYq0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/58613a13224148e2b6b6cf32ae089ec3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=xirjBtb0A4NxVDyBo6qDjnJhYq0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/58613a13224148e2b6b6cf32ae089ec3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=uOxI%2FPQsz6sYFHj9R4Z9PH4dCMc%3D",
-     "title": "快乐8 2026283期开奖复盘，拿出你的票对照看看，你打中几个？",
-     "url": "https://toutiao.com/group/7700234865240834594/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026283",
-     "seen": "2026-10-25T13:46:01.264Z",
-     "whenMs": 1792850674000,
-     "seenMs": 1792935961264,
-     "drawMs": 1792935000000,
-     "nextMs": 1792935000000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-25T13:30:00.000Z",
-     "nextAt": 1792935000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "每日分享星座",
-     "when": "2026-10-24 22:04:34",
-     "postId": "7700234865240834594",
      "px": 132300
     },
     {
