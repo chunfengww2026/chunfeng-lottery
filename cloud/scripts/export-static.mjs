@@ -4787,6 +4787,7 @@ function histArchiveRead() {
       start: String(raw.start || HIST_ARCHIVE_START),
       updated: String(raw.updated || ''),
       games: (raw.games && typeof raw.games === 'object') ? raw.games : {},
+      frogGames: (raw.frogGames && typeof raw.frogGames === 'object') ? raw.frogGames : {},
       wins: Array.isArray(raw.wins) ? raw.wins : []
     };
   } catch (e) {
