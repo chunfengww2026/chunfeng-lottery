@@ -18073,6 +18073,32 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (var j = 0; j < blue.length; j++) h += '<span class="px9-b blue">' + pad(blue[j]) + '</span>';
     return h + '</div>';
   }
+  function referenceMore(gid) {
+    var cfg = gid === 'ssq' ? {main:'red',back:'blue',max:33,bmax:16,label:'红球',blabel:'蓝球'} : {main:'front',back:'back',max:35,bmax:12,label:'前区',blabel:'后区'};
+    var hist = typeof DRAW_HISTORY !== 'undefined' && DRAW_HISTORY.games ? (DRAW_HISTORY.games[gid] || []).slice(0,30) : [];
+    if (!hist.length) return '<div class="ref-more">暂无历史统计资料</div>';
+    function counts(key,max) {return Array.from({length:max},function(_,i){var n=i+1,f=0,miss=hist.length;hist.forEach(function(d,k){if(((d.areas||{})[key]||[]).map(Number).indexOf(n)>=0){f++;if(miss===hist.length)miss=k;}});return {n:n,f:f,miss:miss};});}
+    function number(n){return String(n).padStart(2,'0');}
+    var front=counts(cfg.main,cfg.max),back=counts(cfg.back,cfg.bmax);
+    function rank(a,key,desc){return a.slice().sort(function(x,y){return (desc?y[key]-x[key]:x[key]-y[key])||x.n-y.n;});}
+    function list(a,key,count){return a.slice(0,count).map(function(x){return number(x.n)+'（'+x[key]+(key==='miss'?'期':'次')+'）';}).join('　');}
+    function card(title,body){return '<section class="ref-more-card"><b>'+title+'</b><div>'+body+'</div></section>';}
+    var all=hist.map(function(d){return ((d.areas||{})[cfg.main]||[]).map(Number);}).filter(function(a){return a.length;});
+    var totals=[0,0,0],odd=0,even=0,small=0,big=0,sums=[],spans=[];
+    all.forEach(function(a){var sum=0;a.forEach(function(n){totals[Math.min(2,Math.floor((n-1)/Math.ceil(cfg.max/3)))]++;if(n%2)odd++;else even++;if(n<=Math.floor(cfg.max/2))small++;else big++;sum+=n;});sums.push(sum);spans.push(Math.max.apply(null,a)-Math.min.apply(null,a));});
+    function range(a){return a.length?Math.min.apply(null,a)+'～'+Math.max.apply(null,a):'暂无';}
+    var styles='<style>.ref-more{margin-top:14px;font-size:12px;line-height:1.85;overflow-wrap:anywhere}.ref-more-card{padding:12px;margin:8px 0;background:#fff;border:1px solid #e7d5b5;border-radius:10px}.ref-more-card>b{color:#19895d}.ref-more-history{padding:7px 0;border-bottom:1px dashed #e7d5b5}</style>';
+    return styles+'<div class="ref-more" data-ref-game="'+gid+'"><b>更多参考资料 · 近'+hist.length+'期</b><div>统计截至 '+String(hist[0].date||'')+' · 历史表现不代表下期结果</div>'+
+      card(cfg.label+'近期热号',list(rank(front,'f',true),'f',8))+
+      card(cfg.label+'近期冷号',list(rank(front,'f',false),'f',8))+
+      card(cfg.label+'遗漏观察',list(rank(front,'miss',true),'miss',8)+'<div>达到统计窗口的遗漏值，表示至少未出现这么多期。</div>')+
+      card(cfg.blabel+'近期动态','热号：'+list(rank(back,'f',true),'f',5)+'<br>冷号：'+list(rank(back,'f',false),'f',5)+'<br>遗漏：'+list(rank(back,'miss',true),'miss',5))+
+      card('分区分布','一区 01～'+Math.ceil(cfg.max/3)+'：'+totals[0]+'次；二区 '+number(Math.ceil(cfg.max/3)+1)+'～'+Math.ceil(cfg.max/3)*2+'：'+totals[1]+'次；三区 '+number(Math.ceil(cfg.max/3)*2+1)+'～'+cfg.max+'：'+totals[2]+'次')+
+      card('奇偶与大小','奇数 '+odd+'次 · 偶数 '+even+'次<br>小号 01～'+Math.floor(cfg.max/2)+'：'+small+'次 · 大号 '+number(Math.floor(cfg.max/2)+1)+'～'+cfg.max+'：'+big+'次')+
+      card('和值与跨度','近'+all.length+'期和值范围 '+range(sums)+' · 跨度范围 '+range(spans))+
+      card('近5期开奖对照',hist.slice(0,5).map(function(d){var ar=d.areas||{};return '<div class="ref-more-history">第'+String(d.issue)+'期 · '+String(d.date||'')+'<br>'+cfg.label+' '+(ar[cfg.main]||[]).map(number).join(' ')+'<br>'+cfg.blabel+' '+(ar[cfg.back]||[]).map(number).join(' ')+'</div>';}).join(''))+'</div>';
+  }
+
   function render() {
     var d = data(st.game), M = ENG.cfg[st.game], item = null, i;
     elM.innerHTML = ENG.methods.map(function (m) {
@@ -18084,7 +18110,7 @@ var AI_CANDIDATES = ${JSON.stringify(buildAiCandidates())};
     for (i = 0; i < item.rows.length; i++) {
       rows += '<div class="px9-row"><span class="px9-k">' + item.rows[i][0] + '</span><span>' + item.rows[i][1] + '</span></div>';
     }
-    elO.innerHTML = '<div class="px9-cur">' + d.name + ' · '+item.m+'参考号码</div>' + ballsOf(item.red, item.blue) + '<div class="px9-meta">第 ' + d.next + ' 期 · 仅供统计参考</div>';
+    elO.innerHTML = '<div class="px9-cur">' + d.name + ' · '+item.m+'参考号码</div>' + ballsOf(item.red, item.blue) + '<div class="px9-meta">第 ' + d.next + ' 期 · 仅供统计参考</div>' + referenceMore(st.game);
     var ms = elM.querySelectorAll('.px9-m');
     for (i = 0; i < ms.length; i++) {
       ms[i].onclick = (function (b) {
