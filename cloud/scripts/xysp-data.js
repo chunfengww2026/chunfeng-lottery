@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 20:16
+   更新时间：2026-10-25 20:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 20:16",
+ "updated": "2026-10-25 20:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2187,7 +2187,7 @@ const XYSP_DATA = {
      "issue": "26122",
      "seen": "2026-10-25T12:16:02.238Z",
      "whenMs": 1792918353000,
-     "seenMs": 1792929362192,
+     "seenMs": 1792930562238,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792919162022,
@@ -3262,9 +3262,7 @@ const XYSP_DATA = {
      "author": "体彩福彩分享",
      "when": "2026-10-25 08:50:34",
      "postId": "7700401217649771017",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=wKy2YQY7v3%2FzSMcd7C7upoH%2FPYs%3D",
@@ -3292,9 +3290,7 @@ const XYSP_DATA = {
      "author": "体彩福彩分享",
      "when": "2026-10-25 08:50:34",
      "postId": "7700401217649771017",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     }
    ]
   }
