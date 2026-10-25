@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 20:56
+   更新时间：2026-10-25 21:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 20:56",
+ "updated": "2026-10-25 21:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -746,6 +746,34 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-25/8820827b-7a8e-46d1-9773-7699ea19dcae1792931713526.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-25/8820827b-7a8e-46d1-9773-7699ea19dcae1792931713526.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26284期]拿去杀号用！！！",
+     "url": "",
+     "at": "2026-10-25T13:00:03.062Z",
+     "pubAt": "2026-10-25T12:35:00.000Z",
+     "pubMs": 1792931700000,
+     "pubSrc": "page",
+     "nextAt": 1792935000000,
+     "atMs": 1792933203062,
+     "seenMs": 1792933203062,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-25/bfd64884-8873-4bfc-9269-276555df3fdb1792931531308.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-25/bfd64884-8873-4bfc-9269-276555df3fdb1792931531308.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26284期]来财",
+     "url": "",
+     "at": "2026-10-25T13:00:03.062Z",
+     "pubAt": "2026-10-25T12:32:00.000Z",
+     "pubMs": 1792931520000,
+     "pubSrc": "page",
+     "nextAt": 1792935000000,
+     "atMs": 1792933203062,
+     "seenMs": 1792933203062,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-25/06b0ade6-5844-4f78-a613-5227874461901792929697359.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-25/06b0ade6-5844-4f78-a613-5227874461901792929697359.jpg?imageMogr2/thumbnail/360x",
@@ -2477,7 +2505,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T12:56:02.218Z",
      "whenMs": 1792921838000,
-     "seenMs": 1792932362255,
+     "seenMs": 1792932962218,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792922162060,
@@ -2597,7 +2625,7 @@ const XYSP_DATA = {
      "issue": "26122",
      "seen": "2026-10-25T12:56:02.218Z",
      "whenMs": 1792918353000,
-     "seenMs": 1792931762249,
+     "seenMs": 1792932962218,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792918562034,
@@ -3290,7 +3318,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T12:56:02.218Z",
      "whenMs": 1792890777000,
-     "seenMs": 1792931762249,
+     "seenMs": 1792932962218,
      "drawMs": 1793017800000,
      "nextMs": 1793017800000,
      "atMs": 1792902918857,
@@ -3320,7 +3348,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T12:56:02.218Z",
      "whenMs": 1792888518000,
-     "seenMs": 1792931762249,
+     "seenMs": 1792932962218,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792907761866,
@@ -3483,102 +3511,6 @@ const XYSP_DATA = {
      "author": "每日分享星座",
      "when": "2026-10-24 22:04:34",
      "postId": "7700234865240834594",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/98b2c72c38f4478d807301f29cca223f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=YNPN3NBbxdmxfQqvv1Smf2EJ91o%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/98b2c72c38f4478d807301f29cca223f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=YNPN3NBbxdmxfQqvv1Smf2EJ91o%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/98b2c72c38f4478d807301f29cca223f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=1cBRIi9zPS1Wiu9vRhh44cpY4VM%3D",
-     "title": "3d、排列3、5第26282期晒票：慢走亦有远方，坚持自有力量",
-     "url": "http://toutiao.com/item/7700217510863307300/",
-     "at": "2026-10-25T08:26:02.002Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26282",
-     "seen": "2026-10-25T12:46:02.255Z",
-     "whenMs": 1792846599000,
-     "seenMs": 1792932362255,
-     "drawMs": 1792931400000,
-     "nextMs": 1792931400000,
-     "atMs": 1792916762002,
-     "drawAt": "2026-10-25T12:30:00.000Z",
-     "nextAt": 1792931400000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T08:26:02.002Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 20:56:39",
-     "postId": "7700217510863307300",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9e99da9f79804081be9bd740b1174c37~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=K2rCXJa%2BIc%2BAVFTh16GV%2B7FZao8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9e99da9f79804081be9bd740b1174c37~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=K2rCXJa%2BIc%2BAVFTh16GV%2B7FZao8%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/98b2c72c38f4478d807301f29cca223f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=1cBRIi9zPS1Wiu9vRhh44cpY4VM%3D",
-     "title": "3d、排列3、5第26282期晒票：慢走亦有远方，坚持自有力量",
-     "url": "http://toutiao.com/item/7700217510863307300/",
-     "at": "2026-10-25T05:46:01.837Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26282",
-     "seen": "2026-10-25T12:46:02.255Z",
-     "whenMs": 1792846599000,
-     "seenMs": 1792932362255,
-     "drawMs": 1792931400000,
-     "nextMs": 1792931400000,
-     "atMs": 1792907161837,
-     "drawAt": "2026-10-25T12:30:00.000Z",
-     "nextAt": 1792931400000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T05:46:01.837Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 20:56:39",
-     "postId": "7700217510863307300",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8ffb10d58c5643ad9515fd07726d2693~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=HjFax7yN4yZLM1Mt7RHkNmG1K5g%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8ffb10d58c5643ad9515fd07726d2693~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=HjFax7yN4yZLM1Mt7RHkNmG1K5g%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/98b2c72c38f4478d807301f29cca223f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=1cBRIi9zPS1Wiu9vRhh44cpY4VM%3D",
-     "title": "3d、排列3、5第26282期晒票：慢走亦有远方，坚持自有力量",
-     "url": "http://toutiao.com/item/7700217510863307300/",
-     "at": "2026-10-25T05:46:01.837Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26282",
-     "seen": "2026-10-25T12:46:02.255Z",
-     "whenMs": 1792846599000,
-     "seenMs": 1792932362255,
-     "drawMs": 1792931400000,
-     "nextMs": 1792931400000,
-     "atMs": 1792907161837,
-     "drawAt": "2026-10-25T12:30:00.000Z",
-     "nextAt": 1792931400000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T05:46:01.837Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 20:56:39",
-     "postId": "7700217510863307300",
      "px": 132300
     },
     {
@@ -4198,6 +4130,8 @@ const XYSP_DATA = {
   "/2026-10-25/c6217674-65df-46e5-be83-097560d9c8eb1792929031532.jpg": 1792932401276,
   "/2026-10-25/5bab686f-e441-474c-a8b1-0c50ca3cd0c81792931043983.jpg": 1792932401276,
   "/2026-10-25/d75c6920-1bd1-40aa-b5fd-0ef068513cb51792931206318.jpg": 1792932984209,
-  "/2026-10-25/d97bfd19-2f7e-457b-abd9-f9fb98767ef01792931376137.jpg": 1792932984209
+  "/2026-10-25/d97bfd19-2f7e-457b-abd9-f9fb98767ef01792931376137.jpg": 1792932984209,
+  "/2026-10-25/8820827b-7a8e-46d1-9773-7699ea19dcae1792931713526.jpg": 1792933203062,
+  "/2026-10-25/bfd64884-8873-4bfc-9269-276555df3fdb1792931531308.jpg": 1792933203062
  }
 };
