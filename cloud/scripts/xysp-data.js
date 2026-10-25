@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 15:15
+   更新时间：2026-10-25 15:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 15:15",
+ "updated": "2026-10-25 15:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -606,6 +606,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-25/1229345d-620e-401e-a002-65d0f3b658991792911691623.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-25/1229345d-620e-401e-a002-65d0f3b658991792911691623.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26284期]每天快乐八快乐每一天",
+     "url": "",
+     "at": "2026-10-25T07:16:23.298Z",
+     "pubAt": "2026-10-25T07:01:00.000Z",
+     "pubMs": 1792911660000,
+     "pubSrc": "page",
+     "nextAt": 1792935000000,
+     "atMs": 1792912583298,
+     "seenMs": 1792912583298,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-25/125a65c3-7e1e-4801-9c89-2ddfc5aa8ec51792902986568.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-25/125a65c3-7e1e-4801-9c89-2ddfc5aa8ec51792902986568.jpg?imageMogr2/thumbnail/360x",
@@ -1498,9 +1512,9 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=XOB7mN8KJ%2BKkJm69d%2BOnhZwIH5U%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=XOB7mN8KJ%2BKkJm69d%2BOnhZwIH5U%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMiFVgXKLHPTq2XlsBScN3DCfl4%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=n7A56yCeDR9gKTn36a6apQkgn%2FE%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=n7A56yCeDR9gKTn36a6apQkgn%2FE%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=gKUs%2FbTQmxMhivnZD%2BeTJFwvAaI%3D",
      "title": "大复式扎堆、高倍票压阵！双色球晒票刷屏，别让期待变成心理负担",
      "url": "https://toutiao.com/group/7700494416695411236/",
      "at": "2026-10-25T06:56:01.904Z",
@@ -1511,9 +1525,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792911220000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792911361904,
@@ -1528,9 +1542,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/01aca3117ee5466a97229177497b5f3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=tTJROgLZ%2FLeGExuIh5aS14EJaSM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/01aca3117ee5466a97229177497b5f3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=tTJROgLZ%2FLeGExuIh5aS14EJaSM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMiFVgXKLHPTq2XlsBScN3DCfl4%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/01aca3117ee5466a97229177497b5f3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcF76fKzvepOxoPB6t1dE%2FsFm5w%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/01aca3117ee5466a97229177497b5f3f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcF76fKzvepOxoPB6t1dE%2FsFm5w%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=gKUs%2FbTQmxMhivnZD%2BeTJFwvAaI%3D",
      "title": "大复式扎堆、高倍票压阵！双色球晒票刷屏，别让期待变成心理负担",
      "url": "https://toutiao.com/group/7700494416695411236/",
      "at": "2026-10-25T06:56:01.904Z",
@@ -1541,9 +1555,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792911220000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792911361904,
@@ -1558,9 +1572,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8cac194291814c6794273ffad74b41f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=x544xv7zAqScQMMC0s6G6Mqbau4%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8cac194291814c6794273ffad74b41f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=x544xv7zAqScQMMC0s6G6Mqbau4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMiFVgXKLHPTq2XlsBScN3DCfl4%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8cac194291814c6794273ffad74b41f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=BjneVI1Lm6Tfg6hNkfsBwieRHHk%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8cac194291814c6794273ffad74b41f4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=BjneVI1Lm6Tfg6hNkfsBwieRHHk%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18a30647f3d846129a495ab570533d2a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=gKUs%2FbTQmxMhivnZD%2BeTJFwvAaI%3D",
      "title": "大复式扎堆、高倍票压阵！双色球晒票刷屏，别让期待变成心理负担",
      "url": "https://toutiao.com/group/7700494416695411236/",
      "at": "2026-10-25T06:56:01.904Z",
@@ -1571,9 +1585,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792911220000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792911361904,
@@ -1678,8 +1692,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c321a0c0660d4dd0a1cafe0aabcb8b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=88ZD08%2BYSf4OQl7%2BBIvdu8Fwhfw%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c321a0c0660d4dd0a1cafe0aabcb8b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=88ZD08%2BYSf4OQl7%2BBIvdu8Fwhfw%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c321a0c0660d4dd0a1cafe0aabcb8b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CN7k%2FecxC%2F1OuP7lI18Uxu81yqM%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c321a0c0660d4dd0a1cafe0aabcb8b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CN7k%2FecxC%2F1OuP7lI18Uxu81yqM%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c321a0c0660d4dd0a1cafe0aabcb8b1f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=KqSYEhNI89xB5L0aVgcqy8Rsp8Y%3D",
      "title": "大复式领衔，倍投票压阵！双色球晒票来袭，别让“期待”变负担",
      "url": "https://toutiao.com/group/7700475901376610866/",
@@ -1691,9 +1705,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792907022000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792908361857,
@@ -1921,9 +1935,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2F5h9qTXb%2FQBY8loivMyEO81JvHM%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=mgKgkd9g8GsDRQqRbI3fs8noZmA%3D",
      "title": "深夜23:20还在疯狂扫码！这张805万大乐透中奖票，充满了真实喜悦",
      "url": "https://toutiao.com/group/7700405883029537330/",
      "at": "2026-10-25T04:35:18.857Z",
@@ -1934,9 +1948,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-25T06:56:01.904Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792890777000,
-     "seenMs": 1792911361904,
+     "seenMs": 1792912561921,
      "drawMs": 1793017800000,
      "nextMs": 1793017800000,
      "atMs": 1792902918857,
@@ -1951,8 +1965,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2vrhDgf6WYG6MHkL036FzdIf2x4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2vrhDgf6WYG6MHkL036FzdIf2x4%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2BTKazrSVxKL5YCNnENpRVjahpAQ%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2BTKazrSVxKL5YCNnENpRVjahpAQ%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=JAlEHcBvl5kHHjyaZSYHpt0zN8Q%3D",
      "title": "同一家店连出多张票！双色球122期晒票：全场磕蓝01，这是杀红眼",
      "url": "https://toutiao.com/group/7700397455879471650/",
@@ -1964,9 +1978,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792888518000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792907761866,
@@ -1981,8 +1995,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b71819ca6a64ab5b0237356176c7843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=Xj0mtgN4JmaKG9fN2n6yAqifHU8%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b71819ca6a64ab5b0237356176c7843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=Xj0mtgN4JmaKG9fN2n6yAqifHU8%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b71819ca6a64ab5b0237356176c7843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=ufceoCHIQljSfeyIDObtV6LYCg4%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b71819ca6a64ab5b0237356176c7843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=ufceoCHIQljSfeyIDObtV6LYCg4%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=JAlEHcBvl5kHHjyaZSYHpt0zN8Q%3D",
      "title": "同一家店连出多张票！双色球122期晒票：全场磕蓝01，这是杀红眼",
      "url": "https://toutiao.com/group/7700397455879471650/",
@@ -1994,9 +2008,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792888518000,
-     "seenMs": 1792911961924,
+     "seenMs": 1792912561921,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792907761866,
@@ -2024,7 +2038,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T07:06:01.924Z",
+     "seen": "2026-10-25T07:16:01.921Z",
      "whenMs": 1792888518000,
      "seenMs": 1792911961924,
      "drawMs": 1792934100000,
@@ -2876,6 +2890,7 @@ const XYSP_DATA = {
   "/2026-10-25/8b2cdffb-04c7-4b25-993e-5f669f174f8a1792909439977.jpg": 1792910183208,
   "/2026-10-25/6dd771f4-0fed-4afb-a2f8-e19cdf71dc7f1792909121002.jpg": 1792910183208,
   "/2026-10-25/f5585049-900a-49ae-a28b-cc624faf433b1792909120999.jpg": 1792910183208,
-  "/2026-10-25/938b3b9f-a310-4d0f-81c0-83e6734b67b91792910744316.jpg": 1792911990080
+  "/2026-10-25/938b3b9f-a310-4d0f-81c0-83e6734b67b91792910744316.jpg": 1792911990080,
+  "/2026-10-25/1229345d-620e-401e-a002-65d0f3b658991792911691623.jpg": 1792912583298
  }
 };
