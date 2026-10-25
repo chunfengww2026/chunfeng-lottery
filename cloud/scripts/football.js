@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "班迪特斯磐城",
      "score": 1,
@@ -88,10 +88,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "浦和红钻",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "大阪樱花",
      "score": 0,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "112050"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "黑爾堡大學(女)",
      "score": 0,
@@ -298,7 +298,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "FC爱媛",
      "score": 0,
@@ -307,7 +307,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "福岛联",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 18
     },
@@ -376,7 +376,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "北京雨虹修繕(女)",
      "score": 0,
@@ -454,7 +454,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "川崎前锋",
      "score": 1,
@@ -532,10 +532,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "FC东京",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
