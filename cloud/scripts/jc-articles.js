@@ -275,7 +275,7 @@ const JC_ARTICLES = {
    "title": "林必立双色球第2026120期推荐：精选6+1偶蓝继续开出",
    "url": "https://m.toutiao.com/group/7698592282349470235/",
    "source": "今日头条",
-   "time": "2026-10-20 11:50:06",
+   "time": "2026-10-20 11:48:50",
    "tag": "双色球推荐",
    "game": "ssq",
    "author": "",

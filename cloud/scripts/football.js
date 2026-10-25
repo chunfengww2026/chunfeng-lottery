@@ -744,79 +744,6 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 584507,
-    "kind": "upcoming",
-    "league": {
-     "name": "美職業",
-     "color": "660033"
-    },
-    "time": "2026-10-25 08:30:00",
-    "minute": 0,
-    "home": {
-     "name": "休斯顿迪纳摩",
-     "score": null,
-     "red": null,
-     "rank": 5
-    },
-    "away": {
-     "name": "明尼苏达联",
-     "score": null,
-     "red": null,
-     "rank": 13
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.96",
-       "away": 0.93
-      },
-      "live": {
-       "home": -0.25,
-       "line": "1.19",
-       "away": 0.72
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.82,
-       "under": 1.05
-      },
-      "live": {
-       "line": "1.25",
-       "over": 1.06,
-       "under": 0.81
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.23,
-       "draw": 2.8,
-       "away": 3.6
-      },
-      "live": {
-       "home": 2.63,
-       "draw": 3.45,
-       "away": 2.32
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 39.1,
-     "prob": {
-      "home": 34.5,
-      "draw": 26.3,
-      "away": 39.1
-     },
-     "clear": false,
-     "margin": 10.1
-    },
-    "result": null
-   },
-   {
     "gid": 584505,
     "kind": "upcoming",
     "league": {
@@ -890,75 +817,75 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 585550,
+    "gid": 584507,
     "kind": "upcoming",
     "league": {
-     "name": "墨西甲",
-     "color": "999011"
+     "name": "美職業",
+     "color": "660033"
     },
-    "time": "2026-10-25 09:00:00",
+    "time": "2026-10-25 08:30:00",
     "minute": 0,
     "home": {
-     "name": "多拉多斯",
-     "score": null,
-     "red": null,
-     "rank": 11
-    },
-    "away": {
-     "name": "皮拉塔斯",
+     "name": "休斯顿迪纳摩",
      "score": null,
      "red": null,
      "rank": 5
     },
+    "away": {
+     "name": "明尼苏达联",
+     "score": null,
+     "red": null,
+     "rank": 13
+    },
     "odds": {
      "asian": {
       "open": {
-       "home": 0.75,
-       "line": "0.92",
-       "away": 0.9
+       "home": -0.25,
+       "line": "0.96",
+       "away": 0.93
       },
       "live": {
-       "home": 0.25,
-       "line": "1",
-       "away": 0.82
+       "home": -0.25,
+       "line": "1.19",
+       "away": 0.72
       }
      },
      "overunder": {
       "open": {
-       "line": "3",
-       "over": 1.01,
-       "under": 0.79
+       "line": "2.75",
+       "over": 0.82,
+       "under": 1.05
       },
       "live": {
        "line": "1.25",
-       "over": 0.97,
-       "under": 0.83
+       "over": 1.06,
+       "under": 0.81
       }
      },
      "europe": {
       "open": {
-       "home": 3.9,
-       "draw": 1.71,
-       "away": 3.85
+       "home": 2.23,
+       "draw": 2.8,
+       "away": 3.6
       },
       "live": {
-       "home": 4.2,
-       "draw": 2.19,
-       "away": 2.35
+       "home": 2.63,
+       "draw": 3.45,
+       "away": 2.32
       }
      }
     },
     "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 40.8,
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 39.1,
      "prob": {
-      "home": 21.3,
-      "draw": 40.8,
-      "away": 38
+      "home": 34.5,
+      "draw": 26.3,
+      "away": 39.1
      },
      "clear": false,
-     "margin": 12
+     "margin": 10.1
     },
     "result": null
    },
@@ -1105,6 +1032,79 @@ const FOOTBALL_DATA = {
      },
      "clear": false,
      "margin": 12.1
+    },
+    "result": null
+   },
+   {
+    "gid": 585550,
+    "kind": "upcoming",
+    "league": {
+     "name": "墨西甲",
+     "color": "999011"
+    },
+    "time": "2026-10-25 09:00:00",
+    "minute": 0,
+    "home": {
+     "name": "多拉多斯",
+     "score": null,
+     "red": null,
+     "rank": 11
+    },
+    "away": {
+     "name": "皮拉塔斯",
+     "score": null,
+     "red": null,
+     "rank": 5
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.75,
+       "line": "0.92",
+       "away": 0.9
+      },
+      "live": {
+       "home": 0.25,
+       "line": "1",
+       "away": 0.82
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 1.01,
+       "under": 0.79
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.97,
+       "under": 0.83
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 3.9,
+       "draw": 1.71,
+       "away": 3.85
+      },
+      "live": {
+       "home": 4.2,
+       "draw": 2.19,
+       "away": 2.35
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 40.8,
+     "prob": {
+      "home": 21.3,
+      "draw": 40.8,
+      "away": 38
+     },
+     "clear": false,
+     "margin": 12
     },
     "result": null
    },
@@ -2873,7 +2873,7 @@ const FOOTBALL_DATA = {
      "name": "比肯黑德联",
      "score": 3,
      "red": 0,
-     "rank": 6
+     "rank": 5
     },
     "odds": {
      "asian": {
