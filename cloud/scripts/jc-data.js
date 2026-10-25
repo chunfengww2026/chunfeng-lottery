@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-26 04:32 */
+/* 自动生成，请勿手动编辑 · 2026-10-26 05:01 */
 const JC_DATA = {
- "updated": "2026-10-26 04:32",
+ "updated": "2026-10-26 05:01",
  "stat": {
   "total": 29,
-  "upcoming": 2,
-  "live": 3,
+  "upcoming": 1,
+  "live": 4,
   "finished": 24,
-  "withScore": 27,
+  "withScore": 28,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2646,7 +2646,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 2
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -2733,7 +2733,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 2
    }
   },
   {
@@ -2757,7 +2757,7 @@ const JC_DATA = {
     "home": 0,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -2864,9 +2864,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -2951,7 +2951,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -2971,7 +2971,10 @@ const JC_DATA = {
     "name": "维塞乌",
     "rank": 6
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -2981,9 +2984,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 0.77,
+      "home": 0.75,
       "line": "球半",
-      "away": 1.02
+      "away": 1.05
      }
     },
     "europe": {
@@ -3030,21 +3033,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1.5,
     "upSide": "home",
-    "upWater": 0.77,
-    "downWater": 1.02,
+    "upWater": 0.75,
+    "downWater": 1.05,
     "openHandicap": -2,
     "openUpWater": 0.9,
     "openDownWater": 0.95,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
     "canWater": false,
     "handicapChange": {
      "type": "升盘降水",
      "initHandicap": -2,
      "nowHandicap": -1.5,
      "initUpWater": 0.9,
-     "nowUpWater": 0.77,
+     "nowUpWater": 0.75,
      "initLine": "两球",
      "nowLine": "球半"
     },
@@ -3053,9 +3056,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1358681",
