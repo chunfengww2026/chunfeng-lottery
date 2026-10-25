@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "班迪特斯磐城",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "磐田喜悦",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "大阪樱花",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "千叶市原",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 20
     },
@@ -21720,7 +21720,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-25 13:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "水原城",
      "score": 0,
@@ -21918,7 +21918,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-25 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "大分三神",
      "score": 1,
