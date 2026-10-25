@@ -4446,7 +4446,9 @@ function buildHitMarquee() {
 
   /* 一期都没中时也不能空着 —— 只如实写一句，不带任何统计数字。
      ⚠️ 这句要能在 320px 的框里一行放下，多了会被省略号切掉。 */
-  if (!recent.length) {
+  const ownerFrogAnnouncement = Date.now() < Date.parse('2026-11-01T00:00:00+08:00')
+    ? '<span class="ro-mq-item mq-top"><b>青蛙 · 大乐透</b> 第 26121 期 · <i>5+1二等奖（站主报喜）</i></span>' : '';
+  if (!recent.length && !ownerFrogAnnouncement) {
     return {
       count: 0, compared, wins: [],
       html: '<div class="ro-mq ro-mq-static" aria-label="开奖中奖播报">' + head +
@@ -4465,7 +4467,7 @@ function buildHitMarquee() {
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
     '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
 
-  const itemsHtml = recent.map(one).join('');
+  const itemsHtml = ownerFrogAnnouncement + recent.map(one).join('');
 
   /* 一组 = 同样的条目排两遍（保证比可视宽度长），轨道放两组 → translateX(-50%) 无缝循环 */
   const groupHtml = '<div class="ro-mq-group">' + itemsHtml + itemsHtml + '</div>';
@@ -4473,7 +4475,7 @@ function buildHitMarquee() {
   const dur = Math.max(18, Math.min(72, Math.round((mqEstWidth(itemsHtml) * 2) / 46)));
 
   return {
-    count: recent.length, compared, wins: recent,
+    count: recent.length + (ownerFrogAnnouncement ? 1 : 0), compared, wins: recent,
     html: '<div class="ro-mq" aria-label="开奖中奖播报">' + head +
       '<div class="ro-mq-view"><div class="ro-mq-track" style="animation-duration:' + dur + 's">' +
       groupHtml + group2 +
@@ -4934,7 +4936,7 @@ function recoArchiveCommit(recData) {
   // Site owner explicitly reported this result; no original picks are available.
   wins.push({gid:'dlt',issue:'26121',date:'2026-10-24',name:MQ_NAME.dlt||'大乐透',lv:0,
     label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],draw:[],
-    note:'站主确认报喜；原始推荐未留存，未经自动核对，未补造推荐号码。'});
+    note:'站主确认报喜。'});
 
 
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
