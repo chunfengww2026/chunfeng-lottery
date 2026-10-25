@@ -1,44 +1,14 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 20:29
+/* 自动生成，请勿手动编辑 · 2026-10-25 21:10
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-10-25 20:29",
- "inSale": 27,
- "officialUpdate": "2026-10-25 20:26:41",
+ "updated": "2026-10-25 21:10",
+ "inSale": 24,
+ "officialUpdate": "2026-10-25 21:03:08",
  "list": [
- {
-  "code": "周日007",
-  "time": "2026-10-25 21:00:00",
-  "handicap": -1,
-  "handicapOdds": {
-   "home": 2.73,
-   "draw": 2.82,
-   "away": 2.45
-  }
- },
- {
-  "code": "周日008",
-  "time": "2026-10-25 21:00:00",
-  "handicap": -1,
-  "handicapOdds": {
-   "home": 5.3,
-   "draw": 4.15,
-   "away": 1.43
-  }
- },
- {
-  "code": "周日009",
-  "time": "2026-10-25 21:00:00",
-  "handicap": -1,
-  "handicapOdds": {
-   "home": 3.3,
-   "draw": 3.5,
-   "away": 1.85
-  }
- },
  {
   "code": "周日010",
   "time": "2026-10-25 21:30:00",
@@ -54,9 +24,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 21:30:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.04,
-   "draw": 3.75,
-   "away": 2.69
+   "home": 1.98,
+   "draw": 3.8,
+   "away": 2.77
   }
  },
  {
@@ -74,9 +44,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:00:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.53,
-   "draw": 4.15,
-   "away": 4.25
+   "home": 1.46,
+   "draw": 4.4,
+   "away": 4.6
   }
  },
  {
@@ -104,9 +74,9 @@ const JC_OFFICIAL = {
   "time": "2026-10-25 22:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.77,
-   "draw": 3.7,
-   "away": 2.01
+   "home": 2.82,
+   "draw": 3.75,
+   "away": 1.97
   }
  },
  {
@@ -175,8 +145,8 @@ const JC_OFFICIAL = {
   "handicap": 1,
   "handicapOdds": {
    "home": 2.62,
-   "draw": 3.15,
-   "away": 2.33
+   "draw": 3.05,
+   "away": 2.38
   }
  },
  {
@@ -205,8 +175,8 @@ const JC_OFFICIAL = {
   "handicap": 1,
   "handicapOdds": {
    "home": 2.09,
-   "draw": 3.4,
-   "away": 2.8
+   "draw": 3.25,
+   "away": 2.91
   }
  },
  {
