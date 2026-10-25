@@ -13638,13 +13638,13 @@ ${RO_RENDER_SCRIPT}
  function valid(n){return typeof n==='number'&&Number.isFinite(n)&&n>=0&&Math.floor(n)===n;}
  function state(text){hint.textContent=text;num.title='上次成功统计：'+(stamp||'时间未知')+(text?'；'+text:'');box.hidden=false;}
  function accept(value,at,live){var n=Number(value);if(!valid(n))return false;last=n;stamp=String(at||stamp);writing=true;num.textContent=String(n);observer.takeRecords();writing=false;if(live)lastLive=Date.now();state(live?'':'缓存');try{localStorage.setItem(key,JSON.stringify({uv:n,updated:stamp}));}catch(e){}return true;}
- var observer=new MutationObserver(function(){if(writing)return;var text=num.textContent.trim();if(!/^[0-9]+$/.test(text))return;var n=Number(text);if(valid(n)){last=n;stamp=new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false});lastLive=Date.now();state('');try{localStorage.setItem(key,JSON.stringify({uv:n,updated:stamp}));}catch(e){}}});
+ var observer=new MutationObserver(function(){if(writing)return;var text=num.textContent.trim();if(!/^[0-9]+$/.test(text))return;var n=Number(text);if(valid(n)){last=n;stamp=new Date().toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false});lastLive=Date.now();state('');try{localStorage.setItem(key,JSON.stringify({uv:n,updated:stamp}));}catch(e){}}});
  try{var cached=JSON.parse(localStorage.getItem(key)||'null');if(cached&&valid(cached.uv)&&Date.parse(cached.updated)>Date.parse(stamp))accept(cached.uv,cached.updated,false);}catch(e){}
  observer.observe(num,{childList:true,subtree:true,characterData:true});state('更新中');
  async function pollCache(){if(fetchBusy||location.protocol==='file:'||typeof fetch!=='function')return;fetchBusy=true;try{var r=await fetch('visitor-count.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;var d=await r.json();if(!valid(d.uv)||!d.updated)return;var incoming=Date.parse(String(d.updated).replace(' ','T')+'+08:00'),previous=Date.parse(String(stamp).replace(' ','T')+'+08:00');if(!Number.isFinite(previous)||incoming>previous)accept(d.uv,d.updated,false);}catch(e){}finally{fetchBusy=false;}}
- function retry(){if(document.hidden||requests>=3||lastLive)return;requests++;if(window.bszCaller&&typeof window.bszCaller.fetch==='function'){try{window.bszCaller.fetch('https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',function(d){if(d&&valid(d.site_uv)){accept(d.site_uv,new Date().toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false}),true);}});}catch(e){}}}
+ function retry(){if(document.hidden||requests>=3||(lastLive&&Date.now()-lastLive<300000))return;requests++;if(window.bszCaller&&typeof window.bszCaller.fetch==='function'){try{window.bszCaller.fetch('https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',function(d){if(d&&valid(d.site_uv)){accept(d.site_uv,new Date().toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false}),true);}});}catch(e){}}}
  pollCache();setTimeout(function(){if(!lastLive)state('待更新');},8000);setTimeout(retry,12000);setTimeout(retry,45000);
- setInterval(function(){pollCache();if(!lastLive){requests=0;retry();state('待更新');}},300000);
+ setInterval(function(){pollCache();if(!lastLive||Date.now()-lastLive>=300000){requests=0;retry();if(!lastLive)state('待更新');}},300000);
  document.addEventListener('visibilitychange',function(){if(!document.hidden){pollCache();if(!lastLive)retry();}});
 })();
 
