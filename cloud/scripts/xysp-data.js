@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 13:06
+   更新时间：2026-10-25 13:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 13:06",
+ "updated": "2026-10-25 13:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1247,7 +1247,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T05:06:01.801Z",
      "whenMs": 1792902073000,
-     "seenMs": 1792903561778,
+     "seenMs": 1792904761801,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792903561778,
@@ -1506,36 +1506,6 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcdXfNWtI4ciIUKojOo%2Fni3qBRc%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcdXfNWtI4ciIUKojOo%2Fni3qBRc%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=4Q2F6LtdkFlHEqv2x91nAohHtcI%3D",
-     "title": "10元机选快乐8喜提1000元！运气碾压技巧？这张票说透了彩市真相",
-     "url": "https://toutiao.com/group/7700173083885175334/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-25T05:06:01.801Z",
-     "whenMs": 1792836395000,
-     "seenMs": 1792904761801,
-     "drawMs": 1792848600000,
-     "nextMs": 1792848600000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T13:30:00.000Z",
-     "nextAt": 1792848600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "「IT前线」",
-     "when": "2026-10-24 18:06:35",
-     "postId": "7700173083885175334",
-     "px": 132300
-    },
-    {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2ocL84ydvOv36xnYGZMB7DBVx14%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2ocL84ydvOv36xnYGZMB7DBVx14%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/608d3d50ad644c24a4b4de107c21c184~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=mQkI5ll5PY5aB17NQsmMDwsZf9s%3D",
@@ -1581,7 +1551,7 @@ const XYSP_DATA = {
      "issue": "2026283",
      "seen": "2026-10-25T05:06:01.801Z",
      "whenMs": 1792850674000,
-     "seenMs": 1792903561778,
+     "seenMs": 1792904761801,
      "drawMs": 1792935000000,
      "nextMs": 1792935000000,
      "atMs": 1792902134494,
@@ -1671,7 +1641,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T05:06:01.801Z",
      "whenMs": 1792840961000,
-     "seenMs": 1792903561778,
+     "seenMs": 1792904761801,
      "drawMs": 1792847700000,
      "nextMs": 1792847700000,
      "atMs": 1792902134494,
@@ -1683,6 +1653,36 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-24 19:22:41",
      "postId": "7700193294214496795",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcdXfNWtI4ciIUKojOo%2Fni3qBRc%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=AcdXfNWtI4ciIUKojOo%2Fni3qBRc%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ec8656d38b5d408d935a175d53b49b6b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=4Q2F6LtdkFlHEqv2x91nAohHtcI%3D",
+     "title": "10元机选快乐8喜提1000元！运气碾压技巧？这张票说透了彩市真相",
+     "url": "https://toutiao.com/group/7700173083885175334/",
+     "at": "2026-10-25T04:22:14.494Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "快乐8",
+     "games": [
+      "kl8"
+     ],
+     "issue": "",
+     "seen": "2026-10-25T05:06:01.801Z",
+     "whenMs": 1792836395000,
+     "seenMs": 1792904761801,
+     "drawMs": 1792848600000,
+     "nextMs": 1792848600000,
+     "atMs": 1792902134494,
+     "drawAt": "2026-10-24T13:30:00.000Z",
+     "nextAt": 1792848600000,
+     "drawGid": "kl8",
+     "expireAt": "2026-10-26T04:22:14.494Z",
+     "rule": "first-capture-24h",
+     "author": "「IT前线」",
+     "when": "2026-10-24 18:06:35",
+     "postId": "7700173083885175334",
      "px": 132300
     },
     {
@@ -1792,7 +1792,7 @@ const XYSP_DATA = {
      "issue": "26281",
      "seen": "2026-10-25T05:06:01.801Z",
      "whenMs": 1792822090000,
-     "seenMs": 1792903561778,
+     "seenMs": 1792904761801,
      "drawMs": 1792845000000,
      "nextMs": 1792845000000,
      "atMs": 1792902134494,
