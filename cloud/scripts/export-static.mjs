@@ -10191,7 +10191,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 只有主人（本机 / ?owner=1 / ?admin=1 / 固定公网 IP）看得到，
           别人的页面里这块是 display:none（客户端隐藏，不是加密）。 -->
   <div class="ro-hot" id="ro-hot">
-    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv">--</span>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv" title="上次成功统计；实时服务可用时自动更新">${BZ_UV}</span>
   </div>
 
   <!-- ============================================================
