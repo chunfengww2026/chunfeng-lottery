@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 19:46:02
+   更新时间：2026-10-25 19:56:02
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-25 19:46:02",
+ "updated": "2026-10-25 19:56:02",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55d164e026c54cecadd2829723b6443c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=SB8Tlk2FUwBMiQlW5xR3gnD9%2BIE%3D",
@@ -29,14 +29,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-10-25T11:46:02.167Z",
    "whenMs": 1792889434000,
-   "seenMs": 1792926962175,
+   "seenMs": 1792928762167,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792913761934,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-26T11:16:02.175Z",
+   "expireAt": "2026-10-26T11:46:02.167Z",
    "rule": "cap",
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
@@ -57,14 +57,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-10-25T11:46:02.167Z",
    "whenMs": 1792889434000,
-   "seenMs": 1792926962175,
+   "seenMs": 1792928762167,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792913761934,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-26T11:16:02.175Z",
+   "expireAt": "2026-10-26T11:46:02.167Z",
    "rule": "cap",
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
