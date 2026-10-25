@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-25 02:29:43 */
+/* 自动生成，请勿手动编辑 · 2026-10-25 12:22:14 */
 const DRAW_DATA = {
-  "updated": "2026-10-25 02:29:43",
-  "note": "由 build-draws.mjs 自动生成，请勿手动编辑",
+  "updated": "2026-10-25 12:22:14",
+  "note": "由 build-draws.mjs 自动生成（本班只抓 dlt,pl3,pl5,qxc，其余沿用上一次），请勿手动编辑",
   "games": {
     "ssq": {
       "issue": "2026121",
       "date": "2026-10-22",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "red": [
           2,
@@ -24,7 +24,7 @@ const DRAW_DATA = {
     "dlt": {
       "issue": "26121",
       "date": "2026-10-24",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "front": [
           6,
@@ -42,7 +42,7 @@ const DRAW_DATA = {
     "qlc": {
       "issue": "2026122",
       "date": "2026-10-23",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           3,
@@ -61,7 +61,7 @@ const DRAW_DATA = {
     "qxc": {
       "issue": "26121",
       "date": "2026-10-23",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "front": [
           9,
@@ -77,50 +77,50 @@ const DRAW_DATA = {
       }
     },
     "kl8": {
-      "issue": "2026283",
-      "date": "2026-10-24",
-      "source": "一起彩（yiqicai.com）",
+      "issue": "2026282",
+      "date": "2026-10-23",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
-          1,
-          3,
-          7,
-          15,
-          16,
-          25,
-          28,
-          34,
+          2,
+          8,
+          9,
+          13,
+          14,
+          23,
+          24,
+          32,
+          35,
+          36,
+          40,
           41,
           43,
           44,
-          60,
+          59,
           61,
-          67,
-          70,
-          71,
-          72,
-          74,
-          75,
+          68,
+          73,
+          78,
           80
         ]
       }
     },
     "fc3d": {
-      "issue": "2026283",
-      "date": "2026-10-24",
-      "source": "一起彩（yiqicai.com）",
+      "issue": "2026282",
+      "date": "2026-10-23",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
-          2,
+          3,
           0,
-          2
+          0
         ]
       }
     },
     "pl3": {
       "issue": "26283",
       "date": "2026-10-24",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "main": [
           2,
@@ -132,7 +132,7 @@ const DRAW_DATA = {
     "pl5": {
       "issue": "26283",
       "date": "2026-10-24",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "main": [
           2,
