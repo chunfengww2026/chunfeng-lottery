@@ -29,14 +29,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-10-25T18:30:39.852Z",
    "whenMs": 1792889434000,
-   "seenMs": 1792948561451,
+   "seenMs": 1792951796535,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792913761934,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-26T17:16:01.451Z",
+   "expireAt": "2026-10-26T18:09:56.535Z",
    "rule": "cap",
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
@@ -69,7 +69,9 @@ const XYSP_JC_DATA = {
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
    "postId": "7700401217649771017",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   }
  ],
  "firstSeenRegistry": {}

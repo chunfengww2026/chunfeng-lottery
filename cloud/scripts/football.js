@@ -123,8 +123,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 1.01,
-       "under": 0.79
+       "over": 1.04,
+       "under": 0.82
       },
       "live": {
        "line": "1",
@@ -415,8 +415,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3",
-       "over": 0.86,
-       "under": 1.01
+       "over": 0.84,
+       "under": 1.03
       },
       "live": {
        "line": "1.25",
@@ -658,7 +658,7 @@ const FOOTBALL_DATA = {
       "away": 40.7
      },
      "clear": false,
-     "margin": 14.9
+     "margin": 15.1
     },
     "result": null
    },
@@ -2467,7 +2467,7 @@ const FOOTBALL_DATA = {
       "away": 37.6
      },
      "clear": false,
-     "margin": 9.9
+     "margin": 9.8
     },
     "result": null
    },
@@ -4041,8 +4041,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.5",
-       "over": 0.86,
-       "under": 0.94
+       "over": 0.89,
+       "under": 0.91
       },
       "live": {
        "line": "1.5",
@@ -9168,7 +9168,7 @@ const FOOTBALL_DATA = {
      "name": "拉卡莱拉联",
      "score": 0,
      "red": 0,
-     "rank": 16
+     "rank": 14
     },
     "away": {
      "name": "智利天主大学",
