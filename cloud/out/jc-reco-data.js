@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-25 11:25",
+ "updated": "2026-10-25 11:32",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -262,106 +262,6 @@ const JC_RECO_DATA = {
    "miss": 0,
    "pending": 0,
    "verdict": "红"
-  },
-  {
-   "at": "2026-10-25 11:25",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周日011",
-     "time": "2026-10-25 21:30",
-     "league": "挪超",
-     "home": "维京",
-     "away": "特罗姆瑟",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.5,
-     "conf": 63.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周日022",
-     "time": "2026-10-26 00:30",
-     "league": "德甲",
-     "home": "弗赖堡",
-     "away": "拜仁",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.44,
-     "conf": 69.6,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周日023",
-     "time": "2026-10-26 01:00",
-     "league": "意甲",
-     "home": "莱切",
-     "away": "尤文图斯",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.48,
-     "conf": 65.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周日029",
-     "time": "2026-10-26 09:00",
-     "league": "美职联",
-     "home": "洛杉矶FC",
-     "away": "洛城银河",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.57,
-     "conf": 61,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周一001",
-     "time": "2026-10-27 02:45",
-     "league": "葡超",
-     "home": "圣克拉拉",
-     "away": "本菲卡",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 66.8,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周一004",
-     "time": "2026-10-27 07:00",
-     "league": "巴甲",
-     "home": "弗拉门戈",
-     "away": "米竞技",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.33,
-     "conf": 68.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 6,
-   "verdict": ""
   }
  ]
 };
