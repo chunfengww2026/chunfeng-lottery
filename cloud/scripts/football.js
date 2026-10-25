@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3a794e"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "馬魯莫英勇者(後備)",
      "score": 0,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "斯泰倫博斯(後備)",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "f03623"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "香港流浪",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "上海農商銀行(女)",
      "score": 0,
@@ -23853,7 +23853,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "墨尔本城女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -23922,7 +23922,7 @@ const FOOTBALL_DATA = {
      "color": "112050"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "黑爾堡大學(女)",
      "score": 0,
@@ -23988,7 +23988,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "FC爱媛",
      "score": 1,
@@ -24054,7 +24054,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "北京雨虹修繕(女)",
      "score": 0,
@@ -24120,7 +24120,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "川崎前锋",
      "score": 1,
@@ -24186,10 +24186,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "FC东京",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -24252,10 +24252,10 @@ const FOOTBALL_DATA = {
      "color": "9d0919"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "台电",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -24330,7 +24330,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "凯景",
      "score": 1,
@@ -24408,7 +24408,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "东升",
      "score": 0,
@@ -24486,7 +24486,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "坡州市民",
      "score": 0,
@@ -24564,7 +24564,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "忠北清州FC",
      "score": 0,
@@ -24642,7 +24642,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-25 15:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "天安城",
      "score": 1,
