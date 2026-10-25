@@ -488,7 +488,7 @@ const CODE_MODULES = [
      这些包和语言数据【不受版本管理】，所以从本机 runtime/ocr/ 一起传上去
      （见下面 OCR_RUNTIME）。云端不装 tesseract、不联网下模型也能跑。 */
   'ocr-tickets.mjs',
-  'jc-market-rules.js', 'status-video.js', 'monster-game.js', 'boarding-game.js', 'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
+  'jc-market-rules.js', 'status-video.js', 'visitor-counter.js', 'monster-game.js', 'boarding-game.js', 'export-static.mjs', 'export-football.mjs', 'export-site.mjs',
   /* 【🔥 人气数字 · 抓取脚本】fetch-busuanzi.mjs（2026-10-20 加）
      用户：「卜蒜子能不能永远都呈现 就算我电脑关机了」
      ⚠️ 必须同步：cloud-build.mjs 每班在【生成彩票页之前】跑它一次，
