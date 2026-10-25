@@ -228,6 +228,12 @@ const OUT = path.join(ROOT, '只读分享版.html');
    ⚠️ 这段不能往生成出来的 HTML 里写 "busuanzi" 这个词：
       保护标记要求页面里 busuanzi 恰好 5 处（span id 1 + 脚本 src 3 + getElementById 1）。
    ============================================================ */
+const BZ_CACHE = (()=>{try{return JSON.parse(fs.readFileSync(path.join(ROOT,'busuanzi.json'),'utf8'));}catch(e){return {};}})();
+const BZ_UPDATED = String(BZ_CACHE.updated||'');
+if(path.basename(ROOT)==='scripts'&&path.basename(path.dirname(ROOT))==='cloud'){
+  const pubDir=path.join(path.dirname(ROOT),'out');fs.mkdirSync(pubDir,{recursive:true});
+  if(Number.isFinite(Number(BZ_CACHE.uv))&&BZ_CACHE.uv!==null&&BZ_CACHE.uv!==undefined)fs.writeFileSync(path.join(pubDir,'visitor-count.json'),JSON.stringify({uv:Number(BZ_CACHE.uv),updated:BZ_UPDATED}),'utf8');
+}
 const BZ_UV = (function () {
   try {
     const f = path.join(ROOT, 'busuanzi.json');
@@ -10209,7 +10215,7 @@ ${DEVICE_GATE_BODY}
        ⚠️ 只有主人（本机 / ?owner=1 / ?admin=1 / 固定公网 IP）看得到，
           别人的页面里这块是 display:none（客户端隐藏，不是加密）。 -->
   <div class="ro-hot" id="ro-hot">
-    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv" title="上次成功统计；实时服务可用时自动更新">${BZ_UV}</span>
+    <span class="ro-hot-i" aria-hidden="true">🔥</span><span class="ro-hot-n" id="busuanzi_value_site_uv" data-count-updated="${escape(BZ_UPDATED)}" title="上次成功统计；实时服务可用时自动更新">${BZ_UV}</span>
   </div>
 
   <!-- ============================================================
@@ -13625,31 +13631,23 @@ ${RO_RENDER_SCRIPT}
 <!-- __HOT_OWNER__ 热度计数（只有 owner 会看到；拿不到就隐藏） -->
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <script>
-(function () {
-  try {
-    var box = document.getElementById('ro-hot');
-    var num = document.getElementById('busuanzi_value_site_uv');
-    if (!box || !num) return;
-    var tries = 0;
-    var t = setInterval(function () {
-      tries++;
-      var v = String(num.textContent || '').trim();
-      /* 不蒜子把数字直接写进这个 span；是纯数字才算拿到。
-         ⚠️ 2026-10-17 修：原来写的是斜杠 d 那种写法，这段脚本在【模板字符串】里，
-            反斜杠会被吃掉 → 生成出来变成 /^d+$/ → 永远匹配不到数字
-            → 热度计数【谁都看不到】（连主人也看不到）。改用 [0-9] 就没有反斜杠。 */
-      if (/^[0-9]+$/.test(v)) {
-        box.hidden = false;          /* 拿到数字 → 交给 CSS 判断是否 owner */
-        clearInterval(t);
-      } else if (tries > 60) {       /* 30 秒还拿不到 → 整块隐藏，不显示 --
-                                        （30s 是为了覆盖 IP 判定最多 3 轮重试 ≈18s） */
-        clearInterval(t);
-        box.hidden = false;
-        num.textContent = '统计暂不可用';
-      }
-    }, 500);
-  } catch (e) { /* 这段挂了不影响页面 */ }
+(function(){
+ var box=document.getElementById('ro-hot'),num=document.getElementById('busuanzi_value_site_uv');if(!box||!num)return;
+ var hint=document.createElement('small');hint.id='visitorCountStatus';hint.style.cssText='font-size:10px;margin-left:4px;color:#8a7a63';box.appendChild(hint);
+ var key='chunfeng-visitor-count-v2',last=Number(num.textContent),stamp=num.getAttribute('data-count-updated')||'',writing=false,lastLive=0,requests=0,fetchBusy=false;
+ function valid(n){return typeof n==='number'&&Number.isFinite(n)&&n>=0&&Math.floor(n)===n;}
+ function state(text){hint.textContent=text;num.title='上次成功统计：'+(stamp||'时间未知')+(text?'；'+text:'');box.hidden=false;}
+ function accept(value,at,live){var n=Number(value);if(!valid(n))return false;last=n;stamp=String(at||stamp);writing=true;num.textContent=String(n);observer.takeRecords();writing=false;if(live)lastLive=Date.now();state(live?'':'缓存');try{localStorage.setItem(key,JSON.stringify({uv:n,updated:stamp}));}catch(e){}return true;}
+ var observer=new MutationObserver(function(){if(writing)return;var text=num.textContent.trim();if(!/^[0-9]+$/.test(text))return;var n=Number(text);if(valid(n)){last=n;stamp=new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false});lastLive=Date.now();state('');try{localStorage.setItem(key,JSON.stringify({uv:n,updated:stamp}));}catch(e){}}});
+ try{var cached=JSON.parse(localStorage.getItem(key)||'null');if(cached&&valid(cached.uv)&&Date.parse(cached.updated)>Date.parse(stamp))accept(cached.uv,cached.updated,false);}catch(e){}
+ observer.observe(num,{childList:true,subtree:true,characterData:true});state('更新中');
+ async function pollCache(){if(fetchBusy||location.protocol==='file:'||typeof fetch!=='function')return;fetchBusy=true;try{var r=await fetch('visitor-count.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;var d=await r.json();if(!valid(d.uv)||!d.updated)return;var incoming=Date.parse(String(d.updated).replace(' ','T')+'+08:00'),previous=Date.parse(String(stamp).replace(' ','T')+'+08:00');if(!Number.isFinite(previous)||incoming>previous)accept(d.uv,d.updated,false);}catch(e){}finally{fetchBusy=false;}}
+ function retry(){if(document.hidden||requests>=3||lastLive)return;requests++;if(window.bszCaller&&typeof window.bszCaller.fetch==='function'){try{window.bszCaller.fetch('https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',function(d){if(d&&valid(d.site_uv)){accept(d.site_uv,new Date().toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false}),true);}});}catch(e){}}}
+ pollCache();setTimeout(function(){if(!lastLive)state('待更新');},8000);setTimeout(retry,12000);setTimeout(retry,45000);
+ setInterval(function(){pollCache();if(!lastLive){requests=0;retry();state('待更新');}},300000);
+ document.addEventListener('visibilitychange',function(){if(!document.hidden){pollCache();if(!lastLive)retry();}});
 })();
+
 </script>
 ${INSTALL_HTML}
 ${INSTALL_JS}
