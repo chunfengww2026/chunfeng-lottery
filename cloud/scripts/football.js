@@ -6158,11 +6158,19 @@ const FOOTBALL_DATA = {
     },
     "odds": {
      "asian": {
-      "open": null,
+      "open": {
+       "home": -0.5,
+       "line": "1.14",
+       "away": 0.71
+      },
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "5.75",
+       "over": 0.82,
+       "under": 1
+      },
       "live": null
      },
      "europe": {
@@ -6362,7 +6370,7 @@ const FOOTBALL_DATA = {
       "away": 5.3
      },
      "clear": true,
-     "margin": 8.2
+     "margin": 7.7
     },
     "result": {
      "actual": "home",
@@ -8880,9 +8888,7 @@ const FOOTBALL_DATA = {
      "hit": false,
      "score": "0 - 0"
     }
-   }
-  ],
-  "finished": [
+   },
    {
     "gid": 585517,
     "kind": "finished",

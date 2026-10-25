@@ -2796,7 +2796,7 @@ const JC_DATA = {
      "live": {
       "home": 1.02,
       "line": "受半球",
-      "away": 0.77
+      "away": 0.82
      }
     },
     "europe": {
@@ -2880,21 +2880,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.77,
+    "upWater": 0.82,
     "downWater": 1.02,
     "openHandicap": 0.5,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "55.43",
+    "theoryDownPercent": "44.57",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.5,
      "nowHandicap": 0.5,
      "initUpWater": 0.82,
-     "nowUpWater": 0.77,
+     "nowUpWater": 0.82,
      "initLine": "受半球",
      "nowLine": "受半球"
     },

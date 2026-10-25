@@ -317,6 +317,31 @@ const JC_RECO_DATA = {
    "miss": null,
    "pending": 1,
    "verdict": ""
+  },
+  {
+   "at": "2026-10-26 02:40",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周日024",
+     "time": "2026-10-26 01:30",
+     "league": "西甲",
+     "home": "皇家社会",
+     "away": "莱万特",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.53,
+     "conf": 62,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   }
  ]
 };
