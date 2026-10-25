@@ -4931,6 +4931,11 @@ function recoArchiveCommit(recData) {
   mergeMarquee(MQ_WIN_ROWS, false);  /* 这一班小喇叭正在播的 */
 
   wins.push(...frogArchiveCommit(arch, FROG_CURRENT_DATA, idx, stamp, cutMs));
+  // Site owner explicitly reported this result; no original picks are available.
+  wins.push({gid:'dlt',issue:'26121',date:'2026-10-24',name:MQ_NAME.dlt||'大乐透',lv:0,
+    label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],draw:[],
+    note:'站主确认报喜；原始推荐未留存，未经自动核对，未补造推荐号码。'});
+
 
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
   let prunedWins = 0;
@@ -5241,7 +5246,7 @@ function buildHistoryHtml() {
     return Number.isFinite(tt) && (nowMs - tt) <= ANN_DAYS * HIST_DAY_MS;
   });
   const annNumsHtml = (r) => {
-    if (r.source === 'marquee') return ''; 
+    if (r.source === 'marquee' || r.source === 'owner-report') return ''; 
     const hitsOf = (parts) => {
       const out = [];
       (parts || []).forEach((p) => {
@@ -5307,8 +5312,8 @@ function buildHistoryHtml() {
       `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
       `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label)}</span>` +
       `</div>` +
-      (r.source === 'marquee' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
-      (r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
+      (r.source === 'marquee' || r.source === 'owner-report' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
+      (r.source === 'owner-report' ? '' : r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
       `<div class="ro-hist-note">${escape(r.note)}</div>` +
       `</div>`
     ).join('');
