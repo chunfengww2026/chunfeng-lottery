@@ -2808,8 +2808,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4.25",
-       "over": 0.97,
-       "under": 0.92
+       "over": 0.96,
+       "under": 0.93
       },
       "live": {
        "line": "1.75",

@@ -168,7 +168,7 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日018",
@@ -223,7 +223,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日012",
@@ -278,7 +278,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日013",
@@ -333,7 +333,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日014",
@@ -388,7 +388,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日015",
@@ -443,7 +443,7 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日016",
@@ -498,7 +498,7 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日017",
@@ -553,7 +553,7 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-26 01:48"
+   "at": "2026-10-26 02:09"
   },
   {
    "code": "周日010",
