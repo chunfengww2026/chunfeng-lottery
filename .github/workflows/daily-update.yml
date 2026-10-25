@@ -629,7 +629,7 @@ jobs:
           #   每班也会重新生成，所以不提交它们不会影响线上。
           git add -A cloud/out/data/ cloud/out/jc-reco-data.js cloud/out/jc-reco-archive.js cloud/out/jc-reco-view.js cloud/out/tickets.json cloud/scripts/heatmap-data.js || true
           # Persist collected data and ticket verification between independent cloud runs.
-          for f in football.js jc-data.js jc-history.js jc-results.js draws.js history.js saved-tickets.js reco-archive.json xysp-data.js xysp-tt-data.js xysp-jc-data.js mingjia-data.js mingjia-toutiao.json mingjia-web.json community-topics.json jc-articles.js materials-data.js _ticket-ocr-cache.json; do
+          for f in busuanzi.json football.js jc-data.js jc-history.js jc-results.js draws.js history.js saved-tickets.js reco-archive.json xysp-data.js xysp-tt-data.js xysp-jc-data.js mingjia-data.js mingjia-toutiao.json mingjia-web.json community-topics.json jc-articles.js materials-data.js _ticket-ocr-cache.json; do
             if [ -f "cloud/scripts/$f" ]; then git add -f -- "cloud/scripts/$f"; fi
           done
           if [ -d cloud/scripts/imgs/mingjia ]; then git add -A -- cloud/scripts/imgs/mingjia; fi
