@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-26 06:50",
+ "updated": "2026-10-26 07:15",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -177,21 +177,48 @@ const JC_HISTORY = {
    "away": "维塞乌",
    "time": "2026-10-26 04:30",
    "score": "0:1",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-2",
+   "asianIndex": {
+    "line": "球半",
+    "from": "live",
+    "handicap": -1.5,
+    "upSide": "home",
+    "upWater": 0.75,
+    "downWater": 1.05,
+    "openHandicap": -2,
+    "openUpWater": 0.9,
+    "openDownWater": 0.95,
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
+    "canWater": false,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -2,
+     "nowHandicap": -1.5,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.75,
+     "initLine": "两球",
+     "nowLine": "球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 1.22,
-    "draw": 6.25,
-    "away": 11
+    "home": 1.29,
+    "draw": 5.5,
+    "away": 9.5
    },
    "prob": {
-    "home": 77.9,
-    "draw": 14.5,
-    "away": 7.6
+    "home": 73,
+    "draw": 17.1,
+    "away": 9.9
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 77.9,
+   "conf": 73,
    "type": "three",
    "result": "lose",
    "hit": false,
@@ -470,7 +497,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-26 04:04"
   },
   {

@@ -9,15 +9,15 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-26 07:10:21
+   更新时间：2026-10-26 07:37:41
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-26 07:10:21",
+ "updated": "2026-10-26 07:37:41",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55d164e026c54cecadd2829723b6443c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=4lWGboRLrebb4zttux6972zHekc%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55d164e026c54cecadd2829723b6443c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=4lWGboRLrebb4zttux6972zHekc%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55d164e026c54cecadd2829723b6443c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=SB8Tlk2FUwBMiQlW5xR3gnD9%2BIE%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55d164e026c54cecadd2829723b6443c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=SB8Tlk2FUwBMiQlW5xR3gnD9%2BIE%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9f92de58bc5147b98d100e72bc2e407c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=RK91T594YJzURFsh03x2r%2Bbg7N4%3D",
    "title": "双色球“晒票”曝光！同站点同一时间打出，透露出哪些选号玄机？",
    "url": "https://toutiao.com/group/7700401217649771017/",
@@ -27,16 +27,16 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-25T23:10:21.836Z",
+   "seen": "2026-10-25T23:37:41.017Z",
    "whenMs": 1792889434000,
-   "seenMs": 1792969821836,
+   "seenMs": 1792971461017,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792956982505,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-26T23:10:21.836Z",
+   "expireAt": "2026-10-26T23:37:41.017Z",
    "rule": "cap",
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
@@ -46,8 +46,8 @@ const XYSP_JC_DATA = {
    "dedupeImgs": 2
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMXMuQm5wH%2F0le2ejrydNOgiYGU%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMXMuQm5wH%2F0le2ejrydNOgiYGU%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=wKy2YQY7v3%2FzSMcd7C7upoH%2FPYs%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=wKy2YQY7v3%2FzSMcd7C7upoH%2FPYs%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9f92de58bc5147b98d100e72bc2e407c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=RK91T594YJzURFsh03x2r%2Bbg7N4%3D",
    "title": "双色球“晒票”曝光！同站点同一时间打出，透露出哪些选号玄机？",
    "url": "https://toutiao.com/group/7700401217649771017/",
@@ -57,16 +57,16 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-10-25T23:10:21.836Z",
+   "seen": "2026-10-25T23:37:41.017Z",
    "whenMs": 1792889434000,
-   "seenMs": 1792969821836,
+   "seenMs": 1792971461017,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1792913761934,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-26T23:10:21.836Z",
+   "expireAt": "2026-10-26T23:37:41.017Z",
    "rule": "cap",
    "author": "体彩福彩分享",
    "when": "2026-10-25 08:50:34",
