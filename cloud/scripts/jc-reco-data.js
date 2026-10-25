@@ -128,9 +128,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.33,
      "conf": 70.8,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "6:0",
+     "hit": true,
+     "result": "win"
     },
     {
      "code": "周日006",
@@ -165,7 +165,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 3,
    "verdict": ""
   },
   {
