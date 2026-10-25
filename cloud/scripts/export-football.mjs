@@ -3932,9 +3932,6 @@ ${DEVICE_GATE_BODY}
        ⚠️ 当前页是竞彩，所以「竞彩/足球」带 .on。
        ============================================================ -->
   <!-- 【左滑返回提示 · 用户 2026-10-18「tab 上面用小型号字迹提示+箭头」】 -->
-  <div class="ro-swipe-hint" id="roSwipeHint">
-    <span class="ar">←</span><span>左滑返回上一页</span>
-  </div>
   <div class="top-tabs">
     <a class="tab" href="./" data-tab-home="1">彩票推荐</a>
     <a class="tab on" href="足球推荐.html">竞彩/足球</a>
