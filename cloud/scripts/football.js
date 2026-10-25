@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-25 17:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "湘南比马",
      "score": 0,
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
@@ -605,7 +605,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "賀拉戴克B隊",
      "score": 1,
@@ -678,7 +678,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "亞布洛內茨B隊",
      "score": 1,
@@ -751,10 +751,10 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "卡維納B隊",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 14
     },
@@ -824,10 +824,10 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "斯洛瓦科B队",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 9
     },
@@ -897,7 +897,7 @@ const FOOTBALL_DATA = {
      "color": "ff7788"
     },
     "time": "2026-10-25 17:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "布拉格斯拉维亚B队",
      "score": 1,
@@ -970,7 +970,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-25 17:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "兹林B队",
      "score": 0,
@@ -1043,7 +1043,7 @@ const FOOTBALL_DATA = {
      "color": "224477"
     },
     "time": "2026-10-25 17:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "特倫辛II隊",
      "score": 0,
@@ -1116,7 +1116,7 @@ const FOOTBALL_DATA = {
      "color": "887119"
     },
     "time": "2026-10-25 17:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "駒騰",
      "score": 0,
@@ -1181,7 +1181,7 @@ const FOOTBALL_DATA = {
      "color": "224488"
     },
     "time": "2026-10-25 17:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "马勒泽尼斯",
      "score": 0,
@@ -24301,7 +24301,7 @@ const FOOTBALL_DATA = {
      "color": "3a794e"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "馬魯莫英勇者(後備)",
      "score": 3,
@@ -24433,7 +24433,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-25 16:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "上海農商銀行(女)",
      "score": 2,
@@ -24499,7 +24499,7 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-25 16:30:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "帕森拉",
      "score": 2,
@@ -24577,7 +24577,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-25 16:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "培斯塔坦格朗",
      "score": 0,
@@ -24655,10 +24655,10 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-25 16:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "阿雷玛",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 12
     },
