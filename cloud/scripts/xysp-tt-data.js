@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 21:46:01
+   更新时间：2026-10-25 21:56:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-25 21:46:01",
+ "updated": "2026-10-25 21:56:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/741b93daa206412097100fc888dde587~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=s90WvTwHCJyo0%2BJ8sNJgyLKMVG0%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-25T13:46:01.264Z",
    "whenMs": 1792931546000,
-   "seenMs": 1792934761227,
+   "seenMs": 1792935961264,
    "drawMs": 1792934100000,
    "nextMs": 1792934100000,
    "atMs": 1792932362255,
@@ -506,7 +506,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26122",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792918353000,
    "seenMs": 1792934162210,
    "drawMs": 1792934100000,
@@ -536,7 +536,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26122",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792918353000,
    "seenMs": 1792934162210,
    "drawMs": 1792934100000,
@@ -568,7 +568,7 @@ const XYSP_TT_DATA = {
    "issue": "26283",
    "seen": "2026-10-25T13:46:01.264Z",
    "whenMs": 1792915292000,
-   "seenMs": 1792934761227,
+   "seenMs": 1792935961264,
    "drawMs": 1792934100000,
    "nextMs": 1792934100000,
    "atMs": 1792915561964,
@@ -598,7 +598,7 @@ const XYSP_TT_DATA = {
    "issue": "26283",
    "seen": "2026-10-25T13:46:01.264Z",
    "whenMs": 1792915292000,
-   "seenMs": 1792934761227,
+   "seenMs": 1792935961264,
    "drawMs": 1792934100000,
    "nextMs": 1792934100000,
    "atMs": 1792915561964,
@@ -1216,8 +1216,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=mgKgkd9g8GsDRQqRbI3fs8noZmA%3D",
    "title": "深夜23:20还在疯狂扫码！这张805万大乐透中奖票，充满了真实喜悦",
    "url": "https://toutiao.com/group/7700405883029537330/",
@@ -1229,9 +1229,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792890777000,
-   "seenMs": 1792934162210,
+   "seenMs": 1792936561275,
    "drawMs": 1793017800000,
    "nextMs": 1793017800000,
    "atMs": 1792902918857,
@@ -1259,7 +1259,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792888518000,
    "seenMs": 1792934162210,
    "drawMs": 1792934100000,
@@ -1289,7 +1289,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792888518000,
    "seenMs": 1792934162210,
    "drawMs": 1792934100000,
@@ -1319,7 +1319,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-25T13:16:02.210Z",
+   "seen": "2026-10-25T13:56:01.275Z",
    "whenMs": 1792888518000,
    "seenMs": 1792934162210,
    "drawMs": 1792934100000,
@@ -1382,7 +1382,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-25T13:46:01.264Z",
    "whenMs": 1792850700000,
-   "seenMs": 1792934761227,
+   "seenMs": 1792935961264,
    "drawMs": 1792935000000,
    "nextMs": 1792935000000,
    "atMs": 1792902134494,
@@ -1628,7 +1628,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-25T13:46:01.264Z",
    "whenMs": 1792836395000,
-   "seenMs": 1792934761227,
+   "seenMs": 1792935961264,
    "drawMs": 1792848600000,
    "nextMs": 1792848600000,
    "atMs": 1792902134494,
