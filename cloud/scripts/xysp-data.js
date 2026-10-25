@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 14:06
+   更新时间：2026-10-25 14:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 14:06",
+ "updated": "2026-10-25 14:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1653,7 +1653,7 @@ const XYSP_DATA = {
      "issue": "26122",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792898322000,
-     "seenMs": 1792907161837,
+     "seenMs": 1792908361857,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792902134494,
@@ -1684,7 +1684,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792897658000,
-     "seenMs": 1792907761866,
+     "seenMs": 1792908361857,
      "drawMs": 1792931400000,
      "nextMs": 1792931400000,
      "atMs": 1792902918857,
@@ -1715,7 +1715,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792897658000,
-     "seenMs": 1792907761866,
+     "seenMs": 1792908361857,
      "drawMs": 1792931400000,
      "nextMs": 1792931400000,
      "atMs": 1792902134494,
@@ -1957,7 +1957,7 @@ const XYSP_DATA = {
      "issue": "2026283",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792850674000,
-     "seenMs": 1792907161837,
+     "seenMs": 1792908361857,
      "drawMs": 1792935000000,
      "nextMs": 1792935000000,
      "atMs": 1792902134494,
@@ -2051,7 +2051,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792840961000,
-     "seenMs": 1792907161837,
+     "seenMs": 1792908361857,
      "drawMs": 1792847700000,
      "nextMs": 1792847700000,
      "atMs": 1792902134494,
@@ -2141,7 +2141,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T06:06:01.857Z",
      "whenMs": 1792836395000,
-     "seenMs": 1792907161837,
+     "seenMs": 1792908361857,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792902134494,
@@ -2243,68 +2243,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-24 18:01:29",
      "postId": "7700172369158996506",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=9Qrc057kJG%2B4K0JcDUMmmy5BztI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=9Qrc057kJG%2B4K0JcDUMmmy5BztI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=7Cl9SzhD%2BvZFHLjHjW2o0o73Vy4%3D",
-     "title": "排列3、5第26281期晒票：世事流转无常，守一份从容，静待人间惊喜",
-     "url": "http://toutiao.com/item/7700112246685073947/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26281",
-     "seen": "2026-10-25T05:46:01.837Z",
-     "whenMs": 1792822090000,
-     "seenMs": 1792907161837,
-     "drawMs": 1792845000000,
-     "nextMs": 1792845000000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T12:30:00.000Z",
-     "nextAt": 1792845000000,
-     "drawGid": "pl3",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 14:08:10",
-     "postId": "7700112246685073947",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a703b0c1bf664184ab64343026291aa0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=eSMqGZmgfgjrd3jgQVLQxaYPIe8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a703b0c1bf664184ab64343026291aa0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=eSMqGZmgfgjrd3jgQVLQxaYPIe8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/747a4e307b794708b839a6176c2e8163~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=7Cl9SzhD%2BvZFHLjHjW2o0o73Vy4%3D",
-     "title": "排列3、5第26281期晒票：世事流转无常，守一份从容，静待人间惊喜",
-     "url": "http://toutiao.com/item/7700112246685073947/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26281",
-     "seen": "2026-10-25T05:46:01.837Z",
-     "whenMs": 1792822090000,
-     "seenMs": 1792907161837,
-     "drawMs": 1792845000000,
-     "nextMs": 1792845000000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T12:30:00.000Z",
-     "nextAt": 1792845000000,
-     "drawGid": "pl3",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 14:08:10",
-     "postId": "7700112246685073947",
      "px": 132300
     }
    ]
