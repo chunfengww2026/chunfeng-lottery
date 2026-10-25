@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-25 21:26",
+ "updated": "2026-10-25 23:51",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 2,
+ "unfinished": 3,
  "history": [
+  {
+   "dateStr": "2026-10-25 22:28",
+   "finishTime": 1792938480000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周日027",
+     "teams": "巴萨 vs 皇马",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58,
+     "status": "pending",
+     "finishTime": 1792938480000,
+     "league": "西甲",
+     "odds": 1.57,
+     "time": "2026-10-26 04:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-25 14:30",
    "finishTime": 1792909800000,
