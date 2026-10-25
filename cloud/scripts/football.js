@@ -1282,7 +1282,11 @@ const FOOTBALL_DATA = {
        "line": "1.02",
        "away": 0.87
       },
-      "live": null
+      "live": {
+       "home": 0,
+       "line": "",
+       "away": null
+      }
      },
      "overunder": {
       "open": {
@@ -2028,6 +2032,44 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 587884,
+    "kind": "live",
+    "league": {
+     "name": "墨西乙",
+     "color": "004480"
+    },
+    "time": "2026-10-25 07:00:00",
+    "minute": 45,
+    "home": {
+     "name": "維納多斯",
+     "score": 1,
+     "red": 0,
+     "rank": 10
+    },
+    "away": {
+     "name": "阿里卡老虎隊",
+     "score": 0,
+     "red": 0,
+     "rank": 4
+    },
+    "odds": {
+     "asian": {
+      "open": null,
+      "live": null
+     },
+     "overunder": {
+      "open": null,
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
     "gid": 587231,
     "kind": "live",
     "league": {
@@ -2112,7 +2154,7 @@ const FOOTBALL_DATA = {
      "name": "比肯黑德联",
      "score": 3,
      "red": 0,
-     "rank": 6
+     "rank": 5
     },
     "odds": {
      "asian": {
@@ -2775,8 +2817,8 @@ const FOOTBALL_DATA = {
       "draw": 23,
       "away": 38.2
      },
-     "clear": false,
-     "margin": 9.9
+     "clear": true,
+     "margin": 10
     },
     "result": {
      "actual": "draw",

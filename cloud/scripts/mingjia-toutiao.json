@@ -2,6 +2,23 @@
  "updated": "2026-10-25T00:25:11.460Z",
  "entries": [
   {
+   "id": "1879977671011395",
+   "gid": "pl3",
+   "cat": "排列三",
+   "author": "光芒万丈1387",
+   "title": "26284期排列三冷温热数据分析 号码以最近七期排列三开奖号码为依据。出三个及以上为热码，出二个为温码，出一个或未出为冷码。七期开奖号为 278 583 471 864 983 647 258 热47",
+   "issue": "26284",
+   "url": "http://toutiao.com/preview_article/?pgc_id=1879977671011395",
+   "excerpt": "",
+   "images": [
+    "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b79bcf4da31e42d3a4dceffa22fc22c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NWI6EsKXJmGeoFeHoz9BAAb9DgQ%3D",
+    "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b79bcf4da31e42d3a4dceffa22fc22c9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=1FPiuHCYeZsG3kCqQuXQ7f1Lcm8%3D"
+   ],
+   "publishedAt": "2026-10-25T00:00:20.000Z",
+   "firstSeen": "2026-10-25T00:07:18.647Z",
+   "expiresAt": "2026-10-27T00:00:20.000Z"
+  },
+  {
    "id": "7700259830061171236",
    "gid": "fc3d",
    "cat": "3D",
@@ -111,7 +128,7 @@
     "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c73de4ad288c47418ddb18f88fd1b9f7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=hFB7baWVmzmVXvYGPIDnC%2FUC1Fs%3D"
    ],
    "publishedAt": "2026-10-24T15:33:07.000Z",
-   "firstSeen": "2026-10-24T23:43:14.679Z",
+   "firstSeen": "2026-10-25T00:07:18.647Z",
    "expiresAt": "2026-10-26T15:33:07.000Z"
   },
   {
@@ -434,7 +451,7 @@
    "gid": "pl3",
    "issue": "26284",
    "status": 200,
-   "count": 0,
+   "count": 1,
    "available": true
   }
  ]
