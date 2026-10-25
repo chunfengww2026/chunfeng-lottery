@@ -2,9 +2,64 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-25 15:28",
+ "updated": "2026-10-25 15:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周日002",
+   "league": "日职乙",
+   "home": "新潟天鹅",
+   "away": "仙台七夕",
+   "time": "2026-10-25 13:00",
+   "score": "2:1",
+   "hc": null,
+   "asianIndex": {
+    "line": "受半球",
+    "from": "live",
+    "handicap": 0.5,
+    "upSide": "away",
+    "upWater": 0.9,
+    "downWater": 0.9,
+    "openHandicap": 0.75,
+    "openUpWater": 0.9,
+    "openDownWater": 0.9,
+    "totalWater": 1.8,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.75,
+     "nowHandicap": 0.5,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.9,
+     "initLine": "受半球/一球",
+     "nowLine": "受半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.8,
+    "draw": 3.4,
+    "away": 1.9
+   },
+   "prob": {
+    "home": 24.3,
+    "draw": 27.1,
+    "away": 48.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 48.6,
+   "type": "unbeaten",
+   "result": "lose",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-25 15:58"
+  },
   {
    "code": "周日001",
    "league": "澳超",
