@@ -7,10 +7,10 @@
  function valid(v){return typeof v==='number'&&Number.isFinite(v)&&v>=0&&Math.floor(v)===v;}
  function read(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
  function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}
- function state(text){if(hint)hint.textContent=text;}
- function show(value,updated,cached){if(!valid(value))return;if(num){num.textContent=String(value);num.title='新服务独立访客统计'+(updated?'，更新于 '+updated:'')+'；旧服务历史统计 '+legacy+'，两者分别记录。';}state(cached?'新统计·缓存':'新统计');}
- var cached=null;try{cached=JSON.parse(read(cacheKey)||'null');}catch(e){}if(cached&&valid(cached.uv))show(cached.uv,cached.updated,true);else{if(num)num.textContent='—';state('新统计·加载中');}
- if(location.protocol==='file:'){state('新统计·请在线查看');return;}
+ function state(text){if(hint){hint.textContent=text;hint.hidden=!text;}}
+ function show(value,updated,cached){if(!valid(value))return;if(num){num.textContent=String(value);num.title='新服务独立访客统计'+(updated?'，更新于 '+updated:'')+'；旧服务历史统计 '+legacy+'，两者分别记录。';}state(cached?'缓存':'');}
+ var cached=null;try{cached=JSON.parse(read(cacheKey)||'null');}catch(e){}if(cached&&valid(cached.uv))show(cached.uv,cached.updated,true);else{if(num)num.textContent='—';state('加载中');}
+ if(location.protocol==='file:'){state('请在线查看');return;}
  async function update(){
   if(busy||done||attempts>=3)return;busy=true;attempts++;
   try{
@@ -24,7 +24,7 @@
    var updated=new Date().toLocaleString('sv-SE',{timeZone:'Asia/Shanghai',hour12:false});
    show(data.data.site_uv,updated,false);save(cacheKey,JSON.stringify({uv:data.data.site_uv,updated:updated}));done=true;
    window.dispatchEvent(new CustomEvent('visitor-count-updated',{detail:{uv:data.data.site_uv,updated:updated,source:'9420'}}));
-  }catch(e){state(cached&&valid(cached.uv)?'新统计·缓存':'新统计·待重试');}
+  }catch(e){state(cached&&valid(cached.uv)?'缓存':'待重试');}
   finally{busy=false;}
  }
  update();setTimeout(update,30000);setTimeout(update,120000);document.addEventListener('visibilitychange',function(){if(!document.hidden&&!done)update();});
