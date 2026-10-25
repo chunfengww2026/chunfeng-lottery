@@ -1668,15 +1668,61 @@ function recoStatBarHtml() {
    ⚠️ id="jcRecStat" + data-reco-updated 两个属性【必须保留】：
       30 秒实时刷新那段脚本就是按这个 id 找元素、原地换 innerHTML 的（搬到哪都行）。
    ⚠️ 没有统计结果时【整条不渲染】—— 不显示空标题、不拿 0 冒充"算过了"。 */
-function recoStatBarTop() {
-  if (!REC_STAT) return '';
-  /* 【对齐用户的 record-bar 结构】外层用 .record-bar + id="recStatsBar"，
-     同时保留旧 id="jcRecStat"（30 秒刷新脚本靠它找元素）——
-     两个 id 不能同时给一个元素，所以脚本里改成「先找 recStatsBar，再退回 jcRecStat」。 */
-  return `<div class="record record-bar" id="recStatsBar" data-reco-updated="${esc(RECO_STAMP)}">` +
-    recoStatBarHtml() +
-    `</div>`;
+function selectConfidentPair(rows, spList, matches, now) {
+  const picks={ '主胜':'home', '平局':'draw', '客胜':'away' }, keys={home:'h',draw:'d',away:'a'};
+  const candidates=rows.map(r=>{
+    const pick=picks[r.label], sp=spList.find(x=>x.code===r.code&&dayOf(x.time)===dayOf(r.time));
+    const m=matches.find(x=>x.code===r.code&&dayOf(x.time)===dayOf(r.time));
+    const odds=Number(sp&&sp.had&&sp.had[keys[pick]]);
+    if(!pick||!m||m.kind!=='upcoming'||m.hasScore||!(kickMs(r.time)>now)||!(odds>1)||!(r.conf>=58))return null;
+    return {code:r.code,time:r.time,home:r.home,away:r.away,label:r.label,pick,odds,conf:Number(r.conf)};
+  }).filter(Boolean);
+  let best=null;
+  for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
+    const legs=[candidates[i],candidates[j]];
+    if(legs[0].code===legs[1].code&&dayOf(legs[0].time)===dayOf(legs[1].time))continue;
+    const odds=legs[0].odds*legs[1].odds, confidence=legs[0].conf*legs[1].conf;
+    if(odds<2)continue;
+    if(!best||confidence>best.confidence||(confidence===best.confidence&&odds<best.odds))best={legs,odds,confidence};
+  }
+  return best;
 }
+function settleConfidentPair(pair,matches){
+  pair.legs.forEach(leg=>{
+    if(leg.verdict)return;
+    const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
+    if(!m||m.kind!=='finished'||!m.hasScore||!Number.isFinite(Number(m.hs))||!Number.isFinite(Number(m.as)))return;
+    const actual=Number(m.hs)>Number(m.as)?'home':Number(m.hs)<Number(m.as)?'away':'draw';
+    leg.score=m.hs+' : '+m.as;leg.verdict=actual===leg.pick?'red':'black';
+  });
+  pair.verdict=pair.legs.some(x=>x.verdict==='black')?'black':pair.legs.every(x=>x.verdict==='red')?'red':'pending';
+  return pair;
+}
+const PAIR_ARCHIVE_FILE=path.join(ROOT,'reco-archive.json');
+let PAIR_ARCHIVE={};
+try{PAIR_ARCHIVE=JSON.parse(fs.readFileSync(PAIR_ARCHIVE_FILE,'utf8'));}catch(e){}
+const PAIR_DAY=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
+const PAIR_CUT=Date.parse(PAIR_DAY+'T00:00:00+08:00')-29*86400000;
+const PAIR_RECORDS=(Array.isArray(PAIR_ARCHIVE.footballPairs)?PAIR_ARCHIVE.footballPairs:[]).filter(x=>x&&Array.isArray(x.legs)&&x.legs.length===2&&Date.parse(x.date+'T00:00:00+08:00')>=PAIR_CUT);
+let CURRENT_PAIR=PAIR_RECORDS.find(x=>x.date===PAIR_DAY);
+if(!CURRENT_PAIR){const chosen=selectConfidentPair(REC_ROWS,SP?SP.list:[],MATCHES_ALL,Date.now());if(chosen){CURRENT_PAIR={date:PAIR_DAY,createdAt:new Date().toISOString(),odds:chosen.odds,legs:chosen.legs,verdict:'pending'};PAIR_RECORDS.push(CURRENT_PAIR);}}
+PAIR_RECORDS.forEach(p=>settleConfidentPair(p,MATCHES_ALL));
+function saveConfidentPairs(){
+  let latest={};try{latest=JSON.parse(fs.readFileSync(PAIR_ARCHIVE_FILE,'utf8'));}catch(e){}
+  latest.footballPairs=PAIR_RECORDS;
+  const tmp=PAIR_ARCHIVE_FILE+'.pair.tmp';fs.writeFileSync(tmp,JSON.stringify(latest),'utf8');fs.renameSync(tmp,PAIR_ARCHIVE_FILE);
+}
+function confidentPairHtml(){
+  const red=PAIR_RECORDS.filter(x=>x.verdict==='red').length,black=PAIR_RECORDS.filter(x=>x.verdict==='black').length,pending=PAIR_RECORDS.length-red-black;
+  function status(v){return v==='red'?'红':v==='black'?'黑':'待赛果';}
+  function legs(p){return p.legs.map(l=>'<div class="confident-pair-leg"><b>'+esc(l.code)+' '+esc(l.home)+' vs '+esc(l.away)+'</b><div>'+esc(l.label)+' · 赔率 '+Number(l.odds).toFixed(2)+' · 单场信心 '+l.conf+'%</div><small>'+esc(l.time)+(l.score?' · 比分 '+esc(l.score)+' · '+status(l.verdict):'')+'</small></div>').join('');}
+  return '<style>.confident-pair-leg{padding:9px 0;border-bottom:1px dashed #dfceb1}.confident-pair-leg small{color:#8a7a63}.confident-pair-content{font-size:12px;line-height:1.8;overflow-wrap:anywhere}.confident-pair-content details{margin-top:10px}</style><div class="confident-pair-content"><b>有信心的2串1推荐</b>'+
+    (CURRENT_PAIR?'<div>'+esc(CURRENT_PAIR.date)+' · '+status(CURRENT_PAIR.verdict)+' · 组合赔率 <strong>'+Number(CURRENT_PAIR.odds).toFixed(2)+'</strong></div>'+legs(CURRENT_PAIR):'<div>暂无合适组合，等待两场信心达标、组合赔率不低于2的在售比赛。</div>')+
+    '<div>近30天：红 '+red+' · 黑 '+black+' · 待 '+pending+' · 命中率 '+(red+black?(red/(red+black)*100).toFixed(1)+'%':'—')+'</div><small>每日首次公布后保留原组合；赔率以实际购买时为准。信心为参考指标，不保证命中。</small>'+
+    '<details><summary>近30天2串1记录</summary>'+(PAIR_RECORDS.length?PAIR_RECORDS.slice().reverse().map(p=>'<div><b>'+esc(p.date)+' · '+status(p.verdict)+' · '+Number(p.odds).toFixed(2)+'</b>'+legs(p)+'</div>').join(''):'暂无已公布组合')+'</details></div>';
+}
+
+function recoStatBarTop(){return `<section id="jcConfidentPair" style="padding:12px;margin:10px 0;border:1px solid #e4d4b8;border-radius:10px;background:#fff9ed">${confidentPairHtml()}</section>`;}
 
 /* ============================================================
    渲染
@@ -5088,6 +5134,7 @@ ${JC_XYSP_VIEW}
      本机 file:// 会被 CORS 拦 → 静默跳过，页面不留空白。 */
   var PAST_URL = 'data/recommend.json';
   var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
+  var pairBox = document.getElementById('jcConfidentPair');
   var recBox = document.getElementById('jcRec');
   var archBox = document.getElementById('jcRecArch');
   var last = (bar && bar.getAttribute('data-reco-updated')) || '';
@@ -5140,6 +5187,7 @@ ${JC_XYSP_VIEW}
     var v = window.JC_RECO_VIEW;
     if (!v) return false;
     if (v.updated && v.updated !== last) {
+      if(pairBox && typeof v.parlay === 'string') pairBox.innerHTML=v.parlay;
       if (bar && typeof v.stat === 'string') {
         /* 兼容过渡态：线上的数据文件还是旧版时，stat 里没有「推荐单」标签 → 补上，别让标签消失 */
         bar.innerHTML = v.stat.indexOf('class="label') >= 0
@@ -5848,6 +5896,7 @@ function assertHeadOnce(finalHtml, label) {
 const finalHtml = perfify(safeHtml);
 assertHeadOnce(finalHtml, '足球推荐.html');
 fs.writeFileSync(OUT, finalHtml, 'utf8');
+saveConfidentPairs();
 
 /* 【30 秒实时刷新 · 数据文件】和页面写在同一个目录（本机 = 项目根目录）。
    内容 = 上面那两块的【同一套渲染结果】+ 存档时间戳：
@@ -5860,6 +5909,7 @@ fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
   updated: RECO_STAMP,
   /* ①推荐单战绩条（⚠️ 含「推荐单」标签 —— 换 innerHTML 用整条，别丢标签） */
   stat: recoStatBarHtml(),
+  parlay: confidentPairHtml(),
   /* ③推荐历史结果整块（红黑 / 命中率 / 还有几组没打完 / 往期列表 / 时间行） */
   arch: REC_ARCH_INNER,
   /* ②推荐（在售）那一块：条数文案 + 每场的行 —— 用户 2026-10-18 反馈这块从来没刷过 */
