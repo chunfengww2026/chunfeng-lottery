@@ -19685,8 +19685,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.5",
-       "over": 1.35,
-       "under": 0.6
+       "over": 1.36,
+       "under": 0.61
       },
       "live": null
      },
@@ -19726,7 +19726,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-25 10:30:00",
-    "minute": 80,
+    "minute": 81,
     "home": {
      "name": "波特兰木材",
      "score": 2,
@@ -19809,16 +19809,16 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "1.07",
-       "away": 0.81
+       "line": "1.08",
+       "away": 0.8
       },
       "live": null
      },
      "overunder": {
       "open": {
        "line": "1.25",
-       "over": 0.89,
-       "under": 0.97
+       "over": 0.93,
+       "under": 0.93
       },
       "live": null
      },
@@ -20014,7 +20014,7 @@ const FOOTBALL_DATA = {
      "color": "dc7e7e"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 18,
+    "minute": 19,
     "home": {
      "name": "大宫松鼠女足",
      "score": 0,
@@ -20092,7 +20092,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 21,
+    "minute": 22,
     "home": {
      "name": "橫川武藏野",
      "score": 0,
@@ -20170,7 +20170,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 18,
+    "minute": 19,
     "home": {
      "name": "熊本深红",
      "score": 0,
@@ -20326,7 +20326,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 21,
+    "minute": 22,
     "home": {
      "name": "靜岡SSU漂亮(女)",
      "score": 0,
@@ -20482,7 +20482,7 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 21,
+    "minute": 22,
     "home": {
      "name": "宮崎天照(女)",
      "score": 0,
