@@ -439,6 +439,7 @@ jobs:
           #   但会显示「数据缺失 · history.js 没有该彩种」。
           #   来源 cloud/scripts/history.js（sync-cloud 的 FROM_ROOT 同步的）。
           cp -f cloud/scripts/history.js site/history.js || true
+          cp -f cloud/out/visitor-count.json site/visitor-count.json || true
           # __RECO_SITE_COPY__ 【推荐串存档】页面会去加载这几个文件。
           # 不在这里 cp 的话，即使 cloud-build.mjs 把它们拷进了 out/，
           # 也【永远进不了 site/】→ 线上 404 → 30 秒刷新静默失效。
