@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 23:06
+   更新时间：2026-10-25 23:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 23:06",
+ "updated": "2026-10-25 23:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2115,6 +2115,20 @@ const XYSP_DATA = {
    "name": "排列5",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-25/6b5e1ae1-53ee-4ee5-baf8-101ffef733cd1792939877482.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-25/6b5e1ae1-53ee-4ee5-baf8-101ffef733cd1792939877482.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26285期]气死了",
+     "url": "",
+     "at": "2026-10-25T15:16:22.645Z",
+     "pubAt": "2026-10-25T14:51:00.000Z",
+     "pubMs": 1792939860000,
+     "pubSrc": "page",
+     "nextAt": 1793017800000,
+     "atMs": 1792941382645,
+     "seenMs": 1792941382645,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-25/5e174dff-fb5a-4c6d-a3ae-06189ef652ba1792938851831.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-25/5e174dff-fb5a-4c6d-a3ae-06189ef652ba1792938851831.jpg?imageMogr2/thumbnail/360x",
      "title": "[26285期]太难了",
@@ -2667,7 +2681,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T15:06:01.314Z",
      "whenMs": 1792931546000,
-     "seenMs": 1792939561307,
+     "seenMs": 1792940761314,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792932362255,
@@ -3025,7 +3039,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T15:06:01.314Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792921838000,
      "seenMs": 1792940761314,
      "drawMs": 1792934100000,
@@ -3055,7 +3069,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T15:06:01.314Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792921838000,
      "seenMs": 1792940761314,
      "drawMs": 1792934100000,
@@ -3237,7 +3251,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T15:06:01.314Z",
      "whenMs": 1792915292000,
-     "seenMs": 1792939561307,
+     "seenMs": 1792940761314,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792915561964,
@@ -3267,7 +3281,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T15:06:01.314Z",
      "whenMs": 1792915292000,
-     "seenMs": 1792939561307,
+     "seenMs": 1792940761314,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792915561964,
@@ -3855,11 +3869,11 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=NU%2Fq%2BS4UFuSius1eGCqIE8OdN0Y%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=mgKgkd9g8GsDRQqRbI3fs8noZmA%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=G%2Ft%2FoJkHvKu8b%2FRPD8OyIbuLlMI%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/867c0f01709b422cb4434413b7586241~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2F5h9qTXb%2FQBY8loivMyEO81JvHM%3D",
      "title": "深夜23:20还在疯狂扫码！这张805万大乐透中奖票，充满了真实喜悦",
-     "url": "http://toutiao.com/item/7700604044663390739/",
+     "url": "https://toutiao.com/group/7700405883029537330/",
      "at": "2026-10-25T04:35:18.857Z",
      "src": "tt",
      "cat": "tt",
@@ -3868,9 +3882,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-25T14:56:01.309Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792890777000,
-     "seenMs": 1792940161309,
+     "seenMs": 1792941361324,
      "drawMs": 1793017800000,
      "nextMs": 1793017800000,
      "atMs": 1792902918857,
@@ -3879,14 +3893,14 @@ const XYSP_DATA = {
      "drawGid": "dlt",
      "expireAt": "2026-10-26T04:35:18.857Z",
      "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-25 21:56:36",
-     "postId": "7700604044663390739",
+     "author": "每日彩",
+     "when": "2026-10-25 09:12:57",
+     "postId": "7700405883029537330",
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2vrhDgf6WYG6MHkL036FzdIf2x4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2vrhDgf6WYG6MHkL036FzdIf2x4%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2BTKazrSVxKL5YCNnENpRVjahpAQ%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=%2BTKazrSVxKL5YCNnENpRVjahpAQ%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d7c02cb77a0e4b77886a34d2f8b1b9ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=JAlEHcBvl5kHHjyaZSYHpt0zN8Q%3D",
      "title": "同一家店连出多张票！双色球122期晒票：全场磕蓝01，这是杀红眼",
      "url": "https://toutiao.com/group/7700397455879471650/",
@@ -3898,9 +3912,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T14:56:01.309Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792888518000,
-     "seenMs": 1792940161309,
+     "seenMs": 1792941361324,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792907761866,
@@ -3928,7 +3942,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T14:56:01.309Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792888518000,
      "seenMs": 1792940161309,
      "drawMs": 1792934100000,
@@ -3958,7 +3972,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-25T14:56:01.309Z",
+     "seen": "2026-10-25T15:16:01.324Z",
      "whenMs": 1792888518000,
      "seenMs": 1792940161309,
      "drawMs": 1792934100000,
@@ -3991,7 +4005,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T15:06:01.314Z",
      "whenMs": 1792885405000,
-     "seenMs": 1792939561307,
+     "seenMs": 1792940761314,
      "drawMs": 1792935000000,
      "nextMs": 1792935000000,
      "atMs": 1792902134494,
@@ -4689,6 +4703,7 @@ const XYSP_DATA = {
   "/2026-10-25/814598b2-0e51-4721-a648-73d2e2d8d3c31792938868831.jpg": 1792940402581,
   "/2026-10-25/5e174dff-fb5a-4c6d-a3ae-06189ef652ba1792938851831.jpg": 1792940402581,
   "/2026-10-25/e6a8d3a3-50a1-4bac-a1e7-2cd4df9930e41792938794028.jpg": 1792940402581,
-  "/2026-10-25/fff1b96e-1252-4e05-b5cb-f044e65ea2451792939212633.jpg": 1792940702334
+  "/2026-10-25/fff1b96e-1252-4e05-b5cb-f044e65ea2451792939212633.jpg": 1792940702334,
+  "/2026-10-25/6b5e1ae1-53ee-4ee5-baf8-101ffef733cd1792939877482.jpg": 1792941382645
  }
 };
