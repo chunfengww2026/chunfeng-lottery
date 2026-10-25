@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 22:26
+   更新时间：2026-10-25 22:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 22:26",
+ "updated": "2026-10-25 22:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3067,7 +3067,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T14:26:01.275Z",
      "whenMs": 1792915292000,
-     "seenMs": 1792937161291,
+     "seenMs": 1792938361275,
      "drawMs": 1792934100000,
      "nextMs": 1792934100000,
      "atMs": 1792915561964,
@@ -3851,7 +3851,7 @@ const XYSP_DATA = {
      "issue": "26283",
      "seen": "2026-10-25T14:26:01.275Z",
      "whenMs": 1792885405000,
-     "seenMs": 1792937161291,
+     "seenMs": 1792938361275,
      "drawMs": 1792935000000,
      "nextMs": 1792935000000,
      "atMs": 1792902134494,
@@ -3881,7 +3881,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T14:26:01.275Z",
      "whenMs": 1792836395000,
-     "seenMs": 1792937161291,
+     "seenMs": 1792938361275,
      "drawMs": 1792848600000,
      "nextMs": 1792848600000,
      "atMs": 1792902134494,
@@ -3926,9 +3926,7 @@ const XYSP_DATA = {
      "author": "体彩福彩分享",
      "when": "2026-10-25 08:50:34",
      "postId": "7700401217649771017",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/55aab4708403455d94587771aa8e2e7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=CMXMuQm5wH%2F0le2ejrydNOgiYGU%3D",
@@ -3944,14 +3942,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-25T14:26:01.275Z",
      "whenMs": 1792889434000,
-     "seenMs": 1792937761271,
+     "seenMs": 1792938361275,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1792913761934,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-10-26T14:16:01.271Z",
+     "expireAt": "2026-10-26T14:26:01.275Z",
      "rule": "cap",
      "author": "体彩福彩分享",
      "when": "2026-10-25 08:50:34",
