@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-25 11:25",
- "red": 8,
+ "updated": "2026-10-25 11:59",
+ "red": 0,
  "black": 0,
- "rate": "100.0%",
- "unfinished": 2,
+ "rate": "—",
+ "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-10-25 11:25",
-   "finishTime": 1792898700000,
+   "dateStr": "2026-10-25 11:59",
+   "finishTime": 1792900740000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 63.5,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "挪超",
      "odds": 1.5,
      "time": "2026-10-25 21:30"
@@ -29,11 +29,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 69.6,
+     "confidence": 70.5,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "德甲",
-     "odds": 1.44,
+     "odds": 1.4,
      "time": "2026-10-26 00:30"
     },
     {
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 65.3,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "意甲",
      "odds": 1.48,
      "time": "2026-10-26 01:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 61,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "美职联",
      "odds": 1.57,
      "time": "2026-10-26 09:00"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 66.8,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "葡超",
      "odds": 1.38,
      "time": "2026-10-27 02:45"
@@ -83,167 +83,10 @@
      "result": "pending",
      "confidence": 68.3,
      "status": "pending",
-     "finishTime": 1792898700000,
+     "finishTime": 1792900740000,
      "league": "巴甲",
      "odds": 1.33,
      "time": "2026-10-27 07:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-23 23:58",
-   "finishTime": 1792771080000,
-   "verdict": "红",
-   "matches": [
-    {
-     "matchNo": "周五012",
-     "teams": "吉马良斯 vs 马里迪莫",
-     "pick": "主胜",
-     "score": "5:0",
-     "result": "red",
-     "confidence": 58.6,
-     "status": "finished",
-     "finishTime": 1792771080000,
-     "league": "葡超",
-     "odds": 1.46,
-     "time": "2026-10-24 03:45"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-23 23:30",
-   "finishTime": 1792769400000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周六009",
-     "teams": "科莫 vs 萨索洛",
-     "pick": "主胜",
-     "score": "2:0",
-     "result": "red",
-     "confidence": 64.2,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "意甲",
-     "odds": 1.5,
-     "time": "2026-10-24 21:00"
-    },
-    {
-     "matchNo": "周六011",
-     "teams": "莱红牛 vs 埃沃斯堡",
-     "pick": "主胜",
-     "score": "4:0",
-     "result": "red",
-     "confidence": 69.8,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "德甲",
-     "odds": 1.44,
-     "time": "2026-10-24 21:30"
-    },
-    {
-     "matchNo": "周六016",
-     "teams": "阿森纳 vs 埃弗顿",
-     "pick": "主胜",
-     "score": "2:0",
-     "result": "red",
-     "confidence": 67.3,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "英超",
-     "odds": 1.4,
-     "time": "2026-10-24 22:00"
-    },
-    {
-     "matchNo": "周六024",
-     "teams": "多特蒙德 vs 法兰克福",
-     "pick": "主胜",
-     "score": "1:0",
-     "result": "red",
-     "confidence": 66.3,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "德甲",
-     "odds": 1.48,
-     "time": "2026-10-25 00:30"
-    },
-    {
-     "matchNo": "周六026",
-     "teams": "拉齐奥 vs 帕尔马",
-     "pick": "主胜",
-     "score": "2:1",
-     "result": "red",
-     "confidence": 65.2,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "意甲",
-     "odds": 1.36,
-     "time": "2026-10-25 02:45"
-    },
-    {
-     "matchNo": "周六028",
-     "teams": "马竞 vs 拉科",
-     "pick": "主胜",
-     "score": "1:0",
-     "result": "red",
-     "confidence": 72.2,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "西甲",
-     "odds": 1.27,
-     "time": "2026-10-25 03:00"
-    },
-    {
-     "matchNo": "周六029",
-     "teams": "吉维森特 vs 波尔图",
-     "pick": "客胜",
-     "score": "0:1",
-     "result": "red",
-     "confidence": 65.3,
-     "status": "finished",
-     "finishTime": 1792769400000,
-     "league": "葡超",
-     "odds": 1.42,
-     "time": "2026-10-25 03:30"
-    },
-    {
-     "matchNo": "周日003",
-     "teams": "东京FC vs 水户蜀葵",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 70.8,
-     "status": "pending",
-     "finishTime": 1792769400000,
-     "league": "日职",
-     "odds": 1.33,
-     "time": "2026-10-25 15:00"
-    },
-    {
-     "matchNo": "周日006",
-     "teams": "国际米兰 vs 佛罗伦萨",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 68.6,
-     "status": "pending",
-     "finishTime": 1792769400000,
-     "league": "意甲",
-     "odds": 1.36,
-     "time": "2026-10-25 19:30"
-    },
-    {
-     "matchNo": "周日028",
-     "teams": "里斯本 vs 维塞乌",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 77.4,
-     "status": "pending",
-     "finishTime": 1792769400000,
-     "league": "葡超",
-     "odds": 1.25,
-     "time": "2026-10-26 04:30"
     }
    ]
   }
