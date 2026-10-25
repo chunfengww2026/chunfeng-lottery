@@ -4935,8 +4935,9 @@ function recoArchiveCommit(recData) {
   wins.push(...frogArchiveCommit(arch, FROG_CURRENT_DATA, idx, stamp, cutMs));
   // Site owner explicitly reported this result; no original picks are available.
   wins.push({gid:'dlt',issue:'26121',date:'2026-10-24',name:MQ_NAME.dlt||'大乐透',lv:0,
-    label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],draw:[],
-    note:'站主确认报喜。'});
+    label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],
+    draw: ['front','back'].map((key,i)=>({label:i?'后区':'前区',nums:((idx['dlt|26121']||{}).areas||{})[key]||[],pad:true,br:!!i,hit:((((idx['dlt|26121']||{}).areas||{})[key])||[]).map(n=>i?Number(n)===1:true)})),
+    note:'站主确认报喜；后区命中01，08未中。'});
 
 
   /* ---------- ③ 365 天剪枝：中奖记录超过 365 天【物理删除】 ---------- */
@@ -5315,7 +5316,7 @@ function buildHistoryHtml() {
       `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label)}</span>` +
       `</div>` +
       (r.source === 'marquee' || r.source === 'owner-report' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
-      (r.source === 'owner-report' ? '' : r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
+      (r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
       `<div class="ro-hist-note">${escape(r.note)}</div>` +
       `</div>`
     ).join('');
