@@ -5832,6 +5832,9 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
   document.addEventListener('visibilitychange',function(){if(!document.hidden)update();});
 })();
 </script>
+<script>
+${fs.readFileSync(path.join(SCRIPT_DIR, 'visitor-counter.js'), 'utf8')}
+</script>
 </body>
 </html>`;
 
