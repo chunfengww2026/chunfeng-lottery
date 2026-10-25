@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-25 23:51",
- "red": 0,
+ "updated": "2026-10-26 00:48",
+ "red": 2,
  "black": 0,
- "rate": "—",
- "unfinished": 3,
+ "rate": "100.0%",
+ "unfinished": 2,
  "history": [
   {
    "dateStr": "2026-10-25 22:28",
@@ -28,16 +28,16 @@
   {
    "dateStr": "2026-10-25 14:30",
    "finishTime": 1792909800000,
-   "verdict": "",
+   "verdict": "红",
    "matches": [
     {
      "matchNo": "周日007",
      "teams": "毕尔巴鄂 vs 赫塔费",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "4:0",
+     "result": "red",
      "confidence": 58,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792909800000,
      "league": "西甲",
      "odds": 1.53,
@@ -54,10 +54,10 @@
      "matchNo": "周日011",
      "teams": "维京 vs 特罗姆瑟",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "3:1",
+     "result": "red",
      "confidence": 63.5,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1792902540000,
      "league": "挪超",
      "odds": 1.5,
