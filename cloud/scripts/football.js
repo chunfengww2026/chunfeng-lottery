@@ -19792,7 +19792,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-25 11:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "普马斯",
      "score": 1,
@@ -19858,7 +19858,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "臥龍崗狼隊",
      "score": 2,
@@ -19936,7 +19936,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "悉尼奥林匹克",
      "score": 0,
@@ -20170,7 +20170,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "熊本深红",
      "score": 0,
@@ -20248,7 +20248,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "鸟取SC",
      "score": 0,
@@ -20482,10 +20482,10 @@ const FOOTBALL_DATA = {
      "color": "008844"
     },
     "time": "2026-10-25 12:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "宮崎天照(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
