@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-25 18:00
+   更新时间：2026-10-25 18:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-25 18:00",
+ "updated": "2026-10-25 18:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2891,96 +2891,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-25 03:50:43",
      "postId": "7700324216716919311",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2d8a0b0911ef442eb27c28cf58682272~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=J7epQoPWkQe5XwiuYE7lbR7nSVQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2d8a0b0911ef442eb27c28cf58682272~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=J7epQoPWkQe5XwiuYE7lbR7nSVQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2d8a0b0911ef442eb27c28cf58682272~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=61w%2Bijwxex5Lrmoh5CRNNy3zaeM%3D",
-     "title": "福彩3D最新晒票：10倍单选霸气出击，复式单式齐上阵，谁能中大奖",
-     "url": "http://toutiao.com/item/7700172369158996506/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-25T09:46:02.056Z",
-     "whenMs": 1792836089000,
-     "seenMs": 1792921562056,
-     "drawMs": 1792847700000,
-     "nextMs": 1792847700000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T13:15:00.000Z",
-     "nextAt": 1792847700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 18:01:29",
-     "postId": "7700172369158996506",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac4e7d3b591c475bb105b041b1232aa9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=u3XIzOaU%2FXsSsAaH9wn%2B9iBAfjo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ac4e7d3b591c475bb105b041b1232aa9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=u3XIzOaU%2FXsSsAaH9wn%2B9iBAfjo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2d8a0b0911ef442eb27c28cf58682272~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=61w%2Bijwxex5Lrmoh5CRNNy3zaeM%3D",
-     "title": "福彩3D最新晒票：10倍单选霸气出击，复式单式齐上阵，谁能中大奖",
-     "url": "http://toutiao.com/item/7700172369158996506/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-25T09:46:02.056Z",
-     "whenMs": 1792836089000,
-     "seenMs": 1792921562056,
-     "drawMs": 1792847700000,
-     "nextMs": 1792847700000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T13:15:00.000Z",
-     "nextAt": 1792847700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 18:01:29",
-     "postId": "7700172369158996506",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4468cbcbb08e47fa80c51df054f1e496~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=A3Nd0gU7b7aAiy4uGqNGoZzIL68%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4468cbcbb08e47fa80c51df054f1e496~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=A3Nd0gU7b7aAiy4uGqNGoZzIL68%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2d8a0b0911ef442eb27c28cf58682272~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=61w%2Bijwxex5Lrmoh5CRNNy3zaeM%3D",
-     "title": "福彩3D最新晒票：10倍单选霸气出击，复式单式齐上阵，谁能中大奖",
-     "url": "http://toutiao.com/item/7700172369158996506/",
-     "at": "2026-10-25T04:22:14.494Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-25T09:46:02.056Z",
-     "whenMs": 1792836089000,
-     "seenMs": 1792921562056,
-     "drawMs": 1792847700000,
-     "nextMs": 1792847700000,
-     "atMs": 1792902134494,
-     "drawAt": "2026-10-24T13:15:00.000Z",
-     "nextAt": 1792847700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-26T04:22:14.494Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-24 18:01:29",
-     "postId": "7700172369158996506",
      "px": 132300
     }
    ]
