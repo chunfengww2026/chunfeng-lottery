@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "班迪特斯磐城",
      "score": 1,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "浦和红钻",
      "score": 1,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 14:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "大阪樱花",
      "score": 0,
@@ -298,7 +298,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "FC爱媛",
      "score": 1,
@@ -454,7 +454,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "川崎前锋",
      "score": 1,
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-25 15:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "FC东京",
      "score": 1,
