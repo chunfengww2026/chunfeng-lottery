@@ -262,8 +262,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": 0.25,
-       "line": "0.72",
-       "away": 1.11
+       "line": "0.75",
+       "away": 1.07
       }
      },
      "overunder": {
@@ -1474,6 +1474,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 585638,
+    "kind": "upcoming",
+    "league": {
+     "name": "阿甲",
+     "color": "3792dd"
+    },
+    "time": "2026-10-26 08:30:00",
+    "minute": 0,
+    "home": {
+     "name": "巴拉卡斯中央队",
+     "score": null,
+     "red": null,
+     "rank": 14
+    },
+    "away": {
+     "name": "里奥夸托学生队",
+     "score": null,
+     "red": null,
+     "rank": 29
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "1.07",
+       "away": 0.82
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.97",
+       "away": 0.91
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "1.75",
+       "over": 0.83,
+       "under": 1.04
+      },
+      "live": {
+       "line": "0.75",
+       "over": 0.96,
+       "under": 0.91
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.76,
+       "draw": 5.1,
+       "away": 3.2
+      },
+      "live": {
+       "home": 2.51,
+       "draw": 5.8,
+       "away": 1.88
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 48.2,
+     "prob": {
+      "home": 36.1,
+      "draw": 15.6,
+      "away": 48.2
+     },
+     "clear": true,
+     "margin": 10.3
+    },
+    "result": null
+   },
+   {
     "gid": 588743,
     "kind": "upcoming",
     "league": {
@@ -1686,6 +1759,79 @@ const FOOTBALL_DATA = {
       "home": 24.6,
       "draw": 36.2,
       "away": 39.2
+     },
+     "clear": false,
+     "margin": 10
+    },
+    "result": null
+   },
+   {
+    "gid": 586711,
+    "kind": "upcoming",
+    "league": {
+     "name": "墨西聯",
+     "color": "098000"
+    },
+    "time": "2026-10-26 09:00:00",
+    "minute": 0,
+    "home": {
+     "name": "墨西哥美洲队",
+     "score": null,
+     "red": null,
+     "rank": 1
+    },
+    "away": {
+     "name": "帕丘卡",
+     "score": null,
+     "red": null,
+     "rank": 16
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -1,
+       "line": "1.06",
+       "away": 0.83
+      },
+      "live": {
+       "home": -0.25,
+       "line": "0.77",
+       "away": 1.12
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 1.04,
+       "under": 0.83
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.01,
+       "under": 0.86
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.63,
+       "draw": 4.6,
+       "away": 4
+      },
+      "live": {
+       "home": 2.14,
+       "draw": 4.6,
+       "away": 2.41
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 42.5,
+     "prob": {
+      "home": 42.5,
+      "draw": 19.8,
+      "away": 37.7
      },
      "clear": false,
      "margin": 10
@@ -2336,16 +2482,40 @@ const FOOTBALL_DATA = {
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "2.25",
+       "over": 0.85,
+       "under": 0.95
+      },
       "live": null
      },
      "europe": {
-      "open": null,
+      "open": {
+       "home": 1.48,
+       "draw": 6.3,
+       "away": 3.5
+      },
       "live": null
      }
     },
-    "reco": null,
-    "result": null
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 60.3,
+     "prob": {
+      "home": 60.3,
+      "draw": 14.2,
+      "away": 25.5
+     },
+     "clear": true,
+     "margin": 12
+    },
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "1 - 0"
+    }
    },
    {
     "gid": 588632,
