@@ -5,79 +5,9 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-25 14:56",
+ "updated": "2026-10-25 15:49",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
-  {
-   "at": "2026-10-22 23:30",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周四003",
-     "time": "2026-10-23 00:45",
-     "league": "欧罗巴",
-     "home": "萨迪纳摩",
-     "away": "奈梅亨",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.44,
-     "conf": 65.6,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五004",
-     "time": "2026-10-24 02:00",
-     "league": "荷甲",
-     "home": "前进之鹰",
-     "away": "特尔斯达",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.6,
-     "conf": 59.3,
-     "score": "3:2",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周五006",
-     "time": "2026-10-24 02:30",
-     "league": "德甲",
-     "home": "斯图加特",
-     "away": "门兴",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 68.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五010",
-     "time": "2026-10-24 03:00",
-     "league": "英冠",
-     "home": "博尔顿",
-     "away": "米堡",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.55,
-     "conf": 60.5,
-     "score": "1:5",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 2,
-   "verdict": ""
-  },
   {
    "at": "2026-10-23 23:30",
    "min": 58,
@@ -237,31 +167,6 @@ const JC_RECO_DATA = {
    "miss": null,
    "pending": 4,
    "verdict": ""
-  },
-  {
-   "at": "2026-10-23 23:58",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周五012",
-     "time": "2026-10-24 03:45",
-     "league": "葡超",
-     "home": "吉马良斯",
-     "away": "马里迪莫",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.46,
-     "conf": 58.6,
-     "score": "5:0",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
   },
   {
    "at": "2026-10-25 12:29",
