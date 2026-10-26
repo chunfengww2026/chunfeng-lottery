@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "布凯里耶",
      "score": 2,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "萨布塔罗提比利锡",
      "score": 3,
@@ -97,7 +97,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "古泰斯鱼雷",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 7
     },
@@ -138,7 +138,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "FC諾亞",
      "score": 0,
@@ -204,10 +204,10 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "梅塔洛格布斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
@@ -270,7 +270,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "贝塔纳哈里亚",
      "score": 1,
@@ -336,10 +336,10 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "阿卡夏普尔",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 16
     },
@@ -402,7 +402,7 @@ const FOOTBALL_DATA = {
      "color": "999900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "普夫迪夫火车头",
      "score": 0,
@@ -506,7 +506,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "迪莫纳",
      "score": 2,
@@ -584,7 +584,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "斯德洛特",
      "score": 1,
