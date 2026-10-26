@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "萨布塔罗提比利锡",
      "score": 3,
@@ -204,7 +204,7 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "梅塔洛格布斯",
      "score": 0,
@@ -270,10 +270,10 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "贝塔纳哈里亚",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
@@ -336,7 +336,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "阿卡夏普尔",
      "score": 2,
@@ -468,7 +468,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-10-26 23:10:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "艾哈斯姆U21",
      "score": 2,
@@ -506,7 +506,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "迪莫纳",
      "score": 2,
@@ -584,7 +584,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "斯德洛特",
      "score": 1,
