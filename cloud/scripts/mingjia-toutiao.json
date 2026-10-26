@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T20:59:00.424Z",
+ "updated": "2026-10-26T21:32:35.273Z",
  "entries": [
   {
    "id": "7701051642069697060",
@@ -198,7 +198,7 @@
    "gid": "ssq",
    "issue": "2026123",
    "status": 200,
-   "count": 5,
+   "count": 0,
    "available": true
   },
   {
@@ -212,7 +212,7 @@
    "gid": "dlt",
    "issue": "26123",
    "status": 200,
-   "count": 2,
+   "count": 0,
    "available": true
   },
   {
@@ -254,7 +254,7 @@
    "gid": "pl3",
    "issue": "26286",
    "status": 200,
-   "count": 1,
+   "count": 0,
    "available": true
   }
  ]
