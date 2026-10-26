@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-26 22:16",
+ "updated": "2026-10-26 23:36",
  "red": 4,
- "black": 2,
- "rate": "66.7%",
+ "black": 1,
+ "rate": "80.0%",
  "unfinished": 1,
  "history": [
   {
@@ -93,10 +93,10 @@
      "matchNo": "周日029",
      "teams": "洛杉矶FC vs 洛城银河",
      "pick": "主胜",
-     "score": "0:0",
-     "result": "black",
+     "score": "—",
+     "result": "pending",
      "confidence": 61.1,
-     "status": "finished",
+     "status": "pending",
      "finishTime": 1792902540000,
      "league": "美职联",
      "odds": 1.55,
