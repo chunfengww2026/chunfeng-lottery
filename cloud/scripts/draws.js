@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-26 23:30:11 */
+/* 自动生成，请勿手动编辑 · 2026-10-26 23:00:49 */
 const DRAW_DATA = {
-  "updated": "2026-10-26 23:30:11",
+  "updated": "2026-10-26 23:00:49",
   "note": "由 build-draws.mjs 自动生成，请勿手动编辑",
   "games": {
     "ssq": {
       "issue": "2026122",
       "date": "2026-10-25",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "red": [
           1,
@@ -24,7 +24,7 @@ const DRAW_DATA = {
     "dlt": {
       "issue": "26122",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "front": [
           2,
@@ -42,7 +42,7 @@ const DRAW_DATA = {
     "qlc": {
       "issue": "2026123",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           6,
@@ -61,7 +61,7 @@ const DRAW_DATA = {
     "qxc": {
       "issue": "26122",
       "date": "2026-10-25",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "front": [
           9,
@@ -79,7 +79,7 @@ const DRAW_DATA = {
     "kl8": {
       "issue": "2026285",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           3,
@@ -108,7 +108,7 @@ const DRAW_DATA = {
     "fc3d": {
       "issue": "2026285",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国福彩网（官方）",
       "areas": {
         "main": [
           9,
@@ -120,7 +120,7 @@ const DRAW_DATA = {
     "pl3": {
       "issue": "26285",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "main": [
           6,
@@ -132,7 +132,7 @@ const DRAW_DATA = {
     "pl5": {
       "issue": "26285",
       "date": "2026-10-26",
-      "source": "一起彩（yiqicai.com）",
+      "source": "中国体彩网（官方）",
       "areas": {
         "main": [
           6,
