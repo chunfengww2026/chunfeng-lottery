@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-26 23:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-26 23:58 */
 const JC_DATA = {
- "updated": "2026-10-26 23:28",
+ "updated": "2026-10-26 23:58",
  "stat": {
   "total": 4,
   "upcoming": 4,
@@ -338,8 +338,8 @@ const JC_DATA = {
       "away": 4
      },
      "live": {
-      "home": 1.83,
-      "draw": 3.4,
+      "home": 1.8,
+      "draw": 3.5,
       "away": 4.75
      }
     },
@@ -359,28 +359,28 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 49.5,
+    "confidence": 49.8,
     "prob": {
-     "home": 49.5,
-     "draw": 28,
+     "home": 49.8,
+     "draw": 27.7,
      "away": 22.5
     },
     "clear": true,
-    "margin": 5.1,
+    "margin": 5.2,
     "rqLine": "半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 49.5,
-      "draw": 28,
+      "home": 49.8,
+      "draw": 27.7,
       "away": 22.5
      },
-     "confidence": 49.5,
+     "confidence": 49.8,
      "signals": [
       "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜+3.2pp / 平局-0.1pp / 客胜-3.1pp",
+      "初盘→即时：主胜+4.1pp / 平局-0.9pp / 客胜-3.1pp",
       "亚盘未变盘；水位只作辅助核对",
       "主要方向凯利中位参考 0.950",
       "多机构分歧 2.2%"
@@ -390,16 +390,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -9.5,
-      "draw": -4.7,
+      "home": -10.4,
+      "draw": -2.9,
       "away": 6.9
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.2825669833821267,
-       "draw": 0.2480982701331296,
-       "away": 0.469334746484743
+       "home": 0.2875290359931669,
+       "draw": 0.2481000365650455,
+       "away": 0.4643709274417887
       },
       "pick": "away",
       "label": "让负"
@@ -583,7 +583,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-26 23:28",
+  "updated": "2026-10-26 23:58",
   "officialUpdate": "2026-10-26 21:50:46",
   "inSale": 4,
   "list": [
