@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-27 05:12",
+ "updated": "2026-10-27 05:50",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -87,6 +87,61 @@ const JC_HISTORY = {
    "hit": true,
    "matched": true,
    "at": "2026-10-26 00:28"
+  },
+  {
+   "code": "周一001",
+   "league": "葡超",
+   "home": "圣克拉拉",
+   "away": "本菲卡",
+   "time": "2026-10-27 02:45",
+   "score": "1:2",
+   "hc": null,
+   "asianIndex": {
+    "line": "受球半",
+    "from": "live",
+    "handicap": 1.5,
+    "upSide": "away",
+    "upWater": 1.02,
+    "downWater": 0.77,
+    "openHandicap": 1.25,
+    "openUpWater": 0.95,
+    "openDownWater": 0.9,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": false,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 1.25,
+     "nowHandicap": 1.5,
+     "initUpWater": 0.95,
+     "nowUpWater": 1.02,
+     "initLine": "受一球/球半",
+     "nowLine": "受球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 8,
+    "draw": 4.75,
+    "away": 1.38
+   },
+   "prob": {
+    "home": 11.8,
+    "draw": 19.9,
+    "away": 68.4
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 68.4,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-10-27 05:50"
   },
   {
    "code": "周日029",
