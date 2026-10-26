@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-26 08:28",
- "red": 4,
+ "updated": "2026-10-26 09:22",
+ "red": 5,
  "black": 1,
- "rate": "80.0%",
+ "rate": "83.3%",
  "unfinished": 1,
  "history": [
+  {
+   "dateStr": "2026-10-26 09:22",
+   "finishTime": 1792977720000,
+   "verdict": "红",
+   "matches": [
+    {
+     "matchNo": "周日024",
+     "teams": "皇家社会 vs 莱万特",
+     "pick": "主胜",
+     "score": "2:1",
+     "result": "red",
+     "confidence": 62,
+     "status": "finished",
+     "finishTime": 1792977720000,
+     "league": "西甲",
+     "odds": 1.53,
+     "time": "2026-10-26 01:30"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-25 22:28",
    "finishTime": 1792938480000,
