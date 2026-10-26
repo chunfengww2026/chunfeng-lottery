@@ -1,7 +1,95 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 07:18:40） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 07:51:31） */
 const MINGJIA_DATA = {
- "updated": "2026-10-27 07:18:40",
+ "updated": "2026-10-27 07:51:31",
  "list": [
+  {
+   "name": "九头鸟",
+   "cat": "大乐透",
+   "kw": "九头鸟 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "大乐透",
+   "kw": "金手指 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 107873,
+     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
+     "page": "https://zhuanlan.zhihu.com/p/492396269",
+     "title": "第2022083期3D太湖字谜解读 - 知乎",
+     "issue": "2022083",
+     "verified": false,
+     "fetchedAt": "2026-10-26T21:30:20.568Z"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "3D",
+   "kw": "迷公 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "3D",
+   "kw": "桃子姐 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "3D",
+   "kw": "貂蝉杀 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
+     "size": 70811,
+     "src": "https://pica.zhimg.com/v2-6965d5c786f58c7c291d66f5b122d1b4_1440w.jpg",
+     "page": "https://zhuanlan.zhihu.com/p/518191298",
+     "title": "体彩排列三第2022132期太湖字谜解析 - 知乎",
+     "issue": "2022132",
+     "verified": false,
+     "fetchedAt": "2026-10-26T23:51:03.653Z"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 字谜 参考图",
+   "imgs": []
+  },
   {
    "name": "桃子姐",
    "cat": "排列三",
@@ -24,73 +112,18 @@ const MINGJIA_DATA = {
    "name": "金手指",
    "cat": "排列三",
    "kw": "金手指 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "快乐8",
-   "kw": "太湖字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "快乐8",
-   "kw": "名家精 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万里挑一",
-   "cat": "快乐8",
-   "kw": "万里挑一 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "双色球",
-   "kw": "太湖字谜 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "双色球",
-   "kw": "迷公 双色球 字谜 参考图",
-   "imgs": []
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/金手指/1.jpg",
+     "size": 54460,
+     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
+     "page": "https://www.jb51.net/softs/250983.html",
+     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-26T23:51:28.844Z"
+    }
+   ]
   },
   {
    "name": "黄大仙",
@@ -255,24 +288,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "太湖字谜",
-   "cat": "3D",
-   "kw": "太湖字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
-     "size": 107873,
-     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
-     "page": "https://zhuanlan.zhihu.com/p/492396269",
-     "title": "第2022083期3D太湖字谜解读 - 知乎",
-     "issue": "2022083",
-     "verified": false,
-     "fetchedAt": "2026-10-26T21:30:20.568Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "金手指",
    "cat": "双色球",
    "kw": "金手指 双色球 字谜 参考图",
@@ -345,24 +360,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 38079,
-     "src": "https://www.17500.cn/Public/Upload/art/202403/1710141022668953.jpg",
-     "page": "https://www.17500.cn/arts/detail-1377492.html",
-     "title": "排列3第2024062期太湖钓叟三字诀_太湖字谜|乐彩网",
-     "issue": "2024062",
-     "verified": false,
-     "fetchedAt": "2026-10-25T17:16:00.601Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "排三字谜",
    "cat": "排列三",
    "kw": "排三字谜 排列三 字谜 参考图",
@@ -379,6 +376,18 @@ const MINGJIA_DATA = {
     }
    ],
    "stale": true
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "双色球",
+   "kw": "太湖字谜 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "双色球",
+   "kw": "迷公 双色球 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "桃子姐",
@@ -567,66 +576,61 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "九头鸟",
-   "cat": "大乐透",
-   "kw": "九头鸟 大乐透 字谜 参考图",
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "金手指",
-   "cat": "大乐透",
-   "kw": "金手指 大乐透 字谜 参考图",
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 字谜 参考图",
    "imgs": []
   },
   {
    "name": "迷公",
-   "cat": "3D",
-   "kw": "迷公 3D 字谜 参考图",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "桃子姐",
-   "cat": "3D",
-   "kw": "桃子姐 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "3D",
-   "kw": "貂蝉杀 3D 字谜 参考图",
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
    "imgs": []
   },
   {
    "name": "名家精",
-   "cat": "3D",
-   "kw": "名家精 3D 字谜 参考图",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "白天鹅",
-   "cat": "3D",
-   "kw": "白天鹅 3D 字谜 参考图",
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "百合花",
-   "cat": "3D",
-   "kw": "百合花 3D 字谜 参考图",
+   "name": "万里挑一",
+   "cat": "快乐8",
+   "kw": "万里挑一 快乐8 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "迷公",
-   "cat": "排列三",
-   "kw": "迷公 排列三 字谜 参考图",
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 字谜 参考图",
    "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-25 20:17:33",
-   "names": 71,
-   "imgs": 15
-  },
   {
    "at": "2026-10-25 20:47:24",
    "names": 71,
@@ -741,6 +745,11 @@ const MINGJIA_DATA = {
    "at": "2026-10-27 07:18:40",
    "names": 71,
    "imgs": 16
+  },
+  {
+   "at": "2026-10-27 07:51:31",
+   "names": 71,
+   "imgs": 17
   }
  ],
  "bootstrapExpiresAt": null,
