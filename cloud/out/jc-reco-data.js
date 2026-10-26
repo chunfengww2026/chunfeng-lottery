@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-26 22:54",
+ "updated": "2026-10-26 23:07",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -98,9 +98,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.27,
      "conf": 72.2,
-     "score": "1:0",
-     "hit": true,
-     "result": "win"
+     "score": "",
+     "hit": null,
+     "result": ""
     },
     {
      "code": "周六029",
@@ -158,15 +158,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.25,
      "conf": 77.4,
-     "score": "0:1",
-     "hit": false,
-     "result": "lose"
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
+   "hit": null,
+   "miss": null,
+   "pending": 2,
+   "verdict": ""
   },
   {
    "at": "2026-10-25 12:29",
@@ -198,9 +198,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.4,
      "conf": 70.5,
-     "score": "1:3",
-     "hit": true,
-     "result": "win"
+     "score": "",
+     "hit": null,
+     "result": ""
     },
     {
      "code": "周日023",
@@ -213,9 +213,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.5,
      "conf": 65,
-     "score": "0:2",
-     "hit": true,
-     "result": "win"
+     "score": "",
+     "hit": null,
+     "result": ""
     },
     {
      "code": "周日029",
@@ -228,9 +228,9 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.55,
      "conf": 61.1,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
+     "score": "",
+     "hit": null,
+     "result": ""
     },
     {
      "code": "周一001",
@@ -265,7 +265,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 2,
+   "pending": 5,
    "verdict": ""
   },
   {
@@ -308,15 +308,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.57,
      "conf": 58,
-     "score": "1:2",
-     "hit": false,
-     "result": "lose"
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   }
  ]
 };
