@@ -722,7 +722,7 @@ const FOOTBALL_DATA = {
       "away": 26.8
      },
      "clear": true,
-     "margin": 15
+     "margin": 15.2
     },
     "result": {
      "actual": "away",
@@ -1107,7 +1107,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-26 07:00:00",
-    "minute": 0,
+    "minute": 28,
     "home": {
      "name": "加西拉索",
      "score": 1,

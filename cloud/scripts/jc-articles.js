@@ -25,9 +25,9 @@ const JC_ARTICLES = {
  ],
  "total": 152,
  "bodies": {
-  "tried": 26,
+  "tried": 25,
   "ok": 24,
-  "fail": 2,
+  "fail": 1,
   "want": 20,
   "withDesc": 8,
   "games": {
@@ -347,7 +347,7 @@ const JC_ARTICLES = {
    "title": "奇偶形态迎来切换？大乐透26122期走势复盘，5组号码纯娱乐参考",
    "url": "https://m.toutiao.com/group/7700750043430519331/",
    "source": "今日头条",
-   "time": "2026-10-26 07:23:19",
+   "time": "2026-10-26 07:06:00",
    "tag": "大乐透26122期推荐",
    "game": "dlt",
    "author": "",

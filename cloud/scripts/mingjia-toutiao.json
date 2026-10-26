@@ -19,6 +19,23 @@
    "expiresAt": "2026-10-27T23:24:00.000Z"
   },
   {
+   "id": "7700615394939109931",
+   "gid": "kl8",
+   "cat": "快乐8",
+   "author": "壹仟万",
+   "title": "快乐8第26285期最新趋势图表推荐，上期选4中2 | 10-26",
+   "issue": "2026285",
+   "url": "https://toutiao.com/group/7700615394939109931/",
+   "excerpt": "『今日彩报·快乐8』快乐8快乐8·上期回顾开奖号码：05 06 07 09 11 16 18 22 29 34 36 39 41 50 52 53 58 62 69 78中奖情况：选十中十 0 注、选十中九 65 注、选十中八 1,497 ",
+   "images": [
+    "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/bed479cd81b94a91bf03cb9f5a186e27~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801699200&x-signature=ufhHZijy9xdIIU2ULOpI1afmK7s%3D",
+    "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/bed479cd81b94a91bf03cb9f5a186e27~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801699200&x-signature=WgZ0lEJkjtRLIqM3u5VW9xIc6Zo%3D"
+   ],
+   "publishedAt": "2026-10-25T23:18:00.000Z",
+   "firstSeen": "2026-10-26T00:03:05.492Z",
+   "expiresAt": "2026-10-27T23:18:00.000Z"
+  },
+  {
    "id": "7700615249258463798",
    "gid": "fc3d",
    "cat": "3D",
@@ -62,8 +79,8 @@
    "url": "https://toutiao.com/group/7700614966230991403/",
    "excerpt": "『今日彩报·双色球』双色球双色球·上期回顾开奖号码：01 02 04 17 19 30 + 09中奖情况：一等奖 7 注、二等奖 115 注、三等奖 1,671 注；奖池 10.57 亿元，销量 3.64 亿元。",
    "images": [
-    "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/02f2aad74d4a42168d300336f7f37ea2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=2bGLQWxRwOK1RpnEiXtxvfXT3Q4%3D",
-    "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/02f2aad74d4a42168d300336f7f37ea2~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801612800&x-signature=Jk3GkVF3yEuWkczSz9MKNLT18v4%3D"
+    "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/02f2aad74d4a42168d300336f7f37ea2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801699200&x-signature=hX%2FLppRaHQaKhZqOlwsmzULs4YI%3D",
+    "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/02f2aad74d4a42168d300336f7f37ea2~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801699200&x-signature=B0OuDAvCS53VX6LeX2tSRNRQbGk%3D"
    ],
    "publishedAt": "2026-10-25T23:00:00.000Z",
    "firstSeen": "2026-10-25T23:10:21.758Z",
@@ -310,7 +327,8 @@
   "ssq|7700614966230991403": "2026-10-25T23:10:21.758Z",
   "dlt|7700615150121861668": "2026-10-25T23:10:21.758Z",
   "fc3d|7700615249258463798": "2026-10-25T23:35:55.270Z",
-  "pl3|7700615472030482987": "2026-10-25T23:35:55.270Z"
+  "pl3|7700615472030482987": "2026-10-25T23:35:55.270Z",
+  "kl8|7700615394939109931": "2026-10-26T00:03:05.492Z"
  },
  "sources": [
   {
@@ -324,7 +342,7 @@
    "gid": "ssq",
    "issue": "2026123",
    "status": 200,
-   "count": 8,
+   "count": 2,
    "available": true
   },
   {
@@ -352,7 +370,7 @@
    "gid": "kl8",
    "issue": "2026285",
    "status": 200,
-   "count": 0,
+   "count": 1,
    "available": true
   },
   {
