@@ -1687,6 +1687,20 @@ function selectConfidentPair(rows, spList, matches, now) {
   }
   return best;
 }
+function pairSaleQuotes(pair,spList,matches,now){
+  if(!pair||pair.verdict==='red'||pair.verdict==='black'||!Array.isArray(pair.legs)||pair.legs.length!==2)return null;
+  const keys={home:'h',draw:'d',away:'a'},quotes=[];
+  for(const leg of pair.legs){
+    const sp=spList.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
+    const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
+    const odds=Number(sp&&sp.had&&sp.had[keys[leg.pick]]);
+    if(!sp||!m||m.kind!=='upcoming'||m.hasScore||!(kickMs(leg.time)>now)||!(odds>1))return null;
+    quotes.push(odds);
+  }
+  return quotes[0]*quotes[1]>=2?quotes:null;
+}
+function pairSignature(pair){return pair.legs.map(l=>l.code+'@'+dayOf(l.time)+'@'+l.pick).sort().join('|');}
+
 function settleConfidentPair(pair,matches){
   pair.legs.forEach(leg=>{
     if(leg.verdict)return;
@@ -1699,14 +1713,19 @@ function settleConfidentPair(pair,matches){
   return pair;
 }
 const PAIR_ARCHIVE_FILE=path.join(ROOT,'reco-archive.json');
+const PAIR_SALE_TIME=SP?kickMs(SP.updated||JC.updated||''):NaN;
+const PAIR_SALE_LIST=SP&&Number.isFinite(PAIR_SALE_TIME)&&Date.now()-PAIR_SALE_TIME>=-300000&&Date.now()-PAIR_SALE_TIME<=90*60000?SP.list:[];
 let PAIR_ARCHIVE={};
 try{PAIR_ARCHIVE=JSON.parse(fs.readFileSync(PAIR_ARCHIVE_FILE,'utf8'));}catch(e){}
 const PAIR_DAY=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
 const PAIR_CUT=Date.parse(PAIR_DAY+'T00:00:00+08:00')-29*86400000;
 const PAIR_RECORDS=(Array.isArray(PAIR_ARCHIVE.footballPairs)?PAIR_ARCHIVE.footballPairs:[]).filter(x=>x&&Array.isArray(x.legs)&&x.legs.length===2&&Date.parse(x.date+'T00:00:00+08:00')>=PAIR_CUT);
-let CURRENT_PAIR=PAIR_RECORDS.find(x=>x.date===PAIR_DAY);
-if(!CURRENT_PAIR){const chosen=selectConfidentPair(REC_ROWS,SP?SP.list:[],MATCHES_ALL,Date.now());if(chosen){CURRENT_PAIR={date:PAIR_DAY,createdAt:new Date().toISOString(),odds:chosen.odds,legs:chosen.legs,verdict:'pending'};PAIR_RECORDS.push(CURRENT_PAIR);}}
 PAIR_RECORDS.forEach(p=>settleConfidentPair(p,MATCHES_ALL));
+let CURRENT_PAIR=PAIR_RECORDS.slice().reverse().find(p=>pairSaleQuotes(p,PAIR_SALE_LIST,MATCHES_ALL,Date.now()));
+if(!CURRENT_PAIR){const chosen=selectConfidentPair(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());if(chosen){
+ const signature=pairSignature(chosen);CURRENT_PAIR=PAIR_RECORDS.find(p=>pairSignature(p)===signature);
+ if(!CURRENT_PAIR){CURRENT_PAIR={date:PAIR_DAY,createdAt:new Date().toISOString(),odds:chosen.odds,legs:chosen.legs,verdict:'pending'};PAIR_RECORDS.push(CURRENT_PAIR);}
+}}
 function saveConfidentPairs(){
   let latest={};try{latest=JSON.parse(fs.readFileSync(PAIR_ARCHIVE_FILE,'utf8'));}catch(e){}
   latest.footballPairs=PAIR_RECORDS;
@@ -1715,11 +1734,19 @@ function saveConfidentPairs(){
 function confidentPairHtml(){
   const red=PAIR_RECORDS.filter(x=>x.verdict==='red').length,black=PAIR_RECORDS.filter(x=>x.verdict==='black').length,pending=PAIR_RECORDS.length-red-black;
   function status(v){return v==='red'?'红':v==='black'?'黑':'待赛果';}
-  function legs(p){return p.legs.map(l=>'<div class="confident-pair-leg"><b>'+esc(l.code)+' '+esc(l.home)+' vs '+esc(l.away)+'</b><div>'+esc(l.label)+' · 赔率 '+Number(l.odds).toFixed(2)+' · 单场信心 '+l.conf+'%</div><small>'+esc(l.time)+(l.score?' · 比分 '+esc(l.score)+' · '+status(l.verdict):'')+'</small></div>').join('');}
-  return '<style>.confident-pair-leg{padding:9px 0;border-bottom:1px dashed #dfceb1}.confident-pair-leg small{color:#8a7a63}.confident-pair-content{font-size:12px;line-height:1.8;overflow-wrap:anywhere}.confident-pair-content details{margin-top:10px}</style><div class="confident-pair-content"><b>有信心的2串1推荐</b>'+
-    (CURRENT_PAIR?'<div>'+esc(CURRENT_PAIR.date)+' · '+status(CURRENT_PAIR.verdict)+' · 组合赔率 <strong>'+Number(CURRENT_PAIR.odds).toFixed(2)+'</strong></div>'+legs(CURRENT_PAIR):'<div>暂无合适组合，等待两场信心达标、组合赔率不低于2的在售比赛。</div>')+
-    '<div>近30天：红 '+red+' · 黑 '+black+' · 待 '+pending+' · 命中率 '+(red+black?(red/(red+black)*100).toFixed(1)+'%':'—')+'</div><small>每日首次公布后保留原组合；赔率以实际购买时为准。信心为参考指标，不保证命中。</small>'+
-    '<details><summary>近30天2串1记录</summary>'+(PAIR_RECORDS.length?PAIR_RECORDS.slice().reverse().map(p=>'<div><b>'+esc(p.date)+' · '+status(p.verdict)+' · '+Number(p.odds).toFixed(2)+'</b>'+legs(p)+'</div>').join(''):'暂无已公布组合')+'</details></div>';
+  function group(p,live){
+    const quotes=live?pairSaleQuotes(p,PAIR_SALE_LIST,MATCHES_ALL,Date.now()):null;
+    const odds=quotes?quotes[0]*quotes[1]:p.odds;
+    const deadline=Math.min(...p.legs.map(l=>kickMs(l.time)));
+    const line=p.legs.map(l=>esc(l.code)+' '+esc(l.home)+' vs '+esc(l.away)+'【'+esc(l.label)+'】').join(' <span class="pair-plus">＋</span> ');
+    return '<div class="pair-slip"'+(live?' data-pair-deadline="'+deadline+'"':'')+'><div class="pair-slip-head">'+(live?'本组一起选 · 同一张单':'已公布组合 · 结果记录')+'</div><div class="pair-selection">'+line+'</div><div class="pair-pass">组合方式：<strong>2串1</strong> · '+(live?'当前参考':'公布时')+'组合赔率 <strong>'+Number(odds).toFixed(2)+'</strong></div>'+
+      p.legs.map((l,i)=>'<div class="confident-pair-leg">第'+(i+1)+'场：<b>'+esc(l.code)+' '+esc(l.home)+' vs '+esc(l.away)+'</b><div>选 <strong>'+esc(l.label)+'</strong> · 赔率 '+Number(quotes?quotes[i]:l.odds).toFixed(2)+' · '+(live?'公布时信心 ':'信心 ')+l.conf+'%</div><small>'+esc(l.time)+(l.score?' · 比分 '+esc(l.score)+' · '+status(l.verdict):'')+'</small></div>').join('')+
+      (live?'<small>两场需同时在售；请在最早一场开赛前选择组合，具体停售时间和赔率以实际购彩渠道为准。</small>':'')+'</div>';
+  }
+  return '<style>.confident-pair-leg{padding:9px 0;border-top:1px dashed #dfceb1}.confident-pair-leg small{color:#8a7a63}.confident-pair-content{font-size:12px;line-height:1.8;overflow-wrap:anywhere}.confident-pair-content details{margin-top:10px}.pair-slip{border:1px solid #ddc6a0;border-radius:9px;padding:10px;margin:8px 0;background:#fffdf7}.pair-slip-head{font-weight:bold;color:#19895d}.pair-selection{font-weight:bold;margin:9px 0}.pair-plus{color:#19895d;font-size:20px;display:block;text-align:center}.pair-pass{padding:7px 0;color:#7c582c}</style><div class="confident-pair-content"><b>2串1组合推荐</b>'+
+    (CURRENT_PAIR?'<div class="pair-current">'+group(CURRENT_PAIR,true)+'</div>':'<div class="pair-current pair-empty">暂无两场同时在售、未开赛且组合赔率不低于2的合适组合，等待更新。</div>')+
+    '<div>近30天：红 '+red+' · 黑 '+black+' · 待 '+pending+' · 命中率 '+(red+black?(red/(red+black)*100).toFixed(1)+'%':'—')+'</div><small>每组公布后保留记录，两场都命中才算本组红。仅供参考，不保证命中。</small>'+
+    '<details><summary>近30天2串1记录</summary>'+(PAIR_RECORDS.length?PAIR_RECORDS.slice().reverse().map(p=>'<div><b>'+esc(p.date)+' · '+status(p.verdict)+'</b>'+group(p,false)+'</div>').join(''):'暂无已公布组合')+'</details></div>';
 }
 
 function recoStatBarTop(){return `<section id="jcConfidentPair" style="padding:12px;margin:10px 0;border:1px solid #e4d4b8;border-radius:10px;background:#fff9ed">${confidentPairHtml()}</section>`;}
@@ -1740,11 +1767,11 @@ function renderRec() {
      ⚠️ 这一行【只放入口】，不放战绩数字 —— 战绩数字在折叠块外面那条
         recoStatBarTop() 上（用户 2026-10-17 追加要求：放外面）。 */
   /* 【30 秒刷新】副标题文案先存一份 —— 刷新时按这个字符串换「在售 · 信心 ≥58% · N 场」 */
-  REC_COUNT_TEXT = `在售 · 信心 ≥${REC_MIN}% · ${REC_ROWS.length} 场`;
+  REC_COUNT_TEXT = CURRENT_PAIR ? "两场合为一组 · 2串1" : "等待合适的2串1组合";
   const head =
     `<summary class="m-rechead entry-item">` +
     `<span class="left">` +
-    `<span class="t m-rectitle">推荐</span>` +
+    `<span class="t m-rectitle">2串1推荐</span>` +
     `<span class="d m-reccount">${REC_COUNT_TEXT}</span>` +
     `</span>` +
     `<span class="right m-rectip" aria-hidden="true"></span>` +
@@ -1780,7 +1807,7 @@ function renderRec() {
       `）</div>`;
   /* 【30 秒刷新】把「推荐」在售那一块的行 HTML 存下来给 jc-reco-view.js 用
      （页面初始渲染 和 刷新后 是同一份，不会两处慢慢长歪） */
-  REC_ROWS_INNER = body;
+  REC_ROWS_INNER = "";
 
   /* ---------- 【详情：往期推荐串的比对结果】 ----------
      用户要求：「推荐串详情 —— 前后24小时窗口 + 红黑结果 + 存档+比对机制」，
@@ -1864,9 +1891,7 @@ function renderRec() {
      ①「跟着推荐栏去折叠」→ 推荐历史结果（#jcRecArch）放回 details 里面；
      ②「推荐单只抓取推荐里面的，不是抓取在售的」→ 推荐单数字条（recoStatBarTop）
         也从顶层搬进来，只跟这一栏走（收起时一起收），口径不变（≥58% 的推荐场次）。 */
-  return `<details class="m-rec" id="jcRec">${head}${tips}${recoStatBarTop()}${note}${body}` +
-    (detail ? `<div class="past-recommend-section m-card3" id="jcRecArch">${detail}</div>` : '') +
-    `</details>`;
+  return `<details class="m-rec" id="jcRec">${head}${recoStatBarTop()}</details>`;
 }
 
 /* ============================================================
@@ -5185,7 +5210,7 @@ ${JC_XYSP_VIEW}
 
   function apply() {
     var v = window.JC_RECO_VIEW;
-    if (!v) return false;
+    if (!v || v.layout !== 'pair-only-v2') return false;
     if (v.updated && v.updated !== last) {
       if(pairBox && typeof v.parlay === 'string') pairBox.innerHTML=v.parlay;
       if (bar && typeof v.stat === 'string') {
@@ -5835,6 +5860,8 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 <script>
 ${fs.readFileSync(path.join(SCRIPT_DIR, 'visitor-counter.js'), 'utf8')}
 </script>
+
+<script>(function(){function expire(){document.querySelectorAll('.pair-current [data-pair-deadline]').forEach(function(p){var t=Number(p.getAttribute('data-pair-deadline'));if(t&&Date.now()>=t){var c=p.closest('.pair-current');if(c)c.textContent='本组已有比赛开赛，不能再整组选择，请等待新的2串1组合。';}});}expire();setInterval(expire,1000);document.addEventListener('visibilitychange',expire);})();</script>
 </body>
 </html>`;
 
@@ -5910,6 +5937,7 @@ saveConfidentPairs();
 const RECO_VIEW_OUT = path.join(ROOT, 'jc-reco-view.js');
 fs.writeFileSync(RECO_VIEW_OUT, 'window.JC_RECO_VIEW = ' + JSON.stringify({
   updated: RECO_STAMP,
+  layout: "pair-only-v2",
   /* ①推荐单战绩条（⚠️ 含「推荐单」标签 —— 换 innerHTML 用整条，别丢标签） */
   stat: recoStatBarHtml(),
   parlay: confidentPairHtml(),
