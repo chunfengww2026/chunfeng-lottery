@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-26 12:56 */
+/* 自动生成，请勿手动编辑 · 2026-10-26 13:28 */
 const JC_DATA = {
- "updated": "2026-10-26 12:56",
+ "updated": "2026-10-26 13:28",
  "stat": {
   "total": 4,
   "upcoming": 4,
@@ -190,9 +190,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3.1,
+      "home": 3,
       "draw": 3,
-      "away": 2.15
+      "away": 2.25
      }
     },
     "overunder": {
@@ -203,27 +203,27 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 41.5,
+    "confidence": 41,
     "prob": {
-     "home": 28.8,
-     "draw": 29.7,
-     "away": 41.5
+     "home": 29.2,
+     "draw": 29.8,
+     "away": 41
     },
     "clear": false,
-    "margin": 12.1,
+    "margin": 11.1,
     "rqLine": null,
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 28.8,
-      "draw": 29.7,
-      "away": 41.5
+      "home": 29.2,
+      "draw": 29.8,
+      "away": 41
      },
-     "confidence": 41.5,
+     "confidence": 41,
      "signals": [
-      "初盘→即时：主胜+0.0pp / 平局+0.0pp / 客胜+0.0pp"
+      "初盘→即时：主胜+1.2pp / 平局+0.3pp / 客胜-1.5pp"
      ],
      "missing": [
       "威廉/立博/365同期初盘不足",
@@ -234,16 +234,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -10.8,
-      "draw": -10.8,
-      "away": -10.8
+      "home": -12.4,
+      "draw": -10.5,
+      "away": -7.8
      },
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.5845196611223032,
-       "draw": 0.237894852179499,
-       "away": 0.17758548669819832
+       "home": 0.60118083251602,
+       "draw": 0.23297812228853423,
+       "away": 0.16584104519544546
       },
       "pick": "home",
       "label": "让胜"
