@@ -506,7 +506,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "迪莫纳",
      "score": 2,
@@ -584,7 +584,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "斯德洛特",
      "score": 1,
