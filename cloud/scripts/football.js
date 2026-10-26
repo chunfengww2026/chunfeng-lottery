@@ -6138,8 +6138,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": 0.25,
-       "line": "0.69",
-       "away": 1.14
+       "line": "0.66",
+       "away": 1.19
       }
      },
      "overunder": {
@@ -6156,13 +6156,13 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 3.35,
-       "draw": 2.06,
+       "home": 3.25,
+       "draw": 2.11,
        "away": 3.15
       },
       "live": {
-       "home": 3.9,
-       "draw": 2.65,
+       "home": 3.8,
+       "draw": 2.71,
        "away": 2.06
       }
      }
@@ -6172,12 +6172,12 @@ const FOOTBALL_DATA = {
      "label": "客胜",
      "confidence": 43.4,
      "prob": {
-      "home": 22.9,
-      "draw": 33.7,
+      "home": 23.5,
+      "draw": 33,
       "away": 43.4
      },
      "clear": false,
-     "margin": 11.9
+     "margin": 11.8
     },
     "result": null
    },
