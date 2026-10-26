@@ -1,59 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/26 07:33:28） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/26 08:22:57） */
 const MINGJIA_DATA = {
- "updated": "2026-10-26 07:33:28",
+ "updated": "2026-10-26 08:22:57",
  "list": [
-  {
-   "name": "桃子姐",
-   "cat": "排列三",
-   "kw": "桃子姐 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "排列三",
-   "kw": "迟丽颖 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "排列三",
-   "kw": "九头鸟 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "排列三",
-   "kw": "金手指 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/金手指/1.jpg",
-     "size": 54460,
-     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
-     "page": "https://www.jb51.net/softs/250983.html",
-     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-25T20:21:13.683Z"
-    }
-   ]
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/万里挑一/1.png",
-     "size": 244296,
-     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170940ar2i7i5sriuytqiy.png",
-     "page": "https://99.weicainet.com/t-1244150.html",
-     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by ...",
-     "issue": "26096",
-     "verified": false,
-     "fetchedAt": "2026-10-25T21:18:51.398Z"
-    }
-   ]
-  },
   {
    "name": "太湖字谜",
    "cat": "快乐8",
@@ -113,6 +61,66 @@ const MINGJIA_DATA = {
    "cat": "双色球",
    "kw": "迷公 双色球 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "双色球",
+   "kw": "桃子姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "双色球",
+   "kw": "迟丽颖 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "双色球",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/金手指/1.jpg",
+     "size": 54460,
+     "src": "https://img.jbzj.com/do/uploads/litimg/141124/1F452252216.gif",
+     "page": "https://www.jb51.net/softs/250983.html",
+     "title": "彩票缩水 3D排列3金手指缩水工具 v3.62 官方安装版 下载-脚本之家",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-25T20:21:13.683Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/万里挑一/1.png",
+     "size": 244296,
+     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170940ar2i7i5sriuytqiy.png",
+     "page": "https://99.weicainet.com/t-1244150.html",
+     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by ...",
+     "issue": "26096",
+     "verified": false,
+     "fetchedAt": "2026-10-25T21:18:51.398Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "黄大仙",
@@ -367,30 +375,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "桃子姐",
-   "cat": "双色球",
-   "kw": "桃子姐 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "双色球",
-   "kw": "迟丽颖 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "明哥看彩",
    "cat": "双色球",
    "kw": "明哥看彩 双色球 字谜 参考图",
@@ -617,14 +601,27 @@ const MINGJIA_DATA = {
    "cat": "排列三",
    "kw": "迷公 排列三 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "九头鸟",
+   "cat": "排列三",
+   "kw": "九头鸟 排列三 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-10-25 18:47:09",
-   "names": 71,
-   "imgs": 13
-  },
   {
    "at": "2026-10-25 19:16:59",
    "names": 71,
@@ -737,6 +734,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-26 07:33:28",
+   "names": 71,
+   "imgs": 16
+  },
+  {
+   "at": "2026-10-26 08:22:57",
    "names": 71,
    "imgs": 16
   }
