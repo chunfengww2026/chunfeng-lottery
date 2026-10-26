@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "布凯里耶",
      "score": 2,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "萨布塔罗提比利锡",
      "score": 3,
@@ -138,7 +138,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "FC諾亞",
      "score": 0,
@@ -204,10 +204,10 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "梅塔洛格布斯",
-     "score": 2,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
@@ -270,7 +270,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "贝塔纳哈里亚",
      "score": 1,
@@ -279,7 +279,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿福拉哈普尔",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 7
     },
@@ -336,7 +336,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "阿卡夏普尔",
      "score": 4,
@@ -402,7 +402,7 @@ const FOOTBALL_DATA = {
      "color": "999900"
     },
     "time": "2026-10-26 23:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "普夫迪夫火车头",
      "score": 0,
@@ -468,7 +468,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-10-26 23:10:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "艾哈斯姆U21",
      "score": 2,
@@ -506,7 +506,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "迪莫纳",
      "score": 2,
@@ -584,7 +584,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-10-26 23:30:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "斯德洛特",
      "score": 1,
