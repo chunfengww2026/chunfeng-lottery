@@ -1,7 +1,7 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-10-26 17:54
+   生成时间：2026-10-26 18:48
    生成脚本：build-heatmap.mjs
    本次彩种：ssq、dlt
    数据来源：mixed
@@ -14,7 +14,7 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-10-26 17:54',
+  updated: '2026-10-26 18:48',
   source: 'mixed',
   games: {
     ssq: {
@@ -35,15 +35,15 @@ const HEATMAP_DATA = {
       name: '大乐透',
       issue: '26122',
       drawDate: '2026-10-26',
-      madeAt: '2026-10-26 17:43',
+      madeAt: '2026-10-26 18:35',
       source: 'ocr-xysp',
       sourceLabel: '晒票 3 张 + 近 30 期开奖频率补齐',
       sampleCount: 3,
       numberPosts: 3,
       note: '识别自一起彩幸运晒票页第 26122 期公开票面照片（翻 3 页）（有效票 3 张：单式 1 张 / 复式 2 张）　仅 3 张票样本 · 样本偏少，仅供参照；因晒票样本仅 3 张，已叠加近 30 期开奖号码频率，保证每个号都有数据',
-      ocr: { posts: 17, urls: 26, downloaded: 26, downloadFailed: 0, cacheHits: 0, recognized: 5, tickets: 3, secs: 471.3, err: '' },
-      front: { label: '前区', color: 'red', total: 28, items: [{ num: 10, pct: 10.71, count: 3 }, { num: 17, pct: 7.14, count: 2 }, { num: 18, pct: 7.14, count: 2 }, { num: 20, pct: 7.14, count: 2 }, { num: 21, pct: 7.14, count: 2 }, { num: 22, pct: 7.14, count: 2 }, { num: 23, pct: 7.14, count: 2 }, { num: 26, pct: 7.14, count: 2 }, { num: 3, pct: 3.57, count: 1 }, { num: 4, pct: 3.57, count: 1 }, { num: 5, pct: 3.57, count: 1 }, { num: 9, pct: 3.57, count: 1 }, { num: 12, pct: 3.57, count: 1 }, { num: 13, pct: 3.57, count: 1 }, { num: 14, pct: 3.57, count: 1 }, { num: 27, pct: 3.57, count: 1 }, { num: 29, pct: 3.57, count: 1 }, { num: 31, pct: 3.57, count: 1 }, { num: 32, pct: 3.57, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 2, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }, { num: 8, pct: 0, count: 0 }, { num: 11, pct: 0, count: 0 }, { num: 15, pct: 0, count: 0 }, { num: 16, pct: 0, count: 0 }, { num: 19, pct: 0, count: 0 }, { num: 24, pct: 0, count: 0 }, { num: 25, pct: 0, count: 0 }, { num: 28, pct: 0, count: 0 }, { num: 30, pct: 0, count: 0 }, { num: 33, pct: 0, count: 0 }, { num: 34, pct: 0, count: 0 }, { num: 35, pct: 0, count: 0 }] },
-      back: { label: '后区', color: 'blue', total: 9, items: [{ num: 9, pct: 33.33, count: 3 }, { num: 2, pct: 22.22, count: 2 }, { num: 1, pct: 11.11, count: 1 }, { num: 3, pct: 11.11, count: 1 }, { num: 11, pct: 11.11, count: 1 }, { num: 12, pct: 11.11, count: 1 }, { num: 4, pct: 0, count: 0 }, { num: 5, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }, { num: 8, pct: 0, count: 0 }, { num: 10, pct: 0, count: 0 }] }
+      ocr: { posts: 20, urls: 32, downloaded: 32, downloadFailed: 0, cacheHits: 0, recognized: 4, tickets: 3, secs: 751.8, err: '' },
+      front: { label: '前区', color: 'red', total: 30, items: [{ num: 10, pct: 10, count: 3 }, { num: 20, pct: 10, count: 3 }, { num: 9, pct: 6.67, count: 2 }, { num: 13, pct: 6.67, count: 2 }, { num: 17, pct: 6.67, count: 2 }, { num: 4, pct: 3.33, count: 1 }, { num: 5, pct: 3.33, count: 1 }, { num: 6, pct: 3.33, count: 1 }, { num: 12, pct: 3.33, count: 1 }, { num: 14, pct: 3.33, count: 1 }, { num: 16, pct: 3.33, count: 1 }, { num: 18, pct: 3.33, count: 1 }, { num: 19, pct: 3.33, count: 1 }, { num: 21, pct: 3.33, count: 1 }, { num: 22, pct: 3.33, count: 1 }, { num: 23, pct: 3.33, count: 1 }, { num: 26, pct: 3.33, count: 1 }, { num: 27, pct: 3.33, count: 1 }, { num: 28, pct: 3.33, count: 1 }, { num: 29, pct: 3.33, count: 1 }, { num: 32, pct: 3.33, count: 1 }, { num: 33, pct: 3.33, count: 1 }, { num: 34, pct: 3.33, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 2, pct: 0, count: 0 }, { num: 3, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }, { num: 8, pct: 0, count: 0 }, { num: 11, pct: 0, count: 0 }, { num: 15, pct: 0, count: 0 }, { num: 24, pct: 0, count: 0 }, { num: 25, pct: 0, count: 0 }, { num: 30, pct: 0, count: 0 }, { num: 31, pct: 0, count: 0 }, { num: 35, pct: 0, count: 0 }] },
+      back: { label: '后区', color: 'blue', total: 10, items: [{ num: 9, pct: 30, count: 3 }, { num: 12, pct: 20, count: 2 }, { num: 1, pct: 10, count: 1 }, { num: 2, pct: 10, count: 1 }, { num: 4, pct: 10, count: 1 }, { num: 5, pct: 10, count: 1 }, { num: 11, pct: 10, count: 1 }, { num: 3, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }, { num: 8, pct: 0, count: 0 }, { num: 10, pct: 0, count: 0 }] }
     }
   }
 };
