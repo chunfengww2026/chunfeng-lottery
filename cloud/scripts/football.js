@@ -850,7 +850,7 @@ const FOOTBALL_DATA = {
       "away": 41
      },
      "clear": false,
-     "margin": 15.1
+     "margin": 15
     },
     "result": null
    },
@@ -1715,11 +1715,7 @@ const FOOTBALL_DATA = {
        "line": "0.95",
        "away": 0.75
       },
-      "live": {
-       "home": 0,
-       "line": "",
-       "away": null
-      }
+      "live": null
      },
      "overunder": {
       "open": {
@@ -6133,8 +6129,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "0.97",
-       "away": 0.85
+       "line": "1.02",
+       "away": 0.8
       },
       "live": {
        "home": 0.25,
@@ -7585,8 +7581,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.5,
-       "line": "0.83",
-       "away": 1.06
+       "line": "0.81",
+       "away": 1.08
       },
       "live": {
        "home": -0.25,
