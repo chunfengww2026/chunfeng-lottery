@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-27 05:50 */
+/* 自动生成，请勿手动编辑 · 2026-10-27 06:25 */
 const JC_DATA = {
- "updated": "2026-10-27 05:50",
+ "updated": "2026-10-27 06:25",
  "stat": {
   "total": 4,
   "upcoming": 1,
-  "live": 2,
-  "finished": 1,
+  "live": 1,
+  "finished": 2,
   "withScore": 3,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -230,7 +230,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -385,7 +385,7 @@ const JC_DATA = {
       "away": 7
      },
      "live": {
-      "home": 1.27,
+      "home": 1.29,
       "draw": 5.25,
       "away": 12
      }
@@ -406,27 +406,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 69.5,
+    "confidence": 69.4,
     "prob": {
-     "home": 69.5,
-     "draw": 19.1,
-     "away": 11.4
+     "home": 69.4,
+     "draw": 19.2,
+     "away": 11.5
     },
     "clear": true,
-    "margin": 6.1,
+    "margin": 4.9,
     "rqLine": "球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 69.5,
-      "draw": 19.1,
-      "away": 11.4
+      "home": 69.4,
+      "draw": 19.2,
+      "away": 11.5
      },
-     "confidence": 69.5,
+     "confidence": 69.4,
      "signals": [
-      "初盘→即时：主胜+7.3pp / 平局-1.8pp / 客胜-5.5pp",
+      "初盘→即时：主胜+7.0pp / 平局-1.6pp / 客胜-5.4pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -437,16 +437,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -11.8,
-      "draw": 0.3,
-      "away": 37.3
+      "home": -10.5,
+      "draw": 0.7,
+      "away": 37.7
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.5390353804145596,
-       "draw": 0.20744863499001032,
-       "away": 0.2535159845954301
+       "home": 0.5369661591163283,
+       "draw": 0.20744339203408546,
+       "away": 0.25559044884958637
       },
       "pick": "home",
       "label": "让胜"

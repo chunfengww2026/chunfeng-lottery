@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-27 05:50",
+ "updated": "2026-10-27 06:25",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -66,7 +66,7 @@ const JC_HISTORY = {
    "home": "塞维利亚",
    "away": "奥萨苏纳",
    "time": "2026-10-27 04:00",
-   "score": "1:0",
+   "score": "2:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -87,6 +87,61 @@ const JC_HISTORY = {
    "hit": true,
    "matched": true,
    "at": "2026-10-26 00:28"
+  },
+  {
+   "code": "周一002",
+   "league": "法乙",
+   "home": "布洛涅",
+   "away": "兰斯",
+   "time": "2026-10-27 03:45",
+   "score": "1:1",
+   "hc": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.9,
+    "downWater": 0.9,
+    "openHandicap": 0.25,
+    "openUpWater": 0.97,
+    "openDownWater": 0.82,
+    "totalWater": 1.8,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 0.9,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.1,
+    "draw": 3,
+    "away": 2.2
+   },
+   "prob": {
+    "home": 29,
+    "draw": 30,
+    "away": 40.9
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 40.9,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-27 06:25"
   },
   {
    "code": "周一001",
