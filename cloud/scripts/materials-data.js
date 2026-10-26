@@ -1,164 +1,164 @@
 /* materials-data.js —— 资料存档（build-jc-articles.mjs 自动写入，勿手改） */
 const MATERIALS_DATA = {
- "updated": "2026-10-26 13:44:48",
+ "updated": "2026-10-26 14:21:46",
  "list": [
   {
    "id": "m1",
-   "text": "专家「期期中特」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1678.html",
+   "text": "红单推荐 HOT",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://dstd.500.com/?from=500pchome",
    "games": [],
    "author": ""
   },
   {
    "id": "m2",
-   "text": "专家「久美」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1358.html",
+   "text": "小罗今日推荐稳定信心单",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://dstd.500.com/article/10590288?extendchannel=10002&from=500pchome",
    "games": [],
    "author": ""
   },
   {
    "id": "m3",
-   "text": "专家「文承竞彩」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1378.html",
+   "text": "大乐透 北京单场",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//zx.500.com/dlt/",
    "games": [],
    "author": ""
   },
   {
    "id": "m4",
-   "text": "专家「双色球专家 期期中特 2026122期 命中2码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1678.html",
+   "text": "双色球 彩种信息： 排列3走势图",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//zx.500.com/ssq/",
    "games": [],
    "author": ""
   },
   {
    "id": "m5",
-   "text": "专家「超级大乐透专家 哎吆 2026121期 命中5码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/dltex/tjsy_39_1885.html",
+   "text": "竞彩足球比分直播",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//live.500.com/jczq.php",
    "games": [],
    "author": ""
   },
   {
    "id": "m6",
-   "text": "专家「福彩3D专家 妈妈爱霞朵君翔 2026284期 命中3码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/fc3dex/tjsy_6_842.html",
+   "text": "竞彩篮球比分直播",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//live.500.com/lq.php",
    "games": [],
    "author": ""
   },
   {
    "id": "m7",
-   "text": "专家「快乐8专家 慕容雪村 2026284期 命中8码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_770.html",
+   "text": "竞彩篮球混合过关",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//trade.500.com/jclq/index.php?playid=313&g=2",
    "games": [],
    "author": ""
   },
   {
    "id": "m8",
-   "text": "专家「排列3专家 爱恨相依 2026284期 命中3码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/pl3ex/tjsy_63_1018.html",
+   "text": "竞彩篮球让分胜负",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//trade.500.com/jclq/index.php?playid=275",
    "games": [],
    "author": ""
   },
   {
    "id": "m9",
-   "text": "专家「排列5专家 ILLCE 2026284期 命中3码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_1598.html",
+   "text": "竞彩足球混合过关",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://www.500.com//trade.500.com/jczq/?playid=312&g=2",
    "games": [],
    "author": ""
   },
   {
    "id": "m10",
-   "text": "专家「七星彩专家 王坤 2026122期 命中3码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/xqxcex/tjsy_7_108.html",
+   "text": "双色球2026123期，\"号王、深坑、活号\"全都露出预兆，本期直接干",
+   "time": "2026-10-26 13:00:12",
+   "url": "https://m.toutiao.com/group/7700836900499620386/",
    "games": [],
    "author": ""
   },
   {
    "id": "m11",
-   "text": "专家「七乐彩专家 红泓一片 2026122期 命中6码！」 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/qlcex/tjsy_13_1704.html",
+   "text": "2026123期｜福彩双色球：4球・第四位（第四小红球）综合定位分析",
+   "time": "2026-10-25 21:54:23",
+   "url": "https://m.toutiao.com/group/7700603390204428840/",
    "games": [],
    "author": ""
   },
   {
    "id": "m12",
-   "text": "专家「期期中特 红球25码 近10中6 连红期 最高连红」 · 近10中 6 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1678.html",
+   "text": "2026123期｜福彩双色球：2球・第二位（第二小红球）综合定位分析",
+   "time": "2026-10-25 21:47:49",
+   "url": "https://m.toutiao.com/group/7700601732568482304/",
    "games": [],
    "author": ""
   },
   {
    "id": "m13",
-   "text": "专家「没有昵称 红球独胆 近10中6 连红3期 最高4连红」 · 近10中 6 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_738.html",
+   "text": "双色球2026123期，\"号王、深坑、活号\"全都露出预兆，本期直接干",
+   "time": "2026-10-25 21:47:49",
+   "url": "https://m.toutiao.com/group/7700799819522048512/",
    "games": [],
    "author": ""
   },
   {
    "id": "m14",
-   "text": "专家「久美 红球25码 近10中5 连红1期 最高4连红」 · 近10中 5 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1358.html",
+   "text": "双色球第2026123期，观察号红球 03 04 18 22 23 24 + 蓝球 14",
+   "time": "2026-10-26 08:24:34",
+   "url": "https://m.toutiao.com/group/7700765597696557577/",
    "games": [],
    "author": ""
   },
   {
    "id": "m15",
-   "text": "专家「自费自信 红球独胆 近10中6 连红3期 最高3连红」 · 近10中 6 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_926.html",
+   "text": "木易杨双色球2026123期号码走势攻略",
+   "time": "2026-10-26 14:21:46",
+   "url": "https://m.toutiao.com/group/7700795227740602943/",
    "games": [],
    "author": ""
   },
   {
    "id": "m16",
-   "text": "专家「文承竞彩 红球25码 近10中5 连红1期 最高4连红」 · 近10中 5 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1378.html",
+   "text": "双色球2026123期号码综合推演分析解读（10.26）",
+   "time": "2026-10-26 10:19:12",
+   "url": "https://m.toutiao.com/group/7694177019243921975/",
    "games": [],
    "author": ""
   },
   {
    "id": "m17",
-   "text": "专家「从前莫再提 红球独胆 近10中6 连红期 最高6连红」 · 近10中 6 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_416.html",
+   "text": "双色球第2026122期走势分析与号码推荐(10月25日/周日)",
+   "time": "2026-10-25 16:47:18",
+   "url": "https://m.toutiao.com/group/7700524337942266411/",
    "games": [],
    "author": ""
   },
   {
    "id": "m18",
-   "text": "专家「会 红球25码 近10中5 连红1期 最高3连红」 · 近10中 5 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_86.html",
+   "text": "宋溪双色球122期：红球独胆推荐18，奇偶比参考2：4",
+   "time": "2026-10-25 11:16:06",
+   "url": "https://m.toutiao.com/group/7700438941291282944/",
    "games": [],
    "author": ""
   },
   {
    "id": "m19",
-   "text": "专家「小帽兄 红球独胆 近10中5 连红3期 最高3连红」 · 近10中 5 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_967.html",
+   "text": "张雨双色球122期：精选6+1独蓝推荐08，红球两码参考03 25",
+   "time": "2026-10-25 11:11:24",
+   "url": "https://m.toutiao.com/group/7700437719185261056/",
    "games": [],
    "author": ""
   },
   {
    "id": "m20",
-   "text": "专家「中了大奖换手机 红球25码 近10中5 连红1期 最高3连红」 · 近10中 5 期 · 免费推荐",
-   "time": "2026-10-26 13:44:48",
-   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_598.html",
+   "text": "张雨双色球121期：精选6+1独蓝推荐08，红球两码参考02 32",
+   "time": "2026-10-22 06:05:00",
+   "url": "https://m.toutiao.com/group/7699029214703698442/",
    "games": [],
    "author": ""
   }
