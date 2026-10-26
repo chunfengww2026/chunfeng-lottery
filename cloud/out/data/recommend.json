@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-27 02:16",
- "red": 1,
+ "updated": "2026-10-27 02:55",
+ "red": 0,
  "black": 1,
- "rate": "50.0%",
+ "rate": "0.0%",
  "unfinished": 0,
  "history": [
   {
@@ -22,26 +22,6 @@
      "league": "西甲",
      "odds": 1.57,
      "time": "2026-10-26 04:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-25 14:30",
-   "finishTime": 1792909800000,
-   "verdict": "红",
-   "matches": [
-    {
-     "matchNo": "周日007",
-     "teams": "毕尔巴鄂 vs 赫塔费",
-     "pick": "主胜",
-     "score": "4:0",
-     "result": "red",
-     "confidence": 58,
-     "status": "finished",
-     "finishTime": 1792909800000,
-     "league": "西甲",
-     "odds": 1.53,
-     "time": "2026-10-25 21:00"
     }
    ]
   }
