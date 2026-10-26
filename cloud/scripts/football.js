@@ -228,7 +228,7 @@ const FOOTBALL_DATA = {
       "away": 34.1
      },
      "clear": false,
-     "margin": 15.1
+     "margin": 14.9
     },
     "result": null
    },
@@ -1396,7 +1396,7 @@ const FOOTBALL_DATA = {
       "away": 43.3
      },
      "clear": false,
-     "margin": 12.1
+     "margin": 12
     },
     "result": null
    },
@@ -1948,8 +1948,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.25",
-       "over": 0.91,
-       "under": 0.95
+       "over": 0.87,
+       "under": 0.99
       },
       "live": {
        "line": "1",
@@ -2377,11 +2377,7 @@ const FOOTBALL_DATA = {
        "line": "0.84",
        "away": 1
       },
-      "live": {
-       "home": 0,
-       "line": "",
-       "away": null
-      }
+      "live": null
      },
      "overunder": {
       "open": {
@@ -3117,6 +3113,72 @@ const FOOTBALL_DATA = {
     },
     "reco": null,
     "result": null
+   },
+   {
+    "gid": 589360,
+    "kind": "live",
+    "league": {
+     "name": "挪丙",
+     "color": "667766"
+    },
+    "time": "2026-10-27 01:00:00",
+    "minute": 77,
+    "home": {
+     "name": "阿思可",
+     "score": 2,
+     "red": 0,
+     "rank": 5
+    },
+    "away": {
+     "name": "阿桑尼B队",
+     "score": 3,
+     "red": 0,
+     "rank": 12
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "0.83",
+       "away": 0.87
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "5.75",
+       "over": 0.83,
+       "under": 0.87
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 11,
+       "draw": 1.24,
+       "away": 4
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 70.3,
+     "prob": {
+      "home": 7.9,
+      "draw": 70.3,
+      "away": 21.8
+     },
+     "clear": true,
+     "margin": 14.7
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "2 - 3"
+    }
    },
    {
     "gid": 589359,
