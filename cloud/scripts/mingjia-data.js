@@ -1,21 +1,75 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 15:25:01） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 16:09:17） */
 const MINGJIA_DATA = {
- "updated": "2026-10-27 15:25:01",
+ "updated": "2026-10-27 16:09:17",
  "list": [
   {
-   "name": "名家精",
+   "name": "迷公",
    "cat": "双色球",
-   "kw": "名家精 双色球 字谜 参考图",
+   "kw": "迷公 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "双色球",
+   "kw": "桃子姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "双色球",
+   "kw": "迟丽颖 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "双色球",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "武汉华哥",
+   "cat": "双色球",
+   "kw": "武汉华哥 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/名家精/1.jpg",
-     "size": 52747,
-     "src": "https://www.77888.cn/uploads/20230404/99b12ab26c865dbbbbd66d6166808542.jpg",
-     "page": "https://www.77888.cn/newsinfo/detail-241",
-     "title": "2023年037期 双色球名家精选号码推荐汇总-助赢软件官网",
+     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
+     "size": 85178,
+     "src": "https://pic1.800820.net/tumi/20260603/4d0f8fe92995443d915413bfaa0f0646.webp",
+     "page": "https://www.800820.cn/tuku/tkpic_413209.html",
+     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-27T01:04:20.753Z"
+     "fetchedAt": "2026-10-27T08:08:51.470Z"
     }
    ]
   },
@@ -48,16 +102,34 @@ const MINGJIA_DATA = {
    "kw": "东北人杀 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
-     "size": 104137,
-     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
-     "page": "https://www.cz89.com/read_9355375.htm",
-     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
+     "file": "imgs/mingjia/双色球/东北人杀/1.png",
+     "size": 91796,
+     "src": "https://pic.cz89.com/upload/20260407/6c05a16cb2124787a2f6bbc6d61d1056.png",
+     "page": "https://www.cz89.com/read_10242542.htm",
+     "title": "东北人杀蓝球039期双色球图谜 10中10_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-27T01:04:34.580Z"
+     "fetchedAt": "2026-10-27T08:09:14.527Z"
     }
    ]
+  },
+  {
+   "name": "名家精",
+   "cat": "双色球",
+   "kw": "名家精 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/名家精/1.jpg",
+     "size": 52747,
+     "src": "https://www.77888.cn/uploads/20230404/99b12ab26c865dbbbbd66d6166808542.jpg",
+     "page": "https://www.77888.cn/newsinfo/detail-241",
+     "title": "2023年037期 双色球名家精选号码推荐汇总-助赢软件官网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-27T01:04:20.753Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "峨眉道姑",
@@ -74,13 +146,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-27T07:24:12.303Z"
     }
-   ]
-  },
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
+   ],
+   "stale": true
   },
   {
    "name": "林黛玉",
@@ -97,7 +164,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-27T04:13:09.411Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "贾宝玉",
@@ -114,7 +182,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-27T07:24:26.400Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "司马迁",
@@ -130,53 +199,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-27T07:24:30.100Z"
-    }
-   ]
-  },
-  {
-   "name": "一品红",
-   "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 84982,
-     "src": "https://pic1.800820.net/tumi/20260201/13c852555b6a4b8295f22763817e54fc.webp",
-     "page": "https://www.800820.net/tuku/tkpic_383576.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-26T18:49:14.646Z"
     }
    ],
    "stale": true
@@ -368,57 +390,39 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "迷公",
+   "name": "蓝号迷",
    "cat": "双色球",
-   "kw": "迷公 双色球 字谜 参考图",
+   "kw": "蓝号迷 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "桃子姐",
+   "name": "一品红",
    "cat": "双色球",
-   "kw": "桃子姐 双色球 字谜 参考图",
+   "kw": "一品红 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "迟丽颖",
+   "name": "万万没想到",
    "cat": "双色球",
-   "kw": "迟丽颖 双色球 字谜 参考图",
+   "kw": "万万没想到 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "万里挑一",
+   "name": "夏天",
    "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
+   "kw": "夏天 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "青岛大磊",
+   "name": "大招财运",
    "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
+   "kw": "大招财运 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "明哥看彩",
+   "name": "奉旨发财",
    "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "双色球",
-   "kw": "九头鸟 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "武汉华哥",
-   "cat": "双色球",
-   "kw": "武汉华哥 双色球 字谜 参考图",
+   "kw": "奉旨发财 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -640,11 +644,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-27 00:17:34",
-   "names": 71,
-   "imgs": 14
-  },
-  {
    "at": "2026-10-27 01:31:15",
    "names": 71,
    "imgs": 14
@@ -756,6 +755,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-27 15:25:01",
+   "names": 71,
+   "imgs": 18
+  },
+  {
+   "at": "2026-10-27 16:09:17",
    "names": 71,
    "imgs": 18
   }
