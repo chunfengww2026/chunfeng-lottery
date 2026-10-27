@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-28 00:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "亚达禾",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-28 00:30:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "马瑟瓦沙巴",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "FC9022"
     },
     "time": "2026-10-28 00:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "莫托路宾",
      "score": 0,
@@ -9804,7 +9804,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-10-27 23:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "彭拿費爾U23",
      "score": 2,
@@ -9870,7 +9870,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-10-27 23:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "费马利卡奥U23",
      "score": 2,
@@ -10002,7 +10002,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-27 23:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "乌拉尔图",
      "score": 3,
@@ -10296,7 +10296,7 @@ const FOOTBALL_DATA = {
      "color": "999900"
     },
     "time": "2026-10-27 23:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "瓦尔纳黑海",
      "score": 2,
@@ -10362,7 +10362,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-27 23:25:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "瓦赫達麥加",
      "score": 1,
@@ -10440,7 +10440,7 @@ const FOOTBALL_DATA = {
      "color": "333222"
     },
     "time": "2026-10-27 23:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "泰利普利斯",
      "score": 0,
@@ -10674,7 +10674,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-10-28 00:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "葛吉拉",
      "score": 2,
