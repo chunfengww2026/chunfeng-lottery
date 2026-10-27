@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-28 01:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-28 02:00 */
 const JC_DATA = {
- "updated": "2026-10-28 01:58",
+ "updated": "2026-10-28 02:00",
  "stat": {
-  "total": 10,
+  "total": 8,
   "upcoming": 5,
-  "live": 2,
+  "live": 0,
   "finished": 3,
-  "withScore": 5,
-  "droppedNotOnSale": 0,
+  "withScore": 3,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
-  "droppedNotOnSale": 0,
+  "officialGate": true,
+  "officialCodes": 18,
+  "droppedNotOnSale": 2,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -347,208 +347,6 @@ const JC_DATA = {
    }
   },
   {
-   "gid": "1490697",
-   "fid": "1490697",
-   "sid": "19831",
-   "code": "周二004",
-   "league": "德国杯",
-   "round": "第二圈",
-   "time": "2026-10-28 01:00",
-   "handicap": null,
-   "home": {
-    "name": "汉堡",
-    "rank": null
-   },
-   "away": {
-    "name": "法兰克福",
-    "rank": null
-   },
-   "score": {
-    "home": 0,
-    "away": 0
-   },
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.92,
-      "line": "平手",
-      "away": 0.92
-     },
-     "live": {
-      "home": 0.9,
-      "line": "受半球",
-      "away": 0.9
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.5,
-      "draw": 3.4,
-      "away": 2.5
-     },
-     "live": {
-      "home": 3.9,
-      "draw": 3.7,
-      "away": 1.85
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.9,
-      "over": 3,
-      "under": 0.95
-     },
-     "live": {
-      "line": 0.82,
-      "over": 3,
-      "under": 0.97
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 50.6,
-    "prob": {
-     "home": 24,
-     "draw": 25.3,
-     "away": 50.6
-    },
-    "clear": true,
-    "margin": 6.7,
-    "rqLine": "受半球",
-    "type": "three"
-   },
-   "asianIndex": {
-    "line": "受半球",
-    "from": "live",
-    "handicap": 0.5,
-    "upSide": "away",
-    "upWater": 0.9,
-    "downWater": 0.9,
-    "openHandicap": 0,
-    "openUpWater": 0.92,
-    "openDownWater": 0.92,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
-    "canWater": false,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "live",
-   "minute": 0,
-   "liveScore": {
-    "home": 0,
-    "away": 0
-   }
-  },
-  {
-   "gid": "1414253",
-   "fid": "1414253",
-   "sid": "19826",
-   "code": "周二005",
-   "league": "意甲",
-   "round": "第9轮",
-   "time": "2026-10-28 01:30",
-   "handicap": null,
-   "home": {
-    "name": "萨索洛",
-    "rank": 14
-   },
-   "away": {
-    "name": "拉齐奥",
-    "rank": 2
-   },
-   "score": {
-    "home": 1,
-    "away": 3
-   },
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1.05,
-      "line": "平手",
-      "away": 0.8
-     },
-     "live": {
-      "home": 1.1,
-      "line": "受平手/半球",
-      "away": 0.7
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.75,
-      "draw": 3.4,
-      "away": 2.45
-     },
-     "live": {
-      "home": 3.7,
-      "draw": 3.75,
-      "away": 1.95
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.97,
-      "over": 2.5,
-      "under": 0.87
-     },
-     "live": {
-      "line": 0.72,
-      "over": 2.5,
-      "under": 1.07
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 48.9,
-    "prob": {
-     "home": 25.7,
-     "draw": 25.4,
-     "away": 48.9
-    },
-    "clear": true,
-    "margin": 5,
-    "rqLine": "受平手/半球",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.7,
-    "downWater": 1.1,
-    "openHandicap": 0,
-    "openUpWater": 1.05,
-    "openDownWater": 0.8,
-    "totalWater": 1.8,
-    "theoryUpPercent": "61.11",
-    "theoryDownPercent": "38.89",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "live",
-   "minute": 0,
-   "liveScore": {
-    "home": 1,
-    "away": 3
-   }
-  },
-  {
    "gid": "1362815",
    "fid": "1362815",
    "sid": "19501",
@@ -608,53 +406,16 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 43.5,
+    "confidence": 44.9,
     "prob": {
-     "home": 29.9,
-     "draw": 26.6,
-     "away": 43.5
+     "home": 29,
+     "draw": 26.2,
+     "away": 44.9
     },
     "clear": false,
     "margin": 6.2,
     "rqLine": "受平手/半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "away",
-     "label": "客胜",
-     "prob": {
-      "home": 29.9,
-      "draw": 26.6,
-      "away": 43.5
-     },
-     "confidence": 43.5,
-     "signals": [
-      "主流初盘 3/3 家偏向客胜",
-      "初盘→即时：主胜-2.8pp / 平局-0.2pp / 客胜+3.0pp",
-      "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.950",
-      "多机构分歧 3.7%"
-     ],
-     "missing": [
-      "同场同期必发成交/购买热度缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -2.9,
-      "draw": -4.1,
-      "away": -8.7
-     },
-     "handicap": {
-      "line": 1,
-      "prob": {
-       "home": 0.5498270109318767,
-       "draw": 0.22749281177619304,
-       "away": 0.2226801772919299
-      },
-      "pick": "home",
-      "label": "让胜"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受平手/半球",
@@ -771,8 +532,8 @@ const JC_DATA = {
       "主流初盘 3/3 家偏向主胜",
       "初盘→即时：主胜-0.8pp / 平局+0.5pp / 客胜+0.3pp",
       "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.930",
-      "多机构分歧 2.3%"
+      "主要方向凯利中位参考 0.940",
+      "多机构分歧 2.4%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -1254,43 +1015,12 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
-  "updated": "2026-10-28 01:28",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-28 02:00",
   "officialUpdate": "2026-10-27 21:53:34",
-  "inSale": 19,
+  "inSale": 18,
   "list": [
-   {
-    "code": "周二005",
-    "matchNum": "2005",
-    "league": "意甲",
-    "time": "2026-10-28 01:30:00",
-    "home": "萨索洛",
-    "away": "拉齐奥",
-    "had": {
-     "h": 3.74,
-     "d": 3.65,
-     "a": 1.7,
-     "update": "2026-10-27 21:51:25"
-    },
-    "hhad": {
-     "line": "+1",
-     "h": 1.87,
-     "d": 3.08,
-     "a": 3.7,
-     "update": "2026-10-27 21:51:39"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周二006",
     "matchNum": "2006",
