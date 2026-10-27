@@ -2,9 +2,119 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-27 20:02",
+ "updated": "2026-10-27 20:46",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周二001",
+   "league": "亚冠杯",
+   "home": "京都",
+   "away": "纽喷气机",
+   "time": "2026-10-27 18:00",
+   "score": "5:2",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "球半",
+    "from": "live",
+    "handicap": -1.5,
+    "upSide": "home",
+    "upWater": 1,
+    "downWater": 0.8,
+    "openHandicap": -1.25,
+    "openUpWater": 0.82,
+    "openDownWater": 0.97,
+    "totalWater": 1.8,
+    "theoryUpPercent": "44.44",
+    "theoryDownPercent": "55.56",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -1.25,
+     "nowHandicap": -1.5,
+     "initUpWater": 0.82,
+     "nowUpWater": 1,
+     "initLine": "一球/球半",
+     "nowLine": "球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.36,
+    "draw": 5.25,
+    "away": 5.75
+   },
+   "prob": {
+    "home": 66.9,
+    "draw": 17.3,
+    "away": 15.8
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 66.9,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-10-27 20:46"
+  },
+  {
+   "code": "周二002",
+   "league": "亚冠杯",
+   "home": "大田市民",
+   "away": "神户胜利",
+   "time": "2026-10-27 18:00",
+   "score": "0:1",
+   "hc": null,
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.92,
+    "downWater": 0.87,
+    "openHandicap": 0,
+    "openUpWater": 0.85,
+    "openDownWater": 0.95,
+    "totalWater": 1.79,
+    "theoryUpPercent": "48.60",
+    "theoryDownPercent": "51.40",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": 0,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.85,
+     "nowUpWater": 0.92,
+     "initLine": "平手",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.15,
+    "draw": 3.25,
+    "away": 2.9
+   },
+   "prob": {
+    "home": 41.6,
+    "draw": 27.5,
+    "away": 30.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 41.6,
+   "type": "unbeaten",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-10-27 20:46"
+  },
   {
    "code": "周一004",
    "league": "巴甲",
