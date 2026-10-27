@@ -1,8 +1,107 @@
 {
- "updated": "2026-10-27 11:02",
+ "updated": "2026-10-27 11:40",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-10-27 11:40",
+   "finishTime": 1793072400000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二001",
+     "teams": "京都 vs 纽喷气机",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.7,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "亚冠杯",
+     "odds": 1.38,
+     "time": "2026-10-27 18:00"
+    },
+    {
+     "matchNo": "周二009",
+     "teams": "罗马 vs 卡利亚里",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 70.2,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "意甲",
+     "odds": 1.33,
+     "time": "2026-10-28 03:45"
+    },
+    {
+     "matchNo": "周二007",
+     "teams": "多特蒙德 vs 不来梅",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.7,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "德国杯",
+     "odds": 1.36,
+     "time": "2026-10-28 03:45"
+    },
+    {
+     "matchNo": "周三002",
+     "teams": "鹿岛鹿角 vs 浦项制铁",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "亚冠杯",
+     "odds": 1.28,
+     "time": "2026-10-28 18:00"
+    },
+    {
+     "matchNo": "周三004",
+     "teams": "帕德博恩 vs 斯图加特",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.9,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "德国杯",
+     "odds": 1.53,
+     "time": "2026-10-29 01:00"
+    },
+    {
+     "matchNo": "周三005",
+     "teams": "威尼斯 vs 国际米兰",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 70.1,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "意甲",
+     "odds": 1.36,
+     "time": "2026-10-29 01:30"
+    },
+    {
+     "matchNo": "周三006",
+     "teams": "AC米兰 vs 博洛尼亚",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.5,
+     "status": "pending",
+     "finishTime": 1793072400000,
+     "league": "意甲",
+     "odds": 1.62,
+     "time": "2026-10-29 01:30"
+    }
+   ]
+  }
+ ]
 }

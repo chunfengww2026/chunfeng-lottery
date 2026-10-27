@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-27 09:29",
+ "updated": "2026-10-27 11:17",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -11,28 +11,28 @@ const JC_HISTORY = {
    "home": "弗拉门戈",
    "away": "米竞技",
    "time": "2026-10-27 07:00",
-   "score": "",
+   "score": "3:2",
    "hc": "-1",
    "asianIndex": {
     "line": "球半",
     "from": "live",
     "handicap": -1.5,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.85,
+    "upWater": 0.72,
+    "downWater": 1.07,
     "openHandicap": -1.5,
     "openUpWater": 0.97,
     "openDownWater": 0.87,
-    "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
+    "totalWater": 1.79,
+    "theoryUpPercent": "59.78",
+    "theoryDownPercent": "40.22",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -1.5,
      "nowHandicap": -1.5,
      "initUpWater": 0.97,
-     "nowUpWater": 1,
+     "nowUpWater": 0.72,
      "initLine": "球半",
      "nowLine": "球半"
     },
@@ -42,23 +42,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.33,
-    "draw": 4.75,
-    "away": 10
+    "home": 1.22,
+    "draw": 5.5,
+    "away": 13
    },
    "prob": {
-    "home": 68.3,
-    "draw": 19.8,
-    "away": 12
+    "home": 76,
+    "draw": 16.9,
+    "away": 7.1
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 68.3,
+   "conf": 76,
    "type": "three",
-   "result": "",
-   "hit": false,
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-10-26 00:28"
+   "at": "2026-10-27 11:17"
   },
   {
    "code": "周一003",
@@ -112,7 +112,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-26 00:28"
   },
   {
@@ -167,7 +167,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-10-27 06:25"
   },
   {
