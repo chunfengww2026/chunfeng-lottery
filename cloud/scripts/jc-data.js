@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-27 11:56 */
+/* 自动生成，请勿手动编辑 · 2026-10-27 12:27 */
 const JC_DATA = {
- "updated": "2026-10-27 11:56",
+ "updated": "2026-10-27 12:27",
  "stat": {
   "total": 23,
   "upcoming": 23,
@@ -177,9 +177,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 1.02,
-      "line": "一球",
-      "away": 0.77
+      "home": 0.77,
+      "line": "半球/一球",
+      "away": 1.02
      }
     },
     "europe": {
@@ -201,9 +201,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.9,
-      "over": 3,
-      "under": 0.9
+      "line": 0.8,
+      "over": 2.5,
+      "under": 1
      }
     }
    },
@@ -218,7 +218,7 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 11.2,
-    "rqLine": "一球",
+    "rqLine": "半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
@@ -231,7 +231,7 @@ const JC_DATA = {
      "confidence": 55.4,
      "signals": [
       "初盘→即时：主胜-1.4pp / 平局+0.1pp / 客胜+1.3pp",
-      "亚盘未变盘；水位只作辅助核对"
+      "亚盘客队方向变深，水位上升"
      ],
      "missing": [
       "威廉/立博/365同期初盘不足",
@@ -250,27 +250,27 @@ const JC_DATA = {
     }
    },
    "asianIndex": {
-    "line": "一球",
+    "line": "半球/一球",
     "from": "live",
-    "handicap": -1,
+    "handicap": -0.75,
     "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.77,
+    "upWater": 0.77,
+    "downWater": 1.02,
     "openHandicap": -1,
     "openUpWater": 1,
     "openDownWater": 0.8,
     "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
     "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "升盘降水",
      "initHandicap": -1,
-     "nowHandicap": -1,
+     "nowHandicap": -0.75,
      "initUpWater": 1,
-     "nowUpWater": 1.02,
+     "nowUpWater": 0.77,
      "initLine": "一球",
-     "nowLine": "一球"
+     "nowLine": "半球/一球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -308,9 +308,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 1,
-      "line": "平手/半球",
-      "away": 0.8
+      "home": 0.75,
+      "line": "平手",
+      "away": 1.05
      }
     },
     "europe": {
@@ -320,9 +320,9 @@ const JC_DATA = {
       "away": 2.6
      },
      "live": {
-      "home": 2.3,
-      "draw": 3.25,
-      "away": 2.7
+      "home": 2.25,
+      "draw": 3.3,
+      "away": 2.8
      }
     },
     "overunder": {
@@ -341,28 +341,28 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 38.1,
+    "confidence": 38.5,
     "prob": {
-     "home": 38.1,
-     "draw": 27.7,
-     "away": 34.2
+     "home": 38.5,
+     "draw": 27.6,
+     "away": 33.9
     },
     "clear": false,
-    "margin": 11.3,
-    "rqLine": "平手/半球",
+    "margin": 10.5,
+    "rqLine": "平手",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 38.1,
-      "draw": 27.7,
-      "away": 34.2
+      "home": 38.5,
+      "draw": 27.6,
+      "away": 33.9
      },
-     "confidence": 38.1,
+     "confidence": 38.5,
      "signals": [
-      "初盘→即时：主胜+1.5pp / 平局-0.1pp / 客胜-1.4pp",
-      "亚盘主队方向变深，水位上升"
+      "初盘→即时：主胜+2.7pp / 平局-0.3pp / 客胜-2.4pp",
+      "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
       "威廉/立博/365同期初盘不足",
@@ -372,36 +372,36 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -12.4,
-      "draw": -9.9,
-      "away": -7.7
+      "home": -13.4,
+      "draw": -8.8,
+      "away": -5.2
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
     }
    },
    "asianIndex": {
-    "line": "平手/半球",
+    "line": "平手",
     "from": "live",
-    "handicap": -0.25,
+    "handicap": 0,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.8,
+    "upWater": 0.75,
+    "downWater": 1.05,
     "openHandicap": 0,
     "openUpWater": 0.85,
     "openDownWater": 0.95,
     "totalWater": 1.8,
-    "theoryUpPercent": "44.44",
-    "theoryDownPercent": "55.56",
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
     "canWater": true,
     "handicapChange": {
-     "type": "降盘升水",
+     "type": "盘口水位无明显变化",
      "initHandicap": 0,
-     "nowHandicap": -0.25,
+     "nowHandicap": 0,
      "initUpWater": 0.85,
-     "nowUpWater": 1,
+     "nowUpWater": 0.75,
      "initLine": "平手",
-     "nowLine": "平手/半球"
+     "nowLine": "平手"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -439,9 +439,9 @@ const JC_DATA = {
       "away": 1
      },
      "live": {
-      "home": 0.8,
+      "home": 0.85,
       "line": "球半",
-      "away": 1
+      "away": 0.95
      }
     },
     "europe": {
@@ -451,7 +451,7 @@ const JC_DATA = {
       "away": 6
      },
      "live": {
-      "home": 1.28,
+      "home": 1.29,
       "draw": 5.25,
       "away": 6.5
      }
@@ -463,36 +463,36 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.9,
+      "line": 1,
       "over": 3,
-      "under": 0.9
+      "under": 0.8
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 68,
+    "confidence": 67.9,
     "prob": {
-     "home": 68,
-     "draw": 17.5,
+     "home": 67.9,
+     "draw": 17.6,
      "away": 14.5
     },
     "clear": true,
-    "margin": 12.6,
+    "margin": 12,
     "rqLine": "球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 68,
-      "draw": 17.5,
+      "home": 67.9,
+      "draw": 17.6,
       "away": 14.5
      },
-     "confidence": 68,
+     "confidence": 67.9,
      "signals": [
-      "初盘→即时：主胜+2.2pp / 平局-1.0pp / 客胜-1.2pp",
+      "初盘→即时：主胜+2.0pp / 平局-0.9pp / 客胜-1.2pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -503,9 +503,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -13,
-      "draw": -7.9,
-      "away": -6
+      "home": -12.4,
+      "draw": -7.7,
+      "away": -5.8
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -516,21 +516,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1.5,
     "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1,
+    "upWater": 0.85,
+    "downWater": 0.95,
     "openHandicap": -1.5,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -1.5,
      "nowHandicap": -1.5,
      "initUpWater": 0.8,
-     "nowUpWater": 0.8,
+     "nowUpWater": 0.85,
      "initLine": "球半",
      "nowLine": "球半"
     },
@@ -570,9 +570,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 1,
+      "home": 1.02,
       "line": "平手/半球",
-      "away": 0.8
+      "away": 0.77
      }
     },
     "europe": {
@@ -647,21 +647,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.8,
+    "upWater": 1.02,
+    "downWater": 0.77,
     "openHandicap": -0.25,
     "openUpWater": 0.95,
     "openDownWater": 0.85,
-    "totalWater": 1.8,
-    "theoryUpPercent": "44.44",
-    "theoryDownPercent": "55.56",
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.95,
-     "nowUpWater": 1,
+     "nowUpWater": 1.02,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -994,9 +994,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 1,
+      "home": 0.97,
       "line": "受平手/半球",
-      "away": 0.85
+      "away": 0.87
      }
     },
     "europe": {
@@ -1020,7 +1020,7 @@ const JC_DATA = {
      "live": {
       "line": 1.05,
       "over": 3,
-      "under": 0.8
+      "under": 0.75
      }
     }
    },
@@ -1071,14 +1071,14 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.85,
-    "downWater": 1,
+    "upWater": 0.87,
+    "downWater": 0.97,
     "openHandicap": 0,
     "openUpWater": 1.05,
     "openDownWater": 0.8,
-    "totalWater": 1.85,
-    "theoryUpPercent": "54.05",
-    "theoryDownPercent": "45.95",
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "52.72",
+    "theoryDownPercent": "47.28",
     "canWater": true,
     "handicapChange": null,
     "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
@@ -1522,9 +1522,9 @@ const JC_DATA = {
       "away": 7
      },
      "live": {
-      "home": 1.36,
-      "draw": 4.75,
-      "away": 8
+      "home": 1.4,
+      "draw": 4.5,
+      "away": 7
      }
     },
     "overunder": {
@@ -1543,27 +1543,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 68.7,
+    "confidence": 67.8,
     "prob": {
-     "home": 68.7,
-     "draw": 18.8,
-     "away": 12.6
+     "home": 67.8,
+     "draw": 19.1,
+     "away": 13.1
     },
     "clear": true,
-    "margin": 7.1,
+    "margin": 7.9,
     "rqLine": "一球/球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 68.7,
-      "draw": 18.8,
-      "away": 12.6
+      "home": 67.8,
+      "draw": 19.1,
+      "away": 13.1
      },
-     "confidence": 68.7,
+     "confidence": 67.8,
      "signals": [
-      "初盘→即时：主胜-0.0pp / 平局+1.4pp / 客胜-1.4pp",
+      "初盘→即时：主胜-2.5pp / 平局+2.3pp / 客胜+0.2pp",
       "亚盘客队方向变深，水位上升"
      ],
      "missing": [
@@ -1574,9 +1574,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -6.6,
-      "draw": -10.9,
-      "away": 0.5
+      "home": -5.1,
+      "draw": -14.1,
+      "away": -8.2
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -2038,8 +2038,8 @@ const JC_DATA = {
       "away": 1.75
      },
      "live": {
-      "home": 5.5,
-      "draw": 3.7,
+      "home": 5.25,
+      "draw": 3.8,
       "away": 1.67
      }
     },
@@ -2061,25 +2061,25 @@ const JC_DATA = {
     "label": "客胜",
     "confidence": 54.6,
     "prob": {
-     "home": 19.5,
-     "draw": 25.9,
+     "home": 19.8,
+     "draw": 25.6,
      "away": 54.6
     },
     "clear": true,
-    "margin": 5.1,
+    "margin": 5.2,
     "rqLine": "受半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 19.5,
-      "draw": 25.9,
+      "home": 19.8,
+      "draw": 25.6,
       "away": 54.6
      },
      "confidence": 54.6,
      "signals": [
-      "初盘→即时：主胜-3.4pp / 平局-0.2pp / 客胜+3.6pp",
+      "初盘→即时：主胜-2.6pp / 平局-0.9pp / 客胜+3.6pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -2090,9 +2090,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": 7.5,
-      "draw": -4.3,
-      "away": -8.8
+      "home": 4,
+      "draw": -2.7,
+      "away": -8.9
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
