@@ -1,10 +1,15 @@
 {
-  "updated": "2026-10-27T01:54:13.563Z",
+  "updated": "2026-10-27T02:47:59.761Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
+      {
+        "title": "精选专家冲击周二双色球大奖！",
+        "date": "2026-10-27",
+        "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwrqsx4740545.shtml"
+      },
       {
         "title": "123期爱狄娜双色球预测奖号：单挑一注",
         "date": "2026-10-27",
@@ -39,14 +44,14 @@
         "title": "123期霍晓虹双色球预测奖号：6+1单挑一注",
         "date": "2026-10-27",
         "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwrqsu2047968.shtml"
-      },
-      {
-        "title": "123期郭小舟双色球预测奖号：跨度参考",
-        "date": "2026-10-27",
-        "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwrqsz1490937.shtml"
       }
     ],
     "dlt": [
+      {
+        "title": "大乐透第26122期开7注一等奖",
+        "date": "2026-10-27",
+        "url": "https://www.zhcw.com/c/2026-10-27/932353.shtml"
+      },
       {
         "title": "大乐透7注799万2注追加",
         "date": "2026-10-26",
@@ -81,11 +86,6 @@
         "title": "122期李敬大乐透预测奖号：质合比分析",
         "date": "2026-10-26",
         "url": "https://sports.sina.com.cn/l/2026-10-26/doc-iniwpfmz5670941.shtml"
-      },
-      {
-        "title": "122期马德文大乐透预测奖号：前区三胆推荐",
-        "date": "2026-10-26",
-        "url": "https://sports.sina.com.cn/l/2026-10-26/doc-iniwpfmx9286514.shtml"
       }
     ],
     "fc3d": [
