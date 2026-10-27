@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/28 00:14:09） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/28 00:17:51） */
 const MINGJIA_DATA = {
- "updated": "2026-10-28 00:14:09",
+ "updated": "2026-10-28 00:17:51",
  "list": [
   {
    "name": "奉旨发财",
@@ -72,35 +72,13 @@ const MINGJIA_DATA = {
    "name": "南山大师",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 60014,
-     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
-     "page": "https://www.cz89.com/read_7588481.htm",
-     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-25T16:15:55.266Z"
-    }
-   ]
+   "imgs": []
   },
   {
    "name": "牛魔王",
    "cat": "双色球",
    "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113487,
-     "src": "https://pic.cz89.com/upload/20221214/cfbff33f709b44a1abfc7fc855856015.jpg",
-     "page": "https://www.cz89.com/read_7355500.htm",
-     "title": "牛魔王杀两码红球144期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-25T16:16:04.968Z"
-    }
-   ]
+   "imgs": []
   },
   {
    "name": "闪享",
@@ -118,18 +96,7 @@ const MINGJIA_DATA = {
    "name": "3D字谜",
    "cat": "3D",
    "kw": "3D字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 34799,
-     "src": "https://img.3d178.cn/remote/2026-03-08/2026030820451803902233.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/217751.shtml",
-     "title": "今日3d太湖字谜总汇_2026058期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2026058",
-     "verified": false,
-     "fetchedAt": "2026-10-25T16:16:36.163Z"
-    }
-   ],
+   "imgs": [],
    "stale": true
   },
   {
@@ -169,20 +136,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "东北人杀",
-   "cat": "双色球",
-   "kw": "东北人杀 双色球 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
    "name": "林黛玉",
    "cat": "双色球",
    "kw": "林黛玉 双色球 字谜 参考图",
@@ -219,48 +172,9 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
    "name": "太湖字谜",
    "cat": "3D",
    "kw": "太湖字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/太湖字谜/1.png",
-     "size": 36145,
-     "src": "https://img.3d178.cn/zimi/thds/2025/2025104.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/203728.shtml",
-     "title": "今日3d太湖字谜总汇_2025104期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2025104",
-     "verified": false,
-     "fetchedAt": "2026-10-25T16:17:20.476Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "大乐透",
-   "kw": "迟丽颖 大乐透 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三字谜 排列三 字谜 参考图",
    "imgs": [],
    "stale": true
   },
@@ -349,9 +263,33 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "东北人杀",
+   "cat": "双色球",
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "峨眉道姑",
+   "cat": "双色球",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "蓝号迷",
    "cat": "双色球",
    "kw": "蓝号迷 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -379,6 +317,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "太湖字谜",
    "cat": "大乐透",
    "kw": "太湖字谜 大乐透 字谜 参考图",
@@ -394,6 +338,12 @@ const MINGJIA_DATA = {
    "name": "桃子姐",
    "cat": "大乐透",
    "kw": "桃子姐 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "大乐透",
+   "kw": "迟丽颖 大乐透 字谜 参考图",
    "imgs": []
   },
   {
@@ -531,11 +481,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-25 15:47:24",
-   "names": 71,
-   "imgs": 13
-  },
-  {
    "at": "2026-10-25 16:17:44",
    "names": 71,
    "imgs": 13
@@ -649,6 +594,11 @@ const MINGJIA_DATA = {
    "at": "2026-10-28 00:14:09",
    "names": 71,
    "imgs": 8
+  },
+  {
+   "at": "2026-10-28 00:17:51",
+   "names": 71,
+   "imgs": 4
   }
  ],
  "bootstrapExpiresAt": null,
