@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-27 08:47 */
+/* 自动生成，请勿手动编辑 · 2026-10-27 09:29 */
 const JC_DATA = {
- "updated": "2026-10-27 08:47",
+ "updated": "2026-10-27 09:29",
  "stat": {
   "total": 4,
   "upcoming": 0,
@@ -364,7 +364,7 @@ const JC_DATA = {
     "rank": 6
    },
    "score": {
-    "home": 2,
+    "home": 3,
     "away": 2
    },
    "statusText": "2 - 1 ",
@@ -451,7 +451,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
+    "home": 3,
     "away": 2
    }
   }
