@@ -209,60 +209,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 84982,
-     "src": "https://pic1.800820.net/tumi/20260201/13c852555b6a4b8295f22763817e54fc.webp",
-     "page": "https://www.800820.net/tuku/tkpic_383576.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T10:29:02.952Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "黄大仙",
-   "cat": "双色球",
-   "kw": "黄大仙 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
-     "size": 82512,
-     "src": "https://pic.cz89.com/upload/20250318/a46b71e0d70b43aeaea125c5addb71a6.jpg",
-     "page": "https://www.cz89.com/read_9218823.htm",
-     "title": "黄大仙杀蓝球030期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T07:24:05.010Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "东北人杀",
-   "cat": "双色球",
-   "kw": "东北人杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/东北人杀/1.png",
-     "size": 91796,
-     "src": "https://pic.cz89.com/upload/20260407/6c05a16cb2124787a2f6bbc6d61d1056.png",
-     "page": "https://www.cz89.com/read_10242542.htm",
-     "title": "东北人杀蓝球039期双色球图谜 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T08:09:14.527Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "名家精",
    "cat": "双色球",
    "kw": "名家精 双色球 字谜 参考图",
@@ -294,60 +240,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-27T07:24:12.303Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/林黛玉/1.png",
-     "size": 121366,
-     "src": "https://pic.cz89.com/upload/20231203/efafe47471764ca1965038ccbd9f31be.png",
-     "page": "https://www.cz89.com/read_8171661.htm",
-     "title": "林黛玉杀蓝号140期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T04:13:09.411Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.png",
-     "size": 119197,
-     "src": "https://pic.cz89.com/upload/20260101/8a399b4dcf0848ea9521bce79d63bb53.png",
-     "page": "https://www.cz89.com/read_9947547.htm",
-     "title": "双色球002期 贾宝玉杀蓝号图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T07:24:26.400Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
-     "size": 111573,
-     "src": "https://pic.cz89.com/upload/20230208/21d353c9bb9245829439fc94292f7317.jpg",
-     "page": "https://www.cz89.com/read_7467227.htm",
-     "title": "司马迁杀两码蓝球014期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T07:24:30.100Z"
     }
    ],
    "stale": true
