@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-27 11:17 */
+/* 自动生成，请勿手动编辑 · 2026-10-27 11:55 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-27 11:17",
+ "updated": "2026-10-27 11:55",
  "stat": {
   "upcoming": 0,
   "live": 1,
-  "finished": 18,
-  "total": 19,
+  "finished": 16,
+  "total": 17,
   "settled": true,
   "hit": 7,
-  "miss": 11,
-  "rate": 38.9
+  "miss": 9,
+  "rate": 43.8
  },
  "lists": {
   "upcoming": [],
@@ -19,13 +19,13 @@ const FOOTBALL_DATA = {
     "kind": "live",
     "league": {
      "name": "墨西乙",
-     "color": "332292"
+     "color": "004480"
     },
     "time": "2026-10-27 10:05:00",
-    "minute": 0,
+    "minute": 81,
     "home": {
      "name": "聖地亞哥",
-     "score": 3,
+     "score": 6,
      "red": 0,
      "rank": 0
     },
@@ -38,17 +38,17 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -2,
-       "line": "0.83",
-       "away": 0.93
+       "home": -0.5,
+       "line": "1.01",
+       "away": 0.75
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "5.75",
-       "over": 0.91,
-       "under": 0.85
+       "line": "6.5",
+       "over": 0.78,
+       "under": 0.98
       },
       "live": null
      },
@@ -66,162 +66,6 @@ const FOOTBALL_DATA = {
    }
   ],
   "finished": [
-   {
-    "gid": 588799,
-    "kind": "finished",
-    "league": {
-     "name": "巴拉乙",
-     "color": "990044"
-    },
-    "time": "2026-10-27 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "卡比亚塔",
-     "score": 3,
-     "red": 0,
-     "rank": 11
-    },
-    "away": {
-     "name": "塔库里",
-     "score": 0,
-     "red": 0,
-     "rank": 15
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.75,
-       "line": "0.85",
-       "away": 0.85
-      },
-      "live": {
-       "home": -0.25,
-       "line": "0.78",
-       "away": 0.92
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.78,
-       "under": 0.92
-      },
-      "live": {
-       "line": "1",
-       "over": 0.72,
-       "under": 0.98
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.65,
-       "draw": 3.9,
-       "away": 3.5
-      },
-      "live": {
-       "home": 2.23,
-       "draw": 4.55,
-       "away": 2.22
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 40.3,
-     "prob": {
-      "home": 40.1,
-      "draw": 19.6,
-      "away": 40.3
-     },
-     "clear": false,
-     "margin": 11.9
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": false,
-     "score": "3 - 0"
-    }
-   },
-   {
-    "gid": 588839,
-    "kind": "finished",
-    "league": {
-     "name": "墨西女超",
-     "color": "669955"
-    },
-    "time": "2026-10-27 05:45:00",
-    "minute": 0,
-    "home": {
-     "name": "亞特蘭特(女)",
-     "score": 0,
-     "red": 0,
-     "rank": 15
-    },
-    "away": {
-     "name": "瓜达拉哈拉女足",
-     "score": 1,
-     "red": 0,
-     "rank": 6
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 1.5,
-       "line": "0.98",
-       "away": 0.84
-      },
-      "live": {
-       "home": 0.75,
-       "line": "0.82",
-       "away": 1
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "3",
-       "over": 0.98,
-       "under": 0.82
-      },
-      "live": {
-       "line": "1.25",
-       "over": 0.93,
-       "under": 0.87
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 8.3,
-       "draw": 1.27,
-       "away": 5.2
-      },
-      "live": {
-       "home": 7,
-       "draw": 1.71,
-       "away": 2.54
-      }
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 52.2,
-     "prob": {
-      "home": 12.7,
-      "draw": 52.2,
-      "away": 35.1
-     },
-     "clear": true,
-     "margin": 12.1
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 1"
-    }
-   },
    {
     "gid": 585839,
     "kind": "finished",
