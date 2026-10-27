@@ -132,16 +132,15 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 85178,
-     "src": "https://pic1.800820.net/tumi/20260603/4d0f8fe92995443d915413bfaa0f0646.webp",
-     "page": "https://www.800820.cn/tuku/tkpic_413209.html",
+     "size": 84982,
+     "src": "https://pic1.800820.net/tumi/20260201/13c852555b6a4b8295f22763817e54fc.webp",
+     "page": "https://www.800820.net/tuku/tkpic_383576.html",
      "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-27T08:08:51.470Z"
+     "fetchedAt": "2026-10-27T10:29:02.952Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "黄大仙",
@@ -640,6 +639,30 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "迟丽颖 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "快乐8",
+   "kw": "万里挑一 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
@@ -754,7 +777,7 @@ const MINGJIA_DATA = {
    "imgs": 18
   },
   {
-   "at": "2026-10-27 18:18:50",
+   "at": "2026-10-27 18:29:11",
    "names": 71,
    "imgs": 18
   },

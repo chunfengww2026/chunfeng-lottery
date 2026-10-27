@@ -1296,8 +1296,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 1.05,
-       "under": 0.75
+       "over": 1.06,
+       "under": 0.74
       }
      },
      "europe": {
@@ -1608,7 +1608,7 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 42.3,
+     "confidence": 42.4,
      "prob": {
       "home": 30.2,
       "draw": 27.5,
