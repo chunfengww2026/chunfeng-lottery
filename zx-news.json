@@ -1,10 +1,15 @@
 {
-  "updated": "2026-10-27T13:02:23.171Z",
+  "updated": "2026-10-27T15:01:18.374Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
+      {
+        "title": "双色球5注844万分落5地",
+        "date": "2026-10-27",
+        "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwsseq6983731.shtml"
+      },
       {
         "title": "精选双色球专家：云建安中头奖774万！小单擒42万",
         "date": "2026-10-27",
@@ -39,11 +44,6 @@
         "title": "123期沈继楠双色球预测奖号：质合走势",
         "date": "2026-10-27",
         "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwrqsu2047956.shtml"
-      },
-      {
-        "title": "123期霍晓虹双色球预测奖号：6+1单挑一注",
-        "date": "2026-10-27",
-        "url": "https://sports.sina.com.cn/l/2026-10-27/doc-iniwrqsu2047968.shtml"
       }
     ],
     "dlt": [
