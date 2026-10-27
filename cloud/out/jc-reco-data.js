@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-27 23:39",
+ "updated": "2026-10-27 23:55",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -106,106 +106,6 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 1,
-   "verdict": ""
-  },
-  {
-   "at": "2026-10-27 23:39",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周二009",
-     "time": "2026-10-28 03:45",
-     "league": "意甲",
-     "home": "罗马",
-     "away": "卡利亚里",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.29,
-     "conf": 70.9,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周二007",
-     "time": "2026-10-28 03:45",
-     "league": "德国杯",
-     "home": "多特蒙德",
-     "away": "不来梅",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.44,
-     "conf": 67.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三002",
-     "time": "2026-10-28 18:00",
-     "league": "亚冠杯",
-     "home": "鹿岛鹿角",
-     "away": "浦项制铁",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.27,
-     "conf": 68.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三004",
-     "time": "2026-10-29 01:00",
-     "league": "德国杯",
-     "home": "帕德博恩",
-     "away": "斯图加特",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.53,
-     "conf": 60.9,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三005",
-     "time": "2026-10-29 01:30",
-     "league": "意甲",
-     "home": "威尼斯",
-     "away": "国际米兰",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.36,
-     "conf": 70.1,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三006",
-     "time": "2026-10-29 01:30",
-     "league": "意甲",
-     "home": "AC米兰",
-     "away": "博洛尼亚",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.62,
-     "conf": 58.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 6,
    "verdict": ""
   }
  ]
