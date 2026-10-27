@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-27 16:32",
+ "updated": "2026-10-27 17:17",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2525,61 +2525,6 @@ const JC_HISTORY = {
    "result": "lose",
    "hit": false,
    "matched": true,
-   "at": "2026-10-25 12:22"
-  },
-  {
-   "code": "周六005",
-   "league": "澳超",
-   "home": "墨胜利",
-   "away": "墨尔本城",
-   "time": "2026-10-24 16:40",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": -0.25,
-    "openUpWater": 1,
-    "openDownWater": 0.8,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -0.25,
-     "nowHandicap": 0,
-     "initUpWater": 1,
-     "nowUpWater": 0.85,
-     "initLine": "平手/半球",
-     "nowLine": "平手"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.5,
-    "draw": 3.6,
-    "away": 2.63
-   },
-   "prob": {
-    "home": 38.9,
-    "draw": 26.4,
-    "away": 34.7
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 38.9,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
    "at": "2026-10-25 12:22"
   }
  ]
