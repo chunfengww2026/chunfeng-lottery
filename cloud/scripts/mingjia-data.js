@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 21:05:51） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/27 21:53:52） */
 const MINGJIA_DATA = {
- "updated": "2026-10-27 21:05:51",
+ "updated": "2026-10-27 21:53:52",
  "list": [
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "双色球",
-   "kw": "白天鹅 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "百合花",
-   "cat": "双色球",
-   "kw": "百合花 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "百步穿杨",
    "cat": "双色球",
@@ -115,22 +91,16 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/枣庄红人/1.webp",
-     "size": 65094,
-     "src": "https://pic1.800820.net/tumi/20260204/ced0793cfd814f2091d220ca2b20e39e.webp",
-     "page": "https://www.800820.net/p/10775194.html",
-     "title": "枣庄红人26年016期杀双色球蓝球图迷_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-27T12:19:54.848Z"
-    }
-   ],
-   "stale": true
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "3D字谜",
@@ -146,6 +116,29 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-27T02:57:58.250Z"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/枣庄红人/1.webp",
+     "size": 65094,
+     "src": "https://pic1.800820.net/tumi/20260204/ced0793cfd814f2091d220ca2b20e39e.webp",
+     "page": "https://www.800820.net/p/10775194.html",
+     "title": "枣庄红人26年016期杀双色球蓝球图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-27T12:19:54.848Z"
     }
    ],
    "stale": true
@@ -475,21 +468,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三字谜 排列三 字谜 参考图",
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "大乐透",
-   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "name": "白天鹅",
+   "cat": "双色球",
+   "kw": "白天鹅 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "双色球",
+   "kw": "百合花 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -633,11 +632,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-27 06:09:24",
-   "names": 71,
-   "imgs": 16
-  },
-  {
    "at": "2026-10-27 06:43:54",
    "names": 71,
    "imgs": 16
@@ -749,6 +743,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-27 21:05:51",
+   "names": 71,
+   "imgs": 17
+  },
+  {
+   "at": "2026-10-27 21:53:52",
    "names": 71,
    "imgs": 17
   }
