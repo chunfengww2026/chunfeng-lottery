@@ -520,7 +520,7 @@ const FOOTBALL_DATA = {
       "away": 41.6
      },
      "clear": false,
-     "margin": 12.2
+     "margin": 12
     },
     "result": null
    },
@@ -1757,7 +1757,7 @@ const FOOTBALL_DATA = {
       "away": 39.8
      },
      "clear": false,
-     "margin": 12.2
+     "margin": 12.1
     },
     "result": null
    },
@@ -2561,6 +2561,79 @@ const FOOTBALL_DATA = {
      },
      "clear": true,
      "margin": 8.2
+    },
+    "result": null
+   },
+   {
+    "gid": 584535,
+    "kind": "upcoming",
+    "league": {
+     "name": "意甲",
+     "color": "005ce6"
+    },
+    "time": "2026-10-29 03:45:00",
+    "minute": 0,
+    "home": {
+     "name": "蒙扎",
+     "score": null,
+     "red": null,
+     "rank": 15
+    },
+    "away": {
+     "name": "拿玻里",
+     "score": null,
+     "red": null,
+     "rank": 10
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.75,
+       "line": "1",
+       "away": 0.89
+      },
+      "live": {
+       "home": 0.25,
+       "line": "1.03",
+       "away": 0.86
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.87,
+       "under": 1.02
+      },
+      "live": {
+       "line": "1.25",
+       "over": 1.05,
+       "under": 0.83
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 4.8,
+       "draw": 1.7,
+       "away": 4.05
+      },
+      "live": {
+       "home": 4.7,
+       "draw": 2.26,
+       "away": 2.36
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 41,
+     "prob": {
+      "home": 19.7,
+      "draw": 41,
+      "away": 39.3
+     },
+     "clear": false,
+     "margin": 7.9
     },
     "result": null
    },
@@ -6066,8 +6139,8 @@ const FOOTBALL_DATA = {
     "gid": 590555,
     "kind": "live",
     "league": {
-     "name": "意丁杯",
-     "color": "3792aa"
+     "name": "爱沙甲",
+     "color": "678CCC"
     },
     "time": "2026-10-29 01:00:00",
     "minute": 91,
@@ -6081,7 +6154,7 @@ const FOOTBALL_DATA = {
      "name": "安科纳",
      "score": 2,
      "red": 0,
-     "rank": 0
+     "rank": 4
     },
     "odds": {
      "asian": {
@@ -6551,7 +6624,7 @@ const FOOTBALL_DATA = {
      "actual": "away",
      "actualLabel": "客胜",
      "hit": false,
-     "score": "1 - 2"
+     "score": "2 - 3"
     }
    },
    {
@@ -7553,7 +7626,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "圣塔菲联后备队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -7790,14 +7863,14 @@ const FOOTBALL_DATA = {
       "draw": 21.2,
       "away": 40.2
      },
-     "clear": false,
-     "margin": 12.1
+     "clear": true,
+     "margin": 10.4
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "0 - 0"
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "2 - 0"
     }
    },
    {
