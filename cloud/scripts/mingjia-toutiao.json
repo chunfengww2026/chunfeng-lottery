@@ -811,51 +811,30 @@
   },
   {
    "gid": "dlt",
-   "issue": "26124",
-   "status": 200,
-   "count": 2,
-   "available": true
-  },
-  {
-   "gid": "kl8",
-   "issue": "2026288",
+   "issue": "26121",
    "status": 200,
    "count": 0,
    "available": true
   },
   {
    "gid": "kl8",
-   "issue": "2026288",
+   "issue": "2026281",
    "status": 200,
    "count": 0,
    "available": true
   },
   {
    "gid": "fc3d",
-   "issue": "2026288",
-   "status": 200,
-   "count": 0,
-   "available": true
-  },
-  {
-   "gid": "fc3d",
-   "issue": "2026288",
+   "issue": "2026281",
    "status": 200,
    "count": 0,
    "available": true
   },
   {
    "gid": "pl3",
-   "issue": "26288",
+   "issue": "26281",
    "status": 200,
    "count": 0,
-   "available": true
-  },
-  {
-   "gid": "pl3",
-   "issue": "26288",
-   "status": 200,
-   "count": 1,
    "available": true
   }
  ]
