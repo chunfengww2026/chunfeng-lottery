@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-28 23:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "波拉斯",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-28 23:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "洛兹尼察",
      "score": 1,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "775599"
     },
     "time": "2026-10-28 23:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "沃日多瓦茨",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "333222"
     },
     "time": "2026-10-28 23:30:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "帕纳辛纳科斯",
      "score": 1,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "6A7A86"
     },
     "time": "2026-10-28 23:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "斯洛瓦科",
      "score": 1,
@@ -12038,7 +12038,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "拉尼奇1923",
      "score": 1,
@@ -12076,10 +12076,10 @@ const FOOTBALL_DATA = {
      "color": "667788"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "果阿",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
@@ -12208,7 +12208,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "埃及国家银行SC",
      "score": 1,
@@ -12274,7 +12274,7 @@ const FOOTBALL_DATA = {
      "color": "882266"
     },
     "time": "2026-10-28 22:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "阿拉毕科威特",
      "score": 2,
@@ -12690,7 +12690,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-28 23:05:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "納加馬安萘哉",
      "score": 1,
@@ -12768,7 +12768,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-28 23:05:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "查巴莱",
      "score": 0,
@@ -12846,7 +12846,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-10-28 23:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "哈德瑞马特",
      "score": 0,
@@ -12924,7 +12924,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-28 23:15:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "罗斯托夫",
      "score": 3,
