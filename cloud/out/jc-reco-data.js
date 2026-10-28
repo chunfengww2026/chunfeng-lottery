@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-28 20:23",
+ "updated": "2026-10-28 21:04",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -49,9 +49,39 @@ const JC_RECO_DATA = {
    "verdict": "红"
   },
   {
-   "at": "2026-10-28 20:23",
+   "at": "2026-10-28 21:04",
    "min": 58,
    "rows": [
+    {
+     "code": "周三002",
+     "time": "2026-10-28 18:00",
+     "league": "亚冠杯",
+     "home": "鹿岛鹿角",
+     "away": "浦项制铁",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.44,
+     "conf": 62.4,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三003",
+     "time": "2026-10-28 18:00",
+     "league": "日联杯",
+     "home": "横滨水手",
+     "away": "广岛三箭",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.48,
+     "conf": 61.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
     {
      "code": "周三004",
      "time": "2026-10-29 01:00",
@@ -78,36 +108,6 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.36,
      "conf": 70,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三009",
-     "time": "2026-10-29 02:00",
-     "league": "瑞典超",
-     "home": "布鲁马波",
-     "away": "赫根",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.5,
-     "conf": 58.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周三017",
-     "time": "2026-10-29 07:30",
-     "league": "美职联",
-     "home": "迈阿密国际",
-     "away": "辛辛那提",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.48,
-     "conf": 62.1,
      "score": "",
      "hit": null,
      "result": ""
