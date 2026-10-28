@@ -9,16 +9,16 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-28 13:10:15
+   更新时间：2026-10-28 13:48:42
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-10-28 13:10:15",
+ "updated": "2026-10-28 13:48:42",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=WIo%2F2qvRqGdIVuLIm8ekIr7A%2BpE%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=WIo%2F2qvRqGdIVuLIm8ekIr7A%2BpE%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=U5ccngVbSRzsuTD3oUHLME9zudY%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=b2spu2Ffwf%2F6gY%2BB0x9EIEfvS8Y%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=b2spu2Ffwf%2F6gY%2BB0x9EIEfvS8Y%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d9894f75db58424f9e1cacb957f7b682~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801872000&x-signature=Ze5F7An9aZbUG9WasHchZsEqw10%3D",
    "title": "今日竞彩分享：周三精选 4 场串关（二串一、三串一、四串一）",
    "url": "https://toutiao.com/group/7701579698010096189/",
    "at": "2026-10-28T05:10:15.154Z",
@@ -27,21 +27,23 @@ const XYSP_JC_DATA = {
    "game": "2串1",
    "games": [],
    "issue": "",
-   "seen": "2026-10-28T05:10:15.154Z",
+   "seen": "2026-10-28T05:48:42.866Z",
    "whenMs": 1793163773000,
-   "seenMs": 1793164215154,
+   "seenMs": 1793166522866,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793164215154,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-10-29T05:10:15.154Z",
+   "expireAt": "2026-10-29T05:48:42.866Z",
    "rule": "cap",
    "author": "小林通",
    "when": "2026-10-28 13:02:53",
    "postId": "7701579698010096189",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   }
  ],
  "firstSeenRegistry": {}
