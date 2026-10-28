@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-10-29 06:30 */
+/* 自动生成，请勿手动编辑 · 2026-10-29 07:13 */
 const JC_DATA = {
- "updated": "2026-10-29 06:30",
+ "updated": "2026-10-29 07:13",
  "stat": {
   "total": 17,
-  "upcoming": 2,
-  "live": 0,
+  "upcoming": 1,
+  "live": 1,
   "finished": 15,
-  "withScore": 15,
+  "withScore": 16,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -1671,7 +1671,10 @@ const JC_DATA = {
     "name": "巴西国际",
     "rank": 16
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -1753,9 +1756,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1358432",
@@ -1796,9 +1802,9 @@ const JC_DATA = {
       "away": 4.75
      },
      "live": {
-      "home": 1.57,
-      "draw": 5,
-      "away": 4.5
+      "home": 1.55,
+      "draw": 5.25,
+      "away": 4.75
      }
     },
     "overunder": {
@@ -1808,36 +1814,36 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 0.87,
+      "line": 0.92,
       "over": 4,
-      "under": 0.92
+      "under": 0.87
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 60.6,
+    "confidence": 61.1,
     "prob": {
-     "home": 60.6,
-     "draw": 19.3,
-     "away": 20.1
+     "home": 61.1,
+     "draw": 19.1,
+     "away": 19.8
     },
     "clear": true,
-    "margin": 5.9,
+    "margin": 4.6,
     "rqLine": "一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 60.6,
-      "draw": 19.3,
-      "away": 20.1
+      "home": 61.1,
+      "draw": 19.1,
+      "away": 19.8
      },
-     "confidence": 60.6,
+     "confidence": 61.1,
      "signals": [
-      "初盘→即时：主胜-0.7pp / 平局-0.7pp / 客胜+1.4pp",
+      "初盘→即时：主胜+0.8pp / 平局-1.4pp / 客胜+0.5pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -1848,16 +1854,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -4.9,
-      "draw": -3.3,
-      "away": -9.7
+      "home": -5.3,
+      "draw": 0.3,
+      "away": -6.1
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.4199347453038262,
-       "draw": 0.18932099303532718,
-       "away": 0.39074426166084664
+       "home": 0.4318013156614019,
+       "draw": 0.19075795899200654,
+       "away": 0.37744072534658996
       },
       "pick": "home",
       "label": "让胜"
