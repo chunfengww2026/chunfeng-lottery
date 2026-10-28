@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-29 04:02",
- "red": 3,
+ "updated": "2026-10-29 04:44",
+ "red": 4,
  "black": 1,
- "rate": "75.0%",
- "unfinished": 4,
+ "rate": "80.0%",
+ "unfinished": 3,
  "history": [
   {
    "dateStr": "2026-10-28 23:58",
@@ -48,7 +48,7 @@
   {
    "dateStr": "2026-10-28 23:00",
    "finishTime": 1793199600000,
-   "verdict": "",
+   "verdict": "黑",
    "matches": [
     {
      "matchNo": "周三002",
@@ -93,10 +93,10 @@
      "matchNo": "周三005",
      "teams": "威尼斯 vs 国际米兰",
      "pick": "客胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:2",
+     "result": "red",
      "confidence": 69.9,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793199600000,
      "league": "意甲",
      "odds": 1.38,
