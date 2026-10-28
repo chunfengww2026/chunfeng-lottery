@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-28 23:46
+   更新时间：2026-10-28 23:50
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-28 23:46",
+ "updated": "2026-10-28 23:50",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1990,7 +1990,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793197516000,
-     "seenMs": 1793201161685,
+     "seenMs": 1793202361713,
      "drawMs": 1793280600000,
      "nextMs": 1793280600000,
      "atMs": 1793201161685,
@@ -2020,7 +2020,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793197516000,
-     "seenMs": 1793201161685,
+     "seenMs": 1793202361713,
      "drawMs": 1793280600000,
      "nextMs": 1793280600000,
      "atMs": 1793201161685,
@@ -2050,7 +2050,7 @@ const XYSP_DATA = {
      "issue": "26123",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793192287000,
-     "seenMs": 1793201762388,
+     "seenMs": 1793202361713,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793199361619,
@@ -2110,7 +2110,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793190864000,
-     "seenMs": 1793201762388,
+     "seenMs": 1793202361713,
      "drawMs": 1793193300000,
      "nextMs": 1793193300000,
      "atMs": 1793199361619,
@@ -2290,7 +2290,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793185929000,
-     "seenMs": 1793201762388,
+     "seenMs": 1793202361713,
      "drawMs": 1793190600000,
      "nextMs": 1793190600000,
      "atMs": 1793199361619,
@@ -2320,7 +2320,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793185929000,
-     "seenMs": 1793201762388,
+     "seenMs": 1793202361713,
      "drawMs": 1793190600000,
      "nextMs": 1793190600000,
      "atMs": 1793199361619,
@@ -2800,7 +2800,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793176983000,
-     "seenMs": 1793201161685,
+     "seenMs": 1793202361713,
      "drawMs": 1793193300000,
      "nextMs": 1793193300000,
      "atMs": 1793199961581,
@@ -2830,7 +2830,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793176983000,
-     "seenMs": 1793201161685,
+     "seenMs": 1793202361713,
      "drawMs": 1793193300000,
      "nextMs": 1793193300000,
      "atMs": 1793199961581,
@@ -3040,7 +3040,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-28T15:46:01.713Z",
      "whenMs": 1793145635000,
-     "seenMs": 1793201161685,
+     "seenMs": 1793202361713,
      "drawMs": 1793194200000,
      "nextMs": 1793194200000,
      "atMs": 1793199961581,
@@ -3172,36 +3172,6 @@ const XYSP_DATA = {
      "author": "七色彩世界",
      "when": "2026-10-28 00:04:39",
      "postId": "7701358432552583743",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/995f4ece84e64c1d8a5d3bcd4c6ac9df~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=cpMoUIpjHv3qWvFqCNAJ1aeiDQo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/995f4ece84e64c1d8a5d3bcd4c6ac9df~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=cpMoUIpjHv3qWvFqCNAJ1aeiDQo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/995f4ece84e64c1d8a5d3bcd4c6ac9df~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=SuaD92dDz%2FDkHJL3JXLfN%2FRf8G0%3D",
-     "title": "大乐透第26122期晒票：万元大复式策略大转变，18+2组合亮相",
-     "url": "http://toutiao.com/item/7701375230555456042/",
-     "at": "2026-10-27T16:23:29.330Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26122",
-     "seen": "2026-10-27T18:46:01.905Z",
-     "whenMs": 1793116152000,
-     "seenMs": 1793126761905,
-     "drawMs": 1793190600000,
-     "nextMs": 1793190600000,
-     "atMs": 1793118209330,
-     "drawAt": "2026-10-28T12:30:00.000Z",
-     "nextAt": 1793190600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-28T16:23:29.330Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-27 23:49:12",
-     "postId": "7701375230555456042",
      "px": 132300
     }
    ]
