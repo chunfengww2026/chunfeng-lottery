@@ -147,6 +147,61 @@ const JC_RECO_DATA = {
    "miss": 0,
    "pending": 0,
    "verdict": "红"
+  },
+  {
+   "at": "2026-10-28 10:45",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周三002",
+     "time": "2026-10-28 18:00",
+     "league": "亚冠杯",
+     "home": "鹿岛鹿角",
+     "away": "浦项制铁",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.27,
+     "conf": 68.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三004",
+     "time": "2026-10-29 01:00",
+     "league": "德国杯",
+     "home": "帕德博恩",
+     "away": "斯图加特",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.55,
+     "conf": 60.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三005",
+     "time": "2026-10-29 01:30",
+     "league": "意甲",
+     "home": "威尼斯",
+     "away": "国际米兰",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.33,
+     "conf": 70.7,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 3,
+   "verdict": ""
   }
  ]
 };
