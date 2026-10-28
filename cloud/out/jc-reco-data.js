@@ -161,8 +161,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.33,
-     "conf": 67.3,
+     "odds": 1.4,
+     "conf": 66,
      "score": "",
      "hit": null,
      "result": ""
@@ -196,11 +196,26 @@ const JC_RECO_DATA = {
      "score": "",
      "hit": null,
      "result": ""
+    },
+    {
+     "code": "周三017",
+     "time": "2026-10-29 07:30",
+     "league": "美职联",
+     "home": "迈阿密国际",
+     "away": "辛辛那提",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.5,
+     "conf": 61.6,
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
    "hit": null,
    "miss": null,
-   "pending": 3,
+   "pending": 4,
    "verdict": ""
   }
  ]
