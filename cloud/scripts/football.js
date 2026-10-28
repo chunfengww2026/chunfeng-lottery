@@ -1,85 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-28 10:21 */
+/* 自动生成，请勿手动编辑 · 2026-10-28 11:12 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-28 10:21",
+ "updated": "2026-10-28 11:12",
  "stat": {
   "upcoming": 0,
-  "live": 2,
-  "finished": 7,
+  "live": 1,
+  "finished": 8,
   "total": 9,
   "settled": true,
   "hit": 5,
-  "miss": 2,
-  "rate": 71.4
+  "miss": 3,
+  "rate": 62.5
  },
  "lists": {
   "upcoming": [],
   "live": [
-   {
-    "gid": 588825,
-    "kind": "live",
-    "league": {
-     "name": "哥倫甲",
-     "color": "993333"
-    },
-    "time": "2026-10-28 09:05:00",
-    "minute": 57,
-    "home": {
-     "name": "博亚卡捷高",
-     "score": 0,
-     "red": 0,
-     "rank": 16
-    },
-    "away": {
-     "name": "巴兰基利亚青年",
-     "score": 0,
-     "red": 0,
-     "rank": 15
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.82",
-       "away": 1
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "1",
-       "over": 1.06,
-       "under": 0.74
-      },
-      "live": null
-     },
-     "europe": {
-      "open": {
-       "home": 3.35,
-       "draw": 3.35,
-       "away": 2.07
-      },
-      "live": null
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 44.7,
-     "prob": {
-      "home": 27.6,
-      "draw": 27.6,
-      "away": 44.7
-     },
-     "clear": false,
-     "margin": 8
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "0 - 0"
-    }
-   },
    {
     "gid": 589674,
     "kind": "live",
@@ -88,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-28 10:00:00",
-    "minute": 15,
+    "minute": 49,
     "home": {
      "name": "阿利安萨圣萨尔瓦多",
      "score": 0,
@@ -105,51 +39,39 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "0.91",
-       "away": 0.91
+       "line": "0.85",
+       "away": 0.97
       },
-      "live": {
-       "home": 0,
-       "line": "0.88",
-       "away": 0.94
-      }
+      "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.25",
-       "over": 0.86,
-       "under": 0.94
-      },
-      "live": {
-       "line": "0.75",
+       "line": "1.25",
        "over": 1.02,
        "under": 0.78
-      }
+      },
+      "live": null
      },
      "europe": {
       "open": {
-       "home": 2.52,
-       "draw": 2.52,
-       "away": 3.1
+       "home": 2.94,
+       "draw": 3.15,
+       "away": 2.16
       },
-      "live": {
-       "home": 3.55,
-       "draw": 3.55,
-       "away": 1.8
-      }
+      "live": null
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 49.7,
+     "confidence": 41.3,
      "prob": {
-      "home": 25.2,
-      "draw": 25.2,
-      "away": 49.7
+      "home": 30.4,
+      "draw": 28.3,
+      "away": 41.3
      },
-     "clear": true,
-     "margin": 11.9
+     "clear": false,
+     "margin": 12.1
     },
     "result": {
      "actual": "draw",
@@ -688,6 +610,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "主胜",
      "hit": true,
      "score": "2 - 0"
+    }
+   },
+   {
+    "gid": 588825,
+    "kind": "finished",
+    "league": {
+     "name": "哥倫甲",
+     "color": "993333"
+    },
+    "time": "2026-10-28 09:05:00",
+    "minute": 0,
+    "home": {
+     "name": "博亚卡捷高",
+     "score": 1,
+     "red": 0,
+     "rank": 16
+    },
+    "away": {
+     "name": "巴兰基利亚青年",
+     "score": 1,
+     "red": 0,
+     "rank": 15
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "1.09",
+       "away": 0.8
+      },
+      "live": {
+       "home": 0,
+       "line": "1.04",
+       "away": 0.84
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.25",
+       "over": 0.88,
+       "under": 0.98
+      },
+      "live": {
+       "line": "1",
+       "over": 1.09,
+       "under": 0.77
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.82,
+       "draw": 2.42,
+       "away": 3.2
+      },
+      "live": {
+       "home": 3.3,
+       "draw": 3,
+       "away": 2.15
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 42.2,
+     "prob": {
+      "home": 27.5,
+      "draw": 30.3,
+      "away": 42.2
+     },
+     "clear": false,
+     "margin": 10.1
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    }
   ]
