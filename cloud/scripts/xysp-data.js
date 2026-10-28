@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-29 00:00
+   更新时间：2026-10-29 00:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-29 00:00",
+ "updated": "2026-10-29 00:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -489,6 +489,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-28/ce4fd2b7-0d1b-4ccf-a8b4-c64029c3ce551793201415541.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-28/ce4fd2b7-0d1b-4ccf-a8b4-c64029c3ce551793201415541.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26288期]🈚",
+     "url": "",
+     "at": "2026-10-28T16:05:02.725Z",
+     "pubAt": "2026-10-28T15:30:00.000Z",
+     "pubMs": 1793201400000,
+     "pubSrc": "page",
+     "nextAt": 1793279700000,
+     "atMs": 1793203502725,
+     "seenMs": 1793203502725,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-28/05b49047-b75f-4e16-a4f3-b18057f3bcd51793196095847.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-28/05b49047-b75f-4e16-a4f3-b18057f3bcd51793196095847.jpg?imageMogr2/thumbnail/360x",
@@ -3143,36 +3157,6 @@ const XYSP_DATA = {
      "when": "2026-10-28 00:55:47",
      "postId": "7701392390723994112",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cb4264c16fba4bb8919e21518dfab708~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=dkTdFrobfBPVCoUywvqJD3mWphk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cb4264c16fba4bb8919e21518dfab708~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=dkTdFrobfBPVCoUywvqJD3mWphk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18e2bbe1db234f0d865b2fc9497cdf39~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801785600&x-signature=bMaDRPUAumB%2FUtunOsbZMPUOcpo%3D",
-     "title": "双色球第26123期中出5注一等奖+96注二等奖！3张万元票献爱心！",
-     "url": "https://toutiao.com/group/7701358432552583743/",
-     "at": "2026-10-27T16:12:19.355Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26123",
-     "seen": "2026-10-27T18:36:01.854Z",
-     "whenMs": 1793117079000,
-     "seenMs": 1793126161854,
-     "drawMs": 1793279700000,
-     "nextMs": 1793279700000,
-     "atMs": 1793117539355,
-     "drawAt": "2026-10-29T13:15:00.000Z",
-     "nextAt": 1793279700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-28T16:12:19.355Z",
-     "rule": "first-capture-24h",
-     "author": "七色彩世界",
-     "when": "2026-10-28 00:04:39",
-     "postId": "7701358432552583743",
-     "px": 132300
     }
    ]
   },
@@ -4093,6 +4077,7 @@ const XYSP_DATA = {
   "/2026-10-28/84138769-fd1d-450e-a9ac-aaed45f3e19e1793197522583.jpg": 1793200202057,
   "/2026-10-28/1c8a8134-47e9-4057-943b-06bfc0f640a01793197439331.jpg": 1793201102357,
   "/2026-10-28/a43e1b1f-74cb-4fc2-89bf-27b90cfe15681793192258481.jpg": 1793201702344,
-  "/2026-10-28/3a1798be-a5a2-46a0-be31-4a2ca2c8cc0b1793192258494.jpg": 1793201702344
+  "/2026-10-28/3a1798be-a5a2-46a0-be31-4a2ca2c8cc0b1793192258494.jpg": 1793201702344,
+  "/2026-10-28/ce4fd2b7-0d1b-4ccf-a8b4-c64029c3ce551793201415541.jpg": 1793203502725
  }
 };
