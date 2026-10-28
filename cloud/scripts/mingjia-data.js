@@ -1,7 +1,100 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/28 09:53:57） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/28 10:39:58） */
 const MINGJIA_DATA = {
- "updated": "2026-10-28 09:53:57",
+ "updated": "2026-10-28 10:39:58",
  "list": [
+  {
+   "name": "金枪鱼",
+   "cat": "双色球",
+   "kw": "金枪鱼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青云万里",
+   "cat": "双色球",
+   "kw": "青云万里 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T00:13:33.797Z"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 88769,
+     "src": "https://pic.cz89.com/upload/20250622/0431a3c1de8540a9b4ca2227fb1090f3.jpg",
+     "page": "https://www.cz89.com/read_9434621.htm",
+     "title": "牛魔王杀两码红球071期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T02:39:09.218Z"
+    }
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "3D字谜",
+   "cat": "3D",
+   "kw": "3D字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/3D字谜/1.png",
+     "size": 362476,
+     "src": "https://pic.cz89.com/upload/20260625/3acda3974e1a454c85e627660c2d6636.png",
+     "page": "https://www.cz89.com/read_10514467.htm",
+     "title": "牛彩版3D字谜彩报图26年166期打印版_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T02:39:29.579Z"
+    }
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "imgs": []
+  },
   {
    "name": "迷公",
    "cat": "大乐透",
@@ -38,12 +131,6 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "金手指",
-   "cat": "大乐透",
-   "kw": "金手指 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "太湖字谜",
    "cat": "3D",
    "kw": "太湖字谜 3D 字谜 参考图",
@@ -58,43 +145,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-28T01:53:08.875Z"
     }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "3D",
-   "kw": "迷公 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "3D",
-   "kw": "桃子姐 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "3D",
-   "kw": "貂蝉杀 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "3D",
-   "kw": "名家精 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "3D",
-   "kw": "白天鹅 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "百合花",
-   "cat": "3D",
-   "kw": "百合花 3D 字谜 参考图",
-   "imgs": []
+   ],
+   "stale": true
   },
   {
    "name": "太湖字谜",
@@ -110,71 +162,6 @@ const MINGJIA_DATA = {
      "issue": "2022132",
      "verified": false,
      "fetchedAt": "2026-10-28T01:53:44.300Z"
-    }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "排列三",
-   "kw": "迷公 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "排列三",
-   "kw": "桃子姐 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "南山大师",
-   "cat": "双色球",
-   "kw": "南山大师 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 60014,
-     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
-     "page": "https://www.cz89.com/read_7588481.htm",
-     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T00:13:33.797Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113487,
-     "src": "https://pic.cz89.com/upload/20221214/cfbff33f709b44a1abfc7fc855856015.jpg",
-     "page": "https://www.cz89.com/read_7355500.htm",
-     "title": "牛魔王杀两码红球144期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T00:13:37.604Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "3D字谜",
-   "cat": "3D",
-   "kw": "3D字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 243075,
-     "src": "https://3dzimijinrizimizonghui.com.cn/1.png",
-     "page": "https://3dzimijinrizimizonghui.com.cn/",
-     "title": "3D字谜今日字谜总汇 - 每日更新最新3D字谜、太湖字谜、解谜技巧",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T00:13:57.830Z"
     }
    ],
    "stale": true
@@ -504,45 +491,57 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "金枪鱼",
-   "cat": "双色球",
-   "kw": "金枪鱼 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青云万里",
-   "cat": "双色球",
-   "kw": "青云万里 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "鲤鱼得财",
-   "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "朱大姐",
-   "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "闪享",
+   "name": "金手指",
    "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "kw": "金手指 大乐透 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "name": "迷公",
+   "cat": "3D",
+   "kw": "迷公 3D 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "大乐透",
-   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "name": "桃子姐",
+   "cat": "3D",
+   "kw": "桃子姐 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "3D",
+   "kw": "貂蝉杀 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
    "imgs": []
   },
   {
@@ -607,11 +606,6 @@ const MINGJIA_DATA = {
   }
  ],
  "history": [
-  {
-   "at": "2026-10-26 00:17:36",
-   "names": 71,
-   "imgs": 14
-  },
   {
    "at": "2026-10-26 00:47:45",
    "names": 71,
@@ -724,6 +718,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-28 09:53:57",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-10-28 10:39:58",
    "names": 71,
    "imgs": 15
   }

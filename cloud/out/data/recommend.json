@@ -1,10 +1,56 @@
 {
- "updated": "2026-10-28 09:59",
+ "updated": "2026-10-28 10:45",
  "red": 2,
  "black": 0,
  "rate": "100.0%",
- "unfinished": 0,
+ "unfinished": 1,
  "history": [
+  {
+   "dateStr": "2026-10-28 10:45",
+   "finishTime": 1793155500000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周三002",
+     "teams": "鹿岛鹿角 vs 浦项制铁",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.3,
+     "status": "pending",
+     "finishTime": 1793155500000,
+     "league": "亚冠杯",
+     "odds": 1.27,
+     "time": "2026-10-28 18:00"
+    },
+    {
+     "matchNo": "周三004",
+     "teams": "帕德博恩 vs 斯图加特",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.5,
+     "status": "pending",
+     "finishTime": 1793155500000,
+     "league": "德国杯",
+     "odds": 1.55,
+     "time": "2026-10-29 01:00"
+    },
+    {
+     "matchNo": "周三005",
+     "teams": "威尼斯 vs 国际米兰",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 70.7,
+     "status": "pending",
+     "finishTime": 1793155500000,
+     "league": "意甲",
+     "odds": 1.33,
+     "time": "2026-10-29 01:30"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-28 00:23",
    "finishTime": 1793118180000,
