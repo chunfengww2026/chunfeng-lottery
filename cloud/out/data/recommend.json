@@ -1,41 +1,15 @@
 {
- "updated": "2026-10-28 19:36",
+ "updated": "2026-10-28 20:23",
  "red": 2,
  "black": 0,
  "rate": "100.0%",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-10-28 19:36",
-   "finishTime": 1793187360000,
+   "dateStr": "2026-10-28 20:23",
+   "finishTime": 1793190180000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周三002",
-     "teams": "鹿岛鹿角 vs 浦项制铁",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 62.4,
-     "status": "pending",
-     "finishTime": 1793187360000,
-     "league": "亚冠杯",
-     "odds": 1.44,
-     "time": "2026-10-28 18:00"
-    },
-    {
-     "matchNo": "周三003",
-     "teams": "横滨水手 vs 广岛三箭",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.5,
-     "status": "pending",
-     "finishTime": 1793187360000,
-     "league": "日联杯",
-     "odds": 1.48,
-     "time": "2026-10-28 18:00"
-    },
     {
      "matchNo": "周三004",
      "teams": "帕德博恩 vs 斯图加特",
@@ -44,7 +18,7 @@
      "result": "pending",
      "confidence": 60.4,
      "status": "pending",
-     "finishTime": 1793187360000,
+     "finishTime": 1793190180000,
      "league": "德国杯",
      "odds": 1.57,
      "time": "2026-10-29 01:00"
@@ -55,9 +29,9 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 70.4,
+     "confidence": 70,
      "status": "pending",
-     "finishTime": 1793187360000,
+     "finishTime": 1793190180000,
      "league": "意甲",
      "odds": 1.36,
      "time": "2026-10-29 01:30"
@@ -68,11 +42,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 58.5,
+     "confidence": 58.4,
      "status": "pending",
-     "finishTime": 1793187360000,
+     "finishTime": 1793190180000,
      "league": "瑞典超",
-     "odds": 1.46,
+     "odds": 1.5,
      "time": "2026-10-29 02:00"
     },
     {
@@ -81,11 +55,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 61.6,
+     "confidence": 62.1,
      "status": "pending",
-     "finishTime": 1793187360000,
+     "finishTime": 1793190180000,
      "league": "美职联",
-     "odds": 1.5,
+     "odds": 1.48,
      "time": "2026-10-29 07:30"
     }
    ]
