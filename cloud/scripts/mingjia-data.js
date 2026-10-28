@@ -103,6 +103,82 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "名家精",
+   "cat": "3D",
+   "kw": "名家精 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "3D",
+   "kw": "白天鹅 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.png",
+     "size": 180963,
+     "src": "https://www.17500.cn/Public/Upload/art/202307/1688909218760314.png",
+     "page": "https://www.17500.cn/arts/detail-1296755.html",
+     "title": "排列3第2023181期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2023181",
+     "verified": false,
+     "fetchedAt": "2026-10-28T14:37:20.885Z"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万里挑一",
+   "cat": "排列三",
+   "kw": "万里挑一 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/万里挑一/1.png",
+     "size": 244296,
+     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170940ar2i7i5sriuytqiy.png",
+     "page": "https://99.weicainet.com/t-1244150.html",
+     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by Discuz!",
+     "issue": "26096",
+     "verified": false,
+     "fetchedAt": "2026-10-27T20:37:59.539Z"
+    }
+   ]
+  },
+  {
    "name": "牛魔王",
    "cat": "双色球",
    "kw": "牛魔王 双色球 字谜 参考图",
@@ -152,24 +228,6 @@ const MINGJIA_DATA = {
      "issue": "18043",
      "verified": false,
      "fetchedAt": "2026-10-27T18:47:06.391Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/万里挑一/1.png",
-     "size": 244296,
-     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170940ar2i7i5sriuytqiy.png",
-     "page": "https://99.weicainet.com/t-1244150.html",
-     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by ...",
-     "issue": "26096",
-     "verified": false,
-     "fetchedAt": "2026-10-27T20:37:59.539Z"
     }
    ],
    "stale": true
