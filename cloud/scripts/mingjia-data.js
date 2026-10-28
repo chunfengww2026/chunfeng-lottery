@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/29 02:20:55） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/29 03:04:30） */
 const MINGJIA_DATA = {
- "updated": "2026-10-29 02:20:55",
+ "updated": "2026-10-29 03:04:30",
  "list": [
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "白天鹅",
    "cat": "双色球",
@@ -86,14 +62,14 @@ const MINGJIA_DATA = {
    "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 103273,
-     "src": "https://pic.cz89.com/upload/20250213/158e69b38a354c40b303cc10bb612837.jpg",
-     "page": "https://www.cz89.com/read_9143912.htm",
-     "title": "南山大师杀两红016期双色球图谜 _牛彩网",
+     "file": "imgs/mingjia/双色球/南山大师/1.webp",
+     "size": 22370,
+     "src": "https://pic1.800820.net/tumi/20260327/dcbdd5c4121342f99d5e865c69944364.webp",
+     "page": "https://www.800820.net/p/10899064.html",
+     "title": "双色球26年034期南山大师杀两红图谜_天齐网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-28T18:20:52.226Z"
+     "fetchedAt": "2026-10-28T19:03:33.963Z"
     }
    ]
   },
@@ -103,17 +79,45 @@ const MINGJIA_DATA = {
    "kw": "牛魔王 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 113487,
-     "src": "https://pic.cz89.com/upload/20221214/cfbff33f709b44a1abfc7fc855856015.jpg",
-     "page": "https://www.cz89.com/read_7355500.htm",
-     "title": "牛魔王杀两码红球144期双色球图谜_牛彩网",
+     "file": "imgs/mingjia/双色球/牛魔王/1.png",
+     "size": 95536,
+     "src": "https://pic.cz89.com/upload/20251125/5d856bc58662437c89fbb4dba5e803a8.png",
+     "page": "https://www.cz89.com/read_9820624.htm",
+     "title": "牛魔王杀两码红球137期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-28T15:16:13.140Z"
+     "fetchedAt": "2026-10-28T19:04:11.317Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/排三字谜/1.png",
+     "size": 471300,
+     "src": "https://www.rzduoli.com/zb_users/cache/ly_autoimg/n/NTQzMzI.png",
+     "page": "https://www.rzduoli.com/zhishi/54332.html",
+     "title": "排三字谜，藏在数字里的民间体育趣味密码 - 多利网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T16:46:48.248Z"
+    }
+   ]
   },
   {
    "name": "3D字谜",
@@ -165,24 +169,6 @@ const MINGJIA_DATA = {
      "issue": "2024146",
      "verified": false,
      "fetchedAt": "2026-10-28T16:45:49.929Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/排三字谜/1.png",
-     "size": 582892,
-     "src": "https://www.rzduoli.com/zb_users/cache/ly_autoimg/n/NTQzMzI.png",
-     "page": "https://www.rzduoli.com/zhishi/54332.html",
-     "title": "排三字谜，藏在数字里的民间体育趣味密码 - 多利网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T16:46:48.248Z"
     }
    ],
    "stale": true
@@ -470,15 +456,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -634,11 +632,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-25 22:17:37",
-   "names": 71,
-   "imgs": 15
-  },
-  {
    "at": "2026-10-25 22:47:22",
    "names": 71,
    "imgs": 15
@@ -750,6 +743,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-29 02:20:55",
+   "names": 71,
+   "imgs": 17
+  },
+  {
+   "at": "2026-10-29 03:04:30",
    "names": 71,
    "imgs": 17
   }
