@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-29 03:15",
- "red": 2,
+ "updated": "2026-10-29 04:02",
+ "red": 3,
  "black": 1,
- "rate": "66.7%",
+ "rate": "75.0%",
  "unfinished": 4,
  "history": [
   {
@@ -80,10 +80,10 @@
      "matchNo": "周三004",
      "teams": "帕德博恩 vs 斯图加特",
      "pick": "客胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:1",
+     "result": "red",
      "confidence": 60.4,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793199600000,
      "league": "德国杯",
      "odds": 1.57,
