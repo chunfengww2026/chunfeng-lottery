@@ -167,6 +167,31 @@ const JC_RECO_DATA = {
    "miss": 1,
    "pending": 0,
    "verdict": "黑"
+  },
+  {
+   "at": "2026-10-29 06:40",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周三013",
+     "time": "2026-10-29 03:45",
+     "league": "意甲",
+     "home": "蒙扎",
+     "away": "那不勒斯",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.57,
+     "conf": 60.7,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   }
  ]
 };
