@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:11:20.653Z",
+  "updated": "2026-10-28T15:05:49.951Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
@@ -48,6 +48,11 @@
     ],
     "dlt": [
       {
+        "title": "大乐透头奖11注575万",
+        "date": "2026-10-28",
+        "url": "https://sports.sina.com.cn/l/2026-10-28/doc-iniwuzmt5793654.shtml"
+      },
+      {
         "title": "精选大乐透推荐：金心、崔现东同中一等1019万",
         "date": "2026-10-28",
         "url": "https://sports.sina.com.cn/l/2026-10-28/doc-iniwttse3489048.shtml"
@@ -81,11 +86,6 @@
         "title": "123期顾小康大乐透预测奖号：后区推荐",
         "date": "2026-10-28",
         "url": "https://sports.sina.com.cn/l/2026-10-28/doc-iniwttsa6642803.shtml"
-      },
-      {
-        "title": "123期马德文大乐透预测奖号：和值走势推荐",
-        "date": "2026-10-28",
-        "url": "https://sports.sina.com.cn/l/2026-10-28/doc-iniwttsf9731498.shtml"
       }
     ],
     "fc3d": [
