@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-28 17:55",
+ "updated": "2026-10-28 18:52",
  "red": 2,
  "black": 0,
  "rate": "100.0%",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-10-28 17:55",
-   "finishTime": 1793181300000,
+   "dateStr": "2026-10-28 18:52",
+   "finishTime": 1793184720000,
    "verdict": "",
    "matches": [
     {
@@ -16,11 +16,24 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 66,
+     "confidence": 62.4,
      "status": "pending",
-     "finishTime": 1793181300000,
+     "finishTime": 1793184720000,
      "league": "亚冠杯",
-     "odds": 1.4,
+     "odds": 1.44,
+     "time": "2026-10-28 18:00"
+    },
+    {
+     "matchNo": "周三003",
+     "teams": "横滨水手 vs 广岛三箭",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.5,
+     "status": "pending",
+     "finishTime": 1793184720000,
+     "league": "日联杯",
+     "odds": 1.48,
      "time": "2026-10-28 18:00"
     },
     {
@@ -31,7 +44,7 @@
      "result": "pending",
      "confidence": 60.8,
      "status": "pending",
-     "finishTime": 1793181300000,
+     "finishTime": 1793184720000,
      "league": "德国杯",
      "odds": 1.55,
      "time": "2026-10-29 01:00"
@@ -44,7 +57,7 @@
      "result": "pending",
      "confidence": 70.4,
      "status": "pending",
-     "finishTime": 1793181300000,
+     "finishTime": 1793184720000,
      "league": "意甲",
      "odds": 1.36,
      "time": "2026-10-29 01:30"
@@ -57,7 +70,7 @@
      "result": "pending",
      "confidence": 61.6,
      "status": "pending",
-     "finishTime": 1793181300000,
+     "finishTime": 1793184720000,
      "league": "美职联",
      "odds": 1.5,
      "time": "2026-10-29 07:30"
