@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-28 22:49",
+ "updated": "2026-10-28 23:07",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -38,20 +38,50 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.4,
      "conf": 68.1,
-     "score": "3:2",
-     "hit": true,
-     "result": "win"
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   },
   {
-   "at": "2026-10-28 22:49",
+   "at": "2026-10-28 23:00",
    "min": 58,
    "rows": [
+    {
+     "code": "周三002",
+     "time": "2026-10-28 18:00",
+     "league": "亚冠杯",
+     "home": "鹿岛鹿角",
+     "away": "浦项制铁",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.44,
+     "conf": 62.4,
+     "score": "3:0",
+     "hit": true,
+     "result": "win"
+    },
+    {
+     "code": "周三003",
+     "time": "2026-10-28 18:00",
+     "league": "日联杯",
+     "home": "横滨水手",
+     "away": "广岛三箭",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.48,
+     "conf": 61.5,
+     "score": "4:3",
+     "hit": false,
+     "result": "lose"
+    },
     {
      "code": "周三004",
      "time": "2026-10-29 01:00",
@@ -76,27 +106,22 @@ const JC_RECO_DATA = {
      "pick": "away",
      "label": "客胜",
      "type": "three",
-     "odds": 1.4,
-     "conf": 69.6,
+     "odds": 1.38,
+     "conf": 69.9,
      "score": "",
      "hit": null,
      "result": ""
-    },
-    {
-     "code": "周三009",
-     "time": "2026-10-29 02:00",
-     "league": "瑞典超",
-     "home": "布鲁马波",
-     "away": "赫根",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.5,
-     "conf": 58.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 2,
+   "verdict": ""
+  },
+  {
+   "at": "2026-10-28 23:04",
+   "min": 58,
+   "rows": [
     {
      "code": "周三017",
      "time": "2026-10-29 07:30",
@@ -106,8 +131,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.48,
-     "conf": 62.1,
+     "odds": 1.45,
+     "conf": 62.4,
      "score": "",
      "hit": null,
      "result": ""
@@ -115,7 +140,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 1,
    "verdict": ""
   }
  ]

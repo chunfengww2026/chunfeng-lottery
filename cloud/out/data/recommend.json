@@ -1,15 +1,61 @@
 {
- "updated": "2026-10-28 22:49",
+ "updated": "2026-10-28 23:07",
  "red": 2,
- "black": 0,
- "rate": "100.0%",
- "unfinished": 1,
+ "black": 1,
+ "rate": "66.7%",
+ "unfinished": 3,
  "history": [
   {
-   "dateStr": "2026-10-28 22:49",
-   "finishTime": 1793198940000,
+   "dateStr": "2026-10-28 23:04",
+   "finishTime": 1793199840000,
    "verdict": "",
    "matches": [
+    {
+     "matchNo": "周三017",
+     "teams": "迈阿密国际 vs 辛辛那提",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 62.4,
+     "status": "pending",
+     "finishTime": 1793199840000,
+     "league": "美职联",
+     "odds": 1.45,
+     "time": "2026-10-29 07:30"
+    }
+   ]
+  },
+  {
+   "dateStr": "2026-10-28 23:00",
+   "finishTime": 1793199600000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周三002",
+     "teams": "鹿岛鹿角 vs 浦项制铁",
+     "pick": "主胜",
+     "score": "3:0",
+     "result": "red",
+     "confidence": 62.4,
+     "status": "finished",
+     "finishTime": 1793199600000,
+     "league": "亚冠杯",
+     "odds": 1.44,
+     "time": "2026-10-28 18:00"
+    },
+    {
+     "matchNo": "周三003",
+     "teams": "横滨水手 vs 广岛三箭",
+     "pick": "客胜",
+     "score": "4:3",
+     "result": "black",
+     "confidence": 61.5,
+     "status": "finished",
+     "finishTime": 1793199600000,
+     "league": "日联杯",
+     "odds": 1.48,
+     "time": "2026-10-28 18:00"
+    },
     {
      "matchNo": "周三004",
      "teams": "帕德博恩 vs 斯图加特",
@@ -18,7 +64,7 @@
      "result": "pending",
      "confidence": 60.4,
      "status": "pending",
-     "finishTime": 1793198940000,
+     "finishTime": 1793199600000,
      "league": "德国杯",
      "odds": 1.57,
      "time": "2026-10-29 01:00"
@@ -29,45 +75,19 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 69.6,
+     "confidence": 69.9,
      "status": "pending",
-     "finishTime": 1793198940000,
+     "finishTime": 1793199600000,
      "league": "意甲",
-     "odds": 1.4,
+     "odds": 1.38,
      "time": "2026-10-29 01:30"
-    },
-    {
-     "matchNo": "周三009",
-     "teams": "布鲁马波 vs 赫根",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 58.4,
-     "status": "pending",
-     "finishTime": 1793198940000,
-     "league": "瑞典超",
-     "odds": 1.5,
-     "time": "2026-10-29 02:00"
-    },
-    {
-     "matchNo": "周三017",
-     "teams": "迈阿密国际 vs 辛辛那提",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 62.1,
-     "status": "pending",
-     "finishTime": 1793198940000,
-     "league": "美职联",
-     "odds": 1.48,
-     "time": "2026-10-29 07:30"
     }
    ]
   },
   {
    "dateStr": "2026-10-28 00:23",
    "finishTime": 1793118180000,
-   "verdict": "红",
+   "verdict": "",
    "matches": [
     {
      "matchNo": "周二009",
@@ -86,10 +106,10 @@
      "matchNo": "周二007",
      "teams": "多特蒙德 vs 不来梅",
      "pick": "主胜",
-     "score": "3:2",
-     "result": "red",
+     "score": "—",
+     "result": "pending",
      "confidence": 68.1,
-     "status": "finished",
+     "status": "pending",
      "finishTime": 1793118180000,
      "league": "德国杯",
      "odds": 1.4,
