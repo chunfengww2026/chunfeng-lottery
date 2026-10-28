@@ -11906,7 +11906,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-10-28 21:45:00",
-    "minute": 85,
+    "minute": 87,
     "home": {
      "name": "高尔高赫",
      "score": 0,
@@ -11972,7 +11972,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-10-28 21:45:00",
-    "minute": 83,
+    "minute": 85,
     "home": {
      "name": "纳萨夫",
      "score": 0,
@@ -12038,7 +12038,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "拉尼奇1923",
      "score": 1,
@@ -12047,7 +12047,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "泽伦斯尼卡潘切沃",
-     "score": 3,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -12076,7 +12076,7 @@ const FOOTBALL_DATA = {
      "color": "667788"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 68,
+    "minute": 69,
     "home": {
      "name": "果阿",
      "score": 0,
@@ -12142,7 +12142,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "亨克U19",
      "score": 1,
@@ -12208,7 +12208,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-28 22:00:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "埃及国家银行SC",
      "score": 1,
@@ -12340,7 +12340,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-10-28 23:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "兹林尼斯基U19",
      "score": 1,
@@ -12418,7 +12418,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-10-28 23:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "提比利錫戴拿模U19",
      "score": 2,
@@ -12496,7 +12496,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-28 23:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "德国女足U17",
      "score": 0,
@@ -12534,7 +12534,7 @@ const FOOTBALL_DATA = {
      "color": "1804D0"
     },
     "time": "2026-10-28 23:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "艾华迪堡",
      "score": 2,
@@ -12612,7 +12612,7 @@ const FOOTBALL_DATA = {
      "color": "99a629"
     },
     "time": "2026-10-28 23:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "萨卡里亚士邦",
      "score": 0,
@@ -12690,7 +12690,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-28 23:05:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "納加馬安萘哉",
      "score": 1,
@@ -12768,7 +12768,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-10-28 23:05:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "查巴莱",
      "score": 0,
@@ -12846,7 +12846,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-10-28 23:15:00",
-    "minute": 12,
+    "minute": 14,
     "home": {
      "name": "哈德瑞马特",
      "score": 0,
@@ -12924,7 +12924,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-28 23:15:00",
-    "minute": 9,
+    "minute": 11,
     "home": {
      "name": "罗斯托夫",
      "score": 1,
