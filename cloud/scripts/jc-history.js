@@ -171,61 +171,6 @@ const JC_HISTORY = {
    "at": "2026-10-28 22:58"
   },
   {
-   "code": "周二007",
-   "league": "德国杯",
-   "home": "多特蒙德",
-   "away": "不来梅",
-   "time": "2026-10-28 03:45",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "球半",
-    "from": "live",
-    "handicap": -1.5,
-    "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": -1.5,
-    "openUpWater": 0.95,
-    "openDownWater": 0.9,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -1.5,
-     "nowHandicap": -1.5,
-     "initUpWater": 0.95,
-     "nowUpWater": 1.02,
-     "initLine": "球半",
-     "nowLine": "球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.38,
-    "draw": 5,
-    "away": 7
-   },
-   "prob": {
-    "home": 68.3,
-    "draw": 18.7,
-    "away": 12.9
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 68.3,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-28 22:58"
-  },
-  {
    "code": "周二008",
    "league": "德国杯",
    "home": "科隆",
@@ -388,6 +333,61 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
+   "at": "2026-10-28 22:58"
+  },
+  {
+   "code": "周二007",
+   "league": "德国杯",
+   "home": "多特蒙德",
+   "away": "不来梅",
+   "time": "2026-10-28 03:45",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "球半",
+    "from": "live",
+    "handicap": -1.5,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.82,
+    "openHandicap": -1.5,
+    "openUpWater": 0.95,
+    "openDownWater": 0.9,
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "44.57",
+    "theoryDownPercent": "55.43",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -1.5,
+     "nowHandicap": -1.5,
+     "initUpWater": 0.95,
+     "nowUpWater": 1.02,
+     "initLine": "球半",
+     "nowLine": "球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.38,
+    "draw": 5,
+    "away": 7
+   },
+   "prob": {
+    "home": 68.3,
+    "draw": 18.7,
+    "away": 12.9
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 68.3,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
    "at": "2026-10-28 22:58"
   },
   {
