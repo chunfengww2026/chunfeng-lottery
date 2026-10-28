@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-28 23:07",
+ "updated": "2026-10-29 00:11",
  "red": 2,
  "black": 1,
  "rate": "66.7%",
- "unfinished": 3,
+ "unfinished": 4,
  "history": [
+  {
+   "dateStr": "2026-10-28 23:58",
+   "finishTime": 1793203080000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周三009",
+     "teams": "布鲁马波 vs 赫根",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.7,
+     "status": "pending",
+     "finishTime": 1793203080000,
+     "league": "瑞典超",
+     "odds": 1.5,
+     "time": "2026-10-29 02:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-28 23:04",
    "finishTime": 1793199840000,
