@@ -1,53 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/29 04:39:45） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/29 05:29:15） */
 const MINGJIA_DATA = {
- "updated": "2026-10-29 04:39:45",
+ "updated": "2026-10-29 05:29:15",
  "list": [
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/司马迁/1.webp",
-     "size": 51216,
-     "src": "https://pic1.800820.net/tumi/20260121/af92e6ac1c3a4aa1b63e85ee24eace1d.webp",
-     "page": "https://www.800820.net/p/10732793.html",
-     "title": "司马迁26年010期双色球杀蓝球图谜_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T20:38:29.436Z"
-    }
-   ]
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/枣庄红人/1.webp",
-     "size": 65094,
-     "src": "https://pic1.800820.net/tumi/20260204/ced0793cfd814f2091d220ca2b20e39e.webp",
-     "page": "https://www.800820.net/p/10775194.html",
-     "title": "枣庄红人26年016期杀双色球蓝球图迷_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T15:46:30.208Z"
-    }
-   ]
-  },
-  {
-   "name": "一品红",
-   "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "夏天",
    "cat": "双色球",
@@ -109,19 +63,83 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "南山大师",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/南山大师/1.webp",
-     "size": 25812,
-     "src": "https://pic1.800820.net/tumi/20260410/1a65450301d247f1b68fce8d603e145f.webp",
-     "page": "https://www.800820.net/p/10942104.html",
-     "title": "双色球26年040期南山大师杀两红图谜_天齐网",
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-10-28T19:56:19.695Z"
+     "fetchedAt": "2026-10-28T21:29:08.610Z"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 98839,
+     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
+     "page": "https://www.cz89.com/read_9192830.htm",
+     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T19:10:41.623Z"
+    }
+   ]
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.webp",
+     "size": 51216,
+     "src": "https://pic1.800820.net/tumi/20260121/af92e6ac1c3a4aa1b63e85ee24eace1d.webp",
+     "page": "https://www.800820.net/p/10732793.html",
+     "title": "司马迁26年010期双色球杀蓝球图谜_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T20:38:29.436Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/枣庄红人/1.webp",
+     "size": 65094,
+     "src": "https://pic1.800820.net/tumi/20260204/ced0793cfd814f2091d220ca2b20e39e.webp",
+     "page": "https://www.800820.net/p/10775194.html",
+     "title": "枣庄红人26年016期杀双色球蓝球图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-10-28T15:46:30.208Z"
     }
    ],
    "stale": true
@@ -140,24 +158,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-28T19:57:27.308Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T19:10:41.623Z"
     }
    ],
    "stale": true
@@ -439,15 +439,15 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "鲤鱼得财",
+   "name": "一品红",
    "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "kw": "一品红 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "朱大姐",
+   "name": "万万没想到",
    "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
+   "kw": "万万没想到 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -621,11 +621,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-25 23:47:41",
-   "names": 71,
-   "imgs": 13
-  },
-  {
    "at": "2026-10-26 00:17:36",
    "names": 71,
    "imgs": 14
@@ -737,6 +732,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-29 04:39:45",
+   "names": 71,
+   "imgs": 16
+  },
+  {
+   "at": "2026-10-29 05:29:15",
    "names": 71,
    "imgs": 16
   }

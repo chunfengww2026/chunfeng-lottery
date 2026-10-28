@@ -2,9 +2,64 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-29 04:21",
+ "updated": "2026-10-29 05:10",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周三009",
+   "league": "瑞典超",
+   "home": "布鲁马波",
+   "away": "赫根",
+   "time": "2026-10-29 02:00",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": {
+    "line": "受一球",
+    "from": "live",
+    "handicap": 1,
+    "upSide": "away",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": 0.75,
+    "openUpWater": 0.95,
+    "openDownWater": 0.85,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.75,
+     "nowHandicap": 1,
+     "initUpWater": 0.95,
+     "nowUpWater": 0.95,
+     "initLine": "受半球/一球",
+     "nowLine": "受一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 4.75,
+    "draw": 4.33,
+    "away": 1.6
+   },
+   "prob": {
+    "home": 19.7,
+    "draw": 21.7,
+    "away": 58.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 58.6,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": false,
+   "at": "2026-10-29 05:10"
+  },
   {
    "code": "周三008",
    "league": "荷杯",
@@ -1099,61 +1154,6 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 60.8,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-26 23:00"
-  },
-  {
-   "code": "周日028",
-   "league": "葡超",
-   "home": "里斯本",
-   "away": "维塞乌",
-   "time": "2026-10-26 04:30",
-   "score": "",
-   "hc": "-2",
-   "asianIndex": {
-    "line": "球半/两球",
-    "from": "live",
-    "handicap": -1.75,
-    "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 1,
-    "openHandicap": -2,
-    "openUpWater": 0.9,
-    "openDownWater": 0.95,
-    "totalWater": 1.85,
-    "theoryUpPercent": "54.05",
-    "theoryDownPercent": "45.95",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -2,
-     "nowHandicap": -1.75,
-     "initUpWater": 0.9,
-     "nowUpWater": 0.85,
-     "initLine": "两球",
-     "nowLine": "球半/两球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.17,
-    "draw": 6.5,
-    "away": 12
-   },
-   "prob": {
-    "home": 78.4,
-    "draw": 14.1,
-    "away": 7.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 78.4,
    "type": "three",
    "result": "",
    "hit": false,
