@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-29 13:58",
+ "updated": "2026-10-29 14:43",
  "red": 3,
  "black": 3,
  "rate": "50.0%",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-10-29 13:58",
-   "finishTime": 1793253480000,
+   "dateStr": "2026-10-29 14:43",
+   "finishTime": 1793256180000,
    "verdict": "",
    "matches": [
     {
@@ -18,10 +18,49 @@
      "result": "pending",
      "confidence": 61.2,
      "status": "pending",
-     "finishTime": 1793253480000,
+     "finishTime": 1793256180000,
      "league": "瑞典超",
      "odds": 1.48,
      "time": "2026-10-30 01:30"
+    },
+    {
+     "matchNo": "周五004",
+     "teams": "勒阿弗尔 vs 巴黎圣曼",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 78.5,
+     "status": "pending",
+     "finishTime": 1793256180000,
+     "league": "法甲",
+     "odds": 1.18,
+     "time": "2026-10-31 02:00"
+    },
+    {
+     "matchNo": "周五009",
+     "teams": "比利亚雷 vs 西班牙人",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.8,
+     "status": "pending",
+     "finishTime": 1793256180000,
+     "league": "西甲",
+     "odds": 1.42,
+     "time": "2026-10-31 04:00"
+    },
+    {
+     "matchNo": "周五011",
+     "teams": "卡萨皮亚 vs 里斯本",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 75.5,
+     "status": "pending",
+     "finishTime": 1793256180000,
+     "league": "葡超",
+     "odds": 1.27,
+     "time": "2026-10-31 04:15"
     }
    ]
   },
