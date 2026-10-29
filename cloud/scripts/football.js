@@ -1086,7 +1086,7 @@ const FOOTBALL_DATA = {
      "color": "774400"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 82,
+    "minute": 84,
     "home": {
      "name": "愛米恩斯",
      "score": 1,
@@ -1152,7 +1152,7 @@ const FOOTBALL_DATA = {
      "color": "665570"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 84,
+    "minute": 86,
     "home": {
      "name": "埃弗顿",
      "score": 3,
@@ -1202,7 +1202,7 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 74,
+    "minute": 76,
     "home": {
      "name": "佛罗伦萨",
      "score": 2,
@@ -1268,7 +1268,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "靴尔科治女足",
      "score": 0,
@@ -1277,7 +1277,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴塞罗那女足",
-     "score": 6,
+     "score": 7,
      "red": 0,
      "rank": 1
     },
@@ -1314,7 +1314,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 68,
+    "minute": 69,
     "home": {
      "name": "曼彻斯特城女足",
      "score": 0,
@@ -1380,7 +1380,7 @@ const FOOTBALL_DATA = {
      "color": "FF2F73"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "格罗宁根",
      "score": 0,
@@ -1446,7 +1446,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "里巴德塞拉",
      "score": 0,
@@ -1492,7 +1492,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "霍塔萊紮競技",
      "score": 0,
@@ -1538,7 +1538,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 64,
+    "minute": 65,
     "home": {
      "name": "普拉特",
      "score": 1,
@@ -1584,7 +1584,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "奧倫塞人競技",
      "score": 0,
@@ -1688,7 +1688,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 41,
+    "minute": 43,
     "home": {
      "name": "本菲卡",
      "score": 2,
@@ -1762,7 +1762,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 05:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "锡帕基拉老虎",
      "score": 0,
