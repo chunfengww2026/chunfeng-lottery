@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792aa"
     },
     "time": "2026-10-30 02:30:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "特拉维夫马卡比",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3777FF"
     },
     "time": "2026-10-30 02:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "米迪兰特",
      "score": 0,
@@ -3500,7 +3500,7 @@ const FOOTBALL_DATA = {
      "color": "666611"
     },
     "time": "2026-10-30 00:30:00",
-    "minute": 80,
+    "minute": 84,
     "home": {
      "name": "布里涅格罗苏普列",
      "score": 0,
@@ -3566,7 +3566,7 @@ const FOOTBALL_DATA = {
      "color": "669900"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "洛辛堡女足",
      "score": 1,
@@ -3632,7 +3632,7 @@ const FOOTBALL_DATA = {
      "color": "669900"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "布拉格斯巴达女足",
      "score": 1,
@@ -3698,7 +3698,7 @@ const FOOTBALL_DATA = {
      "color": "789ccc"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "卡勒威",
      "score": 3,
@@ -3764,7 +3764,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "米克斯高",
      "score": 0,
@@ -3802,10 +3802,10 @@ const FOOTBALL_DATA = {
      "color": "882266"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "科海坦",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 2
     },
@@ -3852,7 +3852,7 @@ const FOOTBALL_DATA = {
      "color": "FF5100"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "云达不莱梅女足",
      "score": 3,
@@ -3918,7 +3918,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "金字塔",
      "score": 2,
@@ -3984,7 +3984,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "沃伦塔利",
      "score": 1,
@@ -4050,7 +4050,7 @@ const FOOTBALL_DATA = {
      "color": "6F3FD2"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "奥地利卢斯特瑙",
      "score": 3,
@@ -4116,7 +4116,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "彭拿竞技队",
      "score": 1,
@@ -4162,7 +4162,7 @@ const FOOTBALL_DATA = {
      "color": "003db9"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "古比斯",
      "score": 1,
@@ -4171,7 +4171,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "格尼斯坦",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -4228,7 +4228,7 @@ const FOOTBALL_DATA = {
      "color": "FB2203"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "埃格纳提亚",
      "score": 0,
@@ -4294,7 +4294,7 @@ const FOOTBALL_DATA = {
      "color": "99a629"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "埃斯基谢希尔体育",
      "score": 0,
@@ -4438,7 +4438,7 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "弗洛西诺尼",
      "score": 2,
@@ -4738,7 +4738,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "恩斯蒂图后备队",
      "score": 0,
@@ -4816,7 +4816,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "小保加(後備)",
      "score": 2,
@@ -4894,7 +4894,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "巴拉卡斯中央后备队",
      "score": 0,
@@ -4972,10 +4972,10 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "戈多伊克鲁兹后备队",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 0
     },
@@ -5050,7 +5050,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 41,
+    "minute": 0,
     "home": {
      "name": "基尔梅斯后备队",
      "score": 0,
@@ -5128,7 +5128,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 35,
+    "minute": 39,
     "home": {
      "name": "洛斯香卡斯 ",
      "score": 0,
@@ -5206,7 +5206,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "阿利雅德",
      "score": 0,
@@ -5284,7 +5284,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 40,
+    "minute": 44,
     "home": {
      "name": "利雅得胜利",
      "score": 2,
@@ -5362,7 +5362,7 @@ const FOOTBALL_DATA = {
      "color": "FC9022"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "阿尔卡",
      "score": 1,
@@ -5440,7 +5440,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "尼伯瑞加纳",
      "score": 2,
@@ -5518,7 +5518,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "卡拉塔魯德",
      "score": 0,
@@ -5596,7 +5596,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "圣瑟巴斯提安雷耶斯",
      "score": 0,
@@ -5674,7 +5674,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 40,
+    "minute": 0,
     "home": {
      "name": "巴利阿里",
      "score": 0,
@@ -5752,7 +5752,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "奥尔格里特",
      "score": 1,
@@ -5830,7 +5830,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-30 02:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "卡馬亞",
      "score": 0,
