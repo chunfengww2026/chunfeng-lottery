@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 07:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 07:58 */
 const JC_DATA = {
- "updated": "2026-10-30 07:28",
+ "updated": "2026-10-30 07:58",
  "stat": {
   "total": 7,
   "upcoming": 1,
@@ -700,9 +700,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 1,
+      "home": 0.97,
       "line": "平手/半球",
-      "away": 0.85
+      "away": 0.87
      }
     },
     "europe": {
@@ -757,7 +757,7 @@ const JC_DATA = {
       "初盘→即时：主胜-2.8pp / 平局-0.2pp / 客胜+3.1pp",
       "亚盘未变盘；水位只作辅助核对",
       "主要方向凯利中位参考 0.940",
-      "多机构分歧 3.2%"
+      "多机构分歧 3.1%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -786,21 +786,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.85,
+    "upWater": 0.97,
+    "downWater": 0.87,
     "openHandicap": -0.25,
     "openUpWater": 1.05,
     "openDownWater": 0.8,
-    "totalWater": 1.85,
-    "theoryUpPercent": "45.95",
-    "theoryDownPercent": "54.05",
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "47.28",
+    "theoryDownPercent": "52.72",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 1.05,
-     "nowUpWater": 1,
+     "nowUpWater": 0.97,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -817,7 +817,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-30 07:28",
+  "updated": "2026-10-30 07:58",
   "officialUpdate": "2026-10-29 21:53:09",
   "inSale": 13,
   "list": [
