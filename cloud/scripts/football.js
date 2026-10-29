@@ -7019,7 +7019,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "亚鲁米尼U19",
      "score": 1,
@@ -7085,7 +7085,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "富图雷",
      "score": 0,
@@ -7151,7 +7151,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "苏维埃之翼",
      "score": 2,
@@ -7283,7 +7283,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "阿尔利",
      "score": 0,
@@ -7361,7 +7361,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "阿尔萨瑞",
      "score": 0,
@@ -7439,7 +7439,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "明斯克迪納摩II隊",
      "score": 0,
@@ -7517,7 +7517,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "FC諾亞",
      "score": 0,
@@ -7526,7 +7526,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "休尼克FC",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 11
     },
@@ -7673,10 +7673,10 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "尼日利亚女足(U17)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -7751,7 +7751,7 @@ const FOOTBALL_DATA = {
      "color": "8855ee"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "阿尔萨特",
      "score": 0,
@@ -7829,7 +7829,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "康戈迪亚齐安",
      "score": 1,
@@ -7907,10 +7907,10 @@ const FOOTBALL_DATA = {
      "color": "99a629"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "卡斯帕萨",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
