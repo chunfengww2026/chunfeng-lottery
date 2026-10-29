@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "瓦斯科达迦马",
      "score": 1,
@@ -899,7 +899,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
