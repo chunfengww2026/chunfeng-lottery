@@ -1086,7 +1086,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 85,
+    "minute": 87,
     "home": {
      "name": "本菲卡",
      "score": 4,
@@ -1136,7 +1136,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 05:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "锡帕基拉老虎",
      "score": 0,
