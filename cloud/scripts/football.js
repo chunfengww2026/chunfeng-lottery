@@ -7085,7 +7085,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "富图雷",
      "score": 0,
@@ -7151,7 +7151,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "苏维埃之翼",
      "score": 2,
@@ -7217,7 +7217,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-29 22:35:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "卡赫利塞哈特",
      "score": 2,
@@ -7517,7 +7517,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "FC諾亞",
      "score": 0,
@@ -7673,7 +7673,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "尼日利亚女足(U17)",
      "score": 1,
