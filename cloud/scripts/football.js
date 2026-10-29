@@ -819,7 +819,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "瓦斯科达迦马",
      "score": 1,
