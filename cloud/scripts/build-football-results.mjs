@@ -135,6 +135,17 @@ function loadVar(file, varName) {
 
 const OLD = loadVar('jc-results.js', 'JC_RESULTS');
 const OLD_LIST = (OLD && Array.isArray(OLD.list)) ? OLD.list : [];
+/* 月度组合可能已离开短期比赛列表，按未结算的原始队名和开赛日补抓。 */
+let PAIR_LEGS = [];
+try {
+  const archive = JSON.parse(fs.readFileSync(path.join(ROOT, 'reco-archive.json'), 'utf8'));
+  const cutoff = Date.now() - 31 * 86400000;
+  PAIR_LEGS = (archive.footballPairs || []).flatMap(p => p.legs || [])
+    .filter(l => !l.verdict && Date.parse(String(l.time).replace(' ', 'T') + '+08:00') >= cutoff);
+} catch (e) {}
+function wantedPairResult(r) {
+  return PAIR_LEGS.some(l => dayOf(l.time) === r.date && sameTeam(l.home, r.home) && sameTeam(l.away, r.away));
+}
 
 /* ============================================================
    2. 抓完场比分页
@@ -411,8 +422,15 @@ async function main() {
 
   /* 抓 PAGE_DATES 页：?e=<今天>、?e=<昨天> …（每页覆盖「该日 + 次日」→ 2 页 ≈ 48 小时） */
   const pages = [];
-  for (let i = 0; i < PAGE_DATES; i++) {
-    const url = `${RESULTS_URL}?e=${bjDay(i)}`;
+  const dates = new Set(Array.from({length: PAGE_DATES}, (_, i) => bjDay(i)));
+  for (const leg of PAIR_LEGS) {
+    const kick = Date.parse(String(leg.time).replace(' ', 'T') + '+08:00');
+    if (nowMs - kick < MATCH_LEN_HOURS * 3600000) continue;
+    dates.add(dayOf(leg.time));
+    dates.add(new Date(kick + 8 * 3600000 - 86400000).toISOString().slice(0, 10));
+  }
+  for (const date of dates) {
+    const url = `${RESULTS_URL}?e=${date}`;
     try {
       const p = await fetchPage(url);
       pages.push({ url, ...p });
@@ -437,7 +455,10 @@ async function main() {
       `（非完场 ${stats.skippedStatus} · 无队名 ${stats.skippedNoName} · 无比分 ${stats.skippedNoScore} · 无日期 ${stats.skippedDate}）`);
 
   /* 窗口内 + 已经踢完（开赛 + 2h ≤ 现在）*/
-  const inWin = rows.filter((r) => r.kick >= from && nowMs - r.kick >= MATCH_LEN_HOURS * 3600 * 1000);
+  const inWin = rows.filter((r) => (r.kick >= from || wantedPairResult(r)) && nowMs - r.kick >= MATCH_LEN_HOURS * 3600 * 1000);
+  for (const r of OLD_LIST) {
+    if (wantedPairResult(r) && !inWin.some(x => x.fid === r.fid)) inWin.push({...r, kick: Date.parse(r.time.replace(' ', 'T') + '+08:00')});
+  }
   /* 同一场可能同时出现在列表的多个分区 → 按 fid 去重 */
   const seen = new Set();
   const list = [];
