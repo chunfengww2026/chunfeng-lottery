@@ -7019,7 +7019,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "亚鲁米尼U19",
      "score": 1,
@@ -7028,7 +7028,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "佩利根U19",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 0
     },
@@ -7085,7 +7085,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "富图雷",
      "score": 0,
@@ -7151,7 +7151,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "苏维埃之翼",
      "score": 2,
@@ -7283,7 +7283,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "阿尔利",
      "score": 0,
@@ -7292,7 +7292,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "伊哈连姆沙",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -7361,7 +7361,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "阿尔萨瑞",
      "score": 0,
@@ -7439,7 +7439,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "明斯克迪納摩II隊",
      "score": 0,
@@ -7517,7 +7517,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "FC諾亞",
      "score": 0,
@@ -7595,7 +7595,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "中国女足U17",
      "score": 0,
@@ -7673,7 +7673,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "尼日利亚女足(U17)",
      "score": 0,
@@ -7751,7 +7751,7 @@ const FOOTBALL_DATA = {
      "color": "8855ee"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "阿尔萨特",
      "score": 0,
@@ -7829,7 +7829,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "康戈迪亚齐安",
      "score": 0,
@@ -7907,7 +7907,7 @@ const FOOTBALL_DATA = {
      "color": "99a629"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "卡斯帕萨",
      "score": 0,
