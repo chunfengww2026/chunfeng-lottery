@@ -2,9 +2,64 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-29 22:20",
+ "updated": "2026-10-29 22:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周四001",
+   "league": "亚冠联2",
+   "home": "上海申花",
+   "away": "町田泽维",
+   "time": "2026-10-29 20:15",
+   "score": "0:1",
+   "hc": null,
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 0.87,
+    "downWater": 0.92,
+    "openHandicap": 0.25,
+    "openUpWater": 0.9,
+    "openDownWater": 0.9,
+    "totalWater": 1.79,
+    "theoryUpPercent": "51.40",
+    "theoryDownPercent": "48.60",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.87,
+     "initLine": "受平手/半球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 4.1,
+    "draw": 3.8,
+    "away": 1.65
+   },
+   "prob": {
+    "home": 21.9,
+    "draw": 23.6,
+    "away": 54.4
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 54.4,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-29 22:58"
+  },
   {
    "code": "周三017",
    "league": "美职联",
