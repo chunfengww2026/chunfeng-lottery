@@ -1086,10 +1086,10 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 04:30:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "水晶竞技队",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 3
     },
@@ -1152,10 +1152,10 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "本菲卡",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 2
     },
@@ -1218,7 +1218,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 05:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "锡帕基拉老虎",
      "score": 0,
