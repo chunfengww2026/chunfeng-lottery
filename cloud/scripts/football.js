@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 04:30:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "水晶竞技队",
      "score": 1,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "本菲卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "基维森特",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
@@ -1427,7 +1427,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "卡利博卡青年",
      "score": 1,
@@ -1493,7 +1493,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "艾域加多",
      "score": 2,
@@ -1605,7 +1605,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "皇家阿维拉",
      "score": 0,
@@ -1671,7 +1671,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "拉瑞都",
      "score": 2,
@@ -1680,7 +1680,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "贝高斯",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 6
     },
@@ -1737,7 +1737,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "圭久洛",
      "score": 1,
@@ -1803,7 +1803,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "安特雀拉",
      "score": 2,
@@ -1841,7 +1841,7 @@ const FOOTBALL_DATA = {
      "color": "FC9022"
     },
     "time": "2026-10-30 03:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "奥波莱",
      "score": 0,
@@ -1907,7 +1907,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-30 03:30:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "哥利亚",
      "score": 1,
@@ -2051,7 +2051,7 @@ const FOOTBALL_DATA = {
      "color": "665570"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "埃弗顿",
      "score": 2,
@@ -2207,7 +2207,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "曼彻斯特城女足",
      "score": 0,
@@ -2285,7 +2285,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "靴尔科治女足",
      "score": 0,
@@ -2363,7 +2363,7 @@ const FOOTBALL_DATA = {
      "color": "FF2F73"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "格罗宁根",
      "score": 0,
@@ -2441,7 +2441,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "普拉特",
      "score": 1,
@@ -2519,7 +2519,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "霍塔萊紮競技",
      "score": 0,
@@ -2557,7 +2557,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "里巴德塞拉",
      "score": 0,
@@ -2635,7 +2635,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 41,
+    "minute": 0,
     "home": {
      "name": "奧倫塞人競技",
      "score": 0,
@@ -2644,7 +2644,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "拉科鲁尼亚",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 11
     },
