@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-29 22:35:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "卡赫利塞哈特",
      "score": 0,
@@ -7728,7 +7728,7 @@ const FOOTBALL_DATA = {
      "color": "A59350"
     },
     "time": "2026-10-29 20:50:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "阿尔瓦斯尔U21",
      "score": 0,
@@ -7964,7 +7964,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-29 21:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "米特聖地亞哥埃斯特羅(後備)",
      "score": 0,
@@ -8030,7 +8030,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-10-29 21:15:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "肯尼亞警察",
      "score": 1,
@@ -8096,7 +8096,7 @@ const FOOTBALL_DATA = {
      "color": "226677"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "柏沙卡U19",
      "score": 0,
@@ -8162,7 +8162,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "史塔德",
      "score": 1,
@@ -8228,7 +8228,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "艾菲里肯",
      "score": 3,
@@ -8237,7 +8237,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "比瑟汀",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -8274,7 +8274,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "斯法克斯",
      "score": 0,
@@ -8340,7 +8340,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "亚鲁米尼U19",
      "score": 1,
@@ -8418,7 +8418,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "富图雷",
      "score": 0,
@@ -8496,7 +8496,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 41,
+    "minute": 0,
     "home": {
      "name": "苏维埃之翼",
      "score": 1,
