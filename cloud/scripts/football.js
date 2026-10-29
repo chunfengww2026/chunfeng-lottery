@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 07:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "卡利阿美利加",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "福塔雷绍查",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 19
     },
@@ -819,7 +819,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "瓦斯科达迦马",
      "score": 1,
