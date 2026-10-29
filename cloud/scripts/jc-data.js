@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 04:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 04:58 */
 const JC_DATA = {
- "updated": "2026-10-30 04:28",
+ "updated": "2026-10-30 04:58",
  "stat": {
   "total": 5,
   "upcoming": 1,
@@ -482,9 +482,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 1.02,
+      "home": 1,
       "line": "平手/半球",
-      "away": 0.82
+      "away": 0.85
      }
     },
     "europe": {
@@ -568,21 +568,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.82,
+    "upWater": 1,
+    "downWater": 0.85,
     "openHandicap": -0.25,
     "openUpWater": 1.05,
     "openDownWater": 0.8,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
+    "totalWater": 1.85,
+    "theoryUpPercent": "45.95",
+    "theoryDownPercent": "54.05",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 1.05,
-     "nowUpWater": 1.02,
+     "nowUpWater": 1,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -599,7 +599,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-30 04:28",
+  "updated": "2026-10-30 04:58",
   "officialUpdate": "2026-10-29 21:53:09",
   "inSale": 13,
   "list": [
