@@ -143,6 +143,48 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "双色球",
+   "kw": "太湖字谜 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "双色球",
+   "kw": "迷公 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpeg",
+     "size": 35959,
+     "src": "https://www.17500.cn/Public/Upload/art/202602/1770382840120307.jpeg",
+     "page": "https://www.17500.cn/arts/detail-2916956.html",
+     "title": "体彩排列三第2026038期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2026038",
+     "verified": false,
+     "fetchedAt": "2026-10-29T00:09:36.466Z"
+    }
+   ],
+   "stale": true
+  },
+  {
    "name": "南山大师",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
@@ -300,24 +342,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-10-29T04:20:54.900Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "万里挑一",
-   "cat": "排列三",
-   "kw": "万里挑一 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/万里挑一/1.png",
-     "size": 195859,
-     "src": "https://pic.tqshfw.net/data/attachment/forum/202604/16/170939ode5umeennro12a3.png",
-     "page": "https://99.weicainet.com/t-1244150.html",
-     "title": "[排列五] 26096期：万里挑一 图规 - 为彩排列三五 - 为彩排列三五论坛，特区排列三论坛，特区七星彩论坛 - Powered by Discuz!",
-     "issue": "26096",
-     "verified": false,
-     "fetchedAt": "2026-10-29T00:10:18.436Z"
     }
    ],
    "stale": true
@@ -635,9 +659,15 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "name": "百合花",
+   "cat": "3D",
+   "kw": "百合花 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 字谜 参考图",
    "imgs": []
   }
  ],

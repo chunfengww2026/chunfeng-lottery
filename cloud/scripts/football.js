@@ -9419,6 +9419,138 @@ const FOOTBALL_DATA = {
   ],
   "live": [
    {
+    "gid": 590756,
+    "kind": "live",
+    "league": {
+     "name": "澳錦標",
+     "color": "44562c"
+    },
+    "time": "2026-10-29 16:30:00",
+    "minute": 75,
+    "home": {
+     "name": "坎培拉FC",
+     "score": 0,
+     "red": 0,
+     "rank": 1
+    },
+    "away": {
+     "name": "南墨尔本",
+     "score": 1,
+     "red": 0,
+     "rank": 5
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.25,
+       "line": "1.19",
+       "away": 0.72
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "1.75",
+       "over": 1.14,
+       "under": 0.73
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 29,
+       "draw": 1.04,
+       "away": 9.4
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 87.2,
+     "prob": {
+      "home": 3.1,
+      "draw": 87.2,
+      "away": 9.7
+     },
+     "clear": true,
+     "margin": 10.2
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 1"
+    }
+   },
+   {
+    "gid": 590904,
+    "kind": "live",
+    "league": {
+     "name": "印尼甲",
+     "color": "1ba578"
+    },
+    "time": "2026-10-29 16:30:00",
+    "minute": 79,
+    "home": {
+     "name": "努萨塔拉",
+     "score": 0,
+     "red": 0,
+     "rank": 4
+    },
+    "away": {
+     "name": "肯德爾龍捲風",
+     "score": 0,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.25,
+       "line": "0.52",
+       "away": 1.42
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "0.5",
+       "over": 1.12,
+       "under": 0.69
+      },
+      "live": null
+     },
+     "europe": {
+      "open": {
+       "home": 5.9,
+       "draw": 3.35,
+       "away": 1.53
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 58.3,
+     "prob": {
+      "home": 15.1,
+      "draw": 26.6,
+      "away": 58.3
+     },
+     "clear": true,
+     "margin": 12.2
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "0 - 0"
+    }
+   },
+   {
     "gid": 590335,
     "kind": "live",
     "league": {

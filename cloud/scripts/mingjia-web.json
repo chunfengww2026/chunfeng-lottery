@@ -568,27 +568,35 @@
    "expiresAt": "2026-10-30T17:40:33.282Z"
   },
   {
-   "id": "https://m.16788.cn/tj_0e15c2787141.html",
-   "gid": "ssq",
-   "cat": "双色球",
+   "id": "https://m.cz89.com/read_10939871.htm",
+   "gid": "fc3d",
+   "cat": "3D",
    "author": "字谜资料",
-   "title": "天吉网彩运通双色球图谜2026124期（天霁老顽童) - 双色球图谜 - 手机天吉网",
-   "issue": "2026124",
-   "url": "https://m.16788.cn/tj_0e15c2787141.html",
-   "excerpt": "",
+   "title": "26年288期3d试机号后牛彩网专报_手机牛彩网",
+   "issue": "2026288",
+   "url": "https://m.cz89.com/read_10939871.htm",
+   "excerpt": "3D图谜：\n3D胆码图\n3D杀码图",
    "blocks": [
     {
+     "type": "text",
+     "text": "3D图谜：\n3D胆码图\n3D杀码图"
+    },
+    {
      "type": "image",
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnlqZUtQbitZT0ZFeXZ3SVF1bUFFbHRLMnJtZVc3aURmZit0YkViWUg5dDQw.jpg"
+     "src": "https://pic.cz89.com/upload/20261029/4b586642ace94252b529a40a987084a8.png"
+    },
+    {
+     "type": "text",
+     "text": "发布时间：2026-10-29 17:55"
     }
    ],
    "images": [
-    "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnlqZUtQbitZT0ZFeXZ3SVF1bUFFbHRLMnJtZVc3aURmZit0YkViWUg5dDQw.jpg"
+    "https://pic.cz89.com/upload/20261029/4b586642ace94252b529a40a987084a8.png"
    ],
    "publishedAt": "2026-10-29T10:38:20.000Z",
    "publicationTimeUnknown": false,
-   "firstSeen": "2026-10-28T17:40:33.282Z",
-   "expiresAt": "2026-10-30T17:40:33.282Z"
+   "firstSeen": "2026-10-29T10:29:59.905Z",
+   "expiresAt": "2026-10-31T09:55:00.000Z"
   },
   {
    "id": "https://m.16788.cn/tj_afe742787134.html",
@@ -1156,6 +1164,27 @@
    "publishedAt": "2026-10-29T04:04:00.000Z",
    "publicationTimeUnknown": false,
    "firstSeen": "2026-10-29T06:41:16.162Z",
+   "expiresAt": "2026-10-31T04:04:00.000Z"
+  },
+  {
+   "id": "https://m.cz89.com/read_10939767.htm",
+   "gid": "fc3d",
+   "cat": "3D",
+   "author": "字谜资料",
+   "title": "26年288期囧囧独解3D胆谜太湖钓叟字谜解释_手机牛彩网",
+   "issue": "2026288",
+   "url": "https://m.cz89.com/read_10939767.htm",
+   "excerpt": "标签：太湖钓叟 \n\n1:点鬼火 (5)\n2:扇阴风 (0)\n3:二傻子 (8)\n4:打先锋 (9)\n今日推荐:\n三胆:0,5,9\n双胆:0,5\n独胆:5\n杀1码:6\n组选号:304,480,518,529,559,590,885,905,9",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "标签：太湖钓叟 \n\n1:点鬼火 (5)\n2:扇阴风 (0)\n3:二傻子 (8)\n4:打先锋 (9)\n今日推荐:\n三胆:0,5,9\n双胆:0,5\n独胆:5\n杀1码:6\n组选号:304,480,518,529,559,590,885,905,912,920\n每日1注:885\n\n\n发布时间：2026-10-29 12:04"
+    }
+   ],
+   "images": [],
+   "publishedAt": "2026-10-29T04:04:00.000Z",
+   "publicationTimeUnknown": false,
+   "firstSeen": "2026-10-29T10:29:59.905Z",
    "expiresAt": "2026-10-31T04:04:00.000Z"
   },
   {
@@ -19480,7 +19509,8 @@
   },
   {
    "url": "https://www.17500.cn/arts/detail-4925224.html",
-   "status": 429,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
