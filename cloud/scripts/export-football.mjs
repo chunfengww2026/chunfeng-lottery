@@ -1701,13 +1701,22 @@ function pairSaleQuotes(pair,spList,matches,now){
 }
 function pairSignature(pair){return pair.legs.map(l=>l.code+'@'+dayOf(l.time)+'@'+l.pick).sort().join('|');}
 
+/* 独立官方比赛报告核实的漏抓终场记录；保留证据，不修改公布时选项。 */
+const VERIFIED_PAIR_RESULTS=[{
+  date:'2026-10-26',home:'洛杉矶FC',away:'洛城银河',ft:{h:2,a:2},
+  source:'https://www.lagalaxy.com/news/match-report-paintsil-bags-a-brace-la-galaxy-battle-lafc-to-2-2-draw-at-bmo-stadium'
+}];
 function settleConfidentPair(pair,matches){
   pair.legs.forEach(leg=>{
     if(leg.verdict)return;
-    const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
-    if(!m||m.kind!=='finished'||!m.hasScore||!Number.isFinite(Number(m.hs))||!Number.isFinite(Number(m.as)))return;
-    const actual=Number(m.hs)>Number(m.as)?'home':Number(m.hs)<Number(m.as)?'away':'draw';
-    leg.score=m.hs+' : '+m.as;leg.verdict=actual===leg.pick?'red':'black';
+    const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time)&&sameTeam(x.home.name,leg.home)&&sameTeam(x.away.name,leg.away));
+    const rr=Date.now()-kickMs(leg.time)>2*3600000?findResult({time:leg.time,home:{name:leg.home},away:{name:leg.away}}):null;
+    const verified=VERIFIED_PAIR_RESULTS.find(r=>r.date===dayOf(leg.time)&&r.home===leg.home&&r.away===leg.away);
+    const final=verified?verified.ft:m&&m.kind==='finished'&&m.hasScore?{h:m.hs,a:m.as}:rr&&rr.ft;
+    if(!final||final.h==null||final.a==null||!Number.isFinite(Number(final.h))||!Number.isFinite(Number(final.a)))return;
+    const actual=Number(final.h)>Number(final.a)?'home':Number(final.h)<Number(final.a)?'away':'draw';
+    leg.score=final.h+' : '+final.a;leg.verdict=actual===leg.pick?'red':'black';
+    if(verified)leg.resultSource=verified.source;
   });
   pair.verdict=pair.legs.some(x=>x.verdict==='black')?'black':pair.legs.every(x=>x.verdict==='red')?'red':'pending';
   return pair;
