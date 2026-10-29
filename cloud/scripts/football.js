@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 04:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "水晶竞技队",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "本菲卡",
      "score": 0,
@@ -1605,7 +1605,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 03:00:00",
-    "minute": 92,
+    "minute": 0,
     "home": {
      "name": "皇家阿维拉",
      "score": 0,
@@ -1841,7 +1841,7 @@ const FOOTBALL_DATA = {
      "color": "FC9022"
     },
     "time": "2026-10-30 03:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "奥波莱",
      "score": 0,
@@ -1907,7 +1907,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-10-30 03:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "哥利亚",
      "score": 1,
@@ -1973,10 +1973,10 @@ const FOOTBALL_DATA = {
      "color": "774400"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "愛米恩斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -2051,7 +2051,7 @@ const FOOTBALL_DATA = {
      "color": "665570"
     },
     "time": "2026-10-30 03:45:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "埃弗顿",
      "score": 2,
@@ -2441,7 +2441,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "普拉特",
      "score": 1,
@@ -2519,7 +2519,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "霍塔萊紮競技",
      "score": 0,
