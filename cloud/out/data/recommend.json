@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-29 09:59",
+ "updated": "2026-10-29 10:49",
  "red": 5,
  "black": 2,
  "rate": "71.4%",
  "unfinished": 2,
  "history": [
   {
-   "dateStr": "2026-10-29 09:59",
-   "finishTime": 1793239140000,
+   "dateStr": "2026-10-29 10:49",
+   "finishTime": 1793242140000,
    "verdict": "红",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "red",
      "confidence": 60.7,
      "status": "finished",
-     "finishTime": 1793239140000,
+     "finishTime": 1793242140000,
      "league": "意甲",
      "odds": 1.57,
      "time": "2026-10-29 03:45"
