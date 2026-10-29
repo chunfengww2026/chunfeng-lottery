@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-29 15:49",
+ "updated": "2026-10-29 16:44",
  "red": 3,
  "black": 3,
  "rate": "50.0%",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-10-29 15:49",
-   "finishTime": 1793260140000,
+   "dateStr": "2026-10-29 16:44",
+   "finishTime": 1793263440000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 61.2,
      "status": "pending",
-     "finishTime": 1793260140000,
+     "finishTime": 1793263440000,
      "league": "瑞典超",
      "odds": 1.48,
      "time": "2026-10-30 01:30"
@@ -29,11 +29,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 78.5,
+     "confidence": 77.4,
      "status": "pending",
-     "finishTime": 1793260140000,
+     "finishTime": 1793263440000,
      "league": "法甲",
-     "odds": 1.18,
+     "odds": 1.25,
      "time": "2026-10-31 02:00"
     },
     {
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 63.8,
      "status": "pending",
-     "finishTime": 1793260140000,
+     "finishTime": 1793263440000,
      "league": "西甲",
      "odds": 1.42,
      "time": "2026-10-31 04:00"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 75.5,
      "status": "pending",
-     "finishTime": 1793260140000,
+     "finishTime": 1793263440000,
      "league": "葡超",
      "odds": 1.27,
      "time": "2026-10-31 04:15"

@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-29 15:26 */
+/* 自动生成，请勿手动编辑 · 2026-10-29 16:20 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-29 15:26",
+ "updated": "2026-10-29 16:20",
  "stat": {
   "upcoming": 129,
   "live": 1,
-  "finished": 6,
-  "total": 136,
+  "finished": 5,
+  "total": 135,
   "settled": true,
-  "hit": 2,
+  "hit": 1,
   "miss": 4,
-  "rate": 33.3
+  "rate": 20
  },
  "lists": {
   "upcoming": [
@@ -4957,84 +4957,6 @@ const FOOTBALL_DATA = {
    }
   ],
   "finished": [
-   {
-    "gid": 590696,
-    "kind": "finished",
-    "league": {
-     "name": "危地甲",
-     "color": "55c22f"
-    },
-    "time": "2026-10-29 10:00:00",
-    "minute": 0,
-    "home": {
-     "name": "慕尼崎柏尔",
-     "score": 3,
-     "red": 0,
-     "rank": 2
-    },
-    "away": {
-     "name": "齐奥内斯交流会",
-     "score": 1,
-     "red": 0,
-     "rank": 11
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -1,
-       "line": "0.86",
-       "away": 0.84
-      },
-      "live": {
-       "home": -0.5,
-       "line": "0.99",
-       "away": 0.71
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.86,
-       "under": 0.84
-      },
-      "live": {
-       "line": "1",
-       "over": 0.77,
-       "under": 0.93
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.46,
-       "draw": 5,
-       "away": 3.75
-      },
-      "live": {
-       "home": 1.99,
-       "draw": 5.3,
-       "away": 2.18
-      }
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 43.7,
-     "prob": {
-      "home": 43.7,
-      "draw": 16.4,
-      "away": 39.9
-     },
-     "clear": false,
-     "margin": 15
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "3 - 1"
-    }
-   },
    {
     "gid": 588952,
     "kind": "finished",
