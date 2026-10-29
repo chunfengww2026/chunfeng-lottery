@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-29 23:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 00:00 */
 const JC_DATA = {
- "updated": "2026-10-29 23:58",
+ "updated": "2026-10-30 00:00",
  "stat": {
   "total": 19,
   "upcoming": 18,
@@ -38,115 +38,9 @@ const JC_DATA = {
    },
    "score": null,
    "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1,
-      "line": "受平手/半球",
-      "away": 0.8
-     },
-     "live": {
-      "home": 1,
-      "line": "平手",
-      "away": 0.8
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 3.3,
-      "draw": 3.4,
-      "away": 2.1
-     },
-     "live": {
-      "home": 2.75,
-      "draw": 3.4,
-      "away": 2.45
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.85,
-      "over": 2.5,
-      "under": 0.95
-     },
-     "live": {
-      "line": 0.92,
-      "over": 2.5,
-      "under": 0.87
-     }
-    }
-   },
-   "reco": {
-    "pick": "away",
-    "label": "客胜",
-    "confidence": 42.2,
-    "prob": {
-     "home": 30.3,
-     "draw": 27.5,
-     "away": 42.2
-    },
-    "clear": false,
-    "margin": 6.6,
-    "rqLine": "平手",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "away",
-     "label": "客胜",
-     "prob": {
-      "home": 30.3,
-      "draw": 27.5,
-      "away": 42.2
-     },
-     "confidence": 42.2,
-     "signals": [
-      "初盘→即时：主胜+5.9pp / 平局+0.2pp / 客胜-6.1pp",
-      "亚盘主队方向变深，水位上升"
-     ],
-     "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -16.7,
-      "draw": -6.6,
-      "away": 3.5
-     },
-     "handicap": {
-      "line": 1,
-      "prob": {
-       "home": 0.6099470795838782,
-       "draw": 0.21088087000999686,
-       "away": 0.179172050406125
-      },
-      "pick": "home",
-      "label": "让胜"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
-   },
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 1,
-    "downWater": 0.8,
-    "openHandicap": 0.25,
-    "openUpWater": 0.8,
-    "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "44.44",
-    "theoryDownPercent": "55.56",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "odds": null,
+   "reco": null,
+   "asianIndex": null,
    "status": "upcoming",
    "minute": 0,
    "liveScore": null
@@ -320,53 +214,16 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41.4,
+    "confidence": 40.6,
     "prob": {
-     "home": 41.4,
-     "draw": 27.1,
-     "away": 31.5
+     "home": 40.6,
+     "draw": 26.1,
+     "away": 33.2
     },
     "clear": false,
     "margin": 9.4,
     "rqLine": "平手/半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 41.4,
-      "draw": 27.1,
-      "away": 31.5
-     },
-     "confidence": 41.4,
-     "signals": [
-      "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜+0.1pp / 平局-0.7pp / 客胜+0.7pp",
-      "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.950",
-      "多机构分歧 3.3%"
-     ],
-     "missing": [
-      "同场同期必发成交/购买热度缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -6.9,
-      "draw": -5.2,
-      "away": -13.3
-     },
-     "handicap": {
-      "line": -1,
-      "prob": {
-       "home": 0.193116564514898,
-       "draw": 0.21467078447713625,
-       "away": 0.5922126510079663
-      },
-      "pick": "away",
-      "label": "让负"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "平手/半球",
@@ -615,8 +472,8 @@ const JC_DATA = {
       "主流初盘 3/3 家偏向主胜",
       "初盘→即时：主胜+7.4pp / 平局-3.6pp / 客胜-3.7pp",
       "亚盘主队方向变深，水位下降",
-      "主要方向凯利中位参考 0.950",
-      "多机构分歧 2.5%"
+      "主要方向凯利中位参考 0.940",
+      "多机构分歧 2.4%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2636,7 +2493,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-29 23:58",
+  "updated": "2026-10-30 00:00",
   "officialUpdate": "2026-10-29 21:53:09",
   "inSale": 18,
   "list": [
