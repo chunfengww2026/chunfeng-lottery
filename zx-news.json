@@ -1,10 +1,15 @@
 {
-  "updated": "2026-10-29T13:13:55.770Z",
+  "updated": "2026-10-29T14:16:00.707Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
+      {
+        "title": "双色球8注665万分落6地",
+        "date": "2026-10-29",
+        "url": "https://sports.sina.com.cn/l/2026-10-29/doc-iniwxekt5180330.shtml"
+      },
       {
         "title": "精选双色球推荐：陈涛普、乾兵同中一等971万",
         "date": "2026-10-29",
@@ -39,11 +44,6 @@
         "title": "124期李老头双色球预测奖号：杀8码红球参考",
         "date": "2026-10-29",
         "url": "https://sports.sina.com.cn/l/2026-10-29/doc-iniwwawy6045257.shtml"
-      },
-      {
-        "title": "124期王守礼双色球预测奖号：遗漏参考",
-        "date": "2026-10-29",
-        "url": "https://sports.sina.com.cn/l/2026-10-29/doc-iniwwaxc8902922.shtml"
       }
     ],
     "dlt": [
