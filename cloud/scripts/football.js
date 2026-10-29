@@ -7185,7 +7185,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-10-29 21:15:00",
-    "minute": 81,
+    "minute": 83,
     "home": {
      "name": "肯尼亞警察",
      "score": 1,
@@ -7251,7 +7251,7 @@ const FOOTBALL_DATA = {
      "color": "226677"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "柏沙卡U19",
      "score": 0,
@@ -7317,7 +7317,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "史塔德",
      "score": 1,
@@ -7383,7 +7383,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "艾菲里肯",
      "score": 3,
@@ -7449,7 +7449,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "斯法克斯",
      "score": 0,
@@ -7713,7 +7713,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-29 22:35:00",
-    "minute": 20,
+    "minute": 22,
     "home": {
      "name": "卡赫利塞哈特",
      "score": 0,
