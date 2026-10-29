@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "瓦斯科达迦马",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "弗拉门戈",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -899,7 +899,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
