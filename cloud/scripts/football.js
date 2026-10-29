@@ -1538,7 +1538,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-10-30 04:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "普拉特",
      "score": 1,
@@ -1547,7 +1547,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "毕尔巴鄂竞技",
-     "score": 4,
+     "score": 6,
      "red": 0,
      "rank": 8
     },
@@ -1622,7 +1622,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 04:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "水晶竞技队",
      "score": 2,
@@ -1688,7 +1688,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "本菲卡",
      "score": 2,
