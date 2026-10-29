@@ -899,7 +899,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
