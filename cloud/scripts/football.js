@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "米涅罗竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "高士路MG",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 3
     },
@@ -1086,7 +1086,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 04:45:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "本菲卡",
      "score": 4,
@@ -1136,7 +1136,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-10-30 05:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "锡帕基拉老虎",
      "score": 0,
