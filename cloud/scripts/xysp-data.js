@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-30 07:06
+   更新时间：2026-10-30 07:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-30 07:06",
+ "updated": "2026-10-30 07:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -307,6 +307,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-30/42d3fe1f-59fc-4366-bae7-45e003d84e601793314316128.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-30/42d3fe1f-59fc-4366-bae7-45e003d84e601793314316128.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26289期]288期",
+     "url": "",
+     "at": "2026-10-29T23:10:03.461Z",
+     "pubAt": "2026-10-29T22:52:00.000Z",
+     "pubMs": 1793314320000,
+     "pubSrc": "page",
+     "nextAt": 1793366100000,
+     "atMs": 1793315403461,
+     "seenMs": 1793315403461,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-29/dfa22e8e-b033-4fe2-9456-bf8ad87b89411793281618448.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-29/dfa22e8e-b033-4fe2-9456-bf8ad87b89411793281618448.jpg?imageMogr2/thumbnail/360x",
@@ -1222,7 +1236,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793313420000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793313962061,
@@ -1252,7 +1266,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793313420000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793313962061,
@@ -1402,7 +1416,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793281487000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793283961690,
@@ -1493,7 +1507,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793277311000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793280600000,
      "nextMs": 1793280600000,
      "atMs": 1793283961690,
@@ -1763,7 +1777,7 @@ const XYSP_DATA = {
      "issue": "26287",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793266436000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793279700000,
      "nextMs": 1793279700000,
      "atMs": 1793283961690,
@@ -1793,7 +1807,7 @@ const XYSP_DATA = {
      "issue": "26287",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793266436000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793279700000,
      "nextMs": 1793279700000,
      "atMs": 1793283961690,
@@ -1883,7 +1897,7 @@ const XYSP_DATA = {
      "issue": "26123",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793264117000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793283961690,
@@ -1913,7 +1927,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793256299000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793280600000,
      "nextMs": 1793280600000,
      "atMs": 1793285161692,
@@ -2065,7 +2079,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793252910000,
-     "seenMs": 1793314562064,
+     "seenMs": 1793315162077,
      "drawMs": 1793279700000,
      "nextMs": 1793279700000,
      "atMs": 1793283361696,
@@ -2095,7 +2109,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-29T23:06:02.077Z",
      "whenMs": 1793252379000,
-     "seenMs": 1793313962061,
+     "seenMs": 1793315162077,
      "drawMs": 1793280600000,
      "nextMs": 1793280600000,
      "atMs": 1793283961690,
@@ -2230,96 +2244,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-29 09:29:24",
      "postId": "7701895834626949658",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c08ffc4f02ca4ee68b198ba7767a3953~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=8vaDPBOYKh2ieZoWK7WKdLQ8L4s%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c08ffc4f02ca4ee68b198ba7767a3953~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=8vaDPBOYKh2ieZoWK7WKdLQ8L4s%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c08ffc4f02ca4ee68b198ba7767a3953~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=liMz4Xti79HjaQXDe6YXR3DJXYY%3D",
-     "title": "双色球26124期三张实票欣赏：一张11+2大复式，两张不同方式5倍票",
-     "url": "https://toutiao.com/group/7701856070372770338/",
-     "at": "2026-10-29T14:26:01.690Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-29T22:46:02.061Z",
-     "whenMs": 1793228836000,
-     "seenMs": 1793313962061,
-     "drawMs": 1793279700000,
-     "nextMs": 1793279700000,
-     "atMs": 1793283961690,
-     "drawAt": "2026-10-29T13:15:00.000Z",
-     "nextAt": 1793279700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-30T14:26:01.690Z",
-     "rule": "first-capture-24h",
-     "author": "专注双色球和大乐透",
-     "when": "2026-10-29 07:07:16",
-     "postId": "7701856070372770338",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/369b78a0884742488fd9d450cd725c64~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=nXODRofSyPF%2BEDlM0Acng2sB%2B6U%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/369b78a0884742488fd9d450cd725c64~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=nXODRofSyPF%2BEDlM0Acng2sB%2B6U%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c08ffc4f02ca4ee68b198ba7767a3953~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=liMz4Xti79HjaQXDe6YXR3DJXYY%3D",
-     "title": "双色球26124期三张实票欣赏：一张11+2大复式，两张不同方式5倍票",
-     "url": "https://toutiao.com/group/7701856070372770338/",
-     "at": "2026-10-29T14:26:01.690Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-29T22:46:02.061Z",
-     "whenMs": 1793228836000,
-     "seenMs": 1793313962061,
-     "drawMs": 1793279700000,
-     "nextMs": 1793279700000,
-     "atMs": 1793283961690,
-     "drawAt": "2026-10-29T13:15:00.000Z",
-     "nextAt": 1793279700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-30T14:26:01.690Z",
-     "rule": "first-capture-24h",
-     "author": "专注双色球和大乐透",
-     "when": "2026-10-29 07:07:16",
-     "postId": "7701856070372770338",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a1b1382d63dc40bab10d95e37be49037~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=QnLyvQceb5mqOrKwVV7NsJl8UA8%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a1b1382d63dc40bab10d95e37be49037~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=QnLyvQceb5mqOrKwVV7NsJl8UA8%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c08ffc4f02ca4ee68b198ba7767a3953~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=liMz4Xti79HjaQXDe6YXR3DJXYY%3D",
-     "title": "双色球26124期三张实票欣赏：一张11+2大复式，两张不同方式5倍票",
-     "url": "https://toutiao.com/group/7701856070372770338/",
-     "at": "2026-10-29T14:26:01.690Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-29T22:46:02.061Z",
-     "whenMs": 1793228836000,
-     "seenMs": 1793313962061,
-     "drawMs": 1793279700000,
-     "nextMs": 1793279700000,
-     "atMs": 1793283961690,
-     "drawAt": "2026-10-29T13:15:00.000Z",
-     "nextAt": 1793279700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-30T14:26:01.690Z",
-     "rule": "first-capture-24h",
-     "author": "专注双色球和大乐透",
-     "when": "2026-10-29 07:07:16",
-     "postId": "7701856070372770338",
      "px": 132300
     }
    ]
@@ -3351,6 +3275,7 @@ const XYSP_DATA = {
   "/2026-10-29/f8394d89-2d4d-4a7e-8a74-1e03c2f1e5ba1793259468899.jpg": 1793297703484,
   "/2026-10-29/13679bcf-1d54-4bc4-9950-93cac3f7c5811793246842267.jpg": 1793297703484,
   "/2026-10-30/6bd09b1f-e912-43e6-896b-b50791dcf1bc1793299384394.jpg": 1793300103544,
-  "/2026-10-30/42173e82-530f-4538-b6cd-270230427b2d1793309042280.jpg": 1793310003176
+  "/2026-10-30/42173e82-530f-4538-b6cd-270230427b2d1793309042280.jpg": 1793310003176,
+  "/2026-10-30/42d3fe1f-59fc-4366-bae7-45e003d84e601793314316128.jpg": 1793315403461
  }
 };
