@@ -1730,11 +1730,12 @@ const PAIR_DAY=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
 const PAIR_CUT=Date.parse(PAIR_DAY+'T00:00:00+08:00')-29*86400000;
 const PAIR_RECORDS=(Array.isArray(PAIR_ARCHIVE.footballPairs)?PAIR_ARCHIVE.footballPairs:[]).filter(x=>x&&Array.isArray(x.legs)&&x.legs.length===2&&Date.parse(x.date+'T00:00:00+08:00')>=PAIR_CUT);
 PAIR_RECORDS.forEach(p=>settleConfidentPair(p,MATCHES_ALL));
-let CURRENT_PAIR=PAIR_RECORDS.slice().reverse().find(p=>pairSaleQuotes(p,PAIR_SALE_LIST,MATCHES_ALL,Date.now()));
-if(!CURRENT_PAIR){const chosen=selectConfidentPair(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());if(chosen){
+let CURRENT_PAIR=null;
+/* 每次更新都筛选当前仍在售、未开赛的组合；已有待结算组合只保留历史，不阻塞新推荐。 */
+const chosen=selectConfidentPair(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());if(chosen){
  const signature=pairSignature(chosen);CURRENT_PAIR=PAIR_RECORDS.find(p=>pairSignature(p)===signature);
  if(!CURRENT_PAIR){CURRENT_PAIR={date:PAIR_DAY,createdAt:new Date().toISOString(),odds:chosen.odds,legs:chosen.legs,verdict:'pending'};PAIR_RECORDS.push(CURRENT_PAIR);}
-}}
+}
 function saveConfidentPairs(){
   let latest={};try{latest=JSON.parse(fs.readFileSync(PAIR_ARCHIVE_FILE,'utf8'));}catch(e){}
   latest.footballPairs=PAIR_RECORDS;
