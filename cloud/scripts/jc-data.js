@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-29 18:33 */
+/* 自动生成，请勿手动编辑 · 2026-10-29 18:52 */
 const JC_DATA = {
- "updated": "2026-10-29 18:33",
+ "updated": "2026-10-29 18:52",
  "stat": {
   "total": 19,
   "upcoming": 19,
@@ -59,8 +59,8 @@ const JC_DATA = {
      },
      "live": {
       "home": 5,
-      "draw": 4,
-      "away": 1.5
+      "draw": 4.1,
+      "away": 1.53
      }
     },
     "overunder": {
@@ -79,27 +79,27 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 50.6,
+    "confidence": 50.5,
     "prob": {
-     "home": 23.7,
+     "home": 23.8,
      "draw": 25.7,
-     "away": 50.6
+     "away": 50.5
     },
     "clear": true,
-    "margin": 11.7,
+    "margin": 9.7,
     "rqLine": "受半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 23.7,
+      "home": 23.8,
       "draw": 25.7,
-      "away": 50.6
+      "away": 50.5
      },
-     "confidence": 50.6,
+     "confidence": 50.5,
      "signals": [
-      "初盘→即时：主胜-11.9pp / 平局-5.2pp / 客胜+17.1pp",
+      "初盘→即时：主胜-11.6pp / 平局-5.3pp / 客胜+16.9pp",
       "亚盘客队方向变深，水位下降"
      ],
      "missing": [
@@ -110,9 +110,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": 18.3,
-      "draw": 2.9,
-      "away": -24.1
+      "home": 18.9,
+      "draw": 5.3,
+      "away": -22.7
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -261,9 +261,9 @@ const JC_DATA = {
     "openHandicap": 0.25,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "44.44",
-    "theoryDownPercent": "55.56",
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
     "canWater": true,
     "handicapChange": null,
     "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
@@ -842,9 +842,9 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 0.82,
+      "line": 0.85,
       "over": 3,
-      "under": 0.97
+      "under": 0.95
      }
     }
    },
