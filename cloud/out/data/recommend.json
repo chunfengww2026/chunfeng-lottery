@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-29 07:37",
- "red": 4,
+ "updated": "2026-10-29 08:16",
+ "red": 5,
  "black": 2,
- "rate": "66.7%",
+ "rate": "71.4%",
  "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-10-29 08:16",
+   "finishTime": 1793232960000,
+   "verdict": "红",
+   "matches": [
+    {
+     "matchNo": "周三013",
+     "teams": "蒙扎 vs 那不勒斯",
+     "pick": "客胜",
+     "score": "1:4",
+     "result": "red",
+     "confidence": 60.7,
+     "status": "finished",
+     "finishTime": 1793232960000,
+     "league": "意甲",
+     "odds": 1.57,
+     "time": "2026-10-29 03:45"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-28 23:58",
    "finishTime": 1793203080000,
