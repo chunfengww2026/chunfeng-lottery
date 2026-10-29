@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 06:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 06:58 */
 const JC_DATA = {
- "updated": "2026-10-30 06:28",
+ "updated": "2026-10-30 06:58",
  "stat": {
   "total": 7,
   "upcoming": 1,
@@ -712,7 +712,7 @@ const JC_DATA = {
       "away": 3.25
      },
      "live": {
-      "home": 2.3,
+      "home": 2.25,
       "draw": 3.4,
       "away": 3.1
      }
@@ -733,28 +733,28 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41.7,
+    "confidence": 41.9,
     "prob": {
-     "home": 41.7,
-     "draw": 28.6,
+     "home": 41.9,
+     "draw": 28.5,
      "away": 29.7
     },
     "clear": false,
-    "margin": 5.1,
+    "margin": 6.1,
     "rqLine": "平手/半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 41.7,
-      "draw": 28.6,
+      "home": 41.9,
+      "draw": 28.5,
       "away": 29.7
      },
-     "confidence": 41.7,
+     "confidence": 41.9,
      "signals": [
       "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-1.9pp / 平局-0.2pp / 客胜+2.1pp",
+      "初盘→即时：主胜-1.3pp / 平局-0.4pp / 客胜+1.8pp",
       "亚盘未变盘；水位只作辅助核对",
       "主要方向凯利中位参考 0.940",
       "多机构分歧 3.2%"
@@ -764,16 +764,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -4.1,
-      "draw": -2.9,
-      "away": -7.8
+      "home": -5.8,
+      "draw": -3.2,
+      "away": -8.1
      },
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.6820702126351184,
-       "draw": 0.18480276263736412,
-       "away": 0.1331270247275171
+       "home": 0.6839134814994822,
+       "draw": 0.18385164059686532,
+       "away": 0.13223487790365213
       },
       "pick": "home",
       "label": "让胜"
@@ -817,7 +817,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-30 06:28",
+  "updated": "2026-10-30 06:58",
   "officialUpdate": "2026-10-29 21:53:09",
   "inSale": 13,
   "list": [
