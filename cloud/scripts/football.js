@@ -610,7 +610,7 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "德锡",
      "score": 2,
@@ -688,7 +688,7 @@ const FOOTBALL_DATA = {
      "color": "999910"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "延特拉",
      "score": 3,
@@ -762,7 +762,7 @@ const FOOTBALL_DATA = {
      "color": "330033"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "卡帕提",
      "score": 2,
@@ -840,7 +840,7 @@ const FOOTBALL_DATA = {
      "color": "333222"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "沃罗斯",
      "score": 1,
@@ -918,7 +918,7 @@ const FOOTBALL_DATA = {
      "color": "003db9"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "国际图尔库",
      "score": 2,
