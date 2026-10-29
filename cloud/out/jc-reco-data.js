@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-29 18:31",
+ "updated": "2026-10-29 18:48",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -127,76 +127,6 @@ const JC_RECO_DATA = {
    "miss": 1,
    "pending": 0,
    "verdict": "黑"
-  },
-  {
-   "at": "2026-10-29 18:31",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周四004",
-     "time": "2026-10-30 01:30",
-     "league": "瑞典超",
-     "home": "哈马比",
-     "away": "天狼星",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.42,
-     "conf": 61.8,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五004",
-     "time": "2026-10-31 02:00",
-     "league": "法甲",
-     "home": "勒阿弗尔",
-     "away": "巴黎圣曼",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.25,
-     "conf": 77.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五009",
-     "time": "2026-10-31 04:00",
-     "league": "西甲",
-     "home": "比利亚雷",
-     "away": "西班牙人",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.42,
-     "conf": 63.8,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周五011",
-     "time": "2026-10-31 04:15",
-     "league": "葡超",
-     "home": "卡萨皮亚",
-     "away": "里斯本",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.27,
-     "conf": 75.5,
-     "score": "",
-     "hit": null,
-     "result": ""
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 4,
-   "verdict": ""
   }
  ]
 };
