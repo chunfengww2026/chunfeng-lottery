@@ -1,10 +1,30 @@
 {
- "updated": "2026-10-29 12:27",
+ "updated": "2026-10-29 13:15",
  "red": 3,
  "black": 3,
  "rate": "50.0%",
- "unfinished": 0,
+ "unfinished": 1,
  "history": [
+  {
+   "dateStr": "2026-10-29 13:15",
+   "finishTime": 1793250900000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周四004",
+     "teams": "哈马比 vs 天狼星",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.2,
+     "status": "pending",
+     "finishTime": 1793250900000,
+     "league": "瑞典超",
+     "odds": 1.48,
+     "time": "2026-10-30 01:30"
+    }
+   ]
+  },
   {
    "dateStr": "2026-10-28 23:58",
    "finishTime": 1793203080000,
