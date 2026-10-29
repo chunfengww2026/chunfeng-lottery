@@ -72,7 +72,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "阿尔萨瑞",
      "score": 0,
@@ -81,7 +81,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "沙汉",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -138,7 +138,7 @@ const FOOTBALL_DATA = {
      "color": "8844ff"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "阿尔利",
      "score": 1,
@@ -270,10 +270,10 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 85,
+    "minute": 0,
     "home": {
      "name": "FC諾亞",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -308,7 +308,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 92,
+    "minute": 0,
     "home": {
      "name": "中国女足U17",
      "score": 0,
@@ -374,7 +374,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-10-29 23:00:00",
-    "minute": 86,
+    "minute": 101,
     "home": {
      "name": "尼日利亚女足(U17)",
      "score": 2,
@@ -383,7 +383,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "墨西哥女足U17",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -610,10 +610,10 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "德锡",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 6
     },
@@ -688,7 +688,7 @@ const FOOTBALL_DATA = {
      "color": "999910"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "延特拉",
      "score": 3,
@@ -840,7 +840,7 @@ const FOOTBALL_DATA = {
      "color": "333222"
     },
     "time": "2026-10-30 00:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "沃罗斯",
      "score": 1,
