@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 07:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "卡利阿美利加",
      "score": 0,
@@ -753,7 +753,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -819,7 +819,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "瓦斯科达迦马",
      "score": 1,
@@ -828,7 +828,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "弗拉门戈",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
