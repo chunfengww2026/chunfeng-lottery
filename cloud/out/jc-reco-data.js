@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-29 10:49",
+ "updated": "2026-10-29 11:36",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -133,15 +133,15 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.45,
      "conf": 62.4,
-     "score": "",
-     "hit": null,
-     "result": ""
+     "score": "2:2",
+     "hit": false,
+     "result": "lose"
     }
    ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
-   "verdict": ""
+   "hit": 0,
+   "miss": 1,
+   "pending": 0,
+   "verdict": "黑"
   },
   {
    "at": "2026-10-28 23:58",
@@ -169,29 +169,29 @@ const JC_RECO_DATA = {
    "verdict": "黑"
   },
   {
-   "at": "2026-10-29 10:49",
+   "at": "2026-10-29 11:36",
    "min": 58,
    "rows": [
     {
-     "code": "周三013",
-     "time": "2026-10-29 03:45",
-     "league": "意甲",
-     "home": "蒙扎",
-     "away": "那不勒斯",
-     "pick": "away",
-     "label": "客胜",
+     "code": "周四004",
+     "time": "2026-10-30 01:30",
+     "league": "瑞典超",
+     "home": "哈马比",
+     "away": "天狼星",
+     "pick": "home",
+     "label": "主胜",
      "type": "three",
-     "odds": 1.57,
-     "conf": 60.7,
-     "score": "1:4",
-     "hit": true,
-     "result": "win"
+     "odds": 1.48,
+     "conf": 61.2,
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
+   "hit": null,
+   "miss": null,
+   "pending": 1,
+   "verdict": ""
   }
  ]
 };
