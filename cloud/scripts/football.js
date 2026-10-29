@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-29 22:35:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "卡赫利塞哈特",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "哈森姆",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
@@ -7324,7 +7324,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-29 20:30:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "德爾福",
      "score": 0,
@@ -7728,7 +7728,7 @@ const FOOTBALL_DATA = {
      "color": "A59350"
     },
     "time": "2026-10-29 20:50:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "阿尔瓦斯尔U21",
      "score": 0,
@@ -7794,7 +7794,7 @@ const FOOTBALL_DATA = {
      "color": "A59350"
     },
     "time": "2026-10-29 20:50:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "阿泰德U21",
      "score": 1,
@@ -7860,7 +7860,7 @@ const FOOTBALL_DATA = {
      "color": "A59350"
     },
     "time": "2026-10-29 20:50:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "阿拉畢歐姆古溫U21",
      "score": 0,
@@ -7898,7 +7898,7 @@ const FOOTBALL_DATA = {
      "color": "DD8800"
     },
     "time": "2026-10-29 21:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "哥罗纳B队",
      "score": 1,
@@ -7964,7 +7964,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-10-29 21:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "米特聖地亞哥埃斯特羅(後備)",
      "score": 0,
@@ -8030,7 +8030,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-10-29 21:15:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "肯尼亞警察",
      "score": 1,
@@ -8096,7 +8096,7 @@ const FOOTBALL_DATA = {
      "color": "226677"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "柏沙卡U19",
      "score": 0,
@@ -8228,7 +8228,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-10-29 21:30:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "艾菲里肯",
      "score": 3,
@@ -8340,7 +8340,7 @@ const FOOTBALL_DATA = {
      "color": "666688"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "亚鲁米尼U19",
      "score": 1,
@@ -8418,7 +8418,7 @@ const FOOTBALL_DATA = {
      "color": "9D822F"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "富图雷",
      "score": 0,
@@ -8496,7 +8496,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-29 22:00:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "苏维埃之翼",
      "score": 1,
