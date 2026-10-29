@@ -1,30 +1,10 @@
 {
- "updated": "2026-10-29 11:36",
- "red": 4,
+ "updated": "2026-10-29 12:27",
+ "red": 3,
  "black": 3,
- "rate": "57.1%",
- "unfinished": 2,
+ "rate": "50.0%",
+ "unfinished": 0,
  "history": [
-  {
-   "dateStr": "2026-10-29 11:36",
-   "finishTime": 1793244960000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周四004",
-     "teams": "哈马比 vs 天狼星",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.2,
-     "status": "pending",
-     "finishTime": 1793244960000,
-     "league": "瑞典超",
-     "odds": 1.48,
-     "time": "2026-10-30 01:30"
-    }
-   ]
-  },
   {
    "dateStr": "2026-10-28 23:58",
    "finishTime": 1793203080000,
@@ -121,39 +101,6 @@
      "league": "意甲",
      "odds": 1.38,
      "time": "2026-10-29 01:30"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-28 00:23",
-   "finishTime": 1793118180000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周二009",
-     "teams": "罗马 vs 卡利亚里",
-     "pick": "主胜",
-     "score": "4:2",
-     "result": "red",
-     "confidence": 70.9,
-     "status": "finished",
-     "finishTime": 1793118180000,
-     "league": "意甲",
-     "odds": 1.29,
-     "time": "2026-10-28 03:45"
-    },
-    {
-     "matchNo": "周二007",
-     "teams": "多特蒙德 vs 不来梅",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 68.1,
-     "status": "pending",
-     "finishTime": 1793118180000,
-     "league": "德国杯",
-     "odds": 1.4,
-     "time": "2026-10-28 03:45"
     }
    ]
   }
