@@ -3139,7 +3139,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 01:00:00",
-    "minute": 91,
+    "minute": 93,
     "home": {
      "name": "米克斯高",
      "score": 0,
@@ -3205,7 +3205,7 @@ const FOOTBALL_DATA = {
      "color": "FB2203"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "埃格纳提亚",
      "score": 0,
@@ -3271,7 +3271,7 @@ const FOOTBALL_DATA = {
      "color": "99a629"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "埃斯基谢希尔体育",
      "score": 0,
@@ -3337,7 +3337,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 54,
+    "minute": 56,
     "home": {
      "name": "哈马比",
      "score": 2,
@@ -3403,7 +3403,7 @@ const FOOTBALL_DATA = {
      "color": "005ce6"
     },
     "time": "2026-10-30 01:30:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "弗洛西诺尼",
      "score": 3,
@@ -3449,7 +3449,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 01:45:00",
-    "minute": 53,
+    "minute": 55,
     "home": {
      "name": "巴黎(女)",
      "score": 1,
@@ -3515,7 +3515,7 @@ const FOOTBALL_DATA = {
      "color": "FF884C"
     },
     "time": "2026-10-30 01:45:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "奧地利維也納(女)",
      "score": 0,
@@ -3581,7 +3581,7 @@ const FOOTBALL_DATA = {
      "color": "FF2F73"
     },
     "time": "2026-10-30 01:45:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "高沙根男生",
      "score": 0,
@@ -4597,7 +4597,7 @@ const FOOTBALL_DATA = {
      "color": "3792aa"
     },
     "time": "2026-10-30 02:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "特拉维夫马卡比",
      "score": 0,
@@ -4675,7 +4675,7 @@ const FOOTBALL_DATA = {
      "color": "3777FF"
     },
     "time": "2026-10-30 02:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "米迪兰特",
      "score": 1,
@@ -4753,7 +4753,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 02:45:00",
-    "minute": 10,
+    "minute": 12,
     "home": {
      "name": "布拉加",
      "score": 0,
@@ -4831,7 +4831,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-10-30 02:45:00",
-    "minute": 8,
+    "minute": 10,
     "home": {
      "name": "巴蒂卡",
      "score": 0,
