@@ -12593,10 +12593,10 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "塞曼巴东",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -12789,7 +12789,7 @@ const FOOTBALL_DATA = {
      "color": "9944cc"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "瑪哈沙拉堪",
      "score": 1,
@@ -12855,10 +12855,10 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "帕尔斯巴亚",
-     "score": 0,
+     "score": 2,
      "red": 0,
      "rank": 7
     },
@@ -12921,7 +12921,7 @@ const FOOTBALL_DATA = {
      "color": "888812"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "九龍城",
      "score": 1,
@@ -12987,10 +12987,10 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "莫斯科火車頭U19",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 5
     },
@@ -13119,7 +13119,7 @@ const FOOTBALL_DATA = {
      "color": "008866"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "科诺普廖夫青年队",
      "score": 0,
@@ -13128,7 +13128,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫斯科斯巴达青年队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
@@ -13185,7 +13185,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-30 20:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "佐伯阿汉",
      "score": 0,
@@ -13251,7 +13251,7 @@ const FOOTBALL_DATA = {
      "color": "8877cc"
     },
     "time": "2026-10-30 20:15:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "河内FC",
      "score": 1,
@@ -13317,7 +13317,7 @@ const FOOTBALL_DATA = {
      "color": "999910"
     },
     "time": "2026-10-30 20:15:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "里拉斯奇",
      "score": 0,
@@ -13383,7 +13383,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "泰拉桑那",
      "score": 0,
@@ -13449,7 +13449,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "Proxy",
      "score": 0,
@@ -13515,10 +13515,10 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "佩哈亚克",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -13581,7 +13581,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "卡巴阿斯玛利",
      "score": 1,
@@ -13619,7 +13619,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "El达克尔野",
      "score": 0,
@@ -13685,7 +13685,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "巴拉蒂耶",
      "score": 0,
@@ -13751,7 +13751,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "艾奢卡艾哈迪德",
      "score": 1,
@@ -13817,7 +13817,7 @@ const FOOTBALL_DATA = {
      "color": "DD8800"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "琴斯托霍瓦II隊",
      "score": 1,
@@ -13826,7 +13826,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "雷布尼克电力",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -13949,7 +13949,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-30 20:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "亚哈",
      "score": 0,
@@ -14795,7 +14795,7 @@ const FOOTBALL_DATA = {
      "color": "996633"
     },
     "time": "2026-10-30 21:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "阿基纳扎力",
      "score": 1,
@@ -14873,7 +14873,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "花剌子模乌尔根奇",
      "score": 0,
@@ -14951,7 +14951,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "库鲁维奇科坎",
      "score": 0,
@@ -15029,7 +15029,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "索格迪纳吉扎克",
      "score": 0,
