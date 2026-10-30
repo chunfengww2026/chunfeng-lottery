@@ -1271,8 +1271,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -1,
-       "line": "0.82",
-       "away": 1.06
+       "line": "0.79",
+       "away": 1.09
       },
       "live": {
        "home": -0.5,
@@ -1709,25 +1709,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 1,
-       "line": "0.81",
-       "away": 0.89
+       "line": "0.87",
+       "away": 0.95
       },
       "live": {
        "home": 0.5,
-       "line": "0.68",
-       "away": 1.02
+       "line": "0.74",
+       "away": 1.08
       }
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.92,
-       "under": 0.78
+       "over": 0.97,
+       "under": 0.83
       },
       "live": {
        "line": "1",
-       "over": 0.66,
-       "under": 1.04
+       "over": 0.71,
+       "under": 1.09
       }
      },
      "europe": {
@@ -2091,8 +2091,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 0.87,
-       "under": 1.01
+       "over": 0.91,
+       "under": 0.97
       }
      },
      "europe": {
@@ -6415,7 +6415,7 @@ const FOOTBALL_DATA = {
       "away": 12.4
      },
      "clear": true,
-     "margin": 10.4
+     "margin": 9.9
     },
     "result": {
      "actual": "away",
@@ -6821,7 +6821,11 @@ const FOOTBALL_DATA = {
       "live": null
      },
      "europe": {
-      "open": null,
+      "open": {
+       "home": 0,
+       "draw": 0,
+       "away": 0
+      },
       "live": null
      }
     },
@@ -7819,7 +7823,7 @@ const FOOTBALL_DATA = {
      "name": "布莱格",
      "score": 0,
      "red": 0,
-     "rank": 15
+     "rank": 11
     },
     "odds": {
      "asian": {
@@ -8648,6 +8652,86 @@ const FOOTBALL_DATA = {
      "score": "3 - 0"
     }
    },
+   {
+    "gid": 589502,
+    "kind": "live",
+    "league": {
+     "name": "奥甲",
+     "color": "2F3FD2"
+    },
+    "time": "2026-10-31 02:30:00",
+    "minute": 3,
+    "home": {
+     "name": "格拉茨AK",
+     "score": 0,
+     "red": 0,
+     "rank": 8
+    },
+    "away": {
+     "name": "哈特堡格",
+     "score": 0,
+     "red": 0,
+     "rank": 6
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "1.08",
+       "away": 0.8
+      },
+      "live": {
+       "home": 0,
+       "line": "0.98",
+       "away": 0.9
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 0.85,
+       "under": 1.01
+      },
+      "live": {
+       "line": "1",
+       "over": 0.88,
+       "under": 0.98
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.65,
+       "draw": 2.46,
+       "away": 3.35
+      },
+      "live": {
+       "home": 3.25,
+       "draw": 3.05,
+       "away": 2.16
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 42.1,
+     "prob": {
+      "home": 28,
+      "draw": 29.8,
+      "away": 42.1
+     },
+     "clear": false,
+     "margin": 9.9
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "0 - 0"
+    }
+   }
+  ],
+  "finished": [
    {
     "gid": 591355,
     "kind": "finished",

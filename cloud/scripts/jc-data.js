@@ -1160,7 +1160,7 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 40.1,
+    "confidence": 40.4,
     "prob": {
      "home": 40.1,
      "draw": 26.7,
@@ -1178,7 +1178,7 @@ const JC_DATA = {
       "draw": 26.7,
       "away": 33.2
      },
-     "confidence": 40.1,
+     "confidence": 40.4,
      "signals": [
       "初盘→即时：主胜-5.8pp / 平局+2.9pp / 客胜+2.8pp",
       "亚盘客队方向变深，水位上升"
