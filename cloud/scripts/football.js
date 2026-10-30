@@ -3239,7 +3239,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "伊比萨城",
      "score": 3,
@@ -3305,7 +3305,7 @@ const FOOTBALL_DATA = {
      "color": "3366CC"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "马德里竞技B队",
      "score": 1,
@@ -3371,7 +3371,7 @@ const FOOTBALL_DATA = {
      "color": "668800"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "DHJ哈斯沙尼亚",
      "score": 1,
@@ -3437,7 +3437,7 @@ const FOOTBALL_DATA = {
      "color": "008811"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "费珐",
      "score": 3,
@@ -3503,7 +3503,7 @@ const FOOTBALL_DATA = {
      "color": "cc4400"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "谢菲尔德联",
      "score": 1,
@@ -3569,7 +3569,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "比利亚雷亚尔",
      "score": 0,
@@ -3635,10 +3635,10 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-10-31 04:05:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "里尔",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
@@ -3701,7 +3701,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-10-31 04:15:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "卡萨皮亚",
      "score": 0,
@@ -3767,7 +3767,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 05:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "珮雷拉",
      "score": 0,
