@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "里奥夸托学生队",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "皇家帕托斯",
      "score": 0,
@@ -240,10 +240,10 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "科洛科洛",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "科金博",
      "score": 0,
@@ -2359,7 +2359,7 @@ const FOOTBALL_DATA = {
      "color": "668800"
     },
     "time": "2026-10-31 04:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "DHJ哈斯沙尼亚",
      "score": 1,
@@ -2397,7 +2397,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-10-31 04:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "卡萨皮亚",
      "score": 0,
@@ -2463,7 +2463,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 05:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "珮雷拉",
      "score": 0,
@@ -2529,7 +2529,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-10-31 05:30:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "卡洛圣佩德鲁",
      "score": 0,
