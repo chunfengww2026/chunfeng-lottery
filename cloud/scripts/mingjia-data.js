@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/30 12:47:06） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/30 13:40:19） */
 const MINGJIA_DATA = {
- "updated": "2026-10-30 12:47:06",
+ "updated": "2026-10-30 13:40:19",
  "list": [
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "明哥看彩",
-   "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "九头鸟",
    "cat": "双色球",
@@ -45,6 +21,18 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "蓝号迷",
+   "cat": "双色球",
+   "kw": "蓝号迷 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "一品红",
+   "cat": "双色球",
+   "kw": "一品红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "黄大仙",
    "cat": "双色球",
    "kw": "黄大仙 双色球 字谜 参考图",
@@ -59,7 +47,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-29T19:17:01.796Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "东北人杀",
@@ -76,7 +65,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-29T17:46:50.065Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "峨眉道姑",
@@ -93,13 +83,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-29T17:47:06.035Z"
     }
-   ]
-  },
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
+   ],
+   "stale": true
   },
   {
    "name": "林黛玉",
@@ -116,7 +101,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-30T03:16:49.544Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "南山大师",
@@ -395,9 +381,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "一品红",
+   "name": "万里挑一",
    "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -643,11 +647,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-30 01:18:23",
-   "names": 71,
-   "imgs": 17
-  },
-  {
    "at": "2026-10-30 01:48:02",
    "names": 71,
    "imgs": 17
@@ -759,6 +758,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-10-30 12:47:06",
+   "names": 71,
+   "imgs": 18
+  },
+  {
+   "at": "2026-10-30 13:40:19",
    "names": 71,
    "imgs": 18
   }
