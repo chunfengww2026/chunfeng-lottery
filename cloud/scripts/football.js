@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "阿拉倫斯",
      "score": 2,
@@ -31,7 +31,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "莫塔瓜",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "马昆森",
      "score": 0,
