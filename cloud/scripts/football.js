@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-10-30 22:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "託武兹",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-30 22:50:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "迪雷禾",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "尼奧姆",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
@@ -12811,7 +12811,7 @@ const FOOTBALL_DATA = {
      "color": "996633"
     },
     "time": "2026-10-30 21:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "阿基纳扎力",
      "score": 2,
@@ -12877,7 +12877,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "库鲁维奇科坎",
      "score": 0,
@@ -12955,7 +12955,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "花剌子模乌尔根奇",
      "score": 0,
@@ -13021,7 +13021,7 @@ const FOOTBALL_DATA = {
      "color": "887790"
     },
     "time": "2026-10-30 21:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "索格迪纳吉扎克",
      "score": 0,
@@ -13551,7 +13551,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B52"
     },
     "time": "2026-10-30 22:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "泰莱尔格马",
      "score": 0,
@@ -13589,7 +13589,7 @@ const FOOTBALL_DATA = {
      "color": "00A665"
     },
     "time": "2026-10-30 22:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "尼日尔龙卷风",
      "score": 0,
@@ -13745,7 +13745,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-30 22:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "霍拉馬巴德",
      "score": 0,
@@ -13754,7 +13754,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "塞帕汉",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -13823,7 +13823,7 @@ const FOOTBALL_DATA = {
      "color": "ee8888"
     },
     "time": "2026-10-30 22:15:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "艾沙哈尼亚",
      "score": 0,
