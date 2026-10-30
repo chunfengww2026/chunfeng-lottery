@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-31 06:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-31 07:28 */
 const JC_DATA = {
- "updated": "2026-10-31 06:58",
+ "updated": "2026-10-31 07:28",
  "stat": {
-  "total": 12,
-  "upcoming": 1,
+  "total": 11,
+  "upcoming": 0,
   "live": 0,
   "finished": 11,
   "withScore": 11,
-  "droppedNotOnSale": 0,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 44,
-  "droppedNotOnSale": 0,
+  "officialCodes": 43,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -1193,188 +1193,15 @@ const JC_DATA = {
     "home": 0,
     "away": 2
    }
-  },
-  {
-   "gid": "1362534",
-   "fid": "1362534",
-   "sid": "19498",
-   "code": "周五012",
-   "league": "巴甲",
-   "round": "第33轮",
-   "time": "2026-10-31 07:00",
-   "handicap": "-1",
-   "home": {
-    "name": "科林蒂安",
-    "rank": 18
-   },
-   "away": {
-    "name": "米拉索尔",
-    "rank": 16
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1.05,
-      "line": "一球",
-      "away": 0.8
-     },
-     "live": {
-      "home": 1.15,
-      "line": "半球/一球",
-      "away": 0.67
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 1.57,
-      "draw": 3.8,
-      "away": 5.75
-     },
-     "live": {
-      "home": 1.85,
-      "draw": 3.4,
-      "away": 4.2
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.82,
-      "over": 2,
-      "under": 1.02
-     },
-     "live": {
-      "line": 0.7,
-      "over": 2,
-      "under": 1.1
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 53.9,
-    "prob": {
-     "home": 53.9,
-     "draw": 25.8,
-     "away": 20.3
-    },
-    "clear": true,
-    "margin": 7.3,
-    "rqLine": "半球/一球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 53.9,
-      "draw": 25.8,
-      "away": 20.3
-     },
-     "confidence": 53.9,
-     "signals": [
-      "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-8.9pp / 平局+2.9pp / 客胜+6.0pp",
-      "亚盘客队方向变深，水位下降",
-      "主要方向凯利中位参考 0.950",
-      "多机构分歧 3.0%"
-     ],
-     "missing": [
-      "同场同期必发成交/购买热度缺失"
-     ],
-     "risk": [
-      "欧亚方向不一致，谨慎"
-     ],
-     "ev": {
-      "home": -0.2,
-      "draw": -12.2,
-      "away": -14.9
-     },
-     "handicap": {
-      "line": -1,
-      "prob": {
-       "home": 0.28259122154567207,
-       "draw": 0.2339051069390945,
-       "away": 0.48350367151523366
-      },
-      "pick": "away",
-      "label": "让负"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
-   },
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": -1,
-    "openUpWater": 1.05,
-    "openDownWater": 0.8,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -1,
-     "nowHandicap": -0.75,
-     "initUpWater": 1.05,
-     "nowUpWater": 1.15,
-     "initLine": "一球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-31 06:58",
+  "updated": "2026-10-31 07:28",
   "officialUpdate": "2026-10-30 21:37:46",
-  "inSale": 44,
+  "inSale": 43,
   "list": [
-   {
-    "code": "周五012",
-    "matchNum": "5012",
-    "league": "巴甲",
-    "time": "2026-10-31 07:00:00",
-    "home": "科林蒂安",
-    "away": "米拉索尔",
-    "had": {
-     "h": 1.7,
-     "d": 3.15,
-     "a": 4.28,
-     "update": "2026-10-30 19:17:46"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 3.55,
-     "d": 3.07,
-     "a": 1.88,
-     "update": "2026-10-30 19:17:51"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周六001",
     "matchNum": "6001",
