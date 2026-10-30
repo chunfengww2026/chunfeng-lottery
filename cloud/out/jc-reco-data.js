@@ -5,79 +5,9 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-30 12:52",
+ "updated": "2026-10-30 13:54",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
-  {
-   "at": "2026-10-28 23:00",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周三002",
-     "time": "2026-10-28 18:00",
-     "league": "亚冠杯",
-     "home": "鹿岛鹿角",
-     "away": "浦项制铁",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.44,
-     "conf": 62.4,
-     "score": "3:0",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周三003",
-     "time": "2026-10-28 18:00",
-     "league": "日联杯",
-     "home": "横滨水手",
-     "away": "广岛三箭",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.48,
-     "conf": 61.5,
-     "score": "4:3",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周三004",
-     "time": "2026-10-29 01:00",
-     "league": "德国杯",
-     "home": "帕德博恩",
-     "away": "斯图加特",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.57,
-     "conf": 60.4,
-     "score": "0:1",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周三005",
-     "time": "2026-10-29 01:30",
-     "league": "意甲",
-     "home": "威尼斯",
-     "away": "国际米兰",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.38,
-     "conf": 69.9,
-     "score": "0:2",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
-  },
   {
    "at": "2026-10-28 23:04",
    "min": 58,
@@ -356,6 +286,31 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 10,
+   "verdict": ""
+  },
+  {
+   "at": "2026-10-30 13:54",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周六022",
+     "time": "2026-11-01 01:30",
+     "league": "英超",
+     "home": "热刺",
+     "away": "水晶宫",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.53,
+     "conf": 58.9,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 1,
    "verdict": ""
   }
  ]
