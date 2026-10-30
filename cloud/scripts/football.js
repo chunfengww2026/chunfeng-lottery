@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "国民体育会",
      "score": 2,
