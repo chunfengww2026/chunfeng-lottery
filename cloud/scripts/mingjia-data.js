@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/31 00:39:01） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/10/31 01:30:06） */
 const MINGJIA_DATA = {
- "updated": "2026-10-31 00:39:01",
+ "updated": "2026-10-31 01:30:06",
  "list": [
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "明哥看彩",
-   "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "九头鸟",
    "cat": "双色球",
@@ -39,6 +15,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "名家精",
    "cat": "双色球",
    "kw": "名家精 双色球 字谜 参考图",
@@ -48,6 +30,24 @@ const MINGJIA_DATA = {
    "name": "鸭梨红",
    "cat": "双色球",
    "kw": "鸭梨红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "蓝号迷",
+   "cat": "双色球",
+   "kw": "蓝号迷 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "一品红",
+   "cat": "双色球",
+   "kw": "一品红 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -65,7 +65,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-29T17:46:50.065Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "峨眉道姑",
@@ -82,13 +83,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-10-29T17:47:06.035Z"
     }
-   ]
-  },
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
+   ],
+   "stale": true
   },
   {
    "name": "南山大师",
@@ -274,49 +270,13 @@ const MINGJIA_DATA = {
    "name": "排三字谜",
    "cat": "排列三",
    "kw": "排三字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/排三字谜/1.png",
-     "size": 495610,
-     "src": "https://www.rzduoli.com/zb_users/cache/ly_autoimg/n/NTQzMzI.png",
-     "page": "https://www.rzduoli.com/zhishi/54332.html",
-     "title": "排三字谜，藏在数字里的民间体育趣味密码 - 多利网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-10-28T16:46:48.248Z"
-    }
-   ],
+   "imgs": [],
    "stale": true
   },
   {
    "name": "蒲公英",
    "cat": "双色球",
    "kw": "蒲公英 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/蒲公英/1.jpg",
-     "size": 79083,
-     "src": "https://pic.800820.net/tumi/20241218/bf89e9919f464ae68a073e0f51b74f58.jpg",
-     "page": "https://www.800820.net/p/9576346.html",
-     "title": "双色球2024146期蒲公英专家杀蓝球一码图「原创」_天齐网",
-     "issue": "2024146",
-     "verified": false,
-     "fetchedAt": "2026-10-28T16:45:49.929Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [],
-   "stale": true
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
    "imgs": [],
    "stale": true
   },
@@ -345,9 +305,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "一品红",
+   "name": "万里挑一",
    "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -599,11 +577,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-10-30 03:47:12",
-   "names": 71,
-   "imgs": 17
-  },
-  {
    "at": "2026-10-30 04:17:13",
    "names": 71,
    "imgs": 17
@@ -717,6 +690,11 @@ const MINGJIA_DATA = {
    "at": "2026-10-31 00:39:01",
    "names": 71,
    "imgs": 14
+  },
+  {
+   "at": "2026-10-31 01:30:06",
+   "names": 71,
+   "imgs": 12
   }
  ],
  "bootstrapExpiresAt": null,
