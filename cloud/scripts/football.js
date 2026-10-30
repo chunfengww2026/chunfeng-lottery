@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "路易斯维尔城",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "基斯奧馬SC",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "瓜兰尼",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "泰里尼登斯",
      "score": 0,
@@ -249,7 +249,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "鲁毕奥",
-     "score": 2,
+     "score": 3,
      "red": null,
      "rank": 10
     },
@@ -1994,7 +1994,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 05:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "珮雷拉",
      "score": 1,
@@ -2060,10 +2060,10 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 05:30:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "卡洛圣佩德鲁",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -2441,7 +2441,7 @@ const FOOTBALL_DATA = {
     "minute": 0,
     "home": {
      "name": "科洛科洛",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 1
     },
