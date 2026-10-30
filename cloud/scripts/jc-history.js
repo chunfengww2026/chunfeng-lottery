@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-31 01:55",
+ "updated": "2026-10-31 02:34",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2732,6 +2732,62 @@ const JC_HISTORY = {
    "at": "2026-10-30 00:28"
   },
   {
+   "code": "周五004",
+   "league": "法甲",
+   "home": "勒阿弗尔",
+   "away": "巴黎圣曼",
+   "time": "2026-10-31 02:00",
+   "score": "1:2",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 10,
+    "draw": 7,
+    "away": 1.25
+   },
+   "prob": {
+    "home": 8.4,
+    "draw": 14.1,
+    "away": 77.4
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 77.4,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-30 00:28"
+  },
+  {
+   "code": "周五005",
+   "league": "挪超",
+   "home": "博德闪耀",
+   "away": "维京",
+   "time": "2026-10-31 02:00",
+   "score": "2:1",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 1.67,
+    "draw": 4.2,
+    "away": 4
+   },
+   "prob": {
+    "home": 53.5,
+    "draw": 22.3,
+    "away": 24.2
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 53.5,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-10-30 00:28"
+  },
+  {
    "code": "周五003",
    "league": "法甲",
    "home": "尼斯",
@@ -2780,116 +2836,6 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 39.1,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-30 00:28"
-  },
-  {
-   "code": "周五004",
-   "league": "法甲",
-   "home": "勒阿弗尔",
-   "away": "巴黎圣曼",
-   "time": "2026-10-31 02:00",
-   "score": "",
-   "hc": null,
-   "asianIndex": {
-    "line": "受两球",
-    "from": "live",
-    "handicap": 2,
-    "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": 2,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 2,
-     "nowHandicap": 2,
-     "initUpWater": 1.02,
-     "nowUpWater": 1.02,
-     "initLine": "受两球",
-     "nowLine": "受两球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 10,
-    "draw": 7,
-    "away": 1.25
-   },
-   "prob": {
-    "home": 8.4,
-    "draw": 14.1,
-    "away": 77.4
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 77.4,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-30 00:28"
-  },
-  {
-   "code": "周五005",
-   "league": "挪超",
-   "home": "博德闪耀",
-   "away": "维京",
-   "time": "2026-10-31 02:00",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": -0.75,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.9,
-     "nowUpWater": 0.85,
-     "initLine": "半球/一球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.67,
-    "draw": 4.2,
-    "away": 4
-   },
-   "prob": {
-    "home": 53.5,
-    "draw": 22.3,
-    "away": 24.2
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 53.5,
    "type": "three",
    "result": "",
    "hit": false,
