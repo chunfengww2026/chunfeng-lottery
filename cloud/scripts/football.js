@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 61,
+    "minute": 63,
     "home": {
      "name": "奥哈卡",
      "score": 1,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 75,
+    "minute": 77,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 0,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 21,
+    "minute": 23,
     "home": {
      "name": "阿拉倫斯",
      "score": 1,
@@ -298,7 +298,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 17,
+    "minute": 19,
     "home": {
      "name": "马昆森",
      "score": 0,
