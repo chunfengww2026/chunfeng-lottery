@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "阿拉倫斯",
      "score": 2,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "马昆森",
      "score": 0,
