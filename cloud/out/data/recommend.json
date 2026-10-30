@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-31 05:55",
+ "updated": "2026-10-31 07:10",
  "red": 3,
- "black": 0,
- "rate": "100.0%",
- "unfinished": 2,
+ "black": 2,
+ "rate": "60.0%",
+ "unfinished": 1,
  "history": [
   {
    "dateStr": "2026-10-30 11:30",
@@ -145,7 +145,7 @@
   {
    "dateStr": "2026-10-29 22:25",
    "finishTime": 1793283900000,
-   "verdict": "",
+   "verdict": "黑",
    "matches": [
     {
      "matchNo": "周四004",
@@ -177,10 +177,10 @@
      "matchNo": "周五009",
      "teams": "比利亚雷 vs 西班牙人",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:1",
+     "result": "black",
      "confidence": 63.8,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793283900000,
      "league": "西甲",
      "odds": 1.42,
@@ -190,10 +190,10 @@
      "matchNo": "周五011",
      "teams": "卡萨皮亚 vs 里斯本",
      "pick": "客胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:0",
+     "result": "black",
      "confidence": 75.5,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793283900000,
      "league": "葡超",
      "odds": 1.27,
