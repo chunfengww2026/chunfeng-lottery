@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 09:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 10:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-30 09:58",
+ "updated": "2026-10-30 10:00",
  "stat": {
   "upcoming": 2,
   "live": 7,
@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "卡托利卡大学",
      "score": 1,
@@ -178,7 +178,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "利加竞技",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -207,7 +207,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 95,
+    "minute": 97,
     "home": {
      "name": "安提瓜GFC",
      "score": 1,
@@ -245,7 +245,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "甘美奧B隊",
      "score": 2,
@@ -262,16 +262,16 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.19",
-       "away": 0.72
+       "line": "1.23",
+       "away": 0.69
       },
       "live": null
      },
      "overunder": {
       "open": {
        "line": "2.75",
-       "over": 0.75,
-       "under": 1.12
+       "over": 0.77,
+       "under": 1.09
       },
       "live": null
      },
@@ -311,7 +311,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "梅格",
      "score": 1,
@@ -328,24 +328,24 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.25",
-       "away": 0.68
+       "line": "1.26",
+       "away": 0.67
       },
       "live": null
      },
      "overunder": {
       "open": {
        "line": "1.75",
-       "over": 0.83,
-       "under": 1.03
+       "over": 0.99,
+       "under": 0.87
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.34,
-       "draw": 10.5,
-       "away": 3.9
+       "home": 1.31,
+       "draw": 11.5,
+       "away": 4
       },
       "live": null
      }
@@ -353,14 +353,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 68,
+     "confidence": 69.4,
      "prob": {
-      "home": 68,
-      "draw": 8.7,
-      "away": 23.4
+      "home": 69.4,
+      "draw": 7.9,
+      "away": 22.7
      },
      "clear": true,
-     "margin": 9.8
+     "margin": 10
     },
     "result": {
      "actual": "home",
@@ -394,8 +394,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0,
-       "line": "1.06",
-       "away": 0.76
+       "line": "1.13",
+       "away": 0.7
       },
       "live": null
      },
@@ -443,7 +443,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 45,
+    "minute": 47,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 0,
@@ -460,8 +460,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.5,
-       "line": "0.73",
-       "away": 0.97
+       "line": "0.75",
+       "away": 0.95
       },
       "live": null
      },
@@ -475,9 +475,9 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 4.3,
-       "draw": 1.97,
-       "away": 2.44
+       "home": 4.4,
+       "draw": 1.95,
+       "away": 2.45
       },
       "live": null
      }
@@ -485,14 +485,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "draw",
      "label": "平局",
-     "confidence": 44.1,
+     "confidence": 44.7,
      "prob": {
-      "home": 20.2,
-      "draw": 44.1,
-      "away": 35.6
+      "home": 19.8,
+      "draw": 44.7,
+      "away": 35.5
      },
      "clear": false,
-     "margin": 15
+     "margin": 14.8
     },
     "result": {
      "actual": "draw",
@@ -509,7 +509,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "国民体育会",
      "score": 2,
@@ -526,25 +526,25 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.75,
-       "line": "1.02",
-       "away": 0.86
+       "line": "1.05",
+       "away": 0.83
       },
       "live": {
        "home": -0.25,
-       "line": "1.35",
-       "away": 0.62
+       "line": "1.47",
+       "away": 0.56
       }
      },
      "overunder": {
       "open": {
        "line": "4",
-       "over": 0.97,
-       "under": 0.89
+       "over": 1.05,
+       "under": 0.81
       },
       "live": {
        "line": "2.5",
-       "over": 1.11,
-       "under": 0.76
+       "over": 1.26,
+       "under": 0.65
       }
      },
      "europe": {
@@ -577,84 +577,6 @@ const FOOTBALL_DATA = {
    }
   ],
   "finished": [
-   {
-    "gid": 590953,
-    "kind": "finished",
-    "league": {
-     "name": "歐女盃",
-     "color": "FF884C"
-    },
-    "time": "2026-10-30 04:00:00",
-    "minute": 0,
-    "home": {
-     "name": "靴尔科治女足",
-     "score": 0,
-     "red": 0,
-     "rank": 1
-    },
-    "away": {
-     "name": "巴塞罗那女足",
-     "score": 8,
-     "red": 0,
-     "rank": 1
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 3.75,
-       "line": "0.93",
-       "away": 0.89
-      },
-      "live": {
-       "home": 1.75,
-       "line": "0.94",
-       "away": 0.88
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "4.75",
-       "over": 0.84,
-       "under": 0.96
-      },
-      "live": {
-       "line": "2.25",
-       "over": 1.03,
-       "under": 0.77
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 18.5,
-       "draw": 1.01,
-       "away": 12.5
-      },
-      "live": {
-       "home": 14,
-       "draw": 1.14,
-       "away": 5
-      }
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 76.4,
-     "prob": {
-      "home": 6.2,
-      "draw": 76.4,
-      "away": 17.4
-     },
-     "clear": true,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 8"
-    }
-   },
    {
     "gid": 590799,
     "kind": "finished",
@@ -731,6 +653,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "平局",
      "hit": false,
      "score": "1 - 1"
+    }
+   },
+   {
+    "gid": 590953,
+    "kind": "finished",
+    "league": {
+     "name": "歐女盃",
+     "color": "FF884C"
+    },
+    "time": "2026-10-30 04:00:00",
+    "minute": 0,
+    "home": {
+     "name": "靴尔科治女足",
+     "score": 0,
+     "red": 0,
+     "rank": 1
+    },
+    "away": {
+     "name": "巴塞罗那女足",
+     "score": 8,
+     "red": 0,
+     "rank": 1
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 3.75,
+       "line": "0.93",
+       "away": 0.89
+      },
+      "live": {
+       "home": 1.75,
+       "line": "0.94",
+       "away": 0.88
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "4.75",
+       "over": 0.84,
+       "under": 0.96
+      },
+      "live": {
+       "line": "2.25",
+       "over": 1.03,
+       "under": 0.77
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 18.5,
+       "draw": 1.01,
+       "away": 12.5
+      },
+      "live": {
+       "home": 14,
+       "draw": 1.14,
+       "away": 5
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 76.4,
+     "prob": {
+      "home": 6.2,
+      "draw": 76.4,
+      "away": 17.4
+     },
+     "clear": true,
+     "margin": 14.9
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 8"
     }
    },
    {
@@ -890,6 +890,162 @@ const FOOTBALL_DATA = {
     }
    },
    {
+    "gid": 590887,
+    "kind": "finished",
+    "league": {
+     "name": "西班牙杯",
+     "color": "006666"
+    },
+    "time": "2026-10-30 04:00:00",
+    "minute": 0,
+    "home": {
+     "name": "普拉特",
+     "score": 1,
+     "red": 0,
+     "rank": 0
+    },
+    "away": {
+     "name": "毕尔巴鄂竞技",
+     "score": 6,
+     "red": 0,
+     "rank": 8
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 3.75,
+       "line": "0.88",
+       "away": 0.82
+      },
+      "live": {
+       "home": 1.75,
+       "line": "0.79",
+       "away": 0.91
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "4.75",
+       "over": 0.84,
+       "under": 0.86
+      },
+      "live": {
+       "line": "2",
+       "over": 0.73,
+       "under": 0.97
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 14,
+       "draw": 1.01,
+       "away": 10.5
+      },
+      "live": {
+       "home": 14,
+       "draw": 1.14,
+       "away": 5
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 76.4,
+     "prob": {
+      "home": 6.2,
+      "draw": 76.4,
+      "away": 17.4
+     },
+     "clear": true,
+     "margin": 14.9
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "1 - 6"
+    }
+   },
+   {
+    "gid": 590888,
+    "kind": "finished",
+    "league": {
+     "name": "西班牙杯",
+     "color": "006666"
+    },
+    "time": "2026-10-30 04:00:00",
+    "minute": 0,
+    "home": {
+     "name": "霍塔萊紮競技",
+     "score": 0,
+     "red": 0,
+     "rank": 0
+    },
+    "away": {
+     "name": "塞维利亚",
+     "score": 3,
+     "red": 0,
+     "rank": 6
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 4.25,
+       "line": "0.73",
+       "away": 0.97
+      },
+      "live": {
+       "home": 1.75,
+       "line": "0.99",
+       "away": 0.71
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "5",
+       "over": 0.84,
+       "under": 0.86
+      },
+      "live": {
+       "line": "2.25",
+       "over": 0.99,
+       "under": 0.71
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 13.5,
+       "draw": 1.01,
+       "away": 10.5
+      },
+      "live": {
+       "home": 17,
+       "draw": 1.1,
+       "away": 5.6
+      }
+     }
+    },
+    "reco": {
+     "pick": "draw",
+     "label": "平局",
+     "confidence": 79.3,
+     "prob": {
+      "home": 5.1,
+      "draw": 79.3,
+      "away": 15.6
+     },
+     "clear": true,
+     "margin": 14.6
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": false,
+     "score": "0 - 3"
+    }
+   },
+   {
     "gid": 590889,
     "kind": "finished",
     "league": {
@@ -1031,162 +1187,6 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": false,
      "score": "0 - 2"
-    }
-   },
-   {
-    "gid": 590888,
-    "kind": "finished",
-    "league": {
-     "name": "西班牙杯",
-     "color": "006666"
-    },
-    "time": "2026-10-30 04:00:00",
-    "minute": 0,
-    "home": {
-     "name": "霍塔萊紮競技",
-     "score": 0,
-     "red": 0,
-     "rank": 0
-    },
-    "away": {
-     "name": "塞维利亚",
-     "score": 3,
-     "red": 0,
-     "rank": 6
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 4.25,
-       "line": "0.73",
-       "away": 0.97
-      },
-      "live": {
-       "home": 1.75,
-       "line": "0.99",
-       "away": 0.71
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "5",
-       "over": 0.84,
-       "under": 0.86
-      },
-      "live": {
-       "line": "2.25",
-       "over": 0.99,
-       "under": 0.71
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 13.5,
-       "draw": 1.01,
-       "away": 10.5
-      },
-      "live": {
-       "home": 17,
-       "draw": 1.1,
-       "away": 5.6
-      }
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 79.3,
-     "prob": {
-      "home": 5.1,
-      "draw": 79.3,
-      "away": 15.6
-     },
-     "clear": true,
-     "margin": 14.6
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "0 - 3"
-    }
-   },
-   {
-    "gid": 590887,
-    "kind": "finished",
-    "league": {
-     "name": "西班牙杯",
-     "color": "006666"
-    },
-    "time": "2026-10-30 04:00:00",
-    "minute": 0,
-    "home": {
-     "name": "普拉特",
-     "score": 1,
-     "red": 0,
-     "rank": 0
-    },
-    "away": {
-     "name": "毕尔巴鄂竞技",
-     "score": 6,
-     "red": 0,
-     "rank": 8
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 3.75,
-       "line": "0.88",
-       "away": 0.82
-      },
-      "live": {
-       "home": 1.75,
-       "line": "0.79",
-       "away": 0.91
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "4.75",
-       "over": 0.84,
-       "under": 0.86
-      },
-      "live": {
-       "line": "2",
-       "over": 0.73,
-       "under": 0.97
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 14,
-       "draw": 1.01,
-       "away": 10.5
-      },
-      "live": {
-       "home": 14,
-       "draw": 1.14,
-       "away": 5
-      }
-     }
-    },
-    "reco": {
-     "pick": "draw",
-     "label": "平局",
-     "confidence": 76.4,
-     "prob": {
-      "home": 6.2,
-      "draw": 76.4,
-      "away": 17.4
-     },
-     "clear": true,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": false,
-     "score": "1 - 6"
     }
    },
    {
