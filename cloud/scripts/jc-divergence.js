@@ -1,6 +1,6 @@
 /* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */
 const JC_DIVERGENCE = {
- "updated": "2026-10-31 06:58",
+ "updated": "2026-10-31 07:28",
  "source": "球探 titan007",
  "sourceUrl": "https://1x2d.titan007.com/",
  "metric": "即时欧赔变异系数 cv = 标准差 / 均值",
@@ -2333,6 +2333,49 @@ const JC_DIVERGENCE = {
     }
    }
   },
+  "周五012": {
+   "sid": "2910950",
+   "match": "科林蒂安 vs 米拉索",
+   "league": "巴西甲",
+   "time": "2026-10-31 07:00",
+   "at": "2026-10-31 06:58",
+   "companies": 356,
+   "records": 356,
+   "live": {
+    "home": {
+     "mean": 1.819,
+     "sd": 0.0602,
+     "cv": 0.0331,
+     "level": "中"
+    },
+    "draw": {
+     "mean": 3.483,
+     "sd": 0.1174,
+     "cv": 0.03372,
+     "level": "中"
+    },
+    "away": {
+     "mean": 4.311,
+     "sd": 0.2886,
+     "cv": 0.06693,
+     "level": "高"
+    }
+   },
+   "open": {
+    "home": {
+     "mean": 1.61,
+     "cv": 0.04789
+    },
+    "draw": {
+     "mean": 3.719,
+     "cv": 0.03644
+    },
+    "away": {
+     "mean": 5.356,
+     "cv": 0.09177
+    }
+   }
+  },
   "周四005": {
    "sid": "3092104",
    "match": "埃弗顿 vs 纽卡斯尔联",
@@ -3284,7 +3327,7 @@ const JC_DIVERGENCE = {
    "match": "鹿特丹斯巴达 vs 福图纳锡塔德",
    "league": "荷兰杯",
    "time": "2026-10-29 01:45",
-   "at": "2026-10-31 06:58",
+   "at": "2026-10-31 07:28",
    "companies": 326,
    "records": 326,
    "live": {
@@ -3319,49 +3362,6 @@ const JC_DIVERGENCE = {
     "away": {
      "mean": 4.073,
      "cv": 0.12819
-    }
-   }
-  },
-  "周五012": {
-   "sid": "2910950",
-   "match": "科林蒂安 vs 米拉索",
-   "league": "巴西甲",
-   "time": "2026-10-31 07:00",
-   "at": "2026-10-31 06:58",
-   "companies": 356,
-   "records": 356,
-   "live": {
-    "home": {
-     "mean": 1.819,
-     "sd": 0.0602,
-     "cv": 0.0331,
-     "level": "中"
-    },
-    "draw": {
-     "mean": 3.483,
-     "sd": 0.1174,
-     "cv": 0.03372,
-     "level": "中"
-    },
-    "away": {
-     "mean": 4.311,
-     "sd": 0.2886,
-     "cv": 0.06693,
-     "level": "高"
-    }
-   },
-   "open": {
-    "home": {
-     "mean": 1.61,
-     "cv": 0.04789
-    },
-    "draw": {
-     "mean": 3.719,
-     "cv": 0.03644
-    },
-    "away": {
-     "mean": 5.356,
-     "cv": 0.09177
     }
    }
   }
