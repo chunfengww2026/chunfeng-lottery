@@ -1556,7 +1556,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -1622,7 +1622,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "里奥夸托学生队",
      "score": 1,
@@ -1688,7 +1688,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "皇家帕托斯",
      "score": 0,
@@ -1754,7 +1754,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "科金博",
      "score": 1,
@@ -1820,7 +1820,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "科洛科洛",
      "score": 6,
@@ -1998,7 +1998,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "泰里尼登斯",
      "score": 0,
@@ -2064,10 +2064,10 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "瓜兰尼",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -2130,7 +2130,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "科林蒂安",
      "score": 0,
@@ -2208,7 +2208,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 21,
+    "minute": 26,
     "home": {
      "name": "查勒斯顿电池",
      "score": 0,
