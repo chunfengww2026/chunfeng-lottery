@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "卡托利卡大学",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "利加竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -680,7 +680,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -812,7 +812,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 07:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "卡利阿美利加",
      "score": 0,
