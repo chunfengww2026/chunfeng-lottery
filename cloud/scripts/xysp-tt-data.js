@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-30 15:27:25
+   更新时间：2026-10-30 16:26:11
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-30 15:27:25",
+ "updated": "2026-10-30 16:26:11",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/18314d9f89a6469ead46103d4d36c00e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=lvhsuljXzWYjerzwgE%2Fz1oo%2FTyA%3D",
@@ -105,7 +105,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3jSVdz6pFZlmP4%2BvnQqeMfe%2FsDQ%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3jSVdz6pFZlmP4%2BvnQqeMfe%2FsDQ%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Bt0LFm9bJka0divnOPjwGBvispU%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sSysK32WzZtR4D7dGBKJuqrXQh4%3D",
    "title": "快乐8中了5个号，怎么只有30元？",
    "url": "https://toutiao.com/group/7702319461260526123/",
    "at": "2026-10-30T05:44:51.737Z",
@@ -116,9 +116,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-30T07:27:25.764Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793336045000,
-   "seenMs": 1793339091737,
+   "seenMs": 1793345245764,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793339091737,
@@ -266,9 +266,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-30T07:27:25.764Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793329551000,
-   "seenMs": 1793339091737,
+   "seenMs": 1793345245764,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793330761281,
@@ -495,7 +495,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3629e8078b5644329cb200653d27a48c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=G3tiCD%2Fe0XZwycGqDdrL9MA6p58%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3629e8078b5644329cb200653d27a48c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=G3tiCD%2Fe0XZwycGqDdrL9MA6p58%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3629e8078b5644329cb200653d27a48c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=zW6pW%2B2D1KAT2QUmTb9kCNypgAQ%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3629e8078b5644329cb200653d27a48c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=fBzha2GFdd%2B%2F0lAGOdi9pNKN%2FQ4%3D",
    "title": "#怎样玩快乐8才能提高中奖率#\n快乐8选六复式，168元投入斩获22610元大奖！\n\n这张快乐8选六复式票，9个号码（1、14、19、37、41、44、61、63、65）组成84注组合，合计168元投入，最终中奖22610元！开奖期2021",
    "url": "sslocal://thread_detail?fid=1715228084039736&tid=1880437815825418",
    "at": "2026-10-30T02:06:02.219Z",
@@ -506,9 +506,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-30T07:27:25.764Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793325248000,
-   "seenMs": 1793339091737,
+   "seenMs": 1793345245764,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793325962219,
@@ -1155,7 +1155,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5cd5bffd71714389925e27472bcf5fab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Lq5CKxnsf35BQHaAbfWZR65ppwU%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5cd5bffd71714389925e27472bcf5fab~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Lq5CKxnsf35BQHaAbfWZR65ppwU%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5cd5bffd71714389925e27472bcf5fab~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=1%2B5LJ6gilLE3MNhpvYgp28t8fMg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5cd5bffd71714389925e27472bcf5fab~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3Hzr0BMIVf7GYbRYk6nAruZIdiY%3D",
    "title": "#福利彩票快乐8谁中过大奖# 早前刷到湖南快乐8的中奖资讯，着实让人实打实羡慕，短短十几天长沙接连开出两个500万的选十中十头奖。\n最先中的是有着8年彩龄的刘先生，原本每期固定入手10块双色球加10块快乐8，照着站点海报机选5注选十，直接撞",
    "url": "sslocal://thread_detail?fid=1743675641821195&tid=1880387549792260",
    "at": "2026-10-29T14:26:01.690Z",
@@ -1167,7 +1167,7 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-10-30T05:44:51.737Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793277311000,
    "seenMs": 1793339091737,
    "drawMs": 1793280600000,
@@ -1407,37 +1407,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "26287",
-   "seen": "2026-10-30T07:27:25.764Z",
-   "whenMs": 1793266436000,
-   "seenMs": 1793339091737,
-   "drawMs": 1793279700000,
-   "nextMs": 1793279700000,
-   "atMs": 1793283961690,
-   "drawAt": "2026-10-29T13:15:00.000Z",
-   "nextAt": 1793279700000,
-   "drawGid": "fc3d",
-   "expireAt": "2026-10-30T14:26:01.690Z",
-   "rule": "first-capture-24h",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-29 17:33:56",
-   "postId": "7702020696234263049",
-   "px": 132300
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6c84064caa724fa5a545440ea6ac5ceb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=MJAZjbDqP7Yt8IyFZmLa%2Bej7ASc%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6c84064caa724fa5a545440ea6ac5ceb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=MJAZjbDqP7Yt8IyFZmLa%2Bej7ASc%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/09ed61cb32024a0690ae71f9fbede888~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=m9H7s9uW5t74Lg0ubgAnmoIHXJY%3D",
-   "title": "多玩法齐上阵！26287期福彩3D晒票扎堆亮相，组三组六单挑齐聚一堂",
-   "url": "http://toutiao.com/item/7702020696234263049/",
-   "at": "2026-10-29T14:26:01.690Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d"
-   ],
-   "issue": "26287",
-   "seen": "2026-10-30T07:27:25.764Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793266436000,
    "seenMs": 1793345245764,
    "drawMs": 1793279700000,
@@ -1454,8 +1424,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca1c07c1b8842c685e26aa61c640c2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=kKKQTTf%2B1q7nm%2BMWlwbJ82Qnje8%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca1c07c1b8842c685e26aa61c640c2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=kKKQTTf%2B1q7nm%2BMWlwbJ82Qnje8%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6c84064caa724fa5a545440ea6ac5ceb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=yyKIFU44lb0mlYABOs6baKUUL6U%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6c84064caa724fa5a545440ea6ac5ceb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=yyKIFU44lb0mlYABOs6baKUUL6U%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/09ed61cb32024a0690ae71f9fbede888~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=m9H7s9uW5t74Lg0ubgAnmoIHXJY%3D",
    "title": "多玩法齐上阵！26287期福彩3D晒票扎堆亮相，组三组六单挑齐聚一堂",
    "url": "http://toutiao.com/item/7702020696234263049/",
@@ -1467,9 +1437,39 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "26287",
-   "seen": "2026-10-30T07:27:25.764Z",
+   "seen": "2026-10-30T08:26:11.179Z",
    "whenMs": 1793266436000,
-   "seenMs": 1793345245764,
+   "seenMs": 1793348771179,
+   "drawMs": 1793279700000,
+   "nextMs": 1793279700000,
+   "atMs": 1793283961690,
+   "drawAt": "2026-10-29T13:15:00.000Z",
+   "nextAt": 1793279700000,
+   "drawGid": "fc3d",
+   "expireAt": "2026-10-30T14:26:01.690Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-29 17:33:56",
+   "postId": "7702020696234263049",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca1c07c1b8842c685e26aa61c640c2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=wtJ%2BNf4Kd2KyBQfV4uSgljpCYKg%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca1c07c1b8842c685e26aa61c640c2a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=wtJ%2BNf4Kd2KyBQfV4uSgljpCYKg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/09ed61cb32024a0690ae71f9fbede888~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=m9H7s9uW5t74Lg0ubgAnmoIHXJY%3D",
+   "title": "多玩法齐上阵！26287期福彩3D晒票扎堆亮相，组三组六单挑齐聚一堂",
+   "url": "http://toutiao.com/item/7702020696234263049/",
+   "at": "2026-10-29T14:26:01.690Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "福彩3D",
+   "games": [
+    "fc3d"
+   ],
+   "issue": "26287",
+   "seen": "2026-10-30T08:26:11.179Z",
+   "whenMs": 1793266436000,
+   "seenMs": 1793348771179,
    "drawMs": 1793279700000,
    "nextMs": 1793279700000,
    "atMs": 1793283961690,
