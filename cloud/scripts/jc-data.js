@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-31 05:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-31 06:00 */
 const JC_DATA = {
- "updated": "2026-10-31 05:58",
+ "updated": "2026-10-31 06:00",
  "stat": {
-  "total": 7,
+  "total": 8,
   "upcoming": 1,
   "live": 0,
-  "finished": 6,
-  "withScore": 6,
-  "droppedNotOnSale": 5,
+  "finished": 7,
+  "withScore": 7,
+  "droppedNotOnSale": 4,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 44,
-  "droppedNotOnSale": 5,
+  "droppedNotOnSale": 4,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -650,6 +650,115 @@ const JC_DATA = {
    }
   },
   {
+   "gid": "1428626",
+   "fid": "1428626",
+   "sid": "19951",
+   "code": "周五007",
+   "league": "德甲",
+   "round": "第8轮",
+   "time": "2026-10-31 03:30",
+   "handicap": null,
+   "home": {
+    "name": "埃沃斯堡",
+    "rank": 8
+   },
+   "away": {
+    "name": "美因茨",
+    "rank": 7
+   },
+   "score": {
+    "home": 4,
+    "away": 1
+   },
+   "statusText": "3 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 1,
+      "line": "受平手/半球",
+      "away": 0.85
+     },
+     "live": {
+      "home": 0.7,
+      "line": "受半球/一球",
+      "away": 1.1
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 3.2,
+      "draw": 3.75,
+      "away": 2.05
+     },
+     "live": {
+      "home": 3.75,
+      "draw": 3.9,
+      "away": 1.85
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.82,
+      "over": 3,
+      "under": 1.02
+     },
+     "live": {
+      "line": 0.75,
+      "over": 3,
+      "under": 1.05
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 50.8,
+    "prob": {
+     "home": 25.1,
+     "draw": 24.1,
+     "away": 50.8
+    },
+    "clear": true,
+    "margin": 6.4,
+    "rqLine": "受半球/一球",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 1.1,
+    "downWater": 0.7,
+    "openHandicap": 0.25,
+    "openUpWater": 0.85,
+    "openDownWater": 1,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.85,
+     "nowUpWater": 1.1,
+     "initLine": "受平手/半球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 4,
+    "away": 1
+   }
+  },
+  {
    "gid": "1362534",
    "fid": "1362534",
    "sid": "19498",
@@ -793,7 +902,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-31 05:58",
+  "updated": "2026-10-31 06:00",
   "officialUpdate": "2026-10-30 21:37:46",
   "inSale": 44,
   "list": [
