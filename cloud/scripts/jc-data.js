@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 10:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 10:58 */
 const JC_DATA = {
- "updated": "2026-10-30 10:28",
+ "updated": "2026-10-30 10:58",
  "stat": {
   "total": 12,
   "upcoming": 12,
@@ -46,9 +46,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 0.75,
+      "home": 0.72,
       "line": "受平手/半球",
-      "away": 1.05
+      "away": 1.07
      }
     },
     "europe": {
@@ -79,11 +79,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 42.3,
+    "confidence": 41.4,
     "prob": {
-     "home": 30.5,
+     "home": 31.4,
      "draw": 27.2,
-     "away": 42.3
+     "away": 41.4
     },
     "clear": false,
     "margin": 6.4,
@@ -93,26 +93,26 @@ const JC_DATA = {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 30.5,
+      "home": 31.4,
       "draw": 27.2,
-      "away": 42.3
+      "away": 41.4
      },
-     "confidence": 42.3,
+     "confidence": 41.4,
      "signals": [
+      "主流初盘 3/3 家偏向客胜",
       "初盘→即时：主胜+6.6pp / 平局-0.6pp / 客胜-6.0pp",
-      "亚盘未变盘；水位只作辅助核对"
+      "亚盘未变盘；水位只作辅助核对",
+      "主要方向凯利中位参考 0.940",
+      "多机构分歧 3.2%"
      ],
      "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
+      "同场同期必发成交/购买热度缺失"
      ],
      "risk": [],
      "ev": {
-      "home": -17.6,
+      "home": -15.1,
       "draw": -4.8,
-      "away": 3.5
+      "away": 1.3
      },
      "handicap": {
       "line": 1,
@@ -132,21 +132,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 1.05,
-    "downWater": 0.75,
+    "upWater": 1.07,
+    "downWater": 0.72,
     "openHandicap": 0.25,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
+    "totalWater": 1.79,
+    "theoryUpPercent": "40.22",
+    "theoryDownPercent": "59.78",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 0.8,
-     "nowUpWater": 1.05,
+     "nowUpWater": 1.07,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
@@ -1026,9 +1026,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 0.72,
+      "home": 0.77,
       "line": "平手",
-      "away": 1.07
+      "away": 1.1
      }
     },
     "europe": {
@@ -1112,21 +1112,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0,
     "upSide": "home",
-    "upWater": 0.72,
-    "downWater": 1.07,
+    "upWater": 0.77,
+    "downWater": 1.1,
     "openHandicap": 0,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.79,
-    "theoryUpPercent": "59.78",
-    "theoryDownPercent": "40.22",
+    "totalWater": 1.87,
+    "theoryUpPercent": "58.82",
+    "theoryDownPercent": "41.18",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0,
      "nowHandicap": 0,
      "initUpWater": 0.82,
-     "nowUpWater": 0.72,
+     "nowUpWater": 0.77,
      "initLine": "平手",
      "nowLine": "平手"
     },
@@ -1574,7 +1574,7 @@ const JC_DATA = {
    },
    "away": {
     "name": "米拉索尔",
-    "rank": 15
+    "rank": 16
    },
    "score": null,
    "statusText": "- ",
@@ -1703,8 +1703,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-30 10:28",
-  "officialUpdate": "2026-10-30 10:25:33",
+  "updated": "2026-10-30 10:58",
+  "officialUpdate": "2026-10-30 10:49:38",
   "inSale": 12,
   "list": [
    {
@@ -2056,17 +2056,17 @@ const JC_DATA = {
     "home": "科林蒂安",
     "away": "米拉索尔",
     "had": {
-     "h": 1.7,
-     "d": 3.35,
+     "h": 1.72,
+     "d": 3.28,
      "a": 3.95,
-     "update": "2026-10-29 13:37:05"
+     "update": "2026-10-30 10:49:33"
     },
     "hhad": {
      "line": "-1",
-     "h": 3.2,
-     "d": 3.4,
-     "a": 1.88,
-     "update": "2026-10-29 13:37:05"
+     "h": 3.35,
+     "d": 3.33,
+     "a": 1.85,
+     "update": "2026-10-30 10:49:38"
     },
     "single": {
      "HAD": {
