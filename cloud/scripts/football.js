@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "阿拉倫斯",
      "score": 0,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "马昆森",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "瓜斯塔托亚",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -245,7 +245,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "甘美奧B隊",
      "score": 2,
@@ -311,7 +311,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "梅格",
      "score": 1,
@@ -377,7 +377,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "奥哈卡",
      "score": 1,
@@ -443,7 +443,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 0,
@@ -509,7 +509,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "国民体育会",
      "score": 2,
