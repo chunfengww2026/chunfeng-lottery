@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "路易斯维尔城",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "匹兹堡猎犬",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "基斯奧馬SC",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "庞特普雷塔",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 20
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "瓜兰尼",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
     "away": {
      "name": "马约",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "泰里尼登斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "鲁毕奥",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -1994,10 +1994,10 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 05:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "珮雷拉",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 17
     },
