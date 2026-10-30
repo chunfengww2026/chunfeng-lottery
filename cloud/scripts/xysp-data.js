@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 07:00
+   更新时间：2026-10-31 07:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 07:00",
+ "updated": "2026-10-31 07:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3608,36 +3608,6 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-30 07:35:09",
      "postId": "7702237395831308834",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ec0b5ce2a7dd4bd3a94c3e94a9afd426~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=P0LhdU1daw2EZ6XsWXjiP7sEPSI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ec0b5ce2a7dd4bd3a94c3e94a9afd426~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=P0LhdU1daw2EZ6XsWXjiP7sEPSI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ec0b5ce2a7dd4bd3a94c3e94a9afd426~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=L86VN9Z0kOAbtVppmW5xUWdKl0U%3D",
-     "title": "玩法：快乐8 选五胆拖\n胆码：10、40、50、75（4个胆，每注都带上这4个）\n拖码：01–80 除4胆以外全部76个号码\n注数：76注 × 2元 = 152元\n期号：2026288期\n \n📌选五中奖规则（选五是一注5个号）\n \n- 选",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1880427151736832",
-     "at": "2026-10-29T23:26:02.089Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026288",
-     "seen": "2026-10-30T00:06:02.113Z",
-     "whenMs": 1793315078000,
-     "seenMs": 1793318762113,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793316362089,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-30T23:26:02.089Z",
-     "rule": "first-capture-24h",
-     "author": "断桥旁赏荷的雅人",
-     "when": "2026-10-30 07:04:38",
-     "postId": "1880427151736832",
      "px": 132300
     }
    ]
