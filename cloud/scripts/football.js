@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "奥哈卡",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 9
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "国民体育会",
      "score": 0,
@@ -492,7 +492,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "卡托利卡大学",
      "score": 1,
@@ -501,7 +501,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "利加竞技",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -558,7 +558,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "安提瓜GFC",
      "score": 1,
@@ -624,7 +624,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "甘美奧B隊",
      "score": 1,
@@ -702,7 +702,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "梅格",
      "score": 1,
@@ -711,7 +711,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "科梅次安特斯尤尼杜斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
