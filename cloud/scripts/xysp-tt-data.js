@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 04:26:01
+   更新时间：2026-10-31 04:36:04
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-31 04:26:01",
+ "updated": "2026-10-31 04:36:04",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b2a1e72478a44733864eff32f31f6e09~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=GaDSmQmHSeRPHDEmcecfh4bXBtA%3D",
@@ -58,7 +58,7 @@ const XYSP_TT_DATA = {
    "issue": "26124",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793385452000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793389511574,
@@ -88,7 +88,7 @@ const XYSP_TT_DATA = {
    "issue": "26124",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793385452000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793389511574,
@@ -100,36 +100,6 @@ const XYSP_TT_DATA = {
    "author": "优雅奶酪6hWlg9",
    "when": "2026-10-31 02:37:32",
    "postId": "7702531867035042342",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Sz5KwTP2XD0GUabUqdLAJdXBuPw%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Sz5KwTP2XD0GUabUqdLAJdXBuPw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3xZs8XbPjpLymrM1V5OK3bG8%2BgM%3D",
-   "title": "欠债压力下买了两个月快乐8，他用AI选号拿下508万",
-   "url": "https://toutiao.com/group/7702390807453499913/",
-   "at": "2026-10-30T19:45:11.574Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "快乐8",
-   "games": [
-    "kl8"
-   ],
-   "issue": "",
-   "seen": "2026-10-30T19:45:11.574Z",
-   "whenMs": 1793352656000,
-   "seenMs": 1793389511574,
-   "drawMs": 1793367000000,
-   "nextMs": 1793367000000,
-   "atMs": 1793389511574,
-   "drawAt": "2026-10-30T13:30:00.000Z",
-   "nextAt": 1793367000000,
-   "drawGid": "kl8",
-   "expireAt": "2026-10-31T19:45:11.574Z",
-   "rule": "first-capture-24h",
-   "author": "景川知讯",
-   "when": "2026-10-30 17:30:56",
-   "postId": "7702390807453499913",
    "px": 132300
   },
   {
@@ -300,7 +270,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793367791000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793367962044,
@@ -330,7 +300,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793367791000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793367962044,
@@ -390,7 +360,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793360931000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793367962044,
@@ -420,7 +390,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793360822000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793366100000,
    "nextMs": 1793366100000,
    "atMs": 1793367962044,
@@ -542,7 +512,7 @@ const XYSP_TT_DATA = {
    "issue": "26289",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793360033000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793366100000,
    "nextMs": 1793366100000,
    "atMs": 1793367962044,
@@ -601,7 +571,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T19:59:39.225Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793359081000,
    "seenMs": 1793390379225,
    "drawMs": 1793449800000,
@@ -618,8 +588,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6cf2d17c24704956b7818ec1f5683b8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=9qIbDTI0DnuAZsiuBcUxUMCuCu8%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6cf2d17c24704956b7818ec1f5683b8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=9qIbDTI0DnuAZsiuBcUxUMCuCu8%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6cf2d17c24704956b7818ec1f5683b8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=XbY2%2BszYiUXSouTQnNiMawnfEnc%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6cf2d17c24704956b7818ec1f5683b8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=XbY2%2BszYiUXSouTQnNiMawnfEnc%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/51373e4c0b1d45d59aebf6cbe23fa8bc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=SRwJXJY0qr%2BjWNq85WN7V4F1ONY%3D",
    "title": "大乐透26124期晒票！3张套餐票打水漂还是中千万？这连号看着真悬",
    "url": "http://toutiao.com/item/7702418606599963155/",
@@ -631,9 +601,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T19:59:39.225Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793359081000,
-   "seenMs": 1793390379225,
+   "seenMs": 1793392564556,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793390379225,
@@ -661,7 +631,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T19:59:39.225Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793359081000,
    "seenMs": 1793390379225,
    "drawMs": 1793449800000,
@@ -888,6 +858,36 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Sz5KwTP2XD0GUabUqdLAJdXBuPw%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Sz5KwTP2XD0GUabUqdLAJdXBuPw%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3xZs8XbPjpLymrM1V5OK3bG8%2BgM%3D",
+   "title": "欠债压力下买了两个月快乐8，他用AI选号拿下508万",
+   "url": "https://toutiao.com/group/7702390807453499913/",
+   "at": "2026-10-30T19:45:11.574Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-30T19:45:11.574Z",
+   "whenMs": 1793352656000,
+   "seenMs": 1793389511574,
+   "drawMs": 1793367000000,
+   "nextMs": 1793367000000,
+   "atMs": 1793389511574,
+   "drawAt": "2026-10-30T13:30:00.000Z",
+   "nextAt": 1793367000000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-31T19:45:11.574Z",
+   "rule": "first-capture-24h",
+   "author": "景川知讯",
+   "when": "2026-10-30 17:30:56",
+   "postId": "7702390807453499913",
+   "px": 132300
+  },
+  {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=GHL83e7%2BIWS%2BhQgW5TzM%2FQEZG1Q%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=GHL83e7%2BIWS%2BhQgW5TzM%2FQEZG1Q%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=%2Fb7lVqVaFgRqSWL3uImuJGs2Gio%3D",
@@ -901,7 +901,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793350739000,
    "seenMs": 1793391361808,
    "drawMs": 1793449800000,
@@ -931,7 +931,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793350739000,
    "seenMs": 1793391361808,
    "drawMs": 1793449800000,
@@ -961,7 +961,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26124",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793350739000,
    "seenMs": 1793391361808,
    "drawMs": 1793449800000,
@@ -1051,7 +1051,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793331530000,
    "seenMs": 1793391361808,
    "drawMs": 1793366100000,
@@ -1081,7 +1081,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793331530000,
    "seenMs": 1793391361808,
    "drawMs": 1793366100000,
@@ -1111,7 +1111,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-30T20:16:01.808Z",
+   "seen": "2026-10-30T20:36:04.556Z",
    "whenMs": 1793331530000,
    "seenMs": 1793391361808,
    "drawMs": 1793366100000,
@@ -1383,7 +1383,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-30T20:26:01.824Z",
    "whenMs": 1793325248000,
-   "seenMs": 1793390761769,
+   "seenMs": 1793391961824,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793325962219,
