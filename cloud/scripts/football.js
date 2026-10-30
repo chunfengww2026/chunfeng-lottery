@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "奥哈卡",
      "score": 1,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 92,
+    "minute": 97,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 1,
@@ -97,7 +97,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "法拉帝水流",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "国民体育会",
      "score": 2,
@@ -220,10 +220,10 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "阿拉倫斯",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -298,7 +298,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "马昆森",
      "score": 0,
