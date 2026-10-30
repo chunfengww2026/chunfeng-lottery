@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "UNAN马纳瓜",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "法拉帝水流",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 07:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "卡利阿美利加",
      "score": 2,
@@ -624,7 +624,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "甘美奧B隊",
      "score": 0,
@@ -702,7 +702,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "梅格",
      "score": 1,
