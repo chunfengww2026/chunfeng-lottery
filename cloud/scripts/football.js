@@ -426,7 +426,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 07:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "卡利阿美利加",
      "score": 2,
@@ -624,7 +624,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "甘美奧B隊",
      "score": 0,
@@ -702,7 +702,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "梅格",
      "score": 1,
