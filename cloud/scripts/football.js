@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 11:58 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-30 11:28",
+ "updated": "2026-10-30 11:58",
  "stat": {
   "upcoming": 0,
   "live": 2,
@@ -22,11 +22,11 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 89,
+    "minute": 92,
     "home": {
      "name": "阿拉倫斯",
      "score": 2,
-     "red": 0,
+     "red": 1,
      "rank": 4
     },
     "away": {
@@ -38,25 +38,25 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": 0,
-       "line": "1.02",
-       "away": 0.8
+       "home": 0.25,
+       "line": "0.13",
+       "away": 3.22
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "2.75",
-       "over": 0.76,
-       "under": 1.04
+       "line": "3.5",
+       "over": 3.7,
+       "under": 0.07
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.02,
-       "draw": 21,
-       "away": 11
+       "home": 1.03,
+       "draw": 29,
+       "away": 8.6
       },
       "live": null
      }
@@ -64,20 +64,20 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 87.6,
+     "confidence": 86.6,
      "prob": {
-      "home": 87.6,
-      "draw": 4.3,
-      "away": 8.1
+      "home": 86.6,
+      "draw": 3.1,
+      "away": 10.4
      },
      "clear": true,
-     "margin": 11.9
+     "margin": 12.2
     },
     "result": {
      "actual": "home",
      "actualLabel": "主胜",
      "hit": true,
-     "score": "2 - 0"
+     "score": "2 - 1"
     }
    },
    {
@@ -88,11 +88,11 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 86,
+    "minute": 89,
     "home": {
      "name": "马昆森",
      "score": 0,
-     "red": 0,
+     "red": 1,
      "rank": 7
     },
     "away": {
@@ -104,25 +104,25 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.25,
-       "line": "0.97",
-       "away": 0.73
+       "home": 0,
+       "line": "1.26",
+       "away": 0.49
       },
       "live": null
      },
      "overunder": {
       "open": {
-       "line": "0.75",
-       "over": 0.81,
-       "under": 0.89
+       "line": "0.5",
+       "over": 2.12,
+       "under": 0.17
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 2.47,
-       "draw": 4.75,
-       "away": 1.87
+       "home": 8.5,
+       "draw": 6,
+       "away": 1.15
       },
       "live": null
      }
@@ -130,14 +130,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 46.5,
+     "confidence": 75.4,
      "prob": {
-      "home": 35.2,
-      "draw": 18.3,
-      "away": 46.5
+      "home": 10.2,
+      "draw": 14.4,
+      "away": 75.4
      },
      "clear": true,
-     "margin": 15
+     "margin": 15.4
     },
     "result": {
      "actual": "draw",
