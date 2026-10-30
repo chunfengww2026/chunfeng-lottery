@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 06:36
+   更新时间：2026-10-31 06:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 06:36",
+ "updated": "2026-10-31 06:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2516,7 +2516,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793359081000,
-     "seenMs": 1793397361824,
+     "seenMs": 1793399761874,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793390379225,
@@ -2546,7 +2546,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793359081000,
-     "seenMs": 1793397361824,
+     "seenMs": 1793399761874,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793390379225,
@@ -2816,7 +2816,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793350739000,
-     "seenMs": 1793398561841,
+     "seenMs": 1793399761874,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793368561971,
@@ -2846,7 +2846,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793350739000,
-     "seenMs": 1793398561841,
+     "seenMs": 1793399761874,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793368561971,
@@ -2966,7 +2966,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793331530000,
-     "seenMs": 1793398561841,
+     "seenMs": 1793399761874,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793332561327,
@@ -2996,7 +2996,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793331530000,
-     "seenMs": 1793398561841,
+     "seenMs": 1793399761874,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793332561327,
@@ -3026,7 +3026,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-30T22:36:01.874Z",
      "whenMs": 1793331530000,
-     "seenMs": 1793398561841,
+     "seenMs": 1793399761874,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793332561327,
@@ -3668,66 +3668,6 @@ const XYSP_DATA = {
      "author": "快乐的小松鼠",
      "when": "2026-10-30 06:42:52",
      "postId": "1880425782203404",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4c62909dcd05460286c7ec70979aaedc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=jUwYcbCfgDriRqWh7yygZW5tuNI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4c62909dcd05460286c7ec70979aaedc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=jUwYcbCfgDriRqWh7yygZW5tuNI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4c62909dcd05460286c7ec70979aaedc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=70Q%2FB5Z7h5QNJBunIMUg2rF26uQ%3D",
-     "title": "大乐透26124期晒票抢先看",
-     "url": "https://toutiao.com/group/7702114024678277674/",
-     "at": "2026-10-29T22:46:02.061Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-29T23:06:02.077Z",
-     "whenMs": 1793313420000,
-     "seenMs": 1793315162077,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793313962061,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-30T22:46:02.061Z",
-     "rule": "first-capture-24h",
-     "author": "彩民闲谈",
-     "when": "2026-10-30 06:37:00",
-     "postId": "7702114024678277674",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b38f45ce4d514bc1bc93798faf484239~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=qMLU0WG0BHvPMiLh%2FBTLWmCysL8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b38f45ce4d514bc1bc93798faf484239~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=qMLU0WG0BHvPMiLh%2FBTLWmCysL8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4c62909dcd05460286c7ec70979aaedc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1801958400&x-signature=70Q%2FB5Z7h5QNJBunIMUg2rF26uQ%3D",
-     "title": "大乐透26124期晒票抢先看",
-     "url": "https://toutiao.com/group/7702114024678277674/",
-     "at": "2026-10-29T22:46:02.061Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-29T23:06:02.077Z",
-     "whenMs": 1793313420000,
-     "seenMs": 1793315162077,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793313962061,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-30T22:46:02.061Z",
-     "rule": "first-capture-24h",
-     "author": "彩民闲谈",
-     "when": "2026-10-30 06:37:00",
-     "postId": "7702114024678277674",
      "px": 132300
     }
    ]
