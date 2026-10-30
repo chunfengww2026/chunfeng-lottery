@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-10-30 13:54",
+ "updated": "2026-10-30 14:34",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -24,31 +24,6 @@ const JC_RECO_DATA = {
      "odds": 1.45,
      "conf": 62.4,
      "score": "2:2",
-     "hit": false,
-     "result": "lose"
-    }
-   ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
-  },
-  {
-   "at": "2026-10-28 23:58",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周三009",
-     "time": "2026-10-29 02:00",
-     "league": "瑞典超",
-     "home": "布鲁马波",
-     "away": "赫根",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.5,
-     "conf": 58.7,
-     "score": "0:0",
      "hit": false,
      "result": "lose"
     }
@@ -286,31 +261,6 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 10,
-   "verdict": ""
-  },
-  {
-   "at": "2026-10-30 13:54",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周六022",
-     "time": "2026-11-01 01:30",
-     "league": "英超",
-     "home": "热刺",
-     "away": "水晶宫",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.53,
-     "conf": 58.9,
-     "score": "",
-     "hit": null,
-     "result": ""
-    }
-   ],
-   "hit": null,
-   "miss": null,
-   "pending": 1,
    "verdict": ""
   }
  ]
