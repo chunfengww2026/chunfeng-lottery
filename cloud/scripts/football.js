@@ -534,7 +534,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 06:30:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "米涅罗竞技",
      "score": 0,
@@ -600,7 +600,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 07:00:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "瓦斯科达迦马",
      "score": 1,
@@ -732,7 +732,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "卡托利卡大学",
      "score": 1,
@@ -810,7 +810,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 24,
+    "minute": 26,
     "home": {
      "name": "安提瓜GFC",
      "score": 0,
