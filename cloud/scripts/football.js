@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "国民体育会",
      "score": 2,
@@ -126,7 +126,7 @@ const FOOTBALL_DATA = {
      "color": "103A90"
     },
     "time": "2026-10-30 10:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "阿拉倫斯",
      "score": 2,
@@ -192,7 +192,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-10-30 10:10:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "马昆森",
      "score": 0,
