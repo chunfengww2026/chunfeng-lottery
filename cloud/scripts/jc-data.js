@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-10-30 08:00 */
+/* 自动生成，请勿手动编辑 · 2026-10-30 08:28 */
 const JC_DATA = {
- "updated": "2026-10-30 08:00",
+ "updated": "2026-10-30 08:28",
  "stat": {
   "total": 7,
   "upcoming": 1,
@@ -712,9 +712,9 @@ const JC_DATA = {
       "away": 3.25
      },
      "live": {
-      "home": 2.35,
-      "draw": 3.4,
-      "away": 3
+      "home": 2.25,
+      "draw": 3.5,
+      "away": 3.1
      }
     },
     "overunder": {
@@ -733,11 +733,11 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41.4,
+    "confidence": 42,
     "prob": {
-     "home": 41.4,
-     "draw": 28.6,
-     "away": 30.1
+     "home": 42,
+     "draw": 28.3,
+     "away": 29.7
     },
     "clear": false,
     "margin": 5.3,
@@ -747,14 +747,14 @@ const JC_DATA = {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 41.4,
-      "draw": 28.6,
-      "away": 30.1
+      "home": 42,
+      "draw": 28.3,
+      "away": 29.7
      },
-     "confidence": 41.4,
+     "confidence": 42,
      "signals": [
       "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-2.8pp / 平局-0.2pp / 客胜+3.1pp",
+      "初盘→即时：主胜-1.0pp / 平局-1.0pp / 客胜+2.0pp",
       "亚盘未变盘；水位只作辅助核对",
       "主要方向凯利中位参考 0.950",
       "多机构分歧 2.9%"
@@ -764,16 +764,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -2.8,
-      "draw": -2.9,
-      "away": -9.7
+      "home": -5.5,
+      "draw": -1,
+      "away": -7.8
      },
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.6731770329866766,
-       "draw": 0.18814567994437703,
-       "away": 0.13867728706894736
+       "home": 0.6839134814994822,
+       "draw": 0.18385164059686532,
+       "away": 0.13223487790365213
       },
       "pick": "home",
       "label": "让胜"
@@ -817,8 +817,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-10-30 08:00",
-  "officialUpdate": "2026-10-29 21:53:09",
+  "updated": "2026-10-30 08:28",
+  "officialUpdate": "2026-10-29 21:13:41",
   "inSale": 13,
   "list": [
    {
