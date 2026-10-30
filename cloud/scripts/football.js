@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "cc6655"
     },
     "time": "2026-10-30 08:00:00",
-    "minute": 95,
+    "minute": 100,
     "home": {
      "name": "卡托利卡大学",
      "score": 1,
@@ -245,7 +245,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "甘美奧B隊",
      "score": 2,
@@ -311,7 +311,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-10-30 08:30:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "梅格",
      "score": 1,
@@ -443,7 +443,7 @@ const FOOTBALL_DATA = {
      "color": "1199BB"
     },
     "time": "2026-10-30 09:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "UNAN马纳瓜",
      "score": 0,
@@ -509,7 +509,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-30 09:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "国民体育会",
      "score": 2,
