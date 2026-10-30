@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-30 09:50
+   更新时间：2026-10-30 09:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-30 09:50",
+ "updated": "2026-10-30 09:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2563,36 +2563,6 @@ const XYSP_DATA = {
      "author": "李南南说",
      "when": "2026-10-29 13:39:39",
      "postId": "1880361407088640",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7921604622eb4e8696b8bebf34d4f4d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=ocV47l2TKSJfy%2BudIrv4kQAEyy0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7921604622eb4e8696b8bebf34d4f4d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=ocV47l2TKSJfy%2BudIrv4kQAEyy0%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7921604622eb4e8696b8bebf34d4f4d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=FQs0CmZyATu7axSApMw4zdismds%3D",
-     "title": "2352元中643万！这张反套路大乐透头奖票火了，后区打法太罕见",
-     "url": "https://toutiao.com/group/7701902010110509596/",
-     "at": "2026-10-29T14:16:01.696Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T01:36:02.182Z",
-     "whenMs": 1793238894000,
-     "seenMs": 1793324162182,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793283361696,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-30T14:16:01.696Z",
-     "rule": "first-capture-24h",
-     "author": "每日彩",
-     "when": "2026-10-29 09:54:54",
-     "postId": "7701902010110509596",
      "px": 132300
     }
    ]
