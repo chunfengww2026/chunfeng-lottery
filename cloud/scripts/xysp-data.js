@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 06:40
+   更新时间：2026-10-31 06:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 06:40",
+ "updated": "2026-10-31 06:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3638,36 +3638,6 @@ const XYSP_DATA = {
      "author": "断桥旁赏荷的雅人",
      "when": "2026-10-30 07:04:38",
      "postId": "1880427151736832",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a3d0f4532a9c46d6beea703ca86ac8c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=dhieGmz4tcS4MnG39g2YqLVxHys%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a3d0f4532a9c46d6beea703ca86ac8c9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=dhieGmz4tcS4MnG39g2YqLVxHys%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a3d0f4532a9c46d6beea703ca86ac8c9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=oOqL2ZP8TTWziF20vYKQCHFeUu0%3D",
-     "title": "男子欠债用AI写程序买彩票，竟中508万！本人：先还债。\n\n近日，陕西西安高新区，一位刘姓男子（化名刘某）走进省福彩中心，领走一张“快乐8”选十大奖——合计508万元。\n\n故事比小说还离谱：\n\n刘某玩快乐8才两个月，手头有债务，每次只花一百",
-     "url": "sslocal://thread_detail?fid=4720084606&tid=1880425782203404",
-     "at": "2026-10-29T23:06:02.077Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T04:46:01.364Z",
-     "whenMs": 1793313772000,
-     "seenMs": 1793335561364,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793315162077,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-30T23:06:02.077Z",
-     "rule": "first-capture-24h",
-     "author": "快乐的小松鼠",
-     "when": "2026-10-30 06:42:52",
-     "postId": "1880425782203404",
      "px": 132300
     }
    ]
