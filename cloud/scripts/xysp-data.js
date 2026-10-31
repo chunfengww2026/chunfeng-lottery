@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 21:40
+   更新时间：2026-10-31 21:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 21:40",
+ "updated": "2026-10-31 21:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -6190,96 +6190,6 @@ const XYSP_DATA = {
      "author": "每日彩",
      "when": "2026-10-30 22:13:20",
      "postId": "7702463153791140380",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/493e9a804ef04597b2454c745135b3fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=cYxvp9aQz%2Fcg7CFuSiD8%2F5znkos%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/493e9a804ef04597b2454c745135b3fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=cYxvp9aQz%2Fcg7CFuSiD8%2F5znkos%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/493e9a804ef04597b2454c745135b3fa~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=sCIwTFSxYdlog4kkBtCh0tb4vcI%3D",
-     "title": "从2元到360元，大乐透124期晒票看呆众人，主任：放马过来",
-     "url": "http://toutiao.com/item/7702456012678103615/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T13:26:01.564Z",
-     "whenMs": 1793367791000,
-     "seenMs": 1793453161564,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 21:43:11",
-     "postId": "7702456012678103615",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/242c6b45547d49f7bbac390a36877c04~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=As1qXkGqXsakjjlF1V9TaxbjeJs%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/242c6b45547d49f7bbac390a36877c04~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=As1qXkGqXsakjjlF1V9TaxbjeJs%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/493e9a804ef04597b2454c745135b3fa~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=sCIwTFSxYdlog4kkBtCh0tb4vcI%3D",
-     "title": "从2元到360元，大乐透124期晒票看呆众人，主任：放马过来",
-     "url": "http://toutiao.com/item/7702456012678103615/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T13:26:01.564Z",
-     "whenMs": 1793367791000,
-     "seenMs": 1793453161564,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 21:43:11",
-     "postId": "7702456012678103615",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca85d80ab3c436d9bb7c6b4090b1e6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=YD9pREXLXlvinOWXIY0TfWOlZ9E%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fca85d80ab3c436d9bb7c6b4090b1e6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=YD9pREXLXlvinOWXIY0TfWOlZ9E%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/493e9a804ef04597b2454c745135b3fa~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=sCIwTFSxYdlog4kkBtCh0tb4vcI%3D",
-     "title": "从2元到360元，大乐透124期晒票看呆众人，主任：放马过来",
-     "url": "http://toutiao.com/item/7702456012678103615/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T13:26:01.564Z",
-     "whenMs": 1793367791000,
-     "seenMs": 1793453161564,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 21:43:11",
-     "postId": "7702456012678103615",
      "px": 132300
     },
     {
