@@ -35700,7 +35700,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "拉巴斯竞技",
      "score": 3,
@@ -35746,10 +35746,10 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "蒙特雷女足",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 2
     },
@@ -35792,7 +35792,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "普埃布拉",
      "score": 1,
@@ -35801,7 +35801,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "普马斯",
-     "score": 2,
+     "score": 1,
      "red": 0,
      "rank": 12
     },
@@ -35858,7 +35858,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "臥龍崗狼隊",
      "score": 0,
@@ -35936,7 +35936,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "萨瑟兰德",
      "score": 0,
