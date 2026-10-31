@@ -527,7 +527,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "托拉卡女足",
      "score": 2,
@@ -593,7 +593,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "底特律城",
      "score": 1,
@@ -725,7 +725,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 2,
@@ -734,7 +734,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "貝倫蝎子",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 9
     },
@@ -791,7 +791,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "萨尔米安杜",
      "score": 1,
@@ -857,7 +857,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "竞技俱乐部",
      "score": 2,
@@ -923,7 +923,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "克里科",
      "score": 4,
@@ -969,7 +969,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -1047,7 +1047,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "阿特拿斯女足",
      "score": 0,
@@ -1125,7 +1125,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 43,
+    "minute": 46,
     "home": {
      "name": "埃尔帕索机车",
      "score": 1,
@@ -1409,7 +1409,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "圣路易斯竞技",
      "score": 0,
@@ -1487,10 +1487,10 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 09:05:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "布卡拉曼格",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
