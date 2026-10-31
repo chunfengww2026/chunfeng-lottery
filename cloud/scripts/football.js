@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 1,
+    "minute": 6,
     "home": {
      "name": "伊斯特恩沙伯奧克蘭(女)",
      "score": 0,
@@ -232,7 +232,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "拉尼罗斯",
      "score": 0,
@@ -305,16 +305,16 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "帕丘卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
     "away": {
      "name": "塔格雷斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
@@ -2156,7 +2156,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-01 05:15:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "學術DB",
      "score": 2,
@@ -2222,7 +2222,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-11-01 05:45:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "阿苏尔希达高",
      "score": 0,
@@ -2231,7 +2231,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "提拉卡拉",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -2354,7 +2354,7 @@ const FOOTBALL_DATA = {
      "color": "94240a"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "雷提斯塔",
      "score": 0,
@@ -2498,7 +2498,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "胡安卡納特蘭大猩猩",
      "score": 0,
@@ -2704,7 +2704,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "诺蒂卡",
      "score": 1,
@@ -2782,7 +2782,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "卢捷诺体育会",
      "score": 0,
@@ -2791,7 +2791,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴拉圭国民",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
@@ -2860,7 +2860,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "圣罗伦素体育会",
      "score": 1,
