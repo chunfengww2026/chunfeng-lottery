@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 10:50
+   更新时间：2026-10-31 10:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 10:50",
+ "updated": "2026-10-31 10:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4030,96 +4030,6 @@ const XYSP_DATA = {
      "author": "南风意史",
      "when": "2026-10-30 11:05:51",
      "postId": "1880441976895499",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7b60eb853ba541e1a697739286fccc24~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=p%2FZCMbFF6RBf8UwDx%2F1d7vKzAls%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7b60eb853ba541e1a697739286fccc24~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=p%2FZCMbFF6RBf8UwDx%2F1d7vKzAls%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7b60eb853ba541e1a697739286fccc24~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=AGy2gFdfYmnbm0gySlMmahBaHm8%3D",
-     "title": "10倍单式、复式亮相，多组晒票提前欣赏，大乐透26124期晒票",
-     "url": "https://toutiao.com/group/7702286149229740544/",
-     "at": "2026-10-30T03:06:01.323Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-30T04:06:01.325Z",
-     "whenMs": 1793328737000,
-     "seenMs": 1793333161325,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793329561323,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T03:06:01.323Z",
-     "rule": "first-capture-24h",
-     "author": "陈情醉了人间",
-     "when": "2026-10-30 10:52:17",
-     "postId": "7702286149229740544",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/34b9d39f067a4d709f2415c5e508d6a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=P0UjIipHbF7ZBpgoaSzVLaOaY4Q%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/34b9d39f067a4d709f2415c5e508d6a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=P0UjIipHbF7ZBpgoaSzVLaOaY4Q%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7b60eb853ba541e1a697739286fccc24~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=AGy2gFdfYmnbm0gySlMmahBaHm8%3D",
-     "title": "10倍单式、复式亮相，多组晒票提前欣赏，大乐透26124期晒票",
-     "url": "https://toutiao.com/group/7702286149229740544/",
-     "at": "2026-10-30T03:06:01.323Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-30T04:06:01.325Z",
-     "whenMs": 1793328737000,
-     "seenMs": 1793333161325,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793329561323,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T03:06:01.323Z",
-     "rule": "first-capture-24h",
-     "author": "陈情醉了人间",
-     "when": "2026-10-30 10:52:17",
-     "postId": "7702286149229740544",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/19203d4641f545fd84083a16e80e1757~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Xp7jq1MepiXC%2FvoPJgDf0Uqid0k%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/19203d4641f545fd84083a16e80e1757~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=Xp7jq1MepiXC%2FvoPJgDf0Uqid0k%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7b60eb853ba541e1a697739286fccc24~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=AGy2gFdfYmnbm0gySlMmahBaHm8%3D",
-     "title": "10倍单式、复式亮相，多组晒票提前欣赏，大乐透26124期晒票",
-     "url": "https://toutiao.com/group/7702286149229740544/",
-     "at": "2026-10-30T03:06:01.323Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-30T04:06:01.325Z",
-     "whenMs": 1793328737000,
-     "seenMs": 1793333161325,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793329561323,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T03:06:01.323Z",
-     "rule": "first-capture-24h",
-     "author": "陈情醉了人间",
-     "when": "2026-10-30 10:52:17",
-     "postId": "7702286149229740544",
      "px": 132300
     }
    ]
