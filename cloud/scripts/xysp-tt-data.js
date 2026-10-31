@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 13:46:01
+   更新时间：2026-10-31 13:56:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-10-31 13:46:01",
+ "updated": "2026-10-31 13:56:01",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e8ea67ddeb764dd39552f0223a5bbef0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=2FkWFNINd3fKdA6dE%2F5Eg%2BMvCPI%3D",
@@ -538,7 +538,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793411021000,
-   "seenMs": 1793424361230,
+   "seenMs": 1793425561286,
    "drawMs": 1793453400000,
    "nextMs": 1793453400000,
    "atMs": 1793412362059,
@@ -1275,9 +1275,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TsJADELyX%2F%2BW6AgQA7f%2BTCpRf9c%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TsJADELyX%2F%2BW6AgQA7f%2BTCpRf9c%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=FFUSXoYQJY5lEVT00pEwEeGwt4k%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IFjN%2FgkjAYIdRA9Wxne0K%2FqZQNk%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IFjN%2FgkjAYIdRA9Wxne0K%2FqZQNk%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=4NbPladW%2FRAM4LslUems4DI3MU0%3D",
    "title": "10倍20倍30倍，各类倍票齐聚一堂！福彩3D最新高倍神仙票大赏",
    "url": "http://toutiao.com/item/7702601545586344486/",
    "at": "2026-10-30T23:16:01.912Z",
@@ -1288,9 +1288,9 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-31T05:36:01.239Z",
+   "seen": "2026-10-31T05:56:01.259Z",
    "whenMs": 1793401675000,
-   "seenMs": 1793424961239,
+   "seenMs": 1793426161259,
    "drawMs": 1793452500000,
    "nextMs": 1793452500000,
    "atMs": 1793402161912,
@@ -1305,9 +1305,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=VaD717XiJLYavEqF%2Fwox6kSh5aI%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=VaD717XiJLYavEqF%2Fwox6kSh5aI%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=FFUSXoYQJY5lEVT00pEwEeGwt4k%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SwnpRo1iY6547Y8NInXqVWl2tEY%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SwnpRo1iY6547Y8NInXqVWl2tEY%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=4NbPladW%2FRAM4LslUems4DI3MU0%3D",
    "title": "10倍20倍30倍，各类倍票齐聚一堂！福彩3D最新高倍神仙票大赏",
    "url": "http://toutiao.com/item/7702601545586344486/",
    "at": "2026-10-30T23:16:01.912Z",
@@ -1318,9 +1318,9 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-31T05:36:01.239Z",
+   "seen": "2026-10-31T05:56:01.259Z",
    "whenMs": 1793401675000,
-   "seenMs": 1793424961239,
+   "seenMs": 1793426161259,
    "drawMs": 1793452500000,
    "nextMs": 1793452500000,
    "atMs": 1793402161912,
@@ -1422,36 +1422,6 @@ const XYSP_TT_DATA = {
    "author": "数彩观察员",
    "when": "2026-10-31 01:19:21",
    "postId": "7702511521766572580",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=XC7a%2BPJU%2FCpWunCVVcUBf8q8UH4%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=XC7a%2BPJU%2FCpWunCVVcUBf8q8UH4%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=moDXd%2FCZA%2FFZrnuZTGbyr6eR2HY%3D",
-   "title": "欠债压力下买了两个月快乐8，他用AI选号拿下508万",
-   "url": "https://toutiao.com/group/7702390807453499913/",
-   "at": "2026-10-30T19:45:11.574Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "快乐8",
-   "games": [
-    "kl8"
-   ],
-   "issue": "",
-   "seen": "2026-10-31T05:26:01.230Z",
-   "whenMs": 1793352656000,
-   "seenMs": 1793424361230,
-   "drawMs": 1793367000000,
-   "nextMs": 1793367000000,
-   "atMs": 1793389511574,
-   "drawAt": "2026-10-30T13:30:00.000Z",
-   "nextAt": 1793367000000,
-   "drawGid": "kl8",
-   "expireAt": "2026-10-31T19:45:11.574Z",
-   "rule": "first-capture-24h",
-   "author": "景川知讯",
-   "when": "2026-10-30 17:30:56",
-   "postId": "7702390807453499913",
    "px": 132300
   },
   {
@@ -1681,7 +1651,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793370552000,
-   "seenMs": 1793412362059,
+   "seenMs": 1793425561286,
    "drawMs": 1793538900000,
    "nextMs": 1793538900000,
    "atMs": 1793371565684,
@@ -1802,7 +1772,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793367791000,
-   "seenMs": 1793424361230,
+   "seenMs": 1793425561286,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793367962044,
@@ -1832,7 +1802,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793367791000,
-   "seenMs": 1793424361230,
+   "seenMs": 1793425561286,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793367962044,
@@ -1862,7 +1832,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793360931000,
-   "seenMs": 1793424361230,
+   "seenMs": 1793425561286,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793367962044,
@@ -1981,9 +1951,9 @@ const XYSP_TT_DATA = {
     "pl3"
    ],
    "issue": "26289",
-   "seen": "2026-10-31T05:46:01.286Z",
+   "seen": "2026-10-31T05:56:01.259Z",
    "whenMs": 1793360033000,
-   "seenMs": 1793424961239,
+   "seenMs": 1793425561286,
    "drawMs": 1793366100000,
    "nextMs": 1793366100000,
    "atMs": 1793367962044,
@@ -2012,7 +1982,7 @@ const XYSP_TT_DATA = {
     "pl3"
    ],
    "issue": "26289",
-   "seen": "2026-10-31T05:46:01.286Z",
+   "seen": "2026-10-31T05:56:01.259Z",
    "whenMs": 1793360033000,
    "seenMs": 1793425561286,
    "drawMs": 1793366100000,
@@ -2043,7 +2013,7 @@ const XYSP_TT_DATA = {
     "pl3"
    ],
    "issue": "26289",
-   "seen": "2026-10-31T05:46:01.286Z",
+   "seen": "2026-10-31T05:56:01.259Z",
    "whenMs": 1793360033000,
    "seenMs": 1793425561286,
    "drawMs": 1793366100000,
@@ -2165,7 +2135,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-10-31T05:46:01.286Z",
    "whenMs": 1793358804000,
-   "seenMs": 1793424361230,
+   "seenMs": 1793425561286,
    "drawMs": 1793367000000,
    "nextMs": 1793367000000,
    "atMs": 1793367962044,
@@ -2357,6 +2327,36 @@ const XYSP_TT_DATA = {
    "author": "陈情醉了人间",
    "when": "2026-10-30 17:48:33",
    "postId": "7702394216474821181",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=XC7a%2BPJU%2FCpWunCVVcUBf8q8UH4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=XC7a%2BPJU%2FCpWunCVVcUBf8q8UH4%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=moDXd%2FCZA%2FFZrnuZTGbyr6eR2HY%3D",
+   "title": "欠债压力下买了两个月快乐8，他用AI选号拿下508万",
+   "url": "https://toutiao.com/group/7702390807453499913/",
+   "at": "2026-10-30T19:45:11.574Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-10-31T05:26:01.230Z",
+   "whenMs": 1793352656000,
+   "seenMs": 1793424361230,
+   "drawMs": 1793367000000,
+   "nextMs": 1793367000000,
+   "atMs": 1793389511574,
+   "drawAt": "2026-10-30T13:30:00.000Z",
+   "nextAt": 1793367000000,
+   "drawGid": "kl8",
+   "expireAt": "2026-10-31T19:45:11.574Z",
+   "rule": "first-capture-24h",
+   "author": "景川知讯",
+   "when": "2026-10-30 17:30:56",
+   "postId": "7702390807453499913",
    "px": 132300
   },
   {
