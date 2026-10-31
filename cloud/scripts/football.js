@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 10:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "佩雷斯泽内度",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "普塔雷纳斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
@@ -537,7 +537,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "萨尔米安杜",
      "score": 1,
@@ -603,7 +603,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "竞技俱乐部",
      "score": 2,
@@ -669,7 +669,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "克里科",
      "score": 4,
@@ -893,7 +893,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "羅查星",
      "score": 2,
@@ -959,7 +959,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "美丽华流浪者",
      "score": 0,
@@ -1025,7 +1025,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "华雷斯",
      "score": 2,
