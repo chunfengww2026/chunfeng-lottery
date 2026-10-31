@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-11-01 02:11
+   生成时间：2026-11-01 06:05
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-11-01 02:11",
+ "updated": "2026-11-01 06:05",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -61,9 +61,9 @@ const EXPERTS_DATA = {
   "games": 8,
   "experts": 160,
   "stable": 160,
-  "requests": 386,
-  "errors": 1,
-  "seconds": 489.2
+  "requests": 379,
+  "errors": 0,
+  "seconds": 416.9
  },
  "games": {
   "ssq": {
@@ -17693,31 +17693,31 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 27,
-      "pct": 98.8
-     },
-     {
-      "num": 14,
-      "pct": 87.5
-     },
-     {
-      "num": 10,
-      "pct": 81.3
+      "pct": 97.3
      },
      {
       "num": 18,
-      "pct": 80
+      "pct": 83.7
+     },
+     {
+      "num": 14,
+      "pct": 82.3
+     },
+     {
+      "num": 10,
+      "pct": 80.3
      },
      {
       "num": null,
-      "pct": 78.8
+      "pct": 76.7
      },
      {
       "num": null,
-      "pct": 75
+      "pct": 75.3
      },
      {
       "num": null,
-      "pct": 73.8
+      "pct": 71.7
      },
      {
       "num": null,
@@ -17725,29 +17725,29 @@ const EXPERTS_DATA = {
      },
      {
       "num": null,
-      "pct": 66.3
+      "pct": 69
      },
      {
       "num": null,
-      "pct": 66.3
+      "pct": 64.3
      }
     ],
     "blue": [
      {
       "num": 12,
-      "pct": 73.8
-     },
-     {
-      "num": 9,
-      "pct": 66.3
-     },
-     {
-      "num": null,
       "pct": 65
      },
      {
+      "num": 5,
+      "pct": 62.7
+     },
+     {
       "num": null,
-      "pct": 52.5
+      "pct": 62
+     },
+     {
+      "num": null,
+      "pct": 60.3
      }
     ],
     "sections": [
@@ -17841,7 +17841,7 @@ const EXPERTS_DATA = {
     "blue": [
      1,
      2,
-     9,
+     5,
      12
     ]
    },
@@ -22872,75 +22872,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 4,
-      "pct": 96.3
+      "pct": 96
      },
      {
       "num": 0,
-      "pct": 72.5
+      "pct": 76.7
      },
      {
       "num": null,
-      "pct": 68.8
+      "pct": 71.7
      },
      {
       "num": null,
-      "pct": 62.5
+      "pct": 61
      },
      {
       "num": null,
-      "pct": 61.3
+      "pct": 59.7
      },
      {
       "num": null,
-      "pct": 43.8
+      "pct": 42
      },
      {
       "num": 4,
-      "pct": 90
+      "pct": 92.7
      },
      {
       "num": 0,
-      "pct": 76.3
+      "pct": 81
      },
      {
       "num": null,
-      "pct": 73.8
+      "pct": 74
      },
      {
       "num": null,
-      "pct": 71.3
+      "pct": 68.7
      },
      {
       "num": null,
-      "pct": 56.3
+      "pct": 52
      },
      {
       "num": null,
-      "pct": 45
+      "pct": 38.7
      },
      {
       "num": 4,
-      "pct": 98.8
+      "pct": 97.3
      },
      {
       "num": 2,
-      "pct": 71.3
+      "pct": 73.7
      },
      {
       "num": null,
-      "pct": 67.5
+      "pct": 72.3
      },
      {
       "num": null,
-      "pct": 65
+      "pct": 67.7
      },
      {
       "num": null,
-      "pct": 63.8
+      "pct": 61.7
      },
      {
       "num": null,
-      "pct": 51.3
+      "pct": 50.7
      }
     ],
     "blue": [],
@@ -30300,99 +30300,99 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 51,
-      "pct": 19.2
+      "pct": 20.7
      },
      {
       "num": 45,
-      "pct": 16.7
+      "pct": 16.3
      },
      {
       "num": 27,
-      "pct": 11.7
-     },
-     {
-      "num": 44,
-      "pct": 10.8
+      "pct": 11.3
      },
      {
       "num": 57,
-      "pct": 10.8
+      "pct": 10
      },
      {
       "num": 33,
-      "pct": 9.2
+      "pct": 7.7
      },
      {
-      "num": 71,
-      "pct": 6.7
+      "num": 44,
+      "pct": 7.7
      },
      {
       "num": 72,
-      "pct": 5.8
+      "pct": 6
+     },
+     {
+      "num": 71,
+      "pct": 5
      },
      {
       "num": 32,
-      "pct": 2.5
+      "pct": 4.3
      },
      {
       "num": 46,
-      "pct": 2.5
+      "pct": 2.7
      },
      {
       "num": null,
-      "pct": 1.7
+      "pct": 1.3
      },
      {
       "num": null,
-      "pct": 0.8
+      "pct": 1
      },
      {
       "num": null,
-      "pct": 0.8
+      "pct": 1
      },
      {
       "num": null,
-      "pct": 0.8
+      "pct": 1
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.3
      },
      {
       "num": null,
@@ -30488,9 +30488,9 @@ const EXPERTS_DATA = {
      9,
      16,
      19,
+     25,
      27,
      28,
-     33,
      34,
      47,
      52,
@@ -35941,75 +35941,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 5,
-      "pct": 84.2
+      "pct": 83
+     },
+     {
+      "num": 7,
+      "pct": 73.7
+     },
+     {
+      "num": null,
+      "pct": 67.7
+     },
+     {
+      "num": null,
+      "pct": 66.7
+     },
+     {
+      "num": null,
+      "pct": 52
+     },
+     {
+      "num": null,
+      "pct": 51.7
      },
      {
       "num": 6,
-      "pct": 76.7
-     },
-     {
-      "num": null,
-      "pct": 75
-     },
-     {
-      "num": null,
-      "pct": 62.5
-     },
-     {
-      "num": null,
-      "pct": 60.8
-     },
-     {
-      "num": null,
-      "pct": 50
-     },
-     {
-      "num": 6,
-      "pct": 90.8
+      "pct": 86.7
      },
      {
       "num": 0,
-      "pct": 79.2
+      "pct": 78
      },
      {
       "num": null,
-      "pct": 69.2
+      "pct": 64.3
      },
      {
       "num": null,
-      "pct": 68.3
+      "pct": 57.7
      },
      {
       "num": null,
-      "pct": 46.7
+      "pct": 56.7
      },
      {
       "num": null,
-      "pct": 45.8
+      "pct": 52
      },
      {
       "num": 6,
-      "pct": 88.3
+      "pct": 83
      },
      {
       "num": 0,
-      "pct": 83.3
+      "pct": 80.3
      },
      {
       "num": null,
-      "pct": 76.7
+      "pct": 74
      },
      {
       "num": null,
-      "pct": 75.8
+      "pct": 69
      },
      {
       "num": null,
-      "pct": 63.3
+      "pct": 66.3
      },
      {
       "num": null,
-      "pct": 30
+      "pct": 39
      }
     ],
     "blue": [],
@@ -36085,10 +36085,10 @@ const EXPERTS_DATA = {
    "pool": {
     "red": [
      1,
-     2,
      4,
      5,
      6,
+     7,
      8,
      9
     ],
@@ -42240,13 +42240,13 @@ const EXPERTS_DATA = {
      "url": "/ex/xqxcex/tjsy_7_1808.html",
      "cat": "前6定5",
      "catLatest": {
-      "issue": "2026124",
+      "issue": "2026125",
       "nums": [
-       1,
        2,
+       3,
        4,
-       5,
-       7
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -43795,13 +43795,13 @@ const EXPERTS_DATA = {
       {
        "name": "中奖兴村",
        "nums": [
-        1,
         2,
+        3,
         4,
-        5,
-        7
+        8,
+        9
        ],
-       "issue": "2026124",
+       "issue": "2026125",
        "score": 70
       },
       {
@@ -44020,11 +44020,11 @@ const EXPERTS_DATA = {
      "name": "中奖兴村",
      "cats": {
       "前6定5": [
-       1,
        2,
+       3,
        4,
-       5,
-       7
+       8,
+       9
       ]
      }
     },
