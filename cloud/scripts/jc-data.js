@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-10-31 08:28 */
+/* 自动生成，请勿手动编辑 · 2026-10-31 08:58 */
 const JC_DATA = {
- "updated": "2026-10-31 08:28",
+ "updated": "2026-10-31 08:58",
  "stat": {
-  "total": 12,
+  "total": 11,
   "upcoming": 0,
-  "live": 1,
+  "live": 0,
   "finished": 11,
-  "withScore": 12,
-  "droppedNotOnSale": 0,
+  "withScore": 11,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
-  "droppedNotOnSale": 0,
+  "officialGate": true,
+  "officialCodes": 43,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -1193,122 +1193,13 @@ const JC_DATA = {
     "home": 0,
     "away": 2
    }
-  },
-  {
-   "gid": "1362534",
-   "fid": "1362534",
-   "sid": "19498",
-   "code": "周五012",
-   "league": "巴甲",
-   "round": "第33轮",
-   "time": "2026-10-31 07:00",
-   "handicap": "-1",
-   "home": {
-    "name": "科林蒂安",
-    "rank": 18
-   },
-   "away": {
-    "name": "米拉索尔",
-    "rank": 16
-   },
-   "score": {
-    "home": 1,
-    "away": 0
-   },
-   "statusText": "0 - 0 ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 1.05,
-      "line": "一球",
-      "away": 0.8
-     },
-     "live": {
-      "home": 1.15,
-      "line": "半球/一球",
-      "away": 0.67
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 1.57,
-      "draw": 3.8,
-      "away": 5.75
-     },
-     "live": {
-      "home": 1.9,
-      "draw": 3.3,
-      "away": 4.1
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.82,
-      "over": 2,
-      "under": 1.02
-     },
-     "live": {
-      "line": 0.72,
-      "over": 2,
-      "under": 1.07
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 49,
-    "prob": {
-     "home": 49,
-     "draw": 28.2,
-     "away": 22.7
-    },
-    "clear": true,
-    "margin": 7.3,
-    "rqLine": "半球/一球",
-    "type": "unbeaten"
-   },
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": -1,
-    "openUpWater": 1.05,
-    "openDownWater": 0.8,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -1,
-     "nowHandicap": -0.75,
-     "initUpWater": 1.05,
-     "nowUpWater": 1.15,
-     "initLine": "一球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "live",
-   "minute": 0,
-   "liveScore": {
-    "home": 1,
-    "away": 0
-   }
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
-  "updated": "2026-10-31 08:00",
-  "officialUpdate": "2026-10-30 21:37:46",
+  "source": "official",
+  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "updated": "2026-10-31 08:58",
+  "officialUpdate": "2026-10-30 20:28:28",
   "inSale": 43,
   "list": [
    {
