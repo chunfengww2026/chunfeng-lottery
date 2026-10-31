@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 83,
+    "minute": 84,
     "home": {
      "name": "普埃布拉",
      "score": 1,
