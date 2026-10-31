@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 01:50
+   更新时间：2026-11-01 01:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 01:50",
+ "updated": "2026-11-01 01:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2833,7 +2833,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T17:46:01.798Z",
+     "seen": "2026-10-31T17:56:01.861Z",
      "whenMs": 1793437664000,
      "seenMs": 1793468761798,
      "drawMs": 1793449800000,
@@ -3273,8 +3273,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=775Vv%2Fa2tessGoXV2YlBHJWc628%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=775Vv%2Fa2tessGoXV2YlBHJWc628%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hwrowoVC241HSy7fWf1NHT%2FuG3I%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hwrowoVC241HSy7fWf1NHT%2FuG3I%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=bN6H1TK5xRktOQUvl8gtl5TmU7I%3D",
      "title": "1.6万巨无霸压阵，蓝球07、13惨遭“围剿”？双色球124期疯狂晒票",
      "url": "http://toutiao.com/item/7702729101744570899/",
@@ -3286,9 +3286,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-31T17:46:01.798Z",
+     "seen": "2026-10-31T17:56:01.861Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793468761798,
+     "seenMs": 1793469361861,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -3316,7 +3316,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-31T17:46:01.798Z",
+     "seen": "2026-10-31T17:56:01.861Z",
      "whenMs": 1793431374000,
      "seenMs": 1793468761798,
      "drawMs": 1793538900000,
@@ -3766,7 +3766,7 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-10-31T17:46:01.798Z",
+     "seen": "2026-10-31T17:56:01.861Z",
      "whenMs": 1793422926000,
      "seenMs": 1793468761798,
      "drawMs": 1793452500000,
@@ -5118,7 +5118,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T17:16:02.340Z",
+     "seen": "2026-10-31T17:56:01.861Z",
      "whenMs": 1793361441000,
      "seenMs": 1793466962340,
      "drawMs": 1793449800000,
