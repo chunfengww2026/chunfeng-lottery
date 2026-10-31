@@ -34413,7 +34413,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "伟士帕大分",
      "score": 1,
@@ -34743,7 +34743,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "磐田喜悦",
      "score": 0,
@@ -34875,7 +34875,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "万劳雷八户",
      "score": 1,
@@ -34941,7 +34941,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "德岛漩涡",
      "score": 0,
@@ -35073,7 +35073,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "特格瓦嘉洛宫崎",
      "score": 1,
@@ -35205,7 +35205,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "全北现代",
      "score": 0,
@@ -35535,10 +35535,10 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:45:00",
-    "minute": 43,
+    "minute": 46,
     "home": {
      "name": "秋田蓝色闪电",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
