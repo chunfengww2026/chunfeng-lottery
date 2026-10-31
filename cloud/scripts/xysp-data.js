@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 04:50
+   更新时间：2026-11-01 04:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 04:50",
+ "updated": "2026-11-01 04:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5122,66 +5122,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-31 07:07:55",
      "postId": "7702601545586344486",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45b3599d5f384c5ab8aed6b4f77ce6f1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=M8txPd%2FwLHgyK5XDe0gX41WI3KI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45b3599d5f384c5ab8aed6b4f77ce6f1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=M8txPd%2FwLHgyK5XDe0gX41WI3KI%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45b3599d5f384c5ab8aed6b4f77ce6f1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=BPiyJAAOdy1WOJqqAUMcNityx4Q%3D",
-     "title": "单式打底加复式兜底？大乐透124期晒票：全是精算师的套路",
-     "url": "http://toutiao.com/item/7702567302697091638/",
-     "at": "2026-10-31T02:26:02.051Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793393702000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793413562051,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T02:26:02.051Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 04:55:02",
-     "postId": "7702567302697091638",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a255af9afed4bed80d6ec21936fbf2c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=LYpubz%2BvyIUOdSR1KmyZDIlJGew%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a255af9afed4bed80d6ec21936fbf2c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=LYpubz%2BvyIUOdSR1KmyZDIlJGew%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/45b3599d5f384c5ab8aed6b4f77ce6f1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=BPiyJAAOdy1WOJqqAUMcNityx4Q%3D",
-     "title": "单式打底加复式兜底？大乐透124期晒票：全是精算师的套路",
-     "url": "http://toutiao.com/item/7702567302697091638/",
-     "at": "2026-10-31T02:26:02.051Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793393702000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793413562051,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T02:26:02.051Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 04:55:02",
-     "postId": "7702567302697091638",
      "px": 132300
     },
     {
