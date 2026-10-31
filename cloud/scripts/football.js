@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:30:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 4,
@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "拉巴斯竞技",
      "score": 2,
@@ -106,7 +106,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "蒙特雷女足",
      "score": 3,
