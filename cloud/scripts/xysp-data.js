@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 10:06
+   更新时间：2026-10-31 10:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 10:06",
+ "updated": "2026-10-31 10:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -71,34 +71,6 @@ const XYSP_DATA = {
      "nextAt": 1793538900000,
      "atMs": 1793368028069,
      "seenMs": 1793368028069,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/64bc5efb-36de-4f55-9a89-0694bfe2fa5b1793324786419.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/64bc5efb-36de-4f55-9a89-0694bfe2fa5b1793324786419.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]在跑偏的路上越来越远",
-     "url": "",
-     "at": "2026-10-30T02:06:32.527Z",
-     "pubAt": "2026-10-30T01:46:00.000Z",
-     "pubMs": 1793324760000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793325992527,
-     "seenMs": 1793325992527,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/614fc75a-9a1b-4615-b5c8-cd0123601cd01793324662985.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/614fc75a-9a1b-4615-b5c8-cd0123601cd01793324662985.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]五+0哎",
-     "url": "",
-     "at": "2026-10-30T02:06:32.527Z",
-     "pubAt": "2026-10-30T01:44:00.000Z",
-     "pubMs": 1793324640000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793325992527,
-     "seenMs": 1793325992527,
      "whenMs": null
     }
    ]
@@ -1881,7 +1853,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793411007000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793411162045,
@@ -2873,7 +2845,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793370552000,
-     "seenMs": 1793409962028,
+     "seenMs": 1793412362059,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793371565684,
@@ -3023,7 +2995,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793360931000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793367000000,
      "nextMs": 1793367000000,
      "atMs": 1793367962044,
@@ -3083,7 +3055,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793360822000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3113,7 +3085,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793360822000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3144,7 +3116,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3206,7 +3178,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3326,7 +3298,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T02:06:02.059Z",
      "whenMs": 1793358804000,
-     "seenMs": 1793411162045,
+     "seenMs": 1793412362059,
      "drawMs": 1793367000000,
      "nextMs": 1793367000000,
      "atMs": 1793367962044,
@@ -3908,66 +3880,6 @@ const XYSP_DATA = {
      "author": "陈情醉了人间",
      "when": "2026-10-30 10:52:17",
      "postId": "7702286149229740544",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/aa5356d650944ed8b3f3aea2a7cf8448~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sKZTYL4lbceWOc9KjksyE3Tga%2Bo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/aa5356d650944ed8b3f3aea2a7cf8448~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sKZTYL4lbceWOc9KjksyE3Tga%2Bo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/aa5356d650944ed8b3f3aea2a7cf8448~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=DGwFrvqEwEDwuoEWOkp1nwwZofw%3D",
-     "title": "2块钱也能玩出精细战术！大乐透124期小票晒票，看呆一众老彩民",
-     "url": "https://toutiao.com/group/7702276711996359222/",
-     "at": "2026-10-30T02:16:01.225Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:26:01.281Z",
-     "whenMs": 1793326150000,
-     "seenMs": 1793330761281,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793326561225,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T02:16:01.225Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-30 10:09:10",
-     "postId": "7702276711996359222",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/175552c4e71f467ea99f72bc5a9dec9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=aiCwMCKdH8OwZqZPSheklMght7g%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/175552c4e71f467ea99f72bc5a9dec9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=aiCwMCKdH8OwZqZPSheklMght7g%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/aa5356d650944ed8b3f3aea2a7cf8448~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=DGwFrvqEwEDwuoEWOkp1nwwZofw%3D",
-     "title": "2块钱也能玩出精细战术！大乐透124期小票晒票，看呆一众老彩民",
-     "url": "https://toutiao.com/group/7702276711996359222/",
-     "at": "2026-10-30T02:16:01.225Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:26:01.281Z",
-     "whenMs": 1793326150000,
-     "seenMs": 1793330761281,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793326561225,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T02:16:01.225Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-30 10:09:10",
-     "postId": "7702276711996359222",
      "px": 132300
     }
    ]
