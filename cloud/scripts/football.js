@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "007326"
     },
     "time": "2026-10-31 21:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "塔亚文",
      "score": 0,
@@ -970,7 +970,7 @@ const FOOTBALL_DATA = {
      "color": "FC7000"
     },
     "time": "2026-10-31 21:45:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "維奇斯塔",
      "score": 0,
@@ -979,7 +979,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "乔治罗尼亚",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 11
     },
@@ -25569,7 +25569,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 20:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "德瓦聯合萬丹",
      "score": 2,
@@ -25897,7 +25897,7 @@ const FOOTBALL_DATA = {
      "color": "CA00CA"
     },
     "time": "2026-10-31 20:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "达姆斯塔特",
      "score": 1,
@@ -25963,7 +25963,7 @@ const FOOTBALL_DATA = {
      "color": "CA00CA"
     },
     "time": "2026-10-31 20:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "凯泽斯劳滕",
      "score": 0,
@@ -26013,7 +26013,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-10-31 20:15:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "喀山鲁宾",
      "score": 1,
@@ -26079,7 +26079,7 @@ const FOOTBALL_DATA = {
      "color": "9944cc"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "曼黎联",
      "score": 0,
@@ -26145,7 +26145,7 @@ const FOOTBALL_DATA = {
      "color": "cc1000"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "维尔港",
      "score": 3,
@@ -26191,7 +26191,7 @@ const FOOTBALL_DATA = {
      "color": "cc1000"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "甘士比",
      "score": 2,
@@ -26257,7 +26257,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "弗雷德里西亞",
      "score": 1,
@@ -26323,7 +26323,7 @@ const FOOTBALL_DATA = {
      "color": "aa0000"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "普利茅斯",
      "score": 0,
@@ -26389,7 +26389,7 @@ const FOOTBALL_DATA = {
      "color": "aa0000"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "莱顿东方",
      "score": 3,
@@ -26455,7 +26455,7 @@ const FOOTBALL_DATA = {
      "color": "aa0000"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "布拉德福德",
      "score": 0,
@@ -26521,10 +26521,10 @@ const FOOTBALL_DATA = {
      "color": "ff1111"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "切尔西",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -26587,7 +26587,7 @@ const FOOTBALL_DATA = {
      "color": "cc4400"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "斯托克城",
      "score": 2,
@@ -26653,10 +26653,10 @@ const FOOTBALL_DATA = {
      "color": "cc4400"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "诺维奇",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 20
     },
@@ -26719,7 +26719,7 @@ const FOOTBALL_DATA = {
      "color": "cc4400"
     },
     "time": "2026-10-31 20:30:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "林肯城",
      "score": 0,
@@ -26785,7 +26785,7 @@ const FOOTBALL_DATA = {
      "color": "56b70f"
     },
     "time": "2026-10-31 21:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "雷根斯堡",
      "score": 0,
@@ -27693,7 +27693,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-10-31 21:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "皇家蘇斯達B隊",
      "score": 0,
