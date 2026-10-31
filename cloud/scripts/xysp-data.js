@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 06:15
+   更新时间：2026-11-01 06:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 06:15",
+ "updated": "2026-11-01 06:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2240,8 +2240,8 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=iLjNh%2FHkUf92yDKSNrbeGJGhU5A%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=iLjNh%2FHkUf92yDKSNrbeGJGhU5A%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=v836s99EEj%2BOx4hJTslmkqykyTc%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=v836s99EEj%2BOx4hJTslmkqykyTc%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=eb%2FViEpF%2FDpxyYMgOoFdPQa65GI%3D",
      "title": "5544元“巨无霸”硬刚几十元套餐？大乐透这波晒票，玩的都是心跳",
      "url": "http://toutiao.com/item/7702910617350308367/",
@@ -2253,9 +2253,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793473637000,
-     "seenMs": 1793484362009,
+     "seenMs": 1793484962008,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793474761841,
@@ -2283,7 +2283,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793473637000,
      "seenMs": 1793484362009,
      "drawMs": 1793622600000,
@@ -2300,8 +2300,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a17cf344e8b444fbfe9458853c339db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=rfnnLF4VF99161GQ2GqgiSKhxR8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a17cf344e8b444fbfe9458853c339db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=rfnnLF4VF99161GQ2GqgiSKhxR8%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a17cf344e8b444fbfe9458853c339db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=GXYmv2ZTqDfsYzsC46jDrhP1ToQ%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9a17cf344e8b444fbfe9458853c339db~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=GXYmv2ZTqDfsYzsC46jDrhP1ToQ%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b47d2f8d9bc945c79c3a1ac04ce90f3b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=eb%2FViEpF%2FDpxyYMgOoFdPQa65GI%3D",
      "title": "5544元“巨无霸”硬刚几十元套餐？大乐透这波晒票，玩的都是心跳",
      "url": "http://toutiao.com/item/7702910617350308367/",
@@ -2313,9 +2313,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793473637000,
-     "seenMs": 1793484362009,
+     "seenMs": 1793484962008,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793474761841,
@@ -2943,7 +2943,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-10-31T21:56:02.000Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793437664000,
      "seenMs": 1793483762000,
      "drawMs": 1793449800000,
@@ -3396,7 +3396,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793431374000,
      "seenMs": 1793484362009,
      "drawMs": 1793538900000,
@@ -3426,7 +3426,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793431374000,
      "seenMs": 1793484362009,
      "drawMs": 1793538900000,
@@ -3876,7 +3876,7 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-10-31T22:06:02.009Z",
+     "seen": "2026-10-31T22:16:02.008Z",
      "whenMs": 1793422926000,
      "seenMs": 1793484362009,
      "drawMs": 1793452500000,
