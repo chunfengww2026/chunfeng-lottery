@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-01 06:00 */
+/* 自动生成，请勿手动编辑 · 2026-11-01 06:28 */
 const JC_DATA = {
- "updated": "2026-11-01 06:00",
+ "updated": "2026-11-01 06:28",
  "stat": {
-  "total": 24,
+  "total": 25,
   "upcoming": 0,
   "live": 0,
-  "finished": 24,
-  "withScore": 24,
-  "droppedNotOnSale": 4,
+  "finished": 25,
+  "withScore": 25,
+  "droppedNotOnSale": 3,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 34,
-  "droppedNotOnSale": 4,
+  "droppedNotOnSale": 3,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -2610,12 +2610,121 @@ const JC_DATA = {
     "home": 2,
     "away": 1
    }
+  },
+  {
+   "gid": "1414237",
+   "fid": "1414237",
+   "sid": "19826",
+   "code": "周六025",
+   "league": "意甲",
+   "round": "第10轮",
+   "time": "2026-11-01 03:45",
+   "handicap": null,
+   "home": {
+    "name": "AC米兰",
+    "rank": 5
+   },
+   "away": {
+    "name": "国际米兰",
+    "rank": 1
+   },
+   "score": {
+    "home": 3,
+    "away": 1
+   },
+   "statusText": "3 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.85,
+      "line": "受平手/半球",
+      "away": 1
+     },
+     "live": {
+      "home": 1.1,
+      "line": "受平手/半球",
+      "away": 0.7
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.9,
+      "draw": 3.6,
+      "away": 2.25
+     },
+     "live": {
+      "home": 3.9,
+      "draw": 3.4,
+      "away": 2
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.97,
+      "over": 3,
+      "under": 0.87
+     },
+     "live": {
+      "line": 1.02,
+      "over": 2.5,
+      "under": 0.77
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 47.6,
+    "prob": {
+     "home": 24.4,
+     "draw": 28,
+     "away": 47.6
+    },
+    "clear": true,
+    "margin": 5.1,
+    "rqLine": "受平手/半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.7,
+    "downWater": 1.1,
+    "openHandicap": 0.25,
+    "openUpWater": 1,
+    "openDownWater": 0.85,
+    "totalWater": 1.8,
+    "theoryUpPercent": "61.11",
+    "theoryDownPercent": "38.89",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 1,
+     "nowUpWater": 0.7,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 3,
+    "away": 1
+   }
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-01 06:00",
+  "updated": "2026-11-01 06:28",
   "officialUpdate": "2026-10-31 22:40:49",
   "inSale": 34,
   "list": [
