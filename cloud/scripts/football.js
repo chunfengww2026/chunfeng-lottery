@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "臥龍崗狼隊",
      "score": 0,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "44562c"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "萨瑟兰德",
      "score": 0,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "浦安SC",
      "score": 3,
@@ -286,7 +286,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "本田制鎖",
      "score": 1,
@@ -352,7 +352,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "布里斯班狮吼女足",
      "score": 0,
@@ -418,10 +418,10 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "奥克兰联",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -484,7 +484,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "札幌冈萨多",
      "score": 1,
@@ -550,7 +550,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-31 12:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "纽卡斯尔喷气机",
      "score": 0,
