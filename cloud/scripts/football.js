@@ -33938,7 +33938,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 1,
@@ -34004,7 +34004,7 @@ const FOOTBALL_DATA = {
      "color": "888812"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "香港东区",
      "score": 1,
@@ -34070,7 +34070,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "柏太阳神",
      "score": 1,
@@ -34136,7 +34136,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "大邱FC",
      "score": 0,
@@ -34145,7 +34145,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "水原三星",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
@@ -34214,7 +34214,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "忠南牙山",
      "score": 0,
