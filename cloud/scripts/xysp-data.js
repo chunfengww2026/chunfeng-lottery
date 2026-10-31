@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 19:40
+   更新时间：2026-10-31 19:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 19:40",
+ "updated": "2026-10-31 19:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -532,6 +532,20 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-10-31/6afb1478-aa45-423c-a99f-37a65f2a6c651793445347180.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/6afb1478-aa45-423c-a99f-37a65f2a6c651793445347180.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26290期]仅供参考03467五码！",
+     "url": "",
+     "at": "2026-10-31T11:45:04.024Z",
+     "pubAt": "2026-10-31T11:15:00.000Z",
+     "pubMs": 1793445300000,
+     "pubSrc": "page",
+     "nextAt": 1793452500000,
+     "atMs": 1793447104024,
+     "seenMs": 1793447104024,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-10-31/ea6bd310-a87b-49c6-a311-b14467e62b051793443990082.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/ea6bd310-a87b-49c6-a311-b14467e62b051793443990082.jpg?imageMogr2/thumbnail/360x",
      "title": "[期]参考就行",
@@ -543,6 +557,34 @@ const XYSP_DATA = {
      "nextAt": 1793452500000,
      "atMs": 1793445004211,
      "seenMs": 1793445004211,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/5ec5d175-7707-4b6f-8279-bfaf409eee8d1793442220126.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/5ec5d175-7707-4b6f-8279-bfaf409eee8d1793442220126.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26290期]参考",
+     "url": "",
+     "at": "2026-10-31T11:45:04.024Z",
+     "pubAt": "2026-10-31T10:23:00.000Z",
+     "pubMs": 1793442180000,
+     "pubSrc": "page",
+     "nextAt": 1793452500000,
+     "atMs": 1793447104024,
+     "seenMs": 1793447104024,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/9cde7299-46bc-40ec-b553-b7b8274012c01793441614607.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/9cde7299-46bc-40ec-b553-b7b8274012c01793441614607.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26290期]好运常伴",
+     "url": "",
+     "at": "2026-10-31T11:45:04.024Z",
+     "pubAt": "2026-10-31T10:13:00.000Z",
+     "pubMs": 1793441580000,
+     "pubSrc": "page",
+     "nextAt": 1793452500000,
+     "atMs": 1793447104024,
+     "seenMs": 1793447104024,
      "whenMs": null
     },
     {
@@ -1152,6 +1194,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/65a0f72d-b258-4578-88fc-953327b07aa11793445432628.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/65a0f72d-b258-4578-88fc-953327b07aa11793445432628.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26290期]充电宝。 充电的就是本人实战投注的。",
+     "url": "",
+     "at": "2026-10-31T11:45:04.024Z",
+     "pubAt": "2026-10-31T11:17:00.000Z",
+     "pubMs": 1793445420000,
+     "pubSrc": "page",
+     "nextAt": 1793453400000,
+     "atMs": 1793447104024,
+     "seenMs": 1793447104024,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg?imageMogr2/thumbnail/360x",
@@ -5652,66 +5708,6 @@ const XYSP_DATA = {
      "when": "2026-10-30 19:47:02",
      "postId": "7702426082334474795",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/270b15d71ddb4d00b72c23fd7c357ff0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=50qIgr7V3ypSs2uXU2lAW6WD6ZE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/270b15d71ddb4d00b72c23fd7c357ff0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=50qIgr7V3ypSs2uXU2lAW6WD6ZE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/270b15d71ddb4d00b72c23fd7c357ff0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=a76v4aknLyk68Bq3CMWEUXo9rZY%3D",
-     "title": "三张大乐透复式票流出，合计10548元，彩民：就图个“头奖念想”",
-     "url": "https://toutiao.com/group/7702424253626352178/",
-     "at": "2026-10-31T07:56:01.367Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T11:36:01.534Z",
-     "whenMs": 1793360536000,
-     "seenMs": 1793446561534,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793433361367,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T07:56:01.367Z",
-     "rule": "first-capture-24h",
-     "author": "八卦营",
-     "when": "2026-10-30 19:42:16",
-     "postId": "7702424253626352178",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3383f93c3ed48608e03c16a8fb86a85~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=KmBwR6pvihTfsyIrtrTaBlcMiQU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d3383f93c3ed48608e03c16a8fb86a85~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=KmBwR6pvihTfsyIrtrTaBlcMiQU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/270b15d71ddb4d00b72c23fd7c357ff0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=a76v4aknLyk68Bq3CMWEUXo9rZY%3D",
-     "title": "三张大乐透复式票流出，合计10548元，彩民：就图个“头奖念想”",
-     "url": "https://toutiao.com/group/7702424253626352178/",
-     "at": "2026-10-31T07:56:01.367Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T11:36:01.534Z",
-     "whenMs": 1793360536000,
-     "seenMs": 1793446561534,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793433361367,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T07:56:01.367Z",
-     "rule": "first-capture-24h",
-     "author": "八卦营",
-     "when": "2026-10-30 19:42:16",
-     "postId": "7702424253626352178",
-     "px": 132300
     }
    ]
   },
@@ -7075,6 +7071,11 @@ const XYSP_DATA = {
   "/2026-10-31/9b75a697-5825-4064-a662-7c988a5da9ef1793444656744.jpg": 1793445904650,
   "/2026-10-31/801bea26-96b2-4cdc-846d-65e16162701e1793444656768.jpg": 1793445904650,
   "/2026-10-31/fcd7b89a-0c51-47c4-9b75-4ad672da822c1793444172513.jpg": 1793445904650,
-  "/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg": 1793446503947
+  "/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg": 1793446503947,
+  "/2026-10-31/dc7ebf8c-455c-4cf9-a618-7f26765e80b81793445860079.jpg": 1793447104024,
+  "/2026-10-31/6afb1478-aa45-423c-a99f-37a65f2a6c651793445347180.jpg": 1793447104024,
+  "/2026-10-31/5ec5d175-7707-4b6f-8279-bfaf409eee8d1793442220126.jpg": 1793447104024,
+  "/2026-10-31/9cde7299-46bc-40ec-b553-b7b8274012c01793441614607.jpg": 1793447104024,
+  "/2026-10-31/65a0f72d-b258-4578-88fc-953327b07aa11793445432628.jpg": 1793447104024
  }
 };
