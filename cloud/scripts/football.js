@@ -242,7 +242,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 90,
+    "minute": 92,
     "home": {
      "name": "阿特拿斯女足",
      "score": 0,
@@ -251,7 +251,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "塔格雷斯女足",
-     "score": 6,
+     "score": 7,
      "red": 0,
      "rank": 3
     },
@@ -280,7 +280,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "埃尔帕索机车",
      "score": 2,
@@ -318,7 +318,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 92,
+    "minute": 94,
     "home": {
      "name": "圣路易斯竞技",
      "score": 0,
@@ -384,7 +384,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 09:05:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "布卡拉曼格",
      "score": 2,
@@ -582,10 +582,10 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:30:00",
-    "minute": 23,
+    "minute": 25,
     "home": {
      "name": "阿里卡老虎隊",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
