@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "瓦拉塔曲通",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 18
     },
     "away": {
      "name": "皮昂内罗斯坎昆",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "94240a"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "雷提斯塔",
      "score": 0,
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "阿特萨诺斯梅特佩克",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "萨尔蒂奥竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 1,
+    "minute": 6,
     "home": {
      "name": "胡安卡納特蘭大猩猩",
      "score": 0,
@@ -2666,7 +2666,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-01 04:30:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "阿利亚加",
      "score": 1,
@@ -2732,7 +2732,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-01 04:30:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "维拉诺瓦",
      "score": 1,
@@ -2741,7 +2741,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "尤文都德RS",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
@@ -2770,10 +2770,10 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-01 04:30:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "波尔图",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 1
     },
@@ -2820,7 +2820,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-11-01 05:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "卡卡瓦蒂克",
      "score": 0,
@@ -2886,7 +2886,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-11-01 05:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "科隆竞技",
      "score": 0,
@@ -3228,7 +3228,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-11-01 05:45:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "阿苏尔希达高",
      "score": 0,
