@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 19:30
+   更新时间：2026-10-31 19:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 19:30",
+ "updated": "2026-10-31 19:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -534,7 +534,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-10-31/ea6bd310-a87b-49c6-a311-b14467e62b051793443990082.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/ea6bd310-a87b-49c6-a311-b14467e62b051793443990082.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]参考就行",
+     "title": "[期]参考就行",
      "url": "",
      "at": "2026-10-31T11:10:04.211Z",
      "pubAt": "2026-10-31T10:54:00.000Z",
@@ -618,7 +618,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-10-31/b4d2c5bd-1d88-4fbd-b80c-92ee393742a01793426727721.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/b4d2c5bd-1d88-4fbd-b80c-92ee393742a01793426727721.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]福彩3D＆（仅统计命中，方便大家找规律） 262期福248（中1胆4） 263期福048（中1胆8） 264期福079（中1胆9） 265期福567（中1胆6） 267期福245（中1胆5） 268期福025（中1胆0） 2",
+     "title": "[期]福彩3D＆（仅统计命中，方便大家找规律） 262期福248（中1胆4） 263期福048（中1胆8） 264期福079（中1胆9） 265期福567（中1胆6） 267期福245（中1胆5） 268期福025（中1胆0） 269期福3",
      "url": "",
      "at": "2026-10-31T06:16:34.375Z",
      "pubAt": "2026-10-31T06:05:00.000Z",
@@ -1152,6 +1152,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26290期]今日推荐金胆:3 没有虚假只来最真实最看好的一个号码分享！",
+     "url": "",
+     "at": "2026-10-31T11:35:03.947Z",
+     "pubAt": "2026-10-31T11:07:00.000Z",
+     "pubMs": 1793444820000,
+     "pubSrc": "page",
+     "nextAt": 1793453400000,
+     "atMs": 1793446503947,
+     "seenMs": 1793446503947,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-31/b8d1dc2c-69f1-4d9e-8203-cc54c81a5cd81793444016205.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/b8d1dc2c-69f1-4d9e-8203-cc54c81a5cd81793444016205.jpg?imageMogr2/thumbnail/360x",
@@ -5698,99 +5712,6 @@ const XYSP_DATA = {
      "when": "2026-10-30 19:42:16",
      "postId": "7702424253626352178",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/760af439a0c24406ad106480bf051960~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=OpRbotdY1oBwYREW7X5fi0rAAJ0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/760af439a0c24406ad106480bf051960~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=OpRbotdY1oBwYREW7X5fi0rAAJ0%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/760af439a0c24406ad106480bf051960~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5SPMbgrk82deFEqMrMjBvFJ57K0%3D",
-     "title": "3d、排列3第26289期晒票：接纳平凡底色，在奋斗路上寻得独有精彩",
-     "url": "http://toutiao.com/item/7702422695031341609/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26289",
-     "seen": "2026-10-31T11:26:01.480Z",
-     "whenMs": 1793360033000,
-     "seenMs": 1793445961480,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 19:33:53",
-     "postId": "7702422695031341609",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7554aa9b1db940359f63327ebfb4f71c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IVWmwh3g4DJmaQzuB%2FS4cEPBxZU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7554aa9b1db940359f63327ebfb4f71c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IVWmwh3g4DJmaQzuB%2FS4cEPBxZU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/760af439a0c24406ad106480bf051960~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5SPMbgrk82deFEqMrMjBvFJ57K0%3D",
-     "title": "3d、排列3第26289期晒票：接纳平凡底色，在奋斗路上寻得独有精彩",
-     "url": "http://toutiao.com/item/7702422695031341609/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26289",
-     "seen": "2026-10-31T11:26:01.480Z",
-     "whenMs": 1793360033000,
-     "seenMs": 1793445961480,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 19:33:53",
-     "postId": "7702422695031341609",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d07cd54d6934bbf994ba3f3054b329f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=HtbzCWbItgohEtxir6excwbpPMM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d07cd54d6934bbf994ba3f3054b329f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=HtbzCWbItgohEtxir6excwbpPMM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/760af439a0c24406ad106480bf051960~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5SPMbgrk82deFEqMrMjBvFJ57K0%3D",
-     "title": "3d、排列3第26289期晒票：接纳平凡底色，在奋斗路上寻得独有精彩",
-     "url": "http://toutiao.com/item/7702422695031341609/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26289",
-     "seen": "2026-10-31T11:26:01.480Z",
-     "whenMs": 1793360033000,
-     "seenMs": 1793445961480,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 19:33:53",
-     "postId": "7702422695031341609",
-     "px": 132300
     }
    ]
   },
@@ -7153,6 +7074,7 @@ const XYSP_DATA = {
   "/2026-10-31/a0a0bffd-9d86-42ec-a4d4-d4414a0852941793444656778.jpg": 1793445904650,
   "/2026-10-31/9b75a697-5825-4064-a662-7c988a5da9ef1793444656744.jpg": 1793445904650,
   "/2026-10-31/801bea26-96b2-4cdc-846d-65e16162701e1793444656768.jpg": 1793445904650,
-  "/2026-10-31/fcd7b89a-0c51-47c4-9b75-4ad672da822c1793444172513.jpg": 1793445904650
+  "/2026-10-31/fcd7b89a-0c51-47c4-9b75-4ad672da822c1793444172513.jpg": 1793445904650,
+  "/2026-10-31/c8f2143e-cbf1-4c8d-917e-b986f3fa666b1793444796478.jpg": 1793446503947
  }
 };
