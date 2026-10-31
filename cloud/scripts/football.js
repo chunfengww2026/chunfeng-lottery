@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "拉佩达德",
      "score": 1,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 10:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "佩雷斯泽内度",
      "score": 1,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:30:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 4,
@@ -192,10 +192,10 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "拉巴斯竞技",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -270,7 +270,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 43,
+    "minute": 46,
     "home": {
      "name": "蒙特雷女足",
      "score": 1,
@@ -348,7 +348,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "普埃布拉",
      "score": 1,
