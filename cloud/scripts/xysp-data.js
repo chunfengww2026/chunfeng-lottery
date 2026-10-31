@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 01:20
+   更新时间：2026-11-01 01:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 01:20",
+ "updated": "2026-11-01 01:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5072,66 +5072,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-31 04:55:02",
      "postId": "7702567302697091638",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1adedc591bcb4143a2f96363ff565260~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=lnYogV2s83IRoRvB8c5xzms%2FY3E%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1adedc591bcb4143a2f96363ff565260~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=lnYogV2s83IRoRvB8c5xzms%2FY3E%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/599d825eb5694898be60660f1b84a6c7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=xUPWanittXZnWIqGofH%2FYTryDFM%3D",
-     "title": "大乐透124期晒票大赏 悲伤蛙硬币护体10连击 180元5倍复式硬刚大奖",
-     "url": "https://toutiao.com/group/7702512410670514724/",
-     "at": "2026-10-30T19:45:11.574Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T01:36:02.049Z",
-     "whenMs": 1793380966000,
-     "seenMs": 1793410562049,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793389511574,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T19:45:11.574Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-10-31 01:22:46",
-     "postId": "7702512410670514724",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8a98ec5607fc41b5a7f4e68b9da1ebf5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=e%2BTjTxXA%2BSEhZ6ULMEtkEeNBOfI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8a98ec5607fc41b5a7f4e68b9da1ebf5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=e%2BTjTxXA%2BSEhZ6ULMEtkEeNBOfI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/599d825eb5694898be60660f1b84a6c7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=xUPWanittXZnWIqGofH%2FYTryDFM%3D",
-     "title": "大乐透124期晒票大赏 悲伤蛙硬币护体10连击 180元5倍复式硬刚大奖",
-     "url": "https://toutiao.com/group/7702512410670514724/",
-     "at": "2026-10-30T19:45:11.574Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T01:36:02.049Z",
-     "whenMs": 1793380966000,
-     "seenMs": 1793410562049,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793389511574,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T19:45:11.574Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-10-31 01:22:46",
-     "postId": "7702512410670514724",
      "px": 132300
     },
     {
