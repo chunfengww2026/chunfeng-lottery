@@ -5458,7 +5458,7 @@ const FOOTBALL_DATA = {
      "color": "053464"
     },
     "time": "2026-11-01 01:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "奥莫尼亚",
      "score": 2,
@@ -5504,7 +5504,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-11-01 01:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "鲁达士",
      "score": 1,
@@ -5608,7 +5608,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-01 01:00:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "夏洛特",
      "score": 3,
@@ -5646,7 +5646,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-11-01 01:15:00",
-    "minute": 79,
+    "minute": 81,
     "home": {
      "name": "标准列日",
      "score": 1,
@@ -5712,7 +5712,7 @@ const FOOTBALL_DATA = {
      "color": "054594"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "格拉斯哥流浪者",
      "score": 0,
@@ -5778,7 +5778,7 @@ const FOOTBALL_DATA = {
      "color": "999900"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "索菲亚中央陆军",
      "score": 0,
@@ -5844,7 +5844,7 @@ const FOOTBALL_DATA = {
      "color": "990099"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 64,
+    "minute": 66,
     "home": {
      "name": "拜仁慕尼黑",
      "score": 1,
@@ -5910,7 +5910,7 @@ const FOOTBALL_DATA = {
      "color": "ff1111"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "托特纳姆热刺",
      "score": 1,
@@ -5976,7 +5976,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 65,
+    "minute": 67,
     "home": {
      "name": "塞尔塔B队",
      "score": 2,
@@ -6042,7 +6042,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-11-01 01:30:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "皇家贝蒂斯",
      "score": 2,
@@ -6108,7 +6108,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 01:45:00",
-    "minute": 53,
+    "minute": 55,
     "home": {
      "name": "PSV埃因霍溫",
      "score": 4,
@@ -6158,7 +6158,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 01:45:00",
-    "minute": 52,
+    "minute": 54,
     "home": {
      "name": "海伦芬",
      "score": 0,
@@ -7420,7 +7420,7 @@ const FOOTBALL_DATA = {
      "color": "3DE6E6"
     },
     "time": "2026-11-01 02:30:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "洛斯安第斯",
      "score": 0,
@@ -7498,7 +7498,7 @@ const FOOTBALL_DATA = {
      "color": "2F3FD2"
     },
     "time": "2026-11-01 02:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "林茨",
      "score": 1,
@@ -7576,7 +7576,7 @@ const FOOTBALL_DATA = {
      "color": "3792FF"
     },
     "time": "2026-11-01 02:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "桑普多利亚",
      "score": 1,
@@ -7654,7 +7654,7 @@ const FOOTBALL_DATA = {
      "color": "665566"
     },
     "time": "2026-11-01 02:45:00",
-    "minute": 12,
+    "minute": 14,
     "home": {
      "name": "吉奥利",
      "score": 0,
