@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "AC长野帕塞罗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
     "away": {
      "name": "瑞拉滋賀",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 17
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "888812"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "香港东区",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "沙田",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
@@ -34213,7 +34213,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:45:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "秋田蓝色闪电",
      "score": 1,
@@ -34279,7 +34279,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "中央海岸水手(女)",
      "score": 1,
@@ -34345,10 +34345,10 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "墨尔本城",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -34543,7 +34543,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "廣西恆宸",
      "score": 0,
@@ -34621,7 +34621,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "佛山南狮",
      "score": 0,
@@ -34699,7 +34699,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "石家庄功夫",
      "score": 0,
@@ -34777,7 +34777,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "南京城市",
      "score": 0,
@@ -34855,7 +34855,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "苏州东吴",
      "score": 0,
@@ -34933,7 +34933,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "梅州客家",
      "score": 0,
@@ -35011,7 +35011,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "黑龙江冰城",
      "score": 0,
@@ -35089,7 +35089,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "长春亚泰",
      "score": 0,
