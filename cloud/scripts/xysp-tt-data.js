@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 02:13:43
+   更新时间：2026-11-01 02:16:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-01 02:13:43",
+ "updated": "2026-11-01 02:16:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/600970a25c0942ce8e460ad6a3230c82~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=oloSt7zkraKqPawAvuxMGo7YYh8%3D",
@@ -523,8 +523,38 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3VuFAmwKm93q62FTSqmjUh5fhuY%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3VuFAmwKm93q62FTSqmjUh5fhuY%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SjVWB%2BxHlqcOLG9L9m5qZbxmEjM%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SjVWB%2BxHlqcOLG9L9m5qZbxmEjM%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=wRAAD7M9HWzwttfpda2NyJTft1g%3D",
+   "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
+   "url": "http://toutiao.com/item/7702756117290189366/",
+   "at": "2026-10-31T09:16:01.431Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "大乐透",
+   "games": [
+    "dlt"
+   ],
+   "issue": "",
+   "seen": "2026-10-31T18:16:01.806Z",
+   "whenMs": 1793437664000,
+   "seenMs": 1793470561806,
+   "drawMs": 1793449800000,
+   "nextMs": 1793449800000,
+   "atMs": 1793438161431,
+   "drawAt": "2026-10-31T12:30:00.000Z",
+   "nextAt": 1793449800000,
+   "drawGid": "dlt",
+   "expireAt": "2026-11-01T09:16:01.431Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-10-31 17:07:44",
+   "postId": "7702756117290189366",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
    "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
    "url": "http://toutiao.com/item/7702756117290189366/",
@@ -537,7 +567,7 @@ const XYSP_TT_DATA = {
    ],
    "issue": "",
    "seen": "2026-10-31T18:13:43.359Z",
-   "whenMs": 1793437664000,
+   "whenMs": 1793361441000,
    "seenMs": 1793470423359,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
@@ -976,8 +1006,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hwrowoVC241HSy7fWf1NHT%2FuG3I%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hwrowoVC241HSy7fWf1NHT%2FuG3I%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=775Vv%2Fa2tessGoXV2YlBHJWc628%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=775Vv%2Fa2tessGoXV2YlBHJWc628%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8d69997ba9414eeeb8ab3ba61061e516~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=bN6H1TK5xRktOQUvl8gtl5TmU7I%3D",
    "title": "1.6万巨无霸压阵，蓝球07、13惨遭“围剿”？双色球124期疯狂晒票",
    "url": "http://toutiao.com/item/7702729101744570899/",
@@ -989,9 +1019,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-31T18:13:43.359Z",
+   "seen": "2026-10-31T18:16:01.806Z",
    "whenMs": 1793431374000,
-   "seenMs": 1793469961792,
+   "seenMs": 1793470561806,
    "drawMs": 1793538900000,
    "nextMs": 1793538900000,
    "atMs": 1793431561305,
@@ -1019,9 +1049,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-10-31T18:13:43.359Z",
+   "seen": "2026-10-31T18:16:01.806Z",
    "whenMs": 1793431374000,
-   "seenMs": 1793469961792,
+   "seenMs": 1793470423359,
    "drawMs": 1793538900000,
    "nextMs": 1793538900000,
    "atMs": 1793431561305,
@@ -1458,7 +1488,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a97ae859b9be4b0b9d6e11c377838e47~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=gVTfT6NiGug0vwbgxBXrcaXyEl0%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a97ae859b9be4b0b9d6e11c377838e47~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=gVTfT6NiGug0vwbgxBXrcaXyEl0%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/09cff960c52943ecb9e483ba1af14e4c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=39M6dKrYt7jgtbKgZdPKGui%2FL0U%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/09cff960c52943ecb9e483ba1af14e4c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2FfEvSjYzgYXjXFaqmj3yXv6%2FukA%3D",
    "title": "多张10倍连号，600多位选博冷，这帮人疯了！288期福彩3D晒票",
    "url": "http://toutiao.com/item/7702692818623398419/",
    "at": "2026-10-31T07:06:01.313Z",
@@ -1469,7 +1499,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-10-31T18:13:43.359Z",
+   "seen": "2026-10-31T18:16:01.806Z",
    "whenMs": 1793422926000,
    "seenMs": 1793470423359,
    "drawMs": 1793452500000,
@@ -3018,39 +3048,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
-   "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
-   "url": "http://toutiao.com/item/7702756117290189366/",
-   "at": "2026-10-31T09:16:01.431Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "大乐透",
-   "games": [
-    "dlt"
-   ],
-   "issue": "",
-   "seen": "2026-10-31T18:13:43.359Z",
-   "whenMs": 1793361441000,
-   "seenMs": 1793468761798,
-   "drawMs": 1793449800000,
-   "nextMs": 1793449800000,
-   "atMs": 1793438161431,
-   "drawAt": "2026-10-31T12:30:00.000Z",
-   "nextAt": 1793449800000,
-   "drawGid": "dlt",
-   "expireAt": "2026-11-01T09:16:01.431Z",
-   "rule": "first-capture-24h",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-10-31 17:07:44",
-   "postId": "7702756117290189366",
-   "px": 132300
-  },
-  {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=wRAAD7M9HWzwttfpda2NyJTft1g%3D",
    "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
    "url": "http://toutiao.com/item/7702756117290189366/",
    "at": "2026-10-31T09:16:01.431Z",
@@ -3061,9 +3061,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-10-31T18:13:43.359Z",
+   "seen": "2026-10-31T18:16:01.806Z",
    "whenMs": 1793361441000,
-   "seenMs": 1793469361861,
+   "seenMs": 1793470423359,
    "drawMs": 1793449800000,
    "nextMs": 1793449800000,
    "atMs": 1793438161431,
