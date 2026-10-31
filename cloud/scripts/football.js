@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "托拉卡女足",
      "score": 0,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "底特律城",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "哈特福德竞技",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "奥利恩特",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 0,
@@ -1521,7 +1521,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "路易斯维尔城",
      "score": 0,
@@ -1559,7 +1559,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "基斯奧馬SC",
      "score": 1,
@@ -1597,10 +1597,10 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "泰里尼登斯",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 2
     },
@@ -1643,7 +1643,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "瓜兰尼",
      "score": 1,
@@ -1757,7 +1757,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 0,
