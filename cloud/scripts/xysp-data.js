@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 22:26
+   更新时间：2026-10-31 22:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 22:26",
+ "updated": "2026-10-31 22:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2424,7 +2424,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T14:26:01.607Z",
      "whenMs": 1793437818000,
-     "seenMs": 1793456161595,
+     "seenMs": 1793456761607,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793438761364,
@@ -2637,7 +2637,7 @@ const XYSP_DATA = {
      "issue": "2026230",
      "seen": "2026-10-31T14:26:01.607Z",
      "whenMs": 1793436520000,
-     "seenMs": 1793455561615,
+     "seenMs": 1793456761607,
      "drawMs": 1793453400000,
      "nextMs": 1793453400000,
      "atMs": 1793437561369,
@@ -2727,7 +2727,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T14:26:01.607Z",
      "whenMs": 1793435525000,
-     "seenMs": 1793456161595,
+     "seenMs": 1793456761607,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793436361351,
@@ -4994,68 +4994,6 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b3d09a80c94c425abb8407fe00a55c8a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3C4z23f3cNNRHtGTeQaGjzv67kc%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b3d09a80c94c425abb8407fe00a55c8a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3C4z23f3cNNRHtGTeQaGjzv67kc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b3d09a80c94c425abb8407fe00a55c8a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=BrBRtpvvwU7XWJyswONQsbBWY%2FI%3D",
-     "title": "4元中一千万刷到河源彩民4元中1000万的新闻，我手里刚买的4块钱冰红茶瞬间就不香了。\n人家就第一次碰快乐8，平时只买几块钱双色球的老玩家，随手挑了10个号码直接2倍投注，选十中十刚好撞上当期全国仅有的10注大奖，单注500万直接抱走千万奖",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880485320583168",
-     "at": "2026-10-30T14:46:05.684Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球、快乐8",
-     "games": [
-      "ssq",
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T05:46:01.286Z",
-     "whenMs": 1793370552000,
-     "seenMs": 1793425561286,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793371565684,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-31T14:46:05.684Z",
-     "rule": "first-capture-24h",
-     "author": "牛马讲实话！",
-     "when": "2026-10-30 22:29:12",
-     "postId": "1880485320583168",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/56edfe824d494874b9c08a015ee621a2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3gmo8HVcDSgYxBO4i0mWXPfkY58%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/56edfe824d494874b9c08a015ee621a2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3gmo8HVcDSgYxBO4i0mWXPfkY58%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b3d09a80c94c425abb8407fe00a55c8a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=BrBRtpvvwU7XWJyswONQsbBWY%2FI%3D",
-     "title": "4元中一千万刷到河源彩民4元中1000万的新闻，我手里刚买的4块钱冰红茶瞬间就不香了。\n人家就第一次碰快乐8，平时只买几块钱双色球的老玩家，随手挑了10个号码直接2倍投注，选十中十刚好撞上当期全国仅有的10注大奖，单注500万直接抱走千万奖",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880485320583168",
-     "at": "2026-10-30T14:46:05.684Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球、快乐8",
-     "games": [
-      "ssq",
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T05:46:01.286Z",
-     "whenMs": 1793370552000,
-     "seenMs": 1793425561286,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793371565684,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-10-31T14:46:05.684Z",
-     "rule": "first-capture-24h",
-     "author": "牛马讲实话！",
-     "when": "2026-10-30 22:29:12",
-     "postId": "1880485320583168",
-     "px": 132300
-    },
-    {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=wRAAD7M9HWzwttfpda2NyJTft1g%3D",
@@ -5071,7 +5009,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T14:26:01.607Z",
      "whenMs": 1793361441000,
-     "seenMs": 1793456161595,
+     "seenMs": 1793456761607,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793438161431,
@@ -5101,7 +5039,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T14:26:01.607Z",
      "whenMs": 1793361441000,
-     "seenMs": 1793454961584,
+     "seenMs": 1793456761607,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793438161431,
