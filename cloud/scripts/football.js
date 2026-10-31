@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "阿特拿斯女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "塔格雷斯女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "埃尔帕索机车",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
     "away": {
      "name": "聖安東尼奧",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 0,
+    "minute": 9,
     "home": {
      "name": "羅查星",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "独立CA",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "美丽华流浪者",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 5,
+    "minute": 10,
     "home": {
      "name": "华雷斯",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "圣路易斯竞技",
      "score": 0,
@@ -532,16 +532,16 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 09:05:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "布卡拉曼格",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
     "away": {
      "name": "帕斯托",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 20
     },
@@ -1199,7 +1199,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 1,
@@ -1265,10 +1265,10 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "托拉卡女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 6
     },
@@ -1397,7 +1397,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "奥利恩特",
      "score": 1,
@@ -1463,7 +1463,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 1,
@@ -1685,7 +1685,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "克里科",
      "score": 4,
