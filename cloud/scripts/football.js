@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "尖米士",
      "score": 0,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "棉兰",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 2
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "阿雷玛",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "PSM马卡萨",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "佩斯凯迪瑞",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-31 16:40:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "麦克阿瑟FC",
      "score": 0,
@@ -322,7 +322,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "西悉尼流浪者",
-     "score": 1,
+     "score": 0,
      "red": null,
      "rank": 2
     },
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "0099cc"
     },
     "time": "2026-10-31 16:45:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "帕拉克",
      "score": 0,
@@ -33377,7 +33377,7 @@ const FOOTBALL_DATA = {
      "color": "888812"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "香港东区",
      "score": 2,
@@ -33443,10 +33443,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "柏太阳神",
-     "score": 2,
+     "score": 4,
      "red": 0,
      "rank": 4
     },
@@ -33509,7 +33509,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "大邱FC",
      "score": 0,
@@ -33575,7 +33575,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "忠南牙山",
      "score": 1,
@@ -33641,7 +33641,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "光州市民",
      "score": 0,
@@ -33650,7 +33650,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "尚州尚武",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 10
     },
