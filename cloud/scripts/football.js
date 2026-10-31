@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "尖米士",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "棉兰",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "阿雷玛",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
     "away": {
      "name": "巴厘普山联",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "PSM马卡萨",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
     "away": {
      "name": "马都拉联",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "佩斯凯迪瑞",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
     "away": {
      "name": "培斯塔坦格朗",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
@@ -33311,7 +33311,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "AC长野帕塞罗",
      "score": 1,
@@ -33377,7 +33377,7 @@ const FOOTBALL_DATA = {
      "color": "888812"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "香港东区",
      "score": 1,
@@ -33443,7 +33443,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 15:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "柏太阳神",
      "score": 2,
@@ -33641,7 +33641,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-31 15:30:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "光州市民",
      "score": 0,
@@ -33707,7 +33707,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-10-31 16:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "天津津門虎U21",
      "score": 0,
