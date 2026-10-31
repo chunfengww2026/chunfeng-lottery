@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 22:10
+   更新时间：2026-10-31 22:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 22:10",
+ "updated": "2026-10-31 22:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -992,34 +992,6 @@ const XYSP_DATA = {
      "atMs": 1793370304982,
      "seenMs": 1793370304982,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/c2f7f287-3749-4968-922f-52ef973563261793367792851.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/c2f7f287-3749-4968-922f-52ef973563261793367792851.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]守了一年多了才中个6码，就差一个40就中个大的了",
-     "url": "",
-     "at": "2026-10-30T14:10:04.348Z",
-     "pubAt": "2026-10-30T13:44:00.000Z",
-     "pubMs": 1793367840000,
-     "pubSrc": "page",
-     "nextAt": 1793452500000,
-     "atMs": 1793369404348,
-     "seenMs": 1793369404348,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/416e9e5b-9172-40f5-9750-b87cfd26612c1793367792852.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/416e9e5b-9172-40f5-9750-b87cfd26612c1793367792852.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]守了一年多了才中个6码，就差一个40就中个大的了",
-     "url": "",
-     "at": "2026-10-30T14:10:04.348Z",
-     "pubAt": "2026-10-30T13:44:00.000Z",
-     "pubMs": 1793367840000,
-     "pubSrc": "page",
-     "nextAt": 1793452500000,
-     "atMs": 1793369404348,
-     "seenMs": 1793369404348,
-     "whenMs": null
     }
    ]
   },
@@ -1290,34 +1262,6 @@ const XYSP_DATA = {
      "nextAt": 1793453400000,
      "atMs": 1793370304982,
      "seenMs": 1793370304982,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/71a3f968-ca41-4cfd-8b26-f6921b09ae171793367896588.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/71a3f968-ca41-4cfd-8b26-f6921b09ae171793367896588.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]错失6000万",
-     "url": "",
-     "at": "2026-10-30T14:10:04.348Z",
-     "pubAt": "2026-10-30T13:45:00.000Z",
-     "pubMs": 1793367900000,
-     "pubSrc": "page",
-     "nextAt": 1793453400000,
-     "atMs": 1793369404348,
-     "seenMs": 1793369404348,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/da890596-773f-49f4-a385-cca713c8a8121793367898776.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/da890596-773f-49f4-a385-cca713c8a8121793367898776.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]终于打破黑五😭😭😭",
-     "url": "",
-     "at": "2026-10-30T14:10:04.348Z",
-     "pubAt": "2026-10-30T13:45:00.000Z",
-     "pubMs": 1793367900000,
-     "pubSrc": "page",
-     "nextAt": 1793453400000,
-     "atMs": 1793369404348,
-     "seenMs": 1793369404348,
      "whenMs": null
     },
     {
@@ -5179,36 +5123,6 @@ const XYSP_DATA = {
      "author": "牛马讲实话！",
      "when": "2026-10-30 22:29:12",
      "postId": "1880485320583168",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d00c70b6587342a398eacb70aea0782a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3033DjC4ng%2BIXIxkmMut2Lbm17E%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d00c70b6587342a398eacb70aea0782a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=3033DjC4ng%2BIXIxkmMut2Lbm17E%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d00c70b6587342a398eacb70aea0782a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=RclxckcM7bjVPyMrPXnWVcoRmZs%3D",
-     "title": "卖1.18亿，仅2人登顶！快乐8这期号码暗藏玄机，上海陕西成赢家",
-     "url": "https://toutiao.com/group/7702463153791140380/",
-     "at": "2026-10-30T14:46:05.684Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T14:46:05.684Z",
-     "whenMs": 1793369600000,
-     "seenMs": 1793371565684,
-     "drawMs": 1793453400000,
-     "nextMs": 1793453400000,
-     "atMs": 1793371565684,
-     "drawAt": "2026-10-31T13:30:00.000Z",
-     "nextAt": 1793453400000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T14:46:05.684Z",
-     "rule": "first-capture-24h",
-     "author": "每日彩",
-     "when": "2026-10-30 22:13:20",
-     "postId": "7702463153791140380",
      "px": 132300
     },
     {
