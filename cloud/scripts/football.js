@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "托拉卡女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
     "away": {
      "name": "瓜达拉哈拉女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "奥利恩特",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "欧若拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "聖卡洛斯國際",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "貝倫蝎子",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -1521,7 +1521,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "路易斯维尔城",
      "score": 0,
@@ -1559,7 +1559,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "基斯奧馬SC",
      "score": 1,
@@ -1597,7 +1597,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "泰里尼登斯",
      "score": 1,
@@ -1643,7 +1643,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "瓜兰尼",
      "score": 1,
@@ -1757,7 +1757,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 0,
