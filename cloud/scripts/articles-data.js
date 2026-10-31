@@ -2,12 +2,12 @@
    articles-data.js —— 「文章参考」数据（自动生成，请勿手动编辑）
 
    由 build-articles.mjs 生成。
-   更新时间：2026-10-31 21:18
+   更新时间：2026-10-31 21:58
    每条：title / url / author / date / body（正文段落数组，图片是 { i: 地址 }）
    ============================================================ */
 
 const ARTICLES_DATA = {
- "updated": "2026-10-31 21:18",
+ "updated": "2026-10-31 21:58",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -848,7 +848,7 @@ const ARTICLES_DATA = {
     {
      "title": "26290期玉门关快乐8综合分析",
      "url": "https://m.yiqicai.com/klb/yc/yc_99e52b6dc4649b1ad47fba22eed0b7b8.html",
-     "author": "",
+     "author": "玉门关",
      "date": "2026-10-31 07:01",
      "body": [
       "本人26280期预测命中9码，最近10期推荐命中8期，近期态势劲爆，本期看好合数小号偶数。本期趁热打铁，信心更足。",
@@ -990,7 +990,7 @@ const ARTICLES_DATA = {
     {
      "title": "26289期快乐8玉门关杀号推荐",
      "url": "https://m.yiqicai.com/klb/yc/yc_fa7d5fca336a027ddc344337b3f2cfc6.html",
-     "author": "",
+     "author": "玉门关",
      "date": "2026-10-30 07:01",
      "body": [
       "玉门关快乐8：最近10期方案命中7期，本期再接再厉搏大奖！",
