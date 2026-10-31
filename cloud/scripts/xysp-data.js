@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 10:00
+   更新时间：2026-10-31 10:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 10:00",
+ "updated": "2026-10-31 10:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3952,66 +3952,6 @@ const XYSP_DATA = {
      "author": "安然观云舒",
      "when": "2026-10-30 10:09:10",
      "postId": "7702276711996359222",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ce45363e5cf4a20904651351415ad3e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=W9%2BPjMrBvOAjzIuBxc%2F2vbY7ptY%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ce45363e5cf4a20904651351415ad3e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=W9%2BPjMrBvOAjzIuBxc%2F2vbY7ptY%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ce45363e5cf4a20904651351415ad3e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sd6wI0YTD7f%2FIcuV20ZgrWEgpNM%3D",
-     "title": "天降横财！陕西西安，一男子欠了一屁股债。他走投无路，想买彩票碰碰运气。他每次花100-300元买彩票，但不是期期都买。万万没想到，他才买了2个月，竟中了快乐8彩票508万大奖。不可思议的是，他写出80个号码，让AI辅助自己选出20个号。自己",
-     "url": "sslocal://thread_detail?fid=1832524332458009&tid=1880438462896263",
-     "at": "2026-10-30T02:26:01.233Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T04:46:01.364Z",
-     "whenMs": 1793325865000,
-     "seenMs": 1793335561364,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793327161233,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T02:26:01.233Z",
-     "rule": "first-capture-24h",
-     "author": "全球人物志",
-     "when": "2026-10-30 10:04:25",
-     "postId": "1880438462896263",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bd9d53b8407847b9a5badcb37a96d0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=RzrYJYXDqoGZ3AKq1xolGw1gMEI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bd9d53b8407847b9a5badcb37a96d0b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=RzrYJYXDqoGZ3AKq1xolGw1gMEI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ce45363e5cf4a20904651351415ad3e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sd6wI0YTD7f%2FIcuV20ZgrWEgpNM%3D",
-     "title": "天降横财！陕西西安，一男子欠了一屁股债。他走投无路，想买彩票碰碰运气。他每次花100-300元买彩票，但不是期期都买。万万没想到，他才买了2个月，竟中了快乐8彩票508万大奖。不可思议的是，他写出80个号码，让AI辅助自己选出20个号。自己",
-     "url": "sslocal://thread_detail?fid=1832524332458009&tid=1880438462896263",
-     "at": "2026-10-30T02:26:01.233Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T04:46:01.364Z",
-     "whenMs": 1793325865000,
-     "seenMs": 1793335561364,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793327161233,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T02:26:01.233Z",
-     "rule": "first-capture-24h",
-     "author": "全球人物志",
-     "when": "2026-10-30 10:04:25",
-     "postId": "1880438462896263",
      "px": 132300
     }
    ]
