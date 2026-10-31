@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 11:36
+   更新时间：2026-10-31 11:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 11:36",
+ "updated": "2026-10-31 11:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2785,7 +2785,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T03:36:02.132Z",
      "whenMs": 1793401675000,
-     "seenMs": 1793416562590,
+     "seenMs": 1793417762132,
      "drawMs": 1793452500000,
      "nextMs": 1793452500000,
      "atMs": 1793402161912,
@@ -3449,7 +3449,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T03:36:02.132Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793417162247,
+     "seenMs": 1793417762132,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3480,7 +3480,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T03:36:02.132Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793417162247,
+     "seenMs": 1793417762132,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -3840,7 +3840,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T03:36:02.132Z",
      "whenMs": 1793350739000,
-     "seenMs": 1793416562590,
+     "seenMs": 1793417762132,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793368561971,
@@ -3900,7 +3900,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T03:36:02.132Z",
      "whenMs": 1793350739000,
-     "seenMs": 1793416562590,
+     "seenMs": 1793417762132,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793368561971,
@@ -3972,96 +3972,6 @@ const XYSP_DATA = {
      "author": "快八浩哥",
      "when": "2026-10-30 11:45:35",
      "postId": "1880444827409420",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8a036cbba7834a568929fc821af2be1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=AU%2B57y1RvYcEGiEa%2FwSH0cKopoM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8a036cbba7834a568929fc821af2be1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=AU%2B57y1RvYcEGiEa%2FwSH0cKopoM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8a036cbba7834a568929fc821af2be1b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=EOAn14aclrsdz5O7TuXTssiT7gg%3D",
-     "title": "287期3D三张实票：票不多，但号码都绕不开3和9",
-     "url": "http://toutiao.com/item/7702300273884004898/",
-     "at": "2026-10-30T03:56:01.327Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:16:02.590Z",
-     "whenMs": 1793331530000,
-     "seenMs": 1793416562590,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793332561327,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T03:56:01.327Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 11:38:50",
-     "postId": "7702300273884004898",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e6ef6034380743b894d718c6c8ae21a5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TJP%2Fy3GwKh349EVp7d0kuR5B6qY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e6ef6034380743b894d718c6c8ae21a5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TJP%2Fy3GwKh349EVp7d0kuR5B6qY%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8a036cbba7834a568929fc821af2be1b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=EOAn14aclrsdz5O7TuXTssiT7gg%3D",
-     "title": "287期3D三张实票：票不多，但号码都绕不开3和9",
-     "url": "http://toutiao.com/item/7702300273884004898/",
-     "at": "2026-10-30T03:56:01.327Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:16:02.590Z",
-     "whenMs": 1793331530000,
-     "seenMs": 1793416562590,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793332561327,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T03:56:01.327Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 11:38:50",
-     "postId": "7702300273884004898",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d1f545d4d0564b9f883cbe893036802d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8UClXhfnjQ0w4Cjzh3F1uWIsny4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d1f545d4d0564b9f883cbe893036802d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8UClXhfnjQ0w4Cjzh3F1uWIsny4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8a036cbba7834a568929fc821af2be1b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=EOAn14aclrsdz5O7TuXTssiT7gg%3D",
-     "title": "287期3D三张实票：票不多，但号码都绕不开3和9",
-     "url": "http://toutiao.com/item/7702300273884004898/",
-     "at": "2026-10-30T03:56:01.327Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:16:02.590Z",
-     "whenMs": 1793331530000,
-     "seenMs": 1793416562590,
-     "drawMs": 1793366100000,
-     "nextMs": 1793366100000,
-     "atMs": 1793332561327,
-     "drawAt": "2026-10-30T13:15:00.000Z",
-     "nextAt": 1793366100000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-10-31T03:56:01.327Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 11:38:50",
-     "postId": "7702300273884004898",
      "px": 132300
     }
    ]
