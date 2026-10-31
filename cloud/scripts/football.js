@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-10-31 07:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-31 08:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-31 07:58",
+ "updated": "2026-10-31 08:00",
  "stat": {
   "upcoming": 20,
-  "live": 9,
+  "live": 8,
   "finished": 85,
-  "total": 114,
+  "total": 113,
   "settled": true,
   "hit": 27,
   "miss": 58,
@@ -306,6 +306,79 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 589755,
+    "kind": "upcoming",
+    "league": {
+     "name": "阿甲",
+     "color": "3792dd"
+    },
+    "time": "2026-10-31 08:15:00",
+    "minute": 0,
+    "home": {
+     "name": "萨尔米安杜",
+     "score": null,
+     "red": null,
+     "rank": 13
+    },
+    "away": {
+     "name": "罗萨里奥中央",
+     "score": null,
+     "red": null,
+     "rank": 2
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.5,
+       "line": "1.01",
+       "away": 0.88
+      },
+      "live": {
+       "home": 0.25,
+       "line": "0.92",
+       "away": 0.96
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.5",
+       "over": 1.02,
+       "under": 0.85
+      },
+      "live": {
+       "line": "1",
+       "over": 0.95,
+       "under": 0.92
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 3.9,
+       "draw": 1.88,
+       "away": 3.45
+      },
+      "live": {
+       "home": 4.4,
+       "draw": 2.38,
+       "away": 2.21
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 41.1,
+     "prob": {
+      "home": 20.7,
+      "draw": 38.2,
+      "away": 41.1
+     },
+     "clear": false,
+     "margin": 10
+    },
+    "result": null
+   },
+   {
     "gid": 589758,
     "kind": "upcoming",
     "league": {
@@ -372,79 +445,6 @@ const FOOTBALL_DATA = {
       "home": 39.4,
       "draw": 18.7,
       "away": 41.9
-     },
-     "clear": false,
-     "margin": 10
-    },
-    "result": null
-   },
-   {
-    "gid": 589755,
-    "kind": "upcoming",
-    "league": {
-     "name": "阿甲",
-     "color": "3792dd"
-    },
-    "time": "2026-10-31 08:15:00",
-    "minute": 0,
-    "home": {
-     "name": "萨尔米安杜",
-     "score": null,
-     "red": null,
-     "rank": 13
-    },
-    "away": {
-     "name": "罗萨里奥中央",
-     "score": null,
-     "red": null,
-     "rank": 2
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.5,
-       "line": "0.99",
-       "away": 0.9
-      },
-      "live": {
-       "home": 0.25,
-       "line": "0.92",
-       "away": 0.96
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 1,
-       "under": 0.87
-      },
-      "live": {
-       "line": "1",
-       "over": 0.95,
-       "under": 0.92
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 3.8,
-       "draw": 1.9,
-       "away": 3.45
-      },
-      "live": {
-       "home": 4.4,
-       "draw": 2.38,
-       "away": 2.21
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 41.1,
-     "prob": {
-      "home": 20.7,
-      "draw": 38.2,
-      "away": 41.1
      },
      "clear": false,
      "margin": 10
@@ -1483,7 +1483,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 06:00:00",
-    "minute": 95,
+    "minute": 97,
     "home": {
      "name": "飓风队",
      "score": 0,
@@ -1492,47 +1492,9 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "泰格雷",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 24
-    },
-    "odds": {
-     "asian": {
-      "open": null,
-      "live": null
-     },
-     "overunder": {
-      "open": null,
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
-   },
-   {
-    "gid": 589427,
-    "kind": "live",
-    "league": {
-     "name": "智利甲",
-     "color": "003900"
-    },
-    "time": "2026-10-31 06:00:00",
-    "minute": 94,
-    "home": {
-     "name": "科金博",
-     "score": 1,
-     "red": 1,
-     "rank": 10
-    },
-    "away": {
-     "name": "拉卡莱拉联",
-     "score": 0,
-     "red": 0,
-     "rank": 16
     },
     "odds": {
      "asian": {
@@ -1559,7 +1521,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 65,
+    "minute": 67,
     "home": {
      "name": "路易斯维尔城",
      "score": 0,
@@ -1597,7 +1559,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 57,
+    "minute": 59,
     "home": {
      "name": "基斯奧馬SC",
      "score": 1,
@@ -1635,7 +1597,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "泰里尼登斯",
      "score": 1,
@@ -1650,11 +1612,19 @@ const FOOTBALL_DATA = {
     },
     "odds": {
      "asian": {
-      "open": null,
+      "open": {
+       "home": -0.25,
+       "line": "1.16",
+       "away": 0.68
+      },
       "live": null
      },
      "overunder": {
-      "open": null,
+      "open": {
+       "line": "5.75",
+       "over": 0.96,
+       "under": 0.84
+      },
       "live": null
      },
      "europe": {
@@ -1673,7 +1643,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 71,
+    "minute": 73,
     "home": {
      "name": "瓜兰尼",
      "score": 1,
@@ -1749,7 +1719,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "查勒斯顿电池",
      "score": 0,
@@ -1787,7 +1757,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 20,
+    "minute": 22,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 0,
