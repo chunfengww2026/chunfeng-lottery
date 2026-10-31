@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-10-31 15:28",
+ "updated": "2026-10-31 15:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2210,61 +2210,33 @@ const JC_HISTORY = {
    "at": "2026-10-31 03:45"
   },
   {
-   "code": "周六001",
-   "league": "日职",
-   "home": "冈山绿雉",
-   "away": "东京FC",
-   "time": "2026-10-31 13:00",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 3.8,
-    "draw": 3.5,
-    "away": 1.91
-   },
-   "prob": {
-    "home": 25.4,
-    "draw": 27.2,
-    "away": 47.4
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 47.4,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": true,
-   "at": "2026-10-31 03:45"
-  },
-  {
    "code": "周六002",
    "league": "日职乙",
    "home": "仙台七夕",
    "away": "大宫松鼠RB",
    "time": "2026-10-31 13:00",
-   "score": "",
+   "score": "1:2",
    "hc": "-1",
    "asianIndex": {
     "line": "半球",
     "from": "live",
     "handicap": -0.5,
     "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.9,
+    "upWater": 0.8,
+    "downWater": 1,
     "openHandicap": -0.5,
     "openUpWater": 0.9,
     "openDownWater": 0.9,
     "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.5,
      "nowHandicap": -0.5,
      "initUpWater": 0.9,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.8,
      "initLine": "半球",
      "nowLine": "半球"
     },
@@ -2274,22 +2246,77 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 1.9,
-    "draw": 3.7,
-    "away": 3.75
+    "home": 1.8,
+    "draw": 3.9,
+    "away": 3.9
    },
    "prob": {
-    "home": 49.4,
-    "draw": 25.4,
-    "away": 25.3
+    "home": 52,
+    "draw": 24,
+    "away": 24
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 49.4,
+   "conf": 52,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
    "matched": false,
+   "at": "2026-10-31 15:58"
+  },
+  {
+   "code": "周六001",
+   "league": "日职",
+   "home": "冈山绿雉",
+   "away": "东京FC",
+   "time": "2026-10-31 13:00",
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": {
+    "line": "受半球",
+    "from": "live",
+    "handicap": 0.5,
+    "upSide": "away",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": 0.5,
+    "openUpWater": 1.02,
+    "openDownWater": 0.77,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.5,
+     "nowHandicap": 0.5,
+     "initUpWater": 1.02,
+     "nowUpWater": 0.95,
+     "initLine": "受半球",
+     "nowLine": "受半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.9,
+    "draw": 3.5,
+    "away": 1.9
+   },
+   "prob": {
+    "home": 24,
+    "draw": 26.7,
+    "away": 49.3
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 49.3,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-10-31 03:45"
   },
   {
