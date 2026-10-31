@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 19:10
+   更新时间：2026-10-31 19:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 19:10",
+ "updated": "2026-10-31 19:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5823,36 +5823,6 @@ const XYSP_DATA = {
      "when": "2026-10-30 19:18:01",
      "postId": "7702418606599963155",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62f257da7d194e3fa08a6f2f80e64608~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8C12HO3qOY9OQfEDxA%2BfQapi4ns%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62f257da7d194e3fa08a6f2f80e64608~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8C12HO3qOY9OQfEDxA%2BfQapi4ns%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/62f257da7d194e3fa08a6f2f80e64608~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=QPnuVNvxmqhREEPnbbEkuHZJtlw%3D",
-     "title": "“天降横财！”陕西西安，一男子欠了一屁股债。他走投无路，想买彩票试着翻身。他每次花100-300元买彩票，但不是期期都买。万万没想到，他才买了2个月，竟中了快乐8彩票508万大奖。不可思议的是，他写出80个号码，让AI辅助自己选出20个号。",
-     "url": "sslocal://thread_detail?fid=6564242300&tid=1880463603055616",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T11:06:01.488Z",
-     "whenMs": 1793358804000,
-     "seenMs": 1793444761488,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "大象传奇",
-     "when": "2026-10-30 19:13:24",
-     "postId": "1880463603055616",
-     "px": 132300
     }
    ]
   },
@@ -7195,6 +7165,9 @@ const XYSP_DATA = {
   "/2026-10-31/39af1b9d-6b62-4cf0-bbb4-48e4621d1c001793442244204.jpg": 1793443803770,
   "/2026-10-31/ea6bd310-a87b-49c6-a311-b14467e62b051793443990082.jpg": 1793445004211,
   "/2026-10-31/b8d1dc2c-69f1-4d9e-8203-cc54c81a5cd81793444016205.jpg": 1793445004211,
-  "/2026-10-31/d0ca857a-432c-4f12-88d9-c5108aae703a1793444065776.jpg": 1793445004211
+  "/2026-10-31/d0ca857a-432c-4f12-88d9-c5108aae703a1793444065776.jpg": 1793445004211,
+  "/2026-10-31/2182605e-3528-4510-8b0f-a6a7d0c3ac091793443735559.jpg": 1793445305247,
+  "/2026-10-31/5fa4cea3-4546-4745-ba25-d63536d162eb1793443735556.jpg": 1793445305247,
+  "/2026-10-31/5965adfb-4c90-4bf8-a42a-57dfde9d6fc31793443735556.jpg": 1793445305247
  }
 };
