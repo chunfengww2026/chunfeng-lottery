@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "ff7777"
     },
     "time": "2026-10-31 17:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "塔比历斯U19",
      "score": 0,
@@ -32473,7 +32473,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-10-31 16:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "天津津門虎U21",
      "score": 0,
@@ -32539,7 +32539,7 @@ const FOOTBALL_DATA = {
      "color": "1ba578"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "尖米士",
      "score": 0,
@@ -32605,7 +32605,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "佩斯凯迪瑞",
      "score": 0,
@@ -32671,7 +32671,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "PSM马卡萨",
      "score": 0,
@@ -32737,7 +32737,7 @@ const FOOTBALL_DATA = {
      "color": "8899aa"
     },
     "time": "2026-10-31 16:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "阿雷玛",
      "score": 0,
@@ -32803,7 +32803,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-31 16:40:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "麦克阿瑟FC",
      "score": 0,
@@ -32907,7 +32907,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "掸联",
      "score": 1,
@@ -32985,7 +32985,7 @@ const FOOTBALL_DATA = {
      "color": "855aaa"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "阿耶亚瓦底联",
      "score": 0,
@@ -33023,7 +33023,7 @@ const FOOTBALL_DATA = {
      "color": "665533"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "布達佩斯洪韋德U19",
      "score": 1,
@@ -33139,7 +33139,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "鹿儿岛联",
      "score": 1,
@@ -33217,7 +33217,7 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "沃尔恰",
      "score": 1,
@@ -33295,10 +33295,10 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "帕皮斯提雷奥尔登尼",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
@@ -33451,7 +33451,7 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "塔古穆瑞斯",
      "score": 0,
@@ -33529,16 +33529,16 @@ const FOOTBALL_DATA = {
      "color": "6b4806"
     },
     "time": "2026-10-31 17:00:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "塞塔苏西瓦",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
     "away": {
      "name": "奥雷迪",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 10
     },
@@ -33607,7 +33607,7 @@ const FOOTBALL_DATA = {
      "color": "ff8888"
     },
     "time": "2026-10-31 17:15:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "奧洛穆茨西格瑪B隊",
      "score": 0,
@@ -33685,7 +33685,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-31 17:15:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "霍爾尼雷迪採",
      "score": 0,
@@ -33694,7 +33694,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "內拉圖維斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
@@ -33763,7 +33763,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-10-31 17:15:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "治鲁迪",
      "score": 1,
