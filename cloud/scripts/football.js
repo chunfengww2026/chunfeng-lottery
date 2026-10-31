@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:30:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 4,
@@ -172,7 +172,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "普埃布拉",
      "score": 1,
