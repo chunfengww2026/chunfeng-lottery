@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-01 02:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-01 02:58 */
 const JC_DATA = {
- "updated": "2026-11-01 02:28",
+ "updated": "2026-11-01 02:58",
  "stat": {
   "total": 24,
   "upcoming": 4,
@@ -2226,9 +2226,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.92,
+      "line": 0.9,
       "over": 2.5,
-      "under": 0.92
+      "under": 0.95
      }
     }
    },
@@ -2259,7 +2259,7 @@ const JC_DATA = {
       "初盘→即时：主胜-6.2pp / 平局+0.8pp / 客胜+5.4pp",
       "亚盘客队方向变深，水位上升",
       "主要方向凯利中位参考 0.960",
-      "多机构分歧 2.4%"
+      "多机构分歧 2.3%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2273,9 +2273,9 @@ const JC_DATA = {
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.5229816728760497,
-       "draw": 0.23350467419510929,
-       "away": 0.2435136529288415
+       "home": 0.5227856609958401,
+       "draw": 0.23281598816661517,
+       "away": 0.24439835083754555
       },
       "pick": "home",
       "label": "让胜"
@@ -2342,9 +2342,9 @@ const JC_DATA = {
       "away": 0.87
      },
      "live": {
-      "home": 0.8,
-      "line": "平手/半球",
-      "away": 1.05
+      "home": 1,
+      "line": "半球",
+      "away": 0.85
      }
     },
     "europe": {
@@ -2354,9 +2354,9 @@ const JC_DATA = {
       "away": 3.75
      },
      "live": {
-      "home": 2,
+      "home": 1.91,
       "draw": 3.6,
-      "away": 3.7
+      "away": 3.8
      }
     },
     "overunder": {
@@ -2375,47 +2375,47 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 47.6,
+    "confidence": 48.2,
     "prob": {
-     "home": 47.6,
-     "draw": 26.7,
-     "away": 25.7
+     "home": 48.2,
+     "draw": 26.5,
+     "away": 25.3
     },
     "clear": true,
-    "margin": 4.8,
-    "rqLine": "平手/半球",
+    "margin": 6.4,
+    "rqLine": "半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 47.6,
-      "draw": 26.7,
-      "away": 25.7
+      "home": 48.2,
+      "draw": 26.5,
+      "away": 25.3
      },
-     "confidence": 47.6,
+     "confidence": 48.2,
      "signals": [
       "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-0.1pp / 平局-0.9pp / 客胜+0.9pp",
-      "亚盘客队方向变深，水位上升",
+      "初盘→即时：主胜+1.4pp / 平局-1.3pp / 客胜-0.1pp",
+      "亚盘未变盘；水位只作辅助核对",
       "主要方向凯利中位参考 0.960",
-      "多机构分歧 2.6%"
+      "多机构分歧 2.8%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
      ],
      "risk": [],
      "ev": {
-      "home": -4.7,
-      "draw": -4,
-      "away": -4.9
+      "home": -8,
+      "draw": -4.5,
+      "away": -3.8
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.24134039380272784,
-       "draw": 0.23722217121469844,
-       "away": 0.5214374349825737
+       "home": 0.2529337068495886,
+       "draw": 0.24049886728577055,
+       "away": 0.5065674258646404
       },
       "pick": "away",
       "label": "让负"
@@ -2424,27 +2424,27 @@ const JC_DATA = {
     }
    },
    "asianIndex": {
-    "line": "平手/半球",
+    "line": "半球",
     "from": "live",
-    "handicap": -0.25,
+    "handicap": -0.5,
     "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1.05,
+    "upWater": 1,
+    "downWater": 0.85,
     "openHandicap": -0.5,
     "openUpWater": 0.97,
     "openDownWater": 0.87,
     "totalWater": 1.85,
-    "theoryUpPercent": "56.76",
-    "theoryDownPercent": "43.24",
-    "canWater": true,
+    "theoryUpPercent": "45.95",
+    "theoryDownPercent": "54.05",
+    "canWater": false,
     "handicapChange": {
-     "type": "升盘降水",
+     "type": "盘口水位无明显变化",
      "initHandicap": -0.5,
-     "nowHandicap": -0.25,
+     "nowHandicap": -0.5,
      "initUpWater": 0.97,
-     "nowUpWater": 0.8,
+     "nowUpWater": 1,
      "initLine": "半球",
-     "nowLine": "平手/半球"
+     "nowLine": "半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -2739,7 +2739,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-01 02:28",
+  "updated": "2026-11-01 02:58",
   "officialUpdate": "2026-10-31 22:40:49",
   "inSale": 38,
   "list": [
