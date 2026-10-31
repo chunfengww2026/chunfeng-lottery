@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 13:55
+   更新时间：2026-10-31 13:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 13:55",
+ "updated": "2026-10-31 13:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3140,9 +3140,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TsJADELyX%2F%2BW6AgQA7f%2BTCpRf9c%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TsJADELyX%2F%2BW6AgQA7f%2BTCpRf9c%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=FFUSXoYQJY5lEVT00pEwEeGwt4k%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IFjN%2FgkjAYIdRA9Wxne0K%2FqZQNk%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=IFjN%2FgkjAYIdRA9Wxne0K%2FqZQNk%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=4NbPladW%2FRAM4LslUems4DI3MU0%3D",
      "title": "10倍20倍30倍，各类倍票齐聚一堂！福彩3D最新高倍神仙票大赏",
      "url": "http://toutiao.com/item/7702601545586344486/",
      "at": "2026-10-30T23:16:01.912Z",
@@ -3153,9 +3153,9 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-10-31T05:36:01.239Z",
+     "seen": "2026-10-31T05:56:01.259Z",
      "whenMs": 1793401675000,
-     "seenMs": 1793424961239,
+     "seenMs": 1793426161259,
      "drawMs": 1793452500000,
      "nextMs": 1793452500000,
      "atMs": 1793402161912,
@@ -3170,9 +3170,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=VaD717XiJLYavEqF%2Fwox6kSh5aI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=VaD717XiJLYavEqF%2Fwox6kSh5aI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=FFUSXoYQJY5lEVT00pEwEeGwt4k%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SwnpRo1iY6547Y8NInXqVWl2tEY%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2039cc309b3c4e8b861fd13833be6eff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SwnpRo1iY6547Y8NInXqVWl2tEY%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c9514e1de79743ceba679a531bab36b0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=4NbPladW%2FRAM4LslUems4DI3MU0%3D",
      "title": "10倍20倍30倍，各类倍票齐聚一堂！福彩3D最新高倍神仙票大赏",
      "url": "http://toutiao.com/item/7702601545586344486/",
      "at": "2026-10-30T23:16:01.912Z",
@@ -3183,9 +3183,9 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-10-31T05:36:01.239Z",
+     "seen": "2026-10-31T05:56:01.259Z",
      "whenMs": 1793401675000,
-     "seenMs": 1793424961239,
+     "seenMs": 1793426161259,
      "drawMs": 1793452500000,
      "nextMs": 1793452500000,
      "atMs": 1793402161912,
@@ -3816,7 +3816,7 @@ const XYSP_DATA = {
       "pl3"
      ],
      "issue": "26289",
-     "seen": "2026-10-31T05:46:01.286Z",
+     "seen": "2026-10-31T05:56:01.259Z",
      "whenMs": 1793360033000,
      "seenMs": 1793425561286,
      "drawMs": 1793366100000,
@@ -3847,7 +3847,7 @@ const XYSP_DATA = {
       "pl3"
      ],
      "issue": "26289",
-     "seen": "2026-10-31T05:46:01.286Z",
+     "seen": "2026-10-31T05:56:01.259Z",
      "whenMs": 1793360033000,
      "seenMs": 1793425561286,
      "drawMs": 1793366100000,
@@ -3878,7 +3878,7 @@ const XYSP_DATA = {
       "pl3"
      ],
      "issue": "26289",
-     "seen": "2026-10-31T05:46:01.286Z",
+     "seen": "2026-10-31T05:56:01.259Z",
      "whenMs": 1793360033000,
      "seenMs": 1793425561286,
      "drawMs": 1793366100000,
