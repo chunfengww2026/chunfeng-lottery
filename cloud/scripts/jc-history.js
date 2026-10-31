@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-01 01:58",
+ "updated": "2026-11-01 02:00",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -4694,61 +4694,6 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 55.3,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-10-29 22:20"
-  },
-  {
-   "code": "周三009",
-   "league": "瑞典超",
-   "home": "布鲁马波",
-   "away": "赫根",
-   "time": "2026-10-29 02:00",
-   "score": "0:0",
-   "hc": null,
-   "asianIndex": {
-    "line": "受一球",
-    "from": "live",
-    "handicap": 1,
-    "upSide": "away",
-    "upWater": 0.77,
-    "downWater": 1.02,
-    "openHandicap": 0.75,
-    "openUpWater": 0.95,
-    "openDownWater": 0.85,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": 0.75,
-     "nowHandicap": 1,
-     "initUpWater": 0.95,
-     "nowUpWater": 0.77,
-     "initLine": "受半球/一球",
-     "nowLine": "受一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 5.5,
-    "draw": 4.5,
-    "away": 1.5
-   },
-   "prob": {
-    "home": 18.7,
-    "draw": 22.6,
-    "away": 58.7
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 58.7,
    "type": "three",
    "result": "lose",
    "hit": false,
