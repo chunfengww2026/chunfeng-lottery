@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 08:10
+   更新时间：2026-10-31 08:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 08:10",
+ "updated": "2026-10-31 08:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3566,96 +3566,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-10-30 08:28:38",
      "postId": "7702251126065742399",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/380305d8cac04e599f4adca11e193cac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=g4Rgr1xOY2sprVAkh1G7byxcfWo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/380305d8cac04e599f4adca11e193cac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=g4Rgr1xOY2sprVAkh1G7byxcfWo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/380305d8cac04e599f4adca11e193cac~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=hFUTmtb4MQqKE0Hqj1ULBtHsp90%3D",
-     "title": "3倍追加搭配5倍复式，后区0607直接打10注！大乐透124期晒票",
-     "url": "https://toutiao.com/group/7702247010597929508/",
-     "at": "2026-10-30T00:26:02.127Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:16:01.274Z",
-     "whenMs": 1793319224000,
-     "seenMs": 1793330161274,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793319962127,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T00:26:02.127Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-10-30 08:13:44",
-     "postId": "7702247010597929508",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7cde86927065465e9cb8f3ae0b723f21~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=RRkU8hM0AcntrYsKkqM%2F5D%2BhL3M%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7cde86927065465e9cb8f3ae0b723f21~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=RRkU8hM0AcntrYsKkqM%2F5D%2BhL3M%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/380305d8cac04e599f4adca11e193cac~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=hFUTmtb4MQqKE0Hqj1ULBtHsp90%3D",
-     "title": "3倍追加搭配5倍复式，后区0607直接打10注！大乐透124期晒票",
-     "url": "https://toutiao.com/group/7702247010597929508/",
-     "at": "2026-10-30T00:26:02.127Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:16:01.274Z",
-     "whenMs": 1793319224000,
-     "seenMs": 1793330161274,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793319962127,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T00:26:02.127Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-10-30 08:13:44",
-     "postId": "7702247010597929508",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/069c9eccd16f48bfae0f63f8c71057a6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=mV10022iwPjFg18xg%2FT9Xd80eTE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/069c9eccd16f48bfae0f63f8c71057a6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=mV10022iwPjFg18xg%2FT9Xd80eTE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/380305d8cac04e599f4adca11e193cac~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=hFUTmtb4MQqKE0Hqj1ULBtHsp90%3D",
-     "title": "3倍追加搭配5倍复式，后区0607直接打10注！大乐透124期晒票",
-     "url": "https://toutiao.com/group/7702247010597929508/",
-     "at": "2026-10-30T00:26:02.127Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:16:01.274Z",
-     "whenMs": 1793319224000,
-     "seenMs": 1793330161274,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793319962127,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T00:26:02.127Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-10-30 08:13:44",
-     "postId": "7702247010597929508",
      "px": 132300
     }
    ]
