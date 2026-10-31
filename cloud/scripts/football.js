@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "克雷卡米诺斯",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "阿特拿斯女足",
      "score": 0,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "塔格雷斯女足",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 3
     },
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "埃尔帕索机车",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "羅查星",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "美丽华流浪者",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "华雷斯",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 09:00:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "圣路易斯竞技",
      "score": 0,
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-10-31 09:05:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
@@ -1199,7 +1199,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 1,
@@ -1265,7 +1265,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "托拉卡女足",
      "score": 2,
@@ -1331,7 +1331,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "底特律城",
      "score": 1,
@@ -1397,7 +1397,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "奥利恩特",
      "score": 1,
@@ -1463,7 +1463,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 1,
