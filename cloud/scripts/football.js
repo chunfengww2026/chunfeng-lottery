@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-10-31 11:58 */
+/* 自动生成，请勿手动编辑 · 2026-10-31 12:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-10-31 11:58",
+ "updated": "2026-10-31 12:00",
  "stat": {
   "upcoming": 0,
   "live": 4,
-  "finished": 27,
-  "total": 31,
+  "finished": 28,
+  "total": 32,
   "settled": true,
   "hit": 13,
-  "miss": 14,
-  "rate": 48.1
+  "miss": 15,
+  "rate": 46.4
  },
  "lists": {
   "upcoming": [],
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-10-31 10:30:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "阿里卡老虎隊",
      "score": 4,
@@ -77,8 +77,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -1.75,
-       "line": "0.94",
-       "away": 0.88
+       "line": "0.88",
+       "away": 0.94
       },
       "live": null
      },
@@ -131,15 +131,15 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.87,
-       "under": 0.93
+       "over": 0.9,
+       "under": 0.9
       },
       "live": null
      },
      "europe": {
       "open": {
-       "home": 1.28,
-       "draw": 8.8,
+       "home": 1.27,
+       "draw": 8.9,
        "away": 4.45
       },
       "live": null
@@ -148,14 +148,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 69.8,
+     "confidence": 70,
      "prob": {
-      "home": 69.8,
-      "draw": 10.1,
-      "away": 20.1
+      "home": 70,
+      "draw": 10,
+      "away": 20
      },
      "clear": true,
-     "margin": 12
+     "margin": 12.4
     },
     "result": {
      "actual": "home",
@@ -172,7 +172,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-10-31 11:00:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "普埃布拉",
      "score": 1,
@@ -189,8 +189,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": 0.25,
-       "line": "0.93",
-       "away": 0.95
+       "line": "0.92",
+       "away": 0.96
       },
       "live": {
        "home": 0,
@@ -201,39 +201,39 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "3.5",
-       "over": 0.92,
-       "under": 0.94
+       "over": 0.96,
+       "under": 0.9
       },
       "live": {
        "line": "2.5",
-       "over": 4.16,
-       "under": 0.1
+       "over": 4.76,
+       "under": 0.07
       }
      },
      "europe": {
       "open": {
-       "home": 3.6,
-       "draw": 2.28,
-       "away": 2.74
+       "home": 3.65,
+       "draw": 2.29,
+       "away": 2.71
       },
       "live": {
-       "home": 13.5,
-       "draw": 10.5,
-       "away": 1.08
+       "home": 15.5,
+       "draw": 12,
+       "away": 1.05
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 84.5,
+     "confidence": 86.6,
      "prob": {
-      "home": 6.8,
-      "draw": 8.7,
-      "away": 84.5
+      "home": 5.9,
+      "draw": 7.6,
+      "away": 86.6
      },
      "clear": true,
-     "margin": 9.5
+     "margin": 10
     },
     "result": {
      "actual": "draw",
@@ -2348,6 +2348,84 @@ const FOOTBALL_DATA = {
      "actualLabel": "客胜",
      "hit": true,
      "score": "1 - 2"
+    }
+   },
+   {
+    "gid": 590255,
+    "kind": "finished",
+    "league": {
+     "name": "哥斯甲",
+     "color": "956674"
+    },
+    "time": "2026-10-31 10:00:00",
+    "minute": 0,
+    "home": {
+     "name": "佩雷斯泽内度",
+     "score": 1,
+     "red": 0,
+     "rank": 10
+    },
+    "away": {
+     "name": "普塔雷纳斯",
+     "score": 1,
+     "red": 0,
+     "rank": 6
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0,
+       "line": "1.08",
+       "away": 0.78
+      },
+      "live": {
+       "home": 0,
+       "line": "1.02",
+       "away": 0.84
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "2.75",
+       "over": 0.93,
+       "under": 0.91
+      },
+      "live": {
+       "line": "1",
+       "over": 0.71,
+       "under": 1.14
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.59,
+       "draw": 2.29,
+       "away": 3.6
+      },
+      "live": {
+       "home": 3.15,
+       "draw": 2.85,
+       "away": 2.23
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 40.2,
+     "prob": {
+      "home": 28.4,
+      "draw": 31.4,
+      "away": 40.2
+     },
+     "clear": false,
+     "margin": 11.7
+    },
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
     }
    }
   ]
