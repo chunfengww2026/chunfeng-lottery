@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 17:30
+   更新时间：2026-10-31 17:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 17:30",
+ "updated": "2026-10-31 17:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -92,6 +92,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/68872483-aac8-488a-b9d4-3ed56037f6b31793437769798.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/68872483-aac8-488a-b9d4-3ed56037f6b31793437769798.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26124期]有福之人不用忙 大奖轻松抱回家",
+     "url": "",
+     "at": "2026-10-31T09:35:03.587Z",
+     "pubAt": "2026-10-31T09:09:00.000Z",
+     "pubMs": 1793437740000,
+     "pubSrc": "page",
+     "nextAt": 1793449800000,
+     "atMs": 1793439303587,
+     "seenMs": 1793439303587,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-31/1cf19ad0-032d-43a5-8fd2-9e4e0d50e7e21793435626598.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/1cf19ad0-032d-43a5-8fd2-9e4e0d50e7e21793435626598.jpg?imageMogr2/thumbnail/360x",
@@ -5609,36 +5623,6 @@ const XYSP_DATA = {
      "when": "2026-10-30 17:48:33",
      "postId": "7702394216474821181",
      "px": 132300
-    },
-    {
-     "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=eml8QMed5SXfENxZPAdDzH3opmU%3D",
-     "thumb": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=eml8QMed5SXfENxZPAdDzH3opmU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b88b97a82b704ef89f88a5009e0efd88~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=moDXd%2FCZA%2FFZrnuZTGbyr6eR2HY%3D",
-     "title": "欠债压力下买了两个月快乐8，他用AI选号拿下508万",
-     "url": "https://toutiao.com/group/7702390807453499913/",
-     "at": "2026-10-30T19:45:11.574Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T09:06:01.369Z",
-     "whenMs": 1793352656000,
-     "seenMs": 1793437561369,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793389511574,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T19:45:11.574Z",
-     "rule": "first-capture-24h",
-     "author": "景川知讯",
-     "when": "2026-10-30 17:30:56",
-     "postId": "7702390807453499913",
-     "px": 132300
     }
    ]
   },
@@ -6957,6 +6941,7 @@ const XYSP_DATA = {
   "/2026-10-31/e971b34b-206c-4573-b707-0eb3cbf887eb1793435772017.jpg": 1793436904533,
   "/2026-10-31/86dc62fc-7c60-4eca-bc21-10a502d668851793435784267.jpg": 1793436904533,
   "/2026-10-31/d12bf602-c44d-4fb1-8f1e-37a18186dfd91793435793855.jpg": 1793436904533,
-  "/2026-10-31/a5df9bc4-19cd-4c58-9e89-294d4a42332f1793437393739.jpg": 1793439005412
+  "/2026-10-31/a5df9bc4-19cd-4c58-9e89-294d4a42332f1793437393739.jpg": 1793439005412,
+  "/2026-10-31/68872483-aac8-488a-b9d4-3ed56037f6b31793437769798.jpg": 1793439303587
  }
 };
