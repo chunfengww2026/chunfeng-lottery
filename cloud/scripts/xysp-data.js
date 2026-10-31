@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 12:50
+   更新时间：2026-10-31 12:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 12:50",
+ "updated": "2026-10-31 12:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -78,6 +78,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-10-31/bedea4c3-2ca8-4100-88a1-25ed7489b67c1793420922498.jpg",
+     "thumb": "https://img02.17chdd.com/2026-10-31/bedea4c3-2ca8-4100-88a1-25ed7489b67c1793420922498.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26124期]这样的咋解",
+     "url": "",
+     "at": "2026-10-31T04:55:03.142Z",
+     "pubAt": "2026-10-31T04:28:00.000Z",
+     "pubMs": 1793420880000,
+     "pubSrc": "page",
+     "nextAt": 1793449800000,
+     "atMs": 1793422503142,
+     "seenMs": 1793422503142,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-10-31/95a9cd5f-cde6-42e0-a00f-0dec581b7b051793420770128.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/95a9cd5f-cde6-42e0-a00f-0dec581b7b051793420770128.jpg?imageMogr2/thumbnail/360x",
@@ -4153,36 +4167,6 @@ const XYSP_DATA = {
      "when": "2026-10-30 16:58:59",
      "postId": "7702382776858706483",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=esSK7x46ImetfuxE8M2Cs%2FmsyH0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=esSK7x46ImetfuxE8M2Cs%2FmsyH0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c88df20853a44fbbb403b113d56ea4e6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=kCpqdLUVZb2r5kIDfJQyRtvH0aw%3D",
-     "title": "快乐8中了5个号，怎么只有30元？",
-     "url": "https://toutiao.com/group/7702319461260526123/",
-     "at": "2026-10-30T13:46:02.044Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T04:46:02.222Z",
-     "whenMs": 1793336045000,
-     "seenMs": 1793421962222,
-     "drawMs": 1793367000000,
-     "nextMs": 1793367000000,
-     "atMs": 1793367962044,
-     "drawAt": "2026-10-30T13:30:00.000Z",
-     "nextAt": 1793367000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-10-31T13:46:02.044Z",
-     "rule": "first-capture-24h",
-     "author": "拾碎闲言",
-     "when": "2026-10-30 12:54:05",
-     "postId": "7702319461260526123",
-     "px": 132300
     }
    ]
   },
@@ -5431,6 +5415,7 @@ const XYSP_DATA = {
   "/2026-10-31/98aeebde-a9b4-4d9c-becd-d4eddc2b988d1793419450221.jpg": 1793420703242,
   "/2026-10-31/95a9cd5f-cde6-42e0-a00f-0dec581b7b051793420770128.jpg": 1793421903888,
   "/2026-10-31/7eccbb95-7baf-44eb-bfd1-46606ff7fd7d1793420770117.jpg": 1793421903888,
-  "/2026-10-31/fd79b309-6985-4a46-8672-e60fb8e8ec061793420770136.jpg": 1793421903888
+  "/2026-10-31/fd79b309-6985-4a46-8672-e60fb8e8ec061793420770136.jpg": 1793421903888,
+  "/2026-10-31/bedea4c3-2ca8-4100-88a1-25ed7489b67c1793420922498.jpg": 1793422503142
  }
 };
