@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 08:26
+   更新时间：2026-10-31 08:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 08:26",
+ "updated": "2026-10-31 08:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -113,20 +113,6 @@ const XYSP_DATA = {
      "nextAt": 1793538900000,
      "atMs": 1793323204483,
      "seenMs": 1793323204483,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-30/2884ef50-a07a-49fd-bc3a-2fba5044a3811793319029038.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-30/2884ef50-a07a-49fd-bc3a-2fba5044a3811793319029038.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]又是5红😂😂😂",
-     "url": "",
-     "at": "2026-10-30T00:30:03.039Z",
-     "pubAt": "2026-10-30T00:11:00.000Z",
-     "pubMs": 1793319060000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793320203039,
-     "seenMs": 1793320203039,
      "whenMs": null
     }
    ]
@@ -2289,7 +2275,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793376305000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793396761822,
@@ -2319,7 +2305,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793376305000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793396761822,
@@ -2350,7 +2336,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793370552000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793371565684,
@@ -2381,7 +2367,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793370552000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793371565684,
@@ -2441,7 +2427,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793367791000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793367962044,
@@ -2561,7 +2547,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793360822000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -2652,7 +2638,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -2683,7 +2669,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -2714,7 +2700,7 @@ const XYSP_DATA = {
      "issue": "26289",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793360033000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793366100000,
      "nextMs": 1793366100000,
      "atMs": 1793367962044,
@@ -2834,7 +2820,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T00:26:01.988Z",
      "whenMs": 1793358804000,
-     "seenMs": 1793405161965,
+     "seenMs": 1793406361988,
      "drawMs": 1793367000000,
      "nextMs": 1793367000000,
      "atMs": 1793367962044,
@@ -3656,66 +3642,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-10-30 08:55:13",
      "postId": "7702257879033676342",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0a02c9ba1b494346a7e0ee2aabee37ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=5H9hNgZ%2FHJswDbjtO3Ftmu14bU4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0a02c9ba1b494346a7e0ee2aabee37ee~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=5H9hNgZ%2FHJswDbjtO3Ftmu14bU4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0a02c9ba1b494346a7e0ee2aabee37ee~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sgzXrbA3hPdA%2FMQhQOL79ItNBkg%3D",
-     "title": "套餐票焊死05 06，小刀锯大树还是轻功水上漂？124期大乐透晒票",
-     "url": "https://toutiao.com/group/7702251126065742399/",
-     "at": "2026-10-30T00:46:02.146Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:26:01.281Z",
-     "whenMs": 1793320118000,
-     "seenMs": 1793330761281,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793321162146,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T00:46:02.146Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-10-30 08:28:38",
-     "postId": "7702251126065742399",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ceffa75e43af4e588404dad2d50d54be~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=flqibWyzRVHQLBUcQbBJg%2FBs%2F5c%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ceffa75e43af4e588404dad2d50d54be~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=flqibWyzRVHQLBUcQbBJg%2FBs%2F5c%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0a02c9ba1b494346a7e0ee2aabee37ee~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802044800&x-signature=sgzXrbA3hPdA%2FMQhQOL79ItNBkg%3D",
-     "title": "套餐票焊死05 06，小刀锯大树还是轻功水上漂？124期大乐透晒票",
-     "url": "https://toutiao.com/group/7702251126065742399/",
-     "at": "2026-10-30T00:46:02.146Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-30T03:26:01.281Z",
-     "whenMs": 1793320118000,
-     "seenMs": 1793330761281,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793321162146,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T00:46:02.146Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-10-30 08:28:38",
-     "postId": "7702251126065742399",
      "px": 132300
     }
    ]
