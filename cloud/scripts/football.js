@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "佛山南狮",
      "score": 0,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "上海嘉定城发搏击",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 11
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "南京城市",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "黑龙江冰城",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "廣西恆宸",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "梅州客家",
      "score": 0,
@@ -386,7 +386,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "石家庄功夫",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "苏州东吴",
      "score": 0,
@@ -532,7 +532,7 @@ const FOOTBALL_DATA = {
      "color": "297CA5"
     },
     "time": "2026-10-31 14:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "长春亚泰",
      "score": 0,
@@ -34333,7 +34333,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "伟士帕大分",
      "score": 1,
@@ -34399,7 +34399,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "赞岐釜玉海",
      "score": 0,
@@ -34437,7 +34437,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "FC岐阜",
      "score": 1,
@@ -34569,7 +34569,7 @@ const FOOTBALL_DATA = {
      "color": "ff8899"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "龍仁FC",
      "score": 3,
@@ -34635,7 +34635,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "仙台维加泰",
      "score": 1,
@@ -34701,7 +34701,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "万劳雷八户",
      "score": 1,
@@ -34767,7 +34767,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "德岛漩涡",
      "score": 0,
@@ -34776,7 +34776,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "FC横滨",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -34833,7 +34833,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "枥木市FC",
      "score": 1,
@@ -34899,7 +34899,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "特格瓦嘉洛宫崎",
      "score": 2,
@@ -34965,7 +34965,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "磐田喜悦",
      "score": 1,
@@ -35031,7 +35031,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "新泻天鹅",
      "score": 2,
@@ -35097,7 +35097,7 @@ const FOOTBALL_DATA = {
      "color": "ff7766"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "全北现代",
      "score": 0,
@@ -35163,7 +35163,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "冈山绿雉",
      "score": 0,
@@ -35209,7 +35209,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "水户蜀葵",
      "score": 0,
@@ -35255,7 +35255,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 13:00:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "京都不死鸟",
      "score": 2,
@@ -35321,7 +35321,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-10-31 13:05:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "今治",
      "score": 1,
@@ -35465,7 +35465,7 @@ const FOOTBALL_DATA = {
      "color": "cc8855"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "中央海岸水手(女)",
      "score": 1,
@@ -35543,7 +35543,7 @@ const FOOTBALL_DATA = {
      "color": "116688"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "墨尔本城",
      "score": 0,
@@ -35621,10 +35621,10 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "神户胜利船",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -35699,7 +35699,7 @@ const FOOTBALL_DATA = {
      "color": "009900"
     },
     "time": "2026-10-31 14:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "鹿岛鹿角",
      "score": 3,
