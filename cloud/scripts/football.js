@@ -1045,10 +1045,10 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-10-31 06:30:00",
-    "minute": 87,
+    "minute": 89,
     "home": {
      "name": "基斯奧馬SC",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -1111,7 +1111,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 61,
+    "minute": 63,
     "home": {
      "name": "科林蒂安",
      "score": 1,
@@ -1177,7 +1177,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 58,
+    "minute": 60,
     "home": {
      "name": "查勒斯顿电池",
      "score": 0,
@@ -1243,7 +1243,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:30:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "谭柏湾暴徒",
      "score": 1,
@@ -1321,10 +1321,10 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "托拉卡女足",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -1399,7 +1399,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 21,
+    "minute": 23,
     "home": {
      "name": "底特律城",
      "score": 0,
@@ -1437,7 +1437,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 27,
+    "minute": 28,
     "home": {
      "name": "奥利恩特",
      "score": 0,
@@ -1515,7 +1515,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 0,
@@ -1593,7 +1593,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 12,
+    "minute": 14,
     "home": {
      "name": "萨尔米安杜",
      "score": 1,
@@ -1631,7 +1631,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 13,
+    "minute": 15,
     "home": {
      "name": "竞技俱乐部",
      "score": 0,
@@ -1709,7 +1709,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 8,
+    "minute": 10,
     "home": {
      "name": "克里科",
      "score": 0,
