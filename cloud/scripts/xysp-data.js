@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 00:00
+   更新时间：2026-11-01 00:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 00:00",
+ "updated": "2026-11-01 00:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5222,96 +5222,6 @@ const XYSP_DATA = {
      "author": "数彩观察员",
      "when": "2026-10-31 01:19:21",
      "postId": "7702511521766572580",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fa3d6c5b4214761a37479472d859210~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=kP4X0sF4RqLBf2iXjyKJlf2g604%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fa3d6c5b4214761a37479472d859210~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=kP4X0sF4RqLBf2iXjyKJlf2g604%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fa3d6c5b4214761a37479472d859210~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=u%2FBl85ySQOUW8TbH7ty9l6TvklY%3D",
-     "title": "2块钱的票硬是打出了战术感，大乐透124期：这波晒票看呆老彩民！",
-     "url": "http://toutiao.com/item/7702492579229368832/",
-     "at": "2026-10-30T21:46:01.822Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:26:02.247Z",
-     "whenMs": 1793376305000,
-     "seenMs": 1793417162247,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793396761822,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T21:46:01.822Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 00:05:05",
-     "postId": "7702492579229368832",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d9175d95a559459599e509e9f29ceffe~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=zH2F0vsWJlg7MJXvDUmi8Ch0LIE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d9175d95a559459599e509e9f29ceffe~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=zH2F0vsWJlg7MJXvDUmi8Ch0LIE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fa3d6c5b4214761a37479472d859210~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=u%2FBl85ySQOUW8TbH7ty9l6TvklY%3D",
-     "title": "2块钱的票硬是打出了战术感，大乐透124期：这波晒票看呆老彩民！",
-     "url": "http://toutiao.com/item/7702492579229368832/",
-     "at": "2026-10-30T21:46:01.822Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:26:02.247Z",
-     "whenMs": 1793376305000,
-     "seenMs": 1793417162247,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793396761822,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T21:46:01.822Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 00:05:05",
-     "postId": "7702492579229368832",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/822c12b5b9074309b8a387bf7d1659e9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5nweD%2Fk%2BkOVZZjocNh5kS4GdWaA%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/822c12b5b9074309b8a387bf7d1659e9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5nweD%2Fk%2BkOVZZjocNh5kS4GdWaA%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fa3d6c5b4214761a37479472d859210~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=u%2FBl85ySQOUW8TbH7ty9l6TvklY%3D",
-     "title": "2块钱的票硬是打出了战术感，大乐透124期：这波晒票看呆老彩民！",
-     "url": "http://toutiao.com/item/7702492579229368832/",
-     "at": "2026-10-30T21:46:01.822Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:26:02.247Z",
-     "whenMs": 1793376305000,
-     "seenMs": 1793417162247,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793396761822,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T21:46:01.822Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 00:05:05",
-     "postId": "7702492579229368832",
      "px": 132300
     },
     {
