@@ -1111,7 +1111,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "科林蒂安",
      "score": 1,
@@ -1177,7 +1177,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 07:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "查勒斯顿电池",
      "score": 0,
@@ -1321,7 +1321,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "托拉卡女足",
      "score": 1,
@@ -1399,7 +1399,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "底特律城",
      "score": 0,
@@ -1408,7 +1408,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "哈特福德竞技",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
@@ -1437,10 +1437,10 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "奥利恩特",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 5
     },
@@ -1515,7 +1515,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-10-31 08:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "聖卡洛斯國際",
      "score": 1,
@@ -1593,7 +1593,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "萨尔米安杜",
      "score": 1,
@@ -1631,10 +1631,10 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "竞技俱乐部",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 26
     },
@@ -1709,7 +1709,7 @@ const FOOTBALL_DATA = {
      "color": "56c54e"
     },
     "time": "2026-10-31 08:15:00",
-    "minute": 15,
+    "minute": 20,
     "home": {
      "name": "克里科",
      "score": 0,
