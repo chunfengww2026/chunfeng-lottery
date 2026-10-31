@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 546 场 · 时间 2026-10-31 12:58
+   窗口 48 小时 · 545 场 · 时间 2026-10-31 13:58
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-31 12:58",
+ "updated": "2026-10-31 13:58",
  "hours": 48,
- "count": 546,
+ "count": 545,
  "list": [
   {
    "date": "2026-10-31",
@@ -8725,22 +8725,6 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "1495436"
-  },
-  {
-   "date": "2026-10-29",
-   "time": "2026-10-29 13:00",
-   "league": "蒙古超",
-   "home": "猎人FC",
-   "away": "阿扎加努德",
-   "ft": {
-    "h": 1,
-    "a": 7
-   },
-   "ht": {
-    "h": 1,
-    "a": 3
-   },
-   "fid": "1503682"
   }
  ]
 };
