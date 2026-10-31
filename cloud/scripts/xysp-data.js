@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 18:16
+   更新时间：2026-10-31 18:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 18:16",
+ "updated": "2026-10-31 18:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2464,66 +2464,6 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
-     "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
-     "url": "https://toutiao.com/group/7702427782802817586/",
-     "at": "2026-10-31T09:16:01.431Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T10:16:01.427Z",
-     "whenMs": 1793361441000,
-     "seenMs": 1793441761427,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793438161431,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T09:16:01.431Z",
-     "rule": "first-capture-24h",
-     "author": "八卦营",
-     "when": "2026-10-30 19:57:21",
-     "postId": "7702427782802817586",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
-     "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
-     "url": "https://toutiao.com/group/7702427782802817586/",
-     "at": "2026-10-31T09:16:01.431Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T10:16:01.427Z",
-     "whenMs": 1793361441000,
-     "seenMs": 1793441761427,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793438161431,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T09:16:01.431Z",
-     "rule": "first-capture-24h",
-     "author": "八卦营",
-     "when": "2026-10-30 19:57:21",
-     "postId": "7702427782802817586",
-     "px": 132300
-    },
-    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3VuFAmwKm93q62FTSqmjUh5fhuY%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/77544fb73b714d6b9fb6cf1c1e901201~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=3VuFAmwKm93q62FTSqmjUh5fhuY%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
@@ -2539,7 +2479,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T10:16:01.427Z",
      "whenMs": 1793437664000,
-     "seenMs": 1793441161462,
+     "seenMs": 1793441761427,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793438161431,
@@ -2899,7 +2839,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T10:16:01.427Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793441161462,
+     "seenMs": 1793441761427,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -5108,6 +5048,66 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=83QmQ6iZS0%2BW%2FmRe1FVxYh62w2A%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
+     "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
+     "url": "https://toutiao.com/group/7702427782802817586/",
+     "at": "2026-10-31T09:16:01.431Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "",
+     "seen": "2026-10-31T10:16:01.427Z",
+     "whenMs": 1793361441000,
+     "seenMs": 1793441761427,
+     "drawMs": 1793449800000,
+     "nextMs": 1793449800000,
+     "atMs": 1793438161431,
+     "drawAt": "2026-10-31T12:30:00.000Z",
+     "nextAt": 1793449800000,
+     "drawGid": "dlt",
+     "expireAt": "2026-11-01T09:16:01.431Z",
+     "rule": "first-capture-24h",
+     "author": "八卦营",
+     "when": "2026-10-30 19:57:21",
+     "postId": "7702427782802817586",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/395682d5a9ad4cd487e05670d5d840b4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Rz2Vf6C7IgLRUe%2FSSgcUhZXAjZQ%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/44b7785efe7c4c2b930aa847cde0190a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BWu9hMnoXBZiC%2F%2BXSLQxFlT4AXQ%3D",
+     "title": "“冰火反差”！大乐透同期晒票：万元复式和22元胆拖同框亮相",
+     "url": "https://toutiao.com/group/7702427782802817586/",
+     "at": "2026-10-31T09:16:01.431Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "",
+     "seen": "2026-10-31T10:16:01.427Z",
+     "whenMs": 1793361441000,
+     "seenMs": 1793441761427,
+     "drawMs": 1793449800000,
+     "nextMs": 1793449800000,
+     "atMs": 1793438161431,
+     "drawAt": "2026-10-31T12:30:00.000Z",
+     "nextAt": 1793449800000,
+     "drawGid": "dlt",
+     "expireAt": "2026-11-01T09:16:01.431Z",
+     "rule": "first-capture-24h",
+     "author": "八卦营",
+     "when": "2026-10-30 19:57:21",
+     "postId": "7702427782802817586",
+     "px": 132300
+    },
+    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/283b487129af43209265f93ca991a754~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=9lv1gFSP4gc5yWFpA6dYZ06cPjs%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/283b487129af43209265f93ca991a754~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=9lv1gFSP4gc5yWFpA6dYZ06cPjs%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/283b487129af43209265f93ca991a754~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=fl6dwXGwccqOp6KB2j6DXyvhd64%3D",
@@ -5243,7 +5243,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T10:16:01.427Z",
      "whenMs": 1793360536000,
-     "seenMs": 1793440561439,
+     "seenMs": 1793441761427,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793433361367,
@@ -5273,7 +5273,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T10:16:01.427Z",
      "whenMs": 1793360536000,
-     "seenMs": 1793440561439,
+     "seenMs": 1793441761427,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793433361367,
