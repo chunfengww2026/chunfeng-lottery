@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 538 场 · 时间 2026-10-31 16:58
+   窗口 48 小时 · 537 场 · 时间 2026-10-31 17:58
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-10-31 16:58",
+ "updated": "2026-10-31 17:58",
  "hours": 48,
- "count": 538,
+ "count": 537,
  "list": [
   {
    "date": "2026-10-31",
@@ -8597,22 +8597,6 @@ const JC_RESULTS = {
     "a": 1
    },
    "fid": "1504076"
-  },
-  {
-   "date": "2026-10-29",
-   "time": "2026-10-29 17:00",
-   "league": "俄乙B",
-   "home": "诺斯塔",
-   "away": "泽尼特伊泽夫斯克",
-   "ft": {
-    "h": 2,
-    "a": 1
-   },
-   "ht": {
-    "h": 0,
-    "a": 0
-   },
-   "fid": "1487392"
   }
  ]
 };
