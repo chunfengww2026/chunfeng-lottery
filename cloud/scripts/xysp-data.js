@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-10-31 16:56
+   更新时间：2026-10-31 17:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-10-31 16:56",
+ "updated": "2026-10-31 17:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2275,7 +2275,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793435525000,
-     "seenMs": 1793436361351,
+     "seenMs": 1793436961363,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793436361351,
@@ -2515,7 +2515,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793436361351,
+     "seenMs": 1793436961363,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -2545,7 +2545,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793436361351,
+     "seenMs": 1793436961363,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -2695,7 +2695,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793426934000,
-     "seenMs": 1793436361351,
+     "seenMs": 1793436961363,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793427361431,
@@ -2755,7 +2755,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793426934000,
-     "seenMs": 1793436361351,
+     "seenMs": 1793436961363,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793427361431,
@@ -4889,7 +4889,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-10-31T08:56:01.363Z",
      "whenMs": 1793360536000,
-     "seenMs": 1793435761408,
+     "seenMs": 1793436961363,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793433361367,
@@ -5325,96 +5325,6 @@ const XYSP_DATA = {
      "when": "2026-10-31 02:29:50",
      "postId": "7702529882353304100",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Ivcib7lsZPtEri5y4yE9vdljUIw%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Ivcib7lsZPtEri5y4yE9vdljUIw%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=CgBsVCyk6h9XKk3%2Bt2iby8jwxF8%3D",
-     "title": "大乐透26124期晒票：狠人打出“01 02 03”神级三连号，后区狂死磕05 07！",
-     "url": "http://toutiao.com/item/7702382776858706483/",
-     "at": "2026-10-30T13:56:01.971Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T05:36:01.239Z",
-     "whenMs": 1793350739000,
-     "seenMs": 1793424961239,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793368561971,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:56:01.971Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 16:58:59",
-     "postId": "7702382776858706483",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fb8f8c842944bd78f303ba6b8396bcb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8RS11SQkH2OnNlQKwqE4SYNZxEU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1fb8f8c842944bd78f303ba6b8396bcb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=8RS11SQkH2OnNlQKwqE4SYNZxEU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=CgBsVCyk6h9XKk3%2Bt2iby8jwxF8%3D",
-     "title": "大乐透26124期晒票：狠人打出“01 02 03”神级三连号，后区狂死磕05 07！",
-     "url": "http://toutiao.com/item/7702382776858706483/",
-     "at": "2026-10-30T13:56:01.971Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T05:36:01.239Z",
-     "whenMs": 1793350739000,
-     "seenMs": 1793424961239,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793368561971,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:56:01.971Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 16:58:59",
-     "postId": "7702382776858706483",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0b37473821414a1497cb27c0d449957e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=lh%2FQphNo4MgiAXoYUdz%2BKxlChMQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0b37473821414a1497cb27c0d449957e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=lh%2FQphNo4MgiAXoYUdz%2BKxlChMQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d0e6d5e8b6e741ddae4db24e118e1883~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=CgBsVCyk6h9XKk3%2Bt2iby8jwxF8%3D",
-     "title": "大乐透26124期晒票：狠人打出“01 02 03”神级三连号，后区狂死磕05 07！",
-     "url": "http://toutiao.com/item/7702382776858706483/",
-     "at": "2026-10-30T13:56:01.971Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T05:36:01.239Z",
-     "whenMs": 1793350739000,
-     "seenMs": 1793424961239,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793368561971,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-10-31T13:56:01.971Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-30 16:58:59",
-     "postId": "7702382776858706483",
-     "px": 132300
     }
    ]
   },
@@ -5447,9 +5357,7 @@ const XYSP_DATA = {
      "author": "天天看书",
      "when": "2026-10-31 15:43:43",
      "postId": "7702734215585989139",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     }
    ]
   }
