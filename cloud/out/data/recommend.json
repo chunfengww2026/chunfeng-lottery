@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-31 10:16",
- "red": 3,
- "black": 2,
- "rate": "60.0%",
+ "updated": "2026-10-31 10:27",
+ "red": 1,
+ "black": 0,
+ "rate": "100.0%",
  "unfinished": 1,
  "history": [
   {
@@ -139,65 +139,6 @@
      "league": "德甲",
      "odds": 1.57,
      "time": "2026-11-02 00:30"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-10-29 22:25",
-   "finishTime": 1793283900000,
-   "verdict": "黑",
-   "matches": [
-    {
-     "matchNo": "周四004",
-     "teams": "哈马比 vs 天狼星",
-     "pick": "主胜",
-     "score": "2:0",
-     "result": "red",
-     "confidence": 61.9,
-     "status": "finished",
-     "finishTime": 1793283900000,
-     "league": "瑞典超",
-     "odds": 1.42,
-     "time": "2026-10-30 01:30"
-    },
-    {
-     "matchNo": "周五004",
-     "teams": "勒阿弗尔 vs 巴黎圣曼",
-     "pick": "客胜",
-     "score": "1:5",
-     "result": "red",
-     "confidence": 77.4,
-     "status": "finished",
-     "finishTime": 1793283900000,
-     "league": "法甲",
-     "odds": 1.25,
-     "time": "2026-10-31 02:00"
-    },
-    {
-     "matchNo": "周五009",
-     "teams": "比利亚雷 vs 西班牙人",
-     "pick": "主胜",
-     "score": "0:1",
-     "result": "black",
-     "confidence": 63.8,
-     "status": "finished",
-     "finishTime": 1793283900000,
-     "league": "西甲",
-     "odds": 1.42,
-     "time": "2026-10-31 04:00"
-    },
-    {
-     "matchNo": "周五011",
-     "teams": "卡萨皮亚 vs 里斯本",
-     "pick": "客胜",
-     "score": "0:0",
-     "result": "black",
-     "confidence": 75.5,
-     "status": "finished",
-     "finishTime": 1793283900000,
-     "league": "葡超",
-     "odds": 1.27,
-     "time": "2026-10-31 04:15"
     }
    ]
   }
