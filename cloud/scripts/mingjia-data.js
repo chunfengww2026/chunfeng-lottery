@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 16:48:57） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 17:40:27） */
 const MINGJIA_DATA = {
- "updated": "2026-11-1 16:48:57",
+ "updated": "2026-11-1 17:40:27",
  "list": [
-  {
-   "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "双色球",
-   "kw": "太湖字谜 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "双色球",
-   "kw": "迷公 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "桃子姐",
    "cat": "双色球",
@@ -75,28 +51,44 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "名家精",
-   "cat": "双色球",
-   "kw": "名家精 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "貂蝉杀",
    "cat": "双色球",
    "kw": "貂蝉杀 双色球 字谜 参考图",
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 85178,
-     "src": "https://pic1.800820.net/tumi/20260603/4d0f8fe92995443d915413bfaa0f0646.webp",
-     "page": "https://www.800820.cn/tuku/tkpic_413209.html",
+     "size": 86008,
+     "src": "https://pic2.800820.net/tumi/20260210/2da0f68b995949879e8c9217bca654d1.webp",
+     "page": "https://www.800820.net/tuku/tkpic_385952.html",
      "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-01T08:06:16.640Z"
+     "fetchedAt": "2026-11-01T09:39:59.949Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "双色球",
+   "kw": "名家精 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/名家精/1.jpg",
+     "size": 52747,
+     "src": "https://www.77888.cn/uploads/20230404/99b12ab26c865dbbbbd66d6166808542.jpg",
+     "page": "https://www.77888.cn/newsinfo/detail-241",
+     "title": "2023年037期 双色球名家精选号码推荐汇总-助赢软件官网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T09:40:04.820Z"
+    }
+   ]
+  },
+  {
+   "name": "鸭梨红",
+   "cat": "双色球",
+   "kw": "鸭梨红 双色球 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "黄大仙",
@@ -105,16 +97,15 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/黄大仙/1.jpg",
-     "size": 49989,
-     "src": "https://pic.cz89.com/upload/20250504/2aa38777553d4a218638b9c681fd9c03.jpg",
-     "page": "https://www.cz89.com/read_9324139.htm",
-     "title": "黄大仙杀蓝球050期双色球图谜 _牛彩网",
+     "size": 82512,
+     "src": "https://pic.cz89.com/upload/20250318/a46b71e0d70b43aeaea125c5addb71a6.jpg",
+     "page": "https://www.cz89.com/read_9218823.htm",
+     "title": "黄大仙杀蓝球030期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-01T08:06:32.231Z"
+     "fetchedAt": "2026-11-01T09:40:14.650Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "峨眉道姑",
@@ -123,16 +114,15 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/峨眉道姑/1.png",
-     "size": 86857,
-     "src": "https://pic.cz89.com/upload/20260421/602a537f9cf64b5d8a228b08d9abe355.png",
-     "page": "https://www.cz89.com/read_10291027.htm",
-     "title": "峨眉道姑杀蓝号045期双色球图谜 10中10_牛彩网",
+     "size": 86609,
+     "src": "https://pic.cz89.com/upload/20260604/9e52214ba6d441029905a1ffa0d6ba5a.png",
+     "page": "https://www.cz89.com/read_10444098.htm",
+     "title": "峨眉道姑杀蓝号064期双色球图谜 10中10_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-01T08:06:41.494Z"
+     "fetchedAt": "2026-11-01T09:40:24.653Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "枣庄红人",
@@ -387,9 +377,15 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "鸭梨红",
+   "name": "太湖字谜",
    "cat": "双色球",
-   "kw": "鸭梨红 双色球 字谜 参考图",
+   "kw": "太湖字谜 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "双色球",
+   "kw": "迷公 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -631,14 +627,21 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "万里挑一 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-11-1 02:49:05",
-   "names": 71,
-   "imgs": 15
-  },
   {
    "at": "2026-11-1 03:17:23",
    "names": 71,
@@ -753,6 +756,11 @@ const MINGJIA_DATA = {
    "at": "2026-11-1 16:48:57",
    "names": 71,
    "imgs": 17
+  },
+  {
+   "at": "2026-11-1 17:40:27",
+   "names": 71,
+   "imgs": 18
   }
  ],
  "bootstrapExpiresAt": null,
