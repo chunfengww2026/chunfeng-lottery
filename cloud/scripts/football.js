@@ -14880,7 +14880,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-11-01 21:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "赫塔菲",
      "score": 3,
@@ -14926,7 +14926,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 69,
+    "minute": 70,
     "home": {
      "name": "卡帕兹PFK",
      "score": 0,
@@ -14992,7 +14992,7 @@ const FOOTBALL_DATA = {
      "color": "6699FF"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "希塔德拉",
      "score": 1,
@@ -15058,7 +15058,7 @@ const FOOTBALL_DATA = {
      "color": "666699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 71,
+    "minute": 72,
     "home": {
      "name": "兰黑姆",
      "score": 2,
@@ -15124,7 +15124,7 @@ const FOOTBALL_DATA = {
      "color": "FF7777"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 70,
+    "minute": 71,
     "home": {
      "name": "埃蒙",
      "score": 0,
@@ -15190,7 +15190,7 @@ const FOOTBALL_DATA = {
      "color": "2F3FD2"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 70,
+    "minute": 71,
     "home": {
      "name": "沃尔夫斯贝格",
      "score": 1,
@@ -15256,7 +15256,7 @@ const FOOTBALL_DATA = {
      "color": "2F3FD2"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 71,
+    "minute": 72,
     "home": {
      "name": "萨尔茨堡",
      "score": 4,
@@ -15302,7 +15302,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "SBV精英队",
      "score": 0,
@@ -15352,7 +15352,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 71,
+    "minute": 73,
     "home": {
      "name": "特尔斯达",
      "score": 4,
@@ -15418,7 +15418,7 @@ const FOOTBALL_DATA = {
      "color": "666666"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 63,
+    "minute": 65,
     "home": {
      "name": "布兰",
      "score": 2,
@@ -16276,7 +16276,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-11-01 22:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "巴蒂卡",
      "score": 0,
@@ -16354,7 +16354,7 @@ const FOOTBALL_DATA = {
      "color": "990099"
     },
     "time": "2026-11-01 22:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "柏林联",
      "score": 1,
