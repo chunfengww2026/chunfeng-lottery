@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-01 23:29",
+ "updated": "2026-11-01 23:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1238,54 +1238,26 @@ const JC_HISTORY = {
    "at": "2026-10-31 03:45"
   },
   {
-   "code": "周日009",
-   "league": "瑞典超",
-   "home": "马尔默",
-   "away": "哈马比",
-   "time": "2026-11-01 21:00",
-   "score": "1:0",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 4.5,
-    "draw": 3.9,
-    "away": 1.66
-   },
-   "prob": {
-    "home": 21.5,
-    "draw": 23.7,
-    "away": 54.8
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 54.8,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-11-01 00:28"
-  },
-  {
    "code": "周日008",
    "league": "西甲",
    "home": "赫塔费",
    "away": "塞维利亚",
    "time": "2026-11-01 21:00",
-   "score": "",
+   "score": "3:1",
    "hc": null,
    "asianIndex": {
     "line": "受平手/半球",
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 1.1,
-    "downWater": 0.77,
+    "upWater": 0.95,
+    "downWater": 0.9,
     "openHandicap": 0,
     "openUpWater": 0.87,
     "openDownWater": 0.97,
-    "totalWater": 1.87,
-    "theoryUpPercent": "41.18",
-    "theoryDownPercent": "58.82",
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
     "canWater": true,
     "handicapChange": null,
     "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
@@ -1294,23 +1266,78 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 3.1,
+    "home": 3.5,
     "draw": 3.1,
-    "away": 2.4
+    "away": 2.25
    },
    "prob": {
-    "home": 33.6,
-    "draw": 30.7,
-    "away": 35.7
+    "home": 27.1,
+    "draw": 30.6,
+    "away": 42.2
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 35.7,
-   "type": "three",
-   "result": "",
+   "conf": 42.2,
+   "type": "unbeaten",
+   "result": "lose",
    "hit": false,
    "matched": false,
-   "at": "2026-10-31 03:45"
+   "at": "2026-11-01 23:58"
+  },
+  {
+   "code": "周日009",
+   "league": "瑞典超",
+   "home": "马尔默",
+   "away": "哈马比",
+   "time": "2026-11-01 21:00",
+   "score": "1:0",
+   "hc": null,
+   "asianIndex": {
+    "line": "受半球/一球",
+    "from": "live",
+    "handicap": 0.75,
+    "upSide": "away",
+    "upWater": 0.8,
+    "downWater": 1,
+    "openHandicap": 0.75,
+    "openUpWater": 0.92,
+    "openDownWater": 0.87,
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.75,
+     "nowHandicap": 0.75,
+     "initUpWater": 0.92,
+     "nowUpWater": 0.8,
+     "initLine": "受半球/一球",
+     "nowLine": "受半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 4.5,
+    "draw": 3.9,
+    "away": 1.67
+   },
+   "prob": {
+    "home": 20.6,
+    "draw": 23.8,
+    "away": 55.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 55.6,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-11-01 00:28"
   },
   {
    "code": "周日007",
