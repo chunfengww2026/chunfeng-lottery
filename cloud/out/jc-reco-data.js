@@ -173,21 +173,6 @@ const JC_RECO_DATA = {
    "min": 58,
    "rows": [
     {
-     "code": "周一001",
-     "time": "2026-11-03 00:00",
-     "league": "芬超",
-     "home": "国际图尔",
-     "away": "赫尔辛基火花",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.36,
-     "conf": 66.3,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
      "code": "周一004",
      "time": "2026-11-03 03:45",
      "league": "意甲",
@@ -220,7 +205,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 3,
+   "pending": 2,
    "verdict": ""
   }
  ]
