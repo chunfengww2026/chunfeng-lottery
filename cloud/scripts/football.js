@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 11:00:00",
-    "minute": 0,
+    "minute": 19,
     "home": {
      "name": "西海岸流浪(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "芬奇布爾斯聯(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 11:00:00",
-    "minute": 0,
+    "minute": 18,
     "home": {
      "name": "威靈頓鳳凰後備(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "奥克兰联女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -155,16 +155,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 11:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "洛斯卡沃斯联",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": null
     },
     "away": {
      "name": "塞拉亚",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": null
     },
@@ -228,16 +228,16 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 11:10:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "墨西哥美洲队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
     "away": {
      "name": "托拉卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -491,7 +491,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "喬洛馬",
      "score": 0,
@@ -500,7 +500,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "CD奥林匹亚",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 1
     },
@@ -529,7 +529,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "科罗拉多急流",
      "score": 2,
@@ -567,7 +567,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 0,
+    "minute": 50,
     "home": {
      "name": "伊拉普图",
      "score": 0,
@@ -633,7 +633,7 @@ const FOOTBALL_DATA = {
      "color": "889933"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "CSyD薩卡齊斯帕斯",
      "score": 0,
@@ -671,7 +671,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "比肯黑德联",
      "score": 1,
@@ -737,7 +737,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "体育圣何西",
      "score": 0,
