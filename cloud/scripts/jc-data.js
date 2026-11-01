@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 04:24 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 05:00 */
 const JC_DATA = {
- "updated": "2026-11-02 04:24",
+ "updated": "2026-11-02 05:00",
  "stat": {
   "total": 25,
   "upcoming": 2,
-  "live": 4,
-  "finished": 19,
+  "live": 3,
+  "finished": 20,
   "withScore": 23,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -2160,7 +2160,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 2,
@@ -2188,7 +2188,7 @@ const JC_DATA = {
     "home": 0,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -2297,7 +2297,7 @@ const JC_DATA = {
     "home": 2,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "2 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -2403,10 +2403,10 @@ const JC_DATA = {
     "rank": 5
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "2 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -2490,8 +2490,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    }
   },
   {
@@ -2661,9 +2661,9 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.97,
-      "line": "受平手/半球",
-      "away": 0.82
+      "home": 0.77,
+      "line": "受半球",
+      "away": 1.02
      }
     },
     "europe": {
@@ -2702,7 +2702,7 @@ const JC_DATA = {
     },
     "clear": true,
     "margin": 6.1,
-    "rqLine": "受平手/半球",
+    "rqLine": "受半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
@@ -2715,7 +2715,7 @@ const JC_DATA = {
      "confidence": 43.7,
      "signals": [
       "初盘→即时：主胜-4.6pp / 平局-0.6pp / 客胜+5.2pp",
-      "亚盘未变盘；水位只作辅助核对"
+      "亚盘客队方向变深，水位上升"
      ],
      "missing": [
       "威廉/立博/365同期初盘不足",
@@ -2743,27 +2743,27 @@ const JC_DATA = {
     }
    },
    "asianIndex": {
-    "line": "受平手/半球",
+    "line": "受半球",
     "from": "live",
-    "handicap": 0.25,
+    "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.82,
-    "downWater": 0.97,
+    "upWater": 1.02,
+    "downWater": 0.77,
     "openHandicap": 0.25,
     "openUpWater": 0.97,
     "openDownWater": 0.82,
     "totalWater": 1.79,
-    "theoryUpPercent": "54.19",
-    "theoryDownPercent": "45.81",
-    "canWater": true,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": false,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "升盘升水",
      "initHandicap": 0.25,
-     "nowHandicap": 0.25,
+     "nowHandicap": 0.5,
      "initUpWater": 0.97,
-     "nowUpWater": 0.82,
+     "nowUpWater": 1.02,
      "initLine": "受平手/半球",
-     "nowLine": "受平手/半球"
+     "nowLine": "受半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -2777,7 +2777,7 @@ const JC_DATA = {
  ],
  "sp": {
   "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：UND_ERR_CONNECT_TIMEOUT）",
   "updated": "2026-11-02 02:28",
   "officialUpdate": "2026-11-01 22:52:55",
   "inSale": 14,
