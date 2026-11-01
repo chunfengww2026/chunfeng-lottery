@@ -1,58 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 20:53:12） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 21:46:10） */
 const MINGJIA_DATA = {
- "updated": "2026-11-1 20:53:12",
+ "updated": "2026-11-1 21:46:10",
  "list": [
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
-     "size": 49624,
-     "src": "https://pic2.800820.net/tumi/20260324/a90dddb0cdfc4e53a83d9068cff59566.webp",
-     "page": "https://www.800820.net/p/10891942.html",
-     "title": "林黛玉26年033期双色球杀蓝号图迷_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T12:51:56.883Z"
-    }
-   ]
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.webp",
-     "size": 51552,
-     "src": "https://pic2.800820.net/tumi/20260327/7eedd6a692ac4e3bbd946bcb67f4ca63.webp",
-     "page": "https://www.800820.net/p/10899057.html",
-     "title": "贾宝玉26年034期双色球杀蓝号图迷_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T12:52:01.282Z"
-    }
-   ]
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
-     "size": 72924,
-     "src": "https://pic.cz89.com/upload/20230104/3dd3c750dd3c4969b2ab9382e65a2570.jpg",
-     "page": "https://www.cz89.com/read_7406316.htm",
-     "title": "司马迁杀两码蓝球003期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T12:52:05.901Z"
-    }
-   ]
-  },
   {
    "name": "一品红",
    "cat": "双色球",
@@ -118,6 +67,84 @@ const MINGJIA_DATA = {
    "cat": "双色球",
    "kw": "那些年 双色球 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "金枪鱼",
+   "cat": "双色球",
+   "kw": "金枪鱼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青云万里",
+   "cat": "双色球",
+   "kw": "青云万里 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "林黛玉",
+   "cat": "双色球",
+   "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
+     "size": 49624,
+     "src": "https://pic2.800820.net/tumi/20260324/a90dddb0cdfc4e53a83d9068cff59566.webp",
+     "page": "https://www.800820.net/p/10891942.html",
+     "title": "林黛玉26年033期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:51:56.883Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/贾宝玉/1.webp",
+     "size": 51552,
+     "src": "https://pic2.800820.net/tumi/20260327/7eedd6a692ac4e3bbd946bcb67f4ca63.webp",
+     "page": "https://www.800820.net/p/10899057.html",
+     "title": "贾宝玉26年034期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:52:01.282Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
+     "size": 72924,
+     "src": "https://pic.cz89.com/upload/20230104/3dd3c750dd3c4969b2ab9382e65a2570.jpg",
+     "page": "https://www.cz89.com/read_7406316.htm",
+     "title": "司马迁杀两码蓝球003期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:52:05.901Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "3D字谜",
@@ -462,30 +489,6 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "金枪鱼",
-   "cat": "双色球",
-   "kw": "金枪鱼 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青云万里",
-   "cat": "双色球",
-   "kw": "青云万里 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "鲤鱼得财",
-   "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "朱大姐",
-   "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "闪享",
    "cat": "大乐透",
    "kw": "闪享 大乐透 字谜 参考图",
@@ -644,11 +647,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-1 05:47:12",
-   "names": 71,
-   "imgs": 15
-  },
-  {
    "at": "2026-11-1 06:17:08",
    "names": 71,
    "imgs": 15
@@ -760,6 +758,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-1 20:53:12",
+   "names": 71,
+   "imgs": 18
+  },
+  {
+   "at": "2026-11-1 21:46:10",
    "names": 71,
    "imgs": 18
   }
