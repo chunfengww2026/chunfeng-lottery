@@ -307,7 +307,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "皮拉塔斯",
      "score": 1,
@@ -439,7 +439,7 @@ const FOOTBALL_DATA = {
      "color": "999011"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "亚拉克莱恩斯",
      "score": 3,
@@ -477,7 +477,7 @@ const FOOTBALL_DATA = {
      "color": "000080"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "梅塔帕",
      "score": 1,
@@ -543,7 +543,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "洛博斯ULMX",
      "score": 1,
@@ -675,7 +675,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "瓜达拉哈拉",
      "score": 4,
@@ -684,7 +684,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "亚特兰特",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 16
     },
@@ -741,7 +741,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "蒙特雷",
      "score": 3,
@@ -807,7 +807,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "喬洛馬",
      "score": 0,
@@ -845,7 +845,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "科罗拉多急流",
      "score": 1,
@@ -911,7 +911,7 @@ const FOOTBALL_DATA = {
      "color": "889933"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "CSyD薩卡齊斯帕斯",
      "score": 0,
@@ -949,7 +949,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 45,
+    "minute": 46,
     "home": {
      "name": "伊拉普图",
      "score": 0,
