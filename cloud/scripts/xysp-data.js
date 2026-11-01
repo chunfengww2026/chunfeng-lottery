@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 10:40
+   更新时间：2026-11-01 10:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 10:40",
+ "updated": "2026-11-01 10:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5200,96 +5200,6 @@ const XYSP_DATA = {
      "author": "安然观云舒",
      "when": "2026-10-31 10:59:01",
      "postId": "7702660527046083108",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/54e53728c8a04b5f99bee64efff109a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=s0Gw66OE054R9bvNl5d%2BLbck1cw%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/54e53728c8a04b5f99bee64efff109a4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=s0Gw66OE054R9bvNl5d%2BLbck1cw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/54e53728c8a04b5f99bee64efff109a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=UjDXuiJhEIH%2BqX2c%2B3CO3kJCrfU%3D",
-     "title": "大乐透124期晒票更新！死守专属组合思路，小票藏着独到选号心机",
-     "url": "https://toutiao.com/group/7702656133533565476/",
-     "at": "2026-10-31T02:46:02.077Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T04:06:02.178Z",
-     "whenMs": 1793414501000,
-     "seenMs": 1793419562178,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793414762077,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T02:46:02.077Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:41:41",
-     "postId": "7702656133533565476",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/68ac7cf66a264fc7ab9f7be3b1b5239b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hIdZcdIRhyZYWt4zlNaNq6SSdWg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/68ac7cf66a264fc7ab9f7be3b1b5239b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=hIdZcdIRhyZYWt4zlNaNq6SSdWg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/54e53728c8a04b5f99bee64efff109a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=UjDXuiJhEIH%2BqX2c%2B3CO3kJCrfU%3D",
-     "title": "大乐透124期晒票更新！死守专属组合思路，小票藏着独到选号心机",
-     "url": "https://toutiao.com/group/7702656133533565476/",
-     "at": "2026-10-31T02:46:02.077Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T04:06:02.178Z",
-     "whenMs": 1793414501000,
-     "seenMs": 1793419562178,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793414762077,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T02:46:02.077Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:41:41",
-     "postId": "7702656133533565476",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/739acaad8d894189a1a5369231764b67~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=CTEAhPvfFwOTxBWMf%2Ft6v%2F%2F%2Fba4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/739acaad8d894189a1a5369231764b67~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=CTEAhPvfFwOTxBWMf%2Ft6v%2F%2F%2Fba4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/54e53728c8a04b5f99bee64efff109a4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=UjDXuiJhEIH%2BqX2c%2B3CO3kJCrfU%3D",
-     "title": "大乐透124期晒票更新！死守专属组合思路，小票藏着独到选号心机",
-     "url": "https://toutiao.com/group/7702656133533565476/",
-     "at": "2026-10-31T02:46:02.077Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T04:06:02.178Z",
-     "whenMs": 1793414501000,
-     "seenMs": 1793419562178,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793414762077,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T02:46:02.077Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:41:41",
-     "postId": "7702656133533565476",
      "px": 132300
     },
     {
