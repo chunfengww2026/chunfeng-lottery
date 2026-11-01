@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-01 12:43",
+ "updated": "2026-11-01 13:34",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-01 12:43",
-   "finishTime": 1793508180000,
+   "dateStr": "2026-11-01 13:34",
+   "finishTime": 1793511240000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 66.3,
      "status": "pending",
-     "finishTime": 1793508180000,
+     "finishTime": 1793511240000,
      "league": "芬超",
      "odds": 1.36,
      "time": "2026-11-03 00:00"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 67.8,
      "status": "pending",
-     "finishTime": 1793508180000,
+     "finishTime": 1793511240000,
      "league": "意甲",
      "odds": 1.53,
      "time": "2026-11-03 03:45"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 80.5,
      "status": "pending",
-     "finishTime": 1793508180000,
+     "finishTime": 1793511240000,
      "league": "葡超",
      "odds": 1.17,
      "time": "2026-11-03 04:15"
