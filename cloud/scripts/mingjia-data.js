@@ -1,12 +1,57 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 20:10:39） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/1 20:53:12） */
 const MINGJIA_DATA = {
- "updated": "2026-11-1 20:10:39",
+ "updated": "2026-11-1 20:53:12",
  "list": [
   {
-   "name": "蓝号迷",
+   "name": "林黛玉",
    "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
+   "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
+     "size": 49624,
+     "src": "https://pic2.800820.net/tumi/20260324/a90dddb0cdfc4e53a83d9068cff59566.webp",
+     "page": "https://www.800820.net/p/10891942.html",
+     "title": "林黛玉26年033期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:51:56.883Z"
+    }
+   ]
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/贾宝玉/1.webp",
+     "size": 51552,
+     "src": "https://pic2.800820.net/tumi/20260327/7eedd6a692ac4e3bbd946bcb67f4ca63.webp",
+     "page": "https://www.800820.net/p/10899057.html",
+     "title": "贾宝玉26年034期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:52:01.282Z"
+    }
+   ]
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.jpg",
+     "size": 72924,
+     "src": "https://pic.cz89.com/upload/20230104/3dd3c750dd3c4969b2ab9382e65a2570.jpg",
+     "page": "https://www.cz89.com/read_7406316.htm",
+     "title": "司马迁杀两码蓝球003期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-01T12:52:05.901Z"
+    }
+   ]
   },
   {
    "name": "一品红",
@@ -48,6 +93,30 @@ const MINGJIA_DATA = {
    "name": "百合花",
    "cat": "双色球",
    "kw": "百合花 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百步穿杨",
+   "cat": "双色球",
+   "kw": "百步穿杨 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "蒲公英",
+   "cat": "双色球",
+   "kw": "蒲公英 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "远方的狼",
+   "cat": "双色球",
+   "kw": "远方的狼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "那些年",
+   "cat": "双色球",
+   "kw": "那些年 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -154,60 +223,6 @@ const MINGJIA_DATA = {
      "issue": "2026023",
      "verified": false,
      "fetchedAt": "2026-11-01T10:28:25.671Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/林黛玉/1.png",
-     "size": 114873,
-     "src": "https://pic.cz89.com/upload/20260405/759e3f79014742ae9839965df5b7500c.png",
-     "page": "https://www.cz89.com/read_10235889.htm",
-     "title": "双色球038期 林黛玉杀蓝号图谜 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T10:28:35.505Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.png",
-     "size": 114361,
-     "src": "https://pic.cz89.com/upload/20260630/450809c8e40d457691020ac85de8f3a7.png",
-     "page": "https://www.cz89.com/read_10534083.htm",
-     "title": "双色球075期 贾宝玉杀蓝号图谜 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T10:28:39.213Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/司马迁/1.webp",
-     "size": 46036,
-     "src": "https://pic1.800820.net/tumi/20251221/271438b193eb465cbdf83174f72ae0d2.webp",
-     "page": "https://www.800820.net/p/10640286.html",
-     "title": "司马迁25年148期双色球杀蓝球图谜_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-01T10:28:45.999Z"
     }
    ],
    "stale": true
@@ -441,27 +456,9 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "百步穿杨",
+   "name": "蓝号迷",
    "cat": "双色球",
-   "kw": "百步穿杨 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "蒲公英",
-   "cat": "双色球",
-   "kw": "蒲公英 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "远方的狼",
-   "cat": "双色球",
-   "kw": "远方的狼 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "那些年",
-   "cat": "双色球",
-   "kw": "那些年 双色球 字谜 参考图",
+   "kw": "蓝号迷 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -647,11 +644,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-1 05:17:11",
-   "names": 71,
-   "imgs": 15
-  },
-  {
    "at": "2026-11-1 05:47:12",
    "names": 71,
    "imgs": 15
@@ -763,6 +755,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-1 20:10:39",
+   "names": 71,
+   "imgs": 18
+  },
+  {
+   "at": "2026-11-1 20:53:12",
    "names": 71,
    "imgs": 18
   }

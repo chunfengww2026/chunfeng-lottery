@@ -173,21 +173,6 @@ const JC_RECO_DATA = {
    "min": 58,
    "rows": [
     {
-     "code": "周日009",
-     "time": "2026-11-01 21:00",
-     "league": "瑞典超",
-     "home": "马尔默",
-     "away": "哈马比",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.57,
-     "conf": 58.2,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
      "code": "周一001",
      "time": "2026-11-03 00:00",
      "league": "芬超",
@@ -211,8 +196,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.5,
-     "conf": 68.2,
+     "odds": 1.53,
+     "conf": 67.8,
      "score": "",
      "hit": null,
      "result": ""
@@ -226,8 +211,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.17,
-     "conf": 80.5,
+     "odds": 1.15,
+     "conf": 80.2,
      "score": "",
      "hit": null,
      "result": ""
@@ -235,7 +220,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 3,
    "verdict": ""
   }
  ]
