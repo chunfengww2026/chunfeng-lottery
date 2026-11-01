@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 10:56
+   更新时间：2026-11-01 11:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 10:56",
+ "updated": "2026-11-01 11:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2860,7 +2860,7 @@ const XYSP_DATA = {
      "issue": "26290",
      "seen": "2026-11-01T02:56:01.235Z",
      "whenMs": 1793499072000,
-     "seenMs": 1793501162244,
+     "seenMs": 1793501761235,
      "drawMs": 1793536200000,
      "nextMs": 1793536200000,
      "atMs": 1793499362219,
@@ -4510,7 +4510,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T02:56:01.235Z",
      "whenMs": 1793437664000,
-     "seenMs": 1793500562218,
+     "seenMs": 1793501761235,
      "drawMs": 1793449800000,
      "nextMs": 1793449800000,
      "atMs": 1793438161431,
@@ -4993,7 +4993,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T02:56:01.235Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793501162244,
+     "seenMs": 1793501761235,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -5695,96 +5695,6 @@ const XYSP_DATA = {
      "author": "安然观云舒",
      "when": "2026-10-31 11:34:45",
      "postId": "7702669950825054762",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2025e7a989c34d7fbfd8b93a73ff4cae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Buz11YztzXf7N9WSswsHa8fdxnU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2025e7a989c34d7fbfd8b93a73ff4cae~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=Buz11YztzXf7N9WSswsHa8fdxnU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2025e7a989c34d7fbfd8b93a73ff4cae~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TWV4ih6Xusvys0bZqrQQYrU0QLI%3D",
-     "title": "对标开机号选号！本期大乐透晒票亮眼，大力布局能否创造惊喜？",
-     "url": "https://toutiao.com/group/7702660527046083108/",
-     "at": "2026-10-31T03:06:06.757Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:46:02.370Z",
-     "whenMs": 1793415541000,
-     "seenMs": 1793418362370,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793415966757,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T03:06:06.757Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:59:01",
-     "postId": "7702660527046083108",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/49a5c98f8a22476d8b3d86a8548d2b69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=g9ZzyEn6MNglCMbYHZQBmKlz8U4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/49a5c98f8a22476d8b3d86a8548d2b69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=g9ZzyEn6MNglCMbYHZQBmKlz8U4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2025e7a989c34d7fbfd8b93a73ff4cae~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TWV4ih6Xusvys0bZqrQQYrU0QLI%3D",
-     "title": "对标开机号选号！本期大乐透晒票亮眼，大力布局能否创造惊喜？",
-     "url": "https://toutiao.com/group/7702660527046083108/",
-     "at": "2026-10-31T03:06:06.757Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:46:02.370Z",
-     "whenMs": 1793415541000,
-     "seenMs": 1793418362370,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793415966757,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T03:06:06.757Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:59:01",
-     "postId": "7702660527046083108",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/514aae9c7ab746869cecef0131c0331c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2Fzl7UZ7lsWdD%2FNM1CYolu5IIEJg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/514aae9c7ab746869cecef0131c0331c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2Fzl7UZ7lsWdD%2FNM1CYolu5IIEJg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2025e7a989c34d7fbfd8b93a73ff4cae~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=TWV4ih6Xusvys0bZqrQQYrU0QLI%3D",
-     "title": "对标开机号选号！本期大乐透晒票亮眼，大力布局能否创造惊喜？",
-     "url": "https://toutiao.com/group/7702660527046083108/",
-     "at": "2026-10-31T03:06:06.757Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T03:46:02.370Z",
-     "whenMs": 1793415541000,
-     "seenMs": 1793418362370,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793415966757,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T03:06:06.757Z",
-     "rule": "first-capture-24h",
-     "author": "安然观云舒",
-     "when": "2026-10-31 10:59:01",
-     "postId": "7702660527046083108",
      "px": 132300
     },
     {
