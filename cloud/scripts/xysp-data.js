@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 22:55
+   更新时间：2026-11-01 22:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 22:55",
+ "updated": "2026-11-01 22:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -873,48 +873,6 @@ const XYSP_DATA = {
      "whenMs": null
     },
     {
-     "img": "https://img02.17chdd.com/2026-10-31/6be4c1bf-9999-4bc4-9532-f318cfae6ce61793456586277.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/6be4c1bf-9999-4bc4-9532-f318cfae6ce61793456586277.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]参考，唉妈呀，哪位大哥有看好的号，发评论区！",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:24:00.000Z",
-     "pubMs": 1793456640000,
-     "pubSrc": "page",
-     "nextAt": 1793539800000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/e80ed135-d78b-461d-986f-4713431b2f671793456586295.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/e80ed135-d78b-461d-986f-4713431b2f671793456586295.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]参考，唉妈呀，哪位大哥有看好的号，发评论区！",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:24:00.000Z",
-     "pubMs": 1793456640000,
-     "pubSrc": "page",
-     "nextAt": 1793539800000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/04ff8eb2-c2b6-4ec9-9491-0985c688c1ee1793456586288.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/04ff8eb2-c2b6-4ec9-9491-0985c688c1ee1793456586288.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]参考，唉妈呀，哪位大哥有看好的号，发评论区！",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:24:00.000Z",
-     "pubMs": 1793456640000,
-     "pubSrc": "page",
-     "nextAt": 1793539800000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
      "img": "https://img02.17chdd.com/2026-10-31/2cbb47cc-8905-4be3-94ab-45409b031cbf1793451609453.jpg",
      "thumb": "https://img02.17chdd.com/2026-10-31/2cbb47cc-8905-4be3-94ab-45409b031cbf1793451609453.jpg?imageMogr2/thumbnail/360x",
      "title": "[26290期]快乐八实票分享",
@@ -1338,76 +1296,6 @@ const XYSP_DATA = {
      "atMs": 1793460004912,
      "seenMs": 1793460004912,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/09210ab9-c0c4-441b-bab9-0c11771ac4121793456751798.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/09210ab9-c0c4-441b-bab9-0c11771ac4121793456751798.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26291期]来财",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:26:00.000Z",
-     "pubMs": 1793456760000,
-     "pubSrc": "page",
-     "nextAt": 1793536200000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/fa95d349-e076-488d-b9ae-fe2e25de11b61793456658946.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/fa95d349-e076-488d-b9ae-fe2e25de11b61793456658946.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26291期]满足了",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:24:00.000Z",
-     "pubMs": 1793456640000,
-     "pubSrc": "page",
-     "nextAt": 1793536200000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/f915dd38-15c8-43be-b07a-6f1059f53b2d1793456034690.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/f915dd38-15c8-43be-b07a-6f1059f53b2d1793456034690.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26291期]昨天289开9，今天290该想到下个0的。 三胆下二，单挑差一码，我的高倍973啊🌝🌝，还有这个9怎么在个位呢。怎么硬的条件都给我搞没了",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:14:00.000Z",
-     "pubMs": 1793456040000,
-     "pubSrc": "page",
-     "nextAt": 1793536200000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/c643f776-5b07-4a63-afcc-a7240937abeb1793456034871.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/c643f776-5b07-4a63-afcc-a7240937abeb1793456034871.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26291期]昨天289开9，今天290该想到下个0的。 三胆下二，单挑差一码，我的高倍973啊🌝🌝，还有这个9怎么在个位呢。怎么硬的条件都给我搞没了",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:14:00.000Z",
-     "pubMs": 1793456040000,
-     "pubSrc": "page",
-     "nextAt": 1793536200000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/4cf00c2d-8463-4d21-9ce5-ed82378f7b4f1793456034560.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/4cf00c2d-8463-4d21-9ce5-ed82378f7b4f1793456034560.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26291期]昨天289开9，今天290该想到下个0的。 三胆下二，单挑差一码，我的高倍973啊🌝🌝，还有这个9怎么在个位呢。怎么硬的条件都给我搞没了",
-     "url": "",
-     "at": "2026-10-31T14:56:22.937Z",
-     "pubAt": "2026-10-31T14:14:00.000Z",
-     "pubMs": 1793456040000,
-     "pubSrc": "page",
-     "nextAt": 1793536200000,
-     "atMs": 1793458582937,
-     "seenMs": 1793458582937,
-     "whenMs": null
     }
    ]
   },
@@ -1703,9 +1591,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=eP%2BsZLPHwtPWWZIcE7ow9BbCm8o%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=eP%2BsZLPHwtPWWZIcE7ow9BbCm8o%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=hE%2FQJlXVkH1d3mCNF32U0mX8biw%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=H78B3rkIozqbZWbxLnT1jTCl1bM%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=H78B3rkIozqbZWbxLnT1jTCl1bM%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=OK3kf8%2FGg278KSk8El%2BedMir97M%3D",
      "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
      "url": "http://toutiao.com/item/7703159822253818403/",
      "at": "2026-11-01T14:06:01.810Z",
@@ -1716,9 +1604,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-01T14:46:01.783Z",
+     "seen": "2026-11-01T14:56:02.258Z",
      "whenMs": 1793531659000,
-     "seenMs": 1793544361783,
+     "seenMs": 1793544962258,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793541961810,
@@ -1735,7 +1623,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3bc52b10e33e4210aff4c0873e190571~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=H0HVBVH4IAtXo7I9ZYeVjJhxvgw%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3bc52b10e33e4210aff4c0873e190571~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=H0HVBVH4IAtXo7I9ZYeVjJhxvgw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=hE%2FQJlXVkH1d3mCNF32U0mX8biw%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=OK3kf8%2FGg278KSk8El%2BedMir97M%3D",
      "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
      "url": "http://toutiao.com/item/7703159822253818403/",
      "at": "2026-11-01T14:06:01.810Z",
@@ -1746,7 +1634,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-01T14:46:01.783Z",
+     "seen": "2026-11-01T14:56:02.258Z",
      "whenMs": 1793531659000,
      "seenMs": 1793544361783,
      "drawMs": 1793538900000,
@@ -1765,7 +1653,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cd2edc0c6f954bfcbd7ee00844a1392e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=86MqasvUMYPW0dKFKN531qek8VE%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cd2edc0c6f954bfcbd7ee00844a1392e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=86MqasvUMYPW0dKFKN531qek8VE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=hE%2FQJlXVkH1d3mCNF32U0mX8biw%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=OK3kf8%2FGg278KSk8El%2BedMir97M%3D",
      "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
      "url": "http://toutiao.com/item/7703159822253818403/",
      "at": "2026-11-01T14:06:01.810Z",
@@ -1776,7 +1664,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-01T14:46:01.783Z",
+     "seen": "2026-11-01T14:56:02.258Z",
      "whenMs": 1793531659000,
      "seenMs": 1793544361783,
      "drawMs": 1793538900000,
@@ -2142,7 +2030,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-01T14:46:01.783Z",
+     "seen": "2026-11-01T14:56:02.258Z",
      "whenMs": 1793508793000,
      "seenMs": 1793544361783,
      "drawMs": 1793538900000,
@@ -2159,8 +2047,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=GZNxzxJ06DkFe%2BNLPADAoSQefdI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=GZNxzxJ06DkFe%2BNLPADAoSQefdI%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=pCc6JgozViXPBGfM85ZK3hoAsDc%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=pCc6JgozViXPBGfM85ZK3hoAsDc%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ea9e4d3b5bc4e43beba5c456039978b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=XsrkbYEOF9HNY3aB02zJUiq1lM4%3D",
      "title": "6864元巨无霸复式硬刚2元小单，谁能中大奖？双色球124期晒票",
      "url": "http://toutiao.com/item/7703061612403360266/",
@@ -2172,9 +2060,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-01T14:46:01.783Z",
+     "seen": "2026-11-01T14:56:02.258Z",
      "whenMs": 1793508793000,
-     "seenMs": 1793544361783,
+     "seenMs": 1793544962258,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793541961810,
