@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-02 05:39",
+ "updated": "2026-11-02 06:14",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -616,7 +616,7 @@ const JC_HISTORY = {
    "home": "毕尔巴鄂",
    "away": "皇家社会",
    "time": "2026-11-02 04:00",
-   "score": "1:0",
+   "score": "2:1",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -644,7 +644,7 @@ const JC_HISTORY = {
    "home": "尤文图斯",
    "away": "那不勒斯",
    "time": "2026-11-02 03:45",
-   "score": "0:0",
+   "score": "2:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -672,7 +672,7 @@ const JC_HISTORY = {
    "home": "马赛",
    "away": "图卢兹",
    "time": "2026-11-02 03:45",
-   "score": "1:0",
+   "score": "2:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
