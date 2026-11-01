@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 17:44:53
+   更新时间：2026-11-01 18:32:08
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-01 17:44:53",
+ "updated": "2026-11-01 18:32:08",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fbe04bf7b72e4e739aae6d3ab82cddca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=gujXS93oE0M7AQXY9t3GJHF5gjg%3D",
@@ -27,16 +27,16 @@ const XYSP_JC_DATA = {
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-11-01T09:44:53.885Z",
+   "seen": "2026-11-01T10:32:08.947Z",
    "whenMs": 1793519522000,
-   "seenMs": 1793523224133,
+   "seenMs": 1793526293885,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793520708950,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-02T08:53:44.133Z",
+   "expireAt": "2026-11-02T09:44:53.885Z",
    "rule": "cap",
    "author": "小浩体育",
    "when": "2026-11-01 15:52:02",
