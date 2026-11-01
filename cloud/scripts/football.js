@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-11-01 08:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "哥連泰斯SP(女)",
      "score": 1,
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 08:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "奧沙卡龍",
-     "score": null,
+     "score": 2,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "弗雷斯尼约",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -1475,7 +1475,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-11-01 06:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "皇家煉油工",
      "score": 3,
@@ -1645,7 +1645,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-01 06:15:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "沙士菲",
      "score": 2,
@@ -1711,7 +1711,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "诺蒂卡",
      "score": 1,
@@ -1777,7 +1777,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "圣罗伦素体育会",
      "score": 1,
@@ -1843,7 +1843,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "卢捷诺体育会",
      "score": 0,
@@ -1893,7 +1893,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "伊斯特恩沙伯奧克蘭(女)",
      "score": 2,
@@ -1939,7 +1939,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "拉尼罗斯",
      "score": 1,
@@ -2149,7 +2149,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-01 07:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "加拉加斯",
      "score": 1,
@@ -2227,7 +2227,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-11-01 07:45:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "提華納(女)",
      "score": 0,
