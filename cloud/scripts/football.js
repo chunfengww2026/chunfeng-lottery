@@ -491,7 +491,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "喬洛馬",
      "score": 0,
@@ -500,7 +500,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "CD奥林匹亚",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 1
     },
@@ -529,7 +529,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "科罗拉多急流",
      "score": 2,
@@ -538,7 +538,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "芝加哥火焰",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
@@ -633,7 +633,7 @@ const FOOTBALL_DATA = {
      "color": "889933"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "CSyD薩卡齊斯帕斯",
      "score": 0,
@@ -671,7 +671,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "比肯黑德联",
      "score": 1,
@@ -737,7 +737,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "体育圣何西",
      "score": 0,
