@@ -1,10 +1,15 @@
 {
-  "updated": "2026-11-01T13:56:18.872Z",
+  "updated": "2026-11-01T14:50:05.477Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
+      {
+        "title": "双色球16注610万",
+        "date": "2026-11-01",
+        "url": "https://sports.sina.com.cn/l/2026-11-01/doc-inixfzvr0895336.shtml"
+      },
       {
         "title": "125期顾小康双色球预测奖号：蓝球分析",
         "date": "2026-11-01",
@@ -39,11 +44,6 @@
         "title": "125期易得双色球预测奖号：大小比分析",
         "date": "2026-11-01",
         "url": "https://sports.sina.com.cn/l/2026-11-01/doc-inixeyiu4180130.shtml"
-      },
-      {
-        "title": "125期樊欣易双色球预测奖号：大小比分析",
-        "date": "2026-11-01",
-        "url": "https://sports.sina.com.cn/l/2026-11-01/doc-inixeyiu4179882.shtml"
       }
     ],
     "dlt": [
