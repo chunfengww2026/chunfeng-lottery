@@ -1,22 +1,22 @@
-/* 自动生成，请勿手动编辑 · 2026-11-01 10:48
+/* 自动生成，请勿手动编辑 · 2026-11-01 11:28
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-11-01 10:48",
+ "updated": "2026-11-01 11:28",
  "inSale": 34,
- "officialUpdate": "2026-11-01 10:42:17",
+ "officialUpdate": "2026-11-01 11:22:30",
  "list": [
  {
   "code": "周日001",
   "time": "2026-11-01 13:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 5.6,
-   "draw": 3.75,
-   "away": 1.44
+   "home": 5.45,
+   "draw": 3.7,
+   "away": 1.46
   }
  },
  {
@@ -24,9 +24,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 13:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 4.37,
-   "draw": 3.55,
-   "away": 1.59
+   "home": 4.25,
+   "draw": 3.5,
+   "away": 1.62
   }
  },
  {
@@ -34,9 +34,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 15:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.93,
+   "home": 2.8,
    "draw": 3.35,
-   "away": 2
+   "away": 2.07
   }
  },
  {
@@ -74,9 +74,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 19:30:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 1.65,
-   "draw": 4.05,
-   "away": 3.5
+   "home": 1.55,
+   "draw": 4.2,
+   "away": 3.9
   }
  },
  {
@@ -84,9 +84,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 21:00:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.44,
-   "draw": 3.8,
-   "away": 5.5
+   "home": 1.46,
+   "draw": 3.75,
+   "away": 5.35
   }
  },
  {
@@ -114,9 +114,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 21:30:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.51,
+   "home": 1.54,
    "draw": 4.25,
-   "away": 4.15
+   "away": 3.92
   }
  },
  {
@@ -134,9 +134,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-01 22:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.11,
-   "draw": 3.4,
-   "away": 2.7
+   "home": 1.98,
+   "draw": 3.45,
+   "away": 2.9
   }
  },
  {
