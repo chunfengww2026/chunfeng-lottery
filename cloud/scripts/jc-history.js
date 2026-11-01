@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-02 02:28",
+ "updated": "2026-11-02 03:17",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -864,7 +864,7 @@ const JC_HISTORY = {
    "home": "莱切",
    "away": "热那亚",
    "time": "2026-11-02 01:00",
-   "score": "0:1",
+   "score": "1:2",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -894,20 +894,47 @@ const JC_HISTORY = {
    "time": "2026-11-02 00:30",
    "score": "0:1",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 1.07,
+    "downWater": 0.72,
+    "openHandicap": 0.25,
+    "openUpWater": 0.85,
+    "openDownWater": 1,
+    "totalWater": 1.79,
+    "theoryUpPercent": "40.22",
+    "theoryDownPercent": "59.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 0.85,
+     "nowUpWater": 1.07,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 3,
-    "draw": 3.4,
-    "away": 2.38
+    "home": 2.75,
+    "draw": 3.6,
+    "away": 2.45
    },
    "prob": {
-    "home": 29.8,
-    "draw": 27.2,
-    "away": 43
+    "home": 34.6,
+    "draw": 26.5,
+    "away": 38.9
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 43,
+   "conf": 38.9,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
@@ -920,25 +947,52 @@ const JC_HISTORY = {
    "home": "法兰克福",
    "away": "汉堡",
    "time": "2026-11-02 00:30",
-   "score": "1:1",
-   "hc": null,
-   "asianIndex": null,
+   "score": "3:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 0.72,
+    "downWater": 1.07,
+    "openHandicap": -1,
+    "openUpWater": 1.02,
+    "openDownWater": 0.82,
+    "totalWater": 1.79,
+    "theoryUpPercent": "59.78",
+    "theoryDownPercent": "40.22",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -1,
+     "nowHandicap": -1,
+     "initUpWater": 1.02,
+     "nowUpWater": 0.72,
+     "initLine": "一球",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 1.57,
-    "draw": 4.5,
-    "away": 5
+    "home": 1.48,
+    "draw": 5,
+    "away": 6
    },
    "prob": {
-    "home": 58.9,
-    "draw": 21.5,
-    "away": 19.5
+    "home": 64.8,
+    "draw": 19.2,
+    "away": 16
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 58.9,
+   "conf": 64.8,
    "type": "three",
-   "result": "lose",
-   "hit": false,
+   "result": "win",
+   "hit": true,
    "matched": true,
    "at": "2026-10-31 03:45"
   },
@@ -1355,7 +1409,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-01 00:28"
   },
   {

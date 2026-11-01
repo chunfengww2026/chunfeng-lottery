@@ -158,13 +158,13 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.57,
      "conf": 58.9,
-     "score": "1:1",
-     "hit": false,
-     "result": "lose"
+     "score": "3:1",
+     "hit": true,
+     "result": "win"
     }
    ],
    "hit": 0,
-   "miss": 2,
+   "miss": 1,
    "pending": 0,
    "verdict": "黑"
   },
