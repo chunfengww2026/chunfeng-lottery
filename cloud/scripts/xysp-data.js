@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 08:00
+   更新时间：2026-11-01 08:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 08:00",
+ "updated": "2026-11-01 08:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5258,96 +5258,6 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-31 08:16:20",
      "postId": "7702619048466547235",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6dca8c648c543f6a8b24fbd5e6cdb4e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=OdVu9WyCgLrHetMAmkk4ukLqWJ4%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6dca8c648c543f6a8b24fbd5e6cdb4e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=OdVu9WyCgLrHetMAmkk4ukLqWJ4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6dca8c648c543f6a8b24fbd5e6cdb4e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BjowEj%2BJT5iaqP5FgMPmGsKWKxg%3D",
-     "title": "后区除了“11”全包了？这波大乐透晒票，主打一个“极端偏科”！",
-     "url": "https://toutiao.com/group/7702615589637898787/",
-     "at": "2026-10-31T01:26:02.028Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T01:26:02.028Z",
-     "whenMs": 1793404961000,
-     "seenMs": 1793409962028,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793409962028,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T01:26:02.028Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-10-31 08:02:41",
-     "postId": "7702615589637898787",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/184859bcf15f4d63b2861cf7e3047dad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SmveV3bvAjoOCmC1FHkipKI2VrQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/184859bcf15f4d63b2861cf7e3047dad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=SmveV3bvAjoOCmC1FHkipKI2VrQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6dca8c648c543f6a8b24fbd5e6cdb4e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BjowEj%2BJT5iaqP5FgMPmGsKWKxg%3D",
-     "title": "后区除了“11”全包了？这波大乐透晒票，主打一个“极端偏科”！",
-     "url": "https://toutiao.com/group/7702615589637898787/",
-     "at": "2026-10-31T01:26:02.028Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T01:26:02.028Z",
-     "whenMs": 1793404961000,
-     "seenMs": 1793409962028,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793409962028,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T01:26:02.028Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-10-31 08:02:41",
-     "postId": "7702615589637898787",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4cf43206eeea4118803b4f08bb33c5ac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=ATaapPNHqs%2BvHXhIlzTXOCYnLUQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4cf43206eeea4118803b4f08bb33c5ac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=ATaapPNHqs%2BvHXhIlzTXOCYnLUQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6dca8c648c543f6a8b24fbd5e6cdb4e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BjowEj%2BJT5iaqP5FgMPmGsKWKxg%3D",
-     "title": "后区除了“11”全包了？这波大乐透晒票，主打一个“极端偏科”！",
-     "url": "https://toutiao.com/group/7702615589637898787/",
-     "at": "2026-10-31T01:26:02.028Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T01:26:02.028Z",
-     "whenMs": 1793404961000,
-     "seenMs": 1793409962028,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793409962028,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T01:26:02.028Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-10-31 08:02:41",
-     "postId": "7702615589637898787",
      "px": 132300
     },
     {
