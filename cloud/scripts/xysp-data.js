@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 09:10
+   更新时间：2026-11-01 09:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 09:10",
+ "updated": "2026-11-01 09:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -879,34 +879,6 @@ const XYSP_DATA = {
      "nextAt": 1793452500000,
      "atMs": 1793427394375,
      "seenMs": 1793427394375,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/de9f6135-bf4a-47ab-b1a1-208e189e2b441793408551931.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/de9f6135-bf4a-47ab-b1a1-208e189e2b441793408551931.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]打了好多天，开体去了！体也早产2天😰",
-     "url": "",
-     "at": "2026-10-31T01:15:02.756Z",
-     "pubAt": "2026-10-31T01:03:00.000Z",
-     "pubMs": 1793408580000,
-     "pubSrc": "page",
-     "nextAt": 1793452500000,
-     "atMs": 1793409302756,
-     "seenMs": 1793409302756,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-10-31/bc8e8157-5043-4e40-adde-ffa845f158001793408428781.jpg",
-     "thumb": "https://img02.17chdd.com/2026-10-31/bc8e8157-5043-4e40-adde-ffa845f158001793408428781.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26290期]财富密码。",
-     "url": "",
-     "at": "2026-10-31T01:15:02.756Z",
-     "pubAt": "2026-10-31T01:00:00.000Z",
-     "pubMs": 1793408400000,
-     "pubSrc": "page",
-     "nextAt": 1793452500000,
-     "atMs": 1793409302756,
-     "seenMs": 1793409302756,
      "whenMs": null
     }
    ]
@@ -5344,68 +5316,6 @@ const XYSP_DATA = {
      "author": "谭谈彩运",
      "when": "2026-10-31 09:30:00",
      "postId": "7702445057927856655",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/67a58e65707c4a73adb09dc333186bd8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=bHE0iY0UUYF2itR7cFKxwX7rit4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/67a58e65707c4a73adb09dc333186bd8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=bHE0iY0UUYF2itR7cFKxwX7rit4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3e029f60d19a40799a6bb08e7fe6979f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5OxIwTTfp2XnFB8KVV9kpPAmdgo%3D",
-     "title": "26289期排列3/5晒票：心有分寸，自在从容",
-     "url": "http://toutiao.com/item/7702633070554022451/",
-     "at": "2026-10-31T02:26:02.051Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26289",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793409015000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793413562051,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-01T02:26:02.051Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 09:10:15",
-     "postId": "7702633070554022451",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d5a464712e8545599bdeb0623520314a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=L7f6mgXi3AwEa3WpdBMQoR1uxTg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d5a464712e8545599bdeb0623520314a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=L7f6mgXi3AwEa3WpdBMQoR1uxTg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3e029f60d19a40799a6bb08e7fe6979f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=5OxIwTTfp2XnFB8KVV9kpPAmdgo%3D",
-     "title": "26289期排列3/5晒票：心有分寸，自在从容",
-     "url": "http://toutiao.com/item/7702633070554022451/",
-     "at": "2026-10-31T02:26:02.051Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26289",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793409015000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793413562051,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-01T02:26:02.051Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 09:10:15",
-     "postId": "7702633070554022451",
      "px": 132300
     },
     {
