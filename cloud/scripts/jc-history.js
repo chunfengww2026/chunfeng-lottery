@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-02 00:58",
+ "updated": "2026-11-02 01:28",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -891,28 +891,9 @@ const JC_HISTORY = {
    "home": "莱切",
    "away": "热那亚",
    "time": "2026-11-02 01:00",
-   "score": "",
+   "score": "0:1",
    "hc": null,
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.82,
-    "openHandicap": 0,
-    "openUpWater": 0.9,
-    "openDownWater": 0.95,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "44.57",
-    "theoryDownPercent": "55.43",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "asianIndex": null,
    "odds": {
     "home": 3.3,
     "draw": 3,
@@ -926,10 +907,10 @@ const JC_HISTORY = {
    "pick": "away",
    "pickLabel": "客胜",
    "conf": 36.4,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-01 00:28"
   },
   {
@@ -1051,20 +1032,39 @@ const JC_HISTORY = {
    "time": "2026-11-01 22:30",
    "score": "1:1",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": 0,
+    "openUpWater": 0.87,
+    "openDownWater": 0.97,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.6,
-    "draw": 3.5,
-    "away": 2.63
+    "home": 2.7,
+    "draw": 3.4,
+    "away": 2.55
    },
    "prob": {
-    "home": 37.3,
-    "draw": 26.5,
-    "away": 36.2
+    "home": 35.1,
+    "draw": 27.8,
+    "away": 37.1
    },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 37.3,
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 37.1,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
