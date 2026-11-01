@@ -425,7 +425,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 09:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "蒙特雷",
      "score": 3,
@@ -491,7 +491,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "喬洛馬",
      "score": 0,
@@ -529,7 +529,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-01 09:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "科罗拉多急流",
      "score": 2,
@@ -671,7 +671,7 @@ const FOOTBALL_DATA = {
      "color": "cc4466"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "比肯黑德联",
      "score": 1,
@@ -737,7 +737,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-01 10:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "体育圣何西",
      "score": 0,
