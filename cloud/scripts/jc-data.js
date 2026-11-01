@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-01 23:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 00:00 */
 const JC_DATA = {
- "updated": "2026-11-01 23:58",
+ "updated": "2026-11-02 00:00",
  "stat": {
-  "total": 28,
+  "total": 30,
   "upcoming": 19,
   "live": 0,
-  "finished": 9,
-  "withScore": 9,
-  "droppedNotOnSale": 6,
+  "finished": 11,
+  "withScore": 11,
+  "droppedNotOnSale": 4,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 19,
-  "droppedNotOnSale": 6,
+  "droppedNotOnSale": 4,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -2253,6 +2253,216 @@ const JC_DATA = {
    }
   },
   {
+   "gid": "1416025",
+   "fid": "1416025",
+   "sid": "19878",
+   "code": "周日010",
+   "league": "荷甲",
+   "round": "第11轮",
+   "time": "2026-11-01 21:30",
+   "handicap": null,
+   "home": {
+    "name": "SBV精英",
+    "rank": 13
+   },
+   "away": {
+    "name": "特温特",
+    "rank": 4
+   },
+   "score": {
+    "home": 0,
+    "away": 9
+   },
+   "statusText": "0 - 5 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.97,
+      "line": "受一球",
+      "away": 0.82
+     },
+     "live": {
+      "home": 1.02,
+      "line": "受一球",
+      "away": 0.77
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 5.25,
+      "draw": 4.33,
+      "away": 1.53
+     },
+     "live": {
+      "home": 6,
+      "draw": 4.5,
+      "away": 1.5
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.82,
+      "over": 3,
+      "under": 0.97
+     },
+     "live": {
+      "line": 0.9,
+      "over": 3,
+      "under": 0.9
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 63.2,
+    "prob": {
+     "home": 15.8,
+     "draw": 21.1,
+     "away": 63.2
+    },
+    "clear": true,
+    "margin": 5.6,
+    "rqLine": "受一球",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "受一球",
+    "from": "live",
+    "handicap": 1,
+    "upSide": "away",
+    "upWater": 0.77,
+    "downWater": 1.02,
+    "openHandicap": 1,
+    "openUpWater": 0.82,
+    "openDownWater": 0.97,
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 1,
+     "nowHandicap": 1,
+     "initUpWater": 0.82,
+     "nowUpWater": 0.77,
+     "initLine": "受一球",
+     "nowLine": "受一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 0,
+    "away": 9
+   }
+  },
+  {
+   "gid": "1364144",
+   "fid": "1364144",
+   "sid": "19507",
+   "code": "周日011",
+   "league": "挪超",
+   "round": "第25轮",
+   "time": "2026-11-01 21:30",
+   "handicap": null,
+   "home": {
+    "name": "布兰",
+    "rank": 9
+   },
+   "away": {
+    "name": "莫尔德",
+    "rank": 3
+   },
+   "score": {
+    "home": 3,
+    "away": 2
+   },
+   "statusText": "1 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.87,
+      "line": "受平手/半球",
+      "away": 0.92
+     },
+     "live": {
+      "home": 0.97,
+      "line": "平手",
+      "away": 0.82
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.8,
+      "draw": 4,
+      "away": 2.15
+     },
+     "live": {
+      "home": 2.55,
+      "draw": 4.2,
+      "away": 2.3
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.87,
+      "over": 3.5,
+      "under": 0.92
+     },
+     "live": {
+      "line": 0.92,
+      "over": 4,
+      "under": 0.87
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 40.8,
+    "prob": {
+     "home": 36.8,
+     "draw": 22.4,
+     "away": 40.8
+    },
+    "clear": false,
+    "margin": 6.5,
+    "rqLine": "平手",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 0.97,
+    "downWater": 0.82,
+    "openHandicap": 0.25,
+    "openUpWater": 0.92,
+    "openDownWater": 0.87,
+    "totalWater": 1.79,
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 3,
+    "away": 2
+   }
+  },
+  {
    "gid": "1420545",
    "fid": "1420545",
    "sid": "19906",
@@ -2336,7 +2546,7 @@ const JC_DATA = {
       "初盘→即时：主胜+1.9pp / 平局+0.4pp / 客胜-2.3pp",
       "亚盘主队方向变深，水位上升",
       "主要方向凯利中位参考 0.940",
-      "多机构分歧 4.3%"
+      "多机构分歧 3.7%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2468,7 +2678,7 @@ const JC_DATA = {
       "初盘→即时：主胜+5.8pp / 平局-2.6pp / 客胜-3.2pp",
       "亚盘主队方向变深，水位上升",
       "主要方向凯利中位参考 0.930",
-      "多机构分歧 2.4%"
+      "多机构分歧 2.5%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2607,8 +2817,8 @@ const JC_DATA = {
       "主流初盘 3/3 家偏向主胜",
       "初盘→即时：主胜-6.7pp / 平局+1.6pp / 客胜+5.1pp",
       "亚盘客队方向变深，水位上升",
-      "主要方向凯利中位参考 0.960",
-      "多机构分歧 4.3%"
+      "主要方向凯利中位参考 0.950",
+      "多机构分歧 4.2%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2739,8 +2949,8 @@ const JC_DATA = {
       "主流初盘 3/3 家偏向主胜",
       "初盘→即时：主胜+1.3pp / 平局-0.7pp / 客胜-0.6pp",
       "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.950",
-      "多机构分歧 2.6%"
+      "主要方向凯利中位参考 0.960",
+      "多机构分歧 2.7%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -3640,7 +3850,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-01 23:58",
+  "updated": "2026-11-02 00:00",
   "officialUpdate": "2026-11-01 22:52:55",
   "inSale": 19,
   "list": [
