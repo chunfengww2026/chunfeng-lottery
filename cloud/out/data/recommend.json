@@ -1,10 +1,30 @@
 {
- "updated": "2026-11-01 23:23",
+ "updated": "2026-11-01 23:56",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
+ "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-11-01 23:30",
+   "finishTime": 1793547000000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周日015",
+     "teams": "格罗宁根 vs 鹿斯巴达",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58,
+     "status": "pending",
+     "finishTime": 1793547000000,
+     "league": "荷甲",
+     "odds": 1.7,
+     "time": "2026-11-01 23:45"
+    }
+   ]
+  },
   {
    "dateStr": "2026-11-01 22:00",
    "finishTime": 1793541600000,
