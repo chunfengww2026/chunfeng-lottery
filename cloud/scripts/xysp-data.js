@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 08:20
+   更新时间：2026-11-01 08:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 08:20",
+ "updated": "2026-11-01 08:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5122,96 +5122,6 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-10-31 08:35:35",
      "postId": "7702624008600060477",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f6f81a3cc0d445b4b97308e5c7bdc464~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=6KDQ6JBBt3cpZVbK8Pmj%2B07w0Fk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f6f81a3cc0d445b4b97308e5c7bdc464~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=6KDQ6JBBt3cpZVbK8Pmj%2B07w0Fk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f6f81a3cc0d445b4b97308e5c7bdc464~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=1WBkASA32IYxnik6QsTmNxUN6gM%3D",
-     "title": "大乐透26124期晒票合集，大额复式与小额小票同台比拼冲击头奖",
-     "url": "http://toutiao.com/item/7702620526560313890/",
-     "at": "2026-10-31T00:26:01.988Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793406095000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793406361988,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T00:26:01.988Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 08:21:35",
-     "postId": "7702620526560313890",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/38410d55b4814574986ee6a28967e06e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=P%2B388fTQ112rJZYq%2Bpn3TezG%2FKM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/38410d55b4814574986ee6a28967e06e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=P%2B388fTQ112rJZYq%2Bpn3TezG%2FKM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f6f81a3cc0d445b4b97308e5c7bdc464~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=1WBkASA32IYxnik6QsTmNxUN6gM%3D",
-     "title": "大乐透26124期晒票合集，大额复式与小额小票同台比拼冲击头奖",
-     "url": "http://toutiao.com/item/7702620526560313890/",
-     "at": "2026-10-31T00:26:01.988Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793406095000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793406361988,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T00:26:01.988Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 08:21:35",
-     "postId": "7702620526560313890",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0ea9dc1db4d24c5699ca017b35cd82cc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=cUHH9ddb8LDJfGPR9VCl%2B7utkvQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0ea9dc1db4d24c5699ca017b35cd82cc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=cUHH9ddb8LDJfGPR9VCl%2B7utkvQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f6f81a3cc0d445b4b97308e5c7bdc464~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=1WBkASA32IYxnik6QsTmNxUN6gM%3D",
-     "title": "大乐透26124期晒票合集，大额复式与小额小票同台比拼冲击头奖",
-     "url": "http://toutiao.com/item/7702620526560313890/",
-     "at": "2026-10-31T00:26:01.988Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26124",
-     "seen": "2026-10-31T02:26:02.051Z",
-     "whenMs": 1793406095000,
-     "seenMs": 1793413562051,
-     "drawMs": 1793449800000,
-     "nextMs": 1793449800000,
-     "atMs": 1793406361988,
-     "drawAt": "2026-10-31T12:30:00.000Z",
-     "nextAt": 1793449800000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-01T00:26:01.988Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-10-31 08:21:35",
-     "postId": "7702620526560313890",
      "px": 132300
     },
     {
