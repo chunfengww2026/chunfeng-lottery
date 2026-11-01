@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-11-01 22:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "巴蒂卡",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "990099"
     },
     "time": "2026-11-01 22:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "柏林联",
      "score": 1,
@@ -15283,7 +15283,7 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-11-01 21:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "加拉迪",
      "score": 0,
@@ -15659,7 +15659,7 @@ const FOOTBALL_DATA = {
      "color": "1BA578"
     },
     "time": "2026-11-01 21:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "年青人",
      "score": 3,
@@ -15668,7 +15668,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "苏黎世",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 5
     },
@@ -16007,7 +16007,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-01 21:00:00",
-    "minute": 93,
+    "minute": 98,
     "home": {
      "name": "艾尔德斯",
      "score": 0,
@@ -16073,7 +16073,7 @@ const FOOTBALL_DATA = {
      "color": "006633"
     },
     "time": "2026-11-01 21:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "赫塔菲",
      "score": 2,
@@ -16135,7 +16135,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "卡帕兹PFK",
      "score": 0,
@@ -16201,7 +16201,7 @@ const FOOTBALL_DATA = {
      "color": "6699FF"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "希塔德拉",
      "score": 0,
@@ -16267,7 +16267,7 @@ const FOOTBALL_DATA = {
      "color": "666699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "兰黑姆",
      "score": 2,
@@ -16333,7 +16333,7 @@ const FOOTBALL_DATA = {
      "color": "FF7777"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "埃蒙",
      "score": 0,
@@ -16342,7 +16342,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "邓伯什",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 13
     },
@@ -16399,7 +16399,7 @@ const FOOTBALL_DATA = {
      "color": "2F3FD2"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "沃尔夫斯贝格",
      "score": 1,
@@ -16465,7 +16465,7 @@ const FOOTBALL_DATA = {
      "color": "2F3FD2"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "萨尔茨堡",
      "score": 3,
@@ -16511,7 +16511,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "特尔斯达",
      "score": 4,
@@ -16577,7 +16577,7 @@ const FOOTBALL_DATA = {
      "color": "FF6699"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "SBV精英队",
      "score": 0,
@@ -16586,7 +16586,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "特温特",
-     "score": 6,
+     "score": 7,
      "red": 0,
      "rank": 4
     },
@@ -16623,7 +16623,7 @@ const FOOTBALL_DATA = {
      "color": "666666"
     },
     "time": "2026-11-01 21:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "布兰",
      "score": 1,
@@ -16845,10 +16845,10 @@ const FOOTBALL_DATA = {
      "color": "558888"
     },
     "time": "2026-11-01 22:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "唐迪拉",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 9
     },
@@ -17039,7 +17039,7 @@ const FOOTBALL_DATA = {
      "color": "aa0000"
     },
     "time": "2026-11-01 22:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "谢菲尔德星期三",
      "score": 1,
