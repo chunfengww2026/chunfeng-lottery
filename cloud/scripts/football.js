@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-01 08:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "拉普拉塔大学生",
      "score": 0,
@@ -1363,10 +1363,10 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "伊斯特恩沙伯奧克蘭(女)",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 0
     },
@@ -1475,7 +1475,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "帕丘卡",
      "score": 3,
@@ -1541,10 +1541,10 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 07:15:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "伊斯柏納",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 2
     },
@@ -1607,7 +1607,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-01 07:30:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "加拉加斯",
      "score": 2,
@@ -1673,7 +1673,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-11-01 07:45:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "提華納(女)",
      "score": 0,
@@ -1829,7 +1829,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 08:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "奧沙卡龍",
      "score": 2,
