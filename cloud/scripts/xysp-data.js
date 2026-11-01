@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-01 09:26
+   更新时间：2026-11-01 09:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-01 09:26",
+ "updated": "2026-11-01 09:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2451,7 +2451,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793492072000,
-     "seenMs": 1793495162145,
+     "seenMs": 1793496362156,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793492762104,
@@ -2481,7 +2481,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793492072000,
-     "seenMs": 1793495162145,
+     "seenMs": 1793496362156,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793492762104,
@@ -2781,7 +2781,7 @@ const XYSP_DATA = {
      "issue": "26290",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793487657000,
-     "seenMs": 1793495762131,
+     "seenMs": 1793496362156,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793487962057,
@@ -3141,7 +3141,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793473637000,
-     "seenMs": 1793495762131,
+     "seenMs": 1793496362156,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793474761841,
@@ -3741,7 +3741,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793437818000,
-     "seenMs": 1793495162145,
+     "seenMs": 1793496362156,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793438761364,
@@ -3894,7 +3894,7 @@ const XYSP_DATA = {
      "issue": "2026230",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793436520000,
-     "seenMs": 1793495162145,
+     "seenMs": 1793496362156,
      "drawMs": 1793453400000,
      "nextMs": 1793453400000,
      "atMs": 1793437561369,
@@ -4254,7 +4254,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-01T01:26:02.156Z",
      "whenMs": 1793431374000,
-     "seenMs": 1793495762131,
+     "seenMs": 1793496362156,
      "drawMs": 1793538900000,
      "nextMs": 1793538900000,
      "atMs": 1793431561305,
@@ -5256,66 +5256,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-10-31 09:43:27",
      "postId": "7702641624701993487",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0024a75a57424e0487511409cec30030~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=imDz82i9n8Cs2Vvf8wing2qNXjg%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0024a75a57424e0487511409cec30030~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=imDz82i9n8Cs2Vvf8wing2qNXjg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0024a75a57424e0487511409cec30030~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BaMctVd7WIpsthG6oH%2FDJTlHF%2FU%3D",
-     "title": "小投注迎来大惊喜！河源彩民10元单式票拿下双色球665万头奖！",
-     "url": "https://toutiao.com/group/7702445057927856655/",
-     "at": "2026-10-31T01:36:02.049Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T02:16:02.050Z",
-     "whenMs": 1793410200000,
-     "seenMs": 1793412962050,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793410562049,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-01T01:36:02.049Z",
-     "rule": "first-capture-24h",
-     "author": "谭谈彩运",
-     "when": "2026-10-31 09:30:00",
-     "postId": "7702445057927856655",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9544e01507fb451fa3db51bbe0573f65~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=ypnhb4REUTydymki6fQpMpzJT%2Bg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/9544e01507fb451fa3db51bbe0573f65~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=ypnhb4REUTydymki6fQpMpzJT%2Bg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0024a75a57424e0487511409cec30030~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802131200&x-signature=%2BaMctVd7WIpsthG6oH%2FDJTlHF%2FU%3D",
-     "title": "小投注迎来大惊喜！河源彩民10元单式票拿下双色球665万头奖！",
-     "url": "https://toutiao.com/group/7702445057927856655/",
-     "at": "2026-10-31T01:36:02.049Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-10-31T02:16:02.050Z",
-     "whenMs": 1793410200000,
-     "seenMs": 1793412962050,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793410562049,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-01T01:36:02.049Z",
-     "rule": "first-capture-24h",
-     "author": "谭谈彩运",
-     "when": "2026-10-31 09:30:00",
-     "postId": "7702445057927856655",
      "px": 132300
     },
     {
