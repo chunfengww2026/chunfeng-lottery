@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-01 08:30:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "拉普拉塔大学生",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 23
     },
     "away": {
      "name": "恩斯蒂图",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 1
     },
@@ -1325,7 +1325,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-01 06:30:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "诺蒂卡",
      "score": 1,
@@ -1363,7 +1363,7 @@ const FOOTBALL_DATA = {
      "color": "00a601"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "伊斯特恩沙伯奧克蘭(女)",
      "score": 2,
@@ -1409,7 +1409,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "拉尼罗斯",
      "score": 2,
@@ -1418,7 +1418,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴兰基利亚青年",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 16
     },
@@ -1475,7 +1475,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-01 07:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "帕丘卡",
      "score": 2,
@@ -1541,7 +1541,7 @@ const FOOTBALL_DATA = {
      "color": "442f14"
     },
     "time": "2026-11-01 07:15:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "伊斯柏納",
      "score": 1,
@@ -1673,7 +1673,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-11-01 07:45:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "提華納(女)",
      "score": 0,
@@ -1751,7 +1751,7 @@ const FOOTBALL_DATA = {
      "color": "660012"
     },
     "time": "2026-11-01 08:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "哥連泰斯SP(女)",
      "score": 1,
@@ -1829,7 +1829,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-01 08:00:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "奧沙卡龍",
      "score": 2,
