@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 08:00 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 08:57 */
 const JC_DATA = {
- "updated": "2026-11-02 08:00",
+ "updated": "2026-11-02 08:57",
  "stat": {
   "total": 25,
-  "upcoming": 1,
-  "live": 0,
+  "upcoming": 0,
+  "live": 1,
   "finished": 24,
-  "withScore": 24,
+  "withScore": 25,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2620,7 +2620,10 @@ const JC_DATA = {
     "name": "迈阿密国际",
     "rank": 4
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -2630,9 +2633,9 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.85,
+      "home": 0.87,
       "line": "受平手/半球",
-      "away": 0.95
+      "away": 0.92
      }
     },
     "europe": {
@@ -2654,9 +2657,9 @@ const JC_DATA = {
       "under": 0.97
      },
      "live": {
-      "line": 0.82,
+      "line": 0.85,
       "over": 3.5,
-      "under": 0.97
+      "under": 0.95
      }
     }
    },
@@ -2679,21 +2682,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.85,
+    "upWater": 0.92,
+    "downWater": 0.87,
     "openHandicap": 0.25,
     "openUpWater": 0.97,
     "openDownWater": 0.82,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "47.22",
-    "theoryDownPercent": "52.78",
+    "totalWater": 1.79,
+    "theoryUpPercent": "48.60",
+    "theoryDownPercent": "51.40",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 0.97,
-     "nowUpWater": 0.95,
+     "nowUpWater": 0.92,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
@@ -2702,9 +2705,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
