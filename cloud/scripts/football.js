@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 11:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 12:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-11-02 11:58",
+ "updated": "2026-11-02 12:00",
  "stat": {
   "upcoming": 0,
   "live": 2,
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-11-02 10:00:00",
-    "minute": 87,
+    "minute": 89,
     "home": {
      "name": "萨克拉门托共和",
      "score": 1,
@@ -81,8 +81,8 @@ const FOOTBALL_DATA = {
      "asian": {
       "open": {
        "home": -0.25,
-       "line": "0.92",
-       "away": 0.96
+       "line": "0.94",
+       "away": 0.94
       },
       "live": null
      },
@@ -96,8 +96,8 @@ const FOOTBALL_DATA = {
      },
      "europe": {
       "open": {
-       "home": 1.25,
-       "draw": 12,
+       "home": 1.26,
+       "draw": 11.5,
        "away": 5
       },
       "live": null
@@ -106,14 +106,14 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "home",
      "label": "主胜",
-     "confidence": 73.8,
+     "confidence": 73.4,
      "prob": {
-      "home": 73.8,
-      "draw": 7.7,
+      "home": 73.4,
+      "draw": 8,
       "away": 18.5
      },
      "clear": true,
-     "margin": 8.3
+     "margin": 8.1
     },
     "result": {
      "actual": "home",
