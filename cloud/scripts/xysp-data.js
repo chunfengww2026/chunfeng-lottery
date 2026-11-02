@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 00:36
+   更新时间：2026-11-03 00:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 00:36",
+ "updated": "2026-11-03 00:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -71,104 +71,6 @@ const XYSP_DATA = {
      "nextAt": 1793711700000,
      "atMs": 1793605599509,
      "seenMs": 1793605599509,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/d86a801d-ea3d-4070-8ea1-26dffb2148971793534413077.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/d86a801d-ea3d-4070-8ea1-26dffb2148971793534413077.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]五七八没办法",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T12:00:00.000Z",
-     "pubMs": 1793534400000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/aacad9eb-94c1-4bb0-a7b4-3c145ed6e45a1793533311028.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/aacad9eb-94c1-4bb0-a7b4-3c145ed6e45a1793533311028.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]看看有没有惊喜",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T11:42:00.000Z",
-     "pubMs": 1793533320000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/7def0e39-cab0-4f4d-bc79-393e4478c7c01793532227295.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/7def0e39-cab0-4f4d-bc79-393e4478c7c01793532227295.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]杀号专家",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T11:23:00.000Z",
-     "pubMs": 1793532180000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/e0dd922e-59d9-41aa-be0f-d119ef1d9bc31793520719091.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/e0dd922e-59d9-41aa-be0f-d119ef1d9bc31793520719091.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]又来杀号了！",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T08:13:00.000Z",
-     "pubMs": 1793520780000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/e63fb9d4-08f6-4ae7-8f76-9c74614237d81793514157017.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/e63fb9d4-08f6-4ae7-8f76-9c74614237d81793514157017.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]今晚能上岸吗",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T06:22:00.000Z",
-     "pubMs": 1793514120000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/6b4c5846-4d3d-476d-ba68-f344c6bfd1131793513191849.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/6b4c5846-4d3d-476d-ba68-f344c6bfd1131793513191849.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]05",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T06:06:00.000Z",
-     "pubMs": 1793513160000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/b3034552-963f-4c44-b9e7-b25addffa03c1793511690174.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/b3034552-963f-4c44-b9e7-b25addffa03c1793511690174.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]强烈推荐擦边球",
-     "url": "",
-     "at": "2026-11-01T16:36:22.954Z",
-     "pubAt": "2026-11-01T05:42:00.000Z",
-     "pubMs": 1793511720000,
-     "pubSrc": "page",
-     "nextAt": 1793538900000,
-     "atMs": 1793550982954,
-     "seenMs": 1793550982954,
      "whenMs": null
     }
    ]
@@ -2209,7 +2111,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T16:36:01.455Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793636761445,
+     "seenMs": 1793637361455,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -4313,7 +4215,7 @@ const XYSP_DATA = {
      "issue": "26292",
      "seen": "2026-11-02T16:36:01.455Z",
      "whenMs": 1793585035000,
-     "seenMs": 1793636761445,
+     "seenMs": 1793637361455,
      "drawMs": 1793625300000,
      "nextMs": 1793625300000,
      "atMs": 1793588312169,
@@ -4345,7 +4247,7 @@ const XYSP_DATA = {
      "issue": "26292",
      "seen": "2026-11-02T16:36:01.455Z",
      "whenMs": 1793585035000,
-     "seenMs": 1793636761445,
+     "seenMs": 1793637361455,
      "drawMs": 1793625300000,
      "nextMs": 1793625300000,
      "atMs": 1793588312169,
@@ -4587,7 +4489,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T16:36:01.455Z",
      "whenMs": 1793573151000,
-     "seenMs": 1793636161411,
+     "seenMs": 1793637361455,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793588312169,
