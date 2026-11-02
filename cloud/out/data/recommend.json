@@ -1,10 +1,43 @@
 {
- "updated": "2026-11-02 15:57",
+ "updated": "2026-11-02 16:27",
  "red": 0,
  "black": 1,
  "rate": "0.0%",
- "unfinished": 1,
+ "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-11-02 16:05",
+   "finishTime": 1793606700000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二009",
+     "teams": "巴萨 vs 维拉",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 72.6,
+     "status": "pending",
+     "finishTime": 1793606700000,
+     "league": "欧冠",
+     "odds": 1.25,
+     "time": "2026-11-04 04:00"
+    },
+    {
+     "matchNo": "周二006",
+     "teams": "LASK林茨 vs 布拉迪斯",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.7,
+     "status": "pending",
+     "finishTime": 1793606700000,
+     "league": "欧冠",
+     "odds": 1.44,
+     "time": "2026-11-04 04:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-11-01 23:30",
    "finishTime": 1793547000000,
