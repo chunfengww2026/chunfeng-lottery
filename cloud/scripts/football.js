@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "奎亞斯GO",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "迪康塞普森",
      "score": 0,
@@ -680,7 +680,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 06:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "防卫者",
      "score": 1,
@@ -746,7 +746,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 06:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "普拉腾斯",
      "score": 2,
@@ -812,7 +812,7 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 06:05:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "默里斯联",
      "score": 1,
@@ -850,7 +850,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-03 07:00:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "紅牛伯拉根森SP",
      "score": 1,
@@ -859,7 +859,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "桑托斯",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
@@ -928,7 +928,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-03 07:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "阿尔比恩",
      "score": 0,
@@ -1006,7 +1006,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-03 07:10:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "馬大雷拿",
      "score": 0,
