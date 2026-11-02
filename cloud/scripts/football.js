@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 06:05:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "默里斯联",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
     "away": {
      "name": "芒特普莱森特学院",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -1038,7 +1038,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-03 04:15:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "本菲卡",
      "score": 1,
@@ -1104,7 +1104,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "奥伦塞",
      "score": 0,
@@ -1170,7 +1170,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "水晶竞技队",
      "score": 4,
@@ -1236,7 +1236,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "竞技俱乐部MG",
      "score": 1,
@@ -1302,7 +1302,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "利马切",
      "score": 1,
@@ -1368,7 +1368,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 05:05:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "里奥内格罗金鹰",
      "score": 0,
@@ -1434,7 +1434,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-03 05:15:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "皇家托马亚波",
      "score": 0,
