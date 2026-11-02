@@ -972,7 +972,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-03 04:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "基维森特",
      "score": 0,
@@ -1038,7 +1038,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-03 04:15:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "本菲卡",
      "score": 1,
@@ -1104,7 +1104,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "奥伦塞",
      "score": 0,
@@ -1170,10 +1170,10 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "水晶竞技队",
-     "score": 2,
+     "score": 4,
      "red": 0,
      "rank": 2
     },
@@ -1434,7 +1434,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-03 05:15:00",
-    "minute": 42,
+    "minute": 46,
     "home": {
      "name": "皇家托马亚波",
      "score": 0,
