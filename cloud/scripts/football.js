@@ -68,7 +68,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-11-02 10:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "萨克拉门托共和",
      "score": 0,
