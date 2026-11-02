@@ -11172,7 +11172,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "波斯塔流浪",
      "score": 1,
@@ -11238,7 +11238,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "戈梅利II隊",
      "score": 1,
@@ -11247,7 +11247,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "明斯克II隊",
-     "score": 2,
+     "score": 4,
      "red": 0,
      "rank": 13
     },
@@ -11304,7 +11304,7 @@ const FOOTBALL_DATA = {
      "color": "44a666"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "特拉布宗女足",
      "score": 0,
@@ -11370,7 +11370,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-02 19:55:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "阿沙希尔",
      "score": 1,
@@ -11448,7 +11448,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-02 19:55:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "阿尔特吉",
      "score": 0,
