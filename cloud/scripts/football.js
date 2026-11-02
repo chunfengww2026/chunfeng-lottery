@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "查英特賀納比爾U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "獅子港U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -12563,7 +12563,7 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 16:00:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "圖瓦阿扎爾加努德",
      "score": 1,
