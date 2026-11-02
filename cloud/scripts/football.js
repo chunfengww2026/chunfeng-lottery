@@ -11030,10 +11030,10 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 13:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "猎人FC",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
