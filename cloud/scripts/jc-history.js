@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-03 02:58",
+ "updated": "2026-11-03 03:28",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -4001,61 +4001,6 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-10-31 06:00"
-  },
-  {
-   "code": "周五006",
-   "league": "荷乙",
-   "home": "福伦丹",
-   "away": "格拉夫",
-   "time": "2026-10-31 03:00",
-   "score": "1:2",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.82,
-    "openHandicap": -0.5,
-    "openUpWater": 1,
-    "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "45.81",
-    "theoryDownPercent": "54.19",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.5,
-     "nowHandicap": -0.5,
-     "initUpWater": 1,
-     "nowUpWater": 0.97,
-     "initLine": "半球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.95,
-    "draw": 4,
-    "away": 3.25
-   },
-   "prob": {
-    "home": 47.9,
-    "draw": 23.4,
-    "away": 28.7
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 47.9,
-   "type": "unbeaten",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-30 00:28"
   }
  ]
 };
