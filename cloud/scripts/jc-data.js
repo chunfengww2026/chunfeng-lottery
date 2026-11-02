@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 19:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 20:00 */
 const JC_DATA = {
- "updated": "2026-11-02 19:28",
+ "updated": "2026-11-02 20:00",
  "stat": {
   "total": 17,
   "upcoming": 17,
@@ -2405,8 +2405,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-02 19:28",
-  "officialUpdate": "2026-11-02 19:25:33",
+  "updated": "2026-11-02 20:00",
+  "officialUpdate": "2026-11-02 19:56:08",
   "inSale": 17,
   "list": [
    {
@@ -2603,17 +2603,17 @@ const JC_DATA = {
     "home": "拉科",
     "away": "奥萨苏纳",
     "had": {
-     "h": 2.18,
+     "h": 2.16,
      "d": 2.56,
-     "a": 3.45,
-     "update": "2026-11-02 18:01:25"
+     "a": 3.5,
+     "update": "2026-11-02 19:56:00"
     },
     "hhad": {
      "line": "-1",
      "h": 4.9,
-     "d": 3.85,
-     "a": 1.48,
-     "update": "2026-11-02 15:00:27"
+     "d": 3.8,
+     "a": 1.49,
+     "update": "2026-11-02 19:56:08"
     },
     "single": {
      "HAD": {
