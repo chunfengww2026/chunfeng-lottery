@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:35:00",
-    "minute": 5,
+    "minute": 10,
     "home": {
      "name": "伊蒂法克(U21)",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:40:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "阿爾菲斯U21",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-02 22:40:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "阿尔吉尔",
      "score": 0,
@@ -9955,7 +9955,7 @@ const FOOTBALL_DATA = {
      "color": "880013"
     },
     "time": "2026-11-02 20:55:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "般尼亞斯U23",
      "score": 0,
@@ -10021,7 +10021,7 @@ const FOOTBALL_DATA = {
      "color": "880013"
     },
     "time": "2026-11-02 20:55:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "哈塔U23",
      "score": 2,
@@ -10087,7 +10087,7 @@ const FOOTBALL_DATA = {
      "color": "880013"
     },
     "time": "2026-11-02 20:55:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "納薩杜拜U23",
      "score": 3,
@@ -10153,7 +10153,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-11-02 21:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "瓦尔达尔",
      "score": 0,
@@ -10219,7 +10219,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-11-02 21:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "巴什基米庫馬諾沃",
      "score": 2,
@@ -10228,7 +10228,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿爾西米",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 8
     },
@@ -10257,7 +10257,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-02 21:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "特内里费",
      "score": 2,
@@ -10266,7 +10266,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "FC安道爾",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 20
     },
@@ -10323,7 +10323,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 21:15:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "沙巴納足球俱樂部",
      "score": 0,
@@ -10463,7 +10463,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-02 22:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "蒙特維多國民隊(後備)",
      "score": 1,
