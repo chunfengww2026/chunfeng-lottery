@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "098000"
     },
     "time": "2026-11-02 09:10:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "蓝十字",
      "score": 2,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-02 09:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "洛杉矶FC",
      "score": 0,
@@ -286,7 +286,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-02 10:45:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "波特兰木材",
      "score": 0,
