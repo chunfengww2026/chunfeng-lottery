@@ -1,10 +1,15 @@
 {
-  "updated": "2026-11-02T05:15:01.461Z",
+  "updated": "2026-11-02T06:19:50.063Z",
   "note": "智讯资讯（标题+日期+链接+彩种）· 页面只读标题与日期",
   "source": "cloud",
   "count": 32,
   "games": {
     "ssq": [
+      {
+        "title": "双色球1形态创近10年之最 今年欲破历史纪录？",
+        "date": "2026-11-02",
+        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixipwx0425114.shtml"
+      },
       {
         "title": "双色球近10期周二奖号分布：红球4尾连出5周",
         "date": "2026-11-02",
@@ -31,19 +36,14 @@
         "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixicih3018961.shtml"
       },
       {
-        "title": "126期胡亚楠双色球预测奖号：单挑一注",
-        "date": "2026-11-02",
-        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixicic0519795.shtml"
-      },
-      {
         "title": "126期江红雨双色球预测奖号：连续2期中蓝",
         "date": "2026-11-02",
         "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixicih3018965.shtml"
       },
       {
-        "title": "126期黄运双色球预测奖号：蓝球推荐",
+        "title": "126期胡亚楠双色球预测奖号：单挑一注",
         "date": "2026-11-02",
-        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixichz2360715.shtml"
+        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixicic0519795.shtml"
       }
     ],
     "dlt": [
@@ -95,14 +95,14 @@
         "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixiiqx2277603.shtml"
       },
       {
-        "title": "292期袁大爷福彩3D预测奖号：定位通杀6",
-        "date": "2026-11-02",
-        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixiire2935857.shtml"
-      },
-      {
         "title": "292期老刀福彩3D预测奖号：和值关注15",
         "date": "2026-11-02",
         "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixiire2935862.shtml"
+      },
+      {
+        "title": "292期袁大爷福彩3D预测奖号：定位通杀6",
+        "date": "2026-11-02",
+        "url": "https://sports.sina.com.cn/l/2026-11-02/doc-inixiire2935857.shtml"
       },
       {
         "title": "292期老郑福彩3D预测奖号：大小分析",
