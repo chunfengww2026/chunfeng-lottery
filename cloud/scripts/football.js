@@ -1526,7 +1526,7 @@ const FOOTBALL_DATA = {
      "color": "ff1111"
     },
     "time": "2026-11-03 04:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "纽卡斯尔联",
      "score": 0,
@@ -1592,7 +1592,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-03 04:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "马洛卡",
      "score": 2,
@@ -1724,7 +1724,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-03 04:15:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "基维森特",
      "score": 0,
@@ -1790,7 +1790,7 @@ const FOOTBALL_DATA = {
      "color": "006665"
     },
     "time": "2026-11-03 04:15:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "本菲卡",
      "score": 1,
@@ -1828,7 +1828,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "奥伦塞",
      "score": 0,
@@ -1894,7 +1894,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-03 04:30:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "水晶竞技队",
      "score": 1,
@@ -1960,7 +1960,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "竞技俱乐部MG",
      "score": 1,
@@ -2038,7 +2038,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "利马切",
      "score": 1,
@@ -2116,7 +2116,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 05:05:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "里奥内格罗金鹰",
      "score": 0,
@@ -2194,10 +2194,10 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-03 05:15:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "皇家托马亚波",
-     "score": 1,
+     "score": 0,
      "red": 0,
      "rank": 16
     },
