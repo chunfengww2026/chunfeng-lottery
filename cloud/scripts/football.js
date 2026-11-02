@@ -64,10 +64,10 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-02 10:45:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "波特兰木材",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 11
     },
