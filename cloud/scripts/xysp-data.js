@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 22:36
+   更新时间：2026-11-02 22:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 22:36",
+ "updated": "2026-11-02 22:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1772,34 +1772,6 @@ const XYSP_DATA = {
      "atMs": 1793545503973,
      "seenMs": 1793545503973,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/2d1a15b1-3a2b-400d-8672-c91fd68265fc1793542847827.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/2d1a15b1-3a2b-400d-8672-c91fd68265fc1793542847827.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]真爱粉们，我爱大家！勿跟！欣赏！",
-     "url": "",
-     "at": "2026-11-01T14:40:02.563Z",
-     "pubAt": "2026-11-01T14:21:00.000Z",
-     "pubMs": 1793542860000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793544002563,
-     "seenMs": 1793544002563,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/3fee8902-ac04-4bc5-8ab6-a160257aebad1793542562253.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/3fee8902-ac04-4bc5-8ab6-a160257aebad1793542562253.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]兜底复试组六😁",
-     "url": "",
-     "at": "2026-11-01T14:40:02.563Z",
-     "pubAt": "2026-11-01T14:16:00.000Z",
-     "pubMs": 1793542560000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793544002563,
-     "seenMs": 1793544002563,
-     "whenMs": null
     }
    ]
   },
@@ -2481,7 +2453,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-02T14:36:01.359Z",
      "whenMs": 1793616534000,
-     "seenMs": 1793628961317,
+     "seenMs": 1793630161359,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793616962150,
@@ -2541,7 +2513,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-02T14:36:01.359Z",
      "whenMs": 1793616534000,
-     "seenMs": 1793628961317,
+     "seenMs": 1793630161359,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793616962150,
@@ -4079,7 +4051,7 @@ const XYSP_DATA = {
      "issue": "26292",
      "seen": "2026-11-02T14:36:01.359Z",
      "whenMs": 1793585035000,
-     "seenMs": 1793629561316,
+     "seenMs": 1793630161359,
      "drawMs": 1793625300000,
      "nextMs": 1793625300000,
      "atMs": 1793588312169,
@@ -4319,7 +4291,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:36:01.359Z",
      "whenMs": 1793573151000,
-     "seenMs": 1793628961317,
+     "seenMs": 1793630161359,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793588312169,
@@ -4331,66 +4303,6 @@ const XYSP_DATA = {
      "author": "专注双色球和大乐透",
      "when": "2026-11-02 06:45:51",
      "postId": "7701861754455720482",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cab0f7b5ee1c48a19e346bd79071a88a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=KPsqZI6SMypqzrJDAnjWdysn8gE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cab0f7b5ee1c48a19e346bd79071a88a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=KPsqZI6SMypqzrJDAnjWdysn8gE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cab0f7b5ee1c48a19e346bd79071a88a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=MV8NZ2hSwbXZ9S9BvNT8fU%2B7plg%3D",
-     "title": "万元票扎堆亮相！2026125期双色球晒票合集，彩民冲击头奖",
-     "url": "http://toutiao.com/item/7703212706337948169/",
-     "at": "2026-11-01T15:06:01.982Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "2026125",
-     "seen": "2026-11-02T14:26:01.316Z",
-     "whenMs": 1793543972000,
-     "seenMs": 1793629561316,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793545561982,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T15:06:01.982Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 22:39:32",
-     "postId": "7703212706337948169",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/14b82dcfa35b4f59a2c41d3059c62f0c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=kNSwP2xLv90fMZ%2FhGZFniNEdApA%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/14b82dcfa35b4f59a2c41d3059c62f0c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=kNSwP2xLv90fMZ%2FhGZFniNEdApA%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cab0f7b5ee1c48a19e346bd79071a88a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=MV8NZ2hSwbXZ9S9BvNT8fU%2B7plg%3D",
-     "title": "万元票扎堆亮相！2026125期双色球晒票合集，彩民冲击头奖",
-     "url": "http://toutiao.com/item/7703212706337948169/",
-     "at": "2026-11-01T15:06:01.982Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "2026125",
-     "seen": "2026-11-02T14:26:01.316Z",
-     "whenMs": 1793543972000,
-     "seenMs": 1793629561316,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793545561982,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T15:06:01.982Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 22:39:32",
-     "postId": "7703212706337948169",
      "px": 132300
     }
    ]
