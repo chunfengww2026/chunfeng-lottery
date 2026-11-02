@@ -899,7 +899,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "竞技俱乐部MG",
      "score": 2,
@@ -937,7 +937,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "利马切",
      "score": 1,
@@ -1003,7 +1003,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 05:05:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "里奥内格罗金鹰",
      "score": 0,
@@ -1069,7 +1069,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-03 05:15:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "皇家托马亚波",
      "score": 0,
@@ -1078,7 +1078,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "布鲁明",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 10
     },
@@ -1135,7 +1135,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 06:00:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "普拉腾斯",
      "score": 0,
@@ -1213,7 +1213,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 06:00:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "防卫者",
      "score": 0,
@@ -1291,7 +1291,7 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 06:05:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "默里斯联",
      "score": 0,
