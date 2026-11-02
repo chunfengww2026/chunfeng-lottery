@@ -12417,7 +12417,7 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 16:00:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "圖瓦阿扎爾加努德",
      "score": 2,
@@ -12426,7 +12426,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "德仁",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 3
     },
@@ -12455,7 +12455,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 16:30:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "查英特賀納比爾U21",
      "score": 0,
@@ -12521,7 +12521,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "曼谷聯U21",
      "score": 1,
