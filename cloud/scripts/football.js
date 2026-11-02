@@ -12029,7 +12029,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 18:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "乌林济之星",
      "score": 2,
@@ -12095,7 +12095,7 @@ const FOOTBALL_DATA = {
      "color": "000000"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "柔亚",
      "score": 0,
@@ -12173,7 +12173,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "波斯塔流浪",
      "score": 0,
@@ -12251,7 +12251,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "戈梅利II隊",
      "score": 0,
@@ -12260,7 +12260,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "明斯克II隊",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 13
     },
@@ -12329,7 +12329,7 @@ const FOOTBALL_DATA = {
      "color": "44a666"
     },
     "time": "2026-11-02 19:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "特拉布宗女足",
      "score": 0,
