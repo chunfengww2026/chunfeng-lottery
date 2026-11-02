@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 22:06
+   更新时间：2026-11-02 22:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 22:06",
+ "updated": "2026-11-02 22:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1256,6 +1256,20 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-02/5f948f01-b25e-4a61-a2dc-b9bdc3bd7b7b1793626980728.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/5f948f01-b25e-4a61-a2dc-b9bdc3bd7b7b1793626980728.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]来财",
+     "url": "",
+     "at": "2026-11-02T14:10:07.566Z",
+     "pubAt": "2026-11-02T13:43:00.000Z",
+     "pubMs": 1793626980000,
+     "pubSrc": "page",
+     "nextAt": 1793709000000,
+     "atMs": 1793628607566,
+     "seenMs": 1793628607566,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-02/9bd10a06-9518-4b56-b161-96d568570b2c1793626902139.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-02/9bd10a06-9518-4b56-b161-96d568570b2c1793626902139.jpg?imageMogr2/thumbnail/360x",
      "title": "[26293期]不想玩了",
@@ -2199,7 +2213,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793620636000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793621162214,
@@ -2229,7 +2243,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793620636000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793621162214,
@@ -2259,7 +2273,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793620636000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793621162214,
@@ -2319,7 +2333,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793616964000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793617562142,
@@ -2349,7 +2363,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793616964000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793617562142,
@@ -2651,7 +2665,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793614622000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793615162149,
@@ -3281,7 +3295,7 @@ const XYSP_DATA = {
      "issue": "2026124",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793601385000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793601961933,
@@ -3311,7 +3325,7 @@ const XYSP_DATA = {
      "issue": "2026124",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793601385000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793601961933,
@@ -3431,7 +3445,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793600836000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793601961933,
@@ -4097,7 +4111,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793578651000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793588761720,
@@ -4277,7 +4291,7 @@ const XYSP_DATA = {
      "issue": "2026125",
      "seen": "2026-11-02T14:06:01.327Z",
      "whenMs": 1793543972000,
-     "seenMs": 1793627161291,
+     "seenMs": 1793628361327,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793545561982,
@@ -4319,66 +4333,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-01 22:39:32",
      "postId": "7703212706337948169",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be05027b9dbd4c8e89c48d4d811dccad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=%2FznkRv51T3ciAtBnJ%2FH5Vsk1hSg%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be05027b9dbd4c8e89c48d4d811dccad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=%2FznkRv51T3ciAtBnJ%2FH5Vsk1hSg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be05027b9dbd4c8e89c48d4d811dccad~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=HvqY%2F5YKE0aWgFMUUDNA2A0cXoo%3D",
-     "title": "今晚开奖了，结果还可以。（08-09）这2个号近期会开出来，明天继续干啊[呲牙]\n快乐8 2026291期开奖号\n \n03、13、16、21、24、26、29、34、40、42、50、54、58、59、60、61、64、66、67、78\n ",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1880665273429059",
-     "at": "2026-11-01T14:26:01.801Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026291",
-     "seen": "2026-11-02T13:46:01.291Z",
-     "whenMs": 1793542169000,
-     "seenMs": 1793627161291,
-     "drawMs": 1793626200000,
-     "nextMs": 1793626200000,
-     "atMs": 1793543161801,
-     "drawAt": "2026-11-02T13:30:00.000Z",
-     "nextAt": 1793626200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-02T14:26:01.801Z",
-     "rule": "first-capture-24h",
-     "author": "机智的高山4",
-     "when": "2026-11-01 22:09:29",
-     "postId": "1880665273429059",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7b99ea9699474888893df18f1e7039ad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=KCTJ3AoVqOIPAbPj6k%2Bqwa1Aib8%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7b99ea9699474888893df18f1e7039ad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=KCTJ3AoVqOIPAbPj6k%2Bqwa1Aib8%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be05027b9dbd4c8e89c48d4d811dccad~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=HvqY%2F5YKE0aWgFMUUDNA2A0cXoo%3D",
-     "title": "今晚开奖了，结果还可以。（08-09）这2个号近期会开出来，明天继续干啊[呲牙]\n快乐8 2026291期开奖号\n \n03、13、16、21、24、26、29、34、40、42、50、54、58、59、60、61、64、66、67、78\n ",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1880665273429059",
-     "at": "2026-11-01T14:26:01.801Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026291",
-     "seen": "2026-11-02T13:46:01.291Z",
-     "whenMs": 1793542169000,
-     "seenMs": 1793627161291,
-     "drawMs": 1793626200000,
-     "nextMs": 1793626200000,
-     "atMs": 1793543161801,
-     "drawAt": "2026-11-02T13:30:00.000Z",
-     "nextAt": 1793626200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-02T14:26:01.801Z",
-     "rule": "first-capture-24h",
-     "author": "机智的高山4",
-     "when": "2026-11-01 22:09:29",
-     "postId": "1880665273429059",
      "px": 132300
     }
    ]
@@ -6237,6 +6191,7 @@ const XYSP_DATA = {
   "/2026-11-02/d972a6b8-5bf3-49da-baab-1eeb2a570daf1793626912627.jpg": 1793628004360,
   "/2026-11-02/95091bd8-6ccf-4539-a6f1-d17d6b65c2bf1793626861352.jpg": 1793628004360,
   "/2026-11-02/41be83eb-7f63-476d-9b2f-7937500b1d2f1793626735575.jpg": 1793628004360,
-  "/2026-11-02/f76e66a4-5ed8-4ecb-b8ab-89a4df04a9151793626827070.jpg": 1793628004360
+  "/2026-11-02/f76e66a4-5ed8-4ecb-b8ab-89a4df04a9151793626827070.jpg": 1793628004360,
+  "/2026-11-02/5f948f01-b25e-4a61-a2dc-b9bdc3bd7b7b1793626980728.jpg": 1793628607566
  }
 };
