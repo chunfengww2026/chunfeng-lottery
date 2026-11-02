@@ -12528,7 +12528,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 16:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "查英特賀納比爾U21",
      "score": 0,
