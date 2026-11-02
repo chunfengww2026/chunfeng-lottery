@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 12:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 13:28 */
 const JC_DATA = {
- "updated": "2026-11-02 12:28",
+ "updated": "2026-11-02 13:28",
  "stat": {
   "total": 9,
   "upcoming": 9,
@@ -758,7 +758,7 @@ const JC_DATA = {
       "away": 3.2
      },
      "live": {
-      "home": 2.3,
+      "home": 2.25,
       "draw": 3.5,
       "away": 3.1
      }
@@ -779,27 +779,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 43.4,
+    "confidence": 43.6,
     "prob": {
-     "home": 43.4,
-     "draw": 26.9,
-     "away": 29.7
+     "home": 43.6,
+     "draw": 26.8,
+     "away": 29.6
     },
     "clear": false,
-    "margin": 4.3,
+    "margin": 5.3,
     "rqLine": "平手/半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 43.4,
-      "draw": 26.9,
-      "away": 29.7
+      "home": 43.6,
+      "draw": 26.8,
+      "away": 29.6
      },
-     "confidence": 43.4,
+     "confidence": 43.6,
      "signals": [
-      "初盘→即时：主胜-2.6pp / 平局+0.8pp / 客胜+1.8pp",
+      "初盘→即时：主胜-2.1pp / 平局+0.5pp / 客胜+1.6pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -810,16 +810,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -0.2,
-      "draw": -5.9,
-      "away": -7.8
+      "home": -1.9,
+      "draw": -6.3,
+      "away": -8.1
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.20642453417550544,
-       "draw": 0.21854647239662833,
-       "away": 0.5750289934278667
+       "home": 0.2098928982114999,
+       "draw": 0.219824780422824,
+       "away": 0.5702823213656765
       },
       "pick": "away",
       "label": "让负"
@@ -1038,8 +1038,8 @@ const JC_DATA = {
       "away": 13
      },
      "live": {
-      "home": 1.17,
-      "draw": 8,
+      "home": 1.11,
+      "draw": 8.5,
       "away": 13
      }
     },
@@ -1059,27 +1059,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 80.5,
+    "confidence": 81,
     "prob": {
-     "home": 80.5,
-     "draw": 12.3,
+     "home": 81,
+     "draw": 11.9,
      "away": 7.2
     },
     "clear": true,
-    "margin": 5.7,
+    "margin": 9.5,
     "rqLine": "两球/两球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 80.5,
-      "draw": 12.3,
+      "home": 81,
+      "draw": 11.9,
       "away": 7.2
      },
-     "confidence": 80.5,
+     "confidence": 81,
      "signals": [
-      "初盘→即时：主胜+0.6pp / 平局-0.7pp / 客胜+0.1pp",
+      "初盘→即时：主胜+2.0pp / 平局-1.8pp / 客胜-0.2pp",
       "亚盘主队方向变深，水位上升"
      ],
      "missing": [
@@ -1090,16 +1090,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -5.8,
-      "draw": -1.8,
-      "away": -5.8
+      "home": -10.1,
+      "draw": 1.1,
+      "away": -7
      },
      "handicap": {
       "line": -2,
       "prob": {
-       "home": 0.39947954389723295,
-       "draw": 0.21389593462734072,
-       "away": 0.3866245214754254
+       "home": 0.41913836031035556,
+       "draw": 0.21455878676655693,
+       "away": 0.3663028529230872
       },
       "pick": "home",
       "label": "让胜"
@@ -1283,8 +1283,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-02 12:28",
-  "officialUpdate": "2026-11-02 12:26:50",
+  "updated": "2026-11-02 13:28",
+  "officialUpdate": "2026-11-02 13:13:24",
   "inSale": 9,
   "list": [
    {
@@ -1481,17 +1481,17 @@ const JC_DATA = {
     "home": "拉科",
     "away": "奥萨苏纳",
     "had": {
-     "h": 2.05,
+     "h": 2,
      "d": 3,
-     "a": 3.15,
-     "update": "2026-10-31 09:38:52"
+     "a": 3.28,
+     "update": "2026-11-02 12:29:18"
     },
     "hhad": {
      "line": "-1",
-     "h": 4.45,
+     "h": 4.4,
      "d": 3.6,
-     "a": 1.57,
-     "update": "2026-10-31 09:38:52"
+     "a": 1.58,
+     "update": "2026-11-02 13:13:24"
     },
     "single": {
      "HAD": {
@@ -1515,9 +1515,9 @@ const JC_DATA = {
     "hhad": {
      "line": "-2",
      "h": 2.02,
-     "d": 4.1,
-     "a": 2.5,
-     "update": "2026-11-02 10:33:55"
+     "d": 3.96,
+     "a": 2.55,
+     "update": "2026-11-02 12:33:42"
     },
     "single": {
      "HAD": {
