@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 03:06:01
+   更新时间：2026-11-03 03:16:01
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-03 03:06:01",
+ "updated": "2026-11-03 03:16:01",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=rU15fsZEJPi8gwK3lkFG5xfrdWI%3D",
@@ -41,6 +41,34 @@ const XYSP_JC_DATA = {
    "author": "天天看书",
    "when": "2026-11-02 20:42:00",
    "postId": "7703551939459465747",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/418e068f2d2745a99c9fd2765cb1e47c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=vG9EXSVRPHrTytt3CL%2FVUzGWRrc%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/418e068f2d2745a99c9fd2765cb1e47c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=vG9EXSVRPHrTytt3CL%2FVUzGWRrc%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/418e068f2d2745a99c9fd2765cb1e47c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=10Th4nMc2JUHIBLKQZz5iL08WG4%3D",
+   "title": "胜负彩 第26156期分析",
+   "url": "https://toutiao.com/group/7703366873961824822/",
+   "at": "2026-11-02T19:16:01.583Z",
+   "src": "tt",
+   "cat": "jc",
+   "game": "胜负彩",
+   "games": [],
+   "issue": "",
+   "seen": "2026-11-02T19:16:01.583Z",
+   "whenMs": 1793606935000,
+   "seenMs": 1793646961583,
+   "drawMs": null,
+   "nextMs": null,
+   "atMs": 1793646961583,
+   "drawAt": "",
+   "nextAt": null,
+   "drawGid": "",
+   "expireAt": "2026-11-03T19:16:01.583Z",
+   "rule": "cap",
+   "author": "紫雨7526",
+   "when": "2026-11-02 16:08:55",
+   "postId": "7703366873961824822",
    "px": 132300
   }
  ],
