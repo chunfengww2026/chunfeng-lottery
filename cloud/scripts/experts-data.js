@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-11-03 00:09
+   生成时间：2026-11-03 02:08
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-11-03 00:09",
+ "updated": "2026-11-03 02:08",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -63,7 +63,7 @@ const EXPERTS_DATA = {
   "stable": 160,
   "requests": 379,
   "errors": 0,
-  "seconds": 679.7
+  "seconds": 423
  },
  "games": {
   "ssq": {
@@ -9402,9 +9402,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       21,
-       25,
-       29
+       10,
+       30,
+       35
       ]
      },
      "siteMetrics": [
@@ -9824,9 +9824,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       4,
-       23,
-       33
+       3,
+       6,
+       18
       ]
      },
      "siteMetrics": [
@@ -10664,9 +10664,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       20,
-       22,
-       23
+       4,
+       32,
+       33
       ]
      },
      "siteMetrics": [
@@ -12759,9 +12759,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       2,
-       15,
-       17
+       1,
+       17,
+       31
       ]
      },
      "siteMetrics": [
@@ -13181,8 +13181,8 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       3,
-       10
+       8,
+       12
       ]
      },
      "siteMetrics": [
@@ -14016,9 +14016,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       11,
-       12,
-       35
+       8,
+       21,
+       31
       ]
      },
      "siteMetrics": [
@@ -15268,9 +15268,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       18,
-       21,
-       31
+       4,
+       16,
+       34
       ]
      },
      "siteMetrics": [
@@ -15685,9 +15685,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       7,
-       29,
-       33
+       9,
+       12,
+       32
       ]
      },
      "siteMetrics": [
@@ -16099,7 +16099,7 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       10,
+       5,
        11
       ]
      },
@@ -16926,9 +16926,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026126",
       "nums": [
-       8,
-       24,
-       29
+       23,
+       26,
+       32
       ]
      },
      "siteMetrics": [
@@ -17757,28 +17757,28 @@ const EXPERTS_DATA = {
       "pct": 87.5
      },
      {
-      "num": 25,
-      "pct": 82.5
+      "num": 23,
+      "pct": 85.8
      },
      {
-      "num": 11,
-      "pct": 77.5
-     },
-     {
-      "num": null,
-      "pct": 77.5
+      "num": 20,
+      "pct": 83.3
      },
      {
       "num": null,
-      "pct": 75
+      "pct": 80
      },
      {
       "num": null,
-      "pct": 75
+      "pct": 74.2
      },
      {
       "num": null,
-      "pct": 67.5
+      "pct": 73.3
+     },
+     {
+      "num": null,
+      "pct": 68.3
      },
      {
       "num": null,
@@ -17792,19 +17792,19 @@ const EXPERTS_DATA = {
     "blue": [
      {
       "num": 7,
-      "pct": 82.5
+      "pct": 77.5
      },
      {
       "num": 10,
-      "pct": 75
+      "pct": 76.7
      },
      {
       "num": null,
-      "pct": 70
+      "pct": 63.3
      },
      {
       "num": null,
-      "pct": 57.5
+      "pct": 60
      }
     ],
     "sections": [
@@ -17877,7 +17877,6 @@ const EXPERTS_DATA = {
      2,
      4,
      6,
-     8,
      9,
      12,
      13,
@@ -17888,6 +17887,7 @@ const EXPERTS_DATA = {
      20,
      21,
      22,
+     23,
      24,
      25,
      26,
@@ -17953,9 +17953,9 @@ const EXPERTS_DATA = {
       {
        "name": "巴适",
        "nums": [
-        11,
-        12,
-        35
+        8,
+        21,
+        31
        ],
        "issue": "2026126",
        "score": 43.67
@@ -17973,9 +17973,9 @@ const EXPERTS_DATA = {
       {
        "name": "小二二小",
        "nums": [
-        2,
-        15,
-        17
+        1,
+        17,
+        31
        ],
        "issue": "2026126",
        "score": 55
@@ -17983,9 +17983,9 @@ const EXPERTS_DATA = {
       {
        "name": "抗日战神",
        "nums": [
-        18,
-        21,
-        31
+        4,
+        16,
+        34
        ],
        "issue": "2026126",
        "score": 20.33
@@ -18003,9 +18003,9 @@ const EXPERTS_DATA = {
       {
        "name": "陈绪节",
        "nums": [
-        20,
-        22,
-        23
+        4,
+        32,
+        33
        ],
        "issue": "2026126",
        "score": 78
@@ -18013,9 +18013,9 @@ const EXPERTS_DATA = {
       {
        "name": "献爱心",
        "nums": [
-        8,
-        24,
-        29
+        23,
+        26,
+        32
        ],
        "issue": "2026126",
        "score": 4.83
@@ -18023,9 +18023,9 @@ const EXPERTS_DATA = {
       {
        "name": "nidom2323",
        "nums": [
-        21,
-        25,
-        29
+        10,
+        30,
+        35
        ],
        "issue": "2026126",
        "score": 83
@@ -18033,9 +18033,9 @@ const EXPERTS_DATA = {
       {
        "name": "大宝爱小白",
        "nums": [
-        4,
-        23,
-        33
+        3,
+        6,
+        18
        ],
        "issue": "2026126",
        "score": 80.5
@@ -18073,9 +18073,9 @@ const EXPERTS_DATA = {
       {
        "name": "双囍临门",
        "nums": [
-        7,
-        29,
-        33
+        9,
+        12,
+        32
        ],
        "issue": "2026126",
        "score": 17.25
@@ -18090,7 +18090,7 @@ const EXPERTS_DATA = {
       {
        "name": "你存在我的印象里",
        "nums": [
-        10,
+        5,
         11
        ],
        "issue": "2026126",
@@ -18108,8 +18108,8 @@ const EXPERTS_DATA = {
       {
        "name": "hanhuhu2505",
        "nums": [
-        3,
-        10
+        8,
+        12
        ],
        "issue": "2026126",
        "score": 50
@@ -18162,9 +18162,9 @@ const EXPERTS_DATA = {
      "name": "巴适",
      "cats": {
       "红球三胆": [
-       11,
-       12,
-       35
+       8,
+       21,
+       31
       ]
      }
     },
@@ -18182,9 +18182,9 @@ const EXPERTS_DATA = {
      "name": "小二二小",
      "cats": {
       "红球三胆": [
-       2,
-       15,
-       17
+       1,
+       17,
+       31
       ]
      }
     },
@@ -18192,9 +18192,9 @@ const EXPERTS_DATA = {
      "name": "抗日战神",
      "cats": {
       "红球三胆": [
-       18,
-       21,
-       31
+       4,
+       16,
+       34
       ]
      }
     },
@@ -18212,9 +18212,9 @@ const EXPERTS_DATA = {
      "name": "陈绪节",
      "cats": {
       "红球三胆": [
-       20,
-       22,
-       23
+       4,
+       32,
+       33
       ]
      }
     },
@@ -18222,9 +18222,9 @@ const EXPERTS_DATA = {
      "name": "献爱心",
      "cats": {
       "红球三胆": [
-       8,
-       24,
-       29
+       23,
+       26,
+       32
       ]
      }
     },
@@ -18232,9 +18232,9 @@ const EXPERTS_DATA = {
      "name": "nidom2323",
      "cats": {
       "红球三胆": [
-       21,
-       25,
-       29
+       10,
+       30,
+       35
       ]
      }
     },
@@ -18242,9 +18242,9 @@ const EXPERTS_DATA = {
      "name": "大宝爱小白",
      "cats": {
       "红球三胆": [
-       4,
-       23,
-       33
+       3,
+       6,
+       18
       ]
      }
     },
@@ -18282,9 +18282,9 @@ const EXPERTS_DATA = {
      "name": "双囍临门",
      "cats": {
       "红球三胆": [
-       7,
-       29,
-       33
+       9,
+       12,
+       32
       ]
      }
     },
@@ -18292,7 +18292,7 @@ const EXPERTS_DATA = {
      "name": "你存在我的印象里",
      "cats": {
       "蓝球定二": [
-       10,
+       5,
        11
       ]
      }
@@ -18310,8 +18310,8 @@ const EXPERTS_DATA = {
      "name": "hanhuhu2505",
      "cats": {
       "蓝球定二": [
-       3,
-       10
+       8,
+       12
       ]
      }
     }
@@ -18418,9 +18418,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
        1,
-       4,
+       2,
+       3,
        5,
        6,
        8,
@@ -18652,13 +18652,13 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
+       1,
        2,
        3,
        4,
        5,
        6,
-       7,
-       9
+       7
       ]
      },
      "siteMetrics": [
@@ -19115,11 +19115,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       4,
+       2,
+       3,
+       5,
        6,
-       7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -19574,11 +19574,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       2,
+       0,
+       1,
        3,
-       4,
        5,
-       7,
+       6,
        8,
        9
       ]
@@ -20488,11 +20488,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       4,
-       5,
-       6,
-       8,
-       9
+       0,
+       1,
+       2,
+       3,
+       6
       ]
      },
      "siteMetrics": [
@@ -20935,11 +20935,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
+       0,
        1,
-       2,
        4,
-       8,
-       9
+       5,
+       8
       ]
      },
      "siteMetrics": [
@@ -21160,10 +21160,10 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       2,
-       5,
+       1,
+       4,
        6,
-       9
+       7
       ]
      },
      "siteMetrics": [
@@ -21385,10 +21385,10 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
+       2,
        4,
        5,
-       6,
-       7,
+       8,
        9
       ]
      },
@@ -21608,10 +21608,10 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
+       1,
+       4,
        6,
        7,
-       8,
        9
       ]
      },
@@ -21832,10 +21832,10 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       4,
-       5,
-       6,
+       1,
+       2,
+       7,
+       8,
        9
       ]
      },
@@ -22282,8 +22282,8 @@ const EXPERTS_DATA = {
        0,
        1,
        3,
-       5,
-       9
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -22503,9 +22503,9 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        1,
-       6,
-       7,
-       8,
+       2,
+       4,
+       5,
        9
       ]
      },
@@ -22723,9 +22723,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       2,
-       6,
+       1,
+       5,
+       7,
        8,
        9
       ]
@@ -22944,75 +22944,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 4,
-      "pct": 85
-     },
-     {
-      "num": 9,
-      "pct": 85
-     },
-     {
-      "num": null,
-      "pct": 75
-     },
-     {
-      "num": null,
-      "pct": 70
-     },
-     {
-      "num": null,
-      "pct": 65
-     },
-     {
-      "num": null,
-      "pct": 37.5
-     },
-     {
-      "num": 0,
-      "pct": 85
-     },
-     {
-      "num": 2,
-      "pct": 80
-     },
-     {
-      "num": null,
-      "pct": 75
-     },
-     {
-      "num": null,
-      "pct": 72.5
-     },
-     {
-      "num": null,
-      "pct": 65
-     },
-     {
-      "num": null,
-      "pct": 42.5
-     },
-     {
-      "num": 4,
       "pct": 90
      },
      {
-      "num": 2,
+      "num": 9,
+      "pct": 81.7
+     },
+     {
+      "num": null,
+      "pct": 75
+     },
+     {
+      "num": null,
+      "pct": 74.2
+     },
+     {
+      "num": null,
+      "pct": 64.2
+     },
+     {
+      "num": null,
+      "pct": 31.7
+     },
+     {
+      "num": 0,
+      "pct": 90
+     },
+     {
+      "num": 4,
       "pct": 77.5
      },
      {
       "num": null,
-      "pct": 67.5
+      "pct": 76.7
      },
      {
       "num": null,
-      "pct": 65
+      "pct": 74.2
      },
      {
       "num": null,
-      "pct": 65
+      "pct": 59.2
      },
      {
       "num": null,
-      "pct": 37.5
+      "pct": 39.2
+     },
+     {
+      "num": 4,
+      "pct": 90.8
+     },
+     {
+      "num": 0,
+      "pct": 74.2
+     },
+     {
+      "num": null,
+      "pct": 74.2
+     },
+     {
+      "num": null,
+      "pct": 66.7
+     },
+     {
+      "num": null,
+      "pct": 64.2
+     },
+     {
+      "num": null,
+      "pct": 35.8
      }
     ],
     "blue": [],
@@ -23108,11 +23108,11 @@ const EXPERTS_DATA = {
       {
        "name": "老兵必胜",
        "nums": [
-        2,
+        0,
+        1,
         3,
-        4,
         5,
-        7,
+        6,
         8,
         9
        ],
@@ -23122,13 +23122,13 @@ const EXPERTS_DATA = {
       {
        "name": "辣椒油",
        "nums": [
+        1,
         2,
         3,
         4,
         5,
         6,
-        7,
-        9
+        7
        ],
        "issue": "2026293",
        "score": 38.5
@@ -23150,9 +23150,9 @@ const EXPERTS_DATA = {
       {
        "name": "平凡奇迹",
        "nums": [
-        0,
         1,
-        4,
+        2,
+        3,
         5,
         6,
         8,
@@ -23199,11 +23199,11 @@ const EXPERTS_DATA = {
       {
        "name": "陈绪节",
        "nums": [
-        0,
-        4,
+        2,
+        3,
+        5,
         6,
-        7,
-        9
+        8
        ],
        "issue": "2026293",
        "score": 35
@@ -23212,10 +23212,10 @@ const EXPERTS_DATA = {
        "name": "我要破零",
        "nums": [
         0,
-        2,
-        5,
+        1,
+        4,
         6,
-        9
+        7
        ],
        "issue": "2026293",
        "score": 4.83
@@ -23223,10 +23223,10 @@ const EXPERTS_DATA = {
       {
        "name": "浅墨淡雅",
        "nums": [
-        0,
-        4,
-        5,
-        6,
+        1,
+        2,
+        7,
+        8,
         9
        ],
        "issue": "2026293",
@@ -23235,10 +23235,10 @@ const EXPERTS_DATA = {
       {
        "name": "小魔童",
        "nums": [
+        2,
         4,
         5,
-        6,
-        7,
+        8,
         9
        ],
        "issue": "2026293",
@@ -23259,10 +23259,10 @@ const EXPERTS_DATA = {
       {
        "name": "兔神",
        "nums": [
-        0,
+        1,
+        4,
         6,
         7,
-        8,
         9
        ],
        "issue": "2026293",
@@ -23286,8 +23286,8 @@ const EXPERTS_DATA = {
         0,
         1,
         3,
-        5,
-        9
+        6,
+        7
        ],
        "issue": "2026293",
        "score": 0
@@ -23308,9 +23308,9 @@ const EXPERTS_DATA = {
        "name": "情一动心就痛",
        "nums": [
         1,
-        6,
-        7,
-        8,
+        2,
+        4,
+        5,
         9
        ],
        "issue": "2026293",
@@ -23319,9 +23319,9 @@ const EXPERTS_DATA = {
       {
        "name": "久美",
        "nums": [
-        0,
-        2,
-        6,
+        1,
+        5,
+        7,
         8,
         9
        ],
@@ -23331,11 +23331,11 @@ const EXPERTS_DATA = {
       {
        "name": "速度跟不上",
        "nums": [
-        4,
-        5,
-        6,
-        8,
-        9
+        0,
+        1,
+        2,
+        3,
+        6
        ],
        "issue": "2026293",
        "score": 26.5
@@ -23355,11 +23355,11 @@ const EXPERTS_DATA = {
       {
        "name": "火锅鱼",
        "nums": [
+        0,
         1,
-        2,
         4,
-        8,
-        9
+        5,
+        8
        ],
        "issue": "2026293",
        "score": 26.5
@@ -23372,11 +23372,11 @@ const EXPERTS_DATA = {
      "name": "陈绪节",
      "cats": {
       "五码组选": [
-       0,
-       4,
+       2,
+       3,
+       5,
        6,
-       7,
-       9
+       8
       ]
      }
     },
@@ -23385,10 +23385,10 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        0,
-       2,
-       5,
+       1,
+       4,
        6,
-       9
+       7
       ]
      }
     },
@@ -23396,10 +23396,10 @@ const EXPERTS_DATA = {
      "name": "浅墨淡雅",
      "cats": {
       "五码组选": [
-       0,
-       4,
-       5,
-       6,
+       1,
+       2,
+       7,
+       8,
        9
       ]
      }
@@ -23408,10 +23408,10 @@ const EXPERTS_DATA = {
      "name": "小魔童",
      "cats": {
       "五码组选": [
+       2,
        4,
        5,
-       6,
-       7,
+       8,
        9
       ]
      }
@@ -23432,10 +23432,10 @@ const EXPERTS_DATA = {
      "name": "兔神",
      "cats": {
       "五码组选": [
-       0,
+       1,
+       4,
        6,
        7,
-       8,
        9
       ]
      }
@@ -23459,8 +23459,8 @@ const EXPERTS_DATA = {
        0,
        1,
        3,
-       5,
-       9
+       6,
+       7
       ]
      }
     },
@@ -23481,9 +23481,9 @@ const EXPERTS_DATA = {
      "cats": {
       "五码组选": [
        1,
-       6,
-       7,
-       8,
+       2,
+       4,
+       5,
        9
       ]
      }
@@ -23492,11 +23492,11 @@ const EXPERTS_DATA = {
      "name": "老兵必胜",
      "cats": {
       "七码组选": [
-       2,
+       0,
+       1,
        3,
-       4,
        5,
-       7,
+       6,
        8,
        9
       ]
@@ -23506,9 +23506,9 @@ const EXPERTS_DATA = {
      "name": "久美",
      "cats": {
       "五码组选": [
-       0,
-       2,
-       6,
+       1,
+       5,
+       7,
        8,
        9
       ]
@@ -23518,11 +23518,11 @@ const EXPERTS_DATA = {
      "name": "速度跟不上",
      "cats": {
       "五码组选": [
-       4,
-       5,
-       6,
-       8,
-       9
+       0,
+       1,
+       2,
+       3,
+       6
       ]
      }
     },
@@ -23542,13 +23542,13 @@ const EXPERTS_DATA = {
      "name": "辣椒油",
      "cats": {
       "七码组选": [
+       1,
        2,
        3,
        4,
        5,
        6,
-       7,
-       9
+       7
       ]
      }
     },
@@ -23570,9 +23570,9 @@ const EXPERTS_DATA = {
      "name": "平凡奇迹",
      "cats": {
       "七码组选": [
-       0,
        1,
-       4,
+       2,
+       3,
        5,
        6,
        8,
@@ -23584,11 +23584,11 @@ const EXPERTS_DATA = {
      "name": "火锅鱼",
      "cats": {
       "五码组选": [
+       0,
        1,
-       2,
        4,
-       8,
-       9
+       5,
+       8
       ]
      }
     },
@@ -26028,15 +26028,15 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       12,
-       16,
-       20,
-       27,
-       33,
-       43,
-       51,
-       68,
-       71
+       14,
+       18,
+       22,
+       38,
+       41,
+       44,
+       46,
+       66,
+       69
       ]
      },
      "siteMetrics": [
@@ -27006,15 +27006,15 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       2,
-       17,
+       6,
+       12,
        26,
+       32,
+       34,
+       37,
        41,
-       44,
-       45,
-       58,
-       75,
-       79
+       70,
+       76
       ]
      },
      "siteMetrics": [
@@ -27681,15 +27681,15 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       6,
-       11,
-       36,
-       57,
-       63,
-       64,
-       68,
-       70,
-       79
+       8,
+       12,
+       13,
+       22,
+       28,
+       39,
+       50,
+       73,
+       80
       ]
      },
      "siteMetrics": [
@@ -28009,15 +28009,15 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       10,
-       19,
-       25,
-       26,
-       32,
+       5,
+       13,
+       14,
+       33,
+       34,
        43,
        45,
-       65,
-       78
+       59,
+       65
       ]
      },
      "siteMetrics": [
@@ -29007,18 +29007,18 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       1,
        4,
-       11,
-       22,
-       35,
-       42,
-       44,
-       49,
-       61,
-       62,
+       5,
+       8,
+       12,
+       19,
+       34,
+       38,
+       46,
+       53,
        69,
-       73
+       74,
+       75
       ]
      },
      "siteMetrics": [
@@ -29686,15 +29686,15 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       11,
-       13,
-       21,
+       8,
+       9,
        23,
-       35,
-       47,
-       72,
-       77,
-       78
+       29,
+       39,
+       44,
+       50,
+       61,
+       76
       ]
      },
      "siteMetrics": [
@@ -30344,67 +30344,63 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 51,
-      "pct": 25
+      "pct": 22.5
      },
      {
       "num": 57,
-      "pct": 17.5
+      "pct": 18.1
      },
      {
-      "num": 43,
+      "num": 45,
       "pct": 7.5
      },
      {
       "num": 46,
-      "pct": 6.3
+      "pct": 7.5
      },
      {
       "num": 50,
-      "pct": 6.3
+      "pct": 5.6
+     },
+     {
+      "num": 43,
+      "pct": 5
+     },
+     {
+      "num": 44,
+      "pct": 5
      },
      {
       "num": 5,
-      "pct": 5
-     },
-     {
-      "num": 45,
-      "pct": 5
+      "pct": 4.4
      },
      {
       "num": 61,
-      "pct": 5
-     },
-     {
-      "num": 30,
-      "pct": 2.5
+      "pct": 4.4
      },
      {
       "num": 59,
-      "pct": 2.5
+      "pct": 3.1
      },
      {
       "num": null,
-      "pct": 2.5
+      "pct": 1.9
      },
      {
       "num": null,
-      "pct": 2.5
+      "pct": 1.9
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 1.9
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 1.9
      },
      {
       "num": null,
-      "pct": 1.3
-     },
-     {
-      "num": null,
-      "pct": 1.3
+      "pct": 1.9
      },
      {
       "num": null,
@@ -30420,23 +30416,27 @@ const EXPERTS_DATA = {
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 0.6
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 0.6
      },
      {
       "num": null,
-      "pct": 1.3
+      "pct": 0.6
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.6
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.6
+     },
+     {
+      "num": null,
+      "pct": 0.6
      },
      {
       "num": null,
@@ -30604,18 +30604,18 @@ const EXPERTS_DATA = {
       {
        "name": "志曾高远",
        "nums": [
-        1,
         4,
-        11,
-        22,
-        35,
-        42,
-        44,
-        49,
-        61,
-        62,
+        5,
+        8,
+        12,
+        19,
+        34,
+        38,
+        46,
+        53,
         69,
-        73
+        74,
+        75
        ],
        "issue": "2026293",
        "score": 46.17
@@ -30751,15 +30751,15 @@ const EXPERTS_DATA = {
       {
        "name": "绝唱丶",
        "nums": [
-        11,
-        13,
-        21,
+        8,
+        9,
         23,
-        35,
-        47,
-        72,
-        77,
-        78
+        29,
+        39,
+        44,
+        50,
+        61,
+        76
        ],
        "issue": "2026293",
        "score": 32.5
@@ -30767,15 +30767,15 @@ const EXPERTS_DATA = {
       {
        "name": "金山奖多",
        "nums": [
-        12,
-        16,
-        20,
-        27,
-        33,
-        43,
-        51,
-        68,
-        71
+        14,
+        18,
+        22,
+        38,
+        41,
+        44,
+        46,
+        66,
+        69
        ],
        "issue": "2026293",
        "score": 63.67
@@ -30879,15 +30879,15 @@ const EXPERTS_DATA = {
       {
        "name": "仰望时光",
        "nums": [
-        2,
-        17,
+        6,
+        12,
         26,
+        32,
+        34,
+        37,
         41,
-        44,
-        45,
-        58,
-        75,
-        79
+        70,
+        76
        ],
        "issue": "2026293",
        "score": 59.75
@@ -30895,15 +30895,15 @@ const EXPERTS_DATA = {
       {
        "name": "不破不立",
        "nums": [
-        10,
-        19,
-        25,
-        26,
-        32,
+        5,
+        13,
+        14,
+        33,
+        34,
         43,
         45,
-        65,
-        78
+        59,
+        65
        ],
        "issue": "2026293",
        "score": 57.5
@@ -30911,15 +30911,15 @@ const EXPERTS_DATA = {
       {
        "name": "期期中特",
        "nums": [
-        6,
-        11,
-        36,
-        57,
-        63,
-        64,
-        68,
-        70,
-        79
+        8,
+        12,
+        13,
+        22,
+        28,
+        39,
+        50,
+        73,
+        80
        ],
        "issue": "2026293",
        "score": 58.5
@@ -30980,15 +30980,15 @@ const EXPERTS_DATA = {
      "name": "绝唱丶",
      "cats": {
       "9码": [
-       11,
-       13,
-       21,
+       8,
+       9,
        23,
-       35,
-       47,
-       72,
-       77,
-       78
+       29,
+       39,
+       44,
+       50,
+       61,
+       76
       ]
      }
     },
@@ -30996,15 +30996,15 @@ const EXPERTS_DATA = {
      "name": "金山奖多",
      "cats": {
       "9码": [
-       12,
-       16,
-       20,
-       27,
-       33,
-       43,
-       51,
-       68,
-       71
+       14,
+       18,
+       22,
+       38,
+       41,
+       44,
+       46,
+       66,
+       69
       ]
      }
     },
@@ -31130,15 +31130,15 @@ const EXPERTS_DATA = {
      "name": "仰望时光",
      "cats": {
       "9码": [
-       2,
-       17,
+       6,
+       12,
        26,
+       32,
+       34,
+       37,
        41,
-       44,
-       45,
-       58,
-       75,
-       79
+       70,
+       76
       ]
      }
     },
@@ -31146,15 +31146,15 @@ const EXPERTS_DATA = {
      "name": "不破不立",
      "cats": {
       "9码": [
-       10,
-       19,
-       25,
-       26,
-       32,
+       5,
+       13,
+       14,
+       33,
+       34,
        43,
        45,
-       65,
-       78
+       59,
+       65
       ]
      }
     },
@@ -31162,15 +31162,15 @@ const EXPERTS_DATA = {
      "name": "期期中特",
      "cats": {
       "9码": [
-       6,
-       11,
-       36,
-       57,
-       63,
-       64,
-       68,
-       70,
-       79
+       8,
+       12,
+       13,
+       22,
+       28,
+       39,
+       50,
+       73,
+       80
       ]
      }
     },
@@ -31258,18 +31258,18 @@ const EXPERTS_DATA = {
      "name": "志曾高远",
      "cats": {
       "12码": [
-       1,
        4,
-       11,
-       22,
-       35,
-       42,
-       44,
-       49,
-       61,
-       62,
+       5,
+       8,
+       12,
+       19,
+       34,
+       38,
+       46,
+       53,
        69,
-       73
+       74,
+       75
       ]
      }
     }
@@ -31377,9 +31377,9 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       3,
+       1,
+       2,
        4,
-       5,
        6,
        7,
        9
@@ -31834,12 +31834,12 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
+       1,
        2,
        3,
        4,
-       6,
-       7,
-       8
+       5,
+       9
       ]
      },
      "siteMetrics": [
@@ -32300,10 +32300,10 @@ const EXPERTS_DATA = {
        0,
        1,
        2,
-       3,
        4,
-       5,
-       6
+       6,
+       7,
+       8
       ]
      },
      "siteMetrics": [
@@ -32529,13 +32529,13 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
+       0,
        1,
        2,
        3,
        4,
-       5,
        6,
-       8
+       7
       ]
      },
      "siteMetrics": [
@@ -33000,13 +33000,13 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       1,
        2,
        3,
        4,
+       5,
        6,
-       8
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -33229,12 +33229,12 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
+       1,
        2,
-       4,
+       3,
        5,
        6,
-       8,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -33686,11 +33686,11 @@ const EXPERTS_DATA = {
       "nums": [
        0,
        1,
+       2,
+       3,
        4,
-       6,
-       7,
-       8,
-       9
+       5,
+       7
       ]
      },
      "siteMetrics": [
@@ -34143,9 +34143,9 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
+       0,
        1,
-       2,
-       4,
+       3,
        5,
        6,
        8,
@@ -34380,12 +34380,12 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       1,
        2,
+       3,
        4,
        5,
-       6,
-       7
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -34607,11 +34607,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       3,
+       1,
+       2,
        4,
-       5,
        6,
+       7,
        8,
        9
       ]
@@ -35069,7 +35069,7 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       1,
+       0,
        2,
        3,
        4,
@@ -35544,12 +35544,12 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       1,
+       2,
        3,
        4,
        5,
        6,
+       7,
        8
       ]
      },
@@ -35773,7 +35773,7 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       3,
+       2,
        4,
        5,
        6,
@@ -35993,9 +35993,95 @@ const EXPERTS_DATA = {
     }
    ],
    "consensus": {
-    "red": [],
+    "red": [
+     {
+      "num": 5,
+      "pct": 96.7
+     },
+     {
+      "num": 7,
+      "pct": 92.5
+     },
+     {
+      "num": null,
+      "pct": 78.3
+     },
+     {
+      "num": null,
+      "pct": 73.3
+     },
+     {
+      "num": null,
+      "pct": 58.3
+     },
+     {
+      "num": null,
+      "pct": 43.3
+     },
+     {
+      "num": 5,
+      "pct": 90
+     },
+     {
+      "num": 6,
+      "pct": 89.2
+     },
+     {
+      "num": null,
+      "pct": 85
+     },
+     {
+      "num": null,
+      "pct": 74.2
+     },
+     {
+      "num": null,
+      "pct": 57.5
+     },
+     {
+      "num": null,
+      "pct": 51.7
+     },
+     {
+      "num": 5,
+      "pct": 95
+     },
+     {
+      "num": 4,
+      "pct": 83.3
+     },
+     {
+      "num": null,
+      "pct": 76.7
+     },
+     {
+      "num": null,
+      "pct": 75
+     },
+     {
+      "num": null,
+      "pct": 71.7
+     },
+     {
+      "num": null,
+      "pct": 49.2
+     }
+    ],
     "blue": [],
-    "sections": [],
+    "sections": [
+     {
+      "title": "百位分布",
+      "n": 6
+     },
+     {
+      "title": "十位分布",
+      "n": 6
+     },
+     {
+      "title": "个位分布",
+      "n": 6
+     }
+    ],
     "topExperts": [
      {
       "name": "挡不住的太阳",
@@ -36048,7 +36134,7 @@ const EXPERTS_DATA = {
       "hit10": 6
      }
     ],
-    "updated": null,
+    "updated": "2026-11-02 21:25",
     "issue": "2026293"
    },
    "pool": {
@@ -36075,9 +36161,9 @@ const EXPERTS_DATA = {
        "name": "下一秒会幸福",
        "nums": [
         0,
-        3,
+        1,
+        2,
         4,
-        5,
         6,
         7,
         9
@@ -36103,12 +36189,12 @@ const EXPERTS_DATA = {
        "name": "梦雨花落",
        "nums": [
         0,
+        1,
         2,
         3,
         4,
-        6,
-        7,
-        8
+        5,
+        9
        ],
        "issue": "2026293",
        "score": 38.5
@@ -36117,7 +36203,7 @@ const EXPERTS_DATA = {
        "name": "好运來",
        "nums": [
         0,
-        3,
+        2,
         4,
         5,
         6,
@@ -36130,7 +36216,7 @@ const EXPERTS_DATA = {
       {
        "name": "于海宾",
        "nums": [
-        1,
+        0,
         2,
         3,
         4,
@@ -36200,13 +36286,13 @@ const EXPERTS_DATA = {
       {
        "name": "沙场点兵",
        "nums": [
-        0,
-        1,
         2,
         3,
         4,
+        5,
         6,
-        8
+        7,
+        9
        ],
        "issue": "2026293",
        "score": 30
@@ -36216,11 +36302,11 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
+        2,
+        3,
         4,
-        6,
-        7,
-        8,
-        9
+        5,
+        7
        ],
        "issue": "2026293",
        "score": 26.5
@@ -36243,12 +36329,12 @@ const EXPERTS_DATA = {
        "name": "彩票绿巨人",
        "nums": [
         0,
+        1,
         2,
-        4,
+        3,
         5,
         6,
-        8,
-        9
+        8
        ],
        "issue": "2026293",
        "score": 30
@@ -36259,10 +36345,10 @@ const EXPERTS_DATA = {
         0,
         1,
         2,
-        3,
         4,
-        5,
-        6
+        6,
+        7,
+        8
        ],
        "issue": "2026293",
        "score": 32.5
@@ -36270,13 +36356,13 @@ const EXPERTS_DATA = {
       {
        "name": "克鲁斯",
        "nums": [
+        0,
         1,
         2,
         3,
         4,
-        5,
         6,
-        8
+        7
        ],
        "issue": "2026293",
        "score": 32.5
@@ -36285,12 +36371,12 @@ const EXPERTS_DATA = {
        "name": "huangfeng001",
        "nums": [
         0,
-        1,
         2,
+        3,
         4,
         5,
-        6,
-        7
+        8,
+        9
        ],
        "issue": "2026293",
        "score": 24
@@ -36312,11 +36398,11 @@ const EXPERTS_DATA = {
       {
        "name": "新田人",
        "nums": [
-        0,
-        3,
+        1,
+        2,
         4,
-        5,
         6,
+        7,
         8,
         9
        ],
@@ -36326,12 +36412,12 @@ const EXPERTS_DATA = {
       {
        "name": "夜来欢",
        "nums": [
-        0,
-        1,
+        2,
         3,
         4,
         5,
         6,
+        7,
         8
        ],
        "issue": "2026293",
@@ -36340,9 +36426,9 @@ const EXPERTS_DATA = {
       {
        "name": "艾及众生",
        "nums": [
+        0,
         1,
-        2,
-        4,
+        3,
         5,
         6,
         8,
@@ -36360,9 +36446,9 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       3,
+       1,
+       2,
        4,
-       5,
        6,
        7,
        9
@@ -36388,12 +36474,12 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
+       1,
        2,
        3,
        4,
-       6,
-       7,
-       8
+       5,
+       9
       ]
      }
     },
@@ -36402,7 +36488,7 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       3,
+       2,
        4,
        5,
        6,
@@ -36415,7 +36501,7 @@ const EXPERTS_DATA = {
      "name": "于海宾",
      "cats": {
       "七码组选": [
-       1,
+       0,
        2,
        3,
        4,
@@ -36485,13 +36571,13 @@ const EXPERTS_DATA = {
      "name": "沙场点兵",
      "cats": {
       "七码组选": [
-       0,
-       1,
        2,
        3,
        4,
+       5,
        6,
-       8
+       7,
+       9
       ]
      }
     },
@@ -36501,11 +36587,11 @@ const EXPERTS_DATA = {
       "七码组选": [
        0,
        1,
+       2,
+       3,
        4,
-       6,
-       7,
-       8,
-       9
+       5,
+       7
       ]
      }
     },
@@ -36528,12 +36614,12 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
+       1,
        2,
-       4,
+       3,
        5,
        6,
-       8,
-       9
+       8
       ]
      }
     },
@@ -36544,10 +36630,10 @@ const EXPERTS_DATA = {
        0,
        1,
        2,
-       3,
        4,
-       5,
-       6
+       6,
+       7,
+       8
       ]
      }
     },
@@ -36555,13 +36641,13 @@ const EXPERTS_DATA = {
      "name": "克鲁斯",
      "cats": {
       "七码组选": [
+       0,
        1,
        2,
        3,
        4,
-       5,
        6,
-       8
+       7
       ]
      }
     },
@@ -36570,12 +36656,12 @@ const EXPERTS_DATA = {
      "cats": {
       "七码组选": [
        0,
-       1,
        2,
+       3,
        4,
        5,
-       6,
-       7
+       8,
+       9
       ]
      }
     },
@@ -36597,11 +36683,11 @@ const EXPERTS_DATA = {
      "name": "新田人",
      "cats": {
       "七码组选": [
-       0,
-       3,
+       1,
+       2,
        4,
-       5,
        6,
+       7,
        8,
        9
       ]
@@ -36611,12 +36697,12 @@ const EXPERTS_DATA = {
      "name": "夜来欢",
      "cats": {
       "七码组选": [
-       0,
-       1,
+       2,
        3,
        4,
        5,
        6,
+       7,
        8
       ]
      }
@@ -36625,9 +36711,9 @@ const EXPERTS_DATA = {
      "name": "艾及众生",
      "cats": {
       "七码组选": [
+       0,
        1,
-       2,
-       4,
+       3,
        5,
        6,
        8,
@@ -36917,10 +37003,10 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       1,
        3,
        4,
-       6
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -37194,9 +37280,9 @@ const EXPERTS_DATA = {
       "nums": [
        0,
        1,
-       3,
-       4,
-       5
+       2,
+       5,
+       8
       ]
      },
      "siteMetrics": [
@@ -37332,11 +37418,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       2,
-       3,
-       5,
-       6
+       1,
+       6,
+       7,
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -37471,10 +37557,10 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       1,
-       2,
+       4,
        5,
-       6
+       7,
+       9
       ]
      },
      "siteMetrics": [
@@ -37883,10 +37969,10 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       2,
        3,
-       4,
-       8
+       6,
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -38158,11 +38244,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       1,
+       2,
+       3,
+       4,
        5,
-       6,
-       7,
-       9
+       8
       ]
      },
      "siteMetrics": [
@@ -38715,10 +38801,10 @@ const EXPERTS_DATA = {
       "issue": "2026293",
       "nums": [
        0,
-       3,
-       4,
-       8,
-       9
+       1,
+       2,
+       5,
+       8
       ]
      },
      "siteMetrics": [
@@ -38993,8 +39079,8 @@ const EXPERTS_DATA = {
        1,
        2,
        4,
-       5,
-       6
+       6,
+       7
       ]
      },
      "siteMetrics": [
@@ -39124,11 +39210,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       2,
-       3,
+       1,
+       4,
        6,
-       7
+       8,
+       9
       ]
      },
      "siteMetrics": [
@@ -39264,11 +39350,11 @@ const EXPERTS_DATA = {
      "catLatest": {
       "issue": "2026293",
       "nums": [
-       0,
-       1,
+       2,
+       3,
+       4,
        5,
-       6,
-       7
+       9
       ]
      },
      "siteMetrics": [
@@ -39563,9 +39649,9 @@ const EXPERTS_DATA = {
        "nums": [
         0,
         1,
-        3,
-        4,
-        5
+        2,
+        5,
+        8
        ],
        "issue": "2026293",
        "score": 73.33
@@ -39573,11 +39659,11 @@ const EXPERTS_DATA = {
       {
        "name": "八龙",
        "nums": [
-        0,
-        2,
-        3,
-        5,
-        6
+        1,
+        6,
+        7,
+        8,
+        9
        ],
        "issue": "2026293",
        "score": 73.33
@@ -39586,10 +39672,10 @@ const EXPERTS_DATA = {
        "name": "西门竺",
        "nums": [
         0,
-        1,
         3,
         4,
-        6
+        6,
+        7
        ],
        "issue": "2026293",
        "score": 74
@@ -39609,11 +39695,11 @@ const EXPERTS_DATA = {
       {
        "name": "种菜",
        "nums": [
-        0,
-        2,
-        3,
+        1,
+        4,
         6,
-        7
+        8,
+        9
        ],
        "issue": "2026293",
        "score": 70
@@ -39621,11 +39707,11 @@ const EXPERTS_DATA = {
       {
        "name": "福娜达",
        "nums": [
-        0,
-        1,
+        2,
+        3,
+        4,
         5,
-        6,
-        7
+        9
        ],
        "issue": "2026293",
        "score": 70
@@ -39664,11 +39750,11 @@ const EXPERTS_DATA = {
       {
        "name": "zlh123",
        "nums": [
-        1,
+        2,
+        3,
+        4,
         5,
-        6,
-        7,
-        9
+        8
        ],
        "issue": "2026293",
        "score": 71.33
@@ -39734,8 +39820,8 @@ const EXPERTS_DATA = {
         1,
         2,
         4,
-        5,
-        6
+        6,
+        7
        ],
        "issue": "2026293",
        "score": 71.33
@@ -39751,10 +39837,10 @@ const EXPERTS_DATA = {
        "name": "美男子博",
        "nums": [
         0,
-        1,
-        2,
+        4,
         5,
-        6
+        7,
+        9
        ],
        "issue": "2026293",
        "score": 73.33
@@ -39775,10 +39861,10 @@ const EXPERTS_DATA = {
        "name": "金钱树",
        "nums": [
         0,
-        2,
         3,
-        4,
-        8
+        6,
+        8,
+        9
        ],
        "issue": "2026293",
        "score": 72.67
@@ -39811,10 +39897,10 @@ const EXPERTS_DATA = {
        "name": "志曾高远",
        "nums": [
         0,
-        3,
-        4,
-        8,
-        9
+        1,
+        2,
+        5,
+        8
        ],
        "issue": "2026293",
        "score": 71.33
@@ -39841,9 +39927,9 @@ const EXPERTS_DATA = {
       "个位定5": [
        0,
        1,
-       3,
-       4,
-       5
+       2,
+       5,
+       8
       ]
      }
     },
@@ -39851,11 +39937,11 @@ const EXPERTS_DATA = {
      "name": "八龙",
      "cats": {
       "个位定5": [
-       0,
-       2,
-       3,
-       5,
-       6
+       1,
+       6,
+       7,
+       8,
+       9
       ]
      }
     },
@@ -39864,10 +39950,10 @@ const EXPERTS_DATA = {
      "cats": {
       "百位定5": [
        0,
-       1,
-       2,
+       4,
        5,
-       6
+       7,
+       9
       ]
      }
     },
@@ -39888,10 +39974,10 @@ const EXPERTS_DATA = {
      "cats": {
       "个位定5": [
        0,
-       1,
        3,
        4,
-       6
+       6,
+       7
       ]
      }
     },
@@ -39924,10 +40010,10 @@ const EXPERTS_DATA = {
      "cats": {
       "百位定5": [
        0,
-       2,
        3,
-       4,
-       8
+       6,
+       8,
+       9
       ]
      }
     },
@@ -39947,11 +40033,11 @@ const EXPERTS_DATA = {
      "name": "zlh123",
      "cats": {
       "十位定5": [
-       1,
+       2,
+       3,
+       4,
        5,
-       6,
-       7,
-       9
+       8
       ]
      }
     },
@@ -39996,10 +40082,10 @@ const EXPERTS_DATA = {
      "cats": {
       "百位定5": [
        0,
-       3,
-       4,
-       8,
-       9
+       1,
+       2,
+       5,
+       8
       ]
      }
     },
@@ -40022,8 +40108,8 @@ const EXPERTS_DATA = {
        1,
        2,
        4,
-       5,
-       6
+       6,
+       7
       ]
      }
     },
@@ -40031,11 +40117,11 @@ const EXPERTS_DATA = {
      "name": "种菜",
      "cats": {
       "个位定5": [
-       0,
-       2,
-       3,
+       1,
+       4,
        6,
-       7
+       8,
+       9
       ]
      }
     },
@@ -40043,11 +40129,11 @@ const EXPERTS_DATA = {
      "name": "福娜达",
      "cats": {
       "个位定5": [
-       0,
-       1,
+       2,
+       3,
+       4,
        5,
-       6,
-       7
+       9
       ]
      }
     },
