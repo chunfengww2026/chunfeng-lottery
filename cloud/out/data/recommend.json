@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-03 02:26",
- "red": 0,
+ "updated": "2026-11-03 03:20",
+ "red": 1,
  "black": 1,
- "rate": "0.0%",
+ "rate": "50.0%",
  "unfinished": 2,
  "history": [
   {
@@ -67,10 +67,10 @@
      "matchNo": "周一001",
      "teams": "国际图尔 vs 赫尔辛基火花",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "4:3",
+     "result": "red",
      "confidence": 66.3,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793541600000,
      "league": "芬超",
      "odds": 1.36,
