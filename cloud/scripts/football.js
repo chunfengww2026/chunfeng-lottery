@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-02 17:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "布哈拉國立大學",
      "score": 2,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 18:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "乌林济之星",
      "score": 1,
