@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 18:00:00",
-    "minute": 59,
+    "minute": 65,
     "home": {
      "name": "乌林济之星",
      "score": 1,
