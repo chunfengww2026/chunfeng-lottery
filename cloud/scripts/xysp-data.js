@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 12:50
+   更新时间：2026-11-02 12:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 12:50",
+ "updated": "2026-11-02 12:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -447,6 +447,20 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-02/a03fb5eb-14a1-4e55-9d49-d031721822371793593811216.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/a03fb5eb-14a1-4e55-9d49-d031721822371793593811216.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26292期]和值.4.5.7.8.9.11，胆.3",
+     "url": "",
+     "at": "2026-11-02T04:55:05.079Z",
+     "pubAt": "2026-11-02T04:30:00.000Z",
+     "pubMs": 1793593800000,
+     "pubSrc": "page",
+     "nextAt": 1793625300000,
+     "atMs": 1793595305079,
+     "seenMs": 1793595305079,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-02/9408d259-5905-4636-866e-12e656015f661793584162141.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-02/9408d259-5905-4636-866e-12e656015f661793584162141.jpg?imageMogr2/thumbnail/360x",
@@ -1059,6 +1073,20 @@ const XYSP_DATA = {
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-02/d7254236-9f71-4613-9fea-d6578f3c9fa61793593825489.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/d7254236-9f71-4613-9fea-d6578f3c9fa61793593825489.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26292期]和值.6至15，胆.2",
+     "url": "",
+     "at": "2026-11-02T04:55:05.079Z",
+     "pubAt": "2026-11-02T04:30:00.000Z",
+     "pubMs": 1793593800000,
+     "pubSrc": "page",
+     "nextAt": 1793622600000,
+     "atMs": 1793595305079,
+     "seenMs": 1793595305079,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-02/88850a39-1258-455f-a626-f124677520931793582025753.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-02/88850a39-1258-455f-a626-f124677520931793582025753.jpg?imageMogr2/thumbnail/360x",
@@ -2740,66 +2768,6 @@ const XYSP_DATA = {
      "author": "一荔独㣊",
      "when": "2026-11-01 14:11:07",
      "postId": "7703081527051911714",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ea9e4d3b5bc4e43beba5c456039978b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=grxfjwFovWCBPYWgXZzX09u0NYo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ea9e4d3b5bc4e43beba5c456039978b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=grxfjwFovWCBPYWgXZzX09u0NYo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ea9e4d3b5bc4e43beba5c456039978b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=x8BSa26MRGyS%2F12i8I2qatS5vco%3D",
-     "title": "6864元巨无霸复式硬刚2元小单，谁能中大奖？双色球124期晒票",
-     "url": "http://toutiao.com/item/7703061612403360266/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T04:46:01.861Z",
-     "whenMs": 1793508793000,
-     "seenMs": 1793594761861,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 12:53:13",
-     "postId": "7703061612403360266",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=3czqxJRs4UIFhtZrlvpttgKFyL4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/143677fdb78e417185c4d72bd178bca4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=3czqxJRs4UIFhtZrlvpttgKFyL4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ea9e4d3b5bc4e43beba5c456039978b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=x8BSa26MRGyS%2F12i8I2qatS5vco%3D",
-     "title": "6864元巨无霸复式硬刚2元小单，谁能中大奖？双色球124期晒票",
-     "url": "http://toutiao.com/item/7703061612403360266/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T04:46:01.861Z",
-     "whenMs": 1793508793000,
-     "seenMs": 1793594761861,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 12:53:13",
-     "postId": "7703061612403360266",
      "px": 132300
     }
    ]
@@ -4508,6 +4476,11 @@ const XYSP_DATA = {
   "/2026-11-02/d34e8e7c-34bc-4da8-b0dd-a8003ae487301793592856961.jpg": 1793593503340,
   "/2026-11-02/2c4dc833-aad5-4291-882f-91c5860006211793592700153.jpg": 1793593803354,
   "/2026-11-02/584bf84a-1ac8-4e3f-8d4a-e6587f36678b1793592653779.jpg": 1793594704613,
-  "/2026-11-02/30a5e291-22ca-46c6-9cd1-d28fef4e8f3f1793592438805.jpg": 1793594704613
+  "/2026-11-02/30a5e291-22ca-46c6-9cd1-d28fef4e8f3f1793592438805.jpg": 1793594704613,
+  "/2026-11-02/a03fb5eb-14a1-4e55-9d49-d031721822371793593811216.jpg": 1793595305079,
+  "/2026-11-02/5a62b650-5699-4ba5-a142-e2a7bbd686da1793593503206.jpg": 1793595305079,
+  "/2026-11-02/d736d6a2-165f-48ce-84e8-4be7d22696101793594014033.jpg": 1793595305079,
+  "/2026-11-02/684fbf53-44c8-4888-853f-c9827020deb71793593825498.jpg": 1793595305079,
+  "/2026-11-02/d7254236-9f71-4613-9fea-d6578f3c9fa61793593825489.jpg": 1793595305079
  }
 };
