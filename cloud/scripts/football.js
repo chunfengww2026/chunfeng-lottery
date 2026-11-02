@@ -68,7 +68,7 @@ const FOOTBALL_DATA = {
      "color": "7f1599"
     },
     "time": "2026-11-02 10:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "萨克拉门托共和",
      "score": 0,
@@ -134,7 +134,7 @@ const FOOTBALL_DATA = {
      "color": "660033"
     },
     "time": "2026-11-02 10:45:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "波特兰木材",
      "score": 1,
