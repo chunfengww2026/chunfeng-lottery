@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 18:00
+   更新时间：2026-11-02 18:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 18:00",
+ "updated": "2026-11-02 18:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3726,66 +3726,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-01 19:14:19",
      "postId": "7703159822253818403",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d780a526ec04739826164c26f792199~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=o64IsIquyN9BBdHbmZO8ltD2hwQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d780a526ec04739826164c26f792199~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=o64IsIquyN9BBdHbmZO8ltD2hwQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae9943ae95d149adb89c04f41f638ee9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=6wc93ZQ0Zp8yl8VvipYnNQBHb3M%3D",
-     "title": "双色球125期晒票：5倍单挑霸气硬刚，4胆5拖想稳中求胜？",
-     "url": "http://toutiao.com/item/7703141571511714347/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T15:46:01.797Z",
-     "whenMs": 1793527410000,
-     "seenMs": 1793547961797,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 18:03:30",
-     "postId": "7703141571511714347",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b8c4b809ffa6422381dda68f86c459c5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=0rGvhjPP1V%2FFtWkpnrN1X6OnK9E%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b8c4b809ffa6422381dda68f86c459c5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=0rGvhjPP1V%2FFtWkpnrN1X6OnK9E%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae9943ae95d149adb89c04f41f638ee9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=6wc93ZQ0Zp8yl8VvipYnNQBHb3M%3D",
-     "title": "双色球125期晒票：5倍单挑霸气硬刚，4胆5拖想稳中求胜？",
-     "url": "http://toutiao.com/item/7703141571511714347/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T15:46:01.797Z",
-     "whenMs": 1793527410000,
-     "seenMs": 1793547961797,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 18:03:30",
-     "postId": "7703141571511714347",
      "px": 132300
     }
    ]
