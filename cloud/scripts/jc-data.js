@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 06:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 07:28 */
 const JC_DATA = {
- "updated": "2026-11-03 06:58",
+ "updated": "2026-11-03 07:28",
  "stat": {
-  "total": 9,
-  "upcoming": 1,
+  "total": 8,
+  "upcoming": 0,
   "live": 0,
   "finished": 8,
   "withScore": 8,
-  "droppedNotOnSale": 0,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 9,
-  "droppedNotOnSale": 0,
+  "officialCodes": 8,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -890,186 +890,15 @@ const JC_DATA = {
     "home": 1,
     "away": 0
    }
-  },
-  {
-   "gid": "1362566",
-   "fid": "1362566",
-   "sid": "19498",
-   "code": "周一009",
-   "league": "巴甲",
-   "round": "第34轮",
-   "time": "2026-11-03 07:00",
-   "handicap": "-1",
-   "home": {
-    "name": "布拉干蒂诺RB",
-    "rank": 9
-   },
-   "away": {
-    "name": "桑托斯",
-    "rank": 8
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.92,
-      "line": "半球",
-      "away": 0.92
-     },
-     "live": {
-      "home": 1.05,
-      "line": "半球",
-      "away": 0.75
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 1.9,
-      "draw": 3.5,
-      "away": 3.8
-     },
-     "live": {
-      "home": 2.05,
-      "draw": 3.8,
-      "away": 3.3
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.97,
-      "over": 2.5,
-      "under": 0.87
-     },
-     "live": {
-      "line": 1.02,
-      "over": 3,
-      "under": 0.77
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 47.7,
-    "prob": {
-     "home": 47.7,
-     "draw": 26.2,
-     "away": 26.1
-    },
-    "clear": true,
-    "margin": 5.4,
-    "rqLine": "半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 47.7,
-      "draw": 26.2,
-      "away": 26.1
-     },
-     "confidence": 47.7,
-     "signals": [
-      "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-2.7pp / 平局-1.6pp / 客胜+4.3pp",
-      "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.980",
-      "多机构分歧 3.3%"
-     ],
-     "missing": [
-      "同场同期必发成交/购买热度缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -2.2,
-      "draw": -0.4,
-      "away": -14
-     },
-     "handicap": {
-      "line": -1,
-      "prob": {
-       "home": 0.26927563169643615,
-       "draw": 0.20716064322668423,
-       "away": 0.5235637250768796
-      },
-      "pick": "away",
-      "label": "让负"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
-   },
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": -0.5,
-    "openUpWater": 0.92,
-    "openDownWater": 0.92,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": false,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.5,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.92,
-     "nowUpWater": 1.05,
-     "initLine": "半球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-03 06:58",
+  "updated": "2026-11-03 07:28",
   "officialUpdate": "2026-11-02 21:49:56",
-  "inSale": 9,
+  "inSale": 8,
   "list": [
-   {
-    "code": "周一009",
-    "matchNum": "1009",
-    "league": "巴甲",
-    "time": "2026-11-03 07:00:00",
-    "home": "布拉干RB",
-    "away": "桑托斯",
-    "had": {
-     "h": 1.9,
-     "d": 3.25,
-     "a": 3.27,
-     "update": "2026-11-02 16:34:37"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 3.7,
-     "d": 3.8,
-     "a": 1.65,
-     "update": "2026-11-02 10:38:11"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周二004",
     "matchNum": "2004",
