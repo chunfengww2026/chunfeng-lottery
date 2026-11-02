@@ -9,41 +9,39 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 10:19:56
+   更新时间：2026-11-02 02:46:01
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-02 10:19:56",
+ "updated": "2026-11-02 02:46:01",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fbe04bf7b72e4e739aae6d3ab82cddca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=dK98sJMW3hxO%2BuHr96g2elToUic%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fbe04bf7b72e4e739aae6d3ab82cddca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=dK98sJMW3hxO%2BuHr96g2elToUic%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1a8384be7a85445c8448277fc1d9e7d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=4WKFUfFB4VAjBtYeY%2Bx6oYevewI%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fbe04bf7b72e4e739aae6d3ab82cddca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=gujXS93oE0M7AQXY9t3GJHF5gjg%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fbe04bf7b72e4e739aae6d3ab82cddca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=gujXS93oE0M7AQXY9t3GJHF5gjg%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1a8384be7a85445c8448277fc1d9e7d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=e5e6Q%2Bxxc9JuaUfoTMHJY2qvOlc%3D",
    "title": "买了8年足彩，我终于算清了这笔“看不见的账”",
-   "url": "http://toutiao.com/item/7703341054287675955/",
+   "url": "https://toutiao.com/group/7703107211442012723/",
    "at": "2026-11-01T15:26:01.884Z",
    "src": "tt",
    "cat": "jc",
    "game": "竞彩",
    "games": [],
    "issue": "",
-   "seen": "2026-11-02T02:19:56.507Z",
-   "whenMs": 1793573856000,
-   "seenMs": 1793585996507,
+   "seen": "2026-11-01T16:56:01.944Z",
+   "whenMs": 1793519522000,
+   "seenMs": 1793552161944,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793546761884,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-03T02:19:56.507Z",
+   "expireAt": "2026-11-02T16:56:01.944Z",
    "rule": "cap",
-   "author": "优雅奶酪6hWlg9",
-   "when": "2026-11-02 06:57:36",
-   "postId": "7703341054287675955",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
+   "author": "小浩体育",
+   "when": "2026-11-01 15:52:02",
+   "postId": "7703107211442012723",
+   "px": 132300
   }
  ],
  "firstSeenRegistry": {}
