@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 16:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "圖瓦阿扎爾加努德",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 2
     },
