@@ -12483,7 +12483,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "曼谷聯U21",
      "score": 3,
@@ -12549,7 +12549,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-02 17:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "布哈拉國立大學",
      "score": 2,
