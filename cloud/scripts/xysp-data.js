@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 19:10
+   更新时间：2026-11-02 19:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 19:10",
+ "updated": "2026-11-02 19:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4292,96 +4292,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-01 19:22:36",
      "postId": "7703161956380246543",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=WKSS8f06zDkMO5KswQl9eVPtc6s%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=WKSS8f06zDkMO5KswQl9eVPtc6s%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JVrhL9yDeKzcnKUThMFIDliIBi4%3D",
-     "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
-     "url": "http://toutiao.com/item/7703159822253818403/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T11:06:02.142Z",
-     "whenMs": 1793531659000,
-     "seenMs": 1793617562142,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 19:14:19",
-     "postId": "7703159822253818403",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3bc52b10e33e4210aff4c0873e190571~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=2vWXx%2Ft3kYstLHvMJrbdl%2FvNdck%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3bc52b10e33e4210aff4c0873e190571~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=2vWXx%2Ft3kYstLHvMJrbdl%2FvNdck%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JVrhL9yDeKzcnKUThMFIDliIBi4%3D",
-     "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
-     "url": "http://toutiao.com/item/7703159822253818403/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T11:06:02.142Z",
-     "whenMs": 1793531659000,
-     "seenMs": 1793617562142,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 19:14:19",
-     "postId": "7703159822253818403",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cd2edc0c6f954bfcbd7ee00844a1392e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=xoYzZBVNoWOof1O7N0t3Wl1wW6o%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cd2edc0c6f954bfcbd7ee00844a1392e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=xoYzZBVNoWOof1O7N0t3Wl1wW6o%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4b312c0d5daa4b27a0889d1cf67629e4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JVrhL9yDeKzcnKUThMFIDliIBi4%3D",
-     "title": "独蓝13被批发，10倍直接全偶，真敢砸钱！双色球125期实票赏析",
-     "url": "http://toutiao.com/item/7703159822253818403/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T11:06:02.142Z",
-     "whenMs": 1793531659000,
-     "seenMs": 1793617562142,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 19:14:19",
-     "postId": "7703159822253818403",
      "px": 132300
     }
    ]
