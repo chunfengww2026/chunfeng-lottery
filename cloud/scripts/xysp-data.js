@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 11:20
+   更新时间：2026-11-02 11:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 11:20",
+ "updated": "2026-11-02 11:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1401,6 +1401,20 @@ const XYSP_DATA = {
    "name": "排列5",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-02/a13b8657-4cfe-4199-8c58-812a6c3d7bda1793588633101.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/a13b8657-4cfe-4199-8c58-812a6c3d7bda1793588633101.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26292期]客服号码来啦",
+     "url": "",
+     "at": "2026-11-02T03:25:03.166Z",
+     "pubAt": "2026-11-02T03:04:00.000Z",
+     "pubMs": 1793588640000,
+     "pubSrc": "page",
+     "nextAt": 1793622600000,
+     "atMs": 1793589903166,
+     "seenMs": 1793589903166,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-02/47511dd9-f306-4eb2-b91d-93cd56aabb191793582061876.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-02/47511dd9-f306-4eb2-b91d-93cd56aabb191793582061876.jpg?imageMogr2/thumbnail/360x",
      "title": "[26292期]开工大吉",
@@ -2522,66 +2536,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-01 12:53:13",
      "postId": "7703061612403360266",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ed3c2fae39b0448e900dac0fd4e7a143~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=qL%2FaDEzZLNn783VNxM2VLNUfF%2FY%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ed3c2fae39b0448e900dac0fd4e7a143~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=qL%2FaDEzZLNn783VNxM2VLNUfF%2FY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f4f89927d51546a288d7f46cb8a50680~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=%2BayuIbnSn3zhUbo4fqONR%2FkZPso%3D",
-     "title": "万元票扎堆，齐锁红球15、26，有戏吗？双色球125期实票理性欣赏",
-     "url": "https://toutiao.com/group/7703038295038493203/",
-     "at": "2026-11-01T03:26:01.242Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T03:26:01.242Z",
-     "whenMs": 1793503387000,
-     "seenMs": 1793503561242,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793503561242,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T03:26:01.242Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-01 11:23:07",
-     "postId": "7703038295038493203",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6d8ffbccd2041159653aa5e91d9169f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=P1AUAmRu36kb50vtiks4XtlnymE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c6d8ffbccd2041159653aa5e91d9169f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=P1AUAmRu36kb50vtiks4XtlnymE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f4f89927d51546a288d7f46cb8a50680~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=%2FQMk%2BpGzXmxPPPCvxbdtduvGZ0s%3D",
-     "title": "万元票扎堆，齐锁红球15、26，有戏吗？双色球125期实票理性欣赏",
-     "url": "https://toutiao.com/group/7703038295038493203/",
-     "at": "2026-11-01T03:26:01.242Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T03:26:01.242Z",
-     "whenMs": 1793503387000,
-     "seenMs": 1793503561242,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793503561242,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-02T03:26:01.242Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-01 11:23:07",
-     "postId": "7703038295038493203",
      "px": 132300
     }
    ]
@@ -4280,6 +4234,7 @@ const XYSP_DATA = {
   "/2026-11-02/a88b1500-c69f-4251-938e-aa9710ca20e51793586558580.jpg": 1793588343193,
   "/2026-11-02/88850a39-1258-455f-a626-f124677520931793582025753.jpg": 1793588343193,
   "/2026-11-02/8896d2e9-5d5f-4b5d-bec4-24c5a48609481793575026000.jpg": 1793588343193,
-  "/2026-11-02/47511dd9-f306-4eb2-b91d-93cd56aabb191793582061876.jpg": 1793588343193
+  "/2026-11-02/47511dd9-f306-4eb2-b91d-93cd56aabb191793582061876.jpg": 1793588343193,
+  "/2026-11-02/a13b8657-4cfe-4199-8c58-812a6c3d7bda1793588633101.jpg": 1793589903166
  }
 };
