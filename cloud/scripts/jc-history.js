@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-03 03:28",
+ "updated": "2026-11-03 04:00",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -671,36 +671,9 @@ const JC_HISTORY = {
    "home": "亚特兰大",
    "away": "帕尔马",
    "time": "2026-11-03 03:45",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球",
-    "from": "live",
-    "handicap": -1,
-    "upSide": "home",
-    "upWater": 0.82,
-    "downWater": 1.02,
-    "openHandicap": -1.5,
-    "openUpWater": 1.07,
-    "openDownWater": 0.72,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "55.43",
-    "theoryDownPercent": "44.57",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -1.5,
-     "nowHandicap": -1,
-     "initUpWater": 1.07,
-     "nowUpWater": 0.82,
-     "initLine": "球半",
-     "nowLine": "一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 1.5,
     "draw": 4.5,
@@ -715,9 +688,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 68.2,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
-   "matched": false,
+   "matched": true,
    "at": "2026-11-01 00:28"
   },
   {
@@ -838,20 +811,47 @@ const JC_HISTORY = {
    "time": "2026-11-03 01:30",
    "score": "1:0",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.95,
+    "downWater": 0.9,
+    "openHandicap": 0.25,
+    "openUpWater": 1.2,
+    "openDownWater": 0.65,
+    "totalWater": 1.85,
+    "theoryUpPercent": "48.65",
+    "theoryDownPercent": "51.35",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 1.2,
+     "nowUpWater": 0.95,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.88,
+    "home": 3.1,
     "draw": 3.6,
-    "away": 2.35
+    "away": 2.25
    },
    "prob": {
-    "home": 32.6,
-    "draw": 26.7,
-    "away": 40.7
+    "home": 30.9,
+    "draw": 26.6,
+    "away": 42.5
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 40.7,
+   "conf": 42.5,
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
@@ -3836,171 +3836,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-10-30 00:28"
-  },
-  {
-   "code": "周五008",
-   "league": "英冠",
-   "home": "谢菲联",
-   "away": "雷克斯",
-   "time": "2026-10-31 04:00",
-   "score": "1:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": 0,
-    "openUpWater": 0.82,
-    "openDownWater": 1.02,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": false,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": 0,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.82,
-     "nowUpWater": 1.15,
-     "initLine": "平手",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.25,
-    "draw": 3.4,
-    "away": 3
-   },
-   "prob": {
-    "home": 41.5,
-    "draw": 27.4,
-    "away": 31.1
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 41.5,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-31 06:58"
-  },
-  {
-   "code": "周五009",
-   "league": "西甲",
-   "home": "比利亚雷",
-   "away": "西班牙人",
-   "time": "2026-10-31 04:00",
-   "score": "0:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球/球半",
-    "from": "live",
-    "handicap": -1.25,
-    "upSide": "home",
-    "upWater": 0.72,
-    "downWater": 1.07,
-    "openHandicap": -1,
-    "openUpWater": 0.95,
-    "openDownWater": 0.9,
-    "totalWater": 1.79,
-    "theoryUpPercent": "59.78",
-    "theoryDownPercent": "40.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": -1,
-     "nowHandicap": -1.25,
-     "initUpWater": 0.95,
-     "nowUpWater": 0.72,
-     "initLine": "一球",
-     "nowLine": "一球/球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.36,
-    "draw": 5.5,
-    "away": 7
-   },
-   "prob": {
-    "home": 69.4,
-    "draw": 17.2,
-    "away": 13.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 69.4,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-30 00:28"
-  },
-  {
-   "code": "周五007",
-   "league": "德甲",
-   "home": "埃沃斯堡",
-   "away": "美因茨",
-   "time": "2026-10-31 03:30",
-   "score": "4:1",
-   "hc": null,
-   "asianIndex": {
-    "line": "受半球/一球",
-    "from": "live",
-    "handicap": 0.75,
-    "upSide": "away",
-    "upWater": 1.1,
-    "downWater": 0.7,
-    "openHandicap": 0.25,
-    "openUpWater": 0.85,
-    "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "38.89",
-    "theoryDownPercent": "61.11",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.75,
-     "initUpWater": 0.85,
-     "nowUpWater": 1.1,
-     "initLine": "受平手/半球",
-     "nowLine": "受半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.75,
-    "draw": 3.9,
-    "away": 1.85
-   },
-   "prob": {
-    "home": 25.1,
-    "draw": 24.1,
-    "away": 50.8
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 50.8,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-31 06:00"
   }
  ]
 };
