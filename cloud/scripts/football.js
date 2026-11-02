@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "曼谷聯U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "赫恩柯恩聯U21",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -12528,7 +12528,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 16:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "查英特賀納比爾U21",
      "score": 0,
