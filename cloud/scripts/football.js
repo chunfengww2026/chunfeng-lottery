@@ -11030,7 +11030,7 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 13:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "猎人FC",
      "score": 1,
@@ -11039,7 +11039,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "乌兰巴托",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 1
     },
