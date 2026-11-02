@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "曼谷聯U21",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -12490,7 +12490,7 @@ const FOOTBALL_DATA = {
      "color": "AC9B0A"
     },
     "time": "2026-11-02 16:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "圖瓦阿扎爾加努德",
      "score": 1,
