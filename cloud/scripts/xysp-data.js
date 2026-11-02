@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 22:00
+   更新时间：2026-11-02 22:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 22:00",
+ "updated": "2026-11-02 22:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -539,20 +539,6 @@ const XYSP_DATA = {
      "atMs": 1793549704623,
      "seenMs": 1793549704623,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/77c748b8-887e-4dff-8fec-1d56e719597a1793540954064.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/77c748b8-887e-4dff-8fec-1d56e719597a1793540954064.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]继续冲击400万",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:49:00.000Z",
-     "pubMs": 1793540940000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
-     "whenMs": null
     }
    ]
   },
@@ -921,20 +907,6 @@ const XYSP_DATA = {
      "nextAt": 1793625300000,
      "atMs": 1793542584087,
      "seenMs": 1793542584087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/3a82e9f1-b95f-44c0-8ead-5173467644151793540857246.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/3a82e9f1-b95f-44c0-8ead-5173467644151793540857246.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]开门红",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:48:00.000Z",
-     "pubMs": 1793540880000,
-     "pubSrc": "page",
-     "nextAt": 1793625300000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
      "whenMs": null
     },
     {
@@ -1799,62 +1771,6 @@ const XYSP_DATA = {
      "nextAt": 1793622600000,
      "atMs": 1793543195335,
      "seenMs": 1793543195335,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/cc355dab-cf3c-442b-a2b7-3cb4aa6b95d31793540977531.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/cc355dab-cf3c-442b-a2b7-3cb4aa6b95d31793540977531.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]11月开门红来咯",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:50:00.000Z",
-     "pubMs": 1793541000000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/d2e0a1c1-c62e-4f20-8f69-be1c452f85be1793540669192.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/d2e0a1c1-c62e-4f20-8f69-be1c452f85be1793540669192.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]全部死了",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:44:00.000Z",
-     "pubMs": 1793540640000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/8899ec7e-4c5c-4cb6-af0a-051432ce1f4e1793540669170.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/8899ec7e-4c5c-4cb6-af0a-051432ce1f4e1793540669170.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]全部死了",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:44:00.000Z",
-     "pubMs": 1793540640000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-01/5fe77faa-a94c-4883-83a0-e681cc8b27d21793540669152.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-01/5fe77faa-a94c-4883-83a0-e681cc8b27d21793540669152.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]全部死了",
-     "url": "",
-     "at": "2026-11-01T14:05:02.451Z",
-     "pubAt": "2026-11-01T13:44:00.000Z",
-     "pubMs": 1793540640000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793541902451,
-     "seenMs": 1793541902451,
      "whenMs": null
     }
    ]
