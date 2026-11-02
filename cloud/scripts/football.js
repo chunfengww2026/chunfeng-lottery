@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 18:00:00",
-    "minute": 21,
+    "minute": 26,
     "home": {
      "name": "乌林济之星",
      "score": 0,
@@ -12483,10 +12483,10 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "曼谷聯U21",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
