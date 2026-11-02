@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 14:20
+   更新时间：2026-11-02 14:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 14:20",
+ "updated": "2026-11-02 14:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2805,99 +2805,6 @@ const XYSP_DATA = {
      "author": "霜晚闻芳",
      "when": "2026-11-01 15:30:05",
      "postId": "1880640145380428",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/debe31df8c594d8a8a5f3f8b05abbcf4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=iqI6gQnLFkH%2FLOYENCh1mLIU3Zo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/debe31df8c594d8a8a5f3f8b05abbcf4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=iqI6gQnLFkH%2FLOYENCh1mLIU3Zo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/debe31df8c594d8a8a5f3f8b05abbcf4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=jaTHbWDULtvENdxnMTlM%2FFg5S90%3D",
-     "title": "3d、排列3第26288期晒票：于困顿中坚守本心，在淡然中静待相逢",
-     "url": "http://toutiao.com/item/7703084980380893696/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26288",
-     "seen": "2026-11-02T06:06:01.899Z",
-     "whenMs": 1793514234000,
-     "seenMs": 1793599561899,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 14:23:54",
-     "postId": "7703084980380893696",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/893bbb247cbf410d8d0bfd766155d2fe~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=2rOpnCw3aCnXCTnXXvkFdrqPBho%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/893bbb247cbf410d8d0bfd766155d2fe~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=2rOpnCw3aCnXCTnXXvkFdrqPBho%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/debe31df8c594d8a8a5f3f8b05abbcf4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=jaTHbWDULtvENdxnMTlM%2FFg5S90%3D",
-     "title": "3d、排列3第26288期晒票：于困顿中坚守本心，在淡然中静待相逢",
-     "url": "http://toutiao.com/item/7703084980380893696/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26288",
-     "seen": "2026-11-02T06:06:01.899Z",
-     "whenMs": 1793514234000,
-     "seenMs": 1793599561899,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 14:23:54",
-     "postId": "7703084980380893696",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2278914e1a32439c84b5aaafcfd4e9ad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=756kf4oYfKa8sj%2F%2FMy02iHpJKZE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2278914e1a32439c84b5aaafcfd4e9ad~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=756kf4oYfKa8sj%2F%2FMy02iHpJKZE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/debe31df8c594d8a8a5f3f8b05abbcf4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=jaTHbWDULtvENdxnMTlM%2FFg5S90%3D",
-     "title": "3d、排列3第26288期晒票：于困顿中坚守本心，在淡然中静待相逢",
-     "url": "http://toutiao.com/item/7703084980380893696/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "26288",
-     "seen": "2026-11-02T06:06:01.899Z",
-     "whenMs": 1793514234000,
-     "seenMs": 1793599561899,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 14:23:54",
-     "postId": "7703084980380893696",
      "px": 132300
     }
    ]
