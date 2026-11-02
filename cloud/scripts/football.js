@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "瓦迪戴加",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "8c6e0b"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "USFAS巴馬科女足",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "776699"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "杜博西卡",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "880030"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 15,
+    "minute": 20,
     "home": {
      "name": "法兰姆达利",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 14,
+    "minute": 18,
     "home": {
      "name": "苏姆盖特",
      "score": 0,
@@ -459,7 +459,7 @@ const FOOTBALL_DATA = {
      "color": "980010"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "烏姆艾哈桑",
      "score": 0,
@@ -532,10 +532,10 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "古泰斯鱼雷",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 7
     },
@@ -678,7 +678,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 11,
+    "minute": 16,
     "home": {
      "name": "苏维埃之翼",
      "score": 0,
@@ -751,16 +751,16 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-02 23:15:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "奧维多",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
     "away": {
      "name": "拉斯帕尔马斯",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 14
     },
@@ -9575,7 +9575,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-02 21:45:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "帕克塔科",
      "score": 1,
@@ -9641,7 +9641,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-02 22:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "蒙特維多國民隊(後備)",
      "score": 1,
@@ -9707,7 +9707,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:35:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "伊蒂法克(U21)",
      "score": 1,
@@ -9785,7 +9785,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:40:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "阿爾菲斯U21",
      "score": 1,
@@ -9823,7 +9823,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-02 22:40:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "阿尔吉尔",
      "score": 0,
@@ -9901,7 +9901,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:50:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "阿利雅德U21",
      "score": 0,
@@ -9979,7 +9979,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:55:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "費哈U21",
      "score": 0,
@@ -10057,7 +10057,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-02 22:55:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": " 阿爾茲拉費",
      "score": 0,
