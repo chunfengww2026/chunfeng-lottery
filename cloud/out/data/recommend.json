@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-03 05:40",
+ "updated": "2026-11-03 06:17",
  "red": 1,
- "black": 1,
- "rate": "50.0%",
+ "black": 2,
+ "rate": "33.3%",
  "unfinished": 2,
  "history": [
   {
@@ -80,10 +80,10 @@
      "matchNo": "周一004",
      "teams": "亚特兰大 vs 帕尔马",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:3",
+     "result": "black",
      "confidence": 68.2,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793541600000,
      "league": "意甲",
      "odds": 1.5,
