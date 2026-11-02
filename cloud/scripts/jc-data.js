@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 04:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 05:28 */
 const JC_DATA = {
- "updated": "2026-11-03 04:58",
+ "updated": "2026-11-03 05:28",
  "stat": {
   "total": 4,
   "upcoming": 1,
@@ -385,9 +385,9 @@ const JC_DATA = {
       "away": 3.8
      },
      "live": {
-      "home": 1.95,
+      "home": 1.91,
       "draw": 3.8,
-      "away": 3.6
+      "away": 3.7
      }
     },
     "overunder": {
@@ -406,47 +406,47 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.6,
+    "confidence": 48.9,
     "prob": {
-     "home": 48.6,
+     "home": 48.9,
      "draw": 26.2,
-     "away": 25.2
+     "away": 25
     },
     "clear": true,
-    "margin": 5.4,
+    "margin": 5.7,
     "rqLine": "半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 48.6,
+      "home": 48.9,
       "draw": 26.2,
-      "away": 25.2
+      "away": 25
      },
-     "confidence": 48.6,
+     "confidence": 48.9,
      "signals": [
       "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜-0.3pp / 平局-1.6pp / 客胜+1.9pp",
+      "初盘→即时：主胜+0.6pp / 平局-1.7pp / 客胜+1.1pp",
       "亚盘未变盘；水位只作辅助核对",
-      "主要方向凯利中位参考 0.930",
-      "多机构分歧 3.3%"
+      "主要方向凯利中位参考 0.940",
+      "多机构分歧 3.4%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
      ],
      "risk": [],
      "ev": {
-      "home": -5.3,
-      "draw": -0.4,
-      "away": -9.2
+      "home": -6.7,
+      "draw": -0.5,
+      "away": -7.7
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.3012216207846157,
-       "draw": 0.20343680790054464,
-       "away": 0.49534157131483975
+       "home": 0.30833242831904806,
+       "draw": 0.20451562828259698,
+       "away": 0.48715194339835444
       },
       "pick": "away",
       "label": "让负"
@@ -490,7 +490,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-03 04:58",
+  "updated": "2026-11-03 05:28",
   "officialUpdate": "2026-11-02 21:49:56",
   "inSale": 9,
   "list": [
