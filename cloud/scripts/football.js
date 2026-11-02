@@ -937,7 +937,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 05:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "利马切",
      "score": 1,
@@ -1013,7 +1013,7 @@ const FOOTBALL_DATA = {
      "color": "999810"
     },
     "time": "2026-11-03 05:15:00",
-    "minute": 79,
+    "minute": 81,
     "home": {
      "name": "皇家托马亚波",
      "score": 1,
