@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "9B4378"
     },
     "time": "2026-11-02 18:00:00",
-    "minute": 1,
+    "minute": 6,
     "home": {
      "name": "乌林济之星",
      "score": 0,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "马塔雷联",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 10
     },
@@ -12417,7 +12417,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 16:30:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "查英特賀納比爾U21",
      "score": 0,
@@ -12483,7 +12483,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-02 17:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "曼谷聯U21",
      "score": 1,
@@ -12492,7 +12492,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "赫恩柯恩聯U21",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
@@ -12549,10 +12549,10 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-02 17:30:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "布哈拉國立大學",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 12
     },
