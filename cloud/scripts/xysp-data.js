@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 14:10
+   更新时间：2026-11-02 14:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 14:10",
+ "updated": "2026-11-02 14:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2898,66 +2898,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-01 14:23:54",
      "postId": "7703084980380893696",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/875c4ffdd1054bf58ca9778eed4dec5f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=GT9IC6GGJsgfsZnsYLOXhgUibPE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/875c4ffdd1054bf58ca9778eed4dec5f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=GT9IC6GGJsgfsZnsYLOXhgUibPE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/875c4ffdd1054bf58ca9778eed4dec5f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=cGUqmmlSS5BTt4qpJ26wiTkx2mI%3D",
-     "title": "排三排五3D：有人只猜一位数，有人前四位直接定死？这晒票绝了！",
-     "url": "https://toutiao.com/group/7703081527051911714/",
-     "at": "2026-11-01T14:26:01.801Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T17:06:03.451Z",
-     "whenMs": 1793513467000,
-     "seenMs": 1793552763451,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793543161801,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-02T14:26:01.801Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-11-01 14:11:07",
-     "postId": "7703081527051911714",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/695a547dbd204669b1c2b6a629f46b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=C7VhC6JE8t4MkBhXQ%2FCByZgQySg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/695a547dbd204669b1c2b6a629f46b1f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=C7VhC6JE8t4MkBhXQ%2FCByZgQySg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/875c4ffdd1054bf58ca9778eed4dec5f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802217600&x-signature=cGUqmmlSS5BTt4qpJ26wiTkx2mI%3D",
-     "title": "排三排五3D：有人只猜一位数，有人前四位直接定死？这晒票绝了！",
-     "url": "https://toutiao.com/group/7703081527051911714/",
-     "at": "2026-11-01T14:26:01.801Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-01T17:06:03.451Z",
-     "whenMs": 1793513467000,
-     "seenMs": 1793552763451,
-     "drawMs": 1793538900000,
-     "nextMs": 1793538900000,
-     "atMs": 1793543161801,
-     "drawAt": "2026-11-01T13:15:00.000Z",
-     "nextAt": 1793538900000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-02T14:26:01.801Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-11-01 14:11:07",
-     "postId": "7703081527051911714",
      "px": 132300
     }
    ]
