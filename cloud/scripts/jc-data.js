@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 21:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 22:00 */
 const JC_DATA = {
- "updated": "2026-11-02 21:28",
+ "updated": "2026-11-02 22:00",
  "stat": {
   "total": 17,
   "upcoming": 17,
@@ -1026,9 +1026,9 @@ const JC_DATA = {
       "away": 0.97
      },
      "live": {
-      "home": 0.92,
+      "home": 0.85,
       "line": "平手/半球",
-      "away": 0.92
+      "away": 1
      }
     },
     "europe": {
@@ -1050,9 +1050,9 @@ const JC_DATA = {
       "under": 1
      },
      "live": {
-      "line": 0.9,
+      "line": 0.88,
       "over": 2.5,
-      "under": 0.95
+      "under": 0.98
      }
     }
    },
@@ -1097,9 +1097,9 @@ const JC_DATA = {
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.22090289971800997,
-       "draw": 0.22504498394333095,
-       "away": 0.5540521163386589
+       "home": 0.2218096139120744,
+       "draw": 0.2244397984097889,
+       "away": 0.5537505876781372
       },
       "pick": "away",
       "label": "让负"
@@ -1112,21 +1112,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 0.92,
-    "downWater": 0.92,
+    "upWater": 0.85,
+    "downWater": 1,
     "openHandicap": -0.25,
     "openUpWater": 0.87,
     "openDownWater": 0.97,
-    "totalWater": 1.84,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
+    "totalWater": 1.85,
+    "theoryUpPercent": "54.05",
+    "theoryDownPercent": "45.95",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.87,
-     "nowUpWater": 0.92,
+     "nowUpWater": 0.85,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
@@ -2403,8 +2403,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-02 21:28",
-  "officialUpdate": "2026-11-02 21:25:10",
+  "updated": "2026-11-02 22:00",
+  "officialUpdate": "2026-11-02 21:49:56",
   "inSale": 17,
   "list": [
    {
@@ -2446,17 +2446,17 @@ const JC_DATA = {
     "home": "萨索洛",
     "away": "佛罗伦萨",
     "had": {
-     "h": 2.48,
+     "h": 2.58,
      "d": 3.22,
-     "a": 2.35,
-     "update": "2026-11-02 21:09:58"
+     "a": 2.27,
+     "update": "2026-11-02 21:49:49"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.41,
-     "d": 4.25,
-     "a": 5.15,
-     "update": "2026-11-02 21:10:06"
+     "h": 1.45,
+     "d": 4.1,
+     "a": 4.85,
+     "update": "2026-11-02 21:49:56"
     },
     "single": {
      "HAD": {
