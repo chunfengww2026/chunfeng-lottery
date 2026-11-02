@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-02 18:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-02 19:28 */
 const JC_DATA = {
- "updated": "2026-11-02 18:58",
+ "updated": "2026-11-02 19:28",
  "stat": {
   "total": 17,
   "upcoming": 17,
@@ -758,9 +758,9 @@ const JC_DATA = {
       "away": 3
      },
      "live": {
-      "home": 2.15,
+      "home": 2.2,
       "draw": 3.1,
-      "away": 2.9
+      "away": 2.88
      }
     },
     "overunder": {
@@ -779,27 +779,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 41.3,
+    "confidence": 41.1,
     "prob": {
-     "home": 41.3,
+     "home": 41.1,
      "draw": 28.7,
-     "away": 30
+     "away": 30.1
     },
     "clear": false,
-    "margin": 13.3,
+    "margin": 12.4,
     "rqLine": "平手/半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 41.3,
+      "home": 41.1,
       "draw": 28.7,
-      "away": 30
+      "away": 30.1
      },
-     "confidence": 41.3,
+     "confidence": 41.1,
      "signals": [
-      "初盘→即时：主胜-0.4pp / 平局-0.3pp / 客胜+0.7pp",
+      "初盘→即时：主胜-1.1pp / 平局-0.1pp / 客胜+1.1pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -810,16 +810,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -11.1,
-      "draw": -11.1,
-      "away": -13
+      "home": -9.5,
+      "draw": -10.9,
+      "away": -13.2
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.19759637534076632,
-       "draw": 0.22199808645189945,
-       "away": 0.580405538207334
+       "home": 0.19414846579514533,
+       "draw": 0.2205875512393581,
+       "away": 0.5852639829654958
       },
       "pick": "away",
       "label": "让负"
@@ -1881,8 +1881,8 @@ const JC_DATA = {
      },
      "live": {
       "home": 2,
-      "draw": 3.5,
-      "away": 3.7
+      "draw": 3.75,
+      "away": 3.4
      }
     },
     "overunder": {
@@ -1901,27 +1901,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.4,
+    "confidence": 48.3,
     "prob": {
-     "home": 48.4,
-     "draw": 26.7,
-     "away": 24.9
+     "home": 48.3,
+     "draw": 26.1,
+     "away": 25.6
     },
     "clear": true,
-    "margin": 5.6,
+    "margin": 6.1,
     "rqLine": "半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 48.4,
-      "draw": 26.7,
-      "away": 24.9
+      "home": 48.3,
+      "draw": 26.1,
+      "away": 25.6
      },
-     "confidence": 48.4,
+     "confidence": 48.3,
      "signals": [
-      "初盘→即时：主胜-1.6pp / 平局+0.5pp / 客胜+1.1pp",
+      "初盘→即时：主胜-1.8pp / 平局-1.4pp / 客胜+3.3pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -1932,16 +1932,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -3.2,
-      "draw": -6.4,
-      "away": -8
+      "home": -3.4,
+      "draw": -2.2,
+      "away": -12.9
      },
      "handicap": {
       "line": -1,
       "prob": {
-       "home": 0.29290464819370204,
-       "draw": 0.20536976748111763,
-       "away": 0.5017255843251811
+       "home": 0.28438722111379516,
+       "draw": 0.2035438093788674,
+       "away": 0.5120689695073388
       },
       "pick": "away",
       "label": "让负"
@@ -2405,8 +2405,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-02 18:58",
-  "officialUpdate": "2026-11-02 18:53:44",
+  "updated": "2026-11-02 19:28",
+  "officialUpdate": "2026-11-02 19:25:33",
   "inSale": 17,
   "list": [
    {
@@ -2417,17 +2417,17 @@ const JC_DATA = {
     "home": "国际图尔",
     "away": "赫尔火花",
     "had": {
-     "h": 1.25,
-     "d": 5.1,
-     "a": 7,
-     "update": "2026-11-02 18:51:59"
+     "h": 1.23,
+     "d": 5.2,
+     "a": 7.45,
+     "update": "2026-11-02 19:25:25"
     },
     "hhad": {
      "line": "-1",
-     "h": 1.95,
+     "h": 1.91,
      "d": 3.35,
-     "a": 3.05,
-     "update": "2026-11-02 18:52:05"
+     "a": 3.15,
+     "update": "2026-11-02 19:25:33"
     },
     "single": {
      "HAD": {
@@ -2908,17 +2908,17 @@ const JC_DATA = {
     "home": "博德闪耀",
     "away": "里尔",
     "had": {
-     "h": 1.66,
-     "d": 3.9,
-     "a": 3.56,
-     "update": "2026-11-02 16:18:44"
+     "h": 1.62,
+     "d": 3.95,
+     "a": 3.72,
+     "update": "2026-11-02 18:55:19"
     },
     "hhad": {
      "line": "-1",
-     "h": 2.86,
+     "h": 2.75,
      "d": 3.8,
-     "a": 1.9,
-     "update": "2026-11-02 16:18:59"
+     "a": 1.95,
+     "update": "2026-11-02 18:55:26"
     },
     "single": {
      "HAD": {
