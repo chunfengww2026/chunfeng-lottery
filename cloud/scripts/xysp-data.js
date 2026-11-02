@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-02 17:30
+   更新时间：2026-11-02 17:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-02 17:30",
+ "updated": "2026-11-02 17:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -344,6 +344,34 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-02/aa0aba19-15c1-4251-ad6c-2b2ca0bc61ec1793610478524.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/aa0aba19-15c1-4251-ad6c-2b2ca0bc61ec1793610478524.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26125期]实不相瞒我是想中😘",
+     "url": "",
+     "at": "2026-11-02T09:35:02.868Z",
+     "pubAt": "2026-11-02T09:09:00.000Z",
+     "pubMs": 1793610540000,
+     "pubSrc": "page",
+     "nextAt": 1793622600000,
+     "atMs": 1793612102868,
+     "seenMs": 1793612102868,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-02/910af2d1-0672-4509-846d-5a9c0a42166b1793610478539.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-02/910af2d1-0672-4509-846d-5a9c0a42166b1793610478539.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26125期]实不相瞒我是想中😘",
+     "url": "",
+     "at": "2026-11-02T09:35:02.868Z",
+     "pubAt": "2026-11-02T09:09:00.000Z",
+     "pubMs": 1793610540000,
+     "pubSrc": "page",
+     "nextAt": 1793622600000,
+     "atMs": 1793612102868,
+     "seenMs": 1793612102868,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-02/15a7d54d-6bc2-4291-8905-a57ed69b41981793607689562.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-02/15a7d54d-6bc2-4291-8905-a57ed69b41981793607689562.jpg?imageMogr2/thumbnail/360x",
@@ -3645,99 +3673,6 @@ const XYSP_DATA = {
      "when": "2026-11-01 18:03:30",
      "postId": "7703141571511714347",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fcabc994ea9549d9b1ac42c8a846c640~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=nirpLZTfJ%2BXDKtb2yUxhVPOL9SI%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fcabc994ea9549d9b1ac42c8a846c640~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=nirpLZTfJ%2BXDKtb2yUxhVPOL9SI%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fcabc994ea9549d9b1ac42c8a846c640~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=4Ck8ZxNMDPy75XvpdwzE6AJR8Po%3D",
-     "title": "432元玩复式“555”豹子，有人死磕对子？290期排列3/5晒票！",
-     "url": "http://toutiao.com/item/7703133534013096502/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T09:26:02.095Z",
-     "whenMs": 1793525538000,
-     "seenMs": 1793611562095,
-     "drawMs": 1793536200000,
-     "nextMs": 1793536200000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T12:30:00.000Z",
-     "nextAt": 1793536200000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 17:32:18",
-     "postId": "7703133534013096502",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8993e406879c4166a67a2fa954bea089~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JeqPqZofsp6o3dQSYMsrAeuCrpk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8993e406879c4166a67a2fa954bea089~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JeqPqZofsp6o3dQSYMsrAeuCrpk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fcabc994ea9549d9b1ac42c8a846c640~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=4Ck8ZxNMDPy75XvpdwzE6AJR8Po%3D",
-     "title": "432元玩复式“555”豹子，有人死磕对子？290期排列3/5晒票！",
-     "url": "http://toutiao.com/item/7703133534013096502/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T09:26:02.095Z",
-     "whenMs": 1793525538000,
-     "seenMs": 1793611562095,
-     "drawMs": 1793536200000,
-     "nextMs": 1793536200000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T12:30:00.000Z",
-     "nextAt": 1793536200000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 17:32:18",
-     "postId": "7703133534013096502",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e83f32befc3c476a9cb0bee4a9ddce33~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JtATKzJb0wKz8lFwfV79D59HgMU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e83f32befc3c476a9cb0bee4a9ddce33~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=JtATKzJb0wKz8lFwfV79D59HgMU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fcabc994ea9549d9b1ac42c8a846c640~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=4Ck8ZxNMDPy75XvpdwzE6AJR8Po%3D",
-     "title": "432元玩复式“555”豹子，有人死磕对子？290期排列3/5晒票！",
-     "url": "http://toutiao.com/item/7703133534013096502/",
-     "at": "2026-11-01T14:06:01.810Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3、排列5",
-     "games": [
-      "pl3",
-      "pl5"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T09:26:02.095Z",
-     "whenMs": 1793525538000,
-     "seenMs": 1793611562095,
-     "drawMs": 1793536200000,
-     "nextMs": 1793536200000,
-     "atMs": 1793541961810,
-     "drawAt": "2026-11-01T12:30:00.000Z",
-     "nextAt": 1793536200000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-02T14:06:01.810Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-01 17:32:18",
-     "postId": "7703133534013096502",
-     "px": 132300
     }
    ]
   },
@@ -5474,6 +5409,8 @@ const XYSP_DATA = {
   "/2026-11-02/15a7d54d-6bc2-4291-8905-a57ed69b41981793607689562.jpg": 1793608203051,
   "/2026-11-02/da1f28ab-af15-420c-bffd-e64bd344fe5b1793609167613.jpg": 1793610302946,
   "/2026-10-28/ccd7b750-a0a5-45a3-a030-c48b1522cd801793199539386.jpg": 1793610902962,
-  "/2026-10-28/91c73ad8-c26b-41f7-af24-389a4e03af051793197986979.jpg": 1793610902962
+  "/2026-10-28/91c73ad8-c26b-41f7-af24-389a4e03af051793197986979.jpg": 1793610902962,
+  "/2026-11-02/aa0aba19-15c1-4251-ad6c-2b2ca0bc61ec1793610478524.jpg": 1793612102868,
+  "/2026-11-02/910af2d1-0672-4509-846d-5a9c0a42166b1793610478539.jpg": 1793612102868
  }
 };
