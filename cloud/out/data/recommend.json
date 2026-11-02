@@ -1,9 +1,9 @@
 {
- "updated": "2026-11-03 06:55",
- "red": 1,
+ "updated": "2026-11-03 07:05",
+ "red": 2,
  "black": 2,
- "rate": "33.3%",
- "unfinished": 2,
+ "rate": "50.0%",
+ "unfinished": 1,
  "history": [
   {
    "dateStr": "2026-11-02 16:05",
@@ -61,7 +61,7 @@
   {
    "dateStr": "2026-11-01 22:00",
    "finishTime": 1793541600000,
-   "verdict": "",
+   "verdict": "黑",
    "matches": [
     {
      "matchNo": "周一001",
@@ -93,10 +93,10 @@
      "matchNo": "周一008",
      "teams": "本菲卡 vs 阿尔维卡",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "1:0",
+     "result": "red",
      "confidence": 80.2,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793541600000,
      "league": "葡超",
      "odds": 1.15,
