@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "999910"
     },
     "time": "2026-11-02 23:30:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "PFC蒙大拿",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
     "away": {
      "name": "斯巴達克普列文",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 14
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "339966"
     },
     "time": "2026-11-02 23:30:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "沃伦塔利",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
     "away": {
      "name": "法乌尔",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
@@ -8602,7 +8602,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-02 21:45:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "帕克塔科",
      "score": 2,
@@ -8648,10 +8648,10 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-02 22:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "蒙特維多國民隊(後備)",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -8884,7 +8884,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:50:00",
-    "minute": 37,
+    "minute": 42,
     "home": {
      "name": "阿利雅德U21",
      "score": 0,
@@ -8962,7 +8962,7 @@ const FOOTBALL_DATA = {
      "color": "009912"
     },
     "time": "2026-11-02 22:55:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "費哈U21",
      "score": 0,
@@ -9040,7 +9040,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-02 22:55:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": " 阿爾茲拉費",
      "score": 0,
@@ -9118,7 +9118,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "瓦迪戴加",
      "score": 0,
@@ -9196,7 +9196,7 @@ const FOOTBALL_DATA = {
      "color": "8c6e0b"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "USFAS巴馬科女足",
      "score": 1,
@@ -9205,7 +9205,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "安佩姆达科亚女足",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -9234,7 +9234,7 @@ const FOOTBALL_DATA = {
      "color": "776699"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "杜博西卡",
      "score": 0,
@@ -9312,7 +9312,7 @@ const FOOTBALL_DATA = {
      "color": "880030"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "法兰姆达利",
      "score": 0,
@@ -9390,7 +9390,7 @@ const FOOTBALL_DATA = {
      "color": "7A5331"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 29,
+    "minute": 33,
     "home": {
      "name": "苏姆盖特",
      "score": 0,
@@ -9399,7 +9399,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "FK薩法",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 11
     },
@@ -9468,7 +9468,7 @@ const FOOTBALL_DATA = {
      "color": "980010"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "烏姆艾哈桑",
      "score": 0,
@@ -9546,7 +9546,7 @@ const FOOTBALL_DATA = {
      "color": "660022"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "古泰斯鱼雷",
      "score": 1,
@@ -9624,7 +9624,7 @@ const FOOTBALL_DATA = {
      "color": "004455"
     },
     "time": "2026-11-02 23:00:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "苏维埃之翼",
      "score": 0,
@@ -9662,7 +9662,7 @@ const FOOTBALL_DATA = {
      "color": "438E0B"
     },
     "time": "2026-11-02 23:15:00",
-    "minute": 13,
+    "minute": 18,
     "home": {
      "name": "奧维多",
      "score": 0,
