@@ -1,10 +1,56 @@
 {
- "updated": "2026-11-03 11:16",
+ "updated": "2026-11-03 11:47",
  "red": 0,
- "black": 1,
- "rate": "0.0%",
- "unfinished": 1,
+ "black": 0,
+ "rate": "—",
+ "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-11-03 11:30",
+   "finishTime": 1793676600000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二002",
+     "teams": "柏太阳神 vs 大田市民",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 62.3,
+     "status": "pending",
+     "finishTime": 1793676600000,
+     "league": "亚冠杯",
+     "odds": 1.53,
+     "time": "2026-11-03 18:00"
+    },
+    {
+     "matchNo": "周三011",
+     "teams": "斯拉维亚 vs 阿森纳",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 75.3,
+     "status": "pending",
+     "finishTime": 1793676600000,
+     "league": "欧冠",
+     "odds": 1.27,
+     "time": "2026-11-05 04:00"
+    },
+    {
+     "matchNo": "周三009",
+     "teams": "维京 vs 萨巴赫",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.5,
+     "status": "pending",
+     "finishTime": 1793676600000,
+     "league": "欧冠",
+     "odds": 1.45,
+     "time": "2026-11-05 04:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-11-02 16:05",
    "finishTime": 1793606700000,
@@ -35,26 +81,6 @@
      "league": "欧冠",
      "odds": 1.44,
      "time": "2026-11-04 04:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-11-01 23:30",
-   "finishTime": 1793547000000,
-   "verdict": "黑",
-   "matches": [
-    {
-     "matchNo": "周日015",
-     "teams": "格罗宁根 vs 鹿斯巴达",
-     "pick": "主胜",
-     "score": "2:3",
-     "result": "black",
-     "confidence": 58,
-     "status": "finished",
-     "finishTime": 1793547000000,
-     "league": "荷甲",
-     "odds": 1.7,
-     "time": "2026-11-01 23:45"
     }
    ]
   }
