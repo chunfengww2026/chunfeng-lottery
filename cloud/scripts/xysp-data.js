@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 07:26
+   更新时间：2026-11-04 07:30
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 07:26",
+ "updated": "2026-11-04 07:30",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2402,7 +2402,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-03T23:26:01.969Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793747161938,
+     "seenMs": 1793748361969,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -2432,7 +2432,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-03T23:26:01.969Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793747161938,
+     "seenMs": 1793748361969,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -2672,7 +2672,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T23:26:01.969Z",
      "whenMs": 1793708349000,
-     "seenMs": 1793747161938,
+     "seenMs": 1793748361969,
      "drawMs": 1793712600000,
      "nextMs": 1793712600000,
      "atMs": 1793708761446,
@@ -2792,7 +2792,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-03T23:26:01.969Z",
      "whenMs": 1793705778000,
-     "seenMs": 1793747161938,
+     "seenMs": 1793748361969,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793706361385,
@@ -5056,96 +5056,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-03 08:19:20",
      "postId": "7703733204229816873",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d4e42e398b849e08b7c408ced4f9f86~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=MWg6oOTSMoPUWU9qlC1tTv1qzAM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d4e42e398b849e08b7c408ced4f9f86~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=MWg6oOTSMoPUWU9qlC1tTv1qzAM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d4e42e398b849e08b7c408ced4f9f86~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=EYBXN42Ktw1M123gC%2ByyZmoaBfE%3D",
-     "title": "狂揽12个红球，却死磕一个蓝单？双色球126期晒票：这届彩民太精",
-     "url": "https://toutiao.com/group/7703719544468128290/",
-     "at": "2026-11-02T23:46:01.852Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T23:46:01.852Z",
-     "whenMs": 1793662019000,
-     "seenMs": 1793663161852,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793663161852,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T23:46:01.852Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-11-03 07:26:59",
-     "postId": "7703719544468128290",
-     "px": 132300
-    },
-    {
-     "img": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ce7a819ff66a41c2ae082b5cbac5968a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=H2tukYlRF1hlF05P0s6gb9NnWzQ%3D",
-     "thumb": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ce7a819ff66a41c2ae082b5cbac5968a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=H2tukYlRF1hlF05P0s6gb9NnWzQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d4e42e398b849e08b7c408ced4f9f86~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=EYBXN42Ktw1M123gC%2ByyZmoaBfE%3D",
-     "title": "狂揽12个红球，却死磕一个蓝单？双色球126期晒票：这届彩民太精",
-     "url": "https://toutiao.com/group/7703719544468128290/",
-     "at": "2026-11-02T23:46:01.852Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T23:46:01.852Z",
-     "whenMs": 1793662019000,
-     "seenMs": 1793663161852,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793663161852,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T23:46:01.852Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-11-03 07:26:59",
-     "postId": "7703719544468128290",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a32fc89c27a4d728fe89221da026117~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=cPszsoWbWfLnDJCEogqUp6uHmeY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a32fc89c27a4d728fe89221da026117~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=cPszsoWbWfLnDJCEogqUp6uHmeY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d4e42e398b849e08b7c408ced4f9f86~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=EYBXN42Ktw1M123gC%2ByyZmoaBfE%3D",
-     "title": "狂揽12个红球，却死磕一个蓝单？双色球126期晒票：这届彩民太精",
-     "url": "https://toutiao.com/group/7703719544468128290/",
-     "at": "2026-11-02T23:46:01.852Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T23:46:01.852Z",
-     "whenMs": 1793662019000,
-     "seenMs": 1793663161852,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793663161852,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T23:46:01.852Z",
-     "rule": "first-capture-24h",
-     "author": "一荔独㣊",
-     "when": "2026-11-03 07:26:59",
-     "postId": "7703719544468128290",
      "px": 132300
     }
    ]
