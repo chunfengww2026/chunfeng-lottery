@@ -9838,10 +9838,10 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "奧林匹克塔什干II隊",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
