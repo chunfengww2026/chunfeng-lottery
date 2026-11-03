@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 10:00
+   更新时间：2026-11-03 10:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 10:00",
+ "updated": "2026-11-03 10:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5435,102 +5435,6 @@ const XYSP_DATA = {
      "author": "旷野观星",
      "when": "2026-11-02 11:34:47",
      "postId": "7703404867041133085",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1bcd35a65abc4507bbe33441919977cb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=TuwlE0PZHl3Z%2FZndRFKBNYkwgnI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1bcd35a65abc4507bbe33441919977cb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=TuwlE0PZHl3Z%2FZndRFKBNYkwgnI%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1bcd35a65abc4507bbe33441919977cb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=lCFjKCv0uHLExhamZJtwv0unHl0%3D",
-     "title": "3d、排列3、5第26292期晒票：抬头向阳治沧桑，看淡得失不困虚妄",
-     "url": "http://toutiao.com/item/7703389069874561576/",
-     "at": "2026-11-02T02:58:32.169Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26292",
-     "seen": "2026-11-03T01:56:01.867Z",
-     "whenMs": 1793585035000,
-     "seenMs": 1793670961867,
-     "drawMs": 1793625300000,
-     "nextMs": 1793625300000,
-     "atMs": 1793588312169,
-     "drawAt": "2026-11-02T13:15:00.000Z",
-     "nextAt": 1793625300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-03T02:58:32.169Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 10:03:55",
-     "postId": "7703389069874561576",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3b8d9adba33e4198a6554de461dde321~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LLQzvj%2FxXwjtptJVh5K1e7z0mhs%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3b8d9adba33e4198a6554de461dde321~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LLQzvj%2FxXwjtptJVh5K1e7z0mhs%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1bcd35a65abc4507bbe33441919977cb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=lCFjKCv0uHLExhamZJtwv0unHl0%3D",
-     "title": "3d、排列3、5第26292期晒票：抬头向阳治沧桑，看淡得失不困虚妄",
-     "url": "http://toutiao.com/item/7703389069874561576/",
-     "at": "2026-11-02T02:58:32.169Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26292",
-     "seen": "2026-11-03T01:56:01.867Z",
-     "whenMs": 1793585035000,
-     "seenMs": 1793670961867,
-     "drawMs": 1793625300000,
-     "nextMs": 1793625300000,
-     "atMs": 1793588312169,
-     "drawAt": "2026-11-02T13:15:00.000Z",
-     "nextAt": 1793625300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-03T02:58:32.169Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 10:03:55",
-     "postId": "7703389069874561576",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/32bfbb3cc14945c094d610fcb3ae8aed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ed29A1XP2C7Q%2BUXLJvWUVjx8MwM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/32bfbb3cc14945c094d610fcb3ae8aed~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ed29A1XP2C7Q%2BUXLJvWUVjx8MwM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1bcd35a65abc4507bbe33441919977cb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=lCFjKCv0uHLExhamZJtwv0unHl0%3D",
-     "title": "3d、排列3、5第26292期晒票：抬头向阳治沧桑，看淡得失不困虚妄",
-     "url": "http://toutiao.com/item/7703389069874561576/",
-     "at": "2026-11-02T02:58:32.169Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3、排列5",
-     "games": [
-      "fc3d",
-      "pl3",
-      "pl5"
-     ],
-     "issue": "26292",
-     "seen": "2026-11-03T01:56:01.867Z",
-     "whenMs": 1793585035000,
-     "seenMs": 1793670961867,
-     "drawMs": 1793625300000,
-     "nextMs": 1793625300000,
-     "atMs": 1793588312169,
-     "drawAt": "2026-11-02T13:15:00.000Z",
-     "nextAt": 1793625300000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-03T02:58:32.169Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 10:03:55",
-     "postId": "7703389069874561576",
      "px": 132300
     }
    ]
