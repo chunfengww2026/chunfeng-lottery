@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-03 15:28",
+ "updated": "2026-11-03 16:00",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -3486,53 +3486,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-10-31 03:45"
-  },
-  {
-   "code": "周六004",
-   "league": "K1联赛",
-   "home": "光州FC",
-   "away": "金泉尚武",
-   "time": "2026-10-31 15:30",
-   "score": "1:1",
-   "hc": null,
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1,
-    "openHandicap": 0.25,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.45,
-    "draw": 3.4,
-    "away": 2.55
-   },
-   "prob": {
-    "home": 37.3,
-    "draw": 26.9,
-    "away": 35.8
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 37.3,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-31 18:00"
   }
  ]
 };
