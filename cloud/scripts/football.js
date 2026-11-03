@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-11-03 09:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "利昂女足",
      "score": 1,
@@ -31,7 +31,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "圣路易斯竞技女足(MEX)",
-     "score": 1,
+     "score": 0,
      "red": 0,
      "rank": 8
     },
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 09:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "沃特豪斯",
      "score": 2,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-03 10:00:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "苏奇特佩基",
      "score": 0,
@@ -298,7 +298,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-11-03 10:05:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "黑鷹",
      "score": 0,
