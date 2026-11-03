@@ -6821,7 +6821,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "阿尔卡纳",
      "score": 1,
@@ -6887,7 +6887,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 93,
+    "minute": 95,
     "home": {
      "name": "马里迪莫U23",
      "score": 1,
@@ -6991,7 +6991,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 94,
+    "minute": 96,
     "home": {
      "name": "維塞烏U23",
      "score": 1,
@@ -7321,7 +7321,7 @@ const FOOTBALL_DATA = {
      "color": "3777Fe"
     },
     "time": "2026-11-04 00:30:00",
-    "minute": 29,
+    "minute": 31,
     "home": {
      "name": "维积利U19",
      "score": 0,
