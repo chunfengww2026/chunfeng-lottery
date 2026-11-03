@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "布卡拉曼格",
      "score": 1,
