@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 20:30
+   更新时间：2026-11-03 20:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 20:30",
+ "updated": "2026-11-03 20:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5292,66 +5292,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 20:39:32",
      "postId": "7703552865897284137",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/16a10ce4aa0d4d3bad6a7b676a92a3c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=aFeup%2BJLIz8Ha83wZIO4nU%2FXxoY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/16a10ce4aa0d4d3bad6a7b676a92a3c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=aFeup%2BJLIz8Ha83wZIO4nU%2FXxoY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be8ffa1520284ddeb73f0a3bab58b46a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=t0mpBog2in6SMunZ1%2F2TgOfmD2Q%3D",
-     "title": "20元狂砸10注同号！大乐透26125期晒票扎堆，这波能一把翻身吗？",
-     "url": "http://toutiao.com/item/7703550544661217826/",
-     "at": "2026-11-02T13:06:02.269Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-02T13:06:02.269Z",
-     "whenMs": 1793622631000,
-     "seenMs": 1793624762269,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793624762269,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T13:06:02.269Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 20:30:31",
-     "postId": "7703550544661217826",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f4c9b78d3c549ba8da10e967618bc97~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=D36j3mbSjaEU93g3occzJnzrbY4%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1f4c9b78d3c549ba8da10e967618bc97~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=D36j3mbSjaEU93g3occzJnzrbY4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/be8ffa1520284ddeb73f0a3bab58b46a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=t0mpBog2in6SMunZ1%2F2TgOfmD2Q%3D",
-     "title": "20元狂砸10注同号！大乐透26125期晒票扎堆，这波能一把翻身吗？",
-     "url": "http://toutiao.com/item/7703550544661217826/",
-     "at": "2026-11-02T13:06:02.269Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-02T13:06:02.269Z",
-     "whenMs": 1793622631000,
-     "seenMs": 1793624762269,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793624762269,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T13:06:02.269Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 20:30:31",
-     "postId": "7703550544661217826",
      "px": 132300
     }
    ]
