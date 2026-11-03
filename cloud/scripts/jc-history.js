@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-03 09:28",
+ "updated": "2026-11-03 09:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -451,30 +451,30 @@ const JC_HISTORY = {
    "home": "布拉干蒂诺RB",
    "away": "桑托斯",
    "time": "2026-11-03 07:00",
-   "score": "",
+   "score": "2:1",
    "hc": "-1",
    "asianIndex": {
-    "line": "半球",
+    "line": "平手/半球",
     "from": "live",
-    "handicap": -0.5,
+    "handicap": -0.25,
     "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.8,
+    "upWater": 0.75,
+    "downWater": 1.05,
     "openHandicap": -0.5,
     "openUpWater": 0.92,
     "openDownWater": 0.92,
-    "totalWater": 1.85,
-    "theoryUpPercent": "43.24",
-    "theoryDownPercent": "56.76",
-    "canWater": false,
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
+    "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "升盘降水",
      "initHandicap": -0.5,
-     "nowHandicap": -0.5,
+     "nowHandicap": -0.25,
      "initUpWater": 0.92,
-     "nowUpWater": 1.05,
+     "nowUpWater": 0.75,
      "initLine": "半球",
-     "nowLine": "半球"
+     "nowLine": "平手/半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -482,23 +482,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.05,
-    "draw": 3.5,
-    "away": 3.6
+    "home": 2,
+    "draw": 3.8,
+    "away": 3.4
    },
    "prob": {
-    "home": 48.1,
-    "draw": 26.8,
-    "away": 25.2
+    "home": 47.3,
+    "draw": 24.9,
+    "away": 27.8
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 48.1,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "conf": 47.3,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-11-01 00:28"
+   "at": "2026-11-03 09:58"
   },
   {
    "code": "周一008",
@@ -717,7 +717,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-01 00:28"
   },
   {
