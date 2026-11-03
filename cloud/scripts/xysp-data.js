@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 09:30
+   更新时间：2026-11-03 09:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 09:30",
+ "updated": "2026-11-03 09:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5531,66 +5531,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 10:03:55",
      "postId": "7703389069874561576",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6da53530dd1b43edac4fee98d53090d2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=0kxXqXTn2flxyKrq9hTdXLKllVs%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6da53530dd1b43edac4fee98d53090d2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=0kxXqXTn2flxyKrq9hTdXLKllVs%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/42f4c7810e344b0eb083f049c8f5ef06~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=hIubGJus4nQACrJJ8ppfm1Y86mo%3D",
-     "title": "红球狂带连号，蓝球死磕15？双色球125期晒票，全是战术大师！",
-     "url": "http://toutiao.com/item/7703380618674962979/",
-     "at": "2026-11-02T10:26:02.149Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T23:26:01.747Z",
-     "whenMs": 1793583067000,
-     "seenMs": 1793661961747,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793615162149,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T10:26:02.149Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 09:31:07",
-     "postId": "7703380618674962979",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c624e6c864d1471a91530bbb1f07f3d0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=7Dj%2BgAtz%2FUXE4ck4wL2EcqmzvQo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c624e6c864d1471a91530bbb1f07f3d0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=7Dj%2BgAtz%2FUXE4ck4wL2EcqmzvQo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/42f4c7810e344b0eb083f049c8f5ef06~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=hIubGJus4nQACrJJ8ppfm1Y86mo%3D",
-     "title": "红球狂带连号，蓝球死磕15？双色球125期晒票，全是战术大师！",
-     "url": "http://toutiao.com/item/7703380618674962979/",
-     "at": "2026-11-02T10:26:02.149Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T23:26:01.747Z",
-     "whenMs": 1793583067000,
-     "seenMs": 1793661961747,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793615162149,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T10:26:02.149Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 09:31:07",
-     "postId": "7703380618674962979",
      "px": 132300
     }
    ]
