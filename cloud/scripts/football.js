@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 07:30:00",
-    "minute": 2,
+    "minute": 12,
     "home": {
      "name": "塔赤雷",
      "score": 1,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "卡貝略港學院",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 3
     },
@@ -388,7 +388,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 78,
+    "minute": 88,
     "home": {
      "name": "河床后备队",
      "score": 1,
@@ -454,7 +454,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "喬沛高恩斯SC",
      "score": 1,
@@ -520,7 +520,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 45,
+    "minute": 55,
     "home": {
      "name": "巴拉圭国民",
      "score": 0,
@@ -586,7 +586,7 @@ const FOOTBALL_DATA = {
      "color": "938f11"
     },
     "time": "2026-11-04 07:00:00",
-    "minute": 34,
+    "minute": 44,
     "home": {
      "name": "欧若拉",
      "score": 2,
@@ -664,7 +664,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 14,
+    "minute": 24,
     "home": {
      "name": "帕斯托",
      "score": 0,
