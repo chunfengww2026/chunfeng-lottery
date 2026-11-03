@@ -10375,7 +10375,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:00:00",
-    "minute": 88,
+    "minute": 90,
     "home": {
      "name": "甲府疾风",
      "score": 0,
@@ -10451,7 +10451,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:50:00",
-    "minute": 47,
+    "minute": 49,
     "home": {
      "name": "今治",
      "score": 0,
