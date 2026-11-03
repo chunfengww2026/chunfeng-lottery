@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "费耶诺德U19",
-     "score": null,
+     "score": 1,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "國際米蘭U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "曼彻斯特联U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "羅馬U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "ee7799"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "扎达拉洛维",
      "score": 0,
@@ -8143,7 +8143,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 19:55:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "姆達哈瑞",
      "score": 1,
@@ -8209,7 +8209,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "帕森拉",
      "score": 0,
@@ -8275,7 +8275,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "肯德爾龍捲風",
      "score": 0,
@@ -8445,7 +8445,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "科隆蒙得維的亞(後備)",
      "score": 0,
@@ -8511,7 +8511,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "頓涅茨克礦工U19",
      "score": 0,
@@ -8577,7 +8577,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "比利亚雷亚尔U19",
      "score": 2,
@@ -8643,10 +8643,10 @@ const FOOTBALL_DATA = {
      "color": "FC8900"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "萊茨納 (女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -8709,7 +8709,7 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "奥特朗特",
      "score": 1,
@@ -8775,7 +8775,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "瓦沙姆",
      "score": 0,
@@ -8853,7 +8853,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "狮子港",
      "score": 3,
@@ -8931,7 +8931,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "河内公安",
      "score": 0,
@@ -9009,7 +9009,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:25:00",
-    "minute": 25,
+    "minute": 29,
     "home": {
      "name": "纳积兰",
      "score": 0,
@@ -9087,7 +9087,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 20:35:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "德咸科",
      "score": 1,
@@ -9096,7 +9096,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿科多",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 14
     },
