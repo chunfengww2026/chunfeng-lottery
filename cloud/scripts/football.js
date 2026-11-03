@@ -6905,7 +6905,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "艾柏卡尔瑟梅德",
      "score": 0,
@@ -6971,7 +6971,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "阿尔卡纳",
      "score": 1,
@@ -7037,7 +7037,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "维薛拿U23",
      "score": 0,
@@ -7103,7 +7103,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "马里迪莫U23",
      "score": 1,
@@ -7169,7 +7169,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "吉爾維森特U23",
      "score": 4,
@@ -7178,7 +7178,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "費爾格拉斯U23",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 8
     },
@@ -7235,7 +7235,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "維塞烏U23",
      "score": 1,
@@ -7367,7 +7367,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "馬德里體育會U19",
      "score": 4,
@@ -7413,7 +7413,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "拉德",
      "score": 0,
@@ -7479,7 +7479,7 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "耶泽洛",
      "score": 0,
@@ -7557,7 +7557,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "侯赛恩",
      "score": 0,
@@ -7635,7 +7635,7 @@ const FOOTBALL_DATA = {
      "color": "1804D0"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "AEL利马素尔",
      "score": 2,
@@ -7713,7 +7713,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "德黑兰独立",
      "score": 0,
