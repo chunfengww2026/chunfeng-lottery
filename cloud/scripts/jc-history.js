@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-04 00:58",
+ "updated": "2026-11-04 02:00",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -946,36 +946,9 @@ const JC_HISTORY = {
    "home": "加拉塔萨",
    "away": "斯图加特",
    "time": "2026-11-04 01:45",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 0.95,
-    "downWater": 0.9,
-    "openHandicap": -0.25,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "48.65",
-    "theoryDownPercent": "51.35",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.25,
-     "initUpWater": 1.02,
-     "nowUpWater": 0.95,
-     "initLine": "平手/半球",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
+   "score": "0:0",
+   "hc": null,
+   "asianIndex": null,
    "odds": {
     "home": 2.2,
     "draw": 4,
@@ -989,10 +962,10 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 44,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-03 00:58"
   },
   {
@@ -3115,226 +3088,6 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": false,
-   "at": "2026-10-31 03:45"
-  },
-  {
-   "code": "周六022",
-   "league": "英超",
-   "home": "热刺",
-   "away": "水晶宫",
-   "time": "2026-11-01 01:30",
-   "score": "2:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球",
-    "from": "live",
-    "handicap": -1,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": -0.75,
-    "openUpWater": 0.9,
-    "openDownWater": 0.95,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": -0.75,
-     "nowHandicap": -1,
-     "initUpWater": 0.9,
-     "nowUpWater": 1.05,
-     "initLine": "半球/一球",
-     "nowLine": "一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.65,
-    "draw": 4.2,
-    "away": 5
-   },
-   "prob": {
-    "home": 58,
-    "draw": 22.8,
-    "away": 19.2
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 58,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-01 04:00"
-  },
-  {
-   "code": "周六023",
-   "league": "德甲",
-   "home": "拜仁",
-   "away": "多特蒙德",
-   "time": "2026-11-01 01:30",
-   "score": "2:2",
-   "hc": "-2",
-   "asianIndex": {
-    "line": "球半/两球",
-    "from": "live",
-    "handicap": -1.75,
-    "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.77,
-    "openHandicap": -1.75,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -1.75,
-     "nowHandicap": -1.75,
-     "initUpWater": 1.02,
-     "nowUpWater": 1.02,
-     "initLine": "球半/两球",
-     "nowLine": "球半/两球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.3,
-    "draw": 6,
-    "away": 8.5
-   },
-   "prob": {
-    "home": 73,
-    "draw": 15.8,
-    "away": 11.2
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 73,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-10-31 03:45"
-  },
-  {
-   "code": "周六024",
-   "league": "西甲",
-   "home": "贝蒂斯",
-   "away": "马拉加",
-   "time": "2026-11-01 01:30",
-   "score": "2:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "球半/两球",
-    "from": "live",
-    "handicap": -1.75,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": -1.25,
-    "openUpWater": 0.82,
-    "openDownWater": 1.02,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": -1.25,
-     "nowHandicap": -1.75,
-     "initUpWater": 0.82,
-     "nowUpWater": 1.05,
-     "initLine": "一球/球半",
-     "nowLine": "球半/两球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.29,
-    "draw": 5.5,
-    "away": 10
-   },
-   "prob": {
-    "home": 73.3,
-    "draw": 17.2,
-    "away": 9.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 73.3,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-31 03:45"
-  },
-  {
-   "code": "周六021",
-   "league": "意甲",
-   "home": "乌迪内斯",
-   "away": "罗马",
-   "time": "2026-11-01 01:00",
-   "score": "2:5",
-   "hc": null,
-   "asianIndex": {
-    "line": "受一球/球半",
-    "from": "live",
-    "handicap": 1.25,
-    "upSide": "away",
-    "upWater": 1.07,
-    "downWater": 0.72,
-    "openHandicap": 1,
-    "openUpWater": 0.82,
-    "openDownWater": 1.02,
-    "totalWater": 1.79,
-    "theoryUpPercent": "40.22",
-    "theoryDownPercent": "59.78",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": 1,
-     "nowHandicap": 1.25,
-     "initUpWater": 0.82,
-     "nowUpWater": 1.07,
-     "initLine": "受一球",
-     "nowLine": "受一球/球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 6.25,
-    "draw": 4.5,
-    "away": 1.5
-   },
-   "prob": {
-    "home": 15.3,
-    "draw": 21.2,
-    "away": 63.6
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 63.6,
-   "type": "three",
-   "result": "win",
-   "hit": true,
    "matched": false,
    "at": "2026-10-31 03:45"
   }
