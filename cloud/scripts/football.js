@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 05:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "莫纳加斯",
      "score": 0,
@@ -2398,7 +2398,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 04:00:00",
-    "minute": 89,
+    "minute": 0,
     "home": {
      "name": "费耶诺德",
      "score": 0,
@@ -2510,7 +2510,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 04:00:00",
-    "minute": 90,
+    "minute": 0,
     "home": {
      "name": "曼彻斯特联",
      "score": 3,
@@ -2714,7 +2714,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 04:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "珮雷拉",
      "score": 1,
@@ -2780,7 +2780,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-04 04:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "穆苏克鲁纳",
      "score": 1,
@@ -2846,10 +2846,10 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-04 05:00:00",
-    "minute": 41,
+    "minute": 46,
     "home": {
      "name": "夏拉祖",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
