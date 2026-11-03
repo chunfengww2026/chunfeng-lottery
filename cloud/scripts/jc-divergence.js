@@ -1,6 +1,6 @@
 /* 分歧指数据（球探 titan007 多公司欧赔）—— build-odds-divergence.mjs 生成，勿手改 */
 const JC_DIVERGENCE = {
- "updated": "2026-11-03 19:58",
+ "updated": "2026-11-03 20:28",
  "source": "球探 titan007",
  "sourceUrl": "https://1x2d.titan007.com/",
  "metric": "即时欧赔变异系数 cv = 标准差 / 均值",
@@ -3236,55 +3236,12 @@ const JC_DIVERGENCE = {
     }
    }
   },
-  "周二003": {
-   "sid": "3068885",
-   "match": "狮子港 vs 北京国安",
-   "league": "亚冠精英",
-   "time": "2026-11-03 20:15",
-   "at": "2026-11-03 19:58",
-   "companies": 334,
-   "records": 334,
-   "live": {
-    "home": {
-     "mean": 4.001,
-     "sd": 0.2435,
-     "cv": 0.06086,
-     "level": "高"
-    },
-    "draw": {
-     "mean": 3.96,
-     "sd": 0.2365,
-     "cv": 0.05973,
-     "level": "高"
-    },
-    "away": {
-     "mean": 1.729,
-     "sd": 0.0656,
-     "cv": 0.03793,
-     "level": "中"
-    }
-   },
-   "open": {
-    "home": {
-     "mean": 4.1,
-     "cv": 0.11921
-    },
-    "draw": {
-     "mean": 3.972,
-     "cv": 0.06356
-    },
-    "away": {
-     "mean": 1.706,
-     "cv": 0.06636
-    }
-   }
-  },
   "周日024": {
    "sid": "3088157",
    "match": "格雷米奥 vs 米内罗竞技",
    "league": "巴西杯",
    "time": "2026-11-02 05:30",
-   "at": "2026-11-03 19:58",
+   "at": "2026-11-03 20:28",
    "companies": 353,
    "records": 353,
    "live": {
