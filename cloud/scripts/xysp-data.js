@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 08:16
+   更新时间：2026-11-03 08:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 08:16",
+ "updated": "2026-11-03 08:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2215,7 +2215,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T00:16:01.790Z",
      "whenMs": 1793661364000,
-     "seenMs": 1793664361774,
+     "seenMs": 1793664961790,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -4773,7 +4773,7 @@ const XYSP_DATA = {
      "issue": "26292",
      "seen": "2026-11-03T00:16:01.790Z",
      "whenMs": 1793585035000,
-     "seenMs": 1793664361774,
+     "seenMs": 1793664961790,
      "drawMs": 1793625300000,
      "nextMs": 1793625300000,
      "atMs": 1793588312169,
@@ -4845,96 +4845,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 09:31:07",
      "postId": "7703380618674962979",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4181314b9d54f219b5e6311233c8b6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=p4DJqs87IhOSRcX2UDFM656%2FTB4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4181314b9d54f219b5e6311233c8b6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=p4DJqs87IhOSRcX2UDFM656%2FTB4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4181314b9d54f219b5e6311233c8b6f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=K7fzGDfrtmkl30HSsHDDHLbQ4I0%3D",
-     "title": "双色球第26125期晒票：红球52组连号偏向中后区，最长6连号",
-     "url": "http://toutiao.com/item/7703361652183269923/",
-     "at": "2026-11-02T03:06:01.720Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793578651000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793588761720,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T03:06:01.720Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 08:17:31",
-     "postId": "7703361652183269923",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/88453aa46cf640049ad7b6a566b91b41~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iVFaRwJ%2F0ToyhV8VW%2BKHxlX06E4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/88453aa46cf640049ad7b6a566b91b41~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iVFaRwJ%2F0ToyhV8VW%2BKHxlX06E4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4181314b9d54f219b5e6311233c8b6f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=K7fzGDfrtmkl30HSsHDDHLbQ4I0%3D",
-     "title": "双色球第26125期晒票：红球52组连号偏向中后区，最长6连号",
-     "url": "http://toutiao.com/item/7703361652183269923/",
-     "at": "2026-11-02T03:06:01.720Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793578651000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793588761720,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T03:06:01.720Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 08:17:31",
-     "postId": "7703361652183269923",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a8088e04a8bc4fa8b769a7a3bcb399a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=i%2FShT6I602q9AjdO5FJM6YOjQIw%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a8088e04a8bc4fa8b769a7a3bcb399a9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=i%2FShT6I602q9AjdO5FJM6YOjQIw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e4181314b9d54f219b5e6311233c8b6f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=K7fzGDfrtmkl30HSsHDDHLbQ4I0%3D",
-     "title": "双色球第26125期晒票：红球52组连号偏向中后区，最长6连号",
-     "url": "http://toutiao.com/item/7703361652183269923/",
-     "at": "2026-11-02T03:06:01.720Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793578651000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793588761720,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T03:06:01.720Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 08:17:31",
-     "postId": "7703361652183269923",
      "px": 132300
     }
    ]
