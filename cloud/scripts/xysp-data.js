@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 21:55
+   更新时间：2026-11-03 21:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 21:55",
+ "updated": "2026-11-03 21:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2100,6 +2100,36 @@ const XYSP_DATA = {
   "tt": {
    "name": "头条晒票",
    "items": [
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a6BXoJ8ZcFIJ4m5cxaNZelxhbkA%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a6BXoJ8ZcFIJ4m5cxaNZelxhbkA%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=oOSPzkQNnViS9gSzu8jiOF%2F8nrg%3D",
+     "title": "10元搏中3050万！山西彩民5倍投双色球，这张神票火了",
+     "url": "https://toutiao.com/group/7703778064760619547/",
+     "at": "2026-11-03T13:56:01.492Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "双色球",
+     "games": [
+      "ssq"
+     ],
+     "issue": "",
+     "seen": "2026-11-03T13:56:01.492Z",
+     "whenMs": 1793713500000,
+     "seenMs": 1793714161492,
+     "drawMs": 1793884500000,
+     "nextMs": 1793884500000,
+     "atMs": 1793714161492,
+     "drawAt": "2026-11-05T13:15:00.000Z",
+     "nextAt": 1793884500000,
+     "drawGid": "ssq",
+     "expireAt": "2026-11-04T13:56:01.492Z",
+     "rule": "first-capture-24h",
+     "author": "老王说故事",
+     "when": "2026-11-03 21:45:00",
+     "postId": "7703778064760619547",
+     "px": 132300
+    },
     {
      "img": "https://p6-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=j%2F%2FegweY1Ybg3js8ebRdBVMLNFk%3D",
      "thumb": "https://p6-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=j%2F%2FegweY1Ybg3js8ebRdBVMLNFk%3D",
@@ -4833,8 +4863,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sbZxRBki7H6saxHvpb%2F8odm4D6Y%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sbZxRBki7H6saxHvpb%2F8odm4D6Y%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
      "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
      "url": "http://toutiao.com/item/7703679406245413417/",
@@ -4846,9 +4876,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-03T13:36:01.485Z",
+     "seen": "2026-11-03T13:56:01.492Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793712961485,
+     "seenMs": 1793714161492,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -4863,8 +4893,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
      "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
      "url": "http://toutiao.com/item/7703679406245413417/",
@@ -4876,9 +4906,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-03T13:36:01.485Z",
+     "seen": "2026-11-03T13:56:01.492Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793712961485,
+     "seenMs": 1793714161492,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -5073,8 +5103,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=U%2BEE4bJgTffSuQScvoLPaQYkbuo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=U%2BEE4bJgTffSuQScvoLPaQYkbuo%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=cbIUhay8P3A2wtx%2BUrheDiZ7VDQ%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=cbIUhay8P3A2wtx%2BUrheDiZ7VDQ%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
      "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
      "url": "https://toutiao.com/group/7703583584510116402/",
@@ -5086,9 +5116,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
+     "seen": "2026-11-03T13:56:01.492Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793712961485,
+     "seenMs": 1793714161492,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -5103,8 +5133,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a3pSY7QW3P8G310ME9vSV2qiAow%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a3pSY7QW3P8G310ME9vSV2qiAow%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SN6%2FmW0eBAzq1VU4oWod0rBQVqE%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SN6%2FmW0eBAzq1VU4oWod0rBQVqE%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
      "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
      "url": "https://toutiao.com/group/7703583584510116402/",
@@ -5116,9 +5146,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
+     "seen": "2026-11-03T13:56:01.492Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793712961485,
+     "seenMs": 1793714161492,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -5133,9 +5163,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iXimyzbtGi6P1wpygl%2BvyIxOFtU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iXimyzbtGi6P1wpygl%2BvyIxOFtU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SgRf6IWT9b0ODkcGZJLlPMqeQLI%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SgRf6IWT9b0ODkcGZJLlPMqeQLI%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=r0wCK9WoIquXExBOvMfF%2BH6yqss%3D",
      "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
      "url": "https://toutiao.com/group/7703583584510116402/",
      "at": "2026-11-02T14:46:01.344Z",
@@ -5146,9 +5176,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
+     "seen": "2026-11-03T13:56:01.492Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793712961485,
+     "seenMs": 1793714161492,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
