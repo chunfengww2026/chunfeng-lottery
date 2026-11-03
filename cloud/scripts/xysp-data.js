@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 22:56
+   更新时间：2026-11-03 23:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 22:56",
+ "updated": "2026-11-03 23:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -20,7 +20,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/909d85d3-0042-460e-8d75-80a109324fb61793716168231.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/909d85d3-0042-460e-8d75-80a109324fb61793716168231.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26127期]给我中中个二等奖吧",
+     "title": "[期]给我中中个二等奖吧",
      "url": "",
      "at": "2026-11-03T14:46:29.271Z",
      "pubAt": "2026-11-03T14:30:00.000Z",
@@ -62,7 +62,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/a7b7d2a8-ba8d-492b-b23a-766c634654c91793713741024.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/a7b7d2a8-ba8d-492b-b23a-766c634654c91793713741024.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26127期]没有下一次，没有如果……",
+     "title": "[期]没有下一次，没有如果……",
      "url": "",
      "at": "2026-11-03T14:10:04.094Z",
      "pubAt": "2026-11-03T13:49:00.000Z",
@@ -76,7 +76,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/a89c8e7e-794f-40ec-8270-c9170d4ecd591793713491468.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/a89c8e7e-794f-40ec-8270-c9170d4ecd591793713491468.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26127期]哎….组不到一起",
+     "title": "[期]哎….组不到一起",
      "url": "",
      "at": "2026-11-03T14:10:04.094Z",
      "pubAt": "2026-11-03T13:45:00.000Z",
@@ -518,6 +518,20 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-03/aa4a984a-a9fb-405c-a8b4-249fbfba73331793716503016.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/aa4a984a-a9fb-405c-a8b4-249fbfba73331793716503016.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]服了哦开的啥呀这是",
+     "url": "",
+     "at": "2026-11-03T15:00:02.881Z",
+     "pubAt": "2026-11-03T14:35:00.000Z",
+     "pubMs": 1793716500000,
+     "pubSrc": "page",
+     "nextAt": 1793798100000,
+     "atMs": 1793718002881,
+     "seenMs": 1793718002881,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-03/3c55b985-924c-40b4-961d-f7018a045bfe1793714858511.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/3c55b985-924c-40b4-961d-f7018a045bfe1793714858511.jpg?imageMogr2/thumbnail/360x",
      "title": "[26294期]差一点，每天都差一点，真是怪？",
@@ -646,7 +660,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/830f280c-1583-4e96-9117-c903147e6f301793709119641.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/830f280c-1583-4e96-9117-c903147e6f301793709119641.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]福525 体539",
+     "title": "[期]福525 体539",
      "url": "",
      "at": "2026-11-03T12:55:03.557Z",
      "pubAt": "2026-11-03T12:32:00.000Z",
@@ -660,7 +674,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/4ce7b0ed-47cd-41e1-96e2-2743d14c22ab1793709119870.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/4ce7b0ed-47cd-41e1-96e2-2743d14c22ab1793709119870.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]福525 体539",
+     "title": "[期]福525 体539",
      "url": "",
      "at": "2026-11-03T12:55:03.557Z",
      "pubAt": "2026-11-03T12:32:00.000Z",
@@ -1057,7 +1071,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/06fec146-c9c5-491d-a298-be58d20fda071793712787980.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/06fec146-c9c5-491d-a298-be58d20fda071793712787980.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]几个啊",
+     "title": "[期]几个啊",
      "url": "",
      "at": "2026-11-03T14:10:04.094Z",
      "pubAt": "2026-11-03T13:33:00.000Z",
@@ -1398,7 +1412,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/6fd298a7-d5ce-4338-a2ca-5ab66751b5dc1793712853338.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/6fd298a7-d5ce-4338-a2ca-5ab66751b5dc1793712853338.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]中，福体全中",
+     "title": "[期]中，福体全中",
      "url": "",
      "at": "2026-11-03T14:10:04.094Z",
      "pubAt": "2026-11-03T13:34:00.000Z",
@@ -1412,7 +1426,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/94abe34c-8860-43c8-83de-9f2d392de7b71793712402408.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/94abe34c-8860-43c8-83de-9f2d392de7b71793712402408.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]加油",
+     "title": "[期]加油",
      "url": "",
      "at": "2026-11-03T13:50:05.192Z",
      "pubAt": "2026-11-03T13:27:00.000Z",
@@ -1426,7 +1440,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/b8fcf201-a113-4fba-a496-7a58fac433961793712402428.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/b8fcf201-a113-4fba-a496-7a58fac433961793712402428.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]加油",
+     "title": "[期]加油",
      "url": "",
      "at": "2026-11-03T13:50:05.192Z",
      "pubAt": "2026-11-03T13:27:00.000Z",
@@ -1963,7 +1977,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]郁闷",
+     "title": "[期]郁闷",
      "url": "",
      "at": "2026-11-03T14:10:04.094Z",
      "pubAt": "2026-11-03T13:46:00.000Z",
@@ -1991,7 +2005,7 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-03/8adb79e6-bd71-4fb3-aff4-57d9c50e48721793710866720.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/8adb79e6-bd71-4fb3-aff4-57d9c50e48721793710866720.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]赶不上时间出票了，估计捐",
+     "title": "[期]赶不上时间出票了，估计捐",
      "url": "",
      "at": "2026-11-03T13:16:29.379Z",
      "pubAt": "2026-11-03T13:02:00.000Z",
@@ -2256,7 +2270,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T14:56:01.542Z",
      "whenMs": 1793713500000,
-     "seenMs": 1793716561536,
+     "seenMs": 1793717761542,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793714161492,
@@ -5048,7 +5062,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T14:56:01.542Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793717161557,
+     "seenMs": 1793717761542,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -5078,7 +5092,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T14:56:01.542Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793717161557,
+     "seenMs": 1793717761542,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -5201,14 +5215,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T14:56:01.542Z",
      "whenMs": 1793674344000,
-     "seenMs": 1793716561536,
+     "seenMs": 1793717761542,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1793666761818,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-04T14:36:01.536Z",
+     "expireAt": "2026-11-04T14:56:01.542Z",
      "rule": "cap",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-03 10:52:24",
@@ -7257,6 +7271,7 @@ const XYSP_DATA = {
   "/2026-11-03/3c55b985-924c-40b4-961d-f7018a045bfe1793714858511.jpg": 1793717189271,
   "/2026-11-03/9a88f261-724d-41dc-b87a-55521dc3b0441793714858513.jpg": 1793717189271,
   "/2026-11-03/2b4b3b68-5abb-457f-ab84-f3cf7cf6debd1793715247235.jpg": 1793717189271,
-  "/2026-11-03/c442363c-b552-4005-9d08-6d2e893efed21793714739948.jpg": 1793717189271
+  "/2026-11-03/c442363c-b552-4005-9d08-6d2e893efed21793714739948.jpg": 1793717189271,
+  "/2026-11-03/aa4a984a-a9fb-405c-a8b4-249fbfba73331793716503016.jpg": 1793718002881
  }
 };
