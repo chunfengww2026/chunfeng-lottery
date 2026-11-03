@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 22:50
+   更新时间：2026-11-03 22:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 22:50",
+ "updated": "2026-11-03 22:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -935,20 +935,6 @@ const XYSP_DATA = {
      "nextAt": 1793711700000,
      "atMs": 1793648402979,
      "seenMs": 1793648402979,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/7d60cb66-4158-4915-bf03-942fba8b78541793629418734.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/7d60cb66-4158-4915-bf03-942fba8b78541793629418734.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]一直的是对子参考金银铜自防，最近的懒的写，你们不会也没防吧！",
-     "url": "",
-     "at": "2026-11-02T14:50:04.106Z",
-     "pubAt": "2026-11-02T14:23:00.000Z",
-     "pubMs": 1793629380000,
-     "pubSrc": "page",
-     "nextAt": 1793711700000,
-     "atMs": 1793631004106,
-     "seenMs": 1793631004106,
      "whenMs": null
     }
    ]
@@ -5194,96 +5180,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-03 04:08:22",
      "postId": "7703668532235469375",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a01eb612b824684b7138257fe80c167~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2Frv%2BLCA1%2B7EzW5Bl0Q5maOf5fTw%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a01eb612b824684b7138257fe80c167~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2Frv%2BLCA1%2B7EzW5Bl0Q5maOf5fTw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a01eb612b824684b7138257fe80c167~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mh46yfGzuKVdmXxGpFHfp5Vnz1k%3D",
-     "title": "2元单挑到多期守号！大乐透26125期第一波晒票来袭，满满烟火气",
-     "url": "https://toutiao.com/group/7703586349256917513/",
-     "at": "2026-11-02T15:06:01.361Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:46:01.557Z",
-     "whenMs": 1793631116000,
-     "seenMs": 1793717161557,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631961361,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T15:06:01.361Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:51:56",
-     "postId": "7703586349256917513",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/506115f7f9904abc82b005baf8c27bbc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fTNR7B1dEckc2SraVeU6mTwy5Os%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/506115f7f9904abc82b005baf8c27bbc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fTNR7B1dEckc2SraVeU6mTwy5Os%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a01eb612b824684b7138257fe80c167~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mh46yfGzuKVdmXxGpFHfp5Vnz1k%3D",
-     "title": "2元单挑到多期守号！大乐透26125期第一波晒票来袭，满满烟火气",
-     "url": "https://toutiao.com/group/7703586349256917513/",
-     "at": "2026-11-02T15:06:01.361Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:46:01.557Z",
-     "whenMs": 1793631116000,
-     "seenMs": 1793717161557,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631961361,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T15:06:01.361Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:51:56",
-     "postId": "7703586349256917513",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ca4eb5d178324c6b94ce9d34554911b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=7rlVhkZaNwsHQFivc9GjITQiQio%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ca4eb5d178324c6b94ce9d34554911b5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=7rlVhkZaNwsHQFivc9GjITQiQio%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6a01eb612b824684b7138257fe80c167~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mh46yfGzuKVdmXxGpFHfp5Vnz1k%3D",
-     "title": "2元单挑到多期守号！大乐透26125期第一波晒票来袭，满满烟火气",
-     "url": "https://toutiao.com/group/7703586349256917513/",
-     "at": "2026-11-02T15:06:01.361Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:46:01.557Z",
-     "whenMs": 1793631116000,
-     "seenMs": 1793717161557,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631961361,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T15:06:01.361Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:51:56",
-     "postId": "7703586349256917513",
      "px": 132300
     }
    ]
