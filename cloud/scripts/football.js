@@ -10248,7 +10248,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:50:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "今治",
      "score": 0,
@@ -10294,7 +10294,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "福建南安成功(女)",
      "score": 1,
@@ -10372,7 +10372,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 36,
+    "minute": 41,
     "home": {
      "name": "FC琉球",
      "score": 2,
