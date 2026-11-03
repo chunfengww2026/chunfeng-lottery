@@ -1,22 +1,22 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 16:48
+/* 自动生成，请勿手动编辑 · 2026-11-03 17:30
    数据源：体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）
    inSale = 官方公布的【在售场次】，就是竞彩页「体彩竞彩在售 N 场」的那个 N。
    list   = 官方在售的每一场（编号 + 开赛时间），jc-reco-build.mjs 靠它做
             「官方在售 ∩ 推荐」过滤；只写 code/time 两个字段。
    该文件由 build-jc-count.mjs 每小时抓一次；抓不到时不会覆盖本文件。 */
 const JC_OFFICIAL = {
- "updated": "2026-11-03 16:48",
+ "updated": "2026-11-03 17:30",
  "inSale": 20,
- "officialUpdate": "2026-11-03 16:41:19",
+ "officialUpdate": "2026-11-03 17:26:34",
  "list": [
  {
   "code": "周二002",
   "time": "2026-11-03 18:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.13,
+   "home": 1.97,
    "draw": 3.3,
-   "away": 2.73
+   "away": 3.05
   }
  },
  {
@@ -35,8 +35,8 @@ const JC_OFFICIAL = {
   "handicap": -1,
   "handicapOdds": {
    "home": 3.52,
-   "draw": 3.95,
-   "away": 1.66
+   "draw": 3.85,
+   "away": 1.68
   }
  },
  {
@@ -65,8 +65,8 @@ const JC_OFFICIAL = {
   "handicap": 1,
   "handicapOdds": {
    "home": 2.04,
-   "draw": 3.75,
-   "away": 2.62
+   "draw": 3.6,
+   "away": 2.69
   }
  },
  {
@@ -84,8 +84,8 @@ const JC_OFFICIAL = {
   "time": "2026-11-04 04:00:00",
   "handicap": -2,
   "handicapOdds": {
-   "home": 2.14,
-   "draw": 4.4,
+   "home": 2.19,
+   "draw": 4.2,
    "away": 2.25
   }
  },
@@ -94,9 +94,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-04 04:00:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 2.35,
+   "home": 2.3,
    "draw": 4,
-   "away": 2.16
+   "away": 2.2
   }
  },
  {
@@ -104,9 +104,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-04 04:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 2.37,
+   "home": 2.32,
    "draw": 3.8,
-   "away": 2.2
+   "away": 2.25
   }
  },
  {
@@ -124,9 +124,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-04 20:15:00",
   "handicap": 1,
   "handicapOdds": {
-   "home": 1.8,
-   "draw": 3.57,
-   "away": 3.3
+   "home": 1.83,
+   "draw": 3.55,
+   "away": 3.21
   }
  },
  {
@@ -184,9 +184,9 @@ const JC_OFFICIAL = {
   "time": "2026-11-05 04:00:00",
   "handicap": -1,
   "handicapOdds": {
-   "home": 1.88,
-   "draw": 3.95,
-   "away": 2.83
+   "home": 1.83,
+   "draw": 3.97,
+   "away": 2.93
   }
  },
  {
