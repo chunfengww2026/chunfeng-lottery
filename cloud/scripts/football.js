@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "喬沛高恩斯SC",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 20
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "巴拉圭国民",
      "score": 0,
@@ -718,10 +718,10 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-04 05:00:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "夏拉祖",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 6
     },
@@ -784,7 +784,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 05:30:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "莫纳加斯",
      "score": 0,
@@ -850,10 +850,10 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "河床后备队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 0
     },
