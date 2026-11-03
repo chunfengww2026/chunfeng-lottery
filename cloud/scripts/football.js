@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-03 10:00:00",
-    "minute": 15,
+    "minute": 20,
     "home": {
      "name": "苏奇特佩基",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-11-03 10:05:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "黑鷹",
      "score": 0,
@@ -253,7 +253,7 @@ const FOOTBALL_DATA = {
      "color": "669955"
     },
     "time": "2026-11-03 09:00:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "利昂女足",
      "score": 1,
@@ -319,10 +319,10 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 09:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "沃特豪斯",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 3
     },
@@ -385,7 +385,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
