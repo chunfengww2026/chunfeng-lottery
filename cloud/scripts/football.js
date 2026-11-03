@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "门多萨独立",
      "score": 3,
@@ -215,7 +215,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "图库曼竞技",
      "score": 1,
@@ -385,7 +385,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 44,
+    "minute": 46,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
