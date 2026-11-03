@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 20:50
+   更新时间：2026-11-03 20:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 20:50",
+ "updated": "2026-11-03 20:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -531,6 +531,34 @@ const XYSP_DATA = {
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/830f280c-1583-4e96-9117-c903147e6f301793709119641.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/830f280c-1583-4e96-9117-c903147e6f301793709119641.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]福525 体539",
+     "url": "",
+     "at": "2026-11-03T12:55:03.557Z",
+     "pubAt": "2026-11-03T12:32:00.000Z",
+     "pubMs": 1793709120000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793710503557,
+     "seenMs": 1793710503557,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/4ce7b0ed-47cd-41e1-96e2-2743d14c22ab1793709119870.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/4ce7b0ed-47cd-41e1-96e2-2743d14c22ab1793709119870.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]福525 体539",
+     "url": "",
+     "at": "2026-11-03T12:55:03.557Z",
+     "pubAt": "2026-11-03T12:32:00.000Z",
+     "pubMs": 1793709120000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793710503557,
+     "seenMs": 1793710503557,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/4c531075-911e-41da-be34-db10aa7aa2e51793707781575.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/4c531075-911e-41da-be34-db10aa7aa2e51793707781575.jpg?imageMogr2/thumbnail/360x",
@@ -1890,6 +1918,20 @@ const XYSP_DATA = {
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/d7a2a928-de33-4fca-ae8e-482d036525731793709354397.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/d7a2a928-de33-4fca-ae8e-482d036525731793709354397.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]排列五没买到",
+     "url": "",
+     "at": "2026-11-03T12:55:03.557Z",
+     "pubAt": "2026-11-03T12:36:00.000Z",
+     "pubMs": 1793709360000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793710503557,
+     "seenMs": 1793710503557,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/5acd9830-d278-41b4-ba70-55bfc955df3d1793709078523.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/5acd9830-d278-41b4-ba70-55bfc955df3d1793709078523.jpg?imageMogr2/thumbnail/360x",
@@ -5275,36 +5317,6 @@ const XYSP_DATA = {
      "when": "2026-11-02 22:10:59",
      "postId": "7703575947991073290",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/825de6f9c4df4f87b370783aa3f9ba53~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=3p%2FP8qhEufugxsSsst5XHidT6Gs%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/825de6f9c4df4f87b370783aa3f9ba53~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=3p%2FP8qhEufugxsSsst5XHidT6Gs%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/825de6f9c4df4f87b370783aa3f9ba53~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=0Ce1EOHeGqy0SW3h5fm7TT%2BQPaY%3D",
-     "title": "今晚有约大乐透晒单",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880751109252096",
-     "at": "2026-11-02T13:06:02.269Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T13:26:01.294Z",
-     "whenMs": 1793624028000,
-     "seenMs": 1793625961294,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793624762269,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T13:06:02.269Z",
-     "rule": "first-capture-24h",
-     "author": "正义凛然咖啡M5",
-     "when": "2026-11-02 20:53:48",
-     "postId": "1880751109252096",
-     "px": 132300
     }
    ]
   },
@@ -7316,6 +7328,9 @@ const XYSP_DATA = {
   "/2026-11-03/09f5fecb-4f38-425a-a843-e4a412488b191793708586006.jpg": 1793709993041,
   "/2026-11-03/38bfc67b-ea3a-4346-99a8-8c2b46b1564c1793708782158.jpg": 1793709993041,
   "/2026-11-03/16121601-e69a-45ef-9efd-4d22f512c5561793708489609.jpg": 1793709993041,
-  "/2026-11-03/09ccd3bc-cd77-4898-abb7-409b4ed244e91793708489602.jpg": 1793709993041
+  "/2026-11-03/09ccd3bc-cd77-4898-abb7-409b4ed244e91793708489602.jpg": 1793709993041,
+  "/2026-11-03/830f280c-1583-4e96-9117-c903147e6f301793709119641.jpg": 1793710503557,
+  "/2026-11-03/4ce7b0ed-47cd-41e1-96e2-2743d14c22ab1793709119870.jpg": 1793710503557,
+  "/2026-11-03/d7a2a928-de33-4fca-ae8e-482d036525731793709354397.jpg": 1793710503557
  }
 };
