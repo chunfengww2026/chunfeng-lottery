@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-03 09:57",
- "red": 2,
- "black": 2,
- "rate": "50.0%",
+ "updated": "2026-11-03 10:20",
+ "red": 0,
+ "black": 1,
+ "rate": "0.0%",
  "unfinished": 1,
  "history": [
   {
@@ -55,52 +55,6 @@
      "league": "荷甲",
      "odds": 1.7,
      "time": "2026-11-01 23:45"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-11-01 22:00",
-   "finishTime": 1793541600000,
-   "verdict": "黑",
-   "matches": [
-    {
-     "matchNo": "周一001",
-     "teams": "国际图尔 vs 赫尔辛基火花",
-     "pick": "主胜",
-     "score": "4:3",
-     "result": "red",
-     "confidence": 66.3,
-     "status": "finished",
-     "finishTime": 1793541600000,
-     "league": "芬超",
-     "odds": 1.36,
-     "time": "2026-11-03 00:00"
-    },
-    {
-     "matchNo": "周一004",
-     "teams": "亚特兰大 vs 帕尔马",
-     "pick": "主胜",
-     "score": "0:3",
-     "result": "black",
-     "confidence": 68.2,
-     "status": "finished",
-     "finishTime": 1793541600000,
-     "league": "意甲",
-     "odds": 1.5,
-     "time": "2026-11-03 03:45"
-    },
-    {
-     "matchNo": "周一008",
-     "teams": "本菲卡 vs 阿尔维卡",
-     "pick": "主胜",
-     "score": "1:0",
-     "result": "red",
-     "confidence": 80.2,
-     "status": "finished",
-     "finishTime": 1793541600000,
-     "league": "葡超",
-     "odds": 1.15,
-     "time": "2026-11-03 04:15"
     }
    ]
   }
