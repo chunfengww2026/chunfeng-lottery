@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 19:36
+   更新时间：2026-11-03 19:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 19:36",
+ "updated": "2026-11-03 19:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5266,36 +5266,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 19:57:16",
      "postId": "7703541975185621538",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/81c4157d9fd04f8584bb1fe3b26fd9cb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=yYKaSy0hjWqWJ2iq2fEhBGQxNV4%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/81c4157d9fd04f8584bb1fe3b26fd9cb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=yYKaSy0hjWqWJ2iq2fEhBGQxNV4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/81c4157d9fd04f8584bb1fe3b26fd9cb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=BjxD88CnG0a7FAZy2p1FWf5go7k%3D",
-     "title": "292期快乐8选六单式票",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880746283030668",
-     "at": "2026-11-02T11:46:02.184Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T12:06:02.214Z",
-     "whenMs": 1793619426000,
-     "seenMs": 1793621162214,
-     "drawMs": 1793626200000,
-     "nextMs": 1793626200000,
-     "atMs": 1793619962184,
-     "drawAt": "2026-11-02T13:30:00.000Z",
-     "nextAt": 1793626200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-03T11:46:02.184Z",
-     "rule": "first-capture-24h",
-     "author": "彩迷",
-     "when": "2026-11-02 19:37:06",
-     "postId": "1880746283030668",
      "px": 132300
     }
    ]
