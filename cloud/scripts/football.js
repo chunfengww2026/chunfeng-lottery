@@ -243,13 +243,13 @@ const FOOTBALL_DATA = {
     "minute": 0,
     "home": {
      "name": "扎达拉洛维",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
     "away": {
      "name": "比路普",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
@@ -8775,7 +8775,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 43,
+    "minute": 44,
     "home": {
      "name": "瓦沙姆",
      "score": 0,
@@ -8853,7 +8853,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "狮子港",
      "score": 3,
@@ -8931,7 +8931,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "河内公安",
      "score": 0,
@@ -9009,7 +9009,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:25:00",
-    "minute": 23,
+    "minute": 25,
     "home": {
      "name": "纳积兰",
      "score": 0,
@@ -9087,7 +9087,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 20:35:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "德咸科",
      "score": 1,
