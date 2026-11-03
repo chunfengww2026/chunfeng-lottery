@@ -5483,7 +5483,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "阿爾馬格羅(後備)",
      "score": 1,
@@ -5615,7 +5615,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "哥兹塔比U19",
      "score": 1,
@@ -5681,7 +5681,7 @@ const FOOTBALL_DATA = {
      "color": "1804D0"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "波勒米迪奥",
      "score": 2,
@@ -5731,7 +5731,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "奇偌佰格沃古夫",
      "score": 0,
@@ -5797,7 +5797,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 93,
+    "minute": 0,
     "home": {
      "name": "西德尔策",
      "score": 1,
@@ -5929,7 +5929,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 01:45:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "加拉塔萨雷",
      "score": 2,
@@ -6003,7 +6003,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 01:45:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "顿涅茨克矿工",
      "score": 0,
@@ -6683,7 +6683,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 02:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "利雅得希拉尔",
      "score": 1,
