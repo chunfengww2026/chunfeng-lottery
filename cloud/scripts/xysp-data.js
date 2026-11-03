@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 04:55
+   更新时间：2026-11-04 04:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 04:55",
+ "updated": "2026-11-04 04:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2310,7 +2310,7 @@ const XYSP_DATA = {
       "kl8"
      ],
      "issue": "",
-     "seen": "2026-11-03T20:46:01.845Z",
+     "seen": "2026-11-03T20:56:01.863Z",
      "whenMs": 1793728525000,
      "seenMs": 1793738761845,
      "drawMs": 1793799000000,
@@ -2400,7 +2400,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-03T20:36:01.841Z",
+     "seen": "2026-11-03T20:56:01.863Z",
      "whenMs": 1793713500000,
      "seenMs": 1793738161841,
      "drawMs": 1793884500000,
@@ -2689,7 +2689,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=WrNleMdOQqM%2BZnK6yU78F1s8F%2Fc%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=WrNleMdOQqM%2BZnK6yU78F1s8F%2Fc%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=t2bUVB4FC5lfGU3L2ZOLpTeq%2Bus%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Anabf%2BgpEmx5RaK%2BVYwBD7T6y48%3D",
      "title": "双色球第26126期晒票：16016元红复式与13张单式小票选号错开",
      "url": "http://toutiao.com/item/7703907656519385635/",
      "at": "2026-11-03T11:46:01.385Z",
@@ -2700,7 +2700,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-03T20:46:01.845Z",
+     "seen": "2026-11-03T20:56:01.863Z",
      "whenMs": 1793705778000,
      "seenMs": 1793738761845,
      "drawMs": 1793711700000,
@@ -2719,7 +2719,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d003c6184cab400ea376318c9329f126~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bxmvMkjEc29WjPejXYacge2DSpk%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d003c6184cab400ea376318c9329f126~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bxmvMkjEc29WjPejXYacge2DSpk%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=t2bUVB4FC5lfGU3L2ZOLpTeq%2Bus%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/40730197b169450fae658d024e05a679~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Anabf%2BgpEmx5RaK%2BVYwBD7T6y48%3D",
      "title": "双色球第26126期晒票：16016元红复式与13张单式小票选号错开",
      "url": "http://toutiao.com/item/7703907656519385635/",
      "at": "2026-11-03T11:46:01.385Z",
@@ -2730,7 +2730,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-03T20:46:01.845Z",
+     "seen": "2026-11-03T20:56:01.863Z",
      "whenMs": 1793705778000,
      "seenMs": 1793738761845,
      "drawMs": 1793711700000,
@@ -5186,7 +5186,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=C5yPLWbP%2Fut7%2FXLHXnm4HAWYf0o%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ECSLlrAvsSQXEnXvR%2FtDWeOsJVQ%3D",
      "title": "胜负彩第26157期 · 各站分析汇总",
      "url": "http://toutiao.com/item/7703772649830220323/",
      "at": "2026-11-03T00:46:01.818Z",
@@ -5195,7 +5195,7 @@ const XYSP_DATA = {
      "game": "胜负彩",
      "games": [],
      "issue": "",
-     "seen": "2026-11-03T20:06:01.817Z",
+     "seen": "2026-11-03T20:56:01.863Z",
      "whenMs": 1793674344000,
      "seenMs": 1793736361817,
      "drawMs": null,
