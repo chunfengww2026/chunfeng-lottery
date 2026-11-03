@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 20:40
+   更新时间：2026-11-03 20:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 20:40",
+ "updated": "2026-11-03 20:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -532,6 +532,48 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-03/4c531075-911e-41da-be34-db10aa7aa2e51793707781575.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/4c531075-911e-41da-be34-db10aa7aa2e51793707781575.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]主要看 主要看1和7 5和8， 参考参考 可能不是唯一答案，相信自己的第一直",
+     "url": "",
+     "at": "2026-11-03T12:45:03.860Z",
+     "pubAt": "2026-11-03T12:12:00.000Z",
+     "pubMs": 1793707920000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793709903860,
+     "seenMs": 1793709903860,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/277e8708-0587-490e-ae5b-2389d40acd111793707781439.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/277e8708-0587-490e-ae5b-2389d40acd111793707781439.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]主要看 主要看1和7 5和8， 参考参考 可能不是唯一答案，相信自己的第一直",
+     "url": "",
+     "at": "2026-11-03T12:45:03.860Z",
+     "pubAt": "2026-11-03T12:12:00.000Z",
+     "pubMs": 1793707920000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793709903860,
+     "seenMs": 1793709903860,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/f8e5b290-6a0f-4ebd-a578-967d43896b271793707781272.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/f8e5b290-6a0f-4ebd-a578-967d43896b271793707781272.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]主要看 主要看1和7 5和8， 参考参考 可能不是唯一答案，相信自己的第一直",
+     "url": "",
+     "at": "2026-11-03T12:45:03.860Z",
+     "pubAt": "2026-11-03T12:12:00.000Z",
+     "pubMs": 1793707920000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793709903860,
+     "seenMs": 1793709903860,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-03/fad46772-a476-43ec-a9f9-de457b90e2991793707343267.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/fad46772-a476-43ec-a9f9-de457b90e2991793707343267.jpg?imageMogr2/thumbnail/360x",
      "title": "[26293期]一年没有红过了，今天换个玩法，红一个就知足了",
@@ -809,34 +851,6 @@ const XYSP_DATA = {
      "nextAt": 1793625300000,
      "atMs": 1793625303773,
      "seenMs": 1793625303773,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/e3606e45-e59f-4345-b207-1ef95ed15b661793622397548.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/e3606e45-e59f-4345-b207-1ef95ed15b661793622397548.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]实票，主要看9 其次 0567",
-     "url": "",
-     "at": "2026-11-02T12:45:03.690Z",
-     "pubAt": "2026-11-02T12:27:00.000Z",
-     "pubMs": 1793622420000,
-     "pubSrc": "page",
-     "nextAt": 1793625300000,
-     "atMs": 1793623503690,
-     "seenMs": 1793623503690,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/a5f386a5-cea5-4b95-85b7-2b84f83d7e0d1793622397557.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/a5f386a5-cea5-4b95-85b7-2b84f83d7e0d1793622397557.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]实票，主要看9 其次 0567",
-     "url": "",
-     "at": "2026-11-02T12:45:03.690Z",
-     "pubAt": "2026-11-02T12:27:00.000Z",
-     "pubMs": 1793622420000,
-     "pubSrc": "page",
-     "nextAt": 1793625300000,
-     "atMs": 1793623503690,
-     "seenMs": 1793623503690,
      "whenMs": null
     }
    ]
@@ -1164,20 +1178,6 @@ const XYSP_DATA = {
      "nextAt": 1793626200000,
      "atMs": 1793624703661,
      "seenMs": 1793624703661,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/7a7cf945-4600-4e27-a76a-c389a01ec4f81793622103639.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/7a7cf945-4600-4e27-a76a-c389a01ec4f81793622103639.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]稳",
-     "url": "",
-     "at": "2026-11-02T12:45:03.690Z",
-     "pubAt": "2026-11-02T12:21:00.000Z",
-     "pubMs": 1793622060000,
-     "pubSrc": "page",
-     "nextAt": 1793626200000,
-     "atMs": 1793623503690,
-     "seenMs": 1793623503690,
      "whenMs": null
     }
    ]
@@ -1856,26 +1856,40 @@ const XYSP_DATA = {
      "atMs": 1793624797360,
      "seenMs": 1793624797360,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/52e35fab-d76d-41a1-aa78-bcb1a5c11da61793616811504.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/52e35fab-d76d-41a1-aa78-bcb1a5c11da61793616811504.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]懒得去猜了，想到啥就打啥！",
-     "url": "",
-     "at": "2026-11-02T12:45:03.690Z",
-     "pubAt": "2026-11-02T10:54:00.000Z",
-     "pubMs": 1793616840000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793623503690,
-     "seenMs": 1793623503690,
-     "whenMs": null
     }
    ]
   },
   "pl5": {
    "name": "排列5",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/5acd9830-d278-41b4-ba70-55bfc955df3d1793709078523.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/5acd9830-d278-41b4-ba70-55bfc955df3d1793709078523.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]排五忘记发了，安排",
+     "url": "",
+     "at": "2026-11-03T12:45:03.860Z",
+     "pubAt": "2026-11-03T12:31:00.000Z",
+     "pubMs": 1793709060000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793709903860,
+     "seenMs": 1793709903860,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/983a7cf8-c02e-48eb-af15-d01bb8847b191793708251303.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/983a7cf8-c02e-48eb-af15-d01bb8847b191793708251303.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26293期]随便选着玩",
+     "url": "",
+     "at": "2026-11-03T12:45:03.860Z",
+     "pubAt": "2026-11-03T12:18:00.000Z",
+     "pubMs": 1793708280000,
+     "pubSrc": "page",
+     "nextAt": 1793709000000,
+     "atMs": 1793709903860,
+     "seenMs": 1793709903860,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/1611ae69-0927-4601-9fbe-9f7e3826bdc91793707746205.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/1611ae69-0927-4601-9fbe-9f7e3826bdc91793707746205.jpg?imageMogr2/thumbnail/360x",
@@ -5296,34 +5310,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 10:52:24",
      "postId": "7703772649830220323",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AZSkROk6OPwIFE5Bz9E%2BCzFe5aI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AZSkROk6OPwIFE5Bz9E%2BCzFe5aI%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qhg2k2gZNa57n3TYfxXHFVP9vtw%3D",
-     "title": "今晚竞彩9场（临场）：本菲卡让球盘悄悄转向",
-     "url": "https://toutiao.com/group/7703551939459465747/",
-     "at": "2026-11-02T13:06:02.269Z",
-     "src": "tt",
-     "cat": "jc",
-     "game": "胜平负",
-     "games": [],
-     "issue": "",
-     "seen": "2026-11-03T11:46:01.385Z",
-     "whenMs": 1793623320000,
-     "seenMs": 1793706361385,
-     "drawMs": null,
-     "nextMs": null,
-     "atMs": 1793624762269,
-     "drawAt": "",
-     "nextAt": null,
-     "drawGid": "",
-     "expireAt": "2026-11-04T11:46:01.385Z",
-     "rule": "cap",
-     "author": "天天看书",
-     "when": "2026-11-02 20:42:00",
-     "postId": "7703551939459465747",
-     "px": 132300
     }
    ]
   }
@@ -7290,6 +7276,12 @@ const XYSP_DATA = {
   "/2026-11-03/fad46772-a476-43ec-a9f9-de457b90e2991793707343267.jpg": 1793708403347,
   "/2026-11-03/1611ae69-0927-4601-9fbe-9f7e3826bdc91793707746205.jpg": 1793708403347,
   "/2026-11-03/0bb63760-4e91-472c-a05d-93ca2d7efacb1793707746260.jpg": 1793708403347,
-  "/2026-11-03/5d025918-1407-4eed-b8c1-594f8835c9cb1793707746265.jpg": 1793708403347
+  "/2026-11-03/5d025918-1407-4eed-b8c1-594f8835c9cb1793707746265.jpg": 1793708403347,
+  "/2026-11-03/7292d66d-5148-4459-a4ce-b6fe233f1f271793708002223.jpg": 1793709903860,
+  "/2026-11-03/4c531075-911e-41da-be34-db10aa7aa2e51793707781575.jpg": 1793709903860,
+  "/2026-11-03/277e8708-0587-490e-ae5b-2389d40acd111793707781439.jpg": 1793709903860,
+  "/2026-11-03/f8e5b290-6a0f-4ebd-a578-967d43896b271793707781272.jpg": 1793709903860,
+  "/2026-11-03/5acd9830-d278-41b4-ba70-55bfc955df3d1793709078523.jpg": 1793709903860,
+  "/2026-11-03/983a7cf8-c02e-48eb-af15-d01bb8847b191793708251303.jpg": 1793709903860
  }
 };
