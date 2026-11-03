@@ -746,7 +746,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-04 04:30:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "穆苏克鲁纳",
      "score": 2,
@@ -812,7 +812,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-04 05:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "夏拉祖",
      "score": 1,
@@ -956,7 +956,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 22,
+    "minute": 27,
     "home": {
      "name": "河床后备队",
      "score": 0,
