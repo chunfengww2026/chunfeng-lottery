@@ -10106,7 +10106,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "福建南安成功(女)",
      "score": 3,
@@ -10172,7 +10172,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "FC琉球",
      "score": 2,
@@ -10312,7 +10312,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-11-03 16:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "河南U21",
      "score": 1,
