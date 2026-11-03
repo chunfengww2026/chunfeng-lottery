@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 16:10
+   更新时间：2026-11-03 16:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 16:10",
+ "updated": "2026-11-03 16:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5242,96 +5242,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-02 16:26:52",
      "postId": "7703487503017247268",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c75907e4b034ae685e36235ccae583d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=o%2BVNel8736OBea%2Bs%2FGFw1eDfiWM%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c75907e4b034ae685e36235ccae583d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=o%2BVNel8736OBea%2Bs%2FGFw1eDfiWM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c75907e4b034ae685e36235ccae583d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=fHEyJOmbMMyrYrrE%2FAyEnIeJOVg%3D",
-     "title": "大乐透26125期晒票来袭！1.7万大复式霸气亮相 20倍单式也要拼一把",
-     "url": "https://toutiao.com/group/7703483669142454813/",
-     "at": "2026-11-02T08:46:02.032Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-02T08:56:02.051Z",
-     "whenMs": 1793607168000,
-     "seenMs": 1793609762051,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793609162032,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T08:46:02.032Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-11-02 16:12:48",
-     "postId": "7703483669142454813",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a45307b799eb441aad30bbc60cc27e15~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=TNil5IkxtS4aok7NzBFos5%2BxOr4%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a45307b799eb441aad30bbc60cc27e15~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=TNil5IkxtS4aok7NzBFos5%2BxOr4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c75907e4b034ae685e36235ccae583d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=fHEyJOmbMMyrYrrE%2FAyEnIeJOVg%3D",
-     "title": "大乐透26125期晒票来袭！1.7万大复式霸气亮相 20倍单式也要拼一把",
-     "url": "https://toutiao.com/group/7703483669142454813/",
-     "at": "2026-11-02T08:46:02.032Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-02T08:56:02.051Z",
-     "whenMs": 1793607168000,
-     "seenMs": 1793609762051,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793609162032,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T08:46:02.032Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-11-02 16:12:48",
-     "postId": "7703483669142454813",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2749ad99240648c38bf572baa3fbbddd~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=kx3W%2B0OJUyneQTZnKnoNUgY7tDU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2749ad99240648c38bf572baa3fbbddd~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=kx3W%2B0OJUyneQTZnKnoNUgY7tDU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c75907e4b034ae685e36235ccae583d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=fHEyJOmbMMyrYrrE%2FAyEnIeJOVg%3D",
-     "title": "大乐透26125期晒票来袭！1.7万大复式霸气亮相 20倍单式也要拼一把",
-     "url": "https://toutiao.com/group/7703483669142454813/",
-     "at": "2026-11-02T08:46:02.032Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-02T08:56:02.051Z",
-     "whenMs": 1793607168000,
-     "seenMs": 1793609762051,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793609162032,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T08:46:02.032Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-11-02 16:12:48",
-     "postId": "7703483669142454813",
      "px": 132300
     }
    ]
