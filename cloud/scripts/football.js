@@ -9526,10 +9526,10 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 67,
+    "minute": 69,
     "home": {
      "name": "奧林匹克塔什干II隊",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
