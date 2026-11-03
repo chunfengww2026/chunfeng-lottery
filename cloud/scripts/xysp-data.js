@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 22:40
+   更新时间：2026-11-03 22:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 22:40",
+ "updated": "2026-11-03 22:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5298,96 +5298,6 @@ const XYSP_DATA = {
      "author": "连绝双子",
      "when": "2026-11-02 22:51:56",
      "postId": "7703586349256917513",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=cbIUhay8P3A2wtx%2BUrheDiZ7VDQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=cbIUhay8P3A2wtx%2BUrheDiZ7VDQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
-     "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
-     "url": "https://toutiao.com/group/7703583584510116402/",
-     "at": "2026-11-02T14:46:01.344Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:36:01.536Z",
-     "whenMs": 1793630441000,
-     "seenMs": 1793716561536,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793630761344,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:46:01.344Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:40:41",
-     "postId": "7703583584510116402",
-     "px": 132300
-    },
-    {
-     "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pcUFueKVv8%2BN10RYJtxYydtvX04%3D",
-     "thumb": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd698abc88cc4d3fbd7d73463b1960fa~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pcUFueKVv8%2BN10RYJtxYydtvX04%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
-     "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
-     "url": "https://toutiao.com/group/7703583584510116402/",
-     "at": "2026-11-02T14:46:01.344Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:36:01.536Z",
-     "whenMs": 1793630441000,
-     "seenMs": 1793716561536,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793630761344,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:46:01.344Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:40:41",
-     "postId": "7703583584510116402",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iXimyzbtGi6P1wpygl%2BvyIxOFtU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c648fbb3a26642a288a1301bf1a59509~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=iXimyzbtGi6P1wpygl%2BvyIxOFtU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/667a243bee31468284636bb85b871843~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=daHV1qfSWAAKYB75WBYR78tKTac%3D",
-     "title": "26125期大乐透｜30倍实票亮相，两注号码静待开奖",
-     "url": "https://toutiao.com/group/7703583584510116402/",
-     "at": "2026-11-02T14:46:01.344Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T14:36:01.536Z",
-     "whenMs": 1793630441000,
-     "seenMs": 1793716561536,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793630761344,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:46:01.344Z",
-     "rule": "first-capture-24h",
-     "author": "连绝双子",
-     "when": "2026-11-02 22:40:41",
-     "postId": "7703583584510116402",
      "px": 132300
     }
    ]
