@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-03 10:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "苏奇特佩基",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
     "away": {
      "name": "马拉卡特高",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-11-03 10:05:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "黑鷹",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": null
     },
     "away": {
      "name": "阿波達卡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": null
     },
@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "门多萨独立",
      "score": 3,
@@ -319,7 +319,7 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 09:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "沃特豪斯",
      "score": 1,
@@ -385,7 +385,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
