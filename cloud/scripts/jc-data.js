@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 14:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 14:58 */
 const JC_DATA = {
- "updated": "2026-11-03 14:28",
+ "updated": "2026-11-03 14:58",
  "stat": {
   "total": 21,
   "upcoming": 21,
@@ -46,9 +46,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.9,
+      "home": 1.02,
       "line": "受半球",
-      "away": 0.9
+      "away": 0.77
      }
     },
     "europe": {
@@ -58,9 +58,9 @@ const JC_DATA = {
       "away": 2.15
      },
      "live": {
-      "home": 3.7,
+      "home": 3.8,
       "draw": 4.2,
-      "away": 1.7
+      "away": 1.67
      }
     },
     "overunder": {
@@ -70,38 +70,38 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.97,
+      "line": 1,
       "over": 3.5,
-      "under": 0.82
+      "under": 0.8
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 46.5,
+    "confidence": 48.8,
     "prob": {
-     "home": 30.4,
-     "draw": 23.1,
-     "away": 46.5
+     "home": 28.1,
+     "draw": 23,
+     "away": 48.8
     },
     "clear": true,
-    "margin": 9.7,
+    "margin": 10,
     "rqLine": "受半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 30.4,
-      "draw": 23.1,
-      "away": 46.5
+      "home": 28.1,
+      "draw": 23,
+      "away": 48.8
      },
-     "confidence": 46.5,
+     "confidence": 48.8,
      "signals": [
       "主流初盘 3/3 家偏向客胜",
-      "初盘→即时：主胜-9.1pp / 平局-2.2pp / 客胜+11.3pp",
-      "亚盘客队方向变深，水位上升",
+      "初盘→即时：主胜-9.8pp / 平局-2.3pp / 客胜+12.1pp",
+      "亚盘客队方向变深，水位下降",
       "主要方向凯利中位参考 0.900",
       "多机构分歧 5.0%"
      ],
@@ -110,16 +110,16 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": 12.4,
-      "draw": -3.1,
-      "away": -20.9
+      "home": 6.9,
+      "draw": -3.2,
+      "away": -18.5
      },
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.4598033051931762,
-       "draw": 0.2140189959850936,
-       "away": 0.32617769882173253
+       "home": 0.4512904836178931,
+       "draw": 0.21548864806562582,
+       "away": 0.3332208683164813
       },
       "pick": "home",
       "label": "让胜"
@@ -132,21 +132,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.9,
-    "downWater": 0.9,
+    "upWater": 0.77,
+    "downWater": 1.02,
     "openHandicap": 0.25,
     "openUpWater": 0.82,
     "openDownWater": 0.97,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
     "canWater": false,
     "handicapChange": {
-     "type": "升盘升水",
+     "type": "升盘降水",
      "initHandicap": 0.25,
      "nowHandicap": 0.5,
      "initUpWater": 0.82,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.77,
      "initLine": "受平手/半球",
      "nowLine": "受半球"
     },
@@ -2755,8 +2755,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-03 14:28",
-  "officialUpdate": "2026-11-03 14:21:05",
+  "updated": "2026-11-03 14:58",
+  "officialUpdate": "2026-11-03 14:53:51",
   "inSale": 21,
   "list": [
    {
@@ -2767,17 +2767,17 @@ const JC_DATA = {
     "home": "纽喷气机",
     "away": "上海海港",
     "had": {
-     "h": 3.95,
-     "d": 4.15,
-     "a": 1.55,
-     "update": "2026-11-03 14:02:04"
+     "h": 4.05,
+     "d": 4.2,
+     "a": 1.53,
+     "update": "2026-11-03 14:24:01"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.05,
-     "d": 3.75,
-     "a": 2.6,
-     "update": "2026-11-03 14:02:25"
+     "h": 2.08,
+     "d": 3.7,
+     "a": 2.58,
+     "update": "2026-11-03 14:24:07"
     },
     "single": {
      "HAD": {
@@ -2798,17 +2798,17 @@ const JC_DATA = {
     "home": "柏太阳神",
     "away": "大田市民",
     "had": {
-     "h": 1.35,
-     "d": 4.4,
-     "a": 5.85,
-     "update": "2026-11-03 13:56:04"
+     "h": 1.33,
+     "d": 4.45,
+     "a": 6.15,
+     "update": "2026-11-03 14:33:38"
     },
     "hhad": {
      "line": "-1",
      "h": 2.18,
-     "d": 3.45,
-     "a": 2.56,
-     "update": "2026-11-03 13:56:10"
+     "d": 3.34,
+     "a": 2.62,
+     "update": "2026-11-03 14:33:48"
     },
     "single": {
      "HAD": {
@@ -2891,17 +2891,17 @@ const JC_DATA = {
     "home": "马竞",
     "away": "拜仁",
     "had": {
-     "h": 2.48,
+     "h": 2.54,
      "d": 3.75,
-     "a": 2.13,
-     "update": "2026-11-03 13:17:15"
+     "a": 2.09,
+     "update": "2026-11-03 14:41:04"
     },
     "hhad": {
      "line": "+1",
-     "h": 1.51,
-     "d": 4.25,
-     "a": 4.13,
-     "update": "2026-11-03 13:17:18"
+     "h": 1.53,
+     "d": 4.2,
+     "a": 4.05,
+     "update": "2026-11-03 14:41:12"
     },
     "single": {
      "HAD": {
@@ -2984,17 +2984,17 @@ const JC_DATA = {
     "home": "曼联",
     "away": "罗马",
     "had": {
-     "h": 2.25,
+     "h": 2.21,
      "d": 3.96,
-     "a": 2.26,
-     "update": "2026-11-03 11:50:04"
+     "a": 2.3,
+     "update": "2026-11-03 14:43:54"
     },
     "hhad": {
      "line": "-1",
-     "h": 4.36,
-     "d": 4.35,
-     "a": 1.47,
-     "update": "2026-11-03 11:16:54"
+     "h": 4.32,
+     "d": 4.3,
+     "a": 1.48,
+     "update": "2026-11-03 14:44:24"
     },
     "single": {
      "HAD": {
@@ -3046,17 +3046,17 @@ const JC_DATA = {
     "home": "比利亚雷",
     "away": "巴黎圣曼",
     "had": {
-     "h": 4.4,
-     "d": 4.7,
-     "a": 1.43,
-     "update": "2026-11-03 13:32:56"
+     "h": 4.55,
+     "d": 4.75,
+     "a": 1.41,
+     "update": "2026-11-03 14:53:51"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.3,
-     "d": 3.95,
-     "a": 2.22,
-     "update": "2026-11-03 13:33:07"
+     "h": 2.35,
+     "d": 4,
+     "a": 2.16,
+     "update": "2026-11-03 14:53:44"
     },
     "single": {
      "HAD": {
