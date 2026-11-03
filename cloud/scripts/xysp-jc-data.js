@@ -9,15 +9,15 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 23:36:01
+   更新时间：2026-11-03 23:46:01
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-03 23:36:01",
+ "updated": "2026-11-03 23:46:01",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jKUj7sjQOsxz2Bu7%2FxDoS85HM%2FE%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jKUj7sjQOsxz2Bu7%2FxDoS85HM%2FE%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ECSLlrAvsSQXEnXvR%2FtDWeOsJVQ%3D",
    "title": "胜负彩第26157期 · 各站分析汇总",
    "url": "http://toutiao.com/item/7703772649830220323/",
@@ -27,21 +27,23 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-11-03T14:56:01.542Z",
+   "seen": "2026-11-03T15:46:01.604Z",
    "whenMs": 1793674344000,
-   "seenMs": 1793717761542,
+   "seenMs": 1793720761604,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793666761818,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-04T14:56:01.542Z",
+   "expireAt": "2026-11-04T15:46:01.604Z",
    "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-11-03 10:52:24",
    "postId": "7703772649830220323",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   }
  ],
  "firstSeenRegistry": {}
