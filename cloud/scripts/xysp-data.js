@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 11:30
+   更新时间：2026-11-03 11:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 11:30",
+ "updated": "2026-11-03 11:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5561,96 +5561,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 12:18:40",
      "postId": "7703423792869835273",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6bcfd7a9835c425abefbb343ab522386~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=VzKAUjEJmWgcsMR9gzG0e8t91H8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6bcfd7a9835c425abefbb343ab522386~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=VzKAUjEJmWgcsMR9gzG0e8t91H8%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6bcfd7a9835c425abefbb343ab522386~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=XjvJX7ta0cIHJoxvRXGtumfVGnI%3D",
-     "title": "三张大乐透晒票火了！一张票死磕同一组号，13倍单挑最豪横",
-     "url": "https://toutiao.com/group/7703404867041133085/",
-     "at": "2026-11-02T03:46:01.791Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T05:16:01.857Z",
-     "whenMs": 1793590487000,
-     "seenMs": 1793596561857,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793591161791,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T03:46:01.791Z",
-     "rule": "first-capture-24h",
-     "author": "旷野观星",
-     "when": "2026-11-02 11:34:47",
-     "postId": "7703404867041133085",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f3c0d29808fc4c12a3a2d5aa4f6cb3d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=7BB8cJHR2x7MTTn1VfiFNA09uh0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f3c0d29808fc4c12a3a2d5aa4f6cb3d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=7BB8cJHR2x7MTTn1VfiFNA09uh0%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6bcfd7a9835c425abefbb343ab522386~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=XjvJX7ta0cIHJoxvRXGtumfVGnI%3D",
-     "title": "三张大乐透晒票火了！一张票死磕同一组号，13倍单挑最豪横",
-     "url": "https://toutiao.com/group/7703404867041133085/",
-     "at": "2026-11-02T03:46:01.791Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T05:16:01.857Z",
-     "whenMs": 1793590487000,
-     "seenMs": 1793596561857,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793591161791,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T03:46:01.791Z",
-     "rule": "first-capture-24h",
-     "author": "旷野观星",
-     "when": "2026-11-02 11:34:47",
-     "postId": "7703404867041133085",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/70b46178e49440c283e626251c2a1030~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=9ZE11gyiNp8EJ4ecGxWdXg8KDmc%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/70b46178e49440c283e626251c2a1030~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=9ZE11gyiNp8EJ4ecGxWdXg8KDmc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6bcfd7a9835c425abefbb343ab522386~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=XjvJX7ta0cIHJoxvRXGtumfVGnI%3D",
-     "title": "三张大乐透晒票火了！一张票死磕同一组号，13倍单挑最豪横",
-     "url": "https://toutiao.com/group/7703404867041133085/",
-     "at": "2026-11-02T03:46:01.791Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T05:16:01.857Z",
-     "whenMs": 1793590487000,
-     "seenMs": 1793596561857,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793591161791,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T03:46:01.791Z",
-     "rule": "first-capture-24h",
-     "author": "旷野观星",
-     "when": "2026-11-02 11:34:47",
-     "postId": "7703404867041133085",
      "px": 132300
     }
    ]
