@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "喬沛高恩斯SC",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "990033"
     },
     "time": "2026-11-04 06:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "巴拉圭国民",
      "score": 0,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "圣罗伦素体育会",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 12
     },
@@ -718,7 +718,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-04 05:00:00",
-    "minute": 79,
+    "minute": 84,
     "home": {
      "name": "夏拉祖",
      "score": 2,
@@ -784,7 +784,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 05:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "莫纳加斯",
      "score": 0,
