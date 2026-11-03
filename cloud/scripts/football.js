@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "德揚",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "PSM马卡萨",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "努萨塔拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "阿雷玛",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -10179,10 +10179,10 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 15:45:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "纽卡斯尔喷气机",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 11
     },
@@ -10245,7 +10245,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-11-03 16:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "河南U21",
      "score": 2,
