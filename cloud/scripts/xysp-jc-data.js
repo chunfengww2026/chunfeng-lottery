@@ -9,16 +9,16 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 12:06:01
+   更新时间：2026-11-03 12:36:58
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-03 12:06:01",
+ "updated": "2026-11-03 12:36:58",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mB6Rh%2BdnAzH0ilCxAl%2FhmS3mU3k%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ECSLlrAvsSQXEnXvR%2FtDWeOsJVQ%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jKUj7sjQOsxz2Bu7%2FxDoS85HM%2FE%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jKUj7sjQOsxz2Bu7%2FxDoS85HM%2FE%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/97244f874f4c443ba36d62289ee94137~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=C5yPLWbP%2Fut7%2FXLHXnm4HAWYf0o%3D",
    "title": "胜负彩第26157期 · 各站分析汇总",
    "url": "http://toutiao.com/item/7703772649830220323/",
    "at": "2026-11-03T00:46:01.818Z",
@@ -27,26 +27,28 @@ const XYSP_JC_DATA = {
    "game": "胜负彩",
    "games": [],
    "issue": "",
-   "seen": "2026-11-03T03:46:01.946Z",
-   "whenMs": 1793666192000,
-   "seenMs": 1793677561946,
+   "seen": "2026-11-03T04:36:58.142Z",
+   "whenMs": 1793674344000,
+   "seenMs": 1793680618142,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793666761818,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-04T03:46:01.946Z",
+   "expireAt": "2026-11-04T04:36:58.142Z",
    "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-11-03 10:52:24",
    "postId": "7703772649830220323",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=1INDk2%2BCPRHQIB1aeGtqWjgdVvs%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=1INDk2%2BCPRHQIB1aeGtqWjgdVvs%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=vZagG5i59CArLKH5j43mIdJBq8I%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AZSkROk6OPwIFE5Bz9E%2BCzFe5aI%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AZSkROk6OPwIFE5Bz9E%2BCzFe5aI%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3f045b2ac44345a89a98fcecee76ad60~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qhg2k2gZNa57n3TYfxXHFVP9vtw%3D",
    "title": "今晚竞彩9场（临场）：本菲卡让球盘悄悄转向",
    "url": "https://toutiao.com/group/7703551939459465747/",
    "at": "2026-11-02T13:06:02.269Z",
@@ -55,21 +57,23 @@ const XYSP_JC_DATA = {
    "game": "胜平负",
    "games": [],
    "issue": "",
-   "seen": "2026-11-03T01:56:01.867Z",
+   "seen": "2026-11-03T04:36:58.142Z",
    "whenMs": 1793623320000,
-   "seenMs": 1793670961867,
+   "seenMs": 1793680618142,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1793624762269,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-04T01:56:01.867Z",
+   "expireAt": "2026-11-04T04:36:58.142Z",
    "rule": "cap",
    "author": "天天看书",
    "when": "2026-11-02 20:42:00",
    "postId": "7703551939459465747",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/418e068f2d2745a99c9fd2765cb1e47c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=vG9EXSVRPHrTytt3CL%2FVUzGWRrc%3D",
