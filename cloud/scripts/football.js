@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "埃斯特雷拉達阿馬多拉U23",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 20
     },
     "away": {
      "name": "聖塔克萊拉U23",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 15
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "加拉塔沙雷U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "斯图加特U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
@@ -9526,7 +9526,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 3,
@@ -9576,10 +9576,10 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "柏太阳神",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 4
     },
@@ -9642,7 +9642,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "神户胜利船",
      "score": 1,
@@ -9708,7 +9708,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "全北现代",
      "score": 2,
