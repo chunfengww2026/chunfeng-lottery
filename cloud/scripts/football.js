@@ -9311,10 +9311,10 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "神户胜利船",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
@@ -9377,7 +9377,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "柏太阳神",
      "score": 2,
@@ -9423,7 +9423,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "全北现代",
      "score": 2,
@@ -9489,7 +9489,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "埃斯特雷拉達阿馬多拉U23",
      "score": 2,
@@ -9567,7 +9567,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "加拉塔沙雷U19",
      "score": 1,
