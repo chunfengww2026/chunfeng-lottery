@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-04 04:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-04 04:58 */
 const JC_DATA = {
- "updated": "2026-11-04 04:28",
+ "updated": "2026-11-04 04:58",
  "stat": {
   "total": 4,
   "upcoming": 0,
@@ -459,7 +459,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-04 04:28",
+  "updated": "2026-11-04 04:58",
   "officialUpdate": "2026-11-03 20:59:07",
   "inSale": 10,
   "list": [
