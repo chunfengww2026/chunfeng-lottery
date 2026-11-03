@@ -534,7 +534,7 @@ const FOOTBALL_DATA = {
      "color": "394e1a"
     },
     "time": "2026-11-03 06:05:00",
-    "minute": 92,
+    "minute": 97,
     "home": {
      "name": "默里斯联",
      "score": 1,
@@ -638,7 +638,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-03 07:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "阿尔比恩",
      "score": 0,
@@ -770,7 +770,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "奎亞斯GO",
      "score": 0,
@@ -848,7 +848,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "迪康塞普森",
      "score": 0,
