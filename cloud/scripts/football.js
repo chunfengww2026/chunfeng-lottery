@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-03 22:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "萨乌拉",
      "score": 0,
@@ -8048,7 +8048,7 @@ const FOOTBALL_DATA = {
      "color": "ff7776"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "格罗宁根后备队",
      "score": 2,
@@ -8057,7 +8057,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "坎布爾U21",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 0
     },
@@ -8086,10 +8086,10 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 81,
+    "minute": 86,
     "home": {
      "name": "费耶诺德U19",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 0
     },
@@ -8152,7 +8152,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "曼彻斯特联U19",
      "score": 1,
@@ -8218,7 +8218,7 @@ const FOOTBALL_DATA = {
      "color": "ee7799"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "扎达拉洛维",
      "score": 2,
@@ -8284,7 +8284,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-11-03 21:30:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "史塔德",
      "score": 1,
@@ -8428,7 +8428,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 22:00:00",
-    "minute": 38,
+    "minute": 43,
     "home": {
      "name": "林茨U19",
      "score": 1,
