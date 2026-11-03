@@ -680,7 +680,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 04:30:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "珮雷拉",
      "score": 1,
@@ -746,7 +746,7 @@ const FOOTBALL_DATA = {
      "color": "9e9400"
     },
     "time": "2026-11-04 04:30:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "穆苏克鲁纳",
      "score": 2,
@@ -878,7 +878,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 05:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "莫纳加斯",
      "score": 0,
@@ -956,7 +956,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "河床后备队",
      "score": 0,
