@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 20:35:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "德咸科",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 6
     },
@@ -8224,7 +8224,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "埃斯特雷拉達阿馬多拉U23",
      "score": 5,
@@ -8570,7 +8570,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "德瓦聯合萬丹",
      "score": 2,
@@ -8648,7 +8648,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 42,
+    "minute": 0,
     "home": {
      "name": "棉兰",
      "score": 0,
@@ -9036,7 +9036,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "瓦沙姆",
      "score": 0,
@@ -9114,7 +9114,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "河内公安",
      "score": 0,
@@ -9192,7 +9192,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "狮子港",
      "score": 3,
@@ -9201,7 +9201,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "北京国安",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 3
     },
