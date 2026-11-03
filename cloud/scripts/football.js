@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 2,
+    "minute": 7,
     "home": {
      "name": "棉兰",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "德瓦聯合萬丹",
      "score": 1,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "肯德爾龍捲風",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "帕森拉",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "科隆蒙得維的亞(後備)",
      "score": 0,
@@ -378,7 +378,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "比利亚雷亚尔U19",
      "score": 1,
@@ -451,7 +451,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "頓涅茨克礦工U19",
      "score": 0,
@@ -524,7 +524,7 @@ const FOOTBALL_DATA = {
      "color": "FC8900"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 7,
+    "minute": 12,
     "home": {
      "name": "萊茨納 (女)",
      "score": 0,
@@ -533,7 +533,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "索斯诺维茨女足",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 5
     },
@@ -597,7 +597,7 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 8,
+    "minute": 13,
     "home": {
      "name": "奥特朗特",
      "score": 0,
@@ -9238,10 +9238,10 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "埃斯特雷拉達阿馬多拉U23",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 20
     },
@@ -9304,7 +9304,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 19:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "加拉塔沙雷U19",
      "score": 1,
@@ -9370,7 +9370,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 19:55:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "姆達哈瑞",
      "score": 0,
