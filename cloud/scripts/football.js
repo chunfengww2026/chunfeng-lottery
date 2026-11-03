@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "55c22f"
     },
     "time": "2026-11-03 10:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "苏奇特佩基",
      "score": 1,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "332292"
     },
     "time": "2026-11-03 10:05:00",
-    "minute": 46,
+    "minute": 51,
     "home": {
      "name": "黑鷹",
      "score": 0,
