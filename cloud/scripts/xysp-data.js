@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 16:56
+   更新时间：2026-11-03 17:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 16:56",
+ "updated": "2026-11-03 17:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3858,7 +3858,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793695561214,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -3888,7 +3888,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793695561214,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -4128,7 +4128,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -4188,7 +4188,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -4218,7 +4218,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -4248,7 +4248,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -4398,7 +4398,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793623172000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793624162256,
@@ -4728,7 +4728,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T08:56:01.242Z",
      "whenMs": 1793616534000,
-     "seenMs": 1793694962212,
+     "seenMs": 1793696161242,
      "drawMs": 1793622600000,
      "nextMs": 1793622600000,
      "atMs": 1793616962150,
@@ -5132,36 +5132,6 @@ const XYSP_DATA = {
      "author": "素老叁",
      "when": "2026-11-02 17:49:46",
      "postId": "1880739530675268",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5604eba130ad430d85f4e0f0f5be40bc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=Q1GmbAn9QGsP1pTifIHac52q4Bw%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5604eba130ad430d85f4e0f0f5be40bc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=Q1GmbAn9QGsP1pTifIHac52q4Bw%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5604eba130ad430d85f4e0f0f5be40bc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=hUbxvdLlxjVqz6cSHYWwp9%2B6Hes%3D",
-     "title": "2026年11月2日周一的快乐8选十，先说说前一天刚开奖的2026291期的开奖情况。\n当期开出的20个号码和值冲到865，全国选十中十直接空开，选十中九仅23注，单注奖金8000元。最受关注的是58、59、60、61开出四连号，搭配66、",
-     "url": "sslocal://thread_detail?fid=4720084606&tid=1880736292215820",
-     "at": "2026-11-02T09:46:02.103Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "2026291",
-     "seen": "2026-11-02T20:46:01.667Z",
-     "whenMs": 1793609898000,
-     "seenMs": 1793652361667,
-     "drawMs": 1793626200000,
-     "nextMs": 1793626200000,
-     "atMs": 1793612762103,
-     "drawAt": "2026-11-02T13:30:00.000Z",
-     "nextAt": 1793626200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-03T09:46:02.103Z",
-     "rule": "first-capture-24h",
-     "author": "信诚-四夕人言",
-     "when": "2026-11-02 16:58:18",
-     "postId": "1880736292215820",
      "px": 132300
     }
    ]
