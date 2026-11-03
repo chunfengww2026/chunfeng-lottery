@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "奧林匹克塔什干II隊",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "棉农B队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 13
     },
@@ -10017,7 +10017,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 15:45:00",
-    "minute": 85,
+    "minute": 92,
     "home": {
      "name": "纽卡斯尔喷气机",
      "score": 2,
@@ -10026,7 +10026,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "上海海港",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 5
     },
@@ -10083,7 +10083,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-11-03 16:00:00",
-    "minute": 70,
+    "minute": 77,
     "home": {
      "name": "河南U21",
      "score": 2,
@@ -10121,7 +10121,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 28,
+    "minute": 34,
     "home": {
      "name": "努萨塔拉",
      "score": 0,
@@ -10130,7 +10130,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿雷玛",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 11
     },
@@ -10199,7 +10199,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 27,
+    "minute": 34,
     "home": {
      "name": "德揚",
      "score": 0,
@@ -10277,7 +10277,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 28,
+    "minute": 35,
     "home": {
      "name": "尚卡汶里U21",
      "score": 1,
