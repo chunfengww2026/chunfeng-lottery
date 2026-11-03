@@ -5417,7 +5417,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "洛斯安第斯(後備)",
      "score": 0,
@@ -5483,7 +5483,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "阿爾馬格羅(後備)",
      "score": 1,
@@ -5549,7 +5549,7 @@ const FOOTBALL_DATA = {
      "color": "00a650"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "馬摩洛迪落日",
      "score": 1,
@@ -5615,7 +5615,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "哥兹塔比U19",
      "score": 1,
@@ -5624,7 +5624,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿尔克马尔U19",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -5681,7 +5681,7 @@ const FOOTBALL_DATA = {
      "color": "1804D0"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "波勒米迪奥",
      "score": 2,
@@ -5731,7 +5731,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "奇偌佰格沃古夫",
      "score": 0,
@@ -5797,7 +5797,7 @@ const FOOTBALL_DATA = {
      "color": "CC6600"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "西德尔策",
      "score": 1,
@@ -5863,7 +5863,7 @@ const FOOTBALL_DATA = {
      "color": "3777FF"
     },
     "time": "2026-11-04 01:00:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "利恩比",
      "score": 0,
@@ -5929,7 +5929,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 01:45:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "加拉塔萨雷",
      "score": 2,
@@ -6081,7 +6081,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "恩比",
      "score": 0,
@@ -6159,7 +6159,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "索莫哈",
      "score": 0,
@@ -6237,7 +6237,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "門多薩獨立(後備)",
      "score": 1,
@@ -6246,7 +6246,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "拉普拉塔大学生后备队",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -6275,7 +6275,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "小阿根廷人(後備)",
      "score": 1,
@@ -6313,7 +6313,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "萨尔米安杜后备队",
      "score": 0,
@@ -6391,7 +6391,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "拉努斯后备队",
      "score": 3,
@@ -6453,7 +6453,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "纽维尔老男孩后备队",
      "score": 1,
@@ -6531,7 +6531,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 35,
+    "minute": 40,
     "home": {
      "name": "尼奧姆",
      "score": 2,
@@ -6605,7 +6605,7 @@ const FOOTBALL_DATA = {
      "color": "004488"
     },
     "time": "2026-11-04 02:00:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "斯瑞斯",
      "score": 1,
@@ -6683,7 +6683,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 02:15:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "利雅得希拉尔",
      "score": 1,
