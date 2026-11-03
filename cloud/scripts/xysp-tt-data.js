@@ -6,15 +6,15 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 05:26:01
+   更新时间：2026-11-04 05:36:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 05:26:01",
+ "updated": "2026-11-04 05:36:01",
  "items": [
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mES3nMJdWODhsHsKI2IJhTva6RI%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mES3nMJdWODhsHsKI2IJhTva6RI%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jHZpsng2xK%2B1cYs%2FXJSKKtHUEvk%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jHZpsng2xK%2B1cYs%2FXJSKKtHUEvk%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=BbO%2BDPF0RYq25fRDrBe6b3GxFBk%3D",
    "title": "快乐8八个号全没中怎么还回16元？314元实票只回18",
    "url": "https://toutiao.com/group/7704004994273477147/",
@@ -26,9 +26,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-11-03T21:26:01.880Z",
+   "seen": "2026-11-03T21:36:01.894Z",
    "whenMs": 1793728525000,
-   "seenMs": 1793741161880,
+   "seenMs": 1793741761894,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793729161718,
@@ -43,8 +43,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gn8ziFaTPy1tCUcLNyxPlC7h4Yc%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gn8ziFaTPy1tCUcLNyxPlC7h4Yc%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=FOeL1Ps38tavu9VVPLrc45IpIrw%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=FOeL1Ps38tavu9VVPLrc45IpIrw%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hEXCLN6Cde2anJl9LjBbyiLb%2B5E%3D",
    "title": "从672元到8元！26126期双色球晒票反差拉满",
    "url": "http://toutiao.com/item/7703975343492858410/",
@@ -56,9 +56,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-03T21:26:01.880Z",
+   "seen": "2026-11-03T21:36:01.894Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793739961874,
+   "seenMs": 1793741761894,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -86,7 +86,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-03T21:26:01.880Z",
+   "seen": "2026-11-03T21:36:01.894Z",
    "whenMs": 1793721537000,
    "seenMs": 1793741161880,
    "drawMs": 1793884500000,
@@ -103,8 +103,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a6BXoJ8ZcFIJ4m5cxaNZelxhbkA%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=a6BXoJ8ZcFIJ4m5cxaNZelxhbkA%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=wejzGz8XqmrGjkx8B%2FCnzmX9BSc%3D",
    "title": "10元搏中3050万！山西彩民5倍投双色球，这张神票火了",
    "url": "https://toutiao.com/group/7703778064760619547/",
@@ -116,9 +116,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-03T21:16:01.871Z",
+   "seen": "2026-11-03T21:36:01.894Z",
    "whenMs": 1793713500000,
-   "seenMs": 1793740561871,
+   "seenMs": 1793741761894,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793714161492,
@@ -1680,7 +1680,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T21:26:01.880Z",
    "whenMs": 1793672519000,
-   "seenMs": 1793739961874,
+   "seenMs": 1793741161880,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793672761889,
@@ -1740,7 +1740,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T21:26:01.880Z",
    "whenMs": 1793672519000,
-   "seenMs": 1793739961874,
+   "seenMs": 1793741161880,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793672761889,
@@ -2100,7 +2100,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T21:26:01.880Z",
    "whenMs": 1793666333000,
-   "seenMs": 1793739961874,
+   "seenMs": 1793741161880,
    "drawMs": 1793795400000,
    "nextMs": 1793795400000,
    "atMs": 1793666761818,
