@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 12,
+    "minute": 17,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 0,
@@ -10083,7 +10083,7 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-11-03 16:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "河南U21",
      "score": 2,
@@ -10121,7 +10121,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "努萨塔拉",
      "score": 0,
@@ -10199,7 +10199,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "德揚",
      "score": 0,
@@ -10277,7 +10277,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "尚卡汶里U21",
      "score": 1,
