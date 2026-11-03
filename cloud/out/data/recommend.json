@@ -1,10 +1,30 @@
 {
- "updated": "2026-11-04 03:36",
+ "updated": "2026-11-04 04:10",
  "red": 1,
  "black": 0,
  "rate": "100.0%",
  "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-11-04 04:05",
+   "finishTime": 1793736300000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周二011",
+     "teams": "博德闪耀 vs 里尔",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.5,
+     "status": "pending",
+     "finishTime": 1793736300000,
+     "league": "欧冠",
+     "odds": 1.55,
+     "time": "2026-11-04 04:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-11-03 11:30",
    "finishTime": 1793676600000,
@@ -48,39 +68,6 @@
      "league": "欧冠",
      "odds": 1.45,
      "time": "2026-11-05 04:00"
-    }
-   ]
-  },
-  {
-   "dateStr": "2026-11-02 16:05",
-   "finishTime": 1793606700000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周二009",
-     "teams": "巴萨 vs 维拉",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 72.6,
-     "status": "pending",
-     "finishTime": 1793606700000,
-     "league": "欧冠",
-     "odds": 1.25,
-     "time": "2026-11-04 04:00"
-    },
-    {
-     "matchNo": "周二006",
-     "teams": "LASK林茨 vs 布拉迪斯",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.7,
-     "status": "pending",
-     "finishTime": 1793606700000,
-     "league": "欧冠",
-     "odds": 1.44,
-     "time": "2026-11-04 04:00"
     }
    ]
   }
