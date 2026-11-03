@@ -8,15 +8,29 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 19:56
+   更新时间：2026-11-03 20:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 19:56",
+ "updated": "2026-11-03 20:00",
  "games": {
   "ssq": {
    "name": "双色球",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/ab529aac-c234-4d99-af01-ed8eb310c9b91793705617608.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/ab529aac-c234-4d99-af01-ed8eb310c9b91793705617608.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]杀号",
+     "url": "",
+     "at": "2026-11-03T12:00:04.308Z",
+     "pubAt": "2026-11-03T11:33:00.000Z",
+     "pubMs": 1793705580000,
+     "pubSrc": "page",
+     "nextAt": 1793711700000,
+     "atMs": 1793707204308,
+     "seenMs": 1793707204308,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/423a163c-4060-4701-a6e4-693faa1163be1793704949686.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/423a163c-4060-4701-a6e4-693faa1163be1793704949686.jpg?imageMogr2/thumbnail/360x",
@@ -2176,7 +2190,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-03T11:56:01.409Z",
      "whenMs": 1793705778000,
-     "seenMs": 1793706361385,
+     "seenMs": 1793706961409,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793706361385,
@@ -4908,7 +4922,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T11:56:01.409Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793705761381,
+     "seenMs": 1793706961409,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -4998,7 +5012,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T11:56:01.409Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793705761381,
+     "seenMs": 1793706961409,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -5028,7 +5042,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T11:56:01.409Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793705761381,
+     "seenMs": 1793706961409,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -5310,96 +5324,6 @@ const XYSP_DATA = {
      "author": "余笙挽歌余梦初",
      "when": "2026-11-02 20:00:15",
      "postId": "7703542312453898781",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b15ca72438c04605a82684d071c68f92~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=7FHrtmQU8ps4Xc9Ugci2Z1N9OZA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b15ca72438c04605a82684d071c68f92~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=7FHrtmQU8ps4Xc9Ugci2Z1N9OZA%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b15ca72438c04605a82684d071c68f92~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=VyK6yt80mEOlY6vw3QqNa8kUCX0%3D",
-     "title": "双色球第26125期晒票大赏：胆拖、全复式轮番上阵，最高16016元！理性围观",
-     "url": "http://toutiao.com/item/7703541975185621538/",
-     "at": "2026-11-02T12:06:02.214Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793620636000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793621162214,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T12:06:02.214Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 19:57:16",
-     "postId": "7703541975185621538",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8faa03b2fd964ebeb33d9ba80b433238~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=XJjr5j%2BloRShsHPdVuJH9RcjX2U%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8faa03b2fd964ebeb33d9ba80b433238~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=XJjr5j%2BloRShsHPdVuJH9RcjX2U%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b15ca72438c04605a82684d071c68f92~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=VyK6yt80mEOlY6vw3QqNa8kUCX0%3D",
-     "title": "双色球第26125期晒票大赏：胆拖、全复式轮番上阵，最高16016元！理性围观",
-     "url": "http://toutiao.com/item/7703541975185621538/",
-     "at": "2026-11-02T12:06:02.214Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793620636000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793621162214,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T12:06:02.214Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 19:57:16",
-     "postId": "7703541975185621538",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/913cba513a884896a4d6bd4e02daef69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=kUSO7uIw8OMqHBwknmqL8abgniQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/913cba513a884896a4d6bd4e02daef69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=kUSO7uIw8OMqHBwknmqL8abgniQ%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b15ca72438c04605a82684d071c68f92~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=VyK6yt80mEOlY6vw3QqNa8kUCX0%3D",
-     "title": "双色球第26125期晒票大赏：胆拖、全复式轮番上阵，最高16016元！理性围观",
-     "url": "http://toutiao.com/item/7703541975185621538/",
-     "at": "2026-11-02T12:06:02.214Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T00:06:01.774Z",
-     "whenMs": 1793620636000,
-     "seenMs": 1793664361774,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793621162214,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-03T12:06:02.214Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 19:57:16",
-     "postId": "7703541975185621538",
      "px": 132300
     }
    ]
@@ -7412,6 +7336,8 @@ const XYSP_DATA = {
   "/2026-11-03/37136817-1aaa-4b91-baf8-90545704157d1793705800234.jpg": 1793706982922,
   "/2026-11-03/1ffb9c4d-12c0-4b40-bb58-de12531101371793705841190.jpg": 1793706982922,
   "/2026-11-03/2835db22-5a4c-4896-9dd4-209256631f0e1793705841136.jpg": 1793706982922,
-  "/2026-11-03/5aabcd1d-339b-48f3-9f2c-dd442a1525501793705841195.jpg": 1793706982922
+  "/2026-11-03/5aabcd1d-339b-48f3-9f2c-dd442a1525501793705841195.jpg": 1793706982922,
+  "/2026-11-03/ab529aac-c234-4d99-af01-ed8eb310c9b91793705617608.jpg": 1793707204308,
+  "/2026-11-03/33cb3ab9-7793-4a86-839b-8fcedebdfcff1793705617637.jpg": 1793707204308
  }
 };
