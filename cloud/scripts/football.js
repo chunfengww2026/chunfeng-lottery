@@ -5447,7 +5447,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 01:45:00",
-    "minute": 52,
+    "minute": 54,
     "home": {
      "name": "加拉塔萨雷",
      "score": 2,
@@ -5513,7 +5513,7 @@ const FOOTBALL_DATA = {
      "color": "F15000"
     },
     "time": "2026-11-04 01:45:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "顿涅茨克矿工",
      "score": 0,
@@ -6125,7 +6125,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 02:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "利雅得希拉尔",
      "score": 1,
