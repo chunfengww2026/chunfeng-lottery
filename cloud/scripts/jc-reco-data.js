@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-03 11:28",
+ "updated": "2026-11-03 11:30",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -286,6 +286,61 @@ const JC_RECO_DATA = {
    "hit": null,
    "miss": null,
    "pending": 2,
+   "verdict": ""
+  },
+  {
+   "at": "2026-11-03 11:30",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周二002",
+     "time": "2026-11-03 18:00",
+     "league": "亚冠杯",
+     "home": "柏太阳神",
+     "away": "大田市民",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.53,
+     "conf": 62.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三011",
+     "time": "2026-11-05 04:00",
+     "league": "欧冠",
+     "home": "斯拉维亚",
+     "away": "阿森纳",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.27,
+     "conf": 75.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周三009",
+     "time": "2026-11-05 04:00",
+     "league": "欧冠",
+     "home": "维京",
+     "away": "萨巴赫",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.45,
+     "conf": 65.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 3,
    "verdict": ""
   }
  ]
