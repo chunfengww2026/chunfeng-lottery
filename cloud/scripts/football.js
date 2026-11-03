@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "2b46f4"
     },
     "time": "2026-11-03 16:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "河南U21",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 10
     },
@@ -10179,10 +10179,10 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "福建南安成功(女)",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 0
     },
@@ -10245,7 +10245,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "FC琉球",
      "score": 2,
@@ -10311,7 +10311,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 15:45:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "纽卡斯尔喷气机",
      "score": 0,
