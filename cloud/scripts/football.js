@@ -388,7 +388,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 71,
+    "minute": 73,
     "home": {
      "name": "河床后备队",
      "score": 1,
@@ -586,7 +586,7 @@ const FOOTBALL_DATA = {
      "color": "938f11"
     },
     "time": "2026-11-04 07:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "欧若拉",
      "score": 2,
@@ -595,7 +595,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "佩特萊羅獨立",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 9
     },
@@ -664,7 +664,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 7,
+    "minute": 9,
     "home": {
      "name": "帕斯托",
      "score": 0,
