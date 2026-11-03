@@ -7881,7 +7881,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-11-03 21:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "史塔德",
      "score": 1,
@@ -7947,7 +7947,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-03 21:45:00",
-    "minute": 55,
+    "minute": 57,
     "home": {
      "name": "東孟加拉",
      "score": 0,
@@ -8079,7 +8079,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-03 22:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "萨乌拉",
      "score": 0,
@@ -8157,7 +8157,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-03 22:45:00",
-    "minute": 11,
+    "minute": 13,
     "home": {
      "name": "阿沙巴柏",
      "score": 0,
