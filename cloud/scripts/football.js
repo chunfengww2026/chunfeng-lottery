@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "662222"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "耶泽洛",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "德锡",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 6
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "侯赛恩",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "警察俱乐部",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "1804D0"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "AEL利马素尔",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "伊拉克利斯耶罗拉",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 14
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 00:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "德黑兰独立",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "夏马尔",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -7113,10 +7113,10 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-03 22:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "萨乌拉",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
@@ -7179,7 +7179,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-03 22:45:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "阿沙巴柏",
      "score": 4,
@@ -7625,7 +7625,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "巴塞罗那U19",
      "score": 2,
@@ -7691,7 +7691,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "馬德里體育會U19",
      "score": 2,
@@ -7757,7 +7757,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "拉德",
      "score": 0,
