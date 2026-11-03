@@ -10375,7 +10375,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:00:00",
-    "minute": 90,
+    "minute": 0,
     "home": {
      "name": "甲府疾风",
      "score": 0,
@@ -10451,7 +10451,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:50:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "今治",
      "score": 0,
@@ -10460,7 +10460,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "札幌冈萨多",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 9
     },
