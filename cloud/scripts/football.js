@@ -6905,7 +6905,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "艾柏卡尔瑟梅德",
      "score": 0,
@@ -6971,7 +6971,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "阿尔卡纳",
      "score": 1,
@@ -7037,10 +7037,10 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "维薛拿U23",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 6
     },
@@ -7103,7 +7103,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "马里迪莫U23",
      "score": 1,
@@ -7169,7 +7169,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "吉爾維森特U23",
      "score": 4,
@@ -7235,7 +7235,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-03 23:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "維塞烏U23",
      "score": 1,
