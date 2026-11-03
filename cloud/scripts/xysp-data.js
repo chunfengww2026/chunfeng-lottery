@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 17:40
+   更新时间：2026-11-03 17:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 17:40",
+ "updated": "2026-11-03 17:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -497,20 +497,6 @@ const XYSP_DATA = {
      "atMs": 1793662583585,
      "seenMs": 1793662583585,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/9567afa5-7319-4d45-babd-39b5d846b96b1793611064520.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/9567afa5-7319-4d45-babd-39b5d846b96b1793611064520.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26125期]今日大乐透",
-     "url": "",
-     "at": "2026-11-02T09:45:03.078Z",
-     "pubAt": "2026-11-02T09:17:00.000Z",
-     "pubMs": 1793611020000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793612703078,
-     "seenMs": 1793612703078,
-     "whenMs": null
     }
    ]
   },
@@ -879,20 +865,6 @@ const XYSP_DATA = {
      "nextAt": 1793625300000,
      "atMs": 1793613003102,
      "seenMs": 1793613003102,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/b0e397a6-8cdb-44ec-9a7a-e764c6365d4a1793611862545.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/b0e397a6-8cdb-44ec-9a7a-e764c6365d4a1793611862545.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]今日",
-     "url": "",
-     "at": "2026-11-02T09:40:03.021Z",
-     "pubAt": "2026-11-02T09:31:00.000Z",
-     "pubMs": 1793611860000,
-     "pubSrc": "page",
-     "nextAt": 1793625300000,
-     "atMs": 1793612403021,
-     "seenMs": 1793612403021,
      "whenMs": null
     }
    ]
@@ -1800,20 +1772,6 @@ const XYSP_DATA = {
      "atMs": 1793613303474,
      "seenMs": 1793613303474,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/f7e15453-3841-4564-9bbc-367e2c27fd981793611616823.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/f7e15453-3841-4564-9bbc-367e2c27fd981793611616823.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]排列三",
-     "url": "",
-     "at": "2026-11-02T09:45:03.078Z",
-     "pubAt": "2026-11-02T09:27:00.000Z",
-     "pubMs": 1793611620000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793612703078,
-     "seenMs": 1793612703078,
-     "whenMs": null
     }
    ]
   },
@@ -2070,20 +2028,6 @@ const XYSP_DATA = {
      "nextAt": 1793622600000,
      "atMs": 1793618703992,
      "seenMs": 1793618703992,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/c9400d9c-bdf2-47e3-9825-b05b699eced01793611686456.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/c9400d9c-bdf2-47e3-9825-b05b699eced01793611686456.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]排列五",
-     "url": "",
-     "at": "2026-11-02T09:45:03.078Z",
-     "pubAt": "2026-11-02T09:28:00.000Z",
-     "pubMs": 1793611680000,
-     "pubSrc": "page",
-     "nextAt": 1793622600000,
-     "atMs": 1793612703078,
-     "seenMs": 1793612703078,
      "whenMs": null
     }
    ]
