@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "全北现代",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "神户胜利船",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "柏太阳神",
      "score": 0,
@@ -9960,7 +9960,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "努萨塔拉",
      "score": 0,
@@ -9969,7 +9969,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "阿雷玛",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 11
     },
@@ -10026,7 +10026,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "德揚",
      "score": 0,
@@ -10035,7 +10035,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "PSM马卡萨",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 12
     },
@@ -10092,7 +10092,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "尚卡汶里U21",
      "score": 1,
@@ -10158,7 +10158,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 32,
+    "minute": 37,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 0,
