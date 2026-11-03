@@ -388,7 +388,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-03 07:00:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "紅牛伯拉根森SP",
      "score": 2,
@@ -454,7 +454,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-03 07:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "阿尔比恩",
      "score": 0,
@@ -520,7 +520,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-03 07:10:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "馬大雷拿",
      "score": 0,
@@ -529,7 +529,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "艾域加多",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 7
     },
@@ -586,7 +586,7 @@ const FOOTBALL_DATA = {
      "color": "B5B500"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "奎亞斯GO",
      "score": 1,
@@ -652,7 +652,7 @@ const FOOTBALL_DATA = {
      "color": "003900"
     },
     "time": "2026-11-03 07:30:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "迪康塞普森",
      "score": 1,
@@ -718,7 +718,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "门多萨独立",
      "score": 2,
@@ -796,7 +796,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "图库曼竞技",
      "score": 0,
