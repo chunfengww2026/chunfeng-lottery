@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 03:46:01
+   更新时间：2026-11-04 03:56:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 03:46:01",
+ "updated": "2026-11-04 03:56:01",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mES3nMJdWODhsHsKI2IJhTva6RI%3D",
@@ -26,9 +26,9 @@ const XYSP_TT_DATA = {
     "kl8"
    ],
    "issue": "",
-   "seen": "2026-11-03T19:46:01.803Z",
+   "seen": "2026-11-03T19:56:01.818Z",
    "whenMs": 1793728525000,
-   "seenMs": 1793734561802,
+   "seenMs": 1793735161803,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793729161718,
@@ -58,7 +58,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -116,7 +116,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-03T19:36:01.802Z",
+   "seen": "2026-11-03T19:56:01.818Z",
    "whenMs": 1793713500000,
    "seenMs": 1793734561802,
    "drawMs": 1793884500000,
@@ -358,7 +358,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793705844000,
-   "seenMs": 1793726761699,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793706361385,
@@ -418,7 +418,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793705778000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793706361385,
@@ -448,7 +448,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793705778000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793706361385,
@@ -1680,7 +1680,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793672519000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793672761889,
@@ -1710,7 +1710,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793672519000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793672761889,
@@ -1740,7 +1740,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-03T19:46:01.803Z",
    "whenMs": 1793672519000,
-   "seenMs": 1793733961792,
+   "seenMs": 1793735161803,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793672761889,
@@ -2897,7 +2897,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=T17P7bPrzl92GrWmHzsVYvoNBM8%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
    "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
    "url": "http://toutiao.com/item/7703679406245413417/",
    "at": "2026-11-02T23:26:01.747Z",
@@ -2908,7 +2908,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-11-03T19:46:01.803Z",
+   "seen": "2026-11-03T19:56:01.818Z",
    "whenMs": 1793652634000,
    "seenMs": 1793735161803,
    "drawMs": 1793795400000,
@@ -2925,9 +2925,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=T17P7bPrzl92GrWmHzsVYvoNBM8%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
    "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
    "url": "http://toutiao.com/item/7703679406245413417/",
    "at": "2026-11-02T23:26:01.747Z",
@@ -2938,9 +2938,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-11-03T19:46:01.803Z",
+   "seen": "2026-11-03T19:56:01.818Z",
    "whenMs": 1793652634000,
-   "seenMs": 1793734561802,
+   "seenMs": 1793735761818,
    "drawMs": 1793795400000,
    "nextMs": 1793795400000,
    "atMs": 1793661961747,
