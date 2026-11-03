@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 09:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 10:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-11-03 09:58",
+ "updated": "2026-11-03 10:00",
  "stat": {
   "upcoming": 2,
   "live": 5,
@@ -169,7 +169,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 79,
+    "minute": 81,
     "home": {
      "name": "门多萨独立",
      "score": 3,
@@ -194,8 +194,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "4.5",
-       "over": 1.21,
-       "under": 0.68
+       "over": 1.28,
+       "under": 0.64
       },
       "live": null
      },
@@ -215,10 +215,10 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-03 08:15:00",
-    "minute": 84,
+    "minute": 86,
     "home": {
      "name": "图库曼竞技",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 20
     },
@@ -385,7 +385,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-03 09:15:00",
-    "minute": 42,
+    "minute": 44,
     "home": {
      "name": "布卡拉曼格",
      "score": 0,
@@ -414,39 +414,39 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.93,
-       "under": 0.93
+       "over": 1,
+       "under": 0.86
       },
       "live": {
        "line": "1.5",
-       "over": 2.7,
-       "under": 0.23
+       "over": 3.22,
+       "under": 0.17
       }
      },
      "europe": {
       "open": {
-       "home": 5.4,
-       "draw": 1.64,
+       "home": 5.5,
+       "draw": 1.63,
        "away": 3.5
       },
       "live": {
        "home": 31,
-       "draw": 1.08,
-       "away": 7.2
+       "draw": 1.05,
+       "away": 8.4
       }
      }
     },
     "reco": {
      "pick": "draw",
      "label": "平局",
-     "confidence": 84.4,
+     "confidence": 86.3,
      "prob": {
       "home": 2.9,
-      "draw": 84.4,
-      "away": 12.7
+      "draw": 86.3,
+      "away": 10.8
      },
      "clear": true,
-     "margin": 9.7
+     "margin": 10.4
     },
     "result": {
      "actual": "away",
