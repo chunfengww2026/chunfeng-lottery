@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-03 20:51",
- "red": 0,
+ "updated": "2026-11-03 21:16",
+ "red": 1,
  "black": 0,
- "rate": "—",
+ "rate": "100.0%",
  "unfinished": 2,
  "history": [
   {
@@ -14,10 +14,10 @@
      "matchNo": "周二002",
      "teams": "柏太阳神 vs 大田市民",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "2:0",
+     "result": "red",
      "confidence": 62.3,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793676600000,
      "league": "亚冠杯",
      "odds": 1.53,
