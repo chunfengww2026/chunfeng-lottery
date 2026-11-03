@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 0,
+    "minute": 6,
     "home": {
      "name": "FC琉球",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
     "away": {
      "name": "FC岐阜",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
@@ -10451,7 +10451,7 @@ const FOOTBALL_DATA = {
      "color": "33CC99"
     },
     "time": "2026-11-03 13:50:00",
-    "minute": 54,
+    "minute": 59,
     "home": {
      "name": "今治",
      "score": 0,
