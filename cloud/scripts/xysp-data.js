@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 00:15
+   更新时间：2026-11-04 00:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 00:15",
+ "updated": "2026-11-04 00:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2283,8 +2283,8 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=FOeL1Ps38tavu9VVPLrc45IpIrw%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=FOeL1Ps38tavu9VVPLrc45IpIrw%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gn8ziFaTPy1tCUcLNyxPlC7h4Yc%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gn8ziFaTPy1tCUcLNyxPlC7h4Yc%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=I2v1MiHAqcheOvGJz6QrkMIINfA%3D",
      "title": "从672元到8元！26126期双色球晒票反差拉满",
      "url": "http://toutiao.com/item/7703975343492858410/",
@@ -2296,9 +2296,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-03T16:06:01.629Z",
+     "seen": "2026-11-03T16:16:01.623Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793721961629,
+     "seenMs": 1793722561623,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -2326,7 +2326,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-03T16:06:01.629Z",
+     "seen": "2026-11-03T16:16:01.623Z",
      "whenMs": 1793721537000,
      "seenMs": 1793721961629,
      "drawMs": 1793884500000,
@@ -2345,7 +2345,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=wejzGz8XqmrGjkx8B%2FCnzmX9BSc%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=oOSPzkQNnViS9gSzu8jiOF%2F8nrg%3D",
      "title": "10元搏中3050万！山西彩民5倍投双色球，这张神票火了",
      "url": "https://toutiao.com/group/7703778064760619547/",
      "at": "2026-11-03T13:56:01.492Z",
@@ -2356,7 +2356,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-03T15:56:01.614Z",
+     "seen": "2026-11-03T16:16:01.623Z",
      "whenMs": 1793713500000,
      "seenMs": 1793721361614,
      "drawMs": 1793884500000,
@@ -5135,9 +5135,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Roh%2FfivDXDRKmxb5EGo1gPYfQ3g%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sbZxRBki7H6saxHvpb%2F8odm4D6Y%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sbZxRBki7H6saxHvpb%2F8odm4D6Y%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=T17P7bPrzl92GrWmHzsVYvoNBM8%3D",
      "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
      "url": "http://toutiao.com/item/7703679406245413417/",
      "at": "2026-11-02T23:26:01.747Z",
@@ -5148,9 +5148,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-03T16:06:01.629Z",
+     "seen": "2026-11-03T16:16:01.623Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793721961629,
+     "seenMs": 1793722561623,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -5165,9 +5165,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=rxEiN%2BbNU%2BTBFbJ9XTSqiTXSusk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=IUID%2BlZyN%2BfWfH1UfQg8xbMVIoQ%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2188a73ee24a4c368d80e21242f4b491~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=LXn0PYb%2BAkXwbzbrd4BjaJlOgQM%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/2cd81c0b156247f5a2c28dcdf6756948~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=T17P7bPrzl92GrWmHzsVYvoNBM8%3D",
      "title": "99倍哥2574元大单压阵，试机号三连号神助攻！大乐透125期晒票",
      "url": "http://toutiao.com/item/7703679406245413417/",
      "at": "2026-11-02T23:26:01.747Z",
@@ -5178,9 +5178,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-03T16:06:01.629Z",
+     "seen": "2026-11-03T16:16:01.623Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793721961629,
+     "seenMs": 1793722561623,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
