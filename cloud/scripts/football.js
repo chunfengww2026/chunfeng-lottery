@@ -9660,7 +9660,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "努萨塔拉",
      "score": 0,
@@ -9706,7 +9706,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "德揚",
      "score": 0,
@@ -9772,7 +9772,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 80,
+    "minute": 85,
     "home": {
      "name": "尚卡汶里U21",
      "score": 1,
@@ -9838,7 +9838,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 1,
@@ -9904,7 +9904,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "柏太阳神",
      "score": 0,
@@ -9982,7 +9982,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "神户胜利船",
      "score": 1,
@@ -10060,7 +10060,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "全北现代",
      "score": 1,
