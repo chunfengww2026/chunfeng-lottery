@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 22:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "林茨U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "斯洛云U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -7981,7 +7981,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "瓦沙姆",
      "score": 1,
@@ -8019,7 +8019,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "河内公安",
      "score": 0,
@@ -8085,10 +8085,10 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "狮子港",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 1
     },
@@ -8123,7 +8123,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:25:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "纳积兰",
      "score": 1,
@@ -8161,7 +8161,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 20:35:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "德咸科",
      "score": 2,
@@ -8265,7 +8265,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "曼彻斯特联U19",
      "score": 1,
@@ -8331,7 +8331,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "费耶诺德U19",
      "score": 2,
@@ -8397,7 +8397,7 @@ const FOOTBALL_DATA = {
      "color": "ee7799"
     },
     "time": "2026-11-03 21:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "扎达拉洛维",
      "score": 1,
@@ -8463,7 +8463,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-11-03 21:30:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "史塔德",
      "score": 0,
@@ -8541,7 +8541,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-03 21:45:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "東孟加拉",
      "score": 0,
