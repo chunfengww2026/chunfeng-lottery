@@ -1,15 +1,15 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 11:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 12:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-11-03 11:58",
+ "updated": "2026-11-03 12:00",
  "stat": {
   "upcoming": 0,
   "live": 1,
-  "finished": 14,
-  "total": 15,
+  "finished": 12,
+  "total": 13,
   "settled": true,
-  "hit": 4,
-  "miss": 10,
-  "rate": 28.6
+  "hit": 3,
+  "miss": 9,
+  "rate": 25
  },
  "lists": {
   "upcoming": [],
@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "004480"
     },
     "time": "2026-11-03 10:05:00",
-    "minute": 89,
+    "minute": 91,
     "home": {
      "name": "黑鷹",
      "score": 1,
@@ -37,207 +37,23 @@ const FOOTBALL_DATA = {
     },
     "odds": {
      "asian": {
-      "open": {
-       "home": 0,
-       "line": "0.42",
-       "away": 1.38
-      },
+      "open": null,
       "live": null
      },
      "overunder": {
-      "open": {
-       "line": "1.5",
-       "over": 2.17,
-       "under": 0.16
-      },
+      "open": null,
       "live": null
      },
      "europe": {
-      "open": {
-       "home": 1.01,
-       "draw": 20,
-       "away": 9
-      },
+      "open": null,
       "live": null
      }
     },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 86,
-     "prob": {
-      "home": 86,
-      "draw": 4.3,
-      "away": 9.7
-     },
-     "clear": true,
-     "margin": 15.1
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "1 - 0"
-    }
+    "reco": null,
+    "result": null
    }
   ],
   "finished": [
-   {
-    "gid": 589757,
-    "kind": "finished",
-    "league": {
-     "name": "阿甲",
-     "color": "3792dd"
-    },
-    "time": "2026-11-03 06:00:00",
-    "minute": 0,
-    "home": {
-     "name": "普拉腾斯",
-     "score": 2,
-     "red": 0,
-     "rank": 25
-    },
-    "away": {
-     "name": "科尔多瓦中央SDE",
-     "score": 0,
-     "red": 0,
-     "rank": 29
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -1.25,
-       "line": "1.04",
-       "away": 0.85
-      },
-      "live": {
-       "home": -0.5,
-       "line": "0.98",
-       "away": 0.9
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 1.04,
-       "under": 0.83
-      },
-      "live": {
-       "line": "1",
-       "over": 0.99,
-       "under": 0.88
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 1.41,
-       "draw": 7.1,
-       "away": 4.35
-      },
-      "live": {
-       "home": 1.98,
-       "draw": 7,
-       "away": 2.19
-      }
-     }
-    },
-    "reco": {
-     "pick": "home",
-     "label": "主胜",
-     "confidence": 45.7,
-     "prob": {
-      "home": 45.7,
-      "draw": 12.9,
-      "away": 41.3
-     },
-     "clear": true,
-     "margin": 10.5
-    },
-    "result": {
-     "actual": "home",
-     "actualLabel": "主胜",
-     "hit": true,
-     "score": "2 - 0"
-    }
-   },
-   {
-    "gid": 590940,
-    "kind": "finished",
-    "league": {
-     "name": "阿甲",
-     "color": "3792dd"
-    },
-    "time": "2026-11-03 06:00:00",
-    "minute": 0,
-    "home": {
-     "name": "防卫者",
-     "score": 1,
-     "red": 0,
-     "rank": 7
-    },
-    "away": {
-     "name": "独立队",
-     "score": 1,
-     "red": 0,
-     "rank": 15
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "1.06",
-       "away": 0.83
-      },
-      "live": {
-       "home": 0,
-       "line": "0.68",
-       "away": 1.25
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.25",
-       "over": 0.88,
-       "under": 0.99
-      },
-      "live": {
-       "line": "1",
-       "over": 1.07,
-       "under": 0.8
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.31,
-       "draw": 2.99,
-       "away": 3.2
-      },
-      "live": {
-       "home": 2.91,
-       "draw": 3.65,
-       "away": 2.08
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 43.8,
-     "prob": {
-      "home": 31.3,
-      "draw": 24.9,
-      "away": 43.8
-     },
-     "clear": false,
-     "margin": 9.8
-    },
-    "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
-     "hit": false,
-     "score": "1 - 1"
-    }
-   },
    {
     "gid": 595108,
     "kind": "finished",
