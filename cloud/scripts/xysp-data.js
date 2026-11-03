@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 22:00
+   更新时间：2026-11-03 22:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 22:00",
+ "updated": "2026-11-03 22:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1053,20 +1053,6 @@ const XYSP_DATA = {
      "atMs": 1793629503788,
      "seenMs": 1793629503788,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/e6f38e6c-7a1f-4132-8995-3a831c1e92711793624014844.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/e6f38e6c-7a1f-4132-8995-3a831c1e92711793624014844.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26292期]新的思路新的开始",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T12:53:00.000Z",
-     "pubMs": 1793623980000,
-     "pubSrc": "page",
-     "nextAt": 1793626200000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
-     "whenMs": null
     }
    ]
   },
@@ -1701,76 +1687,6 @@ const XYSP_DATA = {
      "nextAt": 1793709000000,
      "atMs": 1793628607566,
      "seenMs": 1793628607566,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/9bd10a06-9518-4b56-b161-96d568570b2c1793626902139.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/9bd10a06-9518-4b56-b161-96d568570b2c1793626902139.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]不想玩了",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T13:41:00.000Z",
-     "pubMs": 1793626860000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/386ecc72-02fb-4b4e-8905-ba6b34b51c0b1793626902089.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/386ecc72-02fb-4b4e-8905-ba6b34b51c0b1793626902089.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]不想玩了",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T13:41:00.000Z",
-     "pubMs": 1793626860000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/479dce10-639c-4e11-b2f0-957fa957cc471793626902127.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/479dce10-639c-4e11-b2f0-957fa957cc471793626902127.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]不想玩了",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T13:41:00.000Z",
-     "pubMs": 1793626860000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/95091bd8-6ccf-4539-a6f1-d17d6b65c2bf1793626861352.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/95091bd8-6ccf-4539-a6f1-d17d6b65c2bf1793626861352.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]不看好组三的时候开组三",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T13:41:00.000Z",
-     "pubMs": 1793626860000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/41be83eb-7f63-476d-9b2f-7937500b1d2f1793626735575.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/41be83eb-7f63-476d-9b2f-7937500b1d2f1793626735575.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]又少了一个",
-     "url": "",
-     "at": "2026-11-02T14:00:04.360Z",
-     "pubAt": "2026-11-02T13:39:00.000Z",
-     "pubMs": 1793626740000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628004360,
-     "seenMs": 1793628004360,
      "whenMs": null
     }
    ]
