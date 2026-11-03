@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 0,
