@@ -10172,7 +10172,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-03 15:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "FC琉球",
      "score": 2,
@@ -10238,7 +10238,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 15:45:00",
-    "minute": 47,
+    "minute": 52,
     "home": {
      "name": "纽卡斯尔喷气机",
      "score": 0,
@@ -10247,7 +10247,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "上海海港",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 5
     },
