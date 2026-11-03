@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 20:36
+   更新时间：2026-11-03 20:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 20:36",
+ "updated": "2026-11-03 20:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2278,7 +2278,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793705778000,
-     "seenMs": 1793708761446,
+     "seenMs": 1793709361430,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793706361385,
@@ -4980,7 +4980,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793708161433,
+     "seenMs": 1793709361430,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -5010,7 +5010,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793630441000,
-     "seenMs": 1793708161433,
+     "seenMs": 1793709361430,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793630761344,
@@ -5070,7 +5070,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793708161433,
+     "seenMs": 1793709361430,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -5100,7 +5100,7 @@ const XYSP_DATA = {
      "issue": "26125",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793628857000,
-     "seenMs": 1793708161433,
+     "seenMs": 1793709361430,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793631361369,
@@ -5263,36 +5263,6 @@ const XYSP_DATA = {
      "when": "2026-11-02 20:46:34",
      "postId": "7703554679565484594",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/503004ab54ec484c9997939411901237~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=HPCdJm7N1R2nU%2FB75Jrnpt4YUus%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/503004ab54ec484c9997939411901237~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=HPCdJm7N1R2nU%2FB75Jrnpt4YUus%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05b644a6b66d4fd489ff5c3603df99ca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=g4YgInjviTwjNMbGpRZ0XxPBsg8%3D",
-     "title": "26元死磕13倍！几张实票连夜现身大乐透125期，这神仙号真能逆天？",
-     "url": "http://toutiao.com/item/7703552865897284137/",
-     "at": "2026-11-02T12:56:02.256Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T12:16:01.433Z",
-     "whenMs": 1793623172000,
-     "seenMs": 1793708161433,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793624162256,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T12:56:02.256Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 20:39:32",
-     "postId": "7703552865897284137",
-     "px": 132300
     }
    ]
   },
@@ -5313,14 +5283,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T12:36:01.430Z",
      "whenMs": 1793674344000,
-     "seenMs": 1793706361385,
+     "seenMs": 1793709361430,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1793666761818,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-04T11:46:01.385Z",
+     "expireAt": "2026-11-04T12:36:01.430Z",
      "rule": "cap",
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-03 10:52:24",
