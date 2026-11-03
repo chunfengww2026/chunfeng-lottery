@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 18:20
+   更新时间：2026-11-03 18:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 18:20",
+ "updated": "2026-11-03 18:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5540,66 +5540,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 18:33:44",
      "postId": "7703520448163611172",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/92b36c26b73f427ea940eab3114dca94~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=X8qm1rUiczeeG4RpLQaLGepV1Eg%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/92b36c26b73f427ea940eab3114dca94~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=X8qm1rUiczeeG4RpLQaLGepV1Eg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/92b36c26b73f427ea940eab3114dca94~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=9qVo%2FHVF8oxa9HxbloizAW%2Frg9M%3D",
-     "title": "河南惊现25倍，剑指巨奖，756元复式强势出击！大乐透125期晒票",
-     "url": "http://toutiao.com/item/7703518182669025846/",
-     "at": "2026-11-02T10:26:02.149Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T11:26:02.160Z",
-     "whenMs": 1793615096000,
-     "seenMs": 1793618762160,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793615162149,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T10:26:02.149Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 18:24:56",
-     "postId": "7703518182669025846",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/edf7f7b0272b4bf7aa32598498dff5ff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=Xz%2FpdrDDCnRE%2BE%2FEGy%2BJUI%2FphbA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/edf7f7b0272b4bf7aa32598498dff5ff~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=Xz%2FpdrDDCnRE%2BE%2FEGy%2BJUI%2FphbA%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/92b36c26b73f427ea940eab3114dca94~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=9qVo%2FHVF8oxa9HxbloizAW%2Frg9M%3D",
-     "title": "河南惊现25倍，剑指巨奖，756元复式强势出击！大乐透125期晒票",
-     "url": "http://toutiao.com/item/7703518182669025846/",
-     "at": "2026-11-02T10:26:02.149Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T11:26:02.160Z",
-     "whenMs": 1793615096000,
-     "seenMs": 1793618762160,
-     "drawMs": 1793622600000,
-     "nextMs": 1793622600000,
-     "atMs": 1793615162149,
-     "drawAt": "2026-11-02T12:30:00.000Z",
-     "nextAt": 1793622600000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T10:26:02.149Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 18:24:56",
-     "postId": "7703518182669025846",
      "px": 132300
     }
    ]
