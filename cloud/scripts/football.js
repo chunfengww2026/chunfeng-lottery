@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "938f11"
     },
     "time": "2026-11-04 07:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "欧若拉",
-     "score": 1,
+     "score": 2,
      "red": null,
      "rank": 6
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "帕斯托",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 20
     },
     "away": {
      "name": "贾奎斯科尔多巴",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 18
     },
@@ -646,7 +646,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 06:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "河床后备队",
      "score": 1,
@@ -721,7 +721,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "米拉索",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 16
     },
