@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 17:46
+   更新时间：2026-11-03 17:50
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 17:46",
+ "updated": "2026-11-03 17:50",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -851,20 +851,6 @@ const XYSP_DATA = {
      "nextAt": 1793625300000,
      "atMs": 1793615198060,
      "seenMs": 1793615198060,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/2d676472-74b0-40e0-9be6-bd28bcf066821793611945621.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/2d676472-74b0-40e0-9be6-bd28bcf066821793611945621.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]仅供参考",
-     "url": "",
-     "at": "2026-11-02T09:50:03.102Z",
-     "pubAt": "2026-11-02T09:32:00.000Z",
-     "pubMs": 1793611920000,
-     "pubSrc": "page",
-     "nextAt": 1793625300000,
-     "atMs": 1793613003102,
-     "seenMs": 1793613003102,
      "whenMs": null
     }
    ]
@@ -2224,7 +2210,7 @@ const XYSP_DATA = {
      "issue": "26124",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793697145000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793697961268,
@@ -2284,7 +2270,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793697126000,
-     "seenMs": 1793698561277,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793698561277,
@@ -2794,7 +2780,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793678880000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793712600000,
      "nextMs": 1793712600000,
      "atMs": 1793679962067,
@@ -3124,7 +3110,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793672519000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793672761889,
@@ -3274,7 +3260,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793667744000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793667961826,
@@ -3304,7 +3290,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793667744000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793667961826,
@@ -3424,7 +3410,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793667744000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793667961826,
@@ -3454,7 +3440,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793667744000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793667961826,
@@ -3574,7 +3560,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793666288000,
-     "seenMs": 1793697961268,
+     "seenMs": 1793699161292,
      "drawMs": 1793711700000,
      "nextMs": 1793711700000,
      "atMs": 1793666761818,
@@ -4294,7 +4280,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793698561277,
+     "seenMs": 1793699161292,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -4324,7 +4310,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-03T09:46:01.292Z",
      "whenMs": 1793652634000,
-     "seenMs": 1793698561277,
+     "seenMs": 1793699161292,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793661961747,
@@ -5538,36 +5524,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-02 17:55:19",
      "postId": "7703510548058473023",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7436410430434b3f9d8448022f4f5c7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=AMgAvQij9S%2FJBe2TPc1hpAzWUPc%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7436410430434b3f9d8448022f4f5c7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=AMgAvQij9S%2FJBe2TPc1hpAzWUPc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7436410430434b3f9d8448022f4f5c7e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=08vZ2BmVNhi0CX0Q4GuGeZeN68U%3D",
-     "title": "兄弟们，我是快乐8素老三，提前晒票不打马后炮。大家看看今天研究的号码怎么样。有什么好的数字建议，#今日快乐8预选# #彩票号码分享# 成败就在一瞬间，你只管努力，其它交给天意。[呲牙][呲牙][呲牙][呲牙]",
-     "url": "sslocal://thread_detail?fid=1863429843234864&tid=1880739530675268",
-     "at": "2026-11-02T10:06:02.119Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T10:06:02.119Z",
-     "whenMs": 1793612986000,
-     "seenMs": 1793613962119,
-     "drawMs": 1793626200000,
-     "nextMs": 1793626200000,
-     "atMs": 1793613962119,
-     "drawAt": "2026-11-02T13:30:00.000Z",
-     "nextAt": 1793626200000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-03T10:06:02.119Z",
-     "rule": "first-capture-24h",
-     "author": "素老叁",
-     "when": "2026-11-02 17:49:46",
-     "postId": "1880739530675268",
      "px": 132300
     }
    ]
