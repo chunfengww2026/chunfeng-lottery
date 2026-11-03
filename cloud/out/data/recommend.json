@@ -1,23 +1,23 @@
 {
- "updated": "2026-11-04 05:55",
+ "updated": "2026-11-04 06:36",
  "red": 1,
- "black": 0,
- "rate": "100.0%",
- "unfinished": 2,
+ "black": 1,
+ "rate": "50.0%",
+ "unfinished": 1,
  "history": [
   {
    "dateStr": "2026-11-04 04:05",
    "finishTime": 1793736300000,
-   "verdict": "",
+   "verdict": "黑",
    "matches": [
     {
      "matchNo": "周二011",
      "teams": "博德闪耀 vs 里尔",
      "pick": "主胜",
-     "score": "—",
-     "result": "pending",
+     "score": "0:0",
+     "result": "black",
      "confidence": 61.5,
-     "status": "pending",
+     "status": "finished",
      "finishTime": 1793736300000,
      "league": "欧冠",
      "odds": 1.55,
