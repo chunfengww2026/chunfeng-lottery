@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "全北现代",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "达罗塔晋",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "神户胜利船",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
     "away": {
      "name": "拉查布里府",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 18:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "柏太阳神",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 4
     },
     "away": {
      "name": "大田市民",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -9960,7 +9960,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "努萨塔拉",
      "score": 0,
@@ -10026,7 +10026,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "德揚",
      "score": 0,
@@ -10092,7 +10092,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-03 17:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "尚卡汶里U21",
      "score": 1,
@@ -10158,7 +10158,7 @@ const FOOTBALL_DATA = {
      "color": "330044"
     },
     "time": "2026-11-03 17:30:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "奧林匹克塔什干II隊",
      "score": 0,
