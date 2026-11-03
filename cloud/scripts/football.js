@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "556688"
     },
     "time": "2026-11-03 21:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "史塔德",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-03 21:45:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "東孟加拉",
      "score": 0,
@@ -8239,7 +8239,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 91,
+    "minute": 96,
     "home": {
      "name": "肯德爾龍捲風",
      "score": 3,
@@ -8305,7 +8305,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "德瓦聯合萬丹",
      "score": 3,
@@ -8371,7 +8371,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-03 20:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "棉兰",
      "score": 1,
@@ -8711,7 +8711,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "瓦沙姆",
      "score": 0,
@@ -8777,7 +8777,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 76,
+    "minute": 81,
     "home": {
      "name": "河内公安",
      "score": 0,
@@ -8843,10 +8843,10 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-03 20:15:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "狮子港",
-     "score": 3,
+     "score": 5,
      "red": 0,
      "rank": 1
     },
@@ -8881,7 +8881,7 @@ const FOOTBALL_DATA = {
      "color": "008899"
     },
     "time": "2026-11-03 20:25:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "纳积兰",
      "score": 1,
@@ -8947,7 +8947,7 @@ const FOOTBALL_DATA = {
      "color": "008477"
     },
     "time": "2026-11-03 20:35:00",
-    "minute": 51,
+    "minute": 56,
     "home": {
      "name": "德咸科",
      "score": 2,
