@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-03 22:10
+   更新时间：2026-11-03 22:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-03 22:10",
+ "updated": "2026-11-03 22:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -358,6 +358,48 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/23615af7-9bf8-4c42-a267-300ab67188781793713681918.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/23615af7-9bf8-4c42-a267-300ab67188781793713681918.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]守号开出的不要，换，明天开奖，中，理性购彩",
+     "url": "",
+     "at": "2026-11-03T14:15:03.918Z",
+     "pubAt": "2026-11-03T13:52:00.000Z",
+     "pubMs": 1793713920000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793715303918,
+     "seenMs": 1793715303918,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/803bef6d-42c1-4622-a74e-2e52f19d0fb41793713681843.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/803bef6d-42c1-4622-a74e-2e52f19d0fb41793713681843.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]守号开出的不要，换，明天开奖，中，理性购彩",
+     "url": "",
+     "at": "2026-11-03T14:15:03.918Z",
+     "pubAt": "2026-11-03T13:52:00.000Z",
+     "pubMs": 1793713920000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793715303918,
+     "seenMs": 1793715303918,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-03/8e049b24-9cab-4d7c-b287-029b9d98d09b1793713681901.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-03/8e049b24-9cab-4d7c-b287-029b9d98d09b1793713681901.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]守号开出的不要，换，明天开奖，中，理性购彩",
+     "url": "",
+     "at": "2026-11-03T14:15:03.918Z",
+     "pubAt": "2026-11-03T13:52:00.000Z",
+     "pubMs": 1793713920000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793715303918,
+     "seenMs": 1793715303918,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/e4d76fd6-d009-4240-8654-10cc262c2fe21793682736686.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/e4d76fd6-d009-4240-8654-10cc262c2fe21793682736686.jpg?imageMogr2/thumbnail/360x",
@@ -1897,20 +1939,6 @@ const XYSP_DATA = {
      "nextAt": 1793709000000,
      "atMs": 1793629503788,
      "seenMs": 1793629503788,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-02/5f948f01-b25e-4a61-a2dc-b9bdc3bd7b7b1793626980728.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-02/5f948f01-b25e-4a61-a2dc-b9bdc3bd7b7b1793626980728.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]来财",
-     "url": "",
-     "at": "2026-11-02T14:10:07.566Z",
-     "pubAt": "2026-11-02T13:43:00.000Z",
-     "pubMs": 1793626980000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793628607566,
-     "seenMs": 1793628607566,
      "whenMs": null
     }
    ]
@@ -5375,126 +5403,6 @@ const XYSP_DATA = {
      "when": "2026-11-02 22:40:41",
      "postId": "7703583584510116402",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5153d7f68b734b2ab46892060d1c7f8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=9S2JT9YHs4Lm0wVrix%2FqSeYmtWM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5153d7f68b734b2ab46892060d1c7f8c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=9S2JT9YHs4Lm0wVrix%2FqSeYmtWM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5153d7f68b734b2ab46892060d1c7f8c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=CXR5GMMlCGrVvteyBYq3lS1BqNk%3D",
-     "title": "28元套餐票还能买一送一？大乐透26125期晒票，这几组号码有点邪门",
-     "url": "http://toutiao.com/item/7703577284300505641/",
-     "at": "2026-11-02T14:56:01.369Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
-     "whenMs": 1793628857000,
-     "seenMs": 1793712961485,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631361369,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:56:01.369Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 22:14:17",
-     "postId": "7703577284300505641",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfe5b06384774175b571072a7c18accf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sV2rp%2FcGVxPGsgbnvjD2Km08Uo8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/bfe5b06384774175b571072a7c18accf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=sV2rp%2FcGVxPGsgbnvjD2Km08Uo8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5153d7f68b734b2ab46892060d1c7f8c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=CXR5GMMlCGrVvteyBYq3lS1BqNk%3D",
-     "title": "28元套餐票还能买一送一？大乐透26125期晒票，这几组号码有点邪门",
-     "url": "http://toutiao.com/item/7703577284300505641/",
-     "at": "2026-11-02T14:56:01.369Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
-     "whenMs": 1793628857000,
-     "seenMs": 1793712961485,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631361369,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:56:01.369Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 22:14:17",
-     "postId": "7703577284300505641",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d8497c8c3eb24bb5b6124dc50f499e45~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jCYSfD4lz%2FB5dFcsHm9GFUqsVFk%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d8497c8c3eb24bb5b6124dc50f499e45~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=jCYSfD4lz%2FB5dFcsHm9GFUqsVFk%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/5153d7f68b734b2ab46892060d1c7f8c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=CXR5GMMlCGrVvteyBYq3lS1BqNk%3D",
-     "title": "28元套餐票还能买一送一？大乐透26125期晒票，这几组号码有点邪门",
-     "url": "http://toutiao.com/item/7703577284300505641/",
-     "at": "2026-11-02T14:56:01.369Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26125",
-     "seen": "2026-11-03T13:36:01.485Z",
-     "whenMs": 1793628857000,
-     "seenMs": 1793712961485,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793631361369,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-03T14:56:01.369Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-02 22:14:17",
-     "postId": "7703577284300505641",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0de3eb1198594c83bfd6077378a87bb7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=en48M3vvFt5F16iLOP3ucpshno0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0de3eb1198594c83bfd6077378a87bb7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=en48M3vvFt5F16iLOP3ucpshno0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0de3eb1198594c83bfd6077378a87bb7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802304000&x-signature=U86%2FWRgknp4MuFaaRvxLu2kg%2Fto%3D",
-     "title": "重庆独揽500万！快乐8最新开奖数据背后的幸存者偏差，值得深思",
-     "url": "https://toutiao.com/group/7703575947991073290/",
-     "at": "2026-11-02T14:26:01.316Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-02T14:46:01.344Z",
-     "whenMs": 1793628659000,
-     "seenMs": 1793630761344,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793629561316,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-03T14:26:01.316Z",
-     "rule": "first-capture-24h",
-     "author": "每日彩",
-     "when": "2026-11-02 22:10:59",
-     "postId": "7703575947991073290",
-     "px": 132300
     }
    ]
   },
@@ -7544,6 +7452,9 @@ const XYSP_DATA = {
   "/2026-11-03/b5b34048-c6cb-4c44-afcb-5bb45639765c1793713523362.jpg": 1793715004094,
   "/2026-11-03/848dc40c-4084-4297-a70f-5f55d20c271f1793712807976.jpg": 1793715004094,
   "/2026-11-03/6fd298a7-d5ce-4338-a2ca-5ab66751b5dc1793712853338.jpg": 1793715004094,
-  "/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg": 1793715004094
+  "/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg": 1793715004094,
+  "/2026-11-03/23615af7-9bf8-4c42-a267-300ab67188781793713681918.jpg": 1793715303918,
+  "/2026-11-03/803bef6d-42c1-4622-a74e-2e52f19d0fb41793713681843.jpg": 1793715303918,
+  "/2026-11-03/8e049b24-9cab-4d7c-b287-029b9d98d09b1793713681901.jpg": 1793715303918
  }
 };
