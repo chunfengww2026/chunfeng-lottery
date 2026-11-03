@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 13:58 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 14:00 */
 const JC_DATA = {
- "updated": "2026-11-03 13:58",
+ "updated": "2026-11-03 14:00",
  "stat": {
   "total": 21,
   "upcoming": 21,
@@ -103,7 +103,7 @@ const JC_DATA = {
       "初盘→即时：主胜-8.3pp / 平局-2.2pp / 客胜+10.5pp",
       "亚盘客队方向变深，水位下降",
       "主要方向凯利中位参考 0.900",
-      "多机构分歧 4.5%"
+      "多机构分歧 5.0%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -2757,7 +2757,7 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-03 13:58",
+  "updated": "2026-11-03 14:00",
   "officialUpdate": "2026-11-03 13:56:10",
   "inSale": 21,
   "list": [
