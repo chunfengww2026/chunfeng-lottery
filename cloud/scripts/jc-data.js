@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-03 09:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-03 09:58 */
 const JC_DATA = {
- "updated": "2026-11-03 09:28",
+ "updated": "2026-11-03 09:58",
  "stat": {
-  "total": 8,
+  "total": 9,
   "upcoming": 0,
   "live": 0,
-  "finished": 8,
-  "withScore": 8,
-  "droppedNotOnSale": 1,
+  "finished": 9,
+  "withScore": 9,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 8,
-  "droppedNotOnSale": 1,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -890,12 +890,121 @@ const JC_DATA = {
     "home": 1,
     "away": 0
    }
+  },
+  {
+   "gid": "1362566",
+   "fid": "1362566",
+   "sid": "19498",
+   "code": "周一009",
+   "league": "巴甲",
+   "round": "第34轮",
+   "time": "2026-11-03 07:00",
+   "handicap": "-1",
+   "home": {
+    "name": "布拉干蒂诺RB",
+    "rank": 9
+   },
+   "away": {
+    "name": "桑托斯",
+    "rank": 8
+   },
+   "score": {
+    "home": 2,
+    "away": 1
+   },
+   "statusText": "2 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.92,
+      "line": "半球",
+      "away": 0.92
+     },
+     "live": {
+      "home": 0.75,
+      "line": "平手/半球",
+      "away": 1.05
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 1.9,
+      "draw": 3.5,
+      "away": 3.8
+     },
+     "live": {
+      "home": 2,
+      "draw": 3.8,
+      "away": 3.4
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.97,
+      "over": 2.5,
+      "under": 0.87
+     },
+     "live": {
+      "line": 0.7,
+      "over": 3,
+      "under": 1.1
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 47.3,
+    "prob": {
+     "home": 47.3,
+     "draw": 24.9,
+     "away": 27.8
+    },
+    "clear": true,
+    "margin": 5.7,
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.75,
+    "downWater": 1.05,
+    "openHandicap": -0.5,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.8,
+    "theoryUpPercent": "58.33",
+    "theoryDownPercent": "41.67",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.92,
+     "nowUpWater": 0.75,
+     "initLine": "半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 2,
+    "away": 1
+   }
   }
  ],
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-03 09:28",
+  "updated": "2026-11-03 09:58",
   "officialUpdate": "2026-11-02 20:34:08",
   "inSale": 8,
   "list": [
