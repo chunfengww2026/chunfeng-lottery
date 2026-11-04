@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 08:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "國際體育會RS",
      "score": 0,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-04 09:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "卡达根拿",
      "score": 0,
