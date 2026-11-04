@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "DD8800"
     },
     "time": "2026-11-04 19:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "琴斯托霍瓦II隊",
      "score": 0,
@@ -8727,7 +8727,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "卡雅FC女足",
      "score": 0,
@@ -8736,7 +8736,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "墨尔本城女足",
-     "score": 1,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
@@ -8793,10 +8793,10 @@ const FOOTBALL_DATA = {
      "color": "FC7d5A"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "阿梅利亞諾后备队",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 0
     },
@@ -8859,7 +8859,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 65,
+    "minute": 70,
     "home": {
      "name": "塞普特姆裡U19",
      "score": 0,
@@ -9003,7 +9003,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "尤姆尼耶士邦U19",
      "score": 1,
@@ -9081,7 +9081,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 43,
+    "minute": 0,
     "home": {
      "name": "佩迪卡斯堡U19",
      "score": 1,
@@ -9233,7 +9233,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "貝伊奧盧耶尼恰爾西U19",
      "score": 0,
@@ -9311,7 +9311,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "费内巴切U19",
      "score": 2,
