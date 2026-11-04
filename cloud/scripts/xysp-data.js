@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 22:10
+   更新时间：2026-11-04 22:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 22:10",
+ "updated": "2026-11-04 22:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -155,34 +155,6 @@ const XYSP_DATA = {
      "nextAt": 1793884500000,
      "atMs": 1793717189271,
      "seenMs": 1793717189271,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/a7b7d2a8-ba8d-492b-b23a-766c634654c91793713741024.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/a7b7d2a8-ba8d-492b-b23a-766c634654c91793713741024.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]没有下一次，没有如果……",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:49:00.000Z",
-     "pubMs": 1793713740000,
-     "pubSrc": "page",
-     "nextAt": 1793884500000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/a89c8e7e-794f-40ec-8270-c9170d4ecd591793713491468.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/a89c8e7e-794f-40ec-8270-c9170d4ecd591793713491468.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]哎….组不到一起",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:45:00.000Z",
-     "pubMs": 1793713500000,
-     "pubSrc": "page",
-     "nextAt": 1793884500000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
      "whenMs": null
     }
    ]
@@ -1104,20 +1076,6 @@ const XYSP_DATA = {
      "atMs": 1793715905239,
      "seenMs": 1793715905239,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/1b857692-8280-48fb-afdc-f44c07bc55c21793713300676.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/1b857692-8280-48fb-afdc-f44c07bc55c21793713300676.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]还不如一个数都不对来的痛快",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:41:00.000Z",
-     "pubMs": 1793713260000,
-     "pubSrc": "page",
-     "nextAt": 1793798100000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
     }
    ]
   },
@@ -1374,104 +1332,6 @@ const XYSP_DATA = {
      "nextAt": 1793799000000,
      "atMs": 1793715905239,
      "seenMs": 1793715905239,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/9e2a5860-49aa-4c9e-838c-b9d3a32ac5081793713716764.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/9e2a5860-49aa-4c9e-838c-b9d3a32ac5081793713716764.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]46今天就是不来，不给面子",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:49:00.000Z",
-     "pubMs": 1793713740000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/c0b7939b-6095-4037-a17e-c5221fb854e21793713279968.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/c0b7939b-6095-4037-a17e-c5221fb854e21793713279968.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]你给我断区😔",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:41:00.000Z",
-     "pubMs": 1793713260000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/d34b32b5-e09f-4b75-a589-14b52f0622561793713229115.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/d34b32b5-e09f-4b75-a589-14b52f0622561793713229115.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]66不下呀呀",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:40:00.000Z",
-     "pubMs": 1793713200000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/84dacc68-9dff-43dd-a976-cc8725a0c8911793713229148.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/84dacc68-9dff-43dd-a976-cc8725a0c8911793713229148.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]66不下呀呀",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:40:00.000Z",
-     "pubMs": 1793713200000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/eadb22fa-b9d4-42df-88bb-4a232ac37f081793713229144.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/eadb22fa-b9d4-42df-88bb-4a232ac37f081793713229144.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]66不下呀呀",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:40:00.000Z",
-     "pubMs": 1793713200000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/303c9e68-6bca-496e-a3a3-8ce3f8c4766b1793713109510.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/303c9e68-6bca-496e-a3a3-8ce3f8c4766b1793713109510.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]一开奖我说这号码怎么这么熟悉，唉无语了",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:39:00.000Z",
-     "pubMs": 1793713140000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/06fec146-c9c5-491d-a298-be58d20fda071793712787980.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/06fec146-c9c5-491d-a298-be58d20fda071793712787980.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]几个啊",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:33:00.000Z",
-     "pubMs": 1793712780000,
-     "pubSrc": "page",
-     "nextAt": 1793799000000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
      "whenMs": null
     }
    ]
@@ -2038,90 +1898,6 @@ const XYSP_DATA = {
      "atMs": 1793715905239,
      "seenMs": 1793715905239,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/88e854b9-36a9-4dad-bbcb-1d7b787319151793713474399.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/88e854b9-36a9-4dad-bbcb-1d7b787319151793713474399.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]服了！！！！ 福885开185！定位中！ 体 815开811 定位中排五选号也中！就是俺买不中！！服了",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:47:00.000Z",
-     "pubMs": 1793713620000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/cbbd52a3-5b35-4b10-9322-c464077096071793713474426.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/cbbd52a3-5b35-4b10-9322-c464077096071793713474426.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]服了！！！！ 福885开185！定位中！ 体 815开811 定位中排五选号也中！就是俺买不中！！服了",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:47:00.000Z",
-     "pubMs": 1793713620000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/8a32a99c-e7d6-4fd9-a277-1a123cffe4081793713523361.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/8a32a99c-e7d6-4fd9-a277-1a123cffe4081793713523361.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]预哭无泪！天意如此！",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:46:00.000Z",
-     "pubMs": 1793713560000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/b5b34048-c6cb-4c44-afcb-5bb45639765c1793713523362.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/b5b34048-c6cb-4c44-afcb-5bb45639765c1793713523362.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]预哭无泪！天意如此！",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:46:00.000Z",
-     "pubMs": 1793713560000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/848dc40c-4084-4297-a70f-5f55d20c271f1793712807976.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/848dc40c-4084-4297-a70f-5f55d20c271f1793712807976.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26294期]头疼😱😱😱",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:35:00.000Z",
-     "pubMs": 1793712900000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/6fd298a7-d5ce-4338-a2ca-5ab66751b5dc1793712853338.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/6fd298a7-d5ce-4338-a2ca-5ab66751b5dc1793712853338.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]中，福体全中",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:34:00.000Z",
-     "pubMs": 1793712840000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
-     "whenMs": null
     }
    ]
   },
@@ -2462,20 +2238,6 @@ const XYSP_DATA = {
      "nextAt": 1793795400000,
      "atMs": 1793717189271,
      "seenMs": 1793717189271,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/e8bedad6-c50b-453c-921b-7f7effb532451793713447265.jpg?imageMogr2/thumbnail/360x",
-     "title": "[期]郁闷",
-     "url": "",
-     "at": "2026-11-03T14:10:04.094Z",
-     "pubAt": "2026-11-03T13:46:00.000Z",
-     "pubMs": 1793713560000,
-     "pubSrc": "page",
-     "nextAt": 1793795400000,
-     "atMs": 1793715004094,
-     "seenMs": 1793715004094,
      "whenMs": null
     }
    ]
