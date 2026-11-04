@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-04 10:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-04 10:58 */
 const JC_DATA = {
- "updated": "2026-11-04 10:28",
+ "updated": "2026-11-04 10:58",
  "stat": {
   "total": 10,
   "upcoming": 10,
@@ -326,9 +326,9 @@ const JC_DATA = {
       "away": 0.82
      },
      "live": {
-      "home": 0.87,
+      "home": 0.93,
       "line": "受一球/球半",
-      "away": 0.97
+      "away": 0.93
      }
     },
     "europe": {
@@ -350,9 +350,9 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 1,
+      "line": 0.91,
       "over": 3.5,
-      "under": 0.85
+      "under": 0.91
      }
     }
    },
@@ -397,9 +397,9 @@ const JC_DATA = {
      "handicap": {
       "line": 1,
       "prob": {
-       "home": 0.3445556500658491,
-       "draw": 0.21830941732659645,
-       "away": 0.43713493260755426
+       "home": 0.34426679432049295,
+       "draw": 0.21538741692121444,
+       "away": 0.4403457887582929
       },
       "pick": "away",
       "label": "让负"
@@ -412,21 +412,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 1.25,
     "upSide": "away",
-    "upWater": 0.97,
-    "downWater": 0.87,
+    "upWater": 0.93,
+    "downWater": 0.93,
     "openHandicap": 0.75,
     "openUpWater": 0.82,
     "openDownWater": 1.02,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "47.28",
-    "theoryDownPercent": "52.72",
+    "totalWater": 1.86,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
     "canWater": true,
     "handicapChange": {
      "type": "升盘升水",
      "initHandicap": 0.75,
      "nowHandicap": 1.25,
      "initUpWater": 0.82,
-     "nowUpWater": 0.97,
+     "nowUpWater": 0.93,
      "initLine": "受半球/一球",
      "nowLine": "受一球/球半"
     },
@@ -1423,8 +1423,8 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-04 10:28",
-  "officialUpdate": "2026-11-03 17:20:59",
+  "updated": "2026-11-04 10:58",
+  "officialUpdate": "2026-11-04 10:51:51",
   "inSale": 10,
   "list": [
    {
@@ -1497,17 +1497,17 @@ const JC_DATA = {
     "home": "费内巴切",
     "away": "利物浦",
     "had": {
-     "h": 5.35,
-     "d": 4.5,
-     "a": 1.37,
-     "update": "2026-11-03 16:04:34"
+     "h": 5.75,
+     "d": 4.7,
+     "a": 1.33,
+     "update": "2026-11-04 10:31:39"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.52,
-     "d": 3.7,
-     "a": 2.12,
-     "update": "2026-11-03 16:04:38"
+     "h": 2.67,
+     "d": 3.75,
+     "a": 2.01,
+     "update": "2026-11-04 10:31:45"
     },
     "single": {
      "HAD": {
@@ -1528,17 +1528,17 @@ const JC_DATA = {
     "home": "莱红牛",
     "away": "曼城",
     "had": {
-     "h": 5.1,
+     "h": 5.25,
      "d": 4.8,
-     "a": 1.36,
-     "update": "2026-11-03 16:12:17"
+     "a": 1.35,
+     "update": "2026-11-04 10:51:51"
     },
     "hhad": {
      "line": "+1",
-     "h": 2.51,
-     "d": 3.95,
-     "a": 2.05,
-     "update": "2026-11-03 16:12:23"
+     "h": 2.57,
+     "d": 4,
+     "a": 2,
+     "update": "2026-11-04 10:51:45"
     },
     "single": {
      "HAD": {
@@ -1652,17 +1652,17 @@ const JC_DATA = {
     "home": "维京",
     "away": "萨巴赫",
     "had": {
-     "h": 1.26,
-     "d": 5.2,
-     "a": 6.5,
-     "update": "2026-11-03 17:18:41"
+     "h": 1.25,
+     "d": 5.25,
+     "a": 6.7,
+     "update": "2026-11-04 10:32:14"
     },
     "hhad": {
      "line": "-1",
-     "h": 1.83,
-     "d": 3.97,
-     "a": 2.93,
-     "update": "2026-11-03 17:18:45"
+     "h": 1.78,
+     "d": 4.05,
+     "a": 3.03,
+     "update": "2026-11-04 10:32:19"
     },
     "single": {
      "HAD": {
@@ -1714,17 +1714,17 @@ const JC_DATA = {
     "home": "斯拉维亚",
     "away": "阿森纳",
     "had": {
-     "h": 10.75,
-     "d": 5.9,
-     "a": 1.14,
-     "update": "2026-11-03 16:35:03"
+     "h": 11,
+     "d": 6.1,
+     "a": 1.13,
+     "update": "2026-11-04 10:32:31"
     },
     "hhad": {
      "line": "+2",
-     "h": 2,
+     "h": 2.1,
      "d": 3.9,
-     "a": 2.61,
-     "update": "2026-11-03 16:34:52"
+     "a": 2.46,
+     "update": "2026-11-04 10:32:37"
     },
     "single": {
      "HAD": {
