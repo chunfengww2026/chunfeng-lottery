@@ -1,6 +1,6 @@
 /* ============================================================
    experts-data.js —— 一起彩专家数据（程序生成，勿手改）
-   生成时间：2026-11-04 02:12
+   生成时间：2026-11-04 08:36
    生成脚本：build-experts.mjs（node build-experts.mjs）
    数据来源：yiqicai.com 专家历史方案 + 选号分布
 
@@ -45,7 +45,7 @@
    ============================================================ */
 
 const EXPERTS_DATA = {
- "updated": "2026-11-04 02:12",
+ "updated": "2026-11-04 08:36",
  "source": "yiqicai.com",
  "note": "程序自动抓取的一起彩专家历史命中统计与号码池，仅作统计参考，不构成任何中奖预测。",
  "params": {
@@ -59,11 +59,11 @@ const EXPERTS_DATA = {
  },
  "stat": {
   "games": 8,
-  "experts": 159,
-  "stable": 159,
-  "requests": 380,
-  "errors": 1,
-  "seconds": 475.8
+  "experts": 160,
+  "stable": 160,
+  "requests": 379,
+  "errors": 0,
+  "seconds": 464.9
  },
  "games": {
   "ssq": {
@@ -8721,61 +8721,61 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 13,
-      "pct": 94.2
+      "pct": 94.3
      },
      {
       "num": 22,
-      "pct": 92.5
+      "pct": 91.7
      },
      {
       "num": 23,
-      "pct": 85.8
+      "pct": 87.7
      },
      {
       "num": 10,
-      "pct": 80.8
+      "pct": 82
      },
      {
       "num": null,
-      "pct": 70
+      "pct": 67
      },
      {
       "num": null,
-      "pct": 66.7
+      "pct": 62
      },
      {
       "num": null,
-      "pct": 60
+      "pct": 59
      },
      {
       "num": null,
-      "pct": 59.2
+      "pct": 59
      },
      {
       "num": null,
-      "pct": 56.7
+      "pct": 55.7
      },
      {
       "num": null,
-      "pct": 54.2
+      "pct": 55.7
      }
     ],
     "blue": [
      {
       "num": 12,
-      "pct": 61.7
+      "pct": 63.3
      },
      {
       "num": 2,
-      "pct": 50.8
+      "pct": 50.3
      },
      {
       "num": null,
-      "pct": 43.3
+      "pct": 41.3
      },
      {
       "num": null,
-      "pct": 42.5
+      "pct": 40.7
      }
     ],
     "sections": [
@@ -22978,75 +22978,75 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 1,
-      "pct": 81.7
+      "pct": 81.3
      },
      {
       "num": 4,
-      "pct": 79.2
+      "pct": 81
      },
      {
       "num": null,
-      "pct": 67.5
+      "pct": 71
      },
      {
       "num": null,
-      "pct": 64.2
+      "pct": 65
      },
      {
       "num": null,
-      "pct": 61.7
+      "pct": 58
      },
      {
       "num": null,
-      "pct": 50.8
+      "pct": 46.7
      },
      {
       "num": 0,
-      "pct": 84.2
+      "pct": 86
      },
      {
       "num": 1,
-      "pct": 79.2
+      "pct": 78.3
      },
      {
       "num": null,
-      "pct": 74.2
+      "pct": 73
      },
      {
       "num": null,
-      "pct": 65.8
+      "pct": 63.3
      },
      {
       "num": null,
-      "pct": 60.8
+      "pct": 62.3
      },
      {
       "num": null,
-      "pct": 55.8
+      "pct": 52.3
      },
      {
       "num": 4,
-      "pct": 82.5
+      "pct": 84.3
      },
      {
       "num": 1,
-      "pct": 80
+      "pct": 78.3
      },
      {
       "num": null,
-      "pct": 71.7
+      "pct": 70
      },
      {
       "num": null,
-      "pct": 65.8
+      "pct": 69.3
      },
      {
       "num": null,
-      "pct": 58.3
+      "pct": 50.3
      },
      {
       "num": null,
-      "pct": 48.3
+      "pct": 48.7
      }
     ],
     "blue": [],
@@ -30374,47 +30374,47 @@ const EXPERTS_DATA = {
     "red": [
      {
       "num": 43,
-      "pct": 43.1
+      "pct": 41
      },
      {
       "num": 44,
-      "pct": 35.6
+      "pct": 37.3
      },
      {
       "num": 51,
-      "pct": 12.5
+      "pct": 11.7
      },
      {
       "num": 38,
-      "pct": 3.1
-     },
-     {
-      "num": 23,
-      "pct": 1.3
+      "pct": 3
      },
      {
       "num": 57,
-      "pct": 1.3
+      "pct": 1.7
      },
      {
-      "num": 75,
-      "pct": 1.3
+      "num": 23,
+      "pct": 1
      },
      {
       "num": 29,
-      "pct": 0.6
+      "pct": 1
      },
      {
-      "num": 65,
-      "pct": 0.6
+      "num": 75,
+      "pct": 1
      },
      {
       "num": 77,
-      "pct": 0.6
+      "pct": 1
+     },
+     {
+      "num": 65,
+      "pct": 0.7
      },
      {
       "num": null,
-      "pct": 0
+      "pct": 0.7
      },
      {
       "num": null,
@@ -31387,7 +31387,7 @@ const EXPERTS_DATA = {
      "used": false
     }
    },
-   "expertCount": 19,
+   "expertCount": 20,
    "listedCount": 56,
    "scoreSource": "history",
    "hitDataReliable": true,
@@ -33474,6 +33474,233 @@ const EXPERTS_DATA = {
         6
        ],
        "hitCount": 1,
+       "hit": false
+      }
+     ]
+    },
+    {
+     "name": "想大奖",
+     "url": "/ex/pl3ex/tjsy_63_694.html",
+     "cat": "七码组选",
+     "catLatest": {
+      "issue": "2026294",
+      "nums": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       8
+      ]
+     },
+     "siteMetrics": [
+      {
+       "cat": "七码组选",
+       "hit10": 7,
+       "maxStreak": 9
+      }
+     ],
+     "siteHit10": 7,
+     "rawHit10": 10,
+     "siteFit": {
+      "threshold": 1,
+      "count": 10,
+      "maxStreak": 10,
+      "exact": false
+     },
+     "picksN": 7,
+     "threshold": 3,
+     "hitRate10": 0.3,
+     "maxStreak": 1,
+     "curStreak": 0,
+     "recoverRate": 0.4286,
+     "blackCount": 7,
+     "lastHit": false,
+     "score": 18.71,
+     "periods": 10,
+     "recent": [
+      {
+       "issue": "2026293",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+       ],
+       "hits": [
+        1,
+        8
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026292",
+       "picks": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        9
+       ],
+       "hits": [
+        4,
+        6
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026291",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        2,
+        6,
+        7
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026290",
+       "picks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        3,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026289",
+       "picks": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+       ],
+       "hits": [
+        2,
+        9
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026288",
+       "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        4
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026287",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+       ],
+       "hits": [
+        1,
+        4,
+        5
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026286",
+       "picks": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        2
+       ],
+       "hitCount": 2,
+       "hit": false
+      },
+      {
+       "issue": "2026285",
+       "picks": [
+        0,
+        1,
+        3,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        1,
+        3,
+        6
+       ],
+       "hitCount": 3,
+       "hit": true
+      },
+      {
+       "issue": "2026284",
+       "picks": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7,
+        9
+       ],
+       "hits": [
+        6,
+        7
+       ],
+       "hitCount": 2,
        "hit": false
       }
      ]
@@ -35793,76 +36020,76 @@ const EXPERTS_DATA = {
    "consensus": {
     "red": [
      {
-      "num": 8,
-      "pct": 92.5
-     },
-     {
       "num": 5,
-      "pct": 90
-     },
-     {
-      "num": null,
-      "pct": 84.2
-     },
-     {
-      "num": null,
-      "pct": 58.3
-     },
-     {
-      "num": null,
-      "pct": 52.5
-     },
-     {
-      "num": null,
-      "pct": 46.7
+      "pct": 92.3
      },
      {
       "num": 8,
-      "pct": 83.3
-     },
-     {
-      "num": 5,
-      "pct": 80
+      "pct": 90.7
      },
      {
       "num": null,
-      "pct": 73.3
+      "pct": 76.3
      },
      {
       "num": null,
-      "pct": 72.5
+      "pct": 54.3
      },
      {
       "num": null,
-      "pct": 50.8
+      "pct": 53.3
      },
      {
       "num": null,
-      "pct": 45.8
+      "pct": 43.3
      },
      {
       "num": 8,
-      "pct": 99.2
+      "pct": 83.7
      },
      {
       "num": 5,
-      "pct": 86.7
-     },
-     {
-      "num": null,
       "pct": 81.7
      },
      {
       "num": null,
-      "pct": 68.3
+      "pct": 65
      },
      {
       "num": null,
-      "pct": 42.5
+      "pct": 57.3
      },
      {
       "num": null,
-      "pct": 40
+      "pct": 56.7
+     },
+     {
+      "num": null,
+      "pct": 47.7
+     },
+     {
+      "num": 8,
+      "pct": 97
+     },
+     {
+      "num": 5,
+      "pct": 85.3
+     },
+     {
+      "num": null,
+      "pct": 72
+     },
+     {
+      "num": null,
+      "pct": 60.3
+     },
+     {
+      "num": null,
+      "pct": 43.7
+     },
+     {
+      "num": null,
+      "pct": 38
      }
     ],
     "blue": [],
@@ -35953,7 +36180,7 @@ const EXPERTS_DATA = {
     {
      "cat": "七码组选",
      "five": "",
-     "count": 19,
+     "count": 20,
      "experts": [
       {
        "name": "正义",
@@ -36038,6 +36265,20 @@ const EXPERTS_DATA = {
        ],
        "issue": "2026294",
        "score": 26.5
+      },
+      {
+       "name": "想大奖",
+       "nums": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8
+       ],
+       "issue": "2026294",
+       "score": 18.71
       },
       {
        "name": "四季沐歌",
@@ -36305,6 +36546,20 @@ const EXPERTS_DATA = {
        4,
        5,
        6,
+       8
+      ]
+     }
+    },
+    {
+     "name": "想大奖",
+     "cats": {
+      "七码组选": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
        8
       ]
      }
