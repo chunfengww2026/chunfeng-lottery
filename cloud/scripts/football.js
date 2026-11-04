@@ -194,7 +194,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "馬魯特聯",
      "score": 1,
@@ -267,10 +267,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "伯希卡特德波",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 4
     },
@@ -340,7 +340,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 0,
@@ -413,7 +413,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 3,
+    "minute": 8,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
@@ -8708,7 +8708,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "墨尔本胜利",
      "score": 1,
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
