@@ -5198,7 +5198,7 @@ const FOOTBALL_DATA = {
     "minute": 72,
     "home": {
      "name": "馬薩(女)",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -5594,7 +5594,7 @@ const FOOTBALL_DATA = {
     "minute": 73,
     "home": {
      "name": "迪拜纳斯尔",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 8
     },
@@ -5732,7 +5732,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "艾德瀚德",
-     "score": 0,
+     "score": 2,
      "red": 0,
      "rank": 5
     },
@@ -5855,7 +5855,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 0,
+    "minute": 56,
     "home": {
      "name": "NFA卡奥拿斯",
      "score": 0,
@@ -5921,7 +5921,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 0,
+    "minute": 56,
     "home": {
      "name": "雷恩",
      "score": 0,

@@ -10,6 +10,13 @@
 #     纯 HTTP 抓资讯 → 写 zx-news.json → 有变化才提交。
 #     关掉电脑、关掉 DSH 也照跑（GitHub 的机器在云端）。
 #
+#  ⚠️ 2026-10-21 加：同一条工作流里顺手抓【社区热点】话题标题
+#     （fetch-community-topics.mjs → community-topics.json，足球页「社区」卡里显示）。
+#     · 纯 HTTP、无登录、无浏览器；抓不到就不写文件 → 页面保留上一次的好数据
+#     · 抓完顺手拷一份到 cloud/scripts/：云端构建（cloud-build.mjs → export-football.mjs）
+#       读的是 cloud/scripts/ 那一份，不拷过去线上页面就没有这块
+#     · 只加步骤，没改任何 cloud/*.mjs，也没碰 daily-update.yml
+#
 #  抓不到怎么办：
 #     · fetch-zx-news.mjs 自己会重试 20 轮 / 10 分钟
 #     · 仍然失败 → 脚本不写文件 → 不会覆盖上一次的好数据
@@ -21,7 +28,7 @@ name: 资讯抓取
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # - cron: '17 * * * *'
   workflow_dispatch:
 
 # 提交 zx-news.json 需要写权限
@@ -50,16 +57,32 @@ jobs:
         continue-on-error: true
         run: node fetch-zx-news.mjs --cloud 2>&1 | tail -60
 
+      # 【社区热点】公开论坛的话题标题（只要标题 + 时间，不抓全文）
+      # 抓不到 → 脚本不写 community-topics.json → 页面保留上一次的好数据
+      - name: 抓社区热点
+        continue-on-error: true
+        run: |
+          node fetch-community-topics.mjs --cloud 2>&1 | tail -40
+          # 云端构建读的是 cloud/scripts/ 这一份（sync-cloud.mjs 的白名单里没有这个文件，
+          # 所以在这里补拷；只拷数据，不动任何 cloud/*.mjs）
+          if [ -f community-topics.json ]; then
+            mkdir -p cloud/scripts
+            cp community-topics.json cloud/scripts/community-topics.json
+            echo "已拷贝到 cloud/scripts/community-topics.json"
+          else
+            echo "本轮没抓到，保留旧的 community-topics.json"
+          fi
+
       - name: 提交数据
         continue-on-error: true
         run: |
           git config user.name "bot"
           git config user.email "bot@local"
-          git add zx-news.json || true
+          git add zx-news.json community-topics.json cloud/scripts/community-topics.json || true
           if git diff --staged --quiet; then
-            echo "zx-news.json 没有变化，跳过提交"
+            echo "zx-news.json / community-topics.json 没有变化，跳过提交"
           else
-            git commit -m "资讯: $(date -u +%H:%M)"
+            git commit -m "资讯+社区热点: $(date -u +%H:%M)"
             git push || (git pull --rebase --autostash && git push) || true
           fi
 
@@ -69,3 +92,5 @@ jobs:
         run: |
           echo "----- zx-news.json -----"
           node -e "try{const d=require('./zx-news.json');console.log('条数:',d.count,'更新时间:',d.updated);for(const g of Object.keys(d.games)){console.log(g,d.games[g].length,'条 |',d.games[g][0].date,d.games[g][0].title);}}catch(e){console.log('没有 zx-news.json（本轮没抓到，保留上次）');}"
+          echo "----- community-topics.json -----"
+          node -e "try{const d=require('./community-topics.json');console.log('条数:',d.topics.length,'更新时间:',d.updated);for(const t of d.topics.slice(0,5)){console.log(' ·',t.t,'|',t.d);}}catch(e){console.log('没有 community-topics.json（本轮没抓到，保留上次）');}"
