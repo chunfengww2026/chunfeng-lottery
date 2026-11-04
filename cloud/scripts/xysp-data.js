@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 09:15
+   更新时间：2026-11-04 09:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 09:15",
+ "updated": "2026-11-04 09:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2297,6 +2297,36 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c85b7e6569d40d8b7e23d74fa29ef3e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KeNzDGlIq6gy%2FsNfjZOEtEPWqhw%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1c85b7e6569d40d8b7e23d74fa29ef3e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KeNzDGlIq6gy%2FsNfjZOEtEPWqhw%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ef504761b4854f329611a662861f9b5c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=meyqq4GuTPPkNppgJoYDsV4n3xU%3D",
+     "title": "大乐透26126期晒票：刀都拔出来了！前区疯狂撞号，后区死磕11",
+     "url": "https://toutiao.com/group/7704117894766182931/",
+     "at": "2026-11-04T01:16:02.042Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "26126",
+     "seen": "2026-11-04T01:16:02.042Z",
+     "whenMs": 1793754761000,
+     "seenMs": 1793754962042,
+     "drawMs": 1793795400000,
+     "nextMs": 1793795400000,
+     "atMs": 1793754962042,
+     "drawAt": "2026-11-04T12:30:00.000Z",
+     "nextAt": 1793795400000,
+     "drawGid": "dlt",
+     "expireAt": "2026-11-05T01:16:02.042Z",
+     "rule": "first-capture-24h",
+     "author": "唐伯虎点蚊香",
+     "when": "2026-11-04 09:12:41",
+     "postId": "7704117894766182931",
+     "px": 132300
+    },
+    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a8786b03d38d47bf97b276dc0d022b8a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=PR1iutMBaijR6VoLgxT7J2Q4660%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a8786b03d38d47bf97b276dc0d022b8a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=PR1iutMBaijR6VoLgxT7J2Q4660%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a8786b03d38d47bf97b276dc0d022b8a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=6UNRqz6SKLa%2BpG6%2BRdDz9AK8huU%3D",
@@ -2988,9 +3018,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KzDs393zMX8ZaoZiZGf7%2Bq5RHR0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KzDs393zMX8ZaoZiZGf7%2Bq5RHR0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=U68CtoZ3om0i7KP4yqDiNxii79A%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qnftB3GXmhdylmJ3GcRmloV%2Bn2I%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qnftB3GXmhdylmJ3GcRmloV%2Bn2I%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wg632XXjiDQpJKqNGQ7O0bcfTSo%3D",
      "title": "10元搏中3050万！山西彩民5倍投双色球，这张神票火了",
      "url": "https://toutiao.com/group/7703778064760619547/",
      "at": "2026-11-03T13:56:01.492Z",
@@ -3001,9 +3031,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-04T00:56:02.031Z",
+     "seen": "2026-11-04T01:16:02.042Z",
      "whenMs": 1793713500000,
-     "seenMs": 1793753762031,
+     "seenMs": 1793754962042,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793714161492,
