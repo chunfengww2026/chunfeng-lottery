@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 14:55
+   更新时间：2026-11-04 14:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 14:55",
+ "updated": "2026-11-04 14:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -3082,7 +3082,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:36:01.293Z",
+     "seen": "2026-11-04T06:56:01.330Z",
      "whenMs": 1793759984000,
      "seenMs": 1793774161293,
      "drawMs": 1793795400000,
@@ -3112,7 +3112,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:36:01.293Z",
+     "seen": "2026-11-04T06:56:01.330Z",
      "whenMs": 1793759984000,
      "seenMs": 1793774161293,
      "drawMs": 1793795400000,
@@ -3129,8 +3129,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2F7JmBT6PtULEhG7bgjMWY06j92A%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2F7JmBT6PtULEhG7bgjMWY06j92A%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qY6vfinKhy75WFjqrPlJClYdwGc%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qY6vfinKhy75WFjqrPlJClYdwGc%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
      "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
      "url": "https://toutiao.com/group/7704139454360879645/",
@@ -3142,9 +3142,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:36:01.293Z",
+     "seen": "2026-11-04T06:56:01.330Z",
      "whenMs": 1793759984000,
-     "seenMs": 1793774161293,
+     "seenMs": 1793775361330,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793760962124,
@@ -5019,36 +5019,6 @@ const XYSP_DATA = {
      "author": "渡尘归",
      "when": "2026-11-03 16:48:18",
      "postId": "1880826260079628",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pmzFp54Hhj23mU28glrMbr3ZyRA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pmzFp54Hhj23mU28glrMbr3ZyRA%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nCFPag%2BH%2F1M6CYltDV%2Bu2Ky6lBw%3D",
-     "title": "第26293期福彩快乐8️⃣晒票\n\n昨天的​快乐8选五晒票有几个中奖了，不知道大家关注到没有？\n主要是快乐8开奖号码太多了，光用眼核对中奖比较费劲。有个复式票我看了下大概中奖7-8个号，奖金可不少！\n#快乐8幸运号# #快乐八挑战# #快乐",
-     "url": "sslocal://thread_detail?fid=1853541344985194&tid=1880818937298944",
-     "at": "2026-11-03T07:06:02.140Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "26293",
-     "seen": "2026-11-03T10:26:01.328Z",
-     "whenMs": 1793688985000,
-     "seenMs": 1793701561328,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793689562140,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T07:06:02.140Z",
-     "rule": "first-capture-24h",
-     "author": "陈衙役",
-     "when": "2026-11-03 14:56:25",
-     "postId": "1880818937298944",
      "px": 132300
     }
    ]
