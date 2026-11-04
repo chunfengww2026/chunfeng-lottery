@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 10:26:02
+   更新时间：2026-11-04 10:36:02
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 10:26:02",
+ "updated": "2026-11-04 10:36:02",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d62bd7889e9b4ac7a7dac0202bc57e71~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=U%2B1UdeuxN0sSdwlh28SiRuwP9g8%3D",
@@ -345,7 +345,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a866fd3f03b641178515b5d63115d513~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=yVcCR1dd%2FxxvZu5oV7mDOtx8RQM%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a866fd3f03b641178515b5d63115d513~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=DHnBUtcghtKA8GFk%2B%2FYHMucr3NA%3D",
    "title": "9倍小票悬念拉满，2.6万复式组合戏份十足！第26126期双色球晒票",
    "url": "http://toutiao.com/item/7704100864001638963/",
    "at": "2026-11-04T00:26:02.023Z",
@@ -356,9 +356,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-04T02:26:02.100Z",
+   "seen": "2026-11-04T02:36:02.109Z",
    "whenMs": 1793750762000,
-   "seenMs": 1793758562096,
+   "seenMs": 1793759162100,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793751962023,
@@ -569,7 +569,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793748612000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793749561979,
@@ -749,7 +749,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793728525000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793729161718,
@@ -779,7 +779,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -809,7 +809,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -1139,7 +1139,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793705778000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793706361385,
@@ -1169,7 +1169,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T02:26:02.100Z",
    "whenMs": 1793705778000,
-   "seenMs": 1793757962102,
+   "seenMs": 1793759162100,
    "drawMs": 1793711700000,
    "nextMs": 1793711700000,
    "atMs": 1793706361385,
