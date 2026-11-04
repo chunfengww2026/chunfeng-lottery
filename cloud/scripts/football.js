@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "斯莱曼",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -144,7 +144,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "4月25日(女)",
      "score": 1,
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
@@ -8795,7 +8795,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "诺夫哥罗德",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
