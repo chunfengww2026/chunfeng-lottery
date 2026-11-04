@@ -8815,7 +8815,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 80,
+    "minute": 82,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 1,
@@ -9145,7 +9145,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "卡雅FC女足",
      "score": 0,
@@ -9223,7 +9223,7 @@ const FOOTBALL_DATA = {
      "color": "FC7d5A"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 22,
+    "minute": 24,
     "home": {
      "name": "阿梅利亞諾后备队",
      "score": 2,
@@ -9301,7 +9301,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "塞普特姆裡U19",
      "score": 0,
