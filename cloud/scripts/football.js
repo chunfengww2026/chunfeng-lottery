@@ -8532,7 +8532,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
@@ -8598,7 +8598,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "斯莱曼",
      "score": 4,
@@ -8644,7 +8644,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "4月25日(女)",
      "score": 3,
@@ -8682,7 +8682,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -8691,7 +8691,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "納戈揚(女)",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 0
     },
@@ -8728,7 +8728,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "伯希卡特德波",
      "score": 2,
@@ -8946,7 +8946,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 33,
+    "minute": 38,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
