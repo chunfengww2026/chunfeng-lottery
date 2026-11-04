@@ -5,64 +5,9 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-04 15:47",
+ "updated": "2026-11-04 16:38",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
-  {
-   "at": "2026-11-01 22:00",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周一001",
-     "time": "2026-11-03 00:00",
-     "league": "芬超",
-     "home": "国际图尔",
-     "away": "赫尔辛基火花",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.36,
-     "conf": 66.3,
-     "score": "4:3",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周一004",
-     "time": "2026-11-03 03:45",
-     "league": "意甲",
-     "home": "亚特兰大",
-     "away": "帕尔马",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.5,
-     "conf": 68.2,
-     "score": "0:3",
-     "hit": false,
-     "result": "lose"
-    },
-    {
-     "code": "周一008",
-     "time": "2026-11-03 04:15",
-     "league": "葡超",
-     "home": "本菲卡",
-     "away": "阿尔维卡",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.15,
-     "conf": 80.2,
-     "score": "1:0",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
-  },
   {
    "at": "2026-11-02 16:05",
    "min": 58,
