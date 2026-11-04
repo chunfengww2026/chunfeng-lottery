@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 09:40
+   更新时间：2026-11-04 09:45
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 09:40",
+ "updated": "2026-11-04 09:45",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4683,36 +4683,6 @@ const XYSP_DATA = {
      "author": "小李爱分享",
      "when": "2026-11-03 10:15:00",
      "postId": "7703731588722393619",
-     "px": 132300
-    },
-    {
-     "img": "https://p9-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d2a172d98624ce79ab7dca1d901eb40~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AoEHo5ITKoab7FNm2b1BOf8lkdM%3D",
-     "thumb": "https://p9-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d2a172d98624ce79ab7dca1d901eb40~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=AoEHo5ITKoab7FNm2b1BOf8lkdM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1d2a172d98624ce79ab7dca1d901eb40~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2BGDD5Yp477FmQ1TckK0gp0GyV%2Fk%3D",
-     "title": "#AI双色球晒单分享 #ai创作 #理性购彩，降低误判概率",
-     "url": "sslocal://thread_detail?fid=6564242300&tid=1880799433629705",
-     "at": "2026-11-03T02:06:01.882Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T03:06:01.899Z",
-     "whenMs": 1793670114000,
-     "seenMs": 1793675161899,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793671561882,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T02:06:01.882Z",
-     "rule": "first-capture-24h",
-     "author": "清爽苹果VK",
-     "when": "2026-11-03 09:41:54",
-     "postId": "1880799433629705",
      "px": 132300
     }
    ]
