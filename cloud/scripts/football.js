@@ -6078,7 +6078,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 21:45:00",
-    "minute": 83,
+    "minute": 85,
     "home": {
      "name": "阿卡達格",
      "score": 1,
@@ -6144,7 +6144,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 22:00:00",
-    "minute": 68,
+    "minute": 70,
     "home": {
      "name": "莱比锡红牛U19",
      "score": 0,
@@ -6586,7 +6586,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "泽德",
      "score": 0,
@@ -6664,7 +6664,7 @@ const FOOTBALL_DATA = {
      "color": "8c6e0b"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "馬薩(女)",
      "score": 1,
@@ -6742,7 +6742,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "利亞拿U23",
      "score": 0,
@@ -6820,7 +6820,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 25,
+    "minute": 27,
     "home": {
      "name": "鲁瓦芝加哥后备队",
      "score": 0,
@@ -6898,7 +6898,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "多特蒙德U19",
      "score": 2,
@@ -6936,7 +6936,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "明斯克大學",
      "score": 0,
@@ -7014,7 +7014,7 @@ const FOOTBALL_DATA = {
      "color": "00A665"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "埃努古流浪者",
      "score": 0,
@@ -7092,7 +7092,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "迪拜纳斯尔",
      "score": 1,
@@ -7170,7 +7170,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 39,
+    "minute": 41,
     "home": {
      "name": "日本女足U17",
      "score": 0,
@@ -7248,7 +7248,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 28,
+    "minute": 29,
     "home": {
      "name": "马哈拉",
      "score": 0,
