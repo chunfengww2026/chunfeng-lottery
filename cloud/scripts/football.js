@@ -1,137 +1,20 @@
-/* 自动生成，请勿手动编辑 · 2026-11-04 11:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-04 12:00 */
 const FOOTBALL_DATA = {
- "updated": "2026-11-04 11:28",
+ "updated": "2026-11-04 12:00",
  "stat": {
   "upcoming": 0,
-  "live": 1,
-  "finished": 11,
-  "total": 12,
+  "live": 0,
+  "finished": 10,
+  "total": 10,
   "settled": true,
-  "hit": 8,
+  "hit": 7,
   "miss": 3,
-  "rate": 72.7
+  "rate": 70
  },
  "lists": {
   "upcoming": [],
-  "live": [
-   {
-    "gid": 595277,
-    "kind": "live",
-    "league": {
-     "name": "哥伦乙",
-     "color": "55A0FF"
-    },
-    "time": "2026-11-04 09:30:00",
-    "minute": 0,
-    "home": {
-     "name": "卡达根拿",
-     "score": 2,
-     "red": 0,
-     "rank": 5
-    },
-    "away": {
-     "name": "金迪奥",
-     "score": 3,
-     "red": 0,
-     "rank": 4
-    },
-    "odds": {
-     "asian": {
-      "open": null,
-      "live": null
-     },
-     "overunder": {
-      "open": null,
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
-   }
-  ],
+  "live": [],
   "finished": [
-   {
-    "gid": 595306,
-    "kind": "finished",
-    "league": {
-     "name": "委内超",
-     "color": "79A836"
-    },
-    "time": "2026-11-04 05:30:00",
-    "minute": 0,
-    "home": {
-     "name": "莫纳加斯",
-     "score": 0,
-     "red": 1,
-     "rank": 6
-    },
-    "away": {
-     "name": "加拉加斯",
-     "score": 2,
-     "red": 0,
-     "rank": 8
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -0.25,
-       "line": "0.93",
-       "away": 0.77
-      },
-      "live": {
-       "home": 0,
-       "line": "0.68",
-       "away": 1.02
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.75",
-       "over": 0.75,
-       "under": 0.95
-      },
-      "live": {
-       "line": "1.25",
-       "over": 0.98,
-       "under": 0.72
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.08,
-       "draw": 2.67,
-       "away": 3.4
-      },
-      "live": {
-       "home": 2.61,
-       "draw": 3.15,
-       "away": 2.23
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 39,
-     "prob": {
-      "home": 33.3,
-      "draw": 27.6,
-      "away": 39
-     },
-     "clear": false,
-     "margin": 14.9
-    },
-    "result": {
-     "actual": "away",
-     "actualLabel": "客胜",
-     "hit": true,
-     "score": "0 - 2"
-    }
-   },
    {
     "gid": 595330,
     "kind": "finished",
