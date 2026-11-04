@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 23:36
+   更新时间：2026-11-04 23:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 23:36",
+ "updated": "2026-11-04 23:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2473,7 +2473,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:36:01.653Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793805961658,
+     "seenMs": 1793806561653,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -2533,7 +2533,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:36:01.653Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793805961658,
+     "seenMs": 1793806561653,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -4500,9 +4500,7 @@ const XYSP_DATA = {
      "author": "小浩体育",
      "when": "2026-11-04 21:05:17",
      "postId": "7704301037473120808",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96f07aae2c684901863e9b9c1a72a400~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Fe2ZGh00Ongcy2nC2fl4PF5xCaU%3D",
