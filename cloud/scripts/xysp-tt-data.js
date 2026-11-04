@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 18:26:01
+   更新时间：2026-11-04 18:36:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 18:26:01",
+ "updated": "2026-11-04 18:36:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=pQRaxvG2Bqf43neHGjDg02p2de0%3D",
@@ -178,7 +178,7 @@ const XYSP_TT_DATA = {
    "issue": "2026128",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793782810000,
-   "seenMs": 1793785561417,
+   "seenMs": 1793787961436,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793783161392,
@@ -345,7 +345,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kD0XmcvqBIdtDoHz2HRtO35EUF0%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kD0XmcvqBIdtDoHz2HRtO35EUF0%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
    "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
    "url": "http://toutiao.com/item/7704208668522185225/",
    "at": "2026-11-04T07:26:01.347Z",
@@ -356,7 +356,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-04T10:26:01.436Z",
+   "seen": "2026-11-04T10:36:01.442Z",
    "whenMs": 1793775863000,
    "seenMs": 1793787961436,
    "drawMs": 1793884500000,
@@ -373,9 +373,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
    "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
    "url": "http://toutiao.com/item/7704208668522185225/",
    "at": "2026-11-04T07:26:01.347Z",
@@ -386,9 +386,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-04T10:26:01.436Z",
+   "seen": "2026-11-04T10:36:01.442Z",
    "whenMs": 1793775863000,
-   "seenMs": 1793787361435,
+   "seenMs": 1793788561442,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793777161347,
@@ -1019,7 +1019,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793760435000,
-   "seenMs": 1793785561417,
+   "seenMs": 1793787961436,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793761562129,
@@ -1980,7 +1980,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793746058000,
-   "seenMs": 1793786761425,
+   "seenMs": 1793787961436,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793747161938,
@@ -2010,7 +2010,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793728525000,
-   "seenMs": 1793785561417,
+   "seenMs": 1793787961436,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793729161718,
@@ -2070,7 +2070,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793786761425,
+   "seenMs": 1793787961436,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -2250,7 +2250,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T10:26:01.436Z",
    "whenMs": 1793709371000,
-   "seenMs": 1793785561417,
+   "seenMs": 1793787961436,
    "drawMs": 1793712600000,
    "nextMs": 1793712600000,
    "atMs": 1793709961442,
