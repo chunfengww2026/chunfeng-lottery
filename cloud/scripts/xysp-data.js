@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 10:55
+   更新时间：2026-11-04 10:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 10:55",
+ "updated": "2026-11-04 10:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2906,7 +2906,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T02:56:02.124Z",
      "whenMs": 1793750762000,
-     "seenMs": 1793760362109,
+     "seenMs": 1793760962124,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793751962023,
@@ -4902,36 +4902,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 11:14:31",
      "postId": "7703777015282860578",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4d68cb2fb28e4e1196766fbaecf9cae2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pqFE7e5nPCBnOkcKeEu4HJWEoJY%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4d68cb2fb28e4e1196766fbaecf9cae2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pqFE7e5nPCBnOkcKeEu4HJWEoJY%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/504666ce04004c60be37f0d0f2f5584a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=L61Tbrul4HJmcquL6M%2Ffiavjonc%3D",
-     "title": "“天降横财！”陕西西安，一男子欠了一屁股债。他走投无路，想买彩票试着翻身。他每次花100-300元买彩票，但不是期期都买。万万没想到，他才买了2个月，竟中了快乐8彩票508万大奖。\n\n刘先生住在西安高新区，每次投注一百到三百块，忙起来就空过",
-     "url": "sslocal://thread_detail?fid=6564242300&tid=1880804066593792",
-     "at": "2026-11-03T03:06:01.899Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T03:46:01.946Z",
-     "whenMs": 1793674532000,
-     "seenMs": 1793677561946,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793675161899,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T03:06:01.899Z",
-     "rule": "first-capture-24h",
-     "author": "内科李大夫健康分享",
-     "when": "2026-11-03 10:55:32",
-     "postId": "1880804066593792",
-     "px": 132300
     }
    ]
   },
@@ -4964,9 +4934,7 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-04 10:41:29",
      "postId": "7704140921729712666",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     }
    ]
   }
