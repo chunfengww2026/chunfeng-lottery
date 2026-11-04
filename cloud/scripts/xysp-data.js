@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 21:36
+   更新时间：2026-11-04 21:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 21:36",
+ "updated": "2026-11-04 21:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2769,7 +2769,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:36:01.563Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793798761555,
+     "seenMs": 1793799361563,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -4764,36 +4764,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 21:45:00",
      "postId": "7703778064760619547",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e2a5892722046288f045832eec95b16~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hIcfHmED9i5%2F6RjL4gIdFCBimT0%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e2a5892722046288f045832eec95b16~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hIcfHmED9i5%2F6RjL4gIdFCBimT0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7e2a5892722046288f045832eec95b16~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=42R%2FwpETax2NQWBCEMP0j9RUTrw%3D",
-     "title": "2026.11.3快乐8大底18出6，推荐的选六复式中了三个亏了2块？有没有中奖的小伙伴呢？",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880844557839372",
-     "at": "2026-11-03T14:06:01.501Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T14:26:01.528Z",
-     "whenMs": 1793713148000,
-     "seenMs": 1793715961528,
-     "drawMs": 1793799000000,
-     "nextMs": 1793799000000,
-     "atMs": 1793714761501,
-     "drawAt": "2026-11-04T13:30:00.000Z",
-     "nextAt": 1793799000000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T14:06:01.501Z",
-     "rule": "first-capture-24h",
-     "author": "真诚旭日",
-     "when": "2026-11-03 21:39:08",
-     "postId": "1880844557839372",
-     "px": 132300
     }
    ]
   },
@@ -4814,14 +4784,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:36:01.563Z",
      "whenMs": 1793797517000,
-     "seenMs": 1793798761555,
+     "seenMs": 1793799361563,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1793798161549,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-05T13:26:01.555Z",
+     "expireAt": "2026-11-05T13:36:01.563Z",
      "rule": "cap",
      "author": "小浩体育",
      "when": "2026-11-04 21:05:17",
@@ -7068,6 +7038,7 @@ const XYSP_DATA = {
   "/2026-11-04/12113c32-aafe-46ea-8df7-f6415696d8571793797324399.jpg": 1793798103204,
   "/2026-11-04/5298443a-7ea4-48b2-926e-30bed60661e51793797009072.jpg": 1793798103204,
   "/2026-11-04/336e32b0-8db3-4c68-a40b-7d24b256256c1793797009071.jpg": 1793798103204,
-  "/2026-11-04/92ca8661-da98-460b-8c7f-694f4aac00eb1793797403991.jpg": 1793798103204
+  "/2026-11-04/92ca8661-da98-460b-8c7f-694f4aac00eb1793797403991.jpg": 1793798103204,
+  "/2026-11-04/ab3fa1a9-425a-4176-b986-19397ccf87fe1793798519691.jpg": 1793799602881
  }
 };
