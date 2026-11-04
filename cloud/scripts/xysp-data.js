@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:35
+   更新时间：2026-11-04 17:36
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 17:35",
+ "updated": "2026-11-04 17:36",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2606,7 +2606,7 @@ const XYSP_DATA = {
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
      "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
      "url": "http://toutiao.com/item/7704208668522185225/",
      "at": "2026-11-04T07:26:01.347Z",
@@ -2617,7 +2617,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-04T09:26:01.412Z",
+     "seen": "2026-11-04T09:36:01.418Z",
      "whenMs": 1793775863000,
      "seenMs": 1793784361412,
      "drawMs": 1793884500000,
@@ -2634,9 +2634,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
      "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
      "url": "http://toutiao.com/item/7704208668522185225/",
      "at": "2026-11-04T07:26:01.347Z",
@@ -2647,9 +2647,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-04T09:26:01.412Z",
+     "seen": "2026-11-04T09:36:01.418Z",
      "whenMs": 1793775863000,
-     "seenMs": 1793784361412,
+     "seenMs": 1793784961418,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793777161347,
