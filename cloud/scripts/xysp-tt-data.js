@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 23:06:01
+   更新时间：2026-11-04 23:16:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 23:06:01",
+ "updated": "2026-11-04 23:16:01",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/4ddd65e6b4b6458dbfe545b89403462c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=N3GJqaejLq5qjgzPMqBdlQAcpQ4%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "26293",
    "seen": "2026-11-04T15:06:01.636Z",
    "whenMs": 1793795661000,
-   "seenMs": 1793803561615,
+   "seenMs": 1793804761636,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793796361554,
@@ -148,7 +148,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T15:06:01.636Z",
    "whenMs": 1793788338000,
-   "seenMs": 1793803561615,
+   "seenMs": 1793804761636,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793789161446,
@@ -206,7 +206,7 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-04T15:06:01.636Z",
+   "seen": "2026-11-04T15:16:01.643Z",
    "whenMs": 1793787417000,
    "seenMs": 1793804761636,
    "drawMs": 1793884500000,
@@ -313,36 +313,6 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=lyALPk4Q5RJw4RIUJ2selwg1lyE%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=lyALPk4Q5RJw4RIUJ2selwg1lyE%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ZIvH8PBVeHonFT5c9GNR5B7rCDY%3D",
-   "title": "快乐8八个号全没中怎么还回16元？314元实票只回18",
-   "url": "https://toutiao.com/group/7704004994273477147/",
-   "at": "2026-11-03T18:06:01.718Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "快乐8",
-   "games": [
-    "kl8"
-   ],
-   "issue": "",
-   "seen": "2026-11-04T14:26:01.608Z",
-   "whenMs": 1793728525000,
-   "seenMs": 1793802361608,
-   "drawMs": 1793799000000,
-   "nextMs": 1793799000000,
-   "atMs": 1793729161718,
-   "drawAt": "2026-11-04T13:30:00.000Z",
-   "nextAt": 1793799000000,
-   "drawGid": "kl8",
-   "expireAt": "2026-11-04T18:06:01.718Z",
-   "rule": "first-capture-24h",
-   "author": "拾碎闲言",
-   "when": "2026-11-04 01:55:25",
-   "postId": "7704004994273477147",
-   "px": 132300
-  },
-  {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/47bc1d0ce7bd40bda277971cb4d3450b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=grqcARVYuYQ8saL4KnsD8x%2BlnbY%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/47bc1d0ce7bd40bda277971cb4d3450b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=grqcARVYuYQ8saL4KnsD8x%2BlnbY%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c8c7f1978bd14c31a4d96be1440a9776~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2FFH7rPwcHwd3SXlnSC2fF%2FnvpEg%3D",
@@ -373,8 +343,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wv4j8fpG%2FAf6gnQCXCGpPbz8FNA%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wv4j8fpG%2FAf6gnQCXCGpPbz8FNA%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1JvBo93fT%2BiazbQs%2BcNuBABygto%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1JvBo93fT%2BiazbQs%2BcNuBABygto%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=iFxvFuLFpgf4rcp67Bu4yTCX4vI%3D",
    "title": "福彩3D晒票：倍投单式群英汇聚，2D位选出奇招，谁能笑傲江湖？",
    "url": "https://toutiao.com/group/7704240579907846719/",
@@ -386,9 +356,9 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-11-04T15:06:01.636Z",
+   "seen": "2026-11-04T15:16:01.643Z",
    "whenMs": 1793783350000,
-   "seenMs": 1793804161635,
+   "seenMs": 1793805361643,
    "drawMs": 1793798100000,
    "nextMs": 1793798100000,
    "atMs": 1793789761447,
@@ -416,9 +386,9 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-11-04T15:06:01.636Z",
+   "seen": "2026-11-04T15:16:01.643Z",
    "whenMs": 1793783350000,
-   "seenMs": 1793804161635,
+   "seenMs": 1793804761636,
    "drawMs": 1793798100000,
    "nextMs": 1793798100000,
    "atMs": 1793789761447,
@@ -446,7 +416,7 @@ const XYSP_TT_DATA = {
     "fc3d"
    ],
    "issue": "",
-   "seen": "2026-11-04T15:06:01.636Z",
+   "seen": "2026-11-04T15:16:01.643Z",
    "whenMs": 1793783350000,
    "seenMs": 1793804761636,
    "drawMs": 1793798100000,
@@ -1319,7 +1289,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T15:06:01.636Z",
    "whenMs": 1793760435000,
-   "seenMs": 1793803561615,
+   "seenMs": 1793804761636,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793761562129,
@@ -1919,7 +1889,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T15:06:01.636Z",
    "whenMs": 1793750762000,
-   "seenMs": 1793803561615,
+   "seenMs": 1793804761636,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793751962023,
@@ -1950,7 +1920,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T15:06:01.636Z",
    "whenMs": 1793750609000,
-   "seenMs": 1793790361468,
+   "seenMs": 1793804761636,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793751962023,
@@ -2292,6 +2262,36 @@ const XYSP_TT_DATA = {
    "author": "优雅奶酪6hWlg9",
    "when": "2026-11-04 06:47:38",
    "postId": "7704080659706282523",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=lyALPk4Q5RJw4RIUJ2selwg1lyE%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=lyALPk4Q5RJw4RIUJ2selwg1lyE%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1597c4423cd478caea7536fc9063a75~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ZIvH8PBVeHonFT5c9GNR5B7rCDY%3D",
+   "title": "快乐8八个号全没中怎么还回16元？314元实票只回18",
+   "url": "https://toutiao.com/group/7704004994273477147/",
+   "at": "2026-11-03T18:06:01.718Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "快乐8",
+   "games": [
+    "kl8"
+   ],
+   "issue": "",
+   "seen": "2026-11-04T14:26:01.608Z",
+   "whenMs": 1793728525000,
+   "seenMs": 1793802361608,
+   "drawMs": 1793799000000,
+   "nextMs": 1793799000000,
+   "atMs": 1793729161718,
+   "drawAt": "2026-11-04T13:30:00.000Z",
+   "nextAt": 1793799000000,
+   "drawGid": "kl8",
+   "expireAt": "2026-11-04T18:06:01.718Z",
+   "rule": "first-capture-24h",
+   "author": "拾碎闲言",
+   "when": "2026-11-04 01:55:25",
+   "postId": "7704004994273477147",
    "px": 132300
   },
   {
