@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:26:01
+   更新时间：2026-11-04 17:36:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 17:26:01",
+ "updated": "2026-11-04 17:36:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/47bc1d0ce7bd40bda277971cb4d3450b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=grqcARVYuYQ8saL4KnsD8x%2BlnbY%3D",
@@ -225,7 +225,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
    "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
    "url": "http://toutiao.com/item/7704208668522185225/",
    "at": "2026-11-04T07:26:01.347Z",
@@ -236,9 +236,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-04T09:26:01.412Z",
+   "seen": "2026-11-04T09:36:01.418Z",
    "whenMs": 1793775863000,
-   "seenMs": 1793783161392,
+   "seenMs": 1793784361412,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793777161347,
@@ -253,9 +253,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xCbrGnMPlu0hJUlvgDVib63JyYg%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9f206bc95aa849768c3b8919cd0476b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SWTMhCNgx9GE%2Bwl1apwoHDNvJwg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
    "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
    "url": "http://toutiao.com/item/7704208668522185225/",
    "at": "2026-11-04T07:26:01.347Z",
@@ -266,9 +266,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26126",
-   "seen": "2026-11-04T09:26:01.412Z",
+   "seen": "2026-11-04T09:36:01.418Z",
    "whenMs": 1793775863000,
-   "seenMs": 1793784361412,
+   "seenMs": 1793784961418,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793777161347,
@@ -899,7 +899,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T09:26:01.412Z",
    "whenMs": 1793760435000,
-   "seenMs": 1793783161392,
+   "seenMs": 1793784361412,
    "drawMs": 1793799000000,
    "nextMs": 1793799000000,
    "atMs": 1793761562129,
@@ -1860,7 +1860,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T09:26:01.412Z",
    "whenMs": 1793746058000,
-   "seenMs": 1793783161392,
+   "seenMs": 1793784361412,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793747161938,
@@ -2534,96 +2534,6 @@ const XYSP_TT_DATA = {
    "author": "唐伯虎点蚊香",
    "when": "2026-11-03 17:15:25",
    "postId": "7703871002295517738",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f3db0b2200d944f6839caaf64f137296~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mCCTzVuU1qMJrefHbdjrKoIIm6A%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f3db0b2200d944f6839caaf64f137296~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=mCCTzVuU1qMJrefHbdjrKoIIm6A%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d14fa0a19d94c2092ef1e63c5b54508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=xuf6D61JWWpTFBKPdusaW0zFFho%3D",
-   "title": "3D晒票现场：多张票疯狂撞号，000豹子号重现江湖惹人眼",
-   "url": "https://toutiao.com/group/7703870364887155243/",
-   "at": "2026-11-03T09:36:01.277Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d"
-   ],
-   "issue": "",
-   "seen": "2026-11-03T10:26:01.328Z",
-   "whenMs": 1793697126000,
-   "seenMs": 1793701561328,
-   "drawMs": 1793711700000,
-   "nextMs": 1793711700000,
-   "atMs": 1793698561277,
-   "drawAt": "2026-11-03T13:15:00.000Z",
-   "nextAt": 1793711700000,
-   "drawGid": "fc3d",
-   "expireAt": "2026-11-04T09:36:01.277Z",
-   "rule": "first-capture-24h",
-   "author": "唐伯虎点蚊香",
-   "when": "2026-11-03 17:12:06",
-   "postId": "7703870364887155243",
-   "px": 132300
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d14fa0a19d94c2092ef1e63c5b54508~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fX3RWliV2kEt5Kxv5GBUm0ufrJ0%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d14fa0a19d94c2092ef1e63c5b54508~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fX3RWliV2kEt5Kxv5GBUm0ufrJ0%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d14fa0a19d94c2092ef1e63c5b54508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=xuf6D61JWWpTFBKPdusaW0zFFho%3D",
-   "title": "3D晒票现场：多张票疯狂撞号，000豹子号重现江湖惹人眼",
-   "url": "https://toutiao.com/group/7703870364887155243/",
-   "at": "2026-11-03T09:36:01.277Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d"
-   ],
-   "issue": "",
-   "seen": "2026-11-03T10:26:01.328Z",
-   "whenMs": 1793697126000,
-   "seenMs": 1793701561328,
-   "drawMs": 1793711700000,
-   "nextMs": 1793711700000,
-   "atMs": 1793698561277,
-   "drawAt": "2026-11-03T13:15:00.000Z",
-   "nextAt": 1793711700000,
-   "drawGid": "fc3d",
-   "expireAt": "2026-11-04T09:36:01.277Z",
-   "rule": "first-capture-24h",
-   "author": "唐伯虎点蚊香",
-   "when": "2026-11-03 17:12:06",
-   "postId": "7703870364887155243",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c85d8ca4b58e47608df3a9457aef371a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bsWzfVLVlr4iSVEQVnZIwIraV1k%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c85d8ca4b58e47608df3a9457aef371a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bsWzfVLVlr4iSVEQVnZIwIraV1k%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5d14fa0a19d94c2092ef1e63c5b54508~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=xuf6D61JWWpTFBKPdusaW0zFFho%3D",
-   "title": "3D晒票现场：多张票疯狂撞号，000豹子号重现江湖惹人眼",
-   "url": "https://toutiao.com/group/7703870364887155243/",
-   "at": "2026-11-03T09:36:01.277Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "福彩3D",
-   "games": [
-    "fc3d"
-   ],
-   "issue": "",
-   "seen": "2026-11-03T10:26:01.328Z",
-   "whenMs": 1793697126000,
-   "seenMs": 1793701561328,
-   "drawMs": 1793711700000,
-   "nextMs": 1793711700000,
-   "atMs": 1793698561277,
-   "drawAt": "2026-11-03T13:15:00.000Z",
-   "nextAt": 1793711700000,
-   "drawGid": "fc3d",
-   "expireAt": "2026-11-04T09:36:01.277Z",
-   "rule": "first-capture-24h",
-   "author": "唐伯虎点蚊香",
-   "when": "2026-11-03 17:12:06",
-   "postId": "7703870364887155243",
    "px": 132300
   },
   {
