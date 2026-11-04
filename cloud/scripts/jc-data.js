@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-04 23:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-04 23:58 */
 const JC_DATA = {
- "updated": "2026-11-04 23:28",
+ "updated": "2026-11-04 23:58",
  "stat": {
-  "total": 13,
-  "upcoming": 11,
+  "total": 12,
+  "upcoming": 10,
   "live": 0,
   "finished": 2,
   "withScore": 2,
-  "droppedNotOnSale": 0,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
-  "officialCodes": 11,
-  "droppedNotOnSale": 0,
+  "officialCodes": 10,
+  "droppedNotOnSale": 1,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -238,146 +238,6 @@ const JC_DATA = {
    }
   },
   {
-   "gid": "1480128",
-   "fid": "1480128",
-   "sid": "20000",
-   "code": "周三003",
-   "league": "欧罗巴",
-   "round": "第4轮",
-   "time": "2026-11-04 23:30",
-   "handicap": "-1",
-   "home": {
-    "name": "雷恩",
-    "rank": 13
-   },
-   "away": {
-    "name": "奥林匹亚",
-    "rank": 5
-   },
-   "score": null,
-   "statusText": "- ",
-   "odds": {
-    "asian": {
-     "open": {
-      "home": 0.87,
-      "line": "平手/半球",
-      "away": 0.97
-     },
-     "live": {
-      "home": 1.05,
-      "line": "半球",
-      "away": 0.75
-     }
-    },
-    "europe": {
-     "open": {
-      "home": 2.1,
-      "draw": 3.5,
-      "away": 3.1
-     },
-     "live": {
-      "home": 2.05,
-      "draw": 3.7,
-      "away": 3.4
-     }
-    },
-    "overunder": {
-     "open": {
-      "line": 0.97,
-      "over": 2.5,
-      "under": 0.87
-     },
-     "live": {
-      "line": 0.7,
-      "over": 2.5,
-      "under": 1.1
-     }
-    }
-   },
-   "reco": {
-    "pick": "home",
-    "label": "主胜",
-    "confidence": 45.3,
-    "prob": {
-     "home": 45.3,
-     "draw": 26.3,
-     "away": 28.4
-    },
-    "clear": true,
-    "margin": 5.2,
-    "rqLine": "半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 45.3,
-      "draw": 26.3,
-      "away": 28.4
-     },
-     "confidence": 45.3,
-     "signals": [
-      "主流初盘 3/3 家偏向主胜",
-      "初盘→即时：主胜+2.5pp / 平局-0.7pp / 客胜-1.8pp",
-      "亚盘主队方向变深，水位上升",
-      "主要方向凯利中位参考 0.940",
-      "多机构分歧 3.3%"
-     ],
-     "missing": [
-      "同场同期必发成交/购买热度缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -7.2,
-      "draw": -2.7,
-      "away": -3.3
-     },
-     "handicap": {
-      "line": -1,
-      "prob": {
-       "home": 0.24544749434564092,
-       "draw": 0.2241756473559369,
-       "away": 0.5303768582984224
-      },
-      "pick": "away",
-      "label": "让负"
-     },
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
-   },
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 1.05,
-    "downWater": 0.75,
-    "openHandicap": -0.25,
-    "openUpWater": 0.87,
-    "openDownWater": 0.97,
-    "totalWater": 1.8,
-    "theoryUpPercent": "41.67",
-    "theoryDownPercent": "58.33",
-    "canWater": false,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.87,
-     "nowUpWater": 1.05,
-     "initLine": "平手/半球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "status": "upcoming",
-   "minute": 0,
-   "liveScore": null
-  },
-  {
    "gid": "1479953",
    "fid": "1479953",
    "sid": "19943",
@@ -461,7 +321,7 @@ const JC_DATA = {
       "初盘→即时：主胜-8.6pp / 平局-6.3pp / 客胜+14.9pp",
       "亚盘客队方向变深，水位上升",
       "主要方向凯利中位参考 0.940",
-      "多机构分歧 2.7%"
+      "多机构分歧 2.5%"
      ],
      "missing": [
       "同场同期必发成交/购买热度缺失"
@@ -1781,41 +1641,10 @@ const JC_DATA = {
  "sp": {
   "source": "official",
   "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
-  "updated": "2026-11-04 23:28",
+  "updated": "2026-11-04 23:58",
   "officialUpdate": "2026-11-04 21:56:12",
-  "inSale": 11,
+  "inSale": 10,
   "list": [
-   {
-    "code": "周三003",
-    "matchNum": "3003",
-    "league": "欧罗巴",
-    "time": "2026-11-04 23:30:00",
-    "home": "雷恩",
-    "away": "奥林匹亚",
-    "had": {
-     "h": 1.92,
-     "d": 3.3,
-     "a": 3.17,
-     "update": "2026-11-04 21:35:45"
-    },
-    "hhad": {
-     "line": "-1",
-     "h": 3.97,
-     "d": 3.65,
-     "a": 1.63,
-     "update": "2026-11-04 21:35:56"
-    },
-    "single": {
-     "HAD": {
-      "single": 0,
-      "betSingle": 0
-     },
-     "HHAD": {
-      "single": 0,
-      "betSingle": 0
-     }
-    }
-   },
    {
     "code": "周三004",
     "matchNum": "3004",
