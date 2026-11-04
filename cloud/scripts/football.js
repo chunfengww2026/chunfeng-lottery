@@ -8281,7 +8281,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-04 13:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "大阪俱乐部",
      "score": 1,
