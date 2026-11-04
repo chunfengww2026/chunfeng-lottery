@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 15:06:01
+   更新时间：2026-11-04 15:16:01
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 15:06:01",
+ "updated": "2026-11-04 15:16:01",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3f83b3038aa437c92b7d0f62ae541f7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=p32NgiWD4RNkO3RNrjl9IDas848%3D",
@@ -764,8 +764,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GWDj7H246h3cF24pZ4l6T%2BOdhCU%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GWDj7H246h3cF24pZ4l6T%2BOdhCU%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
    "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
    "url": "https://toutiao.com/group/7704139454360879645/",
@@ -777,9 +777,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-11-04T06:56:01.330Z",
+   "seen": "2026-11-04T07:16:01.323Z",
    "whenMs": 1793759984000,
-   "seenMs": 1793775361330,
+   "seenMs": 1793776561323,
    "drawMs": 1793795400000,
    "nextMs": 1793795400000,
    "atMs": 1793760962124,
@@ -807,7 +807,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-11-04T06:56:01.330Z",
+   "seen": "2026-11-04T07:16:01.323Z",
    "whenMs": 1793759984000,
    "seenMs": 1793775361330,
    "drawMs": 1793795400000,
@@ -837,7 +837,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "",
-   "seen": "2026-11-04T06:56:01.330Z",
+   "seen": "2026-11-04T07:16:01.323Z",
    "whenMs": 1793759984000,
    "seenMs": 1793775361330,
    "drawMs": 1793795400000,
@@ -1560,7 +1560,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T07:06:01.305Z",
    "whenMs": 1793746058000,
-   "seenMs": 1793773561282,
+   "seenMs": 1793775961305,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793747161938,
@@ -1590,7 +1590,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T07:06:01.305Z",
    "whenMs": 1793746058000,
-   "seenMs": 1793773561282,
+   "seenMs": 1793775961305,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793747161938,
@@ -1650,7 +1650,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T07:06:01.305Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793773561282,
+   "seenMs": 1793775961305,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -1680,7 +1680,7 @@ const XYSP_TT_DATA = {
    "issue": "26126",
    "seen": "2026-11-04T07:06:01.305Z",
    "whenMs": 1793721537000,
-   "seenMs": 1793773561282,
+   "seenMs": 1793775961305,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793721961629,
@@ -1860,7 +1860,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-04T07:06:01.305Z",
    "whenMs": 1793709371000,
-   "seenMs": 1793773561282,
+   "seenMs": 1793775961305,
    "drawMs": 1793712600000,
    "nextMs": 1793712600000,
    "atMs": 1793709961442,
@@ -2714,36 +2714,6 @@ const XYSP_TT_DATA = {
    "author": "渡尘归",
    "when": "2026-11-03 16:48:18",
    "postId": "1880826260079628",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pmzFp54Hhj23mU28glrMbr3ZyRA%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=pmzFp54Hhj23mU28glrMbr3ZyRA%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/388f7db6a6394a4d848b28036c8b560e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nCFPag%2BH%2F1M6CYltDV%2Bu2Ky6lBw%3D",
-   "title": "第26293期福彩快乐8️⃣晒票\n\n昨天的​快乐8选五晒票有几个中奖了，不知道大家关注到没有？\n主要是快乐8开奖号码太多了，光用眼核对中奖比较费劲。有个复式票我看了下大概中奖7-8个号，奖金可不少！\n#快乐8幸运号# #快乐八挑战# #快乐",
-   "url": "sslocal://thread_detail?fid=1853541344985194&tid=1880818937298944",
-   "at": "2026-11-03T07:06:02.140Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "快乐8",
-   "games": [
-    "kl8"
-   ],
-   "issue": "26293",
-   "seen": "2026-11-03T10:26:01.328Z",
-   "whenMs": 1793688985000,
-   "seenMs": 1793701561328,
-   "drawMs": 1793712600000,
-   "nextMs": 1793712600000,
-   "atMs": 1793689562140,
-   "drawAt": "2026-11-03T13:30:00.000Z",
-   "nextAt": 1793712600000,
-   "drawGid": "kl8",
-   "expireAt": "2026-11-04T07:06:02.140Z",
-   "rule": "first-capture-24h",
-   "author": "陈衙役",
-   "when": "2026-11-03 14:56:25",
-   "postId": "1880818937298944",
    "px": 132300
   }
  ],
