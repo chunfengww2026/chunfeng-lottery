@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 08:36
+   更新时间：2026-11-04 08:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 08:36",
+ "updated": "2026-11-04 08:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2823,7 +2823,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T00:36:02.026Z",
      "whenMs": 1793713500000,
-     "seenMs": 1793751362017,
+     "seenMs": 1793752562026,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793714161492,
@@ -4787,126 +4787,6 @@ const XYSP_DATA = {
      "author": "安澜赏秋枫",
      "when": "2026-11-03 09:02:24",
      "postId": "1880796948516937",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/56a7c5479e1e4698ae908f94603b00d0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=4ltCpg4aLtTTnYMx%2F2nZGMnQBFU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/56a7c5479e1e4698ae908f94603b00d0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=4ltCpg4aLtTTnYMx%2F2nZGMnQBFU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/eaa99178ffdb42c695f17c88a4b28876~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Hwe0PfwjUG0FnyLn2X6L2l0sKhk%3D",
-     "title": "江苏老表13倍单式火力全开，后区05被批发！大乐透125期晒票",
-     "url": "http://toutiao.com/item/7703738243208086050/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "",
-     "seen": "2026-11-04T00:26:02.023Z",
-     "whenMs": 1793666333000,
-     "seenMs": 1793751962023,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 08:38:53",
-     "postId": "7703738243208086050",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/513c75f7756e48b3817103f60247c0ca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=UOeGOV0elEkYDlfZUujA%2Farj%2FvI%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/513c75f7756e48b3817103f60247c0ca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=UOeGOV0elEkYDlfZUujA%2Farj%2FvI%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/513c75f7756e48b3817103f60247c0ca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=QXsFuRsK1lrdaGwVQBD3CS9tGuA%3D",
-     "title": "3D第290期晒票来袭！2500元位选大单领衔，高倍胆拖票扎堆冲刺",
-     "url": "http://toutiao.com/item/7703738047631720986/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T11:06:01.370Z",
-     "whenMs": 1793666288000,
-     "seenMs": 1793703961370,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 08:38:08",
-     "postId": "7703738047631720986",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ead7263ae65343b291c6a9075a6f0813~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=y4gNmeC4V8SO0B5lKKBL4W3rLlo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ead7263ae65343b291c6a9075a6f0813~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=y4gNmeC4V8SO0B5lKKBL4W3rLlo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/513c75f7756e48b3817103f60247c0ca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=QXsFuRsK1lrdaGwVQBD3CS9tGuA%3D",
-     "title": "3D第290期晒票来袭！2500元位选大单领衔，高倍胆拖票扎堆冲刺",
-     "url": "http://toutiao.com/item/7703738047631720986/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T11:06:01.370Z",
-     "whenMs": 1793666288000,
-     "seenMs": 1793703961370,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 08:38:08",
-     "postId": "7703738047631720986",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/507bd044e4834c7a9ae3f5411c51829c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=dr8J%2Bw6NX7FLVUCT%2F6buNZ32rks%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/507bd044e4834c7a9ae3f5411c51829c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=dr8J%2Bw6NX7FLVUCT%2F6buNZ32rks%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/513c75f7756e48b3817103f60247c0ca~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=QXsFuRsK1lrdaGwVQBD3CS9tGuA%3D",
-     "title": "3D第290期晒票来袭！2500元位选大单领衔，高倍胆拖票扎堆冲刺",
-     "url": "http://toutiao.com/item/7703738047631720986/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T11:06:01.370Z",
-     "whenMs": 1793666288000,
-     "seenMs": 1793703961370,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 08:38:08",
-     "postId": "7703738047631720986",
      "px": 132300
     }
    ]
