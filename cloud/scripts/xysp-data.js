@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:15
+   更新时间：2026-11-04 17:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 17:15",
+ "updated": "2026-11-04 17:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4869,66 +4869,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-03 17:16:40",
      "postId": "7703871215811576356",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ca7a740f2ee46b8806cf45dc06aff5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=9SHyzlb1CXWLzHzMCRg4boFatOQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ca7a740f2ee46b8806cf45dc06aff5e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=9SHyzlb1CXWLzHzMCRg4boFatOQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ca7a740f2ee46b8806cf45dc06aff5e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=3g6OXZ186leXFbkGdLGtIkCcgBM%3D",
-     "title": "3D晒票现场疯狂！99倍连环炮霸气登场，多张复式票齐撞号死磕5",
-     "url": "https://toutiao.com/group/7703871002295517738/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:06:01.319Z",
-     "whenMs": 1793697325000,
-     "seenMs": 1793700361319,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 17:15:25",
-     "postId": "7703871002295517738",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cf98a91a12e44aa8913feb1c5344a387~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=4GNqUNx3vcrtAJQ1Lc0lFPhoG7U%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cf98a91a12e44aa8913feb1c5344a387~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=4GNqUNx3vcrtAJQ1Lc0lFPhoG7U%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8ca7a740f2ee46b8806cf45dc06aff5e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=3g6OXZ186leXFbkGdLGtIkCcgBM%3D",
-     "title": "3D晒票现场疯狂！99倍连环炮霸气登场，多张复式票齐撞号死磕5",
-     "url": "https://toutiao.com/group/7703871002295517738/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:06:01.319Z",
-     "whenMs": 1793697325000,
-     "seenMs": 1793700361319,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 17:15:25",
-     "postId": "7703871002295517738",
      "px": 132300
     }
    ]
