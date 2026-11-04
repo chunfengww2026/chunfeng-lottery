@@ -7559,7 +7559,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-11-04 12:01:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "J利斯",
      "score": 0,
