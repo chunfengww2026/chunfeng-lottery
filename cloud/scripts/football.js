@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "東孟加拉(女)",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "纳萨夫女足",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 20,
+    "minute": 25,
     "home": {
      "name": "阿爾賈茲拉艾哈邁迪",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 17,
+    "minute": 22,
     "home": {
      "name": "伯根",
      "score": 0,
@@ -313,7 +313,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "亚蒙克",
      "score": 2,
@@ -7234,7 +7234,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 87,
+    "minute": 92,
     "home": {
      "name": "切尔西U19",
      "score": 2,
@@ -7610,7 +7610,7 @@ const FOOTBALL_DATA = {
      "color": "cc6600"
     },
     "time": "2026-11-04 21:05:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "阿尔纳西尔",
      "score": 0,
@@ -7676,7 +7676,7 @@ const FOOTBALL_DATA = {
      "color": "3792aa"
     },
     "time": "2026-11-04 21:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "路查斯",
      "score": 0,
@@ -7742,7 +7742,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:30:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "塞萨洛尼基U19",
      "score": 2,
@@ -7808,7 +7808,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 21:45:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "阿卡達格",
      "score": 0,
