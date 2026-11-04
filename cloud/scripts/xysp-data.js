@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 08:30
+   更新时间：2026-11-04 08:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 08:30",
+ "updated": "2026-11-04 08:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4878,156 +4878,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 08:38:08",
      "postId": "7703738047631720986",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5b993de9a12544ecbb0ae7b7ddfec84b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=KHcSBqSpCE44aaoIWh1IjcbB16E%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5b993de9a12544ecbb0ae7b7ddfec84b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=KHcSBqSpCE44aaoIWh1IjcbB16E%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/69ba8e8021ac406782e9339cdcef17ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=5m5On7Njnu0TgGz1TVg4lgN%2Fk1c%3D",
-     "title": "蓝球10遭“疯抢”！双色球126期晒票，168元复式票霸气镇场",
-     "url": "https://toutiao.com/group/7703736661523431955/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T00:46:01.818Z",
-     "whenMs": 1793666015000,
-     "seenMs": 1793666761818,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:33:35",
-     "postId": "7703736661523431955",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a78a887add1040e2afb2abdf61af36ca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=dj73eg%2F0rmlKMWqBi1uS5Was2dg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a78a887add1040e2afb2abdf61af36ca~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=dj73eg%2F0rmlKMWqBi1uS5Was2dg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/69ba8e8021ac406782e9339cdcef17ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=5m5On7Njnu0TgGz1TVg4lgN%2Fk1c%3D",
-     "title": "蓝球10遭“疯抢”！双色球126期晒票，168元复式票霸气镇场",
-     "url": "https://toutiao.com/group/7703736661523431955/",
-     "at": "2026-11-03T00:46:01.818Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T00:46:01.818Z",
-     "whenMs": 1793666015000,
-     "seenMs": 1793666761818,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666761818,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:46:01.818Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:33:35",
-     "postId": "7703736661523431955",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b5605f520ff84bec90dce3bb4acd9b31~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bXG%2B94ceMWuthDcDkRstxnmuDpU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b5605f520ff84bec90dce3bb4acd9b31~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bXG%2B94ceMWuthDcDkRstxnmuDpU%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b5605f520ff84bec90dce3bb4acd9b31~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bgqzGcaAU5KT%2F2xy4TTD%2FTeRPPo%3D",
-     "title": "1818元复式票霸气镇场！12倍紧随其后，双色球126期晒票绝了",
-     "url": "https://toutiao.com/group/7703736334468334123/",
-     "at": "2026-11-03T00:36:01.809Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T00:56:01.826Z",
-     "whenMs": 1793665941000,
-     "seenMs": 1793667361826,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666161809,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:36:01.809Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:32:21",
-     "postId": "7703736334468334123",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3be4e88fd7bb4e9ea68cb5108420aed1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SG%2Bvwra%2FRo7RtFbDE5cLPHuCOqc%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3be4e88fd7bb4e9ea68cb5108420aed1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=SG%2Bvwra%2FRo7RtFbDE5cLPHuCOqc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b5605f520ff84bec90dce3bb4acd9b31~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bgqzGcaAU5KT%2F2xy4TTD%2FTeRPPo%3D",
-     "title": "1818元复式票霸气镇场！12倍紧随其后，双色球126期晒票绝了",
-     "url": "https://toutiao.com/group/7703736334468334123/",
-     "at": "2026-11-03T00:36:01.809Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T00:56:01.826Z",
-     "whenMs": 1793665941000,
-     "seenMs": 1793667361826,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666161809,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:36:01.809Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:32:21",
-     "postId": "7703736334468334123",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cc52e538ac344b17bcf9bd35b3f93002~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=4y1Ux%2FehO5yQsEzDyX%2BZFhUTWlg%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/cc52e538ac344b17bcf9bd35b3f93002~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=4y1Ux%2FehO5yQsEzDyX%2BZFhUTWlg%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b5605f520ff84bec90dce3bb4acd9b31~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bgqzGcaAU5KT%2F2xy4TTD%2FTeRPPo%3D",
-     "title": "1818元复式票霸气镇场！12倍紧随其后，双色球126期晒票绝了",
-     "url": "https://toutiao.com/group/7703736334468334123/",
-     "at": "2026-11-03T00:36:01.809Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T00:56:01.826Z",
-     "whenMs": 1793665941000,
-     "seenMs": 1793667361826,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793666161809,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:36:01.809Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:32:21",
-     "postId": "7703736334468334123",
-     "px": 132300
     }
    ]
   },
@@ -7124,6 +6974,7 @@ const XYSP_DATA = {
   "/2026-10-31/b3256e95-ae2a-4081-b00c-c9429de1d7ac1793451591943.jpg": 1793745383508,
   "/2026-10-31/5095a522-e700-4df4-9a9c-51c20167a4071793450651271.jpg": 1793745383508,
   "/2026-10-31/474de1aa-2d9d-406d-ba8c-b8aecedc58b01793450523160.jpg": 1793745383508,
-  "/2026-11-04/23e1d9f1-6a0a-4e7f-845d-f502dfb1cb191793748745170.jpg": 1793749592527
+  "/2026-11-04/23e1d9f1-6a0a-4e7f-845d-f502dfb1cb191793748745170.jpg": 1793749592527,
+  "/2026-11-04/0a6c0669-7703-4918-bd6d-aaab715578a51793751304168.jpg": 1793752503593
  }
 };
