@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 09:36
+   更新时间：2026-11-04 09:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 09:36",
+ "updated": "2026-11-04 09:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -518,6 +518,20 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-04/3d1f760c-5df4-4e85-9fdb-e0a8b4a6bd8c1793755394305.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/3d1f760c-5df4-4e85-9fdb-e0a8b4a6bd8c1793755394305.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]就差一点😭",
+     "url": "",
+     "at": "2026-11-04T01:40:03.872Z",
+     "pubAt": "2026-11-04T01:23:00.000Z",
+     "pubMs": 1793755380000,
+     "pubSrc": "page",
+     "nextAt": 1793798100000,
+     "atMs": 1793756403872,
+     "seenMs": 1793756403872,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-03/aa4a984a-a9fb-405c-a8b4-249fbfba73331793716503016.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/aa4a984a-a9fb-405c-a8b4-249fbfba73331793716503016.jpg?imageMogr2/thumbnail/360x",
      "title": "[26294期]服了哦开的啥呀这是",
@@ -928,6 +942,20 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/ec1022d8-356f-4ff1-9236-1c66450248551793755223196.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/ec1022d8-356f-4ff1-9236-1c66450248551793755223196.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]昨天这号开的太不要脸了，今天继续统计实票数据，一次失利并不意味着失败。",
+     "url": "",
+     "at": "2026-11-04T01:40:03.872Z",
+     "pubAt": "2026-11-04T01:21:00.000Z",
+     "pubMs": 1793755260000,
+     "pubSrc": "page",
+     "nextAt": 1793799000000,
+     "atMs": 1793756403872,
+     "seenMs": 1793756403872,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-03/9a67bb5e-d63f-4554-88bd-f8ca78adc0541793720000876.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-03/9a67bb5e-d63f-4554-88bd-f8ca78adc0541793720000876.jpg?imageMogr2/thumbnail/360x",
@@ -2390,7 +2418,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T01:36:02.083Z",
      "whenMs": 1793752717000,
-     "seenMs": 1793755562049,
+     "seenMs": 1793756162083,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793753162023,
@@ -2510,7 +2538,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T01:36:02.083Z",
      "whenMs": 1793750762000,
-     "seenMs": 1793755562049,
+     "seenMs": 1793756162083,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793751962023,
@@ -4686,66 +4714,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 09:41:54",
      "postId": "1880799433629705",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3cdfd65518e94388808d4b4be737e02b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hi7LBm%2FEmm%2BTbchE4eufXKWNIZo%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3cdfd65518e94388808d4b4be737e02b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hi7LBm%2FEmm%2BTbchE4eufXKWNIZo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3cdfd65518e94388808d4b4be737e02b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=wz8%2FyZ1WnFGey9mjDsYHHAHg9Tk%3D",
-     "title": "双色球26126期晒票：奇葩清一色03蓝码扎堆，多张复式票组团撞号",
-     "url": "https://toutiao.com/group/7703753846345957917/",
-     "at": "2026-11-03T02:06:01.882Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T02:06:01.882Z",
-     "whenMs": 1793669991000,
-     "seenMs": 1793671561882,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793671561882,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T02:06:01.882Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 09:39:51",
-     "postId": "7703753846345957917",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a46a0b46d738442b85e4ed214a991beb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qNrcWuKNMkIPVJN7VFXT18C44ts%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a46a0b46d738442b85e4ed214a991beb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qNrcWuKNMkIPVJN7VFXT18C44ts%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/3cdfd65518e94388808d4b4be737e02b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=wz8%2FyZ1WnFGey9mjDsYHHAHg9Tk%3D",
-     "title": "双色球26126期晒票：奇葩清一色03蓝码扎堆，多张复式票组团撞号",
-     "url": "https://toutiao.com/group/7703753846345957917/",
-     "at": "2026-11-03T02:06:01.882Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T02:06:01.882Z",
-     "whenMs": 1793669991000,
-     "seenMs": 1793671561882,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793671561882,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T02:06:01.882Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 09:39:51",
-     "postId": "7703753846345957917",
-     "px": 132300
     }
    ]
   },
@@ -6817,6 +6785,8 @@ const XYSP_DATA = {
   "/2026-11-04/0a6c0669-7703-4918-bd6d-aaab715578a51793751304168.jpg": 1793752503593,
   "/2026-11-04/779dcf0a-9739-4cbf-a204-d944e3b9c6531793752323597.jpg": 1793753192938,
   "/2026-11-04/731b76fb-ffd6-4650-8651-b01181c6c8bd1793752323589.jpg": 1793753192938,
-  "/2026-11-04/f96e5e5f-98c7-4c31-a944-c32727aa88961793754990774.jpg": 1793755589470
+  "/2026-11-04/f96e5e5f-98c7-4c31-a944-c32727aa88961793754990774.jpg": 1793755589470,
+  "/2026-11-04/3d1f760c-5df4-4e85-9fdb-e0a8b4a6bd8c1793755394305.jpg": 1793756403872,
+  "/2026-11-04/ec1022d8-356f-4ff1-9236-1c66450248551793755223196.jpg": 1793756403872
  }
 };
