@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 15:35
+   更新时间：2026-11-04 15:36
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 15:35",
+ "updated": "2026-11-04 15:36",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2610,6 +2610,36 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86bcd74950064932b33cb27218106df3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1dD4aW9le0W18HY6xtVVDBfWhdw%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86bcd74950064932b33cb27218106df3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1dD4aW9le0W18HY6xtVVDBfWhdw%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/86bcd74950064932b33cb27218106df3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=m55IdhUDRTHyRqIlZfD3NHoCGhM%3D",
+     "title": "双色球26126期千万大奖票曝光！32元6+16复式拿下1138万大满贯",
+     "url": "https://toutiao.com/group/7704211847632650780/",
+     "at": "2026-11-04T07:36:01.331Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "双色球",
+     "games": [
+      "ssq"
+     ],
+     "issue": "26126",
+     "seen": "2026-11-04T07:36:01.331Z",
+     "whenMs": 1793776664000,
+     "seenMs": 1793777761331,
+     "drawMs": 1793884500000,
+     "nextMs": 1793884500000,
+     "atMs": 1793777761331,
+     "drawAt": "2026-11-05T13:15:00.000Z",
+     "nextAt": 1793884500000,
+     "drawGid": "ssq",
+     "expireAt": "2026-11-05T07:36:01.331Z",
+     "rule": "first-capture-24h",
+     "author": "美丽的小青年",
+     "when": "2026-11-04 15:17:44",
+     "postId": "7704211847632650780",
+     "px": 132300
+    },
+    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/42288eada691404e807004a221928dd2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Jj0WYuAWQBKEARx3mzX0WwKYfSY%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/42288eada691404e807004a221928dd2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Jj0WYuAWQBKEARx3mzX0WwKYfSY%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/42288eada691404e807004a221928dd2~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fl94Tz%2FPnpXkHicZggAQxLwb0I4%3D",
@@ -3453,7 +3483,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1GwfFljG23ubpYXZp%2F%2FH4ci4BmU%3D",
      "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
      "url": "https://toutiao.com/group/7704139454360879645/",
      "at": "2026-11-04T02:56:02.124Z",
@@ -3464,7 +3494,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T07:16:01.323Z",
+     "seen": "2026-11-04T07:36:01.331Z",
      "whenMs": 1793759984000,
      "seenMs": 1793776561323,
      "drawMs": 1793795400000,
@@ -3481,9 +3511,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2c822949e63440a382f0364f601bca6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=h%2Fb%2F7y2eMPRtejIM0oaRYVTBzds%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2c822949e63440a382f0364f601bca6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=h%2Fb%2F7y2eMPRtejIM0oaRYVTBzds%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2c822949e63440a382f0364f601bca6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GHIceqH68j36u7aHel4pbqEOmRo%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2c822949e63440a382f0364f601bca6f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GHIceqH68j36u7aHel4pbqEOmRo%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1GwfFljG23ubpYXZp%2F%2FH4ci4BmU%3D",
      "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
      "url": "https://toutiao.com/group/7704139454360879645/",
      "at": "2026-11-04T02:56:02.124Z",
@@ -3494,9 +3524,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T07:16:01.323Z",
+     "seen": "2026-11-04T07:36:01.331Z",
      "whenMs": 1793759984000,
-     "seenMs": 1793776561323,
+     "seenMs": 1793777761331,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793760962124,
@@ -3511,9 +3541,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qY6vfinKhy75WFjqrPlJClYdwGc%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qY6vfinKhy75WFjqrPlJClYdwGc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2F7JmBT6PtULEhG7bgjMWY06j92A%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/30da6243d9514882a753d17a0edba490~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2F7JmBT6PtULEhG7bgjMWY06j92A%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=1GwfFljG23ubpYXZp%2F%2FH4ci4BmU%3D",
      "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
      "url": "https://toutiao.com/group/7704139454360879645/",
      "at": "2026-11-04T02:56:02.124Z",
@@ -3524,9 +3554,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T07:16:01.323Z",
+     "seen": "2026-11-04T07:36:01.331Z",
      "whenMs": 1793759984000,
-     "seenMs": 1793776561323,
+     "seenMs": 1793777761331,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793760962124,
