@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "墨尔本胜利",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
     "away": {
      "name": "万隆",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 5
     },
