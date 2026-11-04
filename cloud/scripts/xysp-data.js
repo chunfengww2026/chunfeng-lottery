@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 18:55
+   更新时间：2026-11-04 18:56
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 18:55",
+ "updated": "2026-11-04 18:56",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2610,9 +2610,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2FTixzAkk6mY5AQc04Nn6QEdIJD4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=%2FTixzAkk6mY5AQc04Nn6QEdIJD4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xWCTprKJblkL%2FpyBcvFVdKsPJ%2B4%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=pQRaxvG2Bqf43neHGjDg02p2de0%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=pQRaxvG2Bqf43neHGjDg02p2de0%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f667dbe867f14d7ca52e57577eb858d5~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Htso6f7KoeB2Fw9kGOB3fm0h3Sc%3D",
      "title": "2.6万复式组合领衔，20倍22倍霸气亮相！双色球126期晒票狂欢",
      "url": "http://toutiao.com/item/7704258292796621327/",
      "at": "2026-11-04T10:26:01.436Z",
@@ -2623,9 +2623,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-04T10:46:01.446Z",
+     "seen": "2026-11-04T10:56:01.447Z",
      "whenMs": 1793787417000,
-     "seenMs": 1793789161446,
+     "seenMs": 1793789761447,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793787961436,
@@ -2757,6 +2757,96 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-04 17:10:40",
      "postId": "7704241020136981034",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wv4j8fpG%2FAf6gnQCXCGpPbz8FNA%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wv4j8fpG%2FAf6gnQCXCGpPbz8FNA%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ismecllqvkwuIKshJRj7KFCGwTE%3D",
+     "title": "福彩3D晒票：倍投单式群英汇聚，2D位选出奇招，谁能笑傲江湖？",
+     "url": "https://toutiao.com/group/7704240579907846719/",
+     "at": "2026-11-04T10:56:01.447Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "福彩3D",
+     "games": [
+      "fc3d"
+     ],
+     "issue": "",
+     "seen": "2026-11-04T10:56:01.447Z",
+     "whenMs": 1793783350000,
+     "seenMs": 1793789761447,
+     "drawMs": 1793798100000,
+     "nextMs": 1793798100000,
+     "atMs": 1793789761447,
+     "drawAt": "2026-11-04T13:15:00.000Z",
+     "nextAt": 1793798100000,
+     "drawGid": "fc3d",
+     "expireAt": "2026-11-05T10:56:01.447Z",
+     "rule": "first-capture-24h",
+     "author": "唐伯虎点蚊香",
+     "when": "2026-11-04 17:09:10",
+     "postId": "7704240579907846719",
+     "px": 132300
+    },
+    {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/36cf477dca3a4ba0aa75e31f329e6ea5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=oVctN3lcqN3ZJkgXLL8tPxMfUew%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/36cf477dca3a4ba0aa75e31f329e6ea5~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=oVctN3lcqN3ZJkgXLL8tPxMfUew%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ismecllqvkwuIKshJRj7KFCGwTE%3D",
+     "title": "福彩3D晒票：倍投单式群英汇聚，2D位选出奇招，谁能笑傲江湖？",
+     "url": "https://toutiao.com/group/7704240579907846719/",
+     "at": "2026-11-04T10:56:01.447Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "福彩3D",
+     "games": [
+      "fc3d"
+     ],
+     "issue": "",
+     "seen": "2026-11-04T10:56:01.447Z",
+     "whenMs": 1793783350000,
+     "seenMs": 1793789761447,
+     "drawMs": 1793798100000,
+     "nextMs": 1793798100000,
+     "atMs": 1793789761447,
+     "drawAt": "2026-11-04T13:15:00.000Z",
+     "nextAt": 1793798100000,
+     "drawGid": "fc3d",
+     "expireAt": "2026-11-05T10:56:01.447Z",
+     "rule": "first-capture-24h",
+     "author": "唐伯虎点蚊香",
+     "when": "2026-11-04 17:09:10",
+     "postId": "7704240579907846719",
+     "px": 132300
+    },
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c00d7798a69140139bb76e83fed7f01f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SiQgRMqj6QaVySM%2BEiC1OuZd3BY%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c00d7798a69140139bb76e83fed7f01f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SiQgRMqj6QaVySM%2BEiC1OuZd3BY%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/1b80849c447b4d5a9d6f115eef2451d4~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ismecllqvkwuIKshJRj7KFCGwTE%3D",
+     "title": "福彩3D晒票：倍投单式群英汇聚，2D位选出奇招，谁能笑傲江湖？",
+     "url": "https://toutiao.com/group/7704240579907846719/",
+     "at": "2026-11-04T10:56:01.447Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "福彩3D",
+     "games": [
+      "fc3d"
+     ],
+     "issue": "",
+     "seen": "2026-11-04T10:56:01.447Z",
+     "whenMs": 1793783350000,
+     "seenMs": 1793789761447,
+     "drawMs": 1793798100000,
+     "nextMs": 1793798100000,
+     "atMs": 1793789761447,
+     "drawAt": "2026-11-04T13:15:00.000Z",
+     "nextAt": 1793798100000,
+     "drawGid": "fc3d",
+     "expireAt": "2026-11-05T10:56:01.447Z",
+     "rule": "first-capture-24h",
+     "author": "唐伯虎点蚊香",
+     "when": "2026-11-04 17:09:10",
+     "postId": "7704240579907846719",
      "px": 132300
     },
     {
