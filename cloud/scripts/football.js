@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-04 13:00:00",
-    "minute": 0,
+    "minute": 1,
     "home": {
      "name": "大阪俱乐部",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "熊本深红",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
@@ -7766,7 +7766,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-11-04 12:01:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "J利斯",
      "score": 0,
