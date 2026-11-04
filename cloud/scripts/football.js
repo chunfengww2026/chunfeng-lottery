@@ -6753,7 +6753,7 @@ const FOOTBALL_DATA = {
      "color": "cc6600"
     },
     "time": "2026-11-04 21:05:00",
-    "minute": 80,
+    "minute": 82,
     "home": {
      "name": "阿尔纳西尔",
      "score": 0,
@@ -6799,7 +6799,7 @@ const FOOTBALL_DATA = {
      "color": "3792aa"
     },
     "time": "2026-11-04 21:30:00",
-    "minute": 71,
+    "minute": 73,
     "home": {
      "name": "路查斯",
      "score": 0,
@@ -6865,7 +6865,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:30:00",
-    "minute": 69,
+    "minute": 71,
     "home": {
      "name": "塞萨洛尼基U19",
      "score": 2,
@@ -6911,7 +6911,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 21:45:00",
-    "minute": 53,
+    "minute": 55,
     "home": {
      "name": "阿卡達格",
      "score": 0,
@@ -7043,7 +7043,7 @@ const FOOTBALL_DATA = {
      "color": "cc3300"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "阿联酋U17",
      "score": 0,
@@ -7121,7 +7121,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "纳萨夫女足",
      "score": 1,
@@ -7199,7 +7199,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "東孟加拉(女)",
      "score": 1,
@@ -7277,7 +7277,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 28,
+    "minute": 30,
     "home": {
      "name": "阿爾賈茲拉艾哈邁迪",
      "score": 0,
@@ -7355,7 +7355,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 25,
+    "minute": 27,
     "home": {
      "name": "伯根",
      "score": 0,
@@ -7393,7 +7393,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 26,
+    "minute": 28,
     "home": {
      "name": "亚蒙克",
      "score": 3,
