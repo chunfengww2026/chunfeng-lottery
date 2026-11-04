@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "斯莱曼",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 25,
+    "minute": 30,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -103,7 +103,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "納戈揚(女)",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -144,7 +144,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 24,
+    "minute": 29,
     "home": {
      "name": "4月25日(女)",
      "score": 2,
@@ -8708,7 +8708,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "墨尔本胜利",
      "score": 0,
