@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 22:00:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "莱比锡红牛U19",
      "score": 0,
@@ -6958,7 +6958,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-11-04 19:30:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "克瑪阿斯罔",
      "score": 2,
@@ -6996,7 +6996,7 @@ const FOOTBALL_DATA = {
      "color": "FC9B0A"
     },
     "time": "2026-11-04 20:00:00",
-    "minute": 71,
+    "minute": 76,
     "home": {
      "name": "阿格柔佩庫日奧U20",
      "score": 1,
@@ -7226,7 +7226,7 @@ const FOOTBALL_DATA = {
      "color": "663333"
     },
     "time": "2026-11-04 20:30:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "埃及明星",
      "score": 4,
@@ -7235,7 +7235,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "巴達里",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -7264,7 +7264,7 @@ const FOOTBALL_DATA = {
      "color": "557799"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "德芬索后备队",
      "score": 1,
@@ -7330,7 +7330,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 57,
+    "minute": 62,
     "home": {
      "name": "切尔西U19",
      "score": 2,
@@ -7396,7 +7396,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "贝尔格莱德红星U19",
      "score": 1,
@@ -7462,7 +7462,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "哥本哈根U19",
      "score": 2,
@@ -7512,7 +7512,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "朗斯U19",
      "score": 2,
@@ -7578,7 +7578,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "布拉格斯拉维亚U19",
      "score": 0,
@@ -7644,7 +7644,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 21:00:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "PSV埃因霍溫U19",
      "score": 2,
@@ -7710,7 +7710,7 @@ const FOOTBALL_DATA = {
      "color": "cc6600"
     },
     "time": "2026-11-04 21:05:00",
-    "minute": 0,
+    "minute": 47,
     "home": {
      "name": "阿尔纳西尔",
      "score": 0,
@@ -7932,7 +7932,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 21:45:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "阿卡達格",
      "score": 0,
