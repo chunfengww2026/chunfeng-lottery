@@ -60,7 +60,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 85,
+    "minute": 90,
     "home": {
      "name": "利马联盟",
      "score": 1,
@@ -126,7 +126,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "体育圣何西",
      "score": 3,
@@ -176,7 +176,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-04 09:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "卡达根拿",
      "score": 1,
