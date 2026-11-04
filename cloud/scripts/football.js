@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "卡雅FC女足",
      "score": 0,
@@ -71,10 +71,10 @@ const FOOTBALL_DATA = {
      "color": "FC7d5A"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 4,
+    "minute": 9,
     "home": {
      "name": "阿梅利亞諾后备队",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -136,7 +136,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "塞普特姆裡U19",
      "score": 0,
@@ -8638,10 +8638,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 78,
+    "minute": 83,
     "home": {
      "name": "伯希卡特德波",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 4
     },
@@ -8704,7 +8704,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "馬魯特聯",
      "score": 5,
@@ -8754,7 +8754,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 84,
+    "minute": 89,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 2,
@@ -8820,7 +8820,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 62,
+    "minute": 67,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 1,
@@ -8886,7 +8886,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 37,
+    "minute": 42,
     "home": {
      "name": "卡尔希雅U19",
      "score": 2,
@@ -8964,7 +8964,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "雅典AEKU19",
      "score": 1,
@@ -9042,7 +9042,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "FC首尔",
      "score": 0,
@@ -9120,7 +9120,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "浦项制铁",
      "score": 0,
