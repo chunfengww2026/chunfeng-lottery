@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "519b3d"
     },
     "time": "2026-11-04 20:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "馬耶維察洛帕雷",
      "score": 1,
@@ -30,7 +30,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "蘇捷斯卡",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 12
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 20:30:00",
-    "minute": 19,
+    "minute": 24,
     "home": {
      "name": "阿耶亞瓦底(女)",
      "score": 0,
@@ -7704,7 +7704,7 @@ const FOOTBALL_DATA = {
      "color": "DD8800"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 90,
+    "minute": 95,
     "home": {
      "name": "克魯切維亞",
      "score": 4,
@@ -7770,7 +7770,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "尤姆尼耶士邦U19",
      "score": 2,
@@ -7882,7 +7882,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "貝伊奧盧耶尼恰爾西U19",
      "score": 0,
@@ -7920,7 +7920,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 83,
+    "minute": 88,
     "home": {
      "name": "佩迪卡斯堡U19",
      "score": 1,
@@ -7958,7 +7958,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 19:00:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "费内巴切U19",
      "score": 3,
@@ -8136,7 +8136,7 @@ const FOOTBALL_DATA = {
      "color": "DD8800"
     },
     "time": "2026-11-04 19:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "琴斯托霍瓦II隊",
      "score": 0,
@@ -8412,7 +8412,7 @@ const FOOTBALL_DATA = {
      "color": "8c6e0b"
     },
     "time": "2026-11-04 20:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "勒基(女)",
      "score": 0,
@@ -8564,10 +8564,10 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 20:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "薩格勒布戴拿模U19",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 0
     },
@@ -8930,7 +8930,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 20:15:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "武里南联",
      "score": 0,
