@@ -1,10 +1,30 @@
 {
- "updated": "2026-11-04 11:26",
+ "updated": "2026-11-04 11:37",
  "red": 1,
  "black": 1,
  "rate": "50.0%",
- "unfinished": 1,
+ "unfinished": 2,
  "history": [
+  {
+   "dateStr": "2026-11-04 11:28",
+   "finishTime": 1793762880000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周三005",
+     "teams": "莱红牛 vs 曼城",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.2,
+     "status": "pending",
+     "finishTime": 1793762880000,
+     "league": "欧冠",
+     "odds": 1.5,
+     "time": "2026-11-05 04:00"
+    }
+   ]
+  },
   {
    "dateStr": "2026-11-04 04:05",
    "finishTime": 1793736300000,
