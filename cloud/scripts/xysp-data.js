@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 23:56
+   更新时间：2026-11-05 00:00
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 23:56",
+ "updated": "2026-11-05 00:00",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2295,7 +2295,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:56:01.671Z",
      "whenMs": 1793787417000,
-     "seenMs": 1793807161656,
+     "seenMs": 1793807761671,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793787961436,
@@ -2445,7 +2445,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:56:01.671Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793807161656,
+     "seenMs": 1793807761671,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -2475,7 +2475,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:56:01.671Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793807161656,
+     "seenMs": 1793807761671,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -2505,7 +2505,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T15:56:01.671Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793807161656,
+     "seenMs": 1793807761671,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -4380,66 +4380,6 @@ const XYSP_DATA = {
      "when": "2026-11-04 17:27:07",
      "postId": "7704245450757145088",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=9KeaGNwbY2SLgcDL%2FJA7lTjgOEc%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=9KeaGNwbY2SLgcDL%2FJA7lTjgOEc%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=oihxXRQZxBlwYNWh5ykmluUSpA0%3D",
-     "title": "从672元到8元！26126期双色球晒票反差拉满",
-     "url": "http://toutiao.com/item/7703975343492858410/",
-     "at": "2026-11-03T16:06:01.629Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-04T15:46:01.656Z",
-     "whenMs": 1793721537000,
-     "seenMs": 1793807161656,
-     "drawMs": 1793884500000,
-     "nextMs": 1793884500000,
-     "atMs": 1793721961629,
-     "drawAt": "2026-11-05T13:15:00.000Z",
-     "nextAt": 1793884500000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T16:06:01.629Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 23:58:57",
-     "postId": "7703975343492858410",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d6d3caf65ea044578d11ccb2b7cd00d7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=PxSWY0MOyZOJrNvcDqsTwsJ9zlo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d6d3caf65ea044578d11ccb2b7cd00d7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=PxSWY0MOyZOJrNvcDqsTwsJ9zlo%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/80e7252f2b1a46d0a84578a966ee980a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=oihxXRQZxBlwYNWh5ykmluUSpA0%3D",
-     "title": "从672元到8元！26126期双色球晒票反差拉满",
-     "url": "http://toutiao.com/item/7703975343492858410/",
-     "at": "2026-11-03T16:06:01.629Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-04T15:46:01.656Z",
-     "whenMs": 1793721537000,
-     "seenMs": 1793807161656,
-     "drawMs": 1793884500000,
-     "nextMs": 1793884500000,
-     "atMs": 1793721961629,
-     "drawAt": "2026-11-05T13:15:00.000Z",
-     "nextAt": 1793884500000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T16:06:01.629Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 23:58:57",
-     "postId": "7703975343492858410",
-     "px": 132300
     }
    ]
   },
@@ -4472,9 +4412,7 @@ const XYSP_DATA = {
      "author": "小浩体育",
      "when": "2026-11-04 21:05:17",
      "postId": "7704301037473120808",
-     "px": 132300,
-     "imgPx": 132300,
-     "dedupeImgs": 2
+     "px": 132300
     },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/96f07aae2c684901863e9b9c1a72a400~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Fe2ZGh00Ongcy2nC2fl4PF5xCaU%3D",
