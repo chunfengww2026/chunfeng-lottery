@@ -8685,7 +8685,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-04 14:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "天津聖德女足",
      "score": 0,
