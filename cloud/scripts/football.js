@@ -136,16 +136,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "塞普特姆裡U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "費倫天拿U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -8638,10 +8638,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "伯希卡特德波",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 4
     },
@@ -8704,10 +8704,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "馬魯特聯",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 8
     },
@@ -8754,7 +8754,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 74,
+    "minute": 79,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 2,
@@ -8820,7 +8820,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
@@ -8886,7 +8886,7 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 27,
+    "minute": 32,
     "home": {
      "name": "卡尔希雅U19",
      "score": 1,
@@ -8964,7 +8964,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "雅典AEKU19",
      "score": 1,
@@ -9042,7 +9042,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "FC首尔",
      "score": 0,
@@ -9120,7 +9120,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 30,
+    "minute": 35,
     "home": {
      "name": "浦项制铁",
      "score": 0,
@@ -9129,7 +9129,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "大阪钢巴",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 16
     },
