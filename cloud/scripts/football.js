@@ -242,7 +242,7 @@ const FOOTBALL_DATA = {
      "color": "938f11"
     },
     "time": "2026-11-04 07:00:00",
-    "minute": 100,
+    "minute": 102,
     "home": {
      "name": "欧若拉",
      "score": 3,
@@ -280,7 +280,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 80,
+    "minute": 82,
     "home": {
      "name": "帕斯托",
      "score": 1,
@@ -346,7 +346,7 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 07:30:00",
-    "minute": 62,
+    "minute": 64,
     "home": {
      "name": "塔赤雷",
      "score": 2,
@@ -412,7 +412,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 08:30:00",
-    "minute": 27,
+    "minute": 29,
     "home": {
      "name": "國際體育會RS",
      "score": 0,
