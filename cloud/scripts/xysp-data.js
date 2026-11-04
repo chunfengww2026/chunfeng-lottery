@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:50
+   更新时间：2026-11-04 17:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 17:50",
+ "updated": "2026-11-04 17:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4763,36 +4763,6 @@ const XYSP_DATA = {
      "author": "都市知心2",
      "when": "2026-11-03 18:01:48",
      "postId": "7703883050220683816",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/972adaecf4484ed68d3e8e5db4030d87~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=zFkZCU4aE7Fx61QaGm07ORZJiFw%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/972adaecf4484ed68d3e8e5db4030d87~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=zFkZCU4aE7Fx61QaGm07ORZJiFw%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/972adaecf4484ed68d3e8e5db4030d87~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=hZjW55N8HXuqFb5kDucSkkKBp4o%3D",
-     "title": "10元擒下3050万！山西彩民双色球中奖细节曝光：5倍投注赢大奖！",
-     "url": "https://toutiao.com/group/7703880547185082895/",
-     "at": "2026-11-03T09:56:01.337Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:16:01.320Z",
-     "whenMs": 1793699569000,
-     "seenMs": 1793700961320,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793699761337,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T09:56:01.337Z",
-     "rule": "first-capture-24h",
-     "author": "谭谈彩运",
-     "when": "2026-11-03 17:52:49",
-     "postId": "7703880547185082895",
      "px": 132300
     }
    ]
