@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "斯利纳U19",
      "score": 0,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 16,
+    "minute": 21,
     "home": {
      "name": "NFA卡奥拿斯",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 18,
+    "minute": 23,
     "home": {
      "name": "雷恩",
      "score": 0,
@@ -6210,7 +6210,7 @@ const FOOTBALL_DATA = {
      "color": "cc3300"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "阿联酋U17",
      "score": 1,
@@ -6219,7 +6219,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "埃及(U17)",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
@@ -6276,7 +6276,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "纳萨夫女足",
      "score": 1,
@@ -6342,7 +6342,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "東孟加拉(女)",
      "score": 1,
@@ -6408,10 +6408,10 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "亚蒙克",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 4
     },
@@ -6454,7 +6454,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "伯根",
      "score": 0,
@@ -6520,7 +6520,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "阿爾賈茲拉艾哈邁迪",
      "score": 0,
@@ -6586,7 +6586,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 46,
+    "minute": 0,
     "home": {
      "name": "泽德",
      "score": 0,
