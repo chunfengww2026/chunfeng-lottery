@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 08:30:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "國際體育會RS",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 18
     },
     "away": {
      "name": "科里蒂巴",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 11
     },
@@ -381,7 +381,7 @@ const FOOTBALL_DATA = {
      "color": "938f11"
     },
     "time": "2026-11-04 07:00:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "欧若拉",
      "score": 3,
@@ -447,7 +447,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 52,
+    "minute": 57,
     "home": {
      "name": "帕斯托",
      "score": 0,
