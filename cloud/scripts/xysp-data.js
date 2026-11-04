@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 18:10
+   更新时间：2026-11-04 18:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 18:10",
+ "updated": "2026-11-04 18:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2010,20 +2010,6 @@ const XYSP_DATA = {
      "atMs": 1793701588609,
      "seenMs": 1793701588609,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/89fbdf8d-bbd6-4c84-844d-ee1f299cf8f71793699394418.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/89fbdf8d-bbd6-4c84-844d-ee1f299cf8f71793699394418.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]和值.7.9.11.16，胆.9",
-     "url": "",
-     "at": "2026-11-03T10:15:04.115Z",
-     "pubAt": "2026-11-03T09:50:00.000Z",
-     "pubMs": 1793699400000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793700904115,
-     "seenMs": 1793700904115,
-     "whenMs": null
     }
    ]
   },
@@ -2590,9 +2576,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kD0XmcvqBIdtDoHz2HRtO35EUF0%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kD0XmcvqBIdtDoHz2HRtO35EUF0%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=MnjL3ozr1G5AXHzAD%2Fc1WTJyj3I%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qfVEIio3HgKrgEvGg7vd0uSYqJw%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/c440999b62a34dc4a2263778117940d9~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=VAqpmxDn6VIBWvQIgQg1qdiX%2BdM%3D",
      "title": "03成香饽饽，被老板搞批发？疯狂撞号太绝了！双色球26126期晒票",
      "url": "http://toutiao.com/item/7704208668522185225/",
      "at": "2026-11-04T07:26:01.347Z",
@@ -2603,9 +2589,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-04T10:06:01.425Z",
+     "seen": "2026-11-04T10:16:01.435Z",
      "whenMs": 1793775863000,
-     "seenMs": 1793786761425,
+     "seenMs": 1793787361435,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793777161347,
@@ -2633,7 +2619,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-04T10:06:01.425Z",
+     "seen": "2026-11-04T10:16:01.435Z",
      "whenMs": 1793775863000,
      "seenMs": 1793786761425,
      "drawMs": 1793884500000,
@@ -4345,7 +4331,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-04T09:56:01.415Z",
+     "seen": "2026-11-04T10:16:01.435Z",
      "whenMs": 1793713500000,
      "seenMs": 1793786161415,
      "drawMs": 1793884500000,
@@ -6867,6 +6853,7 @@ const XYSP_DATA = {
   "/2026-11-04/6b8fe335-7247-4b1e-bd68-d9996321bd561793780639255.jpg": 1793782203444,
   "/2026-11-04/35d8d7cd-bef0-4ab4-a2d1-adeca2dea3db1793782160023.jpg": 1793783192734,
   "/2026-11-04/7e7decad-da8f-47d8-9018-dd0be61fcb601793782187320.jpg": 1793783192734,
-  "/2026-11-04/7dbd8b90-5a40-4c91-ace2-90599248b4011793782664733.jpg": 1793784004223
+  "/2026-11-04/7dbd8b90-5a40-4c91-ace2-90599248b4011793782664733.jpg": 1793784004223,
+  "/2026-11-04/79fda2c8-79b5-400d-a486-8312803306fb1793782133189.jpg": 1793787383439
  }
 };
