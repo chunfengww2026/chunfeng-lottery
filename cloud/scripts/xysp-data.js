@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 10:30
+   更新时间：2026-11-04 10:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 10:30",
+ "updated": "2026-11-04 10:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2685,7 +2685,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a866fd3f03b641178515b5d63115d513~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=yVcCR1dd%2FxxvZu5oV7mDOtx8RQM%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a866fd3f03b641178515b5d63115d513~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=DHnBUtcghtKA8GFk%2B%2FYHMucr3NA%3D",
      "title": "9倍小票悬念拉满，2.6万复式组合戏份十足！第26126期双色球晒票",
      "url": "http://toutiao.com/item/7704100864001638963/",
      "at": "2026-11-04T00:26:02.023Z",
@@ -2696,7 +2696,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26126",
-     "seen": "2026-11-04T02:26:02.100Z",
+     "seen": "2026-11-04T02:36:02.109Z",
      "whenMs": 1793750762000,
      "seenMs": 1793759162100,
      "drawMs": 1793884500000,
