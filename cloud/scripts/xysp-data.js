@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 16:46
+   更新时间：2026-11-04 16:50
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 16:46",
+ "updated": "2026-11-04 16:50",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -274,6 +274,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/6b8fe335-7247-4b1e-bd68-d9996321bd561793780639255.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/6b8fe335-7247-4b1e-bd68-d9996321bd561793780639255.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]今晚单挑。",
+     "url": "",
+     "at": "2026-11-04T08:50:03.444Z",
+     "pubAt": "2026-11-04T08:24:00.000Z",
+     "pubMs": 1793780640000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793782203444,
+     "seenMs": 1793782203444,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-04/03ad917c-9e9c-4f5d-8f77-bbc4a2d7296f1793777927507.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/03ad917c-9e9c-4f5d-8f77-bbc4a2d7296f1793777927507.jpg?imageMogr2/thumbnail/360x",
@@ -3890,7 +3904,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793750762000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793751962023,
@@ -4221,7 +4235,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793746058000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793747161938,
@@ -4251,7 +4265,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793746058000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793747161938,
@@ -4311,7 +4325,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -4341,7 +4355,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -4521,7 +4535,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T08:46:01.359Z",
      "whenMs": 1793709371000,
-     "seenMs": 1793780761364,
+     "seenMs": 1793781961359,
      "drawMs": 1793712600000,
      "nextMs": 1793712600000,
      "atMs": 1793709961442,
@@ -5345,36 +5359,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-03 17:10:07",
      "postId": "7703869877416739370",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e96ca916c39a4c1dae19e84283b62b01~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2B6hnVbQPwoZrZdMfKDkr2rTtCJE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e96ca916c39a4c1dae19e84283b62b01~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2B6hnVbQPwoZrZdMfKDkr2rTtCJE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e96ca916c39a4c1dae19e84283b62b01~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=O2u%2Fg%2B7Q%2FQV%2Bv8xTxl8d8zsu%2F5U%3D",
-     "title": "#该不该坚持买彩票##作者加速成长计划##彩票真实案例# \n标题：快乐8选7胆6拖12元小票拆解，看懂胆拖逻辑\n正文：\n一张12元的选7胆拖票，胆6拖6，一共6注。\n6个胆是核心，想要拿下1万大奖，首要条件就是6个胆全部命中，并且拖码中开出",
-     "url": "sslocal://thread_detail?fid=1683064059522071&tid=1880826260079628",
-     "at": "2026-11-03T09:06:01.238Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:06:01.319Z",
-     "whenMs": 1793695698000,
-     "seenMs": 1793700361319,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793696761238,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T09:06:01.238Z",
-     "rule": "first-capture-24h",
-     "author": "渡尘归",
-     "when": "2026-11-03 16:48:18",
-     "postId": "1880826260079628",
      "px": 132300
     }
    ]
@@ -7549,6 +7533,7 @@ const XYSP_DATA = {
   "/2026-11-04/03ad917c-9e9c-4f5d-8f77-bbc4a2d7296f1793777927507.jpg": 1793778905666,
   "/2026-11-04/fdd20dc8-b337-43a8-9f20-6a7490439b751793777927529.jpg": 1793778905666,
   "/2026-11-04/fde8c429-53fa-4d0a-ab10-1b4009fb1e4f1793778755722.jpg": 1793780106020,
-  "/2026-11-04/5334cbd5-4e97-46a3-82f5-8e4bee60a8a41793779636933.jpg": 1793780788993
+  "/2026-11-04/5334cbd5-4e97-46a3-82f5-8e4bee60a8a41793779636933.jpg": 1793780788993,
+  "/2026-11-04/6b8fe335-7247-4b1e-bd68-d9996321bd561793780639255.jpg": 1793782203444
  }
 };
