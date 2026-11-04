@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "斯莱曼",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 17
     },
     "away": {
      "name": "尖米士",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "巴姆卡通(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "納戈揚(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -144,16 +144,16 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "4月25日(女)",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "胡志明市女足",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
@@ -8708,7 +8708,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "墨尔本胜利",
      "score": 0,
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
