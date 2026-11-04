@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 19:36
+   更新时间：2026-11-04 19:40
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 19:36",
+ "updated": "2026-11-04 19:40",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -246,6 +246,20 @@ const XYSP_DATA = {
   "dlt": {
    "name": "大乐透",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/5d618bb7-0908-4bdf-a4b0-ea4d0bc343bd1793791354200.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/5d618bb7-0908-4bdf-a4b0-ea4d0bc343bd1793791354200.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26126期]提前打的票和大复试都重复了！！还能开吗？？",
+     "url": "",
+     "at": "2026-11-04T11:40:03.993Z",
+     "pubAt": "2026-11-04T11:22:00.000Z",
+     "pubMs": 1793791320000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793792403993,
+     "seenMs": 1793792403993,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-04/56870080-c865-4abe-aa9f-a0f617a640001793789365405.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/56870080-c865-4abe-aa9f-a0f617a640001793789365405.jpg?imageMogr2/thumbnail/360x",
@@ -2569,7 +2583,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T11:36:01.490Z",
      "whenMs": 1793787417000,
-     "seenMs": 1793791561476,
+     "seenMs": 1793792161490,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793787961436,
@@ -2719,7 +2733,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T11:36:01.490Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793791561476,
+     "seenMs": 1793792161490,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -2749,7 +2763,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T11:36:01.490Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793791561476,
+     "seenMs": 1793792161490,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -4731,7 +4745,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T11:36:01.490Z",
      "whenMs": 1793713500000,
-     "seenMs": 1793790961471,
+     "seenMs": 1793792161490,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793714161492,
@@ -4953,66 +4967,6 @@ const XYSP_DATA = {
      "author": "柠檬浅尝酸甜",
      "when": "2026-11-03 20:19:09",
      "postId": "1880839526285312",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fc85b1d00d7d440a84562c2cbb442ebc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=T%2BbpFobkFbn8tXh7hA2N0KmKLd8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fc85b1d00d7d440a84562c2cbb442ebc~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=T%2BbpFobkFbn8tXh7hA2N0KmKLd8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fc85b1d00d7d440a84562c2cbb442ebc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ZoyVQh2jqsrvp8vJokTo340vxHw%3D",
-     "title": "双色球第26126期晒票：最贵不过10元，小票选号也很认真",
-     "url": "http://toutiao.com/item/7703907938510832166/",
-     "at": "2026-11-03T11:46:01.385Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-04T05:26:01.240Z",
-     "whenMs": 1793705844000,
-     "seenMs": 1793769961240,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793706361385,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T11:46:01.385Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 19:37:24",
-     "postId": "7703907938510832166",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b803ebd2ea2f48cd8d755e514b6649be~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Bv%2F8LSx9kI0O2CZ0i1Lu4oljCpg%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b803ebd2ea2f48cd8d755e514b6649be~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Bv%2F8LSx9kI0O2CZ0i1Lu4oljCpg%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/fc85b1d00d7d440a84562c2cbb442ebc~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=ZoyVQh2jqsrvp8vJokTo340vxHw%3D",
-     "title": "双色球第26126期晒票：最贵不过10元，小票选号也很认真",
-     "url": "http://toutiao.com/item/7703907938510832166/",
-     "at": "2026-11-03T11:46:01.385Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-04T05:26:01.240Z",
-     "whenMs": 1793705844000,
-     "seenMs": 1793769961240,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793706361385,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T11:46:01.385Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 19:37:24",
-     "postId": "7703907938510832166",
      "px": 132300
     }
    ]
@@ -7217,6 +7171,7 @@ const XYSP_DATA = {
   "/2026-11-04/5d7088d7-5a45-4206-a1b8-f33b76ef7f1a1793790561257.jpg": 1793791804682,
   "/2026-11-04/88467ea6-8e6e-4aac-a6fa-8cee30f0afbd1793791065258.jpg": 1793791804682,
   "/2026-11-04/986a95de-d12f-4778-a41b-01a68fb6248c1793791065262.jpg": 1793791804682,
-  "/2026-11-04/45be8e44-e2db-41f1-aed9-9e33f491ea891793791065257.jpg": 1793791804682
+  "/2026-11-04/45be8e44-e2db-41f1-aed9-9e33f491ea891793791065257.jpg": 1793791804682,
+  "/2026-11-04/5d618bb7-0908-4bdf-a4b0-ea4d0bc343bd1793791354200.jpg": 1793792403993
  }
 };
