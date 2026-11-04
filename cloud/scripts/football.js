@@ -8281,7 +8281,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-11-04 12:01:00",
-    "minute": 77,
+    "minute": 82,
     "home": {
      "name": "J利斯",
      "score": 0,
@@ -8327,7 +8327,7 @@ const FOOTBALL_DATA = {
      "color": "33CC00"
     },
     "time": "2026-11-04 13:00:00",
-    "minute": 31,
+    "minute": 36,
     "home": {
      "name": "大阪俱乐部",
      "score": 0,
