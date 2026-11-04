@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 10:10
+   更新时间：2026-11-04 10:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 10:10",
+ "updated": "2026-11-04 10:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4724,36 +4724,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 10:21:59",
      "postId": "7703764809736520255",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ee3dca340f224584906544bbd181d23d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Q9%2BGL0kbgoB5rarrh%2BbkEgJWr8o%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ee3dca340f224584906544bbd181d23d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Q9%2BGL0kbgoB5rarrh%2BbkEgJWr8o%3D",
-     "big": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/ee3dca340f224584906544bbd181d23d~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=1GSNb3TN6Eri3SBuNaAv5RD6jBI%3D",
-     "title": "快乐8选号别乱挑！四区冷热搭配，和瞎选完全两码事",
-     "url": "https://toutiao.com/group/7703731588722393619/",
-     "at": "2026-11-03T02:46:01.896Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T17:46:01.712Z",
-     "whenMs": 1793672100000,
-     "seenMs": 1793727961712,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793673961896,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T02:46:01.896Z",
-     "rule": "first-capture-24h",
-     "author": "小李爱分享",
-     "when": "2026-11-03 10:15:00",
-     "postId": "7703731588722393619",
-     "px": 132300
     }
    ]
   },
@@ -6832,6 +6802,7 @@ const XYSP_DATA = {
   "/2026-11-04/ca415cf3-6470-4af9-8d4e-73c31b08dad01793756578985.jpg": 1793757603669,
   "/2026-11-04/d0b0fb4b-3385-4eb6-abeb-8e1624742cbe1793756463742.jpg": 1793757603669,
   "/2026-11-04/53c53390-4fd1-4501-a44a-33793a4f74051793756492966.jpg": 1793757603669,
-  "/2026-11-04/64d9be07-4831-4a07-9cad-e6d4e21446d01793756789159.jpg": 1793757903371
+  "/2026-11-04/64d9be07-4831-4a07-9cad-e6d4e21446d01793756789159.jpg": 1793757903371,
+  "/2026-11-04/03b40fc7-6451-4791-a08d-2a42dc6ef4bf1793757930010.jpg": 1793758503904
  }
 };
