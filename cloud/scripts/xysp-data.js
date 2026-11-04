@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 20:16
+   更新时间：2026-11-04 20:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 20:16",
+ "updated": "2026-11-04 20:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1075,20 +1075,6 @@ const XYSP_DATA = {
      "nextAt": 1793711700000,
      "atMs": 1793709903860,
      "seenMs": 1793709903860,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/fad46772-a476-43ec-a9f9-de457b90e2991793707343267.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/fad46772-a476-43ec-a9f9-de457b90e2991793707343267.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]一年没有红过了，今天换个玩法，红一个就知足了",
-     "url": "",
-     "at": "2026-11-03T12:20:03.347Z",
-     "pubAt": "2026-11-03T12:02:00.000Z",
-     "pubMs": 1793707320000,
-     "pubSrc": "page",
-     "nextAt": 1793711700000,
-     "atMs": 1793708403347,
-     "seenMs": 1793708403347,
      "whenMs": null
     }
    ]
@@ -2393,48 +2379,6 @@ const XYSP_DATA = {
      "atMs": 1793709903860,
      "seenMs": 1793709903860,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/1611ae69-0927-4601-9fbe-9f7e3826bdc91793707746205.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/1611ae69-0927-4601-9fbe-9f7e3826bdc91793707746205.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]非常 了",
-     "url": "",
-     "at": "2026-11-03T12:20:03.347Z",
-     "pubAt": "2026-11-03T12:09:00.000Z",
-     "pubMs": 1793707740000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793708403347,
-     "seenMs": 1793708403347,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/0bb63760-4e91-472c-a05d-93ca2d7efacb1793707746260.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/0bb63760-4e91-472c-a05d-93ca2d7efacb1793707746260.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]非常 了",
-     "url": "",
-     "at": "2026-11-03T12:20:03.347Z",
-     "pubAt": "2026-11-03T12:09:00.000Z",
-     "pubMs": 1793707740000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793708403347,
-     "seenMs": 1793708403347,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/5d025918-1407-4eed-b8c1-594f8835c9cb1793707746265.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/5d025918-1407-4eed-b8c1-594f8835c9cb1793707746265.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]非常 了",
-     "url": "",
-     "at": "2026-11-03T12:20:03.347Z",
-     "pubAt": "2026-11-03T12:09:00.000Z",
-     "pubMs": 1793707740000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793708403347,
-     "seenMs": 1793708403347,
-     "whenMs": null
     }
    ]
   },
@@ -2825,7 +2769,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T12:16:01.507Z",
      "whenMs": 1793783350000,
-     "seenMs": 1793793961498,
+     "seenMs": 1793794561507,
      "drawMs": 1793798100000,
      "nextMs": 1793798100000,
      "atMs": 1793789761447,
@@ -3065,7 +3009,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T12:16:01.507Z",
      "whenMs": 1793775863000,
-     "seenMs": 1793793961498,
+     "seenMs": 1793794561507,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793777161347,
@@ -3846,7 +3790,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T12:16:01.507Z",
      "whenMs": 1793759984000,
-     "seenMs": 1793790961471,
+     "seenMs": 1793794561507,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793760962124,
@@ -4777,7 +4721,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T12:16:01.507Z",
      "whenMs": 1793713500000,
-     "seenMs": 1793792161490,
+     "seenMs": 1793794561507,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793714161492,
@@ -4969,36 +4913,6 @@ const XYSP_DATA = {
      "author": "强哥的宝藏日常",
      "when": "2026-11-03 20:30:31",
      "postId": "7703921271834264073",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b2e1b8f151514430990c114e6614f268~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kJztEqt87grLFStYa35Z%2BLmZ%2BO4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b2e1b8f151514430990c114e6614f268~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=kJztEqt87grLFStYa35Z%2BLmZ%2BO4%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b2e1b8f151514430990c114e6614f268~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=xSRg5sx2BxIvLf2o68DEUpQSOoY%3D",
-     "title": "天上掉馅饼！陕西西安，一个男的欠了一屁股债。他走投无路，想买彩票碰碰运气。他每次花 100 到 300 块买彩票，但不是期期都买。万万没想到，他才买了 2 个月，居然中了快乐 8 彩票 508 万大奖。不可思议的是，他写出 80 个号码，让",
-     "url": "http://toutiao.com/preview_article/?pgc_id=1880839526285312",
-     "at": "2026-11-03T12:26:01.446Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "快乐8",
-     "games": [
-      "kl8"
-     ],
-     "issue": "",
-     "seen": "2026-11-04T00:06:02.004Z",
-     "whenMs": 1793708349000,
-     "seenMs": 1793750762004,
-     "drawMs": 1793712600000,
-     "nextMs": 1793712600000,
-     "atMs": 1793708761446,
-     "drawAt": "2026-11-03T13:30:00.000Z",
-     "nextAt": 1793712600000,
-     "drawGid": "kl8",
-     "expireAt": "2026-11-04T12:26:01.446Z",
-     "rule": "first-capture-24h",
-     "author": "柠檬浅尝酸甜",
-     "when": "2026-11-03 20:19:09",
-     "postId": "1880839526285312",
      "px": 132300
     }
    ]
