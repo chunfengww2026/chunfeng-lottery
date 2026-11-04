@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "利马联盟",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 8
     },
     "away": {
      "name": "西恩夏诺",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "体育圣何西",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 2
     },
     "away": {
      "name": "佩雷斯泽内度",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 10
     },
@@ -280,7 +280,7 @@ const FOOTBALL_DATA = {
      "color": "993333"
     },
     "time": "2026-11-04 07:20:00",
-    "minute": 82,
+    "minute": 87,
     "home": {
      "name": "帕斯托",
      "score": 1,
@@ -346,10 +346,10 @@ const FOOTBALL_DATA = {
      "color": "79A836"
     },
     "time": "2026-11-04 07:30:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "塔赤雷",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 2
     },
@@ -412,7 +412,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 08:30:00",
-    "minute": 29,
+    "minute": 34,
     "home": {
      "name": "國際體育會RS",
      "score": 0,
