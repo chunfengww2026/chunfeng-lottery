@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "斯莱曼",
-     "score": 1,
+     "score": 2,
      "red": null,
      "rank": 17
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 45,
+    "minute": 0,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -144,7 +144,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 44,
+    "minute": 0,
     "home": {
      "name": "4月25日(女)",
      "score": 2,
@@ -194,7 +194,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 15,
+    "minute": 20,
     "home": {
      "name": "馬魯特聯",
      "score": 1,
@@ -267,7 +267,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 14,
+    "minute": 19,
     "home": {
      "name": "伯希卡特德波",
      "score": 0,
@@ -340,7 +340,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 15,
+    "minute": 20,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 0,
@@ -413,16 +413,16 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 0,
+    "minute": 3,
     "home": {
      "name": "布拉格斯巴达B队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 7
     },
     "away": {
      "name": "比尔森B队",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 3
     },
@@ -8708,7 +8708,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 72,
+    "minute": 77,
     "home": {
      "name": "墨尔本胜利",
      "score": 1,
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
