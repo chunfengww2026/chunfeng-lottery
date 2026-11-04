@@ -7559,7 +7559,7 @@ const FOOTBALL_DATA = {
      "color": "00A668"
     },
     "time": "2026-11-04 12:01:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "J利斯",
      "score": 0,
@@ -7568,7 +7568,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "橫川武藏野",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 16
     },
