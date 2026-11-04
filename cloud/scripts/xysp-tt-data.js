@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 08:06:02
+   更新时间：2026-11-04 08:16:02
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-04 08:06:02",
+ "updated": "2026-11-04 08:16:02",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/5fe4dd8849a1438cbb81a273737c05c4~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=80jEfZMVxeNmFJT6lTDbv2AMW8M%3D",
@@ -433,9 +433,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aKrhbwRfjALFgUcYb5QzHOfMB2M%3D",
-   "big": "https://p9-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=RGFJZslDK5%2FFOgL6YENsatiouBM%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qnftB3GXmhdylmJ3GcRmloV%2Bn2I%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=qnftB3GXmhdylmJ3GcRmloV%2Bn2I%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/297fc9fdf7344aa992662e1fbe3e6770~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=Wg632XXjiDQpJKqNGQ7O0bcfTSo%3D",
    "title": "10元搏中3050万！山西彩民5倍投双色球，这张神票火了",
    "url": "https://toutiao.com/group/7703778064760619547/",
    "at": "2026-11-03T13:56:01.492Z",
@@ -446,9 +446,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-03T23:56:01.996Z",
+   "seen": "2026-11-04T00:16:02.017Z",
    "whenMs": 1793713500000,
-   "seenMs": 1793750161996,
+   "seenMs": 1793751362017,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793714161492,
@@ -2802,66 +2802,6 @@ const XYSP_TT_DATA = {
    "author": "唐伯虎点蚊香",
    "when": "2026-11-03 08:27:28",
    "postId": "7703735181621936681",
-   "px": 132300
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nt5iqa4Q1K1ro9zlWybLEKbpTMQ%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nt5iqa4Q1K1ro9zlWybLEKbpTMQ%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qfDat3BNMGIuSiohFJWPXSq2Bj0%3D",
-   "title": "双色球26126期晒票：红球06、28组团撞号，蓝03惨遭“围剿”！",
-   "url": "https://toutiao.com/group/7703731476197638710/",
-   "at": "2026-11-03T00:16:01.790Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26126",
-   "seen": "2026-11-03T00:56:01.826Z",
-   "whenMs": 1793664789000,
-   "seenMs": 1793667361826,
-   "drawMs": 1793711700000,
-   "nextMs": 1793711700000,
-   "atMs": 1793664961790,
-   "drawAt": "2026-11-03T13:15:00.000Z",
-   "nextAt": 1793711700000,
-   "drawGid": "ssq",
-   "expireAt": "2026-11-04T00:16:01.790Z",
-   "rule": "first-capture-24h",
-   "author": "唐伯虎点蚊香",
-   "when": "2026-11-03 08:13:09",
-   "postId": "7703731476197638710",
-   "px": 132300
-  },
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2635694ebd7f489d8fd233230c014ad6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2FbfvfvvtAzrBlfdOs9BBoPENMDU%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2635694ebd7f489d8fd233230c014ad6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2FbfvfvvtAzrBlfdOs9BBoPENMDU%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qfDat3BNMGIuSiohFJWPXSq2Bj0%3D",
-   "title": "双色球26126期晒票：红球06、28组团撞号，蓝03惨遭“围剿”！",
-   "url": "https://toutiao.com/group/7703731476197638710/",
-   "at": "2026-11-03T00:16:01.790Z",
-   "src": "tt",
-   "cat": "tt",
-   "game": "双色球",
-   "games": [
-    "ssq"
-   ],
-   "issue": "26126",
-   "seen": "2026-11-03T00:56:01.826Z",
-   "whenMs": 1793664789000,
-   "seenMs": 1793667361826,
-   "drawMs": 1793711700000,
-   "nextMs": 1793711700000,
-   "atMs": 1793664961790,
-   "drawAt": "2026-11-03T13:15:00.000Z",
-   "nextAt": 1793711700000,
-   "drawGid": "ssq",
-   "expireAt": "2026-11-04T00:16:01.790Z",
-   "rule": "first-capture-24h",
-   "author": "唐伯虎点蚊香",
-   "when": "2026-11-03 08:13:09",
-   "postId": "7703731476197638710",
    "px": 132300
   },
   {
