@@ -8708,7 +8708,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 43,
+    "minute": 44,
     "home": {
      "name": "墨尔本胜利",
      "score": 0,
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 21,
+    "minute": 23,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
