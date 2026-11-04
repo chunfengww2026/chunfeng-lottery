@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 20:30
+   更新时间：2026-11-04 20:35
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 20:30",
+ "updated": "2026-11-04 20:35",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -618,6 +618,20 @@ const XYSP_DATA = {
     {
      "img": "https://img02.17chdd.com/2026-11-04/8e675707-b499-4aad-b456-f25f2bb739101793794155642.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/8e675707-b499-4aad-b456-f25f2bb739101793794155642.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]主要看7 5和7 2和4 参考参考 可能不是标准答案。",
+     "url": "",
+     "at": "2026-11-04T12:30:02.931Z",
+     "pubAt": "2026-11-04T12:11:00.000Z",
+     "pubMs": 1793794260000,
+     "pubSrc": "page",
+     "nextAt": 1793798100000,
+     "atMs": 1793795402931,
+     "seenMs": 1793795402931,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/25945d67-f448-4798-8656-3d8ca76bd9061793794155624.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/25945d67-f448-4798-8656-3d8ca76bd9061793794155624.jpg?imageMogr2/thumbnail/360x",
      "title": "[26294期]主要看7 5和7 2和4 参考参考 可能不是标准答案。",
      "url": "",
      "at": "2026-11-04T12:30:02.931Z",
@@ -4911,36 +4925,6 @@ const XYSP_DATA = {
      "author": "太洋河",
      "when": "2026-11-03 20:36:11",
      "postId": "1880839198801923",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4655a2a2903042248fbc9bd8ca41e7c2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=UrSiahtvlxHtwWwsF1vHPMzsW2M%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4655a2a2903042248fbc9bd8ca41e7c2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=UrSiahtvlxHtwWwsF1vHPMzsW2M%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/4655a2a2903042248fbc9bd8ca41e7c2~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fSrLmLfMzAx16IDH0lNKjS9kvfI%3D",
-     "title": "广州大哥293期排列三这张票，透着一股子老广的淡定。",
-     "url": "https://toutiao.com/group/7703921271834264073/",
-     "at": "2026-11-03T12:46:01.442Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "排列3",
-     "games": [
-      "pl3"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T15:46:01.604Z",
-     "whenMs": 1793709031000,
-     "seenMs": 1793720761604,
-     "drawMs": 1793795400000,
-     "nextMs": 1793795400000,
-     "atMs": 1793709961442,
-     "drawAt": "2026-11-04T12:30:00.000Z",
-     "nextAt": 1793795400000,
-     "drawGid": "pl3",
-     "expireAt": "2026-11-04T12:46:01.442Z",
-     "rule": "first-capture-24h",
-     "author": "强哥的宝藏日常",
-     "when": "2026-11-03 20:30:31",
-     "postId": "7703921271834264073",
      "px": 132300
     }
    ]
