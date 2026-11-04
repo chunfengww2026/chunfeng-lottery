@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:20
+   更新时间：2026-11-04 17:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 17:20",
+ "updated": "2026-11-04 17:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2378,20 +2378,6 @@ const XYSP_DATA = {
      "nextAt": 1793709000000,
      "atMs": 1793707589475,
      "seenMs": 1793707589475,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/9d3a6d8f-c795-442c-a9fc-1471aeb811421793696528955.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/9d3a6d8f-c795-442c-a9fc-1471aeb811421793696528955.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]前三和8*13，后两位4*9，好运。",
-     "url": "",
-     "at": "2026-11-03T09:25:03.785Z",
-     "pubAt": "2026-11-03T09:02:00.000Z",
-     "pubMs": 1793696520000,
-     "pubSrc": "page",
-     "nextAt": 1793709000000,
-     "atMs": 1793697903785,
-     "seenMs": 1793697903785,
      "whenMs": null
     }
    ]
@@ -4777,36 +4763,6 @@ const XYSP_DATA = {
      "author": "谭谈彩运",
      "when": "2026-11-03 17:52:49",
      "postId": "7703880547185082895",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd9b371747a94ad080b02f58d97bc625~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Kru2JgVReqxRu0l0cphoPFMdK8E%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/dd9b371747a94ad080b02f58d97bc625~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Kru2JgVReqxRu0l0cphoPFMdK8E%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0ab8798a04174939aad6d3ea13cafb61~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Vqvtsd0R%2FsLykr0Rq4v6cvEw%2BxQ%3D",
-     "title": "双色球第2026126期晒票来袭！复式、胆拖、倍投齐上阵",
-     "url": "https://toutiao.com/group/7703872827954315818/",
-     "at": "2026-11-03T09:26:01.268Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "2026126",
-     "seen": "2026-11-03T09:26:01.268Z",
-     "whenMs": 1793697798000,
-     "seenMs": 1793697961268,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793697961268,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T09:26:01.268Z",
-     "rule": "first-capture-24h",
-     "author": "数彩观察员",
-     "when": "2026-11-03 17:23:18",
-     "postId": "7703872827954315818",
      "px": 132300
     }
    ]
