@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "斯莱曼",
      "score": 1,
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -144,7 +144,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "4月25日(女)",
      "score": 2,
@@ -194,7 +194,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "馬魯特聯",
      "score": 1,
@@ -267,7 +267,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 9,
+    "minute": 14,
     "home": {
      "name": "伯希卡特德波",
      "score": 0,
@@ -340,7 +340,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 10,
+    "minute": 15,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 0,
@@ -8708,10 +8708,10 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 67,
+    "minute": 72,
     "home": {
      "name": "墨尔本胜利",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 9
     },
@@ -8786,7 +8786,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 45,
+    "minute": 50,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
