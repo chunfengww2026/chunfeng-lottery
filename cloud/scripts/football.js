@@ -127,7 +127,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-04 09:30:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "卡达根拿",
      "score": 2,
@@ -136,7 +136,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "金迪奥",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 4
     },
