@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 08:10
+   更新时间：2026-11-04 08:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 08:10",
+ "updated": "2026-11-04 08:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -5086,156 +5086,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-03 08:27:28",
      "postId": "7703735181621936681",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nt5iqa4Q1K1ro9zlWybLEKbpTMQ%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=nt5iqa4Q1K1ro9zlWybLEKbpTMQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qfDat3BNMGIuSiohFJWPXSq2Bj0%3D",
-     "title": "双色球26126期晒票：红球06、28组团撞号，蓝03惨遭“围剿”！",
-     "url": "https://toutiao.com/group/7703731476197638710/",
-     "at": "2026-11-03T00:16:01.790Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T00:56:01.826Z",
-     "whenMs": 1793664789000,
-     "seenMs": 1793667361826,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793664961790,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:16:01.790Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:13:09",
-     "postId": "7703731476197638710",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2635694ebd7f489d8fd233230c014ad6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2FbfvfvvtAzrBlfdOs9BBoPENMDU%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2635694ebd7f489d8fd233230c014ad6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2FbfvfvvtAzrBlfdOs9BBoPENMDU%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/fe9f6118041a4617bd7757ba47b221c1~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=qfDat3BNMGIuSiohFJWPXSq2Bj0%3D",
-     "title": "双色球26126期晒票：红球06、28组团撞号，蓝03惨遭“围剿”！",
-     "url": "https://toutiao.com/group/7703731476197638710/",
-     "at": "2026-11-03T00:16:01.790Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T00:56:01.826Z",
-     "whenMs": 1793664789000,
-     "seenMs": 1793667361826,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793664961790,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:16:01.790Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:13:09",
-     "postId": "7703731476197638710",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/131f8402ea5c42ccb5880feea42f8854~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Cu8PQilyti21Ot7J5K8gN2sCYYo%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/131f8402ea5c42ccb5880feea42f8854~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Cu8PQilyti21Ot7J5K8gN2sCYYo%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/131f8402ea5c42ccb5880feea42f8854~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fNDlO3lE3Q3hOuFlpA5q1fTeWMU%3D",
-     "title": "双色球26123期晒票：高倍死磕蓝08、09，跟风还是杀号？",
-     "url": "https://toutiao.com/group/7703730791280280107/",
-     "at": "2026-11-03T00:26:01.807Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26123",
-     "seen": "2026-11-03T00:46:01.818Z",
-     "whenMs": 1793664623000,
-     "seenMs": 1793666761818,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793665561807,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:26:01.807Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:10:23",
-     "postId": "7703730791280280107",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8e753546b9954073b9b2a9bee62ed79e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aefF7HXdYVpiSf7kqZk7rFFwDhk%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/8e753546b9954073b9b2a9bee62ed79e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=aefF7HXdYVpiSf7kqZk7rFFwDhk%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/131f8402ea5c42ccb5880feea42f8854~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fNDlO3lE3Q3hOuFlpA5q1fTeWMU%3D",
-     "title": "双色球26123期晒票：高倍死磕蓝08、09，跟风还是杀号？",
-     "url": "https://toutiao.com/group/7703730791280280107/",
-     "at": "2026-11-03T00:26:01.807Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26123",
-     "seen": "2026-11-03T00:46:01.818Z",
-     "whenMs": 1793664623000,
-     "seenMs": 1793666761818,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793665561807,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:26:01.807Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:10:23",
-     "postId": "7703730791280280107",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a1afada2fa8429d8af8c10f27887c45~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bKMiFmYi9O646XmlWeVu6Fw4T3w%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a1afada2fa8429d8af8c10f27887c45~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=bKMiFmYi9O646XmlWeVu6Fw4T3w%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/131f8402ea5c42ccb5880feea42f8854~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fNDlO3lE3Q3hOuFlpA5q1fTeWMU%3D",
-     "title": "双色球26123期晒票：高倍死磕蓝08、09，跟风还是杀号？",
-     "url": "https://toutiao.com/group/7703730791280280107/",
-     "at": "2026-11-03T00:26:01.807Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26123",
-     "seen": "2026-11-03T00:46:01.818Z",
-     "whenMs": 1793664623000,
-     "seenMs": 1793666761818,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793665561807,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T00:26:01.807Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 08:10:23",
-     "postId": "7703730791280280107",
      "px": 132300
     }
    ]
