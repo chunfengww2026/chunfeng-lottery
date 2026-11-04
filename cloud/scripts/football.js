@@ -8639,7 +8639,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-04 14:00:00",
-    "minute": 53,
+    "minute": 58,
     "home": {
      "name": "山西喜華(女)",
      "score": 0,
@@ -8648,7 +8648,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "廣東體彩(女)",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 0
     },
@@ -8685,7 +8685,7 @@ const FOOTBALL_DATA = {
      "color": "bf457e"
     },
     "time": "2026-11-04 14:00:00",
-    "minute": 55,
+    "minute": 60,
     "home": {
      "name": "天津聖德女足",
      "score": 0,
