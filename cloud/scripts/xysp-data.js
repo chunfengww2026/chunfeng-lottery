@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 21:06
+   更新时间：2026-11-04 21:10
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 21:06",
+ "updated": "2026-11-04 21:10",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1110,6 +1110,34 @@ const XYSP_DATA = {
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/df09810f-6c1e-4d98-82ab-3433e4e5659e1793796602486.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/df09810f-6c1e-4d98-82ab-3433e4e5659e1793796602486.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]来财",
+     "url": "",
+     "at": "2026-11-04T13:10:05.349Z",
+     "pubAt": "2026-11-04T12:50:00.000Z",
+     "pubMs": 1793796600000,
+     "pubSrc": "page",
+     "nextAt": 1793799000000,
+     "atMs": 1793797805349,
+     "seenMs": 1793797805349,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/7f9506d0-dbe4-4cc7-a86b-deb0b49b4e331793796260607.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/7f9506d0-dbe4-4cc7-a86b-deb0b49b4e331793796260607.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]中",
+     "url": "",
+     "at": "2026-11-04T13:10:05.349Z",
+     "pubAt": "2026-11-04T12:44:00.000Z",
+     "pubMs": 1793796240000,
+     "pubSrc": "page",
+     "nextAt": 1793799000000,
+     "atMs": 1793797805349,
+     "seenMs": 1793797805349,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-04/7ad10e2e-72ef-490f-9a74-df6acff652c91793793237242.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/7ad10e2e-72ef-490f-9a74-df6acff652c91793793237242.jpg?imageMogr2/thumbnail/360x",
@@ -2409,7 +2437,7 @@ const XYSP_DATA = {
      "issue": "26293",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793795661000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793799000000,
      "nextMs": 1793799000000,
      "atMs": 1793796361554,
@@ -2499,7 +2527,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793788338000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793789161446,
@@ -2529,7 +2557,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793788338000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793789161446,
@@ -2589,7 +2617,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793787417000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793787961436,
@@ -4661,7 +4689,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793728525000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793799000000,
      "nextMs": 1793799000000,
      "atMs": 1793729161718,
@@ -4691,7 +4719,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -4721,7 +4749,7 @@ const XYSP_DATA = {
      "issue": "26126",
      "seen": "2026-11-04T13:06:01.549Z",
      "whenMs": 1793721537000,
-     "seenMs": 1793796361554,
+     "seenMs": 1793797561549,
      "drawMs": 1793884500000,
      "nextMs": 1793884500000,
      "atMs": 1793721961629,
@@ -4793,96 +4821,6 @@ const XYSP_DATA = {
      "author": "真诚旭日",
      "when": "2026-11-03 21:39:08",
      "postId": "1880844557839372",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ui2ked%2FdVvBg%2FSgTZHPXfLPHyx4%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ui2ked%2FdVvBg%2FSgTZHPXfLPHyx4%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=yyTmOdk6cPIgheqylz89K11KsS0%3D",
-     "title": "1848元复式登场！126期双色球多张晒票同台亮相",
-     "url": "http://toutiao.com/item/7703931353074500132/",
-     "at": "2026-11-03T13:26:01.468Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T18:46:01.750Z",
-     "whenMs": 1793711295000,
-     "seenMs": 1793731561750,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793712361468,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T13:26:01.468Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 21:08:15",
-     "postId": "7703931353074500132",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9787afba6a9d484e9b8bb9d046831bd7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=lJWRI3GOOX%2BKy6zkUI0zPKtGWMc%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/9787afba6a9d484e9b8bb9d046831bd7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=lJWRI3GOOX%2BKy6zkUI0zPKtGWMc%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=yyTmOdk6cPIgheqylz89K11KsS0%3D",
-     "title": "1848元复式登场！126期双色球多张晒票同台亮相",
-     "url": "http://toutiao.com/item/7703931353074500132/",
-     "at": "2026-11-03T13:26:01.468Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T18:46:01.750Z",
-     "whenMs": 1793711295000,
-     "seenMs": 1793731561750,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793712361468,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T13:26:01.468Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 21:08:15",
-     "postId": "7703931353074500132",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de722b2508fd4ecf81bd92763ea6fd2e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=2b9T0PC0%2BRAGKEflMStRQmvsIDE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de722b2508fd4ecf81bd92763ea6fd2e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=2b9T0PC0%2BRAGKEflMStRQmvsIDE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/05ca3eff623e4593ae7bf8f5295513d6~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=yyTmOdk6cPIgheqylz89K11KsS0%3D",
-     "title": "1848元复式登场！126期双色球多张晒票同台亮相",
-     "url": "http://toutiao.com/item/7703931353074500132/",
-     "at": "2026-11-03T13:26:01.468Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T18:46:01.750Z",
-     "whenMs": 1793711295000,
-     "seenMs": 1793731561750,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793712361468,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T13:26:01.468Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 21:08:15",
-     "postId": "7703931353074500132",
      "px": 132300
     }
    ]
@@ -7123,6 +7061,8 @@ const XYSP_DATA = {
   "/2026-11-04/22284420-39ad-4487-b78e-2517f845c6cc1793796162002.jpg": 1793797504414,
   "/2026-11-04/3818d34a-7c12-42ab-b8f9-ea46d01b7e731793796185059.jpg": 1793797504414,
   "/2026-11-04/7494e0f5-5332-4803-abe3-e4a2407856061793796185058.jpg": 1793797504414,
-  "/2026-11-04/80d38545-1844-48e5-abe3-7afa89efc1d51793796185066.jpg": 1793797504414
+  "/2026-11-04/80d38545-1844-48e5-abe3-7afa89efc1d51793796185066.jpg": 1793797504414,
+  "/2026-11-04/df09810f-6c1e-4d98-82ab-3433e4e5659e1793796602486.jpg": 1793797805349,
+  "/2026-11-04/7f9506d0-dbe4-4cc7-a86b-deb0b49b4e331793796260607.jpg": 1793797805349
  }
 };
