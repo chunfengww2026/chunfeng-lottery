@@ -21,7 +21,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 15:45:00",
-    "minute": 4,
+    "minute": 10,
     "home": {
      "name": "墨尔本胜利",
      "score": 0,
