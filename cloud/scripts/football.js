@@ -5160,7 +5160,7 @@ const FOOTBALL_DATA = {
      "color": "cc3300"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "阿联酋U17",
      "score": 1,
@@ -5226,7 +5226,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "纳萨夫女足",
      "score": 1,
@@ -5235,7 +5235,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "北京雨虹修繕(女)",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -5292,7 +5292,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 73,
+    "minute": 78,
     "home": {
      "name": "東孟加拉(女)",
      "score": 1,
@@ -5301,7 +5301,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "华川KSPO女足",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 2
     },
@@ -5338,10 +5338,10 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "阿爾賈茲拉艾哈邁迪",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 1
     },
@@ -5404,7 +5404,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 66,
+    "minute": 71,
     "home": {
      "name": "伯根",
      "score": 0,
@@ -5470,7 +5470,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "亚蒙克",
      "score": 7,
@@ -5648,7 +5648,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "利亞拿U23",
      "score": 1,
@@ -5846,7 +5846,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "明斯克大學",
      "score": 0,
@@ -5978,7 +5978,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 0,
+    "minute": 46,
     "home": {
      "name": "迪拜纳斯尔",
      "score": 2,
@@ -6044,7 +6044,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "日本女足U17",
      "score": 0,
@@ -6176,7 +6176,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "斯利纳U19",
      "score": 0,
@@ -6254,7 +6254,7 @@ const FOOTBALL_DATA = {
      "color": "57A87B"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 26,
+    "minute": 31,
     "home": {
      "name": "NFA卡奥拿斯",
      "score": 0,
@@ -6332,7 +6332,7 @@ const FOOTBALL_DATA = {
      "color": "cc9900"
     },
     "time": "2026-11-04 23:30:00",
-    "minute": 28,
+    "minute": 33,
     "home": {
      "name": "雷恩",
      "score": 0,
