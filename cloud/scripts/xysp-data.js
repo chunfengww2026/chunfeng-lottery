@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 08:35
+   更新时间：2026-11-04 08:36
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 08:35",
+ "updated": "2026-11-04 08:36",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2297,6 +2297,36 @@ const XYSP_DATA = {
    "name": "头条晒票",
    "items": [
     {
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d0b1b12fb72c4049b8c8edb007b801c2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=RNuUbQsaPulEFBfZ%2FaznQd40DHE%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d0b1b12fb72c4049b8c8edb007b801c2~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=RNuUbQsaPulEFBfZ%2FaznQd40DHE%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d0b1b12fb72c4049b8c8edb007b801c2~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=c8UjW2fDRnxjHxkDEDhSHz0wHsg%3D",
+     "title": "26126期大乐透实票赏析：预算跨度很大，读懂购彩的分寸感",
+     "url": "https://toutiao.com/group/7704107013239783971/",
+     "at": "2026-11-04T00:36:02.026Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "大乐透",
+     "games": [
+      "dlt"
+     ],
+     "issue": "26126",
+     "seen": "2026-11-04T00:36:02.026Z",
+     "whenMs": 1793752226000,
+     "seenMs": 1793752562026,
+     "drawMs": 1793795400000,
+     "nextMs": 1793795400000,
+     "atMs": 1793752562026,
+     "drawAt": "2026-11-04T12:30:00.000Z",
+     "nextAt": 1793795400000,
+     "drawGid": "dlt",
+     "expireAt": "2026-11-05T00:36:02.026Z",
+     "rule": "first-capture-24h",
+     "author": "一荔独㣊",
+     "when": "2026-11-04 08:30:26",
+     "postId": "7704107013239783971",
+     "px": 132300
+    },
+    {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0a3e57f9028d44f7b457188e887d32ec~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=LIV0d0KGHwt2hk2chwUNjgui7vw%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a866fd3f03b641178515b5d63115d513~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=DHnBUtcghtKA8GFk%2B%2FYHMucr3NA%3D",
@@ -2791,7 +2821,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-04T00:16:02.017Z",
+     "seen": "2026-11-04T00:36:02.026Z",
      "whenMs": 1793713500000,
      "seenMs": 1793751362017,
      "drawMs": 1793884500000,
