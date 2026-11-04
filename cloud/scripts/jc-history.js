@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-04 22:28",
+ "updated": "2026-11-04 22:58",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -451,30 +451,30 @@ const JC_HISTORY = {
    "home": "布里兰",
    "away": "鹿岛鹿角",
    "time": "2026-11-04 20:15",
-   "score": "",
+   "score": "0:0",
    "hc": null,
    "asianIndex": {
-    "line": "受平手/半球",
+    "line": "受半球",
     "from": "live",
-    "handicap": 0.25,
+    "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.8,
-    "downWater": 1,
+    "upWater": 0.9,
+    "downWater": 0.9,
     "openHandicap": 0.5,
     "openUpWater": 0.9,
     "openDownWater": 0.9,
     "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
-    "canWater": true,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
+    "canWater": false,
     "handicapChange": {
-     "type": "降盘降水",
+     "type": "盘口水位无明显变化",
      "initHandicap": 0.5,
-     "nowHandicap": 0.25,
+     "nowHandicap": 0.5,
      "initUpWater": 0.9,
-     "nowUpWater": 0.8,
+     "nowUpWater": 0.9,
      "initLine": "受半球",
-     "nowLine": "受平手/半球"
+     "nowLine": "受半球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
@@ -482,23 +482,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 3.4,
-    "draw": 3.5,
-    "away": 1.95
+    "home": 3.6,
+    "draw": 3.6,
+    "away": 1.85
    },
    "prob": {
     "home": 25.3,
-    "draw": 25.8,
-    "away": 48.9
+    "draw": 25.3,
+    "away": 49.3
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 48.9,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "conf": 49.3,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-11-04 00:28"
+   "at": "2026-11-04 22:58"
   },
   {
    "code": "周三001",
@@ -2151,53 +2151,6 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-11-02 02:28"
-  },
-  {
-   "code": "周日014",
-   "league": "德甲",
-   "home": "柏林联合",
-   "away": "科隆",
-   "time": "2026-11-01 22:30",
-   "score": "1:1",
-   "hc": null,
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": 0,
-    "openUpWater": 0.87,
-    "openDownWater": 0.97,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.7,
-    "draw": 3.4,
-    "away": 2.55
-   },
-   "prob": {
-    "home": 35.1,
-    "draw": 27.8,
-    "away": 37.1
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 37.1,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-10-31 03:45"
   }
  ]
 };
