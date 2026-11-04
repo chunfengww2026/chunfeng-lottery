@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-04 14:58",
+ "updated": "2026-11-04 15:28",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -2728,61 +2728,6 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 42.5,
    "type": "unbeaten",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-11-01 21:57"
-  },
-  {
-   "code": "周日003",
-   "league": "日职",
-   "home": "町田泽维",
-   "away": "大阪钢巴",
-   "time": "2026-11-01 15:00",
-   "score": "0:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 0.8,
-    "downWater": 1,
-    "openHandicap": -0.75,
-    "openUpWater": 1,
-    "openDownWater": 0.8,
-    "totalWater": 1.8,
-    "theoryUpPercent": "55.56",
-    "theoryDownPercent": "44.44",
-    "canWater": false,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -0.75,
-     "nowHandicap": -0.5,
-     "initUpWater": 1,
-     "nowUpWater": 0.8,
-     "initLine": "半球/一球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.8,
-    "draw": 3.75,
-    "away": 4.2
-   },
-   "prob": {
-    "home": 52.4,
-    "draw": 25.1,
-    "away": 22.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 52.4,
-   "type": "three",
    "result": "lose",
    "hit": false,
    "matched": false,
