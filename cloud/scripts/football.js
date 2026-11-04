@@ -8532,7 +8532,7 @@ const FOOTBALL_DATA = {
      "color": "003309"
     },
     "time": "2026-11-04 16:00:00",
-    "minute": 75,
+    "minute": 80,
     "home": {
      "name": "克拉斯诺亚尔斯克",
      "score": 1,
@@ -8598,10 +8598,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "斯莱曼",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 17
     },
@@ -8644,7 +8644,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 50,
+    "minute": 55,
     "home": {
      "name": "4月25日(女)",
      "score": 3,
@@ -8682,7 +8682,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 48,
+    "minute": 53,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 0,
@@ -8691,7 +8691,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "納戈揚(女)",
-     "score": 2,
+     "score": 4,
      "red": 0,
      "rank": 0
     },
@@ -8728,16 +8728,16 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 39,
+    "minute": 44,
     "home": {
      "name": "伯希卡特德波",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 4
     },
     "away": {
      "name": "伯斯古杜斯",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 10
     },
@@ -8806,7 +8806,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "馬魯特聯",
      "score": 2,
@@ -8868,7 +8868,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 40,
+    "minute": 45,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 0,
@@ -8946,7 +8946,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 23,
+    "minute": 28,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
