@@ -22,7 +22,7 @@ const FOOTBALL_DATA = {
      "color": "996600"
     },
     "time": "2026-11-04 08:30:00",
-    "minute": 69,
+    "minute": 74,
     "home": {
      "name": "國際體育會RS",
      "score": 0,
@@ -88,7 +88,7 @@ const FOOTBALL_DATA = {
      "color": "FF9999"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 0,
+    "minute": 45,
     "home": {
      "name": "利马联盟",
      "score": 0,
@@ -154,7 +154,7 @@ const FOOTBALL_DATA = {
      "color": "956674"
     },
     "time": "2026-11-04 09:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "体育圣何西",
      "score": 3,
@@ -220,7 +220,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-04 09:30:00",
-    "minute": 34,
+    "minute": 39,
     "home": {
      "name": "卡达根拿",
      "score": 0,
