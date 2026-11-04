@@ -5160,7 +5160,7 @@ const FOOTBALL_DATA = {
      "color": "cc3300"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 89,
+    "minute": 94,
     "home": {
      "name": "阿联酋U17",
      "score": 1,
@@ -5338,7 +5338,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 88,
+    "minute": 93,
     "home": {
      "name": "阿爾賈茲拉艾哈邁迪",
      "score": 1,
@@ -5347,7 +5347,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "科海坦",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 2
     },
@@ -5404,7 +5404,7 @@ const FOOTBALL_DATA = {
      "color": "00a600"
     },
     "time": "2026-11-04 22:30:00",
-    "minute": 86,
+    "minute": 91,
     "home": {
      "name": "伯根",
      "score": 1,
@@ -5516,7 +5516,7 @@ const FOOTBALL_DATA = {
      "color": "990044"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 49,
+    "minute": 54,
     "home": {
      "name": "泽德",
      "score": 0,
@@ -5582,7 +5582,7 @@ const FOOTBALL_DATA = {
      "color": "8c6e0b"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 60,
+    "minute": 65,
     "home": {
      "name": "馬薩(女)",
      "score": 1,
@@ -5648,7 +5648,7 @@ const FOOTBALL_DATA = {
      "color": "009967"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "利亞拿U23",
      "score": 2,
@@ -5714,7 +5714,7 @@ const FOOTBALL_DATA = {
      "color": "5ca39a"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 59,
+    "minute": 64,
     "home": {
      "name": "鲁瓦芝加哥后备队",
      "score": 2,
@@ -5780,7 +5780,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "多特蒙德U19",
      "score": 2,
@@ -5846,7 +5846,7 @@ const FOOTBALL_DATA = {
      "color": "cc6611"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 64,
+    "minute": 69,
     "home": {
      "name": "明斯克大學",
      "score": 0,
@@ -5912,7 +5912,7 @@ const FOOTBALL_DATA = {
      "color": "00A665"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 58,
+    "minute": 63,
     "home": {
      "name": "埃努古流浪者",
      "score": 1,
@@ -5978,7 +5978,7 @@ const FOOTBALL_DATA = {
      "color": "990070"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 61,
+    "minute": 66,
     "home": {
      "name": "迪拜纳斯尔",
      "score": 2,
@@ -6044,7 +6044,7 @@ const FOOTBALL_DATA = {
      "color": "990066"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 63,
+    "minute": 68,
     "home": {
      "name": "日本女足U17",
      "score": 0,
@@ -6110,7 +6110,7 @@ const FOOTBALL_DATA = {
      "color": "006666"
     },
     "time": "2026-11-04 23:00:00",
-    "minute": 56,
+    "minute": 61,
     "home": {
      "name": "马哈拉",
      "score": 0,
