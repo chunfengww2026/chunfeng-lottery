@@ -21,10 +21,10 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 7,
+    "minute": 17,
     "home": {
      "name": "卡尔希雅U19",
-     "score": 0,
+     "score": 1,
      "red": null,
      "rank": 0
     },
@@ -94,7 +94,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 10,
+    "minute": 20,
     "home": {
      "name": "雅典AEKU19",
      "score": 0,
@@ -167,7 +167,7 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 9,
+    "minute": 19,
     "home": {
      "name": "FC首尔",
      "score": 0,
@@ -240,7 +240,7 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 10,
+    "minute": 20,
     "home": {
      "name": "浦项制铁",
      "score": 0,
@@ -8707,7 +8707,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 80,
+    "minute": 90,
     "home": {
      "name": "斯莱曼",
      "score": 5,
@@ -8745,7 +8745,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 78,
+    "minute": 88,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 1,
@@ -8754,7 +8754,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "納戈揚(女)",
-     "score": 5,
+     "score": 6,
      "red": 0,
      "rank": 0
     },
@@ -8791,10 +8791,10 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 80,
+    "minute": 90,
     "home": {
      "name": "4月25日(女)",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 0
     },
@@ -8829,7 +8829,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 48,
+    "minute": 58,
     "home": {
      "name": "伯希卡特德波",
      "score": 2,
@@ -8895,7 +8895,7 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 53,
+    "minute": 63,
     "home": {
      "name": "馬魯特聯",
      "score": 4,
@@ -8961,10 +8961,10 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 54,
+    "minute": 64,
     "home": {
      "name": "阿拉木图凯拉特U19",
-     "score": 1,
+     "score": 2,
      "red": 0,
      "rank": 0
     },
