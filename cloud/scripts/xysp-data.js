@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 17:16
+   更新时间：2026-11-04 17:20
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 17:16",
+ "updated": "2026-11-04 17:20",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1361,26 +1361,26 @@ const XYSP_DATA = {
      "atMs": 1793704503872,
      "seenMs": 1793704503872,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/70867560-850e-41fa-9232-7e493f9658f91793696484496.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/70867560-850e-41fa-9232-7e493f9658f91793696484496.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26293期]玩选五*七，好运。",
-     "url": "",
-     "at": "2026-11-03T09:20:03.042Z",
-     "pubAt": "2026-11-03T09:01:00.000Z",
-     "pubMs": 1793696460000,
-     "pubSrc": "page",
-     "nextAt": 1793712600000,
-     "atMs": 1793697603042,
-     "seenMs": 1793697603042,
-     "whenMs": null
     }
    ]
   },
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/7dbd8b90-5a40-4c91-ace2-90599248b4011793782664733.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/7dbd8b90-5a40-4c91-ace2-90599248b4011793782664733.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]两眼一抹黑，什么超级大冷号",
+     "url": "",
+     "at": "2026-11-04T09:20:04.223Z",
+     "pubAt": "2026-11-04T08:58:00.000Z",
+     "pubMs": 1793782680000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793784004223,
+     "seenMs": 1793784004223,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-04/35d8d7cd-bef0-4ab4-a2d1-adeca2dea3db1793782160023.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/35d8d7cd-bef0-4ab4-a2d1-adeca2dea3db1793782160023.jpg?imageMogr2/thumbnail/360x",
@@ -4808,68 +4808,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 17:23:18",
      "postId": "7703872827954315818",
      "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/61bde28d743a4b4c9f58507f110feed1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=BtYohUr%2BzpNQ1T4yZGrIQ50dGVE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/61bde28d743a4b4c9f58507f110feed1~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=BtYohUr%2BzpNQ1T4yZGrIQ50dGVE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/92aca8798976429eadaf056f9c8ff33a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=RAwYdZSPQeL%2FtOEOU4DPHnwyxB0%3D",
-     "title": "神仙打架！3D多张复式票死磕“5”，排列三“777”豹子号狂飙",
-     "url": "https://toutiao.com/group/7703871215811576356/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:06:01.319Z",
-     "whenMs": 1793697400000,
-     "seenMs": 1793700361319,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 17:16:40",
-     "postId": "7703871215811576356",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c550822aea174aabaa0723df9e02e935~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gEAmW5iBxkoDJ9AXJ0Xup7wqKsE%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/c550822aea174aabaa0723df9e02e935~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=gEAmW5iBxkoDJ9AXJ0Xup7wqKsE%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/92aca8798976429eadaf056f9c8ff33a~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=RAwYdZSPQeL%2FtOEOU4DPHnwyxB0%3D",
-     "title": "神仙打架！3D多张复式票死磕“5”，排列三“777”豹子号狂飙",
-     "url": "https://toutiao.com/group/7703871215811576356/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D、排列3",
-     "games": [
-      "fc3d",
-      "pl3"
-     ],
-     "issue": "",
-     "seen": "2026-11-03T10:06:01.319Z",
-     "whenMs": 1793697400000,
-     "seenMs": 1793700361319,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "唐伯虎点蚊香",
-     "when": "2026-11-03 17:16:40",
-     "postId": "7703871215811576356",
-     "px": 132300
     }
    ]
   },
@@ -7046,6 +6984,7 @@ const XYSP_DATA = {
   "/2026-11-04/5334cbd5-4e97-46a3-82f5-8e4bee60a8a41793779636933.jpg": 1793780788993,
   "/2026-11-04/6b8fe335-7247-4b1e-bd68-d9996321bd561793780639255.jpg": 1793782203444,
   "/2026-11-04/35d8d7cd-bef0-4ab4-a2d1-adeca2dea3db1793782160023.jpg": 1793783192734,
-  "/2026-11-04/7e7decad-da8f-47d8-9018-dd0be61fcb601793782187320.jpg": 1793783192734
+  "/2026-11-04/7e7decad-da8f-47d8-9018-dd0be61fcb601793782187320.jpg": 1793783192734,
+  "/2026-11-04/7dbd8b90-5a40-4c91-ace2-90599248b4011793782664733.jpg": 1793784004223
  }
 };
