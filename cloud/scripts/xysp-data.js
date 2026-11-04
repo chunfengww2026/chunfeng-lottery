@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 15:15
+   更新时间：2026-11-04 15:16
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 15:15",
+ "updated": "2026-11-04 15:16",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1367,6 +1367,20 @@ const XYSP_DATA = {
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-04/01019330-912c-4a6e-88ee-6ead95c4ffd81793776073700.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-04/01019330-912c-4a6e-88ee-6ead95c4ffd81793776073700.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26294期]今晚单挑。",
+     "url": "",
+     "at": "2026-11-04T07:16:22.849Z",
+     "pubAt": "2026-11-04T07:08:00.000Z",
+     "pubMs": 1793776080000,
+     "pubSrc": "page",
+     "nextAt": 1793795400000,
+     "atMs": 1793776582849,
+     "seenMs": 1793776582849,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-04/0657fc70-c253-4023-9977-1492c40cd0881793773851682.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-04/0657fc70-c253-4023-9977-1492c40cd0881793773851682.jpg?imageMogr2/thumbnail/360x",
@@ -3187,8 +3201,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GWDj7H246h3cF24pZ4l6T%2BOdhCU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=GWDj7H246h3cF24pZ4l6T%2BOdhCU%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=fEO6mdS6NkrZTDO9l4xX1rSr5po%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6090abca8935429fa6bff0ca9627db9c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=8UWsDvC7EYIlD4nJdmgpTmZMzHw%3D",
      "title": "126期大乐透实票欣赏：胆拖思路各有侧重，大额票小额票两种心态",
      "url": "https://toutiao.com/group/7704139454360879645/",
@@ -3200,9 +3214,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:56:01.330Z",
+     "seen": "2026-11-04T07:16:01.323Z",
      "whenMs": 1793759984000,
-     "seenMs": 1793775361330,
+     "seenMs": 1793776561323,
      "drawMs": 1793795400000,
      "nextMs": 1793795400000,
      "atMs": 1793760962124,
@@ -3230,7 +3244,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:56:01.330Z",
+     "seen": "2026-11-04T07:16:01.323Z",
      "whenMs": 1793759984000,
      "seenMs": 1793775361330,
      "drawMs": 1793795400000,
@@ -3260,7 +3274,7 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "",
-     "seen": "2026-11-04T06:56:01.330Z",
+     "seen": "2026-11-04T07:16:01.323Z",
      "whenMs": 1793759984000,
      "seenMs": 1793775361330,
      "drawMs": 1793795400000,
@@ -7296,6 +7310,7 @@ const XYSP_DATA = {
   "/2026-11-04/0657fc70-c253-4023-9977-1492c40cd0881793773851682.jpg": 1793775305268,
   "/2026-11-04/0e7594ab-8ef0-4271-955e-88dfbd103ddf1793772085968.jpg": 1793775605279,
   "/2026-11-04/1080ddda-db0c-4d22-a696-6e873bcd0d911793776090565.jpg": 1793776507350,
-  "/2026-11-04/562de4ee-f502-465f-859b-ec2e652f31271793776041794.jpg": 1793776507350
+  "/2026-11-04/562de4ee-f502-465f-859b-ec2e652f31271793776041794.jpg": 1793776507350,
+  "/2026-11-04/01019330-912c-4a6e-88ee-6ead95c4ffd81793776073700.jpg": 1793776582849
  }
 };
