@@ -127,7 +127,7 @@ const FOOTBALL_DATA = {
      "color": "55A0FF"
     },
     "time": "2026-11-04 09:30:00",
-    "minute": 66,
+    "minute": 68,
     "home": {
      "name": "卡达根拿",
      "score": 1,
