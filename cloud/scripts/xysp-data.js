@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 18:00
+   更新时间：2026-11-04 18:05
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 18:00",
+ "updated": "2026-11-04 18:05",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4703,66 +4703,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-03 19:36:18",
      "postId": "7703907656519385635",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a0edf73fb394ebd9a57f9284048f650~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=89iW245cjE91LFALqyt0uqzFVHM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a0edf73fb394ebd9a57f9284048f650~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=89iW245cjE91LFALqyt0uqzFVHM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a0edf73fb394ebd9a57f9284048f650~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Gg%2B5ntEWEru1%2FFED61Kl9cF%2BR8o%3D",
-     "title": "双色球最新期晒票统计第2026126期",
-     "url": "https://toutiao.com/group/7703883050220683816/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "2026126",
-     "seen": "2026-11-03T15:46:01.604Z",
-     "whenMs": 1793700108000,
-     "seenMs": 1793720761604,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "都市知心2",
-     "when": "2026-11-03 18:01:48",
-     "postId": "7703883050220683816",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d09e76fab108458fb6d30b847b29c684~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=yHxMHM5SYd2sO2ZC6kjHw5Lfu4Y%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d09e76fab108458fb6d30b847b29c684~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=yHxMHM5SYd2sO2ZC6kjHw5Lfu4Y%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/7a0edf73fb394ebd9a57f9284048f650~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=Gg%2B5ntEWEru1%2FFED61Kl9cF%2BR8o%3D",
-     "title": "双色球最新期晒票统计第2026126期",
-     "url": "https://toutiao.com/group/7703883050220683816/",
-     "at": "2026-11-03T10:06:01.319Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "2026126",
-     "seen": "2026-11-03T15:46:01.604Z",
-     "whenMs": 1793700108000,
-     "seenMs": 1793720761604,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793700361319,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T10:06:01.319Z",
-     "rule": "first-capture-24h",
-     "author": "都市知心2",
-     "when": "2026-11-03 18:01:48",
-     "postId": "7703883050220683816",
      "px": 132300
     }
    ]
