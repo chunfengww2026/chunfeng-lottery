@@ -21,16 +21,16 @@ const FOOTBALL_DATA = {
      "color": "FC8B55"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 0,
+    "minute": 2,
     "home": {
      "name": "卡尔希雅U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "阿里亞加U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -94,16 +94,16 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "雅典AEKU19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
     "away": {
      "name": "皇家马德里U19",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 0
     },
@@ -167,16 +167,16 @@ const FOOTBALL_DATA = {
      "color": "cc9944"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 0,
+    "minute": 4,
     "home": {
      "name": "FC首尔",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 1
     },
     "away": {
      "name": "維特爾",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 12
     },
@@ -240,16 +240,16 @@ const FOOTBALL_DATA = {
      "color": "C5508A"
     },
     "time": "2026-11-04 18:00:00",
-    "minute": 0,
+    "minute": 5,
     "home": {
      "name": "浦项制铁",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 9
     },
     "away": {
      "name": "大阪钢巴",
-     "score": null,
+     "score": 0,
      "red": null,
      "rank": 16
     },
@@ -8707,10 +8707,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "斯莱曼",
-     "score": 4,
+     "score": 5,
      "red": 0,
      "rank": 17
     },
@@ -8745,7 +8745,7 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 68,
+    "minute": 73,
     "home": {
      "name": "巴姆卡通(女)",
      "score": 1,
@@ -8791,10 +8791,10 @@ const FOOTBALL_DATA = {
      "color": "3792dd"
     },
     "time": "2026-11-04 16:30:00",
-    "minute": 70,
+    "minute": 75,
     "home": {
      "name": "4月25日(女)",
-     "score": 3,
+     "score": 4,
      "red": 0,
      "rank": 0
     },
@@ -8895,10 +8895,10 @@ const FOOTBALL_DATA = {
      "color": "4B8C48"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 0,
+    "minute": 48,
     "home": {
      "name": "馬魯特聯",
-     "score": 2,
+     "score": 3,
      "red": 0,
      "rank": 8
     },
@@ -8961,7 +8961,7 @@ const FOOTBALL_DATA = {
      "color": "cc9945"
     },
     "time": "2026-11-04 17:00:00",
-    "minute": 0,
+    "minute": 49,
     "home": {
      "name": "阿拉木图凯拉特U19",
      "score": 0,
@@ -9027,7 +9027,7 @@ const FOOTBALL_DATA = {
      "color": "4A4580"
     },
     "time": "2026-11-04 17:15:00",
-    "minute": 43,
+    "minute": 46,
     "home": {
      "name": "布拉格斯巴达B队",
      "score": 0,
@@ -9036,7 +9036,7 @@ const FOOTBALL_DATA = {
     },
     "away": {
      "name": "比尔森B队",
-     "score": 0,
+     "score": 1,
      "red": 0,
      "rank": 3
     },
