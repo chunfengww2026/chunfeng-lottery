@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-05 00:28",
+ "updated": "2026-11-05 00:32",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -607,7 +607,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-04 00:28"
   },
   {
@@ -2095,62 +2095,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": true,
    "at": "2026-11-01 00:28"
-  },
-  {
-   "code": "周日016",
-   "league": "英超",
-   "home": "利物浦",
-   "away": "阿森纳",
-   "time": "2026-11-02 00:30",
-   "score": "0:1",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 3,
-    "draw": 3.4,
-    "away": 2.38
-   },
-   "prob": {
-    "home": 29.8,
-    "draw": 27.2,
-    "away": 43
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 43,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": true,
-   "at": "2026-10-31 03:45"
-  },
-  {
-   "code": "周日017",
-   "league": "德甲",
-   "home": "法兰克福",
-   "away": "汉堡",
-   "time": "2026-11-02 00:30",
-   "score": "3:1",
-   "hc": null,
-   "asianIndex": null,
-   "odds": {
-    "home": 1.57,
-    "draw": 4.5,
-    "away": 5
-   },
-   "prob": {
-    "home": 58.9,
-    "draw": 21.5,
-    "away": 19.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 58.9,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": true,
-   "at": "2026-10-31 03:45"
   }
  ]
 };

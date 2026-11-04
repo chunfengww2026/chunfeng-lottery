@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-05 00:28 */
+/* 自动生成，请勿手动编辑 · 2026-11-05 00:32 */
 const JC_DATA = {
- "updated": "2026-11-05 00:28",
+ "updated": "2026-11-05 00:32",
  "stat": {
-  "total": 11,
+  "total": 12,
   "upcoming": 9,
-  "live": 0,
+  "live": 1,
   "finished": 2,
-  "withScore": 2,
-  "droppedNotOnSale": 1,
+  "withScore": 3,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": true,
-  "officialCodes": 10,
-  "droppedNotOnSale": 1,
+  "officialGate": false,
+  "officialCodes": 0,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -238,6 +238,115 @@ const JC_DATA = {
    }
   },
   {
+   "gid": "1480128",
+   "fid": "1480128",
+   "sid": "20000",
+   "code": "周三003",
+   "league": "欧罗巴",
+   "round": "第4轮",
+   "time": "2026-11-04 23:30",
+   "handicap": "-1",
+   "home": {
+    "name": "雷恩",
+    "rank": 13
+   },
+   "away": {
+    "name": "奥林匹亚",
+    "rank": 5
+   },
+   "score": {
+    "home": 0,
+    "away": 0
+   },
+   "statusText": "0 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.87,
+      "line": "平手/半球",
+      "away": 0.97
+     },
+     "live": {
+      "home": 1.05,
+      "line": "半球",
+      "away": 0.75
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.1,
+      "draw": 3.5,
+      "away": 3.1
+     },
+     "live": {
+      "home": 2.05,
+      "draw": 3.7,
+      "away": 3.4
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.97,
+      "over": 2.5,
+      "under": 0.87
+     },
+     "live": {
+      "line": 0.7,
+      "over": 2.5,
+      "under": 1.1
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 46.4,
+    "prob": {
+     "home": 46.4,
+     "draw": 25.7,
+     "away": 28
+    },
+    "clear": true,
+    "margin": 5.2,
+    "rqLine": "半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": -0.25,
+    "openUpWater": 0.87,
+    "openDownWater": 0.97,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.87,
+     "nowUpWater": 1.05,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "live",
+   "minute": 0,
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
+  },
+  {
    "gid": "1479953",
    "fid": "1479953",
    "sid": "19943",
@@ -320,7 +429,7 @@ const JC_DATA = {
       "主流初盘 3/3 家偏向客胜",
       "初盘→即时：主胜-8.0pp / 平局-5.5pp / 客胜+13.4pp",
       "亚盘客队方向变深，水位上升",
-      "主要方向凯利中位参考 0.960",
+      "主要方向凯利中位参考 0.970",
       "多机构分歧 2.7%"
      ],
      "missing": [
@@ -1501,8 +1610,8 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "official",
-  "from": "体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值",
+  "source": "carried",
+  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567）",
   "updated": "2026-11-05 00:28",
   "officialUpdate": "2026-11-04 21:56:12",
   "inSale": 10,
