@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 11:10
+   更新时间：2026-11-04 11:15
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 11:10",
+ "updated": "2026-11-04 11:15",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -393,34 +393,6 @@ const XYSP_DATA = {
      "nextAt": 1793711700000,
      "atMs": 1793678182997,
      "seenMs": 1793678182997,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/f57fc2d1-7150-4882-b39d-540cd5d256e91793673125477.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/f57fc2d1-7150-4882-b39d-540cd5d256e91793673125477.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26126期]这万元票也是天天打水漂",
-     "url": "",
-     "at": "2026-11-03T03:15:04.612Z",
-     "pubAt": "2026-11-03T02:32:00.000Z",
-     "pubMs": 1793673120000,
-     "pubSrc": "page",
-     "nextAt": 1793711700000,
-     "atMs": 1793675704612,
-     "seenMs": 1793675704612,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-03/efd018e3-8984-4c11-94d2-3a04afd1ce451793673125478.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-03/efd018e3-8984-4c11-94d2-3a04afd1ce451793673125478.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26126期]这万元票也是天天打水漂",
-     "url": "",
-     "at": "2026-11-03T03:15:04.612Z",
-     "pubAt": "2026-11-03T02:32:00.000Z",
-     "pubMs": 1793673120000,
-     "pubSrc": "page",
-     "nextAt": 1793711700000,
-     "atMs": 1793675704612,
-     "seenMs": 1793675704612,
      "whenMs": null
     }
    ]
@@ -4978,66 +4950,6 @@ const XYSP_DATA = {
      "author": "唐伯虎点蚊香",
      "when": "2026-11-03 12:03:09",
      "postId": "7703790769304060470",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7b793b0612046398e44624a90d84c7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ehHEY7f4PRe4Vc4XiXNeixWopW8%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7b793b0612046398e44624a90d84c7e~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=ehHEY7f4PRe4Vc4XiXNeixWopW8%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7b793b0612046398e44624a90d84c7e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2BbgmUuBPb1wF4FNmvlUPuUjW4yM%3D",
-     "title": "12亿派奖即将开启！千元复式亮相，双色球26126期晒票欣赏",
-     "url": "https://toutiao.com/group/7703777015282860578/",
-     "at": "2026-11-03T03:26:01.919Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T06:06:02.100Z",
-     "whenMs": 1793675671000,
-     "seenMs": 1793685962100,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793676361919,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T03:26:01.919Z",
-     "rule": "first-capture-24h",
-     "author": "陈情醉了人间",
-     "when": "2026-11-03 11:14:31",
-     "postId": "7703777015282860578",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b73829943e8e4f388d6781ebf43d00e7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fb8jBCCgYMz2zaxNw%2BPs86oWnso%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b73829943e8e4f388d6781ebf43d00e7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=fb8jBCCgYMz2zaxNw%2BPs86oWnso%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b7b793b0612046398e44624a90d84c7e~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802390400&x-signature=%2BbgmUuBPb1wF4FNmvlUPuUjW4yM%3D",
-     "title": "12亿派奖即将开启！千元复式亮相，双色球26126期晒票欣赏",
-     "url": "https://toutiao.com/group/7703777015282860578/",
-     "at": "2026-11-03T03:26:01.919Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "26126",
-     "seen": "2026-11-03T06:06:02.100Z",
-     "whenMs": 1793675671000,
-     "seenMs": 1793685962100,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793676361919,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-04T03:26:01.919Z",
-     "rule": "first-capture-24h",
-     "author": "陈情醉了人间",
-     "when": "2026-11-03 11:14:31",
-     "postId": "7703777015282860578",
      "px": 132300
     }
    ]
