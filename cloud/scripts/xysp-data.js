@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-04 10:16
+   更新时间：2026-11-04 10:25
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-04 10:16",
+ "updated": "2026-11-04 10:25",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -4634,96 +4634,6 @@ const XYSP_DATA = {
      "when": "2026-11-03 10:55:32",
      "postId": "1880804066593792",
      "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d79a154c9944425ac04af5903e03859~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KdLVlW%2FbU8MCtnWfXVNBiA%2FK920%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d79a154c9944425ac04af5903e03859~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=KdLVlW%2FbU8MCtnWfXVNBiA%2FK920%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d79a154c9944425ac04af5903e03859~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=XfrJ2HfHzuePm4h9LwnL%2FC6p8UE%3D",
-     "title": "砸600元豪打30倍！各路神仙花式下注，292期3D晒票路子够野的",
-     "url": "http://toutiao.com/item/7703764809736520255/",
-     "at": "2026-11-03T02:26:01.889Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-04T02:06:02.102Z",
-     "whenMs": 1793672519000,
-     "seenMs": 1793757962102,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793672761889,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T02:26:01.889Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 10:21:59",
-     "postId": "7703764809736520255",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/914a8bda41a2487f9c52cfc5a6694511~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=M3EU0CZoux1w8EThCCO7Blen2%2BM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/914a8bda41a2487f9c52cfc5a6694511~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=M3EU0CZoux1w8EThCCO7Blen2%2BM%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d79a154c9944425ac04af5903e03859~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=XfrJ2HfHzuePm4h9LwnL%2FC6p8UE%3D",
-     "title": "砸600元豪打30倍！各路神仙花式下注，292期3D晒票路子够野的",
-     "url": "http://toutiao.com/item/7703764809736520255/",
-     "at": "2026-11-03T02:26:01.889Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-04T02:06:02.102Z",
-     "whenMs": 1793672519000,
-     "seenMs": 1793757962102,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793672761889,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T02:26:01.889Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 10:21:59",
-     "postId": "7703764809736520255",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3e3c7c78a9174c34bbfbc2c9fd8e2093~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SpvVhAtAXOVNjcA%2Bs2UbqAQ2Nos%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3e3c7c78a9174c34bbfbc2c9fd8e2093~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=SpvVhAtAXOVNjcA%2Bs2UbqAQ2Nos%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3d79a154c9944425ac04af5903e03859~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802476800&x-signature=XfrJ2HfHzuePm4h9LwnL%2FC6p8UE%3D",
-     "title": "砸600元豪打30倍！各路神仙花式下注，292期3D晒票路子够野的",
-     "url": "http://toutiao.com/item/7703764809736520255/",
-     "at": "2026-11-03T02:26:01.889Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "福彩3D",
-     "games": [
-      "fc3d"
-     ],
-     "issue": "",
-     "seen": "2026-11-04T02:06:02.102Z",
-     "whenMs": 1793672519000,
-     "seenMs": 1793757962102,
-     "drawMs": 1793711700000,
-     "nextMs": 1793711700000,
-     "atMs": 1793672761889,
-     "drawAt": "2026-11-03T13:15:00.000Z",
-     "nextAt": 1793711700000,
-     "drawGid": "fc3d",
-     "expireAt": "2026-11-04T02:26:01.889Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-03 10:21:59",
-     "postId": "7703764809736520255",
-     "px": 132300
     }
    ]
   },
@@ -6803,6 +6713,7 @@ const XYSP_DATA = {
   "/2026-11-04/d0b0fb4b-3385-4eb6-abeb-8e1624742cbe1793756463742.jpg": 1793757603669,
   "/2026-11-04/53c53390-4fd1-4501-a44a-33793a4f74051793756492966.jpg": 1793757603669,
   "/2026-11-04/64d9be07-4831-4a07-9cad-e6d4e21446d01793756789159.jpg": 1793757903371,
-  "/2026-11-04/03b40fc7-6451-4791-a08d-2a42dc6ef4bf1793757930010.jpg": 1793758503904
+  "/2026-11-04/03b40fc7-6451-4791-a08d-2a42dc6ef4bf1793757930010.jpg": 1793758503904,
+  "/2026-11-04/2ad18d13-b0d2-47bd-a063-58e96da68eac1793758177504.jpg": 1793759103318
  }
 };
