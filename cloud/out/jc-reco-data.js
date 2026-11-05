@@ -5,49 +5,9 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-04 23:26",
+ "updated": "2026-11-06 01:55",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
-  {
-   "at": "2026-11-02 16:05",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周二009",
-     "time": "2026-11-04 04:00",
-     "league": "欧冠",
-     "home": "巴萨",
-     "away": "维拉",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.25,
-     "conf": 72.6,
-     "score": "3:0",
-     "hit": true,
-     "result": "win"
-    },
-    {
-     "code": "周二006",
-     "time": "2026-11-04 04:00",
-     "league": "欧冠",
-     "home": "LASK林茨",
-     "away": "布拉迪斯",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.44,
-     "conf": 61.7,
-     "score": "4:0",
-     "hit": true,
-     "result": "win"
-    }
-   ],
-   "hit": 1,
-   "miss": 0,
-   "pending": 0,
-   "verdict": "红"
-  },
   {
    "at": "2026-11-03 11:30",
    "min": 58,
@@ -102,31 +62,6 @@ const JC_RECO_DATA = {
    "miss": null,
    "pending": 2,
    "verdict": ""
-  },
-  {
-   "at": "2026-11-04 04:05",
-   "min": 58,
-   "rows": [
-    {
-     "code": "周二011",
-     "time": "2026-11-04 04:00",
-     "league": "欧冠",
-     "home": "博德闪耀",
-     "away": "里尔",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.55,
-     "conf": 61.5,
-     "score": "0:0",
-     "hit": false,
-     "result": "lose"
-    }
-   ],
-   "hit": 0,
-   "miss": 1,
-   "pending": 0,
-   "verdict": "黑"
   },
   {
    "at": "2026-11-04 11:28",
