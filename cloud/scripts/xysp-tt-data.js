@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-06 03:43:23
+   更新时间：2026-11-06 04:35:04
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-06 03:43:23",
+ "updated": "2026-11-06 04:35:04",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/aed03853f95b4a039883d2b01388b6b8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=aMc0tmI0t2QPv5pKvo0uSxP8DgI%3D",
@@ -28,7 +28,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-05T19:43:23.765Z",
    "whenMs": 1793888964000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1794143700000,
    "nextMs": 1794143700000,
    "atMs": 1793904925118,
@@ -58,7 +58,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-05T19:43:23.765Z",
    "whenMs": 1793888964000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1794143700000,
    "nextMs": 1794143700000,
    "atMs": 1793904925118,
@@ -88,7 +88,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-05T19:43:23.765Z",
    "whenMs": 1793888964000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1794143700000,
    "nextMs": 1794143700000,
    "atMs": 1793904925118,
@@ -193,8 +193,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=qiBGiW9IPuqNKXss6ueG6TU3f6g%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=qiBGiW9IPuqNKXss6ueG6TU3f6g%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=iYh2y9WIFZ3HMhXvw61yKz%2BEA0s%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=iYh2y9WIFZ3HMhXvw61yKz%2BEA0s%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=VUzPAJCuYu2L1ut6WW4MdUFHZFw%3D",
    "title": "6块硬刚504块！双色球127期实票大比拼，这胆拖票能爆吗？",
    "url": "http://toutiao.com/item/7704665390781039145/",
@@ -206,9 +206,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793882202000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793904925118,
@@ -223,8 +223,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8b3f88d473b343a6869204827e2f32f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=5kGA7njs8gkRGYcO2ZusZpwfF4Y%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8b3f88d473b343a6869204827e2f32f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=5kGA7njs8gkRGYcO2ZusZpwfF4Y%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8b3f88d473b343a6869204827e2f32f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=ESizWOyvSJIoVoNxu9u%2FzgWqhN0%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8b3f88d473b343a6869204827e2f32f0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=ESizWOyvSJIoVoNxu9u%2FzgWqhN0%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=VUzPAJCuYu2L1ut6WW4MdUFHZFw%3D",
    "title": "6块硬刚504块！双色球127期实票大比拼，这胆拖票能爆吗？",
    "url": "http://toutiao.com/item/7704665390781039145/",
@@ -236,9 +236,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793882202000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793904925118,
@@ -253,8 +253,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f01ed9d2c51b4a6baca46cf484e6008d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=jXyGBWgzx1AfFwWCEoGxuY0LdSk%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f01ed9d2c51b4a6baca46cf484e6008d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=jXyGBWgzx1AfFwWCEoGxuY0LdSk%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f01ed9d2c51b4a6baca46cf484e6008d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=fIjn4NaQNdPiThaBqQA8GnbmZHA%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f01ed9d2c51b4a6baca46cf484e6008d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=fIjn4NaQNdPiThaBqQA8GnbmZHA%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/08b798591a5845039ac1acb9f21aab46~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=VUzPAJCuYu2L1ut6WW4MdUFHZFw%3D",
    "title": "6块硬刚504块！双色球127期实票大比拼，这胆拖票能爆吗？",
    "url": "http://toutiao.com/item/7704665390781039145/",
@@ -266,9 +266,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793882202000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793904925118,
@@ -559,8 +559,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=QqkYX4Ffi92XDbhBLBldKUpgMac%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=QqkYX4Ffi92XDbhBLBldKUpgMac%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=9MvubklqtjOdOcfyCoWgihLiW3I%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=9MvubklqtjOdOcfyCoWgihLiW3I%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=UINwObF6VEoErgGzve%2FZSK2HebY%3D",
    "title": "3d、排列3、5第26294期晒票：贵在留白，慢品烟火，取舍之间见从容",
    "url": "http://toutiao.com/item/7704572743802421786/",
@@ -574,9 +574,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26294",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793860631000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793904925118,
@@ -591,8 +591,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/84f594f7653b4d108e38693e3602a63f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=7piusMTz0Jt4oIJRww4q3sJIVrI%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/84f594f7653b4d108e38693e3602a63f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=7piusMTz0Jt4oIJRww4q3sJIVrI%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/84f594f7653b4d108e38693e3602a63f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=9852vAQnkr3SFrPX0ZXprSlUrak%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/84f594f7653b4d108e38693e3602a63f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=9852vAQnkr3SFrPX0ZXprSlUrak%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3ac83de46bef433c868fdb2633edc806~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=UINwObF6VEoErgGzve%2FZSK2HebY%3D",
    "title": "3d、排列3、5第26294期晒票：贵在留白，慢品烟火，取舍之间见从容",
    "url": "http://toutiao.com/item/7704572743802421786/",
@@ -606,9 +606,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26294",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793860631000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793884500000,
    "nextMs": 1793884500000,
    "atMs": 1793904925118,
@@ -623,9 +623,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=bQ1b1xa%2Byd5NGcuOF3VFi0Rh5jc%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=bQ1b1xa%2Byd5NGcuOF3VFi0Rh5jc%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=djOFnp8wOSBjmzO%2BChRnEQ6K1eg%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=c%2B0%2BXhJhfmpaS7ReM81qdLKsYco%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=c%2B0%2BXhJhfmpaS7ReM81qdLKsYco%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=Y8a2iMdMGyApWEnJCvOqWkRAQKA%3D",
    "title": "排列3、5第26294期晒票：以实干托举日常，汗水所得便是人间底气",
    "url": "http://toutiao.com/item/7704570371797680690/",
    "at": "2026-11-05T18:55:25.118Z",
@@ -637,9 +637,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26294",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793860078000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793881800000,
    "nextMs": 1793881800000,
    "atMs": 1793904925118,
@@ -656,7 +656,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8faf5205b7874bb3bc12cd494d4fcc51~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=7miMopszx341PETHMTxbLuf3Nr8%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8faf5205b7874bb3bc12cd494d4fcc51~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=7miMopszx341PETHMTxbLuf3Nr8%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=djOFnp8wOSBjmzO%2BChRnEQ6K1eg%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=Y8a2iMdMGyApWEnJCvOqWkRAQKA%3D",
    "title": "排列3、5第26294期晒票：以实干托举日常，汗水所得便是人间底气",
    "url": "http://toutiao.com/item/7704570371797680690/",
    "at": "2026-11-05T18:55:25.118Z",
@@ -668,9 +668,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26294",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793860078000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1793881800000,
    "nextMs": 1793881800000,
    "atMs": 1793904925118,
@@ -685,9 +685,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/27b594536980488592c686bdd1659f78~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=39G1QZGOKZOLFLpuJ6i1PG7rKwI%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/27b594536980488592c686bdd1659f78~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=39G1QZGOKZOLFLpuJ6i1PG7rKwI%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=djOFnp8wOSBjmzO%2BChRnEQ6K1eg%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/27b594536980488592c686bdd1659f78~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=vdLKkfKd%2BjgUaOZnnyI9j4ujTZM%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/27b594536980488592c686bdd1659f78~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=vdLKkfKd%2BjgUaOZnnyI9j4ujTZM%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/58be13c95bd54c58865edca407a427d8~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=Y8a2iMdMGyApWEnJCvOqWkRAQKA%3D",
    "title": "排列3、5第26294期晒票：以实干托举日常，汗水所得便是人间底气",
    "url": "http://toutiao.com/item/7704570371797680690/",
    "at": "2026-11-05T18:55:25.118Z",
@@ -699,9 +699,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "26294",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793860078000,
-   "seenMs": 1793907803765,
+   "seenMs": 1793910904642,
    "drawMs": 1793881800000,
    "nextMs": 1793881800000,
    "atMs": 1793904925118,
@@ -732,7 +732,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793856372000,
    "seenMs": 1793907803765,
    "drawMs": 1794054600000,
@@ -841,7 +841,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=vYu%2BgznJdXfNVH79GSQ%2BBgfH6Xs%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=vYu%2BgznJdXfNVH79GSQ%2BBgfH6Xs%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=tHDg3QghIsdTRAd4IM4rkOYGuOg%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=HcDQfN11bfXISvVCJFg9UHry%2F%2Fk%3D",
    "title": "13+4万元大复式镇场，30倍单式票霸气压阵，大乐透26126期晒票",
    "url": "http://toutiao.com/item/7704483903217599014/",
    "at": "2026-11-05T18:55:25.118Z",
@@ -852,9 +852,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26126",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793839946000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1794054600000,
    "nextMs": 1794054600000,
    "atMs": 1793904925118,
@@ -871,7 +871,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1e0ef4436aee457cb481faa6eb90b9f6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=tLw%2F2wScP7KKVM6CEWuTYaiDUWA%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/1e0ef4436aee457cb481faa6eb90b9f6~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=tLw%2F2wScP7KKVM6CEWuTYaiDUWA%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=tHDg3QghIsdTRAd4IM4rkOYGuOg%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a462e6e7f7de4911a83ca55f609e279f~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=HcDQfN11bfXISvVCJFg9UHry%2F%2Fk%3D",
    "title": "13+4万元大复式镇场，30倍单式票霸气压阵，大乐透26126期晒票",
    "url": "http://toutiao.com/item/7704483903217599014/",
    "at": "2026-11-05T18:55:25.118Z",
@@ -882,9 +882,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26126",
-   "seen": "2026-11-05T19:43:23.765Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793839946000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793907803765,
    "drawMs": 1794054600000,
    "nextMs": 1794054600000,
    "atMs": 1793904925118,
@@ -929,8 +929,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=Cdvw%2F2bTIBIKBYpm8UOqe7K%2FeE8%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=Cdvw%2F2bTIBIKBYpm8UOqe7K%2FeE8%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=1U1LRwtiV8M6kjTG2ye0lbWGj9k%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=1U1LRwtiV8M6kjTG2ye0lbWGj9k%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=2F4zJQjZGNeoapKELXRx72xC3rg%3D",
    "title": "大乐透第26126期实票欣赏：大户彩友的复式选号博弈",
    "url": "http://toutiao.com/item/7704450589131801142/",
@@ -942,9 +942,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26126",
-   "seen": "2026-11-05T19:18:25.599Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793832189000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793910904642,
    "drawMs": 1794054600000,
    "nextMs": 1794054600000,
    "atMs": 1793904925118,
@@ -959,8 +959,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b18709482802451f8bb5ab29ec305a57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=xlHE8ilF8jk0EmtCWaW7y%2Fudeac%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b18709482802451f8bb5ab29ec305a57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=xlHE8ilF8jk0EmtCWaW7y%2Fudeac%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b18709482802451f8bb5ab29ec305a57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=DoeWU1w8T49rBa%2FKG5u%2BDUmWYlo%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/b18709482802451f8bb5ab29ec305a57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=DoeWU1w8T49rBa%2FKG5u%2BDUmWYlo%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d3d4fb524bdd4d31ac6cc4b83c3241c3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802563200&x-signature=2F4zJQjZGNeoapKELXRx72xC3rg%3D",
    "title": "大乐透第26126期实票欣赏：大户彩友的复式选号博弈",
    "url": "http://toutiao.com/item/7704450589131801142/",
@@ -972,9 +972,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26126",
-   "seen": "2026-11-05T19:18:25.599Z",
+   "seen": "2026-11-05T20:35:04.642Z",
    "whenMs": 1793832189000,
-   "seenMs": 1793906305599,
+   "seenMs": 1793910904642,
    "drawMs": 1794054600000,
    "nextMs": 1794054600000,
    "atMs": 1793904925118,
