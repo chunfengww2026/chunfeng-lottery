@@ -4398,7 +4398,7 @@ const MQ_MAX_ITEMS = 10;
 const MQ_MAX_PER_GAME = 3;
 
 /* 生成通告条：{ html, count, compared } */
-function buildHitMarquee() {
+function buildHitMarquee(frogWins = []) {
   const saved = mqReadGlobal('SAVED_TICKETS');
   const idx = mqDrawIndex();
 
@@ -4430,8 +4430,13 @@ function buildHitMarquee() {
     });
   });
 
-  /* 新的在前；同一天按期号大的在前 */
+  /* 青蛙只使用开奖前存档核对所得记录；最近一周同步进入小喇叭。 */
+  frogWins.filter(w=>Date.now()-histDayMs(w.date)<=7*86400000).forEach(w=>wins.push({
+    gid:w.gid,issue:w.issue,date:w.date,claim:w.label,hot:w.lv<=2?2:1,frogRecord:w
+  }));
+  /* 青蛙播报保留入口，其余仍按开奖日期倒序。 */
   wins.sort((a, b) => {
+    if(!!a.frogRecord!==!!b.frogRecord)return a.frogRecord?-1:1;
     if (a.date !== b.date) return a.date < b.date ? 1 : -1;
     return Number(b.issue) - Number(a.issue);
   });
@@ -4463,6 +4468,7 @@ function buildHitMarquee() {
   }
 
   const tickerClaim = (w) => {
+    if(w.frogRecord){const counts=w.frogRecord.draw.map(p=>(p.hit||[]).filter(Boolean).length);return escape(w.claim)+' · 中'+counts.join('+');}
     const tier=mqClaimTier(w.claim).label;
     if(['fc3d','pl3','pl5'].includes(w.gid))return tier.replace(/命中/g,'中');
     const parts=mqWinParts(w.gid,w.v,w.d);
@@ -4471,7 +4477,7 @@ function buildHitMarquee() {
   };
   const one = (w) =>
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
-    '<b>' + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
+    '<b>' + (w.frogRecord?'青蛙 · ':'') + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
 
   const itemsHtml = ownerFrogAnnouncement + recent.map(one).join('');
 
@@ -4646,7 +4652,7 @@ function buildMarqueeWinRows(list) {
   return rows;
 }
 
-const mqTicker = buildHitMarquee();
+let mqTicker = buildHitMarquee();
 /* 这一班小喇叭正在播的中奖 → 转成卡片行（后面 recoArchiveCommit 会并进去） */
 const MQ_WIN_ROWS = buildMarqueeWinRows(mqTicker.wins);
 console.log('  · 中奖播报：比对 ' + mqTicker.compared + ' 期，滚 ' + mqTicker.count + ' 条中奖' +
@@ -5000,6 +5006,7 @@ function recoArchiveCommit(recData) {
 
 const FROG_PANEL_HTML = frogPanelHtml();
 const RECO = recoArchiveCommit(REC_DATA);
+mqTicker = buildHitMarquee(RECO.wins.filter(w=>w.source==='frog'));
 console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stats.saved + ' 期 · 已有 ' +
   RECO.stats.kept + ' 期不动' + (RECO.stats.skippedDrawn ? ' · 已开奖不补存 ' + RECO.stats.skippedDrawn + ' 期' : '') +
   ' → 存档共 ' + RECO.stats.totalIssues + ' 期 · 比对 ' + RECO.stats.compared + ' 期（开奖未到挂起 ' +
@@ -5368,30 +5375,36 @@ console.log('  · 历史开奖卡（只认真实存档）：已比对 ' + histBu
   '（自 ' + histBuilt.info.from + ' 起记录' + (histBuilt.info.to ? '，最近一条 ' + histBuilt.info.to : '') + '）');
 
 
-/* __ST_TZ__ 资料更新状态按【浏览器本地时间】分两档（用户 2026-10-19）：
-   02:00 <= 当前 < 21:00 → 资料已更新（绿）
-   21:00 <= 当前 < 次日 02:00 → 资料未更新（黄），提示等凌晨 2 点
-   纯前端判断（打开页面算一次，之后每 60 秒算一次）：不请求后端、不写 localStorage、不加 button。
-   ⚠️ 两种卡片都挂这段脚本：
-      · data-st="ok"（构建时数据齐全）→ 按时间切「已更新 / 未更新」两档；
-      · data-st="warn"（构建时就缺数据）→ 标题和颜色不动，只在 21:00~02:00 显示第二行提示。 */
+/* 状态取决于真实下一期资料；时钟和预计更新时间不能证明已出号。 */
 const STATUS_TZ_JS = `<script>
 (function () {
   var card = document.getElementById('roStatusCard');
   if (!card) return;
   var title = document.getElementById('roStTitle');
   var sub = document.getElementById('roStSub');
-  var isOk = card.getAttribute('data-st') !== 'warn';
+  var ids = ${JSON.stringify(Object.keys(T))};
+  function snapshot(){try{return JSON.stringify(SAVED_TICKETS.tickets || {});}catch(e){return '';}}
+  window.__roUpdateSnapshot = snapshot;
   function tick() {
-    var h = new Date().getHours();
-    var fresh = h >= 2 && h < 21;
-    if (isOk) {
-      card.className = 'ro-status ' + (fresh ? 'ok' : 'warn') + ' ro-st-row';
-      if (title) title.textContent = fresh ? '资料已更新' : '资料未更新';
-    }
-    if (sub) sub.style.display = fresh ? 'none' : '';
+    if(typeof SAVED_TICKETS === 'undefined' || typeof nextDrawDate !== 'function' || typeof getDraw !== 'function')return;
+    var saved=SAVED_TICKETS, stamp=String(saved.updated || '').replace(' ','T');
+    if(!/Z$|[+-]\\d{2}:\\d{2}$/.test(stamp))stamp+='+08:00';
+    var age=Date.now()-Date.parse(stamp),ready=Number.isFinite(age)&&age>=-300000&&age<=86400000;
+    ids.forEach(function(id){
+      var date=nextDrawDate(id),rec=saved.tickets&&saved.tickets[id]&&saved.tickets[id][date];
+      var draw=getDraw(id),ri=String(rec&&rec.issue||'').replace(/[^0-9]/g,''),di=String(draw&&draw.issue||'').replace(/[^0-9]/g,'');
+      if(!rec||!rec.images||!Object.keys(rec.images).length||!ri||!di||(ri.length===di.length&&Number(ri)<=Number(di)))ready=false;
+    });
+    if(window.__roStatusDueSnapshot!==undefined&&snapshot()===window.__roStatusDueSnapshot)ready=false;
+    card.setAttribute('data-st',ready?'ok':'warn');
+    card.classList.toggle('ok',ready);card.classList.toggle('warn',!ready);
+    if(title)title.textContent=ready?'资料已更新':'下一期推荐暂未更新';
+    if(sub){sub.style.display=ready?'none':'';sub.textContent='资料生成后自动更新';}
+    card.querySelectorAll('.ro-st-reason,.ro-st-hint').forEach(function(el){el.style.display=ready?'none':'';});
   }
+  window.__roRefreshUpdateStatus=tick;
   tick();
+  document.addEventListener('DOMContentLoaded',tick);
   setInterval(tick, 60000);
 })();
 </script>`;
@@ -5427,7 +5440,7 @@ if (status.allReady) {
   statusHtml =
     `<div class="ro-status warn ro-st-row" id="roStatusCard" data-st="warn">` +
     `<div class="ro-st-txt">` +
-    `<div class="ro-st-head"><span class="ro-st-dot"></span>下一期推荐暂未更新</div>` +
+    `<div class="ro-st-head"><span class="ro-st-dot"></span><span id="roStTitle">下一期推荐暂未更新</span></div>` +
     /* __ST_TZ__ 第二行：21:00~次日 02:00 显示（前端按本地时间切） */
     `<div class="ro-st-time ro-st-sub" id="roStSub" style="display:none">号码待凌晨 2 点计算后更新</div>` +
     `<div class="ro-st-time">所有资料均在下方<i class="ro-st-slide">请滑到底 ↓</i></div>` +
@@ -6106,6 +6119,7 @@ const RO_RENDER_SCRIPT = `
         /* 两件事各自独立：号码变了就重画 10 张图，开奖变了就重画顶部区块 */
         var t = applyRemoteTickets(j);
         var d = applyRemoteDrawsToPage(j);
+        if(window.__roRefreshUpdateStatus)window.__roRefreshUpdateStatus();
         if (window.__roSelfHealDecide) window.__roSelfHealDecide(j);
         return t || (d && d.applied.length > 0);
       })
@@ -12111,16 +12125,16 @@ ${RO_RENDER_SCRIPT}
     for (var i = 0; i < nodes.length; i++) {
       var m = /(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日[\s\S]*?(\d{1,2}):(\d{2})/.exec(nodes[i].textContent || '');
       if (!m) continue;
-      var t = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0, 0);
+      var t = new Date(m[1]+'-'+pad(+m[2])+'-'+pad(+m[3])+'T'+pad(+m[4])+':'+m[5]+':00+08:00');
       if (!isNaN(t.getTime())) out.push(t.getTime() + BUILD_DELAY_MS);
     }
     return out;
   }
 
   function dailyFull() {
-    var d = new Date();
-    var t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 2, 15, 0, 0);
-    if (t.getTime() <= d.getTime()) t = new Date(t.getTime() + 86400000);
+    var d = new Date(Date.now()+8*3600000);
+    var t = new Date(d.toISOString().slice(0,10)+'T02:15:00+08:00');
+    if (t.getTime() <= Date.now()) t = new Date(t.getTime() + 86400000);
     return t.getTime();
   }
 
@@ -12134,9 +12148,21 @@ ${RO_RENDER_SCRIPT}
     return next < full ? next : full;              /* 别越过每日全量那个点 */
   }
 
+  var deadline=target(), dueSnapshot=null;
   function draw() {
-    var ms = target() - Date.now();
-    if (ms <= 0) { for (var q = 0; q < els.length; q++) els[q].textContent = '正在更新…'; return; }
+    if(dueSnapshot!==null&&window.__roUpdateSnapshot&&window.__roUpdateSnapshot()!==dueSnapshot){
+      if(window.__roRefreshUpdateStatus)window.__roRefreshUpdateStatus();
+      var card=document.getElementById('roStatusCard');
+      if(card&&card.getAttribute('data-st')==='ok'){
+        deadline=target();dueSnapshot=null;delete window.__roStatusDueSnapshot;
+      }
+    }
+    var ms = deadline - Date.now();
+    if (ms <= 0) {
+      if(dueSnapshot===null){dueSnapshot=window.__roUpdateSnapshot?window.__roUpdateSnapshot():'';window.__roStatusDueSnapshot=dueSnapshot;if(window.__roRefreshUpdateStatus)window.__roRefreshUpdateStatus();}
+      for (var q = 0; q < els.length; q++) els[q].textContent = '正在更新，等待资料生成…';
+      return;
+    }
     var s = Math.floor(ms / 1000);
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
     for (var q2 = 0; q2 < els.length; q2++) els[q2].textContent = '下一期更新倒计时 ' + h + ':' + pad(m) + ':' + pad(s % 60);
