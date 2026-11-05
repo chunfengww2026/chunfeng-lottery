@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "gid": "ssq",
+      "issue": "2026127",
+      "kind": "owner-screenshot",
+      "receivedDate": "2026-11-06",
+      "evidenceFile": "codex-clipboard-9ef5cbca-d154-40fb-8ee3-fba4731b0a12.jpg",
+      "seedContext": { "ssq": "2026127", "dlt": "26127" },
+      "blocks": [
+        { "label": "红球参考", "kind": "ball", "nums": [1,2,4,5,9,10,12,13,14,16,18,19,20,25,26,28,29,30,31,32] },
+        { "label": "蓝球参考", "kind": "ball", "nums": [3,5,7,8,12,14] }
+      ]
+    }
+  ]
+}
