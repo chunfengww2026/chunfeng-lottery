@@ -199,6 +199,7 @@ const FROM_ROOT = [
      ⚠️ 文件很小（每期只存 8 个彩种各一组号，约 2.5 KB/期），一年也就几百 KB；
         超过 365 天的记录由构建自己物理删除，不会无限变大。 */
   'reco-archive.json',
+  'frog-evidence.json',
   /* 【🔥 人气数字 · 构建时写死的那个数】busuanzi.json（2026-10-20 加）
      用户：「卜蒜子能不能永远都呈现 就算我电脑关机了」→ 构建时把数字写进页面。
      · 结构：{ uv, pv, updated, source, cookie }（uv = 不蒜子的站点独立访客）
@@ -672,7 +673,7 @@ const SKIP_REPO_PATHS = new Set([
    塞一个 1.27 MB 的网页；改成「每 30 分钟一班」之后一天 48 次，仓库会迅速膨胀。
    现在用 .gitignore 把这两个大页面挡在版本管理之外（部署用的是运行时的 site/ 目录，
    完全不受影响；万一某次构建没产出页面，workflow 会从线上把当前那份拉回来兜底）。 */
-const REPO_ROOT_FILES = ['.gitignore', '.github/workflows/daily-update.yml'];
+const REPO_ROOT_FILES = ['.gitignore', '.github/workflows/daily-update.yml', '.github/workflows/zx-fetch.yml'];
 
 log('【1/3】刷新云端模块');
 let refreshed = 0;
