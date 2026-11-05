@@ -1122,10 +1122,15 @@ function expertArticlesHtml() {
 /* __FROG_PANEL__ 用户 2026-10-18：青蛙家园 = 免费资料 + 自动抓数据 + 核心算法出号
    数据全部来自本地已抓好的文件（核心算法 20 码 / 免费文章），不联网、不收费。 */
 let FROG_CURRENT_DATA = {};
+function frogRecordComplete(gid,r){
+  const blocks=r&&r.blocks,valid=(nums,size,max)=>Array.isArray(nums)&&nums.length===size&&new Set(nums).size===size&&nums.every(n=>Number.isInteger(n)&&n>=1&&n<=max);
+  return !!(blocks&&valid(blocks[0]&&blocks[0].nums,20,gid==='ssq'?33:gid==='dlt'?35:80)&&(gid==='kl8'||valid(blocks[1]&&blocks[1].nums,6,gid==='ssq'?16:12)));
+}
 function frogPanelHtml() {
   let pool = { ssq: [], dlt: [] }, issue = { ssq: '', dlt: '' }, arts = [];
   /* __FROG_SSQ_BLUE__ 双色球蓝球（1-16 取 6 个）：跟大乐透后区同一套展示 */
   let ssqBack = [];
+  let dltBack = [];
   try {
     const req = createRequire(import.meta.url);
     /* __CORE_POOL_SAFE__ 2026-10-20 事故：云端「核心算法 20 码 = 数据整理中」
@@ -1205,6 +1210,7 @@ function frogPanelHtml() {
     issue.ssq = nextOf('ssq', a && a.issue ? String(a.issue) : '');
     issue.dlt = nextOf('dlt', b && b.issue ? String(b.issue) : '');
     issue.kl8 = nextOf('kl8', '');
+    dltBack = issue.dlt ? seededPickN(12,6,issue.dlt+'|frog-dlt-back') : [];
     pool.kl8 = issue.kl8 ? seededPickN(80,20,issue.kl8+'|frog-kl8') : [];
     /* 种子 = 【下一期】期号：draws.js 一换期，这组 20 码就跟着自动换。
        （原来是上一期 → 开奖后号码纹丝不动，用户 2026-10-20 实测发现） */
@@ -1352,7 +1358,6 @@ function frogPanelHtml() {
     '<div class="frog-sec"><div class="frog-h">' + name + (iss ? ' · 第 ' + iss + ' 期' : '') + '</div>' +
     (arr.length ? '<div class="frog-balls">' + balls(arr) + (back && back.length ? '<span class="frog-plus">+</span>' + balls(back, 'blue') : '') + '</div>' : '<div class="frog-none">数据抓取中，稍后自动出现</div>') +
     '</div>';
-  let dltBack = [];
   try {
     const req2 = createRequire(import.meta.url);
     const vm2 = req2('node:vm');
@@ -1362,12 +1367,26 @@ function frogPanelHtml() {
       vm2.runInContext(fs.readFileSync(f2, 'utf8') + '\n;globalThis.__S=SAVED_TICKETS;', c2);
       const g = c2.__S.tickets && c2.__S.tickets.dlt;
       if (g) {
-        const ks = Object.keys(g).filter((k) => g[k] && g[k].images).sort();
-        const im = g[ks[ks.length - 1]].images.main;
-        dltBack = String(im.b_rec || '').split(/\s+/).filter(Boolean).map(Number);
+        const ks = Object.keys(g).filter((k) => g[k] && String(g[k].issue)===issue.dlt && g[k].images && g[k].images.main).sort();
+        if(ks.length){
+          const im = g[ks[ks.length - 1]].images.main;
+          const nums = String(im.b_rec || '').split(/\s+/).filter(Boolean).map(Number);
+          if(nums.length===6&&new Set(nums).size===6&&nums.every(n=>Number.isInteger(n)&&n>=1&&n<=12))dltBack=nums;
+        }
       }
     }
   } catch (e) {}
+  /* 展示和核奖共用首次完整存档，防止另一个彩种换期或重建改变同一期号码。 */
+  try {
+    const frozen=JSON.parse(fs.readFileSync(path.join(ROOT,'reco-archive.json'),'utf8')).frogGames||{};
+    ['ssq','dlt','kl8'].forEach(gid=>{
+      const r=frozen[gid]&&frozen[gid][issue[gid]],blocks=r&&r.blocks;
+      if(!frogRecordComplete(gid,r))return;
+      pool[gid]=blocks[0].nums.slice();
+      if(gid==='ssq')ssqBack=blocks[1].nums.slice();
+      if(gid==='dlt')dltBack=blocks[1].nums.slice();
+    });
+  } catch(e) {}
   FROG_CURRENT_DATA = Object.fromEntries(['ssq','dlt','kl8'].map(gid=>[gid,{issue:String(issue[gid]||''),blocks:[{label:'参考号码',nums:pool[gid]||[],kind:'ball'},...(gid==='ssq'?[{label:'蓝球',nums:ssqBack,kind:'ball'}]:gid==='dlt'?[{label:'后区',nums:dltBack,kind:'ball'}]:[])]}]));
   return '<details class="frog" id="frogHome">' +
     '<summary class="frog-sum"><span class="frog-t">🐸 青蛙家园</span><span class="frog-sub">（蝌蚪严父）</span><span class="frog-go">点开看免费资料 + 出号</span></summary>' +
@@ -4822,6 +4841,9 @@ function frogArchiveCommit(arch, current, idx, stamp, cutMs) {
     if (!r.issue || !r.blocks[0].nums.length || idx[gid+'|'+r.issue]) return;
     const bag = records[gid] || (records[gid] = {});
     if (!bag[r.issue]) bag[r.issue] = {...r, savedAt: stamp};
+    else if(!frogRecordComplete(gid,bag[r.issue])&&frogRecordComplete(gid,r)){
+      bag[r.issue]={...r,savedAt:stamp,previousIncomplete:bag[r.issue]};
+    }
   });
   const wins = [];
   Object.entries(records).forEach(([gid, bag]) => Object.entries(bag).forEach(([issue, r]) => {
@@ -4840,6 +4862,20 @@ function frogArchiveCommit(arch, current, idx, stamp, cutMs) {
     }
     wins.push({...j,gid,issue,date:String(d.date).slice(0,10),name:MQ_NAME[gid]||gid,source:'frog'});
   }));
+  /* 原图补充记录独立保存，保留旧版本存档；只公布原图号码与开奖号实际吻合的奖级。 */
+  let evidence=[];try{evidence=JSON.parse(fs.readFileSync(path.join(ROOT,'frog-evidence.json'),'utf8')).records||[];}catch(e){}
+  evidence.forEach(r=>{
+    const gid=r.gid,issue=String(r.issue||''),d=idx[gid+'|'+issue];
+    if(!d||!d.areas||histDayMs(d.date)<cutMs||!['ssq','dlt'].includes(gid))return;
+    const j=histJudgeRec(gid,r.blocks,d);
+    if(!j||!histKeepTier(gid,j.lv))return;
+    const previous=wins.findIndex(w=>w.gid===gid&&w.issue===issue);
+    if(previous>=0&&wins[previous].lv<=j.lv)return;
+    if(previous>=0)wins.splice(previous,1);
+    wins.push({...j,gid,issue,date:String(d.date).slice(0,10),name:MQ_NAME[gid]||gid,source:'frog',
+      label:j.label+'参考命中',evidenceKind:r.kind,evidenceFile:r.evidenceFile,
+      note:j.note+' · 按站主提供的该期原图核对，多号码参考不代表已购票中奖'});
+  });
   return wins;
 }
 
