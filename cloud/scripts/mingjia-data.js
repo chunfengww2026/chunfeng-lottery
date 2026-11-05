@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/6 05:58:26） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/6 06:43:53） */
 const MINGJIA_DATA = {
- "updated": "2026-11-6 05:58:26",
+ "updated": "2026-11-6 06:43:53",
  "list": [
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "白天鹅",
-   "cat": "双色球",
-   "kw": "白天鹅 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "百合花",
-   "cat": "双色球",
-   "kw": "百合花 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "百步穿杨",
    "cat": "双色球",
@@ -80,14 +56,31 @@ const MINGJIA_DATA = {
    "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/南山大师/1.webp",
-     "size": 25964,
-     "src": "https://pic1.800820.net/tumi/20260612/5539c8a787df41a69309ed083809ae57.webp",
-     "page": "https://www.800820.net/p/11132865.html",
-     "title": "双色球26年067期南山大师杀两红图谜_天齐网",
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-05T21:57:53.888Z"
+     "fetchedAt": "2026-11-05T22:43:22.742Z"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.png",
+     "size": 115260,
+     "src": "https://pic.cz89.com/upload/20231219/08eb3214044642b8b340e8db4199d891.png",
+     "page": "https://www.cz89.com/read_8210728.htm",
+     "title": "牛魔王杀两码红球147期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-05T22:43:26.490Z"
     }
    ]
   },
@@ -95,6 +88,18 @@ const MINGJIA_DATA = {
    "name": "闪享",
    "cat": "大乐透",
    "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 字谜 参考图",
    "imgs": []
   },
   {
@@ -165,24 +170,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-04T07:47:25.625Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-04T01:47:13.170Z"
     }
    ],
    "stale": true
@@ -317,18 +304,7 @@ const MINGJIA_DATA = {
    "name": "金手指",
    "cat": "快乐8",
    "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/快乐8/金手指/1.webp",
-     "size": 138992,
-     "src": "https://pic1.800820.net/tumi/20260328/031f808431fd42efa02f74284875f2ac.webp",
-     "page": "https://www.800820.net/tuku/tkpic_395513.html",
-     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-03T22:15:56.843Z"
-    }
-   ],
+   "imgs": [],
    "stale": true
   },
   {
@@ -440,15 +416,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "大乐透",
-   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "双色球",
+   "kw": "白天鹅 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "双色球",
+   "kw": "百合花 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -598,11 +586,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-4 15:47:35",
-   "names": 71,
-   "imgs": 16
-  },
-  {
    "at": "2026-11-4 16:17:29",
    "names": 71,
    "imgs": 16
@@ -716,6 +699,11 @@ const MINGJIA_DATA = {
    "at": "2026-11-6 05:58:26",
    "names": 71,
    "imgs": 14
+  },
+  {
+   "at": "2026-11-6 06:43:53",
+   "names": 71,
+   "imgs": 13
   }
  ],
  "bootstrapExpiresAt": null,
