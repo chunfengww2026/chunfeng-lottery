@@ -28,7 +28,7 @@ name: 资讯抓取
 
 on:
   schedule:
-    # - cron: '17 * * * *'
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 # 提交 zx-news.json 需要写权限
