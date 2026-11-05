@@ -4831,11 +4831,11 @@ function frogArchiveCommit(arch, current, idx, stamp, cutMs) {
     let j;
     if (gid === 'kl8') {
       const nums=r.blocks[0].nums, main=(d.areas.main||[]).map(Number), hit=main.map(n=>nums.includes(n)), count=hit.filter(Boolean).length;
-      if(count<5)return;
+      if(count<8)return;
       j={lv:3,label:'参考命中 '+count+' 个',note:'20个参考号码与开奖对照，不代表单注奖金',rec:[{label:'参考号码',nums,pad:true}],draw:[{label:'开奖',nums:main,pad:true,hit}]};
     } else {
       j=histJudgeRec(gid,r.blocks,d);
-      if(!j)return;
+      if(!j || !histKeepTier(gid,j.lv))return;
       j={...j,label:j.label+'参考命中',note:j.note+' · 多号码参考对照，不代表已购票中奖'};
     }
     wins.push({...j,gid,issue,date:String(d.date).slice(0,10),name:MQ_NAME[gid]||gid,source:'frog'});
@@ -5353,7 +5353,7 @@ function buildHistoryHtml() {
   const meta = `自 ${info.from} 起记录 · 中奖才公布 · 已比对 ${info.compared} 期 · 中奖 ${total} 注`;
   const foot = total > HIST_MAX_ROWS
     ? `共 ${total} 注 · 只列最近 ${HIST_MAX_ROWS} 注`
-    : `只记一/二/三等奖 + 组选直选；青蛙另含其他奖级参考命中，超过 365 天自动删除`;
+    : `只记一/二/三等奖 + 组选直选；没中的期次不写，超过 365 天自动删除`;
 
   return {
     html: annHtml +
