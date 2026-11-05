@@ -4417,7 +4417,7 @@ const MQ_MAX_ITEMS = 10;
 const MQ_MAX_PER_GAME = 3;
 
 /* 生成通告条：{ html, count, compared } */
-function buildHitMarquee(frogWins = []) {
+function buildHitMarquee(referenceWins = []) {
   const saved = mqReadGlobal('SAVED_TICKETS');
   const idx = mqDrawIndex();
 
@@ -4450,7 +4450,7 @@ function buildHitMarquee(frogWins = []) {
   });
 
   /* 青蛙只使用开奖前存档核对所得记录；最近一周同步进入小喇叭。 */
-  frogWins.filter(w=>Date.now()-histDayMs(w.date)<=7*86400000).forEach(w=>wins.push({
+  referenceWins.filter(w=>Date.now()-histDayMs(w.date)<=7*86400000).forEach(w=>wins.push({
     gid:w.gid,issue:w.issue,date:w.date,claim:w.label,hot:w.lv<=2?2:1,frogRecord:w
   }));
   /* 青蛙播报保留入口，其余仍按开奖日期倒序。 */
@@ -4496,7 +4496,7 @@ function buildHitMarquee(frogWins = []) {
   };
   const one = (w) =>
     '<span class="ro-mq-item' + (w.hot >= 2 ? ' mq-top' : '') + '">' +
-    '<b>' + (w.frogRecord?'青蛙 · ':'') + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
+    '<b>' + (w.frogRecord?(w.frogRecord.source==='frog'?'青蛙 · ':'专家资料 · '):'') + (MQ_NAME[w.gid] || w.gid) + '</b> 第 ' + w.issue + ' 期 · <i>' + tickerClaim(w) + '</i></span>';
 
   const itemsHtml = ownerFrogAnnouncement + recent.map(one).join('');
 
@@ -4821,6 +4821,7 @@ function histArchiveRead() {
       updated: String(raw.updated || ''),
       games: (raw.games && typeof raw.games === 'object') ? raw.games : {},
       frogGames: (raw.frogGames && typeof raw.frogGames === 'object') ? raw.frogGames : {},
+      expertGames: (raw.expertGames && typeof raw.expertGames === 'object') ? raw.expertGames : {},
       footballPairs: Array.isArray(raw.footballPairs) ? raw.footballPairs : [],
       wins: Array.isArray(raw.wins) ? raw.wins : []
     };
@@ -4875,6 +4876,39 @@ function frogArchiveCommit(arch, current, idx, stamp, cutMs) {
     wins.push({...j,gid,issue,date:String(d.date).slice(0,10),name:MQ_NAME[gid]||gid,source:'frog',
       label:j.label+'参考命中',evidenceKind:r.kind,evidenceFile:r.evidenceFile,
       note:j.note+' · 按站主提供的该期原图核对，多号码参考不代表已购票中奖'});
+  });
+  return wins;
+}
+
+function expertReferenceCommit(arch, idx, stamp, cutMs) {
+  const store=arch.expertGames||(arch.expertGames={});
+  const data=mqReadGlobal('EXPERTS_DATA'),game=data&&data.games&&data.games.pl3;
+  if(game){
+    const raw=String(game.issue||''),issue=raw.length===7?raw.slice(2):raw;
+    const nums=game.pool&&game.pool.red,draw=idx['pl3|'+issue];
+    const date=draw?String(draw.date).slice(0,10):(String(nextIssue('pl3'))===issue?nextDate('pl3'):'');
+    const text=String(data.updated||'').replace(' ','T');
+    const at=Date.parse(/Z$|[+-]\d{2}:\d{2}$/.test(text)?text:text+'+08:00');
+    const close=Date.parse(date+'T20:30:00+08:00');
+    if(date&&Number.isFinite(at)&&at<close&&Array.isArray(nums)&&nums.length>=3&&nums.length<=10&&new Set(nums).size===nums.length&&nums.every(n=>Number.isInteger(n)&&n>=0&&n<=9)){
+      const bag=store.pl3||(store.pl3={});
+      if(!bag[issue])bag[issue]={issue,date,nums:nums.slice(),sourceUpdated:data.updated,archivedAt:stamp};
+    }
+  }
+  const wins=[];
+  Object.entries(store.pl3||{}).forEach(([issue,r])=>{
+    const d=idx['pl3|'+issue];
+    if(histDayMs(r.date)<cutMs){delete store.pl3[issue];return;}
+    if(!d||!d.areas||histDayMs(d.date)<cutMs)return;
+    const main=(d.areas.main||[]).map(Number),nums=r.nums||[];
+    const text=String(r.sourceUpdated||'').replace(' ','T');
+    if(!(Date.parse(/Z$|[+-]\d{2}:\d{2}$/.test(text)?text:text+'+08:00')<Date.parse(String(d.date).slice(0,10)+'T20:30:00+08:00')))return;
+    if(main.length!==3||!main.every(n=>nums.includes(n)))return;
+    const unique=new Set(main).size;if(unique===1)return;
+    wins.push({gid:'pl3',issue,date:String(d.date).slice(0,10),name:MQ_NAME.pl3,source:'expert-reference',lv:unique===3?3:2,
+      label:(unique===3?'组选六':'组选三')+'参考命中',
+      rec:[{label:'专家综合参考',nums:nums.slice(),pad:false}],draw:[{label:'开奖',nums:main,pad:false,hit:[true,true,true]}],
+      note:nums.length+'码参考与开奖号对照，中3个；不代表已购票中奖'});
   });
   return wins;
 }
@@ -4982,6 +5016,7 @@ function recoArchiveCommit(recData) {
   mergeMarquee(MQ_WIN_ROWS, false);  /* 这一班小喇叭正在播的 */
 
   wins.push(...frogArchiveCommit(arch, FROG_CURRENT_DATA, idx, stamp, cutMs));
+  wins.push(...expertReferenceCommit(arch, idx, stamp, cutMs));
   // Site owner explicitly reported this result; no original picks are available.
   wins.push({gid:'dlt',issue:'26121',date:'2026-10-24',name:MQ_NAME.dlt||'大乐透',lv:0,
     label:'青蛙 · 5+1二等奖（站主报喜）',source:'owner-report',rec:[],
@@ -5042,7 +5077,7 @@ function recoArchiveCommit(recData) {
 
 const FROG_PANEL_HTML = frogPanelHtml();
 const RECO = recoArchiveCommit(REC_DATA);
-mqTicker = buildHitMarquee(RECO.wins.filter(w=>w.source==='frog'));
+mqTicker = buildHitMarquee(RECO.wins.filter(w=>w.source==='frog'||w.source==='expert-reference'));
 console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stats.saved + ' 期 · 已有 ' +
   RECO.stats.kept + ' 期不动' + (RECO.stats.skippedDrawn ? ' · 已开奖不补存 ' + RECO.stats.skippedDrawn + ' 期' : '') +
   ' → 存档共 ' + RECO.stats.totalIssues + ' 期 · 比对 ' + RECO.stats.compared + ' 期（开奖未到挂起 ' +
@@ -5335,7 +5370,7 @@ function buildHistoryHtml() {
             '<span class="ro-hist-ann-d">' + escape(String(r.date).slice(5)) + '</span>' +
             '<span class="ro-hist-ann-g">' + escape(r.name) + '</span>' +
             '<span class="ro-hist-ann-i">第' + escape(r.issue) + '期</span>' +
-            '<span class="ro-hist-ann-t">' + escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label) + '</span>' +
+            '<span class="ro-hist-ann-t">' + escape((r.source === 'frog' ? '青蛙 · ' : r.source === 'expert-reference' ? '专家资料 · ' : '') + r.label) + '</span>' +
             '<span class="ro-hist-ann-n">' + annNumsHtml(r) + '</span>' +
           '</div>').join('') +
       '</div>'
@@ -5372,7 +5407,7 @@ function buildHistoryHtml() {
       `<div class="ro-hist-top">` +
       `<span class="ro-hist-date">${escape(r.date)}</span>` +
       `<span class="ro-hist-issue">第${escape(r.issue)}期</span>` +
-      `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape((r.source === 'frog' ? '青蛙 · ' : '') + r.label)}</span>` +
+      `<span class="ro-hist-tier${tint(r.lv, r.gid)}">${escape((r.source === 'frog' ? '青蛙 · ' : r.source === 'expert-reference' ? '专家资料 · ' : '') + r.label)}</span>` +
       `</div>` +
       (r.source === 'marquee' || r.source === 'owner-report' ? '' : `<div class="ro-hist-line"><span class="ro-hist-tag">推荐</span>${partsHtml(r.rec)}</div>`) +
       (r.source === 'marquee' ? `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">命中号码</span>${partsHtml((r.draw||[]).map((p)=>({...p,nums:(p.nums||[]).filter((n,i)=>p.hit&&p.hit[i]),hit:(p.hit||[]).filter(Boolean)})).filter((p)=>p.nums.length))}</div>` : `<div class="ro-hist-line"><span class="ro-hist-tag is-draw">开奖</span>${partsHtml(r.draw)}</div>`) +
@@ -12185,6 +12220,14 @@ ${RO_RENDER_SCRIPT}
   }
 
   var deadline=target(), dueSnapshot=null;
+  /* 重新打开旧页面时，错过的全量更新仍应等待资料，不能直接滚到明天。 */
+  try {
+    var initialCard=document.getElementById('roStatusCard');
+    var savedStamp=String(SAVED_TICKETS.updated||'').replace(' ','T');
+    var savedMs=Date.parse(/Z$|[+-]\\d{2}:\\d{2}$/.test(savedStamp)?savedStamp:savedStamp+'+08:00');
+    var lastFull=dailyFull()-86400000;
+    if(initialCard&&initialCard.getAttribute('data-st')==='warn'&&(!Number.isFinite(savedMs)||savedMs<lastFull))deadline=Date.now();
+  } catch(e) {}
   function draw() {
     if(dueSnapshot!==null&&window.__roUpdateSnapshot&&window.__roUpdateSnapshot()!==dueSnapshot){
       if(window.__roRefreshUpdateStatus)window.__roRefreshUpdateStatus();
