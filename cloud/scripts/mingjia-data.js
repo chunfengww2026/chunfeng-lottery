@@ -1,25 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/6 16:55:33） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/6 17:49:14） */
 const MINGJIA_DATA = {
- "updated": "2026-11-6 16:55:33",
+ "updated": "2026-11-6 17:49:14",
  "list": [
-  {
-   "name": "一品红",
-   "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "大招财运",
    "cat": "双色球",
@@ -87,6 +69,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "南山大师",
    "cat": "双色球",
    "kw": "南山大师 双色球 字谜 参考图",
@@ -101,8 +89,7 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-06T01:57:01.769Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "牛魔王",
@@ -119,8 +106,13 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-06T01:57:07.199Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "排三字谜",
@@ -399,15 +391,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "朱大姐",
+   "name": "一品红",
    "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
+   "kw": "一品红 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -575,11 +573,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-4 21:47:22",
-   "names": 71,
-   "imgs": 16
-  },
-  {
    "at": "2026-11-4 22:18:09",
    "names": 71,
    "imgs": 16
@@ -691,6 +684,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-6 16:55:33",
+   "names": 71,
+   "imgs": 12
+  },
+  {
+   "at": "2026-11-6 17:49:14",
    "names": 71,
    "imgs": 12
   }
