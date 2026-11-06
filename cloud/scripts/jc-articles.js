@@ -1,8 +1,8 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-11-6 18:51:49 · 合并去重后 115 篇，取最新 20 篇
+   抓取时间：2026-11-6 19:44:22 · 合并去重后 107 篇，取最新 20 篇
    头条单列：0 条（其中带正文 0 条 · 免费资料按「下一期彩种」从中筛 20 条） */
 const JC_ARTICLES = {
- "updated": "2026-11-6 18:51:49",
+ "updated": "2026-11-6 19:44:22",
  "sources": [
   {
    "name": "一起彩",
@@ -12,9 +12,9 @@ const JC_ARTICLES = {
   },
   {
    "name": "500彩票",
-   "ok": true,
-   "count": 8,
-   "note": "来自 https://www.500.com/"
+   "ok": false,
+   "count": 0,
+   "note": "fetch failed"
   },
   {
    "name": "今日头条",
@@ -23,7 +23,7 @@ const JC_ARTICLES = {
    "note": "没抓到"
   }
  ],
- "total": 115,
+ "total": 107,
  "bodies": {
   "tried": 0,
   "ok": 0,
