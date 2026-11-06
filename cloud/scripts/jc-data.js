@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-07 04:56 */
+/* 自动生成，请勿手动编辑 · 2026-11-07 05:29 */
 const JC_DATA = {
- "updated": "2026-11-07 04:56",
+ "updated": "2026-11-07 05:29",
  "stat": {
   "total": 14,
   "upcoming": 1,
@@ -683,7 +683,7 @@ const JC_DATA = {
     "rank": 18
    },
    "score": {
-    "home": 2,
+    "home": 3,
     "away": 1
    },
    "statusText": "1 - 1 ",
@@ -770,7 +770,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
+    "home": 3,
     "away": 1
    }
   },
@@ -792,8 +792,8 @@ const JC_DATA = {
     "rank": 19
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -879,8 +879,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    }
   },
   {
@@ -901,8 +901,8 @@ const JC_DATA = {
     "rank": 13
    },
    "score": {
-    "home": 1,
-    "away": 0
+    "home": 3,
+    "away": 1
    },
    "statusText": "1 - 0 ",
    "odds": {
@@ -988,8 +988,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
-    "away": 0
+    "home": 3,
+    "away": 1
    }
   },
   {
@@ -1010,8 +1010,8 @@ const JC_DATA = {
     "rank": 16
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -1097,8 +1097,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    }
   },
   {
@@ -1119,7 +1119,7 @@ const JC_DATA = {
     "rank": 17
    },
    "score": {
-    "home": 0,
+    "home": 2,
     "away": 1
    },
    "statusText": "0 - 1 ",
@@ -1206,7 +1206,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 2,
     "away": 1
    }
   },
@@ -1455,9 +1455,9 @@ const JC_DATA = {
       "away": 1.02
      },
      "live": {
-      "home": 0.95,
+      "home": 0.92,
       "line": "受平手/半球",
-      "away": 0.9
+      "away": 0.92
      }
     },
     "europe": {
@@ -1479,9 +1479,9 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.72,
+      "line": 1.1,
       "over": 2,
-      "under": 1.07
+      "under": 0.77
      }
     }
    },
@@ -1532,21 +1532,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.25,
     "upSide": "away",
-    "upWater": 0.9,
-    "downWater": 0.95,
+    "upWater": 0.92,
+    "downWater": 0.92,
     "openHandicap": 0.25,
     "openUpWater": 1.02,
     "openDownWater": 0.82,
-    "totalWater": 1.85,
-    "theoryUpPercent": "51.35",
-    "theoryDownPercent": "48.65",
+    "totalWater": 1.84,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.25,
      "nowHandicap": 0.25,
      "initUpWater": 1.02,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.92,
      "initLine": "受平手/半球",
      "nowLine": "受平手/半球"
     },
