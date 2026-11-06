@@ -516,9 +516,9 @@ const JC_DATA = {
       "away": 2.1
      },
      "live": {
-      "home": 3.6,
-      "draw": 3.6,
-      "away": 2
+      "home": 3.1,
+      "draw": 3.5,
+      "away": 2.25
      }
     },
     "overunder": {
@@ -537,11 +537,11 @@ const JC_DATA = {
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 45.6,
+    "confidence": 43.8,
     "prob": {
-     "home": 28.9,
-     "draw": 25.5,
-     "away": 45.6
+     "home": 30.4,
+     "draw": 25.8,
+     "away": 43.8
     },
     "clear": true,
     "margin": 5.6,
@@ -551,11 +551,11 @@ const JC_DATA = {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 28.9,
-      "draw": 25.5,
-      "away": 45.6
+      "home": 30.4,
+      "draw": 25.8,
+      "away": 43.8
      },
-     "confidence": 45.6,
+     "confidence": 43.8,
      "signals": [
       "初盘→即时：主胜-4.0pp / 平局+1.3pp / 客胜+2.7pp",
       "亚盘未变盘；水位只作辅助核对"
@@ -568,9 +568,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": 4,
-      "draw": -8.3,
-      "away": -8.7
+      "home": -5.7,
+      "draw": -9.8,
+      "away": -1.4
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -1040,9 +1040,9 @@ const JC_DATA = {
       "away": 3.8
      },
      "live": {
-      "home": 2.15,
+      "home": 2.1,
       "draw": 3.8,
-      "away": 3
+      "away": 3.1
      }
     },
     "overunder": {
@@ -1061,11 +1061,11 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 46.7,
+    "confidence": 47.1,
     "prob": {
-     "home": 46.7,
+     "home": 47.1,
      "draw": 24.5,
-     "away": 28.8
+     "away": 28.4
     },
     "clear": false,
     "margin": 6.2,
@@ -1075,13 +1075,13 @@ const JC_DATA = {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 46.7,
+      "home": 47.1,
       "draw": 24.5,
-      "away": 28.8
+      "away": 28.4
      },
-     "confidence": 46.7,
+     "confidence": 47.1,
      "signals": [
-      "初盘→即时：主胜-7.5pp / 平局+0.5pp / 客胜+7.1pp",
+      "初盘→即时：主胜-6.5pp / 平局+0.5pp / 客胜+6.1pp",
       "亚盘客队方向变深，水位下降"
      ],
      "missing": [
@@ -1094,9 +1094,9 @@ const JC_DATA = {
       "欧亚方向不一致，谨慎"
      ],
      "ev": {
-      "home": 0.4,
+      "home": -1.1,
       "draw": -7,
-      "away": -13.6
+      "away": -11.8
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
