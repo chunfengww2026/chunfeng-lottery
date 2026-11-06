@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-07 06:08",
+ "updated": "2026-11-07 06:44",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1913,6 +1913,281 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-11-07 00:44"
+  },
+  {
+   "code": "周五010",
+   "league": "英超",
+   "home": "埃弗顿",
+   "away": "考文垂",
+   "time": "2026-11-07 04:00",
+   "score": "3:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": -1,
+    "openUpWater": 1.02,
+    "openDownWater": 0.82,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -1,
+     "nowHandicap": -1,
+     "initUpWater": 1.02,
+     "nowUpWater": 1.15,
+     "initLine": "一球",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.67,
+    "draw": 4.1,
+    "away": 4.75
+   },
+   "prob": {
+    "home": 56.9,
+    "draw": 23.2,
+    "away": 20
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 56.9,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-11-07 06:44"
+  },
+  {
+   "code": "周五011",
+   "league": "英冠",
+   "home": "德比郡",
+   "away": "博尔顿",
+   "time": "2026-11-07 04:00",
+   "score": "3:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 1.1,
+    "downWater": 0.7,
+    "openHandicap": -0.25,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.92,
+     "nowUpWater": 1.1,
+     "initLine": "平手/半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.5,
+    "draw": 3.2,
+    "away": 2.8
+   },
+   "prob": {
+    "home": 37.4,
+    "draw": 29.2,
+    "away": 33.4
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 37.4,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-11-07 06:44"
+  },
+  {
+   "code": "周五012",
+   "league": "西甲",
+   "home": "塞维利亚",
+   "away": "阿拉维斯",
+   "time": "2026-11-07 04:00",
+   "score": "0:0",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 0.97,
+    "downWater": 0.87,
+    "openHandicap": -0.5,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "47.28",
+    "theoryDownPercent": "52.72",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.92,
+     "nowUpWater": 0.97,
+     "initLine": "半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2,
+    "draw": 3.3,
+    "away": 4.1
+   },
+   "prob": {
+    "home": 47.8,
+    "draw": 28.9,
+    "away": 23.3
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 47.8,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-11-07 06:44"
+  },
+  {
+   "code": "周五008",
+   "league": "意甲",
+   "home": "威尼斯",
+   "away": "乌迪内斯",
+   "time": "2026-11-07 03:45",
+   "score": "2:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 0.67,
+    "downWater": 1.15,
+    "openHandicap": -0.25,
+    "openUpWater": 0.9,
+    "openDownWater": 0.95,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "63.19",
+    "theoryDownPercent": "36.81",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.25,
+     "nowHandicap": 0,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.67,
+     "initLine": "平手/半球",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.3,
+    "draw": 3.3,
+    "away": 3
+   },
+   "prob": {
+    "home": 40.6,
+    "draw": 28.3,
+    "away": 31.1
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 40.6,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-11-07 06:44"
+  },
+  {
+   "code": "周五009",
+   "league": "法甲",
+   "home": "图卢兹",
+   "away": "斯特拉斯",
+   "time": "2026-11-07 03:45",
+   "score": "3:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": -0.5,
+    "openUpWater": 0.82,
+    "openDownWater": 1.02,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.82,
+     "nowUpWater": 1.15,
+     "initLine": "半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.15,
+    "draw": 3.6,
+    "away": 3.1
+   },
+   "prob": {
+    "home": 43.7,
+    "draw": 26.1,
+    "away": 30.3
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 43.7,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-11-07 06:44"
   },
   {
    "code": "周五007",
