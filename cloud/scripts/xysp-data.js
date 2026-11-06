@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-07 01:54
+   更新时间：2026-11-07 02:53
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-07 01:54",
+ "updated": "2026-11-07 02:53",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -2802,7 +2802,7 @@ const XYSP_DATA = {
      "issue": "26295",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793968695000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1794054600000,
      "nextMs": 1794054600000,
      "atMs": 1793972797086,
@@ -2922,7 +2922,7 @@ const XYSP_DATA = {
      "issue": "26127",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793964783000,
-     "seenMs": 1793979256532,
+     "seenMs": 1793987639083,
      "drawMs": 1794054600000,
      "nextMs": 1794054600000,
      "atMs": 1793968745525,
@@ -3463,7 +3463,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793957402000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793970900000,
      "nextMs": 1793970900000,
      "atMs": 1793962895258,
@@ -3494,7 +3494,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793955751000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793968200000,
      "nextMs": 1793968200000,
      "atMs": 1793958798272,
@@ -3525,7 +3525,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793955751000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793968200000,
      "nextMs": 1793968200000,
      "atMs": 1793958798272,
@@ -3586,7 +3586,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793955650000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793970900000,
      "nextMs": 1793970900000,
      "atMs": 1793958798272,
@@ -3616,7 +3616,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793955650000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793970900000,
      "nextMs": 1793970900000,
      "atMs": 1793958798272,
@@ -3646,7 +3646,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793955650000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1793970900000,
      "nextMs": 1793970900000,
      "atMs": 1793958798272,
@@ -3982,7 +3982,7 @@ const XYSP_DATA = {
      "issue": "26127",
      "seen": "2026-11-06T17:53:59.083Z",
      "whenMs": 1793953453000,
-     "seenMs": 1793984733315,
+     "seenMs": 1793987639083,
      "drawMs": 1794054600000,
      "nextMs": 1794054600000,
      "atMs": 1793958798272,
@@ -4070,9 +4070,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-06T17:53:59.083Z",
+     "seen": "2026-11-06T18:51:44.682Z",
      "whenMs": 1793953087000,
-     "seenMs": 1793979256532,
+     "seenMs": 1793987639083,
      "drawMs": 1794143700000,
      "nextMs": 1794143700000,
      "atMs": 1793962604072,
@@ -4087,8 +4087,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/735c5044c0ed441b95431f683974ecbb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802649600&x-signature=zOrd8fn%2FqJ7k6BRbl6bS17fOoNA%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/735c5044c0ed441b95431f683974ecbb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802649600&x-signature=zOrd8fn%2FqJ7k6BRbl6bS17fOoNA%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/735c5044c0ed441b95431f683974ecbb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802649600&x-signature=DQT%2F5BJnmVOCpaGHd%2BWKAlWszoQ%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/735c5044c0ed441b95431f683974ecbb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802649600&x-signature=DQT%2F5BJnmVOCpaGHd%2BWKAlWszoQ%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/e8696d85158146e3b99084cce2af9331~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1802649600&x-signature=dPf4ZTLaX4qFxvI8xOWq%2FLBRkBE%3D",
      "title": "天选之人，广东彩民32元赠票喜中双色球1138万元，中奖票爆光",
      "url": "https://toutiao.com/group/7704969734097257000/",
@@ -4100,9 +4100,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-06T17:53:59.083Z",
+     "seen": "2026-11-06T18:51:44.682Z",
      "whenMs": 1793953087000,
-     "seenMs": 1793987639083,
+     "seenMs": 1793991104682,
      "drawMs": 1794143700000,
      "nextMs": 1794143700000,
      "atMs": 1793962604072,
