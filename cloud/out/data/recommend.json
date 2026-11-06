@@ -1,42 +1,8 @@
 {
- "updated": "2026-11-06 10:57",
+ "updated": "2026-11-06 11:48",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-06 10:57",
-   "finishTime": 1793933820000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周五001",
-     "teams": "悉尼FC vs 中央海岸",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.2,
-     "status": "pending",
-     "finishTime": 1793933820000,
-     "league": "澳超",
-     "odds": 1.55,
-     "time": "2026-11-06 16:40"
-    },
-    {
-     "matchNo": "周五003",
-     "teams": "哈马比 vs 埃夫斯堡",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 66.2,
-     "status": "pending",
-     "finishTime": 1793933820000,
-     "league": "瑞典超",
-     "odds": 1.4,
-     "time": "2026-11-07 02:00"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
