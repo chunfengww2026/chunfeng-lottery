@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-06 19:28",
+ "updated": "2026-11-06 20:17",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1874,61 +1874,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-11-03 00:58"
-  },
-  {
-   "code": "周二003",
-   "league": "亚冠杯",
-   "home": "曼谷港务",
-   "away": "北京国安",
-   "time": "2026-11-03 20:15",
-   "score": "7:4",
-   "hc": null,
-   "asianIndex": {
-    "line": "受半球/一球",
-    "from": "live",
-    "handicap": 0.75,
-    "upSide": "away",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": 0.75,
-    "openUpWater": 0.82,
-    "openDownWater": 0.97,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.75,
-     "nowHandicap": 0.75,
-     "initUpWater": 0.82,
-     "nowUpWater": 0.85,
-     "initLine": "受半球/一球",
-     "nowLine": "受半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 4.2,
-    "draw": 4,
-    "away": 1.65
-   },
-   "prob": {
-    "home": 21.8,
-    "draw": 22.8,
-    "away": 55.4
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 55.4,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-11-03 22:58"
   }
  ]
 };
