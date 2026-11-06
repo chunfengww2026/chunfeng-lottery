@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-07 01:06",
+ "updated": "2026-11-07 01:54",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-07 01:06",
-   "finishTime": 1793984760000,
+   "dateStr": "2026-11-07 01:54",
+   "finishTime": 1793987640000,
    "verdict": "",
    "matches": [
     {
@@ -16,9 +16,9 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 67.4,
+     "confidence": 67.6,
      "status": "pending",
-     "finishTime": 1793984760000,
+     "finishTime": 1793987640000,
      "league": "瑞典超",
      "odds": 1.33,
      "time": "2026-11-07 02:00"
@@ -29,11 +29,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 58.1,
+     "confidence": 58.2,
      "status": "pending",
-     "finishTime": 1793984760000,
+     "finishTime": 1793987640000,
      "league": "英超",
-     "odds": 1.65,
+     "odds": 1.62,
      "time": "2026-11-07 04:00"
     }
    ]
