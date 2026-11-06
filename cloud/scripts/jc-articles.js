@@ -1,8 +1,8 @@
 /* jc-articles.js —— 竞彩专家推荐文章（build-jc-articles.mjs 生成，勿手改）
-   抓取时间：2026-11-6 20:33:28 · 合并去重后 115 篇，取最新 20 篇
+   抓取时间：2026-11-6 21:41:22 · 合并去重后 115 篇，取最新 20 篇
    头条单列：0 条（其中带正文 0 条 · 免费资料按「下一期彩种」从中筛 20 条） */
 const JC_ARTICLES = {
- "updated": "2026-11-6 20:33:28",
+ "updated": "2026-11-6 21:41:22",
  "sources": [
   {
    "name": "一起彩",
@@ -78,7 +78,7 @@ const JC_ARTICLES = {
    "game": "39"
   },
   {
-   "title": "专家「福彩3D专家 没有昵称 2026295期 命中3码！」 · 免费推荐",
+   "title": "专家「福彩3D专家 没有昵称 2026296期 命中2码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/fc3dex/tjsy_6_738.html",
    "source": "一起彩",
    "time": 0,
@@ -86,7 +86,7 @@ const JC_ARTICLES = {
    "game": "6"
   },
   {
-   "title": "专家「快乐8专家 彩票梦 2026295期 命中3码！」 · 免费推荐",
+   "title": "专家「快乐8专家 彩票梦 2026296期 命中0码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_107.html",
    "source": "一起彩",
    "time": 0,
@@ -94,7 +94,7 @@ const JC_ARTICLES = {
    "game": "8"
   },
   {
-   "title": "专家「排列3专家 沙场点兵 2026295期 命中3码！」 · 免费推荐",
+   "title": "专家「排列3专家 沙场点兵 2026296期 命中0码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/pl3ex/tjsy_63_679.html",
    "source": "一起彩",
    "time": 0,
@@ -102,7 +102,7 @@ const JC_ARTICLES = {
    "game": "63"
   },
   {
-   "title": "专家「排列5专家 小飞 2026295期 命中3码！」 · 免费推荐",
+   "title": "专家「排列5专家 小飞 2026296期 命中0码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_241.html",
    "source": "一起彩",
    "time": 0,
@@ -110,7 +110,7 @@ const JC_ARTICLES = {
    "game": "64"
   },
   {
-   "title": "专家「七星彩专家 王坤 2026126期 命中3码！」 · 免费推荐",
+   "title": "专家「七星彩专家 王坤 2026127期 命中0码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/xqxcex/tjsy_7_108.html",
    "source": "一起彩",
    "time": 0,
@@ -118,7 +118,7 @@ const JC_ARTICLES = {
    "game": "7"
   },
   {
-   "title": "专家「七乐彩专家 荷123 2026127期 命中6码！」 · 免费推荐",
+   "title": "专家「七乐彩专家 荷123 2026128期 命中7码！」 · 免费推荐",
    "url": "https://www.yiqicai.com/ex/qlcex/tjsy_13_1603.html",
    "source": "一起彩",
    "time": 0,
