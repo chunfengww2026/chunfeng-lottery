@@ -105,31 +105,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/排列三/排三字谜/1.png",
-     "size": 529980,
+     "size": 515392,
      "src": "https://www.rzduoli.com/zb_users/cache/ly_autoimg/n/NTQzMzI.png",
      "page": "https://www.rzduoli.com/zhishi/54332.html",
      "title": "排三字谜，藏在数字里的民间体育趣味密码 - 多利网",
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-05T21:17:17.086Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-06T01:57:07.199Z"
     }
    ],
    "stale": true
@@ -637,7 +619,7 @@ const MINGJIA_DATA = {
    "imgs": 11
   },
   {
-   "at": "2026-11-6 22:33:26",
+   "at": "2026-11-6 22:37:13",
    "names": 71,
    "imgs": 8
   },
