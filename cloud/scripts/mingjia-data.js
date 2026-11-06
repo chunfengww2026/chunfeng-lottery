@@ -99,31 +99,13 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-06T01:57:07.199Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "排三字谜",
    "cat": "排列三",
    "kw": "排三字谜 排列三 字谜 参考图",
    "imgs": [
     {
      "file": "imgs/mingjia/排列三/排三字谜/1.png",
-     "size": 482092,
+     "size": 515392,
      "src": "https://www.rzduoli.com/zb_users/cache/ly_autoimg/n/NTQzMzI.png",
      "page": "https://www.rzduoli.com/zhishi/54332.html",
      "title": "排三字谜，藏在数字里的民间体育趣味密码 - 多利网",
@@ -330,6 +312,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "东北人杀",
+   "cat": "双色球",
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "蓝号迷",
    "cat": "双色球",
    "kw": "蓝号迷 双色球 字谜 参考图",
@@ -339,6 +327,18 @@ const MINGJIA_DATA = {
    "name": "林黛玉",
    "cat": "双色球",
    "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
    "imgs": []
   },
   {
