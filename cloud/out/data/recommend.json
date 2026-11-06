@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-07 00:22",
+ "updated": "2026-11-07 01:06",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-07 00:22",
-   "finishTime": 1793982120000,
+   "dateStr": "2026-11-07 01:06",
+   "finishTime": 1793984760000,
    "verdict": "",
    "matches": [
     {
@@ -18,114 +18,23 @@
      "result": "pending",
      "confidence": 67.4,
      "status": "pending",
-     "finishTime": 1793982120000,
+     "finishTime": 1793984760000,
      "league": "瑞典超",
      "odds": 1.33,
      "time": "2026-11-07 02:00"
     },
     {
-     "matchNo": "周六013",
-     "teams": "多特蒙德 vs 埃沃斯堡",
+     "matchNo": "周五010",
+     "teams": "埃弗顿 vs 考文垂",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 72.8,
+     "confidence": 58.1,
      "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "德甲",
-     "odds": 1.3,
-     "time": "2026-11-07 22:30"
-    },
-    {
-     "matchNo": "周六014",
-     "teams": "美因茨 vs 拜仁",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 68.8,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "德甲",
-     "odds": 1.33,
-     "time": "2026-11-07 22:30"
-    },
-    {
-     "matchNo": "周六011",
-     "teams": "莱红牛 vs 奥格斯堡",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 66.9,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "德甲",
-     "odds": 1.45,
-     "time": "2026-11-07 22:30"
-    },
-    {
-     "matchNo": "周六015",
-     "teams": "阿森纳 vs 赫尔城",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 79.5,
-     "status": "pending",
-     "finishTime": 1793982120000,
+     "finishTime": 1793984760000,
      "league": "英超",
-     "odds": 1.17,
-     "time": "2026-11-07 23:00"
-    },
-    {
-     "matchNo": "周六024",
-     "teams": "斯图加特 vs 不来梅",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 58.3,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "德甲",
      "odds": 1.65,
-     "time": "2026-11-08 01:30"
-    },
-    {
-     "matchNo": "周六028",
-     "teams": "罗马 vs 萨索洛",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 70.2,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "意甲",
-     "odds": 1.3,
-     "time": "2026-11-08 03:45"
-    },
-    {
-     "matchNo": "周日019",
-     "teams": "阿尔克马 vs 格罗宁根",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.5,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "荷甲",
-     "odds": 1.53,
-     "time": "2026-11-08 23:45"
-    },
-    {
-     "matchNo": "周日026",
-     "teams": "吉马良斯 vs 波尔图",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 59.4,
-     "status": "pending",
-     "finishTime": 1793982120000,
-     "league": "葡超",
-     "odds": 1.57,
-     "time": "2026-11-09 02:00"
+     "time": "2026-11-07 04:00"
     }
    ]
   }
