@@ -1,29 +1,8 @@
 {
- "updated": "2026-11-07 02:43",
+ "updated": "2026-11-07 03:42",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-07 02:43",
-   "finishTime": 1793990580000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周五010",
-     "teams": "埃弗顿 vs 考文垂",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 58.2,
-     "status": "pending",
-     "finishTime": 1793990580000,
-     "league": "英超",
-     "odds": 1.62,
-     "time": "2026-11-07 04:00"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
