@@ -718,6 +718,48 @@
    "gid": "ssq",
    "issue": "2026128",
    "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "dlt",
+   "issue": "26127",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "dlt",
+   "issue": "26127",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "kl8",
+   "issue": "2026296",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "kl8",
+   "issue": "2026296",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "fc3d",
+   "issue": "2026296",
+   "status": 200,
+   "count": 0,
+   "available": true
+  },
+  {
+   "gid": "fc3d",
+   "issue": "2026296",
+   "status": 200,
    "count": 4,
    "available": true
   },
