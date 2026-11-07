@@ -73,13 +73,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 34799,
-     "src": "https://img.3d178.cn/remote/2026-03-08/2026030820451803902233.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/217751.shtml",
-     "title": "今日3d太湖字谜总汇_2026058期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2026058",
+     "size": 362476,
+     "src": "https://pic.cz89.com/upload/20260625/3acda3974e1a454c85e627660c2d6636.png",
+     "page": "https://www.cz89.com/read_10514467.htm",
+     "title": "牛彩版3D字谜彩报图26年166期打印版_牛彩网",
+     "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-07T13:25:46.884Z"
+     "fetchedAt": "2026-11-07T14:11:26.029Z"
     }
    ]
   },
