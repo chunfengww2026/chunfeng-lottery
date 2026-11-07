@@ -120,14 +120,14 @@ const MINGJIA_DATA = {
    "kw": "南山大师 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/南山大师/1.webp",
-     "size": 28982,
-     "src": "https://pic1.800820.net/tumi/20260413/5aa97b1de71046ca9859672fef58c1e9.webp",
-     "page": "https://www.800820.cn/p/10950621.html",
-     "title": "双色球26年041期南山大师杀两红图谜_天齐网",
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-07T14:10:55.573Z"
+     "fetchedAt": "2026-11-07T11:56:50.367Z"
     }
    ],
    "stale": true
@@ -138,14 +138,14 @@ const MINGJIA_DATA = {
    "kw": "牛魔王 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/牛魔王/1.png",
-     "size": 100169,
-     "src": "https://pic.cz89.com/upload/20251127/89a1bc2d72ad4b3eb3adfea1155bb995.png",
-     "page": "https://www.cz89.com/read_9827735.htm",
-     "title": "牛魔王杀两码红球138期双色球图谜_牛彩网",
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 98839,
+     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
+     "page": "https://www.cz89.com/read_9192830.htm",
+     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-07T14:11:01.001Z"
+     "fetchedAt": "2026-11-07T11:56:54.297Z"
     }
    ],
    "stale": true
@@ -183,8 +183,19 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-06T21:46:12.857Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "大乐透",
+   "kw": "九头鸟 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "大乐透",
+   "kw": "金手指 大乐透 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "貂蝉杀",
@@ -743,7 +754,7 @@ const MINGJIA_DATA = {
    "imgs": 17
   },
   {
-   "at": "2026-11-7 22:11:59",
+   "at": "2026-11-7 22:17:05",
    "names": 71,
    "imgs": 17
   },

@@ -21,8 +21,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.33,
-     "conf": 72.3,
+     "odds": 1.3,
+     "conf": 72.6,
      "score": "",
      "hit": null,
      "result": ""
@@ -52,7 +52,7 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "type": "three",
      "odds": 1.42,
-     "conf": 67.2,
+     "conf": 67.4,
      "score": "",
      "hit": null,
      "result": ""
@@ -171,8 +171,8 @@ const JC_RECO_DATA = {
      "pick": "away",
      "label": "客胜",
      "type": "three",
-     "odds": 1.6,
-     "conf": 59.6,
+     "odds": 1.56,
+     "conf": 59.8,
      "score": "",
      "hit": null,
      "result": ""
