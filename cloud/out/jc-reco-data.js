@@ -5,73 +5,13 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-07 23:34",
+ "updated": "2026-11-08 00:14",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
-   "at": "2026-11-07 23:34",
+   "at": "2026-11-08 00:14",
    "min": 58,
    "rows": [
-    {
-     "code": "周六014",
-     "time": "2026-11-07 22:30",
-     "league": "德甲",
-     "home": "美因茨",
-     "away": "拜仁",
-     "pick": "away",
-     "label": "客胜",
-     "type": "three",
-     "odds": 1.27,
-     "conf": 75.6,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六013",
-     "time": "2026-11-07 22:30",
-     "league": "德甲",
-     "home": "多特蒙德",
-     "away": "埃沃斯堡",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.36,
-     "conf": 69.4,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六011",
-     "time": "2026-11-07 22:30",
-     "league": "德甲",
-     "home": "莱红牛",
-     "away": "奥格斯堡",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.4,
-     "conf": 67.1,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
-    {
-     "code": "周六015",
-     "time": "2026-11-07 23:00",
-     "league": "英超",
-     "home": "阿森纳",
-     "away": "赫尔城",
-     "pick": "home",
-     "label": "主胜",
-     "type": "three",
-     "odds": 1.14,
-     "conf": 83.2,
-     "score": "",
-     "hit": null,
-     "result": ""
-    },
     {
      "code": "周六028",
      "time": "2026-11-08 03:45",
@@ -81,8 +21,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.33,
-     "conf": 69.7,
+     "odds": 1.36,
+     "conf": 69.1,
      "score": "",
      "hit": null,
      "result": ""
@@ -195,7 +135,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 12,
+   "pending": 8,
    "verdict": ""
   }
  ]
