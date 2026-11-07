@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-08 02:44",
+ "updated": "2026-11-08 03:21",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1929,7 +1929,7 @@ const JC_HISTORY = {
    "home": "帕尔马",
    "away": "博洛尼亚",
    "time": "2026-11-08 01:00",
-   "score": "0:0",
+   "score": "1:2",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -1946,10 +1946,65 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 51.8,
    "type": "three",
-   "result": "lose",
-   "hit": false,
+   "result": "win",
+   "hit": true,
    "matched": true,
    "at": "2026-11-07 00:44"
+  },
+  {
+   "code": "周六021",
+   "league": "瑞典超",
+   "home": "代格福什",
+   "away": "盖斯",
+   "time": "2026-11-08 00:30",
+   "score": "1:2",
+   "hc": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": 0.25,
+    "openUpWater": 1.02,
+    "openDownWater": 0.77,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 1.02,
+     "nowUpWater": 0.95,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 3.1,
+    "draw": 3.3,
+    "away": 2.2
+   },
+   "prob": {
+    "home": 29.9,
+    "draw": 28.1,
+    "away": 42.1
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 42.1,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-11-08 03:20"
   },
   {
    "code": "周六020",
@@ -2600,7 +2655,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-07 00:44"
   },
   {
