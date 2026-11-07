@@ -1,81 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/7 15:47:20） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/7 16:38:10） */
 const MINGJIA_DATA = {
- "updated": "2026-11-7 15:47:20",
+ "updated": "2026-11-7 16:38:10",
  "list": [
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "林黛玉",
-   "cat": "双色球",
-   "kw": "林黛玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
-     "size": 44926,
-     "src": "https://pic2.800820.net/tumi/20260316/b292ff526afd4eb587bc73e8ff22c285.webp",
-     "page": "https://www.800820.cn/p/10865922.html",
-     "title": "林黛玉26年029期双色球杀蓝号图迷_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-07T07:46:12.012Z"
-    }
-   ]
-  },
-  {
-   "name": "贾宝玉",
-   "cat": "双色球",
-   "kw": "贾宝玉 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/贾宝玉/1.jpg",
-     "size": 112917,
-     "src": "https://pic.cz89.com/upload/20260507/b474a325fd15456d8b3566dd62dd05ad.jpg",
-     "page": "https://www.cz89.com/read_10346870.htm",
-     "title": "双色球052期 贾宝玉杀蓝号图谜 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-07T07:46:16.817Z"
-    }
-   ]
-  },
-  {
-   "name": "司马迁",
-   "cat": "双色球",
-   "kw": "司马迁 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/司马迁/1.webp",
-     "size": 51216,
-     "src": "https://pic1.800820.net/tumi/20260121/af92e6ac1c3a4aa1b63e85ee24eace1d.webp",
-     "page": "https://www.800820.net/p/10732793.html",
-     "title": "司马迁26年010期双色球杀蓝球图谜_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-06T23:01:08.415Z"
-    }
-   ]
-  },
-  {
-   "name": "枣庄红人",
-   "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/枣庄红人/1.png",
-     "size": 150014,
-     "src": "https://pic.cz89.com/upload/20260210/f08e0ad738214842ae0a91c5607a2be6.png",
-     "page": "https://www.cz89.com/read_10084308.htm",
-     "title": "双色球019期 枣庄红人杀蓝球图迷 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-07T07:46:26.790Z"
-    }
-   ]
-  },
   {
    "name": "一品红",
    "cat": "双色球",
@@ -135,6 +61,102 @@ const MINGJIA_DATA = {
    "cat": "双色球",
    "kw": "远方的狼 双色球 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "那些年",
+   "cat": "双色球",
+   "kw": "那些年 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金枪鱼",
+   "cat": "双色球",
+   "kw": "金枪鱼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青云万里",
+   "cat": "双色球",
+   "kw": "青云万里 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "林黛玉",
+   "cat": "双色球",
+   "kw": "林黛玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/林黛玉/1.webp",
+     "size": 44926,
+     "src": "https://pic2.800820.net/tumi/20260316/b292ff526afd4eb587bc73e8ff22c285.webp",
+     "page": "https://www.800820.cn/p/10865922.html",
+     "title": "林黛玉26年029期双色球杀蓝号图迷_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-07T07:46:12.012Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "贾宝玉",
+   "cat": "双色球",
+   "kw": "贾宝玉 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/贾宝玉/1.jpg",
+     "size": 112917,
+     "src": "https://pic.cz89.com/upload/20260507/b474a325fd15456d8b3566dd62dd05ad.jpg",
+     "page": "https://www.cz89.com/read_10346870.htm",
+     "title": "双色球052期 贾宝玉杀蓝号图谜 10中10_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-07T07:46:16.817Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "司马迁",
+   "cat": "双色球",
+   "kw": "司马迁 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/司马迁/1.webp",
+     "size": 51216,
+     "src": "https://pic1.800820.net/tumi/20260121/af92e6ac1c3a4aa1b63e85ee24eace1d.webp",
+     "page": "https://www.800820.net/p/10732793.html",
+     "title": "司马迁26年010期双色球杀蓝球图谜_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-06T23:01:08.415Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/枣庄红人/1.png",
+     "size": 150014,
+     "src": "https://pic.cz89.com/upload/20260210/f08e0ad738214842ae0a91c5607a2be6.png",
+     "page": "https://www.cz89.com/read_10084308.htm",
+     "title": "双色球019期 枣庄红人杀蓝球图迷 10中10_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-07T07:46:26.790Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "太湖字谜",
@@ -425,27 +447,9 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "那些年",
+   "name": "蓝号迷",
    "cat": "双色球",
-   "kw": "那些年 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金枪鱼",
-   "cat": "双色球",
-   "kw": "金枪鱼 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青云万里",
-   "cat": "双色球",
-   "kw": "青云万里 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "鲤鱼得财",
-   "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "kw": "蓝号迷 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -607,11 +611,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-6 22:46:51",
-   "names": 71,
-   "imgs": 8
-  },
-  {
    "at": "2026-11-6 23:29:49",
    "names": 71,
    "imgs": 7
@@ -723,6 +722,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-7 15:47:20",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-11-7 16:38:10",
    "names": 71,
    "imgs": 15
   }
