@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-08 03:20 */
+/* 自动生成，请勿手动编辑 · 2026-11-08 03:59 */
 const JC_DATA = {
- "updated": "2026-11-08 03:20",
+ "updated": "2026-11-08 03:59",
  "stat": {
   "total": 29,
-  "upcoming": 3,
+  "upcoming": 2,
   "live": 6,
-  "finished": 20,
-  "withScore": 26,
+  "finished": 21,
+  "withScore": 27,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2277,7 +2277,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -2520,7 +2520,7 @@ const JC_DATA = {
     "rank": 7
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 1
    },
    "statusText": "0 - 0 ",
@@ -2607,7 +2607,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 1
    }
   },
@@ -2630,7 +2630,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 1
    },
    "statusText": "0 - 0 ",
    "odds": {
@@ -2717,7 +2717,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -2738,7 +2738,7 @@ const JC_DATA = {
     "rank": 17
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 1
    },
    "statusText": "0 - 1 ",
@@ -2825,7 +2825,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 1
    }
   },
@@ -2846,7 +2846,10 @@ const JC_DATA = {
     "name": "萨索洛",
     "rank": 17
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -2856,9 +2859,9 @@ const JC_DATA = {
       "away": 0.87
      },
      "live": {
-      "home": 0.87,
-      "line": "球半",
-      "away": 0.97
+      "home": 1.02,
+      "line": "球半/两球",
+      "away": 0.77
      }
     },
     "europe": {
@@ -2880,85 +2883,60 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 1.02,
-      "over": 3.5,
-      "under": 0.82
+      "line": 0.75,
+      "over": 3,
+      "under": 1.05
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 69.8,
+    "confidence": 72,
     "prob": {
-     "home": 69.8,
-     "draw": 18.7,
-     "away": 11.4
+     "home": 72,
+     "draw": 17,
+     "away": 11
     },
     "clear": true,
     "margin": 6.9,
-    "rqLine": "球半",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 69.8,
-      "draw": 18.7,
-      "away": 11.4
-     },
-     "confidence": 69.8,
-     "signals": [
-      "初盘→即时：主胜+3.3pp / 平局-2.6pp / 客胜-0.7pp",
-      "亚盘未变盘；水位只作辅助核对"
-     ],
-     "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -9.2,
-      "draw": 3,
-      "away": -2.8
-     },
-     "handicap": null,
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "rqLine": "球半/两球",
+    "type": "three"
    },
    "asianIndex": {
-    "line": "球半",
+    "line": "球半/两球",
     "from": "live",
-    "handicap": -1.5,
+    "handicap": -1.75,
     "upSide": "home",
-    "upWater": 0.87,
-    "downWater": 0.97,
+    "upWater": 1.02,
+    "downWater": 0.77,
     "openHandicap": -1.5,
     "openUpWater": 0.97,
     "openDownWater": 0.87,
-    "totalWater": 1.8399999999999999,
-    "theoryUpPercent": "52.72",
-    "theoryDownPercent": "47.28",
-    "canWater": false,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": true,
     "handicapChange": {
-     "type": "盘口水位无明显变化",
+     "type": "降盘升水",
      "initHandicap": -1.5,
-     "nowHandicap": -1.5,
+     "nowHandicap": -1.75,
      "initUpWater": 0.97,
-     "nowUpWater": 0.87,
+     "nowUpWater": 1.02,
      "initLine": "球半",
-     "nowLine": "球半"
+     "nowLine": "球半/两球"
     },
     "handicapChangeWhy": "",
     "fundUp": null,
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1489894",
