@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-07 17:08",
+ "updated": "2026-11-07 17:49",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1756,21 +1756,48 @@ const JC_HISTORY = {
    "away": "川崎前锋",
    "time": "2026-11-07 15:00",
    "score": "0:0",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": -0.25,
+    "openUpWater": 0.9,
+    "openDownWater": 0.9,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.95,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 2.15,
-    "draw": 3.75,
-    "away": 3
+    "home": 2,
+    "draw": 3.8,
+    "away": 3.3
    },
    "prob": {
-    "home": 44.3,
-    "draw": 25,
-    "away": 30.6
+    "home": 46.9,
+    "draw": 24.7,
+    "away": 28.4
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 44.3,
+   "conf": 46.9,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
