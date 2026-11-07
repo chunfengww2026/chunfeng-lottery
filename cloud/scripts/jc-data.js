@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-08 05:37 */
+/* 自动生成，请勿手动编辑 · 2026-11-08 06:13 */
 const JC_DATA = {
- "updated": "2026-11-08 05:37",
+ "updated": "2026-11-08 06:13",
  "stat": {
   "total": 29,
   "upcoming": 1,
@@ -2956,10 +2956,10 @@ const JC_DATA = {
     "rank": null
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "1 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -3043,8 +3043,8 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    }
   },
   {
