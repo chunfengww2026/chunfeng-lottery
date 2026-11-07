@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-08 01:50",
+ "updated": "2026-11-08 02:22",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-08 01:50",
-   "finishTime": 1794073800000,
+   "dateStr": "2026-11-08 02:22",
+   "finishTime": 1794075720000,
    "verdict": "",
    "matches": [
     {
@@ -16,11 +16,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 69.1,
+     "confidence": 69.5,
      "status": "pending",
-     "finishTime": 1794073800000,
+     "finishTime": 1794075720000,
      "league": "意甲",
-     "odds": 1.36,
+     "odds": 1.33,
      "time": "2026-11-08 03:45"
     }
    ]
