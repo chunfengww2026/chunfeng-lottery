@@ -23,7 +23,7 @@ const JC_ARTICLES = {
    "note": "33 条候选（双色球 19 / 大乐透 14）"
   }
  ],
- "total": 148,
+ "total": 153,
  "bodies": {
   "tried": 25,
   "ok": 24,
