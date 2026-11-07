@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-08 05:05 */
+/* 自动生成，请勿手动编辑 · 2026-11-08 05:37 */
 const JC_DATA = {
- "updated": "2026-11-08 05:05",
+ "updated": "2026-11-08 05:37",
  "stat": {
   "total": 29,
-  "upcoming": 2,
-  "live": 1,
+  "upcoming": 1,
+  "live": 2,
   "finished": 26,
-  "withScore": 27,
+  "withScore": 28,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2847,7 +2847,7 @@ const JC_DATA = {
     "rank": 17
    },
    "score": {
-    "home": 2,
+    "home": 3,
     "away": 0
    },
    "statusText": "2 - 0 ",
@@ -2934,7 +2934,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 2,
+    "home": 3,
     "away": 0
    }
   },
@@ -2955,7 +2955,10 @@ const JC_DATA = {
     "name": "格雷米奥",
     "rank": null
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -2965,9 +2968,9 @@ const JC_DATA = {
       "away": 0.92
      },
      "live": {
-      "home": 0.77,
+      "home": 0.8,
       "line": "一球",
-      "away": 1.02
+      "away": 1
      }
     },
     "europe": {
@@ -2989,9 +2992,9 @@ const JC_DATA = {
       "under": 0.87
      },
      "live": {
-      "line": 0.87,
+      "line": 0.82,
       "over": 2.5,
-      "under": 0.92
+      "under": 0.97
      }
     }
    },
@@ -3014,21 +3017,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -1,
     "upSide": "home",
-    "upWater": 0.77,
-    "downWater": 1.02,
+    "upWater": 0.8,
+    "downWater": 1,
     "openHandicap": -0.5,
     "openUpWater": 0.87,
     "openDownWater": 0.92,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
     "canWater": true,
     "handicapChange": {
      "type": "降盘降水",
      "initHandicap": -0.5,
      "nowHandicap": -1,
      "initUpWater": 0.87,
-     "nowUpWater": 0.77,
+     "nowUpWater": 0.8,
      "initLine": "半球",
      "nowLine": "一球"
     },
@@ -3037,9 +3040,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1358174",
