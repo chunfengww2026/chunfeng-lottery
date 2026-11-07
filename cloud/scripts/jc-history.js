@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-07 21:07",
+ "updated": "2026-11-07 21:53",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1626,21 +1626,21 @@ const JC_HISTORY = {
    "home": "珀斯",
    "away": "纽喷气机",
    "time": "2026-11-07 18:45",
-   "score": "",
+   "score": "2:1",
    "hc": "-1",
    "asianIndex": {
     "line": "平手",
     "from": "live",
     "handicap": 0,
     "upSide": "home",
-    "upWater": 0.77,
-    "downWater": 1.02,
+    "upWater": 0.9,
+    "downWater": 0.9,
     "openHandicap": 0.25,
     "openUpWater": 0.97,
     "openDownWater": 0.82,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
+    "totalWater": 1.8,
+    "theoryUpPercent": "50.00",
+    "theoryDownPercent": "50.00",
     "canWater": true,
     "handicapChange": null,
     "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
@@ -1649,23 +1649,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.4,
-    "draw": 3.7,
-    "away": 2.63
+    "home": 2.45,
+    "draw": 4.1,
+    "away": 2.45
    },
    "prob": {
-    "home": 36.9,
-    "draw": 25.4,
-    "away": 37.7
+    "home": 38.5,
+    "draw": 23,
+    "away": 38.5
    },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 37.7,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 38.5,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-11-07 00:44"
+   "at": "2026-11-07 21:53"
   },
   {
    "code": "周六004",
