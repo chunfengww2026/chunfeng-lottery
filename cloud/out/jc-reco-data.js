@@ -5,7 +5,7 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-07 10:48",
+ "updated": "2026-11-07 11:37",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
@@ -34,7 +34,7 @@ const JC_RECO_DATA = {
    "verdict": "红"
   },
   {
-   "at": "2026-11-07 10:48",
+   "at": "2026-11-07 11:37",
    "min": 58,
    "rows": [
     {
@@ -128,6 +128,36 @@ const JC_RECO_DATA = {
      "result": ""
     },
     {
+     "code": "周日010",
+     "time": "2026-11-08 21:30",
+     "league": "挪超",
+     "home": "特罗姆瑟",
+     "away": "博德闪耀",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.33,
+     "conf": 68.8,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日013",
+     "time": "2026-11-08 22:00",
+     "league": "英超",
+     "home": "水晶宫",
+     "away": "利物浦",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.57,
+     "conf": 58.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
      "code": "周日019",
      "time": "2026-11-08 23:45",
      "league": "荷甲",
@@ -138,6 +168,36 @@ const JC_RECO_DATA = {
      "type": "three",
      "odds": 1.53,
      "conf": 61.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日022",
+     "time": "2026-11-09 00:30",
+     "league": "德甲",
+     "home": "弗赖堡",
+     "away": "柏林联合",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.48,
+     "conf": 63.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周日024",
+     "time": "2026-11-09 01:30",
+     "league": "西甲",
+     "home": "比利亚雷",
+     "away": "赫塔费",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.42,
+     "conf": 60.6,
      "score": "",
      "hit": null,
      "result": ""
@@ -156,11 +216,26 @@ const JC_RECO_DATA = {
      "score": "",
      "hit": null,
      "result": ""
+    },
+    {
+     "code": "周日027",
+     "time": "2026-11-09 02:30",
+     "league": "德甲",
+     "home": "霍芬海姆",
+     "away": "沙尔克04",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.67,
+     "conf": 59.4,
+     "score": "",
+     "hit": null,
+     "result": ""
     }
    ],
    "hit": null,
    "miss": null,
-   "pending": 8,
+   "pending": 13,
    "verdict": ""
   }
  ]

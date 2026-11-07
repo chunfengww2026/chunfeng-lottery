@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-07 10:48",
+ "updated": "2026-11-07 11:37",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-07 10:48",
-   "finishTime": 1794019680000,
+   "dateStr": "2026-11-07 11:37",
+   "finishTime": 1794022620000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 72.8,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "德甲",
      "odds": 1.3,
      "time": "2026-11-07 22:30"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 68.8,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "德甲",
      "odds": 1.33,
      "time": "2026-11-07 22:30"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 66.9,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "德甲",
      "odds": 1.45,
      "time": "2026-11-07 22:30"
@@ -57,7 +57,7 @@
      "result": "pending",
      "confidence": 80.3,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "英超",
      "odds": 1.14,
      "time": "2026-11-07 23:00"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 58.3,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "德甲",
      "odds": 1.65,
      "time": "2026-11-08 01:30"
@@ -83,10 +83,36 @@
      "result": "pending",
      "confidence": 70.2,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "意甲",
      "odds": 1.3,
      "time": "2026-11-08 03:45"
+    },
+    {
+     "matchNo": "周日010",
+     "teams": "特罗姆瑟 vs 博德闪耀",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.8,
+     "status": "pending",
+     "finishTime": 1794022620000,
+     "league": "挪超",
+     "odds": 1.33,
+     "time": "2026-11-08 21:30"
+    },
+    {
+     "matchNo": "周日013",
+     "teams": "水晶宫 vs 利物浦",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.5,
+     "status": "pending",
+     "finishTime": 1794022620000,
+     "league": "英超",
+     "odds": 1.57,
+     "time": "2026-11-08 22:00"
     },
     {
      "matchNo": "周日019",
@@ -96,10 +122,36 @@
      "result": "pending",
      "confidence": 61.5,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "荷甲",
      "odds": 1.53,
      "time": "2026-11-08 23:45"
+    },
+    {
+     "matchNo": "周日022",
+     "teams": "弗赖堡 vs 柏林联合",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.3,
+     "status": "pending",
+     "finishTime": 1794022620000,
+     "league": "德甲",
+     "odds": 1.48,
+     "time": "2026-11-09 00:30"
+    },
+    {
+     "matchNo": "周日024",
+     "teams": "比利亚雷 vs 赫塔费",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.6,
+     "status": "pending",
+     "finishTime": 1794022620000,
+     "league": "西甲",
+     "odds": 1.42,
+     "time": "2026-11-09 01:30"
     },
     {
      "matchNo": "周日026",
@@ -109,10 +161,23 @@
      "result": "pending",
      "confidence": 59.8,
      "status": "pending",
-     "finishTime": 1794019680000,
+     "finishTime": 1794022620000,
      "league": "葡超",
      "odds": 1.56,
      "time": "2026-11-09 02:00"
+    },
+    {
+     "matchNo": "周日027",
+     "teams": "霍芬海姆 vs 沙尔克04",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 59.4,
+     "status": "pending",
+     "finishTime": 1794022620000,
+     "league": "德甲",
+     "odds": 1.67,
+     "time": "2026-11-09 02:30"
     }
    ]
   }
