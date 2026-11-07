@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 610 场 · 时间 2026-11-07 07:22
+   窗口 48 小时 · 609 场 · 时间 2026-11-07 07:57
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-11-07 07:22",
+ "updated": "2026-11-07 07:57",
  "hours": 48,
- "count": 610,
+ "count": 609,
  "list": [
   {
    "date": "2026-11-07",
@@ -9749,22 +9749,6 @@ const JC_RESULTS = {
     "a": 0
    },
    "fid": "2158042"
-  },
-  {
-   "date": "2026-11-05",
-   "time": "2026-11-05 07:30",
-   "league": "委超",
-   "home": "麦罗波利",
-   "away": "卡拉波波",
-   "ft": {
-    "h": 0,
-    "a": 2
-   },
-   "ht": {
-    "h": 0,
-    "a": 1
-   },
-   "fid": "1503605"
   }
  ]
 };
