@@ -1,39 +1,26 @@
 {
- "updated": "2026-11-09 01:52",
+ "updated": "2026-11-09 02:19",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-09 01:52",
-   "finishTime": 1794160320000,
+   "dateStr": "2026-11-09 02:19",
+   "finishTime": 1794161940000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周日026",
-     "teams": "吉马良斯 vs 波尔图",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.2,
-     "status": "pending",
-     "finishTime": 1794160320000,
-     "league": "葡超",
-     "odds": 1.48,
-     "time": "2026-11-09 02:00"
-    },
     {
      "matchNo": "周日027",
      "teams": "霍芬海姆 vs 沙尔克04",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 60.6,
+     "confidence": 60,
      "status": "pending",
-     "finishTime": 1794160320000,
+     "finishTime": 1794161940000,
      "league": "德甲",
-     "odds": 1.57,
+     "odds": 1.62,
      "time": "2026-11-09 02:30"
     }
    ]
