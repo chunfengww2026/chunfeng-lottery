@@ -1,28 +1,15 @@
 {
- "updated": "2026-11-09 00:49",
+ "updated": "2026-11-09 01:52",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-09 00:49",
-   "finishTime": 1794156540000,
+   "dateStr": "2026-11-09 01:52",
+   "finishTime": 1794160320000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周日024",
-     "teams": "比利亚雷 vs 赫塔费",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 58.9,
-     "status": "pending",
-     "finishTime": 1794156540000,
-     "league": "西甲",
-     "odds": 1.53,
-     "time": "2026-11-09 01:30"
-    },
     {
      "matchNo": "周日026",
      "teams": "吉马良斯 vs 波尔图",
@@ -31,7 +18,7 @@
      "result": "pending",
      "confidence": 60.8,
      "status": "pending",
-     "finishTime": 1794156540000,
+     "finishTime": 1794160320000,
      "league": "葡超",
      "odds": 1.5,
      "time": "2026-11-09 02:00"
@@ -42,11 +29,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 60.4,
+     "confidence": 60.6,
      "status": "pending",
-     "finishTime": 1794156540000,
+     "finishTime": 1794160320000,
      "league": "德甲",
-     "odds": 1.6,
+     "odds": 1.57,
      "time": "2026-11-09 02:30"
     }
    ]
