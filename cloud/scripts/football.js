@@ -155,7 +155,7 @@ const FOOTBALL_DATA = {
       "away": 46.2
      },
      "clear": true,
-     "margin": 12.1
+     "margin": 11.8
     },
     "result": null
    },
@@ -4914,8 +4914,8 @@ const FOOTBALL_DATA = {
      "margin": 8.5
     },
     "result": {
-     "actual": "draw",
-     "actualLabel": "平局",
+     "actual": "away",
+     "actualLabel": "客胜",
      "hit": false,
      "score": "2 - 2"
     }
@@ -4977,7 +4977,7 @@ const FOOTBALL_DATA = {
       "away": 4.1
      },
      "clear": true,
-     "margin": 5.1
+     "margin": 5.4
     },
     "result": {
      "actual": "home",
