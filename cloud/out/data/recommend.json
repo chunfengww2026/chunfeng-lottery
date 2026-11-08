@@ -1,29 +1,8 @@
 {
- "updated": "2026-11-09 02:19",
+ "updated": "2026-11-09 02:53",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-09 02:19",
-   "finishTime": 1794161940000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周日027",
-     "teams": "霍芬海姆 vs 沙尔克04",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 60,
-     "status": "pending",
-     "finishTime": 1794161940000,
-     "league": "德甲",
-     "odds": 1.62,
-     "time": "2026-11-09 02:30"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
