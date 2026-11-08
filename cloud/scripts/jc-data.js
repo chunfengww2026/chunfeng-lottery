@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-09 04:02 */
+/* 自动生成，请勿手动编辑 · 2026-11-09 04:38 */
 const JC_DATA = {
- "updated": "2026-11-09 04:02",
+ "updated": "2026-11-09 04:38",
  "stat": {
   "total": 30,
-  "upcoming": 1,
+  "upcoming": 0,
   "live": 4,
-  "finished": 25,
-  "withScore": 29,
+  "finished": 26,
+  "withScore": 30,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -2830,7 +2830,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -2856,7 +2856,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 2,
-    "away": 0
+    "away": 1
    },
    "statusText": "2 - 0 ",
    "odds": {
@@ -2943,7 +2943,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 2,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -2965,7 +2965,7 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 0
+    "away": 1
    },
    "statusText": "- ",
    "odds": {
@@ -3052,7 +3052,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 0
+    "away": 1
    }
   },
   {
@@ -3073,7 +3073,7 @@ const JC_DATA = {
     "rank": 8
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 1
    },
    "statusText": "- ",
@@ -3160,7 +3160,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 1
    }
   },
@@ -3181,7 +3181,10 @@ const JC_DATA = {
     "name": "巴萨",
     "rank": 1
    },
-   "score": null,
+   "score": {
+    "home": 1,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -3263,9 +3266,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 1,
+    "away": 0
+   }
   }
  ],
  "sp": {
