@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/8 10:46:24） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/8 11:34:55） */
 const MINGJIA_DATA = {
- "updated": "2026-11-8 10:46:24",
+ "updated": "2026-11-8 11:34:55",
  "list": [
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "大招财运",
-   "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "奉旨发财",
-   "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "白天鹅",
    "cat": "双色球",
@@ -84,6 +60,41 @@ const MINGJIA_DATA = {
    "name": "朱大姐",
    "cat": "双色球",
    "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.png",
+     "size": 100169,
+     "src": "https://pic.cz89.com/upload/20251127/89a1bc2d72ad4b3eb3adfea1155bb995.png",
+     "page": "https://www.cz89.com/read_9827735.htm",
+     "title": "牛魔王杀两码红球138期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-08T03:34:38.233Z"
+    }
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
    "imgs": []
   },
   {
@@ -357,24 +368,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-07T11:56:54.297Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "金手指",
    "cat": "快乐8",
    "kw": "金手指 快乐8 字谜 参考图",
@@ -477,21 +470,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "幸丹丹",
-   "cat": "大乐透",
-   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三字谜 排列三 字谜 参考图",
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -635,11 +634,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-7 19:58:03",
-   "names": 71,
-   "imgs": 17
-  },
-  {
    "at": "2026-11-7 20:34:32",
    "names": 71,
    "imgs": 17
@@ -751,6 +745,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-8 10:46:24",
+   "names": 71,
+   "imgs": 17
+  },
+  {
+   "at": "2026-11-8 11:34:55",
    "names": 71,
    "imgs": 17
   }
