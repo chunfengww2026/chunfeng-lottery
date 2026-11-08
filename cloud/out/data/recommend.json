@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-08 20:52",
+ "updated": "2026-11-08 21:47",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-08 20:52",
-   "finishTime": 1794142320000,
+   "dateStr": "2026-11-08 21:47",
+   "finishTime": 1794145620000,
    "verdict": "",
    "matches": [
     {
@@ -16,11 +16,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 67.7,
+     "confidence": 67,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "挪超",
-     "odds": 1.4,
+     "odds": 1.44,
      "time": "2026-11-08 21:30"
     },
     {
@@ -29,11 +29,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 58.3,
+     "confidence": 58.9,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "英超",
-     "odds": 1.57,
+     "odds": 1.55,
      "time": "2026-11-08 22:00"
     },
     {
@@ -42,11 +42,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 62.3,
+     "confidence": 62.7,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "荷甲",
-     "odds": 1.48,
+     "odds": 1.45,
      "time": "2026-11-08 23:45"
     },
     {
@@ -55,9 +55,9 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 58.4,
+     "confidence": 58.3,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "法甲",
      "odds": 1.62,
      "time": "2026-11-09 00:15"
@@ -68,11 +68,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 63.9,
+     "confidence": 63.6,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "德甲",
-     "odds": 1.44,
+     "odds": 1.45,
      "time": "2026-11-09 00:30"
     },
     {
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 58.9,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "西甲",
      "odds": 1.53,
      "time": "2026-11-09 01:30"
@@ -94,11 +94,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 60.5,
+     "confidence": 60.8,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "葡超",
-     "odds": 1.53,
+     "odds": 1.5,
      "time": "2026-11-09 02:00"
     },
     {
@@ -109,7 +109,7 @@
      "result": "pending",
      "confidence": 60.6,
      "status": "pending",
-     "finishTime": 1794142320000,
+     "finishTime": 1794145620000,
      "league": "德甲",
      "odds": 1.57,
      "time": "2026-11-09 02:30"
