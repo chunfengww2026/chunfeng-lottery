@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-08 14:25",
+ "updated": "2026-11-08 15:30",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1518,20 +1518,39 @@ const JC_HISTORY = {
    "time": "2026-11-08 13:00",
    "score": "0:0",
    "hc": null,
-   "asianIndex": null,
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.77,
+    "openHandicap": 0.25,
+    "openUpWater": 1.02,
+    "openDownWater": 0.77,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
     "home": 3,
-    "draw": 3.4,
+    "draw": 3.3,
     "away": 2.3
    },
    "prob": {
-    "home": 31.4,
-    "draw": 27.7,
-    "away": 40.9
+    "home": 31.1,
+    "draw": 28.3,
+    "away": 40.6
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 40.9,
+   "conf": 40.6,
    "type": "unbeaten",
    "result": "win",
    "hit": true,
@@ -1545,21 +1564,48 @@ const JC_HISTORY = {
    "away": "蔚山现代",
    "time": "2026-11-08 13:00",
    "score": "0:1",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": -0.5,
+    "openUpWater": 0.92,
+    "openDownWater": 0.87,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.92,
+     "nowUpWater": 1.05,
+     "initLine": "半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 1.91,
-    "draw": 3.3,
-    "away": 3.5
+    "home": 2.5,
+    "draw": 3.1,
+    "away": 2.88
    },
    "prob": {
-    "home": 48.3,
-    "draw": 25.4,
-    "away": 26.3
+    "home": 37.4,
+    "draw": 30.2,
+    "away": 32.5
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 48.3,
+   "conf": 37.4,
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
