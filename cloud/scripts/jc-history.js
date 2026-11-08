@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-08 07:17",
+ "updated": "2026-11-08 07:50",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1648,6 +1648,61 @@ const JC_HISTORY = {
    "at": "2026-11-07 00:44"
   },
   {
+   "code": "周六029",
+   "league": "巴西杯",
+   "home": "米竞技",
+   "away": "格雷米奥",
+   "time": "2026-11-08 05:00",
+   "score": "1:1",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 0.8,
+    "downWater": 1,
+    "openHandicap": -0.5,
+    "openUpWater": 0.87,
+    "openDownWater": 0.92,
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": -0.5,
+     "nowHandicap": -1,
+     "initUpWater": 0.87,
+     "nowUpWater": 0.8,
+     "initLine": "半球",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.45,
+    "draw": 4.33,
+    "away": 6.25
+   },
+   "prob": {
+    "home": 63.8,
+    "draw": 21.4,
+    "away": 14.8
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 63.8,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-08 07:50"
+  },
+  {
    "code": "周六028",
    "league": "意甲",
    "home": "罗马",
@@ -1919,7 +1974,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-07 00:44"
   },
   {
@@ -1974,7 +2029,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-07 00:44"
   },
   {

@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-11-08 07:17 */
+/* 自动生成，请勿手动编辑 · 2026-11-08 07:50 */
 const JC_DATA = {
- "updated": "2026-11-08 07:17",
+ "updated": "2026-11-08 07:50",
  "stat": {
   "total": 29,
   "upcoming": 1,
-  "live": 1,
-  "finished": 27,
+  "live": 0,
+  "finished": 28,
   "withScore": 28,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -3040,7 +3040,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -3058,11 +3058,11 @@ const JC_DATA = {
    "handicap": "-1",
    "home": {
     "name": "盐湖城",
-    "rank": 20
+    "rank": 21
    },
    "away": {
     "name": "洛城银河",
-    "rank": 15
+    "rank": 16
    },
    "score": null,
    "statusText": "- ",
@@ -3086,9 +3086,9 @@ const JC_DATA = {
       "away": 3.6
      },
      "live": {
-      "home": 1.7,
+      "home": 1.73,
       "draw": 4.1,
-      "away": 4.5
+      "away": 4.2
      }
     },
     "overunder": {
@@ -3107,27 +3107,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 52,
+    "confidence": 51.6,
     "prob": {
-     "home": 52,
+     "home": 51.6,
      "draw": 23.9,
-     "away": 24.1
+     "away": 24.6
     },
     "clear": true,
-    "margin": 5.4,
+    "margin": 6,
     "rqLine": "半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 52,
+      "home": 51.6,
       "draw": 23.9,
-      "away": 24.1
+      "away": 24.6
      },
-     "confidence": 52,
+     "confidence": 51.6,
      "signals": [
-      "初盘→即时：主胜+5.8pp / 平局-1.2pp / 客胜-4.6pp",
+      "初盘→即时：主胜+4.5pp / 平局-1.3pp / 客胜-3.2pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -3138,9 +3138,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -11.6,
-      "draw": -2,
-      "away": 8.3
+      "home": -10.8,
+      "draw": -2.1,
+      "away": 3.1
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
