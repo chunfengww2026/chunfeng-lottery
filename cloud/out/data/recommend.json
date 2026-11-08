@@ -1,41 +1,15 @@
 {
- "updated": "2026-11-09 00:16",
+ "updated": "2026-11-09 00:49",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-09 00:16",
-   "finishTime": 1794154560000,
+   "dateStr": "2026-11-09 00:49",
+   "finishTime": 1794156540000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周日020",
-     "teams": "勒芒 vs 摩纳哥",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 58.3,
-     "status": "pending",
-     "finishTime": 1794154560000,
-     "league": "法甲",
-     "odds": 1.62,
-     "time": "2026-11-09 00:15"
-    },
-    {
-     "matchNo": "周日022",
-     "teams": "弗赖堡 vs 柏林联合",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 64.6,
-     "status": "pending",
-     "finishTime": 1794154560000,
-     "league": "德甲",
-     "odds": 1.4,
-     "time": "2026-11-09 00:30"
-    },
     {
      "matchNo": "周日024",
      "teams": "比利亚雷 vs 赫塔费",
@@ -44,7 +18,7 @@
      "result": "pending",
      "confidence": 58.9,
      "status": "pending",
-     "finishTime": 1794154560000,
+     "finishTime": 1794156540000,
      "league": "西甲",
      "odds": 1.53,
      "time": "2026-11-09 01:30"
@@ -55,9 +29,9 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 60.9,
+     "confidence": 60.8,
      "status": "pending",
-     "finishTime": 1794154560000,
+     "finishTime": 1794156540000,
      "league": "葡超",
      "odds": 1.5,
      "time": "2026-11-09 02:00"
@@ -68,11 +42,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 60,
+     "confidence": 60.4,
      "status": "pending",
-     "finishTime": 1794154560000,
+     "finishTime": 1794156540000,
      "league": "德甲",
-     "odds": 1.62,
+     "odds": 1.6,
      "time": "2026-11-09 02:30"
     }
    ]
