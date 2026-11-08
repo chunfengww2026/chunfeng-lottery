@@ -1,42 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/8 15:48:16） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/8 16:40:53） */
 const MINGJIA_DATA = {
- "updated": "2026-11-8 15:48:16",
+ "updated": "2026-11-8 16:40:53",
  "list": [
-  {
-   "name": "九头鸟",
-   "cat": "大乐透",
-   "kw": "九头鸟 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "大乐透",
-   "kw": "金手指 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "3D",
-   "kw": "太湖字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
-     "size": 107873,
-     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
-     "page": "https://zhuanlan.zhihu.com/p/492396269",
-     "title": "第2022083期3D太湖字谜解读 - 知乎",
-     "issue": "2022083",
-     "verified": false,
-     "fetchedAt": "2026-11-08T05:13:44.806Z"
-    }
-   ]
-  },
-  {
-   "name": "迷公",
-   "cat": "3D",
-   "kw": "迷公 3D 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "桃子姐",
    "cat": "3D",
@@ -68,23 +33,6 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 21432,
-     "src": "http://dingyue.ws.126.net/2021/1017/ebf8ec4aj00r13r1u000kc000i600i6m.jpg",
-     "page": "https://m.163.com/dy/article/H1H4J3M30552NBRN.html",
-     "title": "第2022052期排列三太湖字谜及P3玄机图分析|太湖|字谜|腊八粥|腊八节|钓叟_手机网易网",
-     "issue": "2022052",
-     "verified": false,
-     "fetchedAt": "2026-11-07T19:01:16.039Z"
-    }
-   ]
-  },
-  {
    "name": "迷公",
    "cat": "排列三",
    "kw": "迷公 排列三 字谜 参考图",
@@ -113,6 +61,60 @@ const MINGJIA_DATA = {
    "cat": "排列三",
    "kw": "金手指 排列三 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "快乐8",
+   "kw": "太湖字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 107873,
+     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
+     "page": "https://zhuanlan.zhihu.com/p/492396269",
+     "title": "第2022083期3D太湖字谜解读 - 知乎",
+     "issue": "2022083",
+     "verified": false,
+     "fetchedAt": "2026-11-08T05:13:44.806Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
+     "size": 21432,
+     "src": "http://dingyue.ws.126.net/2021/1017/ebf8ec4aj00r13r1u000kc000i600i6m.jpg",
+     "page": "https://m.163.com/dy/article/H1H4J3M30552NBRN.html",
+     "title": "第2022052期排列三太湖字谜及P3玄机图分析|太湖|字谜|腊八粥|腊八节|钓叟_手机网易网",
+     "issue": "2022052",
+     "verified": false,
+     "fetchedAt": "2026-11-07T19:01:16.039Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "牛魔王",
@@ -589,21 +591,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "快乐8",
-   "kw": "太湖字谜 快乐8 字谜 参考图",
+   "name": "九头鸟",
+   "cat": "大乐透",
+   "kw": "九头鸟 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "大乐透",
+   "kw": "金手指 大乐透 字谜 参考图",
    "imgs": []
   },
   {
    "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 字谜 参考图",
+   "cat": "3D",
+   "kw": "迷公 3D 字谜 参考图",
    "imgs": []
   },
   {
@@ -632,11 +634,6 @@ const MINGJIA_DATA = {
   }
  ],
  "history": [
-  {
-   "at": "2026-11-8 00:08:37",
-   "names": 71,
-   "imgs": 18
-  },
   {
    "at": "2026-11-8 00:43:49",
    "names": 71,
@@ -749,6 +746,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-8 15:48:16",
+   "names": 71,
+   "imgs": 17
+  },
+  {
+   "at": "2026-11-8 16:40:53",
    "names": 71,
    "imgs": 17
   }
