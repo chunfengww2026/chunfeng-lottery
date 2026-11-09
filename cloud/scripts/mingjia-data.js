@@ -1,42 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/9 08:16:48） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/9 09:03:23） */
 const MINGJIA_DATA = {
- "updated": "2026-11-9 08:16:48",
+ "updated": "2026-11-9 09:03:23",
  "list": [
-  {
-   "name": "排三字谜",
-   "cat": "排列三",
-   "kw": "排三字谜 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "3D字谜",
-   "cat": "3D",
-   "kw": "3D字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 34799,
-     "src": "https://img.3d178.cn/remote/2026-03-08/2026030820451803902233.png",
-     "page": "https://www.3d178.cn/zimi/zmzh/217751.shtml",
-     "title": "今日3d太湖字谜总汇_2026058期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
-     "issue": "2026058",
-     "verified": false,
-     "fetchedAt": "2026-11-09T00:15:40.879Z"
-    }
-   ]
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "大乐透",
-   "kw": "太湖字谜 大乐透 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "大乐透",
-   "kw": "迷公 大乐透 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "桃子姐",
    "cat": "大乐透",
@@ -78,14 +43,14 @@ const MINGJIA_DATA = {
    "kw": "太湖字谜 3D 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
-     "size": 107873,
-     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
-     "page": "https://zhuanlan.zhihu.com/p/492396269",
-     "title": "第2022083期3D太湖字谜解读 - 知乎",
-     "issue": "2022083",
+     "file": "imgs/mingjia/3D/太湖字谜/1.png",
+     "size": 36145,
+     "src": "https://img.3d178.cn/zimi/thds/2025/2025104.png",
+     "page": "https://www.3d178.cn/zimi/zmzh/203728.shtml",
+     "title": "今日3d太湖字谜总汇_2025104期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
+     "issue": "2025104",
      "verified": false,
-     "fetchedAt": "2026-11-09T00:16:14.414Z"
+     "fetchedAt": "2026-11-09T01:02:27.932Z"
     }
    ]
   },
@@ -124,6 +89,59 @@ const MINGJIA_DATA = {
    "cat": "3D",
    "kw": "百合花 3D 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "排列三",
+   "kw": "太湖字谜 排列三 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
+     "size": 146502,
+     "src": "https://pic1.zhimg.com/v2-bec1f6db540eb96f44dfb287083effbe_r.jpg",
+     "page": "https://zhuanlan.zhihu.com/p/585047952",
+     "title": "体彩排列三第2022310期太湖字谜解析 - 知乎",
+     "issue": "2022310",
+     "verified": false,
+     "fetchedAt": "2026-11-09T01:03:04.868Z"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "排列三",
+   "kw": "迷公 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "3D字谜",
+   "cat": "3D",
+   "kw": "3D字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/3D字谜/1.png",
+     "size": 34799,
+     "src": "https://img.3d178.cn/remote/2026-03-08/2026030820451803902233.png",
+     "page": "https://www.3d178.cn/zimi/zmzh/217751.shtml",
+     "title": "今日3d太湖字谜总汇_2026058期解太湖字谜_3D字谜总汇_3D字谜_3D之家",
+     "issue": "2026058",
+     "verified": false,
+     "fetchedAt": "2026-11-09T00:15:40.879Z"
+    }
+   ],
+   "stale": true
   },
   {
    "name": "金手指",
@@ -319,24 +337,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-08T20:19:23.828Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.png",
-     "size": 180963,
-     "src": "https://www.17500.cn/Public/Upload/art/202307/1688909218760314.png",
-     "page": "https://www.17500.cn/arts/detail-1296755.html",
-     "title": "排列3第2023181期太湖钓叟三字诀_太湖字谜|乐彩网",
-     "issue": "2023181",
-     "verified": false,
-     "fetchedAt": "2026-11-08T19:37:53.680Z"
     }
    ],
    "stale": true
@@ -540,21 +540,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "迷公",
-   "cat": "排列三",
-   "kw": "迷公 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "桃子姐",
-   "cat": "排列三",
-   "kw": "桃子姐 排列三 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "排列三",
-   "kw": "迟丽颖 排列三 字谜 参考图",
+   "cat": "大乐透",
+   "kw": "迷公 大乐透 字谜 参考图",
    "imgs": []
   },
   {
@@ -619,11 +619,6 @@ const MINGJIA_DATA = {
   }
  ],
  "history": [
-  {
-   "at": "2026-11-8 18:15:30",
-   "names": 71,
-   "imgs": 17
-  },
   {
    "at": "2026-11-8 18:50:17",
    "names": 71,
@@ -736,6 +731,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-9 08:16:48",
+   "names": 71,
+   "imgs": 16
+  },
+  {
+   "at": "2026-11-9 09:03:23",
    "names": 71,
    "imgs": 16
   }
