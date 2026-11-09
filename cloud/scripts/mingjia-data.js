@@ -277,24 +277,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/快乐8/金手指/1.webp",
-     "size": 140330,
-     "src": "https://pic1.800820.net/tumi/20260415/8181205a2dae4a83b87135b1ac27ef23.webp",
-     "page": "https://www.800820.net/tuku/tkpic_400258.html",
-     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-09T05:55:50.969Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "3D字谜",
    "cat": "3D",
    "kw": "3D字谜 3D 字谜 参考图",
