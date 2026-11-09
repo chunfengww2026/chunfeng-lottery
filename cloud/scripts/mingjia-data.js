@@ -15,6 +15,76 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "万里挑一",
+   "cat": "双色球",
+   "kw": "万里挑一 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "明哥看彩",
+   "cat": "双色球",
+   "kw": "明哥看彩 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "岳阳飞飞",
+   "cat": "双色球",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "双色球",
+   "kw": "金手指 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/金手指/1.jpg",
+     "size": 63857,
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloVWJ5K1B3bGtBSS9keDhZQ1A5RlNzM21kd3NMYVpJNHV0YkViWUg5dDQw.jpg",
+     "page": "https://www.16788.cn/tj_498672741118.html",
+     "title": "天吉网金手指2026073期双色球图谜 - 双色球图谜 - 天吉网",
+     "issue": "2026073",
+     "verified": false,
+     "fetchedAt": "2026-11-09T14:45:40.360Z"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "武汉华哥",
+   "cat": "双色球",
+   "kw": "武汉华哥 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "貂蝉杀",
+   "cat": "双色球",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
+     "size": 85820,
+     "src": "https://pic1.800820.net/tumi/20260424/bc06b5f4c4ab4ca8aa9c79f0c45fb0f6.webp",
+     "page": "https://www.800820.cn/tuku/tkpic_402651.html",
+     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-07T15:28:49.281Z"
+    }
+   ]
+  },
+  {
    "name": "黄大仙",
    "cat": "双色球",
    "kw": "黄大仙 双色球 字谜 参考图",
@@ -238,24 +308,6 @@ const MINGJIA_DATA = {
      "issue": "2024071",
      "verified": false,
      "fetchedAt": "2026-11-09T08:16:22.092Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/快乐8/金手指/1.webp",
-     "size": 140330,
-     "src": "https://pic1.800820.net/tumi/20260415/8181205a2dae4a83b87135b1ac27ef23.webp",
-     "page": "https://www.800820.net/tuku/tkpic_400258.html",
-     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-09T05:55:50.969Z"
     }
    ],
    "stale": true
@@ -616,14 +668,50 @@ const MINGJIA_DATA = {
   },
   {
    "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 字谜 参考图",
+   "cat": "排列三",
+   "kw": "桃子姐 排列三 字谜 参考图",
    "imgs": []
   },
   {
    "name": "迟丽颖",
+   "cat": "排列三",
+   "kw": "迟丽颖 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "九头鸟",
+   "cat": "排列三",
+   "kw": "九头鸟 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "太湖字谜",
    "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "kw": "太湖字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 字谜 参考图",
    "imgs": []
   }
  ],
