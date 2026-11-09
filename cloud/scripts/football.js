@@ -3312,14 +3312,14 @@ const FOOTBALL_DATA = {
     "odds": {
      "asian": {
       "open": {
-       "home": -0.5,
-       "line": "0.97",
-       "away": 0.79
+       "home": -0.25,
+       "line": "0.84",
+       "away": 0.92
       },
       "live": {
-       "home": -0.25,
-       "line": "1.11",
-       "away": 0.72
+       "home": 0,
+       "line": "0.67",
+       "away": 1.17
       }
      },
      "overunder": {
@@ -3330,34 +3330,34 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.25",
-       "over": 1,
-       "under": 0.8
+       "over": 1.11,
+       "under": 0.7
       }
      },
      "europe": {
       "open": {
-       "home": 1.97,
-       "draw": 3.15,
+       "home": 2.06,
+       "draw": 2.96,
        "away": 3.6
       },
       "live": {
-       "home": 2.53,
-       "draw": 3.6,
-       "away": 2.23
+       "home": 2.66,
+       "draw": 3.5,
+       "away": 2.19
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 40,
+     "confidence": 40.8,
      "prob": {
-      "home": 35.2,
-      "draw": 24.8,
-      "away": 40
+      "home": 33.6,
+      "draw": 25.5,
+      "away": 40.8
      },
      "clear": false,
-     "margin": 12.1
+     "margin": 11.8
     },
     "result": null
    },
@@ -3464,20 +3464,20 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "home": -0.25,
-       "line": "0.91",
-       "away": 0.97
+       "line": "0.89",
+       "away": 0.99
       }
      },
      "overunder": {
       "open": {
-       "line": "2.25",
-       "over": 0.81,
-       "under": 1.06
+       "line": "2.5",
+       "over": 1.03,
+       "under": 0.84
       },
       "live": {
        "line": "1",
-       "over": 0.99,
-       "under": 0.88
+       "over": 0.96,
+       "under": 0.91
       }
      },
      "europe": {
@@ -3487,23 +3487,23 @@ const FOOTBALL_DATA = {
        "away": 3.5
       },
       "live": {
-       "home": 2.38,
-       "draw": 4.65,
-       "away": 2.14
+       "home": 2.33,
+       "draw": 4.85,
+       "away": 2.15
       }
      }
     },
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 42.4,
+     "confidence": 42.3,
      "prob": {
-      "home": 38.1,
-      "draw": 19.5,
-      "away": 42.4
+      "home": 39,
+      "draw": 18.7,
+      "away": 42.3
      },
      "clear": false,
-     "margin": 10.3
+     "margin": 10
     },
     "result": null
    },
