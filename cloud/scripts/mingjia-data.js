@@ -260,24 +260,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "3D字谜",
-   "cat": "3D",
-   "kw": "3D字谜 3D 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 243075,
-     "src": "https://3dzimijinrizimizonghui.com.cn/1.png",
-     "page": "https://3dzimijinrizimizonghui.com.cn/",
-     "title": "3D字谜今日字谜总汇 - 每日更新最新3D字谜、太湖字谜、解谜技巧",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-09T04:56:10.908Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "迟丽颖",
    "cat": "大乐透",
    "kw": "迟丽颖 大乐透 字谜 参考图",
