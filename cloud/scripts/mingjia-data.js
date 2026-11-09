@@ -1,6 +1,6 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/9 22:31:43） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/9 22:39:31） */
 const MINGJIA_DATA = {
- "updated": "2026-11-9 22:31:43",
+ "updated": "2026-11-9 22:39:31",
  "list": [
   {
    "name": "名家精",
@@ -73,6 +73,23 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "名家精 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/快乐8/金手指/1.webp",
+     "size": 140330,
+     "src": "https://pic1.800820.net/tumi/20260415/8181205a2dae4a83b87135b1ac27ef23.webp",
+     "page": "https://www.800820.net/tuku/tkpic_400258.html",
+     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-09T05:55:50.969Z"
+    }
+   ]
   },
   {
    "name": "黄大仙",
@@ -268,24 +285,6 @@ const MINGJIA_DATA = {
      "issue": "2024071",
      "verified": false,
      "fetchedAt": "2026-11-09T08:16:22.092Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "金手指",
-   "cat": "快乐8",
-   "kw": "金手指 快乐8 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/快乐8/金手指/1.webp",
-     "size": 140330,
-     "src": "https://pic1.800820.net/tumi/20260415/8181205a2dae4a83b87135b1ac27ef23.webp",
-     "page": "https://www.800820.net/tuku/tkpic_400258.html",
-     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-09T05:55:50.969Z"
     }
    ],
    "stale": true
@@ -635,11 +634,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-9 03:38:22",
-   "names": 71,
-   "imgs": 16
-  },
-  {
    "at": "2026-11-9 04:20:27",
    "names": 71,
    "imgs": 16
@@ -751,6 +745,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-9 22:31:43",
+   "names": 71,
+   "imgs": 17
+  },
+  {
+   "at": "2026-11-9 22:39:31",
    "names": 71,
    "imgs": 17
   }
