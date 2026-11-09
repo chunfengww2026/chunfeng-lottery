@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-09 11:36 */
+/* 自动生成，请勿手动编辑 · 2026-11-09 12:39 */
 const JC_DATA = {
- "updated": "2026-11-09 11:36",
+ "updated": "2026-11-09 12:39",
  "stat": {
   "total": 4,
   "upcoming": 4,
@@ -201,9 +201,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 1.05,
+      "line": 0.8,
       "over": 3,
-      "under": 0.75
+      "under": 1
      }
     }
    },
@@ -439,9 +439,9 @@ const JC_DATA = {
       "away": 0.85
      },
      "live": {
-      "home": 0.95,
+      "home": 0.8,
       "line": "平手/半球",
-      "away": 0.85
+      "away": 1
      }
     },
     "europe": {
@@ -463,9 +463,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.9,
+      "line": 0.95,
       "over": 3,
-      "under": 0.9
+      "under": 0.85
      }
     }
    },
@@ -516,21 +516,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": -0.25,
     "upSide": "home",
-    "upWater": 0.95,
-    "downWater": 0.85,
+    "upWater": 0.8,
+    "downWater": 1,
     "openHandicap": -0.25,
     "openUpWater": 0.95,
     "openDownWater": 0.85,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "47.22",
-    "theoryDownPercent": "52.78",
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.25,
      "nowHandicap": -0.25,
      "initUpWater": 0.95,
-     "nowUpWater": 0.95,
+     "nowUpWater": 0.8,
      "initLine": "平手/半球",
      "nowLine": "平手/半球"
     },
