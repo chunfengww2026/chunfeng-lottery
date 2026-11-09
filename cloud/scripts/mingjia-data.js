@@ -1,25 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/10 03:42:33） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/10 04:34:15） */
 const MINGJIA_DATA = {
- "updated": "2026-11-10 03:42:33",
+ "updated": "2026-11-10 04:34:15",
  "list": [
-  {
-   "name": "一品红",
-   "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万万没想到",
-   "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "夏天",
-   "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "大招财运",
    "cat": "双色球",
@@ -87,6 +69,52 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "南山大师",
+   "cat": "双色球",
+   "kw": "南山大师 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
+     "size": 60014,
+     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
+     "page": "https://www.cz89.com/read_7588481.htm",
+     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-08T20:19:20.034Z"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 98839,
+     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
+     "page": "https://www.cz89.com/read_9192830.htm",
+     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-09T15:56:49.215Z"
+    }
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "金手指",
    "cat": "双色球",
    "kw": "金手指 双色球 字谜 参考图",
@@ -136,42 +164,6 @@ const MINGJIA_DATA = {
      "issue": "2022310",
      "verified": false,
      "fetchedAt": "2026-11-09T16:59:26.243Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "南山大师",
-   "cat": "双色球",
-   "kw": "南山大师 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/南山大师/1.jpg",
-     "size": 60014,
-     "src": "https://pic.cz89.com/upload/20230330/4bc14110616646e8b12e230c4006e05c.jpg",
-     "page": "https://www.cz89.com/read_7588481.htm",
-     "title": "南山大师杀两红036期双色球图谜 _牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-08T20:19:20.034Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "牛魔王",
-   "cat": "双色球",
-   "kw": "牛魔王 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
-     "size": 98839,
-     "src": "https://pic.cz89.com/upload/20250306/bcd873bf221143ef95bfa0e613ec0e72.jpg",
-     "page": "https://www.cz89.com/read_9192830.htm",
-     "title": "牛魔王杀两码红球025期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-09T15:56:49.215Z"
     }
    ],
    "stale": true
@@ -417,15 +409,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "朱大姐",
+   "name": "一品红",
    "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
+   "kw": "一品红 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -599,11 +597,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-9 07:15:48",
-   "names": 71,
-   "imgs": 15
-  },
-  {
    "at": "2026-11-9 07:45:27",
    "names": 71,
    "imgs": 15
@@ -715,6 +708,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-10 03:42:33",
+   "names": 71,
+   "imgs": 14
+  },
+  {
+   "at": "2026-11-10 04:34:15",
    "names": 71,
    "imgs": 14
   }
