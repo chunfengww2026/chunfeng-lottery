@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-11 05:24",
+ "updated": "2026-11-11 06:04",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -334,6 +334,116 @@ const JC_HISTORY = {
    "hit": false,
    "matched": false,
    "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周二002",
+   "league": "英锦赛",
+   "home": "布罗姆利",
+   "away": "米尔顿",
+   "time": "2026-11-11 03:30",
+   "score": "1:2",
+   "hc": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": 0.25,
+    "openUpWater": 0.8,
+    "openDownWater": 1,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 0.8,
+     "nowUpWater": 0.85,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.7,
+    "draw": 4,
+    "away": 2
+   },
+   "prob": {
+    "home": 33.1,
+    "draw": 22.3,
+    "away": 44.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 44.6,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-11-11 06:04"
+  },
+  {
+   "code": "周二001",
+   "league": "英锦赛",
+   "home": "伯顿",
+   "away": "诺茨郡",
+   "time": "2026-11-11 03:00",
+   "score": "0:3",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1,
+    "downWater": 0.8,
+    "openHandicap": -0.25,
+    "openUpWater": 0.82,
+    "openDownWater": 0.97,
+    "totalWater": 1.8,
+    "theoryUpPercent": "44.44",
+    "theoryDownPercent": "55.56",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": 0,
+     "initUpWater": 0.82,
+     "nowUpWater": 1,
+     "initLine": "平手/半球",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.55,
+    "draw": 3.8,
+    "away": 2.2
+   },
+   "prob": {
+    "home": 35.3,
+    "draw": 23.7,
+    "away": 41
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 41,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": false,
+   "at": "2026-11-11 06:04"
   },
   {
    "code": "周日030",
