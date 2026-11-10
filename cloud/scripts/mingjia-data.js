@@ -74,16 +74,27 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/金手指/1.jpg",
-     "size": 62950,
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnlqZUtQbitZT0ZFeS9keDhZQ1A5RlN1MnJtZVc3aURmZit0YkViWUg5dDQw.jpg",
-     "page": "https://www.16788.cn/tj_afe742787134.html",
-     "title": "天吉网金手指2026124期双色球图谜 - 双色球图谜 - 天吉网",
-     "issue": "2026124",
+     "size": 63857,
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloVWJ5K1B3bGtBSS9keDhZQ1A5RlNzM21kd3NMYVpJNHV0YkViWUg5dDQw.jpg",
+     "page": "https://www.16788.cn/tj_498672741118.html",
+     "title": "天吉网金手指2026073期双色球图谜 - 双色球图谜 - 天吉网",
+     "issue": "2026073",
      "verified": false,
-     "fetchedAt": "2026-11-10T08:58:45.964Z"
+     "fetchedAt": "2026-11-10T14:29:14.319Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "武汉华哥",
+   "cat": "双色球",
+   "kw": "武汉华哥 双色球 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "貂蝉杀",
@@ -92,16 +103,15 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 85312,
-     "src": "https://pic1.800820.net/tumi/20260608/9ec4f2a2d1e04362a01f74e20e0039c6.webp",
-     "page": "https://www.800820.cn/tuku/tkpic_414513.html",
+     "size": 85820,
+     "src": "https://pic1.800820.net/tumi/20260424/bc06b5f4c4ab4ca8aa9c79f0c45fb0f6.webp",
+     "page": "https://www.800820.cn/tuku/tkpic_402651.html",
      "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-10T08:59:00.838Z"
+     "fetchedAt": "2026-11-10T14:29:32.301Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "林黛玉",
