@@ -1,9 +1,9 @@
-/* 自动生成，请勿手动编辑 · 2026-11-10 10:29 */
+/* 自动生成，请勿手动编辑 · 2026-11-10 11:15 */
 const JC_DATA = {
- "updated": "2026-11-10 10:29",
+ "updated": "2026-11-10 11:15",
  "stat": {
-  "total": 4,
-  "upcoming": 4,
+  "total": 8,
+  "upcoming": 8,
   "live": 0,
   "finished": 0,
   "withScore": 0,
@@ -151,6 +151,45 @@ const JC_DATA = {
    "liveScore": null
   },
   {
+   "gid": "2160693",
+   "fid": "2160693",
+   "sid": "",
+   "code": "周三001",
+   "league": "日联杯",
+   "round": "",
+   "time": "2026-11-11 18:00",
+   "handicap": null,
+   "home": {
+    "name": "横滨水手",
+    "rank": 0
+   },
+   "away": {
+    "name": "鹿岛鹿角",
+    "rank": 0
+   },
+   "score": null,
+   "statusText": "- ",
+   "odds": {
+    "asian": {
+     "open": null,
+     "live": null
+    },
+    "europe": {
+     "open": null,
+     "live": null
+    },
+    "overunder": {
+     "open": null,
+     "live": null
+    }
+   },
+   "reco": null,
+   "asianIndex": null,
+   "status": "upcoming",
+   "minute": 0,
+   "liveScore": null
+  },
+  {
    "gid": "1491190",
    "fid": "1491190",
    "sid": "19991",
@@ -277,6 +316,123 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
+   "status": "upcoming",
+   "minute": 0,
+   "liveScore": null
+  },
+  {
+   "gid": "2160691",
+   "fid": "2160691",
+   "sid": "",
+   "code": "周三002",
+   "league": "日联杯",
+   "round": "",
+   "time": "2026-11-11 18:00",
+   "handicap": "-1",
+   "home": {
+    "name": "神户胜利",
+    "rank": 0
+   },
+   "away": {
+    "name": "町田泽维",
+    "rank": 0
+   },
+   "score": null,
+   "statusText": "- ",
+   "odds": {
+    "asian": {
+     "open": null,
+     "live": null
+    },
+    "europe": {
+     "open": null,
+     "live": null
+    },
+    "overunder": {
+     "open": null,
+     "live": null
+    }
+   },
+   "reco": null,
+   "asianIndex": null,
+   "status": "upcoming",
+   "minute": 0,
+   "liveScore": null
+  },
+  {
+   "gid": "2160689",
+   "fid": "2160689",
+   "sid": "",
+   "code": "周三003",
+   "league": "日联杯",
+   "round": "",
+   "time": "2026-11-11 18:00",
+   "handicap": null,
+   "home": {
+    "name": "川崎前锋",
+    "rank": 0
+   },
+   "away": {
+    "name": "柏太阳神",
+    "rank": 0
+   },
+   "score": null,
+   "statusText": "- ",
+   "odds": {
+    "asian": {
+     "open": null,
+     "live": null
+    },
+    "europe": {
+     "open": null,
+     "live": null
+    },
+    "overunder": {
+     "open": null,
+     "live": null
+    }
+   },
+   "reco": null,
+   "asianIndex": null,
+   "status": "upcoming",
+   "minute": 0,
+   "liveScore": null
+  },
+  {
+   "gid": "2160695",
+   "fid": "2160695",
+   "sid": "",
+   "code": "周三004",
+   "league": "日联杯",
+   "round": "",
+   "time": "2026-11-11 18:30",
+   "handicap": "-1",
+   "home": {
+    "name": "浦和红钻",
+    "rank": 0
+   },
+   "away": {
+    "name": "大阪樱花",
+    "rank": 0
+   },
+   "score": null,
+   "statusText": "- ",
+   "odds": {
+    "asian": {
+     "open": null,
+     "live": null
+    },
+    "europe": {
+     "open": null,
+     "live": null
+    },
+    "overunder": {
+     "open": null,
+     "live": null
+    }
+   },
+   "reco": null,
+   "asianIndex": null,
    "status": "upcoming",
    "minute": 0,
    "liveScore": null
