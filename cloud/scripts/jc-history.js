@@ -2,9 +2,339 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-10 23:59",
+ "updated": "2026-11-11 00:43",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
+  {
+   "code": "周三005",
+   "league": "英锦赛",
+   "home": "谢周三",
+   "away": "阿克宁顿",
+   "time": "2026-11-12 03:00",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球",
+    "from": "live",
+    "handicap": -1,
+    "upSide": "home",
+    "upWater": 0.77,
+    "downWater": 1.02,
+    "openHandicap": -0.75,
+    "openUpWater": 0.9,
+    "openDownWater": 0.9,
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": -0.75,
+     "nowHandicap": -1,
+     "initUpWater": 0.9,
+     "nowUpWater": 0.77,
+     "initLine": "半球/一球",
+     "nowLine": "一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.48,
+    "draw": 4,
+    "away": 5.75
+   },
+   "prob": {
+    "home": 57.3,
+    "draw": 24.6,
+    "away": 18.1
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 57.3,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周三006",
+   "league": "英锦赛",
+   "home": "巴恩斯利",
+   "away": "奥德汉姆",
+   "time": "2026-11-12 03:00",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": -0.25,
+    "openUpWater": 0.95,
+    "openDownWater": 0.85,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘降水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.95,
+     "nowUpWater": 0.85,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.8,
+    "draw": 4.2,
+    "away": 3.2
+   },
+   "prob": {
+    "home": 47.4,
+    "draw": 22.2,
+    "away": 30.4
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 47.4,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周三004",
+   "league": "日联杯",
+   "home": "浦和红钻",
+   "away": "大阪樱花",
+   "time": "2026-11-11 18:30",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": -0.5,
+    "openUpWater": 0.85,
+    "openDownWater": 0.95,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.85,
+     "nowUpWater": 0.85,
+     "initLine": "半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.8,
+    "draw": 3.6,
+    "away": 3.5
+   },
+   "prob": {
+    "home": 49.6,
+    "draw": 24.8,
+    "away": 25.5
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 49.6,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周三001",
+   "league": "日联杯",
+   "home": "横滨水手",
+   "away": "鹿岛鹿角",
+   "time": "2026-11-11 18:00",
+   "score": "",
+   "hc": null,
+   "asianIndex": {
+    "line": "受平手/半球",
+    "from": "live",
+    "handicap": 0.25,
+    "upSide": "away",
+    "upWater": 0.85,
+    "downWater": 0.95,
+    "openHandicap": 0.25,
+    "openUpWater": 0.85,
+    "openDownWater": 0.95,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "52.78",
+    "theoryDownPercent": "47.22",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0.25,
+     "nowHandicap": 0.25,
+     "initUpWater": 0.85,
+     "nowUpWater": 0.85,
+     "initLine": "受平手/半球",
+     "nowLine": "受平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.9,
+    "draw": 3.5,
+    "away": 2.05
+   },
+   "prob": {
+    "home": 30.8,
+    "draw": 25.5,
+    "away": 43.6
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 43.6,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周三002",
+   "league": "日联杯",
+   "home": "神户胜利",
+   "away": "町田泽维",
+   "time": "2026-11-11 18:00",
+   "score": "",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.77,
+    "openHandicap": -0.25,
+    "openUpWater": 0.97,
+    "openDownWater": 0.82,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.25,
+     "initUpWater": 0.97,
+     "nowUpWater": 1.02,
+     "initLine": "平手/半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.2,
+    "draw": 3.2,
+    "away": 2.9
+   },
+   "prob": {
+    "home": 40.9,
+    "draw": 28.1,
+    "away": 31
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 40.9,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
+  {
+   "code": "周三003",
+   "league": "日联杯",
+   "home": "川崎前锋",
+   "away": "柏太阳神",
+   "time": "2026-11-11 18:00",
+   "score": "",
+   "hc": null,
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.77,
+    "openHandicap": 0,
+    "openUpWater": 1.02,
+    "openDownWater": 0.77,
+    "totalWater": 1.79,
+    "theoryUpPercent": "43.02",
+    "theoryDownPercent": "56.98",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0,
+     "nowHandicap": 0,
+     "initUpWater": 1.02,
+     "nowUpWater": 1.02,
+     "initLine": "平手",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 2.5,
+    "draw": 3.6,
+    "away": 2.25
+   },
+   "prob": {
+    "home": 36.1,
+    "draw": 24.8,
+    "away": 39.1
+   },
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 39.1,
+   "type": "three",
+   "result": "",
+   "hit": false,
+   "matched": false,
+   "at": "2026-11-11 00:43"
+  },
   {
    "code": "周日030",
    "league": "西甲",
@@ -2133,61 +2463,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-11-07 00:44"
-  },
-  {
-   "code": "周六021",
-   "league": "瑞典超",
-   "home": "代格福什",
-   "away": "盖斯",
-   "time": "2026-11-08 00:30",
-   "score": "1:2",
-   "hc": null,
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.85,
-    "openHandicap": 0.25,
-    "openUpWater": 1.02,
-    "openDownWater": 0.77,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "47.22",
-    "theoryDownPercent": "52.78",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.25,
-     "initUpWater": 1.02,
-     "nowUpWater": 0.95,
-     "initLine": "受平手/半球",
-     "nowLine": "受平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.1,
-    "draw": 3.3,
-    "away": 2.2
-   },
-   "prob": {
-    "home": 29.9,
-    "draw": 28.1,
-    "away": 42.1
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 42.1,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-08 03:20"
   }
  ]
 };
