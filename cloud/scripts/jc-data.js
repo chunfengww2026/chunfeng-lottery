@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-10 14:39 */
+/* 自动生成，请勿手动编辑 · 2026-11-10 15:50 */
 const JC_DATA = {
- "updated": "2026-11-10 14:39",
+ "updated": "2026-11-10 15:50",
  "stat": {
   "total": 8,
   "upcoming": 8,
@@ -153,19 +153,19 @@ const JC_DATA = {
   {
    "gid": "2160693",
    "fid": "2160693",
-   "sid": "19942",
+   "sid": "",
    "code": "周三001",
    "league": "日联杯",
-   "round": "1/4决赛",
+   "round": "",
    "time": "2026-11-11 18:00",
    "handicap": null,
    "home": {
     "name": "横滨水手",
-    "rank": null
+    "rank": 0
    },
    "away": {
     "name": "鹿岛鹿角",
-    "rank": null
+    "rank": 0
    },
    "score": null,
    "statusText": "- ",
@@ -228,9 +228,9 @@ const JC_DATA = {
       "away": 1.95
      },
      "live": {
-      "home": 3.2,
-      "draw": 4.1,
-      "away": 1.8
+      "home": 3.1,
+      "draw": 4,
+      "away": 1.83
      }
     },
     "overunder": {
@@ -240,36 +240,36 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.87,
+      "line": 0.9,
       "over": 3,
-      "under": 0.92
+      "under": 0.9
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 47.2,
+    "confidence": 46.9,
     "prob": {
-     "home": 30.6,
-     "draw": 22.2,
-     "away": 47.2
+     "home": 30.8,
+     "draw": 22.3,
+     "away": 46.9
     },
     "clear": true,
-    "margin": 11.2,
+    "margin": 11.9,
     "rqLine": "受半球",
     "type": "three",
     "marketAnalysis": {
      "pick": "away",
      "label": "客胜",
      "prob": {
-      "home": 30.6,
-      "draw": 22.2,
-      "away": 47.2
+      "home": 30.8,
+      "draw": 22.3,
+      "away": 46.9
      },
-     "confidence": 47.2,
+     "confidence": 46.9,
      "signals": [
-      "初盘→即时：主胜-3.8pp / 平局-0.4pp / 客胜+4.2pp",
+      "初盘→即时：主胜-3.1pp / 平局+0.0pp / 客胜+3.0pp",
       "亚盘客队方向变深，水位上升"
      ],
      "missing": [
@@ -280,9 +280,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -2.2,
-      "draw": -9,
-      "away": -15
+      "home": -4.5,
+      "draw": -10.7,
+      "away": -14.3
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -323,19 +323,19 @@ const JC_DATA = {
   {
    "gid": "2160691",
    "fid": "2160691",
-   "sid": "19942",
+   "sid": "",
    "code": "周三002",
    "league": "日联杯",
-   "round": "1/4决赛",
+   "round": "",
    "time": "2026-11-11 18:00",
    "handicap": "-1",
    "home": {
     "name": "神户胜利",
-    "rank": null
+    "rank": 0
    },
    "away": {
     "name": "町田泽维",
-    "rank": null
+    "rank": 0
    },
    "score": null,
    "statusText": "- ",
@@ -362,19 +362,19 @@ const JC_DATA = {
   {
    "gid": "2160689",
    "fid": "2160689",
-   "sid": "19942",
+   "sid": "",
    "code": "周三003",
    "league": "日联杯",
-   "round": "1/4决赛",
+   "round": "",
    "time": "2026-11-11 18:00",
    "handicap": null,
    "home": {
     "name": "川崎前锋",
-    "rank": null
+    "rank": 0
    },
    "away": {
     "name": "柏太阳神",
-    "rank": null
+    "rank": 0
    },
    "score": null,
    "statusText": "- ",
@@ -401,19 +401,19 @@ const JC_DATA = {
   {
    "gid": "2160695",
    "fid": "2160695",
-   "sid": "19942",
+   "sid": "",
    "code": "周三004",
    "league": "日联杯",
-   "round": "1/4决赛",
+   "round": "",
    "time": "2026-11-11 18:30",
    "handicap": "-1",
    "home": {
     "name": "浦和红钻",
-    "rank": null
+    "rank": 0
    },
    "away": {
     "name": "大阪樱花",
-    "rank": null
+    "rank": 0
    },
    "score": null,
    "statusText": "- ",
