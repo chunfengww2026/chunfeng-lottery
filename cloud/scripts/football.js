@@ -193,8 +193,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1",
-       "over": 0.95,
-       "under": 0.85
+       "over": 0.97,
+       "under": 0.87
       }
      },
      "europe": {
@@ -2131,7 +2131,7 @@ const FOOTBALL_DATA = {
       "away": 29.2
      },
      "clear": true,
-     "margin": 12.4
+     "margin": 11.9
     },
     "result": null
    },
@@ -2643,79 +2643,6 @@ const FOOTBALL_DATA = {
      },
      "clear": false,
      "margin": 12
-    },
-    "result": null
-   },
-   {
-    "gid": 599128,
-    "kind": "upcoming",
-    "league": {
-     "name": "西班牙杯",
-     "color": "006666"
-    },
-    "time": "2026-11-11 03:00:00",
-    "minute": 0,
-    "home": {
-     "name": "亚摩勒比塔",
-     "score": null,
-     "red": null,
-     "rank": 7
-    },
-    "away": {
-     "name": "洛格朗尼斯",
-     "score": null,
-     "red": null,
-     "rank": 2
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": 0.25,
-       "line": "0.9",
-       "away": 0.8
-      },
-      "live": {
-       "home": 0.25,
-       "line": "0.61",
-       "away": 1.09
-      }
-     },
-     "overunder": {
-      "open": {
-       "line": "2.5",
-       "over": 0.8,
-       "under": 0.9
-      },
-      "live": {
-       "line": "1",
-       "over": 0.7,
-       "under": 1
-      }
-     },
-     "europe": {
-      "open": {
-       "home": 2.84,
-       "draw": 2.02,
-       "away": 3.3
-      },
-      "live": {
-       "home": 3.45,
-       "draw": 2.59,
-       "away": 2.11
-      }
-     }
-    },
-    "reco": {
-     "pick": "away",
-     "label": "客胜",
-     "confidence": 41.2,
-     "prob": {
-      "home": 25.2,
-      "draw": 33.6,
-      "away": 41.2
-     },
-     "clear": false,
-     "margin": 15
     },
     "result": null
    },
@@ -6123,7 +6050,7 @@ const FOOTBALL_DATA = {
       "away": 41.7
      },
      "clear": false,
-     "margin": 12.1
+     "margin": 12
     },
     "result": null
    },
@@ -6771,7 +6698,7 @@ const FOOTBALL_DATA = {
      "color": "0099BB"
     },
     "time": "2026-11-10 16:30:00",
-    "minute": 0,
+    "minute": 98,
     "home": {
      "name": "博樂大學U21",
      "score": 1,
@@ -6849,7 +6776,7 @@ const FOOTBALL_DATA = {
      "color": "fc8c0A"
     },
     "time": "2026-11-10 16:45:00",
-    "minute": 0,
+    "minute": 83,
     "home": {
      "name": "榄城U20",
      "score": 0,
