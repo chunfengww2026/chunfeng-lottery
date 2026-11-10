@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-10 12:02 */
+/* 自动生成，请勿手动编辑 · 2026-11-10 13:40 */
 const JC_DATA = {
- "updated": "2026-11-10 12:02",
+ "updated": "2026-11-10 13:40",
  "stat": {
   "total": 8,
   "upcoming": 8,
@@ -216,9 +216,9 @@ const JC_DATA = {
       "away": 0.8
      },
      "live": {
-      "home": 0.9,
+      "home": 0.92,
       "line": "受半球",
-      "away": 0.9
+      "away": 0.87
      }
     },
     "europe": {
@@ -240,9 +240,9 @@ const JC_DATA = {
       "under": 0.9
      },
      "live": {
-      "line": 0.85,
+      "line": 0.87,
       "over": 3,
-      "under": 0.95
+      "under": 0.92
      }
     }
    },
@@ -293,21 +293,21 @@ const JC_DATA = {
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 0.9,
-    "downWater": 0.9,
+    "upWater": 0.87,
+    "downWater": 0.92,
     "openHandicap": 0.25,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
+    "totalWater": 1.79,
+    "theoryUpPercent": "51.40",
+    "theoryDownPercent": "48.60",
     "canWater": false,
     "handicapChange": {
      "type": "升盘升水",
      "initHandicap": 0.25,
      "nowHandicap": 0.5,
      "initUpWater": 0.8,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.87,
      "initLine": "受平手/半球",
      "nowLine": "受半球"
     },
