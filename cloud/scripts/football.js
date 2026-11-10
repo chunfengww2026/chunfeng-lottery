@@ -877,7 +877,7 @@ const FOOTBALL_DATA = {
       "away": 37.2
      },
      "clear": false,
-     "margin": 12
+     "margin": 11.9
     },
     "result": null
    },
@@ -1308,7 +1308,7 @@ const FOOTBALL_DATA = {
     "reco": {
      "pick": "away",
      "label": "客胜",
-     "confidence": 43,
+     "confidence": 42.9,
      "prob": {
       "home": 23.2,
       "draw": 33.8,
@@ -1653,8 +1653,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.5",
-       "over": 0.84,
-       "under": 0.96
+       "over": 0.78,
+       "under": 1.02
       }
      },
      "europe": {
@@ -2848,7 +2848,7 @@ const FOOTBALL_DATA = {
       "away": 33.8
      },
      "clear": true,
-     "margin": 15.1
+     "margin": 15
     },
     "result": null
    },
@@ -4354,8 +4354,8 @@ const FOOTBALL_DATA = {
       },
       "live": {
        "line": "1.75",
-       "over": 0.97,
-       "under": 0.83
+       "over": 0.95,
+       "under": 0.85
       }
      },
      "europe": {
