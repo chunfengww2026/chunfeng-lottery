@@ -6,16 +6,16 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-11 22:52:17
+   更新时间：2026-11-11 23:38:51
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-11 22:52:17",
+ "updated": "2026-11-11 23:38:51",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=8F%2B2ViYFqYxKbQSdM3nfBxAJKRw%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=8F%2B2ViYFqYxKbQSdM3nfBxAJKRw%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=poIe35fOE6lfSPFG%2F7V%2BqcPPNQA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=NiDzfeJMWCDR2xS5H8BQuIvrjdw%3D",
    "title": "理性欣赏！排列3排列526299期多张实票亮相，娱乐为主",
    "url": "http://toutiao.com/item/7706905179550908971/",
    "at": "2026-11-11T14:52:17.875Z",
@@ -27,7 +27,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794403693000,
    "seenMs": 1794408737875,
    "drawMs": 1794486600000,
@@ -44,9 +44,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6d0e66c710f8435cbc0ce430132022ba~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=1ApMJkjxG1D9blRIzrdS1wYzvO0%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6d0e66c710f8435cbc0ce430132022ba~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=1ApMJkjxG1D9blRIzrdS1wYzvO0%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=poIe35fOE6lfSPFG%2F7V%2BqcPPNQA%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6d0e66c710f8435cbc0ce430132022ba~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=pGHRrMfgRQQRz7KaHGLbrWTMI84%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/6d0e66c710f8435cbc0ce430132022ba~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=pGHRrMfgRQQRz7KaHGLbrWTMI84%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=NiDzfeJMWCDR2xS5H8BQuIvrjdw%3D",
    "title": "理性欣赏！排列3排列526299期多张实票亮相，娱乐为主",
    "url": "http://toutiao.com/item/7706905179550908971/",
    "at": "2026-11-11T14:52:17.875Z",
@@ -58,9 +58,9 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794403693000,
-   "seenMs": 1794408737875,
+   "seenMs": 1794411531538,
    "drawMs": 1794486600000,
    "nextMs": 1794486600000,
    "atMs": 1794408737875,
@@ -77,7 +77,7 @@ const XYSP_TT_DATA = {
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/42da9054ab6543fcb38a3d2a78c88697~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=GxBXoZW7Tmq4f0zHbt0m%2BkSoEKU%3D",
    "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/42da9054ab6543fcb38a3d2a78c88697~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=GxBXoZW7Tmq4f0zHbt0m%2BkSoEKU%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=poIe35fOE6lfSPFG%2F7V%2BqcPPNQA%3D",
+   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/b1b93ca4ace049f6b59d547f3bcd3b90~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=NiDzfeJMWCDR2xS5H8BQuIvrjdw%3D",
    "title": "理性欣赏！排列3排列526299期多张实票亮相，娱乐为主",
    "url": "http://toutiao.com/item/7706905179550908971/",
    "at": "2026-11-11T14:52:17.875Z",
@@ -89,7 +89,7 @@ const XYSP_TT_DATA = {
     "pl5"
    ],
    "issue": "",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794403693000,
    "seenMs": 1794408737875,
    "drawMs": 1794486600000,
@@ -121,7 +121,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794394625000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794397353826,
@@ -151,7 +151,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794394625000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794397353826,
@@ -211,7 +211,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794393273000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794400200000,
    "nextMs": 1794400200000,
    "atMs": 1794397353826,
@@ -241,7 +241,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794393273000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794400200000,
    "nextMs": 1794400200000,
    "atMs": 1794397353826,
@@ -271,7 +271,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794391959000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794394693804,
@@ -301,7 +301,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794391959000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794394693804,
@@ -346,9 +346,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=yrDzJNbcBwAhiTAxAnrsvj%2Bab1w%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=yrDzJNbcBwAhiTAxAnrsvj%2Bab1w%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=gK0lH8%2B8XodIfOv0qDGtEcKj8LI%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=YtKFyvkg5OeaWObYy6%2FccBLBxhA%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=YtKFyvkg5OeaWObYy6%2FccBLBxhA%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=EgECcQQK24CjJcjERiNK0nAKrvI%3D",
    "title": "10倍双雄撞蓝登场，22倍实票锁定蓝号10，双色球第26129期晒票",
    "url": "http://toutiao.com/item/7706829612147278387/",
    "at": "2026-11-11T08:51:55.802Z",
@@ -359,9 +359,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26129",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794386099000,
-   "seenMs": 1794408737875,
+   "seenMs": 1794411531538,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794387115802,
@@ -376,9 +376,9 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d496b1f0175d49548c39d0d8c6931adf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=2OOmjJKdkHWm%2BVlc15tzdJTLxtI%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d496b1f0175d49548c39d0d8c6931adf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=2OOmjJKdkHWm%2BVlc15tzdJTLxtI%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=gK0lH8%2B8XodIfOv0qDGtEcKj8LI%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d496b1f0175d49548c39d0d8c6931adf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=t9IFUfx3Y1r4KBBLj%2B1uLYPgK7s%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d496b1f0175d49548c39d0d8c6931adf~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=t9IFUfx3Y1r4KBBLj%2B1uLYPgK7s%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/ae5ac738c53944759e516fe74b6e62a0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=EgECcQQK24CjJcjERiNK0nAKrvI%3D",
    "title": "10倍双雄撞蓝登场，22倍实票锁定蓝号10，双色球第26129期晒票",
    "url": "http://toutiao.com/item/7706829612147278387/",
    "at": "2026-11-11T08:51:55.802Z",
@@ -389,9 +389,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26129",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794386099000,
-   "seenMs": 1794408737875,
+   "seenMs": 1794411531538,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794387115802,
@@ -689,7 +689,7 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26127",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794381553000,
    "seenMs": 1794408737875,
    "drawMs": 1794400200000,
@@ -719,9 +719,9 @@ const XYSP_TT_DATA = {
     "dlt"
    ],
    "issue": "26127",
-   "seen": "2026-11-11T14:52:17.875Z",
+   "seen": "2026-11-11T15:38:51.538Z",
    "whenMs": 1794381553000,
-   "seenMs": 1794407992843,
+   "seenMs": 1794408737875,
    "drawMs": 1794400200000,
    "nextMs": 1794400200000,
    "atMs": 1794394693804,
@@ -1321,7 +1321,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794353997000,
-   "seenMs": 1794408184432,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794355914784,
@@ -1351,7 +1351,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794351981000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794362627602,
@@ -1381,7 +1381,7 @@ const XYSP_TT_DATA = {
    "issue": "26129",
    "seen": "2026-11-11T14:45:37.703Z",
    "whenMs": 1794351981000,
-   "seenMs": 1794404830334,
+   "seenMs": 1794408337703,
    "drawMs": 1794489300000,
    "nextMs": 1794489300000,
    "atMs": 1794362627602,
