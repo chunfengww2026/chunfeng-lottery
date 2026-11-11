@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-11 18:24 */
+/* 自动生成，请勿手动编辑 · 2026-11-11 18:52 */
 const JC_DATA = {
- "updated": "2026-11-11 18:24",
+ "updated": "2026-11-11 18:52",
  "stat": {
   "total": 12,
-  "upcoming": 9,
-  "live": 3,
+  "upcoming": 8,
+  "live": 4,
   "finished": 0,
-  "withScore": 3,
+  "withScore": 4,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -37,7 +37,7 @@ const JC_DATA = {
     "rank": null
    },
    "score": {
-    "home": 1,
+    "home": 2,
     "away": 0
    },
    "statusText": "- ",
@@ -124,7 +124,7 @@ const JC_DATA = {
    "status": "live",
    "minute": 0,
    "liveScore": {
-    "home": 1,
+    "home": 2,
     "away": 0
    }
   },
@@ -756,7 +756,10 @@ const JC_DATA = {
     "name": "大阪樱花",
     "rank": null
    },
-   "score": null,
+   "score": {
+    "home": 0,
+    "away": 0
+   },
    "statusText": "- ",
    "odds": {
     "asian": {
@@ -766,9 +769,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 0.9,
+      "home": 0.95,
       "line": "半球",
-      "away": 0.9
+      "away": 0.85
      }
     },
     "europe": {
@@ -778,7 +781,7 @@ const JC_DATA = {
       "away": 3.5
      },
      "live": {
-      "home": 1.83,
+      "home": 1.85,
       "draw": 3.5,
       "away": 3.4
      }
@@ -790,74 +793,46 @@ const JC_DATA = {
       "under": 0.85
      },
      "live": {
-      "line": 1,
-      "over": 3,
-      "under": 0.8
+      "line": 0.85,
+      "over": 2.5,
+      "under": 0.95
      }
     }
    },
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 49.3,
+    "confidence": 48.2,
     "prob": {
-     "home": 49.3,
-     "draw": 25,
-     "away": 25.7
+     "home": 48.2,
+     "draw": 25.5,
+     "away": 26.3
     },
     "clear": true,
-    "margin": 12.6,
+    "margin": 12,
     "rqLine": "半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "home",
-     "label": "主胜",
-     "prob": {
-      "home": 49.3,
-      "draw": 25,
-      "away": 25.7
-     },
-     "confidence": 49.3,
-     "signals": [
-      "初盘→即时：主胜-1.1pp / 平局+0.5pp / 客胜+0.6pp",
-      "亚盘未变盘；水位只作辅助核对"
-     ],
-     "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -9.9,
-      "draw": -12.5,
-      "away": -12.5
-     },
-     "handicap": null,
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "半球",
     "from": "live",
     "handicap": -0.5,
     "upSide": "home",
-    "upWater": 0.9,
-    "downWater": 0.9,
+    "upWater": 0.95,
+    "downWater": 0.85,
     "openHandicap": -0.5,
     "openUpWater": 0.85,
     "openDownWater": 0.95,
-    "totalWater": 1.8,
-    "theoryUpPercent": "50.00",
-    "theoryDownPercent": "50.00",
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": -0.5,
      "nowHandicap": -0.5,
      "initUpWater": 0.85,
-     "nowUpWater": 0.9,
+     "nowUpWater": 0.95,
      "initLine": "半球",
      "nowLine": "半球"
     },
@@ -866,9 +841,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   },
   {
    "gid": "1398680",
@@ -1040,9 +1018,9 @@ const JC_DATA = {
       "away": 4
      },
      "live": {
-      "home": 1.48,
-      "draw": 4.1,
-      "away": 5.5
+      "home": 1.53,
+      "draw": 4,
+      "away": 5
      }
     },
     "overunder": {
@@ -1061,27 +1039,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 55.3,
+    "confidence": 54.6,
     "prob": {
-     "home": 55.3,
-     "draw": 24.4,
-     "away": 20.3
+     "home": 54.6,
+     "draw": 24.6,
+     "away": 20.9
     },
     "clear": true,
-    "margin": 10.1,
+    "margin": 10.4,
     "rqLine": "一球/球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 55.3,
-      "draw": 24.4,
-      "away": 20.3
+      "home": 54.6,
+      "draw": 24.6,
+      "away": 20.9
      },
-     "confidence": 55.3,
+     "confidence": 54.6,
      "signals": [
-      "初盘→即时：主胜+9.3pp / 平局-3.4pp / 客胜-5.9pp",
+      "初盘→即时：主胜+7.2pp / 平局-2.9pp / 客胜-4.3pp",
       "亚盘主队方向变深，水位上升"
      ],
      "missing": [
@@ -1092,9 +1070,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -18.2,
-      "draw": -0.1,
-      "away": 11.8
+      "home": -16.5,
+      "draw": -1.8,
+      "away": 4.4
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -1302,9 +1280,9 @@ const JC_DATA = {
       "away": 2.6
      },
      "live": {
-      "home": 1.67,
+      "home": 1.7,
       "draw": 4.75,
-      "away": 3.4
+      "away": 3.3
      }
     },
     "overunder": {
@@ -1323,27 +1301,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 48.9,
+    "confidence": 48.6,
     "prob": {
-     "home": 48.9,
+     "home": 48.6,
      "draw": 21.3,
-     "away": 29.8
+     "away": 30.1
     },
     "clear": true,
-    "margin": 10.3,
+    "margin": 10.2,
     "rqLine": "半球/一球",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 48.9,
+      "home": 48.6,
       "draw": 21.3,
-      "away": 29.8
+      "away": 30.1
      },
-     "confidence": 48.9,
+     "confidence": 48.6,
      "signals": [
-      "初盘→即时：主胜+11.4pp / 平局-3.4pp / 客胜-8.0pp",
+      "初盘→即时：主胜+10.5pp / 平局-3.4pp / 客胜-7.1pp",
       "亚盘主队方向变深，水位下降"
      ],
      "missing": [
@@ -1354,9 +1332,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -18.4,
-      "draw": 1.2,
-      "away": 1.4
+      "home": -17.5,
+      "draw": 1.3,
+      "away": -0.6
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
