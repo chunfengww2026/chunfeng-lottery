@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-11 10:03:47
+   更新时间：2026-11-11 10:50:43
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-11 10:03:47",
+ "updated": "2026-11-11 10:50:43",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/255a71e5414e45b7ab3129ee9ff2961a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=MSNZhMsBt5y5FSe9rYzvtxqeOes%3D",
@@ -29,14 +29,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-11-11T02:03:47.602Z",
    "whenMs": 1794313737000,
-   "seenMs": 1794358326501,
+   "seenMs": 1794362627602,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1794321977802,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-12T00:52:06.501Z",
+   "expireAt": "2026-11-12T02:03:47.602Z",
    "rule": "cap",
    "author": "优雅奶酪6hWlg9",
    "when": "2026-11-10 20:28:57",
