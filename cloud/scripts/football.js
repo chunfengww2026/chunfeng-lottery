@@ -452,6 +452,148 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
+    "gid": 599614,
+    "kind": "upcoming",
+    "league": {
+     "name": "英女杯",
+     "color": "880023"
+    },
+    "time": "2026-11-12 03:00:00",
+    "minute": 0,
+    "home": {
+     "name": "伯明翰女足",
+     "score": null,
+     "red": null,
+     "rank": 13
+    },
+    "away": {
+     "name": "桑德兰女足",
+     "score": null,
+     "red": null,
+     "rank": 2
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -0.75,
+       "line": "0.7",
+       "away": 1
+      },
+      "live": {
+       "home": -0.5,
+       "line": "0.94",
+       "away": 0.76
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3.25",
+       "over": 0.8,
+       "under": 0.9
+      },
+      "live": {
+       "line": "1.5",
+       "over": 1,
+       "under": 0.7
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.53,
+       "draw": 4,
+       "away": 4.1
+      },
+      "live": {
+       "home": 1.94,
+       "draw": 4.4,
+       "away": 2.46
+      }
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 44.9,
+     "prob": {
+      "home": 44.9,
+      "draw": 19.8,
+      "away": 35.4
+     },
+     "clear": false,
+     "margin": 14.9
+    },
+    "result": null
+   },
+   {
+    "gid": 599615,
+    "kind": "upcoming",
+    "league": {
+     "name": "英女杯",
+     "color": "880023"
+    },
+    "time": "2026-11-12 03:00:00",
+    "minute": 0,
+    "home": {
+     "name": "愛華頓女足",
+     "score": null,
+     "red": null,
+     "rank": 8
+    },
+    "away": {
+     "name": "达勒姆女足",
+     "score": null,
+     "red": null,
+     "rank": 12
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -3.75,
+       "line": "0.8",
+       "away": 0.9
+      },
+      "live": {
+       "home": 0,
+       "line": "",
+       "away": null
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "4.25",
+       "over": 0.82,
+       "under": 0.88
+      },
+      "live": {
+       "line": "",
+       "over": 0,
+       "under": 0
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 1.01,
+       "draw": 14,
+       "away": 10.5
+      },
+      "live": null
+     }
+    },
+    "reco": {
+     "pick": "home",
+     "label": "主胜",
+     "confidence": 85.6,
+     "prob": {
+      "home": 85.6,
+      "draw": 6.2,
+      "away": 8.2
+     },
+     "clear": true,
+     "margin": 15.7
+    },
+    "result": null
+   },
+   {
     "gid": 599616,
     "kind": "upcoming",
     "league": {
@@ -540,10 +682,10 @@ const FOOTBALL_DATA = {
      "rank": 13
     },
     "away": {
-     "name": "桑德兰女足",
+     "name": "辛达卡拉",
      "score": null,
      "red": null,
-     "rank": 2
+     "rank": 4
     },
     "odds": {
      "asian": {
@@ -877,7 +1019,7 @@ const FOOTBALL_DATA = {
       "away": 32
      },
      "clear": false,
-     "margin": 12.2
+     "margin": 12
     },
     "result": null
    },
@@ -1239,44 +1381,6 @@ const FOOTBALL_DATA = {
     "result": null
    },
    {
-    "gid": 599766,
-    "kind": "upcoming",
-    "league": {
-     "name": "英伊联杯",
-     "color": "7D1C79"
-    },
-    "time": "2026-11-12 03:45:00",
-    "minute": 0,
-    "home": {
-     "name": "格雷斯",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "away": {
-     "name": "新市鎮",
-     "score": null,
-     "red": null,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": null,
-      "live": null
-     },
-     "overunder": {
-      "open": null,
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
-   },
-   {
     "gid": 599639,
     "kind": "upcoming",
     "league": {
@@ -1347,6 +1451,44 @@ const FOOTBALL_DATA = {
      "clear": false,
      "margin": 12
     },
+    "result": null
+   },
+   {
+    "gid": 599766,
+    "kind": "upcoming",
+    "league": {
+     "name": "英伊联杯",
+     "color": "7D1C79"
+    },
+    "time": "2026-11-12 03:45:00",
+    "minute": 0,
+    "home": {
+     "name": "格雷斯",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "away": {
+     "name": "新市鎮",
+     "score": null,
+     "red": null,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": null,
+      "live": null
+     },
+     "overunder": {
+      "open": null,
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
     "result": null
    },
    {
@@ -3390,7 +3532,7 @@ const FOOTBALL_DATA = {
       "away": 22
      },
      "clear": true,
-     "margin": 12.2
+     "margin": 15.2
     },
     "result": {
      "actual": "home",
@@ -3594,7 +3736,7 @@ const FOOTBALL_DATA = {
      "actual": "away",
      "actualLabel": "客胜",
      "hit": false,
-     "score": "0 - 2"
+     "score": "0 - 1"
     }
    },
    {
@@ -4406,6 +4548,52 @@ const FOOTBALL_DATA = {
     }
    },
    {
+    "gid": 599870,
+    "kind": "finished",
+    "league": {
+     "name": "欧U19",
+     "color": "3a794e"
+    },
+    "time": "2026-11-11 22:00:00",
+    "minute": 0,
+    "home": {
+     "name": "保加利亚U19",
+     "score": 6,
+     "red": 0,
+     "rank": 0
+    },
+    "away": {
+     "name": "直布罗陀U19",
+     "score": 0,
+     "red": 0,
+     "rank": 0
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": -6,
+       "line": "0.82",
+       "away": 0.94
+      },
+      "live": null
+     },
+     "overunder": {
+      "open": {
+       "line": "6.5",
+       "over": 0.77,
+       "under": 0.99
+      },
+      "live": null
+     },
+     "europe": {
+      "open": null,
+      "live": null
+     }
+    },
+    "reco": null,
+    "result": null
+   },
+   {
     "gid": 599539,
     "kind": "finished",
     "league": {
@@ -4482,52 +4670,6 @@ const FOOTBALL_DATA = {
      "hit": true,
      "score": "6 - 0"
     }
-   },
-   {
-    "gid": 599870,
-    "kind": "finished",
-    "league": {
-     "name": "欧U19",
-     "color": "3a794e"
-    },
-    "time": "2026-11-11 22:00:00",
-    "minute": 0,
-    "home": {
-     "name": "保加利亚U19",
-     "score": 6,
-     "red": 0,
-     "rank": 0
-    },
-    "away": {
-     "name": "直布罗陀U19",
-     "score": 0,
-     "red": 0,
-     "rank": 0
-    },
-    "odds": {
-     "asian": {
-      "open": {
-       "home": -6,
-       "line": "0.82",
-       "away": 0.94
-      },
-      "live": null
-     },
-     "overunder": {
-      "open": {
-       "line": "6.5",
-       "over": 0.77,
-       "under": 0.99
-      },
-      "live": null
-     },
-     "europe": {
-      "open": null,
-      "live": null
-     }
-    },
-    "reco": null,
-    "result": null
    },
    {
     "gid": 599512,
