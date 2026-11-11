@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-12 00:05",
+ "updated": "2026-11-12 00:56",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -497,7 +497,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-11 00:43"
   },
   {
@@ -552,7 +552,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-11 00:43"
   },
   {
@@ -607,7 +607,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-11 00:43"
   },
   {
@@ -662,7 +662,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-11 00:43"
   },
   {
@@ -1214,171 +1214,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-11-07 00:44"
-  },
-  {
-   "code": "周日022",
-   "league": "德甲",
-   "home": "弗赖堡",
-   "away": "柏林联合",
-   "time": "2026-11-09 00:30",
-   "score": "2:0",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球",
-    "from": "live",
-    "handicap": -1,
-    "upSide": "home",
-    "upWater": 0.7,
-    "downWater": 1.1,
-    "openHandicap": -1.25,
-    "openUpWater": 1.02,
-    "openDownWater": 0.82,
-    "totalWater": 1.8,
-    "theoryUpPercent": "61.11",
-    "theoryDownPercent": "38.89",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -1.25,
-     "nowHandicap": -1,
-     "initUpWater": 1.02,
-     "nowUpWater": 0.7,
-     "initLine": "一球/球半",
-     "nowLine": "一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.45,
-    "draw": 4.5,
-    "away": 7
-   },
-   "prob": {
-    "home": 65.4,
-    "draw": 21.1,
-    "away": 13.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 65.4,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-08 00:25"
-  },
-  {
-   "code": "周日021",
-   "league": "英超",
-   "home": "曼联",
-   "away": "维拉",
-   "time": "2026-11-09 00:30",
-   "score": "4:4",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球/一球",
-    "from": "live",
-    "handicap": -0.75,
-    "upSide": "home",
-    "upWater": 1.1,
-    "downWater": 0.7,
-    "openHandicap": -0.25,
-    "openUpWater": 0.92,
-    "openDownWater": 0.92,
-    "totalWater": 1.8,
-    "theoryUpPercent": "38.89",
-    "theoryDownPercent": "61.11",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.75,
-     "initUpWater": 0.92,
-     "nowUpWater": 1.1,
-     "initLine": "平手/半球",
-     "nowLine": "半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.95,
-    "draw": 4.1,
-    "away": 3.3
-   },
-   "prob": {
-    "home": 48.4,
-    "draw": 23,
-    "away": 28.6
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 48.4,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-07 00:44"
-  },
-  {
-   "code": "周日020",
-   "league": "法甲",
-   "home": "勒芒",
-   "away": "摩纳哥",
-   "time": "2026-11-09 00:15",
-   "score": "1:1",
-   "hc": null,
-   "asianIndex": {
-    "line": "受半球/一球",
-    "from": "live",
-    "handicap": 0.75,
-    "upSide": "away",
-    "upWater": 0.72,
-    "downWater": 1.07,
-    "openHandicap": 1,
-    "openUpWater": 1.05,
-    "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "59.78",
-    "theoryDownPercent": "40.22",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": 1,
-     "nowHandicap": 0.75,
-     "initUpWater": 1.05,
-     "nowUpWater": 0.72,
-     "initLine": "受一球",
-     "nowLine": "受半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 5.75,
-    "draw": 3.8,
-    "away": 1.62
-   },
-   "prob": {
-    "home": 16.5,
-    "draw": 25,
-    "away": 58.5
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 58.5,
-   "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": false,
-   "at": "2026-11-08 00:25"
   }
  ]
 };
