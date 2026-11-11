@@ -147,19 +147,91 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 93725,
+     "src": "https://pic.cz89.com/upload/20250304/7ee069d9d88141a4ac145778e3d44777.jpg",
+     "page": "https://www.cz89.com/read_9188272.htm",
+     "title": "牛魔王杀两码红球024期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T13:42:07.539Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "3D字谜",
+   "cat": "3D",
+   "kw": "3D字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/3D字谜/1.png",
+     "size": 36616,
+     "src": "https://img.3d178.cn/zimi/thds/2024/2024327.png",
+     "page": "https://www.3d178.cn/zimi/thzm/197734.shtml",
+     "title": "3d第2024327期太湖字谜：双双依，双双栖，人可散，缘能聚_太湖钓叟字谜_3D字谜_3D之家",
+     "issue": "2024327",
+     "verified": false,
+     "fetchedAt": "2026-11-11T13:42:28.021Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "大乐透",
+   "kw": "迟丽颖 大乐透 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/大乐透/迟丽颖/1.jpg",
+     "size": 48640,
+     "src": "http://n.sinaimg.cn/sports/crawl/14/w480h334/20180415/3qn8-fzcyxmu9125618.jpg",
+     "page": "https://sports.sina.com.cn/l/2018-04-15/doc-ifzcyxmu9127672.shtml",
+     "title": "迟丽颖大乐透第18043期预测：前区胆码05 09_彩票_新浪竞技风暴_新浪网",
+     "issue": "18043",
+     "verified": false,
+     "fetchedAt": "2026-11-11T09:43:47.896Z"
+    }
+   ],
+   "stale": true
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 107873,
+     "src": "https://pic1.zhimg.com/v2-2f51114c0eec4d7c723d29d267449eb2_720w.jpg?source=172ae18b",
+     "page": "https://zhuanlan.zhihu.com/p/492396269",
+     "title": "第2022083期3D太湖字谜解读 - 知乎",
+     "issue": "2022083",
+     "verified": false,
+     "fetchedAt": "2026-11-11T13:43:02.832Z"
+    }
+   ],
+   "stale": true
+  },
+  {
    "name": "太湖字谜",
    "cat": "排列三",
    "kw": "太湖字谜 排列三 字谜 参考图",
    "imgs": [
     {
      "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 21432,
-     "src": "http://dingyue.ws.126.net/2021/1017/ebf8ec4aj00r13r1u000kc000i600i6m.jpg",
-     "page": "https://m.163.com/dy/article/H1H4J3M30552NBRN.html",
-     "title": "第2022052期排列三太湖字谜及P3玄机图分析|太湖|字谜|腊八粥|腊八节|钓叟_手机网易网",
-     "issue": "2022052",
+     "size": 38511,
+     "src": "https://www.17500.cn/Public/Upload/art/202403/1710912998237971.jpg",
+     "page": "https://www.17500.cn/arts/detail-1380535.html",
+     "title": "排列3第2024071期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2024071",
      "verified": false,
-     "fetchedAt": "2026-11-11T14:31:54.809Z"
+     "fetchedAt": "2026-11-11T14:37:01.102Z"
     }
    ],
    "stale": true
@@ -697,7 +769,7 @@ const MINGJIA_DATA = {
    "imgs": 13
   },
   {
-   "at": "2026-11-11 22:31:57",
+   "at": "2026-11-11 22:39:25",
    "names": 71,
    "imgs": 13
   },
