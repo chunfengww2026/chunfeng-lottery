@@ -1,77 +1,150 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/12 03:53:42） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/12 05:18:32） */
 const MINGJIA_DATA = {
- "updated": "2026-11-12 03:53:42",
+ "updated": "2026-11-12 05:18:32",
  "list": [
   {
-   "name": "大招财运",
+   "name": "迟丽颖",
    "cat": "双色球",
-   "kw": "大招财运 双色球 字谜 参考图",
+   "kw": "迟丽颖 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "奉旨发财",
+   "name": "万里挑一",
    "cat": "双色球",
-   "kw": "奉旨发财 双色球 字谜 参考图",
+   "kw": "万里挑一 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "白天鹅",
+   "name": "青岛大磊",
    "cat": "双色球",
-   "kw": "白天鹅 双色球 字谜 参考图",
+   "kw": "青岛大磊 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "百合花",
+   "name": "明哥看彩",
    "cat": "双色球",
-   "kw": "百合花 双色球 字谜 参考图",
+   "kw": "明哥看彩 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "百步穿杨",
+   "name": "岳阳飞飞",
    "cat": "双色球",
-   "kw": "百步穿杨 双色球 字谜 参考图",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "蒲公英",
+   "name": "金手指",
    "cat": "双色球",
-   "kw": "蒲公英 双色球 字谜 参考图",
+   "kw": "金手指 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/金手指/1.jpg",
+     "size": 63857,
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloVWJ5K1B3bGtBSS9keDhZQ1A5RlNzM21kd3NMYVpJNHV0YkViWUg5dDQw.jpg",
+     "page": "https://www.16788.cn/tj_498672741118.html",
+     "title": "天吉网金手指2026073期双色球图谜 - 双色球图谜 - 天吉网",
+     "issue": "2026073",
+     "verified": false,
+     "fetchedAt": "2026-11-10T14:29:14.319Z"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "双色球",
+   "kw": "九头鸟 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "远方的狼",
+   "name": "武汉华哥",
    "cat": "双色球",
-   "kw": "远方的狼 双色球 字谜 参考图",
+   "kw": "武汉华哥 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "那些年",
+   "name": "貂蝉杀",
    "cat": "双色球",
-   "kw": "那些年 双色球 字谜 参考图",
+   "kw": "貂蝉杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
+     "size": 85820,
+     "src": "https://pic1.800820.net/tumi/20260424/bc06b5f4c4ab4ca8aa9c79f0c45fb0f6.webp",
+     "page": "https://www.800820.cn/tuku/tkpic_402651.html",
+     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T17:13:45.121Z"
+    }
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "双色球",
+   "kw": "名家精 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "金枪鱼",
+   "name": "鸭梨红",
    "cat": "双色球",
-   "kw": "金枪鱼 双色球 字谜 参考图",
+   "kw": "鸭梨红 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "青云万里",
+   "name": "黄大仙",
    "cat": "双色球",
-   "kw": "青云万里 双色球 字谜 参考图",
-   "imgs": []
+   "kw": "黄大仙 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/黄大仙/1.png",
+     "size": 80775,
+     "src": "https://pic.cz89.com/upload/20260628/56d191b16a2f41b789005ec69c42fb96.png",
+     "page": "https://www.cz89.com/read_10526815.htm",
+     "title": "黄大仙杀蓝球074期双色球图谜 10中9_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T15:40:54.759Z"
+    }
+   ]
   },
   {
-   "name": "鲤鱼得财",
+   "name": "东北人杀",
    "cat": "双色球",
-   "kw": "鲤鱼得财 双色球 字谜 参考图",
-   "imgs": []
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
+     "size": 104137,
+     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
+     "page": "https://www.cz89.com/read_9355375.htm",
+     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T15:40:58.542Z"
+    }
+   ]
   },
   {
-   "name": "朱大姐",
+   "name": "峨眉道姑",
    "cat": "双色球",
-   "kw": "朱大姐 双色球 字谜 参考图",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/峨眉道姑/1.png",
+     "size": 86609,
+     "src": "https://pic.cz89.com/upload/20260604/9e52214ba6d441029905a1ffa0d6ba5a.png",
+     "page": "https://www.cz89.com/read_10444098.htm",
+     "title": "峨眉道姑杀蓝号064期双色球图谜 10中10_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T18:51:11.460Z"
+    }
+   ]
+  },
+  {
+   "name": "蓝号迷",
+   "cat": "双色球",
+   "kw": "蓝号迷 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -89,7 +162,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-11T19:53:28.608Z"
     }
-   ]
+   ],
+   "stale": true
   },
   {
    "name": "牛魔王",
@@ -106,13 +180,8 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-11T19:14:55.596Z"
     }
-   ]
-  },
-  {
-   "name": "闪享",
-   "cat": "大乐透",
-   "kw": "闪享 大乐透 字谜 参考图",
-   "imgs": []
+   ],
+   "stale": true
   },
   {
    "name": "3D字谜",
@@ -133,24 +202,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "金手指",
-   "cat": "双色球",
-   "kw": "金手指 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/金手指/1.jpg",
-     "size": 63857,
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloVWJ5K1B3bGtBSS9keDhZQ1A5RlNzM21kd3NMYVpJNHV0YkViWUg5dDQw.jpg",
-     "page": "https://www.16788.cn/tj_498672741118.html",
-     "title": "天吉网金手指2026073期双色球图谜 - 双色球图谜 - 天吉网",
-     "issue": "2026073",
-     "verified": false,
-     "fetchedAt": "2026-11-10T14:29:14.319Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "太湖字谜",
    "cat": "3D",
    "kw": "太湖字谜 3D 字谜 参考图",
@@ -164,78 +215,6 @@ const MINGJIA_DATA = {
      "issue": "2025104",
      "verified": false,
      "fetchedAt": "2026-11-11T19:15:52.299Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "貂蝉杀",
-   "cat": "双色球",
-   "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 85820,
-     "src": "https://pic1.800820.net/tumi/20260424/bc06b5f4c4ab4ca8aa9c79f0c45fb0f6.webp",
-     "page": "https://www.800820.cn/tuku/tkpic_402651.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-11T17:13:45.121Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "黄大仙",
-   "cat": "双色球",
-   "kw": "黄大仙 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/黄大仙/1.png",
-     "size": 80775,
-     "src": "https://pic.cz89.com/upload/20260628/56d191b16a2f41b789005ec69c42fb96.png",
-     "page": "https://www.cz89.com/read_10526815.htm",
-     "title": "黄大仙杀蓝球074期双色球图谜 10中9_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-11T15:40:54.759Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "东北人杀",
-   "cat": "双色球",
-   "kw": "东北人杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
-     "size": 104137,
-     "src": "https://pic.cz89.com/upload/20250518/8415a4161481420dbeec66435e515d88.jpg",
-     "page": "https://www.cz89.com/read_9355375.htm",
-     "title": "东北人杀蓝球056期双色球图谜_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-11T15:40:58.542Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/峨眉道姑/1.png",
-     "size": 86609,
-     "src": "https://pic.cz89.com/upload/20260604/9e52214ba6d441029905a1ffa0d6ba5a.png",
-     "page": "https://www.cz89.com/read_10444098.htm",
-     "title": "峨眉道姑杀蓝号064期双色球图谜 10中10_牛彩网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-11T18:51:11.460Z"
     }
    ],
    "stale": true
@@ -367,66 +346,6 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "迟丽颖",
-   "cat": "双色球",
-   "kw": "迟丽颖 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "万里挑一",
-   "cat": "双色球",
-   "kw": "万里挑一 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "明哥看彩",
-   "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "双色球",
-   "kw": "九头鸟 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "武汉华哥",
-   "cat": "双色球",
-   "kw": "武汉华哥 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "双色球",
-   "kw": "名家精 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "鸭梨红",
-   "cat": "双色球",
-   "kw": "鸭梨红 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "蓝号迷",
-   "cat": "双色球",
-   "kw": "蓝号迷 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "枣庄红人",
    "cat": "双色球",
    "kw": "枣庄红人 双色球 字谜 参考图",
@@ -448,6 +367,84 @@ const MINGJIA_DATA = {
    "name": "夏天",
    "cat": "双色球",
    "kw": "夏天 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "大招财运",
+   "cat": "双色球",
+   "kw": "大招财运 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "奉旨发财",
+   "cat": "双色球",
+   "kw": "奉旨发财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "白天鹅",
+   "cat": "双色球",
+   "kw": "白天鹅 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百合花",
+   "cat": "双色球",
+   "kw": "百合花 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "百步穿杨",
+   "cat": "双色球",
+   "kw": "百步穿杨 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "蒲公英",
+   "cat": "双色球",
+   "kw": "蒲公英 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "远方的狼",
+   "cat": "双色球",
+   "kw": "远方的狼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "那些年",
+   "cat": "双色球",
+   "kw": "那些年 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金枪鱼",
+   "cat": "双色球",
+   "kw": "金枪鱼 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "青云万里",
+   "cat": "双色球",
+   "kw": "青云万里 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鲤鱼得财",
+   "cat": "双色球",
+   "kw": "鲤鱼得财 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "朱大姐",
+   "cat": "双色球",
+   "kw": "朱大姐 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
    "imgs": []
   },
   {
@@ -609,11 +606,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-11 07:00:50",
-   "names": 71,
-   "imgs": 11
-  },
-  {
    "at": "2026-11-11 07:35:44",
    "names": 71,
    "imgs": 11
@@ -725,6 +717,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-12 03:53:41",
+   "names": 71,
+   "imgs": 15
+  },
+  {
+   "at": "2026-11-12 05:18:32",
    "names": 71,
    "imgs": 15
   }
