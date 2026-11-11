@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-12 02:59",
+ "updated": "2026-11-12 03:36",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -336,6 +336,34 @@ const JC_HISTORY = {
    "at": "2026-11-12 00:05"
   },
   {
+   "code": "周三006",
+   "league": "英锦赛",
+   "home": "巴恩斯利",
+   "away": "奥德汉姆",
+   "time": "2026-11-12 03:00",
+   "score": "2:0",
+   "hc": null,
+   "asianIndex": null,
+   "odds": {
+    "home": 1.8,
+    "draw": 4.2,
+    "away": 3.2
+   },
+   "prob": {
+    "home": 47.4,
+    "draw": 22.2,
+    "away": 30.4
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 47.4,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-11-11 00:43"
+  },
+  {
    "code": "周三005",
    "league": "英锦赛",
    "home": "谢周三",
@@ -384,61 +412,6 @@ const JC_HISTORY = {
    "pick": "home",
    "pickLabel": "主胜",
    "conf": 57.3,
-   "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
-   "at": "2026-11-11 00:43"
-  },
-  {
-   "code": "周三006",
-   "league": "英锦赛",
-   "home": "巴恩斯利",
-   "away": "奥德汉姆",
-   "time": "2026-11-12 03:00",
-   "score": "",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 0.85,
-    "downWater": 0.95,
-    "openHandicap": -0.25,
-    "openUpWater": 0.95,
-    "openDownWater": 0.85,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "52.78",
-    "theoryDownPercent": "47.22",
-    "canWater": false,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.95,
-     "nowUpWater": 0.85,
-     "initLine": "平手/半球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.8,
-    "draw": 4.2,
-    "away": 3.2
-   },
-   "prob": {
-    "home": 47.4,
-    "draw": 22.2,
-    "away": 30.4
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 47.4,
    "type": "three",
    "result": "",
    "hit": false,
