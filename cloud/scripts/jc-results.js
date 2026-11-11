@@ -1,10 +1,10 @@
 /* jc-results.js —— 已完场赛果（build-football-results.mjs 生成，勿手改）
-   窗口 48 小时 · 260 场 · 时间 2026-11-11 18:52
+   窗口 48 小时 · 259 场 · 时间 2026-11-11 19:20
    字段：date/time（北京时间开赛）· league · home · away · ft 终场 · ht 半场（可能为 null） */
 const JC_RESULTS = {
- "updated": "2026-11-11 18:52",
+ "updated": "2026-11-11 19:20",
  "hours": 48,
- "count": 260,
+ "count": 259,
  "list": [
   {
    "date": "2026-11-11",
@@ -4149,22 +4149,6 @@ const JC_RESULTS = {
     "a": 3
    },
    "fid": "2206358"
-  },
-  {
-   "date": "2026-11-09",
-   "time": "2026-11-09 19:00",
-   "league": "俄乙A",
-   "home": "马舒克KMV",
-   "away": "罗迪纳莫斯科B队",
-   "ft": {
-    "h": 3,
-    "a": 0
-   },
-   "ht": {
-    "h": 2,
-    "a": 0
-   },
-   "fid": "1445932"
   }
  ]
 };
