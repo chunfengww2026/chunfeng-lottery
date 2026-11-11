@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-11 15:29",
+ "updated": "2026-11-11 16:30",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1819,61 +1819,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-11-07 00:44"
-  },
-  {
-   "code": "周日005",
-   "league": "K1联赛",
-   "home": "江原FC",
-   "away": "全北现代",
-   "time": "2026-11-08 15:30",
-   "score": "3:2",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手",
-    "from": "live",
-    "handicap": 0,
-    "upSide": "home",
-    "upWater": 0.77,
-    "downWater": 1.02,
-    "openHandicap": -0.25,
-    "openUpWater": 1,
-    "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": -0.25,
-     "nowHandicap": 0,
-     "initUpWater": 1,
-     "nowUpWater": 0.77,
-     "initLine": "平手/半球",
-     "nowLine": "平手"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.45,
-    "draw": 3.2,
-    "away": 2.88
-   },
-   "prob": {
-    "home": 38.2,
-    "draw": 29.3,
-    "away": 32.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 38.2,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-08 00:25"
   }
  ]
 };
