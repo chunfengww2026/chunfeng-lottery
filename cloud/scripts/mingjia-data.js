@@ -266,24 +266,6 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "太湖字谜",
-   "cat": "排列三",
-   "kw": "太湖字谜 排列三 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 146502,
-     "src": "https://pic1.zhimg.com/v2-bec1f6db540eb96f44dfb287083effbe_r.jpg",
-     "page": "https://zhuanlan.zhihu.com/p/585047952",
-     "title": "体彩排列三第2022310期太湖字谜解析 - 知乎",
-     "issue": "2022310",
-     "verified": false,
-     "fetchedAt": "2026-11-09T16:59:26.243Z"
-    }
-   ],
-   "stale": true
-  },
-  {
    "name": "司马迁",
    "cat": "双色球",
    "kw": "司马迁 双色球 字谜 参考图",
