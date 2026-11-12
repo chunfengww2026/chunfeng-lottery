@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-12 10:35 */
+/* 自动生成，请勿手动编辑 · 2026-11-12 11:23 */
 const JC_DATA = {
- "updated": "2026-11-12 10:35",
+ "updated": "2026-11-12 11:23",
  "stat": {
   "total": 6,
   "upcoming": 6,
@@ -463,9 +463,9 @@ const JC_DATA = {
       "under": 0.92
      },
      "live": {
-      "line": 1,
+      "line": 0.8,
       "over": 2.5,
-      "under": 0.8
+      "under": 1
      }
     }
    },
@@ -725,9 +725,9 @@ const JC_DATA = {
       "under": 1.02
      },
      "live": {
-      "line": 0.9,
+      "line": 0.92,
       "over": 3,
-      "under": 0.95
+      "under": 0.92
      }
     }
    },
