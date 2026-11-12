@@ -399,9 +399,9 @@ const JC_DATA = {
       "away": 7.5
      },
      "live": {
-      "home": 1.3,
-      "draw": 5.5,
-      "away": 9
+      "home": 1.27,
+      "draw": 5.75,
+      "away": 10
      }
     },
     "overunder": {
@@ -427,7 +427,7 @@ const JC_DATA = {
      "away": 9.6
     },
     "clear": true,
-    "margin": 6.2,
+    "margin": 6.1,
     "rqLine": "球半",
     "type": "three",
     "marketAnalysis": {
