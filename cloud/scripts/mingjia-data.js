@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/13 02:33:03） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/13 03:28:09） */
 const MINGJIA_DATA = {
- "updated": "2026-11-13 02:33:03",
+ "updated": "2026-11-13 03:28:09",
  "list": [
-  {
-   "name": "明哥看彩",
-   "cat": "双色球",
-   "kw": "明哥看彩 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "岳阳飞飞",
-   "cat": "双色球",
-   "kw": "岳阳飞飞 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "金手指",
-   "cat": "双色球",
-   "kw": "金手指 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "九头鸟",
-   "cat": "双色球",
-   "kw": "九头鸟 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "武汉华哥",
    "cat": "双色球",
@@ -45,19 +21,19 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "东北人杀",
+   "name": "峨眉道姑",
    "cat": "双色球",
-   "kw": "东北人杀 双色球 字谜 参考图",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
    "imgs": [
     {
-     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
-     "size": 97769,
-     "src": "https://pic.cz89.com/upload/20221108/7270ab0e7c9948df9c05924c72a88c0d.jpg",
-     "page": "https://www.cz89.com/read_7269009.htm",
-     "title": "东北人杀蓝球129期双色球图谜_牛彩网",
+     "file": "imgs/mingjia/双色球/峨眉道姑/1.png",
+     "size": 86609,
+     "src": "https://pic.cz89.com/upload/20260604/9e52214ba6d441029905a1ffa0d6ba5a.png",
+     "page": "https://www.cz89.com/read_10444098.htm",
+     "title": "峨眉道姑杀蓝号064期双色球图谜 10中10_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-12T02:04:41.233Z"
+     "fetchedAt": "2026-11-12T19:27:27.702Z"
     }
    ]
   },
@@ -80,6 +56,48 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "枣庄红人",
+   "cat": "双色球",
+   "kw": "枣庄红人 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "一品红",
+   "cat": "双色球",
+   "kw": "一品红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "万万没想到",
+   "cat": "双色球",
+   "kw": "万万没想到 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "夏天",
+   "cat": "双色球",
+   "kw": "夏天 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "东北人杀",
+   "cat": "双色球",
+   "kw": "东北人杀 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/东北人杀/1.jpg",
+     "size": 97769,
+     "src": "https://pic.cz89.com/upload/20221108/7270ab0e7c9948df9c05924c72a88c0d.jpg",
+     "page": "https://www.cz89.com/read_7269009.htm",
+     "title": "东北人杀蓝球129期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-12T02:04:41.233Z"
+    }
+   ],
+   "stale": true
+  },
+  {
    "name": "司马迁",
    "cat": "双色球",
    "kw": "司马迁 双色球 字谜 参考图",
@@ -93,23 +111,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-12T02:05:05.598Z"
-    }
-   ]
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/峨眉道姑/1.webp",
-     "size": 47312,
-     "src": "https://pic2.800820.net/tumi/20260506/20e35275c30c44d7921979d43539a58f.webp",
-     "page": "https://www.800820.cn/p/11020340.html",
-     "title": "双色球2026051期峨眉道姑杀蓝图迷_天齐网",
-     "issue": "2026051",
-     "verified": false,
-     "fetchedAt": "2026-11-12T17:45:37.528Z"
     }
    ],
    "stale": true
@@ -313,27 +314,27 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "枣庄红人",
+   "name": "明哥看彩",
    "cat": "双色球",
-   "kw": "枣庄红人 双色球 字谜 参考图",
+   "kw": "明哥看彩 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "一品红",
+   "name": "岳阳飞飞",
    "cat": "双色球",
-   "kw": "一品红 双色球 字谜 参考图",
+   "kw": "岳阳飞飞 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "万万没想到",
+   "name": "金手指",
    "cat": "双色球",
-   "kw": "万万没想到 双色球 字谜 参考图",
+   "kw": "金手指 双色球 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "夏天",
+   "name": "九头鸟",
    "cat": "双色球",
-   "kw": "夏天 双色球 字谜 参考图",
+   "kw": "九头鸟 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -573,11 +574,6 @@ const MINGJIA_DATA = {
  ],
  "history": [
   {
-   "at": "2026-11-12 05:18:32",
-   "names": 71,
-   "imgs": 15
-  },
-  {
    "at": "2026-11-12 06:24:08",
    "names": 71,
    "imgs": 15
@@ -689,6 +685,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-13 02:33:03",
+   "names": 71,
+   "imgs": 12
+  },
+  {
+   "at": "2026-11-13 03:28:09",
    "names": 71,
    "imgs": 12
   }
