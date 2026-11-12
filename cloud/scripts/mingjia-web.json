@@ -434,8 +434,8 @@
    ],
    "publishedAt": "2026-11-12T11:00:04.000Z",
    "publicationTimeUnknown": false,
-   "firstSeen": "2026-11-11T00:52:06.451Z",
-   "expiresAt": "2026-11-13T00:52:06.451Z"
+   "firstSeen": "2026-11-10T15:43:05.104Z",
+   "expiresAt": "2026-11-12T15:43:05.104Z"
   },
   {
    "id": "https://m.16788.cn/tj_7f0102792513.html",
@@ -41592,8 +41592,7 @@
   },
   {
    "url": "https://www.17500.cn/arts/detail-4925224.html",
-   "status": 0,
-   "error": "fetch failed",
+   "status": 429,
    "count": 0
   },
   {
