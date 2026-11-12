@@ -1,55 +1,8 @@
 {
- "updated": "2026-11-13 03:33",
+ "updated": "2026-11-13 04:26",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-13 03:33",
-   "finishTime": 1794511980000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周四006",
-     "teams": "捷克 vs 西班牙",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 80.4,
-     "status": "pending",
-     "finishTime": 1794511980000,
-     "league": "欧国联",
-     "odds": 1.2,
-     "time": "2026-11-13 03:45"
-    },
-    {
-     "matchNo": "周四005",
-     "teams": "英格兰 vs 克罗地亚",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 75.5,
-     "status": "pending",
-     "finishTime": 1794511980000,
-     "league": "欧国联",
-     "odds": 1.27,
-     "time": "2026-11-13 03:45"
-    },
-    {
-     "matchNo": "周四004",
-     "teams": "黑山 vs 拉脱维亚",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 70.6,
-     "status": "pending",
-     "finishTime": 1794511980000,
-     "league": "欧国联",
-     "odds": 1.3,
-     "time": "2026-11-13 03:45"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
