@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-12 19:00:19
+   更新时间：2026-11-12 19:54:32
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-12 19:00:19",
+ "updated": "2026-11-12 19:54:32",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2cfc483cfb5a41be989a242d378d529c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=a0hc7XJkzjsfLg36xM3qkSY3xwQ%3D",
@@ -29,14 +29,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-11-12T11:00:19.541Z",
    "whenMs": 1794445901000,
-   "seenMs": 1794452216861,
+   "seenMs": 1794481219541,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1794449376095,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-13T02:56:56.861Z",
+   "expireAt": "2026-11-13T11:00:19.541Z",
    "rule": "cap",
    "author": "花券安静生活",
    "when": "2026-11-12 09:11:41",
@@ -57,14 +57,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-11-12T11:00:19.541Z",
    "whenMs": 1794445901000,
-   "seenMs": 1794452216861,
+   "seenMs": 1794481219541,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1794449376095,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-13T02:56:56.861Z",
+   "expireAt": "2026-11-13T11:00:19.541Z",
    "rule": "cap",
    "author": "花券安静生活",
    "when": "2026-11-12 09:11:41",
@@ -85,14 +85,14 @@ const XYSP_JC_DATA = {
    "issue": "",
    "seen": "2026-11-12T11:00:19.541Z",
    "whenMs": 1794445901000,
-   "seenMs": 1794452216861,
+   "seenMs": 1794481219541,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1794449376095,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-13T02:56:56.861Z",
+   "expireAt": "2026-11-13T11:00:19.541Z",
    "rule": "cap",
    "author": "花券安静生活",
    "when": "2026-11-12 09:11:41",

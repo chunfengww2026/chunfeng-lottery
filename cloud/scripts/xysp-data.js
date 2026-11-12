@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-12 19:01
+   更新时间：2026-11-12 19:55
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-12 19:01",
+ "updated": "2026-11-12 19:55",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -427,26 +427,82 @@ const XYSP_DATA = {
      "atMs": 1794400529671,
      "seenMs": 1794400529671,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/b253ad7c-859c-46a0-8834-85af6b2fc36b1794394692897.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/b253ad7c-859c-46a0-8834-85af6b2fc36b1794394692897.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26129期]没有哪几个命，命里有时间么",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:58:00.000Z",
-     "pubMs": 1794394680000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
     }
    ]
   },
   "fc3d": {
    "name": "福彩3D",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/8a5c5789-1d94-4123-a32f-04d1a740c7001794481859816.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/8a5c5789-1d94-4123-a32f-04d1a740c7001794481859816.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]和值.4.15.24，胆.8",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:11:00.000Z",
+     "pubMs": 1794481860000,
+     "pubSrc": "page",
+     "nextAt": 1794489300000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/864d2861-2410-4e60-a5c5-dc407248835d1794481842646.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/864d2861-2410-4e60-a5c5-dc407248835d1794481842646.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]停了好久！",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:10:00.000Z",
+     "pubMs": 1794481800000,
+     "pubSrc": "page",
+     "nextAt": 1794489300000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/c594138b-49c5-479d-8f70-31f0740b3c751794481847139.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/c594138b-49c5-479d-8f70-31f0740b3c751794481847139.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]拿下",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:10:00.000Z",
+     "pubMs": 1794481800000,
+     "pubSrc": "page",
+     "nextAt": 1794489300000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/44ecf3b5-345a-4ce4-8556-10d7715c15371794481442102.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/44ecf3b5-345a-4ce4-8556-10d7715c15371794481442102.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]今天方案参考参考*_*-*锦鲤附体来来来!!!点赞越多，中奖率越大!!!",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:04:00.000Z",
+     "pubMs": 1794481440000,
+     "pubSrc": "page",
+     "nextAt": 1794489300000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/8e79aa90-c9c7-4cfe-b1a9-bb2efb9650f61794481442127.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/8e79aa90-c9c7-4cfe-b1a9-bb2efb9650f61794481442127.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]今天方案参考参考*_*-*锦鲤附体来来来!!!点赞越多，中奖率越大!!!",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:04:00.000Z",
+     "pubMs": 1794481440000,
+     "pubSrc": "page",
+     "nextAt": 1794489300000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-12/f2798372-fe24-4825-8176-6a3bf944a0de1794480066396.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-12/f2798372-fe24-4825-8176-6a3bf944a0de1794480066396.jpg?imageMogr2/thumbnail/360x",
@@ -880,54 +936,26 @@ const XYSP_DATA = {
      "atMs": 1794400529671,
      "seenMs": 1794400529671,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/b044d4c2-3a1c-4822-bebf-4c9c287db94c1794396100578.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/b044d4c2-3a1c-4822-bebf-4c9c287db94c1794396100578.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]1",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T11:21:00.000Z",
-     "pubMs": 1794396060000,
-     "pubSrc": "page",
-     "nextAt": 1794402900000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/b93f4a77-70b6-4e15-8cb3-855d59aff16d1794394903271.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/b93f4a77-70b6-4e15-8cb3-855d59aff16d1794394903271.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]99期，试机号522",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T11:01:00.000Z",
-     "pubMs": 1794394860000,
-     "pubSrc": "page",
-     "nextAt": 1794402900000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/4b874393-5825-45bd-b527-2c2c57d70b1f1794393549950.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/4b874393-5825-45bd-b527-2c2c57d70b1f1794393549950.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]财富密码",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:39:00.000Z",
-     "pubMs": 1794393540000,
-     "pubSrc": "page",
-     "nextAt": 1794402900000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
     }
    ]
   },
   "kl8": {
    "name": "快乐8",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/b2124fce-f1f0-4fc0-8a80-88ac7e34d7d01794481017071.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/b2124fce-f1f0-4fc0-8a80-88ac7e34d7d01794481017071.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]，",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T10:57:00.000Z",
+     "pubMs": 1794481020000,
+     "pubSrc": "page",
+     "nextAt": 1794490200000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-12/c19aa70c-12f6-4999-a90f-303da024071a1794476418472.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-12/c19aa70c-12f6-4999-a90f-303da024071a1794476418472.jpg?imageMogr2/thumbnail/360x",
@@ -1179,26 +1207,68 @@ const XYSP_DATA = {
      "atMs": 1794400529671,
      "seenMs": 1794400529671,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/eab69bc4-8232-47e5-aee6-cb2de7fff02b1794396030807.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/eab69bc4-8232-47e5-aee6-cb2de7fff02b1794396030807.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]301期",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T11:20:00.000Z",
-     "pubMs": 1794396000000,
-     "pubSrc": "page",
-     "nextAt": 1794403800000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
     }
    ]
   },
   "pl3": {
    "name": "排列3",
    "items": [
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/9ddb83e6-fb4e-4a78-87b5-1ef15a2ed93b1794482097878.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/9ddb83e6-fb4e-4a78-87b5-1ef15a2ed93b1794482097878.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]谁会看飘花讨论一下",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:15:00.000Z",
+     "pubMs": 1794482100000,
+     "pubSrc": "page",
+     "nextAt": 1794486600000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/4a569d5b-1d71-4d54-9e3d-1a6f72eaf5d71794481879298.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/4a569d5b-1d71-4d54-9e3d-1a6f72eaf5d71794481879298.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]今天拿下",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:11:00.000Z",
+     "pubMs": 1794481860000,
+     "pubSrc": "page",
+     "nextAt": 1794486600000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/d600b77b-6fbc-439d-85c8-711f994795c61794481404949.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/d600b77b-6fbc-439d-85c8-711f994795c61794481404949.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]1",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:03:00.000Z",
+     "pubMs": 1794481380000,
+     "pubSrc": "page",
+     "nextAt": 1794486600000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
+    {
+     "img": "https://img02.17chdd.com/2026-11-12/6216e7ab-de82-444a-bd12-1dff8415a6f81794481356785.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-12/6216e7ab-de82-444a-bd12-1dff8415a6f81794481356785.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26302期]自己打的实票，喜欢的用，不喜欢的不要！",
+     "url": "",
+     "at": "2026-11-12T11:55:15.750Z",
+     "pubAt": "2026-11-12T11:02:00.000Z",
+     "pubMs": 1794481320000,
+     "pubSrc": "page",
+     "nextAt": 1794486600000,
+     "atMs": 1794484515750,
+     "seenMs": 1794484515750,
+     "whenMs": null
+    },
     {
      "img": "https://img02.17chdd.com/2026-11-12/cdbb08fd-1fcc-40de-a08f-2130245dd0791794479393639.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-12/cdbb08fd-1fcc-40de-a08f-2130245dd0791794479393639.jpg?imageMogr2/thumbnail/360x",
@@ -1562,62 +1632,6 @@ const XYSP_DATA = {
      "atMs": 1794400529671,
      "seenMs": 1794400529671,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/3c6f4bf1-5d4c-4627-b647-26afddfc805d1794394929434.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/3c6f4bf1-5d4c-4627-b647-26afddfc805d1794394929434.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]排三301期实票已发，都是洋师傅个人打的，看好留，看不好不要！谢谢！",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T11:02:00.000Z",
-     "pubMs": 1794394920000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/1df99f09-c53e-4004-976d-9ba5429a76281794394533836.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/1df99f09-c53e-4004-976d-9ba5429a76281794394533836.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]组六389下1，组三可能不下，主组六防组三 定位看不好今天，百位24或者十位4",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:56:00.000Z",
-     "pubMs": 1794394560000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/6ac598e4-b095-4f9b-9b02-a665effc47fd1794394533862.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/6ac598e4-b095-4f9b-9b02-a665effc47fd1794394533862.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]组六389下1，组三可能不下，主组六防组三 定位看不好今天，百位24或者十位4",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:56:00.000Z",
-     "pubMs": 1794394560000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/a30286ee-f178-4540-95e7-2374f686a66d1794394533862.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/a30286ee-f178-4540-95e7-2374f686a66d1794394533862.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]组六389下1，组三可能不下，主组六防组三 定位看不好今天，百位24或者十位4",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:56:00.000Z",
-     "pubMs": 1794394560000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
     }
    ]
   },
@@ -1819,48 +1833,6 @@ const XYSP_DATA = {
      "atMs": 1794404869519,
      "seenMs": 1794404869519,
      "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/471da9f0-b714-4520-801d-66609ddf41d41794394577401.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/471da9f0-b714-4520-801d-66609ddf41d41794394577401.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]晚场 结束",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:56:00.000Z",
-     "pubMs": 1794394560000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/b98f5aaa-7d6f-4057-952a-758c58d3b9ff1794394177081.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/b98f5aaa-7d6f-4057-952a-758c58d3b9ff1794394177081.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]上期差点命中 本期期待中奖 本票仅供参考",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:52:00.000Z",
-     "pubMs": 1794394320000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
-    },
-    {
-     "img": "https://img02.17chdd.com/2026-11-11/f7fc480a-f554-4108-95bc-ffe9ea8714c11794394270040.jpg",
-     "thumb": "https://img02.17chdd.com/2026-11-11/f7fc480a-f554-4108-95bc-ffe9ea8714c11794394270040.jpg?imageMogr2/thumbnail/360x",
-     "title": "[26301期]上期差点命中 本期期待中奖 本票仅供参考",
-     "url": "",
-     "at": "2026-11-11T11:43:25.087Z",
-     "pubAt": "2026-11-11T10:52:00.000Z",
-     "pubMs": 1794394320000,
-     "pubSrc": "page",
-     "nextAt": 1794400200000,
-     "atMs": 1794397405087,
-     "seenMs": 1794397405087,
-     "whenMs": null
     }
    ]
   },
@@ -1875,6 +1847,36 @@ const XYSP_DATA = {
   "tt": {
    "name": "头条晒票",
    "items": [
+    {
+     "img": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d8bdcf6446ba4bfb9efe3f080c293ff3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=hW5aoZHmB6kKEF3QdiejE%2B%2FmA5Q%3D",
+     "thumb": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d8bdcf6446ba4bfb9efe3f080c293ff3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=hW5aoZHmB6kKEF3QdiejE%2B%2FmA5Q%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/746860783a4046fcb68ab253824fe997~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=OM9W5RZAyMb3enQTWsuej9MzZu0%3D",
+     "title": "双色球26130期晒票！2张倍投票冲击亿元巨奖，3张万元票追逐梦想",
+     "url": "http://toutiao.com/item/7707241165640172041/",
+     "at": "2026-11-12T11:54:32.958Z",
+     "src": "tt",
+     "cat": "tt",
+     "game": "双色球",
+     "games": [
+      "ssq"
+     ],
+     "issue": "26130",
+     "seen": "2026-11-12T11:54:32.958Z",
+     "whenMs": 1794481921000,
+     "seenMs": 1794484472958,
+     "drawMs": 1794489300000,
+     "nextMs": 1794489300000,
+     "atMs": 1794484472958,
+     "drawAt": "2026-11-12T13:15:00.000Z",
+     "nextAt": 1794489300000,
+     "drawGid": "ssq",
+     "expireAt": "2026-11-13T11:54:32.958Z",
+     "rule": "first-capture-24h",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-11-12 19:12:01",
+     "postId": "7707241165640172041",
+     "px": 132300
+    },
     {
      "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ae8f830163547eeb3edbc6ff8c61c57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=Cex%2BuhoaKQLDXtsxoRu3WrPMoRE%3D",
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/6ae8f830163547eeb3edbc6ff8c61c57~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=Cex%2BuhoaKQLDXtsxoRu3WrPMoRE%3D",
@@ -1996,8 +1998,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3de5be672bb44001a210b0de70d75d3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=MX1fOSGhfG1BFFG6ELcNMygcviU%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3de5be672bb44001a210b0de70d75d3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=MX1fOSGhfG1BFFG6ELcNMygcviU%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3de5be672bb44001a210b0de70d75d3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=Rb3t54SBBR0dIuv4pE6kaDFH0hc%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3de5be672bb44001a210b0de70d75d3b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=Rb3t54SBBR0dIuv4pE6kaDFH0hc%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/3de5be672bb44001a210b0de70d75d3b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=xCmSqP4ghUOA5ITKJU7%2FNd0pVD8%3D",
      "title": "太狠了！50倍重拳出击，25倍紧随，3D第301期晒票惊现撞号乱斗",
      "url": "http://toutiao.com/item/7707220580222632499/",
@@ -2009,9 +2011,9 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-11-12T11:00:19.541Z",
+     "seen": "2026-11-12T11:54:32.958Z",
      "whenMs": 1794477128000,
-     "seenMs": 1794481219541,
+     "seenMs": 1794484472958,
      "drawMs": 1794489300000,
      "nextMs": 1794489300000,
      "atMs": 1794477689359,
@@ -2039,7 +2041,7 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-11-12T11:00:19.541Z",
+     "seen": "2026-11-12T11:54:32.958Z",
      "whenMs": 1794477128000,
      "seenMs": 1794481219541,
      "drawMs": 1794489300000,
@@ -2069,7 +2071,7 @@ const XYSP_DATA = {
       "fc3d"
      ],
      "issue": "",
-     "seen": "2026-11-12T11:00:19.541Z",
+     "seen": "2026-11-12T11:54:32.958Z",
      "whenMs": 1794477128000,
      "seenMs": 1794481219541,
      "drawMs": 1794489300000,
@@ -2746,8 +2748,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=evH5DImiXmpwewpzl4EE7eVoBcQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=evH5DImiXmpwewpzl4EE7eVoBcQ%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=GzGPBSvlrc3cKcGMraJRE4ZnbD4%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=GzGPBSvlrc3cKcGMraJRE4ZnbD4%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=rWbvt%2FLhoeT7d%2B%2BpQoTcV9iQeeo%3D",
      "title": "大乐透26129期实票欣赏：两张11+4复式票各显神通",
      "url": "http://toutiao.com/item/7707060374423470633/",
@@ -2759,9 +2761,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "26129",
-     "seen": "2026-11-12T05:50:28.917Z",
+     "seen": "2026-11-12T11:54:32.958Z",
      "whenMs": 1794439827000,
-     "seenMs": 1794462628917,
+     "seenMs": 1794484472958,
      "drawMs": 1794659400000,
      "nextMs": 1794659400000,
      "atMs": 1794441682512,
@@ -2776,9 +2778,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/947a3ecaacde40e29298d6f1075f8f6d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=6SRW1IHw1nx22sr8Ywpd5uWbEsE%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/947a3ecaacde40e29298d6f1075f8f6d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=6SRW1IHw1nx22sr8Ywpd5uWbEsE%3D",
-     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=rWbvt%2FLhoeT7d%2B%2BpQoTcV9iQeeo%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/947a3ecaacde40e29298d6f1075f8f6d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=9O12AzoUJwCvu45D9kkC600BTVk%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/947a3ecaacde40e29298d6f1075f8f6d~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=9O12AzoUJwCvu45D9kkC600BTVk%3D",
+     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/d84b37568c674bfb80109376d909b398~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=l0ekYrPt8F11WexIYnCx9nPV%2F3M%3D",
      "title": "大乐透26129期实票欣赏：两张11+4复式票各显神通",
      "url": "http://toutiao.com/item/7707060374423470633/",
      "at": "2026-11-12T00:01:22.512Z",
@@ -2789,9 +2791,9 @@ const XYSP_DATA = {
       "dlt"
      ],
      "issue": "26129",
-     "seen": "2026-11-12T05:50:28.917Z",
+     "seen": "2026-11-12T11:54:32.958Z",
      "whenMs": 1794439827000,
-     "seenMs": 1794462628917,
+     "seenMs": 1794484472958,
      "drawMs": 1794659400000,
      "nextMs": 1794659400000,
      "atMs": 1794441682512,
@@ -3031,7 +3033,7 @@ const XYSP_DATA = {
      "issue": "26129",
      "seen": "2026-11-12T11:00:19.541Z",
      "whenMs": 1794435133000,
-     "seenMs": 1794481214967,
+     "seenMs": 1794481219541,
      "drawMs": 1794659400000,
      "nextMs": 1794659400000,
      "atMs": 1794436055961,
@@ -3247,14 +3249,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-12T11:00:19.541Z",
      "whenMs": 1794445901000,
-     "seenMs": 1794452216861,
+     "seenMs": 1794481219541,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1794449376095,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-13T02:56:56.861Z",
+     "expireAt": "2026-11-13T11:00:19.541Z",
      "rule": "cap",
      "author": "花券安静生活",
      "when": "2026-11-12 09:11:41",
@@ -3275,14 +3277,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-12T11:00:19.541Z",
      "whenMs": 1794445901000,
-     "seenMs": 1794452216861,
+     "seenMs": 1794481219541,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1794449376095,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-13T02:56:56.861Z",
+     "expireAt": "2026-11-13T11:00:19.541Z",
      "rule": "cap",
      "author": "花券安静生活",
      "when": "2026-11-12 09:11:41",
@@ -3303,14 +3305,14 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-12T11:00:19.541Z",
      "whenMs": 1794445901000,
-     "seenMs": 1794452216861,
+     "seenMs": 1794481219541,
      "drawMs": null,
      "nextMs": null,
      "atMs": 1794449376095,
      "drawAt": "",
      "nextAt": null,
      "drawGid": "",
-     "expireAt": "2026-11-13T02:56:56.861Z",
+     "expireAt": "2026-11-13T11:00:19.541Z",
      "rule": "cap",
      "author": "花券安静生活",
      "when": "2026-11-12 09:11:41",
@@ -6724,6 +6726,18 @@ const XYSP_DATA = {
   "/2026-11-12/119faa47-eba6-4086-8a65-3b26b244c9a71794479393645.jpg": 1794481286144,
   "/2026-11-12/ba4a1fc3-0f26-4014-8439-59c677d570cb1794479329444.jpg": 1794481286144,
   "/2026-11-12/eda74a3f-2228-426b-8601-9cd2ac8bc9421794478260678.jpg": 1794481286144,
-  "/2026-11-12/618e95aa-2263-421e-8dbb-e40dce8f90221794477109679.jpg": 1794481286144
+  "/2026-11-12/618e95aa-2263-421e-8dbb-e40dce8f90221794477109679.jpg": 1794481286144,
+  "/2026-11-12/8a5c5789-1d94-4123-a32f-04d1a740c7001794481859816.jpg": 1794484515750,
+  "/2026-11-12/864d2861-2410-4e60-a5c5-dc407248835d1794481842646.jpg": 1794484515750,
+  "/2026-11-12/c594138b-49c5-479d-8f70-31f0740b3c751794481847139.jpg": 1794484515750,
+  "/2026-11-12/44ecf3b5-345a-4ce4-8556-10d7715c15371794481442102.jpg": 1794484515750,
+  "/2026-11-12/8e79aa90-c9c7-4cfe-b1a9-bb2efb9650f61794481442127.jpg": 1794484515750,
+  "/2026-11-12/47097b33-e4b1-49b7-b847-a1c6b95a03ef1794481442122.jpg": 1794484515750,
+  "/2026-11-12/b2124fce-f1f0-4fc0-8a80-88ac7e34d7d01794481017071.jpg": 1794484515750,
+  "/2026-11-12/1bce4c0b-6db6-424c-a5dd-246a0f9104ac1794483084308.jpg": 1794484515750,
+  "/2026-11-12/9ddb83e6-fb4e-4a78-87b5-1ef15a2ed93b1794482097878.jpg": 1794484515750,
+  "/2026-11-12/4a569d5b-1d71-4d54-9e3d-1a6f72eaf5d71794481879298.jpg": 1794484515750,
+  "/2026-11-12/d600b77b-6fbc-439d-85c8-711f994795c61794481404949.jpg": 1794484515750,
+  "/2026-11-12/6216e7ab-de82-444a-bd12-1dff8415a6f81794481356785.jpg": 1794484515750
  }
 };
