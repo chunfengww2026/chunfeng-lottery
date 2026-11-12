@@ -1,31 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/13 00:53:37） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/13 01:45:40） */
 const MINGJIA_DATA = {
- "updated": "2026-11-13 00:53:37",
+ "updated": "2026-11-13 01:45:40",
  "list": [
-  {
-   "name": "桃子姐",
-   "cat": "快乐8",
-   "kw": "桃子姐 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迟丽颖",
-   "cat": "快乐8",
-   "kw": "迟丽颖 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "太湖字谜",
-   "cat": "双色球",
-   "kw": "太湖字谜 双色球 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "双色球",
-   "kw": "迷公 双色球 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "桃子姐",
    "cat": "双色球",
@@ -85,6 +61,29 @@ const MINGJIA_DATA = {
    "cat": "双色球",
    "kw": "名家精 双色球 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "鸭梨红",
+   "cat": "双色球",
+   "kw": "鸭梨红 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "峨眉道姑",
+   "cat": "双色球",
+   "kw": "峨眉道姑 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/峨眉道姑/1.webp",
+     "size": 47312,
+     "src": "https://pic2.800820.net/tumi/20260506/20e35275c30c44d7921979d43539a58f.webp",
+     "page": "https://www.800820.cn/p/11020340.html",
+     "title": "双色球2026051期峨眉道姑杀蓝图迷_天齐网",
+     "issue": "2026051",
+     "verified": false,
+     "fetchedAt": "2026-11-12T17:45:37.528Z"
+    }
+   ]
   },
   {
    "name": "貂蝉杀",
@@ -172,24 +171,6 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-11T15:40:54.759Z"
-    }
-   ],
-   "stale": true
-  },
-  {
-   "name": "峨眉道姑",
-   "cat": "双色球",
-   "kw": "峨眉道姑 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/峨眉道姑/1.webp",
-     "size": 42230,
-     "src": "https://pic2.800820.net/tumi/20260501/a9db95ec50d2472d9bf4f5b7e303fc2b.webp",
-     "page": "https://www.800820.cn/p/11005591.html",
-     "title": "双色球2026049期峨眉道姑杀蓝图迷_天齐网",
-     "issue": "2026049",
-     "verified": false,
-     "fetchedAt": "2026-11-12T06:44:35.971Z"
     }
    ],
    "stale": true
@@ -303,9 +284,15 @@ const MINGJIA_DATA = {
    "stale": true
   },
   {
-   "name": "鸭梨红",
+   "name": "太湖字谜",
    "cat": "双色球",
-   "kw": "鸭梨红 双色球 字谜 参考图",
+   "kw": "太湖字谜 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "双色球",
+   "kw": "迷公 双色球 字谜 参考图",
    "imgs": []
   },
   {
@@ -571,14 +558,21 @@ const MINGJIA_DATA = {
    "cat": "快乐8",
    "kw": "万里挑一 快乐8 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "快乐8",
+   "kw": "桃子姐 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迟丽颖",
+   "cat": "快乐8",
+   "kw": "迟丽颖 快乐8 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-11-12 03:16:00",
-   "names": 71,
-   "imgs": 14
-  },
   {
    "at": "2026-11-12 03:53:41",
    "names": 71,
@@ -691,6 +685,11 @@ const MINGJIA_DATA = {
   },
   {
    "at": "2026-11-13 00:53:37",
+   "names": 71,
+   "imgs": 12
+  },
+  {
+   "at": "2026-11-13 01:45:40",
    "names": 71,
    "imgs": 12
   }
