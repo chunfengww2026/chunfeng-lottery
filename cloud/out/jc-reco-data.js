@@ -5,7 +5,123 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-12 22:30",
+ "updated": "2026-11-12 22:42",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
- "batches": []
+ "batches": [
+  {
+   "at": "2026-11-12 22:42",
+   "min": 58,
+   "rows": [
+    {
+     "code": "周四006",
+     "time": "2026-11-13 03:45",
+     "league": "欧国联",
+     "home": "捷克",
+     "away": "西班牙",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.22,
+     "conf": 82.1,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周四005",
+     "time": "2026-11-13 03:45",
+     "league": "欧国联",
+     "home": "英格兰",
+     "away": "克罗地亚",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.27,
+     "conf": 75.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周四004",
+     "time": "2026-11-13 03:45",
+     "league": "欧国联",
+     "home": "黑山",
+     "away": "拉脱维亚",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.3,
+     "conf": 68.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周五004",
+     "time": "2026-11-14 03:45",
+     "league": "欧国联",
+     "home": "苏格兰",
+     "away": "北马其顿",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.18,
+     "conf": 77.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周五005",
+     "time": "2026-11-14 03:45",
+     "league": "欧国联",
+     "home": "塞尔维亚",
+     "away": "德国",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.29,
+     "conf": 75.1,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周五007",
+     "time": "2026-11-14 03:45",
+     "league": "欧国联",
+     "home": "斯洛伐克",
+     "away": "法罗群岛",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.36,
+     "conf": 69.5,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周五009",
+     "time": "2026-11-14 03:45",
+     "league": "欧国联",
+     "home": "荷兰",
+     "away": "希腊",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.55,
+     "conf": 64.4,
+     "score": "",
+     "hit": null,
+     "result": ""
+    }
+   ],
+   "hit": null,
+   "miss": null,
+   "pending": 7,
+   "verdict": ""
+  }
+ ]
 };
