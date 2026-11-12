@@ -9,11 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-12 14:49:52
+   更新时间：2026-11-12 16:09:18
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-12 14:49:52",
+ "updated": "2026-11-12 16:09:18",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2cfc483cfb5a41be989a242d378d529c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803168000&x-signature=a0hc7XJkzjsfLg36xM3qkSY3xwQ%3D",
@@ -97,34 +97,6 @@ const XYSP_JC_DATA = {
    "author": "花券安静生活",
    "when": "2026-11-12 09:11:41",
    "postId": "7707085320210121252",
-   "px": 132300
-  },
-  {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f0c3682ed57a4df7a6bfde7a83ed9250~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=6PK6n4ms9mLRNOv%2BhfMkqIRE0H8%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f0c3682ed57a4df7a6bfde7a83ed9250~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=6PK6n4ms9mLRNOv%2BhfMkqIRE0H8%3D",
-   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f0c3682ed57a4df7a6bfde7a83ed9250~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803081600&x-signature=zzHC3cEGHBqSTIYAFwjSKwhTc9I%3D",
-   "title": "朋友圈晒票刷屏，复式压阵，单式死磕连号真能出奖吗？",
-   "url": "https://toutiao.com/group/7706818566431015451/",
-   "at": "2026-11-11T18:56:44.809Z",
-   "src": "tt",
-   "cat": "jc",
-   "game": "竞彩",
-   "games": [],
-   "issue": "",
-   "seen": "2026-11-11T18:56:44.809Z",
-   "whenMs": 1794383557000,
-   "seenMs": 1794423404809,
-   "drawMs": null,
-   "nextMs": null,
-   "atMs": 1794423404809,
-   "drawAt": "",
-   "nextAt": null,
-   "drawGid": "",
-   "expireAt": "2026-11-12T18:56:44.809Z",
-   "rule": "cap",
-   "author": "听闻你如风",
-   "when": "2026-11-11 15:52:37",
-   "postId": "7706818566431015451",
    "px": 132300
   }
  ],

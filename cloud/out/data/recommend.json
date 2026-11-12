@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-12 14:51",
+ "updated": "2026-11-12 16:10",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-12 14:51",
-   "finishTime": 1794466260000,
+   "dateStr": "2026-11-12 16:10",
+   "finishTime": 1794471000000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 81.1,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.18,
      "time": "2026-11-13 03:45"
@@ -31,7 +31,7 @@
      "result": "pending",
      "confidence": 76.6,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.22,
      "time": "2026-11-13 03:45"
@@ -44,7 +44,7 @@
      "result": "pending",
      "confidence": 70.8,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.29,
      "time": "2026-11-13 03:45"
@@ -55,9 +55,9 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 75.3,
+     "confidence": 77.3,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.18,
      "time": "2026-11-14 03:45"
@@ -70,7 +70,7 @@
      "result": "pending",
      "confidence": 75.1,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.29,
      "time": "2026-11-14 03:45"
@@ -83,7 +83,7 @@
      "result": "pending",
      "confidence": 69.5,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.36,
      "time": "2026-11-14 03:45"
@@ -96,7 +96,7 @@
      "result": "pending",
      "confidence": 65.1,
      "status": "pending",
-     "finishTime": 1794466260000,
+     "finishTime": 1794471000000,
      "league": "欧国联",
      "odds": 1.5,
      "time": "2026-11-14 03:45"
