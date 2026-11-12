@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-13 01:27 */
+/* 自动生成，请勿手动编辑 · 2026-11-13 02:15 */
 const JC_DATA = {
- "updated": "2026-11-13 01:27",
+ "updated": "2026-11-13 02:15",
  "stat": {
   "total": 6,
   "upcoming": 4,
@@ -38,9 +38,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 1,
-    "away": 0
+    "away": 2
    },
-   "statusText": "- ",
+   "statusText": "1 - 2 ",
    "odds": {
     "asian": {
      "open": {
@@ -125,7 +125,7 @@ const JC_DATA = {
    "minute": 0,
    "liveScore": {
     "home": 1,
-    "away": 0
+    "away": 2
    }
   },
   {
@@ -149,7 +149,7 @@ const JC_DATA = {
     "home": 0,
     "away": 1
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -399,9 +399,9 @@ const JC_DATA = {
       "away": 7.5
      },
      "live": {
-      "home": 1.25,
-      "draw": 5.75,
-      "away": 11
+      "home": 1.3,
+      "draw": 5.5,
+      "away": 9
      }
     },
     "overunder": {
@@ -420,27 +420,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 69.6,
+    "confidence": 68.6,
     "prob": {
-     "home": 69.6,
-     "draw": 19.5,
-     "away": 10.9
+     "home": 68.6,
+     "draw": 19.8,
+     "away": 11.6
     },
     "clear": true,
-    "margin": 6.5,
+    "margin": 6.2,
     "rqLine": "球半",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 69.6,
-      "draw": 19.5,
-      "away": 10.9
+      "home": 68.6,
+      "draw": 19.8,
+      "away": 11.6
      },
-     "confidence": 69.6,
+     "confidence": 68.6,
      "signals": [
-      "初盘→即时：主胜+8.6pp / 平局-4.9pp / 客胜-3.7pp",
+      "初盘→即时：主胜+5.9pp / 平局-4.1pp / 客胜-1.8pp",
       "亚盘主队方向变深，水位上升"
      ],
      "missing": [
@@ -451,9 +451,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -13.1,
-      "draw": 12.1,
-      "away": 20.4
+      "home": -10.8,
+      "draw": 8.8,
+      "away": 4.6
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
