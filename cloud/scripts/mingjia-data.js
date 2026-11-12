@@ -108,8 +108,19 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-11T17:13:45.121Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "名家精",
+   "cat": "双色球",
+   "kw": "名家精 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "鸭梨红",
+   "cat": "双色球",
+   "kw": "鸭梨红 双色球 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "东北人杀",
@@ -125,6 +136,23 @@ const MINGJIA_DATA = {
      "issue": "",
      "verified": false,
      "fetchedAt": "2026-11-12T02:04:41.233Z"
+    }
+   ]
+  },
+  {
+   "name": "牛魔王",
+   "cat": "双色球",
+   "kw": "牛魔王 双色球 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/双色球/牛魔王/1.jpg",
+     "size": 113426,
+     "src": "https://pic.cz89.com/upload/20230210/f4d92d403f1541e7833dd12b3cd6d221.jpg",
+     "page": "https://www.cz89.com/read_7472161.htm",
+     "title": "牛魔王杀两码红球015期双色球图谜_牛彩网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-11T19:14:55.596Z"
     }
    ],
    "stale": true
