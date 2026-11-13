@@ -1,8 +1,68 @@
 {
- "updated": "2026-11-13 05:57",
+ "updated": "2026-11-13 10:29",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-13 10:29",
+   "finishTime": 1794536940000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周五004",
+     "teams": "苏格兰 vs 北马其顿",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 75.3,
+     "status": "pending",
+     "finishTime": 1794536940000,
+     "league": "欧国联",
+     "odds": 1.18,
+     "time": "2026-11-14 03:45"
+    },
+    {
+     "matchNo": "周五005",
+     "teams": "塞尔维亚 vs 德国",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 75.1,
+     "status": "pending",
+     "finishTime": 1794536940000,
+     "league": "欧国联",
+     "odds": 1.29,
+     "time": "2026-11-14 03:45"
+    },
+    {
+     "matchNo": "周五007",
+     "teams": "斯洛伐克 vs 法罗群岛",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 70.2,
+     "status": "pending",
+     "finishTime": 1794536940000,
+     "league": "欧国联",
+     "odds": 1.33,
+     "time": "2026-11-14 03:45"
+    },
+    {
+     "matchNo": "周五009",
+     "teams": "荷兰 vs 希腊",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 64.4,
+     "status": "pending",
+     "finishTime": 1794536940000,
+     "league": "欧国联",
+     "odds": 1.55,
+     "time": "2026-11-14 03:45"
+    }
+   ]
+  }
+ ]
 }
