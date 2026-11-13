@@ -5,13 +5,28 @@
    rows[] 字段：code,time,league,home,away,pick,label,type,odds,conf,score,hit,result
    batches[].verdict：红 / 黑 / （空 = 还有比赛没打完） */
 const JC_RECO_DATA = {
- "updated": "2026-11-13 10:40",
+ "updated": "2026-11-13 17:52",
  "note": "竞彩推荐串存档（程序生成，勿手改）",
  "batches": [
   {
-   "at": "2026-11-13 10:29",
+   "at": "2026-11-13 17:52",
    "min": 58,
    "rows": [
+    {
+     "code": "周五001",
+     "time": "2026-11-13 20:00",
+     "league": "友谊赛",
+     "home": "新加坡",
+     "away": "巴拉圭",
+     "pick": "away",
+     "label": "客胜",
+     "type": "three",
+     "odds": 1.06,
+     "conf": 86.6,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
     {
      "code": "周五004",
      "time": "2026-11-14 03:45",
@@ -22,7 +37,7 @@ const JC_RECO_DATA = {
      "label": "主胜",
      "type": "three",
      "odds": 1.18,
-     "conf": 75.3,
+     "conf": 75.6,
      "score": "",
      "hit": null,
      "result": ""
@@ -36,8 +51,8 @@ const JC_RECO_DATA = {
      "pick": "away",
      "label": "客胜",
      "type": "three",
-     "odds": 1.29,
-     "conf": 75.1,
+     "odds": 1.3,
+     "conf": 74.9,
      "score": "",
      "hit": null,
      "result": ""
@@ -51,8 +66,8 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.33,
-     "conf": 70.2,
+     "odds": 1.38,
+     "conf": 69.4,
      "score": "",
      "hit": null,
      "result": ""
@@ -66,8 +81,53 @@ const JC_RECO_DATA = {
      "pick": "home",
      "label": "主胜",
      "type": "three",
-     "odds": 1.55,
-     "conf": 64.4,
+     "odds": 1.57,
+     "conf": 64.1,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周五011",
+     "time": "2026-11-14 08:00",
+     "league": "友谊赛",
+     "home": "哥伦比亚",
+     "away": "智利",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.38,
+     "conf": 64.8,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周六005",
+     "time": "2026-11-14 23:30",
+     "league": "荷乙",
+     "home": "布雷达",
+     "away": "埃门",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.49,
+     "conf": 61.3,
+     "score": "",
+     "hit": null,
+     "result": ""
+    },
+    {
+     "code": "周六010",
+     "time": "2026-11-15 03:00",
+     "league": "荷乙",
+     "home": "阿尔梅勒",
+     "away": "海尔蒙特",
+     "pick": "home",
+     "label": "主胜",
+     "type": "three",
+     "odds": 1.45,
+     "conf": 64.7,
      "score": "",
      "hit": null,
      "result": ""
@@ -75,7 +135,7 @@ const JC_RECO_DATA = {
    ],
    "hit": null,
    "miss": null,
-   "pending": 4,
+   "pending": 8,
    "verdict": ""
   }
  ]

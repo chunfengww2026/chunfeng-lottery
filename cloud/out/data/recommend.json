@@ -1,24 +1,37 @@
 {
- "updated": "2026-11-13 10:29",
+ "updated": "2026-11-13 17:52",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-13 10:29",
-   "finishTime": 1794536940000,
+   "dateStr": "2026-11-13 17:52",
+   "finishTime": 1794563520000,
    "verdict": "",
    "matches": [
+    {
+     "matchNo": "周五001",
+     "teams": "新加坡 vs 巴拉圭",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 86.6,
+     "status": "pending",
+     "finishTime": 1794563520000,
+     "league": "友谊赛",
+     "odds": 1.06,
+     "time": "2026-11-13 20:00"
+    },
     {
      "matchNo": "周五004",
      "teams": "苏格兰 vs 北马其顿",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 75.3,
+     "confidence": 75.6,
      "status": "pending",
-     "finishTime": 1794536940000,
+     "finishTime": 1794563520000,
      "league": "欧国联",
      "odds": 1.18,
      "time": "2026-11-14 03:45"
@@ -29,11 +42,11 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 75.1,
+     "confidence": 74.9,
      "status": "pending",
-     "finishTime": 1794536940000,
+     "finishTime": 1794563520000,
      "league": "欧国联",
-     "odds": 1.29,
+     "odds": 1.3,
      "time": "2026-11-14 03:45"
     },
     {
@@ -42,11 +55,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 70.2,
+     "confidence": 69.4,
      "status": "pending",
-     "finishTime": 1794536940000,
+     "finishTime": 1794563520000,
      "league": "欧国联",
-     "odds": 1.33,
+     "odds": 1.38,
      "time": "2026-11-14 03:45"
     },
     {
@@ -55,12 +68,51 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 64.4,
+     "confidence": 64.1,
      "status": "pending",
-     "finishTime": 1794536940000,
+     "finishTime": 1794563520000,
      "league": "欧国联",
-     "odds": 1.55,
+     "odds": 1.57,
      "time": "2026-11-14 03:45"
+    },
+    {
+     "matchNo": "周五011",
+     "teams": "哥伦比亚 vs 智利",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 64.8,
+     "status": "pending",
+     "finishTime": 1794563520000,
+     "league": "友谊赛",
+     "odds": 1.38,
+     "time": "2026-11-14 08:00"
+    },
+    {
+     "matchNo": "周六005",
+     "teams": "布雷达 vs 埃门",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.3,
+     "status": "pending",
+     "finishTime": 1794563520000,
+     "league": "荷乙",
+     "odds": 1.49,
+     "time": "2026-11-14 23:30"
+    },
+    {
+     "matchNo": "周六010",
+     "teams": "阿尔梅勒 vs 海尔蒙特",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 64.7,
+     "status": "pending",
+     "finishTime": 1794563520000,
+     "league": "荷乙",
+     "odds": 1.45,
+     "time": "2026-11-15 03:00"
     }
    ]
   }
