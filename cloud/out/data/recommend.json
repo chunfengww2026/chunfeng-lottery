@@ -1,66 +1,27 @@
 {
- "updated": "2026-11-14 01:41",
+ "updated": "2026-11-14 07:05",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-14 01:41",
-   "finishTime": 1794591660000,
+   "dateStr": "2026-11-14 07:05",
+   "finishTime": 1794611100000,
    "verdict": "",
    "matches": [
     {
-     "matchNo": "周五005",
-     "teams": "塞尔维亚 vs 德国",
-     "pick": "客胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 76.3,
-     "status": "pending",
-     "finishTime": 1794591660000,
-     "league": "欧国联",
-     "odds": 1.22,
-     "time": "2026-11-14 03:45"
-    },
-    {
-     "matchNo": "周五004",
-     "teams": "苏格兰 vs 北马其顿",
+     "matchNo": "周五010",
+     "teams": "阿根廷 vs 乌拉圭",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 76.2,
+     "confidence": 58.4,
      "status": "pending",
-     "finishTime": 1794591660000,
-     "league": "欧国联",
-     "odds": 1.17,
-     "time": "2026-11-14 03:45"
-    },
-    {
-     "matchNo": "周五007",
-     "teams": "斯洛伐克 vs 法罗群岛",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 70.2,
-     "status": "pending",
-     "finishTime": 1794591660000,
-     "league": "欧国联",
-     "odds": 1.33,
-     "time": "2026-11-14 03:45"
-    },
-    {
-     "matchNo": "周五009",
-     "teams": "荷兰 vs 希腊",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 64.9,
-     "status": "pending",
-     "finishTime": 1794591660000,
-     "league": "欧国联",
-     "odds": 1.53,
-     "time": "2026-11-14 03:45"
+     "finishTime": 1794611100000,
+     "league": "友谊赛",
+     "odds": 1.5,
+     "time": "2026-11-14 07:00"
     },
     {
      "matchNo": "周五011",
@@ -68,11 +29,11 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 64.7,
+     "confidence": 65.1,
      "status": "pending",
-     "finishTime": 1794591660000,
+     "finishTime": 1794611100000,
      "league": "友谊赛",
-     "odds": 1.4,
+     "odds": 1.36,
      "time": "2026-11-14 08:00"
     }
    ]
