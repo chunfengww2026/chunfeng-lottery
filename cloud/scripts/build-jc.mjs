@@ -42,6 +42,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { fetchPublishedSp } from './jc-sp-fallback.mjs';
 import {
   archiveJcHistory, mergeHistory, trimHistory, renderHistoryJs,
   findInFootball, toHistoryRecord, codeKey, identityKeys
@@ -379,9 +380,9 @@ function spStamp(o) {
   return [o.updateDate, o.updateTime].filter(Boolean).join(' ').trim();
 }
 
-async function fetchOfficialSp() {
+async function fetchOfficialSpAt(api) {
   try {
-    const res = await fetch(SP_API, {
+    const res = await fetch(api, {
       headers: {
         'User-Agent': UA,
         'Accept': 'application/json,text/plain,*/*',
@@ -411,6 +412,7 @@ async function fetchOfficialSp() {
     for (const grp of (v.matchInfoList || [])) {
       for (const m of ((grp && grp.subMatchList) || [])) {
         if (!m) continue;
+        if (m.matchStatus && m.matchStatus !== 'Selling') continue;
 
         const numStr = String(m.matchNumStr || '').trim();
         if (numStr) codes.push(numStr);
@@ -420,9 +422,9 @@ async function fetchOfficialSp() {
 
         const H = m.had || {};
         const HH = m.hhad || {};
-        const had = (spNum(H.h) || spNum(H.d) || spNum(H.a))
+        let had = (spNum(H.h) || spNum(H.d) || spNum(H.a))
           ? { h: spNum(H.h), d: spNum(H.d), a: spNum(H.a), update: spStamp(H) } : null;
-        const hhad = (spNum(HH.h) || spNum(HH.d) || spNum(HH.a))
+        let hhad = (spNum(HH.h) || spNum(HH.d) || spNum(HH.a))
           ? {
               line: String(HH.goalLine || ''),
               h: spNum(HH.h), d: spNum(HH.d), a: spNum(HH.a), update: spStamp(HH)
@@ -440,6 +442,15 @@ async function fetchOfficialSp() {
             betSingle: Number(p.bettingSingle) === 1 ? 1 : 0
           };
         };
+        const canParlay = (code) => {
+          const p = pools[code];
+          return !p || ((!p.poolStatus || p.poolStatus === 'Selling') &&
+            (Number(p.allUp) === 1 || Number(p.bettingAllup) === 1));
+        };
+        const parlay = { HAD: canParlay('HAD'), HHAD: canParlay('HHAD') };
+        if (!parlay.HAD) had = null;
+        if (!parlay.HHAD) hhad = null;
+        if (!had && !hhad) continue;
 
         list.push({
           code: String(m.matchNumStr || ''),
@@ -448,7 +459,7 @@ async function fetchOfficialSp() {
           time: [String(m.matchDate || ''), String(m.matchTime || '')].filter(Boolean).join(' ').trim(),
           home: String(m.homeTeamAbbName || m.homeTeamAllName || ''),
           away: String(m.awayTeamAbbName || m.awayTeamAllName || ''),
-          had, hhad,
+          had, hhad, parlay,
           single: { HAD: flag('HAD'), HHAD: flag('HHAD') }
         });
       }
@@ -462,6 +473,27 @@ async function fetchOfficialSp() {
   } catch (e) {
     return { ok: false, error: (e && e.cause && e.cause.code) || (e && e.message) || String(e) };
   }
+}
+
+async function fetchOfficialSp() {
+  // 跟随官网计算器当前的 uniform 入口；旧入口保留一次兼容尝试。
+  const apis = process.env.JC_SP_API ? [SP_API] : [
+    'https://webapi.sporttery.cn/gateway/uniform/football/getMatchCalculatorV1.qry?channel=c&poolCode=hhad,had',
+    SP_API
+  ];
+  const errors = [];
+  for (const api of apis) {
+    const result = await fetchOfficialSpAt(api);
+    if (result.ok) return result;
+    errors.push(result.error);
+  }
+  // 显式测试接口失败时不访问真实备用站点。
+  if (!process.env.JC_SP_API) {
+    const mirror = await fetchPublishedSp();
+    if (mirror.ok) return mirror;
+    errors.push(mirror.error);
+  }
+  return { ok: false, error: errors.join('；') };
 }
 
 /* ============================================================
@@ -997,8 +1029,9 @@ async function main() {
   let spBlock;
   if (spTry.ok) {
     spBlock = {
-      source: 'official',
-      from: '体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值',
+      source: spTry.source || 'official',
+      from: spTry.from || '体彩官网 webapi.sporttery.cn（getMatchCalculatorV1）· 官方 SP 原值',
+      ...(spTry.sourceUrl ? { sourceUrl: spTry.sourceUrl } : {}),
       updated: stamp,
       officialUpdate: spTry.officialUpdate || '',
       inSale: spTry.inSale,
