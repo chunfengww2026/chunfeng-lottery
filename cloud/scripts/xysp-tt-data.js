@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-14 17:49:30
+   更新时间：2026-11-14 22:32:40
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-14 17:49:30",
+ "updated": "2026-11-14 22:32:40",
  "items": [
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/7ea224c39ef445fda7ae39bdd1541755~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=HoZi6PhOPWX%2BE10esGpIsRWRZrE%3D",
@@ -208,7 +208,7 @@ const XYSP_TT_DATA = {
    "issue": "2026303",
    "seen": "2026-11-14T09:49:30.306Z",
    "whenMs": 1794621305000,
-   "seenMs": 1794625411497,
+   "seenMs": 1794649770306,
    "drawMs": 1794663000000,
    "nextMs": 1794663000000,
    "atMs": 1794625411497,
@@ -220,6 +220,66 @@ const XYSP_TT_DATA = {
    "author": "豆包陪我守号追梦",
    "when": "2026-11-14 09:55:05",
    "postId": "1881796829446212",
+   "px": 132300
+  },
+  {
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a66c9033560442ab90d1cb10d0e128f7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=1mdlqDFBsD%2BuaR5b72KNvZyBOjM%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a66c9033560442ab90d1cb10d0e128f7~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=1mdlqDFBsD%2BuaR5b72KNvZyBOjM%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a66c9033560442ab90d1cb10d0e128f7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=vYrT%2BOq1%2Fp8C8c61f799PrZPh70%3D",
+   "title": "单式票和复式票有何不同？本期双色球第26130期晒票透出两种购彩思路",
+   "url": "http://toutiao.com/item/7707836825326322176/",
+   "at": "2026-11-14T14:32:40.610Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26130",
+   "seen": "2026-11-14T14:32:40.610Z",
+   "whenMs": 1794620609000,
+   "seenMs": 1794666760610,
+   "drawMs": 1794748500000,
+   "nextMs": 1794748500000,
+   "atMs": 1794666760610,
+   "drawAt": "2026-11-15T13:15:00.000Z",
+   "nextAt": 1794748500000,
+   "drawGid": "ssq",
+   "expireAt": "2026-11-15T14:32:40.610Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-11-14 09:43:29",
+   "postId": "7707836825326322176",
+   "px": 132300
+  },
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de87c921bbd34a38b268e8f602dbdf69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=i1iGD1WeYUiBwxIjrH0Wb8%2FDlB8%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/de87c921bbd34a38b268e8f602dbdf69~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=i1iGD1WeYUiBwxIjrH0Wb8%2FDlB8%3D",
+   "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a66c9033560442ab90d1cb10d0e128f7~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803340800&x-signature=vYrT%2BOq1%2Fp8C8c61f799PrZPh70%3D",
+   "title": "单式票和复式票有何不同？本期双色球第26130期晒票透出两种购彩思路",
+   "url": "http://toutiao.com/item/7707836825326322176/",
+   "at": "2026-11-14T14:32:40.610Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26130",
+   "seen": "2026-11-14T14:32:40.610Z",
+   "whenMs": 1794620609000,
+   "seenMs": 1794666760610,
+   "drawMs": 1794748500000,
+   "nextMs": 1794748500000,
+   "atMs": 1794666760610,
+   "drawAt": "2026-11-15T13:15:00.000Z",
+   "nextAt": 1794748500000,
+   "drawGid": "ssq",
+   "expireAt": "2026-11-15T14:32:40.610Z",
+   "rule": "first-capture-24h",
+   "author": "优雅奶酪6hWlg9",
+   "when": "2026-11-14 09:43:29",
+   "postId": "7707836825326322176",
    "px": 132300
   },
   {
@@ -238,7 +298,7 @@ const XYSP_TT_DATA = {
    "issue": "",
    "seen": "2026-11-14T09:49:30.306Z",
    "whenMs": 1794615815000,
-   "seenMs": 1794625411497,
+   "seenMs": 1794649770306,
    "drawMs": 1794663000000,
    "nextMs": 1794663000000,
    "atMs": 1794625411497,
@@ -2181,6 +2241,8 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-dtbei8xehn/990c45a35c2348f187cc54562346469b~tplv-26tn0yjwph-cspd-v1.jpg": 1794625411497,
   "/tos-cn-i-ezhpy3drpa/0b708cbc1681404698a3a43acfcfecc6~tplv-26tn0yjwph-cspd-v1.jpg": 1794625411497,
   "/tos-cn-i-ezhpy3drpa/7ea224c39ef445fda7ae39bdd1541755~tplv-26tn0yjwph-cspd-v1.jpg": 1794649770306,
-  "/tos-cn-i-ezhpy3drpa/02ec7531b4084f83b8f93c1b87098a09~tplv-26tn0yjwph-cspd-v1.jpg": 1794649770306
+  "/tos-cn-i-ezhpy3drpa/02ec7531b4084f83b8f93c1b87098a09~tplv-26tn0yjwph-cspd-v1.jpg": 1794649770306,
+  "/tos-cn-i-ezhpy3drpa/a66c9033560442ab90d1cb10d0e128f7~tplv-26tn0yjwph-cspd-v1.jpg": 1794666760610,
+  "/tos-cn-i-ezhpy3drpa/de87c921bbd34a38b268e8f602dbdf69~tplv-26tn0yjwph-cspd-v1.jpg": 1794666760610
  }
 };
