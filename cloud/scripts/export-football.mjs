@@ -780,7 +780,9 @@ stat.rate = stat.settled ? ((stat.hit / stat.settled) * 100).toFixed(1) : '0.0';
    注意 inSale 必须先确认是「数字本身或纯数字字符串」：
    Number(null) 是 0、Number('') 也是 0，直接 Number() 会把没值的
    jc-official.js 当成「在售 0 场」显示出去。 */
-const rawInSale = JC_OFFICIAL ? JC_OFFICIAL.inSale : null;
+const INSALE_DATA = JC.sp && JC.sp.source !== 'carried' && JC.sp.source !== 'none' &&
+  String(JC.sp.updated || '') > String(JC_OFFICIAL && JC_OFFICIAL.updated || '') ? JC.sp : JC_OFFICIAL;
+const rawInSale = INSALE_DATA ? INSALE_DATA.inSale : null;
 const OFFICIAL = (typeof rawInSale === 'number' && Number.isFinite(rawInSale)) ||
   (typeof rawInSale === 'string' && /^\s*\d+\s*$/.test(rawInSale))
   ? Number(rawInSale) : null;
@@ -855,7 +857,7 @@ const TICKETS_STAMP = JC_XYSP.items.some((it) => it && it.src === 'fb')
 const TICKETS_STAMP_HTML = freshStampHtml('票面', TICKETS_STAMP);
 
 /* ② 「在售 N 场」的时间：jc-official.js 顶层的 updated（官方那份时间作兜底） */
-const INSALE_STAMP = (JC_OFFICIAL && (JC_OFFICIAL.updated || JC_OFFICIAL.officialUpdate)) || '';
+const INSALE_STAMP = (INSALE_DATA && (INSALE_DATA.updated || INSALE_DATA.officialUpdate)) || '';
 const INSALE_STAMP_HTML = freshStampHtml('数据', INSALE_STAMP);
 
 const recoDist = { home: 0, draw: 0, away: 0, none: 0 };
@@ -1057,6 +1059,8 @@ const SP_SRC_LOG = !SP
   ? '暂无官方 SP 数据'
   : (SP.source === 'official'
     ? `体彩官网官方 SP（抓取于 ${SP.updated || '—'}）`
+    : SP.source === 'official-mirror'
+      ? `竞彩 SP 公开同步原值（抓取于 ${SP.updated || '—'}）`
     : SP.source === 'carried'
       ? `体彩官网官方 SP（沿用上次抓取 ${SP.updated || '—'}）`
       : '暂无官方 SP 数据');
@@ -1065,7 +1069,7 @@ const NOW_MS = Date.now();
 function kickMs(t) {
   const m = /(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(String(t || ''));
   if (!m) return NaN;
-  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
+  return Date.parse(`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:00+08:00`);
 }
 
 /* 本次【在售列表】(jc-data) 里每场的状态：编号@日期 → status。
@@ -1668,15 +1672,27 @@ function recoStatBarHtml() {
    ⚠️ id="jcRecStat" + data-reco-updated 两个属性【必须保留】：
       30 秒实时刷新那段脚本就是按这个 id 找元素、原地换 innerHTML 的（搬到哪都行）。
    ⚠️ 没有统计结果时【整条不渲染】—— 不显示空标题、不拿 0 冒充"算过了"。 */
-function selectConfidentPair(rows, spList, matches, now) {
+function pairSaleMatch(leg, spList, matches, now) {
+  const sp=spList.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time)
+    &&(!x.home||sameTeam(x.home,leg.home))&&(!x.away||sameTeam(x.away,leg.away)));
+  const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time)
+    &&sameTeam(x.home.name,leg.home)&&sameTeam(x.away.name,leg.away));
+  if(!sp||!m||m.kind!=='upcoming'||m.hasScore||!(kickMs(leg.time)>now))return null;
+  if(sp.parlay&&sp.parlay.HAD===false)return null;
+  if(sp.saleEnd&&!(kickMs(sp.saleEnd)>now))return null;
+  return {sp,m};
+}
+function confidentPairCandidates(rows, spList, matches, now) {
   const picks={ '主胜':'home', '平局':'draw', '客胜':'away' }, keys={home:'h',draw:'d',away:'a'};
-  const candidates=rows.map(r=>{
-    const pick=picks[r.label], sp=spList.find(x=>x.code===r.code&&dayOf(x.time)===dayOf(r.time));
-    const m=matches.find(x=>x.code===r.code&&dayOf(x.time)===dayOf(r.time));
+  return rows.map(r=>{
+    const pick=picks[r.label], sale=pairSaleMatch(r,spList,matches,now),sp=sale&&sale.sp;
     const odds=Number(sp&&sp.had&&sp.had[keys[pick]]);
-    if(!pick||!m||m.kind!=='upcoming'||m.hasScore||!(kickMs(r.time)>now)||!(odds>1)||!(r.conf>=58))return null;
+    if(!pick||!sale||!(odds>1)||!(r.conf>=58))return null;
     return {code:r.code,time:r.time,home:r.home,away:r.away,label:r.label,pick,odds,conf:Number(r.conf)};
   }).filter(Boolean);
+}
+function selectConfidentPair(rows, spList, matches, now) {
+  const candidates=confidentPairCandidates(rows,spList,matches,now);
   let best=null;
   for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
     const legs=[candidates[i],candidates[j]];
@@ -1691,10 +1707,9 @@ function pairSaleQuotes(pair,spList,matches,now){
   if(!pair||pair.verdict==='red'||pair.verdict==='black'||!Array.isArray(pair.legs)||pair.legs.length!==2)return null;
   const keys={home:'h',draw:'d',away:'a'},quotes=[];
   for(const leg of pair.legs){
-    const sp=spList.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
-    const m=matches.find(x=>x.code===leg.code&&dayOf(x.time)===dayOf(leg.time));
+    const sale=pairSaleMatch(leg,spList,matches,now),sp=sale&&sale.sp;
     const odds=Number(sp&&sp.had&&sp.had[keys[leg.pick]]);
-    if(!sp||!m||m.kind!=='upcoming'||m.hasScore||!(kickMs(leg.time)>now)||!(odds>1))return null;
+    if(!sale||!(odds>1))return null;
     quotes.push(odds);
   }
   return quotes[0]*quotes[1]>=2?quotes:null;
@@ -1743,6 +1758,16 @@ function saveConfidentPairs(){
 }
 function confidentPairHtml(){
   const red=PAIR_RECORDS.filter(x=>x.verdict==='red').length,black=PAIR_RECORDS.filter(x=>x.verdict==='black').length,pending=PAIR_RECORDS.length-red-black;
+  let emptyText='暂无两场同时在售、未开赛且组合赔率不低于2的合适组合，等待更新。';
+  const candidates=confidentPairCandidates(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());
+  if(candidates.length>=2){
+    let highest=0;
+    for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
+      if(candidates[i].code===candidates[j].code&&dayOf(candidates[i].time)===dayOf(candidates[j].time))continue;
+      highest=Math.max(highest,candidates[i].odds*candidates[j].odds);
+    }
+    if(highest>0&&highest<2)emptyText+='当前符合信心要求的候选组合赔率最高为'+highest.toFixed(2)+'，未达到2。';
+  }
   function status(v){return v==='red'?'红':v==='black'?'黑':'待赛果';}
   function group(p,live){
     const quotes=live?pairSaleQuotes(p,PAIR_SALE_LIST,MATCHES_ALL,Date.now()):null;
@@ -1754,7 +1779,7 @@ function confidentPairHtml(){
       (live?'<small>两场需同时在售；请在最早一场开赛前选择组合，具体停售时间和赔率以实际购彩渠道为准。</small>':'')+'</div>';
   }
   return '<style>.confident-pair-leg{padding:9px 0;border-top:1px dashed #dfceb1}.confident-pair-leg small{color:#8a7a63}.confident-pair-content{font-size:12px;line-height:1.8;overflow-wrap:anywhere}.confident-pair-content details{margin-top:10px}.pair-slip{border:1px solid #ddc6a0;border-radius:9px;padding:10px;margin:8px 0;background:#fffdf7}.pair-slip-head{font-weight:bold;color:#19895d}.pair-selection{font-weight:bold;margin:9px 0}.pair-plus{color:#19895d;font-size:20px;display:block;text-align:center}.pair-pass{padding:7px 0;color:#7c582c}</style><div class="confident-pair-content"><b>2串1组合推荐</b>'+
-    (CURRENT_PAIR?'<div class="pair-current">'+group(CURRENT_PAIR,true)+'</div>':'<div class="pair-current pair-empty">暂无两场同时在售、未开赛且组合赔率不低于2的合适组合，等待更新。</div>')+
+    (CURRENT_PAIR?'<div class="pair-current">'+group(CURRENT_PAIR,true)+'</div>':'<div class="pair-current pair-empty">'+emptyText+'</div>')+
     '<div>近30天：红 '+red+' · 黑 '+black+' · 待 '+pending+' · 命中率 '+(red+black?(red/(red+black)*100).toFixed(1)+'%':'—')+'</div><small>每组公布后保留记录，两场都命中才算本组红。仅供参考，不保证命中。</small>'+
     '<details><summary>近30天2串1记录</summary>'+(PAIR_RECORDS.length?PAIR_RECORDS.slice().reverse().map(p=>'<div><b>'+esc(p.date)+' · '+status(p.verdict)+'</b>'+group(p,false)+'</div>').join(''):'暂无已公布组合')+'</details></div>';
 }
@@ -5170,6 +5195,7 @@ ${JC_XYSP_VIEW}
   var PAST_URL = 'data/recommend.json';
   var bar = document.getElementById('recStatsBar') || document.getElementById('jcRecStat');
   var pairBox = document.getElementById('jcConfidentPair');
+  var lastPair = pairBox ? pairBox.innerHTML : '';
   var recBox = document.getElementById('jcRec');
   var archBox = document.getElementById('jcRecArch');
   var last = (bar && bar.getAttribute('data-reco-updated')) || '';
@@ -5221,8 +5247,8 @@ ${JC_XYSP_VIEW}
   function apply() {
     var v = window.JC_RECO_VIEW;
     if (!v || v.layout !== 'pair-only-v2') return false;
-    if (v.updated && v.updated !== last) {
-      if(pairBox && typeof v.parlay === 'string') pairBox.innerHTML=v.parlay;
+    if ((v.updated && v.updated !== last) || (pairBox && typeof v.parlay === 'string' && v.parlay !== lastPair)) {
+      if(pairBox && typeof v.parlay === 'string') { pairBox.innerHTML=v.parlay; lastPair=v.parlay; }
       if (bar && typeof v.stat === 'string') {
         /* 兼容过渡态：线上的数据文件还是旧版时，stat 里没有「推荐单」标签 → 补上，别让标签消失 */
         bar.innerHTML = v.stat.indexOf('class="label') >= 0
@@ -5814,7 +5840,7 @@ html.is-standalone .chat-toggle, html.is-standalone .cf-toggle, html.is-standalo
 
 ` +
   (() => {
-    let raw = '';
+    let raw = 'null';
     try {
       const f = path.join(ROOT, 'jc-scores.js');
       if (fs.existsSync(f)) {
@@ -6031,7 +6057,7 @@ console.log(`   【规则二】在售只留体彩竞彩对外开售的：` +
 console.log(`   头行「体彩竞彩在售 ${IN_SALE} 场」· 来源：` +
   (OFFICIAL === null
     ? `本地竞彩数据兜底 upcoming+live=${IN_SALE}（没读到 jc-official.js）`
-    : `体彩官网 jc-official.js inSale=${IN_SALE} · 官方更新 ${(JC_OFFICIAL && JC_OFFICIAL.officialUpdate) || '(无)'}`));
+    : `当前在售清单 inSale=${IN_SALE} · 官方更新 ${(INSALE_DATA && INSALE_DATA.officialUpdate) || '(无)'}`));
 if (stat.settled) console.log(`   完场战绩：红 ${stat.hit} / 黑 ${stat.miss}  命中率 ${stat.rate}%`);
 console.log(`   数据来源：jc-data.js（体彩竞彩在售）+ jc-history.js（已完场累积，显示时按 24 小时窗口筛）`);
 console.log(`   模拟计算：${CALC_ROWS.length} 场可试算 · 过关方式最多 ${passLabel(CALC_MAX_N)}` +
