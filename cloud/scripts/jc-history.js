@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-14 06:42",
+ "updated": "2026-11-14 10:41",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -391,6 +391,116 @@ const JC_HISTORY = {
    "at": "2026-11-14 01:18"
   },
   {
+   "code": "周五011",
+   "league": "友谊赛",
+   "home": "哥伦比亚",
+   "away": "智利",
+   "time": "2026-11-14 08:00",
+   "score": "1:0",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球/球半",
+    "from": "live",
+    "handicap": -1.25,
+    "upSide": "home",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": -1,
+    "openUpWater": 0.75,
+    "openDownWater": 1.05,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -1,
+     "nowHandicap": -1.25,
+     "initUpWater": 0.75,
+     "nowUpWater": 0.95,
+     "initLine": "一球",
+     "nowLine": "一球/球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.36,
+    "draw": 4.5,
+    "away": 7.5
+   },
+   "prob": {
+    "home": 65.1,
+    "draw": 21.4,
+    "away": 13.5
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 65.1,
+   "type": "three",
+   "result": "win",
+   "hit": true,
+   "matched": true,
+   "at": "2026-11-14 10:41"
+  },
+  {
+   "code": "周五010",
+   "league": "友谊赛",
+   "home": "阿根廷",
+   "away": "乌拉圭",
+   "time": "2026-11-14 07:00",
+   "score": "1:2",
+   "hc": "-1",
+   "asianIndex": {
+    "line": "半球/一球",
+    "from": "live",
+    "handicap": -0.75,
+    "upSide": "home",
+    "upWater": 0.77,
+    "downWater": 1.02,
+    "openHandicap": -0.75,
+    "openUpWater": 0.85,
+    "openDownWater": 0.95,
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -0.75,
+     "nowHandicap": -0.75,
+     "initUpWater": 0.85,
+     "nowUpWater": 0.77,
+     "initLine": "半球/一球",
+     "nowLine": "半球/一球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "odds": {
+    "home": 1.5,
+    "draw": 4.1,
+    "away": 6
+   },
+   "prob": {
+    "home": 58.4,
+    "draw": 25.2,
+    "away": 16.4
+   },
+   "pick": "home",
+   "pickLabel": "主胜",
+   "conf": 58.4,
+   "type": "three",
+   "result": "lose",
+   "hit": false,
+   "matched": true,
+   "at": "2026-11-14 10:41"
+  },
+  {
    "code": "周五003",
    "league": "欧国联",
    "home": "保加利亚",
@@ -442,7 +552,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -497,7 +607,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -552,7 +662,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -607,7 +717,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -662,7 +772,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -717,7 +827,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -772,7 +882,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
@@ -827,7 +937,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-13 00:36"
   },
   {
