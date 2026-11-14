@@ -1,42 +1,8 @@
 {
- "updated": "2026-11-14 11:05",
+ "updated": "2026-11-14 15:28",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-14 11:05",
-   "finishTime": 1794625500000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周六005",
-     "teams": "布雷达 vs 埃门",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 61.1,
-     "status": "pending",
-     "finishTime": 1794625500000,
-     "league": "荷乙",
-     "odds": 1.53,
-     "time": "2026-11-14 23:30"
-    },
-    {
-     "matchNo": "周六010",
-     "teams": "阿尔梅勒 vs 海尔蒙特",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 65.1,
-     "status": "pending",
-     "finishTime": 1794625500000,
-     "league": "荷乙",
-     "odds": 1.42,
-     "time": "2026-11-15 03:00"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
