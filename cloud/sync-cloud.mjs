@@ -404,7 +404,7 @@ const CODE_MODULES = [
      云端少了它，云端重新生成竞彩页时亚指那一块会整块消失
      （本机 fb-page.js 也是 <script src> 直接加载它的）。
      另注：jc-archive.mjs 是 build-jc.mjs 的 import 依赖，同样必须同步。 */
-  'asian-index.js', 'jc-archive.mjs',
+  'asian-index.js', 'jc-archive.mjs', 'jc-sp-fallback.mjs',
   /* 【必须同步】只读分享版现在直接内联这两个文件后在浏览器里实时渲染，
      云端少了它们，分享页会和本地 App 渲染得不一样
      （实测：福彩3D / 排列5 / 七星彩 的奇偶、大小、012路 会对不上）。 */
