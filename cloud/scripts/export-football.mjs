@@ -1615,6 +1615,8 @@ const REC_ROWS = REC_ALL
     return (ta - tb) || (b.conf - a.conf);
   });
 const REC_LOW = REC_ALL.filter((r) => r.conf < REC_MIN);
+/* 用户 2026-11-14：2串1保留组合赔率≥2，选综合信心最高的两场，不设单场58%门槛。 */
+const PAIR_ROWS = REC_ALL;
 /* 一条都没有时，把「在售里最好的那个」写出来 —— 让用户知道是筛选生效而不是坏了 */
 const REC_MAXCONF = REC_ALL.length ? Math.max.apply(null, REC_ALL.map((r) => r.conf)) : null;
 
@@ -1687,7 +1689,8 @@ function confidentPairCandidates(rows, spList, matches, now) {
   return rows.map(r=>{
     const pick=picks[r.label], sale=pairSaleMatch(r,spList,matches,now),sp=sale&&sale.sp;
     const odds=Number(sp&&sp.had&&sp.had[keys[pick]]);
-    if(!pick||!sale||!(odds>1)||!(r.conf>=58))return null;
+    const conf=Number(r.conf);
+    if(!pick||!sale||!Number.isFinite(odds)||!(odds>1)||!Number.isFinite(conf)||!(conf>0&&conf<=100))return null;
     return {code:r.code,time:r.time,home:r.home,away:r.away,label:r.label,pick,odds,conf:Number(r.conf)};
   }).filter(Boolean);
 }
@@ -1747,7 +1750,7 @@ const PAIR_RECORDS=(Array.isArray(PAIR_ARCHIVE.footballPairs)?PAIR_ARCHIVE.footb
 PAIR_RECORDS.forEach(p=>settleConfidentPair(p,MATCHES_ALL));
 let CURRENT_PAIR=null;
 /* 每次更新都筛选当前仍在售、未开赛的组合；已有待结算组合只保留历史，不阻塞新推荐。 */
-const chosen=selectConfidentPair(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());if(chosen){
+const chosen=selectConfidentPair(PAIR_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());if(chosen){
  const signature=pairSignature(chosen);CURRENT_PAIR=PAIR_RECORDS.find(p=>pairSignature(p)===signature);
  if(!CURRENT_PAIR){CURRENT_PAIR={date:PAIR_DAY,createdAt:new Date().toISOString(),odds:chosen.odds,legs:chosen.legs,verdict:'pending'};PAIR_RECORDS.push(CURRENT_PAIR);}
 }
@@ -1759,14 +1762,14 @@ function saveConfidentPairs(){
 function confidentPairHtml(){
   const red=PAIR_RECORDS.filter(x=>x.verdict==='red').length,black=PAIR_RECORDS.filter(x=>x.verdict==='black').length,pending=PAIR_RECORDS.length-red-black;
   let emptyText='暂无两场同时在售、未开赛且组合赔率不低于2的合适组合，等待更新。';
-  const candidates=confidentPairCandidates(REC_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());
+  const candidates=confidentPairCandidates(PAIR_ROWS,PAIR_SALE_LIST,MATCHES_ALL,Date.now());
   if(candidates.length>=2){
     let highest=0;
     for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
       if(candidates[i].code===candidates[j].code&&dayOf(candidates[i].time)===dayOf(candidates[j].time))continue;
       highest=Math.max(highest,candidates[i].odds*candidates[j].odds);
     }
-    if(highest>0&&highest<2)emptyText+='当前符合信心要求的候选组合赔率最高为'+highest.toFixed(2)+'，未达到2。';
+    if(highest>0&&highest<2)emptyText+='当前候选组合赔率最高为'+highest.toFixed(2)+'，未达到2。';
   }
   function status(v){return v==='red'?'红':v==='black'?'黑':'待赛果';}
   function group(p,live){
