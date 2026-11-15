@@ -6,12 +6,42 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-15 20:03:29
+   更新时间：2026-11-15 22:31:05
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-15 20:03:29",
+ "updated": "2026-11-15 22:31:05",
  "items": [
+  {
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0df9c96bf49846329fa8bbca99e8eacb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=AYabIxFOq8ac1uIpiaYoVH%2FPJ6k%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0df9c96bf49846329fa8bbca99e8eacb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=AYabIxFOq8ac1uIpiaYoVH%2FPJ6k%3D",
+   "big": "https://p6-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/0df9c96bf49846329fa8bbca99e8eacb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=AhQ2JY6SEN%2FNm1QfP4utnMhsMpQ%3D",
+   "title": "2元单式票中大奖！河南安阳彩民拿下双色球26129期212万一等奖",
+   "url": "https://toutiao.com/group/7708350329804374568/",
+   "at": "2026-11-15T14:31:05.145Z",
+   "src": "tt",
+   "cat": "tt",
+   "game": "双色球",
+   "games": [
+    "ssq"
+   ],
+   "issue": "26129",
+   "seen": "2026-11-15T14:31:05.145Z",
+   "whenMs": 1794741260000,
+   "seenMs": 1794753065145,
+   "drawMs": 1794748500000,
+   "nextMs": 1794748500000,
+   "atMs": 1794753065145,
+   "drawAt": "2026-11-15T13:15:00.000Z",
+   "nextAt": 1794748500000,
+   "drawGid": "ssq",
+   "expireAt": "2026-11-16T14:31:05.145Z",
+   "rule": "first-capture-24h",
+   "author": "偏财专业户",
+   "when": "2026-11-15 19:14:20",
+   "postId": "7708350329804374568",
+   "px": 132300
+  },
   {
    "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/96617671e4c04a6ba1557cc7c02feeac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=uhpr04qEowky3i21VEnl5xE80v8%3D",
    "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/96617671e4c04a6ba1557cc7c02feeac~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=uhpr04qEowky3i21VEnl5xE80v8%3D",
@@ -163,8 +193,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/40ee16b08a9a4f49b1ae21bec7475d0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=knfAssKI5gVas1YBw1uS9aq4x2Y%3D",
-   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/40ee16b08a9a4f49b1ae21bec7475d0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=knfAssKI5gVas1YBw1uS9aq4x2Y%3D",
+   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/40ee16b08a9a4f49b1ae21bec7475d0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=gMcM3iyLaUtLvKCd0Mz8EEqXBcE%3D",
+   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/40ee16b08a9a4f49b1ae21bec7475d0a~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=gMcM3iyLaUtLvKCd0Mz8EEqXBcE%3D",
    "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/a8761caf6d9a44bf97078f0a057f70ed~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803427200&x-signature=uulb%2F2qFrsUibbDDbvNfFE%2BPUWs%3D",
    "title": "1.1万大复式领衔！多张双色球晒票亮相，这背后的账你算过吗",
    "url": "https://toutiao.com/group/7708290900736983590/",
@@ -176,9 +206,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "",
-   "seen": "2026-11-15T12:03:29.791Z",
+   "seen": "2026-11-15T14:31:05.145Z",
    "whenMs": 1794726504000,
-   "seenMs": 1794744209791,
+   "seenMs": 1794753065145,
    "drawMs": 1794748500000,
    "nextMs": 1794748500000,
    "atMs": 1794744209791,
@@ -3385,6 +3415,7 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-ezhpy3drpa/3821c284457d4d06949dc9b6365df43d~tplv-26tn0yjwph-cspd-v1.jpg": 1794744209791,
   "/tos-cn-i-ezhpy3drpa/89888c4e9ccd4a3d84d17dd0e224a1c0~tplv-26tn0yjwph-cspd-v1.jpg": 1794744209791,
   "/tos-cn-i-ezhpy3drpa/7ff25041aa0b42949ce7281568d04873~tplv-26tn0yjwph-cspd-v1.jpg": 1794744209791,
-  "/tos-cn-i-6w9my0ksvp/23a73d63649946408f74023dfbfc12f7~tplv-26tn0yjwph-cspd-v1.jpg": 1794744209791
+  "/tos-cn-i-6w9my0ksvp/23a73d63649946408f74023dfbfc12f7~tplv-26tn0yjwph-cspd-v1.jpg": 1794744209791,
+  "/tos-cn-i-6w9my0ksvp/0df9c96bf49846329fa8bbca99e8eacb~tplv-26tn0yjwph-cspd-v1.jpg": 1794753065145
  }
 };
