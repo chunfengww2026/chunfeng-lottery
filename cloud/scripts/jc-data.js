@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-15 06:16 */
+/* 自动生成，请勿手动编辑 · 2026-11-15 07:56 */
 const JC_DATA = {
- "updated": "2026-11-15 06:16",
+ "updated": "2026-11-15 07:56",
  "stat": {
   "total": 14,
   "upcoming": 0,
@@ -1542,7 +1542,7 @@ const JC_DATA = {
   "source": "official-mirror",
   "from": "公开竞彩奖金页同步的SP原值",
   "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
-  "updated": "2026-11-15 06:16",
+  "updated": "2026-11-15 07:56",
   "officialUpdate": "",
   "inSale": 5,
   "list": [
