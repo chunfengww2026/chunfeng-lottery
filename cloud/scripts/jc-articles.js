@@ -25,16 +25,16 @@ const JC_ARTICLES = {
  ],
  "total": 155,
  "bodies": {
-  "tried": 24,
+  "tried": 26,
   "ok": 24,
-  "fail": 0,
+  "fail": 2,
   "want": 20,
   "withDesc": 9,
   "games": {
    "ssq": 12,
    "dlt": 12
   },
-  "sec": 42
+  "sec": 45
  },
  "list": [
   {
