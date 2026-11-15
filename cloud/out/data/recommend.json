@@ -1,39 +1,26 @@
 {
- "updated": "2026-11-16 01:06",
+ "updated": "2026-11-16 02:22",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-16 01:06",
-   "finishTime": 1794762360000,
+   "dateStr": "2026-11-16 02:22",
+   "finishTime": 1794766920000,
    "verdict": "",
    "matches": [
-    {
-     "matchNo": "周日008",
-     "teams": "芬兰 vs 圣马力诺",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 91.4,
-     "status": "pending",
-     "finishTime": 1794762360000,
-     "league": "欧国联",
-     "odds": 1.02,
-     "time": "2026-11-16 01:00"
-    },
     {
      "matchNo": "周日009",
      "teams": "克罗地亚 vs 捷克",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 65.7,
+     "confidence": 65.9,
      "status": "pending",
-     "finishTime": 1794762360000,
+     "finishTime": 1794766920000,
      "league": "欧国联",
-     "odds": 1.48,
+     "odds": 1.45,
      "time": "2026-11-16 03:45"
     }
    ]

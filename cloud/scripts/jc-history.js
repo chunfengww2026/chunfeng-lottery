@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-16 00:51",
+ "updated": "2026-11-16 02:00",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1959,108 +1959,6 @@ const JC_HISTORY = {
    "result": "win",
    "hit": true,
    "matched": true,
-   "at": "2026-11-12 00:05"
-  },
-  {
-   "code": "周四001",
-   "league": "欧国联",
-   "home": "土耳其",
-   "away": "比利时",
-   "time": "2026-11-13 01:00",
-   "score": "1:2",
-   "hc": null,
-   "asianIndex": {
-    "line": "受半球/一球",
-    "from": "live",
-    "handicap": 0.75,
-    "upSide": "away",
-    "upWater": 1.1,
-    "downWater": 0.7,
-    "openHandicap": 0.75,
-    "openUpWater": 0.9,
-    "openDownWater": 0.95,
-    "totalWater": 1.8,
-    "theoryUpPercent": "38.89",
-    "theoryDownPercent": "61.11",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.75,
-     "nowHandicap": 0.75,
-     "initUpWater": 0.9,
-     "nowUpWater": 1.1,
-     "initLine": "受半球/一球",
-     "nowLine": "受半球/一球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.6,
-    "draw": 4.1,
-    "away": 1.85
-   },
-   "prob": {
-    "home": 26.2,
-    "draw": 23,
-    "away": 50.9
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 50.9,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-12 00:05"
-  },
-  {
-   "code": "周四002",
-   "league": "欧国联",
-   "home": "亚美尼亚",
-   "away": "塞浦路斯",
-   "time": "2026-11-13 01:00",
-   "score": "1:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.95,
-    "downWater": 0.85,
-    "openHandicap": -0.25,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.7999999999999998,
-    "theoryUpPercent": "47.22",
-    "theoryDownPercent": "52.78",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.25,
-    "draw": 3.2,
-    "away": 2.25
-   },
-   "prob": {
-    "home": 28.9,
-    "draw": 29.4,
-    "away": 41.7
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 41.7,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
    "at": "2026-11-12 00:05"
   }
  ]
