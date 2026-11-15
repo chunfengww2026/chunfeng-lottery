@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-16 02:22",
+ "updated": "2026-11-16 03:35",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-16 02:22",
-   "finishTime": 1794766920000,
+   "dateStr": "2026-11-16 03:35",
+   "finishTime": 1794771300000,
    "verdict": "",
    "matches": [
     {
@@ -18,7 +18,7 @@
      "result": "pending",
      "confidence": 65.9,
      "status": "pending",
-     "finishTime": 1794766920000,
+     "finishTime": 1794771300000,
      "league": "欧国联",
      "odds": 1.45,
      "time": "2026-11-16 03:45"
