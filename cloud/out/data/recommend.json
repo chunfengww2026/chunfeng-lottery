@@ -1,42 +1,8 @@
 {
- "updated": "2026-11-16 18:23",
+ "updated": "2026-11-17 04:23",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-16 18:23",
-   "finishTime": 1794824580000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周一004",
-     "teams": "冰岛 vs 卢森堡",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 72.6,
-     "status": "pending",
-     "finishTime": 1794824580000,
-     "league": "欧国联",
-     "odds": 1.2,
-     "time": "2026-11-17 01:00"
-    },
-    {
-     "matchNo": "周一008",
-     "teams": "希腊 vs 塞尔维亚",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 65.9,
-     "status": "pending",
-     "finishTime": 1794824580000,
-     "league": "欧国联",
-     "odds": 1.42,
-     "time": "2026-11-17 03:45"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
