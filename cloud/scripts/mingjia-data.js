@@ -101,8 +101,7 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-16T02:39:03.358Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "牛魔王",
@@ -119,8 +118,25 @@ const MINGJIA_DATA = {
      "verified": false,
      "fetchedAt": "2026-11-16T02:39:07.499Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "闪享",
+   "cat": "大乐透",
+   "kw": "闪享 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "幸丹丹",
+   "cat": "大乐透",
+   "kw": "幸丹丹 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "排三字谜",
+   "cat": "排列三",
+   "kw": "排三字谜 排列三 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "3D字谜",
@@ -129,16 +145,33 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/3D/3D字谜/1.png",
-     "size": 36616,
-     "src": "https://img.3d178.cn/zimi/thds/2024/2024327.png",
-     "page": "https://www.3d178.cn/zimi/thzm/197734.shtml",
-     "title": "3d第2024327期太湖字谜：双双依，双双栖，人可散，缘能聚_太湖钓叟字谜_3D字谜_3D之家",
-     "issue": "2024327",
+     "size": 243075,
+     "src": "https://3dzimijinrizimizonghui.com.cn/1.png",
+     "page": "https://3dzimijinrizimizonghui.com.cn/",
+     "title": "3D字谜今日字谜总汇 - 每日更新最新3D字谜、太湖字谜、解谜技巧",
+     "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-16T02:39:28.122Z"
+     "fetchedAt": "2026-11-16T23:03:19.100Z"
     }
-   ],
-   "stale": true
+   ]
+  },
+  {
+   "name": "太湖字谜",
+   "cat": "大乐透",
+   "kw": "太湖字谜 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "迷公",
+   "cat": "大乐透",
+   "kw": "迷公 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "大乐透",
+   "kw": "桃子姐 大乐透 字谜 参考图",
+   "imgs": []
   },
   {
    "name": "迟丽颖",
@@ -154,6 +187,35 @@ const MINGJIA_DATA = {
      "issue": "18043",
      "verified": false,
      "fetchedAt": "2026-11-16T02:39:48.361Z"
+    }
+   ]
+  },
+  {
+   "name": "九头鸟",
+   "cat": "大乐透",
+   "kw": "九头鸟 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "大乐透",
+   "kw": "金手指 大乐透 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "快乐8",
+   "kw": "金手指 快乐8 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/快乐8/金手指/1.webp",
+     "size": 139398,
+     "src": "https://pic1.800820.net/tumi/20260413/bac70bc7efa948cd9340dde4e158b064.webp",
+     "page": "https://www.800820.net/tuku/tkpic_399730.html",
+     "title": "金手指选五四胆 _快乐8图库_天齐图库_天齐网",
+     "issue": "",
+     "verified": false,
+     "fetchedAt": "2026-11-16T20:16:57.767Z"
     }
    ],
    "stale": true

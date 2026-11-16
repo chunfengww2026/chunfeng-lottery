@@ -426,27 +426,27 @@
    "expiresAt": "2026-11-18T02:44:24.054Z"
   },
   {
-   "id": "https://m.16788.cn/tj_a9fa72794401.html",
+   "id": "https://m.16788.cn/tj_6aee02794387.html",
    "gid": "ssq",
    "cat": "双色球",
    "author": "字谜资料",
-   "title": "天吉网彩运通双色球图谜2026132期（天霁老顽童) - 双色球图谜 - 手机天吉网",
+   "title": "双色球2026132期小辣椒翠竹红球三胆图谜 - 双色球图谜 - 手机天吉网",
    "issue": "2026132",
-   "url": "https://m.16788.cn/tj_a9fa72794401.html",
+   "url": "https://m.16788.cn/tj_6aee02794387.html",
    "excerpt": "",
    "blocks": [
     {
      "type": "image",
-     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnltYmtOcnVreDVPNHZ3SVF1bUFFbHRLM3NMWlR2dzhDWE90YkViWUg5dDQw.jpg"
+     "src": "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloSmNPLzFnNlFHMG1QVjRoRWdvS1I2M3NMWlR2dzhDWE90YkViWUg5dDQw.jpg"
     }
    ],
    "images": [
-    "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnltYmtOcnVreDVPNHZ3SVF1bUFFbHRLM3NMWlR2dzhDWE90YkViWUg5dDQw.jpg"
+    "https://pic.16788.cn/SFVzNGw1WUtjRlhiSkhndnZMTnpHdDFJZkFLb1Frdzd4UitBN2l4aDdXRDNRVkNpZ3M4YnloSmNPLzFnNlFHMG1QVjRoRWdvS1I2M3NMWlR2dzhDWE90YkViWUg5dDQw.jpg"
    ],
    "publishedAt": "2026-11-16T23:07:54.000Z",
    "publicationTimeUnknown": false,
-   "firstSeen": "2026-11-16T02:44:24.054Z",
-   "expiresAt": "2026-11-18T02:44:24.054Z"
+   "firstSeen": "2026-11-15T16:56:52.154Z",
+   "expiresAt": "2026-11-17T16:56:52.154Z"
   },
   {
    "id": "https://m.16788.cn/tj_6aee02794387.html",
@@ -33901,7 +33901,8 @@
  "sources": [
   {
    "url": "https://www.cz89.com/p3/item_7.htm",
-   "status": 200,
+   "status": 0,
+   "error": "fetch failed",
    "count": 0
   },
   {
