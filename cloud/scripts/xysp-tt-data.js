@@ -6,11 +6,11 @@
    ⚠️ 本文件【不直接】被页面读 —— build-xysp.mjs 会把它合进
       xysp-data.js 的 games.tt，页面只读 xysp-data.js。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-18 03:02:49
+   更新时间：2026-11-18 04:12:43
    ============================================================ */
 
 const XYSP_TT_DATA = {
- "updated": "2026-11-18 03:02:49",
+ "updated": "2026-11-18 04:12:43",
  "items": [
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/26077bf0fbd8475fae90ad996f235cd3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=JZBUXxMDMppSHZeDe%2BnqRmXEkV0%3D",
@@ -224,8 +224,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=0oZL382nXzNBXFpyiwafoYYsUtA%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=0oZL382nXzNBXFpyiwafoYYsUtA%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=HLdple%2BC2c2edT7AhlhqyD1cLJM%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=HLdple%2BC2c2edT7AhlhqyD1cLJM%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=uEdRDyI%2Bh56zywDDgR6az4dF608%3D",
    "title": "30倍新票锁定冷号蓝码冲大奖，8倍新票不甘落后！双色球第26132期晒票",
    "url": "http://toutiao.com/item/7709090052714562084/",
@@ -237,9 +237,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26132",
-   "seen": "2026-11-17T19:02:49.755Z",
+   "seen": "2026-11-17T20:12:43.412Z",
    "whenMs": 1794912399000,
-   "seenMs": 1794915403300,
+   "seenMs": 1794946363412,
    "drawMs": 1794921300000,
    "nextMs": 1794921300000,
    "atMs": 1794915403300,
@@ -254,8 +254,8 @@ const XYSP_TT_DATA = {
    "px": 132300
   },
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=oeQxib%2BrCV0%2FY1WzLgsi3CjNPd8%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=oeQxib%2BrCV0%2FY1WzLgsi3CjNPd8%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=g8%2BI6bzHfD0ovDqYboh%2Bltbpgls%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=g8%2BI6bzHfD0ovDqYboh%2Bltbpgls%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=uEdRDyI%2Bh56zywDDgR6az4dF608%3D",
    "title": "30倍新票锁定冷号蓝码冲大奖，8倍新票不甘落后！双色球第26132期晒票",
    "url": "http://toutiao.com/item/7709090052714562084/",
@@ -267,9 +267,9 @@ const XYSP_TT_DATA = {
     "ssq"
    ],
    "issue": "26132",
-   "seen": "2026-11-17T19:02:49.755Z",
+   "seen": "2026-11-17T20:12:43.412Z",
    "whenMs": 1794912399000,
-   "seenMs": 1794942169755,
+   "seenMs": 1794946363412,
    "drawMs": 1794921300000,
    "nextMs": 1794921300000,
    "atMs": 1794915403300,
@@ -1109,7 +1109,7 @@ const XYSP_TT_DATA = {
    "issue": "26131",
    "seen": "2026-11-17T19:02:49.755Z",
    "whenMs": 1794869854000,
-   "seenMs": 1794880299317,
+   "seenMs": 1794942169755,
    "drawMs": 1795005000000,
    "nextMs": 1795005000000,
    "atMs": 1794872502556,
@@ -1349,7 +1349,7 @@ const XYSP_TT_DATA = {
    "issue": "26131",
    "seen": "2026-11-17T19:02:49.755Z",
    "whenMs": 1794856870000,
-   "seenMs": 1794880299317,
+   "seenMs": 1794942169755,
    "drawMs": 1795005000000,
    "nextMs": 1795005000000,
    "atMs": 1794880299317,

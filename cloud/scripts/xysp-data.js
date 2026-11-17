@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-18 03:04
+   更新时间：2026-11-18 04:13
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-18 03:04",
+ "updated": "2026-11-18 04:13",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1480,6 +1480,20 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-18/3e744184-ca11-41d0-b032-62bfe3a7c8f51794945518653.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-18/3e744184-ca11-41d0-b032-62bfe3a7c8f51794945518653.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26308期]喝完酒回来一兑奖，睡不着了呀😭",
+     "url": "",
+     "at": "2026-11-17T20:13:09.944Z",
+     "pubAt": "2026-11-17T19:59:00.000Z",
+     "pubMs": 1794945540000,
+     "pubSrc": "page",
+     "nextAt": 1795005000000,
+     "atMs": 1794946389944,
+     "seenMs": 1794946389944,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-17/6362663e-e1b7-45a5-8624-c5e3a419cec01794925916534.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-17/6362663e-e1b7-45a5-8624-c5e3a419cec01794925916534.jpg?imageMogr2/thumbnail/360x",
      "title": "[26308期]差点事",
@@ -2648,8 +2662,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=0oZL382nXzNBXFpyiwafoYYsUtA%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=0oZL382nXzNBXFpyiwafoYYsUtA%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=HLdple%2BC2c2edT7AhlhqyD1cLJM%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=HLdple%2BC2c2edT7AhlhqyD1cLJM%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=uEdRDyI%2Bh56zywDDgR6az4dF608%3D",
      "title": "30倍新票锁定冷号蓝码冲大奖，8倍新票不甘落后！双色球第26132期晒票",
      "url": "http://toutiao.com/item/7709090052714562084/",
@@ -2661,9 +2675,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-17T19:02:49.755Z",
+     "seen": "2026-11-17T20:12:43.412Z",
      "whenMs": 1794912399000,
-     "seenMs": 1794915403300,
+     "seenMs": 1794946363412,
      "drawMs": 1794921300000,
      "nextMs": 1794921300000,
      "atMs": 1794915403300,
@@ -2678,8 +2692,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=oeQxib%2BrCV0%2FY1WzLgsi3CjNPd8%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=oeQxib%2BrCV0%2FY1WzLgsi3CjNPd8%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=g8%2BI6bzHfD0ovDqYboh%2Bltbpgls%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f37a47bb693a43658ab06b8a0254965f~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=g8%2BI6bzHfD0ovDqYboh%2Bltbpgls%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/0c894a6e4b0d45c0bae686d4da302512~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=uEdRDyI%2Bh56zywDDgR6az4dF608%3D",
      "title": "30倍新票锁定冷号蓝码冲大奖，8倍新票不甘落后！双色球第26132期晒票",
      "url": "http://toutiao.com/item/7709090052714562084/",
@@ -2691,9 +2705,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-17T19:02:49.755Z",
+     "seen": "2026-11-17T20:12:43.412Z",
      "whenMs": 1794912399000,
-     "seenMs": 1794942169755,
+     "seenMs": 1794946363412,
      "drawMs": 1794921300000,
      "nextMs": 1794921300000,
      "atMs": 1794915403300,
@@ -3533,7 +3547,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-17T19:02:49.755Z",
      "whenMs": 1794869854000,
-     "seenMs": 1794880299317,
+     "seenMs": 1794942169755,
      "drawMs": 1795005000000,
      "nextMs": 1795005000000,
      "atMs": 1794872502556,
@@ -3725,96 +3739,6 @@ const XYSP_DATA = {
      "author": "优雅奶酪6hWlg9",
      "when": "2026-11-17 05:30:09",
      "postId": "7708884798957158939",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bdb9d9742eb466aa632b288a95a3ccb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=U5UFjSKU2FGBtYRGBp4Xdbnow3I%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bdb9d9742eb466aa632b288a95a3ccb~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=U5UFjSKU2FGBtYRGBp4Xdbnow3I%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bdb9d9742eb466aa632b288a95a3ccb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=fXMK%2BNtlT59UOjncgaceyk7I9gQ%3D",
-     "title": "大乐透第26131期晒票：守好自己的时序，在原野之上从容生长",
-     "url": "http://toutiao.com/item/7708851561707635234/",
-     "at": "2026-11-17T01:51:39.317Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26131",
-     "seen": "2026-11-17T19:02:49.755Z",
-     "whenMs": 1794856870000,
-     "seenMs": 1794942169755,
-     "drawMs": 1795005000000,
-     "nextMs": 1795005000000,
-     "atMs": 1794880299317,
-     "drawAt": "2026-11-18T12:30:00.000Z",
-     "nextAt": 1795005000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-18T01:51:39.317Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-17 03:21:10",
-     "postId": "7708851561707635234",
-     "px": 132300
-    },
-    {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cc30f51b23154f838f6f76e10bdd1224~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=6LmkZJ6vk%2FO%2BBb4Zhuq6UVSi9lc%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/cc30f51b23154f838f6f76e10bdd1224~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=6LmkZJ6vk%2FO%2BBb4Zhuq6UVSi9lc%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bdb9d9742eb466aa632b288a95a3ccb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=fXMK%2BNtlT59UOjncgaceyk7I9gQ%3D",
-     "title": "大乐透第26131期晒票：守好自己的时序，在原野之上从容生长",
-     "url": "http://toutiao.com/item/7708851561707635234/",
-     "at": "2026-11-17T01:51:39.317Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26131",
-     "seen": "2026-11-17T19:02:49.755Z",
-     "whenMs": 1794856870000,
-     "seenMs": 1794880299317,
-     "drawMs": 1795005000000,
-     "nextMs": 1795005000000,
-     "atMs": 1794880299317,
-     "drawAt": "2026-11-18T12:30:00.000Z",
-     "nextAt": 1795005000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-18T01:51:39.317Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-17 03:21:10",
-     "postId": "7708851561707635234",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a8982f1ea70f4433bd702084cbadc031~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=9jsegmY7UCQszegnIE2V7unxzGs%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/a8982f1ea70f4433bd702084cbadc031~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=9jsegmY7UCQszegnIE2V7unxzGs%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/8bdb9d9742eb466aa632b288a95a3ccb~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803600000&x-signature=fXMK%2BNtlT59UOjncgaceyk7I9gQ%3D",
-     "title": "大乐透第26131期晒票：守好自己的时序，在原野之上从容生长",
-     "url": "http://toutiao.com/item/7708851561707635234/",
-     "at": "2026-11-17T01:51:39.317Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "大乐透",
-     "games": [
-      "dlt"
-     ],
-     "issue": "26131",
-     "seen": "2026-11-17T19:02:49.755Z",
-     "whenMs": 1794856870000,
-     "seenMs": 1794942169755,
-     "drawMs": 1795005000000,
-     "nextMs": 1795005000000,
-     "atMs": 1794880299317,
-     "drawAt": "2026-11-18T12:30:00.000Z",
-     "nextAt": 1795005000000,
-     "drawGid": "dlt",
-     "expireAt": "2026-11-18T01:51:39.317Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-17 03:21:10",
-     "postId": "7708851561707635234",
      "px": 132300
     }
    ]
@@ -7977,6 +7901,7 @@ const XYSP_DATA = {
   "/2026-11-17/96aba6fe-3f9b-4706-85d7-2117d20b57d81794918636628.jpg": 1794942243185,
   "/2026-11-17/a3ab70ae-e542-4164-a83d-5ea5d56f041f1794918429529.jpg": 1794942243185,
   "/2026-11-17/9f2931a7-3519-4fec-a1f3-46af8015a8461794918429731.jpg": 1794942243185,
-  "/2026-11-17/440a0ce4-88e6-45f9-9142-661eac87b4551794917888687.jpg": 1794942243185
+  "/2026-11-17/440a0ce4-88e6-45f9-9142-661eac87b4551794917888687.jpg": 1794942243185,
+  "/2026-11-18/3e744184-ca11-41d0-b032-62bfe3a7c8f51794945518653.jpg": 1794946389944
  }
 };
