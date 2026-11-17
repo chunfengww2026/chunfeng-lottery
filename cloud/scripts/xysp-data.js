@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-17 07:42
+   更新时间：2026-11-17 09:51
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-17 07:42",
+ "updated": "2026-11-17 09:51",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -934,6 +934,20 @@ const XYSP_DATA = {
    "name": "排列3",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-17/b9cfe4be-7952-427e-92e8-467cff9733741794875510359.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-17/b9cfe4be-7952-427e-92e8-467cff9733741794875510359.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26307期]还能说啥呢",
+     "url": "",
+     "at": "2026-11-17T01:51:16.657Z",
+     "pubAt": "2026-11-17T00:32:00.000Z",
+     "pubMs": 1794875520000,
+     "pubSrc": "page",
+     "nextAt": 1794918600000,
+     "atMs": 1794880276657,
+     "seenMs": 1794880276657,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-16/ccbea935-378a-47be-b7c8-cb1774a732681794843917016.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-16/ccbea935-378a-47be-b7c8-cb1774a732681794843917016.jpg?imageMogr2/thumbnail/360x",
      "title": "[26307期]再补两单就这样了",
@@ -1709,7 +1723,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794866976000,
-     "seenMs": 1794870705776,
+     "seenMs": 1794872502556,
      "drawMs": 1794921300000,
      "nextMs": 1794921300000,
      "atMs": 1794870705776,
@@ -1799,7 +1813,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794864609000,
-     "seenMs": 1794870705776,
+     "seenMs": 1794872502556,
      "drawMs": 1795005000000,
      "nextMs": 1795005000000,
      "atMs": 1794870705776,
@@ -1829,7 +1843,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794864609000,
-     "seenMs": 1794870705776,
+     "seenMs": 1794872502556,
      "drawMs": 1795005000000,
      "nextMs": 1795005000000,
      "atMs": 1794870705776,
@@ -1859,7 +1873,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794864609000,
-     "seenMs": 1794870705776,
+     "seenMs": 1794872502556,
      "drawMs": 1795005000000,
      "nextMs": 1795005000000,
      "atMs": 1794870705776,
@@ -1919,7 +1933,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794854171000,
-     "seenMs": 1794870705776,
+     "seenMs": 1794872502556,
      "drawMs": 1794921300000,
      "nextMs": 1794921300000,
      "atMs": 1794860490190,
@@ -1979,7 +1993,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794829241000,
-     "seenMs": 1794870486910,
+     "seenMs": 1794872502556,
      "drawMs": 1794835800000,
      "nextMs": 1794835800000,
      "atMs": 1794860490190,
@@ -2339,7 +2353,7 @@ const XYSP_DATA = {
      "issue": "",
      "seen": "2026-11-16T23:41:42.556Z",
      "whenMs": 1794800346000,
-     "seenMs": 1794870486910,
+     "seenMs": 1794872502556,
      "drawMs": 1794832200000,
      "nextMs": 1794832200000,
      "atMs": 1794824423786,
@@ -2381,36 +2395,6 @@ const XYSP_DATA = {
      "author": "梦想分享家",
      "when": "2026-11-16 11:39:06",
      "postId": "1881984567281667",
-     "px": 132300
-    },
-    {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d6f20a71e3b147f9a8c5417fad39d698~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803513600&x-signature=WmLfsWz7qSc9lu88Apw%2FuGuPe18%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d6f20a71e3b147f9a8c5417fad39d698~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803513600&x-signature=WmLfsWz7qSc9lu88Apw%2FuGuPe18%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/d6f20a71e3b147f9a8c5417fad39d698~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803513600&x-signature=%2BNCji1UqvH1%2FXFnjcRBCS3M2Do8%3D",
-     "title": "一张1848元的双色球复式晒票：看看热闹就好，别照着跟风",
-     "url": "http://toutiao.com/item/7708566123460952612/",
-     "at": "2026-11-16T02:44:24.118Z",
-     "src": "tt",
-     "cat": "tt",
-     "game": "双色球",
-     "games": [
-      "ssq"
-     ],
-     "issue": "",
-     "seen": "2026-11-16T20:06:32.656Z",
-     "whenMs": 1794790412000,
-     "seenMs": 1794859592656,
-     "drawMs": 1794921300000,
-     "nextMs": 1794921300000,
-     "atMs": 1794797064118,
-     "drawAt": "2026-11-17T13:15:00.000Z",
-     "nextAt": 1794921300000,
-     "drawGid": "ssq",
-     "expireAt": "2026-11-17T02:44:24.118Z",
-     "rule": "first-capture-24h",
-     "author": "优雅奶酪6hWlg9",
-     "when": "2026-11-16 08:53:32",
-     "postId": "7708566123460952612",
      "px": 132300
     }
    ]
@@ -6434,6 +6418,8 @@ const XYSP_DATA = {
   "/2026-11-16/eca64950-cbc3-4737-b2f4-3261db095eff1794825895699.jpg": 1794860539220,
   "/2026-11-16/275c4df9-b616-4abd-b723-38a4fb91d5451794825523063.jpg": 1794860539220,
   "/2026-11-16/994716f1-28c5-427e-be2a-8681877a3ed41794824071499.jpg": 1794860539220,
-  "/2026-11-17/105c8742-b57c-42f1-bd29-b7d876f63af01794870321456.jpg": 1794872555058
+  "/2026-11-17/105c8742-b57c-42f1-bd29-b7d876f63af01794870321456.jpg": 1794872555058,
+  "/2026-11-17/e33bf5e5-11ae-43ae-9d0e-f520b00cd59d1794877993052.jpg": 1794880276657,
+  "/2026-11-17/b9cfe4be-7952-427e-92e8-467cff9733741794875510359.jpg": 1794880276657
  }
 };

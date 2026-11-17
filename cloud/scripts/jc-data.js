@@ -1,11 +1,11 @@
-/* 自动生成，请勿手动编辑 · 2026-11-17 04:00 */
+/* 自动生成，请勿手动编辑 · 2026-11-17 09:53 */
 const JC_DATA = {
- "updated": "2026-11-17 04:00",
+ "updated": "2026-11-17 09:53",
  "stat": {
   "total": 8,
   "upcoming": 0,
-  "live": 4,
-  "finished": 4,
+  "live": 0,
+  "finished": 8,
   "withScore": 8,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
@@ -473,10 +473,10 @@ const JC_DATA = {
     "rank": 3
    },
    "score": {
-    "home": 0,
+    "home": 4,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -557,10 +557,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 4,
     "away": 0
    }
   },
@@ -582,10 +582,10 @@ const JC_DATA = {
     "rank": 1
    },
    "score": {
-    "home": 0,
+    "home": 5,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -666,10 +666,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 5,
     "away": 0
    }
   },
@@ -692,9 +692,9 @@ const JC_DATA = {
    },
    "score": {
     "home": 0,
-    "away": 0
+    "away": 3
    },
-   "statusText": "- ",
+   "statusText": "0 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -775,11 +775,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 0,
-    "away": 0
+    "away": 3
    }
   },
   {
@@ -800,10 +800,10 @@ const JC_DATA = {
     "rank": 4
    },
    "score": {
-    "home": 0,
+    "home": 1,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -884,10 +884,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 1,
     "away": 0
    }
   }
