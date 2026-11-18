@@ -1828,28 +1828,33 @@ const FOOTBALL_DATA = {
      "clear": false,
      "margin": 14.8
     },
-    "result": null
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "1 - 1"
+    }
    },
    {
-    "gid": 595774,
-    "kind": "upcoming",
+    "gid": 603269,
+    "kind": "finished",
     "league": {
-     "name": "西丁",
-     "color": "b00900"
+     "name": "意丁杯",
+     "color": "3792aa"
     },
-    "time": "2026-11-19 04:00:00",
+    "time": "2026-11-18 21:30:00",
     "minute": 0,
     "home": {
-     "name": "科蒂拉斯",
-     "score": null,
+     "name": "皮亚琴察",
+     "score": 4,
      "red": 0,
-     "rank": 15
+     "rank": 0
     },
     "away": {
-     "name": "莫利嫩塞",
-     "score": null,
+     "name": "路查斯",
+     "score": 0,
      "red": 0,
-     "rank": 7
+     "rank": 0
     },
     "odds": {
      "asian": {
@@ -2120,28 +2125,33 @@ const FOOTBALL_DATA = {
      "clear": true,
      "margin": 12.1
     },
-    "result": null
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "4 - 0"
+    }
    },
    {
-    "gid": 603039,
-    "kind": "upcoming",
+    "gid": 603472,
+    "kind": "finished",
     "league": {
-     "name": "歐女盃",
-     "color": "FF884C"
+     "name": "白俄甲",
+     "color": "cc6611"
     },
-    "time": "2026-11-19 04:00:00",
+    "time": "2026-11-18 22:00:00",
     "minute": 0,
     "home": {
-     "name": "尤文图斯女足",
-     "score": null,
-     "red": null,
-     "rank": 5
+     "name": "明斯克迪纳摩后备队",
+     "score": 2,
+     "red": 0,
+     "rank": 12
     },
     "away": {
-     "name": "奥哈瓦里女足",
-     "score": null,
-     "red": null,
-     "rank": 5
+     "name": "波里索夫巴特II隊",
+     "score": 2,
+     "red": 1,
+     "rank": 18
     },
     "odds": {
      "asian": {
@@ -2193,28 +2203,33 @@ const FOOTBALL_DATA = {
      "clear": true,
      "margin": 12.1
     },
-    "result": null
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "2 - 2"
+    }
    },
    {
-    "gid": 603226,
-    "kind": "upcoming",
+    "gid": 596409,
+    "kind": "finished",
     "league": {
-     "name": "委内杯",
-     "color": "cc1144"
+     "name": "沙特甲",
+     "color": "008477"
     },
-    "time": "2026-11-19 04:30:00",
+    "time": "2026-11-18 22:30:00",
     "minute": 0,
     "home": {
-     "name": "卡拉波波",
-     "score": null,
-     "red": null,
-     "rank": 4
+     "name": "亚达禾",
+     "score": 3,
+     "red": 0,
+     "rank": 10
     },
     "away": {
-     "name": "萨马拉",
-     "score": null,
-     "red": null,
-     "rank": 14
+     "name": "欧鲁巴赫",
+     "score": 3,
+     "red": 1,
+     "rank": 13
     },
     "odds": {
      "asian": {
@@ -2485,22 +2500,27 @@ const FOOTBALL_DATA = {
      "clear": true,
      "margin": 11.8
     },
-    "result": null
+    "result": {
+     "actual": "draw",
+     "actualLabel": "平局",
+     "hit": false,
+     "score": "3 - 3"
+    }
    },
    {
-    "gid": 599097,
-    "kind": "upcoming",
+    "gid": 603365,
+    "kind": "finished",
     "league": {
-     "name": "巴西甲",
-     "color": "996600"
+     "name": "西U19",
+     "color": "d1d100"
     },
-    "time": "2026-11-19 07:00:00",
+    "time": "2026-11-18 23:00:00",
     "minute": 0,
     "home": {
-     "name": "瑞模贝雷PA",
-     "score": null,
-     "red": null,
-     "rank": 19
+     "name": "瓦伦西亚U19",
+     "score": 4,
+     "red": 0,
+     "rank": 0
     },
     "away": {
      "name": "喬沛高恩斯SC",
@@ -2848,30 +2868,35 @@ const FOOTBALL_DATA = {
       "away": 31
      },
      "clear": true,
-     "margin": 10
+     "margin": 15
     },
-    "result": null
+    "result": {
+     "actual": "home",
+     "actualLabel": "主胜",
+     "hit": true,
+     "score": "4 - 1"
+    }
    },
    {
-    "gid": 598373,
-    "kind": "upcoming",
+    "gid": 603363,
+    "kind": "finished",
     "league": {
-     "name": "巴西甲",
-     "color": "996600"
+     "name": "尼日超",
+     "color": "00A665"
     },
-    "time": "2026-11-19 08:30:00",
+    "time": "2026-11-18 23:00:00",
     "minute": 0,
     "home": {
-     "name": "科林蒂安",
-     "score": null,
-     "red": null,
+     "name": "瑞切爾",
+     "score": 2,
+     "red": 0,
      "rank": 17
     },
     "away": {
-     "name": "博塔弗戈",
-     "score": null,
-     "red": null,
-     "rank": 12
+     "name": "多玛联",
+     "score": 1,
+     "red": 0,
+     "rank": 11
     },
     "odds": {
      "asian": {
@@ -2889,8 +2914,8 @@ const FOOTBALL_DATA = {
      "overunder": {
       "open": {
        "line": "2.5",
-       "over": 0.92,
-       "under": 0.95
+       "over": 1.11,
+       "under": 0.7
       },
       "live": {
        "line": "1",
@@ -3217,7 +3242,7 @@ const FOOTBALL_DATA = {
      "name": "科尔多瓦U19",
      "score": 3,
      "red": 0,
-     "rank": 0
+     "rank": 13
     },
     "odds": {
      "asian": {
@@ -3226,7 +3251,89 @@ const FOOTBALL_DATA = {
        "line": "1.38",
        "away": 0.42
       },
-      "live": null
+      "live": {
+       "home": 0.25,
+       "line": "0.73",
+       "away": 1.09
+      }
+     },
+     "overunder": {
+      "open": {
+       "line": "3",
+       "over": 0.8,
+       "under": 1
+      },
+      "live": {
+       "line": "1.25",
+       "over": 0.9,
+       "under": 0.9
+      }
+     },
+     "europe": {
+      "open": {
+       "home": 2.79,
+       "draw": 2.03,
+       "away": 3.35
+      },
+      "live": {
+       "home": 3.25,
+       "draw": 2.4,
+       "away": 2.36
+      }
+     }
+    },
+    "reco": {
+     "pick": "away",
+     "label": "客胜",
+     "confidence": 36.9,
+     "prob": {
+      "home": 26.8,
+      "draw": 36.3,
+      "away": 36.9
+     },
+     "clear": false,
+     "margin": 14.8
+    },
+    "result": {
+     "actual": "away",
+     "actualLabel": "客胜",
+     "hit": true,
+     "score": "0 - 1"
+    }
+   },
+   {
+    "gid": 603488,
+    "kind": "finished",
+    "league": {
+     "name": "球会友谊",
+     "color": "333399"
+    },
+    "time": "2026-11-18 23:00:00",
+    "minute": 0,
+    "home": {
+     "name": "马贝拉",
+     "score": 2,
+     "red": 0,
+     "rank": 13
+    },
+    "away": {
+     "name": "康斯文格",
+     "score": 1,
+     "red": 0,
+     "rank": 3
+    },
+    "odds": {
+     "asian": {
+      "open": {
+       "home": 0.75,
+       "line": "0.78",
+       "away": 0.92
+      },
+      "live": {
+       "home": 0.25,
+       "line": "0.91",
+       "away": 0.79
+      }
      },
      "overunder": {
       "open": {
@@ -3234,7 +3341,11 @@ const FOOTBALL_DATA = {
        "over": 1.36,
        "under": 0.43
       },
-      "live": null
+      "live": {
+       "line": "1.25",
+       "over": 0.73,
+       "under": 0.97
+      }
      },
      "europe": {
       "open": {
@@ -3242,7 +3353,11 @@ const FOOTBALL_DATA = {
        "draw": 1.04,
        "away": 6.8
       },
-      "live": null
+      "live": {
+       "home": 3.9,
+       "draw": 2.14,
+       "away": 2.51
+      }
      }
     },
     "reco": {
@@ -3277,7 +3392,7 @@ const FOOTBALL_DATA = {
      "name": "华图斯",
      "score": 0,
      "red": 0,
-     "rank": 0
+     "rank": 20
     },
     "away": {
      "name": "莫蒂卡",
@@ -3415,7 +3530,7 @@ const FOOTBALL_DATA = {
      "name": "比德哥什兹女足",
      "score": 0,
      "red": 0,
-     "rank": 0
+     "rank": 5
     },
     "odds": {
      "asian": {
@@ -3424,7 +3539,11 @@ const FOOTBALL_DATA = {
        "line": "0.88",
        "away": 0.82
       },
-      "live": null
+      "live": {
+       "home": 0.25,
+       "line": "0.68",
+       "away": 1.25
+      }
      },
      "overunder": {
       "open": {
@@ -3432,7 +3551,11 @@ const FOOTBALL_DATA = {
        "over": 0.8,
        "under": 0.9
       },
-      "live": null
+      "live": {
+       "line": "0.75",
+       "over": 0.91,
+       "under": 0.95
+      }
      },
      "europe": {
       "open": {
@@ -3440,7 +3563,11 @@ const FOOTBALL_DATA = {
        "draw": 4.2,
        "away": 2.63
       },
-      "live": null
+      "live": {
+       "home": 4.3,
+       "draw": 2.86,
+       "away": 1.86
+      }
      }
     },
     "reco": {
@@ -4585,7 +4712,7 @@ const FOOTBALL_DATA = {
      "name": "吉奥利女足",
      "score": 3,
      "red": 0,
-     "rank": 2
+     "rank": 10
     },
     "odds": {
      "asian": {
