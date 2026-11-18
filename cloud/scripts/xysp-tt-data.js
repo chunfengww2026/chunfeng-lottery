@@ -2766,6 +2766,7 @@ const XYSP_TT_DATA = {
   "/tos-cn-i-6w9my0ksvp/653276010fb54aa78ab090ee513b459a~tplv-26tn0yjwph-cspd-v1.jpg": 1795027529287,
   "/tos-cn-i-6w9my0ksvp/f8944eee1e194300bcfd776f8560dd35~tplv-26tn0yjwph-cspd-v1.jpg": 1795027529287,
   "/tos-cn-i-6w9my0ksvp/4c39a4bf9f734448957b3f0aecd096cc~tplv-26tn0yjwph-cspd-v1.jpg": 1795027529287,
-  "/tos-cn-i-6w9my0ksvp/7b07ef93ea354a8cb91613ce6ac8483b~tplv-26tn0yjwph-cspd-v1.jpg": 1795027529287
+  "/tos-cn-i-6w9my0ksvp/7b07ef93ea354a8cb91613ce6ac8483b~tplv-26tn0yjwph-cspd-v1.jpg": 1795027529287,
+  "/tos-cn-i-6w9my0ksvp/c8b6fbcfdd914a78b83dc4eecf59ea75~tplv-26tn0yjwph-cspd-v1.jpg": 1795037871729
  }
 };
