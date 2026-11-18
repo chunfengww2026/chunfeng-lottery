@@ -8,11 +8,11 @@
    每个彩种最多 1000 条
    （头条晒票最多 1000 条、竞彩晒票最多 1000 条，都来自 build-xysp-tt.mjs）。
    图片是【外链】（图床没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-19 05:44
+   更新时间：2026-11-19 06:34
    ============================================================ */
 
 const XYSP_DATA = {
- "updated": "2026-11-19 05:44",
+ "updated": "2026-11-19 06:34",
  "games": {
   "ssq": {
    "name": "双色球",
@@ -1689,7 +1689,7 @@ const XYSP_DATA = {
      "issue": "26131",
      "seen": "2026-11-18T21:43:59.162Z",
      "whenMs": 1794997231000,
-     "seenMs": 1795038115622,
+     "seenMs": 1795038239162,
      "drawMs": 1795094100000,
      "nextMs": 1795094100000,
      "atMs": 1795027529287,
@@ -1949,7 +1949,7 @@ const XYSP_DATA = {
     {
      "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=UH%2BPudOoVZPb1MevEyaGTCYfH4k%3D",
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=UH%2BPudOoVZPb1MevEyaGTCYfH4k%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=ijT6ft0pJh9S%2FLAP%2BX16O%2FTmoNQ%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=nDhmkSH41Yku6e5Hs5aPOgCjgQM%3D",
      "title": "双色球第26132期晒票新鲜出炉：五张千元复式齐亮相，热号备受青睐",
      "url": "http://toutiao.com/item/7709377069838238217/",
      "at": "2026-11-18T10:01:03.136Z",
@@ -1960,7 +1960,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-18T21:43:59.162Z",
+     "seen": "2026-11-18T22:34:27.293Z",
      "whenMs": 1794979225000,
      "seenMs": 1795038239162,
      "drawMs": 1795094100000,
@@ -1977,9 +1977,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f76859d5b190421dbbc53b540dcf0751~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=qunpVEKNVx9M8yaBaM2rzFXfvKM%3D",
-     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f76859d5b190421dbbc53b540dcf0751~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=qunpVEKNVx9M8yaBaM2rzFXfvKM%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=ijT6ft0pJh9S%2FLAP%2BX16O%2FTmoNQ%3D",
+     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f76859d5b190421dbbc53b540dcf0751~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=PTTuuDtOi%2B71UckyQwiB5yBE4KI%3D",
+     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/f76859d5b190421dbbc53b540dcf0751~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=PTTuuDtOi%2B71UckyQwiB5yBE4KI%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/df6bc7b1f5e44bc18867db4540c6ff42~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=nDhmkSH41Yku6e5Hs5aPOgCjgQM%3D",
      "title": "双色球第26132期晒票新鲜出炉：五张千元复式齐亮相，热号备受青睐",
      "url": "http://toutiao.com/item/7709377069838238217/",
      "at": "2026-11-18T10:01:03.136Z",
@@ -1990,9 +1990,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-18T21:43:59.162Z",
+     "seen": "2026-11-18T22:34:27.293Z",
      "whenMs": 1794979225000,
-     "seenMs": 1795038114423,
+     "seenMs": 1795041267293,
      "drawMs": 1795094100000,
      "nextMs": 1795094100000,
      "atMs": 1794996063136,
@@ -2007,8 +2007,8 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=qhBC51e7cmfAJP8YznVB5Rq5H4Q%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=qhBC51e7cmfAJP8YznVB5Rq5H4Q%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=fGv%2F8qLp8a8bMTGbpVDENFCO4aw%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=fGv%2F8qLp8a8bMTGbpVDENFCO4aw%3D",
      "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=i1GsAWvS2M%2Bo6A8SjhuysADb%2FGM%3D",
      "title": "双色球第26132期晒票收官：2024元胆拖票“定胆撒网”拼运气",
      "url": "http://toutiao.com/item/7709347424065552922/",
@@ -2020,9 +2020,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-18T21:43:59.162Z",
+     "seen": "2026-11-18T22:34:27.293Z",
      "whenMs": 1794972322000,
-     "seenMs": 1795038114423,
+     "seenMs": 1795041267293,
      "drawMs": 1795094100000,
      "nextMs": 1795094100000,
      "atMs": 1794996063136,
@@ -2037,9 +2037,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/db9fa8bce1b44426a82f8e61a6b66f25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=3o3kzxiML4jAtx5pGoAIDKC%2B1cs%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/db9fa8bce1b44426a82f8e61a6b66f25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=3o3kzxiML4jAtx5pGoAIDKC%2B1cs%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=DN%2FwKUpirNHUe5wpFtQ3kHVSoWw%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/db9fa8bce1b44426a82f8e61a6b66f25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=LRYK59BPfEIH4FS4X6oU%2FeCxt9g%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/db9fa8bce1b44426a82f8e61a6b66f25~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=LRYK59BPfEIH4FS4X6oU%2FeCxt9g%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-ezhpy3drpa/e49e455a378b4a45a3eba3b8cdf3b93c~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803686400&x-signature=i1GsAWvS2M%2Bo6A8SjhuysADb%2FGM%3D",
      "title": "双色球第26132期晒票收官：2024元胆拖票“定胆撒网”拼运气",
      "url": "http://toutiao.com/item/7709347424065552922/",
      "at": "2026-11-18T10:01:03.136Z",
@@ -2050,9 +2050,9 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "26132",
-     "seen": "2026-11-18T21:43:59.162Z",
+     "seen": "2026-11-18T22:34:27.293Z",
      "whenMs": 1794972322000,
-     "seenMs": 1795038114423,
+     "seenMs": 1795041267293,
      "drawMs": 1795094100000,
      "nextMs": 1795094100000,
      "atMs": 1794996063136,
