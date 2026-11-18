@@ -1,12 +1,12 @@
-/* 自动生成，请勿手动编辑 · 2026-11-18 03:52 */
+/* 自动生成，请勿手动编辑 · 2026-11-18 08:54 */
 const JC_DATA = {
- "updated": "2026-11-18 03:52",
+ "updated": "2026-11-18 08:54",
  "stat": {
   "total": 10,
-  "upcoming": 1,
-  "live": 6,
-  "finished": 3,
-  "withScore": 9,
+  "upcoming": 0,
+  "live": 1,
+  "finished": 9,
+  "withScore": 10,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
@@ -364,10 +364,10 @@ const JC_DATA = {
     "rank": 4
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "1 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -448,11 +448,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 1
    }
   },
   {
@@ -473,10 +473,10 @@ const JC_DATA = {
     "rank": 1
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "1 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -557,11 +557,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    }
   },
   {
@@ -582,10 +582,10 @@ const JC_DATA = {
     "rank": 3
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 3
    },
-   "statusText": "- ",
+   "statusText": "2 - 1 ",
    "odds": {
     "asian": {
      "open": {
@@ -666,11 +666,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 3
    }
   },
   {
@@ -691,10 +691,10 @@ const JC_DATA = {
     "rank": 1
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 3
    },
-   "statusText": "- ",
+   "statusText": "2 - 2 ",
    "odds": {
     "asian": {
      "open": {
@@ -775,11 +775,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 2,
+    "away": 3
    }
   },
   {
@@ -800,10 +800,10 @@ const JC_DATA = {
     "rank": 1
    },
    "score": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -884,11 +884,11 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
-    "away": 0
+    "home": 1,
+    "away": 1
    }
   },
   {
@@ -909,10 +909,10 @@ const JC_DATA = {
     "rank": 2
    },
    "score": {
-    "home": 0,
+    "home": 3,
     "away": 0
    },
-   "statusText": "- ",
+   "statusText": "1 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -993,10 +993,10 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
-    "home": 0,
+    "home": 3,
     "away": 0
    }
   },
@@ -1017,8 +1017,11 @@ const JC_DATA = {
     "name": "哥伦比亚",
     "rank": null
    },
-   "score": null,
-   "statusText": "- ",
+   "score": {
+    "home": 0,
+    "away": 0
+   },
+   "statusText": "0 - 0 ",
    "odds": {
     "asian": {
      "open": {
@@ -1027,9 +1030,9 @@ const JC_DATA = {
       "away": 0.95
      },
      "live": {
-      "home": 0.77,
+      "home": 0.82,
       "line": "受半球",
-      "away": 1.02
+      "away": 0.97
      }
     },
     "europe": {
@@ -1039,9 +1042,9 @@ const JC_DATA = {
       "away": 1.91
      },
      "live": {
-      "home": 3.6,
+      "home": 3.9,
       "draw": 3.2,
-      "away": 2.05
+      "away": 1.95
      }
     },
     "overunder": {
@@ -1051,74 +1054,46 @@ const JC_DATA = {
       "under": 0.82
      },
      "live": {
-      "line": 1,
+      "line": 0.85,
       "over": 2,
-      "under": 0.8
+      "under": 0.95
      }
     }
    },
    "reco": {
     "pick": "away",
     "label": "客胜",
-    "confidence": 47.1,
+    "confidence": 47.4,
     "prob": {
-     "home": 24.3,
-     "draw": 28.5,
-     "away": 47.1
+     "home": 23.7,
+     "draw": 28.9,
+     "away": 47.4
     },
     "clear": true,
-    "margin": 7.8,
+    "margin": 8.2,
     "rqLine": "受半球",
-    "type": "three",
-    "marketAnalysis": {
-     "pick": "away",
-     "label": "客胜",
-     "prob": {
-      "home": 24.3,
-      "draw": 28.5,
-      "away": 47.1
-     },
-     "confidence": 47.1,
-     "signals": [
-      "初盘→即时：主胜+2.2pp / 平局+0.7pp / 客胜-2.9pp",
-      "亚盘未变盘；水位只作辅助核对"
-     ],
-     "missing": [
-      "威廉/立博/365同期初盘不足",
-      "同期凯利缺失",
-      "同场同期必发成交/购买热度缺失",
-      "同期机构分歧缺失"
-     ],
-     "risk": [],
-     "ev": {
-      "home": -12.4,
-      "draw": -8.7,
-      "away": -3.4
-     },
-     "handicap": null,
-     "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
-    }
+    "type": "unbeaten"
    },
    "asianIndex": {
     "line": "受半球",
     "from": "live",
     "handicap": 0.5,
     "upSide": "away",
-    "upWater": 1.02,
-    "downWater": 0.77,
+    "upWater": 0.97,
+    "downWater": 0.82,
     "openHandicap": 0.5,
     "openUpWater": 0.95,
     "openDownWater": 0.85,
     "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
+    "theoryUpPercent": "45.81",
+    "theoryDownPercent": "54.19",
     "canWater": false,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0.5,
      "nowHandicap": 0.5,
      "initUpWater": 0.95,
-     "nowUpWater": 1.02,
+     "nowUpWater": 0.97,
      "initLine": "受半球",
      "nowLine": "受半球"
     },
@@ -1127,9 +1102,12 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "upcoming",
+   "status": "live",
    "minute": 0,
-   "liveScore": null
+   "liveScore": {
+    "home": 0,
+    "away": 0
+   }
   }
  ],
  "sp": {
