@@ -1,68 +1,8 @@
 {
- "updated": "2026-11-19 16:17",
+ "updated": "2026-11-20 01:19",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-19 16:17",
-   "finishTime": 1795076220000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周五002",
-     "teams": "柏太阳神 vs 千叶市原",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 63.4,
-     "status": "pending",
-     "finishTime": 1795076220000,
-     "league": "日职",
-     "odds": 1.53,
-     "time": "2026-11-20 18:00"
-    },
-    {
-     "matchNo": "周五003",
-     "teams": "鹿岛鹿角 vs 清水鼓动",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 60.2,
-     "status": "pending",
-     "finishTime": 1795076220000,
-     "league": "日职",
-     "odds": 1.5,
-     "time": "2026-11-20 18:00"
-    },
-    {
-     "matchNo": "周五006",
-     "teams": "拜仁 vs 科隆",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 88.5,
-     "status": "pending",
-     "finishTime": 1795076220000,
-     "league": "德甲",
-     "odds": 1.07,
-     "time": "2026-11-21 03:30"
-    },
-    {
-     "matchNo": "周五008",
-     "teams": "毕尔巴鄂 vs 西班牙人",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 60.7,
-     "status": "pending",
-     "finishTime": 1795076220000,
-     "league": "西甲",
-     "odds": 1.45,
-     "time": "2026-11-21 04:00"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
