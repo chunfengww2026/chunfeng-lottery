@@ -9,15 +9,15 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-20 06:39:47
+   更新时间：2026-11-20 07:43:16
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-20 06:39:47",
+ "updated": "2026-11-20 07:43:16",
  "items": [
   {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=wI9u6kxEKn1eDkwnv8SWIbI1vMg%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=wI9u6kxEKn1eDkwnv8SWIbI1vMg%3D",
+   "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=SjuEd18dNQ3fYShbEh5pZkyNIu4%3D",
+   "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=SjuEd18dNQ3fYShbEh5pZkyNIu4%3D",
    "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=XM3nwlgIaFzsawVZo5tHImSAhhk%3D",
    "title": "竞彩也疯狂！50元中5000多：4串1全猜平局的“神操作”",
    "url": "https://toutiao.com/group/7709538994714886697/",
@@ -27,21 +27,23 @@ const XYSP_JC_DATA = {
    "game": "4串1",
    "games": [],
    "issue": "",
-   "seen": "2026-11-19T22:39:47.747Z",
+   "seen": "2026-11-19T23:43:16.091Z",
    "whenMs": 1795082340000,
-   "seenMs": 1795125524714,
+   "seenMs": 1795131796091,
    "drawMs": null,
    "nextMs": null,
    "atMs": 1795108561599,
    "drawAt": "",
    "nextAt": null,
    "drawGid": "",
-   "expireAt": "2026-11-20T21:58:44.714Z",
+   "expireAt": "2026-11-20T23:43:16.091Z",
    "rule": "cap",
    "author": "当幸福来敲门",
    "when": "2026-11-19 17:59:00",
    "postId": "7709538994714886697",
-   "px": 132300
+   "px": 132300,
+   "imgPx": 132300,
+   "dedupeImgs": 2
   },
   {
    "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2dc314d5267a448dbffc2a89ef8c9de3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803772800&x-signature=W032iGMXzEwZXXuEqWyu%2BgxnjVc%3D",
