@@ -1,6 +1,6 @@
-/* 自动生成，请勿手动编辑 · 2026-11-20 00:55 */
+/* 自动生成，请勿手动编辑 · 2026-11-20 02:53 */
 const JC_DATA = {
- "updated": "2026-11-20 00:55",
+ "updated": "2026-11-20 02:53",
  "stat": {
   "total": 4,
   "upcoming": 4,
@@ -58,9 +58,9 @@ const JC_DATA = {
       "away": 2.7
      },
      "live": {
-      "home": 2.6,
-      "draw": 3.5,
-      "away": 2.6
+      "home": 2.55,
+      "draw": 3.4,
+      "away": 2.7
      }
     },
     "overunder": {
@@ -79,27 +79,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 37.5,
+    "confidence": 37.7,
     "prob": {
-     "home": 37.5,
-     "draw": 27.3,
-     "away": 35.2
+     "home": 37.7,
+     "draw": 27.6,
+     "away": 34.7
     },
     "clear": false,
-    "margin": 5.5,
+    "margin": 5.7,
     "rqLine": "平手",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 37.5,
-      "draw": 27.3,
-      "away": 35.2
+      "home": 37.7,
+      "draw": 27.6,
+      "away": 34.7
      },
-     "confidence": 37.5,
+     "confidence": 37.7,
      "signals": [
-      "初盘→即时：主胜-1.6pp / 平局-0.3pp / 客胜+1.9pp",
+      "初盘→即时：主胜-0.9pp / 平局+0.4pp / 客胜+0.5pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -110,9 +110,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -2.5,
-      "draw": -4.4,
-      "away": -8.5
+      "home": -3.8,
+      "draw": -6.3,
+      "away": -6.3
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -189,9 +189,9 @@ const JC_DATA = {
       "away": 3.3
      },
      "live": {
-      "home": 2.55,
-      "draw": 3.2,
-      "away": 2.9
+      "home": 2.5,
+      "draw": 3.1,
+      "away": 3
      }
     },
     "overunder": {
@@ -210,27 +210,27 @@ const JC_DATA = {
    "reco": {
     "pick": "home",
     "label": "主胜",
-    "confidence": 40.7,
+    "confidence": 40.9,
     "prob": {
-     "home": 40.7,
-     "draw": 29.4,
-     "away": 29.9
+     "home": 40.9,
+     "draw": 29.7,
+     "away": 29.5
     },
     "clear": false,
-    "margin": 4.9,
+    "margin": 5.6,
     "rqLine": "平手",
     "type": "three",
     "marketAnalysis": {
      "pick": "home",
      "label": "主胜",
      "prob": {
-      "home": 40.7,
-      "draw": 29.4,
-      "away": 29.9
+      "home": 40.9,
+      "draw": 29.7,
+      "away": 29.5
      },
-     "confidence": 40.7,
+     "confidence": 40.9,
      "signals": [
-      "初盘→即时：主胜-5.1pp / 平局+0.6pp / 客胜+4.5pp",
+      "初盘→即时：主胜-4.6pp / 平局+1.3pp / 客胜+3.2pp",
       "亚盘客队方向变深，水位上升"
      ],
      "missing": [
@@ -241,9 +241,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": 3.8,
-      "draw": -5.9,
-      "away": -13.3
+      "home": 2.2,
+      "draw": -8,
+      "away": -11.6
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -321,8 +321,8 @@ const JC_DATA = {
      },
      "live": {
       "home": 2.45,
-      "draw": 3.9,
-      "away": 2.55
+      "draw": 4,
+      "away": 2.5
      }
     },
     "overunder": {
@@ -344,11 +344,11 @@ const JC_DATA = {
     "confidence": 39.9,
     "prob": {
      "home": 39.9,
-     "draw": 23.3,
-     "away": 36.8
+     "draw": 23.1,
+     "away": 37
     },
     "clear": false,
-    "margin": 5.7,
+    "margin": 5.8,
     "rqLine": "平手",
     "type": "three",
     "marketAnalysis": {
@@ -356,12 +356,12 @@ const JC_DATA = {
      "label": "主胜",
      "prob": {
       "home": 39.9,
-      "draw": 23.3,
-      "away": 36.8
+      "draw": 23.1,
+      "away": 37
      },
      "confidence": 39.9,
      "signals": [
-      "初盘→即时：主胜-2.0pp / 平局+1.5pp / 客胜+0.5pp",
+      "初盘→即时：主胜-2.0pp / 平局+0.8pp / 客胜+1.2pp",
       "亚盘未变盘；水位只作辅助核对"
      ],
      "missing": [
@@ -372,9 +372,9 @@ const JC_DATA = {
      ],
      "risk": [],
      "ev": {
-      "home": -2.2,
-      "draw": -9.1,
-      "away": -6.2
+      "home": -2.3,
+      "draw": -7.7,
+      "away": -7.4
      },
      "handicap": null,
      "note": "赔率去水与规则加权的参考估计，未经独立回测校准；EV并非保证收益。未取得的数据不用于推断机构意图。"
@@ -548,7 +548,7 @@ const JC_DATA = {
   "source": "official-mirror",
   "from": "公开竞彩奖金页同步的SP原值",
   "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
-  "updated": "2026-11-20 00:55",
+  "updated": "2026-11-20 02:53",
   "officialUpdate": "",
   "inSale": 8,
   "list": [
