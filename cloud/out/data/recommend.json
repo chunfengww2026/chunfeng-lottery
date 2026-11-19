@@ -1,29 +1,8 @@
 {
- "updated": "2026-11-19 06:35",
+ "updated": "2026-11-19 08:56",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 1,
- "history": [
-  {
-   "dateStr": "2026-11-19 06:35",
-   "finishTime": 1795041300000,
-   "verdict": "",
-   "matches": [
-    {
-     "matchNo": "周三002",
-     "teams": "弗拉门戈 vs 巴竞技",
-     "pick": "主胜",
-     "score": "—",
-     "result": "pending",
-     "confidence": 74.9,
-     "status": "pending",
-     "finishTime": 1795041300000,
-     "league": "巴甲",
-     "odds": 1.18,
-     "time": "2026-11-19 07:30"
-    }
-   ]
-  }
- ]
+ "unfinished": 0,
+ "history": []
 }
