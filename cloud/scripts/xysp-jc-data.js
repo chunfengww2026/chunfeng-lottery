@@ -9,42 +9,11 @@
    ⚠️ 保留窗口是 30 天不是 72 小时 —— 竞彩实票不是每天有人晒，
       按 72 小时卡会永远是空的（见 build-xysp-tt.mjs 里的实测说明）。
    图片是【外链】（头条签名图没有防盗链），页面里不存图片本体。
-   更新时间：2026-11-20 12:28:53
+   更新时间：2026-11-20 21:06:01
    ============================================================ */
 
 const XYSP_JC_DATA = {
- "updated": "2026-11-20 12:28:53",
- "items": [
-  {
-   "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803859200&x-signature=1jGdoncRBXw%2BhsNZgkiRw0cIAl8%3D",
-   "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803859200&x-signature=1jGdoncRBXw%2BhsNZgkiRw0cIAl8%3D",
-   "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f6148a87044b4dbebad20e7d9d10e900~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803859200&x-signature=grjVjXamGP%2Fn5RemZGrlz%2FBQ4Vo%3D",
-   "title": "竞彩也疯狂！50元中5000多：4串1全猜平局的“神操作”",
-   "url": "https://toutiao.com/group/7709538994714886697/",
-   "at": "2026-11-19T17:16:01.599Z",
-   "src": "tt",
-   "cat": "jc",
-   "game": "4串1",
-   "games": [],
-   "issue": "",
-   "seen": "2026-11-20T04:28:53.574Z",
-   "whenMs": 1795082340000,
-   "seenMs": 1795148933574,
-   "drawMs": null,
-   "nextMs": null,
-   "atMs": 1795108561599,
-   "drawAt": "",
-   "nextAt": null,
-   "drawGid": "",
-   "expireAt": "2026-11-21T04:28:53.574Z",
-   "rule": "cap",
-   "author": "当幸福来敲门",
-   "when": "2026-11-19 17:59:00",
-   "postId": "7709538994714886697",
-   "px": 132300,
-   "imgPx": 132300,
-   "dedupeImgs": 2
-  }
- ],
+ "updated": "2026-11-20 21:06:01",
+ "items": [],
  "firstSeenRegistry": {}
 };
