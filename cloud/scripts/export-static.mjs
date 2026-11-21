@@ -957,7 +957,7 @@ GROUPS.forEach((group) => {
       });
       drawHtml =
         `<div class="ro-drawblock">` +
-        `<div class="ro-drawlabel">第 ${draw.issue} 期开奖</div>` +
+        `<div class="ro-drawlabel">第 ${draw.issue} 期开奖 <span data-ro-win-gid="${id}" data-ro-win-issue="${draw.issue}"></span></div>` +
         `<div class="ro-balls">${balls.join('')}</div>` +
         `</div>`;
     }
@@ -5077,6 +5077,14 @@ function recoArchiveCommit(recData) {
 
 const FROG_PANEL_HTML = frogPanelHtml();
 const RECO = recoArchiveCommit(REC_DATA);
+const LATEST_WIN_RECORDS = RECO.wins.map(w=>({gid:w.gid,issue:w.issue,date:w.date,source:w.source,label:w.label,lv:w.lv,draw:w.draw}));
+ctx.LATEST_WIN_RECORDS = LATEST_WIN_RECORDS;
+sectionsHtml = sectionsHtml.replace(/<span data-ro-win-gid="([^"]+)" data-ro-win-issue="([^"]+)"><\/span>/g,(tag,gid,issue)=>{
+  const draw=getDraw(gid);
+  if(!draw||String(draw.issue)!==issue||typeof ctx.latestWinBadgeHtml!=='function')return '';
+  const latest=ctx.latestDrawsFromRaw({[gid]:draw},G)[0];
+  return ctx.latestWinBadgeHtml(latest);
+});
 mqTicker = buildHitMarquee(RECO.wins.filter(w=>w.source==='frog'||w.source==='expert-reference'));
 console.log('  · reco-archive（真实推荐号存档）：新存 ' + RECO.stats.saved + ' 期 · 已有 ' +
   RECO.stats.kept + ' 期不动' + (RECO.stats.skippedDrawn ? ' · 已开奖不补存 ' + RECO.stats.skippedDrawn + ' 期' : '') +
@@ -5641,7 +5649,7 @@ function readForInline(file) {
 
 const inlineSizes = [];
 const inlineMissing = [];
-let inlineScriptsHtml = '<script>var USER_METHOD_RESULTS='+JSON.stringify(USER_METHOD_SNAPSHOT)+';</script>'; 
+let inlineScriptsHtml = '<script>var USER_METHOD_RESULTS='+JSON.stringify(USER_METHOD_SNAPSHOT)+';var LATEST_WIN_RECORDS='+JSON.stringify(LATEST_WIN_RECORDS).replace(/</g,'\\u003c')+';</script>'; 
 for (const f of INLINE_JS) {
   const code = readForInline(f);
   if (!code) {
