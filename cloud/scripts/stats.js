@@ -1382,7 +1382,8 @@ const _freqCache = new Map();
 /** 计算某彩种某区的频率特征（按 彩种|区|范围|历史长度 缓存） */
 function freqFeatures(gameId, areaKey, from, to) {
   const hist = (typeof getHistory === 'function' ? getHistory(gameId) : []) || [];
-  const key = [gameId, areaKey, from, to, hist.length].join('|');
+  const historyTag = hist.map(d => [d.issue, ((d.areas || {})[areaKey] || []).join(',')].join(':')).join(';');
+  const key = [gameId, areaKey, from, to, historyTag].join('|');
   const hit = _freqCache.get(key);
   if (hit) return hit;
 
@@ -1526,7 +1527,7 @@ function poolRankBlend(gameId, areaKey, from, to, want) {
         && (typeof USER_METHOD_RESULTS !== 'undefined' || typeof require === 'function')) {
       const cp = userCorePool(gameId);
       if (cp && Array.isArray(cp.pool20)) {
-        core = cp.pool20.filter((x) => Number.isInteger(x) && x >= from && x <= to);
+        core = (cp.rank || cp.pool20).filter((x) => Number.isInteger(x) && x >= from && x <= to);
       }
     }
   } catch (e) { core = []; }
