@@ -5,6 +5,19 @@ const vm = require('vm');
 const { coreAlgo } = require('./core-algo.js');
 
 let cache = null;
+let cacheTag = '';
+/* 仅排序，不改变20码成员；对应资料原版的金胆尾 > 银胆尾 > 近30期频次。 */
+function rankCorePool(result, history) {
+  const pool = [...new Set(result.pool20 || [])], freq = new Map();
+  for (const draw of (history || []).slice(0, 30)) {
+    const a = draw.areas || {};
+    for (const n of (draw.red || a.red || a.front || [])) freq.set(Number(n), (freq.get(Number(n)) || 0) + 1);
+  }
+  const gold = new Set(result.goldPool || []), silver = new Set(result.silverPool || []);
+  const max = Math.max(1, ...pool.map(n => freq.get(n) || 0));
+  const score = n => (gold.has(n) ? 1000 : 0) + (silver.has(n) ? 100 : 0) + (freq.get(n) || 0) / max * 10;
+  return pool.sort((a, b) => score(b) - score(a) || a - b);
+}
 function loadHistory() {
   const p = path.join(__dirname, 'history.js');
   if (!fs.existsSync(p)) return null;
@@ -41,9 +54,10 @@ function seededPick(max, count, seedStr) {
 
 function corePoolFor(gameId) {
   try {
-    if (!cache) {
-      const H = loadHistory();
-      if (!H || !H.games) return null;
+    const H = loadHistory();
+    if (!H || !H.games) return null;
+    const tag = JSON.stringify(['ssq', 'dlt'].map(g => (H.games[g] || []).slice(0, 30)));
+    if (!cache || cacheTag !== tag) {
       const ssq = (H.games.ssq || []).map((d) => ({ ...d, red: (d.areas || {}).red || [] }));
       const dlt = (H.games.dlt || []).map((d) => ({ ...d, red: (d.areas || {}).front || [] }));
       cache = {
@@ -52,6 +66,9 @@ function corePoolFor(gameId) {
       };
       if (cache.ssq) cache.ssq.issue = ssq[0] && ssq[0].issue;
       if (cache.dlt) cache.dlt.issue = dlt[0] && dlt[0].issue;
+      if (cache.ssq) cache.ssq.rank = rankCorePool(cache.ssq, ssq);
+      if (cache.dlt) cache.dlt.rank = rankCorePool(cache.dlt, dlt);
+      cacheTag = tag;
       /* 双色球蓝球（1-16 取 6 个）：同一个 seededPick/期号种子 */
       if (cache.ssq) {
         try { cache.ssq.blue = seededPick(16, 6, String(cache.ssq.issue || '') + '|ssqblue'); } catch (e) { cache.ssq.blue = []; }
@@ -61,4 +78,4 @@ function corePoolFor(gameId) {
   } catch (e) { return null; }
 }
 
-module.exports = { corePoolFor };
+module.exports = { corePoolFor, rankCorePool };
