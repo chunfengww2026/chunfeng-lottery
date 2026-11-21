@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-21 04:45 */
+/* 自动生成，请勿手动编辑 · 2026-11-21 07:56 */
 const JC_DATA = {
- "updated": "2026-11-21 04:45",
+ "updated": "2026-11-21 07:56",
  "stat": {
-  "total": 4,
+  "total": 8,
   "upcoming": 0,
   "live": 0,
-  "finished": 4,
-  "withScore": 4,
-  "droppedNotOnSale": 4,
+  "finished": 8,
+  "withScore": 8,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 37,
-  "droppedNotOnSale": 4,
+  "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -454,13 +454,449 @@ const JC_DATA = {
     "home": 1,
     "away": 2
    }
+  },
+  {
+   "gid": "1416140",
+   "fid": "1416140",
+   "sid": "19879",
+   "code": "周五005",
+   "league": "荷乙",
+   "round": "第16轮",
+   "time": "2026-11-21 03:00",
+   "handicap": "-1",
+   "home": {
+    "name": "登博思",
+    "rank": 10
+   },
+   "away": {
+    "name": "芬洛",
+    "rank": 3
+   },
+   "score": {
+    "home": 1,
+    "away": 0
+   },
+   "statusText": "1 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 1,
+      "line": "半球",
+      "away": 0.8
+     },
+     "live": {
+      "home": 0.95,
+      "line": "平手/半球",
+      "away": 0.85
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 1.91,
+      "draw": 4,
+      "away": 3.1
+     },
+     "live": {
+      "home": 2.15,
+      "draw": 4,
+      "away": 2.75
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.87,
+      "over": 3.5,
+      "under": 0.92
+     },
+     "live": {
+      "line": 0.95,
+      "over": 3.5,
+      "under": 0.85
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 43.1,
+    "prob": {
+     "home": 43.1,
+     "draw": 23.2,
+     "away": 33.7
+    },
+    "clear": false,
+    "margin": 7.9,
+    "rqLine": "平手/半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手/半球",
+    "from": "live",
+    "handicap": -0.25,
+    "upSide": "home",
+    "upWater": 0.95,
+    "downWater": 0.85,
+    "openHandicap": -0.5,
+    "openUpWater": 1,
+    "openDownWater": 0.8,
+    "totalWater": 1.7999999999999998,
+    "theoryUpPercent": "47.22",
+    "theoryDownPercent": "52.78",
+    "canWater": true,
+    "handicapChange": {
+     "type": "升盘降水",
+     "initHandicap": -0.5,
+     "nowHandicap": -0.25,
+     "initUpWater": 1,
+     "nowUpWater": 0.95,
+     "initLine": "半球",
+     "nowLine": "平手/半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 1,
+    "away": 0
+   }
+  },
+  {
+   "gid": "1428647",
+   "fid": "1428647",
+   "sid": "19951",
+   "code": "周五006",
+   "league": "德甲",
+   "round": "第10轮",
+   "time": "2026-11-21 03:30",
+   "handicap": "-3",
+   "home": {
+    "name": "拜仁",
+    "rank": 1
+   },
+   "away": {
+    "name": "科隆",
+    "rank": 15
+   },
+   "score": {
+    "home": 1,
+    "away": 1
+   },
+   "statusText": "1 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.82,
+      "line": "三球",
+      "away": 1.02
+     },
+     "live": {
+      "home": 1,
+      "line": "三球",
+      "away": 0.8
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 1.06,
+      "draw": 12,
+      "away": 23
+     },
+     "live": {
+      "home": 1.08,
+      "draw": 13,
+      "away": 19
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.9,
+      "over": 4.5,
+      "under": 0.95
+     },
+     "live": {
+      "line": 1.02,
+      "over": 4.5,
+      "under": 0.77
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 87.7,
+    "prob": {
+     "home": 87.7,
+     "draw": 7.3,
+     "away": 5
+    },
+    "clear": true,
+    "margin": 5.5,
+    "rqLine": "三球",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "三球",
+    "from": "live",
+    "handicap": -3,
+    "upSide": "home",
+    "upWater": 1,
+    "downWater": 0.8,
+    "openHandicap": -3,
+    "openUpWater": 0.82,
+    "openDownWater": 1.02,
+    "totalWater": 1.8,
+    "theoryUpPercent": "44.44",
+    "theoryDownPercent": "55.56",
+    "canWater": false,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -3,
+     "nowHandicap": -3,
+     "initUpWater": 0.82,
+     "nowUpWater": 1,
+     "initLine": "三球",
+     "nowLine": "三球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 1,
+    "away": 1
+   }
+  },
+  {
+   "gid": "1415176",
+   "fid": "1415176",
+   "sid": "19835",
+   "code": "周五007",
+   "league": "法甲",
+   "round": "第11轮",
+   "time": "2026-11-21 03:45",
+   "handicap": "-1",
+   "home": {
+    "name": "特鲁瓦",
+    "rank": 17
+   },
+   "away": {
+    "name": "勒阿弗尔",
+    "rank": 18
+   },
+   "score": {
+    "home": 3,
+    "away": 1
+   },
+   "statusText": "1 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.87,
+      "line": "平手/半球",
+      "away": 0.97
+     },
+     "live": {
+      "home": 1.15,
+      "line": "半球",
+      "away": 0.67
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.15,
+      "draw": 3.4,
+      "away": 3.25
+     },
+     "live": {
+      "home": 2.2,
+      "draw": 3.4,
+      "away": 3.3
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.97,
+      "over": 2.5,
+      "under": 0.87
+     },
+     "live": {
+      "line": 1.07,
+      "over": 2.5,
+      "under": 0.72
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 43.2,
+    "prob": {
+     "home": 43.2,
+     "draw": 28,
+     "away": 28.8
+    },
+    "clear": false,
+    "margin": 5.2,
+    "rqLine": "半球",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "半球",
+    "from": "live",
+    "handicap": -0.5,
+    "upSide": "home",
+    "upWater": 1.15,
+    "downWater": 0.67,
+    "openHandicap": -0.25,
+    "openUpWater": 0.87,
+    "openDownWater": 0.97,
+    "totalWater": 1.8199999999999998,
+    "theoryUpPercent": "36.81",
+    "theoryDownPercent": "63.19",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.25,
+     "nowHandicap": -0.5,
+     "initUpWater": 0.87,
+     "nowUpWater": 1.15,
+     "initLine": "平手/半球",
+     "nowLine": "半球"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 3,
+    "away": 1
+   }
+  },
+  {
+   "gid": "1428239",
+   "fid": "1428239",
+   "sid": "19947",
+   "code": "周五008",
+   "league": "西甲",
+   "round": "第13轮",
+   "time": "2026-11-21 04:00",
+   "handicap": "-1",
+   "home": {
+    "name": "毕尔巴鄂",
+    "rank": 7
+   },
+   "away": {
+    "name": "西班牙人",
+    "rank": 13
+   },
+   "score": {
+    "home": 0,
+    "away": 1
+   },
+   "statusText": "0 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.8,
+      "line": "半球/一球",
+      "away": 1.05
+     },
+     "live": {
+      "home": 1.1,
+      "line": "球半",
+      "away": 0.7
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 1.6,
+      "draw": 3.75,
+      "away": 5.5
+     },
+     "live": {
+      "home": 1.42,
+      "draw": 4.75,
+      "away": 7.5
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.95,
+      "over": 2.5,
+      "under": 0.9
+     },
+     "live": {
+      "line": 1.07,
+      "over": 3,
+      "under": 0.72
+     }
+    }
+   },
+   "reco": {
+    "pick": "home",
+    "label": "主胜",
+    "confidence": 67.2,
+    "prob": {
+     "home": 67.2,
+     "draw": 20.1,
+     "away": 12.7
+    },
+    "clear": true,
+    "margin": 4.8,
+    "rqLine": "球半",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "球半",
+    "from": "live",
+    "handicap": -1.5,
+    "upSide": "home",
+    "upWater": 1.1,
+    "downWater": 0.7,
+    "openHandicap": -0.75,
+    "openUpWater": 0.8,
+    "openDownWater": 1.05,
+    "totalWater": 1.8,
+    "theoryUpPercent": "38.89",
+    "theoryDownPercent": "61.11",
+    "canWater": false,
+    "handicapChange": {
+     "type": "降盘升水",
+     "initHandicap": -0.75,
+     "nowHandicap": -1.5,
+     "initUpWater": 0.8,
+     "nowUpWater": 1.1,
+     "initLine": "半球/一球",
+     "nowLine": "球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 0,
+    "away": 1
+   }
   }
  ],
  "sp": {
   "source": "official-mirror",
   "from": "公开竞彩奖金页同步的SP原值",
   "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
-  "updated": "2026-11-21 04:45",
+  "updated": "2026-11-21 07:56",
   "officialUpdate": "",
   "inSale": 37,
   "list": [
