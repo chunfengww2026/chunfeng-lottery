@@ -1473,6 +1473,16 @@ function main() {
       saved = c.__S || saved;
     } catch (e) { log(`  ⚠️ 存档解析失败：${e.message}`); }
   }
+  // 修正旧版把升序号码当排名的问题；只触及未开奖期次，且每条只迁移一次。
+  {
+    const req = createRequire(path.join(MOD, 'repair-core-tiers.cjs'));
+    const repaired = req('./repair-core-tiers.cjs').repairUpcomingCoreTiers(MOD, saved);
+    if (repaired.length) {
+      saved.updated = stamp();
+      fs.writeFileSync(savedPath, 'const SAVED_TICKETS = ' + JSON.stringify(saved, null, 1) + ';\n', 'utf8');
+      log('  ✅ 未开奖期次胆码排序已修复：' + repaired.map(r => r.gid + ' 第' + r.issue + '期').join('、'));
+    }
+  }
   if (saved.tickets && Object.keys(saved.tickets).length) {
     store.set('cdd.tickets.v1', JSON.stringify(saved.tickets));
     log(`  已有存档：${Object.keys(saved.tickets).length} 个彩种`);
