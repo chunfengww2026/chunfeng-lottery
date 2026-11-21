@@ -640,6 +640,9 @@ function rollAllGames(opts) {
 
     rec.issue = issue || rec.issue || '';
     rec.date = dateStr;
+    if (typeof USER_METHOD_RESULTS !== 'undefined' && USER_METHOD_RESULTS[gameId] && USER_METHOD_RESULTS[gameId].tierRankingVersion) {
+      rec.tierRankingVersion = USER_METHOD_RESULTS[gameId].tierRankingVersion;
+    }
     /* 【pushedAt 必须是本地时间（北京时间）】
        原来是 new Date().toISOString() —— 那是 UTC，比北京时间早 8 小时：
          saved-tickets.js 头部 updated=「2026-10-19 23:54」（本地）
