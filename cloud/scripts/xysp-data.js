@@ -1500,9 +1500,9 @@ const XYSP_DATA = {
      "px": 132300
     },
     {
-     "img": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=8ozv0sUqvrEuvHPNVN4AOv%2BohOQ%3D",
-     "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=8ozv0sUqvrEuvHPNVN4AOv%2BohOQ%3D",
-     "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=ybOtnr7uQTV0p%2FtxM9QounWXnx0%3D",
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=%2FOSleAeoP0%2FUvAhSuZZqDOk6AJs%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=%2FOSleAeoP0%2FUvAhSuZZqDOk6AJs%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/57f286b6a19c4e90b5b495d77c05fd1b~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=%2FU%2B7meUt67dOrPmlqqCKs5bda%2FU%3D",
      "title": "直选组选搭配登场，排列3本期实票欣赏，娱乐为先",
      "url": "http://toutiao.com/item/7710542360929403392/",
      "at": "2026-11-21T09:11:03.910Z",
@@ -1598,9 +1598,9 @@ const XYSP_DATA = {
      "at": "2026-11-21T09:11:03.910Z",
      "src": "tt",
      "cat": "tt",
-     "game": "大乐透",
+     "game": "排列3",
      "games": [
-      "dlt"
+      "pl3"
      ],
      "issue": "26133",
      "seen": "2026-11-21T20:18:56.205Z",
@@ -1611,7 +1611,7 @@ const XYSP_DATA = {
      "atMs": 1795252263910,
      "drawAt": "2026-11-21T12:30:00.000Z",
      "nextAt": 1795264200000,
-     "drawGid": "dlt",
+     "drawGid": "pl3",
      "expireAt": "2026-11-22T09:11:03.910Z",
      "rule": "first-capture-24h",
      "author": "安澜赏秋枫",
@@ -1774,7 +1774,7 @@ const XYSP_DATA = {
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/289532c9794a41ba89678a480d5f1286~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=R8%2F0HDmLsZ41E3yOOxmGsDnSmhs%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/129abe41b975467baeb2d3344cb52be0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=FrnUDEB4%2FHuBtdbBVFZNxRG9aNU%3D",
      "title": "几组不一样的大乐透实票，有人守号有人玩胆拖，放平心态",
-     "url": "https://toutiao.com/group/7710517658186842674/",
+     "url": "http://toutiao.com/item/7710536621904364068/",
      "at": "2026-11-21T09:11:03.910Z",
      "src": "tt",
      "cat": "tt",
@@ -1794,9 +1794,9 @@ const XYSP_DATA = {
      "drawGid": "dlt",
      "expireAt": "2026-11-22T09:11:03.910Z",
      "rule": "first-capture-24h",
-     "author": "长堤烟柳",
-     "when": "2026-11-21 15:09:08",
-     "postId": "7710517658186842674",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-11-21 16:20:04",
+     "postId": "7710536621904364068",
      "px": 132300
     },
     {
@@ -1804,7 +1804,7 @@ const XYSP_DATA = {
      "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/f765432df5834200a56345d6dcfa008b~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=flxWE%2FNePCvOSsxAh17uhtTSnNM%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/129abe41b975467baeb2d3344cb52be0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=FrnUDEB4%2FHuBtdbBVFZNxRG9aNU%3D",
      "title": "几组不一样的大乐透实票，有人守号有人玩胆拖，放平心态",
-     "url": "https://toutiao.com/group/7710517658186842674/",
+     "url": "http://toutiao.com/item/7710536621904364068/",
      "at": "2026-11-21T09:11:03.910Z",
      "src": "tt",
      "cat": "tt",
@@ -1824,9 +1824,9 @@ const XYSP_DATA = {
      "drawGid": "dlt",
      "expireAt": "2026-11-22T09:11:03.910Z",
      "rule": "first-capture-24h",
-     "author": "长堤烟柳",
-     "when": "2026-11-21 15:09:08",
-     "postId": "7710517658186842674",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-11-21 16:20:04",
+     "postId": "7710536621904364068",
      "px": 132300
     },
     {
@@ -1834,7 +1834,7 @@ const XYSP_DATA = {
      "thumb": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/129abe41b975467baeb2d3344cb52be0~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=2gNHAY6epNRZUOCeJ70sAbTgRfI%3D",
      "big": "https://p11-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/129abe41b975467baeb2d3344cb52be0~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=FrnUDEB4%2FHuBtdbBVFZNxRG9aNU%3D",
      "title": "几组不一样的大乐透实票，有人守号有人玩胆拖，放平心态",
-     "url": "https://toutiao.com/group/7710517658186842674/",
+     "url": "http://toutiao.com/item/7710536621904364068/",
      "at": "2026-11-21T09:11:03.910Z",
      "src": "tt",
      "cat": "tt",
@@ -1854,9 +1854,9 @@ const XYSP_DATA = {
      "drawGid": "dlt",
      "expireAt": "2026-11-22T09:11:03.910Z",
      "rule": "first-capture-24h",
-     "author": "长堤烟柳",
-     "when": "2026-11-21 15:09:08",
-     "postId": "7710517658186842674",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-11-21 16:20:04",
+     "postId": "7710536621904364068",
      "px": 132300
     },
     {
@@ -2253,7 +2253,36 @@ const XYSP_DATA = {
   },
   "jc": {
    "name": "竞彩晒票",
-   "items": []
+   "items": [
+    {
+     "img": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2dc314d5267a448dbffc2a89ef8c9de3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=r64Djk%2F1Pv4t1n8Q%2BmwtqbQR1DY%3D",
+     "thumb": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2dc314d5267a448dbffc2a89ef8c9de3~tplv-26tn0yjwph-cspd-v1:450:294.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=r64Djk%2F1Pv4t1n8Q%2BmwtqbQR1DY%3D",
+     "big": "https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/2dc314d5267a448dbffc2a89ef8c9de3~tplv-26tn0yjwph-cspd-v1:960:0.jpg?_iz=102390&from=search&lk3s=1a023e7a&x-expires=1803945600&x-signature=m9jkbxMv0TkMy%2FFeoaE1HJt2sWg%3D",
+     "title": "玩竞彩多年之后，资深玩家慢慢看懂的真相",
+     "url": "http://toutiao.com/item/7710408932274995755/",
+     "at": "2026-11-21T20:18:56.851Z",
+     "src": "tt",
+     "cat": "jc",
+     "game": "竞彩",
+     "games": [],
+     "issue": "",
+     "seen": "2026-11-21T20:18:56.851Z",
+     "whenMs": 1795219474000,
+     "seenMs": 1795292336851,
+     "drawMs": null,
+     "nextMs": null,
+     "atMs": 1795292336851,
+     "drawAt": "",
+     "nextAt": null,
+     "drawGid": "",
+     "expireAt": "2026-11-22T20:18:56.851Z",
+     "rule": "cap",
+     "author": "优雅奶酪6hWlg9",
+     "when": "2026-11-21 08:04:34",
+     "postId": "7710408932274995755",
+     "px": 132300
+    }
+   ]
   }
  },
  "firstSeenRegistry": {
