@@ -1,18 +1,18 @@
-/* 自动生成，请勿手动编辑 · 2026-11-22 05:45 */
+/* 自动生成，请勿手动编辑 · 2026-11-22 07:03 */
 const JC_DATA = {
- "updated": "2026-11-22 05:45",
+ "updated": "2026-11-22 07:03",
  "stat": {
   "total": 22,
   "upcoming": 0,
-  "live": 1,
-  "finished": 21,
+  "live": 0,
+  "finished": 22,
   "withScore": 22,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0
  },
  "filter": {
-  "officialGate": false,
-  "officialCodes": 0,
+  "officialGate": true,
+  "officialCodes": 26,
   "droppedNotOnSale": 0,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
@@ -2386,7 +2386,7 @@ const JC_DATA = {
     "fundUpSource": null,
     "analysis": null
    },
-   "status": "live",
+   "status": "finished",
    "minute": 0,
    "liveScore": {
     "home": 1,
@@ -2395,9 +2395,10 @@ const JC_DATA = {
   }
  ],
  "sp": {
-  "source": "carried",
-  "from": "沿用上一次抓到的体彩官方 SP（本次没抓到：HTTP 567；HTTP 567；SP公开同步页 fetch failed）",
-  "updated": "2026-11-22 01:09",
+  "source": "official-mirror",
+  "from": "公开竞彩奖金页同步的SP原值",
+  "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
+  "updated": "2026-11-22 07:03",
   "officialUpdate": "",
   "inSale": 26,
   "list": [

@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-22 05:45",
+ "updated": "2026-11-22 07:03",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1442,21 +1442,48 @@ const JC_HISTORY = {
    "away": "欧塞尔",
    "time": "2026-11-22 03:45",
    "score": "1:1",
-   "hc": null,
-   "asianIndex": null,
+   "hc": "-1",
+   "asianIndex": {
+    "line": "一球/球半",
+    "from": "live",
+    "handicap": -1.25,
+    "upSide": "home",
+    "upWater": 0.77,
+    "downWater": 1.02,
+    "openHandicap": -1.25,
+    "openUpWater": 0.82,
+    "openDownWater": 1.02,
+    "totalWater": 1.79,
+    "theoryUpPercent": "56.98",
+    "theoryDownPercent": "43.02",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": -1.25,
+     "nowHandicap": -1.25,
+     "initUpWater": 0.82,
+     "nowUpWater": 0.77,
+     "initLine": "一球/球半",
+     "nowLine": "一球/球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
    "odds": {
-    "home": 1.4,
-    "draw": 5,
-    "away": 7
+    "home": 1.36,
+    "draw": 4.75,
+    "away": 9
    },
    "prob": {
-    "home": 67.3,
-    "draw": 19.3,
-    "away": 13.3
+    "home": 69.6,
+    "draw": 19.9,
+    "away": 10.5
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 67.3,
+   "conf": 69.6,
    "type": "three",
    "result": "lose",
    "hit": false,
@@ -1680,7 +1707,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-21 02:23"
   },
   {
@@ -3414,53 +3441,6 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 78,
    "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-19 15:51"
-  },
-  {
-   "code": "周三001",
-   "league": "巴甲",
-   "home": "科里蒂巴",
-   "away": "桑托斯",
-   "time": "2026-11-19 06:30",
-   "score": "0:1",
-   "hc": null,
-   "asianIndex": {
-    "line": "受平手/半球",
-    "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.75,
-    "downWater": 1.05,
-    "openHandicap": 0,
-    "openUpWater": 0.92,
-    "openDownWater": 0.92,
-    "totalWater": 1.8,
-    "theoryUpPercent": "58.33",
-    "theoryDownPercent": "41.67",
-    "canWater": true,
-    "handicapChange": null,
-    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 3.6,
-    "draw": 3.5,
-    "away": 2.05
-   },
-   "prob": {
-    "home": 26.4,
-    "draw": 27.2,
-    "away": 46.4
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 46.4,
-   "type": "unbeaten",
    "result": "win",
    "hit": true,
    "matched": false,
