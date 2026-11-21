@@ -166,7 +166,7 @@
     return null;
   }
 
-  function latestPoolHit(draw, saved) {
+  function latestSavedPoolHit(draw, saved) {
     var gid = draw && draw.gameId;
     if (LATEST_GAME_ORDER.indexOf(gid)<0) return '';
     if (!saved) { try { saved = typeof SAVED_TICKETS !== 'undefined' ? SAVED_TICKETS : null; } catch (e) {} }
@@ -212,6 +212,55 @@
     return allowed.indexOf(key) >= 0 ? '中' + key + '（号池）' : '';
   }
 
+  function latestArchiveWinLabels(draw, records) {
+    if (!draw || !draw.issue || !draw.date) return [];
+    var cutoffs={ssq:'21:15',dlt:'20:30',kl8:'21:30',qlc:'21:15',qxc:'20:30',fc3d:'21:15',pl3:'20:30',pl5:'20:30'};
+    var close=Date.parse(draw.date+'T'+cutoffs[draw.gameId]+':00+08:00');
+    if (!isFinite(close) || close > Date.now()) return [];
+    var expected=[draw.red||[],draw.blue||[],draw.special||[]].filter(function(a){return a.length;});
+    var labels=[];
+    (records||[]).forEach(function(r){
+      if (!r || r.gid!==draw.gameId || String(r.issue)!==String(draw.issue) || String(r.date)!==String(draw.date)) return;
+      var lv=Number(r.lv),label=String(r.label||'');
+      if (!(lv>=1&&lv<=3) && !(/^(fc3d|pl3|pl5)$/.test(r.gid)&&/直选|组选/.test(label))) return;
+      var actual=(r.draw||[]).map(function(p){return p.nums||[];}).filter(function(a){return a.length;});
+      if(actual.length!==expected.length)return;
+      var ordered=DIGIT_IDS.indexOf(r.gid)>=0;
+      if(!actual.every(function(a,i){
+        if(a.length!==expected[i].length)return false;
+        var x=a.map(Number),y=expected[i].map(Number);
+        if(!ordered){x.sort(function(a,b){return a-b;});y.sort(function(a,b){return a-b;});}
+        return x.every(function(n,j){return Number.isInteger(n)&&n===y[j];});
+      }))return;
+      var source=r.source==='frog'?'青蛙':r.source==='expert-reference'?'专家资料':r.source==='owner-report'?'站主报喜':'资料';
+      label=label.replace(/[（(](?:号码池命中|号池|号码池)[）)]/g,'');
+      if(source!=='站主报喜'&&label.indexOf('参考命中')<0)label+='参考命中';
+      var text=source+' · '+label;
+      if(labels.indexOf(text)<0)labels.push(text);
+    });
+    return labels;
+  }
+
+  function latestPoolHit(draw, saved, records) {
+    var labels=latestArchiveWinLabels(draw,records||root.LATEST_WIN_RECORDS||[]);
+    if(!labels.some(function(s){return s.indexOf('资料 · ')===0;})){
+      var direct=latestSavedPoolHit(draw,saved);
+      if(direct){
+        var levels=draw.gameId==='ssq'?{'6+1':'一等奖','6+0':'二等奖','5+1':'三等奖'}:{'5+2':'一等奖','5+1':'二等奖','4+2':'三等奖'};
+        direct=direct.replace(/^中(\d\+\d)/,function(s,k){return levels[k]||s;}).replace('（号池）','参考命中');
+        labels.push('资料 · '+direct);
+      }
+    }
+    return labels.join('；');
+  }
+
+  function latestWinBadgeHtml(draw, saved, records) {
+    var label=latestPoolHit(draw,saved,records);
+    if(!label)return '';
+    var safe=label.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
+    return '<span class="hc-pool-hit" title="该期存档资料与开奖号码对照" style="color:#c0392b;font-weight:700;white-space:normal;overflow-wrap:anywhere">'+safe+'</span>';
+  }
+
   function latestDrawsHtml(latest, games) {
     var list = (latest || []).filter(function (d) {
       return d && d.issue && Array.isArray(d.red) && d.red.length;
@@ -225,12 +274,12 @@
       var blue = (d.blue || []).length
         ? '<span class="hc-plus">+</span>' + hcBallsHtml(d.blue, 'blue', d.gameId)
         : '';
-      var poolHit = latestPoolHit(d);
-      return '<div class="hc-drawcard">' +
+      var badge = latestWinBadgeHtml(d);
+      return '<div class="hc-drawcard" data-game="'+d.gameId+'" data-issue="'+d.issue+'">' +
         '<div class="hc-dt">' +
         '<span class="hc-gn">' + d.gameName + '</span>' +
         '<span class="hc-iss">第 ' + d.issue + ' 期</span>' +
-        (poolHit ? '<span class="hc-pool-hit" title="号码池命中统计" style="color:#c0392b;font-weight:700;white-space:nowrap">' + poolHit + '</span>' : '') +
+        badge +
         '<span class="hc-date">' + (d.date || '') + '</span>' +
         '</div>' +
         /* __LATEST_NEXTCD__ 距离下期开奖倒计时（前端算，免费） */
@@ -464,6 +513,8 @@
   root.latestDrawsFromRaw = latestDrawsFromRaw;
   root.latestDrawsHtml = latestDrawsHtml;
   root.latestPoolHit = latestPoolHit;
+  root.latestWinBadgeHtml = latestWinBadgeHtml;
+  root.latestArchiveWinLabels = latestArchiveWinLabels;
   root.latestOtherPoolJudge = latestOtherPoolJudge;
   root.latestDrawsNewer = latestDrawsNewer;
   root.applyRemoteDraws = applyRemoteDraws;
