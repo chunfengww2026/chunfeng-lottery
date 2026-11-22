@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-22 09:37",
+ "updated": "2026-11-22 16:46",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1331,28 +1331,28 @@ const JC_HISTORY = {
    "home": "金泉尚武",
    "away": "济州SK",
    "time": "2026-11-22 13:00",
-   "score": "",
+   "score": "0:1",
    "hc": "-1",
    "asianIndex": {
     "line": "平手",
     "from": "live",
     "handicap": 0,
     "upSide": "home",
-    "upWater": 0.82,
-    "downWater": 0.97,
+    "upWater": 0.8,
+    "downWater": 1,
     "openHandicap": 0,
     "openUpWater": 0.95,
     "openDownWater": 0.85,
-    "totalWater": 1.79,
-    "theoryUpPercent": "54.19",
-    "theoryDownPercent": "45.81",
+    "totalWater": 1.8,
+    "theoryUpPercent": "55.56",
+    "theoryDownPercent": "44.44",
     "canWater": true,
     "handicapChange": {
      "type": "盘口水位无明显变化",
      "initHandicap": 0,
      "nowHandicap": 0,
      "initUpWater": 0.95,
-     "nowUpWater": 0.82,
+     "nowUpWater": 0.8,
      "initLine": "平手",
      "nowLine": "平手"
     },
@@ -1362,23 +1362,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.4,
-    "draw": 3.4,
-    "away": 2.6
+    "home": 2.6,
+    "draw": 3.3,
+    "away": 2.45
    },
    "prob": {
-    "home": 36.4,
-    "draw": 27.2,
-    "away": 36.3
+    "home": 35.1,
+    "draw": 27.7,
+    "away": 37.2
    },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 36.4,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "pick": "away",
+   "pickLabel": "客胜",
+   "conf": 37.2,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-11-21 02:23"
+   "at": "2026-11-22 16:46"
   },
   {
    "code": "周日002",
@@ -1386,7 +1386,7 @@ const JC_HISTORY = {
    "home": "光州FC",
    "away": "富川FC",
    "time": "2026-11-22 13:00",
-   "score": "",
+   "score": "4:2",
    "hc": "-1",
    "asianIndex": {
     "line": "平手/半球",
@@ -1417,23 +1417,23 @@ const JC_HISTORY = {
     "analysis": null
    },
    "odds": {
-    "home": 2.4,
-    "draw": 3.3,
-    "away": 2.63
+    "home": 2.25,
+    "draw": 3.25,
+    "away": 2.88
    },
    "prob": {
-    "home": 37.9,
-    "draw": 27.6,
-    "away": 34.6
+    "home": 40.4,
+    "draw": 28,
+    "away": 31.6
    },
    "pick": "home",
    "pickLabel": "主胜",
-   "conf": 37.9,
-   "type": "three",
-   "result": "",
-   "hit": false,
+   "conf": 40.4,
+   "type": "unbeaten",
+   "result": "win",
+   "hit": true,
    "matched": false,
-   "at": "2026-11-21 02:23"
+   "at": "2026-11-22 16:46"
   },
   {
    "code": "周六022",
@@ -1487,7 +1487,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-21 02:23"
   },
   {

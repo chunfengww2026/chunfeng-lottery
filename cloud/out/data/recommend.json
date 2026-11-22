@@ -1,8 +1,133 @@
 {
- "updated": "2026-11-22 10:01",
+ "updated": "2026-11-22 17:12",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-22 17:12",
+   "finishTime": 1795338720000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周日003",
+     "teams": "特温特 vs 威廉二世",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 88.4,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "荷甲",
+     "odds": 1.08,
+     "time": "2026-11-22 19:15"
+    },
+    {
+     "matchNo": "周日004",
+     "teams": "尤文图斯 vs 威尼斯",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 68.9,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "意甲",
+     "odds": 1.38,
+     "time": "2026-11-22 19:30"
+    },
+    {
+     "matchNo": "周日006",
+     "teams": "巴萨 vs 比利亚雷",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 78.2,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "西甲",
+     "odds": 1.18,
+     "time": "2026-11-22 21:00"
+    },
+    {
+     "matchNo": "周日013",
+     "teams": "不来梅 vs 汉堡",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 59.6,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "德甲",
+     "odds": 1.57,
+     "time": "2026-11-23 00:30"
+    },
+    {
+     "matchNo": "周日014",
+     "teams": "AC米兰 vs 弗洛西诺",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 62.2,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "意甲",
+     "odds": 1.55,
+     "time": "2026-11-23 01:00"
+    },
+    {
+     "matchNo": "周日017",
+     "teams": "马赛 vs 勒芒",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 67.2,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "法甲",
+     "odds": 1.44,
+     "time": "2026-11-23 03:45"
+    },
+    {
+     "matchNo": "周日016",
+     "teams": "亚特兰大 vs 国际米兰",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "意甲",
+     "odds": 1.57,
+     "time": "2026-11-23 03:45"
+    },
+    {
+     "matchNo": "周日018",
+     "teams": "赫塔费 vs 马竞",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 59,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "西甲",
+     "odds": 1.5,
+     "time": "2026-11-23 04:00"
+    },
+    {
+     "matchNo": "周一002",
+     "teams": "哈马比 vs 哥德堡",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 74.4,
+     "status": "pending",
+     "finishTime": 1795338720000,
+     "league": "瑞典超",
+     "odds": 1.22,
+     "time": "2026-11-24 02:00"
+    }
+   ]
+  }
+ ]
 }
