@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-23 00:40 */
+/* 自动生成，请勿手动编辑 · 2026-11-23 01:38 */
 const JC_DATA = {
- "updated": "2026-11-23 00:40",
+ "updated": "2026-11-23 01:38",
  "stat": {
-  "total": 9,
+  "total": 10,
   "upcoming": 0,
   "live": 0,
-  "finished": 9,
-  "withScore": 9,
-  "droppedNotOnSale": 9,
+  "finished": 10,
+  "withScore": 10,
+  "droppedNotOnSale": 8,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 8,
-  "droppedNotOnSale": 9,
+  "droppedNotOnSale": 8,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -999,13 +999,122 @@ const JC_DATA = {
     "home": 0,
     "away": 2
    }
+  },
+  {
+   "gid": "1428654",
+   "fid": "1428654",
+   "sid": "19951",
+   "code": "周日010",
+   "league": "德甲",
+   "round": "第10轮",
+   "time": "2026-11-22 22:30",
+   "handicap": null,
+   "home": {
+    "name": "奥格斯堡",
+    "rank": 15
+   },
+   "away": {
+    "name": "美因茨",
+    "rank": 12
+   },
+   "score": {
+    "home": 3,
+    "away": 1
+   },
+   "statusText": "2 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.95,
+      "line": "平手",
+      "away": 0.9
+     },
+     "live": {
+      "home": 1.02,
+      "line": "平手",
+      "away": 0.82
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 2.63,
+      "draw": 3.8,
+      "away": 2.35
+     },
+     "live": {
+      "home": 2.7,
+      "draw": 3.8,
+      "away": 2.38
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.9,
+      "over": 3,
+      "under": 0.95
+     },
+     "live": {
+      "line": 0.82,
+      "over": 3,
+      "under": 1.02
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 39.9,
+    "prob": {
+     "home": 35.1,
+     "draw": 25,
+     "away": 39.9
+    },
+    "clear": false,
+    "margin": 5.4,
+    "rqLine": "平手",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.02,
+    "downWater": 0.82,
+    "openHandicap": 0,
+    "openUpWater": 0.95,
+    "openDownWater": 0.9,
+    "totalWater": 1.8399999999999999,
+    "theoryUpPercent": "44.57",
+    "theoryDownPercent": "55.43",
+    "canWater": true,
+    "handicapChange": {
+     "type": "盘口水位无明显变化",
+     "initHandicap": 0,
+     "nowHandicap": 0,
+     "initUpWater": 0.95,
+     "nowUpWater": 1.02,
+     "initLine": "平手",
+     "nowLine": "平手"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 3,
+    "away": 1
+   }
   }
  ],
  "sp": {
   "source": "official-mirror",
   "from": "公开竞彩奖金页同步的SP原值",
   "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
-  "updated": "2026-11-23 00:40",
+  "updated": "2026-11-23 01:38",
   "officialUpdate": "",
   "inSale": 8,
   "list": [
