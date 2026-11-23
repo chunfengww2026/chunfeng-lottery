@@ -1,13 +1,7 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/23 07:50:48） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/23 10:55:48） */
 const MINGJIA_DATA = {
- "updated": "2026-11-23 07:50:48",
+ "updated": "2026-11-23 10:55:48",
  "list": [
-  {
-   "name": "金手指",
-   "cat": "排列三",
-   "kw": "金手指 排列三 字谜 参考图",
-   "imgs": []
-  },
   {
    "name": "万里挑一",
    "cat": "排列三",
@@ -93,6 +87,12 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
+   "name": "青岛大磊",
+   "cat": "双色球",
+   "kw": "青岛大磊 双色球 字谜 参考图",
+   "imgs": []
+  },
+  {
    "name": "迟丽颖",
    "cat": "大乐透",
    "kw": "迟丽颖 大乐透 字谜 参考图",
@@ -132,25 +132,8 @@ const MINGJIA_DATA = {
    "name": "貂蝉杀",
    "cat": "双色球",
    "kw": "貂蝉杀 双色球 字谜 参考图",
-   "imgs": [
-    {
-     "file": "imgs/mingjia/双色球/貂蝉杀/1.webp",
-     "size": 85078,
-     "src": "https://pic1.800820.net/tumi/20260218/5957862c7de34ceaaa5ae10ab2c1e69b.webp",
-     "page": "https://www.800820.net/tuku/tkpic_387021.html",
-     "title": "貂蝉杀三蓝预测图 _双色球图库_天齐图库_天齐网",
-     "issue": "",
-     "verified": false,
-     "fetchedAt": "2026-11-21T02:04:01.441Z"
-    }
-   ],
+   "imgs": [],
    "stale": true
-  },
-  {
-   "name": "青岛大磊",
-   "cat": "双色球",
-   "kw": "青岛大磊 双色球 字谜 参考图",
-   "imgs": []
   },
   {
    "name": "明哥看彩",
@@ -463,14 +446,15 @@ const MINGJIA_DATA = {
    "cat": "排列三",
    "kw": "九头鸟 排列三 字谜 参考图",
    "imgs": []
+  },
+  {
+   "name": "金手指",
+   "cat": "排列三",
+   "kw": "金手指 排列三 字谜 参考图",
+   "imgs": []
   }
  ],
  "history": [
-  {
-   "at": "2026-11-20 08:49:23",
-   "names": 71,
-   "imgs": 12
-  },
   {
    "at": "2026-11-20 12:24:36",
    "names": 71,
@@ -585,6 +569,11 @@ const MINGJIA_DATA = {
    "at": "2026-11-23 07:50:48",
    "names": 71,
    "imgs": 3
+  },
+  {
+   "at": "2026-11-23 10:55:48",
+   "names": 71,
+   "imgs": 2
   }
  ],
  "bootstrapExpiresAt": null,

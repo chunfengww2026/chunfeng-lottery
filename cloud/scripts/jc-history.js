@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-23 07:33",
+ "updated": "2026-11-23 10:38",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -552,7 +552,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-21 02:23"
   },
   {
@@ -607,7 +607,7 @@ const JC_HISTORY = {
    "type": "three",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-21 02:23"
   },
   {
@@ -662,7 +662,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-22 00:25"
   },
   {
@@ -3111,116 +3111,6 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 48.5,
    "type": "three",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-11-19 02:41"
-  },
-  {
-   "code": "周四002",
-   "league": "巴甲",
-   "home": "圣保罗",
-   "away": "弗鲁米嫩",
-   "time": "2026-11-20 08:30",
-   "score": "0:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 1.15,
-    "downWater": 0.67,
-    "openHandicap": -0.25,
-    "openUpWater": 1,
-    "openDownWater": 0.85,
-    "totalWater": 1.8199999999999998,
-    "theoryUpPercent": "36.81",
-    "theoryDownPercent": "63.19",
-    "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": -0.25,
-     "nowHandicap": -0.25,
-     "initUpWater": 1,
-     "nowUpWater": 1.15,
-     "initLine": "平手/半球",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.55,
-    "draw": 3.1,
-    "away": 2.9
-   },
-   "prob": {
-    "home": 37,
-    "draw": 30.4,
-    "away": 32.5
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 37,
-   "type": "unbeaten",
-   "result": "lose",
-   "hit": false,
-   "matched": true,
-   "at": "2026-11-19 02:41"
-  },
-  {
-   "code": "周四003",
-   "league": "美职联",
-   "home": "奥兰多",
-   "away": "辛辛那提",
-   "time": "2026-11-20 08:30",
-   "score": "1:3",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "平手/半球",
-    "from": "live",
-    "handicap": -0.25,
-    "upSide": "home",
-    "upWater": 1.02,
-    "downWater": 0.77,
-    "openHandicap": 0,
-    "openUpWater": 0.8,
-    "openDownWater": 1,
-    "totalWater": 1.79,
-    "theoryUpPercent": "43.02",
-    "theoryDownPercent": "56.98",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘升水",
-     "initHandicap": 0,
-     "nowHandicap": -0.25,
-     "initUpWater": 0.8,
-     "nowUpWater": 1.02,
-     "initLine": "平手",
-     "nowLine": "平手/半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 2.38,
-    "draw": 4.1,
-    "away": 2.6
-   },
-   "prob": {
-    "home": 40.1,
-    "draw": 23.3,
-    "away": 36.7
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 40.1,
-   "type": "unbeaten",
    "result": "lose",
    "hit": false,
    "matched": true,

@@ -1,8 +1,29 @@
 {
- "updated": "2026-11-23 06:30",
+ "updated": "2026-11-23 11:01",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-23 11:01",
+   "finishTime": 1795402860000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周一002",
+     "teams": "哈马比 vs 哥德堡",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 74.4,
+     "status": "pending",
+     "finishTime": 1795402860000,
+     "league": "瑞典超",
+     "odds": 1.22,
+     "time": "2026-11-24 02:00"
+    }
+   ]
+  }
+ ]
 }
