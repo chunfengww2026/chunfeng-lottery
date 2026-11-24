@@ -1,10 +1,10 @@
 /* ============================================================
    heatmap-data.js —— 实票统计热力图数据（程序生成，勿手改）
 
-   生成时间：2026-11-24 06:05
+   生成时间：2026-11-24 14:05
    生成脚本：build-heatmap.mjs
    本次彩种：ssq、dlt
-   数据来源：mixed
+   数据来源：history-fallback
 
    口径说明：
      · ocr-xysp          = 一起彩「幸运晒票」页当期【票面照片 OCR】识别出的号码占比
@@ -14,36 +14,36 @@
    ============================================================ */
 
 const HEATMAP_DATA = {
-  updated: '2026-11-24 06:05',
-  source: 'mixed',
+  updated: '2026-11-24 14:05',
+  source: 'history-fallback',
   games: {
     ssq: {
       name: '双色球',
       issue: '2026135',
       drawDate: '2026-11-24',
-      madeAt: '2026-11-24 06:02',
+      madeAt: '2026-11-24 13:54',
       source: 'history-fallback',
       sourceLabel: '近 30 期开奖频率',
       sampleCount: 30,
-      numberPosts: 1,
-      note: '晒票样本不足，改用近 30 期开奖号码频率（2026105~2026134）（当期晒票 10 篇 / 候选票面 11 张，能确认期号的只有 0 张）',
-      ocr: { posts: 10, urls: 11, downloaded: 11, downloadFailed: 0, cacheHits: 0, recognized: 1, tickets: 0, secs: 193.7, err: '期号确认的有效票只有 0 张（需 ≥2）；另有 1 张号码读出来了但票面期号认不出/不是当期，已丢弃' },
+      numberPosts: 0,
+      note: '晒票样本不足，改用近 30 期开奖号码频率（2026105~2026134）',
+      ocr: { posts: 0, urls: 7, downloaded: 7, downloadFailed: 0, cacheHits: 0, recognized: 0, tickets: 0, secs: 221.9, err: '期号确认的有效票只有 0 张（需 ≥2）；本次没有任何图片通过号码识别' },
       front: { label: '红球', color: 'red', total: 180, items: [{ num: 30, pct: 5.56, count: 10 }, { num: 4, pct: 5, count: 9 }, { num: 14, pct: 5, count: 9 }, { num: 13, pct: 4.44, count: 8 }, { num: 22, pct: 4.44, count: 8 }, { num: 26, pct: 4.44, count: 8 }, { num: 5, pct: 3.89, count: 7 }, { num: 10, pct: 3.89, count: 7 }, { num: 20, pct: 3.89, count: 7 }, { num: 6, pct: 3.33, count: 6 }, { num: 11, pct: 3.33, count: 6 }, { num: 17, pct: 3.33, count: 6 }, { num: 24, pct: 3.33, count: 6 }, { num: 29, pct: 3.33, count: 6 }, { num: 1, pct: 2.78, count: 5 }, { num: 2, pct: 2.78, count: 5 }, { num: 9, pct: 2.78, count: 5 }, { num: 19, pct: 2.78, count: 5 }, { num: 21, pct: 2.78, count: 5 }, { num: 27, pct: 2.78, count: 5 }, { num: 31, pct: 2.78, count: 5 }, { num: 32, pct: 2.78, count: 5 }, { num: 7, pct: 2.22, count: 4 }, { num: 16, pct: 2.22, count: 4 }, { num: 18, pct: 2.22, count: 4 }, { num: 23, pct: 2.22, count: 4 }, { num: 25, pct: 2.22, count: 4 }, { num: 28, pct: 2.22, count: 4 }, { num: 33, pct: 2.22, count: 4 }, { num: 3, pct: 1.67, count: 3 }, { num: 12, pct: 1.67, count: 3 }, { num: 15, pct: 1.67, count: 3 }, { num: 8, pct: 0, count: 0 }] },
       back: { label: '蓝球', color: 'blue', total: 30, items: [{ num: 11, pct: 16.67, count: 5 }, { num: 12, pct: 13.33, count: 4 }, { num: 4, pct: 10, count: 3 }, { num: 14, pct: 10, count: 3 }, { num: 2, pct: 6.67, count: 2 }, { num: 3, pct: 6.67, count: 2 }, { num: 5, pct: 6.67, count: 2 }, { num: 8, pct: 6.67, count: 2 }, { num: 9, pct: 6.67, count: 2 }, { num: 6, pct: 3.33, count: 1 }, { num: 10, pct: 3.33, count: 1 }, { num: 13, pct: 3.33, count: 1 }, { num: 15, pct: 3.33, count: 1 }, { num: 16, pct: 3.33, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }] }
     },
     dlt: {
       name: '大乐透',
-      issue: '26134',
-      drawDate: '2026-11-23',
-      madeAt: '2026-11-23 08:11',
-      source: 'ocr-xysp',
-      sourceLabel: '晒票 4 张 + 近 30 期开奖频率补齐',
-      sampleCount: 4,
-      numberPosts: 4,
-      note: '识别自一起彩幸运晒票页第 26134 期公开票面照片（翻 2 页）（有效票 4 张：单式 4 张）　仅 4 张票样本 · 样本偏少，仅供参照；因晒票样本仅 4 张，已叠加近 30 期开奖号码频率，保证每个号都有数据',
-      ocr: { posts: 10, urls: 14, downloaded: 14, downloadFailed: 0, cacheHits: 0, recognized: 1, tickets: 4, secs: 387, err: '' },
-      front: { label: '前区', color: 'red', total: 24, items: [{ num: 3, pct: 12.5, count: 3 }, { num: 8, pct: 8.33, count: 2 }, { num: 14, pct: 8.33, count: 2 }, { num: 25, pct: 8.33, count: 2 }, { num: 2, pct: 4.17, count: 1 }, { num: 5, pct: 4.17, count: 1 }, { num: 7, pct: 4.17, count: 1 }, { num: 9, pct: 4.17, count: 1 }, { num: 11, pct: 4.17, count: 1 }, { num: 13, pct: 4.17, count: 1 }, { num: 15, pct: 4.17, count: 1 }, { num: 17, pct: 4.17, count: 1 }, { num: 18, pct: 4.17, count: 1 }, { num: 19, pct: 4.17, count: 1 }, { num: 20, pct: 4.17, count: 1 }, { num: 21, pct: 4.17, count: 1 }, { num: 24, pct: 4.17, count: 1 }, { num: 31, pct: 4.17, count: 1 }, { num: 32, pct: 4.17, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 4, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 10, pct: 0, count: 0 }, { num: 12, pct: 0, count: 0 }, { num: 16, pct: 0, count: 0 }, { num: 22, pct: 0, count: 0 }, { num: 23, pct: 0, count: 0 }, { num: 26, pct: 0, count: 0 }, { num: 27, pct: 0, count: 0 }, { num: 28, pct: 0, count: 0 }, { num: 29, pct: 0, count: 0 }, { num: 30, pct: 0, count: 0 }, { num: 33, pct: 0, count: 0 }, { num: 34, pct: 0, count: 0 }, { num: 35, pct: 0, count: 0 }] },
-      back: { label: '后区', color: 'blue', total: 10, items: [{ num: 5, pct: 20, count: 2 }, { num: 9, pct: 20, count: 2 }, { num: 2, pct: 10, count: 1 }, { num: 3, pct: 10, count: 1 }, { num: 4, pct: 10, count: 1 }, { num: 8, pct: 10, count: 1 }, { num: 10, pct: 10, count: 1 }, { num: 11, pct: 10, count: 1 }, { num: 1, pct: 0, count: 0 }, { num: 6, pct: 0, count: 0 }, { num: 7, pct: 0, count: 0 }, { num: 12, pct: 0, count: 0 }] }
+      issue: '26135',
+      drawDate: '2026-11-25',
+      madeAt: '2026-11-24 13:54',
+      source: 'history-fallback',
+      sourceLabel: '近 30 期开奖频率',
+      sampleCount: 30,
+      numberPosts: 0,
+      note: '晒票样本不足，改用近 30 期开奖号码频率（26105~26134）（当期晒票 10 篇 / 候选票面 16 张，能确认期号的只有 1 张）',
+      ocr: { posts: 10, urls: 16, downloaded: 15, downloadFailed: 1, cacheHits: 0, recognized: 2, tickets: 1, secs: 430.5, err: '期号确认的有效票只有 1 张（需 ≥2）；另有 7 张号码读出来了但票面期号认不出/不是当期，已丢弃' },
+      front: { label: '前区', color: 'red', total: 150, items: [{ num: 25, pct: 5.33, count: 8 }, { num: 2, pct: 4.67, count: 7 }, { num: 14, pct: 4.67, count: 7 }, { num: 10, pct: 4, count: 6 }, { num: 11, pct: 4, count: 6 }, { num: 12, pct: 4, count: 6 }, { num: 17, pct: 4, count: 6 }, { num: 29, pct: 4, count: 6 }, { num: 5, pct: 3.33, count: 5 }, { num: 6, pct: 3.33, count: 5 }, { num: 18, pct: 3.33, count: 5 }, { num: 22, pct: 3.33, count: 5 }, { num: 24, pct: 3.33, count: 5 }, { num: 32, pct: 3.33, count: 5 }, { num: 35, pct: 3.33, count: 5 }, { num: 1, pct: 2.67, count: 4 }, { num: 3, pct: 2.67, count: 4 }, { num: 13, pct: 2.67, count: 4 }, { num: 19, pct: 2.67, count: 4 }, { num: 20, pct: 2.67, count: 4 }, { num: 21, pct: 2.67, count: 4 }, { num: 26, pct: 2.67, count: 4 }, { num: 27, pct: 2.67, count: 4 }, { num: 34, pct: 2.67, count: 4 }, { num: 4, pct: 2, count: 3 }, { num: 7, pct: 2, count: 3 }, { num: 9, pct: 2, count: 3 }, { num: 15, pct: 2, count: 3 }, { num: 30, pct: 2, count: 3 }, { num: 33, pct: 2, count: 3 }, { num: 8, pct: 1.33, count: 2 }, { num: 16, pct: 1.33, count: 2 }, { num: 28, pct: 1.33, count: 2 }, { num: 31, pct: 1.33, count: 2 }, { num: 23, pct: 0.67, count: 1 }] },
+      back: { label: '后区', color: 'blue', total: 60, items: [{ num: 9, pct: 15, count: 9 }, { num: 4, pct: 13.33, count: 8 }, { num: 6, pct: 11.67, count: 7 }, { num: 12, pct: 11.67, count: 7 }, { num: 1, pct: 10, count: 6 }, { num: 7, pct: 10, count: 6 }, { num: 10, pct: 8.33, count: 5 }, { num: 3, pct: 6.67, count: 4 }, { num: 2, pct: 5, count: 3 }, { num: 8, pct: 5, count: 3 }, { num: 11, pct: 3.33, count: 2 }, { num: 5, pct: 0, count: 0 }] }
     }
   }
 };
