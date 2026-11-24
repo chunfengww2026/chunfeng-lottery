@@ -1,164 +1,164 @@
 /* materials-data.js —— 资料存档（build-jc-articles.mjs 自动写入，勿手改） */
 const MATERIALS_DATA = {
- "updated": "2026-11-24 14:40:35",
+ "updated": "2026-11-25 02:16:31",
  "list": [
   {
    "id": "m1",
-   "text": "双色球2026135期，复盘往期开奖，做号码走势推演分析",
-   "time": "2026-11-24 10:00:00",
-   "url": "https://m.toutiao.com/group/7710946751364088339/",
+   "text": "专家「鼓下巴的兔子」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_214.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m2",
-   "text": "双色球 2026135期综合预测分析：五位专家推荐号码汇总！",
-   "time": "2026-11-24 10:00:00",
-   "url": "https://m.toutiao.com/group/7711356668366078464/",
+   "text": "专家「庸人自扰」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_145.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m3",
-   "text": "双色球2026135期精选1注（DeepSeek计算推荐）",
-   "time": "2026-11-23 21:24:26",
-   "url": "https://m.toutiao.com/group/7711230766193148458/",
+   "text": "专家「苦加」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_332.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m4",
-   "text": "双色球2026135期:3，6，9尾有戏，硬核技术流走势复盘与形态推演",
-   "time": "2026-11-24 12:36:41",
-   "url": "https://m.toutiao.com/group/7711591899479540264/",
+   "text": "专家「双色球专家 鼓下巴的兔子 2026135期 命中3码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_214.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m5",
-   "text": "双色球2026135期，结合历史开奖数据做号码走势推演分析",
-   "time": "2026-11-24 12:00:00",
-   "url": "https://m.toutiao.com/group/7710939693252084234/",
+   "text": "专家「超级大乐透专家 看看 2026134期 命中4码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/dltex/tjsy_39_142.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m6",
-   "text": "双色球 2026135期：前区6胆码推荐09、13、16、19、22、26！",
-   "time": "2026-11-24 00:12:49",
-   "url": "https://m.toutiao.com/group/7711400619960959503/",
+   "text": "专家「福彩3D专家 大表叔 2026314期 命中3码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/fc3dex/tjsy_6_717.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m7",
-   "text": "双色球2026135期，结合往期数据做号码走势解析",
-   "time": "2026-11-23 16:46:55",
-   "url": "https://m.toutiao.com/group/7711285520580280886/",
+   "text": "专家「快乐8专家 峻哥 2026314期 命中5码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/klbex/tjsy_8_533.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m8",
-   "text": "双色球第26135期头尾胆独蓝预测数据分析推荐一注6+1",
-   "time": "2026-11-24 09:38:48",
-   "url": "https://m.toutiao.com/group/7711541671132922406/",
+   "text": "专家「排列3专家 肖奈的脔 2026314期 命中3码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/pl3ex/tjsy_63_1905.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m9",
-   "text": "双色球2026135期（DeepSeek计算推荐5注）",
-   "time": "2026-11-24 09:20:10",
-   "url": "https://m.toutiao.com/group/7711229809765909011/",
+   "text": "专家「排列5专家 陈周 2026314期 命中3码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/pl5ex/tjsy_64_426.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m10",
-   "text": "双色球第2026135期走势分析与号码推荐（11月24日/周二）",
-   "time": "2026-11-24 06:11:00",
-   "url": "https://m.toutiao.com/group/7711568308197212682/",
+   "text": "专家「七星彩专家 有为青年 2026135期 命中3码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/xqxcex/tjsy_7_1906.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m11",
-   "text": "双色球26135期精选一注：头13尾30，独蓝05，无连码6+1推荐",
-   "time": "2026-11-24 11:10:25",
-   "url": "https://m.toutiao.com/group/7711521513840706086/",
+   "text": "专家「七乐彩专家 唐笑 2026135期 命中6码！」 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/qlcex/tjsy_13_1978.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m12",
-   "text": "双色球26135期走势浅析：头11尾33 独蓝06 有连码，6+1精选一注推荐",
-   "time": "2026-11-24 08:08:30",
-   "url": "https://m.toutiao.com/group/7711520686224785971/",
+   "text": "专家「鼓下巴的兔子 红球25码 近10中6 连红期 最高4连红」 · 近10中 6 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_214.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m13",
-   "text": "双色球26135期分析：头03尾22，独蓝12，6+1精选一注推荐",
-   "time": "2026-11-23 16:47:21",
-   "url": "https://m.toutiao.com/group/7711285822422516224/",
+   "text": "专家「中奖中到手抽筋 红球独胆 近10中7 连红1期 最高6连红」 · 近10中 7 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_248.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m14",
-   "text": "大乐透26135期预测：头14尾33，后区胆码10+12，5+2精选一注推荐",
-   "time": "2026-11-24 11:21:45",
-   "url": "https://m.toutiao.com/group/7711519269523063324/",
+   "text": "专家「庸人自扰 红球25码 近10中5 连红4期 最高4连红」 · 近10中 5 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_145.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m15",
-   "text": "大乐透26135期预测：头16尾32，后区胆码08+11，5+2精选一注推荐",
-   "time": "2026-11-24 11:22:25",
-   "url": "https://m.toutiao.com/group/7711519132629467648/",
+   "text": "专家「浪子 红球独胆 近10中7 连红期 最高连红」 · 近10中 7 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1944.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m16",
-   "text": "大乐透26135期预测：头06尾21，后区胆码03+12，5+2精选一注推荐",
-   "time": "2026-11-24 11:22:48",
-   "url": "https://m.toutiao.com/group/7711519149582828060/",
+   "text": "专家「苦加 红球25码 近10中5 连红3期 最高4连红」 · 近10中 5 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_332.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m17",
-   "text": "大乐透26135期预测：头15尾33，后区胆码08+09，5+2精选一注推荐",
-   "time": "2026-11-24 11:23:27",
-   "url": "https://m.toutiao.com/group/7711518879503204892/",
+   "text": "专家「就想中一注500万 红球独胆 近10中6 连红4期 最高4连红」 · 近10中 6 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_305.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m18",
-   "text": "大乐透26135期预测：头15尾33，后区胆码08+09，5+2精选一注推荐",
-   "time": "2026-11-24 14:04:14",
-   "url": "https://m.toutiao.com/group/7711614873607602697/",
+   "text": "专家「叁横壹竖 红球25码 近10中5 连红2期 最高6连红」 · 近10中 5 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_295.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m19",
-   "text": "大乐透26135期预测：头12尾24，后区胆码03+05，5+2精选一注推荐",
-   "time": "2026-11-24 11:22:05",
-   "url": "https://m.toutiao.com/group/7711519190145876514/",
+   "text": "专家「爺詆調 红球独胆 近10中6 连红3期 最高4连红」 · 近10中 6 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_897.html",
    "games": [],
    "author": ""
   },
   {
    "id": "m20",
-   "text": "大乐透第26135期预测：头10尾34，后区胆码05+08，5+2精选一注",
-   "time": "2026-11-24 09:41:48",
-   "url": "https://m.toutiao.com/group/7711519374758134322/",
+   "text": "专家「熊荣辉 红球25码 近10中5 连红2期 最高3连红」 · 近10中 5 期 · 免费推荐",
+   "time": "2026-11-25 02:16:31",
+   "url": "https://www.yiqicai.com/ex/ssqex/tjsy_5_1155.html",
    "games": [],
    "author": ""
   }
