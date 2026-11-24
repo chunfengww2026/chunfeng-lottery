@@ -1,7 +1,36 @@
-/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/25 02:17:51） */
+/* mingjia-data.js —— 名家图库（build-mingjia.mjs 生成 · 2026/11/25 04:32:18） */
 const MINGJIA_DATA = {
- "updated": "2026-11-25 02:17:51",
+ "updated": "2026-11-25 04:32:18",
  "list": [
+  {
+   "name": "太湖字谜",
+   "cat": "3D",
+   "kw": "太湖字谜 3D 字谜 参考图",
+   "imgs": [
+    {
+     "file": "imgs/mingjia/3D/太湖字谜/1.jpg",
+     "size": 49467,
+     "src": "https://www.17500.cn/Public/Upload/art/202611/1795264308708287.jpg",
+     "page": "https://www.17500.cn/arts/detail-5236891.html",
+     "title": "福彩3D第2026312期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2026312",
+     "verified": false,
+     "fetchedAt": "2026-11-24T20:31:01.388Z"
+    }
+   ]
+  },
+  {
+   "name": "迷公",
+   "cat": "3D",
+   "kw": "迷公 3D 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "桃子姐",
+   "cat": "3D",
+   "kw": "桃子姐 3D 字谜 参考图",
+   "imgs": []
+  },
   {
    "name": "貂蝉杀",
    "cat": "3D",
@@ -33,13 +62,13 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/排列三/太湖字谜/1.jpg",
-     "size": 38511,
-     "src": "https://www.17500.cn/Public/Upload/art/202403/1710912998237971.jpg",
-     "page": "https://www.17500.cn/arts/detail-1380535.html",
-     "title": "排列3第2024071期太湖钓叟三字诀_太湖字谜|乐彩网",
-     "issue": "2024071",
+     "size": 38079,
+     "src": "https://www.17500.cn/Public/Upload/art/202403/1710141022668953.jpg",
+     "page": "https://www.17500.cn/arts/detail-1377492.html",
+     "title": "排列3第2024062期太湖钓叟三字诀_太湖字谜|乐彩网",
+     "issue": "2024062",
      "verified": false,
-     "fetchedAt": "2026-11-24T18:16:55.963Z"
+     "fetchedAt": "2026-11-24T20:31:37.754Z"
     }
    ]
   },
@@ -83,24 +112,6 @@ const MINGJIA_DATA = {
    "name": "太湖字谜",
    "cat": "快乐8",
    "kw": "太湖字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "迷公",
-   "cat": "快乐8",
-   "kw": "迷公 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "排三字谜",
-   "cat": "快乐8",
-   "kw": "排三字谜 快乐8 字谜 参考图",
-   "imgs": []
-  },
-  {
-   "name": "名家精",
-   "cat": "快乐8",
-   "kw": "名家精 快乐8 字谜 参考图",
    "imgs": []
   },
   {
@@ -398,21 +409,21 @@ const MINGJIA_DATA = {
    "imgs": []
   },
   {
-   "name": "太湖字谜",
-   "cat": "3D",
-   "kw": "太湖字谜 3D 字谜 参考图",
-   "imgs": []
-  },
-  {
    "name": "迷公",
-   "cat": "3D",
-   "kw": "迷公 3D 字谜 参考图",
+   "cat": "快乐8",
+   "kw": "迷公 快乐8 字谜 参考图",
    "imgs": []
   },
   {
-   "name": "桃子姐",
-   "cat": "3D",
-   "kw": "桃子姐 3D 字谜 参考图",
+   "name": "排三字谜",
+   "cat": "快乐8",
+   "kw": "排三字谜 快乐8 字谜 参考图",
+   "imgs": []
+  },
+  {
+   "name": "名家精",
+   "cat": "快乐8",
+   "kw": "名家精 快乐8 字谜 参考图",
    "imgs": []
   },
   {
@@ -441,11 +452,6 @@ const MINGJIA_DATA = {
   }
  ],
  "history": [
-  {
-   "at": "2026-11-21 17:07:11",
-   "names": 71,
-   "imgs": 11
-  },
   {
    "at": "2026-11-22 00:43:14",
    "names": 71,
@@ -560,6 +566,11 @@ const MINGJIA_DATA = {
    "at": "2026-11-25 02:17:51",
    "names": 71,
    "imgs": 1
+  },
+  {
+   "at": "2026-11-25 04:32:18",
+   "names": 71,
+   "imgs": 2
   }
  ],
  "bootstrapExpiresAt": null,
