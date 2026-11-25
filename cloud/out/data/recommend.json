@@ -1,8 +1,120 @@
 {
- "updated": "2026-11-25 10:23",
+ "updated": "2026-11-25 19:23",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-25 19:23",
+   "finishTime": 1795605780000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周三003",
+     "teams": "萨巴赫 vs 巴萨",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 86.9,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧冠",
+     "odds": 1.07,
+     "time": "2026-11-26 01:45"
+    },
+    {
+     "matchNo": "周三008",
+     "teams": "马竞 vs 维京",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 76.8,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧冠",
+     "odds": 1.11,
+     "time": "2026-11-26 04:00"
+    },
+    {
+     "matchNo": "周三009",
+     "teams": "巴黎圣曼 vs 罗马",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 69.2,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧冠",
+     "odds": 1.48,
+     "time": "2026-11-26 04:00"
+    },
+    {
+     "matchNo": "周三010",
+     "teams": "里尔 vs 拜仁",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 64.5,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧冠",
+     "odds": 1.6,
+     "time": "2026-11-26 04:00"
+    },
+    {
+     "matchNo": "周三006",
+     "teams": "国际米兰 vs 斯图加特",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 63.4,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧冠",
+     "odds": 1.4,
+     "time": "2026-11-26 04:00"
+    },
+    {
+     "matchNo": "周四004",
+     "teams": "比尔森 vs 本菲卡",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.2,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧罗巴",
+     "odds": 1.45,
+     "time": "2026-11-27 01:45"
+    },
+    {
+     "matchNo": "周四008",
+     "teams": "桑德兰 vs 比亚韦",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 67.3,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧罗巴",
+     "odds": 1.22,
+     "time": "2026-11-27 04:00"
+    },
+    {
+     "matchNo": "周四009",
+     "teams": "霍芬海姆 vs 格风暴",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.7,
+     "status": "pending",
+     "finishTime": 1795605780000,
+     "league": "欧罗巴",
+     "odds": 1.33,
+     "time": "2026-11-27 04:00"
+    }
+   ]
+  }
+ ]
 }
