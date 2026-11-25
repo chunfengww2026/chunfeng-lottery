@@ -462,6 +462,20 @@ const XYSP_DATA = {
    "name": "福彩3D",
    "items": [
     {
+     "img": "https://img02.17chdd.com/2026-11-25/d8bb4a9a-0bd9-4e01-80ca-abd156575f9d1795572232195.jpg",
+     "thumb": "https://img02.17chdd.com/2026-11-25/d8bb4a9a-0bd9-4e01-80ca-abd156575f9d1795572232195.jpg?imageMogr2/thumbnail/360x",
+     "title": "[26315期]财富密码。",
+     "url": "",
+     "at": "2026-11-25T02:22:28.089Z",
+     "pubAt": "2026-11-25T02:03:00.000Z",
+     "pubMs": 1795572180000,
+     "pubSrc": "page",
+     "nextAt": 1795612500000,
+     "atMs": 1795573348089,
+     "seenMs": 1795573348089,
+     "whenMs": null
+    },
+    {
      "img": "https://img02.17chdd.com/2026-11-24/ac1451df-a2f2-413f-80ca-73ce0306d1621795532312436.jpg",
      "thumb": "https://img02.17chdd.com/2026-11-24/ac1451df-a2f2-413f-80ca-73ce0306d1621795532312436.jpg?imageMogr2/thumbnail/360x",
      "title": "[26315期]今天也是2D",
@@ -2093,7 +2107,7 @@ const XYSP_DATA = {
       "ssq"
      ],
      "issue": "",
-     "seen": "2026-11-24T23:47:54.011Z",
+     "seen": "2026-11-25T02:21:44.673Z",
      "whenMs": 1795511413000,
      "seenMs": 1795564074011,
      "drawMs": 1795526100000,
