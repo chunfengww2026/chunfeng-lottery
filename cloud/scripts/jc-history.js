@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-25 02:00",
+ "updated": "2026-11-25 10:09",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -561,7 +561,7 @@ const JC_HISTORY = {
    "home": "科莫",
    "away": "雅典AEK",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "1:0",
    "hc": "-2",
    "asianIndex": {
     "line": "球半/两球",
@@ -605,9 +605,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 71.2,
    "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -616,7 +616,7 @@ const JC_HISTORY = {
    "home": "莱红牛",
    "away": "朗斯",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "3:1",
    "hc": "-1",
    "asianIndex": {
     "line": "球半",
@@ -660,9 +660,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 63.9,
    "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -671,7 +671,7 @@ const JC_HISTORY = {
    "home": "阿森纳",
    "away": "多特蒙德",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "1:1",
    "hc": "-1",
    "asianIndex": {
     "line": "一球/球半",
@@ -715,9 +715,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 68.8,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
-   "matched": false,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -726,7 +726,7 @@ const JC_HISTORY = {
    "home": "曼城",
    "away": "那不勒斯",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "2:2",
    "hc": "-2",
    "asianIndex": {
     "line": "球半/两球",
@@ -770,9 +770,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 71.3,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
-   "matched": false,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -781,7 +781,7 @@ const JC_HISTORY = {
    "home": "布拉迪斯",
    "away": "贝蒂斯",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "0:2",
    "hc": null,
    "asianIndex": {
     "line": "受球半/两球",
@@ -825,9 +825,9 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 75.6,
    "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -836,7 +836,7 @@ const JC_HISTORY = {
    "home": "费耶诺德",
    "away": "波尔图",
    "time": "2026-11-25 04:00",
-   "score": "",
+   "score": "0:1",
    "hc": null,
    "asianIndex": {
     "line": "受平手/半球",
@@ -880,9 +880,9 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 44.5,
    "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
@@ -891,7 +891,7 @@ const JC_HISTORY = {
    "home": "加拉塔萨",
    "away": "维拉",
    "time": "2026-11-25 01:45",
-   "score": "0:0",
+   "score": "1:0",
    "hc": null,
    "asianIndex": null,
    "odds": {
@@ -908,8 +908,8 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 39.4,
    "type": "unbeaten",
-   "result": "win",
-   "hit": true,
+   "result": "lose",
+   "hit": false,
    "matched": true,
    "at": "2026-11-24 05:55"
   },
@@ -919,7 +919,7 @@ const JC_HISTORY = {
    "home": "博德闪耀",
    "away": "LASK林茨",
    "time": "2026-11-25 01:45",
-   "score": "",
+   "score": "1:0",
    "hc": "-1",
    "asianIndex": {
     "line": "一球/球半",
@@ -963,9 +963,9 @@ const JC_HISTORY = {
    "pickLabel": "主胜",
    "conf": 58.9,
    "type": "three",
-   "result": "",
-   "hit": false,
-   "matched": false,
+   "result": "win",
+   "hit": true,
+   "matched": true,
    "at": "2026-11-24 05:55"
   },
   {
