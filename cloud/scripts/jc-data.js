@@ -1,19 +1,19 @@
-/* 自动生成，请勿手动编辑 · 2026-11-26 03:48 */
+/* 自动生成，请勿手动编辑 · 2026-11-26 04:23 */
 const JC_DATA = {
- "updated": "2026-11-26 03:48",
+ "updated": "2026-11-26 04:23",
  "stat": {
-  "total": 2,
+  "total": 4,
   "upcoming": 0,
   "live": 0,
-  "finished": 2,
-  "withScore": 2,
-  "droppedNotOnSale": 9,
+  "finished": 4,
+  "withScore": 4,
+  "droppedNotOnSale": 7,
   "droppedOldFinished": 0
  },
  "filter": {
   "officialGate": true,
   "officialCodes": 9,
-  "droppedNotOnSale": 9,
+  "droppedNotOnSale": 7,
   "droppedOldFinished": 0,
   "finishedKeepHours": 24,
   "matchLenHours": 2
@@ -236,13 +236,223 @@ const JC_DATA = {
     "home": 3,
     "away": 0
    }
+  },
+  {
+   "gid": "1480068",
+   "fid": "1480068",
+   "sid": "19943",
+   "code": "周三003",
+   "league": "欧冠",
+   "round": "第5轮",
+   "time": "2026-11-26 01:45",
+   "handicap": null,
+   "home": {
+    "name": "萨巴赫",
+    "rank": 30
+   },
+   "away": {
+    "name": "巴萨",
+    "rank": 8
+   },
+   "score": {
+    "home": 1,
+    "away": 4
+   },
+   "statusText": "0 - 1 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.92,
+      "line": "受三球",
+      "away": 0.92
+     },
+     "live": {
+      "home": 0.75,
+      "line": "受三球半",
+      "away": 1.05
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 19,
+      "draw": 11,
+      "away": 1.08
+     },
+     "live": {
+      "home": 26,
+      "draw": 13,
+      "away": 1.06
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.9,
+      "over": 4.5,
+      "under": 0.95
+     },
+     "live": {
+      "line": 0.92,
+      "over": 4.5,
+      "under": 0.87
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 89.1,
+    "prob": {
+     "home": 3.6,
+     "draw": 7.3,
+     "away": 89.1
+    },
+    "clear": true,
+    "margin": 5.9,
+    "rqLine": "受三球半",
+    "type": "three"
+   },
+   "asianIndex": {
+    "line": "受三球半",
+    "from": "live",
+    "handicap": 3.5,
+    "upSide": "away",
+    "upWater": 1.05,
+    "downWater": 0.75,
+    "openHandicap": 3,
+    "openUpWater": 0.92,
+    "openDownWater": 0.92,
+    "totalWater": 1.8,
+    "theoryUpPercent": "41.67",
+    "theoryDownPercent": "58.33",
+    "canWater": false,
+    "handicapChange": {
+     "type": "升盘升水",
+     "initHandicap": 3,
+     "nowHandicap": 3.5,
+     "initUpWater": 0.92,
+     "nowUpWater": 1.05,
+     "initLine": "受三球",
+     "nowLine": "受三球半"
+    },
+    "handicapChangeWhy": "",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 1,
+    "away": 4
+   }
+  },
+  {
+   "gid": "1480087",
+   "fid": "1480087",
+   "sid": "19943",
+   "code": "周三004",
+   "league": "欧冠",
+   "round": "第5轮",
+   "time": "2026-11-26 01:45",
+   "handicap": null,
+   "home": {
+    "name": "斯拉维亚",
+    "rank": 34
+   },
+   "away": {
+    "name": "比利亚雷",
+    "rank": 29
+   },
+   "score": {
+    "home": 0,
+    "away": 1
+   },
+   "statusText": "0 - 0 ",
+   "odds": {
+    "asian": {
+     "open": {
+      "home": 0.87,
+      "line": "受半球",
+      "away": 0.97
+     },
+     "live": {
+      "home": 1.05,
+      "line": "平手",
+      "away": 0.8
+     }
+    },
+    "europe": {
+     "open": {
+      "home": 3.6,
+      "draw": 3.7,
+      "away": 1.95
+     },
+     "live": {
+      "home": 2.8,
+      "draw": 3.6,
+      "away": 2.35
+     }
+    },
+    "overunder": {
+     "open": {
+      "line": 0.85,
+      "over": 3,
+      "under": 1
+     },
+     "live": {
+      "line": 1,
+      "over": 3,
+      "under": 0.85
+     }
+    }
+   },
+   "reco": {
+    "pick": "away",
+    "label": "客胜",
+    "confidence": 40.1,
+    "prob": {
+     "home": 33.7,
+     "draw": 26.2,
+     "away": 40.1
+    },
+    "clear": false,
+    "margin": 6,
+    "rqLine": "平手",
+    "type": "unbeaten"
+   },
+   "asianIndex": {
+    "line": "平手",
+    "from": "live",
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 1.05,
+    "downWater": 0.8,
+    "openHandicap": 0.5,
+    "openUpWater": 0.97,
+    "openDownWater": 0.87,
+    "totalWater": 1.85,
+    "theoryUpPercent": "43.24",
+    "theoryDownPercent": "56.76",
+    "canWater": true,
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
+    "fundUp": null,
+    "fundUpSource": null,
+    "analysis": null
+   },
+   "status": "finished",
+   "minute": 0,
+   "liveScore": {
+    "home": 0,
+    "away": 1
+   }
   }
  ],
  "sp": {
   "source": "official-mirror",
   "from": "公开竞彩奖金页同步的SP原值",
   "sourceUrl": "https://trade.500.com/jczq/?playid=269&g=2",
-  "updated": "2026-11-26 03:48",
+  "updated": "2026-11-26 04:23",
   "officialUpdate": "",
   "inSale": 9,
   "list": [
