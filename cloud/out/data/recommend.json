@@ -1,8 +1,55 @@
 {
- "updated": "2026-11-26 07:34",
+ "updated": "2026-11-26 11:20",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-26 11:20",
+   "finishTime": 1795663200000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周四004",
+     "teams": "比尔森 vs 本菲卡",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.4,
+     "status": "pending",
+     "finishTime": 1795663200000,
+     "league": "欧罗巴",
+     "odds": 1.45,
+     "time": "2026-11-27 01:45"
+    },
+    {
+     "matchNo": "周四008",
+     "teams": "桑德兰 vs 比亚韦",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 67,
+     "status": "pending",
+     "finishTime": 1795663200000,
+     "league": "欧罗巴",
+     "odds": 1.25,
+     "time": "2026-11-27 04:00"
+    },
+    {
+     "matchNo": "周四009",
+     "teams": "霍芬海姆 vs 格风暴",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 65.7,
+     "status": "pending",
+     "finishTime": 1795663200000,
+     "league": "欧罗巴",
+     "odds": 1.33,
+     "time": "2026-11-27 04:00"
+    }
+   ]
+  }
+ ]
 }
