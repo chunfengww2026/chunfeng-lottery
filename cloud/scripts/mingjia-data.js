@@ -159,16 +159,15 @@ const MINGJIA_DATA = {
    "imgs": [
     {
      "file": "imgs/mingjia/双色球/黄大仙/1.png",
-     "size": 80604,
-     "src": "https://pic.cz89.com/upload/20260709/9ba4fd0af7a848a2ba11805e580daa9b.png",
-     "page": "https://www.cz89.com/read_10565512.htm",
-     "title": "黄大仙杀蓝球079期双色球图谜 10中10_牛彩网",
+     "size": 80775,
+     "src": "https://pic.cz89.com/upload/20260628/56d191b16a2f41b789005ec69c42fb96.png",
+     "page": "https://www.cz89.com/read_10526815.htm",
+     "title": "黄大仙杀蓝球074期双色球图谜 10中9_牛彩网",
      "issue": "",
      "verified": false,
-     "fetchedAt": "2026-11-26T19:27:26.214Z"
+     "fetchedAt": "2026-11-26T22:33:02.323Z"
     }
-   ],
-   "stale": true
+   ]
   },
   {
    "name": "3D字谜",
