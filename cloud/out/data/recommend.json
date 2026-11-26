@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-26 11:20",
+ "updated": "2026-11-26 20:15",
  "red": 0,
  "black": 0,
  "rate": "—",
  "unfinished": 1,
  "history": [
   {
-   "dateStr": "2026-11-26 11:20",
-   "finishTime": 1795663200000,
+   "dateStr": "2026-11-26 20:15",
+   "finishTime": 1795695300000,
    "verdict": "",
    "matches": [
     {
@@ -16,24 +16,24 @@
      "pick": "客胜",
      "score": "—",
      "result": "pending",
-     "confidence": 65.4,
+     "confidence": 65.2,
      "status": "pending",
-     "finishTime": 1795663200000,
+     "finishTime": 1795695300000,
      "league": "欧罗巴",
      "odds": 1.45,
      "time": "2026-11-27 01:45"
     },
     {
-     "matchNo": "周四008",
-     "teams": "桑德兰 vs 比亚韦",
+     "matchNo": "周四012",
+     "teams": "布拉加 vs 库奥皮奥",
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 67,
+     "confidence": 79.4,
      "status": "pending",
-     "finishTime": 1795663200000,
-     "league": "欧罗巴",
-     "odds": 1.25,
+     "finishTime": 1795695300000,
+     "league": "欧协联",
+     "odds": 1.13,
      "time": "2026-11-27 04:00"
     },
     {
@@ -42,12 +42,38 @@
      "pick": "主胜",
      "score": "—",
      "result": "pending",
-     "confidence": 65.7,
+     "confidence": 68.2,
      "status": "pending",
-     "finishTime": 1795663200000,
+     "finishTime": 1795695300000,
      "league": "欧罗巴",
-     "odds": 1.33,
+     "odds": 1.3,
      "time": "2026-11-27 04:00"
+    },
+    {
+     "matchNo": "周四008",
+     "teams": "桑德兰 vs 比亚韦",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 67.3,
+     "status": "pending",
+     "finishTime": 1795695300000,
+     "league": "欧罗巴",
+     "odds": 1.22,
+     "time": "2026-11-27 04:00"
+    },
+    {
+     "matchNo": "周五003",
+     "teams": "格罗宁根 vs 威廉二世",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 73,
+     "status": "pending",
+     "finishTime": 1795695300000,
+     "league": "荷甲",
+     "odds": 1.4,
+     "time": "2026-11-28 03:00"
     }
    ]
   }
