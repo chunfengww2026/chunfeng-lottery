@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-27 11:12",
+ "updated": "2026-11-27 20:25",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -553,53 +553,45 @@ const JC_HISTORY = {
    "home": "麦克阿瑟FC",
    "away": "墨尔本城",
    "time": "2026-11-27 16:40",
-   "score": "",
+   "score": "2:0",
    "hc": null,
    "asianIndex": {
-    "line": "受平手/半球",
+    "line": "平手",
     "from": "live",
-    "handicap": 0.25,
-    "upSide": "away",
-    "upWater": 0.77,
-    "downWater": 1.02,
+    "handicap": 0,
+    "upSide": "home",
+    "upWater": 0.98,
+    "downWater": 0.83,
     "openHandicap": 0.25,
     "openUpWater": 0.8,
     "openDownWater": 1,
-    "totalWater": 1.79,
-    "theoryUpPercent": "56.98",
-    "theoryDownPercent": "43.02",
+    "totalWater": 1.81,
+    "theoryUpPercent": "45.86",
+    "theoryDownPercent": "54.14",
     "canWater": true,
-    "handicapChange": {
-     "type": "盘口水位无明显变化",
-     "initHandicap": 0.25,
-     "nowHandicap": 0.25,
-     "initUpWater": 0.8,
-     "nowUpWater": 0.77,
-     "initLine": "受平手/半球",
-     "nowLine": "受平手/半球"
-    },
-    "handicapChangeWhy": "",
+    "handicapChange": null,
+    "handicapChangeWhy": "初盘与即时的上盘方不是同一支球队（盘口跨了平手），升降不适用",
     "fundUp": null,
     "fundUpSource": null,
     "analysis": null
    },
    "odds": {
-    "home": 3.25,
-    "draw": 3.7,
-    "away": 2
+    "home": 2.63,
+    "draw": 3.6,
+    "away": 2.45
    },
    "prob": {
-    "home": 29,
-    "draw": 25.2,
-    "away": 45.9
+    "home": 35.7,
+    "draw": 26.1,
+    "away": 38.3
    },
    "pick": "away",
    "pickLabel": "客胜",
-   "conf": 45.9,
-   "type": "three",
-   "result": "",
+   "conf": 38.3,
+   "type": "unbeaten",
+   "result": "lose",
    "hit": false,
-   "matched": false,
+   "matched": true,
    "at": "2026-11-27 03:26"
   },
   {
@@ -2274,171 +2266,6 @@ const JC_HISTORY = {
    "hit": true,
    "matched": false,
    "at": "2026-11-24 05:55"
-  },
-  {
-   "code": "周二003",
-   "league": "亚冠杯",
-   "home": "上海海港",
-   "away": "布里兰",
-   "time": "2026-11-24 20:15",
-   "score": "3:1",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "半球",
-    "from": "live",
-    "handicap": -0.5,
-    "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.82,
-    "openHandicap": -1,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.79,
-    "theoryUpPercent": "45.81",
-    "theoryDownPercent": "54.19",
-    "canWater": false,
-    "handicapChange": {
-     "type": "升盘升水",
-     "initHandicap": -1,
-     "nowHandicap": -0.5,
-     "initUpWater": 0.9,
-     "nowUpWater": 0.97,
-     "initLine": "一球",
-     "nowLine": "半球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.85,
-    "draw": 3.6,
-    "away": 3.6
-   },
-   "prob": {
-    "home": 49.3,
-    "draw": 25.3,
-    "away": 25.3
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 49.3,
-   "type": "unbeaten",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-25 02:00"
-  },
-  {
-   "code": "周二002",
-   "league": "亚冠杯",
-   "home": "大田市民",
-   "away": "北京国安",
-   "time": "2026-11-24 18:00",
-   "score": "3:2",
-   "hc": "-1",
-   "asianIndex": {
-    "line": "一球/球半",
-    "from": "live",
-    "handicap": -1.25,
-    "upSide": "home",
-    "upWater": 0.97,
-    "downWater": 0.82,
-    "openHandicap": -0.25,
-    "openUpWater": 1,
-    "openDownWater": 0.8,
-    "totalWater": 1.79,
-    "theoryUpPercent": "45.81",
-    "theoryDownPercent": "54.19",
-    "canWater": true,
-    "handicapChange": {
-     "type": "降盘降水",
-     "initHandicap": -0.25,
-     "nowHandicap": -1.25,
-     "initUpWater": 1,
-     "nowUpWater": 0.97,
-     "initLine": "平手/半球",
-     "nowLine": "一球/球半"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 1.42,
-    "draw": 4.5,
-    "away": 6
-   },
-   "prob": {
-    "home": 64.4,
-    "draw": 20.3,
-    "away": 15.2
-   },
-   "pick": "home",
-   "pickLabel": "主胜",
-   "conf": 64.4,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-25 02:00"
-  },
-  {
-   "code": "周二001",
-   "league": "亚冠杯",
-   "home": "纽喷气机",
-   "away": "柏太阳神",
-   "time": "2026-11-24 15:45",
-   "score": "1:2",
-   "hc": null,
-   "asianIndex": {
-    "line": "受两球",
-    "from": "live",
-    "handicap": 2,
-    "upSide": "away",
-    "upWater": 0.88,
-    "downWater": 0.93,
-    "openHandicap": 1.5,
-    "openUpWater": 0.9,
-    "openDownWater": 0.9,
-    "totalWater": 1.81,
-    "theoryUpPercent": "51.38",
-    "theoryDownPercent": "48.62",
-    "canWater": true,
-    "handicapChange": {
-     "type": "升盘降水",
-     "initHandicap": 1.5,
-     "nowHandicap": 2,
-     "initUpWater": 0.9,
-     "nowUpWater": 0.88,
-     "initLine": "受球半",
-     "nowLine": "受两球"
-    },
-    "handicapChangeWhy": "",
-    "fundUp": null,
-    "fundUpSource": null,
-    "analysis": null
-   },
-   "odds": {
-    "home": 8.5,
-    "draw": 7,
-    "away": 1.22
-   },
-   "prob": {
-    "home": 10.9,
-    "draw": 13.2,
-    "away": 75.9
-   },
-   "pick": "away",
-   "pickLabel": "客胜",
-   "conf": 75.9,
-   "type": "three",
-   "result": "win",
-   "hit": true,
-   "matched": false,
-   "at": "2026-11-25 02:00"
   }
  ]
 };
