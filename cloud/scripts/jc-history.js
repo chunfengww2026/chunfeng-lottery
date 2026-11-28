@@ -2,7 +2,7 @@
    为什么需要：体彩「在售」列表只含还能买的比赛，一开完就消失，
    所以必须自己把打完的比赛存下来，已完场才不会永远是 0。 */
 const JC_HISTORY = {
- "updated": "2026-11-28 09:25",
+ "updated": "2026-11-28 11:30",
  "note": "竞彩已完场累积记录 —— 由 build-jc.mjs 自动维护，勿手改",
  "list": [
   {
@@ -1535,7 +1535,7 @@ const JC_HISTORY = {
    "home": "哥伦布",
    "away": "迈阿密国际",
    "time": "2026-11-28 09:00",
-   "score": "",
+   "score": "1:0",
    "hc": null,
    "asianIndex": {
     "line": "平手",
@@ -1579,9 +1579,9 @@ const JC_HISTORY = {
    "pickLabel": "客胜",
    "conf": 38.5,
    "type": "three",
-   "result": "",
+   "result": "lose",
    "hit": false,
-   "matched": false,
+   "matched": true,
    "at": "2026-11-27 03:26"
   },
   {
@@ -1628,7 +1628,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-27 03:26"
   },
   {
@@ -1683,7 +1683,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-27 03:26"
   },
   {
@@ -1738,7 +1738,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "lose",
    "hit": false,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-27 03:26"
   },
   {
@@ -1840,7 +1840,7 @@ const JC_HISTORY = {
    "type": "unbeaten",
    "result": "win",
    "hit": true,
-   "matched": true,
+   "matched": false,
    "at": "2026-11-27 03:26"
   },
   {

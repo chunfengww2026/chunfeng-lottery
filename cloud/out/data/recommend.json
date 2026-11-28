@@ -1,8 +1,185 @@
 {
- "updated": "2026-11-28 07:18",
+ "updated": "2026-11-28 11:53",
  "red": 0,
  "black": 0,
  "rate": "—",
- "unfinished": 0,
- "history": []
+ "unfinished": 1,
+ "history": [
+  {
+   "dateStr": "2026-11-28 11:53",
+   "finishTime": 1795837980000,
+   "verdict": "",
+   "matches": [
+    {
+     "matchNo": "周六005",
+     "teams": "贝蒂斯 vs 巴列卡诺",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.7,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "西甲",
+     "odds": 1.57,
+     "time": "2026-11-28 21:00"
+    },
+    {
+     "matchNo": "周六006",
+     "teams": "弗洛西诺 vs 帕尔马",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.9,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "意甲",
+     "odds": 1.48,
+     "time": "2026-11-28 22:00"
+    },
+    {
+     "matchNo": "周六009",
+     "teams": "汉堡 vs 拜仁",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 77.2,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "德甲",
+     "odds": 1.29,
+     "time": "2026-11-28 22:30"
+    },
+    {
+     "matchNo": "周六010",
+     "teams": "美因茨 vs 柏林联合",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 61.7,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "德甲",
+     "odds": 1.45,
+     "time": "2026-11-28 22:30"
+    },
+    {
+     "matchNo": "周六012",
+     "teams": "利兹联 vs 考文垂",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.4,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "英超",
+     "odds": 1.48,
+     "time": "2026-11-28 23:00"
+    },
+    {
+     "matchNo": "周六019",
+     "teams": "埃尔切 vs 马竞",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 62.6,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "西甲",
+     "odds": 1.45,
+     "time": "2026-11-29 01:30"
+    },
+    {
+     "matchNo": "周六020",
+     "teams": "国际米兰 vs 热那亚",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 73.8,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "意甲",
+     "odds": 1.3,
+     "time": "2026-11-29 03:45"
+    },
+    {
+     "matchNo": "周日003",
+     "teams": "町田泽维 vs 东京绿茵",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 60.5,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "日职",
+     "odds": 1.55,
+     "time": "2026-11-29 15:00"
+    },
+    {
+     "matchNo": "周日009",
+     "teams": "萨索洛 vs 那不勒斯",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58.4,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "意甲",
+     "odds": 1.62,
+     "time": "2026-11-29 22:00"
+    },
+    {
+     "matchNo": "周日015",
+     "teams": "拉科 vs 巴萨",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 77.3,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "西甲",
+     "odds": 1.2,
+     "time": "2026-11-29 23:15"
+    },
+    {
+     "matchNo": "周一002",
+     "teams": "利勒斯特 vs 汉坎",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 58,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "挪超",
+     "odds": 1.6,
+     "time": "2026-12-01 02:00"
+    },
+    {
+     "matchNo": "周一006",
+     "teams": "本菲卡 vs 法马利康",
+     "pick": "主胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 78.6,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "葡超",
+     "odds": 1.15,
+     "time": "2026-12-01 04:15"
+    },
+    {
+     "matchNo": "周一005",
+     "teams": "卡萨皮亚 vs 布拉加",
+     "pick": "客胜",
+     "score": "—",
+     "result": "pending",
+     "confidence": 64.8,
+     "status": "pending",
+     "finishTime": 1795837980000,
+     "league": "葡超",
+     "odds": 1.45,
+     "time": "2026-12-01 04:15"
+    }
+   ]
+  }
+ ]
 }
